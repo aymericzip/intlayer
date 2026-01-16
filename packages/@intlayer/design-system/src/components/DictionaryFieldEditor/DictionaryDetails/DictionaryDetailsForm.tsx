@@ -14,8 +14,10 @@ import {
 import { useSession } from '@hooks/useAuth';
 import { useEditedContent } from '@intlayer/editor-react';
 import type { Dictionary, LocalDictionaryId } from '@intlayer/types';
+import { AnimatePresence, motion } from 'framer-motion';
 import { WandSparkles } from 'lucide-react';
 import { type FC, useEffect } from 'react';
+import { useWatch } from 'react-hook-form';
 import { useIntlayer } from 'react-intlayer';
 import { useDictionaryDetailsSchema } from './useDictionaryDetailsSchema';
 
@@ -30,14 +32,21 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
 }) => {
   const { session } = useSession();
   const { project } = session ?? {};
-  const { data: projects, isLoading: isLoadingProjects } = useGetProjects();
-  const { data: tags } = useGetTags();
+  const { data: projectsData, isLoading: isLoadingProjects } =
+    useGetProjects() as any;
+  const { data: tagsData } = useGetTags() as any;
+
+  const projects = (projectsData?.data ?? []) as any[];
+  const allTags = (tagsData?.data ?? []) as any[];
 
   const DictionaryDetailsSchema = useDictionaryDetailsSchema(
     String(project?.id)
   );
   const { form, isSubmitting } = useForm(DictionaryDetailsSchema, {
-    defaultValues: dictionary,
+    defaultValues: {
+      ...dictionary,
+      location: dictionary.location ?? 'remote',
+    },
   });
   const { editedContent, setEditedDictionary } = useEditedContent();
   const {
@@ -56,12 +65,18 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     editedContent?.[dictionary.localId as LocalDictionaryId];
 
   useEffect(() => {
-    form.reset(dictionary);
+    form.reset({
+      ...dictionary,
+      location: dictionary.location ?? 'remote',
+    });
   }, [dictionary, form?.reset]);
 
   useEffect(() => {
     if (typeof updatedDictionary === 'undefined') {
-      form.reset(dictionary);
+      form.reset({
+        ...dictionary,
+        location: dictionary.location ?? 'remote',
+      });
     }
   }, [updatedDictionary]);
 
@@ -99,25 +114,21 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     );
   };
 
+  const watchedLocation = useWatch({
+    control: form.control,
+    name: 'location',
+  });
+  const isLocalChecked =
+    watchedLocation === 'local' || watchedLocation === 'local&remote';
+
   return (
-    <Container
-      background="none"
-      border
-      roundedSize="2xl"
-      className="w-full px-5 pt-5 pb-3"
-    >
+    <Container background="none" border roundedSize="2xl" padding="md">
       <Form
         className="flex w-full flex-col gap-8"
         {...form}
         schema={DictionaryDetailsSchema}
-        onChange={(data) => {
-          setEditedDictionary((prev) => ({
-            ...prev,
-            ...data,
-          }));
-        }}
       >
-        <div className="flex w-full flex-1 gap-8 max-md:flex-col">
+        <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1">
           <Form.EditableFieldInput
             name="key"
             label={keyInput.label}
@@ -126,7 +137,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
             disabled={isSubmitting}
             isRequired
             onSave={(value) => {
-              form.setValue('key', value);
+              form.setValue('key', value, { shouldDirty: true });
               setEditedDictionary((prev) => ({
                 ...dictionary,
                 ...(prev ?? {}),
@@ -141,7 +152,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
             description={titleInput.description}
             disabled={isSubmitting}
             onSave={(value) => {
-              form.setValue('title', value);
+              form.setValue('title', value, { shouldDirty: true });
               setEditedDictionary((prev) => ({
                 ...dictionary,
                 ...(prev ?? {}),
@@ -157,7 +168,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           description={descriptionInput.description}
           disabled={isSubmitting}
           onSave={(value) => {
-            form.setValue('description', value);
+            form.setValue('description', value, { shouldDirty: true });
             setEditedDictionary((prev) => ({
               ...dictionary,
               ...(prev ?? {}),
@@ -165,106 +176,135 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
             }));
           }}
         />
-        <div className="flex size-full flex-1 gap-8 max-md:flex-col">
-          <div className="flex flex-col gap-2">
-            <Form.Label info={locationSelect.description.value}>
-              {locationSelect.label}
-            </Form.Label>
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <Checkbox
-                  id="location-local"
-                  name="location-local"
-                  checked={
-                    form.watch('location') === 'local' ||
-                    form.watch('location') === 'local&remote'
-                  }
-                  disabled={!mode.includes('local')}
-                  onChange={(e) => {
-                    const isChecked = e.target.checked;
-                    const isRemote =
-                      form.getValues('location') === 'remote' ||
-                      form.getValues('location') === 'local&remote';
-                    let newLocation: Dictionary['location'];
-                    if (isChecked) {
-                      newLocation = isRemote ? 'local&remote' : 'local';
-                    } else {
-                      newLocation = isRemote ? 'remote' : 'local';
-                    }
-                    form.setValue('location', newLocation);
-                    setEditedDictionary((prev) => ({
-                      ...dictionary,
-                      ...(prev ?? {}),
-                      location: newLocation,
-                    }));
-                  }}
-                />
-                <label htmlFor="location-local" className="text-sm">
-                  {locationSelect.local.value}
-                </label>
-              </div>
-              <div className="flex items-center gap-2">
-                <Checkbox
-                  id="location-remote"
-                  name="location-remote"
-                  checked={
-                    form.watch('location') === 'remote' ||
-                    form.watch('location') === 'local&remote'
-                  }
-                  disabled={!mode.includes('remote')}
-                  onChange={(e) => {
-                    const isChecked = e.target.checked;
-                    const isLocal =
-                      form.getValues('location') === 'local' ||
-                      form.getValues('location') === 'local&remote';
-                    let newLocation: Dictionary['location'];
-                    if (isChecked) {
-                      newLocation = isLocal ? 'local&remote' : 'remote';
-                    } else {
-                      newLocation = isLocal ? 'local' : 'remote';
-                    }
-                    form.setValue('location', newLocation);
-                    setEditedDictionary((prev) => ({
-                      ...dictionary,
-                      ...(prev ?? {}),
-                      location: newLocation,
-                    }));
-                  }}
-                />
-                <label htmlFor="location-remote" className="text-sm">
-                  {locationSelect.remote}
-                </label>
-              </div>
-            </div>
-          </div>
+        <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1">
+          <Form.Field
+            control={form.control}
+            name="location"
+            render={({ field }) => {
+              const value = field.value;
+              const isLocal = value === 'local' || value === 'local&remote';
+              const isRemote = value === 'remote' || value === 'local&remote';
 
-          {(form.watch('location') === 'local' ||
-            form.watch('location') === 'local&remote') && (
-            <Form.EditableFieldInput
-              name="filePath"
-              label={filePathInput.label}
-              placeholder={filePathInput.placeholder.value}
-              description={filePathInput.description}
-              disabled={isSubmitting}
-              onSave={(value) => {
-                form.setValue('filePath', value);
+              const handleLocalToggle = (isChecked: boolean) => {
+                if (!isChecked && !isRemote) return;
+
+                const newValue: Dictionary['location'] = isChecked
+                  ? isRemote
+                    ? 'local&remote'
+                    : 'local'
+                  : 'remote';
+
+                field.onChange(newValue);
+
+                const newFilePath = isChecked
+                  ? (form.getValues('filePath') ?? dictionary.filePath)
+                  : undefined;
+
+                if (!isChecked) {
+                  form.setValue('filePath', undefined);
+                }
+
                 setEditedDictionary((prev) => ({
                   ...dictionary,
                   ...(prev ?? {}),
-                  filePath: value,
+                  location: newValue,
+                  filePath: newFilePath,
                 }));
-              }}
-            />
-          )}
+              };
+
+              const handleRemoteToggle = (isChecked: boolean) => {
+                if (!isChecked && !isLocal) return;
+
+                const newValue: Dictionary['location'] = isChecked
+                  ? isLocal
+                    ? 'local&remote'
+                    : 'remote'
+                  : 'local';
+
+                field.onChange(newValue);
+
+                setEditedDictionary((prev) => ({
+                  ...dictionary,
+                  ...(prev ?? {}),
+                  location: newValue,
+                }));
+              };
+
+              return (
+                <Form.Item className="flex flex-col gap-2">
+                  <Form.Label info={locationSelect.description.value}>
+                    {locationSelect.label.value}
+                  </Form.Label>
+                  <div className="flex items-center gap-4">
+                    <Checkbox
+                      id="location-local"
+                      name="location-local"
+                      label={locationSelect.local.value}
+                      checked={isLocal}
+                      disabled={
+                        !mode.includes('local') && !mode.includes('remote')
+                      }
+                      onChange={(e) => handleLocalToggle(e.target.checked)}
+                    />
+                    <Checkbox
+                      id="location-remote"
+                      name="location-remote"
+                      label={locationSelect.remote.value}
+                      checked={isRemote}
+                      disabled={
+                        !mode.includes('remote') &&
+                        dictionary.location !== 'remote' &&
+                        dictionary.location !== 'local&remote'
+                      }
+                      onChange={(e) => handleRemoteToggle(e.target.checked)}
+                    />
+                  </div>
+                  <Form.Description>
+                    {locationSelect.testDescription.value}
+                  </Form.Description>
+                  <Form.Message />
+                </Form.Item>
+              );
+            }}
+          />
+
+          <AnimatePresence mode="wait">
+            {isLocalChecked && (
+              <motion.div
+                key="filePath-input"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="overflow-hidden"
+              >
+                <Form.Input
+                  name="filePath"
+                  label={filePathInput.label.value}
+                  placeholder={filePathInput.placeholder.value}
+                  description={filePathInput.description.value}
+                  disabled={isSubmitting || !isLocalChecked}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    setEditedDictionary((prev) => ({
+                      ...dictionary,
+                      ...(prev ?? {}),
+                      filePath: value,
+                    }));
+                  }}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
-        <div className="flex size-full flex-1 gap-8 max-md:flex-col">
+        <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1">
           <Form.MultiSelect
             name="projectIds"
             label={projectInput.label.value}
             description={projectInput.description}
             onValueChange={(value) => {
               const valueArray = [value].flat();
-              form.setValue('projectIds', valueArray);
+              form.setValue('projectIds', valueArray, { shouldDirty: true });
               setEditedDictionary((prev) => ({
                 ...dictionary,
                 ...(prev ?? {}),
@@ -274,7 +314,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           >
             <MultiSelect.Trigger
               getBadgeValue={(value) =>
-                projects?.data?.find((project) => String(project.id) === value)
+                projects?.find((project: any) => String(project.id) === value)
                   ?.name ?? value
               }
             >
@@ -283,7 +323,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
             <MultiSelect.Content>
               <Loader isLoading={isLoadingProjects}>
                 <MultiSelect.List>
-                  {projects?.data?.map((project) => (
+                  {projects?.map((project: any) => (
                     <MultiSelect.Item
                       key={String(project.id)}
                       value={String(project.id)}
@@ -301,18 +341,19 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
             label={tagsSelect.label.value}
             description={tagsSelect.description}
             onValueChange={(value) => {
-              form.setValue('tags', [value].flat());
+              const valueArray = [value].flat();
+              form.setValue('tags', valueArray, { shouldDirty: true });
               setEditedDictionary((prev) => ({
                 ...dictionary,
                 ...(prev ?? {}),
-                tags: [value].flat(),
+                tags: valueArray,
               }));
             }}
           >
             <MultiSelect.Trigger
               getBadgeValue={(value) =>
-                projects?.data?.find((project) => String(project.id) === value)
-                  ?.name ?? value
+                allTags?.find((tag: any) => String(tag.key) === value)?.name ??
+                value
               }
             >
               <MultiSelect.Input placeholder={tagsSelect.placeholder.value} />
@@ -320,7 +361,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
             <MultiSelect.Content>
               <Loader isLoading={isLoadingProjects}>
                 <MultiSelect.List>
-                  {tags?.data?.map((tag) => (
+                  {allTags?.map((tag: any) => (
                     <MultiSelect.Item
                       key={String(tag.key)}
                       value={String(tag.key)}

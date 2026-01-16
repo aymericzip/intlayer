@@ -3,7 +3,7 @@
 import { DictionaryFieldEditor, Loader, Modal } from '@intlayer/design-system';
 import { useGetDictionary } from '@intlayer/design-system/hooks';
 import { useTheme } from 'next-themes';
-import { type FC, Suspense } from 'react';
+import type { FC } from 'react';
 import { EditorConfigurationProvider } from '../ContentDashboard/ConfigurationProvider';
 
 type DictionaryDetailModalProps = {
@@ -25,7 +25,13 @@ export const DictionaryDetailModal: FC<DictionaryDetailModalProps> = ({
   const dictionary = dictionaryResult?.data;
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} padding="md">
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      padding="md"
+      size="lg"
+      isScrollable
+    >
       <Loader isLoading={!dictionary || isPending}>
         <EditorConfigurationProvider>
           {dictionary && (

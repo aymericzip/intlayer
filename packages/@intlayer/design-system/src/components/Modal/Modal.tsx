@@ -55,7 +55,7 @@ const modalVariants = cva(
       size: {
         sm: 'h-auto max-h-[30vh] w-[95vw] max-w-xl',
         md: 'h-auto max-h-[50vh] w-[95vw] max-w-xl',
-        lg: 'h-auto max-h-[70vh] w-[95vw] max-w-2xl',
+        lg: 'h-auto max-h-[70vh] w-[95vw] max-w-4xl',
         xl: 'h-auto max-h-[95vh] w-[95vw] max-w-6xl',
         unset: 'h-auto max-h-[95vh] w-[95vw]',
       },
