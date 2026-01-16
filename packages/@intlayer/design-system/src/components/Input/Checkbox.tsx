@@ -27,6 +27,12 @@ export const checkboxVariants = cva(
 
     // Corner shape
     'rounded-xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl',
+
+    // --- FIX START ---
+    // Invisible Hit Area Expansion
+    // extends the interaction zone by 0.5rem (8px) on all sides
+    "after:absolute after:-inset-2 after:content-['']",
+    // --- FIX END ---
   ].join(' '),
   {
     variants: {
