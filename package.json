@@ -72,9 +72,6 @@
     "test:pick": "bun ./scripts/script-pick.mjs --command test",
     "typecheck": "turbo typecheck --filter=./packages/** --filter=./docs --filter=./apps/backend --filter=./plugins/** --concurrency=1"
   },
-  "overrides": {
-    "next": "16.1.1"
-  },
   "devDependencies": {
     "@biomejs/biome": "2.3.11",
     "@commitlint/cli": "20.3.1",
