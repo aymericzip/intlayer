@@ -177,7 +177,7 @@ export const BuildSettings: FC = () => {
           </div>
 
           {provider && (
-            <div className="mt-2 flex justify-end gap-2 pt-4">
+            <div className="mt-2 flex flex-wrap justify-end gap-2 pt-4">
               <Button
                 variant="outline"
                 color="text"

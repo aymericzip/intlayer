@@ -691,7 +691,7 @@ const buildSettingsContent = {
       text: t({
         en: 'Test Trigger Now',
         'en-GB': 'Test Trigger Now',
-        fr: 'Tester le déclenchement maintenant',
+        fr: 'Tester le déclenchement',
         es: 'Probar activación ahora',
         ru: 'Протестировать запуск сейчас',
         ja: '今すぐトリガーをテスト',
