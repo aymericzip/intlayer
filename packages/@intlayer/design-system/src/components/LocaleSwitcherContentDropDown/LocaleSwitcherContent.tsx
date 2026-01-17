@@ -153,7 +153,7 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
             className="max-h-[60vh] min-w-28"
             separator="y"
             role="listbox"
-            transparency="sm"
+            transparency="xs"
             border
             roundedSize="2xl"
             borderColor="text"

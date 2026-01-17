@@ -29,6 +29,7 @@ export const containerVariants = cva('flex flex-col text-text backdrop-blur', {
     },
     transparency: {
       none: 'bg-card',
+      xs: 'bg-card/95',
       sm: 'bg-card/90',
       md: 'bg-card/70',
       lg: 'bg-card/40',
