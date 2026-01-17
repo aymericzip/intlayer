@@ -11,7 +11,7 @@ const profileDashboardContent = {
       de: 'Intlayer-Editor - Playground',
       ja: 'Intlayer エディタ - プレイグラウンド',
       ko: 'Intlayer 편집기 - 플레이그라운드',
-      zh: 'Intlayer 编辑器 - 撸猫',
+      zh: 'Intlayer 编辑器 - 演练场',
       it: 'Editor Intlayer - Playground',
       pt: 'Editor Intlayer - Playground',
       hi: 'इन्टलैयार एडिटर - प्लेगन',
