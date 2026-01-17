@@ -175,7 +175,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           }));
         }}
       />
-      <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1">
+      <div className="grid grid-cols-2 gap-8 px-1 max-md:grid-cols-1">
         <Form.Field
           control={form.control}
           name="location"
@@ -230,9 +230,9 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
             };
 
             return (
-              <Form.Item className="flex flex-col gap-2">
-                <Form.Label>{locationSelect.label}</Form.Label>
-                <div className="flex items-center gap-4">
+              <Form.Item className="flex flex-col gap-2 px-1">
+                <Form.Label className="ml-1">{locationSelect.label}</Form.Label>
+                <div className="ml-2 flex items-center gap-4 py-2">
                   <Checkbox
                     id="location-local"
                     name="location-local"
