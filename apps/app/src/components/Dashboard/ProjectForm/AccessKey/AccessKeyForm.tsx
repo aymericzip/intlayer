@@ -97,14 +97,15 @@ const AccessKeyItem: FC<{ value: OAuth2AccessAPI }> = ({
       </Modal>
       <Container
         key={String(accessKey.id)}
-        roundedSize="2xl"
+        roundedSize="4xl"
         border={true}
         borderColor="text"
-        className="flex flex-col gap-3 px-6 py-4"
+        padding="md"
+        className="flex flex-col gap-3"
       >
         <div className="flex items-center justify-center px-3 pb-3">
           <KeyRound className="size-5" size={16} />
-          <span className="m-auto w-full text-center font-bold text-lg">
+          <span className="m-auto ml-4 w-full text-center font-bold text-lg">
             {accessKey.name}
           </span>
         </div>
