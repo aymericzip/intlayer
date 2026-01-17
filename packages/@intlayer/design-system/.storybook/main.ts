@@ -30,8 +30,19 @@ const config: StorybookConfig = {
     } as const;
 
     const tailwindcss = (await import('@tailwindcss/vite')).default;
+    const path = await import('node:path');
 
     const viteConfig = defineConfig(() => ({
+      resolve: {
+        alias: {
+          '@components': path.resolve(process.cwd(), 'src/components'),
+          '@utils': path.resolve(process.cwd(), 'src/utils'),
+          '@hooks': path.resolve(process.cwd(), 'src/hooks'),
+          '@libs': path.resolve(process.cwd(), 'src/libs'),
+          '@providers': path.resolve(process.cwd(), 'src/providers'),
+          '@': path.resolve(process.cwd(), 'src'),
+        },
+      },
       plugins: [intlayer(), tailwindcss()],
       build: {
         // Optional: avoid the sourcemap location spam
