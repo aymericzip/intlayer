@@ -109,7 +109,6 @@ const AccessKeyItem: FC<{ value: OAuth2AccessAPI }> = ({
           </span>
         </div>
         <div className="flex pt-3">
-          <div className="flex items-center justify-center p-5"></div>
           <div className="flex flex-col gap-4 pb-3">
             <div className="flex flex-col gap-1">
               <CopyToClipboard
