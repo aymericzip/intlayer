@@ -73,7 +73,7 @@ export const ContentEditor: FC<NodeEditorProps> = ({
               background="none"
               className="top-30 flex h-full flex-col items-start gap-0.5 overflow-auto p-2 md:sticky md:max-w-[50%]"
               roundedSize="xl"
-              transparency="sm"
+              transparency="xs"
             >
               <NavigationViewNode
                 keyPath={[]}

@@ -54,7 +54,7 @@ export const VersionSwitcher: FC<VersionSwitcherProps> = ({ panelProps }) => {
             className="max-h-[80vh] min-w-28"
             separator="y"
             role="listbox"
-            transparency="sm"
+            transparency="xs"
             border
             roundedSize="2xl"
             borderColor="text"

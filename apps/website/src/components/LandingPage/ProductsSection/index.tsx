@@ -55,7 +55,7 @@ export const ProductsSection: FC = () => {
             <Container
               roundedSize="3xl"
               background="with"
-              transparency="sm"
+              transparency="xs"
               className="max-w-2xl p-6"
             >
               <Component />

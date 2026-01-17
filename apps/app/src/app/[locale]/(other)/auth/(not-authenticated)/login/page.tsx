@@ -17,7 +17,7 @@ const SignInPageContent: FC = () => {
           className="w-full max-w-md justify-center gap-10 p-10 text-2xl"
           padding="xl"
           roundedSize="3xl"
-          transparency="sm"
+          transparency="xs"
         >
           <div className="flex flex-col gap-3 py-3 text-center">
             <h2 className="font-extrabold">{title2}</h2>

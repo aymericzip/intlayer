@@ -33,7 +33,7 @@ export const ProfileDropDown: FC<ProfileDropDownProps> = ({
     >
       <Container
         className="min-w-[100px] border border-text/10 p-6"
-        transparency="sm"
+        transparency="xs"
         roundedSize="xl"
       >
         {children}

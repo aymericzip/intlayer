@@ -73,7 +73,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           </Button>
         )}
 
-        <div className="min-h-0 flex-1 px-2">
+        <div className="min-h-0 flex-1">
           <Tab
             defaultTab="content"
             variant="ghost"

@@ -222,7 +222,7 @@ export const BlogNavList: FC<BlogNavListProps> = ({
       <Container className="h-full" roundedSize="none" transparency="sm">
         <div className="relative h-full max-w-80">
           <Container
-            transparency="sm"
+            transparency="xs"
             className="sticky top-[3.6rem] z-10 m-auto pt-4"
             roundedSize="none"
           >
