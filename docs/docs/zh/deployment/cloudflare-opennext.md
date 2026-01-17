@@ -1,4 +1,6 @@
 ---
+createdAt: 2026-01-17
+updatedAt: 2026-01-17
 title: 在 Cloudflare (OpenNext) 上部署集成了 Next.js 16 的 Intlayer
 description: 了解如何使用 OpenNext 适配器将集成了 Intlayer 的 Next.js 16 应用程序部署到 Cloudflare Workers。
 keywords:
@@ -8,6 +10,11 @@ keywords:
   - OpenNext
   - 部署
   - i18n
+slugs:
+  - doc
+  - environment
+  - nextjs
+  - cloudflare
 ---
 
 # 在 Cloudflare (OpenNext) 上部署集成了 Next.js 16 的 Intlayer
