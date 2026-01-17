@@ -37,7 +37,7 @@ const aiAbTestingSectionContent = {
       pt: 'Seu playground para experimentos de produto.',
       ru: 'Ваша площадка для экспериментов с продуктом.',
       tr: 'Ürün Deneyleri için Playground.',
-      zh: '您的产品实验游乐场。',
+      zh: '您的产品实验演练场。',
       pl: 'Twoje pole do eksperymentów produktowych.',
       id: 'Area Eksperimen Produk Anda.',
       vi: 'Sân chơi để thử nghiệm sản phẩm của bạn.',

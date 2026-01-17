@@ -32,7 +32,7 @@ const profileDashboardContent = {
       de: 'Durch diesen Playground können Sie den Intlayer-Visuellen Editor testen, indem Sie mit der Website interagieren.',
       ja: 'このプレイグラウンドを通じて、ウェブサイトと対話しながら Intlayer ビジュアルエディターをテストできます。',
       ko: '이 플레이그라운드를 통해 웹사이트와 상호 작용하며 Intlayer 시각 편집기를 테스트할 수 있습니다.',
-      zh: '通过此游乐场，您可以通过与网站互动来测试 Intlayer 视觉编辑器。',
+      zh: '通过此演练场，您可以通过与网站互动来测试 Intlayer 视觉编辑器。',
       it: 'Tramite questo playground, puoi testare l’editor visuale di Intlayer interagendo con il sito web.',
       pt: 'Através deste playground, você pode testar o editor visual do Intlayer interagindo com o site.',
       hi: 'इस प्लेग्राउंड के माध्यम से, आप वेबसाइट के साथ बातचीत करके Intlayer विज़ुअल एडिटर का परीक्षण कर सकते हैं।',
