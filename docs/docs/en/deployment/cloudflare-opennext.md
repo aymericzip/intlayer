@@ -99,7 +99,19 @@ Update your `package.json` to include the build pipeline for Cloudflare:
 When using Intlayer with React 19, ensure that `IntlayerClientProvider` wraps your `ThemeProvider` or other layout-level providers in `app/[locale]/layout.tsx` to prevent hydration mismatches.
 
 ### Turbopack
+
 If you are using Turbopack in development, ensure you have the latest version of `next-intlayer` to benefit from the optimized HMR support for dictionary files.
+
+## Reference Implementation
+
+You can find a production-ready reference implementation of this setup here:
+- **Repository**: [loralg](https://github.com/loralg)
+- **Tech Stack**: Next.js 16.1.1, React 19, Intlayer 7.x, Cloudflare Workers, OpenNext.
+
+## Future Suggestions (RFC)
+
+1. **Type Inference**: Enhance `useIntlayer` return types to reduce the need for manual `.value` access in nested dictionaries.
+2. **CLI Scaffolding**: A `npx intlayer scan` command to automatically generate `.content.ts` templates from existing hardcoded strings would be a huge DX win.
 
 ---
 

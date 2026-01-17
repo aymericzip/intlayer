@@ -99,7 +99,19 @@ export const config = {
 在 React 19 中使用 Intlayer 时，请确保 `IntlayerClientProvider` 包裹了您的 `ThemeProvider` 或其他布局层级的 Provider（位于 `app/[locale]/layout.tsx` 中），以防止水合 (hydration) 不匹配。
 
 ### Turbopack
+
 如果您在开发中使用 Turbopack，请确保使用最新版本的 `next-intlayer`，以享受针对字典文件优化的 HMR 支持。
+
+## 参考实现
+
+您可以在这里找到该设置的生产级参考实现：
+- **代码库**: [loralg](https://github.com/loralg)
+- **技术栈**: Next.js 16.1.1, React 19, Intlayer 7.x, Cloudflare Workers, OpenNext。
+
+## 未来建议 (RFC)
+
+1. **类型推导**: 增强 `useIntlayer` 的返回类型，以减少在嵌套字典中手动访问 `.value` 的需求。
+2. **CLI 脚手架**: 一个 `npx intlayer scan` 命令，用于从现有的硬编码字符串自动生成 `.content.ts` 模板，这将极大地提升开发体验 (DX)。
 
 ---
 
