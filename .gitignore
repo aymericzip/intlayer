@@ -41,5 +41,5 @@ workbox-*.js
 # cursor
 .cursor/worktree
 
-# _ folder
-_*
+# __ files
+__*
