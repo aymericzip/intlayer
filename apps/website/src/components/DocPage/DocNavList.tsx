@@ -270,11 +270,11 @@ export const DocNavList: FC<DocNavListProps> = ({ docData, activeSlugs }) => {
           'sticky top-[60px] rounded-br-2xl'
         )}
         roundedSize="none"
-        transparency="sm"
+        transparency="xs"
       >
         <div className="relative h-full max-w-80">
           <Container
-            transparency="sm"
+            transparency="xs"
             className="sticky top-[3.6rem] z-10 m-auto pt-4"
             roundedSize="none"
           >

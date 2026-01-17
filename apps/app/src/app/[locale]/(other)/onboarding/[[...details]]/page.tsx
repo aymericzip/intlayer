@@ -22,7 +22,7 @@ const OnboardPageContent: FC<{ locale: LocalesValues; details: string[] }> = ({
           className="w-full max-w-md justify-center p-10 text-2xl"
           padding="xl"
           roundedSize="xl"
-          transparency="sm"
+          transparency="xs"
         >
           <OnboardFlow {...pageDetails} />
         </Container>

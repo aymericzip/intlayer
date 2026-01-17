@@ -119,7 +119,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
             className="max-h-[80vh] min-w-28"
             separator="y"
             role="listbox"
-            transparency="sm"
+            transparency="xs"
             aria-label={languageListLabel.value}
           >
             <div className="p-3">

@@ -79,7 +79,7 @@ export const History: FC<HistoryProps> = ({
           className="mt-3 max-h-[60vh] min-w-64"
           separator="y"
           role="list"
-          transparency="sm"
+          transparency="xs"
           aria-label="Document history"
         >
           <h4 className="mb-2 pb-4 font-medium text-sm text-text">

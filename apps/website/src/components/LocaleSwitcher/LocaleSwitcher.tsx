@@ -86,7 +86,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
             className="max-h-[80vh] min-w-28 border border-text/5"
             separator="y"
             roundedSize="xl"
-            transparency="sm"
+            transparency="xs"
           >
             <div className="p-3">
               <Input

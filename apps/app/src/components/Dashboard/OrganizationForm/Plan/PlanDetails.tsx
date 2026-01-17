@@ -61,7 +61,7 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
         isOpen={isCancellationModalOpen}
         onClose={() => setIsCancellationModalOpen(false)}
         size="lg"
-        transparency="sm"
+        transparency="xs"
         title={cancelModal.title.value}
         hasCloseButton
       >

@@ -236,7 +236,7 @@ const Detail: FC<DetailProps> = ({
   ...props
 }) => (
   <Container
-    transparency="sm"
+    transparency="xs"
     role="group"
     aria-hidden={isHidden}
     aria-labelledby={`unrollable-panel-button-${identifier}`}
