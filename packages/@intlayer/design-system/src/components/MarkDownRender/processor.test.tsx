@@ -51,7 +51,7 @@ it('should throw if not passed a string (first arg)', () => {
   // @ts-ignore
   expect(() => compiler({})).toThrow();
   // @ts-ignore
-expect(() => compiler(() => {})).toThrow();
+  expect(() => compiler([])).toThrow();
   // @ts-ignore
   expect(() => compiler(null)).toThrow();
   // @ts-ignore
