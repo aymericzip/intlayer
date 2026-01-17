@@ -26,7 +26,7 @@
     "react-dom": "19.2.3",
     "react-intlayer": "workspace:*",
     "tailwindcss": "4.1.18",
-    "vite-tsconfig-paths": "6.0.3"
+    "vite-tsconfig-paths": "6.0.4"
   },
   "devDependencies": {
     "@testing-library/dom": "10.4.1",
