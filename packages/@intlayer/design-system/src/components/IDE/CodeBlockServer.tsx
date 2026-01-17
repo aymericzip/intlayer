@@ -56,11 +56,13 @@ const CodeDefault: FC<CodeBlockProps> = ({
   <div contentEditable={isEditable} {...props}>
     <pre>
       <code>
-        {children.split('\n').map((line, index) => (
-          <span className="line block w-full" key={index}>
-            {line}
-          </span>
-        ))}
+        {typeof children === 'string'
+          ? children.split('\n').map((line, index) => (
+              <span className="line block w-full" key={index}>
+                {line}
+              </span>
+            ))
+          : children}
       </code>
     </pre>
   </div>

@@ -7,7 +7,6 @@ import {
   type FC,
   type HTMLAttributes,
   type KeyboardEvent,
-  useMemo,
   useState,
 } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -92,7 +91,7 @@ export const Terminal: FC<TerminalProps> = ({
   ...props
 }) => {
   const content = useIntlayer('terminal');
-  const lines = useMemo(() => children.split('\n'), [children]);
+  const lines = typeof children === 'string' ? children.split('\n') : [];
   const [inputValue, setInputValue] = useState('');
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {

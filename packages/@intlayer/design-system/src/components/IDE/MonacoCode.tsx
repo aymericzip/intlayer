@@ -91,7 +91,9 @@ export const MonacoCode: FC<CodeCompProps> = ({
     });
   };
 
-  const isShowLineNumbers = showLineNumbers ?? children.split('\n').length > 1;
+  const isShowLineNumbers =
+    showLineNumbers ??
+    (typeof children === 'string' ? children.split('\n').length > 1 : false);
 
   return (
     <div
