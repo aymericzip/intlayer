@@ -1,7 +1,7 @@
 import {
   ANSIColors,
   colorize,
-  getConfiguration,
+  colorizeNumber,
   spinnerFrames,
 } from '@intlayer/config';
 
@@ -18,13 +18,7 @@ export class PushLogger {
   private renderedLines = 0;
   private readonly spinnerFrames = spinnerFrames;
   private isFinished = false;
-  private readonly prefix: string;
   private lastRenderedState: string = '';
-
-  constructor() {
-    const configuration = getConfiguration();
-    this.prefix = configuration.log.prefix;
-  }
 
   update(newStatuses: PushStatus[]) {
     if (this.isFinished) return;
@@ -71,21 +65,24 @@ export class PushLogger {
 
     const isDone = done === total;
 
-    const progressLabel = `dictionaries: ${done}/${total}`;
+    const progressLabel = `dictionaries: ${colorizeNumber(done)}/${colorizeNumber(total)}`;
     const details: string[] = [];
-    if (pushed > 0) details.push(`new: ${pushed}`);
-    if (modified > 0) details.push(`modified: ${modified}`);
-    if (errors > 0) details.push(colorize(`errors: ${errors}`, ANSIColors.RED));
+    if (pushed > 0) details.push(`new: ${colorizeNumber(pushed)}`);
+    if (modified > 0) details.push(`modified: ${colorizeNumber(modified)}`);
+    if (errors > 0)
+      details.push(
+        colorize(`errors: ${colorizeNumber(errors)}`, ANSIColors.RED)
+      );
 
     const suffix = details.length > 0 ? ` (${details.join(', ')})` : '';
 
     if (isDone) {
       lines.push(
-        `${this.prefix} ${colorize('✔', ANSIColors.GREEN)} pushed ${progressLabel}${suffix}`
+        `${colorize('✔', ANSIColors.GREEN)} pushed ${progressLabel}${suffix}`
       );
     } else {
       lines.push(
-        `${this.prefix} ${colorize(frame, ANSIColors.BLUE)} pushing ${progressLabel}${suffix}`
+        `${colorize(frame, ANSIColors.BLUE)} pushing ${progressLabel}${suffix}`
       );
     }
 

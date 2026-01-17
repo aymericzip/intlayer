@@ -45,11 +45,7 @@ export const listContentDeclaration = (
   }
 
   const config = getConfiguration(options?.configOptions);
-  const appLogger = getAppLogger(config, {
-    config: {
-      prefix: '',
-    },
-  });
+  const appLogger = getAppLogger(config);
 
   const lines = rows.map((row) =>
     [

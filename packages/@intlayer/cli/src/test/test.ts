@@ -22,11 +22,7 @@ export const testMissingTranslations = async (
   const config = getConfiguration(options?.configOptions);
   const { locales, requiredLocales } = config.internationalization;
 
-  const appLogger = getAppLogger(config, {
-    config: {
-      prefix: '',
-    },
-  });
+  const appLogger = getAppLogger(config);
 
   if (options?.build === true) {
     await prepareIntlayer(config, { forceRun: true });

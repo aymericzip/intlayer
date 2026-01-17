@@ -12,11 +12,7 @@ type PushOptions = {
 
 export const pushConfig = async (options?: PushOptions) => {
   const config = getConfiguration(options?.configOptions);
-  const appLogger = getAppLogger(config, {
-    config: {
-      prefix: '',
-    },
-  });
+  const appLogger = getAppLogger(config);
 
   const hasCMSAuth = await checkCMSAuth(config, false);
 

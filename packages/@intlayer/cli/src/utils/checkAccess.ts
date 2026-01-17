@@ -13,11 +13,7 @@ export const checkCMSAuth = async (
   configuration: IntlayerConfig,
   shouldCheckConfigConsistency: boolean = true
 ): Promise<boolean> => {
-  const appLogger = getAppLogger(configuration, {
-    config: {
-      prefix: '',
-    },
-  });
+  const appLogger = getAppLogger(configuration);
 
   const hasCMSAuth =
     configuration.editor.clientId && configuration.editor.clientSecret;
@@ -53,14 +49,31 @@ export const checkCMSAuth = async (
 
     if (project.configuration && shouldCheckConfigConsistency) {
       try {
+        let remoteConfigToCheck = project.configuration;
+
+        // Remove server-side computed flags (apiKeyConfigured)
+        // We use destructuring + spread to avoid the 'delete' operator (performance)
+        if (
+          remoteConfigToCheck.ai &&
+          'apiKeyConfigured' in remoteConfigToCheck.ai
+        ) {
+          const { apiKeyConfigured, ...restAi } = remoteConfigToCheck.ai as any;
+
+          remoteConfigToCheck = {
+            ...remoteConfigToCheck,
+            ai: restAi,
+          };
+        }
+
         // Recursively check if project.configuration (subset) matches configuration (superset)
-        checkConfigConsistency(project.configuration, configuration);
-      } catch {
+        checkConfigConsistency(remoteConfigToCheck, configuration);
+      } catch (error) {
+        console.dir(error, { depth: null });
         appLogger(
           [
             'Remote configuration is not up to date. The project configuration does not match the local configuration.',
             'You can push the configuration by running',
-            colorize('npx intlayer push', ANSIColors.CYAN),
+            colorize('npx intlayer configuration push', ANSIColors.CYAN),
             colorize('(see doc:', ANSIColors.GREY_DARK),
             colorize(
               'https://intlayer.org/doc/concept/cli/push',

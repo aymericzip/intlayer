@@ -10,11 +10,7 @@ type ConfigOptions = {
 
 export const getConfig = (options?: ConfigOptions) => {
   const config = getConfiguration(options?.configOptions);
-  const appLogger = getAppLogger(config, {
-    config: {
-      prefix: '',
-    },
-  });
+  const appLogger = getAppLogger(config);
 
   appLogger(JSON.stringify(config, null, 2));
 };

@@ -23,8 +23,8 @@ export const formatLocalDictionaries = (
     .filter(([_relativePath, dict]) => isInvalidDictionary(dict, configuration))
     .map(([relativePath, dict]) => ({
       ...dict,
+      location: dict.location ?? configuration.dictionary?.location ?? 'local',
       localId: `${dict.key}::local::${relativePath}`,
-      location: 'local' as const,
       filePath: relativePath,
     }));
 

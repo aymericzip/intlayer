@@ -12,6 +12,8 @@ import {
 } from '@intlayer/chokidar';
 import {
   ANSIColors,
+  colorize,
+  colorizeKey,
   type GetConfigurationOptions,
   getAppLogger,
   getConfiguration,
@@ -57,11 +59,7 @@ const getIconAndColor = (status: DictionariesStatus['status']) => {
  */
 export const push = async (options?: PushOptions): Promise<void> => {
   const config = getConfiguration(options?.configOptions);
-  const appLogger = getAppLogger(config, {
-    config: {
-      prefix: '',
-    },
-  });
+  const appLogger = getAppLogger(config);
 
   if (options?.build === true) {
     await prepareIntlayer(config, { forceRun: true });
@@ -89,11 +87,11 @@ export const push = async (options?: PushOptions): Promise<void> => {
     // Check if the dictionaries list is empty after filtering by location
     if (dictionaries.length === 0) {
       appLogger(
-        `No dictionaries found to push. Only dictionaries with location 'remote' or 'local&remote' are pushed.`,
+        `No dictionaries found to push. Only dictionaries with location ${colorize('remote', ANSIColors.BLUE, ANSIColors.RESET)} or ${colorize('local&remote', ANSIColors.BLUE, ANSIColors.RESET)} are pushed.`,
         { level: 'warn' }
       );
       appLogger(
-        `You can set the location in your dictionary file (e.g. { key: 'my-key', location: 'local&remote', ... }) or globally in your intlayer.config.ts file (e.g. { dictionary: { location: 'local&remote' } }).`,
+        `You can set the location in your dictionary file (e.g. ${colorize("{ key: 'my-key', location: 'local&remote', ... }", ANSIColors.BLUE, ANSIColors.RESET)} or globally in your intlayer.config.ts file (e.g. ${colorize("{ dictionary: { location: 'local&remote' } }", ANSIColors.BLUE, ANSIColors.RESET)}).`,
         { level: 'info' }
       );
       return;
@@ -240,7 +238,7 @@ export const push = async (options?: PushOptions): Promise<void> => {
     for (const dictionaryStatus of dictionariesStatuses) {
       const { icon, color } = getIconAndColor(dictionaryStatus.status);
       appLogger(
-        ` - ${dictionaryStatus.dictionary.key} ${ANSIColors.GREY}[${color}${icon} ${dictionaryStatus.status}${ANSIColors.GREY}]${ANSIColors.RESET}`
+        ` - ${colorizeKey(dictionaryStatus.dictionary.key)} ${ANSIColors.GREY}[${color}${icon} ${dictionaryStatus.status}${ANSIColors.GREY}]${ANSIColors.RESET}`
       );
     }
 
@@ -270,11 +268,17 @@ export const push = async (options?: PushOptions): Promise<void> => {
       // Do nothing, keep the local dictionaries
     } else {
       // Ask the user
+      const remoteDictionaries = successfullyPushedDictionaries.filter(
+        (dictionary) => dictionary.location === 'remote'
+      );
+      const remoteDictionariesKeys = remoteDictionaries.map(
+        (dictionary) => dictionary.key
+      );
       const answer = await askUser(
-        'Do you want to delete the local dictionaries that were successfully pushed? (yes/no): '
+        `Do you want to delete the local dictionaries that were successfully pushed? ${colorize('(Dictionaries:', ANSIColors.GREY, ANSIColors.RESET)} ${colorizeKey(remoteDictionariesKeys)}${colorize(')', ANSIColors.GREY, ANSIColors.RESET)} ${colorize('(yes/no)', ANSIColors.GREY_DARK, ANSIColors.RESET)}: `
       );
       if (answer.toLowerCase() === 'yes' || answer.toLowerCase() === 'y') {
-        await deleteLocalDictionaries(successfullyPushedDictionaries, options);
+        await deleteLocalDictionaries(remoteDictionaries, options);
       }
     }
   } catch (error) {
@@ -302,11 +306,7 @@ const deleteLocalDictionaries = async (
   options?: PushOptions
 ): Promise<void> => {
   const config = getConfiguration(options?.configOptions);
-  const appLogger = getAppLogger(config, {
-    config: {
-      prefix: '',
-    },
-  });
+  const appLogger = getAppLogger(config);
 
   // Use a Set to collect all unique file paths
   const filePathsSet: Set<string> = new Set();
@@ -315,9 +315,12 @@ const deleteLocalDictionaries = async (
     const { filePath } = dictionary;
 
     if (!filePath) {
-      appLogger(`Dictionary ${dictionary.key} does not have a file path`, {
-        level: 'error',
-      });
+      appLogger(
+        `Dictionary ${colorizeKey(dictionary.key)} does not have a file path`,
+        {
+          level: 'error',
+        }
+      );
       continue;
     }
 

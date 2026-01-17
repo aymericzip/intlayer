@@ -133,6 +133,7 @@ const helloWorldContent = {
   description:
     "Content dictionary for the 'hello-world' example. Contains multiple localized strings used across a component or page, including sentences, list items, UI labels, placeholders, aria labels, options, paragraphs and test strings for extraction and localization.",
   tags: ['hello world', 'content', 'example', 'localization', 'ui', 'test'],
+  id: '696bd486200a5ac2eabb8d2a',
 } satisfies Dictionary;
 
 export default helloWorldContent;

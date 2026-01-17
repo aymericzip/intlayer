@@ -58,6 +58,7 @@ const appContent = {
       es: 'Haga clic en los logotipos de Vite y React para obtener más información',
     }),
   },
+  id: '696bd486200a5ac2eabb8d26',
 } satisfies Dictionary;
 
 export default appContent;

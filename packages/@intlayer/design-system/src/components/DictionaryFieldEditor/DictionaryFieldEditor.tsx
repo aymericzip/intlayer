@@ -59,7 +59,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
     <LocaleSwitcherContentProvider
       availableLocales={config?.internationalization.locales ?? []}
     >
-      <div className="relative flex h-full min-h-0 w-full flex-1 flex-col gap-6 overflow-hidden">
+      <div className="relative flex h-full min-h-0 w-full flex-1 flex-col overflow-hidden">
         {showReturnButton && (
           <Button
             onClick={onClickDictionaryList}

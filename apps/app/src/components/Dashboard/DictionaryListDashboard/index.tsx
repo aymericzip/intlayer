@@ -409,13 +409,13 @@ export const DictionaryListDashboardContent: FC = () => {
   const hasAppliedFilters = appliedFiltersCount > 0;
 
   return (
-    <div className="flex min-h-full w-full flex-1 flex-col gap-6 px-10 py-6">
+    <div className="flex w-full flex-1 flex-col gap-6 px-10 py-6">
       <div className="flex items-center justify-between gap-4">
         <div className="flex max-w-2xl flex-1 items-center gap-4">
           <SearchInput
             placeholder={searchPlaceholder.value}
             {...register('search')}
-            className="flex-1"
+            className="max-w-md flex-1"
           />
           <div className="relative">
             <Popover identifier="dictionary-filters">
