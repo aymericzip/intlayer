@@ -12,7 +12,7 @@ const metadataContent = {
       de: 'Playground | Intlayer',
       ja: 'Playground | Intlayer',
       ko: 'Playground | Intlayer',
-      zh: 'Playground | Intlayer',
+      zh: '演练场 | Intlayer',
       it: 'Playground | Intlayer',
       pt: 'Playground | Intlayer',
       hi: 'प्लेगन | Intlayer',
