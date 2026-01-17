@@ -267,7 +267,12 @@ export const Modal: FC<ModalProps> = ({
         >
           {/* CONTENT PADDING WRAPPER */}
           {/* We apply the padding class here, effectively putting content inside the scroll area */}
-          <div className={cn('h-full w-full', contentPaddingClass)}>
+          <div
+            className={cn(
+              'flex h-full w-full flex-1 flex-col',
+              contentPaddingClass
+            )}
+          >
             {children}
           </div>
         </div>

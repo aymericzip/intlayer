@@ -361,8 +361,18 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
                 />
               ),
               // Support both <Tab> and <Tabs> in markdown
-              Tabs: (props: ComponentProps<typeof Tab>) => <Tab {...props} />,
-              Tab: (props: ComponentProps<typeof Tab>) => <Tab {...props} />,
+              Tabs: (props: ComponentProps<typeof Tab>) => (
+                <Tab
+                  {...props}
+                  headerClassName="sticky top-36 z-10 bg-background/70 backdrop-blur"
+                />
+              ),
+              Tab: (props: ComponentProps<typeof Tab>) => (
+                <Tab
+                  {...props}
+                  headerClassName="sticky top-36 z-10 bg-background/70 backdrop-blur"
+                />
+              ),
               TabItem: (props: ComponentProps<typeof Tab.Item>) => (
                 <Tab.Item {...props} />
               ),

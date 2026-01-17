@@ -28,20 +28,23 @@ export const DictionaryDetailModal: FC<DictionaryDetailModalProps> = ({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      padding="md"
+      hasCloseButton
       size="lg"
-      isScrollable
+      className="h-full"
     >
       <Loader isLoading={!dictionary || isPending}>
         <EditorConfigurationProvider>
-          {dictionary && (
-            <DictionaryFieldEditor
-              dictionary={dictionary}
-              isDarkMode={resolvedTheme === 'dark'}
-              mode={['remote']}
-              onDelete={onClose}
-            />
-          )}
+          <div className="flex h-full min-h-0 w-full flex-1 flex-col">
+            {dictionary && (
+              <DictionaryFieldEditor
+                dictionary={dictionary}
+                isDarkMode={resolvedTheme === 'dark'}
+                mode={['remote']}
+                onDelete={onClose}
+                showReturnButton={false}
+              />
+            )}
+          </div>
         </EditorConfigurationProvider>
       </Loader>
     </Modal>

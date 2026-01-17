@@ -1,7 +1,6 @@
 import { useEditedContent } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types';
-import { type FC, useMemo } from 'react';
-import { Container } from '../Container';
+import type { FC } from 'react';
 import { MonacoCode } from '../IDE/MonacoCode';
 
 type JSONEditorProps = {
@@ -21,33 +20,20 @@ export const JSONEditor: FC<JSONEditorProps> = ({ dictionary, isDarkMode }) => {
     }
   };
 
-  const displayedContent = useMemo(
-    () =>
-      editedContent?.[dictionary.localId!]?.content ??
-      dictionary?.content ??
-      {},
-
-    [dictionary]
-  );
+  const displayedContent =
+    editedContent?.[dictionary.localId!]?.content ?? dictionary?.content;
 
   return (
-    <Container
-      background="none"
-      border
-      roundedSize="xl"
-      className="w-full overflow-hidden p-3"
+    <MonacoCode
+      language="json"
+      onChange={(content) => {
+        if (isValidJSON(content ?? '{}')) {
+          setEditedContent(dictionary.localId!, JSON.parse(content ?? '{}'));
+        }
+      }}
+      isDarkMode={isDarkMode}
     >
-      <MonacoCode
-        language="json"
-        onChange={(content) => {
-          if (isValidJSON(content ?? '{}')) {
-            setEditedContent(dictionary.localId!, JSON.parse(content ?? '{}'));
-          }
-        }}
-        isDarkMode={isDarkMode}
-      >
-        {JSON.stringify(displayedContent, null, 2)}
-      </MonacoCode>
-    </Container>
+      {JSON.stringify(displayedContent, null, 2)}
+    </MonacoCode>
   );
 };

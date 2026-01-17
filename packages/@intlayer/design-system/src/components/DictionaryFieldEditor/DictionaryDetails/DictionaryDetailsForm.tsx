@@ -122,274 +122,270 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     watchedLocation === 'local' || watchedLocation === 'local&remote';
 
   return (
-    <Container background="none" border roundedSize="2xl" padding="md">
-      <Form
-        className="flex w-full flex-col gap-8"
-        {...form}
-        schema={DictionaryDetailsSchema}
-      >
-        <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1">
-          <Form.EditableFieldInput
-            name="key"
-            label={keyInput.label}
-            placeholder={keyInput.label.value}
-            description={keyInput.description}
-            disabled={isSubmitting}
-            isRequired
-            onSave={(value) => {
-              form.setValue('key', value, { shouldDirty: true });
-              setEditedDictionary((prev) => ({
-                ...dictionary,
-                ...(prev ?? {}),
-                key: value,
-              }));
-            }}
-          />
-          <Form.EditableFieldInput
-            name="title"
-            label={titleInput.label}
-            placeholder={titleInput.placeholder.value}
-            description={titleInput.description}
-            disabled={isSubmitting}
-            onSave={(value) => {
-              form.setValue('title', value, { shouldDirty: true });
-              setEditedDictionary((prev) => ({
-                ...dictionary,
-                ...(prev ?? {}),
-                title: value,
-              }));
-            }}
-          />
-        </div>
-        <Form.EditableFieldTextArea
-          name="description"
-          label={descriptionInput.label}
-          placeholder={descriptionInput.placeholder.value}
-          description={descriptionInput.description}
+    <Form
+      className="flex w-full flex-col gap-8"
+      {...form}
+      schema={DictionaryDetailsSchema}
+    >
+      <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1">
+        <Form.EditableFieldInput
+          name="key"
+          label={keyInput.label}
+          placeholder={keyInput.label.value}
+          description={keyInput.description}
           disabled={isSubmitting}
+          isRequired
           onSave={(value) => {
-            form.setValue('description', value, { shouldDirty: true });
+            form.setValue('key', value, { shouldDirty: true });
             setEditedDictionary((prev) => ({
               ...dictionary,
               ...(prev ?? {}),
-              description: value,
+              key: value,
             }));
           }}
         />
-        <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1">
-          <Form.Field
-            control={form.control}
-            name="location"
-            render={({ field }) => {
-              const value = field.value;
-              const isLocal = value === 'local' || value === 'local&remote';
-              const isRemote = value === 'remote' || value === 'local&remote';
+        <Form.EditableFieldInput
+          name="title"
+          label={titleInput.label}
+          placeholder={titleInput.placeholder.value}
+          description={titleInput.description}
+          disabled={isSubmitting}
+          onSave={(value) => {
+            form.setValue('title', value, { shouldDirty: true });
+            setEditedDictionary((prev) => ({
+              ...dictionary,
+              ...(prev ?? {}),
+              title: value,
+            }));
+          }}
+        />
+      </div>
+      <Form.EditableFieldTextArea
+        name="description"
+        label={descriptionInput.label}
+        placeholder={descriptionInput.placeholder.value}
+        description={descriptionInput.description}
+        disabled={isSubmitting}
+        onSave={(value) => {
+          form.setValue('description', value, { shouldDirty: true });
+          setEditedDictionary((prev) => ({
+            ...dictionary,
+            ...(prev ?? {}),
+            description: value,
+          }));
+        }}
+      />
+      <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1">
+        <Form.Field
+          control={form.control}
+          name="location"
+          render={({ field }) => {
+            const value = field.value;
+            const isLocal = value === 'local' || value === 'local&remote';
+            const isRemote = value === 'remote' || value === 'local&remote';
 
-              const handleLocalToggle = (isChecked: boolean) => {
-                if (!isChecked && !isRemote) return;
+            const handleLocalToggle = (isChecked: boolean) => {
+              if (!isChecked && !isRemote) return;
 
-                const newValue: Dictionary['location'] = isChecked
-                  ? isRemote
-                    ? 'local&remote'
-                    : 'local'
-                  : 'remote';
+              const newValue: Dictionary['location'] = isChecked
+                ? isRemote
+                  ? 'local&remote'
+                  : 'local'
+                : 'remote';
 
-                field.onChange(newValue);
+              field.onChange(newValue);
 
-                const newFilePath = isChecked
-                  ? (form.getValues('filePath') ?? dictionary.filePath)
-                  : undefined;
+              const newFilePath = isChecked
+                ? (form.getValues('filePath') ?? dictionary.filePath)
+                : undefined;
 
-                if (!isChecked) {
-                  form.setValue('filePath', undefined);
-                }
+              if (!isChecked) {
+                form.setValue('filePath', undefined);
+              }
 
-                setEditedDictionary((prev) => ({
-                  ...dictionary,
-                  ...(prev ?? {}),
-                  location: newValue,
-                  filePath: newFilePath,
-                }));
-              };
-
-              const handleRemoteToggle = (isChecked: boolean) => {
-                if (!isChecked && !isLocal) return;
-
-                const newValue: Dictionary['location'] = isChecked
-                  ? isLocal
-                    ? 'local&remote'
-                    : 'remote'
-                  : 'local';
-
-                field.onChange(newValue);
-
-                setEditedDictionary((prev) => ({
-                  ...dictionary,
-                  ...(prev ?? {}),
-                  location: newValue,
-                }));
-              };
-
-              return (
-                <Form.Item className="flex flex-col gap-2">
-                  <Form.Label info={locationSelect.description.value}>
-                    {locationSelect.label.value}
-                  </Form.Label>
-                  <div className="flex items-center gap-4">
-                    <Checkbox
-                      id="location-local"
-                      name="location-local"
-                      label={locationSelect.local.value}
-                      checked={isLocal}
-                      disabled={
-                        !mode.includes('local') && !mode.includes('remote')
-                      }
-                      onChange={(e) => handleLocalToggle(e.target.checked)}
-                    />
-                    <Checkbox
-                      id="location-remote"
-                      name="location-remote"
-                      label={locationSelect.remote.value}
-                      checked={isRemote}
-                      disabled={
-                        !mode.includes('remote') &&
-                        dictionary.location !== 'remote' &&
-                        dictionary.location !== 'local&remote'
-                      }
-                      onChange={(e) => handleRemoteToggle(e.target.checked)}
-                    />
-                  </div>
-                  <Form.Description>
-                    {locationSelect.testDescription.value}
-                  </Form.Description>
-                  <Form.Message />
-                </Form.Item>
-              );
-            }}
-          />
-
-          <AnimatePresence mode="wait">
-            {isLocalChecked && (
-              <motion.div
-                key="filePath-input"
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-                className="overflow-hidden"
-              >
-                <Form.Input
-                  name="filePath"
-                  label={filePathInput.label.value}
-                  placeholder={filePathInput.placeholder.value}
-                  description={filePathInput.description.value}
-                  disabled={isSubmitting || !isLocalChecked}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    setEditedDictionary((prev) => ({
-                      ...dictionary,
-                      ...(prev ?? {}),
-                      filePath: value,
-                    }));
-                  }}
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-        <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1">
-          <Form.MultiSelect
-            name="projectIds"
-            label={projectInput.label.value}
-            description={projectInput.description}
-            onValueChange={(value) => {
-              const valueArray = [value].flat();
-              form.setValue('projectIds', valueArray, { shouldDirty: true });
               setEditedDictionary((prev) => ({
                 ...dictionary,
                 ...(prev ?? {}),
-                projectIds: valueArray,
+                location: newValue,
+                filePath: newFilePath,
               }));
-            }}
-          >
-            <MultiSelect.Trigger
-              getBadgeValue={(value) =>
-                projects?.find((project: any) => String(project.id) === value)
-                  ?.name ?? value
-              }
-            >
-              <MultiSelect.Input placeholder={projectInput.placeholder.value} />
-            </MultiSelect.Trigger>
-            <MultiSelect.Content>
-              <Loader isLoading={isLoadingProjects}>
-                <MultiSelect.List>
-                  {projects?.map((project: any) => (
-                    <MultiSelect.Item
-                      key={String(project.id)}
-                      value={String(project.id)}
-                    >
-                      {project.name}
-                    </MultiSelect.Item>
-                  ))}
-                </MultiSelect.List>
-              </Loader>
-            </MultiSelect.Content>
-          </Form.MultiSelect>
+            };
 
-          <Form.MultiSelect
-            name="tags"
-            label={tagsSelect.label.value}
-            description={tagsSelect.description}
-            onValueChange={(value) => {
-              const valueArray = [value].flat();
-              form.setValue('tags', valueArray, { shouldDirty: true });
+            const handleRemoteToggle = (isChecked: boolean) => {
+              if (!isChecked && !isLocal) return;
+
+              const newValue: Dictionary['location'] = isChecked
+                ? isLocal
+                  ? 'local&remote'
+                  : 'remote'
+                : 'local';
+
+              field.onChange(newValue);
+
               setEditedDictionary((prev) => ({
                 ...dictionary,
                 ...(prev ?? {}),
-                tags: valueArray,
+                location: newValue,
               }));
-            }}
-          >
-            <MultiSelect.Trigger
-              getBadgeValue={(value) =>
-                allTags?.find((tag: any) => String(tag.key) === value)?.name ??
-                value
-              }
-            >
-              <MultiSelect.Input placeholder={tagsSelect.placeholder.value} />
-            </MultiSelect.Trigger>
-            <MultiSelect.Content>
-              <Loader isLoading={isLoadingProjects}>
-                <MultiSelect.List>
-                  {allTags?.map((tag: any) => (
-                    <MultiSelect.Item
-                      key={String(tag.key)}
-                      value={String(tag.key)}
-                    >
-                      {tag.name ?? tag.key}
-                    </MultiSelect.Item>
-                  ))}
-                </MultiSelect.List>
-              </Loader>
-            </MultiSelect.Content>
-          </Form.MultiSelect>
-        </div>
+            };
 
-        <div className="flex flex-wrap items-center justify-end gap-2 max-md:flex-col">
-          <Form.Button
-            type="button"
-            size={ButtonSize.ICON_MD}
-            label={auditButton.label.value}
-            Icon={WandSparkles}
-            variant={ButtonVariant.OUTLINE}
-            color={ButtonColor.TEXT}
-            className="max-md:w-full"
-            onClick={handleOnAuditFile}
-            disabled={isSubmitting || isAuditing}
-            isLoading={isAuditing}
-          />
-        </div>
-      </Form>
-    </Container>
+            return (
+              <Form.Item className="flex flex-col gap-2">
+                <Form.Label>{locationSelect.label}</Form.Label>
+                <div className="flex items-center gap-4">
+                  <Checkbox
+                    id="location-local"
+                    name="location-local"
+                    label={locationSelect.local.value}
+                    checked={isLocal}
+                    disabled={
+                      !mode.includes('local') && !mode.includes('remote')
+                    }
+                    onChange={(e) => handleLocalToggle(e.target.checked)}
+                  />
+                  <Checkbox
+                    id="location-remote"
+                    name="location-remote"
+                    label={locationSelect.remote.value}
+                    checked={isRemote}
+                    disabled={
+                      !mode.includes('remote') &&
+                      dictionary.location !== 'remote' &&
+                      dictionary.location !== 'local&remote'
+                    }
+                    onChange={(e) => handleRemoteToggle(e.target.checked)}
+                  />
+                </div>
+                <Form.Description>
+                  {locationSelect.testDescription}
+                </Form.Description>
+                <Form.Message />
+              </Form.Item>
+            );
+          }}
+        />
+
+        <AnimatePresence mode="wait">
+          {isLocalChecked && (
+            <motion.div
+              key="filePath-input"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="overflow-hidden"
+            >
+              <Form.Input
+                name="filePath"
+                label={filePathInput.label.value}
+                placeholder={filePathInput.placeholder.value}
+                description={filePathInput.description.value}
+                disabled={isSubmitting || !isLocalChecked}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setEditedDictionary((prev) => ({
+                    ...dictionary,
+                    ...(prev ?? {}),
+                    filePath: value,
+                  }));
+                }}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+      <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1">
+        <Form.MultiSelect
+          name="projectIds"
+          label={projectInput.label.value}
+          description={projectInput.description}
+          onValueChange={(value) => {
+            const valueArray = [value].flat();
+            form.setValue('projectIds', valueArray, { shouldDirty: true });
+            setEditedDictionary((prev) => ({
+              ...dictionary,
+              ...(prev ?? {}),
+              projectIds: valueArray,
+            }));
+          }}
+        >
+          <MultiSelect.Trigger
+            getBadgeValue={(value) =>
+              projects?.find((project: any) => String(project.id) === value)
+                ?.name ?? value
+            }
+          >
+            <MultiSelect.Input placeholder={projectInput.placeholder.value} />
+          </MultiSelect.Trigger>
+          <MultiSelect.Content>
+            <Loader isLoading={isLoadingProjects}>
+              <MultiSelect.List>
+                {projects?.map((project: any) => (
+                  <MultiSelect.Item
+                    key={String(project.id)}
+                    value={String(project.id)}
+                  >
+                    {project.name}
+                  </MultiSelect.Item>
+                ))}
+              </MultiSelect.List>
+            </Loader>
+          </MultiSelect.Content>
+        </Form.MultiSelect>
+
+        <Form.MultiSelect
+          name="tags"
+          label={tagsSelect.label.value}
+          description={tagsSelect.description}
+          onValueChange={(value) => {
+            const valueArray = [value].flat();
+            form.setValue('tags', valueArray, { shouldDirty: true });
+            setEditedDictionary((prev) => ({
+              ...dictionary,
+              ...(prev ?? {}),
+              tags: valueArray,
+            }));
+          }}
+        >
+          <MultiSelect.Trigger
+            getBadgeValue={(value) =>
+              allTags?.find((tag: any) => String(tag.key) === value)?.name ??
+              value
+            }
+          >
+            <MultiSelect.Input placeholder={tagsSelect.placeholder.value} />
+          </MultiSelect.Trigger>
+          <MultiSelect.Content>
+            <Loader isLoading={isLoadingProjects}>
+              <MultiSelect.List>
+                {allTags?.map((tag: any) => (
+                  <MultiSelect.Item
+                    key={String(tag.key)}
+                    value={String(tag.key)}
+                  >
+                    {tag.name ?? tag.key}
+                  </MultiSelect.Item>
+                ))}
+              </MultiSelect.List>
+            </Loader>
+          </MultiSelect.Content>
+        </Form.MultiSelect>
+      </div>
+
+      <div className="flex flex-wrap items-center justify-end gap-2 max-md:flex-col">
+        <Form.Button
+          type="button"
+          size={ButtonSize.ICON_MD}
+          label={auditButton.label.value}
+          Icon={WandSparkles}
+          variant={ButtonVariant.OUTLINE}
+          color={ButtonColor.TEXT}
+          className="max-md:w-full"
+          onClick={handleOnAuditFile}
+          disabled={isSubmitting || isAuditing}
+          isLoading={isAuditing}
+        />
+      </div>
+    </Form>
   );
 };

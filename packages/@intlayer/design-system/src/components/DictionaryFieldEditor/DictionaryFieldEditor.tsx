@@ -7,11 +7,11 @@ import {
 } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types';
 import { ArrowLeft } from 'lucide-react';
-import { type FC, useEffect, useState } from 'react';
+import { type FC, useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Button, ButtonColor, ButtonVariant } from '../Button';
 import { LocaleSwitcherContentProvider } from '../LocaleSwitcherContentDropDown';
-import { SwitchSelector } from '../SwitchSelector';
+import { Tab } from '../Tab';
 import { ContentEditor } from './ContentEditor';
 import { DictionaryDetailsForm } from './DictionaryDetails/DictionaryDetailsForm';
 import { JSONEditor } from './JSONEditor';
@@ -25,14 +25,8 @@ type DictionaryFieldEditorProps = {
   onSave?: () => void;
   isDarkMode?: boolean;
   mode: ('local' | 'remote')[];
+  showReturnButton?: boolean;
 };
-
-enum EditorViewType {
-  DetailsEditor,
-  ContentEditor,
-  StructureEditor,
-  JSONEditor,
-}
 
 export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   dictionary,
@@ -41,11 +35,9 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   mode,
   onDelete,
   onSave,
+  showReturnButton = true,
 }) => {
   const config = useConfiguration();
-  const [editorView, setEditorView] = useState<EditorViewType>(
-    EditorViewType.ContentEditor
-  );
   const { returnToDictionaryList } = useIntlayer('dictionary-field-editor');
   const { setFocusedContent } = useFocusUnmergedDictionary();
   const { setLocaleDictionaries } = useDictionariesRecordActions();
@@ -67,71 +59,55 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
     <LocaleSwitcherContentProvider
       availableLocales={config?.internationalization.locales ?? []}
     >
-      <div className="relative flex size-full flex-col gap-6 px-2">
-        <Button
-          onClick={onClickDictionaryList}
-          variant={ButtonVariant.HOVERABLE}
-          className="z-10 mr-auto ml-5"
-          color={ButtonColor.TEXT}
-          Icon={ArrowLeft}
-          label={returnToDictionaryList.label.value}
-        >
-          {returnToDictionaryList.text}
-        </Button>
-
-        <SwitchSelector
-          defaultValue={editorView}
-          onChange={(value) => setEditorView(value)}
-          color="text"
-          size="sm"
-          choices={[
-            {
-              content: 'Details',
-              value: EditorViewType.DetailsEditor,
-            },
-            {
-              content: 'Structure',
-              value: EditorViewType.StructureEditor,
-            },
-            {
-              content: 'Content',
-              value: EditorViewType.ContentEditor,
-            },
-            {
-              content: 'JSON',
-              value: EditorViewType.JSONEditor,
-            },
-          ].filter(
-            ({ value }) =>
-              !(
-                !mode.includes('remote') &&
-                value === EditorViewType.DetailsEditor
-              )
-          )}
-        />
-
-        {editorView === EditorViewType.DetailsEditor && (
-          <DictionaryDetailsForm dictionary={dictionary} mode={mode} />
-        )}
-        {editorView === EditorViewType.StructureEditor && (
-          <StructureEditor dictionary={dictionary} />
-        )}
-        {editorView === EditorViewType.ContentEditor && (
-          <ContentEditor dictionary={dictionary} isDarkMode={isDarkMode} />
-        )}
-        {editorView === EditorViewType.JSONEditor && (
-          <JSONEditor dictionary={dictionary} isDarkMode={isDarkMode} />
+      <div className="relative flex h-full min-h-0 w-full flex-1 flex-col gap-6 overflow-hidden">
+        {showReturnButton && (
+          <Button
+            onClick={onClickDictionaryList}
+            variant={ButtonVariant.HOVERABLE}
+            className="z-10 mr-auto ml-5 shrink-0"
+            color={ButtonColor.TEXT}
+            Icon={ArrowLeft}
+            label={returnToDictionaryList.label.value}
+          >
+            {returnToDictionaryList.text}
+          </Button>
         )}
 
-        <SaveForm
-          dictionary={dictionary}
-          mode={mode}
-          onDelete={() => {
-            setFocusedContent(null);
-            onDelete?.();
-          }}
-          onSave={onSave}
-        />
+        <div className="min-h-0 flex-1 px-2">
+          <Tab
+            defaultTab="content"
+            variant="ghost"
+            fullHeight
+            headerClassName="sticky top-0 z-10 rounded-xl bg-background/20 pb-4"
+          >
+            {mode.includes('remote') && (
+              <Tab.Item label="Details" value="details">
+                <DictionaryDetailsForm dictionary={dictionary} mode={mode} />
+              </Tab.Item>
+            )}
+            <Tab.Item label="Structure" value="structure">
+              <StructureEditor dictionary={dictionary} />
+            </Tab.Item>
+            <Tab.Item label="Content" value="content">
+              <ContentEditor dictionary={dictionary} isDarkMode={isDarkMode} />
+            </Tab.Item>
+            <Tab.Item label="JSON" value="json">
+              <JSONEditor dictionary={dictionary} isDarkMode={isDarkMode} />
+            </Tab.Item>
+          </Tab>
+        </div>
+
+        <div className="shrink-0 border-card border-t p-4">
+          <SaveForm
+            dictionary={dictionary}
+            mode={mode}
+            onDelete={() => {
+              setFocusedContent(null as any);
+              onDelete?.();
+            }}
+            onSave={onSave}
+          />
+        </div>
       </div>
     </LocaleSwitcherContentProvider>
   );
