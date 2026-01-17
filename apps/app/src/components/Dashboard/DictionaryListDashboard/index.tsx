@@ -79,7 +79,7 @@ export const DictionaryListDashboardContent: FC = () => {
     () =>
       ({
         page: { type: 'number', fallbackValue: 1 },
-        pageSize: { type: 'number', fallbackValue: 10 },
+        pageSize: { type: 'number', fallbackValue: 20 },
         search: { type: 'string', fallbackValue: '' },
         sortBy: { type: 'string', fallbackValue: 'updatedAt' },
         sortOrder: { type: 'string', fallbackValue: 'desc' },
@@ -409,7 +409,7 @@ export const DictionaryListDashboardContent: FC = () => {
   const hasAppliedFilters = appliedFiltersCount > 0;
 
   return (
-    <div className="flex size-full flex-1 flex-col gap-6 px-10 py-6">
+    <div className="flex min-h-full w-full flex-1 flex-col gap-6 px-10 py-6">
       <div className="flex items-center justify-between gap-4">
         <div className="flex max-w-2xl flex-1 items-center gap-4">
           <SearchInput
@@ -507,7 +507,7 @@ export const DictionaryListDashboardContent: FC = () => {
         </div>
       )}
 
-      <div className="flex-1 overflow-auto">
+      <div className="w-full flex-1 overflow-x-auto">
         <Loader isLoading={isPending}>
           {dictionaries.length === 0 ? (
             <div className="flex min-h-60 items-center justify-center">
