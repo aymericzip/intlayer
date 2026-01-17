@@ -108,6 +108,8 @@ Intlayer 提供了一种灵活且现代化的应用翻译方案。我们的文�
 
 我们设计 Intlayer 时充分考虑了灵活性，提供了与流行框架和构建工具的无缝集成：
 
+- **[Intlayer 与 Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_16.md)**
+- **[在 Cloudflare (OpenNext) 上部署 Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/deployment/cloudflare-opennext.md)**
 - **[Intlayer 与 Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md)**
 - **[Intlayer 与 Next.js 14（App Router）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_14.md)**
 - **[Intlayer 与 Next.js 页面路由器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_page_router.md)**
