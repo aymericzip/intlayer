@@ -1,7 +1,6 @@
 'use client';
 
 import { ButtonColor, ButtonSize, ButtonVariant } from '@components/Button';
-import { Container } from '@components/Container';
 import { Form, useForm } from '@components/Form';
 import { Checkbox } from '@components/Input';
 import { Loader } from '@components/Loader';
