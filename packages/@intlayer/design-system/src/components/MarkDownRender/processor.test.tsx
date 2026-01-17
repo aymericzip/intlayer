@@ -47,11 +47,11 @@ it('should throw if not passed a string (first arg)', () => {
   // @ts-ignore
   expect(() => compiler(1)).toThrow();
   // @ts-ignore
-  expect(() => compiler(() => { })).toThrow();
+  expect(() => compiler(() => {})).toThrow();
   // @ts-ignore
   expect(() => compiler({})).toThrow();
   // @ts-ignore
-  expect(() => compiler([])).toThrow();
+expect(() => compiler(() => {})).toThrow();
   // @ts-ignore
   expect(() => compiler(null)).toThrow();
   // @ts-ignore
@@ -858,8 +858,8 @@ describe('links', () => {
   });
 
   it('should not sanitize markdown when explicitly disabled', () => {
-    vi.spyOn(console, 'warn').mockImplementation(() => { });
-    vi.spyOn(console, 'error').mockImplementation(() => { });
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.spyOn(console, 'error').mockImplementation(() => {});
 
     renderFn(
       compiler('[foo](javascript:doSomethingBad)', { sanitizer: (x) => x })
@@ -873,8 +873,8 @@ describe('links', () => {
   });
 
   it('tag and attribute are provided to allow for conditional override', () => {
-    vi.spyOn(console, 'warn').mockImplementation(() => { });
-    vi.spyOn(console, 'error').mockImplementation(() => { });
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.spyOn(console, 'error').mockImplementation(() => {});
 
     renderFn(
       compiler(
@@ -894,8 +894,8 @@ describe('links', () => {
   });
 
   it('should sanitize markdown links containing JS expressions', () => {
-    vi.spyOn(console, 'warn').mockImplementation(() => { });
-    vi.spyOn(console, 'error').mockImplementation(() => { });
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.spyOn(console, 'error').mockImplementation(() => {});
 
     renderFn(compiler('[foo](javascript:doSomethingBad)'));
 
@@ -905,8 +905,8 @@ describe('links', () => {
   });
 
   it('should sanitize markdown links containing JS expressions', () => {
-    vi.spyOn(console, 'warn').mockImplementation(() => { });
-    vi.spyOn(console, 'error').mockImplementation(() => { });
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.spyOn(console, 'error').mockImplementation(() => {});
 
     renderFn(compiler('![foo](javascript:doSomethingBad)'));
 
@@ -916,8 +916,8 @@ describe('links', () => {
   });
 
   it('should sanitize markdown links containing Data expressions', () => {
-    vi.spyOn(console, 'warn').mockImplementation(() => { });
-    vi.spyOn(console, 'error').mockImplementation(() => { });
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.spyOn(console, 'error').mockImplementation(() => {});
 
     renderFn(compiler('[foo](data:doSomethingBad)'));
     expect(container.innerHTML).toMatchInlineSnapshot(`"<a>foo</a>"`);
@@ -925,8 +925,8 @@ describe('links', () => {
   });
 
   it('should sanitize markdown links containing VBScript expressions', () => {
-    vi.spyOn(console, 'warn').mockImplementation(() => { });
-    vi.spyOn(console, 'error').mockImplementation(() => { });
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.spyOn(console, 'error').mockImplementation(() => {});
 
     renderFn(compiler('[foo](vbScript:doSomethingBad)'));
     expect(container.innerHTML).toMatchInlineSnapshot(`"<a>foo</a>"`);
@@ -934,8 +934,8 @@ describe('links', () => {
   });
 
   it('should sanitize markdown links containing encoded JS expressions', () => {
-    vi.spyOn(console, 'warn').mockImplementation(() => { });
-    vi.spyOn(console, 'error').mockImplementation(() => { });
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.spyOn(console, 'error').mockImplementation(() => {});
 
     renderFn(compiler('[foo](javascript%3AdoSomethingBad)'));
 
@@ -945,8 +945,8 @@ describe('links', () => {
   });
 
   it('should sanitize markdown links containing padded JS expressions', () => {
-    vi.spyOn(console, 'warn').mockImplementation(() => { });
-    vi.spyOn(console, 'error').mockImplementation(() => { });
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.spyOn(console, 'error').mockImplementation(() => {});
 
     renderFn(compiler('[foo](  javascript%3AdoSomethingBad)'));
 
@@ -956,8 +956,8 @@ describe('links', () => {
   });
 
   it('should sanitize markdown links containing padded encoded vscript expressions', () => {
-    vi.spyOn(console, 'warn').mockImplementation(() => { });
-    vi.spyOn(console, 'error').mockImplementation(() => { });
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.spyOn(console, 'error').mockImplementation(() => {});
 
     renderFn(compiler('[foo](  VBScript%3AdoSomethingBad)'));
 
@@ -966,8 +966,8 @@ describe('links', () => {
   });
 
   it('should sanitize markdown images containing padded encoded vscript expressions', () => {
-    vi.spyOn(console, 'warn').mockImplementation(() => { });
-    vi.spyOn(console, 'error').mockImplementation(() => { });
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.spyOn(console, 'error').mockImplementation(() => {});
 
     renderFn(compiler('![foo](  VBScript%3AdoSomethingBad)'));
     expect(container.innerHTML).toMatchInlineSnapshot(`"<img alt="foo">"`);
@@ -975,8 +975,8 @@ describe('links', () => {
   });
 
   it('should sanitize markdown links containing padded encoded data expressions', () => {
-    vi.spyOn(console, 'warn').mockImplementation(() => { });
-    vi.spyOn(console, 'error').mockImplementation(() => { });
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.spyOn(console, 'error').mockImplementation(() => {});
 
     renderFn(compiler('[foo](`<data:doSomethingBad)'));
     expect(container.innerHTML).toMatchInlineSnapshot(`"<a>foo</a>"`);
@@ -984,8 +984,8 @@ describe('links', () => {
   });
 
   it('should sanitize markdown images containing padded encoded data expressions', () => {
-    vi.spyOn(console, 'warn').mockImplementation(() => { });
-    vi.spyOn(console, 'error').mockImplementation(() => { });
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.spyOn(console, 'error').mockImplementation(() => {});
 
     renderFn(compiler('![foo](`<data:doSomethingBad)'));
     expect(container.innerHTML).toMatchInlineSnapshot(`"<img alt="foo">"`);
@@ -993,8 +993,8 @@ describe('links', () => {
   });
 
   it('should sanitize markdown links containing invalid characters', () => {
-    vi.spyOn(console, 'warn').mockImplementation(() => { });
-    vi.spyOn(console, 'error').mockImplementation(() => { });
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.spyOn(console, 'error').mockImplementation(() => {});
 
     renderFn(compiler('[foo](https://google.com/%AF)'));
 
@@ -1003,8 +1003,8 @@ describe('links', () => {
   });
 
   it('should sanitize html links containing JS expressions', () => {
-    vi.spyOn(console, 'warn').mockImplementation(() => { });
-    vi.spyOn(console, 'error').mockImplementation(() => { });
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.spyOn(console, 'error').mockImplementation(() => {});
 
     renderFn(compiler('<a href="javascript:doSomethingBad">foo</a>'));
 
@@ -1014,8 +1014,8 @@ describe('links', () => {
   });
 
   it('should sanitize html links containing encoded, prefixed data expressions', () => {
-    vi.spyOn(console, 'warn').mockImplementation(() => { });
-    vi.spyOn(console, 'error').mockImplementation(() => { });
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.spyOn(console, 'error').mockImplementation(() => {});
 
     renderFn(compiler('<a href="<`data:doSomethingBad">foo</a>'));
     expect(container.innerHTML).toMatchInlineSnapshot(`"<a>foo</a>"`);
@@ -1023,8 +1023,8 @@ describe('links', () => {
   });
 
   it('should sanitize html images containing encoded, prefixed JS expressions', () => {
-    vi.spyOn(console, 'warn').mockImplementation(() => { });
-    vi.spyOn(console, 'error').mockImplementation(() => { });
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.spyOn(console, 'error').mockImplementation(() => {});
 
     renderFn(compiler('<img src="`<javascript:alert>`(\'alertstr\')" />'));
     expect(container.innerHTML).toMatchInlineSnapshot(`"<img>"`);
@@ -1032,8 +1032,8 @@ describe('links', () => {
   });
 
   it('should sanitize html images containing weird parsing src=s', () => {
-    vi.spyOn(console, 'warn').mockImplementation(() => { });
-    vi.spyOn(console, 'error').mockImplementation(() => { });
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.spyOn(console, 'error').mockImplementation(() => {});
 
     renderFn(compiler('<img src="<src=\\"javascript:alert(`xss`)">'));
     expect(container.innerHTML).toMatchInlineSnapshot(`"<img>"`);
@@ -1041,8 +1041,8 @@ describe('links', () => {
   });
 
   it('should sanitize style attribute containing known XSS payloads', () => {
-    vi.spyOn(console, 'warn').mockImplementation(() => { });
-    vi.spyOn(console, 'error').mockImplementation(() => { });
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.spyOn(console, 'error').mockImplementation(() => {});
 
     renderFn(
       compiler(
@@ -1056,8 +1056,8 @@ describe('links', () => {
   });
 
   it.skip('should not sanitize style attribute with an acceptable data image payload', () => {
-    vi.spyOn(console, 'warn').mockImplementation(() => { });
-    vi.spyOn(console, 'error').mockImplementation(() => { });
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.spyOn(console, 'error').mockImplementation(() => {});
 
     renderFn(
       compiler(
