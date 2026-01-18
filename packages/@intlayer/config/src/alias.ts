@@ -16,7 +16,8 @@ export const getAlias = ({
 }: GetAliasOptions) => {
   const extension = getExtension(configuration, format);
 
-  const { mainDir, configDir, baseDir } = configuration.content;
+  const { baseDir } = configuration.content;
+  const { mainDir, configDir } = configuration.system;
 
   /**
    * Dictionaries

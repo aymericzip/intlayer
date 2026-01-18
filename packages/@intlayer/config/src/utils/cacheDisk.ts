@@ -71,7 +71,7 @@ export const cacheDisk = (
   keys: CacheKey[],
   options?: LocalCacheOptions
 ) => {
-  const { cacheDir } = intlayerConfig.content;
+  const { cacheDir } = intlayerConfig.system;
   const buildCacheEnabled = intlayerConfig.build.cache ?? true;
   const persistent =
     options?.persistent === true ||

@@ -27,10 +27,10 @@ type GetFetchDictionaries = (
 export const getDynamicDictionaries: GetFetchDictionaries = (
   configuration: IntlayerConfig = config
 ) => {
-  const { content, build } = configuration;
+  const { system, build } = configuration;
 
   // Always use cjs for dictionaries entry as it uses require
-  const dictionariesPath = join(content.mainDir, `fetch_dictionaries.cjs`);
+  const dictionariesPath = join(system.mainDir, `fetch_dictionaries.cjs`);
   let dictionaries: Record<
     DictionaryKeys,
     StrictModeLocaleMap<Dictionary>

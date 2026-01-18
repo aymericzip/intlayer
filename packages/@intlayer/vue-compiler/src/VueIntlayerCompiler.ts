@@ -133,7 +133,8 @@ export const createVueIntlayerCompiler = (
    */
   const buildFilesListFn = async (): Promise<void> => {
     const { traversePattern } = config.build;
-    const { baseDir, mainDir, fileExtensions } = config.content;
+    const { baseDir, fileExtensions } = config.content;
+    const { mainDir } = config.system;
 
     const filesListPattern = buildFilesList({
       transformPattern:
@@ -253,7 +254,7 @@ export const createVueIntlayerCompiler = (
     );
 
     if (!isContentFile) {
-      const dictionariesDir = config.content.dictionariesDir;
+      const dictionariesDir = config.system.dictionariesDir;
       if (file.startsWith(dictionariesDir)) {
         return [];
       }
@@ -295,7 +296,7 @@ export const createVueIntlayerCompiler = (
       unmergedDictionariesDir,
       fetchDictionariesDir,
       mainDir,
-    } = config.content;
+    } = config.system;
 
     /**
      * Handle Vue SFC virtual modules

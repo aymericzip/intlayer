@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: Séparer la configuration système de la configuration du contenu. Déplacer les chemins internes vers la propriété `system`.
   - version: 7.6.0
     date: 2026-01-18
     changes: Ajout des options de dictionnaire `location` et `schema`
@@ -392,21 +395,40 @@ Paramètres liés à la gestion du contenu au sein de l'application, incluant le
   - _Exemple_ : `'/path/to/project'`
   - _Note_ : Ceci est utilisé pour résoudre tous les répertoires liés à Intlayer.
 
-- **dictionaryOutput** :
-  - _Type_ : `string[]`
-  - _Défaut_ : `['intlayer']`
-  - _Description_ : Le type de sortie de dictionnaire à utiliser, par exemple `'intlayer'` ou `'i18next'`.
-
 - **contentDir** :
   - _Type_ : `string[]`
   - _Défaut_ : `['.']`
   - _Exemple_ : `['src', '../../ui-library', require.resolve("@my-package/content")]`
   - _Description_ : Le chemin du répertoire où le contenu est stocké.
 
+- **excludedPath** :
+  - _Type_ : `string[]`
+  - _Défaut_ : `['**/node_modules/**', '**/dist/**', '**/build/**', '**/.intlayer/**', '**/.next/**', '**/.nuxt/**', '**/.expo/**', '**/.vercel/**', '**/.turbo/**', '**/.tanstack/**']`
+  - _Description_ : Répertoires exclus de la recherche de contenu.
+  - _Note_ : Ce paramètre n'est pas encore utilisé, mais est prévu pour une future mise en œuvre.
+
+- **formatCommand** :
+  - _Type_ : `string`
+  - _Défaut_ : `undefined`
+  - _Description_ : La commande pour formater le contenu. Lorsqu'Intlayer écrit vos fichiers .content localement, cette commande sera utilisée pour formater le contenu.
+  - _Exemple_ : `'npx prettier --write "{{file}}" --log-level silent'` Utilisation de Prettier
+  - _Exemple_ : `'npx biome format "{{file}}" --write --log-level none'` Utilisation de Biome
+  - _Exemple_ : `'npx eslint --fix "{{file}}"  --quiet'` Utilisation d'ESLint
+  - _Note_ : Intlayer remplacera {{file}} par le chemin du fichier à formater.
+  - _Note_ : Si non défini, Intlayer essaiera de détecter automatiquement la commande de formatage. En essayant de résoudre les commandes suivantes : prettier, biome, eslint.
+
+---
+
+### Configuration système
+
+Paramètres liés aux chemins internes et aux résultats de sortie d'Intlayer. Ces paramètres sont généralement internes et ne devraient pas avoir besoin d'être modifiés par l'utilisateur.
+
+#### Propriétés
+
 - **dictionariesDir** :
   - _Type_ : `string`
-  - _Par défaut_ : `'.intlayer/dictionaries'`
-  - _Description_ : Le chemin du répertoire pour stocker les résultats intermédiaires ou finaux.
+  - _Par défaut_ : `'.intlayer/dictionary'`
+  - _Description_ : Le chemin du répertoire pour stocker les dictionnaires de localisation.
 
 - **moduleAugmentationDir** :
   - _Type_ : `string`
@@ -419,38 +441,31 @@ Paramètres liés à la gestion du contenu au sein de l'application, incluant le
   - _Type_ : `string`
   - _Par défaut_ : `'.intlayer/unmerged_dictionary'`
   - _Description_ : Le répertoire pour stocker les dictionnaires non fusionnés.
-  - _Exemple_ : `'translations'`
-
-- **dictionariesDir** :
-  - _Type_ : `string`
-  - _Par défaut_ : `'.intlayer/dictionary'`
-  - _Description_ : Le répertoire pour stocker les dictionnaires de localisation.
-  - _Exemple_ : `'translations'`
-
-- **i18nextResourcesDir** :
-  - _Type_ : `string`
-  - _Par défaut_ : `'i18next_dictionary'`
-  - _Description_ : Le répertoire pour stocker les dictionnaires i18n.
-  - _Exemple_ : `'translations'`
-  - _Note_ : Assurez-vous que ce répertoire est configuré pour le type de sortie i18next.
 
 - **typesDir** :
   - _Type_ : `string`
-  - _Par défaut_ : `'types'`
+  - _Par défaut_ : `'.intlayer/types'`
   - _Description_ : Le répertoire pour stocker les types de dictionnaires.
-  - _Exemple_ : `'intlayer-types'`
 
 - **mainDir** :
   - _Type_ : `string`
-  - _Par défaut_ : `'main'`
+  - _Par défaut_ : `'.intlayer/main'`
   - _Description_ : Le répertoire où sont stockés les fichiers principaux de l'application.
-  - _Exemple_ : `'intlayer-main'`
 
-- **excludedPath** :
-  - _Type_: `string[]`
-  - _Default_: `['node_modules']`
-  - _Description_: Répertoires exclus de la recherche de contenu.
-  - _Note_: Ce paramètre n'est pas encore utilisé, mais est prévu pour une future mise en œuvre.
+- **configDir** :
+  - _Type_ : `string`
+  - _Par défaut_ : `'.intlayer/config'`
+  - _Description_ : Le répertoire où sont stockés les fichiers de configuration.
+
+- **cacheDir** :
+  - _Type_ : `string`
+  - _Par défaut_ : `'.intlayer/cache'`
+  - _Description_ : Le répertoire où sont stockés les fichiers de cache.
+
+- **outputFilesPatternWithPath** :
+  - _Type_ : `string`
+  - _Par défaut_ : `'{{dictionariesDir}}/**/*.json'`
+  - _Description_ : Modèle pour les fichiers de sortie incluant le chemin relatif.
 
 ### Configuration du dictionnaire
 

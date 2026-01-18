@@ -78,8 +78,8 @@ const getPruneConfig = (
     dynamicDictionariesDir,
     fetchDictionariesDir,
     mainDir,
-    baseDir,
-  } = intlayerConfig.content;
+  } = intlayerConfig.system;
+  const { baseDir } = intlayerConfig.content;
   const logger = getAppLogger(intlayerConfig);
 
   if (optimize === false) {

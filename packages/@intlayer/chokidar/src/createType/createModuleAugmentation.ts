@@ -86,8 +86,8 @@ const generateTypeIndexContent = (
   typeFiles: string[],
   configuration: IntlayerConfig
 ): string => {
-  const { content, internationalization } = configuration;
-  const { moduleAugmentationDir } = content;
+  const { internationalization, system } = configuration;
+  const { moduleAugmentationDir } = system;
   const { locales, requiredLocales, strictMode } = internationalization;
 
   let fileContent = 'import "intlayer";\n';
@@ -178,7 +178,7 @@ const generateTypeIndexContent = (
 export const createModuleAugmentation = async (
   configuration: IntlayerConfig
 ) => {
-  const { moduleAugmentationDir, typesDir } = configuration.content;
+  const { moduleAugmentationDir, typesDir } = configuration.system;
 
   await mkdir(moduleAugmentationDir, { recursive: true });
 

@@ -609,6 +609,11 @@ export type CustomIntlayerConfig = {
   compiler?: Partial<CompilerConfig>;
 
   /**
+   * Custom system configuration
+   */
+  system?: Partial<SystemConfig>;
+
+  /**
    * Custom schemas to validate the dictionaries content.
    *
    * Example:
@@ -669,6 +674,11 @@ export type IntlayerConfig = {
   content: ContentConfig;
 
   /**
+   * System configuration
+   */
+  system: SystemConfig;
+
+  /**
    * Intlayer editor configuration
    */
   editor: EditorConfig;
@@ -702,12 +712,21 @@ export type IntlayerConfig = {
    * Plugins configuration
    */
   plugins?: Plugin[];
+
+  /**
+   * Metadata of the project
+   */
+  metadata: {
+    name: string;
+    version: string;
+    doc: string;
+  };
 };
 
 /**
- * Base configuration for content handling
+ * Configuration for content handling
  */
-export type BaseContentConfig = {
+export type ContentConfig = {
   /**
    * File extensions of content to look for
    *
@@ -725,6 +744,15 @@ export type BaseContentConfig = {
    * The root directory of the project, typically used for resolving other paths.
    */
   baseDir: string;
+
+  /**
+   * Directory where the content is stored, relative to the base directory
+   *
+   * Default: ['.']
+   *
+   * Derived content directory based on the base configuration.
+   */
+  contentDir: string[];
 
   /**
    * Directories to be excluded from content processing
@@ -768,21 +796,27 @@ export type BaseContentConfig = {
    * Default: undefined
    */
   formatCommand: string | undefined;
+
+  /**
+   * Patterns of files to watch for changes
+   *
+   * Default: ['/**\/*.content.ts', '/**\/*.content.js', '/**\/*.content.json', '/**\/*.content.cjs', '/**\/*.content.mjs', '/**\/*.content.tsx', '/**\/*.content.jsx']
+   *
+   * Defines file patterns for content to watch for changes.
+   */
+  watchedFilesPattern: string[];
+
+  /**
+   * Patterns of files to watch for changes including the relative path
+   *
+   * Default: ['src/**\/*.content.ts', 'src/**\/*.content.js', 'src/**\/*.content.json', 'src/**\/*.content.cjs', 'src/**\/*.content.mjs', 'src/**\/*.content.tsx', 'src/**\/*.content.jsx']
+   *
+   * Specifies the file patterns for content to watch, including relative paths.
+   */
+  watchedFilesPatternWithPath: string[];
 };
 
-/**
- * Configuration derived based on the base content configuration
- */
-export type BaseDerivedConfig = {
-  /**
-   * Directory where the content is stored, relative to the base directory
-   *
-   * Default: ['.']
-   *
-   * Derived content directory based on the base configuration.
-   */
-  contentDir: string[];
-
+export type SystemConfig = {
   /**
    * Directory for module augmentation, relative to the base directory
    *
@@ -872,29 +906,6 @@ export type BaseDerivedConfig = {
    * Specifies the derived path for the cache files relative to the result directory.
    */
   cacheDir: string;
-};
-
-/**
- * Configuration for content patterns
- */
-export type PatternsContentConfig = {
-  /**
-   * Patterns of files to watch for changes
-   *
-   * Default: ['/**\/*.content.ts', '/**\/*.content.js', '/**\/*.content.json', '/**\/*.content.cjs', '/**\/*.content.mjs', '/**\/*.content.tsx', '/**\/*.content.jsx']
-   *
-   * Defines file patterns for content to watch for changes.
-   */
-  watchedFilesPattern: string[];
-
-  /**
-   * Patterns of files to watch for changes including the relative path
-   *
-   * Default: ['src/**\/*.content.ts', 'src/**\/*.content.js', 'src/**\/*.content.json', 'src/**\/*.content.cjs', 'src/**\/*.content.mjs', 'src/**\/*.content.tsx', 'src/**\/*.content.jsx']
-   *
-   * Specifies the file patterns for content to watch, including relative paths.
-   */
-  watchedFilesPatternWithPath: string[];
 
   /**
    * Pattern for output files including the relative path
@@ -905,14 +916,6 @@ export type PatternsContentConfig = {
    */
   outputFilesPatternWithPath: string;
 };
-
-// @TODO: Implement exclusion of non configurable fields, to not allow them to be set in the config
-/**
- * General configuration derived from the config file
- */
-export type ContentConfig = BaseContentConfig &
-  BaseDerivedConfig &
-  PatternsContentConfig;
 
 export type LogFunctions = {
   error?: typeof console.error;

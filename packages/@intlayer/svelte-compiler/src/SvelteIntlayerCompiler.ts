@@ -136,7 +136,8 @@ export const createSvelteIntlayerCompiler = (
    */
   const buildFilesListFn = async (): Promise<void> => {
     const { traversePattern } = config.build;
-    const { baseDir, mainDir, fileExtensions } = config.content;
+    const { baseDir, fileExtensions } = config.content;
+    const { mainDir } = config.system;
 
     const filesListPattern = buildFilesList({
       transformPattern:
@@ -256,7 +257,7 @@ export const createSvelteIntlayerCompiler = (
     );
 
     if (!isContentFile) {
-      const dictionariesDir = config.content.dictionariesDir;
+      const dictionariesDir = config.system.dictionariesDir;
       if (file.startsWith(dictionariesDir)) {
         return [];
       }
@@ -298,7 +299,7 @@ export const createSvelteIntlayerCompiler = (
       unmergedDictionariesDir,
       fetchDictionariesDir,
       mainDir,
-    } = config.content;
+    } = config.system;
 
     /**
      * Handle Svelte compiled modules

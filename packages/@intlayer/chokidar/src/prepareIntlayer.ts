@@ -43,7 +43,7 @@ export const prepareIntlayer = async (
   const appLogger = getAppLogger(configuration);
 
   const sentinelPath = join(
-    configuration.content.cacheDir,
+    configuration.system.cacheDir,
     'intlayer-prepared.lock'
   );
   // Clean output dir if the intlayer version has changed

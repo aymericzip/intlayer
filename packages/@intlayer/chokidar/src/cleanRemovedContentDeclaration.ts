@@ -52,7 +52,7 @@ export const cleanRemovedContentDeclaration = async (
     uniqueUnmergedDictionaries.map(async (dictionary) => {
       const unmergedFilePath = normalize(
         join(
-          configuration.content.unmergedDictionariesDir,
+          configuration.system.unmergedDictionariesDir,
           `${dictionary.key}.json`
         )
       );
@@ -108,7 +108,7 @@ export const cleanRemovedContentDeclaration = async (
   await Promise.all(
     uniqueMergedDictionaries.map(async (dictionary) => {
       const mergedFilePath = normalize(
-        join(configuration.content.dictionariesDir, `${dictionary.key}.json`)
+        join(configuration.system.dictionariesDir, `${dictionary.key}.json`)
       );
 
       try {
@@ -129,14 +129,14 @@ export const cleanRemovedContentDeclaration = async (
 
             // Mark TS Types for removal
             const typesFilePath = normalize(
-              join(configuration.content.typesDir, `${dictionary.key}.ts`)
+              join(configuration.system.typesDir, `${dictionary.key}.ts`)
             );
             filesToRemove.push(typesFilePath);
 
             // Mark Dynamic Dictionaries for removal
             // We use glob to catch the loader files (.cjs, .mjs) AND the split locale files (.en.json, etc.)
             const dynamicFilesGlob = join(
-              configuration.content.dynamicDictionariesDir,
+              configuration.system.dynamicDictionariesDir,
               `${dictionary.key}.*`
             );
             const dynamicFiles = await fg(normalizePath(dynamicFilesGlob), {
@@ -161,7 +161,7 @@ export const cleanRemovedContentDeclaration = async (
             excludeKeys.push(dictionary.key);
           }
           const typesFilePath = normalize(
-            join(configuration.content.typesDir, `${dictionary.key}.ts`)
+            join(configuration.system.typesDir, `${dictionary.key}.ts`)
           );
           filesToRemove.push(typesFilePath);
         }

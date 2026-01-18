@@ -23,10 +23,10 @@ type GetUnmergedDictionaries = (
 export const getUnmergedDictionaries: GetUnmergedDictionaries = (
   configuration: IntlayerConfig = config
 ) => {
-  const { content, build } = configuration;
+  const { system, build } = configuration;
 
   // Always use cjs for dictionaries entry as it uses require
-  const dictionariesPath = join(content.mainDir, `unmerged_dictionaries.cjs`);
+  const dictionariesPath = join(system.mainDir, `unmerged_dictionaries.cjs`);
   let dictionaries: Record<DictionaryKeys, Dictionary[]> = {};
 
   if (existsSync(dictionariesPath)) {

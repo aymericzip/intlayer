@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: Pisahkan konfigurasi sistem dari konfigurasi konten. Pindahkan jalur internal ke properti `system`.
   - version: 7.6.0
     date: 2026-01-18
     changes: Tambahkan opsi kamus `location` dan `schema`

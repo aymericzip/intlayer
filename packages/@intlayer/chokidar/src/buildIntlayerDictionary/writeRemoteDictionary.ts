@@ -39,7 +39,7 @@ export const writeRemoteDictionary = async (
   remoteDictionaries: Dictionary[],
   configuration = getConfiguration()
 ): Promise<RemoteDictionaryOutput> => {
-  const { remoteDictionariesDir } = configuration.content;
+  const { remoteDictionariesDir } = configuration.system;
 
   // Create the dictionaries folder if it doesn't exist
   await mkdir(resolve(remoteDictionariesDir), { recursive: true });

@@ -11,7 +11,7 @@ export const getBuiltRemoteDictionariesPath = async (
   configuration: IntlayerConfig,
   excludeKeys: string[] = []
 ) => {
-  const { remoteDictionariesDir, mainDir } = configuration.content;
+  const { remoteDictionariesDir, mainDir } = configuration.system;
 
   // Create main directory if it doesn't exist
   if (!existsSync(mainDir)) {

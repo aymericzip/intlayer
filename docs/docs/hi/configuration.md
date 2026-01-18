@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: सिस्टम कॉन्फ़िगरेशन को सामग्री कॉन्फ़िगरेशन से अलग करें। आंतरिक पथों को `system` गुण में ले जाएं।
   - version: 7.6.0
     date: 2026-01-18
     changes: शब्दकोश विकल्प `location` और `schema` जोड़ें

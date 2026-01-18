@@ -12,7 +12,7 @@ export const generateDictionaryListContent = (
   format: 'cjs' | 'esm' = 'esm',
   configuration = getConfiguration()
 ): string => {
-  const { mainDir } = configuration.content;
+  const { mainDir } = configuration.system;
 
   let content = '';
 

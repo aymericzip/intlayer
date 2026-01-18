@@ -12,7 +12,7 @@ export const getBuiltFetchDictionariesPath = async (
   format: 'cjs' | 'esm' = 'esm',
   excludeKeys: string[] = []
 ) => {
-  const { fetchDictionariesDir, mainDir } = configuration.content;
+  const { fetchDictionariesDir, mainDir } = configuration.system;
 
   // Create main directory if it doesn't exist
   if (!existsSync(mainDir)) {

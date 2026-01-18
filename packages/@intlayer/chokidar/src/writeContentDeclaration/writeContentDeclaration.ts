@@ -269,7 +269,7 @@ const writeFileWithDirectories = async (
   // Will force a new preparation of the intlayer on next build
   try {
     const sentinelPath = join(
-      configuration.content.cacheDir,
+      configuration.system.cacheDir,
       'intlayer-prepared.lock'
     );
     await rm(sentinelPath, { recursive: true });

@@ -65,7 +65,7 @@ export const getIntlayerBundle = async (configuration: IntlayerConfig) => {
   const localRequire = isESModule ? createRequire(import.meta.url) : require;
 
   const configurationPath = join(
-    configuration.content.configDir,
+    configuration.system.configDir,
     `configuration.json`
   );
 

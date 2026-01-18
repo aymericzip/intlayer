@@ -12,7 +12,7 @@ export const getBuiltDynamicDictionariesPath = async (
   format: 'cjs' | 'esm' = 'esm',
   excludeKeys: string[] = []
 ) => {
-  const { dynamicDictionariesDir, mainDir } = configuration.content;
+  const { dynamicDictionariesDir, mainDir } = configuration.system;
 
   // Create main directory if it doesn't exist
   if (!existsSync(mainDir)) {

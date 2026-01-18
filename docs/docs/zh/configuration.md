@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: 将系统配置与内容配置分离。将内部路径移至 `system` 属性。
   - version: 7.6.0
     date: 2026-01-18
     changes: 添加字典选项 `location` 和 `schema`

@@ -27,10 +27,10 @@ type GetDynamicDictionaries = (
 export const getDynamicDictionaries: GetDynamicDictionaries = (
   configuration: IntlayerConfig = config
 ) => {
-  const { content, build } = configuration;
+  const { system, build } = configuration;
 
   // Always use cjs for dictionaries entry as it uses require
-  const dictionariesPath = join(content.mainDir, `dynamic_dictionaries.cjs`);
+  const dictionariesPath = join(system.mainDir, `dynamic_dictionaries.cjs`);
 
   let dictionaries: Record<
     DictionaryKeys,

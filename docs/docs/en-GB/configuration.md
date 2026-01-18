@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: Separate system configuration from content configuration. Move internal paths to `system` property.
   - version: 7.6.0
     date: 2026-01-18
     changes: Add `location` and `schema` dictionary options
@@ -392,65 +395,77 @@ Settings related to content handling within the application, including directory
   - _Example_: `'/path/to/project'`
   - _Note_: This is used to resolve all Intlayer-related directories.
 
-- **dictionaryOutput**:
-  - _Type_: `string[]`
-  - _Default_: `['intlayer']`
-  - _Description_: The type of dictionary output to use, e.g., `'intlayer'` or `'i18next'`.
-
 - **contentDir**:
   - _Type_: `string[]`
   - _Default_: `['.']`
   - _Example_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
   - _Description_: The directory path where content is stored.
 
+- **excludedPath**:
+  - _Type_: `string[]`
+  - _Default_: `['**/node_modules/**', '**/dist/**', '**/build/**', '**/.intlayer/**', '**/.next/**', '**/.nuxt/**', '**/.expo/**', '**/.vercel/**', '**/.turbo/**', '**/.tanstack/**']`
+  - _Description_: Directories excluded from content search.
+  - _Note_: This setting is not yet used, but planned for future implementation.
+
+- **formatCommand**:
+  - _Type_: `string`
+  - _Default_: `undefined`
+  - _Description_: The command to format the content. When Intlayer writes your .content files locally, this command will be used to format the content.
+  - _Example_: `'npx prettier --write "{{file}}" --log-level silent'` Using Prettier
+  - _Example_: `'npx biome format "{{file}}" --write --log-level none'` Using Biome
+  - _Example_: `'npx eslint --fix "{{file}}"  --quiet'` Using ESLint
+  - _Note_: Intlayer will replace the {{file}} with the path of the file to format.
+  - _Note_: If not set, Intlayer will try to detect the format command automatically. By trying to resolve the following commands: prettier, biome, eslint.
+
+---
+
+### System Configuration
+
+Settings related to internal paths and output results of Intlayer. These settings are typically internal and should not need to be modified by the user.
+
+#### Properties
+
 - **dictionariesDir**:
   - _Type_: `string`
-  - _Default_: `'.intlayer/dictionaries'`
-  - _Description_: The directory path for storing intermediate or output results.
+  - _Default_: `'.intlayer/dictionary'`
+  - _Description_: The directory path for storing localisation dictionaries.
 
 - **moduleAugmentationDir**:
   - _Type_: `string`
   - _Default_: `'.intlayer/types'`
   - _Description_: Directory for module augmentation, allowing better IDE suggestions and type checking.
   - _Example_: `'intlayer-types'`
-  - _Note_: Ensure this is included in `tsconfig.json`.
+  - _Note_: Be sure to include this in `tsconfig.json`.
 
 - **unmergedDictionariesDir**:
   - _Type_: `string`
   - _Default_: `'.intlayer/unmerged_dictionary'`
   - _Description_: The directory for storing unmerged dictionaries.
-  - _Example_: `'translations'`
-
-- **dictionariesDir**:
-  - _Type_: `string`
-  - _Default_: `'.intlayer/dictionary'`
-  - _Description_: The directory for storing localisation dictionaries.
-  - _Example_: `'translations'`
-
-- **i18nextResourcesDir**:
-  - _Type_: `string`
-  - _Default_: `'i18next_dictionary'`
-  - _Description_: The directory for storing i18n dictionaries.
-  - _Example_: `'translations'`
-  - _Note_: Ensure this directory is configured for the i18next output type.
 
 - **typesDir**:
   - _Type_: `string`
-  - _Default_: `'types'`
+  - _Default_: `'.intlayer/types'`
   - _Description_: The directory for storing dictionary types.
-  - _Example_: `'intlayer-types'`
 
 - **mainDir**:
   - _Type_: `string`
-  - _Default_: `'main'`
+  - _Default_: `'.intlayer/main'`
   - _Description_: The directory where main application files are stored.
-  - _Example_: `'intlayer-main'`
 
-- **excludedPath**:
-  - _Type_: `string[]`
-  - _Default_: `['node_modules']`
-  - _Description_: Directories excluded from content search.
-  - _Note_: This setting is not yet used, but planned for future implementation.
+- **configDir**:
+  - _Type_: `string`
+  - _Default_: `'.intlayer/config'`
+  - _Description_: The directory where the configuration files are stored.
+
+- **cacheDir**:
+  - _Type_: `string`
+  - _Default_: `'.intlayer/cache'`
+  - _Description_: The directory where the cache files are stored.
+
+- **outputFilesPatternWithPath**:
+  - _Type_: `string`
+  - _Default_: `'{{dictionariesDir}}/**/*.json'`
+  - _Description_: Pattern for output files including the relative path.
 
 ### Dictionary Configuration
 

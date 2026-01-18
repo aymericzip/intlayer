@@ -20,7 +20,7 @@ export const generateDictionaryEntryPoint = (
   format: 'cjs' | 'esm' = 'esm',
   configuration = getConfiguration()
 ): string => {
-  const { fetchDictionariesDir } = configuration.content;
+  const { fetchDictionariesDir } = configuration.system;
   const { liveSyncURL } = configuration.editor;
 
   let content = '';
@@ -70,7 +70,7 @@ export const writeFetchDictionary = async (
   configuration = getConfiguration(),
   formats: ('cjs' | 'esm')[] = ['cjs', 'esm']
 ): Promise<LocalizedDictionaryOutput> => {
-  const { fetchDictionariesDir } = configuration.content;
+  const { fetchDictionariesDir } = configuration.system;
 
   // Create the dictionaries folder if it doesn't exist
   await mkdir(resolve(fetchDictionariesDir), { recursive: true });

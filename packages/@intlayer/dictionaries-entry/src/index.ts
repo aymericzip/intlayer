@@ -15,10 +15,10 @@ type GetDictionaries = (configuration?: IntlayerConfig) => DictionaryRegistry;
 export const getDictionaries: GetDictionaries = (
   configuration: IntlayerConfig = config
 ) => {
-  const { content, build } = configuration;
+  const { system, build } = configuration;
 
   // Always use cjs for dictionaries entry as it uses require
-  const dictionariesPath = join(content.mainDir, `dictionaries.cjs`);
+  const dictionariesPath = join(system.mainDir, `dictionaries.cjs`);
 
   let dictionaries = {};
   if (existsSync(dictionariesPath)) {

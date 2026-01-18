@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: Systemkonfiguration von der Inhaltskonfiguration trennen. Interne Pfade zur Eigenschaft `system` verschieben.
   - version: 7.6.0
     date: 2026-01-18
     changes: Wörterbuchoptionen `location` und `schema` hinzugefügt
@@ -389,21 +392,40 @@ Einstellungen im Zusammenhang mit der Inhaltsverwaltung innerhalb der Anwendung,
   - _Beispiel_: `'/path/to/project'`
   - _Hinweis_: Dies wird verwendet, um alle Intlayer-bezogenen Verzeichnisse aufzulösen.
 
-- **dictionaryOutput**:
-  - _Typ_: `string[]`
-  - _Standard_: `['intlayer']`
-  - _Beschreibung_: Der Typ der Wörterbuchausgabe, z.B. `'intlayer'` oder `'i18next'`.
-
 - **contentDir**:
   - _Typ_: `string[]`
   - _Standard_: `['.']`
   - _Beispiel_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
   - _Beschreibung_: Der Verzeichnispfad, in dem Inhalte gespeichert sind.
 
+- **excludedPath**:
+  - _Typ_: `string[]`
+  - _Standard_: `['**/node_modules/**', '**/dist/**', '**/build/**', '**/.intlayer/**', '**/.next/**', '**/.nuxt/**', '**/.expo/**', '**/.vercel/**', '**/.turbo/**', '**/.tanstack/**']`
+  - _Beschreibung_: Verzeichnisse, die von der Inhaltssuche ausgeschlossen sind.
+  - _Hinweis_: Diese Einstellung wird derzeit noch nicht verwendet, ist aber für zukünftige Implementierungen geplant.
+
+- **formatCommand**:
+  - _Typ_: `string`
+  - _Standard_: `undefined`
+  - _Beschreibung_: Der Befehl zum Formatieren des Inhalts. Wenn Intlayer Ihre .content-Dateien lokal schreibt, wird dieser Befehl zum Formatieren des Inhalts verwendet.
+  - _Beispiel_: `'npx prettier --write "{{file}}" --log-level silent'` Mit Prettier
+  - _Beispiel_: `'npx biome format "{{file}}" --write --log-level none'` Mit Biome
+  - _Beispiel_: `'npx eslint --fix "{{file}}"  --quiet'` Mit ESLint
+  - _Hinweis_: Intlayer ersetzt {{file}} durch den Pfad der zu formatierenden Datei.
+  - _Hinweis_: Wenn nicht gesetzt, versucht Intlayer, den Formatierungsbefehl automatisch zu erkennen. Durch Versuch, die folgenden Befehle aufzulösen: prettier, biome, eslint.
+
+---
+
+### Systemkonfiguration
+
+Einstellungen im Zusammenhang mit internen Pfaden und Ausgabeergebnissen von Intlayer. Diese Einstellungen sind typischerweise intern und sollten nicht vom Benutzer geändert werden müssen.
+
+#### Eigenschaften
+
 - **dictionariesDir**:
   - _Typ_: `string`
-  - _Standard_: `'.intlayer/dictionaries'`
-  - _Beschreibung_: Der Verzeichnispfad zum Speichern von Zwischen- oder Ausgabedateien.
+  - _Standard_: `'.intlayer/dictionary'`
+  - _Beschreibung_: Der Verzeichnispfad zur Speicherung von Lokalisierungswörterbüchern.
 
 - **moduleAugmentationDir**:
   - _Typ_: `string`
@@ -415,39 +437,32 @@ Einstellungen im Zusammenhang mit der Inhaltsverwaltung innerhalb der Anwendung,
 - **unmergedDictionariesDir**:
   - _Typ_: `string`
   - _Standard_: `'.intlayer/unmerged_dictionary'`
-  - _Beschreibung_: Das Verzeichnis zum Speichern von nicht zusammengeführten Wörterbüchern.
-  - _Beispiel_: `'translations'`
-
-- **dictionariesDir**:
-  - _Typ_: `string`
-  - _Standard_: `'.intlayer/dictionary'`
-  - _Beschreibung_: Das Verzeichnis zur Speicherung von Lokalisierungswörterbüchern.
-  - _Beispiel_: `'translations'`
-
-- **i18nextResourcesDir**:
-  - _Typ_: `string`
-  - _Standard_: `'i18next_dictionary'`
-  - _Beschreibung_: Das Verzeichnis zur Speicherung von i18n-Wörterbüchern.
-  - _Beispiel_: `'translations'`
-  - _Hinweis_: Stellen Sie sicher, dass dieses Verzeichnis für den i18next-Ausgabetyp konfiguriert ist.
+  - _Beschreibung_: Das Verzeichnis zur Speicherung von nicht zusammengeführten Wörterbüchern.
 
 - **typesDir**:
   - _Typ_: `string`
-  - _Standard_: `'types'`
+  - _Standard_: `'.intlayer/types'`
   - _Beschreibung_: Das Verzeichnis zur Speicherung von Wörterbuchtypen.
-  - _Beispiel_: `'intlayer-types'`
 
 - **mainDir**:
   - _Typ_: `string`
-  - _Standard_: `'main'`
+  - _Standard_: `'.intlayer/main'`
   - _Beschreibung_: Das Verzeichnis, in dem die Hauptanwendungsdateien gespeichert sind.
-  - _Beispiel_: `'intlayer-main'`
 
-- **excludedPath**:
-  - _Typ_: `string[]`
-  - _Standard_: `['node_modules']`
-  - _Beschreibung_: Verzeichnisse, die von der Inhaltssuche ausgeschlossen sind.
-  - _Hinweis_: Diese Einstellung wird derzeit noch nicht verwendet, ist aber für zukünftige Implementierungen geplant.
+- **configDir**:
+  - _Typ_: `string`
+  - _Standard_: `'.intlayer/config'`
+  - _Beschreibung_: Das Verzeichnis, in dem die Konfigurationsdateien gespeichert sind.
+
+- **cacheDir**:
+  - _Typ_: `string`
+  - _Standard_: `'.intlayer/cache'`
+  - _Beschreibung_: Das Verzeichnis, in dem die Cache-Dateien gespeichert sind.
+
+- **outputFilesPatternWithPath**:
+  - _Typ_: `string`
+  - _Standard_: `'{{dictionariesDir}}/**/*.json'`
+  - _Beschreibung_: Muster für Ausgabedateien einschließlich des relativen Pfads.
 
 ### Wörterbuch-Konfiguration
 

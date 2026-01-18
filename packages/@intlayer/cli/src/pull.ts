@@ -84,7 +84,7 @@ export const pull = async (options?: PullOptions): Promise<void> => {
 
     // Load local cached remote dictionaries (if any)
     const remoteDictionariesPath = join(
-      config.content.mainDir,
+      config.system.mainDir,
       'remote_dictionaries.cjs'
     );
     const requireFunction = config.build?.require ?? getProjectRequire();

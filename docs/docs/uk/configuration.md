@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: Розділити конфігурацію системи від конфігурації контенту. Перемістити внутрішні шляхи до властивості `system`.
   - version: 7.6.0
     date: 2026-01-18
     changes: Додано опції словника `location` та `schema`

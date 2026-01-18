@@ -26,8 +26,8 @@ export const intlayerPrune = async (
       unmergedDictionariesDir,
       fetchDictionariesDir,
       mainDir,
-      baseDir,
-    } = intlayerConfig.content;
+    } = intlayerConfig.system;
+    const { baseDir } = intlayerConfig.content;
 
     const filesListPattern = await getComponentTransformPattern(intlayerConfig);
 

@@ -34,7 +34,7 @@ export const writeMergedDictionaries = async (
   groupedDictionaries: UnmergedDictionaryOutput,
   configuration = getConfiguration()
 ): Promise<MergedDictionaryOutput> => {
-  const { dictionariesDir } = configuration.content;
+  const { dictionariesDir } = configuration.system;
 
   // Create the dictionaries folder if it doesn't exist
   await mkdir(resolve(dictionariesDir), { recursive: true });

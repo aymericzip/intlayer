@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: فصل تكوين النظام عن تكوين المحتوى. نقل المسارات الداخلية إلى خاصية `system`.
   - version: 7.6.0
     date: 2026-01-18
     changes: إضافة خيارات القاموس `location` و `schema`

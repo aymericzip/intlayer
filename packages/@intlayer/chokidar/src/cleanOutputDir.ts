@@ -14,7 +14,7 @@ export const cleanOutputDir = async (configuration: IntlayerConfig) => {
     typesDir,
     configDir,
     cacheDir,
-  } = configuration.content;
+  } = configuration.system;
 
   const appLogger = getAppLogger(configuration);
 

@@ -7,8 +7,9 @@ export const loadLocalDictionaries = async (
   contentDeclarationsPaths: string[] | string,
   configuration: IntlayerConfig
 ): Promise<Dictionary[]> => {
-  const { content } = configuration;
-  const { dictionariesDir, baseDir } = content;
+  const { content, system } = configuration;
+  const { baseDir } = content;
+  const { dictionariesDir } = system;
 
   if (typeof contentDeclarationsPaths === 'string') {
     contentDeclarationsPaths = [contentDeclarationsPaths];

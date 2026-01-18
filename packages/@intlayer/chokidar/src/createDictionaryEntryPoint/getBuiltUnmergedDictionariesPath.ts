@@ -11,7 +11,7 @@ export const getBuiltUnmergedDictionariesPath = async (
   configuration: IntlayerConfig,
   excludeKeys: string[] = []
 ) => {
-  const { unmergedDictionariesDir, mainDir } = configuration.content;
+  const { unmergedDictionariesDir, mainDir } = configuration.system;
 
   // Create main directory if it doesn't exist
   if (!existsSync(mainDir)) {

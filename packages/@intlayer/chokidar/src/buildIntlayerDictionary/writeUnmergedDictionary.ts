@@ -53,7 +53,7 @@ export const writeUnmergedDictionaries = async (
   dictionaries: Dictionary[],
   configuration: IntlayerConfig
 ): Promise<UnmergedDictionaryOutput> => {
-  const { unmergedDictionariesDir } = configuration.content;
+  const { unmergedDictionariesDir } = configuration.system;
 
   // Create the dictionaries folder if it doesn't exist
   await mkdir(resolve(unmergedDictionariesDir), { recursive: true });

@@ -62,7 +62,7 @@ export const getOptimizePluginOptions = (
     unmergedDictionariesDir,
     dynamicDictionariesDir,
     fetchDictionariesDir,
-  } = config.content;
+  } = config.system;
   const { importMode, optimize } = config.build;
 
   // Build files list from traverse pattern

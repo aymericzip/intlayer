@@ -20,10 +20,10 @@ type GetRemoteDictionaries = (
 export const getRemoteDictionaries: GetRemoteDictionaries = (
   configuration: IntlayerConfig = config
 ) => {
-  const { content, build } = configuration;
+  const { system, build } = configuration;
 
   // Always use cjs for dictionaries entry as it uses require
-  const dictionariesPath = join(content.mainDir, `remote_dictionaries.cjs`);
+  const dictionariesPath = join(system.mainDir, `remote_dictionaries.cjs`);
   let dictionaries: Record<DictionaryKey, DictionaryAPI[]> = {};
 
   if (existsSync(dictionariesPath)) {

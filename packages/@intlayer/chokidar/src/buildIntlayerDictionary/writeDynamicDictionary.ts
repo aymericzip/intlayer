@@ -34,7 +34,7 @@ export const generateDictionaryEntryPoint = (
   format: 'cjs' | 'esm' = 'esm',
   configuration = getConfiguration()
 ): string => {
-  const { dynamicDictionariesDir } = configuration.content;
+  const { dynamicDictionariesDir } = configuration.system;
 
   let content = '';
 
@@ -89,7 +89,7 @@ export const writeDynamicDictionary = async (
   formats: ('cjs' | 'esm')[] = ['cjs', 'esm']
 ): Promise<LocalizedDictionaryOutput> => {
   const { locales, defaultLocale } = configuration.internationalization;
-  const { dynamicDictionariesDir } = configuration.content;
+  const { dynamicDictionariesDir } = configuration.system;
 
   // Create the dictionaries folder if it doesn't exist
   await mkdir(resolve(dynamicDictionariesDir), { recursive: true });

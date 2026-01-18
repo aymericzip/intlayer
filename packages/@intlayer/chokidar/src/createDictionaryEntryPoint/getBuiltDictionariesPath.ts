@@ -11,7 +11,7 @@ export const getBuiltDictionariesPath = async (
   configuration: IntlayerConfig,
   excludeKeys: string[] = []
 ) => {
-  const { dictionariesDir, mainDir } = configuration.content;
+  const { dictionariesDir, mainDir } = configuration.system;
 
   // Create main directory if it doesn't exist
   if (!existsSync(mainDir)) {

@@ -15,8 +15,8 @@ export const createTypes = async (
   dictionaries: Dictionary[],
   configuration: IntlayerConfig
 ): Promise<string[]> => {
-  const { content } = configuration;
-  const { typesDir } = content;
+  const { system } = configuration;
+  const { typesDir } = system;
 
   // Create type folders if they don't exist
   await mkdir(typesDir, { recursive: true });

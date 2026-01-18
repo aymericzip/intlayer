@@ -28,13 +28,13 @@ export const loadContentDeclarations = async (
   configuration: IntlayerConfig,
   onStatusUpdate?: (status: DictionariesStatus[]) => void
 ): Promise<Dictionary[]> => {
-  const { build, content } = configuration;
+  const { build, system } = configuration;
 
   const { set, isValid } = cacheDisk(configuration, ['intlayer-bundle'], {
     ttlMs: 1000 * 60 * 60 * 24 * 5, // 5 days
   });
 
-  const filePath = join(content.cacheDir, 'intlayer-bundle.cjs');
+  const filePath = join(system.cacheDir, 'intlayer-bundle.cjs');
   const hasIntlayerBundle = await isValid();
 
   // If cache is invalid, write the intlayer bundle to the cache

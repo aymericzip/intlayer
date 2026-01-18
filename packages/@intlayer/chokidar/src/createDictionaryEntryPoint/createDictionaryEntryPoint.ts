@@ -27,7 +27,7 @@ const writeDictionaryFiles = async (
   );
   const extension = format === 'cjs' ? 'cjs' : 'mjs';
 
-  const { mainDir } = configuration.content;
+  const { mainDir } = configuration.system;
 
   await writeFileIfChanged(
     resolve(mainDir, `${fileName}.${extension}`),
@@ -49,7 +49,7 @@ export const createDictionaryEntryPoint = async (
 ) => {
   const { formats, excludeKeys = [] } = options;
   const outputFormats = formats ?? configuration.build.outputFormat;
-  const { mainDir } = configuration.content;
+  const { mainDir } = configuration.system;
 
   await mkdir(mainDir, { recursive: true });
 

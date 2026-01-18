@@ -6,7 +6,7 @@ import { writeJsonIfChanged } from '../writeJsonIfChanged';
 
 const getCachedConfiguration = async (configuration: IntlayerConfig) => {
   const configFilePath = join(
-    configuration.content.configDir,
+    configuration.system.configDir,
     'configuration.json'
   );
 
@@ -24,7 +24,7 @@ export const isCachedConfigurationUpToDate = async (
 
     const isSimilar = isDeepStrictEqual(
       cachedConfiguration,
-      parsedConfiguration
+      cleanedConfiguration
     );
 
     return isSimilar;
@@ -49,8 +49,8 @@ const cleanConfiguration = (configuration: IntlayerConfig): IntlayerConfig => {
 };
 
 export const writeConfiguration = async (configuration: IntlayerConfig) => {
-  const { content } = configuration;
-  const { configDir } = content;
+  const { system } = configuration;
+  const { configDir } = system;
 
   // Ensure target directory exists
   // configDir is expected to be the directory where configuration.json will live

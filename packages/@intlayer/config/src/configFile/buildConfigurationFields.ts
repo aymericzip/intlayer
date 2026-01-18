@@ -2,8 +2,6 @@ import { statSync } from 'node:fs';
 import { dirname, isAbsolute, join } from 'node:path';
 import type {
   AiConfig,
-  BaseContentConfig,
-  BaseDerivedConfig,
   BuildConfig,
   CompilerConfig,
   ContentConfig,
@@ -14,8 +12,8 @@ import type {
   IntlayerConfig,
   LogConfig,
   LogFunctions,
-  PatternsContentConfig,
   RoutingConfig,
+  SystemConfig,
 } from '@intlayer/types';
 import packageJson from '@intlayer/types/package.json' with { type: 'json' };
 import {
@@ -32,19 +30,9 @@ import {
   COMPILER_TRANSFORM_PATTERN,
 } from '../defaultValues/compiler';
 import {
-  CACHE_DIR,
-  CONFIG_DIR,
   CONTENT_DIR,
-  DICTIONARIES_DIR,
-  DYNAMIC_DICTIONARIES_DIR,
   EXCLUDED_PATHS,
-  FETCH_DICTIONARIES_DIR,
   FILE_EXTENSIONS,
-  MAIN_DIR,
-  MODULE_AUGMENTATION_DIR,
-  REMOTE_DICTIONARIES_DIR,
-  TYPES_DIR,
-  UNMERGED_DICTIONARIES_DIR,
   WATCH,
 } from '../defaultValues/content';
 import { FILL, LOCATION } from '../defaultValues/dictionary';
@@ -67,6 +55,18 @@ import {
 } from '../defaultValues/internationalization';
 import { MODE, PREFIX } from '../defaultValues/log';
 import { BASE_PATH, ROUTING_MODE, STORAGE } from '../defaultValues/routing';
+import {
+  CACHE_DIR,
+  CONFIG_DIR,
+  DICTIONARIES_DIR,
+  DYNAMIC_DICTIONARIES_DIR,
+  FETCH_DICTIONARIES_DIR,
+  MAIN_DIR,
+  MODULE_AUGMENTATION_DIR,
+  REMOTE_DICTIONARIES_DIR,
+  TYPES_DIR,
+  UNMERGED_DICTIONARIES_DIR,
+} from '../defaultValues/system';
 import { normalizePath } from '../utils/normalizePath';
 
 let storedConfiguration: IntlayerConfig;
@@ -170,75 +170,9 @@ const buildContentFields = (
   customConfiguration?: Partial<ContentConfig>,
   baseDir?: string
 ): ContentConfig => {
-  const notDerivedContentConfig: BaseContentConfig = {
-    /**
-     * File extensions of content to look for to build the dictionaries
-     *
-     * - Default: ['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.tsx', '.content.jsx']
-     *
-     * - Example: ['.data.ts', '.data.js', '.data.json']
-     *
-     * Note:
-     * - Can exclude unused file extensions to improve performance
-     * - Avoid using common file extensions like '.ts', '.js', '.json' to avoid conflicts
-     */
-    fileExtensions: customConfiguration?.fileExtensions ?? FILE_EXTENSIONS,
-
-    /**
-     * Absolute path of the directory of the project
-     * - Default: process.cwd()
-     * - Example: '
-     *
-     * Will be used to resolve all intlayer directories
-     *
-     * Note:
-     * - The base directory should be the root of the project
-     * - Can be changed to a custom directory to externalize either the content used in the project, or the intlayer application from the project
-     */
-    baseDir: customConfiguration?.baseDir ?? baseDir ?? process.cwd(),
-
-    /**
-     * Should exclude some directories from the content search
-     *
-     * Default: ['**\/node_modules/**', '**\/dist/**', '**\/build/**', '**\/.intlayer/**', '**\/.next/**', '**\/.nuxt/**', '**\/.expo/**', '**\/.vercel/**', '**\/.turbo/**', '**\/.tanstack/**']
-     */
-    excludedPath: customConfiguration?.excludedPath ?? EXCLUDED_PATHS,
-
-    /**
-     * Indicates if Intlayer should watch for changes in the content declaration files in the app to rebuild the related dictionaries.
-     *
-     * Default: process.env.NODE_ENV === 'development'
-     */
-    watch: customConfiguration?.watch ?? WATCH,
-
-    /**
-     * Command to format the content. When intlayer write your .content files locally, this command will be used to format the content.
-     * Intlayer will replace the {{file}} with the path of the file to format.
-     *
-     * If not set, Intlayer will try to detect the format command automatically. By trying to resolve the following commands: prettier, biome, eslint.
-     *
-     * Example:
-     *
-     * ```bash
-     * npx prettier --write {{file}}
-     * ```
-     *
-     * ```bash
-     * bunx biome format {{file}}
-     * ```
-     *
-     * ```bash
-     * bun format {{file}}
-     * ```
-     *
-     * ```bash
-     * npx eslint --fix {{file}}
-     * ```
-     *
-     * Default: undefined
-     */
-    formatCommand: customConfiguration?.formatCommand,
-  };
+  const fileExtensions = customConfiguration?.fileExtensions ?? FILE_EXTENSIONS;
+  const projectBaseDir =
+    customConfiguration?.baseDir ?? baseDir ?? process.cwd();
 
   const optionalJoinBaseDir = (pathInput: string) => {
     let absolutePath: string;
@@ -247,14 +181,14 @@ const buildContentFields = (
       // Try resolving as a Node module first (e.g. '@intlayer/design-system')
       // Passing { paths: [...] } ensures we look starting from your project baseDir
       absolutePath = require.resolve(pathInput, {
-        paths: [notDerivedContentConfig.baseDir],
+        paths: [projectBaseDir],
       });
     } catch {
       // If resolution fails (it's not a module or it's a relative path like './src'),
       // fall back to standard path joining.
       absolutePath = isAbsolute(pathInput)
         ? pathInput
-        : join(notDerivedContentConfig.baseDir, pathInput);
+        : join(projectBaseDir, pathInput);
     }
 
     try {
@@ -278,198 +212,85 @@ const buildContentFields = (
     return absolutePath;
   };
 
-  const baseDirDerivedConfiguration: BaseDerivedConfig = {
-    /**
-     * Directory where the content is stored
-     *
-     * Relative to the base directory of the project
-     *
-     * Default: ./src
-     *
-     * Example: 'src'
-     *
-     * Note:
-     * - Can be changed to a custom directory to externalize the content used in the project
-     * - If the content is not at the base directory level, update the contentDirName field instead
-     */
-    contentDir: (customConfiguration?.contentDir ?? CONTENT_DIR).map(
-      optionalJoinBaseDir
-    ),
+  const contentDir = (customConfiguration?.contentDir ?? CONTENT_DIR).map(
+    optionalJoinBaseDir
+  );
 
-    /**
-     * Directory where the module augmentation will be stored
-     *
-     * Module augmentation allow better IDE suggestions and type checking
-     *
-     * Relative to the base directory of the project
-     *
-     * Default: .intlayer/types
-     *
-     * Example: 'types'
-     *
-     * Note:
-     * - If this path changed, be sure to include it from the tsconfig.json file
-     * - If the module augmentation is not at the base directory level, update the moduleAugmentationDirName field instead
-     *
-     */
+  return {
+    fileExtensions,
+    baseDir: projectBaseDir,
+    contentDir,
+    excludedPath: customConfiguration?.excludedPath ?? EXCLUDED_PATHS,
+    watch: customConfiguration?.watch ?? WATCH,
+    formatCommand: customConfiguration?.formatCommand,
+    watchedFilesPattern: fileExtensions.map((ext) => `/**/*${ext}`),
+    watchedFilesPatternWithPath: fileExtensions.flatMap((ext) =>
+      contentDir.map((dir) => `${normalizePath(dir)}/**/*${ext}`)
+    ),
+  };
+};
+
+const buildSystemFields = (
+  customConfiguration?: Partial<SystemConfig>,
+  contentConfig?: ContentConfig
+): SystemConfig => {
+  const projectBaseDir = contentConfig?.baseDir ?? process.cwd();
+
+  const optionalJoinBaseDir = (pathInput: string) => {
+    let absolutePath: string;
+
+    try {
+      absolutePath = require.resolve(pathInput, {
+        paths: [projectBaseDir],
+      });
+    } catch {
+      absolutePath = isAbsolute(pathInput)
+        ? pathInput
+        : join(projectBaseDir, pathInput);
+    }
+
+    try {
+      const stats = statSync(absolutePath);
+      if (stats.isFile()) {
+        return dirname(absolutePath);
+      }
+    } catch {
+      if (/\.[a-z0-9]+$/i.test(absolutePath)) {
+        return dirname(absolutePath);
+      }
+    }
+
+    return absolutePath;
+  };
+
+  const dictionariesDir = optionalJoinBaseDir(
+    customConfiguration?.dictionariesDir ?? DICTIONARIES_DIR
+  );
+
+  return {
     moduleAugmentationDir: optionalJoinBaseDir(
       customConfiguration?.moduleAugmentationDir ?? MODULE_AUGMENTATION_DIR
     ),
-
-    /**
-     * Directory where the unmerged dictionaries will be stored
-     *
-     * Relative to the result directory
-     *
-     * Default: '.intlayer/unmerged_dictionary'
-     *
-     */
     unmergedDictionariesDir: optionalJoinBaseDir(
       customConfiguration?.unmergedDictionariesDir ?? UNMERGED_DICTIONARIES_DIR
     ),
-
-    /**
-     * Directory where the remote dictionaries will be stored
-     *
-     * Relative to the result directory
-     *
-     * Default: '.intlayer/remote_dictionary'
-     */
     remoteDictionariesDir: optionalJoinBaseDir(
       customConfiguration?.remoteDictionariesDir ?? REMOTE_DICTIONARIES_DIR
     ),
-
-    /**
-     * Directory where the final dictionaries will be stored
-     *
-     * Relative to the result directory
-     *
-     * Default: .intlayer/dictionary
-     *
-     * Example: '.intlayer/dictionary'
-     *
-     * Note:
-     * - If the types are not at the result directory level, update the dictionariesDirName field instead
-     * - The dictionaries are stored in JSON format
-     * - The dictionaries are used to translate the content
-     * - The dictionaries are built from the content files
-     */
-    dictionariesDir: optionalJoinBaseDir(
-      customConfiguration?.dictionariesDir ?? DICTIONARIES_DIR
-    ),
-
-    /**
-     * Directory where the dynamic dictionaries will be stored
-     *
-     * Relative to the result directory
-     *
-     * Default: .intlayer/dynamic_dictionary
-     */
+    dictionariesDir,
     dynamicDictionariesDir: optionalJoinBaseDir(
       customConfiguration?.dynamicDictionariesDir ?? DYNAMIC_DICTIONARIES_DIR
     ),
-
-    /**
-     * Directory where the fetch dictionaries will be stored
-     *
-     * Relative to the result directory
-     *
-     * Default: .intlayer/fetch_dictionary
-     */
     fetchDictionariesDir: optionalJoinBaseDir(
       customConfiguration?.fetchDictionariesDir ?? FETCH_DICTIONARIES_DIR
     ),
-
-    /**
-     * Directory where the dictionaries types will be stored
-     *
-     * Relative to the result directory
-     *
-     * Default: .intlayer/types
-     *
-     * Example: 'types'
-     *
-     * Note:
-     * - If the types are not at the result directory level, update the typesDirName field instead
-     */
     typesDir: optionalJoinBaseDir(customConfiguration?.typesDir ?? TYPES_DIR),
-
-    /**
-     * Directory where the main files will be stored
-     *
-     * Relative to the result directory
-     *
-     * Default: .intlayer/main
-     *
-     * Example: '.intlayer/main'
-     *
-     * Note:
-     *
-     * - If the main files are not at the result directory level, update the mainDirName field instead
-     */
     mainDir: optionalJoinBaseDir(customConfiguration?.mainDir ?? MAIN_DIR),
-
-    /**
-     * Directory where the configuration files are stored
-     *
-     * Relative to the result directory
-     *
-     * Default: .intlayer/config
-     *
-     * Example: '.intlayer/config'
-     *
-     * Note:
-     *
-     * - If the configuration files are not at the result directory level, update the configDirName field instead
-     */
     configDir: optionalJoinBaseDir(
       customConfiguration?.configDir ?? CONFIG_DIR
     ),
-
-    /**
-     * Directory where the cache files are stored, relative to the result directory
-     *
-     * Default: .intlayer/cache
-     */
     cacheDir: optionalJoinBaseDir(customConfiguration?.cacheDir ?? CACHE_DIR),
-  };
-
-  const patternsConfiguration: PatternsContentConfig = {
-    /**
-     * Pattern of files to watch
-     *
-     * Default: ['/**\/*.content.ts', '/**\/*.content.js', '/**\/*.content.json', '/**\/*.content.cjs', '/**\/*.content.mjs', '/**\/*.content.tsx', '/**\/*.content.jsx']
-     */
-    watchedFilesPattern: notDerivedContentConfig.fileExtensions.map(
-      (ext) => `/**/*${ext}`
-    ),
-
-    /**
-     * Pattern of files to watch including the relative path
-     *
-     * Default: ['src/**\/*.content.ts', 'src/**\/*.content.js', 'src/**\/*.content.json', 'src/**\/*.content.cjs', 'src/**\/*.content.mjs', 'src/**\/*.content.tsx', 'src/**\/*.content.jsx']
-     */
-    watchedFilesPatternWithPath: notDerivedContentConfig.fileExtensions.flatMap(
-      (ext) =>
-        baseDirDerivedConfiguration.contentDir.map(
-          (contentDir) => `${normalizePath(contentDir)}/**/*${ext}`
-        )
-    ),
-
-    /**
-     * Pattern of dictionary to interpret
-     *
-     * Default: '.intlayer/dictionary/**\/*.json'
-     */
-    outputFilesPatternWithPath: `${normalizePath(
-      baseDirDerivedConfiguration.dictionariesDir
-    )}/**/*.json`,
-  };
-
-  return {
-    ...notDerivedContentConfig,
-    ...baseDirDerivedConfiguration,
-    ...patternsConfiguration,
+    outputFilesPatternWithPath: `${normalizePath(dictionariesDir)}/**/*.json`,
   };
 };
 
@@ -880,6 +701,11 @@ export const buildConfigurationFields = (
     baseDir
   );
 
+  const systemConfig = buildSystemFields(
+    customConfiguration?.system,
+    contentConfig
+  );
+
   const editorConfig = buildEditorFields(customConfiguration?.editor);
 
   const logConfig = buildLogFields(customConfiguration?.log, logFunctions);
@@ -898,6 +724,7 @@ export const buildConfigurationFields = (
     internationalization: internationalizationConfig,
     routing: routingConfig,
     content: contentConfig,
+    system: systemConfig,
     editor: editorConfig,
     log: logConfig,
     ai: aiConfig,

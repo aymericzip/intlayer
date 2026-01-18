@@ -4,3 +4,4 @@ export * as Editor from './editor';
 export * as Internationalization from './internationalization';
 export * as Log from './log';
 export * as Routing from './routing';
+export * as System from './system';
