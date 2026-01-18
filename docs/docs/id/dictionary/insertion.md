@@ -17,6 +17,9 @@ slugs:
   - content
   - insertion
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: Dekorasi otomatis konten penyisipan
   - version: 5.5.10
     date: 2025-06-29
     changes: Inisialisasi riwayat
@@ -43,6 +46,7 @@ const myInsertionContent = {
     myInsertion: insert(
       "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!"
     ),
+    myInsertion2: "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 } satisfies Dictionary;
 
@@ -59,6 +63,7 @@ const myInsertionContent = {
     myInsertion: insert(
       "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!"
     ),
+    myInsertion2: "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -76,6 +81,7 @@ const myInsertionContent = {
     myInsertion: insert(
       "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!"
     ),
+    myInsertion2: "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -91,6 +97,7 @@ module.exports = myInsertionContent;
       "nodeType": "insertion",
       "insertion": "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!",
     },
+    "myInsertion2": "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 }
 ```

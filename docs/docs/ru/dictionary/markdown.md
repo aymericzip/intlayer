@@ -16,6 +16,10 @@ slugs:
   - concept
   - content
   - markdown
+history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: Автоматическое оформление содержимого markdown
 ---
 
 # Как работает Markdown
@@ -37,6 +41,7 @@ const markdownDictionary = {
   key: "app",
   content: {
     myMarkdownContent: md("## Мой заголовок \n\nLorem Ipsum"),
+    myMarkdownContent2: "## Мой заголовок \n\nLorem Ipsum", // Since intlayer v8, markdown function is not required anymore. The content will be automatically decorated.
   },
 } satisfies Dictionary;
 
@@ -51,6 +56,7 @@ const markdownDictionary = {
   key: "app",
   content: {
     myMarkdownContent: md("## Мой заголовок \n\nLorem Ipsum"),
+    myMarkdownContent2: "## Мой заголовок \n\nLorem Ipsum", // Since intlayer v8, markdown function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -65,6 +71,7 @@ const markdownDictionary = {
   key: "app",
   content: {
     myMarkdownContent: md("## Мой заголовок \n\nLorem Ipsum"),
+    myMarkdownContent2: "## Мой заголовок \n\nLorem Ipsum", // Since intlayer v8, markdown function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -79,7 +86,8 @@ module.exports = markdownDictionary;
     "myMarkdownContent": {
       "nodeType": "markdown",
       "markdown": "## Мой заголовок \n\nLorem Ipsum"
-    }
+    },
+    "myMarkdownContent2": "## Мой заголовок \n\nLorem Ipsum" // Since intlayer v8, markdown function is not required anymore. The content will be automatically decorated.
   }
 }
 ```

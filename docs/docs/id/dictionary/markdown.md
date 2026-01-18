@@ -17,6 +17,9 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: Dekorasi otomatis konten markdown
   - version: 5.5.10
     date: 2025-06-29
     changes: Inisialisasi riwayat
@@ -43,6 +46,7 @@ const markdownDictionary = {
   key: "app",
   content: {
     myMarkdownContent: md("## My title \n\nLorem Ipsum"),
+    myMarkdownContent2: "## My title \n\nLorem Ipsum", // Since intlayer v8, markdown function is not required anymore. The content will be automatically decorated.
   },
 } satisfies Dictionary;
 
@@ -57,6 +61,7 @@ const markdownDictionary = {
   key: "app",
   content: {
     myMarkdownContent: md("## Judul Saya \n\nLorem Ipsum"),
+    myMarkdownContent2: "## Judul Saya \n\nLorem Ipsum", // Since intlayer v8, markdown function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -71,6 +76,7 @@ const markdownDictionary = {
   key: "app",
   content: {
     myMarkdownContent: md("## Judul Saya \n\nLorem Ipsum"),
+    myMarkdownContent2: "## Judul Saya \n\nLorem Ipsum", // Since intlayer v8, markdown function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -85,7 +91,8 @@ module.exports = markdownDictionary;
     "myMarkdownContent": {
       "nodeType": "markdown",
       "markdown": "## Judul Saya \n\nLorem Ipsum"
-    }
+    },
+    "myMarkdownContent2": "## Judul Saya \n\nLorem Ipsum" // Since intlayer v8, markdown function is not required anymore. The content will be automatically decorated.
   }
 }
 ```

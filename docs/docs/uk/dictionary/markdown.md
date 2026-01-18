@@ -17,6 +17,9 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: Автоматичне оформлення вмісту markdown
   - version: 5.5.10
     date: 2025-06-29
     changes: Ініціалізація історії
@@ -58,6 +61,7 @@ const markdownDictionary = {
   key: "app",
   content: {
     myMarkdownContent: md("## Мій заголовок \n\nLorem Ipsum"),
+    myMarkdownContent2: "## Мій заголовок \n\nLorem Ipsum", // Since intlayer v8, markdown function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -73,6 +77,7 @@ const markdownDictionary = {
   key: "app",
   content: {
     myMarkdownContent: md("## Мій заголовок \n\nLorem Ipsum"),
+    myMarkdownContent2: "## Мій заголовок \n\nLorem Ipsum", // Since intlayer v8, markdown function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -87,7 +92,8 @@ module.exports = markdownDictionary;
     "myMarkdownContent": {
       "nodeType": "markdown",
       "markdown": "## My title \n\nLorem Ipsum"
-    }
+    },
+    "myMarkdownContent2": "## My title \n\nLorem Ipsum" // Since intlayer v8, markdown function is not required anymore. The content will be automatically decorated.
   }
 }
 ```

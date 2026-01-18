@@ -17,6 +17,9 @@ slugs:
   - content
   - insertion
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: सम्मिलन सामग्री का स्वचालित सजावट
   - version: 5.5.10
     date: 2025-06-29
     changes: प्रारंभिक इतिहास
@@ -43,6 +46,7 @@ const myInsertionContent = {
     myInsertion: insert(
       "नमस्ते, मेरा नाम {{name}} है और मेरी उम्र {{age}} वर्ष है!"
     ),
+    myInsertion2: "नमस्ते, मेरा नाम {{name}} है और मेरी उम्र {{age}} वर्ष है!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 } satisfies Dictionary;
 
@@ -59,6 +63,7 @@ const myInsertionContent = {
     myInsertion: insert(
       "नमस्ते, मेरा नाम {{name}} है और मेरी उम्र {{age}} वर्ष है!"
     ),
+    myInsertion2: "नमस्ते, मेरा नाम {{name}} है और मेरी उम्र {{age}} वर्ष है!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -76,6 +81,7 @@ const myInsertionContent = {
     myInsertion: insert(
       "नमस्ते, मेरा नाम {{name}} है और मेरी उम्र {{age}} वर्ष है!"
     ),
+    myInsertion2: "नमस्ते, मेरा नाम {{name}} है और मेरी उम्र {{age}} वर्ष है!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -91,6 +97,7 @@ module.exports = myInsertionContent;
       "nodeType": "insertion",
       "insertion": "नमस्ते, मेरा नाम {{name}} है और मेरी उम्र {{age}} वर्ष है!",
     },
+    "myInsertion2": "नमस्ते, मेरा नाम {{name}} है और मेरी उम्र {{age}} वर्ष है!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 }
 ```

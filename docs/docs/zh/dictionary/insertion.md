@@ -17,6 +17,9 @@ slugs:
   - content
   - insertion
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: 自动装饰插入内容
   - version: 5.5.10
     date: 2025-06-29
     changes: 初始化历史
@@ -43,6 +46,7 @@ const myInsertionContent = {
     myInsertion: insert(
       "你好，我的名字是 {{name}}，我今年 {{age}} 岁！" // 插入的字符串，包含动态占位符
     ),
+    myInsertion2: "你好，我的名字是 {{name}}，我今年 {{age}} 岁！", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 } satisfies Dictionary;
 
@@ -59,6 +63,7 @@ const myInsertionContent = {
     myInsertion: insert(
       "你好，我的名字是 {{name}}，我今年 {{age}} 岁！" // 插入的字符串，包含动态占位符
     ),
+    myInsertion2: "你好，我的名字是 {{name}}，我今年 {{age}} 岁！", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -89,6 +94,7 @@ module.exports = myInsertionContent;
       "nodeType": "insertion",
       "insertion": "你好，我的名字是 {{name}}，我今年 {{age}} 岁！",
     },
+    "myInsertion2": "你好，我的名字是 {{name}}，我今年 {{age}} 岁！", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 }
 ```

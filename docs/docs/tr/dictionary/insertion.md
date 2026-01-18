@@ -17,6 +17,9 @@ slugs:
   - content
   - insertion
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: Ekleme içeriğinin otomatik süslemesi
   - version: 5.5.10
     date: 2025-06-29
     changes: Geçmiş başlatıldı
@@ -41,6 +44,7 @@ const myInsertionContent = {
   key: "my_key",
   content: {
     myInsertion: insert("Merhaba, adım {{name}} ve {{age}} yaşındayım!"),
+    myInsertion2: "Merhaba, adım {{name}} ve {{age}} yaşındayım!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 } satisfies Dictionary;
 
@@ -55,6 +59,7 @@ const myInsertionContent = {
   key: "my_key",
   content: {
     myInsertion: insert("Merhaba, adım {{name}} ve {{age}} yaşındayım!"),
+    myInsertion2: "Merhaba, adım {{name}} ve {{age}} yaşındayım!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -69,6 +74,7 @@ const myInsertionContent = {
   key: "my_key",
   content: {
     myInsertion: insert("Merhaba, adım {{name}} ve {{age}} yaşındayım!"),
+    myInsertion2: "Merhaba, adım {{name}} ve {{age}} yaşındayım!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -84,6 +90,7 @@ module.exports = myInsertionContent;
       "nodeType": "insertion",
       "insertion": "Merhaba, adım {{name}} ve {{age}} yaşındayım!",
     },
+    "myInsertion2": "Merhaba, adım {{name}} ve {{age}} yaşındayım!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 }
 ```

@@ -17,6 +17,9 @@ slugs:
   - content
   - insertion
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: 삽입 콘텐츠의 자동 장식
   - version: 5.5.10
     date: 2025-06-29
     changes: 이력 초기화
@@ -43,6 +46,7 @@ const myInsertionContent = {
     myInsertion: insert(
       "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!"
     ),
+    myInsertion2: "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 } satisfies Dictionary;
 
@@ -59,6 +63,7 @@ const myInsertionContent = {
     myInsertion: insert(
       "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!"
     ),
+    myInsertion2: "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -75,6 +80,7 @@ const myInsertionContent = {
     myInsertion: insert(
       "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!"
     ),
+    myInsertion2: "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -90,6 +96,7 @@ module.exports = myInsertionContent;
       "nodeType": "insertion",
       "insertion": "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!",
     },
+    "myInsertion2": "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 }
 ```

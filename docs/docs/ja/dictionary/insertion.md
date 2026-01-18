@@ -17,6 +17,9 @@ slugs:
   - content
   - insertion
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: 挿入コンテンツの自動装飾
   - version: 5.5.10
     date: 2025-06-29
     changes: 履歴の初期化
@@ -43,6 +46,7 @@ const myInsertionContent = {
     myInsertion: insert(
       "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！"
     ),
+    myInsertion2: "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 } satisfies Dictionary;
 
@@ -59,6 +63,7 @@ const myInsertionContent = {
     myInsertion: insert(
       "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！"
     ),
+    myInsertion2: "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -75,6 +80,7 @@ const myInsertionContent = {
     myInsertion: insert(
       "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！"
     ),
+    myInsertion2: "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -90,6 +96,7 @@ module.exports = myInsertionContent;
       "nodeType": "insertion",
       "insertion": "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！",
     },
+    "myInsertion2": "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 }
 ```

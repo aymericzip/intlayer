@@ -1,11 +1,20 @@
 import { type Dictionary, file, gender, insert, md, t } from 'intlayer';
 import type { ReactNode } from 'react';
 
+const markdownWithMetadata = `---
+title: My Title
+---
+## Hello World`;
+
 const appContent = {
   key: 'app',
   importMode: 'live',
   content: {
     markdown: md('## Hello world'),
+    markdown2: '## Hello world',
+    markdown3: md(markdownWithMetadata),
+    markdown4: markdownWithMetadata,
+
     file: md(file('./test.md')),
 
     test: gender({
@@ -15,6 +24,7 @@ const appContent = {
     }),
 
     insertion: insert('test {{ count }}'),
+    insertion2: '---test {{ count }}',
     viteLogo: t({
       en: 'Vite logo',
       fr: 'Logo Vite',

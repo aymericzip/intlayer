@@ -17,6 +17,9 @@ slugs:
   - content
   - insertion
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: Automatyczna dekoracja treści wstawiania
   - version: 5.5.10
     date: 2025-06-29
     changes: Inicjalizacja historii
@@ -41,6 +44,7 @@ const myInsertionContent = {
   key: "my_key",
   content: {
     myInsertion: insert("Cześć, mam na imię {{name}} i mam {{age}} lat!"),
+    myInsertion2: "Cześć, mam na imię {{name}} i mam {{age}} lat!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 } satisfies Dictionary;
 
@@ -55,6 +59,7 @@ const myInsertionContent = {
   key: "my_key",
   content: {
     myInsertion: insert("Cześć, mam na imię {{name}} i mam {{age}} lat!"),
+    myInsertion2: "Cześć, mam na imię {{name}} i mam {{age}} lat!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -72,6 +77,7 @@ const myInsertionContent = {
     myInsertion: insert(
       "Cześć, mam na imię {{name}} i mam {{age}} lat!"
     ),
+    myInsertion2: "Cześć, mam na imię {{name}} i mam {{age}} lat!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -87,6 +93,7 @@ module.exports = myInsertionContent;
       "nodeType": "insertion",
       "insertion": "Cześć, mam na imię {{name}} i mam {{age}} lat!",
     },
+    "myInsertion2": "Cześć, mam na imię {{name}} i mam {{age}} lat!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 }
 ```

@@ -17,6 +17,9 @@ slugs:
   - content
   - insertion
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: Tự động trang trí nội dung chèn
   - version: 5.5.10
     date: 2025-06-29
     changes: Khởi tạo lịch sử
@@ -73,6 +76,7 @@ const myInsertionContent = {
     myInsertion: insert(
       "Xin chào, tôi tên là {{name}} và tôi {{age}} tuổi!"
     ),
+    myInsertion2: "Xin chào, tôi tên là {{name}} và tôi {{age}} tuổi!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -88,6 +92,7 @@ module.exports = myInsertionContent;
       "nodeType": "insertion",
       "insertion": "Xin chào, tôi tên là {{name}} và tôi {{age}} tuổi!",
     },
+    "myInsertion2": "Xin chào, tôi tên là {{name}} và tôi {{age}} tuổi!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 }
 ```

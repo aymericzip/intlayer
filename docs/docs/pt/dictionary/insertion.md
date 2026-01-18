@@ -17,6 +17,9 @@ slugs:
   - content
   - insertion
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: Decoração automática do conteúdo de inserção
   - version: 5.5.10
     date: 2025-06-29
     changes: Histórico inicial
@@ -44,6 +47,7 @@ const myInsertionContent = {
       // Inserção com placeholders para nome e idade
       "Hello, my name is {{name}} and I am {{age}} years old!"
     ),
+    myInsertion2: "Hello, my name is {{name}} and I am {{age}} years old!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 } satisfies Dictionary;
 
@@ -61,6 +65,7 @@ const myInsertionContent = {
       // Inserção com placeholders para nome e idade
       "Hello, my name is {{name}} and I am {{age}} years old!"
     ),
+    myInsertion2: "Hello, my name is {{name}} and I am {{age}} years old!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -79,6 +84,7 @@ const myInsertionContent = {
       // Inserção com placeholders para nome e idade
       "Hello, my name is {{name}} and I am {{age}} years old!"
     ),
+    myInsertion2: "Hello, my name is {{name}} and I am {{age}} years old!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -94,6 +100,7 @@ module.exports = myInsertionContent;
       "nodeType": "insertion",
       "insertion": "Hello, my name is {{name}} and I am {{age}} years old!",
     },
+    "myInsertion2": "Hello, my name is {{name}} and I am {{age}} years old!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 }
 ```

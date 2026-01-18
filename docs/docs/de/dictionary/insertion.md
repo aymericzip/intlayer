@@ -17,6 +17,9 @@ slugs:
   - content
   - insertion
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: Automatische Dekoration von Insertion-Inhalten
   - version: 5.5.10
     date: 2025-06-29
     changes: Initiale Historie
@@ -43,6 +46,8 @@ const myInsertionContent = {
     myInsertion: insert(
       "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!"
     ),
+    myInsertion2:
+      "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 } satisfies Dictionary;
 
@@ -59,6 +64,8 @@ const myInsertionContent = {
     myInsertion: insert(
       "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!"
     ),
+    myInsertion2:
+      "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -76,6 +83,7 @@ const myInsertionContent = {
     myInsertion: insert(
       "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!"
     ),
+    myInsertion2: "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -91,6 +99,7 @@ module.exports = myInsertionContent;
       "nodeType": "insertion",
       "insertion": "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!",
     },
+    "myInsertion2": "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 }
 ```

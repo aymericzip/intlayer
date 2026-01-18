@@ -53,6 +53,7 @@ export {
   shouldExtract,
   transformFiles,
 } from './transformFiles';
+export { autoDecorateContent } from './utils/autoDecorateContent';
 export {
   type BuildFilesListOptions,
   buildFilesList,

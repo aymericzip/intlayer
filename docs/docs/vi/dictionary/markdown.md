@@ -17,6 +17,9 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: Tự động trang trí nội dung markdown
   - version: 5.5.10
     date: 2025-06-29
     changes: Khởi tạo lịch sử
@@ -43,6 +46,7 @@ const markdownDictionary = {
   key: "app",
   content: {
     myMarkdownContent: md("## My title \n\nLorem Ipsum"),
+    myMarkdownContent2: "## My title \n\nLorem Ipsum", // Since intlayer v8, markdown function is not required anymore. The content will be automatically decorated.
   },
 } satisfies Dictionary;
 
@@ -58,6 +62,7 @@ const markdownDictionary = {
   key: "app",
   content: {
     myMarkdownContent: md("## Tiêu đề của tôi \n\nLorem Ipsum"),
+    myMarkdownContent2: "## Tiêu đề của tôi \n\nLorem Ipsum", // Since intlayer v8, markdown function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -73,6 +78,7 @@ const markdownDictionary = {
   key: "app",
   content: {
     myMarkdownContent: md("## Tiêu đề của tôi \n\nLorem Ipsum"),
+    myMarkdownContent2: "## Tiêu đề của tôi \n\nLorem Ipsum", // Since intlayer v8, markdown function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -87,7 +93,8 @@ module.exports = markdownDictionary;
     "myMarkdownContent": {
       "nodeType": "markdown",
       "markdown": "## Tiêu đề của tôi \n\nLorem Ipsum"
-    }
+    },
+    "myMarkdownContent2": "## Tiêu đề của tôi \n\nLorem Ipsum" // Since intlayer v8, markdown function is not required anymore. The content will be automatically decorated.
   }
 }
 ```

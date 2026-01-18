@@ -17,6 +17,9 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: Automatic decoration of markdown content
   - version: 5.5.10
     date: 2025-06-29
     changes: Init history
@@ -43,6 +46,7 @@ const markdownDictionary = {
   key: "app",
   content: {
     myMarkdownContent: md("## My title \n\nLorem Ipsum"),
+    myMarkdownContent2: "## My title \n\nLorem Ipsum", // Since intlayer v8, markdown function is not required anymore. The content will be automatically decorated.
   },
 } satisfies Dictionary;
 
@@ -57,6 +61,7 @@ const markdownDictionary = {
   key: "app",
   content: {
     myMarkdownContent: md("## My title \n\nLorem Ipsum"),
+    myMarkdownContent2: "## My title \n\nLorem Ipsum", // Since intlayer v8, markdown function is not required anymore. The content will be automatically decorated.
   },
 };
 
@@ -71,22 +76,24 @@ const markdownDictionary = {
   key: "app",
   content: {
     myMarkdownContent: md("## My title \n\nLorem Ipsum"),
+    myMarkdownContent2: "## My title \n\nLorem Ipsum", // Since intlayer v8, markdown function is not required anymore. The content will be automatically decorated.
   },
 };
 
 module.exports = markdownDictionary;
 ```
 
-```json fileName="markdownDictionary.content.json" contentDeclarationFormat="json"
+```json5 fileName="markdownDictionary.content.json" contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
   "key": "app",
   "content": {
     "myMarkdownContent": {
       "nodeType": "markdown",
-      "markdown": "## My title \n\nLorem Ipsum"
-    }
-  }
+      "markdown": "## My title \n\nLorem Ipsum",
+    },
+    "myMarkdownContent2": "## My title \n\nLorem Ipsum", // Since intlayer v8, markdown function is not required anymore. The content will be automatically decorated.
+  },
 }
 ```
 
