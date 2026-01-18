@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: 사전 옵션 `location` 및 `schema` 추가
   - version: 7.5.0
     date: 2025-12-13
     changes: ICU 및 i18next 형식 지원 추가
@@ -450,6 +453,61 @@ content: { /* ... */ }
   "content": {
     "title": "About Us", // 'en'에 대한 번역 노드가 됩니다.
     "description": "Learn more about our company"
+  }
+}
+```
+
+#### `schema` (SchemaKeys)
+
+사전 콘텐츠의 스키마입니다. 설정된 경우 콘텐츠가 이 스키마에 대해 검증됩니다. 이를 통해 Intlayer 구성에서 정의한 사용자 지정 검증 스키마를 사용하여 사전 콘텐츠에 특정 구조를 강제할 수 있습니다.
+
+**예시:**
+
+```typescript fileName="intlayer.config.ts"
+import { z } from "zod";
+
+export default {
+  schemas: {
+    "seo-metadata": z.object({
+      title: z.string().min(50).max(60),
+      description: z.string().min(150).max(160),
+    }),
+  },
+};
+```
+
+```typescript fileName="src/example.content.ts"
+import { type Dictionary } from "intlayer";
+
+const aboutPageMetaContent = {
+  key: "about-page-meta",
+  schema: "seo-metadata",
+  content: {
+    title: "About Our Company - Learn More About Us",
+    description: "Discover our company's mission, values, and team.",
+  },
+} satisfies Dictionary<"seo-metadata">;
+
+export default aboutPageMetaContent;
+```
+
+#### `location` ('remote' | 'local' | 'local&remote' | 'plugin')
+
+사전의 위치를 나타냅니다. 이 속성을 설정하여 사전의 소스를 제어할 수 있습니다:
+
+- `'local'`: 로컬 사전 (콘텐츠 파일에서)
+- `'remote'`: 원격 사전 (외부 소스/CMS에서)
+- `'local&remote'`: 로컬과 원격 모두에 존재하는 사전
+- `'plugin'`: 플러그인에서 제공하는 사전
+
+**예시:**
+
+```typescript
+{
+  key: "about-page",
+  location: "local",
+  content: {
+    title: "About Us"
   }
 }
 ```

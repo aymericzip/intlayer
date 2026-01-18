@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: Sözlük seçenekleri `location` ve `schema` eklendi
   - version: 7.5.0
     date: 2025-12-13
     changes: ICU ve i18next format desteği eklendi
@@ -449,6 +452,61 @@ Sözlüğü, içerikte bildirilen her alanın otomatik olarak bir çeviri düğ�
   "content": {
     "title": "About Us", // Bu 'en' için bir çeviri düğümü olur
     "description": "Learn more about our company"
+  }
+}
+```
+
+#### `schema` (SchemaKeys)
+
+Sözlük içeriğinin şeması. Ayarlanırsa, içerik bu şemaya karşı doğrulanacaktır. Bu, Intlayer yapılandırmanızda tanımlanan özel doğrulama şemalarını kullanarak sözlük içeriğiniz için belirli bir yapı zorlamanıza olanak tanır.
+
+**Örnek:**
+
+```typescript fileName="intlayer.config.ts"
+import { z } from "zod";
+
+export default {
+  schemas: {
+    "seo-metadata": z.object({
+      title: z.string().min(50).max(60),
+      description: z.string().min(150).max(160),
+    }),
+  },
+};
+```
+
+```typescript fileName="src/example.content.ts"
+import { type Dictionary } from "intlayer";
+
+const aboutPageMetaContent = {
+  key: "about-page-meta",
+  schema: "seo-metadata",
+  content: {
+    title: "About Our Company - Learn More About Us",
+    description: "Discover our company's mission, values, and team.",
+  },
+} satisfies Dictionary<"seo-metadata">;
+
+export default aboutPageMetaContent;
+```
+
+#### `location` ('remote' | 'local' | 'local&remote' | 'plugin')
+
+Sözlüğün konumunu belirtir. Bu özellik, sözlüğün kaynağını kontrol etmek için ayarlanabilir:
+
+- `'local'`: Yerel sözlük (içerik dosyalarından)
+- `'remote'`: Uzaktan sözlük (dış kaynak/CMS'den)
+- `'local&remote'`: Hem yerel hem de uzaktan var olan sözlük
+- `'plugin'`: Bir eklenti tarafından sağlanan sözlük
+
+**Örnek:**
+
+```typescript
+{
+  key: "about-page",
+  location: "local",
+  content: {
+    title: "About Us"
   }
 }
 ```

@@ -3,6 +3,7 @@ export * from './dictionary';
 export * from './keyPath';
 export type { Locale } from './locales';
 export * as Locales from './locales';
+export type { Schema, SchemaKeys } from './module_augmentation';
 export * from './module_augmentation';
 export * from './nodeType';
 export * from './plugin';

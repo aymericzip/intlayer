@@ -1,3 +1,4 @@
+import type { z } from 'zod';
 import type { Dictionary } from './dictionary';
 import type { Locale } from './locales';
 import type { Plugin } from './plugin';
@@ -608,6 +609,23 @@ export type CustomIntlayerConfig = {
   compiler?: Partial<CompilerConfig>;
 
   /**
+   * Custom schemas to validate the dictionaries content.
+   *
+   * Example:
+   * ```ts
+   * {
+   *  schemas: {
+   *   'my-schema': z.object({
+   *     title: z.string(),
+   *     description: z.string(),
+   *   }),
+   *  }
+   * }
+   * ```
+   */
+  schemas?: Record<string, z.ZodType>;
+
+  /**
    * Custom plugins configuration
    */
   plugins?: Plugin[];
@@ -674,6 +692,11 @@ export type IntlayerConfig = {
    * Compiler configuration
    */
   compiler: CompilerConfig;
+
+  /**
+   * Custom schemas to validate the dictionaries content.
+   */
+  schemas?: Record<string, z.ZodType>;
 
   /**
    * Plugins configuration

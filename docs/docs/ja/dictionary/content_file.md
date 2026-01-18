@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: 辞書オプション `location` と `schema` を追加
   - version: 7.5.0
     date: 2025-12-13
     changes: ICUおよびi18next形式のサポートを追加
@@ -431,6 +434,61 @@ Intlayerの辞書は`Dictionary`型で定義され、その動作を制御する
   "content": {
     "title": "About Us", // これは 'en' の翻訳ノードになります
     "description": "Learn more about our company"
+  }
+}
+```
+
+#### `schema` (SchemaKeys)
+
+辞書コンテンツのスキーマ。設定されている場合、コンテンツはこのスキーマに対して検証されます。これにより、Intlayer設定で定義されたカスタム検証スキーマを使用して、辞書コンテンツに特定の構造を強制できます。
+
+**例:**
+
+```typescript fileName="intlayer.config.ts"
+import { z } from "zod";
+
+export default {
+  schemas: {
+    "seo-metadata": z.object({
+      title: z.string().min(50).max(60),
+      description: z.string().min(150).max(160),
+    }),
+  },
+};
+```
+
+```typescript fileName="src/example.content.ts"
+import { type Dictionary } from "intlayer";
+
+const aboutPageMetaContent = {
+  key: "about-page-meta",
+  schema: "seo-metadata",
+  content: {
+    title: "About Our Company - Learn More About Us",
+    description: "Discover our company's mission, values, and team.",
+  },
+} satisfies Dictionary<"seo-metadata">;
+
+export default aboutPageMetaContent;
+```
+
+#### `location` ('remote' | 'local' | 'local&remote' | 'plugin')
+
+辞書の場所を示します。このプロパティを設定して、辞書のソースを制御できます：
+
+- `'local'`: ローカル辞書（コンテンツファイルから）
+- `'remote'`: リモート辞書（外部ソース/CMSから）
+- `'local&remote'`: ローカルとリモートの両方に存在する辞書
+- `'plugin'`: プラグインによって提供される辞書
+
+**例:**
+
+```typescript
+{
+  key: "about-page",
+  location: "local",
+  content: {
+    title: "About Us"
   }
 }
 ```

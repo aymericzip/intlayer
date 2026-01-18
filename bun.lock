@@ -657,6 +657,7 @@
         "react-dom": "19.2.3",
         "react-intlayer": "workspace:*",
         "react-router-dom": "7.12.0",
+        "zod": "4.3.5",
       },
       "devDependencies": {
         "@intlayer/ai": "workspace:*",
@@ -835,6 +836,7 @@
         "fast-glob": "3.3.3",
         "simple-git": "3.30.0",
         "ts-morph": "27.0.2",
+        "zod-to-ts": "1.2.0",
       },
       "devDependencies": {
         "@types/crypto-js": "4.2.2",
@@ -846,6 +848,7 @@
         "tsdown": "0.19.0",
         "typescript": "5.9.3",
         "vitest": "4.0.17",
+        "zod": "4.3.5",
       },
       "peerDependencies": {
         "@intlayer/svelte-transformer": "workspace:*",
@@ -1137,6 +1140,7 @@
       "version": "7.6.0-canary.1",
       "bin": "dist/cjs/server/stdio.cjs",
       "dependencies": {
+        "@intlayer/chokidar": "workspace:*",
         "@intlayer/cli": "workspace:*",
         "@intlayer/config": "workspace:*",
         "@intlayer/docs": "workspace:*",
@@ -1144,7 +1148,7 @@
         "@modelcontextprotocol/sdk": "1.25.1",
         "dotenv": "16.6.1",
         "express": "5.2.1",
-        "zod": "3.25.76",
+        "zod": "4.3.5",
       },
       "devDependencies": {
         "@intlayer/types": "workspace:*",
@@ -1231,6 +1235,7 @@
         "tsdown": "0.19.0",
         "typescript": "5.9.3",
         "vitest": "4.0.17",
+        "zod": "4.3.5",
       },
     },
     "packages/@intlayer/unmerged-dictionaries-entry": {
@@ -8739,8 +8744,6 @@
     "@inquirer/search/@inquirer/type": ["@inquirer/type@3.0.10", "", { "peerDependencies": { "@types/node": ">=18" }, "optionalPeers": ["@types/node"] }, "sha512-BvziSRxfz5Ov8ch0z/n3oijRSEcEsHnhggm4xFZe93DHcUCTlutlq9Ox4SVENAfcRD22UQq7T/atg9Wr3k09eA=="],
 
     "@inquirer/select/@inquirer/type": ["@inquirer/type@3.0.10", "", { "peerDependencies": { "@types/node": ">=18" }, "optionalPeers": ["@types/node"] }, "sha512-BvziSRxfz5Ov8ch0z/n3oijRSEcEsHnhggm4xFZe93DHcUCTlutlq9Ox4SVENAfcRD22UQq7T/atg9Wr3k09eA=="],
-
-    "@intlayer/mcp/zod": ["zod@3.25.76", "", {}, "sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ=="],
 
     "@intlayer/svelte-compiler/@babel/core": ["@babel/core@7.28.4", "", { "dependencies": { "@babel/code-frame": "^7.27.1", "@babel/generator": "^7.28.3", "@babel/helper-compilation-targets": "^7.27.2", "@babel/helper-module-transforms": "^7.28.3", "@babel/helpers": "^7.28.4", "@babel/parser": "^7.28.4", "@babel/template": "^7.27.2", "@babel/traverse": "^7.28.4", "@babel/types": "^7.28.4", "@jridgewell/remapping": "^2.3.5", "convert-source-map": "^2.0.0", "debug": "^4.1.0", "gensync": "^1.0.0-beta.2", "json5": "^2.2.3", "semver": "^6.3.1" } }, "sha512-2BCOP7TN8M+gVDj7/ht3hsaO/B/n5oDbiAyyvnRlNOs+u1o+JWNYTQrmpuNp1/Wq2gcFrI01JAW+paEKDMx/CA=="],
 

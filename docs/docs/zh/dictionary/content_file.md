@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: 添加字典选项 `location` 和 `schema`
   - version: 7.5.13
     date: 2026-01-10
     changes: 添加对 JSON5 和 JSONC 文件格式的支持
@@ -457,6 +460,61 @@ Intlayer 中的字典由 `Dictionary` 类型定义，包含多个控制其行为
 }
 ```
 
+#### `schema` (SchemaKeys)
+
+字典内容的架构。如果设置，内容将根据此架构进行验证。这允许您通过在 Intlayer 配置中定义的自定义验证架构来强制执行字典内容的特定结构。
+
+**示例：**
+
+```typescript fileName="intlayer.config.ts"
+import { z } from "zod";
+
+export default {
+  schemas: {
+    "seo-metadata": z.object({
+      title: z.string().min(50).max(60),
+      description: z.string().min(150).max(160),
+    }),
+  },
+};
+```
+
+```typescript fileName="src/example.content.ts"
+import { type Dictionary } from "intlayer";
+
+const aboutPageMetaContent = {
+  key: "about-page-meta",
+  schema: "seo-metadata",
+  content: {
+    title: "About Our Company - Learn More About Us",
+    description: "Discover our company's mission, values, and team.",
+  },
+} satisfies Dictionary<"seo-metadata">;
+
+export default aboutPageMetaContent;
+```
+
+#### `location` ('remote' | 'local' | 'local&remote' | 'plugin')
+
+指示字典的位置。可以设置此属性来控制字典的来源：
+
+- `'local'`: 本地字典（来自内容文件）
+- `'remote'`: 远程字典（来自外部源/CMS）
+- `'local&remote'`: 同时存在于本地和远程的字典
+- `'plugin'`: 由插件提供的字典
+
+**示例：**
+
+```typescript
+{
+  key: "about-page",
+  location: "local",
+  content: {
+    title: "About Us"
+  }
+}
+```
+
 #### `autoFill` (AutoFill)
 
 自动从外部来源自动填充字典内容的说明。此功能可以在 `intlayer.config.ts` 中全局配置，也可以针对每个字典单独配置。支持多种格式：
@@ -568,13 +626,6 @@ Intlayer 中的字典由 `Dictionary` 类型定义，包含多个控制其行为
 ##### `autoFilled` (true)
 
 指示字典是否已从外部来源自动填充。在发生冲突时，基础字典将覆盖自动填充的字典。
-
-##### `location` ('distant' | 'locale')
-
-指示字典的位置：
-
-- `'locale'`：本地字典（来自内容文件）
-- `'distant'`：远程字典（来自外部来源）
 
 ## 内容节点类型
 

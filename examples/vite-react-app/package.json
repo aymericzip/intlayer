@@ -16,7 +16,8 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-intlayer": "workspace:*",
-    "react-router-dom": "7.12.0"
+    "react-router-dom": "7.12.0",
+    "zod": "4.3.5"
   },
   "devDependencies": {
     "@intlayer/ai": "workspace:*",

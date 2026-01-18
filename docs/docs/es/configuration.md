@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: Añadir opciones de diccionario `location` y `schema`
   - version: 7.5.1
     date: 2026-01-10
     changes: Añadir soporte para formatos de archivo JSON5 y JSONC
@@ -445,6 +448,32 @@ Configuraciones relacionadas con el manejo de contenido dentro de la aplicación
   - _Descripción_: Directorios excluidos de la búsqueda de contenido.
   - _Nota_: Esta configuración aún no se utiliza, pero está planificada para una implementación futura.
 
+### Configuración del diccionario
+
+Configuraciones que controlan las operaciones del diccionario, incluyendo el comportamiento de auto-relleno y la generación de contenido.
+
+Esta configuración de diccionario sirve para dos propósitos principales:
+
+1. **Valores por defecto**: Define valores por defecto al crear archivos de declaración de contenido
+2. **Comportamiento de respaldo**: Proporciona valores de respaldo cuando campos específicos no están definidos, permitiéndote definir el comportamiento de las operaciones del diccionario globalmente
+
+Para más información sobre los archivos de declaración de contenido y cómo se aplican los valores de configuración, consulta la [Documentación del archivo de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md).
+
+#### Propiedades
+
+- **fill**
+- **description**
+- **locale**
+- **location**
+- **priority**
+- **live**
+- **schema**
+- **title**
+- **tags**
+- **version**
+
+---
+
 ### Configuración del Logger
 
 Configuraciones que controlan el logger, incluyendo el prefijo a usar.
@@ -483,6 +512,7 @@ Intlayer admite múltiples proveedores de IA para una mayor flexibilidad y elecc
 - **DeepSeek**
 - **Google Gemini**
 - **Meta Llama**
+- **Ollama**
 
 #### Propiedades
 

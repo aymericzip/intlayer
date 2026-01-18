@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: Додано опції словника `location` та `schema`
   - version: 7.5.1
     date: 2026-01-10
     changes: Додано підтримку форматів файлів JSON5 та JSONC
@@ -580,8 +583,10 @@ export default defineConfig({
 - **fill**
 - **description**
 - **locale**
+- **location**
 - **priority**
 - **live**
+- **schema**
 - **title**
 - **tags**
 - **version**
@@ -626,6 +631,7 @@ Intlayer підтримує кількох постачальників ШІ д�
 - **DeepSeek**
 - **Google Gemini**
 - **Meta Llama**
+- **Ollama**
 - **ollama**
 
 #### Властивості

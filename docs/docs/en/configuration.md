@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: Add `location` and `schema` dictionary options
   - version: 7.5.1
     date: 2026-01-10
     changes: Add support for JSON5 and JSONC file formats
@@ -580,8 +583,10 @@ For more information about content declaration files and how configuration value
 - **fill**
 - **description**
 - **locale**
+- **location**
 - **priority**
 - **live**
+- **schema**
 - **title**
 - **tags**
 - **version**
@@ -626,6 +631,7 @@ Intlayer supports multiple AI providers for enhanced flexibility and choice. Cur
 - **DeepSeek**
 - **Google Gemini**
 - **Meta Llama**
+- **Ollama**
 - **ollama**
 
 #### Properties

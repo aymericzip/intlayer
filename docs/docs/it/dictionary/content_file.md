@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: Aggiunte opzioni dizionario `location` e `schema`
   - version: 7.5.0
     date: 2025-12-13
     changes: Aggiunto supporto per i formati ICU e i18next
@@ -430,6 +433,61 @@ Trasforma il dizionario in un dizionario per locale in cui ogni campo dichiarato
   "content": {
     "title": "About Us", // Questo diventa un nodo di traduzione per 'en'
     "description": "Learn more about our company"
+  }
+}
+```
+
+#### `schema` (SchemaKeys)
+
+Lo schema del contenuto del dizionario. Se impostato, il contenuto sarà convalidato rispetto a questo schema. Questo ti consente di imporre una struttura specifica per il contenuto del tuo dizionario utilizzando schemi di convalida personalizzati definiti nella tua configurazione Intlayer.
+
+**Esempio:**
+
+```typescript fileName="intlayer.config.ts"
+import { z } from "zod";
+
+export default {
+  schemas: {
+    "seo-metadata": z.object({
+      title: z.string().min(50).max(60),
+      description: z.string().min(150).max(160),
+    }),
+  },
+};
+```
+
+```typescript fileName="src/example.content.ts"
+import { type Dictionary } from "intlayer";
+
+const aboutPageMetaContent = {
+  key: "about-page-meta",
+  schema: "seo-metadata",
+  content: {
+    title: "About Our Company - Learn More About Us",
+    description: "Discover our company's mission, values, and team.",
+  },
+} satisfies Dictionary<"seo-metadata">;
+
+export default aboutPageMetaContent;
+```
+
+#### `location` ('remote' | 'local' | 'local&remote' | 'plugin')
+
+Indica la posizione del dizionario. Questa proprietà può essere impostata per controllare da dove proviene il dizionario:
+
+- `'local'`: Dizionario locale (da file di contenuto)
+- `'remote'`: Dizionario remoto (da fonte esterna/CMS)
+- `'local&remote'`: Dizionario che esiste sia localmente che remotamente
+- `'plugin'`: Dizionario fornito da un plugin
+
+**Esempio:**
+
+```typescript
+{
+  key: "about-page",
+  location: "local",
+  content: {
+    title: "About Us"
   }
 }
 ```

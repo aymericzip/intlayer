@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: Dodano opcje słownika `location` i `schema`
   - version: 7.5.0
     date: 2025-12-17
     changes: Dodano opcję `buildMode`
@@ -576,8 +579,10 @@ Aby uzyskać więcej informacji na temat plików deklaracji zawartości oraz spo
 - **fill**
 - **description**
 - **locale**
+- **location**
 - **priority**
 - **live**
+- **schema**
 - **title**
 - **tags**
 - **version**
@@ -622,6 +627,7 @@ Intlayer obsługuje wielu dostawców AI, aby zapewnić większą elastyczność 
 - **DeepSeek**
 - **Google Gemini**
 - **Meta Llama**
+- **Ollama**
 
 #### Właściwości
 

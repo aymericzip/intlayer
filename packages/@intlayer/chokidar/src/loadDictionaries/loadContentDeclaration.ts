@@ -7,10 +7,7 @@ import {
 } from '@intlayer/config';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { processContentDeclaration } from '../buildIntlayerDictionary/processContentDeclaration';
-import {
-  filterInvalidDictionaries,
-  isInvalidDictionary,
-} from '../filterInvalidDictionaries';
+import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { parallelize } from '../utils/parallelize';
 import { getIntlayerBundle } from './getIntlayerBundle';
 import type { DictionariesStatus } from './loadDictionaries';
@@ -19,14 +16,12 @@ export const formatLocalDictionaries = (
   dictionariesRecord: Record<string, Dictionary>,
   configuration: IntlayerConfig
 ): Dictionary[] =>
-  Object.entries(dictionariesRecord)
-    .filter(([_relativePath, dict]) => isInvalidDictionary(dict, configuration))
-    .map(([relativePath, dict]) => ({
-      ...dict,
-      location: dict.location ?? configuration.dictionary?.location ?? 'local',
-      localId: `${dict.key}::local::${relativePath}`,
-      filePath: relativePath,
-    }));
+  Object.entries(dictionariesRecord).map(([relativePath, dict]) => ({
+    ...dict,
+    location: dict.location ?? configuration.dictionary?.location ?? 'local',
+    localId: `${dict.key}::local::${relativePath}`,
+    filePath: relativePath,
+  }));
 
 export const loadContentDeclarations = async (
   contentDeclarationFilePath: string[],
@@ -130,7 +125,9 @@ export const loadContentDeclarations = async (
       }
     );
 
-    return filterInvalidDictionaries(processedDictionaries, configuration);
+    return filterInvalidDictionaries(processedDictionaries, configuration, {
+      checkSchema: false,
+    });
   } finally {
     // await rm(tempFilePath, { recursive: true });
   }

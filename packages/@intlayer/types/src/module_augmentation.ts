@@ -2,11 +2,22 @@ import type {
   __DeclaredLocalesRegistry,
   __DictionaryRegistry,
   __RequiredLocalesRegistry,
+  __SchemaRegistry,
   __StrictModeRegistry,
 } from 'intlayer';
 import type { StrictMode } from './config';
 import type { Dictionary } from './dictionary';
 import type { Locale } from './locales';
+
+export type SchemaKeys = keyof __SchemaRegistry extends never
+  ? string
+  : keyof __SchemaRegistry;
+
+export type Schema<T extends SchemaKeys> = [string] extends [T]
+  ? any
+  : T extends keyof __SchemaRegistry
+    ? __SchemaRegistry[T]
+    : any;
 
 export type DictionaryKeys = keyof __DictionaryRegistry extends never
   ? string

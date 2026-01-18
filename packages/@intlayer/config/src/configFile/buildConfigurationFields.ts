@@ -905,6 +905,7 @@ export const buildConfigurationFields = (
     compiler: compilerConfig,
     dictionary: dictionaryConfig,
     plugins: customConfiguration?.plugins,
+    schemas: customConfiguration?.schemas,
     metadata: {
       name: 'Intlayer',
       version: packageJson.version,

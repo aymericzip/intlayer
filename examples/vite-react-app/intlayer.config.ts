@@ -1,4 +1,5 @@
 import { type IntlayerConfig, Locales } from 'intlayer';
+import { z } from 'zod';
 
 const config: IntlayerConfig = {
   internationalization: {
@@ -37,6 +38,12 @@ const config: IntlayerConfig = {
   },
   routing: {
     storage: ['cookie', 'localStorage', 'header'],
+  },
+  schemas: {
+    user: z.object({
+      name: z.string(),
+      age: z.number(),
+    }),
   },
 };
 

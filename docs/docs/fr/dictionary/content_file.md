@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: Ajout des options de dictionnaire `location` et `schema`
   - version: 7.5.0
     date: 2025-12-13
     changes: Ajout du support des formats ICU et i18next
@@ -432,6 +435,61 @@ Transforme le dictionnaire en un dictionnaire par locale où chaque champ décla
 }
 ```
 
+#### `schema` (SchemaKeys)
+
+Le schéma du contenu du dictionnaire. S'il est défini, le contenu sera validé par rapport à ce schéma. Cela vous permet d'imposer une structure spécifique pour le contenu de votre dictionnaire en utilisant des schémas de validation personnalisés définis dans votre configuration Intlayer.
+
+**Exemple :**
+
+```typescript fileName="intlayer.config.ts"
+import { z } from "zod";
+
+export default {
+  schemas: {
+    "seo-metadata": z.object({
+      title: z.string().min(50).max(60),
+      description: z.string().min(150).max(160),
+    }),
+  },
+};
+```
+
+```typescript fileName="src/example.content.ts"
+import { type Dictionary } from "intlayer";
+
+const aboutPageMetaContent = {
+  key: "about-page-meta",
+  schema: "seo-metadata",
+  content: {
+    title: "About Our Company - Learn More About Us",
+    description: "Discover our company's mission, values, and team.",
+  },
+} satisfies Dictionary<"seo-metadata">;
+
+export default aboutPageMetaContent;
+```
+
+#### `location` ('remote' | 'local' | 'local&remote' | 'plugin')
+
+Indique l'emplacement du dictionnaire. Cette propriété peut être définie pour contrôler la source du dictionnaire :
+
+- `'local'` : Dictionnaire local (depuis les fichiers de contenu)
+- `'remote'` : Dictionnaire distant (depuis une source externe/CMS)
+- `'local&remote'` : Dictionnaire qui existe à la fois localement et à distance
+- `'plugin'` : Dictionnaire fourni par un plugin
+
+**Exemple :**
+
+```typescript
+{
+  key: "about-page",
+  location: "local",
+  content: {
+    title: "About Us"
+  }
+}
+```
+
 #### `autoFill` (AutoFill)
 
 Instructions pour remplir automatiquement le contenu du dictionnaire à partir de sources externes. Cela peut être configuré globalement dans `intlayer.config.ts` ou par dictionnaire. Supporte plusieurs formats :
@@ -543,13 +601,6 @@ Pour les dictionnaires distants, ce tableau contient toutes les versions disponi
 ##### `autoFilled` (true)
 
 Indique si le dictionnaire a été automatiquement rempli à partir de sources externes. En cas de conflits, les dictionnaires de base prévaudront sur les dictionnaires auto-remplis.
-
-##### `location` ('distant' | 'locale')
-
-Indique l'emplacement du dictionnaire :
-
-- `'locale'` : Dictionnaire local (à partir des fichiers de contenu)
-- `'distant'` : Dictionnaire distant (à partir d'une source externe)
 
 ## Types de nœuds de contenu
 

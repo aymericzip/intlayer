@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: إضافة خيارات القاموس `location` و `schema`
   - version: 7.5.13
     date: 2026-01-10
     changes: إضافة دعم لتنسيقات ملفات JSON5 و JSONC
@@ -434,6 +437,61 @@ module.exports = {
   "content": {
     "title": "About Us", // تصبح هذه عقدة ترجمة للغة 'en'
     "description": "Learn more about our company"
+  }
+}
+```
+
+#### `schema` (SchemaKeys)
+
+مخطط محتوى القاموس. إذا تم تعيينه، سيتم التحقق من صحة المحتوى مقابل هذا المخطط. يتيح لك ذلك فرض بنية محددة لمحتوى قاموسك باستخدام مخططات التحقق المخصصة المحددة في تكوين Intlayer الخاص بك.
+
+**مثال:**
+
+```typescript fileName="intlayer.config.ts"
+import { z } from "zod";
+
+export default {
+  schemas: {
+    "seo-metadata": z.object({
+      title: z.string().min(50).max(60),
+      description: z.string().min(150).max(160),
+    }),
+  },
+};
+```
+
+```typescript fileName="src/example.content.ts"
+import { type Dictionary } from "intlayer";
+
+const aboutPageMetaContent = {
+  key: "about-page-meta",
+  schema: "seo-metadata",
+  content: {
+    title: "About Our Company - Learn More About Us",
+    description: "Discover our company's mission, values, and team.",
+  },
+} satisfies Dictionary<"seo-metadata">;
+
+export default aboutPageMetaContent;
+```
+
+#### `location` ('remote' | 'local' | 'local&remote' | 'plugin')
+
+يشير إلى موقع القاموس. يمكن تعيين هذه الخاصية للتحكم في مصدر القاموس:
+
+- `'local'`: قاموس محلي (من ملفات المحتوى)
+- `'remote'`: قاموس بعيد (من مصدر خارجي/CMS)
+- `'local&remote'`: قاموس موجود محليًا وبعيدًا
+- `'plugin'`: قاموس يوفرها مكون إضافي
+
+**مثال:**
+
+```typescript
+{
+  key: "about-page",
+  location: "local",
+  content: {
+    title: "About Us"
   }
 }
 ```

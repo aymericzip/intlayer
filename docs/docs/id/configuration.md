@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: Tambahkan opsi kamus `location` dan `schema`
   - version: 7.5.1
     date: 2026-01-10
     changes: Menambahkan dukungan untuk format file JSON5 dan JSONC
@@ -579,8 +582,10 @@ Untuk informasi lebih lanjut tentang file deklarasi konten dan bagaimana nilai k
 - **fill**
 - **description**
 - **locale**
+- **location**
 - **priority**
 - **live**
+- **schema**
 - **title**
 - **tags**
 - **version**
@@ -625,6 +630,7 @@ Intlayer mendukung beberapa provider AI untuk fleksibilitas dan pilihan yang leb
 - **DeepSeek**
 - **Google Gemini**
 - **Meta Llama**
+- **Ollama**
 
 #### Properti
 

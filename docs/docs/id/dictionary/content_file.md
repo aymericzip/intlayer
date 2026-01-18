@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: Tambahkan opsi kamus `location` dan `schema`
   - version: 7.5.0
     date: 2025-12-13
     changes: Menambahkan dukungan format ICU dan i18next
@@ -431,6 +434,61 @@ Mengubah kamus menjadi kamus per-locale di mana setiap field yang dideklarasikan
   "content": {
     "title": "About Us", // Ini menjadi node terjemahan untuk 'en'
     "description": "Learn more about our company"
+  }
+}
+```
+
+#### `schema` (SchemaKeys)
+
+Skema konten kamus. Jika diatur, konten akan divalidasi terhadap skema ini. Ini memungkinkan Anda untuk memaksakan struktur tertentu untuk konten kamus Anda menggunakan skema validasi khusus yang ditentukan dalam konfigurasi Intlayer Anda.
+
+**Contoh:**
+
+```typescript fileName="intlayer.config.ts"
+import { z } from "zod";
+
+export default {
+  schemas: {
+    "seo-metadata": z.object({
+      title: z.string().min(50).max(60),
+      description: z.string().min(150).max(160),
+    }),
+  },
+};
+```
+
+```typescript fileName="src/example.content.ts"
+import { type Dictionary } from "intlayer";
+
+const aboutPageMetaContent = {
+  key: "about-page-meta",
+  schema: "seo-metadata",
+  content: {
+    title: "About Our Company - Learn More About Us",
+    description: "Discover our company's mission, values, and team.",
+  },
+} satisfies Dictionary<"seo-metadata">;
+
+export default aboutPageMetaContent;
+```
+
+#### `location` ('remote' | 'local' | 'local&remote' | 'plugin')
+
+Menunjukkan lokasi kamus. Properti ini dapat diatur untuk mengontrol dari mana kamus bersumber:
+
+- `'local'`: Kamus lokal (dari file konten)
+- `'remote'`: Kamus jarak jauh (dari sumber eksternal/CMS)
+- `'local&remote'`: Kamus yang ada baik secara lokal maupun jarak jauh
+- `'plugin'`: Kamus yang disediakan oleh plugin
+
+**Contoh:**
+
+```typescript
+{
+  key: "about-page",
+  location: "local",
+  content: {
+    title: "About Us"
   }
 }
 ```

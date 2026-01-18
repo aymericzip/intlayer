@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: 辞書オプション `location` と `schema` を追加
   - version: 7.5.1
     date: 2026-01-10
     changes: JSON5 および JSONC ファイル形式のサポートを追加
@@ -446,6 +449,32 @@ module.exports = config;
   - _説明_: コンテンツ検索から除外するディレクトリ。
   - _注意_: この設定はまだ使用されていませんが、将来的に実装予定です。
 
+### 辞書設定
+
+自動入力の動作やコンテンツ生成を含む、辞書操作を制御する設定。
+
+この辞書設定には、主に2つの目的があります：
+
+1. **デフォルト値**: コンテンツ宣言ファイルを作成する際のデフォルト値を定義
+2. **フォールバック動作**: 特定のフィールドが定義されていない場合のフォールバック値を提供し、辞書操作の動作をグローバルに定義できるようにする
+
+コンテンツ宣言ファイルと設定値の適用方法の詳細については、[コンテンツファイルのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。
+
+#### プロパティ
+
+- **fill**
+- **description**
+- **locale**
+- **location**
+- **priority**
+- **live**
+- **schema**
+- **title**
+- **tags**
+- **version**
+
+---
+
 ### ロガー設定
 
 ロガーを制御する設定で、使用するプレフィックスも含みます。
@@ -484,6 +513,7 @@ Intlayerは、柔軟性と選択肢を高めるために複数のAIプロバイ�
 - **DeepSeek**
 - **Google Gemini**
 - **Meta Llama**
+- **Ollama**
 
 #### プロパティ
 

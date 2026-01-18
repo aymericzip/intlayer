@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: Adicionar opções de dicionário `location` e `schema`
   - version: 7.5.0
     date: 2025-12-13
     changes: Adicionado suporte para formatos ICU e i18next
@@ -431,6 +434,61 @@ Transforma o dicionário em um dicionário por localidade onde cada campo declar
   "content": {
     "title": "About Us", // Isto se torna um nó de tradução para 'en'
     "description": "Learn more about our company"
+  }
+}
+```
+
+#### `schema` (SchemaKeys)
+
+O esquema do conteúdo do dicionário. Se definido, o conteúdo será validado contra este esquema. Isso permite que você imponha uma estrutura específica para o conteúdo do seu dicionário usando esquemas de validação personalizados definidos na sua configuração do Intlayer.
+
+**Exemplo:**
+
+```typescript fileName="intlayer.config.ts"
+import { z } from "zod";
+
+export default {
+  schemas: {
+    "seo-metadata": z.object({
+      title: z.string().min(50).max(60),
+      description: z.string().min(150).max(160),
+    }),
+  },
+};
+```
+
+```typescript fileName="src/example.content.ts"
+import { type Dictionary } from "intlayer";
+
+const aboutPageMetaContent = {
+  key: "about-page-meta",
+  schema: "seo-metadata",
+  content: {
+    title: "About Our Company - Learn More About Us",
+    description: "Discover our company's mission, values, and team.",
+  },
+} satisfies Dictionary<"seo-metadata">;
+
+export default aboutPageMetaContent;
+```
+
+#### `location` ('remote' | 'local' | 'local&remote' | 'plugin')
+
+Indica a localização do dicionário. Esta propriedade pode ser definida para controlar de onde o dicionário é originado:
+
+- `'local'`: Dicionário local (de arquivos de conteúdo)
+- `'remote'`: Dicionário remoto (de fonte externa/CMS)
+- `'local&remote'`: Dicionário que existe tanto localmente quanto remotamente
+- `'plugin'`: Dicionário fornecido por um plugin
+
+**Exemplo:**
+
+```typescript
+{
+  key: "about-page",
+  location: "local",
+  content: {
+    title: "About Us"
   }
 }
 ```

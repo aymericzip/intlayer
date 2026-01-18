@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: Thêm các tùy chọn từ điển `location` và `schema`
   - version: 7.5.1
     date: 2026-01-10
     changes: Thêm hỗ trợ cho các định dạng tệp JSON5 và JSONC
@@ -579,8 +582,10 @@ Cấu hình từ điển này phục vụ hai mục đích chính:
 - **fill**
 - **description**
 - **locale**
+- **location**
 - **priority**
 - **live**
+- **schema**
 - **title**
 - **tags**
 - **version**
@@ -625,6 +630,7 @@ Intlayer hỗ trợ nhiều nhà cung cấp AI để tăng tính linh hoạt và
 - **DeepSeek**
 - **Google Gemini**
 - **Meta Llama**
+- **Ollama**
 
 #### Thuộc tính
 

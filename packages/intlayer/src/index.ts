@@ -3,13 +3,20 @@ import {
   type Dictionary as DictionaryCore,
   type CustomIntlayerConfig as IntlayerConfig,
   Locales,
+  type SchemaKeys,
 } from '@intlayer/types';
 
-type Dictionary<T = undefined> = DictionaryCore<T, true>;
+type Dictionary<
+  T = undefined,
+  SchemaKey extends SchemaKeys | undefined = undefined,
+> = DictionaryCore<T, SchemaKey, true>;
 /**
  * @deprecated Use `Dictionary<T>` instead.
  */
-type DeclarationContent<T = undefined> = Dictionary<T>;
+type DeclarationContent<
+  T = undefined,
+  SchemaKey extends SchemaKeys | undefined = undefined,
+> = Dictionary<T, SchemaKey>;
 
 /**
  * @deprecated
@@ -107,4 +114,5 @@ export { file } from '@intlayer/core/file'; // Include specific export for brows
 export interface __DictionaryRegistry {} // id -> interfaceof ictionary
 export interface __DeclaredLocalesRegistry {} // 'fr': 1, 'en': 1, ...
 export interface __RequiredLocalesRegistry {} // 'en': 1, ...
+export interface __SchemaRegistry {} // id -> interface of schema
 export interface __StrictModeRegistry {} // one of: { strict: true } | { inclusive: true } | { loose: true }

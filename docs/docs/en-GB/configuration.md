@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: Add `location` and `schema` dictionary options
   - version: 7.5.1
     date: 2026-01-10
     changes: Add support for JSON5 and JSONC file formats
@@ -449,6 +452,32 @@ Settings related to content handling within the application, including directory
   - _Description_: Directories excluded from content search.
   - _Note_: This setting is not yet used, but planned for future implementation.
 
+### Dictionary Configuration
+
+Settings that control dictionary operations, including auto-fill behaviour and content generation.
+
+This dictionary configuration serves two main purposes:
+
+1. **Default Values**: Define default values when creating content declaration files
+2. **Fallback Behaviour**: Provide fallback values when specific fields are not defined, allowing you to define dictionary operation behaviour globally
+
+For more information about content declaration files and how configuration values are applied, see the [Content File Documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md).
+
+#### Properties
+
+- **fill**
+- **description**
+- **locale**
+- **location**
+- **priority**
+- **live**
+- **schema**
+- **title**
+- **tags**
+- **version**
+
+---
+
 ### Logger Configuration
 
 Settings that control the logger, including the prefix to use.
@@ -487,6 +516,7 @@ Intlayer supports multiple AI providers for enhanced flexibility and choice. Cur
 - **DeepSeek**
 - **Google Gemini**
 - **Meta Llama**
+- **Ollama**
 - **ollama**
 
 #### Properties

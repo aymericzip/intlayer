@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: 添加字典选项 `location` 和 `schema`
   - version: 7.5.1
     date: 2026-01-10
     changes: 添加对 JSON5 和 JSONC 文件格式的支持
@@ -449,6 +452,32 @@ module.exports = config;
   - _描述_: 排除内容搜索的目录。
   - _备注_: 此设置尚未使用，但计划在未来实现。
 
+### 字典配置
+
+控制字典操作的设置，包括自动填充行为和内容生成。
+
+此字典配置有两个主要目的：
+
+1. **默认值**：在创建内容声明文件时定义默认值
+2. **回退行为**：当未定义特定字段时提供回退值，允许您全局定义字典操作行为
+
+有关内容声明文件以及如何应用配置值的更多信息，请参阅[内容文件文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
+
+#### 属性
+
+- **fill**
+- **description**
+- **locale**
+- **location**
+- **priority**
+- **live**
+- **schema**
+- **title**
+- **tags**
+- **version**
+
+---
+
 ### 日志配置
 
 控制日志记录器的设置，包括使用的前缀。
@@ -487,6 +516,7 @@ Intlayer 支持多个 AI 提供商，以增强灵活性和选择。目前支持�
 - **DeepSeek**
 - **Google Gemini**
 - **Meta Llama**
+- **Ollama**
 
 #### 属性
 

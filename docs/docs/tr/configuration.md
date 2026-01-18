@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: Sözlük seçenekleri `location` ve `schema` eklendi
   - version: 7.5.1
     date: 2026-01-10
     changes: JSON5 ve JSONC dosya formatları için destek eklendi
@@ -448,6 +451,32 @@ Uygulama içindeki içerik yönetimi ile ilgili ayarlar; dizin isimleri, dosya u
   - _Açıklama_: İçerik aramasından hariç tutulan dizinler.
   - _Not_: Bu ayar henüz kullanılmamaktadır, ancak gelecekte uygulanması planlanmaktadır.
 
+### Sözlük Yapılandırması
+
+Sözlük işlemlerini kontrol eden ayarlar, otomatik doldurma davranışı ve içerik oluşturma dahil.
+
+Bu sözlük yapılandırması iki ana amaç için hizmet eder:
+
+1. **Varsayılan Değerler**: İçerik bildirimi dosyaları oluştururken varsayılan değerleri tanımlayın
+2. **Yedek Davranış**: Belirli alanlar tanımlanmadığında yedek değerler sağlayın, böylece sözlük işlem davranışını genel olarak tanımlayabilirsiniz
+
+İçerik bildirimi dosyaları ve yapılandırma değerlerinin nasıl uygulandığı hakkında daha fazla bilgi için, [İçerik Dosyası Dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bölümüne bakın.
+
+#### Özellikler
+
+- **fill**
+- **description**
+- **locale**
+- **location**
+- **priority**
+- **live**
+- **schema**
+- **title**
+- **tags**
+- **version**
+
+---
+
 ### Logger Yapılandırması
 
 Logger'ı kontrol eden ayarlar, kullanılacak önek dahil.
@@ -486,6 +515,7 @@ Intlayer, artırılmış esneklik ve seçenek için birden fazla AI sağlayıcı
 - **DeepSeek**
 - **Google Gemini**
 - **Meta Llama**
+- **Ollama**
 
 #### Özellikler
 

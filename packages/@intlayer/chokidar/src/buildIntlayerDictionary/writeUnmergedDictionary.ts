@@ -60,7 +60,8 @@ export const writeUnmergedDictionaries = async (
 
   const filteredDictionaries = filterInvalidDictionaries(
     dictionaries,
-    configuration
+    configuration,
+    { checkSchema: true }
   );
 
   //  Group dictionaries by key and write to unmergedDictionariesDir

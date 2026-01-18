@@ -30,13 +30,17 @@ export const getContent = <
 >(
   node: T,
   nodeProps: NodeProps,
-  locale?: L
+  locale?: L,
+  fallback?: boolean
 ) => {
   const defaultLocale = configuration?.internationalization?.defaultLocale;
 
   const plugins: Plugins[] = [
     insertionPlugin,
-    translationPlugin(locale ?? defaultLocale, defaultLocale),
+    translationPlugin(
+      locale ?? defaultLocale,
+      fallback ? defaultLocale : undefined
+    ),
     enumerationPlugin,
     conditionPlugin,
     nestedPlugin(locale ?? defaultLocale),

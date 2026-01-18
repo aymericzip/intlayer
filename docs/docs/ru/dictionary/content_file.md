@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: Добавлены опции словаря `location` и `schema`
   - version: 7.5.13
     date: 2026-01-10
     changes: Добавлена поддержка форматов файлов JSON5 и JSONC
@@ -453,6 +456,61 @@ Intlayer поддерживает различные типы содержимо
   "content": {
     "title": "About Us", // Это становится узлом перевода для 'en'
     "description": "Learn more about our company"
+  }
+}
+```
+
+#### `schema` (SchemaKeys)
+
+Схема содержимого словаря. Если установлена, содержимое будет проверено на соответствие этой схеме. Это позволяет вам навязать определённую структуру для содержимого вашего словаря, используя пользовательские схемы валидации, определённые в вашей конфигурации Intlayer.
+
+**Пример:**
+
+```typescript fileName="intlayer.config.ts"
+import { z } from "zod";
+
+export default {
+  schemas: {
+    "seo-metadata": z.object({
+      title: z.string().min(50).max(60),
+      description: z.string().min(150).max(160),
+    }),
+  },
+};
+```
+
+```typescript fileName="src/example.content.ts"
+import { type Dictionary } from "intlayer";
+
+const aboutPageMetaContent = {
+  key: "about-page-meta",
+  schema: "seo-metadata",
+  content: {
+    title: "About Our Company - Learn More About Us",
+    description: "Discover our company's mission, values, and team.",
+  },
+} satisfies Dictionary<"seo-metadata">;
+
+export default aboutPageMetaContent;
+```
+
+#### `location` ('remote' | 'local' | 'local&remote' | 'plugin')
+
+Указывает расположение словаря. Это свойство можно установить для управления источником словаря:
+
+- `'local'`: Локальный словарь (из файлов содержимого)
+- `'remote'`: Удалённый словарь (из внешнего источника/CMS)
+- `'local&remote'`: Словарь, существующий как локально, так и удалённо
+- `'plugin'`: Словарь, предоставляемый плагином
+
+**Пример:**
+
+```typescript
+{
+  key: "about-page",
+  location: "local",
+  content: {
+    title: "About Us"
   }
 }
 ```

@@ -12,4 +12,8 @@ declare module 'intlayer' {
   interface __StrictModeRegistry {
     mode: 'inclusive';
   }
+
+  interface __SchemaRegistry {
+    test: {};
+  }
 }

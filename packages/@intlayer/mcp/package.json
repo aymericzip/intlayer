@@ -96,6 +96,7 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
+    "@intlayer/chokidar": "workspace:*",
     "@intlayer/cli": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/docs": "workspace:*",
@@ -103,7 +104,7 @@
     "@modelcontextprotocol/sdk": "1.25.1",
     "dotenv": "16.6.1",
     "express": "5.2.1",
-    "zod": "3.25.76"
+    "zod": "4.3.5"
   },
   "devDependencies": {
     "@intlayer/types": "workspace:*",

@@ -140,13 +140,13 @@ export const prepareIntlayer = async (
                 ? [
                     `(Total: ${dictionariesLoadedTime - configurationWrittenTime}ms`,
                     dictionaries.localDictionaries.length > 0
-                      ? `- Local: ${dictionaries.time.localDictionaries}ms`
+                      ? ` - Local: ${dictionaries.time.localDictionaries}ms`
                       : '',
                     dictionaries.remoteDictionaries.length > 0
-                      ? `- Remote: ${dictionaries.time.remoteDictionaries}ms`
+                      ? ` - Remote: ${dictionaries.time.remoteDictionaries}ms`
                       : '',
                     dictionaries.pluginDictionaries.length > 0
-                      ? `- Plugin: ${dictionaries.time.pluginDictionaries}ms`
+                      ? ` - Plugin: ${dictionaries.time.pluginDictionaries}ms`
                       : '',
                     `)`,
                   ].join('')

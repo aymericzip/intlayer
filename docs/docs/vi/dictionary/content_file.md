@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: Thêm tùy chọn từ điển `location` và `schema`
   - version: 7.5.13
     date: 2026-01-10
     changes: Thêm hỗ trợ cho các định dạng tệp JSON5 và JSONC
@@ -434,6 +437,61 @@ Chuyển đổi từ điển thành từ điển theo từng locale, trong đó 
   "content": {
     "title": "About Us", // Đây trở thành nút dịch cho 'en'
     "description": "Learn more about our company"
+  }
+}
+```
+
+#### `schema` (SchemaKeys)
+
+Lược đồ nội dung của từ điển. Nếu được đặt, nội dung sẽ được xác thực theo lược đồ này. Điều này cho phép bạn áp đặt một cấu trúc cụ thể cho nội dung từ điển của mình bằng cách sử dụng các lược đồ xác thực tùy chỉnh được xác định trong cấu hình Intlayer của bạn.
+
+**Ví dụ:**
+
+```typescript fileName="intlayer.config.ts"
+import { z } from "zod";
+
+export default {
+  schemas: {
+    "seo-metadata": z.object({
+      title: z.string().min(50).max(60),
+      description: z.string().min(150).max(160),
+    }),
+  },
+};
+```
+
+```typescript fileName="src/example.content.ts"
+import { type Dictionary } from "intlayer";
+
+const aboutPageMetaContent = {
+  key: "about-page-meta",
+  schema: "seo-metadata",
+  content: {
+    title: "About Our Company - Learn More About Us",
+    description: "Discover our company's mission, values, and team.",
+  },
+} satisfies Dictionary<"seo-metadata">;
+
+export default aboutPageMetaContent;
+```
+
+#### `location` ('remote' | 'local' | 'local&remote' | 'plugin')
+
+Chỉ ra vị trí của từ điển. Thuộc tính này có thể được đặt để kiểm soát nguồn của từ điển:
+
+- `'local'`: Từ điển cục bộ (từ các tệp nội dung)
+- `'remote'`: Từ điển từ xa (từ nguồn bên ngoài/CMS)
+- `'local&remote'`: Từ điển tồn tại cả cục bộ và từ xa
+- `'plugin'`: Từ điển được cung cấp bởi một plugin
+
+**Ví dụ:**
+
+```typescript
+{
+  key: "about-page",
+  location: "local",
+  content: {
+    title: "About Us"
   }
 }
 ```

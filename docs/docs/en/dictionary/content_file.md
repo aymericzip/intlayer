@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: Add `location` and `schema` dictionary options
   - version: 7.5.13
     date: 2026-01-10
     changes: Add support for JSON5 and JSONC file formats
@@ -438,6 +441,61 @@ Transforms the dictionary into a per-locale dictionary where each field declared
 }
 ```
 
+#### `schema` (SchemaKeys)
+
+The schema of the dictionary content. If set, the content will be validated against this schema. This allows you to enforce a specific structure for your dictionary content using custom validation schemas defined in your Intlayer configuration.
+
+**Example:**
+
+```typescript fileName="intlayer.config.ts"
+import { z } from "zod";
+
+export default {
+  schemas: {
+    "seo-metadata": z.object({
+      title: z.string().min(50).max(60),
+      description: z.string().min(150).max(160),
+    }),
+  },
+};
+```
+
+```typescript fileName="src/example.content.ts"
+import { type Dictionary } from "intlayer";
+
+const aboutPageMetaContent = {
+  key: "about-page-meta",
+  schema: "seo-metadata",
+  content: {
+    title: "About Our Company - Learn More About Us",
+    description: "Discover our company's mission, values, and team.",
+  },
+} satisfies Dictionary<"seo-metadata">;
+
+export default aboutPageMetaContent;
+```
+
+#### `location` ('remote' | 'local' | 'local&remote' | 'plugin')
+
+Indicates the location of the dictionary. This property can be set to control where the dictionary is sourced from:
+
+- `'local'`: Local dictionary (from content files)
+- `'remote'`: Remote dictionary (from external source/CMS)
+- `'local&remote'`: Dictionary that exists both locally and remotely
+- `'plugin'`: Dictionary provided by a plugin
+
+**Example:**
+
+```typescript
+{
+  key: "about-page",
+  location: "local",
+  content: {
+    title: "About Us"
+  }
+}
+```
+
 #### `fill` (Fill)
 
 Instructions for automatically filling dictionary content from external sources. This can be configured globally in `intlayer.config.ts` or per-dictionary. Supports multiple formats:
@@ -554,13 +612,6 @@ For remote dictionaries, this array contains all available versions of the dicti
 ##### `filled` (true)
 
 Indicates whether the dictionary has been auto-filled from external sources. In case of conflicts, base dictionaries will override auto-filled dictionaries.
-
-##### `location` ('distant' | 'locale')
-
-Indicates the location of the dictionary:
-
-- `'locale'`: Local dictionary (from content files)
-- `'distant'`: Remote dictionary (from external source)
 
 ## Content Node Types
 

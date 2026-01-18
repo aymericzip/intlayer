@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: 사전 옵션 `location` 및 `schema` 추가
   - version: 7.5.1
     date: 2026-01-10
     changes: JSON5 및 JSONC 파일 형식 지원 추가
@@ -448,6 +451,32 @@ module.exports = config;
   - _설명_: 콘텐츠 검색에서 제외할 디렉토리 목록입니다.
   - _참고_: 이 설정은 아직 사용되지 않았으며, 향후 구현될 예정입니다.
 
+### 사전 구성
+
+자동 채우기 동작 및 콘텐츠 생성을 포함하여 사전 작업을 제어하는 설정입니다.
+
+이 사전 구성은 두 가지 주요 목적을 제공합니다:
+
+1. **기본값**: 콘텐츠 선언 파일을 생성할 때 기본값 정의
+2. **폴백 동작**: 특정 필드가 정의되지 않은 경우 폴백 값을 제공하여 사전 작업 동작을 전역적으로 정의할 수 있도록 함
+
+콘텐츠 선언 파일 및 구성 값 적용 방법에 대한 자세한 내용은 [콘텐츠 파일 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
+
+#### 속성
+
+- **fill**
+- **description**
+- **locale**
+- **location**
+- **priority**
+- **live**
+- **schema**
+- **title**
+- **tags**
+- **version**
+
+---
+
 ### 로거 설정
 
 로거를 제어하는 설정으로, 사용할 접두사(prefix)를 포함합니다.
@@ -486,6 +515,7 @@ Intlayer는 향상된 유연성과 선택권을 위해 여러 AI 공급자를 �
 - **DeepSeek**
 - **Google Gemini**
 - **Meta Llama**
+- **Ollama**
 
 #### 속성
 

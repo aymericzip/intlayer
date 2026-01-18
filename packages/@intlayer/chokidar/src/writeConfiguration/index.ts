@@ -18,9 +18,9 @@ export const isCachedConfigurationUpToDate = async (
   configuration: IntlayerConfig
 ): Promise<boolean | null> => {
   try {
-    const cachedConfiguration = await getCachedConfiguration(configuration);
-
-    const parsedConfiguration = JSON.parse(JSON.stringify(configuration));
+    const cleanedConfiguration = cleanConfiguration(configuration);
+    const cachedConfiguration =
+      await getCachedConfiguration(cleanedConfiguration);
 
     const isSimilar = isDeepStrictEqual(
       cachedConfiguration,
@@ -33,6 +33,21 @@ export const isCachedConfigurationUpToDate = async (
   }
 };
 
+const cleanConfiguration = (configuration: IntlayerConfig): IntlayerConfig => {
+  const {
+    // Remove schema, and plugins because only useful at build time
+    schemas,
+    plugins,
+    compiler,
+    build,
+    ...filteredConfiguration
+  } = configuration;
+
+  const parsedConfiguration = JSON.parse(JSON.stringify(filteredConfiguration));
+
+  return parsedConfiguration;
+};
+
 export const writeConfiguration = async (configuration: IntlayerConfig) => {
   const { content } = configuration;
   const { configDir } = content;
@@ -43,5 +58,7 @@ export const writeConfiguration = async (configuration: IntlayerConfig) => {
 
   const configFilePath = join(configDir, 'configuration.json');
 
-  await writeJsonIfChanged(configFilePath, configuration);
+  const cleanedConfiguration = cleanConfiguration(configuration);
+
+  await writeJsonIfChanged(configFilePath, cleanedConfiguration);
 };

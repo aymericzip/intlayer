@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: Додано опції словника `location` та `schema`
   - version: 7.5.13
     date: 2026-01-10
     changes: Додано підтримку форматів файлів JSON5 та JSONC
@@ -438,6 +441,61 @@ Intlayer підтримує різні типи контенту через ти
   "content": {
     "title": "About Us", // Це стає вузлом перекладу для 'en'
     "description": "Learn more about our company"
+  }
+}
+```
+
+#### `schema` (SchemaKeys)
+
+Схема вмісту словника. Якщо встановлено, вміст буде перевірено на відповідність цій схемі. Це дозволяє вам нав'язати певну структуру для вмісту вашого словника, використовуючи користувацькі схеми валідації, визначені в вашій конфігурації Intlayer.
+
+**Приклад:**
+
+```typescript fileName="intlayer.config.ts"
+import { z } from "zod";
+
+export default {
+  schemas: {
+    "seo-metadata": z.object({
+      title: z.string().min(50).max(60),
+      description: z.string().min(150).max(160),
+    }),
+  },
+};
+```
+
+```typescript fileName="src/example.content.ts"
+import { type Dictionary } from "intlayer";
+
+const aboutPageMetaContent = {
+  key: "about-page-meta",
+  schema: "seo-metadata",
+  content: {
+    title: "About Our Company - Learn More About Us",
+    description: "Discover our company's mission, values, and team.",
+  },
+} satisfies Dictionary<"seo-metadata">;
+
+export default aboutPageMetaContent;
+```
+
+#### `location` ('remote' | 'local' | 'local&remote' | 'plugin')
+
+Вказує розташування словника. Цю властивість можна встановити для керування джерелом словника:
+
+- `'local'`: Локальний словник (з файлів вмісту)
+- `'remote'`: Віддалений словник (з зовнішнього джерела/CMS)
+- `'local&remote'`: Словник, який існує як локально, так і віддалено
+- `'plugin'`: Словник, наданий плагіном
+
+**Приклад:**
+
+```typescript
+{
+  key: "about-page",
+  location: "local",
+  content: {
+    title: "About Us"
   }
 }
 ```

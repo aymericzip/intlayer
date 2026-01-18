@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: Wörterbuchoptionen `location` und `schema` hinzugefügt
   - version: 7.5.13
     date: 2026-01-10
     changes: Unterstützung für JSON5- und JSONC-Dateiformate hinzugefügt
@@ -437,6 +440,61 @@ Wandelt das Wörterbuch in ein pro-Locale-Wörterbuch um, bei dem jedes im Inhal
 }
 ```
 
+#### `schema` (SchemaKeys)
+
+Das Schema des Wörterbuchinhalts. Wenn gesetzt, wird der Inhalt gegen dieses Schema validiert. Dies ermöglicht es Ihnen, eine spezifische Struktur für Ihren Wörterbuchinhalt durchzusetzen, indem Sie benutzerdefinierte Validierungsschemas verwenden, die in Ihrer Intlayer-Konfiguration definiert sind.
+
+**Beispiel:**
+
+```typescript fileName="intlayer.config.ts"
+import { z } from "zod";
+
+export default {
+  schemas: {
+    "seo-metadata": z.object({
+      title: z.string().min(50).max(60),
+      description: z.string().min(150).max(160),
+    }),
+  },
+};
+```
+
+```typescript fileName="src/example.content.ts"
+import { type Dictionary } from "intlayer";
+
+const aboutPageMetaContent = {
+  key: "about-page-meta",
+  schema: "seo-metadata",
+  content: {
+    title: "About Our Company - Learn More About Us",
+    description: "Discover our company's mission, values, and team.",
+  },
+} satisfies Dictionary<"seo-metadata">;
+
+export default aboutPageMetaContent;
+```
+
+#### `location` ('remote' | 'local' | 'local&remote' | 'plugin')
+
+Gibt den Speicherort des Wörterbuchs an. Diese Eigenschaft kann gesetzt werden, um zu steuern, woher das Wörterbuch stammt:
+
+- `'local'`: Lokales Wörterbuch (aus Inhaltsdateien)
+- `'remote'`: Remote-Wörterbuch (aus externer Quelle/CMS)
+- `'local&remote'`: Wörterbuch, das sowohl lokal als auch remote existiert
+- `'plugin'`: Wörterbuch, das von einem Plugin bereitgestellt wird
+
+**Beispiel:**
+
+```typescript
+{
+  key: "about-page",
+  location: "local",
+  content: {
+    title: "About Us"
+  }
+}
+```
+
 #### `autoFill` (AutoFill)
 
 Anweisungen zum automatischen Ausfüllen von Wörterbuchinhalten aus externen Quellen. Dies kann global in `intlayer.config.ts` oder pro Wörterbuch konfiguriert werden. Unterstützt mehrere Formate:
@@ -548,13 +606,6 @@ Für entfernte Wörterbücher enthält dieses Array alle verfügbaren Versionen 
 ##### `autoFilled` (true)
 
 Gibt an, ob das Wörterbuch automatisch aus externen Quellen ausgefüllt wurde. Im Falle von Konflikten überschreiben Basis-Wörterbücher automatisch ausgefüllte Wörterbücher.
-
-##### `location` ('distant' | 'locale')
-
-Gibt den Standort des Wörterbuchs an:
-
-- `'locale'`: Lokales Wörterbuch (aus Inhaltsdateien)
-- `'distant'`: Entferntes Wörterbuch (aus externer Quelle)
 
 ## Inhaltstypen von Knoten
 

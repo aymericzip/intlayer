@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: शब्दकोश विकल्प `location` और `schema` जोड़ें
   - version: 7.5.0
     date: 2025-12-13
     changes: ICU और i18next प्रारूप समर्थन जोड़ा
@@ -430,6 +433,61 @@ Intlayer में एक शब्दकोश `Dictionary` प्रकार 
   "content": {
     "title": "About Us", // यह 'en' के लिए एक अनुवाद नोड बन जाता है
     "description": "Learn more about our company"
+  }
+}
+```
+
+#### `schema` (SchemaKeys)
+
+शब्दकोश सामग्री का स्कीमा। यदि सेट किया गया है, तो सामग्री को इस स्कीमा के खिलाफ मान्य किया जाएगा। यह आपको अपने Intlayer कॉन्फ़िगरेशन में परिभाषित कस्टम सत्यापन स्कीमा का उपयोग करके अपनी शब्दकोश सामग्री के लिए एक विशिष्ट संरचना लागू करने की अनुमति देता है।
+
+**उदाहरण:**
+
+```typescript fileName="intlayer.config.ts"
+import { z } from "zod";
+
+export default {
+  schemas: {
+    "seo-metadata": z.object({
+      title: z.string().min(50).max(60),
+      description: z.string().min(150).max(160),
+    }),
+  },
+};
+```
+
+```typescript fileName="src/example.content.ts"
+import { type Dictionary } from "intlayer";
+
+const aboutPageMetaContent = {
+  key: "about-page-meta",
+  schema: "seo-metadata",
+  content: {
+    title: "About Our Company - Learn More About Us",
+    description: "Discover our company's mission, values, and team.",
+  },
+} satisfies Dictionary<"seo-metadata">;
+
+export default aboutPageMetaContent;
+```
+
+#### `location` ('remote' | 'local' | 'local&remote' | 'plugin')
+
+शब्दकोश के स्थान को इंगित करता है। यह गुण शब्दकोश के स्रोत को नियंत्रित करने के लिए सेट किया जा सकता है:
+
+- `'local'`: स्थानीय शब्दकोश (सामग्री फ़ाइलों से)
+- `'remote'`: दूरस्थ शब्दकोश (बाहरी स्रोत/CMS से)
+- `'local&remote'`: शब्दकोश जो स्थानीय और दूरस्थ दोनों में मौजूद है
+- `'plugin'`: प्लगइन द्वारा प्रदान किया गया शब्दकोश
+
+**उदाहरण:**
+
+```typescript
+{
+  key: "about-page",
+  location: "local",
+  content: {
+    title: "About Us"
   }
 }
 ```

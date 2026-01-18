@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 7.6.0
+    date: 2026-01-18
+    changes: Wörterbuchoptionen `location` und `schema` hinzugefügt
   - version: 7.5.1
     date: 2026-01-10
     changes: Unterstützung für JSON5- und JSONC-Dateiformate hinzugefügt
@@ -446,6 +449,32 @@ Einstellungen im Zusammenhang mit der Inhaltsverwaltung innerhalb der Anwendung,
   - _Beschreibung_: Verzeichnisse, die von der Inhaltssuche ausgeschlossen sind.
   - _Hinweis_: Diese Einstellung wird derzeit noch nicht verwendet, ist aber für zukünftige Implementierungen geplant.
 
+### Wörterbuch-Konfiguration
+
+Einstellungen, die Wörterbuchoperationen steuern, einschließlich des Auto-Fill-Verhaltens und der Inhaltsgenerierung.
+
+Diese Wörterbuchkonfiguration dient zwei Hauptzwecken:
+
+1. **Standardwerte**: Definieren Sie Standardwerte beim Erstellen von Inhaltsdeklarationsdateien
+2. **Fallback-Verhalten**: Stellen Sie Fallback-Werte bereit, wenn bestimmte Felder nicht definiert sind, sodass Sie das Verhalten von Wörterbuchoperationen global definieren können
+
+Weitere Informationen zu Inhaltsdeklarationsdateien und zur Anwendung von Konfigurationswerten finden Sie in der [Inhaltsdatei-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md).
+
+#### Eigenschaften
+
+- **fill**
+- **description**
+- **locale**
+- **location**
+- **priority**
+- **live**
+- **schema**
+- **title**
+- **tags**
+- **version**
+
+---
+
 ### Logger-Konfiguration
 
 Einstellungen, die den Logger steuern, einschließlich des zu verwendenden Präfixes.
@@ -484,6 +513,7 @@ Intlayer unterstützt mehrere KI-Anbieter für erhöhte Flexibilität und Auswah
 - **DeepSeek**
 - **Google Gemini**
 - **Meta Llama**
+- **Ollama**
 
 #### Eigenschaften
 
