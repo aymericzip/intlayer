@@ -563,15 +563,15 @@ Indica a prioridade do dicionário para resolução de conflitos. Quando múltip
 
 Identificador de versão para dicionários remotos. Ajuda a rastrear qual versão do dicionário está sendo usada atualmente, especialmente útil ao trabalhar com sistemas de gerenciamento de conteúdo remotos.
 
-##### `live` (boolean)
+##### `importMode` ('static' | 'dynamic' | 'live')
 
-Para dicionários remotos, indica se o dicionário deve ser buscado ao vivo em tempo de execução. Quando ativado:
+O modo de importação determina como seu dicionário é importado em sua aplicação.
 
-- Requer que `importMode` esteja definido como "live" em `intlayer.config.ts`
-- Requer que um servidor ao vivo esteja em execução
-- O dicionário será buscado em tempo de execução usando a API de sincronização ao vivo
-- Se estiver ao vivo, mas a busca falhar, recai para o valor dinâmico
-- Se não estiver ao vivo, o dicionário é transformado em tempo de build para desempenho otimizado
+- `'static'`: O dicionário é importado estaticamente no momento da compilação. Este é o modo padrão.
+- `'dynamic'`: O dicionário é importado dinamicamente em tempo de execução usando a API de suspense.
+- `'live'`: O dicionário é importado dinamicamente usando a API de sincronização ao vivo.
+
+Se definido, esta propriedade substitui o `importMode` global definido em `intlayer.config.ts`.
 
 ### Propriedades do Sistema (Geradas automaticamente)
 

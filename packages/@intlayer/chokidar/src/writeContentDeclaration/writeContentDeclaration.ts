@@ -88,7 +88,7 @@ const formatContentDeclaration = async (
     fill: dictionary.fill,
     filled: dictionary.filled,
     priority: dictionary.priority,
-    live: dictionary.live,
+    importMode: dictionary.importMode,
     version: dictionary.version,
     content,
   };

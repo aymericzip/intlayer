@@ -567,15 +567,15 @@ Chỉ định độ ưu tiên của từ điển để giải quyết xung độ
 
 Định danh phiên bản cho các từ điển từ xa. Giúp theo dõi phiên bản của từ điển đang được sử dụng, đặc biệt hữu ích khi làm việc với các hệ thống quản lý nội dung từ xa.
 
-##### `live` (boolean)
+##### `importMode` ('static' | 'dynamic' | 'live')
 
-Đối với các từ điển từ xa, cho biết liệu từ điển có nên được lấy trực tiếp tại thời gian chạy hay không. Khi được bật:
+Chế độ nhập khẩu xác định cách từ điển của bạn được nhập khẩu vào ứng dụng của bạn.
 
-- Yêu cầu `importMode` được đặt thành "live" trong `intlayer.config.ts`
-- Yêu cầu có một server trực tiếp đang chạy
-- Từ điển sẽ được lấy tại thời gian chạy sử dụng API đồng bộ trực tiếp
-- Nếu bật live nhưng việc lấy dữ liệu thất bại, sẽ chuyển sang giá trị động
-- Nếu không ở chế độ live, từ điển sẽ được chuyển đổi tại thời điểm build để tối ưu hiệu suất
+- `'static'`: Từ điển được nhập khẩu tĩnh tại thời điểm build. Đây là chế độ mặc định.
+- `'dynamic'`: Từ điển được nhập khẩu động tại thời gian chạy bằng cách sử dụng API suspense.
+- `'live'`: Từ điển được nhập khẩu động bằng cách sử dụng API đồng bộ trực tiếp.
+
+Nếu được đặt, thuộc tính này sẽ ghi đè `importMode` toàn cục được định nghĩa trong `intlayer.config.ts`.
 
 ### Thuộc tính Hệ thống (Tự động tạo)
 

@@ -88,9 +88,11 @@ export const getOptimizePluginOptions = (
   // Load dictionaries if not provided
   const dictionaries = providedDictionaries ?? loadDictionaries(config);
 
-  const liveSyncKeys = dictionaries
-    .filter((dictionary) => dictionary.live)
-    .map((dictionary) => dictionary.key);
+  const dictionaryModeMap: Record<string, 'static' | 'dynamic' | 'live'> = {};
+
+  dictionaries.forEach((dictionary) => {
+    dictionaryModeMap[dictionary.key] = dictionary.importMode ?? importMode;
+  });
 
   return {
     optimize,
@@ -104,7 +106,7 @@ export const getOptimizePluginOptions = (
     fetchDictionariesEntryPath,
     replaceDictionaryEntry: true,
     importMode,
-    liveSyncKeys,
+    dictionaryModeMap,
     filesList,
     ...overrides,
   };

@@ -4,7 +4,7 @@ import { intlayerOptimizeBabelPlugin } from '@intlayer/babel';
 import { getComponentTransformPattern, runOnce } from '@intlayer/chokidar';
 import { getAppLogger } from '@intlayer/config';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import type { PluginOption } from 'vite';
 import { intlayerVueAsyncPlugin } from './intlayerVueAsyncPlugin';
 
@@ -48,9 +48,12 @@ export const intlayerPrune = async (
     ];
 
     const dictionaries = getDictionaries(intlayerConfig);
-    const liveSyncKeys = Object.values(dictionaries)
-      .filter((dictionary) => dictionary.live)
-      .map((dictionary) => dictionary.key);
+
+    const dictionaryModeMap: Record<string, 'static' | 'dynamic' | 'live'> = {};
+
+    (Object.values(dictionaries) as Dictionary[]).forEach((dictionary) => {
+      dictionaryModeMap[dictionary.key] = dictionary.importMode ?? importMode;
+    });
 
     return [
       intlayerVueAsyncPlugin(intlayerConfig, filesList),
@@ -122,7 +125,7 @@ export const intlayerPrune = async (
                   importMode,
                   filesList,
                   replaceDictionaryEntry: true,
-                  liveSyncKeys,
+                  dictionaryModeMap,
                 },
               ],
             ],

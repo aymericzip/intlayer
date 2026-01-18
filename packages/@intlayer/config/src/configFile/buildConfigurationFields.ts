@@ -851,9 +851,9 @@ const buildDictionaryFields = (
   priority: customConfiguration?.priority,
 
   /**
-   * Indicates if the dictionary should be live synced.
+   * Indicates the mode of import to use for the dictionary.
    */
-  live: customConfiguration?.live,
+  importMode: customConfiguration?.importMode,
 
   /**
    * The version of the dictionary.

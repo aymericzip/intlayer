@@ -560,15 +560,15 @@ Indicates the priority of the dictionary for conflict resolution. When multiple 
 
 Version identifier for remote dictionaries. Helps track which version of the dictionary is currently being used, especially useful when working with remote content management systems.
 
-##### `live` (boolean)
+##### `importMode` ('static' | 'dynamic' | 'live')
 
-For remote dictionaries, indicates if the dictionary should be fetched live at runtime. When enabled:
+The import mode determines how your dictionary is imported in your application.
 
-- Requires `importMode` to be set to "live" in `intlayer.config.ts`
-- Requires a live server to be running
-- Dictionary will be fetched at runtime using the live sync API
-- If live but fetch fails, falls back to dynamic value
-- If not live, dictionary is transformed at build time for optimal performance
+- `'static'`: The dictionary is imported statically at build time. This is the default mode.
+- `'dynamic'`: The dictionary is imported dynamically at runtime using the suspense API.
+- `'live'`: The dictionary is imported dynamically using the live sync API.
+
+If set, this property overrides the global `importMode` defined in `intlayer.config.ts`.
 
 ### System Properties (Auto-generated)
 

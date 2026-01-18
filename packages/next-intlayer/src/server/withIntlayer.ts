@@ -16,7 +16,7 @@ import {
   normalizePath,
 } from '@intlayer/config';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { IntlayerPlugin } from '@intlayer/webpack';
 import { defu } from 'defu';
 import type { NextConfig } from 'next';
@@ -146,9 +146,11 @@ const getPruneConfig = (
 
   const dictionaries = getDictionaries(intlayerConfig);
 
-  const liveSyncKeys = Object.values(dictionaries)
-    .filter((dictionary) => dictionary.live)
-    .map((dictionary) => dictionary.key);
+  const dictionaryModeMap: Record<string, 'static' | 'dynamic' | 'live'> = {};
+
+  (Object.values(dictionaries) as Dictionary[]).forEach((dictionary) => {
+    dictionaryModeMap[dictionary.key] = dictionary.importMode ?? importMode;
+  });
 
   return {
     experimental: {
@@ -171,7 +173,7 @@ const getPruneConfig = (
             importMode,
             filesList,
             replaceDictionaryEntry: true,
-            liveSyncKeys,
+            dictionaryModeMap,
           } as any,
         ],
       ],

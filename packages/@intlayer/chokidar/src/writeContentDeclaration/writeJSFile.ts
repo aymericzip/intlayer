@@ -54,7 +54,7 @@ export const writeJSFile = async (
           tags: mergedDictionary.tags,
           version: mergedDictionary.version,
           priority: mergedDictionary.priority,
-          live: mergedDictionary.live,
+          importMode: mergedDictionary.importMode,
         }).filter(([, value]) => value !== undefined)
       )
     );

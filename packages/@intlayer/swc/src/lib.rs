@@ -68,37 +68,74 @@ struct PluginConfig {
     #[serde(rename = "filesList")]
     files_list: Vec<String>,
 
-    // Keys that should use live sync (per-key) when importMode is "live"
-    #[serde(rename = "liveSyncKeys")]
-    live_sync_keys: Vec<String>,
+    // Map of dictionary keys to their specific import mode.
+    #[serde(rename = "dictionaryModeMap")]
+    dictionary_mode_map: Option<BTreeMap<String, String>>,
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  AST VISITOR
 // ─────────────────────────────────────────────────────────────────────────────
+struct PrePassVisitor<'a> {
+    dictionary_mode_map: &'a BTreeMap<String, String>,
+    has_dynamic_call: bool,
+}
+
+impl<'a> VisitMut for PrePassVisitor<'a> {
+    fn visit_mut_call_expr(&mut self, call: &mut CallExpr) {
+        let callee_ident = match &call.callee {
+            Callee::Expr(callee_expr) => {
+                if let Expr::Ident(id) = &**callee_expr {
+                    id.sym.as_ref()
+                } else {
+                    return;
+                }
+            }
+            _ => return,
+        };
+
+        if callee_ident == "useIntlayer" {
+            if let Some(first_arg) = call.args.first() {
+                if let Expr::Lit(Lit::Str(Str { value, .. })) = &*first_arg.expr {
+                    let key = value.as_str().unwrap_or_default();
+                    if let Some(mode) = self.dictionary_mode_map.get(key) {
+                        if mode == "dynamic" || mode == "live" {
+                            self.has_dynamic_call = true;
+                        }
+                    }
+                }
+            }
+        }
+        call.visit_mut_children_with(self);
+    }
+}
+
 struct TransformVisitor<'a> {
     dictionaries_dir: &'a str,
     dynamic_dictionaries_dir: &'a str,
     import_mode: String,
-    live_sync_keys: &'a HashSet<String>,
+    dictionary_mode_map: &'a BTreeMap<String, String>,
     // Per-file cache: key → imported ident for static imports
     new_static_imports: BTreeMap<String, Ident>,
     // Per-file cache: key → imported ident for dynamic imports
     new_dynamic_imports: BTreeMap<String, Ident>,
     // Track if current file imports from packages supporting dynamic imports
     use_dynamic_helpers: bool,
+    // Track if file has any dynamic/live call detected in pre-pass
+    file_has_dynamic_call: bool,
 }
 
 impl<'a> TransformVisitor<'a> {
-    fn new(dictionaries_dir: &'a str, dynamic_dictionaries_dir: &'a str, import_mode: String, live_sync_keys: &'a HashSet<String>) -> Self {
+    fn new(dictionaries_dir: &'a str, dynamic_dictionaries_dir: &'a str, import_mode: String, dictionary_mode_map: &'a BTreeMap<String, String>, file_has_dynamic_call: bool) -> Self {
         Self {
             dictionaries_dir,
             dynamic_dictionaries_dir,
             import_mode,
-            live_sync_keys,
+            dictionary_mode_map,
             new_static_imports: BTreeMap::new(),
             new_dynamic_imports: BTreeMap::new(),
             use_dynamic_helpers: false,
+            file_has_dynamic_call,
         }
     }
 
@@ -238,10 +275,26 @@ impl<'a> VisitMut for TransformVisitor<'a> {
             }
 
             // Determine if this specific call should use live or dynamic imports (per-key in live mode)
-            let should_use_dynamic_for_this_call = callee_ident == "useIntlayer" && self.use_dynamic_helpers;
-            let should_use_live_for_this_call = callee_ident == "useIntlayer" && self.use_dynamic_helpers && self.live_sync_keys.contains(&key);
+            let mut per_call_mode = "static".to_string();
+            let dictionary_override_mode = self.dictionary_mode_map.get(&key);
 
-            if should_use_live_for_this_call {
+            if callee_ident == "useIntlayer" && self.use_dynamic_helpers {
+                if let Some(mode) = dictionary_override_mode {
+                    per_call_mode = mode.clone();
+                } else {
+                    per_call_mode = self.import_mode.clone();
+                }
+            } else if callee_ident == "useIntlayer" && !self.use_dynamic_helpers {
+                // If dynamic helpers are NOT active (global mode is static),
+                // we STILL might want to force dynamic/live for this specific call
+                if let Some(mode) = dictionary_override_mode {
+                    if mode == "dynamic" || mode == "live" {
+                        per_call_mode = mode.clone();
+                    }
+                }
+            }
+
+            if per_call_mode == "live" {
                 // Live helper: first argument is the live dictionary, second is the original key
                 let ident = if let Some(id) = self.new_dynamic_imports.get(&key) {
                     id.clone()
@@ -254,7 +307,7 @@ impl<'a> VisitMut for TransformVisitor<'a> {
                     spread: None,
                     expr: Box::new(Expr::Ident(ident)),
                 });
-            } else if should_use_dynamic_for_this_call {
+            } else if per_call_mode == "dynamic" {
                 // Use dynamic imports for useIntlayer when dynamic helpers are enabled
                 let ident = if let Some(id) = self.new_dynamic_imports.get(&key) {
                     id.clone()
@@ -300,8 +353,8 @@ impl<'a> VisitMut for TransformVisitor<'a> {
 
         // Determine if this package supports dynamic imports
         let package_supports_dynamic = PACKAGE_LIST_DYNAMIC.iter().any(|a| a.as_str() == pkg_str);
-        let should_use_dynamic_helpers = (self.import_mode == "dynamic" || self.import_mode == "live") && package_supports_dynamic;
-        
+        let should_use_dynamic_helpers = (self.import_mode == "dynamic" || self.import_mode == "live" || self.file_has_dynamic_call) && package_supports_dynamic;
+
         if should_use_dynamic_helpers {
             self.use_dynamic_helpers = true;
         }
@@ -469,8 +522,16 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
         println!("[swc-intlayer] [{}] step 3: running visitor...", working_filename);
     }
     let import_mode = cfg.import_mode.unwrap_or("static".to_string());
-    let live_sync_keys_set: HashSet<String> = cfg.live_sync_keys.into_iter().collect();
-    let mut visitor = TransformVisitor::new(&cfg.dictionaries_dir, &cfg.dynamic_dictionaries_dir, import_mode.clone(), &live_sync_keys_set);
+    let dictionary_mode_map = cfg.dictionary_mode_map.unwrap_or_default();
+
+    // Run pre-pass to detect dynamic calls
+    let mut pre_pass = PrePassVisitor {
+        dictionary_mode_map: &dictionary_mode_map,
+        has_dynamic_call: false,
+    };
+    program.visit_mut_with(&mut pre_pass);
+
+    let mut visitor = TransformVisitor::new(&cfg.dictionaries_dir, &cfg.dynamic_dictionaries_dir, import_mode.clone(), &dictionary_mode_map, pre_pass.has_dynamic_call);
     program.visit_mut_with(&mut visitor);
     if DEBUG_LOG {
         println!("[swc-intlayer] [{}] step 3: visitor done. static_imports={}, dynamic_imports={}", 

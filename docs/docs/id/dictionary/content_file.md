@@ -564,15 +564,15 @@ Menunjukkan prioritas kamus untuk penyelesaian konflik. Ketika beberapa kamus me
 
 Pengidentifikasi versi untuk kamus jarak jauh. Membantu melacak versi kamus yang sedang digunakan, sangat berguna saat bekerja dengan sistem manajemen konten jarak jauh.
 
-##### `live` (boolean)
+##### `importMode` ('static' | 'dynamic' | 'live')
 
-Untuk kamus jarak jauh, menunjukkan apakah kamus harus diambil secara langsung saat runtime. Ketika diaktifkan:
+Mode impor menentukan bagaimana kamus Anda diimpor ke aplikasi Anda.
 
-- Membutuhkan `importMode` disetel ke "live" di `intlayer.config.ts`
-- Membutuhkan server live yang berjalan
-- Kamus akan diambil saat runtime menggunakan API sinkronisasi langsung
-- Jika live tetapi pengambilan gagal, akan kembali ke nilai dinamis
-- Jika tidak live, kamus diubah pada saat build untuk performa optimal
+- `'static'`: Kamus diimpor secara statis pada waktu build. Ini adalah mode default.
+- `'dynamic'`: Kamus diimpor secara dinamis pada runtime menggunakan API suspense.
+- `'live'`: Kamus diimpor secara dinamis menggunakan API sinkronisasi langsung.
+
+Jika disetel, properti ini akan menggantikan `importMode` global yang didefinisikan di `intlayer.config.ts`.
 
 ### Properti Sistem (Otomatis Dibuat)
 

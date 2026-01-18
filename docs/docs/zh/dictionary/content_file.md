@@ -585,15 +585,15 @@ export default aboutPageMetaContent;
 
 远程字典的版本标识符。帮助跟踪当前使用的字典版本，尤其在使用远程内容管理系统时非常有用。
 
-##### `live`（布尔值）
+##### `importMode`（'static' | 'dynamic' | 'live'）
 
-对于远程字典，指示字典是否应在运行时实时获取。启用时：
+导入模式决定字典在应用程序中的导入方式。
 
-- 需要在 `intlayer.config.ts` 中将 `importMode` 设置为 "live"
-- 需要有一个实时服务器在运行
-- 字典将在运行时通过实时同步 API 获取
-- 如果启用实时但获取失败，则回退到动态值
-- 如果未启用实时，字典将在构建时转换以获得最佳性能
+- `'static'`: 字典在构建时静态导入。这是默认模式。
+- `'dynamic'`: 字典在运行时使用 suspense API 动态导入。
+- `'live'`: 字典使用实时同步 API 动态导入。
+
+如果设置，此属性将覆盖在 `intlayer.config.ts` 中定义的全局 `importMode`。
 
 ### 系统属性（自动生成）
 

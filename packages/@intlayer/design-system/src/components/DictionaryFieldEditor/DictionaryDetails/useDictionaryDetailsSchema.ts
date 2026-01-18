@@ -86,6 +86,7 @@ export const useDictionaryDetailsSchema = (projectId: string) => {
             : locationInvalidTypeError.value,
       })
       .optional(),
+    importMode: z.enum(['static', 'dynamic', 'live']).optional(),
     filePath: z
       .string({
         error: (issue) =>

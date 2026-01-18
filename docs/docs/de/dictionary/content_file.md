@@ -565,15 +565,15 @@ Gibt die Priorität des Wörterbuchs zur Konfliktlösung an. Wenn mehrere Wörte
 
 Versionskennung für Remote-Wörterbücher. Hilft dabei nachzuverfolgen, welche Version des Wörterbuchs aktuell verwendet wird, besonders nützlich bei der Arbeit mit Remote-Content-Management-Systemen.
 
-##### `live` (boolean)
+##### `importMode` ('static' | 'dynamic' | 'live')
 
-Für Remote-Wörterbücher gibt an, ob das Wörterbuch zur Laufzeit live abgerufen werden soll. Wenn aktiviert:
+Der Importmodus bestimmt, wie Ihr Wörterbuch in Ihrer Anwendung importiert wird.
 
-- Muss `importMode` in `intlayer.config.ts` auf "live" gesetzt sein
-- Ein Live-Server muss laufen
-- Das Wörterbuch wird zur Laufzeit über die Live-Sync-API abgerufen
-- Wenn live, aber der Abruf fehlschlägt, wird auf den dynamischen Wert zurückgegriffen
-- Wenn nicht live, wird das Wörterbuch zur Build-Zeit für optimale Leistung transformiert
+- `'static'`: Das Wörterbuch wird statisch zur Build-Zeit importiert. Dies ist der Standardmodus.
+- `'dynamic'`: Das Wörterbuch wird dynamisch zur Laufzeit mit der Suspense-API importiert.
+- `'live'`: Das Wörterbuch wird dynamisch mit der Live-Sync-API importiert.
+
+Wenn gesetzt, überschreibt diese Eigenschaft den globalen `importMode`, der in `intlayer.config.ts` definiert ist.
 
 ### Systemeigenschaften (Automatisch generiert)
 

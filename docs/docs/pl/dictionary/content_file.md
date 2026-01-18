@@ -564,15 +564,15 @@ Wskazuje priorytet słownika do rozwiązywania konfliktów. Gdy wiele słownikó
 
 Identyfikator wersji dla zdalnych słowników. Pomaga śledzić, która wersja słownika jest aktualnie używana, co jest szczególnie przydatne podczas pracy z zdalnymi systemami zarządzania treścią.
 
-##### `live` (boolean)
+##### `importMode` ('static' | 'dynamic' | 'live')
 
-Dla zdalnych słowników wskazuje, czy słownik powinien być pobierany na żywo podczas działania aplikacji. Gdy jest włączone:
+Tryb importu określa, jak słownik jest importowany w aplikacji.
 
-- Wymaga ustawienia `importMode` na "live" w pliku `intlayer.config.ts`
-- Wymaga uruchomionego serwera na żywo
-- Słownik będzie pobierany w czasie działania za pomocą API synchronizacji na żywo
-- Jeśli tryb live jest włączony, ale pobieranie się nie powiedzie, następuje powrót do wartości dynamicznej
-- Jeśli nie jest na żywo, słownik jest przekształcany podczas budowania dla optymalnej wydajności
+- `'static'`: Słownik jest importowany statycznie w czasie budowania. To jest domyślny tryb.
+- `'dynamic'`: Słownik jest importowany dynamicznie w czasie działania za pomocą API suspense.
+- `'live'`: Słownik jest importowany dynamicznie za pomocą API synchronizacji na żywo.
+
+Jeśli ustawione, ta właściwość nadpisuje globalny `importMode` zdefiniowany w `intlayer.config.ts`.
 
 ### Właściwości systemowe (Generowane automatycznie)
 

@@ -97,10 +97,9 @@ export type OptimizePluginOptions = {
    */
   importMode: 'static' | 'dynamic' | 'live';
   /**
-   * Activate the live sync of the dictionaries.
-   * If `importMode` is `live`, the plugin will activate the live sync of the dictionaries.
+   * Map of dictionary keys to their specific import mode.
    */
-  liveSyncKeys: string[];
+  dictionaryModeMap?: Record<string, 'static' | 'dynamic' | 'live'>;
   /**
    * Files list to traverse.
    */
@@ -226,7 +225,7 @@ const computeImport = (
  *
  * Uses live-based dictionary loading for remote dictionaries:
  *
- * **Output if `liveSyncKeys` includes the key:**
+ * **Output if `dictionaryModeMap` includes the key with "live" value:**
  * ```ts
  * import _dicHash from '../../.intlayer/dictionaries/app.json' with { type: 'json' };
  * import _dicHash_fetch from '../../.intlayer/fetch_dictionaries/app.mjs';
@@ -237,7 +236,7 @@ const computeImport = (
  * const content2 = getIntlayer(_dicHash);
  * ```
  *
- * > If `liveSyncKeys` does not include the key, the plugin will fallback to the dynamic impor
+ * > If `dictionaryModeMap` does not include the key with "live" value, the plugin will fallback to the dynamic impor
  *
  * ```ts
  * import _dicHash from '../../.intlayer/dictionaries/app.json' with { type: 'json' };
@@ -334,6 +333,31 @@ export const intlayerOptimizeBabelPlugin = (babel: {
 
           // Manual traversal to process imports and call expressions
           // This runs AFTER all other plugins' visitors have completed
+
+          // Pre-pass to determine if we should use dynamic helpers
+          let fileHasDynamicCall = false;
+          programPath.traverse({
+            CallExpression(path) {
+              const callee = path.node.callee;
+              if (!t.isIdentifier(callee)) return;
+              if (callee.name !== 'useIntlayer') return;
+
+              const arg = path.node.arguments[0];
+              if (!arg || !t.isStringLiteral(arg)) return;
+
+              const key = arg.value;
+              const dictionaryOverrideMode =
+                state.opts.dictionaryModeMap?.[key];
+
+              if (
+                dictionaryOverrideMode === 'dynamic' ||
+                dictionaryOverrideMode === 'live'
+              ) {
+                fileHasDynamicCall = true;
+              }
+            },
+          });
+
           programPath.traverse({
             /* Inspect every intlayer import */
             ImportDeclaration(path) {
@@ -354,7 +378,9 @@ export const intlayerOptimizeBabelPlugin = (babel: {
                 const importMode = state.opts.importMode;
                 // Determine whether this import should use the dynamic helpers.
                 const shouldUseDynamicHelpers =
-                  (importMode === 'dynamic' || importMode === 'live') &&
+                  (importMode === 'dynamic' ||
+                    importMode === 'live' ||
+                    fileHasDynamicCall) &&
                   PACKAGE_LIST_DYNAMIC.includes(src as any);
 
                 // Remember for later (CallExpression) whether we are using the dynamic helpers
@@ -409,12 +435,26 @@ export const intlayerOptimizeBabelPlugin = (babel: {
 
               // Decide per-call mode: 'static' | 'dynamic' | 'live'
               let perCallMode: 'static' | 'dynamic' | 'live' = 'static';
+
+              const dictionaryOverrideMode =
+                state.opts.dictionaryModeMap?.[key];
+
               if (isUseIntlayer && useDynamicHelpers) {
-                if (importMode === 'dynamic') {
+                if (dictionaryOverrideMode) {
+                  perCallMode = dictionaryOverrideMode;
+                } else if (importMode === 'dynamic') {
                   perCallMode = 'dynamic';
                 } else if (importMode === 'live') {
-                  const liveKeys = state.opts.liveSyncKeys ?? [];
-                  perCallMode = liveKeys.includes(key) ? 'live' : 'dynamic';
+                  perCallMode = 'live';
+                }
+              } else if (isUseIntlayer && !useDynamicHelpers) {
+                // If dynamic helpers are NOT active (global mode is static),
+                // we STILL might want to force dynamic/live for this specific call
+                if (
+                  dictionaryOverrideMode === 'dynamic' ||
+                  dictionaryOverrideMode === 'live'
+                ) {
+                  perCallMode = dictionaryOverrideMode;
                 }
               }
 

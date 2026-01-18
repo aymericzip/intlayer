@@ -581,15 +581,15 @@ Sözlük içeriğini harici kaynaklardan otomatik olarak doldurma talimatları. 
 
 Uzak sözlükler için sürüm tanımlayıcısı. Hangi sürümün kullanıldığını takip etmeye yardımcı olur, özellikle uzak içerik yönetim sistemleri ile çalışırken faydalıdır.
 
-##### `live` (boolean)
+##### `importMode` ('static' | 'dynamic' | 'live')
 
-Uzak sözlükler için, sözlüğün çalışma zamanında canlı olarak getirilip getirilmemesi gerektiğini belirtir. Etkinleştirildiğinde:
+İçe aktarma modu, sözlüğünüzün uygulamanızda nasıl içe aktarılacağını belirler.
 
-- `intlayer.config.ts` dosyasında `importMode`'un "live" olarak ayarlanmasını gerektirir
-- Canlı bir sunucunun çalışıyor olmasını gerektirir
-- Sözlük, çalışma zamanında canlı senkronizasyon API'si kullanılarak getirilir
-- Canlı modda ancak getirme başarısız olursa, dinamik değere geri döner
-- Canlı değilse, sözlük optimal performans için derleme zamanında dönüştürülür
+- `'static'`: Sözlük derleme zamanında statik olarak içe aktarılır. Bu varsayılan moddur.
+- `'dynamic'`: Sözlük, suspense API'sini kullanarak çalışma zamanında dinamik olarak içe aktarılır.
+- `'live'`: Sözlük, canlı senkronizasyon API'sini kullanarak dinamik olarak içe aktarılır.
+
+Ayarlanırsa, bu özellik `intlayer.config.ts` içinde tanımlanan global `importMode`'u geçersiz kılar.
 
 ### Sistem Özellikleri (Otomatik Oluşturuldu)
 

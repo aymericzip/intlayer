@@ -11,7 +11,11 @@ import {
   getAppLogger,
   getConfiguration,
 } from '@intlayer/config';
-import type { CompilerConfig, IntlayerConfig } from '@intlayer/types';
+import type {
+  CompilerConfig,
+  Dictionary,
+  IntlayerConfig,
+} from '@intlayer/types';
 
 /**
  * Mode of the compiler
@@ -121,7 +125,7 @@ export const createSvelteIntlayerCompiler = (
 
   // @ts-expect-error - @babel/core is a peer dependency
   let babel: typeof import('@babel/core') | null = null;
-  let liveSyncKeys: string[] = [];
+  const dictionaryModeMap: Record<string, 'static' | 'dynamic' | 'live'> = {};
 
   const configOptions = options?.configOptions;
   const customCompilerConfig = options?.compilerConfig;
@@ -159,20 +163,19 @@ export const createSvelteIntlayerCompiler = (
   };
 
   /**
-   * Load dictionary keys that have live sync enabled
+   * Load dictionary keys that have specific import modes
    */
-  const loadLiveSyncKeys = async (): Promise<void> => {
+  const loadDictionaryModeMap = async (): Promise<void> => {
     try {
       const { getDictionaries } = await import('@intlayer/dictionaries-entry');
-      const dictionaries = getDictionaries() as Record<
-        string,
-        { live?: boolean; key: string }
-      >;
-      liveSyncKeys = Object.values(dictionaries)
-        .filter((dictionary) => dictionary.live)
-        .map((dictionary) => dictionary.key);
+      const dictionaries = getDictionaries() as Record<string, Dictionary>;
+
+      Object.values(dictionaries).forEach((dictionary) => {
+        dictionaryModeMap[dictionary.key] =
+          dictionary.importMode ?? config.build.importMode;
+      });
     } catch {
-      liveSyncKeys = [];
+      // ignore
     }
   };
 
@@ -197,8 +200,8 @@ export const createSvelteIntlayerCompiler = (
     // Build files list for transformation
     await buildFilesListFn();
 
-    // Load live sync keys
-    await loadLiveSyncKeys();
+    // Load dictionary mode map
+    await loadDictionaryModeMap();
   };
 
   /**
@@ -345,7 +348,7 @@ export const createSvelteIntlayerCompiler = (
               importMode,
               filesList,
               replaceDictionaryEntry: true,
-              liveSyncKeys,
+              dictionaryModeMap,
             },
           ],
         ],

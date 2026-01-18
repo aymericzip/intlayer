@@ -637,7 +637,7 @@ export type DictionaryConfig = Pick<
   | 'description'
   | 'locale'
   | 'priority'
-  | 'live'
+  | 'importMode'
   | 'title'
   | 'tags'
   | 'version'

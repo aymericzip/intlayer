@@ -26,7 +26,6 @@ export type DictionaryFiltersParams = {
   tags?: string | string[];
   location?: 'remote' | 'local' | 'both' | 'none';
   priority?: string;
-  live?: 'true' | 'false';
   version?: string;
   search?: string;
   sortBy?: string;
@@ -68,7 +67,6 @@ export const getDictionaryFiltersAndPagination = (
     tags,
     location,
     priority,
-    live,
     ids,
     projectId,
     projectIds,
@@ -164,10 +162,6 @@ export const getDictionaryFiltersAndPagination = (
 
   if (priority) {
     filters = { ...filters, priority: Number(priority) };
-  }
-
-  if (typeof live !== 'undefined') {
-    filters = { ...filters, live: live === 'true' };
   }
 
   if (version) {

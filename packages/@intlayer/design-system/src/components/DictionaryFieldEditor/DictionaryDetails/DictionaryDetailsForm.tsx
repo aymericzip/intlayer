@@ -4,7 +4,7 @@ import { ButtonColor, ButtonSize, ButtonVariant } from '@components/Button';
 import { Form, useForm } from '@components/Form';
 import { Checkbox } from '@components/Input';
 import { Loader } from '@components/Loader';
-import { MultiSelect } from '@components/Select';
+import { MultiSelect, Select } from '@components/Select';
 import {
   useAuditContentDeclarationMetadata,
   useGetProjects,
@@ -55,6 +55,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     projectInput,
     tagsSelect,
     locationSelect,
+    importModeSelect,
     filePathInput,
     auditButton,
   } = useIntlayer('dictionary-details');
@@ -292,6 +293,36 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
             </motion.div>
           )}
         </AnimatePresence>
+      </div>
+      <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1">
+        <Form.Select
+          name="importMode"
+          label={importModeSelect.label.value}
+          description={importModeSelect.description.value}
+          onValueChange={(value) => {
+            form.setValue('importMode', value as any, { shouldDirty: true });
+            setEditedDictionary((prev) => ({
+              ...dictionary,
+              ...(prev ?? {}),
+              importMode: value as any,
+            }));
+          }}
+        >
+          <Select.Trigger>
+            <Select.Value placeholder={importModeSelect.label.value} />
+          </Select.Trigger>
+          <Select.Content>
+            <Select.Item value="static">
+              {importModeSelect.static.value}
+            </Select.Item>
+            <Select.Item value="dynamic">
+              {importModeSelect.dynamic.value}
+            </Select.Item>
+            <Select.Item value="live">
+              {importModeSelect.live.value}
+            </Select.Item>
+          </Select.Content>
+        </Form.Select>
       </div>
       <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1">
         <Form.MultiSelect
