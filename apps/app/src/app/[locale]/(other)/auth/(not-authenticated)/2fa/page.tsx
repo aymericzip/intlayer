@@ -1,13 +1,16 @@
 import { TotpForm } from '@components/Auth/TotpForm';
 import { Container, Loader } from '@intlayer/design-system';
+import type { LocalesValues } from 'intlayer';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import { type FC, Suspense } from 'react';
 
 export { generateMetadata } from './metadata';
 
-const TwoFactorFormPageContent: FC = () => {
-  const { title, title2, description } = useIntlayer('2fa-page');
+const TwoFactorFormPageContent: FC<{ locale: LocalesValues }> = ({
+  locale,
+}) => {
+  const { title, title2, description } = useIntlayer('2fa-page', locale);
 
   return (
     <>
@@ -38,7 +41,9 @@ const TwoFactorFormPage: NextPageIntlayer = async ({ params }) => {
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <TwoFactorFormPageContent />
+      <Suspense>
+        <TwoFactorFormPageContent locale={locale} />
+      </Suspense>
     </IntlayerServerProvider>
   );
 };

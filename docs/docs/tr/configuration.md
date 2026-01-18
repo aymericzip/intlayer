@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-18
-    changes: Sistem yapılandırmasını içerik yapılandırmasından ayırın. İç yolları `system` özelliğine taşıyın.
+    changes: Sistem yapılandırmasını içerik yapılandırmasından ayırın. İç yolları `system` özelliğine taşıyın. İçerik dosyalarını kod dönüşümünden ayırmak için `codeDir` ekleyin.
   - version: 7.6.0
     date: 2026-01-18
     changes: Sözlük seçenekleri `location` ve `schema` eklendi
@@ -403,7 +403,15 @@ Uygulama içindeki içerik yönetimi ile ilgili ayarlar; dizin isimleri, dosya u
   - _Tür_: `string[]`
   - _Varsayılan_: `['.']`
   - _Örnek_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
-  - _Açıklama_: İçeriğin depolandığı dizin yolu.
+  - _Açıklama_: İçerik tanım dosyalarının (`.content.*`) depolandığı dizin yolu.
+  - _Not_: Bu, sözlükleri yeniden oluşturmak için içerik dosyalarını izlemek için kullanılır.
+
+- **codeDir**:
+  - _Tür_: `string[]`
+  - _Varsayılan_: `['.']`
+  - _Örnek_: `['src', '../../ui-library']`
+  - _Açıklama_: Kodun depolandığı dizin yolu, temel dizine göre.
+  - _Not_: Bu, kod dosyalarını dönüştürmek (budama, optimizasyon) için izlemek için kullanılır. Bunu `contentDir`'den ayrı tutmak, içerik dosyalarının gereksiz taramalarından kaçınarak derleme performansını artırabilir.
 
 - **dictionariesDir**:
   - _Tür_: `string`

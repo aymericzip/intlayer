@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-18
-    changes: Oddziel konfigurację systemu od konfiguracji treści. Przenieś wewnętrzne ścieżki do właściwości `system`.
+    changes: Oddziel konfigurację systemu od konfiguracji treści. Przenieś wewnętrzne ścieżki do właściwości `system`. Dodaj `codeDir`, aby oddzielić pliki treści od transformacji kodu.
   - version: 7.6.0
     date: 2026-01-18
     changes: Dodano opcje słownika `location` i `schema`
@@ -512,7 +512,15 @@ Ustawienia związane z obsługą treści w aplikacji, w tym nazwy katalogów, ro
   - _Typ_: `string[]`
   - _Domyślnie_: `['.']`
   - _Przykład_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
-  - _Opis_: Ścieżka katalogu, w którym przechowywana jest zawartość.
+  - _Opis_: Ścieżka katalogu, w którym przechowywane są pliki definicji treści (`.content.*`).
+  - _Uwaga_: Jest używany do monitorowania plików treści w celu przebudowy słowników.
+
+- **codeDir**:
+  - _Typ_: `string[]`
+  - _Domyślnie_: `['.']`
+  - _Przykład_: `['src', '../../ui-library']`
+  - _Opis_: Ścieżka katalogu, w którym przechowywany jest kod, względem katalogu bazowego.
+  - _Uwaga_: Jest używany do monitorowania plików kodu w celu transformacji (przycinanie, optymalizacja). Utrzymanie tego oddzielnie od `contentDir` może poprawić wydajność kompilacji, unikając niepotrzebnego skanowania plików treści.
 
 - **dictionariesDir**:
   - _Typ_: `string`

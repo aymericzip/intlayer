@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-18
-    changes: Pisahkan konfigurasi sistem dari konfigurasi konten. Pindahkan jalur internal ke properti `system`.
+    changes: Pisahkan konfigurasi sistem dari konfigurasi konten. Pindahkan jalur internal ke properti `system`. Tambahkan `codeDir` untuk memisahkan file konten dari transformasi kode.
   - version: 7.6.0
     date: 2026-01-18
     changes: Tambahkan opsi kamus `location` dan `schema`
@@ -515,7 +515,15 @@ Pengaturan terkait penanganan konten dalam aplikasi, termasuk nama direktori, ek
   - _Tipe_: `string[]`
   - _Default_: `['.']`
   - _Contoh_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
-  - _Deskripsi_: Jalur direktori tempat konten disimpan.
+  - _Deskripsi_: Jalur direktori tempat file definisi konten (`.content.*`) disimpan.
+  - _Catatan_: Ini digunakan untuk memantau file konten untuk membangun ulang kamus.
+
+- **codeDir**:
+  - _Tipe_: `string[]`
+  - _Default_: `['.']`
+  - _Contoh_: `['src', '../../ui-library']`
+  - _Deskripsi_: Jalur direktori tempat kode disimpan, relatif terhadap direktori dasar.
+  - _Catatan_: Ini digunakan untuk memantau file kode untuk ditransformasikan (pemangkasan, optimasi). Menjaga ini terpisah dari `contentDir` dapat meningkatkan kinerja build dengan menghindari pemindaian yang tidak perlu pada file konten.
 
 - **dictionariesDir**:
   - _Tipe_: `string`

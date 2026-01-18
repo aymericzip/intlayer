@@ -1,14 +1,17 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { DashboardContentLayout } from '@components/Dashboard/DashboardContentLayout';
 import { ProjectForm } from '@components/Dashboard/ProjectForm';
+import type { LocalesValues } from 'intlayer';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
-import type { FC } from 'react';
+import { type FC, Suspense } from 'react';
 
 export { generateMetadata } from './metadata';
 
-const ProjectsDashboardPageContent: FC = () => {
-  const { title } = useIntlayer('projects-dashboard-page');
+const ProjectsDashboardPageContent: FC<{ locale: LocalesValues }> = ({
+  locale,
+}) => {
+  const { title } = useIntlayer('projects-dashboard-page', locale);
 
   return (
     <DashboardContentLayout title={title}>
@@ -25,7 +28,9 @@ const ProjectsDashboardPage: NextPageIntlayer = async ({ params }) => {
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <ProjectsDashboardPageContent />
+      <Suspense>
+        <ProjectsDashboardPageContent locale={locale} />
+      </Suspense>
     </IntlayerServerProvider>
   );
 };

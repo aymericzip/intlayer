@@ -30,6 +30,7 @@ import {
   COMPILER_TRANSFORM_PATTERN,
 } from '../defaultValues/compiler';
 import {
+  CODE_DIR,
   CONTENT_DIR,
   EXCLUDED_PATHS,
   FILE_EXTENSIONS,
@@ -168,7 +169,8 @@ const buildRoutingFields = (
 
 const buildContentFields = (
   customConfiguration?: Partial<ContentConfig>,
-  baseDir?: string
+  baseDir?: string,
+  logFunctions?: LogFunctions
 ): ContentConfig => {
   const fileExtensions = customConfiguration?.fileExtensions ?? FILE_EXTENSIONS;
   const projectBaseDir =
@@ -216,10 +218,22 @@ const buildContentFields = (
     optionalJoinBaseDir
   );
 
+  let codeDirInput = customConfiguration?.codeDir;
+
+  if (!codeDirInput && customConfiguration?.contentDir) {
+    logFunctions?.log?.(
+      '[intlayer] "contentDir" is now specifically for content definition files (.content.*). Using "contentDir" as "codeDir" for code transformation. Please update your configuration to include "codeDir" if you want to separate them.'
+    );
+    codeDirInput = customConfiguration.contentDir;
+  }
+
+  const codeDir = (codeDirInput ?? CODE_DIR).map(optionalJoinBaseDir);
+
   return {
     fileExtensions,
     baseDir: projectBaseDir,
     contentDir,
+    codeDir,
     excludedPath: customConfiguration?.excludedPath ?? EXCLUDED_PATHS,
     watch: customConfiguration?.watch ?? WATCH,
     formatCommand: customConfiguration?.formatCommand,
@@ -698,7 +712,8 @@ export const buildConfigurationFields = (
 
   const contentConfig = buildContentFields(
     customConfiguration?.content,
-    baseDir
+    baseDir,
+    logFunctions
   );
 
   const systemConfig = buildSystemFields(

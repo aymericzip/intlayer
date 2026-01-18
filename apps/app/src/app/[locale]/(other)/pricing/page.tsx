@@ -6,6 +6,7 @@ import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import { notFound } from 'next/navigation';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider } from 'next-intlayer/server';
+import { Suspense } from 'react';
 import { generateMetadata } from './metadata';
 
 export { generateMetadata };
@@ -62,7 +63,9 @@ const PricingPage: NextPageIntlayer = async ({ params }) => {
       <SoftwareApplicationHeader />
       <ProductHeader />
 
-      <PricingPageContent pricings={pricingData} />
+      <Suspense>
+        <PricingPageContent pricings={pricingData} />
+      </Suspense>
     </IntlayerServerProvider>
   );
 };

@@ -354,7 +354,7 @@ export const Flag: FC<FlagProps> = ({ locale, alt, ...props }): JSX.Element => {
   const LazyFlag = flagRecord[locale] ?? dynamicFlag(() => import('./xx.svg'));
 
   return (
-    <Suspense fallback={null}>
+    <Suspense>
       <LazyFlag alt={alt ?? `${locale} flag`} {...(props as any)} role="img" />
     </Suspense>
   );

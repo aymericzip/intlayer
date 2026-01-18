@@ -1,13 +1,19 @@
 import { ChangePasswordForm } from '@components/Auth/ChangePassword';
 import { Container, Loader } from '@intlayer/design-system';
+import type { LocalesValues } from 'intlayer';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import { type FC, Suspense } from 'react';
 
 export { generateMetadata } from './metadata';
 
-const ChangePasswordPageContent: FC = () => {
-  const { title, title2, description } = useIntlayer('change-password-page');
+const ChangePasswordPageContent: FC<{ locale: LocalesValues }> = ({
+  locale,
+}) => {
+  const { title, title2, description } = useIntlayer(
+    'change-password-page',
+    locale
+  );
 
   return (
     <>
@@ -38,7 +44,9 @@ const ChangePasswordPage: NextPageIntlayer = async ({ params }) => {
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <ChangePasswordPageContent />
+      <Suspense>
+        <ChangePasswordPageContent locale={locale} />
+      </Suspense>
     </IntlayerServerProvider>
   );
 };

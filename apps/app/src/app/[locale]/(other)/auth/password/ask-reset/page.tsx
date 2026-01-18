@@ -1,13 +1,19 @@
 import { AskResetPasswordForm } from '@components/Auth/AskResetPassword';
 import { Container, Loader } from '@intlayer/design-system';
+import type { LocalesValues } from 'intlayer';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import { type FC, Suspense } from 'react';
 
 export { generateMetadata } from './metadata';
 
-const ResetPasswordPageContent: FC = () => {
-  const { title, title2, description } = useIntlayer('reset-password-page');
+const ResetPasswordPageContent: FC<{ locale: LocalesValues }> = ({
+  locale,
+}) => {
+  const { title, title2, description } = useIntlayer(
+    'reset-password-page',
+    locale
+  );
 
   return (
     <>
@@ -37,7 +43,9 @@ const ResetPasswordPage: NextPageIntlayer = async ({ params }) => {
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <ResetPasswordPageContent />
+      <Suspense>
+        <ResetPasswordPageContent locale={locale} />
+      </Suspense>
     </IntlayerServerProvider>
   );
 };

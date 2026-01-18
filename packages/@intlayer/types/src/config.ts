@@ -751,8 +751,21 @@ export type ContentConfig = {
    * Default: ['.']
    *
    * Derived content directory based on the base configuration.
+   *
+   * Note: This is used to watch for content files.
    */
   contentDir: string[];
+
+  /**
+   * Directory where the code is stored, relative to the base directory
+   *
+   * Default: ['.']
+   *
+   * Derived code directory based on the base configuration.
+   *
+   * Note: This is used to watch for code files to transform.
+   */
+  codeDir: string[];
 
   /**
    * Directories to be excluded from content processing

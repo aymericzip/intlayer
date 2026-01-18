@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-18
-    changes: Tách cấu hình hệ thống khỏi cấu hình nội dung. Di chuyển các đường dẫn nội bộ sang thuộc tính `system`.
+    changes: Tách cấu hình hệ thống khỏi cấu hình nội dung. Di chuyển các đường dẫn nội bộ sang thuộc tính `system`. Thêm `codeDir` để tách các tệp nội dung khỏi việc chuyển đổi mã.
   - version: 7.6.0
     date: 2026-01-18
     changes: Thêm các tùy chọn từ điển `location` và `schema`
@@ -515,7 +515,15 @@ Các thiết lập liên quan đến việc xử lý nội dung trong ứng dụ
   - _Kiểu_: `string[]`
   - _Mặc định_: `['.']`
   - _Ví dụ_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
-  - _Mô tả_: Đường dẫn thư mục nơi lưu trữ nội dung.
+  - _Mô tả_: Đường dẫn thư mục nơi lưu trữ các tệp định nghĩa nội dung (`.content.*`).
+  - _Lưu ý_: Được sử dụng để theo dõi các tệp nội dung để xây dựng lại từ điển.
+
+- **codeDir**:
+  - _Kiểu_: `string[]`
+  - _Mặc định_: `['.']`
+  - _Ví dụ_: `['src', '../../ui-library']`
+  - _Mô tả_: Đường dẫn thư mục nơi lưu trữ mã, tương đối với thư mục cơ sở.
+  - _Lưu ý_: Được sử dụng để theo dõi các tệp mã để chuyển đổi (cắt tỉa, tối ưu hóa). Giữ điều này tách biệt khỏi `contentDir` có thể cải thiện hiệu suất xây dựng bằng cách tránh quét không cần thiết các tệp nội dung.
 
 - **dictionariesDir**:
   - _Kiểu_: `string`

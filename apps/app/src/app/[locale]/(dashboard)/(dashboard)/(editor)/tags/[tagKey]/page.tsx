@@ -1,18 +1,19 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { DashboardContentLayout } from '@components/Dashboard/DashboardContentLayout';
 import { TagDetails } from '@components/Dashboard/TagForm/TagDetails';
+import type { LocalesValues } from 'intlayer';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
-import type { FC } from 'react';
+import { type FC, Suspense } from 'react';
 
 type DictionaryDashboardPageProps = {
   tagKey: string;
 };
 
-const DictionaryDashboardPageContent: FC<DictionaryDashboardPageProps> = ({
-  tagKey,
-}) => {
-  const { title } = useIntlayer('tag-dashboard-page');
+const DictionaryDashboardPageContent: FC<
+  DictionaryDashboardPageProps & { locale: LocalesValues }
+> = ({ tagKey, locale }) => {
+  const { title } = useIntlayer('tag-dashboard-page', locale);
 
   return (
     <DashboardContentLayout title={title}>
@@ -31,7 +32,9 @@ const DictionaryDashboardPage: NextPageIntlayer<
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <DictionaryDashboardPageContent tagKey={tagKey} />
+      <Suspense>
+        <DictionaryDashboardPageContent tagKey={tagKey} locale={locale} />
+      </Suspense>
     </IntlayerServerProvider>
   );
 };

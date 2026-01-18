@@ -1,13 +1,16 @@
 import { DashboardContentLayout } from '@components/Dashboard/DashboardContentLayout';
 import { ProfileForm } from '@components/Dashboard/ProfileForm';
+import type { LocalesValues } from 'intlayer';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
-import type { FC } from 'react';
+import { type FC, Suspense } from 'react';
 
 export { generateMetadata } from './metadata';
 
-const ProfileDashboardPageContent: FC = () => {
-  const { title } = useIntlayer('profile-dashboard-page');
+const ProfileDashboardPageContent: FC<{ locale: LocalesValues }> = ({
+  locale,
+}) => {
+  const { title } = useIntlayer('profile-dashboard-page', locale);
 
   return (
     <DashboardContentLayout title={title}>
@@ -23,7 +26,9 @@ const ProfileDashboardPage: NextPageIntlayer = async ({ params }) => {
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <ProfileDashboardPageContent />
+      <Suspense>
+        <ProfileDashboardPageContent locale={locale} />
+      </Suspense>
     </IntlayerServerProvider>
   );
 };

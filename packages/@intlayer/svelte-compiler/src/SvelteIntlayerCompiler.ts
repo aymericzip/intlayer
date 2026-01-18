@@ -136,19 +136,23 @@ export const createSvelteIntlayerCompiler = (
    */
   const buildFilesListFn = async (): Promise<void> => {
     const { traversePattern } = config.build;
-    const { baseDir, fileExtensions } = config.content;
+    const { baseDir, fileExtensions, codeDir } = config.content;
     const { mainDir } = config.system;
 
-    const filesListPattern = buildFilesList({
-      transformPattern:
-        customCompilerConfig?.transformPattern ?? traversePattern,
-      excludePattern: [
-        ...(customCompilerConfig?.excludePattern ?? []),
-        '**/node_modules/**',
-        ...fileExtensions.map((pattern) => `**/*${pattern}`),
-      ],
-      baseDir,
-    });
+    const distinctRoots = Array.from(new Set([baseDir, ...codeDir]));
+
+    const filesListPattern = distinctRoots.flatMap((root) =>
+      buildFilesList({
+        transformPattern:
+          customCompilerConfig?.transformPattern ?? traversePattern,
+        excludePattern: [
+          ...(customCompilerConfig?.excludePattern ?? []),
+          '**/node_modules/**',
+          ...fileExtensions.map((pattern) => `**/*${pattern}`),
+        ],
+        baseDir: root,
+      })
+    );
 
     const dictionariesEntryPath = join(mainDir, 'dictionaries.mjs');
     const unmergedDictionariesEntryPath = join(
@@ -157,9 +161,11 @@ export const createSvelteIntlayerCompiler = (
     );
 
     filesList = [
-      ...filesListPattern,
-      dictionariesEntryPath,
-      unmergedDictionariesEntryPath,
+      ...new Set([
+        ...filesListPattern,
+        dictionariesEntryPath,
+        unmergedDictionariesEntryPath,
+      ]),
     ];
   };
 

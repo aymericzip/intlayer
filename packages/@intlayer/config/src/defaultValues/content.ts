@@ -26,6 +26,8 @@ export const EXCLUDED_PATHS = [
 
 export const CONTENT_DIR = ['.'];
 
+export const CODE_DIR = ['.'];
+
 export const I18NEXT_DICTIONARIES_DIR = 'i18next_resources';
 
 export const REACT_INTL_MESSAGES_DIR = 'intl_messages';

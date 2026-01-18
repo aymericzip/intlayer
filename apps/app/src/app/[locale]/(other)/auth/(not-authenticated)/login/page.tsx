@@ -1,13 +1,14 @@
 import { SignInForm } from '@components/Auth/SignIn';
 import { Container, Loader } from '@intlayer/design-system';
+import type { LocalesValues } from 'intlayer';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import { type FC, Suspense } from 'react';
 
 export { generateMetadata } from './metadata';
 
-const SignInPageContent: FC = () => {
-  const { title, title2, description } = useIntlayer('sign-in-page');
+const SignInPageContent: FC<{ locale: LocalesValues }> = ({ locale }) => {
+  const { title, title2, description } = useIntlayer('sign-in-page', locale);
 
   return (
     <>
@@ -38,7 +39,9 @@ const SignInPage: NextPageIntlayer = async ({ params }) => {
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <SignInPageContent />
+      <Suspense>
+        <SignInPageContent locale={locale} />
+      </Suspense>
     </IntlayerServerProvider>
   );
 };

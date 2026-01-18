@@ -35,11 +35,11 @@ const getDistinctRootDirs = (dirs: string[]): string[] => {
 export const getComponentTransformPattern = async (
   intlayerConfig: IntlayerConfig
 ): Promise<string[]> => {
-  const { baseDir, contentDir } = intlayerConfig.content;
+  const { baseDir, codeDir } = intlayerConfig.content;
   const { traversePattern } = intlayerConfig.build;
 
-  // Optimize: Filter out contentDir paths if they are already covered by baseDir
-  const distinctRoots = getDistinctRootDirs([baseDir, ...contentDir]);
+  // Optimize: Filter out codeDir paths if they are already covered by baseDir
+  const distinctRoots = getDistinctRootDirs([baseDir, ...codeDir]);
 
   const filesListPatternPromises = distinctRoots.map((cwd) =>
     fg(traversePattern, {
@@ -58,11 +58,11 @@ export const getComponentTransformPattern = async (
 export const getComponentTransformPatternSync = (
   intlayerConfig: IntlayerConfig
 ): string[] => {
-  const { baseDir, contentDir } = intlayerConfig.content;
+  const { baseDir, codeDir } = intlayerConfig.content;
   const { traversePattern } = intlayerConfig.build;
 
-  // Optimize: Filter out contentDir paths if they are already covered by baseDir
-  const distinctRoots = getDistinctRootDirs([baseDir, ...contentDir]);
+  // Optimize: Filter out codeDir paths if they are already covered by baseDir
+  const distinctRoots = getDistinctRootDirs([baseDir, ...codeDir]);
 
   const filesList = distinctRoots.flatMap((cwd) =>
     fg.sync(traversePattern, {

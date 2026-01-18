@@ -1,14 +1,17 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { DashboardContentLayout } from '@components/Dashboard/DashboardContentLayout';
 import { TagList } from '@components/Dashboard/TagForm/TagList';
+import type { LocalesValues } from 'intlayer';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
-import type { FC } from 'react';
+import { type FC, Suspense } from 'react';
 
 export { generateMetadata } from './metadata';
 
-const TagsDashboardPageContent: FC = () => {
-  const { title } = useIntlayer('tags-dashboard-page');
+const TagsDashboardPageContent: FC<{ locale: LocalesValues }> = ({
+  locale,
+}) => {
+  const { title } = useIntlayer('tags-dashboard-page', locale);
   return (
     <DashboardContentLayout title={title}>
       <TagList />
@@ -22,7 +25,9 @@ const TagsDashboardPage: NextPageIntlayer = async ({ params }) => {
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <TagsDashboardPageContent />
+      <Suspense>
+        <TagsDashboardPageContent locale={locale} />
+      </Suspense>
     </IntlayerServerProvider>
   );
 };

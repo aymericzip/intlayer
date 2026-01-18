@@ -14,7 +14,7 @@ import {
 import type { LocalesValues } from 'intlayer';
 import type { NextLayoutIntlayer } from 'next-intlayer';
 import { useIntlayer } from 'next-intlayer/server';
-import type { FC } from 'react';
+import { type FC, Suspense } from 'react';
 import { PagesRoutes } from '@/Routes';
 import { getServerIntlayerAPI } from '@/utils/getServerIntlayerAPI';
 import { getSessionData } from '@/utils/getSessionData';
@@ -34,8 +34,11 @@ const DashboardLayoutContent: FC<DashboardLayoutContentProps> = ({
   locale,
   dehydratedState,
 }) => {
-  const { collapseButton, navigation } = useIntlayer('dashboard-sidebar');
-  const { footerLinks } = useIntlayer('dashboard-navbar-content');
+  const { collapseButton, navigation } = useIntlayer(
+    'dashboard-sidebar',
+    locale
+  );
+  const { footerLinks } = useIntlayer('dashboard-navbar-content', locale);
 
   const navigationItems: SidebarNavigationItem[] = [
     {
@@ -136,7 +139,7 @@ const DashboardLayoutContent: FC<DashboardLayoutContentProps> = ({
             collapseButtonLabel={collapseButton.label.value}
           />
           <div className="flex min-h-0 flex-1 flex-col rounded-2xl bg-background md:mr-2 md:overflow-auto">
-            {children}
+            <Suspense>{children}</Suspense>
           </div>
         </div>
       </DashboardHydrationBoundary>
@@ -198,15 +201,17 @@ const DashboardLayout: NextLayoutIntlayer = async ({ children, params }) => {
   const sessionToPass = hasSessionToken && !session ? undefined : session;
 
   return (
-    <DashboardLayoutContent locale={locale} dehydratedState={dehydratedState}>
-      <AuthenticationBarrier
-        accessRule="authenticated"
-        session={sessionToPass}
-        locale={locale}
-      >
-        {children}
-      </AuthenticationBarrier>
-    </DashboardLayoutContent>
+    <Suspense>
+      <DashboardLayoutContent locale={locale} dehydratedState={dehydratedState}>
+        <AuthenticationBarrier
+          accessRule="authenticated"
+          session={sessionToPass}
+          locale={locale}
+        >
+          {children}
+        </AuthenticationBarrier>
+      </DashboardLayoutContent>
+    </Suspense>
   );
 };
 

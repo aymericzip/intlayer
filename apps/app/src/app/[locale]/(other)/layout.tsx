@@ -1,13 +1,17 @@
 import { DashboardFooter } from '@components/Dashboard/DashboardFooter';
 import { PageLayout } from '@layouts/PageLayout';
+import type { LocalesValues } from 'intlayer';
 import type { NextLayoutIntlayer } from 'next-intlayer';
 import { useIntlayer } from 'next-intlayer/server';
+import { type FC, type ReactNode, Suspense } from 'react';
 
 export { generateStaticParams } from 'next-intlayer';
 
-const LandingLayout: NextLayoutIntlayer = async ({ children, params }) => {
-  const { locale } = await params;
-  const { footerLinks } = useIntlayer('dashboard-navbar-content');
+const LandingLayoutContent: FC<{
+  children: ReactNode;
+  locale: LocalesValues;
+}> = ({ children, locale }) => {
+  const { footerLinks } = useIntlayer('dashboard-navbar-content', locale);
 
   const formattedFooterLinks = footerLinks.map(
     (el: {
@@ -28,6 +32,16 @@ const LandingLayout: NextLayoutIntlayer = async ({ children, params }) => {
     >
       {children}
     </PageLayout>
+  );
+};
+
+const LandingLayout: NextLayoutIntlayer = async ({ children, params }) => {
+  const { locale } = await params;
+
+  return (
+    <Suspense>
+      <LandingLayoutContent locale={locale}>{children}</LandingLayoutContent>
+    </Suspense>
   );
 };
 

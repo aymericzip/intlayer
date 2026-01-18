@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-18
-    changes: Separate system configuration from content configuration. Move internal paths to `system` property.
+    changes: Separate system configuration from content configuration. Move internal paths to `system` property. Add `codeDir` to separate content files from code transformation.
   - version: 7.6.0
     date: 2026-01-18
     changes: Add `location` and `schema` dictionary options
@@ -399,7 +399,15 @@ Settings related to content handling within the application, including directory
   - _Type_: `string[]`
   - _Default_: `['.']`
   - _Example_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
-  - _Description_: The directory path where content is stored.
+  - _Description_: The directory path where content definition files (`.content.*`) are stored.
+  - _Note_: This is used to watch for content files to rebuild dictionaries.
+
+- **codeDir**:
+  - _Type_: `string[]`
+  - _Default_: `['.']`
+  - _Example_: `['src', '../../ui-library']`
+  - _Description_: The directory path where the code is stored, relative to the base directory.
+  - _Note_: This is used to watch for code files to transform (prune, optimise). Keeping this separate from `contentDir` can improve build performance by avoiding unnecessary scans of content files.
 
 - **excludedPath**:
   - _Type_: `string[]`

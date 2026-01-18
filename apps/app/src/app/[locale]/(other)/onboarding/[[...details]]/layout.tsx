@@ -2,6 +2,7 @@ import { BackgroundLayout } from '@components/BackgroundLayout';
 import { onboardingSteps } from '@components/OnboardPage/steps';
 import { Period, Plans } from '@components/PricingPage/data.content';
 import type { NextLayoutIntlayer } from 'next-intlayer';
+import { Suspense } from 'react';
 
 export const generateStaticParams = () => {
   const routes = [
@@ -25,6 +26,10 @@ export { generateMetadata } from './metadata';
 
 const OnboardingLayout: NextLayoutIntlayer<{ details: string[] }> = ({
   children,
-}) => <BackgroundLayout>{children}</BackgroundLayout>;
+}) => (
+  <BackgroundLayout>
+    <Suspense>{children}</Suspense>
+  </BackgroundLayout>
+);
 
 export default OnboardingLayout;

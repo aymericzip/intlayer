@@ -4,12 +4,12 @@ import { Container } from '@intlayer/design-system';
 import type { LocalesValues } from 'intlayer';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
-import type { FC } from 'react';
+import { type FC, Suspense } from 'react';
 
-const OnboardPageContent: FC<{ locale: LocalesValues; details: string[] }> = ({
-  locale,
-  details,
-}) => {
+const OnboardPageContent: FC<{
+  locale: LocalesValues;
+  details: string[];
+}> = ({ locale, details }) => {
   const { title, description } = useIntlayer('onboard-page', locale);
   const pageDetails = getPlanDetails(details);
 
@@ -38,7 +38,9 @@ const OnboardPage: NextPageIntlayer<{ details: string[] }> = async ({
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <OnboardPageContent locale={locale} details={details} />
+      <Suspense>
+        <OnboardPageContent locale={locale} details={details} />
+      </Suspense>
     </IntlayerServerProvider>
   );
 };

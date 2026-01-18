@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-18
-    changes: Separar la configuración del sistema de la configuración del contenido. Mover las rutas internas a la propiedad `system`.
+    changes: Separar la configuración del sistema de la configuración del contenido. Mover las rutas internas a la propiedad `system`. Añadir `codeDir` para separar los archivos de contenido de la transformación del código.
   - version: 7.6.0
     date: 2026-01-18
     changes: Añadir opciones de diccionario `location` y `schema`
@@ -395,7 +395,15 @@ Configuraciones relacionadas con el manejo de contenido dentro de la aplicación
   - _Tipo_: `string[]`
   - _Por defecto_: `['.']`
   - _Ejemplo_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
-  - _Descripción_: La ruta del directorio donde se almacena el contenido.
+  - _Descripción_: La ruta del directorio donde se almacenan los archivos de definición de contenido (`.content.*`).
+  - _Nota_: Esto se usa para vigilar los archivos de contenido para reconstruir los diccionarios.
+
+- **codeDir**:
+  - _Tipo_: `string[]`
+  - _Por defecto_: `['.']`
+  - _Ejemplo_: `['src', '../../ui-library']`
+  - _Descripción_: La ruta del directorio donde se almacena el código, relativa al directorio base.
+  - _Nota_: Esto se usa para vigilar los archivos de código para transformar (podar, optimizar). Mantener esto separado de `contentDir` puede mejorar el rendimiento de la compilación al evitar escaneos innecesarios de archivos de contenido.
 
 - **excludedPath**:
   - _Tipo_: `string[]`

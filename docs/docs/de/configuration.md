@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-18
-    changes: Systemkonfiguration von der Inhaltskonfiguration trennen. Interne Pfade zur Eigenschaft `system` verschieben.
+    changes: Systemkonfiguration von der Inhaltskonfiguration trennen. Interne Pfade zur Eigenschaft `system` verschieben. `codeDir` hinzufügen, um Inhaltsdateien von der Codetransformation zu trennen.
   - version: 7.6.0
     date: 2026-01-18
     changes: Wörterbuchoptionen `location` und `schema` hinzugefügt
@@ -396,7 +396,15 @@ Einstellungen im Zusammenhang mit der Inhaltsverwaltung innerhalb der Anwendung,
   - _Typ_: `string[]`
   - _Standard_: `['.']`
   - _Beispiel_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
-  - _Beschreibung_: Der Verzeichnispfad, in dem Inhalte gespeichert sind.
+  - _Beschreibung_: Der Verzeichnispfad, in dem Inhaltsdefinitionsdateien (`.content.*`) gespeichert sind.
+  - _Hinweis_: Dies wird verwendet, um Inhaltsdateien zu überwachen, um Wörterbücher neu zu erstellen.
+
+- **codeDir**:
+  - _Typ_: `string[]`
+  - _Standard_: `['.']`
+  - _Beispiel_: `['src', '../../ui-library']`
+  - _Beschreibung_: Der Verzeichnispfad, in dem der Code gespeichert ist, relativ zum Basisverzeichnis.
+  - _Hinweis_: Dies wird verwendet, um Codedateien zu überwachen, die transformiert werden sollen (beschneiden, optimieren). Die Trennung von `contentDir` kann die Build-Leistung verbessern, indem unnötige Scans von Inhaltsdateien vermieden werden.
 
 - **excludedPath**:
   - _Typ_: `string[]`

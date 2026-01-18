@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-18
-    changes: 将系统配置与内容配置分离。将内部路径移至 `system` 属性。
+    changes: 将系统配置与内容配置分离。将内部路径移至 `system` 属性。添加 `codeDir` 以将内容文件与代码转换分离。
   - version: 7.6.0
     date: 2026-01-18
     changes: 添加字典选项 `location` 和 `schema`
@@ -404,7 +404,15 @@ module.exports = config;
   - _类型_: `string[]`
   - _默认值_: `['.']`
   - _示例_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
-  - _描述_: 存储内容的目录路径。
+  - _描述_: 存储内容定义文件（`.content.*`）的目录路径。
+  - _备注_: 用于监视内容文件以重建字典。
+
+- **codeDir**:
+  - _类型_: `string[]`
+  - _默认值_: `['.']`
+  - _示例_: `['src', '../../ui-library']`
+  - _描述_: 存储代码的目录路径，相对于基础目录。
+  - _备注_: 用于监视代码文件以进行转换（修剪、优化）。将此与 `contentDir` 分开可以提高构建性能，避免不必要地扫描内容文件。
 
 - **dictionariesDir**:
   - _类型_: `string`

@@ -38,7 +38,8 @@ const config: CustomIntlayerConfig = {
     mode: 'prefix-no-default',
   },
   content: {
-    contentDir: ['./src', '@intlayer/design-system'],
+    contentDir: ['./src', '@intlayer/design-system'], // To test package path resolution
+    codeDir: ['./src', '../../packages/@intlayer/design-system/src'], // To test relative path resolution
     formatCommand: 'bun x biome format "{{file}}" --write --log-level none',
   },
   editor: {
