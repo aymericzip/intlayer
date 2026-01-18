@@ -66,6 +66,18 @@ export interface CopyToClipboardProps extends PropsWithChildren {
    * @default true
    */
   preventDefault?: boolean;
+
+  /**
+   * Stop the propagation of the event when clicked
+   * @default true
+   */
+  stopPropagation?: boolean;
+
+  /**
+   * The size of the icon in pixels
+   * @default 16
+   */
+  size?: number;
 }
 
 export const useCopyToClipboard = (
@@ -110,17 +122,18 @@ export const useCopyToClipboard = (
  * ```tsx
  * // Basic usage
  * <CopyToClipboard text="Hello World">
- *   <span>Click to copy</span>
+ * <span>Click to copy</span>
  * </CopyToClipboard>
  *
- * // With custom styling and callbacks
+ * // With custom styling, callbacks, and icon size
  * <CopyToClipboard
- *   text="npm install @intlayer/design-system"
- *   className="bg-gray-100 p-2"
- *   feedbackDuration={3000}
- *   onCopySuccess={() => console.log('Copied!')}
+ * text="npm install @intlayer/design-system"
+ * className="bg-gray-100 p-2"
+ * feedbackDuration={3000}
+ * size={20}
+ * onCopySuccess={() => console.log('Copied!')}
  * >
- *   <code>npm install @intlayer/design-system</code>
+ * <code>npm install @intlayer/design-system</code>
  * </CopyToClipboard>
  * ```
  *
@@ -142,6 +155,8 @@ export const CopyToClipboard: FC<CopyToClipboardProps> = ({
   onCopyError,
   disable,
   preventDefault = true,
+  stopPropagation = true,
+  size = 14,
 }) => {
   const { isCopied, copy } = useCopyToClipboard(
     text,
@@ -160,6 +175,7 @@ export const CopyToClipboard: FC<CopyToClipboardProps> = ({
 
   const handleCopy = (event: MouseEvent | KeyboardEvent) => {
     if (preventDefault) event.preventDefault();
+    if (stopPropagation) event.stopPropagation();
 
     copy();
   };
@@ -186,7 +202,8 @@ export const CopyToClipboard: FC<CopyToClipboardProps> = ({
 
       {text && (
         <IconComponent
-          className="ml-1 ml-auto size-4 min-w-4 shrink-0"
+          className="ml-1 ml-auto shrink-0"
+          size={size}
           aria-hidden="true"
         />
       )}

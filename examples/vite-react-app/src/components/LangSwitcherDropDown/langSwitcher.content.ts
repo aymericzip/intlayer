@@ -19,6 +19,7 @@ const langSwitcherContent = {
       fr: 'Passer à ',
     }),
   },
+  id: '696bd486200a5ac2eabb8d2e',
 } satisfies Dictionary;
 
 export default langSwitcherContent;

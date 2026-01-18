@@ -10,7 +10,7 @@ import type {
 export const checkboxVariants = cva(
   [
     'appearance-none',
-    'pointer relative border-2',
+    'relative cursor-pointer border-2',
     'focus:outline-0',
     'checked:border-current checked:bg-current checked:hover:bg-current/80',
     'ring-current/20 ring-offset-current',

@@ -5,6 +5,7 @@ import type { DiffMode, ListGitFilesOptions } from '@intlayer/chokidar';
 import {
   type GetConfigurationOptions,
   getConfiguration,
+  setPrefix,
 } from '@intlayer/config';
 import { Command } from 'commander';
 import { login } from './auth/login';
@@ -208,8 +209,14 @@ const extractConfigOptions = (
   const { baseDir, env, envFile, verbose, prefix, noCache } = options;
 
   const addPrefix: boolean = Boolean((options as any).with); // Hack to add the prefix when the command is run in parallel
+
+  if (typeof prefix === 'string') {
+    setPrefix(prefix);
+  } else if (addPrefix) {
+    setPrefix(configuration.log.prefix);
+  }
+
   const log = {
-    prefix: (prefix ?? addPrefix) ? configuration.log.prefix : '', // Should not consider the prefix set in the intlayer configuration file
     verbose: verbose ?? true,
   };
 
@@ -235,6 +242,7 @@ const extractConfigOptions = (
  * npm run intlayer push --dictionaries id1 id2 id3 --deleteLocaleDir
  */
 export const setAPI = (): Command => {
+  setPrefix('');
   const program = new Command();
 
   program.version(packageJson.version!).description('Intlayer CLI');

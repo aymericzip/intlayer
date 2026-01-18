@@ -14,7 +14,7 @@ const DictionaryDashboardPage: NextPageIntlayer<
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <div className="flex size-full min-h-0 flex-1 flex-col items-stretch p-10 pt-0">
+      <div className="flex min-h-0 w-full flex-1 flex-col items-stretch px-10">
         <ContentDashboard dictionaryKey={dictionaryKey} />
       </div>
       <BackgroundLayout />

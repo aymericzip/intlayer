@@ -1,5 +1,6 @@
 'use client';
 
+import { CopyToClipboard } from '@components/CopyToClipboard';
 import {
   useConfiguration,
   useDictionariesRecordActions,
@@ -59,7 +60,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
     <LocaleSwitcherContentProvider
       availableLocales={config?.internationalization.locales ?? []}
     >
-      <div className="relative flex h-full min-h-0 w-full flex-1 flex-col gap-6 overflow-hidden">
+      <div className="relative flex h-full min-h-0 w-full flex-1 flex-col md:overflow-hidden">
         {showReturnButton && (
           <Button
             onClick={onClickDictionaryList}
@@ -73,7 +74,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           </Button>
         )}
 
-        <div className="min-h-0 flex-1 px-2">
+        <div className="min-h-0 flex-1">
           <Tab
             defaultTab="content"
             variant="ghost"
@@ -97,7 +98,14 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           </Tab>
         </div>
 
-        <div className="shrink-0 border-card border-t p-4">
+        <div className="sticky bottom-16 z-20 flex shrink-0 flex-wrap items-center justify-end gap-10 border-card border-t p-4 md:bottom-0">
+          <CopyToClipboard
+            text={dictionary.id!}
+            className="text-nowrap text-neutral text-sm"
+            size={9}
+          >
+            {dictionary.id}
+          </CopyToClipboard>
           <SaveForm
             dictionary={dictionary}
             mode={mode}

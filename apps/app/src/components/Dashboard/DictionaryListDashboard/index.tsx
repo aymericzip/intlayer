@@ -4,6 +4,7 @@ import {
   Button,
   Checkbox,
   Container,
+  CopyToClipboard,
   DictionaryCreationForm,
   Loader,
   Modal,
@@ -26,13 +27,16 @@ import {
   type ColumnDef,
   flexRender,
   getCoreRowModel,
+  type RowSelectionState,
   useReactTable,
+  type VisibilityState,
 } from '@tanstack/react-table';
 import { cn } from '@utils/cn';
 import {
   ChevronDown,
   ChevronsUpDown,
   ChevronUp,
+  Columns,
   Filter,
   Pencil,
   Plus,
@@ -63,31 +67,37 @@ export const DictionaryListDashboardContent: FC = () => {
     selectRow,
     locationOptions,
     filterLabels,
+    visibleColumns,
+    selectColumns,
   } = useIntlayer('dictionary-list') as any;
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const [isFiltersModalOpen, setIsFiltersModalOpen] = useState(false);
   const [editingDictionaryKey, setEditingDictionaryKey] = useState<
     string | null
   >(null);
-  const [rowSelection, setRowSelection] = usePersistedStore(
+  const [rowSelection, setRowSelection] = usePersistedStore<RowSelectionState>(
     'dictionary-list-row-selection',
     {}
   );
+  const [columnVisibility, setColumnVisibility] =
+    usePersistedStore<VisibilityState>('dictionary-list-column-visibility', {
+      id: false,
+      description: false,
+      location: false,
+      createdAt: false,
+    });
+
   const formatDate = useDate();
 
-  const searchParamsConfig = useMemo(
-    () =>
-      ({
-        page: { type: 'number', fallbackValue: 1 },
-        pageSize: { type: 'number', fallbackValue: 20 },
-        search: { type: 'string', fallbackValue: '' },
-        sortBy: { type: 'string', fallbackValue: 'updatedAt' },
-        sortOrder: { type: 'string', fallbackValue: 'desc' },
-        location: { type: 'string', fallbackValue: 'none' },
-        tags: { type: 'string', fallbackValue: '' },
-      }) as const,
-    []
-  );
+  const searchParamsConfig = {
+    page: { type: 'number', fallbackValue: 1 },
+    pageSize: { type: 'number', fallbackValue: 20 },
+    search: { type: 'string', fallbackValue: '' },
+    sortBy: { type: 'string', fallbackValue: 'updatedAt' },
+    sortOrder: { type: 'string', fallbackValue: 'desc' },
+    location: { type: 'string', fallbackValue: 'none' },
+    tags: { type: 'string', fallbackValue: '' },
+  } as const;
 
   const { params, setParam, setParams } =
     useSearchParamState(searchParamsConfig);
@@ -159,7 +169,7 @@ export const DictionaryListDashboardContent: FC = () => {
       variant="hoverable"
       color="text"
       size="sm"
-      className="-ml-4 flex items-center gap-1 font-medium"
+      className="flex items-center gap-1 font-medium"
       onClick={() => handleSort(columnId)}
       Icon={getSortIcon(columnId)}
       label={label}
@@ -194,6 +204,30 @@ export const DictionaryListDashboardContent: FC = () => {
       enableHiding: false,
     },
     {
+      accessorKey: 'id',
+      header: tableHeaders.id,
+      cell: ({ row }) => (
+        <CopyToClipboard
+          text={row.original.id!}
+          size={9}
+          className="text-nowrap text-neutral"
+        >
+          {row.original.id}
+        </CopyToClipboard>
+      ),
+    },
+    {
+      accessorKey: 'key',
+      header: () => (
+        <SortHeader columnId="key" label={tableHeaders.key.value} />
+      ),
+      cell: ({ row }) => (
+        <CopyToClipboard text={row.original.key} size={9} className="font-mono">
+          {row.original.key}
+        </CopyToClipboard>
+      ),
+    },
+    {
       accessorKey: 'title',
       header: () => (
         <SortHeader columnId="title" label={tableHeaders.title.value} />
@@ -202,23 +236,24 @@ export const DictionaryListDashboardContent: FC = () => {
         row.original.title ? (
           <div className="font-medium">{row.original.title}</div>
         ) : (
-          <span className="text-neutral text-sm">-</span>
+          <span className="text-neutral">-</span>
         ),
     },
     {
-      accessorKey: 'key',
-      header: () => (
-        <SortHeader columnId="key" label={tableHeaders.key.value} />
-      ),
-      cell: ({ row }) => (
-        <div className="font-mono text-sm">{row.original.key}</div>
-      ),
+      accessorKey: 'description',
+      header: tableHeaders.description,
+      cell: ({ row }) =>
+        row.original.description ? (
+          <div className="line-clamp-2 max-w-xs text-neutral">
+            {row.original.description}
+          </div>
+        ) : (
+          <span className="text-neutral">-</span>
+        ),
     },
     {
       accessorKey: 'tags',
-      header: () => (
-        <SortHeader columnId="tags" label={tableHeaders.tags.value} />
-      ),
+      header: tableHeaders.tags,
       cell: ({ row }) => (
         <div className="flex flex-wrap gap-1">
           {(row.original as any).tags &&
@@ -229,16 +264,14 @@ export const DictionaryListDashboardContent: FC = () => {
               </Tag>
             ))
           ) : (
-            <span className="text-neutral text-sm">-</span>
+            <span className="text-neutral">-</span>
           )}
         </div>
       ),
     },
     {
       accessorKey: 'location',
-      header: () => (
-        <SortHeader columnId="location" label={tableHeaders.location.value} />
-      ),
+      header: tableHeaders.location,
       cell: ({ row }) => {
         const location = row.original.location ?? 'remote';
         const isLocal = location === 'local' || location === 'local&remote';
@@ -248,7 +281,7 @@ export const DictionaryListDashboardContent: FC = () => {
           location === 'plugin';
 
         return (
-          <div className="flex items-center gap-4 text-neutral text-sm">
+          <div className="flex items-center gap-4 text-neutral">
             <div className="flex items-center gap-1">
               <Checkbox
                 name="is-local"
@@ -279,7 +312,7 @@ export const DictionaryListDashboardContent: FC = () => {
         <SortHeader columnId="createdAt" label={tableHeaders.createdAt.value} />
       ),
       cell: ({ row }) => (
-        <div className="text-neutral text-sm">
+        <div className="text-neutral">
           {formatDate((row.original as any).createdAt)}
         </div>
       ),
@@ -290,14 +323,14 @@ export const DictionaryListDashboardContent: FC = () => {
         <SortHeader columnId="updatedAt" label={tableHeaders.updatedAt.value} />
       ),
       cell: ({ row }) => (
-        <div className="text-neutral text-sm">
+        <div className="text-neutral">
           {formatDate((row.original as any).updatedAt)}
         </div>
       ),
     },
     {
       id: 'actions',
-      header: tableHeaders.actions.value,
+      header: tableHeaders.actions,
       cell: ({ row }) => (
         <div className="flex items-center gap-1">
           <Popover identifier={`edit-${row.original.id}`}>
@@ -316,7 +349,7 @@ export const DictionaryListDashboardContent: FC = () => {
             />
             <Popover.Detail identifier={`edit-${row.original.id}`}>
               <Container className="p-3">
-                <p className="text-sm">{editButton.popover.value}</p>
+                <p>{editButton.popover}</p>
               </Container>
             </Popover.Detail>
           </Popover>
@@ -337,7 +370,7 @@ export const DictionaryListDashboardContent: FC = () => {
             />
             <Popover.Detail identifier={`delete-${row.original.id}`}>
               <Container className="p-3">
-                <p className="text-sm">{deleteButton.popover.value}</p>
+                <p>{deleteButton.popover}</p>
               </Container>
             </Popover.Detail>
           </Popover>
@@ -351,8 +384,10 @@ export const DictionaryListDashboardContent: FC = () => {
     columns,
     state: {
       rowSelection,
+      columnVisibility,
     },
     onRowSelectionChange: setRowSelection,
+    onColumnVisibilityChange: setColumnVisibility,
     getCoreRowModel: getCoreRowModel(),
     getRowId: (row) => row.id!,
   });
@@ -409,27 +444,27 @@ export const DictionaryListDashboardContent: FC = () => {
   const hasAppliedFilters = appliedFiltersCount > 0;
 
   return (
-    <div className="flex min-h-full w-full flex-1 flex-col gap-6 px-10 py-6">
-      <div className="flex items-center justify-between gap-4">
-        <div className="flex max-w-2xl flex-1 items-center gap-4">
+    <div className="flex w-full flex-1 flex-col gap-6 py-6 text-sm">
+      <div className="flex items-center justify-between gap-4 px-10">
+        <div className="flex max-w-md flex-1 items-center gap-4">
           <SearchInput
             placeholder={searchPlaceholder.value}
             {...register('search')}
             className="flex-1"
           />
-          <div className="relative">
+          <div className="flex items-center gap-0.5">
             <Popover identifier="dictionary-filters">
               <Button
                 variant="hoverable"
                 color="text"
-                size="icon-md"
+                size="icon-lg"
                 onClick={() => setIsFiltersModalOpen(true)}
                 Icon={Filter}
                 label={filterLabels.button.value}
               />
               <Popover.Detail identifier="dictionary-filters">
-                <Container className="p-3">
-                  <p className="text-sm">{filterLabels.popover.value}</p>
+                <Container className="p-3" roundedSize="xl">
+                  <p>{filterLabels.popover}</p>
                 </Container>
               </Popover.Detail>
             </Popover>
@@ -438,6 +473,44 @@ export const DictionaryListDashboardContent: FC = () => {
                 {appliedFiltersCount}
               </span>
             )}
+
+            <Popover identifier="dictionary-columns">
+              <Button
+                variant="hoverable"
+                color="text"
+                size="icon-lg"
+                Icon={Columns}
+                label={selectColumns.value}
+              />
+              <Popover.Detail identifier="dictionary-columns">
+                <Container className="flex flex-col gap-2 p-3" roundedSize="xl">
+                  <p className="mb-2 font-bold">{visibleColumns}</p>
+                  {table
+                    .getAllLeafColumns()
+                    .filter((column) => column.getCanHide())
+                    .map((column) => (
+                      <div key={column.id} className="flex items-center gap-2">
+                        <Checkbox
+                          id={`col-${column.id}`}
+                          name={`col-${column.id}`}
+                          checked={column.getIsVisible()}
+                          onChange={(e) =>
+                            column.toggleVisibility(e.target.checked)
+                          }
+                          size="sm"
+                        />
+                        <label
+                          htmlFor={`col-${column.id}`}
+                          className="cursor-pointer"
+                        >
+                          {column.id.charAt(0).toUpperCase() +
+                            column.id.slice(1)}
+                        </label>
+                      </div>
+                    ))}
+                </Container>
+              </Popover.Detail>
+            </Popover>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -467,7 +540,7 @@ export const DictionaryListDashboardContent: FC = () => {
       {hasAppliedFilters && (
         <div className="flex flex-wrap items-center gap-2">
           {params.location !== 'none' && (
-            <div className="flex items-center gap-1 rounded-full border border-card bg-card px-3 py-1 text-sm">
+            <div className="flex items-center gap-1 rounded-full border border-card bg-card px-3 py-1">
               <span className="text-neutral-500">{tableHeaders.location}:</span>
               <span className="font-medium">
                 {locationOptions[params.location]?.value || params.location}
@@ -482,7 +555,7 @@ export const DictionaryListDashboardContent: FC = () => {
             </div>
           )}
           {params.tags && (
-            <div className="flex items-center gap-1 rounded-full border border-card bg-card px-3 py-1 text-sm">
+            <div className="flex items-center gap-1 rounded-full border border-card bg-card px-3 py-1">
               <span className="text-neutral-500">{tableHeaders.tags}:</span>
               <span className="font-medium">{params.tags}</span>
               <Button
@@ -507,14 +580,14 @@ export const DictionaryListDashboardContent: FC = () => {
         </div>
       )}
 
-      <div className="w-full flex-1 overflow-x-auto">
+      <div className="flex w-full max-w-screen flex-1 flex-col overflow-x-auto overflow-y-hidden">
         <Loader isLoading={isPending}>
           {dictionaries.length === 0 ? (
             <div className="flex min-h-60 items-center justify-center">
-              <span className="text-neutral text-sm">{noDictionaryFound}</span>
+              <span className="text-neutral">{noDictionaryFound}</span>
             </div>
           ) : (
-            <Table className="w-full border-separate border-spacing-0">
+            <Table className="w-full border-separate border-spacing-0 px-10">
               <thead>
                 {table.getHeaderGroups().map((headerGroup) => (
                   <tr
@@ -638,7 +711,7 @@ export const DictionaryListDashboardContent: FC = () => {
         filterLabels={filterLabels}
       />
 
-      <div className="flex w-full flex-row items-end justify-between gap-4 pt-4">
+      <div className="flex w-full flex-row items-end justify-between gap-4 px-10 pt-4">
         <div className="flex flex-col gap-4">
           <ShowingResultsNumberItems
             currentPage={currentPage}

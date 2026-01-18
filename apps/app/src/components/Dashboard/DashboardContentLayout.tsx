@@ -27,7 +27,9 @@ export const DashboardContentLayout: FC<DashboardContentLayoutProps> = ({
     >
       {title}
     </h1>
-    <div className={cn('relative flex w-full flex-1 flex-col', className)}>
+    <div
+      className={cn('relative flex min-h-0 w-full flex-1 flex-col', className)}
+    >
       {children}
     </div>
   </>

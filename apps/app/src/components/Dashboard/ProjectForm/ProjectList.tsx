@@ -132,6 +132,7 @@ export const ProjectList: FC = () => {
       <Modal
         isOpen={isCreationModalOpen}
         onClose={() => setIsCreationModalOpen(false)}
+        padding="md"
       >
         <ProjectCreationForm
           onProjectCreated={() => setIsCreationModalOpen(false)}

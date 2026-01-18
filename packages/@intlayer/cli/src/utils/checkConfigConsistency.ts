@@ -1,35 +1,17 @@
-import { isDeepStrictEqual } from 'node:util';
+export const checkConfigConsistency = (subset: any, superset: any) => {
+  for (const key in subset) {
+    const val1 = subset[key];
+    const val2 = superset[key];
 
-/**
- * Recursively checks if a subset configuration matches a superset configuration.
- * Throws an error if any value in the subset doesn't match the corresponding value in the superset.
- *
- * @param subset - The subset configuration (e.g., project.configuration from CMS)
- * @param superset - The superset configuration (e.g., local configuration)
- * @throws Error if any value in subset doesn't match the corresponding value in superset
- */
-export const checkConfigConsistency = (
-  subset: Record<string, any>,
-  superset: Record<string, any>
-): void => {
-  Object.keys(subset).forEach((key) => {
-    const isSubsetObject =
-      typeof subset[key] === 'object' &&
-      subset[key] !== null &&
-      !Array.isArray(subset[key]);
-    const isSupersetObject =
-      typeof superset[key] === 'object' &&
-      superset[key] !== null &&
-      !Array.isArray(superset[key]);
-
-    if (isSubsetObject && isSupersetObject) {
-      checkConfigConsistency(subset[key], superset[key]);
-    } else {
-      if (!isDeepStrictEqual(subset[key], superset[key])) {
-        throw new Error(
-          `Configuration mismatch at key "${key}": expected ${JSON.stringify(superset[key])}, got ${JSON.stringify(subset[key])}`
-        );
+    if (Array.isArray(val1) && Array.isArray(val2)) {
+      // Check if arrays are identical in content
+      if (JSON.stringify(val1) !== JSON.stringify(val2)) {
+        throw new Error(`Configuration mismatch at key "${key}"`);
       }
+    } else if (typeof val1 === 'object' && val1 !== null) {
+      checkConfigConsistency(val1, val2);
+    } else if (val1 !== val2) {
+      throw new Error(`Configuration mismatch at key "${key}"`);
     }
-  });
+  }
 };

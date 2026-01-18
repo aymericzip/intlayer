@@ -25,19 +25,21 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
     <Suspense fallback={<Loader />}>
       <Loader isLoading={!dictionary || isPending}>
         <EditorConfigurationProvider>
-          {dictionary && (
-            <DictionaryFieldEditor
-              dictionary={dictionary}
-              onClickDictionaryList={() =>
-                router.push(PagesRoutes.Dashboard_Dictionaries)
-              }
-              isDarkMode={resolvedTheme === 'dark'}
-              mode={['remote']}
-              onDelete={() => {
-                router.push(PagesRoutes.Dashboard_Dictionaries);
-              }}
-            />
-          )}
+          <div className="flex h-full min-h-0 w-full flex-1 flex-col">
+            {dictionary && (
+              <DictionaryFieldEditor
+                dictionary={dictionary}
+                onClickDictionaryList={() =>
+                  router.push(PagesRoutes.Dashboard_Dictionaries)
+                }
+                isDarkMode={resolvedTheme === 'dark'}
+                mode={['remote']}
+                onDelete={() => {
+                  router.push(PagesRoutes.Dashboard_Dictionaries);
+                }}
+              />
+            )}
+          </div>
         </EditorConfigurationProvider>
       </Loader>
     </Suspense>

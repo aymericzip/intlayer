@@ -55,6 +55,8 @@ const AccessKeySelector: FC<{
         isOpen={isCreationModalOpen}
         onClose={() => setIsCreationModalOpen(false)}
         hasCloseButton
+        padding="md"
+        isScrollable
       >
         <div className="p-3">
           <AccessKeyCreationForm

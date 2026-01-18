@@ -8,11 +8,25 @@ export type Details = {
 
 export type Logger = (content: any, details?: Details) => void;
 
+let loggerPrefix: string | undefined;
+
+export const setPrefix = (prefix: string | undefined) => {
+  loggerPrefix = prefix;
+};
+
+export const getPrefix = (configPrefix?: string): string | undefined => {
+  if (typeof loggerPrefix !== 'undefined') {
+    return loggerPrefix;
+  }
+
+  return configPrefix;
+};
+
 export const logger: Logger = (content, details) => {
   const isVerbose = details?.isVerbose ?? false;
   const mode = details?.config?.mode ?? 'default';
   const level = details?.level ?? 'info';
-  const prefix = details?.config?.prefix ? details?.config?.prefix : undefined;
+  const prefix = getPrefix(details?.config?.prefix);
   const log = details?.config?.log ?? console.log;
   const info = details?.config?.info ?? console.info;
   const warn = details?.config?.warn ?? console.warn;

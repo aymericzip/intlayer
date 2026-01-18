@@ -30,7 +30,7 @@ export const AsideNavigation: FC = (props) => {
     <>
       <Container
         roundedSize="none"
-        transparency="sm"
+        transparency="xs"
         className={cn(
           isHidden ? 'h-[100px]' : 'h-full',
           'sticky top-[60px] rounded-bl-xl'
@@ -39,7 +39,7 @@ export const AsideNavigation: FC = (props) => {
       >
         <aside className="relative h-full max-w-80 px-2">
           <Container
-            transparency="sm"
+            transparency="xs"
             className="sticky top-14 z-10"
             roundedSize="none"
           >
@@ -103,7 +103,7 @@ export const AsideNavigation: FC = (props) => {
               >
                 <Container
                   className="justify-bottom size-full text-sm"
-                  transparency="sm"
+                  transparency="xs"
                 >
                   <ChatBot
                     additionalButtons={
