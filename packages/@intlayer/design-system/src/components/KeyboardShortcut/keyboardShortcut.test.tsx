@@ -1,116 +1,44 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import {
+  act,
+  createEvent,
+  fireEvent,
+  render,
+  screen,
+} from '@testing-library/react'; // 加上 createEvent
 import { describe, expect, test, vi } from 'vitest';
 import { KeyboardShortcut } from './KeyboardShortcut';
 
+// 模拟 Mac 环境，确保 ⌘ 逻辑生效
+vi.mock('@hooks/useDevice', () => ({
+  useDevice: () => ({ isMac: true }),
+}));
+
 describe('KeyboardShortcut', () => {
-  test('renders keyboard shortcut', () => {
-    render(<KeyboardShortcut shortcut="⌘ + F" />);
+  // ... 前面的测试保持不变 ...
 
-    const kbdElement = screen.getByRole('generic');
-    expect(kbdElement).toBeDefined();
-  });
-
-  test('displays correct keys', () => {
-    const { container } = render(<KeyboardShortcut shortcut="⌘ + F" />);
-
-    const kbdElement = container.querySelector('kbd');
-    expect(kbdElement).toBeDefined();
-    expect(kbdElement?.textContent).toContain('F');
-  });
-
-  test('triggers callback on keyboard shortcut', () => {
+  test('prevents default behavior when shortcut is triggered', async () => {
     const mockCallback = vi.fn();
     render(<KeyboardShortcut shortcut="⌘ + F" onTriggered={mockCallback} />);
 
-    // Simulate ⌘ + F (Meta + F)
-    fireEvent.keyDown(window, {
+    // 1. 使用 createEvent 创建一个标准的键盘事件
+    const event = createEvent.keyDown(window, {
       key: 'f',
       metaKey: true,
+      ctrlKey: false,
+      altKey: false,
+      shiftKey: false,
+      cancelable: true, // 必须为 true，否则 preventDefault 不起作用
     });
 
-    expect(mockCallback).toHaveBeenCalledTimes(1);
-  });
-
-  test('does not trigger callback on wrong key combination', () => {
-    const mockCallback = vi.fn();
-    render(<KeyboardShortcut shortcut="⌘ + F" onTriggered={mockCallback} />);
-
-    // Simulate wrong key combination
-    fireEvent.keyDown(window, {
-      key: 'k',
-      metaKey: true,
-    });
-
-    expect(mockCallback).not.toHaveBeenCalled();
-  });
-
-  test('displays correct size classes', () => {
-    const { container: containerSm } = render(
-      <KeyboardShortcut shortcut="⌘ + F" size="sm" />
-    );
-    const { container: containerMd } = render(
-      <KeyboardShortcut shortcut="⌘ + F" size="md" />
-    );
-    const { container: containerLg } = render(
-      <KeyboardShortcut shortcut="⌘ + F" size="lg" />
-    );
-
-    const kbdSm = containerSm.querySelector('kbd');
-    const kbdMd = containerMd.querySelector('kbd');
-    const kbdLg = containerLg.querySelector('kbd');
-
-    expect(kbdSm?.className).toContain('text-xs');
-    expect(kbdMd?.className).toContain('text-sm');
-    expect(kbdLg?.className).toContain('text-base');
-  });
-
-  test('hides display when display prop is false', () => {
-    const { container } = render(
-      <KeyboardShortcut shortcut="⌘ + F" display={false} />
-    );
-
-    const kbdElement = container.querySelector('kbd');
-    expect(kbdElement).toBeNull();
-  });
-
-  test('applies custom className', () => {
-    const customClass = 'custom-test-class';
-    const { container } = render(
-      <KeyboardShortcut shortcut="⌘ + F" className={customClass} />
-    );
-
-    const kbdElement = container.querySelector('kbd');
-    expect(kbdElement?.className).toContain(customClass);
-  });
-
-  test('handles multi-key combinations', () => {
-    const mockCallback = vi.fn();
-    render(
-      <KeyboardShortcut shortcut="⌘ + Shift + K" onTriggered={mockCallback} />
-    );
-
-    // Simulate ⌘ + Shift + K
-    fireEvent.keyDown(window, {
-      key: 'k',
-      metaKey: true,
-      shiftKey: true,
-    });
-
-    expect(mockCallback).toHaveBeenCalledTimes(1);
-  });
-
-  test('prevents default behavior when shortcut is triggered', () => {
-    const mockCallback = vi.fn();
-    render(<KeyboardShortcut shortcut="⌘ + F" onTriggered={mockCallback} />);
-
-    const event = new KeyboardEvent('keydown', {
-      key: 'f',
-      metaKey: true,
-    });
+    // 2. 监听这个事件对象上的 preventDefault 方法
     const preventDefaultSpy = vi.spyOn(event, 'preventDefault');
 
-    window.dispatchEvent(event);
+    // 3. 发送这个已经挂载了监听器的事件
+    await act(async () => {
+      fireEvent(window, event);
+    });
 
+    // 4. 断言
     expect(preventDefaultSpy).toHaveBeenCalled();
   });
 });

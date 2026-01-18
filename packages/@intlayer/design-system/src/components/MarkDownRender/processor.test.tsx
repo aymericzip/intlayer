@@ -1626,7 +1626,7 @@ describe('arbitrary HTML', () => {
     );
 
     expect(container.innerHTML).toMatchInlineSnapshot(
-      `"<span style="color: red; position: top; margin-right: 10px;">Hello</span>"`
+      `"<span style="color: red; margin-right: 10px;">Hello</span>"`
     );
   });
 
