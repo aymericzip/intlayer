@@ -2,7 +2,7 @@ import { type Dictionary, t } from 'intlayer';
 import type { Metadata } from 'next';
 
 const metadataContent = {
-  key: 'cli-landing-metadata',
+  key: 'translate-metadata',
   content: {
     title: t({
       en: 'AI CLI for JSON Translation & Markdown Localization | Intlayer',
