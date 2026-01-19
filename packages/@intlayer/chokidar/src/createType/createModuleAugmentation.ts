@@ -91,7 +91,6 @@ const generateTypeIndexContent = (
   const { locales, requiredLocales, strictMode } = internationalization;
 
   let fileContent = 'import "intlayer";\n';
-  fileContent += 'import type { z } from "zod";\n';
 
   // Build dictionary refs
   const dictionariesRef = typeFiles.map((dictionaryPath) => ({
