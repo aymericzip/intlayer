@@ -26,6 +26,7 @@
       "@components/*": ["./src/components/*"],
       "@structuredData/*": ["./src/structuredData/*"],
       "@utils/*": ["./src/utils/*"],
+      "@hooks/*": ["./src/hooks/*"],
       "@assets/*": ["./src/assets/*"],
       "@/*": ["./src/*"]
     }
