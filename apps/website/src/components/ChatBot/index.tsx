@@ -1,11 +1,12 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import { Container } from '@intlayer/design-system';
+import { Container, PopoverStatic } from '@intlayer/design-system';
 import {
   useAskDocQuestion,
   usePersistedStore,
 } from '@intlayer/design-system/hooks';
+import { InfoIcon } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, type ReactNode, useEffect, useRef, useState } from 'react';
 import { AppRoutes } from '@/Routes';
@@ -261,13 +262,25 @@ export const ChatBot: FC<ChatBotProps> = ({
           askNewQuestion={handleAskNewQuestion}
           clear={handleClear}
           nbMessages={(discussion?.storedPrompt ?? []).length}
-          additionalButtons={additionalButtons}
+          additionalButtons={
+            <>
+              <PopoverStatic identifier="chat-info">
+                <InfoIcon size={18} className="z-50 mr-3 text-neutral" />
+                <PopoverStatic.Detail
+                  identifier="chat-info"
+                  xAlign="center"
+                  yAlign="above"
+                >
+                  <p className="min-w-60 max-w-60 p-4 text-neutral text-xs">
+                    {disclaimerNote}
+                  </p>
+                </PopoverStatic.Detail>
+              </PopoverStatic>
+              {additionalButtons}
+            </>
+          }
           isActive={isActive}
         />
-
-        <p className="mx-auto mt-3 max-w-lg px-4 text-center text-neutral-500 text-xs dark:text-neutral-400">
-          {disclaimerNote}
-        </p>
       </div>
     </div>
   );

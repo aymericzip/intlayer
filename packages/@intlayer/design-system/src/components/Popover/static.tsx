@@ -28,6 +28,8 @@ export type PopoverType = FC<PopoverProps> & {
 export enum PopoverXAlign {
   /** Align popover to start (left) of trigger */
   START = 'start',
+  /** Align popover to center of trigger */
+  CENTER = 'center',
   /** Align popover to end (right) of trigger */
   END = 'end',
 }
@@ -51,7 +53,7 @@ export enum PopoverYAlign {
  *
  * Features:
  * - Hover and focus-based triggering
- * - Multiple positioning options (above/below, start/end)
+ * - Multiple positioning options (above/below, start/center/end)
  * - Accessibility compliant with ARIA attributes
  * - Smooth animations with configurable delays
  * - Optional directional arrows
@@ -176,7 +178,7 @@ export type DetailProps = HTMLAttributes<HTMLDivElement> & {
  * - Automatic visibility management
  *
  * Positioning System:
- * - X-axis: START (left-aligned) or END (right-aligned)
+ * - X-axis: START (left-aligned), CENTER (centered), or END (right-aligned)
  * - Y-axis: BELOW (underneath) or ABOVE (on top)
  * - Automatic spacing with 1rem gap from trigger
  * - Responsive minimum width matching trigger
@@ -209,14 +211,14 @@ export type DetailProps = HTMLAttributes<HTMLDivElement> & {
  * Menu-style popover:
  * ```jsx
  * <Popover.Detail
- *   identifier="context-menu"
- *   displayArrow={false}
- *   xAlign={PopoverXAlign.END}
+ * identifier="context-menu"
+ * displayArrow={false}
+ * xAlign={PopoverXAlign.END}
  * >
- *   <ul className="py-2">
- *     <li><button className="w-full px-4 py-2">Edit</button></li>
- *     <li><button className="w-full px-4 py-2">Delete</button></li>
- *   </ul>
+ * <ul className="py-2">
+ * <li><button className="w-full px-4 py-2">Edit</button></li>
+ * <li><button className="w-full px-4 py-2">Delete</button></li>
+ * </ul>
  * </Popover.Detail>
  * ```
  *
@@ -246,6 +248,7 @@ const Detail: FC<DetailProps> = ({
 
       /* Positioning */
       xAlign === 'start' && 'left-0',
+      xAlign === 'center' && 'left-1/2 -translate-x-1/2',
       xAlign === 'end' && 'right-0',
       yAlign === 'bellow' && 'top-[calc(100%+1rem)]',
       yAlign === 'above' && 'bottom-[calc(100%+1rem)]',
@@ -256,6 +259,9 @@ const Detail: FC<DetailProps> = ({
 
       /* Horizontal positioning */
       displayArrow && xAlign === 'start' && 'before:left-2',
+      displayArrow &&
+        xAlign === 'center' &&
+        'before:left-1/2 before:-translate-x-1/2',
       displayArrow && xAlign === 'end' && 'before:right-2',
 
       /* Arrow pointing up (when popover is below trigger) */
