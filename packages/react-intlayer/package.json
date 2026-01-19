@@ -41,6 +41,11 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
+    "./markdown": {
+      "types": "./dist/types/markdown/index.d.ts",
+      "require": "./dist/cjs/markdown/index.cjs",
+      "import": "./dist/esm/markdown/index.mjs"
+    },
     "./format": {
       "types": "./dist/types/client/format/index.d.ts",
       "require": "./dist/cjs/client/format/index.cjs",
@@ -70,6 +75,9 @@
     "*": {
       "format": [
         "./dist/types/client/format/index.d.ts"
+      ],
+      "markdown": [
+        "./dist/types/markdown/index.d.ts"
       ],
       "server": [
         "./dist/types/server/index.d.ts"
@@ -119,6 +127,7 @@
   },
   "devDependencies": {
     "@craco/types": "7.1.0",
+    "@testing-library/react": "16.3.1",
     "@types/node": "25.0.9",
     "@types/react": ">=16.0.0",
     "@types/react-dom": ">=16.0.0",
@@ -128,6 +137,7 @@
     "rimraf": "6.1.2",
     "tsdown": "0.19.0",
     "typescript": "5.9.3",
+    "vite-tsconfig-paths": "6.0.4",
     "vitest": "4.0.17"
   },
   "peerDependencies": {
