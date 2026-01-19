@@ -23,7 +23,7 @@ import { dictionaryListDrawerIdentifier } from './dictionaryListDrawerIdentifier
 
 export const DictionaryListDrawer: FC = () => {
   const { drawerTitle, buttonLabel } = useIntlayer('dictionary-list-drawer');
-  const { close: closeDrawer, open: openDrawer } = useRightDrawer();
+  const { set: setDrawers } = useRightDrawer();
 
   const { localeDictionaries } = useDictionariesRecord();
   const { editedContent } = useEditedContent();
@@ -49,15 +49,16 @@ export const DictionaryListDrawer: FC = () => {
   }, [search, fuse, localeDictionaries]);
 
   const handleClickDictionary = (dictionary: Dictionary) => {
-    closeDrawer(dictionaryListDrawerIdentifier);
-
     setFocusedContent({
       dictionaryKey: dictionary.key!,
       dictionaryLocalId: dictionary.localId!,
       keyPath: [],
     });
 
-    openDrawer(getDrawerIdentifier(dictionary.key!));
+    setDrawers({
+      [dictionaryListDrawerIdentifier]: false,
+      [getDrawerIdentifier(dictionary.key!)]: true,
+    });
   };
 
   const isDictionaryEdited = (dictionaryKey: string) =>

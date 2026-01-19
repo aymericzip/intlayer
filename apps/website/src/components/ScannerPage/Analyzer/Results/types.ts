@@ -2,9 +2,11 @@
  * It will be parsed and rendered as JSON Code by the client
  */
 export type Details =
-  | 'string'
-  | 'number'
-  | 'boolean'
+  | string
+  | number
+  | boolean
+  | null
+  | undefined
   | Details[]
   | { [key: string]: Details };
 

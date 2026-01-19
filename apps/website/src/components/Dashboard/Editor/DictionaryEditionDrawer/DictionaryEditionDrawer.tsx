@@ -44,12 +44,12 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
   );
 
   const { close } = useDictionaryEditionDrawer(dictionaryKey);
-  const { openDictionaryListDrawer } = useRightDrawer((s) => ({
-    openDictionaryListDrawer: () => s.open(dictionaryListDrawerIdentifier),
-  }));
+  const { open } = useRightDrawer();
+  const openDictionaryListDrawer = () => open(dictionaryListDrawerIdentifier);
 
   const handleOnBack = () => {
     close();
+    setFocusedContent(null);
     openDictionaryListDrawer();
   };
 
@@ -135,7 +135,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
           dictionary={dictionary}
           mode={['remote']}
           className="mb-4 flex-col px-3"
-          onDelete={() => setFocusedContent(null)}
+          onDelete={handleOnBack}
         />
       }
     >

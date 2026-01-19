@@ -54,12 +54,14 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
   const id = getDrawerIdentifier(dictionaryKey);
 
   const { focusedContent, close } = useDictionaryEditionDrawer(dictionaryKey);
+  const { setFocusedContent } = useFocusUnmergedDictionary();
   const { open } = useRightDrawer();
   const openDictionaryListDrawer = () => open(dictionaryListDrawerIdentifier);
   const { data: unmergedDictionaries } = useGetEditorDictionaries();
 
   const handleOnBack = () => {
     close();
+    setFocusedContent(null);
     openDictionaryListDrawer();
   };
 

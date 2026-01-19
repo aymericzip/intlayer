@@ -10,12 +10,14 @@ import { useAnalyzerUrlSchema } from './useAnalyzerUrlSchema';
 
 type AnalyzerFormProps = {
   onAnalyze: (url: string) => void;
+  onCancel?: () => void;
   loading?: boolean;
   className?: string;
 };
 
 export const AnalyzerForm: FC<AnalyzerFormProps> = ({
   onAnalyze,
+  onCancel,
   loading = false,
   className,
 }) => {
@@ -30,9 +32,7 @@ export const AnalyzerForm: FC<AnalyzerFormProps> = ({
 
   const onSubmitSuccess = (data: AnalyzerFormData) => {
     setParam('url', data.url);
-    if (params.url !== data.url) {
-      onAnalyze(data.url);
-    }
+    onAnalyze(data.url);
   };
 
   return (
@@ -52,7 +52,7 @@ export const AnalyzerForm: FC<AnalyzerFormProps> = ({
         placeholder={input.placeholder.value}
         className="flex-1 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2"
       />
-      <div className="flex items-stretch">
+      <div className="flex items-stretch gap-2">
         <Form.Button
           type="submit"
           label={button.analyze.value}
@@ -65,6 +65,19 @@ export const AnalyzerForm: FC<AnalyzerFormProps> = ({
         >
           {loading ? button.analyzing : button.analyze}
         </Form.Button>
+        {loading && onCancel && (
+          <Form.Button
+            type="button"
+            label={button.cancel.value}
+            onClick={onCancel}
+            size="md"
+            variant="outline"
+            color="text"
+            className="rounded-xl px-5 py-2 font-medium"
+          >
+            {button.cancel}
+          </Form.Button>
+        )}
       </div>
     </Form>
   );

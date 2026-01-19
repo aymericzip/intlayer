@@ -1,10 +1,13 @@
 'use client';
 
+import { Link } from '@components/Link/Link';
 import { extractErrorMessage } from '@intlayer/config/client';
-import { usePersistedStore } from '@intlayer/design-system/hooks';
+import { Button, ButtonColor, ButtonVariant } from '@intlayer/design-system';
+import { usePersistedStore, useSession } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useRef, useState } from 'react';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
+import { AppRoutes } from '@/Routes';
 import { AnalyzerLoading } from './Analyzer/AnalyzerLoading';
 import { AnalyzerForm } from './Analyzer/Form/AnalyzerForm';
 import { useAnalyzerUrlSchema } from './Analyzer/Form/useAnalyzerUrlSchema';
@@ -17,13 +20,25 @@ import type {
   DomainData,
   MergedData,
 } from './Analyzer/Results/types';
+import { RecursiveAuditResults } from './RecursiveAuditResults';
 
 export const LocalizationAnalyzer: FC = () => {
-  const { globalError: globalErrorMessage } = useIntlayer(
-    'localization-analyzer'
-  );
+  const { session } = useSession();
+  const isLoggedIn = !!session;
+
+  const {
+    globalError: globalErrorMessage,
+    fullSiteAudit,
+    loginToAuditFullSite,
+    wantToAnalyzeFullSite,
+  } = useIntlayer('localization-analyzer');
   const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const [isSingleScanLoading, setIsSingleScanLoading] =
+    useState<boolean>(false);
+  const [isRecursiveScanLoading, setIsRecursiveScanLoading] =
+    useState<boolean>(false);
+  const isLoading = isSingleScanLoading || isRecursiveScanLoading;
   const [progress, setProgress] = usePersistedStore<number>(
     'localization-analyzer-progress',
     0
@@ -44,6 +59,9 @@ export const LocalizationAnalyzer: FC = () => {
     'localization-analyzer-data',
     {}
   );
+
+  const [recursiveJobId, setRecursiveJobId] = useState<string | null>(null);
+  const [recursiveStatus, setRecursiveStatus] = useState<any>(null);
 
   const urlSchema = useAnalyzerUrlSchema();
 
@@ -100,11 +118,12 @@ export const LocalizationAnalyzer: FC = () => {
     }
 
     setError(null);
-    setIsLoading(true);
+    setIsSingleScanLoading(true);
     setProgress(0);
     setStepsMessage('Starting analysis...');
     setMergedData({});
     setDomainData(undefined);
+    setScore(0);
 
     try {
       const eventSource = new EventSource(
@@ -121,7 +140,7 @@ export const LocalizationAnalyzer: FC = () => {
             setError(globalErrorMessage);
             eventSource.close();
             eventSourceRef.current = null;
-            setIsLoading(false);
+            setIsSingleScanLoading(false);
             return;
           }
 
@@ -135,7 +154,6 @@ export const LocalizationAnalyzer: FC = () => {
             setScore(message.score);
           }
           if (typeof message.type === 'string') {
-            console.log(message);
             setMergedData((prev) => ({
               ...prev,
               [message.type!]: {
@@ -154,7 +172,7 @@ export const LocalizationAnalyzer: FC = () => {
             typeof message.progress === 'number' &&
             message.progress === 100
           ) {
-            setIsLoading(false);
+            setIsSingleScanLoading(false);
             // Keep connection open briefly to ensure all messages are received
             setTimeout(() => {
               if (eventSourceRef.current) {
@@ -168,53 +186,149 @@ export const LocalizationAnalyzer: FC = () => {
         }
       };
 
-      // eventSource.onerror = (error) => {
-      //   console.error('SSE error:', error);
-
-      //   setError('Connection error while analyzing site.');
-      //   eventSource.close();
-      //   eventSourceRef.current = null;
-      //   setIsLoading(false);
-      // };
+      eventSource.onerror = (error) => {
+        console.error('SSE error:', error);
+        eventSource.close();
+        eventSourceRef.current = null;
+        setIsSingleScanLoading(false);
+      };
     } catch (error) {
       setMergedData({});
       setError(extractErrorMessage(error));
-      setIsLoading(false);
+      setIsSingleScanLoading(false);
     }
   };
+
+  const handleCancel = () => {
+    if (eventSourceRef.current) {
+      eventSourceRef.current.close();
+      eventSourceRef.current = null;
+    }
+    setIsSingleScanLoading(false);
+    setIsRecursiveScanLoading(false);
+    setStepsMessage('Analysis cancelled');
+  };
+
+  const handleStartRecursiveAudit = async () => {
+    if (!params.url) return;
+    setError(null);
+    setIsRecursiveScanLoading(true);
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SCANNER_API_URL}/recursive/start?url=${encodeURIComponent(params.url)}`,
+        {
+          method: 'POST',
+          headers: {
+            'x-user-id': session?.user?.id ?? '',
+          },
+        }
+      );
+      const data = await response.json();
+      if (data.jobId) {
+        setRecursiveJobId(data.jobId);
+      } else {
+        setError(data.error || 'Failed to start recursive audit');
+        setIsRecursiveScanLoading(false);
+      }
+    } catch (err) {
+      setError(extractErrorMessage(err));
+      setIsRecursiveScanLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (recursiveJobId) {
+      interval = setInterval(async () => {
+        try {
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_SCANNER_API_URL}/recursive/${recursiveJobId}`
+          );
+          const data = await response.json();
+          setRecursiveStatus(data);
+          if (data.job.status === 'completed' || data.job.status === 'failed') {
+            clearInterval(interval);
+            setIsRecursiveScanLoading(false);
+          }
+        } catch (err) {
+          console.error('Failed to poll recursive status:', err);
+        }
+      }, 5000);
+    }
+    return () => clearInterval(interval);
+  }, [recursiveJobId]);
 
   const hasData = mergedData && Object.keys(mergedData).length > 0;
 
   return (
     <div className="flex w-full flex-col items-center justify-center py-6 text-center">
-      <AnalyzerForm onAnalyze={handleAnalyze} loading={isLoading} />
+      <div className="flex w-full flex-col items-center gap-4">
+        <AnalyzerForm
+          onAnalyze={handleAnalyze}
+          loading={isLoading}
+          onCancel={handleCancel}
+        />
+      </div>
 
-      {isLoading && (
+      {isSingleScanLoading && !recursiveJobId && (
         <AnalyzerLoading
           progress={progress}
           currentStep={stepsMessage ?? 'Analyzing...'}
         />
       )}
 
-      {(hasData || isLoading) && (
+      {(hasData || isSingleScanLoading) && (
         <div className="mt-10 w-full max-w-2xl rounded-2xl bg-card p-6 shadow-md">
           <AnalyzerSiteResults
             domainData={domainData}
             score={score}
-            isLoading={isLoading}
+            isLoading={isSingleScanLoading}
           />
 
           <AnalyzerPageResults
             data={mergedData}
             url={params.url}
-            isLoading={isLoading}
+            isLoading={isSingleScanLoading}
           />
 
-          <RobotsSection data={mergedData} isLoading={isLoading} />
+          <RobotsSection data={mergedData} isLoading={isSingleScanLoading} />
 
-          <SitemapSection data={mergedData} isLoading={isLoading} />
+          <SitemapSection data={mergedData} isLoading={isSingleScanLoading} />
 
           {/* <PageGroupsList domainData={domainData} onSelect={() => null} /> */}
+
+          {!recursiveJobId && !isSingleScanLoading && hasData && (
+            <div className="mt-6 flex flex-col items-center gap-4 border-neutral border-t border-dashed pt-6">
+              <p className="text-neutral text-sm">{wantToAnalyzeFullSite}</p>
+              {isLoggedIn ? (
+                <Button
+                  onClick={handleStartRecursiveAudit}
+                  disabled={isLoading || !params.url}
+                  variant={ButtonVariant.OUTLINE}
+                  color={ButtonColor.TEXT}
+                  label={fullSiteAudit.value}
+                >
+                  {fullSiteAudit}
+                </Button>
+              ) : (
+                <Link
+                  href={`${AppRoutes.Auth_SignIn}?redirect_url=${encodeURIComponent(
+                    typeof window !== 'undefined' ? window.location.href : ''
+                  )}`}
+                  color="text"
+                  variant="button"
+                  label={loginToAuditFullSite.value}
+                >
+                  {loginToAuditFullSite}
+                </Link>
+              )}
+            </div>
+          )}
+
+          {recursiveStatus && (
+            <RecursiveAuditResults status={recursiveStatus} />
+          )}
         </div>
       )}
 

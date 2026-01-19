@@ -10,12 +10,10 @@ export const DictionaryLoaderDashboard: FC = () => {
   const { localeDictionaries, setLocaleDictionaries } = useDictionariesRecord();
 
   const { data, isFetching } = useGetDictionaries();
-  const [isMerged, setIsMerged] = useState(false);
 
   useEffect(() => {
     // Wait for the locale dictionaries to be loaded for security
     if (Object.keys(localeDictionaries ?? {}).length === 0) return;
-    if (isMerged) return;
     if (!data) return;
 
     const dictionariesList: Record<LocalDictionaryId, Dictionary> =
@@ -34,9 +32,13 @@ export const DictionaryLoaderDashboard: FC = () => {
         }).sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
       );
 
-    setLocaleDictionaries(mergedDictionaries);
+    // Check if the merged dictionaries are different from the current locale dictionaries
+    const isDifferent =
+      JSON.stringify(mergedDictionaries) !== JSON.stringify(localeDictionaries);
 
-    setIsMerged(true);
+    if (isDifferent) {
+      setLocaleDictionaries(mergedDictionaries);
+    }
   }, [data, isFetching, localeDictionaries]);
 
   return <></>;

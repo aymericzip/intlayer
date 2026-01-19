@@ -63,18 +63,42 @@ export const EventTag: FC<{
     event?.data?.successDetails;
 
   if (details) {
+    const isObject =
+      typeof details === 'object' &&
+      details !== null &&
+      !Array.isArray(details);
+    const detailsObj = isObject ? (details as Record<string, any>) : null;
+    const hasLinks = detailsObj && Array.isArray(detailsObj.links);
+
     return (
       <Popover identifier={`information-tag-${id}`}>
         <StatusIcon status={event?.status} />
         <Popover.Detail
           identifier={`information-tag-${id}`}
-          className="flex max-h-80 w-auto max-w-[400px] flex-col gap-4 overflow-auto bg-background/50 px-4 text-left text-sm"
+          className="flex max-h-80 w-auto max-w-125 flex-col gap-4 overflow-auto bg-background/50 p-4 text-left text-sm"
           isFocusable
           isOverable
         >
-          <CodeBlock lang="json" isDarkMode={isDarkMode}>
-            {JSON.stringify(details, null, 2)}
-          </CodeBlock>
+          {hasLinks ? (
+            <div className="flex flex-col gap-2">
+              {detailsObj.message && (
+                <p className="font-semibold">{detailsObj.message}</p>
+              )}
+              <div className="flex flex-col gap-1">
+                <CodeBlock lang="html" isDarkMode={isDarkMode}>
+                  {detailsObj.links
+                    .map((link: any) =>
+                      String(link).replace(/````html\n?|```/g, '')
+                    )
+                    .join('\n')}
+                </CodeBlock>
+              </div>
+            </div>
+          ) : (
+            <CodeBlock lang="json" isDarkMode={isDarkMode}>
+              {JSON.stringify(details, null, 2)}
+            </CodeBlock>
+          )}
         </Popover.Detail>
       </Popover>
     );

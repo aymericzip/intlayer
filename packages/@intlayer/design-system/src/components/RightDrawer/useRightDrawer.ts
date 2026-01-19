@@ -31,6 +31,23 @@ class DrawerObservable {
     this.emit();
   };
 
+  set = (states: DrawerState) => {
+    let changed = false;
+    const newDrawers = { ...this.drawers };
+
+    for (const [key, value] of Object.entries(states)) {
+      if (newDrawers[key] !== value) {
+        newDrawers[key] = value;
+        changed = true;
+      }
+    }
+
+    if (changed) {
+      this.drawers = newDrawers;
+      this.emit();
+    }
+  };
+
   private emit = () => {
     this.listeners.forEach((listener) => {
       listener();
@@ -50,6 +67,7 @@ export const useRightDrawer = () => {
   return {
     open: drawerManager.open,
     close: drawerManager.close,
+    set: drawerManager.set,
     isOpen: (key: string) => !!drawers[key],
   };
 };

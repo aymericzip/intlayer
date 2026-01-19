@@ -60,6 +60,18 @@ export const AnalyzerPageResults: FC<AnalyzerPageResultsProps> = memo(
         label: fields.canonical,
         description: fieldsDescription.canonical,
       },
+      {
+        key: `url_hasLocalizedLinks\\${url}`,
+        icon: <LinkIcon size={16} />,
+        label: fields.localizedLinks,
+        description: fieldsDescription.localizedLinks,
+      },
+      {
+        key: `url_allAnchorsLocalized\\${url}`,
+        icon: <LinkIcon size={16} />,
+        label: fields.allAnchorsLocalized,
+        description: fieldsDescription.allAnchorsLocalized,
+      },
     ];
 
     return (
