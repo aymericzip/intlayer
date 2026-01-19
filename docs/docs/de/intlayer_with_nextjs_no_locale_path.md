@@ -277,10 +277,8 @@ import { getHTMLTextDir, getIntlayer } from "intlayer";
 import { getLocale } from "next-intlayer/server";
 export { generateStaticParams } from "next-intlayer";
 
-export const generateMetadata = async ({
-  params,
-}: LocalPromiseParams): Promise<Metadata> => {
-  const { locale } = await params;
+export const generateMetadata = async (): Promise<Metadata> => {
+  const locale = await getLocale();
   const { title, description, keywords } = getIntlayer("metadata", locale);
 
   return {
@@ -317,7 +315,7 @@ import { getLocale } from "next-intlayer/server";
 export { generateStaticParams } from "next-intlayer";
 
 export const generateMetadata = async ({ params }) => {
-  const { locale } = await params;
+  const locale = await getLocale();
   const { title, description, keywords } = getIntlayer("metadata", locale);
 
   return {
@@ -350,7 +348,7 @@ const { getLocale } = require("next-intlayer/server");
 const { generateStaticParams } = require("next-intlayer");
 
 const generateMetadata = async ({ params }) => {
-  const { locale } = await params;
+  const locale = await getLocale();
   const { title, description, keywords } = getIntlayer("metadata", locale);
 
   return {

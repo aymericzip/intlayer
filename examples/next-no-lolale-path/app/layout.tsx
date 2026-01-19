@@ -2,15 +2,13 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import './globals.css';
 import { getHTMLTextDir, getIntlayer } from 'intlayer';
-import { IntlayerClientProvider, type LocalPromiseParams } from 'next-intlayer';
+import { IntlayerClientProvider } from 'next-intlayer';
 import { getLocale } from 'next-intlayer/server';
 
 export { generateStaticParams } from 'next-intlayer';
 
-export const generateMetadata = async ({
-  params,
-}: LocalPromiseParams): Promise<Metadata> => {
-  const { locale } = await params;
+export const generateMetadata = async (): Promise<Metadata> => {
+  const locale = await getLocale();
   const { title, description, keywords } = getIntlayer('metadata', locale);
 
   return {
