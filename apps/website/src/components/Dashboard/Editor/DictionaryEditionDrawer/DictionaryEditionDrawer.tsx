@@ -9,7 +9,7 @@ import {
   RightDrawer,
   SaveForm,
   Tag,
-  useRightDrawerStore,
+  useRightDrawer,
 } from '@intlayer/design-system';
 import {
   useDictionariesRecord,
@@ -44,7 +44,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
   );
 
   const { close } = useDictionaryEditionDrawer(dictionaryKey);
-  const { openDictionaryListDrawer } = useRightDrawerStore((s) => ({
+  const { openDictionaryListDrawer } = useRightDrawer((s) => ({
     openDictionaryListDrawer: () => s.open(dictionaryListDrawerIdentifier),
   }));
 

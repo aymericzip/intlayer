@@ -1,8 +1,12 @@
 'use client';
 
-import { useEffect } from 'react';
+import { type FC, useEffect } from 'react';
 
-export const useChunkErrorListener = () => {
+/**
+ * Component that listens for ChunkLoadErrors and reloads the page.
+ * This is useful when a new version of the app is deployed and the client is still using an old version.
+ */
+export const ChunkErrorListener: FC = () => {
   useEffect(() => {
     const handler = (event: ErrorEvent) => {
       // Check if the error is a ChunkLoadError
@@ -36,4 +40,6 @@ export const useChunkErrorListener = () => {
       window.removeEventListener('unhandledrejection', promiseHandler);
     };
   }, []);
+
+  return null;
 };

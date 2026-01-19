@@ -1,2 +1,2 @@
 export * from './RightDrawer';
-export * from './useRightDrawerStore';
+export * from './useRightDrawer';

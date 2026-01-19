@@ -1,4 +1,4 @@
-import { useRightDrawerStore } from '@intlayer/design-system';
+import { useRightDrawer } from '@intlayer/design-system';
 import {
   type FileContent,
   useEditedContentActions,
@@ -33,7 +33,7 @@ export const useDictionaryEditionDrawer = (
     isOpen: isOpenDrawer,
     open: openDrawer,
     close: closeDrawer,
-  } = useRightDrawerStore();
+  } = useRightDrawer();
   const { getEditedContentValue } = useEditedContentActions();
   const { focusedContent, setFocusedContent } = useFocusUnmergedDictionary();
 

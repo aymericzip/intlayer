@@ -3,7 +3,7 @@ import { expect, userEvent, within } from '@storybook/test';
 import { useState } from 'react';
 import { Button, ButtonColor, ButtonVariant } from '../Button';
 import { RightDrawer } from './RightDrawer';
-import { useRightDrawerStore } from './useRightDrawerStore';
+import { useRightDrawer } from './useRightDrawer';
 
 /**
  * RightDrawer Component Stories
@@ -14,7 +14,7 @@ import { useRightDrawerStore } from './useRightDrawerStore';
  *
  * ## Key Features
  * - **Responsive Design**: Adapts from full-width mobile to fixed 400px desktop drawer
- * - **State Management**: Zustand store for managing multiple drawer instances simultaneously
+ * - **State Management**: Lightweight store for managing multiple drawer instances simultaneously
  * - **Flexible Controls**: Both controlled (props) and uncontrolled (store) usage patterns
  * - **Accessibility**: Focus management, keyboard navigation, and screen reader support
  * - **Click Outside**: Configurable auto-close behavior when clicking outside the drawer
@@ -49,7 +49,7 @@ A comprehensive slide-out drawer component for displaying secondary content and 
 - **Smooth Transitions**: CSS-powered animations for open/close states
 
 ### State Management Patterns:
-- **Store-based**: Use \`useRightDrawerStore\` for global drawer state management
+- **Store-based**: Use \`useRightDrawer\` for global drawer state management
 - **Controlled**: Override with \`isOpen\` prop for local component state control
 - **Multi-instance**: Support for multiple simultaneous drawers with unique identifiers
         `,
@@ -130,12 +130,13 @@ export const Default: Story = {
     closeOnOutsideClick: true,
   },
   render: (args) => {
-    const { open } = useRightDrawerStore();
+    const { open } = useRightDrawer();
 
     return (
       <div className="min-h-screen bg-background text-text">
         <div className="p-6">
           <button
+            type="button"
             data-testid="open-drawer"
             className="rounded bg-primary px-6 py-3 text-white shadow-md transition-colors hover:bg-primary/90"
             onClick={() => open(args.identifier)}
@@ -211,12 +212,13 @@ export const WithBackButton: Story = {
     ),
   },
   render: (args) => {
-    const { open } = useRightDrawerStore();
+    const { open } = useRightDrawer();
 
     return (
       <div className="min-h-screen bg-background text-text">
         <div className="p-6">
           <button
+            type="button"
             data-testid="open-back-drawer"
             className="rounded bg-blue-600 px-6 py-3 text-white shadow-md transition-colors hover:bg-blue-700"
             onClick={() => open(args.identifier)}
@@ -328,6 +330,7 @@ export const Controlled: Story = {
         <div className="p-6">
           <div className="space-y-4">
             <button
+              type="button"
               data-testid="open-controlled"
               className="rounded bg-purple-600 px-6 py-3 text-white shadow-md transition-colors hover:bg-purple-700"
               onClick={() => setIsOpen(true)}
@@ -370,8 +373,14 @@ export const Controlled: Story = {
               }}
             >
               <div>
-                <label className="mb-2 block font-medium text-sm">Name</label>
+                <label
+                  htmlFor="contact-name"
+                  className="mb-2 block font-medium text-sm"
+                >
+                  Name
+                </label>
                 <input
+                  id="contact-name"
                   type="text"
                   className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
                   placeholder="Enter your name"
@@ -380,8 +389,14 @@ export const Controlled: Story = {
               </div>
 
               <div>
-                <label className="mb-2 block font-medium text-sm">Email</label>
+                <label
+                  htmlFor="contact-email"
+                  className="mb-2 block font-medium text-sm"
+                >
+                  Email
+                </label>
                 <input
+                  id="contact-email"
                   type="email"
                   className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
                   placeholder="Enter your email"
@@ -390,10 +405,14 @@ export const Controlled: Story = {
               </div>
 
               <div>
-                <label className="mb-2 block font-medium text-sm">
+                <label
+                  htmlFor="contact-message"
+                  className="mb-2 block font-medium text-sm"
+                >
                   Message
                 </label>
                 <textarea
+                  id="contact-message"
                   className="min-h-[80px] w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
                   placeholder="Enter your message"
                   required
@@ -447,12 +466,13 @@ export const NoOutsideClose: Story = {
     closeOnOutsideClick: false,
   },
   render: (args) => {
-    const { open } = useRightDrawerStore();
+    const { open } = useRightDrawer();
 
     return (
       <div className="min-h-screen bg-background text-text">
         <div className="p-6">
           <button
+            type="button"
             data-testid="open-persistent"
             className="rounded bg-red-600 px-6 py-3 text-white shadow-md transition-colors hover:bg-red-700"
             onClick={() => open(args.identifier)}
@@ -491,10 +511,14 @@ export const NoOutsideClose: Story = {
               </h3>
               <div className="space-y-4">
                 <div>
-                  <label className="mb-2 block font-medium text-sm">
+                  <label
+                    htmlFor="api-endpoint"
+                    className="mb-2 block font-medium text-sm"
+                  >
                     API Endpoint
                   </label>
                   <input
+                    id="api-endpoint"
                     type="url"
                     className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
                     placeholder="https://api.example.com"
@@ -503,10 +527,14 @@ export const NoOutsideClose: Story = {
                 </div>
 
                 <div>
-                  <label className="mb-2 block font-medium text-sm">
+                  <label
+                    htmlFor="api-timeout"
+                    className="mb-2 block font-medium text-sm"
+                  >
                     Timeout (seconds)
                   </label>
                   <input
+                    id="api-timeout"
                     type="number"
                     className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
                     placeholder="30"
@@ -526,10 +554,16 @@ export const NoOutsideClose: Story = {
             </div>
 
             <div className="flex gap-3 border-gray-200 border-t pt-4">
-              <button className="rounded-md bg-green-600 px-4 py-2 text-sm text-white transition-colors hover:bg-green-700">
+              <button
+                type="button"
+                className="rounded-md bg-green-600 px-4 py-2 text-sm text-white transition-colors hover:bg-green-700"
+              >
                 Save Configuration
               </button>
-              <button className="rounded-md bg-gray-300 px-4 py-2 text-gray-700 text-sm transition-colors hover:bg-gray-400">
+              <button
+                type="button"
+                className="rounded-md bg-gray-300 px-4 py-2 text-gray-700 text-sm transition-colors hover:bg-gray-400"
+              >
                 Reset to Defaults
               </button>
             </div>
@@ -561,7 +595,7 @@ export const NoOutsideClose: Story = {
  */
 export const MultipleDrawers: Story = {
   render: () => {
-    const { open, close, isOpen } = useRightDrawerStore();
+    const { open, close, isOpen } = useRightDrawer();
 
     return (
       <div className="min-h-screen bg-background text-text">
@@ -569,6 +603,7 @@ export const MultipleDrawers: Story = {
           <div className="space-y-4">
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               <button
+                type="button"
                 data-testid="open-navigation"
                 className="rounded bg-blue-600 px-4 py-3 text-white transition-colors hover:bg-blue-700"
                 onClick={() => open('navigation')}
@@ -576,6 +611,7 @@ export const MultipleDrawers: Story = {
                 Open Navigation
               </button>
               <button
+                type="button"
                 data-testid="open-settings"
                 className="rounded bg-green-600 px-4 py-3 text-white transition-colors hover:bg-green-700"
                 onClick={() => open('settings')}
@@ -583,6 +619,7 @@ export const MultipleDrawers: Story = {
                 Open Settings
               </button>
               <button
+                type="button"
                 data-testid="open-help"
                 className="rounded bg-purple-600 px-4 py-3 text-white transition-colors hover:bg-purple-700"
                 onClick={() => open('help')}
@@ -609,6 +646,7 @@ export const MultipleDrawers: Story = {
             </div>
 
             <button
+              type="button"
               className="rounded bg-red-500 px-4 py-2 text-sm text-white transition-colors hover:bg-red-600"
               onClick={() => {
                 close('navigation');
@@ -625,25 +663,25 @@ export const MultipleDrawers: Story = {
         <RightDrawer identifier="navigation" title="Navigation Menu">
           <nav className="space-y-3 p-6">
             <a
-              href="#"
+              href="/"
               className="block rounded px-3 py-2 transition-colors hover:bg-gray-100"
             >
               Dashboard
             </a>
             <a
-              href="#"
+              href="/"
               className="block rounded px-3 py-2 transition-colors hover:bg-gray-100"
             >
               Projects
             </a>
             <a
-              href="#"
+              href="/"
               className="block rounded px-3 py-2 transition-colors hover:bg-gray-100"
             >
               Team
             </a>
             <a
-              href="#"
+              href="/"
               className="block rounded px-3 py-2 transition-colors hover:bg-gray-100"
             >
               Analytics

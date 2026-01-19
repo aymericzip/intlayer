@@ -1,5 +1,5 @@
+import { ChunkErrorListener } from '@components/ChunkErrorListener';
 import { ServiceWorkerSubscriber } from '@components/ServiceWorker/ServiceWorkerSubscriber';
-import { useChunkErrorListener } from '@hooks/useChunkErrorListener';
 import { Toaster } from '@intlayer/design-system';
 import { ReactQueryProvider } from '@intlayer/design-system/providers';
 import { GoogleTagManager } from '@next/third-parties/google';
@@ -8,10 +8,9 @@ import { AnimatePresenceProvider } from './AnimatePresenceProvider';
 import { FirstConsultationProvider } from './FirstConsultationProvider';
 
 export const AppProviders: FC<PropsWithChildren> = ({ children }) => {
-  useChunkErrorListener();
-
   return (
     <AnimatePresenceProvider>
+      <ChunkErrorListener />
       <ServiceWorkerSubscriber />
       <ReactQueryProvider>
         <Toaster />

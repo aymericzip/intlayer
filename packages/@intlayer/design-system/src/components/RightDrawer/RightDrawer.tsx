@@ -18,7 +18,7 @@ import { KeyboardShortcut } from '../KeyboardShortcut';
 import { MaxWidthSmoother } from '../MaxWidthSmoother/index';
 import { Popover } from '../Popover';
 import { isElementAtTopAndNotCovered } from './isElementAtTopAndNotCovered';
-import { useRightDrawerStore } from './useRightDrawerStore';
+import { useRightDrawer } from './useRightDrawer';
 
 /**
  * Configuration for the back button functionality in the RightDrawer
@@ -98,10 +98,14 @@ export const RightDrawer: FC<RightDrawerProps> = ({
   const { isMobile } = useDevice('md');
   const panelRef = useRef<HTMLDivElement>(null);
   const childrenContainerRef = useRef<HTMLDivElement>(null);
-  const openDrawer = useRightDrawerStore((s) => s.open);
-  const closeDrawer = useRightDrawerStore((s) => s.close);
-  const storeIsOpen = useRightDrawerStore((s) => s.isOpen(identifier));
-  const isOpen = useRightDrawerStore((s) => s.isOpen(identifier));
+
+  const {
+    open: openDrawer,
+    close: closeDrawer,
+    isOpen: checkIsOpen,
+  } = useRightDrawer();
+  const storeIsOpen = checkIsOpen(identifier);
+  const isOpen = storeIsOpen;
 
   useScrollBlockage({
     disableScroll: isOpen,

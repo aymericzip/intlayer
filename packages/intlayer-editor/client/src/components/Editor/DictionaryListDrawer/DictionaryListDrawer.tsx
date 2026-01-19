@@ -5,7 +5,7 @@ import {
   RightDrawer,
   SearchInput,
   Tag,
-  useRightDrawerStore,
+  useRightDrawer,
 } from '@intlayer/design-system';
 import { useSearch } from '@intlayer/design-system/hooks';
 import {
@@ -23,7 +23,7 @@ import { dictionaryListDrawerIdentifier } from './dictionaryListDrawerIdentifier
 
 export const DictionaryListDrawer: FC = () => {
   const { drawerTitle, buttonLabel } = useIntlayer('dictionary-list-drawer');
-  const { close: closeDrawer, open: openDrawer } = useRightDrawerStore();
+  const { close: closeDrawer, open: openDrawer } = useRightDrawer();
 
   const { localeDictionaries } = useDictionariesRecord();
   const { editedContent } = useEditedContent();

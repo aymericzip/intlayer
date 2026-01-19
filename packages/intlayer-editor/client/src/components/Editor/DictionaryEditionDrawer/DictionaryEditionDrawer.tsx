@@ -9,7 +9,7 @@ import {
   RightDrawer,
   SaveForm,
   Tag,
-  useRightDrawerStore,
+  useRightDrawer,
 } from '@intlayer/design-system';
 import { useGetEditorDictionaries } from '@intlayer/design-system/hooks';
 import { useFocusUnmergedDictionary } from '@intlayer/editor-react';
@@ -54,9 +54,8 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
   const id = getDrawerIdentifier(dictionaryKey);
 
   const { focusedContent, close } = useDictionaryEditionDrawer(dictionaryKey);
-  const { openDictionaryListDrawer } = useRightDrawerStore((s) => ({
-    openDictionaryListDrawer: () => s.open(dictionaryListDrawerIdentifier),
-  }));
+  const { open } = useRightDrawer();
+  const openDictionaryListDrawer = () => open(dictionaryListDrawerIdentifier);
   const { data: unmergedDictionaries } = useGetEditorDictionaries();
 
   const handleOnBack = () => {

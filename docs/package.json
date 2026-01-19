@@ -80,7 +80,7 @@
   "devDependencies": {
     "@intlayer/api": "workspace:*",
     "@intlayer/cli": "workspace:*",
-    "@types/node": "25.0.7",
+    "@types/node": "25.0.9",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",

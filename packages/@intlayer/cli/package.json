@@ -77,12 +77,12 @@
     "@intlayer/remote-dictionaries-entry": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
-    "commander": "14.0.1",
-    "eventsource": "3.0.7",
+    "commander": "14.0.2",
+    "eventsource": "4.1.0",
     "fast-glob": "3.3.3"
   },
   "devDependencies": {
-    "@types/node": "25.0.7",
+    "@types/node": "25.0.9",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",

@@ -88,11 +88,11 @@
     "fast-glob": "3.3.3",
     "simple-git": "3.30.0",
     "ts-morph": "27.0.2",
-    "zod-to-ts": "1.2.0"
+    "zod-to-ts": "2.0.0"
   },
   "devDependencies": {
     "@types/crypto-js": "4.2.2",
-    "@types/node": "25.0.7",
+    "@types/node": "25.0.9",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
