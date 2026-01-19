@@ -75,10 +75,9 @@ export const RemoveMemberModal: FC<RemoveMemberModalProps> = ({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title={title.value.replace(
-        '{{memberName}}',
-        user?.name ?? user?.email ?? String(memberId)
-      )}
+      title={title({
+        memberName: user?.name ?? user?.email ?? String(memberId),
+      })}
       size="md"
     >
       <Loader isLoading={isLoadingUsers}>
