@@ -1,6 +1,10 @@
 import {
   type DeepTransformContent as DeepTransformContentCore,
+  getHTML,
   getMarkdownMetadata,
+  HTML_TAGS,
+  type HTMLCond,
+  type HTMLContent,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
   type MarkdownContent,
   type Plugins,
@@ -12,6 +16,7 @@ import {
   NodeType,
 } from '@intlayer/types';
 import type { JSX } from 'solid-js';
+import { Dynamic } from 'solid-js/web';
 import { ContentSelectorRenderer } from './editor';
 import { EditedContentRenderer } from './editor/useEditedContentRenderer';
 import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
@@ -139,27 +144,52 @@ export const markdownStringPlugin: Plugins = {
       keyPath: [],
     });
 
-    return renderIntlayerNode({
-      ...props,
-      value: node,
-      children: (
-        <ContentSelectorRenderer {...rest}>
-          <MarkdownRenderer {...rest}>{node}</MarkdownRenderer>
-        </ContentSelectorRenderer>
-      ),
-      additionalProps: {
-        metadata: metadataNodes,
+    const render = (overrides?: any) =>
+      renderIntlayerNode({
+        ...props,
+        value: node,
+        children: (
+          <ContentSelectorRenderer {...rest}>
+            <MarkdownRenderer {...rest} {...overrides}>
+              {node}
+            </MarkdownRenderer>
+          </ContentSelectorRenderer>
+        ),
+        additionalProps: {
+          metadata: metadataNodes,
+        },
+      });
+
+    const element = render() as any;
+
+    return new Proxy(element, {
+      get(target, prop, receiver) {
+        if (prop === 'value') {
+          return node;
+        }
+        if (prop === 'metadata') {
+          return metadataNodes;
+        }
+
+        if (prop === 'use') {
+          return (overrides?: any) => render(overrides);
+        }
+
+        return Reflect.get(target, prop, receiver);
       },
-    });
+    }) as any;
   },
 };
 
-export type MarkdownCond<T> = T extends {
+export type MarkdownCond<T, S, L extends LocalesValues> = T extends {
   nodeType: NodeType | string;
   [NodeType.Markdown]: infer M;
   metadata?: infer U;
 }
-  ? IntlayerNode<DeepTransformContent<M>, { metadata: DeepTransformContent<U> }>
+  ? {
+      use: (overrides: any) => any;
+      metadata: DeepTransformContent<U, L>;
+    } & any
   : never;
 
 export const markdownPlugin: Plugins = {
@@ -184,14 +214,84 @@ export const markdownPlugin: Plugins = {
     });
   },
 };
+
+/** ---------------------------------------------
+ *  HTML PLUGIN
+ *  --------------------------------------------- */
+
+type HTMLTagComponent = (props: {
+  children?: JSX.Element;
+  [key: string]: any;
+}) => JSX.Element;
+
+/**
+ * Create default HTML tag components using Solid's Dynamic component.
+ * Each component renders the corresponding HTML element with its props and children.
+ */
+const createDefaultHTMLComponents = (): Record<string, HTMLTagComponent> => {
+  const components: Record<string, HTMLTagComponent> = {};
+
+  for (const tag of HTML_TAGS) {
+    components[tag] = ({ children, ...props }) => (
+      <Dynamic component={tag} {...props}>
+        {children}
+      </Dynamic>
+    );
+  }
+
+  return components;
+};
+
+const defaultHTMLComponents = createDefaultHTMLComponents();
+
+export type HTMLPluginCond<T, S, L> = HTMLCond<T, S, L>;
+
+/** HTML plugin. Replaces node with a function that takes components => JSX.Element. */
+export const htmlPlugin: Plugins = {
+  id: 'html-plugin',
+  canHandle: (node) =>
+    typeof node === 'object' && node?.nodeType === NodeType.HTML,
+  transform: (node: HTMLContent) => {
+    const html = node[NodeType.HTML];
+
+    const render = (userComponents?: Record<string, any>): JSX.Element => {
+      // Merge default components with user-provided components
+      // User components take priority over defaults
+      const mergedComponents = {
+        ...defaultHTMLComponents,
+        ...userComponents,
+      };
+      return getHTML(html, mergedComponents);
+    };
+
+    const element = render() as any;
+
+    return new Proxy(element, {
+      get(target, prop, receiver) {
+        if (prop === 'value') {
+          return html;
+        }
+
+        if (prop === 'use') {
+          return (userComponents?: Record<string, any>) =>
+            render(userComponents);
+        }
+
+        return Reflect.get(target, prop, receiver);
+      },
+    }) as any;
+  },
+};
+
 /** ---------------------------------------------
  *  PLUGINS RESULT
  *  --------------------------------------------- */
 
-export interface IInterpreterPluginSolid<T> {
+export interface IInterpreterPluginSolid<T, S, L extends LocalesValues> {
   solidNode: SolidNodeCond<T>;
   intlayerNode: IntlayerNodeCond<T>;
-  markdown: MarkdownCond<T>;
+  markdown: MarkdownCond<T, S, L>;
+  html: HTMLPluginCond<T, S, L>;
 }
 
 /**
@@ -203,6 +303,7 @@ export type IInterpreterPluginState = IInterpreterPluginStateCore & {
   solidNode: true;
   intlayerNode: true;
   markdown: true;
+  html: true;
 };
 
 export type DeepTransformContent<
@@ -222,4 +323,5 @@ export const interpreterPluginsEnabledState: IInterpreterPluginState = {
   solidNode: true,
   intlayerNode: true,
   markdown: true,
+  html: true,
 };

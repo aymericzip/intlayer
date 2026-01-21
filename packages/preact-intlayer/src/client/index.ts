@@ -1,3 +1,4 @@
+export { useIntl } from './format/useIntl';
 export {
   IntlayerClientContext,
   IntlayerProvider,

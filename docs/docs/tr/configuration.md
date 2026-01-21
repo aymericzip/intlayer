@@ -17,7 +17,7 @@ history:
   - version: 8.0.0
     date: 2026-01-18
     changes: Sistem yapılandırmasını içerik yapılandırmasından ayırın. İç yolları `system` özelliğine taşıyın. İçerik dosyalarını kod dönüşümünden ayırmak için `codeDir` ekleyin.
-  - version: 7.6.0
+  - version: 8.0.0
     date: 2026-01-18
     changes: Sözlük seçenekleri `location` ve `schema` eklendi
   - version: 7.5.1

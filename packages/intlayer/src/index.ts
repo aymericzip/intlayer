@@ -91,6 +91,7 @@ export {
    * @deprecated Use `getTranslation` instead.
    */
   getTranslation as getTranslationContent,
+  html,
   Intl,
   insert,
   localeDetector,

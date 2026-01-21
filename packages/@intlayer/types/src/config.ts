@@ -397,6 +397,15 @@ export type AiConfig = {
    * Example: 'This is a website for a company that sells products online.'
    */
   applicationContext?: string;
+
+  /**
+   * Base URL
+   *
+   * The base URL to use for the AI features of Intlayer.
+   *
+   * Example: 'https://api.openai.com/v1'
+   */
+  baseURL?: string;
 } & Record<string, any>;
 
 export type BuildConfig = {

@@ -4,7 +4,12 @@
   "id": "696bd486200a5ac2eabb8d32",
   "title": "Component test",
   "description": "Content declarations for the comp-test component. Contains various UI strings (sentences, lists, button labels, placeholders, aria-labels, option texts, and paragraphs) used for localization and testing.",
-  "tags": ["component", "test", "ui", "localization"],
+  "tags": [
+    "component",
+    "test",
+    "ui",
+    "localization"
+  ],
   "content": {
     "thisIsASentenceIf": {
       "nodeType": "translation",

@@ -6,10 +6,12 @@ import MarkdownRenderer from './MarkdownRenderer.svelte';
 export let dictionaryKey: string;
 export let keyPath: KeyPath[];
 export let value: string;
+
+$: overrides = { ...$$restProps };
 </script>
 
 <ContentSelectorWrapper {dictionaryKey} {keyPath}>
-  <MarkdownRenderer {dictionaryKey} {keyPath} {value} />
+  <MarkdownRenderer {value} {overrides} />
 </ContentSelectorWrapper>
 
 

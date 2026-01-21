@@ -12,7 +12,7 @@ slugs:
   - concept
   - content
 history:
-  - version: 7.6.0
+  - version: 8.0.0
     date: 2026-01-18
     changes: 사전 옵션 `location` 및 `schema` 추가
   - version: 7.5.0

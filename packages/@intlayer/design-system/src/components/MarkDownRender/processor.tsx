@@ -96,7 +96,7 @@ const Priority = {
 };
 
 /** TODO: Drop for React 16? */
-const ATTRIBUTE_TO_JSX_PROP_MAP = [
+const ATTRIBUTE_TO_NODE_PROP_MAP = [
   'allowFullScreen',
   'allowTransparency',
   'autoComplete',
@@ -966,7 +966,7 @@ const trimLeadingWhitespaceOutsideFences = (
   return result;
 };
 
-const attributeValueToJSXPropValue = (
+const attributeValueToNodePropValue = (
   tag: HTMLTags,
   key: string,
   value: string,
@@ -1686,12 +1686,12 @@ export const compiler = (
         const key = normalizeAttributeKey(raw.slice(0, delimiterIdx)).trim();
         const value = unquote(raw.slice(delimiterIdx + 1).trim());
 
-        const mappedKey = ATTRIBUTE_TO_JSX_PROP_MAP[key] ?? key;
+        const mappedKey = ATTRIBUTE_TO_NODE_PROP_MAP[key] ?? key;
 
         // bail out, not supported
         if (mappedKey === 'ref') return map;
 
-        const normalizedValue = attributeValueToJSXPropValue(
+        const normalizedValue = attributeValueToNodePropValue(
           tag,
           key,
           value,
@@ -1707,7 +1707,7 @@ export const compiler = (
           map[mappedKey] = compile(normalizedValue.trim());
         }
       } else if (raw !== 'style') {
-        map[ATTRIBUTE_TO_JSX_PROP_MAP[raw] ?? raw] = true;
+        map[ATTRIBUTE_TO_NODE_PROP_MAP[raw] ?? raw] = true;
       }
 
       return map;

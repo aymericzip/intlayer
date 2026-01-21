@@ -12,7 +12,7 @@ slugs:
   - concept
   - content
 history:
-  - version: 7.6.0
+  - version: 8.0.0
     date: 2026-01-18
     changes: Додано опції словника `location` та `schema`
   - version: 7.5.13

@@ -3,7 +3,12 @@
   "key": "comp-test",
   "title": "Component test",
   "description": "Multilingual content declaration for the 'comp-test' component. Contains UI strings used for extraction and localization (labels, placeholders, aria-labels, option texts, paragraphs, lists and special-character examples).",
-  "tags": ["component", "test", "ui", "i18n"],
+  "tags": [
+    "component",
+    "test",
+    "ui",
+    "i18n"
+  ],
   "content": {
     "helloWorld2ShouldBe": {
       "nodeType": "translation",

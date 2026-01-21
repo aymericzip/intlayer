@@ -1,84 +1,64 @@
-'use client';
-
+import type { Overrides } from '@intlayer/core';
+import type { FC } from 'react';
 import {
-  getContent,
-  getContentNodeByKeyPath,
-  getMarkdownMetadata,
-} from '@intlayer/core';
-import { useEditorLocale } from '@intlayer/editor-react';
-import type { ContentNode, KeyPath, LocalesValues } from '@intlayer/types';
-import type { FC, ReactNode } from 'react';
-import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';
-import { useMarkdownContext } from './MarkdownProvider';
+  type MarkdownProviderOptions,
+  useMarkdownContext,
+} from './MarkdownProvider';
+import { compiler, type MarkdownProcessorOptions } from './processor';
 
 type MarkdownRendererProps = {
-  dictionaryKey: string;
-  keyPath: KeyPath[];
-  locale?: LocalesValues;
+  /**
+   * The markdown content to render.
+   */
   children: string;
+  /**
+   * Component overrides for HTML tags.
+   * Only used if not wrapped in a MarkdownProvider.
+   */
+  components?: Overrides;
+  /**
+   * Wrapper element or component to be used when there are multiple children.
+   * Only used if not wrapped in a MarkdownProvider.
+   */
+  wrapper?: FC;
+  /**
+   * Markdown processor options.
+   * Only used if not wrapped in a MarkdownProvider.
+   */
+  options?: MarkdownProviderOptions;
 };
 
+/**
+ * React component that renders markdown to JSX.
+ *
+ * It uses the renderMarkdown function from the MarkdownProvider context if available.
+ * Otherwise, it falls back to the default compiler with provided components and options.
+ */
 export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
-  dictionaryKey,
-  keyPath,
-  children,
-  locale,
-}): ReactNode => {
-  const { renderMarkdown } = useMarkdownContext();
-  const editedContentContext = useEditedContentRenderer({
-    dictionaryKey,
-    keyPath,
-    children,
-  });
+  children = '',
+  components,
+  wrapper,
+  options = {},
+}) => {
+  const context = useMarkdownContext();
 
-  if (typeof editedContentContext !== 'string') {
-    const transformedEditedContent = getContent(
-      editedContentContext,
-      {
-        dictionaryKey,
-        keyPath,
-      },
-      locale
+  if (context) {
+    return (
+      <>{context.renderMarkdown(children, { components, wrapper, options })}</>
     );
-
-    if (typeof transformedEditedContent !== 'string') {
-      console.error(
-        `Incorrect Markdown content. Edited Markdown content type: ${typeof transformedEditedContent}. Expected string. Value ${JSON.stringify(transformedEditedContent)}`
-      );
-
-      return renderMarkdown(children);
-    }
-
-    return renderMarkdown(transformedEditedContent);
   }
 
-  return renderMarkdown(editedContentContext);
-};
+  const { forceBlock, preserveFrontmatter, tagfilter } = options;
 
-type MarkdownMetadataRendererProps = MarkdownRendererProps & {
-  metadataKeyPath: KeyPath[];
-};
+  // Map public options to internal processor options
+  const internalOptions: MarkdownProcessorOptions = {
+    components,
+    forceBlock,
+    wrapper,
+    forceWrapper: !!wrapper,
+    preserveFrontmatter,
+    tagfilter,
+  };
 
-export const MarkdownMetadataRenderer: FC<MarkdownMetadataRendererProps> = ({
-  dictionaryKey,
-  keyPath,
-  children,
-  metadataKeyPath,
-}): ReactNode => {
-  const editedContentContext = useEditedContentRenderer({
-    dictionaryKey,
-    keyPath,
-    children,
-  });
-  const currentLocale = useEditorLocale();
-
-  const metadata = getMarkdownMetadata(editedContentContext);
-
-  const metadataEl = getContentNodeByKeyPath(
-    metadata as ContentNode,
-    metadataKeyPath,
-    currentLocale
-  );
-
-  return metadataEl as ReactNode;
+  return <>{compiler(children, internalOptions)}</>;
 };

@@ -11,7 +11,6 @@ import LocaleSwitcher from './lib/LocaleSwitcher.svelte';
 import Test from './Test.svelte';
 
 useIntlayerEditor();
-setIntlayerMarkdown({ renderMarkdown: (markdown) => markdown });
 
 const content = useIntlayer('app');
 
@@ -48,12 +47,69 @@ $: console.log($content.markdownContent.metadata);
 
   <div>
     <h2>Markdown content</h2>
+    <svelte:component this={$content.markdown} />
+
+    <h2>Markdown with overrides</h2>
+    <svelte:component
+      this={$content.markdown.use({
+        h1: (props: any) => {
+          const h1 = document.createElement('h1');
+          h1.style.color = 'green';
+          h1.textContent = 'tetst';
+          return h1;
+        },
+        ComponentDemo: () => {
+          const div = document.createElement('div');
+          div.style.background = 'pink';
+          div.textContent = 'DEMO2';
+          return div;
+        },
+      })}
+    />
+
+    <h2>HTML content</h2>
+    {@html $content.html.toString()}
+
+    <h2>HTML with overrides</h2>
+    {@html $content.html
+      .use({
+        b: (props: any) => {
+          const h1 = document.createElement('h1');
+          for (const [key, val] of Object.entries(props)) {
+            if (key !== 'children') h1.setAttribute(key, String(val));
+          }
+          return h1;
+        },
+        'custom-component': (props: any) => {
+          const h1 = document.createElement('h1');
+          h1.style.color = 'red';
+          for (const [key, val] of Object.entries(props)) {
+            if (key !== 'children') h1.setAttribute(key, String(val));
+          }
+          h1.textContent = 'Custom 1';
+          return h1;
+        },
+        CustomComponent2: (props: any) => {
+          const h1 = document.createElement('h1');
+          h1.style.color = 'green';
+          for (const [key, val] of Object.entries(props)) {
+            if (key !== 'children') h1.setAttribute(key, String(val));
+          }
+          h1.textContent = props.children;
+          return h1;
+        },
+      })
+      .toString()}
+  </div>
+
+  <div>
+    <h2>Old Markdown content</h2>
     <!-- render the markdown content as a string -->
-  {$content.markdownContent}
-    <h2>Markdown component</h2>
+    {@html $content.markdownContent}
+    <h2>Old Markdown component</h2>
     <!-- render the markdown content as a component -->
     <svelte:component this={$content.markdownContent} />
-    <h2>Markdown Metadata</h2>
+    <h2>Old Markdown Metadata</h2>
     <!-- render the metadata of the markdown content -->
     {$content.markdownContent.metadata.title}
   </div>

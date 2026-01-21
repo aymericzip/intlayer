@@ -2,6 +2,7 @@ import type {
   ConditionContent,
   EnumerationContent,
   GenderContent,
+  HTMLContent,
   InsertionContent,
   MarkdownContent,
   NestedContent,
@@ -258,6 +259,35 @@ const buildInsertionInitializer = (
  */
 const buildFileInitializer = (filePath: unknown): string | undefined => {
   if (typeof filePath === 'string') return `file(${JSON.stringify(filePath)})`;
+
+  return;
+};
+
+/**
+ * Builds an html initializer string for the 'html' function call.
+ * Handles both string content and translation content for html.
+ *
+ * @param htmlContent - The content to be rendered as html (string or translation)
+ * @returns Formatted string for the html function call, or undefined if invalid
+ */
+const buildHTMLInitializer = (
+  htmlContent: HTMLContent[NodeType.HTML]
+): string | undefined => {
+  if (typeof htmlContent === 'string')
+    return `html(${JSON.stringify(htmlContent)})`;
+
+  if (getNodeType(htmlContent as ContentNode) === NodeType.Translation) {
+    const translationContent = htmlContent as TranslationContent;
+    const translationMap = translationContent[NodeType.Translation] ?? {};
+
+    const areAllValuesStrings = Object.values(translationMap).every(
+      (translationValue) => typeof translationValue === 'string'
+    );
+
+    if (!areAllValuesStrings) return undefined;
+
+    return `html(${buildTranslationInitializer(translationMap)})`;
+  }
 
   return;
 };
@@ -907,7 +937,18 @@ const processArrayContent = (
         requiredImports.add('cond');
       else if (elementNodeType === NodeType.Gender)
         requiredImports.add('gender');
-      else if (elementNodeType === NodeType.Insertion) {
+      else if (elementNodeType === NodeType.HTML) {
+        requiredImports.add('html');
+        const htmlContent = (currentElement as HTMLContent)[NodeType.HTML];
+
+        if (
+          typeof htmlContent === 'object' &&
+          htmlContent !== null &&
+          getNodeType(htmlContent as ContentNode) === NodeType.Translation
+        ) {
+          requiredImports.add('t');
+        }
+      } else if (elementNodeType === NodeType.Insertion) {
         requiredImports.add('insert');
         const insertionContent = (currentElement as InsertionContent)[
           NodeType.Insertion
@@ -1196,6 +1237,15 @@ const processComplexContent = (
       );
     case NodeType.Insertion:
       return processInsertionContent(
+        contentObject,
+        propertyKey,
+        contentNode,
+        existingPropertyKeys,
+        requiredImports,
+        sourceFile
+      );
+    case NodeType.HTML:
+      return processHTMLContent(
         contentObject,
         propertyKey,
         contentNode,
@@ -1890,11 +1940,13 @@ const processInsertionContent = (
   const insertionContent: InsertionContent[NodeType.Insertion] = (
     contentNode as InsertionContent
   )[NodeType.Insertion];
+
   const insertionInitializerText = buildInsertionInitializer(insertionContent);
 
   if (!insertionInitializerText) return false;
 
   if (!existingPropertyKeys.has(propertyKey)) {
+    // Delegate into spread source if available
     const spreadTargetObject = findSpreadTargetObjectForKey(
       contentObject,
       propertyKey,
@@ -1911,47 +1963,20 @@ const processInsertionContent = (
       );
     }
     requiredImports.add('insert');
-
-    if (
-      typeof insertionContent === 'object' &&
-      insertionContent !== null &&
-      getNodeType(insertionContent as ContentNode) === NodeType.Translation
-    ) {
-      requiredImports.add('t');
-    }
     contentObject.addPropertyAssignment({
       name: propertyKey,
       initializer: insertionInitializerText,
     });
     return true;
   }
-  const existingInsertion = readExistingInsertion(contentObject, propertyKey);
-  const isInsertionSame =
-    (typeof insertionContent === 'string' &&
-      existingInsertion?.kind === 'string' &&
-      existingInsertion.value === insertionContent) ||
-    (typeof insertionContent === 'object' &&
-      insertionContent !== null &&
-      getNodeType(insertionContent as ContentNode) === NodeType.Translation &&
-      existingInsertion?.kind === 'translation' &&
-      areStringMapsEqual(
-        (insertionContent as TranslationContent)[NodeType.Translation] ?? {},
-        existingInsertion.map
-      ));
 
-  if (!isInsertionSame) {
-    requiredImports.add('insert');
+  const property = contentObject.getProperty(propertyKey);
 
-    if (
-      typeof insertionContent === 'object' &&
-      insertionContent !== null &&
-      getNodeType(insertionContent as ContentNode) === NodeType.Translation
-    ) {
-      requiredImports.add('t');
-    }
-    const property = contentObject.getProperty(propertyKey);
+  if (property && Node.isPropertyAssignment(property)) {
+    const currentInitializerText = property.getInitializer()?.getText();
 
-    if (property && Node.isPropertyAssignment(property)) {
+    if (currentInitializerText !== insertionInitializerText) {
+      requiredImports.add('insert');
       property.setInitializer(insertionInitializerText);
       return true;
     }
@@ -1961,7 +1986,76 @@ const processInsertionContent = (
 };
 
 /**
+ * Processes html content.
+ * Handles html node with string or translation content.
+ *
+ * @param contentObject - The object containing the property
+ * @param propertyKey - The key of the property to process
+ * @param contentNode - The html content node
+ * @param existingPropertyKeys - Set of existing property names
+ * @param requiredImports - Set to track required imports
+ * @param sourceFile - The source file being processed
+ * @returns True if the content was modified
+ */
+const processHTMLContent = (
+  contentObject: ObjectLiteralExpression,
+  propertyKey: string,
+  contentNode: ContentNode,
+  existingPropertyKeys: Set<string>,
+  requiredImports: Set<string>,
+  sourceFile: SourceFile
+): boolean => {
+  const htmlContent: HTMLContent[NodeType.HTML] = (contentNode as HTMLContent)[
+    NodeType.HTML
+  ];
+
+  const htmlInitializerText = buildHTMLInitializer(htmlContent);
+
+  if (!htmlInitializerText) return false;
+
+  if (!existingPropertyKeys.has(propertyKey)) {
+    // Delegate into spread source if available
+    const spreadTargetObject = findSpreadTargetObjectForKey(
+      contentObject,
+      propertyKey,
+      sourceFile
+    );
+    if (spreadTargetObject) {
+      return processHTMLContent(
+        spreadTargetObject,
+        propertyKey,
+        contentNode,
+        getExistingPropertyNames(spreadTargetObject),
+        requiredImports,
+        sourceFile
+      );
+    }
+    requiredImports.add('html');
+    contentObject.addPropertyAssignment({
+      name: propertyKey,
+      initializer: htmlInitializerText,
+    });
+    return true;
+  }
+
+  const property = contentObject.getProperty(propertyKey);
+
+  if (property && Node.isPropertyAssignment(property)) {
+    const currentInitializerText = property.getInitializer()?.getText();
+
+    if (currentInitializerText !== htmlInitializerText) {
+      requiredImports.add('html');
+      property.setInitializer(htmlInitializerText);
+      return true;
+    }
+  }
+
+  return false;
+};
+
+/**
  * Processes markdown content.
+
  * Handles markdown objects with string, translation, or file content.
  *
  * @param contentObject - The object containing the property
@@ -2998,6 +3092,14 @@ const serializeValue = (value: ContentNode): string | undefined => {
     )[NodeType.Insertion];
 
     return buildInsertionInitializer(content);
+  }
+
+  if (nodeType === NodeType.HTML) {
+    const content: HTMLContent[NodeType.HTML] = (value as HTMLContent)[
+      NodeType.HTML
+    ];
+
+    return buildHTMLInitializer(content);
   }
 
   if (nodeType === NodeType.Markdown) {

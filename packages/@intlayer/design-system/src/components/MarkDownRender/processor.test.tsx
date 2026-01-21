@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { cleanup, render } from '@testing-library/react';
 import {
+  act,
   Component,
   createElement,
   type FC,
@@ -11,7 +12,6 @@ import {
 } from 'react';
 import { flushSync } from 'react-dom';
 import { createRoot } from 'react-dom/client';
-import { act } from 'react-dom/test-utils';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { compiler, RuleType, sanitizer } from './processor';
 
@@ -21,7 +21,7 @@ const container = document.body.appendChild(
 
 let root: any = null;
 
-function renderFn(jsx) {
+function renderFn(jsx: ReactNode) {
   if (root) {
     root.unmount();
   }
@@ -1925,7 +1925,7 @@ comment -->`)
       return (
         <div>
           {startTime}
-          to; endTime;
+          to {endTime}
         </div>
       );
     };
@@ -1965,7 +1965,7 @@ comment -->`)
       return (
         <div>
           {component}
-          and; component2; and; component3; and; component4;
+          and {component2} and {component3} and {component4}
         </div>
       );
     }
@@ -2968,7 +2968,7 @@ describe('options.createElement', () => {
   it('should render a <custom> element if render function overrides the element type', () => {
     renderFn(
       compiler('Hello', {
-        createElement(tag, props, children) {
+        createElement(_tag, props, children) {
           return createElement('custom', props, children);
         },
       })
@@ -2997,8 +2997,11 @@ describe('options.renderRule', () => {
   it('should allow arbitrary modification of content', () => {
     renderFn(
       compiler('Hello.\n\n```latex\n$$f(X,n) = X_n + X_{n-1}$$\n```\n', {
-        renderRule(next, node, renderChildren, state) {
-          if (node.type === RuleType.codeBlock && node.lang === 'latex') {
+        renderRule(next, node, _renderChildren, state) {
+          if (
+            node.type === RuleType.codeBlock &&
+            (node as any).lang === 'latex'
+          ) {
             return <div key={state.key}>I 'm latex.</div>;
           }
 
@@ -3039,8 +3042,11 @@ describe('options.renderRule', () => {
     renderFn(
       compiler('Hey there! :big-smile:', {
         renderRule(next, node) {
-          if (node.type === RuleType.text && detector.test(node.text)) {
-            return replaceEmoji(node.text);
+          if (
+            node.type === RuleType.text &&
+            detector.test((node as any).text)
+          ) {
+            return replaceEmoji((node as any).text);
           }
 
           return next();

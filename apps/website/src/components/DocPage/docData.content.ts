@@ -439,6 +439,10 @@ const docDataContent: Dictionary = {
               title: 'Markdown',
               default: getDocMetadata('./docs/en/dictionary/markdown.md'),
             },
+            html: {
+              title: 'HTML',
+              default: getDocMetadata('./docs/en/dictionary/html.md'),
+            },
             'function-fetching': {
               title: t({
                 en: 'Function Fetching',

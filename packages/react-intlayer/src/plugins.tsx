@@ -1,17 +1,24 @@
 import {
   type DeepTransformContent as DeepTransformContentCore,
   getMarkdownMetadata,
+  type HTMLCond,
+  type HTMLContent,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
   type MarkdownContent,
   type Plugins,
 } from '@intlayer/core';
-import type { DeclaredLocales, KeyPath, LocalesValues } from '@intlayer/types';
-import { NodeType } from '@intlayer/types';
-import type { ReactNode } from 'react';
+import {
+  type DeclaredLocales,
+  type KeyPath,
+  type LocalesValues,
+  NodeType,
+} from '@intlayer/types';
+import { createElement, type ReactElement, type ReactNode } from 'react';
 import { ContentSelectorRenderer } from './editor';
 import { EditedContentRenderer } from './editor/useEditedContentRenderer';
+import { HTMLRendererPlugin } from './html';
 import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
-import { MarkdownMetadataRenderer, MarkdownRenderer } from './markdown';
+import { MarkdownMetadataRenderer, MarkdownRendererPlugin } from './markdown';
 import { renderReactElement } from './reactElement/renderReactElement';
 
 /** ---------------------------------------------
@@ -133,33 +140,59 @@ export const markdownStringPlugin: Plugins = {
       keyPath: [],
     });
 
-    return renderIntlayerNode({
-      ...props,
-      value: node,
-      children: (
-        <ContentSelectorRenderer {...rest}>
-          <MarkdownRenderer {...rest}>{node}</MarkdownRenderer>
-        </ContentSelectorRenderer>
-      ),
-      additionalProps: {
-        metadata: metadataNodes,
+    const render = (overrides?: any) =>
+      renderIntlayerNode({
+        ...props,
+        value: node,
+        children: (
+          <ContentSelectorRenderer {...rest}>
+            <MarkdownRendererPlugin {...rest} {...overrides}>
+              {node}
+            </MarkdownRendererPlugin>
+          </ContentSelectorRenderer>
+        ),
+        additionalProps: {
+          metadata: metadataNodes,
+        },
+      });
+
+    const element = render() as ReactElement;
+
+    return new Proxy(element, {
+      get(target, prop, receiver) {
+        if (prop === 'value') {
+          return node;
+        }
+        if (prop === 'metadata') {
+          return metadataNodes;
+        }
+
+        if (prop === 'use') {
+          return (overrides?: any) => render(overrides);
+        }
+
+        return Reflect.get(target, prop, receiver);
       },
-    });
+    }) as any;
   },
 };
 
-export type MarkdownCond<T> = T extends {
+export type MarkdownCond<T, S, L extends LocalesValues> = T extends {
   nodeType: NodeType | string;
   [NodeType.Markdown]: infer M;
   metadata?: infer U;
 }
-  ? IntlayerNode<DeepTransformContent<M>, { metadata: DeepTransformContent<U> }>
+  ? {
+      use: (overrides: any) => any;
+      metadata: DeepTransformContent<U, L>;
+    } & any
   : never;
 
 export const markdownPlugin: Plugins = {
   id: 'markdown-plugin',
   canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.Markdown,
+    typeof node === 'object' &&
+    (node?.nodeType === NodeType.Markdown || node?.nodeType === 'markdown'),
   transform: (node: MarkdownContent, props, deepTransformNode) => {
     const newKeyPath: KeyPath[] = [
       ...props.keyPath,
@@ -178,14 +211,55 @@ export const markdownPlugin: Plugins = {
     });
   },
 };
+
+/** ---------------------------------------------
+ *  HTML PLUGIN
+ *  --------------------------------------------- */
+
+export type HTMLPluginCond<T, S, L> = HTMLCond<T, S, L>;
+
+/** HTML plugin. Replaces node with a function that takes components => ReactNode. */
+export const htmlPlugin: Plugins = {
+  id: 'html-plugin',
+  canHandle: (node) =>
+    typeof node === 'object' &&
+    (node?.nodeType === NodeType.HTML || node?.nodeType === 'html'),
+
+  transform: (node: HTMLContent, props) => {
+    const html = node[NodeType.HTML];
+    const { plugins, ...rest } = props;
+
+    const render = (userComponents?: Record<string, any>): ReactNode =>
+      createElement(HTMLRendererPlugin, { ...rest, html, userComponents });
+
+    const element = render() as ReactElement;
+
+    return new Proxy(element, {
+      get(target, prop, receiver) {
+        if (prop === 'value') {
+          return html;
+        }
+
+        if (prop === 'use') {
+          return (userComponents?: Record<string, any>) =>
+            render(userComponents);
+        }
+
+        return Reflect.get(target, prop, receiver);
+      },
+    }) as any;
+  },
+};
+
 /** ---------------------------------------------
  *  PLUGINS RESULT
  *  --------------------------------------------- */
 
-export interface IInterpreterPluginReact<T> {
+export interface IInterpreterPluginReact<T, S, L extends LocalesValues> {
   reactNode: ReactNodeCond<T>;
   intlayerNode: IntlayerNodeCond<T>;
-  markdown: MarkdownCond<T>;
+  markdown: MarkdownCond<T, S, L>;
+  html: HTMLPluginCond<T, S, L>;
 }
 
 /**
@@ -197,6 +271,7 @@ export type IInterpreterPluginState = IInterpreterPluginStateCore & {
   reactNode: true;
   intlayerNode: true;
   markdown: true;
+  html: true;
 };
 
 export type DeepTransformContent<

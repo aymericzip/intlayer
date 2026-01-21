@@ -1,6 +1,6 @@
 {
   "name": "svelte-intlayer",
-  "version": "7.6.0-canary.1",
+  "version": "8.0.0-canary.0",
   "description": "Easily internationalize i18n your Svelte applications with type-safe multilingual content management.",
   "keywords": [
     "intlayer",
@@ -38,6 +38,11 @@
       "types": "./dist/index.d.ts",
       "svelte": "./dist/index.js",
       "default": "./dist/index.js"
+    },
+    "./markdown": {
+      "types": "./dist/markdown/index.d.ts",
+      "svelte": "./dist/markdown/index.js",
+      "default": "./dist/markdown/index.js"
     },
     "./package.json": "./package.json"
   },

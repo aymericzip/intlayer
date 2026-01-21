@@ -17,7 +17,7 @@ history:
   - version: 8.0.0
     date: 2026-01-18
     changes: Separar la configuración del sistema de la configuración del contenido. Mover las rutas internas a la propiedad `system`. Añadir `codeDir` para separar los archivos de contenido de la transformación del código.
-  - version: 7.6.0
+  - version: 8.0.0
     date: 2026-01-18
     changes: Añadir opciones de diccionario `location` y `schema`
   - version: 7.5.1

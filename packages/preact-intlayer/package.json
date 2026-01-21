@@ -1,6 +1,6 @@
 {
   "name": "preact-intlayer",
-  "version": "7.6.0-canary.1",
+  "version": "8.0.0-canary.0",
   "private": false,
   "description": "Easily internationalize i18n your Preact applications with type-safe multilingual content management.",
   "keywords": [
@@ -44,6 +44,11 @@
       "require": "./dist/cjs/client/format/index.cjs",
       "import": "./dist/esm/client/format/index.mjs"
     },
+    "./markdown": {
+      "types": "./dist/types/markdown/index.d.ts",
+      "require": "./dist/cjs/markdown/index.cjs",
+      "import": "./dist/esm/markdown/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
@@ -56,6 +61,9 @@
       ],
       "format": [
         "./dist/types/client/format/index.d.ts"
+      ],
+      "markdown": [
+        "./dist/types/markdown/index.d.ts"
       ],
       "package.json": [
         "./package.json"

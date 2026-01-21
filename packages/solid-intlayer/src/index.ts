@@ -2,7 +2,8 @@ import type { IInterpreterPluginSolid } from './plugins';
 
 declare module '@intlayer/core' {
   // biome-ignore lint/correctness/noUnusedVariables: <All declarations of 'IInterpreterPlugin' must have identical type parameters>
-  interface IInterpreterPlugin<T, S, L> extends IInterpreterPluginSolid<T> {}
+  interface IInterpreterPlugin<T, S, L>
+    extends IInterpreterPluginSolid<T, S, L> {}
 }
 
 export {
@@ -19,6 +20,7 @@ export {
   useDictionary,
   useDictionaryAsync,
   useDictionaryDynamic,
+  useIntl,
   useIntlayer,
   useIntlayerContext,
   useLoadDynamic,

@@ -31,7 +31,9 @@ import type { NestedParser, ParserResult, ParseState, Rule } from './types';
  */
 export const trimEnd = (str: string): string => {
   let end = str.length;
+ 
   while (end > 0 && str[end - 1] <= ' ') end--;
+  
   return str.slice(0, end);
 };
 
@@ -47,6 +49,7 @@ export const startsWith = (str: string, prefix: string): boolean => {
  */
 export const unquote = (str: string): string => {
   const first = str[0];
+
   if (
     (first === '"' || first === "'") &&
     str.length >= 2 &&
@@ -54,6 +57,7 @@ export const unquote = (str: string): string => {
   ) {
     return str.slice(1, -1);
   }
+
   return str;
 };
 
@@ -162,6 +166,7 @@ export const normalizeWhitespace = (source: string): string => {
     .replace(TAB_R, '    ');
 
   const duration = performance.now() - start;
+
   if (duration > DURATION_DELAY_TRIGGER) {
     console.log(
       `normalizeWhitespace: ${duration.toFixed(3)}ms, source length: ${source.length}`
@@ -191,8 +196,11 @@ export const trimLeadingWhitespaceOutsideFences = (
 
   const maybeToggleFence = (line: string): void => {
     const m = isFenceLine(line);
+
     if (!m) return;
+
     const token = m[1];
+
     if (!inFence) {
       inFence = true;
       fenceToken = token;
@@ -230,10 +238,6 @@ export const trimLeadingWhitespaceOutsideFences = (
 
   return result;
 };
-
-// ============================================================================
-// ATTRIBUTE PARSING
-// ============================================================================
 
 /**
  * Normalize HTML attribute key to JSX prop name.
@@ -286,8 +290,10 @@ export const parseStyleAttribute = (styleString: string): StyleTuple[] => {
 
     if (char === ';' && !inQuotes && !inUrl) {
       const declaration = buffer.trim();
+
       if (declaration) {
         const colonIndex = declaration.indexOf(':');
+
         if (colonIndex > 0) {
           const key = declaration.slice(0, colonIndex).trim();
           const value = declaration.slice(colonIndex + 1).trim();
@@ -301,6 +307,7 @@ export const parseStyleAttribute = (styleString: string): StyleTuple[] => {
   }
 
   const declaration = buffer.trim();
+
   if (declaration) {
     const colonIndex = declaration.indexOf(':');
     if (colonIndex > 0) {
@@ -311,6 +318,7 @@ export const parseStyleAttribute = (styleString: string): StyleTuple[] => {
   }
 
   const duration = performance.now() - start;
+
   if (duration > DURATION_DELAY_TRIGGER) {
     console.log(
       `parseStyleAttribute: ${duration.toFixed(3)}ms, styleString length: ${styleString.length}, styles count: ${styles.length}`
@@ -321,9 +329,9 @@ export const parseStyleAttribute = (styleString: string): StyleTuple[] => {
 };
 
 /**
- * Convert an attribute value to a JSX prop value.
+ * Convert an attribute value to a Node prop value.
  */
-export const attributeValueToJSXPropValue = (
+export const attributeValueToNodePropValue = (
   tag: string,
   key: string,
   value: string,
@@ -556,8 +564,15 @@ export const blockRegex =
 /**
  * Creates a match function from a regex, ignoring block/inline scope.
  */
-export const anyScopeRegex = (regex: RegExp) =>
-  allowInline((source: string): RegExpMatchArray | null => regex.exec(source));
+export const anyScopeRegex = (
+  fn: RegExp | ((source: string, state: ParseState) => RegExpMatchArray | null)
+) =>
+  allowInline((source: string, state: ParseState): RegExpMatchArray | null => {
+    if (typeof fn === 'function') {
+      return fn(source, state);
+    }
+    return fn.exec(source);
+  });
 
 /**
  * Parse inline content (including links).
@@ -597,6 +612,7 @@ export const parseSimpleInline = (
   const start = performance.now();
   const isCurrentlyInline = state.inline ?? false;
   const isCurrentlySimple = state.simple ?? false;
+
   state.inline = false;
   state.simple = true;
   const result = parse(children, state);

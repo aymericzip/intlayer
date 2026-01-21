@@ -23,7 +23,7 @@ export { compile, compileWithOptions, createCompiler } from './compiler';
 
 // Constants
 export {
-  ATTRIBUTE_TO_JSX_PROP_MAP,
+  ATTRIBUTE_TO_NODE_PROP_MAP,
   ATTRIBUTES_TO_SANITIZE,
   DO_NOT_PROCESS_HTML_ELEMENTS,
   DURATION_DELAY_TRIGGER,
@@ -97,7 +97,7 @@ export type {
 export {
   allowInline,
   anyScopeRegex,
-  attributeValueToJSXPropValue,
+  attributeValueToNodePropValue,
   blockRegex,
   captureNothing,
   cx,

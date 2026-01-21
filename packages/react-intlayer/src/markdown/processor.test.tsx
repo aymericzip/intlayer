@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { cleanup, render } from '@testing-library/react';
 import {
+  act,
   Component,
   createElement,
   type FC,
@@ -11,7 +12,6 @@ import {
 } from 'react';
 import { flushSync } from 'react-dom';
 import { createRoot } from 'react-dom/client';
-import { act } from 'react-dom/test-utils';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { compiler, RuleType, sanitizer } from './processor';
 
@@ -21,7 +21,7 @@ const container = document.body.appendChild(
 
 let root: any = null;
 
-function renderFn(jsx) {
+function renderFn(jsx: ReactNode) {
   if (root) {
     root.unmount();
   }
@@ -1902,7 +1902,7 @@ comment -->`)
             timezone="UTC+5"
           />
         `,
-        { overrides: { DatePicker } }
+        { components: { DatePicker } }
       )
     );
 
@@ -1938,7 +1938,7 @@ comment -->`)
             endTime={"1514579720512"}
           />
         `,
-        { overrides: { DatePicker } }
+        { components: { DatePicker } }
       )
     );
 
@@ -1994,7 +1994,7 @@ comment -->`)
             component4={<Inner disabled={false} />}
           />
         `,
-        { overrides: { Inner, InterpolationTest } }
+        { components: { Inner, InterpolationTest } }
       )
     );
 
@@ -2311,8 +2311,7 @@ comment -->`)
 
   it('does not consume trailing whitespace if there is no newline', () => {
     const Foo = () => <span>Hello </span>;
-
-    renderFn(compiler('<Foo/> World!', { overrides: { Foo } }));
+    renderFn(compiler('<Foo/> World!', { components: { Foo } }));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<span><span>Hello </span> World!</span>"`
@@ -2918,7 +2917,7 @@ describe('options.wrapper', () => {
     );
   });
 
-  it('overrides the wrapper element when there are multiple children', () => {
+  it('components the wrapper element when there are multiple children', () => {
     renderFn(compiler('Hello\n\nworld!', { wrapper: 'article' }));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
@@ -2965,7 +2964,7 @@ describe('options.forceWrapper', () => {
 });
 
 describe('options.createElement', () => {
-  it('should render a <custom> element if render function overrides the element type', () => {
+  it('should render a <custom> element if render function components the element type', () => {
     renderFn(
       compiler('Hello', {
         createElement(tag, props, children) {
@@ -2997,8 +2996,11 @@ describe('options.renderRule', () => {
   it('should allow arbitrary modification of content', () => {
     renderFn(
       compiler('Hello.\n\n```latex\n$$f(X,n) = X_n + X_{n-1}$$\n```\n', {
-        renderRule(next, node, renderChildren, state) {
-          if (node.type === RuleType.codeBlock && node.lang === 'latex') {
+        renderRule(next, node, _renderChildren, state) {
+          if (
+            node.type === RuleType.codeBlock &&
+            (node as any).lang === 'latex'
+          ) {
             return <div key={state.key}>I 'm latex.</div>;
           }
 
@@ -3039,8 +3041,11 @@ describe('options.renderRule', () => {
     renderFn(
       compiler('Hey there! :big-smile:', {
         renderRule(next, node) {
-          if (node.type === RuleType.text && detector.test(node.text)) {
-            return replaceEmoji(node.text);
+          if (
+            node.type === RuleType.text &&
+            detector.test((node as any).text)
+          ) {
+            return replaceEmoji((node as any).text);
           }
 
           return next();
@@ -3077,7 +3082,7 @@ describe('options.slugify', () => {
   });
 });
 
-describe('overrides', () => {
+describe('components', () => {
   it('should substitute the appropriate JSX tag if given a component', () => {
     class FakeParagraph extends Component<PropsWithChildren<{}>> {
       render() {
@@ -3087,7 +3092,7 @@ describe('overrides', () => {
 
     renderFn(
       compiler('Hello.\n\n', {
-        overrides: { p: { component: FakeParagraph } },
+        components: { p: { component: FakeParagraph } },
       })
     );
 
@@ -3103,7 +3108,7 @@ describe('overrides', () => {
 
     renderFn(
       compiler('<CustomButton>Click me!</CustomButton>', {
-        overrides: { CustomButton },
+        components: { CustomButton },
       })
     );
 
@@ -3117,7 +3122,7 @@ describe('overrides', () => {
       compiler(
         '<iframe src="https://my-malicious-web-page.ngrok-free.app/"></iframe>',
         {
-          overrides: {
+          components: {
             iframe: () => null,
           },
         }
@@ -3134,7 +3139,7 @@ describe('overrides', () => {
       }
     }
 
-    renderFn(compiler('Hello.\n\n', { overrides: { p: FakeParagraph } }));
+    renderFn(compiler('Hello.\n\n', { components: { p: FakeParagraph } }));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<p class="foo">Hello.</p>"
@@ -3144,7 +3149,7 @@ describe('overrides', () => {
   it('should add props to the appropriate JSX tag if supplied', () => {
     renderFn(
       compiler('Hello.\n\n', {
-        overrides: { p: { props: { className: 'abc', title: 'foo' } } },
+        components: { p: { props: { className: 'abc', title: 'foo' } } },
       })
     );
 
@@ -3163,7 +3168,7 @@ describe('overrides', () => {
 
     renderFn(
       compiler('[link](https://example.org)', {
-        overrides: { a: { component: FakeLink, props: { title: 'foo' } } },
+        components: { a: { component: FakeLink, props: { title: 'foo' } } },
       })
     );
 
@@ -3173,7 +3178,7 @@ describe('overrides', () => {
   it('should add props to pre & code tags if supplied', () => {
     renderFn(
       compiler(['```', 'foo', '```'].join('\n'), {
-        overrides: {
+        components: {
           code: {
             props: {
               'data-foo': 'bar',
@@ -3222,7 +3227,7 @@ describe('overrides', () => {
 
     renderFn(
       compiler(['```', 'foo', '```'].join('\n'), {
-        overrides: {
+        components: {
           code: {
             component: OverridenCode,
             props: {
@@ -3249,7 +3254,7 @@ describe('overrides', () => {
   it('should be able to override gfm task list items', () => {
     renderFn(
       compiler('- [ ] foo', {
-        overrides: { li: { props: { className: 'foo' } } },
+        components: { li: { props: { className: 'foo' } } },
       })
     );
     const $element = container.querySelector('li')!;
@@ -3262,7 +3267,7 @@ describe('overrides', () => {
   it('should be able to override gfm task list item checkboxes', () => {
     renderFn(
       compiler('- [ ] foo', {
-        overrides: { input: { props: { className: 'foo' } } },
+        components: { input: { props: { className: 'foo' } } },
       })
     );
     const $element = container.querySelector('input')!;
@@ -3280,7 +3285,7 @@ describe('overrides', () => {
     renderFn(
       compiler('Hello.\n\n', {
         disableParsingRawHTML: true,
-        overrides: { p: { component: FakeParagraph } },
+        components: { p: { component: FakeParagraph } },
       })
     );
 
@@ -3297,7 +3302,7 @@ describe('overrides', () => {
     renderFn(
       compiler('Hello.\n\n<FakeSpan>I am a fake span</FakeSpan>', {
         disableParsingRawHTML: true,
-        overrides: { FakeSpan },
+        components: { FakeSpan },
       })
     );
 
@@ -3307,10 +3312,10 @@ describe('overrides', () => {
     `);
   });
 
-  it('#530 nested overrides', () => {
+  it('#530 nested components', () => {
     renderFn(
       compiler('<Accordion><AccordionItem>test</AccordionItem></Accordion>', {
-        overrides: {
+        components: {
           Accordion: ({ children }: PropsWithChildren) => children,
           AccordionItem: ({ children }: PropsWithChildren) => children,
         },

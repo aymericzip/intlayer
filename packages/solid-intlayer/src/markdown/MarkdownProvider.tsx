@@ -6,23 +6,41 @@ import {
   useContext,
 } from 'solid-js';
 
+type RenderMarkdownOptions = {
+  components?: any;
+  wrapper?: any;
+  options?: any;
+};
+
 type MarkdownProviderValue = {
-  renderMarkdown: (content: string) => JSXElement;
+  renderMarkdown: (
+    content: string,
+    overrides?: any | RenderMarkdownOptions
+  ) => JSXElement;
 };
 
 export const MarkdownContext = createContext<MarkdownProviderValue>();
 
 export type MarkdownProviderProps = ParentProps<{
-  renderMarkdown?: (content: string) => JSXElement;
+  renderMarkdown?: (
+    content: string,
+    overrides?: any | RenderMarkdownOptions
+  ) => JSXElement;
 }>;
 
 export const MarkdownProvider: Component<MarkdownProviderProps> = (props) => {
-  const defaultRenderMarkdown = (content: string) => content; // Default implementation
+  const defaultRenderMarkdown = (content: string, overrides?: any) => {
+    // If props.renderMarkdown is provided, it handles the logic
+    if (props.renderMarkdown) {
+      return props.renderMarkdown(content, overrides);
+    }
+    return content;
+  };
 
   return (
     <MarkdownContext.Provider
       value={{
-        renderMarkdown: props.renderMarkdown ?? defaultRenderMarkdown,
+        renderMarkdown: defaultRenderMarkdown,
       }}
     >
       {props.children}

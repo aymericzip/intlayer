@@ -5,7 +5,7 @@ import {
   type MarkdownContent,
   type Plugins,
 } from '@intlayer/core';
-import { type KeyPath, NodeType } from '@intlayer/types';
+import { type KeyPath, type LocalesValues, NodeType } from '@intlayer/types';
 import { ContentSelectorWrapperComponent } from './editor';
 import { useMarkdown } from './markdown/installIntlayerMarkdown';
 import { renderIntlayerNode } from './renderIntlayerNode';
@@ -88,33 +88,57 @@ export const markdownStringPlugin: Plugins = {
       keyPath: [],
     });
 
-    return renderIntlayerNode({
-      ...props,
-      value: node,
-      children: () => ({
-        component: ContentSelectorWrapperComponent,
-        props: {
-          dictionaryKey: rest.dictionaryKey,
-          keyPath: rest.keyPath,
+    const render = (overrides?: any) =>
+      renderIntlayerNode({
+        ...props,
+        value: node,
+        children: () => ({
+          component: ContentSelectorWrapperComponent,
+          props: {
+            dictionaryKey: rest.dictionaryKey,
+            keyPath: rest.keyPath,
+            ...overrides,
+          },
+          children: () => {
+            const { renderMarkdown } = useMarkdown();
+            return renderMarkdown(node, overrides);
+          },
+        }),
+        additionalProps: {
+          metadata: metadataNodes,
         },
-        children: () => {
-          const { renderMarkdown } = useMarkdown();
-          return renderMarkdown(node);
-        },
-      }),
-      additionalProps: {
-        metadata: metadataNodes,
+      });
+
+    const element = render() as any;
+
+    return new Proxy(element, {
+      get(target, prop, receiver) {
+        if (prop === 'value') {
+          return node;
+        }
+        if (prop === 'metadata') {
+          return metadataNodes;
+        }
+
+        if (prop === 'use') {
+          return (overrides?: any) => render(overrides);
+        }
+
+        return Reflect.get(target, prop, receiver);
       },
-    });
+    }) as any;
   },
 };
 
-export type MarkdownCond<T> = T extends {
+export type MarkdownCond<T, S, L extends LocalesValues> = T extends {
   nodeType: NodeType | string;
   [NodeType.Markdown]: infer M;
   metadata?: infer U;
 }
-  ? IntlayerNode<DeepTransformContent<M>, { metadata: DeepTransformContent<U> }>
+  ? {
+      use: (overrides: any) => any;
+      metadata: DeepTransformContent<U>;
+    } & any
   : never;
 
 export const markdownPlugin: Plugins = {
@@ -144,9 +168,9 @@ export const markdownPlugin: Plugins = {
  *  PLUGINS RESULT
  *  --------------------------------------------- */
 
-export interface IInterpreterPluginAngular<T> {
+export interface IInterpreterPluginAngular<T, S, L extends LocalesValues> {
   intlayerNode: IntlayerNodeCond<T>;
-  markdown: MarkdownCond<T>;
+  markdown: MarkdownCond<T, S, L>;
 }
 
 /**

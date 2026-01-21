@@ -9,6 +9,7 @@ import type {
 } from '@intlayer/types';
 import {
   type DeepTransformContent,
+  htmlPlugin,
   intlayerNodePlugins,
   markdownPlugin,
   svelteNodePlugins,
@@ -33,6 +34,7 @@ export const getDictionary = <
     intlayerNodePlugins,
     svelteNodePlugins,
     markdownPlugin,
+    htmlPlugin,
     ...(additionalPlugins ?? []),
   ];
 

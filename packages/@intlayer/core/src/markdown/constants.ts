@@ -101,7 +101,7 @@ export const DURATION_DELAY_TRIGGER = 20;
  * Map of HTML attributes to their JSX prop equivalents.
  * Some renderers use camelCase for certain attributes.
  */
-export const ATTRIBUTE_TO_JSX_PROP_MAP: Record<string, string> = [
+export const ATTRIBUTE_TO_NODE_PROP_MAP: Record<string, string> = [
   'allowFullScreen',
   'allowTransparency',
   'autoComplete',

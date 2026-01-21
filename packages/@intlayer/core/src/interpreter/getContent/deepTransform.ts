@@ -22,6 +22,18 @@ export const deepTransformNode = (node: any, props: NodeProps): any => {
     return node;
   }
 
+  // If it's a framework-specific virtual node or already a transformed Proxy,
+  // return it directly to avoid re-transforming its internal properties.
+  if (
+    (node as any).$$typeof !== undefined ||
+    (node as any).__v_isVNode !== undefined ||
+    (node as any)._isVNode !== undefined ||
+    (node as any).isJSX !== undefined ||
+    typeof node === 'function' // Proxies for html/markdown are functions
+  ) {
+    return node;
+  }
+
   // If it's an array, transform each element:
   if (Array.isArray(node)) {
     return node.map((child, index) => {

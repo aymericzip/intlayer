@@ -78,7 +78,7 @@ export const isInvalidDictionary = (
 
           if (!result.success) {
             appLogger(
-              `${location} dictionary ${colorizeKey(dictionary.key)} has invalid content according to schema ${colorize(dictionary.schema, ANSIColors.ORANGE)} for locale ${formatLocale(locale)} - ${dictionary.filePath ? formatPath(dictionary.filePath) : colorizePath('Remote')}`,
+              `${location} dictionary ${colorizeKey(dictionary.key)} has invalid content according to schema ${colorize(dictionary.schema as string, ANSIColors.ORANGE)} for locale ${formatLocale(locale)} - ${dictionary.filePath ? formatPath(dictionary.filePath) : colorizePath('Remote')}`,
               {
                 level: 'error',
               }

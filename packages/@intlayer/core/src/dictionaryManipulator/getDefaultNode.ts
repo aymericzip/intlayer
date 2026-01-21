@@ -61,6 +61,13 @@ export const getDefaultNode = (
         [NodeType.Markdown]: clonedContent ?? '',
       } as ContentNode;
 
+    case NodeType.HTML:
+      return {
+        nodeType: NodeType.HTML,
+        [NodeType.HTML]: clonedContent ?? '',
+        customComponents: [],
+      } as ContentNode;
+
     case NodeType.File:
       return {
         nodeType: NodeType.File,

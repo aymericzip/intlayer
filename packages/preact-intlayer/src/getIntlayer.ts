@@ -7,6 +7,7 @@ import type {
 } from '@intlayer/types';
 import {
   type DeepTransformContent,
+  htmlPlugin,
   intlayerNodePlugins,
   markdownPlugin,
   preactNodePlugins,
@@ -24,6 +25,7 @@ export const getIntlayer = <
     intlayerNodePlugins,
     preactNodePlugins,
     markdownPlugin,
+    htmlPlugin,
     ...(additionalPlugins ?? []),
   ];
 

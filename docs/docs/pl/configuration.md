@@ -17,7 +17,7 @@ history:
   - version: 8.0.0
     date: 2026-01-18
     changes: Oddziel konfigurację systemu od konfiguracji treści. Przenieś wewnętrzne ścieżki do właściwości `system`. Dodaj `codeDir`, aby oddzielić pliki treści od transformacji kodu.
-  - version: 7.6.0
+  - version: 8.0.0
     date: 2026-01-18
     changes: Dodano opcje słownika `location` i `schema`
   - version: 7.5.0

@@ -1,72 +1,57 @@
-'use client';
-
 import {
   getContent,
   getContentNodeByKeyPath,
   getMarkdownMetadata,
 } from '@intlayer/core';
 import type { ContentNode, KeyPath, LocalesValues } from '@intlayer/types';
-import type { FC, ReactNode } from 'preact/compat';
+import type { FunctionComponent, ReactNode } from 'preact';
 import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';
 import { useMarkdownContext } from './MarkdownProvider';
 
 type MarkdownRendererProps = {
-  dictionaryKey: string;
-  keyPath: KeyPath[];
+  dictionaryKey?: string;
+  keyPath?: KeyPath[];
   locale?: LocalesValues;
   children: string;
+  [key: string]: any;
 };
 
-export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
+export const MarkdownRenderer: FunctionComponent<MarkdownRendererProps> = ({
   dictionaryKey,
   keyPath,
   children,
   locale,
+  ...overrides
 }): ReactNode => {
-  const { renderMarkdown } = useMarkdownContext();
+  const context = useMarkdownContext();
   const editedContentContext = useEditedContentRenderer({
-    dictionaryKey,
-    keyPath,
+    dictionaryKey: dictionaryKey as string,
+    keyPath: keyPath as KeyPath[],
     children,
   });
 
-  if (typeof editedContentContext !== 'string') {
-    const transformedEditedContent = getContent(
-      editedContentContext,
-      {
-        dictionaryKey,
-        keyPath,
-      },
-      locale
-    );
+  const contentToRender =
+    dictionaryKey && keyPath && typeof editedContentContext === 'string'
+      ? editedContentContext
+      : children;
 
-    if (typeof transformedEditedContent !== 'string') {
-      console.error(
-        `Incorrect Markdown content. Edited Markdown content type: ${typeof transformedEditedContent}. Expected string. Value ${JSON.stringify(transformedEditedContent)}`
-      );
+  const result = context
+    ? context.renderMarkdown(contentToRender, overrides)
+    : contentToRender;
 
-      return renderMarkdown(children);
-    }
-
-    return renderMarkdown(transformedEditedContent);
-  }
-
-  return renderMarkdown(editedContentContext);
+  return result as ReactNode;
 };
 
 type MarkdownMetadataRendererProps = MarkdownRendererProps & {
   metadataKeyPath: KeyPath[];
 };
 
-export const MarkdownMetadataRenderer: FC<MarkdownMetadataRendererProps> = ({
-  dictionaryKey,
-  keyPath,
-  children,
-  metadataKeyPath,
-}): ReactNode => {
+export const MarkdownMetadataRenderer: FunctionComponent<
+  MarkdownMetadataRendererProps
+> = ({ dictionaryKey, keyPath, children, metadataKeyPath }): ReactNode => {
   const editedContentContext = useEditedContentRenderer({
-    dictionaryKey,
-    keyPath,
+    dictionaryKey: dictionaryKey as string,
+    keyPath: keyPath as KeyPath[],
     children,
   });
   const metadata = getMarkdownMetadata(editedContentContext);

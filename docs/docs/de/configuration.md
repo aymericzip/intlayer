@@ -17,7 +17,7 @@ history:
   - version: 8.0.0
     date: 2026-01-18
     changes: Systemkonfiguration von der Inhaltskonfiguration trennen. Interne Pfade zur Eigenschaft `system` verschieben. `codeDir` hinzufügen, um Inhaltsdateien von der Codetransformation zu trennen.
-  - version: 7.6.0
+  - version: 8.0.0
     date: 2026-01-18
     changes: Wörterbuchoptionen `location` und `schema` hinzugefügt
   - version: 7.5.1

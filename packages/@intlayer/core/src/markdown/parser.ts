@@ -83,7 +83,7 @@ export const parserFor = (
               );
             }
 
-            state.prevCapture += capture[0];
+            state.prevCapture = (state.prevCapture || '') + capture[0];
 
             if (!parsedAny.type) {
               parsedAny.type = ruleType;
@@ -95,9 +95,6 @@ export const parserFor = (
         }
       }
     }
-
-    // reset on exit
-    state.prevCapture = '';
 
     const parseDuration = performance.now() - parseStart;
     if (parseDuration > 1) {

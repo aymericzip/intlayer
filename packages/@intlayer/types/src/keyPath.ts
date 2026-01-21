@@ -55,6 +55,11 @@ export type FileNode = {
   key?: undefined;
 };
 
+export type HTMLNode = {
+  type: NodeType.HTML;
+  key?: undefined;
+};
+
 export type KeyPath =
   | ObjectNode
   | ArrayNode
@@ -66,4 +71,5 @@ export type KeyPath =
   | ReactNode
   | ConditionNode
   | NestedNode
-  | FileNode;
+  | FileNode
+  | HTMLNode;

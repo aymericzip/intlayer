@@ -264,23 +264,35 @@ const changeLocale = (event: Event) => {
 </div>
 ```
 
-### (Optional) Step 7: Render Markdown
+### (Optional) Step 7: Render Markdown and HTML
 
-Intlayer supports rendering Markdown content directly in your Svelte application. By default, Markdown is treated as plain text. To convert Markdown into rich HTML, you can integrate `@humanspeak/svelte-markdown`, or a other markdown parser.
+Intlayer supports rendering Markdown and HTML content in Svelte.
 
-> To see how to declare markdown content using the `intlayer` package, see the [markdown doc](https://github.com/aymericzip/intlayer/tree/main/docs/en/dictionary/markdown.md).
+By default, Intlayer treats Markdown and HTML as plain text. To render them properly, you can use the `@html` tag in Svelte or the `.use()` method for more control.
 
 ```svelte fileName="src/App.svelte"
 <script>
-  import { setIntlayerMarkdown } from "svelte-intlayer";
+  import { useIntlayer } from "svelte-intlayer";
 
-  setIntlayerMarkdown((markdown) =>
-   // render the markdown content as a string
-   return markdown;
-  );
+  const content = useIntlayer("app");
 </script>
 
-<h1>{$content.markdownContent}</h1>
+<!-- Render basic Markdown/HTML -->
+{@html $content.myMarkdownContent.toString()}
+{@html $content.myHtmlContent.toString()}
+
+<!-- Render with custom component overrides -->
+{@html $content.myMarkdownContent
+  .use({
+    h1: (props) => `<h1 style="color: red">${props.children}</h1>`,
+  })
+  .toString()}
+
+{@html $content.myHtmlContent
+  .use({
+    b: (props) => `<strong style="color: blue">${props.children}</strong>`,
+  })
+  .toString()}
 ```
 
 > You can also access your markdown front-matter data using the `content.markdownContent.metadata.xxx` property.

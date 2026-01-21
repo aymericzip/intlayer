@@ -1,6 +1,5 @@
-import { createApp } from 'vue';
+import { createApp, h } from 'vue';
 import { installIntlayer, installIntlayerMarkdown } from 'vue-intlayer';
-import { compileMarkdown } from 'vue-intlayer/markdown';
 import App from './App.vue';
 import { router } from './routes';
 import './style.css';
@@ -15,7 +14,13 @@ installIntlayer(app); // provide the singleton instance
 
 // Use the new framework-agnostic markdown compiler from vue-intlayer/markdown
 // This uses the core @intlayer/core markdown processor with Vue-specific runtime
-installIntlayerMarkdown(app, (markdown) => compileMarkdown(markdown));
+app.use(installIntlayerMarkdown, {
+  components: {
+    h1: (props: any) =>
+      h('h1', { style: { color: 'orange' }, ...props }, props.children),
+    ComponentDemo: () => h('div', { style: { background: 'grey' } }, 'DEMO'),
+  },
+});
 
 // Mount the app
 app.mount('#app');

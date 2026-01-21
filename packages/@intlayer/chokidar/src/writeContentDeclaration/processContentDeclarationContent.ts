@@ -5,6 +5,7 @@ import {
   deepTransformNode,
   type FileContent,
   type FileContentConstructor,
+  type HTMLContent,
   type InsertionContent,
   type InsertionContentConstructor,
   type MarkdownContent,
@@ -97,11 +98,35 @@ const insertionFilePlugin: Plugins = {
   },
 };
 
+/**
+ * HTML file plugin
+ */
+
+const htmlFilePlugin: Plugins = {
+  id: 'html-file-plugin',
+  canHandle: (node) =>
+    typeof node === 'object' && node?.nodeType === NodeType.HTML,
+  transform: (node: HTMLContent, props, deepTransformNode) => {
+    const simplifiedHTMLNode: HTMLContent = {
+      nodeType: NodeType.HTML,
+      [NodeType.HTML]: deepTransformNode(node.html, props),
+      customComponents: node.customComponents,
+    };
+
+    return simplifiedHTMLNode;
+  },
+};
+
 export const processContentDeclarationContent = async (
   dictionary: Dictionary
 ) =>
   deepTransformNode(dictionary, {
     dictionaryKey: dictionary.key,
     keyPath: [],
-    plugins: [writeFilePlugin, markdownFilePlugin, insertionFilePlugin],
+    plugins: [
+      writeFilePlugin,
+      markdownFilePlugin,
+      insertionFilePlugin,
+      htmlFilePlugin,
+    ],
   });

@@ -143,7 +143,7 @@ const createReactRuntime = (
   cloneElement,
   Fragment,
   // React uses className instead of class, htmlFor instead of for
-  // The core library already handles this via ATTRIBUTE_TO_JSX_PROP_MAP
+  // The core library already handles this via ATTRIBUTE_TO_NODE_PROP_MAP
   normalizeProps: (_tag, props) => props,
 });
 

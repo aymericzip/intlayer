@@ -2,7 +2,8 @@ import type { IInterpreterPluginPreact } from './plugins';
 
 declare module '@intlayer/core' {
   // biome-ignore lint/correctness/noUnusedVariables: <All declarations of 'IInterpreterPlugin' must have identical type parameters>
-  interface IInterpreterPlugin<T, S, L> extends IInterpreterPluginPreact<T> {}
+  interface IInterpreterPlugin<T, S, L>
+    extends IInterpreterPluginPreact<T, S, L> {}
 }
 
 export {
@@ -17,6 +18,7 @@ export {
   useDictionary,
   useDictionaryAsync,
   useDictionaryDynamic,
+  useIntl,
   useIntlayer,
   useIntlayerContext,
   useLoadDynamic,
@@ -27,5 +29,18 @@ export {
 } from './client/index';
 export { getDictionary } from './getDictionary';
 export { getIntlayer } from './getIntlayer';
+export { HTMLProvider, HTMLRenderer } from './html/index';
 export type { IntlayerNode } from './IntlayerNode';
-export { MarkdownProvider } from './markdown/index';
+export {
+  compileMarkdown,
+  MarkdownProvider,
+  MarkdownRenderer,
+  preactRuntime,
+} from './markdown/index';
+export {
+  htmlPlugin,
+  intlayerNodePlugins,
+  markdownPlugin,
+  markdownStringPlugin,
+  preactNodePlugins,
+} from './plugins';

@@ -30,26 +30,27 @@ export const renderFor =
       state: ParseState
     ) => unknown
   ) =>
-  (ast: ParserResult | ParserResult[], state: ParseState = {}): unknown[] => {
+  (ast: ParserResult | ParserResult[], state: ParseState = {}): any => {
     const start = performance.now();
 
     const patchedRender = (
       ast: ParserResult | ParserResult[],
       state: ParseState = {}
-    ): unknown[] => renderFor(render)(ast, state);
+    ): any => renderFor(render)(ast, state);
 
     if (Array.isArray(ast)) {
       const oldKey = state.key;
-      const result: unknown[] = [];
+      const result: any[] = [];
 
       // map nestedOutput over the ast, except group any text
       // nodes together into a single string output.
       let lastWasString = false;
+      let renderedIndex = 0;
 
       for (let i = 0; i < ast.length; i++) {
-        state.key = i;
-
-        const nodeOut = patchedRender(ast[i], state);
+        // We clone the state to avoid side effects on other nodes in the same level
+        // while ensuring each non-null rendered node gets a unique, sequential key.
+        const nodeOut = patchedRender(ast[i], { ...state, key: renderedIndex });
         const isString = typeof nodeOut === 'string';
 
         if (isString && lastWasString) {
@@ -57,6 +58,7 @@ export const renderFor =
             (result[result.length - 1] as string) + nodeOut;
         } else if (nodeOut !== null) {
           result.push(nodeOut);
+          renderedIndex++;
         }
 
         lastWasString = isString;
@@ -83,7 +85,7 @@ export const renderFor =
       );
     }
 
-    return result as unknown[];
+    return result;
   };
 
 /**

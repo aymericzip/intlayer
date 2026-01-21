@@ -1,9 +1,11 @@
 <script lang="ts">
-  import { setMarkdownContext } from './context';
+import { setMarkdownContext } from './context';
 
-  export let renderMarkdown: (markdown: string) => string = (markdown) => markdown;
+export const renderMarkdown: (markdown: string, overrides?: any) => string = (
+  markdown
+) => markdown;
 
-  setMarkdownContext({ renderMarkdown });
+setMarkdownContext({ renderMarkdown });
 </script>
 
 <slot />

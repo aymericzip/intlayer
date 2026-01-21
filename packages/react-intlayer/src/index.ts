@@ -1,10 +1,11 @@
 import type { IInterpreterPluginReact } from './plugins';
 
 declare module '@intlayer/core' {
-  // biome-ignore lint/correctness/noUnusedVariables: <All declarations of 'IInterpreterPlugin' must have identical type parameters>
-  interface IInterpreterPlugin<T, S, L> extends IInterpreterPluginReact<T> {}
+  interface IInterpreterPlugin<T, S, L>
+    extends IInterpreterPluginReact<T, S, L> {}
 }
 
+export { useIntl } from './client/format/useIntl';
 // Import directly from individual files to avoid circular dependency issues
 export {
   IntlayerClientContext,
@@ -32,5 +33,6 @@ export {
 } from './client/useLocaleStorage';
 export { getDictionary } from './getDictionary';
 export { getIntlayer } from './getIntlayer';
+export { HTMLProvider } from './html/HTMLProvider';
 export type { IntlayerNode } from './IntlayerNode';
-export { MarkdownProvider } from './markdown/index';
+export { MarkdownProvider, MarkdownRenderer } from './markdown/index';

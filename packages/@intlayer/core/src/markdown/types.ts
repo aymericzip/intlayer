@@ -70,12 +70,12 @@ export interface MarkdownRuntime {
 export interface MarkdownContext {
   /** Framework runtime (createElement, etc.) */
   runtime: MarkdownRuntime;
-  /** Component overrides for HTML tags */
-  overrides?: Overrides;
+  /** Component components for HTML tags */
+  components?: Overrides;
   /** Custom URL sanitizer */
   sanitizer?: (url: string, tag: HTMLTag, attr: string) => string | null;
   /** Custom slugify function for heading IDs */
-  slugify?: (text: string) => string;
+  slugify?: (text: string, defaultFn: (input: string) => string) => string;
   /** Custom named codes to unicode mappings */
   namedCodesToUnicode?: Record<string, string>;
 }
@@ -87,7 +87,7 @@ export interface MarkdownContext {
 /**
  * Parser state passed through parsing and rendering.
  */
-export interface ParseState {
+export type ParseState = {
   /** true if the current content is inside anchor link grammar */
   inAnchor?: boolean;
   /** true if parsing in an HTML context */
@@ -104,7 +104,7 @@ export interface ParseState {
   prevCapture?: string;
   /** true if parsing in inline context w/o links */
   simple?: boolean;
-}
+};
 
 // ============================================================================
 // AST NODE TYPES
@@ -495,6 +495,16 @@ export interface MarkdownOptions {
    * Wrapper element type, or null for no wrapper.
    */
   wrapper?: HTMLTag | null;
+
+  /**
+   * Whether to preserve frontmatter.
+   */
+  preserveFrontmatter?: boolean;
+
+  /**
+   * Whether to use tag filter.
+   */
+  tagfilter?: boolean;
 }
 
 /**
@@ -502,12 +512,12 @@ export interface MarkdownOptions {
  * Used by framework adapters.
  */
 export interface CompileOptions extends MarkdownOptions {
-  /** Component overrides */
-  overrides?: Overrides;
+  /** Component components */
+  components?: Overrides;
   /** Custom named codes to unicode mappings */
   namedCodesToUnicode?: Record<string, string>;
   /** Custom sanitizer function */
   sanitizer?: (value: string, tag: HTMLTag, attribute: string) => string | null;
   /** Custom slugify function */
-  slugify?: (input: string) => string;
+  slugify?: (input: string, defaultFn: (input: string) => string) => string;
 }

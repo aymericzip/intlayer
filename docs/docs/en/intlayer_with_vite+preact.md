@@ -459,6 +459,12 @@ const AppContent: FunctionalComponent = () => {
         </button>
         <p>{content.edit}</p>
       </div>
+      {/* Markdown content */}
+      <div>{content.myMarkdownContent}</div>
+
+      {/* HTML content */}
+      <div>{content.myHtmlContent}</div>
+
       <p class="read-the-docs">{content.readTheDocs}</p>
     </>
   );
@@ -1649,6 +1655,40 @@ module.exports = { LocalizedLink, checkIsExternalLink };
   The `handleClick` function checks if it's an internal link and if standard navigation should be prevented. If so, it uses `preact-iso`'s `route` function (obtained via `useLocation` or directly imported) to perform client-side navigation. This provides SPA-like behavior without full page reloads.
 - **Returning the Link**:  
   The component returns an `<a>` element with the localized URL and the custom click handler.
+
+### (Optional) Step 11: Render Markdown and HTML
+
+Intlayer supports rendering Markdown and HTML content in Preact.
+
+You can customize the rendering of Markdown and HTML content by using the `.use()` method. This method allows you to override the default rendering of specific tags.
+
+```tsx
+import { useIntlayer } from "preact-intlayer";
+
+const { myMarkdownContent, myHtmlContent } = useIntlayer("my-component");
+
+// ...
+
+return (
+  <div>
+    {/* Basic rendering */}
+    {myMarkdownContent}
+
+    {/* Custom rendering for Markdown */}
+    {myMarkdownContent.use({
+      h1: (props) => <h1 style={{ color: "red" }} {...props} />,
+    })}
+
+    {/* Basic rendering for HTML */}
+    {myHtmlContent}
+
+    {/* Custom rendering for HTML */}
+    {myHtmlContent.use({
+      b: (props) => <strong style={{ color: "blue" }} {...props} />,
+    })}
+  </div>
+);
+```
 
 ### Configure TypeScript
 

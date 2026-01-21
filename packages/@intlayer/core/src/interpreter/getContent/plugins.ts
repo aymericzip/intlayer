@@ -28,11 +28,11 @@ import { getTranslation } from '../getTranslation';
  *  --------------------------------------------- */
 
 /**
- * A plugin/transformer that can optionally transform a node during a single DFS pass.
- * - `canHandle` decides if the node is transformable by this plugin.
- * - `transform` returns the transformed node (and does not recurse further).
+ *  A plugin/transformer that can optionally transform a node during a single DFS pass.
+ *  - `canHandle` decides if the node is transformable by this plugin.
+ *  - `transform` returns the transformed node (and does not recurse further).
  *
- * > `transformFn` is a function that can be used to deeply transform inside the plugin.
+ *  > `transformFn` is a function that can be used to deeply transform inside the plugin.
  */
 export type Plugins = {
   id: string;
@@ -62,12 +62,7 @@ export type TranslationCond<T, S, L extends LocalesValues> = T extends {
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
 export const translationPlugin = (
   locale: LocalesValues,
-  fallback?: LocalesValues,
-  onContentNotFound?: (
-    locale: LocalesValues,
-    fallback: LocalesValues,
-    keyPath: KeyPath[]
-  ) => void
+  fallback?: LocalesValues
 ): Plugins => ({
   id: 'translation-plugin',
   canHandle: (node) =>
@@ -210,10 +205,7 @@ export const genderPlugin: Plugins = {
         children: child,
         keyPath: [...props.keyPath, { type: NodeType.Gender, key } as KeyPath],
       };
-      result[key as unknown as keyof typeof result] = deepTransformNode(
-        child,
-        childProps
-      );
+      result[key as keyof typeof result] = deepTransformNode(child, childProps);
     }
 
     return (value: Gender) => getGender(result, value);
@@ -226,14 +218,17 @@ export const genderPlugin: Plugins = {
 
 export type InsertionCond<T, S, L> = T extends {
   nodeType: NodeType | string;
-  [NodeType.Insertion]: infer I;
-  fields?: infer U;
+  [NodeType.Insertion]: string;
+  fields: readonly string[];
 }
-  ? U extends readonly string[]
-    ? (data: Record<U[number], string | number>) => DeepTransformContent<I, S>
-    : (data: Record<string, string | number>) => DeepTransformContent<I, S>
+  ? (
+      values: {
+        [K in T['fields'][number]]: string | number;
+      }
+    ) => DeepTransformContent<string, S>
   : never;
 
+/** Insertion plugin. Replaces node with a function that takes quantity => string. */
 export const insertionPlugin: Plugins = {
   id: 'insertion-plugin',
   canHandle: (node) =>
@@ -308,7 +303,8 @@ export type NestedCond<T, S, L> = T extends {
 export const nestedPlugin = (locale?: LocalesValues): Plugins => ({
   id: 'nested-plugin',
   canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.Nested,
+    typeof node === 'object' &&
+    (node?.nodeType === NodeType.Nested || node?.nodeType === 'nested'),
   transform: (node: NestedContent, props) =>
     getNesting(node.nested.dictionaryKey, node.nested.path, {
       ...props,
@@ -316,9 +312,58 @@ export const nestedPlugin = (locale?: LocalesValues): Plugins => ({
     }),
 });
 
-// /** ---------------------------------------------
-//  *  FILE PLUGIN
-//  *  --------------------------------------------- */
+/** ---------------------------------------------
+ *  HTML PLUGIN
+ *  --------------------------------------------- */
+
+/**
+ * Props for HTML tag components.
+ * Includes children and an index signature for attributes.
+ */
+export type HTMLTagComponentProps = {
+  children?: any;
+  [key: string]: any;
+};
+
+/**
+ * A component that can be used to replace an HTML tag.
+ * Can be a string (tag name) or a functional component.
+ */
+export type HTMLTagComponent = string | ((props: HTMLTagComponentProps) => any);
+
+export type HTMLCond<T, S, L> = T extends {
+  nodeType: NodeType | string;
+  [NodeType.HTML]: string;
+  customComponents?: infer U;
+}
+  ? {
+      use: U extends readonly string[]
+        ? U extends readonly []
+          ? (components?: Partial<Record<string, HTMLTagComponent>>) => any
+          : (
+              components: { [K in U[number]]: HTMLTagComponent } & Partial<
+                Record<string, HTMLTagComponent>
+              >
+            ) => any
+        : (components?: Record<string, HTMLTagComponent>) => any;
+    } & any
+  : never;
+
+/**
+ * Note: The `htmlPlugin` is NOT defined at the core level.
+ * Each framework (react-intlayer, vue-intlayer, svelte-intlayer, solid-intlayer)
+ * must implement their own `htmlPlugin` to provide default HTML tag components
+ * (e.g., h1, p, span, etc.) using their native element creation APIs.
+ *
+ * The framework-specific plugins should:
+ * 1. Create default components for standard HTML tags
+ * 2. Merge user-provided components with defaults (user takes priority)
+ * 3. Call `getHTML(node[NodeType.HTML], mergedComponents)`
+ */
+
+/** ---------------------------------------------
+ *  FILE PLUGIN
+ *  --------------------------------------------- */
 
 export type FileCond<T> = T extends {
   nodeType: NodeType | string;
@@ -341,12 +386,12 @@ export const filePlugin: Plugins = {
 };
 
 /**
- * PLUGIN RESULT
+ *  PLUGIN RESULT
  */
 
 /**
- * Interface that defines the properties of a node.
- * This interface can be augmented in other packages, such as `react-intlayer`.
+ *  Interface that defines the properties of a node.
+ *  This interface can be augmented in other packages, such as `react-intlayer`.
  */
 export interface NodeProps {
   dictionaryKey: string;
@@ -358,8 +403,8 @@ export interface NodeProps {
 }
 
 /**
- * Interface that defines the plugins that can be used to transform a node.
- * This interface can be augmented in other packages, such as `react-intlayer`.
+ *  Interface that defines the plugins that can be used to transform a node.
+ *  This interface can be augmented in other packages, such as `react-intlayer`.
  */
 export interface IInterpreterPlugin<T, S, L extends LocalesValues> {
   translation: TranslationCond<T, S, L>;
@@ -367,11 +412,12 @@ export interface IInterpreterPlugin<T, S, L extends LocalesValues> {
   enumeration: EnumerationCond<T, S, L>;
   condition: ConditionCond<T, S, L>;
   nested: NestedCond<T, S, L>;
+  html: HTMLCond<T, S, L>;
   // file: FileCond<T>;
 }
 
 /**
- * Allow to avoid overwriting import from `intlayer` package when `IInterpreterPlugin<T>` interface is augmented in another package, such as `react-intlayer`.
+ *  Allow to avoid overwriting import from `intlayer` package when `IInterpreterPlugin<T>` interface is augmented in another package, such as `react-intlayer`.
  */
 export type IInterpreterPluginState = {
   translation: true;
@@ -379,11 +425,12 @@ export type IInterpreterPluginState = {
   condition: true;
   insertion: true;
   nested: true;
+  html: true;
   // file: true;
 };
 
 /**
- * Utility type to check if a plugin can be applied to a node.
+ *  Utility type to check if a plugin can be applied to a node.
  */
 type CheckApplyPlugin<
   T,
@@ -402,7 +449,7 @@ type CheckApplyPlugin<
   : never;
 
 /**
- * Traverse recursively through an object or array, applying each plugin as needed.
+ *  Traverse recursively through an object or array, applying each plugin as needed.
  */
 type Traverse<
   T,
@@ -417,7 +464,7 @@ type Traverse<
 export type IsAny<T> = 0 extends 1 & T ? true : false;
 
 /**
- * Traverse recursively through an object or array, applying each plugin as needed.
+ *  Traverse recursively through an object or array, applying each plugin as needed.
  */
 export type DeepTransformContent<
   T,

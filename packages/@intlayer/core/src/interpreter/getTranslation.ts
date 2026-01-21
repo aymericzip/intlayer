@@ -14,8 +14,13 @@ const isPlainObject = (value: unknown): boolean => {
     return false;
   }
 
-  // Don't process React elements
-  if ((value as any).$$typeof !== undefined) {
+  // Don't process React elements or other framework VNodes
+  if (
+    (value as any).$$typeof !== undefined ||
+    (value as any).__v_isVNode !== undefined ||
+    (value as any)._isVNode !== undefined ||
+    (value as any).isJSX !== undefined
+  ) {
     return false;
   }
 
@@ -119,7 +124,7 @@ export const getTranslation = <Content = string>(
   const getContent = (loc: string) =>
     languageContent[loc as keyof typeof languageContent];
 
-  // 1. Get Target Content
+  // Get Target Content
   const content = getContent(locale);
   if (typeof content === 'string') {
     return content;
@@ -127,7 +132,7 @@ export const getTranslation = <Content = string>(
     results.push(content);
   }
 
-  // 2. Get Target Generic Content (e.g. 'en' from 'en-US')
+  // Get Target Generic Content (e.g. 'en' from 'en-US')
   if (locale.includes('-')) {
     const genericLocale = locale.split('-')[0];
     if (genericLocale in languageContent) {
@@ -142,7 +147,7 @@ export const getTranslation = <Content = string>(
     }
   }
 
-  // 3. Get Fallback Content
+  // Get Fallback Content
   if (fallback !== undefined && fallback !== locale) {
     // 3a. Fallback Specific
     if (fallback in languageContent) {
@@ -155,7 +160,7 @@ export const getTranslation = <Content = string>(
       }
     }
 
-    // 3b. Fallback Generic (The missing piece: e.g. 'en' from 'en-GB' fallback)
+    // Fallback Generic (The missing piece: e.g. 'en' from 'en-GB' fallback)
     if (fallback.includes('-')) {
       const genericFallback = fallback.split('-')[0];
       const genericLocale = locale.split('-')[0];
@@ -184,7 +189,9 @@ export const getTranslation = <Content = string>(
   // Clean undefined values so they don't overwrite fallbacks
   // Order: [Target, Generic, Fallback, FallbackGeneric]
   // defu first argument takes precedence, so Target wins
-  const cleanResults = results.map((item) => removeUndefinedValues(item));
+  const cleanResults = results
+    .filter((item) => typeof item !== 'undefined')
+    .map((item) => removeUndefinedValues(item));
 
   // If only one result, return it directly (no merging needed)
   if (cleanResults.length === 1) {

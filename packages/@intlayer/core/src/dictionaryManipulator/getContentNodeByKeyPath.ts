@@ -32,6 +32,7 @@ export const getContentNodeByKeyPath = (
 
     if (
       keyObj.type === NodeType.Markdown ||
+      keyObj.type === NodeType.HTML ||
       keyObj.type === NodeType.Insertion ||
       keyObj.type === NodeType.File
     ) {

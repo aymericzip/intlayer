@@ -1,6 +1,10 @@
 import { type FC, useState } from 'react';
-import { useIntlayer } from 'react-intlayer';
-import { compileMarkdown } from 'react-intlayer/markdown';
+import {
+  HTMLProvider,
+  MarkdownProvider,
+  MarkdownRenderer,
+  useIntlayer,
+} from 'react-intlayer';
 import './App.css';
 import viteLogo from '/vite.svg';
 import reactLogo from './assets/react.svg';
@@ -8,25 +12,9 @@ import { LocaleSwitcher } from './components/LangSwitcherDropDown';
 import { LocaleRouter } from './Router';
 import HelloWorld from './Test';
 
-// Default markdown for demo
-const DEFAULT_MARKDOWN = `## Hello World
-
-This is **bold** and this is *italic*.
-
-- List item 1
-- List item 2
-- List item 3
-
-\`inline code\` example
-
-> A blockquote
-
-[Link to intlayer](https://intlayer.org)`;
-
 const AppContent: FC = () => {
   const [count, setCount] = useState(0);
   const [activeTab, setActiveTab] = useState<'source' | 'rendered'>('rendered');
-  const [markdownSource, setMarkdownSource] = useState(DEFAULT_MARKDOWN);
   const content = useIntlayer('app');
 
   return (
@@ -43,89 +31,63 @@ const AppContent: FC = () => {
           />
         </a>
       </div>
-      <h1>{content.title}</h1>
 
-      {/* Markdown Demo with Tabs */}
-      <div
-        style={{ textAlign: 'left', margin: '1rem auto', maxWidth: '600px' }}
-      >
-        <h3 style={{ marginBottom: '0.5rem' }}>
-          Markdown Demo (react-intlayer/markdown)
-        </h3>
-        <p
-          style={{ fontSize: '0.85rem', color: '#888', margin: '0 0 0.5rem 0' }}
-        >
-          Edit the markdown source and switch tabs to see the rendered output
-        </p>
-
-        {/* Tab Buttons */}
-        <div style={{ display: 'flex', gap: '0' }}>
-          <button
-            onClick={() => setActiveTab('source')}
-            style={{
-              padding: '0.5rem 1rem',
-              background: activeTab === 'source' ? '#646cff' : '#2a2a2a',
-              color: 'white',
-              border: 'none',
-              borderRadius: '8px 0 0 0',
-              cursor: 'pointer',
-              fontWeight: activeTab === 'source' ? 'bold' : 'normal',
-            }}
-          >
-            Markdown Source
-          </button>
-          <button
-            onClick={() => setActiveTab('rendered')}
-            style={{
-              padding: '0.5rem 1rem',
-              background: activeTab === 'rendered' ? '#646cff' : '#2a2a2a',
-              color: 'white',
-              border: 'none',
-              borderRadius: '0 8px 0 0',
-              cursor: 'pointer',
-              fontWeight: activeTab === 'rendered' ? 'bold' : 'normal',
-            }}
-          >
-            Rendered Output
-          </button>
-        </div>
-
-        {/* Tab Content */}
-        <div
-          style={{
-            padding: '1rem',
-            background: '#1a1a1a',
-            borderRadius: '0 8px 8px 8px',
-            minHeight: '200px',
+      <div>
+        <MarkdownRenderer
+          components={{
+            h2: (props: any) => (
+              <h2 style={{ color: 'blue' }} {...props}>
+                {props.children}
+              </h2>
+            ),
           }}
-        >
-          {activeTab === 'source' ? (
-            <textarea
-              value={markdownSource}
-              onChange={(e) => setMarkdownSource(e.target.value)}
-              style={{
-                width: '100%',
-                minHeight: '200px',
-                background: 'transparent',
-                border: 'none',
-                outline: 'none',
-                resize: 'vertical',
-                fontFamily: 'monospace',
-                color: '#98c379',
-                fontSize: '14px',
-                lineHeight: '1.5',
-              }}
-              placeholder="Type your markdown here..."
-            />
-          ) : (
-            <div style={{ color: '#fff' }}>
-              {compileMarkdown(markdownSource)}
-            </div>
+          wrapper={({ children }) => (
+            <div style={{ background: 'red', padding: '30px' }}>{children}</div>
           )}
-        </div>
+        >
+          ## Hello World
+        </MarkdownRenderer>
+
+        {/* Should use provider is possible, or default option if not */}
+        {content.markdown}
+
+        {/* Should use first the overrides, then the provider if possible, or default option if not */}
+        {content.markdown.use({
+          h1: (props) => (
+            <h1 style={{ color: 'green' }} {...props}>
+              tetst
+            </h1>
+          ),
+          ComponentDemo: () => <div style={{ background: 'pink' }}>DEMO2</div>,
+        })}
       </div>
 
-      {/* <p>{content.test('male')}</p> */}
+      <div>
+        <h1>{content.title}</h1>
+
+        {content.insertion({ count: 2 })}
+
+        {content.html}
+
+        {content.html.use({
+          b: (props) => <h1 {...props} />,
+        })}
+
+        {content.html.use({
+          'custom-component': (props: any) => (
+            <h1 style={{ color: 'red' }} {...props}>
+              Custom 1
+            </h1>
+          ),
+
+          CustomComponent2: (props: any) => (
+            <h1 style={{ color: 'green' }} {...props}>
+              {props.children}
+            </h1>
+          ),
+        })}
+      </div>
+
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           {content.count}
@@ -143,7 +105,28 @@ const AppContent: FC = () => {
 
 const App: FC = () => (
   <LocaleRouter>
-    <AppContent />
+    <MarkdownProvider
+      components={{
+        h1: (props: any) => (
+          <h1 style={{ color: 'orange' }} {...props}>
+            {props.children}
+          </h1>
+        ),
+        ComponentDemo: () => <div style={{ background: 'grey' }}>DEMO</div>,
+      }}
+    >
+      <HTMLProvider
+        components={{
+          CustomComponent: (props: any) => (
+            <h1 style={{ color: 'blue' }} {...props}>
+              Custom 2l
+            </h1>
+          ),
+        }}
+      >
+        <AppContent />
+      </HTMLProvider>
+    </MarkdownProvider>
     <HelloWorld />
   </LocaleRouter>
 );

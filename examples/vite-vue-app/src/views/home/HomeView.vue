@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import { useIntlayer } from 'vue-intlayer';
-import { compileMarkdown } from 'vue-intlayer/markdown';
+import { h, ref } from 'vue';
+import { MarkdownRenderer, useIntlayer } from 'vue-intlayer';
 
 // Use the useIntlayer composable to access translations
 const content = useIntlayer('home');
@@ -11,71 +10,84 @@ const { syntax1, syntax2, syntax5 } = useIntlayer('home');
 const activeTab = ref<'source' | 'rendered'>('rendered');
 
 // Editable markdown source
-const markdownSource = ref(`## Hello from Vue Markdown!
-
-This is **bold** and this is *italic*.
-
-- List item 1
-- List item 2
-- List item 3
-
-\`inline code\` example
-
-> A blockquote
-
-[Link to intlayer](https://intlayer.org)`);
-
-// Compile markdown when switching to rendered tab
-const renderedMarkdown = computed(() => compileMarkdown(markdownSource.value));
 </script>
 
 <template>
   <div class="home-container">
     <header>
-      <h1>{{content.welcome}} </h1>
-      <p class="subtitle">{{content.subtitle}}</p>
+      <h1>{{ content.welcome }}</h1>
+      <p class="subtitle">{{ content.subtitle }}</p>
+
+      <p>{{ content.insertion({ count: 2 }) }}</p>
     </header>
 
     <main>
       <!-- Markdown Demo with Tabs -->
       <section class="markdown-demo-section">
         <h3 class="demo-title">Markdown Demo (vue-intlayer/markdown)</h3>
-        <p class="demo-subtitle">Edit the markdown source and switch tabs to see the rendered output</p>
 
-        <!-- Tab Buttons -->
-        <div class="tab-buttons">
-          <button
-            :class="['tab-btn', { active: activeTab === 'source' }]"
-            @click="activeTab = 'source'"
-          >
-            Markdown Source
-          </button>
-          <button
-            :class="['tab-btn', { active: activeTab === 'rendered' }]"
-            @click="activeTab = 'rendered'"
-          >
-            Rendered Output
-          </button>
-        </div>
+        <MarkdownRenderer
+          :components="{
+            h2: (props) =>
+              h('h2', { style: { color: 'blue' }, ...props }, props.children),
+          }"
+          :wrapper="
+            ({ children }) =>
+              h(
+                'div',
+                { style: { background: 'red', padding: '30px' } },
+                children
+              )
+          "
+        >
+          ## Hello World
+        </MarkdownRenderer>
 
-        <!-- Tab Content -->
-        <div class="tab-content">
-          <textarea
-            v-if="activeTab === 'source'"
-            v-model="markdownSource"
-            class="source-editor"
-            placeholder="Type your markdown here..."
-          />
-          <div v-else class="rendered-content">
-            <component :is="renderedMarkdown" />
-          </div>
-        </div>
+        <!-- Should use provider is possible, or default option if not -->
+        <content.markdown />
+
+        <!-- Should use first the overrides, then the provider if possible, or default option if not -->
+        <component
+          :is="
+            content.markdown.use({
+              h1: (props) =>
+                h('h1', { style: { color: 'green' }, ...props }, 'tetst'),
+              ComponentDemo: () =>
+                h('div', { style: { background: 'pink' } }, 'DEMO2'),
+            })
+          "
+        />
       </section>
 
       <section class="description">
+        <content.html />
+
+        <component
+          :is="
+            content.html.use({
+              b: (props) => h('h1', props),
+            })
+          "
+        />
+
+        <component
+          :is="
+            content.html.use({
+              'custom-component': (props) =>
+                h('h1', { style: { color: 'red' }, ...props }, 'Custom 1'),
+
+              CustomComponent2: (props) =>
+                h(
+                  'h1',
+                  { style: { color: 'green' }, ...props },
+                  props.children
+                ),
+            })
+          "
+        />
+
         <p><content.description /></p>
       </section>
-
 
       <section class="features">
         <h2><content.features.title /></h2>

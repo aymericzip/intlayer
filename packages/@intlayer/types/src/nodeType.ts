@@ -9,6 +9,7 @@ export enum NodeType {
   Nested = 'nested',
   ReactNode = 'reactNode',
   Markdown = 'markdown',
+  HTML = 'html',
   Text = 'text',
   Number = 'number',
   Boolean = 'boolean',

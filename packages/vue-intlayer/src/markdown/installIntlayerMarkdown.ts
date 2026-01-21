@@ -1,8 +1,19 @@
+import type { Overrides } from '@intlayer/core';
 import { type App, inject, type VNodeChild } from 'vue';
+import { compileMarkdown } from './compiler';
 
 export const INTLAYER_MARKDOWN_SYMBOL = Symbol('intlayerMarkdown');
 
-type RenderMarkdownFunction = (markdown: string) => VNodeChild;
+export type RenderMarkdownOptions = {
+  components?: Overrides;
+  wrapper?: any;
+  options?: MarkdownPluginOptions;
+};
+
+export type RenderMarkdownFunction = (
+  markdown: string,
+  overrides?: Overrides | RenderMarkdownOptions
+) => VNodeChild;
 
 /**
  * Singleton instance
@@ -11,6 +22,47 @@ let instance: IntlayerMarkdownProvider | null = null;
 
 export type IntlayerMarkdownProvider = {
   renderMarkdown: RenderMarkdownFunction;
+};
+
+/**
+ * Refined options for the Markdown plugin.
+ */
+export type MarkdownPluginOptions = {
+  /**
+   * Forces the compiler to always output content with a block-level wrapper.
+   */
+  forceBlock?: boolean;
+  /**
+   * Whether to preserve frontmatter in the markdown content.
+   */
+  preserveFrontmatter?: boolean;
+  /**
+   * Whether to use the GitHub Tag Filter.
+   */
+  tagfilter?: boolean;
+};
+
+/**
+ * Options for the installIntlayerMarkdown helper.
+ */
+export type IntlayerMarkdownPluginOptions = {
+  /**
+   * Component overrides for HTML tags.
+   */
+  components?: Overrides;
+  /**
+   * Wrapper element or component to be used when there are multiple children.
+   */
+  wrapper?: any;
+  /**
+   * Markdown processor options.
+   */
+  options?: MarkdownPluginOptions;
+  /**
+   * Custom render function for markdown.
+   * If provided, it will overwrite all rules and default rendering.
+   */
+  renderMarkdown?: RenderMarkdownFunction;
 };
 
 /**
@@ -32,9 +84,73 @@ export const createIntlayerMarkdownClient = (
  * Helper to install the IntlayerMarkdown provider into the app
  */
 export const installIntlayerMarkdown = (
-  app: App,
-  renderMarkdown: RenderMarkdownFunction
+  app: App<any>,
+  pluginOptions?: IntlayerMarkdownPluginOptions | RenderMarkdownFunction
 ) => {
+  let renderMarkdown: RenderMarkdownFunction;
+
+  if (typeof pluginOptions === 'function') {
+    renderMarkdown = pluginOptions;
+  } else {
+    const {
+      components,
+      wrapper,
+      options = {},
+      renderMarkdown: customRender,
+    } = pluginOptions ?? {};
+
+    if (customRender) {
+      renderMarkdown = customRender;
+    } else {
+      const { forceBlock, preserveFrontmatter, tagfilter } = options;
+
+      const internalOptions: any = {
+        components,
+        forceBlock,
+        wrapper,
+        forceWrapper: !!wrapper,
+        preserveFrontmatter,
+        tagfilter,
+      };
+
+      renderMarkdown = (markdown, overrides) => {
+        const isOptionsObject =
+          overrides &&
+          (typeof (overrides as RenderMarkdownOptions).components ===
+            'object' ||
+            typeof (overrides as RenderMarkdownOptions).wrapper ===
+              'function' ||
+            typeof (overrides as RenderMarkdownOptions).options === 'object');
+
+        const localComponents = isOptionsObject
+          ? (overrides as RenderMarkdownOptions).components
+          : (overrides as Overrides);
+        const localWrapper = isOptionsObject
+          ? (overrides as RenderMarkdownOptions).wrapper
+          : undefined;
+        const localOptions = isOptionsObject
+          ? (overrides as RenderMarkdownOptions).options
+          : {};
+
+        const mergedOptions = {
+          ...options,
+          ...localOptions,
+        };
+
+        return compileMarkdown(markdown, {
+          ...internalOptions,
+          ...mergedOptions,
+          wrapper: localWrapper || internalOptions.wrapper,
+          forceWrapper: !!(localWrapper || internalOptions.wrapper),
+          components: {
+            ...internalOptions.components,
+            ...localComponents,
+          },
+        }) as any;
+      };
+    }
+  }
+
   const client = createIntlayerMarkdownClient(renderMarkdown);
 
   app.provide(INTLAYER_MARKDOWN_SYMBOL, client);

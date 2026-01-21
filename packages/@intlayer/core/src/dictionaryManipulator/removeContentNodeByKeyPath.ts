@@ -28,6 +28,7 @@ export const removeContentNodeByKeyPath = (
     if (
       keyObj.type === NodeType.Markdown ||
       keyObj.type === NodeType.ReactNode ||
+      keyObj.type === NodeType.HTML ||
       keyObj.type === NodeType.Insertion ||
       keyObj.type === NodeType.File
     ) {

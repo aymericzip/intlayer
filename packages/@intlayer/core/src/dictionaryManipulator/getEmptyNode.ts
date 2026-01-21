@@ -19,7 +19,8 @@ export const getEmptyNode = (section: ContentNode): ContentNode => {
       typedNode.nodeType === NodeType.Translation ||
       typedNode.nodeType === NodeType.Enumeration ||
       typedNode.nodeType === NodeType.Condition ||
-      typedNode.nodeType === NodeType.Insertion
+      typedNode.nodeType === NodeType.Insertion ||
+      typedNode.nodeType === NodeType.HTML
     ) {
       return getEmptyNode(content as ContentNode);
     }

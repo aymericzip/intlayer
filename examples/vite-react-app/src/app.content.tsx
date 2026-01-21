@@ -1,4 +1,4 @@
-import { type Dictionary, file, gender, insert, md, t } from 'intlayer';
+import { type Dictionary, file, gender, html, insert, md, t } from 'intlayer';
 import type { ReactNode } from 'react';
 
 const markdownWithMetadata = `---
@@ -10,7 +10,25 @@ const appContent = {
   key: 'app',
   importMode: 'live',
   content: {
-    markdown: md('## Hello world'),
+    markdown: md(`---
+title: Example with Front Matter
+description: This demonstrates front matter, lists, formatting, and an MDX component.
+---
+# Title level 1
+
+## Title level 2
+
+**This is bold text**
+
+*This is italic text*
+
+Here is a list:
+- Item one
+- Item two
+- Item three
+
+<ComponentDemo prop="Hello from MDX!" />
+`),
     markdown2: '## Hello world',
     markdown3: md(markdownWithMetadata),
     markdown4: markdownWithMetadata,
@@ -23,8 +41,13 @@ const appContent = {
       fallback: 'fallback',
     }),
 
-    insertion: insert('test {{ count }}'),
-    insertion2: '---test {{ count }}',
+    html: html(
+      '<div>Hello <b>World</b><custom-component /><CustomComponent /> <CustomComponent2> Hello </CustomComponent2></div>'
+    ),
+
+    insertion: insert('test {{ count }}'), // works
+    insertionError: insert('test {{ count }}'), // Is not detected as insertion
+    insertion2: '---test {{count}}',
     viteLogo: t({
       en: 'Vite logo',
       fr: 'Logo Vite',

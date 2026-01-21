@@ -12,7 +12,7 @@ slugs:
   - concept
   - content
 history:
-  - version: 7.6.0
+  - version: 8.0.0
     date: 2026-01-18
     changes: Add `location`, `schema`, and `importMode` dictionary options
   - version: 7.5.13

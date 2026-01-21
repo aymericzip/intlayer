@@ -13,6 +13,7 @@ type MarkdownRendererProps = {
   keyPath: KeyPath[];
   locale?: LocalesValues;
   children: string;
+  [key: string]: any;
 };
 
 export const MarkdownRenderer: Component<MarkdownRendererProps> = (props) => {
@@ -23,28 +24,14 @@ export const MarkdownRenderer: Component<MarkdownRendererProps> = (props) => {
     children: props.children,
   });
 
-  if (typeof editedContentContext !== 'string') {
-    const transformedEditedContent = getContent(
-      editedContentContext,
-      {
-        dictionaryKey: props.dictionaryKey,
-        keyPath: props.keyPath,
-      },
-      props.locale
-    );
+  const contentToRender =
+    typeof editedContentContext === 'string'
+      ? editedContentContext
+      : props.children;
 
-    if (typeof transformedEditedContent !== 'string') {
-      console.error(
-        `Incorrect Markdown content. Edited Markdown content type: ${typeof transformedEditedContent}. Expected string. Value ${JSON.stringify(transformedEditedContent)}`
-      );
+  const { dictionaryKey, keyPath, locale, children, ...overrides } = props;
 
-      return renderMarkdown(props.children);
-    }
-
-    return renderMarkdown(transformedEditedContent);
-  }
-
-  return renderMarkdown(editedContentContext);
+  return renderMarkdown(contentToRender, overrides);
 };
 
 type MarkdownMetadataRendererProps = MarkdownRendererProps & {

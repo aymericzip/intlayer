@@ -17,7 +17,7 @@ history:
   - version: 8.0.0
     date: 2026-01-18
     changes: システム設定をコンテンツ設定から分離。内部パスを `system` プロパティに移動。コンテンツファイルとコード変換を分離するために `codeDir` を追加。
-  - version: 7.6.0
+  - version: 8.0.0
     date: 2026-01-18
     changes: 辞書オプション `location` と `schema` を追加
   - version: 7.5.1

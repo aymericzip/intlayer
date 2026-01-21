@@ -1,9 +1,32 @@
-import { type Dictionary, md, t } from 'intlayer';
+import { type Dictionary, html, insert, md, t } from 'intlayer';
 import type { ComponentChildren } from 'preact';
 
 const appContent = {
   key: 'app',
   content: {
+    markdown: md(`---
+title: Example with Front Matter
+description: This demonstrates front matter, lists, formatting, and an MDX component.
+---
+# Title level 1
+
+## Title level 2
+
+**This is bold text**
+
+*This is italic text*
+
+Here is a list:
+- Item one
+- Item two
+- Item three
+
+<ComponentDemo prop="Hello from MDX!" />
+`),
+    html: html(
+      '<div>Hello <b>World</b><custom-component /><CustomComponent /> <CustomComponent2> Hello </CustomComponent2></div>'
+    ),
+    insertion: insert('test {{ count }}'),
     viteLogo: t({
       en: 'Vite logo',
       fr: 'Logo Vite',

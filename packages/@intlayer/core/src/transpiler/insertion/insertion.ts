@@ -33,7 +33,7 @@ const insertion = <Content = unknown>(
       return getInsertionValues(content);
     }
 
-    let stringContent;
+    let stringContent: any;
 
     if (typeof content === 'function') {
       stringContent = content();

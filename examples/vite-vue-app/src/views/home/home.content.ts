@@ -1,4 +1,4 @@
-import { type Dictionary, md, t } from 'intlayer';
+import { type Dictionary, html, insert, md, t } from 'intlayer';
 
 const homeContent = {
   key: 'home',
@@ -13,7 +13,14 @@ This is **bold** and this is *italic*.
 - List item 3
 
 \`inline code\` and a [link](https://intlayer.org)
+<ComponentDemo prop="Hello from MDX!" />
 `),
+
+    html: html(
+      '<div>Hello <b>World</b><custom-component /><CustomComponent /> <CustomComponent2> Hello </CustomComponent2></div>'
+    ),
+
+    insertion: insert('test {{ count }}'),
 
     welcome: t({
       en: 'Welcome to Our App',

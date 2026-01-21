@@ -7,6 +7,7 @@ export {
   useDictionary,
   useDictionaryDynamic,
   useI18n,
+  useIntl,
   useIntlayer,
   useLoadDynamic,
   useLocale,

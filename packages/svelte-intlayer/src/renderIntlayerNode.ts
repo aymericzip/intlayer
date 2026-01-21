@@ -50,12 +50,14 @@ export const renderIntlayerNode = <T = any, P = Record<string, any>>(
 
   Object.defineProperty(Node, 'value', {
     value: args.value,
-    writable: false,
+    writable: true,
+    configurable: true,
   });
 
   Object.defineProperty(Node, 'toString', {
     value: () => args.value?.toString() ?? '',
-    writable: false,
+    writable: true,
+    configurable: true,
   });
 
   if (args.additionalProps) {

@@ -17,7 +17,7 @@ history:
   - version: 8.0.0
     date: 2026-01-18
     changes: Separate system configuration from content configuration. Move internal paths to `system` property. Add `codeDir` to separate content files from code transformation.
-  - version: 7.6.0
+  - version: 8.0.0
     date: 2026-01-18
     changes: Add `location` and `schema` dictionary options
   - version: 7.5.1

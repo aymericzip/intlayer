@@ -30,7 +30,7 @@ import type { EnterFormat, EnumerationContentState } from '../transpiler';
 export const findMatchingCondition = <Content>(
   enumerationContent: EnumerationContentState<Content>,
   quantity: number
-): EnterFormat => {
+): EnterFormat | undefined => {
   const numericKeys = Object.keys(enumerationContent);
 
   for (const key of numericKeys) {

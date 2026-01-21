@@ -1,8 +1,9 @@
 import configuration from '@intlayer/config/built';
 import { DefaultValues } from '@intlayer/config/client';
-import { getLocaleFromStorage, localeResolver } from '@intlayer/core';
 import type { Locale } from '@intlayer/types';
+import { getLocaleFromStorage } from '../utils/localeStorage';
 import { getPreferredLanguages } from './localeDetector';
+import { localeResolver } from './localeResolver';
 
 export type RequestContext = {
   getHeader?: (name: string) => string | null | undefined;

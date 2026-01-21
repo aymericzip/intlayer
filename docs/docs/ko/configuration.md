@@ -17,7 +17,7 @@ history:
   - version: 8.0.0
     date: 2026-01-18
     changes: 시스템 구성에서 콘텐츠 구성을 분리합니다. 내부 경로를 `system` 속성으로 이동합니다. 콘텐츠 파일과 코드 변환을 분리하기 위해 `codeDir`를 추가합니다.
-  - version: 7.6.0
+  - version: 8.0.0
     date: 2026-01-18
     changes: 사전 옵션 `location` 및 `schema` 추가
   - version: 7.5.1

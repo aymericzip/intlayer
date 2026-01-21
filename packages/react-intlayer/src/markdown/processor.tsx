@@ -39,8 +39,7 @@ type HTMLTags = keyof JSX.IntrinsicElements;
 type State = ParseState;
 
 /**
- * Backward-compatible MarkdownProcessorOptions type.
- * Maps to the core library's options while maintaining the existing API.
+ * Refined MarkdownProcessorOptions type.
  */
 export type MarkdownProcessorOptions = Partial<{
   /**
@@ -94,7 +93,7 @@ export type MarkdownProcessorOptions = Partial<{
   /**
    * Selectively control the output of particular HTML tags.
    */
-  overrides: CoreOverrides;
+  components: CoreOverrides;
 
   /**
    * Allows for full control over rendering of particular rules.
@@ -115,19 +114,27 @@ export type MarkdownProcessorOptions = Partial<{
    * Declare the type of the wrapper to be used when there are multiple children.
    */
   wrapper: any | null;
+
+  /**
+   * Whether to preserve frontmatter in the markdown content.
+   */
+  preserveFrontmatter: boolean;
+
+  /**
+   * Whether to use the GitHub Tag Filter.
+   */
+  tagfilter: boolean;
 }>;
 
 /**
- * Create the React runtime with optional custom createElement.
+ * Default React runtime for markdown rendering.
  */
-const createReactRuntime = (
-  customCreateElement?: MarkdownProcessorOptions['createElement']
-): MarkdownRuntime => ({
-  createElement: customCreateElement ?? createElement,
+const DEFAULT_RUNTIME: MarkdownRuntime = {
+  createElement: createElement as any,
   cloneElement,
   Fragment,
   normalizeProps: (_tag, props) => props,
-});
+};
 
 /**
  * Compile markdown to React elements.
@@ -146,20 +153,24 @@ export const compileMarkdown = (
     forceInline,
     forceWrapper,
     namedCodesToUnicode,
-    overrides,
+    components,
     renderRule,
     sanitizer,
     slugify,
     wrapper,
+    preserveFrontmatter,
+    tagfilter,
   } = options;
 
-  const runtime = createReactRuntime(customCreateElement);
+  const runtime = customCreateElement
+    ? { ...DEFAULT_RUNTIME, createElement: customCreateElement as any }
+    : DEFAULT_RUNTIME;
 
   const ctx: MarkdownContext = {
     runtime,
-    overrides,
+    components,
     namedCodesToUnicode,
-    sanitizer,
+    sanitizer: sanitizer as any,
     slugify,
   };
 
@@ -172,6 +183,8 @@ export const compileMarkdown = (
     forceWrapper,
     renderRule,
     wrapper,
+    preserveFrontmatter,
+    tagfilter,
   };
 
   return coreCompile(markdown, ctx, compilerOptions) as JSX.Element;

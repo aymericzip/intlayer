@@ -475,7 +475,7 @@ const countRef = ref(0);
 Intlayer offers different APIs to access your content:
 
 - **Component-based syntax** (recommended):
-  Use the `<myContent />`, or `<Component :is="myContent" />` syntax to render content as an Intlayer Node. This integrates seamlessly with the [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) and [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+  Use the `<myContent />`, or `<Component :is="myContent" />` syntax to render content as an Intlayer Node. You can also customize the rendering by using the `.use()` method: `<Component :is="myContent.use({ b: (props) => h('strong', props) })" />`. This integrates seamlessly with the [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) and [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
 
 - **String-based syntax**:
   Use `{{ myContent }}` to render the content as plain text, without Visual Editor support.
@@ -998,7 +998,17 @@ const { myMarkdownContent } = useIntlayer("my-component");
 
 <template>
   <div>
+    <!-- Basic syntax -->
     <myMarkdownContent />
+
+    <!-- Or with custom components -->
+    <component
+      :is="
+        myMarkdownContent.use({
+          h1: (props) => h('h1', { style: { color: 'red' } }, props.children),
+        })
+      "
+    />
   </div>
 </template>
 ```

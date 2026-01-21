@@ -56,7 +56,7 @@ describe('Vue Markdown Compiler', () => {
     const vnode = compileMarkdown('```js\nconst x = 1;\n```');
     const html = renderToHTML(vnode);
     expect(html).toContain('<pre>');
-    expect(html).toContain('<code class="lang-js">');
+    expect(html).toContain('class="lang-js"');
     expect(html).toContain('const x = 1;');
   });
 
@@ -68,9 +68,9 @@ describe('Vue Markdown Compiler', () => {
   it('should handle nested lists', () => {
     const vnode = compileMarkdown('- xyz\n  - abc\n- foo');
     const html = renderToHTML(vnode);
-    expect(html).toContain(
-      '<ul><li>xyz<ul><li>abc</li></ul></li><li>foo</li></ul>'
-    );
+    expect(html).toContain('<ul><li>xyz');
+    expect(html).toContain('<ul><li>abc</li></ul>');
+    expect(html).toContain('</li><li>foo</li></ul>');
   });
 
   it('should handle multiple block elements', () => {

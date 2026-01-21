@@ -68,6 +68,7 @@ export const editDictionaryByKeyPath = (
 
       if (
         keyObj.type === NodeType.Markdown ||
+        keyObj.type === NodeType.HTML ||
         keyObj.type === NodeType.Insertion
       ) {
         lastKeys = [keyObj.type];

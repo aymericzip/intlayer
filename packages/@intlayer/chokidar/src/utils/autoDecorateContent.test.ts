@@ -1,4 +1,4 @@
-import { insert, md, t } from '@intlayer/core'; // to reuse the functions
+import { html, insert, md, t } from '@intlayer/core';
 import { describe, expect, it } from 'vitest';
 import { autoDecorateContent } from './autoDecorateContent';
 import { resolveObjectPromises } from './resolveObjectPromises';
@@ -12,7 +12,67 @@ describe('autoDecorateContent', () => {
 
     expect(output.myMarkdown.nodeType).toBe('markdown');
     expect(output.myMarkdown.markdown).toBe('## Hello World');
-    expect(typeof output.myMarkdown.metadata).toBe('object');
+  });
+
+  describe('HTML Detection', () => {
+    it('should decorate standard valid HTML tags', () => {
+      const input = {
+        simple: '<div>Hello</div>',
+        nested: '<div><span>World</span></div>',
+        selfClosing: 'Line<br />Break',
+        attributes: '<a href="/link">Click</a>',
+      };
+      const output = autoDecorateContent(input);
+
+      expect(output.simple).toEqual(html('<div>Hello</div>'));
+      expect(output.nested).toEqual(html('<div><span>World</span></div>'));
+      expect(output.selfClosing).toEqual(html('Line<br />Break'));
+      expect(output.attributes).toEqual(html('<a href="/link">Click</a>'));
+      expect(output.simple.nodeType).toBe('html');
+    });
+
+    it('should decorate custom/invalid HTML tags (Components)', () => {
+      const input = {
+        component: 'Hello <UserProfile />',
+        nestedComponent: '<Card><Card.Title>Hi</Card.Title></Card>',
+        custom: 'Go to <Link href="/home">Home</Link>',
+      };
+      const output = autoDecorateContent(input);
+
+      expect(output.component).toEqual(html('Hello <UserProfile />'));
+      expect(output.nestedComponent).toEqual(
+        html('<Card><Card.Title>Hi</Card.Title></Card>')
+      );
+      expect(output.custom).toEqual(
+        html('Go to <Link href="/home">Home</Link>')
+      );
+    });
+
+    it('should NOT decorate math comparisons as HTML', () => {
+      const input = {
+        math: '10 < 20',
+        mathComplex: 'if (a < b && c > d)',
+      };
+      const output = autoDecorateContent(input);
+
+      // Should remain as string (or potentially be text if wrapped, but here just plain string)
+      expect(output.math).toBe('10 < 20');
+      expect(output.mathComplex).toBe('if (a < b && c > d)');
+      // Should not have nodeType if not decorated
+      expect((output.math as any).nodeType).toBeUndefined();
+    });
+
+    it('should prioritize HTML over Markdown when both are present (MDX conflict)', () => {
+      // This looks like Markdown header, but contains a component
+      const input = {
+        mdx: '# Title <Badge>New</Badge>',
+      };
+      const output = autoDecorateContent(input);
+
+      // Requirement: process HTML before Markdown to avoid conflicts
+      expect(output.mdx.nodeType).toBe('html');
+      expect(output.mdx).toEqual(html('# Title <Badge>New</Badge>'));
+    });
   });
 
   it('should decorate insertion strings', () => {

@@ -6,5 +6,6 @@ export { setupIntlayer } from './setupIntlayer.svelte';
 export { useDictionary } from './useDictionary';
 export { useDictionaryAsync } from './useDictionaryAsync';
 export { useDictionaryDynamic } from './useDictionaryDynamic';
+export { useIntl } from './useIntl';
 export { useIntlayer } from './useIntlayer';
 export { useLocale } from './useLocale';

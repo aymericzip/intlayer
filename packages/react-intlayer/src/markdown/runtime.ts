@@ -64,7 +64,7 @@ export const reactRuntime: MarkdownRuntime = {
   /**
    * React-specific prop normalization.
    * React uses className instead of class, htmlFor instead of for, etc.
-   * The core processor already handles ATTRIBUTE_TO_JSX_PROP_MAP,
+   * The core processor already handles ATTRIBUTE_TO_NODE_PROP_MAP,
    * so this is mostly a no-op but can be used for additional React-specific transforms.
    */
   normalizeProps: (
@@ -72,7 +72,7 @@ export const reactRuntime: MarkdownRuntime = {
     props: Record<string, any>
   ): Record<string, any> => {
     // The core already handles class -> className and for -> htmlFor
-    // via ATTRIBUTE_TO_JSX_PROP_MAP in the attrStringToMap function.
+    // via ATTRIBUTE_TO_NODE_PROP_MAP in the attrStringToMap function.
     // This hook is available for any additional React-specific transforms.
     return props;
   },

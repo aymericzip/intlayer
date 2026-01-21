@@ -17,7 +17,7 @@ history:
   - version: 8.0.0
     date: 2026-01-18
     changes: Tách cấu hình hệ thống khỏi cấu hình nội dung. Di chuyển các đường dẫn nội bộ sang thuộc tính `system`. Thêm `codeDir` để tách các tệp nội dung khỏi việc chuyển đổi mã.
-  - version: 7.6.0
+  - version: 8.0.0
     date: 2026-01-18
     changes: Thêm các tùy chọn từ điển `location` và `schema`
   - version: 7.5.1

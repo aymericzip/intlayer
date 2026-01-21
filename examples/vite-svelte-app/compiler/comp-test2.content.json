@@ -3,7 +3,11 @@
   "key": "comp-test2",
   "title": "Component Test 2",
   "description": "Content declaration for the 'comp-test2' component containing test strings intended for extraction and localization (fields: thisIsATest2, helloWorld2ShouldBe).",
-  "tags": ["component", "test", "localization"],
+  "tags": [
+    "component",
+    "test",
+    "localization"
+  ],
   "content": {
     "thisIsATest2": {
       "nodeType": "translation",

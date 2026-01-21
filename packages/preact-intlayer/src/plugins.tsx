@@ -1,15 +1,18 @@
 import {
   type DeepTransformContent as DeepTransformContentCore,
   getMarkdownMetadata,
+  type HTMLCond,
+  type HTMLContent,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
   type MarkdownContent,
   type Plugins,
 } from '@intlayer/core';
 import type { DeclaredLocales, KeyPath, LocalesValues } from '@intlayer/types';
 import { NodeType } from '@intlayer/types';
-import type { ComponentChildren } from 'preact';
+import { h, type VNode } from 'preact';
 import { ContentSelectorRenderer } from './editor';
 import { EditedContentRenderer } from './editor/useEditedContentRenderer';
+import { HTMLRenderer } from './html/HTMLRenderer';
 import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
 import { MarkdownMetadataRenderer, MarkdownRenderer } from './markdown';
 import { renderPreactElement } from './preactElement/renderPreactElement';
@@ -57,7 +60,7 @@ export type PreactNodeCond<T> = T extends {
   props: any;
   key: any;
 }
-  ? ComponentChildren
+  ? VNode
   : never;
 
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
@@ -137,27 +140,52 @@ export const markdownStringPlugin: Plugins = {
       keyPath: [],
     });
 
-    return renderIntlayerNode({
-      ...props,
-      value: node,
-      children: (
-        <ContentSelectorRenderer {...rest}>
-          <MarkdownRenderer {...rest}>{node}</MarkdownRenderer>
-        </ContentSelectorRenderer>
-      ),
-      additionalProps: {
-        metadata: metadataNodes,
+    const render = (overrides?: any) =>
+      renderIntlayerNode({
+        ...props,
+        value: node,
+        children: (
+          <ContentSelectorRenderer {...rest}>
+            <MarkdownRenderer {...rest} {...overrides}>
+              {node}
+            </MarkdownRenderer>
+          </ContentSelectorRenderer>
+        ),
+        additionalProps: {
+          metadata: metadataNodes,
+        },
+      });
+
+    const element = render() as any;
+
+    return new Proxy(element, {
+      get(target, prop) {
+        if (prop === 'value') {
+          return node;
+        }
+        if (prop === 'metadata') {
+          return metadataNodes;
+        }
+
+        if (prop === 'use') {
+          return (overrides?: any) => render(overrides);
+        }
+
+        return Reflect.get(target, prop);
       },
-    });
+    }) as any;
   },
 };
 
-export type MarkdownCond<T> = T extends {
+export type MarkdownCond<T, S, L extends LocalesValues> = T extends {
   nodeType: NodeType | string;
   [NodeType.Markdown]: infer M;
   metadata?: infer U;
 }
-  ? IntlayerNode<DeepTransformContent<M>, { metadata: DeepTransformContent<U> }>
+  ? {
+      use: (overrides: any) => any;
+      metadata: DeepTransformContent<U, L>;
+    } & any
   : never;
 
 export const markdownPlugin: Plugins = {
@@ -182,14 +210,55 @@ export const markdownPlugin: Plugins = {
     });
   },
 };
+
+/** ---------------------------------------------
+ *  HTML PLUGIN
+ *  --------------------------------------------- */
+
+export type HTMLPluginCond<T, S, L> = HTMLCond<T, S, L>;
+
+/** HTML plugin. Replaces node with a function that takes components => VNode. */
+export const htmlPlugin: Plugins = {
+  id: 'html-plugin',
+  canHandle: (node) =>
+    typeof node === 'object' && node?.nodeType === NodeType.HTML,
+  transform: (node: HTMLContent, props) => {
+    const html = node[NodeType.HTML];
+    const { plugins, ...rest } = props;
+
+    const render = (userComponents?: Record<string, any>): VNode =>
+      h(HTMLRenderer as any, { ...rest, html, userComponents } as any);
+
+    const element = render() as any;
+
+    const proxy = new Proxy(element, {
+      get(target, prop) {
+        if (prop === 'value') {
+          return html;
+        }
+
+        if (prop === 'use') {
+          return (userComponents?: Record<string, any>) =>
+            render(userComponents);
+        }
+
+        return Reflect.get(target, prop);
+      },
+    });
+
+    return proxy;
+  },
+};
+
 /** ---------------------------------------------
  *  PLUGINS RESULT
  *  --------------------------------------------- */
 
-export interface IInterpreterPluginPreact<T> {
+export interface IInterpreterPluginPreact<T, S, L extends LocalesValues> {
   preactNode: PreactNodeCond<T>;
   intlayerNode: IntlayerNodeCond<T>;
-  markdown: MarkdownCond<T>;
+  markdown: MarkdownCond<T, S, L>;
+  html: HTMLPluginCond<T, S, L>;
 }
 
 /**
@@ -201,6 +270,7 @@ export type IInterpreterPluginState = IInterpreterPluginStateCore & {
   preactNode: true;
   intlayerNode: true;
   markdown: true;
+  html: true;
 };
 
 export type DeepTransformContent<
