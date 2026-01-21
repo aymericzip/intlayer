@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-18
-    changes: Automatic decoration of markdown content
+    changes: Automatic decoration of markdown content, MDX and SSR support
   - version: 5.5.10
     date: 2025-06-29
     changes: Init history
@@ -30,6 +30,8 @@ history:
 ## How Markdown Works
 
 Intlayer supports rich text content defined using Markdown syntax. This is achieved through the `md` function, which converts a Markdown string into a format that can be managed by Intlayer. By using Markdown, you can easily write and maintain content with rich formatting, such as blogs, articles, and more.
+
+Intlayer v8 integrates a powerful, cross-framework Markdown parser that supports **MDX**. This means you can use components directly within your Markdown content. It is also fully optimized for **Server-Side Rendering (SSR)**.
 
 [The Intlayer Visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) and the [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) both support Markdown content management.
 

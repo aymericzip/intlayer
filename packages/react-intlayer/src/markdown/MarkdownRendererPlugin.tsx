@@ -22,7 +22,7 @@ type MarkdownRendererPluginProps = {
 export const MarkdownRendererPlugin: FC<MarkdownRendererPluginProps> = (
   props
 ): ReactNode => {
-  const { dictionaryKey, keyPath, children, locale, ...overrides } = props;
+  const { dictionaryKey, keyPath, children, locale, ...components } = props;
   const context = useMarkdownContext();
   const renderMarkdown = context?.renderMarkdown ?? ((md) => md);
   const editedContentContext = useEditedContentRenderer({
@@ -34,7 +34,7 @@ export const MarkdownRendererPlugin: FC<MarkdownRendererPluginProps> = (
   const contentToRender =
     typeof editedContentContext === 'string' ? editedContentContext : children;
 
-  return renderMarkdown(contentToRender, overrides);
+  return renderMarkdown(contentToRender, components);
 };
 
 type MarkdownMetadataRendererProps = MarkdownRendererPluginProps & {

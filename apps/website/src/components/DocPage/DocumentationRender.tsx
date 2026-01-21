@@ -32,7 +32,7 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
         isDarkMode={isDarkMode}
         locale={locale}
         options={{
-          overrides: {
+          components: {
             a: (props: ComponentProps<typeof Link>) => (
               <Link
                 color="neutral"

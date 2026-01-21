@@ -2,12 +2,11 @@
 import { getMarkdownContext } from './context';
 
 export let value: string;
-export const overrides: any = {};
+export const components: any = {};
 
 const context = getMarkdownContext();
 
-$: htmlContent = context.renderMarkdown(value, overrides);
+$: htmlContent = context.renderMarkdown(value, components);
 </script>
 
 {@html htmlContent}
-

@@ -1,6 +1,6 @@
 import type { ComponentProps, ComponentPropsWithoutRef, FC } from 'react';
 import type { BundledLanguage } from 'shiki/bundle/web';
-import { MarkdownProcessor } from '../MarkDownRender/processor';
+import { MarkdownProcessor } from '../MarkDownRender/processor-adapter';
 import { Code } from './Code';
 
 type MarkdownRendererProps = {
@@ -14,7 +14,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
 }) => (
   <MarkdownProcessor
     options={{
-      overrides: {
+      components: {
         code: {
           component: (props: ComponentProps<typeof Code>) => (
             <Code

@@ -116,10 +116,10 @@ const stripFrontmatter = (markdown: string): string => {
  * ```
  *
  * @example
- * With custom overrides:
+ * With custom components:
  * ```tsx
  * const customOptions = {
- *   overrides: {
+ *   components: {
  *     h1: ({ children }) => (
  *       <h1 className="custom-title">{children}</h1>
  *     ),
@@ -219,7 +219,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   locale,
   options,
 }) => {
-  const { overrides, ...restOptions } = options ?? {};
+  const { components, ...restOptions } = options ?? {};
 
   // Strip frontmatter from the markdown content before rendering
   const cleanMarkdown = stripFrontmatter(children);
@@ -229,7 +229,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
       <TabProvider>
         <MarkdownProcessor
           options={{
-            overrides: {
+            components: {
               h1: (props: ComponentProps<typeof H1>) => (
                 <H1 isClickable={true} {...props} />
               ),
@@ -394,7 +394,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
               }: ComponentPropsWithoutRef<'div'>) => (
                 <div className={cn('flex-1', className)} {...props} />
               ),
-              ...overrides,
+              ...components,
             },
             ...restOptions,
           }}

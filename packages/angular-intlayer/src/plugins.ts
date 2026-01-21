@@ -88,7 +88,7 @@ export const markdownStringPlugin: Plugins = {
       keyPath: [],
     });
 
-    const render = (overrides?: any) =>
+    const render = (components?: any) =>
       renderIntlayerNode({
         ...props,
         value: node,
@@ -97,11 +97,11 @@ export const markdownStringPlugin: Plugins = {
           props: {
             dictionaryKey: rest.dictionaryKey,
             keyPath: rest.keyPath,
-            ...overrides,
+            ...components,
           },
           children: () => {
             const { renderMarkdown } = useMarkdown();
-            return renderMarkdown(node, overrides);
+            return renderMarkdown(node, components);
           },
         }),
         additionalProps: {
@@ -121,7 +121,7 @@ export const markdownStringPlugin: Plugins = {
         }
 
         if (prop === 'use') {
-          return (overrides?: any) => render(overrides);
+          return (components?: any) => render(components);
         }
 
         return Reflect.get(target, prop, receiver);
@@ -136,7 +136,7 @@ export type MarkdownCond<T, S, L extends LocalesValues> = T extends {
   metadata?: infer U;
 }
   ? {
-      use: (overrides: any) => any;
+      use: (components: any) => any;
       metadata: DeepTransformContent<U>;
     } & any
   : never;

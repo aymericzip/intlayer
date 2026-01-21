@@ -19,7 +19,7 @@ type RenderMarkdownOptions = {
 type MarkdownContextValue = {
   renderMarkdown: (
     markdown: string,
-    overrides?: Overrides | RenderMarkdownOptions
+    components?: Overrides | RenderMarkdownOptions
   ) => ReactNode;
 };
 
@@ -88,21 +88,27 @@ export const MarkdownProvider: FC<MarkdownProviderProps> = ({
 
   const finalRenderMarkdown =
     renderMarkdown ||
-    ((markdown: string, overrides?: Overrides | RenderMarkdownOptions) => {
+    ((
+      markdown: string,
+      componentsOverride?: Overrides | RenderMarkdownOptions
+    ) => {
       const isOptionsObject =
-        overrides &&
-        (typeof (overrides as RenderMarkdownOptions).components === 'object' ||
-          typeof (overrides as RenderMarkdownOptions).wrapper === 'function' ||
-          typeof (overrides as RenderMarkdownOptions).options === 'object');
+        componentsOverride &&
+        (typeof (componentsOverride as RenderMarkdownOptions).components ===
+          'object' ||
+          typeof (componentsOverride as RenderMarkdownOptions).wrapper ===
+            'function' ||
+          typeof (componentsOverride as RenderMarkdownOptions).options ===
+            'object');
 
       const localComponents = isOptionsObject
-        ? (overrides as RenderMarkdownOptions).components
-        : (overrides as Overrides);
+        ? (componentsOverride as RenderMarkdownOptions).components
+        : (componentsOverride as Overrides);
       const localWrapper = isOptionsObject
-        ? (overrides as RenderMarkdownOptions).wrapper
+        ? (componentsOverride as RenderMarkdownOptions).wrapper
         : undefined;
       const localOptions = isOptionsObject
-        ? (overrides as RenderMarkdownOptions).options
+        ? (componentsOverride as RenderMarkdownOptions).options
         : {};
 
       const mergedOptions = {

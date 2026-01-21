@@ -106,7 +106,7 @@ export type MarkdownProcessorOptions = Partial<{
   /**
    * Selectively control the output of particular HTML tags.
    */
-  overrides: CoreOverrides;
+  components: CoreOverrides;
 
   /**
    * Allows for full control over rendering of particular rules.
@@ -127,6 +127,16 @@ export type MarkdownProcessorOptions = Partial<{
    * Declare the type of the wrapper to be used when there are multiple children.
    */
   wrapper: any | null;
+
+  /**
+   * Whether to preserve frontmatter in the markdown content.
+   */
+  preserveFrontmatter: boolean;
+
+  /**
+   * Whether to use the GitHub Tag Filter.
+   */
+  tagfilter: boolean;
 }>;
 
 // ============================================================================
@@ -134,18 +144,16 @@ export type MarkdownProcessorOptions = Partial<{
 // ============================================================================
 
 /**
- * Create the React runtime with optional custom createElement.
+ * Default React runtime for markdown rendering.
  */
-const createReactRuntime = (
-  customCreateElement?: MarkdownProcessorOptions['createElement']
-): MarkdownRuntime => ({
-  createElement: customCreateElement ?? createElement,
+const DEFAULT_RUNTIME: MarkdownRuntime = {
+  createElement: createElement as any,
   cloneElement,
   Fragment,
   // React uses className instead of class, htmlFor instead of for
   // The core library already handles this via ATTRIBUTE_TO_NODE_PROP_MAP
   normalizeProps: (_tag, props) => props,
-});
+};
 
 // ============================================================================
 // COMPILER WRAPPER
@@ -168,22 +176,26 @@ export const compiler = (
     forceInline,
     forceWrapper,
     namedCodesToUnicode,
-    overrides,
+    components,
     renderRule,
     sanitizer,
     slugify,
     wrapper,
+    preserveFrontmatter,
+    tagfilter,
   } = options;
 
   // Create React runtime
-  const runtime = createReactRuntime(customCreateElement);
+  const runtime = customCreateElement
+    ? { ...DEFAULT_RUNTIME, createElement: customCreateElement as any }
+    : DEFAULT_RUNTIME;
 
   // Build context
   const ctx: MarkdownContext = {
     runtime,
-    overrides,
+    components,
     namedCodesToUnicode,
-    sanitizer,
+    sanitizer: sanitizer as any,
     slugify,
   };
 
@@ -197,6 +209,8 @@ export const compiler = (
     forceWrapper,
     renderRule,
     wrapper,
+    preserveFrontmatter,
+    tagfilter,
   };
 
   // Compile and return

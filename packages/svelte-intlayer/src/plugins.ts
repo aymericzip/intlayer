@@ -106,14 +106,14 @@ export const markdownStringPlugin: Plugins = {
         keyPath: [],
       }) ?? {};
 
-    const render = (overrides?: any) => {
+    const render = (components?: any) => {
       const nodeResult = renderIntlayerNode({
         value: node,
         component: MarkdownWithSelector,
         props: {
           ...rest,
           value: node,
-          ...overrides,
+          ...components,
         },
         additionalProps: {
           metadata: metadataNodes,
@@ -130,14 +130,14 @@ export const markdownStringPlugin: Plugins = {
           }
 
           if (prop === 'use') {
-            return (newOverrides?: any) => render(newOverrides);
+            return (newComponents?: any) => render(newComponents);
           }
 
           if (prop === 'toString') {
             return () =>
               compile(
                 node,
-                { runtime: svelteHtmlRuntime, components: overrides },
+                { runtime: svelteHtmlRuntime, components: components },
                 {}
               );
           }
@@ -157,7 +157,7 @@ export type MarkdownCond<T, S, L extends LocalesValues> = T extends {
   metadata?: infer U;
 }
   ? {
-      use: (overrides: any) => any;
+      use: (components: any) => any;
       metadata: DeepTransformContent<U, L>;
     } & any
   : never;
