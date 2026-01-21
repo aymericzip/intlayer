@@ -80,7 +80,7 @@ export const loadContentDeclarations = async (
     const contentDeclarations: Dictionary[] = formatLocalDictionaries(
       dictionariesRecord,
       configuration
-    );
+    ).filter((dictionary) => dictionary.location !== 'remote');
 
     const listFoundDictionaries = contentDeclarations.map((declaration) => ({
       dictionaryKey: declaration.key,
