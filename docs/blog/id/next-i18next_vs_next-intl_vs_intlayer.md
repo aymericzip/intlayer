@@ -323,9 +323,9 @@ Bagian ini membuat perbandingan mendalam antara tiga solusi. Alih-alih mempertim
 
 Struktur aplikasi penting untuk memastikan pemeliharaan yang baik untuk basis kode Anda.
 
-<Tab defaultTab="next-intl" group='techno'>
+<Tabs defaultTab="next-intl" group='techno'>
 
-  <TabItem label="next-i18next" value="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
 
 ```bash
 .
@@ -350,8 +350,8 @@ Struktur aplikasi penting untuk memastikan pemeliharaan yang baik untuk basis ko
         └── ServerComponent.tsx
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```bash
 .
@@ -378,8 +378,8 @@ Struktur aplikasi penting untuk memastikan pemeliharaan yang baik untuk basis ko
             └── index.tsx
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```bash
 .
@@ -398,8 +398,8 @@ Struktur aplikasi penting untuk memastikan pemeliharaan yang baik untuk basis ko
             └── index.content.ts
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### Perbandingan
 
@@ -411,8 +411,8 @@ Struktur aplikasi penting untuk memastikan pemeliharaan yang baik untuk basis ko
 Seperti yang disebutkan sebelumnya, Anda harus mengoptimalkan bagaimana setiap file JSON diimpor ke dalam kode Anda.
 Cara pustaka menangani pemuatan konten sangat penting.
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -582,8 +582,8 @@ export default async function AboutPage({
 }
 ```
 
-  </TabItem>
-   <TabItem label="next-intl" value="next-intl">
+  </Tab>
+   <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/i18n.ts"
 import { getRequestConfig } from "next-intl/server";
@@ -690,8 +690,8 @@ export default async function AboutPage({
 }
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```tsx fileName="intlayer.config.ts"
 import { type IntlayerConfig, Locales } from "intlayer";
@@ -757,8 +757,8 @@ const LandingPage: NextPageIntlayer = async ({ params }) => {
 export default LandingPage;
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### Perbandingan
 
@@ -774,8 +774,8 @@ Pilih antara kontrol eksplisit dan otomatisasi berdasarkan preferensi tim.
 
 Mari kita ambil contoh komponen klien yang merender sebuah penghitung.
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 **Terjemahan (satu JSON per namespace di bawah `src/locales/...`)**
 
@@ -834,8 +834,8 @@ export default ClientComponent;
 > Pastikan halaman/provider hanya memuat namespace yang Anda butuhkan (misalnya `about`).
 > Jika Anda menggunakan React < 19, gunakan memo untuk formatter berat seperti `Intl.NumberFormat`.
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 **Terjemahan (bentuk digunakan ulang; muat ke dalam pesan next-intl sesuai keinginan Anda)**
 
@@ -887,8 +887,8 @@ const ClientComponentExample = () => {
 
 > Jangan lupa untuk menambahkan pesan "about" pada pesan klien halaman
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 **Konten**
 
@@ -930,8 +930,8 @@ const ClientComponentExample = () => {
 };
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### Perbandingan
 
@@ -954,8 +954,8 @@ const ClientComponentExample = () => {
 
 Kita akan mengambil kasus sebuah komponen UI. Komponen ini adalah komponen server, dan harus dapat dimasukkan sebagai anak dari komponen klien. (halaman (komponen server) -> komponen klien -> komponen server). Karena komponen ini dapat dimasukkan sebagai anak dari komponen klien, maka tidak boleh bersifat async.
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 type ServerComponentProps = {
@@ -978,8 +978,8 @@ const ServerComponent = ({ t, locale, count }: ServerComponentProps) => {
 export default ServerComponent;
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 type ServerComponentProps = {
@@ -1016,8 +1016,8 @@ export default ServerComponent;
 > - `const t = await getTranslations("about.counter");`
 > - `const formatter = await getFormatter().then((formatter) => formatter.number());`
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 import { useIntlayer, useNumber } from "next-intlayer/server";
@@ -1039,8 +1039,8 @@ const ServerComponent = ({ count }: ServerComponentProps) => {
 };
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 > Intlayer menyediakan hook **aman untuk server** melalui `next-intlayer/server`. Untuk bekerja, `useIntlayer` dan `useNumber` menggunakan sintaks mirip hook, serupa dengan hook di sisi klien, tetapi bergantung pada konteks server di bawahnya (`IntlayerServerProvider`).
 
@@ -1061,9 +1061,9 @@ Berikut adalah daftar praktik terbaik terkait SEO multibahasa.
 
 Pengembang sering lupa untuk mereferensikan halaman mereka dengan benar di berbagai locale.
 
-<Tab defaultTab="next-intl" group='techno'>
+<Tabs defaultTab="next-intl" group='techno'>
  
-  <TabItem label="next-i18next" value="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -1165,8 +1165,8 @@ export const robots = (): MetadataRoute.Robots => {
 };
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/app/[locale]/about/layout.tsx"
 import type { Metadata } from "next";
@@ -1259,8 +1259,8 @@ export const robots = (): MetadataRoute.Robots => {
 };
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```typescript fileName="src/app/[locale]/about/layout.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";
@@ -1322,15 +1322,15 @@ const robots = (): MetadataRoute.Robots => ({
 export default robots;
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 > Intlayer menyediakan fungsi `getMultilingualUrls` untuk menghasilkan URL multibahasa untuk sitemap Anda.
 
 ### Middleware untuk routing locale
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 Tambahkan middleware untuk menangani deteksi locale dan routing:
 
@@ -1371,8 +1371,8 @@ export const config = {
 };
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 Tambahkan middleware untuk menangani deteksi locale dan routing:
 
@@ -1392,8 +1392,8 @@ export const config = {
 };
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 Intlayer menyediakan penanganan middleware bawaan melalui konfigurasi paket `next-intlayer`.
 
@@ -1410,13 +1410,13 @@ export const config = {
 
 Pengaturan middleware dipusatkan dalam file `intlayer.config.ts`.
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 ### Daftar periksa pengaturan dan praktik terbaik
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 - Pastikan `lang` dan `dir` disetel pada root `<html>` di `src/app/[locale]/layout.tsx`.
 - Pisahkan terjemahan ke dalam namespace (misalnya `common.json`, `about.json`) di bawah `src/locales/<locale>/`.
@@ -1426,8 +1426,8 @@ Pengaturan middleware dipusatkan dalam file `intlayer.config.ts`.
 - Untuk SEO, atur `alternates.languages` di metadata, daftarkan URL lokal di `sitemap.ts`, dan larang rute lokal duplikat di `robots.ts`.
 - Lebih memilih formatter yang sadar locale (misalnya, `Intl.NumberFormat(locale)`) dan simpan dalam memo di sisi client jika menggunakan React < 19.
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 - **Setel html `lang` dan `dir`**: Di `src/app/[locale]/layout.tsx`, hitung `dir` melalui `getLocaleDirection(locale)` dan setel `<html lang={locale} dir={dir}>`.
 - **Pisahkan pesan berdasarkan namespace**: Atur JSON per locale dan namespace (misalnya, `common.json`, `about.json`).
@@ -1435,16 +1435,16 @@ Pengaturan middleware dipusatkan dalam file `intlayer.config.ts`.
 - **Utamakan halaman statis**: Ekspor `export const dynamic = 'force-static'` dan buat parameter statis untuk semua `locales`.
 - **Komponen server sinkron**: Pertahankan komponen server agar sinkron dengan mengoper string yang sudah dihitung sebelumnya (label yang diterjemahkan, angka yang diformat) daripada panggilan async atau fungsi yang tidak dapat diserialisasi.
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 - **Konten modular**: Tempatkan kamus konten bersama dengan komponen menggunakan file `.content.{ts|js|json}`.
 - **Keamanan tipe**: Manfaatkan integrasi TypeScript untuk validasi konten saat waktu kompilasi.
 - **Optimasi saat build**: Gunakan alat build Intlayer untuk tree-shaking otomatis dan optimasi bundel.
 - **Alat terintegrasi**: Manfaatkan routing bawaan, pembantu SEO, dan dukungan editor visual.
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 ---
 

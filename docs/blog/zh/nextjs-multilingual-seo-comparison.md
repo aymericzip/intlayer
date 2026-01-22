@@ -65,7 +65,7 @@ slugs:
 ### **next-intl**
 
 <Tabs>
-  <TabItem label="next-intl">
+  <Tab label="next-intl">
 
 ```tsx fileName="src/app/[locale]/about/layout.tsx
 import type { Metadata } from "next";
@@ -156,8 +156,8 @@ export default function robots(): MetadataRoute.Robots {
 
 ### **next-i18next**
 
-  </TabItem>
-  <TabItem label="next-i18next">
+  </Tab>
+  <Tab label="next-i18next">
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -186,8 +186,8 @@ export function abs(locale: string, path: string) {
 
 ### **next-i18next**
 
-  </TabItem>
-  <TabItem label="next-i18next">
+  </Tab>
+  <Tab label="next-i18next">
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -289,8 +289,8 @@ export default function robots(): MetadataRoute.Robots {
 
 ### **Intlayer**
 
-  </TabItem>
-  <TabItem label="intlayer">
+  </Tab>
+  <Tab label="intlayer">
 
 ````typescript fileName="src/app/[locale]/about/layout.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";
@@ -371,7 +371,7 @@ export default robots;
 
 > Intlayer 提供了一个 `getMultilingualUrls` 函数，用于为您的站点地图生成多语言 URL。
 
-  </TabItem>
+  </Tab>
 </Tabs>
 
 ---

@@ -46,13 +46,13 @@ Con Intlayer, puedes:
 
 ## Guía paso a paso para configurar Intlayer en una aplicación Nuxt
 
-<Tab defaultTab="video">
-  <TabItem label="Video" value="video">
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
   
 <iframe title="¿Cómo traducir tu aplicación Nuxt y Vue usando Intlayer? Descubre Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/nhUcUAVQ6eQ?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-  </TabItem>
-  <TabItem label="Código" value="code">
+  </Tab>
+  <Tab label="Código" value="code">
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-nuxt-4-template?embed=1&ctl=1&file=intlayer.config.ts"
@@ -62,8 +62,8 @@ Con Intlayer, puedes:
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 Consulta la [Plantilla de Aplicación](https://github.com/aymericzip/intlayer-nuxt-4-template) en GitHub.
 

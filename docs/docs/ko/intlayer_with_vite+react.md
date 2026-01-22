@@ -47,13 +47,13 @@ Intlayer를 사용하면 다음을 할 수 있습니다:
 
 ## Vite 및 React 애플리케이션에서 Intlayer 설정 단계별 가이드
 
-<Tab defaultTab="video">
-  <TabItem label="비디오" value="video">
+<Tabs defaultTab="video">
+  <Tab label="비디오" value="video">
   
 <iframe title="The best i18n solution for Vite and React? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
 
-  </TabItem>
-  <TabItem label="코드" value="code">
+  </Tab>
+  <Tab label="코드" value="code">
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-vite-react-template?embed=1&ctl=1&file=intlayer.config.ts"
@@ -63,8 +63,8 @@ Intlayer를 사용하면 다음을 할 수 있습니다:
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 GitHub에서 [Application Template](https://github.com/aymericzip/intlayer-vite-react-template)을 참조하세요.
 

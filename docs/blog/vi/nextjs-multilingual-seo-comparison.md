@@ -65,7 +65,7 @@ Các nhà phát triển thường quên tham chiếu đúng các trang của h�
 ### **next-intl**
 
 <Tabs>
-  <TabItem label="next-intl">
+  <Tab label="next-intl">
 
 ```tsx fileName="src/app/[locale]/about/layout.tsx
 import type { Metadata } from "next";
@@ -155,8 +155,8 @@ export default function robots(): MetadataRoute.Robots {
 
 ### **next-i18next**
 
-  </TabItem>
-  <TabItem label="next-i18next">
+  </Tab>
+  <Tab label="next-i18next">
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -259,8 +259,8 @@ export default function robots(): MetadataRoute.Robots {
 
 ### **Intlayer**
 
-  </TabItem>
-  <TabItem label="intlayer">
+  </Tab>
+  <Tab label="intlayer">
 
 ````typescript fileName="src/app/[locale]/about/layout.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";
@@ -339,7 +339,7 @@ export default robots;
 
 > Intlayer cung cấp một hàm `getMultilingualUrls` để tạo các URL đa ngôn ngữ cho sitemap của bạn.
 
-  </TabItem>
+  </Tab>
 </Tabs>
 
 ---

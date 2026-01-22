@@ -25,13 +25,13 @@ history:
 
 # 使用 Intlayer 翻译你的 Next.js 16 网站（页面路径中不包含 [locale]） | 国际化 (i18n)
 
-<Tab defaultTab="video">
-  <TabItem label="视频" value="video">
+<Tabs defaultTab="video">
+  <Tab label="视频" value="video">
   
 <iframe title="适用于 Next.js 的最佳 i18n 解决方案？探索 Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-  </TabItem>
-  <TabItem label="代码" value="code">
+  </Tab>
+  <Tab label="代码" value="code">
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-next-16-no-locale-path-template?embed=1&ctl=1&file=intlayer.config.ts"
@@ -41,8 +41,8 @@ history:
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 查看 GitHub 上的 [应用模板](https://github.com/aymericzip/intlayer-next-no-lolale-path-template)。
 

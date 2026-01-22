@@ -144,20 +144,14 @@ export const getIntlayerMarkdownOptions: (
     hr: ({ className, ...props }: ComponentPropsWithoutRef<'hr'>) => (
       <hr className={cn('mx-6 mt-16 text-neutral', className)} {...props} />
     ),
-    // Support both <Tab> and <Tabs> in markdown
+    // Support <Tabs> as container and <Tab> as item in markdown
     Tabs: (props: ComponentProps<typeof Tab>) => (
       <Tab
         {...props}
         headerClassName="sticky top-36 z-10 bg-background/70 backdrop-blur"
       />
     ),
-    Tab: (props: ComponentProps<typeof Tab>) => (
-      <Tab
-        {...props}
-        headerClassName="sticky top-36 z-10 bg-background/70 backdrop-blur"
-      />
-    ),
-    TabItem: Tab.Item,
+    Tab: Tab.Item,
     Columns: ({ className, ...props }: ComponentPropsWithoutRef<'div'>) => (
       <div className={cn('flex gap-4 max-md:flex-col', className)} {...props} />
     ),

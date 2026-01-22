@@ -57,13 +57,13 @@ Intlayer를 사용하면 다음을 할 수 있습니다:
 
 ## Tanstack Start 애플리케이션에서 Intlayer 설정 단계별 가이드
 
-<Tab defaultTab="video">
-  <TabItem label="Video" value="video">
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
   
 <iframe title="Tanstack Start를 위한 최고의 i18n 솔루션? Intlayer를 발견하세요" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/_XTdKVWaeqg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-  </TabItem>
-  <TabItem label="Code" value="code">
+  </Tab>
+  <Tab label="Code" value="code">
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-tanstack-start-template?embed=1&ctl=1&file=intlayer.config.ts"
@@ -73,8 +73,8 @@ Intlayer를 사용하면 다음을 할 수 있습니다:
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-tanstack-start-template)을 참조하세요.
 

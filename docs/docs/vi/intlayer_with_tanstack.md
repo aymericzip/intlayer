@@ -60,13 +60,13 @@ Với Intlayer, bạn có thể:
 
 ## Hướng dẫn từng bước để thiết lập Intlayer trong ứng dụng Tanstack Start
 
-<Tab defaultTab="video">
-  <TabItem label="Video" value="video">
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
   
 <iframe title="Giải pháp i18n tốt nhất cho Tanstack Start? Khám phá Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/_XTdKVWaeqg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-  </TabItem>
-  <TabItem label="Code" value="code">
+  </Tab>
+  <Tab label="Code" value="code">
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-tanstack-start-template?embed=1&ctl=1&file=intlayer.config.ts"
@@ -76,8 +76,8 @@ Với Intlayer, bạn có thể:
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 Xem [Mẫu Ứng dụng](https://github.com/aymericzip/intlayer-tanstack-start-template) trên GitHub.
 

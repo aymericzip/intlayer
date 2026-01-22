@@ -47,13 +47,13 @@ history:
 
 ## دليل خطوة بخطوة لإعداد Intlayer في تطبيق Vite و React
 
-<Tab defaultTab="video">
-  <TabItem label="فيديو" value="video">
+<Tabs defaultTab="video">
+  <Tab label="فيديو" value="video">
   
 <iframe title="أفضل حل للترجمة الدولية لـ Vite و React؟ اكتشف Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
 
-  </TabItem>
-  <TabItem label="الرمز" value="code">
+  </Tab>
+  <Tab label="الرمز" value="code">
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-vite-react-template?embed=1&ctl=1&file=intlayer.config.ts"
@@ -63,8 +63,8 @@ history:
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 انظر [نموذج التطبيق](https://github.com/aymericzip/intlayer-vite-react-template) على GitHub.
 

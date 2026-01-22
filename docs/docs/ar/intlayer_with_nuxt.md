@@ -46,13 +46,13 @@ history:
 
 ## دليل خطوة بخطوة لإعداد Intlayer في تطبيق Nuxt
 
-<Tab defaultTab="video">
-  <TabItem label="فيديو" value="video">
+<Tabs defaultTab="video">
+  <Tab label="فيديو" value="video">
   
 <iframe title="كيفية ترجمة تطبيق Nuxt و Vue الخاص بك باستخدام Intlayer؟ اكتشف Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/nhUcUAVQ6eQ?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-  </TabItem>
-  <TabItem label="كود" value="code">
+  </Tab>
+  <Tab label="كود" value="code">
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-nuxt-4-template?embed=1&ctl=1&file=intlayer.config.ts"
@@ -62,8 +62,8 @@ history:
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 راجع [قالب التطبيق](https://github.com/aymericzip/intlayer-nuxt-4-template) على GitHub.
 

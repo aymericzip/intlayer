@@ -47,13 +47,13 @@ Với Intlayer, bạn có thể:
 
 ## Hướng dẫn từng bước để thiết lập Intlayer trong ứng dụng Vite và React
 
-<Tab defaultTab="video">
-  <TabItem label="Video" value="video">
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
   
 <iframe title="Giải pháp i18n tốt nhất cho Vite và React? Khám phá Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
 
-  </TabItem>
-  <TabItem label="Code" value="code">
+  </Tab>
+  <Tab label="Code" value="code">
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-vite-react-template?embed=1&ctl=1&file=intlayer.config.ts"
@@ -63,8 +63,8 @@ Với Intlayer, bạn có thể:
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 Xem [Mẫu Ứng Dụng](https://github.com/aymericzip/intlayer-vite-react-template) trên GitHub.
 

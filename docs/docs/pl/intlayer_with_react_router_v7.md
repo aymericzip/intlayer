@@ -110,13 +110,13 @@ bunx intlayer init
 
 ## Przewodnik krok po kroku dotyczący konfiguracji Intlayer w aplikacji React Router v7 z trasami opartymi na systemie plików
 
-<Tab defaultTab="video">
-  <TabItem label="Video" value="video">
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
   
 <iframe title="How to translate your React Router v7 app using Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-  </TabItem>
-  <TabItem label="Code" value="code">
+  </Tab>
+  <Tab label="Code" value="code">
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-react-router-v7-template?embed=1&ctl=1&file=intlayer.config.ts"
@@ -126,8 +126,8 @@ bunx intlayer init
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 See [Application Template](https://github.com/aymericzip/intlayer-react-router-v7-template) on GitHub.
 

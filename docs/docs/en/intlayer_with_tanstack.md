@@ -66,13 +66,13 @@ With Intlayer, you can:
 
 ## Step-by-Step Guide to Set Up Intlayer in a Tanstack Start Application
 
-<Tab defaultTab="video">
-  <TabItem label="Video" value="video">
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
   
 <iframe title="The best i18n solution for Tanstack Start? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/_XTdKVWaeqg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-  </TabItem>
-  <TabItem label="Code" value="code">
+  </Tab>
+  <Tab label="Code" value="code">
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-tanstack-start-template?embed=1&ctl=1&file=intlayer.config.ts"
@@ -82,8 +82,8 @@ With Intlayer, you can:
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 See [Application Template](https://github.com/aymericzip/intlayer-tanstack-start-template) on GitHub.
 

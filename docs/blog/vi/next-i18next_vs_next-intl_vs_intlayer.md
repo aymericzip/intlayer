@@ -323,9 +323,9 @@ Phần này thực hiện so sánh sâu giữa ba giải pháp. Thay vì xem xé
 
 Cấu trúc ứng dụng rất quan trọng để đảm bảo khả năng bảo trì tốt cho codebase của bạn.
 
-<Tab defaultTab="next-intl" group='techno'>
+<Tabs defaultTab="next-intl" group='techno'>
 
-  <TabItem label="next-i18next" value="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
 
 ```bash
 .
@@ -350,8 +350,8 @@ Cấu trúc ứng dụng rất quan trọng để đảm bảo khả năng bảo
         └── ServerComponent.tsx
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```bash
 .
@@ -378,8 +378,8 @@ Cấu trúc ứng dụng rất quan trọng để đảm bảo khả năng bảo
             └── index.tsx
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```bash
 .
@@ -398,8 +398,8 @@ Cấu trúc ứng dụng rất quan trọng để đảm bảo khả năng bảo
             └── index.content.ts
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### So sánh
 
@@ -411,8 +411,8 @@ Cấu trúc ứng dụng rất quan trọng để đảm bảo khả năng bảo
 Như đã đề cập trước đó, bạn phải tối ưu cách mỗi file JSON được nhập vào code của bạn.
 Cách thư viện xử lý việc tải nội dung rất quan trọng.
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -582,8 +582,8 @@ export default async function AboutPage({
 }
 ```
 
-  </TabItem>
-   <TabItem label="next-intl" value="next-intl">
+  </Tab>
+   <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/i18n.ts"
 import { getRequestConfig } from "next-intl/server";
@@ -690,8 +690,8 @@ export default async function AboutPage({
 }
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```tsx fileName="intlayer.config.ts"
 import { type IntlayerConfig, Locales } from "intlayer";
@@ -757,8 +757,8 @@ const LandingPage: NextPageIntlayer = async ({ params }) => {
 export default LandingPage;
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### So sánh
 
@@ -774,8 +774,8 @@ Chọn giữa kiểm soát rõ ràng và tự động hóa dựa trên sở thí
 
 Hãy lấy ví dụ về một component phía client hiển thị bộ đếm.
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 **Bản dịch (mỗi namespace là một file JSON dưới `src/locales/...`)**
 
@@ -834,8 +834,8 @@ export default ClientComponent;
 > Đảm bảo trang/provider chỉ bao gồm các namespace bạn cần (ví dụ: `about`).
 > Nếu bạn sử dụng React < 19, hãy ghi nhớ các formatter nặng như `Intl.NumberFormat`.
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 **Bản dịch (dạng dữ liệu được tái sử dụng; tải chúng vào các thông điệp next-intl theo cách bạn muốn)**
 
@@ -887,8 +887,8 @@ const ClientComponentExample = () => {
 
 > Đừng quên thêm thông điệp "about" vào thông điệp client của trang
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 **Nội dung**
 
@@ -930,8 +930,8 @@ const ClientComponentExample = () => {
 };
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### So sánh
 
@@ -954,8 +954,8 @@ const ClientComponentExample = () => {
 
 Chúng ta sẽ lấy ví dụ về một component giao diện người dùng (UI). Component này là một server component, và nên có khả năng được chèn như một con của client component. (page (server component) -> client component -> server component). Vì component này có thể được chèn như một con của client component, nó không thể là async.
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 type ServerComponentProps = {
@@ -978,8 +978,8 @@ const ServerComponent = ({ t, locale, count }: ServerComponentProps) => {
 export default ServerComponent;
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 type ServerComponentProps = {
@@ -1016,8 +1016,8 @@ export default ServerComponent;
 > - `const t = await getTranslations("about.counter");`
 > - `const formatter = await getFormatter().then((formatter) => formatter.number());`
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 import { useIntlayer, useNumber } from "next-intlayer/server";
@@ -1039,8 +1039,8 @@ const ServerComponent = ({ count }: ServerComponentProps) => {
 };
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 > Intlayer cung cấp các hook **an toàn cho server** thông qua `next-intlayer/server`. Để hoạt động, `useIntlayer` và `useNumber` sử dụng cú pháp giống hook, tương tự như các hook phía client, nhưng dựa vào ngữ cảnh server (`IntlayerServerProvider`) ở bên dưới.
 
@@ -1061,9 +1061,9 @@ Dưới đây là danh sách các thực hành tốt liên quan đến SEO đa n
 
 Các nhà phát triển thường quên tham chiếu đúng các trang của họ theo từng ngôn ngữ.
 
-<Tab defaultTab="next-intl" group='techno'>
+<Tabs defaultTab="next-intl" group='techno'>
  
-  <TabItem label="next-i18next" value="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -1167,8 +1167,8 @@ export const robots = (): MetadataRoute.Robots => {
 };
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/app/[locale]/about/layout.tsx"
 import type { Metadata } from "next";
@@ -1279,8 +1279,8 @@ export const robots = (): MetadataRoute.Robots => {
 };
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```typescript fileName="src/app/[locale]/about/layout.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";
@@ -1342,15 +1342,15 @@ const robots = (): MetadataRoute.Robots => ({
 export default robots;
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 > Intlayer cung cấp một hàm `getMultilingualUrls` để tạo các URL đa ngôn ngữ cho sitemap của bạn.
 
 ### Middleware cho định tuyến locale
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 Thêm middleware để xử lý phát hiện locale và định tuyến:
 
@@ -1391,8 +1391,8 @@ export const config = {
 };
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 Thêm middleware để xử lý phát hiện locale và định tuyến:
 
@@ -1412,8 +1412,8 @@ export const config = {
 };
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 Intlayer cung cấp xử lý middleware tích hợp sẵn thông qua cấu hình gói `next-intlayer`.
 
@@ -1430,13 +1430,13 @@ export const config = {
 
 Việc thiết lập middleware được tập trung trong tệp `intlayer.config.ts`.
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 ### Danh sách kiểm tra thiết lập và các thực hành tốt
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 - Đảm bảo `lang` và `dir` được đặt trên thẻ `<html>` gốc trong `src/app/[locale]/layout.tsx`.
 - Chia bản dịch thành các namespace (ví dụ `common.json`, `about.json`) dưới thư mục `src/locales/<locale>/`.
@@ -1446,8 +1446,8 @@ Việc thiết lập middleware được tập trung trong tệp `intlayer.confi
 - Đối với SEO, thiết lập `alternates.languages` trong metadata, liệt kê các URL đã được địa phương hóa trong `sitemap.ts`, và không cho phép các tuyến đường địa phương hóa trùng lặp trong `robots.ts`.
 - Ưu tiên sử dụng các bộ định dạng nhận biết locale (ví dụ, `Intl.NumberFormat(locale)`) và ghi nhớ chúng trên client nếu sử dụng React < 19.
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 - **Thiết lập thuộc tính html `lang` và `dir`**: Trong `src/app/[locale]/layout.tsx`, tính toán `dir` thông qua `getLocaleDirection(locale)` và thiết lập `<html lang={locale} dir={dir}>`.
 - **Phân tách thông điệp theo namespace**: Tổ chức JSON theo từng locale và namespace (ví dụ, `common.json`, `about.json`).
@@ -1455,16 +1455,16 @@ Việc thiết lập middleware được tập trung trong tệp `intlayer.confi
 - **Ưu tiên các trang tĩnh**: Xuất `export const dynamic = 'force-static'` và tạo các tham số tĩnh cho tất cả các `locales`.
 - **Các thành phần server đồng bộ**: Giữ cho các thành phần server đồng bộ bằng cách truyền các chuỗi đã được tính toán trước (nhãn đã dịch, số đã được định dạng) thay vì các cuộc gọi async hoặc các hàm không thể tuần tự hóa.
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 - **Nội dung mô-đun**: Đặt các từ điển nội dung cùng vị trí với các thành phần sử dụng các tệp `.content.{ts|js|json}`.
 - **An toàn kiểu**: Tận dụng tích hợp TypeScript để kiểm tra nội dung tại thời điểm biên dịch.
 - **Tối ưu hóa thời gian xây dựng**: Sử dụng công cụ xây dựng của Intlayer để tự động loại bỏ mã không dùng đến (tree-shaking) và tối ưu gói.
 - **Công cụ tích hợp**: Tận dụng các tính năng định tuyến tích hợp, trợ giúp SEO và hỗ trợ trình chỉnh sửa trực quan.
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 ---
 

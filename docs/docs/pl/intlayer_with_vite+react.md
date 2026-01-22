@@ -47,13 +47,13 @@ Dzięki Intlayer możesz:
 
 ## Przewodnik krok po kroku: jak skonfigurować Intlayer w aplikacji Vite i React
 
-<Tab defaultTab="video">
-  <TabItem label="Wideo" value="video">
+<Tabs defaultTab="video">
+  <Tab label="Wideo" value="video">
   
 <iframe title="Najlepsze rozwiązanie i18n dla Vite i React? Odkryj Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
 
-  </TabItem>
-  <TabItem label="Kod" value="code">
+  </Tab>
+  <Tab label="Kod" value="code">
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-vite-react-template?embed=1&ctl=1&file=intlayer.config.ts"
@@ -63,8 +63,8 @@ Dzięki Intlayer możesz:
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 Zobacz [Application Template](https://github.com/aymericzip/intlayer-vite-react-template) na GitHub.
 

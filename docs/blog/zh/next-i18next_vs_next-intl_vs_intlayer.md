@@ -346,9 +346,9 @@ Next.js 为你内置了国际化路由支持（例如区域段）。但该功能
 
 应用结构对于确保代码库的良好可维护性非常重要。
 
-<Tab defaultTab="next-intl" group='techno'>
+<Tabs defaultTab="next-intl" group='techno'>
 
-  <TabItem label="next-i18next" value="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
 
 ```bash
 .
@@ -373,8 +373,8 @@ Next.js 为你内置了国际化路由支持（例如区域段）。但该功能
         └── ServerComponent.tsx
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```bash
 .
@@ -401,8 +401,8 @@ Next.js 为你内置了国际化路由支持（例如区域段）。但该功能
             └── index.tsx
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```bash
 .
@@ -421,8 +421,8 @@ Next.js 为你内置了国际化路由支持（例如区域段）。但该功能
             └── index.content.ts
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### 比较
 
@@ -434,8 +434,8 @@ Next.js 为你内置了国际化路由支持（例如区域段）。但该功能
 正如之前提到的，您必须优化每个 JSON 文件导入到代码中的方式。
 库如何处理内容加载非常重要。
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 ```tsx fileName="next-i18next.config.js"
 module.exports = {
@@ -499,8 +499,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 };
 ```
 
-  </TabItem>
-   <TabItem label="next-intl" value="next-intl">
+  </Tab>
+   <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="i18n.ts"
 import { getRequestConfig } from "next-intl/server";
@@ -578,8 +578,8 @@ export default async function LandingPage({
 }
 ```
 
-  </TabItem>
-<TabItem label="intlayer" value="intlayer">
+  </Tab>
+<Tab label="intlayer" value="intlayer">
 
 ```tsx fileName="intlayer.config.ts"
 export default {
@@ -639,8 +639,8 @@ const LandingPage: NextPageIntlayer = async ({ params }) => {
 export default LandingPage;
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### 比较
 
@@ -656,8 +656,8 @@ export default LandingPage;
 
 让我们来看一个渲染计数器的客户端组件示例。
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 **翻译（必须是真实的 JSON，位于 `public/locales/...`）**
 
@@ -711,8 +711,8 @@ const ClientComponentExample = () => {
 > 别忘了在页面的 serverSideTranslations 中添加 "about" 命名空间  
 > 这里使用的是 react 19.x.x 版本，但对于较低版本，你需要使用 useMemo 来存储格式化器的实例，因为它是一个开销较大的函数
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 **翻译（复用结构；根据需要加载到 next-intl 消息中）**
 
@@ -764,8 +764,8 @@ const ClientComponentExample = () => {
 
 > 不要忘记在页面客户端消息中添加 "about" 消息
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 **内容**
 
@@ -807,8 +807,8 @@ const ClientComponentExample = () => {
 };
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### 比较
 
@@ -831,8 +831,8 @@ const ClientComponentExample = () => {
 
 我们以一个 UI 组件为例。该组件是一个服务器组件，并且应该能够作为客户端组件的子组件插入。（页面（服务器组件）-> 客户端组件 -> 服务器组件）。由于该组件可以作为客户端组件的子组件插入，因此它不能是异步的。
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 ```tsx fileName="src/pages/about.tsx"
 import type { GetStaticProps } from "next";
@@ -855,8 +855,8 @@ const ServerComponent = ({ count }: ServerComponentProps) => {
 };
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 type ServerComponentProps = {
@@ -882,8 +882,8 @@ const ServerComponent = ({ t, count, formatter }: ServerComponentProps) => {
 > - `const t = await getTranslations("about.counter");`
 > - `const formatter = await getFormatter().then((formatter) => formatter.number());`
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 import { useIntlayer, useNumber } from "next-intlayer/server";
@@ -901,8 +901,8 @@ const ServerComponent = ({ count }: { count: number }) => {
 };
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 > Intlayer 通过 `next-intlayer/server` 提供了**服务器安全**的钩子。为了工作，`useIntlayer` 和 `useNumber` 使用类似钩子的语法，类似于客户端钩子，但在底层依赖于服务器上下文（`IntlayerServerProvider`）。
 
@@ -923,9 +923,9 @@ const ServerComponent = ({ count }: { count: number }) => {
 
 开发者经常忘记正确地在不同语言环境中引用他们的页面。
 
-<Tab defaultTab="next-intl" group='techno'>
+<Tabs defaultTab="next-intl" group='techno'>
  
-  <TabItem label="next-i18next" value="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -1024,8 +1024,8 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/app/[locale]/about/layout.tsx"
 import type { Metadata } from "next";
@@ -1117,8 +1117,8 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```typescript fileName="src/app/[locale]/about/layout.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";
@@ -1180,8 +1180,8 @@ const robots = (): MetadataRoute.Robots => ({
 export default robots;
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 > Intlayer 提供了一个 `getMultilingualUrls` 函数，用于为您的站点地图生成多语言 URL。
 

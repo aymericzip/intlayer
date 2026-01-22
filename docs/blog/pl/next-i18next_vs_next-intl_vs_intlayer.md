@@ -323,9 +323,9 @@ Ta część dokonuje dogłębnego porównania trzech rozwiązań. Zamiast rozwa�
 
 Struktura aplikacji jest ważna, aby zapewnić dobrą utrzymywalność Twojej bazy kodu.
 
-<Tab defaultTab="next-intl" group='techno'>
+<Tabs defaultTab="next-intl" group='techno'>
 
-  <TabItem label="next-i18next" value="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
 
 ```bash
 .
@@ -350,8 +350,8 @@ Struktura aplikacji jest ważna, aby zapewnić dobrą utrzymywalność Twojej ba
         └── ServerComponent.tsx
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```bash
 .
@@ -378,8 +378,8 @@ Struktura aplikacji jest ważna, aby zapewnić dobrą utrzymywalność Twojej ba
             └── index.tsx
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```bash
 .
@@ -398,8 +398,8 @@ Struktura aplikacji jest ważna, aby zapewnić dobrą utrzymywalność Twojej ba
             └── index.content.ts
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### Porównanie
 
@@ -411,8 +411,8 @@ Struktura aplikacji jest ważna, aby zapewnić dobrą utrzymywalność Twojej ba
 Jak wspomniano wcześniej, musisz zoptymalizować sposób importowania każdego pliku JSON do swojego kodu.
 Sposób, w jaki biblioteka obsługuje ładowanie zawartości, jest ważny.
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -582,8 +582,8 @@ export default async function AboutPage({
 }
 ```
 
-  </TabItem>
-   <TabItem label="next-intl" value="next-intl">
+  </Tab>
+   <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/i18n.ts"
 import { getRequestConfig } from "next-intl/server";
@@ -690,8 +690,8 @@ export default async function AboutPage({
 }
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```tsx fileName="intlayer.config.ts"
 import { type IntlayerConfig, Locales } from "intlayer";
@@ -757,8 +757,8 @@ const LandingPage: NextPageIntlayer = async ({ params }) => {
 export default LandingPage;
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### Porównanie
 
@@ -774,8 +774,8 @@ Wybierz między kontrolą eksplicytną a automatyzacją w zależności od prefer
 
 Weźmy przykład komponentu klienckiego renderującego licznik.
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 **Tłumaczenia (po jednym pliku JSON na namespace w `src/locales/...`)**
 
@@ -834,8 +834,8 @@ export default ClientComponent;
 > Upewnij się, że strona/dostawca zawiera tylko potrzebne przestrzenie nazw (np. `about`).
 > Jeśli używasz React < 19, zapamiętuj ciężkie formatery, takie jak `Intl.NumberFormat`.
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 **Tłumaczenia (zachowano strukturę; załaduj je do wiadomości next-intl według własnego uznania)**
 
@@ -887,8 +887,8 @@ const ClientComponentExample = () => {
 
 > Nie zapomnij dodać komunikatu "about" na stronie klienta
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 **Zawartość**
 
@@ -930,8 +930,8 @@ const ClientComponentExample = () => {
 };
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### Porównanie
 
@@ -954,8 +954,8 @@ const ClientComponentExample = () => {
 
 Weźmiemy pod uwagę przypadek komponentu UI. Ten komponent jest komponentem serwerowym i powinien mieć możliwość bycia wstawionym jako dziecko komponentu klienta. (strona (komponent serwerowy) -> komponent klienta -> komponent serwerowy). Ponieważ ten komponent może być wstawiony jako dziecko komponentu klienta, nie może być asynchroniczny.
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 type ServerComponentProps = {
@@ -978,8 +978,8 @@ const ServerComponent = ({ t, locale, count }: ServerComponentProps) => {
 export default ServerComponent;
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 type ServerComponentProps = {
@@ -1016,8 +1016,8 @@ export default ServerComponent;
 > - `const t = await getTranslations("about.counter");`
 > - `const formatter = await getFormatter().then((formatter) => formatter.number());`
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 import { useIntlayer, useNumber } from "next-intlayer/server";
@@ -1039,8 +1039,8 @@ const ServerComponent = ({ count }: ServerComponentProps) => {
 };
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 > Intlayer udostępnia **bezpieczne dla serwera** hooki za pośrednictwem `next-intlayer/server`. Aby działały, `useIntlayer` i `useNumber` używają składni podobnej do hooków klienta, ale pod spodem zależą od kontekstu serwera (`IntlayerServerProvider`).
 
@@ -1061,9 +1061,9 @@ Oto lista dobrych praktyk dotyczących wielojęzycznego SEO.
 
 Programiści często zapominają o prawidłowym referencjonowaniu swoich stron w różnych lokalizacjach.
 
-<Tab defaultTab="next-intl" group='techno'>
+<Tabs defaultTab="next-intl" group='techno'>
  
-  <TabItem label="next-i18next" value="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -1165,8 +1165,8 @@ export const robots = (): MetadataRoute.Robots => {
 };
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/app/[locale]/about/layout.tsx"
 import type { Metadata } from "next";
@@ -1260,8 +1260,8 @@ export const robots = (): MetadataRoute.Robots => {
 };
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```typescript fileName="src/app/[locale]/about/layout.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";
@@ -1323,15 +1323,15 @@ const robots = (): MetadataRoute.Robots => ({
 export default robots;
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 > Intlayer dostarcza funkcję `getMultilingualUrls` do generowania wielojęzycznych adresów URL dla Twojej mapy witryny.
 
 ### Middleware do routingu lokalizacji
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 Dodaj middleware do obsługi wykrywania lokalizacji i routingu:
 
@@ -1372,8 +1372,8 @@ export const config = {
 };
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 Dodaj middleware do obsługi wykrywania i routingu lokalizacji:
 
@@ -1393,8 +1393,8 @@ export const config = {
 };
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 Intlayer zapewnia wbudowane zarządzanie middleware za pomocą konfiguracji pakietu `next-intlayer`.
 
@@ -1411,13 +1411,13 @@ export const config = {
 
 Konfiguracja middleware jest scentralizowana w pliku `intlayer.config.ts`.
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 ### Lista kontrolna konfiguracji i dobre praktyki
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 - Upewnij się, że `lang` i `dir` są ustawione na głównym elemencie `<html>` w `src/app/[locale]/layout.tsx`.
 - Podziel tłumaczenia na przestrzenie nazw (na przykład `common.json`, `about.json`) w katalogu `src/locales/<locale>/`.
@@ -1427,8 +1427,8 @@ Konfiguracja middleware jest scentralizowana w pliku `intlayer.config.ts`.
 - Dla SEO ustaw `alternates.languages` w metadanych, wymień lokalizowane adresy URL w `sitemap.ts` i zabroń duplikowania lokalizowanych tras w `robots.ts`.
 - Preferuj formatery uwzględniające lokalizację (np. `Intl.NumberFormat(locale)`) i zapamiętuj je po stronie klienta, jeśli używasz React < 19.
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 - **Ustaw atrybuty html `lang` i `dir`**: W pliku `src/app/[locale]/layout.tsx` oblicz `dir` za pomocą `getLocaleDirection(locale)` i ustaw `<html lang={locale} dir={dir}>`.
 - **Podziel wiadomości na przestrzenie nazw**: Organizuj pliki JSON według lokalizacji i przestrzeni nazw (np. `common.json`, `about.json`).
@@ -1436,16 +1436,16 @@ Konfiguracja middleware jest scentralizowana w pliku `intlayer.config.ts`.
 - **Preferuj strony statyczne**: Eksportuj `export const dynamic = 'force-static'` i generuj statyczne parametry dla wszystkich `locales`.
 - **Synchroniczne komponenty serwerowe**: Utrzymuj komponenty serwerowe synchroniczne, przekazując wcześniej obliczone ciągi znaków (przetłumaczone etykiety, sformatowane liczby) zamiast wywołań asynchronicznych lub funkcji nieserializowalnych.
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 - **Modularna zawartość**: Umieszczaj słowniki zawartości razem z komponentami, korzystając z plików `.content.{ts|js|json}`.
 - **Bezpieczeństwo typów**: Wykorzystaj integrację z TypeScript do walidacji zawartości na etapie kompilacji.
 - **Optymalizacja w czasie budowania**: Używaj narzędzi Intlayer do automatycznego tree-shakingu i optymalizacji pakietu.
 - **Zintegrowane narzędzia**: Wykorzystaj wbudowane routowanie, pomocników SEO oraz wsparcie edytora wizualnego.
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 ---
 

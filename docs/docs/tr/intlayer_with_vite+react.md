@@ -47,13 +47,13 @@ Intlayer ile şunları yapabilirsiniz:
 
 ## Vite ve React Uygulamasında Intlayer Kurulumu İçin Adım Adım Kılavuz
 
-<Tab defaultTab="video">
-  <TabItem label="Video" value="video">
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
   
 <iframe title="Vite ve React için en iyi i18n çözümü? Intlayer'ı keşfedin" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
 
-  </TabItem>
-  <TabItem label="Code" value="code">
+  </Tab>
+  <Tab label="Code" value="code">
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-vite-react-template?embed=1&ctl=1&file=intlayer.config.ts"
@@ -63,8 +63,8 @@ Intlayer ile şunları yapabilirsiniz:
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 GitHub'da [Uygulama Şablonu](https://github.com/aymericzip/intlayer-vite-react-template)'na bakın.
 

@@ -338,9 +338,9 @@ Esta parte faz uma comparação profunda entre as três soluções. Em vez de co
 
 A estrutura do aplicativo é importante para garantir uma boa manutenção da sua base de código.
 
-<Tab defaultTab="next-intl" group='techno'>
+<Tabs defaultTab="next-intl" group='techno'>
 
-  <TabItem label="next-i18next" value="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
 
 ```bash
 .
@@ -365,8 +365,8 @@ A estrutura do aplicativo é importante para garantir uma boa manutenção da su
         └── ServerComponent.tsx
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```bash
 .
@@ -393,8 +393,8 @@ A estrutura do aplicativo é importante para garantir uma boa manutenção da su
             └── index.tsx
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```bash
 .
@@ -413,8 +413,8 @@ A estrutura do aplicativo é importante para garantir uma boa manutenção da su
             └── index.content.ts
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### Comparação
 
@@ -426,8 +426,8 @@ A estrutura do aplicativo é importante para garantir uma boa manutenção da su
 Como mencionado anteriormente, você deve otimizar a forma como cada arquivo JSON é importado no seu código.
 A forma como a biblioteca lida com o carregamento de conteúdo é importante.
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 ```tsx fileName="next-i18next.config.js"
 module.exports = {
@@ -491,8 +491,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 };
 ```
 
-  </TabItem>
-   <TabItem label="next-intl" value="next-intl">
+  </Tab>
+   <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="i18n.ts"
 import { getRequestConfig } from "next-intl/server";
@@ -570,8 +570,8 @@ export default async function LandingPage({
 }
 ```
 
-  </TabItem>
-<TabItem label="intlayer" value="intlayer">
+  </Tab>
+<Tab label="intlayer" value="intlayer">
 
 ```tsx fileName="intlayer.config.ts"
 export default {
@@ -631,8 +631,8 @@ const LandingPage: NextPageIntlayer = async ({ params }) => {
 export default LandingPage;
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### Comparação
 
@@ -648,8 +648,8 @@ Escolha entre controle explícito e automação com base na preferência da equi
 
 Vamos pegar um exemplo de um componente cliente que renderiza um contador.
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 **Traduções (devem ser JSON reais em `public/locales/...`)**
 
@@ -703,8 +703,8 @@ const ClientComponentExample = () => {
 > Não se esqueça de adicionar o namespace "about" na função serverSideTranslations da página  
 > Aqui usamos a versão do React 19.x.x, mas para versões inferiores, será necessário usar useMemo para armazenar a instância do formatador, pois é uma função pesada
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 **Traduções (mesma estrutura; carregue-as nas mensagens do next-intl conforme preferir)**
 
@@ -756,8 +756,8 @@ const ClientComponentExample = () => {
 
 > Não esqueça de adicionar a mensagem "about" na mensagem do cliente da página
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 **Conteúdo**
 
@@ -799,8 +799,8 @@ const ClientComponentExample = () => {
 };
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### Comparação
 
@@ -823,8 +823,8 @@ const ClientComponentExample = () => {
 
 Vamos considerar o caso de um componente de interface do usuário (UI). Este componente é um componente de servidor e deve ser capaz de ser inserido como filho de um componente cliente. (página (componente de servidor) -> componente cliente -> componente de servidor). Como este componente pode ser inserido como filho de um componente cliente, ele não pode ser assíncrono.
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 ```tsx fileName="src/pages/about.tsx"
 import type { GetStaticProps } from "next";
@@ -847,8 +847,8 @@ const ServerComponent = ({ count }: ServerComponentProps) => {
 };
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 type ServerComponentProps = {
@@ -874,8 +874,8 @@ const ServerComponent = ({ t, count, formatter }: ServerComponentProps) => {
 > - `const t = await getTranslations("about.counter");`
 > - `const formatter = await getFormatter().then((formatter) => formatter.number());`
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 import { useIntlayer, useNumber } from "next-intlayer/server";
@@ -893,8 +893,8 @@ const ServerComponent = ({ count }: { count: number }) => {
 };
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 > O Intlayer expõe hooks **seguros para o servidor** via `next-intlayer/server`. Para funcionar, `useIntlayer` e `useNumber` usam uma sintaxe semelhante a hooks, parecida com os hooks do cliente, mas dependem, nos bastidores, do contexto do servidor (`IntlayerServerProvider`).
 
@@ -915,9 +915,9 @@ Aqui está uma lista de boas práticas relacionadas ao SEO multilíngue.
 
 Os desenvolvedores frequentemente esquecem de referenciar corretamente suas páginas entre os diferentes locais.
 
-<Tab defaultTab="next-intl" group='techno'>
+<Tabs defaultTab="next-intl" group='techno'>
  
-  <TabItem label="next-i18next" value="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -1016,8 +1016,8 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/app/[locale]/about/layout.tsx"
 import type { Metadata } from "next";
@@ -1106,8 +1106,8 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```typescript fileName="src/app/[locale]/about/layout.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";
@@ -1170,8 +1170,8 @@ const robots = (): MetadataRoute.Robots => ({
 export default robots;
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 > Intlayer fornece uma função `getMultilingualUrls` para gerar URLs multilíngues para seu sitemap.
 

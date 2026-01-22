@@ -46,13 +46,13 @@ history:
 
 ## 在 Nuxt 应用中设置 Intlayer 的分步指南
 
-<Tab defaultTab="video">
-  <TabItem label="视频" value="video">
+<Tabs defaultTab="video">
+  <Tab label="视频" value="video">
   
 <iframe title="如何使用 Intlayer 翻译你的 Nuxt 和 Vue 应用？探索 Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/nhUcUAVQ6eQ?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-  </TabItem>
-  <TabItem label="代码" value="code">
+  </Tab>
+  <Tab label="代码" value="code">
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-nuxt-4-template?embed=1&ctl=1&file=intlayer.config.ts"
@@ -62,8 +62,8 @@ history:
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 ### 第一步：安装依赖
 

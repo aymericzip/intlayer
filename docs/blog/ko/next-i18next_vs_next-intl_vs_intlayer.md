@@ -338,9 +338,9 @@ Next.js는 국제화된 라우팅(예: 로케일 세그먼트)을 기본적으�
 
 앱 구조는 코드베이스의 유지보수성을 보장하는 데 중요합니다.
 
-<Tab defaultTab="next-intl" group='techno'>
+<Tabs defaultTab="next-intl" group='techno'>
 
-  <TabItem label="next-i18next" value="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
 
 ```bash
 .
@@ -365,8 +365,8 @@ Next.js는 국제화된 라우팅(예: 로케일 세그먼트)을 기본적으�
         └── ServerComponent.tsx
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```bash
 .
@@ -393,8 +393,8 @@ Next.js는 국제화된 라우팅(예: 로케일 세그먼트)을 기본적으�
             └── index.tsx
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```bash
 .
@@ -413,8 +413,8 @@ Next.js는 국제화된 라우팅(예: 로케일 세그먼트)을 기본적으�
             └── index.content.ts
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### 비교
 
@@ -426,8 +426,8 @@ Next.js는 국제화된 라우팅(예: 로케일 세그먼트)을 기본적으�
 앞서 언급했듯이, 각 JSON 파일이 코드에 어떻게 임포트되는지 최적화해야 합니다.
 라이브러리가 콘텐츠 로딩을 처리하는 방식이 중요합니다.
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 ```tsx fileName="next-i18next.config.js"
 module.exports = {
@@ -491,8 +491,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 };
 ```
 
-  </TabItem>
-   <TabItem label="next-intl" value="next-intl">
+  </Tab>
+   <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="i18n.ts"
 import { getRequestConfig } from "next-intl/server";
@@ -570,8 +570,8 @@ export default async function LandingPage({
 }
 ```
 
-  </TabItem>
-<TabItem label="intlayer" value="intlayer">
+  </Tab>
+<Tab label="intlayer" value="intlayer">
 
 ```tsx fileName="intlayer.config.ts"
 export default {
@@ -631,8 +631,8 @@ const LandingPage: NextPageIntlayer = async ({ params }) => {
 export default LandingPage;
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### 비교
 
@@ -648,8 +648,8 @@ export default LandingPage;
 
 카운터를 렌더링하는 클라이언트 컴포넌트 예제를 살펴보겠습니다.
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 **번역 (실제 JSON이어야 하며 `public/locales/...`에 위치해야 합니다)**
 
@@ -703,8 +703,8 @@ const ClientComponentExample = () => {
 > 페이지 serverSideTranslations에 "about" 네임스페이스를 추가하는 것을 잊지 마세요  
 > 여기서는 react 19.x.x 버전을 사용하지만, 하위 버전에서는 useMemo를 사용하여 포매터 인스턴스를 저장해야 합니다. 이는 무거운 함수이기 때문입니다.
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 **번역 (형식 재사용; 원하는 대로 next-intl 메시지에 로드하세요)**
 
@@ -756,8 +756,8 @@ const ClientComponentExample = () => {
 
 > 페이지 클라이언트 메시지에 "about" 메시지를 추가하는 것을 잊지 마세요
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 **내용**
 
@@ -799,8 +799,8 @@ const ClientComponentExample = () => {
 };
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### 비교
 
@@ -823,8 +823,8 @@ const ClientComponentExample = () => {
 
 UI 컴포넌트의 경우를 살펴보겠습니다. 이 컴포넌트는 서버 컴포넌트이며, 클라이언트 컴포넌트의 자식으로 삽입될 수 있어야 합니다. (페이지 (서버 컴포넌트) -> 클라이언트 컴포넌트 -> 서버 컴포넌트). 이 컴포넌트가 클라이언트 컴포넌트의 자식으로 삽입될 수 있으므로 비동기(async)일 수 없습니다.
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 ```tsx fileName="src/pages/about.tsx"
 import type { GetStaticProps } from "next";
@@ -847,8 +847,8 @@ const ServerComponent = ({ count }: ServerComponentProps) => {
 };
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 type ServerComponentProps = {
@@ -874,8 +874,8 @@ const ServerComponent = ({ t, count, formatter }: ServerComponentProps) => {
 > - `const t = await getTranslations("about.counter");`
 > - `const formatter = await getFormatter().then((formatter) => formatter.number());`
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 import { useIntlayer, useNumber } from "next-intlayer/server";
@@ -893,8 +893,8 @@ const ServerComponent = ({ count }: { count: number }) => {
 };
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 > Intlayer는 `next-intlayer/server`를 통해 **서버 안전** 훅을 제공합니다. 작동을 위해 `useIntlayer`와 `useNumber`는 클라이언트 훅과 유사한 훅 형태의 문법을 사용하지만, 내부적으로는 서버 컨텍스트(`IntlayerServerProvider`)에 의존합니다.
 
@@ -915,9 +915,9 @@ const ServerComponent = ({ count }: { count: number }) => {
 
 개발자들은 종종 여러 로케일에 걸쳐 페이지를 올바르게 참조하는 것을 잊어버립니다.
 
-<Tab defaultTab="next-intl" group='techno'>
+<Tabs defaultTab="next-intl" group='techno'>
  
-  <TabItem label="next-i18next" value="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -1016,8 +1016,8 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/app/[locale]/about/layout.tsx"
 import type { Metadata } from "next";
@@ -1106,8 +1106,8 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```typescript fileName="src/app/[locale]/about/layout.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";
@@ -1169,8 +1169,8 @@ const robots = (): MetadataRoute.Robots => ({
 export default robots;
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 > Intlayer는 사이트맵을 위해 다국어 URL을 생성하는 `getMultilingualUrls` 함수를 제공합니다.
 

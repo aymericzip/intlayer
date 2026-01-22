@@ -47,13 +47,13 @@ history:
 
 ## Пошаговое руководство по настройке Intlayer в приложении на Vite и React
 
-<Tab defaultTab="video">
-  <TabItem label="Видео" value="video">
+<Tabs defaultTab="video">
+  <Tab label="Видео" value="video">
   
 <iframe title="Лучшee решение для i18n в Vite и React? Откройте для себя Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
 
-  </TabItem>
-  <TabItem label="Код" value="code">
+  </Tab>
+  <Tab label="Код" value="code">
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-vite-react-template?embed=1&ctl=1&file=intlayer.config.ts"
@@ -63,8 +63,8 @@ history:
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 Смотрите [Application Template](https://github.com/aymericzip/intlayer-vite-react-template) на GitHub.
 

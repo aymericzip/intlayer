@@ -46,13 +46,13 @@ Intlayer를 사용하면 다음을 할 수 있습니다:
 
 ## Nuxt 애플리케이션에서 Intlayer 설정 단계별 가이드
 
-<Tab defaultTab="video">
-  <TabItem label="비디오" value="video">
+<Tabs defaultTab="video">
+  <Tab label="비디오" value="video">
   
 <iframe title="Intlayer를 사용하여 Nuxt 및 Vue 앱을 번역하는 방법? Intlayer 알아보기" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/nhUcUAVQ6eQ?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-  </TabItem>
-  <TabItem label="코드" value="code">
+  </Tab>
+  <Tab label="코드" value="code">
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-nuxt-4-template?embed=1&ctl=1&file=intlayer.config.ts"
@@ -62,8 +62,8 @@ Intlayer를 사용하면 다음을 할 수 있습니다:
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-nuxt-4-template)을 확인하세요.
 

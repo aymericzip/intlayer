@@ -346,9 +346,9 @@ Next.jsは国際化されたルーティング（例：ロケールセグメン�
 
 アプリの構造は、コードベースの良好な保守性を確保するために重要です。
 
-<Tab defaultTab="next-intl" group='techno'>
+<Tabs defaultTab="next-intl" group='techno'>
 
-  <TabItem label="next-i18next" value="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
 
 ```bash
 .
@@ -373,8 +373,8 @@ Next.jsは国際化されたルーティング（例：ロケールセグメン�
         └── ServerComponent.tsx
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```bash
 .
@@ -401,8 +401,8 @@ Next.jsは国際化されたルーティング（例：ロケールセグメン�
             └── index.tsx
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```bash
 .
@@ -421,8 +421,8 @@ Next.jsは国際化されたルーティング（例：ロケールセグメン�
             └── index.content.ts
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### 比較
 
@@ -434,8 +434,8 @@ Next.jsは国際化されたルーティング（例：ロケールセグメン�
 前述のように、各JSONファイルのインポート方法を最適化する必要があります。  
 ライブラリがコンテンツの読み込みをどのように処理するかが重要です。
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 ```tsx fileName="next-i18next.config.js"
 module.exports = {
@@ -499,8 +499,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 };
 ```
 
-  </TabItem>
-   <TabItem label="next-intl" value="next-intl">
+  </Tab>
+   <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="i18n.ts"
 import { getRequestConfig } from "next-intl/server";
@@ -578,8 +578,8 @@ export default async function LandingPage({
 }
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```tsx fileName="intlayer.config.ts"
 export default {
@@ -639,8 +639,8 @@ const LandingPage: NextPageIntlayer = async ({ params }) => {
 export default LandingPage;
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### 比較
 
@@ -656,8 +656,8 @@ export default LandingPage;
 
 カウンターをレンダリングするクライアントコンポーネントの例を見てみましょう。
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 **翻訳（`public/locales/...` に実際のJSONファイルが必要です）**
 
@@ -711,8 +711,8 @@ const ClientComponentExample = () => {
 > ページの serverSideTranslations に "about" ネームスペースを追加するのを忘れないでください
 > ここでは React 19.x.x のバージョンを使用していますが、より低いバージョンの場合は、重い関数であるためフォーマッターのインスタンスを保持するために useMemo を使用する必要があります
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 **翻訳（形状は再利用可能；お好みで next-intl のメッセージにロードしてください）**
 
@@ -764,8 +764,8 @@ const ClientComponentExample = () => {
 
 > ページのクライアントメッセージに "about" メッセージを追加するのを忘れないでください
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 **コンテンツ**
 
@@ -807,8 +807,8 @@ const ClientComponentExample = () => {
 };
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### 比較
 
@@ -831,8 +831,8 @@ const ClientComponentExample = () => {
 
 UIコンポーネントの場合を考えます。このコンポーネントはサーバーコンポーネントであり、クライアントコンポーネントの子として挿入できる必要があります。（ページ（サーバーコンポーネント） -> クライアントコンポーネント -> サーバーコンポーネント）。このコンポーネントはクライアントコンポーネントの子として挿入できるため、非同期にはできません。
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 ```tsx fileName="src/pages/about.tsx"
 import type { GetStaticProps } from "next";
@@ -855,8 +855,8 @@ const ServerComponent = ({ count }: ServerComponentProps) => {
 };
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 type ServerComponentProps = {
@@ -882,8 +882,8 @@ const ServerComponent = ({ t, count, formatter }: ServerComponentProps) => {
 > - `const t = await getTranslations("about.counter");`
 > - `const formatter = await getFormatter().then((formatter) => formatter.number());`
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 import { useIntlayer, useNumber } from "next-intlayer/server";
@@ -901,8 +901,8 @@ const ServerComponent = ({ count }: { count: number }) => {
 };
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 > Intlayerは`next-intlayer/server`を通じて**サーバーセーフ**なフックを提供します。動作するために、`useIntlayer`と`useNumber`はクライアントフックに似たフックのような構文を使用しますが、内部的にはサーバーコンテキスト（`IntlayerServerProvider`）に依存しています。
 
@@ -923,9 +923,9 @@ const ServerComponent = ({ count }: { count: number }) => {
 
 開発者はしばしばロケール間でページを適切に参照することを忘れがちです。
 
-<Tab defaultTab="next-intl" group='techno'>
+<Tabs defaultTab="next-intl" group='techno'>
  
-  <TabItem label="next-i18next" value="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -1024,8 +1024,8 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/app/[locale]/about/layout.tsx"
 import type { Metadata } from "next";
@@ -1114,8 +1114,8 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```typescript fileName="src/app/[locale]/about/layout.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";
@@ -1177,8 +1177,8 @@ const robots = (): MetadataRoute.Robots => ({
 export default robots;
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 > Intlayerは、サイトマップ用の多言語URLを生成するための`getMultilingualUrls`関数を提供しています。
 

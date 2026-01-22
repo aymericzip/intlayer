@@ -71,13 +71,13 @@ Dengan Intlayer, Anda dapat:
 
 ## Panduan Langkah demi Langkah untuk Mengatur Intlayer di Aplikasi Next.js
 
-<Tab defaultTab="video">
-  <TabItem label="Video" value="video">
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
 
 <iframe title="Solusi i18n terbaik untuk Next.js? Temukan Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-  </TabItem>
-  <TabItem label="Kode" value="code">
+  </Tab>
+  <Tab label="Kode" value="code">
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-next-15-template?embed=1&ctl=1&file=intlayer.config.ts"
@@ -87,8 +87,8 @@ Dengan Intlayer, Anda dapat:
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 Lihat [Application Template](https://github.com/aymericzip/intlayer-next-15-template) di GitHub.
 

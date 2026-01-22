@@ -25,13 +25,13 @@ history:
 
 # Next.js 16 ウェブサイトを翻訳する（ページパスに [locale] を含めない） — Intlayer を使った国際化 (i18n)
 
-<Tab defaultTab="video">
-  <TabItem label="動画" value="video">
+<Tabs defaultTab="video">
+  <Tab label="動画" value="video">
   
 <iframe title="Next.js に最適な i18n ソリューション？Intlayer をご紹介" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-  </TabItem>
-  <TabItem label="コード" value="code">
+  </Tab>
+  <Tab label="コード" value="code">
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-next-16-no-locale-path-template?embed=1&ctl=1&file=intlayer.config.ts"
@@ -41,8 +41,8 @@ history:
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 GitHub の [アプリケーションテンプレート](https://github.com/aymericzip/intlayer-next-no-lolale-path-template) を参照してください。
 

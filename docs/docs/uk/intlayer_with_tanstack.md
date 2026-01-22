@@ -66,13 +66,13 @@ history:
 
 ## Покроковий посібник з налаштування Intlayer у застосунку Tanstack Start
 
-<Tab defaultTab="video">
-  <TabItem label="Відео" value="video">
+<Tabs defaultTab="video">
+  <Tab label="Відео" value="video">
   
 <iframe title="Найкраще i18n-рішення для Tanstack Start? Дізнайтеся про Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/_XTdKVWaeqg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-  </TabItem>
-  <TabItem label="Код" value="code">
+  </Tab>
+  <Tab label="Код" value="code">
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-tanstack-start-template?embed=1&ctl=1&file=intlayer.config.ts"
@@ -82,8 +82,8 @@ history:
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 Перегляньте [Шаблон додатка](https://github.com/aymericzip/intlayer-tanstack-start-template) на GitHub.
 

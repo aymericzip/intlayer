@@ -47,13 +47,13 @@ Dengan Intlayer, Anda dapat:
 
 ## Panduan Langkah demi Langkah untuk Mengatur Intlayer dalam Aplikasi Vite dan React
 
-<Tab defaultTab="video">
-  <TabItem label="Video" value="video">
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
   
 <iframe title="Solusi i18n terbaik untuk Vite dan React? Temukan Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
 
-  </TabItem>
-  <TabItem label="Kode" value="code">
+  </Tab>
+  <Tab label="Kode" value="code">
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-vite-react-template?embed=1&ctl=1&file=intlayer.config.ts"
@@ -63,8 +63,8 @@ Dengan Intlayer, Anda dapat:
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 Lihat [Application Template](https://github.com/aymericzip/intlayer-vite-react-template) di GitHub.
 

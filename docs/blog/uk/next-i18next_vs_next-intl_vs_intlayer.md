@@ -323,9 +323,9 @@ Next.js надає вбудовану підтримку інтернаціон�
 
 Структура додатку важлива для забезпечення доброї підтримуваності вашого codebase.
 
-<Tab defaultTab="next-intl" group='techno'>
+<Tabs defaultTab="next-intl" group='techno'>
 
-  <TabItem label="next-i18next" value="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
 
 ```bash
 .
@@ -350,8 +350,8 @@ Next.js надає вбудовану підтримку інтернаціон�
         └── ServerComponent.tsx
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```bash
 .
@@ -378,8 +378,8 @@ Next.js надає вбудовану підтримку інтернаціон�
             └── index.tsx
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```bash
 .
@@ -398,8 +398,8 @@ Next.js надає вбудовану підтримку інтернаціон�
             └── index.content.ts
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### Порівняння
 
@@ -411,8 +411,8 @@ Next.js надає вбудовану підтримку інтернаціон�
 Як зазначалося раніше, потрібно оптимізувати спосіб імпортування кожного JSON-файлу у ваш код.
 Важливо, як бібліотека обробляє завантаження контенту.
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -580,8 +580,8 @@ export default async function AboutPage({
 }
 ```
 
-  </TabItem>
-   <TabItem label="next-intl" value="next-intl">
+  </Tab>
+   <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/i18n.ts"
 import { getRequestConfig } from "next-intl/server";
@@ -688,8 +688,8 @@ export default async function AboutPage({
 }
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```tsx fileName="intlayer.config.ts"
 import { type IntlayerConfig, Locales } from "intlayer";
@@ -755,8 +755,8 @@ const LandingPage: NextPageIntlayer = async ({ params }) => {
 export default LandingPage;
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### Порівняння
 
@@ -772,8 +772,8 @@ export default LandingPage;
 
 Розглянемо приклад клієнтського компонента, що рендерить лічильник.
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 **Переклади (по одному JSON на простір імен у `src/locales/...`)**
 
@@ -832,8 +832,8 @@ export default ClientComponent;
 > Переконайтеся, що сторінка/провайдер включає лише ті namespaces, які вам потрібні (наприклад, `about`).
 > Якщо ви використовуєте React < 19, memoize важкі форматери, такі як `Intl.NumberFormat`.
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 **Переклади (структура збережена; завантажуйте їх у messages next-intl як вам зручніше)**
 
@@ -885,8 +885,8 @@ const ClientComponentExample = () => {
 
 > Не забудьте додати повідомлення "about" у клієнтські повідомлення сторінки
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 **Контент**
 
@@ -928,8 +928,8 @@ const ClientComponentExample = () => {
 };
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### Порівняння
 
@@ -952,8 +952,8 @@ const ClientComponentExample = () => {
 
 Розглянемо випадок UI-компонента. Цей компонент — server component, і він повинен мати можливість бути вставленим як дочірній елемент client component. (page (server component) -> client component -> server component). Оскільки цей компонент може бути вставлений як дочірній елемент client component, він не може бути async.
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 type ServerComponentProps = {
@@ -976,8 +976,8 @@ const ServerComponent = ({ t, locale, count }: ServerComponentProps) => {
 export default ServerComponent;
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 type ServerComponentProps = {
@@ -1014,8 +1014,8 @@ export default ServerComponent;
 > - `const t = await getTranslations("about.counter");`
 > - `const formatter = await getFormatter().then((formatter) => formatter.number());`
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 import { useIntlayer, useNumber } from "next-intlayer/server";
@@ -1037,8 +1037,8 @@ const ServerComponent = ({ count }: ServerComponentProps) => {
 };
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 > Intlayer надає **безпечні для сервера** хуки через `next-intlayer/server`. Для роботи `useIntlayer` і `useNumber` використовують синтаксис, схожий на клієнтські хуки, але під капотом залежать від серверного контексту (`IntlayerServerProvider`).
 
@@ -1059,9 +1059,9 @@ const ServerComponent = ({ count }: ServerComponentProps) => {
 
 Розробники часто забувають правильно посилатися на свої сторінки в різних локалях.
 
-<Tab defaultTab="next-intl" group='techno'>
+<Tabs defaultTab="next-intl" group='techno'>
  
-  <TabItem label="next-i18next" value="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -1163,8 +1163,8 @@ export const robots = (): MetadataRoute.Robots => {
 };
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/app/[locale]/about/layout.tsx"
 import type { Metadata } from "next";
@@ -1257,8 +1257,8 @@ export const robots = (): MetadataRoute.Robots => {
 };
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```typescript fileName="src/app/[locale]/about/layout.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";
@@ -1321,15 +1321,15 @@ const robots = (): MetadataRoute.Robots => ({
 export default robots;
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 > Intlayer надає функцію `getMultilingualUrls` для генерації багатомовних URL-адрес для вашого sitemap.
 
 ### Middleware для маршрутизації локалі
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 Додайте middleware для обробки визначення локалі та маршрутизації:
 
@@ -1370,8 +1370,8 @@ export const config = {
 };
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 Додайте middleware для визначення локалі та маршрутизації:
 
@@ -1391,8 +1391,8 @@ export const config = {
 };
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 Intlayer забезпечує вбудовану підтримку middleware через конфігурацію пакета `next-intlayer`.
 
@@ -1409,13 +1409,13 @@ export const config = {
 
 Налаштування middleware централізовано в файлі `intlayer.config.ts`.
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 ### Контрольний список налаштувань та найкращі практики
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 - Переконайтеся, що `lang` і `dir` встановлені на кореневому `<html>` у `src/app/[locale]/layout.tsx`.
 - Розділяйте переклади за просторами імен (наприклад `common.json`, `about.json`) у `src/locales/<locale>/`.
@@ -1425,8 +1425,8 @@ export const config = {
 - Для SEO встановіть `alternates.languages` у metadata, перелічіть локалізовані URL у `sitemap.ts` та забороніть дублювання локалізованих маршрутів у `robots.ts`.
 - Віддавайте перевагу форматувальникам, що враховують локаль (наприклад, `Intl.NumberFormat(locale)`), і мемоізуйте їх на клієнті, якщо використовуєте React < 19.
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 - **Встановіть html `lang` і `dir`**: У `src/app/[locale]/layout.tsx` обчисліть `dir` за допомогою `getLocaleDirection(locale)` і встановіть `<html lang={locale} dir={dir}>`.
 - **Розділяйте повідомлення за namespace**: Організуйте JSON за локаллю та namespace (наприклад, `common.json`, `about.json`).
@@ -1434,16 +1434,16 @@ export const config = {
 - **Віддавайте перевагу статичним сторінкам**: Експортуйте `export const dynamic = 'force-static'` і згенеруйте статичні params для всіх `locales`.
 - **Синхронні серверні компоненти**: Тримайте серверні компоненти синхронними, передаючи попередньо обчислені рядки (перекладені підписи, відформатовані числа) замість асинхронних викликів або несеріалізованих функцій.
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 - **Модульний контент**: Розміщуйте словники контенту разом з компонентами, використовуючи файли `.content.{ts|js|json}`.
 - **Безпека типів**: Використовуйте інтеграцію з TypeScript для перевірки контенту під час компіляції.
 - **Оптимізація під час збірки**: Використовуйте інструменти збірки Intlayer для автоматичного tree-shaking та оптимізації бандлів.
 - **Вбудовані інструменти**: Скористайтеся вбудованим роутингом, допоміжними інструментами для SEO та підтримкою візуального редактора.
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 ---
 
