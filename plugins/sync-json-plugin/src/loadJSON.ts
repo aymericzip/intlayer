@@ -45,12 +45,18 @@ const listMessages = (
   const result: MessagesRecord = {} as MessagesRecord;
 
   for (const file of files) {
-    const { key, locale } = extractKeyAndLocaleFromPath(
+    const extraction = extractKeyAndLocaleFromPath(
       file,
       maskPattern,
       locales,
       selectedLocale
     );
+
+    if (!extraction) {
+      continue;
+    }
+
+    const { key, locale } = extraction;
 
     const absolutePath = isAbsolute(file) ? file : resolve(baseDir, file);
 

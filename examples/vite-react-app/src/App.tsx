@@ -14,7 +14,6 @@ import HelloWorld from './Test';
 
 const AppContent: FC = () => {
   const [count, setCount] = useState(0);
-  const [activeTab, setActiveTab] = useState<'source' | 'rendered'>('rendered');
   const content = useIntlayer('app');
 
   return (
