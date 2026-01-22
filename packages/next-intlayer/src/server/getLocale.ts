@@ -4,6 +4,24 @@ import { type Locale, Locales } from '@intlayer/types';
 import { cookies, headers } from 'next/headers.js';
 
 // Helper function to extract locale from headers/cookies
+/**
+ * Helper function to extract the current locale from Next.js headers and cookies.
+ *
+ * This function is designed to be used in Server Components, Server Actions, or Route Handlers
+ * to determine the locale preferred by the user or stored in their preferences.
+ *
+ * @returns A promise that resolves to the detected `Locale`.
+ *
+ * @example
+ * ```tsx
+ * import { getLocale } from 'next-intlayer/server';
+ *
+ * export default async function MyServerComponent() {
+ *   const locale = await getLocale();
+ *   // ...
+ * }
+ * ```
+ */
 export const getLocale = async (): Promise<Locale> => {
   const defaultLocale =
     configuration?.internationalization?.defaultLocale ?? Locales.ENGLISH;

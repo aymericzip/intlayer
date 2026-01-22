@@ -6,11 +6,13 @@ import { createElement, type FC, type ReactNode } from 'react';
 import { ContentSelectorRenderer } from '../editor';
 import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';
 import { useHTMLContext } from './HTMLProvider';
+import type { ReactComponentProps, ReactHTMLComponent } from './types';
 
-type HTMLTagComponent = (props: {
-  children?: ReactNode;
-  [key: string]: any;
-}) => ReactNode;
+/**
+ * Type for React HTML tag components.
+ * Props include children as ReactNode and any other HTML attributes.
+ */
+type HTMLTagComponent = ReactHTMLComponent;
 
 const createDefaultHTMLComponents = (): Record<string, HTMLTagComponent> => {
   const components: Record<string, HTMLTagComponent> = {};
@@ -59,10 +61,12 @@ export const HTMLRendererPlugin: FC<HTMLRendererPluginProps> = (
   // This is important because it allows React to handle the component's lifecycle,
   // hooks, and Babel-injected variables correctly.
   const wrappedComponents = Object.fromEntries(
-    Object.entries(mergedComponents).map(([key, Component]) => [
-      key,
-      (props: any) => createElement(Component, props),
-    ])
+    Object.entries(mergedComponents)
+      .filter(([, Component]) => Component)
+      .map(([key, Component]) => [
+        key,
+        (props: ReactComponentProps) => createElement(Component, props),
+      ])
   );
 
   return (

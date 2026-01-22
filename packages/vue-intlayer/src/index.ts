@@ -1,8 +1,9 @@
+import type { LocalesValues } from '@intlayer/types';
 import type { IInterpreterPluginVue } from './plugins';
 
 declare module '@intlayer/core' {
   // biome-ignore lint/correctness/noUnusedVariables: <All declarations of 'IInterpreterPlugin' must have identical type parameters>
-  interface IInterpreterPlugin<T, S, L>
+  interface IInterpreterPlugin<T, S, L extends LocalesValues>
     extends IInterpreterPluginVue<T, S, L> {}
 }
 

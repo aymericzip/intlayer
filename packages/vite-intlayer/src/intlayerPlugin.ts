@@ -10,17 +10,26 @@ import type { PluginOption } from 'vite';
 import { intlayerPrune } from './intlayerPrunePlugin';
 
 /**
- * @deprecated Rename to intlayer instead
+ * Vite plugin that integrates Intlayer into the Vite build process.
  *
- * A Vite plugin that integrates Intlayer configuration into the build process
+ * It handles:
+ * 1. Preparing Intlayer resources (dictionaries) before build.
+ * 2. Configuring Vite aliases for dictionary access.
+ * 3. Setting up dev-server watchers for content changes.
+ * 4. Applying build optimizations (tree-shaking dictionaries).
  *
+ * @param configOptions - Optional configuration to override default Intlayer settings.
+ * @returns A Vite plugin option.
+ *
+ * @example
  * ```ts
- * // Example usage of the plugin in a Vite configuration
+ * import { intlayer } from 'vite-intlayer';
+ *
  * export default defineConfig({
- *   plugins: [ intlayer() ],
+ *   plugins: [intlayer()],
  * });
  * ```
- *  */
+ */
 export const intlayerPlugin = (
   configOptions?: GetConfigurationOptions
 ): PluginOption => {

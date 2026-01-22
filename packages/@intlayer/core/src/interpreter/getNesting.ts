@@ -18,12 +18,19 @@ export type GetNestingResult<
 > = GetSubPath<DeepTransformContent<DictionaryRegistryContent<K>, S>, P>;
 
 /**
- * Allow to extract the content of another dictionary.
+ * Extracts content from another dictionary by its key and an optional path.
  *
- * Usage:
+ * This allows for reusing content across different dictionaries.
+ *
+ * @param dictionaryKey - The key of the dictionary to nest.
+ * @param path - Optional dot-separated path to a specific field within the nested dictionary.
+ * @param props - Optional properties like locale and plugins.
+ * @returns The nested content.
+ *
+ * @example
  * ```ts
- * const content = getNesting("dictionaryKey", "path.to.content");
- * // 'Example content'
+ * const content = getNesting("common", "buttons.save");
+ * // 'Save'
  * ```
  */
 export const getNesting = <K extends DictionaryKeys, P>(

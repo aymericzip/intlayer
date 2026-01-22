@@ -11,9 +11,24 @@ import type { DeepTransformContent } from '../plugins';
 import { IntlayerClientContext } from './IntlayerProvider';
 
 /**
- * On the client side, Hook that picking one dictionary by its key and return the content
+ * Preact hook that picks one dictionary by its key and returns its content.
  *
- * If the locale is not provided, it will use the locale from the client context
+ * If the locale is not provided, it will use the locale from the client context.
+ *
+ * @param key - The unique key of the dictionary to retrieve.
+ * @param locale - Optional locale to override the current context locale.
+ * @returns The transformed dictionary content.
+ *
+ * @example
+ * ```tsx
+ * import { useIntlayer } from 'preact-intlayer';
+ *
+ * const MyComponent = () => {
+ *   const content = useIntlayer('my-dictionary-key');
+ *
+ *   return <div>{content.myField.value}</div>;
+ * };
+ * ```
  */
 export const useIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
   key: T,

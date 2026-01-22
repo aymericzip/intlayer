@@ -6,11 +6,25 @@ import {
   type SchemaKeys,
 } from '@intlayer/types';
 
+/**
+ * The dictionary type used to define the structure of a dictionary.
+ * It is used to provide type safety and autocompletion when defining a dictionary.
+ *
+ * @example
+ * ```ts
+ * import { Dictionary } from 'intlayer';
+ *
+ * const dictionary: Dictionary = { ... };
+ * ```
+ */
 type Dictionary<
   T = undefined,
   SchemaKey extends SchemaKeys | undefined = undefined,
 > = DictionaryCore<T, SchemaKey, true>;
+
 /**
+ * The content of a dictionary.
+ *
  * @deprecated Use `Dictionary<T>` instead.
  */
 type DeclarationContent<
@@ -19,9 +33,9 @@ type DeclarationContent<
 > = Dictionary<T, SchemaKey>;
 
 /**
- * @deprecated
+ * A list of all supported locales.
  *
- * Use Locales.All_LOCALES instead
+ * @deprecated Use `Locales.ALL_LOCALES` instead.
  */
 const localeList = Locales.ALL_LOCALES;
 
@@ -37,15 +51,31 @@ export type { DeclarationContent, Dictionary, IntlayerConfig, localeList };
 /**
  * Rexport using named import because πof Tsup bug in CJS
  */
+/**
+ * The configuration of Intlayer.
+ */
 import configuration from '@intlayer/config/built';
 
 /**
+ * Returns the configuration of Intlayer.
+ *
  * @deprecated Use `import { configuration } from 'intlayer'` instead.
  */
 const getConfiguration = () => configuration;
 
+/**
+ * The locales defined in the configuration.
+ */
 const locales = configuration.internationalization.locales;
+
+/**
+ * The required locales defined in the configuration.
+ */
 const requiredLocales = configuration.internationalization.requiredLocales;
+
+/**
+ * The default locale defined in the configuration.
+ */
 const defaultLocale = configuration.internationalization.defaultLocale;
 
 // Reexport here for CJS compatibility

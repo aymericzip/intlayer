@@ -475,21 +475,21 @@ const aboutPageMetaContent = {
 export default aboutPageMetaContent;
 ```
 
-#### `location` ('remote' | 'local' | 'local&remote' | 'plugin')
+#### `location` ('local' | 'remote' | 'local&remote' | string)
 
-Chỉ ra vị trí của từ điển. Thuộc tính này có thể được đặt để kiểm soát nguồn của từ điển:
+Chỉ ra vị trí của từ điển và kiểm soát cách nó đồng bộ với CMS:
 
-- `'local'`: Từ điển cục bộ (từ các tệp nội dung)
-- `'remote'`: Từ điển từ xa (từ nguồn bên ngoài/CMS)
-- `'local&remote'`: Từ điển tồn tại cả cục bộ và từ xa
-- `'plugin'`: Từ điển được cung cấp bởi một plugin
+- `'local'`: Từ điển được quản lý chỉ ở cục bộ. Nó sẽ không được đẩy lên CMS từ xa. Sử dụng điều này cho nội dung phải ở lại trong codebase của bạn.
+- `'remote'`: Từ điển được quản lý chỉ từ xa. Sau khi đẩy lên CMS, nó sẽ bị tách khỏi tệp cục bộ. Tại thời điểm tải nội dung, từ điển từ xa sẽ được kéo từ CMS. Một tệp `.content` với vị trí `remote` sẽ bị bỏ qua sau lần đẩy ban đầu.
+- `'local&remote'`: Từ điển được quản lý cả cục bộ và từ xa. Sau khi đẩy lên CMS, nó sẽ giữ đồng bộ—các thay đổi từ tệp cục bộ được đẩy lên CMS, và các thay đổi từ xa có thể được kéo về tệp cục bộ.
+- `string` (vd. `'plugin'`): Từ điển được quản lý bởi một plugin hoặc nguồn tùy chỉnh. Khi bạn cố gắng đẩy nó, hệ thống sẽ hỏi bạn phải làm gì.
 
 **Ví dụ:**
 
 ```typescript
 {
   key: "about-page",
-  location: "local",
+  location: "local", // Nội dung chỉ ở lại trong codebase của bạn
   content: {
     title: "About Us"
   }

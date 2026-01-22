@@ -27,7 +27,7 @@
         "noUnusedVariables": "warn",
         "useExhaustiveDependencies": "off",
         "useUniqueElementIds": "off",
-        "noNestedComponentDefinitions": "warn"
+        "noNestedComponentDefinitions": "off"
       },
       "style": {
         "noNonNullAssertion": "off",

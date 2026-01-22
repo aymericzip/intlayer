@@ -45,7 +45,38 @@ export const createIntlayerClient = (
 };
 
 /**
- * Helper to install the Intlayer provider
+ * Provides Intlayer to your Angular application.
+ *
+ * This function should be used in your application's provider list (e.g., in `app.config.ts`)
+ * to initialize the Intlayer service.
+ *
+ * @param locale - Initial locale to use.
+ * @param isCookieEnabled - Whether to store the locale in cookies.
+ * @returns A provider configuration for Intlayer.
+ *
+ * @example
+ * ```ts
+ * // app.config.ts
+ * import { ApplicationConfig } from '@angular/core';
+ * import { provideIntlayer } from 'angular-intlayer';
+ *
+ * export const appConfig: ApplicationConfig = {
+ *   providers: [
+ *     provideIntlayer({ locale: 'en' }),
+ *   ],
+ * };
+ * ```
+ */
+export const provideIntlayer = (
+  locale?: LocalesValues,
+  isCookieEnabled = true
+) => ({
+  provide: INTLAYER_TOKEN,
+  useValue: installIntlayer(locale, isCookieEnabled),
+});
+
+/**
+ * Helper to install the Intlayer provider.
  */
 export const installIntlayer = (
   locale?: LocalesValues,

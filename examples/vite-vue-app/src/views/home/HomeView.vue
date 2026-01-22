@@ -63,9 +63,31 @@ const activeTab = ref<'source' | 'rendered'>('rendered');
         <content.html />
 
         <component
-          :is="
-            content.html.use({
-              b: (props) => h('h1', props),
+      :is="
+        content.html.use({
+              b: ({ children, ...props }) =>
+                h('h1', { ...props, style: { background: 'blue' } }, children),
+
+              CustomComponent: ({ children, ...props }) =>
+                h(
+                  'h1',
+                  { ...props, style: { background: 'blue', color: 'red' } },
+                  children
+                ),
+
+              CustomComponent2: ({ children, ...props }) =>
+                h(
+                  'h1',
+                  { ...props, style: { background: 'green', color: 'yellow' } },
+                  children
+                ),
+
+              'custom-component': ({ children, ...props }) =>
+                h(
+                  'h1',
+                  { ...props, style: { background: 'yellow', color: 'purple' } },
+                  children
+                ),
             })
           "
         />

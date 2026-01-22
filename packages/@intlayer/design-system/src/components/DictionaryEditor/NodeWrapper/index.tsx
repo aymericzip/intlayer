@@ -6,6 +6,7 @@ import {
   type FileContent,
   getContentNodeByKeyPath,
   getNodeType,
+  type HTMLContent,
   type InsertionContent,
   type MarkdownContent,
   type TranslationContent,
@@ -23,6 +24,7 @@ import { ArrayWrapper } from './ArrayWrapper';
 import { ConditionWrapper } from './ConditionWrapper';
 import { EnumerationWrapper } from './EnumerationWrapper';
 import { FileWrapper } from './FileWrapper';
+import { HtmlWrapper } from './HtmlWrapper';
 import { InsertionWrapper } from './InsertionWrapper';
 import { MarkdownWrapper } from './MarkdownWrapper';
 import { NestedObjectWrapper } from './NestedObjectWrapper';
@@ -78,6 +80,12 @@ export const NodeWrapper: FC<NodeWrapperProps> = memo((props) => {
           {...props}
           section={section as MarkdownContent<ContentNode>}
         />
+      );
+    }
+
+    if (nodeType === NodeType.HTML) {
+      return (
+        <HtmlWrapper {...props} section={section as HTMLContent<ContentNode>} />
       );
     }
 

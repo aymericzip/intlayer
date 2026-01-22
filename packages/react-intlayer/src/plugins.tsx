@@ -4,8 +4,10 @@ import {
   type HTMLCond,
   type HTMLContent,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
+  type InsertionContent,
   type MarkdownContent,
   type Plugins,
+  splitInsertionTemplate,
 } from '@intlayer/core';
 import {
   type DeclaredLocales,
@@ -13,10 +15,18 @@ import {
   type LocalesValues,
   NodeType,
 } from '@intlayer/types';
-import { createElement, type ReactElement, type ReactNode } from 'react';
+import {
+  type ComponentType,
+  createElement,
+  type ElementType,
+  Fragment,
+  type ReactElement,
+  type ReactNode,
+} from 'react';
 import { ContentSelectorRenderer } from './editor';
 import { EditedContentRenderer } from './editor/useEditedContentRenderer';
 import { HTMLRendererPlugin } from './html';
+import type { ReactHTMLComponentMap } from './html/types';
 import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
 import { MarkdownMetadataRenderer, MarkdownRendererPlugin } from './markdown';
 import { renderReactElement } from './reactElement/renderReactElement';
@@ -89,12 +99,113 @@ export const reactNodePlugins: Plugins = {
     }),
 };
 
+/** ---------------------------------------------
+ *  INSERTION PLUGIN
+ *  --------------------------------------------- */
+
+export type InsertionCond<T, S, L> = T extends {
+  nodeType: NodeType | string;
+  [NodeType.Insertion]: string;
+  fields: readonly string[];
+}
+  ? (
+      values: {
+        [K in T['fields'][number]]: ReactNode;
+      }
+    ) => ReactNode
+  : never;
+
+/**
+ * Split insertion string and join with React nodes using shared core logic
+ */
+const splitAndJoinInsertion = (
+  template: string,
+  values: Record<string, string | number | ReactNode>
+): ReactNode => {
+  const result = splitInsertionTemplate(template, values);
+
+  if (result.isSimple) {
+    // Simple string replacement
+    return result.parts as string;
+  }
+
+  // Return as Fragment with proper keys
+  return createElement(
+    Fragment,
+    null,
+    ...(result.parts as any[]).map((part, index) =>
+      createElement(Fragment, { key: index }, part)
+    )
+  );
+};
+
+/** Insertion plugin for React. Handles component/node insertion. */
+export const insertionPlugin: Plugins = {
+  id: 'insertion-plugin',
+  canHandle: (node) =>
+    typeof node === 'object' && node?.nodeType === NodeType.Insertion,
+  transform: (node: InsertionContent, props, deepTransformNode) => {
+    const newKeyPath: KeyPath[] = [
+      ...props.keyPath,
+      {
+        type: NodeType.Insertion,
+      },
+    ];
+
+    const children = node[NodeType.Insertion];
+
+    /** Insertion string plugin. Replaces string node with a component that render the insertion. */
+    const insertionStringPlugin: Plugins = {
+      id: 'insertion-string-plugin',
+      canHandle: (node) => typeof node === 'string',
+      transform: (node: string, subProps, deepTransformNode) => {
+        const transformedResult = deepTransformNode(node, {
+          ...subProps,
+          children: node,
+          plugins: [
+            ...(props.plugins ?? ([] as Plugins[])).filter(
+              (plugin) => plugin.id !== 'intlayer-node-plugin'
+            ),
+          ],
+        });
+
+        return (
+          values: {
+            [K in InsertionContent['fields'][number]]:
+              | string
+              | number
+              | ReactNode;
+          }
+        ) => {
+          const result = splitAndJoinInsertion(transformedResult, values);
+
+          return deepTransformNode(result, {
+            ...subProps,
+            plugins: props.plugins,
+            children: result,
+          });
+        };
+      },
+    };
+
+    return deepTransformNode(children, {
+      ...props,
+      children,
+      keyPath: newKeyPath,
+      plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
+    });
+  },
+};
+
 /**
  * MARKDOWN PLUGIN
  */
 
 export type MarkdownStringCond<T> = T extends string
-  ? IntlayerNode<string, { metadata: DeepTransformContent<string> }>
+  ? IntlayerNode<
+      string,
+      { metadata: DeepTransformContent<string>; use: (components: any) => any }
+    >
   : never;
 
 /** Markdown string plugin. Replaces string node with a component that render the markdown. */
@@ -177,13 +288,15 @@ export const markdownStringPlugin: Plugins = {
   },
 };
 
+type MarkdownComponentMap = Record<string, ComponentType<any> | ElementType>;
+
 export type MarkdownCond<T, S, L extends LocalesValues> = T extends {
   nodeType: NodeType | string;
   [NodeType.Markdown]: infer M;
   metadata?: infer U;
 }
   ? {
-      use: (components: any) => any;
+      use: (components?: MarkdownComponentMap) => ReactNode;
       metadata: DeepTransformContent<U, L>;
     } & any
   : never;
@@ -191,8 +304,7 @@ export type MarkdownCond<T, S, L extends LocalesValues> = T extends {
 export const markdownPlugin: Plugins = {
   id: 'markdown-plugin',
   canHandle: (node) =>
-    typeof node === 'object' &&
-    (node?.nodeType === NodeType.Markdown || node?.nodeType === 'markdown'),
+    typeof node === 'object' && node?.nodeType === NodeType.Markdown,
   transform: (node: MarkdownContent, props, deepTransformNode) => {
     const newKeyPath: KeyPath[] = [
       ...props.keyPath,
@@ -222,14 +334,21 @@ export type HTMLPluginCond<T, S, L> = HTMLCond<T, S, L>;
 export const htmlPlugin: Plugins = {
   id: 'html-plugin',
   canHandle: (node) =>
-    typeof node === 'object' &&
-    (node?.nodeType === NodeType.HTML || node?.nodeType === 'html'),
+    typeof node === 'object' && node?.nodeType === NodeType.HTML,
 
-  transform: (node: HTMLContent, props) => {
+  transform: (node: HTMLContent<string>, props) => {
     const html = node[NodeType.HTML];
+    const tags = node.tags ?? [];
     const { plugins, ...rest } = props;
 
-    const render = (userComponents?: Record<string, any>): ReactNode =>
+    // Type-safe render function that accepts properly typed components
+    const render = <
+      T = typeof tags extends readonly (infer U extends string)[]
+        ? U
+        : typeof tags,
+    >(
+      userComponents?: ReactHTMLComponentMap<T>
+    ): ReactNode =>
       createElement(HTMLRendererPlugin, { ...rest, html, userComponents });
 
     const element = render() as ReactElement;
@@ -241,8 +360,14 @@ export const htmlPlugin: Plugins = {
         }
 
         if (prop === 'use') {
-          return (userComponents?: Record<string, any>) =>
-            render(userComponents);
+          // Return a properly typed function based on custom components
+          return <
+            T = typeof tags extends readonly (infer U extends string)[]
+              ? U
+              : typeof tags,
+          >(
+            userComponents?: ReactHTMLComponentMap<T>
+          ) => render(userComponents);
         }
 
         return Reflect.get(target, prop, receiver);
@@ -257,9 +382,10 @@ export const htmlPlugin: Plugins = {
 
 export interface IInterpreterPluginReact<T, S, L extends LocalesValues> {
   reactNode: ReactNodeCond<T>;
-  intlayerNode: IntlayerNodeCond<T>;
-  markdown: MarkdownCond<T, S, L>;
-  html: HTMLPluginCond<T, S, L>;
+  reactIntlayerNode: IntlayerNodeCond<T>;
+  reactInsertion: InsertionCond<T, S, L>;
+  reactMarkdown: MarkdownCond<T, S, L>;
+  reactHtml: HTMLPluginCond<T, S, L>;
 }
 
 /**
@@ -269,9 +395,10 @@ export interface IInterpreterPluginReact<T, S, L extends LocalesValues> {
  */
 export type IInterpreterPluginState = IInterpreterPluginStateCore & {
   reactNode: true;
-  intlayerNode: true;
-  markdown: true;
-  html: true;
+  reactIntlayerNode: true;
+  reactInsertion: true;
+  reactMarkdown: true;
+  reactHtml: true;
 };
 
 export type DeepTransformContent<

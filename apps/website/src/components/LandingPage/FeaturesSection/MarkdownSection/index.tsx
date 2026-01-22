@@ -41,13 +41,7 @@ export const MarkdownSection: FC<MarkdownSectionProps> = ({
         roundedSize="2xl"
         className="w-full flex-1 overflow-auto p-5"
       >
-        <MarkdownRenderer
-          options={{
-            wrapper: (props) => <>{props.children}</>,
-          }}
-        >
-          {text}
-        </MarkdownRenderer>
+        <MarkdownRenderer>{text}</MarkdownRenderer>
       </Container>
       <TextArea
         defaultValue={text}

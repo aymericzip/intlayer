@@ -94,25 +94,27 @@ const removeUndefinedValues = <T>(
 };
 
 /**
+ * Picks the appropriate content from a locale map based on the provided locale.
  *
- * Allow to pick a content based on a locale.
- * If not locale found, it will return the content related to the default locale.
+ * It handles:
+ * 1. Exact locale match (e.g., 'en-US').
+ * 2. Generic locale fallback (e.g., 'en' if 'en-US' is not found).
+ * 3. Explicit fallback locale.
+ * 4. Deep merging of objects to ensure partial translations are complemented by fallbacks.
  *
- * Return either the content editor, or the content itself depending on the configuration.
+ * @param languageContent - A map of locales to content.
+ * @param locale - The target locale to retrieve.
+ * @param fallback - Optional fallback locale if the target is not found.
+ * @returns The translated content.
  *
- * Usage:
- *
+ * @example
  * ```ts
- * const content = getTranslation<string>({
- * en: 'Hello',
- * fr: 'Bonjour',
+ * const content = getTranslation({
+ *   en: 'Hello',
+ *   fr: 'Bonjour',
  * }, 'fr');
  * // 'Bonjour'
  * ```
- *
- * Using TypeScript:
- * - this function will require each locale to be defined if defined in the project configuration.
- * - If a locale is missing, it will make each existing locale optional and raise an error if the locale is not found.
  */
 export const getTranslation = <Content = string>(
   languageContent: StrictModeLocaleMap<Content>,

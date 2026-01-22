@@ -17,7 +17,27 @@ type UseLocaleResult = {
 };
 
 /**
- * On the client side, hook to get the current locale and all related fields
+ * Solid hook to manage the current locale and related functions.
+ *
+ * @param props - Optional configuration for locale management.
+ * @returns An object containing the current locale (accessor), default locale, available locales, and a function to update the locale.
+ *
+ * @example
+ * ```tsx
+ * import { useLocale } from 'solid-intlayer';
+ *
+ * const LocaleSwitcher = () => {
+ *   const { locale, setLocale, availableLocales } = useLocale();
+ *
+ *   return (
+ *     <select value={locale()} onChange={(e) => setLocale(e.target.value)}>
+ *       <For each={availableLocales}>
+ *         {(loc) => <option value={loc}>{loc}</option>}
+ *       </For>
+ *     </select>
+ *   );
+ * };
+ * ```
  */
 export const useLocale = ({
   isCookieEnabled,

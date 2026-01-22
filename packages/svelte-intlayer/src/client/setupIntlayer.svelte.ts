@@ -6,6 +6,23 @@ import { useEditor } from '../editor/useEditor';
 // Assuming setIntlayerContext exports a specific key or symbol
 import { setIntlayerContext } from './intlayerContext';
 
+/**
+ * Setups Intlayer in your Svelte application.
+ *
+ * This function initializes the Intlayer context and reactive state (using Svelte 5 runes).
+ * It should be called at the root of your application (e.g., in a top-level layout).
+ *
+ * @param initialLocale - The initial locale to use.
+ * @returns An object containing the reactive locale and a setter function.
+ *
+ * @example
+ * ```svelte
+ * <script>
+ *   import { setupIntlayer } from 'svelte-intlayer';
+ *   const { locale } = setupIntlayer('en');
+ * </script>
+ * ```
+ */
 export const setupIntlayer = (initialLocale: LocalesValues) => {
   // 1. Initialize your side effects
   // Note: If these need to run only in the browser, wrap them in $effect or onMount

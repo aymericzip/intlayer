@@ -453,7 +453,7 @@ export type RenderRuleHook = (
 
 /**
  * Options for the markdown compiler.
- * This is the framework-agnostic version of MarkdownProcessorOptions.
+ * This is the framework-agnostic version of MarkdownRendererOptions.
  */
 export interface MarkdownOptions {
   /**

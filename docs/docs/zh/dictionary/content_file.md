@@ -494,21 +494,21 @@ const aboutPageMetaContent = {
 export default aboutPageMetaContent;
 ```
 
-#### `location` ('remote' | 'local' | 'local&remote' | 'plugin')
+#### `location` ('local' | 'remote' | 'local&remote' | string)
 
-指示字典的位置。可以设置此属性来控制字典的来源：
+指示字典的位置并控制其如何与 CMS 同步：
 
-- `'local'`: 本地字典（来自内容文件）
-- `'remote'`: 远程字典（来自外部源/CMS）
-- `'local&remote'`: 同时存在于本地和远程的字典
-- `'plugin'`: 由插件提供的字典
+- `'local'`: 字典仅在本地管理。它不会被推送到远程 CMS。用于应保留在代码库中的内容。
+- `'remote'`: 字典仅在远程管理。推送到 CMS 后，它将与本地文件分离。在内容加载时，远程字典将从 CMS 拉取。带有 `remote` 位置的 `.content` 文件在初始推送后将被忽略。
+- `'local&remote'`: 字典在本地和远程同时管理。推送到 CMS 后，它将保持同步—本地文件的更改会推送到 CMS，远程更改可以拉回本地文件。
+- `string`（例如 `'plugin'`）：字典由插件或自定义源管理。当您尝试推送时，系统会询问您要执行的操作。
 
 **示例：**
 
 ```typescript
 {
   key: "about-page",
-  location: "local",
+  location: "local", // 内容仅保留在您的代码库中
   content: {
     title: "About Us"
   }

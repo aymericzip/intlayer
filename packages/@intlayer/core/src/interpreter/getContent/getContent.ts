@@ -11,7 +11,6 @@ import {
   enumerationPlugin,
   filePlugin,
   type IInterpreterPluginState,
-  insertionPlugin,
   type NodeProps,
   nestedPlugin,
   type Plugins,
@@ -36,7 +35,6 @@ export const getContent = <
   const defaultLocale = configuration?.internationalization?.defaultLocale;
 
   const plugins: Plugins[] = [
-    insertionPlugin,
     translationPlugin(
       locale ?? defaultLocale,
       fallback ? defaultLocale : undefined

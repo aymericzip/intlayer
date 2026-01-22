@@ -17,7 +17,11 @@ This is **bold** and this is *italic*.
 `),
 
     html: html(
-      '<div>Hello <b>World</b><custom-component /><CustomComponent /> <CustomComponent2> Hello </CustomComponent2></div>'
+      t({
+        en: '<div>Hello <b>World</b><custom-component /><CustomComponent /> <CustomComponent2 myProp="my value" myprop2="my value 2" my-Prop-3:"3"> Hello </CustomComponent2></div>',
+        fr: '<div>Bonjour <b>Monde</b><custom-component /><CustomComponent /> <CustomComponent2 myProp="my value" myprop2="my value 2" my-Prop-3:"3"> Hello </CustomComponent2></div>',
+        es: '<div>Hola <b>Mundo</b><custom-component /><CustomComponent /> <CustomComponent2 myProp="my value" myprop2="my value 2" my-Prop-3:"3"> Hello </CustomComponent2></div>',
+      })
     ),
 
     insertion: insert('test {{ count }}'),

@@ -22,7 +22,7 @@ type IntlayerValue = {
 };
 
 /**
- * Context that store the current locale on the client side
+ * Context that stores the current locale on the client side.
  */
 export const IntlayerClientContext = createContext<IntlayerValue>({
   locale: localeInStorage ?? configuration?.internationalization?.defaultLocale,
@@ -32,20 +32,45 @@ export const IntlayerClientContext = createContext<IntlayerValue>({
 });
 
 /**
- * Hook that provides the current locale
+ * Hook that provides the current Intlayer client context.
+ *
+ * @returns The current Intlayer context values.
  */
 export const useIntlayerContext = () => useContext(IntlayerClientContext);
 
+/**
+ * Props for the IntlayerProvider component.
+ */
 export type IntlayerProviderProps = PropsWithChildren<{
+  /**
+   * The locale to use. If not provided, it will be detected from storage or configuration.
+   */
   locale?: LocalesValues;
+  /**
+   * The default locale to use as a fallback.
+   */
   defaultLocale?: LocalesValues;
+  /**
+   * Function to set the locale.
+   */
   setLocale?: (locale: LocalesValues) => void;
+  /**
+   * Whether to disable the editor.
+   */
   disableEditor?: boolean;
+  /**
+   * Whether to enable cookies for storing the locale.
+   */
   isCookieEnabled?: boolean;
 }>;
 
 /**
- * Provider that store the current locale on the client side
+ * Provider that stores the current locale on the client side.
+ *
+ * This component is focused on content delivery without the editor features.
+ *
+ * @param props - The provider props.
+ * @returns The provider component.
  */
 export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
   locale: localeProp,
@@ -104,6 +129,26 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
   );
 };
 
+/**
+ * Main provider for Intlayer in React applications.
+ *
+ * It includes the editor provider by default, allowing for live content editing
+ * if configured.
+ *
+ * @param props - The provider props.
+ * @returns The provider component with editor support.
+ *
+ * @example
+ * ```tsx
+ * import { IntlayerProvider } from 'react-intlayer';
+ *
+ * const App = () => (
+ *   <IntlayerProvider>
+ *     <MyComponent />
+ *   </IntlayerProvider>
+ * );
+ * ```
+ */
 export const IntlayerProvider: FC<IntlayerProviderProps> = (props) => (
   <IntlayerEditorProvider>
     <IntlayerProviderContent {...props} />

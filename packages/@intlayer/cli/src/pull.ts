@@ -217,6 +217,23 @@ export const pull = async (options?: PullOptions): Promise<void> => {
           );
         }
 
+        // Check if there is a local version of this dictionary that is local&remote
+        const localDictionaries =
+          unmergedDictionariesRecord[statusObj.dictionaryKey];
+        const localAndRemoteDictionary = localDictionaries?.find(
+          (d) => d.location === 'local&remote'
+        );
+
+        if (localAndRemoteDictionary) {
+          // We want to preserve the local properties but use the remote content
+          sourceDictionary = {
+            ...sourceDictionary,
+            location: 'local&remote',
+            filePath: localAndRemoteDictionary.filePath,
+            localId: localAndRemoteDictionary.localId,
+          };
+        }
+
         // Now, write the dictionary to local file
         const { status } = await writeContentDeclaration(
           sourceDictionary,

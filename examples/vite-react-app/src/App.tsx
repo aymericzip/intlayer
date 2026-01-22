@@ -62,18 +62,19 @@ const AppContent: FC = () => {
         })}
       </div>
 
+      <h1>{content.title}</h1>
+
       <div>
-        <h1>{content.title}</h1>
-
+        <h2>HTML:</h2>
         {content.insertion({ count: 2 })}
-
         {content.html}
-
         {content.html.use({
-          b: (props) => <h1 {...props} />,
+          b: (props) => <h1 {...props} style={{ background: 'blue' }} />,
+          div: (props) => <div {...props} style={{ background: 'yellow' }} />,
         })}
-
         {content.html.use({
+          div: (props) => <div {...props} style={{ background: 'yellow' }} />,
+
           'custom-component': (props: any) => (
             <h1 style={{ color: 'red' }} {...props}>
               Custom 1
@@ -86,6 +87,7 @@ const AppContent: FC = () => {
             </h1>
           ),
         })}
+        pppp
       </div>
 
       <div className="card">

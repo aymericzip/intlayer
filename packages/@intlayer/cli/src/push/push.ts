@@ -1,6 +1,5 @@
 import * as fsPromises from 'node:fs/promises';
 import { join } from 'node:path';
-import * as readline from 'node:readline';
 import { getIntlayerAPIProxy } from '@intlayer/api';
 import {
   formatPath,
@@ -75,19 +74,71 @@ export const push = async (options?: PushOptions): Promise<void> => {
     const intlayerAPI = getIntlayerAPIProxy(undefined, config);
 
     const unmergedDictionariesRecord = getUnmergedDictionaries(config);
-    let dictionaries: Dictionary[] = Object.values(unmergedDictionariesRecord)
-      .flat()
-      .filter((dictionary) => {
-        const location =
-          dictionary.location ?? config.dictionary?.location ?? 'local';
+    const allDictionaries = Object.values(unmergedDictionariesRecord).flat();
 
-        return location === 'remote' || location === 'local&remote';
-      });
+    const customLocations = Array.from(
+      new Set(
+        allDictionaries
+          .map((dictionary) => dictionary.location)
+          .filter(
+            (location) =>
+              location &&
+              !['remote', 'local', 'local&remote'].includes(location)
+          )
+      )
+    ) as string[];
+
+    let selectedCustomLocations: string[] = [];
+
+    if (customLocations.length > 0) {
+      const { multiselect, confirm, isCancel } = await import('@clack/prompts');
+
+      if (customLocations.length === 1) {
+        const shouldPush = await confirm({
+          message: `Do you want to push dictionaries with custom location ${colorize(customLocations[0], ANSIColors.BLUE, ANSIColors.RESET)}?`,
+          initialValue: false,
+        });
+
+        if (isCancel(shouldPush)) {
+          return;
+        }
+
+        if (shouldPush) {
+          selectedCustomLocations = [customLocations[0]];
+        }
+      } else {
+        const selected = await multiselect({
+          message: 'Select custom locations to push:',
+          options: customLocations.map((location) => ({
+            value: location,
+            label: location,
+          })),
+          required: false,
+        });
+
+        if (isCancel(selected)) {
+          return;
+        }
+
+        selectedCustomLocations = selected as string[];
+      }
+    }
+
+    let dictionaries: Dictionary[] = allDictionaries.filter((dictionary) => {
+      const location =
+        dictionary.location ?? config.dictionary?.location ?? 'local';
+
+      return (
+        location === 'remote' ||
+        location === 'local&remote' ||
+        selectedCustomLocations.includes(location)
+      );
+    });
 
     // Check if the dictionaries list is empty after filtering by location
     if (dictionaries.length === 0) {
       appLogger(
-        `No dictionaries found to push. Only dictionaries with location ${colorize('remote', ANSIColors.BLUE, ANSIColors.RESET)} or ${colorize('local&remote', ANSIColors.BLUE, ANSIColors.RESET)} are pushed.`,
+        `No dictionaries found to push. Only dictionaries with location ${colorize('remote', ANSIColors.BLUE, ANSIColors.RESET)}, ${colorize('local&remote', ANSIColors.BLUE, ANSIColors.RESET)} or selected custom locations are pushed.`,
         { level: 'warn' }
       );
       appLogger(
@@ -274,11 +325,22 @@ export const push = async (options?: PushOptions): Promise<void> => {
       const remoteDictionariesKeys = remoteDictionaries.map(
         (dictionary) => dictionary.key
       );
-      const answer = await askUser(
-        `Do you want to delete the local dictionaries that were successfully pushed? ${colorize('(Dictionaries:', ANSIColors.GREY, ANSIColors.RESET)} ${colorizeKey(remoteDictionariesKeys)}${colorize(')', ANSIColors.GREY, ANSIColors.RESET)} ${colorize('(yes/no)', ANSIColors.GREY_DARK, ANSIColors.RESET)}: `
-      );
-      if (answer.toLowerCase() === 'yes' || answer.toLowerCase() === 'y') {
-        await deleteLocalDictionaries(remoteDictionaries, options);
+
+      if (remoteDictionaries.length > 0) {
+        const { confirm, isCancel } = await import('@clack/prompts');
+
+        const shouldDelete = await confirm({
+          message: `Do you want to delete the local dictionaries that were successfully pushed? ${colorize('(Dictionaries:', ANSIColors.GREY, ANSIColors.RESET)} ${colorizeKey(remoteDictionariesKeys)}${colorize(')', ANSIColors.GREY, ANSIColors.RESET)}`,
+          initialValue: false,
+        });
+
+        if (isCancel(shouldDelete)) {
+          return;
+        }
+
+        if (shouldDelete) {
+          await deleteLocalDictionaries(remoteDictionaries, options);
+        }
       }
     }
   } catch (error) {
@@ -286,19 +348,6 @@ export const push = async (options?: PushOptions): Promise<void> => {
       level: 'error',
     });
   }
-};
-
-const askUser = (question: string): Promise<string> => {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-  return new Promise((resolve) => {
-    rl.question(question, (answer: string) => {
-      rl.close();
-      resolve(answer);
-    });
-  });
 };
 
 const deleteLocalDictionaries = async (

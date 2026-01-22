@@ -24,6 +24,30 @@ const usePathWithoutLocale = () => {
   return useMemo(() => getPathWithoutLocale(fullPath), [fullPath]);
 };
 
+/**
+ * Hook to manage the current locale in Next.js App Router.
+ *
+ * This hook extends the base `useLocale` from `react-intlayer` by adding
+ * Next.js-specific navigation logic for locale changes.
+ *
+ * @param props - Optional properties to configure locale change behavior.
+ * @returns An object containing the current locale, path without locale, and functions to update the locale.
+ *
+ * @example
+ * ```tsx
+ * 'use client';
+ *
+ * import { useLocale } from 'next-intlayer';
+ *
+ * const LocaleSwitcher = () => {
+ *   const { setLocale } = useLocale({ onChange: 'push' });
+ *
+ *   return (
+ *     <button onClick={() => setLocale('fr')}>Switch to French</button>
+ *   );
+ * };
+ * ```
+ */
 export const useLocale = ({ onChange }: UseLocaleProps = {}) => {
   const { replace, push } = useRouter();
   const pathWithoutLocale = usePathWithoutLocale();

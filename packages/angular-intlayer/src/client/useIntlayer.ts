@@ -16,6 +16,31 @@ export const isUpdatableNode = (
   typeof val === 'object' &&
   typeof (val as any).__update === 'function';
 
+/**
+ * Angular hook that picks one dictionary by its key and returns its reactive content.
+ *
+ * It utilizes Angular signals to provide deep reactivity, ensuring your components
+ * update automatically when the locale changes.
+ *
+ * @param key - The unique key of the dictionary to retrieve.
+ * @param locale - Optional locale to override the current context locale.
+ * @returns The transformed dictionary content.
+ *
+ * @example
+ * ```ts
+ * import { Component } from '@angular/core';
+ * import { useIntlayer } from 'angular-intlayer';
+ *
+ * @Component({
+ *   standalone: true,
+ *   selector: 'app-my-component',
+ *   template: `<div>{{ content().myField.value }}</div>`,
+ * })
+ * export class MyComponent {
+ *   content = useIntlayer('my-dictionary-key');
+ * }
+ * ```
+ */
 export const useIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
   key: T,
   locale?: LocalesValues

@@ -490,21 +490,21 @@ const aboutPageMetaContent = {
 export default aboutPageMetaContent;
 ```
 
-#### `location` ('remote' | 'local' | 'local&remote' | 'plugin')
+#### `location` ('local' | 'remote' | 'local&remote' | string)
 
-Sözlüğün konumunu belirtir. Bu özellik, sözlüğün kaynağını kontrol etmek için ayarlanabilir:
+Sözlüğün konumunu belirtir ve CMS ile nasıl senkronize olduğunu kontrol eder:
 
-- `'local'`: Yerel sözlük (içerik dosyalarından)
-- `'remote'`: Uzaktan sözlük (dış kaynak/CMS'den)
-- `'local&remote'`: Hem yerel hem de uzaktan var olan sözlük
-- `'plugin'`: Bir eklenti tarafından sağlanan sözlük
+- `'local'`: Sözlük yalnızca yerel olarak yönetilir. Uzaktan CMS'ye gönderilmeyecektir. Kod tabanınızda kalması gereken içerik için bunu kullanın.
+- `'remote'`: Sözlük yalnızca uzaktan yönetilir. CMS'ye gönderildikten sonra yerel dosyadan ayrılacaktır. İçerik yükleme zamanında uzaktan sözlük CMS'den çekilecektir. `remote` konumuna sahip bir `.content` dosyası ilk gönderimden sonra yok sayılacaktır.
+- `'local&remote'`: Sözlük hem yerel hem de uzaktan yönetilir. CMS'ye gönderildikten sonra senkronize kalacaktır—yerel dosyadaki değişiklikler CMS'ye gönderilir ve uzaktan değişiklikler yerel dosyaya geri çekilebilir.
+- `string` (örn. `'plugin'`): Sözlük bir eklenti veya özel kaynak tarafından yönetilir. Göndermeye çalıştığınızda sistem size ne yapacağınızı soracaktır.
 
 **Örnek:**
 
 ```typescript
 {
   key: "about-page",
-  location: "local",
+  location: "local", // İçerik yalnızca kod tabanınızda kalır
   content: {
     title: "About Us"
   }

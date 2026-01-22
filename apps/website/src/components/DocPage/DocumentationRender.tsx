@@ -31,27 +31,25 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
       <MarkdownRenderer
         isDarkMode={isDarkMode}
         locale={locale}
-        options={{
-          components: {
-            a: (props: ComponentProps<typeof Link>) => (
-              <Link
-                color="neutral"
-                underlined={true}
-                locale={locale}
-                {...props}
-              />
-            ),
-            TOC: (props: ComponentProps<typeof TableOfContents>) => (
-              <TableOfContents {...props} />
-            ),
-          },
-          wrapper: ({ ...props }) => (
-            <>
-              <SectionScroller />
-              <div className={cn('flex flex-col gap-8 py-10')} {...props} />
-            </>
+        components={{
+          a: (props: ComponentProps<typeof Link>) => (
+            <Link
+              color="neutral"
+              underlined={true}
+              locale={locale}
+              {...props}
+            />
+          ),
+          TOC: (props: ComponentProps<typeof TableOfContents>) => (
+            <TableOfContents {...props} />
           ),
         }}
+        wrapper={({ ...props }) => (
+          <>
+            <SectionScroller />
+            <div className={cn('flex flex-col gap-8 py-10')} {...props} />
+          </>
+        )}
       >
         {children}
       </MarkdownRenderer>

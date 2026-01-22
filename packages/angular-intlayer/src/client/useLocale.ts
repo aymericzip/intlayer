@@ -10,7 +10,31 @@ type useLocaleProps = {
 };
 
 /**
- * On the client side, composable to get the current locale and all related fields
+ * Angular hook to manage the current locale and related functions.
+ *
+ * @param props - Optional configuration for locale management.
+ * @returns An object containing the current locale (signal), default locale, available locales, and a function to update the locale.
+ *
+ * @example
+ * ```ts
+ * import { Component } from '@angular/core';
+ * import { useLocale } from 'angular-intlayer';
+ *
+ * @Component({
+ *   standalone: true,
+ *   selector: 'app-locale-switcher',
+ *   template: `
+ *     <select [value]="locale()" (change)="setLocale($any($event.target).value)">
+ *       @for (loc of availableLocales; track loc) {
+ *         <option [value]="loc">{{ loc }}</option>
+ *       }
+ *     </select>
+ *   `,
+ * })
+ * export class LocaleSwitcher {
+ *   const { locale, setLocale, availableLocales } = useLocale();
+ * }
+ * ```
  */
 export const useLocale = ({
   isCookieEnabled,

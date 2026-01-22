@@ -68,9 +68,23 @@ export const translateFunction =
   };
 
 /**
- * Detect locale used by the user and load it into res locale storage
+ * Express middleware that detects the user's locale and populates `res.locals` with Intlayer data.
  *
- * @returns
+ * It performs:
+ * 1. Locale detection from cookies, headers, or default settings.
+ * 2. Injects `t`, `getIntlayer`, and `getDictionary` functions into `res.locals`.
+ * 3. Sets up a `cls-hooked` namespace for accessing these functions anywhere in the request lifecycle.
+ *
+ * @returns An Express middleware function.
+ *
+ * @example
+ * ```ts
+ * import express from 'express';
+ * import { intlayer } from 'express-intlayer';
+ *
+ * const app = express();
+ * app.use(intlayer());
+ * ```
  */
 export const intlayer = (): RequestHandler => async (req, res, next) => {
   // Detect if locale is set by intlayer frontend lib in the headers
@@ -127,6 +141,28 @@ export const intlayer = (): RequestHandler => async (req, res, next) => {
   });
 };
 
+/**
+ * Translation function to retrieve content for the current locale.
+ *
+ * This function works within the request lifecycle managed by the `intlayer` middleware.
+ *
+ * @param content - A map of locales to content.
+ * @param locale - Optional locale override.
+ * @returns The translated content.
+ *
+ * @example
+ * ```ts
+ * import { t } from 'express-intlayer';
+ *
+ * app.get('/', (req, res) => {
+ *   const greeting = t({
+ *     en: 'Hello',
+ *     fr: 'Bonjour',
+ *   });
+ *   res.send(greeting);
+ * });
+ * ```
+ */
 export const t = <Content = string>(
   content: StrictModeLocaleMap<Content>,
   locale?: Locale

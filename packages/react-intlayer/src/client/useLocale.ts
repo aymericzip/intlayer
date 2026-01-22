@@ -19,7 +19,27 @@ type UseLocaleResult = {
 };
 
 /**
- * On the client side, hook to get the current locale and all related fields
+ * Client-side hook to get the current locale and related locale management functions.
+ *
+ * @param props - Optional properties for the hook.
+ * @returns An object containing the current locale, default locale, available locales, and a function to update the locale.
+ *
+ * @example
+ * ```tsx
+ * import { useLocale } from 'react-intlayer';
+ *
+ * const LocaleSwitcher = () => {
+ *   const { locale, setLocale, availableLocales } = useLocale();
+ *
+ *   return (
+ *     <select value={locale} onChange={(e) => setLocale(e.target.value)}>
+ *       {availableLocales.map((loc) => (
+ *         <option key={loc} value={loc}>{loc}</option>
+ *       ))}
+ *     </select>
+ *   );
+ * };
+ * ```
  */
 export const useLocale = ({
   isCookieEnabled,

@@ -17,7 +17,27 @@ type UseLocaleResult = {
 };
 
 /**
- * On the client side, composable to get the current locale and all related fields
+ * Vue composable to get the current locale and related locale management functions.
+ *
+ * @param props - Optional properties for the composable.
+ * @returns An object containing the current locale (reactive), default locale, available locales, and a function to update the locale.
+ *
+ * @example
+ * ```vue
+ * <script setup>
+ * import { useLocale } from 'vue-intlayer';
+ *
+ * const { locale, setLocale, availableLocales } = useLocale();
+ * </script>
+ *
+ * <template>
+ *   <select :value="locale" @change="(e) => setLocale(e.target.value)">
+ *     <option v-for="loc in availableLocales" :key="loc" :value="loc">
+ *       {{ loc }}
+ *     </option>
+ *   </select>
+ * </template>
+ * ```
  */
 export const useLocale = ({
   isCookieEnabled,

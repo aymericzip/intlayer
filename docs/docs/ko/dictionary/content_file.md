@@ -491,21 +491,21 @@ const aboutPageMetaContent = {
 export default aboutPageMetaContent;
 ```
 
-#### `location` ('remote' | 'local' | 'local&remote' | 'plugin')
+#### `location` ('local' | 'remote' | 'local&remote' | string)
 
-사전의 위치를 나타냅니다. 이 속성을 설정하여 사전의 소스를 제어할 수 있습니다:
+사전의 위치를 나타내고 CMS와의 동기화 방식을 제어합니다:
 
-- `'local'`: 로컬 사전 (콘텐츠 파일에서)
-- `'remote'`: 원격 사전 (외부 소스/CMS에서)
-- `'local&remote'`: 로컬과 원격 모두에 존재하는 사전
-- `'plugin'`: 플러그인에서 제공하는 사전
+- `'local'`: 사전이 로컬에서만 관리됩니다. 원격 CMS로 푸시되지 않습니다. 코드베이스에 남아 있어야 하는 콘텐츠에 사용합니다.
+- `'remote'`: 사전이 원격에서만 관리됩니다. CMS로 푸시되면 로컬 파일에서 분리됩니다. 콘텐츠 로드 시 원격 사전이 CMS에서 가져옵니다. `remote` 위치를 가진 `.content` 파일은 초기 푸시 후 무시됩니다.
+- `'local&remote'`: 사전이 로컬과 원격 모두에서 관리됩니다. CMS로 푸시되면 동기화 상태를 유지합니다—로컬 파일의 변경사항이 CMS로 푸시되고, 원격 변경사항은 로컬 파일로 다시 가져올 수 있습니다.
+- `string` (예: `'plugin'`): 사전이 플러그인 또는 사용자 정의 소스에 의해 관리됩니다. 푸시하려고 하면 시스템이 수행할 작업을 묻습니다.
 
 **예시:**
 
 ```typescript
 {
   key: "about-page",
-  location: "local",
+  location: "local", // 콘텐츠는 코드베이스에만 남습니다
   content: {
     title: "About Us"
   }

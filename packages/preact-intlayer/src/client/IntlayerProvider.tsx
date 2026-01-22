@@ -99,6 +99,26 @@ export const IntlayerProviderContent: FunctionComponent<
   );
 };
 
+/**
+ * Main provider for Intlayer in Preact applications.
+ *
+ * It provides the Intlayer context to your application, allowing the use
+ * of hooks like `useIntlayer` and `useLocale`.
+ *
+ * @param props - The provider props.
+ * @returns The provider component.
+ *
+ * @example
+ * ```tsx
+ * import { IntlayerProvider } from 'preact-intlayer';
+ *
+ * const App = () => (
+ *   <IntlayerProvider>
+ *     <MyComponent />
+ *   </IntlayerProvider>
+ * );
+ * ```
+ */
 export const IntlayerProvider: FunctionComponent<IntlayerProviderProps> = (
   props
 ) => (

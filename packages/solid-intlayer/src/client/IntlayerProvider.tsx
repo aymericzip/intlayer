@@ -120,6 +120,26 @@ export const IntlayerProviderContent: Component<IntlayerProviderProps> = (
   );
 };
 
+/**
+ * Main provider for Intlayer in Solid applications.
+ *
+ * It provides the Intlayer context to your application, allowing the use
+ * of hooks like `useIntlayer` and `useLocale`.
+ *
+ * @param props - The provider props.
+ * @returns The provider component.
+ *
+ * @example
+ * ```tsx
+ * import { IntlayerProvider } from 'solid-intlayer';
+ *
+ * const App = () => (
+ *   <IntlayerProvider>
+ *     <MyComponent />
+ *   </IntlayerProvider>
+ * );
+ * ```
+ */
 export const IntlayerProvider: Component<IntlayerProviderProps> = (props) => (
   <IntlayerEditorProvider>
     <IntlayerProviderContent {...props} />

@@ -218,14 +218,7 @@ const buildContentFields = (
     optionalJoinBaseDir
   );
 
-  let codeDirInput = customConfiguration?.codeDir;
-
-  if (!codeDirInput && customConfiguration?.contentDir) {
-    logFunctions?.log?.(
-      '[intlayer] "contentDir" is now specifically for content definition files (.content.*). Using "contentDir" as "codeDir" for code transformation. Please update your configuration to include "codeDir" if you want to separate them.'
-    );
-    codeDirInput = customConfiguration.contentDir;
-  }
+  const codeDirInput = customConfiguration?.codeDir;
 
   const codeDir = (codeDirInput ?? CODE_DIR).map(optionalJoinBaseDir);
 

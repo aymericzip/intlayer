@@ -11,8 +11,24 @@ type useLocaleProps = {
 };
 
 /**
- * Hook to get and set the current locale in Svelte applications
- * @returns Readable store with current locale and setter function
+ * Svelte hook to manage the current locale and related functions.
+ *
+ * @param props - Optional configuration for locale management.
+ * @returns An object containing the current locale (readable store), default locale, available locales, and a function to update the locale.
+ *
+ * @example
+ * ```svelte
+ * <script>
+ *   import { useLocale } from 'svelte-intlayer';
+ *   const { locale, setLocale, availableLocales } = useLocale();
+ * </script>
+ *
+ * <select value={$locale} on:change={(e) => setLocale(e.target.value)}>
+ *   {#each availableLocales as loc}
+ *     <option value={loc}>{loc}</option>
+ *   {/each}
+ * </select>
+ * ```
  */
 export const useLocale = ({
   isCookieEnabled,

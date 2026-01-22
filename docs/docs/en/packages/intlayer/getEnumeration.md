@@ -28,7 +28,9 @@ history:
 
 ## Description
 
-The `getEnumeration` function retrieves content corresponding to a specific quantity based on predefined conditions in an enumeration object. The conditions are defined as keys, and their priority is determined by their order in the object.
+The `getEnumeration` function (also aliased as `enu`) retrieves content corresponding to a specific quantity based on predefined conditions in an enumeration object. The conditions are defined as keys, and their priority is determined by their order in the object.
+
+For more details on how to declare enumerations, see the [Enumeration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md).
 
 ## Parameters
 

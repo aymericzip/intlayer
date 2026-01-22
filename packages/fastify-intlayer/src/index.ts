@@ -87,7 +87,21 @@ export const translateFunction =
   };
 
 /**
- * Fastify Plugin to detect locale and load it into request context
+ * Fastify Plugin that integrates Intlayer into your Fastify application.
+ *
+ * It handles:
+ * 1. Locale detection from storage (cookies, headers).
+ * 2. Decorating the request object with `intlayer` data containing `t`, `getIntlayer`, and `getDictionary`.
+ * 3. Setting up a `cls-hooked` namespace for programmatic access during the request lifecycle.
+ *
+ * @example
+ * ```ts
+ * import Fastify from 'fastify';
+ * import { intlayer } from 'fastify-intlayer';
+ *
+ * const fastify = Fastify();
+ * fastify.register(intlayer);
+ * ```
  */
 const fastifyIntlayer: FastifyPluginAsync = async (fastify, _opts) => {
   // Decorate the request object to ensure types are stable.
@@ -170,7 +184,29 @@ export const intlayer = fp(fastifyIntlayer, {
   fastify: '5.x',
 });
 
-// Global exports that rely on CLS (Async Local Storage)
+/**
+ * Global translation function that retrieves content for the current locale in Fastify.
+ *
+ * This function utilizes CLS (Async Local Storage) and must be used within a request context
+ * managed by the `intlayer` plugin.
+ *
+ * @param content - A map of locales to content.
+ * @param locale - Optional locale override.
+ * @returns The translated content.
+ *
+ * @example
+ * ```ts
+ * import { t } from 'fastify-intlayer';
+ *
+ * fastify.get('/', async (req, reply) => {
+ *   const greeting = t({
+ *     en: 'Hello',
+ *     fr: 'Bonjour',
+ *   });
+ *   return greeting;
+ * });
+ * ```
+ */
 export const t = <Content = string>(
   content: StrictModeLocaleMap<Content>,
   locale?: Locale

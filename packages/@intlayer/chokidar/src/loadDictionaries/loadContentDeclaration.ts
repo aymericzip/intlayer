@@ -30,9 +30,13 @@ export const loadContentDeclarations = async (
 ): Promise<Dictionary[]> => {
   const { build, system } = configuration;
 
-  const { set, isValid } = cacheDisk(configuration, ['intlayer-bundle'], {
-    ttlMs: 1000 * 60 * 60 * 24 * 5, // 5 days
-  });
+  const { set, isValid, clear } = cacheDisk(
+    configuration,
+    ['intlayer-bundle'],
+    {
+      ttlMs: 1000 * 60 * 60 * 24 * 5, // 5 days
+    }
+  );
 
   const filePath = join(system.cacheDir, 'intlayer-bundle.cjs');
   const hasIntlayerBundle = await isValid();
@@ -128,7 +132,10 @@ export const loadContentDeclarations = async (
     return filterInvalidDictionaries(processedDictionaries, configuration, {
       checkSchema: false,
     });
-  } finally {
-    // await rm(tempFilePath, { recursive: true });
+  } catch {
+    console.error('Error loading content declarations');
+    await clear();
   }
+
+  return [];
 };

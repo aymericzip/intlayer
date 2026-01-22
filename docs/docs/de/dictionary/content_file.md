@@ -474,21 +474,21 @@ const aboutPageMetaContent = {
 export default aboutPageMetaContent;
 ```
 
-#### `location` ('remote' | 'local' | 'local&remote' | 'plugin')
+#### `location` ('local' | 'remote' | 'local&remote' | string)
 
-Gibt den Speicherort des Wörterbuchs an. Diese Eigenschaft kann gesetzt werden, um zu steuern, woher das Wörterbuch stammt:
+Gibt den Speicherort des Wörterbuchs an und steuert, wie es mit dem CMS synchronisiert wird:
 
-- `'local'`: Lokales Wörterbuch (aus Inhaltsdateien)
-- `'remote'`: Remote-Wörterbuch (aus externer Quelle/CMS)
-- `'local&remote'`: Wörterbuch, das sowohl lokal als auch remote existiert
-- `'plugin'`: Wörterbuch, das von einem Plugin bereitgestellt wird
+- `'local'`: Das Wörterbuch wird nur lokal verwaltet. Es wird nicht zum entfernten CMS gepusht. Verwenden Sie dies für Inhalte, die in Ihrer Codebasis bleiben sollen.
+- `'remote'`: Das Wörterbuch wird nur remote verwaltet. Nach dem Push zum CMS wird es von der lokalen Datei getrennt. Zum Zeitpunkt des Ladens des Inhalts wird das Remote-Wörterbuch vom CMS abgerufen. Eine `.content`-Datei mit `remote`-Speicherort wird nach dem initialen Push ignoriert.
+- `'local&remote'`: Das Wörterbuch wird sowohl lokal als auch remote verwaltet. Nach dem Push zum CMS bleibt es synchronisiert—Änderungen von der lokalen Datei werden zum CMS gepusht, und Remote-Änderungen können in die lokale Datei zurückgeholt werden.
+- `string` (z. B. `'plugin'`): Das Wörterbuch wird von einem Plugin oder einer benutzerdefinierten Quelle verwaltet. Wenn Sie versuchen, es zu pushen, fragt Sie das System, was zu tun ist.
 
 **Beispiel:**
 
 ```typescript
 {
   key: "about-page",
-  location: "local",
+  location: "local", // Inhalt bleibt nur in Ihrer Codebasis
   content: {
     title: "About Us"
   }

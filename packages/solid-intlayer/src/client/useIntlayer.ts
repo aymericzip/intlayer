@@ -10,9 +10,24 @@ import type { DeepTransformContent } from '../plugins';
 import { IntlayerClientContext } from './IntlayerProvider';
 
 /**
- * On the client side, Hook that picking one dictionary by its key and return the content
+ * Solid hook that picks one dictionary by its key and returns its reactive content.
  *
- * If the locale is not provided, it will use the locale from the client context
+ * It returns a reactive accessor that updates whenever the locale changes.
+ *
+ * @param key - The unique key of the dictionary to retrieve.
+ * @param locale - Optional locale to override the current context locale.
+ * @returns A reactive accessor to the dictionary content.
+ *
+ * @example
+ * ```tsx
+ * import { useIntlayer } from 'solid-intlayer';
+ *
+ * const MyComponent = () => {
+ *   const content = useIntlayer('my-dictionary-key');
+ *
+ *   return <div>{content().myField.value}</div>;
+ * };
+ * ```
  */
 export const useIntlayer = <
   T extends DictionaryKeys,

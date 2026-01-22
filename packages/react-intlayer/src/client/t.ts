@@ -6,9 +6,28 @@ import { useContext } from 'react';
 import { IntlayerClientContext } from './IntlayerProvider';
 
 /**
- * On the client side, this function returns the translation of the provided multilang content.
+ * Client-side translation function that returns the translation of the provided multilang content.
  *
- * If the locale is not provided, it will use the locale from the client context
+ * If the locale is not provided, it will use the locale from the client context.
+ *
+ * @param multilangContent - An object mapping locales to their respective content.
+ * @param locale - Optional locale to override the current context locale.
+ * @returns The translation for the specified locale.
+ *
+ * @example
+ * ```tsx
+ * import { t } from 'react-intlayer';
+ *
+ * const MyComponent = () => {
+ *   const greeting = t({
+ *     en: 'Hello',
+ *     fr: 'Bonjour',
+ *     es: 'Hola',
+ *   });
+ *
+ *   return <h1>{greeting}</h1>;
+ * };
+ * ```
  */
 export const t = <Content = string>(
   multilangContent: StrictModeLocaleMap<Content>,

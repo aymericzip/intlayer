@@ -1,8 +1,25 @@
-type Component = (props: any) => any;
+/**
+ * Component function that receives properly typed props
+ * Props include:
+ * - children?: any[] - Array of child elements (ReactNode[], VNode[], etc.)
+ * - [key: string]: any - Any HTML attributes (className, style, href, etc.)
+ */
+type Component = (props: { children?: any[]; [key: string]: any }) => any;
+
+/**
+ * Component object that delegates to another component
+ */
 type ComponentObject = {
   tag: string;
   props?: Record<string, any>;
 };
+
+/**
+ * Components map:
+ * - Function components receive typed props
+ * - String components delegate to another tag
+ * - Object components delegate with additional props
+ */
 type Components = Record<string, Component | string | ComponentObject>;
 
 /**
@@ -20,86 +37,40 @@ const parseAttributes = (attributes: string): Record<string, string> => {
   return props;
 };
 
-const htmlCache = new Map<string, any>();
+type ASTNode =
+  | string
+  | {
+      tagName: string;
+      props: Record<string, string>;
+      children: ASTNode[];
+    };
 
-/**
- * Allow to interpret HTML/JSX-like strings and replace tags with components.
- */
-export const getHTML = (content: string, values: Components): any => {
-  const cacheKey = JSON.stringify({ content, components: Object.keys(values) });
+const astCache = new Map<string, ASTNode[]>();
 
-  if (htmlCache.has(cacheKey)) {
-    return htmlCache.get(cacheKey);
+const parseHTML = (content: string): ASTNode[] => {
+  if (astCache.has(content)) {
+    return astCache.get(content)!;
+  }
+
+  if (typeof content !== 'string') {
+    return [];
   }
 
   const tagRegex = /<(\/)?([a-zA-Z0-9.-]+)([\s\S]*?)(\/?)>/g;
-
-  const elements: any[] = [];
+  const elements: ASTNode[] = [];
   const stack: {
     tagName: string;
-    children: any[];
+    children: ASTNode[];
     props: Record<string, string>;
   }[] = [];
 
   let lastIndex = 0;
-  let tagIndex = 0;
   let match = tagRegex.exec(content);
 
-  const renderValue = (
-    tagName: string,
-    tagProps: Record<string, any>,
-    children: any[],
-    index: number
-  ) => {
-    let override = values[tagName];
-
-    if (!override) {
-      const lowerTagName = tagName.toLowerCase();
-      const foundKey = Object.keys(values).find(
-        (key) => key.toLowerCase() === lowerTagName
-      );
-      if (foundKey) override = values[foundKey];
-    }
-
-    const key = `html-tag-${tagName}-${index}`;
-
-    if (typeof override === 'function') {
-      return override({ ...tagProps, children, key });
-    }
-
-    if (typeof override === 'string') {
-      const component = values[override];
-      if (typeof component === 'function') {
-        return component({ ...tagProps, children, key });
-      }
-      return children;
-    }
-
-    if (
-      typeof override === 'object' &&
-      override !== null &&
-      'tag' in override
-    ) {
-      const { tag: targetTag, props: extraProps } = override as ComponentObject;
-      const component = values[targetTag];
-      if (typeof component === 'function') {
-        return component({ ...tagProps, ...extraProps, children, key });
-      }
-      return children;
-    }
-
-    // Default: Skip tag, render children
-    return children;
-  };
-
-  const appendChild = (child: any) => {
+  const appendChild = (child: ASTNode) => {
     const target =
       stack.length > 0 ? stack[stack.length - 1].children : elements;
-    if (Array.isArray(child)) {
-      target.push(...child);
-    } else {
-      target.push(child);
-    }
+    target.push(child);
   };
 
   while (match !== null) {
@@ -121,14 +92,21 @@ export const getHTML = (content: string, values: Components): any => {
 
     if (isClosing) {
       const last = stack.pop();
+
       if (last) {
-        appendChild(
-          renderValue(tagName, last.props, last.children, tagIndex++)
-        );
+        appendChild({
+          tagName: last.tagName,
+          props: last.props,
+          children: last.children,
+        });
       }
     } else if (isSelfClosing) {
       const tagProps = parseAttributes(cleanedAttributes);
-      appendChild(renderValue(tagName, tagProps, [], tagIndex++));
+      appendChild({
+        tagName,
+        props: tagProps,
+        children: [],
+      });
     } else {
       const tagProps = parseAttributes(cleanedAttributes);
       stack.push({ tagName, children: [], props: tagProps });
@@ -142,14 +120,90 @@ export const getHTML = (content: string, values: Components): any => {
     appendChild(content.slice(lastIndex));
   }
 
+  // Handle unclosed tags by appending them to the root or parent
   while (stack.length > 0) {
-    const last = stack.shift();
-    if (last) appendChild(last.children);
+    const last = stack.pop();
+    if (last) {
+      appendChild({
+        tagName: last.tagName,
+        props: last.props,
+        children: last.children,
+      });
+    }
   }
 
-  const result = elements.length === 1 ? elements[0] : elements;
+  astCache.set(content, elements);
+  return elements;
+};
 
-  htmlCache.set(cacheKey, result);
+/**
+ * Interprets a string containing HTML-like tags and replaces them with provided components or strings.
+ */
+export const getHTML = (content: string, values: Components): any => {
+  // Parse into AST (cached)
+  const ast = parseHTML(content);
 
-  return result;
+  // Render AST
+  let keyCounter = 0;
+
+  const renderASTNode = (node: ASTNode): any => {
+    if (typeof node === 'string') {
+      return node;
+    }
+
+    const { tagName, props, children } = node;
+    const renderedChildren = children.flatMap(renderASTNode);
+    const index = keyCounter++;
+
+    let override = values[tagName];
+
+    if (!override) {
+      const lowerTagName = tagName.toLowerCase();
+      const foundKey = Object.keys(values).find(
+        (key) => key.toLowerCase() === lowerTagName
+      );
+
+      if (foundKey) override = values[foundKey];
+    }
+
+    const key = `html-tag-${tagName}-${index}`;
+
+    if (typeof override === 'function') {
+      return override({ ...props, children: renderedChildren, key });
+    }
+
+    if (typeof override === 'string') {
+      const component = values[override];
+
+      if (typeof component === 'function') {
+        return component({ ...props, children: renderedChildren, key });
+      }
+      return renderedChildren;
+    }
+
+    if (
+      typeof override === 'object' &&
+      override !== null &&
+      'tag' in override
+    ) {
+      const { tag: targetTag, props: extraProps } = override as ComponentObject;
+      const component = values[targetTag];
+
+      if (typeof component === 'function') {
+        return component({
+          ...props,
+          ...extraProps,
+          children: renderedChildren,
+          key,
+        });
+      }
+      return renderedChildren;
+    }
+
+    // Default: Skip tag, render children
+    return renderedChildren;
+  };
+
+  const result = ast.flatMap(renderASTNode);
+  return result.length === 1 ? result[0] : result;
 };

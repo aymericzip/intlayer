@@ -10,6 +10,7 @@ import type {
 import {
   type DeepTransformContent,
   htmlPlugin,
+  insertionPlugin,
   intlayerNodePlugins,
   markdownPlugin,
   solidNodePlugins,
@@ -26,6 +27,7 @@ export const getDictionary = <
   const plugins: Plugins[] = [
     intlayerNodePlugins,
     solidNodePlugins,
+    insertionPlugin,
     markdownPlugin,
     htmlPlugin,
     ...(additionalPlugins ?? []),

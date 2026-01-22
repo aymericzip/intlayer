@@ -43,7 +43,26 @@ export const createIntlayerClient = (
 };
 
 /**
- * Helper to install the Intlayer provider into the app
+ * Vue plugin to install Intlayer in your application.
+ *
+ * It provides the Intlayer context to your app and enables the use of composables
+ * like `useIntlayer` and `useLocale`.
+ *
+ * @param app - The Vue application instance.
+ * @param locale - Initial locale to use.
+ * @param isCookieEnabled - Whether to store the locale in cookies.
+ * @returns The Vue application instance.
+ *
+ * @example
+ * ```ts
+ * import { createApp } from 'vue';
+ * import { installIntlayer } from 'vue-intlayer';
+ * import App from './App.vue';
+ *
+ * const app = createApp(App);
+ * app.use(installIntlayer);
+ * app.mount('#app');
+ * ```
  */
 export const installIntlayer = (
   app: App,

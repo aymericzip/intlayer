@@ -1,6 +1,6 @@
 {
   "extends": "@utils/ts-config",
-  "include": ["**/*"],
+  "include": ["src/**/*"],
   "compilerOptions": {
     "outDir": "dist",
     "baseUrl": "src",

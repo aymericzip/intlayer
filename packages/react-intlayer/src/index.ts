@@ -1,7 +1,8 @@
+import type { LocalesValues } from '@intlayer/types';
 import type { IInterpreterPluginReact } from './plugins';
 
 declare module '@intlayer/core' {
-  interface IInterpreterPlugin<T, S, L>
+  interface IInterpreterPlugin<T, S, L extends LocalesValues>
     extends IInterpreterPluginReact<T, S, L> {}
 }
 

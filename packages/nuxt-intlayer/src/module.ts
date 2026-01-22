@@ -4,7 +4,23 @@ import { addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit';
 import type { NuxtModule } from '@nuxt/schema';
 import { intlayer, intlayerProxy } from 'vite-intlayer';
 
-// @ts-ignore fix instantiation is excessively deep and possibly infinite
+/**
+ * Nuxt module that integrates Intlayer into Nuxt applications.
+ *
+ * It handles:
+ * 1. Configuring TypeScript to include Intlayer's generated types.
+ * 2. Registering runtime plugins for Vue Intlayer and HTML lang management.
+ * 3. Extending Vite configuration with Intlayer and Intlayer Proxy plugins.
+ * 4. Extending Nuxt pages to support locale-aware routing based on the configuration.
+ *
+ * @example
+ * ```ts
+ * // nuxt.config.ts
+ * export default defineNuxtConfig({
+ *   modules: ['nuxt-intlayer'],
+ * });
+ * ```
+ */
 export const module: NuxtModule = defineNuxtModule({
   meta: {
     name: 'nuxt-intlayer',

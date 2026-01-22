@@ -27,6 +27,29 @@ import {
   toComponent,
 } from './useDictionary';
 
+/**
+ * Vue composable that picks one dictionary by its key and returns its reactive content.
+ *
+ * This hook provides deep reactivity, meaning your components will automatically
+ * update when the locale changes.
+ *
+ * @param key - The unique key of the dictionary to retrieve.
+ * @param locale - Optional reactive locale or getter to override the current context locale.
+ * @returns A reactive proxy to the dictionary content.
+ *
+ * @example
+ * ```vue
+ * <script setup>
+ * import { useIntlayer } from 'vue-intlayer';
+ *
+ * const content = useIntlayer('my-dictionary-key');
+ * </script>
+ *
+ * <template>
+ *   <div>{{ content.myField.value }}</div>
+ * </template>
+ * ```
+ */
 export const useIntlayer = <T extends DictionaryKeys>(
   key: T,
   locale?: MaybeRefOrGetter<LocalesValues | null | undefined>

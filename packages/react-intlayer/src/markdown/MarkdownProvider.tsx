@@ -8,7 +8,7 @@ import {
   type ReactNode,
   useContext,
 } from 'react';
-import { compiler, type MarkdownProcessorOptions } from './processor';
+import { compiler, type MarkdownRendererOptions } from './processor';
 
 type RenderMarkdownOptions = {
   components?: Overrides;
@@ -77,7 +77,7 @@ export const MarkdownProvider: FC<MarkdownProviderProps> = ({
   const { forceBlock, preserveFrontmatter, tagfilter } = options;
 
   // Map public options to internal processor options
-  const internalOptions: MarkdownProcessorOptions = {
+  const internalOptions: MarkdownRendererOptions = {
     components,
     forceBlock,
     wrapper,

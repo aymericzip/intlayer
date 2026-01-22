@@ -4,6 +4,7 @@ import { getProjectRequire } from '@intlayer/config';
 import type {
   Dictionary,
   DictionaryFormat,
+  DictionaryLocation,
   IntlayerConfig,
   LocalDictionaryId,
   Locale,
@@ -222,21 +223,22 @@ type SyncJSONPluginOptions = {
    * In the case you have multiple plugins, you can use this to identify the plugin in the dictionary.
    *
    * ```ts
-   * const config ={
-   * plugins: [
-   * syncJSON({
-   * source: ({ key, locale }) => `./resources/${locale}/${key}.json`
-   * location: 'plugin-i18next',
-   * }),
-   * syncJSON({
-   * source: ({ key, locale }) => `./messages/${locale}/${key}.json`
-   * location: 'plugin-next-intl',
-   * }),
-   * ]
+   * // Example usage:
+   * const config = {
+   *   plugins: [
+   *     syncJSON({
+   *       source: ({ key, locale }) => `./resources/${locale}/${key}.json`,
+   *       location: 'plugin-i18next',
+   *     }),
+   *     syncJSON({
+   *       source: ({ key, locale }) => `./messages/${locale}/${key}.json`,
+   *       location: 'plugin-next-intl',
+   *     }),
+   *   ]
    * }
    * ```
    */
-  location?: string;
+  location?: DictionaryLocation | (string & {});
 
   /**
    * The priority of the dictionaries created by the plugin.

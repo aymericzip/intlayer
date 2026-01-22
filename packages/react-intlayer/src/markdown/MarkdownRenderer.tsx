@@ -4,7 +4,7 @@ import {
   type MarkdownProviderOptions,
   useMarkdownContext,
 } from './MarkdownProvider';
-import { compiler, type MarkdownProcessorOptions } from './processor';
+import { compiler, type MarkdownRendererOptions } from './processor';
 
 type MarkdownRendererProps = {
   /**
@@ -51,7 +51,7 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   const { forceBlock, preserveFrontmatter, tagfilter } = options;
 
   // Map public options to internal processor options
-  const internalOptions: MarkdownProcessorOptions = {
+  const internalOptions: MarkdownRendererOptions = {
     components,
     forceBlock,
     wrapper,

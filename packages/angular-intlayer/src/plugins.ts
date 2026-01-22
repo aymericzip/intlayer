@@ -1,11 +1,17 @@
 import {
   type DeepTransformContent as DeepTransformContentCore,
   getMarkdownMetadata,
+  type HTMLCond,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
   type MarkdownContent,
   type Plugins,
 } from '@intlayer/core';
-import { type KeyPath, type LocalesValues, NodeType } from '@intlayer/types';
+import {
+  type DeclaredLocales,
+  type KeyPath,
+  type LocalesValues,
+  NodeType,
+} from '@intlayer/types';
 import { ContentSelectorWrapperComponent } from './editor';
 import { useMarkdown } from './markdown/installIntlayerMarkdown';
 import { renderIntlayerNode } from './renderIntlayerNode';
@@ -168,9 +174,12 @@ export const markdownPlugin: Plugins = {
  *  PLUGINS RESULT
  *  --------------------------------------------- */
 
+export type HTMLPluginCond<T, S, L> = HTMLCond<T, S, L>;
+
 export interface IInterpreterPluginAngular<T, S, L extends LocalesValues> {
-  intlayerNode: IntlayerNodeCond<T>;
-  markdown: MarkdownCond<T, S, L>;
+  angularIntlayerNode: IntlayerNodeCond<T>;
+  angularMarkdown: MarkdownCond<T, S, L>;
+  angularHtml: HTMLPluginCond<T, S, L>;
 }
 
 /**
@@ -179,11 +188,12 @@ export interface IInterpreterPluginAngular<T, S, L extends LocalesValues> {
  * Otherwise the the `angular-intlayer` plugins will override the types of `intlayer` functions.
  */
 export type IInterpreterPluginState = IInterpreterPluginStateCore & {
-  intlayerNode: true;
-  markdown: true;
+  angularIntlayerNode: true;
+  angularMarkdown: true;
+  angularHtml: true;
 };
 
-export type DeepTransformContent<T> = DeepTransformContentCore<
+export type DeepTransformContent<
   T,
-  IInterpreterPluginState
->;
+  L extends LocalesValues = DeclaredLocales,
+> = DeepTransformContentCore<T, IInterpreterPluginState, L>;

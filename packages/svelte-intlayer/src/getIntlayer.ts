@@ -8,6 +8,7 @@ import type {
 import {
   type DeepTransformContent,
   htmlPlugin,
+  insertionPlugin,
   intlayerNodePlugins,
   markdownPlugin,
   svelteNodePlugins,
@@ -31,6 +32,7 @@ export const getIntlayer = <
   const plugins: Plugins[] = [
     intlayerNodePlugins,
     svelteNodePlugins,
+    insertionPlugin,
     markdownPlugin,
     htmlPlugin,
     ...(additionalPlugins ?? []),

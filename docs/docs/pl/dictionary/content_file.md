@@ -472,21 +472,21 @@ const aboutPageMetaContent = {
 export default aboutPageMetaContent;
 ```
 
-#### `location` ('remote' | 'local' | 'local&remote' | 'plugin')
+#### `location` ('local' | 'remote' | 'local&remote' | string)
 
-Wskazuje lokalizację słownika. Ta właściwość może być ustawiona w celu kontroli źródła słownika:
+Wskazuje lokalizację słownika i kontroluje sposób synchronizacji z CMS:
 
-- `'local'`: Słownik lokalny (z plików zawartości)
-- `'remote'`: Słownik zdalny (ze źródła zewnętrznego/CMS)
-- `'local&remote'`: Słownik istniejący zarówno lokalnie, jak i zdalnie
-- `'plugin'`: Słownik dostarczany przez wtyczkę
+- `'local'`: Słownik jest zarządzany tylko lokalnie. Nie zostanie wysłany do zdalnego CMS. Użyj tego dla treści, które powinny pozostać w twojej bazie kodu.
+- `'remote'`: Słownik jest zarządzany tylko zdalnie. Po wysłaniu do CMS zostanie odłączony od pliku lokalnego. W momencie ładowania treści zdalny słownik zostanie pobrany z CMS. Plik `.content` z lokalizacją `remote` zostanie zignorowany po początkowym wysłaniu.
+- `'local&remote'`: Słownik jest zarządzany zarówno lokalnie, jak i zdalnie. Po wysłaniu do CMS pozostanie zsynchronizowany—zmiany z pliku lokalnego są wysyłane do CMS, a zmiany zdalne mogą być pobrane z powrotem do pliku lokalnego.
+- `string` (np. `'plugin'`): Słownik jest zarządzany przez wtyczkę lub niestandardowe źródło. Gdy spróbujesz go wysłać, system zapyta cię, co zrobić.
 
 **Przykład:**
 
 ```typescript
 {
   key: "about-page",
-  location: "local",
+  location: "local", // Treść pozostaje tylko w twojej bazie kodu
   content: {
     title: "About Us"
   }

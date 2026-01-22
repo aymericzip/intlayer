@@ -24,15 +24,15 @@ import { type GetNestingResult, getNesting } from '../getNesting';
 import { getTranslation } from '../getTranslation';
 
 /** ---------------------------------------------
- *  PLUGIN DEFINITION
- *  --------------------------------------------- */
+ * PLUGIN DEFINITION
+ * --------------------------------------------- */
 
 /**
- *  A plugin/transformer that can optionally transform a node during a single DFS pass.
- *  - `canHandle` decides if the node is transformable by this plugin.
- *  - `transform` returns the transformed node (and does not recurse further).
+ * A plugin/transformer that can optionally transform a node during a single DFS pass.
+ * - `canHandle` decides if the node is transformable by this plugin.
+ * - `transform` returns the transformed node (and does not recurse further).
  *
- *  > `transformFn` is a function that can be used to deeply transform inside the plugin.
+ * > `transformFn` is a function that can be used to deeply transform inside the plugin.
  */
 export type Plugins = {
   id: string;
@@ -45,8 +45,8 @@ export type Plugins = {
 };
 
 /** ---------------------------------------------
- *  TRANSLATION PLUGIN
- *  --------------------------------------------- */
+ * TRANSLATION PLUGIN
+ * --------------------------------------------- */
 
 export type TranslationCond<T, S, L extends LocalesValues> = T extends {
   nodeType: NodeType | string;
@@ -90,8 +90,8 @@ export const translationPlugin = (
 });
 
 /** ---------------------------------------------
- *  ENUMERATION PLUGIN
- *  --------------------------------------------- */
+ * ENUMERATION PLUGIN
+ * --------------------------------------------- */
 
 export type EnumerationCond<T, S, L> = T extends {
   nodeType: NodeType | string;
@@ -134,8 +134,8 @@ export const enumerationPlugin: Plugins = {
 };
 
 /** ---------------------------------------------
- *  CONDITION PLUGIN
- *  --------------------------------------------- */
+ * CONDITION PLUGIN
+ * --------------------------------------------- */
 
 export type ConditionCond<T, S, L> = T extends {
   nodeType: NodeType | string;
@@ -174,41 +174,6 @@ export const conditionPlugin: Plugins = {
     }
 
     return (value: boolean) => getCondition(result, value);
-  },
-};
-
-/** ---------------------------------------------
- *  GENDER PLUGIN
- *  --------------------------------------------- */
-
-export type GenderCond<T, S, L> = T extends {
-  nodeType: NodeType | string;
-  [NodeType.Gender]: object;
-}
-  ? (
-      value: Gender
-    ) => DeepTransformContent<T[NodeType.Gender][keyof T[NodeType.Gender]], S>
-  : never;
-
-/** Gender plugin. Replaces node with a function that takes gender => string. */
-export const genderPlugin: Plugins = {
-  id: 'gender-plugin',
-  canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.Gender,
-  transform: (node: GenderContent, props, deepTransformNode) => {
-    const result = structuredClone(node[NodeType.Gender]);
-
-    for (const key in result) {
-      const child = result[key as keyof typeof result];
-      const childProps = {
-        ...props,
-        children: child,
-        keyPath: [...props.keyPath, { type: NodeType.Gender, key } as KeyPath],
-      };
-      result[key as keyof typeof result] = deepTransformNode(child, childProps);
-    }
-
-    return (value: Gender) => getGender(result, value);
   },
 };
 
@@ -284,8 +249,43 @@ export const insertionPlugin: Plugins = {
 };
 
 /** ---------------------------------------------
- *  NESTED PLUGIN
- *  --------------------------------------------- */
+ * GENDER PLUGIN
+ * --------------------------------------------- */
+
+export type GenderCond<T, S, L> = T extends {
+  nodeType: NodeType | string;
+  [NodeType.Gender]: object;
+}
+  ? (
+      value: Gender
+    ) => DeepTransformContent<T[NodeType.Gender][keyof T[NodeType.Gender]], S>
+  : never;
+
+/** Gender plugin. Replaces node with a function that takes gender => string. */
+export const genderPlugin: Plugins = {
+  id: 'gender-plugin',
+  canHandle: (node) =>
+    typeof node === 'object' && node?.nodeType === NodeType.Gender,
+  transform: (node: GenderContent, props, deepTransformNode) => {
+    const result = structuredClone(node[NodeType.Gender]);
+
+    for (const key in result) {
+      const child = result[key as keyof typeof result];
+      const childProps = {
+        ...props,
+        children: child,
+        keyPath: [...props.keyPath, { type: NodeType.Gender, key } as KeyPath],
+      };
+      result[key as keyof typeof result] = deepTransformNode(child, childProps);
+    }
+
+    return (value: Gender) => getGender(result, value);
+  },
+};
+
+/** ---------------------------------------------
+ * NESTED PLUGIN
+ * --------------------------------------------- */
 
 export type NestedCond<T, S, L> = T extends {
   nodeType: NodeType | string;
@@ -313,12 +313,13 @@ export const nestedPlugin = (locale?: LocalesValues): Plugins => ({
 });
 
 /** ---------------------------------------------
- *  HTML PLUGIN
- *  --------------------------------------------- */
+ * HTML PLUGIN
+ * --------------------------------------------- */
 
 /**
  * Props for HTML tag components.
  * Includes children and an index signature for attributes.
+ * Framework-specific implementations should extend this with proper types (ReactNode, VNode, etc.)
  */
 export type HTMLTagComponentProps = {
   children?: any;
@@ -328,42 +329,61 @@ export type HTMLTagComponentProps = {
 /**
  * A component that can be used to replace an HTML tag.
  * Can be a string (tag name) or a functional component.
+ * Framework-specific implementations should use properly typed versions.
  */
 export type HTMLTagComponent = string | ((props: HTMLTagComponentProps) => any);
 
+/**
+ * Helper to map string types from dictionary to TypeScript types
+ */
+type PropTypeMap<T> = T extends 'string'
+  ? string
+  : T extends 'number'
+    ? number
+    : T extends 'boolean'
+      ? boolean
+      : any;
+
+/**
+ * Helper to extract props from the dictionary definition of a custom component
+ */
+type ExtractCustomProps<Definition> = {
+  [K in keyof Definition]?: Definition[K] extends string
+    ? PropTypeMap<Definition[K]>
+    : any;
+} & HTMLTagComponentProps;
+
+/**
+ * HTML conditional type that enforces:
+ * - All components (Standard or Custom) are OPTIONAL in the `use()` method.
+ * - Custom components props are strictly inferred from the dictionary definition.
+ *
+ * This ensures type safety:
+ * - `html('<div>Hello <CustomComponent /></div>').use({ CustomComponent: ... })` - optional but typed
+ */
 export type HTMLCond<T, S, L> = T extends {
   nodeType: NodeType | string;
   [NodeType.HTML]: string;
-  customComponents?: infer U;
+  tags?: infer U;
 }
   ? {
-      use: U extends readonly string[]
-        ? U extends readonly []
-          ? (components?: Partial<Record<string, HTMLTagComponent>>) => any
-          : (
-              components: { [K in U[number]]: HTMLTagComponent } & Partial<
-                Record<string, HTMLTagComponent>
-              >
-            ) => any
-        : (components?: Record<string, HTMLTagComponent>) => any;
+      use: U extends Record<string, any>
+        ? (
+            components?: {
+              // Map all keys from U, making them optional
+              [K in keyof U]?: U[K] extends true
+                ? HTMLTagComponent
+                : string | ((props: ExtractCustomProps<U[K]>) => any);
+            } & Partial<Record<string, HTMLTagComponent>>
+          ) => any
+        : // Fallback for array or undefined tags (legacy)
+          (components?: Record<string, HTMLTagComponent>) => any;
     } & any
   : never;
 
-/**
- * Note: The `htmlPlugin` is NOT defined at the core level.
- * Each framework (react-intlayer, vue-intlayer, svelte-intlayer, solid-intlayer)
- * must implement their own `htmlPlugin` to provide default HTML tag components
- * (e.g., h1, p, span, etc.) using their native element creation APIs.
- *
- * The framework-specific plugins should:
- * 1. Create default components for standard HTML tags
- * 2. Merge user-provided components with defaults (user takes priority)
- * 3. Call `getHTML(node[NodeType.HTML], mergedComponents)`
- */
-
 /** ---------------------------------------------
- *  FILE PLUGIN
- *  --------------------------------------------- */
+ * FILE PLUGIN
+ * --------------------------------------------- */
 
 export type FileCond<T> = T extends {
   nodeType: NodeType | string;
@@ -386,12 +406,12 @@ export const filePlugin: Plugins = {
 };
 
 /**
- *  PLUGIN RESULT
+ * PLUGIN RESULT
  */
 
 /**
- *  Interface that defines the properties of a node.
- *  This interface can be augmented in other packages, such as `react-intlayer`.
+ * Interface that defines the properties of a node.
+ * This interface can be augmented in other packages, such as `react-intlayer`.
  */
 export interface NodeProps {
   dictionaryKey: string;
@@ -403,8 +423,8 @@ export interface NodeProps {
 }
 
 /**
- *  Interface that defines the plugins that can be used to transform a node.
- *  This interface can be augmented in other packages, such as `react-intlayer`.
+ * Interface that defines the plugins that can be used to transform a node.
+ * This interface can be augmented in other packages, such as `react-intlayer`.
  */
 export interface IInterpreterPlugin<T, S, L extends LocalesValues> {
   translation: TranslationCond<T, S, L>;
@@ -417,7 +437,7 @@ export interface IInterpreterPlugin<T, S, L extends LocalesValues> {
 }
 
 /**
- *  Allow to avoid overwriting import from `intlayer` package when `IInterpreterPlugin<T>` interface is augmented in another package, such as `react-intlayer`.
+ * Allow to avoid overwriting import from `intlayer` package when `IInterpreterPlugin<T>` interface is augmented in another package, such as `react-intlayer`.
  */
 export type IInterpreterPluginState = {
   translation: true;
@@ -430,7 +450,7 @@ export type IInterpreterPluginState = {
 };
 
 /**
- *  Utility type to check if a plugin can be applied to a node.
+ * Utility type to check if a plugin can be applied to a node.
  */
 type CheckApplyPlugin<
   T,
@@ -449,7 +469,7 @@ type CheckApplyPlugin<
   : never;
 
 /**
- *  Traverse recursively through an object or array, applying each plugin as needed.
+ * Traverse recursively through an object or array, applying each plugin as needed.
  */
 type Traverse<
   T,
@@ -464,7 +484,7 @@ type Traverse<
 export type IsAny<T> = 0 extends 1 & T ? true : false;
 
 /**
- *  Traverse recursively through an object or array, applying each plugin as needed.
+ * Traverse recursively through an object or array, applying each plugin as needed.
  */
 export type DeepTransformContent<
   T,

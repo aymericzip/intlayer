@@ -36,6 +36,7 @@ import {
   getEmptyNode,
   getLocaleName,
   getNodeType,
+  type HTMLContent,
   type InsertionContent,
   type MarkdownContent,
   type TranslationContent,
@@ -635,6 +636,61 @@ enum MarkdownViewMode {
   Preview,
 }
 
+enum HtmlViewMode {
+  Edit,
+  Preview,
+}
+
+const HtmlTextEditor: FC<TextEditorProps> = ({
+  section,
+  keyPath,
+  dictionary,
+}) => {
+  const [mode, setMode] = useState(HtmlViewMode.Edit);
+  const toggleContent = [
+    {
+      content: 'Edit',
+      value: HtmlViewMode.Edit,
+    },
+    {
+      content: 'Preview',
+      value: HtmlViewMode.Preview,
+    },
+  ] as SwitchSelectorChoices<HtmlViewMode>;
+  const childKeyPath: KeyPath[] = [...keyPath, { type: NodeType.HTML }];
+
+  const content = (section as HTMLContent<ContentNode>)[
+    NodeType.HTML
+  ] as ContentNode;
+
+  return (
+    <div className="flex w-full flex-col justify-center gap-6 p-2">
+      <SwitchSelector
+        choices={toggleContent}
+        value={mode}
+        onChange={setMode}
+        color={SwitchSelectorColor.TEXT}
+        size={SwitchSelectorSize.SM}
+        className="ml-auto"
+      />
+
+      <TextEditorContainer
+        section={content}
+        keyPath={childKeyPath}
+        dictionary={dictionary}
+        renderSection={
+          mode === HtmlViewMode.Preview
+            ? (content) => (
+                // biome-ignore lint/security/noDangerouslySetInnerHtml: HTML content is user-controlled and rendered in editor context
+                <div dangerouslySetInnerHTML={{ __html: content }} />
+              )
+            : undefined
+        }
+      />
+    </div>
+  );
+};
+
 const MarkdownTextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
@@ -880,6 +936,16 @@ export const TextEditor: FC<TextEditorProps> = ({
         keyPath={keyPath}
         section={section}
         isDarkMode={isDarkMode}
+      />
+    );
+  }
+
+  if (nodeType === NodeType.HTML) {
+    return (
+      <HtmlTextEditor
+        dictionary={dictionary}
+        keyPath={keyPath}
+        section={section}
       />
     );
   }

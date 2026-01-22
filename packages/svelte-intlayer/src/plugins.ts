@@ -7,6 +7,7 @@ import {
   type HTMLCond,
   type HTMLContent,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
+  type InsertionContent,
   type MarkdownContent,
   type Plugins,
 } from '@intlayer/core';
@@ -27,10 +28,10 @@ import { type IntlayerNode, renderIntlayerNode } from './renderIntlayerNode';
  * This interface can be augmented to add more Svelte-specific transformations
  */
 export type IInterpreterPluginState = IInterpreterPluginStateCore & {
-  /** Any Svelte-specific properties can be added here */
-  intlayerNode: true;
-  markdown: true;
-  html: true;
+  svelteIntlayerNode: true;
+  svelteInsertion: true;
+  svelteMarkdown: true;
+  svelteHtml: true;
 };
 
 /**
@@ -66,8 +67,154 @@ export const intlayerNodePlugins: Plugins = {
  */
 export const svelteNodePlugins: Plugins = intlayerNodePlugins;
 
+/** ---------------------------------------------
+ * INSERTION PLUGIN
+ * --------------------------------------------- */
+
+export type InsertionCond<T, _S, _L> = T extends {
+  nodeType: NodeType | string;
+  [NodeType.Insertion]: string;
+  fields: readonly string[];
+}
+  ? (
+      values: {
+        [K in T['fields'][number]]: string | number | any;
+      }
+    ) => any
+  : never;
+
+/**
+ * Check if a value is a Svelte component or object (not a primitive)
+ */
+const isSvelteComponent = (value: any): boolean => {
+  return (
+    value !== null &&
+    value !== undefined &&
+    typeof value !== 'string' &&
+    typeof value !== 'number' &&
+    typeof value !== 'boolean'
+  );
+};
+
+/**
+ * Split insertion string and join with Svelte components
+ */
+const splitAndJoinInsertion = (
+  template: string,
+  values: Record<string, string | number | any>
+): any => {
+  // Check if any value is a Svelte component
+  const hasComponent = Object.values(values).some(isSvelteComponent);
+
+  if (!hasComponent) {
+    // Simple string replacement
+    return template.replace(/\{\{\s*(.*?)\s*\}\}/g, (_, key) => {
+      const trimmedKey = key.trim();
+      return (values[trimmedKey] ?? '').toString();
+    });
+  }
+
+  // Split the template by placeholders while keeping the structure
+  const parts: any[] = [];
+  let lastIndex = 0;
+  const regex = /\{\{\s*(.*?)\s*\}\}/g;
+  let match: RegExpExecArray | null = regex.exec(template);
+
+  while (match !== null) {
+    // Add text before the placeholder
+    if (match.index > lastIndex) {
+      parts.push(template.substring(lastIndex, match.index));
+    }
+
+    // Add the replaced value
+    const key = match[1].trim();
+    const value = values[key];
+    if (value !== undefined && value !== null) {
+      parts.push(value);
+    }
+
+    lastIndex = match.index + match[0].length;
+    match = regex.exec(template);
+  }
+
+  // Add remaining text
+  if (lastIndex < template.length) {
+    parts.push(template.substring(lastIndex));
+  }
+
+  // Return array of parts
+  return parts;
+};
+
+/** Insertion plugin for Svelte. Handles component insertion. */
+export const insertionPlugin: Plugins = {
+  id: 'insertion-plugin',
+  canHandle: (node) =>
+    typeof node === 'object' && node?.nodeType === NodeType.Insertion,
+  transform: (node: InsertionContent, props, deepTransformNode) => {
+    const newKeyPath: KeyPath[] = [
+      ...props.keyPath,
+      {
+        type: NodeType.Insertion,
+      },
+    ];
+
+    const children = node[NodeType.Insertion];
+
+    /** Insertion string plugin. Replaces string node with a component that render the insertion. */
+    const insertionStringPlugin: Plugins = {
+      id: 'insertion-string-plugin',
+      canHandle: (node) => typeof node === 'string',
+      transform: (node: string, subProps, deepTransformNode) => {
+        const transformedResult = deepTransformNode(node, {
+          ...subProps,
+          children: node,
+          plugins: [
+            ...(props.plugins ?? ([] as Plugins[])).filter(
+              (plugin) => plugin.id !== 'intlayer-node-plugin'
+            ),
+          ],
+        });
+
+        return (
+          values: {
+            [K in InsertionContent['fields'][number]]: string | number | any;
+          }
+        ) => {
+          const result = splitAndJoinInsertion(transformedResult, values);
+
+          return deepTransformNode(result, {
+            ...subProps,
+            plugins: props.plugins,
+            children: result,
+          });
+        };
+      },
+    };
+
+    return deepTransformNode(children, {
+      ...props,
+      children,
+      keyPath: newKeyPath,
+      plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
+    });
+  },
+};
+
+/**
+ * MARKDOWN PLUGIN
+ */
+
+type MarkdownComponentMap = Record<string, any>;
+
 export type MarkdownStringCond<T> = T extends string
-  ? IntlayerNode<string>
+  ? IntlayerNode<
+      string,
+      {
+        metadata: DeepTransformContent<string>;
+        use: (components?: MarkdownComponentMap) => any;
+      }
+    >
   : never;
 
 /** Markdown string plugin. Replaces string node with a component that render the markdown. */
@@ -157,7 +304,7 @@ export type MarkdownCond<T, S, L extends LocalesValues> = T extends {
   metadata?: infer U;
 }
   ? {
-      use: (components: any) => any;
+      use: (components?: MarkdownComponentMap) => any;
       metadata: DeepTransformContent<U, L>;
     } & any
   : never;
@@ -186,8 +333,8 @@ export const markdownPlugin: Plugins = {
 };
 
 /** ---------------------------------------------
- *  HTML PLUGIN
- *  --------------------------------------------- */
+ * HTML PLUGIN
+ * --------------------------------------------- */
 
 type HTMLTagComponent = (props: {
   children?: (string | HTMLElement)[];
@@ -246,6 +393,13 @@ const getDefaultHTMLComponents = (): Record<string, HTMLTagComponent> => {
   return defaultHTMLComponents;
 };
 
+// Svelte generic component map
+export type SvelteHTMLComponentMap<T = string> = T extends string
+  ? Record<T, any>
+  : {
+      [K in keyof T]?: any;
+    };
+
 export type HTMLPluginCond<T, S, L> = HTMLCond<T, S, L>;
 
 /** HTML plugin. Replaces node with a function that takes components => HTMLElement[]. */
@@ -253,17 +407,24 @@ export const htmlPlugin: Plugins = {
   id: 'html-plugin',
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.HTML,
-  transform: (node: HTMLContent) => {
+  transform: (node: HTMLContent<string>) => {
     const htmlString = node[NodeType.HTML];
+    const tags = node.tags ?? [];
 
-    const render = (userComponents?: Record<string, any>): any => {
+    const render = <
+      T = typeof tags extends readonly (infer U extends string)[]
+        ? U
+        : typeof tags,
+    >(
+      userComponents?: SvelteHTMLComponentMap<T>
+    ): any => {
       const mergedComponents = {
         ...getDefaultHTMLComponents(),
         ...userComponents,
       };
       const result = getHTML(htmlString, mergedComponents);
 
-      const toString = () => {
+      const toStringFn = () => {
         if (Array.isArray(result)) {
           return result
             .map((item) =>
@@ -283,9 +444,9 @@ export const htmlPlugin: Plugins = {
 
       return new Proxy(target, {
         get(t, prop) {
-          if (prop === 'toString') return toString;
+          if (prop === 'toString') return toStringFn;
           if (prop === 'use')
-            return (userComponents?: Record<string, any>) =>
+            return (userComponents?: SvelteHTMLComponentMap<T>) =>
               render(userComponents);
           if (prop === 'value') return htmlString;
 
@@ -299,7 +460,8 @@ export const htmlPlugin: Plugins = {
 };
 
 export interface IInterpreterPluginSvelte<T, S, L extends LocalesValues> {
-  intlayerNode: T extends string | number ? IntlayerNode<T> : never;
-  markdown: MarkdownCond<T, S, L>;
-  html: HTMLPluginCond<T, S, L>;
+  svelteIntlayerNode: T extends string | number ? IntlayerNode<T> : never;
+  svelteInsertion: InsertionCond<T, S, L>;
+  svelteMarkdown: MarkdownCond<T, S, L>;
+  svelteHtml: HTMLPluginCond<T, S, L>;
 }

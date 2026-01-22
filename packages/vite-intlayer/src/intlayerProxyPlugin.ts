@@ -32,14 +32,23 @@ type IntlayerProxyPluginOptions = {
 };
 
 /**
+ * Vite plugin that provides a development middleware for locale-based routing.
  *
- * A Vite plugin that integrates a logic similar to the Next.js intlayer middleware.
+ * This plugin mimics the behavior of the Intlayer middleware in Next.js,
+ * handling locale detection, redirects, and rewrites during development.
  *
- * // Example usage of the plugin in a Vite configuration
+ * @param configOptions - Optional configuration for Intlayer.
+ * @param options - Plugin-specific options, like ignoring certain paths.
+ * @returns A Vite plugin.
+ *
+ * @example
+ * ```ts
+ * import { intlayerProxy } from 'vite-intlayer';
+ *
  * export default defineConfig({
- *   plugins: [ intlayerProxyPlugin() ],
+ *   plugins: [intlayerProxy()],
  * });
- *
+ * ```
  */
 export const intlayerProxy = (
   configOptions?: GetConfigurationOptions,

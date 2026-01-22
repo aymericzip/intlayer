@@ -1,7 +1,7 @@
 /**
  * React adapter for the framework-agnostic markdown processor.
  *
- * Provides a backward-compatible compiler and MarkdownProcessor component.
+ * Provides a backward-compatible compiler and LegacyMarkdownRenderer component.
  */
 
 import {
@@ -39,9 +39,9 @@ type HTMLTags = keyof JSX.IntrinsicElements;
 type State = ParseState;
 
 /**
- * Refined MarkdownProcessorOptions type.
+ * Refined MarkdownRendererOptions type.
  */
-export type MarkdownProcessorOptions = Partial<{
+export type MarkdownRendererOptions = Partial<{
   /**
    * Ultimate control over the output of all rendered JSX.
    */
@@ -142,7 +142,7 @@ const DEFAULT_RUNTIME: MarkdownRuntime = {
  */
 export const compileMarkdown = (
   markdown: string = '',
-  options: MarkdownProcessorOptions = {}
+  options: MarkdownRendererOptions = {}
 ): JSX.Element => {
   const {
     createElement: customCreateElement,
@@ -195,12 +195,12 @@ export const compiler = compileMarkdown;
 export const compile = compileMarkdown;
 
 /**
- * React component that renders markdown to JSX.
+ * React component that renders markdown to JSX (legacy).
  */
-export const MarkdownProcessor: FC<
+export const LegacyMarkdownRenderer: FC<
   Omit<HTMLAttributes<Element>, 'children'> & {
     children: string;
-    options?: MarkdownProcessorOptions;
+    options?: MarkdownRendererOptions;
   }
 > = ({ children = '', options, ...props }) => {
   if (process.env.NODE_ENV !== 'production' && typeof children !== 'string') {

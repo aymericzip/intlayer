@@ -52,7 +52,7 @@ $: console.log($content.markdownContent.metadata);
     <h2>Markdown with overrides</h2>
     <svelte:component
       this={$content.markdown.use({
-        h1: (props: any) => {
+        h1: (props) => {
           const h1 = document.createElement('h1');
           h1.style.color = 'green';
           h1.textContent = 'tetst';
@@ -73,14 +73,14 @@ $: console.log($content.markdownContent.metadata);
     <h2>HTML with overrides</h2>
     {@html $content.html
       .use({
-        b: (props: any) => {
+        b: (props) => {
           const h1 = document.createElement('h1');
           for (const [key, val] of Object.entries(props)) {
             if (key !== 'children') h1.setAttribute(key, String(val));
           }
           return h1;
         },
-        'custom-component': (props: any) => {
+        'custom-component': (props) => {
           const h1 = document.createElement('h1');
           h1.style.color = 'red';
           for (const [key, val] of Object.entries(props)) {
@@ -89,7 +89,7 @@ $: console.log($content.markdownContent.metadata);
           h1.textContent = 'Custom 1';
           return h1;
         },
-        CustomComponent2: (props: any) => {
+        CustomComponent2: (props) => {
           const h1 = document.createElement('h1');
           h1.style.color = 'green';
           for (const [key, val] of Object.entries(props)) {

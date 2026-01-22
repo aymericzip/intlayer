@@ -472,21 +472,21 @@ const aboutPageMetaContent = {
 export default aboutPageMetaContent;
 ```
 
-#### `location` ('remote' | 'local' | 'local&remote' | 'plugin')
+#### `location` ('local' | 'remote' | 'local&remote' | string)
 
-Indica a localização do dicionário. Esta propriedade pode ser definida para controlar de onde o dicionário é originado:
+Indica a localização do dicionário e controla como ele sincroniza com o CMS:
 
-- `'local'`: Dicionário local (de arquivos de conteúdo)
-- `'remote'`: Dicionário remoto (de fonte externa/CMS)
-- `'local&remote'`: Dicionário que existe tanto localmente quanto remotamente
-- `'plugin'`: Dicionário fornecido por um plugin
+- `'local'`: O dicionário é gerenciado apenas localmente. Ele não será enviado para o CMS remoto. Use isso para conteúdo que deve permanecer em sua base de código.
+- `'remote'`: O dicionário é gerenciado apenas remotamente. Uma vez enviado para o CMS, ele será desvinculado do arquivo local. No momento do carregamento do conteúdo, o dicionário remoto será obtido do CMS. Um arquivo `.content` com localização `remote` será ignorado após o envio inicial.
+- `'local&remote'`: O dicionário é gerenciado tanto localmente quanto remotamente. Uma vez enviado para o CMS, ele permanecerá sincronizado—alterações do arquivo local são enviadas para o CMS, e alterações remotas podem ser recuperadas no arquivo local.
+- `string` (ex.: `'plugin'`): O dicionário é gerenciado por um plugin ou uma fonte personalizada. Quando você tentar enviá-lo, o sistema perguntará o que fazer.
 
 **Exemplo:**
 
 ```typescript
 {
   key: "about-page",
-  location: "local",
+  location: "local", // O conteúdo permanece apenas em sua base de código
   content: {
     title: "About Us"
   }

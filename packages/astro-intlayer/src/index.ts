@@ -9,10 +9,26 @@ import {
 } from 'vite-intlayer';
 
 /**
- * Astro integration for Intlayer
- * - Adds Vite plugins: intlayer (aliases, watchers), middleware, prune (when optimize enabled)
- * - Prepares dictionaries at build start
- * - Starts watcher in dev
+ * Astro integration for Intlayer.
+ *
+ * It handles:
+ * 1. Preparing Intlayer resources (dictionaries) at config setup.
+ * 2. Injecting Vite plugins for aliases, locale-based routing (middleware), and build optimizations (prune).
+ * 3. Configuring Vite aliases for dictionary access.
+ * 4. Starting a file watcher for dictionary changes during development.
+ *
+ * @returns An Astro integration object.
+ *
+ * @example
+ * ```ts
+ * // astro.config.mjs
+ * import { defineConfig } from 'astro/config';
+ * import { intlayer } from 'astro-intlayer';
+ *
+ * export default defineConfig({
+ *   integrations: [intlayer()],
+ * });
+ * ```
  */
 export const intlayer = (): AstroIntegration =>
   ({

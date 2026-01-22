@@ -472,21 +472,21 @@ const aboutPageMetaContent = {
 export default aboutPageMetaContent;
 ```
 
-#### `location` ('remote' | 'local' | 'local&remote' | 'plugin')
+#### `location` ('local' | 'remote' | 'local&remote' | string)
 
-辞書の場所を示します。このプロパティを設定して、辞書のソースを制御できます：
+辞書の場所を示し、CMS との同期方法を制御します：
 
-- `'local'`: ローカル辞書（コンテンツファイルから）
-- `'remote'`: リモート辞書（外部ソース/CMSから）
-- `'local&remote'`: ローカルとリモートの両方に存在する辞書
-- `'plugin'`: プラグインによって提供される辞書
+- `'local'`: 辞書はローカルのみで管理されます。リモート CMS にプッシュされません。コードベースに残すべきコンテンツに使用します。
+- `'remote'`: 辞書はリモートでのみ管理されます。CMS にプッシュされると、ローカルファイルから切り離されます。コンテンツの読み込み時に、リモート辞書が CMS から取得されます。`remote` ロケーションを持つ `.content` ファイルは、初期プッシュ後に無視されます。
+- `'local&remote'`: 辞書はローカルとリモートの両方で管理されます。CMS にプッシュされると、同期が維持されます—ローカルファイルの変更が CMS にプッシュされ、リモートの変更をローカルファイルにプルバックできます。
+- `string`（例：`'plugin'`）：辞書はプラグインまたはカスタムソースによって管理されます。プッシュしようとすると、システムが実行する操作を尋ねます。
 
 **例:**
 
 ```typescript
 {
   key: "about-page",
-  location: "local",
+  location: "local", // コンテンツはコードベースにのみ残ります
   content: {
     title: "About Us"
   }
