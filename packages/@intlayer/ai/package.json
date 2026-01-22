@@ -83,7 +83,7 @@
     "@intlayer/core": "workspace:*",
     "@intlayer/types": "workspace:*",
     "ai": "6.0.31",
-    "zod": "4.3.5"
+    "zod": "4.3.6"
   },
   "devDependencies": {
     "@types/node": "25.0.9",
@@ -91,9 +91,9 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "rimraf": "6.1.2",
-    "tsdown": "0.19.0",
+    "tsdown": "0.20.0",
     "typescript": "5.9.3",
-    "vitest": "4.0.17"
+    "vitest": "4.0.18"
   },
   "engines": {
     "node": ">=14.18"
