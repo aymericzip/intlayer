@@ -116,7 +116,7 @@ export const AsideNavigation: FC = (props) => {
                         onClick={() => setIsModalOpen(true)}
                       />
                     }
-                    displayRelatedFiles={false}
+                    isLarge={false}
                     stateReloaderTrigger={isModalOpen}
                   />
                 </Container>

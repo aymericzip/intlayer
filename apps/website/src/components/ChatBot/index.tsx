@@ -53,7 +53,7 @@ export type StoredValue = {
 
 type ChatBotProps = {
   additionalButtons?: ReactNode;
-  displayRelatedFiles?: boolean;
+  isLarge?: boolean;
   stateReloaderTrigger?: any;
   isActive?: boolean;
 };
@@ -66,7 +66,7 @@ type DiscussionStore = {
 
 export const ChatBot: FC<ChatBotProps> = ({
   additionalButtons,
-  displayRelatedFiles = true,
+  isLarge = true,
   stateReloaderTrigger,
   isActive = false,
 }) => {
@@ -235,7 +235,7 @@ export const ChatBot: FC<ChatBotProps> = ({
         </div>
       </div>
       <div className="w-full flex-1">
-        {displayRelatedFiles && (
+        {isLarge && (
           <FileReference relatedFiles={discussion?.relatedFiles ?? []} />
         )}
         {hasReachedRateLimit && (
@@ -268,7 +268,7 @@ export const ChatBot: FC<ChatBotProps> = ({
                 <InfoIcon size={18} className="z-50 mr-3 text-neutral" />
                 <PopoverStatic.Detail
                   identifier="chat-info"
-                  xAlign="center"
+                  xAlign={isLarge ? 'end' : 'center'}
                   yAlign="above"
                 >
                   <p className="min-w-60 max-w-60 p-4 text-neutral text-xs">
