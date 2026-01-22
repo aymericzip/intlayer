@@ -1,23 +1,21 @@
+'use client';
+
 import { getHTML, HTML_TAGS } from '@intlayer/core';
-import type { KeyPath } from '@intlayer/types';
-import { Fragment, type FunctionComponent, h, type JSX } from 'preact';
-import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';
+import { createElement, type FC, Fragment, type JSX } from 'react';
 import { useHTMLContext } from './HTMLProvider';
+import type { ReactHTMLComponent } from './types';
 
 /**
- * Type for Preact HTML tag components.
+ * Type for React HTML tag components.
  */
-type HTMLTagComponent = (props: {
-  children?: any;
-  [key: string]: any;
-}) => JSX.Element;
+type HTMLTagComponent = ReactHTMLComponent;
 
 const createDefaultHTMLComponents = (): Record<string, HTMLTagComponent> => {
   const components: Record<string, HTMLTagComponent> = {};
 
   for (const tag of HTML_TAGS) {
     components[tag] = ({ children, ...props }) =>
-      h(tag as any, props, children);
+      createElement(tag, props, children);
   }
 
   return components;
@@ -48,17 +46,17 @@ export const renderHTML = (
     ...components,
   };
 
-  // Wrap all components to ensure they are rendered via Preact's h
+  // Wrap all components to ensure they are rendered via React.createElement
   const wrappedComponents = Object.fromEntries(
     Object.entries(mergedComponents)
       .filter(([, Component]) => Component)
       .map(([key, Component]) => [
         key,
-        (props: any) => h(Component as any, props),
+        (props: any) => createElement(Component as any, props),
       ])
   );
 
-  return h(Fragment, null, getHTML(content, wrappedComponents));
+  return <Fragment>{getHTML(content, wrappedComponents)}</Fragment>;
 };
 
 /**
@@ -84,43 +82,20 @@ export type HTMLRendererProps = RenderHTMLProps & {
   /**
    * The HTML content to render as a string.
    */
-  children?: string;
-  /**
-   * Alias for children, used by the plugin.
-   */
-  html?: string;
-  /**
-   * Alias for components, used by the plugin.
-   */
-  userComponents?: Record<string, any>;
-  dictionaryKey?: string;
-  keyPath?: KeyPath[];
+  children: string;
 };
 
 /**
- * Preact component that renders HTML-like content to JSX.
+ * React component that renders HTML-like content to JSX.
+ *
+ * This component uses the components from the `HTMLProvider` context
+ * if available.
  */
-export const HTMLRenderer: FunctionComponent<HTMLRendererProps> = ({
+export const HTMLRenderer: FC<HTMLRendererProps> = ({
   children = '',
-  html,
   components,
-  userComponents,
-  dictionaryKey,
-  keyPath,
 }) => {
-  const render = useHTMLRenderer({ components: components || userComponents });
-  const content = children || html || '';
+  const render = useHTMLRenderer({ components });
 
-  const editedContentContext = useEditedContentRenderer({
-    dictionaryKey: dictionaryKey!,
-    keyPath: keyPath!,
-    children: content,
-  });
-
-  const contentToRender =
-    dictionaryKey && keyPath && typeof editedContentContext === 'string'
-      ? editedContentContext
-      : content;
-
-  return render(contentToRender);
+  return render(children);
 };

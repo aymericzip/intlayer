@@ -1,31 +1,13 @@
 'use client';
 
-import { getHTML, HTML_TAGS } from '@intlayer/core';
+import { getHTML } from '@intlayer/core';
 import type { KeyPath, Locale } from '@intlayer/types';
 import { createElement, type FC, type ReactNode } from 'react';
 import { ContentSelectorRenderer } from '../editor';
 import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';
 import { useHTMLContext } from './HTMLProvider';
-import type { ReactComponentProps, ReactHTMLComponent } from './types';
-
-/**
- * Type for React HTML tag components.
- * Props include children as ReactNode and any other HTML attributes.
- */
-type HTMLTagComponent = ReactHTMLComponent;
-
-const createDefaultHTMLComponents = (): Record<string, HTMLTagComponent> => {
-  const components: Record<string, HTMLTagComponent> = {};
-
-  for (const tag of HTML_TAGS) {
-    components[tag] = ({ children, ...props }) =>
-      createElement(tag, props, children);
-  }
-
-  return components;
-};
-
-export const defaultHTMLComponents = createDefaultHTMLComponents();
+import { defaultHTMLComponents } from './HTMLRenderer';
+import type { ReactComponentProps } from './types';
 
 type HTMLRendererPluginProps = {
   dictionaryKey: string;

@@ -640,67 +640,78 @@ const buildCompilerFields = (
 
 const buildDictionaryFields = (
   customConfiguration?: Partial<DictionaryConfig>
-): DictionaryConfig => ({
-  /**
-   * Indicate how the dictionary should be filled using AI.
-   *
-   * Default: true
-   */
-  fill: customConfiguration?.fill ?? FILL,
-
-  /**
-   * Indicates if the content of the dictionary should be automatically transformed.
-   *
-   * Default: true
-   */
-  contentAutoTransformation:
+): DictionaryConfig => {
+  const contentAutoTransformation =
     customConfiguration?.contentAutoTransformation ??
-    CONTENT_AUTO_TRANSFORMATION,
+    CONTENT_AUTO_TRANSFORMATION;
 
-  /**
-   * The location of the dictionary.
-   *
-   * Default: 'local'
-   */
-  location: customConfiguration?.location ?? LOCATION,
+  return {
+    /**
+     * Indicate how the dictionary should be filled using AI.
+     *
+     * Default: true
+     */
+    fill: customConfiguration?.fill ?? FILL,
 
-  /**
-   * Transform the dictionary in a per-locale dictionary.
-   * Each field declared in a per-locale dictionary will be transformed in a translation node.
-   * If missing, the dictionary will be treated as a multilingual dictionary.
-   */
-  locale: customConfiguration?.locale,
+    /**
+     * Indicates if the content of the dictionary should be automatically transformed.
+     *
+     * Default: false
+     */
+    contentAutoTransformation:
+      typeof contentAutoTransformation === 'object'
+        ? {
+            markdown: contentAutoTransformation.markdown ?? false,
+            html: contentAutoTransformation.html ?? false,
+            insertion: contentAutoTransformation.insertion ?? false,
+          }
+        : contentAutoTransformation,
 
-  /**
-   * The title of the dictionary.
-   */
-  title: customConfiguration?.title,
+    /**
+     * The location of the dictionary.
+     *
+     * Default: 'local'
+     */
+    location: customConfiguration?.location ?? LOCATION,
 
-  /**
-   * The description of the dictionary.
-   */
-  description: customConfiguration?.description,
+    /**
+     * Transform the dictionary in a per-locale dictionary.
+     * Each field declared in a per-locale dictionary will be transformed in a translation node.
+     * If missing, the dictionary will be treated as a multilingual dictionary.
+     */
+    locale: customConfiguration?.locale,
 
-  /**
-   * Tags to categorize the dictionaries.
-   */
-  tags: customConfiguration?.tags,
+    /**
+     * The title of the dictionary.
+     */
+    title: customConfiguration?.title,
 
-  /**
-   * The priority of the dictionary.
-   */
-  priority: customConfiguration?.priority,
+    /**
+     * The description of the dictionary.
+     */
+    description: customConfiguration?.description,
 
-  /**
-   * Indicates the mode of import to use for the dictionary.
-   */
-  importMode: customConfiguration?.importMode,
+    /**
+     * Tags to categorize the dictionaries.
+     */
+    tags: customConfiguration?.tags,
 
-  /**
-   * The version of the dictionary.
-   */
-  version: customConfiguration?.version,
-});
+    /**
+     * The priority of the dictionary.
+     */
+    priority: customConfiguration?.priority,
+
+    /**
+     * Indicates the mode of import to use for the dictionary.
+     */
+    importMode: customConfiguration?.importMode,
+
+    /**
+     * The version of the dictionary.
+     */
+    version: customConfiguration?.version,
+  };
+};
 
 /**
  * Build the configuration fields by merging the default values with the custom configuration

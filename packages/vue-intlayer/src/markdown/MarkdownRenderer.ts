@@ -10,7 +10,7 @@ import {
 /**
  * Props for rendering markdown content.
  */
-export type RenderMarkdownProps = {
+export type RenderMarkdownProps = MarkdownPluginOptions & {
   /**
    * Component overrides for HTML tags.
    */
@@ -19,10 +19,6 @@ export type RenderMarkdownProps = {
    * Wrapper element or component to be used when there are multiple children.
    */
   wrapper?: any;
-  /**
-   * Markdown processor options.
-   */
-  options?: MarkdownPluginOptions;
 };
 
 /**
@@ -33,13 +29,19 @@ export type RenderMarkdownProps = {
  */
 export const renderMarkdown = (
   content: string,
-  { components, wrapper, options = {} }: RenderMarkdownProps = {}
+  {
+    components,
+    wrapper,
+    forceBlock,
+    forceInline,
+    preserveFrontmatter,
+    tagfilter,
+  }: RenderMarkdownProps = {}
 ): VNodeChild => {
-  const { forceBlock, preserveFrontmatter, tagfilter } = options;
-
   const internalOptions: MarkdownCompilerOptions = {
     components,
     forceBlock,
+    forceInline,
     wrapper,
     forceWrapper: !!wrapper,
     preserveFrontmatter,
@@ -58,18 +60,35 @@ export const renderMarkdown = (
 export const useMarkdownRenderer = ({
   components,
   wrapper,
-  options = {},
+  forceBlock,
+  forceInline,
+  preserveFrontmatter,
+  tagfilter,
 }: RenderMarkdownProps = {}) => {
   try {
-    const { renderMarkdown } = useMarkdown();
+    const { renderMarkdown: contextRenderMarkdown } = useMarkdown();
     return (content: string) => {
       // If context is available, use it
-      return renderMarkdown(content, { components, wrapper, options });
+      return contextRenderMarkdown(content, {
+        components,
+        wrapper,
+        forceBlock,
+        forceInline,
+        preserveFrontmatter,
+        tagfilter,
+      });
     };
   } catch {
     // Fallback if not wrapped in MarkdownProvider
     return (content: string) =>
-      renderMarkdown(content, { components, wrapper, options });
+      renderMarkdown(content, {
+        components,
+        wrapper,
+        forceBlock,
+        forceInline,
+        preserveFrontmatter,
+        tagfilter,
+      });
   }
 };
 
@@ -93,9 +112,21 @@ export const MarkdownRenderer = defineComponent({
       type: [String, Object, Function] as PropType<any>,
       default: undefined,
     },
-    options: {
-      type: Object as PropType<MarkdownPluginOptions>,
-      default: () => ({}),
+    forceBlock: {
+      type: Boolean,
+      default: undefined,
+    },
+    forceInline: {
+      type: Boolean,
+      default: undefined,
+    },
+    preserveFrontmatter: {
+      type: Boolean,
+      default: undefined,
+    },
+    tagfilter: {
+      type: Boolean,
+      default: undefined,
     },
     renderMarkdown: {
       type: Function as PropType<RenderMarkdownFunction>,
@@ -110,7 +141,10 @@ export const MarkdownRenderer = defineComponent({
         renderMarkdownProp(props.content, {
           components: props.components,
           wrapper: props.wrapper,
-          options: props.options,
+          forceBlock: props.forceBlock,
+          forceInline: props.forceInline,
+          preserveFrontmatter: props.preserveFrontmatter,
+          tagfilter: props.tagfilter,
         });
     }
 
@@ -118,7 +152,10 @@ export const MarkdownRenderer = defineComponent({
       const render = useMarkdownRenderer({
         components: props.components,
         wrapper: props.wrapper,
-        options: props.options,
+        forceBlock: props.forceBlock,
+        forceInline: props.forceInline,
+        preserveFrontmatter: props.preserveFrontmatter,
+        tagfilter: props.tagfilter,
       });
 
       return () => render(props.content);
@@ -128,7 +165,10 @@ export const MarkdownRenderer = defineComponent({
         renderMarkdown(props.content, {
           components: props.components,
           wrapper: props.wrapper,
-          options: props.options,
+          forceBlock: props.forceBlock,
+          forceInline: props.forceInline,
+          preserveFrontmatter: props.preserveFrontmatter,
+          tagfilter: props.tagfilter,
         });
     }
   },

@@ -21,7 +21,7 @@ export const processContentDeclaration = async (
       false;
 
     const decoratedContent = isAutoDecorateContentEnabled
-      ? autoDecorateContent(resolvedContent)
+      ? autoDecorateContent(resolvedContent, isAutoDecorateContentEnabled)
       : resolvedContent;
 
     return {

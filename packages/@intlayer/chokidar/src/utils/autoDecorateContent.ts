@@ -70,12 +70,31 @@ const leafNodeTypes: string[] = [
   NodeType.Unknown,
 ];
 
+type AutoTransformationOptions = {
+  markdown?: boolean;
+  html?: boolean;
+  insertion?: boolean;
+};
+
 /**
  * Automatically decorate content strings with md() or insert() if they match
  */
-export const autoDecorateContent = (content: any): any => {
+export const autoDecorateContent = (
+  content: any,
+  options: boolean | AutoTransformationOptions = true
+): any => {
+  if (options === false) {
+    return content;
+  }
+
+  const {
+    markdown = true,
+    html: htmlOption = true,
+    insertion = true,
+  } = typeof options === 'object' ? options : {};
+
   if (typeof content === 'string') {
-    if (isMarkdown(content)) {
+    if (markdown && isMarkdown(content)) {
       const markdownNode = md(content);
 
       return {
@@ -84,11 +103,11 @@ export const autoDecorateContent = (content: any): any => {
       };
     }
 
-    if (isHTML(content)) {
+    if (htmlOption && isHTML(content)) {
       return html(content);
     }
 
-    if (isInsertion(content)) {
+    if (insertion && isInsertion(content)) {
       return insert(content);
     }
 
@@ -96,7 +115,7 @@ export const autoDecorateContent = (content: any): any => {
   }
 
   if (Array.isArray(content)) {
-    return content.map(autoDecorateContent);
+    return content.map((item) => autoDecorateContent(item, options));
   }
 
   if (content && typeof content === 'object') {
@@ -113,7 +132,7 @@ export const autoDecorateContent = (content: any): any => {
       if (nodeType in content) {
         return {
           ...content,
-          [nodeType]: autoDecorateContent(content[nodeType]),
+          [nodeType]: autoDecorateContent(content[nodeType], options),
         };
       }
 
@@ -123,7 +142,7 @@ export const autoDecorateContent = (content: any): any => {
     // Plain object, recurse into all keys
     const result: Record<string, any> = {};
     for (const key of Object.keys(content)) {
-      result[key] = autoDecorateContent(content[key]);
+      result[key] = autoDecorateContent(content[key], options);
     }
     return result;
   }

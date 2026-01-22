@@ -13,16 +13,17 @@ import { compiler, type MarkdownRendererOptions } from './processor';
 export type MarkdownProviderOptions = {
   /** Forces the compiler to always output content with a block-level wrapper. */
   forceBlock?: boolean;
+  /** Forces the compiler to always output content with an inline wrapper. */
+  forceInline?: boolean;
   /** Whether to preserve frontmatter in the markdown content. */
   preserveFrontmatter?: boolean;
   /** Whether to use the GitHub Tag Filter for security. */
   tagfilter?: boolean;
 };
 
-type RenderMarkdownOptions = {
+type RenderMarkdownOptions = MarkdownProviderOptions & {
   components?: Overrides;
   wrapper?: FC<any>;
-  options?: MarkdownProviderOptions;
 };
 
 type MarkdownContextValue = {
@@ -32,15 +33,16 @@ type MarkdownContextValue = {
   ) => ReactNode;
 };
 
-type MarkdownProviderProps = PropsWithChildren<{
-  components?: Overrides;
-  wrapper?: any;
-  options?: MarkdownProviderOptions;
-  renderMarkdown?: (
-    markdown: string,
-    overrides?: Overrides | RenderMarkdownOptions
-  ) => ReactNode;
-}>;
+type MarkdownProviderProps = PropsWithChildren<
+  MarkdownProviderOptions & {
+    components?: Overrides;
+    wrapper?: any;
+    renderMarkdown?: (
+      markdown: string,
+      overrides?: Overrides | RenderMarkdownOptions
+    ) => ReactNode;
+  }
+>;
 
 const MarkdownContext = createContext<MarkdownContextValue | undefined>(
   undefined
@@ -57,7 +59,12 @@ const isRenderMarkdownOptions = (
   return (
     override &&
     typeof override === 'object' &&
-    ('components' in override || 'wrapper' in override || 'options' in override)
+    ('components' in override ||
+      'wrapper' in override ||
+      'forceBlock' in override ||
+      'forceInline' in override ||
+      'preserveFrontmatter' in override ||
+      'tagfilter' in override)
   );
 };
 
@@ -76,12 +83,26 @@ const mergeOptions = (
   }
 
   // Overrides is a full options object
-  const { components, wrapper, options } = overrides;
+  const {
+    components: overrideComponents,
+    wrapper,
+    forceBlock,
+    forceInline,
+    preserveFrontmatter,
+    tagfilter,
+    ...componentsFromRest
+  } = overrides;
+
+  const components = overrideComponents || componentsFromRest;
 
   return {
     ...baseOptions,
-    ...options,
+    forceBlock: forceBlock ?? baseOptions.forceBlock,
+    forceInline: forceInline ?? baseOptions.forceInline,
+    preserveFrontmatter: preserveFrontmatter ?? baseOptions.preserveFrontmatter,
+    tagfilter: tagfilter ?? baseOptions.tagfilter,
     wrapper: wrapper || baseOptions.wrapper,
+
     forceWrapper: !!(wrapper || baseOptions.wrapper),
     components: { ...baseOptions.components, ...components },
   };
@@ -115,14 +136,16 @@ export const MarkdownProvider: FC<MarkdownProviderProps> = ({
   children,
   components,
   wrapper,
-  options = {},
+  forceBlock,
+  forceInline,
+  preserveFrontmatter,
+  tagfilter,
   renderMarkdown: customRenderFn,
 }) => {
-  const { forceBlock, preserveFrontmatter, tagfilter } = options;
-
   const baseOptions: MarkdownRendererOptions = {
     components,
     forceBlock,
+    forceInline,
     wrapper,
     forceWrapper: !!wrapper,
     preserveFrontmatter,

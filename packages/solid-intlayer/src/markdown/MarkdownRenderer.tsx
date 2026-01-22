@@ -13,6 +13,11 @@ type MarkdownRendererProps = {
   keyPath: KeyPath[];
   locale?: LocalesValues;
   children: string;
+  components?: any;
+  wrapper?: any;
+  forceBlock?: boolean;
+  preserveFrontmatter?: boolean;
+  tagfilter?: boolean;
   [key: string]: any;
 };
 
@@ -29,9 +34,27 @@ export const MarkdownRenderer: Component<MarkdownRendererProps> = (props) => {
       ? editedContentContext
       : props.children;
 
-  const { dictionaryKey, keyPath, locale, children, ...overrides } = props;
+  const {
+    dictionaryKey,
+    keyPath,
+    locale,
+    children,
+    components,
+    wrapper,
+    forceBlock,
+    preserveFrontmatter,
+    tagfilter,
+    ...rest
+  } = props;
 
-  return renderMarkdown(contentToRender, overrides);
+  return renderMarkdown(contentToRender, {
+    components,
+    wrapper,
+    forceBlock,
+    preserveFrontmatter,
+    tagfilter,
+    ...rest,
+  });
 };
 
 type MarkdownMetadataRendererProps = MarkdownRendererProps & {

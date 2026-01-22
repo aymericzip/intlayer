@@ -34,7 +34,14 @@ export {
 } from './client/useLocaleStorage';
 export { getDictionary } from './getDictionary';
 export { getIntlayer } from './getIntlayer';
-export { HTMLProvider } from './html/HTMLProvider';
+export {
+  HTMLProvider,
+  HTMLRenderer,
+  type HTMLRendererProps,
+  type RenderHTMLProps,
+  renderHTML,
+  useHTMLRenderer,
+} from './html/index';
 export type { IntlayerNode } from './IntlayerNode';
 export {
   MarkdownProvider,

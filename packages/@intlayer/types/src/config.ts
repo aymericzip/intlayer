@@ -1,6 +1,11 @@
 import type { z } from 'zod';
-import type { Dictionary } from './dictionary';
+import type {
+  ContentAutoTransformation,
+  DictionaryLocation,
+  Fill,
+} from './dictionary';
 import type { Locale } from './locales';
+import type { LocalesValues } from './module_augmentation';
 import type { Plugin } from './plugin';
 
 export type StrictMode = 'strict' | 'inclusive' | 'loose';
@@ -645,19 +650,18 @@ export type CustomIntlayerConfig = {
   plugins?: Plugin[];
 };
 
-export type DictionaryConfig = Pick<
-  Dictionary,
-  | 'fill'
-  | 'description'
-  | 'locale'
-  | 'contentAutoTransformation'
-  | 'priority'
-  | 'importMode'
-  | 'title'
-  | 'tags'
-  | 'version'
-  | 'location'
->;
+export type DictionaryConfig = {
+  fill?: Fill;
+  description?: string;
+  locale?: LocalesValues;
+  contentAutoTransformation?: ContentAutoTransformation;
+  priority?: number;
+  importMode?: 'static' | 'dynamic' | 'live';
+  title?: string;
+  tags?: string[];
+  version?: string;
+  location?: DictionaryLocation;
+};
 
 /**
  * Combined configuration for internationalization, middleware, and content

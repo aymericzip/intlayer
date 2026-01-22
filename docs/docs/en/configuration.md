@@ -611,7 +611,7 @@ For more information about content declaration files and how configuration value
 - **fill**
 - **description**
 - **locale**
-- **contentAutoTransformation**
+- **contentAutoTransformation**:
 - **location**
 - **priority**
 - **live**

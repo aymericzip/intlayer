@@ -153,7 +153,7 @@ const splitAndJoinInsertion = (
     const key = match[1].trim();
     const value = values[key];
     if (value !== undefined && value !== null) {
-      parts.push(value);
+      parts.push(typeof value === 'number' ? String(value) : value);
     }
 
     lastIndex = match.index + match[0].length;
@@ -213,7 +213,7 @@ export const insertionPlugin: Plugins = {
           return deepTransformNode(result, {
             ...subProps,
             plugins: props.plugins,
-            children: result,
+            children: result as any,
           });
         };
       },

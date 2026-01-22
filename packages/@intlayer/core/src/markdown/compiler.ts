@@ -580,14 +580,9 @@ const createRules = (
       _qualify: (source) => {
         if (options.disableParsingRawHTML) return false;
 
-        if (source[0] !== '<') return false;
-        // must start like an HTML tag name in lowercase
-
-        if (!/^<([a-z][a-z0-9:-]*)\b/.test(source)) return false;
-        const tagMatch = source.match(/^<([a-z][a-z0-9:-]*)\b/);
-
-        if (!tagMatch) return false;
-        const tag = tagMatch[1];
+        const match = source.match(/^ *<([a-z][a-z0-9:-]*)\b/i);
+        if (!match) return false;
+        const tag = match[1];
 
         return source.toLowerCase().indexOf(`</${tag.toLowerCase()}>`) !== -1;
       },
@@ -645,9 +640,7 @@ const createRules = (
       _qualify: (source) => {
         if (options.disableParsingRawHTML) return false;
 
-        if (source[0] !== '<') return false;
-
-        return /^<([a-zA-Z][a-zA-Z0-9:]*)[\s>/]/.test(source);
+        return /^ *<([a-zA-Z][a-zA-Z0-9:]*)[\s>/]/.test(source);
       },
       _match: anyScopeRegex(HTML_SELF_CLOSING_ELEMENT_R),
       _order: Priority.HIGH,
@@ -664,8 +657,7 @@ const createRules = (
       },
     },
     [RuleType.customComponent]: {
-      _qualify: (source) =>
-        source[0] === '<' && /^ *<([A-Z][a-zA-Z0-9]*)/.test(source),
+      _qualify: (source) => /^ *<([A-Z][a-zA-Z0-9]*)/.test(source),
       _match: blockRegex(CUSTOM_COMPONENT_R),
       _order: Priority.MAX,
       _parse(capture, parse, state) {

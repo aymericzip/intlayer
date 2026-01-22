@@ -6,7 +6,9 @@ export const MARKDOWN_CONTEXT_KEY = Symbol('INTLAYER_MARKDOWN_CONTEXT');
 export type RenderMarkdownOptions = {
   components?: any;
   wrapper?: any;
-  options?: any;
+  forceBlock?: boolean;
+  preserveFrontmatter?: boolean;
+  tagfilter?: boolean;
 };
 
 export interface MarkdownContext {

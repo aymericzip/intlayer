@@ -20,7 +20,9 @@ type MarkdownRendererProps = {
   children: string;
   isDarkMode?: boolean;
   locale?: LocalesValues;
-  options?: ComponentProps<typeof MarkdownRendererIntlayer>['options'];
+  forceBlock?: boolean;
+  preserveFrontmatter?: boolean;
+  tagfilter?: boolean;
   components?: ComponentProps<typeof MarkdownRendererIntlayer>['components'];
   wrapper?: ComponentProps<typeof MarkdownRendererIntlayer>['wrapper'];
 };
@@ -155,9 +157,7 @@ export const getIntlayerMarkdownOptions: (
         headerClassName="sticky top-36 z-10 bg-background/70 backdrop-blur"
       />
     ),
-    TabItem: (props: ComponentProps<typeof Tab.Item>) => (
-      <Tab.Item {...props} />
-    ),
+    TabItem: Tab.Item,
     Columns: ({ className, ...props }: ComponentPropsWithoutRef<'div'>) => (
       <div className={cn('flex gap-4 max-md:flex-col', className)} {...props} />
     ),
@@ -181,7 +181,9 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   children,
   isDarkMode,
   locale,
-  options,
+  forceBlock,
+  preserveFrontmatter,
+  tagfilter,
   components: componentsProp,
   wrapper,
 }) => {
@@ -228,10 +230,10 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
       ...componentsProp,
     },
     wrapper: wrapper ?? markdownOptions.wrapper,
-    options: {
-      ...markdownOptions.options,
-      ...options,
-    },
+    forceBlock: forceBlock ?? markdownOptions.forceBlock,
+    preserveFrontmatter:
+      preserveFrontmatter ?? markdownOptions.preserveFrontmatter,
+    tagfilter: tagfilter ?? markdownOptions.tagfilter,
   });
 
   return (

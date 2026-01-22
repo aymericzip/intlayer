@@ -4,10 +4,9 @@ import { compileMarkdown } from './compiler';
 
 export const INTLAYER_MARKDOWN_SYMBOL = Symbol('intlayerMarkdown');
 
-export type RenderMarkdownOptions = {
+export type RenderMarkdownOptions = MarkdownPluginOptions & {
   components?: Overrides;
   wrapper?: any;
-  options?: MarkdownPluginOptions;
 };
 
 export type RenderMarkdownFunction = (
@@ -33,6 +32,10 @@ export type MarkdownPluginOptions = {
    */
   forceBlock?: boolean;
   /**
+   * Forces the compiler to always output content with an inline wrapper.
+   */
+  forceInline?: boolean;
+  /**
    * Whether to preserve frontmatter in the markdown content.
    */
   preserveFrontmatter?: boolean;
@@ -45,7 +48,7 @@ export type MarkdownPluginOptions = {
 /**
  * Options for the installIntlayerMarkdown helper.
  */
-export type IntlayerMarkdownPluginOptions = {
+export type IntlayerMarkdownPluginOptions = MarkdownPluginOptions & {
   /**
    * Component overrides for HTML tags.
    */
@@ -54,10 +57,6 @@ export type IntlayerMarkdownPluginOptions = {
    * Wrapper element or component to be used when there are multiple children.
    */
   wrapper?: any;
-  /**
-   * Markdown processor options.
-   */
-  options?: MarkdownPluginOptions;
   /**
    * Custom render function for markdown.
    * If provided, it will overwrite all rules and default rendering.
@@ -95,18 +94,20 @@ export const installIntlayerMarkdown = (
     const {
       components,
       wrapper,
-      options = {},
+      forceBlock,
+      forceInline,
+      preserveFrontmatter,
+      tagfilter,
       renderMarkdown: customRender,
     } = pluginOptions ?? {};
 
     if (customRender) {
       renderMarkdown = customRender;
     } else {
-      const { forceBlock, preserveFrontmatter, tagfilter } = options;
-
       const internalOptions: any = {
         components,
         forceBlock,
+        forceInline,
         wrapper,
         forceWrapper: !!wrapper,
         preserveFrontmatter,
@@ -120,26 +121,35 @@ export const installIntlayerMarkdown = (
             'object' ||
             typeof (overrides as RenderMarkdownOptions).wrapper ===
               'function' ||
-            typeof (overrides as RenderMarkdownOptions).options === 'object');
+            typeof (overrides as RenderMarkdownOptions).forceBlock ===
+              'boolean' ||
+            typeof (overrides as RenderMarkdownOptions).forceInline ===
+              'boolean' ||
+            typeof (overrides as RenderMarkdownOptions).preserveFrontmatter ===
+              'boolean' ||
+            typeof (overrides as RenderMarkdownOptions).tagfilter ===
+              'boolean');
 
-        const localComponents = isOptionsObject
-          ? (overrides as RenderMarkdownOptions).components
-          : (overrides as Overrides);
-        const localWrapper = isOptionsObject
-          ? (overrides as RenderMarkdownOptions).wrapper
-          : undefined;
-        const localOptions = isOptionsObject
-          ? (overrides as RenderMarkdownOptions).options
-          : {};
+        const {
+          components: overrideComponents,
+          wrapper: localWrapper,
+          forceBlock: localForceBlock,
+          forceInline: localForceInline,
+          preserveFrontmatter: localPreserveFrontmatter,
+          tagfilter: localTagfilter,
+          ...componentsFromRest
+        } = overrides as RenderMarkdownOptions;
 
-        const mergedOptions = {
-          ...options,
-          ...localOptions,
-        };
+        const localComponents = (overrideComponents ||
+          componentsFromRest) as Overrides;
 
         return compileMarkdown(markdown, {
           ...internalOptions,
-          ...mergedOptions,
+          forceBlock: localForceBlock ?? internalOptions.forceBlock,
+          forceInline: localForceInline ?? internalOptions.forceInline,
+          preserveFrontmatter:
+            localPreserveFrontmatter ?? internalOptions.preserveFrontmatter,
+          tagfilter: localTagfilter ?? internalOptions.tagfilter,
           wrapper: localWrapper || internalOptions.wrapper,
           forceWrapper: !!(localWrapper || internalOptions.wrapper),
           components: {

@@ -25,7 +25,7 @@ import { compiler, type MarkdownRendererOptions } from './processor';
  * };
  * ```
  */
-export type RenderMarkdownProps = {
+export type RenderMarkdownProps = MarkdownProviderOptions & {
   /**
    * Component overrides for HTML tags.
    * Allows you to customize how specific HTML elements are rendered.
@@ -50,20 +50,6 @@ export type RenderMarkdownProps = {
    * ```
    */
   wrapper?: FC;
-  /**
-   * Markdown processor options.
-   * Only used if not wrapped in a MarkdownProvider.
-   *
-   * @example
-   * ```tsx
-   * options={{
-   *   forceBlock: true,        // Force block-level wrapper
-   *   preserveFrontmatter: false, // Remove frontmatter
-   *   tagfilter: true,          // Enable GitHub tag filter
-   * }}
-   * ```
-   */
-  options?: MarkdownProviderOptions;
 };
 
 /**
@@ -76,7 +62,6 @@ export type RenderMarkdownProps = {
  * @param props - Configuration options for rendering
  * @param props.components - Component overrides for HTML tags
  * @param props.wrapper - Wrapper component for multiple children
- * @param props.options - Markdown processor options
  * @returns JSX element representing the rendered markdown
  *
  * @example
@@ -88,22 +73,26 @@ export type RenderMarkdownProps = {
  *   components: {
  *     h1: ({ children }) => <h1 className="title">{children}</h1>,
  *   },
- *   options: {
- *     forceBlock: true,
- *   },
+ *   forceBlock: true,
  * });
  * ```
  */
 export const renderMarkdown = (
   content: string,
-  { components, wrapper, options = {} }: RenderMarkdownProps
+  {
+    components,
+    wrapper,
+    forceBlock,
+    forceInline,
+    preserveFrontmatter,
+    tagfilter,
+  }: RenderMarkdownProps = {}
 ): JSX.Element => {
-  const { forceBlock, preserveFrontmatter, tagfilter } = options;
-
   // Map public options to internal processor options
   const internalOptions: MarkdownRendererOptions = {
     components,
     forceBlock,
+    forceInline,
     wrapper,
     forceWrapper: !!wrapper,
     preserveFrontmatter,
@@ -122,7 +111,6 @@ export const renderMarkdown = (
  * @param props - Optional configuration that will override context values
  * @param props.components - Component overrides for HTML tags (overrides context)
  * @param props.wrapper - Wrapper component (overrides context)
- * @param props.options - Markdown processor options (merged with context options)
  * @returns A function that takes markdown content and returns JSX
  *
  * @example
@@ -151,7 +139,7 @@ export const renderMarkdown = (
  *   return (
  *     <MarkdownProvider
  *       components={{ h1: CustomHeading }}
- *       options={{ forceBlock: true }}
+ *       forceBlock={true}
  *     >
  *       <MyComponent />
  *     </MarkdownProvider>
@@ -162,16 +150,33 @@ export const renderMarkdown = (
 export const useMarkdownRenderer = ({
   components,
   wrapper,
-  options = {},
+  forceBlock,
+  forceInline,
+  preserveFrontmatter,
+  tagfilter,
 }: RenderMarkdownProps = {}) => {
   const context = useMarkdownContext();
 
   return (content: string) => {
     if (context) {
-      return context.renderMarkdown(content, { components, wrapper, options });
+      return context.renderMarkdown(content, {
+        components,
+        wrapper,
+        forceBlock,
+        forceInline,
+        preserveFrontmatter,
+        tagfilter,
+      });
     }
 
-    return renderMarkdown(content, { components, wrapper, options });
+    return renderMarkdown(content, {
+      components,
+      wrapper,
+      forceBlock,
+      forceInline,
+      preserveFrontmatter,
+      tagfilter,
+    });
   };
 };
 
@@ -186,9 +191,7 @@ export const useMarkdownRenderer = ({
  *     h1: ({ children }) => <h1 className="title">{children}</h1>,
  *   },
  *   wrapper: ({ children }) => <article>{children}</article>,
- *   options: {
- *     forceBlock: true,
- *   },
+ *   forceBlock: true,
  * };
  * ```
  */
@@ -229,7 +232,10 @@ export type MarkdownRendererProps = RenderMarkdownProps & {
     options?: {
       components?: Overrides;
       wrapper?: FC;
-      options?: MarkdownProviderOptions;
+      forceBlock?: boolean;
+      forceInline?: boolean;
+      preserveFrontmatter?: boolean;
+      tagfilter?: boolean;
     }
   ) => ReactNode;
 };
@@ -272,7 +278,7 @@ export type MarkdownRendererProps = RenderMarkdownProps & {
  *       </a>
  *     ),
  *   }}
- *   options={{ forceBlock: true }}
+ *   forceBlock={true}
  * >
  *   {markdownContent}
  * </MarkdownRenderer>
@@ -285,7 +291,7 @@ export type MarkdownRendererProps = RenderMarkdownProps & {
  *   return (
  *     <MarkdownProvider
  *       components={{ h1: CustomHeading }}
- *       options={{ forceBlock: true }}
+ *       forceBlock={true}
  *     >
  *       <MarkdownRenderer>
  *         {markdownContent}
@@ -299,27 +305,49 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   children = '',
   components,
   wrapper,
-  options = {},
+  forceBlock,
+  forceInline,
+  preserveFrontmatter,
+  tagfilter,
   renderMarkdown,
 }) => {
   const context = useMarkdownContext();
 
   if (renderMarkdown) {
-    return <>{renderMarkdown(children, { components, wrapper, options })}</>;
+    return (
+      <>
+        {renderMarkdown(children, {
+          components,
+          wrapper,
+          forceBlock,
+          forceInline,
+          preserveFrontmatter,
+          tagfilter,
+        })}
+      </>
+    );
   }
 
   if (context) {
     return (
-      <>{context.renderMarkdown(children, { components, wrapper, options })}</>
+      <>
+        {context.renderMarkdown(children, {
+          components,
+          wrapper,
+          forceBlock,
+          forceInline,
+          preserveFrontmatter,
+          tagfilter,
+        })}
+      </>
     );
   }
-
-  const { forceBlock, preserveFrontmatter, tagfilter } = options;
 
   // Map public options to internal processor options
   const internalOptions: MarkdownRendererOptions = {
     components,
     forceBlock,
+    forceInline,
     wrapper,
     forceWrapper: !!wrapper,
     preserveFrontmatter,

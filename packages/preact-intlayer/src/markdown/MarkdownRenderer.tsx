@@ -6,7 +6,7 @@ import {
   useMarkdownContext,
 } from './MarkdownProvider';
 
-export type RenderMarkdownProps = {
+export type RenderMarkdownProps = MarkdownProviderOptions & {
   /**
    * Component overrides for HTML tags.
    * Only used if not wrapped in a MarkdownProvider.
@@ -17,23 +17,24 @@ export type RenderMarkdownProps = {
    * Only used if not wrapped in a MarkdownProvider.
    */
   wrapper?: FunctionComponent<any>;
-  /**
-   * Markdown processor options.
-   * Only used if not wrapped in a MarkdownProvider.
-   */
-  options?: MarkdownProviderOptions;
 };
 
 export const renderMarkdown = (
   content: string,
-  { components, wrapper, options = {} }: RenderMarkdownProps = {}
+  {
+    components,
+    wrapper,
+    forceBlock,
+    forceInline,
+    preserveFrontmatter,
+    tagfilter,
+  }: RenderMarkdownProps = {}
 ): JSX.Element => {
-  const { forceBlock, preserveFrontmatter, tagfilter } = options;
-
   // Map public options to internal processor options
   const internalOptions: MarkdownCompilerOptions = {
     components,
     forceBlock,
+    forceInline,
     wrapper: wrapper as any,
     forceWrapper: !!wrapper,
     preserveFrontmatter,
@@ -46,16 +47,33 @@ export const renderMarkdown = (
 export const useMarkdownRenderer = ({
   components,
   wrapper,
-  options = {},
+  forceBlock,
+  forceInline,
+  preserveFrontmatter,
+  tagfilter,
 }: RenderMarkdownProps = {}) => {
   const context = useMarkdownContext();
 
   return (content: string) => {
     if (context) {
-      return context.renderMarkdown(content, { components, wrapper, options });
+      return context.renderMarkdown(content, {
+        components,
+        wrapper,
+        forceBlock,
+        forceInline,
+        preserveFrontmatter,
+        tagfilter,
+      });
     }
 
-    return renderMarkdown(content, { components, wrapper, options });
+    return renderMarkdown(content, {
+      components,
+      wrapper,
+      forceBlock,
+      forceInline,
+      preserveFrontmatter,
+      tagfilter,
+    });
   };
 };
 
@@ -73,7 +91,10 @@ type MarkdownRendererProps = RenderMarkdownProps & {
     options?: {
       components?: Overrides;
       wrapper?: FunctionComponent<any>;
-      options?: MarkdownProviderOptions;
+      forceBlock?: boolean;
+      forceInline?: boolean;
+      preserveFrontmatter?: boolean;
+      tagfilter?: boolean;
     }
   ) => ComponentChildren;
 };
@@ -88,22 +109,50 @@ export const MarkdownRenderer: FunctionComponent<MarkdownRendererProps> = ({
   children = '',
   components,
   wrapper,
-  options = {},
+  forceBlock,
+  forceInline,
+  preserveFrontmatter,
+  tagfilter,
   renderMarkdown: customRenderMarkdown,
 }) => {
   const context = useMarkdownContext();
 
   if (customRenderMarkdown) {
     return (
-      <>{customRenderMarkdown(children, { components, wrapper, options })}</>
+      <>
+        {customRenderMarkdown(children, {
+          components,
+          wrapper,
+          forceBlock,
+          forceInline,
+          preserveFrontmatter,
+          tagfilter,
+        })}
+      </>
     );
   }
 
   if (context) {
     return (
-      <>{context.renderMarkdown(children, { components, wrapper, options })}</>
+      <>
+        {context.renderMarkdown(children, {
+          components,
+          wrapper,
+          forceBlock,
+          forceInline,
+          preserveFrontmatter,
+          tagfilter,
+        })}
+      </>
     );
   }
 
-  return renderMarkdown(children, { components, wrapper, options });
+  return renderMarkdown(children, {
+    components,
+    wrapper,
+    forceBlock,
+    forceInline,
+    preserveFrontmatter,
+    tagfilter,
+  });
 };

@@ -9,7 +9,9 @@ import {
 type RenderMarkdownOptions = {
   components?: any;
   wrapper?: any;
-  options?: any;
+  forceBlock?: boolean;
+  preserveFrontmatter?: boolean;
+  tagfilter?: boolean;
 };
 
 type MarkdownProviderValue = {
@@ -22,6 +24,11 @@ type MarkdownProviderValue = {
 export const MarkdownContext = createContext<MarkdownProviderValue>();
 
 export type MarkdownProviderProps = ParentProps<{
+  components?: any;
+  wrapper?: any;
+  forceBlock?: boolean;
+  preserveFrontmatter?: boolean;
+  tagfilter?: boolean;
   renderMarkdown?: (
     content: string,
     overrides?: any | RenderMarkdownOptions
@@ -34,6 +41,42 @@ export const MarkdownProvider: Component<MarkdownProviderProps> = (props) => {
     if (props.renderMarkdown) {
       return props.renderMarkdown(content, overrides);
     }
+
+    const isOptionsObject =
+      overrides &&
+      typeof overrides === 'object' &&
+      ('components' in overrides ||
+        'wrapper' in overrides ||
+        'forceBlock' in overrides ||
+        'preserveFrontmatter' in overrides ||
+        'tagfilter' in overrides);
+
+    const {
+      components: overrideComponents,
+      wrapper: localWrapper,
+      forceBlock: localForceBlock,
+      preserveFrontmatter: localPreserveFrontmatter,
+      tagfilter: localTagfilter,
+      ...componentsFromRest
+    } = isOptionsObject ? overrides : { components: overrides };
+
+    const actualComponents = overrideComponents || componentsFromRest;
+
+    const mergedOptions = {
+      forceBlock: localForceBlock ?? props.forceBlock,
+      preserveFrontmatter:
+        localPreserveFrontmatter ?? props.preserveFrontmatter,
+      tagfilter: localTagfilter ?? props.tagfilter,
+      wrapper: localWrapper || props.wrapper,
+      components: {
+        ...props.components,
+        ...actualComponents,
+      },
+    };
+
+    // Note: In solid-intlayer, we need a compiler that returns JSX elements.
+    // If it's missing, we just return content.
+    // Assuming there is a compiler available or it's handled by props.renderMarkdown
     return content;
   };
 

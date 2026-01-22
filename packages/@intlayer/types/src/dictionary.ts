@@ -72,6 +72,25 @@ export type LocalDictionaryId =
 
 export type DictionaryFormat = 'intlayer' | 'icu' | 'i18next' | 'vue-i18n';
 
+export type ContentAutoTransformation =
+  | boolean
+  | {
+      /**
+       * Indicates if the content should be automatically transformed to a markdown node.
+       * Default: true
+       */
+      markdown?: boolean;
+      /**
+       * Indicates if the content should be automatically transformed to an HTML node.
+       * Default: true
+       */
+      html?: boolean;
+      /**
+       * Indicates if the content should be automatically transformed to an insertion node.
+       * Default: true
+       */
+      insertion?: boolean;
+    };
 /**
  * Common properties shared by all Dictionary variants.
  */
@@ -224,15 +243,17 @@ type DictionaryBase = {
   locale?: LocalesValues;
 
   /**
-   * Indicates if the content of the dictionary should be automatically transformed.
+   * Indicators if the content of the dictionary should be automatically transformed.
    * If true, the content will be transformed to the corresponding node type.
    * - Markdown: `### Title` -> `md('### Title')`
    * - HTML: `<div>Title</div>` -> `html('<div>Title</div>')`
    * - Insertion: `Hello {{name}}` -> `insert('Hello {{name}}')`
    *
-   * Default: true
+   * If an object is provided, you can specify which transformations should be enabled.
+   *
+   * Default: false
    */
-  contentAutoTransformation?: boolean;
+  contentAutoTransformation?: ContentAutoTransformation;
 
   /**
    * Instruction to fill the dictionary.

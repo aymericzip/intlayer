@@ -18,6 +18,10 @@ export type MarkdownProviderOptions = {
    */
   forceBlock?: boolean;
   /**
+   * Forces the compiler to always output content with an inline wrapper.
+   */
+  forceInline?: boolean;
+  /**
    * Whether to preserve frontmatter in the markdown content.
    */
   preserveFrontmatter?: boolean;
@@ -27,10 +31,9 @@ export type MarkdownProviderOptions = {
   tagfilter?: boolean;
 };
 
-type RenderMarkdownOptions = {
+type RenderMarkdownOptions = MarkdownProviderOptions & {
   components?: Overrides;
   wrapper?: any;
-  options?: MarkdownProviderOptions;
 };
 
 type MarkdownContextValue = {
@@ -40,28 +43,26 @@ type MarkdownContextValue = {
   ) => ComponentChildren;
 };
 
-type MarkdownProviderProps = PropsWithChildren<{
-  /**
-   * Component overrides for HTML tags.
-   */
-  components?: Overrides;
-  /**
-   * Wrapper element or component to be used when there are multiple children.
-   */
-  wrapper?: any;
-  /**
-   * Markdown processor options.
-   */
-  options?: MarkdownProviderOptions;
-  /**
-   * Custom render function for markdown.
-   * If provided, it will overwrite all rules and default rendering.
-   */
-  renderMarkdown?: (
-    markdown: string,
-    overrides?: Overrides
-  ) => ComponentChildren;
-}>;
+type MarkdownProviderProps = PropsWithChildren<
+  MarkdownProviderOptions & {
+    /**
+     * Component overrides for HTML tags.
+     */
+    components?: Overrides;
+    /**
+     * Wrapper element or component to be used when there are multiple children.
+     */
+    wrapper?: any;
+    /**
+     * Custom render function for markdown.
+     * If provided, it will overwrite all rules and default rendering.
+     */
+    renderMarkdown?: (
+      markdown: string,
+      overrides?: Overrides | RenderMarkdownOptions
+    ) => ComponentChildren;
+  }
+>;
 
 const MarkdownContext = createContext<MarkdownContextValue | undefined>(
   undefined
@@ -73,15 +74,17 @@ export const MarkdownProvider: FunctionComponent<MarkdownProviderProps> = ({
   children,
   components,
   wrapper,
-  options = {},
+  forceBlock,
+  forceInline,
+  preserveFrontmatter,
+  tagfilter,
   renderMarkdown,
 }) => {
-  const { forceBlock, preserveFrontmatter, tagfilter } = options;
-
   // Map public options to internal processor options
   const internalOptions: any = {
     components,
     forceBlock,
+    forceInline,
     wrapper,
     forceWrapper: !!wrapper,
     preserveFrontmatter,
@@ -107,27 +110,35 @@ export const MarkdownProvider: FunctionComponent<MarkdownProviderProps> = ({
             'object' ||
             typeof (componentsOverride as RenderMarkdownOptions).wrapper ===
               'function' ||
-            typeof (componentsOverride as RenderMarkdownOptions).options ===
-              'object');
+            typeof (componentsOverride as RenderMarkdownOptions).forceBlock ===
+              'boolean' ||
+            typeof (componentsOverride as RenderMarkdownOptions).forceInline ===
+              'boolean' ||
+            typeof (componentsOverride as RenderMarkdownOptions)
+              .preserveFrontmatter === 'boolean' ||
+            typeof (componentsOverride as RenderMarkdownOptions).tagfilter ===
+              'boolean');
 
-        const localComponents = isOptionsObject
-          ? (componentsOverride as RenderMarkdownOptions).components
-          : (componentsOverride as Overrides);
-        const localWrapper = isOptionsObject
-          ? (componentsOverride as RenderMarkdownOptions).wrapper
-          : undefined;
-        const localOptions = isOptionsObject
-          ? (componentsOverride as RenderMarkdownOptions).options
-          : {};
+        const {
+          components: overrideComponents,
+          wrapper: localWrapper,
+          forceBlock: localForceBlock,
+          forceInline: localForceInline,
+          preserveFrontmatter: localPreserveFrontmatter,
+          tagfilter: localTagfilter,
+          ...componentsFromRest
+        } = componentsOverride as RenderMarkdownOptions;
 
-        const mergedOptions = {
-          ...options,
-          ...localOptions,
-        };
+        const localComponents = (overrideComponents ||
+          componentsFromRest) as Overrides;
 
         return compileMarkdown(markdown, {
           ...internalOptions,
-          ...mergedOptions,
+          forceBlock: localForceBlock ?? internalOptions.forceBlock,
+          forceInline: localForceInline ?? internalOptions.forceInline,
+          preserveFrontmatter:
+            localPreserveFrontmatter ?? internalOptions.preserveFrontmatter,
+          tagfilter: localTagfilter ?? internalOptions.tagfilter,
           wrapper: localWrapper || wrapper || internalOptions.wrapper,
           forceWrapper: !!(localWrapper || wrapper),
           components: {
