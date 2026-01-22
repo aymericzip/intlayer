@@ -371,6 +371,35 @@ Pengaturan yang mengontrol perilaku routing, termasuk struktur URL, penyimpanan 
     - URL akan menjadi `https://example.com/my-app/en`
     - Jika jalur dasar tidak diatur, URL akan menjadi `https://example.com/en`
 
+- **rewrite**:
+  - _Tipe_: `Record<string, StrictModeLocaleMap<string>>`
+  - _Default_: `undefined`
+  - _Deskripsi_: Aturan penulisan ulang URL khusus yang menggantikan mode routing default untuk jalur tertentu. Memungkinkan Anda untuk mendefinisikan jalur khusus bahasa yang berbeda dari perilaku routing standar. Mendukung parameter rute dinamis menggunakan sintaks `[param]`.
+  - _Contoh_:
+    ```typescript
+    routing: {
+      mode: "prefix-no-default", // Strategi fallback
+      rewrite: {
+        "/about": {
+          en: "/about",
+          fr: "/a-propos",
+        },
+        "/product/[slug]": {
+          en: "/product/[slug]",
+          fr: "/produit/[slug]",
+        },
+        "/blog/[category]/[id]": {
+          en: "/blog/[category]/[id]",
+          fr: "/journal/[category]/[id]",
+        },
+      },
+    }
+    ```
+  - _Catatan_: Aturan penulisan ulang memiliki prioritas di atas perilaku `mode` default. Jika jalur cocok dengan aturan penulisan ulang, jalur yang dilokalisasi dari konfigurasi penulisan ulang akan digunakan alih-alih prefiks bahasa standar.
+  - _Catatan_: Parameter rute dinamis didukung menggunakan notasi kurung siku (misalnya, `[slug]`, `[id]`). Nilai parameter secara otomatis diekstrak dari URL dan diinterpolasi ke dalam jalur yang ditulis ulang.
+  - _Catatan_: Bekerja dengan aplikasi Next.js dan Vite. Middleware/proxy akan secara otomatis menulis ulang permintaan masuk untuk mencocokkan struktur rute internal.
+  - _Catatan_: Saat menghasilkan URL dengan `getLocalizedUrl()`, aturan penulisan ulang secara otomatis diterapkan jika cocok dengan jalur yang disediakan.
+
 #### Atribut Cookie
 
 Saat menggunakan penyimpanan cookie, Anda dapat mengonfigurasi atribut cookie tambahan:

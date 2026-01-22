@@ -368,6 +368,35 @@ Ustawienia kontrolujące zachowanie routingu, w tym strukturę URL, przechowywan
     - Adres URL będzie `https://example.com/my-app/en`
     - Jeśli podstawowa ścieżka nie jest ustawiona, adres URL będzie `https://example.com/en`
 
+- **rewrite**:
+  - _Typ_: `Record<string, StrictModeLocaleMap<string>>`
+  - _Domyślnie_: `undefined`
+  - _Opis_: Niestandardowe reguły przepisywania URL, które zastępują domyślny tryb routingu dla określonych ścieżek. Pozwala definiować ścieżki specyficzne dla języka, które różnią się od standardowego zachowania routingu. Obsługuje dynamiczne parametry trasy przy użyciu składni `[param]`.
+  - _Przykład_:
+    ```typescript
+    routing: {
+      mode: "prefix-no-default", // Strategia zapasowa
+      rewrite: {
+        "/about": {
+          en: "/about",
+          fr: "/a-propos",
+        },
+        "/product/[slug]": {
+          en: "/product/[slug]",
+          fr: "/produit/[slug]",
+        },
+        "/blog/[category]/[id]": {
+          en: "/blog/[category]/[id]",
+          fr: "/journal/[category]/[id]",
+        },
+      },
+    }
+    ```
+  - _Uwaga_: Reguły przepisywania mają pierwszeństwo przed domyślnym zachowaniem `mode`. Jeśli ścieżka pasuje do reguły przepisywania, zostanie użyta zlokalizowana ścieżka z konfiguracji przepisywania zamiast standardowego prefiksu języka.
+  - _Uwaga_: Dynamiczne parametry trasy są obsługiwane przy użyciu notacji nawiasów kwadratowych (np. `[slug]`, `[id]`). Wartości parametrów są automatycznie wyodrębniane z URL i interpolowane do przepisanej ścieżki.
+  - _Uwaga_: Działa z aplikacjami Next.js i Vite. Middleware/proxy automatycznie przepisze przychodzące żądania, aby dopasować je do wewnętrznej struktury trasy.
+  - _Uwaga_: Podczas generowania URL za pomocą `getLocalizedUrl()`, reguły przepisywania są automatycznie stosowane, jeśli pasują do podanej ścieżki.
+
 #### Atrybuty ciasteczek
 
 Podczas korzystania z przechowywania w ciasteczkach, możesz skonfigurować dodatkowe atrybuty ciasteczek:

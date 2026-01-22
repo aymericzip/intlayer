@@ -82,6 +82,8 @@ export const getIntlayer = <
       // We initialize it with the dictionary key name so the UI shows "my-dictionary.someKey"
       return createSafeFallback(key as string);
     }
+
+    return createSafeFallback(key as string);
   }
 
   return getDictionary<DictionaryRegistryElement<T>, L>(

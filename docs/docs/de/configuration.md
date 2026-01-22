@@ -332,6 +332,35 @@ Einstellungen, die das Verhalten der Middleware steuern, einschließlich wie die
     - Die URL wird `https://example.com/my-app/en` sein
     - Wenn der Basis-Pfad nicht gesetzt ist, wird die URL `https://example.com/en` sein.
 
+- **rewrite**:
+  - _Typ_: `Record<string, StrictModeLocaleMap<string>>`
+  - _Standard_: `undefined`
+  - _Beschreibung_: Benutzerdefinierte URL-Umschreiberegeln, die den Standard-Routing-Modus für bestimmte Pfade überschreiben. Ermöglicht die Definition sprachspezifischer Pfade, die sich vom Standard-Routing-Verhalten unterscheiden. Unterstützt dynamische Routenparameter mit der Syntax `[param]`.
+  - _Beispiel_:
+    ```typescript
+    routing: {
+      mode: "prefix-no-default", // Fallback-Strategie
+      rewrite: {
+        "/about": {
+          en: "/about",
+          fr: "/a-propos",
+        },
+        "/product/[slug]": {
+          en: "/product/[slug]",
+          fr: "/produit/[slug]",
+        },
+        "/blog/[category]/[id]": {
+          en: "/blog/[category]/[id]",
+          fr: "/journal/[category]/[id]",
+        },
+      },
+    }
+    ```
+  - _Hinweis_: Die Umschreiberegeln haben Vorrang vor dem Standard-`mode`-Verhalten. Wenn ein Pfad mit einer Umschreiberegel übereinstimmt, wird der lokalisierte Pfad aus der Umschreibkonfiguration anstelle der Standard-Sprachpräfixierung verwendet.
+  - _Hinweis_: Dynamische Routenparameter werden mit der Klammernotation unterstützt (z. B. `[slug]`, `[id]`). Die Parameterwerte werden automatisch aus der URL extrahiert und in den umgeschriebenen Pfad interpoliert.
+  - _Hinweis_: Funktioniert mit Next.js- und Vite-Anwendungen. Der Middleware/Proxy schreibt eingehende Anfragen automatisch um, um der internen Routenstruktur zu entsprechen.
+  - _Hinweis_: Beim Generieren von URLs mit `getLocalizedUrl()` werden die Umschreiberegeln automatisch angewendet, wenn sie mit dem bereitgestellten Pfad übereinstimmen.
+
 - **serverSetCookie**:
   - _Typ_: `string`
   - _Standard_: `'always'`

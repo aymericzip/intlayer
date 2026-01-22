@@ -18,7 +18,10 @@ export const buildDictionary = async (
   formats: ('cjs' | 'esm')[] = ['cjs', 'esm'],
   importOtherDictionaries = true
 ) => {
-  const { importMode } = configuration.build;
+  const importMode =
+    configuration.dictionary?.importMode ??
+    configuration.build?.importMode ??
+    'static';
 
   const unmergedDictionariesToUpdate: Dictionary[] = [
     ...localDictionariesEntries,

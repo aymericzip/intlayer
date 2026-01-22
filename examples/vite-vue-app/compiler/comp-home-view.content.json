@@ -1,0 +1,12 @@
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "comp-home-view",
+  "content": {
+    "markdownDemoVueIntlayermarkdown": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Markdown Demo (vue-intlayer/markdown)"
+      }
+    }
+  }
+}

@@ -2,9 +2,10 @@ import { markRaw, ref, type VNode, type VNodeChild } from 'vue';
 
 export type IntlayerNode<T = string> = {
   raw: T; // primitive value (reactive)
-  render: () => VNode; // component renderer
-  toString: () => T; // string interpolation
+  render: (props?: any) => VNodeChild; // component renderer
+  toString: () => string; // string interpolation
   value: T;
+  use: (props?: any) => IntlayerNode<T>;
   __update: (next: IntlayerNode<T>) => void; // invoked by useIntlayer
 };
 
@@ -16,7 +17,7 @@ export const renderIntlayerNode = <
   additionalProps = {},
 }: {
   value: T;
-  children: VNodeChild | (() => VNodeChild);
+  children: VNodeChild | ((props?: any) => VNodeChild);
   additionalProps?: Record<string, unknown>;
 }): IntlayerNode<T> => {
   /* ------------------------------------------------------------------ */
@@ -26,18 +27,18 @@ export const renderIntlayerNode = <
 
   /* 2.  We keep a *mutable* “currentRender” function.                  */
   /*     When the dictionary/locale changes, useIntlayer swaps it.      */
-  let currentRender: () => VNode =
+  let currentRender: (props?: any) => VNodeChild =
     typeof children === 'function'
-      ? () => (children as () => VNode)()
-      : () => children as unknown as VNode;
+      ? (props?: any) => (children as (props?: any) => VNodeChild)(props)
+      : () => children;
 
   /* 3.  The component's `render` method uses both:                     */
   /*     – it *touches* `rawRef.value` so Vue tracks reactivity         */
   /*     – it delegates the actual markup to `currentRender()`          */
-  const renderFn = () => {
+  const renderFn = (props?: any) => {
     /* touch rawRef so the component updates when the value changes */
     void rawRef.value;
-    return currentRender();
+    return currentRender(props);
   };
 
   /* ------------------------------------------------------------------ */
@@ -57,7 +58,7 @@ export const renderIntlayerNode = <
     render: renderFn,
 
     /* string interpolation */
-    toString: () => rawRef.value,
+    toString: () => String(rawRef.value ?? ''),
 
     /* primitive coercion helpers */
     valueOf: () => rawRef.value,
@@ -77,6 +78,15 @@ export const renderIntlayerNode = <
     /* .value returns the primitive value */
     get value() {
       return rawRef.value;
+    },
+
+    /* .use returns a new node with customized renderer */
+    use(props?: any) {
+      return renderIntlayerNode({
+        value: rawRef.value,
+        children: () => currentRender(props),
+        additionalProps,
+      });
     },
 
     /* called by useIntlayer when the dictionary entry changes */

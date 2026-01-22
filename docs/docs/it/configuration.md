@@ -329,6 +329,35 @@ Impostazioni che controllano il comportamento del middleware, incluso come l'app
     - L'URL sarà `https://example.com/my-app/en`
     - Se il percorso base non è impostato, l'URL sarà `https://example.com/en`
 
+- **rewrite**:
+  - _Tipo_: `Record<string, StrictModeLocaleMap<string>>`
+  - _Predefinito_: `undefined`
+  - _Descrizione_: Regole personalizzate di riscrittura URL che sovrascrivono la modalità di routing predefinita per percorsi specifici. Consente di definire percorsi specifici per lingua che differiscono dal comportamento di routing standard. Supporta parametri di route dinamici utilizzando la sintassi `[param]`.
+  - _Esempio_:
+    ```typescript
+    routing: {
+      mode: "prefix-no-default", // Strategia di fallback
+      rewrite: {
+        "/about": {
+          en: "/about",
+          fr: "/a-propos",
+        },
+        "/product/[slug]": {
+          en: "/product/[slug]",
+          fr: "/produit/[slug]",
+        },
+        "/blog/[category]/[id]": {
+          en: "/blog/[category]/[id]",
+          fr: "/journal/[category]/[id]",
+        },
+      },
+    }
+    ```
+  - _Nota_: Le regole di riscrittura hanno la priorità sul comportamento del `mode` predefinito. Se un percorso corrisponde a una regola di riscrittura, verrà utilizzato il percorso localizzato dalla configurazione di riscrittura invece del prefisso lingua standard.
+  - _Nota_: I parametri di route dinamici sono supportati utilizzando la notazione tra parentesi quadre (ad esempio, `[slug]`, `[id]`). I valori dei parametri vengono estratti automaticamente dall'URL e interpolati nel percorso riscritto.
+  - _Nota_: Funziona con applicazioni Next.js e Vite. Il middleware/proxy riscriverà automaticamente le richieste in arrivo per corrispondere alla struttura di route interna.
+  - _Nota_: Quando si generano URL con `getLocalizedUrl()`, le regole di riscrittura vengono applicate automaticamente se corrispondono al percorso fornito.
+
 - **serverSetCookie**:
   - _Tipo_: `string`
   - _Predefinito_: `'always'`

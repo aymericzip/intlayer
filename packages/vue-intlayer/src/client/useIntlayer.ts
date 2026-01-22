@@ -78,20 +78,32 @@ export const useIntlayer = <T extends DictionaryKeys>(
     { immediate: true, flush: 'sync' }
   );
 
+  // Cache proxies to avoid redundant creation and potential infinite loops
+  const proxyCache = new Map<string, any>();
+
   // create a deep, read-only reactive proxy
   const makeProxy = (path: (string | number)[]) => {
+    const pathKey = path.join('.');
+    if (proxyCache.has(pathKey)) return proxyCache.get(pathKey);
+
     const leafRef: ComputedRef<any> = computed(() =>
       atPath(source.value, path)
     );
 
     const handler: ProxyHandler<any> = {
       get(_t, prop: any, _r) {
-        // Make the proxy "ref-like" so templates unwrap {{proxy}} to its current value.
-        if (prop === '__v_isRef') return true;
-        if (prop === 'value') return leafRef.value;
+        // Filter out internal Vue/TS properties to prevent infinite loop
+        if (
+          typeof prop === 'symbol' ||
+          (typeof prop === 'string' &&
+            (prop.startsWith('__') || prop.startsWith('$')))
+        ) {
+          if (prop === '__v_isRef') return true;
+          if (prop === 'then') return undefined; // Avoid Promise-like traps
+          return Reflect.get(_t, prop, _r);
+        }
 
-        // Avoid Promise-like traps
-        if (prop === 'then') return undefined;
+        if (prop === 'value') return leafRef.value ?? '';
 
         // Coerce the node to a component when asked
         if (prop === 'c' || prop === 'asComponent')
@@ -102,14 +114,17 @@ export const useIntlayer = <T extends DictionaryKeys>(
 
         // Primitive coercion in string contexts (e.g., `${node}`)
         if (prop === Symbol.toPrimitive) {
-          return () => leafRef.value as any;
+          return () => String(leafRef.value ?? '');
         }
 
         // Dive into children reactively
         const nextPath = path.concat(prop as any);
         const snapshot = atPath(source.value, nextPath);
 
-        if (isObjectLike(snapshot) && !isComponentLike(snapshot)) {
+        if (
+          snapshot === undefined ||
+          (isObjectLike(snapshot) && !isComponentLike(snapshot))
+        ) {
           return makeProxy(nextPath); // nested proxy
         }
 
@@ -121,12 +136,22 @@ export const useIntlayer = <T extends DictionaryKeys>(
         }
 
         // For other component-like things or primitives, return computed ref
-        return computed(() => atPath(source.value, nextPath));
+        const subLeafRef = computed(() => atPath(source.value, nextPath));
+
+        return new Proxy(subLeafRef, {
+          get(target, subProp, receiver) {
+            if (subProp === 'value') {
+              return target.value ?? '';
+            }
+            if (subProp === '__v_isRef') return true;
+            return Reflect.get(target, subProp, receiver);
+          },
+        });
       },
 
       // Make Object.keys(), for...in, v-for on object keys work
       ownKeys() {
-        const v = leafRef.value;
+        const v = atPath(source.value, path);
         return isObjectLike(v) ? Reflect.ownKeys(v) : [];
       },
       getOwnPropertyDescriptor() {
@@ -134,8 +159,10 @@ export const useIntlayer = <T extends DictionaryKeys>(
       },
     };
 
-    return new Proxy({}, handler);
+    const proxy = new Proxy({}, handler);
+    proxyCache.set(pathKey, proxy);
+    return proxy;
   };
 
-  return makeProxy([]) as any;
+  return makeProxy([]);
 };

@@ -47,9 +47,10 @@ export const getMultilingualUrls = (
     locales?: LocalesValues[];
     defaultLocale?: LocalesValues;
     mode?: RoutingConfig['mode'];
+    rewrite?: RoutingConfig['rewrite'];
   } = {}
 ): StrictModeLocaleMap<string> => {
-  const { defaultLocale, mode, locales } = {
+  const { defaultLocale, mode, locales, rewrite } = {
     defaultLocale:
       configuration?.internationalization?.defaultLocale ??
       DefaultValues.Internationalization.DEFAULT_LOCALE,
@@ -57,6 +58,7 @@ export const getMultilingualUrls = (
     locales:
       configuration?.internationalization?.locales ??
       DefaultValues.Internationalization.LOCALES,
+    rewrite: configuration?.routing?.rewrite,
     ...options,
   };
 
@@ -68,6 +70,7 @@ export const getMultilingualUrls = (
         locales,
         defaultLocale,
         mode,
+        rewrite,
       });
 
       // Assign the constructed URL to the corresponding locale key

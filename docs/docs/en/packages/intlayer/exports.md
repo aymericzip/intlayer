@@ -100,6 +100,8 @@ import "intlayer";
 | `getLocale`            | `Function` | Detects the locale from a string or path. | [getLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocale.md)                       |
 | `getLocaleLang`        | `Function` | Gets the language part of a locale.       | [getLocaleLang](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleLang.md)               |
 | `getLocaleName`        | `Function` | Gets the display name of a locale.        | [getLocaleName](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleName.md)               |
+| `getLocalizedPath`     | `Function` | Resolves a canonical path to localized.   | [getLocalizedPath](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedPath.md)         |
+| `getCanonicalPath`     | `Function` | Resolves a localized path to canonical.   | [getCanonicalPath](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getCanonicalPath.md)         |
 | `getLocalizedUrl`      | `Function` | Generates a localized URL.                | [getLocalizedUrl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md)           |
 | `getMultilingualUrls`  | `Function` | Generates URLs for all supported locales. | [getMultilingualUrls](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getMultilingualUrls.md)   |
 | `getPathWithoutLocale` | `Function` | Removes the locale prefix from a path.    | [getPathWithoutLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPathWithoutLocale.md) |

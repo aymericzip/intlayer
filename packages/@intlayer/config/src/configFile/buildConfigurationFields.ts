@@ -169,6 +169,35 @@ const buildRoutingFields = (
    * - If the base path is not set, the URL will be https://example.com/en
    */
   basePath: customConfiguration?.basePath ?? BASE_PATH,
+
+  /**
+   * Custom URL rewriting rules that override the default routing mode for specific paths.
+   * Allows you to define locale-specific paths that differ from the standard routing behavior.
+   * Supports dynamic route parameters using `[param]` syntax.
+   *
+   * Default: undefined
+   *
+   * Example:
+   * ```typescript
+   * rewrite: {
+   *   "/about": {
+   *     en: "/about",
+   *     fr: "/a-propos",
+   *   },
+   *   "/product/[slug]": {
+   *     en: "/product/[slug]",
+   *     fr: "/produit/[slug]",
+   *   },
+   * }
+   * ```
+   *
+   * Note:
+   * - The rewrite rules take precedence over the default `mode` behavior.
+   * - If a path matches a rewrite rule, the localized path from the rewrite configuration will be used.
+   * - Dynamic route parameters are supported using bracket notation (e.g., `[slug]`, `[id]`).
+   * - Works with both Next.js and Vite applications.
+   */
+  rewrite: customConfiguration?.rewrite,
 });
 
 const buildContentFields = (

@@ -253,24 +253,7 @@ export const markdownStringPlugin: Plugins = {
         },
       });
 
-    const element = render() as any;
-
-    return new Proxy(element, {
-      get(target, prop, receiver) {
-        if (prop === 'value') {
-          return node;
-        }
-        if (prop === 'metadata') {
-          return metadataNodes;
-        }
-
-        if (prop === 'use') {
-          return (components?: any) => render(components);
-        }
-
-        return Reflect.get(target, prop, receiver);
-      },
-    }) as any;
+    return render() as any;
   },
 };
 
@@ -336,7 +319,7 @@ export const htmlPlugin: Plugins = {
   id: 'html-plugin',
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.HTML,
-  transform: (node: HTMLContent<string>) => {
+  transform: (node: HTMLContent<string>, props) => {
     const html = node[NodeType.HTML];
     const tags = node.tags ?? [];
 
@@ -357,28 +340,11 @@ export const htmlPlugin: Plugins = {
       return getHTML(html, mergedComponents as any);
     };
 
-    const element = render() as any;
-
-    return new Proxy(element, {
-      get(target, prop, receiver) {
-        if (prop === 'value') {
-          return html;
-        }
-
-        if (prop === 'use') {
-          // Return a properly typed function based on custom components
-          return <
-            T = typeof tags extends readonly (infer U extends string)[]
-              ? U
-              : typeof tags,
-          >(
-            userComponents?: VueHTMLComponentMap<T>
-          ) => render(userComponents);
-        }
-
-        return Reflect.get(target, prop, receiver);
-      },
-    }) as any;
+    return renderIntlayerNode({
+      ...props,
+      value: html,
+      children: (userComponents?: any) => render(userComponents),
+    });
   },
 };
 

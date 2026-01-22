@@ -84,6 +84,12 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
       },
     },
     {
+      url: `${process.env.NEXT_PUBLIC_URL}/llms.txt`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.1,
+    },
+    {
       url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Contributors}`,
       lastModified: new Date(),
       changeFrequency: 'weekly',

@@ -333,6 +333,35 @@ module.exports = config;
     - URL 将是 `https://example.com/my-app/en`
     - 如果未设置基础路径，URL 将是 `https://example.com/en`
 
+- **rewrite**:
+  - _类型_: `Record<string, StrictModeLocaleMap<string>>`
+  - _默认值_: `undefined`
+  - _说明_: 自定义 URL 重写规则，用于覆盖特定路径的默认路由模式。允许定义与标准路由行为不同的特定语言路径。支持使用 `[param]` 语法的动态路由参数。
+  - _示例_:
+    ```typescript
+    routing: {
+      mode: "prefix-no-default", // 回退策略
+      rewrite: {
+        "/about": {
+          en: "/about",
+          fr: "/a-propos",
+        },
+        "/product/[slug]": {
+          en: "/product/[slug]",
+          fr: "/produit/[slug]",
+        },
+        "/blog/[category]/[id]": {
+          en: "/blog/[category]/[id]",
+          fr: "/journal/[category]/[id]",
+        },
+      },
+    }
+    ```
+  - _说明_: 重写规则优先于默认的 `mode` 行为。如果路径匹配重写规则，将使用重写配置中的本地化路径，而不是标准语言前缀。
+  - _说明_: 支持使用方括号表示法的动态路由参数（例如 `[slug]`、`[id]`）。参数值会自动从 URL 中提取并插入到重写的路径中。
+  - _说明_: 适用于 Next.js 和 Vite 应用程序。中间件/代理会自动重写传入的请求以匹配内部路由结构。
+  - _说明_: 使用 `getLocalizedUrl()` 生成 URL 时，如果重写规则与提供的路径匹配，将自动应用这些规则。
+
 - **serverSetCookie**：
   - _类型_：`string`
   - _默认值_：`'always'`

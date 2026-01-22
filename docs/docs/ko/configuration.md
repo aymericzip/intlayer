@@ -332,6 +332,35 @@ module.exports = config;
     - URL은 `https://example.com/my-app/en`이 됩니다.
     - 기본 경로가 설정되지 않은 경우, URL은 `https://example.com/en`이 됩니다.
 
+- **rewrite**:
+  - _유형_: `Record<string, StrictModeLocaleMap<string>>`
+  - _기본값_: `undefined`
+  - _설명_: 특정 경로에 대한 기본 라우팅 모드를 재정의하는 사용자 정의 URL 재작성 규칙. 표준 라우팅 동작과 다른 언어별 경로를 정의할 수 있습니다. `[param]` 구문을 사용한 동적 라우트 매개변수를 지원합니다.
+  - _예시_:
+    ```typescript
+    routing: {
+      mode: "prefix-no-default", // 폴백 전략
+      rewrite: {
+        "/about": {
+          en: "/about",
+          fr: "/a-propos",
+        },
+        "/product/[slug]": {
+          en: "/product/[slug]",
+          fr: "/produit/[slug]",
+        },
+        "/blog/[category]/[id]": {
+          en: "/blog/[category]/[id]",
+          fr: "/journal/[category]/[id]",
+        },
+      },
+    }
+    ```
+  - _참고_: 재작성 규칙은 기본 `mode` 동작보다 우선순위가 높습니다. 경로가 재작성 규칙과 일치하는 경우, 표준 언어 접두사 대신 재작성 구성의 지역화된 경로가 사용됩니다.
+  - _참고_: 동적 라우트 매개변수는 대괄호 표기법(예: `[slug]`, `[id]`)을 사용하여 지원됩니다. 매개변수 값은 URL에서 자동으로 추출되어 재작성된 경로에 보간됩니다.
+  - _참고_: Next.js 및 Vite 애플리케이션에서 작동합니다. 미들웨어/프록시는 내부 라우트 구조와 일치하도록 들어오는 요청을 자동으로 재작성합니다.
+  - _참고_: `getLocalizedUrl()`로 URL을 생성할 때, 제공된 경로와 일치하는 경우 재작성 규칙이 자동으로 적용됩니다.
+
 - **serverSetCookie**:
   - _유형_: `string`
   - _기본값_: `'always'`

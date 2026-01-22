@@ -329,6 +329,35 @@ Configurações que controlam o comportamento do middleware, incluindo como a ap
     - A URL será `https://example.com/my-app/en`
     - Se o caminho base não estiver definido, a URL será `https://example.com/en`
 
+- **rewrite**:
+  - _Tipo_: `Record<string, StrictModeLocaleMap<string>>`
+  - _Padrão_: `undefined`
+  - _Descrição_: Regras personalizadas de reescrita de URL que substituem o modo de roteamento padrão para caminhos específicos. Permite definir caminhos específicos por idioma que diferem do comportamento de roteamento padrão. Suporta parâmetros de rota dinâmicos usando a sintaxe `[param]`.
+  - _Exemplo_:
+    ```typescript
+    routing: {
+      mode: "prefix-no-default", // Estratégia de fallback
+      rewrite: {
+        "/about": {
+          en: "/about",
+          fr: "/a-propos",
+        },
+        "/product/[slug]": {
+          en: "/product/[slug]",
+          fr: "/produit/[slug]",
+        },
+        "/blog/[category]/[id]": {
+          en: "/blog/[category]/[id]",
+          fr: "/journal/[category]/[id]",
+        },
+      },
+    }
+    ```
+  - _Nota_: As regras de reescrita têm prioridade sobre o comportamento do `mode` padrão. Se um caminho corresponder a uma regra de reescrita, o caminho localizado da configuração de reescrita será usado em vez do prefixo de idioma padrão.
+  - _Nota_: Parâmetros de rota dinâmicos são suportados usando a notação de colchetes (por exemplo, `[slug]`, `[id]`). Os valores dos parâmetros são extraídos automaticamente da URL e interpolados no caminho reescrito.
+  - _Nota_: Funciona com aplicações Next.js e Vite. O middleware/proxy reescreverá automaticamente as solicitações recebidas para corresponder à estrutura de rota interna.
+  - _Nota_: Ao gerar URLs com `getLocalizedUrl()`, as regras de reescrita são aplicadas automaticamente se corresponderem ao caminho fornecido.
+
 - **serverSetCookie**:
   - _Tipo_: `string`
   - _Padrão_: `'always'`

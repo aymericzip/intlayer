@@ -329,6 +329,35 @@ Configuraciones que controlan el comportamiento del middleware, incluyendo cómo
     - La URL será `https://example.com/my-app/en`
     - Si no se establece la ruta base, la URL será `https://example.com/en`
 
+- **rewrite**:
+  - _Tipo_: `Record<string, StrictModeLocaleMap<string>>`
+  - _Por defecto_: `undefined`
+  - _Descripción_: Reglas personalizadas de reescritura de URL que sobrescriben el modo de enrutamiento predeterminado para rutas específicas. Permite definir rutas específicas por idioma que difieren del comportamiento de enrutamiento estándar. Admite parámetros de ruta dinámicos usando la sintaxis `[param]`.
+  - _Ejemplo_:
+    ```typescript
+    routing: {
+      mode: "prefix-no-default", // Estrategia de respaldo
+      rewrite: {
+        "/about": {
+          en: "/about",
+          fr: "/a-propos",
+        },
+        "/product/[slug]": {
+          en: "/product/[slug]",
+          fr: "/produit/[slug]",
+        },
+        "/blog/[category]/[id]": {
+          en: "/blog/[category]/[id]",
+          fr: "/journal/[category]/[id]",
+        },
+      },
+    }
+    ```
+  - _Nota_: Las reglas de reescritura tienen prioridad sobre el comportamiento del `mode` predeterminado. Si una ruta coincide con una regla de reescritura, se usará la ruta localizada de la configuración de reescritura en lugar del prefijo de idioma estándar.
+  - _Nota_: Se admiten parámetros de ruta dinámicos usando la notación de corchetes (por ejemplo, `[slug]`, `[id]`). Los valores de los parámetros se extraen automáticamente de la URL y se interpolan en la ruta reescrita.
+  - _Nota_: Funciona con aplicaciones Next.js y Vite. El middleware/proxy reescribirá automáticamente las solicitudes entrantes para que coincidan con la estructura de ruta interna.
+  - _Nota_: Al generar URLs con `getLocalizedUrl()`, las reglas de reescritura se aplican automáticamente si coinciden con la ruta proporcionada.
+
 - **serverSetCookie**:
   - _Tipo_: `string`
   - _Por defecto_: `'always'`

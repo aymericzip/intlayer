@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-01-10
+updatedAt: 2026-01-22
 title: Configuration
 description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customize Intlayer to your needs.
 keywords:
@@ -17,6 +17,9 @@ history:
   - version: 8.0.0
     date: 2026-01-22
     changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
+    date: 2026-01-22
+    changes: Add `rewrite` option to the routing configuration
   - version: 8.0.0
     date: 2026-01-18
     changes: Separate system configuration from content configuration. Move internal paths to `system` property. Add `codeDir` to separate content files from code transformation.
@@ -113,6 +116,12 @@ const config: IntlayerConfig = {
   routing: {
     mode: "prefix-no-default",
     storage: "cookie",
+    rewrite: {
+      "/about": {
+        en: "/about",
+        fr: "/a-propos",
+      },
+    },
   },
   editor: {
     applicationURL: "https://example.com",
@@ -147,6 +156,12 @@ const config = {
   routing: {
     mode: "prefix-no-default",
     storage: "cookie",
+    rewrite: {
+      "/about": {
+        en: "/about",
+        fr: "/a-propos",
+      },
+    },
   },
   editor: {
     applicationURL: "https://example.com",
@@ -179,6 +194,12 @@ module.exports = config;
   "routing": {
     "mode": "prefix-no-default",
     "storage": "cookie",
+    "rewrite": {
+      "/about": {
+        "en": "/about",
+        "fr": "/a-propos",
+      },
+    },
   },
   "editor": {
     "applicationURL": "https://example.com",
@@ -385,6 +406,35 @@ Settings that control routing behavior, including URL structure, locale storage,
     - The URL will be `https://example.com/my-app/en`
     - If the base path is not set, the URL will be `https://example.com/en`
 
+- **rewrite**:
+  - _Type_: `Record<string, StrictModeLocaleMap<string>>`
+  - _Default_: `undefined`
+  - _Description_: Custom URL rewriting rules that override the default routing mode for specific paths. Allows you to define locale-specific paths that differ from the standard routing behavior. Supports dynamic route parameters using `[param]` syntax.
+  - _Example_:
+    ```typescript
+    routing: {
+      mode: "prefix-no-default", // Fallback strategy
+      rewrite: {
+        "/about": {
+          en: "/about",
+          fr: "/a-propos",
+        },
+        "/product/[slug]": {
+          en: "/product/[slug]",
+          fr: "/produit/[slug]",
+        },
+        "/blog/[category]/[id]": {
+          en: "/blog/[category]/[id]",
+          fr: "/journal/[category]/[id]",
+        },
+      },
+    }
+    ```
+  - _Note_: The rewrite rules take precedence over the default `mode` behavior. If a path matches a rewrite rule, the localized path from the rewrite configuration will be used instead of the standard locale prefixing.
+  - _Note_: Dynamic route parameters are supported using bracket notation (e.g., `[slug]`, `[id]`). The parameter values are automatically extracted from the URL and interpolated into the rewritten path.
+  - _Note_: Works with both Next.js and Vite applications. The middleware/proxy will automatically rewrite incoming requests to match the internal route structure.
+  - _Note_: When generating URLs with `getLocalizedUrl()`, the rewrite rules are automatically applied if they match the provided path.
+
 #### Cookie Attributes
 
 When using cookie storage, you can configure additional cookie attributes:
@@ -491,6 +541,36 @@ export default defineConfig({
     },
     headerName: "x-custom-locale",
     basePath: "/my-app",
+  },
+});
+```
+
+**Custom URL Rewriting with Dynamic Routes**:
+
+```typescript
+// intlayer.config.ts
+export default defineConfig({
+  internationalization: {
+    locales: ["en", "fr"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "prefix-no-default", // Fallback for non-rewritten paths
+    storage: "cookie",
+    rewrite: {
+      "/about": {
+        en: "/about",
+        fr: "/a-propos",
+      },
+      "/product/[slug]": {
+        en: "/product/[slug]",
+        fr: "/produit/[slug]",
+      },
+      "/blog/[category]/[id]": {
+        en: "/blog/[category]/[id]",
+        fr: "/journal/[category]/[id]",
+      },
+    },
   },
 });
 ```

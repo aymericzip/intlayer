@@ -3,13 +3,31 @@ import type {
   ContentAutoTransformation,
   DictionaryLocation,
   Fill,
-  ImportMode,
 } from './dictionary';
 import type { Locale } from './locales';
-import type { LocalesValues } from './module_augmentation';
+import type { LocalesValues, StrictModeLocaleMap } from './module_augmentation';
 import type { Plugin } from './plugin';
 
 export type StrictMode = 'strict' | 'inclusive' | 'loose';
+
+type Protocol = 'http' | 'https';
+
+// Localhost: STRICTLY requires a port
+type LocalhostURL =
+  | `${Protocol}://localhost:${number}`
+  | `${Protocol}://localhost:${number}/${string}`;
+
+// IP Address: Start with number, allows optional port
+// (Heuristic: Starts with a number, contains dots)
+type IPUrl =
+  | `${Protocol}://${number}.${string}`
+  | `${Protocol}://${number}.${string}:${number}`;
+
+// Standard Domain: Requires at least one dot to rule out plain "localhost"
+// (Heuristic: starts with non-number string, contains dot)
+type DomainURL = `${Protocol}://${string}.${string}`;
+
+export type URLType = LocalhostURL | IPUrl | DomainURL;
 
 /**
  * Configuration for internationalization settings
@@ -151,6 +169,24 @@ export type StorageAttributes = {
  */
 export type RoutingConfig = {
   /**
+   * Rewrite the URLs to a localized path
+   *
+   * Example:
+   * ```ts
+   *  // ...
+   *  routing: {
+   *    rewrite: {
+   *      '/about': {
+   *        en: '/about',
+   *        fr: '/a-propos'
+   *      }
+   *    }
+   *  }
+   * ```
+   */
+  rewrite?: Record<URLPath, StrictModeLocaleMap<URLPath>>;
+
+  /**
    * URL routing mode for locale handling
    *
    * Controls how locales are represented in application URLs:
@@ -221,27 +257,23 @@ export type EditorConfig = {
   /**
    * URL of the application. Used to restrict the origin of the editor for security reasons.
    *
-   * > '*' means that the editor is accessible from any origin
-   *
-   * Default: '*'
+   * Default: ''
    */
-  applicationURL: string;
+  applicationURL: URLType;
 
   /**
    * URL of the editor server. Used to restrict the origin of the editor for security reasons.
    *
-   * > '*' means that the editor is accessible from any origin
-   *
    * Default: 'http://localhost:8000'
    */
-  editorURL: string;
+  editorURL: URLType;
 
   /**
    * URL of the CMS server. Used to restrict the origin of the editor for security reasons.
    *
-   * Default: 'https://intlayer.org'
+   * Default: 'https://app.intlayer.org'
    */
-  cmsURL: string;
+  cmsURL: URLType;
 
   /**
    * URL of the backend
@@ -250,7 +282,7 @@ export type EditorConfig = {
    *
    * The URL of the backend server.
    */
-  backendURL: string;
+  backendURL: URLType;
 
   /**
    * Indicates if the application interact with the visual editor
@@ -335,7 +367,7 @@ export type EditorConfig = {
    *
    * Default: `http://localhost:${liveSyncPort}`
    */
-  liveSyncURL: string;
+  liveSyncURL: URLType;
 };
 
 export enum AiProviders {
@@ -685,7 +717,7 @@ export type DictionaryConfig = {
    * - The "live" allows to sync the dictionaries to the live sync server.
    * - Require static key to work. Example of invalid code: `const navbarKey = "my-key"; useIntlayer(navbarKey)`.
    */
-  importMode?: ImportMode;
+  importMode?: 'static' | 'dynamic' | 'live';
   title?: string;
   tags?: string[];
   version?: string;

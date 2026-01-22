@@ -27,6 +27,7 @@ const countRef = ref(0);
       {{ countRef }}
     </button>
     <p v-html="edit"></p>
+    <edit/>
   </div>
 
   <Test />

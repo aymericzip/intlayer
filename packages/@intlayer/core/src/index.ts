@@ -3,7 +3,6 @@ export * from './dictionaryManipulator/index';
 export * from './formatters/index';
 export * from './getStorageAttributes';
 export * from './interpreter/index';
-export * from './localization/getLocale';
 export * from './localization/index';
 export * from './markdown/index';
 export * from './transpiler/index';

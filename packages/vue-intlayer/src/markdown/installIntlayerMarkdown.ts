@@ -138,7 +138,7 @@ export const installIntlayerMarkdown = (
           preserveFrontmatter: localPreserveFrontmatter,
           tagfilter: localTagfilter,
           ...componentsFromRest
-        } = overrides as RenderMarkdownOptions;
+        } = (overrides ?? {}) as RenderMarkdownOptions;
 
         const localComponents = (overrideComponents ||
           componentsFromRest) as Overrides;

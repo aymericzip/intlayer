@@ -333,6 +333,35 @@ Paramètres qui contrôlent le comportement du middleware, y compris la gestion 
     - L'URL sera `https://example.com/my-app/en`
     - Si le chemin de base n'est pas défini, l'URL sera `https://example.com/en`
 
+- **rewrite** :
+  - _Type_ : `Record<string, StrictModeLocaleMap<string>>`
+  - _Par défaut_ : `undefined`
+  - _Description_ : Règles personnalisées de réécriture d'URL qui remplacent le mode de routage par défaut pour des chemins spécifiques. Permet de définir des chemins spécifiques par langue qui diffèrent du comportement de routage standard. Prend en charge les paramètres de route dynamiques en utilisant la syntaxe `[param]`.
+  - _Exemple_ :
+    ```typescript
+    routing: {
+      mode: "prefix-no-default", // Stratégie de repli
+      rewrite: {
+        "/about": {
+          en: "/about",
+          fr: "/a-propos",
+        },
+        "/product/[slug]": {
+          en: "/product/[slug]",
+          fr: "/produit/[slug]",
+        },
+        "/blog/[category]/[id]": {
+          en: "/blog/[category]/[id]",
+          fr: "/journal/[category]/[id]",
+        },
+      },
+    }
+    ```
+  - _Note_ : Les règles de réécriture ont la priorité sur le comportement du `mode` par défaut. Si un chemin correspond à une règle de réécriture, le chemin localisé de la configuration de réécriture sera utilisé au lieu du préfixe de langue standard.
+  - _Note_ : Les paramètres de route dynamiques sont pris en charge en utilisant la notation entre crochets (par exemple, `[slug]`, `[id]`). Les valeurs des paramètres sont automatiquement extraites de l'URL et interpolées dans le chemin réécrit.
+  - _Note_ : Fonctionne avec les applications Next.js et Vite. Le middleware/proxy réécrira automatiquement les requêtes entrantes pour correspondre à la structure de route interne.
+  - _Note_ : Lors de la génération d'URLs avec `getLocalizedUrl()`, les règles de réécriture sont automatiquement appliquées si elles correspondent au chemin fourni.
+
 - **serverSetCookie** :
   - _Type_ : `string`
   - _Par défaut_ : `'always'`

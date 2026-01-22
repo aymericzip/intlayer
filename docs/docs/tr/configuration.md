@@ -332,6 +332,35 @@ Uygulamanın çerezleri, başlıkları ve yerel yönetimi için URL öneklerini 
     - URL `https://example.com/my-app/en` olacaktır
     - Eğer base path ayarlanmazsa, URL `https://example.com/en` olacaktır.
 
+- **rewrite**:
+  - _Tür_: `Record<string, StrictModeLocaleMap<string>>`
+  - _Varsayılan_: `undefined`
+  - _Açıklama_: Belirli yollar için varsayılan yönlendirme modunu geçersiz kılan özel URL yeniden yazma kuralları. Standart yönlendirme davranışından farklı dil-spesifik yollar tanımlamanıza olanak tanır. `[param]` sözdizimini kullanarak dinamik rota parametrelerini destekler.
+  - _Örnek_:
+    ```typescript
+    routing: {
+      mode: "prefix-no-default", // Yedek strateji
+      rewrite: {
+        "/about": {
+          en: "/about",
+          fr: "/a-propos",
+        },
+        "/product/[slug]": {
+          en: "/product/[slug]",
+          fr: "/produit/[slug]",
+        },
+        "/blog/[category]/[id]": {
+          en: "/blog/[category]/[id]",
+          fr: "/journal/[category]/[id]",
+        },
+      },
+    }
+    ```
+  - _Not_: Yeniden yazma kuralları varsayılan `mode` davranışından önceliklidir. Bir yol bir yeniden yazma kuralıyla eşleşirse, standart dil öneki yerine yeniden yazma yapılandırmasından yerelleştirilmiş yol kullanılacaktır.
+  - _Not_: Dinamik rota parametreleri köşeli ayraç gösterimi (örneğin, `[slug]`, `[id]`) kullanılarak desteklenir. Parametre değerleri URL'den otomatik olarak çıkarılır ve yeniden yazılan yola eklenir.
+  - _Not_: Next.js ve Vite uygulamalarıyla çalışır. Middleware/proxy, gelen istekleri iç rota yapısıyla eşleşecek şekilde otomatik olarak yeniden yazacaktır.
+  - _Not_: `getLocalizedUrl()` ile URL oluştururken, sağlanan yolla eşleşirlerse yeniden yazma kuralları otomatik olarak uygulanır.
+
 - **serverSetCookie**:
   - _Tür_: `string`
   - _Varsayılan_: `'always'`
