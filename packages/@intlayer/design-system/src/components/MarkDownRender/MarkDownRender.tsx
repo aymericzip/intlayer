@@ -144,11 +144,11 @@ export const getIntlayerMarkdownOptions: (
     hr: ({ className, ...props }: ComponentPropsWithoutRef<'hr'>) => (
       <hr className={cn('mx-6 mt-16 text-neutral', className)} {...props} />
     ),
-    // Support <Tabs> as container and <Tab> as item in markdown
     Tabs: (props: ComponentProps<typeof Tab>) => (
       <Tab
         {...props}
-        headerClassName="sticky top-36 z-10 bg-background/70 backdrop-blur"
+        className="rounded-xl border border-card"
+        headerClassName="sticky rounded-xl top-36 z-10 bg-background/70 backdrop-blur"
       />
     ),
     Tab: Tab.Item,
