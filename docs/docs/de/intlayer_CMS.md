@@ -311,7 +311,7 @@ const config: IntlayerConfig = {
      */
     liveSync: true,
   },
-  build: {
+  dictionary: {
     /**
      * Steuert, wie Wörterbücher importiert werden:
      *
@@ -347,7 +347,7 @@ const config = {
      */
     liveSync: true,
   },
-  build: {
+  dictionary: {
     /**
      * Steuert, wie Wörterbücher importiert werden:
      *
@@ -397,7 +397,7 @@ const config = {
      */
     liveSyncURL: "https://live.example.com",
   },
-  build: {
+  dictionary: {
     /**
      * Steuert, wie Wörterbücher importiert werden:
      *
@@ -482,9 +482,11 @@ const config: IntlayerConfig = {
     liveSyncURL: "http://localhost:4000",
     liveSync: true,
   },
+  dictionary: {
+    importMode: "live",
+  },
   build: {
     optimize: true,
-    importMode: "live",
   },
 };
 
@@ -499,9 +501,11 @@ const config = {
     liveSyncURL: "http://localhost:4000",
     liveSync: true,
   },
+  dictionary: {
+    importMode: "live",
+  },
   build: {
     optimize: true,
-    importMode: "live",
   },
 };
 
@@ -516,9 +520,11 @@ const config = {
     liveSyncURL: "http://localhost:4000",
     liveSync: true,
   },
+  dictionary: {
+    importMode: "live",
+  },
   build: {
     optimize: true,
-    importMode: "live",
   },
 };
 

@@ -5,10 +5,29 @@ import type {
   Fill,
 } from './dictionary';
 import type { Locale } from './locales';
-import type { LocalesValues } from './module_augmentation';
+import type { LocalesValues, StrictModeLocaleMap } from './module_augmentation';
 import type { Plugin } from './plugin';
 
 export type StrictMode = 'strict' | 'inclusive' | 'loose';
+
+type Protocol = 'http' | 'https';
+
+// Localhost: STRICTLY requires a port
+type LocalhostURL =
+  | `${Protocol}://localhost:${number}`
+  | `${Protocol}://localhost:${number}/${string}`;
+
+// IP Address: Start with number, allows optional port
+// (Heuristic: Starts with a number, contains dots)
+type IPUrl =
+  | `${Protocol}://${number}.${string}`
+  | `${Protocol}://${number}.${string}:${number}`;
+
+// Standard Domain: Requires at least one dot to rule out plain "localhost"
+// (Heuristic: starts with non-number string, contains dot)
+type DomainURL = `${Protocol}://${string}.${string}`;
+
+export type URLType = LocalhostURL | IPUrl | DomainURL;
 
 /**
  * Configuration for internationalization settings
@@ -150,6 +169,24 @@ export type StorageAttributes = {
  */
 export type RoutingConfig = {
   /**
+   * Rewrite the URLs to a localized path
+   *
+   * Example:
+   * ```ts
+   *  // ...
+   *  routing: {
+   *    rewrite: {
+   *      '/about': {
+   *        en: '/about',
+   *        fr: '/a-propos'
+   *      }
+   *    }
+   *  }
+   * ```
+   */
+  rewrite?: Record<URLPath, StrictModeLocaleMap<URLPath>>;
+
+  /**
    * URL routing mode for locale handling
    *
    * Controls how locales are represented in application URLs:
@@ -220,27 +257,23 @@ export type EditorConfig = {
   /**
    * URL of the application. Used to restrict the origin of the editor for security reasons.
    *
-   * > '*' means that the editor is accessible from any origin
-   *
-   * Default: '*'
+   * Default: ''
    */
-  applicationURL: string;
+  applicationURL: URLType;
 
   /**
    * URL of the editor server. Used to restrict the origin of the editor for security reasons.
    *
-   * > '*' means that the editor is accessible from any origin
-   *
    * Default: 'http://localhost:8000'
    */
-  editorURL: string;
+  editorURL: URLType;
 
   /**
    * URL of the CMS server. Used to restrict the origin of the editor for security reasons.
    *
-   * Default: 'https://intlayer.org'
+   * Default: 'https://app.intlayer.org'
    */
-  cmsURL: string;
+  cmsURL: URLType;
 
   /**
    * URL of the backend
@@ -249,7 +282,7 @@ export type EditorConfig = {
    *
    * The URL of the backend server.
    */
-  backendURL: string;
+  backendURL: URLType;
 
   /**
    * Indicates if the application interact with the visual editor
@@ -334,7 +367,7 @@ export type EditorConfig = {
    *
    * Default: `http://localhost:${liveSyncPort}`
    */
-  liveSyncURL: string;
+  liveSyncURL: URLType;
 };
 
 export enum AiProviders {
@@ -470,6 +503,8 @@ export type BuildConfig = {
    * - This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions. You can still use them to refine you code on manual optimization.
    * - The "live" allows to sync the dictionaries to the live sync server.
    * - Require static key to work. Example of invalid code: `const navbarKey = "my-key"; useIntlayer(navbarKey)`.
+   *
+   * @deprecated Use `dictionary.importMode` instead.
    */
   importMode: 'static' | 'dynamic' | 'live';
 
@@ -656,6 +691,32 @@ export type DictionaryConfig = {
   locale?: LocalesValues;
   contentAutoTransformation?: ContentAutoTransformation;
   priority?: number;
+  /**
+   * Indicates the mode of import to use for the dictionaries.
+   *
+   * Available modes:
+   * - "static": The dictionaries are imported statically.
+   *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionary`.
+   * - "dynamic": The dictionaries are imported dynamically in a synchronous component using the suspense API.
+   *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryDynamic`.
+   * - "live": The dictionaries are imported dynamically using the live sync API.
+   *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryDynamic`.
+   *   Live mode will use the live sync API to fetch the dictionaries. If the API call fails, the dictionaries will be imported dynamically as "dynamic" mode.
+   *
+   * Default: "static"
+   *
+   * By default, when a dictionary is loaded, it imports content for all locales as it's imported statically.
+   *
+   * Note:
+   * - Dynamic imports rely on Suspense and may slightly impact rendering performance.
+   * - If desabled all locales will be loaded at once, even if they are not used.
+   * - This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
+   * - Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
+   * - This option will be ignored if `optimize` is disabled.
+   * - This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions. You can still use them to refine you code on manual optimization.
+   * - The "live" allows to sync the dictionaries to the live sync server.
+   * - Require static key to work. Example of invalid code: `const navbarKey = "my-key"; useIntlayer(navbarKey)`.
+   */
   importMode?: 'static' | 'dynamic' | 'live';
   title?: string;
   tags?: string[];

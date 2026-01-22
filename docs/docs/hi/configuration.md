@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: सिस्टम कॉन्फ़िगरेशन को सामग्री कॉन्फ़िगरेशन से अलग करें। आंतरिक पथों को `system` गुण में ले जाएं। सामग्री फ़ाइलों को कोड परिवर्तन से अलग करने के लिए `codeDir` जोड़ें।
   - version: 8.0.0
@@ -95,9 +98,7 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY, // AI सेवा के लिए API कुंजी
     applicationContext: "This is a test application", // एप्लिकेशन संदर्भ
   },
-  build: {
-    importMode: "dynamic", // आयात मोड
-  },
+  build: {},
 };
 
 export default config;
@@ -124,9 +125,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY, // AI सेवा के लिए API कुंजी
     applicationContext: "यह एक परीक्षण एप्लिकेशन है", // एप्लिकेशन संदर्भ
   },
-  build: {
-    importMode: "dynamic", // आयात मोड
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -150,9 +149,7 @@ module.exports = config;
     "apiKey": "XXXX",
     "applicationContext": "यह एक परीक्षण एप्लिकेशन है",
   },
-  "build": {
-    "importMode": "dynamic",
-  },
+  "build": {},
 }
 ```
 
@@ -331,6 +328,35 @@ module.exports = config;
     - बेस पथ होगा `'/my-app'`
     - URL होगा `https://example.com/my-app/en`
     - यदि बेस पाथ सेट नहीं है, तो URL होगा `https://example.com/en`
+
+- **rewrite**:
+  - _प्रकार_: `Record<string, StrictModeLocaleMap<string>>`
+  - _डिफ़ॉल्ट_: `undefined`
+  - _विवरण_: कस्टम URL रीराइट नियम जो विशिष्ट पथों के लिए डिफ़ॉल्ट रूटिंग मोड को ओवरराइड करते हैं। मानक रूटिंग व्यवहार से भिन्न भाषा-विशिष्ट पथों को परिभाषित करने की अनुमति देता है। `[param]` सिंटैक्स का उपयोग करके गतिशील रूट पैरामीटर का समर्थन करता है।
+  - _उदाहरण_:
+    ```typescript
+    routing: {
+      mode: "prefix-no-default", // फॉलबैक रणनीति
+      rewrite: {
+        "/about": {
+          en: "/about",
+          fr: "/a-propos",
+        },
+        "/product/[slug]": {
+          en: "/product/[slug]",
+          fr: "/produit/[slug]",
+        },
+        "/blog/[category]/[id]": {
+          en: "/blog/[category]/[id]",
+          fr: "/journal/[category]/[id]",
+        },
+      },
+    }
+    ```
+  - _नोट_: रीराइट नियम डिफ़ॉल्ट `mode` व्यवहार पर प्राथमिकता लेते हैं। यदि कोई पथ रीराइट नियम से मेल खाता है, तो मानक भाषा उपसर्ग के बजाय रीराइट कॉन्फ़िगरेशन से स्थानीयकृत पथ का उपयोग किया जाएगा।
+  - _नोट_: गतिशील रूट पैरामीटर कोष्ठक संकेतन (उदाहरण के लिए, `[slug]`, `[id]`) का उपयोग करके समर्थित हैं। पैरामीटर मान स्वचालित रूप से URL से निकाले जाते हैं और रीराइट किए गए पथ में इंटरपोलेट किए जाते हैं।
+  - _नोट_: Next.js और Vite अनुप्रयोगों के साथ काम करता है। मिडलवेयर/प्रॉक्सी आने वाले अनुरोधों को आंतरिक रूट संरचना से मेल खाने के लिए स्वचालित रूप से रीराइट करेगा।
+  - _नोट_: `getLocalizedUrl()` के साथ URL उत्पन्न करते समय, यदि वे प्रदान किए गए पथ से मेल खाते हैं, तो रीराइट नियम स्वचालित रूप से लागू होते हैं।
 
 - **serverSetCookie**:
   - _प्रकार_: `string`
@@ -600,6 +626,7 @@ Intlayer बेहतर लचीलापन और विकल्प के 
   - _नोट_: सुनिश्चित करें कि सभी कुंजियाँ `useIntlayer` कॉल्स में स्थैतिक रूप से घोषित हों। उदाहरण के लिए `useIntlayer('navbar')`।
 
 - **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _प्रकार_: `'static' | 'dynamic' | 'live'`
   - _डिफ़ॉल्ट_: `'static'`
   - _विवरण_: नियंत्रित करता है कि शब्दकोश कैसे आयात किए जाते हैं।

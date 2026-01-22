@@ -71,7 +71,9 @@ const getPruneConfig = (
   isBuildCommand: boolean,
   isTurbopackEnabled: boolean
 ): Partial<NextConfig> => {
-  const { optimize, importMode } = intlayerConfig.build;
+  const { optimize } = intlayerConfig.build;
+  const importMode =
+    intlayerConfig.dictionary?.importMode ?? intlayerConfig.build.importMode;
   const {
     dictionariesDir,
     unmergedDictionariesDir,

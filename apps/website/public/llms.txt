@@ -1,0 +1,240 @@
+# Intlayer Documentation for Agents
+
+Intlayer is a comprehensive internationalization (i18n) framework designed to simplify multilingual support for modern web applications. It provides a unified way to manage content for **React**, **Next.js**, **Vue**, **Svelte**, **Solid**, **Nuxt**, **Astro**, and more.
+
+## Key Offerings
+
+- **Full Framework Support**: Native integration for popular frameworks including React, Next.js, Vue, Svelte, Solid, Nuxt, and Astro.
+- **Translation Tooling**: Powerful CLI and CI/CD tools to automate your translation workflows.
+- **Visual Editor**: A live editor connected directly to your codebase, allowing you to edit content in real-time.
+- **Headless CMS**: A specialized CMS to externalize and manage your content without losing developer control.
+
+This file lists the documentation URLs available in Markdown format for AI agents and bots.
+
+## Intlayer MCP Server (Recommended)
+
+For a better experience, we recommend using the **Intlayer MCP Server**. It provides context-aware documentation and smart CLI integration for your AI agent.
+
+### Key Features
+
+- **Context-Aware Documentation**: Automatically exposes Intlayer's documentation to your AI agent, ensuring code suggestions and explanations are always accurate and up to date.
+- **Smart CLI Integration**: Allows your AI assistant to run Intlayer CLI commands (e.g., `intlayer dictionaries build`, `intlayer dictionaries fill`) directly to manage your translations.
+- **Improved Autocompletion**: Enhances your IDE's ability to provide relevant intlayer-specific code snippets and configurations.
+- **Multi-IDE Support**: Compatible with **Cursor**, **VS Code**, **Claude Desktop**, and any environment supporting the Model Context Protocol.
+
+### Usage
+
+- **Local server (stdio):** `npx -y @intlayer/mcp`
+- **Remote server (SSE):** `https://mcp.intlayer.org`
+
+For more information, see the [Intlayer MCP Server documentation](https://intlayer.org/doc/mcp-server.md).
+
+## Documentation URLs
+
+- [Home](https://intlayer.org/index.md)
+- [Contributors](https://intlayer.org/contributors.md)
+- [CMS](https://intlayer.org/cms.md)
+- [TMS](https://intlayer.org/tms.md)
+- [Demo](https://intlayer.org/demo.md)
+- [Playground](https://intlayer.org/playground.md)
+- [i18n SEO Scanner](https://intlayer.org/i18n-seo-scanner.md)
+- [Get Started](https://intlayer.org/doc/get-started.md)
+- [Frequent Questions](https://intlayer.org/frequent-questions.md)
+- [Privacy Notice](https://intlayer.org/privacy-notice.md)
+- [Terms of Service](https://intlayer.org/terms-of-service.md)
+
+## Concepts
+
+- [CI/CD](https://intlayer.org/doc/concept/ci-cd.md)
+- [Auto-fill](https://intlayer.org/doc/concept/auto-fill.md)
+- [Bundle Optimization](https://intlayer.org/doc/concept/bundle-optimization.md)
+- [CLI Build](https://intlayer.org/doc/concept/cli/build.md)
+- [CLI CI](https://intlayer.org/doc/concept/cli/ci.md)
+- [CLI Configuration](https://intlayer.org/doc/concept/cli/configuration.md)
+- [CLI Debug](https://intlayer.org/doc/concept/cli/debug.md)
+- [CLI Doc Review](https://intlayer.org/doc/concept/cli/doc-review.md)
+- [CLI Doc Translate](https://intlayer.org/doc/concept/cli/doc-translate.md)
+- [CLI Editor](https://intlayer.org/doc/concept/cli/editor.md)
+- [CLI Fill](https://intlayer.org/doc/concept/cli/fill.md)
+- [CLI Overview](https://intlayer.org/doc/concept/cli.md)
+- [CLI Init](https://intlayer.org/doc/concept/cli/init.md)
+- [CLI List](https://intlayer.org/doc/concept/cli/list.md)
+- [CLI List Projects](https://intlayer.org/doc/concept/cli/list-projects.md)
+- [CLI Live](https://intlayer.org/doc/concept/cli/live.md)
+- [CLI Login](https://intlayer.org/doc/concept/cli/login.md)
+- [CLI Pull](https://intlayer.org/doc/concept/cli/pull.md)
+- [CLI Push](https://intlayer.org/doc/concept/cli/push.md)
+- [CLI SDK](https://intlayer.org/doc/concept/cli/sdk.md)
+- [CLI Test](https://intlayer.org/doc/concept/cli/test.md)
+- [CLI Transform](https://intlayer.org/doc/concept/cli/transform.md)
+- [CLI Version](https://intlayer.org/doc/concept/cli/version.md)
+- [CLI Watch](https://intlayer.org/doc/concept/cli/watch.md)
+- [Compiler](https://intlayer.org/doc/compiler.md)
+- [Configuration](https://intlayer.org/doc/concept/configuration.md)
+- [Content Condition](https://intlayer.org/doc/concept/content/condition.md)
+- [Content Overview](https://intlayer.org/doc/concept/content.md)
+- [Content Enumeration](https://intlayer.org/doc/concept/content/enumeration.md)
+- [Content File](https://intlayer.org/doc/concept/content/file.md)
+- [Content Function Fetching](https://intlayer.org/doc/concept/content/function-fetching.md)
+- [Content Gender](https://intlayer.org/doc/concept/content/gender.md)
+- [Content HTML](https://intlayer.org/doc/concept/content/html.md)
+- [Content Insertion](https://intlayer.org/doc/concept/content/insertion.md)
+- [Content Markdown](https://intlayer.org/doc/concept/content/markdown.md)
+- [Content Nesting](https://intlayer.org/doc/concept/content/nesting.md)
+- [Content Translation](https://intlayer.org/doc/concept/content/translation.md)
+- [Formatters](https://intlayer.org/doc/formatters.md)
+- [How Intlayer Works](https://intlayer.org/doc/concept/how-works-intlayer.md)
+- [Why Intlayer](https://intlayer.org/doc/why.md)
+- [CMS Concept](https://intlayer.org/doc/concept/cms.md)
+- [Editor Concept](https://intlayer.org/doc/concept/editor.md)
+- [Per-locale File](https://intlayer.org/doc/concept/per-locale-file.md)
+
+## Environments
+
+- [Angular](https://intlayer.org/doc/environment/angular.md)
+- [Astro](https://intlayer.org/doc/environment/astro.md)
+- [Create React App](https://intlayer.org/doc/environment/create-react-app.md)
+- [Express](https://intlayer.org/doc/environment/express.md)
+- [Fastify](https://intlayer.org/doc/environment/fastify.md)
+- [Lynx and React](https://intlayer.org/doc/environment/lynx-and-react.md)
+- [Nest](https://intlayer.org/doc/environment/nest.md)
+- [Next.js](https://intlayer.org/doc/environment/nextjs.md)
+- [Next.js 14](https://intlayer.org/doc/environment/nextjs/14.md)
+- [Next.js 15](https://intlayer.org/doc/environment/nextjs/15.md)
+- [Next.js No Locale Path](https://intlayer.org/doc/environment/nextjs/no-locale-path.md)
+- [Next.js with Page Router](https://intlayer.org/doc/environment/nextjs/next-with-page-router.md)
+- [Nuxt and Vue](https://intlayer.org/doc/environment/nuxt-and-vue.md)
+- [React Native and Expo](https://intlayer.org/doc/environment/react-native-and-expo.md)
+- [Vite and React (React Router v7)](https://intlayer.org/doc/environment/vite-and-react/react-router-v7.md)
+- [Vite and React (React Router v7 FS Routes)](https://intlayer.org/doc/environment/vite-and-react/react-router-v7-fs-routes.md)
+- [SvelteKit](https://intlayer.org/doc/environment/sveltekit.md)
+- [TanStack Start](https://intlayer.org/doc/environment/tanstack-start.md)
+- [Vite and Preact](https://intlayer.org/doc/environment/vite-and-preact.md)
+- [Vite and React](https://intlayer.org/doc/environment/vite-and-react.md)
+- [Vite and Solid](https://intlayer.org/doc/environment/vite-and-solid.md)
+- [Vite and Svelte](https://intlayer.org/doc/environment/vite-and-svelte.md)
+- [Vite and Vue](https://intlayer.org/doc/environment/vite-and-vue.md)
+
+## Packages
+
+- [Angular Intlayer](https://intlayer.org/doc/packages/angular-intlayer.md)
+- [Angular Intlayer Exports](https://intlayer.org/doc/packages/angular-intlayer/exports.md)
+- [Astro Intlayer](https://intlayer.org/doc/packages/astro-intlayer.md)
+- [Astro Intlayer Exports](https://intlayer.org/doc/packages/astro-intlayer/exports.md)
+- [Express Intlayer Exports](https://intlayer.org/doc/packages/express-intlayer/exports.md)
+- [Express Intlayer](https://intlayer.org/doc/packages/express-intlayer/intlayer.md)
+- [Express Intlayer T](https://intlayer.org/doc/packages/express-intlayer/t.md)
+- [Fastify Intlayer Exports](https://intlayer.org/doc/packages/fastify-intlayer/exports.md)
+- [Fastify Intlayer](https://intlayer.org/doc/packages/fastify-intlayer/intlayer.md)
+- [Intlayer CLI](https://intlayer.org/doc/packages/intlayer-cli.md)
+- [Intlayer CLI Exports](https://intlayer.org/doc/packages/intlayer-cli/exports.md)
+- [Intlayer Exports](https://intlayer.org/doc/packages/intlayer/exports.md)
+- [Intlayer getConfiguration](https://intlayer.org/doc/packages/intlayer/getConfiguration.md)
+- [Intlayer getEnumeration](https://intlayer.org/doc/packages/intlayer/getEnumeration.md)
+- [Intlayer getHTMLTextDir](https://intlayer.org/doc/packages/intlayer/getHTMLTextDir.md)
+- [Intlayer getLocale](https://intlayer.org/doc/packages/intlayer/getLocale.md)
+- [Intlayer getLocaleLang](https://intlayer.org/doc/packages/intlayer/getLocaleLang.md)
+- [Intlayer getLocaleName](https://intlayer.org/doc/packages/intlayer/getLocaleName.md)
+- [Intlayer getLocalizedUrl](https://intlayer.org/doc/packages/intlayer/getLocalizedUrl.md)
+- [Intlayer getMultilingualUrls](https://intlayer.org/doc/packages/intlayer/getMultilingualUrls.md)
+- [Intlayer getPathWithoutLocale](https://intlayer.org/doc/packages/intlayer/getPathWithoutLocale.md)
+- [Intlayer getPrefix](https://intlayer.org/doc/packages/intlayer/getPrefix.md)
+- [Intlayer getTranslation](https://intlayer.org/doc/packages/intlayer/getTranslation.md)
+- [Intlayer validatePrefix](https://intlayer.org/doc/packages/intlayer/validatePrefix.md)
+- [Lynx Intlayer Exports](https://intlayer.org/doc/packages/lynx-intlayer/exports.md)
+- [Next Intlayer](https://intlayer.org/doc/packages/next-intlayer.md)
+- [Next Intlayer Exports](https://intlayer.org/doc/packages/next-intlayer/exports.md)
+- [Next Intlayer Middleware](https://intlayer.org/doc/packages/next-intlayer/intlayerMiddleware.md)
+- [Next Intlayer T](https://intlayer.org/doc/packages/next-intlayer/t.md)
+- [Next Intlayer useDictionary](https://intlayer.org/doc/packages/next-intlayer/useDictionary.md)
+- [Next Intlayer useIntlayer](https://intlayer.org/doc/packages/next-intlayer/useIntlayer.md)
+- [Next Intlayer useLocale](https://intlayer.org/doc/packages/next-intlayer/useLocale.md)
+- [Nuxt Intlayer Exports](https://intlayer.org/doc/packages/nuxt-intlayer/exports.md)
+- [Preact Intlayer Exports](https://intlayer.org/doc/packages/preact-intlayer/exports.md)
+- [React Intlayer Provider](https://intlayer.org/doc/packages/react-intlayer/IntlayerProvider.md)
+- [React Intlayer MarkdownRenderer](https://intlayer.org/doc/packages/react-intlayer/MarkdownRenderer.md)
+- [React Intlayer Exports](https://intlayer.org/doc/packages/react-intlayer/exports.md)
+- [React Intlayer T](https://intlayer.org/doc/packages/react-intlayer/t.md)
+- [React Intlayer useDictionary](https://intlayer.org/doc/packages/react-intlayer/useDictionary.md)
+- [React Intlayer useI18n](https://intlayer.org/doc/packages/react-intlayer/useI18n.md)
+- [React Intlayer useIntlayer](https://intlayer.org/doc/packages/react-intlayer/useIntlayer.md)
+- [React Intlayer useLocale](https://intlayer.org/doc/packages/react-intlayer/useLocale.md)
+- [React Native Intlayer Exports](https://intlayer.org/doc/packages/react-native-intlayer/exports.md)
+- [Solid Intlayer Exports](https://intlayer.org/doc/packages/solid-intlayer/exports.md)
+- [Svelte Intlayer Exports](https://intlayer.org/doc/packages/svelte-intlayer/exports.md)
+- [Vite Intlayer Exports](https://intlayer.org/doc/packages/vite-intlayer/exports.md)
+- [Vite Intlayer](https://intlayer.org/doc/packages/vite-intlayer/intlayer.md)
+- [Vite Intlayer Prune](https://intlayer.org/doc/packages/vite-intlayer/intlayerPrune.md)
+- [Vue Intlayer](https://intlayer.org/doc/packages/vue-intlayer.md)
+- [Vue Intlayer Exports](https://intlayer.org/doc/packages/vue-intlayer/exports.md)
+
+## Comparison
+
+- [Next-i18next](https://intlayer.org/doc/next-i18next.md)
+- [Next-intl](https://intlayer.org/doc/next-intl.md)
+
+## Miscellaneous
+
+- [Locale Mapper](https://intlayer.org/doc/locale-mapper.md)
+- [MCP Server](https://intlayer.org/doc/mcp-server.md)
+- [Sync JSON Plugin](https://intlayer.org/doc/plugin/sync-json.md)
+- [Roadmap](https://intlayer.org/doc/roadmap.md)
+- [Testing](https://intlayer.org/doc/testing.md)
+- [VS Code Extension](https://intlayer.org/doc/vs-code-extension.md)
+
+## Releases
+
+- [v6](https://intlayer.org/doc/releases/v6.md)
+- [v7](https://intlayer.org/doc/releases/v7.md)
+- [v8](https://intlayer.org/doc/releases/v8.md)
+
+## Blog
+
+- [Compiler vs Declarative i18n](https://intlayer.org/blog/compiler-vs-declarative-i18n.md)
+- [Next.js i18n with next-i18next](https://intlayer.org/blog/nextjs-internationalization-using-next-i18next.md)
+- [Next.js i18n with next-intl](https://intlayer.org/blog/nextjs-internationalization-using-next-intl.md)
+- [SEO and i18n](https://intlayer.org/blog/SEO-and-i18n.md)
+- [Intlayer with i18next](https://intlayer.org/blog/intlayer-with-i18next.md)
+- [Intlayer with next-i18next](https://intlayer.org/blog/intlayer-with-next-i18next.md)
+- [Intlayer with next-intl](https://intlayer.org/blog/intlayer-with-next-intl.md)
+- [Intlayer with react-i18next](https://intlayer.org/blog/intlayer-with-react-i18next.md)
+- [Intlayer with react-intl](https://intlayer.org/blog/intlayer-with-react-intl.md)
+- [Intlayer with vue-i18n](https://intlayer.org/blog/intlayer-with-vue-i18n.md)
+- [Alternative to Lokalise](https://intlayer.org/blog/l10n-platform-alternative/lokalise.md)
+- [Alternative to Crowdin](https://intlayer.org/blog/l10n-platform-alternative/crowdin.md)
+- [Alternative to Phrase](https://intlayer.org/blog/l10n-platform-alternative/phrase.md)
+- [i18n Drupal](https://intlayer.org/blog/i18n-technologies/CMS/drupal.md)
+- [i18n Wix](https://intlayer.org/blog/i18n-technologies/CMS/wix.md)
+- [i18n Wordpress](https://intlayer.org/blog/i18n-technologies/CMS/wordpress.md)
+- [i18n Angular](https://intlayer.org/blog/i18n-technologies/frameworks/angular.md)
+- [i18n Flutter](https://intlayer.org/blog/i18n-technologies/frameworks/flutter.md)
+- [i18n React Native](https://intlayer.org/blog/i18n-technologies/frameworks/react-native.md)
+- [i18n React](https://intlayer.org/blog/i18n-technologies/frameworks/react.md)
+- [i18n Svelte](https://intlayer.org/blog/i18n-technologies/frameworks/svelte.md)
+- [i18n Vue](https://intlayer.org/blog/i18n-technologies/frameworks/vue.md)
+- [Next-i18next vs Next-intl vs Intlayer](https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer.md)
+- [Blog SEO i18n Next.js](https://intlayer.org/blog/blog-seo-i18n-nextjs.md)
+- [Per-component vs Centralized i18n](https://intlayer.org/blog/per-component-vs-centralized-i18n.md)
+- [RAG Powered Documentation Assistant](https://intlayer.org/blog/rag-powered-documentation-assistant.md)
+- [React-i18next vs React-intl vs Intlayer](https://intlayer.org/blog/react-i18next-vs-react-intl-vs-intlayer.md)
+- [Vue-i18n vs Intlayer](https://intlayer.org/blog/vue-i18n-vs-intlayer.md)
+- [What is Internationalization](https://intlayer.org/blog/what-is-internationalization.md)
+
+## FAQ
+
+- [Next.js No Locale Path](https://intlayer.org/frequent-questions/next-no-locale-path.md)
+- [Array as Content Declaration](https://intlayer.org/frequent-questions/array-as-content-declaration.md)
+- [Build Dictionaries](https://intlayer.org/frequent-questions/build-dictionaries.md)
+- [Build Error CI/CD](https://intlayer.org/frequent-questions/build-error-ci-cd.md)
+- [Bun Set Up](https://intlayer.org/frequent-questions/bun-set-up.md)
+- [Customized Locale List](https://intlayer.org/frequent-questions/customized-locale-list.md)
+- [Domain Routing](https://intlayer.org/frequent-questions/domain-routing.md)
+- [Vite Env Only Node FS False Positive](https://intlayer.org/frequent-questions/vite-env-only-node-fs-false-positive.md)
+- [Esbuild Error](https://intlayer.org/frequent-questions/esbuild-error.md)
+- [Get Locale Cookie](https://intlayer.org/frequent-questions/get-locale-cookie.md)
+- [Intlayer Command Undefined](https://intlayer.org/frequent-questions/intlayer-command-undefined.md)
+- [Locale Incorrect in URL](https://intlayer.org/frequent-questions/locale-incorect-in-url.md)
+- [Package Version Error](https://intlayer.org/frequent-questions/package-version-error.md)
+- [Static Rendering](https://intlayer.org/frequent-questions/static-rendering.md)
+- [Translated Path URL](https://intlayer.org/frequent-questions/translated-path-url.md)
+- [Unknown Command](https://intlayer.org/frequent-questions/unknown-command.md)

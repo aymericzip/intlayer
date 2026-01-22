@@ -568,7 +568,7 @@ The import mode determines how your dictionary is imported in your application.
 - `'dynamic'`: The dictionary is imported dynamically at runtime using the suspense API.
 - `'live'`: The dictionary is imported dynamically using the live sync API.
 
-If set, this property overrides the global `importMode` defined in `intlayer.config.ts`.
+If set, this property overrides the global `importMode` defined in `the `dictionary`property of`intlayer.config.ts``.
 
 ### System Properties (Auto-generated)
 

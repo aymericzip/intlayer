@@ -64,7 +64,7 @@
     "babel-plugin-react-compiler": "1.0.0",
     "clsx": "2.1.1",
     "defu": "6.1.4",
-    "framer-motion": "12.27.0",
+    "framer-motion": "12.27.5",
     "fuse.js": "7.1.0",
     "intlayer": "workspace:*",
     "lucide-react": "0.562.0",
@@ -76,7 +76,7 @@
     "react-dom": "19.2.3",
     "sharp": "0.34.5",
     "tailwind-merge": "3.4.0",
-    "zod": "4.3.5"
+    "zod": "4.3.6"
   },
   "devDependencies": {
     "@intlayer/swc": "workspace:*",

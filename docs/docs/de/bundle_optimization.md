@@ -80,6 +80,7 @@ const config: IntlayerConfig = {
     locales: [Locales.ENGLISH, Locales.FRENCH],
     defaultLocale: Locales.ENGLISH,
   },
+  dictionary: {},
   build: {
     optimize: true,
     importMode: "static", // oder 'dynamic'
@@ -98,12 +99,12 @@ export default config;
 
 Die folgenden Optionen sind im `build`-Konfigurationsobjekt verfügbar:
 
-| Eigenschaft           | Typ                             | Standardwert                    | Beschreibung                                                                                                                                                                                                                    |
-| :-------------------- | :------------------------------ | :------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **`optimize`**        | `boolean`                       | `undefined`                     | Steuert, ob die Build-Optimierung aktiviert ist. Wenn `true`, ersetzt Intlayer Wörterbuchaufrufe durch optimierte Injektionen. Wenn `false`, ist die Optimierung deaktiviert. Idealerweise in der Produktion auf `true` setzen. |
-| **`importMode`**      | `'static' , 'dynamic' , 'live'` | `'static'`                      | Bestimmt, wie Wörterbücher geladen werden (siehe Details unten).                                                                                                                                                                |
-| **`traversePattern`** | `string[]`                      | `['**/*.{js,ts,jsx,tsx}', ...]` | Glob-Muster, die definieren, welche Dateien Intlayer für die Optimierung durchsuchen soll. Verwenden Sie dies, um nicht verwandte Dateien auszuschließen und den Build zu beschleunigen.                                        |
-| **`outputFormat`**    | `'esm', 'cjs'`                  | `'esm', 'cjs'`                  | Steuert das Ausgabeformat der erstellten Wörterbücher.                                                                                                                                                                          |
+| Eigenschaft           | Typ                                                  | Standardwert                    | Beschreibung                                                                                                                                                                                                                    |
+| :-------------------- | :--------------------------------------------------- | :------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
+| **`optimize`**        | `boolean`                                            | `undefined`                     | Steuert, ob die Build-Optimierung aktiviert ist. Wenn `true`, ersetzt Intlayer Wörterbuchaufrufe durch optimierte Injektionen. Wenn `false`, ist die Optimierung deaktiviert. Idealerweise in der Produktion auf `true` setzen. |
+| **`importMode`**      | **Deprecated**: Use `dictionary.importMode` instead. | `'static' , 'dynamic' , 'live'` | `'static'`                                                                                                                                                                                                                      | Bestimmt, wie Wörterbücher geladen werden (siehe Details unten). |
+| **`traversePattern`** | `string[]`                                           | `['**/*.{js,ts,jsx,tsx}', ...]` | Glob-Muster, die definieren, welche Dateien Intlayer für die Optimierung durchsuchen soll. Verwenden Sie dies, um nicht verwandte Dateien auszuschließen und den Build zu beschleunigen.                                        |
+| **`outputFormat`**    | `'esm', 'cjs'`                                       | `'esm', 'cjs'`                  | Steuert das Ausgabeformat der erstellten Wörterbücher.                                                                                                                                                                          |
 
 ## Import-Modi
 

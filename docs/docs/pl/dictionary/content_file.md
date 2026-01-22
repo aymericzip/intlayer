@@ -572,7 +572,7 @@ Tryb importu określa, jak słownik jest importowany w aplikacji.
 - `'dynamic'`: Słownik jest importowany dynamicznie w czasie działania za pomocą API suspense.
 - `'live'`: Słownik jest importowany dynamicznie za pomocą API synchronizacji na żywo.
 
-Jeśli ustawione, ta właściwość nadpisuje globalny `importMode` zdefiniowany w `intlayer.config.ts`.
+Jeśli ustawione, ta właściwość nadpisuje globalny `importMode` zdefiniowany w `the `dictionary`property of`intlayer.config.ts``.
 
 ### Właściwości systemowe (Generowane automatycznie)
 

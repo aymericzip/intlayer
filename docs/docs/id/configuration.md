@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: Pisahkan konfigurasi sistem dari konfigurasi konten. Pindahkan jalur internal ke properti `system`. Tambahkan `codeDir` untuk memisahkan file konten dari transformasi kode.
   - version: 8.0.0
@@ -116,9 +119,7 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY,
     applicationContext: "Ini adalah aplikasi uji",
   },
-  build: {
-    importMode: "dynamic",
-  },
+  build: {},
 };
 
 export default config;
@@ -146,9 +147,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY,
     applicationContext: "Ini adalah aplikasi uji",
   },
-  build: {
-    importMode: "dynamic",
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -176,9 +175,7 @@ module.exports = config;
     "apiKey": "XXXX",
     "applicationContext": "Ini adalah aplikasi uji",
   },
-  "build": {
-    "importMode": "dynamic",
-  },
+  "build": {},
 }
 ```
 
@@ -373,6 +370,35 @@ Pengaturan yang mengontrol perilaku routing, termasuk struktur URL, penyimpanan 
     - Jalur dasar adalah `'/my-app'`
     - URL akan menjadi `https://example.com/my-app/en`
     - Jika jalur dasar tidak diatur, URL akan menjadi `https://example.com/en`
+
+- **rewrite**:
+  - _Tipe_: `Record<string, StrictModeLocaleMap<string>>`
+  - _Default_: `undefined`
+  - _Deskripsi_: Aturan penulisan ulang URL khusus yang menggantikan mode routing default untuk jalur tertentu. Memungkinkan Anda untuk mendefinisikan jalur khusus bahasa yang berbeda dari perilaku routing standar. Mendukung parameter rute dinamis menggunakan sintaks `[param]`.
+  - _Contoh_:
+    ```typescript
+    routing: {
+      mode: "prefix-no-default", // Strategi fallback
+      rewrite: {
+        "/about": {
+          en: "/about",
+          fr: "/a-propos",
+        },
+        "/product/[slug]": {
+          en: "/product/[slug]",
+          fr: "/produit/[slug]",
+        },
+        "/blog/[category]/[id]": {
+          en: "/blog/[category]/[id]",
+          fr: "/journal/[category]/[id]",
+        },
+      },
+    }
+    ```
+  - _Catatan_: Aturan penulisan ulang memiliki prioritas di atas perilaku `mode` default. Jika jalur cocok dengan aturan penulisan ulang, jalur yang dilokalisasi dari konfigurasi penulisan ulang akan digunakan alih-alih prefiks bahasa standar.
+  - _Catatan_: Parameter rute dinamis didukung menggunakan notasi kurung siku (misalnya, `[slug]`, `[id]`). Nilai parameter secara otomatis diekstrak dari URL dan diinterpolasi ke dalam jalur yang ditulis ulang.
+  - _Catatan_: Bekerja dengan aplikasi Next.js dan Vite. Middleware/proxy akan secara otomatis menulis ulang permintaan masuk untuk mencocokkan struktur rute internal.
+  - _Catatan_: Saat menghasilkan URL dengan `getLocalizedUrl()`, aturan penulisan ulang secara otomatis diterapkan jika cocok dengan jalur yang disediakan.
 
 #### Atribut Cookie
 
@@ -718,6 +744,7 @@ Opsi build berlaku untuk plugin `@intlayer/babel` dan `@intlayer/swc`.
   - _Catatan_: Pastikan semua kunci dideklarasikan secara statis dalam panggilan `useIntlayer`. Contoh: `useIntlayer('navbar')`.
 
 - **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _Tipe_: `'static' | 'dynamic' | 'live'`
   - _Default_: `'static'`
   - _Deskripsi_: Mengontrol bagaimana kamus diimpor.

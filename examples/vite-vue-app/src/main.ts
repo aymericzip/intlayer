@@ -1,5 +1,9 @@
 import { createApp, h } from 'vue';
-import { installIntlayer, installIntlayerMarkdown } from 'vue-intlayer';
+import {
+  installIntlayer,
+  installIntlayerHTML,
+  installIntlayerMarkdown,
+} from 'vue-intlayer';
 import App from './App.vue';
 import { router } from './routes';
 import './style.css';
@@ -19,6 +23,13 @@ app.use(installIntlayerMarkdown, {
     h1: (props: any) =>
       h('h1', { style: { color: 'orange' }, ...props }, props.children),
     ComponentDemo: () => h('div', { style: { background: 'grey' } }, 'DEMO'),
+    bold: (props: any) => h('strong', props),
+  },
+});
+
+app.use(installIntlayerHTML, {
+  components: {
+    bold: (props: any) => h('strong', props),
   },
 });
 

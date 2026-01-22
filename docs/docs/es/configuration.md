@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: Separar la configuración del sistema de la configuración del contenido. Mover las rutas internas a la propiedad `system`. Añadir `codeDir` para separar los archivos de contenido de la transformación del código.
   - version: 8.0.0
@@ -95,9 +98,7 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY, // clave API para AI
     applicationContext: "This is a test application", // contexto de la aplicación para AI
   },
-  build: {
-    importMode: "dynamic", // modo de importación para build
-  },
+  build: {},
 };
 
 export default config;
@@ -124,9 +125,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY, // clave API para AI
     applicationContext: "Esta es una aplicación de prueba", // contexto de la aplicación para AI
   },
-  build: {
-    importMode: "dynamic", // modo de importación para la construcción
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -150,9 +149,7 @@ module.exports = config;
     "apiKey": "XXXX",
     "applicationContext": "Esta es una aplicación de prueba",
   },
-  "build": {
-    "importMode": "dynamic",
-  },
+  "build": {},
 }
 ```
 
@@ -331,6 +328,35 @@ Configuraciones que controlan el comportamiento del middleware, incluyendo cómo
     - La ruta base es `'/my-app'`
     - La URL será `https://example.com/my-app/en`
     - Si no se establece la ruta base, la URL será `https://example.com/en`
+
+- **rewrite**:
+  - _Tipo_: `Record<string, StrictModeLocaleMap<string>>`
+  - _Por defecto_: `undefined`
+  - _Descripción_: Reglas personalizadas de reescritura de URL que sobrescriben el modo de enrutamiento predeterminado para rutas específicas. Permite definir rutas específicas por idioma que difieren del comportamiento de enrutamiento estándar. Admite parámetros de ruta dinámicos usando la sintaxis `[param]`.
+  - _Ejemplo_:
+    ```typescript
+    routing: {
+      mode: "prefix-no-default", // Estrategia de respaldo
+      rewrite: {
+        "/about": {
+          en: "/about",
+          fr: "/a-propos",
+        },
+        "/product/[slug]": {
+          en: "/product/[slug]",
+          fr: "/produit/[slug]",
+        },
+        "/blog/[category]/[id]": {
+          en: "/blog/[category]/[id]",
+          fr: "/journal/[category]/[id]",
+        },
+      },
+    }
+    ```
+  - _Nota_: Las reglas de reescritura tienen prioridad sobre el comportamiento del `mode` predeterminado. Si una ruta coincide con una regla de reescritura, se usará la ruta localizada de la configuración de reescritura en lugar del prefijo de idioma estándar.
+  - _Nota_: Se admiten parámetros de ruta dinámicos usando la notación de corchetes (por ejemplo, `[slug]`, `[id]`). Los valores de los parámetros se extraen automáticamente de la URL y se interpolan en la ruta reescrita.
+  - _Nota_: Funciona con aplicaciones Next.js y Vite. El middleware/proxy reescribirá automáticamente las solicitudes entrantes para que coincidan con la estructura de ruta interna.
+  - _Nota_: Al generar URLs con `getLocalizedUrl()`, las reglas de reescritura se aplican automáticamente si coinciden con la ruta proporcionada.
 
 - **serverSetCookie**:
   - _Tipo_: `string`
@@ -612,6 +638,7 @@ Las opciones de compilación se aplican a los plugins `@intlayer/babel` y `@intl
   - _Nota_: Asegúrese de que todas las claves estén declaradas estáticamente en las llamadas a `useIntlayer`. Por ejemplo, `useIntlayer('navbar')`.
 
 - **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _Tipo_: `'static' | 'dynamic' | 'live'`
   - _Por defecto_: `'static'`
   - _Descripción_: Controla cómo se importan los diccionarios.

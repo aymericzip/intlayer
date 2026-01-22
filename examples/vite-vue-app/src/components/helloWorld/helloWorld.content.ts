@@ -1,4 +1,4 @@
-import { type Dictionary, md, t } from 'intlayer';
+import { type Dictionary, html, md, t } from 'intlayer';
 
 const helloWorldContent = {
   key: 'hello-world',
@@ -6,9 +6,15 @@ const helloWorldContent = {
     mdTest: md('Hello **World**!'),
     count: t({ en: 'count is ', es: 'el recuento es ', fr: 'le compte est ' }),
     edit: t({
-      en: 'Edit <code>components/HelloWorld.vue</code> and save to test HMR',
-      es: 'Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR',
-      fr: 'Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR',
+      en: html(
+        'Edit <code>components/HelloWorld.vue</code> and save to test HMR'
+      ),
+      es: html(
+        'Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR'
+      ),
+      fr: html(
+        'Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR'
+      ),
     }),
     checkOut: t({ en: 'Check out ', fr: 'Vérifiez ', es: 'Compruebe ' }),
     officialStarter: t({

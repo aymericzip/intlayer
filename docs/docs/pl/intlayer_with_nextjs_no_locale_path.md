@@ -1076,7 +1076,7 @@ bunx intlayer init
 
 > Uwaga: Ten pakiet nie jest instalowany domyślnie, ponieważ wtyczki SWC są w Next.js wciąż eksperymentalne. Może to ulec zmianie w przyszłości.
 
-> Uwaga: Jeśli ustawisz opcję na `importMode: 'dynamic'` lub `importMode: 'live'`, będzie to polegać na Suspense, więc będziesz musiał otoczyć wywołania `useIntlayer` granicą `Suspense`. To oznacza, że nie będziesz mógł używać `useIntlayer` bezpośrednio na najwyższym poziomie komponentu Page lub Layout.
+> Uwaga: Jeśli ustawisz opcję na `importMode: 'dynamic'` lub `importMode: 'live'` (in the `dictionary` configuration), będzie to polegać na Suspense, więc będziesz musiał otoczyć wywołania `useIntlayer` granicą `Suspense`. To oznacza, że nie będziesz mógł używać `useIntlayer` bezpośrednio na najwyższym poziomie komponentu Page lub Layout.
 
 ### Monitorowanie zmian słowników w Turbopack
 

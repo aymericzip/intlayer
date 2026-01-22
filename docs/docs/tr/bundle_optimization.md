@@ -80,9 +80,9 @@ const config: IntlayerConfig = {
     locales: [Locales.ENGLISH, Locales.FRENCH],
     defaultLocale: Locales.ENGLISH,
   },
+  dictionary: {},
   build: {
     optimize: true,
-    importMode: "static", // veya 'dynamic'
     traversePattern: ["**/*.{js,ts,mjs,cjs,jsx,tsx}", "!**/node_modules/**"],
   },
 };
@@ -98,12 +98,12 @@ export default config;
 
 `build` yapılandırma nesnesi altında aşağıdaki seçenekler mevcuttur:
 
-| Özellik               | Tür                             | Varsayılan                      | Açıklama                                                                                                                                                                                                                                             |
-| :-------------------- | :------------------------------ | :------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`optimize`**        | `boolean`                       | `undefined`                     | Derleme optimizasyonunun etkin olup olmadığını kontrol eder. `true` ise, Intlayer sözlük çağrılarını optimize edilmiş enjeksiyonlarla değiştirir. `false` ise optimizasyon devre dışı bırakılır. Üretimde ideal olarak `true` olarak ayarlanmalıdır. |
-| **`importMode`**      | `'static' , 'dynamic' , 'live'` | `'static'`                      | Sözlüklerin nasıl yükleneceğini belirler (detaylar aşağıda).                                                                                                                                                                                         |
-| **`traversePattern`** | `string[]`                      | `['**/*.{js,ts,jsx,tsx}', ...]` | Intlayer'ın optimizasyon için taraması gereken dosyaları tanımlayan glob desenleri. İlgisiz dosyaları hariç tutmak ve derlemeleri hızlandırmak için bunu kullanın.                                                                                   |
-| **`outputFormat`**    | `'esm', 'cjs'`                  | `'esm', 'cjs'`                  | Oluşturulan sözlüklerin çıktı formatını kontrol eder.                                                                                                                                                                                                |
+| Özellik               | Tür                                                  | Varsayılan                      | Açıklama                                                                                                                                                                                                                                             |
+| :-------------------- | :--------------------------------------------------- | :------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| **`optimize`**        | `boolean`                                            | `undefined`                     | Derleme optimizasyonunun etkin olup olmadığını kontrol eder. `true` ise, Intlayer sözlük çağrılarını optimize edilmiş enjeksiyonlarla değiştirir. `false` ise optimizasyon devre dışı bırakılır. Üretimde ideal olarak `true` olarak ayarlanmalıdır. |
+| **`importMode`**      | **Deprecated**: Use `dictionary.importMode` instead. | `'static' , 'dynamic' , 'live'` | `'static'`                                                                                                                                                                                                                                           | Sözlüklerin nasıl yükleneceğini belirler (detaylar aşağıda). |
+| **`traversePattern`** | `string[]`                                           | `['**/*.{js,ts,jsx,tsx}', ...]` | Intlayer'ın optimizasyon için taraması gereken dosyaları tanımlayan glob desenleri. İlgisiz dosyaları hariç tutmak ve derlemeleri hızlandırmak için bunu kullanın.                                                                                   |
+| **`outputFormat`**    | `'esm', 'cjs'`                                       | `'esm', 'cjs'`                  | Oluşturulan sözlüklerin çıktı formatını kontrol eder.                                                                                                                                                                                                |
 
 ## İçe Aktarım Modları
 

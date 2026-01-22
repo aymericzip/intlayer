@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: Systemkonfiguration von der Inhaltskonfiguration trennen. Interne Pfade zur Eigenschaft `system` verschieben. `codeDir` hinzufügen, um Inhaltsdateien von der Codetransformation zu trennen.
   - version: 8.0.0
@@ -95,9 +98,7 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY, // API-Schlüssel für KI-Dienste
     applicationContext: "This is a test application", // Kontext der Anwendung für KI
   },
-  build: {
-    importMode: "dynamic", // Importmodus für den Build-Prozess
-  },
+  build: {},
 };
 
 export default config;
@@ -125,9 +126,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY, // API-Schlüssel für KI-Dienste
     applicationContext: "This is a test application", // Kontext der Anwendung für KI
   },
-  build: {
-    importMode: "dynamic", // Importmodus für den Build-Prozess
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -332,6 +331,35 @@ Einstellungen, die das Verhalten der Middleware steuern, einschließlich wie die
     - Der Basis-Pfad ist `'/my-app'`
     - Die URL wird `https://example.com/my-app/en` sein
     - Wenn der Basis-Pfad nicht gesetzt ist, wird die URL `https://example.com/en` sein.
+
+- **rewrite**:
+  - _Typ_: `Record<string, StrictModeLocaleMap<string>>`
+  - _Standard_: `undefined`
+  - _Beschreibung_: Benutzerdefinierte URL-Umschreiberegeln, die den Standard-Routing-Modus für bestimmte Pfade überschreiben. Ermöglicht die Definition sprachspezifischer Pfade, die sich vom Standard-Routing-Verhalten unterscheiden. Unterstützt dynamische Routenparameter mit der Syntax `[param]`.
+  - _Beispiel_:
+    ```typescript
+    routing: {
+      mode: "prefix-no-default", // Fallback-Strategie
+      rewrite: {
+        "/about": {
+          en: "/about",
+          fr: "/a-propos",
+        },
+        "/product/[slug]": {
+          en: "/product/[slug]",
+          fr: "/produit/[slug]",
+        },
+        "/blog/[category]/[id]": {
+          en: "/blog/[category]/[id]",
+          fr: "/journal/[category]/[id]",
+        },
+      },
+    }
+    ```
+  - _Hinweis_: Die Umschreiberegeln haben Vorrang vor dem Standard-`mode`-Verhalten. Wenn ein Pfad mit einer Umschreiberegel übereinstimmt, wird der lokalisierte Pfad aus der Umschreibkonfiguration anstelle der Standard-Sprachpräfixierung verwendet.
+  - _Hinweis_: Dynamische Routenparameter werden mit der Klammernotation unterstützt (z. B. `[slug]`, `[id]`). Die Parameterwerte werden automatisch aus der URL extrahiert und in den umgeschriebenen Pfad interpoliert.
+  - _Hinweis_: Funktioniert mit Next.js- und Vite-Anwendungen. Der Middleware/Proxy schreibt eingehende Anfragen automatisch um, um der internen Routenstruktur zu entsprechen.
+  - _Hinweis_: Beim Generieren von URLs mit `getLocalizedUrl()` werden die Umschreiberegeln automatisch angewendet, wenn sie mit dem bereitgestellten Pfad übereinstimmen.
 
 - **serverSetCookie**:
   - _Typ_: `string`
@@ -613,6 +641,7 @@ Build-Optionen gelten für die Plugins `@intlayer/babel` und `@intlayer/swc`.
   - _Hinweis_: Stellen Sie sicher, dass alle Schlüssel statisch in den `useIntlayer`-Aufrufen deklariert sind, z.B. `useIntlayer('navbar')`.
 
 - **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _Typ_: `'static' | 'dynamic' | 'live'`
   - _Standard_: `'static'`
   - _Beschreibung_: Steuert, wie Wörterbücher importiert werden.

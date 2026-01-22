@@ -19,7 +19,6 @@ import packageJson from '@intlayer/types/package.json' with { type: 'json' };
 import {
   BUILD_MODE,
   CACHE,
-  IMPORT_MODE,
   OUTPUT_FORMAT,
   TRAVERSE_PATTERN,
 } from '../defaultValues/build';
@@ -39,6 +38,7 @@ import {
 import {
   CONTENT_AUTO_TRANSFORMATION,
   FILL,
+  IMPORT_MODE,
   LOCATION,
 } from '../defaultValues/dictionary';
 import {
@@ -169,6 +169,35 @@ const buildRoutingFields = (
    * - If the base path is not set, the URL will be https://example.com/en
    */
   basePath: customConfiguration?.basePath ?? BASE_PATH,
+
+  /**
+   * Custom URL rewriting rules that override the default routing mode for specific paths.
+   * Allows you to define locale-specific paths that differ from the standard routing behavior.
+   * Supports dynamic route parameters using `[param]` syntax.
+   *
+   * Default: undefined
+   *
+   * Example:
+   * ```typescript
+   * rewrite: {
+   *   "/about": {
+   *     en: "/about",
+   *     fr: "/a-propos",
+   *   },
+   *   "/product/[slug]": {
+   *     en: "/product/[slug]",
+   *     fr: "/produit/[slug]",
+   *   },
+   * }
+   * ```
+   *
+   * Note:
+   * - The rewrite rules take precedence over the default `mode` behavior.
+   * - If a path matches a rewrite rule, the localized path from the rewrite configuration will be used.
+   * - Dynamic route parameters are supported using bracket notation (e.g., `[slug]`, `[id]`).
+   * - Works with both Next.js and Vite applications.
+   */
+  rewrite: customConfiguration?.rewrite,
 });
 
 const buildContentFields = (
@@ -569,6 +598,8 @@ const buildBuildFields = (
    * - This option will be ignored if `optimize` is disabled.
    * - This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions. You can still use them to refine you code on manual optimization.
    * - The "live" allows to sync the dictionaries to the live sync server.
+   *
+   * @deprecated Use `dictionary.importMode` instead.
    */
   importMode: customConfiguration?.importMode ?? IMPORT_MODE,
 
@@ -703,8 +734,15 @@ const buildDictionaryFields = (
 
     /**
      * Indicates the mode of import to use for the dictionary.
+     *
+     * Available modes:
+     * - "static": The dictionaries are imported statically.
+     * - "dynamic": The dictionaries are imported dynamically in a synchronous component using the suspense API.
+     * - "live": The dictionaries are imported dynamically using the live sync API.
+     *
+     * Default: 'static'
      */
-    importMode: customConfiguration?.importMode,
+    importMode: customConfiguration?.importMode ?? IMPORT_MODE,
 
     /**
      * The version of the dictionary.

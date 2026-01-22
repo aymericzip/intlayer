@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-01-10
+updatedAt: 2026-01-22
 title: Configuration
 description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customize Intlayer to your needs.
 keywords:
@@ -14,6 +14,12 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
+    date: 2026-01-22
+    changes: Add `rewrite` option to the routing configuration
   - version: 8.0.0
     date: 2026-01-18
     changes: Separate system configuration from content configuration. Move internal paths to `system` property. Add `codeDir` to separate content files from code transformation.
@@ -105,10 +111,17 @@ const config: IntlayerConfig = {
   },
   dictionary: {
     fill: "./{{fileName}}.content.json",
+    importMode: "dynamic",
   },
   routing: {
     mode: "prefix-no-default",
     storage: "cookie",
+    rewrite: {
+      "/about": {
+        en: "/about",
+        fr: "/a-propos",
+      },
+    },
   },
   editor: {
     applicationURL: "https://example.com",
@@ -119,7 +132,6 @@ const config: IntlayerConfig = {
   },
   build: {
     mode: "auto",
-    importMode: "dynamic",
   },
 };
 
@@ -138,9 +150,18 @@ const config = {
     contentDir: ["src/content"],
     codeDir: ["src"],
   },
+  dictionary: {
+    importMode: "dynamic",
+  },
   routing: {
     mode: "prefix-no-default",
     storage: "cookie",
+    rewrite: {
+      "/about": {
+        en: "/about",
+        fr: "/a-propos",
+      },
+    },
   },
   editor: {
     applicationURL: "https://example.com",
@@ -150,7 +171,7 @@ const config = {
     applicationContext: "This is a test application",
   },
   build: {
-    importMode: "dynamic",
+    mode: "auto",
   },
 };
 
@@ -168,10 +189,17 @@ module.exports = config;
   },
   "dictionary": {
     "fill": "./{{fileName}}.content.json",
+    "importMode": "dynamic",
   },
   "routing": {
     "mode": "prefix-no-default",
     "storage": "cookie",
+    "rewrite": {
+      "/about": {
+        "en": "/about",
+        "fr": "/a-propos",
+      },
+    },
   },
   "editor": {
     "applicationURL": "https://example.com",
@@ -181,7 +209,7 @@ module.exports = config;
     "applicationContext": "This is a test application",
   },
   "build": {
-    "importMode": "dynamic",
+    "mode": "auto",
   },
 }
 ```
@@ -378,6 +406,35 @@ Settings that control routing behavior, including URL structure, locale storage,
     - The URL will be `https://example.com/my-app/en`
     - If the base path is not set, the URL will be `https://example.com/en`
 
+- **rewrite**:
+  - _Type_: `Record<string, StrictModeLocaleMap<string>>`
+  - _Default_: `undefined`
+  - _Description_: Custom URL rewriting rules that override the default routing mode for specific paths. Allows you to define locale-specific paths that differ from the standard routing behavior. Supports dynamic route parameters using `[param]` syntax.
+  - _Example_:
+    ```typescript
+    routing: {
+      mode: "prefix-no-default", // Fallback strategy
+      rewrite: {
+        "/about": {
+          en: "/about",
+          fr: "/a-propos",
+        },
+        "/product/[slug]": {
+          en: "/product/[slug]",
+          fr: "/produit/[slug]",
+        },
+        "/blog/[category]/[id]": {
+          en: "/blog/[category]/[id]",
+          fr: "/journal/[category]/[id]",
+        },
+      },
+    }
+    ```
+  - _Note_: The rewrite rules take precedence over the default `mode` behavior. If a path matches a rewrite rule, the localized path from the rewrite configuration will be used instead of the standard locale prefixing.
+  - _Note_: Dynamic route parameters are supported using bracket notation (e.g., `[slug]`, `[id]`). The parameter values are automatically extracted from the URL and interpolated into the rewritten path.
+  - _Note_: Works with both Next.js and Vite applications. The middleware/proxy will automatically rewrite incoming requests to match the internal route structure.
+  - _Note_: When generating URLs with `getLocalizedUrl()`, the rewrite rules are automatically applied if they match the provided path.
+
 #### Cookie Attributes
 
 When using cookie storage, you can configure additional cookie attributes:
@@ -484,6 +541,36 @@ export default defineConfig({
     },
     headerName: "x-custom-locale",
     basePath: "/my-app",
+  },
+});
+```
+
+**Custom URL Rewriting with Dynamic Routes**:
+
+```typescript
+// intlayer.config.ts
+export default defineConfig({
+  internationalization: {
+    locales: ["en", "fr"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "prefix-no-default", // Fallback for non-rewritten paths
+    storage: "cookie",
+    rewrite: {
+      "/about": {
+        en: "/about",
+        fr: "/a-propos",
+      },
+      "/product/[slug]": {
+        en: "/product/[slug]",
+        fr: "/produit/[slug]",
+      },
+      "/blog/[category]/[id]": {
+        en: "/blog/[category]/[id]",
+        fr: "/journal/[category]/[id]",
+      },
+    },
   },
 });
 ```
@@ -613,6 +700,23 @@ For more information about content declaration files and how configuration value
 - **locale**
 - **contentAutoTransformation**:
 - **location**
+- **importMode**:
+  - _Type_: `'static' | 'dynamic' | 'live'`
+  - _Default_: `'static'`
+  - _Description_: Controls how dictionaries are imported.
+  - _Example_: `'dynamic'`
+  - _Note_: Available modes:
+    - "static": Dictionaries are imported statically. Replaces `useIntlayer` with `useDictionary`.
+    - "dynamic": Dictionaries are imported dynamically using Suspense. Replaces `useIntlayer` with `useDictionaryDynamic`.
+    - "live": Dictionaries are fetched dynamically using the live sync API. Replaces `useIntlayer` with `useDictionaryDynamic`.
+  - _Note_: Dynamic imports rely on Suspense and may slightly impact rendering performance.
+  - _Note_: If disabled all locales will be loaded at once, even if they are not used.
+  - _Note_: This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
+  - _Note_: Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
+  - _Note_: This option will be ignored if `optimize` is disabled.
+  - _Note_: If set to "live", only the dictionaries that are including remote content, and set as "live" flags will be transformed as live mode. Others will be imported dynamically as "dynamic" mode to optimize the number of fetch queries, and load performance.
+  - _Note_: Live mode will use the live sync API to fetch the dictionaries. If the API call fails, the dictionaries will be imported dynamically as "dynamic" mode.
+  - _Note_: This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions.
 - **priority**
 - **live**
 - **schema**
@@ -760,6 +864,7 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Note_: If set to "live", only the dictionaries that are including remote content, and set as "live" flags will be transformed as live mode. Others will be imported dynamically as "dynamic" mode to optimize the number of fetch queries, and load performance.
   - _Note_: Live mode will use the live sync API to fetch the dictionaries. If the API call fails, the dictionaries will be imported dynamically as "dynamic" mode.
   - _Note_: This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions.
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
 - **outputFormat**:
   - _Type_: `'esm' | 'cjs'`
   - _Default_: `'esm'`

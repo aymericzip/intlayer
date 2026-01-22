@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: Sistem yapılandırmasını içerik yapılandırmasından ayırın. İç yolları `system` özelliğine taşıyın. İçerik dosyalarını kod dönüşümünden ayırmak için `codeDir` ekleyin.
   - version: 8.0.0
@@ -98,9 +101,7 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY, // AI API anahtarı
     applicationContext: "This is a test application", // Uygulama bağlamı
   },
-  build: {
-    importMode: "dynamic", // İçe aktarma modu
-  },
+  build: {},
 };
 
 export default config;
@@ -127,9 +128,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY, // AI API anahtarı
     applicationContext: "Bu bir test uygulamasıdır", // Uygulama bağlamı
   },
-  build: {
-    importMode: "dynamic", // İçe aktarma modu
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -153,9 +152,7 @@ module.exports = config;
     "apiKey": "XXXX",
     "applicationContext": "Bu bir test uygulamasıdır",
   },
-  "build": {
-    "importMode": "dynamic",
-  },
+  "build": {},
 }
 ```
 
@@ -335,6 +332,35 @@ Uygulamanın çerezleri, başlıkları ve yerel yönetimi için URL öneklerini 
     - URL `https://example.com/my-app/en` olacaktır
     - Eğer base path ayarlanmazsa, URL `https://example.com/en` olacaktır.
 
+- **rewrite**:
+  - _Tür_: `Record<string, StrictModeLocaleMap<string>>`
+  - _Varsayılan_: `undefined`
+  - _Açıklama_: Belirli yollar için varsayılan yönlendirme modunu geçersiz kılan özel URL yeniden yazma kuralları. Standart yönlendirme davranışından farklı dil-spesifik yollar tanımlamanıza olanak tanır. `[param]` sözdizimini kullanarak dinamik rota parametrelerini destekler.
+  - _Örnek_:
+    ```typescript
+    routing: {
+      mode: "prefix-no-default", // Yedek strateji
+      rewrite: {
+        "/about": {
+          en: "/about",
+          fr: "/a-propos",
+        },
+        "/product/[slug]": {
+          en: "/product/[slug]",
+          fr: "/produit/[slug]",
+        },
+        "/blog/[category]/[id]": {
+          en: "/blog/[category]/[id]",
+          fr: "/journal/[category]/[id]",
+        },
+      },
+    }
+    ```
+  - _Not_: Yeniden yazma kuralları varsayılan `mode` davranışından önceliklidir. Bir yol bir yeniden yazma kuralıyla eşleşirse, standart dil öneki yerine yeniden yazma yapılandırmasından yerelleştirilmiş yol kullanılacaktır.
+  - _Not_: Dinamik rota parametreleri köşeli ayraç gösterimi (örneğin, `[slug]`, `[id]`) kullanılarak desteklenir. Parametre değerleri URL'den otomatik olarak çıkarılır ve yeniden yazılan yola eklenir.
+  - _Not_: Next.js ve Vite uygulamalarıyla çalışır. Middleware/proxy, gelen istekleri iç rota yapısıyla eşleşecek şekilde otomatik olarak yeniden yazacaktır.
+  - _Not_: `getLocalizedUrl()` ile URL oluştururken, sağlanan yolla eşleşirlerse yeniden yazma kuralları otomatik olarak uygulanır.
+
 - **serverSetCookie**:
   - _Tür_: `string`
   - _Varsayılan_: `'always'`
@@ -479,6 +505,12 @@ Bu sözlük yapılandırması iki ana amaç için hizmet eder:
 - **description**
 - **locale**
 - **location**
+- **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
+  - _Type_: `'static' | 'dynamic' | 'live'`
+  - _Default_: `'static'`
+  - _Description_: Controls how dictionaries are imported.
+  - _Example_: `'dynamic'`
 - **priority**
 - **live**
 - **schema**
@@ -602,6 +634,7 @@ Derleme seçenekleri `@intlayer/babel` ve `@intlayer/swc` eklentilerine uygulan�
   - _Not_: `useIntlayer` çağrılarında tüm anahtarların statik olarak tanımlandığından emin olun. Örneğin `useIntlayer('navbar')`.
 
 - **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _Tür_: `'static' | 'dynamic' | 'live'`
   - _Varsayılan_: `'static'`
   - _Açıklama_: Sözlüklerin nasıl içe aktarılacağını kontrol eder.

@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: فصل تكوين النظام عن تكوين المحتوى. نقل المسارات الداخلية إلى خاصية `system`. إضافة `codeDir` لفصل ملفات المحتوى عن تحويل الكود.
   - version: 8.0.0
@@ -95,9 +98,7 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY, // مفتاح API للذكاء الاصطناعي
     applicationContext: "This is a test application", // سياق التطبيق للذكاء الاصطناعي
   },
-  build: {
-    importMode: "dynamic", // وضع الاستيراد أثناء البناء
-  },
+  build: {},
 };
 
 export default config;
@@ -124,9 +125,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY, // مفتاح API للذكاء الاصطناعي
     applicationContext: "This is a test application", // سياق التطبيق للذكاء الاصطناعي
   },
-  build: {
-    importMode: "dynamic", // وضع الاستيراد أثناء البناء
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -150,9 +149,7 @@ module.exports = config;
     "apiKey": "XXXX",
     "applicationContext": "هذا تطبيق تجريبي",
   },
-  "build": {
-    "importMode": "dynamic",
-  },
+  "build": {},
 }
 ```
 
@@ -332,6 +329,35 @@ module.exports = config;
     - سيكون عنوان URL هو `https://example.com/my-app/en`
     - إذا لم يتم تعيين المسار الأساسي، سيكون عنوان URL هو `https://example.com/en`
 
+- **rewrite**:
+  - _النوع_: `Record<string, StrictModeLocaleMap<string>>`
+  - _الافتراضي_: `undefined`
+  - _الوصف_: قواعد إعادة كتابة URL المخصصة التي تتجاوز وضع التوجيه الافتراضي لمسارات محددة. يسمح بتعريف مسارات محددة حسب اللغة تختلف عن سلوك التوجيه القياسي. يدعم معاملات المسار الديناميكية باستخدام بناء الجملة `[param]`.
+  - _مثال_:
+    ```typescript
+    routing: {
+      mode: "prefix-no-default", // استراتيجية احتياطية
+      rewrite: {
+        "/about": {
+          en: "/about",
+          fr: "/a-propos",
+        },
+        "/product/[slug]": {
+          en: "/product/[slug]",
+          fr: "/produit/[slug]",
+        },
+        "/blog/[category]/[id]": {
+          en: "/blog/[category]/[id]",
+          fr: "/journal/[category]/[id]",
+        },
+      },
+    }
+    ```
+  - _ملاحظة_: قواعد إعادة الكتابة لها الأولوية على سلوك `mode` الافتراضي. إذا تطابق مسار مع قاعدة إعادة كتابة، سيتم استخدام المسار المترجم من تكوين إعادة الكتابة بدلاً من بادئة اللغة القياسية.
+  - _ملاحظة_: معاملات المسار الديناميكية مدعومة باستخدام ترميز الأقواس (على سبيل المثال، `[slug]`، `[id]`). يتم استخراج قيم المعاملات تلقائيًا من URL وإدراجها في المسار المعاد كتابته.
+  - _ملاحظة_: يعمل مع تطبيقات Next.js و Vite. ستعيد البرمجية الوسيطة/الوكيل كتابة الطلبات الواردة تلقائيًا لتطابق بنية المسار الداخلية.
+  - _ملاحظة_: عند إنشاء عناوين URL باستخدام `getLocalizedUrl()`، يتم تطبيق قواعد إعادة الكتابة تلقائيًا إذا تطابقت مع المسار المقدم.
+
 - **serverSetCookie**:
   - _النوع_: `string`
   - _الافتراضي_: `'always'`
@@ -476,6 +502,12 @@ module.exports = config;
 - **description**
 - **locale**
 - **location**
+- **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
+  - _Type_: `'static' | 'dynamic' | 'live'`
+  - _Default_: `'static'`
+  - _Description_: Controls how dictionaries are imported.
+  - _Example_: `'dynamic'`
 - **priority**
 - **live**
 - **schema**
@@ -600,6 +632,7 @@ module.exports = config;
   - _ملاحظة_: تأكد من إعلان جميع المفاتيح بشكل ثابت في استدعاءات `useIntlayer`، على سبيل المثال `useIntlayer('navbar')`.
 
 - **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _النوع_: `'static' | 'dynamic' | 'live'`
   - _الافتراضي_: `'static'`
   - _الوصف_: يتحكم في كيفية استيراد القواميس.

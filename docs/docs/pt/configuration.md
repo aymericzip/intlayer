@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: Separar a configuração do sistema da configuração do conteúdo. Mover os caminhos internos para a propriedade `system`. Adicionar `codeDir` para separar os arquivos de conteúdo da transformação do código.
   - version: 8.0.0
@@ -95,9 +98,7 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY, // chave da API para AI
     applicationContext: "This is a test application", // contexto da aplicação para AI
   },
-  build: {
-    importMode: "dynamic", // modo de importação para build
-  },
+  build: {},
 };
 
 export default config;
@@ -124,9 +125,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY, // chave da API para AI
     applicationContext: "This is a test application", // contexto da aplicação para AI
   },
-  build: {
-    importMode: "dynamic", // modo de importação para build
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -150,9 +149,7 @@ module.exports = config;
     "apiKey": "XXXX",
     "applicationContext": "Esta é uma aplicação de teste",
   },
-  "build": {
-    "importMode": "dynamic",
-  },
+  "build": {},
 }
 ```
 
@@ -331,6 +328,35 @@ Configurações que controlam o comportamento do middleware, incluindo como a ap
     - O caminho base é `'/my-app'`
     - A URL será `https://example.com/my-app/en`
     - Se o caminho base não estiver definido, a URL será `https://example.com/en`
+
+- **rewrite**:
+  - _Tipo_: `Record<string, StrictModeLocaleMap<string>>`
+  - _Padrão_: `undefined`
+  - _Descrição_: Regras personalizadas de reescrita de URL que substituem o modo de roteamento padrão para caminhos específicos. Permite definir caminhos específicos por idioma que diferem do comportamento de roteamento padrão. Suporta parâmetros de rota dinâmicos usando a sintaxe `[param]`.
+  - _Exemplo_:
+    ```typescript
+    routing: {
+      mode: "prefix-no-default", // Estratégia de fallback
+      rewrite: {
+        "/about": {
+          en: "/about",
+          fr: "/a-propos",
+        },
+        "/product/[slug]": {
+          en: "/product/[slug]",
+          fr: "/produit/[slug]",
+        },
+        "/blog/[category]/[id]": {
+          en: "/blog/[category]/[id]",
+          fr: "/journal/[category]/[id]",
+        },
+      },
+    }
+    ```
+  - _Nota_: As regras de reescrita têm prioridade sobre o comportamento do `mode` padrão. Se um caminho corresponder a uma regra de reescrita, o caminho localizado da configuração de reescrita será usado em vez do prefixo de idioma padrão.
+  - _Nota_: Parâmetros de rota dinâmicos são suportados usando a notação de colchetes (por exemplo, `[slug]`, `[id]`). Os valores dos parâmetros são extraídos automaticamente da URL e interpolados no caminho reescrito.
+  - _Nota_: Funciona com aplicações Next.js e Vite. O middleware/proxy reescreverá automaticamente as solicitações recebidas para corresponder à estrutura de rota interna.
+  - _Nota_: Ao gerar URLs com `getLocalizedUrl()`, as regras de reescrita são aplicadas automaticamente se corresponderem ao caminho fornecido.
 
 - **serverSetCookie**:
   - _Tipo_: `string`
@@ -612,6 +638,7 @@ As opções de build se aplicam aos plugins `@intlayer/babel` e `@intlayer/swc`.
   - _Nota_: Certifique-se de que todas as chaves sejam declaradas estaticamente nas chamadas de `useIntlayer`. Exemplo: `useIntlayer('navbar')`.
 
 - **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _Tipo_: `'static' | 'dynamic' | 'live'`
   - _Padrão_: `'static'`
   - _Descrição_: Controla como os dicionários são importados.

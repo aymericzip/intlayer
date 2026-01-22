@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: Разделение конфигурации системы и конфигурации контента. Перемещение внутренних путей в свойство `system`. Добавление `codeDir` для разделения файлов контента и преобразования кода.
   - version: 8.0.0
@@ -95,9 +98,7 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY, // ключ API для AI
     applicationContext: "This is a test application", // контекст приложения для AI
   },
-  build: {
-    importMode: "dynamic", // режим импорта модулей
-  },
+  build: {},
 };
 
 export default config;
@@ -124,9 +125,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY, // ключ API для AI
     applicationContext: "Это тестовое приложение", // контекст приложения для AI
   },
-  build: {
-    importMode: "dynamic", // режим импорта модулей
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -150,9 +149,7 @@ module.exports = config;
     "apiKey": "XXXX",
     "applicationContext": "Это тестовое приложение",
   },
-  "build": {
-    "importMode": "dynamic",
-  },
+  "build": {},
 }
 ```
 
@@ -331,6 +328,35 @@ module.exports = config;
     - Базовый путь будет `'/my-app'`
     - URL будет `https://example.com/my-app/en`
     - Если базовый путь не установлен, URL будет `https://example.com/en`
+
+- **rewrite**:
+  - _Тип_: `Record<string, StrictModeLocaleMap<string>>`
+  - _По умолчанию_: `undefined`
+  - _Описание_: Пользовательские правила перезаписи URL, которые переопределяют режим маршрутизации по умолчанию для определенных путей. Позволяет определять пути, специфичные для языка, которые отличаются от стандартного поведения маршрутизации. Поддерживает динамические параметры маршрута с использованием синтаксиса `[param]`.
+  - _Пример_:
+    ```typescript
+    routing: {
+      mode: "prefix-no-default", // Стратегия отката
+      rewrite: {
+        "/about": {
+          en: "/about",
+          fr: "/a-propos",
+        },
+        "/product/[slug]": {
+          en: "/product/[slug]",
+          fr: "/produit/[slug]",
+        },
+        "/blog/[category]/[id]": {
+          en: "/blog/[category]/[id]",
+          fr: "/journal/[category]/[id]",
+        },
+      },
+    }
+    ```
+  - _Примечание_: Правила перезаписи имеют приоритет над поведением `mode` по умолчанию. Если путь соответствует правилу перезаписи, будет использован локализованный путь из конфигурации перезаписи вместо стандартного префикса языка.
+  - _Примечание_: Динамические параметры маршрута поддерживаются с использованием нотации в квадратных скобках (например, `[slug]`, `[id]`). Значения параметров автоматически извлекаются из URL и интерполируются в перезаписанный путь.
+  - _Примечание_: Работает с приложениями Next.js и Vite. Промежуточное ПО/прокси автоматически перезапишет входящие запросы, чтобы соответствовать внутренней структуре маршрута.
+  - _Примечание_: При генерации URL с помощью `getLocalizedUrl()` правила перезаписи автоматически применяются, если они соответствуют предоставленному пути.
 
 - **serverSetCookie**:
   - _Тип_: `string`
@@ -612,6 +638,7 @@ Intlayer поддерживает несколько провайдеров ИИ
   - _Примечание_: Убедитесь, что все ключи объявлены статически в вызовах `useIntlayer`, например `useIntlayer('navbar')`.
 
 - **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _Тип_: `'static' | 'dynamic' | 'live'`
   - _По умолчанию_: `'static'`
   - _Описание_: Управляет способом импорта словарей.

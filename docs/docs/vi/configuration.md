@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: Tách cấu hình hệ thống khỏi cấu hình nội dung. Di chuyển các đường dẫn nội bộ sang thuộc tính `system`. Thêm `codeDir` để tách các tệp nội dung khỏi việc chuyển đổi mã.
   - version: 8.0.0
@@ -116,9 +119,7 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY,
     applicationContext: "Đây là một ứng dụng thử nghiệm", // ngữ cảnh ứng dụng AI
   },
-  build: {
-    importMode: "dynamic",
-  },
+  build: {},
 };
 
 export default config;
@@ -146,9 +147,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY,
     applicationContext: "Đây là một ứng dụng thử nghiệm", // ngữ cảnh ứng dụng AI
   },
-  build: {
-    importMode: "dynamic",
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -176,9 +175,7 @@ module.exports = config;
     "apiKey": "XXXX",
     "applicationContext": "Đây là một ứng dụng thử nghiệm", // ngữ cảnh ứng dụng AI
   },
-  "build": {
-    "importMode": "dynamic",
-  },
+  "build": {},
 }
 ```
 
@@ -373,6 +370,35 @@ Các thiết lập kiểm soát hành vi routing, bao gồm cấu trúc URL, lư
     - Đường dẫn cơ sở là `'/my-app'`
     - URL sẽ là `https://example.com/my-app/en`
     - Nếu không đặt đường dẫn cơ sở, URL sẽ là `https://example.com/en`
+
+- **rewrite**:
+  - _Kiểu_: `Record<string, StrictModeLocaleMap<string>>`
+  - _Mặc định_: `undefined`
+  - _Mô tả_: Quy tắc viết lại URL tùy chỉnh ghi đè chế độ định tuyến mặc định cho các đường dẫn cụ thể. Cho phép bạn xác định các đường dẫn cụ thể theo ngôn ngữ khác với hành vi định tuyến tiêu chuẩn. Hỗ trợ tham số tuyến động bằng cách sử dụng cú pháp `[param]`.
+  - _Ví dụ_:
+    ```typescript
+    routing: {
+      mode: "prefix-no-default", // Chiến lược dự phòng
+      rewrite: {
+        "/about": {
+          en: "/about",
+          fr: "/a-propos",
+        },
+        "/product/[slug]": {
+          en: "/product/[slug]",
+          fr: "/produit/[slug]",
+        },
+        "/blog/[category]/[id]": {
+          en: "/blog/[category]/[id]",
+          fr: "/journal/[category]/[id]",
+        },
+      },
+    }
+    ```
+  - _Lưu ý_: Các quy tắc viết lại có ưu tiên cao hơn hành vi `mode` mặc định. Nếu một đường dẫn khớp với quy tắc viết lại, đường dẫn đã được bản địa hóa từ cấu hình viết lại sẽ được sử dụng thay vì tiền tố ngôn ngữ tiêu chuẩn.
+  - _Lưu ý_: Tham số tuyến động được hỗ trợ bằng cách sử dụng ký hiệu ngoặc vuông (ví dụ: `[slug]`, `[id]`). Giá trị tham số được tự động trích xuất từ URL và nội suy vào đường dẫn đã viết lại.
+  - _Lưu ý_: Hoạt động với ứng dụng Next.js và Vite. Middleware/proxy sẽ tự động viết lại các yêu cầu đến để khớp với cấu trúc tuyến nội bộ.
+  - _Lưu ý_: Khi tạo URL bằng `getLocalizedUrl()`, các quy tắc viết lại được áp dụng tự động nếu chúng khớp với đường dẫn được cung cấp.
 
 #### Thuộc tính Cookie
 
@@ -718,6 +744,7 @@ Các tùy chọn build áp dụng cho các plugin `@intlayer/babel` và `@intlay
   - _Lưu ý_: Đảm bảo tất cả các khóa được khai báo tĩnh trong các lệnh gọi `useIntlayer`. Ví dụ: `useIntlayer('navbar')`.
 
 - **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _Kiểu_: `'static' | 'dynamic' | 'live'`
   - _Mặc định_: `'static'`
   - _Mô tả_: Điều khiển cách các từ điển được nhập.

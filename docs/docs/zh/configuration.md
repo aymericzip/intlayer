@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: 将系统配置与内容配置分离。将内部路径移至 `system` 属性。添加 `codeDir` 以将内容文件与代码转换分离。
   - version: 8.0.0
@@ -98,9 +101,7 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY, // AI 接口密钥
     applicationContext: "This is a test application", // 应用上下文描述
   },
-  build: {
-    importMode: "dynamic", // 构建时的导入模式
-  },
+  build: {},
 };
 
 export default config;
@@ -128,9 +129,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY, // AI 接口密钥
     applicationContext: "This is a test application", // 应用上下文描述
   },
-  build: {
-    importMode: "dynamic", // 构建时的导入模式
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -154,9 +153,7 @@ module.exports = config;
     "apiKey": "XXXX",
     "applicationContext": "这是一个测试应用",
   },
-  "build": {
-    "importMode": "dynamic",
-  },
+  "build": {},
 }
 ```
 
@@ -336,6 +333,35 @@ module.exports = config;
     - URL 将是 `https://example.com/my-app/en`
     - 如果未设置基础路径，URL 将是 `https://example.com/en`
 
+- **rewrite**:
+  - _类型_: `Record<string, StrictModeLocaleMap<string>>`
+  - _默认值_: `undefined`
+  - _说明_: 自定义 URL 重写规则，用于覆盖特定路径的默认路由模式。允许定义与标准路由行为不同的特定语言路径。支持使用 `[param]` 语法的动态路由参数。
+  - _示例_:
+    ```typescript
+    routing: {
+      mode: "prefix-no-default", // 回退策略
+      rewrite: {
+        "/about": {
+          en: "/about",
+          fr: "/a-propos",
+        },
+        "/product/[slug]": {
+          en: "/product/[slug]",
+          fr: "/produit/[slug]",
+        },
+        "/blog/[category]/[id]": {
+          en: "/blog/[category]/[id]",
+          fr: "/journal/[category]/[id]",
+        },
+      },
+    }
+    ```
+  - _说明_: 重写规则优先于默认的 `mode` 行为。如果路径匹配重写规则，将使用重写配置中的本地化路径，而不是标准语言前缀。
+  - _说明_: 支持使用方括号表示法的动态路由参数（例如 `[slug]`、`[id]`）。参数值会自动从 URL 中提取并插入到重写的路径中。
+  - _说明_: 适用于 Next.js 和 Vite 应用程序。中间件/代理会自动重写传入的请求以匹配内部路由结构。
+  - _说明_: 使用 `getLocalizedUrl()` 生成 URL 时，如果重写规则与提供的路径匹配，将自动应用这些规则。
+
 - **serverSetCookie**：
   - _类型_：`string`
   - _默认值_：`'always'`
@@ -480,6 +506,12 @@ module.exports = config;
 - **description**
 - **locale**
 - **location**
+- **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
+  - _Type_: `'static' | 'dynamic' | 'live'`
+  - _Default_: `'static'`
+  - _Description_: Controls how dictionaries are imported.
+  - _Example_: `'dynamic'`
 - **priority**
 - **live**
 - **schema**
@@ -604,6 +636,7 @@ Intlayer 支持多个 AI 提供商，以增强灵活性和选择。目前支持�
   - _注意_: 确保所有键在 `useIntlayer` 调用中是静态声明的。例如 `useIntlayer('navbar')`。
 
 - **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _类型_: `'static' | 'dynamic' | 'live'`
   - _默认值_: `'static'`
   - _描述_: 控制字典的导入方式。

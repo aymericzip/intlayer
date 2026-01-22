@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: Separare la configurazione del sistema dalla configurazione del contenuto. Spostare i percorsi interni alla proprietà `system`. Aggiungere `codeDir` per separare i file di contenuto dalla trasformazione del codice.
   - version: 8.0.0
@@ -95,9 +98,7 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY, // chiave API per AI
     applicationContext: "This is a test application", // contesto dell'applicazione per AI
   },
-  build: {
-    importMode: "dynamic", // modalità di importazione durante la build
-  },
+  build: {},
 };
 
 export default config;
@@ -124,9 +125,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY, // chiave API per AI
     applicationContext: "Questa è un'applicazione di test", // contesto dell'applicazione per AI
   },
-  build: {
-    importMode: "dynamic", // modalità di importazione
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -150,9 +149,7 @@ module.exports = config;
     "apiKey": "XXXX",
     "applicationContext": "Questa è un'applicazione di test",
   },
-  "build": {
-    "importMode": "dynamic",
-  },
+  "build": {},
 }
 ```
 
@@ -332,6 +329,35 @@ Impostazioni che controllano il comportamento del middleware, incluso come l'app
     - L'URL sarà `https://example.com/my-app/en`
     - Se il percorso base non è impostato, l'URL sarà `https://example.com/en`
 
+- **rewrite**:
+  - _Tipo_: `Record<string, StrictModeLocaleMap<string>>`
+  - _Predefinito_: `undefined`
+  - _Descrizione_: Regole personalizzate di riscrittura URL che sovrascrivono la modalità di routing predefinita per percorsi specifici. Consente di definire percorsi specifici per lingua che differiscono dal comportamento di routing standard. Supporta parametri di route dinamici utilizzando la sintassi `[param]`.
+  - _Esempio_:
+    ```typescript
+    routing: {
+      mode: "prefix-no-default", // Strategia di fallback
+      rewrite: {
+        "/about": {
+          en: "/about",
+          fr: "/a-propos",
+        },
+        "/product/[slug]": {
+          en: "/product/[slug]",
+          fr: "/produit/[slug]",
+        },
+        "/blog/[category]/[id]": {
+          en: "/blog/[category]/[id]",
+          fr: "/journal/[category]/[id]",
+        },
+      },
+    }
+    ```
+  - _Nota_: Le regole di riscrittura hanno la priorità sul comportamento del `mode` predefinito. Se un percorso corrisponde a una regola di riscrittura, verrà utilizzato il percorso localizzato dalla configurazione di riscrittura invece del prefisso lingua standard.
+  - _Nota_: I parametri di route dinamici sono supportati utilizzando la notazione tra parentesi quadre (ad esempio, `[slug]`, `[id]`). I valori dei parametri vengono estratti automaticamente dall'URL e interpolati nel percorso riscritto.
+  - _Nota_: Funziona con applicazioni Next.js e Vite. Il middleware/proxy riscriverà automaticamente le richieste in arrivo per corrispondere alla struttura di route interna.
+  - _Nota_: Quando si generano URL con `getLocalizedUrl()`, le regole di riscrittura vengono applicate automaticamente se corrispondono al percorso fornito.
+
 - **serverSetCookie**:
   - _Tipo_: `string`
   - _Predefinito_: `'always'`
@@ -488,6 +514,12 @@ Per ulteriori informazioni sui file di dichiarazione del contenuto e su come ven
 - **description**
 - **locale**
 - **location**
+- **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
+  - _Type_: `'static' | 'dynamic' | 'live'`
+  - _Default_: `'static'`
+  - _Description_: Controls how dictionaries are imported.
+  - _Example_: `'dynamic'`
 - **priority**
 - **live**
 - **schema**
@@ -612,6 +644,7 @@ Le opzioni di build si applicano ai plugin `@intlayer/babel` e `@intlayer/swc`.
   - _Nota_: Assicurarsi che tutte le chiavi siano dichiarate staticamente nelle chiamate a `useIntlayer`. Es. `useIntlayer('navbar')`.
 
 - **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _Tipo_: `'static' | 'dynamic' | 'live'`
   - _Predefinito_: `'static'`
   - _Descrizione_: Controlla come vengono importati i dizionari.

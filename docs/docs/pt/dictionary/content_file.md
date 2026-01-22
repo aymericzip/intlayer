@@ -571,7 +571,7 @@ O modo de importação determina como seu dicionário é importado em sua aplica
 - `'dynamic'`: O dicionário é importado dinamicamente em tempo de execução usando a API de suspense.
 - `'live'`: O dicionário é importado dinamicamente usando a API de sincronização ao vivo.
 
-Se definido, esta propriedade substitui o `importMode` global definido em `intlayer.config.ts`.
+Se definido, esta propriedade substitui o `importMode` global definido em `the `dictionary`property of`intlayer.config.ts``.
 
 ### Propriedades do Sistema (Geradas automaticamente)
 

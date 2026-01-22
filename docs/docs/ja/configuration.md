@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: システム設定をコンテンツ設定から分離。内部パスを `system` プロパティに移動。コンテンツファイルとコード変換を分離するために `codeDir` を追加。
   - version: 8.0.0
@@ -98,9 +101,7 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY, // AI APIキー
     applicationContext: "This is a test application", // アプリケーションコンテキスト
   },
-  build: {
-    importMode: "dynamic", // インポートモードの設定
-  },
+  build: {},
 };
 
 export default config;
@@ -127,9 +128,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY, // AI APIキー
     applicationContext: "This is a test application", // アプリケーションコンテキスト
   },
-  build: {
-    importMode: "dynamic", // インポートモードの設定
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -153,9 +152,7 @@ module.exports = config;
     "apiKey": "XXXX",
     "applicationContext": "これはテストアプリケーションです",
   },
-  "build": {
-    "importMode": "dynamic",
-  },
+  "build": {},
 }
 ```
 
@@ -333,6 +330,37 @@ module.exports = config;
     - アプリケーションが `https://example.com/my-app` にホストされている場合
     - ベースパスは `'/my-app'`
     - URLは `https://example.com/my-app/en` となります
+    - ベースパスが設定されていない場合、URLは `https://example.com/en` となります
+
+- **rewrite**:
+  - _タイプ_: `Record<string, StrictModeLocaleMap<string>>`
+  - _デフォルト_: `undefined`
+  - _説明_: 特定のパスのデフォルトルーティングモードを上書きするカスタムURL書き換えルール。標準のルーティング動作とは異なる言語固有のパスを定義できます。`[param]` 構文を使用した動的ルートパラメータをサポートします。
+  - _例_:
+    ```typescript
+    routing: {
+      mode: "prefix-no-default", // フォールバック戦略
+      rewrite: {
+        "/about": {
+          en: "/about",
+          fr: "/a-propos",
+        },
+        "/product/[slug]": {
+          en: "/product/[slug]",
+          fr: "/produit/[slug]",
+        },
+        "/blog/[category]/[id]": {
+          en: "/blog/[category]/[id]",
+          fr: "/journal/[category]/[id]",
+        },
+      },
+    }
+    ```
+  - _注意_: 書き換えルールはデフォルトの `mode` 動作よりも優先されます。パスが書き換えルールに一致する場合、標準の言語プレフィックスの代わりに書き換え設定のローカライズされたパスが使用されます。
+  - _注意_: 動的ルートパラメータは角括弧表記（例：`[slug]`、`[id]`）を使用してサポートされます。パラメータ値はURLから自動的に抽出され、書き換えられたパスに補間されます。
+  - _注意_: Next.js と Vite アプリケーションで動作します。ミドルウェア/プロキシは、内部ルート構造に一致するように受信リクエストを自動的に書き換えます。
+  - _注意_: `getLocalizedUrl()` でURLを生成する場合、提供されたパスに一致する場合、書き換えルールが自動的に適用されます。
+
 - **serverSetCookie**:
   - _タイプ_: `string`
   - _デフォルト_: `'always'`
@@ -601,6 +629,7 @@ Intlayerがアプリケーションの国際化をどのように最適化しビ
   - _注意_: `useIntlayer`の呼び出し内で、すべてのキーが静的に宣言されていることを確認してください。例: `useIntlayer('navbar')`。
 
 - **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _タイプ_: `'static' | 'dynamic' | 'live'`
   - _デフォルト_: `'static'`
   - _説明_: 辞書のインポート方法を制御します。
