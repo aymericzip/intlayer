@@ -36,7 +36,11 @@ import {
   FILE_EXTENSIONS,
   WATCH,
 } from '../defaultValues/content';
-import { FILL, LOCATION } from '../defaultValues/dictionary';
+import {
+  CONTENT_AUTO_TRANSFORMATION,
+  FILL,
+  LOCATION,
+} from '../defaultValues/dictionary';
 import {
   APPLICATION_URL,
   BACKEND_URL,
@@ -643,6 +647,15 @@ const buildDictionaryFields = (
    * Default: true
    */
   fill: customConfiguration?.fill ?? FILL,
+
+  /**
+   * Indicates if the content of the dictionary should be automatically transformed.
+   *
+   * Default: true
+   */
+  contentAutoTransformation:
+    customConfiguration?.contentAutoTransformation ??
+    CONTENT_AUTO_TRANSFORMATION,
 
   /**
    * The location of the dictionary.

@@ -3428,7 +3428,7 @@ const updateDictionaryMetadata = (
     'tags',
     'version',
     'priority',
-    'live',
+    'contentAutoTransformation',
   ];
 
   for (const prop of metadataProperties) {

@@ -1,9 +1,3 @@
-/**
- * React adapter for the framework-agnostic markdown processor.
- *
- * Provides a backward-compatible compiler and LegacyMarkdownRenderer component.
- */
-
 import {
   type Overrides as CoreOverrides,
   compile as coreCompile,

@@ -10,9 +10,18 @@ import {
 } from 'react';
 import { compiler, type MarkdownRendererOptions } from './processor';
 
+export type MarkdownProviderOptions = {
+  /** Forces the compiler to always output content with a block-level wrapper. */
+  forceBlock?: boolean;
+  /** Whether to preserve frontmatter in the markdown content. */
+  preserveFrontmatter?: boolean;
+  /** Whether to use the GitHub Tag Filter for security. */
+  tagfilter?: boolean;
+};
+
 type RenderMarkdownOptions = {
   components?: Overrides;
-  wrapper?: FC;
+  wrapper?: FC<any>;
   options?: MarkdownProviderOptions;
 };
 
@@ -23,42 +32,14 @@ type MarkdownContextValue = {
   ) => ReactNode;
 };
 
-/**
- * Refined options for the MarkdownProvider.
- */
-export type MarkdownProviderOptions = {
-  /**
-   * Forces the compiler to always output content with a block-level wrapper.
-   */
-  forceBlock?: boolean;
-  /**
-   * Whether to preserve frontmatter in the markdown content.
-   */
-  preserveFrontmatter?: boolean;
-  /**
-   * Whether to use the GitHub Tag Filter.
-   */
-  tagfilter?: boolean;
-};
-
 type MarkdownProviderProps = PropsWithChildren<{
-  /**
-   * Component overrides for HTML tags.
-   */
   components?: Overrides;
-  /**
-   * Wrapper element or component to be used when there are multiple children.
-   */
   wrapper?: any;
-  /**
-   * Markdown processor options.
-   */
   options?: MarkdownProviderOptions;
-  /**
-   * Custom render function for markdown.
-   * If provided, it will overwrite all rules and default rendering.
-   */
-  renderMarkdown?: (markdown: string, overrides?: Overrides) => ReactNode;
+  renderMarkdown?: (
+    markdown: string,
+    overrides?: Overrides | RenderMarkdownOptions
+  ) => ReactNode;
 }>;
 
 const MarkdownContext = createContext<MarkdownContextValue | undefined>(
@@ -67,17 +48,79 @@ const MarkdownContext = createContext<MarkdownContextValue | undefined>(
 
 export const useMarkdownContext = () => useContext(MarkdownContext);
 
+// Pure functions defined outside the component are easier for React Compiler to track
+// and don't need to be recreated on every render.
+
+const isRenderMarkdownOptions = (
+  override: any
+): override is RenderMarkdownOptions => {
+  return (
+    override &&
+    typeof override === 'object' &&
+    ('components' in override || 'wrapper' in override || 'options' in override)
+  );
+};
+
+const mergeOptions = (
+  baseOptions: MarkdownRendererOptions,
+  overrides?: Overrides | RenderMarkdownOptions
+): MarkdownRendererOptions => {
+  if (!overrides) return baseOptions;
+
+  if (!isRenderMarkdownOptions(overrides)) {
+    // Overrides is just a component map
+    return {
+      ...baseOptions,
+      components: { ...baseOptions.components, ...overrides },
+    };
+  }
+
+  // Overrides is a full options object
+  const { components, wrapper, options } = overrides;
+
+  return {
+    ...baseOptions,
+    ...options,
+    wrapper: wrapper || baseOptions.wrapper,
+    forceWrapper: !!(wrapper || baseOptions.wrapper),
+    components: { ...baseOptions.components, ...components },
+  };
+};
+
+/**
+ * Provider for the MarkdownRenderer component.
+ *
+ * It will provide the `renderMarkdown` function to the context, which can be used to render markdown.
+ *
+ * ```tsx
+ * const content = useIntlayer('app');
+ *
+ * return (
+ *   <div>
+ *     {content.markdown} // Will be rendered with the components and options provided to the MarkdownProvider
+ *   </div>
+ * );
+ * ```
+ *
+ * @example
+ * ```tsx
+ * <MarkdownProvider components={{ h1: CustomHeading }}>
+ *   <MarkdownRenderer>
+ *     {markdownContent}
+ *   </MarkdownRenderer>
+ * </MarkdownProvider>
+ * ```
+ */
 export const MarkdownProvider: FC<MarkdownProviderProps> = ({
   children,
   components,
   wrapper,
   options = {},
-  renderMarkdown,
+  renderMarkdown: customRenderFn,
 }) => {
   const { forceBlock, preserveFrontmatter, tagfilter } = options;
 
-  // Map public options to internal processor options
-  const internalOptions: MarkdownRendererOptions = {
+  const baseOptions: MarkdownRendererOptions = {
     components,
     forceBlock,
     wrapper,
@@ -86,50 +129,34 @@ export const MarkdownProvider: FC<MarkdownProviderProps> = ({
     tagfilter,
   };
 
-  const finalRenderMarkdown =
-    renderMarkdown ||
-    ((
-      markdown: string,
-      componentsOverride?: Overrides | RenderMarkdownOptions
-    ) => {
-      const isOptionsObject =
-        componentsOverride &&
-        (typeof (componentsOverride as RenderMarkdownOptions).components ===
-          'object' ||
-          typeof (componentsOverride as RenderMarkdownOptions).wrapper ===
-            'function' ||
-          typeof (componentsOverride as RenderMarkdownOptions).options ===
-            'object');
+  // Standard internal renderer
+  const defaultRenderMarkdown = (
+    markdown: string,
+    overrides?: Overrides | RenderMarkdownOptions
+  ) => {
+    const mergedOptions = mergeOptions(baseOptions, overrides);
+    return compiler(markdown, mergedOptions);
+  };
 
-      const localComponents = isOptionsObject
-        ? (componentsOverride as RenderMarkdownOptions).components
-        : (componentsOverride as Overrides);
-      const localWrapper = isOptionsObject
-        ? (componentsOverride as RenderMarkdownOptions).wrapper
-        : undefined;
-      const localOptions = isOptionsObject
-        ? (componentsOverride as RenderMarkdownOptions).options
-        : {};
-
-      const mergedOptions = {
-        ...options,
-        ...localOptions,
-      };
-
-      return compiler(markdown, {
-        ...internalOptions,
-        ...mergedOptions,
-        wrapper: localWrapper || wrapper || internalOptions.wrapper,
-        forceWrapper: !!(localWrapper || wrapper),
-        components: {
-          ...internalOptions.components,
-          ...localComponents,
-        },
-      });
-    });
+  // Wrapper for user-provided custom renderer
+  // Note: We wrap in a clean Provider to prevent infinite recursion
+  const customRenderMarkdownWrapper = (
+    markdown: string,
+    overrides?: Overrides | RenderMarkdownOptions
+  ) => (
+    <MarkdownContext.Provider value={undefined}>
+      {customRenderFn?.(markdown, overrides)}
+    </MarkdownContext.Provider>
+  );
 
   return (
-    <MarkdownContext.Provider value={{ renderMarkdown: finalRenderMarkdown }}>
+    <MarkdownContext.Provider
+      value={{
+        renderMarkdown: customRenderFn
+          ? customRenderMarkdownWrapper
+          : defaultRenderMarkdown,
+      }}
+    >
       {children}
     </MarkdownContext.Provider>
   );

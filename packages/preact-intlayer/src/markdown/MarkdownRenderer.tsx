@@ -1,65 +1,109 @@
+import type { Overrides } from '@intlayer/core';
+import type { ComponentChildren, FunctionComponent, JSX } from 'preact';
+import { compileMarkdown, type MarkdownCompilerOptions } from './compiler';
 import {
-  getContent,
-  getContentNodeByKeyPath,
-  getMarkdownMetadata,
-} from '@intlayer/core';
-import type { ContentNode, KeyPath, LocalesValues } from '@intlayer/types';
-import type { FunctionComponent, ReactNode } from 'preact';
-import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';
-import { useMarkdownContext } from './MarkdownProvider';
+  type MarkdownProviderOptions,
+  useMarkdownContext,
+} from './MarkdownProvider';
 
-type MarkdownRendererProps = {
-  dictionaryKey?: string;
-  keyPath?: KeyPath[];
-  locale?: LocalesValues;
-  children: string;
-  [key: string]: any;
+export type RenderMarkdownProps = {
+  /**
+   * Component overrides for HTML tags.
+   * Only used if not wrapped in a MarkdownProvider.
+   */
+  components?: Overrides;
+  /**
+   * Wrapper element or component to be used when there are multiple children.
+   * Only used if not wrapped in a MarkdownProvider.
+   */
+  wrapper?: FunctionComponent<any>;
+  /**
+   * Markdown processor options.
+   * Only used if not wrapped in a MarkdownProvider.
+   */
+  options?: MarkdownProviderOptions;
 };
 
-export const MarkdownRenderer: FunctionComponent<MarkdownRendererProps> = ({
-  dictionaryKey,
-  keyPath,
-  children,
-  locale,
-  ...overrides
-}): ReactNode => {
+export const renderMarkdown = (
+  content: string,
+  { components, wrapper, options = {} }: RenderMarkdownProps = {}
+): JSX.Element => {
+  const { forceBlock, preserveFrontmatter, tagfilter } = options;
+
+  // Map public options to internal processor options
+  const internalOptions: MarkdownCompilerOptions = {
+    components,
+    forceBlock,
+    wrapper: wrapper as any,
+    forceWrapper: !!wrapper,
+    preserveFrontmatter,
+    tagfilter,
+  };
+
+  return compileMarkdown(content, internalOptions) as JSX.Element;
+};
+
+export const useMarkdownRenderer = ({
+  components,
+  wrapper,
+  options = {},
+}: RenderMarkdownProps = {}) => {
   const context = useMarkdownContext();
-  const editedContentContext = useEditedContentRenderer({
-    dictionaryKey: dictionaryKey as string,
-    keyPath: keyPath as KeyPath[],
-    children,
-  });
 
-  const contentToRender =
-    dictionaryKey && keyPath && typeof editedContentContext === 'string'
-      ? editedContentContext
-      : children;
+  return (content: string) => {
+    if (context) {
+      return context.renderMarkdown(content, { components, wrapper, options });
+    }
 
-  const result = context
-    ? context.renderMarkdown(contentToRender, overrides)
-    : contentToRender;
-
-  return result as ReactNode;
+    return renderMarkdown(content, { components, wrapper, options });
+  };
 };
 
-type MarkdownMetadataRendererProps = MarkdownRendererProps & {
-  metadataKeyPath: KeyPath[];
+type MarkdownRendererProps = RenderMarkdownProps & {
+  /**
+   * The markdown content to render.
+   */
+  children: string;
+  /**
+   * Custom render function for markdown.
+   * If provided, it will overwrite context and default rendering.
+   */
+  renderMarkdown?: (
+    markdown: string,
+    options?: {
+      components?: Overrides;
+      wrapper?: FunctionComponent<any>;
+      options?: MarkdownProviderOptions;
+    }
+  ) => ComponentChildren;
 };
 
-export const MarkdownMetadataRenderer: FunctionComponent<
-  MarkdownMetadataRendererProps
-> = ({ dictionaryKey, keyPath, children, metadataKeyPath }): ReactNode => {
-  const editedContentContext = useEditedContentRenderer({
-    dictionaryKey: dictionaryKey as string,
-    keyPath: keyPath as KeyPath[],
-    children,
-  });
-  const metadata = getMarkdownMetadata(editedContentContext);
+/**
+ * Preact component that renders markdown to JSX.
+ *
+ * It uses the renderMarkdown function from the MarkdownProvider context if available.
+ * Otherwise, it falls back to the default compiler with provided components and options.
+ */
+export const MarkdownRenderer: FunctionComponent<MarkdownRendererProps> = ({
+  children = '',
+  components,
+  wrapper,
+  options = {},
+  renderMarkdown: customRenderMarkdown,
+}) => {
+  const context = useMarkdownContext();
 
-  const metadataEl = getContentNodeByKeyPath(
-    metadata as ContentNode,
-    metadataKeyPath
-  );
+  if (customRenderMarkdown) {
+    return (
+      <>{customRenderMarkdown(children, { components, wrapper, options })}</>
+    );
+  }
 
-  return metadataEl as ReactNode;
+  if (context) {
+    return (
+      <>{context.renderMarkdown(children, { components, wrapper, options })}</>
+    );
+  }
+
+  return renderMarkdown(children, { components, wrapper, options });
 };

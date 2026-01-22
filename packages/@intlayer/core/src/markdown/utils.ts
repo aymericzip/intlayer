@@ -31,9 +31,9 @@ import type { NestedParser, ParserResult, ParseState, Rule } from './types';
  */
 export const trimEnd = (str: string): string => {
   let end = str.length;
- 
+
   while (end > 0 && str[end - 1] <= ' ') end--;
-  
+
   return str.slice(0, end);
 };
 

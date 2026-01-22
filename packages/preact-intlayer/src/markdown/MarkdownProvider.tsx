@@ -1,12 +1,13 @@
 import type { Overrides } from '@intlayer/core';
 import {
+  type ComponentChildren,
   createContext,
   type FunctionComponent,
-  type PropsWithChildren,
-  type ReactNode,
 } from 'preact';
 import { useContext } from 'preact/hooks';
 import { compileMarkdown } from './compiler';
+
+type PropsWithChildren<P = {}> = P & { children?: ComponentChildren };
 
 /**
  * Refined options for the MarkdownProvider.
@@ -36,7 +37,7 @@ type MarkdownContextValue = {
   renderMarkdown: (
     markdown: string,
     overrides?: Overrides | RenderMarkdownOptions
-  ) => ReactNode;
+  ) => ComponentChildren;
 };
 
 type MarkdownProviderProps = PropsWithChildren<{
@@ -56,7 +57,10 @@ type MarkdownProviderProps = PropsWithChildren<{
    * Custom render function for markdown.
    * If provided, it will overwrite all rules and default rendering.
    */
-  renderMarkdown?: (markdown: string, overrides?: Overrides) => ReactNode;
+  renderMarkdown?: (
+    markdown: string,
+    overrides?: Overrides
+  ) => ComponentChildren;
 }>;
 
 const MarkdownContext = createContext<MarkdownContextValue | undefined>(
@@ -84,41 +88,54 @@ export const MarkdownProvider: FunctionComponent<MarkdownProviderProps> = ({
     tagfilter,
   };
 
-  const finalRenderMarkdown =
-    renderMarkdown ||
-    ((markdown: string, overrides?: Overrides | RenderMarkdownOptions) => {
-      const isOptionsObject =
-        overrides &&
-        (typeof (overrides as RenderMarkdownOptions).components === 'object' ||
-          typeof (overrides as RenderMarkdownOptions).wrapper === 'function' ||
-          typeof (overrides as RenderMarkdownOptions).options === 'object');
+  const finalRenderMarkdown = renderMarkdown
+    ? (
+        markdown: string,
+        componentsOverride?: Overrides | RenderMarkdownOptions
+      ) => (
+        <MarkdownContext.Provider value={undefined}>
+          {renderMarkdown(markdown, componentsOverride)}
+        </MarkdownContext.Provider>
+      )
+    : (
+        markdown: string,
+        componentsOverride?: Overrides | RenderMarkdownOptions
+      ) => {
+        const isOptionsObject =
+          componentsOverride &&
+          (typeof (componentsOverride as RenderMarkdownOptions).components ===
+            'object' ||
+            typeof (componentsOverride as RenderMarkdownOptions).wrapper ===
+              'function' ||
+            typeof (componentsOverride as RenderMarkdownOptions).options ===
+              'object');
 
-      const localComponents = isOptionsObject
-        ? (overrides as RenderMarkdownOptions).components
-        : (overrides as Overrides);
-      const localWrapper = isOptionsObject
-        ? (overrides as RenderMarkdownOptions).wrapper
-        : undefined;
-      const localOptions = isOptionsObject
-        ? (overrides as RenderMarkdownOptions).options
-        : {};
+        const localComponents = isOptionsObject
+          ? (componentsOverride as RenderMarkdownOptions).components
+          : (componentsOverride as Overrides);
+        const localWrapper = isOptionsObject
+          ? (componentsOverride as RenderMarkdownOptions).wrapper
+          : undefined;
+        const localOptions = isOptionsObject
+          ? (componentsOverride as RenderMarkdownOptions).options
+          : {};
 
-      const mergedOptions = {
-        ...options,
-        ...localOptions,
+        const mergedOptions = {
+          ...options,
+          ...localOptions,
+        };
+
+        return compileMarkdown(markdown, {
+          ...internalOptions,
+          ...mergedOptions,
+          wrapper: localWrapper || wrapper || internalOptions.wrapper,
+          forceWrapper: !!(localWrapper || wrapper),
+          components: {
+            ...internalOptions.components,
+            ...localComponents,
+          },
+        }) as ComponentChildren;
       };
-
-      return compileMarkdown(markdown, {
-        ...internalOptions,
-        ...mergedOptions,
-        wrapper: localWrapper || wrapper || internalOptions.wrapper,
-        forceWrapper: !!(localWrapper || wrapper),
-        components: {
-          ...internalOptions.components,
-          ...localComponents,
-        },
-      });
-    });
 
   return (
     <MarkdownContext.Provider value={{ renderMarkdown: finalRenderMarkdown }}>

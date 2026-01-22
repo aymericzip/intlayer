@@ -159,6 +159,40 @@ export const AppProvider: FC = () => (
 );
 ```
 
+### Utilities
+
+`react-intlayer` provides some utilities to help you render markdown content.
+
+#### `renderMarkdown`
+
+A utility function to render markdown content into JSX. It is useful when you want to render markdown outside of a React component or without the context.
+
+```tsx fileName="App.tsx" codeFormat="typescript"
+import { renderMarkdown } from "react-intlayer";
+
+const content = renderMarkdown("## My title", {
+  components: { h1: ({ children }) => <h1 className="text-xl">{children}</h1> },
+});
+```
+
+#### `useMarkdownRenderer`
+
+A hook that returns a markdown renderer function. It uses the `MarkdownProvider` context if available, otherwise it falls back to the default renderer.
+
+```tsx fileName="App.tsx" codeFormat="typescript"
+import { useMarkdownRenderer } from "react-intlayer";
+
+const MyComponent = () => {
+  const renderMarkdown = useMarkdownRenderer({
+    components: {
+      h1: ({ children }) => <h1 className="text-xl">{children}</h1>,
+    },
+  });
+
+  return <>{renderMarkdown("## My title")}</>;
+};
+```
+
 ## Using Markdown with Vue Intlayer
 
 To use Markdown in Vue, you need to install the Markdown plugin.

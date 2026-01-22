@@ -27,6 +27,32 @@ const fuseOptions: IFuseOptions<DocMetadata> = {
   threshold: 0.02, // Defines how fuzzy the matching should be (lower is more strict)
 };
 
+const isValidDoc = (doc: DocMetadata) => {
+  try {
+    if (!doc) return false;
+
+    if (typeof doc.title !== 'string') {
+      console.error('Invalid doc title:', doc);
+      return false;
+    }
+
+    if (doc.description && typeof doc.description !== 'string') {
+      console.error('Invalid doc description:', doc);
+      return false;
+    }
+
+    if (typeof doc.url !== 'string') {
+      console.error('Invalid doc url:', doc);
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error('Error validating doc:', error);
+    return false;
+  }
+};
+
 const SearchResultItem: FC<{
   doc: DocMetadata;
   onClickLink: () => void;
@@ -118,7 +144,7 @@ export const SearchView: FC<{
     ...docMetadata,
     ...blogMetadata,
     ...frequentQuestionMetadata,
-  ];
+  ].filter(isValidDoc);
 
   // Create a new Fuse instance with the options and documentation data
   const fuse = new Fuse(filesData, fuseOptions);
@@ -144,6 +170,8 @@ export const SearchView: FC<{
           combinedResults.push(backendDoc);
         }
       });
+
+      console.log({ combinedResults });
 
       setResults(combinedResults);
     }

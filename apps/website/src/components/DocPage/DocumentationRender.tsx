@@ -26,6 +26,7 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
   const { resolvedTheme } = useTheme();
 
   const isDarkMode = resolvedTheme === 'dark';
+
   return (
     <div className="m-auto flex max-w-3xl flex-col gap-8 p-10 max-md:px-0">
       <MarkdownRenderer
@@ -41,13 +42,19 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
             />
           ),
           TOC: (props: ComponentProps<typeof TableOfContents>) => (
-            <TableOfContents {...props} />
+            <TableOfContents
+              {...props}
+              levels={tocLevels}
+              maxDepth={tocMaxDepth}
+            />
           ),
         }}
-        wrapper={({ ...props }) => (
+        wrapper={({ children, ...props }: any) => (
           <>
             <SectionScroller />
-            <div className={cn('flex flex-col gap-8 py-10')} {...props} />
+            <div className={cn('flex flex-col gap-8 py-10')} {...props}>
+              {children}
+            </div>
           </>
         )}
       >

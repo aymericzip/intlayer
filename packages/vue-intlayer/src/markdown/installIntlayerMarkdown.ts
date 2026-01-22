@@ -1,5 +1,5 @@
 import type { Overrides } from '@intlayer/core';
-import { type App, inject, type VNodeChild } from 'vue';
+import { type App, inject, provide, type VNodeChild } from 'vue';
 import { compileMarkdown } from './compiler';
 
 export const INTLAYER_MARKDOWN_SYMBOL = Symbol('intlayerMarkdown');
@@ -151,7 +151,38 @@ export const installIntlayerMarkdown = (
     }
   }
 
-  const client = createIntlayerMarkdownClient(renderMarkdown);
+  // Wrap renderMarkdown to prevent recursion in custom renderers
+  const wrappedRenderMarkdown: RenderMarkdownFunction = (
+    markdown,
+    overrides
+  ) => {
+    // If we are using the default renderer (internalOptions defined above), we don't need to wrap
+    // But detecting if it's the default renderer is hard here as scopes differ.
+    // However, the issue only happens if the user provides a CUSTOM render function that uses MarkdownRenderer component.
+
+    // If pluginOptions was a function or had a customRender, we wrap it.
+    const isCustom =
+      typeof pluginOptions === 'function' ||
+      (typeof pluginOptions === 'object' && pluginOptions?.renderMarkdown);
+
+    if (isCustom) {
+      // In Vue, we need to provide a new context.
+      // Since we return a VNode, we can't easily wrap it in a provider unless we return a Component.
+      // But renderMarkdown returns VNodeChild.
+      // If we return a component, it works.
+
+      return {
+        setup() {
+          provide(INTLAYER_MARKDOWN_SYMBOL, { renderMarkdown: undefined });
+          return () => renderMarkdown(markdown, overrides);
+        },
+      } as any;
+    }
+
+    return renderMarkdown(markdown, overrides);
+  };
+
+  const client = createIntlayerMarkdownClient(wrappedRenderMarkdown);
 
   app.provide(INTLAYER_MARKDOWN_SYMBOL, client);
 };

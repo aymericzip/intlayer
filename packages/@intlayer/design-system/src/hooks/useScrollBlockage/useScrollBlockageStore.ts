@@ -83,11 +83,13 @@ class ScrollBlockageObservable {
 
 export const scrollBlockageManager = new ScrollBlockageObservable();
 
+const serverSnapshot: Blocker[] = [];
+
 export const useScrollBlockageStore = () => {
   const scrollBlockers = useSyncExternalStore(
     scrollBlockageManager.subscribe,
     scrollBlockageManager.getSnapshot,
-    () => []
+    () => serverSnapshot
   );
 
   return {

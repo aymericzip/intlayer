@@ -242,8 +242,19 @@ const createRules = (
   containsBlockSyntax: (input: string) => boolean,
   nonParagraphBlockSyntaxes: RegExp[]
 ): Rules => {
-  const slug = (input: string) =>
-    ctx.slugify ? ctx.slugify(input, defaultSlugify) : defaultSlugify(input);
+  const slug = (input: string) => {
+    if (process.env.NODE_ENV === 'test' && input === '中文') {
+      const def = defaultSlugify(input);
+      console.log('Slug check:', {
+        input,
+        ctxSlugify: !!ctx.slugify,
+        defaultSlugifyResult: def,
+      });
+    }
+    return ctx.slugify
+      ? ctx.slugify(input, defaultSlugify)
+      : defaultSlugify(input);
+  };
   const sanitize = ctx.sanitizer ?? defaultSanitizer;
   const namedCodesToUnicode = ctx.namedCodesToUnicode
     ? { ...NAMED_CODES_TO_UNICODE, ...ctx.namedCodesToUnicode }
@@ -732,11 +743,22 @@ const createRules = (
         };
       },
       _render(node, output, state = {}) {
+        const sanitizedHref = sanitize(node.target, 'a', 'href');
+        if (
+          process.env.NODE_ENV === 'test' &&
+          node.target.includes('javascript:')
+        ) {
+          console.log('Compiler sanitize result:', {
+            target: node.target,
+            sanitizedHref,
+            finalHref: sanitizedHref ?? undefined,
+          });
+        }
         return createElement(
           'a',
           {
             key: state.key,
-            href: sanitize(node.target, 'a', 'href') ?? undefined,
+            href: sanitizedHref ?? undefined,
             title: node.title ?? undefined,
           },
           output(node.children, state)
@@ -1023,26 +1045,38 @@ const createRules = (
   return rules;
 };
 
-const compilerCache = new Map<string, unknown>();
+// Removed compilerCache completely to avoid issues with props changes not invalidating cache
+// const compilerCache = new Map<string, unknown>();
 
 export const compile = (
   markdown: string = '',
   ctx: MarkdownContext,
   options: MarkdownOptions = {}
 ): unknown => {
-  const cacheKey = JSON.stringify({
-    markdown,
-    options,
-    components: ctx.components ? Object.keys(ctx.components) : [],
-  });
+  // const cacheKey = JSON.stringify({
+  //   markdown,
+  //   options,
+  //   components: ctx.components ? Object.keys(ctx.components) : [],
+  // });
 
-  if (compilerCache.has(cacheKey)) {
-    return compilerCache.get(cacheKey);
-  }
+  // if (compilerCache.has(cacheKey)) {
+  //   return compilerCache.get(cacheKey);
+  // }
 
   const components = ctx.components ?? {};
-  const slug = (input: string) =>
-    ctx.slugify ? ctx.slugify(input, defaultSlugify) : defaultSlugify(input);
+  const slug = (input: string) => {
+    if (process.env.NODE_ENV === 'test' && input === '中文') {
+      const def = defaultSlugify(input);
+      console.log('Slug check:', {
+        input,
+        ctxSlugify: !!ctx.slugify,
+        defaultSlugifyResult: def,
+      });
+    }
+    return ctx.slugify
+      ? ctx.slugify(input, defaultSlugify)
+      : defaultSlugify(input);
+  };
   const createElement = createElementFactory(ctx, options);
   const footnotes: FootnoteDef[] = [];
   const refs: Record<string, { target: string; title?: string }> = {};
@@ -1202,8 +1236,15 @@ export const compile = (
     return createElement(wrapper, { key: 'outer' }, null);
   };
 
-  if (process.env.NODE_ENV !== 'production' && typeof markdown !== 'string')
+  if (typeof markdown !== 'string') {
+    if (process.env.NODE_ENV !== 'production') {
+      console.error(
+        'intlayer: the first argument must be a string. Received',
+        typeof markdown
+      );
+    }
     throw new Error('intlayer: the first argument must be a string');
+  }
 
   const node = compileInner(markdown);
 
@@ -1227,7 +1268,7 @@ export const compile = (
       )
     : node;
 
-  compilerCache.set(cacheKey, result);
+  // compilerCache.set(cacheKey, result);
 
   return result;
 };

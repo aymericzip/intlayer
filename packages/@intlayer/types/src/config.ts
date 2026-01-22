@@ -650,6 +650,7 @@ export type DictionaryConfig = Pick<
   | 'fill'
   | 'description'
   | 'locale'
+  | 'contentAutoTransformation'
   | 'priority'
   | 'importMode'
   | 'title'

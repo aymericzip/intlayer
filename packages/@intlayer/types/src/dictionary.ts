@@ -224,6 +224,17 @@ type DictionaryBase = {
   locale?: LocalesValues;
 
   /**
+   * Indicates if the content of the dictionary should be automatically transformed.
+   * If true, the content will be transformed to the corresponding node type.
+   * - Markdown: `### Title` -> `md('### Title')`
+   * - HTML: `<div>Title</div>` -> `html('<div>Title</div>')`
+   * - Insertion: `Hello {{name}}` -> `insert('Hello {{name}}')`
+   *
+   * Default: true
+   */
+  contentAutoTransformation?: boolean;
+
+  /**
    * Instruction to fill the dictionary.
    * Can also be declared globally in the `intlayer.config.ts` file.
    *

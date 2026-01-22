@@ -220,7 +220,7 @@ export const FOOTNOTE_REFERENCE_R = /^\[\^([^\]]+)]/;
 export const FORMFEED_R = /\f/g;
 
 /** Front matter */
-export const FRONT_MATTER_R = /^---[ \t]*\n(.|\n)*\n---[ \t]*\n/;
+export const FRONT_MATTER_R = /^---[ \t]*\n(.|\n)*?\n---[ \t]*\n/;
 
 /** GFM task */
 export const GFM_TASK_R = /^\s*?\[(x|\s)\]/;

@@ -36,4 +36,11 @@ export { getDictionary } from './getDictionary';
 export { getIntlayer } from './getIntlayer';
 export { HTMLProvider } from './html/HTMLProvider';
 export type { IntlayerNode } from './IntlayerNode';
-export { MarkdownProvider, MarkdownRenderer } from './markdown/index';
+export {
+  MarkdownProvider,
+  MarkdownRenderer,
+  type MarkdownRendererProps,
+  type RenderMarkdownProps,
+  renderMarkdown,
+  useMarkdownRenderer,
+} from './markdown/index';

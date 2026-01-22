@@ -110,7 +110,8 @@ export const loadContentDeclarations = async (
         ]);
 
         const processedContentDeclaration = await processContentDeclaration(
-          contentDeclaration as Dictionary
+          contentDeclaration as Dictionary,
+          configuration
         );
 
         if (!processedContentDeclaration) {
