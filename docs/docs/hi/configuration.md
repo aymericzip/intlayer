@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: सिस्टम कॉन्फ़िगरेशन को सामग्री कॉन्फ़िगरेशन से अलग करें। आंतरिक पथों को `system` गुण में ले जाएं। सामग्री फ़ाइलों को कोड परिवर्तन से अलग करने के लिए `codeDir` जोड़ें।
   - version: 8.0.0
@@ -95,9 +98,7 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY, // AI सेवा के लिए API कुंजी
     applicationContext: "This is a test application", // एप्लिकेशन संदर्भ
   },
-  build: {
-    importMode: "dynamic", // आयात मोड
-  },
+  build: {},
 };
 
 export default config;
@@ -124,9 +125,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY, // AI सेवा के लिए API कुंजी
     applicationContext: "यह एक परीक्षण एप्लिकेशन है", // एप्लिकेशन संदर्भ
   },
-  build: {
-    importMode: "dynamic", // आयात मोड
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -150,9 +149,7 @@ module.exports = config;
     "apiKey": "XXXX",
     "applicationContext": "यह एक परीक्षण एप्लिकेशन है",
   },
-  "build": {
-    "importMode": "dynamic",
-  },
+  "build": {},
 }
 ```
 
@@ -600,6 +597,7 @@ Intlayer बेहतर लचीलापन और विकल्प के 
   - _नोट_: सुनिश्चित करें कि सभी कुंजियाँ `useIntlayer` कॉल्स में स्थैतिक रूप से घोषित हों। उदाहरण के लिए `useIntlayer('navbar')`।
 
 - **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _प्रकार_: `'static' | 'dynamic' | 'live'`
   - _डिफ़ॉल्ट_: `'static'`
   - _विवरण_: नियंत्रित करता है कि शब्दकोश कैसे आयात किए जाते हैं।

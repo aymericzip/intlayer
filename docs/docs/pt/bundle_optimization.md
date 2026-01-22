@@ -80,9 +80,9 @@ const config: IntlayerConfig = {
     locales: [Locales.ENGLISH, Locales.FRENCH],
     defaultLocale: Locales.ENGLISH,
   },
+  dictionary: {},
   build: {
     optimize: true,
-    importMode: "static", // ou 'dynamic'
     traversePattern: ["**/*.{js,ts,mjs,cjs,jsx,tsx}", "!**/node_modules/**"],
   },
 };
@@ -98,12 +98,12 @@ export default config;
 
 As seguintes opções estão disponíveis no objeto de configuração `build`:
 
-| Propriedade           | Tipo                            | Padrão                          | Descrição                                                                                                                                                                                                                 |
-| :-------------------- | :------------------------------ | :------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **`optimize`**        | `boolean`                       | `undefined`                     | Controla se a otimização da build está habilitada. Se `true`, o Intlayer substitui chamadas ao dicionário por injeções otimizadas. Se `false`, a otimização é desativada. Idealmente configurado como `true` em produção. |
-| **`importMode`**      | `'static' , 'dynamic' , 'live'` | `'static'`                      | Determina como os dicionários são carregados (veja detalhes abaixo).                                                                                                                                                      |
-| **`traversePattern`** | `string[]`                      | `['**/*.{js,ts,jsx,tsx}', ...]` | Padrões glob que definem quais arquivos o Intlayer deve escanear para otimização. Use isso para excluir arquivos não relacionados e acelerar as builds.                                                                   |
-| **`outputFormat`**    | `'esm', 'cjs'`                  | `'esm', 'cjs'`                  | Controla o formato de saída dos dicionários construídos.                                                                                                                                                                  |
+| Propriedade           | Tipo                                                 | Padrão                          | Descrição                                                                                                                                                                                                                 |
+| :-------------------- | :--------------------------------------------------- | :------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------- |
+| **`optimize`**        | `boolean`                                            | `undefined`                     | Controla se a otimização da build está habilitada. Se `true`, o Intlayer substitui chamadas ao dicionário por injeções otimizadas. Se `false`, a otimização é desativada. Idealmente configurado como `true` em produção. |
+| **`importMode`**      | **Deprecated**: Use `dictionary.importMode` instead. | `'static' , 'dynamic' , 'live'` | `'static'`                                                                                                                                                                                                                | Determina como os dicionários são carregados (veja detalhes abaixo). |
+| **`traversePattern`** | `string[]`                                           | `['**/*.{js,ts,jsx,tsx}', ...]` | Padrões glob que definem quais arquivos o Intlayer deve escanear para otimização. Use isso para excluir arquivos não relacionados e acelerar as builds.                                                                   |
+| **`outputFormat`**    | `'esm', 'cjs'`                                       | `'esm', 'cjs'`                  | Controla o formato de saída dos dicionários construídos.                                                                                                                                                                  |
 
 ## Modos de Importação
 

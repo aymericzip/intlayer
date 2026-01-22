@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: Разделение конфигурации системы и конфигурации контента. Перемещение внутренних путей в свойство `system`. Добавление `codeDir` для разделения файлов контента и преобразования кода.
   - version: 8.0.0
@@ -95,9 +98,7 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY, // ключ API для AI
     applicationContext: "This is a test application", // контекст приложения для AI
   },
-  build: {
-    importMode: "dynamic", // режим импорта модулей
-  },
+  build: {},
 };
 
 export default config;
@@ -124,9 +125,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY, // ключ API для AI
     applicationContext: "Это тестовое приложение", // контекст приложения для AI
   },
-  build: {
-    importMode: "dynamic", // режим импорта модулей
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -150,9 +149,7 @@ module.exports = config;
     "apiKey": "XXXX",
     "applicationContext": "Это тестовое приложение",
   },
-  "build": {
-    "importMode": "dynamic",
-  },
+  "build": {},
 }
 ```
 
@@ -612,6 +609,7 @@ Intlayer поддерживает несколько провайдеров ИИ
   - _Примечание_: Убедитесь, что все ключи объявлены статически в вызовах `useIntlayer`, например `useIntlayer('navbar')`.
 
 - **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _Тип_: `'static' | 'dynamic' | 'live'`
   - _По умолчанию_: `'static'`
   - _Описание_: Управляет способом импорта словарей.

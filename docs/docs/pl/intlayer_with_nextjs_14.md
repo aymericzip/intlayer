@@ -1583,7 +1583,7 @@ bunx intlayer init
 
 > Uwaga: Ten pakiet nie jest instalowany domyślnie, ponieważ wtyczki SWC są nadal eksperymentalne w Next.js. Może się to zmienić w przyszłości.
 
-> Uwaga: Jeśli ustawisz opcję jako `importMode: 'dynamic'` lub `importMode: 'live'`, będzie to polegać na Suspense, więc będziesz musiał owinąć wywołania `useIntlayer` w granicę `Suspense`. Oznacza to, że nie będziesz mógł używać `useIntlayer` bezpośrednio na najwyższym poziomie komponentu Strony / Układu.
+> Uwaga: Jeśli ustawisz opcję jako `importMode: 'dynamic'` lub `importMode: 'live'` (in the `dictionary` configuration), będzie to polegać na Suspense, więc będziesz musiał owinąć wywołania `useIntlayer` w granicę `Suspense`. Oznacza to, że nie będziesz mógł używać `useIntlayer` bezpośrednio na najwyższym poziomie komponentu Strony / Układu.
 
 ### Konfiguracja TypeScript
 

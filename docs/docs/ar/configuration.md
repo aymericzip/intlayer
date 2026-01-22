@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: فصل تكوين النظام عن تكوين المحتوى. نقل المسارات الداخلية إلى خاصية `system`. إضافة `codeDir` لفصل ملفات المحتوى عن تحويل الكود.
   - version: 8.0.0
@@ -95,9 +98,7 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY, // مفتاح API للذكاء الاصطناعي
     applicationContext: "This is a test application", // سياق التطبيق للذكاء الاصطناعي
   },
-  build: {
-    importMode: "dynamic", // وضع الاستيراد أثناء البناء
-  },
+  build: {},
 };
 
 export default config;
@@ -124,9 +125,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY, // مفتاح API للذكاء الاصطناعي
     applicationContext: "This is a test application", // سياق التطبيق للذكاء الاصطناعي
   },
-  build: {
-    importMode: "dynamic", // وضع الاستيراد أثناء البناء
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -150,9 +149,7 @@ module.exports = config;
     "apiKey": "XXXX",
     "applicationContext": "هذا تطبيق تجريبي",
   },
-  "build": {
-    "importMode": "dynamic",
-  },
+  "build": {},
 }
 ```
 
@@ -476,6 +473,12 @@ module.exports = config;
 - **description**
 - **locale**
 - **location**
+- **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
+  - _Type_: `'static' | 'dynamic' | 'live'`
+  - _Default_: `'static'`
+  - _Description_: Controls how dictionaries are imported.
+  - _Example_: `'dynamic'`
 - **priority**
 - **live**
 - **schema**
@@ -600,6 +603,7 @@ module.exports = config;
   - _ملاحظة_: تأكد من إعلان جميع المفاتيح بشكل ثابت في استدعاءات `useIntlayer`، على سبيل المثال `useIntlayer('navbar')`.
 
 - **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _النوع_: `'static' | 'dynamic' | 'live'`
   - _الافتراضي_: `'static'`
   - _الوصف_: يتحكم في كيفية استيراد القواميس.

@@ -19,7 +19,6 @@ import packageJson from '@intlayer/types/package.json' with { type: 'json' };
 import {
   BUILD_MODE,
   CACHE,
-  IMPORT_MODE,
   OUTPUT_FORMAT,
   TRAVERSE_PATTERN,
 } from '../defaultValues/build';
@@ -39,6 +38,7 @@ import {
 import {
   CONTENT_AUTO_TRANSFORMATION,
   FILL,
+  IMPORT_MODE,
   LOCATION,
 } from '../defaultValues/dictionary';
 import {
@@ -569,6 +569,8 @@ const buildBuildFields = (
    * - This option will be ignored if `optimize` is disabled.
    * - This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions. You can still use them to refine you code on manual optimization.
    * - The "live" allows to sync the dictionaries to the live sync server.
+   *
+   * @deprecated Use `dictionary.importMode` instead.
    */
   importMode: customConfiguration?.importMode ?? IMPORT_MODE,
 
@@ -703,8 +705,15 @@ const buildDictionaryFields = (
 
     /**
      * Indicates the mode of import to use for the dictionary.
+     *
+     * Available modes:
+     * - "static": The dictionaries are imported statically.
+     * - "dynamic": The dictionaries are imported dynamically in a synchronous component using the suspense API.
+     * - "live": The dictionaries are imported dynamically using the live sync API.
+     *
+     * Default: 'static'
      */
-    importMode: customConfiguration?.importMode,
+    importMode: customConfiguration?.importMode ?? IMPORT_MODE,
 
     /**
      * The version of the dictionary.

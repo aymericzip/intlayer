@@ -80,9 +80,11 @@ const config: IntlayerConfig = {
     locales: [Locales.ENGLISH, Locales.FRENCH],
     defaultLocale: Locales.ENGLISH,
   },
+  dictionary: {
+    importMode: "static", // or 'dynamic'
+  },
   build: {
     optimize: true,
-    importMode: "static", // or 'dynamic'
     traversePattern: ["**/*.{js,ts,mjs,cjs,jsx,tsx}", "!**/node_modules/**"],
   },
 };
@@ -101,7 +103,7 @@ The following options are available under the `build` configuration object:
 | Property              | Type                            | Default                         | Description                                                                                                                                                                                      |
 | :-------------------- | :------------------------------ | :------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`optimize`**        | `boolean`                       | `undefined`                     | Controls whether build optimization is enabled. If `true`, Intlayer replaces dictionary calls with optimized injects. If `false`, optimization is disabled. Ideally set to `true` in production. |
-| **`importMode`**      | `'static' , 'dynamic' , 'live'` | `'static'`                      | Determines how dictionaries are loaded (see details below).                                                                                                                                      |
+| **`importMode`**      | `'static' , 'dynamic' , 'live'` | `'static'`                      | **Deprecated**: Use `dictionary.importMode` instead. Determines how dictionaries are loaded (see details below).                                                                                 |
 | **`traversePattern`** | `string[]`                      | `['**/*.{js,ts,jsx,tsx}', ...]` | Glob patterns defining which files Intlayer should scan for optimization. Use this to exclude unrelated files and speed up builds.                                                               |
 | **`outputFormat`**    | `'esm', 'cjs'`                  | `'esm', 'cjs'`                  | Controls the output format of the built dictionaries.                                                                                                                                            |
 

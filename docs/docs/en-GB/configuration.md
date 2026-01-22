@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: Separate system configuration from content configuration. Move internal paths to `system` property. Add `codeDir` to separate content files from code transformation.
   - version: 8.0.0
@@ -96,9 +99,7 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY,
     applicationContext: "This is a test application",
   },
-  build: {
-    importMode: "dynamic",
-  },
+  build: {},
 };
 
 export default config;
@@ -127,9 +128,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY,
     applicationContext: "This is a test application",
   },
-  build: {
-    importMode: "dynamic",
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -154,9 +153,7 @@ module.exports = config;
     "apiKey": "XXXX",
     "applicationContext": "This is a test application",
   },
-  "build": {
-    "importMode": "dynamic",
-  },
+  "build": {},
 }
 ```
 
@@ -492,6 +489,12 @@ For more information about content declaration files and how configuration value
 - **description**
 - **locale**
 - **location**
+- **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
+  - _Type_: `'static' | 'dynamic' | 'live'`
+  - _Default_: `'static'`
+  - _Description_: Controls how dictionaries are imported.
+  - _Example_: `'dynamic'`
 - **priority**
 - **live**
 - **schema**
@@ -617,6 +620,7 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Note_: Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
 
 - **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _Type_: `'static' | 'dynamic' | 'live'`
   - _Default_: `'static'`
   - _Description_: Controls how dictionaries are imported.

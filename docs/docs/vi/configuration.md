@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: Tách cấu hình hệ thống khỏi cấu hình nội dung. Di chuyển các đường dẫn nội bộ sang thuộc tính `system`. Thêm `codeDir` để tách các tệp nội dung khỏi việc chuyển đổi mã.
   - version: 8.0.0
@@ -116,9 +119,7 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY,
     applicationContext: "Đây là một ứng dụng thử nghiệm", // ngữ cảnh ứng dụng AI
   },
-  build: {
-    importMode: "dynamic",
-  },
+  build: {},
 };
 
 export default config;
@@ -146,9 +147,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY,
     applicationContext: "Đây là một ứng dụng thử nghiệm", // ngữ cảnh ứng dụng AI
   },
-  build: {
-    importMode: "dynamic",
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -176,9 +175,7 @@ module.exports = config;
     "apiKey": "XXXX",
     "applicationContext": "Đây là một ứng dụng thử nghiệm", // ngữ cảnh ứng dụng AI
   },
-  "build": {
-    "importMode": "dynamic",
-  },
+  "build": {},
 }
 ```
 
@@ -718,6 +715,7 @@ Các tùy chọn build áp dụng cho các plugin `@intlayer/babel` và `@intlay
   - _Lưu ý_: Đảm bảo tất cả các khóa được khai báo tĩnh trong các lệnh gọi `useIntlayer`. Ví dụ: `useIntlayer('navbar')`.
 
 - **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _Kiểu_: `'static' | 'dynamic' | 'live'`
   - _Mặc định_: `'static'`
   - _Mô tả_: Điều khiển cách các từ điển được nhập.

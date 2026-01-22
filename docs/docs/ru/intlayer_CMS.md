@@ -312,7 +312,7 @@ const config: IntlayerConfig = {
      */
     liveSync: true,
   },
-  build: {
+  dictionary: {
     /**
      * Управляет способом импорта словарей:
      *
@@ -348,7 +348,7 @@ const config = {
      */
     liveSync: true,
   },
-  build: {
+  dictionary: {
     /**
      * Управляет способом импорта словарей:
      *
@@ -398,7 +398,7 @@ const config = {
      */
     liveSyncURL: "https://live.example.com",
   },
-  build: {
+  dictionary: {
     /**
      * Управляет способом импорта словарей:
      *
@@ -483,9 +483,11 @@ const config: IntlayerConfig = {
     liveSyncURL: "http://localhost:4000",
     liveSync: true,
   },
+  dictionary: {
+    importMode: "live",
+  },
   build: {
     optimize: true,
-    importMode: "live",
   },
 };
 

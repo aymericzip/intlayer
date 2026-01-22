@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: 将系统配置与内容配置分离。将内部路径移至 `system` 属性。添加 `codeDir` 以将内容文件与代码转换分离。
   - version: 8.0.0
@@ -98,9 +101,7 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY, // AI 接口密钥
     applicationContext: "This is a test application", // 应用上下文描述
   },
-  build: {
-    importMode: "dynamic", // 构建时的导入模式
-  },
+  build: {},
 };
 
 export default config;
@@ -128,9 +129,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY, // AI 接口密钥
     applicationContext: "This is a test application", // 应用上下文描述
   },
-  build: {
-    importMode: "dynamic", // 构建时的导入模式
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -154,9 +153,7 @@ module.exports = config;
     "apiKey": "XXXX",
     "applicationContext": "这是一个测试应用",
   },
-  "build": {
-    "importMode": "dynamic",
-  },
+  "build": {},
 }
 ```
 
@@ -480,6 +477,12 @@ module.exports = config;
 - **description**
 - **locale**
 - **location**
+- **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
+  - _Type_: `'static' | 'dynamic' | 'live'`
+  - _Default_: `'static'`
+  - _Description_: Controls how dictionaries are imported.
+  - _Example_: `'dynamic'`
 - **priority**
 - **live**
 - **schema**
@@ -604,6 +607,7 @@ Intlayer 支持多个 AI 提供商，以增强灵活性和选择。目前支持�
   - _注意_: 确保所有键在 `useIntlayer` 调用中是静态声明的。例如 `useIntlayer('navbar')`。
 
 - **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _类型_: `'static' | 'dynamic' | 'live'`
   - _默认值_: `'static'`
   - _描述_: 控制字典的导入方式。

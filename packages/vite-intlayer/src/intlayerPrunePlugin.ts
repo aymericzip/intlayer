@@ -18,7 +18,9 @@ export const intlayerPrune = async (
     const babel = localeRequire('@babel/core');
     const logger = getAppLogger(intlayerConfig);
 
-    const { importMode, optimize } = intlayerConfig.build;
+    const { optimize } = intlayerConfig.build;
+    const importMode =
+      intlayerConfig.dictionary?.importMode ?? intlayerConfig.build.importMode;
 
     const {
       dictionariesDir,

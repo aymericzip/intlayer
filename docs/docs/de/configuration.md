@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: Systemkonfiguration von der Inhaltskonfiguration trennen. Interne Pfade zur Eigenschaft `system` verschieben. `codeDir` hinzufügen, um Inhaltsdateien von der Codetransformation zu trennen.
   - version: 8.0.0
@@ -95,9 +98,7 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY, // API-Schlüssel für KI-Dienste
     applicationContext: "This is a test application", // Kontext der Anwendung für KI
   },
-  build: {
-    importMode: "dynamic", // Importmodus für den Build-Prozess
-  },
+  build: {},
 };
 
 export default config;
@@ -125,9 +126,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY, // API-Schlüssel für KI-Dienste
     applicationContext: "This is a test application", // Kontext der Anwendung für KI
   },
-  build: {
-    importMode: "dynamic", // Importmodus für den Build-Prozess
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -613,6 +612,7 @@ Build-Optionen gelten für die Plugins `@intlayer/babel` und `@intlayer/swc`.
   - _Hinweis_: Stellen Sie sicher, dass alle Schlüssel statisch in den `useIntlayer`-Aufrufen deklariert sind, z.B. `useIntlayer('navbar')`.
 
 - **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _Typ_: `'static' | 'dynamic' | 'live'`
   - _Standard_: `'static'`
   - _Beschreibung_: Steuert, wie Wörterbücher importiert werden.

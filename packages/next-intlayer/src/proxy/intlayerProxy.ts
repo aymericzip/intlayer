@@ -323,7 +323,6 @@ const handleDefaultLocaleRedirect = (
     return redirectUrl(request, `${basePath}${pathWithoutLocale}`);
   }
 
-  // --- THE FIX ---
   // If the path contains a locale (like /fr) but we DON'T have a [locale] folder,
   // we rewrite the path to its "clean" version internally.
 

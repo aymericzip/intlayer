@@ -1133,7 +1133,7 @@ bunx intlayer init
 
 > 참고: 이 패키지는 SWC 플러그인이 Next.js에서 아직 실험적이기 때문에 기본적으로 설치되어 있지 않습니다. 향후 변경될 수 있습니다.
 
-> 참고: 옵션을 `importMode: 'dynamic'` 또는 `importMode: 'live'`로 설정하면 Suspense에 의존하게 되므로 `useIntlayer` 호출을 `Suspense` 경계로 감싸야 합니다. 즉, Page / Layout 컴포넌트의 최상위 수준에서 `useIntlayer`를 직접 사용할 수 없습니다.
+> 참고: 옵션을 `importMode: 'dynamic'` 또는 `importMode: 'live'` (in the `dictionary` configuration)로 설정하면 Suspense에 의존하게 되므로 `useIntlayer` 호출을 `Suspense` 경계로 감싸야 합니다. 즉, Page / Layout 컴포넌트의 최상위 수준에서 `useIntlayer`를 직접 사용할 수 없습니다.
 
 ### Turbopack에서 딕셔너리 변경 사항 감시
 

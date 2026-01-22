@@ -575,7 +575,7 @@ Chế độ nhập khẩu xác định cách từ điển của bạn được n
 - `'dynamic'`: Từ điển được nhập khẩu động tại thời gian chạy bằng cách sử dụng API suspense.
 - `'live'`: Từ điển được nhập khẩu động bằng cách sử dụng API đồng bộ trực tiếp.
 
-Nếu được đặt, thuộc tính này sẽ ghi đè `importMode` toàn cục được định nghĩa trong `intlayer.config.ts`.
+Nếu được đặt, thuộc tính này sẽ ghi đè `importMode` toàn cục được định nghĩa trong `the `dictionary`property of`intlayer.config.ts``.
 
 ### Thuộc tính Hệ thống (Tự động tạo)
 

@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: Sistem yapılandırmasını içerik yapılandırmasından ayırın. İç yolları `system` özelliğine taşıyın. İçerik dosyalarını kod dönüşümünden ayırmak için `codeDir` ekleyin.
   - version: 8.0.0
@@ -98,9 +101,7 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY, // AI API anahtarı
     applicationContext: "This is a test application", // Uygulama bağlamı
   },
-  build: {
-    importMode: "dynamic", // İçe aktarma modu
-  },
+  build: {},
 };
 
 export default config;
@@ -127,9 +128,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY, // AI API anahtarı
     applicationContext: "Bu bir test uygulamasıdır", // Uygulama bağlamı
   },
-  build: {
-    importMode: "dynamic", // İçe aktarma modu
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -153,9 +152,7 @@ module.exports = config;
     "apiKey": "XXXX",
     "applicationContext": "Bu bir test uygulamasıdır",
   },
-  "build": {
-    "importMode": "dynamic",
-  },
+  "build": {},
 }
 ```
 
@@ -479,6 +476,12 @@ Bu sözlük yapılandırması iki ana amaç için hizmet eder:
 - **description**
 - **locale**
 - **location**
+- **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
+  - _Type_: `'static' | 'dynamic' | 'live'`
+  - _Default_: `'static'`
+  - _Description_: Controls how dictionaries are imported.
+  - _Example_: `'dynamic'`
 - **priority**
 - **live**
 - **schema**
@@ -602,6 +605,7 @@ Derleme seçenekleri `@intlayer/babel` ve `@intlayer/swc` eklentilerine uygulan�
   - _Not_: `useIntlayer` çağrılarında tüm anahtarların statik olarak tanımlandığından emin olun. Örneğin `useIntlayer('navbar')`.
 
 - **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _Tür_: `'static' | 'dynamic' | 'live'`
   - _Varsayılan_: `'static'`
   - _Açıklama_: Sözlüklerin nasıl içe aktarılacağını kontrol eder.

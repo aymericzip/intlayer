@@ -316,7 +316,7 @@ const config: IntlayerConfig = {
      */
     liveSync: true,
   },
-  build: {
+  dictionary: {
     /**
      * Kontroluje sposób importowania słowników:
      *
@@ -352,7 +352,7 @@ const config = {
      */
     liveSync: true,
   },
-  build: {
+  dictionary: {
     /**
      * Kontroluje sposób importowania słowników:
      *
@@ -402,7 +402,7 @@ const config = {
      */
     liveSyncURL: "https://live.example.com",
   },
-  build: {
+  dictionary: {
     /**
      * Kontroluje sposób importowania słowników:
      *
@@ -500,9 +500,11 @@ const config: IntlayerConfig = {
     liveSyncURL: "http://localhost:4000",
     liveSync: true,
   },
-  build: {
-    optimize: true, // domyślnie: process.env.NODE_ENV === 'production'
+  dictionary: {
     importMode: "live",
+  },
+  build: {
+    optimize: true,
   },
 };
 
@@ -517,9 +519,11 @@ const config = {
     liveSyncURL: "http://localhost:4000",
     liveSync: true,
   },
-  build: {
-    optimize: true, // domyślnie: process.env.NODE_ENV === 'production'
+  dictionary: {
     importMode: "live",
+  },
+  build: {
+    optimize: true,
   },
 };
 
@@ -534,9 +538,11 @@ const config = {
     liveSyncURL: "http://localhost:4000",
     liveSync: true,
   },
-  build: {
-    optimize: true, // domyślnie: process.env.NODE_ENV === 'production'
+  dictionary: {
     importMode: "live",
+  },
+  build: {
+    optimize: true,
   },
 };
 

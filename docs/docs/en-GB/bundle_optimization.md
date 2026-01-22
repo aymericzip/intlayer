@@ -80,9 +80,9 @@ const config: IntlayerConfig = {
     locales: [Locales.ENGLISH, Locales.FRENCH],
     defaultLocale: Locales.ENGLISH,
   },
+  dictionary: {},
   build: {
     optimize: true,
-    importMode: "static", // or 'dynamic'
     traversePattern: ["**/*.{js,ts,mjs,cjs,jsx,tsx}", "!**/node_modules/**"],
   },
 };
@@ -98,12 +98,12 @@ export default config;
 
 The following options are available under the `build` configuration object:
 
-| Property              | Type                            | Default                         | Description                                                                                                                                                                                      |
-| :-------------------- | :------------------------------ | :------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`optimize`**        | `boolean`                       | `undefined`                     | Controls whether build optimisation is enabled. If `true`, Intlayer replaces dictionary calls with optimised injects. If `false`, optimisation is disabled. Ideally set to `true` in production. |
-| **`importMode`**      | `'static' , 'dynamic' , 'live'` | `'static'`                      | Determines how dictionaries are loaded (see details below).                                                                                                                                      |
-| **`traversePattern`** | `string[]`                      | `['**/*.{js,ts,jsx,tsx}', ...]` | Glob patterns defining which files Intlayer should scan for optimisation. Use this to exclude unrelated files and speed up builds.                                                               |
-| **`outputFormat`**    | `'esm', 'cjs'`                  | `'esm', 'cjs'`                  | Controls the output format of the built dictionaries.                                                                                                                                            |
+| Property              | Type                                                 | Default                         | Description                                                                                                                                                                                      |
+| :-------------------- | :--------------------------------------------------- | :------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| **`optimize`**        | `boolean`                                            | `undefined`                     | Controls whether build optimisation is enabled. If `true`, Intlayer replaces dictionary calls with optimised injects. If `false`, optimisation is disabled. Ideally set to `true` in production. |
+| **`importMode`**      | **Deprecated**: Use `dictionary.importMode` instead. | `'static' , 'dynamic' , 'live'` | `'static'`                                                                                                                                                                                       | Determines how dictionaries are loaded (see details below). |
+| **`traversePattern`** | `string[]`                                           | `['**/*.{js,ts,jsx,tsx}', ...]` | Glob patterns defining which files Intlayer should scan for optimisation. Use this to exclude unrelated files and speed up builds.                                                               |
+| **`outputFormat`**    | `'esm', 'cjs'`                                       | `'esm', 'cjs'`                  | Controls the output format of the built dictionaries.                                                                                                                                            |
 
 ## Import Modes
 

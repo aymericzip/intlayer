@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: Séparer la configuration système de la configuration du contenu. Déplacer les chemins internes vers la propriété `system`. Ajouter `codeDir` pour séparer les fichiers de contenu de la transformation du code.
   - version: 8.0.0
@@ -98,9 +101,7 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY, // clé API pour l'IA
     applicationContext: "This is a test application", // contexte de l'application pour l'IA
   },
-  build: {
-    importMode: "dynamic", // mode d'importation pour la construction
-  },
+  build: {},
 };
 
 export default config;
@@ -128,9 +129,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY, // clé API pour l'IA
     applicationContext: "This is a test application", // contexte de l'application pour l'IA
   },
-  build: {
-    importMode: "dynamic", // mode d'importation des modules
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -154,9 +153,7 @@ module.exports = config;
     "apiKey": "XXXX",
     "applicationContext": "Ceci est une application de test",
   },
-  "build": {
-    "importMode": "dynamic",
-  },
+  "build": {},
 }
 ```
 
@@ -492,6 +489,12 @@ Pour plus d'informations sur les fichiers de déclaration de contenu et la faço
 - **description**
 - **locale**
 - **location**
+- **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
+  - _Type_: `'static' | 'dynamic' | 'live'`
+  - _Default_: `'static'`
+  - _Description_: Controls how dictionaries are imported.
+  - _Example_: `'dynamic'`
 - **priority**
 - **live**
 - **schema**

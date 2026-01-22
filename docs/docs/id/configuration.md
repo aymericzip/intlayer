@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: Pisahkan konfigurasi sistem dari konfigurasi konten. Pindahkan jalur internal ke properti `system`. Tambahkan `codeDir` untuk memisahkan file konten dari transformasi kode.
   - version: 8.0.0
@@ -116,9 +119,7 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY,
     applicationContext: "Ini adalah aplikasi uji",
   },
-  build: {
-    importMode: "dynamic",
-  },
+  build: {},
 };
 
 export default config;
@@ -146,9 +147,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY,
     applicationContext: "Ini adalah aplikasi uji",
   },
-  build: {
-    importMode: "dynamic",
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -176,9 +175,7 @@ module.exports = config;
     "apiKey": "XXXX",
     "applicationContext": "Ini adalah aplikasi uji",
   },
-  "build": {
-    "importMode": "dynamic",
-  },
+  "build": {},
 }
 ```
 
@@ -718,6 +715,7 @@ Opsi build berlaku untuk plugin `@intlayer/babel` dan `@intlayer/swc`.
   - _Catatan_: Pastikan semua kunci dideklarasikan secara statis dalam panggilan `useIntlayer`. Contoh: `useIntlayer('navbar')`.
 
 - **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _Tipe_: `'static' | 'dynamic' | 'live'`
   - _Default_: `'static'`
   - _Deskripsi_: Mengontrol bagaimana kamus diimpor.

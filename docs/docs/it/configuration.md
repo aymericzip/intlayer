@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: Separare la configurazione del sistema dalla configurazione del contenuto. Spostare i percorsi interni alla proprietà `system`. Aggiungere `codeDir` per separare i file di contenuto dalla trasformazione del codice.
   - version: 8.0.0
@@ -95,9 +98,7 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY, // chiave API per AI
     applicationContext: "This is a test application", // contesto dell'applicazione per AI
   },
-  build: {
-    importMode: "dynamic", // modalità di importazione durante la build
-  },
+  build: {},
 };
 
 export default config;
@@ -124,9 +125,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY, // chiave API per AI
     applicationContext: "Questa è un'applicazione di test", // contesto dell'applicazione per AI
   },
-  build: {
-    importMode: "dynamic", // modalità di importazione
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -150,9 +149,7 @@ module.exports = config;
     "apiKey": "XXXX",
     "applicationContext": "Questa è un'applicazione di test",
   },
-  "build": {
-    "importMode": "dynamic",
-  },
+  "build": {},
 }
 ```
 
@@ -488,6 +485,12 @@ Per ulteriori informazioni sui file di dichiarazione del contenuto e su come ven
 - **description**
 - **locale**
 - **location**
+- **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
+  - _Type_: `'static' | 'dynamic' | 'live'`
+  - _Default_: `'static'`
+  - _Description_: Controls how dictionaries are imported.
+  - _Example_: `'dynamic'`
 - **priority**
 - **live**
 - **schema**
@@ -612,6 +615,7 @@ Le opzioni di build si applicano ai plugin `@intlayer/babel` e `@intlayer/swc`.
   - _Nota_: Assicurarsi che tutte le chiavi siano dichiarate staticamente nelle chiamate a `useIntlayer`. Es. `useIntlayer('navbar')`.
 
 - **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _Tipo_: `'static' | 'dynamic' | 'live'`
   - _Predefinito_: `'static'`
   - _Descrizione_: Controlla come vengono importati i dizionari.

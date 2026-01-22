@@ -3,6 +3,7 @@ import type {
   ContentAutoTransformation,
   DictionaryLocation,
   Fill,
+  ImportMode,
 } from './dictionary';
 import type { Locale } from './locales';
 import type { LocalesValues } from './module_augmentation';
@@ -470,6 +471,8 @@ export type BuildConfig = {
    * - This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions. You can still use them to refine you code on manual optimization.
    * - The "live" allows to sync the dictionaries to the live sync server.
    * - Require static key to work. Example of invalid code: `const navbarKey = "my-key"; useIntlayer(navbarKey)`.
+   *
+   * @deprecated Use `dictionary.importMode` instead.
    */
   importMode: 'static' | 'dynamic' | 'live';
 
@@ -656,7 +659,33 @@ export type DictionaryConfig = {
   locale?: LocalesValues;
   contentAutoTransformation?: ContentAutoTransformation;
   priority?: number;
-  importMode?: 'static' | 'dynamic' | 'live';
+  /**
+   * Indicates the mode of import to use for the dictionaries.
+   *
+   * Available modes:
+   * - "static": The dictionaries are imported statically.
+   *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionary`.
+   * - "dynamic": The dictionaries are imported dynamically in a synchronous component using the suspense API.
+   *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryDynamic`.
+   * - "live": The dictionaries are imported dynamically using the live sync API.
+   *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryDynamic`.
+   *   Live mode will use the live sync API to fetch the dictionaries. If the API call fails, the dictionaries will be imported dynamically as "dynamic" mode.
+   *
+   * Default: "static"
+   *
+   * By default, when a dictionary is loaded, it imports content for all locales as it's imported statically.
+   *
+   * Note:
+   * - Dynamic imports rely on Suspense and may slightly impact rendering performance.
+   * - If desabled all locales will be loaded at once, even if they are not used.
+   * - This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
+   * - Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
+   * - This option will be ignored if `optimize` is disabled.
+   * - This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions. You can still use them to refine you code on manual optimization.
+   * - The "live" allows to sync the dictionaries to the live sync server.
+   * - Require static key to work. Example of invalid code: `const navbarKey = "my-key"; useIntlayer(navbarKey)`.
+   */
+  importMode?: ImportMode;
   title?: string;
   tags?: string[];
   version?: string;

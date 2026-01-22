@@ -72,6 +72,22 @@ export type LocalDictionaryId =
 
 export type DictionaryFormat = 'intlayer' | 'icu' | 'i18next' | 'vue-i18n';
 
+/**
+ * Indicates the mode of import to use for the dictionary.
+ *
+ * Available modes:
+ * - "static": The dictionaries are imported statically.
+ *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionary`.
+ * - "dynamic": The dictionaries are imported dynamically in a synchronous component using the suspense API.
+ *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryDynamic`.
+ * - "live": The dictionaries are imported dynamically using the live sync API.
+ *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryDynamic`.
+ *   Live mode will use the live sync API to fetch the dictionaries. If the API call fails, the dictionaries will be imported dynamically as "dynamic" mode.
+ *
+ * Default: "static"
+ */
+export type ImportMode = 'static' | 'dynamic' | 'live';
+
 export type ContentAutoTransformation =
   | boolean
   | {
@@ -284,18 +300,20 @@ type DictionaryBase = {
   priority?: number;
 
   /**
-   * _Managable on the CMS, do not modify it locally_
-   *
    * Indicates the mode of import to use for the dictionary.
    *
    * Available modes:
    * - "static": The dictionaries are imported statically.
+   *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionary`.
    * - "dynamic": The dictionaries are imported dynamically in a synchronous component using the suspense API.
+   *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryDynamic`.
    * - "live": The dictionaries are imported dynamically using the live sync API.
+   *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryDynamic`.
+   *   Live mode will use the live sync API to fetch the dictionaries. If the API call fails, the dictionaries will be imported dynamically as "dynamic" mode.
    *
-   * Default: undefined
+   * Default: "static"
    */
-  importMode?: 'static' | 'dynamic' | 'live';
+  importMode?: ImportMode;
 
   /**
    * Indicates the location of the dictionary and controls how it synchronizes with the CMS.

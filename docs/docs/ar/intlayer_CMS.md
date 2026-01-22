@@ -312,7 +312,7 @@ const config: IntlayerConfig = {
      */
     liveSync: true,
   },
-  build: {
+  dictionary: {
     /**
      * يتحكم في كيفية استيراد القواميس:
      *
@@ -348,7 +348,7 @@ const config = {
      */
     liveSync: true,
   },
-  build: {
+  dictionary: {
     /**
      * يتحكم في كيفية استيراد القواميس:
      *
@@ -397,7 +397,7 @@ const config = {
      */
     liveSyncURL: "https://live.example.com",
   },
-  build: {
+  dictionary: {
     /**
      * يتحكم في كيفية استيراد القواميس:
      *
@@ -482,9 +482,11 @@ const config: IntlayerConfig = {
     liveSyncURL: "http://localhost:4000",
     liveSync: true,
   },
+  dictionary: {
+    importMode: "live",
+  },
   build: {
     optimize: true,
-    importMode: "live",
   },
 };
 
@@ -500,9 +502,11 @@ const config = {
     liveSyncURL: "http://localhost:4000",
     liveSync: true,
   },
+  dictionary: {
+    importMode: "live",
+  },
   build: {
     optimize: true,
-    importMode: "live",
   },
 };
 
@@ -518,9 +522,11 @@ const config = {
     liveSyncURL: "http://localhost:4000",
     liveSync: true,
   },
+  dictionary: {
+    importMode: "live",
+  },
   build: {
     optimize: true,
-    importMode: "live",
   },
 };
 

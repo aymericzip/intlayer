@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: Розділити конфігурацію системи від конфігурації контенту. Перемістити внутрішні шляхи до властивості `system`. Додати `codeDir` для розділення файлів контенту та перетворення коду.
   - version: 8.0.0
@@ -118,7 +121,6 @@ const config: IntlayerConfig = {
   },
   build: {
     mode: "auto",
-    importMode: "dynamic",
   },
 };
 
@@ -147,9 +149,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY,
     applicationContext: "Це тестовий додаток",
   },
-  build: {
-    importMode: "dynamic",
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -177,9 +177,7 @@ module.exports = config;
     "apiKey": "XXXX",
     "applicationContext": "This is a test application",
   },
-  "build": {
-    "importMode": "dynamic",
-  },
+  "build": {},
 }
 ```
 
@@ -595,6 +593,12 @@ export default defineConfig({
 - **description**
 - **locale**
 - **location**
+- **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
+  - _Type_: `'static' | 'dynamic' | 'live'`
+  - _Default_: `'static'`
+  - _Description_: Controls how dictionaries are imported.
+  - _Example_: `'dynamic'`
 - **priority**
 - **live**
 - **schema**
@@ -726,6 +730,7 @@ Intlayer підтримує кількох постачальників ШІ д�
   - _Примітка_: Переконайтесь, що всі ключі оголошені статично у викликах `useIntlayer`. Наприклад `useIntlayer('navbar')`.
 
 - **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _Тип_: `'static' | 'dynamic' | 'live'`
   - _За замовчуванням_: `'static'`
   - _Опис_: Керує тим, як імпортуються словники.

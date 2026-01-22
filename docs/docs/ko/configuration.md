@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: 시스템 구성에서 콘텐츠 구성을 분리합니다. 내부 경로를 `system` 속성으로 이동합니다. 콘텐츠 파일과 코드 변환을 분리하기 위해 `codeDir`를 추가합니다.
   - version: 8.0.0
@@ -98,9 +101,7 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY, // AI API 키
     applicationContext: "This is a test application", // 애플리케이션 컨텍스트 설명
   },
-  build: {
-    importMode: "dynamic", // 빌드 시 모듈 임포트 모드
-  },
+  build: {},
 };
 
 export default config;
@@ -127,9 +128,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY, // AI API 키
     applicationContext: "This is a test application", // 애플리케이션 컨텍스트 설명
   },
-  build: {
-    importMode: "dynamic", // 빌드 시 모듈 임포트 모드
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -153,9 +152,7 @@ module.exports = config;
     "apiKey": "XXXX",
     "applicationContext": "이것은 테스트 애플리케이션입니다",
   },
-  "build": {
-    "importMode": "dynamic",
-  },
+  "build": {},
 }
 ```
 
@@ -603,6 +600,7 @@ Intlayer가 애플리케이션의 국제화를 최적화하고 빌드하는 방�
   - _참고_: `useIntlayer` 호출에서 모든 키가 정적으로 선언되어 있는지 확인하세요. 예: `useIntlayer('navbar')`.
 
 - **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _유형_: `'static' | 'dynamic' | 'live'`
   - _기본값_: `'static'`
   - _설명_: 사전을 어떻게 가져올지 제어합니다.

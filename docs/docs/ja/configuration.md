@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: システム設定をコンテンツ設定から分離。内部パスを `system` プロパティに移動。コンテンツファイルとコード変換を分離するために `codeDir` を追加。
   - version: 8.0.0
@@ -98,9 +101,7 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY, // AI APIキー
     applicationContext: "This is a test application", // アプリケーションコンテキスト
   },
-  build: {
-    importMode: "dynamic", // インポートモードの設定
-  },
+  build: {},
 };
 
 export default config;
@@ -127,9 +128,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY, // AI APIキー
     applicationContext: "This is a test application", // アプリケーションコンテキスト
   },
-  build: {
-    importMode: "dynamic", // インポートモードの設定
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -153,9 +152,7 @@ module.exports = config;
     "apiKey": "XXXX",
     "applicationContext": "これはテストアプリケーションです",
   },
-  "build": {
-    "importMode": "dynamic",
-  },
+  "build": {},
 }
 ```
 
@@ -601,6 +598,7 @@ Intlayerがアプリケーションの国際化をどのように最適化しビ
   - _注意_: `useIntlayer`の呼び出し内で、すべてのキーが静的に宣言されていることを確認してください。例: `useIntlayer('navbar')`。
 
 - **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _タイプ_: `'static' | 'dynamic' | 'live'`
   - _デフォルト_: `'static'`
   - _説明_: 辞書のインポート方法を制御します。

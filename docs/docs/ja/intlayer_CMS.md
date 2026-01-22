@@ -312,7 +312,7 @@ const config: IntlayerConfig = {
      */
     liveSync: true,
   },
-  build: {
+  dictionary: {
     /**
      * 辞書のインポート方法を制御します：
      *
@@ -348,7 +348,7 @@ const config = {
      */
     liveSync: true,
   },
-  build: {
+  dictionary: {
     /**
      * 辞書のインポート方法を制御します：
      *
@@ -398,7 +398,7 @@ const config = {
      */
     liveSyncURL: "https://live.example.com",
   },
-  build: {
+  dictionary: {
     /**
      * 辞書のインポート方法を制御します：
      *
@@ -483,9 +483,11 @@ const config: IntlayerConfig = {
     liveSyncURL: "http://localhost:4000",
     liveSync: true,
   },
+  dictionary: {
+    importMode: "live",
+  },
   build: {
     optimize: true,
-    importMode: "live",
   },
 };
 
@@ -500,9 +502,11 @@ const config = {
     liveSyncURL: "http://localhost:4000",
     liveSync: true,
   },
+  dictionary: {
+    importMode: "live",
+  },
   build: {
     optimize: true,
-    importMode: "live",
   },
 };
 
@@ -517,9 +521,11 @@ const config = {
     liveSyncURL: "http://localhost:4000",
     liveSync: true,
   },
+  dictionary: {
+    importMode: "live",
+  },
   build: {
     optimize: true,
-    importMode: "live",
   },
 };
 

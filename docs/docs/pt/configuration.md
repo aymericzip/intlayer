@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Move `importMode` build configuration to `dictionary` configuration.
+  - version: 8.0.0
     date: 2026-01-18
     changes: Separar a configuração do sistema da configuração do conteúdo. Mover os caminhos internos para a propriedade `system`. Adicionar `codeDir` para separar os arquivos de conteúdo da transformação do código.
   - version: 8.0.0
@@ -95,9 +98,7 @@ const config: IntlayerConfig = {
     apiKey: process.env.OPENAI_API_KEY, // chave da API para AI
     applicationContext: "This is a test application", // contexto da aplicação para AI
   },
-  build: {
-    importMode: "dynamic", // modo de importação para build
-  },
+  build: {},
 };
 
 export default config;
@@ -124,9 +125,7 @@ const config = {
     apiKey: process.env.OPENAI_API_KEY, // chave da API para AI
     applicationContext: "This is a test application", // contexto da aplicação para AI
   },
-  build: {
-    importMode: "dynamic", // modo de importação para build
-  },
+  build: {},
 };
 
 module.exports = config;
@@ -150,9 +149,7 @@ module.exports = config;
     "apiKey": "XXXX",
     "applicationContext": "Esta é uma aplicação de teste",
   },
-  "build": {
-    "importMode": "dynamic",
-  },
+  "build": {},
 }
 ```
 
@@ -612,6 +609,7 @@ As opções de build se aplicam aos plugins `@intlayer/babel` e `@intlayer/swc`.
   - _Nota_: Certifique-se de que todas as chaves sejam declaradas estaticamente nas chamadas de `useIntlayer`. Exemplo: `useIntlayer('navbar')`.
 
 - **importMode**:
+  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _Tipo_: `'static' | 'dynamic' | 'live'`
   - _Padrão_: `'static'`
   - _Descrição_: Controla como os dicionários são importados.

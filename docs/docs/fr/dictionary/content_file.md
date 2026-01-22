@@ -568,7 +568,7 @@ Le mode d'importation détermine comment votre dictionnaire est importé dans vo
 - `'dynamic'`: Le dictionnaire est importé dynamiquement à l'exécution en utilisant l'API de suspense.
 - `'live'`: Le dictionnaire est importé dynamiquement en utilisant l'API de synchronisation live.
 
-Si défini, cette propriété remplace le `importMode` global défini dans `intlayer.config.ts`.
+Si défini, cette propriété remplace le `importMode` global défini dans `la propriété `dictionary`de`intlayer.config.ts``.
 
 ### Propriétés Système (Générées automatiquement)
 
