@@ -10,5 +10,6 @@ export const getLocale = async (): Promise<Locale> =>
       return getCookie(name, cookieString);
     },
     // Get the header from the request (default: 'x-intlayer-locale')
+    // Fallback using Accept-Language negotiation
     getHeader: (name) => getRequestHeader(name),
   });

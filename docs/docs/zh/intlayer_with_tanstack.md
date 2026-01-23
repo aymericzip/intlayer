@@ -28,6 +28,15 @@ history:
   - version: 7.3.9
     date: 2025-12-05
     changes: 添加步骤 13: 在您的 server actions 中获取 locale (可选)
+  - version: 7.2.3
+    date: 2025-11-18
+    changes: 添加步骤 13: 适配 Nitro
+  - version: 7.1.0
+    date: 2025-11-17
+    changes: 通过添加 getPrefix 函数修复 useLocalizedNavigate、LocaleSwitcher 和 LocalizedLink 的前缀默认值。
+  - version: 6.5.2
+    date: 2025-10-03
+    changes: 更新文档
   - version: 5.8.1
     date: 2025-09-09
     changes: 为 Tanstack Start 添加支持
@@ -58,12 +67,12 @@ history:
 ## 在 Tanstack Start 应用中设置 Intlayer 的分步指南
 
 <Tabs defaultTab="video">
-  <Tab label="Video" value="video">
+  <Tab label="视频" value="video">
   
 <iframe title="Tanstack Start 的最佳 i18n 解决方案？发现 Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/_XTdKVWaeqg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
   </Tab>
-  <Tab label="Code" value="code">
+  <Tab label="代码" value="code">
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-tanstack-start-template?embed=1&ctl=1&file=intlayer.config.ts"
@@ -112,8 +121,7 @@ bunx intlayer init
 
 - **intlayer**
 
-- **intlayer**  
-  核心包，提供用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)、转译以及[命令行工具](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)的国际化工具。
+  核心包，提供用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)，转译以及[命令行工具](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)的国际化工具。
 
 - **react-intlayer**  
   将 Intlayer 集成到 React 应用中的包。它为 React 国际化提供上下文提供者和钩子。
@@ -142,7 +150,7 @@ export default config;
 
 > 通过此配置文件，您可以设置本地化 URL、中间件重定向、cookie 名称、内容声明的位置和扩展名、禁用控制台中的 Intlayer 日志等。有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
-### 第4步：在您的 Vite 配置中集成 Intlayer
+### 第四步：在您的 Vite 配置中集成 Intlayer
 
 将 intlayer 插件添加到您的配置中：
 
@@ -160,9 +168,14 @@ const config = defineConfig({
     viteTsConfigPaths({
       projects: ["./tsconfig.json"],
     }),
-    tanstackStart(),
+    intlayer(),
+    tanstackStart({
+      router: {
+        routeFileIgnorePattern:
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$",
+      },
+    }),
     viteReact(),
-    intlayer(), // To add
   ],
 });
 
@@ -171,35 +184,81 @@ export default config;
 
 > `intlayer()` Vite 插件用于将 Intlayer 集成到 Vite 中。它确保构建内容声明文件并在开发模式下监视它们。它在 Vite 应用中定义了 Intlayer 环境变量。此外，它还提供别名以优化性能。
 
-### 第5步：创建布局组件
+### 第五步：创建根布局
 
-设置您的根布局和特定语言环境的布局：
+配置您的根布局以支持国际化，使用 `useMatches` 检测当前 locale 并在 `html` 标签上设置 `lang` 和 `dir` 属性。
 
-#### 根布局
+```tsx fileName="src/routes/__root.tsx"
+import {
+  createRootRouteWithContext,
+  HeadContent,
+  Outlet,
+  Scripts,
+  useMatches,
+} from "@tanstack/react-router";
+import { defaultLocale, getHTMLTextDir } from "intlayer";
+import { type ReactNode } from "react";
+import { IntlayerProvider } from "react-intlayer";
 
-```tsx fileName="src/routes/{-$locale}/route.tsx"
-import { createFileRoute, Outlet } from "@tanstack/react-router";
-import { IntlayerProvider, useLocale } from "react-intlayer";
-
-import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes";
-
-export const Route = createFileRoute("/{-$locale}")({
-  component: LayoutComponent,
+export const Route = createRootRouteWithContext<{}>()({
+  shellComponent: RootDocument,
 });
 
-function LayoutComponent() {
-  const { defaultLocale } = useLocale();
-  const { locale } = Route.useParams();
+function RootDocument({ children }: { children: ReactNode }) {
+  const matches = useMatches();
+
+  // 尝试在任何活动匹配的参数中找到 locale
+  // 这假设您在路由树中使用动态段 "/{-$locale}"
+  const localeRoute = matches.find((match) => match.routeId === "/{-$locale}");
+  const locale = localeRoute?.params?.locale ?? defaultLocale;
 
   return (
-    <IntlayerProvider locale={locale ?? defaultLocale}>
-      <Outlet />
-    </IntlayerProvider>
+    <html dir={getHTMLTextDir(locale)} lang={locale}>
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+        <Scripts />
+      </body>
+    </html>
   );
 }
 ```
 
-### 第6步：声明您的内容
+### 第六步：创建 Locale 布局
+
+创建一个处理 locale 前缀并执行验证的布局。
+
+```tsx fileName="src/routes/{-$locale}/route.tsx"
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { validatePrefix } from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}")({
+  beforeLoad: ({ params }) => {
+    const localeParam = params.locale;
+
+    // 验证 locale 前缀
+    const { isValid, localePrefix } = validatePrefix(localeParam);
+
+    if (!isValid) {
+      throw redirect({
+        to: "/{-$locale}/404",
+        params: { locale: localePrefix },
+      });
+    }
+  },
+  component: Outlet,
+});
+```
+
+> 这里，`{-$locale}` 是一个动态路由参数，会被当前 locale 替换。此表示法使插槽可选，允许它与 `'prefix-no-default'` 等路由模式一起工作。
+
+> 请注意，如果您在同一路由中使用多个动态段（例如，`/{-$locale}/other-path/$anotherDynamicPath/...`），此插槽可能会导致问题。
+> 对于 `'prefix-all'` 模式，您可能更喜欢将插槽切换为 `$locale`。
+> 对于 `'no-prefix'` 或 `'search-params'` 模式，您可以完全删除插槽。
+
+### 第七步：声明您的内容
 
 创建并管理您的内容声明以存储翻译：
 
@@ -225,6 +284,12 @@ const appContent = {
       }),
     },
     meta: {
+      title: t({
+        zh: "欢迎使用 Intlayer + TanStack Router",
+        en: "Welcome to Intlayer + TanStack Router",
+        es: "Bienvenido a Intlayer + TanStack Router",
+        fr: "Bienvenue à Intlayer + TanStack Router",
+      }),
       description: t({
         zh: "这是一个使用 Intlayer 和 TanStack Router 的示例",
         en: "This is an example of using Intlayer with TanStack Router",
@@ -232,12 +297,6 @@ const appContent = {
         fr: "Ceci est un exemple d'utilisation d'Intlayer avec TanStack Router",
       }),
     },
-    title: t({
-      zh: "欢迎使用 Intlayer + TanStack Router",
-      en: "Welcome to Intlayer + TanStack Router",
-      es: "Bienvenido a Intlayer + TanStack Router",
-      fr: "Bienvenue à Intlayer + TanStack Router",
-    }),
   },
   key: "app",
 } satisfies Dictionary;
@@ -247,9 +306,9 @@ export default appContent;
 
 > 您的内容声明可以在应用程序中的任何位置定义，只要它们被包含在 `contentDir` 目录中（默认是 `./app`）。并且文件扩展名需匹配内容声明文件扩展名（默认是 `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）。
 
-> 更多详情，请参阅[内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)。
+> 更多详情，请参阅[内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
 
-### 第7步：创建支持多语言的组件和钩子
+### 第八步：创建支持多语言的组件和钩子
 
 创建一个用于多语言导航的 `LocalizedLink` 组件：
 
@@ -258,6 +317,7 @@ import type { FC } from "react";
 
 import { Link, type LinkComponentProps } from "@tanstack/react-router";
 import { useLocale } from "react-intlayer";
+import { getPrefix } from "intlayer";
 
 export const LOCALE_ROUTE = "{-$locale}" as const;
 
@@ -310,50 +370,59 @@ export const LocalizedLink: FC<LocalizedLinkProps> = (props) => {
 接下来我们可以创建一个用于编程导航的 `useLocalizedNavigate` 钩子：
 
 ```tsx fileName="src/hooks/useLocalizedNavigate.tsx"
-import { useLocale } from "react-intlayer";
 import { useNavigate } from "@tanstack/react-router";
+import { getPrefix } from "intlayer";
+import { useLocale } from "react-intlayer";
 import { LOCALE_ROUTE } from "@/components/localized-link";
 import type { FileRouteTypes } from "@/routeTree.gen";
+
+type StripLocalePrefix<T extends string> = T extends
+  | `/${typeof LOCALE_ROUTE}`
+  | `/${typeof LOCALE_ROUTE}/`
+  ? "/"
+  : T extends `/${typeof LOCALE_ROUTE}/${infer Rest}`
+    ? `/${Rest}`
+    : never;
+
+type LocalizedTo = StripLocalePrefix<FileRouteTypes["to"]>;
+
+type LocalizedNavigate = {
+  (to: LocalizedTo): ReturnType<ReturnType<typeof useNavigate>>;
+  (
+    opts: { to: LocalizedTo } & Record<string, unknown>
+  ): ReturnType<ReturnType<typeof useNavigate>>;
+};
 
 export const useLocalizedNavigate = () => {
   const navigate = useNavigate();
 
   const { locale } = useLocale();
 
-  type StripLocalePrefix<T extends string> = T extends
-    | `/${typeof LOCALE_ROUTE}`
-    | `/${typeof LOCALE_ROUTE}/`
-    ? "/" // 去除本地化前缀后返回根路径
-    : T extends `/${typeof LOCALE_ROUTE}/${infer Rest}`
-      ? `/${Rest}` // 去除本地化前缀后返回剩余路径
-      : never;
-
-  type LocalizedTo = StripLocalePrefix<FileRouteTypes["to"]>;
-
-  interface LocalizedNavigate {
-    (to: LocalizedTo): ReturnType<typeof navigate>;
-    (
-      opts: { to: LocalizedTo } & Record<string, unknown>
-    ): ReturnType<typeof navigate>;
-  }
-
   const localizedNavigate: LocalizedNavigate = (args: any) => {
+    const { localePrefix } = getPrefix(locale);
+
     if (typeof args === "string") {
-      return navigate({ to: `/${LOCALE_ROUTE}${args}`, params: { locale } });
+      return navigate({
+        to: `/${LOCALE_ROUTE}${args}`,
+        params: { locale: localePrefix },
+      });
     }
 
     const { to, ...rest } = args;
 
-    const localedTo = `/${LOCALE_ROUTE}${to}` as any;
+    const localizedTo = `/${LOCALE_ROUTE}${to}` as any;
 
-    return navigate({ to: localedTo, params: { locale, ...rest } as any });
+    return navigate({
+      to: localizedTo,
+      params: { locale: localePrefix, ...rest } as any,
+    });
   };
 
   return localizedNavigate;
 };
 ```
 
-### 第8步：在您的页面中使用 Intlayer
+### 第九步：在您的页面中使用 Intlayer
 
 在整个应用程序中访问您的内容字典：
 
@@ -412,13 +481,11 @@ function RouteComponent() {
 
 > 要了解更多关于 `useIntlayer` 钩子的内容，请参阅[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useIntlayer.md)。
 
-### 第9步：创建语言切换组件
+### 第十步：创建语言切换组件
 
 创建一个组件，允许用户切换语言：
 
 ```tsx fileName="src/components/locale-switcher.tsx"
-import type { FC } from "react";
-
 import { useLocation } from "@tanstack/react-router";
 import {
   getHTMLTextDir,
@@ -427,16 +494,17 @@ import {
   getPrefix,
   Locales,
 } from "intlayer";
+import type { FC } from "react";
 import { useLocale } from "react-intlayer";
 
-import { LocalizedLink, To } from "./localized-link";
+import { LocalizedLink, type To } from "./localized-link";
 
 export const LocaleSwitcher: FC = () => {
   const { pathname } = useLocation();
 
   const { availableLocales, locale, setLocale } = useLocale();
 
-  const pathWithoutLocale = getPathWithoutLocale(pathname); // 获取不带语言前缀的路径
+  const pathWithoutLocale = getPathWithoutLocale(pathname);
 
   return (
     <ol>
@@ -446,7 +514,7 @@ export const LocaleSwitcher: FC = () => {
             aria-current={localeEl === locale ? "page" : undefined}
             onClick={() => setLocale(localeEl)}
             params={{ locale: getPrefix(localeEl).localePrefix }}
-            to={pathWithoutLocale as To} // 跳转到不带语言前缀的路径
+            to={pathWithoutLocale as To}
           >
             <span>
               {/* 语言环境 - 例如 FR */}
@@ -474,81 +542,64 @@ export const LocaleSwitcher: FC = () => {
 
 > 要了解有关 `useLocale` 钩子的更多信息，请参阅[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)。
 
-### 第10步：添加 HTML 属性管理（可选）
+### 第十一步：HTML 属性管理
 
-创建一个钩子来管理 HTML 的 lang 和 dir 属性：
+如第5步所示，您可以在根组件中使用 `useMatches` 管理 `html` 标签的 `lang` 和 `dir` 属性。这确保在服务器和客户端上正确设置属性。
 
-```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx"
-// src/hooks/useI18nHTMLAttributes.tsx
-import { getHTMLTextDir } from "intlayer";
-import { useEffect } from "react";
-import { useLocale } from "react-intlayer";
+```tsx fileName="src/routes/__root.tsx"
+function RootDocument({ children }: { children: ReactNode }) {
+  const matches = useMatches();
 
-export const useI18nHTMLAttributes = () => {
-  const { locale } = useLocale();
-
-  useEffect(() => {
-    document.documentElement.lang = locale;
-    document.documentElement.dir = getHTMLTextDir(locale);
-  }, [locale]);
-};
-```
-
-然后在你的根组件中使用它：
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute, Outlet } from "@tanstack/react-router";
-import { IntlayerProvider, useLocale } from "react-intlayer";
-
-import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes"; // 导入钩子
-
-export const Route = createFileRoute("/{-$locale}")({
-  component: LayoutComponent,
-});
-
-function LayoutComponent() {
-  useI18nHTMLAttributes(); // 添加此行
-
-  const { defaultLocale } = useLocale();
-  const { locale } = Route.useParams();
+  // 尝试在任何活动匹配的参数中找到 locale
+  const localeRoute = matches.find((match) => match.routeId === "/{-$locale}");
+  const locale = localeRoute?.params?.locale ?? defaultLocale;
 
   return (
-    <IntlayerProvider locale={locale ?? defaultLocale}>
-      <Outlet />
-    </IntlayerProvider>
+    <html dir={getHTMLTextDir(locale)} lang={locale}>
+      {/* ... */}
+    </html>
   );
 }
 ```
 
 ---
 
-### 第11步：添加中间件（可选）
+### 第十二步：添加中间件（可选）
 
 您还可以使用 `intlayerProxy` 为您的应用程序添加服务器端路由。该插件将根据 URL 自动检测当前语言环境，并设置相应的语言环境 Cookie。如果未指定语言环境，插件将根据用户浏览器的语言偏好确定最合适的语言环境。如果未检测到语言环境，它将重定向到默认语言环境。
 
 > 注意，要在生产环境中使用 `intlayerProxy`，您需要将 `vite-intlayer` 包从 `devDependencies` 切换到 `dependencies`。
 
-```typescript {3,7} fileName="vite.config.ts"
-import { reactRouter } from "@react-router/dev/vite";
-import tailwindcss from "@tailwindcss/vite";
+```typescript {7,14-17} fileName="vite.config.ts"
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
+import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
 import { intlayer, intlayerProxy } from "vite-intlayer";
-import tsconfigPaths from "vite-tsconfig-paths";
+import viteTsConfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   plugins: [
     intlayerProxy(), // 如果使用 Nitro，代理应放在服务器之前
-    tailwindcss(),
-    reactRouter(),
-    tsconfigPaths(),
+    nitro(),
+    viteTsConfigPaths({
+      projects: ["./tsconfig.json"],
+    }),
     intlayer(),
+    tanstackStart({
+      router: {
+        routeFileIgnorePattern:
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$",
+      },
+    }),
+    viteReact(),
   ],
 });
 ```
 
 ---
 
-### 第12步：国际化您的元数据（可选）
+### 第十三步：国际化您的元数据（可选）
 
 您还可以使用 `getIntlayer` 钩子在整个应用程序中访问您的内容字典：
 
@@ -574,12 +625,12 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ---
 
-### Step 13: Retrieve the locale in your server actions (Optional)
+### 第十四步：在您的 server actions 中获取 locale（可选）
 
-You may want to access the current locale from inside your server actions or API endpoints.
-You can do this using the `getLocale` helper from `intlayer`.
+您可能希望从 server actions 或 API 端点内部访问当前 locale。
+您可以使用 `intlayer` 中的 `getLocale` 辅助函数来实现这一点。
 
-Here's an example using TanStack Start's server functions:
+以下是使用 TanStack Start 的 server functions 的示例：
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createServerFn } from "@tanstack/react-start";
@@ -591,18 +642,18 @@ import { getCookie, getIntlayer, getLocale } from "intlayer";
 
 export const getLocaleServer = createServerFn().handler(async () => {
   const locale = await getLocale({
-    // Get the cookie from the request (default: 'INTLAYER_LOCALE')
+    // 从请求中获取 cookie（默认：'INTLAYER_LOCALE'）
     getCookie: (name) => {
       const cookieString = getRequestHeader("cookie");
 
       return getCookie(name, cookieString);
     },
-    // Get the header from the request (default: 'x-intlayer-locale')
-    // Fallback using Accept-Language negotiation
+    // 从请求中获取 header（默认：'x-intlayer-locale'）
+    // 使用 Accept-Language 协商作为后备
     getHeader: (name) => getRequestHeader(name),
   });
 
-  // Retrieve some content using getIntlayer()
+  // 使用 getIntlayer() 检索一些内容
   const content = getIntlayer("app", locale);
 
   return { locale, content };
@@ -611,7 +662,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
 
 ---
 
-### 第14步：管理未找到的页面（可选）
+### 第十五步：管理未找到的页面（可选）
 
 当用户访问不存在的页面时，您可以显示自定义的未找到页面，并且区域设置前缀可能会影响未找到页面的触发方式。
 
@@ -645,70 +696,30 @@ export function NotFoundComponent() {
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { validatePrefix } from "intlayer";
-import { IntlayerProvider, useLocale } from "react-intlayer";
-
-import { LocaleSwitcher } from "@/components/locale-switcher";
 import { NotFoundComponent } from "./404";
 
 export const Route = createFileRoute("/{-$locale}")({
   // beforeLoad 在路由渲染之前运行（在服务器和客户端上）
-  // 这是验证区域设置前缀的理想位置
+  // 这是验证 locale 前缀的理想位置
   beforeLoad: ({ params }) => {
-    // 从路由参数获取区域设置（不是从服务器标头，因为 beforeLoad 在客户端和服务器上都会运行）
     const localeParam = params.locale;
 
-    // validatePrefix 检查区域设置是否根据您的 intlayer 配置有效
-    // 返回: { isValid: boolean, localePrefix: string }
-    // - isValid: 如果前缀匹配配置的区域设置（或当前缀可选时为空），则为 true
-    // - localePrefix: 已验证的前缀或用于重定向的默认区域设置前缀
+    // validatePrefix 检查 locale 是否根据您的 intlayer 配置有效
     const { isValid, localePrefix } = validatePrefix(localeParam);
 
-    if (isValid) {
-      // 区域设置有效，允许路由正常渲染
-      return;
+    if (!isValid) {
+      // 无效的 locale 前缀 - 重定向到具有有效 locale 前缀的 404 页面
+      throw redirect({
+        to: "/{-$locale}/404",
+        params: { locale: localePrefix },
+      });
     }
-
-    // 无效的区域设置前缀（例如，/xyz/about 其中 "xyz" 不是有效的区域设置）
-    // 重定向到具有有效区域设置前缀的 404 页面
-    // 这确保 404 页面仍然正确本地化
-    throw redirect({
-      to: "/{-$locale}/404",
-      params: { locale: localePrefix },
-    });
   },
-  component: RouteComponent,
+  component: Outlet,
   // notFoundComponent 在子路由不存在时被调用
   // 例如，/en/不存在的页面 在 /en 布局内触发此操作
-  notFoundComponent: NotFoundLayout,
+  notFoundComponent: NotFoundComponent,
 });
-
-function RouteComponent() {
-  const { defaultLocale } = useLocale();
-  const { locale } = Route.useParams();
-
-  return (
-    // 用 IntlayerProvider 包装整个区域设置段
-    // 当区域设置参数为 undefined 时回退到 defaultLocale（可选前缀模式）
-    <IntlayerProvider locale={locale ?? defaultLocale}>
-      <Outlet />
-    </IntlayerProvider>
-  );
-}
-
-// NotFoundLayout 用 IntlayerProvider 包装 404 组件
-// 这确保翻译在 404 页面上仍然有效
-function NotFoundLayout() {
-  const { defaultLocale } = useLocale();
-  const { locale } = Route.useParams();
-
-  return (
-    <IntlayerProvider locale={locale ?? defaultLocale}>
-      <NotFoundComponent />
-      {/* 包含 LocaleSwitcher，以便用户即使在 404 页面上也可以更改语言 */}
-      <LocaleSwitcher />
-    </IntlayerProvider>
-  );
-}
 ```
 
 ```tsx fileName="src/routes/{-$locale}/$.tsx"
@@ -727,7 +738,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 ---
 
-### 第15步：配置 TypeScript（可选）
+### 第十六步：配置 TypeScript（可选）
 
 Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库更健壮。
 
@@ -789,5 +800,3 @@ Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库�
 - [useLocale hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)
 - [内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)
 - [配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
-
-本综合指南提供了将 Intlayer 与 Tanstack Start 集成所需的一切，支持完全国际化的应用程序，具备基于区域设置的路由和 TypeScript 支持。

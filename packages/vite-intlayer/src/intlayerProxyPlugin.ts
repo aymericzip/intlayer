@@ -31,7 +31,7 @@ type IntlayerProxyPluginOptions = {
    * @param req - The incoming request.
    * @returns A boolean value indicating whether to ignore the request.
    */
-  ignore?: (req: IncomingMessage) => boolean;
+  ignore?: (req: IncomingMessage) => boolean | undefined;
 };
 
 /**
@@ -63,6 +63,10 @@ export const intlayerProxy = (
   const { locales: supportedLocales, defaultLocale } = internationalization;
 
   const { basePath = '', mode = DefaultValues.Routing.ROUTING_MODE } = routing;
+
+  // Track redirect counts per request to detect loops
+  const redirectCounts = new Map<string, number>();
+  const MAX_REDIRECTS = 10;
 
   // Derived flags from routing.mode
   const noPrefix = mode === 'no-prefix' || mode === 'search-params';
@@ -118,8 +122,29 @@ export const intlayerProxy = (
    */
   const redirectUrl = (
     res: ServerResponse<IncomingMessage>,
-    newUrl: string
+    newUrl: string,
+    reason?: string,
+    originalUrl?: string
   ) => {
+    // Track redirect count to detect loops
+    if (originalUrl) {
+      const count = (redirectCounts.get(originalUrl) || 0) + 1;
+      redirectCounts.set(originalUrl, count);
+
+      if (count > MAX_REDIRECTS) {
+        console.error('[REDIRECT LOOP DETECTED!]', {
+          originalUrl,
+          redirectCount: count,
+          lastRedirectTo: newUrl,
+          reason,
+        });
+        res.writeHead(500, { 'Content-Type': 'text/plain' });
+        return res.end(
+          `Redirect loop detected: ${count} redirects from ${originalUrl}`
+        );
+      }
+    }
+
     res.writeHead(301, { Location: newUrl });
     return res.end();
   };
@@ -134,7 +159,9 @@ export const intlayerProxy = (
     newUrl: string,
     locale?: Locale
   ) => {
-    req.url = newUrl;
+    if (req.url !== newUrl) {
+      req.url = newUrl;
+    }
     // If you want to mimic Next.js's behavior of setting a header for the locale:
     if (locale) {
       setLocaleInStorage(locale, {
@@ -160,41 +187,33 @@ export const intlayerProxy = (
   ) => {
     // Strip any incoming locale prefix if present
     const pathWithoutPrefix = currentPath.startsWith(`/${locale}`)
-      ? (currentPath.slice(`/${locale}`.length) ?? '/')
+      ? currentPath.slice(`/${locale}`.length)
       : currentPath;
 
     // Ensure basePath always starts with '/', and remove trailing slash if needed
     const cleanBasePath = basePath.startsWith('/') ? basePath : `/${basePath}`;
-    // If basePath is '/', no trailing slash is needed
-    const normalizedBasePath = cleanBasePath === '/' ? '' : cleanBasePath;
+    const normalizedBasePath = cleanBasePath.endsWith('/')
+      ? cleanBasePath.slice(0, -1)
+      : cleanBasePath;
 
     // In 'search-params' and 'no-prefix' modes, do not prefix the path with the locale
-    if (mode === 'no-prefix') {
+    if (mode === 'no-prefix' || mode === 'search-params') {
       const newPath = search
-        ? `${pathWithoutPrefix}${search}`
-        : pathWithoutPrefix;
-      return newPath;
-    }
-
-    if (mode === 'search-params') {
-      const newPath = search
-        ? `${pathWithoutPrefix}${search}`
-        : pathWithoutPrefix;
+        ? `${pathWithoutPrefix || '/'}${search}`
+        : pathWithoutPrefix || '/';
       return newPath;
     }
 
     // Check if path already starts with locale to avoid double-prefixing
     const pathWithLocalePrefix = currentPath.startsWith(`/${locale}`)
       ? currentPath
-      : `/${locale}${currentPath}`;
+      : `/${locale}${currentPath === '/' ? '' : currentPath}`;
 
-    const basePathTrailingSlash = basePath.endsWith('/');
-
-    let newPath = `${normalizedBasePath}${basePathTrailingSlash ? '' : ''}${pathWithLocalePrefix}`;
+    let newPath = `${normalizedBasePath}${pathWithLocalePrefix}`;
 
     // Special case: if prefixDefault is false and locale is defaultLocale, remove the locale prefix
     if (!prefixDefault && locale === defaultLocale) {
-      newPath = `${normalizedBasePath}${pathWithoutPrefix}`;
+      newPath = `${normalizedBasePath}${pathWithoutPrefix || '/'}`;
     }
 
     // Append search parameters if provided
@@ -222,6 +241,7 @@ export const intlayerProxy = (
     originalPath,
     searchParams,
     storageLocale,
+    originalUrl,
   }: {
     req: Connect.IncomingMessage;
     res: ServerResponse<IncomingMessage>;
@@ -229,6 +249,7 @@ export const intlayerProxy = (
     originalPath: string;
     searchParams: string;
     storageLocale?: Locale;
+    originalUrl?: string;
   }) => {
     const pathLocale = getPathLocale(originalPath);
     // Determine the best locale
@@ -256,7 +277,7 @@ export const intlayerProxy = (
         ? `${canonicalPath}${search}`
         : `${canonicalPath}${searchParams ?? ''}`;
 
-      return redirectUrl(res, redirectPath);
+      return redirectUrl(res, redirectPath, undefined, originalUrl);
     }
 
     const canonicalPath = getCanonicalPath(originalPath, locale);
@@ -270,7 +291,9 @@ export const intlayerProxy = (
       // If the existing locale matches the detected locale, no redirect needed
       if (existingLocale === locale) {
         // For internal routing, we need to add the locale prefix so the framework can match [locale] param
-        const internalPath = `/${locale}${canonicalPath}`;
+        const internalPath = `/${locale}${
+          canonicalPath === '/' ? '' : canonicalPath
+        }`;
         const rewritePath = `${internalPath}${searchParams ?? ''}`;
 
         // Rewrite internally (URL stays the same in browser, but internally routes to /[locale]/path)
@@ -285,11 +308,13 @@ export const intlayerProxy = (
         : `${originalPath}${searchParams ?? ''}`;
 
       // Redirect to add/update the locale search param (URL changes in browser)
-      return redirectUrl(res, redirectPath);
+      return redirectUrl(res, redirectPath, undefined, originalUrl);
     }
 
     // For no-prefix mode (not search-params), add locale prefix internally for routing
-    const internalPath = `/${locale}${canonicalPath}`;
+    const internalPath = `/${locale}${
+      canonicalPath === '/' ? '' : canonicalPath
+    }`;
 
     // Add search params if needed
     const search = appendLocaleSearchIfNeeded(searchParams, locale);
@@ -316,6 +341,7 @@ export const intlayerProxy = (
     searchParams,
     pathLocale,
     storageLocale,
+    originalUrl,
   }: {
     req: Connect.IncomingMessage;
     res: ServerResponse<IncomingMessage>;
@@ -324,6 +350,7 @@ export const intlayerProxy = (
     searchParams: string;
     pathLocale?: Locale;
     storageLocale?: Locale;
+    originalUrl?: string;
   }) => {
     // 1. If pathLocale is missing, handle
     if (!pathLocale) {
@@ -334,6 +361,7 @@ export const intlayerProxy = (
         originalPath,
         searchParams,
         storageLocale,
+        originalUrl,
       });
       return;
     }
@@ -346,6 +374,7 @@ export const intlayerProxy = (
       originalPath,
       searchParams,
       pathLocale,
+      originalUrl,
     });
   };
 
@@ -360,6 +389,7 @@ export const intlayerProxy = (
     originalPath,
     searchParams,
     storageLocale,
+    originalUrl,
   }: {
     req: Connect.IncomingMessage;
     res: ServerResponse<IncomingMessage>;
@@ -367,6 +397,7 @@ export const intlayerProxy = (
     originalPath: string;
     searchParams: string;
     storageLocale?: Locale;
+    originalUrl?: string;
   }) => {
     // 1. Choose the best locale
     let locale = (storageLocale ??
@@ -396,11 +427,16 @@ export const intlayerProxy = (
     // If we always prefix default or if this is not the default locale, do a 301 redirect
     // so that the user sees the locale in the URL.
     if (prefixDefault || locale !== defaultLocale) {
-      return redirectUrl(res, newPath);
+      return redirectUrl(res, newPath, undefined, originalUrl);
     }
 
     // If we do NOT prefix the default locale, just rewrite in place using canonical path for framework matching
-    rewriteUrl(req, res, `/${locale}${canonicalPath}`, locale);
+    rewriteUrl(
+      req,
+      res,
+      `/${locale}${canonicalPath === '/' ? '' : canonicalPath}`,
+      locale
+    );
     return next();
   };
 
@@ -414,6 +450,7 @@ export const intlayerProxy = (
     originalPath,
     searchParams,
     pathLocale,
+    originalUrl,
   }: {
     req: Connect.IncomingMessage;
     res: ServerResponse<IncomingMessage>;
@@ -421,8 +458,9 @@ export const intlayerProxy = (
     originalPath: string;
     searchParams: string;
     pathLocale: Locale;
+    originalUrl?: string;
   }) => {
-    const rawPath = originalPath.slice(`/${pathLocale}`.length) || '/';
+    const rawPath = originalPath.slice(`/${pathLocale}`.length);
 
     // Identify the Canonical Path (Internal path)
     // Ex: /a-propos (from URL) -> /about (Canonical)
@@ -438,6 +476,7 @@ export const intlayerProxy = (
       searchParams,
       pathLocale,
       canonicalPath,
+      originalUrl,
     });
   };
 
@@ -452,6 +491,7 @@ export const intlayerProxy = (
     searchParams,
     pathLocale,
     canonicalPath,
+    originalUrl,
   }: {
     req: Connect.IncomingMessage;
     res: ServerResponse<IncomingMessage>;
@@ -460,6 +500,7 @@ export const intlayerProxy = (
     searchParams: string;
     pathLocale: Locale;
     canonicalPath: string;
+    originalUrl?: string;
   }) => {
     // If we don't prefix default AND the path locale is the default locale -> remove it
     if (!prefixDefault && pathLocale === defaultLocale) {
@@ -469,7 +510,9 @@ export const intlayerProxy = (
       const cleanBasePath = basePath.startsWith('/')
         ? basePath
         : `/${basePath}`;
-      const normalizedBasePath = cleanBasePath === '/' ? '' : cleanBasePath;
+      const normalizedBasePath = cleanBasePath.endsWith('/')
+        ? cleanBasePath.slice(0, -1)
+        : cleanBasePath;
 
       let finalPath = targetLocalizedPath;
       if (finalPath.startsWith('/')) finalPath = finalPath.slice(1);
@@ -479,11 +522,18 @@ export const intlayerProxy = (
         '/'
       );
 
-      return redirectUrl(res, fullPath + (searchParams ?? ''));
+      return redirectUrl(
+        res,
+        fullPath + (searchParams ?? ''),
+        undefined,
+        originalUrl
+      );
     }
 
     // If we do prefix default or pathLocale != default, keep as is, but rewrite to canonical internally
-    const internalUrl = `/${pathLocale}${canonicalPath}`;
+    const internalUrl = `/${pathLocale}${
+      canonicalPath === '/' ? '' : canonicalPath
+    }`;
     const newPath = searchParams
       ? `${internalUrl}${searchParams}`
       : internalUrl;
@@ -542,6 +592,9 @@ export const intlayerProxy = (
             ? pathLocale
             : storageLocale;
 
+        // Store original URL for redirect tracking
+        const originalUrl = req.url;
+
         // If noPrefix is true, we skip prefix logic altogether
         if (noPrefix) {
           handleNoPrefix({
@@ -551,6 +604,7 @@ export const intlayerProxy = (
             originalPath,
             searchParams,
             storageLocale: effectiveStorageLocale,
+            originalUrl,
           });
           return;
         }
@@ -564,8 +618,14 @@ export const intlayerProxy = (
           searchParams,
           pathLocale,
           storageLocale: effectiveStorageLocale,
+          originalUrl,
         });
       });
+
+      // Clean up redirect counts periodically (every 100 requests)
+      if (redirectCounts.size > 100) {
+        redirectCounts.clear();
+      }
     },
   };
 };

@@ -1,14 +1,18 @@
-import { useQuery } from '@tanstack/react-query';
+import { QueryClientProvider, useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { useIntlayer, useLocale } from 'react-intlayer';
 
+import { queryClient } from '@/router';
 import { getLocale } from '@/utils/getLocale';
 
 export const Route = createFileRoute('/{-$locale}/')({
-  component: App,
+  component: () => (
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
+  ),
   head: ({ params }) => {
-    const { locale } = params;
-    const { meta } = getIntlayer('app', locale);
+    const { meta } = getIntlayer('app', params.locale);
 
     return {
       meta: [meta],

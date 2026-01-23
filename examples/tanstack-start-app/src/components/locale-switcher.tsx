@@ -7,6 +7,7 @@ import {
 } from 'intlayer';
 import type { FC } from 'react';
 import { setLocaleInStorage, useIntlayer, useLocale } from 'react-intlayer';
+
 import { LocalizedLink, type To } from './localized-link';
 
 export const LocaleSwitcher: FC = () => {

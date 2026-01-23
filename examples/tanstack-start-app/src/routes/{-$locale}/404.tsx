@@ -8,7 +8,7 @@ export const Route = createFileRoute('/{-$locale}/404')({
 });
 
 export function NotFoundComponent() {
-  const { title, subtitle, backHome, lostMessage } = useIntlayer('not-found');
+  const { backHome, lostMessage, subtitle, title } = useIntlayer('not-found');
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-linear-to-b from-slate-900 via-slate-800 to-slate-900 px-4 text-center">
@@ -38,8 +38,8 @@ export function NotFoundComponent() {
         <p className="max-w-md text-slate-400 text-xl">{subtitle}</p>
 
         <LocalizedLink
-          to="/"
           className="mt-4 rounded-xl bg-blue-600 px-8 py-4 font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-blue-500/25 hover:shadow-lg"
+          to="/"
         >
           {backHome}
         </LocalizedLink>

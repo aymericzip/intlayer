@@ -8,14 +8,20 @@ import viteTsConfigPaths from 'vite-tsconfig-paths';
 
 const config = defineConfig({
   plugins: [
-    intlayerProxy(),
+    intlayerProxy({}, { ignore: (req) => req.url?.startsWith('/api') }), // To redirect the user to his own locale. Should be placed before nitro
+
     nitro(),
     viteTsConfigPaths({
       projects: ['./tsconfig.json'],
     }),
     intlayer(),
     tailwindcss(),
-    tanstackStart(),
+    tanstackStart({
+      router: {
+        routeFileIgnorePattern:
+          '.content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$',
+      },
+    }),
     viteReact(),
   ],
 });

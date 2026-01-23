@@ -10,8 +10,8 @@ export const useLocalizedNavigate = () => {
   const { locale } = useLocale();
 
   type StripLocalePrefix<T extends string> = T extends
-    | `/${typeof LOCALE_ROUTE}`
     | `/${typeof LOCALE_ROUTE}/`
+    | `/${typeof LOCALE_ROUTE}`
     ? '/'
     : T extends `/${typeof LOCALE_ROUTE}/${infer Rest}`
       ? `/${Rest}`
@@ -19,28 +19,29 @@ export const useLocalizedNavigate = () => {
 
   type LocalizedTo = StripLocalePrefix<FileRouteTypes['to']>;
 
-  interface LocalizedNavigate {
-    (to: LocalizedTo): ReturnType<typeof navigate>;
-    (
-      opts: { to: LocalizedTo } & Record<string, unknown>
-    ): ReturnType<typeof navigate>;
-  }
+  type LocalizedNavigate = (
+    args: ({ to: LocalizedTo } & Record<string, unknown>) | LocalizedTo
+  ) => ReturnType<typeof navigate>;
 
-  const localizedNavigate: LocalizedNavigate = (args: any) => {
+  const localizedNavigate: LocalizedNavigate = (args) => {
     if (typeof args === 'string') {
       return navigate({
-        to: `/${LOCALE_ROUTE}${args}`,
         params: { locale: getPrefix(locale).localePrefix },
+        to: `/${LOCALE_ROUTE}${args}`,
       });
     }
 
-    const { to, ...rest } = args;
+    const { params: existingParams, to, ...rest } = args;
 
     const localizedTo = `/${LOCALE_ROUTE}${to}`;
 
     return navigate({
+      ...rest,
+      params: {
+        locale: getPrefix(locale).localePrefix,
+        ...(existingParams ?? {}),
+      },
       to: localizedTo,
-      params: { locale: getPrefix(locale).localePrefix, ...rest },
     });
   };
 
