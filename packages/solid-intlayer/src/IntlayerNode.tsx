@@ -21,39 +21,38 @@ export const renderIntlayerNode = <
   value,
   additionalProps,
 }: RenderIntlayerNodeProps<T>): IntlayerNode<T> => {
-  // In Solid.js, we handle JSX.Element differently than other frameworks
-  // We need to ensure we have a valid element or wrap in a fragment
-  const element = <>{children}</>;
+  // In Solid.js, we must return something that Solid can render.
+  // Arrays are renderable. We can attach metadata to the array object itself.
+  const target = [children] as any;
 
-  // Ensure we have an object to proxy
-  // If element is a primitive, we need to wrap it in an object
-  const target =
-    typeof element === 'object' && element !== null
-      ? element
-      : { __element: element };
+  // Attach metadata
+  target.value = value;
 
-  // Return a Proxy that pretends to be the original element
-  // but also has a .value getter.
-  return new Proxy(target as any, {
+  if (additionalProps) {
+    for (const key in additionalProps) {
+      target[key] = additionalProps[key];
+    }
+  }
+
+  // We still use a Proxy to ensure that accessing properties like 'toString'
+  // or others behaves nicely, and to maintain compatibility with the type.
+  // But we target the array directly.
+  return new Proxy(target, {
     get(target, prop, receiver) {
       if (prop === 'value') {
         return value;
       }
 
-      if (
-        additionalProps &&
-        Object.keys(additionalProps).includes(prop as string)
-      ) {
-        return additionalProps[prop as keyof typeof additionalProps];
+      if (prop === 'toString') {
+        return () => String(value);
       }
 
-      // If we wrapped a primitive, return the primitive for most accesses
-      if (
-        '__element' in target &&
-        prop !== 'value' &&
-        !additionalProps?.[prop as string]
-      ) {
-        return target.__element;
+      if (prop === Symbol.toPrimitive) {
+        return (hint: string) => {
+          if (hint === 'string') return String(value);
+          if (hint === 'number') return Number(value);
+          return value;
+        };
       }
 
       return Reflect.get(target, prop, receiver);

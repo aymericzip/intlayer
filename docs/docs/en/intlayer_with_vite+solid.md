@@ -14,7 +14,7 @@ slugs:
   - doc
   - environment
   - vite-and-solid
-# applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
+applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 history:
   - version: 7.5.9
     date: 2025-12-30
@@ -26,9 +26,28 @@ history:
 
 # Translate your Vite and Solid website using Intlayer | Internationalization (i18n)
 
-> This package is in development. See the [issue](https://github.com/aymericzip/intlayer/issues/117) for more information. Show your interest in Intlayer for Solid by liking the issue
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
+  
+<iframe title="The best i18n solution for Vite and Solid? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
 
-<!-- See [Application Template](https://github.com/aymericzip/intlayer-solid-template) on GitHub. -->
+  </Tab>
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-vite-solid-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
+## Table of Contents
+
+<TOC/>
 
 ## What is Intlayer?
 
@@ -155,34 +174,34 @@ Add the intlayer plugin into your configuration.
 
 ```typescript fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import solid from "vite-plugin-solid";
 import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intlayer()],
+  plugins: [solid(), intlayer()],
 });
 ```
 
 ```javascript fileName="vite.config.mjs" codeFormat="esm"
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import solid from "vite-plugin-solid";
 import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intlayer()],
+  plugins: [solid(), intlayer()],
 });
 ```
 
 ```javascript fileName="vite.config.cjs" codeFormat="commonjs"
 const { defineConfig } = require("vite");
-const react = require("@vitejs/plugin-react-swc");
+const solid = require("vite-plugin-solid");
 const { intlayer } = require("vite-intlayer");
 
 // https://vitejs.dev/config/
 module.exports = defineConfig({
-  plugins: [react(), intlayer()],
+  plugins: [solid(), intlayer()],
 });
 ```
 
@@ -197,7 +216,34 @@ import { t, type Dictionary } from "intlayer";
 
 const appContent = {
   key: "app",
-  content: {},
+  content: {
+    viteLogo: t({
+      en: "Vite logo",
+      fr: "Logo Vite",
+      es: "Logo Vite",
+    }),
+    solidLogo: t({
+      en: "Solid logo",
+      fr: "Logo Solid",
+      es: "Logo Solid",
+    }),
+    title: "Vite + Solid",
+    count: t({
+      en: "count is {{count}}",
+      fr: "le compte est {{count}}",
+      es: "el recuento es {{count}}",
+    }),
+    edit: t({
+      en: "Edit src/App.tsx and save to test HMR",
+      fr: "Éditez src/App.tsx et enregistrez pour tester HMR",
+      es: "Edita src/App.tsx y guarda para probar HMR",
+    }),
+    readTheDocs: t({
+      en: "Click on the Vite and Solid logos to learn more",
+      fr: "Cliquez sur les logos Vite et Solid pour en savoir plus",
+      es: "Haga clic en los logotipos de Vite and Solid para obtener más información",
+    }),
+  },
 } satisfies Dictionary;
 
 export default appContent;
@@ -209,7 +255,34 @@ import { t } from "intlayer";
 /** @type {import('intlayer').Dictionary} */
 const appContent = {
   key: "app",
-  content: {},
+  content: {
+    viteLogo: t({
+      en: "Vite logo",
+      fr: "Logo Vite",
+      es: "Logo Vite",
+    }),
+    solidLogo: t({
+      en: "Solid logo",
+      fr: "Logo Solid",
+      es: "Logo Solid",
+    }),
+    title: "Vite + Solid",
+    count: t({
+      en: "count is {{count}}",
+      fr: "le compte est {{count}}",
+      es: "el recuento es {{count}}",
+    }),
+    edit: t({
+      en: "Edit src/App.tsx and save to test HMR",
+      fr: "Éditez src/App.tsx et enregistrez pour tester HMR",
+      es: "Edita src/App.tsx y guarda para probar HMR",
+    }),
+    readTheDocs: t({
+      en: "Click on the Vite and Solid logos to learn more",
+      fr: "Cliquez sur les logos Vite and Solid pour en savoir plus",
+      es: "Haga clic en los logotipos de Vite and Solid para obtener más información",
+    }),
+  },
 };
 
 export default appContent;
@@ -221,7 +294,34 @@ const { t } = require("intlayer");
 /** @type {import('intlayer').Dictionary} */
 const appContent = {
   key: "app",
-  content: {},
+  content: {
+    viteLogo: t({
+      en: "Vite logo",
+      fr: "Logo Vite",
+      es: "Logo Vite",
+    }),
+    solidLogo: t({
+      en: "Solid logo",
+      fr: "Logo Solid",
+      es: "Logo Solid",
+    }),
+    title: "Vite + Solid",
+    count: t({
+      en: "count is {{count}}",
+      fr: "le compte est {{count}}",
+      es: "el recuento es {{count}}",
+    }),
+    edit: t({
+      en: "Edit src/App.tsx and save to test HMR",
+      fr: "Éditez src/App.tsx et enregistrez pour tester HMR",
+      es: "Edita src/App.tsx y guarda para probar HMR",
+    }),
+    readTheDocs: t({
+      en: "Click on the Vite and Solid logos to learn more",
+      fr: "Cliquez sur les logos Vite and Solid pour en savoir plus",
+      es: "Haga clic en los logotipos de Vite and Solid para obtener más información",
+    }),
+  },
 };
 
 module.exports = appContent;
@@ -231,37 +331,347 @@ module.exports = appContent;
 {
   "$schema": "https://intlayer.org/schema.json",
   "key": "app",
-  "content": {}
+  "content": {
+    "viteLogo": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Vite logo",
+        "fr": "Logo Vite",
+        "es": "Logo Vite"
+      }
+    },
+    "solidLogo": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Solid logo",
+        "fr": "Logo Solid",
+        "es": "Logo Solid"
+      }
+    },
+    "title": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Vite + Solid",
+        "fr": "Vite + Solid",
+        "es": "Vite + Solid"
+      }
+    },
+    "count": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "count is {{count}}",
+        "fr": "le compte est {{count}}",
+        "es": "el recuento es {{count}}"
+      }
+    },
+    "edit": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Edit src/App.tsx and save to test HMR",
+        "fr": "Éditez src/App.tsx et enregistrez pour tester HMR",
+        "es": "Edita src/App.tsx y guarda para probar HMR"
+      }
+    },
+    "readTheDocs": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Click on the Vite and Solid logos to learn more",
+        "fr": "Cliquez sur les logos Vite and Solid pour en savoir plus",
+        "es": "Haga clic en los logotipos de Vite and Solid para obtener más información"
+      }
+    }
+  }
 }
 ```
 
 > Your content declarations can be defined anywhere in your application as soon they are included into the `contentDir` directory (by default, `./src`). And match the content declaration file extension (by default, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
-
+>
 > For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
 
 ### Step 5: Utilize Intlayer in Your Code
 
-[to complete]
+Access your content dictionaries throughout your application:
+
+```tsx {1,11} fileName="src/App.tsx" codeFormat="typescript"
+import { createSignal, type Component } from "solid-js";
+import solidLogo from "./assets/solid.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import { IntlayerProvider, useIntlayer } from "solid-intlayer";
+
+const AppContent: Component = () => {
+  const [count, setCount] = createSignal(0);
+  const content = useIntlayer("app");
+
+  return (
+    <>
+      <div>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src={viteLogo} class="logo" alt={content().viteLogo.value} />
+        </a>
+        <a href="https://www.solidjs.com/" target="_blank">
+          <img
+            src={solidLogo}
+            class="logo solid"
+            alt={content().solidLogo.value}
+          />
+        </a>
+      </div>
+      <h1>{content().title}</h1>
+      <div class="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          {content().count({ count: count() })}
+        </button>
+        <p>{content().edit}</p>
+      </div>
+      <p class="read-the-docs">{content().readTheDocs}</p>
+    </>
+  );
+};
+
+const App: Component = () => (
+  <IntlayerProvider>
+    <AppContent />
+  </IntlayerProvider>
+);
+
+export default App;
+```
+
+> [!NOTE]
+> In Solid, `useIntlayer` returns an **accessor** function (e.g., `content()`). You must call this function to access the reactive content.
+
+> If you want to use your content in a `string` attribute, such as `alt`, `title`, `href`, `aria-label`, etc., you must call the value of the function, like:
+>
+> ```jsx
+> <img src={content().image.src.value} alt={content().image.value} />
+> ```
 
 ### (Optional) Step 6: Change the language of your content
 
-[to complete]
+To change the language of your content, you can use the `setLocale` function provided by the `useLocale` hook. This function allows you to set the locale of the application and update the content accordingly.
+
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+import { type Component, For } from "solid-js";
+import { Locales } from "intlayer";
+import { useLocale } from "solid-intlayer";
+
+const LocaleSwitcher: Component = () => {
+  const { locale, setLocale, availableLocales } = useLocale();
+
+  return (
+    <select
+      value={locale()}
+      onChange={(e) => setLocale(e.currentTarget.value as Locales)}
+    >
+      <For each={availableLocales}>
+        {(loc) => (
+          <option value={loc} selected={loc === locale()}>
+            {loc}
+          </option>
+        )}
+      </For>
+    </select>
+  );
+};
+```
 
 ### (Optional) Step 7: Add localized Routing to your application
 
-[to complete]
+The purpose of this step is to make unique routes for each language. This is useful for SEO and SEO-friendly URLs.
+Example:
+
+```plaintext
+- https://example.com/about
+- https://example.com/es/about
+- https://example.com/fr/about
+```
+
+To add localized routing to your application, you can use `@solidjs/router`.
+
+First, install the necessary dependencies:
+
+```bash packageManager="npm"
+npm install @solidjs/router
+```
+
+Then, wrap your application with the `Router` and define your routes using `localeMap`:
+
+```tsx fileName="src/index.tsx"  codeFormat="typescript"
+import { render } from "solid-js/web";
+import { Router } from "@solidjs/router";
+import App from "./App";
+
+const root = document.getElementById("root");
+
+render(
+  () => (
+    <Router>
+      <App />
+    </Router>
+  ),
+  root!
+);
+```
+
+```tsx fileName="src/App.tsx" codeFormat="typescript"
+import { type Component } from "solid-js";
+import { Route } from "@solidjs/router";
+import { localeMap } from "intlayer";
+import { IntlayerProvider } from "solid-intlayer";
+import Home from "./pages/Home";
+import About from "./pages/About";
+
+const App: Component = () => (
+  <IntlayerProvider>
+    {localeMap(({ locale, urlPrefix }) => (
+      <Route
+        path={urlPrefix || "/"}
+        component={(props: any) => (
+          <IntlayerProvider locale={locale}>{props.children}</IntlayerProvider>
+        )}
+      >
+        <Route path="/" component={Home} />
+        <Route path="/about" component={About} />
+      </Route>
+    ))}
+  </IntlayerProvider>
+);
+
+export default App;
+```
 
 ### (Optional) Step 8: Change the URL when the locale changes
 
-[to complete]
+To change the URL when the locale changes, you can use the `onLocaleChange` prop provided by the `useLocale` hook. You can use the `useNavigate` and `useLocation` hooks from `@solidjs/router` to update the URL path.
+
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+import { type Component, For } from "solid-js";
+import { useLocation, useNavigate } from "@solidjs/router";
+import { getLocalizedUrl } from "intlayer";
+import { useLocale } from "solid-intlayer";
+
+const LocaleSwitcher: Component = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { locale, setLocale, availableLocales } = useLocale({
+    onLocaleChange: (loc) => {
+      const pathWithLocale = getLocalizedUrl(location.pathname, loc);
+      navigate(pathWithLocale);
+    },
+  });
+
+  return (
+    <select
+      value={locale()}
+      onChange={(e) => setLocale(e.currentTarget.value as any)}
+    >
+      <For each={availableLocales}>
+        {(loc) => (
+          <option value={loc} selected={loc === locale()}>
+            {loc}
+          </option>
+        )}
+      </For>
+    </select>
+  );
+};
+```
 
 ### (Optional) Step 9: Switch the HTML Language and Direction Attributes
 
-[to complete]
+Update the `<html>` tag's `lang` and `dir` attributes to match the current locale for accessibility and SEO.
+
+```tsx fileName="src/App.tsx" codeFormat="typescript"
+import { createEffect, type Component } from "solid-js";
+import { useLocale } from "solid-intlayer";
+import { getHTMLTextDir } from "intlayer";
+
+const AppContent: Component = () => {
+  const { locale } = useLocale();
+
+  createEffect(() => {
+    document.documentElement.lang = locale();
+    document.documentElement.dir = getHTMLTextDir(locale());
+  });
+
+  return (
+    // ... Your application content
+  );
+};
+```
 
 ### (Optional) Step 10: Creating a Localized Link Component
 
-[to complete]
+Create a custom `Link` component that automatically prefixes internal URLs with the current language.
+
+```tsx fileName="src/components/Link.tsx" codeFormat="typescript"
+import { type ParentComponent } from "solid-js";
+import { A, type AnchorProps } from "@solidjs/router";
+import { getLocalizedUrl } from "intlayer";
+import { useLocale } from "solid-intlayer";
+
+export const Link: ParentComponent<AnchorProps> = (props) => {
+  const { locale } = useLocale();
+
+  const isExternal = () => props.href.startsWith("http");
+  const localizedHref = () =>
+    isExternal() ? props.href : getLocalizedUrl(props.href, locale());
+
+  return <A {...props} href={localizedHref()} />;
+};
+```
+
+### (Optional) Step 11: Render Markdown
+
+Intlayer supports rendering Markdown content directly in your Solid application using its own internal parser. By default, Markdown is treated as plain text. To render it as rich HTML, wrap your application with the `MarkdownProvider`.
+
+```tsx fileName="src/index.tsx"
+import { render } from "solid-js/web";
+import { MarkdownProvider } from "solid-intlayer";
+import App from "./App";
+
+const root = document.getElementById("root");
+
+render(
+  () => (
+    <MarkdownProvider>
+      <App />
+    </MarkdownProvider>
+  ),
+  root!
+);
+```
+
+Then you can use it in your components:
+
+```tsx
+import { useIntlayer } from "solid-intlayer";
+
+const MyComponent = () => {
+  const content = useIntlayer("my-content");
+
+  return (
+    <div>
+      {/* Renders as HTML via MarkdownProvider */}
+      {content().markdownContent}
+    </div>
+  );
+};
+```
+
+### Configure TypeScript
+
+Ensure your TypeScript configuration includes the autogenerated types.
+
+```json5 fileName="tsconfig.json"
+{
+  "compilerOptions": {
+    // ...
+  },
+  "include": ["src", ".intlayer/**/*.ts"],
+}
+```
 
 ### Git Configuration
 
@@ -280,19 +690,8 @@ To improve your development experience with Intlayer, you can install the offici
 
 [Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
-This extension provides:
-
-- **Autocompletion** for translation keys.
-- **Real-time error detection** for missing translations.
-- **Inline previews** of translated content.
-- **Quick actions** to easily create and update translations.
-
-For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://intlayer.org/doc/vs-code-extension).
-
 ---
 
 ### Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
-
----

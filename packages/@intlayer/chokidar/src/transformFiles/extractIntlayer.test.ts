@@ -107,6 +107,42 @@ export const Test = () => {
     );
   });
 
+  it('should extract text from Solid patterns using accessor syntax', async () => {
+    const componentPath = join(tmpDir, 'SolidTest.tsx');
+    const componentCode = `
+export const SolidTest = () => {
+  return (
+    <div>
+      <h1>Hello World (should be extracted)</h1>
+      <input placeholder="This is the placeholder (should be extracted)" />
+    </div>
+  );
+};
+`;
+    writeFileSync(componentPath, componentCode);
+
+    await extractIntlayer(componentPath, 'solid-intlayer');
+
+    const updatedCode = readFileSync(componentPath, 'utf-8');
+
+    // Imports
+    expect(updatedCode).toContain(
+      "import { useIntlayer } from 'solid-intlayer';"
+    );
+    // Hook
+    expect(updatedCode).toContain("const content = useIntlayer('solid-test');");
+
+    // JSX Text - should use content() accessor
+    expect(updatedCode).toContain(
+      '<h1>{content().helloWorldShouldBeExtracted}</h1>'
+    );
+
+    // Attribute - should use content() accessor
+    expect(updatedCode).toContain(
+      'placeholder={content().thisIsThePlaceholderShould.value}'
+    );
+  });
+
   it('should skip text that should not be extracted', async () => {
     const componentPath = join(tmpDir, 'SkipTest.tsx');
     const componentCode = `

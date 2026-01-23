@@ -14,7 +14,7 @@ slugs:
   - doc
   - environment
   - vite-and-solid
-# applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
+applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 history:
   - version: 7.5.9
     date: 2025-12-30
@@ -25,6 +25,29 @@ history:
 ---
 
 # Getting Started Internationalising (i18n) with Intlayer and Vite and Solid
+
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
+  
+<iframe title="The best i18n solution for Vite and Solid? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
+
+  </Tab>
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-vite-solid-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
+## Table of Contents
+
+<TOC/>
 
 > This package is in development. See the [issue](https://github.com/aymericzip/intlayer/issues/117) for more information. Show your interest in Intlayer for Solid by liking the issue
 
@@ -44,6 +67,10 @@ With Intlayer, you can:
 ---
 
 ## Step-by-Step Guide to Set Up Intlayer in a Vite and Solid Application
+
+## Table of Contents
+
+<TOC/>
 
 ### Step 1: Install Dependencies
 
@@ -239,27 +266,288 @@ module.exports = appContent;
 
 ### Step 5: Utilise Intlayer in Your Code
 
-[to complete]
+Access your content dictionaries throughout your application:
+
+```tsx {1,11} fileName="src/App.tsx" codeFormat="typescript"
+import { createSignal, type Component } from "solid-js";
+import solidLogo from "./assets/solid.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import { IntlayerProvider, useIntlayer } from "solid-intlayer";
+
+const AppContent: Component = () => {
+  const [count, setCount] = createSignal(0);
+  const content = useIntlayer("app");
+
+  return (
+    <>
+      <div>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src={viteLogo} class="logo" alt={content().viteLogo.value} />
+        </a>
+        <a href="https://www.solidjs.com/" target="_blank">
+          <img
+            src={solidLogo}
+            class="logo solid"
+            alt={content().solidLogo.value}
+          />
+        </a>
+      </div>
+      <h1>{content().title}</h1>
+      <div class="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          {content().count({ count: count() })}
+        </button>
+        <p>{content().edit}</p>
+      </div>
+      <p class="read-the-docs">{content().readTheDocs}</p>
+    </>
+  );
+};
+
+const App: Component = () => (
+  <IntlayerProvider>
+    <AppContent />
+  </IntlayerProvider>
+);
+
+export default App;
+```
+
+> [!NOTE]
+> In Solid, `useIntlayer` returns an **accessor** function (e.g., `content()`). You must call this function to access the reactive content.
+
+> If you want to use your content in a `string` attribute, such as `alt`, `title`, `href`, `aria-label`, etc., you must call the value of the function, like:
+>
+> ```jsx
+> <img src={content().image.src.value} alt={content().image.value} />
+> ```
 
 ### (Optional) Step 6: Change the language of your content
 
-[to complete]
+To change the language of your content, you can use the `setLocale` function provided by the `useLocale` hook. This function allows you to set the locale of the application and update the content accordingly.
+
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+import { type Component, For } from "solid-js";
+import { Locales } from "intlayer";
+import { useLocale } from "solid-intlayer";
+
+const LocaleSwitcher: Component = () => {
+  const { locale, setLocale, availableLocales } = useLocale();
+
+  return (
+    <select
+      value={locale()}
+      onChange={(e) => setLocale(e.currentTarget.value as Locales)}
+    >
+      <For each={availableLocales}>
+        {(loc) => (
+          <option value={loc} selected={loc === locale()}>
+            {loc}
+          </option>
+        )}
+      </For>
+    </select>
+  );
+};
+```
 
 ### (Optional) Step 7: Add localised Routing to your application
 
-[to complete]
+The purpose of this step is to make unique routes for each language. This is useful for SEO and SEO-friendly URLs.
+Example:
+
+```plaintext
+- https://example.com/about
+- https://example.com/es/about
+- https://example.com/fr/about
+```
+
+To add localised routing to your application, you can use `@solidjs/router`.
+
+First, install the necessary dependencies:
+
+```bash packageManager="npm"
+npm install @solidjs/router
+```
+
+Then, wrap your application with the `Router` and define your routes using `localeMap`:
+
+```tsx fileName="src/index.tsx"  codeFormat="typescript"
+import { render } from "solid-js/web";
+import { Router } from "@solidjs/router";
+import App from "./App";
+
+const root = document.getElementById("root");
+
+render(
+  () => (
+    <Router>
+      <App />
+    </Router>
+  ),
+  root!
+);
+```
+
+```tsx fileName="src/App.tsx" codeFormat="typescript"
+import { type Component } from "solid-js";
+import { Route } from "@solidjs/router";
+import { localeMap } from "intlayer";
+import { IntlayerProvider } from "solid-intlayer";
+import Home from "./pages/Home";
+import About from "./pages/About";
+
+const App: Component = () => (
+  <IntlayerProvider>
+    {localeMap(({ locale, urlPrefix }) => (
+      <Route
+        path={urlPrefix || "/"}
+        component={(props: any) => (
+          <IntlayerProvider locale={locale}>{props.children}</IntlayerProvider>
+        )}
+      >
+        <Route path="/" component={Home} />
+        <Route path="/about" component={About} />
+      </Route>
+    ))}
+  </IntlayerProvider>
+);
+
+export default App;
+```
 
 ### (Optional) Step 8: Change the URL when the locale changes
 
-[to complete]
+To change the URL when the locale changes, you can use the `onLocaleChange` prop provided by the `useLocale` hook. You can use the `useNavigate` and `useLocation` hooks from `@solidjs/router` to update the URL path.
+
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+import { type Component, For } from "solid-js";
+import { useLocation, useNavigate } from "@solidjs/router";
+import { getLocalizedUrl } from "intlayer";
+import { useLocale } from "solid-intlayer";
+
+const LocaleSwitcher: Component = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { locale, setLocale, availableLocales } = useLocale({
+    onLocaleChange: (loc) => {
+      const pathWithLocale = getLocalizedUrl(location.pathname, loc);
+      navigate(pathWithLocale);
+    },
+  });
+
+  return (
+    <select
+      value={locale()}
+      onChange={(e) => setLocale(e.currentTarget.value as any)}
+    >
+      <For each={availableLocales}>
+        {(loc) => (
+          <option value={loc} selected={loc === locale()}>
+            {loc}
+          </option>
+        )}
+      </For>
+    </select>
+  );
+};
+```
 
 ### (Optional) Step 9: Switch the HTML Language and Direction Attributes
 
-[to complete]
+Update the `<html>` tag's `lang` and `dir` attributes to match the current locale for accessibility and SEO.
+
+```tsx fileName="src/App.tsx" codeFormat="typescript"
+import { createEffect, type Component } from "solid-js";
+import { useLocale } from "solid-intlayer";
+import { getHTMLTextDir } from "intlayer";
+
+const AppContent: Component = () => {
+  const { locale } = useLocale();
+
+  createEffect(() => {
+    document.documentElement.lang = locale();
+    document.documentElement.dir = getHTMLTextDir(locale());
+  });
+
+  return (
+    // ... Your application content
+  );
+};
+```
 
 ### (Optional) Step 10: Creating a Localised Link Component
 
-[to complete]
+Create a custom `Link` component that automatically prefixes internal URLs with the current language.
+
+```tsx fileName="src/components/Link.tsx" codeFormat="typescript"
+import { type ParentComponent } from "solid-js";
+import { A, type AnchorProps } from "@solidjs/router";
+import { getLocalizedUrl } from "intlayer";
+import { useLocale } from "solid-intlayer";
+
+export const Link: ParentComponent<AnchorProps> = (props) => {
+  const { locale } = useLocale();
+
+  const isExternal = () => props.href.startsWith("http");
+  const localizedHref = () =>
+    isExternal() ? props.href : getLocalizedUrl(props.href, locale());
+
+  return <A {...props} href={localizedHref()} />;
+};
+```
+
+### (Optional) Step 11: Render Markdown
+
+Intlayer supports rendering Markdown content directly in your Solid application using its own internal parser. By default, Markdown is treated as plain text. To render it as rich HTML, wrap your application with the `MarkdownProvider`.
+
+```tsx fileName="src/index.tsx"
+import { render } from "solid-js/web";
+import { MarkdownProvider } from "solid-intlayer";
+import App from "./App";
+
+const root = document.getElementById("root");
+
+render(
+  () => (
+    <MarkdownProvider>
+      <App />
+    </MarkdownProvider>
+  ),
+  root!
+);
+```
+
+Then you can use it in your components:
+
+```tsx
+import { useIntlayer } from "solid-intlayer";
+
+const MyComponent = () => {
+  const content = useIntlayer("my-content");
+
+  return (
+    <div>
+      {/* Renders as HTML via MarkdownProvider */}
+      {content().markdownContent}
+    </div>
+  );
+};
+```
+
+### Configure TypeScript
+
+Ensure your TypeScript configuration includes the autogenerated types.
+
+```json5 fileName="tsconfig.json"
+{
+  "compilerOptions": {
+    // ...
+  },
+  "include": ["src", ".intlayer/**/*.ts"],
+}
+```
 
 ### Git Configuration
 

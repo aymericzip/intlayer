@@ -5,6 +5,7 @@ import {
   type ParentProps,
   useContext,
 } from 'solid-js';
+import { compileMarkdown } from './compiler';
 
 type RenderMarkdownOptions = {
   components?: any;
@@ -74,10 +75,7 @@ export const MarkdownProvider: Component<MarkdownProviderProps> = (props) => {
       },
     };
 
-    // Note: In solid-intlayer, we need a compiler that returns JSX elements.
-    // If it's missing, we just return content.
-    // Assuming there is a compiler available or it's handled by props.renderMarkdown
-    return content;
+    return compileMarkdown(content, mergedOptions);
   };
 
   return (

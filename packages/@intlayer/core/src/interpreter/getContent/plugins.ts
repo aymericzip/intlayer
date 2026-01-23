@@ -129,7 +129,16 @@ export const enumerationPlugin: Plugins = {
       );
     }
 
-    return (quantity: number) => getEnumeration(result, quantity);
+    return (arg: number | { count: number }) => {
+      const quantity = typeof arg === 'number' ? arg : arg.count;
+      const subResult = getEnumeration(result, quantity);
+
+      if (typeof subResult === 'function' && typeof arg === 'object') {
+        return subResult(arg);
+      }
+
+      return subResult;
+    };
   },
 };
 
@@ -142,7 +151,7 @@ export type ConditionCond<T, S, L> = T extends {
   [NodeType.Condition]: object;
 }
   ? (
-      value: boolean
+      value: boolean | { value: boolean }
     ) => DeepTransformContent<
       T[NodeType.Condition][keyof T[NodeType.Condition]],
       S
@@ -173,7 +182,16 @@ export const conditionPlugin: Plugins = {
       );
     }
 
-    return (value: boolean) => getCondition(result, value);
+    return (arg: boolean | { value: boolean }) => {
+      const value = typeof arg === 'boolean' ? arg : arg.value;
+      const subResult = getCondition(result, value);
+
+      if (typeof subResult === 'function' && typeof arg === 'object') {
+        return subResult(arg);
+      }
+
+      return subResult;
+    };
   },
 };
 

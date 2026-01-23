@@ -9,6 +9,7 @@ import {
   type InsertionContent,
   type MarkdownContent,
   type Plugins,
+  splitInsertionTemplate,
 } from '@intlayer/core';
 import {
   type DeclaredLocales,
@@ -74,7 +75,8 @@ export type SolidNodeCond<T> = T extends {
 export const solidNodePlugins: Plugins = {
   id: 'solid-node-plugin',
   canHandle: (node) =>
-    typeof node === 'object' && typeof node.props !== 'undefined',
+    (typeof node === 'object' && node?.props !== undefined) ||
+    (typeof Node !== 'undefined' && node instanceof Node),
 
   transform: (
     node,
@@ -88,7 +90,9 @@ export const solidNodePlugins: Plugins = {
       value: '[[solid-element]]',
       children: (
         <ContentSelectorRenderer {...rest}>
-          {renderSolidElement(node)}
+          {typeof Node !== 'undefined' && node instanceof Node
+            ? node
+            : renderSolidElement(node)}
         </ContentSelectorRenderer>
       ),
     }),
@@ -111,66 +115,21 @@ export type InsertionCond<T, _S, _L> = T extends {
   : never;
 
 /**
- * Check if a value is a JSX element
- */
-const isJSXElement = (value: any): value is JSX.Element => {
-  return (
-    value !== null &&
-    value !== undefined &&
-    typeof value !== 'string' &&
-    typeof value !== 'number' &&
-    typeof value !== 'boolean'
-  );
-};
-
-/**
  * Split insertion string and join with JSX elements
  */
 const splitAndJoinInsertion = (
   template: string,
   values: Record<string, string | number | JSX.Element>
 ): JSX.Element => {
-  // Check if any value is a JSX element
-  const hasJSXElement = Object.values(values).some(isJSXElement);
+  const result = splitInsertionTemplate(template, values);
 
-  if (!hasJSXElement) {
+  if (result.isSimple) {
     // Simple string replacement
-    return template.replace(/\{\{\s*(.*?)\s*\}\}/g, (_, key) => {
-      const trimmedKey = key.trim();
-      return (values[trimmedKey] ?? '').toString();
-    }) as any;
-  }
-
-  // Split the template by placeholders while keeping the structure
-  const parts: (string | JSX.Element)[] = [];
-  let lastIndex = 0;
-  const regex = /\{\{\s*(.*?)\s*\}\}/g;
-  let match: RegExpExecArray | null = regex.exec(template);
-
-  while (match !== null) {
-    // Add text before the placeholder
-    if (match.index > lastIndex) {
-      parts.push(template.substring(lastIndex, match.index));
-    }
-
-    // Add the replaced value
-    const key = match[1].trim();
-    const value = values[key];
-    if (value !== undefined && value !== null) {
-      parts.push(value);
-    }
-
-    lastIndex = match.index + match[0].length;
-    match = regex.exec(template);
-  }
-
-  // Add remaining text
-  if (lastIndex < template.length) {
-    parts.push(template.substring(lastIndex));
+    return result.parts as string;
   }
 
   // Return as JSX array
-  return (<>{parts}</>) as JSX.Element;
+  return result.parts as any[] as JSX.Element;
 };
 
 /** Insertion plugin for Solid. Handles component/element insertion. */
@@ -236,7 +195,7 @@ export const insertionPlugin: Plugins = {
  */
 
 export type MarkdownStringCond<T> = T extends string
-  ? IntlayerNode<string, { metadata: DeepTransformContent<string> }>
+  ? IntlayerNode<string, { metadata: DeepTransformContentCore<string> }>
   : never;
 
 /** Markdown string plugin. Replaces string node with a component that render the markdown. */
@@ -403,8 +362,9 @@ export const htmlPlugin: Plugins = {
     };
 
     const element = render() as any;
+    const target = [element];
 
-    return new Proxy(element, {
+    return new Proxy(target as any, {
       get(target, prop, receiver) {
         if (prop === 'value') {
           return html;

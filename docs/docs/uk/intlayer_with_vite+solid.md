@@ -14,7 +14,7 @@ slugs:
   - doc
   - environment
   - vite-and-solid
-# applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
+applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 history:
   - version: 7.5.9
     date: 2025-12-30
@@ -25,6 +25,29 @@ history:
 ---
 
 # Перекладіть свій вебсайт на Vite і Solid за допомогою Intlayer | Інтернаціоналізація (i18n)
+
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
+  
+<iframe title="The best i18n solution for Vite and Solid? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
+
+  </Tab>
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-vite-solid-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
+## Table of Contents
+
+<TOC/>
 
 > Цей пакет знаходиться в розробці. Див. [issue](https://github.com/aymericzip/intlayer/issues/117) для отримання додаткової інформації. Підтримайте зацікавленість до Intlayer для Solid, поставивши лайк цьому issue
 
@@ -241,31 +264,290 @@ module.exports = appContent;
 
 > Для детальнішої інформації зверніться до [документації щодо декларації контенту](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md).
 
-### Step 5: Utilize Intlayer in Your Code
+### Крок 5: Використання Intlayer у вашому коді
 
-[доопрацювати]
+Отримайте доступ до ваших словників контенту в усьому додатку:
 
-### (Необов'язково) Step 6: Change the language of your content
+```tsx {1,11} fileName="src/App.tsx" codeFormat="typescript"
+import { createSignal, type Component } from "solid-js";
+import solidLogo from "./assets/solid.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import { IntlayerProvider, useIntlayer } from "solid-intlayer";
 
-[доопрацювати]
+const AppContent: Component = () => {
+  const [count, setCount] = createSignal(0);
+  const content = useIntlayer("app");
 
-### (Необов'язково) Step 7: Add localized Routing to your application
+  return (
+    <>
+      <div>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src={viteLogo} class="logo" alt={content().viteLogo.value} />
+        </a>
+        <a href="https://www.solidjs.com/" target="_blank">
+          <img
+            src={solidLogo}
+            class="logo solid"
+            alt={content().solidLogo.value}
+          />
+        </a>
+      </div>
+      <h1>{content().title}</h1>
+      <div class="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          {content().count({ count: count() })}
+        </button>
+        <p>{content().edit}</p>
+      </div>
+      <p class="read-the-docs">{content().readTheDocs}</p>
+    </>
+  );
+};
 
-[доопрацювати]
+const App: Component = () => (
+  <IntlayerProvider>
+    <AppContent />
+  </IntlayerProvider>
+);
 
-### (Необов'язково) Step 8: Change the URL when the locale changes
+export default App;
+```
 
-[доопрацювати]
+> [!NOTE]
+> У Solid, `useIntlayer` повертає функцію **accessor** (наприклад, `content()`). Ви повинні викликати цю функцію для доступу до реактивного контенту.
 
-### (Необов'язково) Step 9: Switch the HTML Language and Direction Attributes
+> Якщо ви хочете використовувати ваш контент у атрибуті `string`, такому як `alt`, `title`, `href`, `aria-label` тощо, ви повинні викликати значення функції, як:
+>
+> ```jsx
+> <img src={content().image.src.value} alt={content().image.value} />
+> ```
 
-[доопрацювати]
+### (Необов'язково) Крок 6: Змінити мову вашого контенту
 
-[до завершення]
+Щоб змінити мову вашого контенту, ви можете використовувати функцію `setLocale`, надану хуком `useLocale`. Ця функція дозволяє вам встановити locale додатку та оновити контент відповідно.
+
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+import { type Component, For } from "solid-js";
+import { Locales } from "intlayer";
+import { useLocale } from "solid-intlayer";
+
+const LocaleSwitcher: Component = () => {
+  const { locale, setLocale, availableLocales } = useLocale();
+
+  return (
+    <select
+      value={locale()}
+      onChange={(e) => setLocale(e.currentTarget.value as Locales)}
+    >
+      <For each={availableLocales}>
+        {(loc) => (
+          <option value={loc} selected={loc === locale()}>
+            {loc}
+          </option>
+        )}
+      </For>
+    </select>
+  );
+};
+```
+
+### (Необов'язково) Крок 7: Додати локалізовану маршрутизацію до вашого додатку
+
+Мета цього кроку - створити унікальні маршрути для кожної мови. Це корисно для SEO та SEO-дружніх URL.
+Приклад:
+
+```plaintext
+- https://example.com/about
+- https://example.com/es/about
+- https://example.com/fr/about
+```
+
+Щоб додати локалізовану маршрутизацію до вашого додатку, ви можете використовувати `@solidjs/router`.
+
+Спочатку встановіть необхідні залежності:
+
+```bash packageManager="npm"
+npm install @solidjs/router
+```
+
+Потім обгорніть ваш додаток у `Router` та визначте ваші маршрути, використовуючи `localeMap`:
+
+```tsx fileName="src/index.tsx"  codeFormat="typescript"
+import { render } from "solid-js/web";
+import { Router } from "@solidjs/router";
+import App from "./App";
+
+const root = document.getElementById("root");
+
+render(
+  () => (
+    <Router>
+      <App />
+    </Router>
+  ),
+  root!
+);
+```
+
+```tsx fileName="src/App.tsx" codeFormat="typescript"
+import { type Component } from "solid-js";
+import { Route } from "@solidjs/router";
+import { localeMap } from "intlayer";
+import { IntlayerProvider } from "solid-intlayer";
+import Home from "./pages/Home";
+import About from "./pages/About";
+
+const App: Component = () => (
+  <IntlayerProvider>
+    {localeMap(({ locale, urlPrefix }) => (
+      <Route
+        path={urlPrefix || "/"}
+        component={(props: any) => (
+          <IntlayerProvider locale={locale}>{props.children}</IntlayerProvider>
+        )}
+      >
+        <Route path="/" component={Home} />
+        <Route path="/about" component={About} />
+      </Route>
+    ))}
+  </IntlayerProvider>
+);
+
+export default App;
+```
+
+### (Необов'язково) Крок 8: Змінити URL при зміні locale
+
+Щоб змінити URL при зміні locale, ви можете використовувати prop `onLocaleChange`, наданий хуком `useLocale`. Ви можете використовувати хуки `useNavigate` та `useLocation` з `@solidjs/router` для оновлення шляху URL.
+
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+import { type Component, For } from "solid-js";
+import { useLocation, useNavigate } from "@solidjs/router";
+import { getLocalizedUrl } from "intlayer";
+import { useLocale } from "solid-intlayer";
+
+const LocaleSwitcher: Component = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { locale, setLocale, availableLocales } = useLocale({
+    onLocaleChange: (loc) => {
+      const pathWithLocale = getLocalizedUrl(location.pathname, loc);
+      navigate(pathWithLocale);
+    },
+  });
+
+  return (
+    <select
+      value={locale()}
+      onChange={(e) => setLocale(e.currentTarget.value as any)}
+    >
+      <For each={availableLocales}>
+        {(loc) => (
+          <option value={loc} selected={loc === locale()}>
+            {loc}
+          </option>
+        )}
+      </For>
+    </select>
+  );
+};
+```
+
+### (Необов'язково) Крок 9: Переключити атрибути мови та напрямку HTML
+
+Оновіть атрибути `lang` та `dir` тега `<html>`, щоб вони відповідали поточному locale для доступності та SEO.
+
+```tsx fileName="src/App.tsx" codeFormat="typescript"
+import { createEffect, type Component } from "solid-js";
+import { useLocale } from "solid-intlayer";
+import { getHTMLTextDir } from "intlayer";
+
+const AppContent: Component = () => {
+  const { locale } = useLocale();
+
+  createEffect(() => {
+    document.documentElement.lang = locale();
+    document.documentElement.dir = getHTMLTextDir(locale());
+  });
+
+  return (
+    // ... Контент вашого додатку
+  );
+};
+```
 
 ### (Необов'язково) Крок 10: Створення локалізованого компонента посилання
 
-[до завершення]
+Створіть користувацький компонент `Link`, який автоматично додає префікс внутрішніх URL поточною мовою.
+
+```tsx fileName="src/components/Link.tsx" codeFormat="typescript"
+import { type ParentComponent } from "solid-js";
+import { A, type AnchorProps } from "@solidjs/router";
+import { getLocalizedUrl } from "intlayer";
+import { useLocale } from "solid-intlayer";
+
+export const Link: ParentComponent<AnchorProps> = (props) => {
+  const { locale } = useLocale();
+
+  const isExternal = () => props.href.startsWith("http");
+  const localizedHref = () =>
+    isExternal() ? props.href : getLocalizedUrl(props.href, locale());
+
+  return <A {...props} href={localizedHref()} />;
+};
+```
+
+### (Необов'язково) Крок 11: Рендеринг Markdown
+
+Intlayer підтримує рендеринг контенту Markdown безпосередньо у вашому додатку Solid, використовуючи власний внутрішній парсер. За замовчуванням Markdown обробляється як звичайний текст. Щоб відрендерити його як багатий HTML, обгорніть ваш додаток у `MarkdownProvider`.
+
+```tsx fileName="src/index.tsx"
+import { render } from "solid-js/web";
+import { MarkdownProvider } from "solid-intlayer";
+import App from "./App";
+
+const root = document.getElementById("root");
+
+render(
+  () => (
+    <MarkdownProvider>
+      <App />
+    </MarkdownProvider>
+  ),
+  root!
+);
+```
+
+Потім ви можете використовувати його у ваших компонентах:
+
+```tsx
+import { useIntlayer } from "solid-intlayer";
+
+const MyComponent = () => {
+  const content = useIntlayer("my-content");
+
+  return (
+    <div>
+      {/* Рендериться як HTML через MarkdownProvider */}
+      {content().markdownContent}
+    </div>
+  );
+};
+```
+
+### Налаштування TypeScript
+
+Переконайтеся, що ваша конфігурація TypeScript включає автоматично згенеровані типи.
+
+```json5 fileName="tsconfig.json"
+{
+  "compilerOptions": {
+    // ...
+  },
+  "include": ["src", ".intlayer/**/*.ts"],
+}
+```
 
 ### Конфігурація Git
 

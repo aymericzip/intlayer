@@ -31,16 +31,18 @@ const isComplexValue = (value: any): boolean => {
  */
 export const splitInsertionTemplate = <T = any>(
   template: string,
-  values: Record<string, T>
+  values: Record<string, T> = {}
 ): { isSimple: boolean; parts: string | T[] } => {
+  const safeValues = values ?? {};
+
   // Check if any value is a complex object (React/Vue node, etc.)
-  const hasComplexValue = Object.values(values).some(isComplexValue);
+  const hasComplexValue = Object.values(safeValues).some(isComplexValue);
 
   if (!hasComplexValue) {
     // Simple string replacement
     const result = template.replace(/\{\{\s*(.*?)\s*\}\}/g, (_, key) => {
       const trimmedKey = key.trim();
-      return (values[trimmedKey] ?? '').toString();
+      return (safeValues[trimmedKey] ?? '').toString();
     });
     return { isSimple: true, parts: result };
   }
@@ -59,7 +61,7 @@ export const splitInsertionTemplate = <T = any>(
 
     // Add the replaced value
     const key = match[1].trim();
-    const value = values[key];
+    const value = safeValues[key];
     if (value !== undefined && value !== null) {
       parts.push(value);
     }

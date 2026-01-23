@@ -16,7 +16,7 @@ import { detectFormatCommand } from '../writeContentDeclaration/detectFormatComm
 import { extractDictionaryKey } from './extractDictionaryKey';
 
 // ==========================================
-// 1. Shared Utilities (exported for reuse in babel plugin)
+// Shared Utilities (exported for reuse in babel plugin)
 // ==========================================
 
 /**
@@ -231,13 +231,13 @@ const extractTsContent = (
 };
 
 // ==========================================
-// 2. React (TS-Morph) Strategy
+// React (TS-Morph) Strategy
 // ==========================================
 
-const processReactFile = async (
+const processTsxFile = async (
   filePath: string,
   componentKey: string,
-  packageName: string,
+  packageName: PackageName,
   project: Project,
   save: boolean = true
 ) => {
@@ -248,6 +248,8 @@ const processReactFile = async (
     sourceFile = project.getSourceFileOrThrow(filePath);
   }
 
+  const isSolid = packageName === 'solid-intlayer';
+
   const existingKeys = new Set<string>();
   const { extractedContent, replacements } = extractTsContent(
     sourceFile,
@@ -257,13 +259,15 @@ const processReactFile = async (
   if (Object.keys(extractedContent).length === 0) return null;
 
   for (const { node, key, type } of replacements) {
+    const contentAccess = isSolid ? `content().${key}` : `content.${key}`;
+
     if (type === 'jsx-text' && Node.isJsxText(node)) {
-      node.replaceWithText(`{content.${key}}`);
+      node.replaceWithText(`{${contentAccess}}`);
     } else if (type === 'jsx-attribute' && Node.isJsxAttribute(node)) {
-      node.setInitializer(`{content.${key}.value}`);
+      node.setInitializer(`{${contentAccess}.value}`);
     } else if (type === 'string-literal' && Node.isStringLiteral(node)) {
       // For React/JS variables, we usually want the value
-      node.replaceWithText(`content.${key}.value`);
+      node.replaceWithText(`${contentAccess}.value`);
     }
   }
 
@@ -415,7 +419,7 @@ export const extractIntlayer = async (
       throw error;
     }
   } else if (['.tsx', '.jsx', '.ts', '.js'].includes(ext)) {
-    extractedContent = await processReactFile(
+    extractedContent = await processTsxFile(
       filePath,
       componentKey,
       packageName,

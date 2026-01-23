@@ -73,7 +73,21 @@ export const getSandBoxContext = (options?: SandBoxContextOptions): Context => {
       React: baseRequire('react'),
     };
   } catch (_err) {
-    // React is not installed, so we don't inject it
+    // React is not installed, so we inject a dummy React object to capture JSX elements
+    // This allows using JSX in content declarations even if React is not installed (e.g. in Solid.js or Vue projects)
+    // because esbuild's tsx loader defaults to React.createElement.
+    additionalGlobalVar = {
+      React: {
+        createElement: (type: any, props: any, ...children: any[]) => ({
+          type,
+          props: {
+            ...props,
+            children: children.length <= 1 ? children[0] : children,
+          },
+        }),
+        Fragment: Symbol.for('react.fragment'),
+      },
+    };
   }
 
   const sandboxContext: Context = {

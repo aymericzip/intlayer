@@ -1,6 +1,6 @@
 import configuration from '@intlayer/config/built';
 import type { DeclaredLocales, LocalesValues } from '@intlayer/types';
-import { createEffect, useContext } from 'solid-js';
+import { type Accessor, createEffect, useContext } from 'solid-js';
 import { IntlayerClientContext } from './IntlayerProvider';
 import { setLocaleInStorage } from './useLocaleStorage';
 
@@ -10,7 +10,7 @@ type useLocaleProps = {
 };
 
 type UseLocaleResult = {
-  locale: DeclaredLocales;
+  locale: Accessor<DeclaredLocales>;
   defaultLocale: DeclaredLocales;
   availableLocales: DeclaredLocales[];
   setLocale: (locale: LocalesValues) => void;
