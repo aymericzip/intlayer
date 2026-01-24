@@ -65,7 +65,7 @@ const AppContent: FC = () => {
 
       <div>
         <h2>HTML:</h2>
-        {content.insertion({ count: 200 })}
+        {content.insertion({ count: <p>200</p> })}
         {content.html}
         {content.html.use({
           b: (props) => <h1 {...props} style={{ background: 'blue' }} />,

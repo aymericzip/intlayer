@@ -49,7 +49,13 @@ Here is a list:
       })
     ),
 
-    insertion: insert('test {{ count }}'), // works
+    insertion: insert(
+      t({
+        en: 'test en {{ count }}',
+        fr: 'test fr {{ count }}',
+        es: 'test es {{ count }}',
+      })
+    ),
     viteLogo: t({
       en: 'Vite logo',
       fr: 'Logo Vite',
