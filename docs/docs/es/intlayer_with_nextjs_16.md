@@ -20,6 +20,9 @@ history:
   - version: 7.5.9
     date: 2025-12-30
     changes: Agregar comando init
+  - version: 7.0.6
+    date: 2025-11-01
+    changes: Se agregó la mención de `x-default` en el objeto `alternates`
   - version: 7.0.0
     date: 2025-06-29
     changes: Historial inicial
@@ -64,7 +67,9 @@ Con Intlayer, puedes:
 - **Garantizar soporte para TypeScript** con tipos autogenerados, mejorando la autocompletación y la detección de errores.
 - **Benefíciate de funciones avanzadas**, como la detección y el cambio dinámico de locales.
 
-> Intlayer es compatible con Next.js 12, 13, 14 y 16. Si usas Next.js Page Router, puedes consultar esta [guía](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_page_router.md). Para Next.js 12, 13, 14 con App Router, consulta esta [guía](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_14.md).
+> Intlayer es compatible con Next.js 12, 13, 14 y 16. Si usas Next.js Page Router, puedes consultar esta [guía](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_page_router.md).
+> El enrutamiento regional es útil para el SEO, el tamaño del paquete (bundle) y el rendimiento. Si no lo necesitas, puedes consultar esta [guía](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_no_locale_path.md).
+> Para Next.js 12, 13, 14 con App Router, consulta esta [guía](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_14.md).
 
 ---
 
@@ -96,7 +101,7 @@ bunx intlayer init
 
 - **intlayer**
 
-  El paquete principal que proporciona herramientas de internacionalización para la gestión de configuración, traducción, [declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md), transpilación y [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_cli.md).
+  El paquete principal que proporciona herramientas de internacionalización para la gestión de configuración, traducción, [declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md), transpilación y [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/index.md).
 
 - **next-intlayer**
 
@@ -248,6 +253,14 @@ module.exports = withIntlayer(nextConfig);
 >
 > export default nextConfigWithOtherPlugins;
 > ```
+>
+> Intlayer detecta automáticamente si su proyecto utiliza **webpack** o **Turbopack** según los flags de línea de comandos `--webpack`, `--turbo` o `--turbopack`, así como su versión actual de **Next.js**.
+>
+> Desde `next>=16`, si utiliza **Rspack**, debe forzar explícitamente a Intlayer a usar la configuración de webpack deshabilitando Turbopack:
+>
+> ```ts
+> withRspack(withIntlayer(nextConfig, { enableTurbopack: false }));
+> ```
 
 ### Paso 4: Definir Rutas Dinámicas de Localización
 
@@ -385,7 +398,7 @@ module.exports = { default: LocaleLayout, generateStaticParams };
 ```
 
 > `generateStaticParams` asegura que tu aplicación preconstruya las páginas necesarias para todos los locales, reduciendo el cálculo en tiempo de ejecución y mejorando la experiencia del usuario. Para más detalles, consulta la [documentación de Next.js sobre generateStaticParams](https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering#generate-static-params).
-
+>
 > Intlayer funciona con `export const dynamic = 'force-static';` para asegurar que las páginas se preconstruyan para todos los locales.
 
 ### Paso 5: Declara Tu Contenido
@@ -1699,6 +1712,8 @@ bunx intlayer init
 > Nota: Esta optimización solo está disponible para Next.js 13 y versiones superiores.
 
 > Nota: Este paquete no se instala por defecto porque los plugins SWC aún son experimentales en Next.js. Esto podría cambiar en el futuro.
+>
+> Nota: Si establece la opción como `importMode: 'dynamic'` o `importMode: 'live'` (en la configuración del diccionario), dependerá de Suspense, por lo que tendrá que envolver sus llamadas a `useIntlayer` en un límite de `Suspense`. Eso significa que no podrá usar `useIntlayer` directamente en el nivel superior de su componente Página / Layout.
 
 ### Supervisar cambios en los diccionarios con Turbopack
 

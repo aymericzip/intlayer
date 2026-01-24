@@ -20,6 +20,9 @@ history:
   - version: 7.5.9
     date: 2025-12-30
     changes: init komutu ekle
+  - version: 7.0.6
+    date: 2025-11-01
+    changes: Alternates nesnesine `x-default` ifadesi eklendi
   - version: 7.0.0
     date: 2025-06-29
     changes: Başlangıç geçmişi
@@ -33,12 +36,12 @@ history:
 <iframe title="Next.js için en iyi i18n çözümü mü? Intlayer'ı keşfedin" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
   </Tab>
-  <Tab label="Code" value="code">
+  <Tab label="Kod" value="code">
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-next-16-template?embed=1&ctl=1&file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  title="Demo CodeSandbox - Intlayer kullanarak uygulamanızı nasıl uluslararasılaştırırsınız"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -46,7 +49,7 @@ history:
   </Tab>
 </Tabs>
 
-GitHub'da [Uygulama Şablonunu](https://github.com/aymericzip/intlayer-next-16-template) inceleyin.
+GitHub'daki [Uygulama Şablonuna](https://github.com/aymericzip/intlayer-next-16-template) bakın.
 
 ## İçindekiler
 
@@ -54,17 +57,19 @@ GitHub'da [Uygulama Şablonunu](https://github.com/aymericzip/intlayer-next-16-t
 
 ## Intlayer Nedir?
 
-**Intlayer**, modern web uygulamalarında çok dilli desteği basitleştirmek için tasarlanmış yenilikçi, açık kaynaklı bir uluslararasılaştırma (i18n) kütüphanesidir. Intlayer, güçlü **App Router** dahil olmak üzere en son **Next.js 16** çerçevesiyle sorunsuz bir şekilde entegre olur. Verimli render için **Server Components** ile çalışacak şekilde optimize edilmiştir ve [**Turbopack**](https://nextjs.org/docs/architecture/turbopack) ile tam uyumludur.
+**Intlayer**, modern web uygulamalarında çok dilli desteği basitleştirmek için tasarlanmış yenilikçi, açık kaynaklı bir uluslararasılaştırma (i18n) kütüphanesidir. Intlayer, güçlü **App Router** dahil olmak üzere en son **Next.js 16** framework'ü ile sorunsuz bir şekilde entegre olur. Verimli render için **Sunucu Bileşenleri** (Server Components) ile çalışacak şekilde optimize edilmiştir ve [**Turbopack**](https://nextjs.org/docs/architecture/turbopack) ile tam uyumludur.
 
 Intlayer ile şunları yapabilirsiniz:
 
-- Bileşen seviyesinde bildirimsel sözlükler kullanarak **çevirileri kolayca yönetmek**.
-- **Meta verileri, rotaları ve içeriği dinamik olarak yerelleştirmek**.
-- **Hem istemci tarafı hem de sunucu tarafı bileşenlerinde çevirilere erişmek**.
-- Otomatik oluşturulan tiplerle **TypeScript desteğini sağlamak**, otomatik tamamlama ve hata tespitini iyileştirmek.
-- **Dinamik yerel ayar algılama ve değiştirme gibi gelişmiş özelliklerden yararlanın**.
+- Bileşen düzeyinde bildirimsel sözlükler kullanarak **çevirileri kolayca yönetin**.
+- **Meta verileri, rotaları ve içeriği dinamik olarak yerelleştirin**.
+- **Hem istemci tarafı hem de sunucu tarafı bileşenlerinde çevirilere erişin**.
+- Otomatik oluşturulan tiplerle **TypeScript desteğini sağlayın**, otomatik tamamlama ve hata tespitini iyileştirin.
+- **Dinamik yerel ayar algılama ve değiştirme** gibi gelişmiş özelliklerden yararlanın.
 
-> Intlayer, Next.js 12, 13, 14 ve 16 ile uyumludur. Next.js Page Router kullanıyorsanız, bu [kılavuza](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_page_router.md) bakabilirsiniz. Next.js 12, 13, 14 App Router ile kullanıyorsanız, bu [kılavuza](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_14.md) başvurun.
+> Intlayer; Next.js 12, 13, 14 ve 16 ile uyumludur. Next.js Page Router kullanıyorsanız, bu [kılavuza](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_page_router.md) bakabilirsiniz.
+> Yerel ayar yönlendirmesi (Locale routing) SEO, paket boyutu ve performans için faydalıdır. İhtiyacınız yoksa, bu [kılavuza](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_no_locale_path.md) bakabilirsiniz.
+> App Router ile Next.js 12, 13, 14 için bu [kılavuza](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_14.md) bakın.
 
 ---
 
@@ -72,7 +77,7 @@ Intlayer ile şunları yapabilirsiniz:
 
 ### Adım 1: Bağımlılıkları Yükleyin
 
-Gerekli paketleri npm ile yükleyin:
+Gerekli paketleri npm kullanarak yükleyin:
 
 ```bash packageManager="npm"
 npm install intlayer next-intlayer
@@ -96,25 +101,25 @@ bunx intlayer init
 
 - **intlayer**
 
-  Yapılandırma yönetimi, çeviri, [içerik bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md), dönüştürme ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_cli.md) için uluslararasılaştırma araçları sağlayan temel paket.
+  Yapılandırma yönetimi, çeviri, [içerik bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md), dönüştürme ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) için uluslararasılaştırma araçları sağlayan temel paket.
 
 - **next-intlayer**
 
-Intlayer'ı Next.js ile entegre eden paket. Next.js uluslararasılaştırması için bağlam sağlayıcıları ve kancalar sunar. Ayrıca, Intlayer'ı [Webpack](https://webpack.js.org/) veya [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) ile entegre etmek için Next.js eklentisini, kullanıcının tercih ettiği dili algılamak, çerezleri yönetmek ve URL yönlendirmesini işlemek için proxy'yi içerir.
+  Intlayer'ı Next.js ile entegre eden paket. Next.js uluslararasılaştırması için bağlam sağlayıcıları ve kancalar sunar. Ayrıca, Intlayer'ı [Webpack](https://webpack.js.org/) veya [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) ile entegre etmek için Next.js eklentisinin yanı sıra kullanıcının tercih ettiği yerel ayarı algılamak, çerezleri yönetmek ve URL yönlendirmesini işlemek için bir proxy içerir.
 
 ### Adım 2: Projenizi Yapılandırın
 
-Here is the final structure that we will make:
+İşte yapacağımız nihai yapı:
 
 ```bash
 .
 ├── src
 │   ├── app
 │   │   ├── [locale]
-│   │   │   ├── layout.tsx            # Locale layout for the Intlayer provider
+│   │   │   ├── layout.tsx            # Intlayer sağlayıcısı için yerel ayar düzeni
 │   │   │   ├── page.content.ts
 │   │   │   └── page.tsx
-│   │   └── layout.tsx                # Root layout for style and global providers
+│   │   └── layout.tsx                # Stil ve küresel sağlayıcılar için kök düzen
 │   ├── components
 │   │   ├── client-component-example.content.ts
 │   │   ├── ClientComponentExample.tsx
@@ -130,7 +135,7 @@ Here is the final structure that we will make:
 └── tsconfig.json
 ```
 
-> If you don't want locale routing, intlayer can be used as a simple provider / hook. See [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_no_locale_path.md) for more details.
+> Yerel ayar yönlendirmesi (locale routing) istemiyorsanız, intlayer basit bir sağlayıcı / kanca olarak kullanılabilir. Daha fazla ayrıntı için [bu kılavuza](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_no_locale_path.md) bakın.
 
 Uygulamanızın dillerini yapılandırmak için bir yapılandırma dosyası oluşturun:
 
@@ -143,7 +148,7 @@ const config: IntlayerConfig = {
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // Diğer dilleriniz
+      // Diğer yerel ayarlarınız
     ],
     defaultLocale: Locales.ENGLISH,
   },
@@ -162,7 +167,7 @@ const config = {
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // Diğer dilleriniz
+      // Diğer yerel ayarlarınız
     ],
     defaultLocale: Locales.ENGLISH,
   },
@@ -181,7 +186,7 @@ const config = {
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // Diğer dilleriniz
+      // Diğer yerel ayarlarınız
     ],
     defaultLocale: Locales.ENGLISH,
   },
@@ -190,7 +195,7 @@ const config = {
 module.exports = config;
 ```
 
-> Bu yapılandırma dosyası aracılığıyla, yerelleştirilmiş URL'ler, proxy yönlendirmesi, çerez isimleri, içerik bildirimlerinizin konumu ve uzantısı, Intlayer günlüklerini konsolda devre dışı bırakma ve daha fazlasını ayarlayabilirsiniz. Mevcut parametrelerin tam listesi için [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakınız.
+> Bu yapılandırma dosyası aracılığıyla yerelleştirilmiş URL'ler, proxy yönlendirmesi, çerez adları, içerik bildirimlerinizin konumu ve uzantısı, konsoldaki Intlayer günlüklerini devre dışı bırakma ve daha fazlasını ayarlayabilirsiniz. Mevcut parametrelerin tam listesi için [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakın.
 
 ### Adım 3: Intlayer'ı Next.js Yapılandırmanıza Entegre Edin
 
@@ -201,7 +206,7 @@ import type { NextConfig } from "next";
 import { withIntlayer } from "next-intlayer/server";
 
 const nextConfig: NextConfig = {
-  /* yapılandırma seçenekleri buraya */
+  /* buraya yapılandırma seçenekleri */
 };
 
 export default withIntlayer(nextConfig);
@@ -212,7 +217,7 @@ import { withIntlayer } from "next-intlayer/server";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* yapılandırma seçenekleri buraya */
+  /* buraya yapılandırma seçenekleri */
 };
 
 export default withIntlayer(nextConfig);
@@ -223,33 +228,41 @@ const { withIntlayer } = require("next-intlayer/server");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* yapılandırma seçenekleri buraya */
+  /* buraya yapılandırma seçenekleri */
 };
 
 module.exports = withIntlayer(nextConfig);
 ```
 
-> `withIntlayer()` Next.js eklentisi, Intlayer'ı Next.js ile entegre etmek için kullanılır. İçerik bildirim dosyalarının oluşturulmasını sağlar ve geliştirme modunda bunları izler. Intlayer ortam değişkenlerini [Webpack](https://webpack.js.org/) veya [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) ortamlarında tanımlar. Ayrıca, performansı optimize etmek için takma adlar sağlar ve sunucu bileşenleri ile uyumluluğu garanti eder.
+> `withIntlayer()` Next.js eklentisi, Intlayer'ı Next.js ile entegre etmek için kullanılır. İçerik bildirim dosyalarının oluşturulmasını sağlar ve geliştirme modunda bunları izler. Intlayer ortam değişkenlerini [Webpack](https://webpack.js.org/) veya [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) ortamlarında tanımlar. Ek olarak, performansı optimize etmek için takma adlar (aliases) sağlar ve sunucu bileşenleriyle uyumluluğu garanti eder.
 
-> `withIntlayer()` fonksiyonu bir promise fonksiyonudur. Yapı başlamadan önce intlayer sözlüklerini hazırlamaya olanak tanır. Başka eklentilerle birlikte kullanmak isterseniz, onu await edebilirsiniz. Örnek:
+> `withIntlayer()` fonksiyonu bir promise fonksiyonudur. Build başlamadan önce Intlayer sözlüklerini hazırlamaya olanak tanır. Başka eklentilerle birlikte kullanmak isterseniz, onu `await` edebilirsiniz. Örnek:
 >
-> ```tsx
+> ```ts
 > const nextConfig = await withIntlayer(nextConfig);
 > const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
 >
 > export default nextConfigWithOtherPlugins;
 > ```
 >
-> Eşzamanlı kullanmak isterseniz, `withIntlayerSync()` fonksiyonunu kullanabilirsiniz. Örnek:
+> Senkron olarak kullanmak isterseniz `withIntlayerSync()` fonksiyonunu kullanabilirsiniz. Örnek:
 >
-> ```tsx
+> ```ts
 > const nextConfig = withIntlayerSync(nextConfig);
 > const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
 >
 > export default nextConfigWithOtherPlugins;
 > ```
 
-### Adım 4: Dinamik Yerel Rotaları Tanımlayın
+> Intlayer, komut satırı bayrakları `--webpack`, `--turbo` veya `--turbopack` ile mevcut **Next.js sürümünüze** bağlı olarak projenizin **webpack** mi yoksa **Turbopack** mi kullandığını otomatik olarak algılar.
+>
+> `next>=16` sürümünden itibaren **Rspack** kullanıyorsanız, Turbopack'i devre dışı bırakarak Intlayer'ı açıkça webpack yapılandırmasını kullanmaya zorlamalısınız:
+>
+> ```ts
+> withRspack(withIntlayer(nextConfig, { enableTurbopack: false }));
+> ```
+
+### Adım 4: Dinamik Yerel Ayar Rotalarını Tanımlayın
 
 `RootLayout` içindeki her şeyi kaldırın ve aşağıdaki kodla değiştirin:
 
@@ -258,7 +271,7 @@ import type { PropsWithChildren, FC } from "react";
 import "./globals.css";
 
 const RootLayout: FC<PropsWithChildren> = ({ children }) => (
-  // Çocukları hala diğer sağlayıcılarla sarabilirsiniz, örneğin `next-themes`, `react-query`, `framer-motion` vb.
+  // Çocukları hala `next-themes`, `react-query`, `framer-motion` vb. gibi diğer sağlayıcılarla sarmalayabilirsiniz.
   <>{children}</>
 );
 
@@ -269,7 +282,7 @@ export default RootLayout;
 import "./globals.css";
 
 const RootLayout = ({ children }) => (
-  // Çocukları hala `next-themes`, `react-query`, `framer-motion` gibi diğer sağlayıcılarla sarmalayabilirsiniz.
+  // Çocukları hala `next-themes`, `react-query`, `framer-motion` vb. gibi diğer sağlayıcılarla sarmalayabilirsiniz.
   <>{children}</>
 );
 
@@ -280,7 +293,7 @@ export default RootLayout;
 require("./globals.css");
 
 const RootLayout = ({ children }) => (
-  // Çocukları hala `next-themes`, `react-query`, `framer-motion` gibi diğer sağlayıcılarla sarmalayabilirsiniz.
+  // Çocukları hala `next-themes`, `react-query`, `framer-motion` vb. gibi diğer sağlayıcılarla sarmalayabilirsiniz.
   <>{children}</>
 );
 
@@ -290,9 +303,9 @@ module.exports = {
 };
 ```
 
-> `RootLayout` bileşenini boş tutmak, `<html>` etiketi için [`lang`](https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/lang) ve [`dir`](https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/dir) özniteliklerini ayarlamaya olanak tanır.
+> `RootLayout` bileşenini boş bırakmak, `<html>` etiketine [`lang`](https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/lang) ve [`dir`](https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/dir) özniteliklerini ayarlamaya olanak tanır.
 
-Dinamik yönlendirmeyi uygulamak için, `[locale]` dizininize yeni bir layout ekleyerek yerel yolunu sağlayın:
+Dinamik yönlendirmeyi uygulamak için, `[locale]` dizininizde yeni bir düzen ekleyerek yerel ayar yolunu sağlayın:
 
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"
 import type { NextLayoutIntlayer } from "next-intlayer";
@@ -348,17 +361,17 @@ const LocaleLayout = async ({ children, params: { locale } }) => {
 module.exports = LocaleLayout;
 ```
 
-> `[locale]` yol segmenti, yerel ayarı tanımlamak için kullanılır. Örnek: `/en-US/about` `en-US`'ye, `/fr/about` ise `fr`'ye karşılık gelir.
+> `[locale]` yol segmenti, yerel ayarı tanımlamak için kullanılır. Örnek: `/en-US/about`, `en-US`'ye ve `/fr/about`, `fr`'ye atıfta bulunacaktır.
 
-> Bu aşamada, şu hatayla karşılaşacaksınız: `Error: Missing <html> and <body> tags in the root layout.`. Bu beklenen bir durumdur çünkü `/app/page.tsx` dosyası artık kullanılmamaktadır ve kaldırılabilir. Bunun yerine, `[locale]` yol segmenti `/app/[locale]/page.tsx` sayfasını etkinleştirecektir. Sonuç olarak, tarayıcınızda sayfalara `/en`, `/fr`, `/es` gibi yollar üzerinden erişilebilecektir. Varsayılan dili kök sayfa olarak ayarlamak için, 7. adımdaki `proxy` ayarına bakınız.
+> Bu aşamada şu hatayla karşılaşacaksınız: `Error: Missing <html> and <body> tags in the root layout.`. Bu beklenen bir durumdur çünkü `/app/page.tsx` dosyası artık kullanılmıyor ve kaldırılabilir. Bunun yerine, `[locale]` yol segmenti `/app/[locale]/page.tsx` sayfasını etkinleştirecektir. Sonuç olarak, sayfalar tarayıcınızda `/en`, `/fr`, `/es` gibi yollar üzerinden erişilebilir olacaktır. Varsayılan yerel ayarı kök sayfa olarak ayarlamak için 7. adımdaki `proxy` kurulumuna bakın.
 
-Sonrasında, uygulamanızın Layout bileşeninde `generateStaticParams` fonksiyonunu uygulayın.
+Ardından, uygulama Düzeninizde (Layout) `generateStaticParams` fonksiyonunu uygulayın.
 
 ```tsx {1} fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"
 export { generateStaticParams } from "next-intlayer"; // Eklenecek satır
 
 const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
-  /*... Kodun geri kalanı */
+  /*... Kodun geri kalanı*/
 };
 
 export default LocaleLayout;
@@ -368,7 +381,7 @@ export default LocaleLayout;
 export { generateStaticParams } from "next-intlayer"; // Eklenecek satır
 
 const LocaleLayout = async ({ children, params: { locale } }) => {
-  /*... Kodun geri kalanı */
+  /*... Kodun geri kalanı*/
 };
 
 // ... Kodun geri kalanı
@@ -378,15 +391,15 @@ const LocaleLayout = async ({ children, params: { locale } }) => {
 const { generateStaticParams } = require("next-intlayer"); // Eklenecek satır
 
 const LocaleLayout = async ({ children, params: { locale } }) => {
-  /*... Kodun geri kalanı */
+  /*... Kodun geri kalanı*/
 };
 
 module.exports = { default: LocaleLayout, generateStaticParams };
 ```
 
-> `generateStaticParams`, uygulamanızın tüm yereller için gerekli sayfaları önceden oluşturmasını sağlar, böylece çalışma zamanı hesaplamalarını azaltır ve kullanıcı deneyimini iyileştirir. Daha fazla detay için [Next.js generateStaticParams dokümantasyonuna](https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering#generate-static-params) bakabilirsiniz.
+> `generateStaticParams`, uygulamanızın tüm yerel ayarlar için gerekli sayfaları önceden oluşturmasını sağlayarak çalışma zamanı hesaplamasını azaltır ve kullanıcı deneyimini iyileştirir. Daha fazla ayrıntı için [generateStaticParams üzerine Next.js dokümantasyonuna](https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering#generate-static-params) bakın.
 
-> Intlayer, sayfaların tüm yereller için önceden oluşturulmasını sağlamak amacıyla `export const dynamic = 'force-static';` ile çalışır.
+> Intlayer, sayfaların tüm yerel ayarlar için önceden oluşturulmasını sağlamak amacıyla `export const dynamic = 'force-static';` ile çalışır.
 
 ### Adım 5: İçeriğinizi Bildirin
 
@@ -472,13 +485,13 @@ module.exports = pageContent;
 }
 ```
 
-> İçerik bildirimleriniz, uygulamanızda herhangi bir yerde tanımlanabilir; yeter ki `contentDir` dizinine (varsayılan olarak `./src`) dahil edilmiş olsun. Ve içerik bildirim dosya uzantısıyla (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`) eşleşmelidir.
+> İçerik bildirimleriniz, `contentDir` dizinine (varsayılan olarak `./src`) dahil edildiği sürece uygulamanızın herhangi bir yerinde tanımlanabilir. Ve içerik bildirimi dosya uzantısıyla eşleşmelidir (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
 
-> Daha fazla detay için, [içerik bildirim dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bakınız.
+> Daha fazla ayrıntı için [içerik bildirimi dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bakın.
 
 ### Adım 6: İçeriği Kodunuzda Kullanın
 
-Uygulamanız boyunca içerik sözlüklerinize erişin:
+Uygulamanız genelinde içerik sözlüklerinize erişin:
 
 ```tsx fileName="src/app/[locale]/page.tsx" codeFormat="typescript"
 import type { FC } from "react";
@@ -584,10 +597,10 @@ const Page = async ({ params }) => {
 };
 ```
 
-- **`IntlayerClientProvider`**, istemci tarafı bileşenlere yerel ayarı sağlamak için kullanılır. Herhangi bir üst bileşende, layout dahil olmak üzere yerleştirilebilir. Ancak, Next.js'in layout kodunu sayfalar arasında paylaştığı ve bu nedenle daha verimli olduğu için, bunu bir layout içinde yerleştirmek önerilir. `IntlayerClientProvider`'ı layout içinde kullanarak, her sayfa için yeniden başlatılmasını önler, performansı artırır ve uygulamanız boyunca tutarlı bir yerelleştirme bağlamı sağlar.
-- **`IntlayerServerProvider`**, sunucu tarafındaki alt bileşenlere yerel ayarı sağlamak için kullanılır. Layout içinde ayarlanamaz.
+- **`IntlayerClientProvider`**, yerel ayarı istemci tarafı bileşenlere sağlamak için kullanılır. Düzen dahil herhangi bir üst bileşene yerleştirilebilir. Ancak, Next.js düzen kodunu sayfalar arasında paylaştığı ve bu da onu daha verimli kıldığı için bir düzene yerleştirilmesi önerilir. `IntlayerClientProvider`'ı düzende kullanarak, her sayfa için yeniden başlatılmasını önler, performansı artırır ve uygulamanız genelinde tutarlı bir yerelleştirme bağlamı sağlarsınız.
+- **`IntlayerServerProvider`**, yerel ayarı sunucu tarafı çocuklara sağlamak için kullanılır. Düzende (layout) ayarlanamaz.
 
-> Layout ve sayfa ortak bir sunucu bağlamını paylaşamaz çünkü sunucu bağlam sistemi, her istek için veri deposuna (React'in [cache](https://react.dev/reference/react/cache) mekanizması aracılığıyla) dayanır ve bu, uygulamanın farklı segmentleri için her "bağlamın" yeniden oluşturulmasına neden olur. Sağlayıcıyı paylaşılan bir layout içinde yerleştirmek bu izolasyonu bozacak ve sunucu bağlam değerlerinin sunucu bileşenlerinize doğru şekilde iletilmesini engelleyecektir.
+  > Düzen (layout) ve sayfa ortak bir sunucu bağlamını paylaşamaz çünkü sunucu bağlamı sistemi her istek için veri deposuna ([React'in cache](https://react.dev/reference/react/cache) mekanizması aracılığıyla) dayanır ve her "bağlamın" uygulamanın farklı segmentleri için yeniden oluşturulmasına neden olur. Sağlayıcıyı paylaşılan bir düzene yerleştirmek bu izolasyonu bozacak ve sunucu bağlamı değerlerinin sunucu bileşenlerinize doğru şekilde yayılmasını engelleyecektir.
 
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
 "use client";
@@ -596,7 +609,8 @@ import type { FC } from "react";
 import { useIntlayer } from "next-intlayer";
 
 export const ClientComponentExample: FC = () => {
-  const content = useIntlayer("client-component-example"); // İlgili içerik bildirimi oluştur
+  const content = useIntlayer("client-component-example"); // İlgili içerik bildirimini oluşturun
+
   return (
     <div>
       <h2>{content.title}</h2>
@@ -612,7 +626,7 @@ export const ClientComponentExample: FC = () => {
 import { useIntlayer } from "next-intlayer";
 
 const ClientComponentExample = () => {
-  const content = useIntlayer("client-component-example"); // İlgili içerik bildirimi oluştur
+  const content = useIntlayer("client-component-example"); // İlgili içerik bildirimini oluşturun
 
   return (
     <div>
@@ -629,7 +643,7 @@ const ClientComponentExample = () => {
 const { useIntlayer } = require("next-intlayer");
 
 const ClientComponentExample = () => {
-  const content = useIntlayer("client-component-example"); // İlgili içerik bildirimi oluştur
+  const content = useIntlayer("client-component-example"); // İlgili içerik bildirimini oluşturun
 
   return (
     <div>
@@ -645,7 +659,7 @@ import type { FC } from "react";
 import { useIntlayer } from "next-intlayer/server";
 
 export const ServerComponentExample: FC = () => {
-  const content = useIntlayer("server-component-example"); // İlgili içerik bildirimi oluştur
+  const content = useIntlayer("server-component-example"); // İlgili içerik bildirimini oluşturun
 
   return (
     <div>
@@ -660,7 +674,7 @@ export const ServerComponentExample: FC = () => {
 import { useIntlayer } from "next-intlayer/server";
 
 const ServerComponentExample = () => {
-  const content = useIntlayer("server-component-example"); // İlgili içerik bildirimi oluştur
+  const content = useIntlayer("server-component-example"); // İlgili içerik bildirimini oluşturun
 
   return (
     <div>
@@ -675,7 +689,7 @@ const ServerComponentExample = () => {
 const { useIntlayer } = require("next-intlayer/server");
 
 const ServerComponentExample = () => {
-  const content = useIntlayer("server-component-example"); // İlgili içerik bildirimi oluştur
+  const content = useIntlayer("server-component-example"); // İlgili içerik bildirimini oluşturun
 
   return (
     <div>
@@ -686,17 +700,17 @@ const ServerComponentExample = () => {
 };
 ```
 
-> İçeriğinizi `alt`, `title`, `href`, `aria-label` gibi bir `string` özniteliğinde kullanmak istiyorsanız, fonksiyonun değerini şu şekilde çağırmalısınız:
+> İçeriğinizi `alt`, `title`, `href`, `aria-label` vb. gibi bir `string` özniteliğinde kullanmak istiyorsanız, fonksiyonun değerini çağırmalısınız, örneğin:
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
-> `useIntlayer` kancasını daha fazla öğrenmek için, [belgelere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/useIntlayer.md) bakınız.
+> `useIntlayer` kancası hakkında daha fazla bilgi edinmek için [dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/useIntlayer.md) bakın.
 
-### (İsteğe Bağlı) Adım 7: Yerel Algılama için Proxy Yapılandırması
+### (İsteğe Bağlı) Adım 7: Yerel Ayar Algılama İçin Proxy Yapılandırın
 
-Kullanıcının tercih ettiği yereli algılamak için proxy kurun:
+Kullanıcının tercih ettiği yerel ayarı algılamak için proxy'yi ayarlayın:
 
 ```typescript fileName="src/proxy.ts" codeFormat="typescript"
 export { intlayerProxy as proxy } from "next-intlayer/proxy";
@@ -727,9 +741,9 @@ const config = {
 module.exports = { proxy: intlayerProxy, config };
 ```
 
-> `intlayerProxy`, kullanıcının tercih ettiği yereli algılamak ve onları [yapılandırmada](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) belirtilen uygun URL'ye yönlendirmek için kullanılır. Ayrıca, kullanıcının tercih ettiği yerelin bir çerezde saklanmasını sağlar.
+> `intlayerProxy`, kullanıcının tercih ettiği yerel ayarı algılamak ve onları [yapılandırmada](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) belirtilen uygun URL'ye yönlendirmek için kullanılır. Ek olarak, kullanıcının tercih ettiği yerel ayarın bir çerezde saklanmasını sağlar.
 
-> Birden fazla proxy'yi zincirlemek (örneğin, `intlayerProxy` ile kimlik doğrulama veya özel proxy'ler) gerekiyorsa, Intlayer artık `multipleProxies` adlı bir yardımcı sağlar.
+> Birden fazla proxy'yi bir zincirleme olarak bağlamanız gerekiyorsa (örneğin, kimlik doğrulama veya özel proxy'lerle birlikte `intlayerProxy`), Intlayer artık `multipleProxies` adında bir yardımcı sunuyor.
 
 ```ts
 import { multipleProxies, intlayerProxy } from "next-intlayer/proxy";
@@ -738,9 +752,9 @@ import { customProxy } from "@utils/customProxy";
 export const proxy = multipleProxies([intlayerProxy, customProxy]);
 ```
 
-### (İsteğe Bağlı) Adım 8: Meta verilerinizin uluslararasılaştırılması
+### (İsteğe Bağlı) Adım 8: Meta Verilerinizin Uluslararasılaştırılması
 
-Sayfanızın başlığı gibi meta verilerinizi uluslararasılaştırmak isterseniz, Next.js tarafından sağlanan `generateMetadata` fonksiyonunu kullanabilirsiniz. İçerisinde, meta verilerinizi çevirmek için `getIntlayer` fonksiyonundan içeriği alabilirsiniz.
+Sayfanızın başlığı gibi meta verilerinizi uluslararasılaştırmak istediğiniz durumda, Next.js tarafından sağlanan `generateMetadata` fonksiyonunu kullanabilirsiniz. İçinde, meta verilerinizi çevirmek için `getIntlayer` fonksiyonundan içeriği alabilirsiniz.
 
 ```typescript fileName="src/app/[locale]/metadata.content.ts" contentDeclarationFormat="typescript"
 import { type Dictionary, t } from "intlayer";
@@ -778,7 +792,7 @@ const metadataContent = {
       es: "Crear una aplicación Next.js",
     }),
     description: t({
-      en: "create next app tarafından oluşturuldu",
+      en: "Generated by create next app",
       fr: "Généré par create next app",
       es: "Generado por create next app",
     }),
@@ -801,9 +815,9 @@ const metadataContent = {
       es: "Crear una aplicación Next.js",
     }),
     description: t({
-      en: "create next app tarafından oluşturuldu",
-      fr: "create next app tarafından oluşturuldu",
-      es: "create next app tarafından oluşturuldu",
+      en: "Generated by create next app",
+      fr: "Généré par create next app",
+      es: "Generado por create next app",
     }),
   },
 };
@@ -820,8 +834,7 @@ module.exports = metadataContent;
       "translation": {
         "en": "Preact logo",
         "fr": "Logo Preact",
-        "es": "Logo Preact",
-        "tr": "Preact logosu"
+        "es": "Logo Preact"
       }
     },
     "description": {
@@ -829,8 +842,7 @@ module.exports = metadataContent;
       "translation": {
         "en": "Generated by create next app",
         "fr": "Généré par create next app",
-        "es": "Generado por create next app",
-        "tr": "create next app tarafından oluşturuldu"
+        "es": "Generado por create next app"
       }
     }
   }
@@ -850,13 +862,13 @@ export const generateMetadata = async ({
   const metadata = getIntlayer("page-metadata", locale);
 
   /**
-   * Her yerel dil için tüm URL'leri içeren bir nesne oluşturur.
+   * Her bir yerel ayar için tüm URL'leri içeren bir nesne oluşturur.
    *
    * Örnek:
    * ```ts
    *  getMultilingualUrls('/about');
    *
-   *  // Döner
+   *  // Döndürür
    *  // {
    *  //   en: '/about',
    *  //   fr: '/fr/about',
@@ -892,13 +904,13 @@ export const generateMetadata = async ({ params }) => {
   const metadata = getIntlayer("page-metadata", locale);
 
   /**
-   * Her yerel için tüm URL'leri içeren bir nesne oluşturur.
+   * Her yerel ayar için tüm URL'leri içeren bir nesne oluşturur.
    *
    * Örnek:
    * ```ts
    *  getMultilingualUrls('/about');
    *
-   *  // Döner
+   *  // Döndürür
    *  // {
    *  //   en: '/about',
    *  //   fr: '/fr/about',
@@ -933,13 +945,13 @@ const generateMetadata = async ({ params }) => {
   const metadata = getIntlayer("page-metadata", locale);
 
   /**
-   * Her yerel dil için tüm URL'leri içeren bir nesne oluşturur.
+   * Her yerel ayar için tüm URL'leri içeren bir nesne oluşturur.
    *
    * Örnek:
    * ```ts
    *  getMultilingualUrls('/about');
    *
-   *  // Döner
+   *  // Döndürür
    *  // {
    *  //   en: '/about',
    *  //   fr: '/fr/about',
@@ -967,9 +979,9 @@ module.exports = { generateMetadata };
 // ... Kodun geri kalanı
 ````
 
-> `next-intlayer`'dan içe aktarılan `getIntlayer` fonksiyonunun, içeriğinizi bir `IntlayerNode` içinde döndürdüğünü ve bu sayede görsel editörle entegrasyon sağladığını unutmayın. Buna karşılık, `intlayer`'dan içe aktarılan `getIntlayer` fonksiyonu, içeriğinizi ek özellikler olmadan doğrudan döndürür.
+> `next-intlayer`'dan içe aktarılan `getIntlayer` fonksiyonunun içeriğinizi bir `IntlayerNode` içine sarılmış olarak döndürdüğünü ve görsel editörle entegrasyona olanak tanıdığını unutmayın. Buna karşılık, `intlayer`'dan içe aktarılan `getIntlayer` fonksiyonu, içeriğinizi ek özellikler olmadan doğrudan döndürür.
 
-Alternatif olarak, meta verilerinizi bildirmek için `getTranslation` fonksiyonunu kullanabilirsiniz. Ancak, meta verilerinizin çevirisini otomatikleştirmek ve içeriği bir noktada dışa aktarmak için içerik bildirim dosyalarını kullanmanız önerilir.
+Alternatif olarak, meta verilerinizi bildirmek için `getTranslation` fonksiyonunu kullanabilirsiniz. Ancak, meta verilerinizin çevirisini otomatikleştirmek ve bir noktada içeriği dışsallaştırmak için içerik bildirim dosyalarını kullanmanız önerilir.
 
 ```typescript fileName="src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx" codeFormat="typescript"
 import {
@@ -993,7 +1005,7 @@ export const generateMetadata = async ({
       es: "Mi título",
     }),
     description: t({
-      en: "Açıklamam",
+      en: "My description",
       fr: "Ma description",
       es: "Mi descripción",
     }),
@@ -1012,12 +1024,12 @@ export const generateMetadata = async ({ params }) => {
 
   return {
     title: t({
-      en: "Başlığım",
+      en: "My title",
       fr: "Mon titre",
       es: "Mi título",
     }),
     description: t({
-      en: "Açıklamam",
+      en: "My description",
       fr: "Ma description",
       es: "Mi descripción",
     }),
@@ -1042,7 +1054,7 @@ const generateMetadata = async ({ params }) => {
       es: "Mi título",
     }),
     description: t({
-      en: "Açıklamam",
+      en: "My description",
       fr: "Ma description",
       es: "Mi descripción",
     }),
@@ -1054,9 +1066,9 @@ module.exports = { generateMetadata };
 // ... Kodun geri kalanı
 ```
 
-> Metadata optimizasyonu hakkında daha fazla bilgi edinin [resmi Next.js dokümantasyonunda](https://nextjs.org/docs/app/building-your-application/optimizing/metadata).
+> Meta veri optimizasyonu hakkında daha fazla bilgiyi [resmi Next.js dokümantasyonunda](https://nextjs.org/docs/app/building-your-application/optimizing/metadata) bulabilirsiniz.
 
-### (İsteğe Bağlı) Adım 9: sitemap.xml ve robots.txt dosyalarınızın uluslararasılaştırılması
+### (İsteğe Bağlı) Adım 9: sitemap.xml ve robots.txt Uluslararasılaştırılması
 
 `sitemap.xml` ve `robots.txt` dosyalarınızı uluslararasılaştırmak için Intlayer tarafından sağlanan `getMultilingualUrls` fonksiyonunu kullanabilirsiniz. Bu fonksiyon, sitemap'iniz için çok dilli URL'ler oluşturmanıza olanak tanır.
 
@@ -1136,7 +1148,6 @@ export default sitemap;
 ```jsx fileName="src/app/sitemap.csx" codeFormat="commonjs"
 const { getMultilingualUrls } = require("intlayer");
 
-// Çok dilli URL'leri almak için sitemap fonksiyonu
 const sitemap = () => [
   {
     url: "https://example.com",
@@ -1177,15 +1188,14 @@ import { getMultilingualUrls } from "intlayer";
 const getAllMultilingualUrls = (urls: string[]) =>
   urls.flatMap((url) => Object.values(getMultilingualUrls(url)) as string[]);
 
-// Tüm çok dilli URL'leri almak için fonksiyon
 const robots = (): MetadataRoute.Robots => ({
   rules: {
-    userAgent: "*", // Tüm kullanıcı ajanlarına izin ver
-    allow: ["/"], // Ana sayfaya izin ver
-    disallow: getAllMultilingualUrls(["/login", "/register"]), // Giriş ve kayıt sayfalarını engelle
+    userAgent: "*",
+    allow: ["/"],
+    disallow: getAllMultilingualUrls(["/login", "/register"]),
   },
   host: "https://example.com",
-  sitemap: `https://example.com/sitemap.xml`, // Site haritası URL'si
+  sitemap: `https://example.com/sitemap.xml`,
 });
 
 export default robots;
@@ -1194,15 +1204,14 @@ export default robots;
 ```jsx fileName="src/app/robots.mjx" codeFormat="esm"
 import { getMultilingualUrls } from "intlayer";
 
-// Tüm çok dilli URL'leri almak için fonksiyon
 const getAllMultilingualUrls = (urls) =>
   urls.flatMap((url) => Object.values(getMultilingualUrls(url)));
 
 const robots = () => ({
   rules: {
-    userAgent: "*", // Tüm kullanıcı ajanlarına izin ver
-    allow: ["/"], // Ana sayfaya izin ver
-    disallow: getAllMultilingualUrls(["/login", "/register"]), // Giriş ve kayıt sayfalarını engelle
+    userAgent: "*",
+    allow: ["/"],
+    disallow: getAllMultilingualUrls(["/login", "/register"]),
   },
   host: "https://example.com",
   sitemap: `https://example.com/sitemap.xml`,
@@ -1230,11 +1239,11 @@ const robots = () => ({
 module.exports = robots;
 ```
 
-> Site haritası optimizasyonu hakkında daha fazla bilgi için [resmi Next.js dokümantasyonuna](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap) bakabilirsiniz. robots.txt optimizasyonu hakkında daha fazla bilgi için [resmi Next.js dokümantasyonuna](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots) göz atabilirsiniz.
+> Sitemap optimizasyonu hakkında daha fazla bilgiyi [resmi Next.js dokümantasyonunda](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap) bulabilirsiniz. robots.txt optimizasyonu hakkında daha fazla bilgiyi [resmi Next.js dokümantasyonunda](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots) bulabilirsiniz.
 
 ### (İsteğe Bağlı) Adım 10: İçeriğinizin Dilini Değiştirme
 
-Next.js'te içeriğinizin dilini değiştirmek için önerilen yöntem, kullanıcıları uygun yerelleştirilmiş sayfaya yönlendirmek amacıyla `Link` bileşenini kullanmaktır. `Link` bileşeni, sayfanın önceden yüklenmesini (prefetch) sağlar, bu da tam sayfa yeniden yüklemesini önlemeye yardımcı olur.
+Next.js'te içeriğinizin dilini değiştirmek için önerilen yöntem, kullanıcıları uygun yerelleştirilmiş sayfaya yönlendirmek için `Link` bileşenini kullanmaktır. `Link` bileşeni sayfanın önceden yüklenmesini (prefetching) sağlar, bu da tam bir sayfa yenilenmesini önlemeye yardımcı olur.
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 "use client";
@@ -1263,22 +1272,22 @@ export const LocaleSwitcher: FC = () => {
             key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
             onClick={() => setLocale(localeItem)}
-            replace // "Geri git" tarayıcı düğmesinin önceki sayfaya yönlendirmesini sağlar
+            replace // Tarayıcıdaki "geri" düğmesinin önceki sayfaya yönlendirmesini sağlar
           >
             <span>
-              {/* Yerel Ayar - örn. FR */}
+              {/* Yerel ayar - örn. FR */}
               {localeItem}
             </span>
             <span>
-              {/* Dil kendi Yerel Ayarında - örn. Français */}
+              {/* Kendi yerel ayarında dil adı - örn. Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Dil mevcut Yerel Ayarda - örn. Locales.SPANISH olarak ayarlanmış mevcut yerel ayarla Francés */}
+              {/* Mevcut yerel ayarda dil adı - örn. mevcut yerel ayar Locales.SPANISH olduğunda Francés */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* İngilizce dilinde - örn. French */}
+              {/* İngilizce dil adı - örn. French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </Link>
@@ -1315,22 +1324,22 @@ export const LocaleSwitcher = () => {
             key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
             onClick={() => setLocale(localeItem)}
-            replace // "geri git" tarayıcı düğmesinin önceki sayfaya yönlendirmesini sağlar
+            replace // Tarayıcıdaki "geri" düğmesinin önceki sayfaya yönlendirmesini sağlar
           >
             <span>
-              {/* Yerel - örn. FR */}
+              {/* Yerel ayar - örn. FR */}
               {localeItem}
             </span>
             <span>
-              {/* Dil kendi yerelinde - örn. Français */}
+              {/* Kendi yerel ayarında dil adı - örn. Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Mevcut yerelde dil - örn. Locales.SPANISH olarak ayarlanmış mevcut yerelle Francés */}
+              {/* Mevcut yerel ayarda dil adı - örn. mevcut yerel ayar Locales.SPANISH olduğunda Francés */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* İngilizce dil - örn. French */}
+              {/* İngilizce dil adı - örn. French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </Link>
@@ -1365,24 +1374,24 @@ export const LocaleSwitcher = () => {
           <Link
             href={getLocalizedUrl(pathWithoutLocale, localeItem)}
             key={localeItem}
-            aria-current={locale === localeItem ? "sayfa" : undefined}
+            aria-current={locale === localeItem ? "page" : undefined}
             onClick={() => setLocale(localeItem)}
-            replace // "Geri dön" tarayıcı düğmesinin önceki sayfaya yönlendirmesini sağlar
+            replace // Tarayıcıdaki "geri" düğmesinin önceki sayfaya yönlendirmesini sağlar
           >
             <span>
-              {/* Yerel - örn. FR */}
+              {/* Yerel ayar - örn. FR */}
               {localeItem}
             </span>
             <span>
-              {/* Dil kendi yerelinde - örn. Français */}
+              {/* Kendi yerel ayarında dil adı - örn. Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Mevcut yerelde dil - örn. Locales.SPANISH olarak ayarlanmış mevcut yerel ile Francés */}
+              {/* Mevcut yerel ayarda dil adı - örn. mevcut yerel ayar Locales.SPANISH olduğunda Francés */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* İngilizce dilinde - örn. French */}
+              {/* İngilizce dil adı - örn. French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </Link>
@@ -1393,9 +1402,9 @@ export const LocaleSwitcher = () => {
 };
 ```
 
-> Alternatif bir yöntem, `useLocale` kancasının sağladığı `setLocale` fonksiyonunu kullanmaktır. Bu fonksiyon sayfanın önceden getirilmesine (prefetch) izin vermez. Daha fazla detay için [`useLocale` kancası dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/useLocale.md) bakabilirsiniz.
+> Alternatif bir yol da `useLocale` kancasıyla sağlanan `setLocale` fonksiyonunu kullanmaktır. Bu fonksiyon sayfanın önceden yüklenmesine (prefetching) izin vermez. Daha fazla ayrıntı için [`useLocale` kancası dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/useLocale.md) bakın.
 
-> Ayrıca, `onLocaleChange` seçeneğinde, dil değiştiğinde özel bir fonksiyon tetiklemek için bir fonksiyon ayarlayabilirsiniz.
+> Ayrıca, yerel ayar değiştiğinde özel bir fonksiyonu tetiklemek için `onLocaleChange` seçeneğinde bir fonksiyon ayarlayabilirsiniz.
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx"
 "use client";
@@ -1414,15 +1423,15 @@ const { setLocale } = useLocale({
 });
 
 return (
-  <button onClick={() => setLocale(Locales.FRENCH)}>Fransızcaya Geç</button>
+  <button onClick={() => setLocale(Locales.FRENCH)}>Fransızca'ya geç</button>
 );
 ```
 
 > Dokümantasyon referansları:
 >
-> - [`useLocale` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/useLocale.md)
-> - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocaleName.md)
-> - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocalizedUrl.md)
+> - [`useLocale` kancası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/useLocale.md)
+> - [`getLocaleName` kancası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocaleName.md)
+> - [`getLocalizedUrl` kancası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocalizedUrl.md)
 > - [`getHTMLTextDir` kancası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getHTMLTextDir.md)
 > - [`hrefLang` özniteliği](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
 > - [`lang` özniteliği](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
@@ -1431,15 +1440,15 @@ return (
 
 ### (İsteğe Bağlı) Adım 11: Yerelleştirilmiş Bir Link Bileşeni Oluşturma
 
-Uygulamanızın navigasyonunun mevcut yerel ayara uygun olmasını sağlamak için özel bir `Link` bileşeni oluşturabilirsiniz. Bu bileşen, dahili URL'lerin önüne otomatik olarak mevcut dili ekler. Örneğin, Fransızca konuşan bir kullanıcı "Hakkında" sayfasına tıkladığında, `/about` yerine `/fr/about` adresine yönlendirilir.
+Uygulamanızın navigasyonunun mevcut yerel ayara saygı göstermesini sağlamak için özel bir `Link` bileşeni oluşturabilirsiniz. Bu bileşen, dahili URL'lerin önüne otomatik olarak geçerli dil kodunu ekler. Örneğin, Fransızca konuşan bir kullanıcı "Hakkında" sayfasının bağlantısına tıkladığında, `/about` yerine `/fr/about` sayfasına yönlendirilir.
 
-Bu davranış birkaç nedenle faydalıdır:
+Bu davranış birkaç nedenden dolayı yararlıdır:
 
-- **SEO ve Kullanıcı Deneyimi**: Yerelleştirilmiş URL'ler, arama motorlarının dil bazlı sayfaları doğru şekilde indekslemesine yardımcı olur ve kullanıcılara tercih ettikleri dilde içerik sunar.
-- **Tutarlılık**: Uygulamanızda yerelleştirilmiş linkler kullanarak, navigasyonun mevcut yerel ayar içinde kalmasını garanti eder, beklenmedik dil değişimlerini önlersiniz.
-- **Bakım Kolaylığı**: Yerelleştirme mantığını tek bir bileşende merkezileştirmek, URL yönetimini basitleştirir ve uygulamanız büyüdükçe kod tabanınızı daha kolay bakım yapılabilir ve genişletilebilir hale getirir.
+- **SEO ve Kullanıcı Deneyimi**: Yerelleştirilmiş URL'ler, arama motorlarının dile özgü sayfaları doğru şekilde indekslemesine yardımcı olur ve kullanıcılara tercih ettikleri dilde içerik sunar.
+- **Tutarlılık**: Uygulamanız boyunca yerelleştirilmiş bir bağlantı kullanarak, gezinmenin mevcut yerel ayar içinde kalmasını garanti eder, beklenmedik dil değişikliklerini önlersiniz.
+- **Bakım Kolaylığı**: Yerelleştirme mantığını tek bir bileşende merkezileştirmek, URL yönetimini basitleştirir ve uygulamanız büyüdükçe kod tabanınızın bakımını ve genişletilmesini kolaylaştırır.
 
-Aşağıda TypeScript ile yerelleştirilmiş bir `Link` bileşeninin uygulanması bulunmaktadır:
+Aşağıda TypeScript ile yerelleştirilmiş bir `Link` bileşeninin uygulaması yer almaktadır:
 
 ```tsx fileName="src/components/Link.tsx" codeFormat="typescript"
 "use client";
@@ -1451,15 +1460,15 @@ import type { PropsWithChildren, FC } from "react";
 
 /**
  * Verilen URL'nin harici olup olmadığını kontrol eden yardımcı fonksiyon.
- * URL http:// veya https:// ile başlıyorsa, harici olarak kabul edilir.
+ * URL http:// veya https:// ile başlıyorsa harici kabul edilir.
  */
 export const checkIsExternalLink = (href?: string): boolean =>
   /^https?:\/\//.test(href ?? "");
 
 /**
  * Mevcut yerel ayara göre href özniteliğini uyarlayan özel bir Link bileşeni.
- * Dahili bağlantılar için, URL'nin önüne yerel ayarı eklemek üzere `getLocalizedUrl` kullanılır (örneğin, /fr/about).
- * Bu, gezinmenin aynı yerel bağlam içinde kalmasını sağlar.
+ * Dahili bağlantılar için, URL'nin önüne yerel ayarı eklemek için `getLocalizedUrl` kullanılır (örn. /fr/about).
+ * Bu, navigasyonun aynı yerel ayar bağlamında kalmasını sağlar.
  */
 export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
   href,
@@ -1469,7 +1478,7 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
   const { locale } = useLocale();
   const isExternalLink = checkIsExternalLink(href.toString());
 
-  // Bağlantı dahili ve geçerli bir href sağlanmışsa, yerelleştirilmiş URL alınır.
+  // Bağlantı dahiliyse ve geçerli bir href sağlanmışsa, yerelleştirilmiş URL'yi alın.
   const hrefI18n: NextLinkProps["href"] =
     href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
 
@@ -1490,20 +1499,20 @@ import { useLocale } from "next-intlayer";
 
 /**
  * Verilen URL'nin harici olup olmadığını kontrol eden yardımcı fonksiyon.
- * URL http:// veya https:// ile başlıyorsa, harici olarak kabul edilir.
+ * URL http:// veya https:// ile başlıyorsa harici kabul edilir.
  */
 export const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? "");
 
 /**
- * Geçerli yerel ayara göre href özniteliğini uyarlayan özel Link bileşeni.
- * Dahili bağlantılar için, URL'yi yerel ek ile öneklemek üzere `getLocalizedUrl` kullanılır (örneğin, /fr/about).
- * Bu, gezinmenin aynı yerel bağlam içinde kalmasını sağlar.
+ * Mevcut yerel ayara göre href özniteliğini uyarlayan özel bir Link bileşeni.
+ * Dahili bağlantılar için, URL'nin önüne yerel ayarı eklemek için `getLocalizedUrl` kullanılır (örn. /fr/about).
+ * Bu, navigasyonun aynı yerel ayar bağlamında kalmasını sağlar.
  */
 export const Link = ({ href, children, ...props }) => {
   const { locale } = useLocale();
   const isExternalLink = checkIsExternalLink(href.toString());
 
-  // Bağlantı dahiliyse ve geçerli bir href sağlanmışsa, yerelleştirilmiş URL alınır.
+  // Bağlantı dahiliyse ve geçerli bir href sağlanmışsa, yerelleştirilmiş URL'yi alın.
   const hrefI18n =
     href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
 
@@ -1524,20 +1533,20 @@ const { useLocale } = require("next-intlayer");
 
 /**
  * Verilen URL'nin harici olup olmadığını kontrol eden yardımcı fonksiyon.
- * URL http:// veya https:// ile başlıyorsa, harici kabul edilir.
+ * URL http:// veya https:// ile başlıyorsa harici kabul edilir.
  */
 const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? "");
 
 /**
  * Mevcut yerel ayara göre href özniteliğini uyarlayan özel bir Link bileşeni.
- * Dahili bağlantılar için, URL'yi yerel ayar ile öneklemek amacıyla `getLocalizedUrl` kullanılır (örneğin, /fr/about).
- * Bu, gezinmenin aynı yerel bağlam içinde kalmasını sağlar.
+ * Dahili bağlantılar için, URL'nin önüne yerel ayarı eklemek için `getLocalizedUrl` kullanılır (örn. /fr/about).
+ * Bu, navigasyonun aynı yerel ayar bağlamında kalmasını sağlar.
  */
 const Link = ({ href, children, ...props }) => {
   const { locale } = useLocale();
   const isExternalLink = checkIsExternalLink(href.toString());
 
-  // Bağlantı dahili ve geçerli bir href sağlanmışsa, yerelleştirilmiş URL'yi al.
+  // Bağlantı dahiliyse ve geçerli bir href sağlanmışsa, yerelleştirilmiş URL'yi alın.
   const hrefI18n =
     href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
 
@@ -1549,25 +1558,25 @@ const Link = ({ href, children, ...props }) => {
 };
 ```
 
-#### Nasıl Çalışır
+#### Nasıl Çalışır?
 
-- **Harici Bağlantıları Tespit Etme**:  
-  Yardımcı fonksiyon `checkIsExternalLink`, bir URL'nin harici olup olmadığını belirler. Harici bağlantılar, yerelleştirmeye gerek olmadığı için değiştirilmeden bırakılır.
+- **Harici Bağlantıları Algılama**:  
+  Yardımcı fonksiyon `checkIsExternalLink`, bir URL'nin harici olup olmadığını belirler. Harici bağlantılar yerelleştirilmeye ihtiyaç duymadığı için değişmeden bırakılır.
 
-- **Geçerli Yerel Ayarın Alınması**:  
-  `useLocale` kancası, geçerli yerel ayarı sağlar (örneğin, Fransızca için `fr`).
+- **Mevcut Yerel Ayarı Alma**:  
+  `useLocale` kancası mevcut yerel ayarı sağlar (örneğin, Fransızca için `fr`).
 
-- **URL'nin Yerelleştirilmesi**:  
-  Dahili bağlantılar (yani harici olmayanlar) için, `getLocalizedUrl` URL'yi otomatik olarak geçerli yerel ayarla ön ekler. Bu, kullanıcınız Fransızca ise, `href` olarak `/about` verilirse bunun `/fr/about` olarak dönüşeceği anlamına gelir.
+- **URL'yi Yerelleştirme**:  
+  Dahili bağlantılar için (yani harici olmayan), `getLocalizedUrl` kullanılarak URL'nin önüne otomatik olarak geçerli yerel ayar eklenir. Bu, kullanıcınız Fransızca ise `/about` olarak iletilen `href` özniteliğinin `/fr/about` olarak dönüştürüleceği anlamına gelir.
 
-- **Bağlantının Döndürülmesi**:  
-  Bileşen, yerelleştirilmiş URL ile bir `<a>` öğesi döndürür ve böylece gezinmenin yerel ayarla tutarlı olmasını sağlar.
+- **Bağlantıyı Döndürme**:  
+  Bileşen, yerelleştirilmiş URL'ye sahip bir `<a>` elemanı döndürerek navigasyonun yerel ayarla tutarlı olmasını sağlar.
 
-Bu `Link` bileşenini uygulamanızın tamamında entegre ederek, tutarlı ve dil farkındalığı olan bir kullanıcı deneyimi sağlarken aynı zamanda geliştirilmiş SEO ve kullanılabilirlikten de faydalanırsınız.
+Bu `Link` bileşenini uygulamanız genelinde entegre ederek, tutarlı ve dile duyarlı bir kullanıcı deneyimi sağlarken, aynı zamanda iyileştirilmiş SEO ve kullanılabilirlikten faydalanırsınız.
 
-### (İsteğe Bağlı) Adım 12: Sunucu Eylemlerinde (Server Actions) geçerli yerel ayarı (locale) alın
+### (İsteğe Bağlı) Adım 12: Server Action'larda Mevcut Yerel Ayarı Alma
 
-Eğer bir Sunucu Eylemi içinde aktif yerel ayara ihtiyacınız varsa (örneğin, e-postaları yerelleştirmek veya yerel ayara duyarlı mantık çalıştırmak için), `next-intlayer/server`'dan `getLocale` fonksiyonunu çağırın:
+Bir Sunucu Eylemi (Server Action) içinde aktif yerel ayara ihtiyacınız varsa (örneğin, e-postaları yerelleştirmek veya yerel ayara duyarlı mantık yürütmek için), `next-intlayer/server` üzerinden `getLocale` fonksiyonunu çağırın:
 
 ```tsx fileName="src/app/actions/getLocale.ts" codeFormat="typescript"
 "use server";
@@ -1577,24 +1586,24 @@ import { getLocale } from "next-intlayer/server";
 export const myServerAction = async () => {
   const locale = await getLocale();
 
-  // Yerel ayar ile bir şeyler yap
+  // Yerel ayarla bir şeyler yapın
 };
 ```
 
-> `getLocale` fonksiyonu, kullanıcının yerel ayarını belirlemek için kademeli (cascading) bir strateji izler:
+> `getLocale` fonksiyonu, kullanıcının yerel ayarını belirlemek için kademeli bir strateji izler:
 >
-> 1. İlk olarak, proxy tarafından ayarlanmış olabilecek bir yerel değer için istek başlıklarını kontrol eder
-> 2. Başlıklarda yerel bulunamazsa, çerezlerde saklanan bir yerel arar
-> 3. Çerez bulunamazsa, kullanıcının tercih ettiği dili tarayıcı ayarlarından tespit etmeye çalışır
-> 4. Son çare olarak, uygulamanın yapılandırılmış varsayılan yereline geri döner
+> 1. Önce, proxy tarafından ayarlanmış olabilecek bir yerel ayar değeri için istek başlıklarını (headers) kontrol eder.
+> 2. Başlıklarda yerel ayar bulunamazsa, çerezlerde (cookies) saklanan bir yerel ayara bakar.
+> 3. Çerez bulunamazsa, tarayıcı ayarlarından kullanıcının tercih ettiği dili algılamaya çalışır.
+> 4. Son çare olarak, uygulamanın yapılandırılmış varsayılan yerel ayarına geri döner.
 >
-> Bu, mevcut bağlama göre en uygun yerelin seçilmesini sağlar.
+> Bu, mevcut bağlama göre en uygun yerel ayarın seçilmesini sağlar.
 
-### (İsteğe Bağlı) Adım 13: Paket boyutunuzu optimize edin
+### (İsteğe Bağlı) Adım 13: Paket Boyutunuzu Optimize Edin
 
-`next-intlayer` kullanıldığında, sözlükler varsayılan olarak her sayfanın paketine dahil edilir. Paket boyutunu optimize etmek için, Intlayer, `useIntlayer` çağrılarını makrolar kullanarak akıllıca değiştiren isteğe bağlı bir SWC eklentisi sağlar. Bu, sözlüklerin yalnızca gerçekten kullanan sayfaların paketlerine dahil edilmesini garanti eder.
+`next-intlayer` kullanırken, sözlükler varsayılan olarak her sayfa için pakete dahil edilir. Paket boyutunu optimize etmek için Intlayer, makroları kullanarak `useIntlayer` çağrılarını akıllıca değiştiren isteğe bağlı bir SWC eklentisi sunar. Bu, sözlüklerin yalnızca onları gerçekten kullanan sayfaların paketlerine dahil edilmesini sağlar.
 
-Bu optimizasyonu etkinleştirmek için `@intlayer/swc` paketini yükleyin. Yüklendikten sonra, `next-intlayer` eklentiyi otomatik olarak algılar ve kullanır:
+Bu optimizasyonu etkinleştirmek için `@intlayer/swc` paketini yükleyin. Yüklendikten sonra `next-intlayer` eklentiyi otomatik olarak algılayacak ve kullanacaktır:
 
 ```bash packageManager="npm"
 npm install @intlayer/swc --save-dev
@@ -1616,74 +1625,76 @@ bun add @intlayer/swc --dev
 bunx intlayer init
 ```
 
-> Not: Bu optimizasyon yalnızca Next.js 13 ve üzeri sürümler için kullanılabilir.
+> Not: Bu optimizasyon yalnızca Next.js 13 ve üzeri sürümlerde mevcuttur.
 
-> Not: Bu paket varsayılan olarak kurulmaz çünkü SWC eklentileri Next.js üzerinde hâlâ deneysel durumdadır. Gelecekte değişebilir.
+> Not: Bu paket varsayılan olarak yüklü değildir çünkü SWC eklentileri Next.js'te hala deneysel aşamadadır. Gelecekte değişebilir.
 
-### Turbopack üzerinde sözlük değişikliklerini izleme
+> Not: `dictionary` yapılandırmasında seçeneği `importMode: 'dynamic'` veya `importMode: 'live'` olarak ayarlarsanız, Suspense'e dayalı olacaktır, bu nedenle `useIntlayer` çağrılarınızı bir `Suspense` sınırı (boundary) içine sarmalamanız gerekecektir. Bu, `useIntlayer`'ı doğrudan Sayfa / Düzen bileşeninizin en üst düzeyinde kullanamayacağınız anlamına gelir.
 
-`next dev` komutuyla geliştirme sunucusu olarak Turbopack kullanıldığında, sözlük değişiklikleri varsayılan olarak otomatik algılanmaz.
+### Turbopack'te Sözlük Değişikliklerini İzleyin
 
-Bu kısıtlama, Turbopack'in içerik dosyalarınızdaki değişiklikleri izlemek için webpack eklentilerini paralel olarak çalıştıramamasından kaynaklanır. Bunun üstesinden gelmek için, geliştirme sunucusunu ve Intlayer derleme izleyicisini aynı anda çalıştırmak üzere `intlayer watch` komutunu kullanmanız gerekir.
+Next.js 16 uygulamanızı geliştirme sunucusu olarak Turbopack (`next dev` komutuyla) kullanırken, sözlük değişiklikleri varsayılan olarak otomatik olarak algılanmayacaktır.
+
+Bu sınırlama, Turbopack'in içerik dosyalarınızdaki değişiklikleri izlemek için webpack eklentilerini paralel olarak çalıştıramamasından kaynaklanmaktadır. Bunu aşmak için hem geliştirme sunucusunu hem de Intlayer build izleyicisini eşzamanlı olarak çalıştırmak üzere `intlayer watch` komutunu kullanmanız gerekecektir.
 
 ```json5 fileName="package.json"
 {
   // ... Mevcut package.json yapılandırmalarınız
   "scripts": {
-    // ... Mevcut script yapılandırmalarınız
+    // ... Mevcut scripts yapılandırmalarınız
     "dev": "intlayer watch --with 'next dev'",
   },
 }
 ```
 
-> Eğer next-intlayer@<=6.x.x kullanıyorsanız, Next.js 16 uygulamasının Turbopack ile doğru çalışması için `--turbopack` bayrağını korumanız gerekir. Bu sınırlamadan kaçınmak için next-intlayer@>=7.x.x kullanmanızı öneririz.
+> next-intlayer@<=6.x.x kullanıyorsanız, Next.js 16 uygulamasının Turbopack ile doğru çalışması için `--turbopack` bayrağını korumanız gerekir. Bu sınırlamadan kaçınmak için next-intlayer@>=7.x.x kullanmanızı öneririz.
 
-### TypeScript'i Yapılandırma
+### TypeScript Yapılandırması
 
 Intlayer, TypeScript'in avantajlarından yararlanmak ve kod tabanınızı daha güçlü hale getirmek için modül genişletme (module augmentation) kullanır.
 
-![Otomatik Tamamlama](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Çeviri Hatası](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
-TypeScript yapılandırmanızın otomatik oluşturulan türleri içerdiğinden emin olun.
+TypeScript yapılandırmanızın otomatik olarak oluşturulan tipleri içerdiğinden emin olun.
 
 ```json5 fileName="tsconfig.json"
 {
   // ... Mevcut TypeScript yapılandırmalarınız
   "include": [
     // ... Mevcut TypeScript yapılandırmalarınız
-    ".intlayer/**/*.ts", // Otomatik oluşturulan türleri dahil et
+    ".intlayer/**/*.ts", // Otomatik oluşturulan tipleri dahil edin
   ],
 }
 ```
 
 ### Git Yapılandırması
 
-Intlayer tarafından oluşturulan dosyaların göz ardı edilmesi önerilir. Bu, bu dosyaların Git deposuna eklenmesini önlemenize olanak tanır.
+Intlayer tarafından oluşturulan dosyaların yoksayılması önerilir. Bu, onları Git deponuza göndermenizi engeller.
 
-Bunu yapmak için, `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirsiniz:
+Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirsiniz:
 
 ```plaintext fileName=".gitignore"
-# Intlayer tarafından oluşturulan dosyaları göz ardı et
+# Intlayer tarafından oluşturulan dosyaları yoksay
 .intlayer
 ```
 
-### VS Code Eklentisi
+### VS Code Uzantısı
 
-Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Eklentisi**ni yükleyebilirsiniz.
+Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Uzantısını** yükleyebilirsiniz.
 
-[VS Code Marketplace'ten Yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+[VS Code Marketplace'ten yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
-Bu eklenti şunları sağlar:
+Bu uzantı şunları sağlar:
 
-- Çeviri anahtarları için **Otomatik Tamamlama**.
-- Eksik çeviriler için **Gerçek Zamanlı Hata Tespiti**.
+- Çeviri anahtarları için **otomatik tamamlama**.
+- Eksik çeviriler için **gerçek zamanlı hata tespiti**.
 - Çevrilmiş içeriğin **satır içi önizlemeleri**.
-- Çevirileri kolayca oluşturmak ve güncellemek için **hızlı işlemler**.
+- Çevirileri kolayca oluşturmak ve güncellemek için **hızlı eylemler**.
 
-Eklentinin nasıl kullanılacağı hakkında daha fazla bilgi için [Intlayer VS Code Eklentisi dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakabilirsiniz.
+Uzantının nasıl kullanılacağına ilişkin daha fazla ayrıntı için [Intlayer VS Code Uzantısı dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakın.
 
-### Daha İleri Gitmek
+### Daha İleriye Gidin
 
-Daha ileri gitmek için, [görsel editörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak dışa aktarabilirsiniz.
+Daha ileri gitmek için [görsel editörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak içeriğinizi dışsallaştırabilirsiniz.

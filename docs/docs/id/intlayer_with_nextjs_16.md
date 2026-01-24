@@ -20,6 +20,9 @@ history:
   - version: 7.5.9
     date: 2025-12-30
     changes: Tambahkan perintah init
+  - version: 7.0.6
+    date: 2025-11-01
+    changes: Menambahkan penyebutan `x-default` dalam objek `alternates`
   - version: 7.0.0
     date: 2025-06-29
     changes: Riwayat awal
@@ -33,12 +36,12 @@ history:
 <iframe title="Solusi i18n terbaik untuk Next.js? Temukan Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
   </Tab>
-  <Tab label="Code" value="code">
+  <Tab label="Kode" value="code">
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-next-16-template?embed=1&ctl=1&file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  title="Demo CodeSandbox - Cara Melakukan Internasionalisasi aplikasi Anda menggunakan Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -64,7 +67,9 @@ Dengan Intlayer, Anda dapat:
 - **Memastikan dukungan TypeScript** dengan tipe yang dihasilkan secara otomatis, meningkatkan autocompletion dan deteksi kesalahan.
 - **Manfaatkan fitur canggih**, seperti deteksi dan pengalihan locale secara dinamis.
 
-> Intlayer kompatibel dengan Next.js 12, 13, 14, dan 16. Jika Anda menggunakan Next.js Page Router, Anda dapat merujuk ke [panduan ini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_page_router.md). Untuk Next.js 12, 13, 14 dengan App Router, lihat [panduan ini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_14.md).
+> Intlayer kompatibel dengan Next.js 12, 13, 14, dan 16. Jika Anda menggunakan Next.js Page Router, Anda dapat merujuk ke [panduan ini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_page_router.md).
+> Perutean lokal berguna untuk SEO, ukuran bundel, dan performa. Jika Anda tidak memerlukannya, Anda dapat merujuk ke [panduan ini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_no_locale_path.md).
+> Untuk Next.js 12, 13, 14 dengan App Router, lihat [panduan ini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_14.md).
 
 ---
 
@@ -96,25 +101,25 @@ bunx intlayer init
 
 - **intlayer**
 
-  Paket inti yang menyediakan alat internasionalisasi untuk manajemen konfigurasi, terjemahan, [deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md), transpile, dan [perintah CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md).
+  Paket inti yang menyediakan alat internasionalisasi untuk manajemen konfigurasi, terjemahan, [deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md), transpile, dan [perintah CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md).
 
 - **next-intlayer**
 
-Paket yang mengintegrasikan Intlayer dengan Next.js. Paket ini menyediakan context providers dan hooks untuk internasionalisasi Next.js. Selain itu, paket ini juga menyertakan plugin Next.js untuk mengintegrasikan Intlayer dengan [Webpack](https://webpack.js.org/) atau [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), serta proxy untuk mendeteksi locale pilihan pengguna, mengelola cookie, dan menangani pengalihan URL.
+  Paket yang mengintegrasikan Intlayer dengan Next.js. Paket ini menyediakan context providers dan hooks untuk internasionalisasi Next.js. Selain itu, paket ini juga menyertakan plugin Next.js untuk mengintegrasikan Intlayer dengan [Webpack](https://webpack.js.org/) atau [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), serta proxy untuk mendeteksi locale pilihan pengguna, mengelola cookie, dan menangani pengalihan URL.
 
 ### Langkah 2: Konfigurasikan Proyek Anda
 
-Here is the final structure that we will make:
+Berikut adalah struktur akhir yang akan kita buat:
 
 ```bash
 .
 ├── src
 │   ├── app
 │   │   ├── [locale]
-│   │   │   ├── layout.tsx            # Locale layout for the Intlayer provider
+│   │   │   ├── layout.tsx            # Layout locale untuk provider Intlayer
 │   │   │   ├── page.content.ts
 │   │   │   └── page.tsx
-│   │   └── layout.tsx                # Root layout for style and global providers
+│   │   └── layout.tsx                # Layout root untuk gaya dan provider global
 │   ├── components
 │   │   ├── client-component-example.content.ts
 │   │   ├── ClientComponentExample.tsx
@@ -130,7 +135,7 @@ Here is the final structure that we will make:
 └── tsconfig.json
 ```
 
-> If you don't want locale routing, intlayer can be used as a simple provider / hook. See [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_no_locale_path.md) for more details.
+> Jika Anda tidak menginginkan locale routing, intlayer dapat digunakan sebagai provider / hook sederhana. Lihat [panduan ini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_no_locale_path.md) untuk detail lebih lanjut.
 
 Buat file konfigurasi untuk mengatur bahasa aplikasi Anda:
 
@@ -233,7 +238,7 @@ module.exports = withIntlayer(nextConfig);
 
 > Fungsi `withIntlayer()` adalah fungsi promise. Fungsi ini memungkinkan persiapan kamus intlayer sebelum proses build dimulai. Jika Anda ingin menggunakannya bersama plugin lain, Anda dapat menggunakan `await`. Contoh:
 >
-> ```tsx
+> ```ts
 > const nextConfig = await withIntlayer(nextConfig);
 > const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
 >
@@ -242,11 +247,19 @@ module.exports = withIntlayer(nextConfig);
 >
 > Jika Anda ingin menggunakannya secara sinkron, Anda dapat menggunakan fungsi `withIntlayerSync()`. Contoh:
 >
-> ```tsx
+> ```ts
 > const nextConfig = withIntlayerSync(nextConfig);
 > const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
 >
 > export default nextConfigWithOtherPlugins;
+> ```
+
+> Intlayer secara otomatis mendeteksi apakah proyek Anda menggunakan **webpack** atau **Turbopack** berdasarkan flag baris perintah `--webpack`, `--turbo`, atau `--turbopack`, serta **versi Next.js** Anda saat ini.
+>
+> Sejak `next>=16`, jika Anda menggunakan **Rspack**, Anda harus secara eksplisit memaksa Intlayer untuk menggunakan konfigurasi webpack dengan menonaktifkan Turbopack:
+>
+> ```ts
+> withRspack(withIntlayer(nextConfig, { enableTurbopack: false }));
 > ```
 
 ### Langkah 4: Definisikan Rute Locale Dinamis
@@ -421,7 +434,7 @@ const pageContent = {
   content: {
     getStarted: {
       main: t({
-        en: "Mulailah dengan mengedit",
+        en: "Get started by editing",
         fr: "Commencez par éditer",
         es: "Comience por editar",
       }),
@@ -445,7 +458,6 @@ const pageContent = {
         en: "Get started by editing",
         fr: "Commencez par éditer",
         es: "Comience por editar",
-        id: "Mulai dengan mengedit",
       }),
       pageLink: "src/app/page.tsx",
     },
@@ -465,8 +477,7 @@ module.exports = pageContent;
       "translation": {
         "en": "Get started by editing",
         "fr": "Commencez par éditer",
-        "es": "Comience por editar",
-        "id": "Mulai dengan mengedit"
+        "es": "Comience por editar"
       }
     },
     "pageLink": "src/app/page.tsx"
@@ -494,9 +505,8 @@ const PageContent: FC = () => {
 
   return (
     <>
-      <p>{content.getStarted.main}</p> {/* Mengakses teks utama dari konten */}
-      <code>{content.getStarted.pageLink}</code>{" "}
-      {/* Menampilkan tautan halaman dari konten */}
+      <p>{content.getStarted.main}</p>
+      <code>{content.getStarted.pageLink}</code>
     </>
   );
 };
@@ -530,10 +540,8 @@ const PageContent = () => {
 
   return (
     <>
-      <p>{content.getStarted.main}</p>{" "}
-      {/* Menampilkan teks utama dari konten */}
-      <code>{content.getStarted.pageLink}</code>{" "}
-      {/* Menampilkan tautan halaman dari konten */}
+      <p>{content.getStarted.main}</p>
+      <code>{content.getStarted.pageLink}</code>
     </>
   );
 };
@@ -592,7 +600,7 @@ const Page = async ({ params }) => {
 - **`IntlayerClientProvider`** digunakan untuk menyediakan locale ke komponen sisi klien. Ini dapat ditempatkan di komponen induk mana pun, termasuk layout. Namun, menempatkannya di layout sangat disarankan karena Next.js membagikan kode layout di seluruh halaman, sehingga menjadi lebih efisien. Dengan menggunakan `IntlayerClientProvider` di layout, Anda menghindari inisialisasi ulang untuk setiap halaman, meningkatkan kinerja dan menjaga konteks lokalisasi yang konsisten di seluruh aplikasi Anda.
 - **`IntlayerServerProvider`** digunakan untuk menyediakan locale ke anak server. Ini tidak dapat ditempatkan di layout.
 
-> Layout dan halaman tidak dapat berbagi konteks server yang sama karena sistem konteks server didasarkan pada penyimpanan data per permintaan (melalui mekanisme [cache React](https://react.dev/reference/react/cache)), yang menyebabkan setiap "konteks" dibuat ulang untuk segmen aplikasi yang berbeda. Menempatkan provider di layout bersama akan memecah isolasi ini, sehingga mencegah propagasi nilai konteks server yang benar ke komponen server Anda.
+  > Layout dan halaman tidak dapat berbagi konteks server yang sama karena sistem konteks server didasarkan pada penyimpanan data per permintaan (melalui mekanisme [cache React](https://react.dev/reference/react/cache)), yang menyebabkan setiap "konteks" dibuat ulang untuk segmen aplikasi yang berbeda. Menempatkan provider di layout bersama akan memecah isolasi ini, sehingga mencegah propagasi nilai konteks server yang benar ke komponen server Anda.
 
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
 "use client";
@@ -681,7 +689,7 @@ const ServerComponentExample = () => {
 const { useIntlayer } = require("next-intlayer/server");
 
 const ServerComponentExample = () => {
-  const content = useIntlayer("server-component-example"); // Buat deklarasi konten terkait
+  const content = useIntlayer("server-component-example"); // Membuat deklarasi konten terkait
 
   return (
     <div>
@@ -781,18 +789,11 @@ const metadataContent = {
     title: t({
       en: "Create Next App",
       fr: "Créer une application Next.js",
-      es: "Crear una aplicación Next.js",
+      es: "Crear una aplikasi Next.js",
     }),
     description: t({
-      en: "Dihasilkan oleh create next app",
+      en: "Generated by create next app",
       fr: "Généré par create next app",
-      es: "Generado por create next app",
-    }),
-  },
-};
-
-export default metadataContent;
-      fr: "Dihasilkan oleh create next app",
       es: "Generado por create next app",
     }),
   },
@@ -811,10 +812,10 @@ const metadataContent = {
     title: t({
       en: "Create Next App",
       fr: "Créer une application Next.js",
-      es: "Crear una aplicación Next.js",
+      es: "Crear una aplikasi Next.js",
     }),
     description: t({
-      en: "Dihasilkan oleh create next app",
+      en: "Generated by create next app",
       fr: "Généré par create next app",
       es: "Generado por create next app",
     }),
@@ -831,23 +832,21 @@ module.exports = metadataContent;
     "title": {
       "nodeType": "translation",
       "translation": {
-          "en": "Preact logo",
-          "fr": "Logo Preact",
-          "es": "Logo Preact",
-          "id": "Logo Preact"
-      },
+        "en": "Preact logo",
+        "fr": "Logo Preact",
+        "es": "Logo Preact"
+      }
     },
     "description": {
       "nodeType": "translation",
       "translation": {
         "en": "Generated by create next app",
         "fr": "Généré par create next app",
-        "es": "Generado por create next app",
-        "id": "Dihasilkan oleh create next app"
-      },
-    },
-  },
-};
+        "es": "Generado por create next app"
+      }
+    }
+  }
+}
 ```
 
 ````typescript fileName="src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx" codeFormat="typescript"
@@ -1006,7 +1005,7 @@ export const generateMetadata = async ({
       es: "Mi título",
     }),
     description: t({
-      en: "Deskripsi saya",
+      en: "My description",
       fr: "Ma description",
       es: "Mi descripción",
     }),
@@ -1025,12 +1024,12 @@ export const generateMetadata = async ({ params }) => {
 
   return {
     title: t({
-      en: "Judul saya",
+      en: "My title",
       fr: "Mon titre",
       es: "Mi título",
     }),
     description: t({
-      en: "Deskripsi saya",
+      en: "My description",
       fr: "Ma description",
       es: "Mi descripción",
     }),
@@ -1189,15 +1188,14 @@ import { getMultilingualUrls } from "intlayer";
 const getAllMultilingualUrls = (urls: string[]) =>
   urls.flatMap((url) => Object.values(getMultilingualUrls(url)) as string[]);
 
-// Mendefinisikan aturan untuk robots.txt
 const robots = (): MetadataRoute.Robots => ({
   rules: {
-    userAgent: "*", // Mengizinkan semua user-agent
-    allow: ["/"], // Mengizinkan akses ke root
-    disallow: getAllMultilingualUrls(["/login", "/register"]), // Melarang akses ke halaman login dan register dalam semua bahasa
+    userAgent: "*",
+    allow: ["/"],
+    disallow: getAllMultilingualUrls(["/login", "/register"]),
   },
-  host: "https://example.com", // Host situs
-  sitemap: `https://example.com/sitemap.xml`, // Lokasi sitemap
+  host: "https://example.com",
+  sitemap: `https://example.com/sitemap.xml`,
 });
 
 export default robots;
@@ -1206,15 +1204,14 @@ export default robots;
 ```jsx fileName="src/app/robots.mjx" codeFormat="esm"
 import { getMultilingualUrls } from "intlayer";
 
-// Mendapatkan semua URL multibahasa dari daftar URL
 const getAllMultilingualUrls = (urls) =>
   urls.flatMap((url) => Object.values(getMultilingualUrls(url)));
 
 const robots = () => ({
   rules: {
-    userAgent: "*", // Mengizinkan semua user-agent
-    allow: ["/"], // Mengizinkan akses ke root
-    disallow: getAllMultilingualUrls(["/login", "/register"]), // Melarang akses ke halaman login dan register dalam semua bahasa
+    userAgent: "*",
+    allow: ["/"],
+    disallow: getAllMultilingualUrls(["/login", "/register"]),
   },
   host: "https://example.com",
   sitemap: `https://example.com/sitemap.xml`,
@@ -1566,138 +1563,15 @@ const Link = ({ href, children, ...props }) => {
 #### Cara Kerjanya
 
 - **Mendeteksi Tautan Eksternal**:  
-  Fungsi pembantu `checkIsExternalLink` menentukan apakah sebuah URL adalah eksternal. Tautan eksternal dibiarkan tidak berubah karena tidak memerlukan lokalisasi.
+  Fungsi pembantu `checkIsExternalLink` menentukan apakah sebuah URL bersifat eksternal. Tautan eksternal dibiarkan tidak berubah karena tidak memerlukan lokalisasi.
 
 - **Mengambil Locale Saat Ini**:  
-  Hook `useLocale` menyediakan locale saat ini (misalnya, `fr` untuk bahasa Perancis).
+  Hook `useLocale` menyediakan locale saat ini (misalnya, `fr` untuk bahasa Prancis).
 
 - **Melokalisasi URL**:  
-  Untuk tautan internal (yaitu, bukan eksternal), `getLocalizedUrl` digunakan untuk secara otomatis menambahkan prefix locale saat ini pada URL. Ini berarti jika pengguna Anda menggunakan bahasa Perancis, memberikan `/about` sebagai `href` akan mengubahnya menjadi `/fr/about`.
+  Untuk tautan internal (yaitu, non-eksternal), `getLocalizedUrl` digunakan untuk secara otomatis menambahkan awalan URL dengan locale saat ini. Ini berarti jika pengguna Anda menggunakan bahasa Prancis, meneruskan `/about` sebagai `href` akan mengubahnya menjadi `/fr/about`.
 
 - **Mengembalikan Tautan**:  
-  Komponen mengembalikan elemen `<a>` dengan URL yang sudah dilokalisasi, memastikan navigasi konsisten dengan locale.
+  Komponen mengembalikan elemen `<a>` dengan URL yang dilokalkan, memastikan bahwa navigasi konsisten dengan locale tersebut.
 
-Dengan mengintegrasikan komponen `Link` ini di seluruh aplikasi Anda, Anda mempertahankan pengalaman pengguna yang koheren dan sadar bahasa sekaligus mendapatkan manfaat dari peningkatan SEO dan kegunaan.
-
-### (Opsional) Langkah 12: Mendapatkan locale saat ini di Server Actions
-
-Jika Anda memerlukan locale aktif di dalam Server Action (misalnya, untuk melokalkan email atau menjalankan logika yang sadar locale), panggil `getLocale` dari `next-intlayer/server`:
-
-```tsx fileName="src/app/actions/getLocale.ts" codeFormat="typescript"
-"use server";
-
-import { getLocale } from "next-intlayer/server";
-
-export const myServerAction = async () => {
-  const locale = await getLocale();
-
-  // Lakukan sesuatu dengan locale
-};
-```
-
-> Fungsi `getLocale` mengikuti strategi bertingkat untuk menentukan locale pengguna:
->
-> 1. Pertama, memeriksa header permintaan untuk nilai locale yang mungkin telah diatur oleh proxy
-> 2. Jika tidak ditemukan locale di header, mencari locale yang disimpan dalam cookie
-> 3. Jika tidak ditemukan cookie, mencoba mendeteksi bahasa yang dipilih pengguna dari pengaturan browser mereka
-> 4. Sebagai upaya terakhir, menggunakan locale default yang dikonfigurasi dalam aplikasi
->
-> Ini memastikan locale yang paling sesuai dipilih berdasarkan konteks yang tersedia.
-
-### (Opsional) Langkah 13: Optimalkan ukuran bundle Anda
-
-Saat menggunakan `next-intlayer`, kamus disertakan dalam bundel untuk setiap halaman secara default. Untuk mengoptimalkan ukuran bundel, Intlayer menyediakan plugin SWC opsional yang secara cerdas menggantikan panggilan `useIntlayer` menggunakan makro. Ini memastikan kamus hanya disertakan dalam bundel untuk halaman yang benar-benar menggunakannya.
-
-Untuk mengaktifkan optimasi ini, instal paket `@intlayer/swc`. Setelah terinstal, `next-intlayer` akan secara otomatis mendeteksi dan menggunakan plugin tersebut:
-
-```bash packageManager="npm"
-npm install @intlayer/swc --save-dev
-npx intlayer init
-```
-
-```bash packageManager="pnpm"
-pnpm add @intlayer/swc --save-dev
-pnpm intlayer init
-```
-
-```bash packageManager="yarn"
-yarn add @intlayer/swc --save-dev
-yarn intlayer init
-```
-
-```bash packageManager="bun"
-bun add @intlayer/swc --dev
-bunx intlayer init
-```
-
-> Catatan: Optimasi ini hanya tersedia untuk Next.js 13 ke atas.
-
-> Catatan: Paket ini tidak diinstal secara default karena plugin SWC masih bersifat eksperimental di Next.js. Hal ini mungkin akan berubah di masa depan.
-
-### Memantau perubahan kamus pada Turbopack
-
-Saat menggunakan Turbopack sebagai server pengembangan dengan perintah `next dev`, perubahan kamus tidak akan terdeteksi secara otomatis secara default.
-
-Keterbatasan ini terjadi karena Turbopack tidak dapat menjalankan plugin webpack secara paralel untuk memantau perubahan pada file konten Anda. Untuk mengatasinya, Anda perlu menggunakan perintah `intlayer watch` untuk menjalankan server pengembangan dan pengawas build Intlayer secara bersamaan.
-
-```json5 fileName="package.json"
-{
-  // ... Konfigurasi package.json Anda yang sudah ada
-  "scripts": {
-    // ... Konfigurasi skrip Anda yang sudah ada
-    "dev": "intlayer watch --with 'next dev'",
-  },
-}
-```
-
-> Jika Anda menggunakan next-intlayer@<=6.x.x, Anda perlu mempertahankan flag `--turbopack` agar aplikasi Next.js 16 dapat bekerja dengan benar menggunakan Turbopack. Kami menyarankan menggunakan next-intlayer@>=7.x.x untuk menghindari keterbatasan ini.
-
-### Konfigurasi TypeScript
-
-Intlayer menggunakan augmentasi modul untuk mendapatkan manfaat dari TypeScript dan membuat basis kode Anda lebih kuat.
-
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Kesalahan Terjemahan](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Pastikan konfigurasi TypeScript Anda menyertakan tipe yang dihasilkan secara otomatis.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Konfigurasi TypeScript Anda yang sudah ada
-  "include": [
-    // ... Konfigurasi TypeScript Anda yang sudah ada
-    ".intlayer/**/*.ts", // Sertakan tipe yang dihasilkan secara otomatis
-  ],
-}
-```
-
-### Konfigurasi Git
-
-Disarankan untuk mengabaikan file yang dihasilkan oleh Intlayer. Ini memungkinkan Anda untuk menghindari meng-commit file tersebut ke repositori Git Anda.
-
-Untuk melakukan ini, Anda dapat menambahkan instruksi berikut ke file `.gitignore` Anda:
-
-```plaintext fileName=".gitignore"
-# Abaikan file yang dihasilkan oleh Intlayer
-.intlayer
-```
-
-### Ekstensi VS Code
-
-Untuk meningkatkan pengalaman pengembangan Anda dengan Intlayer, Anda dapat menginstal **Ekstensi VS Code Intlayer** resmi.
-
-[Pasang dari VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Ekstensi ini menyediakan:
-
-- **Autocompletion** untuk kunci terjemahan.
-- **Deteksi kesalahan waktu nyata** untuk terjemahan yang hilang.
-- **Pratinjau langsung** dari konten yang diterjemahkan.
-- **Tindakan cepat** untuk dengan mudah membuat dan memperbarui terjemahan.
-
-Untuk detail lebih lanjut tentang cara menggunakan ekstensi ini, lihat [dokumentasi Ekstensi VS Code Intlayer](https://intlayer.org/doc/vs-code-extension).
-
-### Melangkah Lebih Jauh
-
-Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau mengeksternalisasi konten Anda menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
+Dengan mengintegrasikan komponen `Link` ini di seluruh aplikasi, Anda mempertahankan pengalaman pengguna yang koheren dan sadar bahasa sambil juga mendapatkan manfaat dari peningkatan SEO dan kegunaan.

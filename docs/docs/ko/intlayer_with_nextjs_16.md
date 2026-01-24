@@ -1,7 +1,7 @@
 ---
-createdAt: 2025-10-25
+createdAt: 2024-12-06
 updatedAt: 2025-12-30
-title: Next.js 16 앱 번역 방법 – 2025 i18n 가이드
+title: Next.js 16 앱 번역 방법 – 2026 i18n 가이드
 description: Next.js 16 웹사이트를 다국어로 만드는 방법을 알아보세요. 국제화(i18n) 및 번역을 위한 문서를 따라가세요.
 keywords:
   - 국제화
@@ -20,6 +20,9 @@ history:
   - version: 7.5.9
     date: 2025-12-30
     changes: init 명령어 추가
+  - version: 7.0.6
+    date: 2025-11-01
+    changes: `alternates` 객체에 `x-default` 언급 추가
   - version: 7.0.0
     date: 2025-06-29
     changes: 초기 기록
@@ -28,17 +31,17 @@ history:
 # Intlayer를 사용하여 Next.js 16 웹사이트 번역하기 | 국제화(i18n)
 
 <Tabs defaultTab="video">
-  <Tab label="Video" value="video">
+  <Tab label="비디오" value="video">
   
 <iframe title="Next.js를 위한 최고의 i18n 솔루션? Intlayer를 발견하세요" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
   </Tab>
-  <Tab label="Code" value="code">
+  <Tab label="코드" value="code">
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-next-16-template?embed=1&ctl=1&file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  title="데모 CodeSandbox - Intlayer를 사용하여 애플리케이션을 국제화하는 방법"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -64,7 +67,9 @@ Intlayer를 사용하면 다음을 할 수 있습니다:
 - 자동 생성된 타입으로 **TypeScript 지원을 보장**하여 자동 완성 및 오류 감지를 향상시킵니다.
 - **동적 로케일 감지 및 전환**과 같은 고급 기능을 활용할 수 있습니다.
 
-> Intlayer는 Next.js 12, 13, 14, 16과 호환됩니다. Next.js Page Router를 사용하는 경우, 이 [가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_page_router.md)를 참조하세요. Next.js 12, 13, 14에서 App Router를 사용하는 경우, 이 [가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_14.md)를 참조하세요.
+> Intlayer는 Next.js 12, 13, 14, 16과 호환됩니다. Next.js Page Router를 사용하는 경우, 이 [가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_page_router.md)를 참조하세요.
+> 로케일 라우팅은 SEO, 번들 크기 및 성능에 유용합니다. 필요하지 않은 경우 이 [가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_no_locale_path.md)를 참조하세요.
+> Next.js 12, 13, 14에서 App Router를 사용하는 경우, 이 [가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_14.md)를 참조하세요.
 
 ---
 
@@ -96,25 +101,25 @@ bunx intlayer init
 
 - **intlayer**
 
-  구성 관리, 번역, [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md), 트랜스파일링 및 [CLI 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_cli.md)를 위한 국제화 도구를 제공하는 핵심 패키지입니다.
+  구성 관리, 번역, [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md), 트랜스파일링 및 [CLI 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)를 위한 국제화 도구를 제공하는 핵심 패키지입니다.
 
 - **next-intlayer**
 
-Intlayer를 Next.js와 통합하는 패키지입니다. Next.js 국제화를 위한 컨텍스트 프로바이더와 훅을 제공합니다. 또한, Intlayer를 [Webpack](https://webpack.js.org/) 또는 [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack)과 통합하기 위한 Next.js 플러그인과 사용자의 선호 로케일 감지, 쿠키 관리, URL 리디렉션 처리를 위한 프록시도 포함되어 있습니다.
+  Intlayer를 Next.js와 통합하는 패키지입니다. Next.js 국제화를 위한 컨텍스트 프로바이더와 훅을 제공합니다. 또한, Intlayer를 [Webpack](https://webpack.js.org/) 또는 [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack)과 통합하기 위한 Next.js 플러그인과 사용자의 선호 로케일 감지, 쿠키 관리, URL 리디렉션 처리를 위한 프록시도 포함되어 있습니다.
 
 ### 2단계: 프로젝트 구성
 
-Here is the final structure that we will make:
+최종적으로 만들어질 구조는 다음과 같습니다:
 
 ```bash
 .
 ├── src
 │   ├── app
 │   │   ├── [locale]
-│   │   │   ├── layout.tsx            # Locale layout for the Intlayer provider
+│   │   │   ├── layout.tsx            # Intlayer 프로바이더를 위한 로케일 레이아웃
 │   │   │   ├── page.content.ts
 │   │   │   └── page.tsx
-│   │   └── layout.tsx                # Root layout for style and global providers
+│   │   └── layout.tsx                # 스타일 및 전역 프로바이더를 위한 루트 레이아웃
 │   ├── components
 │   │   ├── client-component-example.content.ts
 │   │   ├── ClientComponentExample.tsx
@@ -130,7 +135,7 @@ Here is the final structure that we will make:
 └── tsconfig.json
 ```
 
-> If you don't want locale routing, intlayer can be used as a simple provider / hook. See [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_no_locale_path.md) for more details.
+> 로케일 라우팅을 원하지 않는 경우, intlayer를 단순한 프로바이더 / 훅으로 사용할 수 있습니다. 자세한 내용은 [이 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_no_locale_path.md)를 참조하세요.
 
 애플리케이션의 언어를 구성하기 위해 설정 파일을 만드세요:
 
@@ -233,7 +238,7 @@ module.exports = withIntlayer(nextConfig);
 
 > `withIntlayer()` 함수는 프로미스 함수입니다. 빌드가 시작되기 전에 Intlayer 사전을 준비할 수 있게 해줍니다. 다른 플러그인과 함께 사용하려면 `await`할 수 있습니다. 예시:
 >
-> ```tsx
+> ```ts
 > const nextConfig = await withIntlayer(nextConfig);
 > const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
 >
@@ -242,11 +247,19 @@ module.exports = withIntlayer(nextConfig);
 >
 > 동기적으로 사용하고 싶다면 `withIntlayerSync()` 함수를 사용할 수 있습니다. 예시:
 >
-> ```tsx
+> ```ts
 > const nextConfig = withIntlayerSync(nextConfig);
 > const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
 >
 > export default nextConfigWithOtherPlugins;
+> ```
+
+> Intlayer는 명령줄 플래그 `--webpack`, `--turbo` 또는 `--turbopack`뿐만 아니라 현재 **Next.js 버전**을 기반으로 프로젝트가 **webpack** 또는 **Turbopack**을 사용하고 있는지 자동으로 감지합니다.
+>
+> `next>=16`부터 **Rspack**을 사용하는 경우, Turbopack을 비활성화하여 Intlayer가 webpack 구성을 사용하도록 명시적으로 강제해야 합니다:
+>
+> ```ts
+> withRspack(withIntlayer(nextConfig, { enableTurbopack: false }));
 > ```
 
 ### 4단계: 동적 로케일 경로 정의
@@ -304,10 +317,11 @@ const inter = Inter({ subsets: ["latin"] });
 const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
   const { locale } = await params;
   return (
-<html lang={locale} dir={getHTMLTextDir(locale)}>
-  <body className={inter.className}>{children}</body>
-</html>
-);
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
+      <body className={inter.className}>{children}</body>
+    </html>
+  );
+};
 
 export default LocaleLayout;
 ```
@@ -335,20 +349,6 @@ const { getHTMLTextDir } = require("intlayer");
 
 const inter = Inter({ subsets: ["latin"] });
 
-// LocaleLayout 컴포넌트는 동적으로 로케일을 받아 HTML lang 및 dir 속성을 설정합니다.
-const LocaleLayout = async ({ children, params: { locale } }) => {
-  const { locale } = await params;
-  return (
-    <html lang={locale} dir={getHTMLTextDir(locale)}>
-      <body className={inter.className}>{children}</body>
-    </html>
-  );
-};
-
-module.exports = LocaleLayout;
-
-const inter = Inter({ subsets: ["latin"] });
-
 const LocaleLayout = async ({ children, params: { locale } }) => {
   const { locale } = await params;
   return (
@@ -368,13 +368,6 @@ module.exports = LocaleLayout;
 그런 다음, 애플리케이션 Layout에서 `generateStaticParams` 함수를 구현하세요.
 
 ```tsx {1} fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"
-export { generateStaticParams } from "next-intlayer"; // 삽입할 라인
-
-const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
-  /*... 나머지 코드 */
-};
-
-tsx {1} fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"
 export { generateStaticParams } from "next-intlayer"; // 삽입할 라인
 
 const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
@@ -482,7 +475,7 @@ module.exports = pageContent;
     "getStarted": {
       "nodeType": "translation",
       "translation": {
-        "en": "수정을 시작하세요",
+        "en": "Get started by editing",
         "fr": "Commencez par éditer",
         "es": "Comience por editar"
       }
@@ -512,8 +505,8 @@ const PageContent: FC = () => {
 
   return (
     <>
-      <p>{content.getStarted.main}</p> {/* 시작하기 메인 내용 */}
-      <code>{content.getStarted.pageLink}</code> {/* 시작하기 페이지 링크 */}
+      <p>{content.getStarted.main}</p>
+      <code>{content.getStarted.pageLink}</code>
     </>
   );
 };
@@ -608,8 +601,6 @@ const Page = async ({ params }) => {
 - **`IntlayerServerProvider`**는 서버 자식 컴포넌트에 로케일을 제공하는 데 사용됩니다. 레이아웃에서는 설정할 수 없습니다.
 
   > 레이아웃과 페이지는 공통 서버 컨텍스트를 공유할 수 없습니다. 서버 컨텍스트 시스템은 요청별 데이터 저장소([React의 cache](https://react.dev/reference/react/cache) 메커니즘)를 기반으로 하여 애플리케이션의 서로 다른 세그먼트마다 각 "컨텍스트"가 다시 생성되기 때문입니다. 공급자를 공유 레이아웃에 배치하면 이 격리가 깨져 서버 컨텍스트 값이 서버 컴포넌트에 올바르게 전달되지 않습니다.
-
-> 레이아웃과 페이지는 공통 서버 컨텍스트를 공유할 수 없습니다. 서버 컨텍스트 시스템이 요청별 데이터 저장소(React의 [캐시](https://react.dev/reference/react/cache) 메커니즘)를 기반으로 하기 때문에 애플리케이션의 서로 다른 세그먼트마다 각 "컨텍스트"가 다시 생성됩니다. 프로바이더를 공유 레이아웃에 배치하면 이러한 격리가 깨져 서버 컨텍스트 값이 서버 컴포넌트에 올바르게 전달되지 않습니다.
 
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
 "use client";
@@ -801,37 +792,7 @@ const metadataContent = {
       es: "Crear una aplicación Next.js",
     }),
     description: t({
-      en: "create next app에 의해 생성됨", // create next app에 의해 생성됨
-      fr: "Généré par create next app",
-      es: "Generado por create next app",
-    }),
-  },
-};
-
-export default metadataContent;
-```
-
-```javascript fileName="src/app/[locale]/metadata.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary<import('next').Metadata>} */
-const metadataContent = {
-  key: "page-metadata",
-  content: {
-    title: t({
-      en: "Create Next App",
-      fr: "Créer une application Next.js",
-      es: "Crear una aplicación Next.js",
-    }),
-    description: t({
-      en: "create next app에 의해 생성됨", // create next app에 의해 생성됨
-      fr: "Généré par create next app",
-      es: "Generado por create next app",
-    }),
-  },
-};
-
-module.exports = metadataContent;
+      en: "Generated by create next app",
       fr: "Généré par create next app",
       es: "Generado por create next app",
     }),
@@ -871,7 +832,6 @@ module.exports = metadataContent;
     "title": {
       "nodeType": "translation",
       "translation": {
-        "ko": "프리액트 로고",
         "en": "Preact logo",
         "fr": "Logo Preact",
         "es": "Logo Preact"
@@ -880,7 +840,6 @@ module.exports = metadataContent;
     "description": {
       "nodeType": "translation",
       "translation": {
-        "ko": "create next app에 의해 생성됨",
         "en": "Generated by create next app",
         "fr": "Généré par create next app",
         "es": "Generado por create next app"
@@ -1046,7 +1005,7 @@ export const generateMetadata = async ({
       es: "Mi título",
     }),
     description: t({
-      en: "내 설명",
+      en: "My description",
       fr: "Ma description",
       es: "Mi descripción",
     }),
@@ -1065,12 +1024,12 @@ export const generateMetadata = async ({ params }) => {
 
   return {
     title: t({
-      en: "내 제목",
+      en: "My title",
       fr: "Mon titre",
       es: "Mi título",
     }),
     description: t({
-      en: "내 설명",
+      en: "My description",
       fr: "Ma description",
       es: "Mi descripción",
     }),
@@ -1229,15 +1188,14 @@ import { getMultilingualUrls } from "intlayer";
 const getAllMultilingualUrls = (urls: string[]) =>
   urls.flatMap((url) => Object.values(getMultilingualUrls(url)) as string[]);
 
-// robots 메타데이터를 반환하는 함수
 const robots = (): MetadataRoute.Robots => ({
   rules: {
-    userAgent: "*", // 모든 사용자 에이전트 허용
-    allow: ["/"], // 루트 경로 허용
-    disallow: getAllMultilingualUrls(["/login", "/register"]), // 로그인 및 회원가입 페이지 다국어 URL 차단
+    userAgent: "*",
+    allow: ["/"],
+    disallow: getAllMultilingualUrls(["/login", "/register"]),
   },
-  host: "https://example.com", // 사이트 호스트
-  sitemap: `https://example.com/sitemap.xml`, // 사이트맵 위치
+  host: "https://example.com",
+  sitemap: `https://example.com/sitemap.xml`,
 });
 
 export default robots;
@@ -1281,7 +1239,7 @@ const robots = () => ({
 module.exports = robots;
 ```
 
-> 사이트맵 최적화에 대해 더 알아보려면 [공식 Next.js 문서](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap)를 참고하세요. robots.txt 최적화에 대해서는 [공식 Next.js 문서](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots)를 참고하세요.
+> 사이트맵 최적화에 대해 더 알아보기 [공식 Next.js 문서에서](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap). robots.txt 최적화에 대해 더 알아보기 [공식 Next.js 문서에서](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots).
 
 ### (선택 사항) 10단계: 콘텐츠의 언어 변경하기
 
@@ -1472,13 +1430,13 @@ return (
 > 문서 참고:
 >
 > - [`useLocale` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/useLocale.md)
-> - [`getLocaleName` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocaleName.md)
-> - [`getLocalizedUrl` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocalizedUrl.md)
-> - [`getHTMLTextDir` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getHTMLTextDir.md)
-> - [`hrefLang` 속성](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
-> - [`lang` 속성](https://developer.mozilla.org/ko/docs/Web/HTML/Global_attributes/lang)
-> - [`dir` 속성](https://developer.mozilla.org/ko/docs/Web/HTML/Global_attributes/dir)
-> - [`aria-current` 속성](https://developer.mozilla.org/ko/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+> - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocaleName.md)
+> - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getLocalizedUrl.md)
+> - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getHTMLTextDir.md)
+> - [`hrefLang` attribute](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
+> - [`lang` attribute](https://developer.mozilla.org/ko/docs/Web/HTML/Global_attributes/lang)
+> - [`dir` attribute](https://developer.mozilla.org/ko/docs/Web/HTML/Global_attributes/dir)
+> - [`aria-current` attribute](https://developer.mozilla.org/ko/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
 ### (선택 사항) 11단계: 지역화된 링크 컴포넌트 생성하기
 
@@ -1520,7 +1478,7 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
   const { locale } = useLocale();
   const isExternalLink = checkIsExternalLink(href.toString());
 
-  // 링크가 내부 링크이고 유효한 href가 제공된 경우, 로케일이 적용된 URL을 가져옵니다.
+  // 만약 링크가 내부 링크이고 유효한 href가 제공되었다면, 지역화된 URL을 가져옵니다.
   const hrefI18n: NextLinkProps["href"] =
     href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
 
@@ -1547,14 +1505,14 @@ export const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? "");
 
 /**
  * 현재 로케일에 따라 href 속성을 조정하는 커스텀 Link 컴포넌트입니다.
- * 내부 링크의 경우 `getLocalizedUrl`을 사용하여 URL 앞에 로케일 접두사를 붙입니다 (예: /fr/about).
- * 이를 통해 네비게이션이 동일한 로케일 컨텍스트 내에서 이루어지도록 보장합니다.
+ * 내부 링크의 경우, `getLocalizedUrl`을 사용하여 URL 앞에 로케일을 붙입니다 (예: /fr/about).
+ * 이를 통해 내비게이션이 동일한 로케일 컨텍스트 내에서 이루어지도록 보장합니다.
  */
 export const Link = ({ href, children, ...props }) => {
   const { locale } = useLocale();
   const isExternalLink = checkIsExternalLink(href.toString());
 
-  // 링크가 내부 링크이고 유효한 href가 제공된 경우, 현지화된 URL을 가져옵니다.
+  // 만약 링크가 내부 링크이고 유효한 href가 제공되었다면, 지역화된 URL을 가져옵니다.
   const hrefI18n =
     href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
 
@@ -1581,14 +1539,14 @@ const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? "");
 
 /**
  * 현재 로케일에 따라 href 속성을 조정하는 커스텀 Link 컴포넌트입니다.
- * 내부 링크의 경우, `getLocalizedUrl`을 사용하여 URL 앞에 로케일을 붙입니다(예: /fr/about).
+ * 내부 링크의 경우, `getLocalizedUrl`을 사용하여 URL 앞에 로케일을 붙입니다 (예: /fr/about).
  * 이를 통해 내비게이션이 동일한 로케일 컨텍스트 내에서 이루어지도록 보장합니다.
  */
 const Link = ({ href, children, ...props }) => {
   const { locale } = useLocale();
   const isExternalLink = checkIsExternalLink(href.toString());
 
-  // 링크가 내부 링크이고 유효한 href가 제공된 경우, 로케일이 적용된 URL을 가져옵니다.
+  // 만약 링크가 내부 링크이고 유효한 href가 제공되었다면, 지역화된 URL을 가져옵니다.
   const hrefI18n =
     href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
 
@@ -1600,141 +1558,18 @@ const Link = ({ href, children, ...props }) => {
 };
 ```
 
-#### 작동 방식
+#### 작동 원리
 
 - **외부 링크 감지**:  
-  도움 함수 `checkIsExternalLink`는 URL이 외부 링크인지 여부를 판단합니다. 외부 링크는 현지화가 필요 없으므로 변경되지 않습니다.
+  유틸리티 함수 `checkIsExternalLink`는 URL이 외부 링크인지 확인합니다. 외부 링크는 현지화가 필요하지 않으므로 변경되지 않은 상태로 유지됩니다.
 
 - **현재 로케일 가져오기**:  
   `useLocale` 훅은 현재 로케일(예: 프랑스어의 경우 `fr`)을 제공합니다.
 
 - **URL 현지화**:  
-  내부 링크(즉, 외부 링크가 아닌 경우)에 대해 `getLocalizedUrl`을 사용하여 URL 앞에 현재 로케일을 자동으로 붙입니다. 예를 들어 사용자가 프랑스어 로케일에 있다면, `href`에 `/about`을 전달할 경우 `/fr/about`로 변환됩니다.
+  내부 링크(즉, 외부 링크가 아닌 링크)의 경우, `getLocalizedUrl`을 사용하여 URL 앞에 현재 로케일을 자동으로 붙입니다. 즉, 사용자가 프랑스어 환경에 있는 경우, `href`로 `/about`을 전달하면 `/fr/about`으로 변환됩니다.
 
 - **링크 반환**:  
-  이 컴포넌트는 현지화된 URL을 가진 `<a>` 요소를 반환하여, 내비게이션이 로케일과 일관되도록 보장합니다.
+  컴포넌트는 현지화된 URL을 가진 `<a>` 요소를 반환하여 내비게이션이 로케일과 일치하도록 보장합니다.
 
-이 `Link` 컴포넌트를 애플리케이션 전반에 통합하면 일관되고 언어에 민감한 사용자 경험을 유지할 수 있으며, SEO 및 사용성 향상이라는 이점도 누릴 수 있습니다.
-
-### (선택 사항) 12단계: 서버 액션에서 현재 로케일 가져오기
-
-서버 액션 내에서 활성 로케일이 필요할 경우(예: 이메일 현지화 또는 로케일 인식 로직 실행), `next-intlayer/server`에서 `getLocale`을 호출하세요:
-
-```tsx fileName="src/app/actions/getLocale.ts" codeFormat="typescript"
-"use server";
-
-import { getLocale } from "next-intlayer/server";
-
-export const myServerAction = async () => {
-  const locale = await getLocale();
-
-  // 로케일로 무언가를 수행합니다
-};
-```
-
-> `getLocale` 함수는 사용자의 로케일을 결정하기 위해 계단식 전략을 따릅니다:
->
-> 1. 먼저, 프록시에서 설정했을 수 있는 로케일 값을 요청 헤더에서 확인합니다.
-> 2. 헤더에서 로케일을 찾지 못하면, 쿠키에 저장된 로케일을 확인합니다.
-> 3. 쿠키도 없으면, 사용자의 브라우저 설정에서 선호하는 언어를 감지하려 시도합니다.
-> 4. 마지막으로, 애플리케이션에 설정된 기본 로케일로 대체합니다.
->
-> 이를 통해 사용 가능한 컨텍스트에 기반하여 가장 적절한 로케일이 선택됩니다.
-
-### (선택 사항) 13단계: 번들 크기 최적화
-
-`next-intlayer`를 사용할 때, 사전(dictionary)은 기본적으로 모든 페이지 번들에 포함됩니다. 번들 크기를 최적화하기 위해 Intlayer는 매크로를 사용하여 `useIntlayer` 호출을 지능적으로 대체하는 선택적 SWC 플러그인을 제공합니다. 이를 통해 사전은 실제로 사용하는 페이지의 번들에만 포함됩니다.
-
-이 최적화를 활성화하려면 `@intlayer/swc` 패키지를 설치하세요. 설치가 완료되면 `next-intlayer`가 자동으로 플러그인을 감지하고 사용합니다:
-
-```bash packageManager="npm"
-npm install @intlayer/swc --save-dev
-npx intlayer init
-```
-
-```bash packageManager="pnpm"
-pnpm add @intlayer/swc --save-dev
-pnpm intlayer init
-```
-
-```bash packageManager="yarn"
-yarn add @intlayer/swc --save-dev
-yarn intlayer init
-```
-
-```bash packageManager="bun"
-bun add @intlayer/swc --dev
-bunx intlayer init
-```
-
-> 참고: 이 최적화는 Next.js 13 이상에서만 사용할 수 있습니다.
-
-> 참고: 이 패키지는 SWC 플러그인이 Next.js에서 아직 실험 단계이기 때문에 기본적으로 설치되어 있지 않습니다. 향후 변경될 수 있습니다.
-
-### Turbopack에서 사전 변경 사항 감시하기
-
-`next dev` 명령어로 Turbopack을 개발 서버로 사용할 때, 사전 변경 사항이 기본적으로 자동 감지되지 않습니다.
-
-이 제한은 Turbopack이 콘텐츠 파일의 변경 사항을 모니터링하기 위해 webpack 플러그인을 병렬로 실행할 수 없기 때문에 발생합니다. 이를 해결하려면 `intlayer watch` 명령어를 사용하여 개발 서버와 Intlayer 빌드 감시자를 동시에 실행해야 합니다.
-
-```json5 fileName="package.json"
-{
-  // ... 기존 package.json 설정
-  "scripts": {
-    // ... 기존 스크립트 설정
-    "dev": "intlayer watch --with 'next dev'",
-  },
-}
-```
-
-> next-intlayer@<=6.x.x 버전을 사용 중이라면, Next.js 16 애플리케이션이 Turbopack과 올바르게 작동하도록 `--turbopack` 플래그를 유지해야 합니다. 이 제한을 피하려면 next-intlayer@>=7.x.x 버전 사용을 권장합니다.
-
-### TypeScript 구성
-
-Intlayer는 TypeScript의 이점을 활용하고 코드베이스를 더욱 견고하게 만들기 위해 모듈 증강(module augmentation)을 사용합니다.
-
-![자동완성](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![번역 오류](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-TypeScript 구성에 자동 생성된 타입이 포함되어 있는지 확인하세요.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... 기존 TypeScript 구성
-  "include": [
-    // ... 기존 TypeScript 구성
-    ".intlayer/**/*.ts", // 자동 생성된 타입 포함
-  ],
-}
-```
-
-### Git 구성
-
-Intlayer에서 생성된 파일을 무시하는 것이 권장됩니다. 이렇게 하면 Git 저장소에 커밋하는 것을 방지할 수 있습니다.
-
-이를 위해 `.gitignore` 파일에 다음 지침을 추가할 수 있습니다:
-
-```plaintext fileName=".gitignore"
-# Intlayer에서 생성된 파일 무시
-.intlayer
-```
-
-### VS Code 확장
-
-Intlayer와 함께 개발 경험을 향상시키기 위해 공식 **Intlayer VS Code 확장**을 설치할 수 있습니다.
-
-[VS Code 마켓플레이스에서 설치](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-이 확장은 다음을 제공합니다:
-
-- 번역 키에 대한 **자동 완성**.
-- 누락된 번역에 대한 **실시간 오류 감지**.
-- 번역된 콘텐츠의 **인라인 미리보기**.
-- 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업**.
-
-확장 기능 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
-
-### 더 나아가기
-
-더 나아가려면 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 구현하거나 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 사용하여 콘텐츠를 외부화할 수 있습니다.
+이 `Link` 컴포넌트를 애플리케이션 전반에 통합함으로써, 일관성 있고 언어를 인식하는 사용자 경험을 유지하는 동시에 향상된 SEO 및 사용성 이점을 누릴 수 있습니다.
