@@ -10,12 +10,12 @@ import { NextJSLogo } from '../AvailableTechnoSection/Nextjs';
 import { NuxtLogo } from '../AvailableTechnoSection/Nuxt';
 import { PreactLogo } from '../AvailableTechnoSection/Preact';
 import { ReactLogo } from '../AvailableTechnoSection/Reactjs';
+import { SolidLogo } from '../AvailableTechnoSection/Solid';
 import { SvelteLogo } from '../AvailableTechnoSection/Svelte';
 import { TanstackLogo } from '../AvailableTechnoSection/Tanstack';
 import { ViteLogo } from '../AvailableTechnoSection/Vitejs';
 import { VuejsLogo } from '../AvailableTechnoSection/Vuejs';
 
-// import { SolidLogo } from '../AvailableTechnoSection/Solid';
 // import { AngularLogo } from '../AvailableTechnoSection/Angular';
 
 // Animated Technology logos
@@ -72,8 +72,12 @@ const logos = [
     key: 'svelte',
     route: PagesRoutes.Doc_Environment_ViteAndSvelte,
   },
+  {
+    Logo: SolidLogo,
+    key: 'solid',
+    route: PagesRoutes.Doc_Environment_ViteAndSolid,
+  },
   // { Logo: AngularLogo, key: 'angular', route: PagesRoutes.Doc_Environment_Angular },
-  // { Logo: SolidLogo, key: 'solid', route: PagesRoutes.Doc_Environment_ViteAndSolid },
 ];
 
 const LogoItem: FC<{

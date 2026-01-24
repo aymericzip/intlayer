@@ -108,7 +108,7 @@ const logosRow1 = [
     route: PagesRoutes.Doc_Environment_ViteAndReact,
     initialPost: {
       scale: 1.5,
-      x: -200,
+      x: -350,
       y: -60,
     },
     label: 'react',
@@ -118,10 +118,20 @@ const logosRow1 = [
     route: PagesRoutes.Doc_Environment_ViteAndPreact,
     initialPost: {
       scale: 1.4,
-      x: 200,
+      x: 0,
       y: -60,
     },
     label: 'preact',
+  },
+  {
+    Logo: SolidLogo,
+    route: PagesRoutes.Doc_Environment_ViteAndSolid,
+    initialPost: {
+      scale: 1.2,
+      x: 350,
+      y: -60,
+    },
+    label: 'solid',
   },
 ] as const;
 
@@ -183,21 +193,11 @@ const logosRow3 = [
 
 const comingSoonData = [
   {
-    Logo: SolidLogo,
-    route: PagesRoutes.Doc_Environment_ViteAndSolid,
-    initialPost: {
-      scale: 1.2,
-      x: -80,
-      y: 40,
-    },
-    label: 'solid',
-  },
-  {
     Logo: AngularLogo,
     route: PagesRoutes.Doc_Environment_Angular,
     initialPost: {
       scale: 1.2,
-      x: 80,
+      x: 0,
       y: 40,
     },
     label: 'angular',
