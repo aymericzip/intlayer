@@ -518,7 +518,7 @@ module.exports = pageContent;
 }
 ```
 
-> Ihre Inhaltsdeklarationen können überall in Ihrer Anwendung definiert werden, sobald sie in das Verzeichnis `contentDir` (standardmäßig `./src`) aufgenommen werden. Und sie müssen die Dateiendung für Inhaltsdeklarationen erfüllen (standardmäßig `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> Ihre Inhaltsdeklarationen können überall in Ihrer Anwendung definiert werden, sobald sie in das Verzeichnis `contentDir` (standardmäßig `./src`) aufgenommen werden. Und sie müssen die Dateiendung für Inhaltsdeklarationen erfüllen (standardmäßig `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
 > Für weitere Details siehe die [Dokumentation zur Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md).
 
@@ -1696,7 +1696,7 @@ bunx intlayer init
 
 > Hinweis: Dieses Paket ist nicht standardmäßig installiert, da SWC-Plugins in Next.js noch experimentell sind. Dies kann sich in Zukunft ändern.
 >
-> Hinweis: Wenn Sie die Option `importMode: 'dynamic'` oder `importMode: 'live'` (in der Dictionary-Konfiguration) setzen, basiert dies auf Suspense. Daher müssen Sie Ihre `useIntlayer`-Aufrufe in eine `Suspense`-Begrenzung umschließen. Das bedeutet, dass Sie `useIntlayer` nicht direkt auf der obersten Ebene Ihrer Page-/Layout-Komponente verwenden können.
+> Hinweis: Wenn Sie die Option `importMode: 'dynamic'` oder `importMode: 'fetch'` (in der Dictionary-Konfiguration) setzen, basiert dies auf Suspense. Daher müssen Sie Ihre `useIntlayer`-Aufrufe in eine `Suspense`-Begrenzung umschließen. Das bedeutet, dass Sie `useIntlayer` nicht direkt auf der obersten Ebene Ihrer Page-/Layout-Komponente verwenden können.
 
 ### Überwachen von Wörterbuchänderungen mit Turbopack
 

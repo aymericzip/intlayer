@@ -542,7 +542,7 @@ module.exports = pageContent;
 }
 ```
 
-> Các khai báo nội dung của bạn có thể được định nghĩa ở bất kỳ đâu trong ứng dụng của bạn miễn là chúng được đưa vào thư mục `contentDir` (mặc định là `./src`). Và phải phù hợp với phần mở rộng của tệp khai báo nội dung (mặc định là `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> Các khai báo nội dung của bạn có thể được định nghĩa ở bất kỳ đâu trong ứng dụng của bạn miễn là chúng được đưa vào thư mục `contentDir` (mặc định là `./src`). Và phải phù hợp với phần mở rộng của tệp khai báo nội dung (mặc định là `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
 > Để biết thêm chi tiết, hãy tham khảo [tài liệu khai báo nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md).
 
@@ -1716,7 +1716,7 @@ bunx intlayer init
 
 > Lưu ý: Gói này không được cài đặt mặc định vì các plugin SWC vẫn đang trong giai đoạn thử nghiệm trên Next.js. Điều này có thể thay đổi trong tương lai.
 
-> Lưu ý: Nếu bạn đặt tùy chọn là `importMode: 'dynamic'` hoặc `importMode: 'live'` (in the `dictionary` configuration), nó sẽ dựa vào Suspense, vì vậy bạn sẽ phải bao bọc các lần gọi `useIntlayer` của mình trong một vùng `Suspense`. Điều đó có nghĩa là bạn sẽ không thể sử dụng `useIntlayer` trực tiếp ở cấp cao nhất của thành phần Page / Layout.
+> Lưu ý: Nếu bạn đặt tùy chọn là `importMode: 'dynamic'` hoặc `importMode: 'fetch'` (in the `dictionary` configuration), nó sẽ dựa vào Suspense, vì vậy bạn sẽ phải bao bọc các lần gọi `useIntlayer` của mình trong một vùng `Suspense`. Điều đó có nghĩa là bạn sẽ không thể sử dụng `useIntlayer` trực tiếp ở cấp cao nhất của thành phần Page / Layout.
 
 ### Giám sát thay đổi từ điển trên Turbopack
 

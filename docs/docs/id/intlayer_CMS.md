@@ -328,7 +328,7 @@ const config: IntlayerConfig = {
      * Catatan: Hanya kamus dengan konten jarak jauh dan flag "live" yang menggunakan mode live.
      * Yang lain menggunakan mode dinamis untuk kinerja.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -364,7 +364,7 @@ const config = {
      * Catatan: Hanya kamus dengan konten jarak jauh dan flag "live" yang menggunakan mode live.
      * Lainnya menggunakan mode dinamis untuk performa.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -414,7 +414,7 @@ const config = {
      * Catatan: Hanya kamus dengan konten jarak jauh dan flag "live" yang menggunakan mode live.
      * Lainnya menggunakan mode dinamis untuk performa.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -501,7 +501,7 @@ const config: IntlayerConfig = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,
@@ -520,7 +520,7 @@ const config = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,
@@ -539,7 +539,7 @@ const config = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,

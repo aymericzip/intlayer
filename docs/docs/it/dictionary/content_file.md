@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-10
+updatedAt: 2026-01-24
 title: File di Contenuto
 description: Scopri come personalizzare le estensioni per i tuoi file di dichiarazione dei contenuti. Segui questa documentazione per implementare condizioni in modo efficiente nel tuo progetto.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.0.0
+    date: 2026-01-24
+    changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
   - version: 8.0.0
     date: 2026-01-18
     changes: Aggiunte opzioni dizionario `location` e `schema`
@@ -471,13 +474,13 @@ const aboutPageMetaContent = {
 export default aboutPageMetaContent;
 ```
 
-#### `location` ('local' | 'remote' | 'local&remote' | string)
+#### `location` ('local' | 'remote' | 'hybrid' | string)
 
 Indica la posizione del dizionario e controlla come si sincronizza con il CMS:
 
 - `'local'`: Il dizionario è gestito solo localmente. Non verrà inviato al CMS remoto. Usa questo per contenuti che devono rimanere nella tua codebase.
 - `'remote'`: Il dizionario è gestito solo remotamente. Una volta inviato al CMS, verrà scollegato dal file locale. Al momento del caricamento del contenuto, il dizionario remoto verrà recuperato dal CMS. Un file `.content` con posizione `remote` verrà ignorato dopo l'invio iniziale.
-- `'local&remote'`: Il dizionario è gestito sia localmente che remotamente. Una volta inviato al CMS, rimarrà sincronizzato—le modifiche dal file locale vengono inviate al CMS, e le modifiche remote possono essere recuperate nel file locale.
+- `'hybrid'`: Il dizionario è gestito sia localmente che remotamente. Una volta inviato al CMS, rimarrà sincronizzato—le modifiche dal file locale vengono inviate al CMS, e le modifiche remote possono essere recuperate nel file locale.
 - `string` (es. `'plugin'`): Il dizionario è gestito da un plugin o da una fonte personalizzata. Quando provi a inviarlo, il sistema ti chiederà cosa fare.
 
 **Esempio:**
@@ -562,13 +565,13 @@ Indica la priorità del dizionario per la risoluzione dei conflitti. Quando più
 
 Identificatore di versione per dizionari remoti. Aiuta a tracciare quale versione del dizionario è attualmente in uso, particolarmente utile quando si lavora con sistemi di gestione contenuti remoti.
 
-##### `importMode` ('static' | 'dynamic' | 'live')
+##### `importMode` ('static' | 'dynamic' | 'fetch')
 
 La modalità di importazione determina come il tuo dizionario viene importato nella tua applicazione.
 
 - `'static'`: Il dizionario viene importato staticamente in fase di build. Questa è la modalità predefinita.
 - `'dynamic'`: Il dizionario viene importato dinamicamente a runtime utilizzando l'API di suspense.
-- `'live'`: Il dizionario viene importato dinamicamente utilizzando l'API di sincronizzazione live.
+- `'fetch'`: Il dizionario viene importato dinamicamente utilizzando l'API di sincronizzazione live.
 
 Se impostato, questa proprietà sovrascrive il `importMode` globale definito in `the `dictionary`property of`intlayer.config.ts``.
 

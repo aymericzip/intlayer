@@ -323,7 +323,7 @@ const config: IntlayerConfig = {
      * 注意：只有带有远程内容和 "live" 标志的字典使用 live 模式。
      * 其他字典为了性能使用动态模式。
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -357,7 +357,7 @@ const config = {
      * 注意：只有带有远程内容且标记为“live”的词典才使用实时模式。
      * 其他词典为了性能考虑使用动态模式。
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -406,7 +406,7 @@ const config = {
      * 注意：只有带有远程内容和“live”标志的字典使用 live 模式。
      * 其他字典为性能考虑使用动态模式。
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -480,7 +480,7 @@ const config: IntlayerConfig = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,
@@ -499,7 +499,7 @@ const config = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,
@@ -518,7 +518,7 @@ const config = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,

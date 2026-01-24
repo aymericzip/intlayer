@@ -28,7 +28,7 @@ const config: IntlayerConfig = {
     mode: 'verbose',
   },
   dictionary: {
-    location: 'local&remote',
+    location: 'hybrid',
     fill: './{{fileName}}.{{locale}}.content.json',
   },
   compiler: {

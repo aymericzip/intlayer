@@ -63,7 +63,7 @@ export type DictionaryKey = string;
 export type DictionaryLocation =
   | 'remote'
   | 'local'
-  | 'local&remote'
+  | 'hybrid'
   | 'plugin'
   | (string & {});
 
@@ -86,7 +86,7 @@ export type DictionaryFormat = 'intlayer' | 'icu' | 'i18next' | 'vue-i18n';
  *
  * Default: "static"
  */
-export type ImportMode = 'static' | 'dynamic' | 'live';
+export type ImportMode = 'static' | 'dynamic' | 'fetch';
 
 export type ContentAutoTransformation =
   | boolean
@@ -318,7 +318,7 @@ type DictionaryBase = {
   /**
    * Indicates the location of the dictionary and controls how it synchronizes with the CMS.
    *
-   * - 'local&remote': The dictionary is managed locally and remotely. Once pushed on the CMS, it will be synchronized from the local one. The local dictionary will be pulled from the CMS.
+   * - 'hybrid': The dictionary is managed locally and remotely. Once pushed on the CMS, it will be synchronized from the local one. The local dictionary will be pulled from the CMS.
    * - 'remote': The dictionary is managed remotely only. Once pushed on the CMS, it will be detached from the local one. At content load time, the remote dictionary will be pulled from the CMS. A '.content' file with remote location will be ignored.
    * - 'local': The dictionary is managed locally. It will not be pushed to the remote CMS.
    * - 'plugin' (or any custom string): The dictionary is managed by a plugin, or a custom source. When you will try to push it, the system will ask an action to the user.

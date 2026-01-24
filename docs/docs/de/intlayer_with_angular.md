@@ -339,7 +339,7 @@ const appContent = {
 export default appContent;
 ```
 
-> Ihre Inhaltsdeklarationen können überall in Ihrer Anwendung definiert werden, sobald sie in das `contentDir`-Verzeichnis (standardmäßig `./src`) aufgenommen werden. Und sie müssen der Dateierweiterung der Inhaltsdeklarationsdatei entsprechen (standardmäßig `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> Ihre Inhaltsdeklarationen können überall in Ihrer Anwendung definiert werden, sobald sie in das `contentDir`-Verzeichnis (standardmäßig `./src`) aufgenommen werden. Und sie müssen der Dateierweiterung der Inhaltsdeklarationsdatei entsprechen (standardmäßig `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
 > Für weitere Details siehe die [Dokumentation zur Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md).
 

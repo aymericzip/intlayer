@@ -324,7 +324,7 @@ const config: IntlayerConfig = {
      * ملاحظة: فقط القواميس التي تحتوي على محتوى عن بُعد وعلامة "live" تستخدم الوضع الحي.
      * القواميس الأخرى تستخدم الوضع الديناميكي لأداء أفضل.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -359,7 +359,7 @@ const config = {
      * ملاحظة: فقط القواميس التي تحتوي على محتوى عن بُعد وعلامات "live" تستخدم الوضع الحي.
      * يستخدم الآخرون الوضع الديناميكي من أجل الأداء.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -409,7 +409,7 @@ const config = {
      * ملاحظة: فقط القواميس التي تحتوي على محتوى عن بُعد وعلامات "live" تستخدم الوضع الحي.
      * القواميس الأخرى تستخدم الوضع الديناميكي لأداء أفضل.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -483,7 +483,7 @@ const config: IntlayerConfig = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,
@@ -503,7 +503,7 @@ const config = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,
@@ -523,7 +523,7 @@ const config = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,

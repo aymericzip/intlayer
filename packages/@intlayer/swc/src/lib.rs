@@ -56,7 +56,7 @@ struct PluginConfig {
     #[serde(rename = "fetchDictionariesDir")]
     fetch_dictionaries_dir: String,
 
-    // Import mode for the plugin: "static", "dynamic", or "live"
+    // Import mode for the plugin: "static", "dynamic", or "fetch"
     #[serde(rename = "importMode")]
     import_mode: Option<String>,
 
@@ -99,7 +99,7 @@ impl<'a> VisitMut for PrePassVisitor<'a> {
                 if let Expr::Lit(Lit::Str(Str { value, .. })) = &*first_arg.expr {
                     let key = value.as_str().unwrap_or_default();
                     if let Some(mode) = self.dictionary_mode_map.get(key) {
-                        if mode == "dynamic" || mode == "live" {
+                        if mode == "dynamic" || mode == "fetch" {
                             self.has_dynamic_call = true;
                         }
                     }
@@ -288,13 +288,13 @@ impl<'a> VisitMut for TransformVisitor<'a> {
                 // If dynamic helpers are NOT active (global mode is static),
                 // we STILL might want to force dynamic/live for this specific call
                 if let Some(mode) = dictionary_override_mode {
-                    if mode == "dynamic" || mode == "live" {
+                    if mode == "dynamic" || mode == "fetch" {
                         per_call_mode = mode.clone();
                     }
                 }
             }
 
-            if per_call_mode == "live" {
+            if per_call_mode == "fetch" {
                 // Live helper: first argument is the live dictionary, second is the original key
                 let ident = if let Some(id) = self.new_dynamic_imports.get(&key) {
                     id.clone()
@@ -353,7 +353,7 @@ impl<'a> VisitMut for TransformVisitor<'a> {
 
         // Determine if this package supports dynamic imports
         let package_supports_dynamic = PACKAGE_LIST_DYNAMIC.iter().any(|a| a.as_str() == pkg_str);
-        let should_use_dynamic_helpers = (self.import_mode == "dynamic" || self.import_mode == "live" || self.file_has_dynamic_call) && package_supports_dynamic;
+        let should_use_dynamic_helpers = (self.import_mode == "dynamic" || self.import_mode == "fetch" || self.file_has_dynamic_call) && package_supports_dynamic;
 
         if should_use_dynamic_helpers {
             self.use_dynamic_helpers = true;

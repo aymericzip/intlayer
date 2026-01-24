@@ -446,7 +446,7 @@ module.exports = appContent;
 }
 ```
 
-> 您的内容声明可以定义在应用程序中的任何位置，只要它们被包含在 `contentDir` 目录中（默认是 `./src`），并且匹配内容声明文件的扩展名（默认是 `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）。
+> 您的内容声明可以定义在应用程序中的任何位置，只要它们被包含在 `contentDir` 目录中（默认是 `./src`），并且匹配内容声明文件的扩展名（默认是 `.content.{json,ts,tsx,js,jsx,mjs,cjs}`）。
 
 > 更多详情，请参阅[内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
 

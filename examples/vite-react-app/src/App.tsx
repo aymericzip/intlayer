@@ -34,7 +34,7 @@ const AppContent: FC = () => {
       <div>
         <MarkdownRenderer
           components={{
-            h2: (props: any) => (
+            h2: (props) => (
               <h2 style={{ color: 'blue' }} {...props}>
                 {props.children}
               </h2>
@@ -86,7 +86,6 @@ const AppContent: FC = () => {
             </h1>
           ),
         })}
-        pppp
       </div>
 
       <div className="card">

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-10
+updatedAt: 2026-01-24
 title: Content File
 description: Learn how to customise the extensions for your content declaration files. Follow this documentation to implement conditions efficiently in your project.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.0.0
+    date: 2026-01-24
+    changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
   - version: 8.0.0
     date: 2026-01-18
     changes: Add `location` and `schema` dictionary options
@@ -469,13 +472,13 @@ const aboutPageMetaContent = {
 export default aboutPageMetaContent;
 ```
 
-#### `location` ('local' | 'remote' | 'local&remote' | string)
+#### `location` ('local' | 'remote' | 'hybrid' | string)
 
 Indicates the location of the dictionary and controls how it synchronises with the CMS:
 
 - `'local'`: The dictionary is managed locally only. It will not be pushed to the remote CMS. Use this for content that should remain in your codebase.
 - `'remote'`: The dictionary is managed remotely only. Once pushed to the CMS, it will be detached from the local file. At content load time, the remote dictionary will be pulled from the CMS. A `.content` file with `remote` location will be ignored after the initial push.
-- `'local&remote'`: The dictionary is managed both locally and remotely. Once pushed to the CMS, it will stay synchronised—changes from the local file are pushed to the CMS, and remote changes can be pulled back to the local file.
+- `'hybrid'`: The dictionary is managed both locally and remotely. Once pushed to the CMS, it will stay synchronised—changes from the local file are pushed to the CMS, and remote changes can be pulled back to the local file.
 - `string` (e.g., `'plugin'`): The dictionary is managed by a plugin or a custom source. When you try to push it, the system will ask you what to do.
 
 **Example:**
@@ -560,13 +563,13 @@ Indicates the priority of the dictionary for conflict resolution. When multiple 
 
 Version identifier for remote dictionaries. Helps track which version of the dictionary is currently being used, especially useful when working with remote content management systems.
 
-##### `importMode` ('static' | 'dynamic' | 'live')
+##### `importMode` ('static' | 'dynamic' | 'fetch')
 
 The import mode determines how your dictionary is imported in your application.
 
 - `'static'`: The dictionary is imported statically at build time. This is the default mode.
 - `'dynamic'`: The dictionary is imported dynamically at runtime using the suspense API.
-- `'live'`: The dictionary is imported dynamically using the live sync API.
+- `'fetch'`: The dictionary is imported dynamically using the live sync API.
 
 If set, this property overrides the global `importMode` defined in `the `dictionary`property of`intlayer.config.ts``.
 

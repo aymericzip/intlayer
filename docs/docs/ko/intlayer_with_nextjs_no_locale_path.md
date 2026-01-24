@@ -625,7 +625,7 @@ module.exports = pageContent;
 }
 ```
 
-> 콘텐츠 선언은 애플리케이션 내 어느 곳에든 정의할 수 있으며, `contentDir` 디렉터리(기본값: `./src`)에 포함되기만 하면 됩니다. 또한 콘텐츠 선언 파일 확장자(기본값: `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`)와 일치해야 합니다.
+> 콘텐츠 선언은 애플리케이션 내 어느 곳에든 정의할 수 있으며, `contentDir` 디렉터리(기본값: `./src`)에 포함되기만 하면 됩니다. 또한 콘텐츠 선언 파일 확장자(기본값: `.content.{json,ts,tsx,js,jsx,mjs,cjs}`)와 일치해야 합니다.
 
 > 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 
@@ -1133,7 +1133,7 @@ bunx intlayer init
 
 > 참고: 이 패키지는 SWC 플러그인이 Next.js에서 아직 실험적이기 때문에 기본적으로 설치되어 있지 않습니다. 향후 변경될 수 있습니다.
 
-> 참고: 옵션을 `importMode: 'dynamic'` 또는 `importMode: 'live'` (in the `dictionary` configuration)로 설정하면 Suspense에 의존하게 되므로 `useIntlayer` 호출을 `Suspense` 경계로 감싸야 합니다. 즉, Page / Layout 컴포넌트의 최상위 수준에서 `useIntlayer`를 직접 사용할 수 없습니다.
+> 참고: 옵션을 `importMode: 'dynamic'` 또는 `importMode: 'fetch'` (in the `dictionary` configuration)로 설정하면 Suspense에 의존하게 되므로 `useIntlayer` 호출을 `Suspense` 경계로 감싸야 합니다. 즉, Page / Layout 컴포넌트의 최상위 수준에서 `useIntlayer`를 직접 사용할 수 없습니다.
 
 ### Turbopack에서 딕셔너리 변경 사항 감시
 

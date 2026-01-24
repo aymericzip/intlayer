@@ -148,7 +148,7 @@ const getPruneConfig = (
 
   const dictionaries = getDictionaries(intlayerConfig);
 
-  const dictionaryModeMap: Record<string, 'static' | 'dynamic' | 'live'> = {};
+  const dictionaryModeMap: Record<string, 'static' | 'dynamic' | 'fetch'> = {};
 
   (Object.values(dictionaries) as Dictionary[]).forEach((dictionary) => {
     dictionaryModeMap[dictionary.key] = dictionary.importMode ?? importMode;

@@ -82,8 +82,7 @@ export const push = async (options?: PushOptions): Promise<void> => {
           .map((dictionary) => dictionary.location)
           .filter(
             (location) =>
-              location &&
-              !['remote', 'local', 'local&remote'].includes(location)
+              location && !['remote', 'local', 'hybrid'].includes(location)
           )
       )
     ) as string[];
@@ -130,7 +129,7 @@ export const push = async (options?: PushOptions): Promise<void> => {
 
       return (
         location === 'remote' ||
-        location === 'local&remote' ||
+        location === 'hybrid' ||
         selectedCustomLocations.includes(location)
       );
     });
@@ -138,11 +137,11 @@ export const push = async (options?: PushOptions): Promise<void> => {
     // Check if the dictionaries list is empty after filtering by location
     if (dictionaries.length === 0) {
       appLogger(
-        `No dictionaries found to push. Only dictionaries with location ${colorize('remote', ANSIColors.BLUE, ANSIColors.RESET)}, ${colorize('local&remote', ANSIColors.BLUE, ANSIColors.RESET)} or selected custom locations are pushed.`,
+        `No dictionaries found to push. Only dictionaries with location ${colorize('remote', ANSIColors.BLUE, ANSIColors.RESET)}, ${colorize('hybrid', ANSIColors.BLUE, ANSIColors.RESET)} or selected custom locations are pushed.`,
         { level: 'warn' }
       );
       appLogger(
-        `You can set the location in your dictionary file (e.g. ${colorize("{ key: 'my-key', location: 'local&remote', ... }", ANSIColors.BLUE, ANSIColors.RESET)} or globally in your intlayer.config.ts file (e.g. ${colorize("{ dictionary: { location: 'local&remote' } }", ANSIColors.BLUE, ANSIColors.RESET)}).`,
+        `You can set the location in your dictionary file (e.g. ${colorize("{ key: 'my-key', location: 'hybrid', ... }", ANSIColors.BLUE, ANSIColors.RESET)} or globally in your intlayer.config.ts file (e.g. ${colorize("{ dictionary: { location: 'hybrid' } }", ANSIColors.BLUE, ANSIColors.RESET)}).`,
         { level: 'info' }
       );
       return;

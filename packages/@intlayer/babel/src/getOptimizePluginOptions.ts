@@ -88,7 +88,7 @@ export const getOptimizePluginOptions = (
   // Load dictionaries if not provided
   const dictionaries = providedDictionaries ?? loadDictionaries(config);
 
-  const dictionaryModeMap: Record<string, 'static' | 'dynamic' | 'live'> = {};
+  const dictionaryModeMap: Record<string, 'static' | 'dynamic' | 'fetch'> = {};
 
   dictionaries.forEach((dictionary) => {
     dictionaryModeMap[dictionary.key] = dictionary.importMode ?? importMode;

@@ -323,7 +323,7 @@ const config: IntlayerConfig = {
      * Not: Yalnızca uzak içeriğe ve "live" bayraklarına sahip sözlükler canlı modu kullanır.
      * Diğerleri performans için dinamik modu kullanır.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -359,7 +359,7 @@ const config = {
      * Not: Yalnızca uzak içeriğe sahip ve "live" bayraklı sözlükler canlı modu kullanır.
      * Diğerleri performans için dinamik modu kullanır.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -409,7 +409,7 @@ const config = {
      * Not: Yalnızca uzak içeriğe sahip ve "live" bayrağı olan sözlükler canlı modu kullanır.
      * Diğerleri performans için dinamik modu kullanır.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -483,7 +483,7 @@ const config: IntlayerConfig = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,
@@ -502,7 +502,7 @@ const config = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,
@@ -521,7 +521,7 @@ const config = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,

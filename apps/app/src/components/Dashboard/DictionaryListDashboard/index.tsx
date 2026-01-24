@@ -274,10 +274,10 @@ export const DictionaryListDashboardContent: FC = () => {
       header: tableHeaders.location,
       cell: ({ row }) => {
         const location = row.original.location ?? 'remote';
-        const isLocal = location === 'local' || location === 'local&remote';
+        const isLocal = location === 'local' || location === 'hybrid';
         const isRemote =
           location === 'remote' ||
-          location === 'local&remote' ||
+          location === 'hybrid' ||
           location === 'plugin';
 
         return (

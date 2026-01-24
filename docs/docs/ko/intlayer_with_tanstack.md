@@ -300,7 +300,7 @@ const appContent = {
 export default appContent;
 ```
 
-> 콘텐츠 선언은 `contentDir` 디렉토리(기본값: `./app`)에 포함되는 한 애플리케이션 어디에서나 정의할 수 있습니다. 그리고 콘텐츠 선언 파일 확장자(기본값: `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`)와 일치해야 합니다.
+> 콘텐츠 선언은 `contentDir` 디렉토리(기본값: `./app`)에 포함되는 한 애플리케이션 어디에서나 정의할 수 있습니다. 그리고 콘텐츠 선언 파일 확장자(기본값: `.content.{json,ts,tsx,js,jsx,mjs,cjs}`)와 일치해야 합니다.
 
 > 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 

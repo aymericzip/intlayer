@@ -119,7 +119,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     name: 'location',
   });
   const isLocalChecked =
-    watchedLocation === 'local' || watchedLocation === 'local&remote';
+    watchedLocation === 'local' || watchedLocation === 'hybrid';
 
   return (
     <Form
@@ -181,15 +181,15 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           name="location"
           render={({ field }) => {
             const value = field.value;
-            const isLocal = value === 'local' || value === 'local&remote';
-            const isRemote = value === 'remote' || value === 'local&remote';
+            const isLocal = value === 'local' || value === 'hybrid';
+            const isRemote = value === 'remote' || value === 'hybrid';
 
             const handleLocalToggle = (isChecked: boolean) => {
               if (!isChecked && !isRemote) return;
 
               const newValue: Dictionary['location'] = isChecked
                 ? isRemote
-                  ? 'local&remote'
+                  ? 'hybrid'
                   : 'local'
                 : 'remote';
 
@@ -216,7 +216,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
 
               const newValue: Dictionary['location'] = isChecked
                 ? isLocal
-                  ? 'local&remote'
+                  ? 'hybrid'
                   : 'remote'
                 : 'local';
 
@@ -251,7 +251,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                     disabled={
                       !mode.includes('remote') &&
                       dictionary.location !== 'remote' &&
-                      dictionary.location !== 'local&remote'
+                      dictionary.location !== 'hybrid'
                     }
                     onChange={(e) => handleRemoteToggle(e.target.checked)}
                   />

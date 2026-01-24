@@ -213,7 +213,7 @@ module.exports = appContent;
 }
 ```
 
-> コンテンツ宣言は、アプリケーション内のどこにでも定義できます。`contentDir`ディレクトリ（デフォルトは`./src`）に含まれていれば有効です。また、コンテンツ宣言ファイルの拡張子（デフォルトは`.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）に一致する必要があります。
+> コンテンツ宣言は、アプリケーション内のどこにでも定義できます。`contentDir`ディレクトリ（デフォルトは`./src`）に含まれていれば有効です。また、コンテンツ宣言ファイルの拡張子（デフォルトは`.content.{json,ts,tsx,js,jsx,mjs,cjs}`）に一致する必要があります。
 
 > 詳細については、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。
 

@@ -594,7 +594,7 @@ module.exports = pageContent;
 }
 ```
 
-> Vos déclarations de contenu peuvent être définies n'importe où dans votre application dès qu'elles sont incluses dans le répertoire `contentDir` (par défaut, `./src`). Et correspondent à l'extension de fichier de déclaration de contenu (par défaut, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> Vos déclarations de contenu peuvent être définies n'importe où dans votre application dès qu'elles sont incluses dans le répertoire `contentDir` (par défaut, `./src`). Et correspondent à l'extension de fichier de déclaration de contenu (par défaut, `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
 > Pour plus de détails, consultez la [documentation sur les déclarations de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md).
 
@@ -1101,7 +1101,7 @@ bunx intlayer init
 
 > Remarque : Ce package n'est pas installé par défaut car les plugins SWC sont encore expérimentaux sur Next.js. Cela peut changer à l'avenir.
 
-> Remarque : Si vous définissez l'option sur `importMode: 'dynamic'` ou `importMode: 'live'` (dans la configuration `dictionary`), cela reposera sur Suspense, vous devrez donc envelopper vos appels `useIntlayer` dans une frontière `Suspense`. Cela signifie que vous ne pourrez pas utiliser `useIntlayer` directement au niveau supérieur de votre composant Page / Layout.
+> Remarque : Si vous définissez l'option sur `importMode: 'dynamic'` ou `importMode: 'fetch'` (dans la configuration `dictionary`), cela reposera sur Suspense, vous devrez donc envelopper vos appels `useIntlayer` dans une frontière `Suspense`. Cela signifie que vous ne pourrez pas utiliser `useIntlayer` directement au niveau supérieur de votre composant Page / Layout.
 
 ### Surveiller les modifications des dictionnaires sur Turbopack
 

@@ -324,7 +324,7 @@ const config: IntlayerConfig = {
      * 注意：リモートコンテンツかつ"live"フラグが付いた辞書のみがライブモードを使用します。
      * その他はパフォーマンスのために動的モードを使用します。
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -360,7 +360,7 @@ const config = {
      * 注意: リモートコンテンツを持ち、かつ "live" フラグが設定された辞書のみがライブモードを使用します。
      * その他の辞書はパフォーマンスのためにダイナミックモードを使用します。
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -410,7 +410,7 @@ const config = {
      * 注意: リモートコンテンツかつ"live"フラグが付いた辞書のみがライブモードを使用します。
      * その他はパフォーマンスのために動的モードを使用します。
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -484,7 +484,7 @@ const config: IntlayerConfig = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,
@@ -503,7 +503,7 @@ const config = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,
@@ -522,7 +522,7 @@ const config = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,

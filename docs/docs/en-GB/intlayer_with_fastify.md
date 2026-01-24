@@ -210,7 +210,7 @@ module.exports = indexContent;
 }
 ```
 
-> Your content declarations can be placed anywhere in your application provided they are included in the `contentDir` directory (by default, `./src`) and match the content declaration file extension (by default, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> Your content declarations can be placed anywhere in your application provided they are included in the `contentDir` directory (by default, `./src`) and match the content declaration file extension (by default, `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
 > For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md).
 

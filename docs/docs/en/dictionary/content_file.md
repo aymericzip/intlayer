@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-10
+updatedAt: 2026-01-24
 title: Content File
 description: Learn how to customize the extensions for your content declaration files. Follow this documentation to implement conditions efficiently in your project.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.0.0
+    date: 2026-01-24
+    changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
   - version: 8.0.0
     date: 2026-01-18
     changes: Add `location`, `schema`, and `importMode` dictionary options
@@ -475,13 +478,13 @@ const aboutPageMetaContent = {
 export default aboutPageMetaContent;
 ```
 
-#### `location` ('remote' | 'local' | 'local&remote' | 'plugin')
+#### `location` ('remote' | 'local' | 'hybrid' | 'plugin')
 
 Indicates the location of the dictionary. This property can be set to control where the dictionary is sourced from:
 
 - `'local'`: Local dictionary (from content files)
 - `'remote'`: Remote dictionary (from external source/CMS)
-- `'local&remote'`: Dictionary that exists both locally and remotely
+- `'hybrid'`: Dictionary that exists both locally and remotely
 - `'plugin'`: Dictionary provided by a plugin
 
 **Example:**
@@ -567,13 +570,13 @@ Indicates the priority of the dictionary for conflict resolution. When multiple 
 
 Version identifier for remote dictionaries. Helps track which version of the dictionary is currently being used, especially useful when working with remote content management systems.
 
-##### `importMode` ('static' | 'dynamic' | 'live')
+##### `importMode` ('static' | 'dynamic' | 'fetch')
 
 The import mode determines how your dictionary is imported in your application.
 
 - `'static'`: The dictionary is imported statically at build time. This is the default mode.
 - `'dynamic'`: The dictionary is imported dynamically at runtime using the suspense API.
-- `'live'`: The dictionary is imported dynamically using the live sync API.
+- `'fetch'`: The dictionary is imported dynamically using the live sync API.
 
 If set, this property overrides the global `importMode` defined in the `dictionary` property of `intlayer.config.ts`.
 

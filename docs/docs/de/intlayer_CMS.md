@@ -323,7 +323,7 @@ const config: IntlayerConfig = {
      * Hinweis: Nur Wörterbücher mit entfernten Inhalten und dem "live"-Flag verwenden den Live-Modus.
      * Andere verwenden den dynamischen Modus für bessere Leistung.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -359,7 +359,7 @@ const config = {
      * Hinweis: Nur Wörterbücher mit Remote-Inhalten und dem "live"-Flag verwenden den Live-Modus.
      * Andere verwenden den dynamischen Modus zur Leistungssteigerung.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -409,7 +409,7 @@ const config = {
      * Hinweis: Nur Wörterbücher mit entfernten Inhalten und "live"-Flags verwenden den Live-Modus.
      * Andere verwenden aus Leistungsgründen den dynamischen Modus.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -483,7 +483,7 @@ const config: IntlayerConfig = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,
@@ -502,7 +502,7 @@ const config = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,
@@ -521,7 +521,7 @@ const config = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,

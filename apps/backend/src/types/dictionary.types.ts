@@ -14,7 +14,7 @@ export type DictionaryCreationData = {
   title?: string;
   description?: string;
   priority?: number;
-  importMode?: 'static' | 'dynamic' | 'live';
+  importMode?: 'static' | 'dynamic' | 'fetch';
   tags?: string[];
 };
 
@@ -35,7 +35,7 @@ export type DictionaryData = {
   title?: string;
   description?: string;
   priority?: number;
-  importMode?: 'static' | 'dynamic' | 'live';
+  importMode?: 'static' | 'dynamic' | 'fetch';
   tags?: string[];
 };
 

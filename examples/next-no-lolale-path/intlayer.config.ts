@@ -10,7 +10,7 @@ const config: IntlayerConfig = {
   },
   build: {
     optimize: true,
-    importMode: 'live',
+    importMode: 'fetch',
   },
 };
 

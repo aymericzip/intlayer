@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-10
+updatedAt: 2026-01-24
 title: İçerik Dosyası
 description: İçerik bildirim dosyalarınız için uzantıları nasıl özelleştireceğinizi öğrenin. Projenizde koşulları verimli bir şekilde uygulamak için bu dokümantasyonu takip edin.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.0.0
+    date: 2026-01-24
+    changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
   - version: 8.0.0
     date: 2026-01-18
     changes: Sözlük seçenekleri `location` ve `schema` eklendi
@@ -490,13 +493,13 @@ const aboutPageMetaContent = {
 export default aboutPageMetaContent;
 ```
 
-#### `location` ('local' | 'remote' | 'local&remote' | string)
+#### `location` ('local' | 'remote' | 'hybrid' | string)
 
 Sözlüğün konumunu belirtir ve CMS ile nasıl senkronize olduğunu kontrol eder:
 
 - `'local'`: Sözlük yalnızca yerel olarak yönetilir. Uzaktan CMS'ye gönderilmeyecektir. Kod tabanınızda kalması gereken içerik için bunu kullanın.
 - `'remote'`: Sözlük yalnızca uzaktan yönetilir. CMS'ye gönderildikten sonra yerel dosyadan ayrılacaktır. İçerik yükleme zamanında uzaktan sözlük CMS'den çekilecektir. `remote` konumuna sahip bir `.content` dosyası ilk gönderimden sonra yok sayılacaktır.
-- `'local&remote'`: Sözlük hem yerel hem de uzaktan yönetilir. CMS'ye gönderildikten sonra senkronize kalacaktır—yerel dosyadaki değişiklikler CMS'ye gönderilir ve uzaktan değişiklikler yerel dosyaya geri çekilebilir.
+- `'hybrid'`: Sözlük hem yerel hem de uzaktan yönetilir. CMS'ye gönderildikten sonra senkronize kalacaktır—yerel dosyadaki değişiklikler CMS'ye gönderilir ve uzaktan değişiklikler yerel dosyaya geri çekilebilir.
 - `string` (örn. `'plugin'`): Sözlük bir eklenti veya özel kaynak tarafından yönetilir. Göndermeye çalıştığınızda sistem size ne yapacağınızı soracaktır.
 
 **Örnek:**
@@ -581,13 +584,13 @@ Sözlük içeriğini harici kaynaklardan otomatik olarak doldurma talimatları. 
 
 Uzak sözlükler için sürüm tanımlayıcısı. Hangi sürümün kullanıldığını takip etmeye yardımcı olur, özellikle uzak içerik yönetim sistemleri ile çalışırken faydalıdır.
 
-##### `importMode` ('static' | 'dynamic' | 'live')
+##### `importMode` ('static' | 'dynamic' | 'fetch')
 
 İçe aktarma modu, sözlüğünüzün uygulamanızda nasıl içe aktarılacağını belirler.
 
 - `'static'`: Sözlük derleme zamanında statik olarak içe aktarılır. Bu varsayılan moddur.
 - `'dynamic'`: Sözlük, suspense API'sini kullanarak çalışma zamanında dinamik olarak içe aktarılır.
-- `'live'`: Sözlük, canlı senkronizasyon API'sini kullanarak dinamik olarak içe aktarılır.
+- `'fetch'`: Sözlük, canlı senkronizasyon API'sini kullanarak dinamik olarak içe aktarılır.
 
 Ayarlanırsa, bu özellik `intlayer.config.ts` içinde tanımlanan global `importMode`'u geçersiz kılar.
 

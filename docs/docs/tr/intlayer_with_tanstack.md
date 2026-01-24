@@ -300,7 +300,7 @@ const appContent = {
 export default appContent;
 ```
 
-> İçerik bildirimleriniz, uygulamanızda herhangi bir yerde tanımlanabilir, yeter ki `contentDir` dizinine dahil edilsin (varsayılan olarak, `./app`). Ve içerik bildirim dosya uzantısıyla eşleşmelidir (varsayılan olarak, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> İçerik bildirimleriniz, uygulamanızda herhangi bir yerde tanımlanabilir, yeter ki `contentDir` dizinine dahil edilsin (varsayılan olarak, `./app`). Ve içerik bildirim dosya uzantısıyla eşleşmelidir (varsayılan olarak, `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
 > Daha fazla ayrıntı için, [içerik bildirim dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/get_started.md) bakınız.
 

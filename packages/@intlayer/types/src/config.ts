@@ -486,9 +486,9 @@ export type BuildConfig = {
    *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionary`.
    * - "dynamic": The dictionaries are imported dynamically in a synchronous component using the suspense API.
    *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryDynamic`.
-   * - "live": The dictionaries are imported dynamically using the live sync API.
+   * - "fetch": The dictionaries are imported dynamically using the live sync API.
    *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryDynamic`.
-   *   Live mode will use the live sync API to fetch the dictionaries. If the API call fails, the dictionaries will be imported dynamically as "dynamic" mode.
+   *   Fetch mode will use the live sync API to fetch the dictionaries. If the API call fails, the dictionaries will be imported dynamically as "dynamic" mode.
    *
    * Default: "static"
    *
@@ -501,12 +501,12 @@ export type BuildConfig = {
    * - Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
    * - This option will be ignored if `optimize` is disabled.
    * - This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions. You can still use them to refine you code on manual optimization.
-   * - The "live" allows to sync the dictionaries to the live sync server.
+   * - The "fetch" allows to sync the dictionaries to the live sync server.
    * - Require static key to work. Example of invalid code: `const navbarKey = "my-key"; useIntlayer(navbarKey)`.
    *
    * @deprecated Use `dictionary.importMode` instead.
    */
-  importMode: 'static' | 'dynamic' | 'live';
+  importMode: 'static' | 'dynamic' | 'fetch';
 
   /**
    * Pattern to traverse the code to optimize.
@@ -514,7 +514,7 @@ export type BuildConfig = {
    * Allows to avoid to traverse the code that is not relevant to the optimization.
    * Improve build performance.
    *
-   * Default: ['**\/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**\/node_modules/**']
+   * Default: ['**\/*.{js,ts,mjs,cjs,jsx,tsx}', '!**\/node_modules/**']
    *
    * Example: `['src/**\/*.{ts,tsx}', '../ui-library/**\/*.{ts,tsx}', '!**\/node_modules/**']`
    *
@@ -577,7 +577,7 @@ export type CompilerConfig = {
    * Allows to avoid to traverse the code that is not relevant to the optimization.
    * Improve build performance.
    *
-   * Default: ['**\/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**\/node_modules/**']
+   * Default: ['**\/*.{js,ts,mjs,cjs,jsx,tsx}', '!**\/node_modules/**']
    *
    * Example: `['src/**\/*.{ts,tsx}', '../ui-library/**\/*.{ts,tsx}', '!**\/node_modules/**']`
    *
@@ -699,9 +699,9 @@ export type DictionaryConfig = {
    *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionary`.
    * - "dynamic": The dictionaries are imported dynamically in a synchronous component using the suspense API.
    *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryDynamic`.
-   * - "live": The dictionaries are imported dynamically using the live sync API.
+   * - "fetch": The dictionaries are imported dynamically using the live sync API.
    *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryDynamic`.
-   *   Live mode will use the live sync API to fetch the dictionaries. If the API call fails, the dictionaries will be imported dynamically as "dynamic" mode.
+   *   Fetch mode will use the live sync API to fetch the dictionaries. If the API call fails, the dictionaries will be imported dynamically as "dynamic" mode.
    *
    * Default: "static"
    *
@@ -714,10 +714,10 @@ export type DictionaryConfig = {
    * - Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
    * - This option will be ignored if `optimize` is disabled.
    * - This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions. You can still use them to refine you code on manual optimization.
-   * - The "live" allows to sync the dictionaries to the live sync server.
+   * - The "fetch" allows to sync the dictionaries to the live sync server.
    * - Require static key to work. Example of invalid code: `const navbarKey = "my-key"; useIntlayer(navbarKey)`.
    */
-  importMode?: 'static' | 'dynamic' | 'live';
+  importMode?: 'static' | 'dynamic' | 'fetch';
   title?: string;
   tags?: string[];
   version?: string;

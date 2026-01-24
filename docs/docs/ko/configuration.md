@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-01-10
+updatedAt: 2026-01-24
 title: 구성
 description: 애플리케이션에 맞게 Intlayer를 구성하는 방법을 배우세요. Intlayer를 사용자 요구에 맞게 맞춤 설정할 수 있는 다양한 설정과 옵션을 이해하세요.
 keywords:
@@ -82,81 +82,367 @@ Intlayer는 JSON, JS, MJS, TS 구성 파일 형식을 지원합니다:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { z } from "zod";
 
+/**
+ * Example Intlayer configuration file showing all available options.
+ */
 const config: IntlayerConfig = {
+  /**
+   * Configuration for internationalization settings.
+   */
   internationalization: {
-    locales: [Locales.ENGLISH], // 지원하는 로케일 목록
+    /**
+     * List of supported locales in the application.
+     * Default: [Locales.ENGLISH]
+     */
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+
+    /**
+     * List of required locales that must be defined in every dictionary.
+     * If empty, all locales are required in `strict` mode.
+     * Default: []
+     */
+    requiredLocales: [Locales.ENGLISH],
+
+    /**
+     * Strictness level for internationalized content.
+     * - "strict": Errors if any declared locale is missing or undeclared.
+     * - "inclusive": Warnings if a declared locale is missing.
+     * - "loose": Accepts any existing locale.
+     * Default: "inclusive"
+     */
+    strictMode: "inclusive",
+
+    /**
+     * Default locale used as a fallback if the requested locale is not found.
+     * Default: Locales.ENGLISH
+     */
+    defaultLocale: Locales.ENGLISH,
   },
+
+  /**
+   * Settings that control dictionary operations and fallback behavior.
+   */
+  dictionary: {
+    /**
+     * Controls how dictionaries are imported.
+     * - "static": Statically imported at build time.
+     * - "dynamic": Dynamically imported using Suspense.
+     * - "fetch": Fetched dynamically via the live sync API.
+     * Default: "static"
+     */
+    importMode: "static",
+
+    /**
+     * Strategy for auto-filling missing translations using AI.
+     * Can be a boolean or a path pattern to store filled content.
+     * Default: true
+     */
+    fill: true,
+
+    /**
+     * Physical location of the dictionary files.
+     * - "local": Stored in the local filesystem.
+     * - "remote": Stored in the Intlayer CMS.
+     * - "hybrid": Stored in the local filesystem and the Intlayer CMS.
+     * - "plugin" (or any custom string): Provided by a plugin or a custom source.
+     * Default: "local"
+     */
+    location: "local",
+
+    /**
+     * Whether to automatically transform content (e.g., Markdown to HTML).
+     * Default: false
+     */
+    contentAutoTransformation: false,
+  },
+
+  /**
+   * Routing and middleware configuration.
+   */
+  routing: {
+    /**
+     * Locale routing strategy.
+     * - "prefix-no-default": Prefix all except the default locale (e.g., /dashboard, /fr/dashboard).
+     * - "prefix-all": Prefix all locales (e.g., /en/dashboard, /fr/dashboard).
+     * - "no-prefix": No locale in the URL.
+     * - "search-params": Use ?locale=...
+     * Default: "prefix-no-default"
+     */
+    mode: "prefix-no-default",
+
+    /**
+     * Where to store the user's selected locale.
+     * Options: 'cookie', 'localStorage', 'sessionStorage', 'header', or an array of these.
+     * Default: ['cookie', 'header']
+     */
+    storage: "cookie",
+
+    /**
+     * Base path for the application URLs.
+     * Default: ""
+     */
+    basePath: "",
+
+    /**
+     * Custom URL rewriting rules for locale-specific paths.
+     */
+    rewrite: {
+      "/about": {
+        en: "/about",
+        fr: "/a-propos",
+      },
+    },
+  },
+
+  /**
+   * Settings for finding and processing content files.
+   */
   content: {
-    autoFill: "./{{fileName}}.content.json", // 자동 채우기 콘텐츠 파일 경로
-    contentDir: ["src", "../ui-library"], // 콘텐츠 디렉토리 목록
+    /**
+     * File extensions to scan for dictionaries.
+     * Default: ['.content.ts', '.content.js', '.content.json', etc.]
+     */
+    fileExtensions: [".content.ts", ".content.js", ".content.json"],
+
+    /**
+     * Directories where .content files are located.
+     * Default: ["."]
+     */
+    contentDir: ["src"],
+
+    /**
+     * Directories where source code is located.
+     * Used for build optimization and code transformation.
+     * Default: ["."]
+     */
+    codeDir: ["src"],
+
+    /**
+     * Patterns to exclude from scanning.
+     * Default: ['node_modules', '.intlayer', etc.]
+     */
+    excludedPath: ["node_modules"],
+
+    /**
+     * Whether to watch for changes and rebuild dictionaries in development.
+     * Default: true in development
+     */
+    watch: true,
+
+    /**
+     * Command to format newly created / updated .content files.
+     */
+    formatCommand: 'npx prettier --write "{{file}}"',
   },
-  middleware: {
-    noPrefix: false, // 미들웨어 접두사 사용 여부
-  },
+
+  /**
+   * Visual Editor configuration.
+   */
   editor: {
-    applicationURL: "https://example.com", // 에디터 애플리케이션 URL
+    /**
+     * Whether the visual editor is enabled.
+     * Default: true
+     */
+    enabled: true,
+
+    /**
+     * URL of your application for origin validation.
+     * Default: "*"
+     */
+    applicationURL: "http://localhost:3000",
+
+    /**
+     * Port for the local editor server.
+     * Default: 8000
+     */
+    port: 8000,
+
+    /**
+     * Public URL for the editor.
+     * Default: "http://localhost:8000"
+     */
+    editorURL: "http://localhost:8000",
+
+    /**
+     * Intlayer CMS URL.
+     * Default: "https://app.intlayer.org"
+     */
+    cmsURL: "https://app.intlayer.org",
+
+    /**
+     * Backend API URL.
+     * Default: "https://back.intlayer.org"
+     */
+    backendURL: "https://back.intlayer.org",
+
+    /**
+     * Whether to enable real-time content synchronization.
+     * Default: false
+     */
+    liveSync: true,
   },
+
+  /**
+   * AI-powered translation and generation settings.
+   */
   ai: {
-    apiKey: process.env.OPENAI_API_KEY, // AI API 키
-    applicationContext: "This is a test application", // 애플리케이션 컨텍스트 설명
+    /**
+     * AI provider to use.
+     * Options: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama'
+     * Default: 'openai'
+     */
+    provider: "openai",
+
+    /**
+     * Model to use from the selected provider.
+     */
+    model: "gpt-4o",
+
+    /**
+     * Provider API key.
+     */
+    apiKey: process.env.OPENAI_API_KEY,
+
+    /**
+     * Global context to guide the AI in generating translations.
+     */
+    applicationContext: "This is a travel booking application.",
+
+    /**
+     * Base URL for the AI API.
+     */
+    baseURL: "http://localhost:3000",
   },
-  build: {},
+
+  /**
+   * Build and optimization settings.
+   */
+  build: {
+    /**
+     * Build execution mode.
+     * - "auto": Automatic build during app build.
+     * - "manual": Requires explicit build command.
+     * Default: "auto"
+     */
+    mode: "auto",
+
+    /**
+     * Whether to optimize the final bundle by pruning unused dictionaries.
+     * Default: true in production
+     */
+    optimize: true,
+
+    /**
+     * Output format for generated dictionary files.
+     * Default: ['esm', 'cjs']
+     */
+    outputFormat: ["esm"],
+  },
+
+  /**
+   * Logger configuration.
+   */
+  log: {
+    /**
+     * Logging level.
+     * - "default": Standard logging.
+     * - "verbose": Detailed debug logging.
+     * - "disabled": No logging.
+     * Default: "default"
+     */
+    mode: "default",
+
+    /**
+     * Prefix for all log messages.
+     * Default: "[intlayer]"
+     */
+    prefix: "[intlayer]",
+  },
+
+  /**
+   * System configuration (Advanced use cases)
+   */
+  system: {
+    /**
+     * Directory for storing localization dictionaries.
+     */
+    dictionariesDir: ".intlayer/dictionary",
+
+    /**
+     * Directory for module augmentation.
+     */
+    moduleAugmentationDir: ".intlayer/types",
+
+    /**
+     * Directory for storing unmerged dictionaries.
+     */
+    unmergedDictionariesDir: ".intlayer/unmerged_dictionary",
+
+    /**
+     * Directory for storing dictionary types.
+     */
+    typesDir: ".intlayer/types",
+
+    /**
+     * Directory where main application files are stored.
+     */
+    mainDir: ".intlayer/main",
+
+    /**
+     * Directory where the configuration files are stored.
+     */
+    configDir: ".intlayer/config",
+
+    /**
+     * Directory where the cache files are stored.
+     */
+    cacheDir: ".intlayer/cache",
+  },
+
+  /**
+   * Compiler configuration (Advanced use cases)
+   */
+  compiler: {
+    /**
+     * Indicates if the compiler should be enabled.
+     */
+    enabled: true,
+
+    /**
+     * Pattern to traverse the code to optimize.
+     */
+    transformPattern: ["**/*.{js,ts,mjs,cjs,jsx,tsx}", "!**/node_modules/**"],
+
+    /**
+     * Pattern to exclude from the optimization.
+     */
+    excludePattern: ["**/node_modules/**"],
+
+    /**
+     * Output directory for the optimized dictionaries.
+     */
+    outputDir: "compiler",
+  },
+
+  /**
+   * Custom schemas to validate the dictionaries content.
+   */
+  schemas: {
+    "my-schema": z.object({
+      title: z.string(),
+    }),
+  },
+
+  /**
+   * Plugins configuration.
+   */
+  plugins: [],
 };
 
 export default config;
 ```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH], // 지원하는 로케일 목록
-  },
-  content: {
-    contentDir: ["src", "../ui-library"], // 콘텐츠 디렉토리 목록
-  },
-  middleware: {
-    noPrefix: false, // 미들웨어 접두사 사용 여부
-  },
-  editor: {
-    applicationURL: "https://example.com", // 에디터 애플리케이션 URL
-  },
-  ai: {
-    apiKey: process.env.OPENAI_API_KEY, // AI API 키
-    applicationContext: "This is a test application", // 애플리케이션 컨텍스트 설명
-  },
-  build: {},
-};
-
-module.exports = config;
-```
-
-```json5 fileName=".intlayerrc" codeFormat="json"
-{
-  "internationalization": {
-    "locales": ["en"], // 지원하는 로케일 목록
-  },
-  "content": {
-    "contentDir": ["src", "../ui-library"], // 콘텐츠 디렉토리 목록
-  },
-  "middleware": {
-    "noPrefix": false, // 미들웨어 접두사 사용 여부
-  },
-  "editor": {
-    "applicationURL": "https://example.com", // 에디터 애플리케이션 URL
-  },
-  "ai": {
-    "apiKey": "XXXX",
-    "applicationContext": "이것은 테스트 애플리케이션입니다",
-  },
-  "build": {},
-}
-```
-
----
 
 ## 구성 참조
 
@@ -630,14 +916,14 @@ Intlayer가 애플리케이션의 국제화를 최적화하고 빌드하는 방�
 
 - **importMode**:
   - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
-  - _유형_: `'static' | 'dynamic' | 'live'`
+  - _유형_: `'static' | 'dynamic' | 'fetch'`
   - _기본값_: `'static'`
   - _설명_: 사전을 어떻게 가져올지 제어합니다.
   - _예시_: `'dynamic'`
   - _참고_: 사용 가능한 모드:
     - "static": 사전을 정적으로 가져옵니다. `useIntlayer`를 `useDictionary`로 대체합니다.
     - "dynamic": Suspense를 사용하여 사전을 동적으로 가져옵니다. `useIntlayer`를 `useDictionaryDynamic`으로 대체합니다.
-- "live": 사전은 라이브 동기화 API를 사용하여 동적으로 가져옵니다. `useIntlayer`를 `useDictionaryFetch`로 대체합니다.
+- "fetch": 사전은 라이브 동기화 API를 사용하여 동적으로 가져옵니다. `useIntlayer`를 `useDictionaryFetch`로 대체합니다.
 - _참고_: 동적 임포트는 Suspense에 의존하며 렌더링 성능에 약간의 영향을 줄 수 있습니다.
 - _참고_: 비활성화하면 사용되지 않는 로케일이라도 모든 로케일이 한 번에 로드됩니다.
 - _참고_: 이 옵션은 `@intlayer/babel` 및 `@intlayer/swc` 플러그인에 의존합니다.
@@ -649,7 +935,7 @@ Intlayer가 애플리케이션의 국제화를 최적화하고 빌드하는 방�
 
 - **traversePattern**:
   - _유형_: `string[]`
-  - _기본값_: `['**\/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**\/node_modules/**']`
+  - _기본값_: `['**\/*.{js,ts,mjs,cjs,jsx,tsx}', '!**\/node_modules/**']`
   - _설명_: 최적화 중에 탐색할 파일을 정의하는 패턴입니다.
     - _예시_: `['src/**\/*.{ts,tsx}', '../ui-library/**\/*.{ts,tsx}', '!**/node_modules/**']`
   - _참고_: 최적화를 관련 코드 파일로 제한하여 빌드 성능을 향상시키는 데 사용합니다.

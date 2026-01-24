@@ -209,7 +209,7 @@ module.exports = indexContent;
 }
 ```
 
-> 콘텐츠 선언(content declarations)은 애플리케이션 내 어디에든 정의할 수 있으며, 단 `contentDir` 디렉터리(기본값 `./src`)에 포함되어 있어야 합니다. 또한 콘텐츠 선언 파일 확장자(기본값 `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`)와 일치해야 합니다.
+> 콘텐츠 선언(content declarations)은 애플리케이션 내 어디에든 정의할 수 있으며, 단 `contentDir` 디렉터리(기본값 `./src`)에 포함되어 있어야 합니다. 또한 콘텐츠 선언 파일 확장자(기본값 `.content.{json,ts,tsx,js,jsx,mjs,cjs}`)와 일치해야 합니다.
 
 > 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 

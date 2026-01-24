@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-10
+updatedAt: 2026-01-24
 title: Inhaltsdatei
 description: Erfahren Sie, wie Sie die Erweiterungen für Ihre Inhaltsdeklarationsdateien anpassen können. Folgen Sie dieser Dokumentation, um Bedingungen effizient in Ihrem Projekt umzusetzen.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.0.0
+    date: 2026-01-24
+    changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
   - version: 8.0.0
     date: 2026-01-18
     changes: Wörterbuchoptionen `location` und `schema` hinzugefügt
@@ -474,13 +477,13 @@ const aboutPageMetaContent = {
 export default aboutPageMetaContent;
 ```
 
-#### `location` ('local' | 'remote' | 'local&remote' | string)
+#### `location` ('local' | 'remote' | 'hybrid' | string)
 
 Gibt den Speicherort des Wörterbuchs an und steuert, wie es mit dem CMS synchronisiert wird:
 
 - `'local'`: Das Wörterbuch wird nur lokal verwaltet. Es wird nicht zum entfernten CMS gepusht. Verwenden Sie dies für Inhalte, die in Ihrer Codebasis bleiben sollen.
 - `'remote'`: Das Wörterbuch wird nur remote verwaltet. Nach dem Push zum CMS wird es von der lokalen Datei getrennt. Zum Zeitpunkt des Ladens des Inhalts wird das Remote-Wörterbuch vom CMS abgerufen. Eine `.content`-Datei mit `remote`-Speicherort wird nach dem initialen Push ignoriert.
-- `'local&remote'`: Das Wörterbuch wird sowohl lokal als auch remote verwaltet. Nach dem Push zum CMS bleibt es synchronisiert—Änderungen von der lokalen Datei werden zum CMS gepusht, und Remote-Änderungen können in die lokale Datei zurückgeholt werden.
+- `'hybrid'`: Das Wörterbuch wird sowohl lokal als auch remote verwaltet. Nach dem Push zum CMS bleibt es synchronisiert—Änderungen von der lokalen Datei werden zum CMS gepusht, und Remote-Änderungen können in die lokale Datei zurückgeholt werden.
 - `string` (z. B. `'plugin'`): Das Wörterbuch wird von einem Plugin oder einer benutzerdefinierten Quelle verwaltet. Wenn Sie versuchen, es zu pushen, fragt Sie das System, was zu tun ist.
 
 **Beispiel:**
@@ -565,13 +568,13 @@ Gibt die Priorität des Wörterbuchs zur Konfliktlösung an. Wenn mehrere Wörte
 
 Versionskennung für Remote-Wörterbücher. Hilft dabei nachzuverfolgen, welche Version des Wörterbuchs aktuell verwendet wird, besonders nützlich bei der Arbeit mit Remote-Content-Management-Systemen.
 
-##### `importMode` ('static' | 'dynamic' | 'live')
+##### `importMode` ('static' | 'dynamic' | 'fetch')
 
 Der Importmodus bestimmt, wie Ihr Wörterbuch in Ihrer Anwendung importiert wird.
 
 - `'static'`: Das Wörterbuch wird statisch zur Build-Zeit importiert. Dies ist der Standardmodus.
 - `'dynamic'`: Das Wörterbuch wird dynamisch zur Laufzeit mit der Suspense-API importiert.
-- `'live'`: Das Wörterbuch wird dynamisch mit der Live-Sync-API importiert.
+- `'fetch'`: Das Wörterbuch wird dynamisch mit der Live-Sync-API importiert.
 
 Wenn gesetzt, überschreibt diese Eigenschaft den globalen `importMode`, der in `intlayer.config.ts` definiert ist.
 

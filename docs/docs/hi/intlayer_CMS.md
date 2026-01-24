@@ -324,7 +324,7 @@ const config: IntlayerConfig = {
      * नोट: केवल दूरस्थ सामग्री वाले और "live" फ्लैग वाले शब्दकोश लाइव मोड का उपयोग करते हैं।
      * अन्य प्रदर्शन के लिए डायनेमिक मोड का उपयोग करते हैं।
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -360,7 +360,7 @@ const config = {
      * नोट: केवल वे शब्दकोश जिनमें रिमोट सामग्री और "live" फ्लैग होते हैं, लाइव मोड का उपयोग करते हैं।
      * अन्य प्रदर्शन के लिए डायनेमिक मोड का उपयोग करते हैं।
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -410,7 +410,7 @@ const config = {
      * नोट: केवल वे शब्दकोश जिनमें रिमोट सामग्री और "live" फ्लैग होते हैं, लाइव मोड का उपयोग करते हैं।
      * अन्य प्रदर्शन के लिए डायनेमिक मोड का उपयोग करते हैं।
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -484,7 +484,7 @@ const config: IntlayerConfig = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,
@@ -503,7 +503,7 @@ const config = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,
@@ -522,7 +522,7 @@ const config = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,

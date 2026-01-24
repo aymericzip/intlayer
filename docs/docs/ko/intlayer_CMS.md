@@ -324,7 +324,7 @@ const config: IntlayerConfig = {
      * 참고: 원격 콘텐츠가 있고 "live" 플래그가 있는 사전만 라이브 모드를 사용합니다.
      * 나머지는 성능을 위해 동적 모드를 사용합니다.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -360,7 +360,7 @@ const config = {
      * 참고: 원격 콘텐츠가 있고 "live" 플래그가 설정된 사전만 라이브 모드를 사용합니다.
      * 나머지는 성능을 위해 동적 모드를 사용합니다.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -410,7 +410,7 @@ const config = {
      * 참고: 원격 콘텐츠와 "live" 플래그가 있는 사전만 라이브 모드를 사용합니다.
      * 다른 사전은 성능을 위해 동적 모드를 사용합니다.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -484,7 +484,7 @@ const config: IntlayerConfig = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,
@@ -503,7 +503,7 @@ const config = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,
@@ -522,7 +522,7 @@ const config = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,

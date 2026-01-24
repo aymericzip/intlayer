@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-10
+updatedAt: 2026-01-24
 title: Berkas Konten
 description: Pelajari cara menyesuaikan ekstensi untuk berkas deklarasi konten Anda. Ikuti dokumentasi ini untuk mengimplementasikan kondisi secara efisien dalam proyek Anda.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.0.0
+    date: 2026-01-24
+    changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
   - version: 8.0.0
     date: 2026-01-18
     changes: Tambahkan opsi kamus `location` dan `schema`
@@ -472,13 +475,13 @@ const aboutPageMetaContent = {
 export default aboutPageMetaContent;
 ```
 
-#### `location` ('local' | 'remote' | 'local&remote' | string)
+#### `location` ('local' | 'remote' | 'hybrid' | string)
 
 Menunjukkan lokasi kamus dan mengontrol cara sinkronisasinya dengan CMS:
 
 - `'local'`: Kamus dikelola hanya secara lokal. Tidak akan didorong ke CMS jarak jauh. Gunakan ini untuk konten yang harus tetap berada di codebase Anda.
 - `'remote'`: Kamus dikelola hanya secara jarak jauh. Setelah didorong ke CMS, kamus akan terlepas dari file lokal. Saat memuat konten, kamus jarak jauh akan diambil dari CMS. File `.content` dengan lokasi `remote` akan diabaikan setelah push awal.
-- `'local&remote'`: Kamus dikelola baik secara lokal maupun jarak jauh. Setelah didorong ke CMS, kamus akan tetap tersinkronisasi—perubahan dari file lokal didorong ke CMS, dan perubahan jarak jauh dapat ditarik kembali ke file lokal.
+- `'hybrid'`: Kamus dikelola baik secara lokal maupun jarak jauh. Setelah didorong ke CMS, kamus akan tetap tersinkronisasi—perubahan dari file lokal didorong ke CMS, dan perubahan jarak jauh dapat ditarik kembali ke file lokal.
 - `string` (mis. `'plugin'`): Kamus dikelola oleh plugin atau sumber kustom. Saat Anda mencoba mendorongnya, sistem akan menanyakan apa yang harus dilakukan.
 
 **Contoh:**
@@ -564,13 +567,13 @@ Menunjukkan prioritas kamus untuk penyelesaian konflik. Ketika beberapa kamus me
 
 Pengidentifikasi versi untuk kamus jarak jauh. Membantu melacak versi kamus yang sedang digunakan, sangat berguna saat bekerja dengan sistem manajemen konten jarak jauh.
 
-##### `importMode` ('static' | 'dynamic' | 'live')
+##### `importMode` ('static' | 'dynamic' | 'fetch')
 
 Mode impor menentukan bagaimana kamus Anda diimpor ke aplikasi Anda.
 
 - `'static'`: Kamus diimpor secara statis pada waktu build. Ini adalah mode default.
 - `'dynamic'`: Kamus diimpor secara dinamis pada runtime menggunakan API suspense.
-- `'live'`: Kamus diimpor secara dinamis menggunakan API sinkronisasi langsung.
+- `'fetch'`: Kamus diimpor secara dinamis menggunakan API sinkronisasi langsung.
 
 Jika disetel, properti ini akan menggantikan `importMode` global yang didefinisikan di `intlayer.config.ts`.
 

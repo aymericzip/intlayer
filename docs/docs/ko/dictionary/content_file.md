@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-10
+updatedAt: 2026-01-24
 title: 콘텐츠 파일
 description: 콘텐츠 선언 파일의 확장자를 사용자 정의하는 방법을 배우세요. 이 문서를 따라 프로젝트에서 조건을 효율적으로 구현하세요.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.0.0
+    date: 2026-01-24
+    changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
   - version: 8.0.0
     date: 2026-01-18
     changes: 사전 옵션 `location` 및 `schema` 추가
@@ -491,13 +494,13 @@ const aboutPageMetaContent = {
 export default aboutPageMetaContent;
 ```
 
-#### `location` ('local' | 'remote' | 'local&remote' | string)
+#### `location` ('local' | 'remote' | 'hybrid' | string)
 
 사전의 위치를 나타내고 CMS와의 동기화 방식을 제어합니다:
 
 - `'local'`: 사전이 로컬에서만 관리됩니다. 원격 CMS로 푸시되지 않습니다. 코드베이스에 남아 있어야 하는 콘텐츠에 사용합니다.
 - `'remote'`: 사전이 원격에서만 관리됩니다. CMS로 푸시되면 로컬 파일에서 분리됩니다. 콘텐츠 로드 시 원격 사전이 CMS에서 가져옵니다. `remote` 위치를 가진 `.content` 파일은 초기 푸시 후 무시됩니다.
-- `'local&remote'`: 사전이 로컬과 원격 모두에서 관리됩니다. CMS로 푸시되면 동기화 상태를 유지합니다—로컬 파일의 변경사항이 CMS로 푸시되고, 원격 변경사항은 로컬 파일로 다시 가져올 수 있습니다.
+- `'hybrid'`: 사전이 로컬과 원격 모두에서 관리됩니다. CMS로 푸시되면 동기화 상태를 유지합니다—로컬 파일의 변경사항이 CMS로 푸시되고, 원격 변경사항은 로컬 파일로 다시 가져올 수 있습니다.
 - `string` (예: `'plugin'`): 사전이 플러그인 또는 사용자 정의 소스에 의해 관리됩니다. 푸시하려고 하면 시스템이 수행할 작업을 묻습니다.
 
 **예시:**
@@ -582,13 +585,13 @@ export default aboutPageMetaContent;
 
 원격 사전의 버전 식별자입니다. 현재 사용 중인 사전의 버전을 추적하는 데 도움이 되며, 특히 원격 콘텐츠 관리 시스템 작업 시 유용합니다.
 
-##### `importMode` ('static' | 'dynamic' | 'live')
+##### `importMode` ('static' | 'dynamic' | 'fetch')
 
 가져오기 모드는 애플리케이션에서 사전이 어떻게 가져오는지를 결정합니다.
 
 - `'static'`: 사전이 빌드 시 정적으로 가져옵니다. 이것이 기본 모드입니다.
 - `'dynamic'`: 사전이 suspense API를 사용하여 런타임에 동적으로 가져옵니다.
-- `'live'`: 사전이 라이브 동기화 API를 사용하여 동적으로 가져옵니다.
+- `'fetch'`: 사전이 라이브 동기화 API를 사용하여 동적으로 가져옵니다.
 
 설정하면 이 속성은 `intlayer.config.ts`에 정의된 전역 `importMode`를 재정의합니다.
 

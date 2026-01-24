@@ -485,7 +485,7 @@ module.exports = pageContent;
 }
 ```
 
-> 您的内容声明可以定义在应用程序的任何位置，只要它们包含在 `contentDir` 目录（默认情况下为 `./src`）中。并且匹配内容声明文件扩展名（默认情况下为 `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）。
+> 您的内容声明可以定义在应用程序的任何位置，只要它们包含在 `contentDir` 目录（默认情况下为 `./src`）中。并且匹配内容声明文件扩展名（默认情况下为 `.content.{json,ts,tsx,js,jsx,mjs,cjs}`）。
 
 > 有关更多详细信息，请参阅[内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
 
@@ -1627,7 +1627,7 @@ bunx intlayer init
 
 > 注意：此包默认不安装，因为 SWC 插件在 Next.js 上仍处于实验阶段。未来可能会有所改变。
 
-> 注意：如果您将选项设置为 `importMode: 'dynamic'` 或 `importMode: 'live'`（在 `dictionary` 配置中），它将依赖于 Suspense，因此您必须将 `useIntlayer` 调用包装在 `Suspense` 边界中。这意味着，您将无法直接在页面/布局组件的顶层使用 `useIntlayer`。
+> 注意：如果您将选项设置为 `importMode: 'dynamic'` 或 `importMode: 'fetch'`（在 `dictionary` 配置中），它将依赖于 Suspense，因此您必须将 `useIntlayer` 调用包装在 `Suspense` 边界中。这意味着，您将无法直接在页面/布局组件的顶层使用 `useIntlayer`。
 
 ### 在 Turbopack 上监视字典更改
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-01-10
+updatedAt: 2026-01-24
 title: Cấu hình
 description: Tìm hiểu cách cấu hình Intlayer cho ứng dụng của bạn. Hiểu các thiết lập và tùy chọn khác nhau để tùy chỉnh Intlayer theo nhu cầu của bạn.
 keywords:
@@ -97,89 +97,367 @@ Intlayer chấp nhận các định dạng tệp cấu hình JSON, JS, MJS và T
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { z } from "zod";
 
+/**
+ * Example Intlayer configuration file showing all available options.
+ */
 const config: IntlayerConfig = {
+  /**
+   * Configuration for internationalization settings.
+   */
   internationalization: {
-    locales: [Locales.ENGLISH],
+    /**
+     * List of supported locales in the application.
+     * Default: [Locales.ENGLISH]
+     */
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+
+    /**
+     * List of required locales that must be defined in every dictionary.
+     * If empty, all locales are required in `strict` mode.
+     * Default: []
+     */
+    requiredLocales: [Locales.ENGLISH],
+
+    /**
+     * Strictness level for internationalized content.
+     * - "strict": Errors if any declared locale is missing or undeclared.
+     * - "inclusive": Warnings if a declared locale is missing.
+     * - "loose": Accepts any existing locale.
+     * Default: "inclusive"
+     */
+    strictMode: "inclusive",
+
+    /**
+     * Default locale used as a fallback if the requested locale is not found.
+     * Default: Locales.ENGLISH
+     */
+    defaultLocale: Locales.ENGLISH,
   },
-  content: {
-    contentDir: ["src", "../ui-library"],
-  },
+
+  /**
+   * Settings that control dictionary operations and fallback behavior.
+   */
   dictionary: {
-    fill: "./{{fileName}}.content.json",
+    /**
+     * Controls how dictionaries are imported.
+     * - "static": Statically imported at build time.
+     * - "dynamic": Dynamically imported using Suspense.
+     * - "fetch": Fetched dynamically via the live sync API.
+     * Default: "static"
+     */
+    importMode: "static",
+
+    /**
+     * Strategy for auto-filling missing translations using AI.
+     * Can be a boolean or a path pattern to store filled content.
+     * Default: true
+     */
+    fill: true,
+
+    /**
+     * Physical location of the dictionary files.
+     * - "local": Stored in the local filesystem.
+     * - "remote": Stored in the Intlayer CMS.
+     * - "hybrid": Stored in the local filesystem and the Intlayer CMS.
+     * - "plugin" (or any custom string): Provided by a plugin or a custom source.
+     * Default: "local"
+     */
+    location: "local",
+
+    /**
+     * Whether to automatically transform content (e.g., Markdown to HTML).
+     * Default: false
+     */
+    contentAutoTransformation: false,
   },
+
+  /**
+   * Routing and middleware configuration.
+   */
   routing: {
+    /**
+     * Locale routing strategy.
+     * - "prefix-no-default": Prefix all except the default locale (e.g., /dashboard, /fr/dashboard).
+     * - "prefix-all": Prefix all locales (e.g., /en/dashboard, /fr/dashboard).
+     * - "no-prefix": No locale in the URL.
+     * - "search-params": Use ?locale=...
+     * Default: "prefix-no-default"
+     */
     mode: "prefix-no-default",
+
+    /**
+     * Where to store the user's selected locale.
+     * Options: 'cookie', 'localStorage', 'sessionStorage', 'header', or an array of these.
+     * Default: ['cookie', 'header']
+     */
     storage: "cookie",
+
+    /**
+     * Base path for the application URLs.
+     * Default: ""
+     */
+    basePath: "",
+
+    /**
+     * Custom URL rewriting rules for locale-specific paths.
+     */
+    rewrite: {
+      "/about": {
+        en: "/about",
+        fr: "/a-propos",
+      },
+    },
   },
+
+  /**
+   * Settings for finding and processing content files.
+   */
+  content: {
+    /**
+     * File extensions to scan for dictionaries.
+     * Default: ['.content.ts', '.content.js', '.content.json', etc.]
+     */
+    fileExtensions: [".content.ts", ".content.js", ".content.json"],
+
+    /**
+     * Directories where .content files are located.
+     * Default: ["."]
+     */
+    contentDir: ["src"],
+
+    /**
+     * Directories where source code is located.
+     * Used for build optimization and code transformation.
+     * Default: ["."]
+     */
+    codeDir: ["src"],
+
+    /**
+     * Patterns to exclude from scanning.
+     * Default: ['node_modules', '.intlayer', etc.]
+     */
+    excludedPath: ["node_modules"],
+
+    /**
+     * Whether to watch for changes and rebuild dictionaries in development.
+     * Default: true in development
+     */
+    watch: true,
+
+    /**
+     * Command to format newly created / updated .content files.
+     */
+    formatCommand: 'npx prettier --write "{{file}}"',
+  },
+
+  /**
+   * Visual Editor configuration.
+   */
   editor: {
-    applicationURL: "https://example.com",
+    /**
+     * Whether the visual editor is enabled.
+     * Default: true
+     */
+    enabled: true,
+
+    /**
+     * URL of your application for origin validation.
+     * Default: "*"
+     */
+    applicationURL: "http://localhost:3000",
+
+    /**
+     * Port for the local editor server.
+     * Default: 8000
+     */
+    port: 8000,
+
+    /**
+     * Public URL for the editor.
+     * Default: "http://localhost:8000"
+     */
+    editorURL: "http://localhost:8000",
+
+    /**
+     * Intlayer CMS URL.
+     * Default: "https://app.intlayer.org"
+     */
+    cmsURL: "https://app.intlayer.org",
+
+    /**
+     * Backend API URL.
+     * Default: "https://back.intlayer.org"
+     */
+    backendURL: "https://back.intlayer.org",
+
+    /**
+     * Whether to enable real-time content synchronization.
+     * Default: false
+     */
+    liveSync: true,
   },
+
+  /**
+   * AI-powered translation and generation settings.
+   */
   ai: {
+    /**
+     * AI provider to use.
+     * Options: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama'
+     * Default: 'openai'
+     */
+    provider: "openai",
+
+    /**
+     * Model to use from the selected provider.
+     */
+    model: "gpt-4o",
+
+    /**
+     * Provider API key.
+     */
     apiKey: process.env.OPENAI_API_KEY,
-    applicationContext: "Đây là một ứng dụng thử nghiệm", // ngữ cảnh ứng dụng AI
+
+    /**
+     * Global context to guide the AI in generating translations.
+     */
+    applicationContext: "This is a travel booking application.",
+
+    /**
+     * Base URL for the AI API.
+     */
+    baseURL: "http://localhost:3000",
   },
-  build: {},
+
+  /**
+   * Build and optimization settings.
+   */
+  build: {
+    /**
+     * Build execution mode.
+     * - "auto": Automatic build during app build.
+     * - "manual": Requires explicit build command.
+     * Default: "auto"
+     */
+    mode: "auto",
+
+    /**
+     * Whether to optimize the final bundle by pruning unused dictionaries.
+     * Default: true in production
+     */
+    optimize: true,
+
+    /**
+     * Output format for generated dictionary files.
+     * Default: ['esm', 'cjs']
+     */
+    outputFormat: ["esm"],
+  },
+
+  /**
+   * Logger configuration.
+   */
+  log: {
+    /**
+     * Logging level.
+     * - "default": Standard logging.
+     * - "verbose": Detailed debug logging.
+     * - "disabled": No logging.
+     * Default: "default"
+     */
+    mode: "default",
+
+    /**
+     * Prefix for all log messages.
+     * Default: "[intlayer]"
+     */
+    prefix: "[intlayer]",
+  },
+
+  /**
+   * System configuration (Advanced use cases)
+   */
+  system: {
+    /**
+     * Directory for storing localization dictionaries.
+     */
+    dictionariesDir: ".intlayer/dictionary",
+
+    /**
+     * Directory for module augmentation.
+     */
+    moduleAugmentationDir: ".intlayer/types",
+
+    /**
+     * Directory for storing unmerged dictionaries.
+     */
+    unmergedDictionariesDir: ".intlayer/unmerged_dictionary",
+
+    /**
+     * Directory for storing dictionary types.
+     */
+    typesDir: ".intlayer/types",
+
+    /**
+     * Directory where main application files are stored.
+     */
+    mainDir: ".intlayer/main",
+
+    /**
+     * Directory where the configuration files are stored.
+     */
+    configDir: ".intlayer/config",
+
+    /**
+     * Directory where the cache files are stored.
+     */
+    cacheDir: ".intlayer/cache",
+  },
+
+  /**
+   * Compiler configuration (Advanced use cases)
+   */
+  compiler: {
+    /**
+     * Indicates if the compiler should be enabled.
+     */
+    enabled: true,
+
+    /**
+     * Pattern to traverse the code to optimize.
+     */
+    transformPattern: ["**/*.{js,ts,mjs,cjs,jsx,tsx}", "!**/node_modules/**"],
+
+    /**
+     * Pattern to exclude from the optimization.
+     */
+    excludePattern: ["**/node_modules/**"],
+
+    /**
+     * Output directory for the optimized dictionaries.
+     */
+    outputDir: "compiler",
+  },
+
+  /**
+   * Custom schemas to validate the dictionaries content.
+   */
+  schemas: {
+    "my-schema": z.object({
+      title: z.string(),
+    }),
+  },
+
+  /**
+   * Plugins configuration.
+   */
+  plugins: [],
 };
 
 export default config;
 ```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH],
-  },
-  content: {
-    contentDir: ["src", "../ui-library"],
-  },
-  routing: {
-    mode: "prefix-no-default",
-    storage: "cookie",
-  },
-  editor: {
-    applicationURL: "https://example.com",
-  },
-  ai: {
-    apiKey: process.env.OPENAI_API_KEY,
-    applicationContext: "Đây là một ứng dụng thử nghiệm", // ngữ cảnh ứng dụng AI
-  },
-  build: {},
-};
-
-module.exports = config;
-```
-
-```json5 fileName=".intlayerrc" codeFormat="json"
-{
-  "internationalization": {
-    "locales": ["en"],
-  },
-  "content": {
-    "contentDir": ["src", "../ui-library"],
-  },
-  "dictionary": {
-    "fill": "./{{fileName}}.content.json",
-  },
-  "routing": {
-    "mode": "prefix-no-default",
-    "storage": "cookie",
-  },
-  "editor": {
-    "applicationURL": "https://example.com",
-  },
-  "ai": {
-    "apiKey": "XXXX",
-    "applicationContext": "Đây là một ứng dụng thử nghiệm", // ngữ cảnh ứng dụng AI
-  },
-  "build": {},
-}
-```
-
----
 
 ## Tham chiếu Cấu hình
 
@@ -745,14 +1023,14 @@ Các tùy chọn build áp dụng cho các plugin `@intlayer/babel` và `@intlay
 
 - **importMode**:
   - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
-  - _Kiểu_: `'static' | 'dynamic' | 'live'`
+  - _Kiểu_: `'static' | 'dynamic' | 'fetch'`
   - _Mặc định_: `'static'`
   - _Mô tả_: Điều khiển cách các từ điển được nhập.
   - _Ví dụ_: `'dynamic'`
   - _Lưu ý_: Các chế độ có sẵn:
     - "static": Các từ điển được nhập một cách tĩnh. Thay thế `useIntlayer` bằng `useDictionary`.
     - "dynamic": Các từ điển được nhập động sử dụng Suspense. Thay thế `useIntlayer` bằng `useDictionaryDynamic`.
-    - "live": Các từ điển được lấy động bằng cách sử dụng API đồng bộ trực tiếp (live sync API). Thay thế `useIntlayer` bằng `useDictionaryDynamic`.
+    - "fetch": Các từ điển được lấy động bằng cách sử dụng API đồng bộ trực tiếp (live sync API). Thay thế `useIntlayer` bằng `useDictionaryDynamic`.
   - _Lưu ý_: Việc nhập động dựa vào Suspense và có thể ảnh hưởng nhẹ đến hiệu suất render.
   - _Lưu ý_: Nếu tắt, tất cả các locale sẽ được tải cùng một lúc, ngay cả khi chúng không được sử dụng.
   - _Lưu ý_: Tùy chọn này dựa vào các plugin `@intlayer/babel` và `@intlayer/swc`.
@@ -770,7 +1048,7 @@ Các tùy chọn build áp dụng cho các plugin `@intlayer/babel` và `@intlay
 
 - **traversePattern**:
   - _Kiểu_: `string[]`
-  - _Mặc định_: `['**\/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**\/node_modules/**']`
+  - _Mặc định_: `['**\/*.{js,ts,mjs,cjs,jsx,tsx}', '!**\/node_modules/**']`
   - _Mô tả_: Các mẫu định nghĩa những tệp nào sẽ được duyệt trong quá trình tối ưu hóa.
     - _Ví dụ_: `['src/**\/*.{ts,tsx}', '../ui-library/**\/*.{ts,tsx}', '!**/node_modules/**']`
   - _Lưu ý_: Sử dụng để giới hạn tối ưu hóa chỉ cho các tệp mã liên quan và cải thiện hiệu suất xây dựng.

@@ -213,7 +213,7 @@ module.exports = appContent;
 }
 ```
 
-> İçerik bildirimleriniz, uygulamanızda `contentDir` dizinine (varsayılan olarak `./src`) dahil edildiği sürece herhangi bir yerde tanımlanabilir. Ve içerik bildirim dosya uzantısıyla eşleşmelidir (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> İçerik bildirimleriniz, uygulamanızda `contentDir` dizinine (varsayılan olarak `./src`) dahil edildiği sürece herhangi bir yerde tanımlanabilir. Ve içerik bildirim dosya uzantısıyla eşleşmelidir (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
 > Daha fazla detay için, [içerik bildirim dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bakabilirsiniz.
 

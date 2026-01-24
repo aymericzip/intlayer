@@ -328,7 +328,7 @@ const config: IntlayerConfig = {
      * Примітка: режим live використовується лише для словників з віддаленим контентом і прапорцем "live".
      * Інші використовують динамічний режим для кращої продуктивності.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -364,7 +364,7 @@ const config = {
      * Примітка: Тільки словники з віддаленим вмістом і прапором "live" використовують live-режим.
      * Інші використовують динамічний режим для підвищення продуктивності.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -414,7 +414,7 @@ const config = {
      * Примітка: режим live використовується лише для словників з віддаленим вмістом і прапорцем "live".
      * Інші використовують динамічний режим заради продуктивності.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -501,7 +501,7 @@ const config: IntlayerConfig = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,
@@ -520,7 +520,7 @@ const config = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,
@@ -539,7 +539,7 @@ const config = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,

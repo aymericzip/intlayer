@@ -324,7 +324,7 @@ const config: IntlayerConfig = {
      * Nota: Solo i dizionari con contenuto remoto e flag "live" utilizzano la modalità live.
      * Gli altri usano la modalità dinamica per le prestazioni.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -360,7 +360,7 @@ const config = {
      * Nota: Solo i dizionari con contenuti remoti e flag "live" utilizzano la modalità live.
      * Gli altri usano la modalità dinamica per le prestazioni.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -410,7 +410,7 @@ const config = {
      * Nota: Solo i dizionari con contenuto remoto e flag "live" usano la modalità live.
      * Gli altri usano la modalità dinamica per le prestazioni.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -484,7 +484,7 @@ const config: IntlayerConfig = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,
@@ -503,7 +503,7 @@ const config = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,
@@ -522,7 +522,7 @@ const config = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,

@@ -61,7 +61,7 @@ export const buildDictionary = async (
 
   let dynamicDictionaries: LocalizedDictionaryOutput | null = null;
 
-  if (importMode === 'dynamic' || importMode === 'live') {
+  if (importMode === 'dynamic' || importMode === 'fetch') {
     dynamicDictionaries = await writeDynamicDictionary(
       mergedDictionaries,
       configuration,
@@ -71,7 +71,7 @@ export const buildDictionary = async (
 
   let fetchDictionaries: LocalizedDictionaryOutput | null = null;
 
-  if (importMode === 'live') {
+  if (importMode === 'fetch') {
     fetchDictionaries = await writeFetchDictionary(
       dynamicDictionaries!,
       configuration,

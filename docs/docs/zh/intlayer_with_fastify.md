@@ -216,7 +216,7 @@ module.exports = indexContent;
 }
 ```
 
-> 一旦内容声明文件被包含到 `contentDir` 目录（默认 `./src`）中，你可以在应用的任何位置定义它们。并且文件扩展名应匹配内容声明文件扩展名（默认 `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）。
+> 一旦内容声明文件被包含到 `contentDir` 目录（默认 `./src`）中，你可以在应用的任何位置定义它们。并且文件扩展名应匹配内容声明文件扩展名（默认 `.content.{json,ts,tsx,js,jsx,mjs,cjs}`）。
 
 > 更多详情，请参阅 [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
 

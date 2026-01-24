@@ -233,7 +233,7 @@ module.exports = indexContent;
 }
 ```
 
-> İçerik beyanlarınızı, uygulamanızda `contentDir` dizinine (varsayılan olarak `./src`) dahil edildikleri sürece istediğiniz yere tanımlayabilirsiniz. Ve içerik beyanı dosya uzantısıyla eşleşmelidir (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> İçerik beyanlarınızı, uygulamanızda `contentDir` dizinine (varsayılan olarak `./src`) dahil edildikleri sürece istediğiniz yere tanımlayabilirsiniz. Ve içerik beyanı dosya uzantısıyla eşleşmelidir (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
 > Daha fazla ayrıntı için [içerik beyanı belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bakın.
 

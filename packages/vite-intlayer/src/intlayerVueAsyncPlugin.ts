@@ -24,7 +24,7 @@ export const intlayerVueAsyncPlugin = (
       const isBuild = env.command === 'build';
       const isEnabled =
         (optimize === undefined && isBuild) || optimize === true;
-      const isAsync = importMode === 'dynamic' || importMode === 'live';
+      const isAsync = importMode === 'dynamic' || importMode === 'fetch';
 
       return isEnabled && isAsync;
     },

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-10
+updatedAt: 2026-01-24
 title: 内容文件
 description: 学习如何自定义内容声明文件的扩展。按照本指南高效地在项目中实现条件。
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.0.0
+    date: 2026-01-24
+    changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
   - version: 8.0.0
     date: 2026-01-18
     changes: 添加字典选项 `location` 和 `schema`
@@ -494,13 +497,13 @@ const aboutPageMetaContent = {
 export default aboutPageMetaContent;
 ```
 
-#### `location` ('local' | 'remote' | 'local&remote' | string)
+#### `location` ('local' | 'remote' | 'hybrid' | string)
 
 指示字典的位置并控制其如何与 CMS 同步：
 
 - `'local'`: 字典仅在本地管理。它不会被推送到远程 CMS。用于应保留在代码库中的内容。
 - `'remote'`: 字典仅在远程管理。推送到 CMS 后，它将与本地文件分离。在内容加载时，远程字典将从 CMS 拉取。带有 `remote` 位置的 `.content` 文件在初始推送后将被忽略。
-- `'local&remote'`: 字典在本地和远程同时管理。推送到 CMS 后，它将保持同步—本地文件的更改会推送到 CMS，远程更改可以拉回本地文件。
+- `'hybrid'`: 字典在本地和远程同时管理。推送到 CMS 后，它将保持同步—本地文件的更改会推送到 CMS，远程更改可以拉回本地文件。
 - `string`（例如 `'plugin'`）：字典由插件或自定义源管理。当您尝试推送时，系统会询问您要执行的操作。
 
 **示例：**
@@ -585,13 +588,13 @@ export default aboutPageMetaContent;
 
 远程字典的版本标识符。帮助跟踪当前使用的字典版本，尤其在使用远程内容管理系统时非常有用。
 
-##### `importMode`（'static' | 'dynamic' | 'live'）
+##### `importMode`（'static' | 'dynamic' | 'fetch'）
 
 导入模式决定字典在应用程序中的导入方式。
 
 - `'static'`: 字典在构建时静态导入。这是默认模式。
 - `'dynamic'`: 字典在运行时使用 suspense API 动态导入。
-- `'live'`: 字典使用实时同步 API 动态导入。
+- `'fetch'`: 字典使用实时同步 API 动态导入。
 
 如果设置，此属性将覆盖在 `intlayer.config.ts` 中定义的全局 `importMode`。
 

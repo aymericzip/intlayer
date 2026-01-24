@@ -608,7 +608,7 @@ module.exports = pageContent;
 }
 ```
 
-> يمكن تعريف إعلانات المحتوى (content declarations) في أي مكان داخل تطبيقك طالما أنها موجودة داخل دليل `contentDir` (افتراضيًا `./src`). ويجب أن يتطابق امتداد ملف إعلان المحتوى (افتراضيًا `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> يمكن تعريف إعلانات المحتوى (content declarations) في أي مكان داخل تطبيقك طالما أنها موجودة داخل دليل `contentDir` (افتراضيًا `./src`). ويجب أن يتطابق امتداد ملف إعلان المحتوى (افتراضيًا `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
 > لمزيد من التفاصيل، راجع [توثيق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
@@ -1086,7 +1086,7 @@ bunx intlayer init
 
 > ملاحظة: هذه الحزمة غير مثبتة افتراضيًا لأن إضافات SWC لا تزال تجريبية في Next.js. قد يتغير ذلك في المستقبل.
 
-> ملاحظة: إذا قمت بتعيين الخيار إلى `importMode: 'dynamic'` أو `importMode: 'live'`، فسيعتمد ذلك على Suspense، لذا سيتوجب عليك تغليف استدعاءات `useIntlayer` ضمن حدّ `Suspense`. هذا يعني أنك لن تتمكن من استخدام `useIntlayer` مباشرةً على المستوى العلوي لمكوّن الصفحة / التخطيط الخاص بك.
+> ملاحظة: إذا قمت بتعيين الخيار إلى `importMode: 'dynamic'` أو `importMode: 'fetch'`، فسيعتمد ذلك على Suspense، لذا سيتوجب عليك تغليف استدعاءات `useIntlayer` ضمن حدّ `Suspense`. هذا يعني أنك لن تتمكن من استخدام `useIntlayer` مباشرةً على المستوى العلوي لمكوّن الصفحة / التخطيط الخاص بك.
 
 ### مراقبة تغيّرات القواميس على Turbopack
 

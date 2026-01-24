@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-10
+updatedAt: 2026-01-24
 title: Plik z Treścią
 description: Dowiedz się, jak dostosować rozszerzenia dla plików deklaracji treści. Postępuj zgodnie z tą dokumentacją, aby efektywnie wdrażać warunki w swoim projekcie.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.0.0
+    date: 2026-01-24
+    changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
   - version: 8.0.0
     date: 2026-01-18
     changes: Dodano opcje słownika `location` i `schema`
@@ -472,13 +475,13 @@ const aboutPageMetaContent = {
 export default aboutPageMetaContent;
 ```
 
-#### `location` ('local' | 'remote' | 'local&remote' | string)
+#### `location` ('local' | 'remote' | 'hybrid' | string)
 
 Wskazuje lokalizację słownika i kontroluje sposób synchronizacji z CMS:
 
 - `'local'`: Słownik jest zarządzany tylko lokalnie. Nie zostanie wysłany do zdalnego CMS. Użyj tego dla treści, które powinny pozostać w twojej bazie kodu.
 - `'remote'`: Słownik jest zarządzany tylko zdalnie. Po wysłaniu do CMS zostanie odłączony od pliku lokalnego. W momencie ładowania treści zdalny słownik zostanie pobrany z CMS. Plik `.content` z lokalizacją `remote` zostanie zignorowany po początkowym wysłaniu.
-- `'local&remote'`: Słownik jest zarządzany zarówno lokalnie, jak i zdalnie. Po wysłaniu do CMS pozostanie zsynchronizowany—zmiany z pliku lokalnego są wysyłane do CMS, a zmiany zdalne mogą być pobrane z powrotem do pliku lokalnego.
+- `'hybrid'`: Słownik jest zarządzany zarówno lokalnie, jak i zdalnie. Po wysłaniu do CMS pozostanie zsynchronizowany—zmiany z pliku lokalnego są wysyłane do CMS, a zmiany zdalne mogą być pobrane z powrotem do pliku lokalnego.
 - `string` (np. `'plugin'`): Słownik jest zarządzany przez wtyczkę lub niestandardowe źródło. Gdy spróbujesz go wysłać, system zapyta cię, co zrobić.
 
 **Przykład:**
@@ -564,13 +567,13 @@ Wskazuje priorytet słownika do rozwiązywania konfliktów. Gdy wiele słownikó
 
 Identyfikator wersji dla zdalnych słowników. Pomaga śledzić, która wersja słownika jest aktualnie używana, co jest szczególnie przydatne podczas pracy z zdalnymi systemami zarządzania treścią.
 
-##### `importMode` ('static' | 'dynamic' | 'live')
+##### `importMode` ('static' | 'dynamic' | 'fetch')
 
 Tryb importu określa, jak słownik jest importowany w aplikacji.
 
 - `'static'`: Słownik jest importowany statycznie w czasie budowania. To jest domyślny tryb.
 - `'dynamic'`: Słownik jest importowany dynamicznie w czasie działania za pomocą API suspense.
-- `'live'`: Słownik jest importowany dynamicznie za pomocą API synchronizacji na żywo.
+- `'fetch'`: Słownik jest importowany dynamicznie za pomocą API synchronizacji na żywo.
 
 Jeśli ustawione, ta właściwość nadpisuje globalny `importMode` zdefiniowany w `the `dictionary`property of`intlayer.config.ts``.
 

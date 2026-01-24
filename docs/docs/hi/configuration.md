@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-01-10
+updatedAt: 2026-01-24
 title: कॉन्फ़िगरेशन
 description: अपने एप्लिकेशन के लिए Intlayer को कॉन्फ़िगर करना सीखें। Intlayer को अपनी आवश्यकताओं के अनुसार अनुकूलित करने के लिए विभिन्न सेटिंग्स और विकल्पों को समझें।
 keywords:
@@ -79,81 +79,367 @@ Intlayer JSON, JS, MJS, और TS कॉन्फ़िगरेशन फ़ा
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { z } from "zod";
 
+/**
+ * Example Intlayer configuration file showing all available options.
+ */
 const config: IntlayerConfig = {
+  /**
+   * Configuration for internationalization settings.
+   */
   internationalization: {
-    locales: [Locales.ENGLISH], // उपलब्ध भाषाओं की सूची
+    /**
+     * List of supported locales in the application.
+     * Default: [Locales.ENGLISH]
+     */
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+
+    /**
+     * List of required locales that must be defined in every dictionary.
+     * If empty, all locales are required in `strict` mode.
+     * Default: []
+     */
+    requiredLocales: [Locales.ENGLISH],
+
+    /**
+     * Strictness level for internationalized content.
+     * - "strict": Errors if any declared locale is missing or undeclared.
+     * - "inclusive": Warnings if a declared locale is missing.
+     * - "loose": Accepts any existing locale.
+     * Default: "inclusive"
+     */
+    strictMode: "inclusive",
+
+    /**
+     * Default locale used as a fallback if the requested locale is not found.
+     * Default: Locales.ENGLISH
+     */
+    defaultLocale: Locales.ENGLISH,
   },
+
+  /**
+   * Settings that control dictionary operations and fallback behavior.
+   */
+  dictionary: {
+    /**
+     * Controls how dictionaries are imported.
+     * - "static": Statically imported at build time.
+     * - "dynamic": Dynamically imported using Suspense.
+     * - "fetch": Fetched dynamically via the live sync API.
+     * Default: "static"
+     */
+    importMode: "static",
+
+    /**
+     * Strategy for auto-filling missing translations using AI.
+     * Can be a boolean or a path pattern to store filled content.
+     * Default: true
+     */
+    fill: true,
+
+    /**
+     * Physical location of the dictionary files.
+     * - "local": Stored in the local filesystem.
+     * - "remote": Stored in the Intlayer CMS.
+     * - "hybrid": Stored in the local filesystem and the Intlayer CMS.
+     * - "plugin" (or any custom string): Provided by a plugin or a custom source.
+     * Default: "local"
+     */
+    location: "local",
+
+    /**
+     * Whether to automatically transform content (e.g., Markdown to HTML).
+     * Default: false
+     */
+    contentAutoTransformation: false,
+  },
+
+  /**
+   * Routing and middleware configuration.
+   */
+  routing: {
+    /**
+     * Locale routing strategy.
+     * - "prefix-no-default": Prefix all except the default locale (e.g., /dashboard, /fr/dashboard).
+     * - "prefix-all": Prefix all locales (e.g., /en/dashboard, /fr/dashboard).
+     * - "no-prefix": No locale in the URL.
+     * - "search-params": Use ?locale=...
+     * Default: "prefix-no-default"
+     */
+    mode: "prefix-no-default",
+
+    /**
+     * Where to store the user's selected locale.
+     * Options: 'cookie', 'localStorage', 'sessionStorage', 'header', or an array of these.
+     * Default: ['cookie', 'header']
+     */
+    storage: "cookie",
+
+    /**
+     * Base path for the application URLs.
+     * Default: ""
+     */
+    basePath: "",
+
+    /**
+     * Custom URL rewriting rules for locale-specific paths.
+     */
+    rewrite: {
+      "/about": {
+        en: "/about",
+        fr: "/a-propos",
+      },
+    },
+  },
+
+  /**
+   * Settings for finding and processing content files.
+   */
   content: {
-    autoFill: "./{{fileName}}.content.json", // सामग्री को स्वचालित रूप से भरने के लिए फ़ाइल पथ
-    contentDir: ["src", "../ui-library"], // सामग्री निर्देशिकाएँ
+    /**
+     * File extensions to scan for dictionaries.
+     * Default: ['.content.ts', '.content.js', '.content.json', etc.]
+     */
+    fileExtensions: [".content.ts", ".content.js", ".content.json"],
+
+    /**
+     * Directories where .content files are located.
+     * Default: ["."]
+     */
+    contentDir: ["src"],
+
+    /**
+     * Directories where source code is located.
+     * Used for build optimization and code transformation.
+     * Default: ["."]
+     */
+    codeDir: ["src"],
+
+    /**
+     * Patterns to exclude from scanning.
+     * Default: ['node_modules', '.intlayer', etc.]
+     */
+    excludedPath: ["node_modules"],
+
+    /**
+     * Whether to watch for changes and rebuild dictionaries in development.
+     * Default: true in development
+     */
+    watch: true,
+
+    /**
+     * Command to format newly created / updated .content files.
+     */
+    formatCommand: 'npx prettier --write "{{file}}"',
   },
-  middleware: {
-    noPrefix: false, // क्या प्रीफ़िक्स को हटाना है
-  },
+
+  /**
+   * Visual Editor configuration.
+   */
   editor: {
-    applicationURL: "https://example.com", // संपादक के लिए एप्लिकेशन URL
+    /**
+     * Whether the visual editor is enabled.
+     * Default: true
+     */
+    enabled: true,
+
+    /**
+     * URL of your application for origin validation.
+     * Default: "*"
+     */
+    applicationURL: "http://localhost:3000",
+
+    /**
+     * Port for the local editor server.
+     * Default: 8000
+     */
+    port: 8000,
+
+    /**
+     * Public URL for the editor.
+     * Default: "http://localhost:8000"
+     */
+    editorURL: "http://localhost:8000",
+
+    /**
+     * Intlayer CMS URL.
+     * Default: "https://app.intlayer.org"
+     */
+    cmsURL: "https://app.intlayer.org",
+
+    /**
+     * Backend API URL.
+     * Default: "https://back.intlayer.org"
+     */
+    backendURL: "https://back.intlayer.org",
+
+    /**
+     * Whether to enable real-time content synchronization.
+     * Default: false
+     */
+    liveSync: true,
   },
+
+  /**
+   * AI-powered translation and generation settings.
+   */
   ai: {
-    apiKey: process.env.OPENAI_API_KEY, // AI सेवा के लिए API कुंजी
-    applicationContext: "This is a test application", // एप्लिकेशन संदर्भ
+    /**
+     * AI provider to use.
+     * Options: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama'
+     * Default: 'openai'
+     */
+    provider: "openai",
+
+    /**
+     * Model to use from the selected provider.
+     */
+    model: "gpt-4o",
+
+    /**
+     * Provider API key.
+     */
+    apiKey: process.env.OPENAI_API_KEY,
+
+    /**
+     * Global context to guide the AI in generating translations.
+     */
+    applicationContext: "This is a travel booking application.",
+
+    /**
+     * Base URL for the AI API.
+     */
+    baseURL: "http://localhost:3000",
   },
-  build: {},
+
+  /**
+   * Build and optimization settings.
+   */
+  build: {
+    /**
+     * Build execution mode.
+     * - "auto": Automatic build during app build.
+     * - "manual": Requires explicit build command.
+     * Default: "auto"
+     */
+    mode: "auto",
+
+    /**
+     * Whether to optimize the final bundle by pruning unused dictionaries.
+     * Default: true in production
+     */
+    optimize: true,
+
+    /**
+     * Output format for generated dictionary files.
+     * Default: ['esm', 'cjs']
+     */
+    outputFormat: ["esm"],
+  },
+
+  /**
+   * Logger configuration.
+   */
+  log: {
+    /**
+     * Logging level.
+     * - "default": Standard logging.
+     * - "verbose": Detailed debug logging.
+     * - "disabled": No logging.
+     * Default: "default"
+     */
+    mode: "default",
+
+    /**
+     * Prefix for all log messages.
+     * Default: "[intlayer]"
+     */
+    prefix: "[intlayer]",
+  },
+
+  /**
+   * System configuration (Advanced use cases)
+   */
+  system: {
+    /**
+     * Directory for storing localization dictionaries.
+     */
+    dictionariesDir: ".intlayer/dictionary",
+
+    /**
+     * Directory for module augmentation.
+     */
+    moduleAugmentationDir: ".intlayer/types",
+
+    /**
+     * Directory for storing unmerged dictionaries.
+     */
+    unmergedDictionariesDir: ".intlayer/unmerged_dictionary",
+
+    /**
+     * Directory for storing dictionary types.
+     */
+    typesDir: ".intlayer/types",
+
+    /**
+     * Directory where main application files are stored.
+     */
+    mainDir: ".intlayer/main",
+
+    /**
+     * Directory where the configuration files are stored.
+     */
+    configDir: ".intlayer/config",
+
+    /**
+     * Directory where the cache files are stored.
+     */
+    cacheDir: ".intlayer/cache",
+  },
+
+  /**
+   * Compiler configuration (Advanced use cases)
+   */
+  compiler: {
+    /**
+     * Indicates if the compiler should be enabled.
+     */
+    enabled: true,
+
+    /**
+     * Pattern to traverse the code to optimize.
+     */
+    transformPattern: ["**/*.{js,ts,mjs,cjs,jsx,tsx}", "!**/node_modules/**"],
+
+    /**
+     * Pattern to exclude from the optimization.
+     */
+    excludePattern: ["**/node_modules/**"],
+
+    /**
+     * Output directory for the optimized dictionaries.
+     */
+    outputDir: "compiler",
+  },
+
+  /**
+   * Custom schemas to validate the dictionaries content.
+   */
+  schemas: {
+    "my-schema": z.object({
+      title: z.string(),
+    }),
+  },
+
+  /**
+   * Plugins configuration.
+   */
+  plugins: [],
 };
 
 export default config;
 ```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH], // उपलब्ध भाषाओं की सूची
-  },
-  content: {
-    contentDir: ["src", "../ui-library"], // सामग्री निर्देशिकाएँ
-  },
-  middleware: {
-    noPrefix: false, // क्या प्रीफ़िक्स को हटाना है
-  },
-  editor: {
-    applicationURL: "https://example.com", // संपादक के लिए एप्लिकेशन URL
-  },
-  ai: {
-    apiKey: process.env.OPENAI_API_KEY, // AI सेवा के लिए API कुंजी
-    applicationContext: "यह एक परीक्षण एप्लिकेशन है", // एप्लिकेशन संदर्भ
-  },
-  build: {},
-};
-
-module.exports = config;
-```
-
-```json5 fileName=".intlayerrc" codeFormat="json"
-{
-  "internationalization": {
-    "locales": ["en"], // उपलब्ध भाषाओं की सूची
-  },
-  "content": {
-    "contentDir": ["src", "../ui-library"], // सामग्री निर्देशिकाएँ
-  },
-  "middleware": {
-    "noPrefix": false, // क्या प्रीफ़िक्स को हटाना है
-  },
-  "editor": {
-    "applicationURL": "https://example.com", // संपादक के लिए एप्लिकेशन URL
-  },
-  "ai": {
-    "apiKey": "XXXX",
-    "applicationContext": "यह एक परीक्षण एप्लिकेशन है",
-  },
-  "build": {},
-}
-```
-
----
 
 ## कॉन्फ़िगरेशन संदर्भ
 
@@ -627,14 +913,14 @@ Intlayer बेहतर लचीलापन और विकल्प के 
 
 - **importMode**:
   - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
-  - _प्रकार_: `'static' | 'dynamic' | 'live'`
+  - _प्रकार_: `'static' | 'dynamic' | 'fetch'`
   - _डिफ़ॉल्ट_: `'static'`
   - _विवरण_: नियंत्रित करता है कि शब्दकोश कैसे आयात किए जाते हैं।
   - _उदाहरण_: `'dynamic'`
   - _नोट_: उपलब्ध मोड:
     - "static": शब्दकोश स्थैतिक रूप से आयात किए जाते हैं। `useIntlayer` को `useDictionary` से बदलता है।
     - "dynamic": शब्दकोश Suspense का उपयोग करके गतिशील रूप से आयात किए जाते हैं। `useIntlayer` को `useDictionaryDynamic` से बदलता है।
-  - "live": शब्दकोशों को लाइव सिंक API का उपयोग करके गतिशील रूप से प्राप्त किया जाता है। `useIntlayer` को `useDictionaryFetch` से बदलता है।
+  - "fetch": शब्दकोशों को लाइव सिंक API का उपयोग करके गतिशील रूप से प्राप्त किया जाता है। `useIntlayer` को `useDictionaryFetch` से बदलता है।
   - _नोट_: डायनेमिक इम्पोर्ट्स Suspense पर निर्भर करते हैं और रेंडरिंग प्रदर्शन को थोड़ा प्रभावित कर सकते हैं।
   - _नोट_: यदि अक्षम किया गया है, तो सभी लोकल एक साथ लोड होंगे, भले ही उनका उपयोग न किया जाए।
   - _नोट_: यह विकल्प `@intlayer/babel` और `@intlayer/swc` प्लगइन्स पर निर्भर करता है।
@@ -646,7 +932,7 @@ Intlayer बेहतर लचीलापन और विकल्प के 
 
 - **traversePattern**:
   - _प्रकार_: `string[]`
-  - _डिफ़ॉल्ट_: `['**\/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**\/node_modules/**']`
+  - _डिफ़ॉल्ट_: `['**\/*.{js,ts,mjs,cjs,jsx,tsx}', '!**\/node_modules/**']`
   - _विवरण_: पैटर्न जो यह परिभाषित करते हैं कि अनुकूलन के दौरान किन फ़ाइलों को ट्रैवर्स किया जाना चाहिए।
     - _उदाहरण_: `['src/**\/*.{ts,tsx}', '../ui-library/**\/*.{ts,tsx}', '!**/node_modules/**']`
   - _नोट_: इसका उपयोग संबंधित कोड फ़ाइलों तक अनुकूलन को सीमित करने और बिल्ड प्रदर्शन में सुधार करने के लिए करें।

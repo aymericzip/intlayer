@@ -1,6 +1,6 @@
 export const COMPILER_ENABLED = true;
 export const COMPILER_TRANSFORM_PATTERN = [
-  '**/*.{ts,tsx,jsx,js,cjs,mjs,mjx,cjx,svelte,vue}',
+  '**/*.{ts,tsx,jsx,js,cjs,mjs,svelte,vue}',
 ];
 export const COMPILER_EXCLUDE_PATTERN = [
   '**/node_modules/**',

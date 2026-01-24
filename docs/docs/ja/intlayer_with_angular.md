@@ -283,7 +283,7 @@ const appContent = {
 export default appContent;
 ```
 
-> コンテンツ宣言は、`contentDir` ディレクトリ（デフォルトは `./src`）に含まれていれば、アプリケーションのどこにでも定義できます。また、コンテンツ宣言ファイルの拡張子（デフォルトは `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）に一致している必要があります。
+> コンテンツ宣言は、`contentDir` ディレクトリ（デフォルトは `./src`）に含まれていれば、アプリケーションのどこにでも定義できます。また、コンテンツ宣言ファイルの拡張子（デフォルトは `.content.{json,ts,tsx,js,jsx,mjs,cjs}`）に一致している必要があります。
 
 > 詳細については、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)を参照してください。
 

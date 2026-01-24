@@ -609,7 +609,7 @@ const buildBuildFields = (
    * Allows to avoid to traverse the code that is not relevant to the optimization.
    * Improve build performance.
    *
-   * Default: ['**\/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**\/node_modules/**']
+   * Default: ['**\/*.{js,ts,mjs,cjs,jsx,tsx}', '!**\/node_modules/**']
    *
    * Example: `['src/**\/*.{ts,tsx}', '../ui-library/**\/*.{ts,tsx}']`
    *

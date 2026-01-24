@@ -602,7 +602,7 @@ module.exports = pageContent;
 }
 ```
 
-> आपकी content घोषणाएँ आपकी एप्लिकेशन में कहीं भी परिभाषित की जा सकती हैं, बशर्ते वे `contentDir` निर्देशिका (डिफ़ॉल्ट: `./src`) में शामिल हों। और content declaration फ़ाइल एक्सटेंशन से मेल खानी चाहिए (डिफ़ॉल्ट: `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`)।
+> आपकी content घोषणाएँ आपकी एप्लिकेशन में कहीं भी परिभाषित की जा सकती हैं, बशर्ते वे `contentDir` निर्देशिका (डिफ़ॉल्ट: `./src`) में शामिल हों। और content declaration फ़ाइल एक्सटेंशन से मेल खानी चाहिए (डिफ़ॉल्ट: `.content.{json,ts,tsx,js,jsx,mjs,cjs}`)।
 >
 > अधिक जानकारी के लिए, [content declaration दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md) देखें।
 
@@ -1078,7 +1078,7 @@ bunx intlayer init
 
 > नोट: यह पैकेज डिफ़ॉल्ट रूप से स्थापित नहीं होता क्योंकि Next.js पर SWC प्लगइन्स अभी भी प्रायोगिक हैं। भविष्य में यह बदल सकता है।
 
-> नोट: यदि आप विकल्प को `importMode: 'dynamic'` या `importMode: 'live'` (in the `dictionary` configuration) के रूप में सेट करते हैं, तो यह Suspense पर निर्भर करेगा, इसलिए आपको अपने `useIntlayer` कॉल्स को एक `Suspense` बाउंड्री में रैप करना होगा। इसका मतलब है कि आप अपने Page / Layout कॉम्पोनेंट के शीर्ष स्तर पर सीधे `useIntlayer` का उपयोग नहीं कर पाएंगे।
+> नोट: यदि आप विकल्प को `importMode: 'dynamic'` या `importMode: 'fetch'` (in the `dictionary` configuration) के रूप में सेट करते हैं, तो यह Suspense पर निर्भर करेगा, इसलिए आपको अपने `useIntlayer` कॉल्स को एक `Suspense` बाउंड्री में रैप करना होगा। इसका मतलब है कि आप अपने Page / Layout कॉम्पोनेंट के शीर्ष स्तर पर सीधे `useIntlayer` का उपयोग नहीं कर पाएंगे।
 
 ### Turbopack पर डिक्शनरी परिवर्तनों की निगरानी
 

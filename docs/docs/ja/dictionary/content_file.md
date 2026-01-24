@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-10
+updatedAt: 2026-01-24
 title: コンテンツファイル
 description: コンテンツ宣言ファイルの拡張機能をカスタマイズする方法を学びます。このドキュメントに従って、プロジェクトで効率的に条件を実装しましょう。
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.0.0
+    date: 2026-01-24
+    changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
   - version: 8.0.0
     date: 2026-01-18
     changes: 辞書オプション `location` と `schema` を追加
@@ -472,13 +475,13 @@ const aboutPageMetaContent = {
 export default aboutPageMetaContent;
 ```
 
-#### `location` ('local' | 'remote' | 'local&remote' | string)
+#### `location` ('local' | 'remote' | 'hybrid' | string)
 
 辞書の場所を示し、CMS との同期方法を制御します：
 
 - `'local'`: 辞書はローカルのみで管理されます。リモート CMS にプッシュされません。コードベースに残すべきコンテンツに使用します。
 - `'remote'`: 辞書はリモートでのみ管理されます。CMS にプッシュされると、ローカルファイルから切り離されます。コンテンツの読み込み時に、リモート辞書が CMS から取得されます。`remote` ロケーションを持つ `.content` ファイルは、初期プッシュ後に無視されます。
-- `'local&remote'`: 辞書はローカルとリモートの両方で管理されます。CMS にプッシュされると、同期が維持されます—ローカルファイルの変更が CMS にプッシュされ、リモートの変更をローカルファイルにプルバックできます。
+- `'hybrid'`: 辞書はローカルとリモートの両方で管理されます。CMS にプッシュされると、同期が維持されます—ローカルファイルの変更が CMS にプッシュされ、リモートの変更をローカルファイルにプルバックできます。
 - `string`（例：`'plugin'`）：辞書はプラグインまたはカスタムソースによって管理されます。プッシュしようとすると、システムが実行する操作を尋ねます。
 
 **例:**
@@ -563,13 +566,13 @@ export default aboutPageMetaContent;
 
 リモート辞書のバージョン識別子。どのバージョンの辞書が現在使用されているかを追跡するのに役立ちます。特にリモートコンテンツ管理システムを使用する場合に有用です。
 
-##### `importMode` ('static' | 'dynamic' | 'live')
+##### `importMode` ('static' | 'dynamic' | 'fetch')
 
 インポートモードは、アプリケーションで辞書がどのようにインポートされるかを決定します。
 
 - `'static'`: 辞書はビルド時に静的にインポートされます。これがデフォルトモードです。
 - `'dynamic'`: 辞書はサスペンスAPIを使用して実行時に動的にインポートされます。
-- `'live'`: 辞書はライブ同期APIを使用して動的にインポートされます。
+- `'fetch'`: 辞書はライブ同期APIを使用して動的にインポートされます。
 
 設定すると、このプロパティは`intlayer.config.ts`で定義されたグローバルな`importMode`を上書きします。
 

@@ -79,14 +79,14 @@ export const useDictionaryDetailsSchema = (projectId: string) => {
       )
       .default([]),
     location: z
-      .enum(['local', 'remote', 'local&remote', 'plugin'], {
+      .enum(['local', 'remote', 'hybrid', 'plugin'], {
         error: (issue) =>
           issue.input === undefined
             ? locationRequiredError.value
             : locationInvalidTypeError.value,
       })
       .optional(),
-    importMode: z.enum(['static', 'dynamic', 'live']).optional(),
+    importMode: z.enum(['static', 'dynamic', 'fetch']).optional(),
     filePath: z
       .string({
         error: (issue) =>

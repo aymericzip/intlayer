@@ -78,7 +78,7 @@ export const pull = async (options?: PullOptions): Promise<void> => {
           config.dictionary?.location ??
           'remote';
 
-        return location === 'remote' || location === 'local&remote';
+        return location === 'remote' || location === 'hybrid';
       })
     );
 
@@ -217,18 +217,18 @@ export const pull = async (options?: PullOptions): Promise<void> => {
           );
         }
 
-        // Check if there is a local version of this dictionary that is local&remote
+        // Check if there is a local version of this dictionary that is hybrid
         const localDictionaries =
           unmergedDictionariesRecord[statusObj.dictionaryKey];
         const localAndRemoteDictionary = localDictionaries?.find(
-          (d) => d.location === 'local&remote'
+          (d) => d.location === 'hybrid'
         );
 
         if (localAndRemoteDictionary) {
           // We want to preserve the local properties but use the remote content
           sourceDictionary = {
             ...sourceDictionary,
-            location: 'local&remote',
+            location: 'hybrid',
             filePath: localAndRemoteDictionary.filePath,
             localId: localAndRemoteDictionary.localId,
           };

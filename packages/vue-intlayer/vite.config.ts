@@ -9,9 +9,9 @@ import packageJson from './package.json' with { type: 'json' };
 
 const entry: Record<string, string> = Object.fromEntries(
   fg
-    .sync('src/**/*.{ts,tsx,js,jsx,mjs,mjx,cjs,cjx,vue}', {
+    .sync('src/**/*.{ts,tsx,js,jsx,mjs,cjs,vue}', {
       ignore: [
-        'src/**/*.{stories,test,specs}.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx,vue}',
+        'src/**/*.{stories,test,specs}.{json,ts,tsx,js,jsx,mjs,cjs,vue}',
       ],
     })
     .map((file) => [

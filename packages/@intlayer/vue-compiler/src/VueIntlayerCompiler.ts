@@ -122,7 +122,7 @@ export const createVueIntlayerCompiler = (
   let filesList: string[] = [];
   // @ts-expect-error - @babel/core is a peer dependency
   let babel: typeof import('@babel/core') | null = null;
-  const dictionaryModeMap: Record<string, 'static' | 'dynamic' | 'live'> = {};
+  const dictionaryModeMap: Record<string, 'static' | 'dynamic' | 'fetch'> = {};
 
   const configOptions = options?.configOptions;
   const customCompilerConfig = options?.compilerConfig;

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-10
+updatedAt: 2026-01-24
 title: Tệp Nội Dung
 description: Tìm hiểu cách tùy chỉnh các phần mở rộng cho các tệp khai báo nội dung của bạn. Theo dõi tài liệu này để triển khai các điều kiện một cách hiệu quả trong dự án của bạn.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.0.0
+    date: 2026-01-24
+    changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
   - version: 8.0.0
     date: 2026-01-18
     changes: Thêm tùy chọn từ điển `location` và `schema`
@@ -475,13 +478,13 @@ const aboutPageMetaContent = {
 export default aboutPageMetaContent;
 ```
 
-#### `location` ('local' | 'remote' | 'local&remote' | string)
+#### `location` ('local' | 'remote' | 'hybrid' | string)
 
 Chỉ ra vị trí của từ điển và kiểm soát cách nó đồng bộ với CMS:
 
 - `'local'`: Từ điển được quản lý chỉ ở cục bộ. Nó sẽ không được đẩy lên CMS từ xa. Sử dụng điều này cho nội dung phải ở lại trong codebase của bạn.
 - `'remote'`: Từ điển được quản lý chỉ từ xa. Sau khi đẩy lên CMS, nó sẽ bị tách khỏi tệp cục bộ. Tại thời điểm tải nội dung, từ điển từ xa sẽ được kéo từ CMS. Một tệp `.content` với vị trí `remote` sẽ bị bỏ qua sau lần đẩy ban đầu.
-- `'local&remote'`: Từ điển được quản lý cả cục bộ và từ xa. Sau khi đẩy lên CMS, nó sẽ giữ đồng bộ—các thay đổi từ tệp cục bộ được đẩy lên CMS, và các thay đổi từ xa có thể được kéo về tệp cục bộ.
+- `'hybrid'`: Từ điển được quản lý cả cục bộ và từ xa. Sau khi đẩy lên CMS, nó sẽ giữ đồng bộ—các thay đổi từ tệp cục bộ được đẩy lên CMS, và các thay đổi từ xa có thể được kéo về tệp cục bộ.
 - `string` (vd. `'plugin'`): Từ điển được quản lý bởi một plugin hoặc nguồn tùy chỉnh. Khi bạn cố gắng đẩy nó, hệ thống sẽ hỏi bạn phải làm gì.
 
 **Ví dụ:**
@@ -567,13 +570,13 @@ Chỉ định độ ưu tiên của từ điển để giải quyết xung độ
 
 Định danh phiên bản cho các từ điển từ xa. Giúp theo dõi phiên bản của từ điển đang được sử dụng, đặc biệt hữu ích khi làm việc với các hệ thống quản lý nội dung từ xa.
 
-##### `importMode` ('static' | 'dynamic' | 'live')
+##### `importMode` ('static' | 'dynamic' | 'fetch')
 
 Chế độ nhập khẩu xác định cách từ điển của bạn được nhập khẩu vào ứng dụng của bạn.
 
 - `'static'`: Từ điển được nhập khẩu tĩnh tại thời điểm build. Đây là chế độ mặc định.
 - `'dynamic'`: Từ điển được nhập khẩu động tại thời gian chạy bằng cách sử dụng API suspense.
-- `'live'`: Từ điển được nhập khẩu động bằng cách sử dụng API đồng bộ trực tiếp.
+- `'fetch'`: Từ điển được nhập khẩu động bằng cách sử dụng API đồng bộ trực tiếp.
 
 Nếu được đặt, thuộc tính này sẽ ghi đè `importMode` toàn cục được định nghĩa trong `the `dictionary`property of`intlayer.config.ts``.
 

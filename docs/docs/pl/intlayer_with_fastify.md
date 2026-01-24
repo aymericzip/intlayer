@@ -218,7 +218,7 @@ module.exports = indexContent;
 }
 ```
 
-> Deklaracje zawartości mogą być zdefiniowane w dowolnym miejscu aplikacji, pod warunkiem że znajdują się w katalogu `contentDir` (domyślnie `./src`) i mają odpowiednie rozszerzenie pliku deklaracji zawartości (domyślnie `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> Deklaracje zawartości mogą być zdefiniowane w dowolnym miejscu aplikacji, pod warunkiem że znajdują się w katalogu `contentDir` (domyślnie `./src`) i mają odpowiednie rozszerzenie pliku deklaracji zawartości (domyślnie `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
 > Po więcej szczegółów odnieś się do [dokumentacji deklaracji zawartości](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md).
 

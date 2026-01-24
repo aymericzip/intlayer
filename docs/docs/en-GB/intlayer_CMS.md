@@ -316,7 +316,7 @@ const config: IntlayerConfig = {
     /**
      * Controls how dictionaries are imported:
      *
-     * - "live": Dictionaries are fetched dynamically using the Live Sync API.
+     * - "fetch": Dictionaries are fetched dynamically using the Live Sync API.
      *   Replaces useIntlayer with useDictionaryDynamic.
      *
      * Note: Live mode uses the Live Sync API to fetch dictionaries. If the API call
@@ -324,7 +324,7 @@ const config: IntlayerConfig = {
      * Note: Only dictionaries with remote content and "live" flags use live mode.
      * Others use dynamic mode for performance.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -352,7 +352,7 @@ const config = {
     /**
      * Controls how dictionaries are imported:
      *
-     * - "live": Dictionaries are fetched dynamically using the Live Sync API.
+     * - "fetch": Dictionaries are fetched dynamically using the Live Sync API.
      *   Replaces useIntlayer with useDictionaryDynamic.
      *
      * Note: Live mode uses the Live Sync API to fetch dictionaries. If the API call
@@ -360,7 +360,7 @@ const config = {
      * Note: Only dictionaries with remote content and "live" flags use live mode.
      * Others use dynamic mode for performance.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -402,7 +402,7 @@ const config = {
     /**
      * Controls how dictionaries are imported:
      *
-     * - "live": Dictionaries are fetched dynamically using the Live Sync API.
+     * - "fetch": Dictionaries are fetched dynamically using the Live Sync API.
      *   Replaces useIntlayer with useDictionaryDynamic.
      *
      * Note: Live mode uses the Live Sync API to fetch dictionaries. If the API call
@@ -410,7 +410,7 @@ const config = {
      * Note: Only dictionaries with remote content and "live" flags use live mode.
      * Others use dynamic mode for performance.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -484,7 +484,7 @@ const config: IntlayerConfig = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,
@@ -504,7 +504,7 @@ const config = {
   },
   build: {
     optimise: true,
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -521,7 +521,7 @@ const config = {
   },
   build: {
     optimise: true,
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 

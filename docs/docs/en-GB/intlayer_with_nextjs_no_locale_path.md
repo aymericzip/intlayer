@@ -605,7 +605,7 @@ module.exports = pageContent;
 }
 ```
 
-> Your content declarations can be defined anywhere in your application, provided they are placed in the `contentDir` directory (by default, `./src`) and use the content declaration file extensions (by default, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> Your content declarations can be defined anywhere in your application, provided they are placed in the `contentDir` directory (by default, `./src`) and use the content declaration file extensions (by default, `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
 > For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md).
 
@@ -1081,7 +1081,7 @@ bunx intlayer init
 
 > Note: This package is not installed by default because SWC plugins are still experimental in Next.js. This may change in the future.
 
-> Note: If you set the option to `importMode: 'dynamic'` or `importMode: 'live'` (in the `dictionary` configuration), it will rely on Suspense, so you will need to wrap your `useIntlayer` calls in a `Suspense` boundary. That means you will not be able to use `useIntlayer` directly at the top level of your page or layout component.
+> Note: If you set the option to `importMode: 'dynamic'` or `importMode: 'fetch'` (in the `dictionary` configuration), it will rely on Suspense, so you will need to wrap your `useIntlayer` calls in a `Suspense` boundary. That means you will not be able to use `useIntlayer` directly at the top level of your page or layout component.
 
 ### Watch dictionary changes on Turbopack
 

@@ -211,7 +211,7 @@ module.exports = appContent;
 }
 ```
 
-> Your content declarations can be defined anywhere in your application as soon they are included into the `contentDir` directory (by default, `./src`). And match the content declaration file extension (by default, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> Your content declarations can be defined anywhere in your application as soon they are included into the `contentDir` directory (by default, `./src`). And match the content declaration file extension (by default, `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
 > For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
 
@@ -268,7 +268,7 @@ const changeLocale = (event: Event) => {
 
 Intlayer supports rendering Markdown and HTML content in Svelte.
 
-By default, Intlayer treats Markdown and HTML as plain text. To render them properly, you can use the `@html` tag in Svelte or the `.use()` method for more control.
+By default, Intlayer treats Markdown and HTML as interactive components or strings. To render them in Svelte, you can use the `<svelte:component this={...} />` for components or `{@html ...}` for plain strings.
 
 ```svelte fileName="src/App.svelte"
 <script>
@@ -277,25 +277,32 @@ By default, Intlayer treats Markdown and HTML as plain text. To render them prop
   const content = useIntlayer("app");
 </script>
 
-<!-- Render basic Markdown/HTML -->
-{@html $content.myMarkdownContent.toString()}
+<!-- Render Markdown as a Component -->
+<svelte:component this={$content.myMarkdownContent} />
+
+<!-- Render HTML Content -->
 {@html $content.myHtmlContent.toString()}
 
 <!-- Render with custom component overrides -->
-{@html $content.myMarkdownContent
-  .use({
-    h1: (props) => `<h1 style="color: red">${props.children}</h1>`,
-  })
-  .toString()}
-
-{@html $content.myHtmlContent
-  .use({
-    b: (props) => `<strong style="color: blue">${props.children}</strong>`,
-  })
-  .toString()}
+<svelte:component
+  this={$content.myMarkdownContent.use({
+    h1: (props) => {
+      const h1 = document.createElement('h1');
+      h1.style.color = 'red';
+      h1.textContent = props.children;
+      return h1;
+    },
+    MyCustomComponent: () => {
+       const div = document.createElement('div');
+       div.textContent = 'Custom Logic';
+       return div;
+    }
+  })}
+/>
 ```
 
-> You can also access your markdown front-matter data using the `content.markdownContent.metadata.xxx` property.
+> [!TIP]
+> You can also access your markdown front-matter data using the `$content.markdownContent.metadata.xxx` property.
 
 ### (Optional) Step 8: Set up the intlayer editor / CMS
 

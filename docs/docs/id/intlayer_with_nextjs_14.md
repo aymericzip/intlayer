@@ -497,7 +497,7 @@ module.exports = pageContent;
 }
 ```
 
-> Deklarasi konten Anda dapat didefinisikan di mana saja dalam aplikasi Anda selama sudah dimasukkan ke dalam direktori `contentDir` (secara default, `./src`). Dan sesuai dengan ekstensi file deklarasi konten (secara default, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> Deklarasi konten Anda dapat didefinisikan di mana saja dalam aplikasi Anda selama sudah dimasukkan ke dalam direktori `contentDir` (secara default, `./src`). Dan sesuai dengan ekstensi file deklarasi konten (secara default, `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
 > Untuk detail lebih lanjut, lihat [dokumentasi deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
 
@@ -1610,7 +1610,7 @@ bunx intlayer init
 
 > Catatan: Paket ini tidak diinstal secara default karena plugin SWC masih bersifat eksperimental di Next.js. Hal ini mungkin berubah di masa depan.
 
-> Catatan: Jika Anda mengatur opsi sebagai `importMode: 'dynamic'` atau `importMode: 'live'`, maka akan bergantung pada Suspense, sehingga Anda harus membungkus pemanggilan `useIntlayer` Anda dalam batas `Suspense`. Itu berarti, Anda tidak dapat menggunakan `useIntlayer` secara langsung di tingkat atas komponen Halaman / Layout Anda.
+> Catatan: Jika Anda mengatur opsi sebagai `importMode: 'dynamic'` atau `importMode: 'fetch'`, maka akan bergantung pada Suspense, sehingga Anda harus membungkus pemanggilan `useIntlayer` Anda dalam batas `Suspense`. Itu berarti, Anda tidak dapat menggunakan `useIntlayer` secara langsung di tingkat atas komponen Halaman / Layout Anda.
 
 ### Konfigurasi TypeScript
 

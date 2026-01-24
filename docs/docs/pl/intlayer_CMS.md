@@ -328,7 +328,7 @@ const config: IntlayerConfig = {
      * Uwaga: Tryb live jest używany tylko dla słowników zdalnych i oznaczonych flagą "live".
      * Pozostałe używają trybu dynamicznego dla wydajności.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -364,7 +364,7 @@ const config = {
      * Uwaga: Tryb live jest używany tylko dla słowników zdalnych i oznaczonych flagą "live".
      * Inne używają trybu dynamicznego dla wydajności.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -414,7 +414,7 @@ const config = {
      * Uwaga: Tryb live jest używany tylko dla słowników zdalnych i oznaczonych flagą "live".
      * Pozostałe używają trybu dynamicznego dla wydajności.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -501,7 +501,7 @@ const config: IntlayerConfig = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,
@@ -520,7 +520,7 @@ const config = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,
@@ -539,7 +539,7 @@ const config = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,

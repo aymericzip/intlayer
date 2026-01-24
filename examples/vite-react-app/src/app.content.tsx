@@ -8,7 +8,7 @@ title: My Title
 
 const appContent = {
   key: 'app',
-  importMode: 'live',
+  importMode: 'fetch',
   content: {
     markdown: md(`---
 title: Example with Front Matter

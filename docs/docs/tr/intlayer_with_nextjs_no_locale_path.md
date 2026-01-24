@@ -606,7 +606,7 @@ module.exports = pageContent;
 }
 ````
 
-> İçerik deklarasyonlarınız, `contentDir` dizinine (varsayılan olarak `./src`) dahil edildikleri sürece uygulamanızda herhangi bir yerde tanımlanabilir. Ve içerik deklarasyon dosya uzantısıyla eşleşmelidir (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> İçerik deklarasyonlarınız, `contentDir` dizinine (varsayılan olarak `./src`) dahil edildikleri sürece uygulamanızda herhangi bir yerde tanımlanabilir. Ve içerik deklarasyon dosya uzantısıyla eşleşmelidir (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
 > Daha fazla ayrıntı için [içerik deklarasyonu dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bakın.
 
@@ -1086,7 +1086,7 @@ bunx intlayer init
 
 > Not: Bu paket varsayılan olarak yüklenmez çünkü SWC eklentileri Next.js üzerinde hâlâ deneysel durumdadır. İleride değişebilir.
 
-> Not: Eğer seçeneği `importMode: 'dynamic'` veya `importMode: 'live'` (`dictionary` yapılandırmasında) olarak ayarlarsanız, bu Suspense'e dayanır; bu nedenle `useIntlayer` çağrılarınızı bir `Suspense` sınırı içine almanız gerekir. Bu, `useIntlayer`'ı Sayfa / Layout bileşeninizin en üst düzeyinde doğrudan kullanamayacağınız anlamına gelir.
+> Not: Eğer seçeneği `importMode: 'dynamic'` veya `importMode: 'fetch'` (`dictionary` yapılandırmasında) olarak ayarlarsanız, bu Suspense'e dayanır; bu nedenle `useIntlayer` çağrılarınızı bir `Suspense` sınırı içine almanız gerekir. Bu, `useIntlayer`'ı Sayfa / Layout bileşeninizin en üst düzeyinde doğrudan kullanamayacağınız anlamına gelir.
 
 ### Turbopack'ta sözlük değişikliklerini izleme
 

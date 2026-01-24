@@ -62,7 +62,7 @@ bunx intlayer init
 
 Con Intlayer, puedes declarar tu contenido de manera estructurada en cualquier parte de tu base de código.
 
-Por defecto, Intlayer busca archivos con la extensión `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`.
+Por defecto, Intlayer busca archivos con la extensión `.content.{json,ts,tsx,js,jsx,mjs,cjs}`.
 
 > Puedes modificar la extensión por defecto configurando la propiedad `contentDir` en el [archivo de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
 

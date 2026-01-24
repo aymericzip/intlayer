@@ -328,7 +328,7 @@ const config: IntlayerConfig = {
      * Lưu ý: Chỉ các từ điển có nội dung từ xa và cờ "live" mới sử dụng chế độ live.
      * Các từ điển khác sử dụng chế độ động để tối ưu hiệu năng.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -364,7 +364,7 @@ const config = {
      * Lưu ý: Chỉ các từ điển có nội dung từ xa và cờ "live" mới sử dụng chế độ live.
      * Những từ điển khác sử dụng chế độ động để tăng hiệu suất.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -414,7 +414,7 @@ const config = {
      * Lưu ý: Chỉ các từ điển có nội dung từ xa và cờ "live" mới sử dụng chế độ live.
      * Các từ điển khác sử dụng chế độ động để tối ưu hiệu suất.
      */
-    importMode: "live",
+    importMode: "fetch",
   },
 };
 
@@ -501,7 +501,7 @@ const config: IntlayerConfig = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,
@@ -520,7 +520,7 @@ const config = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,
@@ -539,7 +539,7 @@ const config = {
     liveSync: true,
   },
   dictionary: {
-    importMode: "live",
+    importMode: "fetch",
   },
   build: {
     optimize: true,

@@ -17,6 +17,8 @@ const {
   readTheDocs,
   vueDocs,
 } = useIntlayer('hello-world');
+
+const content = useIntlayer('hello-world')
 const countRef = ref(0);
 </script>
 
@@ -24,7 +26,8 @@ const countRef = ref(0);
   <div class="card">
     <button type="button" @click="countRef++">
       <count />
-      {{ countRef }}
+      <countRef /> 
+      <content.officialStarter />
     </button>
     <p v-html="edit"></p>
     <edit/>
