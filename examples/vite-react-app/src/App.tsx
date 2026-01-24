@@ -70,6 +70,9 @@ const AppContent: FC = () => {
         {content.html.use({
           b: (props) => <h1 {...props} style={{ background: 'blue' }} />,
           div: (props) => <div {...props} style={{ background: 'yellow' }} />,
+          CustomComponent2: (props) => (
+            <div {...props} style={{ background: 'green' }} />
+          ),
         })}
         {content.html.use({
           div: (props) => <div {...props} style={{ background: 'yellow' }} />,
@@ -107,7 +110,7 @@ const App: FC = () => (
   <LocaleRouter>
     <MarkdownProvider
       components={{
-        h1: (props: any) => (
+        h1: (props) => (
           <h1 style={{ color: 'orange' }} {...props}>
             {props.children}
           </h1>
@@ -117,7 +120,7 @@ const App: FC = () => (
     >
       <HTMLProvider
         components={{
-          CustomComponent: (props: any) => (
+          CustomComponent: (props) => (
             <h1 style={{ color: 'blue' }} {...props}>
               Custom 2l
             </h1>

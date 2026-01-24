@@ -349,12 +349,14 @@ export type HTMLTagComponentProps = {
  * Can be a string (tag name) or a functional component.
  * Framework-specific implementations should use properly typed versions.
  */
-export type HTMLTagComponent = string | ((props: HTMLTagComponentProps) => any);
+export type HTMLTagComponent<Children = any, Return = any> =
+  | string
+  | ((props: { children?: Children; [key: string]: any }) => Return);
 
 /**
  * Helper to map string types from dictionary to TypeScript types
  */
-type PropTypeMap<T> = T extends 'string'
+export type PropTypeMap<T> = T extends 'string'
   ? string
   : T extends 'number'
     ? number
@@ -365,11 +367,14 @@ type PropTypeMap<T> = T extends 'string'
 /**
  * Helper to extract props from the dictionary definition of a custom component
  */
-type ExtractCustomProps<Definition> = {
+export type ExtractCustomProps<Definition, Children = any> = {
   [K in keyof Definition]?: Definition[K] extends string
     ? PropTypeMap<Definition[K]>
     : any;
-} & HTMLTagComponentProps;
+} & {
+  children?: Children;
+  [key: string]: any;
+};
 
 /**
  * HTML conditional type that enforces:
@@ -379,7 +384,7 @@ type ExtractCustomProps<Definition> = {
  * This ensures type safety:
  * - `html('<div>Hello <CustomComponent /></div>').use({ CustomComponent: ... })` - optional but typed
  */
-export type HTMLCond<T, S, L> = T extends {
+export type HTMLCond<T, S, L, Children = any, Return = any> = T extends {
   nodeType: NodeType | string;
   [NodeType.HTML]: string;
   tags?: infer U;
@@ -390,12 +395,16 @@ export type HTMLCond<T, S, L> = T extends {
             components?: {
               // Map all keys from U, making them optional
               [K in keyof U]?: U[K] extends true
-                ? HTMLTagComponent
-                : string | ((props: ExtractCustomProps<U[K]>) => any);
-            } & Partial<Record<string, HTMLTagComponent>>
-          ) => any
+                ? HTMLTagComponent<Children, Return>
+                :
+                    | string
+                    | ((props: ExtractCustomProps<U[K], Children>) => Return);
+            } & Partial<Record<string, HTMLTagComponent<Children, Return>>>
+          ) => Return
         : // Fallback for array or undefined tags (legacy)
-          (components?: Record<string, HTMLTagComponent>) => any;
+          (
+            components?: Record<string, HTMLTagComponent<Children, Return>>
+          ) => Return;
     } & any
   : never;
 

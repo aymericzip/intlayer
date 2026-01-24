@@ -1,5 +1,6 @@
 import {
   type DeepTransformContent as DeepTransformContentCore,
+  type ExtractCustomProps,
   getMarkdownMetadata,
   type HTMLCond,
   type HTMLContent,
@@ -204,7 +205,10 @@ export const insertionPlugin: Plugins = {
 export type MarkdownStringCond<T> = T extends string
   ? IntlayerNode<
       string,
-      { metadata: DeepTransformContent<string>; use: (components: any) => any }
+      {
+        metadata: DeepTransformContent<string>;
+        use: (components: ReactHTMLComponentMap) => ReactNode;
+      }
     >
   : never;
 
@@ -251,13 +255,13 @@ export const markdownStringPlugin: Plugins = {
       keyPath: [],
     });
 
-    const render = (components?: any) =>
+    const render = (components?: ReactHTMLComponentMap) =>
       renderIntlayerNode({
         ...props,
         value: node,
         children: (
           <ContentSelectorRenderer {...rest}>
-            <MarkdownRendererPlugin {...rest} {...components}>
+            <MarkdownRendererPlugin {...rest} {...(components ?? {})}>
               {node}
             </MarkdownRendererPlugin>
           </ContentSelectorRenderer>
@@ -279,7 +283,7 @@ export const markdownStringPlugin: Plugins = {
         }
 
         if (prop === 'use') {
-          return (components?: any) => render(components);
+          return (components?: ReactHTMLComponentMap) => render(components);
         }
 
         return Reflect.get(target, prop, receiver);
@@ -288,15 +292,13 @@ export const markdownStringPlugin: Plugins = {
   },
 };
 
-type MarkdownComponentMap = Record<string, ComponentType<any> | ElementType>;
-
 export type MarkdownCond<T, S, L extends LocalesValues> = T extends {
   nodeType: NodeType | string;
   [NodeType.Markdown]: infer M;
   metadata?: infer U;
 }
   ? {
-      use: (components?: MarkdownComponentMap) => ReactNode;
+      use: (components?: ReactHTMLComponentMap) => ReactNode;
       metadata: DeepTransformContent<U, L>;
     } & any
   : never;
@@ -328,7 +330,7 @@ export const markdownPlugin: Plugins = {
  *  HTML PLUGIN
  *  --------------------------------------------- */
 
-export type HTMLPluginCond<T, S, L> = HTMLCond<T, S, L>;
+export type HTMLPluginCond<T, S, L> = HTMLCond<T, S, L, ReactNode, ReactNode>;
 
 /** HTML plugin. Replaces node with a function that takes components => ReactNode. */
 export const htmlPlugin: Plugins = {
