@@ -50,8 +50,6 @@ Here is a list:
     ),
 
     insertion: insert('test {{ count }}'), // works
-    insertionError: insert('test {{ count }}'), // Is not detected as insertion
-    insertion2: '---test {{count}}',
     viteLogo: t({
       en: 'Vite logo',
       fr: 'Logo Vite',

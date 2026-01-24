@@ -1,56 +1,54 @@
 import { createElement, type ReactElement, type ReactNode } from 'react';
 
 // This function recursively creates React elements from a given JSON-like structure
-export const renderReactElement = (element: ReactElement<any>) => {
-  if (typeof element === 'string') {
-    // If it's a string, simply return it (used for text content)
+export const renderReactElement = (element: ReactElement<any>): any => {
+  if (element === null || typeof element !== 'object') {
     return element;
   }
 
   const convertChildrenAsArray = (
     element: ReactElement<{ children?: ReactNode }>
   ): ReactElement<{ children?: ReactNode }> => {
-    if (element?.props && typeof element.props.children === 'object') {
-      const childrenResult: ReactNode[] = [];
-      const { children } = element.props;
+    const children = element.props?.children;
 
-      // Create the children elements recursively, if any
-      Object.keys(children ?? {}).forEach((key) => {
-        const childElement = renderReactElement(
-          children?.[
-            key as keyof typeof children
-          ] as unknown as ReactElement<any>
-        );
+    if (Array.isArray(children)) {
+      const childrenResult: ReactNode[] = children.map((child, index) => {
+        const renderedChild = renderReactElement(child as ReactElement<any>);
 
-        // Add key prop if the child is a React element
         if (
-          typeof childElement === 'object' &&
-          childElement !== null &&
-          'type' in childElement
+          typeof renderedChild === 'object' &&
+          renderedChild !== null &&
+          'type' in renderedChild
         ) {
-          childrenResult.push(
-            createElement(
-              childElement.type,
-              { ...childElement.props, key },
-              ...(Array.isArray(childElement.props?.children)
-                ? childElement.props.children
-                : [childElement.props?.children])
-            )
+          const childElement = renderedChild as ReactElement<any>;
+          return createElement(
+            childElement.type,
+            { ...childElement.props, key: index },
+            ...(Array.isArray(childElement.props?.children)
+              ? childElement.props.children
+              : typeof childElement.props?.children !== 'undefined'
+                ? [childElement.props.children]
+                : [])
           );
-        } else {
-          childrenResult.push(childElement);
         }
+        return renderedChild;
       });
 
       return {
         ...element,
         props: { ...element.props, children: childrenResult },
       };
+    } else if (typeof children !== 'undefined' && children !== null) {
+      const renderedChild = renderReactElement(children as ReactElement<any>);
+      return {
+        ...element,
+        props: { ...element.props, children: [renderedChild] },
+      };
     }
 
     return {
       ...element,
-      props: { ...element.props, children: element.props?.children ?? [] },
+      props: { ...element.props, children: [] },
     };
   };
 

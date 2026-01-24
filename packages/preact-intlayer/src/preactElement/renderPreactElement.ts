@@ -2,37 +2,36 @@ import type { ComponentChild, VNode } from 'preact';
 import { createElement } from 'preact/compat';
 
 // This function recursively creates Preact elements from a given JSON-like structure
-export const renderPreactElement = (element: VNode<any>) => {
-  if (typeof element === 'string') {
-    // If it's a string, simply return it (used for text content)
+export const renderPreactElement = (element: VNode<any>): any => {
+  if (element === null || typeof element !== 'object') {
     return element;
   }
 
   const convertChildrenAsArray = (
     element: VNode<{ children?: ComponentChild | ComponentChild[] }>
   ): VNode<{ children?: ComponentChild | ComponentChild[] }> => {
-    if (element?.props && typeof element.props.children === 'object') {
-      const childrenResult: ComponentChild[] = [];
-      const { children } = element.props;
+    const children = element.props?.children;
 
-      // Create the children elements recursively, if any
-      Object.keys(children ?? {}).forEach((key) => {
-        childrenResult.push(
-          renderPreactElement(
-            children?.[key as keyof typeof children] as unknown as VNode<any>
-          )
-        );
-      });
+    if (Array.isArray(children)) {
+      const childrenResult: ComponentChild[] = children.map((child) =>
+        renderPreactElement(child as VNode<any>)
+      );
 
       return {
         ...element,
         props: { ...element.props, children: childrenResult },
       };
+    } else if (typeof children !== 'undefined' && children !== null) {
+      const renderedChild = renderPreactElement(children as VNode<any>);
+      return {
+        ...element,
+        props: { ...element.props, children: [renderedChild] },
+      };
     }
 
     return {
       ...element,
-      props: { ...element.props, children: element.props?.children ?? [] },
+      props: { ...element.props, children: [] },
     };
   };
 
@@ -44,8 +43,8 @@ export const renderPreactElement = (element: VNode<any>) => {
 
   // Create and return the Preact element
   return createElement(
-    type ?? 'span',
-    props,
+    (type as any) ?? 'span',
+    props as any,
     ...(props.children as ComponentChild[])
   );
 };
