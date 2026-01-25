@@ -1,15 +1,18 @@
 import { getHTML, HTML_TAGS } from '@intlayer/core';
 import type { KeyPath } from '@intlayer/types';
-import { Fragment, type FunctionComponent, h, type JSX } from 'preact';
+import {
+  type Component,
+  createMemo,
+  type JSX,
+  type ValidComponent,
+} from 'solid-js';
+import { Dynamic } from 'solid-js/web';
 import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';
 import { useHTMLContext } from './HTMLProvider';
 import type { HTMLComponents } from './types';
 
-/**
- * Type for Preact HTML tag components.
- */
 type HTMLTagComponent = (props: {
-  children?: any;
+  children?: JSX.Element;
   [key: string]: any;
 }) => JSX.Element;
 
@@ -17,8 +20,11 @@ const createDefaultHTMLComponents = (): Record<string, HTMLTagComponent> => {
   const components: Record<string, HTMLTagComponent> = {};
 
   for (const tag of HTML_TAGS) {
-    components[tag] = ({ children, ...props }) =>
-      h(tag as any, props, children);
+    components[tag] = ({ children, ...props }) => (
+      <Dynamic component={tag as ValidComponent} {...props}>
+        {children}
+      </Dynamic>
+    );
   }
 
   return components;
@@ -49,17 +55,7 @@ export const renderHTML = (
     ...components,
   };
 
-  // Wrap all components to ensure they are rendered via Preact's h
-  const wrappedComponents = Object.fromEntries(
-    Object.entries(mergedComponents)
-      .filter(([, Component]) => Component)
-      .map(([key, Component]) => [
-        key,
-        (props: any) => h(Component as any, props),
-      ])
-  );
-
-  return h(Fragment, null, getHTML(content, wrappedComponents));
+  return getHTML(content, mergedComponents);
 };
 
 /**
@@ -93,34 +89,34 @@ export type HTMLRendererProps = RenderHTMLProps & {
   /**
    * Alias for components, used by the plugin.
    */
-  components?: HTMLComponents<'permissive', {}>;
+  userComponents?: HTMLComponents<'permissive', {}>;
   dictionaryKey?: string;
   keyPath?: KeyPath[];
 };
 
 /**
- * Preact component that renders HTML-like content to JSX.
+ * Solid component that renders HTML-like content to JSX.
  */
-export const HTMLRenderer: FunctionComponent<HTMLRendererProps> = ({
-  children = '',
-  html,
-  components,
-  dictionaryKey,
-  keyPath,
-}) => {
-  const render = useHTMLRenderer({ components: components });
-  const content = children || html || '';
-
-  const editedContentContext = useEditedContentRenderer({
-    dictionaryKey: dictionaryKey!,
-    keyPath: keyPath!,
-    children: content,
+export const HTMLRenderer: Component<HTMLRendererProps> = (props) => {
+  const render = useHTMLRenderer({
+    components: props.components || props.userComponents,
   });
+  const content = () => props.children || props.html || '';
 
-  const contentToRender =
-    dictionaryKey && keyPath && typeof editedContentContext === 'string'
-      ? editedContentContext
-      : content;
+  const editedContentContext = createMemo(() =>
+    useEditedContentRenderer({
+      dictionaryKey: props.dictionaryKey!,
+      keyPath: props.keyPath!,
+      children: content(),
+    })
+  );
 
-  return render(contentToRender);
+  const contentToRender = () =>
+    props.dictionaryKey &&
+    props.keyPath &&
+    typeof editedContentContext() === 'string'
+      ? (editedContentContext() as string)
+      : content();
+
+  return <>{render(contentToRender())}</>;
 };

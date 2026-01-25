@@ -1,7 +1,6 @@
 import {
   type DeepTransformContent as DeepTransformContentCore,
   getMarkdownMetadata,
-  type HTMLCond,
   type HTMLContent,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
   type InsertionContent,
@@ -14,6 +13,7 @@ import { type ComponentType, Fragment, h, type VNode } from 'preact';
 import { ContentSelectorRenderer } from './editor';
 import { EditedContentRenderer } from './editor/useEditedContentRenderer';
 import { HTMLRenderer } from './html/HTMLRenderer';
+import type { HTMLComponents } from './html/types';
 import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
 import { MarkdownMetadataRenderer, MarkdownRenderer } from './markdown';
 import { renderPreactElement } from './preactElement/renderPreactElement';
@@ -232,14 +232,12 @@ export const insertionPlugin: Plugins = {
  * MARKDOWN PLUGIN
  */
 
-type MarkdownComponentMap = Record<string, ComponentType<any>>;
-
 export type MarkdownStringCond<T> = T extends string
   ? IntlayerNode<
       string,
       {
         metadata: DeepTransformContent<string>;
-        use: (components?: MarkdownComponentMap) => VNode;
+        use: (components?: HTMLComponents<'permissive', {}>) => VNode;
       }
     >
   : never;
@@ -324,15 +322,16 @@ export const markdownStringPlugin: Plugins = {
   },
 };
 
-export type MarkdownCond<T, S, L extends LocalesValues> = T extends {
+export type MarkdownCond<T> = T extends {
   nodeType: NodeType | string;
   [NodeType.Markdown]: infer M;
   metadata?: infer U;
+  tags?: infer U;
 }
   ? {
-      use: (components?: MarkdownComponentMap) => VNode;
-      metadata: DeepTransformContent<U, L>;
-    } & any
+      use: (components?: HTMLComponents<'permissive', U>) => VNode;
+      metadata: DeepTransformContent<U>;
+    }
   : never;
 
 export const markdownPlugin: Plugins = {
@@ -362,20 +361,15 @@ export const markdownPlugin: Plugins = {
  * HTML PLUGIN
  * --------------------------------------------- */
 
-type PreactComponentProps = {
-  children?: any;
-  [key: string]: any;
-};
-
-type PreactComponent = (props: PreactComponentProps) => VNode;
-
-type PreactHTMLComponentMap<T = string> = T extends string
-  ? Record<T, PreactComponent>
-  : {
-      [K in keyof T]?: PreactComponent;
-    };
-
-export type HTMLPluginCond<T, S, L> = HTMLCond<T, S, L>;
+export type HTMLPluginCond<T> = T extends {
+  nodeType: NodeType | string;
+  [NodeType.HTML]: infer I;
+  tags?: infer U;
+}
+  ? {
+      use: (components?: HTMLComponents<'permissive', U>) => IntlayerNode<I>;
+    }
+  : never;
 
 /** HTML plugin. Replaces node with a function that takes components => VNode. */
 export const htmlPlugin: Plugins = {
@@ -388,13 +382,7 @@ export const htmlPlugin: Plugins = {
     const { plugins, ...rest } = props;
 
     // Type-safe render function that accepts properly typed components
-    const render = <
-      T = typeof tags extends readonly (infer U extends string)[]
-        ? U
-        : typeof tags,
-    >(
-      userComponents?: PreactHTMLComponentMap<T>
-    ): VNode =>
+    const render = (userComponents?: HTMLComponents): VNode =>
       h(HTMLRenderer as any, { ...rest, html, userComponents } as any);
 
     const element = render() as any;
@@ -406,13 +394,7 @@ export const htmlPlugin: Plugins = {
         }
 
         if (prop === 'use') {
-          return <
-            T = typeof tags extends readonly (infer U extends string)[]
-              ? U
-              : typeof tags,
-          >(
-            userComponents?: PreactHTMLComponentMap<T>
-          ) => render(userComponents);
+          return (userComponents?: HTMLComponents) => render(userComponents);
         }
 
         return Reflect.get(target, prop);
@@ -431,8 +413,8 @@ export interface IInterpreterPluginPreact<T, S, L extends LocalesValues> {
   preactNode: PreactNodeCond<T>;
   preactIntlayerNode: IntlayerNodeCond<T>;
   preactInsertion: InsertionCond<T, S, L>;
-  preactMarkdown: MarkdownCond<T, S, L>;
-  preactHtml: HTMLPluginCond<T, S, L>;
+  preactMarkdown: MarkdownCond<T>;
+  preactHtml: HTMLPluginCond<T>;
 }
 
 /**

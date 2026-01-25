@@ -5,10 +5,11 @@ import {
   type ParentProps,
   useContext,
 } from 'solid-js';
+import type { HTMLComponents } from '../html/types';
 import { compileMarkdown } from './compiler';
 
 type RenderMarkdownOptions = {
-  components?: any;
+  components?: HTMLComponents<'permissive', {}>;
   wrapper?: any;
   forceBlock?: boolean;
   preserveFrontmatter?: boolean;
@@ -18,21 +19,21 @@ type RenderMarkdownOptions = {
 type MarkdownProviderValue = {
   renderMarkdown: (
     content: string,
-    overrides?: any | RenderMarkdownOptions
+    overrides?: HTMLComponents<'permissive', {}> | RenderMarkdownOptions
   ) => JSXElement;
 };
 
 export const MarkdownContext = createContext<MarkdownProviderValue>();
 
 export type MarkdownProviderProps = ParentProps<{
-  components?: any;
+  components?: HTMLComponents<'permissive', {}>;
   wrapper?: any;
   forceBlock?: boolean;
   preserveFrontmatter?: boolean;
   tagfilter?: boolean;
   renderMarkdown?: (
     content: string,
-    overrides?: any | RenderMarkdownOptions
+    overrides?: HTMLComponents<'permissive', {}> | RenderMarkdownOptions
   ) => JSXElement;
 }>;
 

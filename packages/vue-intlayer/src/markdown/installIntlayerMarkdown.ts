@@ -1,17 +1,17 @@
-import type { Overrides } from '@intlayer/core';
 import { type App, inject, provide, type VNodeChild } from 'vue';
+import type { HTMLComponents } from '../html/types';
 import { compileMarkdown } from './compiler';
 
 export const INTLAYER_MARKDOWN_SYMBOL = Symbol('intlayerMarkdown');
 
 export type RenderMarkdownOptions = MarkdownPluginOptions & {
-  components?: Overrides;
+  components?: HTMLComponents<'permissive', {}>;
   wrapper?: any;
 };
 
 export type RenderMarkdownFunction = (
   markdown: string,
-  overrides?: Overrides | RenderMarkdownOptions
+  overrides?: HTMLComponents<'permissive', {}> | RenderMarkdownOptions
 ) => VNodeChild;
 
 /**
@@ -52,7 +52,7 @@ export type IntlayerMarkdownPluginOptions = MarkdownPluginOptions & {
   /**
    * Component overrides for HTML tags.
    */
-  components?: Overrides;
+  components?: HTMLComponents<'permissive', {}>;
   /**
    * Wrapper element or component to be used when there are multiple children.
    */
@@ -141,7 +141,7 @@ export const installIntlayerMarkdown = (
         } = (overrides ?? {}) as RenderMarkdownOptions;
 
         const localComponents = (overrideComponents ||
-          componentsFromRest) as Overrides;
+          componentsFromRest) as HTMLComponents<'permissive', {}>;
 
         return compileMarkdown(markdown, {
           ...internalOptions,

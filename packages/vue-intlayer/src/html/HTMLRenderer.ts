@@ -1,13 +1,13 @@
 import { getHTML } from '@intlayer/core';
 import { defineComponent, type PropType, type VNodeChild } from 'vue';
 import { useHTML } from './installIntlayerHTML';
-import type { VueHTMLComponentMap } from './types';
+import type { HTMLComponents } from './types';
 
 export type RenderHTMLProps = {
   /**
    * Component overrides for HTML tags.
    */
-  components?: Record<string, any>;
+  components?: HTMLComponents<'permissive', {}>;
 };
 
 /**
@@ -47,7 +47,7 @@ export const HTMLRenderer = defineComponent({
       required: true,
     },
     components: {
-      type: Object as PropType<VueHTMLComponentMap<string>>,
+      type: Object as PropType<HTMLComponents<'permissive', {}>>,
       default: undefined,
     },
   },

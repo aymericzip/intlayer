@@ -1,10 +1,5 @@
 import type { HTMLTagsType } from '@intlayer/core';
-import type {
-  AllowedComponentProps,
-  HTMLAttributes,
-  VNode,
-  VNodeProps,
-} from 'vue';
+import type { Component } from 'svelte';
 
 /**
  * Helper to extract specific props from the configuration value.
@@ -18,12 +13,12 @@ type PropsFromConfig<Value> = Value extends true
 /**
  * Common props for all elements
  */
-type ElementProps = HTMLAttributes & AllowedComponentProps & VNodeProps;
+type ElementProps = Record<string, any>;
 
 /**
- * Vue Component type
+ * Svelte Component type
  */
-type VueComponent<P = {}> = (props: P & { children?: any }) => VNode | VNode[];
+type SvelteComponentType<P = any> = Component<P>;
 
 /**
  * Helper: Defines the mapping for the explicitly listed keys in T.
@@ -32,11 +27,13 @@ type VueComponent<P = {}> = (props: P & { children?: any }) => VNode | VNode[];
 type DefinedComponents<T, IsRequired extends boolean> = IsRequired extends true
   ? {
       // Required Case
-      [K in keyof T]: VueComponent<ElementProps & PropsFromConfig<T[K]>>;
+      [K in keyof T]: SvelteComponentType<ElementProps & PropsFromConfig<T[K]>>;
     }
   : {
       // Optional Case
-      [K in keyof T]?: VueComponent<ElementProps & PropsFromConfig<T[K]>>;
+      [K in keyof T]?: SvelteComponentType<
+        ElementProps & PropsFromConfig<T[K]>
+      >;
     };
 
 /**
@@ -44,7 +41,10 @@ type DefinedComponents<T, IsRequired extends boolean> = IsRequired extends true
  * These are always optional when included.
  */
 type RestHTMLComponents<T> = {
-  [K in Exclude<keyof HTMLTagsType, keyof T>]?: VueComponent<ElementProps>;
+  [K in Exclude<
+    keyof HTMLTagsType,
+    keyof T
+  >]?: SvelteComponentType<ElementProps>;
 };
 
 /**
@@ -72,7 +72,7 @@ export type HTMLComponents<
       ? // Permissive: Keys in T optional. Rest of HTML optional. Any other string allowed.
         DefinedComponents<T, false> &
           RestHTMLComponents<T> & {
-            [key: string]: VueComponent<ElementProps>;
+            [key: string]: SvelteComponentType<ElementProps>;
           }
       : // Optional (Default): Keys in T optional. Rest of HTML optional.
         DefinedComponents<T, false> & RestHTMLComponents<T>;

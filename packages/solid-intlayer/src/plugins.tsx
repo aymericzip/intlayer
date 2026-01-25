@@ -3,7 +3,6 @@ import {
   getHTML,
   getMarkdownMetadata,
   HTML_TAGS,
-  type HTMLCond,
   type HTMLContent,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
   type InsertionContent,
@@ -21,6 +20,7 @@ import type { JSX } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { ContentSelectorRenderer } from './editor';
 import { EditedContentRenderer } from './editor/useEditedContentRenderer';
+import type { HTMLComponents } from './html/types';
 import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
 import { MarkdownMetadataRenderer, MarkdownRenderer } from './markdown';
 import { renderSolidElement } from './solidElement/renderSolidElement';
@@ -195,7 +195,13 @@ export const insertionPlugin: Plugins = {
  */
 
 export type MarkdownStringCond<T> = T extends string
-  ? IntlayerNode<string, { metadata: DeepTransformContentCore<string> }>
+  ? IntlayerNode<
+      string,
+      {
+        metadata: DeepTransformContent<string>;
+        use: (components?: HTMLComponents<'permissive', {}>) => JSX.Element;
+      }
+    >
   : never;
 
 /** Markdown string plugin. Replaces string node with a component that render the markdown. */
@@ -269,7 +275,7 @@ export const markdownStringPlugin: Plugins = {
         }
 
         if (prop === 'use') {
-          return (components?: any) => render(components);
+          return (components?: HTMLComponents) => render(components);
         }
 
         return Reflect.get(target, prop, receiver);
@@ -278,15 +284,16 @@ export const markdownStringPlugin: Plugins = {
   },
 };
 
-export type MarkdownCond<T, S, L extends LocalesValues> = T extends {
+export type MarkdownCond<T> = T extends {
   nodeType: NodeType | string;
   [NodeType.Markdown]: infer M;
   metadata?: infer U;
+  tags?: infer U;
 }
   ? {
-      use: (components: any) => any;
-      metadata: DeepTransformContent<U, L>;
-    } & any
+      use: (components?: HTMLComponents<'permissive', U>) => JSX.Element;
+      metadata: DeepTransformContent<U>;
+    }
   : never;
 
 export const markdownPlugin: Plugins = {
@@ -341,7 +348,15 @@ const createDefaultHTMLComponents = (): Record<string, HTMLTagComponent> => {
 
 const defaultHTMLComponents = createDefaultHTMLComponents();
 
-export type HTMLPluginCond<T, S, L> = HTMLCond<T, S, L>;
+export type HTMLPluginCond<T> = T extends {
+  nodeType: NodeType | string;
+  [NodeType.HTML]: infer I;
+  tags?: infer U;
+}
+  ? {
+      use: (components?: HTMLComponents<'permissive', U>) => IntlayerNode<I>;
+    }
+  : never;
 
 /** HTML plugin. Replaces node with a function that takes components => JSX.Element. */
 export const htmlPlugin: Plugins = {
@@ -351,7 +366,7 @@ export const htmlPlugin: Plugins = {
   transform: (node: HTMLContent) => {
     const html = node[NodeType.HTML];
 
-    const render = (userComponents?: Record<string, any>): JSX.Element => {
+    const render = (userComponents?: HTMLComponents): JSX.Element => {
       // Merge default components with user-provided components
       // User components take priority over defaults
       const mergedComponents = {
@@ -371,8 +386,7 @@ export const htmlPlugin: Plugins = {
         }
 
         if (prop === 'use') {
-          return (userComponents?: Record<string, any>) =>
-            render(userComponents);
+          return (userComponents?: HTMLComponents) => render(userComponents);
         }
 
         return Reflect.get(target, prop, receiver);
@@ -389,8 +403,8 @@ export interface IInterpreterPluginSolid<T, S, L extends LocalesValues> {
   solidNode: SolidNodeCond<T>;
   solidIntlayerNode: IntlayerNodeCond<T>;
   solidInsertion: InsertionCond<T, S, L>;
-  solidMarkdown: MarkdownCond<T, S, L>;
-  solidHtml: HTMLPluginCond<T, S, L>;
+  solidMarkdown: MarkdownCond<T>;
+  solidHtml: HTMLPluginCond<T>;
 }
 
 /**
@@ -410,20 +424,3 @@ export type DeepTransformContent<
   T,
   L extends LocalesValues = DeclaredLocales,
 > = DeepTransformContentCore<T, IInterpreterPluginState, L>;
-
-/**
- * Default enabled state for the plugins. Those are necessary for the rendering on client side.
- */
-export const interpreterPluginsEnabledState: IInterpreterPluginState = {
-  translation: true,
-  enumeration: true,
-  condition: true,
-  insertion: true,
-  nested: true,
-  html: true,
-  solidNode: true,
-  solidIntlayerNode: true,
-  solidInsertion: true,
-  solidMarkdown: true,
-  solidHtml: true,
-};

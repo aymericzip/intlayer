@@ -1,10 +1,5 @@
 import type { HTMLTagsType } from '@intlayer/core';
-import type {
-  AllowedComponentProps,
-  HTMLAttributes,
-  VNode,
-  VNodeProps,
-} from 'vue';
+import type { ComponentProps, FunctionalComponent, JSX } from 'preact';
 
 /**
  * Helper to extract specific props from the configuration value.
@@ -16,14 +11,11 @@ type PropsFromConfig<Value> = Value extends true
     : {};
 
 /**
- * Common props for all elements
+ * Smart Type to resolve props based on the key K.
  */
-type ElementProps = HTMLAttributes & AllowedComponentProps & VNodeProps;
-
-/**
- * Vue Component type
- */
-type VueComponent<P = {}> = (props: P & { children?: any }) => VNode | VNode[];
+type ElementProps<K> = K extends keyof JSX.IntrinsicElements
+  ? JSX.IntrinsicElements[K]
+  : JSX.HTMLAttributes<HTMLElement>;
 
 /**
  * Helper: Defines the mapping for the explicitly listed keys in T.
@@ -32,11 +24,15 @@ type VueComponent<P = {}> = (props: P & { children?: any }) => VNode | VNode[];
 type DefinedComponents<T, IsRequired extends boolean> = IsRequired extends true
   ? {
       // Required Case
-      [K in keyof T]: VueComponent<ElementProps & PropsFromConfig<T[K]>>;
+      [K in keyof T]: FunctionalComponent<
+        ElementProps<K> & PropsFromConfig<T[K]>
+      >;
     }
   : {
       // Optional Case
-      [K in keyof T]?: VueComponent<ElementProps & PropsFromConfig<T[K]>>;
+      [K in keyof T]?: FunctionalComponent<
+        ElementProps<K> & PropsFromConfig<T[K]>
+      >;
     };
 
 /**
@@ -44,7 +40,11 @@ type DefinedComponents<T, IsRequired extends boolean> = IsRequired extends true
  * These are always optional when included.
  */
 type RestHTMLComponents<T> = {
-  [K in Exclude<keyof HTMLTagsType, keyof T>]?: VueComponent<ElementProps>;
+  [K in Exclude<keyof HTMLTagsType, keyof T>]?: FunctionalComponent<
+    K extends keyof JSX.IntrinsicElements
+      ? JSX.IntrinsicElements[K]
+      : JSX.HTMLAttributes<HTMLElement>
+  >;
 };
 
 /**
@@ -72,7 +72,7 @@ export type HTMLComponents<
       ? // Permissive: Keys in T optional. Rest of HTML optional. Any other string allowed.
         DefinedComponents<T, false> &
           RestHTMLComponents<T> & {
-            [key: string]: VueComponent<ElementProps>;
+            [key: string]: FunctionalComponent<JSX.HTMLAttributes<HTMLElement>>;
           }
       : // Optional (Default): Keys in T optional. Rest of HTML optional.
         DefinedComponents<T, false> & RestHTMLComponents<T>;

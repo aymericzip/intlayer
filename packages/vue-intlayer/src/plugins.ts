@@ -3,7 +3,6 @@ import {
   getHTML,
   getMarkdownMetadata,
   HTML_TAGS,
-  type HTMLCond,
   type HTMLContent,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
   type InsertionContent,
@@ -15,11 +14,7 @@ import type { DeclaredLocales, KeyPath, LocalesValues } from '@intlayer/types';
 import { NodeType } from '@intlayer/types';
 import { type Component, Fragment, h, markRaw, type VNode } from 'vue';
 import { ContentSelectorWrapper } from './editor';
-import type {
-  VueComponentProps,
-  VueHTMLComponent,
-  VueHTMLComponentMap,
-} from './html/types';
+import type { HTMLComponents } from './html/types';
 import { useMarkdown } from './markdown/installIntlayerMarkdown';
 import {
   type IntlayerNode as IntlayerNodeCore,
@@ -183,14 +178,12 @@ export const insertionPlugin: Plugins = {
  * MARKDOWN PLUGIN
  */
 
-type MarkdownComponentMap = Record<string, Component | string>;
-
 export type MarkdownStringCond<T> = T extends string
   ? IntlayerNode<
       string,
       {
         metadata: DeepTransformContent<string>;
-        use: (components?: MarkdownComponentMap) => VNode | VNode[];
+        use: (components?: HTMLComponents<'permissive', {}>) => VNode | VNode[];
       }
     >
   : never;
@@ -257,15 +250,16 @@ export const markdownStringPlugin: Plugins = {
   },
 };
 
-export type MarkdownCond<T, S, L extends LocalesValues> = T extends {
+export type MarkdownCond<T> = T extends {
   nodeType: NodeType | string;
   [NodeType.Markdown]: infer M;
   metadata?: infer U;
+  tags?: infer U;
 }
   ? {
-      use: (components?: MarkdownComponentMap) => VNode | VNode[];
-      metadata: DeepTransformContent<U, L>;
-    } & any
+      use: (components?: HTMLComponents<'permissive', U>) => IntlayerNode<M>;
+      metadata: DeepTransformContent<U>;
+    }
   : never;
 
 export const markdownPlugin: Plugins = {
@@ -295,16 +289,20 @@ export const markdownPlugin: Plugins = {
  * HTML PLUGIN
  * --------------------------------------------- */
 
+type HTMLTagComponent = (props: {
+  children?: VNode[];
+  [key: string]: any;
+}) => VNode;
+
 /**
  * Create default HTML tag components using Vue's h function.
  * Each component renders the corresponding HTML element with its props and children.
  */
-const createDefaultHTMLComponents = (): Record<string, VueHTMLComponent> => {
-  const components: Record<string, VueHTMLComponent> = {};
+const createDefaultHTMLComponents = (): Record<string, HTMLTagComponent> => {
+  const components: Record<string, HTMLTagComponent> = {};
 
   for (const tag of HTML_TAGS) {
-    components[tag] = ({ children, ...props }: VueComponentProps) =>
-      h(tag, props, children);
+    components[tag] = ({ children, ...props }: any) => h(tag, props, children);
   }
 
   return components;
@@ -312,7 +310,15 @@ const createDefaultHTMLComponents = (): Record<string, VueHTMLComponent> => {
 
 const defaultHTMLComponents = createDefaultHTMLComponents();
 
-export type HTMLPluginCond<T, S, L> = HTMLCond<T, S, L>;
+export type HTMLPluginCond<T> = T extends {
+  nodeType: NodeType | string;
+  [NodeType.HTML]: infer I;
+  tags?: infer U;
+}
+  ? {
+      use: (components?: HTMLComponents<'permissive', U>) => IntlayerNode<I>;
+    }
+  : never;
 
 /** HTML plugin. Replaces node with a function that takes components => VNode. */
 export const htmlPlugin: Plugins = {
@@ -324,13 +330,7 @@ export const htmlPlugin: Plugins = {
     const tags = node.tags ?? [];
 
     // Type-safe render function that accepts properly typed components
-    const render = <
-      T = typeof tags extends readonly (infer U extends string)[]
-        ? U
-        : typeof tags,
-    >(
-      userComponents?: VueHTMLComponentMap<T>
-    ): VNode | VNode[] => {
+    const render = (userComponents?: HTMLComponents): VNode | VNode[] => {
       // Merge default components with user-provided components
       // User components take priority over defaults
       const mergedComponents = {
@@ -355,8 +355,8 @@ export const htmlPlugin: Plugins = {
 export interface IInterpreterPluginVue<T, S, L extends LocalesValues> {
   vueIntlayerNode: IntlayerNodeCond<T>;
   vueInsertion: InsertionCond<T, S, L>;
-  vueMarkdown: MarkdownCond<T, S, L>;
-  vueHtml: HTMLPluginCond<T, S, L>;
+  vueMarkdown: MarkdownCond<T>;
+  vueHtml: HTMLPluginCond<T>;
 }
 
 /**

@@ -4,7 +4,6 @@ import {
   getHTML,
   getMarkdownMetadata,
   HTML_TAGS,
-  type HTMLCond,
   type HTMLContent,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
   type InsertionContent,
@@ -18,6 +17,7 @@ import {
   NodeType,
 } from '@intlayer/types';
 import { ContentSelectorWrapper } from './editor';
+import type { HTMLComponents } from './html/types';
 import MarkdownMetadataWithSelector from './markdown/MarkdownMetadataWithSelector.svelte';
 import MarkdownWithSelector from './markdown/MarkdownWithSelector.svelte';
 import { svelteHtmlRuntime } from './markdown/runtime';
@@ -205,14 +205,12 @@ export const insertionPlugin: Plugins = {
  * MARKDOWN PLUGIN
  */
 
-type MarkdownComponentMap = Record<string, any>;
-
 export type MarkdownStringCond<T> = T extends string
   ? IntlayerNode<
       string,
       {
         metadata: DeepTransformContent<string>;
-        use: (components?: MarkdownComponentMap) => any;
+        use: (components?: HTMLComponents<'permissive', {}>) => any;
       }
     >
   : never;
@@ -302,9 +300,10 @@ export type MarkdownCond<T, S, L extends LocalesValues> = T extends {
   nodeType: NodeType | string;
   [NodeType.Markdown]: infer M;
   metadata?: infer U;
+  tags?: infer U;
 }
   ? {
-      use: (components?: MarkdownComponentMap) => any;
+      use: (components?: HTMLComponents<'permissive', U>) => any;
       metadata: DeepTransformContent<U, L>;
     } & any
   : never;
@@ -394,13 +393,16 @@ const getDefaultHTMLComponents = (): Record<string, HTMLTagComponent> => {
 };
 
 // Svelte generic component map
-export type SvelteHTMLComponentMap<T = string> = T extends string
-  ? Record<T, any>
-  : {
-      [K in keyof T]?: any;
-    };
 
-export type HTMLPluginCond<T, S, L> = HTMLCond<T, S, L>;
+export type HTMLPluginCond<T> = T extends {
+  nodeType: NodeType | string;
+  [NodeType.HTML]: infer I;
+  tags?: infer U;
+}
+  ? {
+      use: (components?: HTMLComponents<'permissive', U>) => IntlayerNode<I>;
+    }
+  : never;
 
 /** HTML plugin. Replaces node with a function that takes components => HTMLElement[]. */
 export const htmlPlugin: Plugins = {
@@ -411,18 +413,12 @@ export const htmlPlugin: Plugins = {
     const htmlString = node[NodeType.HTML];
     const tags = node.tags ?? [];
 
-    const render = <
-      T = typeof tags extends readonly (infer U extends string)[]
-        ? U
-        : typeof tags,
-    >(
-      userComponents?: SvelteHTMLComponentMap<T>
-    ): any => {
+    const render = (userComponents?: HTMLComponents): any => {
       const mergedComponents = {
         ...getDefaultHTMLComponents(),
         ...userComponents,
       };
-      const result = getHTML(htmlString, mergedComponents);
+      const result = getHTML(htmlString, mergedComponents as any);
 
       const toStringFn = () => {
         if (Array.isArray(result)) {
@@ -446,8 +442,7 @@ export const htmlPlugin: Plugins = {
         get(t, prop) {
           if (prop === 'toString') return toStringFn;
           if (prop === 'use')
-            return (userComponents?: SvelteHTMLComponentMap<T>) =>
-              render(userComponents);
+            return (userComponents?: HTMLComponents) => render(userComponents);
           if (prop === 'value') return htmlString;
 
           return (t as any)[prop] ?? (result as any)[prop];
@@ -463,5 +458,5 @@ export interface IInterpreterPluginSvelte<T, S, L extends LocalesValues> {
   svelteIntlayerNode: T extends string | number ? IntlayerNode<T> : never;
   svelteInsertion: InsertionCond<T, S, L>;
   svelteMarkdown: MarkdownCond<T, S, L>;
-  svelteHtml: HTMLPluginCond<T, S, L>;
+  svelteHtml: HTMLPluginCond<T>;
 }

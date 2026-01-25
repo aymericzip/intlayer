@@ -1,5 +1,5 @@
-import type { Overrides } from '@intlayer/core';
 import type { ComponentChildren, FunctionComponent, JSX } from 'preact';
+import type { HTMLComponents } from '../html/types';
 import { compileMarkdown, type MarkdownCompilerOptions } from './compiler';
 import {
   type MarkdownProviderOptions,
@@ -11,7 +11,7 @@ export type RenderMarkdownProps = MarkdownProviderOptions & {
    * Component overrides for HTML tags.
    * Only used if not wrapped in a MarkdownProvider.
    */
-  components?: Overrides;
+  components?: HTMLComponents<'permissive', {}>;
   /**
    * Wrapper element or component to be used when there are multiple children.
    * Only used if not wrapped in a MarkdownProvider.
@@ -89,7 +89,7 @@ type MarkdownRendererProps = RenderMarkdownProps & {
   renderMarkdown?: (
     markdown: string,
     options?: {
-      components?: Overrides;
+      components?: HTMLComponents<'permissive', {}>;
       wrapper?: FunctionComponent<any>;
       forceBlock?: boolean;
       forceInline?: boolean;

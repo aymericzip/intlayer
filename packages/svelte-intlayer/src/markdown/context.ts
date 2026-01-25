@@ -1,10 +1,11 @@
 import { getContext, setContext } from 'svelte';
+import type { HTMLComponents } from '../html/types';
 import { compileMarkdown } from './compiler';
 
 export const MARKDOWN_CONTEXT_KEY = Symbol('INTLAYER_MARKDOWN_CONTEXT');
 
 export type RenderMarkdownOptions = {
-  components?: any;
+  components?: HTMLComponents<'permissive', {}>;
   wrapper?: any;
   forceBlock?: boolean;
   preserveFrontmatter?: boolean;
@@ -14,7 +15,7 @@ export type RenderMarkdownOptions = {
 export interface MarkdownContext {
   renderMarkdown: (
     markdown: string,
-    overrides?: any | RenderMarkdownOptions
+    overrides?: HTMLComponents<'permissive', {}> | RenderMarkdownOptions
   ) => string;
 }
 

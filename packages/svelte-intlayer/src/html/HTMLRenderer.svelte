@@ -1,8 +1,10 @@
 <script lang="ts">
 import { getHTMLContext } from './context';
+import type { HTMLComponents } from './types';
 
 export let value: string;
-export const components: Record<string, any> | undefined = undefined;
+export const components: HTMLComponents<'permissive', {}> | undefined =
+  undefined;
 
 const context = getHTMLContext();
 

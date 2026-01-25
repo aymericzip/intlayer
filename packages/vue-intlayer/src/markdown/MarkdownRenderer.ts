@@ -1,5 +1,5 @@
-import type { Overrides } from '@intlayer/core';
-import { defineComponent, h, type PropType, type VNodeChild } from 'vue';
+import { defineComponent, type PropType, type VNodeChild } from 'vue';
+import type { HTMLComponents } from '../html/types';
 import { compileMarkdown, type MarkdownCompilerOptions } from './compiler';
 import {
   type MarkdownPluginOptions,
@@ -14,7 +14,7 @@ export type RenderMarkdownProps = MarkdownPluginOptions & {
   /**
    * Component overrides for HTML tags.
    */
-  components?: Overrides;
+  components?: HTMLComponents<'permissive', {}>;
   /**
    * Wrapper element or component to be used when there are multiple children.
    */
@@ -105,7 +105,7 @@ export const MarkdownRenderer = defineComponent({
       default: '',
     },
     components: {
-      type: Object as PropType<Overrides>,
+      type: Object as PropType<HTMLComponents<'permissive', {}>>,
       default: undefined,
     },
     wrapper: {

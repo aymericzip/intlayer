@@ -1,15 +1,16 @@
 import { getHTML } from '@intlayer/core';
 import { type App, inject, provide, type VNodeChild } from 'vue';
+import type { HTMLComponents } from './types';
 
 export const INTLAYER_HTML_SYMBOL = Symbol('intlayerHTML');
 
 export type RenderHTMLOptions = {
-  components?: Record<string, any>;
+  components?: HTMLComponents<'permissive', {}>;
 };
 
 export type RenderHTMLFunction = (
   html: string,
-  overrides?: Record<string, any> | RenderHTMLOptions
+  overrides?: HTMLComponents<'permissive', {}> | RenderHTMLOptions
 ) => VNodeChild;
 
 /**
@@ -28,7 +29,7 @@ export type IntlayerHTMLPluginOptions = {
   /**
    * Component overrides for HTML tags.
    */
-  components?: Record<string, any>;
+  components?: HTMLComponents<'permissive', {}>;
   /**
    * Custom render function for HTML.
    */

@@ -1,10 +1,10 @@
-import type { Overrides } from '@intlayer/core';
 import {
   type ComponentChildren,
   createContext,
   type FunctionComponent,
 } from 'preact';
 import { useContext } from 'preact/hooks';
+import type { HTMLComponents } from '../html/types';
 import { compileMarkdown } from './compiler';
 
 type PropsWithChildren<P = {}> = P & { children?: ComponentChildren };
@@ -32,14 +32,14 @@ export type MarkdownProviderOptions = {
 };
 
 type RenderMarkdownOptions = MarkdownProviderOptions & {
-  components?: Overrides;
+  components?: HTMLComponents<'permissive', {}>;
   wrapper?: any;
 };
 
 type MarkdownContextValue = {
   renderMarkdown: (
     markdown: string,
-    overrides?: Overrides | RenderMarkdownOptions
+    overrides?: HTMLComponents<'permissive', {}> | RenderMarkdownOptions
   ) => ComponentChildren;
 };
 
@@ -48,7 +48,7 @@ type MarkdownProviderProps = PropsWithChildren<
     /**
      * Component overrides for HTML tags.
      */
-    components?: Overrides;
+    components?: HTMLComponents<'permissive', {}>;
     /**
      * Wrapper element or component to be used when there are multiple children.
      */
@@ -59,7 +59,7 @@ type MarkdownProviderProps = PropsWithChildren<
      */
     renderMarkdown?: (
       markdown: string,
-      overrides?: Overrides | RenderMarkdownOptions
+      overrides?: HTMLComponents<'permissive', {}> | RenderMarkdownOptions
     ) => ComponentChildren;
   }
 >;
@@ -94,7 +94,9 @@ export const MarkdownProvider: FunctionComponent<MarkdownProviderProps> = ({
   const finalRenderMarkdown = renderMarkdown
     ? (
         markdown: string,
-        componentsOverride?: Overrides | RenderMarkdownOptions
+        componentsOverride?:
+          | HTMLComponents<'permissive', {}>
+          | RenderMarkdownOptions
       ) => (
         <MarkdownContext.Provider value={undefined}>
           {renderMarkdown(markdown, componentsOverride)}
@@ -102,23 +104,10 @@ export const MarkdownProvider: FunctionComponent<MarkdownProviderProps> = ({
       )
     : (
         markdown: string,
-        componentsOverride?: Overrides | RenderMarkdownOptions
+        componentsOverride?:
+          | HTMLComponents<'permissive', {}>
+          | RenderMarkdownOptions
       ) => {
-        const isOptionsObject =
-          componentsOverride &&
-          (typeof (componentsOverride as RenderMarkdownOptions).components ===
-            'object' ||
-            typeof (componentsOverride as RenderMarkdownOptions).wrapper ===
-              'function' ||
-            typeof (componentsOverride as RenderMarkdownOptions).forceBlock ===
-              'boolean' ||
-            typeof (componentsOverride as RenderMarkdownOptions).forceInline ===
-              'boolean' ||
-            typeof (componentsOverride as RenderMarkdownOptions)
-              .preserveFrontmatter === 'boolean' ||
-            typeof (componentsOverride as RenderMarkdownOptions).tagfilter ===
-              'boolean');
-
         const {
           components: overrideComponents,
           wrapper: localWrapper,
@@ -130,7 +119,7 @@ export const MarkdownProvider: FunctionComponent<MarkdownProviderProps> = ({
         } = componentsOverride as RenderMarkdownOptions;
 
         const localComponents = (overrideComponents ||
-          componentsFromRest) as Overrides;
+          componentsFromRest) as HTMLComponents<'permissive', {}>;
 
         return compileMarkdown(markdown, {
           ...internalOptions,

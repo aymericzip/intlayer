@@ -1,11 +1,8 @@
-import {
-  getContent,
-  getContentNodeByKeyPath,
-  getMarkdownMetadata,
-} from '@intlayer/core';
+import { getContentNodeByKeyPath, getMarkdownMetadata } from '@intlayer/core';
 import type { ContentNode, KeyPath, LocalesValues } from '@intlayer/types';
-import type { Component, JSX } from 'solid-js';
+import { type Component, createMemo, type JSX } from 'solid-js';
 import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';
+import type { HTMLComponents } from '../html/types';
 import { useMarkdown } from './MarkdownProvider';
 
 type MarkdownRendererProps = {
@@ -13,7 +10,7 @@ type MarkdownRendererProps = {
   keyPath: KeyPath[];
   locale?: LocalesValues;
   children: string;
-  components?: any;
+  components?: HTMLComponents<'permissive', {}>;
   wrapper?: any;
   forceBlock?: boolean;
   preserveFrontmatter?: boolean;
@@ -23,15 +20,17 @@ type MarkdownRendererProps = {
 
 export const MarkdownRenderer: Component<MarkdownRendererProps> = (props) => {
   const { renderMarkdown } = useMarkdown();
-  const editedContentContext = useEditedContentRenderer({
-    dictionaryKey: props.dictionaryKey,
-    keyPath: props.keyPath,
-    children: props.children,
-  });
+  const editedContentContext = createMemo(() =>
+    useEditedContentRenderer({
+      dictionaryKey: props.dictionaryKey,
+      keyPath: props.keyPath,
+      children: props.children,
+    })
+  );
 
-  const contentToRender =
-    typeof editedContentContext === 'string'
-      ? editedContentContext
+  const contentToRender = () =>
+    typeof editedContentContext() === 'string'
+      ? (editedContentContext() as string)
       : props.children;
 
   const {
@@ -47,7 +46,7 @@ export const MarkdownRenderer: Component<MarkdownRendererProps> = (props) => {
     ...rest
   } = props;
 
-  return renderMarkdown(contentToRender, {
+  return renderMarkdown(contentToRender(), {
     components,
     wrapper,
     forceBlock,
@@ -64,17 +63,20 @@ type MarkdownMetadataRendererProps = MarkdownRendererProps & {
 export const MarkdownMetadataRenderer: Component<
   MarkdownMetadataRendererProps
 > = (props) => {
-  const editedContentContext = useEditedContentRenderer({
-    dictionaryKey: props.dictionaryKey,
-    keyPath: props.keyPath,
-    children: props.children,
-  });
-  const metadata = getMarkdownMetadata(editedContentContext);
-
-  const metadataEl = getContentNodeByKeyPath(
-    metadata as ContentNode,
-    props.metadataKeyPath
+  const editedContentContext = createMemo(() =>
+    useEditedContentRenderer({
+      dictionaryKey: props.dictionaryKey,
+      keyPath: props.keyPath,
+      children: props.children,
+    })
+  );
+  const metadata = createMemo(() =>
+    getMarkdownMetadata(editedContentContext() as string)
   );
 
-  return metadataEl as JSX.Element;
+  const metadataEl = createMemo(() =>
+    getContentNodeByKeyPath(metadata() as ContentNode, props.metadataKeyPath)
+  );
+
+  return metadataEl() as JSX.Element;
 };

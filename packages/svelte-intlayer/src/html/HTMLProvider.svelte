@@ -1,8 +1,9 @@
 <script lang="ts">
 import { getHTML } from '@intlayer/core';
 import { setHTMLContext } from './context';
+import type { HTMLComponents } from './types';
 
-export const components: Record<string, any> = {};
+export const components: HTMLComponents<'permissive', {}> = {};
 
 let customRenderHTML: ((html: string, overrides?: any) => string) | undefined;
 export { customRenderHTML as renderHTML };

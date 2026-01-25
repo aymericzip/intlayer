@@ -1,8 +1,10 @@
 <script lang="ts">
+import type { HTMLComponents } from '../html/types';
 import { compileMarkdown } from './compiler';
 import { setMarkdownContext } from './context';
 
-export const components: any = undefined;
+export const components: HTMLComponents<'permissive', {}> | undefined =
+  undefined;
 export const wrapper: any = undefined;
 export const forceBlock: boolean | undefined = undefined;
 export const forceInline: boolean | undefined = undefined;
