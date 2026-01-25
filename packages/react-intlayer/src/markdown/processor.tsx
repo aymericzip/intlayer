@@ -18,7 +18,7 @@ import {
   type JSX,
   type ReactNode,
 } from 'react';
-import type { HTMLComponents } from '../utils/HTMLComponentTypes';
+import type { HTMLComponents } from '../html/HTMLComponentTypes';
 
 // Re-export RuleType for compatibility
 export { RuleType };

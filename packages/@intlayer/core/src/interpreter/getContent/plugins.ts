@@ -331,84 +331,6 @@ export const nestedPlugin = (locale?: LocalesValues): Plugins => ({
 });
 
 /** ---------------------------------------------
- * HTML PLUGIN
- * --------------------------------------------- */
-
-/**
- * Props for HTML tag components.
- * Includes children and an index signature for attributes.
- * Framework-specific implementations should extend this with proper types (ReactNode, VNode, etc.)
- */
-export type HTMLTagComponentProps = {
-  children?: any;
-  [key: string]: any;
-};
-
-/**
- * A component that can be used to replace an HTML tag.
- * Can be a string (tag name) or a functional component.
- * Framework-specific implementations should use properly typed versions.
- */
-export type HTMLTagComponent<Children = any, Return = any> =
-  | string
-  | ((props: { children?: Children; [key: string]: any }) => Return);
-
-/**
- * Helper to map string types from dictionary to TypeScript types
- */
-export type PropTypeMap<T> = T extends 'string'
-  ? string
-  : T extends 'number'
-    ? number
-    : T extends 'boolean'
-      ? boolean
-      : any;
-
-/**
- * Helper to extract props from the dictionary definition of a custom component
- */
-export type ExtractCustomProps<Definition, Children = any> = {
-  [K in keyof Definition]?: Definition[K] extends string
-    ? PropTypeMap<Definition[K]>
-    : any;
-} & {
-  children?: Children;
-  [key: string]: any;
-};
-
-/**
- * HTML conditional type that enforces:
- * - All components (Standard or Custom) are OPTIONAL in the `use()` method.
- * - Custom components props are strictly inferred from the dictionary definition.
- *
- * This ensures type safety:
- * - `html('<div>Hello <CustomComponent /></div>').use({ CustomComponent: ... })` - optional but typed
- */
-export type HTMLCond<T, S, L, Children = any, Return = any> = T extends {
-  nodeType: NodeType | string;
-  [NodeType.HTML]: string;
-  tags?: infer U;
-}
-  ? {
-      use: U extends Record<string, any>
-        ? (
-            components?: {
-              // Map all keys from U, making them optional
-              [K in keyof U]?: U[K] extends true
-                ? HTMLTagComponent<Children, Return>
-                :
-                    | string
-                    | ((props: ExtractCustomProps<U[K], Children>) => Return);
-            } & Partial<Record<string, HTMLTagComponent<Children, Return>>>
-          ) => Return
-        : // Fallback for array or undefined tags (legacy)
-          (
-            components?: Record<string, HTMLTagComponent<Children, Return>>
-          ) => Return;
-    } & any
-  : never;
-
-/** ---------------------------------------------
  * FILE PLUGIN
  * --------------------------------------------- */
 
@@ -458,7 +380,6 @@ export interface IInterpreterPlugin<T, S, L extends LocalesValues> {
   enumeration: EnumerationCond<T, S, L>;
   condition: ConditionCond<T, S, L>;
   nested: NestedCond<T, S, L>;
-  html: HTMLCond<T, S, L>;
   file: FileCond<T>;
 }
 
@@ -470,7 +391,6 @@ export type IInterpreterPluginState = {
   enumeration: true;
   condition: true;
   nested: true;
-  html: true;
   file: true;
 };
 

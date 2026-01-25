@@ -2,7 +2,7 @@
 
 import { getHTML, HTML_TAGS } from '@intlayer/core';
 import { createElement, type FC, Fragment, type JSX } from 'react';
-import type { HTMLComponents } from '../utils/HTMLComponentTypes';
+import type { HTMLComponents } from './HTMLComponentTypes';
 import { useHTMLContext } from './HTMLProvider';
 
 const createDefaultHTMLComponents = (): HTMLComponents<'permissive', {}> => {

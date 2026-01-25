@@ -23,10 +23,10 @@ import {
 import { ContentSelectorRenderer } from './editor';
 import { EditedContentRenderer } from './editor/useEditedContentRenderer';
 import { HTMLRendererPlugin } from './html';
+import type { HTMLComponents } from './html/HTMLComponentTypes';
 import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
 import { MarkdownMetadataRenderer, MarkdownRendererPlugin } from './markdown';
 import { renderReactElement } from './reactElement/renderReactElement';
-import type { HTMLComponents } from './utils/HTMLComponentTypes';
 
 /** ---------------------------------------------
  *  INTLAYER NODE PLUGIN
@@ -294,10 +294,13 @@ export type MarkdownCond<T> = T extends {
   tags?: infer U;
   metadata?: infer V;
 }
-  ? {
-      use: (components?: HTMLComponents<'permissive', V>) => IntlayerNode<M>;
-      metadata: DeepTransformContent<U>;
-    }
+  ? IntlayerNode<
+      M,
+      {
+        use: (components?: HTMLComponents<'permissive', U>) => ReactNode;
+        metadata: DeepTransformContent<V>;
+      }
+    >
   : never;
 
 export const markdownPlugin: Plugins = {
@@ -340,9 +343,12 @@ export type HTMLPluginCond<T> = T extends {
   [NodeType.HTML]: infer I;
   tags?: infer U;
 }
-  ? {
-      use: (components?: HTMLComponents<'permissive', U>) => IntlayerNode<I>;
-    }
+  ? IntlayerNode<
+      I,
+      {
+        use: (components?: HTMLComponents<'permissive', U>) => ReactNode;
+      }
+    >
   : never;
 
 /** HTML plugin. Replaces node with a function that takes components => ReactNode. */

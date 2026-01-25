@@ -8,7 +8,7 @@ import {
   type ReactNode,
   useContext,
 } from 'react';
-import type { HTMLComponents } from '../utils/HTMLComponentTypes';
+import type { HTMLComponents } from '../html/HTMLComponentTypes';
 import { compiler, type MarkdownRendererOptions } from './processor';
 
 export type MarkdownProviderOptions = {

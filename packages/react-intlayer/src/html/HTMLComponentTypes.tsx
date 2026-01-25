@@ -2,12 +2,23 @@ import type { HTMLTagsType } from '@intlayer/core';
 import type { ComponentProps, FC, HTMLAttributes, JSX } from 'react';
 
 /**
+ * Helper to map string types from dictionary to TypeScript types
+ */
+type PropTypeMap<T> = T extends 'string'
+  ? string
+  : T extends 'number'
+    ? number
+    : T extends 'boolean'
+      ? boolean
+      : T;
+
+/**
  * Helper to extract specific props from the configuration value.
  */
 type PropsFromConfig<Value> = Value extends true
   ? {}
   : Value extends object
-    ? Value
+    ? { [K in Exclude<keyof Value, 'children'>]?: PropTypeMap<Value[K]> }
     : {};
 
 /**
@@ -68,8 +79,7 @@ export type HTMLComponents<
       ? // Permissive: Keys in T optional. Rest of HTML optional. Any other string allowed.
         DefinedComponents<T, false> &
           RestHTMLComponents<T> & {
-            // Changed from FC<any> to FC<HTMLAttributes<HTMLElement>>
-            [key: string]: FC<HTMLAttributes<HTMLElement>>;
+            [key: string]: FC<any>;
           }
       : // Optional (Default): Keys in T optional. Rest of HTML optional.
         DefinedComponents<T, false> & RestHTMLComponents<T>;

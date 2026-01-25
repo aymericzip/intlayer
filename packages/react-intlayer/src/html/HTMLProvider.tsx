@@ -6,7 +6,7 @@ import {
   type PropsWithChildren,
   useContext,
 } from 'react';
-import type { HTMLComponents } from '../utils/HTMLComponentTypes';
+import type { HTMLComponents } from './HTMLComponentTypes';
 
 type HTMLContextValue = {
   components?: HTMLComponents<'permissive', {}>;

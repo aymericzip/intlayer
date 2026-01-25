@@ -1,5 +1,5 @@
 import type { FC, HTMLAttributes, JSX, ReactNode } from 'react';
-import type { HTMLComponents } from '../utils/HTMLComponentTypes';
+import type { HTMLComponents } from '../html/HTMLComponentTypes';
 import {
   type MarkdownProviderOptions,
   useMarkdownContext,

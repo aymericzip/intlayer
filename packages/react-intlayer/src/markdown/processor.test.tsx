@@ -13,7 +13,7 @@ import {
 import { flushSync } from 'react-dom';
 import { createRoot } from 'react-dom/client';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import type { HTMLComponents } from '../utils/HTMLComponentTypes';
+import type { HTMLComponents } from '../html/HTMLComponentTypes';
 import { compiler, RuleType, sanitizer } from './processor';
 
 const container = document.body.appendChild(
