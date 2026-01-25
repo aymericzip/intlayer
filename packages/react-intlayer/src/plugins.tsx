@@ -291,11 +291,11 @@ export const markdownStringPlugin: Plugins = {
 export type MarkdownCond<T> = T extends {
   nodeType: NodeType | string;
   [NodeType.Markdown]: infer M;
-  metadata?: infer U;
   tags?: infer U;
+  metadata?: infer V;
 }
   ? {
-      use: (components?: HTMLComponents<'permissive', U>) => IntlayerNode<M>;
+      use: (components?: HTMLComponents<'permissive', V>) => IntlayerNode<M>;
       metadata: DeepTransformContent<U>;
     }
   : never;
