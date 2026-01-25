@@ -44,6 +44,11 @@
       "require": "./dist/cjs/cli/index.cjs",
       "import": "./dist/esm/cli/index.mjs"
     },
+    "./routing": {
+      "types": "./dist/types/routing/index.d.ts",
+      "require": "./dist/cjs/routing/index.cjs",
+      "import": "./dist/esm/routing/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
@@ -59,6 +64,9 @@
       ],
       "cli/*": [
         "./dist/types/cli/*"
+      ],
+      "routing": [
+        "./dist/types/routing/index.d.ts"
       ],
       "package.json": [
         "./package.json"

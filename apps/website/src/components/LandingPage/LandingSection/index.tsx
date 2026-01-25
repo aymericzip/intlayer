@@ -69,7 +69,7 @@ export const LandingSection: FC = () => {
                 {whatsNew}
               </Tag>
               <Link
-                href={PagesRoutes.ReleasesV7}
+                href={PagesRoutes.ReleasesV8}
                 color={LinkColor.NEUTRAL}
                 label={whatsNewLabel.value}
               >

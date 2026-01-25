@@ -19,6 +19,7 @@ export enum PagesRoutes {
 
   ReleasesV6 = '/doc/releases/v6',
   ReleasesV7 = '/doc/releases/v7',
+  ReleasesV8 = '/doc/releases/v8',
   Doc_Environment_NextJS_16 = '/doc/environment/nextjs/16',
   Doc_Environment_NextJS_15 = '/doc/environment/nextjs/15',
   Doc_Environment_NextJS_14 = '/doc/environment/nextjs/14',

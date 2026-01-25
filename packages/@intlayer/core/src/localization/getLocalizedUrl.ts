@@ -1,10 +1,14 @@
 import configuration from '@intlayer/config/built';
 import { DefaultValues } from '@intlayer/config/client';
-import type { LocalesValues, RoutingConfig } from '@intlayer/types';
+import type { Locale, LocalesValues, RoutingConfig } from '@intlayer/types';
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
 import { getPathWithoutLocale } from './getPathWithoutLocale';
 import { getPrefix } from './getPrefix';
-import { getCanonicalPath, getLocalizedPath } from './rewriteUtils';
+import {
+  getCanonicalPath,
+  getLocalizedPath,
+  getRewriteRules,
+} from './rewriteUtils';
 
 /**
  * Generate URL by prefixing the given URL with the referenced locale or adding search parameters
@@ -66,16 +70,22 @@ export const getLocalizedUrl = (
 
   const urlWithoutLocale = getPathWithoutLocale(url, locales);
 
+  const urlRewriteRules = getRewriteRules(rewrite, 'url');
+
   if (mode === 'no-prefix') {
-    // 1. Resolve to canonical path first from the potentially localized input URL
+    // Resolve to canonical path first from the potentially localized input URL
     const canonicalPathname = getCanonicalPath(
       urlWithoutLocale,
       undefined,
-      rewrite
+      urlRewriteRules
     );
 
-    // 2. Localize the canonical path for the target locale
-    return getLocalizedPath(canonicalPathname, currentLocale as any, rewrite);
+    // Localize the canonical path for the target locale
+    return getLocalizedPath(
+      canonicalPathname,
+      currentLocale as Locale,
+      urlRewriteRules
+    ).path;
   }
 
   const isAbsoluteUrl = checkIsURLAbsolute(urlWithoutLocale);
@@ -88,19 +98,19 @@ export const getLocalizedUrl = (
     ? `${parsedUrl.protocol}//${parsedUrl.host}`
     : '';
 
-  // 1. Resolve to canonical path first
+  // Resolve to canonical path first
   const canonicalPathname = getCanonicalPath(
     parsedUrl.pathname,
     undefined,
-    rewrite
+    urlRewriteRules
   );
 
-  // 2. Localize the canonical path for the target locale
+  // Localize the canonical path for the target locale
   const translatedPathname = getLocalizedPath(
     canonicalPathname,
-    currentLocale as any,
-    rewrite
-  );
+    currentLocale as Locale,
+    urlRewriteRules
+  ).path;
 
   if (mode === 'search-params') {
     const searchParams = new URLSearchParams(parsedUrl.search);

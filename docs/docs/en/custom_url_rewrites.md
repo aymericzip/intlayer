@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-01-22
+updatedAt: 2026-01-25
 title: Custom URL Rewrites
 description: Learn how to configure and use custom URL rewrites in Intlayer to define locale-specific paths.
 keywords:
@@ -14,170 +14,322 @@ slugs:
   - custom_url_rewrites
 history:
   - version: 8.0.0
-    date: 2026-01-22
-    changes: Implement custom URL rewrites and add integration guides for popular routers.
+    date: 2026-01-25
+    changes: Implement centralized URL rewrites with framework-specific formatters and the useRewriteURL hook.
 ---
 
 # Custom URL Rewrites Implementation
 
-Intlayer now supports custom URL rewrites, allowing you to define locale-specific paths that differ from the standard `/locale/path` structure. This enables URLs like `/about` for English and `/a-propos` for French.
+Intlayer supports custom URL rewrites, allowing you to define locale-specific paths that differ from the standard `/locale/path` structure. This enables URLs like `/about` for English and `/a-propos` for French while keeping the internal application logic canonical.
 
 ## Configuration
 
-Custom rewrites are configured in the `routing` section of your `intlayer.config.ts` file:
+Custom rewrites are configured in the `routing` section of your `intlayer.config.ts` file using framework-specific formatters. These formatters provide the correct syntax for your preferred router.
 
-```typescript
-import { Locales, type IntlayerConfig } from "intlayer";
+<Tabs group='framework'>
+  <Tab label="Next.js" value="nextjs">
 
-const config: IntlayerConfig = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH],
-    defaultLocale: Locales.ENGLISH,
-  },
-  routing: {
-    mode: "prefix-no-default",
-    rewrite: {
-      "/about": {
-        en: "/about",
-        fr: "/a-propos",
+    ```typescript fileName="intlayer.config.ts"
+    import { Locales, type IntlayerConfig } from "intlayer";
+    import { nextjsRewrite } from "intlayer/routing";
+
+    const config: IntlayerConfig = {
+      internationalization: {
+        locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+        defaultLocale: Locales.ENGLISH,
       },
-      "/products/[id]": {
-        en: "/products/[id]",
-        fr: "/produits/[id]",
+      routing: {
+        mode: "prefix-no-default",
+        rewrite: nextjsRewrite({
+          "/[locale]/about": {
+            en: "/[locale]/about",
+            fr: "/[locale]/a-propos",
+            es: "/[locale]/acerca-de",
+          },
+          "/[locale]/products/[id]": {
+            en: "/[locale]/products/[id]",
+            fr: "/[locale]/produits/[id]",
+            es: "/[locale]/productos/[id]",
+          },
+        }),
       },
-    },
-  },
-};
-
-export default config;
-```
-
-## Router Integration
-
-To make custom rewrites work with your favorite router, Intlayer provides utilities to resolve localized URLs to canonical paths and vice versa.
-
-<Tabs>
-  <Tab label="Next.js (App Router)">
-    Next.js integration is handled automatically via the `intlayerProxy` middleware. The proxy detects custom routes and internally rewrites them to the canonical format expected by your `[locale]` folder structure.
-
-    ```typescript fileName="middleware.ts"
-    import { intlayerProxy } from "next-intlayer/middleware";
-    import { NextRequest } from "next/server";
-
-    export function middleware(request: NextRequest) {
-      return intlayerProxy(request);
-    }
-    ```
-
-  </Tab>
-  <Tab label="TanStack Router">
-    For TanStack Router, you can use the `getCanonicalPath` utility in your `beforeLoad` or a global middleware to ensure the router matches the internal canonical route.
-
-    ```typescript
-    import { getCanonicalPath } from "intlayer";
-    import { Router } from "@tanstack/react-router";
-
-    // In your router configuration or route matching logic
-    const path = window.location.pathname;
-    const canonicalPath = getCanonicalPath(path, currentLocale);
-    // Use canonicalPath for route matching
-    ```
-
-  </Tab>
-  <Tab label="React Router / Remix">
-    In React Router, you can wrap your route matching or use a custom hook to resolve the canonical path before the router processes it.
-
-    ```tsx
-    import { useLocation } from "react-router-dom";
-    import { getCanonicalPath } from "intlayer";
-
-    const useCanonicalLocation = () => {
-      const location = useLocation();
-      const { locale } = useLocale();
-
-      return {
-        ...location,
-        pathname: getCanonicalPath(location.pathname, locale),
-      };
     };
+
+    export default config;
     ```
 
   </Tab>
-  <Tab label="Vue Router / Nuxt">
-    For Vue-based applications, you can use a global navigation guard to handle the translation of localized paths.
+  <Tab label="Vite (Vue, Solid, Svelte)" value="vite">
 
-    ```typescript
-    import { getCanonicalPath } from "intlayer";
+    ```typescript fileName="intlayer.config.ts"
+    import { Locales, type IntlayerConfig } from "intlayer";
+    import { viteRewrite } from "intlayer/routing";
 
-    router.beforeEach((to, from, next) => {
-      const canonicalPath = getCanonicalPath(to.path, currentLocale);
-      if (canonicalPath !== to.path) {
-        // Handle internal navigation to canonical route
-      }
-      next();
-    });
-    ```
-
-  </Tab>
-  <Tab label="Svelte Router / SvelteKit">
-    For SvelteKit, you can use a hook or a handle function to process the URL before it reaches the router.
-
-    ```typescript fileName="src/hooks.server.ts"
-    import { getCanonicalPath } from "intlayer";
-    import type { Handle } from '@sveltejs/kit';
-
-    export const handle: Handle = async ({ event, resolve }) => {
-      const { pathname } = event.url;
-      const canonicalPath = getCanonicalPath(pathname, currentLocale);
-
-      if (canonicalPath !== pathname) {
-        // Rewrite the internal path
-        event.url.pathname = canonicalPath;
-      }
-
-      return resolve(event);
+    const config: IntlayerConfig = {
+      internationalization: {
+        locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+        defaultLocale: Locales.ENGLISH,
+      },
+      routing: {
+        mode: "prefix-all",
+        rewrite: viteRewrite({
+          "/:locale/about": {
+            en: "/:locale/about",
+            fr: "/:locale/a-propos",
+            es: "/:locale/acerca-de",
+          },
+          "/:locale/products/:id": {
+            en: "/:locale/products/:id",
+            fr: "/:locale/produits/:id",
+            es: "/:locale/productos/:id",
+          },
+        }),
+      },
     };
+
+    export default config;
     ```
 
   </Tab>
-  <Tab label="Solid Router">
-    In Solid Router, you can use the `getCanonicalPath` within a `useBeforeLeave` guard or a custom routing wrapper to handle localized URLs.
+  <Tab label="Nuxt" value="nuxt">
 
-    ```typescript
-    import { getCanonicalPath } from "intlayer";
-    import { useLocation } from "@solidjs/router";
+    ```typescript fileName="intlayer.config.ts"
+    import { Locales, type IntlayerConfig } from "intlayer";
+    import { nuxtRewrite } from "intlayer/routing";
 
-    const location = useLocation();
-    const canonicalPath = () => getCanonicalPath(location.pathname, currentLocale);
+    const config: IntlayerConfig = {
+      internationalization: {
+        locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+        defaultLocale: Locales.ENGLISH,
+      },
+      routing: {
+        mode: "prefix-all",
+        rewrite: nuxtRewrite({
+          "/[locale]/about": {
+            en: "/[locale]/about",
+            fr: "/[locale]/a-propos",
+            es: "/[locale]/acerca-de",
+          },
+          "/[locale]/products/[id]": {
+            en: "/[locale]/products/[id]",
+            fr: "/[locale]/produits/[id]",
+            es: "/[locale]/productos/[id]",
+          },
+        }),
+      },
+    };
+
+    export default config;
+    ```
+
+  </Tab>
+  <Tab label="SvelteKit" value="sveltekit">
+
+    ```typescript fileName="intlayer.config.ts"
+    import { Locales, type IntlayerConfig } from "intlayer";
+    import { svelteKitRewrite } from "intlayer/routing";
+
+    const config: IntlayerConfig = {
+      internationalization: {
+        locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+        defaultLocale: Locales.ENGLISH,
+      },
+      routing: {
+        mode: "prefix-all",
+        rewrite: svelteKitRewrite({
+          "/[locale]/about": {
+            en: "/[locale]/about",
+            fr: "/[locale]/a-propos",
+            es: "/[locale]/acerca-de",
+          },
+          "/[locale]/products/[id]": {
+            en: "/[locale]/products/[id]",
+            fr: "/[locale]/produits/[id]",
+            es: "/[locale]/productos/[id]",
+          },
+        }),
+      },
+    };
+
+    export default config;
+    ```
+
+  </Tab>
+  <Tab label="React Router" value="reactrouter">
+
+    ```typescript fileName="intlayer.config.ts"
+    import { Locales, type IntlayerConfig } from "intlayer";
+    import { reactRouterRewrite } from "intlayer/routing";
+
+    const config: IntlayerConfig = {
+      internationalization: {
+        locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+        defaultLocale: Locales.ENGLISH,
+      },
+      routing: {
+        mode: "prefix-all",
+        rewrite: reactRouterRewrite({
+          "/:locale/about": {
+            en: "/:locale/about",
+            fr: "/:locale/a-propos",
+            es: "/:locale/acerca-de",
+          },
+          "/:locale/products/:id": {
+            en: "/:locale/products/:id",
+            fr: "/:locale/produits/:id",
+            es: "/:locale/productos/:id",
+          },
+        }),
+      },
+    };
+
+    export default config;
     ```
 
   </Tab>
 </Tabs>
 
+### Available Formatters
+
+Intlayer provides formatters for most popular frameworks:
+
+- `nextjsRewrite`: For Next.js App Router. Supports `[slug]`, `[[slug]]`, etc.
+- `viteRewrite`: For Vite-based projects (Vue, Solid, Svelte). Supports `:slug`, `:slug?`, etc.
+- `nuxtRewrite`: For Nuxt 3.
+- `svelteKitRewrite`: For SvelteKit.
+- `reactRouterRewrite`: For React Router.
+- `vueRewrite`: Specifically for Vue Router 4 (same as Vite).
+- `solidjsRewrite`: Specifically for Solid Router (same as Vite).
+
+## Client-Side URL Correction: `useRewriteURL`
+
+To ensure that the browser's address bar always reflects the "pretty" localized URL, Intlayer provides the `useRewriteURL` hook. This hook silently updates the URL using `window.history.replaceState` when a user lands on a canonical path.
+
+### Usage in Frameworks
+
+<Tabs group='framework'>
+  <Tab label="Next.js" value="nextjs">
+  
+    ```tsx
+    'use client';
+
+    import { useRewriteURL } from "next-intlayer";
+
+    const MyLayout = ({ children }) => {
+      useRewriteURL(); // Automatically corrects /fr/about to /fr/a-propos
+      return <>{children}</>;
+    };
+    ```
+
+  </Tab>
+
+  <Tab label="React Router" value="reactrouter">
+  
+    ```tsx
+    'use client';
+
+    import { useRewriteURL } from "react-intlayer";
+
+    const MyLayout = ({ children }) => {
+      useRewriteURL(); // Automatically corrects /fr/about to /fr/a-propos
+
+      return <>{children}</>;
+    };
+    ```
+
+  </Tab>
+
+  <Tab label="Vue" value="vue">
+  
+    ```vue
+    <script setup>
+    import { useRewriteURL } from "vue-intlayer";
+
+    useRewriteURL();
+    </script>
+
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+  
+    ```tsx
+    import { useRewriteURL } from "solid-intlayer";
+
+    const Layout = (props) => {
+      useRewriteURL();
+      return <>{props.children}</>;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+  
+    ```svelte
+    <script>
+    import { useRewriteURL } from "svelte-intlayer";
+
+    useRewriteURL();
+    </script>
+
+    ```
+
+  </Tab>
+</Tabs>
+
+## Router Integration & Proxies
+
+Intlayer's server-side proxies (Vite & Next.js) automatically handle custom rewrites to ensure SEO consistency.
+
+1. **Internal Rewrites**: When a user visits `/fr/a-propos`, the proxy internally maps it to `/fr/about` so your framework matches the correct route.
+2. **Authoritative Redirects**: If a user manually types `/fr/about`, the proxy issues a 301/302 redirect to `/fr/a-propos`, ensuring search engines only index one version of the page.
+
+### Next.js Integration
+
+Next.js integration is fully handled via the `intlayerProxy` middleware.
+
+```typescript fileName="middleware.ts"
+import { intlayerProxy } from "next-intlayer/middleware";
+import { NextRequest } from "next/server";
+
+export function middleware(request: NextRequest) {
+  return intlayerProxy(request);
+}
+```
+
+### Vite Integration
+
+For SolidJS, Vue, and Svelte, the `intlayerProxy` Vite plugin manages the rewrites during development.
+
+```typescript fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayerProxy } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [intlayerProxy()],
+});
+```
+
 ## Key Features
 
-### 1. Centralized Logic
+### 1. Multi-Context Rewrites
 
-The rewrite logic is centralized in `@intlayer/core`, ensuring that `getLocalizedUrl`, `getMultilingualUrls`, and the various framework proxies (Next.js, Vite) all behave consistently.
+Each formatter generates a `RewriteObject` containing specialized rules for different consumers:
 
-### 2. Dynamic Route Support
+- `url`: Optimized for client-side URL generation (strips locale segments).
+- `nextjs`: Preserves `[locale]` for Next.js middleware.
+- `vite`: Preserves `:locale` for Vite proxies.
 
-Rewrites support dynamic parameters using the Next.js-style bracket notation (e.g., `[id]`, `[slug]`). The system automatically extracts parameters from the incoming URL and re-injects them into the target path.
+### 2. Automatic Pattern Normalization
 
-### 3. Transparent Proxying
+Intlayer internally normalizes all pattern syntaxes (e.g., converting `[param]` to `:param`) so that matching remains consistent regardless of the source framework.
 
-The proxies for Next.js and Vite handle custom rewrites without forcing browser-side redirects unless necessary (e.g., when a locale cookie mismatch is detected). This ensures that the user stays on the URL they typed while the framework sees the internal canonical path.
+### 3. SEO Authoritative URLs
 
-## Core Functions
+By enforcing redirects from canonical paths to pretty aliases, Intlayer prevents duplicate content issues and improves site discoverability.
 
-### `getLocalizedUrl(url, locale, options)`
+## Core Utilities
 
-Returns the localized version of a URL. If a rewrite rule matches the provided URL, it will return the custom path for the target locale.
-
-### `getMultilingualUrls(url, options)`
-
-Returns a map of all localized URLs for a given canonical path, respecting custom rewrite rules.
-
-### `getCanonicalPath(path, locale)`
-
-Resolves a localized URL back to its internal canonical path. This is essential for routers to match the correct component tree regardless of the URL language.
+- `getLocalizedUrl(url, locale)`: Generates a localized URL respecting rewrite rules.
+- `getCanonicalPath(path, locale)`: Resolves a localized URL back to its internal canonical path.
+- `getRewritePath(pathname, locale)`: Detects if a pathname needs to be corrected to its prettier localized alias.

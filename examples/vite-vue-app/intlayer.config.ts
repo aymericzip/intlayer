@@ -1,12 +1,21 @@
 import { type IntlayerConfig, Locales } from 'intlayer';
-
-/** @type {import('intlayer').IntlayerConfig} */
+import { vueRewrite } from 'intlayer/routing';
 
 const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
     strictMode: 'strict',
+  },
+  routing: {
+    mode: 'prefix-no-default',
+    rewrite: vueRewrite({
+      '/:locale/tests': {
+        en: '/tests',
+        fr: '/:locale/essais',
+        es: '/:locale/pruebas',
+      },
+    }),
   },
   editor: {
     enabled: true,

@@ -118,6 +118,7 @@ export {
   getNesting,
   getPathWithoutLocale,
   getPrefix,
+  getRewriteRules,
   getTranslation,
   /**
    * @deprecated Use `getTranslation` instead.

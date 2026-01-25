@@ -249,5 +249,3 @@ const TabComponent = ({
 export const Tab = Object.assign(TabComponent, {
   Item: TabItem,
 });
-
-// Add display name for better debugging

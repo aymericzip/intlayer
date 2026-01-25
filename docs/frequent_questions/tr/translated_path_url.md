@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-01-22
 title: URL yolunu çevirebilir miyim?
-description: URL yolunu nasıl çevireceğinizi öğrenin.
+description: URL yolunun nasıl çevrileceğini öğrenin.
 keywords:
   - dizi
   - içerik
@@ -10,46 +10,35 @@ keywords:
   - intlayer
   - middleware
   - proxy
-  - yönlendirme
+  - yeniden yazma
   - önek
-  - locale
+  - yerel ayar
   - url
 slugs:
   - frequent-questions
   - translated-path-url
 ---
 
-# Aşağıdaki gibi url çevirmek mümkün mü:
+# URL'leri çevirmek mümkün mü?
+
+Evet! Intlayer, yerel ayara özgü yollar tanımlamanıza olanak tanıyan özel URL yeniden yazımlarını destekler. Örneğin:
 
 ```bash
-en -> /product (önek yok) veya /en/product (önekli)
+en -> /product
 fr -> /fr/produit
 es -> /es/producto
 ```
 
-Intlayer, URL'leri bu şekilde çevirmeye izin vermez. Bunu başarmak için kendi middleware'inizi veya proxy'nizi kullanarak URL'leri yeniden yazmalısınız.
+Bunu uygulamak için `intlayer.config.ts` dosyanızdaki `routing` bölümünü yapılandırabilirsiniz.
 
-Ancak, bir locale için url'ye önek eklemek için `getMultilingualUrl` fonksiyonunu kullanabilirsiniz.
+Bu özelliğin nasıl uygulanacağı hakkında daha fazla bilgi için [Özel URL Yeniden Yazımları belgelerine](/docs/concept/custom_url_rewrites) bakın.
 
-```ts
-import { getMultilingualUrl, Locales } from "intlayer";
-
-const url = getMultilingualUrl("/product");
-
-/**
- * en -> /product (önek yok) veya /en/product (önekli)
- * fr -> /fr/product
- * es -> /es/product
- */
-console.log(url);
-```
-
-Veya `getLocalizedUrl` fonksiyonunu kullanabilirsiniz:
+Ayrıca, bu URL'leri programatik olarak oluşturmak için `getMultilingualUrl` ve `getLocalizedUrl` fonksiyonlarını kullanabilirsiniz; bunlar yeniden yazma kurallarınıza saygı duyacaktır.
 
 ```ts
 import { getLocalizedUrl, Locales } from "intlayer";
 
 const url = getLocalizedUrl("/product", Locales.FRENCH);
 
-console.log(url); // /fr/product
+console.log(url); // /fr/produit (eğer yapılandırılmışsa)
 ```

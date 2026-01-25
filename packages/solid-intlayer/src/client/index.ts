@@ -23,3 +23,4 @@ export {
   useLocaleCookie,
   useLocaleStorage,
 } from './useLocaleStorage';
+export { useRewriteURL } from './useRewriteURL';

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-01-22
 title: क्या मैं URL पथ का अनुवाद कर सकता हूँ?
 description: जानें कि URL पथ का अनुवाद कैसे करें।
 keywords:
@@ -19,37 +19,26 @@ slugs:
   - translated-path-url
 ---
 
-# क्या URL का निम्नलिखित रूप में अनुवाद संभव है:
+# क्या URL का अनुवाद करना संभव है?
+
+हाँ! Intlayer कस्टम URL पुनर्लेखन का समर्थन करता है, जो आपको लोकेल-विशिष्ट पथों को परिभाषित करने की अनुमति देता है। उदाहरण के लिए:
 
 ```bash
-en -> /product (कोई उपसर्ग नहीं) या /en/product (उपसर्ग के साथ)
+en -> /product
 fr -> /fr/produit
 es -> /es/producto
 ```
 
-दुर्भाग्यवश Intlayer निर्दिष्ट URL का अनुवाद करने की अनुमति नहीं देता है। इसे प्राप्त करने के लिए, आपको अपने स्वयं के मिडलवेयर या प्रॉक्सी का उपयोग करके URL को पुनःलिखित (rewrite) करना होगा।
+इसे लागू करने के लिए, आप अपनी `intlayer.config.ts` फ़ाइल में `routing` अनुभाग को कॉन्फ़िगर कर सकते हैं।
 
-लेकिन आप `getMultilingualUrl` फ़ंक्शन का उपयोग करके किसी दिए गए लोकल के लिए URL में उपसर्ग डाल सकते हैं।
+इस सुविधा को लागू करने के तरीके के बारे में अधिक जानकारी के लिए, [कस्टम URL पुनर्लेखन दस्तावेज़](/docs/concept/custom_url_rewrites) देखें।
 
-```ts
-import { getMultilingualUrl, Locales } from "intlayer";
-
-const url = getMultilingualUrl("/product");
-
-/**
- * en -> /product (कोई उपसर्ग नहीं) या /en/product (उपसर्ग के साथ)
- * fr -> /fr/product
- * es -> /es/product
- */
-console.log(url);
-```
-
-या `getLocalizedUrl`
+आप इन URL को प्रोग्रामेटिक रूप से उत्पन्न करने के लिए `getMultilingualUrl` और `getLocalizedUrl` फ़ंक्शन का भी उपयोग कर सकते हैं, और वे आपके पुनर्लेखन नियमों का सम्मान करेंगे।
 
 ```ts
 import { getLocalizedUrl, Locales } from "intlayer";
 
 const url = getLocalizedUrl("/product", Locales.FRENCH);
 
-console.log(url); // /fr/product
+console.log(url); // /fr/produit (यदि कॉन्फ़िगर किया गया है)
 ```

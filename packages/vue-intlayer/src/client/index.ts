@@ -5,3 +5,4 @@ export * from './useDictionaryDynamic';
 export * from './useIntlayer';
 export * from './useLoadDynamic';
 export * from './useLocale';
+export * from './useRewriteURL';

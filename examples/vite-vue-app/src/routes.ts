@@ -33,7 +33,7 @@ const routes = localeFlatMap((localizedData) => [
     },
   },
   {
-    path: getLocalizedUrl('/test', localizedData.locale),
+    path: getLocalizedUrl('/tests', localizedData.locale),
     name: `Test-${localizedData.locale}`,
     component: TestView,
     meta: {

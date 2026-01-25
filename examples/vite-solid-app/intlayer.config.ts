@@ -1,10 +1,21 @@
 import { type IntlayerConfig, Locales } from 'intlayer';
+import { solidjsRewrite } from 'intlayer/routing';
 
 /** @type {import('intlayer').IntlayerConfig} */
 
 const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  },
+  routing: {
+    mode: 'prefix-all',
+    rewrite: solidjsRewrite({
+      '/:locale/tests': {
+        en: '/:locale/tests',
+        fr: '/:locale/essais',
+        es: '/:locale/pruebas',
+      },
+    }),
   },
   editor: {
     enabled: true,

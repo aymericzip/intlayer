@@ -75,5 +75,7 @@ const handleUnhover = () => {
   >
     <slot />
   </ContentSelector>
-  <slot v-else />
+  <span v-else style="display: contents">
+    <slot />
+  </span>
 </template>

@@ -1,13 +1,22 @@
 import { A, Route, useLocation, useNavigate } from '@solidjs/router';
-import { getLocalizedUrl, localeMap } from 'intlayer';
+import {
+  configuration,
+  getLocalizedPath,
+  getLocalizedUrl,
+  getRewriteRules,
+  type Locale,
+  localeMap,
+} from 'intlayer';
 import {
   IntlayerProvider,
   MarkdownProvider,
   useIntlayer,
   useLocale,
+  useRewriteURL,
 } from 'solid-intlayer';
 import { createSignal, For, type ParentComponent } from 'solid-js';
 import './App.css';
+
 import viteLogo from '/vite.svg';
 import solidLogo from './assets/solid.svg';
 
@@ -39,13 +48,17 @@ const LocaleSwitcher = () => {
 };
 
 const Layout: ParentComponent = (props) => {
+  const { locale } = useLocale();
+
+  useRewriteURL();
+
   return (
     <>
       <nav>
-        <A href="/" end activeClass="active">
+        <A href={getLocalizedUrl('/', locale())} end activeClass="active">
           Home
         </A>
-        <A href="/tests" activeClass="active">
+        <A href={getLocalizedUrl('/tests', locale())} activeClass="active">
           Tests
         </A>
         <LocaleSwitcher />
@@ -79,7 +92,7 @@ const Home = () => {
       </div>
       <h1>{content().viteAndSolid}</h1>
       <div class="card">
-        <button onClick={() => setCount((c) => c + 1)}>
+        <button type="button" onClick={() => setCount((c) => c + 1)}>
           {content().countIs({ count: count() })}
         </button>
         <p>{content().editSrcAppTsx}</p>
@@ -113,22 +126,29 @@ const Tests = () => {
   );
 };
 
-export const App = () => (
-  <IntlayerProvider>
-    {localeMap(({ locale, urlPrefix }) => (
-      <Route
-        path={urlPrefix || '/'}
-        component={(props: any) => (
-          <IntlayerProvider locale={locale}>
-            <MarkdownProvider>
-              <Layout>{props.children}</Layout>
-            </MarkdownProvider>
-          </IntlayerProvider>
-        )}
-      >
-        <Route path="/" component={Home} />
-        <Route path="/tests" component={Tests} />
-      </Route>
-    ))}
-  </IntlayerProvider>
-);
+export const App = () => {
+  const rules = getRewriteRules(configuration.routing.rewrite, 'url');
+
+  return (
+    <IntlayerProvider>
+      {localeMap(({ locale, urlPrefix }) => (
+        <Route
+          path={urlPrefix || '/'}
+          component={(props: any) => (
+            <IntlayerProvider locale={locale}>
+              <MarkdownProvider>
+                <Layout>{props.children}</Layout>
+              </MarkdownProvider>
+            </IntlayerProvider>
+          )}
+        >
+          <Route path="/" component={Home} />
+          <Route
+            path={getLocalizedPath('/tests', locale as Locale, rules).path}
+            component={Tests}
+          />
+        </Route>
+      ))}
+    </IntlayerProvider>
+  );
+};

@@ -1,55 +1,44 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
-title: هل يمكنني ترجمة مسار عنوان URL؟
-description: تعلّم كيفية ترجمة مسار عنوان URL.
+updatedAt: 2026-01-22
+title: هل يمكنني ترجمة مسار الرابط؟
+description: تعرف على كيفية ترجمة مسار الرابط.
 keywords:
-  - مصفوفة
-  - محتوى
-  - إعلان
+  - array
+  - content
+  - declaration
   - intlayer
-  - وسيط
-  - وكيل
-  - إعادة كتابة
-  - بادئة
-  - لغة
-  - عنوان URL
+  - middleware
+  - proxy
+  - rewrite
+  - prefix
+  - locale
+  - url
 slugs:
   - frequent-questions
   - translated-path-url
 ---
 
-# هل من الممكن ترجمة عنوان URL كما يلي:
+# هل من الممكن ترجمة الروابط؟
+
+نعم! يدعم Intlayer عمليات إعادة توجيه الروابط المخصصة، والتي تسمح لك بتحديد مسارات خاصة باللغة. على سبيل المثال:
 
 ```bash
-en -> /product (بدون بادئة) أو /en/product (مع بادئة)
+en -> /product
 fr -> /fr/produit
 es -> /es/producto
 ```
 
-لسوء الحظ، لا يسمح Intlayer بترجمة عناوين URL كما هو محدد. لتحقيق ذلك، يجب عليك استخدام وسيط خاص بك أو وكيل لإعادة كتابة عناوين URL.
+لتنفيذ ذلك، يمكنك تكوين قسم `routing` في ملف `intlayer.config.ts` الخاص بك.
 
-ولكن يمكنك استخدام دالة `getMultilingualUrl` لإدخال البادئة في عنوان URL للغة معينة.
+لمزيد من المعلومات حول كيفية تنفيذ هذه الميزة، راجع [وثائق إعادة توجيه الروابط المخصصة](/docs/concept/custom_url_rewrites).
 
-```ts
-import { getMultilingualUrl, Locales } from "intlayer";
-
-const url = getMultilingualUrl("/product");
-
-/**
- * en -> /product (بدون بادئة) أو /en/product (مع بادئة)
- * fr -> /fr/product
- * es -> /es/product
- */
-console.log(url);
-```
-
-أو `getLocalizedUrl`
+يمكنك أيضًا استخدام وظائف `getMultilingualUrl` و `getLocalizedUrl` لإنشاء هذه الروابط برمجياً، وستحترم قواعد إعادة التوجيه الخاصة بك.
 
 ```ts
 import { getLocalizedUrl, Locales } from "intlayer";
 
 const url = getLocalizedUrl("/product", Locales.FRENCH);
 
-console.log(url); // /fr/product
+console.log(url); // /fr/produit (إذا تم تكوينه)
 ```

@@ -1,12 +1,12 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
-title: Bisakah saya menerjemahkan jalur url?
-description: Pelajari cara menerjemahkan jalur url.
+updatedAt: 2026-01-22
+title: Bisakah saya menerjemahkan jalur URL?
+description: Pelajari cara menerjemahkan jalur URL.
 keywords:
   - array
-  - konten
-  - deklarasi
+  - content
+  - declaration
   - intlayer
   - middleware
   - proxy
@@ -19,37 +19,26 @@ slugs:
   - translated-path-url
 ---
 
-# Apakah mungkin menerjemahkan url seperti berikut:
+# Apakah mungkin untuk menerjemahkan URL?
+
+Ya! Intlayer mendukung penulisan ulang URL kustom, yang memungkinkan Anda menentukan jalur khusus lokal. Sebagai contoh:
 
 ```bash
-en -> /product (tanpa prefix) atau /en/product (dengan prefix)
+en -> /product
 fr -> /fr/produit
 es -> /es/producto
 ```
 
-Sayangnya Intlayer tidak mengizinkan menerjemahkan URL seperti yang ditentukan. Untuk mencapai ini, Anda harus menggunakan middleware atau proxy Anda sendiri untuk menulis ulang URL.
+Untuk mengimplementasikan ini, Anda dapat mengonfigurasi bagian `routing` di file `intlayer.config.ts` Anda.
 
-Namun Anda dapat menggunakan fungsi `getMultilingualUrl` untuk menyisipkan prefix di url untuk locale tertentu.
+Untuk informasi lebih lanjut tentang cara mengimplementasikan fitur ini, lihat [dokumentasi Penulisan Ulang URL Kustom](/docs/concept/custom_url_rewrites).
 
-```ts
-import { getMultilingualUrl, Locales } from "intlayer";
-
-const url = getMultilingualUrl("/product");
-
-/**
- * en -> /product (tanpa prefix) atau /en/product (dengan prefix)
- * fr -> /fr/product
- * es -> /es/product
- */
-console.log(url);
-```
-
-Atau `getLocalizedUrl`
+Anda juga dapat menggunakan fungsi `getMultilingualUrl` dan `getLocalizedUrl` untuk menghasilkan URL ini secara terprogram, dan mereka akan menghormati aturan penulisan ulang Anda.
 
 ```ts
 import { getLocalizedUrl, Locales } from "intlayer";
 
 const url = getLocalizedUrl("/product", Locales.FRENCH);
 
-console.log(url); // /fr/product
+console.log(url); // /fr/produit (jika dikonfigurasi)
 ```

@@ -2,7 +2,6 @@ import type { LocalesValues } from '@intlayer/types';
 import type { IInterpreterPluginSolid } from './plugins';
 
 declare module '@intlayer/core' {
-  // biome-ignore lint/correctness/noUnusedVariables: <All declarations of 'IInterpreterPlugin' must have identical type parameters>
   interface IInterpreterPlugin<T, S, L extends LocalesValues>
     extends IInterpreterPluginSolid<T, S, L> {}
 }
@@ -29,6 +28,7 @@ export {
   useLocaleBase,
   useLocaleCookie,
   useLocaleStorage,
+  useRewriteURL,
 } from './client/index';
 export { getDictionary } from './getDictionary';
 export { getIntlayer } from './getIntlayer';

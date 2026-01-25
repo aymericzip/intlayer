@@ -51,15 +51,16 @@ Import:
 import "vue-intlayer";
 ```
 
-| Composable             | Description                                                                                                       | Related Doc |
-| ---------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------- |
-| `useIntlayer`          | Based on `useDictionary`, but injects an optimized version of the dictionary from the generated declaration.      | -           |
-| `useDictionary`        | Processes objects that look like dictionaries (key, content). It processes `t()` translations, enumerations, etc. | -           |
-| `useDictionaryAsync`   | Same as `useDictionary`, but handles asynchronous dictionaries.                                                   | -           |
-| `useDictionaryDynamic` | Same as `useDictionary`, but handles dynamic dictionaries.                                                        | -           |
-| `useLocale`            | Returns the current locale and a function to set it.                                                              | -           |
-| `useIntl`              | Returns the Intl object for the current locale.                                                                   | -           |
-| `useLoadDynamic`       | Composable to load dynamic dictionaries.                                                                          | -           |
+| Composable             | Description                                                                                                       | Related Doc                                                                                                           |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`          | Based on `useDictionary`, but injects an optimized version of the dictionary from the generated declaration.      | -                                                                                                                     |
+| `useDictionary`        | Processes objects that look like dictionaries (key, content). It processes `t()` translations, enumerations, etc. | -                                                                                                                     |
+| `useDictionaryAsync`   | Same as `useDictionary`, but handles asynchronous dictionaries.                                                   | -                                                                                                                     |
+| `useDictionaryDynamic` | Same as `useDictionary`, but handles dynamic dictionaries.                                                        | -                                                                                                                     |
+| `useLocale`            | Returns the current locale and a function to set it.                                                              | -                                                                                                                     |
+| `useRewriteURL`        | Client-side composable to manage URL rewrites. Automatically updates the URL if a localized rewrite rule exists.  | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/vue-intlayer/useRewriteURL.md) |
+| `useIntl`              | Returns the Intl object for the current locale.                                                                   | -                                                                                                                     |
+| `useLoadDynamic`       | Composable to load dynamic dictionaries.                                                                          | -                                                                                                                     |
 
 ### Functions
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-01-22
 title: URL 경로를 번역할 수 있나요?
 description: URL 경로를 번역하는 방법을 알아보세요.
 keywords:
@@ -13,43 +13,32 @@ keywords:
   - 재작성
   - 접두사
   - 로케일
-  - URL
+  - url
 slugs:
   - frequent-questions
   - translated-path-url
 ---
 
-# 다음과 같이 URL을 번역할 수 있나요?
+# URL 번역이 가능한가요?
+
+네! Intlayer는 사용자 정의 URL 재작성을 지원하여 로케일별 경로를 정의할 수 있습니다. 예를 들어:
 
 ```bash
-en -> /product (접두사 없음) 또는 /en/product (접두사 있음)
+en -> /product
 fr -> /fr/produit
 es -> /es/producto
 ```
 
-안타깝게도 Intlayer는 지정된 대로 URL을 번역하는 것을 허용하지 않습니다. 이를 구현하려면 자체 미들웨어나 프록시를 사용하여 URL을 재작성해야 합니다.
+이를 구현하려면 `intlayer.config.ts` 파일에서 `routing` 섹션을 구성할 수 있습니다.
 
-하지만 특정 로케일에 대해 URL에 접두사를 삽입하려면 `getMultilingualUrl` 함수를 사용할 수 있습니다.
+이 기능을 구현하는 방법에 대한 자세한 내용은 [사용자 정의 URL 재작성 문서](/docs/concept/custom_url_rewrites)를 참조하세요.
 
-```ts
-import { getMultilingualUrl, Locales } from "intlayer";
-
-const url = getMultilingualUrl("/product");
-
-/**
- * en -> /product (접두사 없음) 또는 /en/product (접두사 있음)
- * fr -> /fr/product
- * es -> /es/product
- */
-console.log(url);
-```
-
-또는 `getLocalizedUrl`
+또한 `getMultilingualUrl` 및 `getLocalizedUrl` 함수를 사용하여 프로그래밍 방식으로 이러한 URL을 생성할 수 있으며, 이 함수들은 재작성 규칙을 준수합니다.
 
 ```ts
 import { getLocalizedUrl, Locales } from "intlayer";
 
 const url = getLocalizedUrl("/product", Locales.FRENCH);
 
-console.log(url); // /fr/product
+console.log(url); // /fr/produit (구성된 경우)
 ```

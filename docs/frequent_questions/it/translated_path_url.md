@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
-title: Posso tradurre il percorso URL?
-description: Scopri come tradurre il percorso URL.
+updatedAt: 2026-01-22
+title: Posso tradurre il percorso dell'URL?
+description: Scopri come tradurre il percorso dell'URL.
 keywords:
   - array
   - contenuto
@@ -12,44 +12,33 @@ keywords:
   - proxy
   - riscrittura
   - prefisso
-  - locale
+  - lingua
   - url
 slugs:
   - frequent-questions
   - translated-path-url
 ---
 
-# È possibile tradurre l'URL come segue:
+# È possibile tradurre gli URL?
+
+Sì! Intlayer supporta le riscritture URL personalizzate, che consentono di definire percorsi specifici per la lingua. Ad esempio:
 
 ```bash
-en -> /product (nessun prefisso) oppure /en/product (con prefisso)
+en -> /product
 fr -> /fr/produit
 es -> /es/producto
 ```
 
-Purtroppo Intlayer non consente di tradurre gli URL come specificato. Per ottenere questo risultato, dovresti utilizzare un tuo middleware o proxy per riscrivere gli URL.
+Per implementare questo, puoi configurare la sezione `routing` nel tuo file `intlayer.config.ts`.
 
-Tuttavia, puoi usare la funzione `getMultilingualUrl` per inserire il prefisso nell'URL per un dato locale.
+Per ulteriori informazioni su come implementare questa funzione, consulta la [documentazione sulle Riscritture URL Personalizzate](/docs/concept/custom_url_rewrites).
 
-```ts
-import { getMultilingualUrl, Locales } from "intlayer";
-
-const url = getMultilingualUrl("/product");
-
-/**
- * en -> /product (nessun prefisso) oppure /en/product (con prefisso)
- * fr -> /fr/product
- * es -> /es/product
- */
-console.log(url);
-```
-
-Oppure `getLocalizedUrl`
+Puoi anche utilizzare le funzioni `getMultilingualUrl` e `getLocalizedUrl` per generare questi URL a livello di programmazione, e rispetteranno le tue regole di riscrittura.
 
 ```ts
 import { getLocalizedUrl, Locales } from "intlayer";
 
 const url = getLocalizedUrl("/product", Locales.FRENCH);
 
-console.log(url); // /fr/product
+console.log(url); // /fr/produit (se configurato)
 ```

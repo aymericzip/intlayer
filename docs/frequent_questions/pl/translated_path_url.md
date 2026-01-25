@@ -1,16 +1,16 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-01-22
 title: Czy mogę przetłumaczyć ścieżkę URL?
 description: Dowiedz się, jak przetłumaczyć ścieżkę URL.
 keywords:
   - tablica
-  - zawartość
+  - treść
   - deklaracja
   - intlayer
   - middleware
   - proxy
-  - przepisywanie
+  - przekierowanie
   - prefiks
   - lokalizacja
   - url
@@ -19,37 +19,26 @@ slugs:
   - translated-path-url
 ---
 
-# Czy możliwe jest przetłumaczenie URL w następujący sposób:
+# Czy można tłumaczyć adresy URL?
+
+Tak! Intlayer obsługuje niestandardowe przekierowania URL, które pozwalają definiować ścieżki specyficzne dla lokalizacji. Na przykład:
 
 ```bash
-en -> /product (bez prefiksu) lub /en/product (z prefiksem)
+en -> /product
 fr -> /fr/produit
 es -> /es/producto
 ```
 
-Niestety Intlayer nie pozwala na tłumaczenie URLi w podany sposób. Aby to osiągnąć, powinieneś użyć własnego middleware lub proxy do przepisywania URLi.
+Aby to zaimplementować, możesz skonfigurować sekcję `routing` w pliku `intlayer.config.ts`.
 
-Możesz jednak użyć funkcji `getMultilingualUrl`, aby wstawić prefiks w URL dla danej lokalizacji.
+Więcej informacji na temat implementacji tej funkcji znajdziesz w [dokumentacji Niestandardowych Przekierowań URL](/docs/concept/custom_url_rewrites).
 
-```ts
-import { getMultilingualUrl, Locales } from "intlayer";
-
-const url = getMultilingualUrl("/product");
-
-/**
- * en -> /product (bez prefiksu) lub /en/product (z prefiksem)
- * fr -> /fr/product
- * es -> /es/product
- */
-console.log(url);
-```
-
-Lub `getLocalizedUrl`
+Możesz również użyć funkcji `getMultilingualUrl` i `getLocalizedUrl`, aby generować te adresy URL programowo, a będą one respektować Twoje reguły przekierowań.
 
 ```ts
 import { getLocalizedUrl, Locales } from "intlayer";
 
 const url = getLocalizedUrl("/product", Locales.FRENCH);
 
-console.log(url); // /fr/product
+console.log(url); // /fr/produit (jeśli skonfigurowano)
 ```

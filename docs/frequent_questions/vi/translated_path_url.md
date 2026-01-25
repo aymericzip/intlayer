@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
-title: Tôi có thể dịch đường dẫn url không?
-description: Tìm hiểu cách dịch đường dẫn url.
+updatedAt: 2026-01-22
+title: Tôi có thể dịch đường dẫn URL không?
+description: Tìm hiểu cách dịch đường dẫn URL.
 keywords:
   - array
   - content
@@ -19,37 +19,26 @@ slugs:
   - translated-path-url
 ---
 
-# Có thể dịch url như sau không:
+# Có thể dịch URL không?
+
+Có! Intlayer hỗ trợ viết lại URL tùy chỉnh, cho phép bạn xác định các đường dẫn theo từng ngôn ngữ. Ví dụ:
 
 ```bash
-en -> /product (không có tiền tố) hoặc /en/product (có tiền tố)
+en -> /product
 fr -> /fr/produit
 es -> /es/producto
 ```
 
-Rất tiếc, Intlayer không cho phép dịch các URL như đã chỉ định. Để thực hiện điều này, bạn nên sử dụng middleware hoặc proxy riêng của mình để viết lại các URL.
+Để triển khai điều này, bạn có thể cấu hình phần `routing` trong tệp `intlayer.config.ts` của mình.
 
-Nhưng bạn có thể sử dụng hàm `getMultilingualUrl` để chèn tiền tố vào url cho một locale nhất định.
+Để biết thêm thông tin về cách triển khai tính năng này, hãy xem [tài liệu Viết lại URL tùy chỉnh](/docs/concept/custom_url_rewrites).
 
-```ts
-import { getMultilingualUrl, Locales } from "intlayer";
-
-const url = getMultilingualUrl("/product");
-
-/**
- * en -> /product (không có tiền tố) hoặc /en/product (có tiền tố)
- * fr -> /fr/product
- * es -> /es/product
- */
-console.log(url);
-```
-
-Hoặc `getLocalizedUrl`
+Bạn cũng có thể sử dụng các hàm `getMultilingualUrl` và `getLocalizedUrl` để tạo các URL này theo lập trình, và chúng sẽ tuân thủ các quy tắc viết lại của bạn.
 
 ```ts
 import { getLocalizedUrl, Locales } from "intlayer";
 
 const url = getLocalizedUrl("/product", Locales.FRENCH);
 
-console.log(url); // /fr/product
+console.log(url); // /fr/produit (nếu đã cấu hình)
 ```

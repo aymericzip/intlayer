@@ -1,27 +1,69 @@
-import configuration from '@intlayer/config/built';
-import type { Locale, RoutingConfig } from '@intlayer/types';
+import type {
+  Locale,
+  RewriteObject,
+  RewriteRules,
+  RoutingConfig,
+} from '@intlayer/types';
+
+export type LocalizedPathResult = {
+  path: string;
+  isRewritten: boolean;
+};
 
 /**
- * Helper to convert Next.js dynamic path "[param]" to Regex "([^/]+)"
+ * Normalizes legacy Record format or extracts specialized rules from RewriteObject.
  */
-const pathFormatToRegex = (path: string) =>
-  new RegExp(`^${path.replace(/\[([^\]]+)\]/g, '([^/]+)')}$`);
+export const getRewriteRules = (
+  rewrite: RoutingConfig['rewrite'],
+  context: keyof RewriteObject = 'url'
+): RewriteRules | undefined => {
+  if (!rewrite) return undefined;
+
+  if ('url' in rewrite) {
+    return (rewrite as RewriteObject)[context];
+  }
+
+  // Normalize legacy format
+  return {
+    rules: Object.entries(rewrite).map(([canonical, localized]) => ({
+      // Normalize canonical path
+      canonical: canonical.startsWith('/')
+        ? canonical.replace(/\[([^\]]+)\]/g, ':$1')
+        : `/${canonical.replace(/\[([^\]]+)\]/g, ':$1')}`,
+
+      // Normalize localized path
+      localized: Object.fromEntries(
+        Object.entries(localized).map(([locale, pattern]) => {
+          const normalizedPattern = pattern?.startsWith('/')
+            ? pattern.replace(/\[([^\]]+)\]/g, ':$1')
+            : `/${(pattern || '').replace(/\[([^\]]+)\]/g, ':$1')}`;
+          return [locale, normalizedPattern];
+        })
+      ),
+    })),
+  };
+};
+
+/**
+ * Converts normalized pattern to Regex.
+ * Internal syntax is strictly :param.
+ */
+const patternToRegex = (pattern: string) =>
+  new RegExp(`^${pattern.replace(/:([^/]+)/g, '([^/]+)')}$`);
 
 /**
  * Replaces route parameters in a path with provided values.
- * Ex: fillPath('/products/[id]', ['123']) -> '/products/123'
  */
-const fillPath = (path: string, params: string[]) => {
+const fillPath = (pattern: string, params: string[]) => {
   let index = 0;
-  return path.replace(/\[([^\]]+)\]/g, () => params[index++] || '');
+  return pattern.replace(/:([^/]+)/g, () => params[index++] || '');
 };
 
 /**
  * Extract values from a URL based on a pattern.
- * Ex: extractParams('/products/123', '/products/[id]') -> ['123']
  */
 const extractParams = (url: string, pattern: string): string[] | null => {
-  const regex = pathFormatToRegex(pattern);
+  const regex = patternToRegex(pattern);
   const match = url.match(regex);
   return match ? match.slice(1) : null;
 };
@@ -33,26 +75,23 @@ const extractParams = (url: string, pattern: string): string[] | null => {
 export const getCanonicalPath = (
   localizedPath: string,
   locale?: Locale,
-  rewriteRules?: RoutingConfig['rewrite']
+  rewriteRules?: RewriteRules
 ): string => {
-  const rewrite = rewriteRules ?? configuration?.routing?.rewrite;
+  if (!rewriteRules) return localizedPath;
 
-  if (!rewrite) return localizedPath;
-
-  for (const [canonicalPattern, rules] of Object.entries(rewrite)) {
-    const localesToCheck = locale ? [locale] : Object.keys(rules);
+  for (const rule of rewriteRules.rules) {
+    const { canonical, localized } = rule;
+    const localesToCheck = locale ? [locale] : Object.keys(localized);
 
     for (const loc of localesToCheck) {
-      const localizedPattern = rules[loc as keyof typeof rules];
+      const localizedPattern = localized[loc as keyof typeof localized];
 
       if (!localizedPattern) continue;
 
-      // Check if the current URL matches this localized pattern
       const params = extractParams(localizedPath, localizedPattern);
 
       if (params) {
-        // Reconstruct the canonical URL using the extracted params
-        return fillPath(canonicalPattern, params);
+        return fillPath(canonical, params);
       }
     }
   }
@@ -66,23 +105,77 @@ export const getCanonicalPath = (
 export const getLocalizedPath = (
   canonicalPath: string,
   locale: Locale,
-  rewriteRules?: RoutingConfig['rewrite']
-): string => {
-  const rewrite = rewriteRules ?? configuration?.routing?.rewrite;
+  rewriteRules?: RewriteRules
+): LocalizedPathResult => {
+  if (!rewriteRules) return { path: canonicalPath, isRewritten: false };
 
-  if (!rewrite) return canonicalPath;
+  for (const rule of rewriteRules.rules) {
+    const { canonical, localized } = rule;
 
-  for (const [canonicalPattern, rules] of Object.entries(rewrite)) {
     // Check if the input path matches a configured canonical pattern
-    const params = extractParams(canonicalPath, canonicalPattern);
+    const params = extractParams(canonicalPath, canonical);
 
     if (params) {
-      const targetPattern = rules[locale as keyof typeof rules];
+      const targetPattern = localized[locale as keyof typeof localized];
+
       if (targetPattern) {
-        return fillPath(targetPattern, params);
+        return {
+          path: fillPath(targetPattern, params),
+          isRewritten: true,
+        };
       }
     }
   }
 
-  return canonicalPath;
+  return { path: canonicalPath, isRewritten: false };
+};
+
+/**
+ * Returns the internal path for a given canonical path and locale.
+ * Ensures the locale prefix is present exactly once.
+ */
+export const getInternalPath = (
+  canonicalPath: string,
+  locale: Locale
+): string => {
+  const pathWithLeadingSlash = canonicalPath.startsWith('/')
+    ? canonicalPath
+    : `/${canonicalPath}`;
+
+  if (
+    pathWithLeadingSlash.startsWith(`/${locale}/`) ||
+    pathWithLeadingSlash === `/${locale}`
+  ) {
+    return pathWithLeadingSlash;
+  }
+
+  return `/${locale}${pathWithLeadingSlash === '/' ? '' : pathWithLeadingSlash}`;
+};
+
+/**
+ * Given a current pathname and locale, returns the pretty localized path if a rewrite rule exists and the path is not already localized.
+ */
+export const getRewritePath = (
+  pathname: string,
+  locale: Locale,
+  rewrite?: RoutingConfig['rewrite']
+): string | undefined => {
+  const rules = getRewriteRules(rewrite, 'url');
+  if (!rules) return undefined;
+
+  // Identify canonical path (relative to root, no locale prefix expected in 'url' context)
+  const canonicalPath = getCanonicalPath(pathname, undefined, rules);
+
+  // Get the localized path for the current locale
+  const { path: localizedPath, isRewritten } = getLocalizedPath(
+    canonicalPath,
+    locale,
+    rules
+  );
+
+  if (isRewritten && localizedPath !== pathname) {
+    return localizedPath;
+  }
+
+  return undefined;
 };

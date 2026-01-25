@@ -32,6 +32,7 @@ export {
   useLocaleCookie,
   useLocaleStorage,
 } from './client/useLocaleStorage';
+export { useRewriteURL } from './client/useRewriteURL';
 export { getDictionary } from './getDictionary';
 export { getIntlayer } from './getIntlayer';
 export {

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-01-22
 title: Can I translate the url path?
 description: Learn how to translate the url path.
 keywords:
@@ -19,37 +19,26 @@ slugs:
   - translated-path-url
 ---
 
-# It it possible to translate url as following :
+# Is it possible to translate URLs?
+
+Yes! Intlayer supports custom URL rewrites, which allow you to define locale-specific paths. For example:
 
 ```bash
-en -> /product (no prefix) or /en/product (with prefix)
+en -> /product
 fr -> /fr/produit
 es -> /es/producto
 ```
 
-Intlayer unfortunately does not allow translating the URLs as specified. To achieve this, you should use your own middleware or proxy to rewrite the URLs.
+To implement this, you can configure the `routing` section in your `intlayer.config.ts` file.
 
-But you can use the `getMultilingualUrl` function to insert the prefix in the url for a given locale.
+For more information on how to implement this feature, see the [Custom URL Rewrites documentation](/docs/concept/custom_url_rewrites).
 
-```ts
-import { getMultilingualUrl, Locales } from "intlayer";
-
-const url = getMultilingualUrl("/product");
-
-/**
- * en -> /product (no prefix) or /en/product (with prefix)
- * fr -> /fr/product
- * es -> /es/product
- */
-console.log(url);
-```
-
-Or `getLocalizedUrl`
+You can also use the `getMultilingualUrl` and `getLocalizedUrl` functions to generate these URLs programmatically, and they will respect your rewrite rules.
 
 ```ts
 import { getLocalizedUrl, Locales } from "intlayer";
 
 const url = getLocalizedUrl("/product", Locales.FRENCH);
 
-console.log(url); // /fr/product
+console.log(url); // /fr/produit (if configured)
 ```

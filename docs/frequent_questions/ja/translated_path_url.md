@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-01-22
 title: URLパスを翻訳できますか？
-description: URLパスの翻訳方法について学びます。
+description: URLパスを翻訳する方法を学びます。
 keywords:
   - 配列
   - コンテンツ
@@ -10,46 +10,35 @@ keywords:
   - intlayer
   - ミドルウェア
   - プロキシ
-  - リライト
+  - 書き換え
   - プレフィックス
   - ロケール
-  - URL
+  - url
 slugs:
   - frequent-questions
   - translated-path-url
 ---
 
-# 次のようにURLを翻訳することは可能ですか：
+# URLを翻訳することは可能ですか？
+
+はい！IntlayerはカスタムURL書き換えをサポートしており、ロケール固有のパスを定義できます。例：
 
 ```bash
-en -> /product （プレフィックスなし）または /en/product （プレフィックスあり）
+en -> /product
 fr -> /fr/produit
 es -> /es/producto
 ```
 
-残念ながらIntlayerでは指定されたようにURLを翻訳することはできません。これを実現するには、独自のミドルウェアやプロキシを使用してURLを書き換える必要があります。
+これを実装するには、`intlayer.config.ts` ファイルの `routing` セクションを設定します。
 
-しかし、`getMultilingualUrl`関数を使って、特定のロケールに対してURLにプレフィックスを挿入することは可能です。
+この機能の実装方法の詳細については、[カスタムURL書き換えのドキュメント](/docs/concept/custom_url_rewrites)を参照してください。
 
-```ts
-import { getMultilingualUrl, Locales } from "intlayer";
-
-const url = getMultilingualUrl("/product");
-
-/**
- * en -> /product （プレフィックスなし）または /en/product （プレフィックスあり）
- * fr -> /fr/product
- * es -> /es/product
- */
-console.log(url);
-```
-
-または `getLocalizedUrl`
+また、`getMultilingualUrl` および `getLocalizedUrl` 関数を使用して、プログラムでこれらのURLを生成することもでき、これらは書き換えルールを尊重します。
 
 ```ts
 import { getLocalizedUrl, Locales } from "intlayer";
 
 const url = getLocalizedUrl("/product", Locales.FRENCH);
 
-console.log(url); // /fr/product
+console.log(url); // /fr/produit (設定されている場合)
 ```

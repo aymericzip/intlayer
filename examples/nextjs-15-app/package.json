@@ -17,14 +17,13 @@
     "fuse.js": "7.1.0",
     "intlayer": "workspace:*",
     "markdown-to-jsx": "7.7.17",
-    "next": "15.5.6",
+    "next": "15.5.9",
     "next-intlayer": "workspace:*",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
   "devDependencies": {
-    "@intlayer/swc": "workspace:*",
-    "@next/bundle-analyzer": "15.5.6",
+    "@next/bundle-analyzer": "15.5.9",
     "@tailwindcss/postcss": "4.1.18",
     "@types/node": "25.0.9",
     "@types/react": "19.2.8",

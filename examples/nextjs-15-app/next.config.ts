@@ -7,7 +7,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 
 const getConfig = async () => {
-  const config = await withIntlayer(withBundleAnalyzer());
+  const config = await withIntlayer();
 
   return config;
 };

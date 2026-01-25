@@ -12,22 +12,23 @@ export type StrictMode = 'strict' | 'inclusive' | 'loose';
 
 type Protocol = 'http' | 'https';
 
-// Localhost: STRICTLY requires a port
-type LocalhostURL =
-  | `${Protocol}://localhost:${number}`
-  | `${Protocol}://localhost:${number}/${string}`;
+type URLPath = `/${string}`;
 
+type OptionalURLPath = `/${string}` | '';
+
+// Localhost: STRICTLY requires a port
+type LocalhostURL = `${Protocol}://localhost:${number}${OptionalURLPath}`;
 // IP Address: Start with number, allows optional port
 // (Heuristic: Starts with a number, contains dots)
 type IPUrl =
-  | `${Protocol}://${number}.${string}`
-  | `${Protocol}://${number}.${string}:${number}`;
+  | `${Protocol}://${number}.${string}${OptionalURLPath}`
+  | `${Protocol}://${number}.${string}:${number}${OptionalURLPath}`;
 
 // Standard Domain: Requires at least one dot to rule out plain "localhost"
 // (Heuristic: starts with non-number string, contains dot)
-type DomainURL = `${Protocol}://${string}.${string}`;
+type DomainURL = `${Protocol}://${string}.${string}${OptionalURLPath}`;
 
-export type URLType = LocalhostURL | IPUrl | DomainURL;
+export type URLType = LocalhostURL | IPUrl | DomainURL | (string & {});
 
 /**
  * Configuration for internationalization settings
@@ -164,6 +165,40 @@ export type StorageAttributes = {
   name?: string;
 };
 
+export type RewriteRule<T extends string = string> = {
+  canonical: T;
+  localized: StrictModeLocaleMap<string>;
+};
+
+export type RewriteRules = {
+  rules: RewriteRule[];
+};
+
+export type RewriteObject = {
+  /**
+   * Used for client-side URL generation (e.g., getLocalizedUrl).
+   * Patterns are usually stripped of locale prefixes as the core logic handles prefixing.
+   */
+  url: RewriteRules;
+  /**
+   * Used for Next.js middleware / proxy.
+   * Patterns usually include [locale] or :locale to match incoming full URLs.
+   */
+  nextjs?: RewriteRules;
+  /**
+   * Used for Vite proxy middleware.
+   */
+  vite?: RewriteRules;
+  /**
+   * Used for React Router.
+   */
+  reactRouter?: RewriteRules;
+  /**
+   * Used for SvelteKit.
+   */
+  sveltekit?: RewriteRules;
+};
+
 /**
  * Configuration for routing behaviors
  */
@@ -175,16 +210,16 @@ export type RoutingConfig = {
    * ```ts
    *  // ...
    *  routing: {
-   *    rewrite: {
-   *      '/about': {
-   *        en: '/about',
-   *        fr: '/a-propos'
+   *    rewrite: nextjsRewrite({
+   *      '[locale]/about': {
+   *        en: '[locale]/about',
+   *        fr: '[locale]/a-propos'
    *      }
-   *    }
+   *    })
    *  }
    * ```
    */
-  rewrite?: Record<URLPath, StrictModeLocaleMap<URLPath>>;
+  rewrite?: Record<URLPath, StrictModeLocaleMap<URLPath>> | RewriteObject;
 
   /**
    * URL routing mode for locale handling

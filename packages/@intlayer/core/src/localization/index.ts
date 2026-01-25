@@ -12,5 +12,12 @@ export { getPrefix } from './getPrefix';
 export { localeDetector } from './localeDetector';
 export { localeFlatMap, localeMap, localeRecord } from './localeMapper';
 export { localeResolver } from './localeResolver';
-export { getCanonicalPath, getLocalizedPath } from './rewriteUtils';
+export type { LocalizedPathResult } from './rewriteUtils';
+export {
+  getCanonicalPath,
+  getInternalPath,
+  getLocalizedPath,
+  getRewritePath,
+  getRewriteRules,
+} from './rewriteUtils';
 export { validatePrefix } from './validatePrefix';

@@ -1,7 +1,9 @@
 'use client';
 
+import { getLocalizedUrl } from 'intlayer';
 import Image from 'next/image';
-import { useIntlayer } from 'next-intlayer';
+import Link from 'next/link';
+import { useIntlayer, useLocale } from 'next-intlayer';
 
 export const HomeContent = () => {
   const {
@@ -13,10 +15,15 @@ export const HomeContent = () => {
     examples,
     goToNextjs,
   } = useIntlayer('home-content');
+  const { locale } = useLocale();
 
   return (
     <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-[family-name:var(--font-geist-sans)] sm:p-20">
       <main className="row-start-2 flex flex-col items-center gap-8 sm:items-start">
+        <nav className="flex gap-4">
+          <Link href={getLocalizedUrl('/', locale)}>Home</Link>
+          <Link href={getLocalizedUrl('/tests', locale)}>Tests</Link>
+        </nav>
         <Image
           className="dark:invert"
           src="/next.svg"

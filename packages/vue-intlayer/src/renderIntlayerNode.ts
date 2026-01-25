@@ -20,19 +20,16 @@ export const renderIntlayerNode = <
   children: VNodeChild | ((props?: any) => VNodeChild);
   additionalProps?: Record<string, unknown>;
 }): IntlayerNode<T> => {
-  /* ------------------------------------------------------------------ */
-  /* 1.  A reactive ref keeps the primitive value                       */
-  /* ------------------------------------------------------------------ */
   const rawRef = ref(value) as { value: T };
 
-  /* 2.  We keep a *mutable* “currentRender” function.                  */
+  /* We keep a *mutable* “currentRender” function.                  */
   /*     When the dictionary/locale changes, useIntlayer swaps it.      */
   let currentRender: (props?: any) => VNodeChild =
     typeof children === 'function'
       ? (props?: any) => (children as (props?: any) => VNodeChild)(props)
       : () => children;
 
-  /* 3.  The component's `render` method uses both:                     */
+  /* The component's `render` method uses both:                     */
   /*     – it *touches* `rawRef.value` so Vue tracks reactivity         */
   /*     – it delegates the actual markup to `currentRender()`          */
   const renderFn = (props?: any) => {
@@ -41,17 +38,12 @@ export const renderIntlayerNode = <
     return currentRender(props);
   };
 
-  /* ------------------------------------------------------------------ */
-  /* 4.  Assemble the stable component object                           */
-  /*     We purposefully create the object with String.prototype in     */
-  /*     its prototype chain so that `instanceof String` === true.      */
-  /*     Vue's runtime prop validator for `String` types accepts        */
-  /*     values that satisfy `val instanceof String`, therefore this    */
-  /*     silences the "Invalid prop: type check failed" warning while   */
-  /*     keeping full object capabilities.                              */
-  /* ------------------------------------------------------------------ */
+  // Create the node as a function (functional component)
+  // This allows it to be used directly in templates as <node />
+  const node = ((props: any) => renderFn(props)) as unknown as IntlayerNode<T>;
 
-  const node: IntlayerNode<T> = Object.create(String.prototype);
+  // Set prototype to String.prototype to satisfy instanceof String checks
+  Object.setPrototypeOf(node, String.prototype);
 
   Object.assign(node, {
     /* component renderer */

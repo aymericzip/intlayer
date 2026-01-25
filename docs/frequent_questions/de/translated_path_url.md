@@ -1,16 +1,16 @@
 ---
 createdAt: 2025-05-20
-updatedAt: 2025-06-29
+updatedAt: 2026-01-22
 title: Kann ich den URL-Pfad übersetzen?
-description: Erfahren Sie, wie Sie den URL-Pfad übersetzen können.
+description: Erfahren Sie, wie Sie den URL-Pfad übersetzen.
 keywords:
   - array
-  - inhalt
-  - deklaration
+  - content
+  - declaration
   - intlayer
   - middleware
   - proxy
-  - umschreiben
+  - rewrite
   - prefix
   - locale
   - url
@@ -19,37 +19,26 @@ slugs:
   - translated-path-url
 ---
 
-# Ist es möglich, URLs wie folgt zu übersetzen:
+# Ist es möglich, URLs zu übersetzen?
+
+Ja! Intlayer unterstützt benutzerdefinierte URL-Rewrites, mit denen Sie gebietsschemaspezifische Pfade definieren können. Zum Beispiel:
 
 ```bash
-en -> /product (kein Präfix) oder /en/product (mit Präfix)
+en -> /product
 fr -> /fr/produit
 es -> /es/producto
 ```
 
-Intlayer erlaubt es leider nicht, die URLs wie angegeben zu übersetzen. Um dies zu erreichen, sollten Sie Ihre eigene Middleware oder einen Proxy verwenden, um die URLs umzuschreiben.
+Um dies zu implementieren, können Sie den Abschnitt `routing` in Ihrer `intlayer.config.ts`-Datei konfigurieren.
 
-Sie können jedoch die Funktion `getMultilingualUrl` verwenden, um das Präfix für eine bestimmte Locale in die URL einzufügen.
+Weitere Informationen zur Implementierung dieser Funktion finden Sie in der [Dokumentation zu benutzerdefinierten URL-Rewrites](/docs/concept/custom_url_rewrites).
 
-```ts
-import { getMultilingualUrl, Locales } from "intlayer";
-
-const url = getMultilingualUrl("/product");
-
-/**
- * en -> /product (kein Präfix) oder /en/product (mit Präfix)
- * fr -> /fr/product
- * es -> /es/product
- */
-console.log(url);
-```
-
-Oder `getLocalizedUrl`
+Sie können auch die Funktionen `getMultilingualUrl` und `getLocalizedUrl` verwenden, um diese URLs programmatisch zu generieren, und sie werden Ihre Rewrite-Regeln berücksichtigen.
 
 ```ts
 import { getLocalizedUrl, Locales } from "intlayer";
 
 const url = getLocalizedUrl("/product", Locales.FRENCH);
 
-console.log(url); // /fr/product
+console.log(url); // /fr/produit (falls konfiguriert)
 ```

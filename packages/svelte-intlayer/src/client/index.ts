@@ -9,3 +9,4 @@ export { useDictionaryDynamic } from './useDictionaryDynamic';
 export { useIntl } from './useIntl';
 export { useIntlayer } from './useIntlayer';
 export { useLocale } from './useLocale';
+export { useRewriteURL } from './useRewriteURL';

@@ -1,4 +1,5 @@
 import { type IntlayerConfig, Locales } from 'intlayer';
+import { nextjsRewrite } from 'intlayer/routing';
 
 export const locales = [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH];
 
@@ -8,6 +9,16 @@ const config: IntlayerConfig = {
     locales,
     defaultLocale: Locales.ENGLISH,
     strictMode: 'strict',
+  },
+  routing: {
+    mode: 'prefix-all',
+    rewrite: nextjsRewrite({
+      '/[locale]/tests': {
+        en: '/[locale]/tests',
+        fr: '/[locale]/essais',
+        es: '/[locale]/pruebas',
+      },
+    }),
   },
   content: {
     // contentDir: ['./', '../../apps'],
