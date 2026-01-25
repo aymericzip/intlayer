@@ -15,18 +15,16 @@ import {
 } from '@intlayer/types';
 import {
   createContext,
-  type Dispatch,
-  type FC,
-  type PropsWithChildren,
-  type SetStateAction,
-  useContext,
-} from 'preact/compat';
+  type FunctionalComponent,
+  type RenderableProps,
+} from 'preact';
+import { useContext } from 'preact/hooks';
 import {
   type DictionaryContent,
   useDictionariesRecord,
 } from './DictionariesRecordContext';
 import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
-import { useCrossFrameState } from './useCrossFrameState';
+import { type StateUpdater, useCrossFrameState } from './useCrossFrameState';
 
 type EditedContentStateContextType = {
   editedContent: Record<LocalDictionaryId, Dictionary> | undefined;
@@ -56,7 +54,7 @@ type EditedContentActionsContextType = {
   setEditedContentState: (
     editedContent: Record<LocalDictionaryId, Dictionary>
   ) => void;
-  setEditedDictionary: Dispatch<SetStateAction<Dictionary>>;
+  setEditedDictionary: CrossFrameStateUpdater<Dictionary>;
   setEditedContent: (
     dictionaryLocalId: LocalDictionaryId,
     newValue: Dictionary['content']
@@ -89,12 +87,17 @@ const EditedContentActionsContext = createContext<
   EditedContentActionsContextType | undefined
 >(undefined);
 
-const resolveState = <S,>(state?: SetStateAction<S>, prevState?: S): S =>
+const resolveState = <S,>(
+  state?: S | ((prevState: S) => S),
+  prevState?: S
+): S =>
   typeof state === 'function'
     ? (state as (prevState?: S) => S)(prevState)
     : (state as S);
 
-export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
+export const EditedContentProvider: FunctionalComponent<
+  RenderableProps<{}>
+> = ({ children }) => {
   const { localeDictionaries } = useDictionariesRecord();
 
   const [editedContent, setEditedContentState] =
@@ -102,7 +105,7 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
       MessageKey.INTLAYER_EDITED_CONTENT_CHANGED
     );
 
-  const setEditedDictionary: Dispatch<SetStateAction<Dictionary>> = (
+  const setEditedDictionary: CrossFrameStateUpdater<Dictionary> = (
     newValue
   ) => {
     let updatedDictionaries: Dictionary = resolveState(newValue);
@@ -118,8 +121,6 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
         [updatedDictionaries.key]: updatedDictionaries,
       };
     });
-
-    return updatedDictionaries;
   };
 
   const setEditedContent = (

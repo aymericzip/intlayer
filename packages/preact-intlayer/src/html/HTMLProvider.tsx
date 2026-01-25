@@ -2,17 +2,17 @@
 
 import {
   createContext,
-  type FC,
-  type PropsWithChildren,
-  useContext,
-} from 'preact/compat';
+  type FunctionalComponent,
+  type RenderableProps,
+} from 'preact';
+import { useContext } from 'preact/hooks';
 import type { HTMLComponents } from './types';
 
 type HTMLContextValue = {
   components?: HTMLComponents<'permissive', {}>;
 };
 
-type HTMLProviderProps = PropsWithChildren<{
+type HTMLProviderProps = RenderableProps<{
   /**
    * Component overrides for HTML tags.
    */
@@ -23,7 +23,7 @@ const HTMLContext = createContext<HTMLContextValue | undefined>(undefined);
 
 export const useHTMLContext = () => useContext(HTMLContext);
 
-export const HTMLProvider: FC<HTMLProviderProps> = ({
+export const HTMLProvider: FunctionalComponent<HTMLProviderProps> = ({
   children,
   components,
 }) => (

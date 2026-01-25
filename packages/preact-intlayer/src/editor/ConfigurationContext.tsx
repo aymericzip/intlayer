@@ -4,10 +4,10 @@ import { MessageKey } from '@intlayer/editor';
 import type { IntlayerConfig } from '@intlayer/types';
 import {
   createContext,
-  type FC,
-  type PropsWithChildren,
-  useContext,
-} from 'preact/compat';
+  type FunctionalComponent,
+  type RenderableProps,
+} from 'preact';
+import { useContext } from 'preact/hooks';
 import { useCrossFrameState } from './useCrossFrameState';
 
 const ConfigurationStatesContext = createContext<IntlayerConfig | undefined>(
@@ -28,8 +28,8 @@ export type ConfigurationProviderProps = {
   configuration?: IntlayerConfig;
 };
 
-export const ConfigurationProvider: FC<
-  PropsWithChildren<ConfigurationProviderProps>
+export const ConfigurationProvider: FunctionalComponent<
+  RenderableProps<ConfigurationProviderProps>
 > = ({ children, configuration }) => (
   <ConfigurationStatesContext.Provider value={configuration}>
     {children}

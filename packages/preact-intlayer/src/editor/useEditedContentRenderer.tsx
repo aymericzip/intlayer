@@ -2,7 +2,7 @@
 
 import { getContent } from '@intlayer/core';
 import type { Dictionary, KeyPath, Locale } from '@intlayer/types';
-import type { FC } from 'preact/compat';
+import type { FunctionalComponent } from 'preact';
 import { useEditedContentActions } from './EditedContentContext';
 
 type EditedContentRendererProps = {
@@ -33,9 +33,9 @@ export const useEditedContentRenderer = ({
   return children;
 };
 
-export const EditedContentRenderer: FC<EditedContentRendererProps> = (
-  props
-) => {
+export const EditedContentRenderer: FunctionalComponent<
+  EditedContentRendererProps
+> = (props) => {
   const content = useEditedContentRenderer(props);
 
   if (typeof content === 'object') {

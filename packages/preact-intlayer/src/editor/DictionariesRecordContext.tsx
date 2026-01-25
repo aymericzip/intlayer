@@ -4,14 +4,14 @@ import { MessageKey } from '@intlayer/editor';
 import type { Dictionary } from '@intlayer/types';
 import {
   createContext,
-  type Dispatch,
-  type FC,
-  type PropsWithChildren,
-  type SetStateAction,
-  useContext,
-  useMemo,
-} from 'preact/compat';
-import { useCrossFrameState } from './useCrossFrameState';
+  type FunctionalComponent,
+  type RenderableProps,
+} from 'preact';
+import { useContext, useMemo } from 'preact/hooks';
+import {
+  type CrossFrameStateUpdater,
+  useCrossFrameState,
+} from './useCrossFrameState';
 
 export type DictionaryContent = Record<Dictionary['key'], Dictionary>;
 
@@ -19,7 +19,7 @@ type DictionariesRecordStatesContextType = {
   localeDictionaries: DictionaryContent;
 };
 type DictionariesRecordActionsContextType = {
-  setLocaleDictionaries: Dispatch<SetStateAction<DictionaryContent>>;
+  setLocaleDictionaries: CrossFrameStateUpdater<DictionaryContent>;
   setLocaleDictionary: (dictionary: Dictionary) => void;
 };
 
@@ -30,9 +30,9 @@ const DictionariesRecordActionsContext = createContext<
   DictionariesRecordActionsContextType | undefined
 >(undefined);
 
-export const DictionariesRecordProvider: FC<PropsWithChildren> = ({
-  children,
-}) => {
+export const DictionariesRecordProvider: FunctionalComponent<
+  RenderableProps<{}>
+> = ({ children }) => {
   const [localeDictionaries, setLocaleDictionaries] =
     useCrossFrameState<DictionaryContent>(
       MessageKey.INTLAYER_LOCALE_DICTIONARIES_CHANGED,

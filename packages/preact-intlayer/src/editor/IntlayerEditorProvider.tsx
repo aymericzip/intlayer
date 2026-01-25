@@ -2,7 +2,7 @@
 
 import configuration from '@intlayer/config/built';
 import type { ComponentChildren, FunctionComponent } from 'preact';
-import { useEffect } from 'preact/compat';
+import { useEffect } from 'preact/hooks';
 import { useDictionariesRecordActions } from './DictionariesRecordContext';
 import { useEditorEnabled } from './EditorEnabledContext';
 import { EditorProvider } from './EditorProvider';

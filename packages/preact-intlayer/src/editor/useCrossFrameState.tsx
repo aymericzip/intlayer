@@ -1,13 +1,7 @@
 'use client';
 
 import type { MessageKey } from '@intlayer/editor';
-import type { SetStateAction } from 'preact/compat';
-import {
-  type Dispatch,
-  type StateUpdater,
-  useEffect,
-  useState,
-} from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 import { useCommunicator } from './CommunicatorContext';
 import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
 
@@ -16,12 +10,15 @@ export type CrossFrameStateOptions = {
   receive?: boolean;
 };
 
+export type SetStateAction<S> = S | ((prevState: S) => S);
+export type CrossFrameStateUpdater<S> = (value: SetStateAction<S>) => void;
+
 const resolveState = <S,>(
-  valueOrUpdater?: S | ((prevState: S) => S),
+  valueOrUpdater?: SetStateAction<S>,
   prevState?: S
 ): S =>
   typeof valueOrUpdater === 'function'
-    ? (valueOrUpdater as (prevState?: S) => S)(prevState)
+    ? (valueOrUpdater as (prevState?: S) => S)(prevState!)
     : (valueOrUpdater as S);
 
 /**
@@ -44,19 +41,19 @@ const resolveState = <S,>(
  *   - `emit` (default: true): Whether to broadcast state changes to other instances.
  *   - `receive` (default: true): Whether to listen for state updates from other instances.
  *
- * @returns {[S, StateUpdater<S>, typeof postState]} An array containing the current state and a setter function, and a function to manually post the state.
+ * @returns {[S, CrossFrameStateUpdater<S>, typeof postState]} An array containing the current state and a setter function, and a function to manually post the state.
  */
 export const useCrossFrameState = <S,>(
   key: `${MessageKey}`,
   initialState?: S | (() => S),
   options?: CrossFrameStateOptions
-): [S, Dispatch<SetStateAction<S>>, typeof postState] => {
+): [S, CrossFrameStateUpdater<S>, typeof postState] => {
   const { postMessage, senderId } = useCommunicator();
 
   const { emit, receive } = options ?? { emit: true, receive: true };
 
   const handleStateChange = (
-    valueOrUpdater?: S | ((prevState: S) => S),
+    valueOrUpdater?: SetStateAction<S>,
     prevState?: S
   ): S => {
     // Initialize state from the provided initial value, if defined
@@ -97,8 +94,8 @@ export const useCrossFrameState = <S,>(
    * @param {S | ((prevState: S) => S)} valueOrUpdater - The new state or a function to produce it.
    * @returns {void}
    */
-  const setStateWrapper: Dispatch<SetStateAction<S>> = (
-    valueOrUpdater: S | ((prevState: S) => S)
+  const setStateWrapper: CrossFrameStateUpdater<S> = (
+    valueOrUpdater: SetStateAction<S>
   ) => setState((prevState) => handleStateChange(valueOrUpdater, prevState));
 
   /**

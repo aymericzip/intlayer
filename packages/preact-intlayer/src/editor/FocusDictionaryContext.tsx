@@ -4,13 +4,14 @@ import { MessageKey } from '@intlayer/editor';
 import type { KeyPath } from '@intlayer/types';
 import {
   createContext,
-  type Dispatch,
-  type FC,
-  type PropsWithChildren,
-  type SetStateAction,
-  useContext,
-} from 'preact/compat';
-import { useCrossFrameState } from './useCrossFrameState';
+  type FunctionalComponent,
+  type RenderableProps,
+} from 'preact';
+import { useContext } from 'preact/hooks';
+import {
+  type CrossFrameStateUpdater,
+  useCrossFrameState,
+} from './useCrossFrameState';
 
 type DictionaryPath = string;
 
@@ -25,7 +26,7 @@ type FocusDictionaryState = {
 };
 
 type FocusDictionaryActions = {
-  setFocusedContent: Dispatch<SetStateAction<FileContent | null>>;
+  setFocusedContent: CrossFrameStateUpdater<FileContent | null>;
   setFocusedContentKeyPath: (keyPath: KeyPath[]) => void;
 };
 
@@ -36,9 +37,9 @@ const FocusDictionaryActionsContext = createContext<
   FocusDictionaryActions | undefined
 >(undefined);
 
-export const FocusDictionaryProvider: FC<PropsWithChildren> = ({
-  children,
-}) => {
+export const FocusDictionaryProvider: FunctionalComponent<
+  RenderableProps<{}>
+> = ({ children }) => {
   const [focusedContent, setFocusedContent] =
     useCrossFrameState<FileContent | null>(
       MessageKey.INTLAYER_FOCUSED_CONTENT_CHANGED,

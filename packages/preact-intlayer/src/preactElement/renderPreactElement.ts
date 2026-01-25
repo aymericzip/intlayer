@@ -1,5 +1,4 @@
-import type { ComponentChild, VNode } from 'preact';
-import { createElement } from 'preact/compat';
+import { type ComponentChild, createElement, type VNode } from 'preact';
 
 // This function recursively creates Preact elements from a given JSON-like structure
 export const renderPreactElement = (element: VNode<any>): any => {

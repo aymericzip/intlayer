@@ -3,12 +3,8 @@
 import { isSameKeyPath, type NodeProps } from '@intlayer/core';
 import { MessageKey } from '@intlayer/editor';
 import { NodeType } from '@intlayer/types';
-import {
-  type FC,
-  type HTMLAttributes,
-  useCallback,
-  useMemo,
-} from 'preact/compat';
+import type { FunctionalComponent, JSX } from 'preact';
+import { useCallback, useMemo } from 'preact/hooks';
 import { useIntlayerContext } from '../client';
 import { ContentSelector } from '../UI/ContentSelector';
 import { useCommunicator } from './CommunicatorContext';
@@ -16,13 +12,11 @@ import { useEditorEnabled } from './EditorEnabledContext';
 import { useFocusDictionary } from './FocusDictionaryContext';
 
 export type ContentSelectorWrapperProps = NodeProps &
-  Omit<HTMLAttributes<HTMLDivElement>, 'children'>;
+  Omit<JSX.HTMLAttributes<HTMLDivElement>, 'children'>;
 
-const ContentSelectorWrapperContent: FC<ContentSelectorWrapperProps> = ({
-  children,
-  dictionaryKey,
-  keyPath,
-}) => {
+const ContentSelectorWrapperContent: FunctionalComponent<
+  ContentSelectorWrapperProps
+> = ({ children, dictionaryKey, keyPath }) => {
   const { focusedContent, setFocusedContent } = useFocusDictionary();
   const { postMessage, senderId } = useCommunicator();
 
@@ -85,10 +79,9 @@ const ContentSelectorWrapperContent: FC<ContentSelectorWrapperProps> = ({
   );
 };
 
-export const ContentSelectorRenderer: FC<ContentSelectorWrapperProps> = ({
-  children,
-  ...props
-}) => {
+export const ContentSelectorRenderer: FunctionalComponent<
+  ContentSelectorWrapperProps
+> = ({ children, ...props }) => {
   const { enabled } = useEditorEnabled();
   const { disableEditor } = useIntlayerContext();
 

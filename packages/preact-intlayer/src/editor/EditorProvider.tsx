@@ -1,12 +1,11 @@
 'use client';
 
-import {
-  type FC,
-  type PropsWithChildren,
-  type ReactNode,
-  useEffect,
-  useState,
-} from 'preact/compat';
+import type {
+  ComponentChildren,
+  FunctionalComponent,
+  RenderableProps,
+} from 'preact';
+import { useEffect, useState } from 'preact/hooks';
 import {
   CommunicatorProvider,
   type CommunicatorProviderProps,
@@ -31,7 +30,9 @@ import { FocusDictionaryProvider } from './FocusDictionaryContext';
  * This component add all the providers needed by the editor.
  * It is used to wrap the application, or the editor to work together.
  */
-const EditorProvidersWrapper: FC<PropsWithChildren> = ({ children }) => {
+const EditorProvidersWrapper: FunctionalComponent<RenderableProps<{}>> = ({
+  children,
+}) => {
   const getEditedContentState = useGetEditedContentState();
 
   useEffect(() => {
@@ -48,16 +49,15 @@ const EditorProvidersWrapper: FC<PropsWithChildren> = ({ children }) => {
 };
 
 type FallbackProps = {
-  fallback: ReactNode;
+  fallback: ComponentChildren;
 };
 
 /**
  * This component check if the editor is enabled to render the editor providers.
  */
-const EditorEnabledCheckRenderer: FC<PropsWithChildren<FallbackProps>> = ({
-  children,
-  fallback,
-}) => {
+const EditorEnabledCheckRenderer: FunctionalComponent<
+  RenderableProps<FallbackProps>
+> = ({ children, fallback }) => {
   const getEditorEnabled = useGetEditorEnabledState();
 
   const { enabled } = useEditorEnabled();
@@ -76,10 +76,9 @@ const EditorEnabledCheckRenderer: FC<PropsWithChildren<FallbackProps>> = ({
  * This component is used to check if the editor is wrapping the application.
  * It avoid to send window.postMessage to the application if the editor is not wrapping the application.
  */
-const IframeCheckRenderer: FC<PropsWithChildren<FallbackProps>> = ({
-  children,
-  fallback,
-}) => {
+const IframeCheckRenderer: FunctionalComponent<
+  RenderableProps<FallbackProps>
+> = ({ children, fallback }) => {
   const [isInIframe, setIsInIframe] = useState(false);
 
   useEffect(() => {
@@ -92,11 +91,9 @@ const IframeCheckRenderer: FC<PropsWithChildren<FallbackProps>> = ({
 export type EditorProviderProps = CommunicatorProviderProps &
   ConfigurationProviderProps;
 
-export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
-  children,
-  configuration,
-  ...props
-}) => (
+export const EditorProvider: FunctionalComponent<
+  RenderableProps<EditorProviderProps>
+> = ({ children, configuration, ...props }) => (
   <EditorEnabledProvider>
     <ConfigurationProvider configuration={configuration}>
       <IframeCheckRenderer fallback={children}>

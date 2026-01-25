@@ -3,10 +3,10 @@
 import { MessageKey } from '@intlayer/editor';
 import {
   createContext,
-  type FC,
-  type PropsWithChildren,
-  useContext,
-} from 'preact/compat';
+  type FunctionalComponent,
+  type RenderableProps,
+} from 'preact';
+import { useContext } from 'preact/hooks';
 import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
 import {
   type CrossFrameStateOptions,
@@ -40,7 +40,9 @@ export const useGetEditorEnabledState = <S,>(
     onEventTriggered
   );
 
-export const EditorEnabledProvider: FC<PropsWithChildren> = ({ children }) => {
+export const EditorEnabledProvider: FunctionalComponent<
+  RenderableProps<{}>
+> = ({ children }) => {
   const [isEnabled] = useEditorEnabledState({
     emit: false,
     receive: true,
