@@ -23,7 +23,11 @@ const copyAssetsPlugin = () => ({
 
         if (stats.isDirectory()) {
           copyFilesRecursively(srcPath);
-        } else if (stats.isFile() && /\.(json|md)$/.test(entry)) {
+        } else if (
+          stats.isFile() &&
+          /\.(json|md)$/.test(entry) &&
+          !entry.startsWith('_')
+        ) {
           // Calculate destination path
           const relPath = relative(srcDir, srcPath);
           const destPath = join(outDir, relPath);
