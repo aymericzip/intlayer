@@ -28,13 +28,12 @@ export const RemoveMemberModal: FC<RemoveMemberModalProps> = ({
   onRemove,
   isOpen,
 }) => {
-  const updateMembersMutation = useUpdateOrganizationMembers() as any;
   const { mutateAsync: updateOrganizationMembers, isPending: isRemoving } =
-    updateMembersMutation;
+    useUpdateOrganizationMembers();
   const { confirmButton, cancelButton, description, title } = useIntlayer(
     'remove-member-modal'
   );
-  const usersQuery = useGetUsers() as any;
+  const usersQuery = useGetUsers();
   const {
     data: usersResponse,
     refetch: getUsers,

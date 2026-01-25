@@ -1,28 +1,30 @@
-import { type Dictionary, t } from 'intlayer';
+import { type Dictionary, insert, t } from 'intlayer';
 
 const deleteProjectModalContent = {
   key: 'remove-member-modal',
   content: {
-    title: t({
-      en: 'Remove {{memberName}} from Organization',
-      fr: 'Retirer {{memberName}} de l’organisation',
-      es: 'Eliminar {{memberName}} de la organización',
-      'en-GB': 'Remove {{memberName}} from Organization',
-      de: 'Mitglied {{memberName}} aus der Organisation entfernen',
-      ja: '組織から {{memberName}} を削除',
-      ko: '조직에서 {{memberName}} 삭제',
-      zh: '从组织中移除 {{memberName}}',
-      it: 'Rimuovi {{memberName}} dall’organizzazione',
-      pt: 'Remover {{memberName}} da Organização',
-      hi: 'संगठन से {{memberName}} हटाएं',
-      ar: 'حذف {{memberName}} من المنظمة',
-      ru: 'Удалить {{memberName}} участника из организации',
-      tr: '{{memberName}} adlı üyeyi organizasyondan çıkar',
-      pl: 'Usuń {{memberName}} z organizacji',
-      id: 'Hapus {{memberName}} dari Organisasi',
-      vi: 'Xóa {{memberName}} khỏi tổ chức',
-      uk: 'Видалити {{memberName}} з організації',
-    }),
+    title: insert(
+      t({
+        en: 'Remove {{memberName}} from Organization',
+        fr: 'Retirer {{memberName}} de l’organisation',
+        es: 'Eliminar {{memberName}} de la organización',
+        'en-GB': 'Remove {{memberName}} from Organization',
+        de: 'Mitglied {{memberName}} aus der Organisation entfernen',
+        ja: '組織から {{memberName}} を削除',
+        ko: '조직에서 {{memberName}} 삭제',
+        zh: '从组织中移除 {{memberName}}',
+        it: 'Rimuovi {{memberName}} dall’organizzazione',
+        pt: 'Remover {{memberName}} da Organização',
+        hi: 'संगठन से {{memberName}} हटाएं',
+        ar: 'حذف {{memberName}} من المنظمة',
+        ru: 'Удалить {{memberName}} участника из организации',
+        tr: '{{memberName}} adlı üyeyi organizasyondan çıkar',
+        pl: 'Usuń {{memberName}} z organizacji',
+        id: 'Hapus {{memberName}} dari Organisasi',
+        vi: 'Xóa {{memberName}} khỏi tổ chức',
+        uk: 'Видалити {{memberName}} з організації',
+      })
+    ),
 
     description: t({
       en: 'Are you sure you want to remove this member from the organization?',
