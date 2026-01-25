@@ -422,7 +422,7 @@ export const intlayerProxy = (
 
     // Construct new path - preserving original search params
     const search = appendLocaleSearchIfNeeded(searchParams, locale);
-    const newPath = constructPath(locale, targetLocalizedPath, search);
+    const newPath = constructPath(locale, targetLocalizedPath.path, search);
 
     // If we always prefix default or if this is not the default locale, do a 301 redirect
     // so that the user sees the locale in the URL.
@@ -514,7 +514,7 @@ export const intlayerProxy = (
         ? cleanBasePath.slice(0, -1)
         : cleanBasePath;
 
-      let finalPath = targetLocalizedPath;
+      let finalPath = targetLocalizedPath.path;
       if (finalPath.startsWith('/')) finalPath = finalPath.slice(1);
 
       const fullPath = `${normalizedBasePath}/${finalPath}`.replace(

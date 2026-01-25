@@ -287,7 +287,7 @@ const handleMissingPathLocale = (
 
   const newPath = constructPath(
     locale,
-    targetLocalizedPath,
+    targetLocalizedPath.path,
     basePath as string,
     appendLocaleSearchIfNeeded(request.nextUrl.search, locale)
   );
@@ -370,7 +370,7 @@ const handleCookieLocaleMismatch = (
 
   return constructPath(
     localLocale,
-    targetLocalizedPath,
+    targetLocalizedPath.path,
     basePath,
     appendLocaleSearchIfNeeded(request.nextUrl.search, localLocale)
   );
@@ -395,7 +395,7 @@ const handleDefaultLocaleRedirect = (
 
     // Construct path without prefix
     const basePathTrailingSlash = (basePath as string).endsWith('/');
-    let finalPath = targetLocalizedPath;
+    let finalPath = targetLocalizedPath.path;
     if (finalPath.startsWith('/')) finalPath = finalPath.slice(1);
 
     const fullPath = `${basePath}${basePathTrailingSlash ? '' : '/'}${finalPath}`;
