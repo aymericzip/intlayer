@@ -10,6 +10,7 @@ import {
   getCookie,
   getLocaleFromStorage,
   getLocalizedPath,
+  getRewriteRules,
   localeDetector,
   setLocaleInStorage,
 } from '@intlayer/core';
@@ -62,7 +63,11 @@ export const intlayerProxy = (
   const { internationalization, routing } = intlayerConfig;
   const { locales: supportedLocales, defaultLocale } = internationalization;
 
-  const { basePath = '', mode = DefaultValues.Routing.ROUTING_MODE } = routing;
+  const {
+    basePath = '',
+    mode = DefaultValues.Routing.ROUTING_MODE,
+    rewrite,
+  } = routing;
 
   // Track redirect counts per request to detect loops
   const redirectCounts = new Map<string, number>();
@@ -71,6 +76,8 @@ export const intlayerProxy = (
   // Derived flags from routing.mode
   const noPrefix = mode === 'no-prefix' || mode === 'search-params';
   const prefixDefault = mode === 'prefix-all';
+
+  const rewriteRules = getRewriteRules(rewrite, 'url');
 
   /* --------------------------------------------------------------------
    *                     Helper & Utility Functions
@@ -269,7 +276,11 @@ export const intlayerProxy = (
       const pathWithoutLocale =
         originalPath.slice(`/${pathLocale}`.length) || '/';
 
-      const canonicalPath = getCanonicalPath(pathWithoutLocale, pathLocale);
+      const canonicalPath = getCanonicalPath(
+        pathWithoutLocale,
+        pathLocale,
+        rewriteRules
+      );
 
       const search = appendLocaleSearchIfNeeded(searchParams, pathLocale);
 
@@ -280,7 +291,7 @@ export const intlayerProxy = (
       return redirectUrl(res, redirectPath, undefined, originalUrl);
     }
 
-    const canonicalPath = getCanonicalPath(originalPath, locale);
+    const canonicalPath = getCanonicalPath(originalPath, locale, rewriteRules);
 
     // In search-params mode, we need to redirect to add the locale search param
     if (mode === 'search-params') {
@@ -414,15 +425,23 @@ export const intlayerProxy = (
 
     // Resolve to canonical path.
     // If user visits /a-propos (implied 'fr'), we resolve to /about
-    const canonicalPath = getCanonicalPath(originalPath, locale);
+    const canonicalPath = getCanonicalPath(originalPath, locale, rewriteRules);
 
     // Determine target localized path for redirection
     // /about + 'fr' -> /a-propos
-    const targetLocalizedPath = getLocalizedPath(canonicalPath, locale);
+    const targetLocalizedPathResult = getLocalizedPath(
+      canonicalPath,
+      locale,
+      rewriteRules
+    );
+    const targetLocalizedPath =
+      typeof targetLocalizedPathResult === 'string'
+        ? targetLocalizedPathResult
+        : targetLocalizedPathResult.path;
 
     // Construct new path - preserving original search params
     const search = appendLocaleSearchIfNeeded(searchParams, locale);
-    const newPath = constructPath(locale, targetLocalizedPath.path, search);
+    const newPath = constructPath(locale, targetLocalizedPath, search);
 
     // If we always prefix default or if this is not the default locale, do a 301 redirect
     // so that the user sees the locale in the URL.
@@ -464,7 +483,21 @@ export const intlayerProxy = (
 
     // Identify the Canonical Path (Internal path)
     // Ex: /a-propos (from URL) -> /about (Canonical)
-    const canonicalPath = getCanonicalPath(rawPath, pathLocale);
+    const canonicalPath = getCanonicalPath(rawPath, pathLocale, rewriteRules);
+
+    // Redirect Pretty URL to Canonical URL (Vite Specific Requirement)
+    // If request is /fr/a-props (Pretty) -> Redirect to /fr/about (Canonical)
+    // This allows the SPA router to handle the route naturally.
+    if (canonicalPath !== rawPath) {
+      const internalUrl = `/${pathLocale}${
+        canonicalPath === '/' ? '' : canonicalPath
+      }`;
+      const redirectPath = searchParams
+        ? `${internalUrl}${searchParams}`
+        : internalUrl;
+
+      return redirectUrl(res, redirectPath, undefined, originalUrl);
+    }
 
     // In prefix modes, respect the URL path locale
     // The path locale takes precedence, and we'll update storage to match
@@ -504,7 +537,15 @@ export const intlayerProxy = (
   }) => {
     // If we don't prefix default AND the path locale is the default locale -> remove it
     if (!prefixDefault && pathLocale === defaultLocale) {
-      const targetLocalizedPath = getLocalizedPath(canonicalPath, pathLocale);
+      const targetLocalizedPathResult = getLocalizedPath(
+        canonicalPath,
+        pathLocale,
+        rewriteRules
+      );
+      const targetLocalizedPath =
+        typeof targetLocalizedPathResult === 'string'
+          ? targetLocalizedPathResult
+          : targetLocalizedPathResult.path;
 
       // Construct path without prefix
       const cleanBasePath = basePath.startsWith('/')
@@ -514,7 +555,7 @@ export const intlayerProxy = (
         ? cleanBasePath.slice(0, -1)
         : cleanBasePath;
 
-      let finalPath = targetLocalizedPath.path;
+      let finalPath = targetLocalizedPath;
       if (finalPath.startsWith('/')) finalPath = finalPath.slice(1);
 
       const fullPath = `${normalizedBasePath}/${finalPath}`.replace(

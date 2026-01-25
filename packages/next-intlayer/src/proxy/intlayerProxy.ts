@@ -4,6 +4,7 @@ import {
   getCanonicalPath,
   getLocaleFromStorage,
   getLocalizedPath,
+  getRewriteRules,
   setLocaleInStorage,
 } from '@intlayer/core';
 import type { Locale } from '@intlayer/types';
@@ -47,7 +48,7 @@ const DEFAULT_DETECT_LOCALE_ON_PREFETCH_NO_PREFIX = false;
 
 const { internationalization, routing } = configuration ?? {};
 const { locales, defaultLocale } = internationalization ?? {};
-const { basePath, mode } = routing ?? {};
+const { basePath, mode, rewrite } = routing ?? {};
 
 // Note: cookie names are resolved inside LocaleStorage based on configuration
 
@@ -56,6 +57,8 @@ const effectiveMode = mode ?? DefaultValues.Routing.ROUTING_MODE;
 const noPrefix =
   effectiveMode === 'no-prefix' || effectiveMode === 'search-params';
 const prefixDefault = effectiveMode === 'prefix-all';
+
+const rewriteRules = getRewriteRules(rewrite, 'url');
 
 /**
  * Detects if the request is a prefetch request from Next.js.
@@ -161,7 +164,11 @@ const handleNoPrefix = (
   if (pathLocale) {
     const pathWithoutLocale = pathname.slice(`/${pathLocale}`.length) || '/';
 
-    const canonicalPath = getCanonicalPath(pathWithoutLocale, pathLocale);
+    const canonicalPath = getCanonicalPath(
+      pathWithoutLocale,
+      pathLocale,
+      rewriteRules
+    );
 
     const search = appendLocaleSearchIfNeeded(
       request.nextUrl.search,
@@ -177,7 +184,11 @@ const handleNoPrefix = (
 
   // Resolve the internal canonical path
   // If user visits /a-propos (no prefix), and we detect 'fr', we resolve to /about
-  const canonicalPath = getCanonicalPath(pathname, locale as Locale);
+  const canonicalPath = getCanonicalPath(
+    pathname,
+    locale as Locale,
+    rewriteRules
+  );
 
   if (effectiveMode === 'search-params') {
     const existingSearchParams = new URLSearchParams(request.nextUrl.search);
@@ -279,15 +290,23 @@ const handleMissingPathLocale = (
 
   // Resolve to canonical path.
   // If user visits /a-propos (implied 'fr'), we resolve to /about
-  const canonicalPath = getCanonicalPath(pathname, locale);
+  const canonicalPath = getCanonicalPath(pathname, locale, rewriteRules);
 
   // Determine target localized path for redirection
   // /about + 'fr' -> /a-propos
-  const targetLocalizedPath = getLocalizedPath(canonicalPath, locale);
+  const targetLocalizedPathResult = getLocalizedPath(
+    canonicalPath,
+    locale,
+    rewriteRules
+  );
+  const targetLocalizedPath =
+    typeof targetLocalizedPathResult === 'string'
+      ? targetLocalizedPathResult
+      : targetLocalizedPathResult.path;
 
   const newPath = constructPath(
     locale,
-    targetLocalizedPath.path,
+    targetLocalizedPath,
     basePath as string,
     appendLocaleSearchIfNeeded(request.nextUrl.search, locale)
   );
@@ -316,7 +335,7 @@ const handleExistingPathLocale = (
 
   // 1. Identify the Canonical Path (Internal Next.js path)
   // Ex: /a-propos (from URL) -> /about (Canonical)
-  const canonicalPath = getCanonicalPath(rawPath, pathLocale);
+  const canonicalPath = getCanonicalPath(rawPath, pathLocale, rewriteRules);
 
   if (localLocale && localLocale !== pathLocale) {
     // Cookie mismatch: Redirect to the correct locale using the Canonical Path as the source
@@ -332,6 +351,32 @@ const handleExistingPathLocale = (
   // Rewrite Logic
   // We must rewrite to the Next.js internal structure: /[locale]/[canonicalPath]
   // Ex: Rewrite /fr/a-propos -> /fr/about
+
+  // 2. Redirect to localized path if needed (Canonical -> Localized)
+  // Ex: /fr/about -> /fr/a-propos
+  const targetLocalizedPathResult = getLocalizedPath(
+    canonicalPath,
+    pathLocale,
+    rewriteRules
+  );
+  const targetLocalizedPath =
+    typeof targetLocalizedPathResult === 'string'
+      ? targetLocalizedPathResult
+      : targetLocalizedPathResult.path;
+  const isRewritten =
+    typeof targetLocalizedPathResult === 'string'
+      ? false
+      : targetLocalizedPathResult.isRewritten;
+
+  if (isRewritten && targetLocalizedPath !== rawPath) {
+    const newPath = constructPath(
+      pathLocale,
+      targetLocalizedPath,
+      basePath as string,
+      appendLocaleSearchIfNeeded(request.nextUrl.search, pathLocale)
+    );
+    return redirectUrl(request, newPath);
+  }
 
   const internalUrl = `/${pathLocale}${canonicalPath}`;
 
@@ -366,11 +411,19 @@ const handleCookieLocaleMismatch = (
   basePath: string
 ): string => {
   // Translate canonical path (/about) to target locale path (/es/acerca)
-  const targetLocalizedPath = getLocalizedPath(canonicalPath, localLocale);
+  const targetLocalizedPathResult = getLocalizedPath(
+    canonicalPath,
+    localLocale,
+    rewriteRules
+  );
+  const targetLocalizedPath =
+    typeof targetLocalizedPathResult === 'string'
+      ? targetLocalizedPathResult
+      : targetLocalizedPathResult.path;
 
   return constructPath(
     localLocale,
-    targetLocalizedPath.path,
+    targetLocalizedPath,
     basePath,
     appendLocaleSearchIfNeeded(request.nextUrl.search, localLocale)
   );
@@ -391,11 +444,19 @@ const handleDefaultLocaleRedirect = (
     // But wait, if we are in this function, the URL *has* a prefix.
     // We want to redirect to /about (localized for EN).
 
-    const targetLocalizedPath = getLocalizedPath(canonicalPath, pathLocale);
+    const targetLocalizedPathResult = getLocalizedPath(
+      canonicalPath,
+      pathLocale,
+      rewriteRules
+    );
+    const targetLocalizedPath =
+      typeof targetLocalizedPathResult === 'string'
+        ? targetLocalizedPathResult
+        : targetLocalizedPathResult.path;
 
     // Construct path without prefix
     const basePathTrailingSlash = (basePath as string).endsWith('/');
-    let finalPath = targetLocalizedPath.path;
+    let finalPath = targetLocalizedPath;
     if (finalPath.startsWith('/')) finalPath = finalPath.slice(1);
 
     const fullPath = `${basePath}${basePathTrailingSlash ? '' : '/'}${finalPath}`;
