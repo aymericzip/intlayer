@@ -31,55 +31,47 @@ export const getIntlayerMarkdownOptions: (
   isDarkMode: boolean
 ) => RenderMarkdownProps = (isDarkMode) => ({
   components: {
-    h1: (props: ComponentProps<typeof H1>) => (
-      <H1 isClickable={true} {...props} />
-    ),
-    h2: (props: ComponentProps<typeof H2>) => (
-      <H2 isClickable={true} className="mt-16" {...props} />
-    ),
-    h3: (props: ComponentProps<typeof H3>) => (
-      <H3 isClickable={true} className="mt-5" {...props} />
-    ),
-    h4: (props: ComponentProps<typeof H4>) => (
-      <H4 isClickable={true} className="mt-3" {...props} />
-    ),
-    h5: (props: ComponentProps<typeof H5>) => (
-      <H5 isClickable={true} className="mt-3" {...props} />
-    ),
-    h6: (props: ComponentProps<typeof H6>) => (
-      <H6 isClickable={true} className="mt-3" {...props} />
-    ),
+    h1: (props) => <H1 isClickable={true} {...props} />,
+    h2: (props) => <H2 isClickable={true} className="mt-16" {...props} />,
+    h3: (props) => <H3 isClickable={true} className="mt-5" {...props} />,
+    h4: (props) => <H4 isClickable={true} className="mt-3" {...props} />,
+    h5: (props) => <H5 isClickable={true} className="mt-3" {...props} />,
+    h6: (props) => <H6 isClickable={true} className="mt-3" {...props} />,
 
-    code: (
-      props: Omit<ComponentPropsWithoutRef<'code'>, 'children'> &
-        Partial<CodeCompAttributes> & { children: string }
-    ) =>
-      !props.className ? (
-        <strong className="rounded bg-card/60 box-decoration-clone px-1 py-0.5">
-          {props.children}
-        </strong>
-      ) : (
+    code: ({ className, children, ...rest }: ComponentProps<'code'>) => {
+      // Ensure children is a string (Markdown renderer might pass ReactNodes)
+      const content = String(children ?? '').replace(/\n$/, '');
+
+      // Determine if it is inline code or a code block
+      // Code blocks usually have a className like 'language-ts'
+      const isBlock = !!className;
+
+      if (!isBlock) {
+        return (
+          <strong className="rounded bg-card/60 box-decoration-clone px-1 py-0.5 font-mono text-sm">
+            {content}
+          </strong>
+        );
+      }
+
+      // Extract language from className (e.g., "language-typescript" -> "typescript")
+      const language = (className?.replace(/lang(?:uage)?-/, '') ||
+        'plaintext') as BundledLanguage;
+
+      return (
         <Code
-          {...props}
-          isDarkMode={isDarkMode}
-          language={
-            (props.className?.replace('lang-', '') ||
-              'plaintext') as BundledLanguage
-          }
-          fileName={props.fileName}
-          showHeader={Boolean(
-            props.fileName ||
-              props.packageManager ||
-              props.codeFormat ||
-              props.contentDeclarationFormat
-          )}
-        />
-      ),
+          {...rest}
+          language={language}
+          fileName={rest.title} // Markdown title attributes often map here
+          showHeader={true}
+          isDarkMode={isDarkMode} // Ensure this variable is available in scope
+        >
+          {content}
+        </Code>
+      );
+    },
 
-    blockquote: ({
-      className,
-      ...props
-    }: ComponentPropsWithoutRef<'blockquote'>) => (
+    blockquote: ({ className, ...props }) => (
       <blockquote
         className={cn(
           'mt-5 gap-3 border-card border-l-4 pl-5 text-neutral',
@@ -88,19 +80,19 @@ export const getIntlayerMarkdownOptions: (
         {...props}
       />
     ),
-    ul: ({ className, ...props }: ComponentPropsWithoutRef<'ul'>) => (
+    ul: ({ className, ...props }) => (
       <ul
         className={cn('mt-5 flex list-disc flex-col gap-3 pl-5', className)}
         {...props}
       />
     ),
-    ol: ({ className, ...props }: ComponentPropsWithoutRef<'ol'>) => (
+    ol: ({ className, ...props }) => (
       <ol
         className={cn('mt-5 flex list-decimal flex-col gap-3 pl-5', className)}
         {...props}
       />
     ),
-    img: ({ className, ...props }: ComponentPropsWithoutRef<'img'>) => (
+    img: ({ className, ...props }) => (
       <img
         {...props}
         alt={props.alt ?? ''}
@@ -109,39 +101,40 @@ export const getIntlayerMarkdownOptions: (
         src={`${props.src}?raw=true`}
       />
     ),
-    a: (props: ComponentProps<typeof Link>) => (
+    a: (props) => (
+      // @ts-expect-error - label is not required in LinkProps
       <Link
-        color="neutral"
         isExternalLink={props.href?.startsWith('http')}
         underlined={true}
         // locale={locale}
         {...props}
+        color="neutral"
       />
     ),
-    pre: (props: ComponentPropsWithoutRef<'pre'>) => props.children,
+    pre: (props) => props.children,
 
     table: (props: ComponentProps<typeof Table>) => (
       <Table isRollable={true} {...props} />
     ),
-    th: ({ className, ...props }: ComponentPropsWithoutRef<'th'>) => (
+    th: ({ className, ...props }) => (
       <th
         className={cn('border-neutral border-b bg-neutral/10 p-4', className)}
         {...props}
       />
     ),
-    tr: ({ className, ...props }: ComponentPropsWithoutRef<'tr'>) => (
+    tr: ({ className, ...props }) => (
       <tr
         className={cn('hover:/10 hover:bg-neutral/10', className)}
         {...props}
       />
     ),
-    td: ({ className, ...props }: ComponentPropsWithoutRef<'td'>) => (
+    td: ({ className, ...props }) => (
       <td
         className={cn('border-neutral-500/50 border-b p-4', className)}
         {...props}
       />
     ),
-    hr: ({ className, ...props }: ComponentPropsWithoutRef<'hr'>) => (
+    hr: ({ className, ...props }) => (
       <hr className={cn('mx-6 mt-16 text-neutral', className)} {...props} />
     ),
     Tabs: (props: ComponentProps<typeof Tab>) => (
@@ -187,38 +180,47 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
     components: {
       ...markdownOptions.components,
       // Pass dynamic props to components
-      code: (
-        props: Omit<ComponentPropsWithoutRef<'code'>, 'children'> &
-          Partial<CodeCompAttributes> & { children: string }
-      ) =>
-        !props.className ? (
-          <strong className="rounded bg-card/60 box-decoration-clone px-1 py-0.5">
-            {props.children}
-          </strong>
-        ) : (
+      code: ({ className, children, ...rest }: ComponentProps<'code'>) => {
+        // Ensure children is a string (Markdown renderer might pass ReactNodes)
+        const content = String(children ?? '').replace(/\n$/, '');
+
+        // Determine if it is inline code or a code block
+        // Code blocks usually have a className like 'language-ts'
+        const isBlock = !!className;
+
+        if (!isBlock) {
+          return (
+            <strong className="rounded bg-card/60 box-decoration-clone px-1 py-0.5 font-mono text-sm">
+              {content}
+            </strong>
+          );
+        }
+
+        // Extract language from className (e.g., "language-typescript" -> "typescript")
+        const language = (className?.replace(/lang(?:uage)?-/, '') ||
+          'plaintext') as BundledLanguage;
+
+        return (
           <Code
-            {...props}
-            isDarkMode={isDarkMode}
-            language={
-              (props.className?.replace('lang-', '') ||
-                'plaintext') as BundledLanguage
-            }
-            fileName={props.fileName}
-            showHeader={Boolean(
-              props.fileName ||
-                props.packageManager ||
-                props.codeFormat ||
-                props.contentDeclarationFormat
-            )}
-          />
-        ),
-      a: (props: ComponentProps<typeof Link>) => (
+            {...rest}
+            language={language}
+            fileName={rest.title} // Markdown title attributes often map here
+            showHeader={true}
+            isDarkMode={isDarkMode} // Ensure this variable is available in scope
+          >
+            {content}
+          </Code>
+        );
+      },
+
+      a: (props) => (
+        // @ts-expect-error - label is not required in LinkProps
         <Link
-          color="neutral"
           isExternalLink={props.href?.startsWith('http')}
           underlined={true}
           locale={locale}
           {...props}
+          color="neutral"
         />
       ),
       ...componentsProp,

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { html } from './index';
+import { html } from './html';
 
 describe('html', () => {
   it('should extract custom components from string content by default', () => {

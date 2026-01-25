@@ -1,4 +1,10 @@
-import { type FC, useState } from 'react';
+import { getIntlayer } from 'intlayer';
+import {
+  type DetailedHTMLProps,
+  type FC,
+  type ImgHTMLAttributes,
+  useState,
+} from 'react';
 import {
   HTMLProvider,
   MarkdownProvider,
@@ -15,6 +21,8 @@ import HelloWorld from './Test';
 const AppContent: FC = () => {
   const [count, setCount] = useState(0);
   const content = useIntlayer('app');
+
+  const content2 = getIntlayer('app');
 
   return (
     <>
@@ -77,13 +85,13 @@ const AppContent: FC = () => {
         {content.html.use({
           div: (props) => <div {...props} style={{ background: 'yellow' }} />,
 
-          'custom-component': (props: any) => (
+          'custom-component': (props) => (
             <h1 style={{ color: 'red' }} {...props}>
               Custom 1
             </h1>
           ),
 
-          CustomComponent2: (props: any) => (
+          CustomComponent2: (props) => (
             <h1 style={{ color: 'green' }} {...props}>
               {props.children}
             </h1>
@@ -115,7 +123,19 @@ const App: FC = () => (
             {props.children}
           </h1>
         ),
-        ComponentDemo: () => <div style={{ background: 'grey' }}>DEMO</div>,
+        img: (
+          props: DetailedHTMLProps<
+            ImgHTMLAttributes<HTMLImageElement>,
+            HTMLImageElement
+          >
+        ) => <img {...props} style={{ background: 'grey' }} alt={props.alt} />,
+        code: (props) => <code {...props} style={{ background: 'grey' }} />,
+        a: (props) => <a {...props} style={{ color: 'blue' }} />,
+        ComponentDemo: (props) => (
+          <div style={{ background: 'grey' }} {...props}>
+            DEMO
+          </div>
+        ),
       }}
     >
       <HTMLProvider

@@ -2,23 +2,18 @@
 
 import { getHTML, HTML_TAGS } from '@intlayer/core';
 import { createElement, type FC, Fragment, type JSX } from 'react';
+import type { HTMLComponents } from '../utils/HTMLComponentTypes';
 import { useHTMLContext } from './HTMLProvider';
-import type { ReactHTMLComponent } from './types';
 
-/**
- * Type for React HTML tag components.
- */
-type HTMLTagComponent = ReactHTMLComponent;
-
-const createDefaultHTMLComponents = (): Record<string, HTMLTagComponent> => {
-  const components: Record<string, HTMLTagComponent> = {};
+const createDefaultHTMLComponents = (): HTMLComponents<'permissive', {}> => {
+  const components: HTMLComponents = {};
 
   for (const tag of HTML_TAGS) {
     components[tag] = ({ children, ...props }) =>
-      createElement(tag, props, children);
+      createElement(tag, props as any, children);
   }
 
-  return components;
+  return components as HTMLComponents<'permissive', {}>;
 };
 
 export const defaultHTMLComponents = createDefaultHTMLComponents();
@@ -28,7 +23,7 @@ export type RenderHTMLProps = {
    * Component overrides for HTML tags.
    * Allows you to customize how specific HTML elements are rendered.
    */
-  components?: Record<string, any>;
+  components?: HTMLComponents<'permissive', {}>;
 };
 
 /**

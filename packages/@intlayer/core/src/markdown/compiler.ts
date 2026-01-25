@@ -67,7 +67,7 @@ import { parserFor } from './parser';
 import { createRenderer, renderFor } from './renderer';
 import type {
   CompileOptions,
-  Overrides as ComponentDefinition,
+  ComponentOverrides as ComponentDefinition,
   HeadingNode,
   HTMLTag,
   MarkdownContext,
@@ -126,29 +126,28 @@ const LINK_R = new RegExp(
   `^\\[(${LINK_INSIDE})\\]\\(${LINK_HREF_AND_TITLE}\\)`
 );
 
-const getTag = (tag: any, components: ComponentDefinition): any => {
+const getTag = (tag: any, components: ComponentDefinition<any>): any => {
   if (typeof tag !== 'string') return tag;
-  const override = get(components, tag);
+  let override = get(components, tag);
+
+  if (!override && typeof tag === 'string') {
+    const lowercaseTag = tag.toLowerCase();
+    // Try case-insensitive lookup
+    const key = Object.keys(components).find(
+      (k) => k.toLowerCase() === lowercaseTag
+    );
+    if (key) {
+      override = get(components, key);
+    }
+  }
 
   if (!override) return tag;
 
-  if (typeof override === 'function') return override;
-
-  if (
-    typeof override === 'object' &&
-    !('component' in override) &&
-    !('props' in override)
-  )
-    return override;
-
-  if (typeof override === 'object' && 'component' in override)
-    return override.component ?? tag;
-
-  return tag;
+  return override;
 };
 
 const createElementFactory = (
-  ctx: MarkdownContext,
+  ctx: MarkdownContext<any>,
   options: MarkdownOptions
 ): CreateElementFunction => {
   const { runtime, components = {} } = ctx;
@@ -176,41 +175,27 @@ const createElementFactory = (
     }
 
     const isStringTag = typeof tag === 'string';
-    let overrideProps: Record<string, any> = {};
 
-    if (isStringTag) {
-      // Use template literal safely
-      const path = `${tag as string}.props`;
-      overrideProps = (get(components, path, {}) ?? {}) as Record<string, any>;
-    }
+    const className = cx(props?.className, props?.class);
 
-    const className = cx(
-      props?.className,
-      props?.class,
-      overrideProps?.className,
-      overrideProps?.class
-    );
-
-    const initialMergedProps: Record<string, any> = {
-      ...props,
-      ...overrideProps,
-    };
     const mergedProps: Record<string, any> = {};
     let classNameHandled = false;
 
     // Preserve attribute order while merging className
-    for (const key in initialMergedProps) {
-      const value = initialMergedProps[key];
+    if (props) {
+      for (const key in props) {
+        const value = props[key];
 
-      if (value === undefined || value === null) continue;
+        if (value === undefined || value === null) continue;
 
-      if (key === 'className' || key === 'class') {
-        if (!classNameHandled) {
-          if (className) mergedProps.className = className;
-          classNameHandled = true;
+        if (key === 'className' || key === 'class') {
+          if (!classNameHandled) {
+            if (className) mergedProps.className = className;
+            classNameHandled = true;
+          }
+        } else {
+          mergedProps[key] = value;
         }
-      } else {
-        mergedProps[key] = value;
       }
     }
 
@@ -234,7 +219,7 @@ const createElementFactory = (
 
 const createRules = (
   createElement: CreateElementFunction,
-  ctx: MarkdownContext,
+  ctx: MarkdownContext<any>,
   options: MarkdownOptions,
   footnotes: FootnoteDef[],
   refs: Record<string, { target: string; title?: string }>,
@@ -286,7 +271,6 @@ const createRules = (
       }),
       _order: Priority.HIGH,
       _parse(capture, parse, state) {
-        const start = performance.now();
         const bullet = capture[2];
         const startValue = ordered ? +bullet.slice(0, -1) : undefined;
         const items = capture[0]
@@ -598,16 +582,16 @@ const createRules = (
         const parseFunc = containsBlockSyntax(trimmed)
           ? parseBlock
           : parseInline;
-        const tagName = capture[1].toLowerCase() as HTMLTag;
+        const tagName = capture[1].trim();
         const noInnerParse =
-          DO_NOT_PROCESS_HTML_ELEMENTS.indexOf(tagName) !== -1;
-        const tag = (noInnerParse ? tagName : capture[1]).trim() as HTMLTag;
+          DO_NOT_PROCESS_HTML_ELEMENTS.indexOf(tagName.toLowerCase()) !== -1;
+        const tag = (noInnerParse ? tagName.toLowerCase() : tagName) as HTMLTag;
         const ast: any = {
           attrs: attrStringToMap(tag, capture[2] ?? ''),
           noInnerParse,
           tag,
         };
-        state.inAnchor = state.inAnchor || tagName === 'a';
+        state.inAnchor = state.inAnchor || tagName.toLowerCase() === 'a';
 
         if (noInnerParse) {
           ast.text = capture[3];
@@ -658,7 +642,7 @@ const createRules = (
     },
     [RuleType.customComponent]: {
       _qualify: (source) => /^ *<([A-Z][a-zA-Z0-9]*)/.test(source),
-      _match: blockRegex(CUSTOM_COMPONENT_R),
+      _match: anyScopeRegex(CUSTOM_COMPONENT_R),
       _order: Priority.MAX,
       _parse(capture, parse, state) {
         const m = capture[3].match(HTML_LEFT_TRIM_AMOUNT_R);
@@ -1042,7 +1026,7 @@ const createRules = (
 
 export const compile = (
   markdown: string = '',
-  ctx: MarkdownContext,
+  ctx: MarkdownContext<any>,
   options: MarkdownOptions = {}
 ): unknown => {
   // const cacheKey = JSON.stringify({
@@ -1122,6 +1106,7 @@ export const compile = (
     NP_TABLE_R,
     ORDERED_LIST_R,
     UNORDERED_LIST_R,
+    CUSTOM_COMPONENT_R,
   ];
 
   const containsBlockSyntax = (input: string): boolean => {
@@ -1266,14 +1251,14 @@ export const compile = (
 };
 
 export const createCompiler =
-  (ctx: MarkdownContext) =>
+  (ctx: MarkdownContext<any>) =>
   (markdown: string, options?: MarkdownOptions): unknown =>
     compile(markdown, ctx, options);
 
 export const compileWithOptions = (
   markdown: string,
   runtime: MarkdownRuntime,
-  options: CompileOptions = {}
+  options: CompileOptions<any> = {}
 ): unknown => {
   const {
     components,

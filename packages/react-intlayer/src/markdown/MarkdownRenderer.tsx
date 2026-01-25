@@ -1,5 +1,5 @@
-import type { Overrides } from '@intlayer/core';
-import type { FC, JSX, ReactNode } from 'react';
+import type { FC, HTMLAttributes, JSX, ReactNode } from 'react';
+import type { HTMLComponents } from '../utils/HTMLComponentTypes';
 import {
   type MarkdownProviderOptions,
   useMarkdownContext,
@@ -39,7 +39,7 @@ export type RenderMarkdownProps = MarkdownProviderOptions & {
    * }}
    * ```
    */
-  components?: Overrides;
+  components?: HTMLComponents<'permissive', {}>;
   /**
    * Wrapper element or component to be used when there are multiple children.
    * Only used if not wrapped in a MarkdownProvider.
@@ -49,7 +49,7 @@ export type RenderMarkdownProps = MarkdownProviderOptions & {
    * wrapper={({ children }) => <div className="markdown-content">{children}</div>}
    * ```
    */
-  wrapper?: FC;
+  wrapper?: FC<HTMLAttributes<HTMLElement>>;
 };
 
 /**
@@ -159,14 +159,17 @@ export const useMarkdownRenderer = ({
 
   return (content: string) => {
     if (context) {
-      return context.renderMarkdown(content, {
+      return context.renderMarkdown(
+        content,
+        {
+          forceBlock,
+          forceInline,
+          preserveFrontmatter,
+          tagfilter,
+        },
         components,
-        wrapper,
-        forceBlock,
-        forceInline,
-        preserveFrontmatter,
-        tagfilter,
-      });
+        wrapper
+      );
     }
 
     return renderMarkdown(content, {
@@ -230,7 +233,7 @@ export type MarkdownRendererProps = RenderMarkdownProps & {
   renderMarkdown?: (
     markdown: string,
     options?: {
-      components?: Overrides;
+      components?: HTMLComponents<'permissive', {}>;
       wrapper?: FC;
       forceBlock?: boolean;
       forceInline?: boolean;
@@ -331,14 +334,17 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   if (context) {
     return (
       <>
-        {context.renderMarkdown(children, {
+        {context.renderMarkdown(
+          children,
+          {
+            forceBlock,
+            forceInline,
+            preserveFrontmatter,
+            tagfilter,
+          },
           components,
-          wrapper,
-          forceBlock,
-          forceInline,
-          preserveFrontmatter,
-          tagfilter,
-        })}
+          wrapper
+        )}
       </>
     );
   }

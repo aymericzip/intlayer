@@ -13,6 +13,7 @@ import {
 import { flushSync } from 'react-dom';
 import { createRoot } from 'react-dom/client';
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import type { HTMLComponents } from '../utils/HTMLComponentTypes';
 import { compiler, RuleType, sanitizer } from './processor';
 
 const container = document.body.appendChild(
@@ -136,7 +137,7 @@ it('#700 perf regression with unclosed inline syntax', () => {
   );
 
   expect(container.innerHTML).toMatchInlineSnapshot(
-    `"<span>«Cleanliness is the finest of uniforms and a great defender against disease»*. Silver fabric was flowing. A wasp, buzzing, touches the bronze lips of the dragon with delicate <tooltip></tooltip><tooltiptrigger></tooltiptrigger>hymenous wings&lt;/TooltipTrigger&gt;<tooltipcontent></tooltipcontent>wings thin like a membrane (hymenous = thin, like a hymen, meaning very thin skin).&lt;/TooltipContent&gt;&lt;/Tooltip&gt;. On the <tooltip></tooltip><tooltiptrigger></tooltiptrigger>carved&lt;/TooltipTrigger&gt;<tooltipcontent></tooltipcontent>engraved.&lt;/TooltipContent&gt;&lt;/Tooltip&gt; tree trunk like a <tooltip></tooltip><tooltiptrigger></tooltiptrigger>cradle&lt;/TooltipTrigger&gt;<tooltipcontent></tooltipcontent>a swing.&lt;/TooltipContent&gt;&lt;/Tooltip&gt; trough, where the animals quench their thirst, the beehive rests after gathering from the flowers.</span>"`
+    `"<span>«Cleanliness is the finest of uniforms and a great defender against disease»*. Silver fabric was flowing. A wasp, buzzing, touches the bronze lips of the dragon with delicate <tooltip><tooltiptrigger>hymenous wings</tooltiptrigger><tooltipcontent>wings thin like a membrane (hymenous = thin, like a hymen, meaning very thin skin).</tooltipcontent></tooltip>. On the <tooltip><tooltiptrigger>carved</tooltiptrigger><tooltipcontent>engraved.</tooltipcontent></tooltip> tree trunk like a <tooltip><tooltiptrigger>cradle</tooltiptrigger><tooltipcontent>a swing.</tooltipcontent></tooltip> trough, where the animals quench their thirst, the beehive rests after gathering from the flowers.</span>"`
   );
 });
 
@@ -1902,7 +1903,7 @@ comment -->`)
             timezone="UTC+5"
           />
         `,
-        { components: { DatePicker } }
+        { components: { DatePicker } as HTMLComponents }
       )
     );
 
@@ -1938,7 +1939,7 @@ comment -->`)
             endTime={"1514579720512"}
           />
         `,
-        { components: { DatePicker } }
+        { components: { DatePicker } as HTMLComponents }
       )
     );
 
@@ -1994,7 +1995,7 @@ comment -->`)
             component4={<Inner disabled={false} />}
           />
         `,
-        { components: { Inner, InterpolationTest } }
+        { components: { Inner, InterpolationTest } as HTMLComponents }
       )
     );
 
@@ -2311,7 +2312,9 @@ comment -->`)
 
   it('does not consume trailing whitespace if there is no newline', () => {
     const Foo = () => <span>Hello </span>;
-    renderFn(compiler('<Foo/> World!', { components: { Foo } }));
+    renderFn(
+      compiler('<Foo/> World!', { components: { Foo } as HTMLComponents })
+    );
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<span><span>Hello </span> World!</span>"`
@@ -3092,7 +3095,7 @@ describe('components', () => {
 
     renderFn(
       compiler('Hello.\n\n', {
-        components: { p: { component: FakeParagraph } },
+        components: { p: FakeParagraph } as any,
       })
     );
 
@@ -3103,17 +3106,25 @@ describe('components', () => {
 
   it('should substitute custom components when found', () => {
     const CustomButton: FC<JSX.IntrinsicElements['button']> = (props) => (
-      <button {...props} />
+      <button {...props} className="foo" />
     );
 
     renderFn(
       compiler('<CustomButton>Click me!</CustomButton>', {
-        components: { CustomButton },
+        components: { CustomButton } as any,
       })
     );
 
     expect(container.innerHTML).toMatchInlineSnapshot(
-      `"<span><button></button>Click me!&lt;/CustomButton&gt;</span>"`
+      `"<button class="foo">Click me!</button>"`
+    );
+  });
+
+  it('should substitute custom components when not found', () => {
+    renderFn(compiler('<CustomButton>Click me!</CustomButton>'));
+
+    expect(container.innerHTML).toMatchInlineSnapshot(
+      `"<custombutton>Click me!</custombutton>"`
     );
   });
 
@@ -3139,65 +3150,36 @@ describe('components', () => {
       }
     }
 
-    renderFn(compiler('Hello.\n\n', { components: { p: FakeParagraph } }));
+    renderFn(
+      compiler('Hello.\n\n', { components: { p: FakeParagraph } as any })
+    );
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<p class="foo">Hello.</p>"
     `);
   });
 
-  it('should add props to the appropriate JSX tag if supplied', () => {
-    renderFn(
-      compiler('Hello.\n\n', {
-        components: { p: { props: { className: 'abc', title: 'foo' } } },
-      })
-    );
-
-    expect(container.children[0].className).toBe('abc');
-    expect(container.children[0].textContent).toBe('Hello.');
-    expect((container.children[0] as HTMLAnchorElement).title).toBe('foo');
-  });
-
   it('should override the title property when parsing a link', () => {
-    class FakeLink extends Component<PropsWithChildren<{ title: string }>> {
+    class FakeLink extends Component<PropsWithChildren<any>> {
       render() {
-        const { title, children } = this.props;
-        return <a title={title}>{children}</a>;
+        const { children, ...props } = this.props;
+        return (
+          <a {...props} title="foo">
+            {children}
+          </a>
+        );
       }
     }
 
     renderFn(
       compiler('[link](https://example.org)', {
-        components: { a: { component: FakeLink, props: { title: 'foo' } } },
+        components: {
+          a: FakeLink,
+        } as any,
       })
     );
 
     expect((container.children[0] as HTMLAnchorElement).title).toBe('foo');
-  });
-
-  it('should add props to pre & code tags if supplied', () => {
-    renderFn(
-      compiler(['```', 'foo', '```'].join('\n'), {
-        components: {
-          code: {
-            props: {
-              'data-foo': 'bar',
-            },
-          },
-
-          pre: {
-            props: {
-              className: 'abc',
-            },
-          },
-        },
-      })
-    );
-
-    expect(container.innerHTML).toMatchInlineSnapshot(`
-      "<pre class="abc"><code class="lang-plaintext" data-foo="bar">foo
-      </code></pre>"
-    `);
   });
 
   it('should substitute pre & code tags if supplied with an override component', () => {
@@ -3206,7 +3188,7 @@ describe('components', () => {
         const { children, ...props } = this.props;
 
         return (
-          <pre {...props} data-bar="baz">
+          <pre {...props} className="abc" data-bar="baz">
             {children}
           </pre>
         );
@@ -3218,7 +3200,7 @@ describe('components', () => {
         const { children, ...props } = this.props;
 
         return (
-          <code {...props} data-baz="fizz">
+          <code {...props} data-foo="bar" data-baz="fizz">
             {children}
           </code>
         );
@@ -3228,69 +3210,15 @@ describe('components', () => {
     renderFn(
       compiler(['```', 'foo', '```'].join('\n'), {
         components: {
-          code: {
-            component: OverridenCode,
-            props: {
-              'data-foo': 'bar',
-            },
-          },
-
-          pre: {
-            component: OverridenPre,
-            props: {
-              className: 'abc',
-            },
-          },
-        },
+          code: OverridenCode,
+          pre: OverridenPre,
+        } as any,
       })
     );
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<pre class="abc" data-bar="baz"><code class="lang-plaintext" data-foo="bar" data-baz="fizz">foo
       </code></pre>"
-    `);
-  });
-
-  it('should be able to override gfm task list items', () => {
-    renderFn(
-      compiler('- [ ] foo', {
-        components: { li: { props: { className: 'foo' } } },
-      })
-    );
-    const $element = container.querySelector('li')!;
-
-    expect($element.outerHTML).toMatchInlineSnapshot(
-      `"<li class="foo"><input readonly="" type="checkbox"> foo</li>"`
-    );
-  });
-
-  it('should be able to override gfm task list item checkboxes', () => {
-    renderFn(
-      compiler('- [ ] foo', {
-        components: { input: { props: { className: 'foo' } } },
-      })
-    );
-    const $element = container.querySelector('input')!;
-
-    expect($element.outerHTML).toMatchInlineSnapshot(
-      `"<input readonly="" class="foo" type="checkbox">"`
-    );
-  });
-
-  it('should substitute the appropriate JSX tag if given a component and disableParsingRawHTML is true', () => {
-    const FakeParagraph = ({ children }: PropsWithChildren) => (
-      <p className="foo">{children}</p>
-    );
-
-    renderFn(
-      compiler('Hello.\n\n', {
-        disableParsingRawHTML: true,
-        components: { p: { component: FakeParagraph } },
-      })
-    );
-
-    expect(container.innerHTML).toMatchInlineSnapshot(`
-      "<p class="foo">Hello.</p>"
     `);
   });
 
@@ -3302,7 +3230,7 @@ describe('components', () => {
     renderFn(
       compiler('Hello.\n\n<FakeSpan>I am a fake span</FakeSpan>', {
         disableParsingRawHTML: true,
-        components: { FakeSpan },
+        components: { FakeSpan } as HTMLComponents,
       })
     );
 
@@ -3318,13 +3246,11 @@ describe('components', () => {
         components: {
           Accordion: ({ children }: PropsWithChildren) => children,
           AccordionItem: ({ children }: PropsWithChildren) => children,
-        },
+        } as HTMLComponents,
       })
     );
 
-    expect(container.innerHTML).toMatchInlineSnapshot(
-      `"<span>test&lt;/AccordionItem&gt;&lt;/Accordion&gt;</span>"`
-    );
+    expect(container.innerHTML).toMatchInlineSnapshot(`"test"`);
   });
 
   it('#520 handle deep nesting', () => {

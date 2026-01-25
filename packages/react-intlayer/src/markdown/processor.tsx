@@ -1,15 +1,12 @@
 import {
-  type Overrides as CoreOverrides,
   compile as coreCompile,
   sanitizer as defaultSanitizer,
   slugify as defaultSlugify,
   type MarkdownContext,
   type MarkdownOptions,
   type MarkdownRuntime,
-  type ParserResult,
   type ParseState,
   type RenderRuleHook,
-  type RuleOutput,
   RuleType,
 } from '@intlayer/core';
 import {
@@ -21,6 +18,7 @@ import {
   type JSX,
   type ReactNode,
 } from 'react';
+import type { HTMLComponents } from '../utils/HTMLComponentTypes';
 
 // Re-export RuleType for compatibility
 export { RuleType };
@@ -29,8 +27,6 @@ export { RuleType };
 export { defaultSlugify as slugify, defaultSanitizer as sanitizer };
 
 type HTMLTags = keyof JSX.IntrinsicElements;
-
-type State = ParseState;
 
 /**
  * Refined MarkdownRendererOptions type.
@@ -87,7 +83,7 @@ export type MarkdownRendererOptions = Partial<{
   /**
    * Selectively control the output of particular HTML tags.
    */
-  components: CoreOverrides;
+  components: HTMLComponents;
 
   /**
    * Allows for full control over rendering of particular rules.
@@ -160,7 +156,7 @@ export const compileMarkdown = (
     ? { ...DEFAULT_RUNTIME, createElement: customCreateElement as any }
     : DEFAULT_RUNTIME;
 
-  const ctx: MarkdownContext = {
+  const ctx: MarkdownContext<HTMLComponents> = {
     runtime,
     components,
     namedCodesToUnicode,
@@ -208,12 +204,4 @@ export const LegacyMarkdownRenderer: FC<
     compiler(children, options),
     props as JSX.IntrinsicAttributes
   );
-};
-
-export type {
-  State,
-  ParseState,
-  ParserResult,
-  RuleOutput,
-  CoreOverrides as Overrides,
 };

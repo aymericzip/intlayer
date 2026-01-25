@@ -1,13 +1,14 @@
 'use client';
 
-import type { Overrides } from '@intlayer/core';
 import {
   createContext,
   type FC,
+  type HTMLAttributes,
   type PropsWithChildren,
   type ReactNode,
   useContext,
 } from 'react';
+import type { HTMLComponents } from '../utils/HTMLComponentTypes';
 import { compiler, type MarkdownRendererOptions } from './processor';
 
 export type MarkdownProviderOptions = {
@@ -21,25 +22,24 @@ export type MarkdownProviderOptions = {
   tagfilter?: boolean;
 };
 
-type RenderMarkdownOptions = MarkdownProviderOptions & {
-  components?: Overrides;
-  wrapper?: FC<any>;
-};
-
 type MarkdownContextValue = {
   renderMarkdown: (
     markdown: string,
-    components?: Overrides | RenderMarkdownOptions
+    options?: MarkdownProviderOptions,
+    components?: HTMLComponents<'permissive', {}>,
+    wrapper?: FC<HTMLAttributes<HTMLElement>>
   ) => ReactNode;
 };
 
 type MarkdownProviderProps = PropsWithChildren<
   MarkdownProviderOptions & {
-    components?: Overrides;
-    wrapper?: any;
+    components?: HTMLComponents<'permissive', {}>;
+    wrapper?: FC<HTMLAttributes<HTMLElement>>;
     renderMarkdown?: (
       markdown: string,
-      overrides?: Overrides | RenderMarkdownOptions
+      options?: MarkdownProviderOptions,
+      components?: HTMLComponents<'permissive', {}>,
+      wrapper?: FC<HTMLAttributes<HTMLElement>>
     ) => ReactNode;
   }
 >;
@@ -50,57 +50,20 @@ const MarkdownContext = createContext<MarkdownContextValue | undefined>(
 
 export const useMarkdownContext = () => useContext(MarkdownContext);
 
-// Pure functions defined outside the component are easier for React Compiler to track
-// and don't need to be recreated on every render.
-
-const isRenderMarkdownOptions = (
-  override: any
-): override is RenderMarkdownOptions => {
-  return (
-    override &&
-    typeof override === 'object' &&
-    ('components' in override ||
-      'wrapper' in override ||
-      'forceBlock' in override ||
-      'forceInline' in override ||
-      'preserveFrontmatter' in override ||
-      'tagfilter' in override)
-  );
-};
-
 const mergeOptions = (
   baseOptions: MarkdownRendererOptions,
-  overrides?: Overrides | RenderMarkdownOptions
+  options: MarkdownProviderOptions = {},
+  components: HTMLComponents<'permissive', {}> = {},
+  wrapper?: FC<HTMLAttributes<HTMLElement>>
 ): MarkdownRendererOptions => {
-  if (!overrides) return baseOptions;
-
-  if (!isRenderMarkdownOptions(overrides)) {
-    // Overrides is just a component map
-    return {
-      ...baseOptions,
-      components: { ...baseOptions.components, ...overrides },
-    };
-  }
-
-  // Overrides is a full options object
-  const {
-    components: overrideComponents,
-    wrapper,
-    forceBlock,
-    forceInline,
-    preserveFrontmatter,
-    tagfilter,
-    ...componentsFromRest
-  } = overrides;
-
-  const components = overrideComponents || componentsFromRest;
-
   return {
     ...baseOptions,
-    forceBlock: forceBlock ?? baseOptions.forceBlock,
-    forceInline: forceInline ?? baseOptions.forceInline,
-    preserveFrontmatter: preserveFrontmatter ?? baseOptions.preserveFrontmatter,
-    tagfilter: tagfilter ?? baseOptions.tagfilter,
+    ...options,
+    forceBlock: options.forceBlock ?? baseOptions.forceBlock,
+    forceInline: options.forceInline ?? baseOptions.forceInline,
+    preserveFrontmatter:
+      options.preserveFrontmatter ?? baseOptions.preserveFrontmatter,
+    tagfilter: options.tagfilter ?? baseOptions.tagfilter,
     wrapper: wrapper || baseOptions.wrapper,
 
     forceWrapper: !!(wrapper || baseOptions.wrapper),
@@ -155,9 +118,17 @@ export const MarkdownProvider: FC<MarkdownProviderProps> = ({
   // Standard internal renderer
   const defaultRenderMarkdown = (
     markdown: string,
-    overrides?: Overrides | RenderMarkdownOptions
+    options?: MarkdownProviderOptions,
+    components?: HTMLComponents<'permissive', {}>,
+    wrapper?: FC<HTMLAttributes<HTMLElement>>
   ) => {
-    const mergedOptions = mergeOptions(baseOptions, overrides);
+    const mergedOptions = mergeOptions(
+      baseOptions,
+      options,
+      components,
+      wrapper
+    );
+
     return compiler(markdown, mergedOptions);
   };
 
@@ -165,10 +136,12 @@ export const MarkdownProvider: FC<MarkdownProviderProps> = ({
   // Note: We wrap in a clean Provider to prevent infinite recursion
   const customRenderMarkdownWrapper = (
     markdown: string,
-    overrides?: Overrides | RenderMarkdownOptions
+    options?: MarkdownProviderOptions,
+    components?: HTMLComponents<'permissive', {}>,
+    wrapper?: FC<HTMLAttributes<HTMLElement>>
   ) => (
     <MarkdownContext.Provider value={undefined}>
-      {customRenderFn?.(markdown, overrides)}
+      {customRenderFn?.(markdown, options, components, wrapper)}
     </MarkdownContext.Provider>
   );
 

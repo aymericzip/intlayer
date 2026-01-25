@@ -1,8 +1,6 @@
 import {
   type DeepTransformContent as DeepTransformContentCore,
-  type ExtractCustomProps,
   getMarkdownMetadata,
-  type HTMLCond,
   type HTMLContent,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
   type InsertionContent,
@@ -17,9 +15,7 @@ import {
   NodeType,
 } from '@intlayer/types';
 import {
-  type ComponentType,
   createElement,
-  type ElementType,
   Fragment,
   type ReactElement,
   type ReactNode,
@@ -27,10 +23,10 @@ import {
 import { ContentSelectorRenderer } from './editor';
 import { EditedContentRenderer } from './editor/useEditedContentRenderer';
 import { HTMLRendererPlugin } from './html';
-import type { ReactHTMLComponentMap } from './html/types';
 import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
 import { MarkdownMetadataRenderer, MarkdownRendererPlugin } from './markdown';
 import { renderReactElement } from './reactElement/renderReactElement';
+import type { HTMLComponents } from './utils/HTMLComponentTypes';
 
 /** ---------------------------------------------
  *  INTLAYER NODE PLUGIN
@@ -104,7 +100,7 @@ export const reactNodePlugins: Plugins = {
  *  INSERTION PLUGIN
  *  --------------------------------------------- */
 
-export type InsertionCond<T, S, L> = T extends {
+export type InsertionCond<T> = T extends {
   nodeType: NodeType | string;
   [NodeType.Insertion]: string;
   fields: readonly string[];
@@ -207,7 +203,7 @@ export type MarkdownStringCond<T> = T extends string
       string,
       {
         metadata: DeepTransformContent<string>;
-        use: (components: ReactHTMLComponentMap) => ReactNode;
+        use: (components: HTMLComponents<'permissive', {}>) => ReactNode;
       }
     >
   : never;
@@ -255,7 +251,7 @@ export const markdownStringPlugin: Plugins = {
       keyPath: [],
     });
 
-    const render = (components?: ReactHTMLComponentMap) =>
+    const render = (components?: HTMLComponents) =>
       renderIntlayerNode({
         ...props,
         value: node,
@@ -283,7 +279,7 @@ export const markdownStringPlugin: Plugins = {
         }
 
         if (prop === 'use') {
-          return (components?: ReactHTMLComponentMap) => render(components);
+          return (components?: HTMLComponents) => render(components);
         }
 
         return Reflect.get(target, prop, receiver);
@@ -292,15 +288,16 @@ export const markdownStringPlugin: Plugins = {
   },
 };
 
-export type MarkdownCond<T, S, L extends LocalesValues> = T extends {
+export type MarkdownCond<T> = T extends {
   nodeType: NodeType | string;
   [NodeType.Markdown]: infer M;
   metadata?: infer U;
+  tags?: infer U;
 }
   ? {
-      use: (components?: ReactHTMLComponentMap) => ReactNode;
-      metadata: DeepTransformContent<U, L>;
-    } & any
+      use: (components?: HTMLComponents<'permissive', U>) => IntlayerNode<M>;
+      metadata: DeepTransformContent<U>;
+    }
   : never;
 
 export const markdownPlugin: Plugins = {
@@ -330,7 +327,23 @@ export const markdownPlugin: Plugins = {
  *  HTML PLUGIN
  *  --------------------------------------------- */
 
-export type HTMLPluginCond<T, S, L> = HTMLCond<T, S, L, ReactNode, ReactNode>;
+/**
+ * HTML conditional type that enforces:
+ * - All components (Standard or Custom) are OPTIONAL in the `use()` method.
+ * - Custom components props are strictly inferred from the dictionary definition.
+ *
+ * This ensures type safety:
+ * - `html('<div>Hello <CustomComponent /></div>').use({ CustomComponent: ... })` - optional but typed
+ */
+export type HTMLPluginCond<T> = T extends {
+  nodeType: NodeType | string;
+  [NodeType.HTML]: infer I;
+  tags?: infer U;
+}
+  ? {
+      use: (components?: HTMLComponents<'permissive', U>) => IntlayerNode<I>;
+    }
+  : never;
 
 /** HTML plugin. Replaces node with a function that takes components => ReactNode. */
 export const htmlPlugin: Plugins = {
@@ -340,17 +353,10 @@ export const htmlPlugin: Plugins = {
 
   transform: (node: HTMLContent<string>, props) => {
     const html = node[NodeType.HTML];
-    const tags = node.tags ?? [];
     const { plugins, ...rest } = props;
 
     // Type-safe render function that accepts properly typed components
-    const render = <
-      T = typeof tags extends readonly (infer U extends string)[]
-        ? U
-        : typeof tags,
-    >(
-      userComponents?: ReactHTMLComponentMap<T>
-    ): ReactNode =>
+    const render = (userComponents?: HTMLComponents): ReactNode =>
       createElement(HTMLRendererPlugin, { ...rest, html, userComponents });
 
     const element = render() as ReactElement;
@@ -363,13 +369,7 @@ export const htmlPlugin: Plugins = {
 
         if (prop === 'use') {
           // Return a properly typed function based on custom components
-          return <
-            T = typeof tags extends readonly (infer U extends string)[]
-              ? U
-              : typeof tags,
-          >(
-            userComponents?: ReactHTMLComponentMap<T>
-          ) => render(userComponents);
+          return (userComponents?: HTMLComponents) => render(userComponents);
         }
 
         return Reflect.get(target, prop, receiver);
@@ -382,13 +382,13 @@ export const htmlPlugin: Plugins = {
  *  PLUGINS RESULT
  *  --------------------------------------------- */
 
-export interface IInterpreterPluginReact<T, S, L extends LocalesValues> {
+export type IInterpreterPluginReact<T, _S, _L extends LocalesValues> = {
   reactNode: ReactNodeCond<T>;
   reactIntlayerNode: IntlayerNodeCond<T>;
-  reactInsertion: InsertionCond<T, S, L>;
-  reactMarkdown: MarkdownCond<T, S, L>;
-  reactHtml: HTMLPluginCond<T, S, L>;
-}
+  reactInsertion: InsertionCond<T>;
+  reactMarkdown: MarkdownCond<T>;
+  reactHtml: HTMLPluginCond<T>;
+};
 
 /**
  * Insert this type as param of `DeepTransformContent` to avoid `intlayer` package pollution.

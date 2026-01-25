@@ -25,7 +25,7 @@ export type HTMLTag = string;
  * Runtime interface that framework adapters must implement.
  * This allows the markdown compiler to work with any framework.
  */
-export interface MarkdownRuntime {
+export type MarkdownRuntime = {
   /**
    * Create an element. Signature matches common UI runtimes.
    * @param type - Tag name or component
@@ -62,23 +62,23 @@ export interface MarkdownRuntime {
    * Adapter-specific helpers can be exposed without coupling core.
    */
   [key: string]: unknown;
-}
+};
 
 /**
  * Context passed to the compiler containing runtime and configuration.
  */
-export interface MarkdownContext {
+export type MarkdownContext<T> = {
   /** Framework runtime (createElement, etc.) */
   runtime: MarkdownRuntime;
   /** Component components for HTML tags */
-  components?: Overrides;
+  components?: ComponentOverrides<T>;
   /** Custom URL sanitizer */
   sanitizer?: (url: string, tag: HTMLTag, attr: string) => string | null;
   /** Custom slugify function for heading IDs */
   slugify?: (text: string, defaultFn: (input: string) => string) => string;
   /** Custom named codes to unicode mappings */
   namedCodesToUnicode?: Record<string, string>;
-}
+};
 
 // ============================================================================
 // PARSER STATE TYPES
@@ -406,31 +406,10 @@ export type Rules = {
 // ============================================================================
 
 /**
- * RequireAtLeastOne utility type.
- */
-type RequireAtLeastOne<T, Keys extends keyof T = keyof T> = Pick<
-  T,
-  Exclude<keyof T, Keys>
-> &
-  {
-    [K in Keys]-?: Required<Pick<T, K>> & Partial<Pick<T, Exclude<Keys, K>>>;
-  }[Keys];
-
-/**
- * Override configuration for a single tag.
- */
-export type Override =
-  | RequireAtLeastOne<{
-      component: any;
-      props: Record<string, any>;
-    }>
-  | any;
-
-/**
  * Map of tag overrides.
  */
-export type Overrides = {
-  [tag: string]: Override;
+export type ComponentOverrides<T> = {
+  [tag: string]: T;
 };
 
 // ============================================================================
@@ -455,7 +434,7 @@ export type RenderRuleHook = (
  * Options for the markdown compiler.
  * This is the framework-agnostic version of MarkdownRendererOptions.
  */
-export interface MarkdownOptions {
+export type MarkdownOptions = {
   /**
    * Disable automatic link detection for bare URLs.
    */
@@ -505,19 +484,19 @@ export interface MarkdownOptions {
    * Whether to use tag filter.
    */
   tagfilter?: boolean;
-}
+};
 
 /**
  * Combined options including context and compiler options.
  * Used by framework adapters.
  */
-export interface CompileOptions extends MarkdownOptions {
+export type CompileOptions<T> = MarkdownOptions & {
   /** Component components */
-  components?: Overrides;
+  components?: ComponentOverrides<T>;
   /** Custom named codes to unicode mappings */
   namedCodesToUnicode?: Record<string, string>;
   /** Custom sanitizer function */
   sanitizer?: (value: string, tag: HTMLTag, attribute: string) => string | null;
   /** Custom slugify function */
   slugify?: (input: string, defaultFn: (input: string) => string) => string;
-}
+};

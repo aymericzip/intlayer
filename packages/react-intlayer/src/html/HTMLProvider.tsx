@@ -6,16 +6,17 @@ import {
   type PropsWithChildren,
   useContext,
 } from 'react';
+import type { HTMLComponents } from '../utils/HTMLComponentTypes';
 
 type HTMLContextValue = {
-  components?: Record<string, any>;
+  components?: HTMLComponents<'permissive', {}>;
 };
 
 type HTMLProviderProps = PropsWithChildren<{
   /**
    * Component overrides for HTML tags.
    */
-  components?: Record<string, any>;
+  components?: HTMLComponents<'permissive', {}>;
 }>;
 
 const HTMLContext = createContext<HTMLContextValue | undefined>(undefined);
