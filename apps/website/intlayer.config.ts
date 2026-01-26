@@ -39,7 +39,6 @@ const config: CustomIntlayerConfig = {
     mode: 'prefix-no-default',
     rewrite: nextjsRewrite({
       '/[locale]/doc/releases/v8': {
-        en: '/[locale]/doc/releases/v8',
         'en-GB': '/[locale]/doc/releases/v8',
         fr: '/[locale]/doc/sorties/v8',
         es: '/[locale]/doc/lanzamientos/v8',

@@ -1,9 +1,12 @@
+import configuration from '@intlayer/config/built';
 import type {
   RewriteObject,
   RewriteRule,
   RewriteRules,
   StrictModeLocaleMap,
 } from '@intlayer/types';
+
+const { defaultLocale } = configuration.internationalization;
 
 const buildRules = (
   rules: Record<string, StrictModeLocaleMap<string>>,
@@ -12,10 +15,12 @@ const buildRules = (
   rules: Object.entries(rules).map(([canonical, localized]) => ({
     canonical: processor(canonical),
     localized: Object.fromEntries(
-      Object.entries(localized).map(([locale, pattern]) => [
-        locale,
-        pattern ? processor(pattern) : pattern,
-      ])
+      Object.entries(localized)
+        .filter(([locale]) => locale !== defaultLocale)
+        .map(([locale, pattern]) => [
+          locale,
+          pattern ? processor(pattern) : pattern,
+        ])
     ) as StrictModeLocaleMap<string>,
   })) as RewriteRule[],
 });

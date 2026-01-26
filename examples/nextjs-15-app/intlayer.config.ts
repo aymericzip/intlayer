@@ -3,7 +3,6 @@ import { nextjsRewrite } from 'intlayer/routing';
 
 export const locales = [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH];
 
-/** @type {import('intlayer').IntlayerConfig} */
 const config: IntlayerConfig = {
   internationalization: {
     locales,
@@ -14,7 +13,6 @@ const config: IntlayerConfig = {
     mode: 'prefix-all',
     rewrite: nextjsRewrite({
       '/[locale]/tests': {
-        en: '/[locale]/tests',
         fr: '/[locale]/essais',
         es: '/[locale]/pruebas',
       },

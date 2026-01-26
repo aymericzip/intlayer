@@ -11,7 +11,6 @@ const config: IntlayerConfig = {
     mode: 'prefix-all',
     rewrite: solidjsRewrite({
       '/:locale/tests': {
-        en: '/:locale/tests',
         fr: '/:locale/essais',
         es: '/:locale/pruebas',
       },

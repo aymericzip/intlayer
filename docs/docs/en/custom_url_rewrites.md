@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-01-25
+updatedAt: 2026-01-26
 title: Custom URL Rewrites
 description: Learn how to configure and use custom URL rewrites in Intlayer to define locale-specific paths.
 keywords:
@@ -42,12 +42,10 @@ Custom rewrites are configured in the `routing` section of your `intlayer.config
         mode: "prefix-no-default",
         rewrite: nextjsRewrite({
           "/[locale]/about": {
-            en: "/[locale]/about",
             fr: "/[locale]/a-propos",
             es: "/[locale]/acerca-de",
           },
           "/[locale]/products/[id]": {
-            en: "/[locale]/products/[id]",
             fr: "/[locale]/produits/[id]",
             es: "/[locale]/productos/[id]",
           },
@@ -74,12 +72,10 @@ Custom rewrites are configured in the `routing` section of your `intlayer.config
         mode: "prefix-all",
         rewrite: viteRewrite({
           "/:locale/about": {
-            en: "/:locale/about",
             fr: "/:locale/a-propos",
             es: "/:locale/acerca-de",
           },
           "/:locale/products/:id": {
-            en: "/:locale/products/:id",
             fr: "/:locale/produits/:id",
             es: "/:locale/productos/:id",
           },
@@ -106,12 +102,10 @@ Custom rewrites are configured in the `routing` section of your `intlayer.config
         mode: "prefix-all",
         rewrite: nuxtRewrite({
           "/[locale]/about": {
-            en: "/[locale]/about",
             fr: "/[locale]/a-propos",
             es: "/[locale]/acerca-de",
           },
           "/[locale]/products/[id]": {
-            en: "/[locale]/products/[id]",
             fr: "/[locale]/produits/[id]",
             es: "/[locale]/productos/[id]",
           },
@@ -138,12 +132,10 @@ Custom rewrites are configured in the `routing` section of your `intlayer.config
         mode: "prefix-all",
         rewrite: svelteKitRewrite({
           "/[locale]/about": {
-            en: "/[locale]/about",
             fr: "/[locale]/a-propos",
             es: "/[locale]/acerca-de",
           },
           "/[locale]/products/[id]": {
-            en: "/[locale]/products/[id]",
             fr: "/[locale]/produits/[id]",
             es: "/[locale]/productos/[id]",
           },
@@ -170,12 +162,10 @@ Custom rewrites are configured in the `routing` section of your `intlayer.config
         mode: "prefix-all",
         rewrite: reactRouterRewrite({
           "/:locale/about": {
-            en: "/:locale/about",
             fr: "/:locale/a-propos",
             es: "/:locale/acerca-de",
           },
           "/:locale/products/:id": {
-            en: "/:locale/products/:id",
             fr: "/:locale/produits/:id",
             es: "/:locale/productos/:id",
           },

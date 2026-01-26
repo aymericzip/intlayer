@@ -11,7 +11,6 @@ const config: IntlayerConfig = {
     mode: 'prefix-no-default',
     rewrite: vueRewrite({
       '/:locale/tests': {
-        en: '/tests',
         fr: '/:locale/essais',
         es: '/:locale/pruebas',
       },

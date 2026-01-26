@@ -212,7 +212,6 @@ export type RoutingConfig = {
    *  routing: {
    *    rewrite: nextjsRewrite({
    *      '[locale]/about': {
-   *        en: '[locale]/about',
    *        fr: '[locale]/a-propos'
    *      }
    *    })
