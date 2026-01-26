@@ -104,22 +104,22 @@ const LogoItem: FC<LogoItemProps> = ({
 
 const logosRow1 = [
   {
-    Logo: ReactLogo,
-    route: PagesRoutes.Doc_Environment_ViteAndReact,
+    Logo: PreactLogo,
+    route: PagesRoutes.Doc_Environment_ViteAndPreact,
     initialPost: {
-      scale: 1.5,
-      x: -350,
+      scale: 1.2,
+      x: -200,
       y: -60,
     },
     label: 'react',
   },
   {
-    Logo: PreactLogo,
-    route: PagesRoutes.Doc_Environment_ViteAndPreact,
+    Logo: ReactLogo,
+    route: PagesRoutes.Doc_Environment_ViteAndReact,
     initialPost: {
-      scale: 1.4,
+      scale: 1.5,
       x: 0,
-      y: -60,
+      y: -20,
     },
     label: 'preact',
   },
@@ -128,7 +128,7 @@ const logosRow1 = [
     route: PagesRoutes.Doc_Environment_ViteAndSolid,
     initialPost: {
       scale: 1.2,
-      x: 350,
+      x: 200,
       y: -60,
     },
     label: 'solid',
@@ -137,8 +137,8 @@ const logosRow1 = [
 
 const logosRow2 = [
   {
-    Logo: VuejsLogo,
-    route: PagesRoutes.Doc_Environment_ViteAndVue,
+    Logo: NuxtLogo,
+    route: PagesRoutes.Doc_Environment_NuxtAndVue,
     initialPost: {
       scale: 1.5,
       x: -350,
@@ -147,8 +147,8 @@ const logosRow2 = [
     label: 'vue',
   },
   {
-    Logo: NuxtLogo,
-    route: PagesRoutes.Doc_Environment_NuxtAndVue,
+    Logo: VuejsLogo,
+    route: PagesRoutes.Doc_Environment_ViteAndVue,
     initialPost: {
       scale: 1.3,
       x: 0,
@@ -174,8 +174,8 @@ const logosRow3 = [
     route: PagesRoutes.Doc_Environment_NextJS_15,
     initialPost: {
       scale: 1.5,
-      x: -350,
-      y: 60,
+      x: -200,
+      y: 20,
     },
     label: 'nextjs',
   },
@@ -194,8 +194,8 @@ const logosRow3 = [
     route: PagesRoutes.Doc_Environment_ViteAndReact,
     initialPost: {
       scale: 1.5,
-      x: 350,
-      y: 60,
+      x: 200,
+      y: 20,
     },
     label: 'vite',
   },
@@ -225,7 +225,7 @@ export const AvailableTechnoSection: FC = () => {
       className="z-10 flex w-full flex-col items-center justify-center"
     >
       <h2 className="mb-3 text-lg text-neutral-500">{availableOn}</h2>
-      <div className="mt-4 flex flex-col items-center gap-6">
+      <div className="my-10 flex flex-col items-center gap-6">
         {/* Row 1 */}
         <motion.div className="flex justify-center gap-x-12">
           {logosRow1.map((logoConfig, index) => (
