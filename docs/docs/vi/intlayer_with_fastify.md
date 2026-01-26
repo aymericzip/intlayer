@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2025-12-30
-title: Cách dịch backend Fastify của bạn – Hướng dẫn i18n 2026
+title: Fastify i18n - Cách dịch ứng dụng Fastify của bạn – hướng dẫn 2026
 description: Tìm hiểu cách làm cho backend Fastify của bạn hỗ trợ đa ngôn ngữ. Thực hiện theo tài liệu để internationalize (i18n) và dịch nội dung.
 keywords:
   - Quốc tế hóa (i18n)

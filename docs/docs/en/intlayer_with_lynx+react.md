@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-03-09
 updatedAt: 2025-12-30
-title: How to translate your Lynx and React mobile app – i18n guide 2026
+title: Lynx and React i18n - How to translate your Lynx app – guide 2026
 description: Discover how to make your Lynx and React mobile app multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
   - Internationalization

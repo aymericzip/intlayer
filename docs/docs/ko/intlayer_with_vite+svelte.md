@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Vite 및 Svelte 앱 번역 방법 – 2025 i18n 가이드
+title: Vite 및 Svelte i18n - Svelte 앱 번역 방법 – 가이드 2026
 description: Vite 및 Svelte 웹사이트를 다국어로 만드는 방법을 알아보세요. 국제화(i18n) 및 번역을 위한 문서를 따라가세요.
 keywords:
   - 국제화

@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-06
 updatedAt: 2025-12-30
-title: How to translate your Next.js 16 app – i18n guide 2026
+title: Next.js i18n - How to translate your Next.js 16 app – guide 2026
 description: Discover how to make your Next.js 16 website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
   - Internationalization

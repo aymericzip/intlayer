@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-10-25
 updatedAt: 2025-12-30
-title: Cara menerjemahkan aplikasi Next.js 15 Anda – panduan i18n 2026
+title: Next.js i18n - Cara menerjemahkan aplikasi Next.js 15 Anda – panduan 2026
 description: Temukan cara membuat situs web Next.js 15 Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya.
 keywords:
   - Internasionalisasi

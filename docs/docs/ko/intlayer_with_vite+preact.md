@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Vite and Preact 앱 번역하는 방법 – i18n 가이드 2026
+title: Vite 및 Preact i18n - Preact 앱 번역 방법 – 가이드 2026
 description: Vite와 Preact 웹사이트를 다국어로 만드는 방법을 알아보세요. 국제화(i18n) 및 번역을 위한 문서를 따라가세요.
 keywords:
   - 국제화

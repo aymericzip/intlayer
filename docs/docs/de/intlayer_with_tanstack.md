@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2025-12-30
-title: So übersetzen Sie Ihre Tanstack Start App – i18n-Leitfaden 2026
+title: Tanstack Start i18n - Wie Sie Ihre Tanstack Start App übersetzen – Leitfaden 2026
 description: Erfahren Sie, wie Sie Internationalisierung (i18n) zu Ihrer Tanstack Start-Anwendung mit Intlayer hinzufügen. Folgen Sie dieser umfassenden Anleitung, um Ihre App mehrsprachig mit lokalisierungsbewusstem Routing zu machen.
 keywords:
   - Internationalisierung

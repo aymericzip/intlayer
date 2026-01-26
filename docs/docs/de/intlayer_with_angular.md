@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Wie Sie Ihre Angular übersetzen – i18n-Leitfaden 2026
+title: Angular i18n - Wie Sie Ihre Angular App übersetzen – Leitfaden 2026
 description: Erfahren Sie, wie Sie Ihre mit Angular erstellte Website mehrsprachig gestalten können. Folgen Sie der Dokumentation zur Internationalisierung (i18n) und Übersetzung.
 keywords:
   - Internationalisierung

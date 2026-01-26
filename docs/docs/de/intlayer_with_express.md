@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-12-30
-title: Wie Sie Ihre Express backend übersetzen – i18n-Leitfaden 2026
+title: Express i18n - Wie Sie Ihre Express App übersetzen – Leitfaden 2026
 description: Entdecken Sie, wie Sie Ihre Express-Backend mehrsprachig gestalten können. Befolgen Sie die Dokumentation, um sie zu internationalisieren (i18n) und zu übersetzen.
 keywords:
   - Internationalisierung

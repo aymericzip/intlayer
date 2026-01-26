@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Come tradurre la tua app Vite e Svelte – guida i18n 2026
+title: Vite e Svelte i18n - Come tradurre la tua app Svelte – guida 2026
 description: Scopri come rendere il tuo sito web Vite e Svelte multilingue. Segui la documentazione per internazionalizzare (i18n) e tradurlo.
 keywords:
   - Internazionalizzazione

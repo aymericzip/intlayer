@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-03-09
 updatedAt: 2025-12-30
-title: 如何翻译您的Lynx and React mobile app应用 – i18n指南 2026
+title: Lynx 和 React i18n - 如何翻译您的 Lynx 应用 – 指南 2026
 description: 了解如何使您的使用 Lynx 和 React 的移动应用实现多语言。请遵循文档进行国际化（i18n）和翻译。
 keywords:
   - 国际化

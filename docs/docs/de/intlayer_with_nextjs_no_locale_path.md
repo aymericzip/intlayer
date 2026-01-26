@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-01-10
-title: Wie Sie Ihre Next.js 16-App übersetzen (ohne [locale] im Seitenpfad) – i18n-Anleitung 2026
+title: Next.js i18n - Wie Sie Ihre Next.js 16 App übersetzen (ohne [locale] im Pfad) – Leitfaden 2026
 description: Erfahren Sie, wie Sie Ihre Next.js 16-Website mehrsprachig machen, ohne [locale] im Seitenpfad. Folgen Sie der Dokumentation, um sie zu internationalisieren (i18n) und zu übersetzen.
 keywords:
   - Internationalisierung

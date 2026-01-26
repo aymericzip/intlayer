@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2025-12-30
-title: Jak przetłumaczyć swoją aplikację Tanstack Start – przewodnik i18n 2026
+title: Tanstack Start i18n - Jak przetłumaczyć swoją aplikację Tanstack Start – przewodnik 2026
 description: Dowiedz się, jak dodać internacjonalizację (i18n) do swojej aplikacji Tanstack Start za pomocą Intlayer. Postępuj zgodnie z tym kompleksowym przewodnikiem, aby uczynić swoją aplikację wielojęzyczną z routingiem uwzględniającym lokalizację.
 keywords:
   - Internacjonalizacja

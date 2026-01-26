@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-11-20
 updatedAt: 2025-12-30
-title: अपने SvelteKit ऐप का अनुवाद कैसे करें – i18n गाइड 2026
+title: SvelteKit i18n - अपना SvelteKit ऐप कैसे अनुवाद करें – गाइड 2026
 description: जानें कि अपनी SvelteKit वेबसाइट को बहुभाषी कैसे बनाएं। Server-Side Rendering (SSR) का उपयोग करके इसे अंतरराष्ट्रीयकृत (i18n) और अनुवादित करने के लिए दस्तावेज़ का पालन करें।
 keywords:
   - अंतरराष्ट्रीयकरण

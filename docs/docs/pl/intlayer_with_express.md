@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-12-30
-title: Jak przetłumaczyć backend Express – przewodnik i18n 2026
+title: Express i18n - Jak przetłumaczyć swoją aplikację Express – przewodnik 2026
 description: Dowiedz się, jak uczynić swój backend Express wielojęzycznym. Postępuj zgodnie z dokumentacją, aby internacjonalizować (i18n) i tłumaczyć.
 keywords:
   - Internacjonalizacja

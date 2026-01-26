@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-12-30
-title: Comment traduire votre Create React App – guide i18n 2026
+title: Create React App i18n - Comment traduire votre application React – guide 2026
 description: Découvrez comment rendre votre site Create React App (CRA) multilingue. Suivez la documentation pour l’internationaliser (i18n) et le traduire.
 keywords:
   - Internationalisation

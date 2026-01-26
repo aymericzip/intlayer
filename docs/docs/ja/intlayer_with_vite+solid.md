@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Vite and Solidアプリを翻訳する方法 – i18nガイド 2026
+title: Vite と Solid i18n - Solidアプリの翻訳方法 – ガイド 2026
 description: Vite と Solid のウェブサイトを多言語対応にする方法を紹介します。国際化（i18n）と翻訳のドキュメントに従ってください。
 keywords:
   - 国際化

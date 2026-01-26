@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-12-30
-title: Express backendアプリを翻訳する方法 – i18nガイド 2026
+title: Express i18n - Expressアプリの翻訳方法 – ガイド 2026
 description: Expressバックエンドを多言語化する方法を見つけましょう。国際化（i18n）して翻訳するためにドキュメントに従ってください。
 keywords:
   - 国際化

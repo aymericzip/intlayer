@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-06
 updatedAt: 2025-12-30
-title: Cara Menerjemahkan Next.js 14 dan App Router Anda – Panduan i18n 2026
+title: Next.js i18n - Cara menerjemahkan aplikasi Next.js 14 Anda – panduan 2026
 description: Temukan cara membuat situs web Next.js 14 App Router Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya.
 keywords:
   - Internasionalisasi

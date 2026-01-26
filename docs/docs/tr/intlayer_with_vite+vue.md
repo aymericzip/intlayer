@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-12-30
-title: Vite and Vue uygulamanızı nasıl çevirirsiniz – i18n rehberi 2026
+title: Vite ve Vue i18n - Vue uygulamanızı nasıl çevirirsiniz – rehber 2026
 description: Vite ve Vue web sitenizi çok dilli hale getirmeyi öğrenin. Dokümantasyonu takip ederek uluslararasılaştırma (i18n) ve çevirisini yapın.
 keywords:
   - Uluslararasılaştırma

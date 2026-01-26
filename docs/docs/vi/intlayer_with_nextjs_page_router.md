@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-07
 updatedAt: 2025-12-30
-title: Cách dịch ứng dụng Next.js và Page Router của bạn – Hướng dẫn i18n 2026
+title: Next.js Page Router i18n - Cách dịch ứng dụng Next.js của bạn – hướng dẫn 2026
 description: Khám phá cách làm cho trang web Next.js sử dụng Page Router của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó.
 keywords:
   - Quốc tế hóa

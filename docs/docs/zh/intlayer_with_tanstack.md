@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2025-12-30
-title: 如何翻译您的Tanstack Start应用 – i18n指南 2026
+title: Tanstack Start i18n - 如何翻译您的 Tanstack Start 应用 – 指南 2026
 description: 学习如何使用 Intlayer 为您的 Tanstack Start 应用添加国际化 (i18n)。按照本综合指南，使您的应用支持多语言并具备基于区域设置的路由功能。
 keywords:
   - 国际化

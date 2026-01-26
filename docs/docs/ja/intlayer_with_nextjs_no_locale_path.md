@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-01-10
-title: Next.js 16 アプリを翻訳する方法（ページパスに [locale] を含めない） – i18n ガイド 2026
+title: Next.js i18n - Next.js 16アプリの翻訳方法（ページパスに [locale] を含めない） – ガイド 2026
 description: ページパスに [locale] を含めずに Next.js 16 ウェブサイトを多言語対応にする方法を紹介します。ドキュメントに従って国際化（i18n）と翻訳を行ってください。
 keywords:
   - 国際化

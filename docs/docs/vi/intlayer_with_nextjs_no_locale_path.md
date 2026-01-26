@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-01-10
-title: Cách dịch ứng dụng Next.js 16 của bạn (không có [locale] trong đường dẫn trang) – Hướng dẫn i18n 2026
+title: Next.js i18n - Cách dịch ứng dụng Next.js 16 của bạn (không có [locale] trong đường dẫn trang) – hướng dẫn 2026
 description: Tìm hiểu cách làm cho website Next.js 16 của bạn đa ngôn ngữ mà không cần [locale] trong đường dẫn trang. Làm theo tài liệu để quốc tế hóa (i18n) và dịch nội dung.
 keywords:
   - Quốc tế hóa

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Vite and Vueアプリを翻訳する方法 – i18nガイド 2026
+title: Vite と Vue i18n - Vueアプリの翻訳方法 – ガイド 2026
 description: Vite と Vue のウェブサイトを多言語対応にする方法を紹介します。国際化（i18n）と翻訳のためのドキュメントに従ってください。
 keywords:
   - 国際化

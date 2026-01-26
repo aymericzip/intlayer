@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2025-12-30
-title: Cách dịch ứng dụng Astro của bạn – Hướng dẫn i18n 2026
+title: Astro i18n - Cách dịch ứng dụng Astro của bạn – hướng dẫn 2026
 description: Tìm hiểu cách thêm quốc tế hóa (i18n) vào trang web Astro của bạn bằng Intlayer. Làm theo hướng dẫn này để làm cho trang web của bạn đa ngôn ngữ.
 keywords:
   - Quốc tế hóa

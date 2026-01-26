@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-12-30
-title: Cara menerjemahkan backend Express Anda – panduan i18n 2026
+title: Express i18n - Cara menerjemahkan aplikasi Express Anda – panduan 2026
 description: Temukan cara membuat backend Express Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya.
 keywords:
   - Internasionalisasi

@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-06
 updatedAt: 2025-12-30
-title: 如何翻译您的 Next.js 16 应用 – 2026 年国际化 (i18n) 指南
+title: Next.js i18n - 如何翻译您的 Next.js 16 应用 – 指南 2026
 description: 了解如何让您的 Next.js 16 网站支持多语言。按照文档进行国际化 (i18n) 并对其进行翻译。
 keywords:
   - 国际化

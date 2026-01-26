@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-10-05
 updatedAt: 2025-10-05
-title: next-i18next를 사용하여 Next.js 15 번역하기 – 2025 i18n 가이드
+title: Next.js 및 next-i18next i18n - Next.js 앱 번역 방법 – 가이드 2026
 description: i18next/next-i18next로 Next.js 15 App Router 앱을 국제화하고 Intlayer로 향상시키는 실용적이고 프로덕션 준비된 가이드입니다.
 keywords:
   - 국제화

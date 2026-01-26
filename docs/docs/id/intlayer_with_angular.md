@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Cara menerjemahkan aplikasi Angular Anda – panduan i18n 2026
+title: Angular i18n - Cara menerjemahkan aplikasi Angular Anda – panduan 2026
 description: Temukan cara membuat situs web Angular Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya.
 keywords:
   - Internasionalisasi

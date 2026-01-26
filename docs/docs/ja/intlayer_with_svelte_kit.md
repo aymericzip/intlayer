@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-11-20
 updatedAt: 2025-12-30
-title: SvelteKitアプリを翻訳する方法 – i18nガイド 2026
+title: SvelteKit i18n - SvelteKitアプリの翻訳方法 – ガイド 2026
 description: SvelteKitのウェブサイトを多言語対応にする方法を紹介します。Server-Side Rendering（SSR）を使って国際化（i18n）および翻訳を行うためのドキュメントに従ってください。
 keywords:
   - 国際化

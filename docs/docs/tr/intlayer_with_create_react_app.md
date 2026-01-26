@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-12-30
-title: Create React App uygulamanızı nasıl çevirirsiniz – i18n rehberi 2026
+title: Create React App i18n - React uygulamanızı nasıl çevirirsiniz – rehber 2026
 description: Create React App (CRA) web sitenizi çok dilli hale getirmeyi keşfedin. Dokümantasyonu takip ederek uluslararasılaştırma (i18n) yapın ve çevirin.
 keywords:
   - Uluslararasılaştırma

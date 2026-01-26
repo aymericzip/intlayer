@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2025-12-30
-title: अपना React Native and Expo ऐप कैसे अनुवाद करें – i18n गाइड 2026
+title: React Native और Expo i18n - अपना React Native ऐप कैसे अनुवाद करें – गाइड 2026
 description: जानें कि अपनी React Native और Expo वेबसाइट को बहुभाषी कैसे बनाएं। अंतरराष्ट्रीयकरण (i18n) और अनुवाद के लिए दस्तावेज़ का पालन करें।
 keywords:
   - अंतरराष्ट्रीयकरण

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-12-30
-title: Cara menerjemahkan Create React App Anda – panduan i18n 2026
+title: Create React App i18n - Cara menerjemahkan aplikasi React Anda – panduan 2026
 description: Temukan cara membuat situs web Create React App (CRA) Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya.
 keywords:
   - Internasionalisasi

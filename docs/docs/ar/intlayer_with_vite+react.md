@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2025-12-30
-title: كيفية ترجمة تطبيق Vite و React – دليل i18n 2026
+title: Vite و React i18n - كيفية ترجمة تطبيق React – دليل 2026
 description: تعلّم كيفية إضافة التدويل (i18n) إلى تطبيق Vite و React الخاص بك باستخدام Intlayer. اتبع هذا الدليل لجعل تطبيقك متعدد اللغات.
 keywords:
   - التدويل

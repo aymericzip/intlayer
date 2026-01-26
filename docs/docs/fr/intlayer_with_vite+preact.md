@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Comment traduire votre Vite and Preact – guide i18n 2026
+title: Vite et Preact i18n - Comment traduire votre application Preact – guide 2026
 description: Découvrez comment rendre votre site Vite et Preact multilingue. Suivez la documentation pour internationaliser (i18n) et traduire votre site.
 keywords:
   - Internationalisation

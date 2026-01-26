@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2025-12-30
-title: Como traduzir seu Nest backend – guia i18n 2026
+title: NestJS i18n - Como traduzir sua aplicação NestJS – guia 2026
 description: Descubra como tornar seu backend NestJS multilíngue. Siga a documentação para internacionalizar (i18n) e traduzir.
 keywords:
   - Internacionalização

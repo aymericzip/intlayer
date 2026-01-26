@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2025-12-30
-title: Comment traduire votre Astro – guide i18n 2026
+title: Astro i18n - Comment traduire votre application Astro – guide 2026
 description: Apprenez à ajouter l'internationalisation (i18n) à votre site web Astro en utilisant Intlayer. Suivez ce guide pour rendre votre site multilingue.
 keywords:
   - Internationalisation

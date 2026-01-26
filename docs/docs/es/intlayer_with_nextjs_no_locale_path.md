@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-01-10
-title: Cómo traducir tu aplicación Next.js 16 (sin [locale] en la ruta de la página) – guía i18n 2026
+title: Next.js i18n - Cómo traducir su aplicación Next.js 16 (sin [locale] en la ruta de la página) – guía 2026
 description: Descubre cómo hacer que tu sitio web Next.js 16 sea multilingüe sin [locale] en la ruta de la página. Sigue la documentación para internacionalizar (i18n) y traducirlo.
 keywords:
   - Internacionalización

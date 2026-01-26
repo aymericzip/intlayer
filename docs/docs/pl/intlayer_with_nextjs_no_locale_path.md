@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-01-10
-title: Jak przetłumaczyć aplikację Next.js 16 (bez [locale] w ścieżce strony) – przewodnik i18n 2026
+title: Next.js i18n - Jak przetłumaczyć swoją aplikację Next.js 16 (bez [locale] w ścieżce strony) – przewodnik 2026
 description: Dowiedz się, jak uczynić swoją stronę Next.js 16 wielojęzyczną bez [locale] w ścieżce strony. Postępuj zgodnie z dokumentacją, aby przeprowadzić internacjonalizację (i18n) i przetłumaczyć ją.
 keywords:
   - Internacjonalizacja

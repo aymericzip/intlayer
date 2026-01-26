@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-03-09
 updatedAt: 2025-12-30
-title: كيفية ترجمة تطبيق Lynx and React mobile app – دليل i18n 2026
+title: Lynx و React i18n - كيفية ترجمة تطبيق Lynx – دليل 2026
 description: اكتشف كيفية جعل موقعك الذي يستخدم Lynx و React مع Page Router متعدد اللغات. اتبع الوثائق لتدويله (i18n) وترجمته.
 keywords:
   - التدويل

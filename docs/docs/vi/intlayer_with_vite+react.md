@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2025-12-30
-title: Cách dịch ứng dụng Vite và React của bạn – Hướng dẫn i18n 2026
+title: Vite và React i18n - Cách dịch ứng dụng React của bạn – hướng dẫn 2026
 description: Tìm hiểu cách thêm quốc tế hóa (i18n) vào ứng dụng Vite và React của bạn bằng cách sử dụng Intlayer. Theo dõi hướng dẫn này để làm cho ứng dụng của bạn đa ngôn ngữ.
 keywords:
   - Quốc tế hóa

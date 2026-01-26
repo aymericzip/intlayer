@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2025-12-30
-title: Fastifyバックエンドを翻訳する方法 – i18nガイド 2026
+title: Fastify i18n - Fastifyアプリの翻訳方法 – ガイド 2026
 description: Fastifyバックエンドを多言語対応にする方法を解説します。国際化（i18n）と翻訳の手順に従ってください。
 keywords:
   - 国際化 (Internationalization)

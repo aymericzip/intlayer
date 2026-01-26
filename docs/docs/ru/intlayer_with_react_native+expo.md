@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2025-12-30
-title: Как перевести ваше React Native and Expo – руководство i18n 2026
+title: React Native и Expo i18n - Как перевести ваше приложение React Native – руководство 2026
 description: Узнайте, как сделать ваш сайт на React Native и Expo многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
 keywords:
   - Интернационализация

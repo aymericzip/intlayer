@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-11-20
 updatedAt: 2025-12-30
-title: Cómo traducir tu aplicación SvelteKit – Guía i18n 2026
+title: SvelteKit i18n - Cómo traducir su aplicación SvelteKit – guía 2026
 description: Descubre cómo hacer que tu sitio web SvelteKit sea multilingüe. Sigue la documentación para internacionalizar (i18n) y traducir usando Server-Side Rendering (SSR).
 keywords:
   - Internacionalización

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: كيفية ترجمة تطبيق Angular – دليل i18n 2026
+title: Angular i18n - كيفية ترجمة تطبيق Angular – دليل 2026
 description: اكتشف كيفية جعل موقعك الإلكتروني باستخدام Angular متعدد اللغات. اتبع الوثائق لتدويله (i18n) وترجمته.
 keywords:
   - التدويل

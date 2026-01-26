@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Cách dịch ứng dụng Vite và Preact của bạn – Hướng dẫn i18n 2026
+title: Vite và Preact i18n - Cách dịch ứng dụng Preact của bạn – hướng dẫn 2026
 description: Khám phá cách làm cho trang web Vite và Preact của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó.
 keywords:
   - Quốc tế hóa

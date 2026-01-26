@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: كيفية ترجمة تطبيق Vite and Solid – دليل i18n 2026
+title: Vite و Solid i18n - كيفية ترجمة تطبيق Solid – دليل 2026
 description: اكتشف كيفية جعل موقعك باستخدام Vite و Solid متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته.
 keywords:
   - التدويل

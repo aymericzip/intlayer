@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-03-09
 updatedAt: 2025-12-30
-title: Cara menerjemahkan aplikasi mobile Lynx dan React Anda – panduan i18n 2026
+title: Lynx dan React i18n - Cara menerjemahkan aplikasi Lynx Anda – panduan 2026
 description: Temukan cara membuat aplikasi mobile Lynx dan React Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya.
 keywords:
   - Internasionalisasi

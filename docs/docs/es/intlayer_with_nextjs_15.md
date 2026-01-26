@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-06
 updatedAt: 2025-12-30
-title: Cómo traducir tu Next.js 15 – guía i18n 2026
+title: Next.js i18n - Cómo traducir su aplicación Next.js 15 – guía 2026
 description: Descubre cómo hacer tu sitio web Next.js 15 multilingüe. Sigue la documentación para internacionalizar (i18n) y traducirlo.
 keywords:
   - Internacionalización

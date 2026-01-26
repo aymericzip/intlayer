@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Wie Sie Ihre Vite and Solid übersetzen – i18n-Leitfaden 2026
+title: Vite und Solid i18n - Wie Sie Ihre Solid App übersetzen – Leitfaden 2026
 description: Entdecken Sie, wie Sie Ihre Vite- und Solid-Website mehrsprachig gestalten. Folgen Sie der Dokumentation, um sie zu internationalisieren (i18n) und zu übersetzen.
 keywords:
   - Internationalisierung

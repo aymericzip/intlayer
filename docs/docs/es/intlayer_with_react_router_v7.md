@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-04
 updatedAt: 2025-12-30
-title: Cómo traducir tu React Router v7 – guía i18n 2026
+title: React Router v7 i18n - Cómo traducir su aplicación React Router v7 – guía 2026
 description: Aprende cómo agregar internacionalización (i18n) a tu aplicación React Router v7 usando Intlayer. Sigue esta guía completa para hacer tu aplicación multilingüe con enrutamiento consciente del locale.
 keywords:
   - Internacionalización

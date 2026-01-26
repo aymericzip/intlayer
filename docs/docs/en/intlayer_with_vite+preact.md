@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: How to translate your Vite and Preact app – i18n guide 2026
+title: Vite and Preact i18n - How to translate your Preact app – guide 2026
 description: Discover how to make your Vite and Preact website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
   - Internationalization

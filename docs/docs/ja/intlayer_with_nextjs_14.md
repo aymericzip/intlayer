@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-06
 updatedAt: 2025-12-30
-title: Next.js 14 and App Routerアプリを翻訳する方法 – i18nガイド 2026
+title: Next.js i18n - Next.js 14アプリの翻訳方法 – ガイド 2026
 description: Next.js 14 の App Router ウェブサイトを多言語対応にする方法を紹介します。国際化（i18n）と翻訳の手順をドキュメントで解説します。
 keywords:
   - 国際化

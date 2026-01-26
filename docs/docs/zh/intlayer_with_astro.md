@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2025-12-30
-title: 如何翻译您的Astro应用 – i18n指南 2026
+title: Astro i18n - 如何翻译您的 Astro 应用 – 指南 2026
 description: 学习如何使用 Intlayer 为您的 Astro 网站添加国际化（i18n）。按照本指南使您的网站支持多语言。
 keywords:
   - 国际化
