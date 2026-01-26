@@ -58,6 +58,8 @@ const noPrefix =
   effectiveMode === 'no-prefix' || effectiveMode === 'search-params';
 const prefixDefault = effectiveMode === 'prefix-all';
 
+const internalPrefix = !noPrefix;
+
 const rewriteRules = getRewriteRules(rewrite, 'url');
 
 /**
@@ -195,7 +197,9 @@ const handleNoPrefix = (
     const existingLocale = existingSearchParams.get('locale');
 
     if (existingLocale === locale) {
-      const internalPath = `/${locale}${canonicalPath}`;
+      const internalPath = internalPrefix
+        ? `/${locale}${canonicalPath}`
+        : canonicalPath;
       const rewritePath = `${internalPath}${request.nextUrl.search ?? ''}`;
       return rewriteUrl(request, rewritePath, locale as Locale);
     }
@@ -212,7 +216,9 @@ const handleNoPrefix = (
     return redirectUrl(request, redirectPath);
   }
 
-  const internalPath = `/${locale}${canonicalPath}`;
+  const internalPath = internalPrefix
+    ? `/${locale}${canonicalPath}`
+    : canonicalPath;
   const search = appendLocaleSearchIfNeeded(
     request.nextUrl.search,
     locale as Locale
@@ -313,7 +319,11 @@ const handleMissingPathLocale = (
 
   return prefixDefault || locale !== defaultLocale
     ? redirectUrl(request, newPath)
-    : rewriteUrl(request, `/${locale}${canonicalPath}`, locale); // Rewrite must use Canonical
+    : rewriteUrl(
+        request,
+        internalPrefix ? `/${locale}${canonicalPath}` : canonicalPath,
+        locale
+      ); // Rewrite must use Canonical
 };
 
 /**
@@ -378,7 +388,9 @@ const handleExistingPathLocale = (
     return redirectUrl(request, newPath);
   }
 
-  const internalUrl = `/${pathLocale}${canonicalPath}`;
+  const internalUrl = internalPrefix
+    ? `/${pathLocale}${canonicalPath}`
+    : canonicalPath;
 
   // Only handle redirect if we are strictly managing default locale prefixing
   if (!prefixDefault && pathLocale === defaultLocale) {
@@ -478,7 +490,9 @@ const handleDefaultLocaleRedirect = (
   );
 
   // If no redirect needed, we rewrite to the internal canonical path
-  const internalPath = `/${pathLocale}${canonicalPath}`;
+  const internalPath = internalPrefix
+    ? `/${pathLocale}${canonicalPath}`
+    : canonicalPath;
 
   const rewriteTarget = searchWithLocale
     ? `${internalPath}${searchWithLocale}`
@@ -540,7 +554,19 @@ const rewriteUrl = (
   const pathWithSearch =
     search && !newPath.includes('?') ? `${newPath}${search}` : newPath;
 
-  const response = NextResponse.rewrite(new URL(pathWithSearch, request.url));
+  const requestHeaders = new Headers(request.headers);
+  setLocaleInStorage(locale, {
+    setHeader: (name: string, value: string) => {
+      requestHeaders.set(name, value);
+    },
+  });
+
+  const response = NextResponse.rewrite(new URL(pathWithSearch, request.url), {
+    request: {
+      headers: requestHeaders,
+    },
+  });
+
   setLocaleInStorage(locale, {
     setHeader: (name: string, value: string) => {
       response.headers.set(name, value);

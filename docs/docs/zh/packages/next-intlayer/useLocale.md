@@ -1,24 +1,11 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
-title: useLocale Hook 文档 | next-intlayer
-description: 查看如何使用 next-intlayer 包中的 useLocale 钩子
-keywords:
-  - useLocale
-  - 字典
-  - 键
-  - Intlayer
-  - 国际化
-  - 文档
-  - Next.js
-  - JavaScript
-  - React
-slugs:
-  - doc
-  - packages
-  - next-intlayer
-  - useLocale
+updatedAt: 2026-01-26
+title: useLocale 钩子文档 | next-intlayer
 history:
+  - version: 8.0.0
+    date: 2026-01-26
+    changes: 将 `onLocaleChange` 默认值设置为 `replace`
   - version: 5.5.10
     date: 2025-06-29
     changes: 初始化历史
@@ -116,9 +103,39 @@ const LocaleSwitcher = () => {
 };
 ```
 
-## 参数和返回值
+## 参数
 
-当你调用 `useLocale` 钩子时，它会返回一个包含以下属性的对象：
+`useLocale` 钩子接受以下参数：
+
+- **`onLocaleChange`**：一个字符串，决定当语言环境改变时如何更新 URL。可以是 `"replace"`、`"push"` 或 `"none"`。
+
+  > 让我们举个例子：
+  >
+  > 1. 你当前在 `/fr/home`
+  > 2. 你导航到 `/fr/about`
+  > 3. 你将语言环境更改为 `/es/about`
+  > 4. 你点击浏览器的“返回”按钮
+  >
+  > 行为将根据 `onLocaleChange` 的值而有所不同：
+  >
+  > - `"replace"` (默认)：用新的本地化 URL 替换当前 URL，并设置 cookie。
+  >   -> “返回”按钮将跳转到 `/es/home`
+  > - `"push"`：将新的本地化 URL 添加到浏览器历史记录中，并设置 cookie。
+  >   -> “返回”按钮将跳转到 `/fr/about`
+  > - `"none"`：仅在客户端上下文中更新语言环境，并设置 cookie，而不更改 URL。
+  >   -> “返回”按钮将跳转到 `/fr/home`
+  > - `(locale) => void`：设置 cookie 并触发语言环境更改时调用的自定义函数。
+  >
+  >   `undefined` 选项是默认行为，因为我们建议使用 `Link` 组件导航到新的语言环境。
+  >   示例：
+  >
+  >   ```tsx
+  >   <Link href="/es/about" replace>
+  >     关于我们
+  >   </Link>
+  >   ```
+
+## 返回值
 
 - **`locale`**：当前在 React 上下文中设置的语言环境。
 - **`defaultLocale`**：配置中定义的主要语言环境。

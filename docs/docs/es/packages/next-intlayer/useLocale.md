@@ -1,24 +1,11 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-01-26
 title: Documentación del Hook useLocale | next-intlayer
-description: Vea cómo usar el hook useLocale para el paquete next-intlayer
-keywords:
-  - useLocale
-  - diccionario
-  - clave
-  - Intlayer
-  - Internacionalización
-  - Documentación
-  - Next.js
-  - JavaScript
-  - React
-slugs:
-  - doc
-  - packages
-  - next-intlayer
-  - useLocale
 history:
+  - version: 8.0.0
+    date: 2026-01-26
+    changes: `onLocaleChange` por defecto a `replace`
   - version: 5.5.10
     date: 2025-06-29
     changes: Historial inicial
@@ -116,9 +103,39 @@ const LocaleSwitcher = () => {
 };
 ```
 
-## Parámetros y Valores de Retorno
+## Parámetros
 
-Cuando invocas el hook `useLocale`, este retorna un objeto que contiene las siguientes propiedades:
+El hook `useLocale` acepta los siguientes parámetros:
+
+- **`onLocaleChange`**: Una cadena que determina cómo debe actualizarse la URL cuando cambia el locale. Puede ser `"replace"`, `"push"` o `"none"`.
+
+  > Tomemos un ejemplo:
+  >
+  > 1. Estás en `/fr/home`
+  > 2. Navegas a `/fr/about`
+  > 3. Cambias el locale a `/es/about`
+  > 4. Haces clic en el botón "atrás" del navegador
+  >
+  > El comportamiento variará según el valor de `onLocaleChange`:
+  >
+  > - `"replace"` (predeterminado): Reemplaza la URL actual con la nueva URL localizada y establece la cookie.
+  >   -> El botón "atrás" irá a `/es/home`
+  > - `"push"`: Agrega la nueva URL localizada al historial del navegador y establece la cookie.
+  >   -> El botón "atrás" irá a `/fr/about`
+  > - `"none"`: Solo actualiza el locale en el contexto del cliente y establece la cookie, sin cambiar la URL.
+  >   -> El botón "atrás" irá a `/fr/home`
+  > - `(locale) => void`: Establece la cookie y activa una función personalizada que se llamará cuando cambie el locale.
+  >
+  >   La opción `undefined` es el comportamiento predeterminado, ya que recomendamos usar el componente `Link` para navegar al nuevo locale.
+  >   Ejemplo:
+  >
+  >   ```tsx
+  >   <Link href="/es/about" replace>
+  >     Acerca de
+  >   </Link>
+  >   ```
+
+## Valores de Retorno
 
 - **`locale`**: La configuración regional actual establecida en el contexto de React.
 - **`defaultLocale`**: La configuración regional principal definida en la configuración.

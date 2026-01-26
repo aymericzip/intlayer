@@ -1,24 +1,11 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-01-26
 title: useLocale 훅 문서 | next-intlayer
-description: next-intlayer 패키지에서 useLocale 훅을 사용하는 방법을 확인하세요
-keywords:
-  - useLocale
-  - dictionary
-  - key
-  - Intlayer
-  - 국제화
-  - 문서
-  - Next.js
-  - 자바스크립트
-  - 리액트
-slugs:
-  - doc
-  - packages
-  - next-intlayer
-  - useLocale
 history:
+  - version: 8.0.0
+    date: 2026-01-26
+    changes: `onLocaleChange` 기본값을 `replace`로 설정
   - version: 5.5.10
     date: 2025-06-29
     changes: 초기 이력
@@ -116,9 +103,39 @@ const LocaleSwitcher = () => {
 };
 ```
 
-## 매개변수 및 반환 값
+## 매개변수
 
-`useLocale` 훅을 호출하면 다음 속성을 포함하는 객체를 반환합니다:
+`useLocale` 훅은 다음 매개변수를 허용합니다:
+
+- **`onLocaleChange`**: 로케일이 변경될 때 URL을 업데이트하는 방법을 결정하는 문자열입니다. `"replace"`, `"push"` 또는 `"none"`이 될 수 있습니다.
+
+  > 예시를 들어보겠습니다:
+  >
+  > 1. 현재 `/fr/home`에 있습니다.
+  > 2. `/fr/about`으로 이동합니다.
+  > 3. 로케일을 `/es/about`으로 변경합니다.
+  > 4. 브라우저의 "뒤로 가기" 버튼을 클릭합니다.
+  >
+  > `onLocaleChange` 값에 따라 동작이 달라집니다:
+  >
+  > - `"replace"` (기본값): 현재 URL을 새로운 로컬 URL로 교체하고 쿠키를 설정합니다.
+  >   -> "뒤로 가기" 버튼을 누르면 `/es/home`으로 이동합니다.
+  > - `"push"`: 새로운 로컬 URL을 브라우저 기록에 추가하고 쿠키를 설정합니다.
+  >   -> "뒤로 가기" 버튼을 누르면 `/fr/about`으로 이동합니다.
+  > - `"none"`: URL을 변경하지 않고 클라이언트 컨텍스트의 로케일만 업데이트하고 쿠키를 설정합니다.
+  >   -> "뒤로 가기" 버튼을 누르면 `/fr/home`으로 이동합니다.
+  > - `(locale) => void`: 쿠키를 설정하고 로케일이 변경될 때 호출될 커스텀 함수를 트리거합니다.
+  >
+  >   `undefined` 옵션은 기본 동작이며, 새로운 로케일로 이동할 때는 `Link` 컴포넌트를 사용하는 것을 권장합니다.
+  >   예시:
+  >
+  >   ```tsx
+  >   <Link href="/es/about" replace>
+  >     정보
+  >   </Link>
+  >   ```
+
+## 반환 값
 
 - **`locale`**: React 컨텍스트에 설정된 현재 로케일입니다.
 - **`defaultLocale`**: 구성에서 정의된 기본 로케일입니다.

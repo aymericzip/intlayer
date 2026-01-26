@@ -1,24 +1,11 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-10-09
+updatedAt: 2026-01-26
 title: Dokumentasi Hook useLocale | next-intlayer
-description: Lihat cara menggunakan hook useLocale untuk paket next-intlayer
-keywords:
-  - useLocale
-  - kamus
-  - kunci
-  - Intlayer
-  - Internasionalisasi
-  - Dokumentasi
-  - Next.js
-  - JavaScript
-  - React
-slugs:
-  - doc
-  - packages
-  - next-intlayer
-  - useLocale
 history:
+  - version: 8.0.0
+    date: 2026-01-26
+    changes: Mengatur `onLocaleChange` default ke `replace`
   - version: 6.2.0
     date: 2025-10-09
     changes: Menambahkan dokumentasi untuk hook `useLocale` dengan opsi `onLocaleChange`
@@ -134,12 +121,12 @@ Hook `useLocale` menerima parameter berikut:
   >
   > Perilaku akan berbeda berdasarkan nilai `onLocaleChange`:
   >
-  > - `undefined`: (default) Hanya memperbarui locale dalam konteks klien, dan mengatur cookie, tanpa mengubah URL.
-  >   -> Tombol "kembali" akan menuju ke `/fr/home`
-  > - `"replace"`: Mengganti URL saat ini dengan URL lokal baru, dan mengatur cookie.
+  > - `"replace"` (default): Mengganti URL saat ini dengan URL lokal baru, dan mengatur cookie.
   >   -> Tombol "kembali" akan menuju ke `/es/home`
   > - `"push"`: Menambahkan URL lokal baru ke riwayat browser, dan mengatur cookie.
   >   -> Tombol "kembali" akan menuju ke `/fr/about`
+  > - `"none"`: Hanya memperbarui locale dalam konteks klien, dan mengatur cookie, tanpa mengubah URL.
+  >   -> Tombol "kembali" akan menuju ke `/fr/home`
   > - `(locale) => void`: Mengatur cookie dan memicu fungsi kustom yang akan dipanggil saat locale berubah.
   >
   >   Opsi `undefined` adalah perilaku default karena kami merekomendasikan menggunakan komponen `Link` untuk menavigasi ke locale baru.

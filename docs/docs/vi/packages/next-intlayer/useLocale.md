@@ -1,24 +1,11 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-10-09
+updatedAt: 2026-01-26
 title: Tài liệu Hook useLocale | next-intlayer
-description: Xem cách sử dụng hook useLocale cho gói next-intlayer
-keywords:
-  - useLocale
-  - dictionary
-  - key
-  - Intlayer
-  - Quốc tế hóa
-  - Tài liệu
-  - Next.js
-  - JavaScript
-  - React
-slugs:
-  - doc
-  - packages
-  - next-intlayer
-  - useLocale
 history:
+  - version: 8.0.0
+    date: 2026-01-26
+    changes: Mặc định `onLocaleChange` thành `replace`
   - version: 6.2.0
     date: 2025-10-09
     changes: Thêm tài liệu cho hook `useLocale` với tùy chọn `onLocaleChange`
@@ -134,12 +121,12 @@ Hook `useLocale` chấp nhận các tham số sau:
   >
   > Hành vi sẽ khác nhau dựa trên giá trị của `onLocaleChange`:
   >
-  > - `undefined`: (mặc định) Chỉ cập nhật ngôn ngữ trong ngữ cảnh client, và đặt cookie, mà không thay đổi URL.
-  >   -> Nút "quay lại" sẽ dẫn đến `/fr/home`
-  > - `"replace"`: Thay thế URL hiện tại bằng URL đã được địa phương hóa mới, và đặt cookie.
+  > - `"replace"` (mặc định): Thay thế URL hiện tại bằng URL đã được địa phương hóa mới, và đặt cookie.
   >   -> Nút "quay lại" sẽ dẫn đến `/es/home`
   > - `"push"`: Thêm URL đã được địa phương hóa mới vào lịch sử trình duyệt, và đặt cookie.
   >   -> Nút "quay lại" sẽ dẫn đến `/fr/about`
+  > - `"none"`: Chỉ cập nhật ngôn ngữ trong ngữ cảnh client, và đặt cookie, mà không thay đổi URL.
+  >   -> Nút "quay lại" sẽ dẫn đến `/fr/home`
   > - `(locale) => void`: Đặt cookie và kích hoạt một hàm tùy chỉnh sẽ được gọi khi ngôn ngữ thay đổi.
   >
   >   Tùy chọn `undefined` là hành vi mặc định vì chúng tôi khuyến nghị sử dụng component `Link` để điều hướng đến ngôn ngữ mới.

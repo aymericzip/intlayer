@@ -1,24 +1,11 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-01-26
 title: useLocale Hook Dokumentation | next-intlayer
-description: Siehe, wie der useLocale Hook für das next-intlayer Paket verwendet wird
-keywords:
-  - useLocale
-  - Wörterbuch
-  - Schlüssel
-  - Intlayer
-  - Internationalisierung
-  - Dokumentation
-  - Next.js
-  - JavaScript
-  - React
-slugs:
-  - doc
-  - packages
-  - next-intlayer
-  - useLocale
 history:
+  - version: 8.0.0
+    date: 2026-01-26
+    changes: Standardwert für `onLocaleChange` auf `replace` gesetzt
   - version: 5.5.10
     date: 2025-06-29
     changes: Historie initialisiert
@@ -116,9 +103,39 @@ const LocaleSwitcher = () => {
 };
 ```
 
-## Parameter und Rückgabewerte
+## Parameter
 
-Wenn Sie den `useLocale` Hook aufrufen, gibt er ein Objekt mit den folgenden Eigenschaften zurück:
+Der `useLocale` Hook akzeptiert die folgenden Parameter:
+
+- **`onLocaleChange`**: Ein String, der bestimmt, wie die URL aktualisiert werden soll, wenn sich die Sprache ändert. Mögliche Werte sind `"replace"`, `"push"` oder `"none"`.
+
+  > Nehmen wir ein Beispiel:
+  >
+  > 1. Sie befinden sich auf `/fr/home`
+  > 2. Sie navigieren zu `/fr/about`
+  > 3. Sie ändern die Sprache zu `/es/about`
+  > 4. Sie klicken auf die "Zurück"-Schaltfläche des Browsers
+  >
+  > Das Verhalten unterscheidet sich je nach Wert von `onLocaleChange`:
+  >
+  > - `"replace"` (Standard): Ersetzt die aktuelle URL durch die neue lokalisierte URL und setzt den Cookie.
+  >   -> Die "Zurück"-Schaltfläche führt zu `/es/home`
+  > - `"push"`: Fügt die neue lokalisierte URL dem Browser-Verlauf hinzu und setzt den Cookie.
+  >   -> Die "Zurück"-Schaltfläche führt zu `/fr/about`
+  > - `"none"`: Aktualisiert nur die Sprache im Client-Kontext und setzt den Cookie, ohne die URL zu ändern.
+  >   -> Die "Zurück"-Schaltfläche führt zu `/fr/home`
+  > - `(locale) => void`: Setzt den Cookie und löst eine benutzerdefinierte Funktion aus, die aufgerufen wird, wenn sich die Sprache ändert.
+  >
+  >   Die Option `undefined` ist das Standardverhalten, da wir empfehlen, die `Link`-Komponente zu verwenden, um zur neuen Sprache zu navigieren.
+  >   Beispiel:
+  >
+  >   ```tsx
+  >   <Link href="/es/about" replace>
+  >     Über uns
+  >   </Link>
+  >   ```
+
+## Rückgabewerte
 
 - **`locale`**: Die aktuelle Sprache, wie im React-Kontext gesetzt.
 - **`defaultLocale`**: Die primäre Sprache, die in der Konfiguration definiert ist.

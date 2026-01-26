@@ -1,24 +1,11 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-10-09
+updatedAt: 2026-01-26
 title: Документація хуку useLocale | next-intlayer
-description: Дивіться, як використовувати хук useLocale у пакеті next-intlayer
-keywords:
-  - useLocale
-  - dictionary
-  - key
-  - Intlayer
-  - Internationalization
-  - Documentation
-  - Next.js
-  - JavaScript
-  - React
-slugs:
-  - doc
-  - packages
-  - next-intlayer
-  - useLocale
 history:
+  - version: 8.0.0
+    date: 2026-01-26
+    changes: Встановлено `onLocaleChange` за замовчуванням у `replace`
   - version: 6.2.0
     date: 2025-10-09
     changes: Додано документацію для хуку `useLocale` з опцією `onLocaleChange`
@@ -134,12 +121,12 @@ const LocaleSwitcher = () => {
   >
   > Поведінка відрізнятиметься залежно від значення `onLocaleChange`:
   >
-  > - `undefined`: (за замовчуванням) Оновлює лише локаль у клієнтському контексті та встановлює cookie, не змінюючи URL.
-  >   -> Кнопка «назад» перейде на `/fr/home`
-  > - `"replace"`: Замінює поточний URL на новий локалізований URL і встановлює cookie.
+  > - `"replace"` (за замовчуванням): Замінює поточний URL на новий локалізований URL і встановлює cookie.
   >   -> Кнопка «назад» перейде на `/es/home`
   > - `"push"`: Додає новий локалізований URL в історію браузера та встановлює cookie.
   >   -> Кнопка «назад» перейде на `/fr/about`
+  > - `"none"`: Оновлює лише локаль у клієнтському контексті та встановлює cookie, не змінюючи URL.
+  >   -> Кнопка «назад» перейде на `/fr/home`
   > - `(locale) => void`: Встановлює cookie і викликає кастомну функцію, яка буде запущена при зміні локалі.
   >
   >   Опція `undefined` — поведінка за замовчуванням: ми рекомендуємо використовувати компонент `Link` для навігації на нову локаль.

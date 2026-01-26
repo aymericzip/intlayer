@@ -1,24 +1,11 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-01-26
 title: useLocale フックドキュメント | next-intlayer
-description: next-intlayer パッケージの useLocale フックの使い方を解説
-keywords:
-  - useLocale
-  - 辞書
-  - キー
-  - Intlayer
-  - 国際化
-  - ドキュメント
-  - Next.js
-  - JavaScript
-  - React
-slugs:
-  - doc
-  - packages
-  - next-intlayer
-  - useLocale
 history:
+  - version: 8.0.0
+    date: 2026-01-26
+    changes: `onLocaleChange` のデフォルト値を `replace` に設定
   - version: 5.5.10
     date: 2025-06-29
     changes: 履歴初期化
@@ -116,9 +103,39 @@ const LocaleSwitcher = () => {
 };
 ```
 
-## パラメーターと戻り値
+## パラメーター
 
-`useLocale` フックを呼び出すと、以下のプロパティを含むオブジェクトが返されます。
+`useLocale` フックは以下のパラメーターを受け入れます。
+
+- **`onLocaleChange`**: ロケールが変更されたときに URL をどのように更新するかを決定する文字列です。`"replace"`、`"push"`、または `"none"` を指定できます。
+
+  > 例を挙げてみましょう：
+  >
+  > 1. あなたは現在 `/fr/home` にいます
+  > 2. `/fr/about` へ移動します
+  > 3. ロケールを `/es/about` に変更します
+  > 4. ブラウザの「戻る」ボタンをクリックします
+  >
+  > `onLocaleChange` の値によって動作が異なります：
+  >
+  > - `"replace"` (デフォルト): 現在の URL を新しいローカライズされた URL に置き換え、Cookie を設定します。
+  >   -> 「戻る」ボタンは `/es/home` へ戻ります
+  > - `"push"`: 新しいローカライズされた URL をブラウザの履歴に追加し、Cookie を設定します。
+  >   -> 「戻る」ボタンは `/fr/about` へ戻ります
+  > - `"none"`: URL を変更せずに、クライアントコンテキストのロケールのみを更新し、Cookie を設定します。
+  >   -> 「戻る」ボタンは `/fr/home` へ戻ります
+  > - `(locale) => void`: Cookie を設定し、ロケールが変更されたときに呼び出されるカスタム関数を実行します。
+  >
+  >   `undefined` オプションはデフォルトの動作です。新しいロケールへの移動には `Link` コンポーネントの使用を推奨しています。
+  >   例：
+  >
+  >   ```tsx
+  >   <Link href="/es/about" replace>
+  >     私たちについて
+  >   </Link>
+  >   ```
+
+## 戻り値
 
 - **`locale`**: React コンテキストで設定されている現在のロケール。
 - **`defaultLocale`**: 設定で定義された主要なロケール。

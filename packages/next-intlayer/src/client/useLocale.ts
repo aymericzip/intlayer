@@ -7,7 +7,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLocale as useLocaleReact } from 'react-intlayer';
 
 type UseLocaleProps = {
-  onChange?: 'replace' | 'push' | ((locale: LocalesValues) => void);
+  onChange?: 'replace' | 'push' | 'none' | ((locale: LocalesValues) => void);
 };
 
 const usePathWithoutLocale = () => {
@@ -48,7 +48,7 @@ const usePathWithoutLocale = () => {
  * };
  * ```
  */
-export const useLocale = ({ onChange }: UseLocaleProps = {}) => {
+export const useLocale = ({ onChange = 'replace' }: UseLocaleProps = {}) => {
   const { replace, push } = useRouter();
   const pathWithoutLocale = usePathWithoutLocale();
 

@@ -1,24 +1,11 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-10-09
+updatedAt: 2026-01-26
 title: Dokumentacja hooka useLocale | next-intlayer
-description: Zobacz, jak używać hooka useLocale w pakiecie next-intlayer
-keywords:
-  - useLocale
-  - słownik
-  - klucz
-  - Intlayer
-  - Internacjonalizacja
-  - Dokumentacja
-  - Next.js
-  - JavaScript
-  - React
-slugs:
-  - doc
-  - packages
-  - next-intlayer
-  - useLocale
 history:
+  - version: 8.0.0
+    date: 2026-01-26
+    changes: Ustawiono domyślną wartość `onLocaleChange` na `replace`
   - version: 6.2.0
     date: 2025-10-09
     changes: Dodano dokumentację hooka `useLocale` z opcją `onLocaleChange`
@@ -134,12 +121,12 @@ Hook `useLocale` akceptuje następujące parametry:
   >
   > Zachowanie będzie różne w zależności od wartości `onLocaleChange`:
   >
-  > - `undefined`: (domyślnie) Aktualizuje tylko lokalizację w kontekście klienta i ustawia cookie, bez zmiany adresu URL.
-  >   -> Przycisk "wstecz" przeniesie do `/fr/home`
-  > - `"replace"`: Zastępuje bieżący adres URL nowym, zlokalizowanym adresem URL, i ustawia cookie.
+  > - `"replace"` (domyślnie): Zastępuje bieżący adres URL nowym, zlokalizowanym adresem URL, i ustawia cookie.
   >   -> Przycisk "wstecz" przeniesie do `/es/home`
   > - `"push"`: Dodaje nowy, zlokalizowany adres URL do historii przeglądarki i ustawia cookie.
   >   -> Przycisk "wstecz" przeniesie do `/fr/about`
+  > - `"none"`: Aktualizuje tylko lokalizację w kontekście klienta i ustawia cookie, bez zmiany adresu URL.
+  >   -> Przycisk "wstecz" przeniesie do `/fr/home`
   > - `(locale) => void`: Ustawia cookie i wywołuje niestandardową funkcję, która zostanie wywołana po zmianie lokalizacji.
   >
   >   Opcja `undefined` jest domyślnym zachowaniem, ponieważ zalecamy używanie komponentu `Link` do nawigacji do nowej lokalizacji.
