@@ -288,6 +288,19 @@ const nextConfig: NextConfig = {
   ],
   async redirects() {
     return [
+      // Removed blog pages
+      {
+        source:
+          '/blog/i18n-technologies/:path(CMS/wix|CMS/wordpress|CMS/drupal|frameworks/flutter)',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source:
+          '/:locale/blog/i18n-technologies/:path(CMS/wix|CMS/wordpress|CMS/drupal|frameworks/flutter)',
+        destination: '/:locale/blog',
+        permanent: true,
+      },
       {
         source: '/doc/environment/vite-and-react/tanstack-start',
         destination: '/doc/environment/tanstack-start',
