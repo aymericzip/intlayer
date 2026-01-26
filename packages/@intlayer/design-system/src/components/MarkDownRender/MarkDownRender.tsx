@@ -8,7 +8,6 @@ import {
 } from 'react-intlayer';
 import type { BundledLanguage } from 'shiki/bundle/web';
 import { H1, H2, H3, H4, H5, H6 } from '../Headers';
-import type { CodeCompAttributes } from '../IDE/Code';
 import { Code } from '../IDE/Code';
 import { CodeProvider } from '../IDE/CodeContext';
 import { Link } from '../Link';
@@ -141,7 +140,7 @@ export const getIntlayerMarkdownOptions: (
       <Tab
         {...props}
         className="rounded-xl border border-card"
-        headerClassName="sticky rounded-xl top-36 z-10 bg-background/70 backdrop-blur"
+        headerClassName="sticky rounded-xl top-36 z-10 bg-background/70 backdrop-blur overflow-x-auto"
       />
     ),
     Tab: Tab.Item,

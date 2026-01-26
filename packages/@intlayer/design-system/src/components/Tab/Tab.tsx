@@ -162,7 +162,7 @@ const TabComponent = ({
                 <button
                   key={value}
                   className={cn(
-                    'cursor-pointer rounded-md px-4 py-1 font-medium text-sm transition-colors focus:outline-none',
+                    'cursor-pointer whitespace-nowrap rounded-md px-4 py-1 font-medium text-sm transition-colors focus:outline-none',
                     !isActive && 'text-neutral/70'
                   )}
                   data-active={isActive}

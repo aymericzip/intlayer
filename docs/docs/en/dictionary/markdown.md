@@ -37,33 +37,33 @@ Intlayer supports rich text content defined using Markdown syntax. This allows y
 Intlayer v8 intelligently detects Markdown syntax in your content strings. If a string is identified as Markdown, it is automatically transformed into a Markdown node.
 
 <Columns>
-<Column title="v7 behavior (Manual wrapping)">
+  <Column title="v7 behavior (Manual wrapping)">
 
-```typescript fileName="markdownDictionary.content.ts"
-import { md } from "intlayer";
+    ```typescript fileName="markdownDictionary.content.ts"
+    import { md } from "intlayer";
 
-export default {
-  key: "app",
-  content: {
-    text: md("## My title \n\nLorem Ipsum"),
-  },
-};
-```
+    export default {
+      key: "app",
+      content: {
+        text: md("## My title \n\nLorem Ipsum"),
+      },
+    };
+    ```
 
-</Column>
-<Column title="v8 behavior (Automatic detection)">
+  </Column>
+  <Column title="v8 behavior (Automatic detection)">
 
-```typescript fileName="markdownDictionary.content.ts"
-export default {
-  key: "app",
-  contentAutoTransformation: true, // Enable automatic detection of Markdown content - Can be set globally in intlayer.config.ts
-  content: {
-    text: "## My title \n\nLorem Ipsum",
-  },
-};
-```
+    ```typescript fileName="markdownDictionary.content.ts"
+    export default {
+      key: "app",
+      contentAutoTransformation: true, // Enable automatic detection of Markdown content - Can be set globally in intlayer.config.ts
+      content: {
+        text: "## My title \n\nLorem Ipsum",
+      },
+    };
+    ```
 
-</Column>
+  </Column>
 </Columns>
 
 ---
@@ -205,6 +205,7 @@ If you need to render raw Markdown strings or have more control over the renderi
 
 <Tabs group="framework">
   <Tab label="React / Next.js">
+  
     #### `<MarkdownRenderer />` Component
 
     Render a Markdown string with specific options.
@@ -292,6 +293,7 @@ You can configure Markdown rendering globally for your entire application. This 
 
 <Tabs group="framework">
   <Tab label="React / Next.js">
+
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "react-intlayer";
 
@@ -311,6 +313,7 @@ You can configure Markdown rendering globally for your entire application. This 
 
   </Tab>
   <Tab label="Vue">
+
     ```typescript fileName="main.ts"
     import { createApp } from "vue";
     import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
@@ -335,6 +338,7 @@ You can configure Markdown rendering globally for your entire application. This 
 
   </Tab>
   <Tab label="Svelte">
+
     ```svelte fileName="App.svelte"
     <script lang="ts">
       import { MarkdownProvider } from "svelte-intlayer";
@@ -354,6 +358,7 @@ You can configure Markdown rendering globally for your entire application. This 
 
   </Tab>
   <Tab label="Preact">
+
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "preact-intlayer";
 
