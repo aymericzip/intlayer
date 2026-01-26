@@ -50,7 +50,29 @@ Traduzir uma aplicação Angular apresenta vários desafios:
 
 O Angular oferece uma estrutura de i18n integrada, e existem várias bibliotecas de terceiros projetadas para simplificar sua configuração multilíngue. Abaixo estão algumas das soluções mais populares.
 
-### 1. i18n Integrado do Angular
+### 1. Intlayer
+
+> Website: [https://intlayer.org/](https://intlayer.org/)
+
+**Visão Geral**  
+**Intlayer** é uma biblioteca inovadora de internacionalização (i18n), de código aberto, projetada para simplificar o suporte multilíngue em aplicações web modernas de Angular (e outras). Oferece uma abordagem declarativa, permitindo que você defina dicionários de tradução diretamente dentro de seus componentes.
+
+**Principais Recursos**
+
+- **Declaração de Tradução**: Permite a declaração de todas as traduções em um único arquivo, colocado no nível do componente, facilitando a manutenção e escalabilidade.
+- **TypeScript & Autocompletar**: Oferece definições de tipo geradas automaticamente para chaves de tradução, proporcionando robustez no autocompletar e detecção de erros.
+- **Componentes de Servidor & SSR**: Construído pensando na renderização do lado do servidor (SSR) e Angular Universal, garantindo que o conteúdo localizado seja renderizado eficientemente no cliente e no servidor.
+- **Metadados Localizados & URLs para SEO**: Lida facilmente com rotas dinâmicas baseadas em localização, sitemaps e entradas de robots.txt para melhorar a descobribilidade e SEO.
+- **Integração Silenciosa**: Compatível com Angular CLI e Angular Universal, tornando a configuração simples.
+- **Carregamento Assíncrono**: Carrega dicionários de tradução dinamicamente, reduzindo o tamanho do bundle inicial e melhorando o desempenho.
+
+**Considerações**
+
+- **Comunidade & Ecossistema**: Embora esteja crescendo, o ecossistema é mais novo, então plugins e ferramentas orientados pela comunidade podem ser mais limitados em comparação com soluções mais estabelecidas.
+
+---
+
+### 2. i18n Integrado do Angular
 
 **Visão Geral**  
 O Angular vem com um sistema de **i18n integrado** que inclui ferramentas para extrair strings de tradução, lidar com pluralização e interpolação, e integrar traduções em tempo de compilação. Esta solução oficial é poderosa para projetos menores ou aqueles que podem se alinhar de perto à estrutura recomendada do Angular.
@@ -70,7 +92,7 @@ O Angular vem com um sistema de **i18n integrado** que inclui ferramentas para e
 
 ---
 
-### 2. ngx-translate
+### 3. ngx-translate
 
 Website: [https://github.com/ngx-translate/core](https://github.com/ngx-translate/core)
 
@@ -92,7 +114,7 @@ Website: [https://github.com/ngx-translate/core](https://github.com/ngx-translat
 
 ---
 
-### 3. Transloco
+### 4. Transloco
 
 Website: [https://ngneat.github.io/transloco/](https://ngneat.github.io/transloco/)
 

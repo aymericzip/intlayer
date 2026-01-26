@@ -1,4 +1,4 @@
-import { computed, inject } from '@angular/core';
+import { computed, inject, type Signal } from '@angular/core';
 import type {
   DictionaryKeys,
   DictionaryRegistryContent,
@@ -44,7 +44,7 @@ export const isUpdatableNode = (
 export const useIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
   key: T,
   locale?: LocalesValues
-): DeepTransformContent<DictionaryRegistryContent<T>> => {
+): Signal<DeepTransformContent<DictionaryRegistryContent<T>>> => {
   const intlayer = inject<IntlayerProvider>(INTLAYER_TOKEN)!;
 
   /** which locale should we use right now? */
@@ -54,5 +54,5 @@ export const useIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
   // @ts-ignore Type instantiation is excessively deep and possibly infinite
   const content = computed(() => getIntlayer<T, L>(key, localeTarget() as L));
 
-  return content() as DeepTransformContent<DictionaryRegistryContent<T>>; // all consumers keep full reactivity
+  return content; // all consumers keep full reactivity
 };

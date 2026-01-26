@@ -1,4 +1,4 @@
-import { computed, inject } from '@angular/core';
+import { computed, inject, type Signal } from '@angular/core';
 import type { Dictionary, LocalesValues } from '@intlayer/types';
 import { getDictionary } from '../getDictionary';
 import type { DeepTransformContent } from '../plugins';
@@ -7,7 +7,7 @@ import { INTLAYER_TOKEN, type IntlayerProvider } from './installIntlayer';
 export const useDictionary = <T extends Dictionary>(
   dictionary: T,
   locale?: LocalesValues
-): DeepTransformContent<T['content']> => {
+): Signal<DeepTransformContent<T['content']>> => {
   const intlayer = inject<IntlayerProvider>(INTLAYER_TOKEN);
 
   const localeTarget = computed(() => locale ?? intlayer?.locale());
@@ -17,5 +17,5 @@ export const useDictionary = <T extends Dictionary>(
     getDictionary<T, LocalesValues>(dictionary, localeTarget())
   );
 
-  return content() as DeepTransformContent<T['content']>; // all consumers keep full reactivity
+  return content; // all consumers keep full reactivity
 };

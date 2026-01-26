@@ -1,11 +1,11 @@
 ---
-createdAt: 2025-09-07
+createdAt: 2025-04-18
 updatedAt: 2025-12-30
 title: Angular i18n - Angular uygulamanızı nasıl çevirirsiniz – rehber 2026
-description: Angular web sitenizi çok dilli hale getirmeyi keşfedin. Dokümantasyonu takip ederek uluslararasılaştırma (i18n) yapın ve çevirin.
+description: Angular web sitenizi nasıl çok dilli hale getireceğinizi keşfedin. Uluslararasılaştırmak (i18n) ve çevirmek için belgeleri takip edin.
 keywords:
   - Uluslararasılaştırma
-  - Dokümantasyon
+  - Belgeler
   - Intlayer
   - Angular
   - JavaScript
@@ -13,58 +13,80 @@ slugs:
   - doc
   - environment
   - angular
-# applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
+applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
 history:
-  - version: 7.5.9
+  - version: 8.0.0
     date: 2025-12-30
     changes: init komutu ekle
   - version: 5.5.10
     date: 2025-06-29
-    changes: Geçmiş başlatıldı
+    changes: Geçmişi başlat
 ---
 
-# Intlayer ile Angular çevirin | Uluslararasılaştırma (i18n)
+# Angular i18n - Intlayer kullanarak Angular web sitenizi çevirin | Uluslararasılaştırma (i18n)
 
-> Bu paket geliştirme aşamasındadır. Daha fazla bilgi için [soruna](https://github.com/aymericzip/intlayer/issues/116) bakın. Sorunu beğenerek Angular için Intlayer'a olan ilginizi gösterin
+> Bu paket geliştirme aşamasındadır. Daha fazla bilgi için [issue](https://github.com/aymericzip/intlayer/issues/116) sayfasına bakın. Issue'yu beğenerek Angular için Intlayer'a olan ilginizi gösterin.
 
-<!-- GitHub'da [Uygulama Şablonu](https://github.com/aymericzip/intlayer-angular-template)'na bakın. -->
+## İçindekiler
 
-## Intlayer Nedir?
+<TOC/>
+
+## Intlayer nedir?
 
 **Intlayer**, modern web uygulamalarında çok dilli desteği basitleştirmek için tasarlanmış yenilikçi, açık kaynaklı bir uluslararasılaştırma (i18n) kütüphanesidir.
 
 Intlayer ile şunları yapabilirsiniz:
 
-- **Bileşen düzeyinde bildirimsel sözlükler kullanarak çevirileri kolayca yönetin**.
-- **Meta verileri, rotaları ve içeriği dinamik olarak yerelleştirin**.
-- **Otomatik oluşturulan türlerle TypeScript desteği sağlayın**, otomatik tamamlama ve hata algılamayı iyileştirin.
-- **Dinamik yerel algılama ve değiştirme gibi gelişmiş özelliklerden yararlanın**.
+- Bileşen düzeyinde bildirimsel sözlükler kullanarak **çevirileri kolayca yönetin**.
+- Meta verileri, rotaları ve içeriği **dinamik olarak yerelleştirin**.
+- Otomatik olarak oluşturulan türlerle **TypeScript desteği sağlayarak** otomatik tamamlama ve hata algılamayı geliştirin.
+- Dinamik yerel ayar algılama ve değiştirme gibi **gelişmiş özelliklerden yararlanın**.
 
 ---
 
-## Angular Uygulamasında Intlayer'ı Kurmak İçin Adım Adım Kılavuz
+## Angular Uygulamasında Intlayer Kurulumu İçin Adım Adım Kılavuz
+
+<Tabs defaultTab="code">
+  <Tab label="Kod" value="code">
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-angular-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Intlayer kullanarak uygulamanızı nasıl uluslararasılaştırırsınız"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
+GitHub'daki [Uygulama Şablonuna](https://github.com/aymericzip/intlayer-angular-template) bakın.
 
 ### Adım 1: Bağımlılıkları Yükleyin
 
 Gerekli paketleri npm kullanarak yükleyin:
 
 ```bash packageManager="npm"
-npm install intlayer angular-intlayer @intlayer/webpack
+npm install intlayer angular-intlayer
+npm install @angular-builders/custom-webpack --save-dev
 npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer angular-intlayer @intlayer/webpack
+pnpm add intlayer angular-intlayer
+pnpm add @angular-builders/custom-webpack --save-dev
 pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer angular-intlayer @intlayer/webpack
+yarn add intlayer angular-intlayer
+yarn add @angular-builders/custom-webpack --save-dev
 yarn intlayer init
 ```
 
 ```bash packageManager="bun"
-bun add intlayer angular-intlayer @intlayer/webpack
+bun add intlayer angular-intlayer
+bun add @angular-builders/custom-webpack --dev
 bunx intlayer init
 ```
 
@@ -73,13 +95,12 @@ bunx intlayer init
   Yapılandırma yönetimi, çeviri, [içerik bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md), transpilasyon ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) için uluslararasılaştırma araçları sağlayan temel paket.
 
 - **angular-intlayer**
-  Intlayer'ı Angular uygulamasıyla entegre eden paket. Angular uluslararasılaştırması için bağlam sağlayıcıları ve hook'lar sağlar.
+  Intlayer'ı Angular uygulamasıyla entegre eden paket. Angular uluslararasılaştırması için bağlam sağlayıcıları ve hook'lar sunar.
 
-- **@intlayer/webpack**
+- **@angular-builders/custom-webpack**
+  Angular CLI'nın Webpack yapılandırmasını özelleştirmek için gereklidir.
 
-  Intlayer'ı Webpack ile entegre eden paket. Angular CLI tarafından içerik bildirim dosyalarını oluşturmak ve geliştirme modunda izlemek için kullanılır.
-
-### Adım 2: Projenizi Yapılandırın
+### Adım 2: Projenizin Yapılandırılması
 
 Uygulamanızın dillerini yapılandırmak için bir yapılandırma dosyası oluşturun:
 
@@ -139,80 +160,13 @@ const config = {
 module.exports = config;
 ```
 
-> Bu yapılandırma dosyası aracılığıyla, yerelleştirilmiş URL'ler, ara yazılım yönlendirmesi, çerez adları, içerik bildirimlerinizin konumu ve uzantısı ayarlayabilir, Intlayer günlüklerini konsolda devre dışı bırakabilir ve daha fazlasını yapabilirsiniz. Kullanılabilir parametrelerin tam listesi için [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) bakın.
+> Bu yapılandırma dosyası aracılığıyla yerelleştirilmiş URL'ler, ara yazılım (middleware) yönlendirmesi, çerez adları, içerik bildirimlerinizin konumu ve uzantısı, konsoldaki Intlayer günlüklerini devre dışı bırakma ve daha fazlasını ayarlayabilirsiniz. Mevcut parametrelerin tam listesi için [yapılandırma belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) bakın.
 
-### Adım 3: Intlayer'ı Angular Yapılandırmanızda Entegre Edin
+### Adım 3: Intlayer'ı Angular Yapılandırmanıza Entegre Edin
 
-Angular CLI ile Intlayer'ı entegre etmek için oluşturucunuza bağlı olarak iki seçeneğiniz vardır: `esbuild` veya `webpack`.
+Intlayer'ı Angular CLI ile entegre etmek için özel bir oluşturucu (builder) kullanmanız gerekir. Bu kılavuz, Webpack kullandığınızı varsayar (birçok Angular projesi için varsayılandır).
 
-#### Seçenek 1: esbuild Kullanarak (Önerilen)
-
-Öncelikle, özel esbuild oluşturucusunu kullanmak için `angular.json`'unuzu değiştirin. `build` yapılandırmasını güncelleyin:
-
-```json fileName="angular.json"
-{
-  "projects": {
-    "your-app-name": {
-      "architect": {
-        "build": {
-          "builder": "@angular-builders/custom-esbuild:application",
-          "options": {
-            "plugins": ["./esbuild/intlayer-plugin.ts"]
-          }
-        }
-      }
-    }
-  }
-}
-```
-
-> `angular.json`'da `your-app-name`'i projenizin gerçek adıyla değiştirdiğinizden emin olun.
-
-Ardından, projenizin kökünde bir `esbuild/intlayer-plugin.ts` dosyası oluşturun:
-
-```typescript fileName="esbuild/intlayer-plugin.ts"
-import { prepareIntlayer, watch } from "@intlayer/chokidar";
-import { getConfiguration, logger } from "@intlayer/config";
-import type { Plugin } from "esbuild";
-
-const intlayer: Plugin = {
-  name: "intlayer-esbuild-plugin",
-  setup(build) {
-    const configuration = getConfiguration();
-    let isWatching = false;
-
-    build.onStart(async () => {
-      logger("Intlayer esbuild plugin started", {
-        level: "info",
-      });
-
-      if (build.initialOptions.watch && !isWatching) {
-        logger("Watch mode enabled. Starting watcher...", {
-          level: "info",
-        });
-        watch(configuration);
-        isWatching = true;
-      }
-
-      try {
-        await prepareIntlayer(configuration);
-      } catch (error) {
-        logger(`Error in Intlayer esbuild plugin: ${error}`, {
-          level: "error",
-        });
-      }
-    });
-  },
-};
-
-export default intlayer;
-```
-
-> esbuild için `intlayer`, Intlayer'ın oluşturma başlamadan önce hazırlanmasını ve geliştirme modunda değişiklikleri izlemesini sağlar.
-
-#### Seçenek 2: Webpack Kullanarak
-
-Öncelikle, özel Webpack oluşturucusunu kullanmak için `angular.json`'unuzu değiştirin. `build` ve `serve` yapılandırmalarını güncelleyin:
+İlk olarak, `angular.json` dosyanızı özel Webpack oluşturucusunu kullanacak şekilde değiştirin. `build` ve `serve` yapılandırmalarını güncelleyin:
 
 ```json fileName="angular.json"
 {
@@ -223,12 +177,17 @@ export default intlayer;
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "customWebpackConfig": {
-              "path": "./webpack.config.js"
+              "path": "./webpack.config.ts"
             }
           }
         },
         "serve": {
-          "builder": "@angular-builders/custom-webpack:dev-server"
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "customWebpackConfig": {
+              "path": "./webpack.config.ts"
+            }
+          }
         }
       }
     }
@@ -236,23 +195,21 @@ export default intlayer;
 }
 ```
 
-> `angular.json`'da `your-app-name`'i projenizin gerçek adıyla değiştirdiğinizden emin olun.
+> `angular.json` içinde `your-app-name` kısmını projenizin gerçek adıyla değiştirdiğinizden emin olun.
 
-Ardından, projenizin kökünde bir `webpack.config.js` dosyası oluşturun:
+Ardından, projenizin kök dizininde bir `webpack.config.ts` dosyası oluşturun:
 
-```javascript fileName="webpack.config.js"
-const { IntlayerWebpackPlugin } = require("@intlayer/webpack");
+```typescript fileName="webpack.config.ts"
+import { mergeConfig } from "angular-intlayer/webpack";
 
-module.exports = {
-  plugins: [new IntlayerWebpackPlugin()],
-};
+export default mergeConfig({});
 ```
 
-> `IntlayerWebpackPlugin`, Intlayer'ı Webpack ile entegre etmek için kullanılır. İçerik bildirim dosyalarının oluşturulmasını ve geliştirme modunda izlenmesini sağlar. Uygulama içinde Intlayer ortam değişkenlerini tanımlar. Ek olarak, performansı optimize etmek için takma adlar sağlar.
+> `mergeConfig` işlevi Webpack'i Intlayer ile yapılandırır. `IntlayerWebpackPlugin`'i (içerik bildirim dosyalarını işlemek için) enjekte eder ve optimum performans için takma adlar (aliases) ayarlar.
 
 ### Adım 4: İçeriğinizi Bildirin
 
-Çevirileri depolamak için içerik bildirimlerinizi oluşturun ve yönetin:
+Çevirileri saklamak için içerik bildirimlerinizi oluşturun ve yönetin:
 
 ```tsx fileName="src/app/app.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -264,27 +221,32 @@ const appContent = {
       en: "Hello",
       fr: "Bonjour",
       es: "Hola",
+      tr: "Merhaba",
     }),
     congratulations: t({
       en: "Congratulations! Your app is running. 🎉",
       fr: "Félicitations! Votre application est en cours d'exécution. 🎉",
       es: "¡Felicidades! Tu aplicación está en ejecución. 🎉",
+      tr: "Tebrikler! Uygulamanız çalışıyor. 🎉",
     }),
     exploreDocs: t({
       en: "Explore the Docs",
       fr: "Explorer les Docs",
       es: "Explorar los Docs",
+      tr: "Belgeleri Keşfedin",
     }),
     learnWithTutorials: t({
       en: "Learn with Tutorials",
       fr: "Apprendre avec les Tutoriels",
       es: "Aprender con los Tutorios",
+      tr: "Eğitimlerle Öğrenin",
     }),
-    cliDocs: "CLI Docs",
+    cliDocs: "CLI Belgeleri",
     angularLanguageService: t({
       en: "Angular Language Service",
       fr: "Service de Langage Angular",
       es: "Servicio de Lenguaje Angular",
+      tr: "Angular Dil Servisi",
     }),
     angularDevTools: "Angular DevTools",
     github: "Github",
@@ -296,408 +258,176 @@ const appContent = {
 export default appContent;
 ```
 
-> İçerik bildirimleriniz uygulamanızda herhangi bir yerde tanımlanabilir, yeter ki `contentDir` dizinine dahil edilsinler (varsayılan olarak `./src`). Ve içerik bildirim dosyası uzantısıyla eşleşsinler (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+> İçerik bildirimleriniz, `contentDir` dizinine (varsayılan olarak `./src`) dahil edildikleri sürece uygulamanızın herhangi bir yerinde tanımlanabilir. Ve içerik bildirimi dosya uzantısıyla eşleşmelidir (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
-> Daha fazla detay için [içerik bildirimi dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md) bakın.
+> Daha fazla ayrıntı için [içerik bildirimi belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md) bakın.
 
 ### Adım 5: Kodunuzda Intlayer'ı Kullanın
 
-Angular uygulamanız genelinde Intlayer'ın uluslararasılaştırma özelliklerini kullanmak için, bir bileşen içinde `useIntlayer` fonksiyonunu kullanmanız gerekir. Bu fonksiyon, `angular-intlayer`'dan kullanılabilir ve çevirilerinize reaktif sinyaller olarak erişim sağlar.
-
-`IntlayerProvider` uygulamanın kökünde kayıtlıdır, bu yüzden onu modülünüzün sağlayıcılarına eklemeniz gerekmez.
-
-Bileşen sınıfınızda içerik sözlüklerinize erişin:
-
-```typescript fileName="src/app/hello-world.component.ts"
-import { Component, signal } from "@angular/core";
-import { useIntlayer } from "angular-intlayer";
-
-@Component({
-  selector: "app-hello-world",
-  standalone: true,
-  template: `
-    <h1>{{ content().title }}</h1>
-
-    <div class="card">
-      <button type="button" (click)="increment()">
-        {{ content().count }} {{ count() }}
-      </button>
-      <p [innerHTML]="content().edit"></p>
-    </div>
-
-    <p class="read-the-docs">{{ content().readTheDocs }}</p>
-  `,
-})
-export class HelloWorldComponent {
-  content = useIntlayer("helloworld");
-  count = signal(0);
-
-  increment() {
-    this.count.update((value) => value + 1);
-  }
-}
-```
-
-Intlayer içeriği bir `Signal` olarak döndürülür, bu yüzden şablonunuzda değerlere sinyali çağırarak erişirsiniz: `content().title`.
-
-### (İsteğe Bağlı) Adım 6: İçeriğinizin Dilini Değiştirin
-
-İçeriğinizin dilini değiştirmek için, `useLocale` fonksiyonu tarafından sağlanan `setLocale` fonksiyonunu kullanabilirsiniz. Bu, uygulamanın yerel ayarını ayarlamanıza ve içeriği buna göre güncellemenize izin verir.
-
-Diller arasında geçiş yapmak için bir bileşen oluşturun:
-
-```typescript fileName="src/app/components/locale-switcher.component.ts"
-import { Component } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { getLocaleName } from "intlayer";
-import { useLocale } from "angular-intlayer";
-import { FormsModule } from "@angular/forms";
-
-@Component({
-  selector: "app-locale-switcher",
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  template: `
-    <div class="locale-switcher">
-      <select [ngModel]="locale()" (ngModelChange)="changeLocale($event)">
-        <option *ngFor="let loc of availableLocales" [value]="loc">
-          {{ getLocaleName(loc) }}
-        </option>
-      </select>
-    </div>
-  `,
-})
-export class LocaleSwitcherComponent {
-  localeInfo = useLocale();
-  locale = this.localeInfo.locale;
-  availableLocales = this.localeInfo.availableLocales;
-
-  // getLocaleName'i şablona göster
-  getLocaleName = getLocaleName;
-
-  changeLocale(newLocale: string) {
-    this.localeInfo.setLocale(newLocale);
-  }
-}
-```
-
-Ardından, bu bileşeni `app.component.ts`'nizde kullanın:
-
-```typescript fileName="src/app/app.component.ts"
-import { Component } from "@angular/core";
-import { HelloWorldComponent } from "./hello-world.component";
-import { LocaleSwitcherComponent } from "./components/locale-switcher.component";
-
-@Component({
-  selector: "app-root",
-  standalone: true,
-  imports: [HelloWorldComponent, LocaleSwitcherComponent],
-  template: `
-    <div>
-      <app-locale-switcher />
-      <a href="https://vite.dev" target="_blank">
-        <img src="/vite.svg" class="logo" alt="Vite logo" />
-      </a>
-      <a href="https://angular.dev/" target="_blank">
-        <img
-          src="/assets/angular.svg"
-          class="logo angular"
-          alt="Angular logo"
-        />
-      </a>
-    </div>
-    <app-hello-world />
-  `,
-})
-export class AppComponent {}
-```
-
-### (İsteğe Bağlı) Adım 7: Uygulamanıza Yerelleştirilmiş Yönlendirme Ekleyin
-
-Angular uygulamasında yerelleştirilmiş yönlendirme eklemek, yerel öneklerle Angular Router kullanmayı içerir. Bu, SEO için yararlı olan her dil için benzersiz rotalar oluşturur.
-
-Örnek:
-
-```plaintext
-- https://example.com/about
-- https://example.com/es/about
-- https://example.com/fr/about
-```
-
-Öncelikle `@angular/router`'ın yüklü olduğundan emin olun.
-
-Ardından, `app.routes.ts`'de yerel tabanlı yönlendirmeyi işleyen bir yönlendirici yapılandırması oluşturun.
-
-```typescript fileName="src/app/app.routes.ts"
-import { Routes } from "@angular/router";
-import { configuration, localeFlatMap } from "intlayer";
-import { HomeComponent } from "./home/home.component";
-import { RootComponent } from "./root/root.component";
-
-const { defaultLocale } = configuration.internationalization;
-
-export const routes: Routes = [
-  localeFlatMap((localizedData) => [
-    {
-      path: `${localizedData.urlPrefix}`,
-      component: RootComponent,
-      data: { locale: localizedData.locale },
-    },
-    {
-      path: `${localizedData.urlPrefix}/home`,
-      component: HomeComponent,
-      data: { locale: localizedData.locale },
-    },
-  ]),
-  { path: "**", redirectTo: `/${defaultLocale}/home` },
-];
-```
-
-Ardından, yönlendiriciyi `app.config.ts`'nizde sağlayın.
+Angular uygulamanız genelinde Intlayer'ın uluslararasılaştırma özelliklerini kullanmak için uygulama yapılandırmanızda Intlayer'ı sağlamanız (provide) gerekir.
 
 ```typescript fileName="src/app/app.config.ts"
 import { ApplicationConfig } from "@angular/core";
 import { provideRouter } from "@angular/router";
+import { provideIntlayer } from "angular-intlayer";
 import { routes } from "./app.routes";
-
-export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes)],
-};
-```
-
-### (İsteğe Bağlı) Adım 8: Yerel Ayar Değiştiğinde URL'yi Değiştirin
-
-Kullanıcı dili değiştirdiğinde URL'yi otomatik olarak güncellemek için, Angular'ın Router'ını kullanacak şekilde `LocaleSwitcher` bileşenini değiştirebilirsiniz:
-
-```typescript fileName="src/app/components/locale-switcher.component.ts"
-import { Component, inject } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { Router } from "@angular/router";
-import { getLocaleName, getLocalizedUrl } from "intlayer";
-import { useLocale } from "angular-intlayer";
-import { FormsModule } from "@angular/forms";
-
-@Component({
-  selector: "app-locale-switcher",
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  template: `
-    <div class="locale-switcher">
-      <select [ngModel]="locale()" (ngModelChange)="changeLocale($event)">
-        <option *ngFor="let loc of availableLocales" [value]="loc">
-          {{ getLocaleName(loc) }}
-        </option>
-      </select>
-    </div>
-  `,
-})
-export class LocaleSwitcherComponent {
-  private router = inject(Router);
-
-  localeInfo = useLocale({
-    onLocaleChange: (newLocale) => {
-      const currentPath = this.router.url;
-      const localizedPath = getLocalizedUrl(currentPath, newLocale);
-      this.router.navigateByUrl(localizedPath);
-    },
-  });
-
-  locale = this.localeInfo.locale;
-  availableLocales = this.localeInfo.availableLocales;
-
-  getLocaleName = getLocaleName;
-
-  changeLocale(newLocale: string) {
-    this.localeInfo.setLocale(newLocale);
-  }
-}
-```
-
-### (İsteğe Bağlı) Adım 9: HTML Dil ve Yön Özniteliklerini Değiştirin
-
-Uygulamanız birden fazla dili desteklediğinde, `<html>` etiketinin `lang` ve `dir` özniteliklerini geçerli yerel ayarla eşleşecek şekilde güncellemek çok önemlidir.
-
-Bunu otomatik olarak işlemek için bir servis oluşturabilirsiniz.
-
-```typescript fileName="src/app/services/i18n-html-attributes.service.ts"
-import { Injectable, effect } from "@angular/core";
-import { useLocale } from "angular-intlayer";
-import { getHTMLTextDir } from "intlayer";
-
-@Injectable({
-  providedIn: "root",
-})
-export class I18nHtmlAttributesService {
-  private localeInfo = useLocale();
-
-  constructor() {
-    effect(() => {
-      const newLocale = this.localeInfo.locale();
-      if (newLocale) {
-        document.documentElement.lang = newLocale;
-        document.documentElement.dir = getHTMLTextDir(newLocale);
-      }
-    });
-  }
-
-  // Bu yöntem, uygulamanın kök bileşeninde çağrılarak servisin başlatılmasını sağlayabilir.
-  init() {}
-}
-```
-
-Ardından, bu servisi ana `AppComponent`'ınızda enjekte edin ve başlatın:
-
-```typescript fileName="src/app/app.component.ts"
-import { Component, inject } from "@angular/core";
-// ... diğer içe aktarmalar
-import { I18nHtmlAttributesService } from "./services/i18n-html-attributes.service";
-
-@Component({
-  // ...
-})
-export class AppComponent {
-  constructor() {
-    inject(I18nHtmlAttributesService).init();
-  }
-}
-```
-
-### (İsteğe Bağlı) Adım 10: Yerelleştirilmiş Bağlantı Yönergesi Oluşturun
-
-Uygulamanızın gezinmesinin geçerli yerel ayarı saygı göstermesini sağlamak için özel bir yönerge oluşturabilirsiniz. Bu yönerge dahili URL'leri otomatik olarak geçerli dille önekler.
-
-```typescript fileName="src/app/directives/localized-link.directive.ts"
-import { Directive, Input, HostBinding, inject } from "@angular/core";
-import { getLocalizedUrl } from "intlayer";
-import { useLocale } from "angular-intlayer";
-
-@Directive({
-  selector: "a[appLocalizedLink]",
-  standalone: true,
-})
-export class LocalizedLinkDirective {
-  @Input("href") originalHref: string = "";
-
-  private localeInfo = useLocale();
-
-  @HostBinding("href")
-  get localizedHref(): string {
-    const locale = this.localeInfo.locale();
-    const isExternalLink = /^https?:\/\//.test(this.originalHref);
-
-    if (isExternalLink || !this.originalHref) {
-      return this.originalHref;
-    }
-
-    return getLocalizedUrl(this.originalHref, locale);
-  }
-}
-```
-
-Kullanmak için, bağlantı etiketlerinize `appLocalizedLink` yönergesini ekleyin ve bileşeninizde içe aktardığınızdan emin olun.
-
-```typescript fileName="src/app/app.component.ts"
-// ...
-import { LocalizedLinkDirective } from "./directives/localized-link.directive";
-
-@Component({
-  selector: "app-root",
-  standalone: true,
-  imports: [/*...,*/ LocalizedLinkDirective],
-  template: ` <a href="/home" appLocalizedLink>Home</a> `,
-})
-export class AppComponent {}
-```
-
-### (İsteğe Bağlı) Adım 11: Markdown Oluşturun
-
-Intlayer Markdown içeriği oluşturmayı destekler. Markdown'ı zengin HTML'ye dönüştürmek için [markdown-it](https://github.com/markdown-it/markdown-it)'i entegre edebilirsiniz.
-
-Öncelikle `markdown-it`'i yükleyin:
-
-```bash
-npm install markdown-it
-# ve türlerini
-npm install -D @types/markdown-it
-```
-
-Ardından, `app.config.ts`'nizde `INTLAYER_MARKDOWN_TOKEN`'u yapılandırın.
-
-```typescript fileName="src/app/app.config.ts"
-import { ApplicationConfig } from "@angular/core";
-import { provideRouter } from "@angular/router";
-import { routes } from "./app.routes";
-import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
-import MarkdownIt from "markdown-it";
-
-const md = new MarkdownIt({
-  html: true,
-  linkify: true,
-  typographer: true,
-});
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    createIntlayerMarkdownProvider((markdown) => md.render(markdown)),
+    provideIntlayer(), // Intlayer sağlayıcısını buraya ekleyin
   ],
 };
 ```
 
-Varsayılan olarak, Intlayer işlenmiş HTML'yi bir dize olarak döndürür. `[innerHTML]` kullanarak bağlarsanız, güvenlik etkilerinden (XSS) haberdar olun. Her zaman içeriğinizin güvenilir bir kaynaktan olduğundan emin olun.
+Ardından, herhangi bir bileşen içinde `useIntlayer` işlevini kullanabilirsiniz.
 
-Daha karmaşık senaryolar için, HTML'yi güvenli bir şekilde oluşturmak üzere bir boru oluşturabilirsiniz.
+```typescript fileName="src/app/app.component.ts"
+import { Component } from "@angular/core";
+import { RouterOutlet } from "@angular/router";
+import { useIntlayer } from "angular-intlayer";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  imports: [RouterOutlet],
+  templateUrl: "./app.component.html",
+  styleUrl: "./app.component.css",
+})
+export class AppComponent {
+  content = useIntlayer("app");
+}
+```
+
+Ve şablonunuzda:
+
+```html fileName="src/app/app.component.html"
+<div class="content">
+  <h1>{{ content().title }}</h1>
+  <p>{{ content().congratulations }}</p>
+</div>
+```
+
+Intlayer içeriği bir `Signal` olarak döndürülür, bu nedenle değerlere sinyali çağırarak erişirsiniz: `content().title`.
+
+### (İsteğe Bağlı) Adım 6: İçeriğinizin Dilini Değiştirin
+
+İçeriğinizin dilini değiştirmek için `useLocale` işlevi tarafından sağlanan `setLocale` işlevini kullanabilirsiniz. Bu, uygulamanın yerel ayarını belirlemenize ve içeriği buna göre güncellemenize olanak tanır.
+
+Diller arasında geçiş yapmak için bir bileşen oluşturun:
+
+```typescript fileName="src/app/locale-switcher.component.ts"
+import { Component } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { useLocale } from "angular-intlayer";
+
+@Component({
+  selector: "app-locale-switcher",
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div class="locale-switcher">
+      <select
+        [value]="locale()"
+        (change)="setLocale($any($event.target).value)"
+      >
+        @for (loc of availableLocales; track loc) {
+          <option [value]="loc">{{ loc }}</option>
+        }
+      </select>
+    </div>
+  `,
+  styles: [
+    `
+      .locale-switcher {
+        margin: 1rem;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: fit-content;
+      }
+    `,
+  ],
+})
+export class LocaleSwitcherComponent {
+  localeCtx = useLocale();
+
+  locale = this.localeCtx.locale;
+  availableLocales = this.localeCtx.availableLocales;
+  setLocale = this.localeCtx.setLocale;
+}
+```
+
+Ardından, bu bileşeni `app.component.ts` dosyanızda kullanın:
+
+```typescript fileName="src/app/app.component.ts"
+import { Component } from "@angular/core";
+import { RouterOutlet } from "@angular/router";
+import { useIntlayer } from "angular-intlayer";
+import { LocaleSwitcherComponent } from "./locale-switcher.component";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  imports: [RouterOutlet, LocaleSwitcherComponent],
+  templateUrl: "./app.component.html",
+  styleUrl: "./app.component.css",
+})
+export class AppComponent {
+  content = useIntlayer("app");
+}
+```
 
 ### TypeScript'i Yapılandırın
 
-Intlayer, kod tabanınızı daha güçlü hale getirmek için modül genişletmesi kullanır ve TypeScript avantajlarından yararlanır.
+Intlayer, TypeScript'in avantajlarından yararlanmak ve kod tabanınızı daha güçlü hale getirmek için modül genişletme (module augmentation) kullanır.
 
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+![Otomatik Tamamlama](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Çeviri Hatası](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
-TypeScript yapılandırmanızın otomatik oluşturulan türleri içerdiğinden emin olun.
+TypeScript yapılandırmanızın otomatik olarak oluşturulan türleri içerdiğinden emin olun.
 
 ```json5 fileName="tsconfig.json"
 {
   // ... Mevcut TypeScript yapılandırmalarınız
   "include": [
     // ... Mevcut TypeScript yapılandırmalarınız
-    ".intlayer/**/*.ts", // Otomatik oluşturulan türleri dahil edin
+    ".intlayer/**/*.ts", // Otomatik olarak oluşturulan türleri dahil edin
   ],
 }
 ```
 
 ### Git Yapılandırması
 
-Intlayer tarafından oluşturulan dosyaları yok saymanız önerilir. Bu, onları Git deponuza commit etmenizi önler.
+Intlayer tarafından oluşturulan dosyaların yoksayılması önerilir. Bu, onları Git deponuza göndermenizi engeller.
 
 Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirsiniz:
 
 ```plaintext
-# Intlayer tarafından oluşturulan dosyaları yok say
+# Intlayer tarafından oluşturulan dosyaları yoksay
 .intlayer
 ```
 
 ### VS Code Uzantısı
 
-Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Uzantısı**'nı yükleyebilirsiniz.
+Intlayer ile geliştirme deneyiminizi geliştirmek için resmi **Intlayer VS Code Uzantısını** yükleyebilirsiniz.
 
 [VS Code Marketplace'ten Yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Bu uzantı şunları sağlar:
 
-- **Çeviri anahtarları için otomatik tamamlama**.
-- **Eksik çeviriler için gerçek zamanlı hata algılama**.
-- **Çevrilmiş içeriğin satır içi önizlemeleri**.
-- **Çevirileri kolayca oluşturmak ve güncellemek için hızlı eylemler**.
+- Çeviri anahtarları için **otomatik tamamlama**.
+- Eksik çeviriler için **gerçek zamanlı hata algılama**.
+- Çevrilmiş içeriğin **satır içi önizlemeleri**.
+- Kolayca çeviri oluşturmak ve güncellemek için **hızlı eylemler**.
 
-Uzantının nasıl kullanılacağı hakkında daha fazla detay için [Intlayer VS Code Uzantısı dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakın.
+Uzantının nasıl kullanılacağına ilişkin daha fazla ayrıntı için [Intlayer VS Code Uzantısı belgelerine](https://intlayer.org/doc/vs-code-extension) bakın.
 
 ---
 
-### Daha Fazla Gidin
+### Daha İleriye Gidin
 
-Daha fazla gitmek için [görsel düzenleyiciyi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) uygulayabilir veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) kullanarak harici hale getirebilirsiniz.
+Daha ileri gitmek için, [görsel düzenleyiciyi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) uygulayabilir veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) kullanarak içeriğinizi dışsallaştırabilirsiniz.
 
 ---

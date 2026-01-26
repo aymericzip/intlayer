@@ -15,7 +15,7 @@ slugs:
   - fastify-intlayer
   - exports
 history:
-  - version: 1.0.0
+  - version: 8.0.0
     date: 2026-01-21
     changes: Unified documentation for all exports
 ---

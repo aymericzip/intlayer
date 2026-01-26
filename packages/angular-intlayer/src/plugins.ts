@@ -1,8 +1,10 @@
 import {
+  compile,
   type DeepTransformContent as DeepTransformContentCore,
   getMarkdownMetadata,
-  type HTMLCond,
+  type HTMLContent,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
+  type InsertionContent,
   type MarkdownContent,
   type Plugins,
 } from '@intlayer/core';
@@ -13,8 +15,36 @@ import {
   NodeType,
 } from '@intlayer/types';
 import { ContentSelectorWrapperComponent } from './editor';
-import { useMarkdown } from './markdown/installIntlayerMarkdown';
+import { htmlRuntime, useMarkdown } from './markdown/installIntlayerMarkdown';
 import { renderIntlayerNode } from './renderIntlayerNode';
+
+/** ---------------------------------------------
+ *  UTILS
+ *  --------------------------------------------- */
+
+const createRuntimeWithOverides = (baseRuntime: any, overrides: any) => ({
+  ...baseRuntime,
+  createElement: (tag: string, props: any, ...children: any[]) => {
+    const override = overrides?.[tag];
+
+    if (override) {
+      const newProps = { ...props, ...override };
+
+      // Merge class attributes intelligently
+      const originalClass = props?.class || props?.className;
+      const overrideClass = override.class || override.className;
+
+      if (originalClass && overrideClass) {
+        newProps.class = `${originalClass} ${overrideClass}`;
+        newProps.className = undefined;
+      }
+
+      return baseRuntime.createElement(tag, newProps, ...children);
+    }
+
+    return baseRuntime.createElement(tag, props, ...children);
+  },
+});
 
 /** ---------------------------------------------
  *  INTLAYER NODE PLUGIN
@@ -115,36 +145,66 @@ export const markdownStringPlugin: Plugins = {
         },
       });
 
-    const element = render() as any;
+    const createProxy = (element: any, components?: any) =>
+      new Proxy(element, {
+        get(target, prop, receiver) {
+          if (prop === 'value') {
+            return node;
+          }
+          if (prop === 'metadata') {
+            return metadataNodes;
+          }
 
-    return new Proxy(element, {
-      get(target, prop, receiver) {
-        if (prop === 'value') {
-          return node;
-        }
-        if (prop === 'metadata') {
-          return metadataNodes;
-        }
+          if (prop === 'toString') {
+            return () => {
+              const runtime = components
+                ? createRuntimeWithOverides(htmlRuntime, components)
+                : htmlRuntime;
+              return compile(node, {
+                runtime,
+              }) as string;
+            };
+          }
 
-        if (prop === 'use') {
-          return (components?: any) => render(components);
-        }
+          if (prop === Symbol.toPrimitive) {
+            return () => {
+              const runtime = components
+                ? createRuntimeWithOverides(htmlRuntime, components)
+                : htmlRuntime;
+              return compile(node, {
+                runtime,
+              }) as string;
+            };
+          }
 
-        return Reflect.get(target, prop, receiver);
-      },
-    }) as any;
+          if (prop === 'use') {
+            return (newComponents?: any) => {
+              const mergedComponents = { ...components, ...newComponents };
+              return createProxy(render(mergedComponents), mergedComponents);
+            };
+          }
+
+          return Reflect.get(target, prop, receiver);
+        },
+      }) as any;
+
+    return createProxy(render() as any);
   },
 };
 
-export type MarkdownCond<T, S, L extends LocalesValues> = T extends {
+export type MarkdownCond<T, _S, _L extends LocalesValues> = T extends {
   nodeType: NodeType | string;
   [NodeType.Markdown]: infer M;
-  metadata?: infer U;
+  tags?: infer U;
+  metadata?: infer V;
 }
-  ? {
-      use: (components: any) => any;
-      metadata: DeepTransformContent<U>;
-    } & any
+  ? IntlayerNode<
+      M,
+      {
+        use: (components?: Record<keyof U, any>) => any;
+        metadata: DeepTransformContent<V>;
+      }
+    >
   : never;
 
 export const markdownPlugin: Plugins = {
@@ -171,15 +231,163 @@ export const markdownPlugin: Plugins = {
 };
 
 /** ---------------------------------------------
- *  PLUGINS RESULT
+ *  HTML PLUGIN
  *  --------------------------------------------- */
 
-export type HTMLPluginCond<T, S, L> = HTMLCond<T, S, L>;
+/**
+ * HTML conditional type.
+ *
+ * This ensures type safety:
+ * - `html('<div>Hello <CustomComponent /></div>').use({ CustomComponent: ... })` - optional but typed
+ */
+export type HTMLPluginCond<T, _S, _L> = T extends {
+  nodeType: NodeType | string;
+  [NodeType.HTML]: infer I;
+  tags?: infer U;
+}
+  ? IntlayerNode<
+      I,
+      {
+        use: (components?: Record<keyof U, any>) => any;
+      }
+    >
+  : never;
+
+/** HTML plugin. Replaces node with a function that takes components => IntlayerNode. */
+export const htmlPlugin: Plugins = {
+  id: 'html-plugin',
+  canHandle: (node) =>
+    typeof node === 'object' && node?.nodeType === NodeType.HTML,
+
+  transform: (node: HTMLContent<string>, props) => {
+    const html = node[NodeType.HTML];
+    const { plugins, ...rest } = props;
+
+    // Type-safe render function that accepts properly typed components
+    const render = (userComponents?: any) =>
+      renderIntlayerNode({
+        ...rest,
+        value: html,
+        children: () => ({
+          component: ContentSelectorWrapperComponent,
+          props: {
+            dictionaryKey: rest.dictionaryKey,
+            keyPath: rest.keyPath,
+            ...userComponents,
+          },
+          children: html,
+        }),
+      });
+
+    const createProxy = (element: any, components?: any) =>
+      new Proxy(element, {
+        get(target, prop, receiver) {
+          if (prop === 'value') {
+            return html;
+          }
+
+          if (prop === 'toString') {
+            return () => {
+              if (
+                !components ||
+                (typeof components === 'object' &&
+                  Object.keys(components).length === 0)
+              ) {
+                return String(html);
+              }
+              const runtime = createRuntimeWithOverides(
+                htmlRuntime,
+                components
+              );
+              return compile(html, {
+                runtime,
+              }) as string;
+            };
+          }
+
+          if (prop === Symbol.toPrimitive) {
+            return () => {
+              if (
+                !components ||
+                (typeof components === 'object' &&
+                  Object.keys(components).length === 0)
+              ) {
+                return String(html);
+              }
+              const runtime = createRuntimeWithOverides(
+                htmlRuntime,
+                components
+              );
+              return compile(html, {
+                runtime,
+              }) as string;
+            };
+          }
+
+          if (prop === 'use') {
+            // Return a properly typed function based on custom components
+            return (userComponents?: any) => {
+              const mergedComponents = { ...components, ...userComponents };
+              return createProxy(render(mergedComponents), mergedComponents);
+            };
+          }
+
+          return Reflect.get(target, prop, receiver);
+        },
+      }) as any;
+
+    return createProxy(render() as any);
+  },
+};
+
+/** ---------------------------------------------
+ *  INSERTION PLUGIN
+ *  --------------------------------------------- */
+
+/**
+ * Insertion conditional type.
+ */
+export type InsertionPluginCond<T> = T extends {
+  nodeType: NodeType | string;
+  [NodeType.Insertion]: infer _I;
+}
+  ? (args: Record<string, string | number>) => string
+  : never;
+
+export const insertionPlugin: Plugins = {
+  id: 'insertion-plugin',
+  canHandle: (node) =>
+    typeof node === 'object' && node?.nodeType === NodeType.Insertion,
+  transform: (node: InsertionContent, props) => {
+    const { plugins, ...rest } = props;
+
+    // Return a function that performs the interpolation
+    const render = (args: Record<string, string | number> = {}) => {
+      let text = node.insertion as string;
+      if (args) {
+        Object.entries(args).forEach(([key, value]) => {
+          text = text.replace(
+            new RegExp(`{{\\s*${key}\\s*}}`, 'g'),
+            String(value)
+          );
+        });
+      }
+      return text;
+    };
+
+    return renderIntlayerNode({
+      ...rest,
+      value: render as any,
+      children: render,
+    });
+  },
+};
 
 export interface IInterpreterPluginAngular<T, S, L extends LocalesValues> {
   angularIntlayerNode: IntlayerNodeCond<T>;
   angularMarkdown: MarkdownCond<T, S, L>;
   angularHtml: HTMLPluginCond<T, S, L>;
+  angularInsertion: InsertionPluginCond<T>;
 }
 
 /**
@@ -191,6 +399,7 @@ export type IInterpreterPluginState = IInterpreterPluginStateCore & {
   angularIntlayerNode: true;
   angularMarkdown: true;
   angularHtml: true;
+  angularInsertion: true;
 };
 
 export type DeepTransformContent<

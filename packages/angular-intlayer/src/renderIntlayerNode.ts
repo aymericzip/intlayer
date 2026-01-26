@@ -38,9 +38,26 @@ export const renderIntlayerNode = <
   // Return a Proxy that pretends to be the original content
   // but also has a .value getter and additional props.
   return new Proxy(children, {
+    apply(target, thisArg, argumentsList) {
+      if (typeof value === 'function') {
+        return Reflect.apply(value as Function, thisArg, argumentsList);
+      }
+      return Reflect.apply(target as Function, thisArg, argumentsList);
+    },
     get(target, prop, receiver) {
       if (prop === 'value') {
         return value;
+      }
+
+      if (prop === 'toString') {
+        return () => {
+          // console.log('renderIntlayerNode toString called for:', value);
+          return String(value);
+        };
+      }
+
+      if (prop === Symbol.toPrimitive) {
+        return () => value;
       }
 
       if (

@@ -14,7 +14,7 @@ keywords:
   - 翻译
 slugs:
   - doc
-  - package
+  - packages
   - react-intlayer
   - useDictionary
 history:

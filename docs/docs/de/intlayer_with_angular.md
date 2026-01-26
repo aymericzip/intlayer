@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Angular i18n - Wie Sie Ihre Angular App übersetzen – Leitfaden 2026
-description: Erfahren Sie, wie Sie Ihre mit Angular erstellte Website mehrsprachig gestalten können. Folgen Sie der Dokumentation zur Internationalisierung (i18n) und Übersetzung.
+title: Angular i18n - So übersetzen Sie Ihre Angular-App – Leitfaden 2026
+description: Erfahren Sie, wie Sie Ihre Angular-Website mehrsprachig gestalten. Folgen Sie der Dokumentation zur Internationalisierung (i18n) und Übersetzung.
 keywords:
   - Internationalisierung
   - Dokumentation
@@ -13,95 +13,92 @@ slugs:
   - doc
   - environment
   - angular
-# applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
+applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
 history:
-  - version: 7.5.9
+  - version: 8.0.0
     date: 2025-12-30
     changes: Init-Befehl hinzufügen
   - version: 5.5.10
     date: 2025-06-29
-    changes: Initiale Historie
+    changes: Verlauf initialisieren
 ---
 
-# Übersetzen Sie Ihre Angular mit Intlayer | Internationalisierung (i18n)
+# Angular i18n - Übersetzen Sie Ihre Angular-Website mit Intlayer | Internationalisierung (i18n)
 
-> Dieses Paket befindet sich in der Entwicklung. Weitere Informationen finden Sie im [Issue](https://github.com/aymericzip/intlayer/issues/116). Zeigen Sie Ihr Interesse an Intlayer für Angular, indem Sie das Issue liken
+> Dieses Paket befindet sich in der Entwicklung. Weitere Informationen finden Sie im [Issue](https://github.com/aymericzip/intlayer/issues/116). Zeigen Sie Ihr Interesse an Intlayer für Angular, indem Sie das Issue liken.
 
-<!-- Siehe [Application Template](https://github.com/aymericzip/intlayer-angular-template) auf GitHub. -->
+## Inhaltsverzeichnis
+
+<TOC/>
 
 ## Was ist Intlayer?
 
-**Intlayer** ist eine innovative, Open-Source-Internationalisierungsbibliothek (i18n), die entwickelt wurde, um die mehrsprachige Unterstützung in modernen Webanwendungen zu vereinfachen.
+**Intlayer** ist eine innovative Open-Source-Internationalisierungsbibliothek (i18n), die entwickelt wurde, um die mehrsprachige Unterstützung in modernen Webanwendungen zu vereinfachen.
 
 Mit Intlayer können Sie:
 
-- **Übersetzungen einfach verwalten** durch deklarative Wörterbücher auf Komponentenebene.
+- **Übersetzungen einfach verwalten** mithilfe deklarativer Wörterbücher auf Komponentenebene.
 - **Metadaten, Routen und Inhalte dynamisch lokalisieren**.
-- **TypeScript-Unterstützung sicherstellen** mit automatisch generierten Typen, die Autovervollständigung und Fehlererkennung verbessern.
-- **Von erweiterten Funktionen profitieren**, wie dynamische Spracherkennung und Umschaltung.
+- **TypeScript-Unterstützung sicherstellen** mit automatisch generierten Typen, was die Autovervollständigung und Fehlererkennung verbessert.
+- **Von erweiterten Funktionen profitieren**, wie der dynamischen Erkennung und dem Umschalten der Sprache.
 
 ---
 
 ## Schritt-für-Schritt-Anleitung zur Einrichtung von Intlayer in einer Angular-Anwendung
 
+<Tabs defaultTab="code">
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-angular-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - So internationalisieren Sie Ihre Anwendung mit Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
+Siehe [Anwendungsvorlage](https://github.com/aymericzip/intlayer-angular-template) auf GitHub.
+
 ### Schritt 1: Abhängigkeiten installieren
 
-Installieren Sie die notwendigen Pakete mit npm:
+Installieren Sie die erforderlichen Pakete mit npm:
 
 ```bash packageManager="npm"
-npm install intlayer angular-intlayer @intlayer/webpack
+npm install intlayer angular-intlayer
+npm install @angular-builders/custom-webpack --save-dev
 npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer angular-intlayer @intlayer/webpack
+pnpm add intlayer angular-intlayer
+pnpm add @angular-builders/custom-webpack --save-dev
 pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer angular-intlayer @intlayer/webpack
+yarn add intlayer angular-intlayer
+yarn add @angular-builders/custom-webpack --save-dev
 yarn intlayer init
 ```
 
 ```bash packageManager="bun"
-bun add intlayer angular-intlayer @intlayer/webpack
+bun add intlayer angular-intlayer
+bun add @angular-builders/custom-webpack --dev
 bunx intlayer init
 ```
 
 - **intlayer**
 
-  Das Kernpaket, das Internationalisierungswerkzeuge für Konfigurationsmanagement, Übersetzung, [Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md), Transpilation und [CLI-Befehle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md) bereitstellt.
+  Das Kernpaket, das Internationalisierungswerkzeuge für Konfigurationsmanagement, Übersetzung, [Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md), Transpilierung und [CLI-Befehle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) bereitstellt.
 
 - **angular-intlayer**
+  Das Paket, das Intlayer in Angular-Anwendungen integriert. Es bietet Kontext-Provider und Hooks für die Angular-Internationalisierung.
 
-  Das Paket, das Intlayer in Angular-Anwendungen integriert. Es stellt Kontextanbieter und Hooks für die Angular-Internationalisierung bereit.
-
-- **@intlayer/webpack**
-  Das Paket, das Intlayer mit Webpack integriert. Es wird vom Angular CLI verwendet, um Content-Declaration-Dateien zu erstellen und diese im Entwicklungsmodus zu überwachen.
-
-### Schritt 2: Konfiguration Ihres Projekts
-
-Erstellen Sie eine Konfigurationsdatei, um die Sprachen Ihrer Anwendung zu konfigurieren:
-
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
-import { Locales, type IntlayerConfig } from "intlayer";
-
-const config: IntlayerConfig = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Ihre weiteren Sprachversionen
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-Das Paket, das Intlayer mit Webpack integriert. Es wird vom Angular CLI verwendet, um Content-Declaration-Dateien zu erstellen und diese im Entwicklungsmodus zu überwachen.
+- **@angular-builders/custom-webpack**
+  Erforderlich, um die Webpack-Konfiguration der Angular CLI anzupassen.
 
 ### Schritt 2: Konfiguration Ihres Projekts
 
@@ -116,7 +113,7 @@ const config: IntlayerConfig = {
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // Ihre weiteren Sprachen
+      // Ihre anderen Sprachen
     ],
     defaultLocale: Locales.ENGLISH,
   },
@@ -135,7 +132,7 @@ const config = {
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // Ihre weiteren Sprachen
+      // Ihre anderen Sprachen
     ],
     defaultLocale: Locales.ENGLISH,
   },
@@ -154,7 +151,7 @@ const config = {
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // Ihre weiteren Sprachen
+      // Ihre anderen Sprachen
     ],
     defaultLocale: Locales.ENGLISH,
   },
@@ -163,111 +160,34 @@ const config = {
 module.exports = config;
 ```
 
-> Über diese Konfigurationsdatei können Sie lokalisierte URLs, Middleware-Weiterleitungen, Cookie-Namen, den Speicherort und die Erweiterung Ihrer Inhaltsdeklarationen einrichten, Intlayer-Logs in der Konsole deaktivieren und vieles mehr. Eine vollständige Liste der verfügbaren Parameter finden Sie in der [Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md).
-
-### Schritt 3: Integrieren Sie Intlayer in Ihre Angular-Konfiguration
-
-Um Intlayer mit der Angular CLI zu integrieren, haben Sie je nach verwendetem Builder zwei Optionen: `esbuild` oder `webpack`.
-
-#### Option 1: Verwendung von esbuild (empfohlen)
-
-Ändern Sie zunächst Ihre `angular.json`, um den benutzerdefinierten esbuild-Builder zu verwenden. Aktualisieren Sie die `build`-Konfiguration:
-
-````json fileName="angular.json"
-{
-  "projects": {
-    "your-app-name": {
-      "architect": {
-> Durch diese Konfigurationsdatei können Sie lokalisierte URLs, Middleware-Weiterleitungen, Cookie-Namen, den Speicherort und die Erweiterung Ihrer Inhaltsdeklarationen einstellen, Intlayer-Logs in der Konsole deaktivieren und vieles mehr. Für eine vollständige Liste der verfügbaren Parameter siehe die [Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md).
+> Über diese Konfigurationsdatei können Sie lokalisierte URLs, Middleware-Weiterleitungen, Cookie-Namen, den Ort und die Erweiterung Ihrer Inhaltsdeklarationen festlegen, Intlayer-Logs in der Konsole deaktivieren und vieles mehr. Eine vollständige Liste der verfügbaren Parameter finden Sie in der [Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
 ### Schritt 3: Intlayer in Ihre Angular-Konfiguration integrieren
 
-Um Intlayer mit dem Angular CLI zu integrieren, haben Sie je nach verwendetem Builder zwei Optionen: `esbuild` oder `webpack`.
+Um Intlayer in die Angular CLI zu integrieren, müssen Sie einen benutzerdefinierten Builder verwenden. Diese Anleitung geht davon aus, dass Sie Webpack verwenden (Standard für viele Angular-Projekte).
 
-#### Option 1: Verwendung von esbuild (empfohlen)
-
-Ändern Sie zunächst Ihre `angular.json`, um den benutzerdefinierten esbuild-Builder zu verwenden. Aktualisieren Sie die `build`-Konfiguration:
+Ändern Sie zunächst Ihre `angular.json`, um den benutzerdefinierten Webpack-Builder zu verwenden. Aktualisieren Sie die `build`- und `serve`-Konfigurationen:
 
 ```json fileName="angular.json"
 {
   "projects": {
-    "your-app-name": {
-      "architect": {
-        "build": {
-          "builder": "@angular-builders/custom-esbuild:application",
-          "options": {
-            "plugins": ["./esbuild/intlayer-plugin.ts"]
-          }
-        }
-      }
-    }
-  }
-}
-````
-
-> Stellen Sie sicher, dass Sie `your-app-name` durch den tatsächlichen Namen Ihres Projekts in der `angular.json` ersetzen.
-
-Erstellen Sie anschließend eine Datei `esbuild/intlayer-plugin.ts` im Stammverzeichnis Ihres Projekts:
-
-```typescript fileName="esbuild/intlayer-plugin.ts"
-import { prepareIntlayer, watch } from "@intlayer/chokidar";
-import { getConfiguration, logger } from "@intlayer/config";
-import type { Plugin } from "esbuild";
-
-const intlayer: Plugin = {
-  name: "intlayer-esbuild-plugin",
-  setup(build) {
-    const configuration = getConfiguration();
-    let isWatching = false;
-
-    build.onStart(async () => {
-      logger("Intlayer esbuild Plugin gestartet", {
-        level: "info",
-      });
-
-      if (build.initialOptions.watch && !isWatching) {
-        logger("Watch-Modus aktiviert. Starte Watcher...", {
-          level: "info",
-        });
-        watch(configuration);
-        isWatching = true;
-      }
-
-      try {
-        await prepareIntlayer(configuration);
-      } catch (error) {
-        logger(`Fehler im Intlayer esbuild Plugin: ${error}`, {
-          level: "error",
-        });
-      }
-    });
-  },
-};
-
-export default intlayer;
-```
-
-> Das `intlayer` für esbuild stellt sicher, dass Intlayer vor dem Build vorbereitet wird und im Entwicklungsmodus auf Änderungen überwacht.
-
-#### Option 2: Verwendung von Webpack
-
-Zuerst ändern Sie Ihre `angular.json`, um den benutzerdefinierten Webpack-Builder zu verwenden. Aktualisieren Sie die `build`- und `serve`-Konfigurationen:
-
-```json fileName="angular.json"
-{
-  "projects": {
-    "your-app-name": {
+    "ihr-app-name": {
       "architect": {
         "build": {
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "customWebpackConfig": {
-              "path": "./webpack.config.js"
+              "path": "./webpack.config.ts"
             }
           }
         },
         "serve": {
-          "builder": "@angular-builders/custom-webpack:dev-server"
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "customWebpackConfig": {
+              "path": "./webpack.config.ts"
+            }
+          }
         }
       }
     }
@@ -275,21 +195,19 @@ Zuerst ändern Sie Ihre `angular.json`, um den benutzerdefinierten Webpack-Build
 }
 ```
 
-> Stellen Sie sicher, dass Sie `your-app-name` durch den tatsächlichen Namen Ihres Projekts in der `angular.json` ersetzen.
+> Stellen Sie sicher, dass Sie `ihr-app-name` durch den tatsächlichen Namen Ihres Projekts in der `angular.json` ersetzen.
 
-Erstellen Sie anschließend eine Datei `webpack.config.js` im Stammverzeichnis Ihres Projekts:
+Erstellen Sie als Nächstes eine `webpack.config.ts`-Datei im Stammverzeichnis Ihres Projekts:
 
-```javascript fileName="webpack.config.js"
-const { IntlayerWebpackPlugin } = require("@intlayer/webpack");
+```typescript fileName="webpack.config.ts"
+import { mergeConfig } from "angular-intlayer/webpack";
 
-module.exports = {
-  plugins: [new IntlayerWebpackPlugin()],
-};
+export default mergeConfig({});
 ```
 
-> Das `IntlayerWebpackPlugin` wird verwendet, um Intlayer in Webpack zu integrieren. Es sorgt für den Aufbau von Inhaltsdeklarationsdateien und überwacht diese im Entwicklungsmodus. Es definiert Intlayer-Umgebungsvariablen innerhalb der Anwendung. Zusätzlich stellt es Aliase bereit, um die Leistung zu optimieren.
+> Die Funktion `mergeConfig` konfiguriert Webpack mit Intlayer. Sie injiziert das `IntlayerWebpackPlugin` (zur Verarbeitung von Inhaltsdeklarationsdateien) und richtet Aliase für optimale Leistung ein.
 
-### Schritt 4: Deklarieren Sie Ihre Inhalte
+### Schritt 4: Inhalte deklarieren
 
 Erstellen und verwalten Sie Ihre Inhaltsdeklarationen, um Übersetzungen zu speichern:
 
@@ -305,26 +223,22 @@ const appContent = {
       es: "Hola",
     }),
     congratulations: t({
-      de: "Herzlichen Glückwunsch! Ihre App läuft. 🎉",
       en: "Congratulations! Your app is running. 🎉",
-      fr: "Félicitations! Votre application est en cours d'exécution. 🎉",
+      fr: "Félicitations ! Votre application est en cours d'exécution. 🎉",
       es: "¡Felicidades! Tu aplicación está en ejecución. 🎉",
     }),
     exploreDocs: t({
-      de: "Dokumentation erkunden",
       en: "Explore the Docs",
       fr: "Explorer les Docs",
       es: "Explorar los Docs",
     }),
     learnWithTutorials: t({
-      de: "Mit Tutorials lernen",
       en: "Learn with Tutorials",
       fr: "Apprendre avec les Tutoriels",
       es: "Aprender con los Tutorios",
     }),
     cliDocs: "CLI Docs",
     angularLanguageService: t({
-      de: "Angular Sprachdienst",
       en: "Angular Language Service",
       fr: "Service de Langage Angular",
       es: "Servicio de Lenguaje Angular",
@@ -339,391 +253,163 @@ const appContent = {
 export default appContent;
 ```
 
-> Ihre Inhaltsdeklarationen können überall in Ihrer Anwendung definiert werden, sobald sie in das `contentDir`-Verzeichnis (standardmäßig `./src`) aufgenommen werden. Und sie müssen der Dateierweiterung der Inhaltsdeklarationsdatei entsprechen (standardmäßig `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+> Ihre Inhaltsdeklarationen können überall in Ihrer Anwendung definiert werden, solange sie im Verzeichnis `contentDir` (standardmäßig `./src`) enthalten sind und der Dateierweiterung für Inhaltsdeklarationen entsprechen (standardmäßig `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
-> Für weitere Details siehe die [Dokumentation zur Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md).
+> Weitere Einzelheiten finden Sie in der [Dokumentation zur Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
 
-### Schritt 5: Intlayer in Ihrem Code verwenden
+### Schritt 5: Intlayer in Ihrem Code nutzen
 
-Um die Internationalisierungsfunktionen von Intlayer in Ihrer gesamten Angular-Anwendung zu nutzen, müssen Sie die Funktion `useIntlayer` innerhalb einer Komponente verwenden. Diese Funktion, die von `angular-intlayer` bereitgestellt wird, ermöglicht den Zugriff auf Ihre Übersetzungen als reaktive Signale.
-
-`IntlayerProvider` ist im Root der Anwendung registriert, daher müssen Sie ihn nicht zu den Providern Ihres Moduls hinzufügen.
-
-Greifen Sie in Ihrer Komponentenklasse auf Ihre Inhaltswörterbücher zu:
-
-```typescript fileName="src/app/hello-world.component.ts"
-import { Component, signal } from "@angular/core";
-import { useIntlayer } from "angular-intlayer";
-
-@Component({
-  selector: "app-hello-world",
-  standalone: true,
-  template: `
-    <h1>{{ content().title }}</h1>
-
-    <div class="card">
-      <button type="button" (click)="increment()">
-        {{ content().count }} {{ count() }}
-      </button>
-      <p [innerHTML]="content().edit"></p>
-    </div>
-
-    <p class="read-the-docs">{{ content().readTheDocs }}</p>
-  `,
-})
-export class HelloWorldComponent {
-  content = useIntlayer("helloworld");
-  count = signal(0);
-
-  increment() {
-    this.count.update((value) => value + 1);
-  }
-}
-```
-
-Intlayer-Inhalte werden als `Signal` zurückgegeben, daher greifen Sie in Ihrer Vorlage auf die Werte zu, indem Sie das Signal aufrufen: `content().title`.
-
-### (Optional) Schritt 6: Ändern Sie die Sprache Ihrer Inhalte
-
-Um die Sprache Ihrer Inhalte zu ändern, können Sie die Funktion `setLocale` verwenden, die von der Funktion `useLocale` bereitgestellt wird. Damit können Sie die Locale der Anwendung einstellen und die Inhalte entsprechend aktualisieren.
-
-Erstellen Sie eine Komponente, um zwischen den Sprachen zu wechseln:
-
-````typescript fileName="src/app/components/locale-switcher.component.ts"
-import { Component } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { getLocaleName } from "intlayer";
-import { useLocale } from "angular-intlayer";
-import { FormsModule } from "@angular/forms";
-
-@Component({
-  selector: "app-locale-switcher",
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  template: `
-    <div class="locale-switcher">
-      <select [ngModel]="locale()" (ngModelChange)="changeLocale($event)">
-        <option *ngFor="let loc of availableLocales" [value]="loc">
-          {{ getLocaleName(loc) }}
-        </option>
-      </select>
-    </div>
-  `,
-})
-export class LocaleSwitcherComponent {
-  localeInfo = useLocale();
-  locale = this.localeInfo.locale;
-  availableLocales = this.localeInfo.availableLocales;
-
-  // Mache getLocaleName für die Vorlage zugänglich
-  getLocaleName = getLocaleName;
-
-  changeLocale(newLocale: string) {
-    this.localeInfo.setLocale(newLocale);
-  }
-}
-Verwenden Sie dann diese Komponente in Ihrer `app.component.ts`:
-
-```typescript fileName="src/app/app.component.ts"
-import { Component } from "@angular/core";
-import { HelloWorldComponent } from "./hello-world.component";
-import { LocaleSwitcherComponent } from "./components/locale-switcher.component";
-
-@Component({
-  selector: "app-root",
-  standalone: true,
-  imports: [HelloWorldComponent, LocaleSwitcherComponent],
-  template: `
-    <div>
-      <app-locale-switcher />
-      <a href="https://vite.dev" target="_blank">
-        <img src="/vite.svg" class="logo" alt="Vite logo" />
-      </a>
-      <a href="https://angular.dev/" target="_blank">
-        <img
-          src="/assets/angular.svg"
-          class="logo angular"
-          alt="Angular logo"
-        />
-      </a>
-    </div>
-    <app-hello-world />
-  `,
-})
-export class AppComponent {}
-````
-
-### (Optional) Schritt 7: Lokalisierte Routen zu Ihrer Anwendung hinzufügen
-
-Das Hinzufügen lokalisierter Routen in einer Angular-Anwendung beinhaltet die Verwendung des Angular Routers mit Sprachpräfixen. Dadurch entstehen eindeutige Routen für jede Sprache, was für SEO nützlich ist.
-
-Beispiel:
-
-```plaintext
-- https://example.com/about
-- https://example.com/es/about
-- https://example.com/fr/about
-```
-
-Stellen Sie zunächst sicher, dass `@angular/router` installiert ist.
-
-Erstellen Sie dann eine Router-Konfiguration, die sprachbasierte Routen in `app.routes.ts` behandelt.
-
-```typescript fileName="src/app/app.routes.ts"
-import { Routes } from "@angular/router";
-import { configuration, localeFlatMap } from "intlayer";
-import { HomeComponent } from "./home/home.component";
-import { RootComponent } from "./root/root.component";
-
-const { defaultLocale } = configuration.internationalization;
-
-export const routes: Routes = [
-  localeFlatMap((localizedData) => [
-    {
-      path: `${localizedData.urlPrefix}`,
-      component: RootComponent,
-      data: { locale: localizedData.locale },
-    },
-    {
-      path: `${localizedData.urlPrefix}/home`,
-      component: HomeComponent,
-      data: { locale: localizedData.locale },
-    },
-  ]),
-  { path: "**", redirectTo: `/${defaultLocale}/home` },
-];
-```
-
-Dann müssen Sie den Router in Ihrer `app.config.ts` bereitstellen.
+Um die Internationalisierungsfunktionen von Intlayer in Ihrer gesamten Angular-Anwendung zu nutzen, müssen Sie Intlayer in Ihrer Anwendungskonfiguration bereitstellen.
 
 ```typescript fileName="src/app/app.config.ts"
 import { ApplicationConfig } from "@angular/core";
 import { provideRouter } from "@angular/router";
+import { provideIntlayer } from "angular-intlayer";
 import { routes } from "./app.routes";
-
-export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes)],
-};
-```
-
-### (Optional) Schritt 8: URL ändern, wenn sich die Sprache ändert
-
-Um die URL automatisch zu aktualisieren, wenn der Benutzer die Sprache wechselt, können Sie die `LocaleSwitcher`-Komponente so anpassen, dass sie den Angular Router verwendet:
-
-```typescript fileName="src/app/components/locale-switcher.component.ts"
-import { Component, inject } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { Router } from "@angular/router";
-import { getLocaleName, getLocalizedUrl } from "intlayer";
-import { useLocale } from "angular-intlayer";
-import { FormsModule } from "@angular/forms";
-
-@Component({
-  selector: "app-locale-switcher",
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  template: `
-    <div class="locale-switcher">
-      <select [ngModel]="locale()" (ngModelChange)="changeLocale($event)">
-        <option *ngFor="let loc of availableLocales" [value]="loc">
-          {{ getLocaleName(loc) }}
-        </option>
-      </select>
-    </div>
-  `,
-})
-export class LocaleSwitcherComponent {
-  private router = inject(Router);
-
-  localeInfo = useLocale({
-    onLocaleChange: (newLocale) => {
-      const currentPath = this.router.url;
-      const localizedPath = getLocalizedUrl(currentPath, newLocale);
-      this.router.navigateByUrl(localizedPath);
-    },
-  });
-
-  locale = this.localeInfo.locale;
-  availableLocales = this.localeInfo.availableLocales;
-
-  getLocaleName = getLocaleName;
-
-  changeLocale(newLocale: string) {
-    this.localeInfo.setLocale(newLocale);
-  }
-}
-```
-
-### (Optional) Schritt 9: Wechseln der HTML-Sprach- und Richtungsattribute
-
-Wenn Ihre Anwendung mehrere Sprachen unterstützt, ist es wichtig, die `lang`- und `dir`-Attribute des `<html>`-Tags an die aktuelle Locale anzupassen.
-
-Sie können einen Service erstellen, der dies automatisch übernimmt.
-
-```typescript fileName="src/app/services/i18n-html-attributes.service.ts"
-import { Injectable, effect } from "@angular/core";
-import { useLocale } from "angular-intlayer";
-import { getHTMLTextDir } from "intlayer";
-
-@Injectable({
-  providedIn: "root",
-})
-export class I18nHtmlAttributesService {
-  private localeInfo = useLocale();
-
-  constructor() {
-    effect(() => {
-      const newLocale = this.localeInfo.locale();
-      if (newLocale) {
-        document.documentElement.lang = newLocale;
-        document.documentElement.dir = getHTMLTextDir(newLocale);
-      }
-    });
-  }
-
-  // Diese Methode kann in der Root-Komponente der App aufgerufen werden, um sicherzustellen, dass der Service initialisiert wird.
-  init() {}
-}
-```
-
-Dann injizieren und initialisieren Sie diesen Service in Ihrer Haupt-`AppComponent`:
-
-```typescript fileName="src/app/app.component.ts"
-import { Component, inject } from "@angular/core";
-// ... weitere Importe
-import { I18nHtmlAttributesService } from "./services/i18n-html-attributes.service";
-
-@Component({
-  // ...
-})
-export class AppComponent {
-  constructor() {
-    inject(I18nHtmlAttributesService).init();
-  }
-}
-```
-
-### (Optional) Schritt 10: Erstellen einer lokalisierten Link-Direktive
-
-Um sicherzustellen, dass die Navigation Ihrer Anwendung die aktuelle Sprache berücksichtigt, können Sie eine benutzerdefinierte Direktive erstellen. Diese Direktive fügt internen URLs automatisch das aktuelle Sprachpräfix hinzu.
-
-```typescript fileName="src/app/directives/localized-link.directive.ts"
-import { Directive, Input, HostBinding, inject } from "@angular/core";
-import { getLocalizedUrl } from "intlayer";
-import { useLocale } from "angular-intlayer";
-
-@Directive({
-  selector: "a[appLocalizedLink]",
-  standalone: true,
-})
-export class LocalizedLinkDirective {
-  @Input("href") originalHref: string = "";
-
-  private localeInfo = useLocale();
-
-  @HostBinding("href")
-  get localizedHref(): string {
-    const locale = this.localeInfo.locale();
-    const isExternalLink = /^https?:\/\//.test(this.originalHref);
-    if (isExternalLink || !this.originalHref) {
-      return this.originalHref;
-    }
-
-    return getLocalizedUrl(this.originalHref, locale);
-  }
-}
-```
-
-Um es zu verwenden, fügen Sie die Direktive `appLocalizedLink` zu Ihren Anker-Tags hinzu und stellen Sie sicher, dass Sie sie in Ihrer Komponente importieren.
-
-```typescript fileName="src/app/app.component.ts"
-// ...
-import { LocalizedLinkDirective } from "./directives/localized-link.directive";
-
-@Component({
-  selector: "app-root",
-  standalone: true,
-  imports: [/*...,*/ LocalizedLinkDirective],
-  template: ` <a href="/home" appLocalizedLink>Home</a> `,
-})
-export class AppComponent {}
-```
-
-### (Optional) Schritt 11: Markdown rendern
-
-Intlayer unterstützt das Rendern von Markdown-Inhalten. Um Markdown in reichhaltiges HTML umzuwandeln, können Sie [markdown-it](https://github.com/markdown-it/markdown-it) integrieren.
-
-Installieren Sie zunächst `markdown-it`:
-
-```bash
-npm install markdown-it
-# und die Typen
-npm install -D @types/markdown-it
-```
-
-Konfigurieren Sie anschließend den `INTLAYER_MARKDOWN_TOKEN` in Ihrer `app.config.ts`.
-
-```typescript fileName="src/app/app.config.ts"
-import { ApplicationConfig } from "@angular/core";
-import { provideRouter } from "@angular/router";
-import { routes } from "./app.routes";
-import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
-import MarkdownIt from "markdown-it";
-
-const md = new MarkdownIt({
-  html: true,
-  linkify: true,
-  typographer: true,
-});
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    createIntlayerMarkdownProvider((markdown) => md.render(markdown)),
+    provideIntlayer(), // Fügen Sie den Intlayer-Provider hier hinzu
   ],
 };
 ```
 
-Standardmäßig gibt Intlayer das gerenderte HTML als String zurück. Wenn Sie `[innerHTML]` zum Binden verwenden, beachten Sie die Sicherheitsimplikationen (XSS). Stellen Sie stets sicher, dass Ihre Inhalte aus einer vertrauenswürdigen Quelle stammen.
+Anschließend können Sie die Funktion `useIntlayer` in jeder Komponente verwenden.
 
-Für komplexere Szenarien können Sie eine Pipe erstellen, um das HTML sicher zu rendern.
+```typescript fileName="src/app/app.component.ts"
+import { Component } from "@angular/core";
+import { RouterOutlet } from "@angular/router";
+import { useIntlayer } from "angular-intlayer";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  imports: [RouterOutlet],
+  templateUrl: "./app.component.html",
+  styleUrl: "./app.component.css",
+})
+export class AppComponent {
+  content = useIntlayer("app");
+}
+```
+
+Und in Ihrem Template:
+
+```html fileName="src/app/app.component.html"
+<div class="content">
+  <h1>{{ content().title }}</h1>
+  <p>{{ content().congratulations }}</p>
+</div>
+```
+
+Intlayer-Inhalte werden als `Signal` zurückgegeben, sodass Sie auf die Werte zugreifen, indem Sie das Signal aufrufen: `content().title`.
+
+### (Optional) Schritt 6: Die Sprache Ihrer Inhalte ändern
+
+Um die Sprache Ihrer Inhalte zu ändern, können Sie die Funktion `setLocale` verwenden, die von der Funktion `useLocale` bereitgestellt wird. Damit können Sie die Sprache der Anwendung festlegen und den Inhalt entsprechend aktualisieren.
+
+Erstellen Sie eine Komponente zum Umschalten zwischen Sprachen:
+
+```typescript fileName="src/app/locale-switcher.component.ts"
+import { Component } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { useLocale } from "angular-intlayer";
+
+@Component({
+  selector: "app-locale-switcher",
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div class="locale-switcher">
+      <select
+        [value]="locale()"
+        (change)="setLocale($any($event.target).value)"
+      >
+        @for (loc of availableLocales; track loc) {
+          <option [value]="loc">{{ loc }}</option>
+        }
+      </select>
+    </div>
+  `,
+  styles: [
+    `
+      .locale-switcher {
+        margin: 1rem;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: fit-content;
+      }
+    `,
+  ],
+})
+export class LocaleSwitcherComponent {
+  localeCtx = useLocale();
+
+  locale = this.localeCtx.locale;
+  availableLocales = this.localeCtx.availableLocales;
+  setLocale = this.localeCtx.setLocale;
+}
+```
+
+Verwenden Sie diese Komponente dann in Ihrer `app.component.ts`:
+
+```typescript fileName="src/app/app.component.ts"
+import { Component } from "@angular/core";
+import { RouterOutlet } from "@angular/router";
+import { useIntlayer } from "angular-intlayer";
+import { LocaleSwitcherComponent } from "./locale-switcher.component";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  imports: [RouterOutlet, LocaleSwitcherComponent],
+  templateUrl: "./app.component.html",
+  styleUrl: "./app.component.css",
+})
+export class AppComponent {
+  content = useIntlayer("app");
+}
+```
 
 ### TypeScript konfigurieren
 
-Intlayer verwendet Module Augmentation, um die Vorteile von TypeScript zu nutzen und Ihren Code robuster zu machen.
+Intlayer verwendet Modul-Augmentierung, um die Vorteile von TypeScript zu nutzen und Ihre Codebasis stabiler zu machen.
 
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+![Autovervollständigung](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![Übersetzungsfehler](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
-Stellen Sie sicher, dass Ihre TypeScript-Konfiguration die automatisch generierten Typen einschließt.
+Stellen Sie sicher, dass Ihre TypeScript-Konfiguration die automatisch generierten Typen enthält.
 
 ```json5 fileName="tsconfig.json"
 {
   // ... Ihre bestehenden TypeScript-Konfigurationen
   "include": [
     // ... Ihre bestehenden TypeScript-Konfigurationen
-    ".intlayer/**/*.ts", // Einschließen der automatisch generierten Typen
+    ".intlayer/**/*.ts", // Die automatisch generierten Typen einbeziehen
   ],
 }
 ```
 
 ### Git-Konfiguration
 
-Es wird empfohlen, die von Intlayer generierten Dateien zu ignorieren. So vermeiden Sie, dass diese versehentlich in Ihr Git-Repository eingecheckt werden.
+Es wird empfohlen, die von Intlayer generierten Dateien zu ignorieren. Dies ermöglicht es Ihnen, zu vermeiden, dass sie in Ihr Git-Repository committet werden.
 
-Fügen Sie dazu folgende Anweisungen in Ihre `.gitignore`-Datei ein:
+Fügen Sie dazu die folgenden Anweisungen zu Ihrer `.gitignore`-Datei hinzu:
 
 ```plaintext
-# Ignoriere die von Intlayer generierten Dateien
+# Die von Intlayer generierten Dateien ignorieren
 .intlayer
 ```
 
 ### VS Code Erweiterung
 
-Um Ihre Entwicklungserfahrung mit Intlayer zu verbessern, können Sie die offizielle **Intlayer VS Code Erweiterung** installieren.
+Um Ihre Entwicklungserfahrung mit Intlayer zu verbessern, können Sie die offizielle **Intlayer VS Code Extension** installieren.
 
 [Im VS Code Marketplace installieren](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
 Diese Erweiterung bietet:
 
 - **Autovervollständigung** für Übersetzungsschlüssel.
@@ -731,12 +417,12 @@ Diese Erweiterung bietet:
 - **Inline-Vorschauen** des übersetzten Inhalts.
 - **Schnellaktionen**, um Übersetzungen einfach zu erstellen und zu aktualisieren.
 
-Für weitere Details zur Nutzung der Erweiterung siehe die [Intlayer VS Code Extension Dokumentation](https://intlayer.org/doc/vs-code-extension).
+Weitere Informationen zur Verwendung der Erweiterung finden Sie in der [Dokumentation zur Intlayer VS Code Extension](https://intlayer.org/doc/vs-code-extension).
 
 ---
 
-### Weiterführende Schritte
+### Weiterführende Informationen
 
-Um weiterzugehen, können Sie den [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) implementieren oder Ihre Inhalte mit dem [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) auslagern.
+Um weiter zu gehen, können Sie den [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) implementieren oder Ihre Inhalte mit dem [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) extern verwalten.
 
 ---

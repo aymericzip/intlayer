@@ -7,7 +7,7 @@ import type {
   Dictionary,
   LocalesValues,
 } from '@intlayer/types';
-import { intlayerNodePlugins, markdownPlugin } from './plugins';
+import { htmlPlugin, intlayerNodePlugins, markdownPlugin } from './plugins';
 
 export const getDictionary = <
   T extends Dictionary,
@@ -20,6 +20,7 @@ export const getDictionary = <
   const plugins: Plugins[] = [
     intlayerNodePlugins,
     markdownPlugin,
+    htmlPlugin,
     ...(additionalPlugins ?? []),
   ];
 

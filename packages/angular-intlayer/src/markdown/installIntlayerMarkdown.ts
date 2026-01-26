@@ -4,6 +4,7 @@ import {
   inject,
   type TemplateRef,
 } from '@angular/core';
+import { compile, type MarkdownRuntime } from '@intlayer/core';
 
 export const INTLAYER_MARKDOWN_TOKEN =
   new InjectionToken<IntlayerMarkdownProvider>('intlayerMarkdown');
@@ -23,11 +24,61 @@ export type IntlayerMarkdownProvider = {
   renderMarkdown: RenderMarkdownFunction;
 };
 
+// Minimal runtime to generate HTML strings
+export const htmlRuntime: MarkdownRuntime = {
+  createElement: (tag: string | any, props: any, ...children: any[]) => {
+    if (typeof tag !== 'string') {
+      // Handle non-string tags if necessary (e.g. components), or fallback to div
+      if (tag === htmlRuntime.Fragment) {
+        return children.join('');
+      }
+      return '';
+    }
+
+    const attrs = props
+      ? Object.entries(props)
+          .map(([k, v]) => {
+            if (k === 'key' || v === undefined || v === null) return '';
+            const key = k === 'className' ? 'class' : k;
+            return `${key}="${String(v).replace(/"/g, '&quot;')}"`;
+          })
+          .filter(Boolean)
+          .join(' ')
+      : '';
+
+    const childrenStr = children.join('');
+    const voidTags = [
+      'area',
+      'base',
+      'br',
+      'col',
+      'embed',
+      'hr',
+      'img',
+      'input',
+      'link',
+      'meta',
+      'param',
+      'source',
+      'track',
+      'wbr',
+    ];
+
+    if (voidTags.includes(tag)) {
+      return `<${tag} ${attrs} />`;
+    }
+
+    return `<${tag}${attrs ? ` ${attrs}` : ''}>${childrenStr}</${tag}>`;
+  },
+  cloneElement: (element: any, _props: any) => element, // Not really supported for strings
+  Fragment: Symbol('Fragment'),
+};
+
 /**
- * Default markdown renderer that returns the markdown as is
+ * Default markdown renderer that converts markdown to HTML string
  */
 const defaultMarkdownRenderer: RenderMarkdownFunction = (markdown: string) =>
-  markdown;
+  compile(markdown, { runtime: htmlRuntime }) as string;
 
 /**
  * Create IntlayerMarkdown provider configuration

@@ -174,40 +174,35 @@ const logosRow3 = [
     route: PagesRoutes.Doc_Environment_NextJS_15,
     initialPost: {
       scale: 1.5,
-      x: -250,
+      x: -350,
       y: 60,
     },
     label: 'nextjs',
   },
-  {
-    Logo: ViteLogo,
-    route: PagesRoutes.Doc_Environment_ViteAndReact,
-    initialPost: {
-      scale: 1.5,
-      x: 250,
-      y: 60,
-    },
-    label: 'vite',
-  },
-] as const;
-
-const comingSoonData = [
   {
     Logo: AngularLogo,
     route: PagesRoutes.Doc_Environment_Angular,
     initialPost: {
       scale: 1.2,
       x: 0,
-      y: 40,
+      y: 60,
     },
     label: 'angular',
+  },
+  {
+    Logo: ViteLogo,
+    route: PagesRoutes.Doc_Environment_ViteAndReact,
+    initialPost: {
+      scale: 1.5,
+      x: 350,
+      y: 60,
+    },
+    label: 'vite',
   },
 ] as const;
 
 export const AvailableTechnoSection: FC = () => {
-  const { comingSoon, availableOn, icons } = useIntlayer(
-    'available-techno-section'
-  );
+  const { availableOn, icons } = useIntlayer('available-techno-section');
 
   const { isMobile } = useDevice();
   const { screenWidth } = useScreenWidth();
@@ -277,23 +272,6 @@ export const AvailableTechnoSection: FC = () => {
           ))}
         </motion.div>
       </div>
-
-      <h2 className="mt-8 mb-3 text-lg text-neutral-500">{comingSoon}</h2>
-      <motion.div className="mt-4 flex justify-center gap-x-12">
-        {comingSoonData.map((logoConfig, index) => (
-          <LogoItem
-            key={logoConfig.label}
-            {...logoConfig}
-            animationProgress={animationProgress}
-            outputRange={[0.15, 0.25]}
-            animationDelay={index * 0.15}
-            label={icons[logoConfig.label].label.value}
-            logoClassName="grayscale-70"
-            getXPosition={getXPosition}
-            isMobile={isMobile}
-          />
-        ))}
-      </motion.div>
     </section>
   );
 };

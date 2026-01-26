@@ -14,7 +14,7 @@ keywords:
   - terjemahan
 slugs:
   - doc
-  - package
+  - packages
   - react-intlayer
   - useDictionary
 history:

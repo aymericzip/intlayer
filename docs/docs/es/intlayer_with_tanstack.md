@@ -14,7 +14,7 @@ keywords:
   - Enrutamiento por configuración regional
 slugs:
   - doc
-  - entorno
+  - environment
   - tanstack-start
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg

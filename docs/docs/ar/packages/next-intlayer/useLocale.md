@@ -1,4 +1,20 @@
 ---
+keywords:
+  - useLocale
+  - dictionary
+  - key
+  - Intlayer
+  - Internationalization
+  - Documentation
+  - Next.js
+  - JavaScript
+  - React
+slugs:
+  - doc
+  - packages
+  - next-intlayer
+  - useLocale
+description: Documentation for the useLocale hook in the next-intlayer package
 createdAt: 2024-08-11
 updatedAt: 2026-01-26
 title: توثيق هوك useLocale | next-intlayer

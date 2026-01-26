@@ -2,6 +2,7 @@ import { Link } from '@components/Link/Link';
 import { cn } from '@utils/cn';
 import type { FC, SVGProps } from 'react';
 import { PagesRoutes } from '@/Routes';
+import { AngularLogo } from '../AvailableTechnoSection/Angular';
 import { AstroLogo } from '../AvailableTechnoSection/Astro';
 import { ExpressLogo } from '../AvailableTechnoSection/Express';
 import { LynxLogo } from '../AvailableTechnoSection/Lynx';
@@ -15,8 +16,6 @@ import { SvelteLogo } from '../AvailableTechnoSection/Svelte';
 import { TanstackLogo } from '../AvailableTechnoSection/Tanstack';
 import { ViteLogo } from '../AvailableTechnoSection/Vitejs';
 import { VuejsLogo } from '../AvailableTechnoSection/Vuejs';
-
-// import { AngularLogo } from '../AvailableTechnoSection/Angular';
 
 // Animated Technology logos
 const logos = [
@@ -77,7 +76,11 @@ const logos = [
     key: 'solid',
     route: PagesRoutes.Doc_Environment_ViteAndSolid,
   },
-  // { Logo: AngularLogo, key: 'angular', route: PagesRoutes.Doc_Environment_Angular },
+  {
+    Logo: AngularLogo,
+    key: 'angular',
+    route: PagesRoutes.Doc_Environment_Angular,
+  },
 ];
 
 const LogoItem: FC<{
