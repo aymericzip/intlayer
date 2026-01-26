@@ -86,23 +86,123 @@ describe('rewriteUtils', () => {
     });
   });
 
-  describe('getRewritePath', () => {
-    it('should return rewritten path if rule matches', () => {
-      expect(getRewritePath('/products', Locales.FRENCH, rewriteRules)).toBe(
-        '/produits'
+  describe('getCanonicalPath with complex patterns', () => {
+    const complexRules = {
+      rules: [
+        {
+          canonical: '/blog/:slug*',
+          localized: {
+            en: '/blog/:slug*',
+            fr: '/blog/:slug*',
+          },
+        },
+        {
+          canonical: '/docs/:path+',
+          localized: {
+            en: '/docs/:path+',
+            fr: '/documentation/:path+',
+          },
+        },
+      ],
+    };
+
+    it('should match optional catch-all (:slug*)', () => {
+      expect(getCanonicalPath('/blog', Locales.FRENCH, complexRules)).toBe(
+        '/blog'
       );
+      expect(
+        getCanonicalPath('/blog/my-post', Locales.FRENCH, complexRules)
+      ).toBe('/blog/my-post');
+      expect(
+        getCanonicalPath('/blog/my-post/sub-path', Locales.FRENCH, complexRules)
+      ).toBe('/blog/my-post/sub-path');
     });
 
-    it('should return undefined if no rewrite rule matches', () => {
+    it('should match mandatory catch-all (:path+)', () => {
       expect(
-        getRewritePath('/unknown', Locales.FRENCH, rewriteRules)
-      ).toBeUndefined();
+        getCanonicalPath('/documentation/install', Locales.FRENCH, complexRules)
+      ).toBe('/docs/install');
+      expect(
+        getCanonicalPath(
+          '/documentation/install/step-1',
+          Locales.FRENCH,
+          complexRules
+        )
+      ).toBe('/docs/install/step-1');
+      // Should NOT match /documentation (since it's 1+)
+      expect(
+        getCanonicalPath('/documentation', Locales.FRENCH, complexRules)
+      ).toBe('/documentation');
     });
 
-    it('should return undefined if already on localized path', () => {
+    it('should match optional segment (:param?)', () => {
+      const optionalRules = {
+        rules: [
+          {
+            canonical: '/profile/:section?',
+            localized: {
+              en: '/profile/:section?',
+              fr: '/profil/:section?',
+            },
+          },
+        ],
+      };
+      expect(getCanonicalPath('/profil', Locales.FRENCH, optionalRules)).toBe(
+        '/profile'
+      );
       expect(
-        getRewritePath('/produits', Locales.FRENCH, rewriteRules)
-      ).toBeUndefined();
+        getCanonicalPath('/profil/settings', Locales.FRENCH, optionalRules)
+      ).toBe('/profile/settings');
+      expect(
+        getCanonicalPath(
+          '/profil/settings/extra',
+          Locales.FRENCH,
+          optionalRules
+        )
+      ).toBe('/profil/settings/extra'); // Too many segments
+    });
+  });
+
+  describe('getLocalizedPath with complex patterns', () => {
+    const complexRules = {
+      rules: [
+        {
+          canonical: '/blog/:slug*',
+          localized: {
+            en: '/blog/:slug*',
+            fr: '/blog/:slug*',
+          },
+        },
+        {
+          canonical: '/docs/:path+',
+          localized: {
+            en: '/docs/:path+',
+            fr: '/documentation/:path+',
+          },
+        },
+      ],
+    };
+
+    it('should localize optional catch-all', () => {
+      expect(getLocalizedPath('/blog', Locales.FRENCH, complexRules)).toEqual({
+        path: '/blog',
+        isRewritten: true,
+      });
+      expect(
+        getLocalizedPath('/blog/my-post', Locales.FRENCH, complexRules)
+      ).toEqual({
+        path: '/blog/my-post',
+        isRewritten: true,
+      });
+    });
+
+    it('should localize mandatory catch-all', () => {
+      expect(
+        getLocalizedPath('/docs/install', Locales.FRENCH, complexRules)
+      ).toEqual({
+        path: '/documentation/install',
+        isRewritten: true,
+      });
     });
   });
 });

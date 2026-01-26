@@ -189,14 +189,6 @@ export type RewriteObject = {
    * Used for Vite proxy middleware.
    */
   vite?: RewriteRules;
-  /**
-   * Used for React Router.
-   */
-  reactRouter?: RewriteRules;
-  /**
-   * Used for SvelteKit.
-   */
-  sveltekit?: RewriteRules;
 };
 
 /**

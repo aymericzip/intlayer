@@ -26,7 +26,7 @@ Intlayer supports custom URL rewrites, allowing you to define locale-specific pa
 
 Custom rewrites are configured in the `routing` section of your `intlayer.config.ts` file using framework-specific formatters. These formatters provide the correct syntax for your preferred router.
 
-<Tabs group='framework'>
+<Tabs group='routers'>
   <Tab label="Next.js" value="nextjs">
 
     ```typescript fileName="intlayer.config.ts"
@@ -34,103 +34,10 @@ Custom rewrites are configured in the `routing` section of your `intlayer.config
     import { nextjsRewrite } from "intlayer/routing";
 
     const config: IntlayerConfig = {
-      internationalization: {
-        locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-        defaultLocale: Locales.ENGLISH,
-      },
+      // ...
       routing: {
         mode: "prefix-no-default",
         rewrite: nextjsRewrite({
-          "/[locale]/about": {
-            fr: "/[locale]/a-propos",
-            es: "/[locale]/acerca-de",
-          },
-          "/[locale]/products/[id]": {
-            fr: "/[locale]/produits/[id]",
-            es: "/[locale]/productos/[id]",
-          },
-        }),
-      },
-    };
-
-    export default config;
-    ```
-
-  </Tab>
-  <Tab label="Vite (Vue, Solid, Svelte)" value="vite">
-
-    ```typescript fileName="intlayer.config.ts"
-    import { Locales, type IntlayerConfig } from "intlayer";
-    import { viteRewrite } from "intlayer/routing";
-
-    const config: IntlayerConfig = {
-      internationalization: {
-        locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-        defaultLocale: Locales.ENGLISH,
-      },
-      routing: {
-        mode: "prefix-all",
-        rewrite: viteRewrite({
-          "/:locale/about": {
-            fr: "/:locale/a-propos",
-            es: "/:locale/acerca-de",
-          },
-          "/:locale/products/:id": {
-            fr: "/:locale/produits/:id",
-            es: "/:locale/productos/:id",
-          },
-        }),
-      },
-    };
-
-    export default config;
-    ```
-
-  </Tab>
-  <Tab label="Nuxt" value="nuxt">
-
-    ```typescript fileName="intlayer.config.ts"
-    import { Locales, type IntlayerConfig } from "intlayer";
-    import { nuxtRewrite } from "intlayer/routing";
-
-    const config: IntlayerConfig = {
-      internationalization: {
-        locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-        defaultLocale: Locales.ENGLISH,
-      },
-      routing: {
-        mode: "prefix-all",
-        rewrite: nuxtRewrite({
-          "/[locale]/about": {
-            fr: "/[locale]/a-propos",
-            es: "/[locale]/acerca-de",
-          },
-          "/[locale]/products/[id]": {
-            fr: "/[locale]/produits/[id]",
-            es: "/[locale]/productos/[id]",
-          },
-        }),
-      },
-    };
-
-    export default config;
-    ```
-
-  </Tab>
-  <Tab label="SvelteKit" value="sveltekit">
-
-    ```typescript fileName="intlayer.config.ts"
-    import { Locales, type IntlayerConfig } from "intlayer";
-    import { svelteKitRewrite } from "intlayer/routing";
-
-    const config: IntlayerConfig = {
-      internationalization: {
-        locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-        defaultLocale: Locales.ENGLISH,
-      },
-      routing: {
-        mode: "prefix-all",
-        rewrite: svelteKitRewrite({
           "/[locale]/about": {
             fr: "/[locale]/a-propos",
             es: "/[locale]/acerca-de",
@@ -154,10 +61,7 @@ Custom rewrites are configured in the `routing` section of your `intlayer.config
     import { reactRouterRewrite } from "intlayer/routing";
 
     const config: IntlayerConfig = {
-      internationalization: {
-        locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-        defaultLocale: Locales.ENGLISH,
-      },
+      // ...
       routing: {
         mode: "prefix-all",
         rewrite: reactRouterRewrite({
@@ -177,19 +81,163 @@ Custom rewrites are configured in the `routing` section of your `intlayer.config
     ```
 
   </Tab>
+  <Tab label="TanStack Router" value="tanstackrouter">
+
+    ```typescript fileName="intlayer.config.ts"
+    import { Locales, type IntlayerConfig } from "intlayer";
+    import { tanstackRouterRewrite } from "intlayer/routing";
+
+    const config: IntlayerConfig = {
+      // ...
+      routing: {
+        mode: "prefix-all",
+        rewrite: tanstackRouterRewrite({
+          "/$locale/about": {
+            fr: "/$locale/a-propos",
+            es: "/$locale/acerca-de",
+          },
+          "/$locale/products/$id": {
+            fr: "/$locale/produits/$id",
+            es: "/$locale/productos/$id",
+          },
+        }),
+      },
+    };
+
+    export default config;
+    ```
+
+  </Tab>
+  <Tab label="Vue Router" value="vuerouter">
+
+    ```typescript fileName="intlayer.config.ts"
+    import { Locales, type IntlayerConfig } from "intlayer";
+    import { vueRouterRewrite } from "intlayer/routing";
+
+    const config: IntlayerConfig = {
+      // ...
+      routing: {
+        mode: "prefix-all",
+        rewrite: vueRouterRewrite({
+          "/:locale/about": {
+            fr: "/:locale/a-propos",
+            es: "/:locale/acerca-de",
+          },
+          "/:locale/products/:id": {
+            fr: "/:locale/produits/:id",
+            es: "/:locale/productos/:id",
+          },
+        }),
+      },
+    };
+
+    export default config;
+    ```
+
+  </Tab>
+  <Tab label="SvelteKit" value="sveltekit">
+
+    ```typescript fileName="intlayer.config.ts"
+    import { Locales, type IntlayerConfig } from "intlayer";
+    import { svelteKitRewrite } from "intlayer/routing";
+
+    const config: IntlayerConfig = {
+      // ...
+      routing: {
+        mode: "prefix-all",
+        rewrite: svelteKitRewrite({
+          "/[locale]/about": {
+            fr: "/[locale]/a-propos",
+            es: "/[locale]/acerca-de",
+          },
+          "/[locale]/products/[id]": {
+            fr: "/[locale]/produits/[id]",
+            es: "/[locale]/productos/[id]",
+          },
+        }),
+      },
+    };
+
+    export default config;
+    ```
+
+  </Tab>
+  <Tab label="Solid Router" value="solidrouter">
+
+    ```typescript fileName="intlayer.config.ts"
+    import { Locales, type IntlayerConfig } from "intlayer";
+    import { solidRouterRewrite } from "intlayer/routing";
+
+    const config: IntlayerConfig = {
+      // ...
+      routing: {
+        mode: "prefix-all",
+        rewrite: solidRouterRewrite({
+          "/:locale/about": {
+            fr: "/:locale/a-propos",
+            es: "/:locale/acerca-de",
+          },
+          "/:locale/products/:id": {
+            fr: "/:locale/produits/:id",
+            es: "/:locale/productos/:id",
+          },
+        }),
+      },
+    };
+
+    export default config;
+    ```
+
+  </Tab>
+  <Tab label="Nuxt" value="nuxt">
+
+    ```typescript fileName="intlayer.config.ts"
+    import { Locales, type IntlayerConfig } from "intlayer";
+    import { nuxtRewrite } from "intlayer/routing";
+
+    const config: IntlayerConfig = {
+      // ...
+      routing: {
+        mode: "prefix-all",
+        rewrite: nuxtRewrite({
+          "/[locale]/about": {
+            fr: "/[locale]/a-propos",
+            es: "/[locale]/acerca-de",
+          },
+          "/[locale]/products/[id]": {
+            fr: "/[locale]/produits/[id]",
+            es: "/[locale]/productos/[id]",
+          },
+        }),
+      },
+    };
+
+    export default config;
+    ```
+
+  </Tab>
 </Tabs>
 
 ### Available Formatters
 
-Intlayer provides formatters for most popular frameworks:
+Intlayer provides formatters for all popular frameworks:
 
-- `nextjsRewrite`: For Next.js App Router. Supports `[slug]`, `[[slug]]`, etc.
-- `viteRewrite`: For Vite-based projects (Vue, Solid, Svelte). Supports `:slug`, `:slug?`, etc.
-- `nuxtRewrite`: For Nuxt 3.
-- `svelteKitRewrite`: For SvelteKit.
-- `reactRouterRewrite`: For React Router.
-- `vueRewrite`: Specifically for Vue Router 4 (same as Vite).
-- `solidjsRewrite`: Specifically for Solid Router (same as Vite).
+- `nextjsRewrite`: For Next.js App Router. Supports `[slug]`, `[...slug]` (1+), and `[[...slug]]` (0+).
+- `svelteKitRewrite`: For SvelteKit. Supports `[slug]`, `[...path]` (0+), and `[[optional]]` (0-1).
+- `reactRouterRewrite`: For React Router. Supports `:slug` and `*` (0+).
+- `vueRouterRewrite`: For Vue Router 4. Supports `:slug`, `:slug?` (0-1), `:slug*` (0+), and `:slug+` (1+).
+- `solidRouterRewrite`: For Solid Router. Supports `:slug` and `*slug` (0+).
+- `tanstackRouterRewrite`: For TanStack Router. Supports `$slug` and `*` (0+).
+- `nuxtRewrite`: For Nuxt 3. Supports `[slug]` and `[...slug]` (0+).
+- `viteRewrite`: Generic formatter for any Vite-based project. Normalizes syntax for the Vite proxy.
+
+### Advanced Patterns
+
+Intlayer internally normalizes these patterns to a unified syntax, allowing sophisticated path matching and generation:
+
+- **Optional Segments**: `[[optional]]` (SvelteKit) or `:slug?` (Vue/React) are supported.
+- **Catch-all (Zero or more)**: `[[...slug]]` (Next.js), `[...path]` (SvelteKit/Nuxt), or `*` (React/TanStack) allow matching multiple segments.
+- **Mandatory Catch-all (One or more)**: `[...slug]` (Next.js) or `:slug+` (Vue) ensure at least one segment is present.
 
 ## Client-Side URL Correction: `useRewriteURL`
 

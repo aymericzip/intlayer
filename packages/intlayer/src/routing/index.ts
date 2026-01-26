@@ -24,60 +24,88 @@ const cleanPath = (pattern: string) =>
   pattern.startsWith('/') ? pattern : `/${pattern}`;
 
 /**
- * Formatter for Next.js style rewrites.
- * Patterns use Next.js dynamic routing syntax:
- * - Slug: `[slug]`
- * - Optional slug: `[[slug]]`
- * - Catch-all: `[...slug]`
- * - Optional catch-all: `[[...slug]]`
- * - Locale: `[locale]`
+ * Standardizes pattern to :param syntax.
+ * Supports:
+ * - Next.js/SvelteKit/Nuxt: [slug], [...slug], [[slug]]
+ * - TanStack Router: $slug
+ * - Solid Router: *slug
+ * - React/Vue Router: :slug, *
  */
-export const nextjsRewrite = <T extends string = string>(
-  rules: Record<T, StrictModeLocaleMap<string>>
-): RewriteObject => {
-  const normalize = (pattern: string) =>
-    pattern.replace(/\[([^\]]+)\]/g, ':$1');
-  const strip = (pattern: string) =>
-    pattern
-      .replace(/\/?(:locale|\[locale\])\/?/g, '/')
-      .replace(/\/+/g, '/')
-      .replace(/\/$/, '') || '/';
+const normalizePattern = (pattern: string, framework?: string) => {
+  let normalized = pattern;
 
-  return {
-    url: buildRules(rules as any, (pattern) =>
-      cleanPath(strip(normalize(pattern)))
-    ),
-    nextjs: buildRules(rules as any, (pattern) =>
-      cleanPath(normalize(pattern))
-    ),
-  };
+  if (framework === 'nextjs') {
+    normalized = normalized
+      .replace(/\[\[\.\.\.([^\]]+)\]\]/g, ':$1*') // [[...slug]] -> :slug* (0+)
+      .replace(/\[\.\.\.([^\]]+)\]/g, ':$1+') // [...slug] -> :slug+ (1+)
+      .replace(/\[([^\]]+)\]/g, ':$1'); // [slug] -> :slug (1)
+  } else if (framework === 'sveltekit') {
+    normalized = normalized
+      .replace(/\[\.\.\.([^\]]+)\]/g, ':$1*') // [...path] -> :path* (0+)
+      .replace(/\[\[([^\]]+)\]\]/g, ':$1?') // [[optional]] -> :optional? (0-1)
+      .replace(/\[([^\]]+)\]/g, ':$1'); // [slug] -> :slug (1)
+  } else if (framework === 'nuxt') {
+    normalized = normalized
+      .replace(/\[\.\.\.([^\]]+)\]/g, ':$1*') // [...slug] -> :slug* (0+)
+      .replace(/\[([^\]]+)\]/g, ':$1'); // [slug] -> :slug (1)
+  } else {
+    // Default / Generic (React Router, Vue Router, Solid Router, TanStack Router)
+    normalized = normalized
+      .replace(/\$([^/]+)/g, ':$1') // TanStack $slug -> :slug
+      .replace(/\*([^/]+)/g, ':$1*') // Solid *slug -> :slug*
+      .replace(/:([^/]+)\?/g, ':$1?') // Vue Router/React Router :slug? -> :slug?
+      .replace(/\*/g, ':path*'); // React Router * -> :path*
+  }
+
+  return normalized;
 };
 
 /**
- * Formatter for Vite style rewrites.
- * Patterns use Vite/Vue Router dynamic routing syntax:
- * - Slug: `:slug`
- * - Optional slug: `:slug?`
- * - Catch-all: `:slug*` (zero or more) or `:slug+` (one or more)
- * - Locale: `:locale`
+ * Removes locale markers from the pattern.
  */
-export const viteRewrite = <T extends string = string>(
-  rules: Record<T, StrictModeLocaleMap<string>>
-): RewriteObject => {
-  const normalize = (pattern: string) => pattern; // Vite already uses :param
-  const strip = (pattern: string) =>
-    pattern
-      .replace(/\/?(:locale)\/?/g, '/')
-      .replace(/\/+/g, '/')
-      .replace(/\/$/, '') || '/';
+const stripLocale = (pattern: string) =>
+  pattern
+    .replace(/\/?(:locale|\[locale\]|\$locale)\/?/g, '/')
+    .replace(/\/+/g, '/')
+    .replace(/\/$/, '') || '/';
 
-  return {
-    url: buildRules(rules as any, (pattern) =>
-      cleanPath(strip(normalize(pattern)))
-    ),
-    vite: buildRules(rules as any, (pattern) => cleanPath(normalize(pattern))),
+/**
+ * Factory to create formatters that populate 'url' and a specific proxy key.
+ */
+const createFormatter =
+  (proxyKey: 'nextjs' | 'vite', framework?: string) =>
+  <T extends string = string>(
+    rules: Record<T, StrictModeLocaleMap<string>>
+  ): RewriteObject => {
+    const normalize = (pattern: string) => normalizePattern(pattern, framework);
+    const strip = (pattern: string) => stripLocale(normalize(pattern));
+
+    return {
+      url: buildRules(rules as any, (pattern) => cleanPath(strip(pattern))),
+      [proxyKey]: buildRules(rules as any, (pattern) =>
+        cleanPath(normalize(pattern))
+      ),
+    } as RewriteObject;
   };
-};
+
+/**
+ * Formatter for Next.js style rewrites.
+ * Patterns use Next.js dynamic routing syntax:
+ * - Slug: `[slug]`
+ * - Catch-all: `[...slug]` (1+)
+ * - Optional catch-all: `[[...slug]]` (0+)
+ * - Locale: `[locale]`
+ */
+export const nextjsRewrite = createFormatter('nextjs', 'nextjs');
+
+/**
+ * Formatter for SvelteKit style rewrites.
+ * Patterns use SvelteKit dynamic routing syntax:
+ * - Slug: `[slug]`
+ * - Catch-all: `[...slug]` (0+)
+ * - Locale: `[locale]`
+ */
+export const svelteKitRewrite = createFormatter('vite', 'sveltekit');
 
 /**
  * Formatter for React Router style rewrites.
@@ -87,123 +115,47 @@ export const viteRewrite = <T extends string = string>(
  * - Catch-all: `*`
  * - Locale: `:locale`
  */
-export const reactRouterRewrite = <T extends string = string>(
-  rules: Record<T, StrictModeLocaleMap<string>>
-): RewriteObject => {
-  const normalize = (pattern: string) => pattern;
-  const strip = (pattern: string) =>
-    pattern
-      .replace(/\/?(:locale)\/?/g, '/')
-      .replace(/\/+/g, '/')
-      .replace(/\/$/, '') || '/';
-
-  return {
-    url: buildRules(rules as any, (pattern) =>
-      cleanPath(strip(normalize(pattern)))
-    ),
-    vite: buildRules(rules as any, (pattern) => cleanPath(normalize(pattern))), // Vite proxy
-  };
-};
-
-/**
- * Formatter for SvelteKit style rewrites.
- * Patterns use SvelteKit dynamic routing syntax:
- * - Slug: `[slug]`
- * - Catch-all: `[...slug]`
- * - Locale: `[locale]`
- */
-export const svelteKitRewrite = <T extends string = string>(
-  rules: Record<T, StrictModeLocaleMap<string>>
-): RewriteObject => {
-  const normalize = (pattern: string) =>
-    pattern.replace(/\[([^\]]+)\]/g, ':$1');
-  const strip = (pattern: string) =>
-    pattern
-      .replace(/\/?(:locale|\[locale\])\/?/g, '/')
-      .replace(/\/+/g, '/')
-      .replace(/\/$/, '') || '/';
-
-  return {
-    url: buildRules(rules as any, (pattern) =>
-      cleanPath(strip(normalize(pattern)))
-    ),
-    vite: buildRules(rules as any, (pattern) => cleanPath(normalize(pattern))), // SvelteKit uses Vite
-  };
-};
-
-/**
- * Formatter for SolidJS style rewrites.
- * Patterns use SolidJS dynamic routing syntax:
- * - Slug: `:slug`
- * - Catch-all: `*slug`
- * - Locale: `:locale`
- */
-export const solidjsRewrite = <T extends string = string>(
-  rules: Record<T, StrictModeLocaleMap<string>>
-): RewriteObject => {
-  const normalize = (pattern: string) => pattern;
-  const strip = (pattern: string) =>
-    pattern
-      .replace(/\/?(:locale)\/?/g, '/')
-      .replace(/\/+/g, '/')
-      .replace(/\/$/, '') || '/';
-
-  return {
-    url: buildRules(rules as any, (pattern) =>
-      cleanPath(strip(normalize(pattern)))
-    ),
-    vite: buildRules(rules as any, (pattern) => cleanPath(normalize(pattern))), // Solid uses Vite proxy
-  };
-};
+export const reactRouterRewrite = createFormatter('vite');
 
 /**
  * Formatter for Vue style rewrites.
  * Patterns use Vue Router 4 dynamic routing syntax:
  * - Slug: `:slug`
  * - Optional slug: `:slug?`
- * - Catch-all: `:slug*` (zero or more) or `:slug+` (one or more)
+ * - Catch-all: `:slug*` or `:slug+`
  * - Locale: `:locale`
  */
-export const vueRewrite = <T extends string = string>(
-  rules: Record<T, StrictModeLocaleMap<string>>
-): RewriteObject => {
-  const normalize = (pattern: string) => pattern;
-  const strip = (pattern: string) =>
-    pattern
-      .replace(/\/?(:locale)\/?/g, '/')
-      .replace(/\/+/g, '/')
-      .replace(/\/$/, '') || '/';
+export const vueRouterRewrite = createFormatter('vite');
 
-  return {
-    url: buildRules(rules as any, (pattern) =>
-      cleanPath(strip(normalize(pattern)))
-    ),
-    vite: buildRules(rules as any, (pattern) => cleanPath(normalize(pattern))), // Vue uses Vite proxy
-  };
-};
+/**
+ * Formatter for Solid Router style rewrites.
+ * Patterns use Solid Router dynamic routing syntax:
+ * - Slug: `:slug`
+ * - Catch-all: `*slug`
+ * - Locale: `:locale`
+ */
+export const solidRouterRewrite = createFormatter('vite');
 
 /**
  * Formatter for Nuxt style rewrites.
  * Patterns use Nuxt 3 dynamic routing syntax:
  * - Slug: `[slug]`
- * - Catch-all: `[...slug]`
+ * - Catch-all: `[...slug]` (0+)
  * - Locale: `[locale]`
  */
-export const nuxtRewrite = <T extends string = string>(
-  rules: Record<T, StrictModeLocaleMap<string>>
-): RewriteObject => {
-  const normalize = (pattern: string) =>
-    pattern.replace(/\[([^\]]+)\]/g, ':$1');
-  const strip = (pattern: string) =>
-    pattern
-      .replace(/\/?(:locale|\[locale\])\/?/g, '/')
-      .replace(/\/+/g, '/')
-      .replace(/\/$/, '') || '/';
+export const nuxtRewrite = createFormatter('vite', 'nuxt');
 
-  return {
-    url: buildRules(rules as any, (pattern) =>
-      cleanPath(strip(normalize(pattern)))
-    ),
-    vite: buildRules(rules as any, (pattern) => cleanPath(normalize(pattern))), // Nuxt uses Vite
-  };
-};
+/**
+ * Formatter for TanStack Router style rewrites.
+ * Patterns use TanStack Router dynamic routing syntax:
+ * - Slug: `$slug`
+ * - Catch-all: `*`
+ * - Locale: `$locale`
+ */
+export const tanstackRouterRewrite = createFormatter('vite');
+
+/**
+ * Generic formatter for Vite-based projects.
+ * Supports most dynamic routing syntaxes and normalizes them for the Vite proxy.
+ */
+export const viteRewrite = createFormatter('vite');

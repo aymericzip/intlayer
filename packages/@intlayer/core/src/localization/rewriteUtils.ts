@@ -46,17 +46,36 @@ export const getRewriteRules = (
 
 /**
  * Converts normalized pattern to Regex.
- * Internal syntax is strictly :param.
+ * Internal syntax supports:
+ * - :param -> ([^/]+) (one segment)
+ * - :param* -> (.*) (zero or more segments)
+ * - :param+ -> (.+) (one or more segments)
+ * - :param? -> ([^/]*) (zero or one segment)
  */
-const patternToRegex = (pattern: string) =>
-  new RegExp(`^${pattern.replace(/:([^/]+)/g, '([^/]+)')}$`);
+const patternToRegex = (pattern: string) => {
+  const regexString = pattern
+    .replace(/\//g, '\\/') // Escape slashes
+    .replace(/\\\/:(?:[^/\\*+?]+)\*/g, '(?:\\/(.*))?') // /:param*
+    .replace(/\\\/:(?:[^/\\*+?]+)\?/g, '(?:\\/([^\\/]+))?') // /:param?
+    .replace(/:([^/\\*+?]+)\*/g, '(.*)') // :param* (if no leading slash)
+    .replace(/:([^/\\*+?]+)\?/g, '([^\\/]*)') // :param? (if no leading slash)
+    .replace(/:([^/\\*+?]+)\+/g, '(.+)') // :param+
+    .replace(/:([^/\\*+?]+)/g, '([^\\/]+)'); // :param
+
+  return new RegExp(`^${regexString}$`);
+};
 
 /**
  * Replaces route parameters in a path with provided values.
  */
 const fillPath = (pattern: string, params: string[]) => {
   let index = 0;
-  return pattern.replace(/:([^/]+)/g, () => params[index++] || '');
+  return (
+    pattern
+      .replace(/:([^/\\*+?]+)[*+?]?/g, () => params[index++] ?? '')
+      .replace(/\/+/g, '/')
+      .replace(/\/$/, '') || '/'
+  );
 };
 
 /**
