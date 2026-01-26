@@ -33,28 +33,28 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
         isDarkMode={isDarkMode}
         locale={locale}
         components={{
-          a: (props: ComponentProps<typeof Link>) => (
+          a: (props) => (
             <Link
-              color="neutral"
               underlined={true}
               locale={locale}
               {...props}
+              color="neutral"
+              label=""
+              href={props.href ?? ''}
             />
           ),
           TOC: (props: ComponentProps<typeof TableOfContents>) => (
             <TableOfContents
               {...props}
-              levels={tocLevels}
-              maxDepth={tocMaxDepth}
+              levels={props.levels ?? tocLevels}
+              maxDepth={props.maxDepth ?? tocMaxDepth}
             />
           ),
         }}
-        wrapper={({ children, ...props }: any) => (
+        wrapper={(props) => (
           <>
             <SectionScroller />
-            <div className={cn('flex flex-col gap-8 py-10')} {...props}>
-              {children}
-            </div>
+            <div className="flex flex-col gap-8 py-10" {...props} />
           </>
         )}
       >
