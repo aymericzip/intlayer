@@ -600,15 +600,15 @@ pub(crate) fn process_transform(
             // Compute a relative path
             // We expect both file_dir_abs and dict_file_abs to be absolute here
             let import_path = if let Some(rel) = diff_paths(&dict_file_abs, file_dir_abs) {
-                let s = rel.to_string_lossy();
+                let s = rel.to_string_lossy().replace("\\", "/");
                 if s.starts_with('.') {
-                    s.into_owned()
+                    s
                 } else {
                     format!("./{}", s)
                 }
             } else {
                 // Fallback (should not happen if both are absolute)
-                dict_file_abs.to_string_lossy().into_owned()
+                dict_file_abs.to_string_lossy().replace("\\", "/")
             };
 
             // Now inject using `import_path`
@@ -667,15 +667,15 @@ pub(crate) fn process_transform(
 
             // Compute a relative path
             let import_path = if let Some(rel) = diff_paths(&dict_file_abs, file_dir_abs) {
-                let s = rel.to_string_lossy();
+                let s = rel.to_string_lossy().replace("\\", "/");
                 if s.starts_with('.') {
-                    s.into_owned()
+                    s
                 } else {
                     format!("./{}", s)
                 }
             } else {
                 // Fallback
-                dict_file_abs.to_string_lossy().into_owned()
+                dict_file_abs.to_string_lossy().replace("\\", "/")
             };
 
             body.insert(
