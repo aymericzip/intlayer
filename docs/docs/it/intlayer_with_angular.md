@@ -23,9 +23,7 @@ history:
     changes: Inizializza cronologia
 ---
 
-# Angular i18n - Traduci il tuo sito Angular usando Intlayer | Internazionalizzazione (i18n)
-
-> Questo pacchetto è in fase di sviluppo. Vedi l'[issue](https://github.com/aymericzip/intlayer/issues/116) per maggiori informazioni. Mostra il tuo interesse per Intlayer per Angular mettendo un "like" all'issue.
+# Traduci il tuo sito Angular usando Intlayer | Internazionalizzazione (i18n)
 
 ## Indice
 

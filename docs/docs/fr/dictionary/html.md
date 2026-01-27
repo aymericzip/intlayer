@@ -2,11 +2,11 @@
 createdAt: 2026-01-20
 updatedAt: 2026-01-22
 title: Contenu HTML
-description: Apprenez comment déclarer et utiliser du contenu HTML avec des composants personnalisés dans Intlayer. Suivez cette documentation pour intégrer un contenu riche de type HTML avec remplacement dynamique de composants dans votre projet internationalisé.
+description: Apprenez à déclarer et à utiliser du contenu HTML avec des composants personnalisés dans Intlayer. Suivez cette documentation pour intégrer du contenu riche de type HTML avec un remplacement dynamique de composants dans votre projet internationalisé.
 keywords:
   - HTML
-  - Composants personnalisés
-  - Contenu riche
+  - Composants Personnalisés
+  - Contenu Riche
   - Intlayer
   - Next.js
   - JavaScript
@@ -21,10 +21,10 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: Ajout de HTMLRenderer / useHTMLRenderer / utilitaire renderHTML
+    changes: Ajouter HTMLRenderer / useHTMLRenderer / utilitaire renderHTML
   - version: 8.0.0
     date: 2026-01-20
-    changes: Ajout du support de parsing HTML
+    changes: Ajouter le support du parsing HTML
 ---
 
 # Contenu HTML / HTML dans Intlayer
@@ -56,7 +56,7 @@ export default {
 export default {
   key: "app",
   content: {
-    text: "<p>Bonjour <strong>Monde</strong></p>",
+    text: "<p>Hello <strong>World</strong></p>",
   },
 };
 ```
@@ -68,11 +68,11 @@ export default {
 
 ## Déclarer du contenu HTML
 
-Vous pouvez déclarer du contenu HTML en utilisant la fonction `html` ou simplement en tant que chaîne.
+Vous pouvez déclarer du contenu HTML à l'aide de la fonction `html` ou simplement sous forme de chaîne de caractères.
 
 <Tabs>
-  <Tab label="Encapsulation manuelle">
-    Utilisez la fonction `html` pour déclarer explicitement du contenu HTML. Cela garantit que les balises standard sont correctement mappées même si la détection automatique est désactivée.
+  <Tab label="Enveloppement Manuel">
+    Utilisez la fonction `html` pour déclarer explicitement du contenu HTML. Cela garantit que les balises standard sont mappées correctement même si la détection automatique est désactivée.
 
     ```typescript fileName="htmlDictionary.content.ts"
     import { html, type Dictionary } from "intlayer";
@@ -80,7 +80,7 @@ Vous pouvez déclarer du contenu HTML en utilisant la fonction `html` ou simplem
     const htmlDictionary = {
       key: "app",
       content: {
-        myHtmlContent: html("<p>Bonjour <strong>Monde</strong></p>"),
+        myHtmlContent: html("<p>Hello <strong>World</strong></p>"),
       },
     } satisfies Dictionary;
 
@@ -88,21 +88,21 @@ Vous pouvez déclarer du contenu HTML en utilisant la fonction `html` ou simplem
     ```
 
   </Tab>
-  <Tab label="Détection automatique">
-    Si la chaîne contient des balises HTML courantes (par ex., `<p>`, `<div>`, `<strong>`, etc.), Intlayer la transformera automatiquement.
+  <Tab label="Détection Automatique">
+    Si la chaîne contient des balises HTML courantes (par exemple, `<p>`, `<div>`, `<strong>`, etc.), Intlayer la transformera automatiquement.
 
     ```typescript fileName="htmlDictionary.content.ts"
     export default {
       key: "app",
       content: {
-        myHtmlContent: "<p>Bonjour <strong>Monde</strong></p>",
+        myHtmlContent: "<p>Hello <strong>World</strong></p>",
       },
     };
     ```
 
   </Tab>
-  <Tab label="Fichiers externes">
-    Importer du contenu HTML depuis des fichiers. Notez que la fonction `file()` renvoie actuellement une chaîne, qui sera détectée automatiquement comme HTML si elle contient des balises.
+  <Tab label="Fichiers Externes">
+    Importez du contenu HTML à partir de fichiers. Notez qu'actuellement la fonction `file()` renvoie une chaîne, qui sera automatiquement détectée comme HTML si elle contient des balises.
 
     ```typescript fileName="htmlDictionary.content.ts"
     import { html, file, t } from "intlayer";
@@ -111,8 +111,8 @@ Vous pouvez déclarer du contenu HTML en utilisant la fonction `html` ou simplem
       key: "app",
       content: {
         content: t({
-          fr: html(file("./content.fr.html")),
           en: html(file("./content.en.html")),
+          fr: html(file("./content.fr.html")),
         }),
       },
     };
@@ -123,17 +123,17 @@ Vous pouvez déclarer du contenu HTML en utilisant la fonction `html` ou simplem
 
 ---
 
-## Rendu HTML
+## Rendu du HTML
 
 Le rendu peut être géré automatiquement par le système de contenu d'Intlayer ou manuellement à l'aide d'outils spécialisés.
 
-### Rendu automatique (en utilisant `useIntlayer`)
+### Rendu Automatique (en utilisant `useIntlayer`)
 
 Lorsque vous accédez au contenu via `useIntlayer`, les nœuds HTML sont déjà préparés pour le rendu.
 
 <Tabs group="framework">
   <Tab label="React / Next.js">
-    Les nœuds HTML peuvent être rendus directement en JSX. Les balises standards fonctionnent automatiquement.
+    Les nœuds HTML peuvent être rendus directement en JSX. Les balises standard fonctionnent automatiquement.
 
     ```tsx fileName="App.tsx"
     import { useIntlayer } from "react-intlayer";
@@ -155,7 +155,7 @@ Lorsque vous accédez au contenu via `useIntlayer`, les nœuds HTML sont déjà 
 
   </Tab>
   <Tab label="Vue">
-    Dans Vue, le contenu HTML peut être rendu en utilisant le composant intégré `component`.
+    Dans Vue, le contenu HTML peut être rendu à l'aide du composant intégré `component`.
 
     ```vue fileName="App.vue"
     <script setup>
@@ -168,14 +168,14 @@ Lorsque vous accédez au contenu via `useIntlayer`, les nœuds HTML sont déjà 
     </template>
     ```
 
-    Utilisez `.use()` pour les overrides :
+    Utilisez `.use()` pour les remplacements :
     ```vue
     <component :is="myHtmlContent.use({ h1: 'h2' })" />
     ```
 
   </Tab>
   <Tab label="Svelte">
-    Svelte rend les nœuds HTML sous forme de chaînes. Utilisez `{@html}` pour les afficher.
+    Svelte rend les nœuds HTML sous forme de chaînes de caractères. Utilisez `{@html}` pour les rendre.
 
     ```svelte
     <script lang="ts">
@@ -200,9 +200,48 @@ Lorsque vous accédez au contenu via `useIntlayer`, les nœuds HTML sont déjà 
     ```
 
   </Tab>
+  <Tab label="Solid">
+    Solid prend en charge les nœuds HTML directement dans le JSX.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "solid-intlayer";
+
+    const AppContent = () => {
+      const { myHtmlContent } = useIntlayer("app");
+      return <div>{myHtmlContent}</div>;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    Angular utilise la directive `[innerHTML]` pour rendre le contenu HTML.
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { useIntlayer } from "angular-intlayer";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="content().myHtmlContent"></div>`,
+    })
+    export class AppComponent {
+      content = useIntlayer("app");
+    }
+    ```
+
+    Utilisez la méthode `.use()` pour fournir des composants personnalisés ou remplacer des balises :
+
+    ```typescript
+    content().myHtmlContent.use({
+      p: { class: "prose" },
+      CustomLink: { href: "/details" },
+    })
+    ```
+
+  </Tab>
 </Tabs>
 
-## Configuration globale avec `HTMLProvider`
+## Configuration Globale avec `HTMLProvider`
 
 Vous pouvez configurer le rendu HTML globalement pour l'ensemble de votre application. C'est idéal pour définir des composants personnalisés qui doivent être disponibles dans tout le contenu HTML.
 
@@ -281,13 +320,48 @@ Vous pouvez configurer le rendu HTML globalement pour l'ensemble de votre applic
     ```
 
   </Tab>
+  <Tab label="Solid">
+   
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "solid-intlayer";
+
+    export const AppProvider = (props) => (
+      <HTMLProvider
+        components={{
+          p: (props) => <p className="prose" {...props} />,
+        }}
+      >
+        {props.children}
+      </HTMLProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            p: { class: "prose" },
+            CustomLink: { href: "/details" },
+          },
+        }),
+      ],
+    };
+    ```
+
+  </Tab>
 </Tabs>
 
 ---
 
-### Rendu manuel et outils avancés
+### Rendu Manuel et Outils Avancés
 
-Si vous devez rendre des chaînes HTML brutes ou avoir un contrôle plus poussé sur le mappage des composants, utilisez les outils suivants.
+Si vous avez besoin de rendre des chaînes HTML brutes ou si vous voulez plus de contrôle sur le mappage des composants, utilisez les outils suivants.
 
 <Tabs group="framework">
   <Tab label="React / Next.js">
@@ -304,7 +378,7 @@ Si vous devez rendre des chaînes HTML brutes ou avoir un contrôle plus poussé
 
     #### Hook `useHTMLRenderer()`
 
-    Obtenir une fonction de rendu préconfigurée.
+    Obtenir une fonction de rendu pré-configurée.
 
     ```tsx
     import { useHTMLRenderer } from "react-intlayer";
@@ -313,7 +387,7 @@ Si vous devez rendre des chaînes HTML brutes ou avoir un contrôle plus poussé
       components: { strong: (props) => <strong {...props} className="text-red-500" /> }
     });
 
-    return renderHTML("<p>Bonjour <strong>le monde</strong></p>");
+    return renderHTML("<p>Hello <strong>World</strong></p>");
     ```
 
     #### Utilitaire `renderHTML()`
@@ -323,7 +397,7 @@ Si vous devez rendre des chaînes HTML brutes ou avoir un contrôle plus poussé
     ```tsx
     import { renderHTML } from "react-intlayer";
 
-    const jsx = renderHTML("<p>Bonjour</p>", { components: { p: 'div' } });
+    const jsx = renderHTML("<p>Hello</p>", { components: { p: 'div' } });
     ```
 
   </Tab>
@@ -337,7 +411,7 @@ Si vous devez rendre des chaînes HTML brutes ou avoir un contrôle plus poussé
     </script>
 
     <template>
-      <HTMLRenderer content="<p>Bonjour le monde</p>" />
+      <HTMLRenderer content="<p>Hello World</p>" />
     </template>
     ```
 
@@ -354,10 +428,31 @@ Si vous devez rendre des chaînes HTML brutes ou avoir un contrôle plus poussé
     <HTMLRenderer value="<p>Hello World</p>" />
     ```
 
+    #### Hook `useHTMLRenderer()`
+
+    ```svelte
+    <script lang="ts">
+    import { useHTMLRenderer } from "svelte-intlayer";
+    const render = useHTMLRenderer();
+    </script>
+
+    {@html render("<p>Hello World</p>")}
+    ```
+
+    #### Utilitaire `renderHTML()`
+
+    ```svelte
+    <script lang="ts">
+    import { renderHTML } from "svelte-intlayer";
+    </script>
+
+    {@html renderHTML("<p>Hello World</p>")}
+    ```
+
   </Tab>
   <Tab label="Preact">
    
-    #### `<HTMLRenderer />` Composant
+    #### Composant `<HTMLRenderer />`
    
     ```tsx
     import { HTMLRenderer } from "preact-intlayer";
@@ -367,18 +462,84 @@ Si vous devez rendre des chaînes HTML brutes ou avoir un contrôle plus poussé
     </HTMLRenderer>
     ```
 
+    #### Hook `useHTMLRenderer()`
+
+    ```tsx
+    import { useHTMLRenderer } from "preact-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Hello World</p>")}</div>;
+    ```
+
+    #### Utilitaire `renderHTML()`
+
+    ```tsx
+    import { renderHTML } from "preact-intlayer";
+
+    return <div>{renderHTML("<p>Hello World</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Solid">
+   
+    #### Composant `<HTMLRenderer />`
+   
+    ```tsx
+    import { HTMLRenderer } from "solid-intlayer";
+
+    <HTMLRenderer>
+      {"<p>Hello World</p>"}
+    </HTMLRenderer>
+    ```
+
+    #### Hook `useHTMLRenderer()`
+
+    ```tsx
+    import { useHTMLRenderer } from "solid-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Hello World</p>")}</div>;
+    ```
+
+    #### Utilitaire `renderHTML()`
+
+    ```tsx
+    import { renderHTML } from "solid-intlayer";
+
+    return <div>{renderHTML("<p>Hello World</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    #### Service `IntlayerMarkdownService`
+    Rendre une chaîne HTML à l'aide du service.
+
+    ```typescript
+    import { IntlayerMarkdownService } from "angular-intlayer";
+
+    export class MyComponent {
+      constructor(private markdownService: IntlayerMarkdownService) {}
+
+      renderHTML(html: string) {
+        return this.markdownService.renderMarkdown(html);
+      }
+    }
+    ```
+
   </Tab>
 </Tabs>
 
 ---
 
-## Référence des options
+## Référence des Options
 
 Ces options peuvent être passées à `HTMLProvider`, `HTMLRenderer`, `useHTMLRenderer` et `renderHTML`.
 
-| Option       | Type                  | Défaut | Description                                                                                                                            |
-| :----------- | :-------------------- | :----- | :------------------------------------------------------------------------------------------------------------------------------------- |
-| `components` | `Record<string, any>` | `{}`   | Une map des balises HTML ou des noms de composants personnalisés vers leurs composants.                                                |
-| `renderHTML` | `Function`            | `null` | Une fonction de rendu personnalisée pour remplacer complètement le parseur HTML par défaut (Uniquement pour les providers Vue/Svelte). |
+| Option       | Type                  | Défaut | Description                                                                                                              |
+| :----------- | :-------------------- | :----- | :----------------------------------------------------------------------------------------------------------------------- |
+| `components` | `Record<string, any>` | `{}`   | Une carte des balises HTML ou des noms de composants personnalisés vers les composants.                                  |
+| `renderHTML` | `Function`            | `null` | Une fonction de rendu personnalisée pour remplacer complètement le parseur HTML par défaut (uniquement pour Vue/Svelte). |
 
-> Remarque : pour React et Preact, les balises HTML standard sont fournies automatiquement. Vous n'avez besoin de passer la prop `components` que si vous souhaitez les remplacer ou ajouter des composants personnalisés.
+> Note : Pour React et Preact, les balises HTML standard sont fournies automatiquement. Vous n'avez besoin de passer la prop `components` que si vous souhaitez les remplacer ou ajouter des composants personnalisés.

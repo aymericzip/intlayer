@@ -55,6 +55,8 @@ import "react-intlayer";
 
 | Hook                   | الوصف                                                                                                                           | المستند المرتبط                                                                                                         |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `useHTMLRenderer`      | هوك للحصول على دالة عرض HTML مُكوّنة مسبقًا.                                                                                    | -                                                                                                                       |
+| `useMarkdownRenderer`  | هوك للحصول على دالة عرض Markdown مُكوّنة مسبقًا.                                                                                | -                                                                                                                       |
 | `useIntlayer`          | Hook على جانب العميل يختار قاموسًا واحدًا بواسطة مفتاحه ويُعيد محتواه. يستخدم قيمة locale من السياق إذا لم تُزوَّد.             | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useIntlayer.md)     |
 | `useDictionary`        | هو Hook يقوم بتحويل كائن القاموس ويعيد المحتوى للـlocale الحالي. يعالج ترجمات `t()`، والـenumerations، وما إلى ذلك.             | [useDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useDictionary.md) |
 | `useDictionaryAsync`   | هو Hook يتعامل مع القواميس غير المتزامنة. يقبل خريطة قواميس معتمدة على Promise ويحلّها للـlocale الحالي.                        | -                                                                                                                       |
@@ -80,6 +82,8 @@ import "react-intlayer";
 
 | الدالة               | الوصف                                                                                                                 | الوثيقة ذات الصلة                                                                                  |
 | -------------------- | --------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `renderHTML`         | أداة مستقلة لعرض HTML خارج المكونات.                                                                                  | -                                                                                                  |
+| `renderMarkdown`     | أداة مستقلة لعرض Markdown خارج المكونات.                                                                              | -                                                                                                  |
 | `t`                  | دالة ترجمة على جانب العميل تُرجع الترجمة للمحتوى متعدد اللغات المزوَّد. تستخدم لغة السياق إذا لم تُحدد.               | [الترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/translation.md) |
 | `getDictionary`      | يقوم بمعالجة كائنات القاموس ويُعيد المحتوى للـ locale المحددة. يعالج ترجمات `t()`، enumerations، Markdown، HTML، إلخ. | -                                                                                                  |
 | `getIntlayer`        | يسترجع قاموسًا بواسطة مفتاحه من التصريح المُولد ويُعيد محتواه للـ locale المحددة. إصدار مُحسّن من `getDictionary`.    | -                                                                                                  |
@@ -104,6 +108,7 @@ import "react-intlayer/markdown";
 
 | المكوّن            | الوصف                                                                                                    | المستند المرتبط                                                                                                               |
 | ------------------ | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `HTMLRenderer`     | يعرض محتوى HTML مع مكونات مخصصة.                                                                         | -                                                                                                                             |
 | `MarkdownProvider` | مزود لسياق عرض Markdown. يتيح تجاوز المكونات المخصصة لعناصر Markdown.                                    | -                                                                                                                             |
 | `MarkdownRenderer` | يعرض محتوى Markdown باستخدام مكونات مخصصة. يدعم جميع ميزات Markdown القياسية والتركيب الخاص بـ Intlayer. | [MarkdownRenderer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/MarkdownRenderer.md) |
 

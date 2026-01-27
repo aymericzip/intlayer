@@ -26,9 +26,7 @@ history:
     changes: تهيئة السجل
 ---
 
-# Angular i18n - ترجمة موقع Angular الخاص بك باستخدام Intlayer | التدويل (i18n)
-
-> هذه الحزمة قيد التطوير. راجع [المشكلة](https://github.com/aymericzip/intlayer/issues/116) لمزيد من المعلومات. أظهر اهتمامك بـ Intlayer لـ Angular من خلال الإعجاب بالمشكلة
+# ترجمة موقع Angular الخاص بك باستخدام Intlayer | التدويل (i18n)
 
 ## جدول المحتويات
 

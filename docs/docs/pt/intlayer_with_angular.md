@@ -23,9 +23,7 @@ history:
     changes: Histórico inicial
 ---
 
-# Angular i18n - Traduza seu site Angular usando Intlayer | Internacionalização (i18n)
-
-> Este pacote está em desenvolvimento. Veja o [issue](https://github.com/aymericzip/intlayer/issues/116) para mais informações. Demonstre seu interesse no Intlayer para Angular curtindo o issue.
+# Traduza seu site Angular usando Intlayer | Internacionalização (i18n)
 
 ## Tabela de Conteúdos
 

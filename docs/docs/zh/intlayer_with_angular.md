@@ -23,9 +23,7 @@ history:
     changes: 初始化历史
 ---
 
-# Angular i18n - 使用 Intlayer 翻译你的 Angular 网站 | 国际化 (i18n)
-
-> 该软件包正在开发中。有关更多信息，请参见 [issue](https://github.com/aymericzip/intlayer/issues/116)。通过点赞该 issue 来表达你对 Angular 版 Intlayer 的兴趣。
+# 使用 Intlayer 翻译你的 Angular 网站 | 国际化 (i18n)
 
 ## 目录
 

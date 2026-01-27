@@ -44,6 +44,8 @@ export {
   MarkdownProvider,
   MarkdownRenderer,
   preactRuntime,
+  renderMarkdown,
+  useMarkdownRenderer,
 } from './markdown/index';
 export {
   htmlPlugin,

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-06-29
+updatedAt: 2026-01-22
 title: Markdown
 description: Scopri come dichiarare e utilizzare contenuti Markdown nel tuo sito web multilingue con Intlayer. Segui i passaggi in questa documentazione online per integrare Markdown nel tuo progetto in modo semplice.
 keywords:
@@ -18,348 +18,539 @@ slugs:
   - markdown
 history:
   - version: 8.0.0
+    date: 2026-01-22
+    changes: Aggiunta dell'utility MarkdownRenderer / useMarkdownRenderer / renderMarkdown e opzione forceInline
+  - version: 8.0.0
     date: 2026-01-18
-    changes: Decorazione automatica del contenuto markdown
+    changes: Decorazione automatica del contenuto markdown, supporto MDX e SSR
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: Init history
 ---
 
 # Markdown / Contenuto Rich Text
 
-## Come Funziona Markdown
+Intlayer supporta contenuti rich text definiti utilizzando la sintassi Markdown. Questo ti consente di scrivere e mantenere facilmente contenuti con formattazione ricca, come blog, articoli e altro.
 
-Intlayer supporta contenuti rich text definiti utilizzando la sintassi Markdown. Questo è possibile grazie alla funzione `md`, che converte una stringa Markdown in un formato gestibile da Intlayer. Utilizzando Markdown, è possibile scrivere e mantenere facilmente contenuti con formattazione avanzata, come blog, articoli e altro.
+## Come funziona Markdown
 
-[Il Visual editor di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) e il [CMS di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md) supportano entrambi la gestione dei contenuti Markdown.
+Intlayer v8 rileva in modo intelligente la sintassi Markdown nelle tue stringhe di contenuto. Se una stringa viene identificata come Markdown, viene automaticamente trasformata in un nodo Markdown.
 
-Quando integrato con un'applicazione React, è possibile utilizzare un provider di rendering Markdown (come [`markdown-to-jsx`](https://www.npmjs.com/package/markdown-to-jsx)) per rendere il contenuto Markdown in HTML. Questo consente di scrivere contenuti in Markdown assicurandosi che vengano visualizzati correttamente nella tua app.
+<Columns>
+  <Column title="Comportamento v7 (Avvolgimento manuale)">
 
-## Configurazione dei Contenuti Markdown
+    ```typescript fileName="markdownDictionary.content.ts"
+    import { md } from "intlayer";
 
-Per configurare i contenuti Markdown nel tuo progetto Intlayer, definisci un dizionario di contenuti che utilizza la funzione `md`.
+    export default {
+      key: "app",
+      content: {
+        text: md("## Il mio titolo \n\nLorem Ipsum"),
+      },
+    };
+    ```
 
-```typescript fileName="markdownDictionary.content.ts" contentDeclarationFormat="typescript"
-import { md, type Dictionary } from "intlayer";
+  </Column>
+  <Column title="Comportamento v8 (Rilevamento automatico)">
 
-const markdownDictionary = {
-  key: "app",
-  content: {
-    myMarkdownContent: md("## Il mio titolo \n\nLorem Ipsum"),
-    myMarkdownContent2: "## Il mio titolo \n\nLorem Ipsum", // Since intlayer v8, markdown function is not required anymore. The content will be automatically decorated.
-  },
-} satisfies Dictionary;
+    ```typescript fileName="markdownDictionary.content.ts"
+    export default {
+      key: "app",
+      contentAutoTransformation: true, // Abilita il rilevamento automatico del contenuto Markdown - Può essere impostato globalmente in intlayer.config.ts
+      content: {
+        text: "## Il mio titolo \n\nLorem Ipsum",
+      },
+    };
+    ```
 
-export default markdownDictionary;
-```
+  </Column>
+</Columns>
 
-```javascript fileName="markdownDictionary.content.mjs" contentDeclarationFormat="esm"
-import { md } from "intlayer";
+---
 
-/** @type {import('intlayer').Dictionary} */
-const markdownDictionary = {
-  key: "app",
-  content: {
-    myMarkdownContent: md("## Il mio titolo \n\nLorem Ipsum"),
-    myMarkdownContent2: "## Il mio titolo \n\nLorem Ipsum", // Since intlayer v8, markdown function is not required anymore. The content will be automatically decorated.
-  },
-};
+## Parte 1: Dichiarare contenuti Markdown
 
-export default markdownDictionary;
-```
+Puoi dichiarare contenuti Markdown usando la funzione `md` o semplicemente come stringa (se contiene sintassi Markdown).
 
-```javascript fileName="markdownDictionary.content.cjs" contentDeclarationFormat="commonjs"
-const { md } = require("intlayer");
+<Tabs>
+  <Tab label="Avvolgimento manuale">
+    Usa la funzione `md` per dichiarare esplicitamente contenuti Markdown. Questo è utile se vuoi assicurarti che una stringa sia trattata come Markdown anche se non contiene sintassi ovvia.
 
-/** @type {import('intlayer').Dictionary} */
-const markdownDictionary = {
-  key: "app",
-  content: {
-    myMarkdownContent: md("## Il mio titolo \n\nLorem Ipsum"),
-    myMarkdownContent2: "## Il mio titolo \n\nLorem Ipsum", // Since intlayer v8, markdown function is not required anymore. The content will be automatically decorated.
-  },
-};
+    ```typescript fileName="markdownDictionary.content.ts"
+    import { md, type Dictionary } from "intlayer";
 
-module.exports = markdownDictionary;
-```
+    const markdownDictionary = {
+      key: "app",
+      content: {
+        myMarkdownContent: md("## Il mio titolo \n\nLorem Ipsum"),
+      },
+    } satisfies Dictionary;
 
-```json fileName="markdownDictionary.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "app",
-  "content": {
-    "myMarkdownContent": {
-      "nodeType": "markdown",
-      "markdown": "## Il mio titolo \n\nLorem Ipsum"
-    },
-    "myMarkdownContent2": "## Il mio titolo \n\nLorem Ipsum" // Since intlayer v8, markdown function is not required anymore. The content will be automatically decorated.
-  }
-}
-```
+    export default markdownDictionary;
+    ```
 
-## Importazione di file `.md` (multilingua)
+  </Tab>
+  <Tab label="Rilevamento automatico">
+    Se la stringa contiene indicatori Markdown comuni (come intestazioni, elenchi, collegamenti, ecc.), Intlayer la trasformerà automaticamente.
 
-```typescript fileName="md.d.ts" contentDeclarationFormat="typescript"
-// Questa dichiarazione consente a TypeScript di riconoscere e importare file Markdown (.md) come moduli.
-// Senza questa dichiarazione, TypeScript genererebbe un errore quando si tenta di importare file Markdown,
-// poiché non supporta nativamente l'importazione di file non di codice.
+    ```typescript fileName="markdownDictionary.content.ts"
+    export default {
+      key: "app",
+      contentAutoTransformation: true, // Abilita il rilevamento automatico del contenuto Markdown - Può essere impostato globalmente in intlayer.config.ts
+      content: {
+        myMarkdownContent: "## Il mio titolo \n\nLorem Ipsum",
+      },
+    };
+    ```
 
-declare module "*.md";
-```
+  </Tab>
+  <Tab label="File esterni">
+    Importa file `.md` direttamente usando la funzione `file`.
 
-```typescript fileName="markdownDictionary.content.ts" contentDeclarationFormat="typescript"
-import { md, t, type Dictionary } from "intlayer";
-import { readFileSync } from "fs";
-import { resolve } from "path";
+    ```typescript fileName="markdownDictionary.content.ts"
+    import { md, file, t } from "intlayer";
 
-import markdown_en from "./myMarkdown.en.md";
-import markdown_fr from "./myMarkdown.fr.md";
-import markdown_es from "./myMarkdown.es.md";
+    export default {
+      key: "app",
+      content: {
+        content: t({
+          en: md(file("./myMarkdown.en.md")),
+          fr: md(file("./myMarkdown.fr.md")),
+          it: md(file("./myMarkdown.it.md")),
+        }),
+      },
+    };
+    ```
 
-const markdownDictionary = {
-  key: "app",
-  content: {
-    contentImport: t({
-      it: md(markdown_en),
-      en: md(markdown_en),
-      fr: md(markdown_fr),
-      es: md(markdown_es),
-    }),
-    contentRequire: md(require("./myMarkdown.md")),
-    contentAsyncImport: md(
-      import("./myMarkdown.md").then((module) => module.default)
-    ),
-    contentFetch: md(fetch("https://example.com").then((res) => res.text())),
-    contentFS: md(() => {
-      const filePath = resolve(process.cwd(), "doc/test.md");
-      return readFileSync(filePath, "utf8");
-    }),
-  },
-} satisfies Dictionary;
+  </Tab>
+</Tabs>
 
-export default markdownDictionary;
-```
+---
 
-```javascript fileName="markdownDictionary.content.mjs" contentDeclarationFormat="esm"
-import { md, t } from "intlayer";
-import { readFileSync } from "fs";
-import { resolve } from "path";
+## Parte 2: Rendering di Markdown
 
-import markdown_en from "./myMarkdown.en.md";
-import markdown_fr from "./myMarkdown.fr.md";
-import markdown_es from "./myMarkdown.es.md";
+Il rendering può essere gestito automaticamente dal sistema di contenuti di Intlayer o manualmente utilizzando strumenti specializzati.
 
-/** @type {import('intlayer').Dictionary} */
-const markdownDictionary = {
-  key: "app",
-  content: {
-    contentImport: t({
-      it: md(markdown_en),
-      en: md(markdown_en),
-      fr: md(markdown_fr),
-      es: md(markdown_es),
-    }),
-    contentRequire: md(require("./myMarkdown.md")),
-    contentAsyncImport: md(
-      import("./myMarkdown.md").then((module) => module.default)
-    ),
-    contentFetch: md(fetch("https://example.com").then((res) => res.text())),
-    contentFS: md(() => {
-      const filePath = resolve(process.cwd(), "doc/test.md");
-      return readFileSync(filePath, "utf8");
-    }),
-  },
-};
+### 1. Rendering automatico (usando `useIntlayer`)
 
-export default markdownDictionary;
-```
+Quando accedi al contenuto tramite `useIntlayer`, i nodi Markdown sono già pronti per il rendering.
 
-```javascript fileName="markdownDictionary.content.cjs" contentDeclarationFormat="commonjs"
-const { md, t } = require("intlayer");
+<Tabs group="framework">
+  <Tab label="React / Next.js">
+    I nodi Markdown possono essere renderizzati direttamente come JSX.
 
-const markdown_en = require("./myMarkdown.en.md");
-const markdown_fr = require("./myMarkdown.fr.md");
-const markdown_es = require("./myMarkdown.es.md");
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "react-intlayer";
 
-/** @type {import('intlayer').Dictionary} */
-const markdownDictionary = {
-  key: "app",
-  content: {
-    contentImport: t({
-      it: md(markdown_en),
-      en: md(markdown_en),
-      fr: md(markdown_fr),
-      es: md(markdown_es),
-    }),
-    contentFetch: md(fetch("https://example.com").then((res) => res.text())),
-    contentFS: md(() => {
-      const filePath = resolve(process.cwd(), "doc/test.md");
-      return readFileSync(filePath, "utf8");
-    }),
-  },
-};
+    const AppContent = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+      return <div>{myMarkdownContent}</div>;
+    };
+    ```
 
-module.exports = markdownDictionary;
-```
+    Puoi anche fornire sovrascritture locali per nodi specifici utilizzando il metodo `.use()`:
 
-```jsonc fileName="markdownDictionary.content.json" contentDeclarationFormat="json"
-// - L'importazione di file Markdown esterni (.md) è possibile solo utilizzando file di dichiarazione JS o TS.
-// - Il recupero di contenuti Markdown esterni è possibile solo utilizzando file di dichiarazione JS o TS.
+    ```tsx
+    {myMarkdownContent.use({
+      h1: ({ children }) => <h1 className="text-3xl font-bold">{children}</h1>,
+    })}
+    ```
 
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "app",
-  "content": {
-    "myMarkdownContent": {
-      "nodeType": "translation",
-      "translation": {
-        "it": {
-          "nodeType": "markdown",
-          "markdown": "# Il mio Markdown\n\nQuesto è un contenuto Markdown.",
-        },
-        "en": {
-          "nodeType": "markdown",
-          "markdown": "# My Markdown\n\nThis is a Markdown content.",
-        },
-        "fr": {
-          "nodeType": "markdown",
-          "markdown": "# Mon Markdown\n\nC'est un contenu Markdown.",
-        },
-        "es": {
-          "nodeType": "markdown",
-          "markdown": "# Mi Markdown\n\nEsto es un contenido Markdown.",
+  </Tab>
+  <Tab label="Vue">
+    In Vue, il contenuto Markdown può essere renderizzato utilizzando il built-in `component` o direttamente come nodo.
+
+    ```vue fileName="App.vue"
+    <script setup>
+    import { useIntlayer } from "vue-intlayer";
+    const { myMarkdownContent } = useIntlayer("app");
+    </script>
+
+    <template>
+      <component :is="myMarkdownContent" />
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="Svelte">
+    Svelte renderizza Markdown come una stringa HTML per impostazione predefinita. Usa `{@html}` per renderizzarlo.
+
+    ```svelte
+    <script lang="ts">
+    import { useIntlayer } from "svelte-intlayer";
+    const content = useIntlayer("app");
+    </script>
+
+    {@html $content.myMarkdownContent}
+    ```
+
+  </Tab>
+  <Tab label="Preact">
+    Preact supporta i nodi Markdown direttamente nel JSX.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "preact-intlayer";
+
+    const AppContent = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+      return <div>{myMarkdownContent}</div>;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Solid">
+    Solid supporta i nodi Markdown direttamente nel JSX.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "solid-intlayer";
+
+    const AppContent = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+      return <div>{myMarkdownContent}</div>;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    Angular utilizza la direttiva `[innerHTML]` per renderizzare il contenuto Markdown.
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { useIntlayer } from "angular-intlayer";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="content().myMarkdownContent"></div>`,
+    })
+    export class AppComponent {
+      content = useIntlayer("app");
+    }
+    ```
+
+    Puoi anche fornire sovrascritture locali per nodi specifici utilizzando il metodo `.use()`:
+
+    ```typescript
+    content().myMarkdownContent.use({
+      h1: { class: "text-3xl font-bold" },
+    })
+    ```
+
+  </Tab>
+</Tabs>
+
+### 2. Rendering manuale e strumenti avanzati
+
+Se hai bisogno di renderizzare stringhe Markdown grezze o di avere un maggiore controllo sul processo di rendering, usa i seguenti strumenti.
+
+<Tabs group="framework">
+  <Tab label="React / Next.js">
+  
+    #### Componente `<MarkdownRenderer />`
+
+    Renderizza una stringa Markdown con opzioni specifiche.
+
+    ```tsx
+    import { MarkdownRenderer } from "react-intlayer";
+
+    <MarkdownRenderer forceBlock={true} tagfilter={true}>
+      {"# Il mio titolo"}
+    </MarkdownRenderer>
+    ```
+
+    #### Hook `useMarkdownRenderer()`
+
+    Ottieni una funzione di rendering preconfigurata.
+
+    ```tsx
+    import { useMarkdownRenderer } from "react-intlayer";
+
+    const renderMarkdown = useMarkdownRenderer({
+      forceBlock: true,
+      components: { h1: (props) => <h1 {...props} className="custom" /> }
+    });
+
+    return renderMarkdown("# Il mio titolo");
+    ```
+
+    #### Utility `renderMarkdown()`
+    Utility standalone per il rendering al di fuori dei componenti.
+
+    ```tsx
+    import { renderMarkdown } from "react-intlayer";
+
+    const jsx = renderMarkdown("# Il mio titolo", { forceBlock: true });
+    ```
+
+  </Tab>
+  <Tab label="Vue">
+
+    #### Componente `<MarkdownRenderer />`
+
+    ```vue
+    <script setup>
+    import { MarkdownRenderer } from "vue-intlayer";
+    </script>
+
+    <template>
+      <MarkdownRenderer :forceBlock="true" content="# Il mio titolo" />
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="Svelte">
+
+    #### Componente `<MarkdownRenderer />`
+
+    ```svelte
+    <script lang="ts">
+    import { MarkdownRenderer } from "svelte-intlayer";
+    </script>
+
+    <MarkdownRenderer forceBlock={true} value="# Il mio titolo" />
+    ```
+
+    #### Hook `useMarkdownRenderer()`
+
+    ```svelte
+    <script lang="ts">
+    import { useMarkdownRenderer } from "svelte-intlayer";
+    const render = useMarkdownRenderer();
+    </script>
+
+    {@html render("# Il mio titolo")}
+    ```
+
+    #### Utility `renderMarkdown()`
+
+    ```svelte
+    <script lang="ts">
+    import { renderMarkdown } from "svelte-intlayer";
+    </script>
+
+    {@html renderMarkdown("# Il mio titolo")}
+    ```
+
+  </Tab>
+  <Tab label="Preact">
+    #### Componente `<MarkdownRenderer />`
+
+    ```tsx
+    import { MarkdownRenderer } from "preact-intlayer";
+
+    <MarkdownRenderer forceBlock={true}>
+      {"# Il mio titolo"}
+    </MarkdownRenderer>
+    ```
+
+    #### Hook `useMarkdownRenderer()`
+
+    ```tsx
+    import { useMarkdownRenderer } from "preact-intlayer";
+
+    const render = useMarkdownRenderer();
+
+    return <div>{render("# Il mio titolo")}</div>;
+    ```
+
+    #### Utility `renderMarkdown()`
+
+    ```tsx
+    import { renderMarkdown } from "preact-intlayer";
+
+    return <div>{renderMarkdown("# Il mio titolo")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Solid">
+    #### Componente `<MarkdownRenderer />`
+
+    ```tsx
+    import { MarkdownRenderer } from "solid-intlayer";
+
+    <MarkdownRenderer forceBlock={true}>
+      {"# Il mio titolo"}
+    </MarkdownRenderer>
+    ```
+
+    #### Hook `useMarkdownRenderer()`
+
+    ```tsx
+    import { useMarkdownRenderer } from "solid-intlayer";
+
+    const render = useMarkdownRenderer();
+
+    return <div>{render("# Il mio titolo")}</div>;
+    ```
+
+    #### Utility `renderMarkdown()`
+
+    ```tsx
+    import { renderMarkdown } from "solid-intlayer";
+
+    return <div>{renderMarkdown("# Il mio titolo")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    #### Servizio `IntlayerMarkdownService`
+    Renderizza una stringa Markdown utilizzando il servizio.
+
+    ```typescript
+    import { IntlayerMarkdownService } from "angular-intlayer";
+
+    export class MyComponent {
+      constructor(private markdownService: IntlayerMarkdownService) {}
+
+      renderMarkdown(markdown: string) {
+        return this.markdownService.renderMarkdown(markdown);
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Configurazione globale con `MarkdownProvider`
+
+Puoi configurare il rendering Markdown a livello globale per l'intera applicazione. Questo evita di passare le stesse prop a ogni renderer.
+
+<Tabs group="framework">
+  <Tab label="React / Next.js">
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "react-intlayer";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        forceBlock={true}
+        tagfilter={true}
+        components={{
+          h1: ({ children }) => <h1 className="text-2xl font-bold">{children}</h1>,
+          a: ({ href, children }) => <Link to={href}>{children}</Link>,
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Vue">
+
+    ```typescript fileName="main.ts"
+    import { createApp } from "vue";
+    import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(installIntlayer);
+    app.use(installIntlayerMarkdown, {
+      forceBlock: true,
+      tagfilter: true,
+      components: {
+        h1: {
+          component: "h1",
+          props: { class: "text-2xl font-bold" },
         },
       },
-    },
-  },
-}
-```
+    });
 
-## Utilizzo di Markdown con React Intlayer
+    app.mount("#app");
+    ```
 
-Per rendere il contenuto Markdown in un'applicazione React, puoi utilizzare il hook `useIntlayer` dal pacchetto `react-intlayer` insieme a un provider di rendering Markdown. In questo esempio, utilizziamo il pacchetto [`markdown-to-jsx`](https://www.npmjs.com/package/markdown-to-jsx) per convertire il Markdown in HTML.
+  </Tab>
+  <Tab label="Svelte">
 
-```tsx fileName="App.tsx" codeFormat="typescript"
-import type { FC } from "react";
-import { useIntlayer, MarkdownProvider } from "react-intlayer";
-import Markdown from "markdown-to-jsx";
+    ```svelte fileName="App.svelte"
+    <script lang="ts">
+      import { MarkdownProvider } from "svelte-intlayer";
+      import MyHeading from "./MyHeading.svelte";
+    </script>
 
-const AppContent: FC = () => {
-  const { myMarkdownContent } = useIntlayer("app");
+    <MarkdownProvider
+      forceBlock={true}
+      tagfilter={true}
+      components={{
+        h1: MyHeading,
+      }}
+    >
+      <slot />
+    </MarkdownProvider>
+    ```
 
-  return <>{myMarkdownContent}</>;
-};
+  </Tab>
+  <Tab label="Preact">
 
-export const AppProvider: FC = () => (
-  <MarkdownProvider
-    renderMarkdown={(markdown) => <Markdown>{markdown}</Markdown>}
-  >
-    <AppContent />
-  </MarkdownProvider>
-);
-```
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "preact-intlayer";
 
-```jsx fileName="App.jsx" codeFormat="esm"
-import { useIntlayer, MarkdownProvider } from "react-intlayer";
-import Markdown from "markdown-to-jsx";
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        forceBlock={true}
+        tagfilter={true}
+        components={{
+          h1: ({ children }) => <h1 className="text-2xl font-bold">{children}</h1>,
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
 
-const AppContent = () => {
-  const { myMarkdownContent } = useIntlayer("app");
+  </Tab>
+  <Tab label="Solid">
 
-  return <>{myMarkdownContent}</>;
-};
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "solid-intlayer";
 
-export const AppProvider = () => (
-  <MarkdownProvider
-    renderMarkdown={(markdown) => <Markdown>{markdown}</Markdown>}
-  >
-    <AppContent />
-  </MarkdownProvider>
-);
-```
+    export const AppProvider = (props) => (
+      <MarkdownProvider
+        forceBlock={true}
+        tagfilter={true}
+        components={{
+          h1: (props) => <h1 className="text-2xl font-bold">{props.children}</h1>,
+        }}
+      >
+        {props.children}
+      </MarkdownProvider>
+    );
+    ```
 
-```jsx fileName="App.jsx" codeFormat="commonjs"
-const { useIntlayer, MarkdownProvider } = require("react-intlayer");
-const Markdown = require("markdown-to-jsx");
+  </Tab>
+  <Tab label="Angular">
 
-const AppContent = () => {
-  const { myMarkdownContent } = useIntlayer("app");
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer";
 
-  return <>{myMarkdownContent}</>;
-};
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            h1: { class: "text-2xl font-bold" },
+          },
+        }),
+      ],
+    };
+    ```
 
-AppProvider = () => (
-  <MarkdownProvider
-    renderMarkdown={(markdown) => <Markdown>{markdown}</Markdown>}
-  >
-    <AppContent />
-  </MarkdownProvider>
-);
-```
+  </Tab>
+</Tabs>
 
-In questa implementazione:
+---
 
-- Il `MarkdownProvider` avvolge l'applicazione (o la parte rilevante di essa) e accetta una funzione `renderMarkdown`. Questa funzione viene utilizzata per convertire le stringhe Markdown in JSX utilizzando il pacchetto `markdown-to-jsx`.
-- Il hook `useIntlayer` viene utilizzato per recuperare il contenuto Markdown (`myMarkdownContent`) dal dizionario con la chiave `"app"`.
-- Il contenuto Markdown viene reso direttamente nel componente, e il rendering del Markdown è gestito dal provider.
+## Riferimento delle opzioni
 
-### Utilizzo di Markdown con Next Intlayer
+Queste opzioni possono essere passate a `MarkdownProvider`, `MarkdownRenderer`, `useMarkdownRenderer`, e `renderMarkdown`.
 
-L'implementazione utilizzando il pacchetto `next-intlayer` è simile a quella sopra. L'unica differenza è che la funzione `renderMarkdown` deve essere passata al componente `MarkdownProvider` in un componente client.
-
-```tsx title="src/providers/IntlayerMarkdownProvider.tsx" codeFormat="typescript"
-"use client";
-
-import type { FC, PropsWithChildren } from "react";
-import { MarkdownProvider } from "next-intlayer";
-
-const renderMarkdown = (markdown: string) => (
-  <span style={{ color: "red" }}>{markdown}</span>
-);
-
-export const IntlayerMarkdownProvider: FC<PropsWithChildren> = ({
-  children,
-}) => (
-  <MarkdownProvider renderMarkdown={renderMarkdown}>
-    {children}
-  </MarkdownProvider>
-);
-```
-
-```jsx title="src/providers/IntlayerMarkdownProvider.msx" codeFormat="esm"
-"use client";
-
-import { MarkdownProvider } from "next-intlayer";
-
-const renderMarkdown = (markdown) => (
-  <span style={{ color: "red" }}>{markdown}</span>
-);
-
-export const IntlayerMarkdownProvider = ({ children }) => (
-  <MarkdownProvider renderMarkdown={renderMarkdown}>
-    {children}
-  </MarkdownProvider>
-);
-```
-
-```jsx title="src/providers/IntlayerMarkdownProvider.csx" codeFormat="commonjs"
-"use client";
-
-const { MarkdownProvider } = require("next-intlayer");
-
-const renderMarkdown = (markdown) => (
-  <span style={{ color: "red" }}>{markdown}</span>
-);
-
-const IntlayerMarkdownProvider = ({ children }) => (
-  <MarkdownProvider renderMarkdown={renderMarkdown}>
-    {children}
-  </MarkdownProvider>
-);
-```
-
-## Risorse Aggiuntive
-
-- [Documentazione CLI di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_cli.md)
-- [Documentazione React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_create_react_app.md)
-- [Documentazione Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_15.md)
-- [markdown-to-jsx su npm](https://www.npmjs.com/package/markdown-to-jsx)
-
-Queste risorse forniscono ulteriori approfondimenti su come configurare e utilizzare Intlayer con vari tipi di contenuti e framework.
+| Opzione               | Tipo        | Predefinito | Descrizione                                                                                               |
+| :-------------------- | :---------- | :---------- | :-------------------------------------------------------------------------------------------------------- |
+| `forceBlock`          | `boolean`   | `false`     | Forza il wrapping dell'output in un elemento a livello di blocco (es. `<div>`).                           |
+| `forceInline`         | `boolean`   | `false`     | Forza il wrapping dell'output in un elemento inline (es. `<span>`).                                       |
+| `tagfilter`           | `boolean`   | `true`      | Abilita il Tag Filter di GitHub per una maggiore sicurezza rimuovendo i tag HTML pericolosi.              |
+| `preserveFrontmatter` | `boolean`   | `false`     | Se `true`, il frontmatter all'inizio della stringa Markdown non verrà rimosso.                            |
+| `components`          | `Overrides` | `{}`        | Una mappa di tag HTML a componenti personalizzati (es. `{ h1: MyHeading }`).                              |
+| `wrapper`             | `Component` | `null`      | Un componente personalizzato per avvolgere il Markdown renderizzato.                                      |
+| `renderMarkdown`      | `Function`  | `null`      | Una funzione di rendering personalizzata per sostituire completamente il compilatore Markdown di default. |

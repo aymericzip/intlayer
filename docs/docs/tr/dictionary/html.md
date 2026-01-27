@@ -13,6 +13,8 @@ keywords:
   - React
   - Vue
   - Svelte
+  - Solid
+  - Angular
 slugs:
   - doc
   - concept
@@ -111,9 +113,9 @@ HTML içeriğini `html` fonksiyonunu kullanarak veya basitçe bir string olarak 
       key: "app",
       content: {
         content: t({
-          tr: html(file("./content.tr.html")),
           en: html(file("./content.en.html")),
           fr: html(file("./content.fr.html")),
+          tr: html(file("./content.tr.html")),
         }),
       },
     };
@@ -201,6 +203,45 @@ Render işlemi Intlayer'ın içerik sistemi tarafından otomatik olarak veya öz
     ```
 
   </Tab>
+  <Tab label="Solid">
+    Solid, HTML düğümlerini JSX içinde doğrudan destekler.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "solid-intlayer";
+
+    const AppContent = () => {
+      const { myHtmlContent } = useIntlayer("app");
+      return <div>{myHtmlContent}</div>;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    Angular, HTML içeriğini oluşturmak için `[innerHTML]` direktifini kullanır.
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { useIntlayer } from "angular-intlayer";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="content().myHtmlContent"></div>`,
+    })
+    export class AppComponent {
+      content = useIntlayer("app");
+    }
+    ```
+
+    Özelleştirilmiş bileşen sağlamak veya etiketleri geçersiz kılmak için `.use()` metodunu kullanın:
+
+    ```typescript
+    content().myHtmlContent.use({
+      p: { class: "prose" },
+      CustomLink: { href: "/details" },
+    })
+    ```
+
+  </Tab>
 </Tabs>
 
 ## `HTMLProvider` ile Genel Yapılandırma
@@ -282,6 +323,41 @@ HTML render'lamasını tüm uygulamanız için global olarak yapılandırabilirs
     ```
 
   </Tab>
+  <Tab label="Solid">
+   
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "solid-intlayer";
+
+    export const AppProvider = (props) => (
+      <HTMLProvider
+        components={{
+          p: (props) => <p className="prose" {...props} />,
+        }}
+      >
+        {props.children}
+      </HTMLProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            p: { class: "prose" },
+            CustomLink: { href: "/details" },
+          },
+        }),
+      ],
+    };
+    ```
+
+  </Tab>
 </Tabs>
 
 ---
@@ -299,7 +375,7 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
     import { HTMLRenderer } from "react-intlayer";
 
     <HTMLRenderer components={{ p: MyCustomP }}>
-      {"<p>Hello World</p>"}
+      {"<p>Merhaba Dünya</p>"}
     </HTMLRenderer>
     ```
 
@@ -313,7 +389,7 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
       components: { strong: (props) => <strong {...props} className="text-red-500" /> }
     });
 
-    return renderHTML("<p>Hello <strong>World</strong></p>");
+    return renderHTML("<p>Merhaba <strong>Dünya</strong></p>");
     ```
 
     #### `renderHTML()` Yardımcı Aracı
@@ -323,7 +399,7 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
     ```tsx
     import { renderHTML } from "react-intlayer";
 
-    const jsx = renderHTML("<p>Hello</p>", { components: { p: 'div' } });
+    const jsx = renderHTML("<p>Merhaba</p>", { components: { p: 'div' } });
     ```
 
   </Tab>
@@ -337,7 +413,7 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
     </script>
 
     <template>
-      <HTMLRenderer content="<p>Hello World</p>" />
+      <HTMLRenderer content="<p>Merhaba Dünya</p>" />
     </template>
     ```
 
@@ -351,7 +427,28 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
     import { HTMLRenderer } from "svelte-intlayer";
     </script>
 
-    <HTMLRenderer value="<p>Hello World</p>" />
+    <HTMLRenderer value="<p>Merhaba Dünya</p>" />
+    ```
+
+    #### `useHTMLRenderer()` Hook
+
+    ```svelte
+    <script lang="ts">
+    import { useHTMLRenderer } from "svelte-intlayer";
+    const render = useHTMLRenderer();
+    </script>
+
+    {@html render("<p>Merhaba Dünya</p>")}
+    ```
+
+    #### `renderHTML()` Yardımcı Aracı
+
+    ```svelte
+    <script lang="ts">
+    import { renderHTML } from "svelte-intlayer";
+    </script>
+
+    {@html renderHTML("<p>Merhaba Dünya</p>")}
     ```
 
   </Tab>
@@ -363,8 +460,74 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
     import { HTMLRenderer } from "preact-intlayer";
 
     <HTMLRenderer>
-      {"<p>Hello World</p>"}
+      {"<p>Merhaba Dünya</p>"}
     </HTMLRenderer>
+    ```
+
+    #### `useHTMLRenderer()` Hook
+
+    ```tsx
+    import { useHTMLRenderer } from "preact-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Merhaba Dünya</p>")}</div>;
+    ```
+
+    #### `renderHTML()` Yardımcı Aracı
+
+    ```tsx
+    import { renderHTML } from "preact-intlayer";
+
+    return <div>{renderHTML("<p>Merhaba Dünya</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Solid">
+   
+    #### `<HTMLRenderer />` Bileşeni
+   
+    ```tsx
+    import { HTMLRenderer } from "solid-intlayer";
+
+    <HTMLRenderer>
+      {"<p>Merhaba Dünya</p>"}
+    </HTMLRenderer>
+    ```
+
+    #### `useHTMLRenderer()` Hook
+
+    ```tsx
+    import { useHTMLRenderer } from "solid-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Merhaba Dünya</p>")}</div>;
+    ```
+
+    #### `renderHTML()` Yardımcı Aracı
+
+    ```tsx
+    import { renderHTML } from "solid-intlayer";
+
+    return <div>{renderHTML("<p>Merhaba Dünya</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    #### `IntlayerMarkdownService` Servisi
+    Servisi kullanarak bir HTML dizesini oluşturun.
+
+    ```typescript
+    import { IntlayerMarkdownService } from "angular-intlayer";
+
+    export class MyComponent {
+      constructor(private markdownService: IntlayerMarkdownService) {}
+
+      renderHTML(html: string) {
+        return this.markdownService.renderMarkdown(html);
+      }
+    }
     ```
 
   </Tab>

@@ -23,9 +23,7 @@ history:
     changes: Zainicjuj historię
 ---
 
-# Angular i18n - Przetłumacz swoją stronę Angular za pomocą Intlayer | Umiędzynarodowienie (i18n)
-
-> Ten pakiet jest w trakcie opracowywania. Zobacz [zgłoszenie (issue)](https://github.com/aymericzip/intlayer/issues/116), aby uzyskać więcej informacji. Pokaż swoje zainteresowanie Intlayer dla Angulara, polubiąc to zgłoszenie.
+# Przetłumacz swoją stronę Angular za pomocą Intlayer | Umiędzynarodowienie (i18n)
 
 ## Spis treści
 

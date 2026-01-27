@@ -1267,22 +1267,18 @@ Para habilitar essa otimização, instale o pacote `@intlayer/swc`. Uma vez inst
 
 ```bash packageManager="npm"
 npm install @intlayer/swc --save-dev
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add @intlayer/swc --save-dev
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add @intlayer/swc --save-dev
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add @intlayer/swc --dev
-bunx intlayer init
 ```
 
 > Nota: Esta otimização só está disponível em Next.js 13 e superior.

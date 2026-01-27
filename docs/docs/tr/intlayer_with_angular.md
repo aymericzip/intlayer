@@ -23,9 +23,7 @@ history:
     changes: Geçmişi başlat
 ---
 
-# Angular i18n - Intlayer kullanarak Angular web sitenizi çevirin | Uluslararasılaştırma (i18n)
-
-> Bu paket geliştirme aşamasındadır. Daha fazla bilgi için [issue](https://github.com/aymericzip/intlayer/issues/116) sayfasına bakın. Issue'yu beğenerek Angular için Intlayer'a olan ilginizi gösterin.
+# Intlayer kullanarak Angular web sitenizi çevirin | Uluslararasılaştırma (i18n)
 
 ## İçindekiler
 

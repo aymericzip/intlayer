@@ -2,7 +2,7 @@
 createdAt: 2026-01-20
 updatedAt: 2026-01-22
 title: HTML-Inhalte
-description: Erfahren Sie, wie Sie HTML-Inhalte deklarieren und mit benutzerdefinierten Komponenten in Intlayer verwenden. Folgen Sie dieser Dokumentation, um reichhaltige, HTML-ähnliche Inhalte mit dynamischem Komponentenersatz in Ihrem internationalisierten Projekt einzubetten.
+description: Erfahren Sie, wie Sie HTML-Inhalte deklarieren und mit benutzerdefinierten Komponenten in Intlayer verwenden. Folgen Sie dieser Dokumentation, um reichhaltige HTML-ähnliche Inhalte mit dynamischem Komponentenersatz in Ihrem internationalisierten Projekt einzubetten.
 keywords:
   - HTML
   - Benutzerdefinierte Komponenten
@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: Hinzufügen der Utilities HTMLRenderer / useHTMLRenderer / renderHTML
+    changes: Hinzufügen von HTMLRenderer / useHTMLRenderer / renderHTML Utility
   - version: 8.0.0
     date: 2026-01-20
     changes: Hinzufügen von HTML-Parsing-Unterstützung
@@ -29,11 +29,11 @@ history:
 
 # HTML-Inhalte / HTML in Intlayer
 
-Intlayer unterstützt HTML-Inhalte, mit denen Sie reichhaltige, strukturierte Inhalte in Ihren Dictionaries einbetten können. Diese Inhalte können mit Standard-HTML-Tags gerendert oder zur Laufzeit durch benutzerdefinierte Komponenten ersetzt werden.
+Intlayer unterstützt HTML-Inhalte, sodass Sie reichhaltige, strukturierte Inhalte in Ihre Dictionaries einbetten können. Diese Inhalte können mit Standard-HTML-Tags gerendert oder zur Laufzeit durch benutzerdefinierte Komponenten ersetzt werden.
 
 ## Wie HTML funktioniert
 
-Intlayer v8 erkennt HTML-Tags in Ihren Inhaltsstrings intelligent. Wenn eine Zeichenfolge als HTML identifiziert wird (Tags enthält), wird sie automatisch in einen HTML-Knoten umgewandelt.
+Intlayer v8 erkennt HTML-Tags in Ihren Inhaltsstrings intelligent. Wenn ein String als HTML identifiziert wird (Tags enthält), wird er automatisch in einen HTML-Knoten umgewandelt.
 
 <Columns>
 <Column title="v7 Verhalten (Manuelles Wrapping)">
@@ -56,7 +56,7 @@ export default {
 export default {
   key: "app",
   content: {
-    text: "<p>Hallo <strong>Welt</strong></p>",
+    text: "<p>Hello <strong>World</strong></p>",
   },
 };
 ```
@@ -68,11 +68,11 @@ export default {
 
 ## HTML-Inhalte deklarieren
 
-Sie können HTML-Inhalte mithilfe der `html`-Funktion deklarieren oder einfach als String.
+Sie können HTML-Inhalte mit der `html`-Funktion oder einfach als String deklarieren.
 
 <Tabs>
   <Tab label="Manuelles Wrapping">
-    Verwenden Sie die `html`-Funktion, um HTML-Inhalte explizit zu deklarieren. Dies stellt sicher, dass Standard-Tags korrekt gemappt werden, selbst wenn die automatische Erkennung deaktiviert ist.
+    Verwenden Sie die `html`-Funktion, um HTML-Inhalte explizit zu deklarieren. Dies stellt sicher, dass Standard-Tags korrekt zugeordnet werden, selbst wenn die automatische Erkennung deaktiviert ist.
 
     ```typescript fileName="htmlDictionary.content.ts"
     import { html, type Dictionary } from "intlayer";
@@ -80,7 +80,7 @@ Sie können HTML-Inhalte mithilfe der `html`-Funktion deklarieren oder einfach a
     const htmlDictionary = {
       key: "app",
       content: {
-        myHtmlContent: html("<p>Hallo <strong>Welt</strong></p>"),
+        myHtmlContent: html("<p>Hello <strong>World</strong></p>"),
       },
     } satisfies Dictionary;
 
@@ -111,7 +111,6 @@ Sie können HTML-Inhalte mithilfe der `html`-Funktion deklarieren oder einfach a
       key: "app",
       content: {
         content: t({
-          de: html(file("./content.de.html")),
           en: html(file("./content.en.html")),
           fr: html(file("./content.fr.html")),
         }),
@@ -126,11 +125,11 @@ Sie können HTML-Inhalte mithilfe der `html`-Funktion deklarieren oder einfach a
 
 ## HTML rendern
 
-Das Rendern kann automatisch vom Intlayer-Content-System übernommen werden oder manuell mit spezialisierten Tools erfolgen.
+Das Rendern kann automatisch durch das Inhaltssystem von Intlayer oder manuell mit spezialisierten Tools erfolgen.
 
-### Automatisches Rendern (mithilfe von `useIntlayer`)
+### Automatisches Rendern (mit `useIntlayer`)
 
-Wenn Inhalte über `useIntlayer` abgerufen werden, sind die HTML-Knoten bereits für das Rendern vorbereitet.
+Wenn Sie auf Inhalte über `useIntlayer` zugreifen, sind HTML-Knoten bereits für das Rendering vorbereitet.
 
 <Tabs group="framework">
   <Tab label="React / Next.js">
@@ -156,7 +155,7 @@ Wenn Inhalte über `useIntlayer` abgerufen werden, sind die HTML-Knoten bereits 
 
   </Tab>
   <Tab label="Vue">
-    In Vue kann HTML-Inhalt mit der eingebauten `component`-Komponente gerendert werden.
+    In Vue können HTML-Inhalte mit der integrierten `component`-Komponente gerendert werden.
 
     ```vue fileName="App.vue"
     <script setup>
@@ -169,14 +168,14 @@ Wenn Inhalte über `useIntlayer` abgerufen werden, sind die HTML-Knoten bereits 
     </template>
     ```
 
-    Verwende `.use()` für Überschreibungen:
+    Verwenden Sie `.use()` für Overrides:
     ```vue
     <component :is="myHtmlContent.use({ h1: 'h2' })" />
     ```
 
   </Tab>
   <Tab label="Svelte">
-    Svelte rendert HTML-Knoten als Strings. Verwende `{@html}`, um sie darzustellen.
+    Svelte rendert HTML-Knoten als Strings. Verwenden Sie `{@html}`, um sie zu rendern.
 
     ```svelte
     <script lang="ts">
@@ -201,11 +200,50 @@ Wenn Inhalte über `useIntlayer` abgerufen werden, sind die HTML-Knoten bereits 
     ```
 
   </Tab>
+  <Tab label="Solid">
+    Solid unterstützt HTML-Knoten direkt im JSX.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "solid-intlayer";
+
+    const AppContent = () => {
+      const { myHtmlContent } = useIntlayer("app");
+      return <div>{myHtmlContent}</div>;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    Angular verwendet die `[innerHTML]`-Direktive, um HTML-Inhalte zu rendern.
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { useIntlayer } from "angular-intlayer";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="content().myHtmlContent"></div>`,
+    })
+    export class AppComponent {
+      content = useIntlayer("app");
+    }
+    ```
+
+    Verwenden Sie die `.use()`-Methode, um benutzerdefinierte Komponenten bereitzustellen oder Tags zu überschreiben:
+
+    ```typescript
+    content().myHtmlContent.use({
+      p: { class: "prose" },
+      CustomLink: { href: "/details" },
+    })
+    ```
+
+  </Tab>
 </Tabs>
 
 ## Globale Konfiguration mit `HTMLProvider`
 
-Sie können das HTML-Rendering global für Ihre gesamte Anwendung konfigurieren. Dies eignet sich ideal, um benutzerdefinierte Komponenten zu definieren, die in allen HTML-Inhalten verfügbar sein sollen.
+Sie können das HTML-Rendering global für Ihre gesamte Anwendung konfigurieren. Dies ist ideal, um benutzerdefinierte Komponenten zu definieren, die in allen HTML-Inhalten verfügbar sein sollen.
 
 <Tabs group="framework">
   <Tab label="React / Next.js">
@@ -282,18 +320,53 @@ Sie können das HTML-Rendering global für Ihre gesamte Anwendung konfigurieren.
     ```
 
   </Tab>
+  <Tab label="Solid">
+   
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "solid-intlayer";
+
+    export const AppProvider = (props) => (
+      <HTMLProvider
+        components={{
+          p: (props) => <p className="prose" {...props} />,
+        }}
+      >
+        {props.children}
+      </HTMLProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            p: { class: "prose" },
+            CustomLink: { href: "/details" },
+          },
+        }),
+      ],
+    };
+    ```
+
+  </Tab>
 </Tabs>
 
 ---
 
-### Manuelles Rendering & Erweiterte Werkzeuge
+### Manuelles Rendering & Erweiterte Tools
 
-Wenn Sie rohe HTML-Strings rendern müssen oder mehr Kontrolle über die Komponentenabbildung benötigen, verwenden Sie die folgenden Werkzeuge.
+Wenn Sie rohe HTML-Strings rendern müssen oder mehr Kontrolle über die Komponentenzuordnung benötigen, verwenden Sie die folgenden Tools.
 
 <Tabs group="framework">
   <Tab label="React / Next.js">
     #### `<HTMLRenderer />` Komponente
-    Rendern einer HTML-Zeichenkette mit bestimmten Komponenten.
+    Rendern Sie einen HTML-String mit spezifischen Komponenten.
 
     ```tsx
     import { HTMLRenderer } from "react-intlayer";
@@ -305,7 +378,7 @@ Wenn Sie rohe HTML-Strings rendern müssen oder mehr Kontrolle über die Kompone
 
     #### `useHTMLRenderer()` Hook
 
-    Erhalten Sie eine vorkonfigurierte Renderer-Funktion.
+    Holen Sie sich eine vorkonfigurierte Renderer-Funktion.
 
     ```tsx
     import { useHTMLRenderer } from "react-intlayer";
@@ -314,17 +387,17 @@ Wenn Sie rohe HTML-Strings rendern müssen oder mehr Kontrolle über die Kompone
       components: { strong: (props) => <strong {...props} className="text-red-500" /> }
     });
 
-    return renderHTML("<p>Hallo <strong>Welt</strong></p>");
+    return renderHTML("<p>Hello <strong>World</strong></p>");
     ```
 
-    #### `renderHTML()` Hilfsfunktion
+    #### `renderHTML()` Utility
 
-    Unabhängige Hilfsfunktion zum Rendern außerhalb von Komponenten.
+    Eigenständiges Utility zum Rendern außerhalb von Komponenten.
 
     ```tsx
     import { renderHTML } from "react-intlayer";
 
-    const jsx = renderHTML("<p>Hallo</p>", { components: { p: 'div' } });
+    const jsx = renderHTML("<p>Hello</p>", { components: { p: 'div' } });
     ```
 
   </Tab>
@@ -338,7 +411,7 @@ Wenn Sie rohe HTML-Strings rendern müssen oder mehr Kontrolle über die Kompone
     </script>
 
     <template>
-      <HTMLRenderer content="<p>Hallo Welt</p>" />
+      <HTMLRenderer content="<p>Hello World</p>" />
     </template>
     ```
 
@@ -355,6 +428,27 @@ Wenn Sie rohe HTML-Strings rendern müssen oder mehr Kontrolle über die Kompone
     <HTMLRenderer value="<p>Hello World</p>" />
     ```
 
+    #### `useHTMLRenderer()` Hook
+
+    ```svelte
+    <script lang="ts">
+    import { useHTMLRenderer } from "svelte-intlayer";
+    const render = useHTMLRenderer();
+    </script>
+
+    {@html render("<p>Hello World</p>")}
+    ```
+
+    #### `renderHTML()` Utility
+
+    ```svelte
+    <script lang="ts">
+    import { renderHTML } from "svelte-intlayer";
+    </script>
+
+    {@html renderHTML("<p>Hello World</p>")}
+    ```
+
   </Tab>
   <Tab label="Preact">
    
@@ -368,6 +462,72 @@ Wenn Sie rohe HTML-Strings rendern müssen oder mehr Kontrolle über die Kompone
     </HTMLRenderer>
     ```
 
+    #### `useHTMLRenderer()` Hook
+
+    ```tsx
+    import { useHTMLRenderer } from "preact-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Hello World</p>")}</div>;
+    ```
+
+    #### `renderHTML()` Utility
+
+    ```tsx
+    import { renderHTML } from "preact-intlayer";
+
+    return <div>{renderHTML("<p>Hello World</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Solid">
+   
+    #### `<HTMLRenderer />` Komponente
+   
+    ```tsx
+    import { HTMLRenderer } from "solid-intlayer";
+
+    <HTMLRenderer>
+      {"<p>Hello World</p>"}
+    </HTMLRenderer>
+    ```
+
+    #### `useHTMLRenderer()` Hook
+
+    ```tsx
+    import { useHTMLRenderer } from "solid-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Hello World</p>")}</div>;
+    ```
+
+    #### `renderHTML()` Utility
+
+    ```tsx
+    import { renderHTML } from "solid-intlayer";
+
+    return <div>{renderHTML("<p>Hello World</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    #### `IntlayerMarkdownService` Service
+    Rendern Sie einen HTML-String mit dem Service.
+
+    ```typescript
+    import { IntlayerMarkdownService } from "angular-intlayer";
+
+    export class MyComponent {
+      constructor(private markdownService: IntlayerMarkdownService) {}
+
+      renderHTML(html: string) {
+        return this.markdownService.renderMarkdown(html);
+      }
+    }
+    ```
+
   </Tab>
 </Tabs>
 
@@ -377,9 +537,9 @@ Wenn Sie rohe HTML-Strings rendern müssen oder mehr Kontrolle über die Kompone
 
 Diese Optionen können an `HTMLProvider`, `HTMLRenderer`, `useHTMLRenderer` und `renderHTML` übergeben werden.
 
-| Option       | Typ                   | Standardwert | Beschreibung                                                                                                                 |
-| :----------- | :-------------------- | :----------- | :--------------------------------------------------------------------------------------------------------------------------- |
-| `components` | `Record<string, any>` | `{}`         | Eine Zuordnung von HTML-Tags oder benutzerdefinierten Komponenten-Namen zu Komponenten.                                      |
-| `renderHTML` | `Function`            | `null`       | Eine benutzerdefinierte Render-Funktion, um den Standard-HTML-Parser vollständig zu ersetzen (nur für Vue-/Svelte-Provider). |
+| Option       | Typ                   | Standard | Beschreibung                                                                                                                   |
+| :----------- | :-------------------- | :------- | :----------------------------------------------------------------------------------------------------------------------------- |
+| `components` | `Record<string, any>` | `{}`     | Eine Map von HTML-Tags oder benutzerdefinierten Komponentennamen zu Komponenten.                                               |
+| `renderHTML` | `Function`            | `null`   | Eine benutzerdefinierte Rendering-Funktion, um den Standard-HTML-Parser vollständig zu ersetzen (Nur für Vue/Svelte Provider). |
 
-> Hinweis: Für React und Preact werden Standard-HTML-Tags automatisch bereitgestellt. Sie müssen das `components`-Prop nur übergeben, wenn Sie diese überschreiben oder benutzerdefinierte Komponenten hinzufügen möchten.
+> Hinweis: Für React und Preact werden Standard-HTML-Tags automatisch bereitgestellt. Sie müssen das `components`-Prop nur übergeben, wenn Sie sie überschreiben oder benutzerdefinierte Komponenten hinzufügen möchten.

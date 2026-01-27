@@ -1111,22 +1111,18 @@ export const myServerAction = async () => {
 
 ```bash packageManager="npm"
 npm install @intlayer/swc --save-dev
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add @intlayer/swc --save-dev
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add @intlayer/swc --save-dev
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add @intlayer/swc --dev
-bunx intlayer init
 ```
 
 > 참고: 이 최적화는 Next.js 13 이상에서만 사용할 수 있습니다.

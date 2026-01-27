@@ -23,9 +23,7 @@ history:
     changes: 히스토리 초기화
 ---
 
-# Angular i18n - Intlayer를 사용하여 Angular 웹사이트 번역하기 | 국제화 (i18n)
-
-> 이 패키지는 개발 중입니다. 자세한 내용은 [issue](https://github.com/aymericzip/intlayer/issues/116)를 참조하세요. issue에 '좋아요'를 눌러 Angular용 Intlayer에 대한 관심을 보여주세요.
+# Intlayer를 사용하여 Angular 웹사이트 번역하기 | 국제화 (i18n)
 
 ## 목차
 

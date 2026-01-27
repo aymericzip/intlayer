@@ -56,7 +56,7 @@ export default {
 export default {
   key: "app",
   content: {
-    text: "<p>हैलो <strong>वर्ल्ड</strong></p>",
+    text: "<p>Hello <strong>World</strong></p>",
   },
 };
 ```
@@ -95,7 +95,7 @@ export default {
     export default {
       key: "app",
       content: {
-        myHtmlContent: "<p>नमस्ते <strong>दुनिया</strong></p>",
+        myHtmlContent: "<p>हैलो <strong>वर्ल्ड</strong></p>",
       },
     };
     ```
@@ -201,6 +201,45 @@ export default {
     ```
 
   </Tab>
+  <Tab label="Solid">
+    Solid JSX में सीधे HTML नोड्स को सपोर्ट करता है।
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "solid-intlayer";
+
+    const AppContent = () => {
+      const { myHtmlContent } = useIntlayer("app");
+      return <div>{myHtmlContent}</div>;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    Angular HTML कंटेंट रेंडर करने के लिए `[innerHTML]` डायरेक्टिव का उपयोग करता है।
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { useIntlayer } from "angular-intlayer";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="content().myHtmlContent"></div>`,
+    })
+    export class AppComponent {
+      content = useIntlayer("app");
+    }
+    ```
+
+    कस्टम कंपोनेंट्स प्रदान करने या टैग ओवरराइड करने के लिए `.use()` मेथड का उपयोग करें:
+
+    ```typescript
+    content().myHtmlContent.use({
+      p: { class: "prose" },
+      CustomLink: { href: "/details" },
+    })
+    ```
+
+  </Tab>
 </Tabs>
 
 ## `HTMLProvider` के साथ वैश्विक कॉन्फ़िगरेशन
@@ -282,6 +321,41 @@ export default {
     ```
 
   </Tab>
+  <Tab label="Solid">
+   
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "solid-intlayer";
+
+    export const AppProvider = (props) => (
+      <HTMLProvider
+        components={{
+          p: (props) => <p className="prose" {...props} />,
+        }}
+      >
+        {props.children}
+      </HTMLProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            p: { class: "prose" },
+            CustomLink: { href: "/details" },
+          },
+        }),
+      ],
+    };
+    ```
+
+  </Tab>
 </Tabs>
 
 ---
@@ -314,7 +388,7 @@ export default {
       components: { strong: (props) => <strong {...props} className="text-red-500" /> }
     });
 
-    return renderHTML("<p>Hello <strong>World</strong></p>");
+    return renderHTML("<p>हैलो <strong>वर्ल्ड</strong></p>");
     ```
 
     #### `renderHTML()` यूटिलिटी
@@ -324,7 +398,7 @@ export default {
     ```tsx
     import { renderHTML } from "react-intlayer";
 
-    const jsx = renderHTML("<p>Hello</p>", { components: { p: 'div' } });
+    const jsx = renderHTML("<p>हैलो</p>", { components: { p: 'div' } });
     ```
 
   </Tab>
@@ -355,6 +429,27 @@ export default {
     <HTMLRenderer value="<p>Hello World</p>" />
     ```
 
+    #### `useHTMLRenderer()` हुक
+
+    ```svelte
+    <script lang="ts">
+    import { useHTMLRenderer } from "svelte-intlayer";
+    const render = useHTMLRenderer();
+    </script>
+
+    {@html render("<p>Hello World</p>")}
+    ```
+
+    #### `renderHTML()` यूटिलिटी
+
+    ```svelte
+    <script lang="ts">
+    import { renderHTML } from "svelte-intlayer";
+    </script>
+
+    {@html renderHTML("<p>Hello World</p>")}
+    ```
+
   </Tab>
   <Tab label="Preact">
    
@@ -366,6 +461,72 @@ export default {
     <HTMLRenderer>
       {"<p>Hello World</p>"}
     </HTMLRenderer>
+    ```
+
+    #### `useHTMLRenderer()` हुक
+
+    ```tsx
+    import { useHTMLRenderer } from "preact-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Hello World</p>")}</div>;
+    ```
+
+    #### `renderHTML()` यूटिलिटी
+
+    ```tsx
+    import { renderHTML } from "preact-intlayer";
+
+    return <div>{renderHTML("<p>Hello World</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Solid">
+   
+    #### `<HTMLRenderer />` कम्पोनेंट
+   
+    ```tsx
+    import { HTMLRenderer } from "solid-intlayer";
+
+    <HTMLRenderer>
+      {"<p>Hello World</p>"}
+    </HTMLRenderer>
+    ```
+
+    #### `useHTMLRenderer()` हुक
+
+    ```tsx
+    import { useHTMLRenderer } from "solid-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Hello World</p>")}</div>;
+    ```
+
+    #### `renderHTML()` यूटिलिटी
+
+    ```tsx
+    import { renderHTML } from "solid-intlayer";
+
+    return <div>{renderHTML("<p>Hello World</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    #### `IntlayerMarkdownService` सर्विस
+    सर्विस का उपयोग करके HTML स्ट्रिंग रेंडर करें।
+
+    ```typescript
+    import { IntlayerMarkdownService } from "angular-intlayer";
+
+    export class MyComponent {
+      constructor(private markdownService: IntlayerMarkdownService) {}
+
+      renderHTML(html: string) {
+        return this.markdownService.renderMarkdown(html);
+      }
+    }
     ```
 
   </Tab>

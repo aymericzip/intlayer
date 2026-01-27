@@ -89,31 +89,30 @@ HTML 콘텐츠는 `html` 함수를 사용하거나 단순 문자열로 선언할
 
   </Tab>
   <Tab label="자동 감지">
-문자열에 일반적인 HTML 태그(예: `<p>`, `<div>`, `<strong>` 등)가 포함되어 있으면 Intlayer가 자동으로 변환합니다.
+    문자열에 일반적인 HTML 태그(예: `<p>`, `<div>`, `<strong>` 등)가 포함되어 있으면 Intlayer가 자동으로 변환합니다.
 
-```typescript fileName="htmlDictionary.content.ts"
-export default {
-  key: "app",
-  content: {
-    myHtmlContent: "<p>Hello <strong>World</strong></p>",
-  },
-};
-```
+    ```typescript fileName="htmlDictionary.content.ts"
+    export default {
+      key: "app",
+      content: {
+        myHtmlContent: "<p>Hello <strong>World</strong></p>",
+      },
+    };
+    ```
 
-</Tab>
-<Tab label="외부 파일">
-파일에서 HTML 콘텐츠를 가져옵니다. 현재 `file()` 함수는 문자열을 반환하며, 해당 문자열에 태그가 포함된 경우 HTML로 자동 감지됩니다.
+  </Tab>
+  <Tab label="외부 파일">
+    파일에서 HTML 콘텐츠를 가져옵니다. 현재 `file()` 함수는 문자열을 반환하며, 해당 문자열에 태그가 포함된 경우 HTML로 자동 감지됩니다.
 
-````typescript fileName="htmlDictionary.content.ts"
-import { html, file, t } from "intlayer";
+    ```typescript fileName="htmlDictionary.content.ts"
+    import { html, file, t } from "intlayer";
 
-export default {
-  key: "app",
-  content: {
-    content: t({
-      ko: html(file("./content.ko.html")),
-      en: html(file("./content.en.html")),
-      fr: html(file("./content.fr.html")),
+    export default {
+      key: "app",
+      content: {
+        content: t({
+          en: html(file("./content.en.html")),
+          fr: html(file("./content.fr.html")),
         }),
       },
     };
@@ -201,6 +200,45 @@ export default {
     ```
 
   </Tab>
+  <Tab label="Solid">
+    Solid는 JSX에서 HTML 노드를 직접 지원합니다.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "solid-intlayer";
+
+    const AppContent = () => {
+      const { myHtmlContent } = useIntlayer("app");
+      return <div>{myHtmlContent}</div>;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    Angular는 HTML 콘텐츠를 렌더링하기 위해 `[innerHTML]` 디렉티브를 사용합니다.
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { useIntlayer } from "angular-intlayer";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="content().myHtmlContent"></div>`,
+    })
+    export class AppComponent {
+      content = useIntlayer("app");
+    }
+    ```
+
+    `.use()` 메서드를 사용하여 커스텀 컴포넌트를 제공하거나 태그를 오버라이드할 수 있습니다:
+
+    ```typescript
+    content().myHtmlContent.use({
+      p: { class: "prose" },
+      CustomLink: { href: "/details" },
+    })
+    ```
+
+  </Tab>
 </Tabs>
 
 ## `HTMLProvider`를 사용한 전역 구성
@@ -282,6 +320,41 @@ export default {
     ```
 
   </Tab>
+  <Tab label="Solid">
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "solid-intlayer";
+
+    export const AppProvider = (props) => (
+      <HTMLProvider
+        components={{
+          p: (props) => <p className="prose" {...props} />,
+        }}
+      >
+        {props.children}
+      </HTMLProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            p: { class: "prose" },
+            CustomLink: { href: "/details" },
+          },
+        }),
+      ],
+    };
+    ```
+
+  </Tab>
 </Tabs>
 
 ---
@@ -355,6 +428,27 @@ export default {
     <HTMLRenderer value="<p>Hello World</p>" />
     ```
 
+    #### `useHTMLRenderer()` 훅
+
+    ```svelte
+    <script lang="ts">
+    import { useHTMLRenderer } from "svelte-intlayer";
+    const render = useHTMLRenderer();
+    </script>
+
+    {@html render("<p>Hello World</p>")}
+    ```
+
+    #### `renderHTML()` 유틸리티
+
+    ```svelte
+    <script lang="ts">
+    import { renderHTML } from "svelte-intlayer";
+    </script>
+
+    {@html renderHTML("<p>Hello World</p>")}
+    ```
+
   </Tab>
   <Tab label="Preact">
 
@@ -368,6 +462,72 @@ export default {
     </HTMLRenderer>
     ```
 
+    #### `useHTMLRenderer()` 훅
+
+    ```tsx
+    import { useHTMLRenderer } from "preact-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Hello World</p>")}</div>;
+    ```
+
+    #### `renderHTML()` 유틸리티
+
+    ```tsx
+    import { renderHTML } from "preact-intlayer";
+
+    return <div>{renderHTML("<p>Hello World</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Solid">
+
+    #### `<HTMLRenderer />` 컴포넌트
+
+    ```tsx
+    import { HTMLRenderer } from "solid-intlayer";
+
+    <HTMLRenderer>
+      {"<p>Hello World</p>"}
+    </HTMLRenderer>
+    ```
+
+    #### `useHTMLRenderer()` 훅
+
+    ```tsx
+    import { useHTMLRenderer } from "solid-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Hello World</p>")}</div>;
+    ```
+
+    #### `renderHTML()` 유틸리티
+
+    ```tsx
+    import { renderHTML } from "solid-intlayer";
+
+    return <div>{renderHTML("<p>Hello World</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    #### `IntlayerMarkdownService` 서비스
+    서비스를 사용하여 HTML 문자열을 렌더링합니다.
+
+    ```typescript
+    import { IntlayerMarkdownService } from "angular-intlayer";
+
+    export class MyComponent {
+      constructor(private markdownService: IntlayerMarkdownService) {}
+
+      renderHTML(html: string) {
+        return this.markdownService.renderMarkdown(html);
+      }
+    }
+    ```
+
   </Tab>
 </Tabs>
 
@@ -377,10 +537,9 @@ export default {
 
 이 옵션들은 `HTMLProvider`, `HTMLRenderer`, `useHTMLRenderer`, 및 `renderHTML`에 전달할 수 있습니다.
 
-| 옵션         | 타입                  | 기본값   | 설명                                                                                                        |
-| :----------- | :-------------------- | :------ | :--------------------------------------------------------------------------------------------------------- |
-| `components` | `Record<string, any>` | `{}`    | HTML 태그 또는 커스텀 컴포넌트 이름을 컴포넌트에 매핑한 맵.                                                |
-| `renderHTML` | `Function`            | `null`  | 기본 HTML 파서를 완전히 대체하는 커스텀 렌더링 함수 (Vue/Svelte 프로바이더에만 해당). |
+| 옵션         | 타입                  | 기본값 | 설명                                                                                  |
+| :----------- | :-------------------- | :----- | :------------------------------------------------------------------------------------ |
+| `components` | `Record<string, any>` | `{}`   | HTML 태그 또는 커스텀 컴포넌트 이름을 컴포넌트에 매핑한 맵.                           |
+| `renderHTML` | `Function`            | `null` | 기본 HTML 파서를 완전히 대체하는 커스텀 렌더링 함수 (Vue/Svelte 프로바이더에만 해당). |
 
 > 참고: React 및 Preact의 경우 표준 HTML 태그가 자동으로 제공됩니다. 태그를 재정의하거나 커스텀 컴포넌트를 추가하려는 경우에만 `components` prop을 전달하면 됩니다.
-````

@@ -13,6 +13,8 @@ keywords:
   - React
   - Vue
   - Svelte
+  - Solid
+  - Angular
 slugs:
   - doc
   - concept
@@ -56,7 +58,7 @@ export default {
 export default {
   key: "app",
   content: {
-    text: "<p>Привет <strong>мир</strong></p>",
+    text: "<p>Привет <strong>Мир</strong></p>",
   },
 };
 ```
@@ -80,7 +82,7 @@ export default {
     const htmlDictionary = {
       key: "app",
       content: {
-        myHtmlContent: html("<p>Привет <strong>мир</strong></p>"),
+        myHtmlContent: html("<p>Привет <strong>Мир</strong></p>"),
       },
     } satisfies Dictionary;
 
@@ -95,7 +97,7 @@ export default {
     export default {
       key: "app",
       content: {
-        myHtmlContent: "<p>Hello <strong>World</strong></p>",
+        myHtmlContent: "<p>Привет <strong>Мир</strong></p>",
       },
     };
     ```
@@ -111,9 +113,9 @@ export default {
       key: "app",
       content: {
         content: t({
-          ru: html(file("./content.ru.html")),
           en: html(file("./content.en.html")),
           fr: html(file("./content.fr.html")),
+          ru: html(file("./content.ru.html")),
         }),
       },
     };
@@ -201,6 +203,45 @@ export default {
     ```
 
   </Tab>
+  <Tab label="Solid">
+    Solid поддерживает HTML-узлы непосредственно в JSX.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "solid-intlayer";
+
+    const AppContent = () => {
+      const { myHtmlContent } = useIntlayer("app");
+      return <div>{myHtmlContent}</div>;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    В Angular используется директива `[innerHTML]` для рендеринга HTML-контента.
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { useIntlayer } from "angular-intlayer";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="content().myHtmlContent"></div>`,
+    })
+    export class AppComponent {
+      content = useIntlayer("app");
+    }
+    ```
+
+    Используйте метод `.use()` для предоставления пользовательских компонентов или переопределения тегов:
+
+    ```typescript
+    content().myHtmlContent.use({
+      p: { class: "prose" },
+      CustomLink: { href: "/details" },
+    })
+    ```
+
+  </Tab>
 </Tabs>
 
 ## Глобальная конфигурация с `HTMLProvider`
@@ -282,6 +323,41 @@ export default {
     ```
 
   </Tab>
+  <Tab label="Solid">
+   
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "solid-intlayer";
+
+    export const AppProvider = (props) => (
+      <HTMLProvider
+        components={{
+          p: (props) => <p className="prose" {...props} />,
+        }}
+      >
+        {props.children}
+      </HTMLProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            p: { class: "prose" },
+            CustomLink: { href: "/details" },
+          },
+        }),
+      ],
+    };
+    ```
+
+  </Tab>
 </Tabs>
 
 ---
@@ -292,18 +368,18 @@ export default {
 
 <Tabs group="framework">
   <Tab label="React / Next.js">
-    #### `\<HTMLRenderer />` Компонент
+    #### Компонент `<HTMLRenderer />`
     Рендерит HTML-строку с заданными компонентами.
 
     ```tsx
     import { HTMLRenderer } from "react-intlayer";
 
     <HTMLRenderer components={{ p: MyCustomP }}>
-      {"<p>Hello World</p>"}
+      {"<p>Привет, мир</p>"}
     </HTMLRenderer>
     ```
 
-    #### `useHTMLRenderer()` Хук
+    #### Хук `useHTMLRenderer()`
 
     Возвращает предварительно настроенную функцию рендеринга.
 
@@ -338,7 +414,7 @@ export default {
     </script>
 
     <template>
-      <HTMLRenderer content="<p>Привет Мир</p>" />
+      <HTMLRenderer content="<p>Привет, мир</p>" />
     </template>
     ```
 
@@ -352,7 +428,28 @@ export default {
     import { HTMLRenderer } from "svelte-intlayer";
     </script>
 
-    <HTMLRenderer value="<p>Hello World</p>" />
+    <HTMLRenderer value="<p>Привет, мир</p>" />
+    ```
+
+    #### Хук `useHTMLRenderer()`
+
+    ```svelte
+    <script lang="ts">
+    import { useHTMLRenderer } from "svelte-intlayer";
+    const render = useHTMLRenderer();
+    </script>
+
+    {@html render("<p>Привет, мир</p>")}
+    ```
+
+    #### Утилита `renderHTML()`
+
+    ```svelte
+    <script lang="ts">
+    import { renderHTML } from "svelte-intlayer";
+    </script>
+
+    {@html renderHTML("<p>Привет, мир</p>")}
     ```
 
   </Tab>
@@ -364,8 +461,74 @@ export default {
     import { HTMLRenderer } from "preact-intlayer";
 
     <HTMLRenderer>
-      {"<p>Hello World</p>"}
+      {"<p>Привет, мир</p>"}
     </HTMLRenderer>
+    ```
+
+    #### Хук `useHTMLRenderer()`
+
+    ```tsx
+    import { useHTMLRenderer } from "preact-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Привет, мир</p>")}</div>;
+    ```
+
+    #### Утилита `renderHTML()`
+
+    ```tsx
+    import { renderHTML } from "preact-intlayer";
+
+    return <div>{renderHTML("<p>Привет, мир</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Solid">
+   
+    #### Компонент `<HTMLRenderer />`
+   
+    ```tsx
+    import { HTMLRenderer } from "solid-intlayer";
+
+    <HTMLRenderer>
+      {"<p>Привет, мир</p>"}
+    </HTMLRenderer>
+    ```
+
+    #### Хук `useHTMLRenderer()`
+
+    ```tsx
+    import { useHTMLRenderer } from "solid-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Привет, мир</p>")}</div>;
+    ```
+
+    #### Утилита `renderHTML()`
+
+    ```tsx
+    import { renderHTML } from "solid-intlayer";
+
+    return <div>{renderHTML("<p>Привет, мир</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    #### Сервис `IntlayerMarkdownService`
+    Рендерит HTML-строку с помощью сервиса.
+
+    ```typescript
+    import { IntlayerMarkdownService } from "angular-intlayer";
+
+    export class MyComponent {
+      constructor(private markdownService: IntlayerMarkdownService) {}
+
+      renderHTML(html: string) {
+        return this.markdownService.renderMarkdown(html);
+      }
+    }
     ```
 
   </Tab>

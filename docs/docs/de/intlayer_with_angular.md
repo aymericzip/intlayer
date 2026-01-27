@@ -23,9 +23,7 @@ history:
     changes: Verlauf initialisieren
 ---
 
-# Angular i18n - Übersetzen Sie Ihre Angular-Website mit Intlayer | Internationalisierung (i18n)
-
-> Dieses Paket befindet sich in der Entwicklung. Weitere Informationen finden Sie im [Issue](https://github.com/aymericzip/intlayer/issues/116). Zeigen Sie Ihr Interesse an Intlayer für Angular, indem Sie das Issue liken.
+# Übersetzen Sie Ihre Angular-Website mit Intlayer | Internationalisierung (i18n)
 
 ## Inhaltsverzeichnis
 

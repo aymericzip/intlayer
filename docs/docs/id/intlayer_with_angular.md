@@ -26,9 +26,7 @@ history:
     changes: Inisialisasi riwayat
 ---
 
-# Angular i18n - Terjemahkan situs web Angular Anda menggunakan Intlayer | Internasionalisasi (i18n)
-
-> Paket ini sedang dalam pengembangan. Lihat [masalah](https://github.com/aymericzip/intlayer/issues/116) untuk informasi lebih lanjut. Tunjukkan minat Anda pada Intlayer untuk Angular dengan menyukai masalah tersebut
+# Terjemahkan situs web Angular Anda menggunakan Intlayer | Internasionalisasi (i18n)
 
 ## Daftar Isi
 

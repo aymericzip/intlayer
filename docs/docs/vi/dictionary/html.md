@@ -44,7 +44,7 @@ import { html } from "intlayer";
 export default {
   key: "app",
   content: {
-    text: html("<p>Xin chào <strong>Thế giới</strong></p>"),
+    text: html("<p>Hello <strong>World</strong></p>"),
   },
 };
 ```
@@ -111,7 +111,6 @@ Bạn có thể khai báo nội dung HTML bằng hàm `html` hoặc đơn giản
       key: "app",
       content: {
         content: t({
-          vi: html(file("./content.vi.html")),
           en: html(file("./content.en.html")),
           fr: html(file("./content.fr.html")),
         }),
@@ -201,6 +200,45 @@ Khi bạn truy cập nội dung qua `useIntlayer`, các nút HTML đã được 
     ```
 
   </Tab>
+  <Tab label="Solid">
+    Solid hỗ trợ các node HTML trực tiếp trong JSX.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "solid-intlayer";
+
+    const AppContent = () => {
+      const { myHtmlContent } = useIntlayer("app");
+      return <div>{myHtmlContent}</div>;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    Angular sử dụng chỉ thị `[innerHTML]` để hiển thị nội dung HTML.
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { useIntlayer } from "angular-intlayer";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="content().myHtmlContent"></div>`,
+    })
+    export class AppComponent {
+      content = useIntlayer("app");
+    }
+    ```
+
+    Sử dụng phương thức `.use()` để cung cấp các thành phần tùy chỉnh hoặc ghi đè các thẻ:
+
+    ```typescript
+    content().myHtmlContent.use({
+      p: { class: "prose" },
+      CustomLink: { href: "/details" },
+    })
+    ```
+
+  </Tab>
 </Tabs>
 
 ## Cấu hình toàn cục với `HTMLProvider`
@@ -282,6 +320,41 @@ Bạn có thể cấu hình cách render HTML ở mức toàn cục cho toàn b�
     ```
 
   </Tab>
+  <Tab label="Solid">
+   
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "solid-intlayer";
+
+    export const AppProvider = (props) => (
+      <HTMLProvider
+        components={{
+          p: (props) => <p className="prose" {...props} />,
+        }}
+      >
+        {props.children}
+      </HTMLProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            p: { class: "prose" },
+            CustomLink: { href: "/details" },
+          },
+        }),
+      ],
+    };
+    ```
+
+  </Tab>
 </Tabs>
 
 ---
@@ -355,6 +428,27 @@ Nếu bạn cần kết xuất chuỗi HTML thô hoặc muốn kiểm soát nhi�
     <HTMLRenderer value="<p>Hello World</p>" />
     ```
 
+    #### Hook `useHTMLRenderer()`
+
+    ```svelte
+    <script lang="ts">
+    import { useHTMLRenderer } from "svelte-intlayer";
+    const render = useHTMLRenderer();
+    </script>
+
+    {@html render("<p>Hello World</p>")}
+    ```
+
+    #### Tiện ích `renderHTML()`
+
+    ```svelte
+    <script lang="ts">
+    import { renderHTML } from "svelte-intlayer";
+    </script>
+
+    {@html renderHTML("<p>Hello World</p>")}
+    ```
+
   </Tab>
   <Tab label="Preact">
    
@@ -366,6 +460,72 @@ Nếu bạn cần kết xuất chuỗi HTML thô hoặc muốn kiểm soát nhi�
     <HTMLRenderer>
       {"<p>Hello World</p>"}
     </HTMLRenderer>
+    ```
+
+    #### Hook `useHTMLRenderer()`
+
+    ```tsx
+    import { useHTMLRenderer } from "preact-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Hello World</p>")}</div>;
+    ```
+
+    #### Tiện ích `renderHTML()`
+
+    ```tsx
+    import { renderHTML } from "preact-intlayer";
+
+    return <div>{renderHTML("<p>Hello World</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Solid">
+   
+    #### Thành phần `<HTMLRenderer />`
+   
+    ```tsx
+    import { HTMLRenderer } from "solid-intlayer";
+
+    <HTMLRenderer>
+      {"<p>Hello World</p>"}
+    </HTMLRenderer>
+    ```
+
+    #### Hook `useHTMLRenderer()`
+
+    ```tsx
+    import { useHTMLRenderer } from "solid-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Hello World</p>")}</div>;
+    ```
+
+    #### Tiện ích `renderHTML()`
+
+    ```tsx
+    import { renderHTML } from "solid-intlayer";
+
+    return <div>{renderHTML("<p>Hello World</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    #### Dịch vụ `IntlayerMarkdownService`
+    Render một chuỗi HTML bằng cách sử dụng dịch vụ.
+
+    ```typescript
+    import { IntlayerMarkdownService } from "angular-intlayer";
+
+    export class MyComponent {
+      constructor(private markdownService: IntlayerMarkdownService) {}
+
+      renderHTML(html: string) {
+        return this.markdownService.renderMarkdown(html);
+      }
+    }
     ```
 
   </Tab>

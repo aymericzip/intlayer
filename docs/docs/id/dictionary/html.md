@@ -95,7 +95,7 @@ Anda dapat menyatakan konten HTML menggunakan fungsi `html` atau cukup sebagai s
     export default {
       key: "app",
       content: {
-        myHtmlContent: "<p>Halo <strong>Dunia</strong></p>",
+        myHtmlContent: "<p>Hello <strong>World</strong></p>",
       },
     };
     ```
@@ -111,7 +111,6 @@ Anda dapat menyatakan konten HTML menggunakan fungsi `html` atau cukup sebagai s
       key: "app",
       content: {
         content: t({
-          id: html(file("./content.id.html")),
           en: html(file("./content.en.html")),
           fr: html(file("./content.fr.html")),
         }),
@@ -201,6 +200,45 @@ Saat Anda mengakses konten melalui `useIntlayer`, node HTML sudah disiapkan untu
     ```
 
   </Tab>
+  <Tab label="Solid">
+    Solid mendukung node HTML secara langsung di JSX.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "solid-intlayer";
+
+    const AppContent = () => {
+      const { myHtmlContent } = useIntlayer("app");
+      return <div>{myHtmlContent}</div>;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    Angular menggunakan direktif `[innerHTML]` untuk merender konten HTML.
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { useIntlayer } from "angular-intlayer";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="content().myHtmlContent"></div>`,
+    })
+    export class AppComponent {
+      content = useIntlayer("app");
+    }
+    ```
+
+    Gunakan metode `.use()` untuk menyediakan komponen kustom atau menimpa tag:
+
+    ```typescript
+    content().myHtmlContent.use({
+      p: { class: "prose" },
+      CustomLink: { href: "/details" },
+    })
+    ```
+
+  </Tab>
 </Tabs>
 
 ## Konfigurasi Global dengan `HTMLProvider`
@@ -282,6 +320,41 @@ Anda dapat mengonfigurasi rendering HTML secara global untuk seluruh aplikasi An
     ```
 
   </Tab>
+  <Tab label="Solid">
+   
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "solid-intlayer";
+
+    export const AppProvider = (props) => (
+      <HTMLProvider
+        components={{
+          p: (props) => <p className="prose" {...props} />,
+        }}
+      >
+        {props.children}
+      </HTMLProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            p: { class: "prose" },
+            CustomLink: { href: "/details" },
+          },
+        }),
+      ],
+    };
+    ```
+
+  </Tab>
 </Tabs>
 
 ---
@@ -292,7 +365,7 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
 
 <Tabs group="framework">
   <Tab label="React / Next.js">
-    #### `<HTMLRenderer />` Komponen
+    #### Komponen `<HTMLRenderer />`
     Merender string HTML dengan komponen tertentu.
 
     ```tsx
@@ -355,10 +428,31 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
     <HTMLRenderer value="<p>Hello World</p>" />
     ```
 
+    #### `useHTMLRenderer()` Hook
+
+    ```svelte
+    <script lang="ts">
+    import { useHTMLRenderer } from "svelte-intlayer";
+    const render = useHTMLRenderer();
+    </script>
+
+    {@html render("<p>Hello World</p>")}
+    ```
+
+    #### Utilitas `renderHTML()`
+
+    ```svelte
+    <script lang="ts">
+    import { renderHTML } from "svelte-intlayer";
+    </script>
+
+    {@html renderHTML("<p>Hello World</p>")}
+    ```
+
   </Tab>
   <Tab label="Preact">
    
-    #### `<HTMLRenderer />` Komponen
+    #### Komponen `<HTMLRenderer />`
    
     ```tsx
     import { HTMLRenderer } from "preact-intlayer";
@@ -366,6 +460,72 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
     <HTMLRenderer>
       {"<p>Hello World</p>"}
     </HTMLRenderer>
+    ```
+
+    #### `useHTMLRenderer()` Hook
+
+    ```tsx
+    import { useHTMLRenderer } from "preact-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Hello World</p>")}</div>;
+    ```
+
+    #### Utilitas `renderHTML()`
+
+    ```tsx
+    import { renderHTML } from "preact-intlayer";
+
+    return <div>{renderHTML("<p>Hello World</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Solid">
+   
+    #### Komponen `<HTMLRenderer />`
+   
+    ```tsx
+    import { HTMLRenderer } from "solid-intlayer";
+
+    <HTMLRenderer>
+      {"<p>Hello World</p>"}
+    </HTMLRenderer>
+    ```
+
+    #### `useHTMLRenderer()` Hook
+
+    ```tsx
+    import { useHTMLRenderer } from "solid-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Hello World</p>")}</div>;
+    ```
+
+    #### Utilitas `renderHTML()`
+
+    ```tsx
+    import { renderHTML } from "solid-intlayer";
+
+    return <div>{renderHTML("<p>Hello World</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    #### Layanan `IntlayerMarkdownService`
+    Render string HTML menggunakan layanan tersebut.
+
+    ```typescript
+    import { IntlayerMarkdownService } from "angular-intlayer";
+
+    export class MyComponent {
+      constructor(private markdownService: IntlayerMarkdownService) {}
+
+      renderHTML(html: string) {
+        return this.markdownService.renderMarkdown(html);
+      }
+    }
     ```
 
   </Tab>

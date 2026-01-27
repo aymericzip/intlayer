@@ -1056,22 +1056,18 @@ Khi sử dụng `next-intlayer`, các từ điển (dictionaries) được bao g
 
 ```bash packageManager="npm"
 npm install @intlayer/swc --save-dev
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add @intlayer/swc --save-dev
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add @intlayer/swc --save-dev
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add @intlayer/swc --dev
-bunx intlayer init
 ```
 
 > Lưu ý: Tối ưu hóa này chỉ có sẵn cho Next.js 13 trở lên.

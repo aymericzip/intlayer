@@ -23,9 +23,7 @@ history:
     changes: Inicializar historial
 ---
 
-# Angular i18n - Traduce tu sitio web Angular usando Intlayer | Internacionalización (i18n)
-
-> Este paquete está en desarrollo. Consulta el [issue](https://github.com/aymericzip/intlayer/issues/116) para más información. Muestra tu interés en Intlayer para Angular dándole a "me gusta" al issue.
+# Traduce tu sitio web Angular usando Intlayer | Internacionalización (i18n)
 
 ## Tabla de contenidos
 

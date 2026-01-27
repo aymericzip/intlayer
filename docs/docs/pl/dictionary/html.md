@@ -13,6 +13,8 @@ keywords:
   - React
   - Vue
   - Svelte
+  - Solid
+  - Angular
 slugs:
   - doc
   - concept
@@ -95,7 +97,7 @@ Możesz zadeklarować treść HTML, używając funkcji `html` lub po prostu jako
     export default {
       key: "app",
       content: {
-        myHtmlContent: "<p>Hello <strong>World</strong></p>",
+        myHtmlContent: "<p>Witaj <strong>świecie</strong></p>",
       },
     };
     ```
@@ -111,9 +113,9 @@ Możesz zadeklarować treść HTML, używając funkcji `html` lub po prostu jako
       key: "app",
       content: {
         content: t({
-          pl: html(file("./content.pl.html")),
           en: html(file("./content.en.html")),
           fr: html(file("./content.fr.html")),
+          pl: html(file("./content.pl.html")),
         }),
       },
     };
@@ -201,6 +203,45 @@ Kiedy uzyskujesz dostęp do treści za pomocą `useIntlayer`, węzły HTML są j
     ```
 
   </Tab>
+  <Tab label="Solid">
+    Solid obsługuje węzły HTML bezpośrednio w JSX.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "solid-intlayer";
+
+    const AppContent = () => {
+      const { myHtmlContent } = useIntlayer("app");
+      return <div>{myHtmlContent}</div>;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    Angular wykorzystuje dyrektywę `[innerHTML]` do renderowania zawartości HTML.
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { useIntlayer } from "angular-intlayer";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="content().myHtmlContent"></div>`,
+    })
+    export class AppComponent {
+      content = useIntlayer("app");
+    }
+    ```
+
+    Użyj metody `.use()`, aby dostarczyć własne komponenty lub nadpisać tagi:
+
+    ```typescript
+    content().myHtmlContent.use({
+      p: { class: "prose" },
+      CustomLink: { href: "/details" },
+    })
+    ```
+
+  </Tab>
 </Tabs>
 
 ## Konfiguracja globalna z `HTMLProvider`
@@ -282,6 +323,41 @@ Możesz skonfigurować renderowanie HTML globalnie dla całej aplikacji. To idea
     ```
 
   </Tab>
+  <Tab label="Solid">
+   
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "solid-intlayer";
+
+    export const AppProvider = (props) => (
+      <HTMLProvider
+        components={{
+          p: (props) => <p className="prose" {...props} />,
+        }}
+      >
+        {props.children}
+      </HTMLProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            p: { class: "prose" },
+            CustomLink: { href: "/details" },
+          },
+        }),
+      ],
+    };
+    ```
+
+  </Tab>
 </Tabs>
 
 ---
@@ -314,7 +390,7 @@ Jeśli musisz renderować surowe łańcuchy HTML lub potrzebujesz większej kont
       components: { strong: (props) => <strong {...props} className="text-red-500" /> }
     });
 
-    return renderHTML("<p>Hello <strong>World</strong></p>");
+    return renderHTML("<p>Witaj <strong>świecie</strong></p>");
     ```
 
     #### Narzędzie `renderHTML()`
@@ -355,10 +431,31 @@ Jeśli musisz renderować surowe łańcuchy HTML lub potrzebujesz większej kont
     <HTMLRenderer value="<p>Hello World</p>" />
     ```
 
+    #### Hook `useHTMLRenderer()`
+
+    ```svelte
+    <script lang="ts">
+    import { useHTMLRenderer } from "svelte-intlayer";
+    const render = useHTMLRenderer();
+    </script>
+
+    {@html render("<p>Hello World</p>")}
+    ```
+
+    #### Narzędzie `renderHTML()`
+
+    ```svelte
+    <script lang="ts">
+    import { renderHTML } from "svelte-intlayer";
+    </script>
+
+    {@html renderHTML("<p>Hello World</p>")}
+    ```
+
   </Tab>
   <Tab label="Preact">
    
-    #### `<HTMLRenderer />` Komponent
+    #### Komponent `<HTMLRenderer />`
    
     ```tsx
     import { HTMLRenderer } from "preact-intlayer";
@@ -366,6 +463,72 @@ Jeśli musisz renderować surowe łańcuchy HTML lub potrzebujesz większej kont
     <HTMLRenderer>
       {"<p>Hello World</p>"}
     </HTMLRenderer>
+    ```
+
+    #### Hook `useHTMLRenderer()`
+
+    ```tsx
+    import { useHTMLRenderer } from "preact-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Hello World</p>")}</div>;
+    ```
+
+    #### Narzędzie `renderHTML()`
+
+    ```tsx
+    import { renderHTML } from "preact-intlayer";
+
+    return <div>{renderHTML("<p>Hello World</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Solid">
+   
+    #### Komponent `<HTMLRenderer />`
+   
+    ```tsx
+    import { HTMLRenderer } from "solid-intlayer";
+
+    <HTMLRenderer>
+      {"<p>Hello World</p>"}
+    </HTMLRenderer>
+    ```
+
+    #### Hook `useHTMLRenderer()`
+
+    ```tsx
+    import { useHTMLRenderer } from "solid-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Hello World</p>")}</div>;
+    ```
+
+    #### Narzędzie `renderHTML()`
+
+    ```tsx
+    import { renderHTML } from "solid-intlayer";
+
+    return <div>{renderHTML("<p>Hello World</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    #### Usługa `IntlayerMarkdownService`
+    Renderuje ciąg HTML przy użyciu usługi.
+
+    ```typescript
+    import { IntlayerMarkdownService } from "angular-intlayer";
+
+    export class MyComponent {
+      constructor(private markdownService: IntlayerMarkdownService) {}
+
+      renderHTML(html: string) {
+        return this.markdownService.renderMarkdown(html);
+      }
+    }
     ```
 
   </Tab>

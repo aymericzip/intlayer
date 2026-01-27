@@ -23,9 +23,7 @@ history:
     changes: Khởi tạo lịch sử
 ---
 
-# Angular i18n - Dịch trang web Angular của bạn bằng Intlayer | Quốc tế hóa (i18n)
-
-> Gói này đang trong quá trình phát triển. Xem [vấn đề (issue)](https://github.com/aymericzip/intlayer/issues/116) để biết thêm thông tin. Hãy bày tỏ sự quan tâm của bạn đối với Intlayer cho Angular bằng cách thích (like) vấn đề đó.
+# Dịch trang web Angular của bạn bằng Intlayer | Quốc tế hóa (i18n)
 
 ## Mục lục
 

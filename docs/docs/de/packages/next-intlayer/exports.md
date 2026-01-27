@@ -71,11 +71,15 @@ oder
 import "next-intlayer/server";
 ```
 
-| Komponente               | Beschreibung                                                                                                             | Zugehöriges Doc |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------ | --------------- |
-| `IntlayerClientProvider` | Provider für clientseitige Komponenten im Next.js App Router. Kapselt `IntlayerProvider` von react-intlayer.             | -               |
-| `IntlayerServerProvider` | Provider für serverseitige Komponenten in Next.js (App Router). Stellt auf dem Server den Locale-Kontext bereit.         | -               |
-| `IntlayerServer`         | Serverseitiger Wrapper für Intlayer-Inhalte im App Router. Gewährleistet korrektes Locale-Handling in Server Components. | -               |
+| Komponente               | Beschreibung                                                                                                              | Zugehöriges Doc |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| `IntlayerClientProvider` | Provider für clientseitige Komponenten im Next.js App Router. Kapselt `IntlayerProvider` von react-intlayer.              | -               |
+| `IntlayerServerProvider` | Provider für serverseitige Komponenten in Next.js (App Router). Stellt auf dem Server den Locale-Kontext bereit.          | -               |
+| `IntlayerServer`         | Serverseitiger Wrapper für Intlayer-Inhalte im App Router. Gewährleistet korrektes Locale-Handling in Server Components.  | -               |
+| `HTMLProvider`           | Provider für HTML-bezogene Internationalisierungseinstellungen. Ermöglicht Komponentenüberschreibungen für HTML-Tags.     | -               |
+| `HTMLRenderer`           | Rendert HTML-Inhalte mit benutzerdefinierten Komponenten.                                                                 | -               |
+| `MarkdownProvider`       | Provider für Markdown-Rendering-Kontext. Ermöglicht benutzerdefinierte Komponentenüberschreibungen für Markdown-Elemente. | -               |
+| `MarkdownRenderer`       | Rendert Markdown-Inhalte mit benutzerdefinierten Komponenten.                                                             | -               |
 
 ### Hooks (Client-seitig)
 
@@ -99,6 +103,8 @@ Re-exportiert die meisten Hooks aus `react-intlayer`.
 | `useI18n`              | Hook, der eine Übersetzungsfunktion `t()` bereitstellt, um verschachtelte Inhalte per Schlüssel abzurufen. Orientiert sich am i18next/next-intl-Muster.                 | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/useI18n.md)             |
 | `useIntl`              | Hook, der ein an die Locale gebundenes `Intl`-Objekt bereitstellt. Injiziert automatisch die aktuelle Locale und verwendet optimiertes Caching.                         | -                                                                                                                       |
 | `useLoadDynamic`       | Hook zum Laden dynamischer Dictionaries mittels React Suspense. Nimmt einen `key` und ein `promise` entgegen und cached die Ergebnisse.                                 | -                                                                                                                       |
+| `useHTMLRenderer`      | Hook, um eine vorkonfigurierte HTML-Renderer-Funktion zu erhalten.                                                                                                      | -                                                                                                                       |
+| `useMarkdownRenderer`  | Hook, um eine vorkonfigurierte Markdown-Renderer-Funktion zu erhalten.                                                                                                  | -                                                                                                                       |
 
 ### Funktionen (Serverseitig)
 

@@ -1554,22 +1554,18 @@ const Link = ({ href, children, ...props }) => {
 
 ```bash packageManager="npm"
 npm install @intlayer/swc --save-dev
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add @intlayer/swc --save-dev
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add @intlayer/swc --save-dev
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add @intlayer/swc --dev
-bunx intlayer init
 ```
 
 > Примечание: Эта оптимизация доступна только для Next.js версии 13 и выше.

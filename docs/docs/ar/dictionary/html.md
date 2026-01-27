@@ -56,7 +56,7 @@ export default {
 export default {
   key: "app",
   content: {
-    text: "<p>Hello <strong>World</strong></p>",
+    text: "<p>مرحبًا <strong>بالعالم</strong></p>",
   },
 };
 ```
@@ -80,7 +80,7 @@ export default {
     const htmlDictionary = {
       key: "app",
       content: {
-        myHtmlContent: html("<p>Hello <strong>World</strong></p>"),
+        myHtmlContent: html("<p>مرحبًا <strong>بالعالم</strong></p>"),
       },
     } satisfies Dictionary;
 
@@ -95,7 +95,7 @@ export default {
     export default {
       key: "app",
       content: {
-        myHtmlContent: "<p>مرحبًا <strong>العالم</strong></p>",
+        myHtmlContent: "<p>مرحبًا <strong>بالعالم</strong></p>",
       },
     };
     ```
@@ -201,6 +201,45 @@ export default {
     ```
 
   </Tab>
+  <Tab label="Solid">
+    يدعم Solid عناصر HTML مباشرةً داخل JSX.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "solid-intlayer";
+
+    const AppContent = () => {
+      const { myHtmlContent } = useIntlayer("app");
+      return <div>{myHtmlContent}</div>;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    يستخدم Angular توجيه `[innerHTML]` لعرض محتوى HTML.
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { useIntlayer } from "angular-intlayer";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="content().myHtmlContent"></div>`,
+    })
+    export class AppComponent {
+      content = useIntlayer("app");
+    }
+    ```
+
+    استخدم الأسلوب `.use()` لتوفير مكونات مخصصة أو لتجاوز الوسوم:
+
+    ```typescript
+    content().myHtmlContent.use({
+      p: { class: "prose" },
+      CustomLink: { href: "/details" },
+    })
+    ```
+
+  </Tab>
 </Tabs>
 
 ## التكوين العام باستخدام `HTMLProvider`
@@ -282,6 +321,41 @@ export default {
     ```
 
   </Tab>
+  <Tab label="Solid">
+   
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "solid-intlayer";
+
+    export const AppProvider = (props) => (
+      <HTMLProvider
+        components={{
+          p: (props) => <p className="prose" {...props} />,
+        }}
+      >
+        {props.children}
+      </HTMLProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            p: { class: "prose" },
+            CustomLink: { href: "/details" },
+          },
+        }),
+      ],
+    };
+    ```
+
+  </Tab>
 </Tabs>
 
 ---
@@ -345,14 +419,35 @@ export default {
   </Tab>
   <Tab label="Svelte">
   
-    #### `<HTMLRenderer />` Component
+    #### المكوّن `<HTMLRenderer />`
    
     ```svelte
     <script lang="ts">
     import { HTMLRenderer } from "svelte-intlayer";
     </script>
 
-    <HTMLRenderer value="<p>Hello World</p>" />
+    <HTMLRenderer value="<p>مرحبًا بالعالم</p>" />
+    ```
+
+    #### Hook `useHTMLRenderer()`
+
+    ```svelte
+    <script lang="ts">
+    import { useHTMLRenderer } from "svelte-intlayer";
+    const render = useHTMLRenderer();
+    </script>
+
+    {@html render("<p>مرحبًا بالعالم</p>")}
+    ```
+
+    #### أداة `renderHTML()`
+
+    ```svelte
+    <script lang="ts">
+    import { renderHTML } from "svelte-intlayer";
+    </script>
+
+    {@html renderHTML("<p>مرحبًا بالعالم</p>")}
     ```
 
   </Tab>
@@ -364,8 +459,74 @@ export default {
     import { HTMLRenderer } from "preact-intlayer";
 
     <HTMLRenderer>
-      {"<p>Hello World</p>"}
+      {"<p>مرحبًا بالعالم</p>"}
     </HTMLRenderer>
+    ```
+
+    #### Hook `useHTMLRenderer()`
+
+    ```tsx
+    import { useHTMLRenderer } from "preact-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>مرحبًا بالعالم</p>")}</div>;
+    ```
+
+    #### أداة `renderHTML()`
+
+    ```tsx
+    import { renderHTML } from "preact-intlayer";
+
+    return <div>{renderHTML("<p>مرحبًا بالعالم</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Solid">
+   
+    #### مكوّن `<HTMLRenderer />`
+   
+    ```tsx
+    import { HTMLRenderer } from "solid-intlayer";
+
+    <HTMLRenderer>
+      {"<p>مرحبًا بالعالم</p>"}
+    </HTMLRenderer>
+    ```
+
+    #### Hook `useHTMLRenderer()`
+
+    ```tsx
+    import { useHTMLRenderer } from "solid-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>مرحبًا بالعالم</p>")}</div>;
+    ```
+
+    #### أداة `renderHTML()`
+
+    ```tsx
+    import { renderHTML } from "solid-intlayer";
+
+    return <div>{renderHTML("<p>مرحبًا بالعالم</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    #### خدمة `IntlayerMarkdownService`
+    عرض سلسلة HTML باستخدام الخدمة.
+
+    ```typescript
+    import { IntlayerMarkdownService } from "angular-intlayer";
+
+    export class MyComponent {
+      constructor(private markdownService: IntlayerMarkdownService) {}
+
+      renderHTML(html: string) {
+        return this.markdownService.renderMarkdown(html);
+      }
+    }
     ```
 
   </Tab>

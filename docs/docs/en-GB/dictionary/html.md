@@ -2,7 +2,7 @@
 createdAt: 2026-01-20
 updatedAt: 2026-01-22
 title: HTML Content
-description: Learn how to declare and use HTML content with custom components in Intlayer. Refer to this documentation to embed rich, HTML-like content with dynamic component replacement in your internationalised project.
+description: Learn how to declare and use HTML content with custom components in Intlayer. Follow this documentation to embed rich HTML-like content with dynamic component replacement in your internationalised project.
 keywords:
   - HTML
   - Custom Components
@@ -29,7 +29,7 @@ history:
 
 # HTML Content / HTML in Intlayer
 
-Intlayer supports HTML content, allowing you to embed rich, structured content within your dictionaries. This content can be rendered using standard HTML tags or replaced with custom components at runtime.
+Intlayer supports HTML content, allowing you to embed rich, structured content within your dictionaries. This content can be rendered with standard HTML tags or replaced with custom components at runtime.
 
 ## How HTML Works
 
@@ -66,12 +66,12 @@ export default {
 
 ---
 
-## Declaring HTML content
+## Declaring HTML Content
 
 You can declare HTML content using the `html` function or simply as a string.
 
 <Tabs>
-  <Tab label="Manual wrapping">
+  <Tab label="Manual Wrapping">
     Use the `html` function to explicitly declare HTML content. This ensures standard tags are mapped correctly even if automatic detection is disabled.
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -88,8 +88,8 @@ You can declare HTML content using the `html` function or simply as a string.
     ```
 
   </Tab>
-  <Tab label="Automatic detection">
-    If the string contains common HTML tags (e.g., `<p>`, `<div>`, `<strong>`, etc.), Intlayer will automatically convert it.
+  <Tab label="Automatic Detection">
+    If the string contains common HTML tags (e.g., `<p>`, `<div>`, `<strong>`, etc.), Intlayer will automatically transform it.
 
     ```typescript fileName="htmlDictionary.content.ts"
     export default {
@@ -102,7 +102,7 @@ You can declare HTML content using the `html` function or simply as a string.
 
   </Tab>
   <Tab label="External Files">
-    Import HTML content from files. Note that the `file()` function currently returns a string, which will be auto-detected as HTML if it contains tags.
+    Import HTML content from files. Note that currently `file()` function returns a string, which will be auto-detected as HTML if it contains tags.
 
     ```typescript fileName="htmlDictionary.content.ts"
     import { html, file, t } from "intlayer";
@@ -111,7 +111,7 @@ You can declare HTML content using the `html` function or simply as a string.
       key: "app",
       content: {
         content: t({
-          'en-GB': html(file("./content.en.html")),
+          'en-GB': html(file("./content.en-GB.html")),
           en: html(file("./content.en.html")),
           fr: html(file("./content.fr.html")),
         }),
@@ -156,7 +156,7 @@ When you access content via `useIntlayer`, HTML nodes are already prepared for r
 
   </Tab>
   <Tab label="Vue">
-    In Vue, HTML content can be rendered using the built-in `component`.
+    In Vue, HTML content can be rendered using the `component` built-in.
 
     ```vue fileName="App.vue"
     <script setup>
@@ -201,11 +201,50 @@ When you access content via `useIntlayer`, HTML nodes are already prepared for r
     ```
 
   </Tab>
+  <Tab label="Solid">
+    Solid supports HTML nodes directly in the JSX.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "solid-intlayer";
+
+    const AppContent = () => {
+      const { myHtmlContent } = useIntlayer("app");
+      return <div>{myHtmlContent}</div>;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    Angular uses the `[innerHTML]` directive to render HTML content.
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { useIntlayer } from "angular-intlayer";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="content().myHtmlContent"></div>`,
+    })
+    export class AppComponent {
+      content = useIntlayer("app");
+    }
+    ```
+
+    Use the `.use()` method to provide custom components or override tags:
+
+    ```typescript
+    content().myHtmlContent.use({
+      p: { class: "prose" },
+      CustomLink: { href: "/details" },
+    })
+    ```
+
+  </Tab>
 </Tabs>
 
-## Global configuration with `HTMLProvider`
+## Global Configuration with `HTMLProvider`
 
-You can configure HTML rendering globally for your whole application. This is ideal for defining custom components that should be available in all HTML content.
+You can configure HTML rendering globally for your entire application. This is ideal for defining custom components that should be available in all HTML content.
 
 <Tabs group="framework">
   <Tab label="React / Next.js">
@@ -282,13 +321,48 @@ You can configure HTML rendering globally for your whole application. This is id
     ```
 
   </Tab>
+  <Tab label="Solid">
+   
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "solid-intlayer";
+
+    export const AppProvider = (props) => (
+      <HTMLProvider
+        components={{
+          p: (props) => <p className="prose" {...props} />,
+        }}
+      >
+        {props.children}
+      </HTMLProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            p: { class: "prose" },
+            CustomLink: { href: "/details" },
+          },
+        }),
+      ],
+    };
+    ```
+
+  </Tab>
 </Tabs>
 
 ---
 
 ### Manual Rendering & Advanced Tools
 
-If you need to render raw HTML strings or require greater control over component mapping, use the following tools.
+If you need to render raw HTML strings or have more control over the component mapping, use the following tools.
 
 <Tabs group="framework">
   <Tab label="React / Next.js">
@@ -305,7 +379,7 @@ If you need to render raw HTML strings or require greater control over component
 
     #### `useHTMLRenderer()` Hook
 
-    Obtain a preconfigured renderer function.
+    Get a pre-configured renderer function.
 
     ```tsx
     import { useHTMLRenderer } from "react-intlayer";
@@ -319,7 +393,7 @@ If you need to render raw HTML strings or require greater control over component
 
     #### `renderHTML()` Utility
 
-    Standalone utility for rendering outside components.
+    Standalone utility for rendering outside of components.
 
     ```tsx
     import { renderHTML } from "react-intlayer";
@@ -355,6 +429,27 @@ If you need to render raw HTML strings or require greater control over component
     <HTMLRenderer value="<p>Hello World</p>" />
     ```
 
+    #### `useHTMLRenderer()` Hook
+
+    ```svelte
+    <script lang="ts">
+    import { useHTMLRenderer } from "svelte-intlayer";
+    const render = useHTMLRenderer();
+    </script>
+
+    {@html render("<p>Hello World</p>")}
+    ```
+
+    #### `renderHTML()` Utility
+
+    ```svelte
+    <script lang="ts">
+    import { renderHTML } from "svelte-intlayer";
+    </script>
+
+    {@html renderHTML("<p>Hello World</p>")}
+    ```
+
   </Tab>
   <Tab label="Preact">
    
@@ -368,6 +463,72 @@ If you need to render raw HTML strings or require greater control over component
     </HTMLRenderer>
     ```
 
+    #### `useHTMLRenderer()` Hook
+
+    ```tsx
+    import { useHTMLRenderer } from "preact-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Hello World</p>")}</div>;
+    ```
+
+    #### `renderHTML()` Utility
+
+    ```tsx
+    import { renderHTML } from "preact-intlayer";
+
+    return <div>{renderHTML("<p>Hello World</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Solid">
+   
+    #### `<HTMLRenderer />` Component
+   
+    ```tsx
+    import { HTMLRenderer } from "solid-intlayer";
+
+    <HTMLRenderer>
+      {"<p>Hello World</p>"}
+    </HTMLRenderer>
+    ```
+
+    #### `useHTMLRenderer()` Hook
+
+    ```tsx
+    import { useHTMLRenderer } from "solid-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Hello World</p>")}</div>;
+    ```
+
+    #### `renderHTML()` Utility
+
+    ```tsx
+    import { renderHTML } from "solid-intlayer";
+
+    return <div>{renderHTML("<p>Hello World</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    #### `IntlayerMarkdownService` Service
+    Render an HTML string using the service.
+
+    ```typescript
+    import { IntlayerMarkdownService } from "angular-intlayer";
+
+    export class MyComponent {
+      constructor(private markdownService: IntlayerMarkdownService) {}
+
+      renderHTML(html: string) {
+        return this.markdownService.renderMarkdown(html);
+      }
+    }
+    ```
+
   </Tab>
 </Tabs>
 
@@ -375,11 +536,11 @@ If you need to render raw HTML strings or require greater control over component
 
 ## Options Reference
 
-These options can be passed to `HTMLProvider`, `HTMLRenderer`, `useHTMLRenderer` and `renderHTML`.
+These options can be passed to `HTMLProvider`, `HTMLRenderer`, `useHTMLRenderer`, and `renderHTML`.
 
-| Option       | Type                  | Default | Description                                                                                                  |
-| :----------- | :-------------------- | :------ | :----------------------------------------------------------------------------------------------------------- |
-| `components` | `Record<string, any>` | `{}`    | A mapping of HTML tags or custom component names to components.                                              |
-| `renderHTML` | `Function`            | `null`  | A custom rendering function to entirely replace the default HTML parser (only for Vue and Svelte providers). |
+| Option       | Type                  | Default | Description                                                                                                |
+| :----------- | :-------------------- | :------ | :--------------------------------------------------------------------------------------------------------- |
+| `components` | `Record<string, any>` | `{}`    | A map of HTML tags or custom component names to components.                                                |
+| `renderHTML` | `Function`            | `null`  | A custom rendering function to completely replace the default HTML parser (Only for Vue/Svelte providers). |
 
-> Note: For React and Preact, standard HTML tags are provided automatically. You only need to pass the `components` prop if you want to override them or add custom components.
+> Note: For React and Preact, standard HTML tags are automatically provided. You only need to pass the `components` prop if you want to override them or add custom components.

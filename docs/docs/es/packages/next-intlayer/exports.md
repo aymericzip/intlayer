@@ -76,6 +76,10 @@ import "next-intlayer/server";
 | `IntlayerClientProvider` | Proveedor para componentes del lado del cliente en el App Router de Next.js. Envuelve a `IntlayerProvider` de react-intlayer.                | -               |
 | `IntlayerServerProvider` | Proveedor para componentes del lado del servidor en Next.js (App Router). Proporciona el contexto de locale en el servidor.                  | -               |
 | `IntlayerServer`         | Envoltorio del lado del servidor para contenido de Intlayer en el App Router. Asegura el manejo adecuado de locale en los Server Components. | -               |
+| `HTMLProvider`           | Proveedor para configuraciones de internacionalización relacionadas con HTML. Permite sobrescribir componentes para etiquetas HTML.          | -               |
+| `HTMLRenderer`           | Renderiza contenido HTML con componentes personalizados.                                                                                     | -               |
+| `MarkdownProvider`       | Proveedor para el contexto de renderizado de Markdown. Permite sobrescribir componentes personalizados para elementos Markdown.              | -               |
+| `MarkdownRenderer`       | Renderiza contenido Markdown con componentes personalizados.                                                                                 | -               |
 
 ### Hooks (lado del cliente)
 
@@ -99,6 +103,8 @@ Reexporta la mayoría de los hooks desde `react-intlayer`.
 | `useI18n`              | Hook que proporciona una función de traducción `t()` para acceder a contenido anidado por clave. Emula el patrón de i18next/next-intl.                    | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useI18n.md)             |
 | `useIntl`              | Hook que proporciona un objeto `Intl` vinculado a la locale. Inyecta automáticamente la locale actual y utiliza un caché optimizado.                      | -                                                                                                                       |
 | `useLoadDynamic`       | Hook para cargar diccionarios dinámicos usando React Suspense. Acepta una key y una promise, y almacena en caché los resultados.                          | -                                                                                                                       |
+| `useHTMLRenderer`      | Hook para obtener una función de renderizado de HTML preconfigurada.                                                                                      | -                                                                                                                       |
+| `useMarkdownRenderer`  | Hook para obtener una función de renderizado de Markdown preconfigurada.                                                                                  | -                                                                                                                       |
 
 ### Funciones (lado del servidor)
 

@@ -76,6 +76,10 @@ import "next-intlayer/server";
 | `IntlayerClientProvider` | Next.js App Router 中用于客户端组件的 Provider。封装了来自 `react-intlayer` 的 `IntlayerProvider`。 | -        |
 | `IntlayerServerProvider` | Next.js（App Router）中用于服务端组件的 Provider。在服务器上提供 locale 上下文。                    | -        |
 | `IntlayerServer`         | App Router 中 Intlayer 内容的服务端包装器。确保 Server Components 中正确的 locale 处理。            | -        |
+| `HTMLProvider`           | 用于 HTML 相关国际化设置的 Provider。允许为 HTML 标签覆盖组件。                                     | -        |
+| `HTMLRenderer`           | 使用自定义组件渲染 HTML 内容。                                                                      | -        |
+| `MarkdownProvider`       | 用于 Markdown 渲染上下文的 Provider。允许为 Markdown 元素覆盖自定义组件。                           | -        |
+| `MarkdownRenderer`       | 使用自定义组件渲染 Markdown 内容。                                                                  | -        |
 
 ### 钩子（客户端）
 
@@ -99,6 +103,8 @@ import "next-intlayer";
 | `useI18n`              | 提供翻译函数 `t()` 的 hook，用于通过键访问嵌套内容。模仿 i18next/next-intl 的模式。                          | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useI18n.md)             |
 | `useIntl`              | 提供与 locale 绑定的 `Intl` 对象的 Hook。自动注入当前的 locale 并使用优化的缓存机制。                        | -                                                                                                                       |
 | `useLoadDynamic`       | 使用 React Suspense 加载动态字典的 Hook。接受一个 key 和 promise，并缓存结果。                               | -                                                                                                                       |
+| `useHTMLRenderer`      | 用于获取预配置的 HTML 渲染器函数的 Hook。                                                                    | -                                                                                                                       |
+| `useMarkdownRenderer`  | 用于获取预配置的 Markdown 渲染器函数的 Hook。                                                                | -                                                                                                                       |
 
 ### 函数（服务端）
 

@@ -76,6 +76,10 @@ import "next-intlayer/server";
 | `IntlayerClientProvider` | مزود للمكونات على جهة العميل في App Router الخاص بـ Next.js. يغلّف `IntlayerProvider` من `react-intlayer`. | -                 |
 | `IntlayerServerProvider` | مزود للمكونات على جهة الخادم في Next.js (App Router). يوفر سياق اللغة (locale) على الخادم.                 | -                 |
 | `IntlayerServer`         | غلاف على جهة الخادم لمحتوى Intlayer في App Router. يضمن التعامل الصحيح مع الـ locale في مكونات الخادم.     | -                 |
+| `HTMLProvider`           | مزود لإعدادات التدويل المتعلقة بـ HTML. يسمح بتجاوز المكونات لعلامات HTML.                                 | -                 |
+| `HTMLRenderer`           | يعرض محتوى HTML مع مكونات مخصصة.                                                                           | -                 |
+| `MarkdownProvider`       | مزود لسياق عرض Markdown. يسمح بتجاوز المكونات المخصصة لعناصر Markdown.                                     | -                 |
+| `MarkdownRenderer`       | يعرض محتوى Markdown مع مكونات مخصصة.                                                                       | -                 |
 
 ### Hooks (جهة العميل)
 
@@ -99,6 +103,8 @@ import "next-intlayer";
 | `useI18n`              | Hook يوفّر دالة ترجمة `t()` للوصول إلى محتوى متداخل بواسطة مفتاح. يُحاكي نمط i18next/next-intl.                                  | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useI18n.md)             |
 | `useIntl`              | هوك يوفر كائن `Intl` مرتبطًا بالـ locale. يقوم بحقن الـ locale الحالية تلقائيًا ويستخدم تخزينًا مؤقتًا محسنًا.                   | -                                                                                                                       |
 | `useLoadDynamic`       | هوك لتحميل قواميس ديناميكية باستخدام React Suspense. يقبل مفتاحًا ووعدًا (promise)، ويخزن النتائج في ذاكرة مؤقتة.                | -                                                                                                                       |
+| `useHTMLRenderer`      | هوك للحصول على دالة عرض HTML مُكوّنة مسبقًا.                                                                                     | -                                                                                                                       |
+| `useMarkdownRenderer`  | هوك للحصول على دالة عرض Markdown مُكوّنة مسبقًا.                                                                                 | -                                                                                                                       |
 
 ### الدوال (على الخادم)
 

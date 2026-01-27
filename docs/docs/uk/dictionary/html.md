@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: Додано HTMLRenderer, useHTMLRenderer та утиліту renderHTML
+    changes: Додано HTMLRenderer / useHTMLRenderer / утиліту renderHTML
   - version: 8.0.0
     date: 2026-01-20
     changes: Додано підтримку парсингу HTML
@@ -29,11 +29,11 @@ history:
 
 # Вміст HTML / HTML в Intlayer
 
-Intlayer підтримує HTML-контент, що дозволяє вбудовувати в словники насичений, структурований вміст. Цей вміст може відображатися за допомогою стандартних HTML-тегів або замінюватися на користувацькі компоненти під час виконання.
+Intlayer підтримує HTML-контент, що дозволяє вбудовувати насичений, структурований вміст у ваші словники. Цей вміст може відображатися за допомогою стандартних HTML-тегів або замінюватися на користувацькі компоненти під час виконання.
 
 ## Як працює HTML
 
-Intlayer v8 автоматично виявляє HTML-теги в рядках вмісту. Якщо рядок ідентифіковано як HTML (містить теги), він автоматично перетворюється на HTML-вузол.
+Intlayer v8 інтелектуально виявляє HTML-теги у ваших рядках вмісту. Якщо рядок ідентифіковано як HTML (містить теги), він автоматично перетворюється на HTML-вузол.
 
 <Columns>
 <Column title="Поведінка v7 (ручне обгортання)">
@@ -56,7 +56,7 @@ export default {
 export default {
   key: "app",
   content: {
-    text: "<p>Привіт <strong>Світ</strong></p>",
+    text: "<p>Hello <strong>World</strong></p>",
   },
 };
 ```
@@ -68,11 +68,11 @@ export default {
 
 ## Оголошення HTML-контенту
 
-Ви можете оголосити HTML-контент, використовуючи функцію `html` або просто як рядок.
+Ви можете оголосити HTML-контент за допомогою функції `html` або просто як рядок.
 
 <Tabs>
   <Tab label="Ручне обгортання">
-    Використовуйте функцію `html` для явного оголошення HTML-контенту. Це гарантує правильне відображення стандартних тегів навіть якщо автоматичне виявлення вимкнене.
+    Використовуйте функцію `html` для явного оголошення HTML-контенту. Це гарантує правильне відображення стандартних тегів, навіть якщо автоматичне виявлення вимкнено.
 
     ```typescript fileName="htmlDictionary.content.ts"
     import { html, type Dictionary } from "intlayer";
@@ -89,7 +89,7 @@ export default {
 
   </Tab>
   <Tab label="Автоматичне виявлення">
-    Якщо рядок містить звичайні HTML-теги (наприклад, `<p>`, `<div>`, `<strong>` тощо), Intlayer автоматично перетворює його.
+    Якщо рядок містить звичайні HTML-теги (наприклад, `<p>`, `<div>`, `<strong>` тощо), Intlayer автоматично перетворить його.
 
     ```typescript fileName="htmlDictionary.content.ts"
     export default {
@@ -126,15 +126,15 @@ export default {
 
 ## Відтворення HTML
 
-Відтворення може виконуватися автоматично за допомогою системи контенту Intlayer або вручну за допомогою спеціалізованих інструментів.
+Відтворення може виконуватися автоматично системою контенту Intlayer або вручну за допомогою спеціалізованих інструментів.
 
 ### Автоматичне відтворення (за допомогою `useIntlayer`)
 
-Коли ви отримуєте контент через `useIntlayer`, HTML-вузли вже підготовлені до відображення.
+Коли ви отримуєте доступ до контенту через `useIntlayer`, HTML-вузли вже підготовлені до відтворення.
 
 <Tabs group="framework">
   <Tab label="React / Next.js">
-    HTML-вузли можна відображати безпосередньо як JSX. Стандартні теги працюють автоматично.
+    HTML-вузли можна відтворювати безпосередньо як JSX. Стандартні теги працюють автоматично.
 
     ```tsx fileName="App.tsx"
     import { useIntlayer } from "react-intlayer";
@@ -145,7 +145,7 @@ export default {
     };
     ```
 
-    Використовуйте метод `.use()` щоб передати власні компоненти або перевизначити теги:
+    Використовуйте метод `.use()` щоб надати користувацькі компоненти або перевизначити теги:
 
     ```tsx
     {myHtmlContent.use({
@@ -156,7 +156,7 @@ export default {
 
   </Tab>
   <Tab label="Vue">
-    У Vue HTML-контент можна відобразити за допомогою вбудованого компонента `component`.
+    У Vue HTML-контент можна відтворити за допомогою вбудованого компонента `component`.
 
     ```vue fileName="App.vue"
     <script setup>
@@ -176,7 +176,7 @@ export default {
 
   </Tab>
   <Tab label="Svelte">
-    Svelte відображає HTML-вузли як рядки. Використайте `{@html}` для їхнього відображення.
+    Svelte відтворює HTML-вузли як рядки. Використовуйте `{@html}` для їх відображення.
 
     ```svelte
     <script lang="ts">
@@ -201,11 +201,50 @@ export default {
     ```
 
   </Tab>
+  <Tab label="Solid">
+    Solid підтримує HTML-вузли безпосередньо в JSX.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "solid-intlayer";
+
+    const AppContent = () => {
+      const { myHtmlContent } = useIntlayer("app");
+      return <div>{myHtmlContent}</div>;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    Angular використовує директиву `[innerHTML]` для відтворення HTML-контенту.
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { useIntlayer } from "angular-intlayer";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="content().myHtmlContent"></div>`,
+    })
+    export class AppComponent {
+      content = useIntlayer("app");
+    }
+    ```
+
+    Використовуйте метод `.use()` щоб надати користувацькі компоненти або перевизначити теги:
+
+    ```typescript
+    content().myHtmlContent.use({
+      p: { class: "prose" },
+      CustomLink: { href: "/details" },
+    })
+    ```
+
+  </Tab>
 </Tabs>
 
 ## Глобальна конфігурація за допомогою `HTMLProvider`
 
-Ви можете налаштувати рендеринг HTML глобально для всього застосунку. Це ідеально підходить для визначення кастомних компонентів, які мають бути доступні в усьому HTML-контенті.
+Ви можете налаштувати відтворення HTML глобально для всього застосунку. Це ідеально підходить для визначення користувацьких компонентів, які мають бути доступні в усьому HTML-контенті.
 
 <Tabs group="framework">
   <Tab label="React / Next.js">
@@ -282,18 +321,53 @@ export default {
     ```
 
   </Tab>
+  <Tab label="Solid">
+   
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "solid-intlayer";
+
+    export const AppProvider = (props) => (
+      <HTMLProvider
+        components={{
+          p: (props) => <p className="prose" {...props} />,
+        }}
+      >
+        {props.children}
+      </HTMLProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            p: { class: "prose" },
+            CustomLink: { href: "/details" },
+          },
+        }),
+      ],
+    };
+    ```
+
+  </Tab>
 </Tabs>
 
 ---
 
-### Ручний рендеринг і розширені інструменти
+### Ручне відтворення та розширені інструменти
 
-Якщо потрібно рендерити сирі HTML-рядки або мати більший контроль над мапуванням компонентів, використовуйте такі інструменти.
+Якщо вам потрібно відтворити сирі HTML-рядки або ви хочете більше контролю над мапуванням компонентів, використовуйте наступні інструменти.
 
 <Tabs group="framework">
   <Tab label="React / Next.js">
     #### Компонент `<HTMLRenderer />`
-    Відрендеруйте HTML-рядок із конкретними компонентами.
+    Відтворіть HTML-рядок із конкретними компонентами.
 
     ```tsx
     import { HTMLRenderer } from "react-intlayer";
@@ -319,7 +393,7 @@ export default {
 
     #### Утиліта `renderHTML()`
 
-    Самостійна утиліта для рендерингу поза межами компонентів.
+    Автономна утиліта для відтворення поза компонентами.
 
     ```tsx
     import { renderHTML } from "react-intlayer";
@@ -355,10 +429,31 @@ export default {
     <HTMLRenderer value="<p>Hello World</p>" />
     ```
 
+    #### Хук `useHTMLRenderer()`
+
+    ```svelte
+    <script lang="ts">
+    import { useHTMLRenderer } from "svelte-intlayer";
+    const render = useHTMLRenderer();
+    </script>
+
+    {@html render("<p>Hello World</p>")}
+    ```
+
+    #### Утиліта `renderHTML()`
+
+    ```svelte
+    <script lang="ts">
+    import { renderHTML } from "svelte-intlayer";
+    </script>
+
+    {@html renderHTML("<p>Hello World</p>")}
+    ```
+
   </Tab>
   <Tab label="Preact">
    
-    #### `<HTMLRenderer />` Компонент
+    #### Компонент `<HTMLRenderer />`
    
     ```tsx
     import { HTMLRenderer } from "preact-intlayer";
@@ -368,6 +463,72 @@ export default {
     </HTMLRenderer>
     ```
 
+    #### Хук `useHTMLRenderer()`
+
+    ```tsx
+    import { useHTMLRenderer } from "preact-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Hello World</p>")}</div>;
+    ```
+
+    #### Утиліта `renderHTML()`
+
+    ```tsx
+    import { renderHTML } from "preact-intlayer";
+
+    return <div>{renderHTML("<p>Hello World</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Solid">
+   
+    #### Компонент `<HTMLRenderer />`
+   
+    ```tsx
+    import { HTMLRenderer } from "solid-intlayer";
+
+    <HTMLRenderer>
+      {"<p>Hello World</p>"}
+    </HTMLRenderer>
+    ```
+
+    #### Хук `useHTMLRenderer()`
+
+    ```tsx
+    import { useHTMLRenderer } from "solid-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Hello World</p>")}</div>;
+    ```
+
+    #### Утиліта `renderHTML()`
+
+    ```tsx
+    import { renderHTML } from "solid-intlayer";
+
+    return <div>{renderHTML("<p>Hello World</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    #### Сервіс `IntlayerMarkdownService`
+    Відтворіть HTML-рядок за допомогою сервісу.
+
+    ```typescript
+    import { IntlayerMarkdownService } from "angular-intlayer";
+
+    export class MyComponent {
+      constructor(private markdownService: IntlayerMarkdownService) {}
+
+      renderHTML(html: string) {
+        return this.markdownService.renderMarkdown(html);
+      }
+    }
+    ```
+
   </Tab>
 </Tabs>
 
@@ -375,11 +536,11 @@ export default {
 
 ## Довідник опцій
 
-Ці параметри можна передавати в `HTMLProvider`, `HTMLRenderer`, `useHTMLRenderer` та `renderHTML`.
+Ці опції можна передавати в `HTMLProvider`, `HTMLRenderer`, `useHTMLRenderer` та `renderHTML`.
 
-| Опція        | Тип                   | Значення за замовчуванням | Опис                                                                                                              |
-| :----------- | :-------------------- | :------------------------ | :---------------------------------------------------------------------------------------------------------------- |
-| `components` | `Record<string, any>` | `{}`                      | Мапа HTML-тегів або імен користувацьких компонентів у відповідні компоненти.                                      |
-| `renderHTML` | `Function`            | `null`                    | Користувацька функція рендерингу для повної заміни стандартного HTML-парсера (тільки для провайдерів Vue/Svelte). |
+| Опція        | Тип                   | Типово | Опис                                                                                                               |
+| :----------- | :-------------------- | :----- | :----------------------------------------------------------------------------------------------------------------- |
+| `components` | `Record<string, any>` | `{}`   | Мапа HTML-тегів або назв користувацьких компонентів до компонентів.                                                |
+| `renderHTML` | `Function`            | `null` | Користувацька функція відтворення для повної заміни стандартного HTML-парсера (Тільки для провайдерів Vue/Svelte). |
 
-> Примітка: Для React та Preact стандартні HTML-теги додаються автоматично. Вам потрібно передавати проп `components` лише якщо ви хочете перевизначити їх або додати користувацькі компоненти.
+> Примітка: Для React та Preact стандартні HTML-теги надаються автоматично. Вам потрібно передавати проп `components`, лише якщо ви хочете перевизначити їх або додати власні компоненти.

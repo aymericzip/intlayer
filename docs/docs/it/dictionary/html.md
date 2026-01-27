@@ -13,6 +13,8 @@ keywords:
   - React
   - Vue
   - Svelte
+  - Solid
+  - Angular
 slugs:
   - doc
   - concept
@@ -111,9 +113,9 @@ Puoi dichiarare contenuti HTML usando la funzione `html` o semplicemente come st
       key: "app",
       content: {
         content: t({
-          it: html(file("./content.it.html")),
           en: html(file("./content.en.html")),
           fr: html(file("./content.fr.html")),
+          it: html(file("./content.it.html")),
         }),
       },
     };
@@ -181,7 +183,6 @@ Quando accedi al contenuto tramite `useIntlayer`, i nodi HTML sono già pronti p
     ```svelte
     <script lang="ts">
     import { useIntlayer } from "svelte-intlayer";
-
     const content = useIntlayer("app");
     </script>
 
@@ -190,7 +191,7 @@ Quando accedi al contenuto tramite `useIntlayer`, i nodi HTML sono già pronti p
 
   </Tab>
   <Tab label="Preact">
-    Preact supporta nodi HTML direttamente nel JSX.
+    Preact supporta i nodi HTML direttamente nel JSX.
 
     ```tsx fileName="App.tsx"
     import { useIntlayer } from "preact-intlayer";
@@ -199,6 +200,45 @@ Quando accedi al contenuto tramite `useIntlayer`, i nodi HTML sono già pronti p
       const { myHtmlContent } = useIntlayer("app");
       return <div>{myHtmlContent}</div>;
     };
+    ```
+
+  </Tab>
+  <Tab label="Solid">
+    Solid supporta i nodi HTML direttamente nel JSX.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "solid-intlayer";
+
+    const AppContent = () => {
+      const { myHtmlContent } = useIntlayer("app");
+      return <div>{myHtmlContent}</div>;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    Angular utilizza la direttiva `[innerHTML]` per renderizzare contenuti HTML.
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { useIntlayer } from "angular-intlayer";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="content().myHtmlContent"></div>`,
+    })
+    export class AppComponent {
+      content = useIntlayer("app");
+    }
+    ```
+
+    Usa il metodo `.use()` per fornire componenti personalizzati o sovrascrivere i tag:
+
+    ```typescript
+    content().myHtmlContent.use({
+      p: { class: "prose" },
+      CustomLink: { href: "/details" },
+    })
     ```
 
   </Tab>
@@ -283,6 +323,41 @@ Puoi configurare il rendering HTML a livello globale per l'intera applicazione. 
     ```
 
   </Tab>
+  <Tab label="Solid">
+   
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "solid-intlayer";
+
+    export const AppProvider = (props) => (
+      <HTMLProvider
+        components={{
+          p: (props) => <p className="prose" {...props} />,
+        }}
+      >
+        {props.children}
+      </HTMLProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            p: { class: "prose" },
+            CustomLink: { href: "/details" },
+          },
+        }),
+      ],
+    };
+    ```
+
+  </Tab>
 </Tabs>
 
 ---
@@ -356,10 +431,31 @@ Se hai bisogno di renderizzare stringhe HTML grezze o di avere un controllo magg
     <HTMLRenderer value="<p>Hello World</p>" />
     ```
 
+    #### Hook `useHTMLRenderer()`
+
+    ```svelte
+    <script lang="ts">
+    import { useHTMLRenderer } from "svelte-intlayer";
+    const render = useHTMLRenderer();
+    </script>
+
+    {@html render("<p>Hello World</p>")}
+    ```
+
+    #### Utility `renderHTML()`
+
+    ```svelte
+    <script lang="ts">
+    import { renderHTML } from "svelte-intlayer";
+    </script>
+
+    {@html renderHTML("<p>Hello World</p>")}
+    ```
+
   </Tab>
   <Tab label="Preact">
    
-    #### `<HTMLRenderer />` Componente
+    #### Componente `<HTMLRenderer />`
    
     ```tsx
     import { HTMLRenderer } from "preact-intlayer";
@@ -367,6 +463,72 @@ Se hai bisogno di renderizzare stringhe HTML grezze o di avere un controllo magg
     <HTMLRenderer>
       {"<p>Hello World</p>"}
     </HTMLRenderer>
+    ```
+
+    #### Hook `useHTMLRenderer()`
+
+    ```tsx
+    import { useHTMLRenderer } from "preact-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Hello World</p>")}</div>;
+    ```
+
+    #### Utility `renderHTML()`
+
+    ```tsx
+    import { renderHTML } from "preact-intlayer";
+
+    return <div>{renderHTML("<p>Hello World</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Solid">
+   
+    #### Componente `<HTMLRenderer />`
+   
+    ```tsx
+    import { HTMLRenderer } from "solid-intlayer";
+
+    <HTMLRenderer>
+      {"<p>Hello World</p>"}
+    </HTMLRenderer>
+    ```
+
+    #### Hook `useHTMLRenderer()`
+
+    ```tsx
+    import { useHTMLRenderer } from "solid-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Hello World</p>")}</div>;
+    ```
+
+    #### Utility `renderHTML()`
+
+    ```tsx
+    import { renderHTML } from "solid-intlayer";
+
+    return <div>{renderHTML("<p>Hello World</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    #### Servizio `IntlayerMarkdownService`
+    Renderizza una stringa HTML utilizzando il servizio.
+
+    ```typescript
+    import { IntlayerMarkdownService } from "angular-intlayer";
+
+    export class MyComponent {
+      constructor(private markdownService: IntlayerMarkdownService) {}
+
+      renderHTML(html: string) {
+        return this.markdownService.renderMarkdown(html);
+      }
+    }
     ```
 
   </Tab>

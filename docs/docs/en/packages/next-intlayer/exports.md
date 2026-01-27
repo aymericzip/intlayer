@@ -76,6 +76,10 @@ import "next-intlayer/server";
 | `IntlayerClientProvider` | Provider for client-side components in Next.js App Router. Wraps `IntlayerProvider` from react-intlayer.     | -           |
 | `IntlayerServerProvider` | Provider for server-side components in Next.js (App Router). Provides locale context on the server.          | -           |
 | `IntlayerServer`         | Server-side wrapper for Intlayer content in App Router. Ensures proper locale handling in Server Components. | -           |
+| `HTMLProvider`           | Provider for HTML-related internationalization settings. Allows component overrides for HTML tags.           | -           |
+| `HTMLRenderer`           | Renders HTML content with custom components.                                                                 | -           |
+| `MarkdownProvider`       | Provider for markdown rendering context. Allows custom component overrides for markdown elements.            | -           |
+| `MarkdownRenderer`       | Renders markdown content with custom components.                                                             | -           |
 
 ### Hooks (Client-side)
 
@@ -99,6 +103,8 @@ Re-exports most hooks from `react-intlayer`.
 | `useI18n`              | Hook that provides a translation function `t()` for accessing nested content by key. Mimics i18next/next-intl pattern.                    | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useI18n.md)             |
 | `useIntl`              | Hook that provides a locale-bound `Intl` object. Automatically injects the current locale and uses optimized caching.                     | -                                                                                                                       |
 | `useLoadDynamic`       | Hook to load dynamic dictionaries using React Suspense. Accepts a key and promise, caches results.                                        | -                                                                                                                       |
+| `useHTMLRenderer`      | Hook to get a pre-configured HTML renderer function.                                                                                      | -                                                                                                                       |
+| `useMarkdownRenderer`  | Hook to get a pre-configured Markdown renderer function.                                                                                  | -                                                                                                                       |
 
 ### Functions (Server-side)
 

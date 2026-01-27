@@ -1,20 +1,42 @@
 import { getContentNodeByKeyPath, getMarkdownMetadata } from '@intlayer/core';
 import type { ContentNode, KeyPath, LocalesValues } from '@intlayer/types';
-import { type Component, createMemo, type JSX } from 'solid-js';
+import { type Component, createMemo, type JSX, useContext } from 'solid-js';
 import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';
 import type { HTMLComponents } from '../html/types';
-import { useMarkdown } from './MarkdownProvider';
+import { compileMarkdown } from './compiler';
+import { MarkdownContext, useMarkdown } from './MarkdownProvider';
 
-type MarkdownRendererProps = {
-  dictionaryKey: string;
-  keyPath: KeyPath[];
-  locale?: LocalesValues;
-  children: string;
+type RenderMarkdownOptions = {
   components?: HTMLComponents<'permissive', {}>;
   wrapper?: any;
   forceBlock?: boolean;
   preserveFrontmatter?: boolean;
   tagfilter?: boolean;
+};
+
+export const renderMarkdown = (
+  content: string,
+  options: RenderMarkdownOptions = {}
+): JSX.Element => {
+  return compileMarkdown(content, options);
+};
+
+export const useMarkdownRenderer = (options: RenderMarkdownOptions = {}) => {
+  const context = useContext(MarkdownContext);
+
+  return (content: string) => {
+    if (context) {
+      return context.renderMarkdown(content, options);
+    }
+    return renderMarkdown(content, options);
+  };
+};
+
+type MarkdownRendererProps = RenderMarkdownOptions & {
+  dictionaryKey: string;
+  keyPath: KeyPath[];
+  locale?: LocalesValues;
+  children: string;
   [key: string]: any;
 };
 

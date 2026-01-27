@@ -56,7 +56,7 @@ export default {
 export default {
   key: "app",
   content: {
-    text: "<p>こんにちは <strong>世界</strong></p>",
+    text: "<p>Hello <strong>World</strong></p>",
   },
 };
 ```
@@ -80,7 +80,7 @@ HTML コンテンツは `html` 関数を使って宣言するか、単に文字�
     const htmlDictionary = {
       key: "app",
       content: {
-        myHtmlContent: html("<p>こんにちは <strong>世界</strong></p>"),
+        myHtmlContent: html("<p>Hello <strong>World</strong></p>"),
       },
     } satisfies Dictionary;
 
@@ -95,13 +95,13 @@ HTML コンテンツは `html` 関数を使って宣言するか、単に文字�
     export default {
       key: "app",
       content: {
-        myHtmlContent: "<p>こんにちは <strong>世界</strong></p>",
+        myHtmlContent: "<p>Hello <strong>World</strong></p>",
       },
     };
     ```
 
   </Tab>
-  <Tab label="External Files">
+  <Tab label="外部ファイル">
     ファイルからHTMLコンテンツをインポートします。現在、`file()`関数は文字列を返し、タグが含まれている場合はHTMLとして自動検出される点に注意してください。
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -111,7 +111,6 @@ HTML コンテンツは `html` 関数を使って宣言するか、単に文字�
       key: "app",
       content: {
         content: t({
-          ja: html(file("./content.ja.html")),
           en: html(file("./content.en.html")),
           fr: html(file("./content.fr.html")),
         }),
@@ -201,6 +200,45 @@ HTML コンテンツは `html` 関数を使って宣言するか、単に文字�
     ```
 
   </Tab>
+  <Tab label="Solid">
+    SolidはJSXでHTMLノードを直接サポートします。
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "solid-intlayer";
+
+    const AppContent = () => {
+      const { myHtmlContent } = useIntlayer("app");
+      return <div>{myHtmlContent}</div>;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    Angularは `[innerHTML]` ディレクティブを使用してHTMLコンテンツをレンダリングします。
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { useIntlayer } from "angular-intlayer";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="content().myHtmlContent"></div>`,
+    })
+    export class AppComponent {
+      content = useIntlayer("app");
+    }
+    ```
+
+    カスタムコンポーネントを提供したりタグを上書きしたりするには `.use()` メソッドを使用します:
+
+    ```typescript
+    content().myHtmlContent.use({
+      p: { class: "prose" },
+      CustomLink: { href: "/details" },
+    })
+    ```
+
+  </Tab>
 </Tabs>
 
 ## `HTMLProvider`によるグローバル設定
@@ -282,6 +320,41 @@ HTML コンテンツは `html` 関数を使って宣言するか、単に文字�
     ```
 
   </Tab>
+  <Tab label="Solid">
+   
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "solid-intlayer";
+
+    export const AppProvider = (props) => (
+      <HTMLProvider
+        components={{
+          p: (props) => <p className="prose" {...props} />,
+        }}
+      >
+        {props.children}
+      </HTMLProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            p: { class: "prose" },
+            CustomLink: { href: "/details" },
+          },
+        }),
+      ],
+    };
+    ```
+
+  </Tab>
 </Tabs>
 
 ---
@@ -355,10 +428,31 @@ HTML コンテンツは `html` 関数を使って宣言するか、単に文字�
     <HTMLRenderer value="<p>Hello World</p>" />
     ```
 
+    #### `useHTMLRenderer()` フック
+
+    ```svelte
+    <script lang="ts">
+    import { useHTMLRenderer } from "svelte-intlayer";
+    const render = useHTMLRenderer();
+    </script>
+
+    {@html render("<p>Hello World</p>")}
+    ```
+
+    #### `renderHTML()` ユーティリティ
+
+    ```svelte
+    <script lang="ts">
+    import { renderHTML } from "svelte-intlayer";
+    </script>
+
+    {@html renderHTML("<p>Hello World</p>")}
+    ```
+
   </Tab>
   <Tab label="Preact">
    
-    #### `<HTMLRenderer />` Component
+    #### `<HTMLRenderer />` コンポーネント
    
     ```tsx
     import { HTMLRenderer } from "preact-intlayer";
@@ -366,6 +460,72 @@ HTML コンテンツは `html` 関数を使って宣言するか、単に文字�
     <HTMLRenderer>
       {"<p>Hello World</p>"}
     </HTMLRenderer>
+    ```
+
+    #### `useHTMLRenderer()` フック
+
+    ```tsx
+    import { useHTMLRenderer } from "preact-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Hello World</p>")}</div>;
+    ```
+
+    #### `renderHTML()` ユーティリティ
+
+    ```tsx
+    import { renderHTML } from "preact-intlayer";
+
+    return <div>{renderHTML("<p>Hello World</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Solid">
+   
+    #### `<HTMLRenderer />` コンポーネント
+   
+    ```tsx
+    import { HTMLRenderer } from "solid-intlayer";
+
+    <HTMLRenderer>
+      {"<p>Hello World</p>"}
+    </HTMLRenderer>
+    ```
+
+    #### `useHTMLRenderer()` フック
+
+    ```tsx
+    import { useHTMLRenderer } from "solid-intlayer";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Hello World</p>")}</div>;
+    ```
+
+    #### `renderHTML()` ユーティリティ
+
+    ```tsx
+    import { renderHTML } from "solid-intlayer";
+
+    return <div>{renderHTML("<p>Hello World</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Angular">
+    #### `IntlayerMarkdownService` サービス
+    サービスを使用してHTML文字列をレンダリングします。
+
+    ```typescript
+    import { IntlayerMarkdownService } from "angular-intlayer";
+
+    export class MyComponent {
+      constructor(private markdownService: IntlayerMarkdownService) {}
+
+      renderHTML(html: string) {
+        return this.markdownService.renderMarkdown(html);
+      }
+    }
     ```
 
   </Tab>
