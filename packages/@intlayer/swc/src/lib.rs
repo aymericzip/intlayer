@@ -1,14 +1,18 @@
 //! intlayer-swc-plugin – fixed for swc_core 53+ (Next.js 16.1+)
 
+use base62::encode as base62_encode;
+use pathdiff::diff_paths;
 use serde::Deserialize;
 use std::{
     collections::{BTreeMap, HashSet},
+    hash::{BuildHasher, BuildHasherDefault, Hasher},
+    path::Path,
     sync::{LazyLock, Mutex},
-    path::{Path},
-    hash::{Hasher, BuildHasherDefault, BuildHasher}
 };
 use swc_core::{
+    common::{sync::Lrc, SourceMap}, // used for debug log
     common::{SyntaxContext, DUMMY_SP},
+    ecma::codegen::{text_writer::JsWriter, Emitter}, // used for debug log
     ecma::{
         ast::*,
         atoms::Atom,
@@ -18,16 +22,10 @@ use swc_core::{
         metadata::{TransformPluginMetadataContextKind, TransformPluginProgramMetadata},
         plugin_transform,
     },
-    common::{sync::Lrc, SourceMap}, // used for debug log
-    ecma::codegen::{text_writer::JsWriter, Emitter}, // used for debug log
 };
-use pathdiff::diff_paths;
-use base62::encode as base62_encode;
 use twox_hash::XxHash64;
 
-
 static DEBUG_LOG: bool = false;
-
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  GLOBAL REGISTRY (optional – you can delete if you don't need it)
@@ -38,7 +36,7 @@ static INTLAYER_KEYS: LazyLock<Mutex<HashSet<String>>> =
 // ─────────────────────────────────────────────────────────────────────────────
 //  PLUGIN OPTIONS
 // ─────────────────────────────────────────────────────────────────────────────
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 struct PluginConfig {
     // Directory that contains `<key>.json` files for static imports
     #[serde(rename = "dictionariesDir")]
@@ -126,7 +124,13 @@ struct TransformVisitor<'a> {
 }
 
 impl<'a> TransformVisitor<'a> {
-    fn new(dictionaries_dir: &'a str, dynamic_dictionaries_dir: &'a str, import_mode: String, dictionary_mode_map: &'a BTreeMap<String, String>, file_has_dynamic_call: bool) -> Self {
+    fn new(
+        dictionaries_dir: &'a str,
+        dynamic_dictionaries_dir: &'a str,
+        import_mode: String,
+        dictionary_mode_map: &'a BTreeMap<String, String>,
+        file_has_dynamic_call: bool,
+    ) -> Self {
         Self {
             dictionaries_dir,
             dynamic_dictionaries_dir,
@@ -145,7 +149,7 @@ impl<'a> TransformVisitor<'a> {
         // Hash the key
         let mut hasher = BuildHasherDefault::<XxHash64>::default().build_hasher();
         hasher.write(key.as_bytes());
-        let hash = hasher.finish();          // u64
+        let hash = hasher.finish(); // u64
 
         // Base-62-encode the 64-bit number ⇒ up to 11 chars
         let mut encoded = base62_encode(hash);
@@ -153,11 +157,7 @@ impl<'a> TransformVisitor<'a> {
         // Prepend "_" so the ident never begins with a digit
         encoded.insert(0, '_');
 
-        Ident::new(
-            Atom::from(encoded),
-            DUMMY_SP,
-            SyntaxContext::empty(),
-        )
+        Ident::new(Atom::from(encoded), DUMMY_SP, SyntaxContext::empty())
     }
 
     // Create a dynamic import identifier (with _dyn suffix)
@@ -165,7 +165,7 @@ impl<'a> TransformVisitor<'a> {
         // Hash the key
         let mut hasher = BuildHasherDefault::<XxHash64>::default().build_hasher();
         hasher.write(key.as_bytes());
-        let hash = hasher.finish();          // u64
+        let hash = hasher.finish(); // u64
 
         // Base-62-encode the 64-bit number ⇒ up to 11 chars
         let mut encoded = base62_encode(hash);
@@ -174,11 +174,7 @@ impl<'a> TransformVisitor<'a> {
         encoded.insert(0, '_');
         encoded.push_str("_dyn");
 
-        Ident::new(
-            Atom::from(encoded),
-            DUMMY_SP,
-            SyntaxContext::empty(),
-        )
+        Ident::new(Atom::from(encoded), DUMMY_SP, SyntaxContext::empty())
     }
 
     // Create a live/fetch import identifier (with _fetch suffix)
@@ -191,11 +187,7 @@ impl<'a> TransformVisitor<'a> {
         encoded.insert(0, '_');
         encoded.push_str("_fetch");
 
-        Ident::new(
-            Atom::from(encoded),
-            DUMMY_SP,
-            SyntaxContext::empty(),
-        )
+        Ident::new(Atom::from(encoded), DUMMY_SP, SyntaxContext::empty())
     }
 }
 
@@ -258,15 +250,19 @@ impl<'a> VisitMut for TransformVisitor<'a> {
                 }
                 _ => return,
             };
-            
+
             if callee_ident != "useIntlayer" && callee_ident != "getIntlayer" {
                 return;
             }
 
             // First argument must be a string literal
-            let Some(first_arg) = call.args.first_mut() else { return };
-            let Expr::Lit(Lit::Str(Str { value, .. })) = &*first_arg.expr else { return };
-            
+            let Some(first_arg) = call.args.first_mut() else {
+                return;
+            };
+            let Expr::Lit(Lit::Str(Str { value, .. })) = &*first_arg.expr else {
+                return;
+            };
+
             let key = value.as_str().unwrap_or_default().to_string();
 
             // Remember the key globally (optional)
@@ -303,10 +299,13 @@ impl<'a> VisitMut for TransformVisitor<'a> {
                     self.new_dynamic_imports.insert(key.clone(), id.clone());
                     id
                 };
-                call.args.insert(0, ExprOrSpread {
-                    spread: None,
-                    expr: Box::new(Expr::Ident(ident)),
-                });
+                call.args.insert(
+                    0,
+                    ExprOrSpread {
+                        spread: None,
+                        expr: Box::new(Expr::Ident(ident)),
+                    },
+                );
             } else if per_call_mode == "dynamic" {
                 // Use dynamic imports for useIntlayer when dynamic helpers are enabled
                 let ident = if let Some(id) = self.new_dynamic_imports.get(&key) {
@@ -318,10 +317,13 @@ impl<'a> VisitMut for TransformVisitor<'a> {
                 };
 
                 // Dynamic helper: first argument is the dictionary, second is the original key
-                call.args.insert(0, ExprOrSpread {
-                    spread: None,
-                    expr: Box::new(Expr::Ident(ident)),
-                });
+                call.args.insert(
+                    0,
+                    ExprOrSpread {
+                        spread: None,
+                        expr: Box::new(Expr::Ident(ident)),
+                    },
+                );
                 // Keep the original string literal as the second argument
             } else {
                 // Use static imports for getIntlayer or useIntlayer when not using dynamic helpers
@@ -353,7 +355,10 @@ impl<'a> VisitMut for TransformVisitor<'a> {
 
         // Determine if this package supports dynamic imports
         let package_supports_dynamic = PACKAGE_LIST_DYNAMIC.iter().any(|a| a.as_str() == pkg_str);
-        let should_use_dynamic_helpers = (self.import_mode == "dynamic" || self.import_mode == "fetch" || self.file_has_dynamic_call) && package_supports_dynamic;
+        let should_use_dynamic_helpers = (self.import_mode == "dynamic"
+            || self.import_mode == "fetch"
+            || self.file_has_dynamic_call)
+            && package_supports_dynamic;
 
         if should_use_dynamic_helpers {
             self.use_dynamic_helpers = true;
@@ -395,85 +400,70 @@ impl<'a> VisitMut for TransformVisitor<'a> {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  ENTRY POINT
+//  PROCESS TRANSFORM
 // ─────────────────────────────────────────────────────────────────────────────
-#[plugin_transform]
-pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata) -> Program {
-
- 
-    // Read and parse plugin options
-    let cfg: PluginConfig = match metadata
-        .get_transform_plugin_config()
-        .and_then(|raw| serde_json::from_str::<PluginConfig>(&raw).ok())
-    {
-        Some(c) => {
-            if DEBUG_LOG {
-                println!("[swc-intlayer] Config parsed successfull(files_list count: {})", c.files_list.len());
-            }
-            c
-        },
-        None => {
-            if DEBUG_LOG {
-                println!("[swc-intlayer] Warning: No config found or failed to parsNoop.");
-            }
-            return program;
-        },
-    };
-
-    // skip files outside the configured roots
-    let filename_raw = match metadata.get_context(&TransformPluginMetadataContextKind::Filename) {
-        Some(f) => f,
-        None => return program,
-    };
-    
+pub(crate) fn process_transform(
+    mut program: Program,
+    cfg: PluginConfig,
+    filename_raw: String,
+) -> Program {
     // skip file if not in files_list (when files_list is not empty) ──
     let absolute_filename_opt: Option<String> = if !cfg.files_list.is_empty() {
         // Find if this filename is in the allowed list AND get its absolute path
-        let matched = cfg.files_list.iter().find(|target| {
-            filename_raw.ends_with(*target) || target.ends_with(&filename_raw)
-        });
+        let matched = cfg
+            .files_list
+            .iter()
+            .find(|target| filename_raw.ends_with(*target) || target.ends_with(&filename_raw));
 
         if let Some(target) = matched {
             if DEBUG_LOG {
-                println!("[swc-intlayer] processing file: {} (matched absolute: {})", filename_raw, target);
+                println!(
+                    "[swc-intlayer] processing file: {} (matched absolute: {})",
+                    filename_raw, target
+                );
             }
             Some(target.clone())
         } else {
             if DEBUG_LOG {
                 // Log exactly what comparison failed
-                println!("[swc-intlayer] skipping: {} (not in files_list)", filename_raw);
+                println!(
+                    "[swc-intlayer] skipping: {} (not in files_list)",
+                    filename_raw
+                );
             }
             return program;
         }
     } else {
         if DEBUG_LOG {
-            println!("[swc-intlayer] processing file: {} (files_list empty)", filename_raw);
+            println!(
+                "[swc-intlayer] processing file: {} (files_list empty)",
+                filename_raw
+            );
         }
         // Fallback: assume filename_raw is absolute if list is empty (rare in this context)
         Some(filename_raw.clone())
     };
-        
+
     // Determine the working file path to use for relative calc
     let working_filename = absolute_filename_opt.unwrap_or(filename_raw.clone());
 
     // Short-circuit the dictionaries entry file  ─────────────────────
     if cfg.replace_dictionary_entry.unwrap_or(false) {
-        let is_main_entry = working_filename == cfg.dictionaries_entry_path || filename_raw == cfg.dictionaries_entry_path;
+        let is_main_entry = working_filename == cfg.dictionaries_entry_path
+            || filename_raw == cfg.dictionaries_entry_path;
 
         if is_main_entry {
-            
             let func_name = "getDictionaries";
 
             // Create: export default {}
-            let default_export = ModuleItem::ModuleDecl(ModuleDecl::ExportDefaultExpr(
-                ExportDefaultExpr {
+            let default_export =
+                ModuleItem::ModuleDecl(ModuleDecl::ExportDefaultExpr(ExportDefaultExpr {
                     span: DUMMY_SP,
                     expr: Box::new(Expr::Object(ObjectLit {
                         span: DUMMY_SP,
                         props: Vec::new(),
                     })),
-                },
-            ));
+                }));
 
             // Create: export const getDictionaries = () => ({});
             let named_export = ModuleItem::ModuleDecl(ModuleDecl::ExportDecl(ExportDecl {
@@ -498,10 +488,12 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
                             type_params: None,
                             return_type: None,
                             // body is: () => ({})
-                            body: Box::new(BlockStmtOrExpr::Expr(Box::new(Expr::Object(ObjectLit {
-                                span: DUMMY_SP,
-                                props: Vec::new(),
-                            })))),
+                            body: Box::new(BlockStmtOrExpr::Expr(Box::new(Expr::Object(
+                                ObjectLit {
+                                    span: DUMMY_SP,
+                                    props: Vec::new(),
+                                },
+                            )))),
                         }))),
                         definite: false,
                     }],
@@ -511,7 +503,7 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
             // Return a new module containing both exports
             return Program::Module(Module {
                 span: DUMMY_SP,
-                body: vec![default_export, named_export], 
+                body: vec![default_export, named_export],
                 shebang: None,
             });
         }
@@ -519,7 +511,10 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
 
     // Run visitor
     if DEBUG_LOG {
-        println!("[swc-intlayer] [{}] step 3: running visitor...", working_filename);
+        println!(
+            "[swc-intlayer] [{}] step 3: running visitor...",
+            working_filename
+        );
     }
     let import_mode = cfg.import_mode.unwrap_or("static".to_string());
     let dictionary_mode_map = cfg.dictionary_mode_map.unwrap_or_default();
@@ -531,24 +526,37 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
     };
     program.visit_mut_with(&mut pre_pass);
 
-    let mut visitor = TransformVisitor::new(&cfg.dictionaries_dir, &cfg.dynamic_dictionaries_dir, import_mode.clone(), &dictionary_mode_map, pre_pass.has_dynamic_call);
+    let mut visitor = TransformVisitor::new(
+        &cfg.dictionaries_dir,
+        &cfg.dynamic_dictionaries_dir,
+        import_mode.clone(),
+        &dictionary_mode_map,
+        pre_pass.has_dynamic_call,
+    );
     program.visit_mut_with(&mut visitor);
     if DEBUG_LOG {
-        println!("[swc-intlayer] [{}] step 3: visitor done. static_imports={}, dynamic_imports={}", 
-            working_filename, visitor.new_static_imports.len(), visitor.new_dynamic_imports.len());
+        println!(
+            "[swc-intlayer] [{}] step 3: visitor done. static_imports={}, dynamic_imports={}",
+            working_filename,
+            visitor.new_static_imports.len(),
+            visitor.new_dynamic_imports.len()
+        );
     }
 
     // Inject JSON/MJS imports (if any)
     if let Program::Module(Module { body, .. }) = &mut program {
         if DEBUG_LOG {
-            println!("[swc-intlayer] [{}] step 4: injecting imports...", working_filename);
+            println!(
+                "[swc-intlayer] [{}] step 4: injecting imports...",
+                working_filename
+            );
         }
 
         // Save the strings so we don't need `visitor` inside the loop
         let dictionaries_dir = visitor.dictionaries_dir.to_owned();
         let dynamic_dictionaries_dir = visitor.dynamic_dictionaries_dir.to_owned();
         let fetch_dictionaries_dir = cfg.fetch_dictionaries_dir.to_owned();
-        
+
         // Prepare paths for diffing
         let file_path_abs = Path::new(&working_filename);
         let file_dir_abs = file_path_abs.parent().unwrap_or_else(|| Path::new("/"));
@@ -563,21 +571,28 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
                         let v = value.as_str();
                         if v == Some("use client") || v == Some("use server") {
                             insert_pos = 1;
-                            continue;        // still inside the directive block
+                            continue; // still inside the directive block
                         }
                     }
                 }
                 _ => {}
             }
-            break;                            // first non-directive stmt reached
+            break; // first non-directive stmt reached
         }
         if DEBUG_LOG {
-            println!("[swc-intlayer] [{}] step 4a: insert_pos={}", working_filename, insert_pos);
+            println!(
+                "[swc-intlayer] [{}] step 4a: insert_pos={}",
+                working_filename, insert_pos
+            );
         }
 
         // Inject static imports after the directives  ─────────────────────
         if DEBUG_LOG {
-            println!("[swc-intlayer] [{}] step 4b: injecting {} static imports...", working_filename, visitor.new_static_imports.len());
+            println!(
+                "[swc-intlayer] [{}] step 4b: injecting {} static imports...",
+                working_filename,
+                visitor.new_static_imports.len()
+            );
         }
         for (key, ident) in visitor.new_static_imports.clone().into_iter().rev() {
             let dict_file_abs = Path::new(&dictionaries_dir).join(format!("{}.json", key));
@@ -595,7 +610,7 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
                 // Fallback (should not happen if both are absolute)
                 dict_file_abs.to_string_lossy().into_owned()
             };
-            
+
             // Now inject using `import_path`
             body.insert(
                 insert_pos,
@@ -609,26 +624,23 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
                     type_only: false,
                     with: Some(Box::new(ObjectLit {
                         span: DUMMY_SP,
-                        props: vec![
-                            PropOrSpread::Prop(Box::new(Prop::KeyValue(KeyValueProp {
-                                key: PropName::Ident(Ident::new(
-                                    Atom::from("type"),
-                                    DUMMY_SP,
-                                    SyntaxContext::empty()
-                                ).into()),
-                                value: Box::new(Expr::Lit(Lit::Str(Str {
-                                    span: DUMMY_SP,
-                                    value: Atom::from("json").into(),
-                                    raw: None,
-                                }))),
-                            })))
-                        ],
+                        props: vec![PropOrSpread::Prop(Box::new(Prop::KeyValue(KeyValueProp {
+                            key: PropName::Ident(
+                                Ident::new(Atom::from("type"), DUMMY_SP, SyntaxContext::empty())
+                                    .into(),
+                            ),
+                            value: Box::new(Expr::Lit(Lit::Str(Str {
+                                span: DUMMY_SP,
+                                value: Atom::from("json").into(),
+                                raw: None,
+                            }))),
+                        })))],
                     })),
                     phase: ImportPhase::Evaluation,
                 })),
             );
-            
-            insert_pos += 1;                 // keep later injected imports in order
+
+            insert_pos += 1; // keep later injected imports in order
         }
 
         if DEBUG_LOG {
@@ -637,12 +649,20 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
 
         // Inject dynamic/fetch imports after the static imports  ──────────
         if DEBUG_LOG {
-            println!("[swc-intlayer] [{}] step 4c: injecting {} dynamic imports...", working_filename, visitor.new_dynamic_imports.len());
+            println!(
+                "[swc-intlayer] [{}] step 4c: injecting {} dynamic imports...",
+                working_filename,
+                visitor.new_dynamic_imports.len()
+            );
         }
         for (key, ident) in visitor.new_dynamic_imports.clone().into_iter().rev() {
             let ident_name: &str = ident.sym.as_ref();
             let is_live_ident = ident_name.ends_with("_fetch");
-            let target_dir = if is_live_ident { &fetch_dictionaries_dir } else { &dynamic_dictionaries_dir };
+            let target_dir = if is_live_ident {
+                &fetch_dictionaries_dir
+            } else {
+                &dynamic_dictionaries_dir
+            };
             let dict_file_abs = Path::new(target_dir).join(format!("{}.mjs", key));
 
             // Compute a relative path
@@ -672,13 +692,16 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
                     phase: ImportPhase::Evaluation,
                 })),
             );
-            
-            insert_pos += 1;                 // keep later injected imports in order
+
+            insert_pos += 1; // keep later injected imports in order
         }
 
         if DEBUG_LOG {
             println!("[swc-intlayer] [{}] step 4c: done", working_filename);
-            println!("[swc-intlayer] [{}] step 5: emitting code for debug...", working_filename);
+            println!(
+                "[swc-intlayer] [{}] step 5: emitting code for debug...",
+                working_filename
+            );
             // Print entire transformed file as JS
             {
                 // Create a fresh SourceMap just for codegen (no real sourcemaps needed here)
@@ -692,19 +715,27 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
                         wr: JsWriter::new(cm.clone(), "\n", &mut buf, None),
                     };
                     // Emit either Module or Script
-                    emitter.emit_program(&program)
+                    emitter
+                        .emit_program(&program)
                         .expect("swc-intlayer: failed to emit code");
                 }
-                let code = String::from_utf8(buf)
-                    .expect("swc-intlayer: emitted code was not valid UTF-8");
-                
+                let code =
+                    String::from_utf8(buf).expect("swc-intlayer: emitted code was not valid UTF-8");
+
                 // Only print first 500 chars to avoid flooding logs with large files
                 let truncated = if code.len() > 500 {
-                    format!("{}...\n[truncated, total {} chars]", &code[..500], code.len())
+                    format!(
+                        "{}...\n[truncated, total {} chars]",
+                        &code[..500],
+                        code.len()
+                    )
                 } else {
                     code
                 };
-                println!("\n[swc-intlayer] final code for {}:\n{}\n", working_filename, truncated);
+                println!(
+                    "\n[swc-intlayer] final code for {}:\n{}\n",
+                    working_filename, truncated
+                );
             }
             println!("[swc-intlayer] [{}] step 5: done", working_filename);
         }
@@ -714,4 +745,235 @@ pub fn transform(mut program: Program, metadata: TransformPluginProgramMetadata)
         println!("[swc-intlayer] [{}] transform complete", working_filename);
     }
     program
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  ENTRY POINT
+// ─────────────────────────────────────────────────────────────────────────────
+#[plugin_transform]
+pub fn transform(program: Program, metadata: TransformPluginProgramMetadata) -> Program {
+    // Read and parse plugin options
+    let cfg: PluginConfig = match metadata
+        .get_transform_plugin_config()
+        .and_then(|raw| serde_json::from_str::<PluginConfig>(&raw).ok())
+    {
+        Some(c) => {
+            if DEBUG_LOG {
+                println!(
+                    "[swc-intlayer] Config parsed successfull(files_list count: {})",
+                    c.files_list.len()
+                );
+            }
+            c
+        }
+        None => {
+            if DEBUG_LOG {
+                println!("[swc-intlayer] Warning: No config found or failed to parsNoop.");
+            }
+            return program;
+        }
+    };
+
+    // skip files outside the configured roots
+    let filename_raw = match metadata.get_context(&TransformPluginMetadataContextKind::Filename) {
+        Some(f) => f,
+        None => return program,
+    };
+
+    process_transform(program, cfg, filename_raw)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use swc_core::ecma::ast::Pass;
+    use swc_core::ecma::parser::Syntax;
+    use swc_core::ecma::transforms::testing::test_transform;
+    use swc_core::ecma::visit::Fold;
+
+    fn get_config(mode: &str) -> PluginConfig {
+        PluginConfig {
+            dictionaries_dir: "/app/.intlayer/dictionaries".to_string(),
+            dictionaries_entry_path: "/app/.intlayer/dictionaries.mjs".to_string(),
+            dynamic_dictionaries_dir: "/app/.intlayer/dynamic_dictionaries".to_string(),
+            fetch_dictionaries_dir: "/app/.intlayer/fetch_dictionaries".to_string(),
+            import_mode: Some(mode.to_string()),
+            replace_dictionary_entry: Some(false),
+            files_list: vec![],
+            dictionary_mode_map: None,
+        }
+    }
+
+    struct TestFolder {
+        cfg: PluginConfig,
+        filename: String,
+    }
+
+    impl Fold for TestFolder {
+        fn fold_program(&mut self, p: Program) -> Program {
+            process_transform(p, self.cfg.clone(), self.filename.clone())
+        }
+    }
+
+    impl Pass for TestFolder {
+        fn process(&mut self, program: &mut Program) {
+            let p = std::mem::replace(
+                program,
+                Program::Module(Module {
+                    span: DUMMY_SP,
+                    body: vec![],
+                    shebang: None,
+                }),
+            );
+            let new_p = self.fold_program(p);
+            *program = new_p;
+        }
+    }
+
+    #[test]
+    fn static_import() {
+        test_transform(
+            Syntax::default(),
+            None,
+            |_| TestFolder {
+                cfg: get_config("static"),
+                filename: "/app/src/page.tsx".to_string(),
+            },
+            r#"
+            import { useIntlayer } from "react-intlayer";
+            const t = useIntlayer("locale-switcher");
+            "#,
+            r#"
+            import _FsHhNfuhm85 from "../.intlayer/dictionaries/locale-switcher.json" with { type: "json" };
+            import { useDictionary as useIntlayer } from "react-intlayer";
+            const t = useIntlayer(_FsHhNfuhm85);
+            "#,
+        );
+    }
+
+    #[test]
+    fn dynamic_import() {
+        test_transform(
+            Syntax::default(),
+            None,
+            |_| TestFolder {
+                cfg: get_config("dynamic"),
+                filename: "/app/src/page.tsx".to_string(),
+            },
+            r#"
+            import { useIntlayer } from "react-intlayer";
+            const t = useIntlayer("locale-switcher");
+            "#,
+            r#"
+            import _FsHhNfuhm85_dyn from "../.intlayer/dynamic_dictionaries/locale-switcher.mjs";
+            import { useDictionaryDynamic as useIntlayer } from "react-intlayer";
+            const t = useIntlayer(_FsHhNfuhm85_dyn, "locale-switcher");
+            "#,
+        );
+    }
+
+    #[test]
+    fn fetch_import() {
+        test_transform(
+            Syntax::default(),
+            None,
+            |_| TestFolder {
+                cfg: get_config("fetch"),
+                filename: "/app/src/page.tsx".to_string(),
+            },
+            r#"
+            import { useIntlayer } from "react-intlayer";
+            const t = useIntlayer("locale-switcher");
+            "#,
+            r#"
+            import _FsHhNfuhm85_fetch from "../.intlayer/fetch_dictionaries/locale-switcher.mjs";
+            import { useDictionaryDynamic as useIntlayer } from "react-intlayer";
+            const t = useIntlayer(_FsHhNfuhm85_fetch, "locale-switcher");
+            "#,
+        );
+    }
+
+    #[test]
+    fn svelte_static_import() {
+        test_transform(
+            Syntax::default(),
+            None,
+            |_| TestFolder {
+                cfg: get_config("static"),
+                filename: "/app/src/page.svelte".to_string(),
+            },
+            r#"
+            import { useIntlayer } from "svelte-intlayer";
+            const t = useIntlayer("locale-switcher");
+            "#,
+            r#"
+            import _FsHhNfuhm85 from "../.intlayer/dictionaries/locale-switcher.json" with { type: "json" };
+            import { useDictionary as useIntlayer } from "svelte-intlayer";
+            const t = useIntlayer(_FsHhNfuhm85);
+            "#,
+        );
+    }
+
+    #[test]
+    fn svelte_dynamic_import() {
+        test_transform(
+            Syntax::default(),
+            None,
+            |_| TestFolder {
+                cfg: get_config("dynamic"),
+                filename: "/app/src/page.svelte".to_string(),
+            },
+            r#"
+            import { useIntlayer } from "svelte-intlayer";
+            const t = useIntlayer("locale-switcher");
+            "#,
+            r#"
+            import _FsHhNfuhm85_dyn from "../.intlayer/dynamic_dictionaries/locale-switcher.mjs";
+            import { useDictionaryDynamic as useIntlayer } from "svelte-intlayer";
+            const t = useIntlayer(_FsHhNfuhm85_dyn, "locale-switcher");
+            "#,
+        );
+    }
+
+    #[test]
+    fn vue_static_import() {
+        test_transform(
+            Syntax::default(),
+            None,
+            |_| TestFolder {
+                cfg: get_config("static"),
+                filename: "/app/src/page.vue".to_string(),
+            },
+            r#"
+            import { useIntlayer } from "vue-intlayer";
+            const t = useIntlayer("locale-switcher");
+            "#,
+            r#"
+            import _FsHhNfuhm85 from "../.intlayer/dictionaries/locale-switcher.json" with { type: "json" };
+            import { useDictionary as useIntlayer } from "vue-intlayer";
+            const t = useIntlayer(_FsHhNfuhm85);
+            "#,
+        );
+    }
+
+    #[test]
+    fn vue_dynamic_import() {
+        test_transform(
+            Syntax::default(),
+            None,
+            |_| TestFolder {
+                cfg: get_config("dynamic"),
+                filename: "/app/src/page.vue".to_string(),
+            },
+            r#"
+            import { useIntlayer } from "vue-intlayer";
+            const t = useIntlayer("locale-switcher");
+            "#,
+            r#"
+            import _FsHhNfuhm85_dyn from "../.intlayer/dynamic_dictionaries/locale-switcher.mjs";
+            import { useDictionaryDynamic as useIntlayer } from "vue-intlayer";
+            const t = useIntlayer(_FsHhNfuhm85_dyn, "locale-switcher");
+            "#,
+        );
+    }
 }

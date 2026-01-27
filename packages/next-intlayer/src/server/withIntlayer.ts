@@ -8,6 +8,7 @@ import {
   ANSIColors,
   colorize,
   compareVersions,
+  DefaultValues,
   type GetConfigurationOptions,
   getAlias,
   getAppLogger,
@@ -73,7 +74,7 @@ const getPruneConfig = (
 ): Partial<NextConfig> => {
   const { optimize } = intlayerConfig.build;
   const importMode =
-    intlayerConfig.dictionary?.importMode ?? intlayerConfig.build.importMode;
+    intlayerConfig.build.importMode ?? intlayerConfig.dictionary?.importMode;
   const {
     dictionariesDir,
     unmergedDictionariesDir,
@@ -151,7 +152,10 @@ const getPruneConfig = (
   const dictionaryModeMap: Record<string, 'static' | 'dynamic' | 'fetch'> = {};
 
   (Object.values(dictionaries) as Dictionary[]).forEach((dictionary) => {
-    dictionaryModeMap[dictionary.key] = dictionary.importMode ?? importMode;
+    dictionaryModeMap[dictionary.key] =
+      dictionary.importMode ??
+      importMode ??
+      DefaultValues.Dictionary.IMPORT_MODE;
   });
 
   return {
@@ -176,7 +180,7 @@ const getPruneConfig = (
             filesList,
             replaceDictionaryEntry: true,
             dictionaryModeMap,
-          } as any,
+          },
         ],
       ],
     },

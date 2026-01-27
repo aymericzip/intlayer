@@ -2,7 +2,7 @@ import { createRequire } from 'node:module';
 import { join } from 'node:path';
 import { intlayerOptimizeBabelPlugin } from '@intlayer/babel';
 import { getComponentTransformPattern, runOnce } from '@intlayer/chokidar';
-import { getAppLogger } from '@intlayer/config';
+import { DefaultValues, getAppLogger } from '@intlayer/config';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import type { PluginOption } from 'vite';
@@ -20,7 +20,7 @@ export const intlayerPrune = async (
 
     const { optimize } = intlayerConfig.build;
     const importMode =
-      intlayerConfig.dictionary?.importMode ?? intlayerConfig.build.importMode;
+      intlayerConfig.build.importMode ?? intlayerConfig.dictionary?.importMode;
 
     const {
       dictionariesDir,
@@ -55,7 +55,10 @@ export const intlayerPrune = async (
       {};
 
     (Object.values(dictionaries) as Dictionary[]).forEach((dictionary) => {
-      dictionaryModeMap[dictionary.key] = dictionary.importMode ?? importMode;
+      dictionaryModeMap[dictionary.key] =
+        dictionary.importMode ??
+        importMode ??
+        DefaultValues.Dictionary.IMPORT_MODE;
     });
 
     return [

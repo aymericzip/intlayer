@@ -2,7 +2,11 @@ import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { colorizePath, x } from '@intlayer/config';
 import { orderDictionaries } from '@intlayer/core';
-import type { Dictionary, IntlayerConfig } from '@intlayer/types';
+import type {
+  Dictionary,
+  DictionaryKey,
+  IntlayerConfig,
+} from '@intlayer/types';
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { parallelize } from '../utils/parallelize';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';
@@ -27,7 +31,10 @@ export type UnmergedDictionaryResult = {
   dictionaries: Dictionary[];
 };
 
-export type UnmergedDictionaryOutput = Record<string, UnmergedDictionaryResult>;
+export type UnmergedDictionaryOutput = Record<
+  DictionaryKey,
+  UnmergedDictionaryResult
+>;
 
 /**
  * Write the unmerged dictionaries to the unmergedDictionariesDir

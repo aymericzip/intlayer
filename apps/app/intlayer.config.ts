@@ -39,7 +39,7 @@ const config: CustomIntlayerConfig = {
   },
   content: {
     contentDir: ['./src', '@intlayer/design-system'], // To test package path resolution
-    codeDir: ['./src', '../../packages/@intlayer/design-system/src'], // To test relative path resolution
+    codeDir: ['./src', '../../packages/@intlayer/design-system/dist'], // To test relative path resolution
     formatCommand: 'bun x biome format "{{file}}" --write --log-level none',
   },
   editor: {

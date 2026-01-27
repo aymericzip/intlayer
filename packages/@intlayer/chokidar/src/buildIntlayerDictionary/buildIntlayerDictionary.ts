@@ -1,4 +1,4 @@
-import { getConfiguration } from '@intlayer/config';
+import { DefaultValues, getConfiguration } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/types';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import {
@@ -19,9 +19,9 @@ export const buildDictionary = async (
   importOtherDictionaries = true
 ) => {
   const importMode =
+    configuration.build.importMode ??
     configuration.dictionary?.importMode ??
-    configuration.build?.importMode ??
-    'static';
+    DefaultValues.Dictionary.IMPORT_MODE;
 
   const unmergedDictionariesToUpdate: Dictionary[] = [
     ...localDictionariesEntries,
@@ -59,11 +59,27 @@ export const buildDictionary = async (
     configuration
   );
 
+  const dictionariesToBuildDynamic: typeof mergedDictionaries = {};
+  const keysToBuildFetch = new Set<string>();
+
+  for (const [key, mergedResult] of Object.entries(mergedDictionaries)) {
+    const dictionary = mergedResult.dictionary;
+    const mode = dictionary.importMode ?? importMode;
+
+    if (mode === 'dynamic' || mode === 'fetch') {
+      dictionariesToBuildDynamic[key] = mergedResult;
+    }
+
+    if (mode === 'fetch') {
+      keysToBuildFetch.add(key);
+    }
+  }
+
   let dynamicDictionaries: LocalizedDictionaryOutput | null = null;
 
-  if (importMode === 'dynamic' || importMode === 'fetch') {
+  if (Object.keys(dictionariesToBuildDynamic).length > 0) {
     dynamicDictionaries = await writeDynamicDictionary(
-      mergedDictionaries,
+      dictionariesToBuildDynamic,
       configuration,
       formats
     );
@@ -71,12 +87,22 @@ export const buildDictionary = async (
 
   let fetchDictionaries: LocalizedDictionaryOutput | null = null;
 
-  if (importMode === 'fetch') {
-    fetchDictionaries = await writeFetchDictionary(
-      dynamicDictionaries!,
-      configuration,
-      formats
-    );
+  if (dynamicDictionaries && keysToBuildFetch.size > 0) {
+    const dictionariesToBuildFetch: LocalizedDictionaryOutput = {};
+
+    for (const key of keysToBuildFetch) {
+      if (dynamicDictionaries[key]) {
+        dictionariesToBuildFetch[key] = dynamicDictionaries[key];
+      }
+    }
+
+    if (Object.keys(dictionariesToBuildFetch).length > 0) {
+      fetchDictionaries = await writeFetchDictionary(
+        dictionariesToBuildFetch,
+        configuration,
+        formats
+      );
+    }
   }
 
   return {

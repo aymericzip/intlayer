@@ -7,7 +7,7 @@ export const intlayerVueAsyncPlugin = (
 ): PluginOption => {
   const { optimize } = configuration.build;
   const importMode =
-    configuration.dictionary?.importMode ?? configuration.build.importMode;
+    configuration.build.importMode ?? configuration.dictionary?.importMode;
 
   return {
     /**

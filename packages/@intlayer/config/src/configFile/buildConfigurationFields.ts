@@ -601,7 +601,7 @@ const buildBuildFields = (
    *
    * @deprecated Use `dictionary.importMode` instead.
    */
-  importMode: customConfiguration?.importMode ?? IMPORT_MODE,
+  importMode: customConfiguration?.importMode,
 
   /**
    * Pattern to traverse the code to optimize.

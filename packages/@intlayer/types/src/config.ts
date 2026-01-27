@@ -532,7 +532,7 @@ export type BuildConfig = {
    *
    * @deprecated Use `dictionary.importMode` instead.
    */
-  importMode: 'static' | 'dynamic' | 'fetch';
+  importMode?: 'static' | 'dynamic' | 'fetch';
 
   /**
    * Pattern to traverse the code to optimize.
