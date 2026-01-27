@@ -81,7 +81,7 @@
     "watch": "webpack --config ./webpack.config.ts --watch"
   },
   "dependencies": {
-    "@babel/core": "7.28.4",
+    "@babel/core": "7.28.6",
     "@intlayer/babel": "workspace:*",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/cli": "workspace:*",
@@ -92,7 +92,7 @@
     "magic-string": "^0.30.17"
   },
   "devDependencies": {
-    "@types/node": "25.0.9",
+    "@types/node": "25.0.10",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
