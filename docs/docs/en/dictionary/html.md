@@ -86,6 +86,30 @@ You can declare HTML content using the `html` function or simply as a string.
   </Tab>
 </Tabs>
 
+### The `html()` Node
+
+The `html()` function is a new feature in Intlayer v8 that allows you to explicitly define HTML content in your dictionaries. While Intlayer can often auto-detect HTML content, using the `html()` function provides several advantages:
+
+- **Type Safety**: The `html()` function allows you to define the expected props for custom components, providing better autocompletion and type checking in your editor.
+- **Explicit Declaration**: It ensures that a string is always treated as HTML, even if it doesn't contain standard HTML tags that would trigger auto-detection.
+- **Custom Component Definition**: You can pass a second argument to `html()` to define the custom components and their expected prop types.
+
+```typescript
+import { html } from "intlayer";
+
+const myContent = html(
+  "<MyCustomComponent title='Hello'>World</MyCustomComponent>",
+  {
+    MyCustomComponent: {
+      title: "string",
+      children: "node",
+    },
+  }
+);
+```
+
+When using the `.use()` method on an HTML node, the components you provide will be checked against the definition provided in the `html()` function (if available).
+
 ---
 
 ## Rendering HTML

@@ -86,6 +86,30 @@ Sie können HTML-Inhalte mit der `html`-Funktion oder einfach als String deklari
   </Tab>
 </Tabs>
 
+### Der `html()`-Knoten
+
+Die `html()`-Funktion ist ein neues Feature in Intlayer v8, mit dem Sie HTML-Inhalte in Ihren Wörterbüchern explizit definieren können. Während Intlayer HTML-Inhalte oft automatisch erkennt, bietet die Verwendung der `html()`-Funktion mehrere Vorteile:
+
+- **Typsicherheit**: Mit der `html()`-Funktion können Sie die erwarteten Props für benutzerdefinierte Komponenten definieren, was eine bessere Autovervollständigung und Typprüfung in Ihrem Editor ermöglicht.
+- **Explizite Deklaration**: Sie stellt sicher, dass eine Zeichenfolge immer als HTML behandelt wird, auch wenn sie keine Standard-HTML-Tags enthält, die die automatische Erkennung auslösen würden.
+- **Definition benutzerdefinierter Komponenten**: Sie können ein zweites Argument an `html()` übergeben, um die benutzerdefinierten Komponenten und deren erwartete Prop-Typen zu definieren.
+
+```typescript
+import { html } from "intlayer";
+
+const myContent = html(
+  "<MyCustomComponent title='Hallo'>Welt</MyCustomComponent>",
+  {
+    MyCustomComponent: {
+      title: "string",
+      children: "node",
+    },
+  }
+);
+```
+
+Wenn Sie die Methode `.use()` auf einem HTML-Knoten verwenden, werden die von Ihnen bereitgestellten Komponenten gegen die in der `html()`-Funktion bereitgestellte Definition (falls verfügbar) geprüft.
+
 ---
 
 ## HTML rendern

@@ -89,6 +89,30 @@ HTML içeriğini `html` fonksiyonunu kullanarak veya basitçe bir string olarak 
   </Tab>
 </Tabs>
 
+### `html()` Düğümü
+
+`html()` fonksiyonu, Intlayer v8'de sözlüklerinizde HTML içeriğini açıkça tanımlamanıza olanak tanıyan yeni bir özelliktir. Intlayer genellikle HTML içeriğini otomatik olarak algılayabilse de, `html()` fonksiyonunu kullanmak birkaç avantaj sağlar:
+
+- **Tür Güvenliği**: `html()` fonksiyonu, özel bileşenler için beklenen propları tanımlamanıza olanak tanıyarak editörünüzde daha iyi otomatik tamamlama ve tür denetimi sağlar.
+- **Açık Bildirim**: Otomatik algılamayı tetikleyecek standart HTML etiketleri içermese bile bir dizenin her zaman HTML olarak değerlendirilmesini sağlar.
+- **Özel Bileşen Tanımlama**: Özel bileşenleri ve beklenen prop türlerini tanımlamak için `html()` fonksiyonuna ikinci bir argüman geçirebilirsiniz.
+
+```typescript
+import { html } from "intlayer";
+
+const myContent = html(
+  "<MyCustomComponent title='Merhaba'>Dünya</MyCustomComponent>",
+  {
+    MyCustomComponent: {
+      title: "string",
+      children: "node",
+    },
+  }
+);
+```
+
+Bir HTML düğümü üzerinde `.use()` yöntemini kullanırken, sağladığınız bileşenler `html()` fonksiyonunda sağlanan tanıma (varsa) göre kontrol edilecektir.
+
 ---
 
 ## HTML'i Render Etme

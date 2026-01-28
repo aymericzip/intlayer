@@ -89,6 +89,30 @@ Możesz zadeklarować treść HTML, używając funkcji `html` lub po prostu jako
   </Tab>
 </Tabs>
 
+### Węzeł `html()`
+
+Funkcja `html()` to nowa funkcja w Intlayer v8, która pozwala na jawne definiowanie treści HTML w słownikach. Chociaż Intlayer często potrafi automatycznie wykryć treść HTML, użycie funkcji `html()` zapewnia kilka korzyści:
+
+- **Bezpieczeństwo typów**: Funkcja `html()` pozwala zdefiniować oczekiwane właściwości (props) dla niestandardowych komponentów, co zapewnia lepsze autouzupełnianie i sprawdzanie typów w edytorze.
+- **Jawna deklaracja**: Gwarantuje, że ciąg znaków będzie zawsze traktowany jako HTML, nawet jeśli nie zawiera standardowych tagów HTML, które wyzwoliłyby automatyczne wykrywanie.
+- **Definiowanie niestandardowych komponentów**: Możesz przekazać drugi argument do `html()`, aby zdefiniować niestandardowe komponenty i ich oczekiwane typy właściwości.
+
+```typescript
+import { html } from "intlayer";
+
+const myContent = html(
+  "<MyCustomComponent title='Witaj'>Świecie</MyCustomComponent>",
+  {
+    MyCustomComponent: {
+      title: "string",
+      children: "node",
+    },
+  }
+);
+```
+
+Podczas korzystania z metody `.use()` na węźle HTML, dostarczone komponenty zostaną sprawdzone pod kątem definicji podanej w funkcji `html()` (jeśli jest dostępna).
+
 ---
 
 ## Renderowanie HTML

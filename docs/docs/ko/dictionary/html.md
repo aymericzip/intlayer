@@ -86,6 +86,30 @@ HTML 콘텐츠는 `html` 함수를 사용하거나 단순 문자열로 선언할
   </Tab>
 </Tabs>
 
+### `html()` 노드
+
+`html()` 함수는 Intlayer v8의 새로운 기능으로, 사전에서 HTML 콘텐츠를 명시적으로 정의할 수 있게 해줍니다. Intlayer는 종종 HTML 콘텐츠를 자동으로 감지할 수 있지만, `html()` 함수를 사용하면 다음과 같은 몇 가지 장점이 있습니다:
+
+- **타입 안전성**: `html()` 함수를 사용하면 커스텀 컴포넌트에 필요한 props를 정의할 수 있어, 에디터에서 더 나은 자동 완성 및 타입 체크를 제공합니다.
+- **명시적 선언**: 자동 감지를 트리거하는 표준 HTML 태그가 포함되어 있지 않더라도 문자열이 항상 HTML로 처리되도록 보장합니다.
+- **커스텀 컴포넌트 정의**: `html()`의 두 번째 인자로 커스텀 컴포넌트와 예상되는 prop 타입을 정의하여 전달할 수 있습니다.
+
+```typescript
+import { html } from "intlayer";
+
+const myContent = html(
+  "<MyCustomComponent title='안녕하세요'>세계</MyCustomComponent>",
+  {
+    MyCustomComponent: {
+      title: "string",
+      children: "node",
+    },
+  }
+);
+```
+
+HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트는 `html()` 함수에 제공된 정의(사용 가능한 경우)에 따라 확인됩니다.
+
 ---
 
 ## HTML 렌더링

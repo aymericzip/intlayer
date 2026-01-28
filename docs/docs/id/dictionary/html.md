@@ -86,6 +86,30 @@ Anda dapat menyatakan konten HTML menggunakan fungsi `html` atau cukup sebagai s
   </Tab>
 </Tabs>
 
+### Node `html()`
+
+Fungsi `html()` adalah fitur baru di Intlayer v8 yang memungkinkan Anda menentukan konten HTML secara eksplisit di kamus Anda. Meskipun Intlayer sering kali dapat mendeteksi konten HTML secara otomatis, penggunaan fungsi `html()` memberikan beberapa keuntungan:
+
+- **Keamanan Tipe**: Fungsi `html()` memungkinkan Anda menentukan props yang diharapkan untuk komponen kustom, memberikan pelengkapan otomatis dan pemeriksaan tipe yang lebih baik di editor Anda.
+- **Deklarasi Eksplisit**: Ini memastikan bahwa string selalu diperlakukan sebagai HTML, bahkan jika string tersebut tidak berisi tag HTML standar yang akan memicu deteksi otomatis.
+- **Definisi Komponen Kustom**: Anda dapat memberikan argumen kedua ke `html()` untuk menentukan komponen kustom dan tipe prop yang diharapkan.
+
+```typescript
+import { html } from "intlayer";
+
+const myContent = html(
+  "<MyCustomComponent title='Halo'>Dunia</MyCustomComponent>",
+  {
+    MyCustomComponent: {
+      title: "string",
+      children: "node",
+    },
+  }
+);
+```
+
+Saat menggunakan metode `.use()` pada node HTML, komponen yang Anda berikan akan diperiksa terhadap definisi yang diberikan dalam fungsi `html()` (jika tersedia).
+
 ---
 
 ## Merender HTML

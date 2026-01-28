@@ -86,6 +86,30 @@ Intlayer 支持 HTML 内容，允许你在字典中嵌入丰富的结构化内�
   </Tab>
 </Tabs>
 
+### `html()` 节点
+
+`html()` 函数是 Intlayer v8 中的一个新特性，它允许你在字典中显式定义 HTML 内容。虽然 Intlayer 通常可以自动检测 HTML 内容，但使用 `html()` 函数具有以下优势：
+
+- **类型安全**：`html()` 函数允许你为自定义组件定义预期的 props，从而在编辑器中提供更好的自动补全和类型检查。
+- **显式声明**：它确保字符串始终被视为 HTML，即使它不包含会触发自动检测的标准 HTML 标签。
+- **自定义组件定义**：你可以向 `html()` 传递第二个参数来定义自定义组件及其预期的 prop 类型。
+
+```typescript
+import { html } from "intlayer";
+
+const myContent = html(
+  "<MyCustomComponent title='你好'>世界</MyCustomComponent>",
+  {
+    MyCustomComponent: {
+      title: "string",
+      children: "node",
+    },
+  }
+);
+```
+
+在 HTML 节点上使用 `.use()` 方法时，你提供的组件将根据 `html()` 函数中提供的定义（如果可用）进行检查。
+
 ---
 
 ## 渲染 HTML

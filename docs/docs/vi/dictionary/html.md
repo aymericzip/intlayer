@@ -86,6 +86,30 @@ Bạn có thể khai báo nội dung HTML bằng hàm `html` hoặc đơn giản
   </Tab>
 </Tabs>
 
+### Node `html()`
+
+Hàm `html()` là một tính năng mới trong Intlayer v8 cho phép bạn xác định rõ ràng nội dung HTML trong từ điển của mình. Mặc dù Intlayer thường có thể tự động phát hiện nội dung HTML, nhưng việc sử dụng hàm `html()` mang lại một số lợi thế:
+
+- **An toàn kiểu (Type Safety)**: Hàm `html()` cho phép bạn xác định các props mong đợi cho các thành phần tùy chỉnh, cung cấp khả năng tự động hoàn thành và kiểm tra kiểu tốt hơn trong trình soạn thảo của bạn.
+- **Khai báo rõ ràng**: Nó đảm bảo rằng một chuỗi luôn được coi là HTML, ngay cả khi nó không chứa các thẻ HTML tiêu chuẩn để kích hoạt tính năng tự động phát hiện.
+- **Định nghĩa thành phần tùy chỉnh**: Bạn có thể truyền đối số thứ hai vào `html()` để xác định các thành phần tùy chỉnh và các kiểu prop mong đợi của chúng.
+
+```typescript
+import { html } from "intlayer";
+
+const myContent = html(
+  "<MyCustomComponent title='Xin chào'>Thế giới</MyCustomComponent>",
+  {
+    MyCustomComponent: {
+      title: "string",
+      children: "node",
+    },
+  }
+);
+```
+
+Khi sử dụng phương thức `.use()` trên một node HTML, các thành phần bạn cung cấp sẽ được kiểm tra so với định nghĩa được cung cấp trong hàm `html()` (nếu có).
+
 ---
 
 ## Kết xuất HTML
