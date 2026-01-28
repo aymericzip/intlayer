@@ -402,11 +402,44 @@ impl<'a> VisitMut for TransformVisitor<'a> {
 // ─────────────────────────────────────────────────────────────────────────────
 //  PROCESS TRANSFORM
 // ─────────────────────────────────────────────────────────────────────────────
+
+/// Normalize a path string to use forward slashes and consistent drive casing (on Windows-like paths).
+/// This ensures consistent behavior for `diff_paths` across platforms/WASM.
+fn normalize_path(path: &str) -> String {
+    // 1. Replace backslashes with forward slashes
+    let mut s = path.replace("\\", "/");
+
+    // 2. If it looks like a Windows absolute path (e.g. "C:/..."), lower-case the drive letter
+    // Regex eq: ^[a-zA-Z]:/
+    if s.len() >= 2 {
+        let bytes = s.as_bytes();
+        if bytes[1] == b':' {
+            // It has a colon at index 1. Check index 0 for letter.
+            let first_char = s.chars().next().unwrap();
+            if first_char.is_ascii_alphabetic() {
+                // If checking for "C:/" or "C:" (root relative?) - usually absolute paths have / after :
+                // But just normalizing the drive letter is enough.
+                let lower_drive = first_char.to_ascii_lowercase();
+                if first_char != lower_drive {
+                    s.replace_range(0..1, &lower_drive.to_string());
+                }
+            }
+        }
+    }
+    s
+}
+
 pub(crate) fn process_transform(
     mut program: Program,
-    cfg: PluginConfig,
+    mut cfg: PluginConfig,
     filename_raw: String,
 ) -> Program {
+    // Normalize config directories
+    cfg.dictionaries_dir = normalize_path(&cfg.dictionaries_dir);
+    cfg.dynamic_dictionaries_dir = normalize_path(&cfg.dynamic_dictionaries_dir);
+    cfg.fetch_dictionaries_dir = normalize_path(&cfg.fetch_dictionaries_dir);
+    cfg.dictionaries_entry_path = normalize_path(&cfg.dictionaries_entry_path);
+
     // skip file if not in files_list (when files_list is not empty) ──
     let absolute_filename_opt: Option<String> = if !cfg.files_list.is_empty() {
         // Find if this filename is in the allowed list AND get its absolute path
@@ -445,12 +478,12 @@ pub(crate) fn process_transform(
     };
 
     // Determine the working file path to use for relative calc
-    let working_filename = absolute_filename_opt.unwrap_or(filename_raw.clone());
+    let working_filename = normalize_path(&absolute_filename_opt.unwrap_or(filename_raw.clone()));
 
     // Short-circuit the dictionaries entry file  ─────────────────────
     if cfg.replace_dictionary_entry.unwrap_or(false) {
         let is_main_entry = working_filename == cfg.dictionaries_entry_path
-            || filename_raw == cfg.dictionaries_entry_path;
+            || normalize_path(&filename_raw) == cfg.dictionaries_entry_path;
 
         if is_main_entry {
             let func_name = "getDictionaries";
@@ -975,5 +1008,44 @@ mod tests {
             const t = useIntlayer(_FsHhNfuhm85_dyn, "locale-switcher");
             "#,
         );
+    }
+
+    #[test]
+    fn windows_path_resolution() {
+        use super::normalize_path;
+        use pathdiff::diff_paths;
+        use std::path::Path;
+
+        // Simulate the issue where SWC provides paths with forward slashes (common in JS tools)
+        // but config/user provides paths with backslashes (Windows standard),
+        // AND the environment treats backslash as a character (WASM/Unix).
+
+        // Base: File in src (Unix separators)
+        let base_raw = "C:/Users/User/Project/frontend/src/misc";
+        // Target: Dictionary (Windows separators)
+        let target_raw =
+            "C:\\Users\\User\\Project\\frontend\\.intlayer\\dictionary\\portal-page.json";
+
+        // 1. Verify the issue exists without normalization (on Unix/WASM simulation)
+        // On Unix/WASM, "C:\\Users..." is treated as one filename, so diff_paths fails to find common root
+        // and creates a path like "../../../../../C:/Users..." if interpreted literally
+        // Note: The exact output of diff_paths depends on implementation details, but we know it fails to find the correct relative path.
+
+        // 2. Verify normalization fixes it
+        let base_norm = normalize_path(base_raw);
+        let target_norm = normalize_path(target_raw);
+
+        // base_norm should be "c:/users/user/project/frontend/src/misc"
+        // target_norm should be "c:/users/user/project/frontend/.intlayer/dictionary/portal-page.json"
+
+        let diff_norm = diff_paths(Path::new(&target_norm), Path::new(&base_norm));
+
+        if let Some(d) = diff_norm {
+            let s = d.to_string_lossy().replace("\\", "/");
+            // Should be ../../.intlayer/dictionary/portal-page.json
+            assert_eq!(s, "../../.intlayer/dictionary/portal-page.json");
+        } else {
+            panic!("Normalized diff returned None");
+        }
     }
 }
