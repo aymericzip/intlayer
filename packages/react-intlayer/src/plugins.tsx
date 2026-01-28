@@ -185,12 +185,31 @@ export const insertionPlugin: Plugins = {
       },
     };
 
-    return deepTransformNode(children, {
+    const result = deepTransformNode(children, {
       ...props,
       children,
       keyPath: newKeyPath,
       plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
     });
+
+    if (
+      typeof children === 'object' &&
+      children !== null &&
+      'nodeType' in children &&
+      (children.nodeType === NodeType.Enumeration ||
+        children.nodeType === NodeType.Condition)
+    ) {
+      return (values: any) => (arg: any) => {
+        const func = result as Function;
+        const inner = func(arg);
+        if (typeof inner === 'function') {
+          return inner(values);
+        }
+        return inner;
+      };
+    }
+
+    return result;
   },
 };
 
