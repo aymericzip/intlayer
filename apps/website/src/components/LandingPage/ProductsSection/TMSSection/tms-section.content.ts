@@ -25,13 +25,13 @@ const tmsSectionContent = {
       pl: 'Przestań płacić za słowo. Automatyzuj za pomocą AI.',
       id: 'Berhenti membayar per kata. Otomatiskan dengan AI.',
       vi: 'Ngừng trả tiền theo từ. Tự động hóa bằng AI.',
-      uk: 'Не платіть за кожне слово. Автоматизуйте за допомогою ШІ.',
+      uk: 'Припиніть платити за слово. Автоматизуйте за допомогою ШІ.',
     }),
     heroSubtitle: t({
       en: 'The open-source alternative to Crowdin & Lokalise. Built for modern developer workflows.',
       'en-GB':
         'The open-source alternative to Crowdin & Lokalise. Built for modern developer workflows.',
-      fr: "L'alternative open-source à Crowdin & Lokalise. Conçu pour les workflows de développement modernes.",
+      fr: "L'alternative open source à Crowdin & Lokalise. Conçu pour les workflows de développement modernes.",
       es: 'La alternativa de código abierto a Crowdin y Lokalise. Creado para flujos de trabajo modernos.',
       de: 'Die Open-Source-Alternative zu Crowdin & Lokalise. Gebaut für moderne Entwickler-Workflows.',
       ru: 'Открытая альтернатива Crowdin и Lokalise. Создана для современных рабочих процессов разработчиков.',

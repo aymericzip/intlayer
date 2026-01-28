@@ -52,7 +52,7 @@ const frequentQuestionsPageContent = {
         'Find answers to frequent questions about Intlayer, including internationalisation (i18n), content management, and technical integration. Learn how Intlayer can help your projects.',
       es: 'Descubra respuestas a las preguntas frecuentes sobre Intlayer, como internacionalización (i18n), gestión de contenido e integración técnica. Descubre cómo Intlayer puede ayudarte.',
       fr: 'Trouvez des réponses aux questions fréquentes sur Intlayer, y compris l’internationalisation (i18n), la gestion de contenu et l’intégration technique. Découvrez comment Intlayer peut améliorer vos projets.',
-      hi: 'Intlayer से जुड़े अक्सर पूछे जाने वाले प्रश्नों के उत्तर पाएं, जिनमें i18n, सामग्री प्रबंधन और तकनीकी एकीकरण शामिल हैं। जानिए Intlayer आपके प्रोजेक्ट्स के लिए कैसे मददगार है।',
+      hi: 'Intlayer से जुड़े अक्सर पूछे जाने वाले प्रश्नों के उत्तर पाएं, जिनमें अंतर्राष्ट्रीयकरण (i18n), सामग्री प्रबंधन और तकनीकी एकीकरण शामिल हैं। जानिए Intlayer आपके प्रोजेक्ट्स के लिए कैसे मददगार है।',
       it: 'Trova risposte alle domande frequenti su Intlayer, inclusa l’internazionalizzazione (i18n), la gestione dei contenuti e l’integrazione tecnica. Scopri come Intlayer può supportare i tuoi progetti.',
       ja: 'Intlayerのよくある質問とその回答をご覧ください。i18nやコンテンツ管理、技術統合など、プロジェクトをより良くするための情報を提供します。',
       ko: 'Intlayer와 관련된 자주 묻는 질문에 대한 답변을 확인하세요. i18n, 콘텐츠 관리, 기술 통합 등 Intlayer가 프로젝트에 어떻게 도움이 되는지 알아보세요.',
@@ -142,7 +142,7 @@ const frequentQuestionsPageContent = {
       hi: [
         'अक्सर पूछे जाने वाले प्रश्न',
         'सहायता',
-        'dastavej',
+        'दस्तावेज़',
         'i18n',
         'सामग्री प्रबंधन',
         'Next.js',

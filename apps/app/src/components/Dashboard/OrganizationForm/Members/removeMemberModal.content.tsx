@@ -6,14 +6,14 @@ const deleteProjectModalContent = {
     title: insert(
       t({
         en: 'Remove {{memberName}} from Organization',
-        fr: 'Retirer {{memberName}} de l’organisation',
+        fr: "Retirer {{memberName}} de l'organisation",
         es: 'Eliminar {{memberName}} de la organización',
         'en-GB': 'Remove {{memberName}} from Organization',
         de: 'Mitglied {{memberName}} aus der Organisation entfernen',
         ja: '組織から {{memberName}} を削除',
         ko: '조직에서 {{memberName}} 삭제',
         zh: '从组织中移除 {{memberName}}',
-        it: 'Rimuovi {{memberName}} dall’organizzazione',
+        it: "Rimuovi {{memberName}} dall'organizzazione",
         pt: 'Remover {{memberName}} da Organização',
         hi: 'संगठन से {{memberName}} हटाएं',
         ar: 'حذف {{memberName}} من المنظمة',
@@ -32,7 +32,7 @@ const deleteProjectModalContent = {
       es: '¿Está seguro de que desea eliminar este miembro de la organización?',
       'en-GB':
         'Are you sure you want to remove this member from the organization?',
-      de: 'Sind Sie sicher, dass Sie diesen Mitglied aus der Organisation entfernen möchten?',
+      de: 'Sind Sie sicher, dass Sie dieses Mitglied aus der Organisation entfernen möchten?',
       ja: 'この組織からメンバーを削除してもよろしいですか？',
       ko: '이 조직에서 구성원을 삭제하시겠습니까?',
       zh: '您确定要从组织中删除此成员吗？',

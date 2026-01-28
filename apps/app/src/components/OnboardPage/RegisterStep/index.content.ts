@@ -104,7 +104,7 @@ export const registerStepContent = {
         ru: 'Войти',
         tr: 'Giriş yapın',
         pl: 'Zaloguj się',
-        id: 'Log in',
+        id: 'Masuk',
         vi: 'Đăng nhập',
         uk: 'Увійти',
       }),

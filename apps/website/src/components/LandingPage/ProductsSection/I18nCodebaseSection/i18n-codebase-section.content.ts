@@ -25,7 +25,7 @@ const i18nCodebaseSectionContent = {
     }),
     title: t({
       en: 'Type-safe translations that live in your repo.',
-      fr: 'Des traductions typées qui vivent dans votre dépôt.',
+      fr: 'Des traductions avec sécurité de type qui vivent dans votre dépôt.',
       es: 'Traducciones con seguridad de tipos en tu repositorio.',
       de: 'Typsichere Übersetzungen, die in Ihrem Repo leben.',
       ja: 'リポジトリに存在する型安全な翻訳。',

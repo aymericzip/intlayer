@@ -123,7 +123,7 @@ const accessKeyFormContent = {
         'en-GB': 'Project',
         tr: 'Proje',
         pl: 'Projekt',
-        id: 'Project',
+        id: 'Proyek',
         vi: 'Dự án',
         uk: 'Проєкт',
       }),

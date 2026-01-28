@@ -15,7 +15,7 @@ export const dictionaryFormContent = {
         zh: '键',
         it: 'Chiave',
         pt: 'Chave',
-        hi: 'की',
+        hi: 'कुंजी',
         ar: 'مفتاح',
         ru: 'Ключ',
         tr: 'Anahtar',

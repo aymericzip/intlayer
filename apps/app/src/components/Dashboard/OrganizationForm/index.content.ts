@@ -6,7 +6,7 @@ const organizationFormContent = {
     title: t({
       en: 'Organization details',
       'en-GB': 'Organization details',
-      fr: 'Détails de l’organisation',
+      fr: "Détails de l'organisation",
       es: 'Detalles de la organización',
       de: 'Organisationsdetails',
       ja: '組織の詳細',

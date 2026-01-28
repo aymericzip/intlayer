@@ -219,7 +219,7 @@ const projectFormContent = {
       title: t({
         en: 'Access keys',
         'en-GB': 'Access keys',
-        fr: "Clés d'accès",
+        fr: "clés d'accès",
         es: 'Claves de acceso',
         de: 'Zugangsschlüssel',
         ja: 'アクセスキー',

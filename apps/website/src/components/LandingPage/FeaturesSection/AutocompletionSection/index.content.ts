@@ -5,15 +5,15 @@ const markdownSectionContent = {
   title: 'Autocompletion section',
   content: {
     input: t({
-      ar: 'عزيز العملاء،\n\nأنا أريد كتابة لك ',
+      ar: 'عزيزي العميل،\n\nأرغب في الكتابة إليكم ',
       de: 'Sehr geehrte Kundin,\n\nIch schreibe Ihnen ',
       en: 'Dear customer,\n\nI am writing to you ',
       'en-GB': 'Dear customer,\n\nI am writing to you ',
       es: 'Estimado cliente,\n\nEstoy escribiendo a usted ',
       fr: 'Cher client,\n\nJe vous écris ',
-      hi: 'धन्यवाद, मैंने आपको ',
+      hi: 'नमस्ते, मैं आपको यह पत्र लिख रहा हूँ ',
       it: 'Caro cliente,\n\nSto scrivendo a te ',
-      ja: 'お客様さん、\n\nこんにちは。私はあなたに書きます ',
+      ja: 'お客様、\n\nこんにちは。私はあなたに書きます ',
       ko: '사용자님,\n\n안녕하세요. 나는 당신에게 ',
       pt: 'Caro cliente,\n\nEstou escrevendo para você ',
       ru: 'Дорогой клиент,\n\nЯ напишу вам ',

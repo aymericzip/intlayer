@@ -90,7 +90,7 @@ const askResetPasswordContent = {
     resendRecoveryEmailButton: {
       text: t({
         en: 'Resend recovery email',
-        fr: 'Renvoyer l’e-mail de récupération',
+        fr: "Renvoyer l'e-mail de récupération",
         es: 'Reenviar correo de recuperación',
         'en-GB': 'Resend recovery email',
         de: 'Wiederherstellungs-E-Mail erneut senden',
@@ -99,7 +99,7 @@ const askResetPasswordContent = {
         zh: '重新发送恢复电子邮件',
         it: "Invia di nuovo l'email di recupero",
         pt: 'Reenviar e-mail de recuperação',
-        hi: 'पुनर्प्राप्ति ईमेल पुनः भेजें',
+        hi: 'रिकवरी ईमेल फिर से भेजें',
         ar: 'إعادة إرسال البريد الإلكتروني لاستعادة كلمة المرور',
         ru: 'Повторно отправить письмо для восстановления',
         tr: 'Kurtarma e-postasını yeniden gönder',

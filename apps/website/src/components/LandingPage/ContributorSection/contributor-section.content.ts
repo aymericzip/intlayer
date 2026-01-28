@@ -26,7 +26,7 @@ const contributorSectionContent = {
     subtitle: t({
       en: 'Meet the amazing contributors who make Intlayer possible.',
       'en-GB': 'Meet the amazing contributors who make Intlayer possible',
-      fr: 'Rencontrez les contributeurs incroyables qui rendent Intlayer possible. Vous voulez etre le prochain ? Rejoignez nous sur Discord.',
+      fr: 'Rencontrez les contributeurs incroyables qui rendent Intlayer possible. Vous voulez être le prochain ? Rejoignez-nous sur Discord.',
       es: 'Conoce a los increíbles colaboradores que hacen posible Intlayer',
       de: 'Lernen Sie die erstaunlichen Mitwirkenden kennen, die Intlayer möglich machen',
       it: 'Incontra gli straordinari contributori che rendono possibile Intlayer',
@@ -35,7 +35,7 @@ const contributorSectionContent = {
       ja: 'Intlayerを可能にする素晴らしい貢献者に会おう',
       ko: 'Intlayer를 가능하게 하는 놀라운 기여자들을 만나보세요',
       zh: '认识让Intlayer成为可能的了不起的贡献者',
-      hi: 'Intlayer को संभव बनाने वाले अद्भुत योगदानकर्ताओं से मिलें',
+      hi: 'उन अद्भुत योगदानकर्ताओं से मिलें जो Intlayer को संभव बनाते हैं।',
       tr: "Intlayer'ı mümkün kılan harika katkıda bulunanlarla tanışın",
       ar: 'تعرف على المساهمين المذهلين الذين يجعلون Intlayer ممكنًا',
       pl: 'Poznaj niesamowitych współtwórców, którzy umożliwiają Intlayer',

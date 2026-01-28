@@ -15,7 +15,7 @@ export const confirmationStepContent = {
         zh: '确认',
         it: 'Conferma',
         pt: 'Confirmação',
-        hi: 'निष्कर्ष',
+        hi: 'पुष्टि',
         ar: 'تأكيد',
         ru: 'Подтверждение',
         tr: 'Onay',

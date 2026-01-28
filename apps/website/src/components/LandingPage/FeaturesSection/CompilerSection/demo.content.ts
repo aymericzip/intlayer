@@ -24,11 +24,11 @@ const demoContent = {
       uk: 'Компілятор Intlayer',
     }),
     paragraph: t({
-      en: 'The Intlayer Compiler extract automatically the content from the components and generate the dictionary files.',
+      en: 'The Intlayer Compiler automatically extracts the content from the components and generates the dictionary files.',
       fr: 'Le Compilateur Intlayer extrait automatiquement le contenu des composants et génère les fichiers de dictionnaire.',
       es: 'El Compilador Intlayer extrae automáticamente el contenido de los componentes y genera los archivos de diccionario.',
       'en-GB':
-        'The Intlayer Compiler extract automatically the content from the components and generate the dictionary files.',
+        'The Intlayer Compiler automatically extracts the content from the components and generates the dictionary files.',
       de: 'Der Intlayer Compiler extrahiert automatisch den Inhalt aus den Komponenten und generiert die Wörterbuchdateien.',
       ja: 'Intlayerコンパイラは、コンポーネントからコンテンツを自動的に抽出し、辞書ファイルを生成します。',
       ko: 'Intlayer 컴파일러는 컴포넌트에서 콘텐츠를 자동으로 추출하여 사전 파일을 생성합니다.',
@@ -47,7 +47,7 @@ const demoContent = {
     localeSelectorTrigger: t({
       en: 'Click to select a locale',
       fr: 'Cliquer pour sélectionner une locale',
-      es: 'Elegir la locale',
+      es: 'Elegir el idioma local',
       'en-GB': 'Click to select a locale',
       de: 'Klicken Sie, um eine Sprache auszuwählen',
       ja: '言語を選択するにはクリックしてください',

@@ -141,7 +141,7 @@ const content = {
         zh: '同意使用条款',
         it: 'Accetto i termini e le condizioni',
         pt: 'Concordo com os termos e condições',
-        hi: 'शर्तें और शर्तें सहमत होते हैं',
+        hi: 'नियम और शर्तों से सहमत हूँ',
         ar: 'أوافق على الشروط والأحكام',
         ru: 'Соглашаюсь с условиями и положениями',
         tr: 'Şartlar ve koşulları kabul ediyorum',

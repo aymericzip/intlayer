@@ -177,7 +177,7 @@ const profileFormContent = {
       en: 'Two-Factor Authentication',
       'en-GB': 'Two-Factor Authentication',
       fr: 'Authentification à deux facteurs',
-      es: 'Autenticación de dos facteurs',
+      es: 'Autenticación de dos factores',
       de: 'Zwei-Faktor-Authentifizierung',
       ja: '二要素認証',
       ko: '2단계 인증',

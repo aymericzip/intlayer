@@ -47,13 +47,13 @@ const repositoryLinkContent = {
 
     connectTitle: insert(
       t({
-        ar: '{{provider}} ربط',
+        ar: 'ربط {{provider}}',
         de: '{{provider}} verbinden',
         en: 'Connect {{provider}}',
         'en-GB': 'Connect {{provider}}',
         es: 'Conectar {{provider}}',
         fr: 'Connecter {{provider}}',
-        hi: '{{provider}} कनेक्ट करें',
+        hi: '{{provider}} को कनेक्ट करें',
         id: 'Hubungkan {{provider}}',
         it: 'Connetti {{provider}}',
         ja: '{{provider}} に接続',
@@ -242,13 +242,13 @@ const repositoryLinkContent = {
       }),
       connectWithProvider: insert(
         t({
-          ar: '{{provider}} ربط',
+          ar: 'ربط {{provider}}',
           de: '{{provider}} verbinden',
           en: 'Connect {{provider}}',
           'en-GB': 'Connect {{provider}}',
           es: 'Conectar {{provider}}',
           fr: 'Connecter {{provider}}',
-          hi: '{{provider}} कनेक्ट करें',
+          hi: '{{provider}} को कनेक्ट करें',
           id: 'Hubungkan {{provider}}',
           it: 'Connetti {{provider}}',
           ja: '{{provider}} に接続',

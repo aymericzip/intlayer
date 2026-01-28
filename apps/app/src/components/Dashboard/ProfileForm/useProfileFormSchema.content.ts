@@ -6,8 +6,8 @@ const content = {
     requiredErrorName: t({
       en: 'Please enter your name',
       'en-GB': 'Please enter your name',
-      fr: 'Veuillez saisir votre nom d’utilisateur',
-      es: 'Por favor, ingrese su nombre de usuario',
+      fr: 'Veuillez saisir votre nom',
+      es: 'Por favor, ingrese su nombre',
       de: 'Bitte geben Sie Ihren Namen ein',
       ja: '名前を入力してください',
       ko: '이름을 입력해 주세요',
@@ -27,8 +27,8 @@ const content = {
     invalidTypeErrorName: t({
       en: 'Please enter a valid username',
       'en-GB': 'Please enter a valid username',
-      fr: 'Veuillez saisir un nom d’utilisateur valide',
-      es: 'Por favor, ingrese un nombre de usuario válido',
+      fr: 'Veuillez saisir un nom valide',
+      es: 'Por favor, ingrese un nombre válido',
       de: 'Bitte geben Sie einen gültigen Benutzernamen ein',
       ja: '有効なユーザー名を入力してください',
       ko: '유효한 사용자 이름을 입력해 주세요',

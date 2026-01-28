@@ -10,7 +10,7 @@ const definePasswordStepContent = {
       'en-GB': 'Define a password',
       es: 'Defina una contraseña',
       fr: 'Définissez un mot de passe',
-      hi: 'एक पासवर्ड निर्दिष्ट करें',
+      hi: 'एक पासवर्ड बनाएं',
       it: 'Definisci una password',
       ja: 'パスワードを定義する',
       ko: '비밀번호 정의',

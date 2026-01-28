@@ -70,7 +70,7 @@ const adminBreadcrumbContent = {
       'en-GB': 'Projects',
       es: 'Proyectos',
       fr: 'Projets',
-      hi: 'परियोजनाएं',
+      hi: 'परियोजनाएँ',
       it: 'Progetti',
       ja: 'プロジェクト',
       ko: '프로젝트',

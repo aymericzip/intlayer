@@ -16,7 +16,7 @@ const painPointsSectionContent = {
       ja: 'レガシーな翻訳プラットフォームにうんざりしていませんか？',
       ko: '레거시 번역 플랫폼에 지치셨나요?',
       zh: '厌倦了传统的翻译平台？',
-      ar: 'ت tired من منصات الترجمة القديمة؟',
+      ar: 'هل سئمت من منصات الترجمة القديمة؟',
       it: 'Stanco delle piattaforme di traduzione legacy?',
       pt: 'Cansado de plataformas de tradução legadas?',
       hi: 'पुराने अनुवाद प्लेटफ़ॉर्म से थक गए हैं?',
@@ -145,7 +145,7 @@ const painPointsSectionContent = {
           'en-GB':
             'Translators work on spreadsheets without seeing the app. Intlayer provides a visual editor with live preview.',
           fr: "Les traducteurs travaillent sur des tableurs sans voir l'app. Intlayer fournit un éditeur visuel avec aperçu en direct.",
-          es: 'Los traducteurs trabajan en hojas de cálculo sin ver la app. Intlayer ofrece un editor visual con vista previa.',
+          es: 'Los traductores trabajan en hojas de cálculo sin ver la app. Intlayer ofrece un editor visual con vista previa.',
           de: 'Übersetzer arbeiten an Tabellen ohne die App zu sehen. Intlayer bietet einen visuellen Editor mit Live-Vorschau.',
           ru: 'Переводчики работают с таблицами, не видя приложение. Intlayer предоставляет визуальный редактор с живым предпросмотром.',
           ja: '翻訳者はアプリを見ずにスプレッドシートで作業します。Intlayerはライブプレビュー付きのビジュアルエディターを提供します。',

@@ -20,7 +20,7 @@ const projectListContent = {
       tr: 'Proje ara',
       pl: 'Wyszukaj projekt',
       id: 'Cari proyek',
-      vi: 'Tìm kiếm project',
+      vi: 'Tìm kiếm dự án',
       uk: 'Шукати проєкт',
     }),
 
@@ -42,7 +42,7 @@ const projectListContent = {
         tr: 'Proje oluştur',
         pl: 'Utwórz projekt',
         id: 'Buat proyek',
-        vi: 'Tạo project',
+        vi: 'Tạo dự án',
         uk: 'Створити проєкт',
       }),
       ariaLabel: t({
@@ -85,7 +85,7 @@ const projectListContent = {
         tr: 'Proje seç',
         pl: 'Wybierz projekt',
         id: 'Pilih proyek',
-        vi: 'Chọn project',
+        vi: 'Chọn dự án',
         uk: 'Вибрати проєкт',
       }),
       label: t({
@@ -126,7 +126,7 @@ const projectListContent = {
       tr: 'Proje bulunamadı. Filtrelerinizi temizlemeyi deneyin.',
       pl: 'Nie znaleziono żadnego projektu. Spróbuj wyczyścić filtry.',
       id: 'Tidak ada proyek yang ditemukan. Coba bersihkan filter Anda.',
-      vi: 'Không tìm thấy project. Hãy thử xóa bộ lọc của bạn.',
+      vi: 'Không tìm thấy dự án. Hãy thử xóa bộ lọc của bạn.',
       uk: 'Жодного проєкту не знайдено. Спробуйте очистити фільтри.',
     }),
   },

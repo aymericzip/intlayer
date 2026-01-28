@@ -30,9 +30,9 @@ const metadataContent = {
       en: 'Get instant answers with our AI-powered documentation chatbot. Explore interactive guides, troubleshoot issues, and find solutions effortlessly, just ask!',
       'en-GB':
         'Get instant answers with our AI-powered documentation chatbot. Explore interactive guides, troubleshoot issues, and find solutions effortlessly, just ask!',
-      es: 'Obtenga respuestas instantáneas con nuestro chatbot de documentación AI. Explore guías interactivas, solucione problemas y encuentre soluciones sin esfuerzo, ¡solo pregúntale!',
-      fr: "Obtenez des réponses instantanées avec notre chatbot d'assistance en ligne. Explorez les guides interactifs, résolvez les problèmes et trouvez des solutions sans effort, juste demandez !",
-      hi: 'हमारे AI प्लग किए गए दस्तावेज़ चैटबॉट के साथ तुरंत उत्तर देने के लिए आपको कोई भी पूछें!',
+      es: 'Obtenga respuestas instantáneas con nuestro chatbot de documentación AI. Explore guías interactivas, solucione problemas y encuentre soluciones sin esfuerzo, ¡no dude en preguntar!',
+      fr: "Obtenez des réponses instantanées avec notre chatbot d'assistance en ligne. Explorez les guides interactifs, résolvez les problèmes et trouvez des solutions sans effort, posez simplement votre question !",
+      hi: 'हमारे AI-संचालित दस्तावेज़ चैटबॉट के साथ तुरंत उत्तर प्राप्त करें। बस पूछें!',
       it: 'Ottieni risposte istantanee con il nostro chatbot di documentazione AI. Esplora guide interattive, risolvi problemi e trova soluzioni in modo efficiente, chiedi solo!',
       ja: '私たちの AI ドキュメントチャットボットを使用して、インタラクティブなガイド、問題の解決、解決策を簡単に取得します。ただし、質問してください！',
       ko: '우리의 AI 개발 문서 채팅 봇을 사용하여 빠르게 직접 답변을 받으세요. 상호 작용 가이드를 탐색하고 문제를 해결하고 해결 방법을 찾으세요. 물어보세요!',

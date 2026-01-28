@@ -1,7 +1,7 @@
 import { type Dictionary, t } from 'intlayer';
 import { AppRoutes, PagesRoutes } from '@/Routes';
 
-const docNavTitlesContent = {
+const commonQuestionsContent = {
   key: 'common-questions',
   content: {
     title: t({
@@ -44,7 +44,7 @@ const docNavTitlesContent = {
           ru: 'Что такое интернационализация (i18n)?',
           tr: 'Uluslararasılaştırma (i18n) nedir?',
           pl: 'Czym jest internacjonalizacja (i18n)?',
-          id: 'What is internationalization (i18n)?',
+          id: 'Apa itu internasionalisasi (i18n)?',
           vi: 'Internationalization (i18n) là gì?',
         }),
         answer: t({
@@ -231,7 +231,7 @@ const docNavTitlesContent = {
           zh: 'Intlayer简化了配置管理，并使各种类型的JavaScript应用程序（包括服务器组件）能够实现国际化。它允许内容在组件旁边直接声明，从而改善代码库的可维护性。此外，Intlayer利用TypeScript防止缺失声明。最后，Intlayer提供了一个可视化编辑器，使非开发人员能够编辑网站内容，使用AI自动翻译并优化应用程序的SEO。',
           it: 'Intlayer semplifica la gestione delle configurazioni e abilita l’internazionalizzazione per vari tipi di applicazioni JavaScript, inclusi i componenti server. Consente la dichiarazione del contenuto direttamente accanto ai componenti, migliorando la manutenzione del codice. Inoltre, Intlayer sfrutta TypeScript per prevenire le dichiarazioni mancanti. Infine, Intlayer offre un editor visivo, che consente a chi non è sviluppatore di modificare i contenuti del sito web, tradurre automaticamente utilizzando l’intelligenza artificiale e ottimizzare il SEO dell’applicazione.',
           pt: 'O Intlayer simplifica a gestão da configuração e habilita a internacionalização para vários tipos de aplicações JavaScript, incluindo componentes de servidor. Permite a declaração do conteúdo diretamente ao lado dos componentes, melhorando a manutenibilidade da base de código. Além disso, o Intlayer utiliza o TypeScript para evitar declarações ausentes. Finalmente, o Intlayer oferece um editor visual, permitindo que não desenvolvedores editem o conteúdo do site, traduzam automaticamente usando IA e otimizem o SEO da aplicação.',
-          hi: 'Intlayer कॉन्फ़िगरेशन प्रबंधन को सरल बनाता है और विभिन्न प्रकार के JavaScript अनुप्रयोगों, जिसमें सर्वर घटक शामिल हैं, के लिए अंतर्राष्ट्रीयकरण सक्षम करता है। यह घटकों के साथ सीधे सामग्री की घोषणा की अनुमति देता है, जिससे कोडबेस की रखरखाव क्षमता में सुधार होता है। इसके अलावा, Intlayer को अनुप्रयोग की घोषणा समाप्त होने से रोकने के लिए TypeScript का लाभ उठाता है। अंततः, Intlayer एक दृश्य संपादक प्रदान करता है, जो गैर-डेवलपर्स को वेबसाइट की सामग्री को संपादित करने, AI का उपयोग करके स्वचालित रूप से अनुवाद करने और एप्लिकेशन के SEO को अनुकूलित करने में सक्षम बनाता है।',
+          hi: 'Intlayer कॉन्फ़िगरेशन प्रबंधन को सरल बनाता है और विभिन्न प्रकार के JavaScript अनुप्रयोगों, जिसमें सर्वर घटक शामिल हैं, के लिए अंतर्राष्ट्रीयकरण सक्षम करता है। यह घटकों के साथ सीधे सामग्री की घोषणा की अनुमति देता है, जिससे कोडबेस की रखरखाव क्षमता में सुधार होता है। इसके अलावा, Intlayer, TypeScript का लाभ उठाकर घोषणाओं की कमी को रोकता है। अंततः, Intlayer एक दृश्य संपादक प्रदान करता है, जो गैर-डेवलपर्स को वेबसाइट की सामग्री को संपादित करने, AI का उपयोग करके स्वचालित रूप से अनुवाद करने और एप्लिकेशन के SEO को अनुकूलित करने में सक्षम बनाता है।',
           ar: 'تسهل Intlayer إدارة التكوين وتتيح التدويل لمجموعة متنوعة من أنواع تطبيقات JavaScript، بما في ذلك المكونات الخادم. يسمح بإعلان المحتوى مباشرة بجانب المكونات، مما يحسن من قابلية صيانة قاعدة التعليمات البرمجية. بالإضافة إلى ذلك، تستفيد Intlayer من TypeScript لمنع فقدان التصريحات. أخيرًا، تقدم Intlayer محررًا مرئيًا، مما يتيح لغير المطورين تحرير محتوى الموقع، والترجمة تلقائيًا باستخدام الذكاء الاصطناعي، وتحسين تحسين محركات البحث للتطبيق.',
           uk: 'Intlayer спрощує управління конфігурацією та дозволяє інтернаціоналізувати різні типи JavaScript-додатків, включаючи серверні компоненти. Він дозволяє оголошувати вміст безпосередньо поруч із компонентами, покращуючи підтримуваність кодової бази. Крім того, Intlayer використовує TypeScript, щоб запобігти відсутності декларацій. Нарешті, Intlayer пропонує візуальний редактор, дозволяючи нерозробникам редагувати вміст сайту, автоматично перекладати за допомогою ШІ та оптимізувати SEO додатку.',
           ru: 'Intlayer упрощает управление конфигурацией и позволяет интернационализировать различные типы JavaScript-приложений, включая серверные компоненты. Он позволяет объявлять содержимое непосредственно рядом с компонентами, улучшая поддерживаемость кодовой базы. Кроме того, Intlayer использует TypeScript, чтобы предотвратить отсутствие деклараций. Наконец, Intlayer предлагает визуальный редактор, позволяя недевелоперам редактировать содержимое сайта, автоматически переводить с помощью ИИ и оптимизировать SEO приложения.',
@@ -302,7 +302,7 @@ const docNavTitlesContent = {
           ru: 'Как Intlayer интегрируется с Next.js?',
           tr: 'Intlayer, Next.js ile nasıl entegre olur?',
           pl: 'Jak Intlayer integruje się z Next.js?',
-          id: 'How does Intlayer integrate with Next.js?',
+          id: 'Bagaimana Intlayer berintegrasi dengan Next.js?',
           vi: 'Intlayer tích hợp với Next.js như thế nào?',
         }),
         answer: t({
@@ -389,7 +389,7 @@ const docNavTitlesContent = {
           ru: 'Есть ли визуальный редактор в Intlayer?',
           tr: "Intlayer'da görsel bir editör var mı?",
           pl: 'Czy Intlayer posiada edytor wizualny?',
-          id: 'Is there a visual editor in Intlayer?',
+          id: 'Apakah ada editor visual di Intlayer?',
           vi: 'Có trình chỉnh sửa trực quan trong Intlayer không?',
         }),
         answer: t({
@@ -475,7 +475,7 @@ const docNavTitlesContent = {
           ru: 'Как я могу сделать вклад в Intlayer?',
           tr: "Intlayer'a nasıl katkıda bulunabilirim?",
           pl: 'Jak mogę przyczynić się do rozwoju Intlayer?',
-          id: 'How can I contribute to Intlayer?',
+          id: 'Bagaimana cara berkontribusi ke Intlayer?',
           vi: 'Làm thế nào để tôi đóng góp cho Intlayer?',
         }),
         answer: t({
@@ -562,7 +562,7 @@ const docNavTitlesContent = {
           ru: 'Какова стоимость использования Intlayer?',
           tr: "Intlayer'ı kullanmanın maliyeti nedir?",
           pl: 'Ile kosztuje korzystanie z Intlayer?',
-          id: 'What is the cost of using Intlayer?',
+          id: 'Berapa biaya penggunaan Intlayer?',
           vi: 'Chi phí sử dụng Intlayer là bao nhiêu?',
         }),
         answer: t({
@@ -648,7 +648,7 @@ const docNavTitlesContent = {
           ru: 'Какие платформы поддерживает Intlayer?',
           tr: 'Intlayer hangi platformları destekliyor?',
           pl: 'Które platformy obsługuje Intlayer?',
-          id: 'Which platforms does Intlayer support?',
+          id: 'Platform apa saja yang didukung Intlayer?',
           vi: 'Intlayer hỗ trợ những nền tảng nào?',
         }),
         answer: t({
@@ -810,4 +810,4 @@ const docNavTitlesContent = {
   tags: ['faq', 'landing page', 'documentation'],
 } satisfies Dictionary;
 
-export default docNavTitlesContent;
+export default commonQuestionsContent;

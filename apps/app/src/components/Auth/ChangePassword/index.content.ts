@@ -14,7 +14,7 @@ const content = {
         ja: 'トップページへ',
         ru: 'Перейти на главную страницу',
         en: 'Go to home page',
-        fr: "Aller à la page d'accueil",
+        fr: "Retourner à l'accueil",
         es: 'Ir a la página de inicio',
         de: 'Gehen Sie zur Startseite',
         'en-GB': 'Go to home page',
@@ -25,7 +25,7 @@ const content = {
         uk: 'Перейти на головну сторінку',
       }),
       ariaLabel: t({
-        hi: 'होम पृष्ठ पर जाएँ को क्लिक करें',
+        hi: 'होम पेज पर जाने के लिए क्लिक करें',
         pt: 'Clique para ir para a home page',
         it: 'Clicca per andare alla home page',
         ar: 'انقر للذهاب إلى الصفحة الرئيسية',

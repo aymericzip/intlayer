@@ -11,7 +11,7 @@ import {
   useState,
 } from 'react';
 import { ApplicationNotRunningView } from './ApplicationNotRunningView/ApplicationNotRunningView';
-import { CheckingApplicationStatusView } from './ChekingApplicationStatutView/ChekingApplicationStatutView';
+import { CheckingApplicationStatusView } from './CheckingApplicationStatusView/CheckingApplicationStatusView';
 import { NoApplicationURLView } from './NoApplicationURLView/NoApplicationURLView';
 
 type EditorProviderProps = {

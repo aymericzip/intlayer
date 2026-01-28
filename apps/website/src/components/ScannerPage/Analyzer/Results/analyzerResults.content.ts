@@ -14,7 +14,7 @@ const analyzerResultsContent = {
         zh: '转到URL',
         ru: 'Перейти к URL',
         ko: 'URL로 이동',
-        it: 'Vai alla URL',
+        it: "Vai all'URL",
         pt: 'Ir para o URL',
         hi: 'यूआरएल पर जाएं',
         tr: "URL'ye git",
@@ -384,7 +384,7 @@ const analyzerResultsContent = {
         pl: 'Zlokalizowane adresy URL',
         id: 'URL terlokalisasi',
         vi: 'URL đã bản địa hóa',
-        ar: 'عناوين URL المحلية',
+        ar: 'روابط مترجمة',
         uk: 'Локалізовані URL',
       }),
       localizedLinks: t({

@@ -29,7 +29,7 @@ const metadataContent = {
       en: 'Intlayer connects local and remote content in one Multilingual Headless CMS. Manage translations natively without plugins. Features live sync, CI/CD integration, feature flags, and AI auto-translation.',
       'en-GB':
         'Intlayer connects local and remote content in one Multilingual Headless CMS. Manage translations natively without plugins. Features live sync, CI/CD integration, feature flags, and AI auto-translation.',
-      fr: 'Intlayer connecte contenu local et distant dans un CMS Headless multilingue. Gérez les traductions nativement sans plugin. Fonctionnalités : live sync, intégration CI/CD, feature flags et traduction automatique IA.',
+      fr: 'Intlayer connecte contenu local et distant dans un CMS Headless multilingue. Gérez les traductions nativement sans plugin. Fonctionnalités : live sync, intégration CI/CD, feature flags et traduction automatique par IA.',
       es: 'Intlayer conecta contenido local y remoto en un CMS Headless multilingüe. Gestione traducciones nativamente sin plugins. Incluye sincronización en vivo, integración CI/CD, feature flags y traducción automática por IA.',
       de: 'Intlayer verbindet lokale und entfernte Inhalte in einem mehrsprachigen Headless CMS. Verwalten Sie Übersetzungen nativ ohne Plugins. Features: Live-Sync, CI/CD-Integration, Feature-Flags und KI-Auto-Übersetzung.',
       it: 'Intlayer collega contenuti locali e remoti in un CMS Headless multilingue. Gestisci le traduzioni nativamente senza plugin. Include live sync, integrazione CI/CD, feature flags e traduzione automatica AI.',

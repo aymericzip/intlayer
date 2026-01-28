@@ -6,7 +6,7 @@ const localizationAnalyzerContent = {
     title: t({
       en: 'Analyze Your Website’s Global Localization Score',
       fr: 'Analysez le score de localisation de votre site web',
-      es: 'Analice el puntaje de localización global de su sitio web',
+      es: 'Analice la puntuación de localización global de su sitio web',
       de: 'Analysieren Sie den globalen Lokalisierungs-Score Ihrer Website',
       ja: 'ウェブサイトのグローバルなローカリゼーションスコアを分析します',
       zh: '分析您网站的全球本地化评分',
@@ -68,7 +68,7 @@ const localizationAnalyzerContent = {
       en: 'An error occurred while analyzing the site. Please check if the website is scrollable by a bot. The scanner may be blocked by CORS policies, firewalls, or other blockers that restrict traffic.',
       fr: "Une erreur s'est produite lors de l'analyse du site. Veuillez vérifier si le site est accessible par un bot. Le scanneur peut être bloqué par des politiques CORS, des pare-feu ou d'autres bloqueurs restreignant le trafic.",
       es: 'Ocurrió un error al analizar el sitio. Por favor, verifique si el sitio web es rastreable por un bot. El escáner puede estar bloqueado por políticas CORS, firewalls u otros bloqueadores que restringen el tráfico.',
-      de: 'Ein Fehler ist bei der Analyse der Website aufgetreten. Bitte überprüfen Sie, ob die Website von einem Bot gescrollt werden kann. Der Scanner könnte durch CORS-Richtlinien, Firewalls oder andere Blocker blockiert werden, die den Verkehr einschränken.',
+      de: 'Ein Fehler ist bei der Analyse der Website aufgetreten. Bitte überprüfen Sie, ob die Website von einem Bot gecrawlt werden kann. Der Scanner könnte durch CORS-Richtlinien, Firewalls oder andere Blocker blockiert werden, die den Verkehr einschränken.',
       ja: 'サイトの分析中にエラーが発生しました。ウェブサイトがボットによってスクロール可能かどうかを確認してください。スキャナーは、トラフィックを制限するCORSポリシー、ファイアウォール、またはその他のブロッカーによってブロックされている可能性があります。',
       zh: '分析网站时发生错误。请检查网站是否可被机器人抓取。扫描仪可能被限制流量的CORS策略、防火墙或其他拦截器阻止。',
       ru: 'Произошла ошибка при анализе сайта. Пожалуйста, проверьте, доступен ли сайт для ботов. Сканер может быть заблокирован политиками CORS, брандмауэрами или другими блокировщиками, ограничивающими трафик.',

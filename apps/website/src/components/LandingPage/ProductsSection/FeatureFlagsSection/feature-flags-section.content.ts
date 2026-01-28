@@ -77,7 +77,7 @@ const featureFlagsSectionContent = {
         zh: '阅读文档',
         it: 'Leggi la doc',
         pt: 'Ler docs',
-        ru: 'Ч итать док',
+        ru: 'Читать док',
         ar: 'اقرأ الوثائق',
         hi: 'दस्तावेज़ पढ़ें',
         tr: 'Belgeleri Oku',

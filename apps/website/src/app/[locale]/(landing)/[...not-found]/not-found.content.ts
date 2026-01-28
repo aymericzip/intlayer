@@ -1,6 +1,6 @@
 import { type Dictionary, t } from 'intlayer';
 
-const notFountContent = {
+const notFoundContent = {
   key: 'not-found',
   content: {
     title: t({
@@ -50,4 +50,4 @@ const notFountContent = {
   tags: ['error page', '404 content'],
 } satisfies Dictionary;
 
-export default notFountContent;
+export default notFoundContent;

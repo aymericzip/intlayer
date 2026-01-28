@@ -143,7 +143,7 @@ export const paymentStepContent = {
       zh: '无效的付款请求。也许你已经订阅了这个计划。请再试一次。',
       it: 'Richiesta di pagamento non valida. Forse hai già sottoscritto a questo piano. Riprova.',
       pt: 'Solicitação de pagamento inválida. Talvez você já tenha assinado este plano. Por favor, tente novamente.',
-      hi: 'अमान्य भुगतान अनुरोध है। यह प्रोजेक्ट को पहले से ही सब्सक्राइब है। कृपया फिर से प्रयास करें।',
+      hi: 'अमान्य भुगतान अनुरोध है। आप शायद पहले से ही इस योजना को सब्सक्राइब कर चुके हैं। कृपया फिर से प्रयास करें।',
       ar: 'طلب الدفع غير صالح. ربما قمت بالاشتراك في هذا الخطة. يرجى إعادة المحاولة.',
       ru: 'Недействительный запрос на оплату. Возможно, вы уже подписались на этот план. Пожалуйста, попробуйте еще раз.',
       tr: 'Geçersiz ödeme isteği. Belki bu plana zaten abone olmuşsunuzdur. Lütfen tekrar deneyin.',

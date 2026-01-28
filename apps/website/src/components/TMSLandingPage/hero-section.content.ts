@@ -31,7 +31,7 @@ const heroSectionContent = {
       en: 'The open-source alternative to Crowdin & Lokalise. Built for modern developer workflows.',
       'en-GB':
         'The open-source alternative to Crowdin & Lokalise. Built for modern developer workflows.',
-      fr: "L'alternative open-source à Crowdin & Lokalise. Conçu pour les workflows de développement modernes.",
+      fr: "L'alternative open source à Crowdin & Lokalise. Conçu pour les workflows de développement modernes.",
       es: 'La alternativa de código abierto a Crowdin y Lokalise. Creado para flujos de trabajo modernos.',
       de: 'Die Open-Source-Alternative zu Crowdin & Lokalise. Gebaut für moderne Entwickler-Workflows.',
       ru: 'Открытая альтернатива Crowdin и Lokalise. Создана для современных рабочих процессов разработчиков.',
@@ -52,7 +52,7 @@ const heroSectionContent = {
       en: 'Manage translations directly in your code or via the visual editor. Leverage AI to translate instantly. collaborate with your team without seat limits.',
       'en-GB':
         'Manage translations directly in your code or via the visual editor. Leverage AI to translate instantly. Collaborate with your team without seat limits.',
-      fr: "Gérez les traductions directement dans votre code ou via l'éditeur visuel. Utilisez l'IA pour traduire instantanément. Collaborez avec votre équipe sans limite de sièges.",
+      fr: "Gérez les traductions directement dans votre code ou via l'éditeur visuel. Utilisez l'IA pour traduire instantanément. Collaborez avec votre équipe sans limite d'utilisateurs.",
       es: 'Gestiona traducciones directamente en tu código o vía editor visual. Usa IA para traducir al instante. Colabora con tu equipo sin límites de usuarios.',
       de: 'Verwalten Sie Übersetzungen direkt in Ihrem Code oder über den visuellen Editor. Nutzen Sie KI für sofortige Übersetzungen. Arbeiten Sie ohne Platzbegrenzung im Team.',
       ru: 'Управляйте переводами прямо в коде или через визуальный редактор. Используйте ИИ для мгновенного перевода. Сотрудничайте с командой без ограничений по местам.',

@@ -13,7 +13,7 @@ const buildSettingsContent = {
           'en-GB': 'Connected to {{provider}}',
           es: 'Conectado a {{provider}}',
           fr: 'Connecté à {{provider}}',
-          hi: 'इससे जुड़ा हुआ {{provider}}',
+          hi: '{{provider}} से जुड़ा हुआ',
           id: 'Terhubung ke {{provider}}',
           it: 'Collegato a {{provider}}',
           ja: '接続先 {{provider}}',
@@ -483,7 +483,7 @@ const buildSettingsContent = {
         secretLabel: t({
           en: 'Secret',
           'en-GB': 'Secret',
-          fr: 'Secret',
+          fr: 'secret',
           es: 'Secreto',
           ru: 'Секрет',
           ja: 'シークレット',

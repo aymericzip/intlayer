@@ -58,7 +58,7 @@ const verifyEmailFormContent = {
         zh: '完成',
         it: 'Fatto',
         pt: 'Feito',
-        hi: 'किया',
+        hi: 'हो गया',
         ar: 'تم',
         ru: 'Готово',
         tr: 'Tamamlandı',

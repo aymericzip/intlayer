@@ -6,7 +6,7 @@ const content = {
     goToLoginButton: {
       text: t({
         en: 'Go to home page',
-        fr: "Aller à la page d'accueil",
+        fr: "Retourner à l'accueil",
         es: 'Ir a la página de inicio',
         de: 'Gehen Sie zur Startseite',
         ja: 'ホームページに行く',
@@ -34,7 +34,7 @@ const content = {
         zh: '点击进入主页',
         it: 'Clicca per andare alla home page',
         pt: 'Clique para ir para a home page',
-        hi: 'होम पृष्ठ पर जाएँ को क्लिक करें',
+        hi: 'होम पेज पर जाने के लिए क्लिक करें',
         ar: 'انقر للذهاب إلى الصفحة الرئيسية',
         ru: 'Нажмите, чтобы перейти на главную страницу',
         'en-GB': 'Click to go to home page',

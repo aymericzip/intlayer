@@ -33,7 +33,7 @@ const dictionaryEditionDrawerContent = {
       es: 'Lista de diccionarios',
       fr: 'Liste des dictionnaires',
       hi: 'शब्दकोश सूची',
-      it: 'Elenco di dizionari',
+      it: 'Elenco dei dizionari',
       ja: '辞書リスト',
       ko: '사전 목록',
       pt: 'Lista de dicionários',

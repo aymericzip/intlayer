@@ -7,8 +7,8 @@ const passkeyButtonContent = {
     ariaLabel: t({
       en: 'Sign in with passkey',
       'en-GB': 'Sign in with passkey',
-      fr: 'Se connecter avec une clé de sécurité',
-      es: 'Iniciar sesión con llave',
+      fr: 'Se connecter avec un Passkey',
+      es: 'Iniciar sesión con Passkey',
       de: 'Mit Passkey anmelden',
       ja: 'パスキーでログイン',
       ko: '패스키로 로그인',

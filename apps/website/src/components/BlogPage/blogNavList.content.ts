@@ -16,7 +16,7 @@ const blogNavTitlesContent = {
         it: 'Comprimi',
         pt: 'Recolher',
         hi: 'संकुचित करें',
-        ar: 'اطوي التوسيع',
+        ar: 'تصغير',
         ru: 'Свернуть',
         tr: 'Daralt',
         pl: 'Zwiń',

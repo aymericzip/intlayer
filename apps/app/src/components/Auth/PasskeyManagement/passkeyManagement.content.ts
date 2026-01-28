@@ -6,8 +6,8 @@ const passkeyManagementContent = {
     description: t({
       en: 'Manage your passkeys for secure, passwordless authentication.',
       'en-GB': 'Manage your passkeys for secure, passwordless authentication.',
-      fr: 'Gérez vos clés de sécurité pour une authentification sécurisée sans mot de passe.',
-      es: 'Administre sus llaves de acceso para una autenticación segura sin contraseña.',
+      fr: 'Gérez vos passkeys pour une authentification sécurisée sans mot de passe.',
+      es: 'Administre sus passkeys para una autenticación segura sin contraseña.',
       de: 'Verwalten Sie Ihre Passkeys für eine sichere, passwortlose Authentifizierung.',
       ja: '安全でパスワード不要の認証のためにパスキーを管理します。',
       ko: '안전하고 비밀번호 없는 인증을 위해 패스키를 관리합니다.',
@@ -26,8 +26,8 @@ const passkeyManagementContent = {
     noPasskeysTitle: t({
       en: 'No passkeys yet',
       'en-GB': 'No passkeys yet',
-      fr: 'Aucune clé de sécurité',
-      es: 'No hay llaves de acceso todavía',
+      fr: 'Aucun passkey',
+      es: 'No hay passkeys todavía',
       de: 'Noch keine Passkeys',
       ja: 'パスキーがありません',
       ko: '아직 패스키 없음',
@@ -47,8 +47,8 @@ const passkeyManagementContent = {
       en: 'Add your first passkey for secure, passwordless authentication.',
       'en-GB':
         'Add your first passkey for secure, passwordless authentication.',
-      fr: 'Ajoutez votre première clé de sécurité pour une authentification sécurisée sans mot de passe.',
-      es: 'Agregue su primera llave de acceso para una autenticación segura sin contraseña.',
+      fr: 'Ajoutez votre premier passkey pour une authentification sécurisée sans mot de passe.',
+      es: 'Agregue su primer passkey para una autenticación segura sin contraseña.',
       de: 'Fügen Sie Ihren ersten Passkey für eine sichere, passwortlose Authentifizierung hinzu.',
       ja: '安全でパスワード不要の認証のために最初のパスキーを追加しましょう。',
       ko: '안전하고 비밀번호 없는 인증을 위해 첫 패스키를 추가하세요.',
@@ -67,8 +67,8 @@ const passkeyManagementContent = {
     addPasskeyButton: t({
       en: 'New Passkey',
       'en-GB': 'New Passkey',
-      fr: 'Nouvelle clé',
-      es: 'Nueva llave',
+      fr: 'Nouveau Passkey',
+      es: 'Nuevo Passkey',
       de: 'Neuer Passkey',
       ja: '新しいパスキー',
       ko: '새 패스키',

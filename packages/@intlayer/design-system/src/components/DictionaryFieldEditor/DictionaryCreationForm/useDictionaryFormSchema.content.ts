@@ -6,8 +6,8 @@ export const dictionaryFormSchemaContent = {
     requiredErrorName: t({
       en: 'Please enter a key for your dictionary',
       'en-GB': 'Please enter a key for your dictionary',
-      fr: 'Veuillez saisir une clef pour votre dictionaire',
-      es: 'Por favor, ingrese un clave para su diccionario',
+      fr: 'Veuillez saisir une clé pour votre dictionnaire',
+      es: 'Por favor, ingrese una clave para su diccionario',
       de: 'Bitte geben Sie einen Schlüssel für Ihr Wörterbuch ein',
       ja: '辞書のキーを入力してください',
       ko: '사전 키를 입력해 주세요',
@@ -27,8 +27,8 @@ export const dictionaryFormSchemaContent = {
     invalidTypeErrorName: t({
       en: 'Please enter a valid key for your dictionary',
       'en-GB': 'Please enter a valid key for your dictionary',
-      fr: 'Veuillez saisir une clée valide pour votre dictionaire',
-      es: 'Por favor, ingrese un clave válido para su diccionario',
+      fr: 'Veuillez saisir une clé valide pour votre dictionnaire',
+      es: 'Por favor, ingrese una clave válida para su diccionario',
       de: 'Bitte geben Sie einen gültigen Schlüssel für Ihr Wörterbuch ein',
       ja: '辞書の有効なキーを入力してください',
       ko: '유효한 사전 키를 입력해 주세요',

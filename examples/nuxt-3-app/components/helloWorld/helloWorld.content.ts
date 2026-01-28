@@ -23,7 +23,7 @@ const helloWorldContent = {
     vueDocs: t({
       en: 'Vue Docs Scaling up Guide',
       fr: 'Vue Docs Scaling up Guide',
-      es: 'Vue Docs Scaling up Guide',
+      es: 'Guía de escalado de Vue Docs',
     }),
     readTheDocs: t({
       en: 'Click on the Vite and Vue logos to learn more',
