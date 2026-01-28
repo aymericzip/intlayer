@@ -32,48 +32,12 @@ history:
 
 Intlayer supports rich text content defined using Markdown syntax. This allows you to easily write and maintain content with rich formatting, such as blogs, articles, and more.
 
-## How Markdown Works
-
-Intlayer v8 intelligently detects Markdown syntax in your content strings. If a string is identified as Markdown, it is automatically transformed into a Markdown node.
-
-<Columns>
-  <Column title="v7 behavior (Manual wrapping)">
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    import { md } from "intlayer";
-
-    export default {
-      key: "app",
-      content: {
-        text: md("## My title \n\nLorem Ipsum"),
-      },
-    };
-    ```
-
-  </Column>
-  <Column title="v8 behavior (Automatic detection)">
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    export default {
-      key: "app",
-      contentAutoTransformation: true, // Enable automatic detection of Markdown content - Can be set globally in intlayer.config.ts
-      content: {
-        text: "## My title \n\nLorem Ipsum",
-      },
-    };
-    ```
-
-  </Column>
-</Columns>
-
----
-
-## Part 1: Declaring Markdown Content
+## Declaring Markdown Content
 
 You can declare Markdown content using the `md` function or simply as a string (if it contains Markdown syntax).
 
 <Tabs>
-  <Tab label="Manual Wrapping">
+  <Tab label="Manual Wrapping" value="manual-wrapping">
     Use the `md` function to explicitly declare Markdown content. This is useful if you want to ensure a string is treated as Markdown even if it doesn't contain obvious syntax.
 
     ```typescript fileName="markdownDictionary.content.ts"
@@ -90,7 +54,7 @@ You can declare Markdown content using the `md` function or simply as a string (
     ```
 
   </Tab>
-  <Tab label="Automatic Detection">
+  <Tab label="Automatic Detection" value="automatic-detection">
     If the string contains common Markdown indicators (like headers, lists, links, etc.), Intlayer will automatically transform it.
 
     ```typescript fileName="markdownDictionary.content.ts"
@@ -104,7 +68,7 @@ You can declare Markdown content using the `md` function or simply as a string (
     ```
 
   </Tab>
-  <Tab label="External Files">
+  <Tab label="External Files" value="external-files">
     Import `.md` files directly using the `file` function.
 
     ```typescript fileName="markdownDictionary.content.ts"
@@ -135,7 +99,7 @@ Rendering can be handled automatically by Intlayer's content system or manually 
 When you access content via `useIntlayer`, Markdown nodes are already prepared for rendering.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     Markdown nodes can be rendered directly as JSX.
 
     ```tsx fileName="App.tsx"
@@ -156,7 +120,7 @@ When you access content via `useIntlayer`, Markdown nodes are already prepared f
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
     In Vue, Markdown content can be rendered using the `component` built-in or directly as a node.
 
     ```vue fileName="App.vue"
@@ -171,7 +135,7 @@ When you access content via `useIntlayer`, Markdown nodes are already prepared f
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
     Svelte renders Markdown as an HTML string by default. Use `{@html}` to render it.
 
     ```svelte
@@ -184,7 +148,7 @@ When you access content via `useIntlayer`, Markdown nodes are already prepared f
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     Preact supports Markdown nodes directly in the JSX.
 
     ```tsx fileName="App.tsx"
@@ -197,7 +161,7 @@ When you access content via `useIntlayer`, Markdown nodes are already prepared f
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     Solid supports Markdown nodes directly in the JSX.
 
     ```tsx fileName="App.tsx"
@@ -210,7 +174,7 @@ When you access content via `useIntlayer`, Markdown nodes are already prepared f
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     Angular uses the `[innerHTML]` directive to render Markdown content.
 
     ```typescript fileName="app.component.ts"
@@ -242,7 +206,7 @@ When you access content via `useIntlayer`, Markdown nodes are already prepared f
 If you need to render raw Markdown strings or have more control over the rendering process, use the following tools.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
   
     #### `<MarkdownRenderer />` Component
 
@@ -281,7 +245,7 @@ If you need to render raw Markdown strings or have more control over the renderi
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
 
     #### `<MarkdownRenderer />` Component
 
@@ -296,7 +260,7 @@ If you need to render raw Markdown strings or have more control over the renderi
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
 
     #### `<MarkdownRenderer />` Component
 
@@ -330,7 +294,7 @@ If you need to render raw Markdown strings or have more control over the renderi
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     #### `<MarkdownRenderer />` Component
 
     ```tsx
@@ -360,7 +324,7 @@ If you need to render raw Markdown strings or have more control over the renderi
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     #### `<MarkdownRenderer />` Component
 
     ```tsx
@@ -390,7 +354,7 @@ If you need to render raw Markdown strings or have more control over the renderi
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     #### `IntlayerMarkdownService` Service
     Render a Markdown string using the service.
 
@@ -416,7 +380,7 @@ If you need to render raw Markdown strings or have more control over the renderi
 You can configure Markdown rendering globally for your entire application. This avoids passing the same props to every renderer.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "react-intlayer";
@@ -436,7 +400,7 @@ You can configure Markdown rendering globally for your entire application. This 
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
 
     ```typescript fileName="main.ts"
     import { createApp } from "vue";
@@ -461,7 +425,7 @@ You can configure Markdown rendering globally for your entire application. This 
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
 
     ```svelte fileName="App.svelte"
     <script lang="ts">
@@ -481,7 +445,7 @@ You can configure Markdown rendering globally for your entire application. This 
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "preact-intlayer";
@@ -500,7 +464,7 @@ You can configure Markdown rendering globally for your entire application. This 
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "solid-intlayer";
@@ -519,7 +483,7 @@ You can configure Markdown rendering globally for your entire application. This 
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
     import { createIntlayerMarkdownProvider } from "angular-intlayer";

@@ -32,48 +32,12 @@ history:
 
 Intlayer는 마크다운 문법을 사용하여 정의된 리치 텍스트 콘텐츠를 지원합니다. 이를 통해 블로그, 기사 등과 같은 리치 포맷의 콘텐츠를 쉽게 작성하고 관리할 수 있습니다.
 
-## 마크다운 작동 방식
-
-Intlayer v8는 콘텐츠 문자열에서 마크다운 문법을 지능적으로 감지합니다. 문자열이 마크다운으로 식별되면 자동으로 마크다운 노드로 변환됩니다.
-
-<Columns>
-  <Column title="v7 동작 (수동 래핑)">
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    import { md } from "intlayer";
-
-    export default {
-      key: "app",
-      content: {
-        text: md("## My title \n\nLorem Ipsum"),
-      },
-    };
-    ```
-
-  </Column>
-  <Column title="v8 동작 (자동 감지)">
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    export default {
-      key: "app",
-      contentAutoTransformation: true, // 마크다운 콘텐츠 자동 감지 활성화 - intlayer.config.ts에서 전역 설정 가능
-      content: {
-        text: "## My title \n\nLorem Ipsum",
-      },
-    };
-    ```
-
-  </Column>
-</Columns>
-
----
-
 ## 파트 1: 마크다운 콘텐츠 선언
 
 마크다운 콘텐츠는 `md` 함수를 사용하거나 (마크다운 문법을 포함하는 경우) 단순히 문자열로 선언할 수 있습니다.
 
 <Tabs>
-  <Tab label="수동 래핑">
+  <Tab label="수동 래핑" value="manual-wrapping">
     마크다운 콘텐츠를 명시적으로 선언하려면 `md` 함수를 사용하세요. 명백한 문법이 포함되어 있지 않더라도 문자열이 마크다운으로 처리되도록 보장하고 싶을 때 유용합니다.
 
     ```typescript fileName="markdownDictionary.content.ts"
@@ -90,7 +54,7 @@ Intlayer v8는 콘텐츠 문자열에서 마크다운 문법을 지능적으로 
     ```
 
   </Tab>
-  <Tab label="자동 감지">
+  <Tab label="자동 감지" value="automatic-detection">
     문자열에 일반적인 마크다운 표시(예: 헤더, 리스트, 링크 등)가 포함되어 있으면 Intlayer가 자동으로 변환합니다.
 
     ```typescript fileName="markdownDictionary.content.ts"
@@ -104,7 +68,7 @@ Intlayer v8는 콘텐츠 문자열에서 마크다운 문법을 지능적으로 
     ```
 
   </Tab>
-  <Tab label="외부 파일">
+  <Tab label="외부 파일" value="external-files">
     `file` 함수를 사용하여 `.md` 파일을 직접 가져옵니다.
 
     ```typescript fileName="markdownDictionary.content.ts"
@@ -135,7 +99,7 @@ Intlayer v8는 콘텐츠 문자열에서 마크다운 문법을 지능적으로 
 `useIntlayer`로 콘텐츠에 접근하면 마크다운 노드는 이미 렌더링 준비가 되어 있습니다.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     마크다운 노드는 JSX로 직접 렌더링할 수 있습니다.
 
     ```tsx fileName="App.tsx"
@@ -156,7 +120,7 @@ Intlayer v8는 콘텐츠 문자열에서 마크다운 문법을 지능적으로 
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
     Vue에서는 마크다운 콘텐츠를 내장된 `component`를 사용하거나 직접 노드로 렌더링할 수 있습니다.
 
     ```vue fileName="App.vue"
@@ -171,7 +135,7 @@ Intlayer v8는 콘텐츠 문자열에서 마크다운 문법을 지능적으로 
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
     Svelte는 기본적으로 마크다운을 HTML 문자열로 렌더링합니다. 이를 렌더링하려면 `{@html}`을 사용하세요.
 
     ```svelte
@@ -184,7 +148,7 @@ Intlayer v8는 콘텐츠 문자열에서 마크다운 문법을 지능적으로 
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     Preact는 JSX에서 마크다운 노드를 직접 지원합니다.
 
     ```tsx fileName="App.tsx"
@@ -197,7 +161,7 @@ Intlayer v8는 콘텐츠 문자열에서 마크다운 문법을 지능적으로 
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     Solid는 JSX에서 마크다운 노드를 직접 지원합니다.
 
     ```tsx fileName="App.tsx"
@@ -210,7 +174,7 @@ Intlayer v8는 콘텐츠 문자열에서 마크다운 문법을 지능적으로 
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     Angular는 마크다운 콘텐츠를 렌더링하기 위해 `[innerHTML]` 디렉티브를 사용합니다.
 
     ```typescript fileName="app.component.ts"
@@ -242,7 +206,7 @@ Intlayer v8는 콘텐츠 문자열에서 마크다운 문법을 지능적으로 
 원시 마크다운 문자열을 렌더링하거나 렌더링 프로세스를 더 세밀하게 제어해야 하는 경우, 다음 도구들을 사용하세요.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
   
     #### `<MarkdownRenderer />` 컴포넌트
 
@@ -281,7 +245,7 @@ Intlayer v8는 콘텐츠 문자열에서 마크다운 문법을 지능적으로 
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
 
     #### `<MarkdownRenderer />` 컴포넌트
 
@@ -296,7 +260,7 @@ Intlayer v8는 콘텐츠 문자열에서 마크다운 문법을 지능적으로 
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
 
     #### `<MarkdownRenderer />` 컴포넌트
 
@@ -330,7 +294,7 @@ Intlayer v8는 콘텐츠 문자열에서 마크다운 문법을 지능적으로 
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     #### `<MarkdownRenderer />` 컴포넌트
 
     ```tsx
@@ -360,7 +324,7 @@ Intlayer v8는 콘텐츠 문자열에서 마크다운 문법을 지능적으로 
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     #### `<MarkdownRenderer />` 컴포넌트
 
     ```tsx
@@ -390,7 +354,7 @@ Intlayer v8는 콘텐츠 문자열에서 마크다운 문법을 지능적으로 
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     #### `IntlayerMarkdownService` 서비스
     서비스를 사용하여 마크다운 문자열을 렌더링합니다.
 
@@ -416,7 +380,7 @@ Intlayer v8는 콘텐츠 문자열에서 마크다운 문법을 지능적으로 
 애플리케이션 전체에 대해 마크다운 렌더링을 전역으로 구성할 수 있습니다. 이를 통해 모든 렌더러에 동일한 프롭을 전달하는 번거로움을 피할 수 있습니다.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "react-intlayer";
@@ -436,7 +400,7 @@ Intlayer v8는 콘텐츠 문자열에서 마크다운 문법을 지능적으로 
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
 
     ```typescript fileName="main.ts"
     import { createApp } from "vue";
@@ -461,7 +425,7 @@ Intlayer v8는 콘텐츠 문자열에서 마크다운 문법을 지능적으로 
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
 
     ```svelte fileName="App.svelte"
     <script lang="ts">
@@ -481,7 +445,7 @@ Intlayer v8는 콘텐츠 문자열에서 마크다운 문법을 지능적으로 
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "preact-intlayer";
@@ -500,7 +464,7 @@ Intlayer v8는 콘텐츠 문자열에서 마크다운 문법을 지능적으로 
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "solid-intlayer";
@@ -519,7 +483,7 @@ Intlayer v8는 콘텐츠 문자열에서 마크다운 문법을 지능적으로 
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
     import { createIntlayerMarkdownProvider } from "angular-intlayer";

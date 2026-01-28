@@ -32,48 +32,12 @@ history:
 
 Intlayer поддерживает содержимое с богатым текстом, определенное с использованием синтаксиса Markdown. Это позволяет легко писать и поддерживать контент с богатым форматированием, такой как блоги, статьи и многое другое.
 
-## Как работает Markdown
-
-Intlayer v8 интеллектуально обнаруживает синтаксис Markdown в ваших строках контента. Если строка идентифицируется как Markdown, она автоматически преобразуется в узел Markdown.
-
-<Columns>
-  <Column title="Поведение v7 (Ручная обертка)">
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    import { md } from "intlayer";
-
-    export default {
-      key: "app",
-      content: {
-        text: md("## Мой заголовок \n\nLorem Ipsum"),
-      },
-    };
-    ```
-
-  </Column>
-  <Column title="Поведение v8 (Автоматическое обнаружение)">
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    export default {
-      key: "app",
-      contentAutoTransformation: true, // Включить автоматическое обнаружение контента Markdown - Можно установить глобально в intlayer.config.ts
-      content: {
-        text: "## Мой заголовок \n\nLorem Ipsum",
-      },
-    };
-    ```
-
-  </Column>
-</Columns>
-
----
-
 ## Часть 1: Объявление контента Markdown
 
 Вы можете объявлять контент Markdown с помощью функции `md` или просто как строку (если она содержит синтаксис Markdown).
 
 <Tabs>
-  <Tab label="Ручная обертка">
+  <Tab label="Ручная обертка" value="manual-wrapping">
     Используйте функцию `md`, чтобы явно объявить контент Markdown. Это полезно, если вы хотите гарантировать, что строка обрабатывается как Markdown, даже если она не содержит явного синтаксиса.
 
     ```typescript fileName="markdownDictionary.content.ts"
@@ -90,7 +54,7 @@ Intlayer v8 интеллектуально обнаруживает синтак
     ```
 
   </Tab>
-  <Tab label="Автоматическое обнаружение">
+  <Tab label="Автоматическое обнаружение" value="automatic-detection">
     Если строка содержит распространенные индикаторы Markdown (такие как заголовки, списки, ссылки и т. д.), Intlayer автоматически преобразует ее.
 
     ```typescript fileName="markdownDictionary.content.ts"
@@ -104,7 +68,7 @@ Intlayer v8 интеллектуально обнаруживает синтак
     ```
 
   </Tab>
-  <Tab label="Внешние файлы">
+  <Tab label="Внешние файлы" value="external-files">
     Импортируйте файлы `.md` напрямую с помощью функции `file`.
 
     ```typescript fileName="markdownDictionary.content.ts"
@@ -136,7 +100,7 @@ Intlayer v8 интеллектуально обнаруживает синтак
 Когда вы получаете контент через `useIntlayer`, узлы Markdown уже подготовлены для рендеринга.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     Узлы Markdown можно рендерить напрямую как JSX.
 
     ```tsx fileName="App.tsx"
@@ -157,7 +121,7 @@ Intlayer v8 интеллектуально обнаруживает синтак
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
     Во Vue контент Markdown можно рендерить с помощью встроенного компонента `component` или напрямую как узел.
 
     ```vue fileName="App.vue"
@@ -172,7 +136,7 @@ Intlayer v8 интеллектуально обнаруживает синтак
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
     Svelte рендерит Markdown как HTML-строку по умолчанию. Используйте `{@html}`, чтобы отобразить его.
 
     ```svelte
@@ -185,7 +149,7 @@ Intlayer v8 интеллектуально обнаруживает синтак
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     Preact поддерживает узлы Markdown непосредственно в JSX.
 
     ```tsx fileName="App.tsx"
@@ -198,7 +162,7 @@ Intlayer v8 интеллектуально обнаруживает синтак
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     Solid поддерживает узлы Markdown непосредственно в JSX.
 
     ```tsx fileName="App.tsx"
@@ -211,7 +175,7 @@ Intlayer v8 интеллектуально обнаруживает синтак
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     В Angular используется директива `[innerHTML]` для рендеринга контента Markdown.
 
     ```typescript fileName="app.component.ts"
@@ -243,7 +207,7 @@ Intlayer v8 интеллектуально обнаруживает синтак
 Если вам нужно отрендерить сырые строки Markdown или иметь больше контроля над процессом рендеринга, используйте следующие инструменты.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
   
     #### Компонент `<MarkdownRenderer />`
 
@@ -282,7 +246,7 @@ Intlayer v8 интеллектуально обнаруживает синтак
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
 
     #### Компонент `<MarkdownRenderer />`
 
@@ -297,7 +261,7 @@ Intlayer v8 интеллектуально обнаруживает синтак
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
 
     #### Компонент `<MarkdownRenderer />`
 
@@ -331,7 +295,7 @@ Intlayer v8 интеллектуально обнаруживает синтак
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     #### Компонент `<MarkdownRenderer />`
 
     ```tsx
@@ -361,7 +325,7 @@ Intlayer v8 интеллектуально обнаруживает синтак
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     #### Компонент `<MarkdownRenderer />`
 
     ```tsx
@@ -391,7 +355,7 @@ Intlayer v8 интеллектуально обнаруживает синтак
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     #### Сервис `IntlayerMarkdownService`
     Рендерит строку Markdown с помощью сервиса.
 
@@ -417,7 +381,7 @@ Intlayer v8 интеллектуально обнаруживает синтак
 Вы можете настроить рендеринг Markdown глобально для всего приложения. Это позволяет избежать передачи одних и тех же параметров каждому рендереру.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "react-intlayer";
@@ -437,7 +401,7 @@ Intlayer v8 интеллектуально обнаруживает синтак
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
 
     ```typescript fileName="main.ts"
     import { createApp } from "vue";
@@ -462,7 +426,7 @@ Intlayer v8 интеллектуально обнаруживает синтак
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
 
     ```svelte fileName="App.svelte"
     <script lang="ts">
@@ -482,7 +446,7 @@ Intlayer v8 интеллектуально обнаруживает синтак
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "preact-intlayer";
@@ -501,7 +465,7 @@ Intlayer v8 интеллектуально обнаруживает синтак
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "solid-intlayer";
@@ -520,7 +484,7 @@ Intlayer v8 интеллектуально обнаруживает синтак
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
     import { createIntlayerMarkdownProvider } from "angular-intlayer";

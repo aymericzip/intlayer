@@ -32,48 +32,12 @@ history:
 
 Intlayer підтримує контент rich text, визначений за допомогою синтаксису Markdown. Це дозволяє легко писати та підтримувати контент із багатим форматуванням, таким як блоги, статті та інше.
 
-## Як працює Markdown
-
-Intlayer v8 інтелектуально виявляє синтаксис Markdown у ваших рядках контенту. Якщо рядок ідентифіковано як Markdown, він автоматично перетворюється на вузол Markdown.
-
-<Columns>
-  <Column title="Поведінка v7 (ручне обгортання)">
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    import { md } from "intlayer";
-
-    export default {
-      key: "app",
-      content: {
-        text: md("## Мій заголовок \n\nLorem Ipsum"),
-      },
-    };
-    ```
-
-  </Column>
-  <Column title="Поведінка v8 (автоматичне виявлення)">
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    export default {
-      key: "app",
-      contentAutoTransformation: true, // Увімкнути автоматичне виявлення контенту Markdown - Можна встановити глобально в intlayer.config.ts
-      content: {
-        text: "## Мій заголовок \n\nLorem Ipsum",
-      },
-    };
-    ```
-
-  </Column>
-</Columns>
-
----
-
 ## Частина 1: Оголошення контенту Markdown
 
 Ви можете оголосити контент Markdown за допомогою функції `md` або просто як рядок (якщо він містить синтаксис Markdown).
 
 <Tabs>
-  <Tab label="Ручне обгортання">
+  <Tab label="Ручне обгортання" value="manual-wrapping">
     Використовуйте функцію `md` для явного оголошення контенту Markdown. Це корисно, якщо ви хочете переконатися, що рядок розглядається як Markdown, навіть якщо він не містить очевидного синтаксису.
 
     ```typescript fileName="markdownDictionary.content.ts"
@@ -104,7 +68,7 @@ Intlayer v8 інтелектуально виявляє синтаксис Markd
     ```
 
   </Tab>
-  <Tab label="Зовнішні файли">
+  <Tab label="Зовнішні файли" value="external-files">
     Імпортуйте файли `.md` безпосередньо за допомогою функції `file`.
 
     ```typescript fileName="markdownDictionary.content.ts"
@@ -156,7 +120,7 @@ Intlayer v8 інтелектуально виявляє синтаксис Markd
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
     У Vue контент Markdown можна відтворити за допомогою вбудованого компонента `component` або безпосередньо як вузол.
 
     ```vue fileName="App.vue"
@@ -171,7 +135,7 @@ Intlayer v8 інтелектуально виявляє синтаксис Markd
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
     Svelte відтворює Markdown як рядок HTML за замовчуванням. Використовуйте `{@html}` для його відображення.
 
     ```svelte
@@ -184,7 +148,7 @@ Intlayer v8 інтелектуально виявляє синтаксис Markd
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     Preact підтримує вузли Markdown безпосередньо в JSX.
 
     ```tsx fileName="App.tsx"
@@ -210,7 +174,7 @@ Intlayer v8 інтелектуально виявляє синтаксис Markd
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     Angular використовує директиву `[innerHTML]` для відтворення контенту Markdown.
 
     ```typescript fileName="app.component.ts"
@@ -281,7 +245,7 @@ Intlayer v8 інтелектуально виявляє синтаксис Markd
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
 
     #### Компонент `<MarkdownRenderer />`
 
@@ -296,7 +260,7 @@ Intlayer v8 інтелектуально виявляє синтаксис Markd
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
 
     #### Компонент `<MarkdownRenderer />`
 
@@ -330,7 +294,7 @@ Intlayer v8 інтелектуально виявляє синтаксис Markd
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     #### Компонент `<MarkdownRenderer />`
 
     ```tsx
@@ -390,7 +354,7 @@ Intlayer v8 інтелектуально виявляє синтаксис Markd
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     #### Сервіс `IntlayerMarkdownService`
     Відтворіть рядок Markdown за допомогою сервісу.
 
@@ -436,7 +400,7 @@ Intlayer v8 інтелектуально виявляє синтаксис Markd
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
 
     ```typescript fileName="main.ts"
     import { createApp } from "vue";
@@ -461,7 +425,7 @@ Intlayer v8 інтелектуально виявляє синтаксис Markd
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
 
     ```svelte fileName="App.svelte"
     <script lang="ts">
@@ -481,7 +445,7 @@ Intlayer v8 інтелектуально виявляє синтаксис Markd
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "preact-intlayer";
@@ -519,7 +483,7 @@ Intlayer v8 інтелектуально виявляє синтаксис Markd
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
     import { createIntlayerMarkdownProvider } from "angular-intlayer";

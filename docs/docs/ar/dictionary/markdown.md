@@ -32,48 +32,12 @@ history:
 
 يدعم Intlayer محتوى النصوص الغنية المحدد باستخدام صيغة Markdown. يتيح لك ذلك كتابة وصيانة المحتوى بسهولة مع تنسيق غني، مثل المدونات والمقالات والمزيد.
 
-## كيف يعمل Markdown
-
-يقوم Intlayer v8 بذكاء باكتشاف صيغة Markdown داخل سلاسل المحتوى الخاصة بك. إذا تم التعرف على السلسلة كـ Markdown، فسيتم تحويلها تلقائيًا إلى عقدة Markdown.
-
-<Columns>
-  <Column title="سلوك v7 (التغليف اليدوي)">
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    import { md } from "intlayer";
-
-    export default {
-      key: "app",
-      content: {
-        text: md("## عنواني \n\nLorem Ipsum"),
-      },
-    };
-    ```
-
-  </Column>
-  <Column title="سلوك v8 (الكشف التلقائي)">
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    export default {
-      key: "app",
-      contentAutoTransformation: true, // تفعيل الكشف التلقائي لمحتوى Markdown - يمكن ضبطه عالميًا في intlayer.config.ts
-      content: {
-        text: "## عنواني \n\nLorem Ipsum",
-      },
-    };
-    ```
-
-  </Column>
-</Columns>
-
----
-
 ## الجزء الأول: إعلان محتوى Markdown
 
 يمكنك تعريف محتوى Markdown باستخدام الدالة `md` أو ببساطة كسلسلة نصية (إذا كانت تحتوي على صيغة Markdown).
 
 <Tabs>
-  <Tab label="التغليف اليدوي">
+  <Tab label="التغليف اليدوي" value="manual-wrapping">
     استخدم الدالة `md` لتعريف محتوى Markdown صراحة. هذا مفيد إذا كنت تريد ضمان معاملة السلسلة كـ Markdown حتى لو لم تكن تحتوي على صيغة واضحة.
 
     ```typescript fileName="markdownDictionary.content.ts"
@@ -90,7 +54,7 @@ history:
     ```
 
   </Tab>
-  <Tab label="الكشف التلقائي">
+  <Tab label="الكشف التلقائي" value="automatic-detection">
     إذا كانت السلسلة تحتوي على مؤشرات Markdown شائعة (مثل العناوين، القوائم، الروابط، إلخ)، فسيقوم Intlayer بتحويلها تلقائيًا.
 
     ```typescript fileName="markdownDictionary.content.ts"
@@ -104,7 +68,7 @@ history:
     ```
 
   </Tab>
-  <Tab label="ملفات خارجية">
+  <Tab label="ملفات خارجية" value="external-files">
     استورد ملفات `.md` مباشرة باستخدام الدالة `file`.
 
     ```typescript fileName="markdownDictionary.content.ts"
@@ -135,7 +99,7 @@ history:
 عند الوصول إلى المحتوى عبر `useIntlayer`، تكون عقد Markdown جاهزة بالفعل للعرض.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     يمكن عرض عقد Markdown مباشرةً كـ JSX.
 
     ```tsx fileName="App.tsx"
@@ -156,7 +120,7 @@ history:
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
     في Vue، يمكن عرض محتوى Markdown باستخدام العنصر المدمج `component` أو مباشرة كعقدة.
 
     ```vue fileName="App.vue"
@@ -171,7 +135,7 @@ history:
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
     يقوم Svelte بعرض Markdown كسلسلة HTML افتراضيًا. استخدم `{@html}` لعرضها.
 
     ```svelte
@@ -184,7 +148,7 @@ history:
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     يدعم Preact عقد Markdown مباشرة داخل JSX.
 
     ```tsx fileName="App.tsx"
@@ -197,7 +161,7 @@ history:
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     يدعم Solid عقد Markdown مباشرة داخل JSX.
 
     ```tsx fileName="App.tsx"
@@ -210,7 +174,7 @@ history:
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     يستخدم Angular توجيه `[innerHTML]` لعرض محتوى Markdown.
 
     ```typescript fileName="app.component.ts"
@@ -242,7 +206,7 @@ history:
 إذا كنت بحاجة إلى عرض سلاسل Markdown خام أو التحكم بشكل أكبر في عملية العرض، فاستخدم الأدوات التالية.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
   
     #### المكوّن `<MarkdownRenderer />`
 
@@ -281,7 +245,7 @@ history:
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
 
     #### المكوّن `<MarkdownRenderer />`
 
@@ -296,7 +260,7 @@ history:
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
 
     #### المكوّن `<MarkdownRenderer />`
 
@@ -330,7 +294,7 @@ history:
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     #### المكوّن `<MarkdownRenderer />`
 
     ```tsx
@@ -360,7 +324,7 @@ history:
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     #### المكوّن `<MarkdownRenderer />`
 
     ```tsx
@@ -390,7 +354,7 @@ history:
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     #### خدمة `IntlayerMarkdownService`
     عرض سلسلة Markdown باستخدام الخدمة.
 
@@ -416,7 +380,7 @@ history:
 يمكنك تكوين عرض Markdown على مستوى التطبيق بأكمله. هذا يغنيك عن تمرير نفس الخصائص لكل renderer.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "react-intlayer";
@@ -436,7 +400,7 @@ history:
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
 
     ```typescript fileName="main.ts"
     import { createApp } from "vue";
@@ -461,7 +425,7 @@ history:
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
 
     ```svelte fileName="App.svelte"
     <script lang="ts">
@@ -481,7 +445,7 @@ history:
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "preact-intlayer";
@@ -500,7 +464,7 @@ history:
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "solid-intlayer";
@@ -519,7 +483,7 @@ history:
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
     import { createIntlayerMarkdownProvider } from "angular-intlayer";

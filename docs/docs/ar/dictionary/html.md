@@ -31,47 +31,12 @@ history:
 
 يدعم Intlayer محتوى HTML، مما يتيح لك تضمين محتوى غني ومنظم داخل القواميس (dictionaries) الخاصة بك. يمكن عرض هذا المحتوى باستخدام وسوم HTML القياسية أو استبداله بمكونات مخصصة أثناء وقت التشغيل.
 
-## كيف يعمل HTML
-
-يقوم Intlayer v8 بذكاء باكتشاف وسوم HTML داخل سلاسل المحتوى الخاصة بك. إذا تم التعرف على السلسلة كـ HTML (تحتوي على وسوم)، فسيتم تحويلها تلقائيًا إلى عقدة HTML.
-
-<Columns>
-<Column title="سلوك v7 (التغليف اليدوي)">
-
-```typescript fileName="htmlDictionary.content.ts"
-import { html } from "intlayer";
-
-export default {
-  key: "app",
-  content: {
-    text: html("<p>مرحبًا <strong>بالعالم</strong></p>"),
-  },
-};
-```
-
-</Column>
-<Column title="سلوك v8 (الكشف التلقائي)">
-
-```typescript fileName="htmlDictionary.content.ts"
-export default {
-  key: "app",
-  content: {
-    text: "<p>مرحبًا <strong>بالعالم</strong></p>",
-  },
-};
-```
-
-</Column>
-</Columns>
-
----
-
 ## إعلان محتوى HTML
 
 يمكنك تعريف محتوى HTML باستخدام الدالة `html` أو ببساطة كسلسلة نصية.
 
 <Tabs>
-  <Tab label="التغليف اليدوي">
+  <Tab label="التغليف اليدوي" value="manual-wrapping">
     استخدم الدالة `html` لتعريف محتوى HTML صراحة. هذا يضمن مطابقة الوسوم القياسية بشكل صحيح حتى إذا تم تعطيل الكشف التلقائي.
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -88,7 +53,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="الكشف التلقائي">
+  <Tab label="الكشف التلقائي" value="automatic-detection">
     إذا كانت السلسلة تحتوي على علامات HTML الشائعة (مثل `<p>`, `<div>`, `<strong>`، إلخ)، فسيقوم Intlayer بتحويلها تلقائيًا.
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -101,7 +66,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="ملفات خارجية">
+  <Tab label="ملفات خارجية" value="external-files">
     استورد محتوى HTML من ملفات. لاحظ أن دالة `file()` حاليًا تُعيد سلسلة نصية، وسيتم اكتشافها تلقائيًا كمحتوى HTML إذا كانت تحتوي على علامات.
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -133,7 +98,7 @@ export default {
 عند الوصول إلى المحتوى عبر `useIntlayer`، تكون عقد HTML جاهزة بالفعل للعرض.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     يمكن عرض عقد HTML مباشرةً كـ JSX. تعمل الوسوم القياسية تلقائيًا.
 
     ```tsx fileName="App.tsx"
@@ -155,7 +120,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
     في Vue، يمكن عرض محتوى HTML باستخدام العنصر المدمج `component`.
 
     ```vue fileName="App.vue"
@@ -175,7 +140,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
     يقوم Svelte بعرض عناصر HTML كسلاسل نصية. استخدم `{@html}` لعرضها.
 
     ```svelte
@@ -188,7 +153,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     يدعم Preact عناصر HTML مباشرةً داخل JSX.
 
     ```tsx fileName="App.tsx"
@@ -201,7 +166,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     يدعم Solid عناصر HTML مباشرةً داخل JSX.
 
     ```tsx fileName="App.tsx"
@@ -214,7 +179,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     يستخدم Angular توجيه `[innerHTML]` لعرض محتوى HTML.
 
     ```typescript fileName="app.component.ts"
@@ -247,7 +212,7 @@ export default {
 يمكنك تكوين عرض HTML على مستوى التطبيق بأكمله. هذا مناسب لتعريف مكونات مخصصة يجب أن تكون متاحة في جميع محتويات HTML.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
   
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "react-intlayer";
@@ -265,7 +230,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
   
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
@@ -286,7 +251,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
    
     ```svelte fileName="App.svelte"
     <script lang="ts">
@@ -304,7 +269,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
    
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "preact-intlayer";
@@ -321,7 +286,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
    
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "solid-intlayer";
@@ -338,7 +303,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
     import { createIntlayerMarkdownProvider } from "angular-intlayer";
@@ -365,7 +330,7 @@ export default {
 إذا كنت بحاجة إلى عرض سلاسل HTML خام أو التحكم بشكل أكبر في تعيين المكونات، فاستخدم الأدوات التالية.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     #### المكوّن `<HTMLRenderer />`
     عرض سلسلة HTML باستخدام مكونات محددة.
 
@@ -402,7 +367,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
    
     #### مكوّن `<HTMLRenderer />`
    
@@ -417,7 +382,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
   
     #### المكوّن `<HTMLRenderer />`
    
@@ -451,7 +416,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
    
     #### مكوّن `<HTMLRenderer />`
    
@@ -482,7 +447,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
    
     #### مكوّن `<HTMLRenderer />`
    
@@ -513,7 +478,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     #### خدمة `IntlayerMarkdownService`
     عرض سلسلة HTML باستخدام الخدمة.
 

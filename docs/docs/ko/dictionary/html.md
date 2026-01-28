@@ -31,47 +31,12 @@ history:
 
 Intlayer는 HTML 콘텐츠를 지원하여 사전(dictionary) 내에 풍부하고 구조화된 콘텐츠를 포함할 수 있습니다. 이 콘텐츠는 표준 HTML 태그로 렌더링되거나 런타임에 커스텀 컴포넌트로 교체될 수 있습니다.
 
-## HTML 작동 방식
-
-Intlayer v8는 콘텐츠 문자열에서 HTML 태그를 지능적으로 감지합니다. 문자열이 HTML(태그를 포함하는 것으로)로 식별되면 자동으로 HTML 노드로 변환됩니다.
-
-<Columns>
-<Column title="v7 동작(수동 래핑)">
-
-```typescript fileName="htmlDictionary.content.ts"
-import { html } from "intlayer";
-
-export default {
-  key: "app",
-  content: {
-    text: html("<p>Hello <strong>World</strong></p>"),
-  },
-};
-```
-
-</Column>
-<Column title="v8 동작(자동 감지)">
-
-```typescript fileName="htmlDictionary.content.ts"
-export default {
-  key: "app",
-  content: {
-    text: "<p>Hello <strong>World</strong></p>",
-  },
-};
-```
-
-</Column>
-</Columns>
-
----
-
 ## HTML 콘텐츠 선언
 
 HTML 콘텐츠는 `html` 함수를 사용하거나 단순 문자열로 선언할 수 있습니다.
 
 <Tabs>
-  <Tab label="수동 래핑">
+  <Tab label="수동 래핑" value="manual-wrapping">
     HTML 콘텐츠를 명시적으로 선언하려면 `html` 함수를 사용하세요. 자동 감지가 비활성화된 경우에도 표준 태그가 올바르게 매핑되도록 보장합니다.
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -88,7 +53,7 @@ HTML 콘텐츠는 `html` 함수를 사용하거나 단순 문자열로 선언할
     ```
 
   </Tab>
-  <Tab label="자동 감지">
+  <Tab label="자동 감지" value="automatic-detection">
     문자열에 일반적인 HTML 태그(예: `<p>`, `<div>`, `<strong>` 등)가 포함되어 있으면 Intlayer가 자동으로 변환합니다.
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -101,7 +66,7 @@ HTML 콘텐츠는 `html` 함수를 사용하거나 단순 문자열로 선언할
     ```
 
   </Tab>
-  <Tab label="외부 파일">
+  <Tab label="외부 파일" value="external-files">
     파일에서 HTML 콘텐츠를 가져옵니다. 현재 `file()` 함수는 문자열을 반환하며, 해당 문자열에 태그가 포함된 경우 HTML로 자동 감지됩니다.
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -132,7 +97,7 @@ HTML 콘텐츠는 `html` 함수를 사용하거나 단순 문자열로 선언할
 `useIntlayer`로 콘텐츠에 접근하면 HTML 노드는 이미 렌더링 준비가 되어 있습니다.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     HTML 노드는 JSX로 직접 렌더링할 수 있습니다. 표준 태그는 자동으로 작동합니다.
 
     ```tsx fileName="App.tsx"
@@ -154,7 +119,7 @@ HTML 콘텐츠는 `html` 함수를 사용하거나 단순 문자열로 선언할
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
     Vue에서는 HTML 콘텐츠를 내장된 `component`를 사용하여 렌더링할 수 있습니다.
 
     ```vue fileName="App.vue"
@@ -174,7 +139,7 @@ HTML 콘텐츠는 `html` 함수를 사용하거나 단순 문자열로 선언할
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
     Svelte는 HTML 노드를 문자열로 렌더링합니다. 이를 렌더링하려면 `{@html}`을 사용하세요.
 
     ```svelte
@@ -187,7 +152,7 @@ HTML 콘텐츠는 `html` 함수를 사용하거나 단순 문자열로 선언할
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     Preact는 JSX에서 HTML 노드를 직접 지원합니다.
 
     ```tsx fileName="App.tsx"
@@ -200,7 +165,7 @@ HTML 콘텐츠는 `html` 함수를 사용하거나 단순 문자열로 선언할
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     Solid는 JSX에서 HTML 노드를 직접 지원합니다.
 
     ```tsx fileName="App.tsx"
@@ -213,7 +178,7 @@ HTML 콘텐츠는 `html` 함수를 사용하거나 단순 문자열로 선언할
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     Angular는 HTML 콘텐츠를 렌더링하기 위해 `[innerHTML]` 디렉티브를 사용합니다.
 
     ```typescript fileName="app.component.ts"
@@ -246,7 +211,7 @@ HTML 콘텐츠는 `html` 함수를 사용하거나 단순 문자열로 선언할
 애플리케이션 전체에 대해 HTML 렌더링을 전역으로 구성할 수 있습니다. 이는 모든 HTML 콘텐츠에서 사용 가능해야 하는 커스텀 컴포넌트를 정의할 때 이상적입니다.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
 
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "react-intlayer";
@@ -264,7 +229,7 @@ HTML 콘텐츠는 `html` 함수를 사용하거나 단순 문자열로 선언할
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
 
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
@@ -285,7 +250,7 @@ HTML 콘텐츠는 `html` 함수를 사용하거나 단순 문자열로 선언할
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
 
     ```svelte fileName="App.svelte"
     <script lang="ts">
@@ -303,7 +268,7 @@ HTML 콘텐츠는 `html` 함수를 사용하거나 단순 문자열로 선언할
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
 
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "preact-intlayer";
@@ -320,7 +285,7 @@ HTML 콘텐츠는 `html` 함수를 사용하거나 단순 문자열로 선언할
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
 
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "solid-intlayer";
@@ -337,7 +302,7 @@ HTML 콘텐츠는 `html` 함수를 사용하거나 단순 문자열로 선언할
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
     import { createIntlayerMarkdownProvider } from "angular-intlayer";
@@ -364,7 +329,7 @@ HTML 콘텐츠는 `html` 함수를 사용하거나 단순 문자열로 선언할
 원시 HTML 문자열을 렌더링하거나 컴포넌트 매핑을 더 세밀하게 제어해야 하는 경우, 다음 도구들을 사용하세요.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     #### `<HTMLRenderer />` 컴포넌트
     특정 컴포넌트로 HTML 문자열을 렌더링합니다.
 
@@ -401,7 +366,7 @@ HTML 콘텐츠는 `html` 함수를 사용하거나 단순 문자열로 선언할
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
 
     #### `<HTMLRenderer />` 컴포넌트
 
@@ -416,7 +381,7 @@ HTML 콘텐츠는 `html` 함수를 사용하거나 단순 문자열로 선언할
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
 
     #### `<HTMLRenderer />` 컴포넌트
 
@@ -450,7 +415,7 @@ HTML 콘텐츠는 `html` 함수를 사용하거나 단순 문자열로 선언할
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
 
     #### `<HTMLRenderer />` 컴포넌트
 
@@ -481,7 +446,7 @@ HTML 콘텐츠는 `html` 함수를 사용하거나 단순 문자열로 선언할
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
 
     #### `<HTMLRenderer />` 컴포넌트
 
@@ -512,7 +477,7 @@ HTML 콘텐츠는 `html` 함수를 사용하거나 단순 문자열로 선언할
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     #### `IntlayerMarkdownService` 서비스
     서비스를 사용하여 HTML 문자열을 렌더링합니다.
 

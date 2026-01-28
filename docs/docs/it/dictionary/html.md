@@ -33,47 +33,12 @@ history:
 
 Intlayer supporta contenuti HTML, permettendoti di incorporare contenuti ricchi e strutturati all'interno dei tuoi dizionari. Questi contenuti possono essere renderizzati con tag HTML standard o sostituiti con componenti personalizzati a runtime.
 
-## Come funziona l'HTML
-
-Intlayer v8 rileva in modo intelligente i tag HTML nelle tue stringhe di contenuto. Se una stringa è identificata come HTML (contiene tag), viene automaticamente trasformata in un nodo HTML.
-
-<Columns>
-<Column title="Comportamento v7 (Avvolgimento manuale)">
-
-```typescript fileName="htmlDictionary.content.ts"
-import { html } from "intlayer";
-
-export default {
-  key: "app",
-  content: {
-    text: html("<p>Ciao <strong>Mondo</strong></p>"),
-  },
-};
-```
-
-</Column>
-<Column title="Comportamento v8 (Rilevamento automatico)">
-
-```typescript fileName="htmlDictionary.content.ts"
-export default {
-  key: "app",
-  content: {
-    text: "<p>Ciao <strong>Mondo</strong></p>",
-  },
-};
-```
-
-</Column>
-</Columns>
-
----
-
 ## Dichiarare contenuti HTML
 
 Puoi dichiarare contenuti HTML usando la funzione `html` o semplicemente come stringa.
 
 <Tabs>
-  <Tab label="Avvolgimento manuale">
+  <Tab label="Avvolgimento manuale" value="manual-wrapping">
     Usa la funzione `html` per dichiarare esplicitamente contenuti HTML. Questo garantisce che i tag standard siano mappati correttamente anche se il rilevamento automatico è disabilitato.
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -90,7 +55,7 @@ Puoi dichiarare contenuti HTML usando la funzione `html` o semplicemente come st
     ```
 
   </Tab>
-  <Tab label="Rilevamento automatico">
+  <Tab label="Rilevamento automatico" value="automatic-detection">
     Se la stringa contiene tag HTML comuni (ad esempio, `<p>`, `<div>`, `<strong>`, ecc.), Intlayer la trasformerà automaticamente.
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -103,7 +68,7 @@ Puoi dichiarare contenuti HTML usando la funzione `html` o semplicemente come st
     ```
 
   </Tab>
-  <Tab label="File esterni">
+  <Tab label="File esterni" value="external-files">
     Importa contenuti HTML da file. Nota che attualmente la funzione `file()` restituisce una stringa, che verrà rilevata automaticamente come HTML se contiene tag.
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -135,7 +100,7 @@ Il rendering può essere gestito automaticamente dal sistema di contenuti di Int
 Quando accedi al contenuto tramite `useIntlayer`, i nodi HTML sono già pronti per il rendering.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     I nodi HTML possono essere renderizzati direttamente come JSX. I tag standard funzionano automaticamente.
 
     ```tsx fileName="App.tsx"
@@ -157,7 +122,7 @@ Quando accedi al contenuto tramite `useIntlayer`, i nodi HTML sono già pronti p
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
     In Vue, i contenuti HTML possono essere renderizzati usando il built-in `component`.
 
     ```vue fileName="App.vue"
@@ -177,7 +142,7 @@ Quando accedi al contenuto tramite `useIntlayer`, i nodi HTML sono già pronti p
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
     Svelte rende i nodi HTML come stringhe. Usa `{@html}` per renderizzarli.
 
     ```svelte
@@ -190,7 +155,7 @@ Quando accedi al contenuto tramite `useIntlayer`, i nodi HTML sono già pronti p
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     Preact supporta i nodi HTML direttamente nel JSX.
 
     ```tsx fileName="App.tsx"
@@ -203,7 +168,7 @@ Quando accedi al contenuto tramite `useIntlayer`, i nodi HTML sono già pronti p
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     Solid supporta i nodi HTML direttamente nel JSX.
 
     ```tsx fileName="App.tsx"
@@ -216,7 +181,7 @@ Quando accedi al contenuto tramite `useIntlayer`, i nodi HTML sono già pronti p
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     Angular utilizza la direttiva `[innerHTML]` per renderizzare contenuti HTML.
 
     ```typescript fileName="app.component.ts"
@@ -249,7 +214,7 @@ Quando accedi al contenuto tramite `useIntlayer`, i nodi HTML sono già pronti p
 Puoi configurare il rendering HTML a livello globale per l'intera applicazione. Questo è ideale per definire componenti personalizzati che dovrebbero essere disponibili in tutti i contenuti HTML.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
   
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "react-intlayer";
@@ -267,7 +232,7 @@ Puoi configurare il rendering HTML a livello globale per l'intera applicazione. 
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
   
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
@@ -288,7 +253,7 @@ Puoi configurare il rendering HTML a livello globale per l'intera applicazione. 
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
    
     ```svelte fileName="App.svelte"
     <script lang="ts">
@@ -306,7 +271,7 @@ Puoi configurare il rendering HTML a livello globale per l'intera applicazione. 
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
    
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "preact-intlayer";
@@ -323,7 +288,7 @@ Puoi configurare il rendering HTML a livello globale per l'intera applicazione. 
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
    
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "solid-intlayer";
@@ -340,7 +305,7 @@ Puoi configurare il rendering HTML a livello globale per l'intera applicazione. 
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
     import { createIntlayerMarkdownProvider } from "angular-intlayer";
@@ -367,7 +332,7 @@ Puoi configurare il rendering HTML a livello globale per l'intera applicazione. 
 Se hai bisogno di renderizzare stringhe HTML grezze o di avere un controllo maggiore sulla mappatura dei componenti, usa i seguenti strumenti.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     #### Componente `<HTMLRenderer />`
     Esegui il rendering di una stringa HTML con componenti specifici.
 
@@ -404,7 +369,7 @@ Se hai bisogno di renderizzare stringhe HTML grezze o di avere un controllo magg
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
    
     #### Componente `<HTMLRenderer />`
    
@@ -419,7 +384,7 @@ Se hai bisogno di renderizzare stringhe HTML grezze o di avere un controllo magg
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
   
     #### Componente `<HTMLRenderer />`
    
@@ -453,7 +418,7 @@ Se hai bisogno di renderizzare stringhe HTML grezze o di avere un controllo magg
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
    
     #### Componente `<HTMLRenderer />`
    
@@ -484,7 +449,7 @@ Se hai bisogno di renderizzare stringhe HTML grezze o di avere un controllo magg
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
    
     #### Componente `<HTMLRenderer />`
    
@@ -515,7 +480,7 @@ Se hai bisogno di renderizzare stringhe HTML grezze o di avere un controllo magg
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     #### Servizio `IntlayerMarkdownService`
     Renderizza una stringa HTML utilizzando il servizio.
 

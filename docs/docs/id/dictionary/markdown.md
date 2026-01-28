@@ -32,48 +32,12 @@ history:
 
 Intlayer mendukung konten teks kaya yang didefinisikan menggunakan sintaks Markdown. Ini memungkinkan Anda menulis dan memelihara konten dengan format kaya secara mudah, seperti blog, artikel, dan lainnya.
 
-## Cara Kerja Markdown
-
-Intlayer v8 mendeteksi sintaks Markdown dalam string konten Anda secara cerdas. Jika sebuah string diidentifikasi sebagai Markdown, string tersebut secara otomatis diubah menjadi node Markdown.
-
-<Columns>
-  <Column title="Perilaku v7 (Pembungkusan Manual)">
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    import { md } from "intlayer";
-
-    export default {
-      key: "app",
-      content: {
-        text: md("## My title \n\nLorem Ipsum"),
-      },
-    };
-    ```
-
-  </Column>
-  <Column title="Perilaku v8 (Deteksi Otomatis)">
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    export default {
-      key: "app",
-      contentAutoTransformation: true, // Aktifkan deteksi otomatis konten Markdown - Dapat diatur secara global di intlayer.config.ts
-      content: {
-        text: "## My title \n\nLorem Ipsum",
-      },
-    };
-    ```
-
-  </Column>
-</Columns>
-
----
-
 ## Bagian 1: Mendeklarasikan Konten Markdown
 
 Anda dapat menyatakan konten Markdown menggunakan fungsi `md` atau cukup sebagai string (jika mengandung sintaks Markdown).
 
 <Tabs>
-  <Tab label="Pembungkusan Manual">
+  <Tab label="Pembungkusan Manual" value="manual-wrapping">
     Gunakan fungsi `md` untuk menyatakan konten Markdown secara eksplisit. Ini berguna jika Anda ingin memastikan sebuah string diperlakukan sebagai Markdown meskipun tidak mengandung sintaks yang jelas.
 
     ```typescript fileName="markdownDictionary.content.ts"
@@ -90,7 +54,7 @@ Anda dapat menyatakan konten Markdown menggunakan fungsi `md` atau cukup sebagai
     ```
 
   </Tab>
-  <Tab label="Deteksi Otomatis">
+  <Tab label="Deteksi Otomatis" value="automatic-detection">
     Jika string mengandung indikator Markdown umum (seperti header, daftar, tautan, dll.), Intlayer akan secara otomatis mengubahnya.
 
     ```typescript fileName="markdownDictionary.content.ts"
@@ -104,7 +68,7 @@ Anda dapat menyatakan konten Markdown menggunakan fungsi `md` atau cukup sebagai
     ```
 
   </Tab>
-  <Tab label="File Eksternal">
+  <Tab label="File Eksternal" value="external-files">
     Impor file `.md` secara langsung menggunakan fungsi `file`.
 
     ```typescript fileName="markdownDictionary.content.ts"
@@ -135,7 +99,7 @@ Proses merender dapat ditangani secara otomatis oleh sistem konten Intlayer atau
 Saat Anda mengakses konten melalui `useIntlayer`, node Markdown sudah disiapkan untuk dirender.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     Node Markdown dapat dirender langsung sebagai JSX.
 
     ```tsx fileName="App.tsx"
@@ -156,7 +120,7 @@ Saat Anda mengakses konten melalui `useIntlayer`, node Markdown sudah disiapkan 
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
     Di Vue, konten Markdown dapat dirender menggunakan built-in `component` atau langsung sebagai node.
 
     ```vue fileName="App.vue"
@@ -171,7 +135,7 @@ Saat Anda mengakses konten melalui `useIntlayer`, node Markdown sudah disiapkan 
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
     Svelte merender Markdown sebagai string HTML secara default. Gunakan `{@html}` untuk merendernya.
 
     ```svelte
@@ -184,7 +148,7 @@ Saat Anda mengakses konten melalui `useIntlayer`, node Markdown sudah disiapkan 
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     Preact mendukung node Markdown secara langsung di JSX.
 
     ```tsx fileName="App.tsx"
@@ -197,7 +161,7 @@ Saat Anda mengakses konten melalui `useIntlayer`, node Markdown sudah disiapkan 
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     Solid mendukung node Markdown secara langsung di JSX.
 
     ```tsx fileName="App.tsx"
@@ -210,7 +174,7 @@ Saat Anda mengakses konten melalui `useIntlayer`, node Markdown sudah disiapkan 
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     Angular menggunakan direktif `[innerHTML]` untuk merender konten Markdown.
 
     ```typescript fileName="app.component.ts"
@@ -242,7 +206,7 @@ Saat Anda mengakses konten melalui `useIntlayer`, node Markdown sudah disiapkan 
 Jika Anda perlu merender string Markdown mentah atau memiliki kontrol lebih atas proses rendering, gunakan alat berikut.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
   
     #### Komponen `<MarkdownRenderer />`
 
@@ -281,7 +245,7 @@ Jika Anda perlu merender string Markdown mentah atau memiliki kontrol lebih atas
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
 
     #### Komponen `<MarkdownRenderer />`
 
@@ -296,7 +260,7 @@ Jika Anda perlu merender string Markdown mentah atau memiliki kontrol lebih atas
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
 
     #### Komponen `<MarkdownRenderer />`
 
@@ -330,7 +294,7 @@ Jika Anda perlu merender string Markdown mentah atau memiliki kontrol lebih atas
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     #### Komponen `<MarkdownRenderer />`
 
     ```tsx
@@ -360,7 +324,7 @@ Jika Anda perlu merender string Markdown mentah atau memiliki kontrol lebih atas
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     #### Komponen `<MarkdownRenderer />`
 
     ```tsx
@@ -390,7 +354,7 @@ Jika Anda perlu merender string Markdown mentah atau memiliki kontrol lebih atas
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     #### Layanan `IntlayerMarkdownService`
     Render string Markdown menggunakan layanan tersebut.
 
@@ -416,7 +380,7 @@ Jika Anda perlu merender string Markdown mentah atau memiliki kontrol lebih atas
 Anda dapat mengonfigurasi perenderan Markdown secara global untuk seluruh aplikasi Anda. Ini menghindari pengiriman prop yang sama ke setiap renderer.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "react-intlayer";
@@ -436,7 +400,7 @@ Anda dapat mengonfigurasi perenderan Markdown secara global untuk seluruh aplika
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
 
     ```typescript fileName="main.ts"
     import { createApp } from "vue";
@@ -461,7 +425,7 @@ Anda dapat mengonfigurasi perenderan Markdown secara global untuk seluruh aplika
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
 
     ```svelte fileName="App.svelte"
     <script lang="ts">
@@ -481,7 +445,7 @@ Anda dapat mengonfigurasi perenderan Markdown secara global untuk seluruh aplika
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "preact-intlayer";
@@ -500,7 +464,7 @@ Anda dapat mengonfigurasi perenderan Markdown secara global untuk seluruh aplika
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "solid-intlayer";
@@ -519,7 +483,7 @@ Anda dapat mengonfigurasi perenderan Markdown secara global untuk seluruh aplika
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
     import { createIntlayerMarkdownProvider } from "angular-intlayer";

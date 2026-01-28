@@ -31,47 +31,12 @@ history:
 
 Intlayer mendukung konten HTML, memungkinkan Anda menyematkan konten yang kaya dan terstruktur dalam dictionaries Anda. Konten ini dapat dirender dengan tag HTML standar atau digantikan dengan komponen kustom saat runtime.
 
-## Cara Kerja HTML
-
-Intlayer v8 mendeteksi tag HTML dalam string konten Anda secara cerdas. Jika sebuah string diidentifikasi sebagai HTML (mengandung tag), string tersebut secara otomatis diubah menjadi node HTML.
-
-<Columns>
-<Column title="Perilaku v7 (Pembungkusan Manual)">
-
-```typescript fileName="htmlDictionary.content.ts"
-import { html } from "intlayer";
-
-export default {
-  key: "app",
-  content: {
-    text: html("<p>Hello <strong>World</strong></p>"),
-  },
-};
-```
-
-</Column>
-<Column title="Perilaku v8 (Deteksi Otomatis)">
-
-```typescript fileName="htmlDictionary.content.ts"
-export default {
-  key: "app",
-  content: {
-    text: "<p>Hello <strong>World</strong></p>",
-  },
-};
-```
-
-</Column>
-</Columns>
-
----
-
 ## Mendeklarasikan Konten HTML
 
 Anda dapat menyatakan konten HTML menggunakan fungsi `html` atau cukup sebagai string.
 
 <Tabs>
-  <Tab label="Pembungkusan Manual">
+  <Tab label="Pembungkusan Manual" value="manual-wrapping">
     Gunakan fungsi `html` untuk secara eksplisit menyatakan konten HTML. Ini memastikan tag standar dipetakan dengan benar bahkan jika deteksi otomatis dinonaktifkan.
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -88,7 +53,7 @@ Anda dapat menyatakan konten HTML menggunakan fungsi `html` atau cukup sebagai s
     ```
 
   </Tab>
-  <Tab label="Deteksi Otomatis">
+  <Tab label="Deteksi Otomatis" value="automatic-detection">
     Jika string berisi tag HTML umum (misalnya, `<p>`, `<div>`, `<strong>`, dll.), Intlayer akan secara otomatis mengubahnya.
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -101,7 +66,7 @@ Anda dapat menyatakan konten HTML menggunakan fungsi `html` atau cukup sebagai s
     ```
 
   </Tab>
-  <Tab label="File Eksternal">
+  <Tab label="File Eksternal" value="external-files">
     Impor konten HTML dari file. Perhatikan bahwa saat ini fungsi `file()` mengembalikan sebuah string, yang akan terdeteksi otomatis sebagai HTML jika mengandung tag.
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -132,7 +97,7 @@ Proses merender dapat ditangani secara otomatis oleh sistem konten Intlayer atau
 Saat Anda mengakses konten melalui `useIntlayer`, node HTML sudah disiapkan untuk dirender.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     Node HTML dapat dirender langsung sebagai JSX. Tag standar bekerja secara otomatis.
 
     ```tsx fileName="App.tsx"
@@ -154,7 +119,7 @@ Saat Anda mengakses konten melalui `useIntlayer`, node HTML sudah disiapkan untu
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
     Di Vue, konten HTML dapat dirender menggunakan built-in `component`.
 
     ```vue fileName="App.vue"
@@ -174,7 +139,7 @@ Saat Anda mengakses konten melalui `useIntlayer`, node HTML sudah disiapkan untu
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
     Svelte merender node HTML sebagai string. Gunakan `{@html}` untuk merendernya.
 
     ```svelte
@@ -187,7 +152,7 @@ Saat Anda mengakses konten melalui `useIntlayer`, node HTML sudah disiapkan untu
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     Preact mendukung node HTML secara langsung di JSX.
 
     ```tsx fileName="App.tsx"
@@ -200,7 +165,7 @@ Saat Anda mengakses konten melalui `useIntlayer`, node HTML sudah disiapkan untu
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     Solid mendukung node HTML secara langsung di JSX.
 
     ```tsx fileName="App.tsx"
@@ -213,7 +178,7 @@ Saat Anda mengakses konten melalui `useIntlayer`, node HTML sudah disiapkan untu
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     Angular menggunakan direktif `[innerHTML]` untuk merender konten HTML.
 
     ```typescript fileName="app.component.ts"
@@ -246,7 +211,7 @@ Saat Anda mengakses konten melalui `useIntlayer`, node HTML sudah disiapkan untu
 Anda dapat mengonfigurasi rendering HTML secara global untuk seluruh aplikasi Anda. Ini ideal untuk mendefinisikan komponen kustom yang harus tersedia di semua konten HTML.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
   
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "react-intlayer";
@@ -264,7 +229,7 @@ Anda dapat mengonfigurasi rendering HTML secara global untuk seluruh aplikasi An
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
   
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
@@ -285,7 +250,7 @@ Anda dapat mengonfigurasi rendering HTML secara global untuk seluruh aplikasi An
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
    
     ```svelte fileName="App.svelte"
     <script lang="ts">
@@ -303,7 +268,7 @@ Anda dapat mengonfigurasi rendering HTML secara global untuk seluruh aplikasi An
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
    
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "preact-intlayer";
@@ -320,7 +285,7 @@ Anda dapat mengonfigurasi rendering HTML secara global untuk seluruh aplikasi An
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
    
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "solid-intlayer";
@@ -337,7 +302,7 @@ Anda dapat mengonfigurasi rendering HTML secara global untuk seluruh aplikasi An
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
     import { createIntlayerMarkdownProvider } from "angular-intlayer";
@@ -364,7 +329,7 @@ Anda dapat mengonfigurasi rendering HTML secara global untuk seluruh aplikasi An
 Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pemetaan komponen, gunakan alat berikut.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     #### Komponen `<HTMLRenderer />`
     Merender string HTML dengan komponen tertentu.
 
@@ -401,7 +366,7 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
    
     #### Komponen `<HTMLRenderer />`
    
@@ -416,7 +381,7 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
   
     #### Komponen `<HTMLRenderer />`
    
@@ -450,7 +415,7 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
    
     #### Komponen `<HTMLRenderer />`
    
@@ -481,7 +446,7 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
    
     #### Komponen `<HTMLRenderer />`
    
@@ -512,7 +477,7 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     #### Layanan `IntlayerMarkdownService`
     Render string HTML menggunakan layanan tersebut.
 

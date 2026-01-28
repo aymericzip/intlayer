@@ -31,47 +31,12 @@ history:
 
 Intlayer hỗ trợ nội dung HTML, cho phép bạn nhúng nội dung phong phú, có cấu trúc vào trong các dictionary của mình. Nội dung này có thể được hiển thị bằng các thẻ HTML tiêu chuẩn hoặc được thay thế bằng các component tùy chỉnh vào thời điểm chạy.
 
-## Cách HTML hoạt động
-
-Intlayer v8 thông minh phát hiện các thẻ HTML trong các chuỗi nội dung của bạn. Nếu một chuỗi được xác định là HTML (chứa thẻ), nó sẽ tự động được chuyển thành một node HTML.
-
-<Columns>
-<Column title="Hành vi v7 (Bao bọc thủ công)">
-
-```typescript fileName="htmlDictionary.content.ts"
-import { html } from "intlayer";
-
-export default {
-  key: "app",
-  content: {
-    text: html("<p>Hello <strong>World</strong></p>"),
-  },
-};
-```
-
-</Column>
-<Column title="Hành vi v8 (Phát hiện tự động)">
-
-```typescript fileName="htmlDictionary.content.ts"
-export default {
-  key: "app",
-  content: {
-    text: "<p>Hello <strong>World</strong></p>",
-  },
-};
-```
-
-</Column>
-</Columns>
-
----
-
 ## Khai báo nội dung HTML
 
 Bạn có thể khai báo nội dung HTML bằng hàm `html` hoặc đơn giản bằng một chuỗi.
 
 <Tabs>
-  <Tab label="Bọc thủ công">
+  <Tab label="Bọc thủ công" value="manual-wrapping">
     Sử dụng hàm `html` để khai báo rõ ràng nội dung HTML. Điều này đảm bảo các thẻ chuẩn được ánh xạ đúng ngay cả khi phát hiện tự động bị tắt.
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -88,7 +53,7 @@ Bạn có thể khai báo nội dung HTML bằng hàm `html` hoặc đơn giản
     ```
 
   </Tab>
-  <Tab label="Phát hiện tự động">
+  <Tab label="Phát hiện tự động" value="automatic-detection">
     Nếu chuỗi chứa các thẻ HTML phổ biến (ví dụ: `<p>`, `<div>`, `<strong>`, v.v.), Intlayer sẽ tự động chuyển đổi nó.
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -101,7 +66,7 @@ Bạn có thể khai báo nội dung HTML bằng hàm `html` hoặc đơn giản
     ```
 
   </Tab>
-  <Tab label="Tệp bên ngoài">
+  <Tab label="Tệp bên ngoài" value="external-files">
     Nhập nội dung HTML từ các tệp. Lưu ý rằng hiện tại hàm `file()` trả về một chuỗi, chuỗi này sẽ được tự động nhận diện là HTML nếu nó chứa các thẻ.
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -132,7 +97,7 @@ Việc kết xuất có thể được xử lý tự động bởi hệ thống 
 Khi bạn truy cập nội dung qua `useIntlayer`, các nút HTML đã được chuẩn bị sẵn để kết xuất.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     Các nút HTML có thể được kết xuất trực tiếp dưới dạng JSX. Các thẻ tiêu chuẩn hoạt động tự động.
 
     ```tsx fileName="App.tsx"
@@ -154,7 +119,7 @@ Khi bạn truy cập nội dung qua `useIntlayer`, các nút HTML đã được 
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
     Trong Vue, nội dung HTML có thể được render bằng thành phần built-in `component`.
 
     ```vue fileName="App.vue"
@@ -174,7 +139,7 @@ Khi bạn truy cập nội dung qua `useIntlayer`, các nút HTML đã được 
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
     Svelte render các node HTML dưới dạng chuỗi. Sử dụng `{@html}` để render chúng.
 
     ```svelte
@@ -187,7 +152,7 @@ Khi bạn truy cập nội dung qua `useIntlayer`, các nút HTML đã được 
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     Preact hỗ trợ các node HTML trực tiếp trong JSX.
 
     ```tsx fileName="App.tsx"
@@ -200,7 +165,7 @@ Khi bạn truy cập nội dung qua `useIntlayer`, các nút HTML đã được 
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     Solid hỗ trợ các node HTML trực tiếp trong JSX.
 
     ```tsx fileName="App.tsx"
@@ -213,7 +178,7 @@ Khi bạn truy cập nội dung qua `useIntlayer`, các nút HTML đã được 
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     Angular sử dụng chỉ thị `[innerHTML]` để hiển thị nội dung HTML.
 
     ```typescript fileName="app.component.ts"
@@ -246,7 +211,7 @@ Khi bạn truy cập nội dung qua `useIntlayer`, các nút HTML đã được 
 Bạn có thể cấu hình cách render HTML ở mức toàn cục cho toàn bộ ứng dụng của mình. Điều này lý tưởng để định nghĩa các component tùy chỉnh mà nên có sẵn trong tất cả nội dung HTML.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
   
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "react-intlayer";
@@ -264,7 +229,7 @@ Bạn có thể cấu hình cách render HTML ở mức toàn cục cho toàn b�
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
   
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
@@ -285,7 +250,7 @@ Bạn có thể cấu hình cách render HTML ở mức toàn cục cho toàn b�
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
    
     ```svelte fileName="App.svelte"
     <script lang="ts">
@@ -303,7 +268,7 @@ Bạn có thể cấu hình cách render HTML ở mức toàn cục cho toàn b�
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
    
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "preact-intlayer";
@@ -320,7 +285,7 @@ Bạn có thể cấu hình cách render HTML ở mức toàn cục cho toàn b�
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
    
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "solid-intlayer";
@@ -337,7 +302,7 @@ Bạn có thể cấu hình cách render HTML ở mức toàn cục cho toàn b�
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
     import { createIntlayerMarkdownProvider } from "angular-intlayer";
@@ -364,7 +329,7 @@ Bạn có thể cấu hình cách render HTML ở mức toàn cục cho toàn b�
 Nếu bạn cần kết xuất chuỗi HTML thô hoặc muốn kiểm soát nhiều hơn việc ánh xạ component, hãy sử dụng các công cụ sau.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     #### Thành phần `<HTMLRenderer />`
     Kết xuất một chuỗi HTML sử dụng các component cụ thể.
 
@@ -401,7 +366,7 @@ Nếu bạn cần kết xuất chuỗi HTML thô hoặc muốn kiểm soát nhi�
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
    
     #### Thành phần `<HTMLRenderer />`
    
@@ -416,7 +381,7 @@ Nếu bạn cần kết xuất chuỗi HTML thô hoặc muốn kiểm soát nhi�
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
   
     #### Thành phần `<HTMLRenderer />`
    
@@ -450,7 +415,7 @@ Nếu bạn cần kết xuất chuỗi HTML thô hoặc muốn kiểm soát nhi�
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
    
     #### Thành phần `<HTMLRenderer />`
    
@@ -481,7 +446,7 @@ Nếu bạn cần kết xuất chuỗi HTML thô hoặc muốn kiểm soát nhi�
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
    
     #### Thành phần `<HTMLRenderer />`
    
@@ -512,7 +477,7 @@ Nếu bạn cần kết xuất chuỗi HTML thô hoặc muốn kiểm soát nhi�
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     #### Dịch vụ `IntlayerMarkdownService`
     Render một chuỗi HTML bằng cách sử dụng dịch vụ.
 

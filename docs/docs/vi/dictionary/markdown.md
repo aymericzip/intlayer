@@ -32,42 +32,6 @@ history:
 
 Intlayer hỗ trợ nội dung văn bản đa dạng được định nghĩa bằng cú pháp Markdown. Điều này cho phép bạn dễ dàng viết và duy trì nội dung với định dạng phong phú, chẳng hạn như blog, bài viết, và nhiều hơn nữa.
 
-## Cách Markdown hoạt động
-
-Intlayer v8 thông minh nhận diện cú pháp Markdown trong các chuỗi nội dung của bạn. Nếu một chuỗi được xác định là Markdown, nó sẽ tự động được chuyển đổi thành một node Markdown.
-
-<Columns>
-  <Column title="Hành vi v7 (Bao bọc thủ công)">
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    import { md } from "intlayer";
-
-    export default {
-      key: "app",
-      content: {
-        text: md("## My title \n\nLorem Ipsum"),
-      },
-    };
-    ```
-
-  </Column>
-  <Column title="Hành vi v8 (Phát hiện tự động)">
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    export default {
-      key: "app",
-      contentAutoTransformation: true, // Bật tính năng tự động phát hiện nội dung Markdown - Có thể thiết lập toàn cục trong intlayer.config.ts
-      content: {
-        text: "## My title \n\nLorem Ipsum",
-      },
-    };
-    ```
-
-  </Column>
-</Columns>
-
----
-
 ## Phần 1: Khai báo nội dung Markdown
 
 Bạn có thể khai báo nội dung Markdown bằng hàm `md` hoặc đơn giản là một chuỗi (nếu nó chứa cú pháp Markdown).
@@ -90,7 +54,7 @@ Bạn có thể khai báo nội dung Markdown bằng hàm `md` hoặc đơn gi�
     ```
 
   </Tab>
-  <Tab label="Phát hiện tự động">
+  <Tab label="Phát hiện tự động" value="automatic-detection">
     Nếu chuỗi chứa các dấu hiệu Markdown phổ biến (như tiêu đề, danh sách, liên kết, v.v.), Intlayer sẽ tự động chuyển đổi nó.
 
     ```typescript fileName="markdownDictionary.content.ts"
@@ -135,7 +99,7 @@ Việc kết xuất có thể được xử lý tự động bởi hệ thống 
 Khi bạn truy cập nội dung qua `useIntlayer`, các node Markdown đã sẵn sàng để kết xuất.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     Các node Markdown có thể được kết xuất trực tiếp dưới dạng JSX.
 
     ```tsx fileName="App.tsx"
@@ -156,7 +120,7 @@ Khi bạn truy cập nội dung qua `useIntlayer`, các node Markdown đã sẵn
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
     Trong Vue, nội dung Markdown có thể được render bằng thành phần built-in `component` hoặc trực tiếp dưới dạng một node.
 
     ```vue fileName="App.vue"
@@ -171,7 +135,7 @@ Khi bạn truy cập nội dung qua `useIntlayer`, các node Markdown đã sẵn
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
     Svelte render Markdown dưới dạng chuỗi HTML theo mặc định. Sử dụng `{@html}` để render.
 
     ```svelte
@@ -184,7 +148,7 @@ Khi bạn truy cập nội dung qua `useIntlayer`, các node Markdown đã sẵn
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     Preact hỗ trợ các node Markdown trực tiếp trong JSX.
 
     ```tsx fileName="App.tsx"
@@ -197,7 +161,7 @@ Khi bạn truy cập nội dung qua `useIntlayer`, các node Markdown đã sẵn
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     Solid hỗ trợ các node Markdown trực tiếp trong JSX.
 
     ```tsx fileName="App.tsx"
@@ -210,7 +174,7 @@ Khi bạn truy cập nội dung qua `useIntlayer`, các node Markdown đã sẵn
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     Angular sử dụng chỉ thị `[innerHTML]` để hiển thị nội dung Markdown.
 
     ```typescript fileName="app.component.ts"
@@ -242,7 +206,7 @@ Khi bạn truy cập nội dung qua `useIntlayer`, các node Markdown đã sẵn
 Nếu bạn cần render chuỗi Markdown thô hoặc muốn kiểm soát nhiều hơn quá trình render, hãy sử dụng các công cụ sau.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
   
     #### Thành phần `<MarkdownRenderer />`
 
@@ -281,7 +245,7 @@ Nếu bạn cần render chuỗi Markdown thô hoặc muốn kiểm soát nhiề
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
 
     #### Thành phần `<MarkdownRenderer />`
 
@@ -296,7 +260,7 @@ Nếu bạn cần render chuỗi Markdown thô hoặc muốn kiểm soát nhiề
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
 
     #### Thành phần `<MarkdownRenderer />`
 
@@ -330,7 +294,7 @@ Nếu bạn cần render chuỗi Markdown thô hoặc muốn kiểm soát nhiề
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     #### Thành phần `<MarkdownRenderer />`
 
     ```tsx
@@ -360,7 +324,7 @@ Nếu bạn cần render chuỗi Markdown thô hoặc muốn kiểm soát nhiề
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     #### Thành phần `<MarkdownRenderer />`
 
     ```tsx
@@ -390,7 +354,7 @@ Nếu bạn cần render chuỗi Markdown thô hoặc muốn kiểm soát nhiề
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     #### Dịch vụ `IntlayerMarkdownService`
     Render một chuỗi Markdown bằng cách sử dụng dịch vụ.
 
@@ -416,7 +380,7 @@ Nếu bạn cần render chuỗi Markdown thô hoặc muốn kiểm soát nhiề
 Bạn có thể cấu hình cách render Markdown ở mức toàn cục cho toàn bộ ứng dụng của mình. Điều này giúp tránh việc truyền các prop giống nhau cho mọi renderer.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "react-intlayer";
@@ -436,7 +400,7 @@ Bạn có thể cấu hình cách render Markdown ở mức toàn cục cho toà
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
 
     ```typescript fileName="main.ts"
     import { createApp } from "vue";
@@ -461,7 +425,7 @@ Bạn có thể cấu hình cách render Markdown ở mức toàn cục cho toà
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
 
     ```svelte fileName="App.svelte"
     <script lang="ts">
@@ -481,7 +445,7 @@ Bạn có thể cấu hình cách render Markdown ở mức toàn cục cho toà
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "preact-intlayer";
@@ -500,7 +464,7 @@ Bạn có thể cấu hình cách render Markdown ở mức toàn cục cho toà
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "solid-intlayer";
@@ -519,7 +483,7 @@ Bạn có thể cấu hình cách render Markdown ở mức toàn cục cho toà
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
     import { createIntlayerMarkdownProvider } from "angular-intlayer";

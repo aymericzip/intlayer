@@ -26,7 +26,7 @@ const mockRuntime: MarkdownRuntime = {
   Fragment: Symbol('Fragment'),
 };
 
-const ctx: MarkdownContext = { runtime: mockRuntime };
+const ctx: MarkdownContext<any> = { runtime: mockRuntime };
 
 describe('Markdown Core Compiler', () => {
   beforeEach(() => {
@@ -103,6 +103,28 @@ describe('Markdown Core Compiler', () => {
     const result = compile('*Bold [Link](url)*', ctx) as any;
     expect(result.toString()).toBe(
       '<em key="0">Bold <a key="1" href="url">Link</a></em>'
+    );
+  });
+
+  it('should handle custom components with leading newlines and indentation', () => {
+    const markdown = `<Tab label="React">
+
+    #### Title
+
+</Tab>`;
+    const result = compile(markdown, ctx) as any;
+    expect(result.toString()).toContain('<h4 id="title" key="1">Title</h4>');
+  });
+
+  it('should handle HTML blocks with leading newlines and indentation', () => {
+    const markdown = `<div>
+
+    #### Heading
+
+</div>`;
+    const result = compile(markdown, ctx) as any;
+    expect(result.toString()).toContain(
+      '<h4 id="heading" key="1">Heading</h4>'
     );
   });
 });

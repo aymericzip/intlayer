@@ -31,47 +31,12 @@ history:
 
 Intlayer 支持 HTML 内容，允许你在字典中嵌入丰富的结构化内容。此类内容可以使用标准 HTML 标签渲染，或在运行时替换为自定义组件。
 
-## HTML 的工作方式
-
-Intlayer v8 会智能检测内容字符串中的 HTML 标签。如果字符串被识别为 HTML（包含标签），它会被自动转换为一个 HTML 节点。
-
-<Columns>
-<Column title="v7 行为（手动包裹）">
-
-```typescript fileName="htmlDictionary.content.ts"
-import { html } from "intlayer";
-
-export default {
-  key: "app",
-  content: {
-    text: html("<p>Hello <strong>World</strong></p>"),
-  },
-};
-```
-
-</Column>
-<Column title="v8 行为（自动检测）">
-
-```typescript fileName="htmlDictionary.content.ts"
-export default {
-  key: "app",
-  content: {
-    text: "<p>Hello <strong>World</strong></p>",
-  },
-};
-```
-
-</Column>
-</Columns>
-
----
-
 ## 声明 HTML 内容
 
 您可以使用 `html` 函数声明 HTML 内容，或简单地将其作为字符串。
 
 <Tabs>
-  <Tab label="手动包裹">
+  <Tab label="手动包裹" value="manual-wrapping">
     使用 `html` 函数显式声明 HTML 内容。即使自动检测被禁用，这也能确保标准标签被正确映射。
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -88,7 +53,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="自动检测">
+  <Tab label="自动检测" value="automatic-detection">
     如果字符串包含常见的 HTML 标签（例如 `<p>`、`<div>`、`<strong>` 等），Intlayer 会自动将其识别为 HTML。
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -101,7 +66,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="外部文件">
+  <Tab label="外部文件" value="external-files">
     从文件导入 HTML 内容。注意，目前 `file()` 函数返回的是字符串，如果该字符串包含标签，则会被自动检测为 HTML。
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -132,7 +97,7 @@ export default {
 通过 `useIntlayer` 访问内容时，HTML 节点已准备好渲染。
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     HTML 节点可以直接作为 JSX 渲染。标准标签会自动生效。
 
     ```tsx fileName="App.tsx"
@@ -154,7 +119,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
     在 Vue 中，可以使用内置的 `component` 来渲染 HTML 内容。
 
     ```vue fileName="App.vue"
@@ -174,7 +139,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
     Svelte 将 HTML 节点呈现为字符串。使用 `{@html}` 来渲染它。
 
     ```svelte
@@ -187,7 +152,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     Preact 在 JSX 中直接支持 HTML 节点。
 
     ```tsx fileName="App.tsx"
@@ -200,7 +165,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     Solid 在 JSX 中直接支持 HTML 节点。
 
     ```tsx fileName="App.tsx"
@@ -213,7 +178,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     Angular 使用 `[innerHTML]` 指令来渲染 HTML 内容。
 
     ```typescript fileName="app.component.ts"
@@ -246,7 +211,7 @@ export default {
 您可以为整个应用全局配置 HTML 渲染。这非常适合定义应在所有 HTML 内容中可用的自定义组件。
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
   
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "react-intlayer";
@@ -264,7 +229,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
   
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
@@ -285,7 +250,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
    
     ```svelte fileName="App.svelte"
     <script lang="ts">
@@ -303,7 +268,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
    
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "preact-intlayer";
@@ -320,7 +285,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
    
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "solid-intlayer";
@@ -337,7 +302,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
     import { createIntlayerMarkdownProvider } from "angular-intlayer";
@@ -364,7 +329,7 @@ export default {
 如果你需要渲染原始 HTML 字符串或对组件映射有更多控制，请使用以下工具。
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     #### `<HTMLRenderer />` 组件
     使用特定组件渲染 HTML 字符串。
 
@@ -400,7 +365,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
    
     #### `<HTMLRenderer />` 组件
    
@@ -415,7 +380,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
   
     #### `<HTMLRenderer />` 组件
    
@@ -449,7 +414,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
    
     #### `<HTMLRenderer />` 组件
    
@@ -480,7 +445,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
    
     #### `<HTMLRenderer />` 组件
    
@@ -511,7 +476,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     #### `IntlayerMarkdownService` 服务
     使用该服务渲染 HTML 字符串。
 

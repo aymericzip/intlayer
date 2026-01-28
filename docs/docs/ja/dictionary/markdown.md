@@ -32,48 +32,12 @@ history:
 
 Intlayerは、マークダウン構文を使用して定義されたリッチテキストコンテンツをサポートします。これにより、ブログや記事などのリッチなフォーマットを簡単に作成および管理できます。
 
-## マークダウンの仕組み
-
-Intlayer v8 はコンテンツ文字列内のマークダウン構文を賢く検出します。文字列がマークダウンと判定されると、自動的にマークダウンノードに変換されます。
-
-<Columns>
-  <Column title="v7 の挙動（手動でラップ）">
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    import { md } from "intlayer";
-
-    export default {
-      key: "app",
-      content: {
-        text: md("## My title \n\nLorem Ipsum"),
-      },
-    };
-    ```
-
-  </Column>
-  <Column title="v8 の挙動（自動検出）">
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    export default {
-      key: "app",
-      contentAutoTransformation: true, // マークダウンコンテンツの自動検出を有効にする - intlayer.config.ts でグローバルに設定可能
-      content: {
-        text: "## My title \n\nLorem Ipsum",
-      },
-    };
-    ```
-
-  </Column>
-</Columns>
-
----
-
 ## パート 1: マークダウンコンテンツの宣言
 
 マークダウンコンテンツは `md` 関数を使って宣言するか、単に文字列として（マークダウン構文が含まれている場合）定義できます。
 
 <Tabs>
-  <Tab label="手動ラッピング">
+  <Tab label="手動ラッピング" value="manual-wrapping">
     `md` 関数を使用して明示的にマークダウンコンテンツを宣言します。これは、明らかな構文が含まれていない場合でも文字列をマークダウンとして扱いたい場合に便利です。
 
     ```typescript fileName="markdownDictionary.content.ts"
@@ -90,7 +54,7 @@ Intlayer v8 はコンテンツ文字列内のマークダウン構文を賢く�
     ```
 
   </Tab>
-  <Tab label="自動検出">
+  <Tab label="自動検出" value="automatic-detection">
     文字列に一般的なマークダウン指標（ヘッダー、リスト、リンクなど）が含まれている場合、Intlayerは自動的にそれを変換します。
 
     ```typescript fileName="markdownDictionary.content.ts"
@@ -104,7 +68,7 @@ Intlayer v8 はコンテンツ文字列内のマークダウン構文を賢く�
     ```
 
   </Tab>
-  <Tab label="外部ファイル">
+  <Tab label="外部ファイル" value="external-files">
     `file` 関数を使用して `.md` ファイルを直接インポートします。
 
     ```typescript fileName="markdownDictionary.content.ts"
@@ -135,7 +99,7 @@ Intlayer v8 はコンテンツ文字列内のマークダウン構文を賢く�
 `useIntlayer` 経由でコンテンツにアクセスすると、マークダウンノードは既にレンダリング可能な状態になっています。
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     マークダウンノードはそのまま JSX としてレンダリングできます。
 
     ```tsx fileName="App.tsx"
@@ -156,7 +120,7 @@ Intlayer v8 はコンテンツ文字列内のマークダウン構文を賢く�
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
     Vueでは、マークダウンコンテンツを組み込みの `component` を使って、または直接ノードとしてレンダリングできます。
 
     ```vue fileName="App.vue"
@@ -171,7 +135,7 @@ Intlayer v8 はコンテンツ文字列内のマークダウン構文を賢く�
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
     SvelteはデフォルトでマークダウンをHTML文字列としてレンダリングします。`{@html}` を使ってレンダリングしてください。
 
     ```svelte
@@ -184,7 +148,7 @@ Intlayer v8 はコンテンツ文字列内のマークダウン構文を賢く�
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     PreactはJSXでマークダウンノードを直接サポートします。
 
     ```tsx fileName="App.tsx"
@@ -197,7 +161,7 @@ Intlayer v8 はコンテンツ文字列内のマークダウン構文を賢く�
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     SolidはJSXでマークダウンノードを直接サポートします。
 
     ```tsx fileName="App.tsx"
@@ -210,7 +174,7 @@ Intlayer v8 はコンテンツ文字列内のマークダウン構文を賢く�
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     Angularは `[innerHTML]` ディレクティブを使用してマークダウンコンテンツをレンダリングします。
 
     ```typescript fileName="app.component.ts"
@@ -242,7 +206,7 @@ Intlayer v8 はコンテンツ文字列内のマークダウン構文を賢く�
 生のマークダウン文字列をレンダリングしたり、レンダリングプロセスをより詳細に制御したい場合は、次のツールを使用してください。
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
   
     #### `<MarkdownRenderer />` コンポーネント
 
@@ -281,7 +245,7 @@ Intlayer v8 はコンテンツ文字列内のマークダウン構文を賢く�
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
 
     #### `<MarkdownRenderer />` コンポーネント
 
@@ -296,7 +260,7 @@ Intlayer v8 はコンテンツ文字列内のマークダウン構文を賢く�
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
 
     #### `<MarkdownRenderer />` コンポーネント
 
@@ -330,7 +294,7 @@ Intlayer v8 はコンテンツ文字列内のマークダウン構文を賢く�
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     #### `<MarkdownRenderer />` コンポーネント
 
     ```tsx
@@ -360,7 +324,7 @@ Intlayer v8 はコンテンツ文字列内のマークダウン構文を賢く�
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     #### `<MarkdownRenderer />` コンポーネント
 
     ```tsx
@@ -390,7 +354,7 @@ Intlayer v8 はコンテンツ文字列内のマークダウン構文を賢く�
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     #### `IntlayerMarkdownService` サービス
     サービスを使用してマークダウン文字列をレンダリングします。
 
@@ -416,7 +380,7 @@ Intlayer v8 はコンテンツ文字列内のマークダウン構文を賢く�
 アプリ全体でマークダウンレンダリングをグローバルに設定できます。これにより、すべてのレンダラーに同じプロップを渡す手間が省けます。
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "react-intlayer";
@@ -436,7 +400,7 @@ Intlayer v8 はコンテンツ文字列内のマークダウン構文を賢く�
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
 
     ```typescript fileName="main.ts"
     import { createApp } from "vue";
@@ -461,7 +425,7 @@ Intlayer v8 はコンテンツ文字列内のマークダウン構文を賢く�
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
 
     ```svelte fileName="App.svelte"
     <script lang="ts">
@@ -481,7 +445,7 @@ Intlayer v8 はコンテンツ文字列内のマークダウン構文を賢く�
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "preact-intlayer";
@@ -500,7 +464,7 @@ Intlayer v8 はコンテンツ文字列内のマークダウン構文を賢く�
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "solid-intlayer";
@@ -519,7 +483,7 @@ Intlayer v8 はコンテンツ文字列内のマークダウン構文を賢く�
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
     import { createIntlayerMarkdownProvider } from "angular-intlayer";

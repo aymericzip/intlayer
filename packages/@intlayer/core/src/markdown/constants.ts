@@ -276,7 +276,7 @@ export const SHOULD_RENDER_AS_BLOCK_R = /(\n|^[-*]\s|^#|^ {2,}|^-{2,}|^>\s)/;
 /** Tab and whitespace */
 export const TAB_R = /\t/g;
 export const TRIM_STARTING_NEWLINES = /^\n+/;
-export const HTML_LEFT_TRIM_AMOUNT_R = /^([ \t]*)/;
+export const HTML_LEFT_TRIM_AMOUNT_R = /^\n*([ \t]*)/;
 
 /** List patterns */
 export const LIST_LOOKBEHIND_R = /(?:^|\n)( *)$/;

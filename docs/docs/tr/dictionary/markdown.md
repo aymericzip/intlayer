@@ -32,48 +32,12 @@ history:
 
 Intlayer, Markdown sözdizimi kullanılarak tanımlanan zengin metin içeriğini destekler. Bu, bloglar, makaleler ve daha fazlası gibi zengin biçimlendirmeye sahip içeriği kolayca yazmanıza ve sürdürmenize olanak tanır.
 
-## Markdown Nasıl Çalışır
-
-Intlayer v8, içerik dizelerinizdeki Markdown sözdizimini akıllıca algılar. Bir dize Markdown olarak tanımlanırsa, otomatik olarak bir Markdown düğümüne dönüştürülür.
-
-<Columns>
-  <Column title="v7 davranışı (Manuel sarmalama)">
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    import { md } from "intlayer";
-
-    export default {
-      key: "app",
-      content: {
-        text: md("## Başlığım \n\nLorem Ipsum"),
-      },
-    };
-    ```
-
-  </Column>
-  <Column title="v8 davranışı (Otomatik algılama)">
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    export default {
-      key: "app",
-      contentAutoTransformation: true, // Markdown içeriğinin otomatik olarak algılanmasını etkinleştir - intlayer.config.ts dosyasında küresel olarak ayarlanabilir
-      content: {
-        text: "## Başlığım \n\nLorem Ipsum",
-      },
-    };
-    ```
-
-  </Column>
-</Columns>
-
----
-
 ## Bölüm 1: Markdown İçeriğini Tanımlama
 
 Markdown içeriğini `md` fonksiyonunu kullanarak veya sadece bir string olarak (Markdown sözdizimi içeriyorsa) tanımlayabilirsiniz.
 
 <Tabs>
-  <Tab label="Elle Sarma">
+  <Tab label="Elle Sarma" value="manual-wrapping">
     Markdown içeriğini açıkça bildirmek için `md` fonksiyonunu kullanın. Bu, bir dizenin belirgin bir sözdizimi içermese bile Markdown olarak işlenmesini sağlamak istediğinizde yararlıdır.
 
     ```typescript fileName="markdownDictionary.content.ts"
@@ -90,7 +54,7 @@ Markdown içeriğini `md` fonksiyonunu kullanarak veya sadece bir string olarak 
     ```
 
   </Tab>
-  <Tab label="Otomatik Algılama">
+  <Tab label="Otomatik Algılama" value="automatic-detection">
     Dize yaygın Markdown göstergelerini (başlıklar, listeler, bağlantılar vb.) içeriyorsa, Intlayer bunu otomatik olarak dönüştürecektir.
 
     ```typescript fileName="markdownDictionary.content.ts"
@@ -136,7 +100,7 @@ Render işlemi Intlayer'ın içerik sistemi tarafından otomatik olarak veya öz
 `useIntlayer` aracılığıyla içeriğe eriştiğinizde, Markdown düğümleri render için zaten hazırlanmıştır.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     Markdown düğümleri doğrudan JSX olarak render edilebilir.
 
     ```tsx fileName="App.tsx"
@@ -157,7 +121,7 @@ Render işlemi Intlayer'ın içerik sistemi tarafından otomatik olarak veya öz
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
     Vue'de, Markdown içeriği `component` yerleşik bileşeni kullanılarak veya doğrudan bir düğüm olarak render edilebilir.
 
     ```vue fileName="App.vue"
@@ -185,7 +149,7 @@ Render işlemi Intlayer'ın içerik sistemi tarafından otomatik olarak veya öz
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     Preact, Markdown düğümlerini JSX içinde doğrudan destekler.
 
     ```tsx fileName="App.tsx"
@@ -198,7 +162,7 @@ Render işlemi Intlayer'ın içerik sistemi tarafından otomatik olarak veya öz
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     Solid, Markdown düğümlerini JSX içinde doğrudan destekler.
 
     ```tsx fileName="App.tsx"
@@ -211,7 +175,7 @@ Render işlemi Intlayer'ın içerik sistemi tarafından otomatik olarak veya öz
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     Angular, Markdown içeriğini oluşturmak için `[innerHTML]` direktifini kullanır.
 
     ```typescript fileName="app.component.ts"
@@ -243,7 +207,7 @@ Render işlemi Intlayer'ın içerik sistemi tarafından otomatik olarak veya öz
 Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzerinde daha fazla kontrole ihtiyacınız varsa, aşağıdaki araçları kullanın.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
   
     #### `<MarkdownRenderer />` Bileşeni
 
@@ -281,7 +245,7 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
 
     #### `<MarkdownRenderer />` Bileşeni
 
@@ -330,7 +294,7 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     #### `<MarkdownRenderer />` Bileşeni
 
     ```tsx
@@ -360,7 +324,7 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     #### `<MarkdownRenderer />` Bileşeni
 
     ```tsx
@@ -390,7 +354,7 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     #### `IntlayerMarkdownService` Servisi
     Servisi kullanarak bir Markdown dizesini oluşturun.
 
@@ -416,7 +380,7 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
 Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabilirsiniz. Bu, her renderer'a aynı prop'ları geçirme zorunluluğunu ortadan kaldırır.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "react-intlayer";
@@ -436,7 +400,7 @@ Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabi
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
 
     ```typescript fileName="main.ts"
     import { createApp } from "vue";
@@ -481,7 +445,7 @@ Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabi
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "preact-intlayer";
@@ -500,7 +464,7 @@ Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabi
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "solid-intlayer";
@@ -519,7 +483,7 @@ Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabi
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
     import { createIntlayerMarkdownProvider } from "angular-intlayer";

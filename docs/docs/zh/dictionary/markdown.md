@@ -32,48 +32,12 @@ history:
 
 Intlayer 支持使用 Markdown 语法定义的富文本内容。这允许您轻松编写和维护具有丰富格式的内容，例如博客、文章等。
 
-## Markdown 的工作原理
-
-Intlayer v8 会智能检测内容字符串中的 Markdown 语法。如果字符串被识别为 Markdown，它会被自动转换为一个 Markdown 节点。
-
-<Columns>
-  <Column title="v7 行为（手动包裹）">
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    import { md } from "intlayer";
-
-    export default {
-      key: "app",
-      content: {
-        text: md("## 我的标题 \n\nLorem Ipsum"),
-      },
-    };
-    ```
-
-  </Column>
-  <Column title="v8 行为（自动检测）">
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    export default {
-      key: "app",
-      contentAutoTransformation: true, // 启用 Markdown 内容的自动检测 - 可在 intlayer.config.ts 中全局设置
-      content: {
-        text: "## 我的标题 \n\nLorem Ipsum",
-      },
-    };
-    ```
-
-  </Column>
-</Columns>
-
----
-
 ## 第 1 部分：声明 Markdown 内容
 
 您可以使用 `md` 函数声明 Markdown 内容，或简单地将其作为字符串（如果它包含 Markdown 语法）。
 
 <Tabs>
-  <Tab label="手动包裹">
+  <Tab label="手动包裹" value="manual-wrapping">
     使用 `md` 函数显式声明 Markdown 内容。如果您想确保一个字符串被视为 Markdown，即使它不包含明显的语法，这很有用。
 
     ```typescript fileName="markdownDictionary.content.ts"
@@ -90,7 +54,7 @@ Intlayer v8 会智能检测内容字符串中的 Markdown 语法。如果字符�
     ```
 
   </Tab>
-  <Tab label="自动检测">
+  <Tab label="自动检测" value="automatic-detection">
     如果字符串包含常见的 Markdown 标记（如标题、列表、链接等），Intlayer 会自动将其转换。
 
     ```typescript fileName="markdownDictionary.content.ts"
@@ -135,7 +99,7 @@ Intlayer v8 会智能检测内容字符串中的 Markdown 语法。如果字符�
 通过 `useIntlayer` 访问内容时，Markdown 节点已准备好渲染。
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     Markdown 节点可以直接作为 JSX 渲染。
 
     ```tsx fileName="App.tsx"
@@ -156,7 +120,7 @@ Intlayer v8 会智能检测内容字符串中的 Markdown 语法。如果字符�
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
     在 Vue 中，Markdown 内容可以使用内置的 `component` 渲染，或者直接作为节点渲染。
 
     ```vue fileName="App.vue"
@@ -171,7 +135,7 @@ Intlayer v8 会智能检测内容字符串中的 Markdown 语法。如果字符�
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
     Svelte 默认将 Markdown 渲染为 HTML 字符串。使用 `{@html}` 渲染。
 
     ```svelte
@@ -184,7 +148,7 @@ Intlayer v8 会智能检测内容字符串中的 Markdown 语法。如果字符�
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     Preact 在 JSX 中直接支持 Markdown 节点。
 
     ```tsx fileName="App.tsx"
@@ -197,7 +161,7 @@ Intlayer v8 会智能检测内容字符串中的 Markdown 语法。如果字符�
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     Solid 在 JSX 中直接支持 Markdown 节点。
 
     ```tsx fileName="App.tsx"
@@ -210,7 +174,7 @@ Intlayer v8 会智能检测内容字符串中的 Markdown 语法。如果字符�
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     Angular 使用 `[innerHTML]` 指令来渲染 Markdown 内容。
 
     ```typescript fileName="app.component.ts"
@@ -242,7 +206,7 @@ Intlayer v8 会智能检测内容字符串中的 Markdown 语法。如果字符�
 如果您需要渲染原始 Markdown 字符串或对渲染过程有更多控制，请使用以下工具。
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
   
     #### `<MarkdownRenderer />` 组件
 
@@ -281,7 +245,7 @@ Intlayer v8 会智能检测内容字符串中的 Markdown 语法。如果字符�
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
 
     #### `<MarkdownRenderer />` 组件
 
@@ -296,7 +260,7 @@ Intlayer v8 会智能检测内容字符串中的 Markdown 语法。如果字符�
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
 
     #### `<MarkdownRenderer />` 组件
 
@@ -330,7 +294,7 @@ Intlayer v8 会智能检测内容字符串中的 Markdown 语法。如果字符�
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     #### `<MarkdownRenderer />` 组件
 
     ```tsx
@@ -360,7 +324,7 @@ Intlayer v8 会智能检测内容字符串中的 Markdown 语法。如果字符�
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     #### `<MarkdownRenderer />` 组件
 
     ```tsx
@@ -390,7 +354,7 @@ Intlayer v8 会智能检测内容字符串中的 Markdown 语法。如果字符�
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     #### `IntlayerMarkdownService` 服务
     使用该服务渲染 Markdown 字符串。
 
@@ -416,7 +380,7 @@ Intlayer v8 会智能检测内容字符串中的 Markdown 语法。如果字符�
 您可以为整个应用程序全局配置 Markdown 渲染。这可以避免为每个渲染器传递相同的 props。
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "react-intlayer";
@@ -436,7 +400,7 @@ Intlayer v8 会智能检测内容字符串中的 Markdown 语法。如果字符�
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
 
     ```typescript fileName="main.ts"
     import { createApp } from "vue";
@@ -461,7 +425,7 @@ Intlayer v8 会智能检测内容字符串中的 Markdown 语法。如果字符�
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
 
     ```svelte fileName="App.svelte"
     <script lang="ts">
@@ -481,7 +445,7 @@ Intlayer v8 会智能检测内容字符串中的 Markdown 语法。如果字符�
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "preact-intlayer";
@@ -500,7 +464,7 @@ Intlayer v8 会智能检测内容字符串中的 Markdown 语法。如果字符�
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "solid-intlayer";
@@ -519,7 +483,7 @@ Intlayer v8 会智能检测内容字符串中的 Markdown 语法。如果字符�
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
     import { createIntlayerMarkdownProvider } from "angular-intlayer";

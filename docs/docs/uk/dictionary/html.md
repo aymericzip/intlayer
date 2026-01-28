@@ -31,47 +31,12 @@ history:
 
 Intlayer підтримує HTML-контент, що дозволяє вбудовувати насичений, структурований вміст у ваші словники. Цей вміст може відображатися за допомогою стандартних HTML-тегів або замінюватися на користувацькі компоненти під час виконання.
 
-## Як працює HTML
-
-Intlayer v8 інтелектуально виявляє HTML-теги у ваших рядках вмісту. Якщо рядок ідентифіковано як HTML (містить теги), він автоматично перетворюється на HTML-вузол.
-
-<Columns>
-<Column title="Поведінка v7 (ручне обгортання)">
-
-```typescript fileName="htmlDictionary.content.ts"
-import { html } from "intlayer";
-
-export default {
-  key: "app",
-  content: {
-    text: html("<p>Hello <strong>World</strong></p>"),
-  },
-};
-```
-
-</Column>
-<Column title="Поведінка v8 (автоматичне виявлення)">
-
-```typescript fileName="htmlDictionary.content.ts"
-export default {
-  key: "app",
-  content: {
-    text: "<p>Hello <strong>World</strong></p>",
-  },
-};
-```
-
-</Column>
-</Columns>
-
----
-
 ## Оголошення HTML-контенту
 
 Ви можете оголосити HTML-контент за допомогою функції `html` або просто як рядок.
 
 <Tabs>
-  <Tab label="Ручне обгортання">
+  <Tab label="Ручне обгортання" value="manual-wrapping">
     Використовуйте функцію `html` для явного оголошення HTML-контенту. Це гарантує правильне відображення стандартних тегів, навіть якщо автоматичне виявлення вимкнено.
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -88,7 +53,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Автоматичне виявлення">
+  <Tab label="Автоматичне виявлення" value="automatic-detection">
     Якщо рядок містить звичайні HTML-теги (наприклад, `<p>`, `<div>`, `<strong>` тощо), Intlayer автоматично перетворить його.
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -101,7 +66,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Зовнішні файли">
+  <Tab label="Зовнішні файли" value="external-files">
     Імпортуйте HTML-контент з файлів. Зауважте, що наразі функція `file()` повертає рядок, який буде автоматично визначено як HTML, якщо він містить теги.
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -133,7 +98,7 @@ export default {
 Коли ви отримуєте доступ до контенту через `useIntlayer`, HTML-вузли вже підготовлені до відтворення.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     HTML-вузли можна відтворювати безпосередньо як JSX. Стандартні теги працюють автоматично.
 
     ```tsx fileName="App.tsx"
@@ -155,7 +120,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
     У Vue HTML-контент можна відтворити за допомогою вбудованого компонента `component`.
 
     ```vue fileName="App.vue"
@@ -175,7 +140,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
     Svelte відтворює HTML-вузли як рядки. Використовуйте `{@html}` для їх відображення.
 
     ```svelte
@@ -188,7 +153,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     Preact підтримує HTML-вузли безпосередньо в JSX.
 
     ```tsx fileName="App.tsx"
@@ -201,7 +166,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     Solid підтримує HTML-вузли безпосередньо в JSX.
 
     ```tsx fileName="App.tsx"
@@ -214,7 +179,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     Angular використовує директиву `[innerHTML]` для відтворення HTML-контенту.
 
     ```typescript fileName="app.component.ts"
@@ -247,7 +212,7 @@ export default {
 Ви можете налаштувати відтворення HTML глобально для всього застосунку. Це ідеально підходить для визначення користувацьких компонентів, які мають бути доступні в усьому HTML-контенті.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
   
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "react-intlayer";
@@ -265,7 +230,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
   
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
@@ -286,7 +251,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
    
     ```svelte fileName="App.svelte"
     <script lang="ts">
@@ -304,7 +269,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
    
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "preact-intlayer";
@@ -321,7 +286,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
    
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "solid-intlayer";
@@ -338,7 +303,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
     import { createIntlayerMarkdownProvider } from "angular-intlayer";
@@ -365,7 +330,7 @@ export default {
 Якщо вам потрібно відтворити сирі HTML-рядки або ви хочете більше контролю над мапуванням компонентів, використовуйте наступні інструменти.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     #### Компонент `<HTMLRenderer />`
     Відтворіть HTML-рядок із конкретними компонентами.
 
@@ -402,7 +367,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
    
     #### Компонент `<HTMLRenderer />`
    
@@ -417,7 +382,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
   
     #### Компонент `<HTMLRenderer />`
    
@@ -451,7 +416,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
    
     #### Компонент `<HTMLRenderer />`
    
@@ -482,7 +447,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
    
     #### Компонент `<HTMLRenderer />`
    
@@ -513,7 +478,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     #### Сервіс `IntlayerMarkdownService`
     Відтворіть HTML-рядок за допомогою сервісу.
 

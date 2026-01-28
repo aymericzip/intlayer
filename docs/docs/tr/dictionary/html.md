@@ -33,47 +33,12 @@ history:
 
 Intlayer, sözlükleriniz içinde zengin, yapılandırılmış içerik gömmenize olanak tanıyan HTML içeriğini destekler. Bu içerik, standart HTML etiketleriyle render edilebilir veya çalışma zamanında özel bileşenlerle değiştirilebilir.
 
-## HTML Nasıl Çalışır
-
-Intlayer v8, içerik dizelerinizdeki HTML etiketlerini akıllıca algılar. Eğer bir dize HTML olarak tanımlanırsa (etiketler içeriyorsa), otomatik olarak bir HTML düğümüne dönüştürülür.
-
-<Columns>
-<Column title="v7 davranışı (Manuel sarma)">
-
-```typescript fileName="htmlDictionary.content.ts"
-import { html } from "intlayer";
-
-export default {
-  key: "app",
-  content: {
-    text: html("<p>Hello <strong>World</strong></p>"),
-  },
-};
-```
-
-</Column>
-<Column title="v8 davranışı (Otomatik algılama)">
-
-```typescript fileName="htmlDictionary.content.ts"
-export default {
-  key: "app",
-  content: {
-    text: "<p>Merhaba <strong>Dünya</strong></p>",
-  },
-};
-```
-
-</Column>
-</Columns>
-
----
-
 ## HTML İçeriğini Tanımlama
 
 HTML içeriğini `html` fonksiyonunu kullanarak veya basitçe bir string olarak tanımlayabilirsiniz.
 
 <Tabs>
-  <Tab label="Elle Sarma">
+  <Tab label="Elle Sarma" value="manual-wrapping">
     HTML içeriğini açıkça bildirmek için `html` fonksiyonunu kullanın. Bu, otomatik algılama devre dışı olsa bile standart etiketlerin doğru şekilde eşlenmesini sağlar.
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -90,7 +55,7 @@ HTML içeriğini `html` fonksiyonunu kullanarak veya basitçe bir string olarak 
     ```
 
   </Tab>
-  <Tab label="Otomatik Algılama">
+  <Tab label="Otomatik Algılama" value="automatic-detection">
     Dize yaygın HTML etiketleri içeriyorsa (ör. `<p>`, `<div>`, `<strong>` vb.), Intlayer bunu otomatik olarak dönüştürür.
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -103,7 +68,7 @@ HTML içeriğini `html` fonksiyonunu kullanarak veya basitçe bir string olarak 
     ```
 
   </Tab>
-  <Tab label="Harici Dosyalar">
+  <Tab label="Harici Dosyalar" value="external-files">
     HTML içeriğini dosyalardan içe aktarın. `file()` fonksiyonunun şu anda bir string döndürdüğünü ve eğer etiketler içeriyorsa bunun HTML olarak otomatik algılanacağını unutmayın.
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -135,7 +100,7 @@ Render işlemi Intlayer'ın içerik sistemi tarafından otomatik olarak veya öz
 `useIntlayer` aracılığıyla içeriğe eriştiğinizde, HTML düğümleri render için zaten hazırlanmıştır.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     HTML düğümleri doğrudan JSX olarak render edilebilir. Standart etiketler otomatik olarak çalışır.
 
     ```tsx fileName="App.tsx"
@@ -157,7 +122,7 @@ Render işlemi Intlayer'ın içerik sistemi tarafından otomatik olarak veya öz
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
     Vue'de, HTML içeriği `component` yerleşik bileşeni kullanılarak render edilebilir.
 
     ```vue fileName="App.vue"
@@ -177,7 +142,7 @@ Render işlemi Intlayer'ın içerik sistemi tarafından otomatik olarak veya öz
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
     Svelte, HTML düğümlerini string olarak render eder. Bunu render etmek için `{@html}` kullanın.
 
     ```svelte
@@ -190,7 +155,7 @@ Render işlemi Intlayer'ın içerik sistemi tarafından otomatik olarak veya öz
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     Preact, HTML düğümlerini JSX içinde doğrudan destekler.
 
     ```tsx fileName="App.tsx"
@@ -203,7 +168,7 @@ Render işlemi Intlayer'ın içerik sistemi tarafından otomatik olarak veya öz
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     Solid, HTML düğümlerini JSX içinde doğrudan destekler.
 
     ```tsx fileName="App.tsx"
@@ -216,7 +181,7 @@ Render işlemi Intlayer'ın içerik sistemi tarafından otomatik olarak veya öz
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     Angular, HTML içeriğini oluşturmak için `[innerHTML]` direktifini kullanır.
 
     ```typescript fileName="app.component.ts"
@@ -249,7 +214,7 @@ Render işlemi Intlayer'ın içerik sistemi tarafından otomatik olarak veya öz
 HTML render'lamasını tüm uygulamanız için global olarak yapılandırabilirsiniz. Bu, tüm HTML içeriğinde kullanılabilir olması gereken özel bileşenleri tanımlamak için idealdir.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
   
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "react-intlayer";
@@ -267,7 +232,7 @@ HTML render'lamasını tüm uygulamanız için global olarak yapılandırabilirs
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
   
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
@@ -288,7 +253,7 @@ HTML render'lamasını tüm uygulamanız için global olarak yapılandırabilirs
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
    
     ```svelte fileName="App.svelte"
     <script lang="ts">
@@ -306,7 +271,7 @@ HTML render'lamasını tüm uygulamanız için global olarak yapılandırabilirs
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
    
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "preact-intlayer";
@@ -323,7 +288,7 @@ HTML render'lamasını tüm uygulamanız için global olarak yapılandırabilirs
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
    
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "solid-intlayer";
@@ -340,7 +305,7 @@ HTML render'lamasını tüm uygulamanız için global olarak yapılandırabilirs
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
     import { createIntlayerMarkdownProvider } from "angular-intlayer";
@@ -367,7 +332,7 @@ HTML render'lamasını tüm uygulamanız için global olarak yapılandırabilirs
 Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde daha fazla kontrole ihtiyacınız varsa, aşağıdaki araçları kullanın.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     #### `<HTMLRenderer />` Bileşeni
     Belirli bileşenlerle bir HTML stringini render edin.
 
@@ -403,7 +368,7 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
    
     #### `<HTMLRenderer />` Bileşeni
    
@@ -418,7 +383,7 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
   
     #### `<HTMLRenderer />` Bileşeni
    
@@ -452,7 +417,7 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
    
     #### `<HTMLRenderer />` Bileşeni
    
@@ -483,7 +448,7 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
    
     #### `<HTMLRenderer />` Bileşeni
    
@@ -514,7 +479,7 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     #### `IntlayerMarkdownService` Servisi
     Servisi kullanarak bir HTML dizesini oluşturun.
 

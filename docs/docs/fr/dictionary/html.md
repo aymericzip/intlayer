@@ -31,47 +31,12 @@ history:
 
 Intlayer prend en charge le contenu HTML, vous permettant d'intégrer du contenu riche et structuré dans vos dictionnaires. Ce contenu peut être rendu avec des balises HTML standard ou remplacé par des composants personnalisés à l'exécution.
 
-## Comment fonctionne le HTML
-
-Intlayer v8 détecte intelligemment les balises HTML dans vos chaînes de contenu. Si une chaîne est identifiée comme HTML (contient des balises), elle est automatiquement transformée en un nœud HTML.
-
-<Columns>
-<Column title="Comportement v7 (Enveloppement manuel)">
-
-```typescript fileName="htmlDictionary.content.ts"
-import { html } from "intlayer";
-
-export default {
-  key: "app",
-  content: {
-    text: html("<p>Hello <strong>World</strong></p>"),
-  },
-};
-```
-
-</Column>
-<Column title="Comportement v8 (Détection automatique)">
-
-```typescript fileName="htmlDictionary.content.ts"
-export default {
-  key: "app",
-  content: {
-    text: "<p>Hello <strong>World</strong></p>",
-  },
-};
-```
-
-</Column>
-</Columns>
-
----
-
 ## Déclarer du contenu HTML
 
 Vous pouvez déclarer du contenu HTML à l'aide de la fonction `html` ou simplement sous forme de chaîne de caractères.
 
 <Tabs>
-  <Tab label="Enveloppement Manuel">
+  <Tab label="Enveloppement Manuel" value="manual-wrapping">
     Utilisez la fonction `html` pour déclarer explicitement du contenu HTML. Cela garantit que les balises standard sont mappées correctement même si la détection automatique est désactivée.
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -88,7 +53,7 @@ Vous pouvez déclarer du contenu HTML à l'aide de la fonction `html` ou simplem
     ```
 
   </Tab>
-  <Tab label="Détection Automatique">
+  <Tab label="Détection Automatique" value="automatic-detection">
     Si la chaîne contient des balises HTML courantes (par exemple, `<p>`, `<div>`, `<strong>`, etc.), Intlayer la transformera automatiquement.
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -101,7 +66,7 @@ Vous pouvez déclarer du contenu HTML à l'aide de la fonction `html` ou simplem
     ```
 
   </Tab>
-  <Tab label="Fichiers Externes">
+  <Tab label="Fichiers Externes" value="external-files">
     Importez du contenu HTML à partir de fichiers. Notez qu'actuellement la fonction `file()` renvoie une chaîne, qui sera automatiquement détectée comme HTML si elle contient des balises.
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -132,7 +97,7 @@ Le rendu peut être géré automatiquement par le système de contenu d'Intlayer
 Lorsque vous accédez au contenu via `useIntlayer`, les nœuds HTML sont déjà préparés pour le rendu.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     Les nœuds HTML peuvent être rendus directement en JSX. Les balises standard fonctionnent automatiquement.
 
     ```tsx fileName="App.tsx"
@@ -154,7 +119,7 @@ Lorsque vous accédez au contenu via `useIntlayer`, les nœuds HTML sont déjà 
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
     Dans Vue, le contenu HTML peut être rendu à l'aide du composant intégré `component`.
 
     ```vue fileName="App.vue"
@@ -174,7 +139,7 @@ Lorsque vous accédez au contenu via `useIntlayer`, les nœuds HTML sont déjà 
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
     Svelte rend les nœuds HTML sous forme de chaînes de caractères. Utilisez `{@html}` pour les rendre.
 
     ```svelte
@@ -187,7 +152,7 @@ Lorsque vous accédez au contenu via `useIntlayer`, les nœuds HTML sont déjà 
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     Preact prend en charge les nœuds HTML directement dans le JSX.
 
     ```tsx fileName="App.tsx"
@@ -200,7 +165,7 @@ Lorsque vous accédez au contenu via `useIntlayer`, les nœuds HTML sont déjà 
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     Solid prend en charge les nœuds HTML directement dans le JSX.
 
     ```tsx fileName="App.tsx"
@@ -213,7 +178,7 @@ Lorsque vous accédez au contenu via `useIntlayer`, les nœuds HTML sont déjà 
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     Angular utilise la directive `[innerHTML]` pour rendre le contenu HTML.
 
     ```typescript fileName="app.component.ts"
@@ -246,7 +211,7 @@ Lorsque vous accédez au contenu via `useIntlayer`, les nœuds HTML sont déjà 
 Vous pouvez configurer le rendu HTML globalement pour l'ensemble de votre application. C'est idéal pour définir des composants personnalisés qui doivent être disponibles dans tout le contenu HTML.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
   
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "react-intlayer";
@@ -264,7 +229,7 @@ Vous pouvez configurer le rendu HTML globalement pour l'ensemble de votre applic
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
   
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
@@ -285,7 +250,7 @@ Vous pouvez configurer le rendu HTML globalement pour l'ensemble de votre applic
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
    
     ```svelte fileName="App.svelte"
     <script lang="ts">
@@ -303,7 +268,7 @@ Vous pouvez configurer le rendu HTML globalement pour l'ensemble de votre applic
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
    
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "preact-intlayer";
@@ -320,7 +285,7 @@ Vous pouvez configurer le rendu HTML globalement pour l'ensemble de votre applic
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
    
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "solid-intlayer";
@@ -337,7 +302,7 @@ Vous pouvez configurer le rendu HTML globalement pour l'ensemble de votre applic
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
     import { createIntlayerMarkdownProvider } from "angular-intlayer";
@@ -364,7 +329,7 @@ Vous pouvez configurer le rendu HTML globalement pour l'ensemble de votre applic
 Si vous avez besoin de rendre des chaînes HTML brutes ou si vous voulez plus de contrôle sur le mappage des composants, utilisez les outils suivants.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     #### Composant `<HTMLRenderer />`
     Rendre une chaîne HTML avec des composants spécifiques.
 
@@ -401,7 +366,7 @@ Si vous avez besoin de rendre des chaînes HTML brutes ou si vous voulez plus de
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
    
     #### Composant `<HTMLRenderer />`
    
@@ -416,7 +381,7 @@ Si vous avez besoin de rendre des chaînes HTML brutes ou si vous voulez plus de
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
   
     #### Composant `<HTMLRenderer />`
    
@@ -450,7 +415,7 @@ Si vous avez besoin de rendre des chaînes HTML brutes ou si vous voulez plus de
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
    
     #### Composant `<HTMLRenderer />`
    
@@ -481,7 +446,7 @@ Si vous avez besoin de rendre des chaînes HTML brutes ou si vous voulez plus de
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
    
     #### Composant `<HTMLRenderer />`
    
@@ -512,7 +477,7 @@ Si vous avez besoin de rendre des chaînes HTML brutes ou si vous voulez plus de
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     #### Service `IntlayerMarkdownService`
     Rendre une chaîne HTML à l'aide du service.
 

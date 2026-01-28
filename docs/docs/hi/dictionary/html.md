@@ -31,47 +31,12 @@ history:
 
 Intlayer HTML सामग्री का समर्थन करता है, जिससे आप अपने dictionaries के भीतर समृद्ध, संरचित सामग्री एम्बेड कर सकते हैं। इस सामग्री को standard HTML टैग्स के साथ रेंडर किया जा सकता है या रनटाइम पर कस्टम कंपोनेंट्स से बदल दिया जा सकता है।
 
-## HTML कैसे काम करता है
-
-Intlayer v8 आपकी content स्ट्रिंग्स में HTML टैग्स को बुद्धिमानी से पहचानता है। यदि किसी स्ट्रिंग की पहचान HTML के रूप में होती है (टैग्स होते हैं), तो उसे स्वचालित रूप से एक HTML नोड में परिवर्तित कर दिया जाता है।
-
-<Columns>
-<Column title="v7 व्यवहार (मैनुअल रैपिंग)">
-
-```typescript fileName="htmlDictionary.content.ts"
-import { html } from "intlayer";
-
-export default {
-  key: "app",
-  content: {
-    text: html("<p>Hello <strong>World</strong></p>"),
-  },
-};
-```
-
-</Column>
-<Column title="v8 व्यवहार (स्वचालित पहचान)">
-
-```typescript fileName="htmlDictionary.content.ts"
-export default {
-  key: "app",
-  content: {
-    text: "<p>Hello <strong>World</strong></p>",
-  },
-};
-```
-
-</Column>
-</Columns>
-
----
-
 ## HTML कंटेंट घोषित करना
 
 आप `html` फ़ंक्शन का उपयोग करके या सीधे एक स्ट्रिंग के रूप में HTML कंटेंट घोषित कर सकते हैं।
 
 <Tabs>
-  <Tab label="मैन्युअल रैपिंग">
+  <Tab label="मैन्युअल रैपिंग" value="manual-wrapping">
     HTML कंटेंट को स्पष्ट रूप से घोषित करने के लिए `html` फ़ंक्शन का उपयोग करें। यह सुनिश्चित करता है कि मानक टैग सही तरीके से मैप किए जाएँ, भले ही स्वचालित पहचान अक्षम हो।
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -88,7 +53,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="स्वचालित पहचान">
+  <Tab label="स्वचालित पहचान" value="automatic-detection">
     यदि स्ट्रिंग में सामान्य HTML टैग शामिल हैं (उदाहरण के लिए `<p>`, `<div>`, `<strong>` आदि), तो Intlayer इसे स्वतः रूप से परिवर्तित कर देगा।
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -101,7 +66,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="बाहरी फ़ाइलें">
+  <Tab label="बाहरी फ़ाइलें" value="external-files">
     HTML सामग्री फ़ाइलों से आयात करें। ध्यान दें कि वर्तमान में `file()` फ़ंक्शन एक स्ट्रिंग लौटाता है, जिसे टैग शामिल होने पर स्वतः HTML के रूप में पहचाना जाएगा।
 
     ```typescript fileName="htmlDictionary.content.ts"
@@ -133,7 +98,7 @@ export default {
 जब आप `useIntlayer` के माध्यम से कंटेंट एक्सेस करते हैं, तो HTML नोड्स पहले से ही रेंडरिंग के लिए तैयार होते हैं।
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     HTML नोड्स को सीधे JSX के रूप में रेंडर किया जा सकता है। सामान्य टैग स्वचालित रूप से काम करते हैं।
 
     ```tsx fileName="App.tsx"
@@ -155,7 +120,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
     Vue में, HTML कंटेंट बिल्ट-इन `component` के माध्यम से रेंडर किया जा सकता है।
 
     ```vue fileName="App.vue"
@@ -175,7 +140,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
     Svelte HTML नोड्स को स्ट्रिंग के रूप में रेंडर करता है। इसे रेंडर करने के लिए `{@html}` का उपयोग करें।
 
     ```svelte
@@ -188,7 +153,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
     Preact JSX में सीधे HTML नोड्स को सपोर्ट करता है।
 
     ```tsx fileName="App.tsx"
@@ -201,7 +166,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     Solid JSX में सीधे HTML नोड्स को सपोर्ट करता है।
 
     ```tsx fileName="App.tsx"
@@ -214,7 +179,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     Angular HTML कंटेंट रेंडर करने के लिए `[innerHTML]` डायरेक्टिव का उपयोग करता है।
 
     ```typescript fileName="app.component.ts"
@@ -247,7 +212,7 @@ export default {
 आप अपने पूरे एप्लिकेशन के लिए HTML rendering को वैश्विक स्तर पर कॉन्फ़िगर कर सकते हैं। यह उन कस्टम कंपोनेंट्स को परिभाषित करने के लिए आदर्श है जिन्हें सभी HTML कंटेंट में उपलब्ध होना चाहिए।
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
   
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "react-intlayer";
@@ -265,7 +230,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
   
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
@@ -286,7 +251,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
    
     ```svelte fileName="App.svelte"
     <script lang="ts">
@@ -304,7 +269,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
    
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "preact-intlayer";
@@ -321,7 +286,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
    
     ```tsx fileName="AppProvider.tsx"
     import { HTMLProvider } from "solid-intlayer";
@@ -338,7 +303,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
     import { createIntlayerMarkdownProvider } from "angular-intlayer";
@@ -365,7 +330,7 @@ export default {
 यदि आपको raw HTML स्ट्रिंग्स रेंडर करने की आवश्यकता है या component मैपिंग पर अधिक नियंत्रण चाहिए, तो निम्नलिखित टूल्स का उपयोग करें।
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
     #### `<HTMLRenderer />` कम्पोनेंट
     विशिष्ट कम्पोनेंट्स के साथ HTML स्ट्रिंग रेंडर करें।
 
@@ -402,7 +367,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Vue">
+  <Tab label="Vue" value="vue">
    
     #### `<HTMLRenderer />` कम्पोनेन्ट
    
@@ -417,7 +382,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
   
     #### `<HTMLRenderer />` कम्पोनेन्ट
    
@@ -451,7 +416,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Preact">
+  <Tab label="Preact" value="preact">
    
     #### `<HTMLRenderer />` कम्पोनेंट
    
@@ -482,7 +447,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
    
     #### `<HTMLRenderer />` कम्पोनेंट
    
@@ -513,7 +478,7 @@ export default {
     ```
 
   </Tab>
-  <Tab label="Angular">
+  <Tab label="Angular" value="angular">
     #### `IntlayerMarkdownService` सर्विस
     सर्विस का उपयोग करके HTML स्ट्रिंग रेंडर करें।
 
