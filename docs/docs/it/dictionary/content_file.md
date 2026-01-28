@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-24
+updatedAt: 2026-01-28
 title: File di Contenuto
 description: Scopri come personalizzare le estensioni per i tuoi file di dichiarazione dei contenuti. Segui questa documentazione per implementare condizioni in modo efficiente nel tuo progetto.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.0.0
+    date: 2026-01-28
+    changes: Aggiunto tipo di nodo contenuto `html`
   - version: 8.0.0
     date: 2026-01-24
     changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
@@ -81,6 +84,7 @@ interface Content {
   quantityContent: string;
   conditionalContent: string;
   markdownContent: never;
+  htmlContent: never;
   externalContent: string;
   insertionContent: string;
   nestedContent: string;
@@ -126,6 +130,7 @@ export default {
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json()),
     markdownContent: md("# Esempio di Markdown"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
 
     /*
      * Disponibile solo usando `react-intlayer` o `next-intlayer`
@@ -175,6 +180,7 @@ export default {
       "login.button" // [Opzionale] Il percorso al contenuto da annidare
     ),
     markdownContent: md("# Esempio Markdown"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -225,6 +231,7 @@ module.exports = {
       "login.button" // [Opzionale] Il percorso del contenuto da annidare
     ),
     markdownContent: md("# Esempio Markdown"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -286,6 +293,10 @@ module.exports = {
       "nodeType": "markdown",
       "markdown": "# Esempio Markdown",
     },
+    "htmlContent": {
+      "nodeType": "html",
+      "html": "<p>Hello <strong>World</strong></p>",
+    },
     "fileContent": {
       "nodeType": "file",
       "file": "./path/to/file.txt",
@@ -320,6 +331,7 @@ Intlayer supporta vari tipi di contenuto tramite nodi tipizzati:
 - **Contenuto di Enumerazione**: Contenuto che varia in base a valori enumerati [vedi Contenuto di Enumerazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/enumeration_content.md)
 - **Contenuto di Inserimento**: Contenuto che può essere inserito in altri contenuti [vedi Contenuto di Inserimento](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/insertion_content.md)
 - **Contenuto Markdown**: Contenuto di testo arricchito in formato Markdown [vedi Contenuto Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/markdown_content.md)
+- **Contenuto HTML**: Contenuto HTML ricco con componenti personalizzati opzionali [vedi Contenuto HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/html.md)
 - **Contenuto Annidato**: Riferimenti ad altri dizionari [vedi Contenuto Annidato](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/nested_content.md)
 - **Contenuto di Genere**: Contenuto che varia in base al genere [vedi Contenuto di Genere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/gender_content.md)
 - **Contenuto File**: Riferimenti a file esterni [vedi Contenuto File](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/file_content.md)
@@ -690,6 +702,23 @@ import { md } from "intlayer";
 markdownContent: md(
   "# Benvenuto\n\nQuesto è un testo in **grassetto** con [link](https://example.com)"
 );
+```
+
+### Contenuto HTML (`html`)
+
+Contenuto HTML ricco che può usare tag standard o componenti personalizzati:
+
+```typescript
+import { html, file, t } from "intlayer";
+
+// HTML inline
+htmlContent: html("<p>Hello <strong>World</strong></p>");
+
+// HTML per locale da file esterni
+localizedHtmlContent: t({
+  en: html(file("./content.en.html")),
+  it: html(file("./content.it.html")),
+});
 ```
 
 ### Contenuto per Genere (`gender`)

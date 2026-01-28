@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-24
+updatedAt: 2026-01-28
 title: ملف المحتوى
 description: تعلّم كيفية تخصيص الامتدادات لملفات إعلان المحتوى الخاصة بك. اتبع هذا التوثيق لتنفيذ الشروط بكفاءة في مشروعك.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.0.0
+    date: 2026-01-28
+    changes: إضافة نوع عقدة المحتوى `html`
   - version: 8.0.0
     date: 2026-01-24
     changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
@@ -84,6 +87,7 @@ interface Content {
   quantityContent: string;
   conditionalContent: string;
   markdownContent: never;
+  htmlContent: never;
   externalContent: string;
   insertionContent: string;
   nestedContent: string;
@@ -129,6 +133,7 @@ export default {
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json()),
     markdownContent: md("# مثال على ماركداون"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
 
     /*
      * متاح فقط باستخدام `react-intlayer` أو `next-intlayer`
@@ -179,6 +184,7 @@ export default {
       "login.button" // [اختياري] المسار إلى المحتوى للتضمين
     ),
     markdownContent: md("# مثال على ماركداون"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -229,6 +235,7 @@ module.exports = {
       "login.button" // [اختياري] مسار المحتوى للتضمين
     ),
     markdownContent: md("# مثال على ماركداون"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -290,6 +297,10 @@ module.exports = {
       "nodeType": "markdown",
       "markdown": "# مثال على ماركداون",
     },
+    "htmlContent": {
+      "nodeType": "html",
+      "html": "<p>Hello <strong>World</strong></p>",
+    },
     "fileContent": {
       "nodeType": "file",
       "file": "./path/to/file.txt",
@@ -324,6 +335,7 @@ module.exports = {
 - **محتوى التعداد**: محتوى يتغير بناءً على قيم معدودة [انظر محتوى التعداد](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/enumeration_content.md)
 - **محتوى الإدراج**: محتوى يمكن إدراجه داخل محتويات أخرى [انظر محتوى الإدراج](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion_content.md)
 - **محتوى ماركداون**: محتوى نص غني بصيغة ماركداون [انظر محتوى ماركداون](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown_content.md)
+- **محتوى HTML**: محتوى HTML غني مع مكونات مخصصة اختيارية [انظر محتوى HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/html.md)
 - **محتوى متداخل**: مراجع إلى قواميس أخرى [انظر المحتوى المتداخل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/nested_content.md)
 - **محتوى حسب الجنس**: محتوى يختلف بناءً على الجنس [انظر محتوى الجنس](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender_content.md)
 - **محتوى ملف**: مراجع إلى ملفات خارجية [انظر محتوى الملف](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/file_content.md)
@@ -694,6 +706,23 @@ import { md } from "intlayer";
 markdownContent: md(
   "# مرحبًا\n\nهذا نص **عريض** مع [روابط](https://example.com)"
 );
+```
+
+### محتوى HTML (`html`)
+
+محتوى HTML غني يمكنه استخدام وسوم قياسية أو مكونات مخصصة:
+
+```typescript
+import { html, file, t } from "intlayer";
+
+// HTML مضمن
+htmlContent: html("<p>Hello <strong>World</strong></p>");
+
+// HTML حسب اللغة من ملفات خارجية
+localizedHtmlContent: t({
+  en: html(file("./content.en.html")),
+  ar: html(file("./content.ar.html")),
+});
 ```
 
 ### محتوى الجنس (`gender`)

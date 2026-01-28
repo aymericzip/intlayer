@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-24
+updatedAt: 2026-01-28
 title: Content File
 description: Learn how to customize the extensions for your content declaration files. Follow this documentation to implement conditions efficiently in your project.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.0.0
+    date: 2026-01-28
+    changes: Add `html` content node type
   - version: 8.0.0
     date: 2026-01-24
     changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
@@ -87,6 +90,7 @@ interface Content {
   quantityContent: string;
   conditionalContent: string;
   markdownContent: never;
+  htmlContent: never;
   externalContent: string;
   insertionContent: string;
   nestedContent: string;
@@ -131,6 +135,7 @@ export default {
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json()),
     markdownContent: md("# Markdown Example"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
 
     /*
      * Only available using `react-intlayer` or `next-intlayer`
@@ -180,6 +185,7 @@ export default {
       "login.button" // [Optional] The path to the content to nest
     ),
     markdownContent: md("# Markdown Example"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -229,6 +235,7 @@ module.exports = {
       "login.button" // [Optional] The path to the content to nest
     ),
     markdownContent: md("# Markdown Example"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -290,6 +297,10 @@ module.exports = {
       "nodeType": "markdown",
       "markdown": "# Markdown Example",
     },
+    "htmlContent": {
+      "nodeType": "html",
+      "html": "<p>Hello <strong>World</strong></p>",
+    },
     "fileContent": {
       "nodeType": "file",
       "file": "./path/to/file.txt",
@@ -324,6 +335,7 @@ Intlayer supports various content types through typed nodes:
 - **Enumeration Content**: Content that varies based on enumerated values [see Enumeration Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration_content.md)
 - **Insertion Content**: Content that can be inserted into other content [see Insertion Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion_content.md)
 - **Markdown Content**: Rich text content in Markdown format [see Markdown Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown_content.md)
+- **HTML Content**: Rich HTML content with optional custom components [see HTML Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/html.md)
 - **Nested Content**: References to other dictionaries [see Nested Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/nested_content.md)
 - **Gender Content**: Content that varies based on gender [see Gender Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/gender_content.md)
 - **File Content**: References to external files [see File Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file_content.md)
@@ -692,6 +704,28 @@ import { md } from "intlayer";
 markdownContent: md(
   "# Welcome\n\nThis is **bold** text with [links](https://example.com)"
 );
+
+localizedMarkdownContent: t({
+  en: md(file("./content.en.md")),
+  fr: md(file("./content.fr.md")),
+});
+```
+
+### HTML Content (`html`)
+
+Rich HTML content that can use standard tags or custom components:
+
+```typescript
+import { html, file, t } from "intlayer";
+
+// Inline HTML
+htmlContent: html("<p>Hello <strong>World</strong></p>");
+
+// Per-locale HTML from external files
+localizedHtmlContent: t({
+  en: html(file("./content.en.html")),
+  fr: html(file("./content.fr.html")),
+});
 ```
 
 ### Gender Content (`gender`)

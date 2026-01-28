@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-24
+updatedAt: 2026-01-28
 title: 콘텐츠 파일
 description: 콘텐츠 선언 파일의 확장자를 사용자 정의하는 방법을 배우세요. 이 문서를 따라 프로젝트에서 조건을 효율적으로 구현하세요.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.0.0
+    date: 2026-01-28
+    changes: `html` 콘텐츠 노드 타입 추가
   - version: 8.0.0
     date: 2026-01-24
     changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
@@ -81,6 +84,7 @@ interface Content {
   quantityContent: string;
   conditionalContent: string;
   markdownContent: never;
+  htmlContent: never;
   externalContent: string;
   insertionContent: string;
   nestedContent: string;
@@ -126,6 +130,7 @@ export default {
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json()),
     markdownContent: md("# 마크다운 예제"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
 
     /*
      * `react-intlayer` 또는 `next-intlayer`를 사용할 때만 사용 가능
@@ -175,6 +180,7 @@ export default {
       "login.button" // [선택 사항] 중첩할 콘텐츠의 경로
     ),
     markdownContent: md("# 마크다운 예제"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -225,6 +231,7 @@ module.exports = {
       "login.button" // [선택 사항] 중첩할 콘텐츠 경로
     ),
     markdownContent: md("# 마크다운 예제"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -286,6 +293,10 @@ module.exports = {
       "nodeType": "markdown",
       "markdown": "# 마크다운 예제",
     },
+    "htmlContent": {
+      "nodeType": "html",
+      "html": "<p>Hello <strong>World</strong></p>",
+    },
     "fileContent": {
       "nodeType": "file",
       "file": "./path/to/file.txt",
@@ -320,6 +331,7 @@ Intlayer는 타입이 지정된 노드를 통해 다양한 콘텐츠 유형을 �
 - **열거형 콘텐츠**: 열거된 값에 따라 달라지는 콘텐츠 [열거형 콘텐츠 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/enumeration_content.md)
 - **삽입 콘텐츠**: 다른 콘텐츠에 삽입할 수 있는 콘텐츠 [삽입 콘텐츠 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/insertion_content.md)
 - **Markdown Content**: 마크다운 형식의 리치 텍스트 콘텐츠 [Markdown Content 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/markdown_content.md)
+- **HTML Content**: 선택적 사용자 정의 컴포넌트가 있는 리치 HTML 콘텐츠 [HTML Content 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/html.md)
 - **Nested Content**: 다른 사전을 참조하는 콘텐츠 [Nested Content 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/nested_content.md)
 - **Gender Content**: 성별에 따라 달라지는 콘텐츠 [Gender Content 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/gender_content.md)
 - **File Content**: 외부 파일을 참조하는 콘텐츠 [File Content 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/file_content.md)
@@ -710,6 +722,23 @@ import { md } from "intlayer";
 markdownContent: md(
   "# 환영합니다\n\n이것은 [링크](https://example.com)가 포함된 **굵은** 텍스트입니다"
 );
+```
+
+### HTML 콘텐츠 (`html`)
+
+표준 태그 또는 사용자 정의 컴포넌트를 사용할 수 있는 리치 HTML 콘텐츠:
+
+```typescript
+import { html, file, t } from "intlayer";
+
+// 인라인 HTML
+htmlContent: html("<p>Hello <strong>World</strong></p>");
+
+// 외부 파일의 로케일별 HTML
+localizedHtmlContent: t({
+  en: html(file("./content.en.html")),
+  ko: html(file("./content.ko.html")),
+});
 ```
 
 ### 성별에 따른 콘텐츠 (`gender`)

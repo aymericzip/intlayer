@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-24
+updatedAt: 2026-01-28
 title: Файл контенту
 description: Дізнайтеся, як налаштувати розширення для файлів декларації контенту. Дотримуйтесь цієї документації, щоб ефективно реалізувати умови у вашому проєкті.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.0.0
+    date: 2026-01-28
+    changes: Додано тип вузла контенту `html`
   - version: 8.0.0
     date: 2026-01-24
     changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
@@ -69,6 +72,7 @@ import {
   cond,
   nest,
   md,
+  html,
   insert,
   file,
   type Dictionary,
@@ -87,6 +91,7 @@ interface Content {
   quantityContent: string;
   conditionalContent: string;
   markdownContent: never;
+  htmlContent: never;
   externalContent: string;
   insertionContent: string;
   nestedContent: string;
@@ -132,6 +137,7 @@ export default {
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json()),
     markdownContent: md("# Приклад Markdown"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
 
     /*
      * Доступно лише при використанні `react-intlayer` або `next-intlayer`
@@ -142,7 +148,7 @@ export default {
 ```
 
 ```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md, insert, file } from "intlayer";
+import { t, enu, cond, nest, md, html, insert, file } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
 export default {
@@ -182,6 +188,7 @@ export default {
       "login.button" // [Необов'язково] Шлях до вмісту для вкладення
     ),
     markdownContent: md("# Приклад Markdown"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -192,7 +199,7 @@ export default {
 ```
 
 ```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md, insert, file } = require("intlayer");
+const { t, enu, cond, nest, md, html, insert, file } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
 module.exports = {
@@ -294,6 +301,10 @@ module.exports = {
       "nodeType": "markdown",
       "markdown": "# Приклад Markdown",
     },
+    "htmlContent": {
+      "nodeType": "html",
+      "html": "<p>Hello <strong>World</strong></p>",
+    },
     "fileContent": {
       "nodeType": "file",
       "file": "./path/to/file.txt",
@@ -328,6 +339,7 @@ Intlayer підтримує різні типи контенту через ти
 - **Контент перелічення**: Контент, який змінюється залежно від переліку значень [див. Контент перелічення](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/enumeration_content.md)
 - **Вставний контент**: Контент, який можна вставити в інший контент [див. Вставний контент](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/insertion_content.md)
 - **Markdown-контент**: Багатий текстовий контент у форматі Markdown [див. Markdown-контент](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/markdown_content.md)
+- **HTML-вміст**: Багатий HTML-вміст з опційними власними компонентами [див. HTML-вміст](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/html.md)
 - **Вкладений вміст**: Посилання на інші словники [див. Вкладений вміст](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/nested_content.md)
 - **Гендерний вміст**: Вміст, що змінюється залежно від статі [див. Гендерний вміст](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/gender_content.md)
 - **Вміст файлу**: Посилання на зовнішні файли [див. Вміст файлу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/file_content.md)
@@ -704,6 +716,23 @@ import { md } from "intlayer";
 markdownContent: md(
   "# Ласкаво просимо\n\nЦе **жирний** текст з [посиланнями](https://example.com)"
 );
+```
+
+### HTML-вміст (`html`)
+
+Багатий HTML-вміст, який може використовувати стандартні теги або власні компоненти:
+
+```typescript
+import { html, file, t } from "intlayer";
+
+// Вбудований HTML
+htmlContent: html("<p>Hello <strong>World</strong></p>");
+
+// HTML за локаллю з зовнішніх файлів
+localizedHtmlContent: t({
+  en: html(file("./content.en.html")),
+  uk: html(file("./content.uk.html")),
+});
 ```
 
 ### Гендерний вміст (`gender`)

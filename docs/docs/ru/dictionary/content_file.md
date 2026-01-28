@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-24
+updatedAt: 2026-01-28
 title: Файл контента
 description: Узнайте, как настраивать расширения для ваших файлов декларации контента. Следуйте этой документации, чтобы эффективно реализовывать условия в вашем проекте.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.0.0
+    date: 2026-01-28
+    changes: Добавлен тип узла содержимого `html`
   - version: 8.0.0
     date: 2026-01-24
     changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
@@ -84,6 +87,7 @@ interface Content {
   quantityContent: string; // контент с количеством
   conditionalContent: string; // условный контент
   markdownContent: never; // markdown контент (никогда не используется)
+  htmlContent: never; // HTML контент
   externalContent: string; // внешний контент
   insertionContent: string; // контент с вставкой
   nestedContent: string; // вложенный контент
@@ -129,6 +133,7 @@ export default {
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json()),
     markdownContent: md("# Пример Markdown"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
 
     /*
      * Доступно только при использовании `react-intlayer` или `next-intlayer`
@@ -178,6 +183,7 @@ export default {
       "login.button" // [Необязательно] Путь к содержимому для вложения
     ),
     markdownContent: md("# Пример Markdown"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -228,6 +234,7 @@ module.exports = {
       "login.button" // [Необязательно] Путь к содержимому для вложения
     ),
     markdownContent: md("# Пример Markdown"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -289,6 +296,10 @@ module.exports = {
       "nodeType": "markdown",
       "markdown": "# Пример Markdown",
     },
+    "htmlContent": {
+      "nodeType": "html",
+      "html": "<p>Hello <strong>World</strong></p>",
+    },
     "fileContent": {
       "nodeType": "file",
       "file": "./path/to/file.txt",
@@ -323,6 +334,7 @@ Intlayer поддерживает различные типы содержимо
 - **Перечисляемое содержимое**: Содержимое, изменяющееся в зависимости от перечисляемых значений [см. Перечисляемое содержимое](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/enumeration_content.md)
 - **Вставляемое содержимое**: Содержимое, которое можно вставлять в другое содержимое [см. Вставляемое содержимое](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/insertion_content.md)
 - **Содержимое Markdown**: Форматированный текст в формате Markdown [см. Содержимое Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/markdown_content.md)
+- **HTML-содержимое**: Богатое HTML-содержимое с необязательными пользовательскими компонентами [см. HTML-содержимое](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/html.md)
 - **Вложенное содержимое**: Ссылки на другие словари [см. Вложенное содержимое](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/nested_content.md)
 - **Содержимое по полу**: Содержимое, зависящее от пола [см. Содержимое по полу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/gender_content.md)
 - **Содержимое файла**: Ссылки на внешние файлы [см. Содержимое файла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/file_content.md)
@@ -713,6 +725,23 @@ import { md } from "intlayer";
 markdownContent: md(
   "# Добро пожаловать\n\nЭто **жирный** текст с [ссылками](https://example.com)"
 );
+```
+
+### HTML-контент (`html`)
+
+Богатый HTML-контент, который может использовать стандартные теги или пользовательские компоненты:
+
+```typescript
+import { html, file, t } from "intlayer";
+
+// Встроенный HTML
+htmlContent: html("<p>Hello <strong>World</strong></p>");
+
+// По-локальный HTML из внешних файлов
+localizedHtmlContent: t({
+  en: html(file("./content.en.html")),
+  ru: html(file("./content.ru.html")),
+});
 ```
 
 ### Контент по половому признаку (`gender`)

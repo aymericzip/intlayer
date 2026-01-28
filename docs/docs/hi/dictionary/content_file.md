@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-24
+updatedAt: 2026-01-28
 title: कंटेंट फ़ाइल
 description: अपनी कंटेंट घोषणा फ़ाइलों के एक्सटेंशनों को कस्टमाइज़ करना सीखें। अपने प्रोजेक्ट में शर्तों को कुशलतापूर्वक लागू करने के लिए इस दस्तावेज़ का पालन करें।
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.0.0
+    date: 2026-01-28
+    changes: `html` कंटेंट नोड प्रकार जोड़ें
   - version: 8.0.0
     date: 2026-01-24
     changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
@@ -63,6 +66,7 @@ import {
   cond,
   nest,
   md,
+  html,
   insert,
   file,
   type Dictionary,
@@ -81,6 +85,7 @@ interface Content {
   quantityContent: string;
   conditionalContent: string;
   markdownContent: never;
+  htmlContent: never;
   externalContent: string;
   insertionContent: string;
   nestedContent: string;
@@ -126,6 +131,7 @@ export default {
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json()),
     markdownContent: md("# मार्कडाउन उदाहरण"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
 
     /*
      * केवल `react-intlayer` या `next-intlayer` का उपयोग करते समय उपलब्ध
@@ -136,7 +142,7 @@ export default {
 ```
 
 ```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md, insert, file } from "intlayer";
+import { t, enu, cond, nest, md, html, insert, file } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
 export default {
@@ -175,6 +181,7 @@ export default {
       "login.button" // [वैकल्पिक] नेस्ट करने के लिए सामग्री का पथ
     ),
     markdownContent: md("# मार्कडाउन उदाहरण"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -185,7 +192,7 @@ export default {
 ```
 
 ```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md, insert, file } = require("intlayer");
+const { t, enu, cond, nest, md, html, insert, file } = require("intlayer");
 
 /** @type {import('intlayer').Dictionary} */
 module.exports = {
@@ -225,6 +232,7 @@ module.exports = {
       "login.button" // [वैकल्पिक] नेस्ट करने के लिए सामग्री का पथ
     ),
     markdownContent: md("# मार्कडाउन उदाहरण"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -286,6 +294,10 @@ module.exports = {
       "nodeType": "markdown",
       "markdown": "# मार्कडाउन उदाहरण",
     },
+    "htmlContent": {
+      "nodeType": "html",
+      "html": "<p>Hello <strong>World</strong></p>",
+    },
     "fileContent": {
       "nodeType": "file",
       "file": "./path/to/file.txt",
@@ -320,6 +332,7 @@ Intlayer टाइप्ड नोड्स के माध्यम से व
 - **सूची सामग्री**: सामग्री जो सूचीबद्ध मानों के आधार पर भिन्न होती है [देखें सूची सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/enumeration_content.md)
 - **प्रविष्टि सामग्री**: ऐसी सामग्री जिसे अन्य सामग्री में डाला जा सकता है [देखें प्रविष्टि सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion_content.md)
 - **मार्कडाउन सामग्री**: मार्कडाउन प्रारूप में समृद्ध पाठ सामग्री [देखें मार्कडाउन सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown_content.md)
+- **HTML सामग्री**: समृद्ध HTML सामग्री जो मानक टैग या कस्टम कंपोनेंट्स का उपयोग कर सकती है [देखें HTML सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/html.md)
 - **नेस्टेड सामग्री**: अन्य शब्दकोशों के संदर्भ [देखें नेस्टेड सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/nested_content.md)
 - **लिंग सामग्री**: लिंग के आधार पर भिन्न सामग्री [देखें लिंग सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender_content.md)
 - **फ़ाइल सामग्री**: बाहरी फ़ाइलों के संदर्भ [देखें फ़ाइल सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/file_content.md)
@@ -690,6 +703,23 @@ import { md } from "intlayer";
 markdownContent: md(
   "# स्वागत\n\nयह **बोल्ड** टेक्स्ट है जिसमें [लिंक](https://example.com) शामिल हैं"
 );
+```
+
+### HTML सामग्री (`html`)
+
+समृद्ध HTML सामग्री जो मानक टैग या कस्टम कंपोनेंट्स का उपयोग कर सकती है:
+
+```typescript
+import { html, file, t } from "intlayer";
+
+// इनलाइन HTML
+htmlContent: html("<p>Hello <strong>World</strong></p>");
+
+// बाहरी फ़ाइलों से प्रति-लोकेल HTML
+localizedHtmlContent: t({
+  hi: html(file("./content.hi.html")),
+  en: html(file("./content.en.html")),
+});
 ```
 
 ### जेंडर सामग्री (`gender`)

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-24
+updatedAt: 2026-01-28
 title: Inhaltsdatei
 description: Erfahren Sie, wie Sie die Erweiterungen für Ihre Inhaltsdeklarationsdateien anpassen können. Folgen Sie dieser Dokumentation, um Bedingungen effizient in Ihrem Projekt umzusetzen.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.0.0
+    date: 2026-01-28
+    changes: Inhaltstyp-Knoten `html` hinzugefügt
   - version: 8.0.0
     date: 2026-01-24
     changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
@@ -84,6 +87,7 @@ interface Content {
   quantityContent: string; // Mengeninhalt
   conditionalContent: string; // Bedingter Inhalt
   markdownContent: never; // Markdown-Inhalt
+  htmlContent: never; // HTML-Inhalt
   externalContent: string; // Externer Inhalt
   insertionContent: string; // Einfügeinhalt
   nestedContent: string; // Verschachtelter Inhalt
@@ -129,6 +133,7 @@ export default {
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json()),
     markdownContent: md("# Markdown-Beispiel"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
 
     /*
      * Nur verfügbar mit `react-intlayer` oder `next-intlayer`
@@ -178,6 +183,7 @@ export default {
       "login.button" // [Optional] Der Pfad zum einzufügenden Inhalt
     ),
     markdownContent: md("# Markdown-Beispiel"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -228,6 +234,7 @@ module.exports = {
       "login.button" // [Optional] Der Pfad zum einzubettenden Inhalt
     ),
     markdownContent: md("# Markdown-Beispiel"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -289,6 +296,10 @@ module.exports = {
       "nodeType": "markdown",
       "markdown": "# Markdown-Beispiel",
     },
+    "htmlContent": {
+      "nodeType": "html",
+      "html": "<p>Hello <strong>World</strong></p>",
+    },
     "fileContent": {
       "nodeType": "file",
       "file": "./path/to/file.txt",
@@ -323,6 +334,7 @@ Intlayer unterstützt verschiedene Inhaltstypen durch typisierte Knoten:
 - **Enumerationsinhalt**: Inhalt, der sich basierend auf aufzählbaren Werten ändert [siehe Enumerationsinhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/enumeration_content.md)
 - **Einfügeinhalt**: Inhalt, der in anderen Inhalt eingefügt werden kann [siehe Einfügeinhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/insertion_content.md)
 - **Markdown-Inhalt**: Rich-Text-Inhalt im Markdown-Format [siehe Markdown-Inhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/markdown_content.md)
+- **HTML-Inhalt**: Rich-HTML-Inhalt mit optionalen benutzerdefinierten Komponenten [siehe HTML-Inhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/html.md)
 - **Verschachtelter Inhalt**: Verweise auf andere Wörterbücher [siehe Verschachtelter Inhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/nested_content.md)
 - **Geschlechtsabhängiger Inhalt**: Inhalt, der sich je nach Geschlecht unterscheidet [siehe Geschlechtsabhängiger Inhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/gender_content.md)
 - **Dateiinhalt**: Verweise auf externe Dateien [siehe Dateiinhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/file_content.md)
@@ -686,6 +698,23 @@ import { md } from "intlayer";
 markdownContent: md(
   "# Willkommen\n\nDies ist **fetter** Text mit [Links](https://example.com)"
 );
+```
+
+### HTML-Inhalt (`html`)
+
+Rich-HTML-Inhalt, der Standard-Tags oder benutzerdefinierte Komponenten verwenden kann:
+
+```typescript
+import { html, file, t } from "intlayer";
+
+// Inline-HTML
+htmlContent: html("<p>Hello <strong>World</strong></p>");
+
+// Pro-Locale-HTML aus externen Dateien
+localizedHtmlContent: t({
+  en: html(file("./content.en.html")),
+  de: html(file("./content.de.html")),
+});
 ```
 
 ### Geschlechtsabhängiger Inhalt (`gender`)

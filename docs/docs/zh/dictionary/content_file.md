@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-24
+updatedAt: 2026-01-28
 title: 内容文件
 description: 学习如何自定义内容声明文件的扩展。按照本指南高效地在项目中实现条件。
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.0.0
+    date: 2026-01-28
+    changes: 添加 `html` 内容节点类型
   - version: 8.0.0
     date: 2026-01-24
     changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
@@ -66,6 +69,7 @@ import {
   cond,
   nest,
   md,
+  html,
   insert,
   file,
   type Dictionary,
@@ -84,6 +88,7 @@ interface Content {
   quantityContent: string; // 数量内容
   conditionalContent: string; // 条件内容
   markdownContent: never; // Markdown 内容
+  htmlContent: never; // HTML 内容
   externalContent: string; // 外部内容
   insertionContent: string; // 插入内容
   nestedContent: string; // 嵌套内容
@@ -129,6 +134,7 @@ export default {
     fileContent: file("./path/to/file.txt"), // 文件内容
     externalContent: fetch("https://example.com").then((res) => res.json()), // 外部内容
     markdownContent: md("# Markdown 示例"), // Markdown 内容
+    htmlContent: html("<p>Hello <strong>World</strong></p>"), // HTML 内容
 
     /*
      * 仅在使用 `react-intlayer` 或 `next-intlayer` 时可用
@@ -139,7 +145,7 @@ export default {
 ```
 
 ```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md, insert, file } from "intlayer";
+import { t, enu, cond, nest, md, html, insert, file } from "intlayer";
 
 /** @type {import('intlayer').Dictionary} */
 export default {
@@ -178,6 +184,7 @@ export default {
       "login.button" // [可选] 要嵌套的内容路径
     ),
     markdownContent: md("# Markdown 示例"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -228,6 +235,7 @@ module.exports = {
       "login.button" // [可选] 要嵌套的内容路径
     ),
     markdownContent: md("# Markdown 示例"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -323,6 +331,7 @@ Intlayer 通过类型化节点支持多种内容类型：
 - **枚举内容**：基于枚举值变化的内容 [参见 枚举内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/enumeration_content.md)
 - **插入内容**：可以插入到其他内容中的内容 [参见 插入内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/insertion_content.md)
 - **Markdown 内容**：以 Markdown 格式的富文本内容 [参见 Markdown 内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/markdown_content.md)
+- **HTML 内容**：富 HTML 内容，可使用标准标签或自定义组件 [参见 HTML 内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/html.md)
 - **嵌套内容**：对其他字典的引用 [参见 嵌套内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/nested_content.md)
 - **性别内容**：基于性别变化的内容 [参见 性别内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/gender_content.md)
 - **文件内容**：对外部文件的引用 [参见 文件内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/file_content.md)
@@ -706,6 +715,23 @@ import { md } from "intlayer";
 markdownContent: md(
   "# 欢迎\n\n这是带有[链接](https://example.com)的**加粗**文本"
 );
+```
+
+### HTML 内容 (`html`)
+
+可使用标准标签或自定义组件的富 HTML 内容：
+
+```typescript
+import { html, file, t } from "intlayer";
+
+// 内联 HTML
+htmlContent: html("<p>Hello <strong>World</strong></p>");
+
+// 从外部文件按语言环境使用 HTML
+localizedHtmlContent: t({
+  zh: html(file("./content.zh.html")),
+  en: html(file("./content.en.html")),
+});
 ```
 
 ### 性别内容 (`gender`)

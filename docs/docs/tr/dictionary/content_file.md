@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-24
+updatedAt: 2026-01-28
 title: İçerik Dosyası
 description: İçerik bildirim dosyalarınız için uzantıları nasıl özelleştireceğinizi öğrenin. Projenizde koşulları verimli bir şekilde uygulamak için bu dokümantasyonu takip edin.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.0.0
+    date: 2026-01-28
+    changes: `html` içerik düğümü tipi eklendi
   - version: 8.0.0
     date: 2026-01-24
     changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
@@ -81,6 +84,7 @@ interface Content {
   quantityContent: string;
   conditionalContent: string;
   markdownContent: never;
+  htmlContent: never;
   externalContent: string;
   insertionContent: string;
   nestedContent: string;
@@ -125,6 +129,7 @@ export default {
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json()),
     markdownContent: md("# Markdown Örneği"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
 
     /*
      * Sadece `react-intlayer` veya `next-intlayer` kullanılarak mevcuttur
@@ -174,6 +179,7 @@ export default {
       "login.button" // [İsteğe bağlı] İç içe yerleştirilecek içeriğin yolu
     ),
     markdownContent: md("# Markdown Örneği"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -224,6 +230,7 @@ module.exports = {
       "login.button" // [İsteğe bağlı] İç içe yerleştirilecek içeriğin yolu
     ),
     markdownContent: md("# Markdown Örneği"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -285,6 +292,10 @@ module.exports = {
       "nodeType": "markdown",
       "markdown": "# Markdown Örneği",
     },
+    "htmlContent": {
+      "nodeType": "html",
+      "html": "<p>Hello <strong>World</strong></p>",
+    },
     "fileContent": {
       "nodeType": "file",
       "file": "./path/to/file.txt",
@@ -319,6 +330,7 @@ Intlayer, tiplenmiş düğümler aracılığıyla çeşitli içerik türlerini d
 - **Numaralandırma İçeriği**: Numaralandırılmış değerlere göre değişen içerik [bkz. Numaralandırma İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/enumeration_content.md)
 - **Ekleme İçeriği**: Diğer içeriklere eklenebilen içerik [bkz. Ekleme İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion_content.md)
 - **Markdown İçeriği**: Markdown formatında zengin metin içeriği [bkz. Markdown İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown_content.md)
+- **HTML İçeriği**: İsteğe bağlı özel bileşenlerle zengin HTML içeriği [bkz. HTML İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/html.md)
 - **İç İçe İçerik**: Diğer sözlüklere referanslar [bkz. İç İçe İçerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/nested_content.md)
 - **Cinsiyet İçeriği**: Cinsiyete göre değişen içerik [bkz. Cinsiyet İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender_content.md)
 - **Dosya İçeriği**: Harici dosyalara referanslar [bkz. Dosya İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/file_content.md)
@@ -709,6 +721,23 @@ import { md } from "intlayer";
 markdownContent: md(
   "# Hoşgeldiniz\n\nBu, [bağlantılar](https://example.com) içeren **kalın** metindir"
 );
+```
+
+### HTML İçeriği (`html`)
+
+Standart etiketler veya özel bileşenler kullanabilen zengin HTML içeriği:
+
+```typescript
+import { html, file, t } from "intlayer";
+
+// Satır içi HTML
+htmlContent: html("<p>Hello <strong>World</strong></p>");
+
+// Harici dosyalardan yerel dile göre HTML
+localizedHtmlContent: t({
+  en: html(file("./content.en.html")),
+  tr: html(file("./content.tr.html")),
+});
 ```
 
 ### Cinsiyete Göre İçerik (`gender`)

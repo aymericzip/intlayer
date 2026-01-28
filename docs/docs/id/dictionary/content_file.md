@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-24
+updatedAt: 2026-01-28
 title: Berkas Konten
 description: Pelajari cara menyesuaikan ekstensi untuk berkas deklarasi konten Anda. Ikuti dokumentasi ini untuk mengimplementasikan kondisi secara efisien dalam proyek Anda.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.0.0
+    date: 2026-01-28
+    changes: Tambahkan tipe node konten `html`
   - version: 8.0.0
     date: 2026-01-24
     changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
@@ -84,6 +87,7 @@ interface Content {
   quantityContent: string;
   conditionalContent: string;
   markdownContent: never;
+  htmlContent: never;
   externalContent: string;
   insertionContent: string;
   nestedContent: string;
@@ -128,6 +132,7 @@ export default {
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json()),
     markdownContent: md("# Contoh Markdown"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
 
     /*
      * Hanya tersedia menggunakan `react-intlayer` atau `next-intlayer`
@@ -177,6 +182,7 @@ export default {
       "login.button" // [Opsional] Jalur ke konten yang akan disisipkan
     ),
     markdownContent: md("# Contoh Markdown"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -226,6 +232,7 @@ module.exports = {
       "login.button" // [Opsional] Jalur ke konten yang akan disisipkan
     ),
     markdownContent: md("# Contoh Markdown"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -287,6 +294,10 @@ module.exports = {
       "nodeType": "markdown",
       "markdown": "# Contoh Markdown",
     },
+    "htmlContent": {
+      "nodeType": "html",
+      "html": "<p>Hello <strong>World</strong></p>",
+    },
     "fileContent": {
       "nodeType": "file",
       "file": "./path/to/file.txt",
@@ -321,6 +332,7 @@ Intlayer mendukung berbagai jenis konten melalui node bertipe:
 - **Konten Enumerasi**: Konten yang bervariasi berdasarkan nilai enumerasi [lihat Konten Enumerasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/enumeration_content.md)
 - **Konten Penyisipan**: Konten yang dapat disisipkan ke dalam konten lain [lihat Konten Penyisipan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/insertion_content.md)
 - **Konten Markdown**: Konten teks kaya dalam format Markdown [lihat Konten Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/markdown_content.md)
+- **Konten HTML**: Konten HTML kaya dengan komponen kustom opsional [lihat Konten HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/html.md)
 - **Konten Bersarang**: Referensi ke kamus lain [lihat Konten Bersarang](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/nested_content.md)
 - **Konten Gender**: Konten yang bervariasi berdasarkan gender [lihat Konten Gender](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/gender_content.md)
 - **Konten File**: Referensi ke file eksternal [lihat Konten File](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/file_content.md)
@@ -696,6 +708,23 @@ import { md } from "intlayer";
 markdownContent: md(
   "# Selamat Datang\n\nIni adalah teks **tebal** dengan [tautan](https://example.com)"
 );
+```
+
+### Konten HTML (`html`)
+
+Konten HTML kaya yang dapat menggunakan tag standar atau komponen kustom:
+
+```typescript
+import { html, file, t } from "intlayer";
+
+// HTML inline
+htmlContent: html("<p>Hello <strong>World</strong></p>");
+
+// HTML per lokal dari file eksternal
+localizedHtmlContent: t({
+  en: html(file("./content.en.html")),
+  id: html(file("./content.id.html")),
+});
 ```
 
 ### Konten Gender (`gender`)

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-24
+updatedAt: 2026-01-28
 title: コンテンツファイル
 description: コンテンツ宣言ファイルの拡張機能をカスタマイズする方法を学びます。このドキュメントに従って、プロジェクトで効率的に条件を実装しましょう。
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.0.0
+    date: 2026-01-28
+    changes: `html` コンテンツノードタイプを追加
   - version: 8.0.0
     date: 2026-01-24
     changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
@@ -81,6 +84,7 @@ interface Content {
   quantityContent: string;
   conditionalContent: string;
   markdownContent: never;
+  htmlContent: never;
   externalContent: string;
   insertionContent: string;
   nestedContent: string;
@@ -126,6 +130,7 @@ export default {
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json()),
     markdownContent: md("# マークダウンの例"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
 
     /*
      * `react-intlayer` または `next-intlayer` を使用する場合のみ利用可能
@@ -176,6 +181,7 @@ export default {
       "login.button" // [オプション] ネストするコンテンツのパス
     ),
     markdownContent: md("# Markdownの例"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -226,6 +232,7 @@ module.exports = {
       "login.button" // [オプション] ネストするコンテンツのパス
     ),
     markdownContent: md("# マークダウンの例"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -287,6 +294,10 @@ module.exports = {
       "nodeType": "markdown",
       "markdown": "# マークダウンの例",
     },
+    "htmlContent": {
+      "nodeType": "html",
+      "html": "<p>Hello <strong>World</strong></p>",
+    },
     "fileContent": {
       "nodeType": "file",
       "file": "./path/to/file.txt",
@@ -321,6 +332,7 @@ Intlayerは型付きノードを通じて様々なコンテンツタイプをサ
 - **列挙コンテンツ**: 列挙値に基づいて変化するコンテンツ [列挙コンテンツを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/enumeration_content.md)
 - **挿入コンテンツ**: 他のコンテンツに挿入可能なコンテンツ [挿入コンテンツを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion_content.md)
 - **Markdown Content**: Markdown形式のリッチテキストコンテンツ [Markdown Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown_content.md)
+- **HTML Content**: オプションのカスタムコンポーネントを使用したリッチHTMLコンテンツ [HTML Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/html.md)
 - **Nested Content**: 他の辞書への参照 [Nested Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/nested_content.md)
 - **Gender Content**: 性別に応じて変わるコンテンツ [Gender Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender_content.md)
 - **File Content**: 外部ファイルへの参照 [File Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/file_content.md)
@@ -691,6 +703,23 @@ import { md } from "intlayer";
 markdownContent: md(
   "# Welcome\n\nこれは**太字**のテキストで、[リンク](https://example.com)が含まれています"
 );
+```
+
+### HTMLコンテンツ (`html`)
+
+標準タグまたはカスタムコンポーネントを使用できるリッチHTMLコンテンツ：
+
+```typescript
+import { html, file, t } from "intlayer";
+
+// インラインHTML
+htmlContent: html("<p>Hello <strong>World</strong></p>");
+
+// 外部ファイルからのロケール別HTML
+localizedHtmlContent: t({
+  en: html(file("./content.en.html")),
+  ja: html(file("./content.ja.html")),
+});
 ```
 
 ### ジェンダーコンテンツ (`gender`)

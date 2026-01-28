@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-24
+updatedAt: 2026-01-28
 title: Plik z Treścią
 description: Dowiedz się, jak dostosować rozszerzenia dla plików deklaracji treści. Postępuj zgodnie z tą dokumentacją, aby efektywnie wdrażać warunki w swoim projekcie.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.0.0
+    date: 2026-01-28
+    changes: Dodano typ węzła zawartości `html`
   - version: 8.0.0
     date: 2026-01-24
     changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
@@ -84,6 +87,7 @@ interface Content {
   quantityContent: string;
   conditionalContent: string;
   markdownContent: never;
+  htmlContent: never;
   externalContent: string;
   insertionContent: string;
   nestedContent: string;
@@ -128,6 +132,7 @@ export default {
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json()),
     markdownContent: md("# Przykład Markdown"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
 
     /*
      * Dostępne tylko przy użyciu `react-intlayer` lub `next-intlayer`
@@ -177,6 +182,7 @@ export default {
       "login.button" // [Opcjonalnie] Ścieżka do zawartości do zagnieżdżenia
     ),
     markdownContent: md("# Przykład Markdown"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -226,6 +232,7 @@ module.exports = {
       "login.button" // [Opcjonalne] Ścieżka do zawartości do zagnieżdżenia
     ),
     markdownContent: md("# Przykład Markdown"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -287,6 +294,10 @@ module.exports = {
       "nodeType": "markdown",
       "markdown": "# Przykład Markdown",
     },
+    "htmlContent": {
+      "nodeType": "html",
+      "html": "<p>Hello <strong>World</strong></p>",
+    },
     "fileContent": {
       "nodeType": "file",
       "file": "./path/to/file.txt",
@@ -321,6 +332,7 @@ Intlayer obsługuje różne typy zawartości poprzez węzły typowane:
 - **Zawartość enumeracji**: Zawartość zmieniająca się w zależności od wartości enumerowanych [zobacz Zawartość enumeracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/enumeration_content.md)
 - **Zawartość wstawiania**: Zawartość, którą można wstawić do innej zawartości [zobacz Zawartość wstawiania](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/insertion_content.md)
 - **Zawartość Markdown**: Zawartość tekstu sformatowanego w formacie Markdown [zobacz Zawartość Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/markdown_content.md)
+- **Zawartość HTML**: Zawartość HTML z opcjonalnymi niestandardowymi komponentami [zobacz Zawartość HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/html.md)
 - **Zagnieżdżona zawartość**: Odwołania do innych słowników [zobacz Zagnieżdżoną zawartość](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/nested_content.md)
 - **Zawartość zależna od płci**: Zawartość zmieniająca się w zależności od płci [zobacz Zawartość zależną od płci](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/gender_content.md)
 - **Zawartość plikowa**: Odwołania do plików zewnętrznych [zobacz Zawartość plikową](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/file_content.md)
@@ -696,6 +708,23 @@ import { md } from "intlayer";
 markdownContent: md(
   "# Witamy\n\nTo jest **pogrubiony** tekst z [linkami](https://example.com)"
 );
+```
+
+### Zawartość HTML (`html`)
+
+Zawartość HTML, która może używać standardowych tagów lub niestandardowych komponentów:
+
+```typescript
+import { html, file, t } from "intlayer";
+
+// HTML w linii
+htmlContent: html("<p>Hello <strong>World</strong></p>");
+
+// HTML według lokalizacji z plików zewnętrznych
+localizedHtmlContent: t({
+  en: html(file("./content.en.html")),
+  pl: html(file("./content.pl.html")),
+});
 ```
 
 ### Zawartość według płci (`gender`)

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-24
+updatedAt: 2026-01-28
 title: Tệp Nội Dung
 description: Tìm hiểu cách tùy chỉnh các phần mở rộng cho các tệp khai báo nội dung của bạn. Theo dõi tài liệu này để triển khai các điều kiện một cách hiệu quả trong dự án của bạn.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.0.0
+    date: 2026-01-28
+    changes: Thêm kiểu nút nội dung `html`
   - version: 8.0.0
     date: 2026-01-24
     changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
@@ -87,6 +90,7 @@ interface Content {
   quantityContent: string;
   conditionalContent: string;
   markdownContent: never;
+  htmlContent: never;
   externalContent: string;
   insertionContent: string;
   nestedContent: string;
@@ -131,6 +135,7 @@ export default {
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json()),
     markdownContent: md("# Ví dụ Markdown"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
 
     /*
      * Chỉ có sẵn khi sử dụng `react-intlayer` hoặc `next-intlayer`
@@ -180,6 +185,7 @@ export default {
       "login.button" // [Tùy chọn] Đường dẫn đến nội dung để lồng vào
     ),
     markdownContent: md("# Ví dụ Markdown"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -229,6 +235,7 @@ module.exports = {
       "login.button" // [Tùy chọn] Đường dẫn đến nội dung để lồng vào
     ),
     markdownContent: md("# Ví dụ Markdown"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -290,6 +297,10 @@ module.exports = {
       "nodeType": "markdown",
       "markdown": "# Ví dụ Markdown",
     },
+    "htmlContent": {
+      "nodeType": "html",
+      "html": "<p>Hello <strong>World</strong></p>",
+    },
     "fileContent": {
       "nodeType": "file",
       "file": "./path/to/file.txt",
@@ -324,6 +335,7 @@ Intlayer hỗ trợ nhiều loại nội dung thông qua các node kiểu:
 - **Nội dung Liệt kê**: Nội dung thay đổi dựa trên các giá trị được liệt kê [xem Nội dung Liệt kê](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/enumeration_content.md)
 - **Nội dung Chèn**: Nội dung có thể được chèn vào các nội dung khác [xem Nội dung Chèn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/insertion_content.md)
 - **Nội dung Markdown**: Nội dung văn bản phong phú ở định dạng Markdown [xem Nội dung Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/markdown_content.md)
+- **Nội dung HTML**: Nội dung HTML phong phú với các component tùy chỉnh tùy chọn [xem Nội dung HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/html.md)
 - **Nội dung Lồng nhau**: Tham chiếu đến các từ điển khác [xem Nội dung Lồng nhau](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/nested_content.md)
 - **Nội dung Giới tính**: Nội dung thay đổi dựa trên giới tính [xem Nội dung Giới tính](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender_content.md)
 - **Nội dung Tệp**: Tham chiếu đến các tệp bên ngoài [xem Nội dung Tệp](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/file_content.md)
@@ -699,6 +711,23 @@ import { md } from "intlayer";
 markdownContent: md(
   "# Chào mừng\n\nĐây là văn bản **in đậm** với các [liên kết](https://example.com)"
 );
+```
+
+### Nội dung HTML (`html`)
+
+Nội dung HTML phong phú có thể sử dụng thẻ chuẩn hoặc component tùy chỉnh:
+
+```typescript
+import { html, file, t } from "intlayer";
+
+// HTML nội tuyến
+htmlContent: html("<p>Hello <strong>World</strong></p>");
+
+// HTML theo từng ngôn ngữ từ các tệp bên ngoài
+localizedHtmlContent: t({
+  en: html(file("./content.en.html")),
+  vi: html(file("./content.vi.html")),
+});
 ```
 
 ### Nội dung theo giới tính (`gender`)

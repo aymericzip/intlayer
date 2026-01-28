@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-24
+updatedAt: 2026-01-28
 title: Archivo de Contenido
 description: Aprende a personalizar las extensiones para tus archivos de declaración de contenido. Sigue esta documentación para implementar condiciones de manera eficiente en tu proyecto.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.0.0
+    date: 2026-01-28
+    changes: Añadir tipo de nodo de contenido `html`
   - version: 8.0.0
     date: 2026-01-24
     changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
@@ -84,6 +87,7 @@ interface Content {
   quantityContent: string;
   conditionalContent: string;
   markdownContent: never;
+  htmlContent: never;
   externalContent: string;
   insertionContent: string;
   nestedContent: string;
@@ -128,6 +132,7 @@ export default {
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json()),
     markdownContent: md("# Ejemplo de Markdown"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
 
     /*
      * Solo disponible usando `react-intlayer` o `next-intlayer`
@@ -177,6 +182,7 @@ export default {
       "login.button" // [Opcional] La ruta al contenido para anidar
     ),
     markdownContent: md("# Ejemplo de Markdown"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -226,6 +232,7 @@ module.exports = {
       "login.button" // [Opcional] La ruta al contenido para anidar
     ),
     markdownContent: md("# Ejemplo de Markdown"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json())
 
@@ -287,6 +294,10 @@ module.exports = {
       "nodeType": "markdown",
       "markdown": "# Ejemplo de Markdown",
     },
+    "htmlContent": {
+      "nodeType": "html",
+      "html": "<p>Hello <strong>World</strong></p>",
+    },
     "fileContent": {
       "nodeType": "archivo",
       "file": "./path/to/file.txt",
@@ -320,8 +331,8 @@ Intlayer soporta varios tipos de contenido a través de nodos tipados:
 - **Contenido Condicional**: Contenido condicional basado en expresiones booleanas [ver Contenido Condicional](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/condition_content.md)
 - **Contenido de Enumeración**: Contenido que varía según valores enumerados [ver Contenido de Enumeración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/enumeration_content.md)
 - **Contenido de Inserción**: Contenido que puede ser insertado en otro contenido [ver Contenido de Inserción](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/insertion_content.md)
-
 - **Contenido Markdown**: Contenido de texto enriquecido en formato Markdown [ver Contenido Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/markdown_content.md)
+- **Contenido HTML**: Contenido HTML enriquecido con componentes personalizados opcionales [ver Contenido HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/html.md)
 - **Contenido Anidado**: Referencias a otros diccionarios [ver Contenido Anidado](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/nested_content.md)
 - **Contenido de Género**: Contenido que varía según el género [ver Contenido de Género](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/gender_content.md)
 - **Contenido de Archivo**: Referencias a archivos externos [ver Contenido de Archivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/file_content.md)
@@ -685,6 +696,23 @@ import { md } from "intlayer";
 markdownContent: md(
   "# Bienvenido\n\nEste es un texto en **negrita** con [enlaces](https://example.com)"
 );
+```
+
+### Contenido HTML (`html`)
+
+Contenido HTML enriquecido que puede usar etiquetas estándar o componentes personalizados:
+
+```typescript
+import { html, file, t } from "intlayer";
+
+// HTML en línea
+htmlContent: html("<p>Hello <strong>World</strong></p>");
+
+// HTML por localización desde archivos externos
+localizedHtmlContent: t({
+  en: html(file("./content.en.html")),
+  es: html(file("./content.es.html")),
+});
 ```
 
 ### Contenido según género (`gender`)
