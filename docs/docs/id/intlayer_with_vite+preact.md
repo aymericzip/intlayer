@@ -48,8 +48,6 @@ history:
   </Tab>
 </Tabs>
 
-> Paket ini sedang dalam pengembangan. Lihat [issue](https://github.com/aymericzip/intlayer/issues/118) untuk informasi lebih lanjut. Tunjukkan minat Anda pada Intlayer untuk Preact dengan menyukai issue tersebut
-
 ## Daftar Isi
 
 <TOC/>
@@ -61,21 +59,13 @@ history:
 Dengan Intlayer, Anda dapat:
 
 - **Mengelola terjemahan dengan mudah** menggunakan kamus deklaratif di tingkat komponen.
-- **Melokalkan metadata**, rute, dan konten secara dinamis.
-- **Menjamin dukungan TypeScript** dengan tipe yang dihasilkan secara otomatis, meningkatkan autocompletion dan deteksi kesalahan.
+- **Melokalkan metadata, rute, dan konten secara dinamis**.
+- **Menjamin dukungan TypeScript** dengan tipe yang dihasilkan secara otomatis, meningkatkan autocompletion và deteksi kesalahan.
 - **Memanfaatkan fitur canggih**, seperti deteksi dan pergantian locale secara dinamis.
 
 ---
 
 ## Panduan Langkah demi Langkah untuk Mengatur Intlayer dalam Aplikasi Vite dan Preact
-
-<iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-vite-preact-template?embed=1&ctl=1&file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - Cara Menginternasionalisasi aplikasi Anda menggunakan Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
 
 Lihat [Template Aplikasi](https://github.com/aymericzip/intlayer-vite-preact-template) di GitHub.
 
@@ -109,12 +99,14 @@ bunx intlayer init
 
 - **intlayer**
 
-  Paket inti yang menyediakan alat internasionalisasi untuk manajemen konfigurasi, terjemahan, [deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md), transpile, dan [perintah CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md).
+  Paket inti yang menyediakan alat internasionalisasi untuk manajemen konfigurasi, terjemahan, [deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md), kompilasi, và [perintah CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md).
 
 - **preact-intlayer**
+
   Paket yang mengintegrasikan Intlayer dengan aplikasi Preact. Ini menyediakan context providers dan hooks untuk internasionalisasi Preact.
 
 - **vite-intlayer**
+
   Termasuk plugin Vite untuk mengintegrasikan Intlayer dengan [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), serta middleware untuk mendeteksi locale yang dipilih pengguna, mengelola cookie, dan menangani pengalihan URL.
 
 ### Langkah 2: Konfigurasi proyek Anda
@@ -159,7 +151,7 @@ const config = {
   },
   routing: {
     mode: "prefix-no-default", // Default: prefix semua locale kecuali locale default
-    storage: ["cookie", "header"], // Default: simpan locale di cookie dan deteksi dari header
+    storage: ["cookie", "header"], // Default: simpan locale di cookie và deteksi dari header
   },
 };
 
@@ -182,7 +174,7 @@ const config = {
   },
   routing: {
     mode: "prefix-no-default", // Default: prefix semua locale kecuali locale default
-    storage: ["cookie", "header"], // Default: simpan locale di cookie dan deteksi dari header
+    storage: ["cookie", "header"], // Default: simpan locale di cookie và deteksi dari header
   },
 };
 
@@ -193,7 +185,7 @@ module.exports = config;
 
 ### Langkah 3: Integrasikan Intlayer dalam Konfigurasi Vite Anda
 
-Tambahkan plugin intlayer ke dalam konfigurasi Anda.
+Tambahkan plugin intlayer ke trong konfigurasi Anda.
 
 ```typescript fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
@@ -263,7 +255,7 @@ const appContent = {
     edit: t<ComponentChildren>({
       en: (
         <>
-          Edit <code>src/app.tsx</code> dan simpan untuk menguji HMR
+          Edit <code>src/app.tsx</code> and save to test HMR
         </>
       ),
       fr: (
@@ -279,7 +271,7 @@ const appContent = {
     }),
 
     readTheDocs: t({
-      en: "Klik pada logo Vite dan Preact untuk mempelajari lebih lanjut",
+      en: "Click on the Vite and Preact logos to learn more",
       fr: "Cliquez sur les logos Vite et Preact pour en savoir plus",
       es: "Haga clic en los logotipos de Vite y Preact para obtener más información",
     }),
@@ -323,7 +315,7 @@ const appContent = {
     }),
 
     readTheDocs: t({
-      en: "Klik pada logo Vite dan Preact untuk mempelajari lebih lanjut",
+      en: "Click on the Vite and Preact logos to learn more",
       fr: "Cliquez sur les logos Vite et Preact pour en savoir plus",
       es: "Haga clic en los logotipos de Vite y Preact para obtener más información",
     }),
@@ -347,6 +339,7 @@ const appContent = {
       es: "Logo Vite",
     }),
     preactLogo: t({
+      en: "Preact logo",
       fr: "Logo Preact",
       es: "Logo Preact",
     }),
@@ -357,21 +350,18 @@ const appContent = {
       en: "count is ",
       fr: "le compte est ",
       es: "el recuento es ",
-      id: "jumlah adalah ",
     }),
 
     edit: t({
       en: "Edit src/app.tsx and save to test HMR",
       fr: "Éditez src/app.tsx et enregistrez pour tester HMR",
       es: "Edita src/app.tsx y guarda para probar HMR",
-      id: "Edit src/app.tsx dan simpan untuk menguji HMR",
     }),
 
     readTheDocs: t({
       en: "Click on the Vite and Preact logos to learn more",
       fr: "Cliquez sur les logos Vite et Preact pour en savoir plus",
       es: "Haga clic en los logotipos de Vite y Preact para obtener más información",
-      id: "Klik pada logo Vite dan Preact untuk mempelajari lebih lanjut",
     }),
   },
 };
@@ -389,8 +379,7 @@ module.exports = appContent;
       "translation": {
         "en": "Vite logo",
         "fr": "Logo Vite",
-        "es": "Logo Vite",
-        "id": "Logo Vite"
+        "es": "Logo Vite"
       }
     },
     "preactLogo": {
@@ -398,8 +387,7 @@ module.exports = appContent;
       "translation": {
         "en": "Preact logo",
         "fr": "Logo Preact",
-        "es": "Logo Preact",
-        "id": "Logo Preact"
+        "es": "Logo Preact"
       }
     },
     "title": {
@@ -407,8 +395,7 @@ module.exports = appContent;
       "translation": {
         "en": "Vite + Preact",
         "fr": "Vite + Preact",
-        "es": "Vite + Preact",
-        "id": "Vite + Preact"
+        "es": "Vite + Preact"
       }
     },
     "count": {
@@ -416,8 +403,7 @@ module.exports = appContent;
       "translation": {
         "en": "count is ",
         "fr": "le compte est ",
-        "es": "el recuento es ",
-        "id": "jumlah adalah "
+        "es": "el recuento es "
       }
     },
     "edit": {
@@ -425,8 +411,7 @@ module.exports = appContent;
       "translation": {
         "en": "Edit src/app.tsx and save to test HMR",
         "fr": "Éditez src/app.tsx et enregistrez pour tester HMR",
-        "es": "Edita src/app.tsx y guarda para probar HMR",
-        "id": "Edit src/app.tsx dan simpan untuk menguji HMR"
+        "es": "Edita src/app.tsx y guarda para probar HMR"
       }
     },
     "readTheDocs": {
@@ -434,19 +419,18 @@ module.exports = appContent;
       "translation": {
         "en": "Click on the Vite and Preact logos to learn more",
         "fr": "Cliquez sur les logos Vite et Preact pour en savoir plus",
-        "es": "Haga clic en los logotipos de Vite y Preact para obtener más información",
-        "id": "Klik pada logo Vite dan Preact untuk mempelajari lebih lanjut"
+        "es": "Haga clic en los logotipos de Vite y Preact para obtener más información"
       }
     }
   }
 }
 ```
 
-> Deklarasi konten Anda dapat didefinisikan di mana saja dalam aplikasi Anda selama sudah dimasukkan ke dalam direktori `contentDir` (secara default, `./src`). Dan sesuai dengan ekstensi file deklarasi konten (secara default, `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+> Deklarasi konten Anda dapat didefinisikan di mana saja dalam aplikasi Anda selama sudah dimasukkan ke trong direktori `contentDir` (secara default, `./src`). Dan sesuai dengan ekstensi file deklarasi konten (secara default, `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
-> Untuk detail lebih lanjut, lihat [dokumentasi deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
+> Untuk detail lebih lanjut, lihat [dokumentasi deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/get_started.md).
 
-> Jika file konten Anda menyertakan kode TSX, Anda mungkin perlu mengimpor `import { h } from "preact";` atau memastikan pragma JSX Anda sudah diatur dengan benar untuk Preact.
+> Jika file konten Anda menyertakan kode TSX, Anda mungkin perlu mengimpor `import { h } from "preact";` hoặc đảm bảo pragma JSX Anda sudah diatur dengan benar untuk Preact.
 
 ### Langkah 5: Gunakan Intlayer dalam Kode Anda
 
@@ -486,6 +470,12 @@ const AppContent: FunctionalComponent = () => {
         </button>
         <p>{content.edit}</p>
       </div>
+      {/* Konten Markdown */}
+      <div>{content.myMarkdownContent}</div>
+
+      {/* Konten HTML */}
+      <div>{content.myHtmlContent}</div>
+
       <p class="read-the-docs">{content.readTheDocs}</p>
     </>
   );
@@ -606,7 +596,7 @@ module.exports = App;
 
 ### (Opsional) Langkah 6: Ubah bahasa konten Anda
 
-Untuk mengubah bahasa konten Anda, Anda dapat menggunakan fungsi `setLocale` yang disediakan oleh hook `useLocale`. Fungsi ini memungkinkan Anda untuk mengatur locale aplikasi dan memperbarui konten sesuai dengan locale yang dipilih.
+Untuk mengubah bahasa konten Anda, Anda dapat menggunakan fungsi `setLocale` yang disediakan oleh hook `useLocale`. Fungsi ini memungkinkan Anda để thiết lập locale ứng dụng và cập nhật nội dung tương ứng.
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 import type { FunctionalComponent } from "preact";
@@ -660,12 +650,12 @@ const LocaleSwitcher = () => {
 module.exports = LocaleSwitcher;
 ```
 
-> Untuk mempelajari lebih lanjut tentang hook `useLocale`, lihat [dokumentasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useLocale.md) (API serupa untuk `preact-intlayer`).
+> Để tìm hiểu thêm về hook `useLocale`, hãy tham khảo [tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useLocale.md) (API serupa cho `preact-intlayer`).
 
-### (Opsional) Langkah 7: Tambahkan Routing yang Dilokalkan ke aplikasi Anda
+### (Opsional) Langkah 7: Tambahkan Perutean yang Dilokalkan ke aplikasi Anda
 
-Tujuan dari langkah ini adalah untuk membuat rute unik untuk setiap bahasa. Ini berguna untuk SEO dan URL yang ramah SEO.
-Contoh:
+Tujuan dari langkah ini adalah untuk membuat rute unik cho mỗi ngôn ngữ. Điều này hữu ích cho SEO và các URL thân thiện với SEO.
+Ví dụ:
 
 ```plaintext
 - https://example.com/about
@@ -673,413 +663,107 @@ Contoh:
 - https://example.com/fr/about
 ```
 
-> Secara default, rute tidak diberi awalan untuk locale default (`routing.mode: "prefix-no-default"`). Jika Anda ingin memberi awalan pada locale default, Anda dapat mengatur opsi `routing.mode` ke `"prefix-all"` dalam konfigurasi Anda. Lihat [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md) untuk informasi lebih lanjut.
+> Secara default, rute tidak diberi awalan cho locale mặc định. Nếu bạn muốn thêm tiền tố cho locale mặc định, bạn có thể đặt tùy chọn `routing.mode` thành `"prefix-all"` trong cấu hình của mình. Xem [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md) để biết thêm thông tin.
 
-Untuk menambahkan routing yang dilokalkan ke aplikasi Anda, Anda dapat membuat komponen `LocaleRouter` yang membungkus rute aplikasi Anda dan menangani routing berbasis locale. Berikut adalah contoh menggunakan [preact-iso](https://github.com/preactjs/preact-iso):
-
-Pertama, instal `preact-iso`:
-
-```bash packageManager="npm"
-npm install preact-iso
-npx intlayer init
-```
-
-```bash packageManager="pnpm"
-pnpm add preact-iso
-pnpm intlayer init
-```
-
-```bash packageManager="yarn"
-yarn add preact-iso
-```
+Để thêm perutean được bản địa hóa vào ứng dụng của bạn, bạn có thể tạo một thành phần `LocaleRouter` bao bọc các tuyến đường của ứng dụng và xử lý định tuyến dựa trên ngôn ngữ. Dưới đây là một ví dụ sử dụng [preact-iso](https://github.com/preactjs/preact-iso):
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
-import { configuration, getPathWithoutLocale, type Locale } from "intlayer";
-import type { ComponentChildren, FunctionalComponent } from "preact";
-import { useEffect } from "preact/hooks";
+import { localeMap } from "intlayer";
 import { IntlayerProvider } from "preact-intlayer";
-import { LocationProvider, useLocation } from "preact-iso";
-
-const { internationalization, routing } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-const Navigate: FunctionalComponent<{ to: string; replace?: boolean }> = ({
-  to,
-  replace,
-}) => {
-  const { route } = useLocation();
-  useEffect(() => {
-    route(to, replace);
-  }, [to, replace, route]);
-  return null;
-};
+import { LocationProvider, Router, Route } from "preact-iso";
+import type { ComponentChildren, FunctionalComponent } from "preact";
 
 /**
-/**
- * Sebuah komponen yang menangani lokalisasi dan membungkus children dengan konteks locale yang sesuai.
- * Komponen ini mengelola deteksi dan validasi locale berbasis URL.
- */
-const AppLocalized: FunctionalComponent<{
-  children: ComponentChildren;
-  locale?: Locale;
-}> = ({ children, locale }) => {
-  const { path: pathname, url } = useLocation();
-
-  if (!url) {
-    return null;
-  }
-
-  const search = url.substring(pathname.length);
-
-  // Menentukan locale saat ini, menggunakan default jika tidak disediakan
-  const currentLocale = locale ?? defaultLocale;
-
-  // Menghapus prefix locale dari path untuk membangun path dasar
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // Path URL saat ini
-  );
-
-  /**
-   * Jika routing.mode adalah 'prefix-all', locale default harus selalu diberi prefix.
-   */
-  if (routing.mode === "prefix-all") {
-    // Validasi locale
-    if (!locale || !locales.includes(locale)) {
-      // Redirect ke locale default dengan path yang diperbarui
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // Ganti entri history saat ini dengan yang baru
-        />
-      );
-    }
-
-    // Bungkus children dengan IntlayerProvider dan set locale saat ini
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * Ketika routing.mode bukan 'prefix-all', locale default tidak diberi prefix.
-     * Pastikan locale saat ini valid dan bukan locale default.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (loc) => loc.toString() !== defaultLocale.toString() // Kecualikan locale default
-        )
-        .includes(currentLocale) // Periksa apakah locale saat ini ada dalam daftar locale yang valid
-    ) {
-      // Redirect ke path tanpa prefix locale
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // Bungkus children dengan IntlayerProvider dan set locale saat ini
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
-
-const RouterContent: FunctionalComponent<{
-  children: ComponentChildren;
-}> = ({ children }) => {
-  const { path } = useLocation();
-
-  if (!path) {
-    return null;
-  }
-
-  const pathLocale = path.split("/")[1] as Locale;
-
-  const isLocaleRoute = locales
-    .filter(
-      (locale) => routing.mode === "prefix-all" || locale !== defaultLocale
-    )
-    .some((locale) => locale.toString() === pathLocale);
-
-  if (isLocaleRoute) {
-    return <AppLocalized locale={pathLocale}>{children}</AppLocalized>;
-  }
-
-  return (
-    <AppLocalized
-      locale={routing.mode !== "prefix-all" ? defaultLocale : undefined}
-    >
-      {children}
-    </AppLocalized>
-  );
-};
-
-/**
- * Komponen router yang mengatur rute spesifik locale.
- * Menggunakan preact-iso untuk mengelola navigasi dan merender komponen yang dilokalkan.
+ * Một thành phần định tuyến thiết lập các tuyến đường cụ thể cho từng ngôn ngữ.
+ * Nó sử dụng preact-iso để quản lý điều hướng và hiển thị các thành phần cục bộ.
  */
 export const LocaleRouter: FunctionalComponent<{
   children: ComponentChildren;
 }> = ({ children }) => (
   <LocationProvider>
-    <RouterContent>{children}</RouterContent>
+    <Router>
+      {localeMap(({ locale, urlPrefix }) => ({ locale, urlPrefix }))
+        .sort((a, b) => b.urlPrefix.length - a.urlPrefix.length)
+        .map(({ locale, urlPrefix }) => (
+          <Route
+            key={locale}
+            path={`${urlPrefix}/:rest*`}
+            component={() => (
+              <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+            )}
+          />
+        ))}
+    </Router>
   </LocationProvider>
 );
 ```
 
 ```jsx fileName="src/components/LocaleRouter.jsx" codeFormat="esm"
-// Mengimpor dependensi dan fungsi yang diperlukan
-import { configuration, getPathWithoutLocale } from "intlayer";
+import { localeMap } from "intlayer";
 import { IntlayerProvider } from "preact-intlayer";
-import { LocationProvider, useLocation } from "preact-iso";
-import { useEffect } from "preact/hooks";
-import { h } from "preact"; // Diperlukan untuk JSX
-
-// Mendestruktur konfigurasi dari Intlayer
-const { internationalization, routing } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-const Navigate = ({ to, replace }) => {
-  const { route } = useLocation();
-  useEffect(() => {
-    route(to, replace);
-  }, [to, replace, route]);
-  return null;
-};
+import { LocationProvider, Router, Route } from "preact-iso";
 
 /**
-/**
- * Komponen yang menangani lokalisasi dan membungkus children dengan konteks locale yang sesuai.
- * Komponen ini mengelola deteksi dan validasi locale berdasarkan URL.
- */
-const AppLocalized = ({ children, locale }) => {
-  const { path: pathname, url } = useLocation();
-
-  if (!url) {
-    return null;
-  }
-
-  const search = url.substring(pathname.length);
-
-  // Menentukan locale saat ini, menggunakan default jika tidak disediakan
-  const currentLocale = locale ?? defaultLocale;
-
-  // Menghapus prefix locale dari path untuk membentuk path dasar
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // Path URL saat ini
-  );
-
-  /**
-   * Jika routing.mode adalah 'prefix-all', locale default harus selalu diprefix.
-   */
-  if (routing.mode === "prefix-all") {
-    // Validasi locale
-    if (!locale || !locales.includes(locale)) {
-      // Alihkan ke locale default dengan path yang diperbarui
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // Gantikan entri riwayat saat ini dengan yang baru
-        />
-      );
-    }
-
-    // Bungkus children dengan IntlayerProvider dan set locale saat ini
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * Ketika routing.mode bukan 'prefix-all', locale default tidak diberi prefix.
-     * Pastikan locale saat ini valid dan bukan locale default.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (loc) => loc.toString() !== defaultLocale.toString() // Kecualikan locale default
-        )
-        .includes(currentLocale) // Periksa apakah locale saat ini ada dalam daftar locale yang valid
-    ) {
-      // Redirect ke path tanpa prefix locale
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // Bungkus children dengan IntlayerProvider dan set locale saat ini
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
-
-const RouterContent = ({ children }) => {
-  const { path } = useLocation();
-
-  if (!path) {
-    return null;
-  }
-
-  const pathLocale = path.split("/")[1];
-
-  const isLocaleRoute = locales
-    .filter(
-      (locale) => routing.mode === "prefix-all" || locale !== defaultLocale
-    )
-    .some((locale) => locale.toString() === pathLocale);
-
-  if (isLocaleRoute) {
-    return <AppLocalized locale={pathLocale}>{children}</AppLocalized>;
-  }
-
-  return (
-    <AppLocalized
-      locale={routing.mode !== "prefix-all" ? defaultLocale : undefined}
-    >
-      {children}
-    </AppLocalized>
-  );
-};
-
-/**
- * Komponen router yang mengatur rute spesifik locale.
- * Menggunakan preact-iso untuk mengelola navigasi dan merender komponen yang dilokalkan.
+ * Một thành phần định tuyến thiết lập các tuyến đường cụ thể cho từng ngôn ngữ.
+ * Nó sử dụng preact-iso để quản lý điều hướng và hiển thị các thành phần cục bộ.
  */
 export const LocaleRouter = ({ children }) => (
   <LocationProvider>
-    <RouterContent>{children}</RouterContent>
+    <Router>
+      {localeMap(({ locale, urlPrefix }) => ({ locale, urlPrefix }))
+        .sort((a, b) => b.urlPrefix.length - a.urlPrefix.length)
+        .map(({ locale, urlPrefix }) => (
+          <Route
+            key={locale}
+            path={`${urlPrefix}/:rest*`}
+            component={() => (
+              <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+            )}
+          />
+        ))}
+    </Router>
   </LocationProvider>
 );
 ```
 
 ```jsx fileName="src/components/LocaleRouter.cjsx" codeFormat="commonjs"
-// Mengimpor dependensi dan fungsi yang diperlukan
-const { configuration, getPathWithoutLocale } = require("intlayer");
+const { localeMap } = require("intlayer");
 const { IntlayerProvider } = require("preact-intlayer");
-const { LocationProvider, useLocation } = require("preact-iso");
-const { useEffect } = require("preact/hooks");
-const { h } = require("preact"); // Diperlukan untuk JSX
-
-// Mendestrukturisasi konfigurasi dari Intlayer
-const { internationalization, routing } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-const Navigate = ({ to, replace }) => {
-  const { route } = useLocation();
-  useEffect(() => {
-    route(to, replace);
-  }, [to, replace, route]);
-  return null;
-};
+const { LocationProvider, Router, Route } = require("preact-iso");
 
 /**
- * Komponen yang menangani lokalisasi dan membungkus children dengan konteks locale yang sesuai.
- * Komponen ini mengelola deteksi dan validasi locale berbasis URL.
+ * Một thành phần định tuyến thiết lập các tuyến đường cụ thể cho từng ngôn ngữ.
+ * Nó sử dụng preact-iso để quản lý điều hướng và hiển thị các thành phần cục bộ.
  */
-const AppLocalized = ({ children, locale }) => {
-  const { path: pathname, url } = useLocation();
-
-  if (!url) {
-    return null;
-  }
-
-  const search = url.substring(pathname.length);
-
-  // Tentukan locale saat ini, kembali ke default jika tidak disediakan
-  const currentLocale = locale ?? defaultLocale;
-
-  // Hapus prefix locale dari path untuk membangun path dasar
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // Path URL saat ini
-  );
-
-  /**
-   * Jika routing.mode adalah 'prefix-all', locale default harus selalu diprefix.
-   */
-  if (routing.mode === "prefix-all") {
-    // Validasi locale
-    if (!locale || !locales.includes(locale)) {
-      // Redirect ke locale default dengan path yang diperbarui
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // Gantikan entri history saat ini dengan yang baru
-        />
-      );
-    }
-
-    // Bungkus children dengan IntlayerProvider dan set locale saat ini
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * Ketika routing.mode bukan 'prefix-all', locale default tidak diberi prefix.
-     * Pastikan locale saat ini valid dan bukan locale default.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (loc) => loc.toString() !== defaultLocale.toString() // Kecualikan locale default
+const LocaleRouter = ({ children }) =>
+  h(
+    LocationProvider,
+    {},
+    h(
+      Router,
+      {},
+      localeMap(({ locale, urlPrefix }) => ({ locale, urlPrefix }))
+        .sort((a, b) => b.urlPrefix.length - a.urlPrefix.length)
+        .map(({ locale, urlPrefix }) =>
+          h(Route, {
+            key: locale,
+            path: `${urlPrefix}/:rest*`,
+            component: () => h(IntlayerProvider, { locale }, children),
+          })
         )
-        .includes(currentLocale) // Periksa apakah locale saat ini ada dalam daftar locale yang valid
-    ) {
-      // Redirect ke path tanpa prefix locale
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // Bungkus children dengan IntlayerProvider dan set locale saat ini
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
-
-const RouterContent = ({ children }) => {
-  const { path } = useLocation();
-
-  if (!path) {
-    return null;
-  }
-
-  const pathLocale = path.split("/")[1];
-
-  const isLocaleRoute = locales
-    .filter(
-      (locale) => routing.mode === "prefix-all" || locale !== defaultLocale
     )
-    .some((locale) => locale.toString() === pathLocale);
-
-  if (isLocaleRoute) {
-    return <AppLocalized locale={pathLocale}>{children}</AppLocalized>;
-  }
-
-  return (
-    <AppLocalized
-      locale={routing.mode !== "prefix-all" ? defaultLocale : undefined}
-    >
-      {children}
-    </AppLocalized>
   );
-};
-
-/**
- * Komponen router yang mengatur rute spesifik locale.
- * Menggunakan preact-iso untuk mengelola navigasi dan merender komponen yang dilokalkan.
- */
-const LocaleRouter = ({ children }) => (
-  <LocationProvider>
-    <RouterContent>{children}</RouterContent>
-  </LocationProvider>
-);
 
 module.exports = { LocaleRouter };
 ```
 
-Kemudian, Anda dapat menggunakan komponen `LocaleRouter` dalam aplikasi Anda:
+Sau đó, bạn có thể sử dụng thành phần `LocaleRouter` trong ứng dụng của mình:
 
 ```tsx fileName="src/app.tsx" codeFormat="typescript"
 import { LocaleRouter } from "./components/LocaleRouter";
 import type { FunctionalComponent } from "preact";
-// ... Komponen AppContent Anda (didefinisikan di Langkah 5)
+
+// ... Thành phần AppContent của bạn
 
 const App: FunctionalComponent = () => (
   <LocaleRouter>
@@ -1092,7 +776,8 @@ export default App;
 
 ```jsx fileName="src/app.jsx" codeFormat="esm"
 import { LocaleRouter } from "./components/LocaleRouter";
-// ... Komponen AppContent Anda (didefinisikan di Langkah 5)
+
+// ... Thành phần AppContent của bạn
 
 const App = () => (
   <LocaleRouter>
@@ -1105,7 +790,8 @@ export default App;
 
 ```jsx fileName="src/app.cjsx" codeFormat="commonjs"
 const { LocaleRouter } = require("./components/LocaleRouter");
-// ... Komponen AppContent Anda (didefinisikan di Langkah 5)
+
+// ... Thành phần AppContent của bạn
 
 const App = () => (
   <LocaleRouter>
@@ -1116,49 +802,12 @@ const App = () => (
 module.exports = App;
 ```
 
-Secara paralel, Anda juga dapat menggunakan `intlayerProxy` untuk menambahkan routing sisi server ke aplikasi Anda. Plugin ini akan secara otomatis mendeteksi locale saat ini berdasarkan URL dan mengatur cookie locale yang sesuai. Jika tidak ada locale yang ditentukan, plugin akan menentukan locale yang paling tepat berdasarkan preferensi bahasa browser pengguna. Jika tidak ada locale yang terdeteksi, maka akan mengarahkan ulang ke locale default.
-
-> Perlu diperhatikan bahwa untuk menggunakan `intlayerProxy` dalam produksi, Anda perlu memindahkan paket `vite-intlayer` dari `devDependencies` ke `dependencies`.
-
-```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
-import { defineConfig } from "vite";
-import preact from "@preact/preset-vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [preact(), intlayer(), intlayerProxy()],
-});
-```
-
-```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import preact from "@preact/preset-vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [preact(), intlayer(), intlayerProxy()],
-});
-```
-
-```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const preact = require("@preact/preset-vite");
-const { intlayer, intlayerProxy } = require("vite-intlayer");
-
-// https://vitejs.dev/config/
-module.exports = defineConfig({
-  plugins: [preact(), intlayer(), intlayerProxy()],
-});
-```
-
 ### (Opsional) Langkah 8: Ubah URL saat locale berubah
 
-Untuk mengubah URL saat locale berubah, Anda dapat menggunakan properti `onLocaleChange` yang disediakan oleh hook `useLocale`. Secara paralel, Anda dapat menggunakan `useLocation` dan `route` dari `preact-iso` untuk memperbarui path URL.
+Để thay đổi URL khi ngôn ngữ thay đổi, bạn có thể sử dụng thuộc tính `onLocaleChange` được cung cấp bởi hook `useLocale`. Đồng thời, bạn có thể sử dụng phương thức `route` từ `useLocation` của `preact-iso` để cập nhật đường dẫn URL.
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
-import { useLocation, route } from "preact-iso";
+import { useLocation } from "preact-iso";
 import {
   Locales,
   getHTMLTextDir,
@@ -1169,37 +818,15 @@ import { useLocale } from "preact-intlayer";
 import type { FunctionalComponent } from "preact";
 
 const LocaleSwitcher: FunctionalComponent = () => {
-  const location = useLocation();
-  plugins: [preact(), intlayer(), intlayerProxy()],
-});
-```
-
-### (Optional) Step 8: Change the URL when the locale changes
-
-To change the URL when the locale changes, you can use the `onLocaleChange` prop provided by the `useLocale` hook. In parallel, you can use `useLocation` and `route` from `preact-iso` to update the URL path.
-
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
-import { useLocation, route } from "preact-iso";
-import {
-  Locales,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-} from "intlayer";
-import { useLocale } from "preact-intlayer";
-import type { FunctionalComponent } from "preact";
-
-const LocaleSwitcher: FunctionalComponent = () => {
-  const location = useLocation();
+  const { url, route } = useLocation();
   const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (newLocale) => {
-      const currentFullPath = location.url; // preact-iso menyediakan URL lengkap
-      // Membangun URL dengan locale yang diperbarui
-      // Contoh: /es/about?foo=bar
-      const pathWithLocale = getLocalizedUrl(currentFullPath, newLocale);
+      // Xây dựng URL với ngôn ngữ đã cập nhật
+      // Ví dụ: /es/about?foo=bar
+      const pathWithLocale = getLocalizedUrl(url, newLocale);
 
-      // Memperbarui jalur URL
-      route(pathWithLocale, true); // true untuk mengganti
+      // Cập nhật đường dẫn URL
+      route(pathWithLocale, true); // true để thay thế (replace)
     },
   });
 
@@ -1209,30 +836,30 @@ const LocaleSwitcher: FunctionalComponent = () => {
       <div id="localePopover" popover="auto">
         {availableLocales.map((localeItem) => (
           <a
-            href={getLocalizedUrl(location.url, localeItem)}
+            href={getLocalizedUrl(url, localeItem)}
             hreflang={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
             onClick={(e) => {
               e.preventDefault();
               setLocale(localeItem);
-              // Navigasi programatik setelah pengaturan locale akan ditangani oleh onLocaleChange
+              // Điều hướng theo lập trình sau khi thiết lập ngôn ngữ sẽ được xử lý bởi onLocaleChange
             }}
             key={localeItem}
           >
             <span>
-              {/* Locale - misalnya FR */}
+              {/* Locale - ví dụ: FR */}
               {localeItem}
             </span>
             <span>
-              {/* Bahasa dalam Locale-nya sendiri - misalnya Français */}
+              {/* Ngôn ngữ trong chính Locale đó - ví dụ: Français */}
               {getLocaleName(localeItem, localeItem)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Bahasa dalam Locale saat ini - misalnya Francés dengan locale saat ini disetel ke Locales.SPANISH */}
+              {/* Ngôn ngữ trong Locale hiện tại - ví dụ: Francés với ngôn ngữ hiện tại được đặt thành Locales.SPANISH */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Bahasa dalam Bahasa Inggris - misalnya French */}
+              {/* Ngôn ngữ bằng tiếng Anh - ví dụ: French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </a>
@@ -1246,7 +873,7 @@ export default LocaleSwitcher;
 ```
 
 ```jsx fileName="src/components/LocaleSwitcher.jsx" codeFormat="esm"
-import { useLocation, route } from "preact-iso";
+import { useLocation } from "preact-iso";
 import {
   Locales,
   getHTMLTextDir,
@@ -1254,14 +881,12 @@ import {
   getLocalizedUrl,
 } from "intlayer";
 import { useLocale } from "preact-intlayer";
-import { h } from "preact"; // Untuk JSX
 
 const LocaleSwitcher = () => {
-  const location = useLocation();
+  const { url, route } = useLocation();
   const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (newLocale) => {
-      const currentFullPath = location.url;
-      const pathWithLocale = getLocalizedUrl(currentFullPath, newLocale);
+      const pathWithLocale = getLocalizedUrl(url, newLocale);
       route(pathWithLocale, true);
     },
   });
@@ -1272,7 +897,7 @@ const LocaleSwitcher = () => {
       <div id="localePopover" popover="auto">
         {availableLocales.map((localeItem) => (
           <a
-            href={getLocalizedUrl(location.url, localeItem)}
+            href={getLocalizedUrl(url, localeItem)}
             hreflang={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
             onClick={(e) => {
@@ -1300,7 +925,7 @@ export default LocaleSwitcher;
 ```
 
 ```jsx fileName="src/components/LocaleSwitcher.cjsx" codeFormat="commonjs"
-const { useLocation, route } = require("preact-iso");
+const { useLocation } = require("preact-iso");
 const {
   Locales,
   getHTMLTextDir,
@@ -1308,81 +933,74 @@ const {
   getLocalizedUrl,
 } = require("intlayer");
 const { useLocale } = require("preact-intlayer");
-const { h } = require("preact"); // Untuk JSX
 
 const LocaleSwitcher = () => {
-  const location = useLocation();
+  const { url, route } = useLocation();
   const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (newLocale) => {
-      const currentFullPath = location.url;
-      const pathWithLocale = getLocalizedUrl(currentFullPath, newLocale);
+      const pathWithLocale = getLocalizedUrl(url, newLocale);
       route(pathWithLocale, true);
     },
   });
 
-  return (
-    <div>
-      <button popovertarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover="auto">
-        {availableLocales.map((localeItem) => (
-          <a
-            href={getLocalizedUrl(location.url, localeItem)}
-            hreflang={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={(e) => {
+  return h(
+    "div",
+    {},
+    h("button", { popovertarget: "localePopover" }, getLocaleName(locale)),
+    h(
+      "div",
+      { id: "localePopover", popover: "auto" },
+      availableLocales.map((localeItem) =>
+        h(
+          "a",
+          {
+            href: getLocalizedUrl(url, localeItem),
+            hreflang: localeItem,
+            "aria-current": locale === localeItem ? "page" : undefined,
+            onClick: (e) => {
               e.preventDefault();
               setLocale(localeItem);
-            }}
-            key={localeItem}
-          >
-            <span>{localeItem}</span>
-            <span>{getLocaleName(localeItem, localeItem)}</span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </a>
-        ))}
-      </div>
-    </div>
+            },
+            key: localeItem,
+          },
+          h("span", {}, localeItem),
+          h("span", {}, getLocaleName(localeItem, localeItem)),
+          h(
+            "span",
+            { dir: getHTMLTextDir(localeItem), lang: localeItem },
+            getLocaleName(localeItem, locale)
+          ),
+          h(
+            "span",
+            { dir: "ltr", lang: Locales.ENGLISH },
+            getLocaleName(localeItem, Locales.ENGLISH)
+          )
+        )
+      )
+    )
   );
 };
 
 module.exports = LocaleSwitcher;
 ```
 
-> Referensi dokumentasi:
+> Tham khảo tài liệu:
 >
-> > - [`useLocale` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useLocale.md) (API serupa untuk `preact-intlayer`)
->
-> - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getLocaleName.md)
-> - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getLocalizedUrl.md)
-> - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getHTMLTextDir.md)
-> - atribut [`hreflang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
-> - atribut [`lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
-> - atribut [`dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
-> - atribut [`aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
-> - [API Popover](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API) la.org/en-US/docs/Web/HTML/Global_attributes/dir)> - [`atribut aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [API Popover](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)
+> > - [Hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useLocale.md) (API tương tự cho `preact-intlayer`)> - [Hook `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getLocaleName.md)> - [Hook `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getLocalizedUrl.md)> - [Hook `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getHTMLTextDir.md)> - [Thuộc tính `hreflang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)> - [Thuộc tính `lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)> - [Thuộc tính `dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)> - [Thuộc tính `aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)
 
-Berikut adalah **Langkah 9** yang diperbarui dengan penjelasan tambahan dan contoh kode yang disempurnakan:
+### (Opsional) Langkah 9: Ganti atribut bahasa dan arah HTML
 
----
+Khi ứng dụng của bạn hỗ trợ nhiều ngôn ngữ, việc cập nhật các thuộc tính `lang` và `dir` của thẻ `<html>` để khớp với locale hiện tại là rất quan trọng. Làm như vậy đảm bảo:
 
-### (Opsional) Langkah 9: Mengubah Atribut Bahasa dan Arah pada HTML
-
-Ketika aplikasi Anda mendukung banyak bahasa, sangat penting untuk memperbarui atribut `lang` dan `dir` pada tag `<html>` agar sesuai dengan locale saat ini. Melakukan hal ini memastikan:
-
-- **Aksesibilitas**: Pembaca layar dan teknologi bantu bergantung pada atribut `lang` yang benar untuk mengucapkan dan menginterpretasikan konten dengan akurat.
-- **Perenderan Teks**: Atribut `dir` (arah) memastikan teks ditampilkan dalam urutan yang tepat (misalnya, kiri ke kanan untuk bahasa Inggris, kanan ke kiri untuk bahasa Arab atau Ibrani), yang sangat penting untuk keterbacaan.
+- **Khả năng truy cập**: Trình đọc màn hình và các công nghệ hỗ trợ dựa trên thuộc tính `lang` chính xác để phát âm và diễn giải nội dung một cách chính xác.
+- **Hiển thị văn bản**: Thuộc tính `dir` (hướng) đảm bảo văn bản được hiển thị theo thứ tự thích hợp (ví dụ: từ trái sang phải cho tiếng Anh, từ phải sang trái cho tiếng Ả Rập hoặc tiếng Do Thái), điều này rất cần thiết cho khả năng đọc.
 - **SEO**: Mesin pencari menggunakan atribut `lang` untuk menentukan bahasa halaman Anda, membantu menyajikan konten lokal yang tepat dalam hasil pencarian.
 
-Dengan memperbarui atribut ini secara dinamis saat locale berubah, Anda menjamin pengalaman yang konsisten dan dapat diakses bagi pengguna di semua bahasa yang didukung.
+Bằng cách cập nhật các thuộc tính này một cách động khi locale thay đổi, bạn đảm bảo trải nghiệm nhất quán và dễ tiếp cận cho người dùng trên tất cả các ngôn ngữ được hỗ trợ.
 
-#### Mengimplementasikan Hook
+#### Triển khai Hook
 
-Buat hook kustom untuk mengelola atribut HTML. Hook ini mendengarkan perubahan locale dan memperbarui atribut sesuai:
+Tạo một hook tùy chỉnh để quản lý các thuộc tính HTML. Hook này lắng nghe các thay đổi về ngôn ngữ và cập nhật các thuộc tính cho phù hợp:
 
 ```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx" codeFormat="typescript"
 import { useEffect } from "preact/hooks";
@@ -1390,20 +1008,20 @@ import { useLocale } from "preact-intlayer";
 import { getHTMLTextDir } from "intlayer";
 
 /**
- * Memperbarui atribut `lang` dan `dir` elemen <html> berdasarkan locale saat ini.
- * - `lang`: Memberitahu browser dan mesin pencari tentang bahasa halaman.
- * - `dir`: Memastikan urutan pembacaan yang benar (misalnya, 'ltr' untuk bahasa Inggris, 'rtl' untuk bahasa Arab).
+ * Cập nhật các thuộc tính `lang` và `dir` của phần tử HTML <html> dựa trên ngôn ngữ hiện tại.
+ * - `lang`: Thông báo cho trình duyệt và công cụ tìm kiếm về ngôn ngữ của trang.
+ * - `dir`: Đảm bảo thứ tự đọc chính xác (ví dụ: 'ltr' cho tiếng Anh, 'rtl' cho tiếng Ả Rập).
  *
- * Pembaruan dinamis ini penting untuk rendering teks yang tepat, aksesibilitas, dan SEO.
+ * Bản cập nhật động này rất cần thiết để hiển thị văn bản, khả năng truy cập và SEO thích hợp.
  */
 export const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
 
   useEffect(() => {
-    // Perbarui atribut bahasa ke locale saat ini.
+    // Cập nhật thuộc tính ngôn ngữ thành ngôn ngữ hiện tại.
     document.documentElement.lang = locale;
 
-    // Atur arah teks berdasarkan locale saat ini.
+    // Đặt hướng văn bản dựa trên ngôn ngữ hiện tại.
     document.documentElement.dir = getHTMLTextDir(locale);
   }, [locale]);
 };
@@ -1415,7 +1033,7 @@ import { useLocale } from "preact-intlayer";
 import { getHTMLTextDir } from "intlayer";
 
 /**
- * Memperbarui atribut `lang` dan `dir` elemen HTML <html> berdasarkan locale saat ini.
+ * Cập nhật các thuộc tính `lang` và `dir` của phần tử HTML <html> dựa trên ngôn ngữ hiện tại.
  */
 export const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
@@ -1433,7 +1051,7 @@ const { useLocale } = require("preact-intlayer");
 const { getHTMLTextDir } = require("intlayer");
 
 /**
- * Memperbarui atribut `lang` dan `dir` elemen HTML <html> berdasarkan locale saat ini.
+ * Cập nhật các thuộc tính `lang` và `dir` của phần tử HTML <html> dựa trên ngôn ngữ hiện tại.
  */
 const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
@@ -1447,22 +1065,22 @@ const useI18nHTMLAttributes = () => {
 module.exports = { useI18nHTMLAttributes };
 ```
 
-#### Menggunakan Hook dalam Aplikasi Anda
+#### Sử dụng Hook trong ứng dụng của bạn
 
-Integrasikan hook ini ke dalam komponen utama Anda sehingga atribut HTML diperbarui setiap kali locale berubah:
+Tích hợp hook vào thành phần chính của bạn để các thuộc tính HTML cập nhật bất cứ khi nào ngôn ngữ thay đổi:
 
 ```tsx fileName="src/app.tsx" codeFormat="typescript"
 import type { FunctionalComponent } from "preact";
-import { IntlayerProvider } from "preact-intlayer"; // useIntlayer sudah diimpor jika AppContent membutuhkannya
+import { IntlayerProvider } from "preact-intlayer"; // useIntlayer đã được nhập nếu AppContent cần nó
 import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
 import "./app.css";
-// Definisi AppContent dari Langkah 5
+// Định nghĩa AppContent từ Bước 5
 
 const AppWithHooks: FunctionalComponent = () => {
-  // Terapkan hook untuk memperbarui atribut lang dan dir pada tag <html> berdasarkan locale.
+  // Áp dụng hook để cập nhật các thuộc tính lang và dir của thẻ <html> dựa trên ngôn ngữ.
   useI18nHTMLAttributes();
 
-  // Mengasumsikan AppContent adalah komponen tampilan konten utama Anda dari Langkah 5
+  // Giả sử AppContent là thành phần hiển thị nội dung chính của bạn từ Bước 5
   return <AppContent />;
 };
 
@@ -1479,7 +1097,7 @@ export default App;
 import { IntlayerProvider } from "preact-intlayer";
 import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
 import "./app.css";
-// Definisi AppContent dari Langkah 5
+// Định nghĩa AppContent từ Bước 5
 
 const AppWithHooks = () => {
   useI18nHTMLAttributes();
@@ -1499,7 +1117,7 @@ export default App;
 const { IntlayerProvider } = require("preact-intlayer");
 const { useI18nHTMLAttributes } = require("./hooks/useI18nHTMLAttributes");
 require("./app.css");
-// Definisi AppContent dari Langkah 5
+// Định nghĩa AppContent từ Bước 5
 
 const AppWithHooks = () => {
   useI18nHTMLAttributes();
@@ -1515,202 +1133,182 @@ const App = () => (
 module.exports = App;
 ```
 
-Dengan menerapkan perubahan ini, aplikasi Anda akan:
-
-- Memastikan atribut **bahasa** (`lang`) mencerminkan locale saat ini dengan benar, yang penting untuk SEO dan perilaku browser.
-- Menyesuaikan **arah teks** (`dir`) sesuai dengan locale, meningkatkan keterbacaan dan kegunaan untuk bahasa dengan urutan baca yang berbeda.
-- Memberikan pengalaman yang lebih **aksesibel**, karena teknologi bantu bergantung pada atribut ini agar berfungsi secara optimal.
-
 ### (Opsional) Langkah 10: Membuat Komponen Link yang Dilokalkan
 
-Untuk memastikan navigasi aplikasi Anda menghormati locale saat ini, Anda dapat membuat komponen `Link` kustom. Komponen ini secara otomatis menambahkan prefix bahasa saat ini pada URL internal.
+Để đảm bảo rằng điều hướng của ứng dụng của bạn tôn trọng ngôn ngữ hiện tại, bạn có thể tạo một thành phần `Link` tùy chỉnh. Thành phần này tự động thêm tiền tố ngôn ngữ hiện tại vào các URL nội bộ.
 
-Perilaku ini berguna untuk beberapa alasan:
+Hành vi này hữu ích vì một số lý do:
 
-- **SEO dan Pengalaman Pengguna**: URL yang dilokalkan membantu mesin pencari mengindeks halaman spesifik bahasa dengan benar dan menyediakan konten kepada pengguna dalam bahasa pilihan mereka.
-- **Konsistensi**: Dengan menggunakan link yang dilokalkan di seluruh aplikasi Anda, Anda menjamin navigasi tetap berada dalam locale saat ini, mencegah perubahan bahasa yang tidak diinginkan.
-- **Maintainability**: Memusatkan logika lokalisasi dalam satu komponen mempermudah pengelolaan URL.
+- **SEO và Trải nghiệm người dùng**: URL được bản địa hóa giúp công cụ tìm kiếm lập chỉ mục các trang dành riêng cho ngôn ngữ một cách chính xác và cung cấp cho người dùng nội dung bằng ngôn ngữ ưa thích của họ.
+- **Tính nhất quán**: Bằng cách sử dụng một liên kết được bản địa hóa trong toàn bộ ứng dụng của mình, bạn đảm bảo rằng điều hướng vẫn nằm trong ngôn ngữ hiện tại, ngăn chặn các thay đổi ngôn ngữ không mong muốn.
+- **Khả năng bảo trì**: Centralizing logic bản địa hóa trong một component duy nhất giúp đơn giản hóa việc quản lý các URL.
 
-Untuk Preact dengan `preact-iso`, tag `<a>` standar biasanya digunakan untuk navigasi, dan `preact-iso` yang menangani routing. Jika Anda membutuhkan navigasi programatik saat klik (misalnya, untuk melakukan aksi sebelum navigasi), Anda dapat menggunakan fungsi `route` dari `useLocation`. Berikut cara membuat komponen anchor kustom yang melokalisasi URL:
+Dưới đây là cách triển khai thành phần `Link` được bản địa hóa trong Preact:
 
-```tsx fileName="src/components/LocalizedLink.tsx" codeFormat="typescript"
+```tsx fileName="src/components/Link.tsx" codeFormat="typescript"
 import { getLocalizedUrl } from "intlayer";
 import { useLocale } from "preact-intlayer";
-import { useLocation, route } from "preact-iso";
-import type { JSX } from "preact";
 import { forwardRef } from "preact/compat";
+import type { JSX } from "preact";
 
-/**
- * Props untuk LocalizedLink - mewarisi atribut anchor + beberapa properti ekstra.
- */
-export interface LocalizedLinkProps extends JSX.HTMLAttributes<HTMLAnchorElement> {
+export interface LinkProps extends JSX.HTMLAttributes<HTMLAnchorElement> {
   href: string;
-  replace?: boolean; // Opsional: untuk mengganti state history
 }
 
 /**
- * Fungsi utilitas untuk memeriksa apakah URL adalah link eksternal.
+ * Hàm tiện ích để kiểm tra xem một URL nhất định có phải là bên ngoài hay không.
+ * Nếu URL bắt đầu bằng http:// hoặc https://, nó được coi là bên ngoài.
  */
-export function checkIsExternalLink(href?: string): boolean {
-  return /^https?:\/\//.test(href ?? "");
-}
+export const checkIsExternalLink = (href?: string): boolean =>
+  /^https?:\/\//.test(href ?? "");
 
 /**
- * Komponen link terlokalisasi. Menyesuaikan href untuk locale saat ini secara otomatis pada link internal.
- * Routing navigasi sisi-klien dengan preact-iso.
+ * Một thành phần Link tùy chỉnh thích ứng với thuộc tính href dựa trên ngôn ngữ hiện tại.
+ * Đối với các liên kết nội bộ, nó sử dụng `getLocalizedUrl` để thêm tiền tố ngôn ngữ vào URL (ví dụ: /fr/about).
+ * Điều này đảm bảo rằng điều hướng vẫn nằm trong cùng một bối cảnh ngôn ngữ.
  */
-export const LocalizedLink = forwardRef<HTMLAnchorElement, LocalizedLinkProps>(
-  ({ href, children, onClick, replace = false, ...props }, ref) => {
+export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
+  ({ href, children, ...props }, ref) => {
     const { locale } = useLocale();
-    const location = useLocation();
     const isExternalLink = checkIsExternalLink(href);
 
+    // Nếu liên kết là nội bộ và một href hợp lệ được cung cấp, hãy lấy URL được bản địa hóa.
     const hrefI18n =
       href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
 
-    const handleClick = (event: JSX.TargetedMouseEvent<HTMLAnchorElement>) => {
-      if (typeof onClick === "function") onClick(event);
-
-      if (
-        !isExternalLink &&
-        href &&
-        event.button === 0 &&
-        !event.metaKey &&
-        !event.ctrlKey &&
-        !event.shiftKey &&
-        !event.altKey &&
-        !props.target
-      ) {
-        event.preventDefault();
-        if (location.url !== hrefI18n) {
-          route(hrefI18n, replace);
-        }
-      }
-    };
-
     return (
-      <a href={hrefI18n} ref={ref} onClick={handleClick} {...props}>
+      <a href={hrefI18n} ref={ref} {...props}>
         {children}
       </a>
     );
   }
 );
+
+Link.displayName = "Link";
 ```
 
-```jsx fileName="src/components/LocalizedLink.jsx" codeFormat="esm"
+```jsx fileName="src/components/Link.jsx" codeFormat="esm"
 import { getLocalizedUrl } from "intlayer";
 import { useLocale } from "preact-intlayer";
-import { useLocation, route } from "preact-iso"; // Impor dari preact-iso
 import { forwardRef } from "preact/compat";
-import { h } from "preact"; // Untuk JSX
 
+/**
+ * Hàm tiện ích để kiểm tra xem một URL nhất định có phải là bên ngoài hay không.
+ * Nếu URL bắt đầu bằng http:// hoặc https://, nó được coi là bên ngoài.
+ */
 export const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? "");
 
-export const LocalizedLink = forwardRef(
-  ({ href, children, onClick, replace = false, ...props }, ref) => {
-    const { locale } = useLocale();
-    const location = useLocation();
-    const isExternalLink = checkIsExternalLink(href);
+/**
+ * Một thành phần Link tùy chỉnh thích ứng với thuộc tính href dựa trên ngôn ngữ hiện tại.
+ * Đối với các liên kết nội bộ, it sử dụng `getLocalizedUrl` để thêm tiền tố ngôn ngữ vào URL (ví dụ: /fr/about).
+ * Điều này đảm bảo rằng điều hướng vẫn nằm trong cùng một bối cảnh ngôn ngữ.
+ */
+export const Link = forwardRef(({ href, children, ...props }, ref) => {
+  const { locale } = useLocale();
+  const isExternalLink = checkIsExternalLink(href);
 
-    const hrefI18n =
-      href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
+  // Nếu liên kết là nội bộ và một href hợp lệ được cung cấp, hãy lấy URL được bản địa hóa.
+  const hrefI18n =
+    href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
 
-    const handleClick = (event) => {
-      if (onClick) {
-        onClick(event);
-      }
-      if (
-        !isExternalLink &&
-        href &&
-        event.button === 0 &&
-        !event.metaKey &&
-        !event.ctrlKey &&
-        !event.shiftKey &&
-        !event.altKey &&
-        !props.target
-      ) {
-        event.preventDefault();
-        if (location.url !== hrefI18n) {
-          route(hrefI18n, replace);
-        }
-      }
-    };
+  return (
+    <a href={hrefI18n} ref={ref} {...props}>
+      {children}
+    </a>
+  );
+});
 
-    return (
-      <a href={hrefI18n} ref={ref} onClick={handleClick} {...props}>
-        {children}
-      </a>
-    );
-  }
-);
+Link.displayName = "Link";
 ```
 
-```jsx fileName="src/components/LocalizedLink.cjsx" codeFormat="commonjs"
+```jsx fileName="src/components/Link.cjsx" codeFormat="commonjs"
 const { getLocalizedUrl } = require("intlayer");
 const { useLocale } = require("preact-intlayer");
-const { useLocation, route } = require("preact-iso"); // Impor dari preact-iso
 const { forwardRef } = require("preact/compat");
-const { h } = require("preact"); // Untuk JSX
 
+/**
+ * Hàm tiện ích để kiểm tra xem một URL nhất định có phải là bên ngoài hay không.
+ * Nếu URL bắt đầu bằng http:// hoặc https://, nó được coi là bên ngoài.
+ */
 const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? "");
 
-const LocalizedLink = forwardRef(
-  ({ href, children, onClick, replace = false, ...props }, ref) => {
-    const { locale } = useLocale();
-    const location = useLocation();
-    const isExternalLink = checkIsExternalLink(href);
+/**
+ * Một thành phần Link tùy chỉnh thích ứng với thuộc tính href dựa trên ngôn ngữ hiện tại.
+ * Đối với các liên kết nội bộ, nó sử dụng `getLocalizedUrl` để thêm tiền tố ngôn ngữ vào URL (ví dụ: /fr/about).
+ * Điều này đảm bảo rằng điều hướng vẫn nằm trong cùng một bối cảnh ngôn ngữ.
+ */
+const Link = forwardRef(({ href, children, ...props }, ref) => {
+  const { locale } = useLocale();
+  const isExternalLink = checkIsExternalLink(href);
 
-    const hrefI18n =
-      href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
+  // Nếu liên kết là nội bộ và một href hợp lệ được cung cấp, hãy lấy URL được bản địa hóa.
+  const hrefI18n =
+    href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
 
-    const handleClick = (event) => {
-      if (onClick) {
-        onClick(event);
-      }
-      if (
-        !isExternalLink &&
-        href &&
-        event.button === 0 &&
-        !event.metaKey &&
-        !event.ctrlKey &&
-        !event.shiftKey &&
-        !event.altKey &&
-        !props.target
-      ) {
-        event.preventDefault();
-        if (location.url !== hrefI18n) {
-          route(hrefI18n, replace);
-        }
-      }
-    };
+  return h(
+    "a",
+    {
+      href: hrefI18n,
+      ref: ref,
+      ...props,
+    },
+    children
+  );
+});
 
-    return (
-      <a href={hrefI18n} ref={ref} onClick={handleClick} {...props}>
-        {children}
-      </a>
-    );
-  }
-);
+Link.displayName = "Link";
 
-module.exports = { LocalizedLink, checkIsExternalLink };
+module.exports = { Link, checkIsExternalLink };
 ```
 
 #### Cara Kerjanya
 
 - **Mendeteksi Tautan Eksternal**:  
-  Fungsi pembantu `checkIsExternalLink` menentukan apakah sebuah URL adalah eksternal. Tautan eksternal dibiarkan tanpa perubahan.
+  Fungsi pembantu `checkIsExternalLink` menentukan apakah sebuah URL adalah eksternal. Tautan eksternal dibiarkan tanpa perubahan karena tidak memerlukan lokalisasi.
 - **Mengambil Locale Saat Ini**:  
-  Hook `useLocale` menyediakan locale saat ini.
+  Hook `useLocale` menyediakan locale saat ini (misalnya, `fr` untuk bahasa Prancis).
 - **Melokalkan URL**:  
-  Untuk tautan internal, `getLocalizedUrl` menambahkan prefix locale saat ini ke URL.
-- **Navigasi di Sisi Klien**:
-  Fungsi `handleClick` memeriksa apakah itu tautan internal dan jika navigasi standar harus dicegah. Jika ya, fungsi `route` dari `preact-iso` (yang diperoleh melalui `useLocation` atau diimpor langsung) digunakan untuk melakukan navigasi sisi-klien. Ini memberikan perilaku seperti SPA tanpa memuat ulang halaman secara penuh.
+  Untuk tautan internal (yaitu, non-eksternal), `getLocalizedUrl` digunakan untuk secara otomatis menambahkan prefix locale saat ini ke URL. Ini berarti jika pengguna Anda dalam bahasa Prancis, meneruskan `/about` sebagai `href` akan mengubahnya menjadi `/fr/about`.
 - **Mengembalikan Tautan**:  
-  Komponen mengembalikan elemen `<a>` dengan URL yang sudah dilokalkan dan penangan klik khusus.
+  Komponen mengembalikan elemen `<a>` dengan URL yang sudah dilokalkan, memastikan navigasi konsisten dengan locale.
+
+### (Opsional) Langkah 11: Render Markdown dan HTML
+
+Intlayer mendukung rendering konten Markdown và HTML dalam Preact.
+
+Bạn có thể tùy chỉnh việc hiển thị nội dung Markdown và HTML bằng cách sử dụng phương thức `.use()`. Phương thức này cho phép bạn ghi đè việc hiển thị mặc định của các thẻ cụ thể.
+
+```tsx
+import { useIntlayer } from "preact-intlayer";
+
+const { myMarkdownContent, myHtmlContent } = useIntlayer("my-component");
+
+// ...
+
+return (
+  <div>
+    {/* Rendering dasar */}
+    {myMarkdownContent}
+
+    {/* Rendering kustom cho Markdown */}
+    {myMarkdownContent.use({
+      h1: (props) => <h1 style={{ color: "red" }} {...props} />,
+    })}
+
+    {/* Rendering dasar cho HTML */}
+    {myHtmlContent}
+
+    {/* Rendering kustom cho HTML */}
+    {myHtmlContent.use({
+      b: (props) => <strong style={{ color: "blue" }} {...props} />,
+    })}
+  </div>
+);
+```
 
 ### Konfigurasi TypeScript
 
-Intlayer menggunakan augmentasi modul untuk mendapatkan manfaat dari TypeScript dan membuat basis kode Anda lebih kuat.
+Intlayer menggunakan module augmentation để tận dụng lợi ích của TypeScript và làm cho codebase của bạn mạnh mẽ hơn.
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
@@ -1724,7 +1322,7 @@ Pastikan konfigurasi TypeScript Anda menyertakan tipe yang dihasilkan secara oto
   "compilerOptions": {
     // ...
     "jsx": "react-jsx",
-    "jsxImportSource": "preact", // Direkomendasikan untuk Preact 10+
+    "jsxImportSource": "preact", // Direkomendasikan cho Preact 10+
     // ...
   },
   "include": [
@@ -1734,7 +1332,7 @@ Pastikan konfigurasi TypeScript Anda menyertakan tipe yang dihasilkan secara oto
 }
 ```
 
-> Pastikan `tsconfig.json` Anda diatur untuk Preact, terutama `jsx` dan `jsxImportSource` atau `jsxFactory`/`jsxFragmentFactory` untuk versi Preact yang lebih lama jika tidak menggunakan default dari `preset-vite`.
+> Pastikan `tsconfig.json` Anda diatur cho Preact, terutama `jsx` và `jsxImportSource` hoặc `jsxFactory`/`jsxFragmentFactory` cho các phiên bản Preact cũ hơn nếu không sử dụng mặc định của `preset-vite`.
 
 ### Konfigurasi Git
 
@@ -1755,15 +1353,17 @@ Untuk meningkatkan pengalaman pengembangan Anda dengan Intlayer, Anda dapat meng
 
 Ekstensi ini menyediakan:
 
-- **Autocompletion** untuk kunci terjemahan.
-- **Deteksi kesalahan waktu nyata** untuk terjemahan yang hilang.
+- **Autocompletion** cho các khóa dịch.
+- **Deteksi kesalahan waktu nyata** cho các bản dịch còn thiếu.
 - **Pratinjau inline** dari konten yang diterjemahkan.
-- **Tindakan cepat** untuk dengan mudah membuat dan memperbarui terjemahan.
+- **Tindakan cepat** để dễ dàng tạo và cập nhật bản dịch.
 
-Untuk detail lebih lanjut tentang cara menggunakan ekstensi ini, lihat [dokumentasi Ekstensi VS Code Intlayer](https://intlayer.org/doc/vs-code-extension).
+Để biết thêm chi tiết về cách sử dụng tiện ích mở rộng, hãy tham khảo [tài liệu Tiện ích mở rộng Intlayer cho VS Code](https://intlayer.org/doc/vs-code-extension).
 
 ---
 
 ### Melangkah Lebih Jauh
 
-Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau mengeksternalisasi konten Anda menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
+Để đi xa hơn, bạn có thể triển khai [trình soạn thảo trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) hoặc mengeksternalisasi konten Anda menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
+
+---

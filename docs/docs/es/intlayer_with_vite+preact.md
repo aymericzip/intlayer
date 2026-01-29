@@ -47,7 +47,7 @@ history:
 
 > Este paquete está en desarrollo. Consulta el [issue](https://github.com/aymericzip/intlayer/issues/118) para más información. Muestra tu interés en Intlayer para Preact dando like al issue.
 
-Consulta la [Plantilla de Aplicación](https://github.com/aymericzip/intlayer-vite-preact-template) en GitHub.
+See [Plantilla de Aplicación](https://github.com/aymericzip/intlayer-vite-preact-template) en GitHub.
 
 ## ¿Qué es Intlayer?
 
@@ -94,8 +94,6 @@ bunx intlayer init
 
 - **intlayer**
 
-- **intlayer**
-
   El paquete principal que proporciona herramientas de internacionalización para la gestión de configuración, traducción, [declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/get_started.md), transpilación y [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_cli.md).
 
 - **preact-intlayer**
@@ -121,6 +119,10 @@ const config: IntlayerConfig = {
     ],
     defaultLocale: Locales.ENGLISH,
   },
+  routing: {
+    mode: "prefix-no-default", // Por defecto: prefijo para todos los locales excepto el predeterminado
+    storage: ["cookie", "header"], // Por defecto: guardar locale en cookie y detectar del header
+  },
 };
 
 export default config;
@@ -139,6 +141,10 @@ const config = {
       // Tus otros locales
     ],
     defaultLocale: Locales.ENGLISH,
+  },
+  routing: {
+    mode: "prefix-no-default", // Por defecto: prefijo para todos los locales excepto el predeterminado
+    storage: ["cookie", "header"], // Por defecto: guardar locale en cookie y detectar del header
   },
 };
 
@@ -159,12 +165,16 @@ const config = {
     ],
     defaultLocale: Locales.ENGLISH,
   },
+  routing: {
+    mode: "prefix-no-default", // Por defecto: prefijo para todos los locales excepto el predeterminado
+    storage: ["cookie", "header"], // Por defecto: guardar locale en cookie y detectar del header
+  },
 };
 
 module.exports = config;
 ```
 
-> A través de este archivo de configuración, puedes configurar URLs localizadas, redirección en middleware, nombres de cookies, la ubicación y extensión de tus declaraciones de contenido, deshabilitar los logs de Intlayer en la consola, y más. Para una lista completa de los parámetros disponibles, consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
+> A través de este archivo de configuración, puedes configurar URLs localizadas, modos de enrutamiento, opciones de almacenamiento, nombres de cookies, la ubicación y extensión de tus declaraciones de contenido, deshabilitar los logs de Intlayer en la consola, y más. Para una lista completa de los parámetros disponibles, consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
 
 ### Paso 3: Integra Intlayer en tu configuración de Vite
 
@@ -238,7 +248,7 @@ const appContent = {
     edit: t<ComponentChildren>({
       en: (
         <>
-          Edita <code>src/app.tsx</code> y guarda para probar HMR
+          Edit <code>src/app.tsx</code> and save to test HMR
         </>
       ),
       fr: (
@@ -254,7 +264,7 @@ const appContent = {
     }),
 
     readTheDocs: t({
-      en: "Haz clic en los logotipos de Vite y Preact para obtener más información",
+      en: "Click on the Vite and Preact logos to learn more",
       fr: "Cliquez sur les logos Vite et Preact pour en savoir plus",
       es: "Haz clic en los logotipos de Vite y Preact para obtener más información",
     }),
@@ -292,13 +302,13 @@ const appContent = {
     }),
 
     edit: t({
-      en: "Edita src/app.jsx y guarda para probar HMR",
+      en: "Edit src/app.jsx and save to test HMR",
       fr: "Éditez src/app.jsx et enregistrez pour tester HMR",
       es: "Edita src/app.jsx y guarda para probar HMR",
     }),
 
     readTheDocs: t({
-      en: "Haz clic en los logotipos de Vite y Preact para obtener más información",
+      en: "Click on the Vite and Preact logos to learn more",
       fr: "Cliquez sur les logos Vite et Preact pour en savoir plus",
       es: "Haz clic en los logotipos de Vite y Preact para obtener más información",
     }),
@@ -393,23 +403,7 @@ module.exports = appContent;
       "nodeType": "translation",
       "translation": {
         "en": "Edit src/app.tsx and save to test HMR",
-        "fr": "Éditez src/app.tsx et enregistrez pour tester HMR",
-        "es": "Edita src/app.tsx y guarda para probar HMR"
-      }
-    },
-    "readTheDocs": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Click on the Vite and Preact logos to learn more",
-        "fr": "Cliquez sur les logos Vite et Preact pour en savoir plus",
-        "es": "Haga clic en los logotipos de Vite y Preact para obtener más información"
-      }
-    }
-  }
-}
-      "translation": {
-        "en": "Edit src/app.tsx and save to test HMR",
-        "fr": "Éditez src/app.tsx et enregistrez pour tester HMR",
+        "fr": "Éditez src/app.tsx et enregistrez para probar HMR",
         "es": "Edita src/app.tsx y guarda para probar HMR"
       }
     },
@@ -469,6 +463,12 @@ const AppContent: FunctionalComponent = () => {
         </button>
         <p>{content.edit}</p>
       </div>
+      {/* Contenido Markdown */}
+      <div>{content.myMarkdownContent}</div>
+
+      {/* Contenido HTML */}
+      <div>{content.myHtmlContent}</div>
+
       <p class="read-the-docs">{content.readTheDocs}</p>
     </>
   );
@@ -645,9 +645,9 @@ module.exports = LocaleSwitcher;
 
 > Para aprender más sobre el hook `useLocale`, consulta la [documentación](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useLocale.md) (La API es similar para `preact-intlayer`).
 
-### (Opcional) Paso 7: Añadir enrutamiento localizado a tu aplicación
+### (Opcional) Paso 7: Agregar enrutamiento localizado a su aplicación
 
-El propósito de este paso es crear rutas únicas para cada idioma. Esto es útil para SEO y URLs amigables con SEO.
+El propósito de este paso es crear rutas únicas para cada idioma. Esto es útil para SEO y URLs amigables para el SEO.
 Ejemplo:
 
 ```plaintext
@@ -656,406 +656,107 @@ Ejemplo:
 - https://example.com/fr/about
 ```
 
-> Por defecto, las rutas no tienen prefijo para la configuración regional predeterminada. Si desea prefijar la configuración regional predeterminada, puede establecer la opción `middleware.prefixDefault` en `true` en su configuración. Consulte la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md) para obtener más información.
+> Por defecto, las rutas no tienen prefijo para el idioma predeterminado. Si desea prefijar el idioma predeterminado, puede establecer la opción `routing.mode` en `"prefix-all"` en su configuración. Consulte la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md) para obtener más información.
 
-Para agregar enrutamiento localizado a su aplicación, puede crear un componente `LocaleRouter` que envuelva las rutas de su aplicación y gestione el enrutamiento basado en la configuración regional. Aquí hay un ejemplo usando [preact-iso](https://github.com/preactjs/preact-iso):
-
-Primero, instale `preact-iso`:
-
-```bash packageManager="npm"
-npm install preact-iso
-npx intlayer init
-```
-
-```bash packageManager="pnpm"
-pnpm add preact-iso
-pnpm intlayer init
-```
-
-```bash packageManager="yarn"
-yarn add preact-iso
-```
+Para agregar enrutamiento localizado a su aplicación, puede crear un componente `LocaleRouter` que envuelva las rutas de su aplicación y maneje el enrutamiento basado en el idioma. Aquí hay un ejemplo usando [preact-iso](https://github.com/preactjs/preact-iso):
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
-import { type Locales, configuration, getPathWithoutLocale } from "intlayer";
-import { ComponentChildren, FunctionalComponent } from "preact";
+import { localeMap } from "intlayer";
 import { IntlayerProvider } from "preact-intlayer";
-import { LocationProvider, useLocation } from "preact-iso";
-import { useEffect } from "preact/hooks";
-
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-const Navigate: FunctionalComponent<{ to: string; replace?: boolean }> = ({
-  to,
-  replace,
-}) => {
-  const { route } = useLocation();
-  useEffect(() => {
-    route(to, replace);
-  }, [to, replace, route]);
-  return null;
-};
+import { LocationProvider, Router, Route } from "preact-iso";
+import type { ComponentChildren, FunctionalComponent } from "preact";
 
 /**
-/**
- * Un componente que maneja la localización y envuelve a los hijos con el contexto de configuración regional apropiado.
- * Gestiona la detección y validación de la configuración regional basada en la URL.
- */
-const AppLocalized: FunctionalComponent<{
-  children: ComponentChildren;
-  locale?: Locales;
-}> = ({ children, locale }) => {
-  const { path: pathname, url } = useLocation();
-
-  if (!url) {
-    return null;
-  }
-
-  const search = url.substring(pathname.length);
-
-  // Determina la configuración regional actual, usando la predeterminada si no se proporciona
-  const currentLocale = locale ?? defaultLocale;
-
-  // Elimina el prefijo de la configuración regional del path para construir una ruta base
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // Ruta URL actual
-  );
-
-  /**
-   * Si middleware.prefixDefault es verdadero, el locale por defecto siempre debe tener prefijo.
-   */
-  if (middleware.prefixDefault) {
-    // Validar el locale
-    if (!locale || !locales.includes(locale)) {
-      // Redirigir al locale por defecto con la ruta actualizada
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // Reemplazar la entrada actual del historial con la nueva
-        />
-      );
-    }
-
-    // Envolver los children con IntlayerProvider y establecer el locale actual
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * Cuando middleware.prefixDefault es falso, el locale por defecto no tiene prefijo.
-     * Asegúrese de que la configuración regional actual sea válida y no sea la configuración regional predeterminada.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (loc) => loc.toString() !== defaultLocale.toString() // Excluir la configuración regional predeterminada
-        )
-        .includes(currentLocale) // Verificar si la configuración regional actual está en la lista de configuraciones regionales válidas
-    ) {
-      // Redirigir a la ruta sin el prefijo de configuración regional
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // Envolver los hijos con IntlayerProvider y establecer la configuración regional actual
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
-
-const RouterContent: FunctionalComponent<{
-  children: ComponentChildren;
-}> = ({ children }) => {
-  const { path } = useLocation();
-
-  if (!path) {
-    return null;
-  }
-
-  const pathLocale = path.split("/")[1] as Locales;
-
-  const isLocaleRoute = locales
-    .filter((locale) => middleware.prefixDefault || locale !== defaultLocale)
-    .some((locale) => locale.toString() === pathLocale);
-
-  if (isLocaleRoute) {
-    return <AppLocalized locale={pathLocale}>{children}</AppLocalized>;
-  }
-
-  return (
-    <AppLocalized
-      locale={!middleware.prefixDefault ? defaultLocale : undefined}
-    >
-      {children}
-    </AppLocalized>
-  );
-};
-
-/**
- * Un componente de enrutador que configura rutas específicas por locale.
+ * Un componente de enrutador que configura rutas específicas para cada idioma.
  * Utiliza preact-iso para gestionar la navegación y renderizar componentes localizados.
  */
 export const LocaleRouter: FunctionalComponent<{
   children: ComponentChildren;
 }> = ({ children }) => (
   <LocationProvider>
-    <RouterContent>{children}</RouterContent>
+    <Router>
+      {localeMap(({ locale, urlPrefix }) => ({ locale, urlPrefix }))
+        .sort((a, b) => b.urlPrefix.length - a.urlPrefix.length)
+        .map(({ locale, urlPrefix }) => (
+          <Route
+            key={locale}
+            path={`${urlPrefix}/:rest*`}
+            component={() => (
+              <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+            )}
+          />
+        ))}
+    </Router>
   </LocationProvider>
 );
 ```
 
 ```jsx fileName="src/components/LocaleRouter.jsx" codeFormat="esm"
-// Importando las dependencias y funciones necesarias
-import { configuration, getPathWithoutLocale } from "intlayer";
+import { localeMap } from "intlayer";
 import { IntlayerProvider } from "preact-intlayer";
-import { LocationProvider, useLocation } from "preact-iso";
-import { useEffect } from "preact/hooks";
-import { h } from "preact"; // Requerido para JSX
-
-// Desestructurando la configuración de Intlayer
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-const Navigate = ({ to, replace }) => {
-  const { route } = useLocation();
-  useEffect(() => {
-    route(to, replace);
-  }, [to, replace, route]);
-  return null;
-};
+import { LocationProvider, Router, Route } from "preact-iso";
 
 /**
- * Un componente que maneja la localización y envuelve a los hijos con el contexto de idioma apropiado.
- * Gestiona la detección y validación del idioma basado en la URL.
- */
-const AppLocalized = ({ children, locale }) => {
-  const { path: pathname, url } = useLocation();
-
-  if (!url) {
-    return null;
-  }
-
-  const search = url.substring(pathname.length);
-
-  // Determina el idioma actual, usando el predeterminado si no se proporciona
-  const currentLocale = locale ?? defaultLocale;
-
-  // Elimina el prefijo del idioma de la ruta para construir una ruta base
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // Ruta actual de la URL
-  );
-
-  /**
-   * Si middleware.prefixDefault es true, el idioma predeterminado siempre debe tener prefijo.
-   */
-  if (middleware.prefixDefault) {
-    // Validar la localización
-    if (!locale || !locales.includes(locale)) {
-      // Redirigir a la localización por defecto con la ruta actualizada
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // Reemplazar la entrada actual del historial con la nueva
-        />
-      );
-    }
-
-    // Envolver los hijos con IntlayerProvider y establecer la localización actual
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * Cuando middleware.prefixDefault es falso, la localización por defecto no se antepone.
-     * Asegurarse de que la localización actual sea válida y no la localización por defecto.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (loc) => loc.toString() !== defaultLocale.toString() // Excluir la configuración regional predeterminada
-        )
-        .includes(currentLocale) // Verificar si la configuración regional actual está en la lista de configuraciones regionales válidas
-    ) {
-      // Redirigir a la ruta sin el prefijo de configuración regional
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // Envolver los hijos con IntlayerProvider y establecer la configuración regional actual
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
-
-const RouterContent = ({ children }) => {
-  const { path } = useLocation();
-
-  if (!path) {
-    return null;
-  }
-
-  const pathLocale = path.split("/")[1];
-
-  const isLocaleRoute = locales
-    .filter((locale) => middleware.prefixDefault || locale !== defaultLocale)
-    .some((locale) => locale.toString() === pathLocale);
-
-  if (isLocaleRoute) {
-    return <AppLocalized locale={pathLocale}>{children}</AppLocalized>;
-  }
-
-  return (
-    <AppLocalized
-      locale={!middleware.prefixDefault ? defaultLocale : undefined}
-    >
-      {children}
-    </AppLocalized>
-  );
-};
-
-/**
- * Un componente de enrutador que configura rutas específicas por locale.
+ * Un componente de enrutador que configura rutas específicas para cada idioma.
  * Utiliza preact-iso para gestionar la navegación y renderizar componentes localizados.
  */
 export const LocaleRouter = ({ children }) => (
   <LocationProvider>
-    <RouterContent>{children}</RouterContent>
+    <Router>
+      {localeMap(({ locale, urlPrefix }) => ({ locale, urlPrefix }))
+        .sort((a, b) => b.urlPrefix.length - a.urlPrefix.length)
+        .map(({ locale, urlPrefix }) => (
+          <Route
+            key={locale}
+            path={`${urlPrefix}/:rest*`}
+            component={() => (
+              <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+            )}
+          />
+        ))}
+    </Router>
   </LocationProvider>
 );
 ```
 
 ```jsx fileName="src/components/LocaleRouter.cjsx" codeFormat="commonjs"
-// Importando las dependencias y funciones necesarias
-const { configuration, getPathWithoutLocale } = require("intlayer");
+const { localeMap } = require("intlayer");
 const { IntlayerProvider } = require("preact-intlayer");
-const { LocationProvider, useLocation } = require("preact-iso");
-const { useEffect } = require("preact/hooks");
-const { h } = require("preact"); // Requerido para JSX
-
-// Desestructurando configuración de Intlayer
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-const Navigate = ({ to, replace }) => {
-  const { route } = useLocation();
-  useEffect(() => {
-    route(to, replace);
-  }, [to, replace, route]);
-  return null;
-};
+const { LocationProvider, Router, Route } = require("preact-iso");
 
 /**
- * Un componente que maneja la localización y envuelve a los hijos con el contexto de idioma apropiado.
- * Gestiona la detección y validación del idioma basado en la URL.
- */
-const AppLocalized = ({ children, locale }) => {
-  const { path: pathname, url } = useLocation();
-
-  if (!url) {
-    return null;
-  }
-
-  const search = url.substring(pathname.length);
-
-  // Determinar la configuración regional actual, usando la predeterminada si no se proporciona
-  const currentLocale = locale ?? defaultLocale;
-
-  // Eliminar el prefijo de la configuración regional de la ruta para construir una ruta base
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // Ruta URL actual
-  );
-
-  /**
-   * Si middleware.prefixDefault es true, la configuración regional predeterminada siempre debe tener prefijo.
-   */
-  if (middleware.prefixDefault) {
-    // Validar la configuración regional
-    if (!locale || !locales.includes(locale)) {
-      // Redirigir a la configuración regional predeterminada con la ruta actualizada
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // Reemplaza la entrada actual del historial con la nueva
-        />
-      );
-    }
-
-    // Envuelve los hijos con IntlayerProvider y establece la localidad actual
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * Cuando middleware.prefixDefault es falso, la localidad por defecto no se antepone.
-     * Asegúrate de que la localidad actual sea válida y no la localidad por defecto.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (loc) => loc.toString() !== defaultLocale.toString() // Excluir la localidad por defecto
-        )
-        .includes(currentLocale) // Verifica si la localidad actual está en la lista de localidades válidas
-    ) {
-      // Redirige a la ruta sin el prefijo de localidad
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // Envuelve los hijos con IntlayerProvider y establece la localidad actual
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
-
-const RouterContent = ({ children }) => {
-  const { path } = useLocation();
-
-  if (!path) {
-    return null;
-  }
-
-  const pathLocale = path.split("/")[1];
-
-  const isLocaleRoute = locales
-    .filter((locale) => middleware.prefixDefault || locale !== defaultLocale)
-    .some((locale) => locale.toString() === pathLocale);
-
-  if (isLocaleRoute) {
-    return <AppLocalized locale={pathLocale}>{children}</AppLocalized>;
-  }
-
-  return (
-    <AppLocalized
-      locale={!middleware.prefixDefault ? defaultLocale : undefined}
-    >
-      {children}
-    </AppLocalized>
-  );
-};
-
-/**
- * Un componente de enrutador que configura rutas específicas por idioma.
+ * Un componente de enrutador que configura rutas específicas para cada idioma.
  * Utiliza preact-iso para gestionar la navegación y renderizar componentes localizados.
  */
-const LocaleRouter = ({ children }) => (
-  <LocationProvider>
-    <RouterContent>{children}</RouterContent>
-  </LocationProvider>
-);
+const LocaleRouter = ({ children }) =>
+  h(
+    LocationProvider,
+    {},
+    h(
+      Router,
+      {},
+      localeMap(({ locale, urlPrefix }) => ({ locale, urlPrefix }))
+        .sort((a, b) => b.urlPrefix.length - a.urlPrefix.length)
+        .map(({ locale, urlPrefix }) =>
+          h(Route, {
+            key: locale,
+            path: `${urlPrefix}/:rest*`,
+            component: () => h(IntlayerProvider, { locale }, children),
+          })
+        )
+    )
+  );
 
 module.exports = { LocaleRouter };
 ```
 
-Luego, puedes usar el componente `LocaleRouter` en tu aplicación:
+Luego, puede usar el componente `LocaleRouter` en su aplicación:
 
 ```tsx fileName="src/app.tsx" codeFormat="typescript"
 import { LocaleRouter } from "./components/LocaleRouter";
 import type { FunctionalComponent } from "preact";
-// ... Tu componente AppContent (definido en el Paso 5)
+
+// ... Su componente AppContent
 
 const App: FunctionalComponent = () => (
   <LocaleRouter>
@@ -1068,7 +769,8 @@ export default App;
 
 ```jsx fileName="src/app.jsx" codeFormat="esm"
 import { LocaleRouter } from "./components/LocaleRouter";
-// ... Tu componente AppContent (definido en el Paso 5)
+
+// ... Su componente AppContent
 
 const App = () => (
   <LocaleRouter>
@@ -1081,7 +783,8 @@ export default App;
 
 ```jsx fileName="src/app.cjsx" codeFormat="commonjs"
 const { LocaleRouter } = require("./components/LocaleRouter");
-// ... Tu componente AppContent (definido en el Paso 5)
+
+// ... Su componente AppContent
 
 const App = () => (
   <LocaleRouter>
@@ -1092,47 +795,12 @@ const App = () => (
 module.exports = App;
 ```
 
-En paralelo, también puedes usar el `intlayerProxy` para agregar enrutamiento del lado del servidor a tu aplicación. Este plugin detectará automáticamente la configuración regional actual basada en la URL y establecerá la cookie de configuración regional apropiada. Si no se especifica ninguna configuración regional, el plugin determinará la configuración regional más adecuada según las preferencias de idioma del navegador del usuario. Si no se detecta ninguna configuración regional, redirigirá a la configuración regional predeterminada.
+### (Opcional) Paso 8: Cambiar la URL cuando cambia el idioma
 
-```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
-import { defineConfig } from "vite";
-import preact from "@preact/preset-vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [preact(), intlayer(), intlayerProxy()],
-});
-```
-
-```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import preact from "@preact/preset-vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [preact(), intlayer(), intlayerProxy()],
-});
-```
-
-```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const preact = require("@preact/preset-vite");
-const { intlayer, intlayerProxy } = require("vite-intlayer");
-
-// https://vitejs.dev/config/
-module.exports = defineConfig({
-  plugins: [preact(), intlayer(), intlayerProxy()],
-});
-```
-
-### (Opcional) Paso 8: Cambiar la URL cuando cambia la configuración regional
-
-Para cambiar la URL cuando cambia la configuración regional, puedes usar la propiedad `onLocaleChange` proporcionada por el hook `useLocale`. Paralelamente, puedes usar `useLocation` y `route` de `preact-iso` para actualizar la ruta de la URL.
+Para cambiar la URL cuando cambia el idioma, puede usar la propiedad `onLocaleChange` proporcionada por el hook `useLocale`. Paralelamente, puede usar el método `route` de `useLocation` de `preact-iso` para actualizar la ruta de la URL.
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
-import { useLocation, route } from "preact-iso";
+import { useLocation } from "preact-iso";
 import {
   Locales,
   getHTMLTextDir,
@@ -1143,13 +811,12 @@ import { useLocale } from "preact-intlayer";
 import type { FunctionalComponent } from "preact";
 
 const LocaleSwitcher: FunctionalComponent = () => {
-  const location = useLocation();
+  const { url, route } = useLocation();
   const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (newLocale) => {
-      const currentFullPath = location.url; // preact-iso proporciona la URL completa
-      // Construir la URL con la configuración regional actualizada
+      // Construir la URL con el idioma actualizado
       // Ejemplo: /es/about?foo=bar
-      const pathWithLocale = getLocalizedUrl(currentFullPath, newLocale);
+      const pathWithLocale = getLocalizedUrl(url, newLocale);
 
       // Actualizar la ruta de la URL
       route(pathWithLocale, true); // true para reemplazar
@@ -1162,7 +829,7 @@ const LocaleSwitcher: FunctionalComponent = () => {
       <div id="localePopover" popover="auto">
         {availableLocales.map((localeItem) => (
           <a
-            href={getLocalizedUrl(location.url, localeItem)}
+            href={getLocalizedUrl(url, localeItem)}
             hreflang={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
             onClick={(e) => {
@@ -1173,19 +840,19 @@ const LocaleSwitcher: FunctionalComponent = () => {
             key={localeItem}
           >
             <span>
-              {/* Idioma local - por ejemplo FR */}
+              {/* Idioma - p.ej. FR */}
               {localeItem}
             </span>
             <span>
-              {/* Idioma en su propio idioma local - por ejemplo Français */}
+              {/* Idioma en su propio idioma - p.ej. Français */}
               {getLocaleName(localeItem, localeItem)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Idioma en el idioma local actual - por ejemplo Francés con el idioma local establecido en Locales.SPANISH */}
+              {/* Idioma en el idioma actual - p.ej. Francés con el idioma actual establecido en Locales.SPANISH */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Idioma en inglés - por ejemplo French */}
+              {/* Idioma en inglés - p.ej. French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </a>
@@ -1199,7 +866,7 @@ export default LocaleSwitcher;
 ```
 
 ```jsx fileName="src/components/LocaleSwitcher.jsx" codeFormat="esm"
-import { useLocation, route } from "preact-iso";
+import { useLocation } from "preact-iso";
 import {
   Locales,
   getHTMLTextDir,
@@ -1207,14 +874,12 @@ import {
   getLocalizedUrl,
 } from "intlayer";
 import { useLocale } from "preact-intlayer";
-import { h } from "preact"; // Para JSX
 
 const LocaleSwitcher = () => {
-  const location = useLocation();
+  const { url, route } = useLocation();
   const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (newLocale) => {
-      const currentFullPath = location.url;
-      const pathWithLocale = getLocalizedUrl(currentFullPath, newLocale);
+      const pathWithLocale = getLocalizedUrl(url, newLocale);
       route(pathWithLocale, true);
     },
   });
@@ -1225,7 +890,7 @@ const LocaleSwitcher = () => {
       <div id="localePopover" popover="auto">
         {availableLocales.map((localeItem) => (
           <a
-            href={getLocalizedUrl(location.url, localeItem)}
+            href={getLocalizedUrl(url, localeItem)}
             hreflang={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
             onClick={(e) => {
@@ -1253,7 +918,7 @@ export default LocaleSwitcher;
 ```
 
 ```jsx fileName="src/components/LocaleSwitcher.cjsx" codeFormat="commonjs"
-const { useLocation, route } = require("preact-iso");
+const { useLocation } = require("preact-iso");
 const {
   Locales,
   getHTMLTextDir,
@@ -1261,80 +926,74 @@ const {
   getLocalizedUrl,
 } = require("intlayer");
 const { useLocale } = require("preact-intlayer");
-const { h } = require("preact"); // Para JSX
 
 const LocaleSwitcher = () => {
-  const location = useLocation();
+  const { url, route } = useLocation();
   const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (newLocale) => {
-      const currentFullPath = location.url;
-      const pathWithLocale = getLocalizedUrl(currentFullPath, newLocale);
+      const pathWithLocale = getLocalizedUrl(url, newLocale);
       route(pathWithLocale, true);
     },
   });
 
-  return (
-    <div>
-      <button popovertarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover="auto">
-        {availableLocales.map((localeItem) => (
-          <a
-            href={getLocalizedUrl(location.url, localeItem)}
-            hreflang={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={(e) => {
+  return h(
+    "div",
+    {},
+    h("button", { popovertarget: "localePopover" }, getLocaleName(locale)),
+    h(
+      "div",
+      { id: "localePopover", popover: "auto" },
+      availableLocales.map((localeItem) =>
+        h(
+          "a",
+          {
+            href: getLocalizedUrl(url, localeItem),
+            hreflang: localeItem,
+            "aria-current": locale === localeItem ? "page" : undefined,
+            onClick: (e) => {
               e.preventDefault();
               setLocale(localeItem);
-            }}
-            key={localeItem}
-          >
-            <span>{localeItem}</span>
-            <span>{getLocaleName(localeItem, localeItem)}</span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </a>
-        ))}
-      </div>
-    </div>
+            },
+            key: localeItem,
+          },
+          h("span", {}, localeItem),
+          h("span", {}, getLocaleName(localeItem, localeItem)),
+          h(
+            "span",
+            { dir: getHTMLTextDir(localeItem), lang: localeItem },
+            getLocaleName(localeItem, locale)
+          ),
+          h(
+            "span",
+            { dir: "ltr", lang: Locales.ENGLISH },
+            getLocaleName(localeItem, Locales.ENGLISH)
+          )
+        )
+      )
+    )
   );
 };
 
 module.exports = LocaleSwitcher;
 ```
 
-> Referencias de documentación:
+> Referencias de la documentación:
 >
-> > - [`useLocale` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useLocale.md) (la API es similar para `preact-intlayer`)
-> > - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getLocaleName.md)
-> > - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getLocalizedUrl.md)
-> > - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getHTMLTextDir.md)
-> > - [atributo `hreflang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
-> > - [atributo `lang`](https://developer.mozilla.org/es/docs/Web/HTML/Atributos_globales/lang)
-> > - [atributo `dir`](https://developer.mozilla.org/es/docs/Web/HTML/Atributos_globales/dir)
-> > - [atributo `aria-current`](https://developer.mozilla.org/es/docs/Web/Accessibility/ARIA/Atributos/aria-current)
-> > - [API Popover](https://developer.mozilla.org/es/docs/Web/API/Popover_API) la.org/en-US/docs/Web/HTML/Global_attributes/dir)> - [atributo `aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [API Popover](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)
-
-A continuación se muestra el **Paso 9** actualizado con explicaciones adicionales y ejemplos de código refinados:
-
----
+> > - [Hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useLocale.md) (la API es similar para `preact-intlayer`)> - [Hook `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getLocaleName.md)> - [Hook `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getLocalizedUrl.md)> - [Hook `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/intlayer/getHTMLTextDir.md)> - [Atributo `hreflang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)> - [Atributo `lang`](https://developer.mozilla.org/es/docs/Web/HTML/Global_attributes/lang)> - [Atributo `dir`](https://developer.mozilla.org/es/docs/Web/HTML/Global_attributes/dir)> - [Atributo `aria-current`](https://developer.mozilla.org/es/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [API Popover](https://developer.mozilla.org/es/docs/Web/API/Popover_API)
 
 ### (Opcional) Paso 9: Cambiar los atributos de idioma y dirección del HTML
 
-Cuando tu aplicación soporta múltiples idiomas, es crucial actualizar los atributos `lang` y `dir` de la etiqueta `<html>` para que coincidan con la configuración regional actual. Hacer esto garantiza:
+Cuando su aplicación soporta varios idiomas, es fundamental actualizar los atributos `lang` y `dir` de la etiqueta `<html>` para que coincidan con el idioma actual. Al hacerlo, se garantiza:
 
-- **Accesibilidad**: Los lectores de pantalla y tecnologías de asistencia dependen del atributo `lang` correcto para pronunciar e interpretar el contenido con precisión.
-- **Renderizado de texto**: El atributo `dir` (dirección) asegura que el texto se muestre en el orden adecuado (por ejemplo, de izquierda a derecha para inglés, de derecha a izquierda para árabe o hebreo), lo cual es esencial para la legibilidad.
-- **SEO**: Los motores de búsqueda utilizan el atributo `lang` para determinar el idioma de su página, ayudando a mostrar el contenido localizado correcto en los resultados de búsqueda.
+- **Accesibilidad**: Los lectores de pantalla y las tecnologías de asistencia dependen del atributo `lang` correcto para pronunciar e interpretar el contenido con precisión.
+- **Renderizado de texto**: El atributo `dir` (dirección) garantiza que el texto se represente en el orden adecuado (p. ej., de izquierda a derecha para el inglés, de derecha a izquierda para el árabe o el hebreo), lo cual es esencial para la legibilidad.
+- **SEO**: Los motores de búsqueda utilizan el atributo `lang` para determinar el idioma de su página, lo que ayuda a ofrecer el contenido localizado adecuado en los resultados de búsqueda.
 
-Al actualizar estos atributos dinámicamente cuando cambia la configuración regional, garantiza una experiencia coherente y accesible para los usuarios en todos los idiomas compatibles.
+Al actualizar estos atributos dinámicamente cuando cambia el idioma, garantiza una experiencia coherente y accesible para los usuarios en todos los idiomas admitidos.
 
 #### Implementación del Hook
 
-Cree un hook personalizado para gestionar los atributos HTML. El hook escucha los cambios de configuración regional y actualiza los atributos en consecuencia:
+Cree un hook personalizado para gestionar los atributos HTML. El hook escucha los cambios de idioma y actualiza los atributos en consecuencia:
 
 ```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx" codeFormat="typescript"
 import { useEffect } from "preact/hooks";
@@ -1342,20 +1001,20 @@ import { useLocale } from "preact-intlayer";
 import { getHTMLTextDir } from "intlayer";
 
 /**
- * Actualiza los atributos `lang` y `dir` del elemento <html> según la configuración regional actual.
+ * Actualiza los atributos `lang` y `dir` del elemento HTML <html> según el idioma actual.
  * - `lang`: Informa a los navegadores y motores de búsqueda sobre el idioma de la página.
- * - `dir`: Asegura el orden correcto de lectura (por ejemplo, 'ltr' para inglés, 'rtl' para árabe).
+ * - `dir`: Asegura el orden de lectura correcto (p. ej., 'ltr' para el inglés, 'rtl' para el árabe).
  *
- * Esta actualización dinámica es esencial para una correcta representación del texto, accesibilidad y SEO.
+ * Esta actualización dinámica es esencial para el renderizado correcto del texto, la accesibilidad y el SEO.
  */
 export const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
 
   useEffect(() => {
-    // Actualiza el atributo de idioma al locale actual.
+    // Actualizar el atributo de idioma al idioma actual.
     document.documentElement.lang = locale;
 
-    // Establece la dirección del texto según el locale actual.
+    // Establecer la dirección del texto según el idioma actual.
     document.documentElement.dir = getHTMLTextDir(locale);
   }, [locale]);
 };
@@ -1367,7 +1026,7 @@ import { useLocale } from "preact-intlayer";
 import { getHTMLTextDir } from "intlayer";
 
 /**
- * Actualiza los atributos `lang` y `dir` del elemento HTML <html> según la configuración regional actual.
+ * Actualiza los atributos `lang` y `dir` del elemento HTML <html> según el idioma actual.
  */
 export const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
@@ -1385,7 +1044,7 @@ const { useLocale } = require("preact-intlayer");
 const { getHTMLTextDir } = require("intlayer");
 
 /**
- * Actualiza los atributos `lang` y `dir` del elemento HTML <html> según la configuración regional actual.
+ * Actualiza los atributos `lang` y `dir` del elemento HTML <html> según el idioma actual.
  */
 const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
@@ -1399,9 +1058,9 @@ const useI18nHTMLAttributes = () => {
 module.exports = { useI18nHTMLAttributes };
 ```
 
-#### Uso del Hook en Tu Aplicación
+#### Uso del Hook en su Aplicación
 
-Integra el hook en tu componente principal para que los atributos HTML se actualicen cada vez que cambie la configuración regional:
+Integre el hook en su componente principal para que los atributos HTML se actualicen cada vez que cambie el idioma:
 
 ```tsx fileName="src/app.tsx" codeFormat="typescript"
 import type { FunctionalComponent } from "preact";
@@ -1411,10 +1070,10 @@ import "./app.css";
 // Definición de AppContent del Paso 5
 
 const AppWithHooks: FunctionalComponent = () => {
-  // Aplicar el hook para actualizar los atributos lang y dir de la etiqueta <html> según la configuración regional.
+  // Aplicar el hook para actualizar los atributos lang y dir de la etiqueta <html> según el idioma.
   useI18nHTMLAttributes();
 
-  // Suponiendo que AppContent es tu componente principal de visualización de contenido del Paso 5
+  // Suponiendo que AppContent es su componente principal de visualización de contenido del Paso 5
   return <AppContent />;
 };
 
@@ -1467,215 +1126,192 @@ const App = () => (
 module.exports = App;
 ```
 
-Al aplicar estos cambios, tu aplicación:
+### (Opcional) Paso 10: Crear un Componente de Enlace Localizado
 
-- Asegurará que el atributo de **idioma** (`lang`) refleje correctamente la configuración regional actual, lo cual es importante para el SEO y el comportamiento del navegador.
-- Ajustará la **dirección del texto** (`dir`) según la configuración regional, mejorando la legibilidad y usabilidad para idiomas con diferentes órdenes de lectura.
-- Proporcionar una experiencia más **accesible**, ya que las tecnologías de asistencia dependen de estos atributos para funcionar de manera óptima.
-
-### (Opcional) Paso 10: Creación de un Componente de Enlace Localizado
-
-Para asegurar que la navegación de tu aplicación respete la configuración regional actual, puedes crear un componente personalizado `Link`. Este componente antepone automáticamente a las URLs internas el idioma actual.
+Para garantizar que la navegación de su aplicación respete el idioma actual, puede crear un componente `Link` personalizado. Este componente añade automáticamente el prefijo del idioma actual a las URL internas.
 
 Este comportamiento es útil por varias razones:
 
-- **SEO y Experiencia de Usuario**: Las URLs localizadas ayudan a los motores de búsqueda a indexar correctamente las páginas específicas por idioma y proporcionan a los usuarios contenido en su idioma preferido.
-- **Consistencia**: Al usar un enlace localizado en toda tu aplicación, garantizas que la navegación se mantenga dentro de la configuración regional actual, evitando cambios inesperados de idioma.
-- **Mantenibilidad**: Centralizar la lógica de localización en un solo componente simplifica la gestión de las URLs.
+- **SEO y Experiencia del Usuario**: Las URL localizadas ayudan a los motores de búsqueda a indexar correctamente las páginas específicas de un idioma y proporcionan a los usuarios contenido en su idioma preferido.
+- **Consistencia**: Al utilizar un enlace localizado en toda su aplicación, garantiza que la navegación se mantenga dentro del idioma actual, evitando cambios de idioma inesperados.
+- **Mantenibilidad**: Centralizar la lógica de localización en un único componente simplifica la gestión de las URL.
 
-Para Preact con `preact-iso`, normalmente se usan etiquetas `<a>` estándar para la navegación, y `preact-iso` se encarga del enrutamiento. Si necesitas navegación programática al hacer clic (por ejemplo, para realizar acciones antes de navegar), puedes usar la función `route` de `useLocation`. Aquí tienes cómo crear un componente de ancla personalizado que localiza las URLs:
+A continuación se muestra la implementación de un componente `Link` localizado en Preact:
 
-```tsx fileName="src/components/LocalizedLink.tsx" codeFormat="typescript"
+```tsx fileName="src/components/Link.tsx" codeFormat="typescript"
 import { getLocalizedUrl } from "intlayer";
-import { useLocale, useLocation, route } from "preact-intlayer"; // Asumiendo que useLocation y route pueden venir de preact-iso vía preact-intlayer si están reexportados, o importarlos directamente
-// Si no se reexporta, importar directamente: import { useLocation, route } from "preact-iso";
-import type { JSX } from "preact"; // Para HTMLAttributes
-import { forwardRef } from "preact/compat"; // Para reenviar refs
+import { useLocale } from "preact-intlayer";
+import { forwardRef } from "preact/compat";
+import type { JSX } from "preact";
 
-export interface LocalizedLinkProps extends JSX.HTMLAttributes<HTMLAnchorElement> {
+export interface LinkProps extends JSX.HTMLAttributes<HTMLAnchorElement> {
   href: string;
-  replace?: boolean; // Opcional: para reemplazar el estado del historial
 }
 
 /**
- * Función utilitaria para verificar si una URL dada es externa.
+ * Función de utilidad para comprobar si una URL determinada es externa.
  * Si la URL comienza con http:// o https://, se considera externa.
  */
 export const checkIsExternalLink = (href?: string): boolean =>
   /^https?:\/\//.test(href ?? "");
 
 /**
- * Un componente Link personalizado que adapta el atributo href según la localidad actual.
- * Para enlaces internos, utiliza `getLocalizedUrl` para anteponer la URL con la configuración regional (por ejemplo, /fr/about).
- * Esto asegura que la navegación se mantenga dentro del mismo contexto de idioma.
- * Utiliza una etiqueta estándar <a> pero puede activar la navegación del lado del cliente usando `route` de preact-iso.
+ * Un componente Link personalizado que adapta el atributo href según el idioma actual.
+ * Para los enlaces internos, utiliza `getLocalizedUrl` para prefijar la URL con el idioma (p. ej., /fr/about).
+ * Esto garantiza que la navegación se mantenga dentro del mismo contexto de idioma.
  */
-export const LocalizedLink = forwardRef<HTMLAnchorElement, LocalizedLinkProps>(
-  ({ href, children, onClick, replace = false, ...props }, ref) => {
+export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
+  ({ href, children, ...props }, ref) => {
     const { locale } = useLocale();
-    const location = useLocation(); // de preact-iso
     const isExternalLink = checkIsExternalLink(href);
 
+    // Si el enlace es interno y se proporciona un href válido, obtener la URL localizada.
     const hrefI18n =
       href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
 
-    const handleClick = (event: JSX.TargetedMouseEvent<HTMLAnchorElement>) => {
-      if (onClick) {
-        onClick(event);
-      }
-      if (
-        !isExternalLink &&
-        href && // Asegura que href esté definido
-        event.button === 0 && // Clic izquierdo
-        !event.metaKey &&
-        !event.ctrlKey &&
-        !event.shiftKey &&
-        !event.altKey && // Verificación estándar de modificadores
-        !props.target // No apunta a una nueva pestaña/ventana
-      ) {
-        event.preventDefault();
-        if (location.url !== hrefI18n) {
-          // Navega solo si la URL es diferente
-          route(hrefI18n, replace); // Usa route de preact-iso
-        }
-      }
-    };
-
     return (
-      <a href={hrefI18n} ref={ref} onClick={handleClick} {...props}>
+      <a href={hrefI18n} ref={ref} {...props}>
         {children}
       </a>
     );
   }
 );
+
+Link.displayName = "Link";
 ```
 
-```jsx fileName="src/components/LocalizedLink.jsx" codeFormat="esm"
+```jsx fileName="src/components/Link.jsx" codeFormat="esm"
 import { getLocalizedUrl } from "intlayer";
 import { useLocale } from "preact-intlayer";
-import { useLocation, route } from "preact-iso"; // Importar desde preact-iso
 import { forwardRef } from "preact/compat";
-import { h } from "preact"; // Para JSX
 
+/**
+ * Función de utilidad para comprobar si una URL determinada es externa.
+ * Si la URL comienza con http:// o https://, se considera externa.
+ */
 export const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? "");
 
-export const LocalizedLink = forwardRef(
-  ({ href, children, onClick, replace = false, ...props }, ref) => {
-    const { locale } = useLocale();
-    const location = useLocation();
-    const isExternalLink = checkIsExternalLink(href);
+/**
+ * Un componente Link personalizado que adapta el atributo href según el idioma actual.
+ * Para los enlaces internos, utiliza `getLocalizedUrl` para prefijar la URL con el idioma (p. ej., /fr/about).
+ * Esto garantiza que la navegación se mantenga dentro del mismo contexto de idioma.
+ */
+export const Link = forwardRef(({ href, children, ...props }, ref) => {
+  const { locale } = useLocale();
+  const isExternalLink = checkIsExternalLink(href);
 
-    const hrefI18n =
-      href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
+  // Si el enlace es interno y se proporciona un href válido, obtener la URL localizada.
+  const hrefI18n =
+    href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
 
-    const handleClick = (event) => {
-      if (onClick) {
-        onClick(event);
-      }
-      if (
-        !isExternalLink &&
-        href &&
-        event.button === 0 &&
-        !event.metaKey &&
-        !event.ctrlKey &&
-        !event.shiftKey &&
-        !event.altKey &&
-        !props.target
-      ) {
-        event.preventDefault();
-        if (location.url !== hrefI18n) {
-          route(hrefI18n, replace);
-        }
-      }
-    };
+  return (
+    <a href={hrefI18n} ref={ref} {...props}>
+      {children}
+    </a>
+  );
+});
 
-    return (
-      <a href={hrefI18n} ref={ref} onClick={handleClick} {...props}>
-        {children}
-      </a>
-    );
-  }
-);
+Link.displayName = "Link";
 ```
 
-```jsx fileName="src/components/LocalizedLink.cjsx" codeFormat="commonjs"
+```jsx fileName="src/components/Link.cjsx" codeFormat="commonjs"
 const { getLocalizedUrl } = require("intlayer");
 const { useLocale } = require("preact-intlayer");
-const { useLocation, route } = require("preact-iso"); // Importado desde preact-iso
 const { forwardRef } = require("preact/compat");
-const { h } = require("preact"); // Para JSX
 
+/**
+ * Función de utilidad para comprobar si una URL determinada es externa.
+ * Si la URL comienza con http:// o https://, se considera externa.
+ */
 const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? "");
 
-// Comprueba si el enlace es externo mediante una expresión regular
-const LocalizedLink = forwardRef(
-  ({ href, children, onClick, replace = false, ...props }, ref) => {
-    const { locale } = useLocale(); // Obtiene la configuración regional actual
-    const location = useLocation(); // Obtiene la ubicación actual
-    const isExternalLink = checkIsExternalLink(href); // Verifica si el enlace es externo
+/**
+ * Un componente Link personalizado que adapta el atributo href según el idioma actual.
+ * Para los enlaces internos, utiliza `getLocalizedUrl` para prefijar la URL con el idioma (p. ej., /fr/about).
+ * Esto garantiza que la navegación se mantenga dentro del mismo contexto de idioma.
+ */
+const Link = forwardRef(({ href, children, ...props }, ref) => {
+  const { locale } = useLocale();
+  const isExternalLink = checkIsExternalLink(href);
 
-    // Si el enlace no es externo, obtiene la URL localizada
-    const hrefI18n =
-      href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
+  // Si el enlace es interno y se proporciona un href válido, obtener la URL localizada.
+  const hrefI18n =
+    href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
 
-    const handleClick = (event) => {
-      if (onClick) {
-        onClick(event);
-      }
-      if (
-        !isExternalLink &&
-        href &&
-        event.button === 0 &&
-        !event.metaKey &&
-        !event.ctrlKey &&
-        !event.shiftKey &&
-        !event.altKey &&
-        !props.target
-      ) {
-        event.preventDefault();
-        if (location.url !== hrefI18n) {
-          route(hrefI18n, replace);
-        }
-      }
-    };
+  return h(
+    "a",
+    {
+      href: hrefI18n,
+      ref: ref,
+      ...props,
+    },
+    children
+  );
+});
 
-    return (
-      <a href={hrefI18n} ref={ref} onClick={handleClick} {...props}>
-        {children}
-      </a>
-    );
-  }
-);
+Link.displayName = "Link";
 
-module.exports = { LocalizedLink, checkIsExternalLink };
+module.exports = { Link, checkIsExternalLink };
 ```
 
 #### Cómo Funciona
 
 - **Detección de Enlaces Externos**:  
-  La función auxiliar `checkIsExternalLink` determina si una URL es externa. Los enlaces externos se dejan sin cambios.
-- **Obtención de la Configuración Regional Actual**:  
-  El hook `useLocale` proporciona la configuración regional actual.
+  La función de ayuda `checkIsExternalLink` determina si una URL es externa. Los enlaces externos se dejan sin cambios porque no necesitan localización.
+- **Recuperación del Idioma Actual**:  
+  El hook `useLocale` proporciona el idioma actual (p. ej., `fr` para el francés).
 - **Localización de la URL**:  
-  Para enlaces internos, `getLocalizedUrl` añade el prefijo de la configuración regional actual a la URL.
-- **Navegación del Lado del Cliente**:
-  La función `handleClick` verifica si es un enlace interno y si se debe prevenir la navegación estándar. Si es así, utiliza la función `route` de `preact-iso` (obtenida mediante `useLocation` o importada directamente) para realizar la navegación del lado del cliente. Esto proporciona un comportamiento similar a una SPA sin recargas completas de la página.
-- **Devolviendo el Enlace**:  
-  El componente devuelve un elemento `<a>` con la URL localizada y el manejador de clic personalizado.
+  Para los enlaces internos (es decir, no externos), se utiliza `getLocalizedUrl` para prefijar automáticamente la URL con el idioma actual. Esto significa que si su usuario está en francés, pasar `/about` como `href` lo transformará a `/fr/about`.
+- **Devolución del Enlace**:  
+  El componente devuelve un elemento `<a>` con la URL localizada, garantizando que la navegación sea coherente con el idioma.
+
+### (Opcional) Paso 11: Renderizar Markdown y HTML
+
+Intlayer admite el renderizado de contenido Markdown y HTML en Preact.
+
+Puede personalizar el renderizado del contenido Markdown y HTML utilizando el método `.use()`. Este método le permite anular el renderizado predeterminado de etiquetas específicas.
+
+```tsx
+import { useIntlayer } from "preact-intlayer";
+
+const { myMarkdownContent, myHtmlContent } = useIntlayer("my-component");
+
+// ...
+
+return (
+  <div>
+    {/* Renderizado básico */}
+    {myMarkdownContent}
+
+    {/* Renderizado personalizado para Markdown */}
+    {myMarkdownContent.use({
+      h1: (props) => <h1 style={{ color: "red" }} {...props} />,
+    })}
+
+    {/* Renderizado básico para HTML */}
+    {myHtmlContent}
+
+    {/* Renderizado personalizado para HTML */}
+    {myHtmlContent.use({
+      b: (props) => <strong style={{ color: "blue" }} {...props} />,
+    })}
+  </div>
+);
+```
 
 ### Configurar TypeScript
 
-Intlayer utiliza la ampliación de módulos para aprovechar los beneficios de TypeScript y fortalecer tu base de código.
+Intlayer utiliza la ampliación de módulos para aprovechar las ventajas de TypeScript y fortalecer su base de código.
 
-![texto alternativo](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![Autocompletado](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![texto alternativo](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![Error de traducción](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
-Asegúrate de que tu configuración de TypeScript incluya los tipos autogenerados.
+Asegúrese de que su configuración de TypeScript incluya los tipos autogenerados.
 
 ```json5 fileName="tsconfig.json"
 {
-  // ... Tus configuraciones existentes de TypeScript
+  // ... Sus configuraciones de TypeScript existentes
   "compilerOptions": {
     // ...
     "jsx": "react-jsx",
@@ -1683,19 +1319,19 @@ Asegúrate de que tu configuración de TypeScript incluya los tipos autogenerado
     // ...
   },
   "include": [
-    // ... Tus configuraciones existentes de TypeScript
+    // ... Sus configuraciones de TypeScript existentes
     ".intlayer/**/*.ts", // Incluir los tipos autogenerados
   ],
 }
 ```
 
-> Asegúrate de que tu `tsconfig.json` esté configurado para Preact, especialmente `jsx` y `jsxImportSource` o `jsxFactory`/`jsxFragmentFactory` para versiones antiguas de Preact si no usas los valores predeterminados de `preset-vite`.
+> Asegúrese de que su `tsconfig.json` esté configurado para Preact, especialmente `jsx` y `jsxImportSource` o `jsxFactory`/`jsxFragmentFactory` para versiones anteriores de Preact si no utiliza los valores predeterminados de `preset-vite`.
 
 ### Configuración de Git
 
-Se recomienda ignorar los archivos generados por Intlayer. Esto te permite evitar comprometerlos en tu repositorio Git.
+Se recomienda ignorar los archivos generados por Intlayer. Esto le permite evitar comprometerlos en su repositorio Git.
 
-Para hacer esto, puedes agregar las siguientes instrucciones a tu archivo `.gitignore`:
+Para hacerlo, puede agregar las siguientes instrucciones a su archivo `.gitignore`:
 
 ```plaintext
 # Ignorar los archivos generados por Intlayer
@@ -1704,9 +1340,9 @@ Para hacer esto, puedes agregar las siguientes instrucciones a tu archivo `.giti
 
 ### Extensión de VS Code
 
-Para mejorar tu experiencia de desarrollo con Intlayer, puedes instalar la **Extensión oficial de Intlayer para VS Code**.
+Para mejorar su experiencia de desarrollo con Intlayer, puede instalar la **Extensión oficial de Intlayer para VS Code**.
 
-[Instalar desde el Marketplace de VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+[Instalar desde el VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Esta extensión proporciona:
 
@@ -1715,12 +1351,12 @@ Esta extensión proporciona:
 - **Vistas previas en línea** del contenido traducido.
 - **Acciones rápidas** para crear y actualizar traducciones fácilmente.
 
-Para más detalles sobre cómo usar la extensión, consulta la [documentación de la Extensión de Intlayer para VS Code](https://intlayer.org/doc/vs-code-extension).
+Para más detalles sobre cómo usar la extensión, consulte la [documentación de la extensión de Intlayer para VS Code](https://intlayer.org/doc/vs-code-extension).
 
 ---
 
 ### Ir Más Allá
 
-Para ir más allá, puedes implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o externalizar tu contenido usando el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
+Para ir más allá, puede implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o externalizar su contenido utilizando el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
 
 ---

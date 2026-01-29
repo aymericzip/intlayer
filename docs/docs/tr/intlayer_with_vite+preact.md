@@ -24,7 +24,7 @@ history:
     changes: Geçmiş başlatıldı
 ---
 
-# Intlayer ile Vite and Preact çevirin | Uluslararasılaştırma (i18n)
+# Intlayer kullanarak Vite ve Preact web sitenizi çevirin | Uluslararasılaştırma (i18n)
 
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">
@@ -45,9 +45,9 @@ history:
   </Tab>
 </Tabs>
 
-> Bu paket geliştirme aşamasındadır. Daha fazla bilgi için [sorunu](https://github.com/aymericzip/intlayer/issues/118) inceleyin. Preact için Intlayer'a ilgi göstermek için sorunu beğenin
+## İçindekiler
 
-GitHub'da [Uygulama Şablonu](https://github.com/aymericzip/intlayer-vite-preact-template)'na bakın.
+<TOC/>
 
 ## Intlayer Nedir?
 
@@ -55,16 +55,18 @@ GitHub'da [Uygulama Şablonu](https://github.com/aymericzip/intlayer-vite-preact
 
 Intlayer ile şunları yapabilirsiniz:
 
-- **Bileşen düzeyinde açıklayıcı sözlükler kullanarak çevirileri kolayca yönetin**.
+- **Çevirileri kolayca yönetin**: Bileşen düzeyinde açıklayıcı sözlükler kullanarak.
 - **Meta verileri, rotaları ve içeriği dinamik olarak yerelleştirin**.
-- **Otomatik oluşturulan türlerle TypeScript desteği sağlayın**, böylece otomatik tamamlama ve hata algılama iyileşir.
-- **Dinamik yerel ayar algılama ve anahtarlama gibi gelişmiş özelliklerden yararlanın**.
+- **TypeScript desteği sağlayın**: Otomatik oluşturulan türlerle, otomatik tamamlama ve hata algılamayı iyileştirin.
+- **Gelişmiş özelliklerden yararlanın**: Dinamik yerel ayar algılama ve değiştirme gibi.
 
 ---
 
-## Vite ve Preact Uygulamasında Intlayer Kurulumu İçin Adım Adım Kılavuz
+## Vite ve Preact Uygulamasında Intlayer'ı Ayarlamak İçin Adım Adım Kılavuz
 
-### Adım 1: Bağımlılıkları Kurma
+GitHub'daki [Uygulama Şablonu](https://github.com/aymericzip/intlayer-vite-preact-template)'na bakın.
+
+### Adım 1: Bağımlılıkları Kurun
 
 Gerekli paketleri npm kullanarak kurun:
 
@@ -94,15 +96,17 @@ bunx intlayer init
 
 - **intlayer**
 
-  Yapılandırma yönetimi, çeviri, [içerik bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md), dönüştürme ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) için uluslararasılaştırma araçları sağlayan çekirdek paket.
+  Yapılandırma yönetimi, çeviri, [içerik bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md), derleme ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) için temel paket.
 
 - **preact-intlayer**
-  Preact uygulamasıyla Intlayer'ı entegre eden paket. Preact uluslararasılaştırması için bağlam sağlayıcıları ve kancalar sağlar.
+
+  Intlayer'ı Preact uygulamasına entegre eden paket. Preact uluslararasılaştırması için bağlam sağlayıcıları ve kancalar sağlar.
 
 - **vite-intlayer**
-  [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production) ile Intlayer'ı entegre etmek için Vite eklentisini ve kullanıcının tercih ettiği yerel ayarı algılamak, çerezleri yönetmek ve URL yönlendirmesi yapmak için middleware'i içerir.
 
-### Adım 2: Projenizi Yapılandırma
+  Intlayer'ı [Vite paketleyici](https://vite.dev/guide/why.html#why-bundle-for-production) ile entegre etmek için Vite eklentisinin yanı sıra kullanıcının tercih ettiği yerel ayarı algılamak, çerezleri yönetmek ve URL yönlendirmesini işlemek için ara yazılımı içerir.
+
+### Adım 2: Projenizi Yapılandırın
 
 Uygulamanızın dillerini yapılandırmak için bir yapılandırma dosyası oluşturun:
 
@@ -115,9 +119,13 @@ const config: IntlayerConfig = {
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // Diğer yerel ayarlarınız
+      // Diğer dilleriniz
     ],
     defaultLocale: Locales.ENGLISH,
+  },
+  routing: {
+    mode: "prefix-no-default", // Varsayılan: varsayılan yerel ayar hariç tüm yerel ayarları önekle
+    storage: ["cookie", "header"], // Varsayılan: yerel ayarı çerezde sakla ve başlıktan algıla
   },
 };
 
@@ -134,9 +142,13 @@ const config = {
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // Diğer yerel ayarlarınız
+      // Diğer dilleriniz
     ],
     defaultLocale: Locales.ENGLISH,
+  },
+  routing: {
+    mode: "prefix-no-default", // Varsayılan: varsayılan yerel ayar hariç tüm yerel ayarları önekle
+    storage: ["cookie", "header"], // Varsayılan: yerel ayarı çerezde sakla ve başlıktan algıla
   },
 };
 
@@ -153,20 +165,24 @@ const config = {
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // Diğer yerel ayarlarınız
+      // Diğer dilleriniz
     ],
     defaultLocale: Locales.ENGLISH,
+  },
+  routing: {
+    mode: "prefix-no-default", // Varsayılan: varsayılan yerel ayar hariç tüm yerel ayarları önekle
+    storage: ["cookie", "header"], // Varsayılan: yerel ayarı çerezde sakla ve başlıktan algıla
   },
 };
 
 module.exports = config;
 ```
 
-> Bu yapılandırma dosyası aracılığıyla, yerelleştirilmiş URL'leri, middleware yönlendirmesini, çerez adlarını, içerik bildiriminizin konumunu ve uzantısını, Intlayer günlüklerini konsolda devre dışı bırakmayı ve daha fazlasını ayarlayabilirsiniz. Kullanılabilir parametrelerin tam listesi için [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) bakın.
+> Bu yapılandırma dosyası aracılığıyla yerelleştirilmiş URL'leri, yönlendirme modlarını, depolama seçeneklerini, çerez adlarını, içerik bildirimlerinizin konumunu ve uzantısını ayarlayabilir, konsoldaki Intlayer günlüklerini devre dışı bırakabilir ve daha fazlasını yapabilirsiniz. Mevcut parametrelerin tam listesi için [yapılandırma belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakın.
 
-### Adım 3: Intlayer'ı Vite Yapılandırmanıza Entegre Etme
+### Adım 3: Intlayer'ı Vite Yapılandırmanıza Entegre Edin
 
-Vite yapılandırmanıza intlayer eklentisini ekleyin.
+Yapılandırmanıza intlayer eklentisini ekleyin.
 
 ```typescript fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
@@ -201,11 +217,11 @@ module.exports = defineConfig({
 });
 ```
 
-> `intlayer()` Vite eklentisi, Vite ile Intlayer'ı entegre etmek için kullanılır. İçerik bildirimi dosyalarının oluşturulmasını sağlar ve bunları geliştirme modunda izler. Ayrıca Intlayer ortam değişkenlerini Vite uygulaması içinde tanımlar. Ek olarak, performansı optimize etmek için takma adlar sağlar.
+> `intlayer()` Vite eklentisi, Intlayer'ı Vite ile entegre etmek için kullanılır. İçerik bildirim dosyalarının oluşturulmasını sağlar ve bunları geliştirme modunda izler. Vite uygulaması içinde Intlayer ortam değişkenlerini tanımlar. Ayrıca, performansı optimize etmek için takma adlar sağlar.
 
 ### Adım 4: İçeriğinizi Bildirin
 
-Çevirileri depolamak için içerik bildiriminizi oluşturun ve yönetin:
+Çevirileri saklamak için içerik bildirimlerinizi oluşturun ve yönetin:
 
 ```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -264,7 +280,7 @@ export default appContent;
 
 ```javascript fileName="src/app.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
-// import { h } from 'preact'; // JSX'i doğrudan .mjs'de kullanıyorsanız gerekli
+// import { h } from 'preact'; // .mjs içinde doğrudan JSX kullanıyorsanız gereklidir
 
 /** @type {import('intlayer').Dictionary} */
 const appContent = {
@@ -308,7 +324,7 @@ export default appContent;
 
 ```javascript fileName="src/app.content.cjs" contentDeclarationFormat="commonjs"
 const { t } = require("intlayer");
-// const { h } = require('preact'); // JSX'i doğrudan .cjs'de kullanıyorsanız gerekli
+// const { h } = require('preact'); // .cjs içinde doğrudan JSX kullanıyorsanız gereklidir
 
 /** @type {import('intlayer').Dictionary} */
 const appContent = {
@@ -342,7 +358,7 @@ const appContent = {
     readTheDocs: t({
       en: "Click on the Vite and Preact logos to learn more",
       fr: "Cliquez sur les logos Vite et Preact pour en savoir plus",
-      es: "Haga clic en los logotipos de Vite y Preact para obtener más información",
+      es: "Haga clic en los logotipos de Vite ve Preact para obtener daha fazla bilgi",
     }),
   },
 };
@@ -400,18 +416,18 @@ module.exports = appContent;
       "translation": {
         "en": "Click on the Vite and Preact logos to learn more",
         "fr": "Cliquez sur les logos Vite et Preact pour en savoir plus",
-        "es": "Haga clic en los logotipos de Vite ve Preact para obtener más información"
+        "es": "Haga clic en los logotipos de Vite y Preact para obtener más información"
       }
     }
   }
 }
 ```
 
-> İçerik bildiriminiz uygulamanızın herhangi bir yerine yerleştirilebilir, yeter ki `contentDir` dizinine dahil edilsin (varsayılan olarak `./src`). Ve içerik bildirimi dosya uzantısı ile eşleşsin (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+> İçerik bildirimleriniz, `contentDir` dizinine (varsayılan olarak `./src`) dahil edildikleri sürece uygulamanızın herhangi bir yerinde tanımlanabilir. Ve içerik bildirimi dosya uzantısıyla (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,cjs}`) eşleşmelidir.
 
-> Daha fazla ayrıntı için [içerik bildirimi dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md) bakın.
+> Daha fazla ayrıntı için [içerik bildirimi belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bakın.
 
-> İçerik dosyanız TSX kodu içeriyorsa, `import { h } from "preact";`'ı içe aktarmanız gerekebilir veya JSX pragma'nızın Preact için doğru şekilde ayarlandığından emin olun.
+> İçerik dosyanız TSX kodu içeriyorsa `import { h } from "preact";` içe aktarmanız gerekebilir veya JSX pragma'nızın Preact için doğru ayarlandığından emin olun.
 
 ### Adım 5: Kodunuzda Intlayer'ı Kullanın
 
@@ -420,9 +436,9 @@ Uygulamanız boyunca içerik sözlüklerinize erişin:
 ```tsx {6,10} fileName="src/app.tsx" codeFormat="typescript"
 import { useState } from "preact/hooks";
 import type { FunctionalComponent } from "preact";
-import preactLogo from "./assets/preact.svg"; // preact.svg'niz olduğunu varsayalım
+import preactLogo from "./assets/preact.svg"; // preact.svg dosyanızın olduğunu varsayarsak
 import viteLogo from "/vite.svg";
-import "./app.css"; // CSS dosyanızın app.css olarak adlandırıldığını varsayalım
+import "./app.css"; // CSS dosyanızın adının app.css olduğunu varsayarsak
 import { IntlayerProvider, useIntlayer } from "preact-intlayer";
 
 const AppContent: FunctionalComponent = () => {
@@ -451,6 +467,12 @@ const AppContent: FunctionalComponent = () => {
         </button>
         <p>{content.edit}</p>
       </div>
+      {/* Markdown içeriği */}
+      <div>{content.myMarkdownContent}</div>
+
+      {/* HTML içeriği */}
+      <div>{content.myHtmlContent}</div>
+
       <p class="read-the-docs">{content.readTheDocs}</p>
     </>
   );
@@ -559,7 +581,7 @@ const App = () => (
 module.exports = App;
 ```
 
-> İçeriğinizi bir `string` niteliğinde kullanmak istediğinizde, `alt`, `title`, `href`, `aria-label` vb. gibi, işlevin değerini çağırmanız gerekir:
+> İçeriğinizi `alt`, `title`, `href`, `aria-label` vb. gibi bir `string` niteliğinde kullanmak istiyorsanız, işlevin değerini çağırmalısınız:
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
@@ -567,11 +589,11 @@ module.exports = App;
 
 > Not: Preact'te `className` genellikle `class` olarak yazılır.
 
-> `useIntlayer` kancası hakkında daha fazla bilgi edinmek için [dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md) bakın (API `preact-intlayer` için benzer).
+> `useIntlayer` kancası hakkında daha fazla bilgi edinmek için [belgelere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useIntlayer.md) bakın (`preact-intlayer` için API benzerdir).
 
-### (İsteğe Bağlı) Adım 6: İçeriğinizin Dilini Değiştirin
+### (İsteğe Bağlı) Adım 6: İçeriğinizin dilini değiştirin
 
-İçeriğinizin dilini değiştirmek için `useLocale` kancasından sağlanan `setLocale` işlevini kullanabilirsiniz. Bu işlev uygulamanın yerel ayarını ayarlamanıza ve içeriği buna göre güncellemenize olanak tanır.
+İçeriğinizin dilini değiştirmek için `useLocale` kancası tarafından sağlanan `setLocale` işlevini kullanabilirsiniz. Bu işlev, uygulamanın yerel ayarını yapmanıza ve içeriği buna göre güncellemenize olanak tanır.
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 import type { FunctionalComponent } from "preact";
@@ -583,7 +605,7 @@ const LocaleSwitcher: FunctionalComponent = () => {
 
   return (
     <button onClick={() => setLocale(Locales.ENGLISH)}>
-      Dili İngilizce'ye Değiştir
+      Dili İngilizce Olarak Değiştir
     </button>
   );
 };
@@ -600,7 +622,7 @@ const LocaleSwitcher = () => {
 
   return (
     <button onClick={() => setLocale(Locales.ENGLISH)}>
-      Dili İngilizce'ye Değiştir
+      Dili İngilizce Olarak Değiştir
     </button>
   );
 };
@@ -617,7 +639,7 @@ const LocaleSwitcher = () => {
 
   return (
     <button onClick={() => setLocale(Locales.ENGLISH)}>
-      Dili İngilizce'ye Değiştir
+      Dili İngilizce Olarak Değiştir
     </button>
   );
 };
@@ -625,11 +647,11 @@ const LocaleSwitcher = () => {
 module.exports = LocaleSwitcher;
 ```
 
-> `useLocale` kancası hakkında daha fazla bilgi edinmek için [dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md) bakın (API `preact-intlayer` için benzer).
+> `useLocale` kancası hakkında daha fazla bilgi edinmek için [belgelere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useLocale.md) bakın (`preact-intlayer` için API benzerdir).
 
-### (İsteğe Bağlı) Adım 7: Uygulamanıza Yerelleştirilmiş Yönlendirme Ekleyin
+### (İsteğe Bağlı) Adım 7: Uygulamanıza yerelleştirilmiş yönlendirme ekleyin
 
-Bu adımın amacı, her dil için benzersiz rotalar oluşturmaktır. Bu, SEO ve SEO dostu URL'ler için kullanışlıdır.
+Bu adımın amacı her dil için benzersiz rotalar oluşturmaktır. Bu, SEO ve SEO dostu URL'ler için faydalıdır.
 Örnek:
 
 ```plaintext
@@ -638,395 +660,96 @@ Bu adımın amacı, her dil için benzersiz rotalar oluşturmaktır. Bu, SEO ve 
 - https://example.com/fr/about
 ```
 
-> Varsayılan olarak, rotalar varsayılan yerel ayar için öneklenmez. Varsayılan yerel ayarı öneklemek istiyorsanız, yapılandırmanızda `middleware.prefixDefault` seçeneğini `true` olarak ayarlayabilirsiniz. Daha fazla bilgi için [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) bakın.
+> Varsayılan olarak, rotalar varsayılan yerel ayar için önek almaz. Varsayılan yerel ayarı öneklemek istiyorsanız, yapılandırmanızda `routing.mode` seçeneğini `"prefix-all"` olarak ayarlayabilirsiniz. Daha fazla bilgi için [yapılandırma belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakın.
 
-Uygulamanıza yerelleştirilmiş yönlendirme eklemek için, uygulamanızın rotalarını saran ve yerel ayar tabanlı yönlendirmeyi yöneten bir `LocaleRouter` bileşeni oluşturabilirsiniz. [preact-iso](https://github.com/preactjs/preact-iso) kullanarak bir örnek aşağıda verilmiştir:
-
-Öncelikle `preact-iso`'yu kurun:
-
-```bash packageManager="npm"
-npm install preact-iso
-npx intlayer init
-```
-
-```bash packageManager="pnpm"
-pnpm add preact-iso
-pnpm intlayer init
-```
-
-```bash packageManager="yarn"
-yarn add preact-iso
-```
+Uygulamanıza yerelleştirilmiş yönlendirme eklemek için, uygulamanızın rotalarını saran ve yerel ayar tabanlı yönlendirmeyi yöneten bir `LocaleRouter` bileşeni oluşturabilirsiniz. İşte [preact-iso](https://github.com/preactjs/preact-iso) kullanan bir örnek:
 
 ```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
-import { type Locales, configuration, getPathWithoutLocale } from "intlayer";
-import { ComponentChildren, FunctionalComponent } from "preact";
+import { localeMap } from "intlayer";
 import { IntlayerProvider } from "preact-intlayer";
-import { LocationProvider, useLocation } from "preact-iso";
-import { useEffect } from "preact/hooks";
-
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-const Navigate: FunctionalComponent<{ to: string; replace?: boolean }> = ({
-  to,
-  replace,
-}) => {
-  const { route } = useLocation();
-  useEffect(() => {
-    route(to, replace);
-  }, [to, replace, route]);
-  return null;
-};
+import { LocationProvider, Router, Route } from "preact-iso";
+import type { ComponentChildren, FunctionalComponent } from "preact";
 
 /**
- * Yerelleştirme ve uygun yerel ayar bağlamıyla çocukları saran bir bileşen.
- * URL tabanlı yerel ayar algılama ve doğrulama yönetir.
- */
-const AppLocalized: FunctionalComponent<{
-  children: ComponentChildren;
-  locale?: Locales;
-}> = ({ children, locale }) => {
-  const { path: pathname, url } = useLocation();
-
-  if (!url) {
-    return null;
-  }
-
-  const search = url.substring(pathname.length);
-
-  // Sağlanmadıysa varsayılan yerel ayara geri dön
-  const currentLocale = locale ?? defaultLocale;
-
-  // Temel bir yol oluşturmak için yoldan yerel ayar önekini kaldır
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // Geçerli URL yolu
-  );
-
-  /**
-   * middleware.prefixDefault true ise, varsayılan yerel ayar her zaman öneklenmelidir.
-   */
-  if (middleware.prefixDefault) {
-    // Yerel ayarı doğrula
-    if (!locale || !locales.includes(locale)) {
-      // Güncellenmiş yol ile varsayılan yerel ayara yönlendir
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // Geçerli geçmiş girişini yenisiyle değiştir
-        />
-      );
-    }
-
-    // Geçerli yerel ayarı ayarlayarak çocukları IntlayerProvider ile sar
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * middleware.prefixDefault false olduğunda, varsayılan yerel ayar öneklenmez.
-     * Geçerli yerel ayar geçerli olduğundan ve varsayılan yerel ayar olmadığından emin ol.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (loc) => loc.toString() !== defaultLocale.toString() // Varsayılan yerel ayarı hariç tut
-        )
-        .includes(currentLocale) // Geçerli yerel ayar geçerli yerel ayarlar listesinde mi kontrol et
-    ) {
-      // Yerel ayar öneki olmadan yola yönlendir
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // Geçerli yerel ayarı ayarlayarak çocukları IntlayerProvider ile sar
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
-
-const RouterContent: FunctionalComponent<{
-  children: ComponentChildren;
-}> = ({ children }) => {
-  const { path } = useLocation();
-
-  if (!path) {
-    return null;
-  }
-
-  const pathLocale = path.split("/")[1] as Locales;
-
-  const isLocaleRoute = locales
-    .filter((locale) => middleware.prefixDefault || locale !== defaultLocale)
-    .some((locale) => locale.toString() === pathLocale);
-
-  if (isLocaleRoute) {
-    return <AppLocalized locale={pathLocale}>{children}</AppLocalized>;
-  }
-
-  return (
-    <AppLocalized
-      locale={!middleware.prefixDefault ? defaultLocale : undefined}
-    >
-      {children}
-    </AppLocalized>
-  );
-};
-
-/**
- * Yerel ayar özel rotaları ayarlayan bir yönlendirici bileşen.
- * preact-iso'yu kullanarak gezinmeyi yönetir ve yerelleştirilmiş bileşenleri işler.
+ * Yerel ayara özel rotalar ayarlayan bir yönlendirici bileşeni.
+ * Gezinmeyi yönetmek ve yerelleştirilmiş bileşenleri işlemek için preact-iso kullanır.
  */
 export const LocaleRouter: FunctionalComponent<{
   children: ComponentChildren;
 }> = ({ children }) => (
   <LocationProvider>
-    <RouterContent>{children}</RouterContent>
+    <Router>
+      {localeMap(({ locale, urlPrefix }) => ({ locale, urlPrefix }))
+        .sort((a, b) => b.urlPrefix.length - a.urlPrefix.length)
+        .map(({ locale, urlPrefix }) => (
+          <Route
+            key={locale}
+            path={`${urlPrefix}/:rest*`}
+            component={() => (
+              <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+            )}
+          />
+        ))}
+    </Router>
   </LocationProvider>
 );
 ```
 
 ```jsx fileName="src/components/LocaleRouter.jsx" codeFormat="esm"
-// Gerekli bağımlılıkları ve işlevleri içe aktar
-import { configuration, getPathWithoutLocale } from "intlayer";
+import { localeMap } from "intlayer";
 import { IntlayerProvider } from "preact-intlayer";
-import { LocationProvider, useLocation } from "preact-iso";
-import { useEffect } from "preact/hooks";
-import { h } from "preact"; // JSX için gerekli
-
-// Intlayer'dan yapılandırmayı çıkar
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-const Navigate = ({ to, replace }) => {
-  const { route } = useLocation();
-  useEffect(() => {
-    route(to, replace);
-  }, [to, replace, route]);
-  return null;
-};
+import { LocationProvider, Router, Route } from "preact-iso";
 
 /**
- * Yerelleştirme ve uygun yerel ayar bağlamıyla çocukları saran bir bileşen.
- * URL tabanlı yerel ayar algılama ve doğrulama yönetir.
- */
-const AppLocalized = ({ children, locale }) => {
-  const { path: pathname, url } = useLocation();
-
-  if (!url) {
-    return null;
-  }
-
-  const search = url.substring(pathname.length);
-
-  // Sağlanmadıysa varsayılan yerel ayara geri dön
-  const currentLocale = locale ?? defaultLocale;
-
-  // Temel bir yol oluşturmak için yoldan yerel ayar önekini kaldır
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // Geçerli URL yolu
-  );
-
-  /**
-   * middleware.prefixDefault true ise, varsayılan yerel ayar her zaman öneklenmelidir.
-   */
-  if (middleware.prefixDefault) {
-    // Yerel ayarı doğrula
-    if (!locale || !locales.includes(locale)) {
-      // Güncellenmiş yol ile varsayılan yerel ayara yönlendir
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // Geçerli geçmiş girişini yenisiyle değiştir
-        />
-      );
-    }
-
-    // Geçerli yerel ayarı ayarlayarak çocukları IntlayerProvider ile sar
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * middleware.prefixDefault false olduğunda, varsayılan yerel ayar öneklenmez.
-     * Geçerli yerel ayar geçerli olduğundan ve varsayılan yerel ayar olmadığından emin ol.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (loc) => loc.toString() !== defaultLocale.toString() // Varsayılan yerel ayarı hariç tut
-        )
-        .includes(currentLocale) // Geçerli yerel ayar geçerli yerel ayarlar listesinde mi kontrol et
-    ) {
-      // Yerel ayar öneki olmadan yola yönlendir
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // Geçerli yerel ayarı ayarlayarak çocukları IntlayerProvider ile sar
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
-
-const RouterContent = ({ children }) => {
-  const { path } = useLocation();
-
-  if (!path) {
-    return null;
-  }
-
-  const pathLocale = path.split("/")[1];
-
-  const isLocaleRoute = locales
-    .filter((locale) => middleware.prefixDefault || locale !== defaultLocale)
-    .some((locale) => locale.toString() === pathLocale);
-
-  if (isLocaleRoute) {
-    return <AppLocalized locale={pathLocale}>{children}</AppLocalized>;
-  }
-
-  return (
-    <AppLocalized
-      locale={!middleware.prefixDefault ? defaultLocale : undefined}
-    >
-      {children}
-    </AppLocalized>
-  );
-};
-
-/**
- * Yerel ayar özel rotaları ayarlayan bir yönlendirici bileşen.
- * preact-iso'yu kullanarak gezinmeyi yönetir ve yerelleştirilmiş bileşenleri işler.
+ * Yerel ayara özel rotalar ayarlayan bir yönlendirici bileşeni.
+ * Gezinmeyi yönetmek ve yerelleştirilmiş bileşenleri işlemek için preact-iso kullanır.
  */
 export const LocaleRouter = ({ children }) => (
   <LocationProvider>
-    <RouterContent>{children}</RouterContent>
+    <Router>
+      {localeMap(({ locale, urlPrefix }) => ({ locale, urlPrefix }))
+        .sort((a, b) => b.urlPrefix.length - a.urlPrefix.length)
+        .map(({ locale, urlPrefix }) => (
+          <Route
+            key={locale}
+            path={`${urlPrefix}/:rest*`}
+            component={() => (
+              <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+            )}
+          />
+        ))}
+    </Router>
   </LocationProvider>
 );
 ```
 
 ```jsx fileName="src/components/LocaleRouter.cjsx" codeFormat="commonjs"
-// Gerekli bağımlılıkları ve işlevleri içe aktar
-const { configuration, getPathWithoutLocale } = require("intlayer");
+const { localeMap } = require("intlayer");
 const { IntlayerProvider } = require("preact-intlayer");
-const { LocationProvider, useLocation } = require("preact-iso");
-const { useEffect } = require("preact/hooks");
-const { h } = require("preact"); // JSX için gerekli
-
-// Intlayer'dan yapılandırmayı çıkar
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-const Navigate = ({ to, replace }) => {
-  const { route } = useLocation();
-  useEffect(() => {
-    route(to, replace);
-  }, [to, replace, route]);
-  return null;
-};
+const { LocationProvider, Router, Route } = require("preact-iso");
 
 /**
- * Yerelleştirme ve uygun yerel ayar bağlamıyla çocukları saran bir bileşen.
- * URL tabanlı yerel ayar algılama ve doğrulama yönetir.
+ * Yerel ayara özel rotalar ayarlayan bir yönlendirici bileşeni.
+ * Gezinmeyi yönetmek ve yerelleştirilmiş bileşenleri işlemek için preact-iso kullanır.
  */
-const AppLocalized = ({ children, locale }) => {
-  const { path: pathname, url } = useLocation();
-
-  if (!url) {
-    return null;
-  }
-
-  const search = url.substring(pathname.length);
-
-  // Sağlanmadıysa varsayılan yerel ayara geri dön
-  const currentLocale = locale ?? defaultLocale;
-
-  // Temel bir yol oluşturmak için yoldan yerel ayar önekini kaldır
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // Geçerli URL yolu
-  );
-
-  /**
-   * middleware.prefixDefault true ise, varsayılan yerel ayar her zaman öneklenmelidir.
-   */
-  if (middleware.prefixDefault) {
-    // Yerel ayarı doğrula
-    if (!locale || !locales.includes(locale)) {
-      // Güncellenmiş yol ile varsayılan yerel ayara yönlendir
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // Geçerli geçmiş girişini yenisiyle değiştir
-        />
-      );
-    }
-
-    // Geçerli yerel ayarı ayarlayarak çocukları IntlayerProvider ile sar
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * middleware.prefixDefault false olduğunda, varsayılan yerel ayar öneklenmez.
-     * Geçerli yerel ayar geçerli olduğundan ve varsayılan yerel ayar olmadığından emin ol.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (loc) => loc.toString() !== defaultLocale.toString() // Varsayılan yerel ayarı hariç tut
+const LocaleRouter = ({ children }) =>
+  h(
+    LocationProvider,
+    {},
+    h(
+      Router,
+      {},
+      localeMap(({ locale, urlPrefix }) => ({ locale, urlPrefix }))
+        .sort((a, b) => b.urlPrefix.length - a.urlPrefix.length)
+        .map(({ locale, urlPrefix }) =>
+          h(Route, {
+            key: locale,
+            path: `${urlPrefix}/:rest*`,
+            component: () => h(IntlayerProvider, { locale }, children),
+          })
         )
-        .includes(currentLocale) // Geçerli yerel ayar geçerli yerel ayarlar listesinde mi kontrol et
-    ) {
-      // Yerel ayar öneki olmadan yola yönlendir
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // Geçerli yerel ayarı ayarlayarak çocukları IntlayerProvider ile sar
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
-
-const RouterContent = ({ children }) => {
-  const { path } = useLocation();
-
-  if (!path) {
-    return null;
-  }
-
-  const pathLocale = path.split("/")[1];
-
-  const isLocaleRoute = locales
-    .filter((locale) => middleware.prefixDefault || locale !== defaultLocale)
-    .some((locale) => locale.toString() === pathLocale);
-
-  if (isLocaleRoute) {
-    return <AppLocalized locale={pathLocale}>{children}</AppLocalized>;
-  }
-
-  return (
-    <AppLocalized
-      locale={!middleware.prefixDefault ? defaultLocale : undefined}
-    >
-      {children}
-    </AppLocalized>
+    )
   );
-};
-
-/**
- * Yerel ayar özel rotaları ayarlayan bir yönlendirici bileşen.
- * preact-iso'yu kullanarak gezinmeyi yönetir ve yerelleştirilmiş bileşenleri işler.
- */
-const LocaleRouter = ({ children }) => (
-  <LocationProvider>
-    <RouterContent>{children}</RouterContent>
-  </LocationProvider>
-);
 
 module.exports = { LocaleRouter };
 ```
@@ -1036,7 +759,8 @@ Ardından, `LocaleRouter` bileşenini uygulamanızda kullanabilirsiniz:
 ```tsx fileName="src/app.tsx" codeFormat="typescript"
 import { LocaleRouter } from "./components/LocaleRouter";
 import type { FunctionalComponent } from "preact";
-// ... AppContent bileşeniniz (5. Adımda tanımlandı)
+
+// ... AppContent bileşeniniz
 
 const App: FunctionalComponent = () => (
   <LocaleRouter>
@@ -1049,12 +773,13 @@ export default App;
 
 ```jsx fileName="src/app.jsx" codeFormat="esm"
 import { LocaleRouter } from "./components/LocaleRouter";
-// ... AppContent bileşeniniz (5. Adımda tanımlandı)
+
+// ... AppContent bileşeniniz
 
 const App = () => (
   <LocaleRouter>
     <AppContent />
-  </AppContent>
+  </LocaleRouter>
 );
 
 export default App;
@@ -1062,7 +787,8 @@ export default App;
 
 ```jsx fileName="src/app.cjsx" codeFormat="commonjs"
 const { LocaleRouter } = require("./components/LocaleRouter");
-// ... AppContent bileşeniniz (5. Adımda tanımlandı)
+
+// ... AppContent bileşeniniz
 
 const App = () => (
   <LocaleRouter>
@@ -1073,49 +799,12 @@ const App = () => (
 module.exports = App;
 ```
 
-Paralel olarak, uygulamanıza sunucu tarafı yönlendirme eklemek için `intlayerProxy`'i de kullanabilirsiniz. Bu eklenti, URL'ye göre geçerli yerel ayarı otomatik olarak algılar ve uygun yerel ayar çerezini ayarlar. Hiç yerel ayar belirtilmezse, eklenti kullanıcının tarayıcı dil tercihlerine göre en uygun yerel ayarı belirler. Hiç yerel ayar algılanmazsa, varsayılan yerel ayara yönlendirir.
-
-> Not: Üretimde `intlayerProxy`'i kullanmak için `vite-intlayer` paketini `devDependencies`'den `dependencies`'e taşımalısınız.
-
-```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
-import { defineConfig } from "vite";
-import preact from "@preact/preset-vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [preact(), intlayer(), intlayerProxy()],
-});
-```
-
-```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import preact from "@preact/preset-vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [preact(), intlayer(), intlayerProxy()],
-});
-```
-
-```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const preact = require("@preact/preset-vite");
-const { intlayer, intlayerProxy } = require("vite-intlayer");
-
-// https://vitejs.dev/config/
-module.exports = defineConfig({
-  plugins: [preact(), intlayer(), intlayerProxy()],
-});
-```
-
 ### (İsteğe Bağlı) Adım 8: Yerel ayar değiştiğinde URL'yi değiştirin
 
-Yerel ayar değiştiğinde URL'yi değiştirmek için `useLocale` kancasından sağlanan `onLocaleChange` prop'unu kullanabilirsiniz. Paralel olarak, URL yolunu güncellemek için `useLocation` ve `route`'u `preact-iso`'dan kullanabilirsiniz.
+Yerel ayar değiştiğinde URL'yi değiştirmek için `useLocale` kancası tarafından sağlanan `onLocaleChange` prop'unu kullanabilirsiniz. Paralel olarak, URL yolunu güncellemek için `preact-iso`'nun `useLocation` içindeki `route` yöntemini kullanabilirsiniz.
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
-import { useLocation, route } from "preact-iso";
+import { useLocation } from "preact-iso";
 import {
   Locales,
   getHTMLTextDir,
@@ -1126,16 +815,15 @@ import { useLocale } from "preact-intlayer";
 import type { FunctionalComponent } from "preact";
 
 const LocaleSwitcher: FunctionalComponent = () => {
-  const location = useLocation();
+  const { url, route } = useLocation();
   const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (newLocale) => {
-      const currentFullPath = location.url; // preact-iso tam url sağlar
-      // Güncellenmiş yerel ayar ile URL'yi oluştur
+      // Güncellenmiş yerel ayar ile URL'yi oluşturun
       // Örnek: /es/about?foo=bar
-      const pathWithLocale = getLocalizedUrl(currentFullPath, newLocale);
+      const pathWithLocale = getLocalizedUrl(url, newLocale);
 
-      // URL yolunu güncelle
-      route(pathWithLocale, true); // true için değiştir
+      // URL yolunu güncelleyin
+      route(pathWithLocale, true); // true, değiştirme (replace) içindir
     },
   });
 
@@ -1145,13 +833,13 @@ const LocaleSwitcher: FunctionalComponent = () => {
       <div id="localePopover" popover="auto">
         {availableLocales.map((localeItem) => (
           <a
-            href={getLocalizedUrl(location.url, localeItem)}
+            href={getLocalizedUrl(url, localeItem)}
             hreflang={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
             onClick={(e) => {
               e.preventDefault();
               setLocale(localeItem);
-              // Yerel ayar ayarlandıktan sonra programatik navigasyon onLocaleChange tarafından işlenecek
+              // Yerel ayar ayarlandıktan sonra programatik gezinme onLocaleChange tarafından işlenecektir
             }}
             key={localeItem}
           >
@@ -1160,15 +848,15 @@ const LocaleSwitcher: FunctionalComponent = () => {
               {localeItem}
             </span>
             <span>
-              {/* Kendi yerel ayarındaki dil - örn. Français */}
+              {/* Kendi Yerel Ayarında Dil - örn. Français */}
               {getLocaleName(localeItem, localeItem)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Geçerli yerel ayar set edildiğinde İspanyolca olarak Fransızca - örn. Francés */}
+              {/* Mevcut Yerel Ayarda Dil - örn. Mevcut yerel ayar Locales.SPANISH olarak ayarlandığında Francés */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* İngilizce olarak dil - örn. French */}
+              {/* İngilizce Dil - örn. French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </a>
@@ -1182,7 +870,7 @@ export default LocaleSwitcher;
 ```
 
 ```jsx fileName="src/components/LocaleSwitcher.jsx" codeFormat="esm"
-import { useLocation, route } from "preact-iso";
+import { useLocation } from "preact-iso";
 import {
   Locales,
   getHTMLTextDir,
@@ -1190,14 +878,12 @@ import {
   getLocalizedUrl,
 } from "intlayer";
 import { useLocale } from "preact-intlayer";
-import { h } from "preact"; // JSX için
 
 const LocaleSwitcher = () => {
-  const location = useLocation();
+  const { url, route } = useLocation();
   const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (newLocale) => {
-      const currentFullPath = location.url;
-      const pathWithLocale = getLocalizedUrl(currentFullPath, newLocale);
+      const pathWithLocale = getLocalizedUrl(url, newLocale);
       route(pathWithLocale, true);
     },
   });
@@ -1208,7 +894,7 @@ const LocaleSwitcher = () => {
       <div id="localePopover" popover="auto">
         {availableLocales.map((localeItem) => (
           <a
-            href={getLocalizedUrl(location.url, localeItem)}
+            href={getLocalizedUrl(url, localeItem)}
             hreflang={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
             onClick={(e) => {
@@ -1236,7 +922,7 @@ export default LocaleSwitcher;
 ```
 
 ```jsx fileName="src/components/LocaleSwitcher.cjsx" codeFormat="commonjs"
-const { useLocation, route } = require("preact-iso");
+const { useLocation } = require("preact-iso");
 const {
   Locales,
   getHTMLTextDir,
@@ -1244,72 +930,74 @@ const {
   getLocalizedUrl,
 } = require("intlayer");
 const { useLocale } = require("preact-intlayer");
-const { h } = require("preact"); // JSX için
 
 const LocaleSwitcher = () => {
-  const location = useLocation();
+  const { url, route } = useLocation();
   const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (newLocale) => {
-      const currentFullPath = location.url;
-      const pathWithLocale = getLocalizedUrl(currentFullPath, newLocale);
+      const pathWithLocale = getLocalizedUrl(url, newLocale);
       route(pathWithLocale, true);
     },
   });
 
-  return (
-    <div>
-      <button popovertarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover="auto">
-        {availableLocales.map((localeItem) => (
-          <a
-            href={getLocalizedUrl(location.url, localeItem)}
-            hreflang={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={(e) => {
+  return h(
+    "div",
+    {},
+    h("button", { popovertarget: "localePopover" }, getLocaleName(locale)),
+    h(
+      "div",
+      { id: "localePopover", popover: "auto" },
+      availableLocales.map((localeItem) =>
+        h(
+          "a",
+          {
+            href: getLocalizedUrl(url, localeItem),
+            hreflang: localeItem,
+            "aria-current": locale === localeItem ? "page" : undefined,
+            onClick: (e) => {
               e.preventDefault();
               setLocale(localeItem);
-            }}
-            key={localeItem}
-          >
-            <span>{localeItem}</span>
-            <span>{getLocaleName(localeItem, localeItem)}</span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </a>
-        ))}
-      </div>
-    </div>
+            },
+            key: localeItem,
+          },
+          h("span", {}, localeItem),
+          h("span", {}, getLocaleName(localeItem, localeItem)),
+          h(
+            "span",
+            { dir: getHTMLTextDir(localeItem), lang: localeItem },
+            getLocaleName(localeItem, locale)
+          ),
+          h(
+            "span",
+            { dir: "ltr", lang: Locales.ENGLISH },
+            getLocaleName(localeItem, Locales.ENGLISH)
+          )
+        )
+      )
+    )
   );
 };
 
 module.exports = LocaleSwitcher;
 ```
 
-> Dokümantasyon referansları:
+> Belge referansları:
 >
-> > - [`useLocale` kancası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md) (API `preact-intlayer` için benzer)> - [`getLocaleName` kancası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleName.md)> - [`getLocalizedUrl` kancası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md)> - [`getHTMLTextDir` kancası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getHTMLTextDir.md)> - [`hreflang` niteliği](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)> - [`lang` niteliği](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)> - [`dir` niteliği](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)> - [`aria-current` niteliği](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)
-
-Aşağıda **güncellenmiş Adım 9** açıklamalar ve iyileştirilmiş kod örnekleriyle eklenmiştir:
-
----
+> > - [`useLocale` kancası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useLocale.md) (API `preact-intlayer` için benzerdir)> - [`getLocaleName` kancası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocaleName.md)> - [`getLocalizedUrl` kancası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocalizedUrl.md)> - [`getHTMLTextDir` kancası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getHTMLTextDir.md)> - [`hreflang` niteliği](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=tr)> - [`lang` niteliği](https://developer.mozilla.org/tr/docs/Web/HTML/Global_attributes/lang)> - [`dir` niteliği](https://developer.mozilla.org/tr/docs/Web/HTML/Global_attributes/dir)> - [`aria-current` niteliği](https://developer.mozilla.org/tr/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [Popover API](https://developer.mozilla.org/tr/docs/Web/API/Popover_API)
 
 ### (İsteğe Bağlı) Adım 9: HTML Dil ve Yön Niteliklerini Değiştirin
 
-Uygulamanız birden fazla dili desteklediğinde, geçerli yerel ayar ile eşleşmesi için `<html>` etiketinin `lang` ve `dir` niteliklerini güncellemek önemlidir. Bunu yapmak şunları sağlar:
+Uygulamanız birden fazla dili desteklediğinde, `<html>` etiketinin `lang` ve `dir` niteliklerini mevcut yerel ayara uyacak şekilde güncellemek çok önemlidir. Bunu yapmak şunları sağlar:
 
 - **Erişilebilirlik**: Ekran okuyucular ve yardımcı teknolojiler, içeriği doğru şekilde telaffuz etmek ve yorumlamak için doğru `lang` niteliğine güvenir.
-- **Metin İşleme**: `dir` (yön) niteliği, metnin doğru sırada işlenmesini sağlar (örneğin, İngilizce için soldan sağa, Arapça veya İbranice için sağdan sola), okunabilirlik için gereklidir.
-- **SEO**: Arama motorları, sayfanızın dilini belirlemek için `lang` niteliğini kullanır, arama sonuçlarında doğru yerelleştirilmiş içeriği sunmaya yardımcı olur.
+- **Metin İşleme**: `dir` (yön) niteliği, metnin doğru sırada işlenmesini sağlar (örneğin, İngilizce için soldan sağa, Arapça veya İbranice için sağdan sola), bu da okunabilirlik için gereklidir.
+- **SEO**: Arama motorları sayfanızın dilini belirlemek için `lang` niteliğini kullanır ve arama sonuçlarında doğru yerelleştirilmiş içeriğin sunulmasına yardımcı olur.
 
-Yerel ayar değiştiğinde bu nitelikleri dinamik olarak güncellemek, tüm desteklenen diller için tutarlı ve erişilebilir bir deneyim sağlar.
+Yerel ayar değiştiğinde bu nitelikleri dinamik olarak güncelleyerek, desteklenen tüm dillerdeki kullanıcılar için tutarlı ve erişilebilir bir deneyim garanti edersiniz.
 
 #### Kancayı Uygulama
 
-Geçerli yerel ayara göre HTML niteliklerini yöneten özel bir kanca oluşturun. Kanca yerel ayar değişikliklerini dinler ve nitelikleri buna göre günceller:
+HTML niteliklerini yönetmek için özel bir kanca oluşturun. Kanca, yerel ayar değişikliklerini dinler ve nitelikleri buna göre günceller:
 
 ```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx" codeFormat="typescript"
 import { useEffect } from "preact/hooks";
@@ -1317,20 +1005,20 @@ import { useLocale } from "preact-intlayer";
 import { getHTMLTextDir } from "intlayer";
 
 /**
- * Geçerli yerel ayara göre HTML <html> etiketinin `lang` ve `dir` niteliklerini günceller.
+ * Mevcut yerel ayara göre HTML <html> öğesinin `lang` ve `dir` niteliklerini günceller.
  * - `lang`: Tarayıcılara ve arama motorlarına sayfanın dilini bildirir.
- * - `dir`: Geçerli yerel ayara göre doğru okuma sırasını (örneğin, İngilizce için 'ltr', Arapça için 'rtl') sağlar.
+ * - `dir`: Doğru okuma sırasını sağlar (örneğin, İngilizce için 'ltr', Arapça için 'rtl').
  *
- * Bu dinamik güncelleme, uygun metin işleme, erişilebilirlik ve SEO için gereklidir.
+ * Bu dinamik güncelleme, doğru metin işleme, erişilebilirlik ve SEO için gereklidir.
  */
 export const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
 
   useEffect(() => {
-    // Geçerli yerel ayara dil niteliğini ayarla
+    // Dil niteliğini mevcut yerel ayara göre güncelleyin.
     document.documentElement.lang = locale;
 
-    // Geçerli yerel ayara göre metin yönünü ayarla
+    // Metin yönünü mevcut yerel ayara göre ayarlayın.
     document.documentElement.dir = getHTMLTextDir(locale);
   }, [locale]);
 };
@@ -1342,7 +1030,7 @@ import { useLocale } from "preact-intlayer";
 import { getHTMLTextDir } from "intlayer";
 
 /**
- * Geçerli yerel ayara göre HTML <html> etiketinin `lang` ve `dir` niteliklerini günceller.
+ * Mevcut yerel ayara göre HTML <html> öğesinin `lang` ve `dir` niteliklerini günceller.
  */
 export const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
@@ -1356,11 +1044,11 @@ export const useI18nHTMLAttributes = () => {
 
 ```jsx fileName="src/hooks/useI18nHTMLAttributes.cjsx" codeFormat="commonjs"
 const { useEffect } = require("preact/hooks");
-const { useLocale } = require("preact-intlayer";
+const { useLocale } = require("preact-intlayer");
 const { getHTMLTextDir } = require("intlayer");
 
 /**
- * Geçerli yerel ayara göre HTML <html> etiketinin `lang` ve `dir` niteliklerini günceller.
+ * Mevcut yerel ayara göre HTML <html> öğesinin `lang` ve `dir` niteliklerini günceller.
  */
 const useI18nHTMLAttributes = () => {
   const { locale } = useLocale();
@@ -1376,20 +1064,20 @@ module.exports = { useI18nHTMLAttributes };
 
 #### Uygulamanızda Kancayı Kullanma
 
-Yerel ayar değiştiğinde HTML niteliklerinin güncellenmesi için kancayı ana bileşeninizde entegre edin:
+Kancayı ana bileşeninize entegre edin, böylece yerel ayar her değiştiğinde HTML nitelikleri güncellenir:
 
 ```tsx fileName="src/app.tsx" codeFormat="typescript"
 import type { FunctionalComponent } from "preact";
-import { IntlayerProvider } from "preact-intlayer"; // AppContent için useIntlayer zaten içe aktarılmışsa
+import { IntlayerProvider } from "preact-intlayer"; // AppContent'in ihtiyacı varsa useIntlayer zaten içe aktarılmıştır
 import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
 import "./app.css";
-// AppContent tanımı 5. Adımdan
+// 5. Adımdaki AppContent tanımı
 
 const AppWithHooks: FunctionalComponent = () => {
-  // Kancayı kullanarak yerel ayara göre <html> etiketinin lang ve dir niteliklerini güncelle
+  // Yerel ayara göre <html> etiketinin lang ve dir niteliklerini güncellemek için kancayı uygulayın.
   useI18nHTMLAttributes();
 
-  // AppContent, 5. Adımdan ana içerik görüntüleme bileşeniniz olduğunu varsayalım
+  // AppContent'in 5. Adımdaki ana içerik görüntüleme bileşeniniz olduğunu varsayarsak
   return <AppContent />;
 };
 
@@ -1406,7 +1094,7 @@ export default App;
 import { IntlayerProvider } from "preact-intlayer";
 import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
 import "./app.css";
-// AppContent tanımı 5. Adımdan
+// 5. Adımdaki AppContent tanımı
 
 const AppWithHooks = () => {
   useI18nHTMLAttributes();
@@ -1426,7 +1114,7 @@ export default App;
 const { IntlayerProvider } = require("preact-intlayer");
 const { useI18nHTMLAttributes } = require("./hooks/useI18nHTMLAttributes");
 require("./app.css");
-// AppContent tanımı 5. Adımdan
+// 5. Adımdaki AppContent tanımı
 
 const AppWithHooks = () => {
   useI18nHTMLAttributes();
@@ -1442,209 +1130,188 @@ const App = () => (
 module.exports = App;
 ```
 
-Bu değişiklikleri uygulayarak uygulamanız şunları sağlayacak:
+### (İsteğe Bağlı) Adım 10: Yerelleştirilmiş Bağlantı Bileşeni Oluşturma
 
-- **Dil** (`lang`) niteliği, SEO ve tarayıcı davranışı için geçerli yerel ayarı doğru şekilde yansıtacak.
-- **Metin yönü** (`dir`) niteliği, farklı okuma sıralarına sahip diller için okunabilirliği ve kullanılabilirliği geliştirecek.
-- Daha **erişilebilir** bir deneyim sağlayacak, çünkü yardımcı teknolojiler bu niteliklere optimum şekilde çalışmak için güvenir.
+Uygulamanızın gezinmesinin mevcut yerel ayara saygı göstermesini sağlamak için özel bir `Link` bileşeni oluşturabilirsiniz. Bu bileşen, dahili URL'lerin önüne otomatik olarak mevcut dili ekler.
 
-### (İsteğe Bağlı) Adım 10: Yerelleştirilmiş Bağlantı Bileşeni Oluşturun
+Bu davranış birkaç nedenden dolayı yararlıdır:
 
-Uygulamanızın navigasyonu geçerli yerel ayarı saygı gösterdiğinden emin olmak için özel bir `Link` bileşeni oluşturabilirsiniz. Bu bileşen dahili URL'leri otomatik olarak geçerli dille önekler.
+- **SEO ve Kullanıcı Deneyimi**: Yerelleştirilmiş URL'ler, arama motorlarının dile özgü sayfaları doğru şekilde dizine eklemesine yardımcı olur ve kullanıcılara tercih ettikleri dilde içerik sunar.
+- **Tutarlılık**: Uygulamanız genelinde yerelleştirilmiş bir bağlantı kullanarak, gezinmenin mevcut yerel ayar içinde kalmasını garanti eder ve beklenmedik dil değişikliklerini önlersiniz.
+- **Bakım Kolaylığı**: Yerelleştirme mantığını tek bir bileşende merkezileştirmek URL'lerin yönetimini basitleştirir.
 
-Bu davranış çeşitli nedenlerle kullanışlıdır:
+Aşağıda Preact'te yerelleştirilmiş bir `Link` bileşeninin uygulaması bulunmaktadır:
 
-- **SEO ve Kullanıcı Deneyimi**: Yerelleştirilmiş URL'ler, arama motorlarının dil özel sayfalarını doğru şekilde indekslemesine yardımcı olur ve kullanıcılara tercih ettikleri dilde içerik sunar.
-- **Tutarlılık**: Uygulamanız boyunca yerelleştirilmiş bir bağlantı kullanarak, navigasyonun aynı yerel ayar bağlamında kalmasını garanti edersiniz, beklenmedik dil anahtarlarını önlersiniz.
-- **Bakım Kolaylığı**: URL mantığını tek bir bileşende merkezileştirmek, yönetimini basitleştirir.
-
-Preact ile `preact-iso` için, navigasyon için genellikle standart `<a>` etiketleri kullanılır ve `preact-iso` yönlendirmeyi yönetir. Tıklama üzerine programatik navigasyon yapmak istiyorsanız (örneğin, gezinmeden önce eylemler gerçekleştirmek için), `useLocation`'dan `route` işlevini kullanabilirsiniz. İşte `preact-iso`'nun `route` işlevini kullanarak (doğrudan içe aktararak veya `useLocation` aracılığıyla) URL'leri yerelleştiren özel bir anchor bileşeni:
-
-```tsx fileName="src/components/LocalizedLink.tsx" codeFormat="typescript"
+```tsx fileName="src/components/Link.tsx" codeFormat="typescript"
 import { getLocalizedUrl } from "intlayer";
-import { useLocale, useLocation, route } from "preact-intlayer"; // preact-intlayer'dan re-export edilmişse useLocation ve route; aksi takdirde doğrudan içe aktar
-// Re-export edilmediyse, doğrudan içe aktar: import { useLocation, route } from "preact-iso";
-import type { JSX } from "preact"; // HTMLAttributes için
-import { forwardRef } from "preact/compat"; // Ref'leri iletmek için
+import { useLocale } from "preact-intlayer";
+import { forwardRef } from "preact/compat";
+import type { JSX } from "preact";
 
-export interface LocalizedLinkProps extends JSX.HTMLAttributes<HTMLAnchorElement> {
+export interface LinkProps extends JSX.HTMLAttributes<HTMLAnchorElement> {
   href: string;
-  replace?: boolean; // İsteğe bağlı: geçmiş durumunu değiştir
 }
 
 /**
- * Verilen URL'nin harici olup olmadığını belirleyen yardımcı işlev.
- * URL http:// veya https:// ile başlıyorsa harici olarak kabul edilir.
+ * Belirli bir URL'nin harici olup olmadığını kontrol eden yardımcı işlev.
+ * URL http:// veya https:// ile başlıyorsa, harici kabul edilir.
  */
 export const checkIsExternalLink = (href?: string): boolean =>
   /^https?:\/\//.test(href ?? "");
 
 /**
- * Geçerli yerel ayara göre href niteliğini uyarlayan özel bir Link bileşeni.
- * Dahili bağlantılar için `getLocalizedUrl` kullanarak URL'yi yerel ayar ile önekler (örneğin, /fr/about).
- * Bu, navigasyonun aynı yerel ayar bağlamında kalmasını sağlar.
- * Standart <a> etiketi kullanır ancak preact-iso'nun `route` ile istemci tarafı navigasyon tetikleyebilir.
+ * Mevcut yerel ayara göre href niteliğini uyarlayan özel bir Link bileşeni.
+ * Dahili bağlantılar için, URL'nin önüne yerel ayarı eklemek için `getLocalizedUrl` kullanır (örneğin, /fr/about).
+ * Bu, gezinmenin aynı yerel ayar bağlamında kalmasını sağlar.
  */
-export const LocalizedLink = forwardRef<HTMLAnchorElement, LocalizedLinkProps>(
-  ({ href, children, onClick, replace = false, ...props }, ref) => {
+export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
+  ({ href, children, ...props }, ref) => {
     const { locale } = useLocale();
-    const location = useLocation(); // preact-iso'dan
     const isExternalLink = checkIsExternalLink(href);
 
+    // Bağlantı dahiliyse ve geçerli bir href sağlanmışsa, yerelleştirilmiş URL'yi alın.
     const hrefI18n =
       href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
 
-    const handleClick = (event: JSX.TargetedMouseEvent<HTMLAnchorElement>) => {
-      if (onClick) {
-        onClick(event);
-      }
-      if (
-        !isExternalLink &&
-        href && // href'nin tanımlandığından emin ol
-        event.button === 0 && // Sol tıklama
-        !event.metaKey &&
-        !event.ctrlKey &&
-        !event.shiftKey &&
-        !event.altKey && // Standart değiştirici kontrolü
-        !props.target // Yeni sekme/pencere hedeflenmiyor
-      ) {
-        event.preventDefault();
-        if (location.url !== hrefI18n) {
-          // URL farklıysa sadece gezin
-          route(hrefI18n, replace); // preact-iso'nun route'unu kullan
-        }
-      }
-    };
-
     return (
-      <a href={hrefI18n} ref={ref} onClick={handleClick} {...props}>
+      <a href={hrefI18n} ref={ref} {...props}>
         {children}
       </a>
     );
   }
 );
+
+Link.displayName = "Link";
 ```
 
-```jsx fileName="src/components/LocalizedLink.jsx" codeFormat="esm"
+```jsx fileName="src/components/Link.jsx" codeFormat="esm"
 import { getLocalizedUrl } from "intlayer";
 import { useLocale } from "preact-intlayer";
-import { useLocation, route } from "preact-iso"; // preact-iso'dan içe aktar
 import { forwardRef } from "preact/compat";
-import { h } from "preact"; // JSX için
 
+/**
+ * Belirli bir URL'nin harici olup olmadığını kontrol eden yardımcı işlev.
+ * URL http:// veya https:// ile başlıyorsa, harici kabul edilir.
+ */
 export const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? "");
 
-export const LocalizedLink = forwardRef(
-  ({ href, children, onClick, replace = false, ...props }, ref) => {
-    const { locale } = useLocale();
-    const location = useLocation();
-    const isExternalLink = checkIsExternalLink(href);
+/**
+ * Mevcut yerel ayara göre href niteliğini uyarlayan özel bir Link bileşeni.
+ * Dahili bağlantılar için, URL'nin önüne yerel ayarı eklemek için `getLocalizedUrl` kullanır (örneğin, /fr/about).
+ * Bu, gezinmenin aynı yerel ayar bağlamında kalmasını sağlar.
+ */
+export const Link = forwardRef(({ href, children, ...props }, ref) => {
+  const { locale } = useLocale();
+  const isExternalLink = checkIsExternalLink(href);
 
-    const hrefI18n =
-      href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
+  // Bağlantı dahiliyse ve geçerli bir href sağlanmışsa, yerelleştirilmiş URL'yi alın.
+  const hrefI18n =
+    href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
 
-    const handleClick = (event) => {
-      if (onClick) {
-        onClick(event);
-      }
-      if (
-        !isExternalLink &&
-        href &&
-        event.button === 0 &&
-        !event.metaKey &&
-        !event.ctrlKey &&
-        !event.shiftKey &&
-        !event.altKey &&
-        !props.target
-      ) {
-        event.preventDefault();
-        if (location.url !== hrefI18n) {
-          route(hrefI18n, replace);
-        }
-      }
-    };
+  return (
+    <a href={hrefI18n} ref={ref} {...props}>
+      {children}
+    </a>
+  );
+});
 
-    return (
-      <a href={hrefI18n} ref={ref} onClick={handleClick} {...props}>
-        {children}
-      </a>
-    );
-  }
-);
+Link.displayName = "Link";
 ```
 
-```jsx fileName="src/components/LocalizedLink.cjsx" codeFormat="commonjs"
+```jsx fileName="src/components/Link.cjsx" codeFormat="commonjs"
 const { getLocalizedUrl } = require("intlayer");
 const { useLocale } = require("preact-intlayer");
-const { useLocation, route } = require("preact-iso"); // preact-iso'dan içe aktar
 const { forwardRef } = require("preact/compat");
-const { h } = require("preact"); // JSX için
 
+/**
+ * Belirli bir URL'nin harici olup olmadığını kontrol eden yardımcı işlev.
+ * URL http:// veya https:// ile başlıyorsa, harici kabul edilir.
+ */
 const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? "");
 
-const LocalizedLink = forwardRef(
-  ({ href, children, onClick, replace = false, ...props }, ref) => {
-    const { locale } = useLocale();
-    const location = useLocation();
-    const isExternalLink = checkIsExternalLink(href);
+/**
+ * Mevcut yerel ayara göre href niteliğini uyarlayan özel bir Link bileşeni.
+ * Dahili bağlantılar için, URL'nin önüne yerel ayarı eklemek için `getLocalizedUrl` kullanır (örneğin, /fr/about).
+ * Bu, gezinmenin aynı yerel ayar bağlamında kalmasını sağlar.
+ */
+const Link = forwardRef(({ href, children, ...props }, ref) => {
+  const { locale } = useLocale();
+  const isExternalLink = checkIsExternalLink(href);
 
-    const hrefI18n =
-      href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
+  // Bağlantı dahiliyse ve geçerli bir href sağlanmışsa, yerelleştirilmiş URL'yi alın.
+  const hrefI18n =
+    href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
 
-    const handleClick = (event) => {
-      if (onClick) {
-        onClick(event);
-      }
-      if (
-        !isExternalLink &&
-        href &&
-        event.button === 0 &&
-        !event.metaKey &&
-        !event.ctrlKey &&
-        !event.shiftKey &&
-        !event.altKey &&
-        !props.target
-      ) {
-        event.preventDefault();
-        if (location.url !== hrefI18n) {
-          route(hrefI18n, replace);
-        }
-      }
-    };
+  return h(
+    "a",
+    {
+      href: hrefI18n,
+      ref: ref,
+      ...props,
+    },
+    children
+  );
+});
 
-    return (
-      <a href={hrefI18n} ref={ref} onClick={handleClick} {...props}>
-        {children}
-      </a>
-    );
-  }
-);
+Link.displayName = "Link";
 
-module.exports = { LocalizedLink, checkIsExternalLink };
+module.exports = { Link, checkIsExternalLink };
 ```
 
 #### Nasıl Çalışır
 
-- **Harici Bağlantıları Algılama**:
-  Yardımcı işlev `checkIsExternalLink`, bir URL'nin harici olup olmadığını belirler. Harici bağlantılar değişmeden bırakılır.
-- **Geçerli Yerel Ayarı Alma**:
-  `useLocale` kancası geçerli yerel ayarı sağlar.
-- **URL'yi Yerelleştirme**:
-  Dahili bağlantılar için `getLocalizedUrl`, URL'yi geçerli yerel ayar ile önekler.
-- **İstemci Tarafı Navigasyon**:
-  `handleClick` işlevi, standart navigasyonun engellenip engellenmeyeceğini kontrol eder. Öyleyse, `useLocation` aracılığıyla veya doğrudan içe aktarılarak elde edilen preact-iso'nun `route` işlevini kullanarak istemci tarafı navigasyon gerçekleştirir. Bu, tam sayfa yeniden yüklemesi olmadan SPA benzeri davranış sağlar.
-- **Bağlantıyı Döndürme**:
-  Bileşen, yerelleştirilmiş URL ve özel tıklama işleyicisi ile bir `<a>` etiketi döndürür.
+- **Harici Bağlantıları Algılama**:  
+  Yardımcı işlev `checkIsExternalLink`, bir URL'nin harici olup olmadığını belirler. Harici bağlantılar yerelleştirme gerektirmediği için değiştirilmeden bırakılır.
+- **Mevcut Yerel Ayarı Alma**:  
+  `useLocale` kancası mevcut yerel ayarı sağlar (örneğin, Fransızca için `fr`).
+- **URL'yi Yerelleştirme**:  
+  Dahili bağlantılar (yani harici olmayanlar) için, URL'nin önüne mevcut yerel ayarı otomatik olarak eklemek için `getLocalizedUrl` kullanılır. Bu, kullanıcınız Fransızca ise, `/about` u `href` olarak geçirmenin onu `/fr/about` a dönüştüreceği anlamına gelir.
+- **Bağlantıyı Döndürme**:  
+  Bileşen, yerelleştirilmiş URL ile bir `<a>` öğesi döndürür ve gezinmenin yerel ayar ile tutarlı olmasını sağlar.
 
-### TypeScript Yapılandırın
+### (İsteğe Bağlı) Adım 11: Markdown ve HTML İşleme
 
-Intlayer, modül genişletmesi kullanarak TypeScript avantajlarından yararlanır.
+Intlayer, Preact'te Markdown ve HTML içeriğinin işlenmesini destekler.
+
+`.use()` yöntemini kullanarak Markdown ve HTML içeriğinin işlenmesini özelleştirebilirsiniz. Bu yöntem, belirli etiketlerin varsayılan işlenmesini geçersiz kılmanıza olanak tanır.
+
+```tsx
+import { useIntlayer } from "preact-intlayer";
+
+const { myMarkdownContent, myHtmlContent } = useIntlayer("my-component");
+
+// ...
+
+return (
+  <div>
+    {/* Temel işleme */}
+    {myMarkdownContent}
+
+    {/* Markdown için özel işleme */}
+    {myMarkdownContent.use({
+      h1: (props) => <h1 style={{ color: "red" }} {...props} />,
+    })}
+
+    {/* HTML için temel işleme */}
+    {myHtmlContent}
+
+    {/* HTML için özel işleme */}
+    {myHtmlContent.use({
+      b: (props) => <strong style={{ color: "blue" }} {...props} />,
+    })}
+  </div>
+);
+```
+
+### TypeScript'i Yapılandırın
+
+Intlayer, TypeScript'in avantajlarından yararlanmak ve kod tabanınızı daha güçlü hale getirmek için modül genişletmesini kullanır.
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
 ![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
-Otomatik oluşturulan türleri TypeScript yapılandırmanıza dahil edin.
+TypeScript yapılandırmanızın otomatik olarak oluşturulan türleri içerdiğinden emin olun.
 
 ```json5 fileName="tsconfig.json"
 {
@@ -1662,38 +1329,38 @@ Otomatik oluşturulan türleri TypeScript yapılandırmanıza dahil edin.
 }
 ```
 
-> Preact için `tsconfig.json`'unuzu ayarladığınızdan emin olun, özellikle `jsx` ve `jsxImportSource` veya eski Preact sürümleri için `jsxFactory`/`jsxFragmentFactory` yoksa `preset-vite`'nin varsayılanlarını kullanın.
+> `tsconfig.json` dosyanızın Preact için ayarlandığından emin olun, özellikle `jsx` ve `jsxImportSource` veya `preset-vite` varsayılanlarını kullanmıyorsanız eski Preact sürümleri için `jsxFactory`/`jsxFragmentFactory`.
 
 ### Git Yapılandırması
 
-Intlayer tarafından oluşturulan dosyaları Git deponuza kaydetmekten kaçınmak için bunları yok saymanız önerilir. Bu, bunları Git deponuza kaydetmekten kaçınmanıza olanak tanır.
+Intlayer tarafından oluşturulan dosyaları yok saymanız önerilir. Bu, onları Git deponuza göndermenizi önlemenizi sağlar.
 
-Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyin:
+Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirsiniz:
 
 ```plaintext
-# Intlayer tarafından oluşturulan dosyaları yok say
+# Intlayer tarafından oluşturulan dosyaları yoksay
 .intlayer
 ```
 
 ### VS Code Uzantısı
 
-Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Uzantısı**'nı kurun.
+Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Uzantısını** yükleyebilirsiniz.
 
 [VS Code Marketplace'ten yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Bu uzantı şunları sağlar:
 
-- **Çeviri anahtarları için otomatik tamamlama**.
-- **Eksik çeviriler için gerçek zamanlı hata algılama**.
-- **Çevrilmiş içeriğin satır içi önizlemeleri**.
-- **Çevirileri kolayca oluşturmak ve güncellemek için hızlı eylemler**.
+- Çeviri anahtarları için **otomatik tamamlama**.
+- Eksik çeviriler için **gerçek zamanlı hata algılama**.
+- Çevrilmiş içeriğin **satır içi önizlemeleri**.
+- Çevirileri kolayca oluşturmak ve güncellemek için **hızlı eylemler**.
 
-Uzantıyı kullanma hakkında daha fazla ayrıntı için [Intlayer VS Code Uzantısı dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakın.
+Uzantının nasıl kullanılacağı hakkında daha fazla ayrıntı için [Intlayer VS Code Uzantısı belgelerine](https://intlayer.org/doc/vs-code-extension) bakın.
 
 ---
 
-### Daha Fazla İlerle
+### Daha Fazla İlerleme
 
-Daha fazla ilerlemek için [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) kullanarak dışa aktarmayı uygulayabilirsiniz.
+Daha fazla ilerlemek için [görsel düzenleyiciyi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak içeriğinizi dışa aktarabilirsiniz.
 
 ---
