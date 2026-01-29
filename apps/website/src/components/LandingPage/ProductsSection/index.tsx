@@ -13,8 +13,8 @@ import { TranslateSection } from './TranslateSection';
 const PRODUCTS = [
   { Component: I18nCodebaseSection, key: 'i18n' },
   { Component: TranslateSection, key: 'translate' },
-  { Component: CMSSection, key: 'cms' },
   { Component: TMSSection, key: 'tms' },
+  { Component: CMSSection, key: 'cms' },
   { Component: FeatureFlagsSection, key: 'feature-flags' },
   { Component: AIABTestingSection, key: 'ab-testing' },
 ];
