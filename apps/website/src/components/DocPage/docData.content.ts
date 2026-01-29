@@ -933,6 +933,10 @@ const docDataContent: Dictionary = {
               title: 'Fastify',
               default: getDocMetadata('./docs/en/intlayer_with_fastify.md'),
             },
+            hono: {
+              title: 'Hono',
+              default: getDocMetadata('./docs/en/intlayer_with_hono.md'),
+            },
           },
         },
       },

@@ -64,6 +64,7 @@ COPY \
     --exclude=packages/react-native-intlayer \
     --exclude=packages/lynx-intlayer \
     --exclude=packages/express-intlayer \
+    --exclude=packages/hono-intlayer \
     --exclude=apps/website \
     --exclude=plugins \
     --exclude=docs/assets \

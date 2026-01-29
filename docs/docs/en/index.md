@@ -107,6 +107,7 @@ We’ve built Intlayer with flexibility in mind, offering seamless integration a
 - **[Intlayer with Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nuxt.md)**
 - **[Intlayer with Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_express.md)**
 - **[Intlayer with NestJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nestjs.md)**
+- **[Intlayer with Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_hono.md)**
 - **[Intlayer with Angular](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_angular.md)**
 
 Each integration guide includes best practices for using Intlayer’s features, like **server-side rendering**, **dynamic routing**, or **client-side rendering**, so you can maintain a fast, SEO-friendly, and highly scalable application.
@@ -137,6 +138,13 @@ Leverage Intlayer within **Express**-based apps:
 
 - **[t](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/express-intlayer/t.md)**  
   A minimal, straightforward translation helper for your server routes and views.
+
+### `hono-intlayer`
+
+Leverage Intlayer within **Hono**-based apps:
+
+- **[t](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/hono-intlayer/t.md)**  
+  A minimal, straightforward translation helper for your server routes.
 
 ### `react-intlayer`
 
