@@ -9,7 +9,7 @@ import {
   createContext,
   type FunctionComponent,
 } from 'preact';
-import { useContext } from 'preact/hooks';
+import { useContext, useEffect } from 'preact/hooks';
 import { IntlayerEditorProvider } from '../editor/IntlayerEditorProvider';
 import { useCrossFrameState } from '../editor/useCrossFrameState';
 import { localeInStorage, setLocaleInStorage } from './useLocaleStorage';
@@ -68,6 +68,12 @@ export const IntlayerProviderContent: FunctionComponent<
     MessageKey.INTLAYER_CURRENT_LOCALE,
     defaultLocale
   );
+
+  useEffect(() => {
+    if (localeProp && localeProp !== currentLocale) {
+      setCurrentLocale(localeProp);
+    }
+  }, [localeProp, currentLocale, setCurrentLocale]);
 
   const setLocaleBase = (newLocale: LocalesValues) => {
     if (currentLocale.toString() === newLocale.toString()) return;
