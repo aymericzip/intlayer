@@ -1,10 +1,3 @@
-/**
- * Constants for the framework-agnostic markdown processor.
- *
- * This is part of the Solution F (Hybrid AST + Callback Pattern) implementation
- * for GitHub Issue #289: Adapt markdown parser in custom packages
- */
-
 // ============================================================================
 // RULE TYPES
 // ============================================================================

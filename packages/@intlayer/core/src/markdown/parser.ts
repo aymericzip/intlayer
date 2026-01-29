@@ -1,11 +1,3 @@
-/**
- * Framework-agnostic markdown parser.
- * Converts markdown string to AST (Abstract Syntax Tree).
- *
- * This is part of the Solution F (Hybrid AST + Callback Pattern) implementation
- * for GitHub Issue #289: Adapt markdown parser in custom packages
- */
-
 import { DURATION_DELAY_TRIGGER } from './constants';
 import type { NestedParser, ParserResult, ParseState, Rules } from './types';
 import { normalizeWhitespace, qualifies } from './utils';

@@ -1,11 +1,3 @@
-/**
- * Framework-agnostic markdown renderer.
- * Converts AST to framework-specific elements using the provided runtime.
- *
- * This is part of the Solution F (Hybrid AST + Callback Pattern) implementation
- * for GitHub Issue #289: Adapt markdown parser in custom packages
- */
-
 import { DURATION_DELAY_TRIGGER } from './constants';
 import type {
   ParserResult,

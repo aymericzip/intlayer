@@ -1,13 +1,3 @@
-/**
- * React-specific MarkdownRuntime implementation.
- *
- * This provides the React-specific createElement, cloneElement, and Fragment
- * implementations for the framework-agnostic markdown processor.
- *
- * This is part of the Solution F (Hybrid AST + Callback Pattern) implementation
- * for GitHub Issue #289: Adapt markdown parser in custom packages
- */
-
 import type { HTMLTag, MarkdownRuntime } from '@intlayer/core';
 import {
   cloneElement,

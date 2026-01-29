@@ -1,10 +1,3 @@
-/**
- * Utility functions for the framework-agnostic markdown processor.
- *
- * This is part of the Solution F (Hybrid AST + Callback Pattern) implementation
- * for GitHub Issue #289: Adapt markdown parser in custom packages
- */
-
 import {
   ATTRIBUTES_TO_SANITIZE,
   CAPTURE_LETTER_AFTER_HYPHEN,

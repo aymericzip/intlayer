@@ -1,11 +1,3 @@
-/**
- * Framework-agnostic markdown processor types.
- * No framework-specific imports allowed in this file.
- *
- * This is part of the Solution F (Hybrid AST + Callback Pattern) implementation
- * for GitHub Issue #289: Adapt markdown parser in custom packages
- */
-
 // ============================================================================
 // RUNTIME TYPES - Framework adapters provide these
 // ============================================================================

@@ -1,3 +1,9 @@
+/**
+ * it's a fork
+ * [markdown-to-jsx v7.7.14](https://github.com/quantizor/markdown-to-jsx) from quantizor
+ * [simple-markdown v0.2.2](https://github.com/Khan/simple-markdown) from Khan Academy.
+ */
+
 import {
   compile as coreCompile,
   sanitizer as defaultSanitizer,
@@ -5,7 +11,6 @@ import {
   type MarkdownContext,
   type MarkdownOptions,
   type MarkdownRuntime,
-  type ParseState,
   type RenderRuleHook,
   RuleType,
 } from '@intlayer/core';

@@ -1,11 +1,3 @@
-/**
- * Framework-agnostic markdown compiler.
- * Contains all rules and the main compile function.
- *
- * This is part of the Solution F (Hybrid AST + Callback Pattern) implementation
- * for GitHub Issue #289: Adapt markdown parser in custom packages
- */
-
 import {
   ATTR_EXTRACTOR_R,
   ATTRIBUTE_TO_NODE_PROP_MAP,
