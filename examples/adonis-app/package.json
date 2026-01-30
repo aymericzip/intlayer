@@ -1,0 +1,20 @@
+{
+  "name": "adonis-app",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "bun run --watch server.ts",
+    "start": "bun run build/server.js"
+  },
+  "dependencies": {
+    "@adonisjs/core": "6.19.3",
+    "adonis-intlayer": "workspace:*",
+    "intlayer": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "25.0.10",
+    "typescript": "5.9.3"
+  }
+}

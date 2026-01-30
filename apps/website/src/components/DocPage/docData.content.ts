@@ -937,6 +937,10 @@ const docDataContent: Dictionary = {
               title: 'Hono',
               default: getDocMetadata('./docs/en/intlayer_with_hono.md'),
             },
+            adonis: {
+              title: 'Adonis',
+              default: getDocMetadata('./docs/en/intlayer_with_adonis.md'),
+            },
           },
         },
       },

@@ -379,6 +379,8 @@ export interface IInterpreterPlugin<T, S, L extends LocalesValues> {
   translation: TranslationCond<T, S, L>;
   enumeration: EnumerationCond<T, S, L>;
   condition: ConditionCond<T, S, L>;
+  insertion: InsertionCond<T, S, L>;
+  gender: GenderCond<T, S, L>;
   nested: NestedCond<T, S, L>;
   file: FileCond<T>;
 }
@@ -390,6 +392,8 @@ export type IInterpreterPluginState = {
   translation: true;
   enumeration: true;
   condition: true;
+  insertion: true;
+  gender: true;
   nested: true;
   file: true;
 };
