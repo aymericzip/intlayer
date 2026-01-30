@@ -9,7 +9,7 @@ import {
 } from '@intlayer/core';
 import type { DeclaredLocales, KeyPath, LocalesValues } from '@intlayer/types';
 import { NodeType } from '@intlayer/types';
-import { type ComponentType, Fragment, h, type VNode } from 'preact';
+import { Fragment, h, type VNode } from 'preact';
 import { ContentSelectorRenderer } from './editor';
 import { EditedContentRenderer } from './editor/useEditedContentRenderer';
 import { HTMLRenderer } from './html/HTMLRenderer';
@@ -94,16 +94,16 @@ export const preactNodePlugins: Plugins = {
  * INSERTION PLUGIN
  * --------------------------------------------- */
 
-export type InsertionCond<T, S, L> = T extends {
+export type InsertionCond<T, _S, _L> = T extends {
   nodeType: NodeType | string;
   [NodeType.Insertion]: string;
   fields: readonly string[];
 }
-  ? (
-      values: {
-        [K in T['fields'][number]]: string | number | VNode;
-      }
-    ) => VNode
+  ? <V extends { [K in T['fields'][number]]: VNode }>(
+      values: V
+    ) => V[keyof V] extends string | number
+      ? IntlayerNode<string>
+      : IntlayerNode<VNode>
   : never;
 
 /**
@@ -409,10 +409,10 @@ export const htmlPlugin: Plugins = {
  * PLUGINS RESULT
  * --------------------------------------------- */
 
-export interface IInterpreterPluginPreact<T, S, L extends LocalesValues> {
+export interface IInterpreterPluginPreact<T, _S, _L extends LocalesValues> {
   preactNode: PreactNodeCond<T>;
   preactIntlayerNode: IntlayerNodeCond<T>;
-  preactInsertion: InsertionCond<T, S, L>;
+  preactInsertion: InsertionCond<T>;
   preactMarkdown: MarkdownCond<T>;
   preactHtml: HTMLPluginCond<T>;
 }

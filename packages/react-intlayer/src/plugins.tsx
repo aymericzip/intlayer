@@ -105,11 +105,11 @@ export type InsertionCond<T> = T extends {
   [NodeType.Insertion]: string;
   fields: readonly string[];
 }
-  ? (
-      values: {
-        [K in T['fields'][number]]: ReactNode;
-      }
-    ) => ReactNode
+  ? <V extends { [K in T['fields'][number]]: ReactNode }>(
+      values: V
+    ) => V[keyof V] extends string | number
+      ? IntlayerNode<string>
+      : IntlayerNode<ReactNode>
   : never;
 
 /**

@@ -79,11 +79,11 @@ export type InsertionCond<T, _S, _L> = T extends {
   [NodeType.Insertion]: string;
   fields: readonly string[];
 }
-  ? (
-      values: {
-        [K in T['fields'][number]]: string | number | any;
-      }
-    ) => any
+  ? <V extends { [K in T['fields'][number]]: any }>(
+      values: V
+    ) => V[keyof V] extends string | number
+      ? IntlayerNode<string>
+      : IntlayerNode<any>
   : never;
 
 /**
@@ -459,7 +459,7 @@ export const htmlPlugin: Plugins = {
 
 export interface IInterpreterPluginSvelte<T, S, L extends LocalesValues> {
   svelteIntlayerNode: T extends string | number ? IntlayerNode<T> : never;
-  svelteInsertion: InsertionCond<T, S, L>;
+  svelteInsertion: InsertionCond<T>;
   svelteMarkdown: MarkdownCond<T, S, L>;
   svelteHtml: HTMLPluginCond<T>;
 }

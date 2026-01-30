@@ -94,11 +94,11 @@ export type InsertionCond<T, _S, _L> = T extends {
   [NodeType.Insertion]: string;
   fields: readonly string[];
 }
-  ? (
-      values: {
-        [K in T['fields'][number]]: string | number | VNode;
-      }
-    ) => VNode | VNode[]
+  ? <V extends { [K in T['fields'][number]]: VNode }>(
+      values: V
+    ) => V[keyof V] extends string | number
+      ? IntlayerNode<string>
+      : IntlayerNode<VNode | VNode[]>
   : never;
 
 /**
@@ -352,9 +352,9 @@ export const htmlPlugin: Plugins = {
  * PLUGINS RESULT
  * --------------------------------------------- */
 
-export interface IInterpreterPluginVue<T, S, L extends LocalesValues> {
+export interface IInterpreterPluginVue<T, _S, _L extends LocalesValues> {
   vueIntlayerNode: IntlayerNodeCond<T>;
-  vueInsertion: InsertionCond<T, S, L>;
+  vueInsertion: InsertionCond<T>;
   vueMarkdown: MarkdownCond<T>;
   vueHtml: HTMLPluginCond<T>;
 }

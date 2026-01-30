@@ -107,11 +107,11 @@ export type InsertionCond<T, _S, _L> = T extends {
   [NodeType.Insertion]: string;
   fields: readonly string[];
 }
-  ? (
-      values: {
-        [K in T['fields'][number]]: string | number | JSX.Element;
-      }
-    ) => JSX.Element
+  ? <V extends { [K in T['fields'][number]]: JSX.Element }>(
+      values: V
+    ) => V[keyof V] extends string | number
+      ? IntlayerNode<string>
+      : IntlayerNode<JSX.Element>
   : never;
 
 /**
@@ -399,10 +399,10 @@ export const htmlPlugin: Plugins = {
  *  PLUGINS RESULT
  *  --------------------------------------------- */
 
-export interface IInterpreterPluginSolid<T, S, L extends LocalesValues> {
+export interface IInterpreterPluginSolid<T, _S, _L extends LocalesValues> {
   solidNode: SolidNodeCond<T>;
   solidIntlayerNode: IntlayerNodeCond<T>;
-  solidInsertion: InsertionCond<T, S, L>;
+  solidInsertion: InsertionCond<T>;
   solidMarkdown: MarkdownCond<T>;
   solidHtml: HTMLPluginCond<T>;
 }
