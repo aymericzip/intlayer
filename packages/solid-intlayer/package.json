@@ -1,6 +1,6 @@
 {
   "name": "solid-intlayer",
-  "version": "8.0.0",
+  "version": "8.0.1-canary.0",
   "private": false,
   "description": "Easily internationalize i18n your Solid applications with type-safe multilingual content management.",
   "keywords": [
