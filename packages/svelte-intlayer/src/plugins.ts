@@ -27,7 +27,10 @@ import { type IntlayerNode, renderIntlayerNode } from './renderIntlayerNode';
  * Interface for Svelte-specific plugin functionality
  * This interface can be augmented to add more Svelte-specific transformations
  */
-export type IInterpreterPluginState = IInterpreterPluginStateCore & {
+export type IInterpreterPluginState = Omit<
+  IInterpreterPluginStateCore,
+  'insertion' // Remove insertion type from core package
+> & {
   svelteIntlayerNode: true;
   svelteInsertion: true;
   svelteMarkdown: true;

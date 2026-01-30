@@ -420,12 +420,15 @@ export type IInterpreterPluginReact<T, _S, _L extends LocalesValues> = {
  *
  * Otherwise the the `react-intlayer` plugins will override the types of `intlayer` functions.
  */
-export type IInterpreterPluginState = IInterpreterPluginStateCore & {
+export type IInterpreterPluginState = Omit<
+  IInterpreterPluginStateCore,
+  'insertion' // Remove insertion type from core package
+> & {
   reactNode: true;
   reactIntlayerNode: true;
-  reactInsertion: true;
   reactMarkdown: true;
   reactHtml: true;
+  reactInsertion: true;
 };
 
 export type DeepTransformContent<

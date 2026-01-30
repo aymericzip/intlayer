@@ -395,7 +395,10 @@ export interface IInterpreterPluginAngular<T, S, L extends LocalesValues> {
  *
  * Otherwise the the `angular-intlayer` plugins will override the types of `intlayer` functions.
  */
-export type IInterpreterPluginState = IInterpreterPluginStateCore & {
+export type IInterpreterPluginState = Omit<
+  IInterpreterPluginStateCore,
+  'insertion' // Remove insertion type from core package
+> & {
   angularIntlayerNode: true;
   angularMarkdown: true;
   angularHtml: true;
