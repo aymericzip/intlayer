@@ -939,7 +939,7 @@ const docDataContent: Dictionary = {
             },
             adonis: {
               title: 'Adonis',
-              default: getDocMetadata('./docs/en/intlayer_with_adonis.md'),
+              default: getDocMetadata('./docs/en/intlayer_with_adonisjs.md'),
             },
           },
         },
