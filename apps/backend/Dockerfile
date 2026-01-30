@@ -2,7 +2,7 @@
 
 FROM node:22-alpine AS builder
 
-RUN npm install -g bun@1.3.7
+RUN npm install -g bun@1.3.8
 
 RUN apk add --no-cache curl
 
