@@ -31,6 +31,7 @@ export const loadEnvFile = (options?: Partial<LoadEnvFileOptions>) => {
   dotenv.config({
     path: envFiles,
     processEnv: result,
+    quiet: true,
   });
 
   return result; // Return the parsed env object
