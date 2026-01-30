@@ -44,8 +44,9 @@ Intlayer 支持 HTML 内容，允许你在字典中嵌入丰富的结构化内�
 
     const htmlDictionary = {
       key: "app",
+      contentAutoTransformation: true, // 可在配置文件中设置
       content: {
-        myHtmlContent: html("<p>Hello <strong>World</strong></p>"),
+        myHtmlContent:  html("<p>Hello <strong>World</strong></p>"),
       },
     } satisfies Dictionary;
 
@@ -59,8 +60,9 @@ Intlayer 支持 HTML 内容，允许你在字典中嵌入丰富的结构化内�
     ```typescript fileName="htmlDictionary.content.ts"
     export default {
       key: "app",
+      contentAutoTransformation: true, // 可在配置文件中设置
       content: {
-        myHtmlContent: "<p>Hello <strong>World</strong></p>",
+        myHtmlContent:  "<p>Hello <strong>World</strong></p>",
       },
     };
     ```

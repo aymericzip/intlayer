@@ -44,8 +44,9 @@ Intlayer HTML सामग्री का समर्थन करता ह�
 
     const htmlDictionary = {
       key: "app",
+      contentAutoTransformation: true, // कॉन्फ़िग फ़ाइल में सेट किया जा सकता है
       content: {
-        myHtmlContent: html("<p>हैलो <strong>वर्ल्ड</strong></p>"),
+        myHtmlContent:  html("<p>हैलो <strong>वर्ल्ड</strong></p>"),
       },
     } satisfies Dictionary;
 
@@ -59,8 +60,9 @@ Intlayer HTML सामग्री का समर्थन करता ह�
     ```typescript fileName="htmlDictionary.content.ts"
     export default {
       key: "app",
+      contentAutoTransformation: true, // कॉन्फ़िग फ़ाइल में सेट किया जा सकता है
       content: {
-        myHtmlContent: "<p>हैलो <strong>वर्ल्ड</strong></p>",
+        myHtmlContent:  "<p>हैलो <strong>वर्ल्ड</strong></p>",
       },
     };
     ```

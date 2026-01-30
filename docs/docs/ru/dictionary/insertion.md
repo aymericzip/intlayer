@@ -35,65 +35,119 @@ history:
 
 ## Настройка вставки контента
 
-Чтобы настроить вставку контента в вашем проекте Intlayer, создайте модуль контента, который включает ваши определения вставок. Ниже приведены примеры в различных форматах.
+Чтобы настроить вставку контента в вашем проекте Intlayer, создайте модуль контента, который включает ваши определения вставок.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { insert, type Dictionary } from "intlayer";
+<Tabs>
+  <Tab label="Ручная обертка" value="manual-wrapping">
+    Используйте функцию `insert` для явного объявления контента для вставки.
 
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("Привет, меня зовут {{name}} и мне {{age}} лет!"),
-    myInsertion2: "Привет, меня зовут {{name}} и мне {{age}} лет!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-} satisfies Dictionary;
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    import { insert, type Dictionary } from "intlayer";
 
-export default myInsertionContent;
-```
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert("Привет, меня зовут {{name}} и мне {{age}} лет!"),
+      },
+    } satisfies Dictionary;
 
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { insert } from "intlayer";
+    export default myInsertionContent;
+    ```
 
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("Привет, меня зовут {{name}} и мне {{age}} лет!"),
-    myInsertion2: "Привет, меня зовут {{name}} и мне {{age}} лет!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-};
+    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+    import { insert } from "intlayer";
 
-export default myInsertionContent;
-```
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert("Привет, меня зовут {{name}} и мне {{age}} лет!"),
+      },
+    };
 
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { insert } = require("intlayer");
+    export default myInsertionContent;
+    ```
 
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("Привет, меня зовут {{name}} и мне {{age}} лет!"),
-    myInsertion2: "Привет, меня зовут {{name}} и мне {{age}} лет!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-};
+    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+    const { insert } = require("intlayer");
 
-module.exports = myInsertionContent;
-```
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert("Привет, меня зовут {{name}} и мне {{age}} лет!"),
+      },
+    };
 
-```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "my_key",
-  "content": {
-    "myInsertion": {
-      "nodeType": "insertion",
-      "insertion": "Привет, меня зовут {{name}} и мне {{age}} лет!",
-    },
-    "myInsertion2": "Привет, меня зовут {{name}} и мне {{age}} лет!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-}
-```
+    module.exports = myInsertionContent;
+    ```
+
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": {
+          "nodeType": "insertion",
+          "insertion": "Привет, меня зовут {{name}} и мне {{age}} лет!",
+        },
+      },
+    }
+    ```
+
+  </Tab>
+  <Tab label="Автоматическое обнаружение" value="automatic-detection">
+    Если строка содержит общие индикаторы вставки (например, `{{name}}`), Intlayer автоматически преобразует ее.
+
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    import { type Dictionary } from "intlayer";
+
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "Привет, меня зовут {{name}} и мне {{age}} лет!",
+      },
+    } satisfies Dictionary;
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "Привет, меня зовут {{name}} и мне {{age}} лет!",
+      },
+    };
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "Привет, меня зовут {{name}} и мне {{age}} лет!",
+      },
+    };
+
+    module.exports = myInsertionContent;
+    ```
+
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": "Привет, меня зовут {{name}} и мне {{age}} лет!",
+      },
+    }
+    ```
+
+  </Tab>
+</Tabs>
 
 ## Использование вставочного контента с React Intlayer
 

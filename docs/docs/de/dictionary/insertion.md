@@ -35,24 +35,125 @@ Wenn Intlayer mit React Intlayer oder Next Intlayer integriert ist, können Sie 
 
 ## Einfügeinhalt einrichten
 
-Um Einfügeinhalt in Ihrem Intlayer-Projekt einzurichten, erstellen Sie ein Inhaltsmodul, das Ihre Einfügedefinitionen enthält. Nachfolgend finden Sie Beispiele in verschiedenen Formaten.
+Um Einfügeinhalt in Ihrem Intlayer-Projekt einzurichten, erstellen Sie ein Inhaltsmodul, das Ihre Einfügedefinitionen enthält.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { insert, type Dictionary } from "intlayer";
+<Tabs>
+  <Tab label="Manuelles Wrapping" value="manual-wrapping">
+    Verwenden Sie die Funktion `insert`, um Einfügeinhalt explizit zu deklarieren.
 
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert(
-      "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!"
-    ),
-    myInsertion2:
-      "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-} satisfies Dictionary;
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    import { insert, type Dictionary } from "intlayer";
 
-export default myInsertionContent;
-```
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert(
+          "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!"
+        ),
+      },
+    } satisfies Dictionary;
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+    import { insert } from "intlayer";
+
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert(
+          "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!"
+        ),
+      },
+    };
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+    const { insert } = require("intlayer");
+
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert(
+          "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!"
+        ),
+      },
+    };
+
+    module.exports = myInsertionContent;
+    ```
+
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": {
+          "nodeType": "insertion",
+          "insertion": "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!",
+        },
+      },
+    }
+    ```
+
+  </Tab>
+  <Tab label="Automatische Erkennung" value="automatic-detection">
+    Wenn der String gängige Einfügeindikatoren (wie `{{name}}`) enthält, wird Intlayer ihn automatisch transformieren.
+
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    import { type Dictionary } from "intlayer";
+
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!",
+      },
+    } satisfies Dictionary;
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!",
+      },
+    };
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!",
+      },
+    };
+
+    module.exports = myInsertionContent;
+    ```
+
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!",
+      },
+    }
+    ```
+
+  </Tab>
+</Tabs>
 
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
 import { insert } from "intlayer";

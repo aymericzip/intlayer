@@ -35,69 +35,123 @@ history:
 
 ## 设置插入内容
 
-要在您的 Intlayer 项目中设置插入内容，请创建一个包含插入定义的内容模块。以下是各种格式的示例。
+要在您的 Intlayer 项目中设置插入内容，请创建一个包含插入定义的内容模块。
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { insert, type Dictionary } from "intlayer";
+<Tabs>
+  <Tab label="手动包裹" value="manual-wrapping">
+    使用 `insert` 函数显式声明插入内容。
 
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert(
-      "你好，我的名字是 {{name}}，我今年 {{age}} 岁！" // 插入的字符串，包含动态占位符
-    ),
-    myInsertion2: "你好，我的名字是 {{name}}，我今年 {{age}} 岁！", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-} satisfies Dictionary;
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    import { insert, type Dictionary } from "intlayer";
 
-export default myInsertionContent;
-```
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert(
+          "你好，我的名字是 {{name}}，我今年 {{age}} 岁！"
+        ),
+      },
+    } satisfies Dictionary;
 
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { insert } from "intlayer";
+    export default myInsertionContent;
+    ```
 
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert(
-      "你好，我的名字是 {{name}}，我今年 {{age}} 岁！" // 插入的字符串，包含动态占位符
-    ),
-    myInsertion2: "你好，我的名字是 {{name}}，我今年 {{age}} 岁！", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-};
+    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+    import { insert } from "intlayer";
 
-export default myInsertionContent;
-```
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert(
+          "你好，我的名字是 {{name}}，我今年 {{age}} 岁！"
+        ),
+      },
+    };
 
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { insert } = require("intlayer");
+    export default myInsertionContent;
+    ```
 
-/** @type {import('intlayer').Dictionary} */
-// 定义插入内容的字典类型
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("你好，我的名字是 {{name}}，我今年 {{age}} 岁！"),
-  },
-};
+    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+    const { insert } = require("intlayer");
 
-module.exports = myInsertionContent;
-```
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert("你好，我的名字是 {{name}}，我今年 {{age}} 岁！"),
+      },
+    };
 
-```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "my_key",
-  "content": {
-    "myInsertion": {
-      "nodeType": "insertion",
-      "insertion": "你好，我的名字是 {{name}}，我今年 {{age}} 岁！",
-    },
-    "myInsertion2": "你好，我的名字是 {{name}}，我今年 {{age}} 岁！", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-}
-```
+    module.exports = myInsertionContent;
+    ```
+
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": {
+          "nodeType": "insertion",
+          "insertion": "你好，我的名字是 {{name}}，我今年 {{age}} 岁！",
+        },
+      },
+    }
+    ```
+
+  </Tab>
+  <Tab label="自动检测" value="automatic-detection">
+    如果字符串包含常见的插入指示符（如 `{{name}}`），Intlayer 将自动对其进行转换。
+
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    import { type Dictionary } from "intlayer";
+
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "你好，我的名字是 {{name}}，我今年 {{age}} 岁！",
+      },
+    } satisfies Dictionary;
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "你好，我的名字是 {{name}}，我今年 {{age}} 岁！",
+      },
+    };
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "你好，我的名字是 {{name}}，我今年 {{age}} 岁！",
+      },
+    };
+
+    module.exports = myInsertionContent;
+    ```
+
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": "你好，我的名字是 {{name}}，我今年 {{age}} 岁！",
+      },
+    }
+    ```
+
+  </Tab>
+</Tabs>
 
 ## 在 React Intlayer 中使用插入内容
 

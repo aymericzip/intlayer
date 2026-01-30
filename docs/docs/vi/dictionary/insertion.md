@@ -35,20 +35,119 @@ Khi tích hợp với React Intlayer hoặc Next Intlayer, bạn chỉ cần cun
 
 ## Thiết Lập Nội Dung Chèn
 
-Để thiết lập nội dung chèn trong dự án Intlayer của bạn, hãy tạo một module nội dung bao gồm các định nghĩa chèn của bạn. Dưới đây là các ví dụ ở nhiều định dạng khác nhau.
+Để thiết lập nội dung chèn trong dự án Intlayer của bạn, hãy tạo một module nội dung bao gồm các định nghĩa chèn của bạn.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { insert, type Dictionary } from "intlayer";
+<Tabs>
+  <Tab label="Bọc thủ công" value="manual-wrapping">
+    Sử dụng hàm `insert` để khai báo nội dung chèn một cách rõ ràng.
 
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("Xin chào, tôi tên là {{name}} và tôi {{age}} tuổi!"),
-  },
-} satisfies Dictionary;
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    import { insert, type Dictionary } from "intlayer";
 
-export default myInsertionContent;
-```
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert("Xin chào, tôi tên là {{name}} và tôi {{age}} tuổi!"),
+      },
+    } satisfies Dictionary;
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+    import { insert } from "intlayer";
+
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert("Xin chào, tôi tên là {{name}} và tôi {{age}} tuổi!"),
+      },
+    };
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+    const { insert } = require("intlayer");
+
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert("Xin chào, tôi tên là {{name}} và tôi {{age}} tuổi!"),
+      },
+    };
+
+    module.exports = myInsertionContent;
+    ```
+
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": {
+          "nodeType": "insertion",
+          "insertion": "Xin chào, tôi tên là {{name}} và tôi {{age}} tuổi!",
+        },
+      },
+    }
+    ```
+
+  </Tab>
+  <Tab label="Phát hiện tự động" value="automatic-detection">
+    Nếu chuỗi chứa các chỉ báo chèn phổ biến (như `{{name}}`), Intlayer sẽ tự động chuyển đổi nó.
+
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    import { type Dictionary } from "intlayer";
+
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "Xin chào, tôi tên là {{name}} và tôi {{age}} tuổi!",
+      },
+    } satisfies Dictionary;
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "Xin chào, tôi tên là {{name}} và tôi {{age}} tuổi!",
+      },
+    };
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "Xin chào, tôi tên là {{name}} và tôi {{age}} tuổi!",
+      },
+    };
+
+    module.exports = myInsertionContent;
+    ```
+
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": "Xin chào, tôi tên là {{name}} và tôi {{age}} tuổi!",
+      },
+    }
+    ```
+
+  </Tab>
+</Tabs>
 
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
 import { insert } from "intlayer";

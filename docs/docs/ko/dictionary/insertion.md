@@ -35,71 +35,125 @@ React Intlayer 또는 Next Intlayer와 통합할 경우, 각 플레이스홀더�
 
 ## 삽입 콘텐츠 설정하기
 
-Intlayer 프로젝트에서 삽입 콘텐츠를 설정하려면, 삽입 정의를 포함하는 콘텐츠 모듈을 생성하세요. 아래는 다양한 형식의 예시입니다.
+Intlayer 프로젝트에서 삽입 콘텐츠를 설정하려면, 삽입 정의를 포함하는 콘텐츠 모듈을 생성하세요.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { insert, type Dictionary } from "intlayer";
+<Tabs>
+  <Tab label="수동 래핑" value="manual-wrapping">
+    삽입 콘텐츠를 명시적으로 선언하려면 `insert` 함수를 사용하세요.
 
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert(
-      "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!"
-    ),
-    myInsertion2: "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-} satisfies Dictionary;
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    import { insert, type Dictionary } from "intlayer";
 
-export default myInsertionContent;
-```
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert(
+          "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!"
+        ),
+      },
+    } satisfies Dictionary;
 
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { insert } from "intlayer";
+    export default myInsertionContent;
+    ```
 
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert(
-      "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!"
-    ),
-    myInsertion2: "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-};
+    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+    import { insert } from "intlayer";
 
-export default myInsertionContent;
-```
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert(
+          "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!"
+        ),
+      },
+    };
 
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { insert } = require("intlayer");
+    export default myInsertionContent;
+    ```
 
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert(
-      "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!"
-    ),
-    myInsertion2: "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-};
+    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+    const { insert } = require("intlayer");
 
-module.exports = myInsertionContent;
-```
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert(
+          "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!"
+        ),
+      },
+    };
 
-```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "my_key",
-  "content": {
-    "myInsertion": {
-      "nodeType": "insertion",
-      "insertion": "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!",
-    },
-    "myInsertion2": "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-}
-```
+    module.exports = myInsertionContent;
+    ```
+
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": {
+          "nodeType": "insertion",
+          "insertion": "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!",
+        },
+      },
+    }
+    ```
+
+  </Tab>
+  <Tab label="자동 감지" value="automatic-detection">
+    문자열에 일반적인 삽입 표시자(`{{name}}` 등)가 포함되어 있으면 Intlayer가 자동으로 변환합니다.
+
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    import { type Dictionary } from "intlayer";
+
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!",
+      },
+    } satisfies Dictionary;
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!",
+      },
+    };
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!",
+      },
+    };
+
+    module.exports = myInsertionContent;
+    ```
+
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!",
+      },
+    }
+    ```
+
+  </Tab>
+</Tabs>
 
 ## React Intlayer에서 삽입 콘텐츠 사용하기
 

@@ -44,8 +44,9 @@ Anda dapat menyatakan konten HTML menggunakan fungsi `html` atau cukup sebagai s
 
     const htmlDictionary = {
       key: "app",
+      contentAutoTransformation: true, // dapat diatur di file konfigurasi
       content: {
-        myHtmlContent: html("<p>Hello <strong>World</strong></p>"),
+        myHtmlContent:  html("<p>Hello <strong>World</strong></p>"),
       },
     } satisfies Dictionary;
 
@@ -59,8 +60,9 @@ Anda dapat menyatakan konten HTML menggunakan fungsi `html` atau cukup sebagai s
     ```typescript fileName="htmlDictionary.content.ts"
     export default {
       key: "app",
+      contentAutoTransformation: true, // dapat diatur di file konfigurasi
       content: {
-        myHtmlContent: "<p>Hello <strong>World</strong></p>",
+        myHtmlContent:  "<p>Hello <strong>World</strong></p>",
       },
     };
     ```

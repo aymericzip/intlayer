@@ -44,8 +44,9 @@ Bạn có thể khai báo nội dung HTML bằng hàm `html` hoặc đơn giản
 
     const htmlDictionary = {
       key: "app",
+      contentAutoTransformation: true, // có thể đặt trong tệp cấu hình
       content: {
-        myHtmlContent: html("<p>Hello <strong>World</strong></p>"),
+        myHtmlContent:  html("<p>Hello <strong>World</strong></p>"),
       },
     } satisfies Dictionary;
 
@@ -59,8 +60,9 @@ Bạn có thể khai báo nội dung HTML bằng hàm `html` hoặc đơn giản
     ```typescript fileName="htmlDictionary.content.ts"
     export default {
       key: "app",
+      contentAutoTransformation: true, // có thể đặt trong tệp cấu hình
       content: {
-        myHtmlContent: "<p>Hello <strong>World</strong></p>",
+        myHtmlContent:  "<p>Hello <strong>World</strong></p>",
       },
     };
     ```

@@ -35,23 +35,125 @@ Intlayer में, सम्मिलन कंटेंट `insertion` फ़�
 
 ## सम्मिलन कंटेंट सेटअप करना
 
-अपने Intlayer प्रोजेक्ट में सम्मिलन कंटेंट सेटअप करने के लिए, एक कंटेंट मॉड्यूल बनाएं जिसमें आपके सम्मिलन परिभाषाएँ शामिल हों। नीचे विभिन्न प्रारूपों में उदाहरण दिए गए हैं।
+अपने Intlayer प्रोजेक्ट में सम्मिलन कंटेंट सेटअप करने के लिए, एक कंटेंट मॉड्यूल बनाएं जिसमें आपके सम्मिलन परिभाषाएँ शामिल हों।
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { insert, type Dictionary } from "intlayer";
+<Tabs>
+  <Tab label="मैनुअल रैपिंग" value="manual-wrapping">
+    सम्मिलन कंटेंट को स्पष्ट रूप से घोषित करने के लिए `insert` फ़ंक्शन का उपयोग करें।
 
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert(
-      "नमस्ते, मेरा नाम {{name}} है और मेरी उम्र {{age}} वर्ष है!"
-    ),
-    myInsertion2: "नमस्ते, मेरा नाम {{name}} है और मेरी उम्र {{age}} वर्ष है!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-} satisfies Dictionary;
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    import { insert, type Dictionary } from "intlayer";
 
-export default myInsertionContent;
-```
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert(
+          "नमस्ते, मेरा नाम {{name}} है और मेरी उम्र {{age}} वर्ष है!"
+        ),
+      },
+    } satisfies Dictionary;
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+    import { insert } from "intlayer";
+
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert(
+          "नमस्ते, मेरा नाम {{name}} है और मेरी उम्र {{age}} वर्ष है!"
+        ),
+      },
+    };
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+    const { insert } = require("intlayer");
+
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert(
+          "नमस्ते, मेरा नाम {{name}} है और मेरी उम्र {{age}} वर्ष है!"
+        ),
+      },
+    };
+
+    module.exports = myInsertionContent;
+    ```
+
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": {
+          "nodeType": "insertion",
+          "insertion": "नमस्ते, मेरा नाम {{name}} है और मेरी उम्र {{age}} वर्ष है!",
+        },
+      },
+    }
+    ```
+
+  </Tab>
+  <Tab label="स्वचालित पहचान" value="automatic-detection">
+    यदि स्ट्रिंग में सामान्य सम्मिलन संकेतक (जैसे `{{name}}`) हैं, तो Intlayer इसे स्वचालित रूप से बदल देगा।
+
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    import { type Dictionary } from "intlayer";
+
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "नमस्ते, मेरा नाम {{name}} है और मेरी उम्र {{age}} वर्ष है!",
+      },
+    } satisfies Dictionary;
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "नमस्ते, मेरा नाम {{name}} है और मेरी उम्र {{age}} वर्ष है!",
+      },
+    };
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "नमस्ते, मेरा नाम {{name}} है और मेरी उम्र {{age}} वर्ष है!",
+      },
+    };
+
+    module.exports = myInsertionContent;
+    ```
+
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": "नमस्ते, मेरा नाम {{name}} है और मेरी उम्र {{age}} वर्ष है!",
+      },
+    }
+    ```
+
+  </Tab>
+</Tabs>
 
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
 import { insert } from "intlayer";

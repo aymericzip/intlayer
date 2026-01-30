@@ -35,65 +35,119 @@ React Intlayer veya Next Intlayer ile entegre edildiğinde, her yer tutucu için
 
 ## Ekleme İçeriğini Ayarlama
 
-Intlayer projenizde ekleme içeriğini ayarlamak için, ekleme tanımlarınızı içeren bir içerik modülü oluşturun. Aşağıda çeşitli formatlarda örnekler verilmiştir.
+Intlayer projenizde ekleme içeriğini ayarlamak için, ekleme tanımlarınızı içeren bir içerik modülü oluşturun.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { insert, type Dictionary } from "intlayer";
+<Tabs>
+  <Tab label="Elle Sarma" value="manual-wrapping">
+    Ekleme içeriğini açıkça bildirmek için `insert` fonksiyonunu kullanın.
 
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("Merhaba, adım {{name}} ve {{age}} yaşındayım!"),
-    myInsertion2: "Merhaba, adım {{name}} ve {{age}} yaşındayım!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-} satisfies Dictionary;
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    import { insert, type Dictionary } from "intlayer";
 
-export default myInsertionContent;
-```
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert("Merhaba, adım {{name}} ve {{age}} yaşındayım!"),
+      },
+    } satisfies Dictionary;
 
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { insert } from "intlayer";
+    export default myInsertionContent;
+    ```
 
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("Merhaba, adım {{name}} ve {{age}} yaşındayım!"),
-    myInsertion2: "Merhaba, adım {{name}} ve {{age}} yaşındayım!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-};
+    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+    import { insert } from "intlayer";
 
-export default myInsertionContent;
-```
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert("Merhaba, adım {{name}} ve {{age}} yaşındayım!"),
+      },
+    };
 
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { insert } = require("intlayer");
+    export default myInsertionContent;
+    ```
 
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("Merhaba, adım {{name}} ve {{age}} yaşındayım!"),
-    myInsertion2: "Merhaba, adım {{name}} ve {{age}} yaşındayım!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-};
+    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+    const { insert } = require("intlayer");
 
-module.exports = myInsertionContent;
-```
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert("Merhaba, adım {{name}} ve {{age}} yaşındayım!"),
+      },
+    };
 
-```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "my_key",
-  "content": {
-    "myInsertion": {
-      "nodeType": "insertion",
-      "insertion": "Merhaba, adım {{name}} ve {{age}} yaşındayım!",
-    },
-    "myInsertion2": "Merhaba, adım {{name}} ve {{age}} yaşındayım!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-}
-```
+    module.exports = myInsertionContent;
+    ```
+
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": {
+          "nodeType": "insertion",
+          "insertion": "Merhaba, adım {{name}} ve {{age}} yaşındayım!",
+        },
+      },
+    }
+    ```
+
+  </Tab>
+  <Tab label="Otomatik Algılama" value="automatic-detection">
+    Dize yaygın ekleme göstergeleri (örneğin `{{name}}`) içeriyorsa, Intlayer bunu otomatik olarak dönüştürecektir.
+
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    import { type Dictionary } from "intlayer";
+
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "Merhaba, adım {{name}} ve {{age}} yaşındayım!",
+      },
+    } satisfies Dictionary;
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "Merhaba, adım {{name}} ve {{age}} yaşındayım!",
+      },
+    };
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "Merhaba, adım {{name}} ve {{age}} yaşındayım!",
+      },
+    };
+
+    module.exports = myInsertionContent;
+    ```
+
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": "Merhaba, adım {{name}} ve {{age}} yaşındayım!",
+      },
+    }
+    ```
+
+  </Tab>
+</Tabs>
 
 ## React Intlayer ile Ekleme İçeriğini Kullanma
 

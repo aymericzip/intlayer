@@ -14,7 +14,7 @@ slugs:
   - doc
   - environment
   - nest
-applicationTemplate: https://github.com/AydinTheFirst/nestjs-intlayer
+applicationTemplate: https://github.com/aymericzip/intlayer-nestjs-template
 history:
   - version: 7.5.9
     date: 2025-12-30

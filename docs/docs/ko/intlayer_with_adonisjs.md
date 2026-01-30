@@ -41,6 +41,16 @@ history:
 
 ## 시작하기
 
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-adonisjs-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+See [Application Template](https://github.com/aymericzip/intlayer-adonisjs-template) on GitHub.
+
 ### 설치
 
 `adonis-intlayer`를 사용하려면 npm을 사용하여 패키지를 설치하십시오.

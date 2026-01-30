@@ -35,65 +35,119 @@ history:
 
 ## إعداد محتوى الإدراج
 
-لإعداد محتوى الإدراج في مشروع Intlayer الخاص بك، أنشئ وحدة محتوى تتضمن تعريفات الإدراج الخاصة بك. فيما يلي أمثلة بصيغ مختلفة.
+لإعداد محتوى الإدراج في مشروع Intlayer الخاص بك، أنشئ وحدة محتوى تتضمن تعريفات الإدراج الخاصة بك.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { insert, type Dictionary } from "intlayer";
+<Tabs>
+  <Tab label="التغليف اليدوي" value="manual-wrapping">
+    استخدم دالة `insert` لإعلان محتوى الإدراج بشكل صريح.
 
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("مرحبًا، اسمي {{name}} وعمري {{age}} سنة!"),
-    myInsertion2: "مرحبًا، اسمي {{name}} وعمري {{age}} سنة!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-} satisfies Dictionary;
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    import { insert, type Dictionary } from "intlayer";
 
-export default myInsertionContent;
-```
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert("مرحبًا، اسمي {{name}} وعمري {{age}} سنة!"),
+      },
+    } satisfies Dictionary;
 
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { insert } from "intlayer";
+    export default myInsertionContent;
+    ```
 
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("مرحبًا، اسمي {{name}} وعمري {{age}} سنة!"),
-    myInsertion2: "مرحبًا، اسمي {{name}} وعمري {{age}} سنة!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-};
+    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+    import { insert } from "intlayer";
 
-export default myInsertionContent;
-```
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert("مرحبًا، اسمي {{name}} وعمري {{age}} سنة!"),
+      },
+    };
 
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { insert } = require("intlayer");
+    export default myInsertionContent;
+    ```
 
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("مرحبًا، اسمي {{name}} وعمري {{age}} سنة!"),
-    myInsertion2: "مرحبًا، اسمي {{name}} وعمري {{age}} سنة!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-};
+    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+    const { insert } = require("intlayer");
 
-module.exports = myInsertionContent;
-```
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert("مرحبًا، اسمي {{name}} وعمري {{age}} سنة!"),
+      },
+    };
 
-```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "my_key",
-  "content": {
-    "myInsertion": {
-      "nodeType": "insertion",
-      "insertion": "مرحبًا، اسمي {{name}} وعمري {{age}} سنة!",
-    },
-    "myInsertion2": "مرحبًا، اسمي {{name}} وعمري {{age}} سنة!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-}
-```
+    module.exports = myInsertionContent;
+    ```
+
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": {
+          "nodeType": "insertion",
+          "insertion": "مرحبًا، اسمي {{name}} وعمري {{age}} سنة!",
+        },
+      },
+    }
+    ```
+
+  </Tab>
+  <Tab label="الكشف التلقائي" value="automatic-detection">
+    إذا كان النص يحتوي على مؤشرات إدراج شائعة (مثل `{{name}}`)، سيقوم Intlayer بتحويله تلقائيًا.
+
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    import { type Dictionary } from "intlayer";
+
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "مرحبًا، اسمي {{name}} وعمري {{age}} سنة!",
+      },
+    } satisfies Dictionary;
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "مرحبًا، اسمي {{name}} وعمري {{age}} سنة!",
+      },
+    };
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "مرحبًا، اسمي {{name}} وعمري {{age}} سنة!",
+      },
+    };
+
+    module.exports = myInsertionContent;
+    ```
+
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": "مرحبًا، اسمي {{name}} وعمري {{age}} سنة!",
+      },
+    }
+    ```
+
+  </Tab>
+</Tabs>
 
 ## استخدام محتوى الإدراج مع React Intlayer
 

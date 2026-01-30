@@ -46,8 +46,9 @@ HTML içeriğini `html` fonksiyonunu kullanarak veya basitçe bir string olarak 
 
     const htmlDictionary = {
       key: "app",
+      contentAutoTransformation: true, // yapılandırma dosyasında ayarlanabilir
       content: {
-        myHtmlContent: html("<p>Merhaba <strong>Dünya</strong></p>"),
+        myHtmlContent:  html("<p>Merhaba <strong>Dünya</strong></p>"),
       },
     } satisfies Dictionary;
 
@@ -61,8 +62,9 @@ HTML içeriğini `html` fonksiyonunu kullanarak veya basitçe bir string olarak 
     ```typescript fileName="htmlDictionary.content.ts"
     export default {
       key: "app",
+      contentAutoTransformation: true, // yapılandırma dosyasında ayarlanabilir
       content: {
-        myHtmlContent: "<p>Merhaba <strong>Dünya</strong></p>",
+        myHtmlContent:  "<p>Merhaba <strong>Dünya</strong></p>",
       },
     };
     ```

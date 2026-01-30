@@ -35,23 +35,125 @@ Saat diintegrasikan dengan React Intlayer atau Next Intlayer, Anda cukup menyedi
 
 ## Menyiapkan Konten Penyisipan
 
-Untuk menyiapkan konten penyisipan dalam proyek Intlayer Anda, buat modul konten yang mencakup definisi penyisipan Anda. Berikut adalah contoh dalam berbagai format.
+Untuk menyiapkan konten penyisipan dalam proyek Intlayer Anda, buat modul konten yang mencakup definisi penyisipan Anda.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { insert, type Dictionary } from "intlayer";
+<Tabs>
+  <Tab label="Pembungkusan Manual" value="manual-wrapping">
+    Gunakan fungsi `insert` untuk mendeklarasikan konten penyisipan secara eksplisit.
 
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert(
-      "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!"
-    ),
-    myInsertion2: "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-} satisfies Dictionary;
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    import { insert, type Dictionary } from "intlayer";
 
-export default myInsertionContent;
-```
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert(
+          "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!"
+        ),
+      },
+    } satisfies Dictionary;
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+    import { insert } from "intlayer";
+
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert(
+          "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!"
+        ),
+      },
+    };
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+    const { insert } = require("intlayer");
+
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert(
+          "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!"
+        ),
+      },
+    };
+
+    module.exports = myInsertionContent;
+    ```
+
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": {
+          "nodeType": "insertion",
+          "insertion": "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!",
+        },
+      },
+    }
+    ```
+
+  </Tab>
+  <Tab label="Deteksi Otomatis" value="automatic-detection">
+    Jika string mengandung indikator penyisipan umum (seperti `{{name}}`), Intlayer akan secara otomatis mengubahnya.
+
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    import { type Dictionary } from "intlayer";
+
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!",
+      },
+    } satisfies Dictionary;
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!",
+      },
+    };
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!",
+      },
+    };
+
+    module.exports = myInsertionContent;
+    ```
+
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!",
+      },
+    }
+    ```
+
+  </Tab>
+</Tabs>
 
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
 import { insert } from "intlayer";

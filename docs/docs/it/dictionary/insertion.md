@@ -35,65 +35,119 @@ Quando integrato con React Intlayer o Next Intlayer, puoi semplicemente fornire 
 
 ## Configurare il Contenuto di Inserimento
 
-Per configurare il contenuto di inserimento nel tuo progetto Intlayer, crea un modulo di contenuto che includa le tue definizioni di inserimento. Di seguito sono riportati esempi in vari formati.
+Per configurare il contenuto di inserimento nel tuo progetto Intlayer, crea un modulo di contenuto che includa le tue definizioni di inserimento.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { insert, type Dictionary } from "intlayer";
+<Tabs>
+  <Tab label="Avvolgimento manuale" value="manual-wrapping">
+    Usa la funzione `insert` per dichiarare esplicitamente il contenuto dell'inserimento.
 
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("Ciao, mi chiamo {{name}} e ho {{age}} anni!"),
-    myInsertion2: "Ciao, mi chiamo {{name}} e ho {{age}} anni!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-} satisfies Dictionary;
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    import { insert, type Dictionary } from "intlayer";
 
-export default myInsertionContent;
-```
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert("Ciao, mi chiamo {{name}} e ho {{age}} anni!"),
+      },
+    } satisfies Dictionary;
 
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { insert } from "intlayer";
+    export default myInsertionContent;
+    ```
 
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("Ciao, mi chiamo {{name}} e ho {{age}} anni!"),
-    myInsertion2: "Ciao, mi chiamo {{name}} e ho {{age}} anni!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-};
+    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+    import { insert } from "intlayer";
 
-export default myInsertionContent;
-```
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert("Ciao, mi chiamo {{name}} e ho {{age}} anni!"),
+      },
+    };
 
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { insert } = require("intlayer");
+    export default myInsertionContent;
+    ```
 
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("Ciao, mi chiamo {{name}} e ho {{age}} anni!"),
-    myInsertion2: "Ciao, mi chiamo {{name}} e ho {{age}} anni!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-};
+    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+    const { insert } = require("intlayer");
 
-module.exports = myInsertionContent;
-```
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert("Ciao, mi chiamo {{name}} e ho {{age}} anni!"),
+      },
+    };
 
-```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "my_key",
-  "content": {
-    "myInsertion": {
-      "nodeType": "insertion",
-      "insertion": "Ciao, mi chiamo {{name}} e ho {{age}} anni!",
-    },
-    "myInsertion2": "Ciao, mi chiamo {{name}} e ho {{age}} anni!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-}
-```
+    module.exports = myInsertionContent;
+    ```
+
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": {
+          "nodeType": "insertion",
+          "insertion": "Ciao, mi chiamo {{name}} e ho {{age}} anni!",
+        },
+      },
+    }
+    ```
+
+  </Tab>
+  <Tab label="Rilevamento automatico" value="automatic-detection">
+    Se la stringa contiene indicatori di inserimento comuni (come `{{name}}`), Intlayer la trasformerà automaticamente.
+
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    import { type Dictionary } from "intlayer";
+
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "Ciao, mi chiamo {{name}} e ho {{age}} anni!",
+      },
+    } satisfies Dictionary;
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "Ciao, mi chiamo {{name}} e ho {{age}} anni!",
+      },
+    };
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "Ciao, mi chiamo {{name}} e ho {{age}} anni!",
+      },
+    };
+
+    module.exports = myInsertionContent;
+    ```
+
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": "Ciao, mi chiamo {{name}} e ho {{age}} anni!",
+      },
+    }
+    ```
+
+  </Tab>
+</Tabs>
 
 ## Utilizzo del contenuto di inserimento con React Intlayer
 

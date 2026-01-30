@@ -44,8 +44,9 @@ Intlayer підтримує HTML-контент, що дозволяє вбуд�
 
     const htmlDictionary = {
       key: "app",
+      contentAutoTransformation: true, // можна встановити у файлі конфігурації
       content: {
-        myHtmlContent: html("<p>Привіт <strong>Світ</strong></p>"),
+        myHtmlContent:  html("<p>Привіт <strong>Світ</strong></p>"),
       },
     } satisfies Dictionary;
 
@@ -59,8 +60,9 @@ Intlayer підтримує HTML-контент, що дозволяє вбуд�
     ```typescript fileName="htmlDictionary.content.ts"
     export default {
       key: "app",
+      contentAutoTransformation: true, // можна встановити у файлі конфігурації
       content: {
-        myHtmlContent: "<p>Привіт <strong>Світ</strong></p>",
+        myHtmlContent:  "<p>Привіт <strong>Світ</strong></p>",
       },
     };
     ```

@@ -35,21 +35,119 @@ Po integracji z React Intlayer lub Next Intlayer możesz po prostu dostarczyć o
 
 ## Konfiguracja treści wstawiania
 
-Aby skonfigurować treść wstawiania w swoim projekcie Intlayer, utwórz moduł treści, który zawiera definicje wstawek. Poniżej znajdują się przykłady w różnych formatach.
+Aby skonfigurować treść wstawiania w swoim projekcie Intlayer, utwórz moduł treści, który zawiera definicje wstawek.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { insert, type Dictionary } from "intlayer";
+<Tabs>
+  <Tab label="Ręczne opakowanie" value="manual-wrapping">
+    Użyj funkcji `insert`, aby jawnie zadeklarować treść wstawiania.
 
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("Cześć, mam na imię {{name}} i mam {{age}} lat!"),
-    myInsertion2: "Cześć, mam na imię {{name}} i mam {{age}} lat!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-} satisfies Dictionary;
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    import { insert, type Dictionary } from "intlayer";
 
-export default myInsertionContent;
-```
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert("Cześć, mam na imię {{name}} i mam {{age}} lat!"),
+      },
+    } satisfies Dictionary;
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+    import { insert } from "intlayer";
+
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert("Cześć, mam na imię {{name}} i mam {{age}} lat!"),
+      },
+    };
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+    const { insert } = require("intlayer");
+
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert("Cześć, mam na imię {{name}} i mam {{age}} lat!"),
+      },
+    };
+
+    module.exports = myInsertionContent;
+    ```
+
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": {
+          "nodeType": "insertion",
+          "insertion": "Cześć, mam na imię {{name}} i mam {{age}} lat!",
+        },
+      },
+    }
+    ```
+
+  </Tab>
+  <Tab label="Automatyczne wykrywanie" value="automatic-detection">
+    Jeśli ciąg znaków zawiera typowe wskaźniki wstawiania (takie jak `{{name}}`), Intlayer automatycznie go przekształci.
+
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    import { type Dictionary } from "intlayer";
+
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "Cześć, mam na imię {{name}} i mam {{age}} lat!",
+      },
+    } satisfies Dictionary;
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "Cześć, mam na imię {{name}} i mam {{age}} lat!",
+      },
+    };
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "Cześć, mam na imię {{name}} i mam {{age}} lat!",
+      },
+    };
+
+    module.exports = myInsertionContent;
+    ```
+
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": "Cześć, mam na imię {{name}} i mam {{age}} lat!",
+      },
+    }
+    ```
+
+  </Tab>
+</Tabs>
 
 ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
 import { insert } from "intlayer";

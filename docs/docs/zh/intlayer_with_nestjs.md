@@ -14,7 +14,7 @@ slugs:
   - doc
   - environment
   - nest
-applicationTemplate: https://github.com/AydinTheFirst/nestjs-intlayer
+applicationTemplate: https://github.com/aymericzip/intlayer-nestjs-template
 author: AydinTheFirst
 history:
   - version: 7.5.9
@@ -48,6 +48,16 @@ history:
 通过对后端进行国际化，您的应用不仅尊重文化差异，还能更好地符合全球市场需求，这使其成为扩展您的服务到全球的关键步骤。
 
 ## 入门指南
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-nestjs-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+See [Application Template](https://github.com/aymericzip/intlayer-nestjs-template) on GitHub.
 
 ### 创建一个新的 NestJS 项目
 

@@ -44,8 +44,9 @@ Puedes declarar contenido HTML mediante la función `html` o simplemente como un
 
     const htmlDictionary = {
       key: "app",
+      contentAutoTransformation: true, // puede configurarse en el archivo de configuración
       content: {
-        myHtmlContent: html("<p>Hello <strong>World</strong></p>"),
+        myHtmlContent:  html("<p>Hello <strong>World</strong></p>"),
       },
     } satisfies Dictionary;
 
@@ -59,8 +60,9 @@ Puedes declarar contenido HTML mediante la función `html` o simplemente como un
     ```typescript fileName="htmlDictionary.content.ts"
     export default {
       key: "app",
+      contentAutoTransformation: true, // puede configurarse en el archivo de configuración
       content: {
-        myHtmlContent: "<p>Hello <strong>World</strong></p>",
+        myHtmlContent:  "<p>Hello <strong>World</strong></p>",
       },
     };
     ```

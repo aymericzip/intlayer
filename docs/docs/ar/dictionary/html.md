@@ -44,8 +44,9 @@ history:
 
     const htmlDictionary = {
       key: "app",
+      contentAutoTransformation: true, // يمكن تعيينه في ملف التكوين
       content: {
-        myHtmlContent: html("<p>مرحبًا <strong>بالعالم</strong></p>"),
+        myHtmlContent:  html("<p>مرحبًا <strong>بالعالم</strong></p>"),
       },
     } satisfies Dictionary;
 
@@ -59,8 +60,9 @@ history:
     ```typescript fileName="htmlDictionary.content.ts"
     export default {
       key: "app",
+      contentAutoTransformation: true, // يمكن تعيينه في ملف التكوين
       content: {
-        myHtmlContent: "<p>مرحبًا <strong>بالعالم</strong></p>",
+        myHtmlContent:  "<p>مرحبًا <strong>بالعالم</strong></p>",
       },
     };
     ```

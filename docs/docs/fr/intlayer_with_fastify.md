@@ -40,6 +40,16 @@ En internationalisant le backend, votre application non seulement respecte les d
 
 ## Prise en main
 
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-fastify-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+Voir le [Modèle d’Application](https://github.com/aymericzip/intlayer-fastify-template) sur GitHub.
+
 ### Installation
 
 Pour commencer à utiliser `fastify-intlayer`, installez le package en utilisant npm :

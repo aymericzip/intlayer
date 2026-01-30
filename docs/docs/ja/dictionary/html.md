@@ -44,8 +44,9 @@ HTML コンテンツは `html` 関数を使って宣言するか、単に文字�
 
     const htmlDictionary = {
       key: "app",
+      contentAutoTransformation: true, // 設定ファイルで設定可能
       content: {
-        myHtmlContent: html("<p>Hello <strong>World</strong></p>"),
+        myHtmlContent:  html("<p>Hello <strong>World</strong></p>"),
       },
     } satisfies Dictionary;
 
@@ -59,8 +60,9 @@ HTML コンテンツは `html` 関数を使って宣言するか、単に文字�
     ```typescript fileName="htmlDictionary.content.ts"
     export default {
       key: "app",
+      contentAutoTransformation: true, // 設定ファイルで設定可能
       content: {
-        myHtmlContent: "<p>Hello <strong>World</strong></p>",
+        myHtmlContent:  "<p>Hello <strong>World</strong></p>",
       },
     };
     ```

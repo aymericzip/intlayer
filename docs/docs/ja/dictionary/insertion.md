@@ -35,71 +35,125 @@ React IntlayerやNext Intlayerと統合すると、各プレースホルダー�
 
 ## 挿入コンテンツの設定
 
-Intlayerプロジェクトで挿入コンテンツを設定するには、挿入定義を含むコンテンツモジュールを作成します。以下に様々な形式の例を示します。
+Intlayerプロジェクトで挿入コンテンツを設定するには、挿入定義を含むコンテンツモジュールを作成します。
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { insert, type Dictionary } from "intlayer";
+<Tabs>
+  <Tab label="手動ラッピング" value="manual-wrapping">
+    挿入コンテンツを明示的に宣言するには、`insert` 関数を使用します。
 
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert(
-      "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！"
-    ),
-    myInsertion2: "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-} satisfies Dictionary;
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    import { insert, type Dictionary } from "intlayer";
 
-export default myInsertionContent;
-```
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert(
+          "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！"
+        ),
+      },
+    } satisfies Dictionary;
 
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { insert } from "intlayer";
+    export default myInsertionContent;
+    ```
 
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert(
-      "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！"
-    ),
-    myInsertion2: "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-};
+    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+    import { insert } from "intlayer";
 
-export default myInsertionContent;
-```
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert(
+          "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！"
+        ),
+      },
+    };
 
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { insert } = require("intlayer");
+    export default myInsertionContent;
+    ```
 
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert(
-      "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！"
-    ),
-    myInsertion2: "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-};
+    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+    const { insert } = require("intlayer");
 
-module.exports = myInsertionContent;
-```
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert(
+          "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！"
+        ),
+      },
+    };
 
-```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "my_key",
-  "content": {
-    "myInsertion": {
-      "nodeType": "insertion",
-      "insertion": "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！",
-    },
-    "myInsertion2": "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-}
-```
+    module.exports = myInsertionContent;
+    ```
+
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": {
+          "nodeType": "insertion",
+          "insertion": "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！",
+        },
+      },
+    }
+    ```
+
+  </Tab>
+  <Tab label="自動検出" value="automatic-detection">
+    文字列に一般的な挿入インジケーター（`{{name}}` など）が含まれている場合、Intlayer はそれを自動的に変換します。
+
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    import { type Dictionary } from "intlayer";
+
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！",
+      },
+    } satisfies Dictionary;
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！",
+      },
+    };
+
+    export default myInsertionContent;
+    ```
+
+    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
+    /** @type {import('intlayer').Dictionary} */
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！",
+      },
+    };
+
+    module.exports = myInsertionContent;
+    ```
+
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": "こんにちは、私の名前は{{name}}で、年齢は{{age}}歳です！",
+      },
+    }
+    ```
+
+  </Tab>
+</Tabs>
 
 ## React Intlayerでの挿入コンテンツの使用
 
