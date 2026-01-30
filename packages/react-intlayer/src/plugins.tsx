@@ -196,12 +196,14 @@ export const insertionPlugin: Plugins = {
       typeof children === 'object' &&
       children !== null &&
       'nodeType' in children &&
-      (children.nodeType === NodeType.Enumeration ||
-        children.nodeType === NodeType.Condition)
+      [NodeType.Enumeration, NodeType.Condition].includes(
+        children.nodeType as NodeType
+      )
     ) {
       return (values: any) => (arg: any) => {
         const func = result as Function;
         const inner = func(arg);
+
         if (typeof inner === 'function') {
           return inner(values);
         }

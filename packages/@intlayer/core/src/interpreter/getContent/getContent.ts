@@ -10,7 +10,9 @@ import {
   type DeepTransformContent,
   enumerationPlugin,
   filePlugin,
+  genderPlugin,
   type IInterpreterPluginState,
+  insertionPlugin,
   type NodeProps,
   nestedPlugin,
   type Plugins,
@@ -43,6 +45,8 @@ export const getContent = <
     conditionPlugin,
     nestedPlugin(locale ?? defaultLocale),
     filePlugin,
+    insertionPlugin,
+    genderPlugin,
     ...(nodeProps.plugins ?? []),
   ];
 

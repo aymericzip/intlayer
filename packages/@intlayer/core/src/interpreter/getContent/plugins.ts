@@ -270,7 +270,7 @@ export const insertionPlugin: Plugins = {
  * GENDER PLUGIN
  * --------------------------------------------- */
 
-export type GenderCond<T, S, L> = T extends {
+export type GenderCond<T, S, _L> = T extends {
   nodeType: NodeType | string;
   [NodeType.Gender]: object;
 }
@@ -441,8 +441,8 @@ export type DeepTransformContent<
   L extends LocalesValues = DeclaredLocales,
 > = IsAny<T> extends true
   ? T
-  : CheckApplyPlugin<T, keyof IInterpreterPlugin<T, S, L>, S> extends never // Check if there is a plugin for T:
+  : CheckApplyPlugin<T, keyof IInterpreterPlugin<T, S, L>, S, L> extends never // Check if there is a plugin for T:
     ? // No plugin was found, so try to transform T recursively:
       Traverse<T, S, L>
     : // A plugin was found – use the plugin’s transformation.
-      IInterpreterPlugin<T, S, L>[keyof IInterpreterPlugin<T, S, L>];
+      CheckApplyPlugin<T, keyof IInterpreterPlugin<T, S, L>, S, L>;
