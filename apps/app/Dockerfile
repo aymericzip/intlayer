@@ -65,6 +65,7 @@ COPY \
     --exclude=packages/lynx-intlayer \
     --exclude=packages/express-intlayer \
     --exclude=packages/hono-intlayer \
+    --exclude=packages/adonis-intlayer \
     --exclude=apps/website \
     --exclude=plugins \
     --exclude=docs/assets \

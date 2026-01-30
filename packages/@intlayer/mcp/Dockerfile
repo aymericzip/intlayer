@@ -34,6 +34,8 @@ COPY \
     --exclude=packages/@intlayer/design-system \
     --exclude=packages/intlayer-editor \
     --exclude=packages/express-intlayer \
+    --exclude=packages/hono-intlayer \
+    --exclude=packages/adonis-intlayer \
     --exclude=docs/assets \
     --exclude=docs/blog \
     --exclude=docs/frequent_questions \
