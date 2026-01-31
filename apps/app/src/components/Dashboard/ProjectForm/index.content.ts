@@ -219,7 +219,7 @@ const projectFormContent = {
       title: t({
         en: 'Access keys',
         'en-GB': 'Access keys',
-        fr: "clés d'accès",
+        fr: "Clés d'accès",
         es: 'Claves de acceso',
         de: 'Zugangsschlüssel',
         ja: 'アクセスキー',
@@ -240,7 +240,7 @@ const projectFormContent = {
         en: 'Access keys are used to authenticate your project.',
         'en-GB': 'Access keys are used to authenticate your project.',
         fr: "Les clés d'accès sont utilisées pour authentifier votre projet.",
-        es: 'Las claves de acceso se utilizan para autenticar su proyecto',
+        es: 'Las claves de acceso se utilizan para autenticar su proyecto.',
         de: 'Zugangsschlüssel werden verwendet, um Ihr Projekt zu authentifizieren.',
         ja: 'アクセスキーはプロジェクトの認証に使用されます。',
         ko: '액세스 키는 프로젝트를 인증하는 데 사용됩니다.',
