@@ -7,6 +7,7 @@
     "ng": "ng",
     "serve:ssr:angular-app-19": "node dist/angular-app-19/server/server.mjs",
     "start": "ng serve",
+    "start:editor": "npx intlayer-editor start --with 'ng serve'",
     "test": "ng test",
     "watch": "ng build --watch --configuration development"
   },
