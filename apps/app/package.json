@@ -68,7 +68,7 @@
     "clsx": "2.1.1",
     "cobe": "0.6.5",
     "defu": "6.1.4",
-    "framer-motion": "12.29.2",
+    "framer-motion": "12.30.0",
     "fuse.js": "7.1.0",
     "intlayer": "workspace:*",
     "lucide-react": "0.563.0",
@@ -79,9 +79,9 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-hook-form": "7.71.1",
-    "react-qr-code": "^2.0.18",
+    "react-qr-code": "2.0.18",
     "react-spring": "10.0.3",
-    "react-virtuoso": "^4.17.0",
+    "react-virtuoso": "4.17.0",
     "sharp": "0.34.5",
     "tailwind-merge": "3.4.0",
     "zod": "4.3.6"
@@ -100,7 +100,7 @@
     "raw-loader": "4.0.2",
     "tailwindcss": "4.1.18",
     "typescript": "5.9.3",
-    "workbox-build": "^7.4.0"
+    "workbox-build": "7.4.0"
   },
   "peerDependencies": {
     "@intlayer/backend": "workspace:*"

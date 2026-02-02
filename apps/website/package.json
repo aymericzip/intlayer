@@ -64,7 +64,7 @@
     "babel-plugin-react-compiler": "1.0.0",
     "clsx": "2.1.1",
     "defu": "6.1.4",
-    "framer-motion": "12.29.2",
+    "framer-motion": "12.30.0",
     "fuse.js": "7.1.0",
     "intlayer": "workspace:*",
     "lucide-react": "0.563.0",
@@ -92,7 +92,7 @@
     "raw-loader": "4.0.2",
     "tailwindcss": "4.1.18",
     "typescript": "5.9.3",
-    "workbox-build": "^7.4.0"
+    "workbox-build": "7.4.0"
   },
   "peerDependencies": {
     "@intlayer/backend": "workspace:*"

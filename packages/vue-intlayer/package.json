@@ -108,7 +108,7 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "@vitejs/plugin-vue": "6.0.2",
-    "ajv": "^8.17.1",
+    "ajv": "8.17.1",
     "fast-glob": "3.3.3",
     "rimraf": "6.1.2",
     "tsdown": "0.20.1",

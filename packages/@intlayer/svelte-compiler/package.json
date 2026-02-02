@@ -89,7 +89,7 @@
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/types": "workspace:*",
     "fast-glob": "3.3.3",
-    "magic-string": "^0.30.17"
+    "magic-string": "0.30.17"
   },
   "devDependencies": {
     "@types/node": "25.0.10",

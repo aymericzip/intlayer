@@ -71,9 +71,9 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "magic-string": "^0.30.8",
-    "svelte": "^4.2.12",
-    "ts-morph": "^27.0.0"
+    "magic-string": "0.30.8",
+    "svelte": "4.2.12",
+    "ts-morph": "27.0.0"
   },
   "devDependencies": {
     "@types/node": "25.0.10",

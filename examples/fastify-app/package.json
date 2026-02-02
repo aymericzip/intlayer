@@ -30,7 +30,7 @@
     "test": ""
   },
   "dependencies": {
-    "fastify": "^5.6.2",
+    "fastify": "5.6.2",
     "fastify-intlayer": "workspace:*",
     "intlayer": "workspace:*"
   },

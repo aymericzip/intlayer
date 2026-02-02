@@ -33,7 +33,7 @@
     "@types/node": "25.0.10",
     "@types/react": "19.2.10",
     "@types/react-dom": "19.2.3",
-    "autoprefixer": "^10.4.23",
+    "autoprefixer": "10.4.23",
     "intlayer": "workspace:*",
     "intlayer-cli": "workspace:*",
     "postcss-preset-env": "10.6.0",
@@ -45,7 +45,7 @@
     "typescript": "5.9.3"
   },
   "devDependencies": {
-    "@craco/craco": "^7.1.0",
+    "@craco/craco": "7.1.0",
     "@tailwindcss/postcss": "4.1.18",
     "intlayer-editor": "workspace:*",
     "react-scripts-intlayer": "workspace:*",

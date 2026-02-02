@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@solidjs/router": "^0.15.4",
+    "@solidjs/router": "0.15.4",
     "intlayer": "workspace:*",
     "solid-intlayer": "workspace:*",
     "solid-js": "1.9.10"
