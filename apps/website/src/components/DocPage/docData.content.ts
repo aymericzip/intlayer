@@ -869,6 +869,12 @@ const docDataContent: Dictionary = {
         angular: {
           title: 'Angular',
           default: getDocMetadata('./docs/en/intlayer_with_angular.md'),
+          subSections: {
+            analog: {
+              title: 'Analog',
+              default: getDocMetadata('./docs/en/intlayer_with_analog.md'),
+            },
+          },
         },
         'react-native-and-expo': {
           title: t({
