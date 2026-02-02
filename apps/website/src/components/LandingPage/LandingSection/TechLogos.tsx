@@ -5,6 +5,8 @@ import { PagesRoutes } from '@/Routes';
 import { AngularLogo } from '../AvailableTechnoSection/Angular';
 import { AstroLogo } from '../AvailableTechnoSection/Astro';
 import { ExpressLogo } from '../AvailableTechnoSection/Express';
+import { FastifyLogo } from '../AvailableTechnoSection/Fastify';
+import { HonoLogo } from '../AvailableTechnoSection/Hono';
 import { LynxLogo } from '../AvailableTechnoSection/Lynx';
 import { NestJSLogo } from '../AvailableTechnoSection/NestJS';
 import { NextJSLogo } from '../AvailableTechnoSection/Nextjs';
@@ -28,6 +30,16 @@ const logos = [
     Logo: NestJSLogo,
     key: 'nestjs',
     route: PagesRoutes.Doc_Environment_NestJS,
+  },
+  {
+    Logo: HonoLogo,
+    key: 'hono',
+    route: PagesRoutes.Doc_Environment_Hono,
+  },
+  {
+    Logo: FastifyLogo,
+    key: 'fastify',
+    route: PagesRoutes.Doc_Environment_Fastify,
   },
   {
     Logo: NextJSLogo,

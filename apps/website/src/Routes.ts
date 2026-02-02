@@ -41,6 +41,7 @@ export enum PagesRoutes {
   Doc_Environment_Express = '/doc/environment/express',
   Doc_Environment_NestJS = '/doc/environment/nestjs',
   Doc_Environment_Fastify = '/doc/environment/fastify',
+  Doc_Environment_Hono = '/doc/environment/hono',
 
   Doc_CLI_Fill = '/doc/concept/cli/fill',
   Doc_CLI_Translate = '/doc/concept/cli/doc-translate',
