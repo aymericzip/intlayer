@@ -31,7 +31,7 @@ es -> /es/producto
 
 Untuk mengimplementasikan ini, Anda dapat mengonfigurasi bagian `routing` di file `intlayer.config.ts` Anda.
 
-Untuk informasi lebih lanjut tentang cara mengimplementasikan fitur ini, lihat [dokumentasi Penulisan Ulang URL Kustom](/docs/concept/custom_url_rewrites).
+Untuk informasi lebih lanjut tentang cara mengimplementasikan fitur ini, lihat [dokumentasi Penulisan Ulang URL Kustom](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/custom_url_rewrites.md).
 
 Anda juga dapat menggunakan fungsi `getMultilingualUrl` dan `getLocalizedUrl` untuk menghasilkan URL ini secara terprogram, dan mereka akan menghormati aturan penulisan ulang Anda.
 

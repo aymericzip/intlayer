@@ -31,7 +31,7 @@ es -> /es/producto
 
 لتنفيذ ذلك، يمكنك تكوين قسم `routing` في ملف `intlayer.config.ts` الخاص بك.
 
-لمزيد من المعلومات حول كيفية تنفيذ هذه الميزة، راجع [وثائق إعادة توجيه الروابط المخصصة](/docs/concept/custom_url_rewrites).
+لمزيد من المعلومات حول كيفية تنفيذ هذه الميزة، راجع [وثائق إعادة توجيه الروابط المخصصة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/custom_url_rewrites.md).
 
 يمكنك أيضًا استخدام وظائف `getMultilingualUrl` و `getLocalizedUrl` لإنشاء هذه الروابط برمجياً، وستحترم قواعد إعادة التوجيه الخاصة بك.
 

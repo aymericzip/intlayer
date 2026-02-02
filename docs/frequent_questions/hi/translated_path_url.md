@@ -31,7 +31,7 @@ es -> /es/producto
 
 इसे लागू करने के लिए, आप अपनी `intlayer.config.ts` फ़ाइल में `routing` अनुभाग को कॉन्फ़िगर कर सकते हैं।
 
-इस सुविधा को लागू करने के तरीके के बारे में अधिक जानकारी के लिए, [कस्टम URL पुनर्लेखन दस्तावेज़](/docs/concept/custom_url_rewrites) देखें।
+इस सुविधा को लागू करने के तरीके के बारे में अधिक जानकारी के लिए, [कस्टम URL पुनर्लेखन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/custom_url_rewrites.md) देखें।
 
 आप इन URL को प्रोग्रामेटिक रूप से उत्पन्न करने के लिए `getMultilingualUrl` और `getLocalizedUrl` फ़ंक्शन का भी उपयोग कर सकते हैं, और वे आपके पुनर्लेखन नियमों का सम्मान करेंगे।
 

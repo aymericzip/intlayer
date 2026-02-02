@@ -31,7 +31,7 @@ es -> /es/producto
 
 Bunu uygulamak için `intlayer.config.ts` dosyanızdaki `routing` bölümünü yapılandırabilirsiniz.
 
-Bu özelliğin nasıl uygulanacağı hakkında daha fazla bilgi için [Özel URL Yeniden Yazımları belgelerine](/docs/concept/custom_url_rewrites) bakın.
+Bu özelliğin nasıl uygulanacağı hakkında daha fazla bilgi için [Özel URL Yeniden Yazımları belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/custom_url_rewrites.md) bakın.
 
 Ayrıca, bu URL'leri programatik olarak oluşturmak için `getMultilingualUrl` ve `getLocalizedUrl` fonksiyonlarını kullanabilirsiniz; bunlar yeniden yazma kurallarınıza saygı duyacaktır.
 
