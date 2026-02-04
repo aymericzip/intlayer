@@ -39,7 +39,7 @@ const getDependencies = async (baseDir: string) => {
 export const transform = async (options: TransformOptions) => {
   const configuration = getConfiguration(options.configOptions);
   const appLogger = getAppLogger(configuration);
-  const { baseDir } = configuration.content;
+  const { baseDir, codeDir } = configuration.content;
 
   const formatPath = (path: string) => {
     const relativePath = relative(baseDir, path);
@@ -82,13 +82,20 @@ export const transform = async (options: TransformOptions) => {
       '**/build/**',
     ];
 
-    const allFiles = await fg(globPattern, {
-      cwd: baseDir,
-      ignore: excludePattern,
-      absolute: true,
-    });
+    // Await all promises simultaneously
+    const resultsArray = await Promise.all(
+      codeDir.map((dir) =>
+        fg(globPattern, {
+          cwd: dir,
+          ignore: excludePattern,
+          absolute: true,
+        })
+      )
+    );
 
-    // Remove duplicates and non-existing files
+    // Flatten the nested arrays and remove duplicates
+    const allFiles = resultsArray.flat();
+
     const uniqueFiles = [...new Set(allFiles)].filter((file) =>
       existsSync(file)
     );
