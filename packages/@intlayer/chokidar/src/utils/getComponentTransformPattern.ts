@@ -1,4 +1,4 @@
-import path from 'node:path';
+import { isAbsolute, relative, resolve } from 'node:path';
 import type { IntlayerConfig } from '@intlayer/types';
 import fg from 'fast-glob';
 
@@ -9,7 +9,7 @@ import fg from 'fast-glob';
  */
 const getDistinctRootDirs = (dirs: string[]): string[] => {
   // Resolve to absolute paths and remove exact duplicates
-  const uniqueDirs = Array.from(new Set(dirs.map((d) => path.resolve(d))));
+  const uniqueDirs = Array.from(new Set(dirs.map((dir) => resolve(dir))));
 
   // Sort by length (shortest paths first) so parents appear before children
   uniqueDirs.sort((a, b) => a.length - b.length);
@@ -17,11 +17,11 @@ const getDistinctRootDirs = (dirs: string[]): string[] => {
   // Filter out any directory that is inside a parent already in the accepted list
   return uniqueDirs.reduce((acc: string[], dir) => {
     const isNested = acc.some((parent) => {
-      const relative = path.relative(parent, dir);
+      const relativePath = relative(parent, dir);
       return (
-        !relative.startsWith('..') && // It is inside the parent
-        !path.isAbsolute(relative) && // It is not a different drive/root
-        relative !== '' // It is not the parent itself (already handled by Set, but good for safety)
+        !relativePath.startsWith('..') && // It is inside the parent
+        !isAbsolute(relativePath) && // It is not a different drive/root
+        relativePath !== '' // It is not the parent itself (already handled by Set, but good for safety)
       );
     });
 
