@@ -22,6 +22,7 @@ const env = app.get('env');
 
 dotenv.config({
   path: [`.env.${env}.local`, `.env.${env}`, '.env.local', '.env'],
+  quiet: true,
 });
 
 // Enable CORS for development

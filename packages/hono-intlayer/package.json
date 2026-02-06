@@ -85,13 +85,13 @@
   },
   "devDependencies": {
     "@types/cls-hooked": "4.3.9",
-    "@types/node": "25.0.10",
+    "@types/node": "25.2.1",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "hono": "4.7.4",
     "rimraf": "6.1.2",
-    "tsdown": "0.20.1",
+    "tsdown": "0.20.3",
     "typescript": "5.9.3",
     "vitest": "4.0.18"
   },

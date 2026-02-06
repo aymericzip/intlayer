@@ -62,6 +62,7 @@ const startServer = async () => {
 
   dotenv.config({
     path: [`.env.${env}.local`, `.env.${env}`, '.env.local', '.env'],
+    quiet: true,
   });
 
   // Security Headers

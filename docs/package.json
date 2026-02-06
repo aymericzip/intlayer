@@ -80,13 +80,13 @@
   "devDependencies": {
     "@intlayer/api": "workspace:*",
     "@intlayer/cli": "workspace:*",
-    "@types/node": "25.0.10",
+    "@types/node": "25.2.1",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "fast-glob": "3.3.3",
     "rimraf": "6.1.2",
-    "tsdown": "0.20.1",
+    "tsdown": "0.20.3",
     "tsx": "4.20.6",
     "typescript": "5.9.3",
     "vitest": "4.0.18"

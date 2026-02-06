@@ -135,6 +135,7 @@ export const indexMarkdownFiles = async (): Promise<void> => {
   const env = process.env.NODE_ENV;
   dotenv.config({
     path: [`.env.${env}.local`, `.env.${env}`, '.env.local', '.env'],
+    quiet: true,
   });
 
   // Retrieve documentation and blog posts in English locale
