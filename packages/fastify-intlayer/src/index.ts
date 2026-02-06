@@ -179,10 +179,10 @@ const fastifyIntlayer: FastifyPluginAsync = async (fastify, _opts) => {
 };
 
 // Export as a Fastify Plugin (wrapped in fp to skip encapsulation)
-export const intlayer = fp(fastifyIntlayer, {
+export const intlayer = fp(fastifyIntlayer as any, {
   name: 'fastify-intlayer',
   fastify: '5.x',
-});
+}) as unknown as FastifyPluginAsync;
 
 /**
  * Global translation function that retrieves content for the current locale in Fastify.
