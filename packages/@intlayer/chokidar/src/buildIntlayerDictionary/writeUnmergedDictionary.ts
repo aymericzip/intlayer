@@ -92,15 +92,18 @@ export const writeUnmergedDictionaries = async (
       const outputFileName = `${key}.json`;
       const unmergedFilePath = resolve(unmergedDictionariesDir, outputFileName);
 
-      // Write the grouped dictionaries
-      await writeJsonIfChanged(unmergedFilePath, orderedDictionaries).catch(
-        (err) => {
-          console.error(
-            `${x} Error creating unmerged ${colorizePath(unmergedFilePath)}:`,
-            err
-          );
-        }
-      );
+      // Write the grouped dictionaries in disk if the editor is enabled
+      // No need them if the editor is disabled
+      if (configuration.editor.enabled) {
+        await writeJsonIfChanged(unmergedFilePath, orderedDictionaries).catch(
+          (err) => {
+            console.error(
+              `${x} Error creating unmerged ${colorizePath(unmergedFilePath)}:`,
+              err
+            );
+          }
+        );
+      }
 
       return [
         key,
