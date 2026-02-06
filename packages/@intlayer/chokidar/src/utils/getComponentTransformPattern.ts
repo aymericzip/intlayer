@@ -8,13 +8,13 @@ import fg from 'fast-glob';
  * This prevents scanning the same files twice.
  */
 const getDistinctRootDirs = (dirs: string[]): string[] => {
-  // 1. Resolve to absolute paths and remove exact duplicates
+  // Resolve to absolute paths and remove exact duplicates
   const uniqueDirs = Array.from(new Set(dirs.map((d) => path.resolve(d))));
 
-  // 2. Sort by length (shortest paths first) so parents appear before children
+  // Sort by length (shortest paths first) so parents appear before children
   uniqueDirs.sort((a, b) => a.length - b.length);
 
-  // 3. Filter out any directory that is inside a parent already in the accepted list
+  // Filter out any directory that is inside a parent already in the accepted list
   return uniqueDirs.reduce((acc: string[], dir) => {
     const isNested = acc.some((parent) => {
       const relative = path.relative(parent, dir);
