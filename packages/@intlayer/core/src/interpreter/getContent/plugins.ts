@@ -48,14 +48,31 @@ export type Plugins = {
  * TRANSLATION PLUGIN
  * --------------------------------------------- */
 
+export type UnionKeys<T> = T extends unknown ? keyof T : never;
+export type ValueAtKey<T, K> = T extends unknown
+  ? K extends keyof T
+    ? T[K]
+    : never
+  : never;
+
 export type TranslationCond<T, S, L extends LocalesValues> = T extends {
   nodeType: NodeType | string;
   [NodeType.Translation]: infer U;
 }
   ? U extends Record<PropertyKey, unknown>
-    ? L extends keyof U
-      ? DeepTransformContent<U[L], S>
-      : DeepTransformContent<U[keyof U], S>
+    ? U[keyof U] extends Record<PropertyKey, unknown>
+      ? {
+          [K in UnionKeys<U[keyof U]>]: L extends keyof U
+            ? K extends keyof U[L]
+              ? U[L][K]
+              : ValueAtKey<U[keyof U], K>
+            : ValueAtKey<U[keyof U], K>;
+        } extends infer Content
+        ? DeepTransformContent<Content, S>
+        : never
+      : (L extends keyof U ? U[L] : U[keyof U]) extends infer Content
+        ? DeepTransformContent<Content, S>
+        : never
     : never
   : never;
 
