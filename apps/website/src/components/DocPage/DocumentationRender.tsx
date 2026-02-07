@@ -3,7 +3,6 @@
 import { Link } from '@components/Link/Link';
 import { TableOfContents } from '@components/TableOfContents';
 import { MarkdownRenderer } from '@intlayer/design-system';
-import { cn } from '@utils/cn';
 import { useLocale } from 'next-intlayer';
 import { useTheme } from 'next-themes';
 import type { ComponentProps, FC } from 'react';

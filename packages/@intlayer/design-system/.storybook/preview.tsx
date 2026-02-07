@@ -21,7 +21,6 @@ const preview: Preview = {
   decorators: [
     (Story, context: StoryContext) => {
       const theme = context.globals.theme || 'dark';
-      const isDark = theme === 'dark';
 
       return (
         <ThemeProvider theme={theme}>

@@ -320,7 +320,7 @@ export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({
             {index > 0 && <span className="text-neutral/50">+</span>}
             <span
               className={cn(
-                'min-w-4 px-0.5',
+                'min-w-4 px-0.5 text-center',
                 isKeyPressed(key) && 'scale-120 font-bold text-text'
               )}
               suppressHydrationWarning
