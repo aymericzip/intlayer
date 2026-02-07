@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite dev --port 3000",
     "start": "node dist/server/server.js",
-    "build": "vite build && cp -r .intlayer .output/.intlayer",
+    "build": "vite build",
     "serve": "vite preview",
     "test": "vitest run",
     "typecheck": "tsc --noEmit --project tsconfig.types.json",
