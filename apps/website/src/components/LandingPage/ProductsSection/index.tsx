@@ -47,7 +47,7 @@ export const ProductsSection: FC = () => {
   return (
     <div
       ref={sectionRef}
-      className="flex min-h-[75vh] items-center justify-center"
+      className="flex min-h-[75vh] w-full items-center justify-center overflow-hidden"
     >
       <Carousel initialIndex={1}>
         {PRODUCTS.map(({ Component, key }) => (

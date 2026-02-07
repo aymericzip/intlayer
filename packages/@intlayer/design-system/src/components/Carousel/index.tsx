@@ -379,7 +379,7 @@ const CarouselRoot: FC<CarouselProps> = ({
       <div
         ref={containerRef}
         className={cn(
-          'relative w-full cursor-grab select-none outline-none transition-[height] duration-300 ease-in-out focus:outline-none focus:outline-none focus:ring-0 active:cursor-grabbing',
+          'relative w-full cursor-grab select-none overflow-hidden outline-none transition-[height] duration-300 ease-in-out focus:outline-none focus:outline-none focus:ring-0 active:cursor-grabbing',
           className
         )}
         style={{

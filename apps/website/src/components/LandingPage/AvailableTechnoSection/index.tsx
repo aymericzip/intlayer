@@ -222,12 +222,12 @@ export const AvailableTechnoSection: FC = () => {
   return (
     <section
       ref={containerRef}
-      className="z-10 flex w-full flex-col items-center justify-center"
+      className="z-10 flex w-full flex-col items-center justify-center overflow-hidden"
     >
       <h2 className="mb-3 text-lg text-neutral-500">{availableOn}</h2>
       <div className="my-10 flex flex-col items-center gap-6">
         {/* Row 1 */}
-        <motion.div className="flex justify-center gap-x-12">
+        <motion.div className="flex justify-center gap-x-4 md:gap-x-12">
           {logosRow1.map((logoConfig, index) => (
             <LogoItem
               key={logoConfig.label}
@@ -242,7 +242,7 @@ export const AvailableTechnoSection: FC = () => {
           ))}
         </motion.div>
         {/* Row 2 */}
-        <motion.div className="flex justify-center gap-x-12">
+        <motion.div className="flex justify-center gap-x-4 md:gap-x-12">
           {logosRow2.map((logoConfig, index) => (
             <LogoItem
               key={logoConfig.label}
@@ -257,7 +257,7 @@ export const AvailableTechnoSection: FC = () => {
           ))}
         </motion.div>
         {/* Row 3 */}
-        <motion.div className="flex justify-center gap-x-12">
+        <motion.div className="flex justify-center gap-x-4 md:gap-x-12">
           {logosRow3.map((logoConfig, index) => (
             <LogoItem
               key={logoConfig.label}
