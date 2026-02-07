@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.0.5
+    date: 2026-02-06
+    changes: AI yapılandırmasına `dataSerialization` eklendi
   - version: 8.0.0
     date: 2026-01-22
     changes: Move `importMode` build configuration to `dictionary` configuration.
@@ -887,6 +890,13 @@ Intlayer, artırılmış esneklik ve seçenek için birden fazla AI sağlayıcı
   - _Açıklama_: AI API için temel URL.
   - _Örnek_: `'https://api.openai.com/v1'`
   - _Not_: Yerel veya özel bir AI API uç noktasını işaret etmek için kullanılabilir.
+
+- **dataSerialization**:
+  - _Tür_: `'json' | 'toon'`
+  - _Varsayılan_: `'json'`
+  - _Açıklama_: Intlayer'ın AI özellikleri için kullanılacak veri serileştirme formatı.
+  - _Örnek_: `'toon'`
+  - _Not_: `json`: Standart, güvenilir; daha fazla jeton kullanır. `toon`: Daha az jeton, JSON'dan daha az tutarlı.
 
 ### Derleme Yapılandırması
 

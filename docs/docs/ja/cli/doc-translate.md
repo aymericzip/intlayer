@@ -86,6 +86,7 @@ npx intlayer doc translate
 - **`--temperature [temperature]`**: AIモデルの温度設定。
 - **`--api-key [apiKey]`**: AIサービス用のAPIキーを提供。
 - **`--application-context [applicationContext]`**: AI翻訳に追加のコンテキストを提供。
+- **`--data-serialization [dataSerialization]`**: IntlayerのAI機能に使用するデータシリアライズ形式。オプション: `json` (標準的で信頼性が高い), `toon` (トークン消費が少ないが、一貫性が低い)。
 - **`--custom-prompt [prompt]`**: 翻訳に使用する基本プロンプトをカスタマイズします。（注：ほとんどのユースケースでは、翻訳の挙動をより良く制御できるため、`--custom-instructions` オプションの使用が推奨されます。）
 
   > 例: `npx intlayer doc translate --model deepseek-chat --provider deepseek --temperature 0.5 --api-key sk-1234567890 --application-context "My application is a cat store"`

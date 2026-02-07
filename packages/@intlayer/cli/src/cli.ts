@@ -61,6 +61,7 @@ const aiOptions = [
   ['--api-key [apiKey]', 'Provider API key'],
   ['--custom-prompt [prompt]', 'Custom prompt'],
   ['--application-context [applicationContext]', 'Application context'],
+  ['--data-serialization [dataSerialization]', 'Data serialization'],
 ];
 
 const gitOptions = [
@@ -103,6 +104,7 @@ const extractAiOptions = (options: AIOptions): AIOptions | undefined => {
     temperature,
     applicationContext,
     customPrompt,
+    dataSerialization,
   } = options;
 
   const configuration = getConfiguration();
@@ -117,6 +119,7 @@ const extractAiOptions = (options: AIOptions): AIOptions | undefined => {
     applicationContext:
       applicationContext ?? configuration.ai?.applicationContext,
     customPrompt: customPrompt ?? (configuration.ai as any)?.customPrompt,
+    dataSerialization: dataSerialization ?? configuration.ai?.dataSerialization,
   });
 };
 

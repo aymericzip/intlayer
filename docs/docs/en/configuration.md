@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.0.5
+    date: 2026-02-06
+    changes: Add `dataSerialization` to the AI configuration
   - version: 8.0.0
     date: 2026-01-24
     changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
@@ -335,6 +338,17 @@ const config: IntlayerConfig = {
      * Base URL for the AI API.
      */
     baseURL: "http://localhost:3000",
+
+    /**
+     * Data serialization
+     *
+     * Options:
+     * - "json": Standard, reliable; uses more tokens.
+     * - "toon": Fewer tokens, less consistent than JSON.
+     *
+     * Default: "json"
+     */
+    dataSerialization: "json",
   },
 
   /**
@@ -1064,7 +1078,13 @@ Intlayer supports multiple AI providers for enhanced flexibility and choice. Cur
   - _Example_: `'http://localhost:5000'`
   - _Note_: Can be used to point to a local, or custom AI API endpoint.
 
-> If you provide additional parameters, Intlayer will pass them to the AI model as context. It can be used to customize the reasoning effort, text verbosity, etc
+- **dataSerialization**:
+  - _Type_: `'json' | 'toon'`
+  - _Default_: `'json'`
+  - _Description_: The data serialization format to use for the AI features of Intlayer.
+  - _Example_: `'toon'`
+  - _Note_: `json`: Standard, reliable; uses more tokens. `toon`: Fewer tokens, less consistent than JSON.
+    > If you provide additional parameters, Intlayer will pass them to the AI model as context. It can be used to customize the reasoning effort, text verbosity, etc
 
 ### Build Configuration
 

@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.0.5
+    date: 2026-02-06
+    changes: Добавление `dataSerialization` в конфигурацию ИИ
   - version: 8.0.0
     date: 2026-01-22
     changes: Move `importMode` build configuration to `dictionary` configuration.
@@ -311,6 +314,14 @@ const config: IntlayerConfig = {
      * Base URL for the AI API.
      */
     baseURL: "http://localhost:3000",
+
+    /**
+     * Data serialization format to use for the AI features of Intlayer.
+     * - "json": The industry standard. Highly reliable and structured, but consumes more tokens.
+     * - "toon": An optimized format designed to reduce token consumption (cost-effective). However, it may slightly increase the risk of output inconsistency compared to standard JSON
+     * Default: "json"
+     */
+    dataSerialization: "json",
   },
 
   /**
@@ -891,6 +902,13 @@ Intlayer поддерживает несколько провайдеров ИИ
   - _Описание_: Базовый URL для API ИИ.
   - _Пример_: `'https://api.openai.com/v1'`
   - _Примечание_: Может использоваться для указания локальной или пользовательской конечной точки API ИИ.
+
+- **dataSerialization**:
+  - _Тип_: `'json' | 'toon'`
+  - _По умолчанию_: `'json'`
+  - _Описание_: Формат сериализации данных для использования в функциях ИИ Intlayer.
+  - _Пример_: `'toon'`
+  - _Примечание_: `json`: Стандартный, надежный; использует больше токенов. `toon`: Меньше токенов, менее стабильный, чем JSON.
 
 ### Конфигурация сборки
 

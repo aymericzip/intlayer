@@ -1,7 +1,8 @@
 import { readAsset } from 'utils:asset';
 import { getLocaleName } from '@intlayer/core';
 import { type Locale, Locales } from '@intlayer/types';
-import { generateObject } from 'ai';
+import { decode, encode } from '@toon-format/toon';
+import { generateText, Output } from 'ai';
 import { z } from 'zod';
 import { type AIConfig, type AIOptions, AIProvider } from '../aiSdk';
 
@@ -122,25 +123,71 @@ export const translateJSON = async <T>({
 }: TranslateJSONOptions<T>): Promise<
   TranslateJSONResultData<T> | undefined
 > => {
-  const promptFile = readAsset('./PROMPT.md');
+  const { dataSerialization, ...restAiConfig } = aiConfig;
+  // @ts-ignore
+  const { output: _unusedOutput, ...validAiConfig } = restAiConfig;
 
   const formattedEntryLocale = formatLocaleWithName(entryLocale);
   const formattedOutputLocale = formatLocaleWithName(outputLocale);
+
+  const isToon = dataSerialization === 'toon';
+  const promptFile = readAsset(
+    isToon ? './PROMPT_TOON.md' : './PROMPT_JSON.md'
+  );
+  const entryContentStr = isToon
+    ? encode(entryFileContent)
+    : JSON.stringify(entryFileContent);
+  const presetContentStr = isToon
+    ? encode(presetOutputContent)
+    : JSON.stringify(presetOutputContent);
 
   // Prepare the prompt for AI by replacing placeholders with actual values.
   const prompt = promptFile
     .replace('{{entryLocale}}', formattedEntryLocale)
     .replace('{{outputLocale}}', formattedOutputLocale)
-    .replace('{{presetOutputContent}}', JSON.stringify(presetOutputContent))
+    .replace('{{presetOutputContent}}', presetContentStr)
     .replace('{{dictionaryDescription}}', dictionaryDescription ?? '')
     .replace('{{applicationContext}}', applicationContext ?? '')
     .replace('{{tagsInstructions}}', formatTagInstructions(tags ?? []))
     .replace('{{modeInstructions}}', getModeInstructions(mode));
 
+  if (isToon) {
+    const { text, usage } = await generateText({
+      ...aiConfig,
+      messages: [
+        { role: 'system', content: prompt },
+        {
+          role: 'user',
+          content: [
+            `# Translation Request`,
+            `Please translate the following TOON content.`,
+            `- **From:** ${formattedEntryLocale}`,
+            `- **To:** ${formattedOutputLocale}`,
+            ``,
+            `## Entry Content:`,
+            entryContentStr,
+          ].join('\n'),
+        },
+      ],
+    });
+
+    // Strip markdown code blocks if present
+    const cleanedText = text
+      .replace(/^```(?:toon)?\n([\s\S]*?)\n```$/gm, '$1')
+      .trim();
+
+    return {
+      fileContent: decode(cleanedText) as T,
+      tokenUsed: usage?.totalTokens ?? 0,
+    };
+  }
+
   // Use the AI SDK to generate the completion
-  const { object, usage } = await generateObject({
-    ...aiConfig,
-    schema: jsonToZod(entryFileContent),
+  const { output, usage } = await generateText({
+    ...validAiConfig,
+    output: Output.object({
+      schema: jsonToZod(entryFileContent),
+    }),
     messages: [
       { role: 'system', content: prompt },
       {
@@ -153,14 +200,14 @@ export const translateJSON = async <T>({
           `- **To:** ${formattedOutputLocale}`,
           ``,
           `## Entry Content:`,
-          JSON.stringify(entryFileContent),
+          entryContentStr,
         ].join('\n'),
       },
     ],
   });
 
   return {
-    fileContent: object as T,
+    fileContent: output as T,
     tokenUsed: usage?.totalTokens ?? 0,
   };
 };

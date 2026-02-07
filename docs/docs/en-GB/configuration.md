@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.0.5
+    date: 2026-02-06
+    changes: Add `dataSerialization` to the AI configuration
   - version: 8.0.0
     date: 2026-01-22
     changes: Move `importMode` build configuration to `dictionary` configuration.
@@ -898,6 +901,13 @@ Intlayer supports multiple AI providers for enhanced flexibility and choice. Cur
   - _Description_: The base URL for the AI API.
   - _Example_: `'https://api.openai.com/v1'`
   - _Note_: Can be used to point to a local, or custom AI API endpoint.
+
+- **dataSerialization**:
+  - _Type_: `'json' | 'toon'`
+  - _Default_: `'json'`
+  - _Description_: The data serialization format to use for the AI features of Intlayer.
+  - _Example_: `'toon'`
+  - _Note_: `json`: Standard, reliable; uses more tokens. `toon`: Fewer tokens, less consistent than JSON.
 
 ### Build Configuration
 

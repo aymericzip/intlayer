@@ -126,6 +126,7 @@ Affected dictionary keys for processing: app, comp-test, hello-world, lang-switc
 - **`--api-key [apiKey]`**: Berikan API key Anda sendiri untuk layanan AI.
 - **`--custom-prompt [prompt]`**: Berikan prompt khusus untuk instruksi terjemahan Anda.
 - **`--application-context [applicationContext]`**: Berikan konteks tambahan untuk terjemahan AI.
+- **`--data-serialization [dataSerialization]`**: Format serialisasi data yang digunakan untuk fitur AI Intlayer. Opsi: `json` (standar, andal), `toon` (lebih sedikit token, kurang konsisten).
 
   > Contoh: `npx intlayer fill --model gpt-3.5-turbo --provider openai --temperature 0.5 --api-key sk-1234567890 --application-context "Aplikasi saya adalah toko kucing"`
 

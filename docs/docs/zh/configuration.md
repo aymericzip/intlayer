@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.0.5
+    date: 2026-02-06
+    changes: 在 AI 配置中添加 `dataSerialization`
   - version: 8.0.0
     date: 2026-01-22
     changes: Move `importMode` build configuration to `dictionary` configuration.
@@ -888,6 +891,13 @@ Intlayer 支持多个 AI 提供商，以增强灵活性和选择。目前支持�
   - _描述_: AI API 的基础 URL。
   - _示例_: `'https://api.openai.com/v1'`
   - _注意_: 可用于指向本地或自定义的 AI API 端点。
+
+- **dataSerialization**:
+  - _类型_: `'json' | 'toon'`
+  - _默认值_: `'json'`
+  - _描述_: 用于 Intlayer AI 功能的数据序列化格式。
+  - _示例_: `'toon'`
+  - _注意_: `json`: 标准、可靠；使用更多令牌。`toon`: 令牌更少，但不如 JSON 一致。
 
 ### 构建配置
 

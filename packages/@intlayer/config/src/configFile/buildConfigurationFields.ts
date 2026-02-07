@@ -537,6 +537,17 @@ const buildAiFields = (customConfiguration?: Partial<AiConfig>): AiConfig => ({
    * Note: Can be used to point to a local, or custom AI API endpoint.
    */
   baseURL: customConfiguration?.baseURL,
+
+  /**
+   * Data serialization
+   *
+   * Options:
+   * - "json": The industry standard. Highly reliable and structured, but consumes more tokens.
+   * - "toon": An optimized format designed to reduce token consumption (cost-effective). However, it may slightly increase the risk of output inconsistency compared to standard JSON
+   *
+   * Default: "json"
+   */
+  dataSerialization: customConfiguration?.dataSerialization,
 });
 
 const buildBuildFields = (

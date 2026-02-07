@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.0.5
+    date: 2026-02-06
+    changes: إضافة `dataSerialization` إلى تكوين الذكاء الاصطناعي
   - version: 8.0.0
     date: 2026-01-22
     changes: Move `importMode` build configuration to `dictionary` configuration.
@@ -885,6 +888,13 @@ export default config;
   - _الوصف_: عنوان URL الأساسي لواجهة برمجة تطبيقات الذكاء الاصطناعي.
   - _مثال_: `'https://api.openai.com/v1'`
   - _ملاحظة_: يمكن استخدامه للإشارة إلى نقطة نهاية واجهة برمجة تطبيقات الذكاء الاصطناعي المحلية أو المخصصة.
+
+- **dataSerialization**:
+  - _النوع_: `'json' | 'toon'`
+  - _الافتراضي_: `'json'`
+  - _الوصف_: تنسيق تسلسل البيانات لاستخدامه في ميزات الذكاء الاصطناعي لـ Intlayer.
+  - _مثال_: `'toon'`
+  - _ملاحظة_: `json`: قياسي وموثوق؛ يستهلك رموزًا أكثر. `toon`: رموز أقل، ولكنه أقل اتساقًا من JSON.
 
 ### إعدادات البناء
 

@@ -470,6 +470,15 @@ export type AiConfig = {
    * Example: 'https://api.openai.com/v1'
    */
   baseURL?: string;
+
+  /**
+   * Data serialization
+   *
+   * The data serialization format to use for the AI features of Intlayer.
+   *
+   * Default: 'json'
+   */
+  dataSerialization?: 'json' | 'toon';
 } & Record<string, any>;
 
 export type BuildConfig = {

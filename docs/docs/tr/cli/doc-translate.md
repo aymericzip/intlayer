@@ -86,6 +86,7 @@ npx intlayer doc translate
 - **`--temperature [temperature]`**: Yapay zeka modeli için sıcaklık ayarı.
 - **`--api-key [apiKey]`**: Yapay zeka servisi için kendi API anahtarınızı sağlayın.
 - **`--application-context [applicationContext]`**: Yapay zeka çevirisi için ek bağlam sağlayın.
+- **`--data-serialization [dataSerialization]`**: Intlayer'ın AI özellikleri için kullanılacak veri serileştirme formatı. Seçenekler: `json` (standart, güvenilir), `toon` (daha az jeton, daha az tutarlı).
 - **`--custom-prompt [prompt]`**: Çeviri için kullanılan temel promptu özelleştirin. (Not: Çoğu kullanım durumu için, çeviri davranışı üzerinde daha iyi kontrol sağladığı için `--custom-instructions` seçeneği önerilir.)
 
   > Örnek: `npx intlayer doc translate --model deepseek-chat --provider deepseek --temperature 0.5 --api-key sk-1234567890 --application-context "My application is a cat store"`

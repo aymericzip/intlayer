@@ -34,6 +34,7 @@ const config: Partial<CustomIntlayerConfig> = {
     model: 'gpt-5-mini',
     temperature: 0.2,
     apiKey: process.env.OPEN_AI_API_KEY,
+    dataSerialization: 'toon',
   },
 
   editor: {

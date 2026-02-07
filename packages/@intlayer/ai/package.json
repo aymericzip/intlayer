@@ -82,6 +82,7 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/types": "workspace:*",
+    "@toon-format/toon": "^2.1.0",
     "ai": "6.0.31",
     "zod": "4.3.6"
   },

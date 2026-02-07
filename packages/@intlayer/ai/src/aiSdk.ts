@@ -59,6 +59,7 @@ export type AIOptions = {
   baseURL?: string;
   apiKey?: string;
   applicationContext?: string;
+  dataSerialization?: 'json' | 'toon';
 };
 
 // Define the structure of messages used in chat completions
@@ -208,6 +209,7 @@ const getLanguageModel = (
 export type AIConfig = Omit<Parameters<typeof generateText>[0], 'prompt'> & {
   reasoningEffort?: ReasoningEffort;
   textVerbosity?: 'low' | 'medium' | 'high';
+  dataSerialization?: 'json' | 'toon';
 };
 
 const DEFAULT_PROVIDER: AIProvider = AIProvider.OPENAI as AIProvider;
@@ -260,5 +262,6 @@ export const getAIConfig = async (
   return {
     model: languageModel,
     temperature: aiOptions.temperature,
+    dataSerialization: aiOptions.dataSerialization,
   };
 };

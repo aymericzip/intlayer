@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.0.5
+    date: 2026-02-06
+    changes: Thêm `dataSerialization` vào cấu hình AI
   - version: 8.0.0
     date: 2026-01-22
     changes: Move `importMode` build configuration to `dictionary` configuration.
@@ -989,6 +992,13 @@ Intlayer hỗ trợ nhiều nhà cung cấp AI để tăng tính linh hoạt và
   - _Mô tả_: URL cơ sở cho API AI.
   - _Ví dụ_: `'https://api.openai.com/v1'`
   - _Lưu ý_: Có thể được sử dụng để trỏ đến một điểm cuối API AI cục bộ hoặc tùy chỉnh.
+
+- **dataSerialization**:
+  - _Loại_: `'json' | 'toon'`
+  - _Mặc định_: `'json'`
+  - _Mô tả_: Định dạng tuần tự hóa dữ liệu được sử dụng cho các tính năng AI của Intlayer.
+  - _Ví dụ_: `'toon'`
+  - _Ghi chú_: `json`: Tiêu chuẩn, đáng tin cậy; sử dụng nhiều token hơn. `toon`: Ít token hơn, kém nhất quán hơn JSON.
 
 ### Cấu hình Build
 

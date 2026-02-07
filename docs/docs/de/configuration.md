@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.0.5
+    date: 2026-02-06
+    changes: Hinzufügen von `dataSerialization` zur KI-Konfiguration
   - version: 8.0.0
     date: 2026-01-22
     changes: Move `importMode` build configuration to `dictionary` configuration.
@@ -891,6 +894,13 @@ Intlayer unterstützt mehrere KI-Anbieter für erhöhte Flexibilität und Auswah
   - _Beschreibung_: Die Basis-URL für die KI-API.
   - _Beispiel_: `'https://api.openai.com/v1'`
   - _Hinweis_: Kann verwendet werden, um auf einen lokalen oder benutzerdefinierten KI-API-Endpunkt zu verweisen.
+
+- **dataSerialization**:
+  - _Typ_: `'json' | 'toon'`
+  - _Standard_: `'json'`
+  - _Beschreibung_: Das Datenserialisierungsformat für die KI-Funktionen von Intlayer.
+  - _Beispiel_: `'toon'`
+  - _Hinweis_: `json`: Standard, zuverlässig; verbraucht mehr Token. `toon`: Weniger Token, weniger konsistent als JSON.
 
 ### Build-Konfiguration
 

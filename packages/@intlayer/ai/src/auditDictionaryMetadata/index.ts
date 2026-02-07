@@ -1,5 +1,5 @@
 import { readAsset } from 'utils:asset';
-import { generateObject } from 'ai';
+import { generateText, Output } from 'ai';
 import { z } from 'zod';
 import type { AIConfig, AIOptions } from '../aiSdk';
 
@@ -62,13 +62,18 @@ export const auditDictionaryMetadata = async ({
       : ''
   );
 
+  const { dataSerialization, ...restAiConfig } = aiConfig;
+  const { output: _unusedOutput, ...validAiConfig } = restAiConfig;
+
   // Use the AI SDK to generate the completion
-  const { object, usage } = await generateObject({
-    ...aiConfig,
-    schema: z.object({
-      title: z.string(),
-      description: z.string(),
-      tags: z.array(z.string()),
+  const { output, usage } = await generateText({
+    ...validAiConfig,
+    output: Output.object({
+      schema: z.object({
+        title: z.string(),
+        description: z.string(),
+        tags: z.array(z.string()),
+      }),
     }),
     messages: [
       { role: 'system', content: prompt },
@@ -82,7 +87,7 @@ export const auditDictionaryMetadata = async ({
   });
 
   return {
-    fileContent: object,
+    fileContent: output,
     tokenUsed: usage?.totalTokens ?? 0,
   };
 };

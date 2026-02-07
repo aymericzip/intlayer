@@ -126,6 +126,7 @@ Affected dictionary keys for processing: app, comp-test, hello-world, lang-switc
 - **`--api-key [apiKey]`**: توفير مفتاح API خاص بك لخدمة الذكاء الاصطناعي.
 - **`--custom-prompt [prompt]`**: توفير موجه مخصص لتعليمات الترجمة الخاصة بك.
 - **`--application-context [applicationContext]`**: توفير سياق إضافي لترجمة الذكاء الاصطناعي.
+- **`--data-serialization [dataSerialization]`**: تنسيق تسلسل البيانات لاستخدامه في ميزات الذكاء الاصطناعي لـ Intlayer. الخيارات: `json` (قياسي، موثوق)، `toon` (رموز أقل، أقل اتساقًا).
 
   > مثال: `npx intlayer fill --model gpt-3.5-turbo --provider openai --temperature 0.5 --api-key sk-1234567890 --application-context "تطبيقي هو متجر للقطط"`
 

@@ -126,6 +126,7 @@ Affected dictionary keys for processing: app, comp-test, hello-world, lang-switc
 - **`--api-key [apiKey]`**: Fornisci la tua chiave API per il servizio AI.
 - **`--custom-prompt [prompt]`**: Fornisci un prompt personalizzato per le tue istruzioni di traduzione.
 - **`--application-context [applicationContext]`**: Fornisci un contesto aggiuntivo per la traduzione AI.
+- **`--data-serialization [dataSerialization]`**: Il formato di serializzazione dei dati da utilizzare per le funzionalità AI di Intlayer. Opzioni: `json` (standard, affidabile), `toon` (meno token, meno coerente).
 
   > Esempio: `npx intlayer fill --model gpt-3.5-turbo --provider openai --temperature 0.5 --api-key sk-1234567890 --application-context "La mia applicazione è un negozio di gatti"`
 
