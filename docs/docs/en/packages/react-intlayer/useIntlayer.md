@@ -31,7 +31,7 @@ The `useIntlayer` hook allows you to retrieve localized content from a dictionar
 import { useIntlayer } from "react-intlayer";
 
 const MyComponent = () => {
-  const content = useIntlayer("my_dictionary_key");
+  const content = useIntlayer("my-dictionary-key");
 
   return (
     <div>

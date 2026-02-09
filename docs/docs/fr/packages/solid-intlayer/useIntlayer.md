@@ -33,7 +33,7 @@ Le hook `useIntlayer` vous permet de récupérer du contenu localisé depuis un 
 import { useIntlayer } from "solid-intlayer";
 
 const MyComponent = () => {
-  const content = useIntlayer("my_dictionary_key");
+  const content = useIntlayer("my-dictionary-key");
 
   return (
     <div>

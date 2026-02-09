@@ -33,7 +33,7 @@ O hook `useIntlayer` permite recuperar conteúdo localizado de um dicionário us
 import { useIntlayer } from "solid-intlayer";
 
 const MyComponent = () => {
-  const content = useIntlayer("my_dictionary_key");
+  const content = useIntlayer("my-dictionary-key");
 
   return (
     <div>

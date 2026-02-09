@@ -4,20 +4,51 @@ import type { FastifyReply, FastifyRequest } from 'fastify';
 
 export type SearchDocUtilParams = {
   input: string;
+  limit?: string;
+  returnContent?: string;
 };
-export type SearchDocUtilResult = ResponseData<string[]>;
+
+export type SearchDocResult = {
+  fileKey: string;
+  chunkNumber: number;
+  content?: string;
+  docUrl: string;
+  docName: string;
+};
+
+export type SearchDocUtilResult = ResponseData<string[] | SearchDocResult[]>;
 
 export const searchDocUtil = async (
   request: FastifyRequest<{ Querystring: SearchDocUtilParams }>,
   reply: FastifyReply
 ) => {
-  const { input } = request.query;
+  const { input, limit, returnContent } = request.query;
+
+  const maxResults = limit ? Number.parseInt(limit, 10) : 30;
+  const shouldReturnContent = returnContent === 'true';
 
   const response = await askDocQuestionUtil.searchChunkReference(
     input,
-    30,
+    maxResults,
     0.2
   );
+
+  if (shouldReturnContent) {
+    const searchResults: SearchDocResult[] = response.map((doc) => ({
+      fileKey: doc.fileKey,
+      chunkNumber: doc.chunkNumber,
+      content: doc.content,
+      docUrl: doc.docUrl,
+      docName: doc.docName,
+    }));
+
+    const responseData = formatResponse<SearchDocResult[]>({
+      data: searchResults,
+    });
+
+    return reply.send(responseData);
+  }
+
   const docFileList = response.map((doc) => doc.fileKey);
 
   const uniqueDocFileList = Array.from(new Set(docFileList));

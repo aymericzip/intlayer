@@ -1167,6 +1167,7 @@
       "version": "8.0.4",
       "bin": "dist/cjs/server/stdio.cjs",
       "dependencies": {
+        "@intlayer/api": "workspace:*",
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/cli": "workspace:*",
         "@intlayer/config": "workspace:*",

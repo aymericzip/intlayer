@@ -14,7 +14,7 @@ import { runCI } from './ci';
 import { getConfig } from './config';
 import { startEditor } from './editor';
 import { type FillOptions, fill } from './fill/fill';
-import { init } from './init';
+import { init, initSkills } from './init';
 import { listContentDeclaration } from './listContentDeclaration';
 import { listProjectsCommand } from './listProjects';
 import { liveSync } from './liveSync';
@@ -22,6 +22,7 @@ import { pull } from './pull';
 import { push } from './push/push';
 import { pushConfig } from './pushConfig';
 import { reviewDoc } from './reviewDoc/reviewDoc';
+import { searchDoc } from './searchDoc';
 import { testMissingTranslations } from './test';
 import { transform } from './transform';
 import { translateDoc } from './translateDoc/translateDoc';
@@ -289,11 +290,17 @@ export const setAPI = (): Command => {
   /**
    * INIT
    */
-  program
+  const initCmd = program
     .command('init')
     .description('Initialize Intlayer in the project')
     .option('--project-root [projectRoot]', 'Project root directory')
     .action((options) => init(options.projectRoot));
+
+  initCmd
+    .command('skills')
+    .description('Initialize Intlayer skills in the project')
+    .option('--project-root [projectRoot]', 'Project root directory')
+    .action((options) => initSkills(options.projectRoot));
 
   /**
    * DICTIONARIES
@@ -824,6 +831,22 @@ export const setAPI = (): Command => {
       skipIfModifiedBefore: options.skipIfModifiedBefore,
       skipIfModifiedAfter: options.skipIfModifiedAfter,
       skipIfExists: options.skipIfExists,
+    })
+  );
+
+  const searchProgram = docProgram
+    .command('search')
+    .description('Search the documentation')
+    .argument('<query>', 'Search query')
+    .option('--limit [limit]', 'Limit the number of results', '10');
+
+  applyConfigOptions(searchProgram);
+
+  searchProgram.action((query, options) =>
+    searchDoc({
+      query,
+      limit: options.limit ? parseInt(options.limit, 10) : 10,
+      configOptions: extractConfigOptions(options),
     })
   );
 

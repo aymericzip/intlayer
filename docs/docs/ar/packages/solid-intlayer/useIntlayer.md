@@ -34,7 +34,7 @@ import { useIntlayer } from "solid-intlayer";
 
 tsx;
 const MyComponent = () => {
-  const content = useIntlayer("my_dictionary_key");
+  const content = useIntlayer("my-dictionary-key");
 
   return (
     <div>

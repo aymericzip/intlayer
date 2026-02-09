@@ -10,6 +10,7 @@ export * from './pull';
 export * from './push/push';
 export * from './pushConfig';
 export * from './reviewDoc/reviewDoc';
+export * from './searchDoc';
 export * from './test';
 export * from './transform';
 export * from './translateDoc/translateDoc';

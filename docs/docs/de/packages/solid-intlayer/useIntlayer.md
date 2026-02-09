@@ -33,7 +33,7 @@ Der `useIntlayer`-Hook ermöglicht es, lokalisierten Inhalt aus einem Wörterbuc
 import { useIntlayer } from "solid-intlayer";
 
 const MyComponent = () => {
-  const content = useIntlayer("my_dictionary_key");
+  const content = useIntlayer("my-dictionary-key");
 
   return (
     <div>

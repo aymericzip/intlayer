@@ -1,3 +1,4 @@
+import { getSearchAPI } from '@intlayer/api';
 import type { DocKey } from '@intlayer/docs';
 import {
   getDoc,
@@ -103,7 +104,7 @@ export const loadDocsTools: LoadDocsTools = async (server) => {
     },
     async ({ slug, strict }) => {
       try {
-        const doc = await getDocBySlug(slug, undefined, strict);
+        const doc = await getDocBySlug(slug ?? [], undefined, strict);
         return {
           content: doc.map((d) => ({ type: 'text', text: d })),
         };
@@ -113,6 +114,65 @@ export const loadDocsTools: LoadDocsTools = async (server) => {
         return {
           content: [
             { type: 'text', text: `Get doc by slug failed: ${errorMessage}` },
+          ],
+        };
+      }
+    }
+  );
+
+  server.registerTool(
+    'fetch-doc-chunks',
+    {
+      title: 'Fetch Doc Chunks',
+      description:
+        'Fetch related doc chunks using keywords or questions. This tool will return the most relevant chunks of documentation based on the input query.',
+      inputSchema: {
+        query: z.string().describe('The keywords or question to search for'),
+        limit: z
+          .number()
+          .optional()
+          .describe('The number of chunks to retrieve (default: 10)'),
+      },
+      annotations: {
+        readOnlyHint: true,
+      },
+    },
+    async ({ query, limit }) => {
+      try {
+        const { searchDoc } = getSearchAPI();
+        const response = await searchDoc({
+          input: query,
+          limit: limit?.toString(),
+          returnContent: 'true',
+        });
+
+        if (!response.data || !Array.isArray(response.data)) {
+          return {
+            content: [{ type: 'text', text: 'No relevant chunks found.' }],
+          };
+        }
+
+        const chunks = response.data;
+
+        return {
+          content: chunks.map((chunk: any) => ({
+            type: 'text',
+            text: [
+              `File: ${chunk.fileKey}`,
+              `Title: ${chunk.docName}`,
+              `URL: ${chunk.docUrl}`,
+              `Chunk: ${chunk.chunkNumber}`,
+              `Content:`,
+              chunk.content,
+            ].join('\n'),
+          })),
+        };
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error ? error.message : 'An unknown error occurred';
+        return {
+          content: [
+            { type: 'text', text: `Fetch doc chunks failed: ${errorMessage}` },
           ],
         };
       }
