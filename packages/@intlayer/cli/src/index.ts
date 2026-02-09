@@ -3,6 +3,7 @@ export * from './build';
 export * from './cli';
 export * from './editor';
 export * from './fill/fill';
+export * from './init';
 export * from './listContentDeclaration';
 export * from './liveSync';
 export * from './pull';

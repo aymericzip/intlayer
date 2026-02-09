@@ -24,6 +24,7 @@ export { handleAdditionalContentDeclarationFile } from './handleAdditionalConten
 export { handleContentDeclarationFileChange } from './handleContentDeclarationFileChange';
 export { handleUnlinkedContentDeclarationFile } from './handleUnlinkedContentDeclarationFile';
 export { initIntlayer } from './init/index';
+export { installSkills, SKILLS, type Skill } from './installSkills/index';
 export {
   listDictionaries,
   listDictionariesWithStats,

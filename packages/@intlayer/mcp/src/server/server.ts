@@ -5,6 +5,7 @@ import { isESModule } from '@intlayer/config';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { loadCLITools } from '../tools/cli';
 import { loadDocsTools } from '../tools/docs';
+import { loadInstallSkillsTool } from '../tools/installSkills';
 
 export const dirname: string = isESModule
   ? pathDirname(fileURLToPath(import.meta.url))
@@ -20,14 +21,12 @@ export const loadServer: LoadServer = ({ isLocal }) => {
   const server = new McpServer({
     name: 'intlayer',
     version: packageJson.version,
-    capabilities: {
-      resources: {},
-    },
   });
 
   if (isLocal) {
     try {
       loadCLITools(server);
+      loadInstallSkillsTool(server);
     } catch (error) {
       console.error('Error loading CLI tools:', error);
     }
