@@ -57,42 +57,7 @@ const docDataContent: Dictionary = {
       }),
       default: getDocMetadata('./docs/en/introduction.md'),
     },
-    releases: {
-      title: t({
-        en: 'Releases',
-        'en-GB': 'Releases',
-        fr: 'Versions',
-        es: 'Versiones',
-        de: 'Versionen',
-        it: 'Versioni',
-        ja: 'リリース',
-        ko: '릴리스',
-        zh: '发布',
-        pt: 'Versões',
-        hi: 'रिलीज',
-        ar: 'إصدارات',
-        uk: 'Релізи',
-        ru: 'Релизы',
-        tr: 'Sürümler',
-        pl: 'Wersje',
-        id: 'Rilis',
-        vi: 'Phiên bản',
-      }),
-      subSections: {
-        v6: {
-          title: 'v6',
-          default: getDocMetadata('./docs/en/releases/v6.md'),
-        },
-        v7: {
-          title: 'v7',
-          default: getDocMetadata('./docs/en/releases/v7.md'),
-        },
-        v8: {
-          title: 'v8',
-          default: getDocMetadata('./docs/en/releases/v8.md'),
-        },
-      },
-    },
+
     concept: {
       title: t({
         en: 'Concept',
@@ -620,6 +585,42 @@ const docDataContent: Dictionary = {
             vi: 'Tối ưu hóa gói',
           }),
           default: getDocMetadata('./docs/en/bundle_optimization.md'),
+        },
+        releases: {
+          title: t({
+            en: 'Releases',
+            'en-GB': 'Releases',
+            fr: 'Versions',
+            es: 'Versiones',
+            de: 'Versionen',
+            it: 'Versioni',
+            ja: 'リリース',
+            ko: '릴리스',
+            zh: '发布',
+            pt: 'Versões',
+            hi: 'रिलीज',
+            ar: 'إصدارات',
+            uk: 'Релізи',
+            ru: 'Релизы',
+            tr: 'Sürümler',
+            pl: 'Wersje',
+            id: 'Rilis',
+            vi: 'Phiên bản',
+          }),
+          subSections: {
+            v8: {
+              title: 'v8',
+              default: getDocMetadata('./docs/en/releases/v8.md'),
+            },
+            v7: {
+              title: 'v7',
+              default: getDocMetadata('./docs/en/releases/v7.md'),
+            },
+            v6: {
+              title: 'v6',
+              default: getDocMetadata('./docs/en/releases/v6.md'),
+            },
+          },
         },
       },
     },
