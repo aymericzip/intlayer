@@ -106,7 +106,7 @@
     "@intlayer/docs": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@types/crypto-js": "4.2.2",
-    "@types/node": "25.2.1",
+    "@types/node": "25.2.2",
     "@types/oauth2-server": "3.0.18",
     "@types/react": "19.2.13",
     "@types/validator": "13.15.10",
