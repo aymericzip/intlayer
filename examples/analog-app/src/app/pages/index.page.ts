@@ -1,8 +1,17 @@
 import { Component } from '@angular/core';
+import { useIntlayer } from 'angular-intlayer';
+import { LocaleSwitcherComponent } from '../locale-switcher.component';
 
 @Component({
   selector: 'app-home',
+  imports: [LocaleSwitcherComponent],
   template: `
+    <app-locale-switcher></app-locale-switcher>
+    <div class="content">
+      <h1>{{ content().title }}</h1>
+      <p>{{ content().congratulations }}</p>
+    </div>
+
     <h2>Analog</h2>
 
     <h3>The fullstack meta-framework for Angular!</h3>
@@ -34,4 +43,6 @@ import { Component } from '@angular/core';
     }
   `,
 })
-export default class Home {}
+export default class Home {
+  content = useIntlayer('app');
+}
