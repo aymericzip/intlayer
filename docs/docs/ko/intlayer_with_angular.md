@@ -182,6 +182,9 @@ Intlayer를 Angular CLI와 통합하려면 사용자 정의 빌더를 사용해�
             // ...
           },
         },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+        },
       },
     },
   },

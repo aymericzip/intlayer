@@ -182,6 +182,9 @@ Per prima cosa, modifica il tuo `angular.json` per utilizzare il builder Webpack
             // ...
           },
         },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+        },
       },
     },
   },

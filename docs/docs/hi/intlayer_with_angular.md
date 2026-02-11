@@ -184,6 +184,9 @@ Angular CLI के साथ Intlayer को एकीकृत करने क
             // ...
           },
         },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+        },
       },
     },
   },

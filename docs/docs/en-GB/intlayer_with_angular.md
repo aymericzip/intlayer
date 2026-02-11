@@ -185,6 +185,9 @@ First, modify your `angular.json` to use the custom Webpack builder. Update the 
             // ...
           },
         },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+        },
       },
     },
   },

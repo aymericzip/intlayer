@@ -182,6 +182,9 @@ Primeiro, modifique seu `angular.json` para usar o builder personalizado do Webp
             // ...
           },
         },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+        },
       },
     },
   },

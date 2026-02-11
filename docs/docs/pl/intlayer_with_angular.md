@@ -182,6 +182,9 @@ Najpierw zmodyfikuj plik `angular.json`, aby używał niestandardowego buildera 
             // ...
           },
         },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+        },
       },
     },
   },

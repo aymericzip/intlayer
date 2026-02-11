@@ -182,6 +182,9 @@ Intlayer'ı Angular CLI ile entegre etmek için özel bir oluşturucu (builder) 
             // ...
           },
         },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+        },
       },
     },
   },
