@@ -1419,6 +1419,7 @@
       "name": "angular-intlayer",
       "version": "8.0.5",
       "dependencies": {
+        "@babel/plugin-syntax-import-attributes": "^7.28.6",
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",

@@ -28,6 +28,26 @@ export const mergeConfig = (baseConfig: WebpackConfig): WebpackConfig => {
           test: /\.node$/,
           loader: 'node-loader',
         },
+
+        // Fix `import _48DQ2FD8DPGT8SPgqAmt from '../dictionary/app.json' with { type: 'json' };` syntax
+        {
+          test: /\.mjs$/,
+          include: [/[\\/]\.intlayer[\\/]/],
+          type: 'javascript/auto',
+          enforce: 'pre',
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: [['@babel/preset-env', { modules: 'commonjs' }]],
+              plugins: [
+                [
+                  '@babel/plugin-syntax-import-attributes',
+                  { deprecatedAssert: true },
+                ],
+              ],
+            },
+          },
+        },
       ],
     },
     plugins: [new IntlayerPlugin(intlayerConfig)],
