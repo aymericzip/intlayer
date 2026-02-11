@@ -11,10 +11,13 @@ export type GetAliasOptions = {
 
 export const getAlias = ({
   configuration,
-  format = 'esm',
+  format,
   formatter = (value: string) => value,
 }: GetAliasOptions) => {
-  const extension = getExtension(configuration, format);
+  const extension = getExtension(
+    configuration,
+    format ?? configuration.build.outputFormat[0] ?? 'esm'
+  );
 
   const { baseDir } = configuration.content;
   const { mainDir, configDir } = configuration.system;

@@ -7,6 +7,6 @@ export const TRAVERSE_PATTERN = [
   '!**/node_modules/**',
 ];
 
-export const OUTPUT_FORMAT: ('cjs' | 'esm')[] = ['cjs', 'esm'];
+export const OUTPUT_FORMAT: ('cjs' | 'esm')[] = ['esm', 'cjs'];
 
 export const CACHE = true;
