@@ -166,30 +166,25 @@ Intlayer를 Angular CLI와 통합하려면 사용자 정의 빌더를 사용해�
 
 먼저, `angular.json`을 수정하여 사용자 정의 Webpack 빌더를 사용하도록 합니다. `build` 및 `serve` 구성을 업데이트하세요:
 
-```json fileName="angular.json"
+```json5 fileName="angular.json"
 {
   "projects": {
     "your-app-name": {
       "architect": {
         "build": {
-          "builder": "@angular-builders/custom-webpack:browser",
+          "builder": "@angular-builders/custom-webpack:browser", // replace "@angular-devkit/build-angular:application",
           "options": {
             "customWebpackConfig": {
-              "path": "./webpack.config.ts"
-            }
-          }
+              "path": "./webpack.config.ts",
+              "mergeStrategies": { "module.rules": "prepend" },
+            },
+            "main": "src/main.ts", // replace "browser": "src/main.ts",
+            // ...
+          },
         },
-        "serve": {
-          "builder": "@angular-builders/custom-webpack:dev-server",
-          "options": {
-            "customWebpackConfig": {
-              "path": "./webpack.config.ts"
-            }
-          }
-        }
-      }
-    }
-  }
+      },
+    },
+  },
 }
 ```
 

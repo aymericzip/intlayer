@@ -169,30 +169,25 @@ module.exports = config;
 
 أولاً، قم بتعديل ملف `angular.json` لاستخدام منشئ Webpack المخصص. قم بتحديث تكوينات `build` و `serve`:
 
-```json fileName="angular.json"
+```json5 fileName="angular.json"
 {
   "projects": {
     "your-app-name": {
       "architect": {
         "build": {
-          "builder": "@angular-builders/custom-webpack:browser",
+          "builder": "@angular-builders/custom-webpack:browser", // replace "@angular-devkit/build-angular:application",
           "options": {
             "customWebpackConfig": {
-              "path": "./webpack.config.ts"
-            }
-          }
+              "path": "./webpack.config.ts",
+              "mergeStrategies": { "module.rules": "prepend" },
+            },
+            "main": "src/main.ts", // replace "browser": "src/main.ts",
+            // ...
+          },
         },
-        "serve": {
-          "builder": "@angular-builders/custom-webpack:dev-server",
-          "options": {
-            "customWebpackConfig": {
-              "path": "./webpack.config.ts"
-            }
-          }
-        }
-      }
-    }
-  }
+      },
+    },
+  },
 }
 ```
 

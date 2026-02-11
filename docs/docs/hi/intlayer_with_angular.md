@@ -168,30 +168,25 @@ Angular CLI के साथ Intlayer को एकीकृत करने क
 
 सबसे पहले, कस्टम Webpack बिल्डर का उपयोग करने के लिए अपने `angular.json` को संशोधित करें। `build` और `serve` कॉन्फ़िगरेशन अपडेट करें:
 
-```json fileName="angular.json"
+```json5 fileName="angular.json"
 {
   "projects": {
     "your-app-name": {
       "architect": {
         "build": {
-          "builder": "@angular-builders/custom-webpack:browser",
+          "builder": "@angular-builders/custom-webpack:browser", // replace "@angular-devkit/build-angular:application",
           "options": {
             "customWebpackConfig": {
-              "path": "./webpack.config.ts"
-            }
-          }
+              "path": "./webpack.config.ts",
+              "mergeStrategies": { "module.rules": "prepend" },
+            },
+            "main": "src/main.ts", // replace "browser": "src/main.ts",
+            // ...
+          },
         },
-        "serve": {
-          "builder": "@angular-builders/custom-webpack:dev-server",
-          "options": {
-            "customWebpackConfig": {
-              "path": "./webpack.config.ts"
-            }
-          }
-        }
-      }
-    }
-  }
+      },
+    },
+  },
 }
 ```
 
