@@ -126,7 +126,7 @@ export const markdownStringPlugin: Plugins = {
 
     const render = (components?: any) =>
       renderIntlayerNode({
-        ...props,
+        ...rest,
         value: node,
         children: () => ({
           component: ContentSelectorWrapperComponent,

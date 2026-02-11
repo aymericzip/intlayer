@@ -10,6 +10,7 @@ export const SKILLS_METADATA = {
   ExtraAction: 'Additional CLI and automated actions',
   Content: 'Reference for all Intlayer content node types (t, enu, etc.)',
   React: 'React-specific syntax and hooks usage',
+  Angular: 'Angular-specific syntax and Injectable Function usage',
   NextJS: 'Next.js-specific usage (Server & Client components)',
   Vue: 'Vue-specific composables and syntax',
   Svelte: 'Svelte-specific stores and syntax',
