@@ -2,13 +2,13 @@ import { relative } from 'node:path';
 import { listProjects } from '@intlayer/chokidar';
 import {
   build,
+  extract,
   fill,
   init,
   listContentDeclarationRows,
   listMissingTranslations,
   pull,
   push,
-  transform,
 } from '@intlayer/cli';
 import { Locales, type LogConfig } from '@intlayer/types';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
@@ -472,16 +472,16 @@ export const loadCLITools: LoadCLITools = async (server) => {
   );
 
   server.registerTool(
-    'intlayer-transform',
+    'intlayer-extract',
     {
-      title: 'Transform Component',
+      title: 'Extract strings from Component',
       description:
-        'Transform an existing component to use Intlayer. Trigger this action to transform an existing component to be multilingual. If the component does not exist, create a normal React component including text in JSX, and then trigger this tool to transform it.',
+        'Extract strings from an existing component to be placed in a .content file close to the component. Trigger this action to make an existing component multilingual. If the component does not exist, create a normal component including text in JSX, and then trigger this tool to extract it.',
       inputSchema: {
         file: z
           .union([z.string(), z.array(z.string())])
           .optional()
-          .describe('List of files to transform'),
+          .describe('List of files to extract'),
         outputContentDeclarations: z
           .string()
           .optional()
@@ -511,7 +511,7 @@ export const loadCLITools: LoadCLITools = async (server) => {
     },
     async (props) => {
       try {
-        await transform({
+        await extract({
           files: Array.isArray(props.file)
             ? props.file
             : props.file
@@ -525,7 +525,7 @@ export const loadCLITools: LoadCLITools = async (server) => {
           content: [
             {
               type: 'text',
-              text: 'Transform successful.',
+              text: 'Extract successful.',
             },
           ],
         };
@@ -536,7 +536,7 @@ export const loadCLITools: LoadCLITools = async (server) => {
           content: [
             {
               type: 'text',
-              text: `Transform failed: ${errorMessage}`,
+              text: `Extract failed: ${errorMessage}`,
             },
           ],
         };

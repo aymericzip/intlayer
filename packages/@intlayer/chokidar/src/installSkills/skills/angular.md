@@ -1,4 +1,13 @@
+---
+name: Angular
+description: Angular-specific syntax and Injectable Function usage
+---
+
 # Intlayer Angular Usage
+
+## Setup
+
+- [Angular](https://intlayer.org/doc/environment/angular.md)
 
 ## useIntlayer Composable
 

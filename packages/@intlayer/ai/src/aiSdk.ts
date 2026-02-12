@@ -1,8 +1,33 @@
-import { type anthropic, createAnthropic } from '@ai-sdk/anthropic';
-import { createDeepSeek, type deepseek } from '@ai-sdk/deepseek';
-import { createGoogleGenerativeAI, type google } from '@ai-sdk/google';
-import { createMistral, type mistral } from '@ai-sdk/mistral';
-import { createOpenAI, type openai } from '@ai-sdk/openai';
+import type { AlibabaProvider, createAlibaba } from '@ai-sdk/alibaba';
+import type {
+  AmazonBedrockProvider,
+  createAmazonBedrock,
+} from '@ai-sdk/amazon-bedrock';
+import type { AnthropicProvider, createAnthropic } from '@ai-sdk/anthropic';
+import type { createDeepSeek, DeepSeekProvider } from '@ai-sdk/deepseek';
+import type { createFireworks, FireworksProvider } from '@ai-sdk/fireworks';
+import type {
+  createGoogleGenerativeAI,
+  GoogleGenerativeAIProvider,
+} from '@ai-sdk/google';
+import type {
+  createVertex,
+  GoogleVertexProvider as VertexProvider,
+} from '@ai-sdk/google-vertex';
+import type { createGroq, GroqProvider } from '@ai-sdk/groq';
+import type {
+  createHuggingFace,
+  HuggingFaceProvider,
+} from '@ai-sdk/huggingface';
+import type { createMistral, MistralProvider } from '@ai-sdk/mistral';
+import type { createOpenAI, OpenAIProvider } from '@ai-sdk/openai';
+import type { createTogetherAI, TogetherAIProvider } from '@ai-sdk/togetherai';
+import { ANSIColors, colorize, logger, x } from '@intlayer/config';
+import { AiProviders } from '@intlayer/types';
+import type {
+  createOpenRouter,
+  OpenRouterProvider,
+} from '@openrouter/ai-sdk-provider';
 import type {
   AssistantModelMessage,
   generateText,
@@ -11,11 +36,41 @@ import type {
   UserModelMessage,
 } from 'ai';
 
-type AnthropicModel = Parameters<typeof anthropic>[0];
-type DeepSeekModel = Parameters<typeof deepseek>[0];
-type MistralModel = Parameters<typeof mistral>[0];
-type OpenAIModel = Parameters<typeof openai>[0];
-type GoogleModel = Parameters<typeof google>[0];
+export { AiProviders as AIProvider };
+
+type AnthropicModel = Parameters<AnthropicProvider>[0];
+type DeepSeekModel = Parameters<DeepSeekProvider>[0];
+type MistralModel = Parameters<MistralProvider>[0];
+type OpenAIModel = Parameters<OpenAIProvider>[0];
+type OpenRouterModel = Parameters<OpenRouterProvider>[0];
+type GoogleModel = Parameters<GoogleGenerativeAIProvider>[0];
+type VertexModel = Parameters<VertexProvider>[0];
+type AlibabaModel = Parameters<AlibabaProvider>[0];
+type AmazonBedrockModel = Parameters<AmazonBedrockProvider>[0];
+type FireworksModel = Parameters<FireworksProvider>[0];
+type GroqModel = Parameters<GroqProvider>[0];
+type HuggingFaceModel = Parameters<HuggingFaceProvider>[0];
+type TogetherAIModel = Parameters<TogetherAIProvider>[0];
+
+export type OpenAIProviderOptions = Parameters<typeof createOpenAI>[0];
+export type AnthropicProviderOptions = Parameters<typeof createAnthropic>[0];
+export type MistralProviderOptions = Parameters<typeof createMistral>[0];
+export type DeepSeekProviderOptions = Parameters<typeof createDeepSeek>[0];
+export type GoogleProviderOptions = Parameters<
+  typeof createGoogleGenerativeAI
+>[0];
+export type VertexProviderOptions = Parameters<typeof createVertex>[0];
+export type OpenRouterProviderOptions = Parameters<typeof createOpenRouter>[0];
+export type AlibabaProviderOptions = Parameters<typeof createAlibaba>[0];
+export type FireworksProviderOptions = Parameters<typeof createFireworks>[0];
+export type GroqProviderOptions = Parameters<typeof createGroq>[0];
+export type HuggingFaceProviderOptions = Parameters<
+  typeof createHuggingFace
+>[0];
+export type AmazonBedrockProviderOptions = Parameters<
+  typeof createAmazonBedrock
+>[0];
+export type TogetherAIProviderOptions = Parameters<typeof createTogetherAI>[0];
 
 export type Messages = (
   | SystemModelMessage
@@ -32,28 +87,27 @@ export type Model =
   | DeepSeekModel
   | MistralModel
   | OpenAIModel
+  | OpenRouterModel
   | GoogleModel
+  | VertexModel
+  | AlibabaModel
+  | AmazonBedrockModel
+  | FireworksModel
+  | GroqModel
+  | HuggingFaceModel
+  | TogetherAIModel
   | (string & {});
 
 /**
  * Supported AI SDK providers
  */
-export enum AIProvider {
-  OPENAI = 'openai',
-  ANTHROPIC = 'anthropic',
-  MISTRAL = 'mistral',
-  DEEPSEEK = 'deepseek',
-  GEMINI = 'gemini',
-  OLLAMA = 'ollama',
-}
 
 export type ReasoningEffort = 'minimal' | 'low' | 'medium' | 'high' | 'none';
 
 /**
  * Common options for all AI providers
  */
-export type AIOptions = {
-  provider?: AIProvider;
+type CommonAIOptions = {
   model?: Model;
   temperature?: number;
   baseURL?: string;
@@ -61,6 +115,53 @@ export type AIOptions = {
   applicationContext?: string;
   dataSerialization?: 'json' | 'toon';
 };
+
+export type AIOptions = (
+  | ({
+      provider: AiProviders.OPENAI | `${AiProviders.OPENAI}`;
+    } & OpenAIProviderOptions)
+  | ({
+      provider: AiProviders.ANTHROPIC | `${AiProviders.ANTHROPIC}`;
+    } & AnthropicProviderOptions)
+  | ({
+      provider: AiProviders.MISTRAL | `${AiProviders.MISTRAL}`;
+    } & MistralProviderOptions)
+  | ({
+      provider: AiProviders.DEEPSEEK | `${AiProviders.DEEPSEEK}`;
+    } & DeepSeekProviderOptions)
+  | ({
+      provider: AiProviders.GEMINI | `${AiProviders.GEMINI}`;
+    } & GoogleProviderOptions)
+  | ({
+      provider: AiProviders.OLLAMA | `${AiProviders.OLLAMA}`;
+    } & OpenAIProviderOptions)
+  | ({
+      provider: AiProviders.OPENROUTER | `${AiProviders.OPENROUTER}`;
+    } & OpenRouterProviderOptions)
+  | ({
+      provider: AiProviders.ALIBABA | `${AiProviders.ALIBABA}`;
+    } & AlibabaProviderOptions)
+  | ({
+      provider: AiProviders.FIREWORKS | `${AiProviders.FIREWORKS}`;
+    } & FireworksProviderOptions)
+  | ({
+      provider: AiProviders.GROQ | `${AiProviders.GROQ}`;
+    } & GroqProviderOptions)
+  | ({
+      provider: AiProviders.HUGGINGFACE | `${AiProviders.HUGGINGFACE}`;
+    } & HuggingFaceProviderOptions)
+  | ({
+      provider: AiProviders.BEDROCK | `${AiProviders.BEDROCK}`;
+    } & AmazonBedrockProviderOptions)
+  | ({
+      provider: AiProviders.GOOGLEVERTEX | `${AiProviders.GOOGLEVERTEX}`;
+    } & VertexProviderOptions)
+  | ({
+      provider: AiProviders.TOGETHERAI | `${AiProviders.TOGETHERAI}`;
+    } & TogetherAIProviderOptions)
+  | ({ provider?: undefined } & OpenAIProviderOptions)
+) &
+  CommonAIOptions;
 
 // Define the structure of messages used in chat completions
 export type ChatCompletionRequestMessage = {
@@ -99,14 +200,14 @@ const getAPIKey = (
 };
 
 const getModelName = (
-  provider: AIProvider,
+  provider: AiProviders,
   userApiKey: string | undefined,
   userModel?: Model,
   defaultModel: Model = 'gpt-5-mini'
 ): Model => {
   // If the user uses their own API key, allow custom model selection
-  if (userApiKey || provider === AIProvider.OLLAMA) {
-    if (provider === AIProvider.OPENAI) {
+  if (userApiKey || provider === AiProviders.OLLAMA) {
+    if (provider === AiProviders.OPENAI) {
       return userModel ?? defaultModel;
     }
 
@@ -115,16 +216,32 @@ const getModelName = (
     }
 
     switch (provider) {
-      case AIProvider.ANTHROPIC:
+      case AiProviders.ANTHROPIC:
         return 'claude-sonnet-4-5-20250929';
-      case AIProvider.MISTRAL:
+      case AiProviders.MISTRAL:
         return 'mistral-large-latest';
-      case AIProvider.DEEPSEEK:
+      case AiProviders.DEEPSEEK:
         return 'deepseek-coder';
-      case AIProvider.GEMINI:
+      case AiProviders.GEMINI:
         return 'gemini-2.5-flash';
-      case AIProvider.OLLAMA:
+      case AiProviders.GOOGLEVERTEX:
+        return 'gemini-2.5-flash';
+      case AiProviders.OLLAMA:
         return '';
+      case AiProviders.OPENROUTER:
+        return 'openai/gpt-4o';
+      case AiProviders.ALIBABA:
+        return 'qwen-plus';
+      case AiProviders.FIREWORKS:
+        return 'accounts/fireworks/models/llama-v3p1-8b-instruct';
+      case AiProviders.GROQ:
+        return 'llama3-8b-8192';
+      case AiProviders.HUGGINGFACE:
+        return 'meta-llama/Meta-Llama-3.1-8B-Instruct';
+      case AiProviders.BEDROCK:
+        return 'meta.llama3-70b-instruct-v1:0';
+      case AiProviders.TOGETHERAI:
+        return 'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo';
       default:
         return defaultModel;
     }
@@ -140,13 +257,28 @@ const getModelName = (
   return defaultModel;
 };
 
-const getLanguageModel = (
+const getLanguageModel = async (
   aiOptions: AIOptions,
   apiKey: string | undefined,
   defaultModel?: Model
 ) => {
+  const loadModule = async <T>(packageName: string): Promise<T> => {
+    try {
+      return (await import(packageName)) as T;
+    } catch {
+      logger(
+        `${x} The package "${colorize(packageName, ANSIColors.GREEN)}" is required to use this AI provider. Please install it using: ${colorize(`npm install ${packageName}`, ANSIColors.GREY_DARK)}`,
+        {
+          level: 'error',
+        }
+      );
+      process.exit();
+    }
+  };
+
+  const provider = aiOptions.provider ?? AiProviders.OPENAI;
   const selectedModel = getModelName(
-    aiOptions.provider as AIProvider,
+    provider as AiProviders,
     apiKey,
     aiOptions.model,
     defaultModel
@@ -154,54 +286,344 @@ const getLanguageModel = (
 
   const baseURL = aiOptions.baseURL;
 
-  switch (aiOptions.provider) {
-    case AIProvider.OPENAI: {
+  switch (provider) {
+    case AiProviders.OPENAI: {
+      const {
+        provider,
+        model,
+        temperature,
+        applicationContext,
+        dataSerialization,
+        apiKey: _apiKey,
+        baseURL: _baseURL,
+        ...otherOptions
+      } = aiOptions as any;
+
+      const { createOpenAI } =
+        await loadModule<typeof import('@ai-sdk/openai')>('@ai-sdk/openai');
+
       return createOpenAI({
         apiKey,
         baseURL,
+        ...otherOptions,
       })(selectedModel);
     }
 
-    case AIProvider.ANTHROPIC: {
+    case AiProviders.ANTHROPIC: {
+      const {
+        provider,
+        model,
+        temperature,
+        applicationContext,
+        dataSerialization,
+        apiKey: _apiKey,
+        baseURL: _baseURL,
+        ...otherOptions
+      } = aiOptions as any;
+
+      const { createAnthropic } =
+        await loadModule<typeof import('@ai-sdk/anthropic')>(
+          '@ai-sdk/anthropic'
+        );
+
       return createAnthropic({
         apiKey,
         baseURL,
+        ...otherOptions,
       })(selectedModel);
     }
 
-    case AIProvider.MISTRAL: {
+    case AiProviders.MISTRAL: {
+      const {
+        provider,
+        model,
+        temperature,
+        applicationContext,
+        dataSerialization,
+        apiKey: _apiKey,
+        baseURL: _baseURL,
+        ...otherOptions
+      } = aiOptions as any;
+
+      const { createMistral } =
+        await loadModule<typeof import('@ai-sdk/mistral')>('@ai-sdk/mistral');
+
       return createMistral({
         apiKey,
         baseURL,
+        ...otherOptions,
       })(selectedModel);
     }
 
-    case AIProvider.DEEPSEEK: {
+    case AiProviders.DEEPSEEK: {
+      const {
+        provider,
+        model,
+        temperature,
+        applicationContext,
+        dataSerialization,
+        apiKey: _apiKey,
+        baseURL: _baseURL,
+        ...otherOptions
+      } = aiOptions as any;
+
+      const { createDeepSeek } =
+        await loadModule<typeof import('@ai-sdk/deepseek')>('@ai-sdk/deepseek');
+
       return createDeepSeek({
         apiKey,
         baseURL,
+        ...otherOptions,
       })(selectedModel);
     }
 
-    case AIProvider.GEMINI: {
+    case AiProviders.GEMINI: {
+      const {
+        provider,
+        model,
+        temperature,
+        applicationContext,
+        dataSerialization,
+        apiKey: _apiKey,
+        baseURL: _baseURL,
+        ...otherOptions
+      } = aiOptions as any;
+
+      const { createGoogleGenerativeAI } =
+        await loadModule<typeof import('@ai-sdk/google')>('@ai-sdk/google');
+
       return createGoogleGenerativeAI({
         apiKey,
         baseURL,
+        ...otherOptions,
       })(selectedModel);
     }
 
-    case AIProvider.OLLAMA: {
+    case AiProviders.GOOGLEVERTEX: {
+      const {
+        provider,
+        model,
+        temperature,
+        applicationContext,
+        dataSerialization,
+        apiKey: _apiKey,
+        baseURL: _baseURL,
+        ...otherOptions
+      } = aiOptions as any;
+
+      const { createVertex } = await loadModule<
+        typeof import('@ai-sdk/google-vertex')
+      >('@ai-sdk/google-vertex');
+
+      return createVertex({
+        apiKey,
+        baseURL,
+        ...otherOptions,
+      })(selectedModel as string);
+    }
+
+    case AiProviders.OLLAMA: {
+      const {
+        provider,
+        model,
+        temperature,
+        applicationContext,
+        dataSerialization,
+        apiKey: _apiKey,
+        baseURL: _baseURL,
+        ...otherOptions
+      } = aiOptions as any;
+
+      const { createOpenAI } =
+        await loadModule<typeof import('@ai-sdk/openai')>('@ai-sdk/openai');
+
       // Ollama compatible mode:
       const ollama = createOpenAI({
         baseURL: baseURL ?? 'http://localhost:11434/v1',
         apiKey: apiKey ?? 'ollama', // Required but unused by Ollama
+        ...otherOptions,
       });
 
       return ollama.chat(selectedModel);
     }
 
+    case AiProviders.OPENROUTER: {
+      const {
+        provider,
+        model,
+        temperature,
+        applicationContext,
+        dataSerialization,
+        apiKey: _apiKey,
+        baseURL: _baseURL,
+        ...otherOptions
+      } = aiOptions as any;
+
+      const { createOpenRouter } = await loadModule<
+        typeof import('@openrouter/ai-sdk-provider')
+      >('@openrouter/ai-sdk-provider');
+
+      const openrouter = createOpenRouter({
+        apiKey,
+        baseURL,
+        ...otherOptions,
+      });
+
+      return openrouter(selectedModel as string);
+    }
+
+    case AiProviders.ALIBABA: {
+      const {
+        provider,
+        model,
+        temperature,
+        applicationContext,
+        dataSerialization,
+        apiKey: _apiKey,
+        baseURL: _baseURL,
+        ...otherOptions
+      } = aiOptions as any;
+
+      const { createAlibaba } =
+        await loadModule<typeof import('@ai-sdk/alibaba')>('@ai-sdk/alibaba');
+
+      const alibaba = createAlibaba({
+        apiKey,
+        baseURL,
+        ...otherOptions,
+      });
+
+      return alibaba(selectedModel as string);
+    }
+
+    case AiProviders.FIREWORKS: {
+      const {
+        provider,
+        model,
+        temperature,
+        applicationContext,
+        dataSerialization,
+        apiKey: _apiKey,
+        baseURL: _baseURL,
+        ...otherOptions
+      } = aiOptions as any;
+
+      const { createFireworks } =
+        await loadModule<typeof import('@ai-sdk/fireworks')>(
+          '@ai-sdk/fireworks'
+        );
+
+      const fireworks = createFireworks({
+        apiKey,
+        baseURL,
+        ...otherOptions,
+      });
+
+      return fireworks(selectedModel as string);
+    }
+
+    case AiProviders.GROQ: {
+      const {
+        provider,
+        model,
+        temperature,
+        applicationContext,
+        dataSerialization,
+        apiKey: _apiKey,
+        baseURL: _baseURL,
+        ...otherOptions
+      } = aiOptions as any;
+
+      const { createGroq } =
+        await loadModule<typeof import('@ai-sdk/groq')>('@ai-sdk/groq');
+
+      const groq = createGroq({
+        apiKey,
+        baseURL,
+        ...otherOptions,
+      });
+
+      return groq(selectedModel as string);
+    }
+
+    case AiProviders.HUGGINGFACE: {
+      const {
+        provider,
+        model,
+        temperature,
+        applicationContext,
+        dataSerialization,
+        apiKey: _apiKey,
+        baseURL: _baseURL,
+        ...otherOptions
+      } = aiOptions as any;
+
+      const { createHuggingFace } = await loadModule<
+        typeof import('@ai-sdk/huggingface')
+      >('@ai-sdk/huggingface');
+
+      const huggingface = createHuggingFace({
+        apiKey,
+        baseURL,
+        ...otherOptions,
+      });
+
+      return huggingface(selectedModel as string);
+    }
+
+    case AiProviders.BEDROCK: {
+      const {
+        provider,
+        model,
+        temperature,
+        applicationContext,
+        dataSerialization,
+        apiKey: _apiKey,
+        baseURL: _baseURL,
+        ...otherOptions
+      } = aiOptions as any;
+
+      const { createAmazonBedrock } = await loadModule<
+        typeof import('@ai-sdk/amazon-bedrock')
+      >('@ai-sdk/amazon-bedrock');
+
+      const bedrock = createAmazonBedrock({
+        accessKeyId: apiKey,
+        baseURL,
+        ...otherOptions,
+      });
+
+      return bedrock(selectedModel as string);
+    }
+
+    case AiProviders.TOGETHERAI: {
+      const {
+        provider,
+        model,
+        temperature,
+        applicationContext,
+        dataSerialization,
+        apiKey: _apiKey,
+        baseURL: _baseURL,
+        ...otherOptions
+      } = aiOptions as any;
+
+      const { createTogetherAI } =
+        await loadModule<typeof import('@ai-sdk/togetherai')>(
+          '@ai-sdk/togetherai'
+        );
+
+      const togetherai = createTogetherAI({
+        apiKey,
+        baseURL,
+        ...otherOptions,
+      });
+
+      return togetherai(selectedModel as string);
+    }
+
     default: {
-      throw new Error(`Provider ${aiOptions.provider} not supported`);
+      throw new Error(`Provider ${provider} not supported`);
     }
   }
 };
@@ -212,7 +634,7 @@ export type AIConfig = Omit<Parameters<typeof generateText>[0], 'prompt'> & {
   dataSerialization?: 'json' | 'toon';
 };
 
-const DEFAULT_PROVIDER: AIProvider = AIProvider.OPENAI as AIProvider;
+const DEFAULT_PROVIDER: AiProviders = AiProviders.OPENAI as AiProviders;
 
 export type AIConfigOptions = {
   userOptions?: AIOptions;
@@ -244,16 +666,16 @@ export const getAIConfig = async (
     ...defaultOptions,
     ...projectOptions,
     ...userOptions,
-  } satisfies AIOptions;
+  } as AIOptions;
 
   const apiKey = getAPIKey(accessType, aiOptions, isAuthenticated);
 
   // Check if API key is provided
-  if (!apiKey && aiOptions.provider !== AIProvider.OLLAMA) {
+  if (!apiKey && aiOptions.provider !== AiProviders.OLLAMA) {
     throw new Error(`API key for ${aiOptions.provider} is missing`);
   }
 
-  const languageModel = getLanguageModel(
+  const languageModel = await getLanguageModel(
     aiOptions,
     apiKey,
     defaultOptions?.model

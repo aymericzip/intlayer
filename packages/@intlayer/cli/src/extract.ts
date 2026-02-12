@@ -11,7 +11,7 @@ import {
 } from '@intlayer/config';
 import fg from 'fast-glob';
 
-type TransformOptions = {
+type ExtractOptions = {
   files?: string[];
   outputContentDeclarations?: string;
   configOptions?: GetConfigurationOptions;
@@ -36,7 +36,7 @@ const getDependencies = async (baseDir: string) => {
   }
 };
 
-export const transform = async (options: TransformOptions) => {
+export const extract = async (options: ExtractOptions) => {
   const configuration = getConfiguration(options.configOptions);
   const appLogger = getAppLogger(configuration);
   const { baseDir, codeDir } = configuration.content;
@@ -68,9 +68,9 @@ export const transform = async (options: TransformOptions) => {
     packageName = 'express-intlayer';
   }
 
-  let filesToTransform = options.files ?? [];
+  let filesToExtract = options.files ?? [];
 
-  if (filesToTransform.length === 0) {
+  if (filesToExtract.length === 0) {
     const globPattern = '**/*.{tsx,jsx,vue,svelte,ts,js}';
     const excludePattern = [
       '**/*.content.{ts,tsx,js,jsx,mjs,cjs}',
@@ -110,12 +110,12 @@ export const transform = async (options: TransformOptions) => {
     });
 
     if (choices.length === 0) {
-      appLogger('No transformable files found in the project.');
+      appLogger('No extractable files found in the project.');
       return;
     }
 
     const selectedFiles = await multiselect({
-      message: 'Select files to transform:',
+      message: 'Select files to extract:',
       options: choices,
       required: false,
     });
@@ -125,15 +125,15 @@ export const transform = async (options: TransformOptions) => {
       process.exit(0);
     }
 
-    filesToTransform = selectedFiles as string[];
+    filesToExtract = selectedFiles as string[];
   }
 
-  if (filesToTransform.length === 0) {
-    appLogger('No files selected for transformation.');
+  if (filesToExtract.length === 0) {
+    appLogger('No files selected for extraction.');
     return;
   }
 
-  const absoluteFiles = filesToTransform
+  const absoluteFiles = filesToExtract
     .map((file) => resolve(baseDir, file))
     .filter((file) => {
       if (!existsSync(file)) {

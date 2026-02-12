@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-01-24
+updatedAt: 2026-02-12
 title: Configuration
 description: Apprenez à configurer Intlayer pour votre application. Comprenez les différents paramètres et options disponibles pour personnaliser Intlayer selon vos besoins.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.0.6
+    date: 2026-02-12
+    changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
   - version: 8.0.5
     date: 2026-02-06
     changes: Ajout de `dataSerialization` à la configuration de l'IA
@@ -293,7 +296,7 @@ const config: IntlayerConfig = {
   ai: {
     /**
      * AI provider to use.
-     * Options: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama'
+     * Options: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama', 'openrouter', 'alibaba', 'fireworks', 'groq', 'huggingface', 'bedrock', 'googlevertex', 'togetherai'
      * Default: 'openai'
      */
     provider: "openai",
@@ -860,6 +863,14 @@ Intlayer prend en charge plusieurs fournisseurs d'IA pour une flexibilité et un
 - **Google Gemini**
 - **Meta Llama**
 - **Ollama**
+- **OpenRouter**
+- **Alibaba Cloud**
+- **Fireworks**
+- **Hugging Face**
+- **Groq**
+- **Amazon Bedrock**
+- **Google Vertex**
+- **Together.ai**
 
 #### Propriétés
 
@@ -867,7 +878,7 @@ Intlayer prend en charge plusieurs fournisseurs d'IA pour une flexibilité et un
   - _Type_ : `string`
   - _Par défaut_ : `'openai'`
   - _Description_ : Le fournisseur à utiliser pour les fonctionnalités IA d'Intlayer.
-  - _Options_ : `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`
+  - _Options_ : `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googlevertex'``'togetherai'`
   - _Exemple_ : `'anthropic'`
   - _Note_: Différents fournisseurs peuvent nécessiter des clés API différentes et avoir des modèles de tarification différents.
 

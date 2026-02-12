@@ -1,3 +1,8 @@
+---
+name: Usage
+description: How to use Intlayer in your project
+---
+
 # Intlayer Usage
 
 To use Intlayer effectively:
@@ -100,4 +105,3 @@ To use Intlayer effectively:
 4.  **CLI Commands**:
     Useful commands for managing your content:
     - `npx intlayer build`: Build the dictionaries from your content declarations.
-    - `npx intlayer watch`: Watch for changes in content files and rebuild automatically.

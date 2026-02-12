@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-01-24
+updatedAt: 2026-02-12
 title: Configurazione
 description: Scopri come configurare Intlayer per la tua applicazione. Comprendi le varie impostazioni e opzioni disponibili per personalizzare Intlayer secondo le tue esigenze.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.0.6
+    date: 2026-02-12
+    changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
   - version: 8.0.5
     date: 2026-02-06
     changes: Aggiungi `dataSerialization` alla configurazione AI
@@ -290,7 +293,7 @@ const config: IntlayerConfig = {
   ai: {
     /**
      * AI provider to use.
-     * Options: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama'
+     * Options: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama', 'openrouter', 'alibaba', 'fireworks', 'groq', 'huggingface', 'bedrock', 'googlevertex', 'togetherai'
      * Default: 'openai'
      */
     provider: "openai",
@@ -857,6 +860,14 @@ Intlayer supporta più provider AI per una maggiore flessibilità e scelta. I pr
 - **Google Gemini**
 - **Meta Llama**
 - **Ollama**
+- **OpenRouter**
+- **Alibaba Cloud**
+- **Fireworks**
+- **Hugging Face**
+- **Groq**
+- **Amazon Bedrock**
+- **Google Vertex**
+- **Together.ai**
 
 #### Proprietà
 
@@ -864,7 +875,7 @@ Intlayer supporta più provider AI per una maggiore flessibilità e scelta. I pr
   - _Tipo_: `string`
   - _Predefinito_: `'openai'`
   - _Descrizione_: Il provider da utilizzare per le funzionalità AI di Intlayer.
-  - _Opzioni_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`
+  - _Opzioni_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googlevertex'``'togetherai'`
   - _Esempio_: `'anthropic'`
   - _Nota_: Diversi provider potrebbero richiedere chiavi API differenti e avere modelli di prezzo diversi.
 

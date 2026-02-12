@@ -35,12 +35,12 @@ npm install intlayer-cli
 
 Gói này xuất các hàm cung cấp cho các lệnh CLI.
 
-| Hàm         | Mô tả                                             |
-| ----------- | ------------------------------------------------- |
-| `build`     | Xây dựng các từ điển Intlayer.                    |
-| `audit`     | Kiểm tra các từ điển để phát hiện bản dịch thiếu. |
-| `liveSync`  | Đồng bộ các từ điển theo thời gian thực.          |
-| `pull`      | Kéo các từ điển từ nguồn từ xa.                   |
-| `push`      | Đẩy các từ điển lên nguồn từ xa.                  |
-| `test`      | Chạy kiểm thử trên các từ điển.                   |
-| `transform` | Chuyển đổi các từ điển giữa các định dạng.        |
+| Hàm        | Mô tả                                             |
+| ---------- | ------------------------------------------------- |
+| `build`    | Xây dựng các từ điển Intlayer.                    |
+| `audit`    | Kiểm tra các từ điển để phát hiện bản dịch thiếu. |
+| `liveSync` | Đồng bộ các từ điển theo thời gian thực.          |
+| `pull`     | Kéo các từ điển từ nguồn từ xa.                   |
+| `push`     | Đẩy các từ điển lên nguồn từ xa.                  |
+| `test`     | Chạy kiểm thử trên các từ điển.                   |
+| `extract`  | Chuyển đổi các từ điển giữa các định dạng.        |

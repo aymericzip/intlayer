@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-01-24
+updatedAt: 2026-02-12
 title: Yapılandırma
 description: Uygulamanız için Intlayer'ı nasıl yapılandıracağınızı öğrenin. Intlayer'ı ihtiyaçlarınıza göre özelleştirmek için mevcut çeşitli ayarları ve seçenekleri anlayın.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.0.6
+    date: 2026-02-12
+    changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
   - version: 8.0.5
     date: 2026-02-06
     changes: AI yapılandırmasına `dataSerialization` eklendi
@@ -293,7 +296,7 @@ const config: IntlayerConfig = {
   ai: {
     /**
      * AI provider to use.
-     * Options: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama'
+     * Options: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama', 'openrouter', 'alibaba', 'fireworks', 'groq', 'huggingface', 'bedrock', 'googlevertex', 'togetherai'
      * Default: 'openai'
      */
     provider: "openai",
@@ -848,6 +851,14 @@ Intlayer, artırılmış esneklik ve seçenek için birden fazla AI sağlayıcı
 - **Google Gemini**
 - **Meta Llama**
 - **Ollama**
+- **OpenRouter**
+- **Alibaba Cloud**
+- **Fireworks**
+- **Hugging Face**
+- **Groq**
+- **Amazon Bedrock**
+- **Google Vertex**
+- **Together.ai**
 
 #### Özellikler
 
@@ -855,7 +866,7 @@ Intlayer, artırılmış esneklik ve seçenek için birden fazla AI sağlayıcı
   - _Tür_: `string`
   - _Varsayılan_: `'openai'`
   - _Açıklama_: Intlayer'ın AI özellikleri için kullanılacak sağlayıcı.
-  - _Seçenekler_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`
+  - _Seçenekler_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googlevertex'``'togetherai'`
   - _Örnek_: `'anthropic'`
   - _Not_: Farklı sağlayıcılar farklı API anahtarları gerektirebilir ve farklı fiyatlandırma modellerine sahip olabilir.
 

@@ -167,7 +167,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Using this configuration, all per-locale files will be generated with the default locale set to English. It also include generation of `.content` files using the `transform` command, and the compiler. (See [Compiler](https://intlayer.org/doc/compiler) or [Transform](https://intlayer.org/doc/concept/cli/transform) for more information.)
+Using this configuration, all per-locale files will be generated with the default locale set to English. It also include generation of `.content` files using the `extract` command, and the compiler. (See [Compiler](https://intlayer.org/doc/compiler) or [Extract](https://intlayer.org/doc/concept/cli/extract) for more information.)
 
 ## Single File with Multiple Translations
 

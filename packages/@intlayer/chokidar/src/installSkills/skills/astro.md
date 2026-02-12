@@ -1,4 +1,13 @@
+---
+name: Astro
+description: Astro-specific usage and getIntlayer
+---
+
 # Intlayer Astro Usage
+
+## Setup
+
+- [Astro](https://intlayer.org/doc/environment/astro.md)
 
 ## Server-side (Astro Components)
 

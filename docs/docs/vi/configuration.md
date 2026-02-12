@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-01-24
+updatedAt: 2026-02-12
 title: Cấu hình
 description: Tìm hiểu cách cấu hình Intlayer cho ứng dụng của bạn. Hiểu các thiết lập và tùy chọn khác nhau để tùy chỉnh Intlayer theo nhu cầu của bạn.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.0.6
+    date: 2026-02-12
+    changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
   - version: 8.0.5
     date: 2026-02-06
     changes: Thêm `dataSerialization` vào cấu hình AI
@@ -308,7 +311,7 @@ const config: IntlayerConfig = {
   ai: {
     /**
      * AI provider to use.
-     * Options: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama'
+     * Options: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama', 'openrouter', 'alibaba', 'fireworks', 'groq', 'huggingface', 'bedrock', 'googlevertex', 'togetherai'
      * Default: 'openai'
      */
     provider: "openai",
@@ -949,6 +952,14 @@ Intlayer hỗ trợ nhiều nhà cung cấp AI để tăng tính linh hoạt và
 - **Google Gemini**
 - **Meta Llama**
 - **Ollama**
+- **OpenRouter**
+- **Alibaba Cloud**
+- **Fireworks**
+- **Hugging Face**
+- **Groq**
+- **Amazon Bedrock**
+- **Google Vertex**
+- **Together.ai**
 
 #### Thuộc tính
 
@@ -956,7 +967,7 @@ Intlayer hỗ trợ nhiều nhà cung cấp AI để tăng tính linh hoạt và
   - _Kiểu_: `string`
   - _Mặc định_: `'openai'`
   - _Mô tả_: Nhà cung cấp được sử dụng cho các tính năng AI của Intlayer.
-  - _Tùy chọn_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`
+  - _Tùy chọn_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googlevertex'``'togetherai'`
   - _Ví dụ_: `'anthropic'`
   - _Lưu ý_: Các nhà cung cấp khác nhau có thể yêu cầu các khóa API khác nhau và có các mô hình giá khác nhau.
 

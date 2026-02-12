@@ -35,12 +35,12 @@ npm install intlayer-cli
 
 Pakiet eksportuje funkcje, które obsługują polecenia CLI.
 
-| Funkcja     | Opis                                                               |
-| ----------- | ------------------------------------------------------------------ |
-| `build`     | Buduje słowniki Intlayer.                                          |
-| `audit`     | Przeprowadza audyt słowników w poszukiwaniu brakujących tłumaczeń. |
-| `liveSync`  | Synchronizuje słowniki w czasie rzeczywistym.                      |
-| `pull`      | Pobiera słowniki ze źródła zdalnego.                               |
-| `push`      | Wysyła słowniki do źródła zdalnego.                                |
-| `test`      | Uruchamia testy na słownikach.                                     |
-| `transform` | Konwertuje słowniki między formatami.                              |
+| Funkcja    | Opis                                                               |
+| ---------- | ------------------------------------------------------------------ |
+| `build`    | Buduje słowniki Intlayer.                                          |
+| `audit`    | Przeprowadza audyt słowników w poszukiwaniu brakujących tłumaczeń. |
+| `liveSync` | Synchronizuje słowniki w czasie rzeczywistym.                      |
+| `pull`     | Pobiera słowniki ze źródła zdalnego.                               |
+| `push`     | Wysyła słowniki do źródła zdalnego.                                |
+| `test`     | Uruchamia testy na słownikach.                                     |
+| `extract`  | Konwertuje słowniki między formatami.                              |

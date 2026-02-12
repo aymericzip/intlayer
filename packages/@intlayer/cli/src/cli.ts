@@ -13,6 +13,7 @@ import { build } from './build';
 import { runCI } from './ci';
 import { getConfig } from './config';
 import { startEditor } from './editor';
+import { extract } from './extract';
 import { type FillOptions, fill } from './fill/fill';
 import { init, initSkills } from './init';
 import { listContentDeclaration } from './listContentDeclaration';
@@ -24,7 +25,6 @@ import { pushConfig } from './pushConfig';
 import { reviewDoc } from './reviewDoc/reviewDoc';
 import { searchDoc } from './searchDoc';
 import { testMissingTranslations } from './test';
-import { transform } from './transform';
 import { translateDoc } from './translateDoc/translateDoc';
 import { getParentPackageJSON } from './utils/getParentPackageJSON';
 import { watchContentDeclaration } from './watch';
@@ -891,23 +891,25 @@ export const setAPI = (): Command => {
   });
 
   /**
-   * TRANSFORM
+   * EXTRACT
    */
-  const transformProgram = program
-    .command('transform')
-    .alias('trans')
-    .description('Transform components to use Intlayer');
+  const extractProgram = program
+    .command('extract')
+    .alias('ext')
+    .description(
+      'Extract strings from components to be placed in a .content file close to the component'
+    );
 
-  transformProgram
-    .option('-f, --file [files...]', 'List of files to transform')
+  extractProgram
+    .option('-f, --file [files...]', 'List of files to extract')
     .option(
       '-o, --output-content-declarations [outputContentDeclarations]',
       'Path to output content declaration files'
     )
-    .option('--code-only', 'Only transform the component code', false)
+    .option('--code-only', 'Only extract the component code', false)
     .option('--declaration-only', 'Only generate content declaration', false)
     .action((options) => {
-      transform({
+      extract({
         files: options.file,
         outputContentDeclarations: options.outputContentDeclarations,
         configOptions: extractConfigOptions(options),
@@ -916,7 +918,7 @@ export const setAPI = (): Command => {
       });
     });
 
-  applyConfigOptions(transformProgram);
+  applyConfigOptions(extractProgram);
 
   program.parse(process.argv);
 

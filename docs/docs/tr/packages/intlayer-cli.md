@@ -35,12 +35,12 @@ npm install intlayer-cli
 
 Paket, CLI komutlarını çalıştıran fonksiyonları dışa aktarır.
 
-| Fonksiyon   | Açıklama                                          |
-| ----------- | ------------------------------------------------- |
-| `build`     | Intlayer sözlüklerini oluşturur.                  |
-| `audit`     | Sözlükleri eksik çeviriler için denetler.         |
-| `liveSync`  | Sözlükleri gerçek zamanlı olarak senkronize eder. |
-| `pull`      | Uzak kaynaktan sözlükleri çeker.                  |
-| `push`      | Sözlükleri uzak kaynağa gönderir.                 |
-| `test`      | Sözlükler üzerinde testleri çalıştırır.           |
-| `transform` | Sözlükleri formatlar arasında dönüştürür.         |
+| Fonksiyon  | Açıklama                                          |
+| ---------- | ------------------------------------------------- |
+| `build`    | Intlayer sözlüklerini oluşturur.                  |
+| `audit`    | Sözlükleri eksik çeviriler için denetler.         |
+| `liveSync` | Sözlükleri gerçek zamanlı olarak senkronize eder. |
+| `pull`     | Uzak kaynaktan sözlükleri çeker.                  |
+| `push`     | Sözlükleri uzak kaynağa gönderir.                 |
+| `test`     | Sözlükler üzerinde testleri çalıştırır.           |
+| `extract`  | Sözlükleri formatlar arasında dönüştürür.         |

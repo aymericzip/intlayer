@@ -1,3 +1,8 @@
+---
+name: Content
+description: Reference for all Intlayer content node types (t, enu, etc.)
+---
+
 # Intlayer Content Nodes
 
 Intlayer provides various functions to define rich and dynamic content. Below is a reference for each node type.

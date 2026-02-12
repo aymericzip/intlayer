@@ -35,12 +35,12 @@ npm install intlayer-cli
 
 Il pacchetto esporta funzioni che alimentano i comandi CLI.
 
-| Funzione    | Descrizione                                           |
-| ----------- | ----------------------------------------------------- |
-| `build`     | Costruisce i dizionari Intlayer.                      |
-| `audit`     | Esegue l'audit dei dizionari per traduzioni mancanti. |
-| `liveSync`  | Sincronizza i dizionari in tempo reale.               |
-| `pull`      | Recupera i dizionari da una sorgente remota.          |
-| `push`      | Invia i dizionari a una sorgente remota.              |
-| `test`      | Esegue test sui dizionari.                            |
-| `transform` | Trasforma i dizionari tra formati.                    |
+| Funzione   | Descrizione                                           |
+| ---------- | ----------------------------------------------------- |
+| `build`    | Costruisce i dizionari Intlayer.                      |
+| `audit`    | Esegue l'audit dei dizionari per traduzioni mancanti. |
+| `liveSync` | Sincronizza i dizionari in tempo reale.               |
+| `pull`     | Recupera i dizionari da una sorgente remota.          |
+| `push`     | Invia i dizionari a una sorgente remota.              |
+| `test`     | Esegue test sui dizionari.                            |
+| `extract`  | Trasforma i dizionari tra formati.                    |

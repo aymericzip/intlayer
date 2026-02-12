@@ -1,4 +1,19 @@
+---
+name: NextJS
+description: Next.js-specific usage (Server & Client components)
+---
+
 # Intlayer Next.js Usage
+
+## Setup
+
+- [Next.js](https://intlayer.org/doc/environment/nextjs.md)
+- [Next.js 14](https://intlayer.org/doc/environment/nextjs/14.md)
+- [Next.js 15](https://intlayer.org/doc/environment/nextjs/15.md)
+- [No Locale Path](https://intlayer.org/doc/environment/nextjs/no-locale-path.md)
+- [Page Router](https://intlayer.org/doc/environment/nextjs/next-with-page-router.md)
+
+For more advanced configurations, you can also refer to the documentation for [Page Metadata](https://intlayer.org/doc/environment/nextjs/page-metadata.md), [Sitemap](https://intlayer.org/doc/environment/nextjs/sitemap.md), and [Server Actions](https://intlayer.org/doc/environment/nextjs/server-actions.md).
 
 ## Server Components
 

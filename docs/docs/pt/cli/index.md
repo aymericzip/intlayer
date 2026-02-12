@@ -169,7 +169,7 @@ Para ver como configurar os locais disponíveis ou outros parâmetros, consulte 
   "intlayer:fill": "npx intlayer fill",
   "intlayer:list": "npx intlayer content list",
   "intlayer:test": "npx intlayer content test",
-  "intlayer:transform": "npx intlayer transform",
+  "intlayer:extract": "npx intlayer extract",
   "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
   "intlayer:doc:review": "npx intlayer doc review"

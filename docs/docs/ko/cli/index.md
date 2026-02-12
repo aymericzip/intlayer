@@ -169,7 +169,7 @@ Intlayer는 여러 구성 파일 형식을 지원합니다:
   "intlayer:fill": "npx intlayer fill",
   "intlayer:list": "npx intlayer content list",
   "intlayer:test": "npx intlayer content test",
-  "intlayer:transform": "npx intlayer transform",
+  "intlayer:extract": "npx intlayer extract",
   "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
   "intlayer:doc:review": "npx intlayer doc review"

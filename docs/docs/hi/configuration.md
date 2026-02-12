@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-01-24
+updatedAt: 2026-02-12
 title: कॉन्फ़िगरेशन
 description: अपने एप्लिकेशन के लिए Intlayer को कॉन्फ़िगर करना सीखें। Intlayer को अपनी आवश्यकताओं के अनुसार अनुकूलित करने के लिए विभिन्न सेटिंग्स और विकल्पों को समझें।
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.0.6
+    date: 2026-02-12
+    changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
   - version: 8.0.5
     date: 2026-02-06
     changes: AI कॉन्फ़िगरेशन में `dataSerialization` जोड़ें
@@ -290,7 +293,7 @@ const config: IntlayerConfig = {
   ai: {
     /**
      * AI provider to use.
-     * Options: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama'
+     * Options: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama', 'openrouter', 'alibaba', 'fireworks', 'groq', 'huggingface', 'bedrock', 'googlevertex', 'togetherai'
      * Default: 'openai'
      */
     provider: "openai",
@@ -839,6 +842,14 @@ Intlayer बेहतर लचीलापन और विकल्प के 
 - **Google Gemini**
 - **Meta Llama**
 - **Ollama**
+- **OpenRouter**
+- **Alibaba Cloud**
+- **Fireworks**
+- **Hugging Face**
+- **Groq**
+- **Amazon Bedrock**
+- **Google Vertex**
+- **Together.ai**
 
 #### गुण
 
@@ -846,7 +857,7 @@ Intlayer बेहतर लचीलापन और विकल्प के 
   - _प्रकार_: `string`
   - _डिफ़ॉल्ट_: `'openai'`
   - _विवरण_: Intlayer की AI सुविधाओं के लिए उपयोग करने वाला प्रदाता।
-  - _विकल्प_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`
+  - _विकल्प_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googlevertex'``'togetherai'`
   - _उदाहरण_: `'anthropic'`
   - _नोट_: विभिन्न प्रदाताओं के लिए अलग-अलग API कुंजी और मूल्य निर्धारण मॉडल हो सकते हैं।
 

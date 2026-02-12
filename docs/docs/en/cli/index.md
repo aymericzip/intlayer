@@ -28,7 +28,7 @@ history:
     changes: Add init command
   - version: 7.2.3
     date: 2025-11-22
-    changes: Add transform command
+    changes: Add extract command
   - version: 7.1.0
     date: 2025-11-05
     changes: Add skipIfExists option to translate command
@@ -137,7 +137,7 @@ To see how to configure available locales, or other parameters, refer to the [co
 
 ### Component Management
 
-- **[Transform Components](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/transform.md)** - Transform existing components to use Intlayer
+- **[Extract Strings](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/extract.md)** - Extract strings from components into a .content file close to the component
 
 ### Configuration
 
@@ -176,7 +176,7 @@ To see how to configure available locales, or other parameters, refer to the [co
   "intlayer:fill": "npx intlayer fill",
   "intlayer:list": "npx intlayer content list",
   "intlayer:test": "npx intlayer content test",
-  "intlayer:transform": "npx intlayer transform",
+  "intlayer:extract": "npx intlayer extract",
   "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
   "intlayer:doc:review": "npx intlayer doc review"

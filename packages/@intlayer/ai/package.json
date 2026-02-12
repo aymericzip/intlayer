@@ -73,20 +73,28 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "3.0.12",
-    "@ai-sdk/deepseek": "2.0.5",
-    "@ai-sdk/google": "3.0.7",
-    "@ai-sdk/mistral": "3.0.6",
-    "@ai-sdk/openai": "3.0.9",
+    "@ai-sdk/anthropic": "3.0.42",
+    "@ai-sdk/google": "3.0.26",
+    "@ai-sdk/openai": "3.0.27",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/types": "workspace:*",
-    "@toon-format/toon": "^2.1.0",
-    "ai": "6.0.31",
+    "@toon-format/toon": "2.1.0",
+    "ai": "6.0.83",
     "zod": "4.3.6"
   },
   "devDependencies": {
+    "@ai-sdk/alibaba": "1.0.3",
+    "@ai-sdk/amazon-bedrock": "4.0.58",
+    "@ai-sdk/deepseek": "2.0.19",
+    "@ai-sdk/fireworks": "2.0.33",
+    "@ai-sdk/google-vertex": "^4.0.57",
+    "@ai-sdk/groq": "3.0.23",
+    "@ai-sdk/huggingface": "1.0.31",
+    "@ai-sdk/mistral": "3.0.19",
+    "@ai-sdk/togetherai": "2.0.32",
+    "@openrouter/ai-sdk-provider": "2.2.3",
     "@types/node": "25.2.2",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
@@ -95,6 +103,50 @@
     "tsdown": "0.20.3",
     "typescript": "5.9.3",
     "vitest": "4.0.18"
+  },
+  "peerDependencies": {
+    "@ai-sdk/alibaba": "1.0.3",
+    "@ai-sdk/amazon-bedrock": "4.0.58",
+    "@ai-sdk/deepseek": "2.0.19",
+    "@ai-sdk/fireworks": "2.0.33",
+    "@ai-sdk/google-vertex": "^4.0.57",
+    "@ai-sdk/groq": "3.0.23",
+    "@ai-sdk/huggingface": "1.0.31",
+    "@ai-sdk/mistral": "3.0.19",
+    "@ai-sdk/togetherai": "2.0.32",
+    "@openrouter/ai-sdk-provider": "2.2.3"
+  },
+  "peerDependenciesMeta": {
+    "@ai-sdk/alibaba": {
+      "optional": true
+    },
+    "@ai-sdk/amazon-bedrock": {
+      "optional": true
+    },
+    "@ai-sdk/deepseek": {
+      "optional": true
+    },
+    "@ai-sdk/fireworks": {
+      "optional": true
+    },
+    "@ai-sdk/google-vertex": {
+      "optional": true
+    },
+    "@ai-sdk/groq": {
+      "optional": true
+    },
+    "@ai-sdk/huggingface": {
+      "optional": true
+    },
+    "@ai-sdk/mistral": {
+      "optional": true
+    },
+    "@ai-sdk/togetherai": {
+      "optional": true
+    },
+    "@openrouter/ai-sdk-provider": {
+      "optional": true
+    }
   },
   "engines": {
     "node": ">=14.18"

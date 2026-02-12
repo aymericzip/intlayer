@@ -35,12 +35,12 @@ npm install intlayer-cli
 
 Paket ini mengekspor fungsi-fungsi yang menjalankan perintah CLI.
 
-| Fungsi      | Deskripsi                                     |
-| ----------- | --------------------------------------------- |
-| `build`     | Membangun kamus Intlayer.                     |
-| `audit`     | Mengaudit kamus untuk terjemahan yang hilang. |
-| `liveSync`  | Mensinkronkan kamus secara real-time.         |
-| `pull`      | Menarik kamus dari sumber remote.             |
-| `push`      | Mendorong kamus ke sumber remote.             |
-| `test`      | Menjalankan tes pada kamus.                   |
-| `transform` | Mengonversi kamus antar format.               |
+| Fungsi     | Deskripsi                                     |
+| ---------- | --------------------------------------------- |
+| `build`    | Membangun kamus Intlayer.                     |
+| `audit`    | Mengaudit kamus untuk terjemahan yang hilang. |
+| `liveSync` | Mensinkronkan kamus secara real-time.         |
+| `pull`     | Menarik kamus dari sumber remote.             |
+| `push`     | Mendorong kamus ke sumber remote.             |
+| `test`     | Menjalankan tes pada kamus.                   |
+| `extract`  | Mengonversi kamus antar format.               |

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-01-24
+updatedAt: 2026-02-12
 title: التهيئة
 description: تعلّم كيفية تهيئة Intlayer لتطبيقك. فهم الإعدادات والخيارات المختلفة المتاحة لتخصيص Intlayer حسب احتياجاتك.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.0.6
+    date: 2026-02-12
+    changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
   - version: 8.0.5
     date: 2026-02-06
     changes: إضافة `dataSerialization` إلى تكوين الذكاء الاصطناعي
@@ -290,7 +293,7 @@ const config: IntlayerConfig = {
   ai: {
     /**
      * AI provider to use.
-     * Options: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama'
+     * Options: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama', 'openrouter', 'alibaba', 'fireworks', 'groq', 'huggingface', 'bedrock', 'googlevertex', 'togetherai'
      * Default: 'openai'
      */
     provider: "openai",
@@ -845,6 +848,14 @@ export default config;
 - **Google Gemini**
 - **Meta Llama**
 - **Ollama**
+- **OpenRouter**
+- **Alibaba Cloud**
+- **Fireworks**
+- **Hugging Face**
+- **Groq**
+- **Amazon Bedrock**
+- **Google Vertex**
+- **Together.ai**
 
 #### الخصائص
 
@@ -852,7 +863,7 @@ export default config;
   - _النوع_: `string`
   - _الافتراضي_: `'openai'`
   - _الوصف_: المزود المستخدم لميزات الذكاء الاصطناعي في Intlayer.
-  - _الخيارات_: `'openai'`، `'anthropic'`، `'mistral'`، `'deepseek'`، `'gemini'`
+  - _الخيارات_:`'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googlevertex'``'togetherai'`
   - _مثال_: `'anthropic'`
   - _ملاحظة_: قد تتطلب مزودات مختلفة مفاتيح API مختلفة ولها نماذج تسعير مختلفة.
 

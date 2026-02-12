@@ -47,7 +47,7 @@ import {
   testMissingTranslations,
   docTranslate,
   docReview,
-  transform,
+  extract,
 } from "@intlayer/cli";
 
 push();
@@ -66,6 +66,6 @@ docTranslate();
 // ...
 docReview();
 // ...
-transform();
+extract();
 // ...
 ```

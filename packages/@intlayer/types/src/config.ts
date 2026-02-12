@@ -403,26 +403,17 @@ export enum AiProviders {
   DEEPSEEK = 'deepseek',
   GEMINI = 'gemini',
   OLLAMA = 'ollama',
+  OPENROUTER = 'openrouter',
+  ALIBABA = 'alibaba',
+  FIREWORKS = 'fireworks',
+  GROQ = 'groq',
+  HUGGINGFACE = 'huggingface',
+  BEDROCK = 'bedrock',
+  GOOGLEVERTEX = 'googlevertex',
+  TOGETHERAI = 'togetherai',
 }
 
-export type AiConfig = {
-  /**
-   * Provider
-   *
-   * The provider to use for the AI features of Intlayer.
-   *
-   * Available providers:
-   * - 'openai'
-   * - 'anthropic'
-   * - 'mistral'
-   * - 'deepseek'
-   * - 'gemini'
-   * - 'ollama'
-   *
-   * Default: 'openai'
-   */
-  provider?: AiProviders | `${AiProviders}`;
-
+export type CommonAiConfig = {
   /**
    * API model
    *
@@ -479,7 +470,18 @@ export type AiConfig = {
    * Default: 'json'
    */
   dataSerialization?: 'json' | 'toon';
-} & Record<string, any>;
+};
+
+export type AiProviderConfigMap = {};
+
+type AiConfigUnion = {
+  [P in keyof AiProviderConfigMap]: {
+    provider: P | `${P}`;
+  } & AiProviderConfigMap[P];
+}[keyof AiProviderConfigMap];
+
+export type AiConfig = CommonAiConfig &
+  (AiConfigUnion | { provider?: AiProviders | `${AiProviders}` });
 
 export type BuildConfig = {
   /**

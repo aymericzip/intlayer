@@ -1,4 +1,17 @@
+---
+name: Vue
+description: Vue-specific composables and syntax
+---
+
 # Intlayer Vue Usage
+
+## Setup
+
+- [Vite and Vue](https://intlayer.org/doc/environment/vite-and-vue.md)
+- [Nuxt and Vue](https://intlayer.org/doc/environment/nuxt-and-vue.md)
+- [Page Metadata](https://intlayer.org/doc/environment/vue-intlayer/page-metadata.md)
+- [Sitemap](https://intlayer.org/doc/environment/vue-intlayer/sitemap.md)
+- [Server Actions](https://intlayer.org/doc/environment/vue-intlayer/server-actions.md)
 
 ## useIntlayer Composable
 
