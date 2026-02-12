@@ -86,6 +86,7 @@
   },
   "dependencies": {
     "@babel/plugin-syntax-import-attributes": "^7.28.6",
+    "@babel/preset-env": "^7.29.0",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
@@ -93,6 +94,7 @@
     "@intlayer/editor": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@intlayer/webpack": "workspace:*",
+    "babel-loader": "^10.0.0",
     "defu": "6.1.4"
   },
   "devDependencies": {
