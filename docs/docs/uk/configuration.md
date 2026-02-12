@@ -935,6 +935,7 @@ Intlayer підтримує кількох постачальників ШІ д�
 - **Hugging Face**
 - **Groq**
 - **Amazon Bedrock**
+- **Google AI Studio**
 - **Google Vertex**
 - **Together.ai**
 - **ollama**
@@ -945,7 +946,7 @@ Intlayer підтримує кількох постачальників ШІ д�
   - _Type_: `string`
   - _Default_: `'openai'`
   - _Description_: Постачальник, який використовуватиметься для функцій ШІ Intlayer.
-  - _Options_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googlevertex'``'togetherai'`
+  - _Options_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googleaistudio'`, `'googlevertex'`, `'togetherai'`
   - _Example_: `'anthropic'`
   - _Note_: Різні провайдери можуть вимагати різні API-ключі та мати різні моделі ціноутворення.
 

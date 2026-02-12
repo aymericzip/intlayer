@@ -30,10 +30,9 @@ const config: Partial<CustomIntlayerConfig> = {
   },
 
   ai: {
-    provider: 'openai',
-    model: 'gpt-5-mini',
-    temperature: 0.2,
-    apiKey: process.env.OPEN_AI_API_KEY,
+    provider: 'googlegenerativeai',
+    model: 'gemini-3-flash-preview',
+    apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
     dataSerialization: 'toon',
   },
 

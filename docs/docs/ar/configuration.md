@@ -854,8 +854,10 @@ export default config;
 - **Hugging Face**
 - **Groq**
 - **Amazon Bedrock**
+- **Google AI Studio**
 - **Google Vertex**
 - **Together.ai**
+- **ollama**
 
 #### الخصائص
 
@@ -863,7 +865,7 @@ export default config;
   - _النوع_: `string`
   - _الافتراضي_: `'openai'`
   - _الوصف_: المزود المستخدم لميزات الذكاء الاصطناعي في Intlayer.
-  - _الخيارات_:`'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googlevertex'``'togetherai'`
+  - _الخيارات_:`'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googleaistudio'`, `'googlevertex'`, `'togetherai'`
   - _مثال_: `'anthropic'`
   - _ملاحظة_: قد تتطلب مزودات مختلفة مفاتيح API مختلفة ولها نماذج تسعير مختلفة.
 

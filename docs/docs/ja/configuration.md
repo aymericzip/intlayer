@@ -851,8 +851,10 @@ Intlayerは、柔軟性と選択肢を高めるために複数のAIプロバイ�
 - **Hugging Face**
 - **Groq**
 - **Amazon Bedrock**
+- **Google AI Studio**
 - **Google Vertex**
 - **Together.ai**
+- **ollama**
 
 #### プロパティ
 
@@ -860,7 +862,7 @@ Intlayerは、柔軟性と選択肢を高めるために複数のAIプロバイ�
   - _タイプ_: `string`
   - _デフォルト_: `'openai'`
   - _説明_: IntlayerのAI機能に使用するプロバイダー。
-  - _オプション_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googlevertex'``'togetherai'`
+  - _オプション_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googleaistudio'`, `'googlevertex'`, `'togetherai'`
   - _例_: `'anthropic'`
   - _注意_: プロバイダーによっては異なるAPIキーが必要であり、料金体系も異なる場合があります。
 

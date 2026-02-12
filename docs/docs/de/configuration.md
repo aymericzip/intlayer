@@ -860,8 +860,10 @@ Intlayer unterstützt mehrere KI-Anbieter für erhöhte Flexibilität und Auswah
 - **Hugging Face**
 - **Groq**
 - **Amazon Bedrock**
+- **Google AI Studio**
 - **Google Vertex**
 - **Together.ai**
+- **ollama**
 
 #### Eigenschaften
 
@@ -869,7 +871,7 @@ Intlayer unterstützt mehrere KI-Anbieter für erhöhte Flexibilität und Auswah
   - _Typ_: `string`
   - _Standard_: `'openai'`
   - _Beschreibung_: Der Anbieter, der für die KI-Funktionen von Intlayer verwendet wird.
-  - _Optionen_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googlevertex'``'togetherai'`
+  - _Optionen_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googleaistudio'`, `'googlevertex'`, `'togetherai'`
   - _Beispiel_: `'anthropic'`
   - _Hinweis_: Verschiedene Anbieter können unterschiedliche API-Schlüssel erfordern und haben unterschiedliche Preismodelle.
 

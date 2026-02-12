@@ -857,8 +857,10 @@ Intlayer, artırılmış esneklik ve seçenek için birden fazla AI sağlayıcı
 - **Hugging Face**
 - **Groq**
 - **Amazon Bedrock**
+- **Google AI Studio**
 - **Google Vertex**
 - **Together.ai**
+- **ollama**
 
 #### Özellikler
 
@@ -866,7 +868,7 @@ Intlayer, artırılmış esneklik ve seçenek için birden fazla AI sağlayıcı
   - _Tür_: `string`
   - _Varsayılan_: `'openai'`
   - _Açıklama_: Intlayer'ın AI özellikleri için kullanılacak sağlayıcı.
-  - _Seçenekler_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googlevertex'``'togetherai'`
+  - _Seçenekler_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googleaistudio'`, `'googlevertex'`, `'togetherai'`
   - _Örnek_: `'anthropic'`
   - _Not_: Farklı sağlayıcılar farklı API anahtarları gerektirebilir ve farklı fiyatlandırma modellerine sahip olabilir.
 

@@ -1026,6 +1026,15 @@ This AI configuration will be used globally across your Intlayer environment. CL
 
 Intlayer supports multiple AI providers for enhanced flexibility and choice. Currently supported providers are:
 
+- **OpenAI** (default)
+- **Anthropic Claude**
+- **Mistral AI**
+- **DeepSeek**
+- **Google Gemini**
+- **Google AI Studio**
+- **Google Vertex**
+- **Meta Llama**
+- **Ollama**
 - **OpenRouter**
 - **Alibaba Cloud**
 - **Fireworks**
@@ -1033,13 +1042,6 @@ Intlayer supports multiple AI providers for enhanced flexibility and choice. Cur
 - **Groq**
 - **Amazon Bedrock**
 - **Together.ai**
-- **OpenAI** (default)
-- **Anthropic Claude**
-- **Mistral AI**
-- **DeepSeek**
-- **Google Gemini**
-- **Meta Llama**
-- **Ollama**
 - **ollama**
 
 #### Properties
@@ -1048,7 +1050,7 @@ Intlayer supports multiple AI providers for enhanced flexibility and choice. Cur
   - _Type_: `string`
   - _Default_: `'openai'`
   - _Description_: The provider to use for the AI features of Intlayer.
-  - _Options_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googlevertex'``'togetherai'`
+  - _Options_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googleaistudio'`, `'googlevertex'`, `'togetherai'`
   - _Example_: `'anthropic'`
   - _Note_: Different providers may require different API keys and have different pricing models.
 

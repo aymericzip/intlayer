@@ -857,8 +857,10 @@ Intlayer 支持多个 AI 提供商，以增强灵活性和选择。目前支持�
 - **Hugging Face**
 - **Groq**
 - **Amazon Bedrock**
+- **Google AI Studio**
 - **Google Vertex**
 - **Together.ai**
+- **ollama**
 
 #### 属性
 

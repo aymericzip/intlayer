@@ -955,8 +955,10 @@ Intlayer obsługuje wielu dostawców AI, aby zapewnić większą elastyczność 
 - **Hugging Face**
 - **Groq**
 - **Amazon Bedrock**
+- **Google AI Studio**
 - **Google Vertex**
 - **Together.ai**
+- **ollama**
 
 #### Właściwości
 
@@ -964,7 +966,7 @@ Intlayer obsługuje wielu dostawców AI, aby zapewnić większą elastyczność 
   - _Typ_: `string`
   - _Domyślnie_: `'openai'`
   - _Opis_: Dostawca używany do funkcji AI w Intlayer.
-  - _Opcje_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googlevertex'``'togetherai'`
+  - _Opcje_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googleaistudio'`, `'googlevertex'`, `'togetherai'`
   - _Przykład_: `'anthropic'`
   - _Uwaga_: Różni dostawcy mogą wymagać różnych kluczy API i mieć różne modele cenowe.
 

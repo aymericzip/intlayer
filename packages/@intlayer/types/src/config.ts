@@ -410,6 +410,7 @@ export enum AiProviders {
   HUGGINGFACE = 'huggingface',
   BEDROCK = 'bedrock',
   GOOGLEVERTEX = 'googlevertex',
+  GOOGLEGENERATIVEAI = 'googlegenerativeai',
   TOGETHERAI = 'togetherai',
 }
 

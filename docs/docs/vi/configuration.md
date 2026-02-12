@@ -958,8 +958,10 @@ Intlayer hỗ trợ nhiều nhà cung cấp AI để tăng tính linh hoạt và
 - **Hugging Face**
 - **Groq**
 - **Amazon Bedrock**
+- **Google AI Studio**
 - **Google Vertex**
 - **Together.ai**
+- **ollama**
 
 #### Thuộc tính
 
@@ -967,7 +969,7 @@ Intlayer hỗ trợ nhiều nhà cung cấp AI để tăng tính linh hoạt và
   - _Kiểu_: `string`
   - _Mặc định_: `'openai'`
   - _Mô tả_: Nhà cung cấp được sử dụng cho các tính năng AI của Intlayer.
-  - _Tùy chọn_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googlevertex'``'togetherai'`
+  - _Tùy chọn_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googleaistudio'`, `'googlevertex'`, `'togetherai'`
   - _Ví dụ_: `'anthropic'`
   - _Lưu ý_: Các nhà cung cấp khác nhau có thể yêu cầu các khóa API khác nhau và có các mô hình giá khác nhau.
 

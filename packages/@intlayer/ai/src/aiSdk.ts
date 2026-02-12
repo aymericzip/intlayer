@@ -22,7 +22,7 @@ import type {
 import type { createMistral, MistralProvider } from '@ai-sdk/mistral';
 import type { createOpenAI, OpenAIProvider } from '@ai-sdk/openai';
 import type { createTogetherAI, TogetherAIProvider } from '@ai-sdk/togetherai';
-import { logger } from '@intlayer/config';
+import { ANSIColors, colorize, logger, x } from '@intlayer/config';
 import { AiProviders } from '@intlayer/types';
 import type {
   createOpenRouter,
@@ -133,6 +133,11 @@ export type AIOptions = (
       provider: AiProviders.GEMINI | `${AiProviders.GEMINI}`;
     } & GoogleProviderOptions)
   | ({
+      provider:
+        | AiProviders.GOOGLEGENERATIVEAI
+        | `${AiProviders.GOOGLEGENERATIVEAI}`;
+    } & GoogleProviderOptions)
+  | ({
       provider: AiProviders.OLLAMA | `${AiProviders.OLLAMA}`;
     } & OpenAIProviderOptions)
   | ({
@@ -216,34 +221,8 @@ const getModelName = (
     }
 
     switch (provider) {
-      case AiProviders.ANTHROPIC:
-        return 'claude-sonnet-4-5-20250929';
-      case AiProviders.MISTRAL:
-        return 'mistral-large-latest';
-      case AiProviders.DEEPSEEK:
-        return 'deepseek-coder';
-      case AiProviders.GEMINI:
-        return 'gemini-2.5-flash';
-      case AiProviders.GOOGLEVERTEX:
-        return 'gemini-2.5-flash';
-      case AiProviders.OLLAMA:
-        return '';
-      case AiProviders.OPENROUTER:
-        return 'openai/gpt-4o';
-      case AiProviders.ALIBABA:
-        return 'qwen-plus';
-      case AiProviders.FIREWORKS:
-        return 'accounts/fireworks/models/llama-v3p1-8b-instruct';
-      case AiProviders.GROQ:
-        return 'llama3-8b-8192';
-      case AiProviders.HUGGINGFACE:
-        return 'meta-llama/Meta-Llama-3.1-8B-Instruct';
-      case AiProviders.BEDROCK:
-        return 'meta.llama3-70b-instruct-v1:0';
-      case AiProviders.TOGETHERAI:
-        return 'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo';
       default:
-        return defaultModel;
+        return '-';
     }
   }
 
@@ -416,6 +395,28 @@ const getLanguageModel = async (
       >('@ai-sdk/google-vertex');
 
       return createVertex({
+        apiKey,
+        baseURL,
+        ...otherOptions,
+      })(selectedModel as string);
+    }
+
+    case AiProviders.GOOGLEGENERATIVEAI: {
+      const {
+        provider,
+        model,
+        temperature,
+        applicationContext,
+        dataSerialization,
+        apiKey: _apiKey,
+        baseURL: _baseURL,
+        ...otherOptions
+      } = aiOptions as any;
+
+      const { createGoogleGenerativeAI } =
+        await loadModule<typeof import('@ai-sdk/google')>('@ai-sdk/google');
+
+      return createGoogleGenerativeAI({
         apiKey,
         baseURL,
         ...otherOptions,

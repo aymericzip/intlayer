@@ -860,8 +860,10 @@ Intlayer admite múltiples proveedores de IA para una mayor flexibilidad y elecc
 - **Hugging Face**
 - **Groq**
 - **Amazon Bedrock**
+- **Google AI Studio**
 - **Google Vertex**
 - **Together.ai**
+- **ollama**
 
 #### Propiedades
 
@@ -869,7 +871,7 @@ Intlayer admite múltiples proveedores de IA para una mayor flexibilidad y elecc
   - _Tipo_: `string`
   - _Predeterminado_: `'openai'`
   - _Descripción_: El proveedor a utilizar para las funciones de IA de Intlayer.
-  - _Opciones_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googlevertex'``'togetherai'`
+  - _Opciones_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googleaistudio'`, `'googlevertex'`, `'togetherai'`
   - _Ejemplo_: `'anthropic'`
   - _Nota_: Diferentes proveedores pueden requerir diferentes claves API y tener distintos modelos de precios.
 

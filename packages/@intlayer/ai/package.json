@@ -73,29 +73,30 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "3.0.42",
-    "@ai-sdk/google": "3.0.26",
-    "@ai-sdk/openai": "3.0.27",
+    "@ai-sdk/anthropic": "3.0.43",
+    "@ai-sdk/google": "3.0.29",
+    "@ai-sdk/openai": "3.0.28",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@toon-format/toon": "2.1.0",
-    "ai": "6.0.83",
+    "ai": "6.0.84",
     "zod": "4.3.6"
   },
   "devDependencies": {
-    "@ai-sdk/alibaba": "1.0.3",
-    "@ai-sdk/amazon-bedrock": "4.0.58",
-    "@ai-sdk/deepseek": "2.0.19",
-    "@ai-sdk/fireworks": "2.0.33",
+    "@ai-sdk/alibaba": "1.0.4",
+    "@ai-sdk/amazon-bedrock": "4.0.59",
+    "@ai-sdk/deepseek": "2.0.20",
+    "@ai-sdk/fireworks": "2.0.34",
+    "@ai-sdk/google": "3.0.29",
     "@ai-sdk/google-vertex": "^4.0.57",
-    "@ai-sdk/groq": "3.0.23",
-    "@ai-sdk/huggingface": "1.0.31",
-    "@ai-sdk/mistral": "3.0.19",
-    "@ai-sdk/togetherai": "2.0.32",
+    "@ai-sdk/groq": "3.0.24",
+    "@ai-sdk/huggingface": "1.0.32",
+    "@ai-sdk/mistral": "3.0.20",
+    "@ai-sdk/togetherai": "2.0.33",
     "@openrouter/ai-sdk-provider": "2.2.3",
-    "@types/node": "25.2.2",
+    "@types/node": "25.2.3",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
@@ -105,15 +106,16 @@
     "vitest": "4.0.18"
   },
   "peerDependencies": {
-    "@ai-sdk/alibaba": "1.0.3",
-    "@ai-sdk/amazon-bedrock": "4.0.58",
-    "@ai-sdk/deepseek": "2.0.19",
-    "@ai-sdk/fireworks": "2.0.33",
+    "@ai-sdk/alibaba": "1.0.4",
+    "@ai-sdk/amazon-bedrock": "4.0.59",
+    "@ai-sdk/deepseek": "2.0.20",
+    "@ai-sdk/fireworks": "2.0.34",
+    "@ai-sdk/google": "3.0.29",
     "@ai-sdk/google-vertex": "^4.0.57",
-    "@ai-sdk/groq": "3.0.23",
-    "@ai-sdk/huggingface": "1.0.31",
-    "@ai-sdk/mistral": "3.0.19",
-    "@ai-sdk/togetherai": "2.0.32",
+    "@ai-sdk/groq": "3.0.24",
+    "@ai-sdk/huggingface": "1.0.32",
+    "@ai-sdk/mistral": "3.0.20",
+    "@ai-sdk/togetherai": "2.0.33",
     "@openrouter/ai-sdk-provider": "2.2.3"
   },
   "peerDependenciesMeta": {
@@ -127,6 +129,9 @@
       "optional": true
     },
     "@ai-sdk/fireworks": {
+      "optional": true
+    },
+    "@ai-sdk/google": {
       "optional": true
     },
     "@ai-sdk/google-vertex": {

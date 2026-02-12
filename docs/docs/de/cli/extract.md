@@ -22,7 +22,7 @@ slugs:
 npx intlayer extract
 ```
 
-Dieser Befehl analysiert Ihre Code-Dateien, um Strings aus Komponenten in eine .content-Datei nahe bei der Komponente zu extrahieren. Er unterstützt interaktive Dateiauswahl oder die gezielte Angabe einzelner Dateien.
+Dieser Befehl analysiert Ihre Codedateien, um Strings aus Komponenten in eine .content-Datei in der Nähe der Komponente zu extrahieren. Er unterstützt die interaktive Dateiauswahl oder das gezielte Ansprechen spezifischer Dateien.
 
 ## Aliase:
 
@@ -32,34 +32,34 @@ Dieser Befehl analysiert Ihre Code-Dateien, um Strings aus Komponenten in eine .
 
 **Optionen zur Dateiauswahl:**
 
-- **`-f, --file [files...]`**: Liste spezifischer Dateien, die extrahiert werden sollen. Wenn nicht angegeben, durchsucht das CLI nach passenden Dateien (`**/*.{tsx,jsx,vue,svelte,ts,js}`) und fordert dich auf, auszuwählen, welche extrahiert werden sollen.
+- **`-f, --file [files...]`**: Liste spezifischer Dateien zum Extrahieren. Falls nicht angegeben, scannt die CLI nach passenden Dateien (`**/*.{tsx,jsx,vue,svelte,ts,js}`) und fordert Sie auf, die zu extrahierenden Dateien auszuwählen.
 
   > Beispiel: `npx intlayer extract -f src/components/MyComponent.tsx`
 
 **Ausgabeoptionen:**
 
-- **`-o, --output-content-declarations [outputContentDeclarations]`**: Verzeichnis, in dem die generierten Content-Declaration-Dateien gespeichert werden.
+- **`-o, --output-content-declarations [outputContentDeclarations]`**: Verzeichnis zum Speichern der generierten Content-Deklarationsdateien.
 
   > Beispiel: `npx intlayer extract -o src/content`
 
-- **`--code-only`**: Extrahiert nur den Komponenten-Code (schreibt keine Content-Declaration).
+- **`--code-only`**: Nur den Komponenten-Code extrahieren (keine Content-Deklaration schreiben).
 
   > Beispiel: `npx intlayer extract --code-only`
 
-- **`--declaration-only`**: Erzeugt nur die Content-Declaration (schreibt die Komponente nicht neu).
+- **`--declaration-only`**: Nur die Content-Deklaration generieren (Komponente nicht umschreiben).
 
   > Beispiel: `npx intlayer extract --declaration-only`
 
 **Konfigurationsoptionen:**
 
-- **`--base-dir`**: Gibt das Basisverzeichnis des Projekts an.
-- **`--env`**: Gibt die Umgebung an.
-- **`--env-file`**: Gibt eine benutzerdefinierte Umgebungsdatei an.
-- **`--verbose`**: Aktiviert ausführliche Protokollierung.
+- **`--base-dir`**: Spezifizieren Sie das Basis-Verzeichnis für das Projekt.
+- **`--env`**: Spezifizieren Sie die Umgebung.
+- **`--env-file`**: Geben Sie eine benutzerdefinierte Umgebungsdatei an.
+- **`--verbose`**: Aktivieren Sie die ausführliche Protokollierung (Verbose Logging).
 
 **Erforderliche Plugins:**
 
-Der extract-Befehl funktioniert ohne zusätzliche Plugins für TypeScript-/JSX-Dateien. Für Vue- und Svelte-Projekte müssen jedoch die folgenden Plugins installiert sein:
+Der `extract`-Befehl funktioniert ohne zusätzliche Plugins bei TypeScript / JSX-Dateien. Für Vue- und Svelte-Projekte müssen jedoch die folgenden Plugins installiert sein:
 
 - **`@intlayer/vue-transformer`**: Für Vue-Dateien.
 - **`@intlayer/svelte-transformer`**: Für Svelte-Dateien.

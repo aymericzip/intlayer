@@ -868,8 +868,10 @@ Intlayer поддерживает несколько провайдеров ИИ
 - **Hugging Face**
 - **Groq**
 - **Amazon Bedrock**
+- **Google AI Studio**
 - **Google Vertex**
 - **Together.ai**
+- **ollama**
 
 #### Свойства
 
@@ -877,7 +879,7 @@ Intlayer поддерживает несколько провайдеров ИИ
   - _Тип_: `string`
   - _По умолчанию_: `'openai'`
   - _Описание_: Провайдер, используемый для функций ИИ в Intlayer.
-  - _Опции_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googlevertex'``'togetherai'`
+  - _Опции_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googleaistudio'`, `'googlevertex'`, `'togetherai'`
   - _Пример_: `'anthropic'`
   - _Примечание_: Разные провайдеры могут требовать разные API-ключи и иметь различные модели ценообразования.
 
