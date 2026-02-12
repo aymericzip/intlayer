@@ -13,7 +13,7 @@
     "tsdown": "0.20.1"
   },
   "devDependencies": {
-    "@types/node": "25.2.2",
+    "@types/node": "25.2.3",
     "typescript": "5.9.3"
   }
 }

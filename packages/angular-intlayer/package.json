@@ -98,7 +98,7 @@
     "defu": "6.1.4"
   },
   "devDependencies": {
-    "@types/node": "25.2.2",
+    "@types/node": "25.2.3",
     "@types/webpack": "5.28.5",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",

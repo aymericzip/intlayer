@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "4.1.18",
-    "@tanstack/react-query": "5.90.20",
+    "@tanstack/react-query": "5.90.21",
     "@tanstack/react-router": "1.143.11",
     "@tanstack/react-router-devtools": "1.143.11",
     "@tanstack/react-router-ssr-query": "1.143.11",
@@ -31,7 +31,7 @@
   "devDependencies": {
     "@testing-library/dom": "10.4.1",
     "@testing-library/react": "16.3.1",
-    "@types/react": "19.2.13",
+    "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "5.1.2",
     "jsdom": "27.2.0",
