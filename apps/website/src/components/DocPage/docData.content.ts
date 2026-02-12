@@ -195,9 +195,9 @@ const docDataContent: Dictionary = {
               title: 'SDK',
               default: getDocMetadata('./docs/en/cli/sdk.md'),
             },
-            transform: {
-              title: 'Transform',
-              default: getDocMetadata('./docs/en/cli/transform.md'),
+            extract: {
+              title: 'Extract',
+              default: getDocMetadata('./docs/en/cli/extract.md'),
             },
           },
         },
