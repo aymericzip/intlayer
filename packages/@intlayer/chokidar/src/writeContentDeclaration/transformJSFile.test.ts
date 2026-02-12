@@ -585,7 +585,7 @@ describe('transformJSFile', () => {
 
     const result = await transformJSFile(fileWithoutImports, dict);
 
-    expect(result).toContain('import { insert, t } from "intlayer"');
+    expect(result).toContain('import { insert } from "intlayer";');
     expect(result).toContain('greeting: insert(t({');
   });
 

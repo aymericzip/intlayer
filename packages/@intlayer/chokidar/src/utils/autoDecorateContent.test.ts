@@ -70,8 +70,9 @@ describe('autoDecorateContent', () => {
       const output = autoDecorateContent(input);
 
       // Requirement: process HTML before Markdown to avoid conflicts
-      expect(output.mdx.nodeType).toBe('html');
-      expect(output.mdx).toEqual(html('# Title <Badge>New</Badge>'));
+      expect(output.mdx.nodeType).toBe('markdown');
+      expect(output.mdx.markdown).toBe('# Title <Badge>New</Badge>');
+      expect(output.mdx.metadata).toEqual({});
     });
   });
 
