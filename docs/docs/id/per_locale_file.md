@@ -112,6 +112,24 @@ module.exports = helloWorldContent;
 
 > Direkomendasikan: Format ini paling baik digunakan saat memakai editor visual Intlayer atau mengelola terjemahan langsung di dalam kode.
 
+### Konfigurasi Global untuk File Per-Locale
+
+Anda dapat mengonfigurasi konfigurasi global untuk file per-locale dengan menambahkan hal berikut ke file `intlayer.config.ts` Anda:
+
+```ts
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  dictionary: {
+    locale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+Dengan menggunakan konfigurasi ini, semua file per-locale akan dibuat dengan locale default yang diatur ke bahasa Inggris. Ini juga mencakup pembuatan file `.content` menggunakan perintah `extract`, dan compiler. (Lihat [Compiler](https://intlayer.org/doc/compiler) atau [Extract](https://intlayer.org/doc/concept/cli/extract) untuk informasi lebih lanjut.)
+
 ## Format Per-Locale
 
 Format ini berguna ketika:

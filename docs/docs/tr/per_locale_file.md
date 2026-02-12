@@ -110,6 +110,24 @@ module.exports = helloWorldContent;
 
 > Önerilen: Bu format, Intlayer'ın görsel düzenleyicisini kullanırken veya çevirileri doğrudan kodda yönetirken en iyisidir.
 
+### Yerel Ayar Başına Dosyalar İçin Global Yapılandırma
+
+Aşağıdakileri `intlayer.config.ts` dosyanıza ekleyerek yerel ayar başına dosyalar için global yapılandırmayı ayarlayabilirsiniz:
+
+```ts
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  dictionary: {
+    locale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+Bu yapılandırmayı kullanarak, tüm yerel ayar başına dosyalar varsayılan yerel ayar İngilizce olarak ayarlanmış şekilde oluşturulacaktır. Ayrıca `extract` komutu kullanılarak `.content` dosyalarının oluşturulmasını ve derleyiciyi (compiler) içerir. (Daha fazla bilgi için [Compiler](https://intlayer.org/doc/compiler) veya [Extract](https://intlayer.org/doc/concept/cli/extract) bölümlerine bakın.)
+
 ## Yerel Ayar Başına Format
 
 Bu format şunlar için yararlıdır:

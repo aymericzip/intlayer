@@ -112,6 +112,24 @@ module.exports = helloWorldContent;
 
 > 推奨: このフォーマットは、Intlayerのビジュアルエディターを使用する場合や、コード内で直接翻訳を管理する場合に最適です。
 
+### ロケールごとのファイルのグローバル設定
+
+`intlayer.config.ts` ファイルに以下を追加することで、ロケールごとのファイルのグローバル設定を構成できます。
+
+```ts
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  dictionary: {
+    locale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+この設定を使用すると、すべてのロケールごとのファイルがデフォルトロケールを英語として生成されます。これには、`extract` コマンドを使用した `.content` ファイルの生成や、コンパイラも含まれます。（詳細については、[Compiler](https://intlayer.org/ja/doc/compiler) または [Extract](https://intlayer.org/ja/doc/concept/cli/extract) を参照してください。）
+
 ## ロケール別フォーマット
 
 このフォーマットは以下の場合に便利です：

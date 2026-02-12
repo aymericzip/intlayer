@@ -112,6 +112,24 @@ module.exports = helloWorldContent;
 
 > अनुशंसित: यह प्रारूप तब सबसे अच्छा होता है जब आप Intlayer के विज़ुअल एडिटर का उपयोग कर रहे हों या सीधे कोड में अनुवादों का प्रबंधन कर रहे हों।
 
+### प्रति-लोकेल फ़ाइलों के लिए ग्लोबल कॉन्फ़िगरेशन
+
+आप अपनी `intlayer.config.ts` फ़ाइल में निम्नलिखित जोड़कर प्रति-लोकेल फ़ाइलों के लिए ग्लोबल कॉन्फ़िगरेशन कॉन्फ़िगर कर सकते हैं:
+
+```ts
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  dictionary: {
+    locale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+इस कॉन्फ़िगरेशन का उपयोग करते हुए, सभी प्रति-लोकेल फ़ाइलें डिफ़ॉल्ट लोकेल को अंग्रेज़ी पर सेट करके जेनरेट की जाएंगी। इसमें `extract` कमांड और कंपाइलर का उपयोग करके `.content` फ़ाइलों का जनरेशन भी शामिल है। (अधिक जानकारी के लिए [Compiler](https://intlayer.org/doc/compiler) या [Extract](https://intlayer.org/doc/concept/cli/extract) देखें।)
+
 ## प्रति-स्थान प्रारूप
 
 यह प्रारूप तब उपयोगी होता है जब:
@@ -315,8 +333,6 @@ console.log(JSON.stringify(intlayer, null, 2));
 //  "projectName": "मेरा प्रोजेक्ट"
 // }
 ```
-
-### स्वचालित अनुवाद निर्माण
 
 ### स्वचालित अनुवाद निर्माण
 

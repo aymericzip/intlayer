@@ -112,6 +112,24 @@ module.exports = helloWorldContent;
 
 > 권장: 이 형식은 Intlayer의 시각적 편집기를 사용하거나 코드 내에서 직접 번역을 관리할 때 가장 적합합니다.
 
+### 로케일별 파일에 대한 전역 설정
+
+`intlayer.config.ts` 파일에 다음을 추가하여 로케일별 파일에 대한 전역 설정을 구성할 수 있습니다:
+
+```ts
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  dictionary: {
+    locale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+이 구성을 사용하면 모든 로케일별 파일이 기본 로케일이 영어로 설정된 상태로 생성됩니다. 또한 `extract` 명령어와 컴파일러를 사용한 `.content` 파일 생성도 포함됩니다. (자세한 내용은 [Compiler](https://intlayer.org/ko/doc/compiler) 또는 [Extract](https://intlayer.org/ko/doc/concept/cli/extract)를 참조하세요.)
+
 ## 로케일별 형식
 
 이 형식은 다음과 같은 경우에 유용합니다:

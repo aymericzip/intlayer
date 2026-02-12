@@ -112,6 +112,24 @@ module.exports = helloWorldContent;
 
 > Empfohlen: Dieses Format ist am besten geeignet, wenn Sie den visuellen Editor von Intlayer verwenden oder Übersetzungen direkt im Code verwalten.
 
+### Globale Konfiguration für Per-Locale-Dateien
+
+Sie können die globale Konfiguration für Per-Locale-Dateien festlegen, indem Sie Folgendes zu Ihrer `intlayer.config.ts`-Datei hinzufügen:
+
+```ts
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  dictionary: {
+    locale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+Mit dieser Konfiguration werden alle Per-Locale-Dateien mit der Standard-Locale Englisch generiert. Dies beinhaltet auch die Generierung von `.content`-Dateien unter Verwendung des `extract`-Befehls und des Compilers. (Siehe [Compiler](https://intlayer.org/doc/compiler) oder [Extract](https://intlayer.org/doc/concept/cli/extract) für weitere Informationen.)
+
 ## Pro-Locale-Format
 
 Dieses Format ist nützlich, wenn:

@@ -14,6 +14,7 @@ const appContent = {
 title: Example with Front Matter
 description: This demonstrates front matter, lists, formatting, and an MDX component.
 ---
+
 # Title level 1
 
 ## Title level 2

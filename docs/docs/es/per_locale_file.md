@@ -112,6 +112,24 @@ module.exports = helloWorldContent;
 
 > Recomendado: Este formato es el mejor cuando se utiliza el editor visual de Intlayer o se gestionan las traducciones directamente en el código.
 
+### Configuración global para archivos por locale
+
+Puedes configurar la configuración global para archivos por locale agregando lo siguiente a tu archivo `intlayer.config.ts`:
+
+```ts
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  dictionary: {
+    locale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+Usando esta configuración, todos los archivos por locale se generarán con el locale predeterminado establecido en inglés. También incluye la generación de archivos `.content` utilizando el comando `extract` y el compilador. (Consulta [Compiler](https://intlayer.org/es/doc/compiler) o [Extract](https://intlayer.org/es/doc/concept/cli/extract) para más información.)
+
 ## Formato por idioma
 
 Este formato es útil cuando:

@@ -112,6 +112,24 @@ module.exports = helloWorldContent;
 
 > 推荐：当使用 Intlayer 的可视化编辑器或直接在代码中管理翻译时，此格式最佳。
 
+### 每个语言区域文件的全局配置
+
+您可以通过在 `intlayer.config.ts` 文件中添加以下内容来配置每个语言区域文件的全局配置：
+
+```ts
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  dictionary: {
+    locale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+使用此配置，所有按语言区域的文件都将以默认语言区域设置为英语的方式生成。它还包括使用 `extract` 命令和编译器生成的 `.content` 文件。（有关更多信息，请参阅 [编译器 (Compiler)](https://intlayer.org/doc/compiler) 或 [提取 (Extract)](https://intlayer.org/doc/concept/cli/extract)。）
+
 ## 按语言区域格式
 
 此格式适用于：

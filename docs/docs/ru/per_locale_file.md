@@ -112,6 +112,24 @@ module.exports = helloWorldContent;
 
 > Рекомендуется: Этот формат лучше всего подходит при использовании визуального редактора Intlayer или управлении переводами непосредственно в коде.
 
+### Глобальная конфигурация для per-locale файлов
+
+Вы можете настроить глобальную конфигурацию для per-locale файлов, добавив следующее в ваш файл `intlayer.config.ts`:
+
+```ts
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  dictionary: {
+    locale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+При использовании этой конфигурации все per-locale файлы будут генерироваться с локалью по умолчанию, установленной на английский. Это также включает генерацию файлов `.content` с помощью команды `extract` и компилятора. (Смотрите [Compiler](https://intlayer.org/ru/doc/compiler) или [Extract](https://intlayer.org/ru/doc/concept/cli/extract) для получения дополнительной информации.)
+
 ## Формат по локалям
 
 Этот формат полезен, когда:
@@ -317,8 +335,6 @@ console.log(JSON.stringify(intlayer, null, 2));
 //  "projectName": "Мой проект"
 // }
 ```
-
-### Автоматическая генерация переводов
 
 ### Автоматическая генерация переводов
 

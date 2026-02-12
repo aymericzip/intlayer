@@ -112,6 +112,24 @@ module.exports = helloWorldContent;
 
 > Khuyến nghị: Định dạng này là tốt nhất khi sử dụng trình chỉnh sửa trực quan của Intlayer hoặc quản lý bản dịch trực tiếp trong mã.
 
+### Cấu hình toàn cầu cho các tệp theo từng Locale
+
+Bạn có thể cấu hình cấu hình toàn cầu cho các tệp theo từng locale bằng cách thêm nội dung sau vào tệp `intlayer.config.ts` của bạn:
+
+```ts
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  dictionary: {
+    locale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+Sử dụng cấu hình này, tất cả các tệp theo từng locale sẽ được tạo với locale mặc định được đặt là tiếng Anh. Nó cũng bao gồm việc tạo các tệp `.content` bằng cách sử dụng lệnh `extract` và compiler. (Xem [Compiler](https://intlayer.org/doc/compiler) hoặc [Extract](https://intlayer.org/doc/concept/cli/extract) để biết thêm thông tin.)
+
 ## Định dạng theo từng locale
 
 Định dạng này hữu ích khi:

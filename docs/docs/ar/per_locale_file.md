@@ -112,6 +112,24 @@ module.exports = helloWorldContent;
 
 > موصى به: هذا التنسيق هو الأفضل عند استخدام محرر Intlayer المرئي أو إدارة الترجمات مباشرة في الكود.
 
+### التكوين العام لملفات كل لغة
+
+يمكنك ضبط التكوين العام لملفات كل لغة عن طريق إضافة ما يلي إلى ملف `intlayer.config.ts` الخاص بك:
+
+```ts
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  dictionary: {
+    locale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+باستخدام هذا التكوين، سيتم إنشاء جميع ملفات كل لغة مع تعيين اللغة الافتراضية إلى الإنجليزية. يتضمن ذلك أيضاً إنشاء ملفات `.content` باستخدام أمر `extract` والمترجم (compiler). (انظر [Compiler](https://intlayer.org/doc/compiler) أو [Extract](https://intlayer.org/doc/concept/cli/extract) لمزيد من المعلومات.)
+
 ## تنسيق حسب اللغة
 
 هذا التنسيق مفيد عندما:
