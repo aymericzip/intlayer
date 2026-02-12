@@ -4,7 +4,7 @@ import { Link } from '@components/Link/Link';
 import { getIntlayerMarkdownOptions } from '@intlayer/design-system';
 import { MarkdownProvider } from 'next-intlayer';
 import { useTheme } from 'next-themes';
-import type { ComponentProps, FC, PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 
 export const IntlayerMarkdownProvider: FC<PropsWithChildren> = ({
   children,
@@ -16,13 +16,13 @@ export const IntlayerMarkdownProvider: FC<PropsWithChildren> = ({
 
   return (
     <MarkdownProvider
+      {...markdownOptions}
       components={{
         ...markdownOptions.components,
-        a: (props: ComponentProps<typeof Link>) => (
-          <Link color="neutral" underlined={true} {...props} />
+        a: (props) => (
+          <Link href="" label="" underlined={true} {...props} color="neutral" />
         ),
       }}
-      options={markdownOptions.options}
     >
       {children}
     </MarkdownProvider>

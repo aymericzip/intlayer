@@ -57,11 +57,12 @@ export const getIntlayerMarkdownOptions: (
       const language = (className?.replace(/lang(?:uage)?-/, '') ||
         'plaintext') as BundledLanguage;
 
+      console.log({ rest });
+
       return (
         <Code
           {...rest}
           language={language}
-          fileName={rest.title} // Markdown title attributes often map here
           showHeader={true}
           isDarkMode={isDarkMode} // Ensure this variable is available in scope
         >
@@ -203,7 +204,6 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
           <Code
             {...rest}
             language={language}
-            fileName={rest.title} // Markdown title attributes often map here
             showHeader={true}
             isDarkMode={isDarkMode} // Ensure this variable is available in scope
           >
