@@ -31,7 +31,7 @@ const NavTitles2: FC<NavTitles2Props> = ({ title2, activeSectionsId }) => {
               color="text"
               variant="hoverable"
               roundedSize="lg"
-              className="flex text-wrap p-2 transition-colors"
+              className="flex text-wrap p-2 text-xs transition-colors"
             >
               {h3.innerText}
             </Link>
@@ -74,13 +74,13 @@ export const NavTitles: FC = () => {
           return (
             <li key={id}>
               <Link
-                label={`${linkLabel}: ${h2.innerText}`}
+                label={`${linkLabel.value}: ${h2.innerText}`}
                 href={`${pathWithoutLocale}#${id}`}
                 color="text"
                 roundedSize="lg"
                 variant="hoverable"
                 isActive={isActive}
-                className="flex text-wrap p-2 transition-colors"
+                className="flex text-wrap p-2 text-xs transition-colors"
               >
                 {h2.innerText}
               </Link>
