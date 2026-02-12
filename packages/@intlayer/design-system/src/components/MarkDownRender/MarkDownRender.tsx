@@ -141,7 +141,7 @@ export const getIntlayerMarkdownOptions: (
       <Tab
         {...props}
         className="rounded-xl border border-card"
-        headerClassName="sticky rounded-xl top-36 z-10 bg-background/70 backdrop-blur overflow-x-auto"
+        headerClassName="sticky rounded-xl top-24 z-5 bg-background/70 backdrop-blur overflow-x-auto"
       />
     ),
     Tab: Tab.Item,

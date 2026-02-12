@@ -41,7 +41,7 @@ export const DocHeader: FC<DocHeaderProps> = ({
 
   return (
     <>
-      <header className="z-10 mx-auto mt-5 flex flex-col gap-2 px-4 py-2 text-xs">
+      <header className="z-50 mx-auto mt-5 flex flex-col gap-2 px-4 py-2 text-xs">
         {author && (
           <span className="block">
             {authorLabel}: <span className="ml-2 text-neutral">{author}</span>
