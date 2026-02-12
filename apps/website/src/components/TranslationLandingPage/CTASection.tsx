@@ -14,6 +14,7 @@ import {
 } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import { useIntlayer } from 'next-intlayer';
+import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { PagesRoutes } from '@/Routes';
 
@@ -55,6 +56,7 @@ export const CTASection: FC = () => {
     quickStartTitle,
     code,
   } = useIntlayer('cta-section');
+  const { resolvedTheme } = useTheme();
 
   return (
     <section
@@ -107,7 +109,11 @@ export const CTASection: FC = () => {
 
           <div className="md:col-span-5">
             <CodeBlockWrapper title={quickStartTitle}>
-              <CodeBlock lang="bash" isDarkMode className="text-sm">
+              <CodeBlock
+                lang="bash"
+                isDarkMode={resolvedTheme === 'dark'}
+                className="text-sm"
+              >
                 {code.value}
               </CodeBlock>
             </CodeBlockWrapper>
