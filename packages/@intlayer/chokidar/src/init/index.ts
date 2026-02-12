@@ -2,6 +2,8 @@ import {
   ANSIColors,
   colorize,
   colorizePath,
+  getAlias,
+  getConfiguration,
   logger,
   v,
   x,
@@ -12,6 +14,8 @@ import {
   findTsConfigFiles,
   parseJSONWithComments,
   readFileFromRoot,
+  updateNextConfig,
+  updateViteConfig,
   writeFileToRoot,
 } from './utils';
 
@@ -250,19 +254,20 @@ export const initIntlayer = async (rootDir: string) => {
   const format = hasTsConfig ? 'intlayer.config.ts' : 'intlayer.config.mjs';
   await initConfig(format, rootDir);
 
+  let hasAliasConfiguration = false;
+
   // CHECK VITE CONFIG
   const viteConfigs = ['vite.config.ts', 'vite.config.js', 'vite.config.mjs'];
   for (const file of viteConfigs) {
     if (await exists(rootDir, file)) {
-      let content = await readFileFromRoot(rootDir, file);
+      hasAliasConfiguration = true;
+      const content = await readFileFromRoot(rootDir, file);
 
       if (!content.includes('vite-intlayer')) {
-        const viteImport =
-          "import { intlayer } from 'vite-intlayer'; // Add the plugin to the Vite plugin list";
-
-        content = `${viteImport}\n${content}`;
-        await writeFileToRoot(rootDir, file, content);
-        logger(`${v} Injected import into ${colorizePath(file)}`);
+        const extension = file.split('.').pop()!;
+        const updatedContent = updateViteConfig(content, extension);
+        await writeFileToRoot(rootDir, file, updatedContent);
+        logger(`${v} Updated ${colorizePath(file)} to include Intlayer plugin`);
       }
       break;
     }
@@ -272,17 +277,130 @@ export const initIntlayer = async (rootDir: string) => {
   const nextConfigs = ['next.config.js', 'next.config.mjs', 'next.config.ts'];
   for (const file of nextConfigs) {
     if (await exists(rootDir, file)) {
-      let content = await readFileFromRoot(rootDir, file);
+      hasAliasConfiguration = true;
+      const content = await readFileFromRoot(rootDir, file);
 
       if (!content.includes('next-intlayer')) {
-        const nextImport =
-          "import { withIntlayer } from 'next-intlayer/server'; // Add the plugin to the Next.js configuration";
-
-        content = `${nextImport}\n${content}`;
-        await writeFileToRoot(rootDir, file, content);
-        logger(`${v} Injected import into ${colorizePath(file)}`);
+        const extension = file.split('.').pop()!;
+        const updatedContent = updateNextConfig(content, extension);
+        await writeFileToRoot(rootDir, file, updatedContent);
+        logger(`${v} Updated ${colorizePath(file)} to include Intlayer plugin`);
       }
       break;
+    }
+  }
+
+  // CHECK WEBPACK CONFIG
+  const webpackConfigs = [
+    'webpack.config.js',
+    'webpack.config.ts',
+    'webpack.config.mjs',
+    'webpack.config.cjs',
+  ];
+  for (const file of webpackConfigs) {
+    if (await exists(rootDir, file)) {
+      hasAliasConfiguration = true;
+      logger(
+        `${v} Found ${colorizePath(
+          file
+        )}. Make sure to configure aliases manually or use the Intlayer Webpack plugin.`
+      );
+      break;
+    }
+  }
+
+  if (!hasAliasConfiguration) {
+    const configuration = getConfiguration({ baseDir: rootDir });
+    const aliases = getAlias({ configuration });
+
+    if (hasTsConfig && tsConfigFiles.length > 0) {
+      const tsConfigPath =
+        tsConfigFiles.find((f) => f === 'tsconfig.json') || tsConfigFiles[0];
+      const tsConfigContent = await readFileFromRoot(rootDir, tsConfigPath);
+      const config = parseJSONWithComments(tsConfigContent);
+
+      config.compilerOptions ??= {};
+      config.compilerOptions.paths ??= {};
+
+      let updated = false;
+
+      Object.entries(aliases).forEach(([alias, path]) => {
+        if (!config.compilerOptions.paths[alias]) {
+          config.compilerOptions.paths[alias] = [path];
+          updated = true;
+        }
+      });
+
+      if (updated) {
+        await writeFileToRoot(
+          rootDir,
+          tsConfigPath,
+          JSON.stringify(config, null, 2)
+        );
+        logger(
+          `${v} Updated ${colorizePath(
+            tsConfigPath
+          )} to include Intlayer aliases`
+        );
+      }
+    } else {
+      const jsConfigPath = 'jsconfig.json';
+      if (await exists(rootDir, jsConfigPath)) {
+        const jsConfigContent = await readFileFromRoot(rootDir, jsConfigPath);
+        const config = parseJSONWithComments(jsConfigContent);
+
+        config.compilerOptions ??= {};
+        config.compilerOptions.paths ??= {};
+
+        let updated = false;
+
+        Object.entries(aliases).forEach(([alias, path]) => {
+          if (!config.compilerOptions.paths[alias]) {
+            config.compilerOptions.paths[alias] = [path];
+            updated = true;
+          }
+        });
+
+        if (updated) {
+          await writeFileToRoot(
+            rootDir,
+            jsConfigPath,
+            JSON.stringify(config, null, 2)
+          );
+          logger(
+            `${v} Updated ${colorizePath(
+              jsConfigPath
+            )} to include Intlayer aliases`
+          );
+        }
+      } else {
+        packageJson.imports ??= {};
+
+        let updated = false;
+
+        Object.entries(aliases).forEach(([alias, path]) => {
+          const importAlias = alias.replace('@', '#');
+          const importPath = path.startsWith('.') ? path : `./${path}`;
+
+          if (!packageJson.imports[importAlias]) {
+            packageJson.imports[importAlias] = importPath;
+            updated = true;
+          }
+        });
+
+        if (updated) {
+          await writeFileToRoot(
+            rootDir,
+            packageJsonPath,
+            JSON.stringify(packageJson, null, 2)
+          );
+          logger(
+            `${v} Updated ${colorizePath(
+              packageJsonPath
+            )} to include Intlayer imports`
+          );
+        }
+      }
     }
   }
 
