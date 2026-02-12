@@ -1,6 +1,6 @@
 import { NodeType } from '@intlayer/types';
 import { describe, expect, it } from 'vitest';
-import { enu, gender, insert } from '../transpiler';
+import { enu, gender, html, insert } from '../transpiler';
 import { icuToIntlayerFormatter, intlayerToICUFormatter } from './ICU';
 
 describe('ICU Formatter', () => {
@@ -17,6 +17,67 @@ describe('ICU Formatter', () => {
         insertion: 'Hello {{name}}',
         fields: ['name'],
       });
+    });
+
+    it('should transform HTML content', () => {
+      const result = icuToIntlayerFormatter('Hello <strong>World</strong>');
+      expect(result).toEqual(html('Hello <strong>World</strong>'));
+    });
+
+    it('should transform HTML content with attributes', () => {
+      const result = icuToIntlayerFormatter(
+        'Hello <a href="https://example.com">World</a>'
+      );
+      expect(result).toEqual(
+        html('Hello <a href="https://example.com">World</a>')
+      );
+    });
+
+    it('should transform HTML content with interpolation', () => {
+      const result = icuToIntlayerFormatter('Hello <strong>{name}</strong>');
+      // Should handle mixed content or just treat as HTML if it contains tags?
+      // Current implementation in ICU.ts:
+      // if (/<[a-zA-Z0-9-]+[^>]*>/.test(node)) return html(node);
+      // It returns html() which will be parsed at runtime.
+      // But wait, {name} inside html() is NOT standard intlayer interpolation {{name}}.
+      // The html() transpiler parses tags. Interpolation inside HTML strings in Intlayer
+      // is usually done via props or children if using React.
+      // However, if we just want to convert ICU string to Intlayer HTML node, we keep the string as is.
+      // But ICU interpolation uses single braces {name}. Intlayer uses {{name}}.
+      // If we return html('Hello <strong>{name}</strong>'), runtime might not interpolate {name}.
+      // But let's check what we expect.
+      // If the input is ICU, {name} means variable.
+      // If we convert to Intlayer HTML, should we convert {name} to {{name}}?
+      // The current implementation of `icuToIntlayerPlugin` converts {name} to {{name}} ONLY if it goes through `insert` path or `icuNodesToIntlayer` logic.
+      // My added code:
+      // if (/<[a-zA-Z0-9-]+[^>]*>/.test(str)) { return html(str); }
+      // This returns the string AS IS inside html().
+      // So 'Hello <strong>{name}</strong>' becomes html('Hello <strong>{name}</strong>').
+      // Is this correct?
+      // Intlayer HTML renderer might expect {{name}} for interpolation if it supports it?
+      // Actually, Intlayer HTML allows string content.
+      // If we want to support interpolation inside HTML, we might need to convert {name} to {{name}}.
+      // But wait, the `icuNodesToIntlayer` function processes nodes first.
+      // If `parseICU` works, it splits 'Hello <strong>{name}</strong>' into ['Hello <strong>', {type: 'argument', name: 'name'}, '</strong>'].
+      // Then `icuNodesToIntlayer` iterates over these nodes.
+      // It constructs `str` by appending parts.
+      // If node is string: str += node ('Hello <strong>')
+      // If node is argument: str += {{name}} ('Hello <strong>{{name}}')
+      // Then str += '</strong>'
+      // Result: 'Hello <strong>{{name}}</strong>'
+      // THEN checks for regex: /<[a-zA-Z0-9-]+[^>]*>/.test(str) -> true
+      // Returns html('Hello <strong>{{name}}</strong>')
+      // This seems correct! Intlayer uses double braces.
+
+      expect(result).toEqual(html('Hello <strong>{{name}}</strong>'));
+    });
+
+    it('should transform complex HTML/Rich Text content', () => {
+      const input =
+        'The macronutrients below are from either trusted sources or from the label itself, some micronutrients are assumed from similiar ingredients.<br/>You can check some of the sources here <nccdb>NCCDB</nccdb>, <usda>USDA SR28</usda>, <cnf>CNF 2015</cnf>, <ifcdb>IFCDB</ifcdb>, <nevo>NEVO</nevo>, <cofid>CoFID</cofid>, <nuttab>NUTTAB</nuttab>, if you cannot find the product in there then all the information is either estimated or community provided.';
+
+      const result = icuToIntlayerFormatter(input);
+      expect(result).toEqual(html(input));
     });
 
     it('should transform plural', () => {
@@ -106,6 +167,13 @@ describe('ICU Formatter', () => {
   });
 
   describe('intlayerToICUFormatter', () => {
+    it('should transform HTML content', () => {
+      const result = intlayerToICUFormatter(
+        html('Hello <strong>World</strong>')
+      );
+      expect(result).toBe('Hello <strong>World</strong>');
+    });
+
     it('should transform interpolation', () => {
       const result = intlayerToICUFormatter(insert('Hello {{name}}'));
       expect(result).toBe('Hello {name}');

@@ -1,7 +1,7 @@
 import type { Dictionary } from '@intlayer/types';
 import { NodeType } from '@intlayer/types';
 import { deepTransformNode } from '../interpreter';
-import { enu, gender, insert } from '../transpiler';
+import { enu, gender, html, insert } from '../transpiler';
 import type { JsonValue } from './ICU';
 
 // Types for our AST
@@ -171,7 +171,13 @@ const parseI18Next = (text: string): I18NextNode[] => {
 
 const i18nextNodesToIntlayer = (nodes: I18NextNode[]): any => {
   if (nodes.length === 0) return '';
-  if (nodes.length === 1 && typeof nodes[0] === 'string') return nodes[0];
+  if (nodes.length === 1 && typeof nodes[0] === 'string') {
+    const node = nodes[0];
+    if (/<[a-zA-Z0-9-]+[^>]*>/.test(node)) {
+      return html(node);
+    }
+    return node;
+  }
 
   const canFlatten = nodes.every(
     (node) => typeof node === 'string' || node.type === 'argument'
@@ -194,12 +200,20 @@ const i18nextNodesToIntlayer = (nodes: I18NextNode[]): any => {
         }
       }
     }
+    if (/<[a-zA-Z0-9-]+[^>]*>/.test(str)) {
+      return html(str);
+    }
     return insert(str);
   }
 
   if (nodes.length === 1) {
     const node = nodes[0];
-    if (typeof node === 'string') return node;
+    if (typeof node === 'string') {
+      if (/<[a-zA-Z0-9-]+[^>]*>/.test(node)) {
+        return html(node);
+      }
+      return node;
+    }
 
     if (node.type === 'argument') {
       if (node.format) {
@@ -283,7 +297,10 @@ const i18nextNodesToIntlayer = (nodes: I18NextNode[]): any => {
 
 const i18nextToIntlayerPlugin = {
   canHandle: (node: any) =>
-    typeof node === 'string' && (node.includes('{') || node.includes('}')),
+    typeof node === 'string' &&
+    (node.includes('{') ||
+      node.includes('}') ||
+      /<[a-zA-Z0-9-]+[^>]*>/.test(node)),
   transform: (node: any) => {
     try {
       const ast = parseI18Next(node);
@@ -300,6 +317,7 @@ const intlayerToI18nextPlugin = {
     (node &&
       typeof node === 'object' &&
       (node.nodeType === NodeType.Insertion ||
+        node.nodeType === NodeType.HTML ||
         node.nodeType === NodeType.Enumeration ||
         node.nodeType === NodeType.Gender ||
         node.nodeType === 'composite')) ||
@@ -322,6 +340,10 @@ const intlayerToI18nextPlugin = {
 
       // Otherwise keep {{name}} for i18next
       return node.insertion;
+    }
+
+    if (node.nodeType === NodeType.HTML) {
+      return node.html;
     }
 
     if (node.nodeType === NodeType.Enumeration) {

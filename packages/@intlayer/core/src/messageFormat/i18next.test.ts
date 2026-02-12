@@ -3,6 +3,7 @@ import {
   type EnumerationContentState,
   enu,
   gender,
+  html,
   insert,
 } from '../transpiler';
 import {
@@ -21,6 +22,18 @@ describe('i18next', () => {
     it('should transform ICU interpolation', () => {
       expect(i18nextToIntlayerFormatter('Hello {name}')).toEqual(
         insert('Hello {{name}}')
+      );
+    });
+
+    it('should transform HTML content', () => {
+      expect(
+        i18nextToIntlayerFormatter('Hello <strong>World</strong>')
+      ).toEqual(html('Hello <strong>World</strong>'));
+    });
+
+    it('should transform Trans component content', () => {
+      expect(i18nextToIntlayerFormatter('Hello <1>{{name}}</1>')).toEqual(
+        html('Hello <1>{{name}}</1>')
       );
     });
 
@@ -77,6 +90,12 @@ describe('i18next', () => {
       expect(intlayerToI18nextFormatter(insert('Hello {{name}}'))).toEqual(
         'Hello {{name}}'
       );
+    });
+
+    it('should transform html', () => {
+      expect(
+        intlayerToI18nextFormatter(html('Hello <strong>World</strong>'))
+      ).toEqual('Hello <strong>World</strong>');
     });
 
     it('should transform enumeration', () => {

@@ -1,6 +1,6 @@
 import { type Dictionary, NodeType } from '@intlayer/types';
 import { deepTransformNode } from '../interpreter';
-import { enu, gender, insert } from '../transpiler';
+import { enu, gender, html, insert } from '../transpiler';
 
 /**
  * ICU MessageFormat Converter
@@ -207,7 +207,13 @@ const parseICU = (text: string): ICUNode[] => {
 
 const icuNodesToIntlayer = (nodes: ICUNode[]): any => {
   if (nodes.length === 0) return '';
-  if (nodes.length === 1 && typeof nodes[0] === 'string') return nodes[0];
+  if (nodes.length === 1 && typeof nodes[0] === 'string') {
+    const node = nodes[0];
+    if (/<[a-zA-Z0-9-]+[^>]*>/.test(node)) {
+      return html(node);
+    }
+    return node;
+  }
 
   // Check if we can flatten to a single string (insert)
   const canFlatten = nodes.every(
@@ -230,6 +236,9 @@ const icuNodesToIntlayer = (nodes: ICUNode[]): any => {
         }
       }
     }
+    if (/<[a-zA-Z0-9-]+[^>]*>/.test(str)) {
+      return html(str);
+    }
     return insert(str);
   }
 
@@ -238,17 +247,20 @@ const icuNodesToIntlayer = (nodes: ICUNode[]): any => {
   if (nodes.length === 1) {
     const node = nodes[0];
 
-    if (typeof node === 'string') return node; // already handled
+    if (typeof node === 'string') {
+      if (/<[a-zA-Z0-9-]+[^>]*>/.test(node)) {
+        return html(node);
+      }
+      return node;
+    }
     if (node.type === 'argument') {
       if (node.format) {
-        // Formatted variables keep ICU format: {var, type, style}
         return insert(
           `{${node.name}, ${node.format.type}${
             node.format.style ? `, ${node.format.style}` : ''
           }}`
         );
       }
-      // Simple variables use Intlayer format: {{var}}
       return insert(`{{${node.name}}}`);
     }
     if (node.type === 'plural') {
@@ -326,7 +338,10 @@ const icuNodesToIntlayer = (nodes: ICUNode[]): any => {
 
 const icuToIntlayerPlugin = {
   canHandle: (node: any) =>
-    typeof node === 'string' && (node.includes('{') || node.includes('}')),
+    typeof node === 'string' &&
+    (node.includes('{') ||
+      node.includes('}') ||
+      /<[a-zA-Z0-9-]+[^>]*>/.test(node)),
   transform: (node: any) => {
     try {
       const ast = parseICU(node);
@@ -344,6 +359,7 @@ const intlayerToIcuPlugin = {
     (node &&
       typeof node === 'object' &&
       (node.nodeType === NodeType.Insertion ||
+        node.nodeType === NodeType.HTML ||
         node.nodeType === NodeType.Enumeration ||
         node.nodeType === NodeType.Gender ||
         node.nodeType === 'composite')) ||
@@ -359,6 +375,10 @@ const intlayerToIcuPlugin = {
       // - {{name}} → {name}  (simple variable)
       // - {amount, number, currency} → {amount, number, currency}  (formatted variable, already in ICU format)
       return node.insertion.replace(/\{\{([^}]+)\}\}/g, '{$1}');
+    }
+
+    if (node.nodeType === NodeType.HTML) {
+      return node.html;
     }
 
     if (node.nodeType === NodeType.Enumeration) {
