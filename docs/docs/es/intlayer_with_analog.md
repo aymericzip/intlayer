@@ -12,7 +12,7 @@ keywords:
   - JavaScript
 slugs:
   - doc
-  - entorno
+  - environment
   - analog
 applicationTemplate: https://github.com/aymericzip/intlayer/tree/main/examples/analog-app-template
 history:
