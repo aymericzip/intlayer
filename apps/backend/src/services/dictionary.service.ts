@@ -1,4 +1,5 @@
 import { DictionaryModel } from '@models/dictionary.model';
+import { getDemoDictionaries } from '@utils/demoDictionaries';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { GenericError } from '@utils/errors';
 import type { DictionaryFilters } from '@utils/filtersAndPagination/getDictionaryFiltersAndPagination';
@@ -342,4 +343,20 @@ export const incrementVersion = (dictionary: Dictionary): string => {
   }
 
   return newVersion;
+};
+
+/**
+ * Creates demo dictionaries for a project.
+ * @param projectIds - List of project IDs.
+ * @param creatorId - The ID of the user creating the demo content.
+ */
+export const createDemoDictionaries = async (
+  projectIds: string[],
+  creatorId: Types.ObjectId | string
+): Promise<void> => {
+  const demoDictionaries = getDemoDictionaries(projectIds, creatorId);
+
+  for (const dictionary of demoDictionaries) {
+    await createDictionary(dictionary);
+  }
 };

@@ -1,6 +1,7 @@
 import { logger } from '@logger';
 import { SessionModel } from '@models/session.model';
 import * as ciService from '@services/ci.service';
+import { createDemoDictionaries } from '@services/dictionary.service';
 import * as projectService from '@services/project.service';
 import * as userService from '@services/user.service';
 import * as webhooksService from '@services/webhook.service';
@@ -186,7 +187,14 @@ export const addProject = async (
       data: formattedProject,
     });
 
-    return reply.send(responseData);
+    reply.send(responseData);
+
+    // Create mock data once it's done
+    try {
+      await createDemoDictionaries([formattedProject.id], user.id);
+    } catch {
+      // Skip if fail
+    }
   } catch (error) {
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
