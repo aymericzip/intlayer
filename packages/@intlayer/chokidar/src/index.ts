@@ -26,6 +26,7 @@ export { handleUnlinkedContentDeclarationFile } from './handleUnlinkedContentDec
 export { initIntlayer } from './init/index';
 export {
   installSkills,
+  type Platform,
   SKILLS,
   SKILLS_METADATA,
   type Skill,

@@ -4,6 +4,7 @@ import * as p from '@clack/prompts';
 import {
   initIntlayer,
   installSkills,
+  type Platform,
   SKILLS,
   SKILLS_METADATA,
 } from '@intlayer/chokidar';
@@ -39,8 +40,7 @@ export const initSkills = async (projectRoot?: string) => {
   p.intro('Initializing Intlayer skills');
 
   // Detect platform
-  let detectedPlatform: 'Cursor' | 'VSCode' | 'OpenCode' | 'Claude' | 'Other' =
-    'Other';
+  let detectedPlatform: Platform = 'Other';
 
   if (process.env.OPENCODE) {
     detectedPlatform = 'OpenCode';
@@ -48,6 +48,8 @@ export const initSkills = async (projectRoot?: string) => {
     detectedPlatform = 'Claude';
   } else if (existsSync(join(root, 'claude', 'skills'))) {
     detectedPlatform = 'Claude';
+  } else if (existsSync(join(root, '.windsurf'))) {
+    detectedPlatform = 'Windsurf';
   } else if (existsSync(join(root, '.cursorrules'))) {
     detectedPlatform = 'Cursor';
   } else if (process.env.TERM_PROGRAM === 'vscode') {
@@ -60,12 +62,14 @@ export const initSkills = async (projectRoot?: string) => {
     initialValue: detectedPlatform,
     options: [
       { value: 'Cursor', label: 'Cursor' },
-      { value: 'VSCode', label: 'VSCode' },
+      { value: 'Windsurf', label: 'Windsurf' },
+      { value: 'VSCode', label: 'VS Code' },
       { value: 'OpenCode', label: 'OpenCode' },
+      { value: 'GitHub', label: 'GitHub Copilot Workspace' },
       { value: 'Claude', label: 'Claude Code' },
       { value: 'Other', label: 'Other' },
     ],
-  })) as 'Cursor' | 'VSCode' | 'OpenCode' | 'Claude' | 'Other';
+  })) as Platform;
 
   if (p.isCancel(platform)) {
     p.cancel('Operation cancelled');
@@ -88,7 +92,6 @@ export const initSkills = async (projectRoot?: string) => {
   }
 
   const initialValues: (keyof typeof SKILLS_METADATA)[] = [
-    'Setup',
     'Usage',
     'Config',
     'Content',

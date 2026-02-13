@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-02-09
-updatedAt: 2026-02-09
+updatedAt: 2026-02-12
 title: Umiejętności agenta
-description: Dowiedz się, jak używać Intlayer Agent Skills, aby poprawić zrozumienie Twojego projektu przez agenta AI.
+description: Dowiedz się, jak używać Intlayer Agent Skills, aby poprawić zrozumienie Twojego projektu przez agenta AI, w tym kompleksowe przewodniki konfiguracji dla metadanych, map witryn i akcji serwera.
 keywords:
   - Intlayer
   - Agent Skills
@@ -29,25 +29,41 @@ npx intlayer init skills
 Po uruchomieniu tego polecenia zostaną wykonane następujące czynności:
 
 1.  Wykryje framework, którego używasz (np. Next.js, React, Vite).
-2.  Zapyta Cię, na których platformach chcesz zainstalować umiejętności (Cursor, VS Code, OpenCode, Claude Code itp.).
-3.  Wygeneruje wymagane pliki konfiguracyjne (takie jak `.cursor/mcp.json`, `.vscode/mcp.json` lub `.intlayer/skills/*.md`).
+2.  Zapyta Cię, na których platformach chcesz zainstalować umiejętności (Cursor, Windsurf, VS Code, OpenCode, Claude Code, GitHub Copilot Workspace itp.).
+3.  Wygeneruje wymagane pliki konfiguracyjne (takie jak `.cursor/skills/intlayer_next_js/SKILL.md`, `.windsurf/skills/next_js/SKILL.md`, `.opencode/skills/next_js/SKILL.md`, `.vscode/mcp.json` itp.).
 
 ## Obsługiwane platformy
+
+Intlayer zapewnia dokumentację specyficzną dla frameworka (Konfiguracja, Użycie, Metadane, Mapa witryny, Akcje serwera itp.), aby pomóc agentowi AI zrozumieć, jak pracować z Intlayer w Twoim konkretnym projekcie. Umiejętności te zostały zaprojektowane, aby prowadzić agenta przez zawiłości internacjonalizacji, zapewniając przestrzeganie właściwych wzorców i najlepszych praktyk.
 
 Intlayer wspiera integrację z następującymi platformami:
 
 ### 1. Cursor
 
-Cursor obsługuje serwery MCP (Model Context Protocol). Uruchomienie `intlayer init skills` utworzy plik `.cursor/mcp.json`, który pozwoli Cursor na komunikację z serwerem MCP Intlayer.
+Cursor obsługuje serwery MCP (Model Context Protocol) oraz niestandardowe umiejętności. Uruchomienie `intlayer init skills`:
 
-### 2. VS Code
+- Utworzy plik `.cursor/mcp.json` do komunikacji z serwerem MCP Intlayer.
+- Zainstaluje umiejętności specyficzne dla frameworka w katalogu `.cursor/skills`.
 
-Dla użytkowników VS Code, zwłaszcza korzystających z GitHub Copilot lub innych rozszerzeń zgodnych z MCP, polecenie tworzy konfigurację `.vscode/mcp.json`.
+### 2. Windsurf
 
-### 3. OpenCode
+Windsurf to IDE napędzane przez AI. Uruchomienie `intlayer init skills` zainstaluje umiejętności specyficzne dla frameworka w katalogu `.windsurf/skills`.
 
-OpenCode jest interaktywnym agentem CLI zaprojektowanym do zadań inżynierii oprogramowania. Intlayer udostępnia konkretne umiejętności, które pomagają OpenCode w zadaniach związanych z internacjonalizacją (i18n).
+### 3. VS Code
 
-### 4. Claude Code
+Dla użytkowników VS Code, zwłaszcza tych korzystających z GitHub Copilot lub innych rozszerzeń zgodnych z MCP, polecenie:
 
-Claude Code można skonfigurować do korzystania z umiejętności Intlayer, dodając wygenerowane pliki konfiguracyjne do jego ustawień desktopowych lub ustawień CLI.
+- Tworzy konfigurację `.vscode/mcp.json`.
+- Instaluje umiejętności specyficzne dla frameworka w katalogu `skills/` w głównym folderze projektu.
+
+### 4. OpenCode
+
+OpenCode to interaktywny agent CLI zaprojektowany do zadań inżynierii oprogramowania. Intlayer zapewnia specyficzne umiejętności, które pomagają OpenCode w zadaniach związanych z internacjonalizacją. Są one instalowane w katalogu `.opencode/skills`.
+
+### 5. Claude Code
+
+Claude Code można skonfigurować do korzystania z umiejętności Intlayer. Polecenie instaluje umiejętności specyficzne dla frameworka в katalogu `.claude/skills`.
+
+### 6. GitHub Copilot Workspace
+
+GitHub Copilot Workspace pozwala na definiowanie niestandardowych umiejętności. Polecenie instaluje umiejętności specyficzne dla frameworka w katalogu `.github/skills`.

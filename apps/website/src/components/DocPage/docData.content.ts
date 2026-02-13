@@ -1044,6 +1044,10 @@ const docDataContent: Dictionary = {
       }),
       default: getDocMetadata('./docs/en/mcp_server.md'),
     },
+    'agent-skills': {
+      title: 'Agent skills',
+      default: getDocMetadata('./docs/en/agent_skills.md'),
+    },
   },
 } satisfies Dictionary;
 

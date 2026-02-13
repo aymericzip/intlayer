@@ -1,9 +1,10 @@
 import { promises as fs } from 'node:fs';
+import https from 'node:https';
 import path from 'node:path';
 import { readAsset } from 'utils:asset';
+import { getMarkdownMetadata } from '@intlayer/core';
 
 export const SKILLS_METADATA = {
-  Setup: 'General Intlayer setup guide',
   Usage: 'How to use Intlayer in your project',
   RemoteContent: 'How to use Intlayer with Remote/CMS/Server-side content',
   Config: 'Intlayer configuration documentation',
@@ -22,6 +23,7 @@ export const SKILLS = Object.keys(
 ) as (keyof typeof SKILLS_METADATA)[];
 
 export type Skill = (typeof SKILLS)[number];
+
 export type Platform =
   | 'Cursor'
   | 'Windsurf'
@@ -34,9 +36,7 @@ export type Platform =
 /**
  * Maps specific skill keys to special filenames if they differ from standard snake_case.
  */
-const SKILL_FILENAME_MAP: Partial<Record<Skill, string>> = {
-  NextJS: 'nextjs',
-};
+const SKILL_FILENAME_MAP: Partial<Record<Skill, string>> = {};
 
 /**
  * Helper to convert CamelCase to snake_case for directory naming
@@ -61,6 +61,53 @@ const getSkillContent = (skill: Skill): string => {
     return '';
   }
 };
+
+/**
+ * Reads the licence content from the assets folder.
+ */
+const getLicenceContent = (): string => {
+  try {
+    return readAsset('./LICENCE.md');
+  } catch {
+    console.warn('Warning: Could not read LICENCE.md asset');
+    return '';
+  }
+};
+
+/**
+ * Fetches the content of a URL (supporting redirects).
+ */
+const fetchUrl = (url: string): Promise<string> =>
+  new Promise((resolve, reject) => {
+    https
+      .get(url, (res) => {
+        const { statusCode } = res;
+
+        if (statusCode === 301 || statusCode === 302) {
+          const redirectUrl = res.headers.location;
+          if (redirectUrl) {
+            return fetchUrl(redirectUrl).then(resolve).catch(reject);
+          }
+        }
+
+        if (statusCode !== 200) {
+          return reject(
+            new Error(`Failed to fetch ${url}: Status Code ${statusCode}`)
+          );
+        }
+
+        let data = '';
+        res.on('data', (chunk) => {
+          data += chunk;
+        });
+        res.on('end', () => {
+          resolve(data);
+        });
+      })
+      .on('error', (err) => {
+        reject(err);
+      });
+  });
 
 /**
  * Installs skills using the "Agent Skills" directory standard.
@@ -101,12 +148,20 @@ export const installSkills = async (
   await fs.mkdir(skillsBaseDir, { recursive: true });
 
   const createdSkills: string[] = [];
+  const licenceContent = getLicenceContent();
 
   for (const skill of skills) {
-    const skillName = SKILL_FILENAME_MAP[skill] ?? camelToSnakeCase(skill);
+    const baseName = SKILL_FILENAME_MAP[skill] ?? camelToSnakeCase(skill);
+    const skillName = `intlayer_${baseName}`;
     const skillContent = getSkillContent(skill);
 
     if (!skillContent) continue;
+
+    const urls = Array.from(
+      new Set(
+        skillContent.match(/https:\/\/intlayer\.org\/doc\/[^\s)]+\.md/g) || []
+      )
+    );
 
     if (useAgentStructure) {
       // Agent Standard: .../skills/<skill-name>/SKILL.md
@@ -115,6 +170,55 @@ export const installSkills = async (
 
       const filePath = path.join(skillDir, 'SKILL.md');
       await fs.writeFile(filePath, skillContent, 'utf-8');
+
+      if (licenceContent) {
+        const licencePath = path.join(skillDir, 'LICENCE.md');
+        await fs.writeFile(licencePath, licenceContent, 'utf-8');
+      }
+
+      // Fetch and save documentation files
+      const referenceDir = path.join(skillDir, 'reference');
+      await fs.mkdir(referenceDir, { recursive: true });
+
+      for (const url of urls) {
+        try {
+          const content = await fetchUrl(url);
+          const metadata = getMarkdownMetadata<{
+            slugs?: string[];
+          }>(content);
+
+          let fileName = '';
+
+          if (Array.isArray(metadata.slugs)) {
+            fileName = metadata.slugs
+              .filter((slug) => slug !== 'doc')
+              .join('_');
+          } else {
+            const urlPath = new URL(url).pathname;
+            fileName = urlPath
+              .split('/')
+              .filter((part) => part !== '' && part !== 'doc')
+              .map((part, index, array) => {
+                if (index === array.length - 1) {
+                  return part.replace('.md', '');
+                }
+                return part;
+              })
+              .join('_');
+          }
+
+          fileName = fileName ? `${fileName}.md` : 'index.md';
+
+          const docPath = path.join(referenceDir, fileName);
+          await fs.writeFile(docPath, content, 'utf-8');
+        } catch (error) {
+          console.warn(
+            `Warning: Could not fetch documentation for ${skill} from ${url}:`,
+            error
+          );
+        }
+      }
+
       createdSkills.push(`${skillName}/SKILL.md`);
     } else {
       // Flat Structure (Generic): .../skills/<skill-name>.md

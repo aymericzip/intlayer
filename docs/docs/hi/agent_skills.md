@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-02-09
-updatedAt: 2026-02-09
+updatedAt: 2026-02-12
 title: एजेंट स्किल्स
-description: जानें कि Intlayer एजेंट स्किल्स का उपयोग करके अपने AI एजेंट की आपके प्रोजेक्ट की समझ कैसे बेहतर करें।
+description: जानें कि Intlayer एजेंट स्किल्स का उपयोग करके अपने AI एजेंट की आपके प्रोजेक्ट की समझ कैसे बेहतर करें, जिसमें मेटाडेटा, साइटमैप और सर्वर क्रियाओं के लिए व्यापक सेटअप गाइड शामिल हैं।
 keywords:
   - Intlayer
   - एजेंट स्किल्स
@@ -29,25 +29,41 @@ npx intlayer init skills
 जब आप यह कमांड चलाते हैं, तो यह:
 
 1.  आप किस framework का उपयोग कर रहे हैं इसका पता लगाना (उदा., Next.js, React, Vite).
-2.  आपसे पूछा जाएगा कि आप किन प्लेटफ़ॉर्म्स पर skills इंस्टॉल करना चाहते हैं (Cursor, VS Code, OpenCode, Claude Code, आदि)।
-3.  आवश्यक कॉन्फ़िगरेशन फ़ाइलें जनरेट करेगा (जैसे `.cursor/mcp.json`, `.vscode/mcp.json`, या `.intlayer/skills/*.md`)।
+2.  आपसे पूछा जाएगा कि आप किन प्लेटफ़ॉर्म्स पर skills इंस्टॉल करना चाहते हैं (Cursor, Windsurf, VS Code, OpenCode, Claude Code, GitHub Copilot Workspace, आदि)।
+3.  आवश्यक कॉन्फ़िगरेशन फ़ाइलें जनरेट करेगा (जैसे `.cursor/skills/intlayer_next_js/SKILL.md`, `.windsurf/skills/next_js/SKILL.md`, `.opencode/skills/next_js/SKILL.md`, `.vscode/mcp.json`, आदि)।
 
 ## Supported Platforms
+
+Intlayer फ्रेमवर्क-विशिष्ट डॉक्यूमेंटेशन (सेटअप, उपयोग, मेटाडेटा, साइटमैप, सर्वर क्रियाएं, आदि) प्रदान करता है ताकि AI एजेंट को यह समझने में मदद मिल सके कि आपके विशिष्ट प्रोजेक्ट में Intlayer के साथ कैसे काम करना है। ये स्किल्स एजेंट को अंतरराष्ट्रीयकरण की जटिलताओं के माध्यम से मार्गदर्शन करने के लिए डिज़ाइन किए गए हैं, यह सुनिश्चित करते हुए कि यह सही पैटर्न और सर्वोत्तम प्रथाओं का पालन करता है।
 
 Intlayer निम्नलिखित प्लेटफ़ॉर्म्स के साथ इंटीग्रेशन का समर्थन करता है:
 
 ### 1. Cursor
 
-Cursor MCP (Model Context Protocol) सर्वरों का समर्थन करता है। `intlayer init skills` चलाने पर `.cursor/mcp.json` फ़ाइल बनेगी जो Cursor को Intlayer MCP सर्वर के साथ संवाद करने की अनुमति देती है।
+Cursor MCP (Model Context Protocol) सर्वर और कस्टम स्किल्स का समर्थन करता है। `intlayer init skills` चलाने पर:
 
-### 2. VS Code
+- Intlayer MCP सर्वर के साथ संवाद करने के लिए `.cursor/mcp.json` फ़ाइल बनेगी।
+- `.cursor/skills` डायरेक्टरी में फ्रेमवर्क-विशिष्ट स्किल्स इंस्टॉल होंगे।
 
-VS Code उपयोगकर्ताओं के लिए, विशेष रूप से जो GitHub Copilot या अन्य MCP-समर्थित एक्सटेंशन्स का उपयोग करते हैं, यह कमांड `.vscode/mcp.json` कॉन्फ़िगरेशन बनाता है।
+### 2. Windsurf
 
-### 3. OpenCode
+Windsurf एक AI-संचालित IDE है। `intlayer init skills` चलाने पर `.windsurf/skills` डायरेक्टरी में फ्रेमवर्क-विशिष्ट स्किल्स इंस्टॉल होंगे।
 
-OpenCode एक interactive CLI एजेंट है जो सॉफ़्टवेयर इंजीनियरिंग कार्यों के लिए डिज़ाइन किया गया है। Intlayer OpenCode को internationalization कार्यों में सहायता करने के लिए विशिष्ट skills प्रदान करता है।
+### 3. VS Code
 
-### 4. Claude Code
+VS Code उपयोगकर्ताओं के लिए, विशेष रूप से जो GitHub Copilot या अन्य MCP-संगत एक्सटेंशन का उपयोग करते हैं, यह कमांड:
 
-Claude Code को इसकी desktop या CLI settings में उत्पन्न की गई configurations जोड़कर Intlayer skills के उपयोग के लिए कॉन्फ़िगर किया जा सकता है।
+- `.vscode/mcp.json` कॉन्फ़िगरेशन बनाता है।
+- आपके प्रोजेक्ट के रूट में `skills/` डायरेक्टरी में फ्रेमवर्क-विशिष्ट स्किल्स इंस्टॉल करता है।
+
+### 4. OpenCode
+
+OpenCode एक इंटरैक्टिव CLI एजेंट है जो सॉफ्टवेयर इंजीनियरिंग कार्यों के लिए डिज़ाइन किया गया है। Intlayer अंतरराष्ट्रीयकरण कार्यों में आपकी सहायता करने के लिए विशिष्ट स्किल्स प्रदान करता है। ये `.opencode/skills` डायरेक्टरी में इंस्टॉल किए जाते हैं।
+
+### 5. Claude Code
+
+Claude Code को Intlayer स्किल्स का उपयोग करने के लिए कॉन्फ़िगर किया जा सकता है। यह कमांड `.claude/skills` डायरेक्टरी में फ्रेमवर्क-विशिष्ट स्किल्स इंस्टॉल करता है।
+
+### 6. GitHub Copilot Workspace
+
+GitHub Copilot Workspace आपको कस्टम स्किल्स परिभाषित करने की अनुमति देता है। यह कमांड `.github/skills` डायरेक्टरी में फ्रेमवर्क-विशिष्ट स्किल्स इंस्टॉल करता है।
