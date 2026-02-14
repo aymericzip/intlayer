@@ -46,4 +46,4 @@ export class ExampleComponent {
 }
 ```
 
-[Angular Documentation](https://intlayer.org/doc/packages/angular-intlayer)
+[Angular Documentation](https://intlayer.org/doc/packages/angular-intlayer.md)

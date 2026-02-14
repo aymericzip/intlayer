@@ -37,4 +37,4 @@ console.log(content.title.raw); // Render as raw
 </template>
 ```
 
-[Vue Documentation](https://intlayer.org/doc/packages/vue-intlayer)
+[Vue Documentation](https://intlayer.org/doc/packages/vue-intlayer.md)

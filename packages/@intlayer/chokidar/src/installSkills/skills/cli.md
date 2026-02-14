@@ -25,4 +25,4 @@ npm install intlayer-cli
 | `npx intlayer test`      | Runs tests on dictionaries.                                   |
 | `npx intlayer transform` | Transforms dictionaries between formats.                      |
 
-[CLI Documentation](https://intlayer.org/doc/packages/intlayer-cli)
+[CLI Documentation](https://intlayer.org/doc/packages/intlayer-cli.md)

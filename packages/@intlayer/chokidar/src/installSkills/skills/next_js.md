@@ -13,8 +13,6 @@ description: Next.js-specific usage (Server & Client components)
 - [No Locale Path](https://intlayer.org/doc/environment/nextjs/no-locale-path.md)
 - [Page Router](https://intlayer.org/doc/environment/nextjs/next-with-page-router.md)
 
-For more advanced configurations, you can also refer to the documentation for [Page Metadata](https://intlayer.org/doc/environment/nextjs/page-metadata.md), [Sitemap](https://intlayer.org/doc/environment/nextjs/sitemap.md), and [Server Actions](https://intlayer.org/doc/environment/nextjs/server-actions.md).
-
 ## Server Components
 
 ```tsx

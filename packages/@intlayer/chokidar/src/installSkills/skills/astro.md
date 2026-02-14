@@ -19,4 +19,4 @@ const content = await getIntlayer("my-dictionary-key");
 <h1>{content.title}</h1>
 ```
 
-[Astro Documentation](https://intlayer.org/doc/packages/astro-intlayer)
+[Astro Documentation](https://intlayer.org/doc/packages/astro-intlayer.md)

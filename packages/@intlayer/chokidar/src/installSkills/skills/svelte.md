@@ -27,4 +27,4 @@ description: Svelte-specific stores and syntax
 </div>
 ```
 
-[Svelte Documentation](https://intlayer.org/doc/intlayer_with_svelte_kit)
+[Svelte Documentation](https://intlayer.org/doc/intlayer_with_svelte_kit.md)

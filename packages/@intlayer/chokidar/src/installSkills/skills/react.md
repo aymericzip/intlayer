@@ -31,4 +31,4 @@ const MyComponent = () => {
 };
 ```
 
-[React Documentation](https://intlayer.org/doc/packages/react-intlayer)
+[React Documentation](https://intlayer.org/doc/packages/react-intlayer.md)
