@@ -30,7 +30,7 @@ Saat Anda menjalankan perintah ini, perintah tersebut akan:
 
 1.  Mendeteksi framework yang Anda gunakan (mis. Next.js, React, Vite).
 2.  Menanyakan platform mana yang ingin Anda pasang skills-nya (Cursor, Windsurf, VS Code, OpenCode, Claude Code, GitHub Copilot Workspace, dll.).
-3.  Menghasilkan file konfigurasi yang diperlukan (seperti `.cursor/skills/intlayer_next_js/SKILL.md`, `.windsurf/skills/next_js/SKILL.md`, `.opencode/skills/next_js/SKILL.md`, `.vscode/mcp.json`, dll.).
+3.  Menghasilkan file konfigurasi yang diperlukan (seperti `.cursor/skills/intlayer_next_js/SKILL.md`, `.windsurf/skills/intlayer_next_js/SKILL.md`, `.opencode/skills/next_js/SKILL.md`, `.vscode/mcp.json`, dll.).
 
 ## Platform yang Didukung
 
