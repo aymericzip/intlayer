@@ -14,7 +14,8 @@ export const SKILLS_METADATA = {
   NextJS: 'Next.js-specific usage (Server & Client components)',
   Vue: 'Vue-specific composables and syntax',
   Preact: 'Preact-specific syntax and hooks usage',
-  Solid: 'Solid-specific primitives and syntax',
+  Solid:
+    'Integrates Intlayer internationalization with SolidJS components. Use when the user asks to "setup SolidJS i18n", use the "useIntlayer" hook in Solid, or manage locales in a SolidJS application.',
   Svelte: 'Svelte-specific stores and syntax',
   Astro: 'Astro-specific usage and getIntlayer',
   CLI: 'Intlayer CLI commands and usage',
@@ -69,16 +70,16 @@ export type Platform =
 const SKILL_FILENAME_MAP: Partial<Record<Skill, string>> = {};
 
 /**
- * Helper to convert CamelCase to snake_case for directory naming
+ * Helper to convert CamelCase to kebab-case for directory naming
  */
-const camelToSnakeCase = (str: string) =>
-  str.replace(/([a-z0-9])([A-Z])/g, '$1_$2').toLowerCase();
+const camelToKebabCase = (str: string) =>
+  str.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
 
 /**
  * Reads the raw markdown content for a specific skill from the assets folder.
  */
 const getSkillContent = (skill: Skill): string => {
-  const baseName = SKILL_FILENAME_MAP[skill] ?? camelToSnakeCase(skill);
+  const baseName = SKILL_FILENAME_MAP[skill] ?? camelToKebabCase(skill);
   // Source files are flat: ./skills/vue.md
   const fileName = `./skills/${baseName}.md`;
 
@@ -267,8 +268,8 @@ export const installSkills = async (
   const licenceContent = getLicenceContent();
 
   for (const skill of skills) {
-    const baseName = SKILL_FILENAME_MAP[skill] ?? camelToSnakeCase(skill);
-    const skillName = `intlayer_${baseName}`;
+    const baseName = SKILL_FILENAME_MAP[skill] ?? camelToKebabCase(skill);
+    const skillName = `intlayer-${baseName}`;
     const skillContent = getSkillContent(skill);
 
     if (!skillContent) continue;
@@ -296,7 +297,7 @@ export const installSkills = async (
       }
 
       // Fetch and save documentation files
-      const referenceDir = path.join(skillDir, 'reference');
+      const referenceDir = path.join(skillDir, 'references');
 
       await fs.mkdir(referenceDir, { recursive: true });
 

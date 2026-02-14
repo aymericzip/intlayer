@@ -1,6 +1,16 @@
 ---
-name: Intlayer Vue
-description: Vue-specific composables and syntax
+name: intlayer-vue
+description: Integrates Intlayer internationalization with Vue.js and Nuxt applications. Use when the user asks to "setup Vue i18n", use the "useIntlayer" composable, or manage translations in Vue components.
+metadata:
+  author: Intlayer
+  url: https://intlayer.org
+  license: Apache-2.0
+  mcp-server: @intlayer/mcp
+  category: productivity
+  tags: [i18n]
+  documentation: https://intlayer.org/doc
+  support: contact@intlayer.org
+  version: 8.1.2
 ---
 
 # Intlayer Vue Usage
@@ -9,9 +19,6 @@ description: Vue-specific composables and syntax
 
 - [Vite and Vue](https://intlayer.org/doc/environment/vite-and-vue.md)
 - [Nuxt and Vue](https://intlayer.org/doc/environment/nuxt-and-vue.md)
-- [Page Metadata](https://intlayer.org/doc/environment/vue-intlayer/page-metadata.md)
-- [Sitemap](https://intlayer.org/doc/environment/vue-intlayer/sitemap.md)
-- [Server Actions](https://intlayer.org/doc/environment/vue-intlayer/server-actions.md)
 
 ## useIntlayer Composable
 

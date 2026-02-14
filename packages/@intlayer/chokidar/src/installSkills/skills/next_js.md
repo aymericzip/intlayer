@@ -1,6 +1,16 @@
 ---
-name: Intlayer NextJS
-description: Next.js-specific usage (Server & Client components)
+name: intlayer-next-js
+description: Integrates Intlayer internationalization with Next.js App Router and Pages Router. Use when the user asks to "setup Next.js i18n", use "useIntlayer" in Server Components, or handle client-side translations in Next.js.
+metadata:
+  author: Intlayer
+  url: https://intlayer.org
+  license: Apache-2.0
+  mcp-server: @intlayer/mcp
+  category: productivity
+  tags: [i18n]
+  documentation: https://intlayer.org/doc
+  support: contact@intlayer.org
+  version: 8.1.2
 ---
 
 # Intlayer Next.js Usage

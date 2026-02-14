@@ -1,6 +1,16 @@
 ---
-name: Intlayer React
-description: React-specific syntax and hooks usage
+name: intlayer-react
+description: Integrates Intlayer internationalization with React applications. Use when the user asks to "setup React i18n", use the "useIntlayer" hook, or configure React Router with Intlayer.
+metadata:
+  author: Intlayer
+  url: https://intlayer.org
+  license: Apache-2.0
+  mcp-server: @intlayer/mcp
+  category: productivity
+  tags: [i18n]
+  documentation: https://intlayer.org/doc
+  support: contact@intlayer.org
+  version: 8.1.2
 ---
 
 # Intlayer React Usage

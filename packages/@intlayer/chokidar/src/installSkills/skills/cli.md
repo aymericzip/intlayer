@@ -1,6 +1,16 @@
 ---
-name: Intlayer CLI
-description: Intlayer CLI commands and usage
+name: intlayer-cli
+description: Manages Intlayer dictionaries and configuration via the Command Line Interface. Use when the user asks to "audit translations", "build dictionaries", "sync content", or run "intlayer" commands.
+metadata:
+  author: Intlayer
+  url: https://intlayer.org
+  license: Apache-2.0
+  mcp-server: @intlayer/mcp
+  category: productivity
+  tags: [i18n]
+  documentation: https://intlayer.org/doc
+  support: contact@intlayer.org
+  version: 8.1.2
 ---
 
 # Intlayer CLI

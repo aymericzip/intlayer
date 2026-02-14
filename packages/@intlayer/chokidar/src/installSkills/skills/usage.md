@@ -1,6 +1,16 @@
 ---
-name: Intlayer Usage
-description: How to use Intlayer in your project
+name: intlayer-usage
+description: Provides general guidelines for using Intlayer in any project. Use when the user asks to "get started with Intlayer", "declare content files", or understand the "project structure" for internationalization.
+metadata:
+  author: Intlayer
+  url: https://intlayer.org
+  license: Apache-2.0
+  mcp-server: @intlayer/mcp
+  category: productivity
+  tags: [i18n]
+  documentation: https://intlayer.org/doc
+  support: contact@intlayer.org
+  version: 8.1.2
 ---
 
 # Intlayer Usage

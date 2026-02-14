@@ -1,6 +1,16 @@
 ---
-name: Intlayer Astro
-description: Astro-specific usage and getIntlayer
+name: intlayer-astro
+description: Integrates Intlayer internationalization with Astro applications. Use when the user asks to "setup Astro i18n", use "getIntlayer" in Astro components, or manage server-side content in Astro.
+metadata:
+  author: Intlayer
+  url: https://intlayer.org
+  license: Apache-2.0
+  mcp-server: @intlayer/mcp
+  category: productivity
+  tags: [i18n]
+  documentation: https://intlayer.org/doc
+  support: contact@intlayer.org
+  version: 8.1.2
 ---
 
 # Intlayer Astro Usage

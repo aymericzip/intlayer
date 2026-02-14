@@ -1,6 +1,16 @@
 ---
-name: Intlayer Remote Content
-description: How to use Intlayer with Remote/CMS/Server-side content
+name: intlayer-cms
+description: Manages remote content and server-side dictionaries using the Intlayer CMS. Use when the user asks to "fetch remote translations", "use Intlayer CMS", or "handle server-side content".
+metadata:
+  author: Intlayer
+  url: https://intlayer.org
+  license: Apache-2.0
+  mcp-server: @intlayer/mcp
+  category: productivity
+  tags: [i18n]
+  documentation: https://intlayer.org/doc
+  support: contact@intlayer.org
+  version: 8.1.2
 ---
 
 # Intlayer Server Content & CMS

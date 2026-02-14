@@ -1,6 +1,16 @@
 ---
-name: Intlayer Solid
-description: Solid-specific primitives and syntax
+name: intlayer-solid-js
+description: Integrates Intlayer internationalization with SolidJS components. Use when the user asks to "setup SolidJS i18n", use the "useIntlayer" hook in Solid, or manage locales in a SolidJS application.
+metadata:
+  author: Intlayer
+  url: https://intlayer.org
+  license: Apache-2.0
+  mcp-server: @intlayer/mcp
+  category: productivity
+  tags: [i18n]
+  documentation: https://intlayer.org/doc
+  support: contact@intlayer.org
+  version: 8.1.2
 ---
 
 # Intlayer Solid Usage

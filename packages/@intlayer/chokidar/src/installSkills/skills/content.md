@@ -1,6 +1,16 @@
 ---
-name: Intlayer Content
-description: Reference for all Intlayer content node types (t, enu, etc.)
+name: intlayer-content
+description: Defines rich content structures using Intlayer content nodes. Use when the user asks to "create translations", "handle pluralization", "use markdown in content", or implement "conditional content".
+metadata:
+  author: Intlayer
+  url: https://intlayer.org
+  license: Apache-2.0
+  mcp-server: @intlayer/mcp
+  category: productivity
+  tags: [i18n]
+  documentation: https://intlayer.org/doc
+  support: contact@intlayer.org
+  version: 8.1.2
 ---
 
 # Intlayer Content Nodes

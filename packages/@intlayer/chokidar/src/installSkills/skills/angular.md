@@ -1,6 +1,16 @@
 ---
-name: Intlayer Angular
-description: Angular-specific syntax and Injectable Function usage
+name: intlayer-angular
+description: Integrates Intlayer internationalization with Angular applications. Use when the user asks to "setup Angular i18n", implement "ContentSelectorWrapperComponent", or use the "useIntlayer" composable in Angular.
+metadata:
+  author: Intlayer
+  url: https://intlayer.org
+  license: Apache-2.0
+  mcp-server: @intlayer/mcp
+  category: productivity
+  tags: [i18n]
+  documentation: https://intlayer.org/doc
+  support: contact@intlayer.org
+  version: 8.1.2
 ---
 
 # Intlayer Angular Usage

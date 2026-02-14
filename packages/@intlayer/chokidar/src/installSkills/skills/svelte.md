@@ -1,6 +1,16 @@
 ---
-name: Intlayer Svelte
-description: Svelte-specific stores and syntax
+name: intlayer-svelte
+description: Integrates Intlayer internationalization with Svelte and SvelteKit applications. Use when the user asks to "setup Svelte i18n", use the "useIntlayer" store, or manage translations in Svelte components.
+metadata:
+  author: Intlayer
+  url: https://intlayer.org
+  license: Apache-2.0
+  mcp-server: @intlayer/mcp
+  category: productivity
+  tags: [i18n]
+  documentation: https://intlayer.org/doc
+  support: contact@intlayer.org
+  version: 8.1.2
 ---
 
 # Intlayer Svelte Usage

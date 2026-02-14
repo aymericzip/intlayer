@@ -1,6 +1,16 @@
 ---
-name: Intlayer Preact
-description: Preact-specific syntax and hooks usage
+name: intlayer-preact
+description: Integrates Intlayer internationalization with Preact applications. Use when the user asks to "setup Preact i18n", use the "useIntlayer" hook in Preact, or manage locales in a Preact app.
+metadata:
+  author: Intlayer
+  url: https://intlayer.org
+  license: Apache-2.0
+  mcp-server: @intlayer/mcp
+  category: productivity
+  tags: [i18n]
+  documentation: https://intlayer.org/doc
+  support: contact@intlayer.org
+  version: 8.1.2
 ---
 
 # Intlayer Preact Usage
