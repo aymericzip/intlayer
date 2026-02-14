@@ -12,7 +12,16 @@ export const loadInstallSkillsTool = (server: McpServer): void => {
         'Install Intlayer documentation and skills to the project to assist AI agents. Ask the user for the platform (Cursor, VSCode, OpenCode, Claude, etc.) and which skills they want to install before calling this tool.',
       inputSchema: {
         platform: z
-          .enum(['Cursor', 'VSCode', 'OpenCode', 'Claude', 'Other'])
+          .enum([
+            'Cursor',
+            'Windsurf',
+            'Trae',
+            'OpenCode',
+            'GitHub',
+            'Claude',
+            'VSCode',
+            'Other',
+          ])
           .describe('The platform to install skills for'),
         skills: z.array(z.enum(SKILLS)).describe('List of skills to install'),
         projectRoot: z
@@ -69,11 +78,27 @@ export const runInstallSkillsCLI = async (): Promise<void> => {
     console.log('-----------------------');
 
     const platformInput = await question(
-      'Which platform are you using? (Cursor, VSCode, OpenCode, Claude, Other): '
+      'Which platform are you using? (Cursor, Windsurf, Trae, OpenCode, GitHub, Claude, VSCode, Other): '
     );
-    const platform = (['Cursor', 'VSCode', 'OpenCode', 'Claude', 'Other'].find(
-      (p) => p.toLowerCase() === platformInput.trim().toLowerCase()
-    ) || 'Other') as 'Cursor' | 'VSCode' | 'OpenCode' | 'Claude' | 'Other';
+    const platform = ([
+      'Cursor',
+      'Windsurf',
+      'Trae',
+      'OpenCode',
+      'GitHub',
+      'Claude',
+      'VSCode',
+      'Other',
+    ].find((p) => p.toLowerCase() === platformInput.trim().toLowerCase()) ||
+      'Other') as
+      | 'Cursor'
+      | 'Windsurf'
+      | 'Trae'
+      | 'OpenCode'
+      | 'GitHub'
+      | 'Claude'
+      | 'VSCode'
+      | 'Other';
 
     console.log(`Selected platform: ${platform}`);
 

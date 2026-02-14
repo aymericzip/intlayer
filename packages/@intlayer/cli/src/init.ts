@@ -50,6 +50,8 @@ export const initSkills = async (projectRoot?: string) => {
     detectedPlatform = 'Claude';
   } else if (existsSync(join(root, '.windsurf'))) {
     detectedPlatform = 'Windsurf';
+  } else if (existsSync(join(root, '.trae'))) {
+    detectedPlatform = 'Trae';
   } else if (existsSync(join(root, '.cursorrules'))) {
     detectedPlatform = 'Cursor';
   } else if (process.env.TERM_PROGRAM === 'vscode') {
@@ -63,6 +65,7 @@ export const initSkills = async (projectRoot?: string) => {
     options: [
       { value: 'Cursor', label: 'Cursor' },
       { value: 'Windsurf', label: 'Windsurf' },
+      { value: 'Trae', label: 'Trae' },
       { value: 'VSCode', label: 'VS Code' },
       { value: 'OpenCode', label: 'OpenCode' },
       { value: 'GitHub', label: 'GitHub Copilot Workspace' },

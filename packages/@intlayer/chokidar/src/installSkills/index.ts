@@ -27,6 +27,7 @@ export type Skill = (typeof SKILLS)[number];
 export type Platform =
   | 'Cursor'
   | 'Windsurf'
+  | 'Trae'
   | 'OpenCode'
   | 'GitHub'
   | 'Claude'
@@ -129,6 +130,9 @@ export const installSkills = async (
     case 'Windsurf':
       skillsBaseDir = path.join(projectRoot, '.windsurf/skills');
       break;
+    case 'Trae':
+      skillsBaseDir = path.join(projectRoot, '.trae/skills');
+      break;
     case 'OpenCode':
       skillsBaseDir = path.join(projectRoot, '.opencode/skills');
       break;
@@ -138,10 +142,13 @@ export const installSkills = async (
     case 'Claude': // Claude Desktop / Agent
       skillsBaseDir = path.join(projectRoot, '.claude/skills');
       break;
-    default:
-      // Fallback for generic editors (VSCode, etc.) -> Flat files
-      skillsBaseDir = path.join(projectRoot, 'skills');
+    case 'VSCode':
+      skillsBaseDir = path.join(projectRoot, '.github/skills');
       useAgentStructure = false;
+      break;
+    default:
+      skillsBaseDir = path.join(projectRoot, 'skills');
+      break;
   }
 
   // Ensure the base directory exists
