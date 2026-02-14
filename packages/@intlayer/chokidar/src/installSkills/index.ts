@@ -13,6 +13,8 @@ export const SKILLS_METADATA = {
   Angular: 'Angular-specific syntax and Injectable Function usage',
   NextJS: 'Next.js-specific usage (Server & Client components)',
   Vue: 'Vue-specific composables and syntax',
+  Preact: 'Preact-specific syntax and hooks usage',
+  Solid: 'Solid-specific primitives and syntax',
   Svelte: 'Svelte-specific stores and syntax',
   Astro: 'Astro-specific usage and getIntlayer',
   CLI: 'Intlayer CLI commands and usage',
@@ -120,7 +122,7 @@ export const installSkills = async (
   skills: Skill[]
 ): Promise<string> => {
   let skillsBaseDir = '';
-  let useAgentStructure = true;
+  const useAgentStructure = true;
 
   // Determine the root configuration directory based on Platform
   switch (platform) {
@@ -144,7 +146,6 @@ export const installSkills = async (
       break;
     case 'VSCode':
       skillsBaseDir = path.join(projectRoot, '.github/skills');
-      useAgentStructure = false;
       break;
     default:
       skillsBaseDir = path.join(projectRoot, 'skills');
@@ -173,18 +174,22 @@ export const installSkills = async (
     if (useAgentStructure) {
       // Agent Standard: .../skills/<skill-name>/SKILL.md
       const skillDir = path.join(skillsBaseDir, skillName);
+
       await fs.mkdir(skillDir, { recursive: true });
 
       const filePath = path.join(skillDir, 'SKILL.md');
+
       await fs.writeFile(filePath, skillContent, 'utf-8');
 
       if (licenceContent) {
         const licencePath = path.join(skillDir, 'LICENCE.md');
+
         await fs.writeFile(licencePath, licenceContent, 'utf-8');
       }
 
       // Fetch and save documentation files
       const referenceDir = path.join(skillDir, 'reference');
+
       await fs.mkdir(referenceDir, { recursive: true });
 
       for (const url of urls) {
@@ -202,6 +207,7 @@ export const installSkills = async (
               .join('_');
           } else {
             const urlPath = new URL(url).pathname;
+
             fileName = urlPath
               .split('/')
               .filter((part) => part !== '' && part !== 'doc')
@@ -217,6 +223,7 @@ export const installSkills = async (
           fileName = fileName ? `${fileName}.md` : 'index.md';
 
           const docPath = path.join(referenceDir, fileName);
+
           await fs.writeFile(docPath, content, 'utf-8');
         } catch (error) {
           console.warn(
@@ -231,7 +238,9 @@ export const installSkills = async (
       // Flat Structure (Generic): .../skills/<skill-name>.md
       const fileName = `${skillName}.md`;
       const filePath = path.join(skillsBaseDir, fileName);
+
       await fs.writeFile(filePath, skillContent, 'utf-8');
+
       createdSkills.push(fileName);
     }
   }

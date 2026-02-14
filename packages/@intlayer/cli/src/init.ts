@@ -107,6 +107,12 @@ export const initSkills = async (projectRoot?: string) => {
   if (dependencies.next) {
     initialValues.push('NextJS');
   }
+  if (dependencies.preact) {
+    initialValues.push('Preact');
+  }
+  if (dependencies['solid-js']) {
+    initialValues.push('Solid');
+  }
   if (dependencies.vue || dependencies.nuxt) {
     initialValues.push('Vue');
   }
