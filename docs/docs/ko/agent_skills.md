@@ -26,6 +26,12 @@ history:
 npx intlayer init skills
 ```
 
+또는 Vercel Skill SDK 사용
+
+```bash
+npx skills add aymericzip/intlayer-skills
+```
+
 이 명령어를 실행하면 다음과 같은 작업이 수행됩니다:
 
 1.  사용 중인 프레임워크(예: Next.js, React, Vite)를 감지합니다.

@@ -26,6 +26,12 @@ history:
 npx intlayer init skills
 ```
 
+または Vercel Skill SDK を使用する場合
+
+```bash
+npx skills add aymericzip/intlayer-skills
+```
+
 このコマンドを実行すると、以下のことが行われます：
 
 1.  使用しているフレームワーク（Next.js、React、Viteなど）を検出します。

@@ -26,6 +26,12 @@ Perintah `intlayer init skills` adalah cara termudah untuk mengatur agent skills
 npx intlayer init skills
 ```
 
+Atau menggunakan Vercel Skill SDK
+
+```bash
+npx skills add aymericzip/intlayer-skills
+```
+
 Saat Anda menjalankan perintah ini, perintah tersebut akan:
 
 1.  Mendeteksi framework yang Anda gunakan (mis. Next.js, React, Vite).

@@ -26,6 +26,12 @@ history:
 npx intlayer init skills
 ```
 
+Або використовуючи Vercel Skill SDK
+
+```bash
+npx skills add aymericzip/intlayer-skills
+```
+
 Коли ви запускаєте цю команду, вона:
 
 1.  Визначить фреймворк, який ви використовуєте (наприклад, Next.js, React, Vite).

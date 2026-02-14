@@ -26,6 +26,12 @@ Der Befehl `intlayer init skills` ist der einfachste Weg, um Agenten-Fähigkeite
 npx intlayer init skills
 ```
 
+Oder mit dem Vercel Skill SDK
+
+```bash
+npx skills add aymericzip/intlayer-skills
+```
+
 Wenn Sie diesen Befehl ausführen, wird er:
 
 1.  Das von Ihnen verwendete Framework erkennen (z. B. Next.js, React, Vite).

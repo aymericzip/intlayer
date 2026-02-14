@@ -26,6 +26,12 @@ Lệnh `intlayer init skills` là cách dễ nhất để thiết lập agent sk
 npx intlayer init skills
 ```
 
+Hoặc sử dụng Vercel Skill SDK
+
+```bash
+npx skills add aymericzip/intlayer-skills
+```
+
 Khi bạn chạy lệnh này, nó sẽ:
 
 1.  Phát hiện framework mà bạn đang sử dụng (ví dụ: Next.js, React, Vite).

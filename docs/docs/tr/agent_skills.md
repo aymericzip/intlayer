@@ -26,6 +26,12 @@ history:
 npx intlayer init skills
 ```
 
+Veya Vercel Skill SDK kullanarak
+
+```bash
+npx skills add aymericzip/intlayer-skills
+```
+
 Bu komutu çalıştırdığınızda şu işlemleri yapar:
 
 1.  Kullandığınız framework'ü algılar (ör. Next.js, React, Vite).

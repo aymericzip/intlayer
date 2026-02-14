@@ -26,6 +26,12 @@ history:
 npx intlayer init skills
 ```
 
+或使用 Vercel Skill SDK
+
+```bash
+npx skills add aymericzip/intlayer-skills
+```
+
 运行此命令时，它将：
 
 1.  检测您正在使用的框架（例如 Next.js、React、Vite）。

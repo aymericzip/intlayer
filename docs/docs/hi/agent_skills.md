@@ -26,6 +26,12 @@ history:
 npx intlayer init skills
 ```
 
+या Vercel Skill SDK का उपयोग करके
+
+```bash
+npx skills add aymericzip/intlayer-skills
+```
+
 जब आप यह कमांड चलाते हैं, तो यह:
 
 1.  आप किस framework का उपयोग कर रहे हैं इसका पता लगाना (उदा., Next.js, React, Vite).

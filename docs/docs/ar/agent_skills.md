@@ -26,6 +26,12 @@ history:
 npx intlayer init skills
 ```
 
+أو باستخدام Vercel Skill SDK
+
+```bash
+npx skills add aymericzip/intlayer-skills
+```
+
 عند تشغيل هذا الأمر، سيقوم بما يلي:
 
 1.  اكتشاف الإطار الذي تستخدمه (مثل Next.js أو React أو Vite).

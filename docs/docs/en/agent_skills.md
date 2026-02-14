@@ -26,6 +26,12 @@ The `intlayer init skills` command is the easiest way to set up agent skills in 
 npx intlayer init skills
 ```
 
+Or using Vercel Skill SDK
+
+```bash
+npx skills add aymericzip/intlayer-skills
+```
+
 When you run this command, it will:
 
 1.  Detect the framework you are using (e.g., Next.js, React, Vite).

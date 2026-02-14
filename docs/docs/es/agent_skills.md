@@ -26,6 +26,12 @@ El comando `intlayer init skills` es la forma más fácil de configurar las habi
 npx intlayer init skills
 ```
 
+O usando el SDK de Vercel Skill
+
+```bash
+npx skills add aymericzip/intlayer-skills
+```
+
 Cuando ejecutas este comando, este:
 
 1.  Detectará el framework que estás usando (por ejemplo, Next.js, React, Vite).
