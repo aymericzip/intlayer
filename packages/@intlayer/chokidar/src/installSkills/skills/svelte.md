@@ -9,9 +9,6 @@ description: Svelte-specific stores and syntax
 
 - [SvelteKit](https://intlayer.org/doc/environment/sveltekit.md)
 - [Vite and Svelte](https://intlayer.org/doc/environment/vite-and-svelte.md)
-- [Page Metadata](https://intlayer.org/doc/environment/svelte-intlayer/page-metadata.md)
-- [Sitemap](https://intlayer.org/doc/environment/svelte-intlayer/sitemap.md)
-- [Server Actions](https://intlayer.org/doc/environment/svelte-intlayer/server-actions.md)
 
 ## useIntlayer Hook
 
