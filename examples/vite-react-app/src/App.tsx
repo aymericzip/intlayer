@@ -22,8 +22,6 @@ const AppContent: FC = () => {
   const [count, setCount] = useState(0);
   const content = useIntlayer('app');
 
-  const content2 = getIntlayer('app');
-
   return (
     <>
       <div>

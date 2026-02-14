@@ -20,6 +20,33 @@ export const loadInstallSkillsTool = (server: McpServer): void => {
             'GitHub',
             'Claude',
             'VSCode',
+            'Antigravity',
+            'Augment',
+            'OpenClaw',
+            'Cline',
+            'CodeBuddy',
+            'CommandCode',
+            'Continue',
+            'Crush',
+            'Droid',
+            'Goose',
+            'Junie',
+            'IFlow',
+            'KiloCode',
+            'Kiro',
+            'Kode',
+            'MCPJam',
+            'MistralVibe',
+            'Mux',
+            'OpenHands',
+            'Pi',
+            'Qoder',
+            'Qwen',
+            'RooCode',
+            'TraeCN',
+            'Zencoder',
+            'Neovate',
+            'Pochi',
             'Other',
           ])
           .describe('The platform to install skills for'),
@@ -78,7 +105,7 @@ export const runInstallSkillsCLI = async (): Promise<void> => {
     console.log('-----------------------');
 
     const platformInput = await question(
-      'Which platform are you using? (Cursor, Windsurf, Trae, OpenCode, GitHub, Claude, VSCode, Other): '
+      'Which platform are you using? (Cursor, Windsurf, Trae, OpenCode, GitHub, Claude, VSCode, Cline, RooCode, etc. or "Other"): '
     );
     const platform = ([
       'Cursor',
@@ -88,6 +115,33 @@ export const runInstallSkillsCLI = async (): Promise<void> => {
       'GitHub',
       'Claude',
       'VSCode',
+      'Antigravity',
+      'Augment',
+      'OpenClaw',
+      'Cline',
+      'CodeBuddy',
+      'CommandCode',
+      'Continue',
+      'Crush',
+      'Droid',
+      'Goose',
+      'Junie',
+      'IFlow',
+      'KiloCode',
+      'Kiro',
+      'Kode',
+      'MCPJam',
+      'MistralVibe',
+      'Mux',
+      'OpenHands',
+      'Pi',
+      'Qoder',
+      'Qwen',
+      'RooCode',
+      'TraeCN',
+      'Zencoder',
+      'Neovate',
+      'Pochi',
       'Other',
     ].find((p) => p.toLowerCase() === platformInput.trim().toLowerCase()) ||
       'Other') as
@@ -98,6 +152,33 @@ export const runInstallSkillsCLI = async (): Promise<void> => {
       | 'GitHub'
       | 'Claude'
       | 'VSCode'
+      | 'Antigravity'
+      | 'Augment'
+      | 'OpenClaw'
+      | 'Cline'
+      | 'CodeBuddy'
+      | 'CommandCode'
+      | 'Continue'
+      | 'Crush'
+      | 'Droid'
+      | 'Goose'
+      | 'Junie'
+      | 'IFlow'
+      | 'KiloCode'
+      | 'Kiro'
+      | 'Kode'
+      | 'MCPJam'
+      | 'MistralVibe'
+      | 'Mux'
+      | 'OpenHands'
+      | 'Pi'
+      | 'Qoder'
+      | 'Qwen'
+      | 'RooCode'
+      | 'TraeCN'
+      | 'Zencoder'
+      | 'Neovate'
+      | 'Pochi'
       | 'Other';
 
     console.log(`Selected platform: ${platform}`);

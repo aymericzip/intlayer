@@ -979,6 +979,7 @@
         "@intlayer/types": "workspace:*",
         "@intlayer/unmerged-dictionaries-entry": "workspace:*",
         "commander": "14.0.2",
+        "enquirer": "^2.4.1",
         "eventsource": "4.1.0",
         "fast-glob": "3.3.3",
       },
@@ -1452,7 +1453,7 @@
     },
     "packages/angular-intlayer": {
       "name": "angular-intlayer",
-      "version": "8.0.6",
+      "version": "8.1.0",
       "dependencies": {
         "@babel/plugin-syntax-import-attributes": "^7.28.6",
         "@babel/preset-env": "^7.29.0",

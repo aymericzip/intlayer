@@ -8,6 +8,8 @@ import {
   SKILLS,
   SKILLS_METADATA,
 } from '@intlayer/chokidar';
+// @ts-ignore
+import { AutoComplete } from 'enquirer';
 
 const findProjectRoot = (startDir: string) => {
   let currentDir = startDir;
@@ -32,6 +34,41 @@ export const init = async (projectRoot?: string) => {
   await initIntlayer(root);
 };
 
+const PLATFORM_CHECKS: Array<{ check: () => boolean; platform: Platform }> = [
+  {
+    check: () =>
+      process.env.CURSOR === 'true' || process.env.TERM_PROGRAM === 'cursor',
+    platform: 'Cursor',
+  },
+  {
+    check: () =>
+      process.env.WINDSURF === 'true' ||
+      process.env.TERM_PROGRAM === 'windsurf',
+    platform: 'Windsurf',
+  },
+  {
+    check: () =>
+      process.env.TRAE === 'true' || process.env.TERM_PROGRAM === 'trae',
+    platform: 'Trae',
+  },
+  { check: () => process.env.TRAE_CN === 'true', platform: 'TraeCN' },
+  {
+    check: () =>
+      process.env.VSCODE === 'true' || process.env.TERM_PROGRAM === 'vscode',
+    platform: 'VSCode',
+  },
+  { check: () => process.env.OPENCODE === 'true', platform: 'OpenCode' },
+  { check: () => process.env.CLAUDE === 'true', platform: 'Claude' },
+  {
+    check: () =>
+      process.env.GITHUB_ACTIONS === 'true' || !!process.env.GITHUB_WORKSPACE,
+    platform: 'GitHub',
+  },
+];
+
+export const getDetectedPlatform = (): Platform | undefined =>
+  PLATFORM_CHECKS.find(({ check }) => check())?.platform;
+
 export const initSkills = async (projectRoot?: string) => {
   const root = projectRoot
     ? findProjectRoot(resolve(projectRoot))
@@ -39,70 +76,81 @@ export const initSkills = async (projectRoot?: string) => {
 
   p.intro('Initializing Intlayer skills');
 
-  // Detect platform
-  let detectedPlatform: Platform = 'Other';
+  // Detect if running in a specific platform
+  const detectedPlatform = getDetectedPlatform();
 
-  if (process.env.OPENCODE) {
-    detectedPlatform = 'OpenCode';
-  } else if (process.env.CLAUDE_CODE) {
-    detectedPlatform = 'Claude';
-  } else if (existsSync(join(root, 'claude', 'skills'))) {
-    detectedPlatform = 'Claude';
-  } else if (existsSync(join(root, '.windsurf'))) {
-    detectedPlatform = 'Windsurf';
-  } else if (existsSync(join(root, '.trae'))) {
-    detectedPlatform = 'Trae';
-  } else if (existsSync(join(root, '.cursorrules'))) {
-    detectedPlatform = 'Cursor';
-  } else if (process.env.TERM_PROGRAM === 'vscode') {
-    detectedPlatform = 'VSCode';
+  const PLATFORM_OPTIONS = [
+    { value: 'Cursor', label: 'Cursor', hint: '(.cursor/skills)' },
+    { value: 'Windsurf', label: 'Windsurf', hint: '(.windsurf/skills)' },
+    { value: 'Trae', label: 'Trae', hint: '(.trae/skills)' },
+    { value: 'TraeCN', label: 'Trae CN', hint: '(.trae/skills)' },
+    { value: 'VSCode', label: 'VS Code', hint: '(.github/skills)' },
+    { value: 'OpenCode', label: 'OpenCode', hint: '(.opencode/skills)' },
+    { value: 'Claude', label: 'Claude Code', hint: '(.claude/skills)' },
+    {
+      value: 'GitHub',
+      label: 'GitHub Copilot Workspace',
+      hint: '(.github/skills)',
+    },
+    { value: 'Antigravity', label: 'Antigravity', hint: '(.agent/skills)' },
+    { value: 'Augment', label: 'Augment', hint: '(.augment/skills)' },
+    { value: 'OpenClaw', label: 'OpenClaw', hint: '(skills)' },
+    { value: 'Cline', label: 'Cline', hint: '(.cline/skills)' },
+    { value: 'CodeBuddy', label: 'CodeBuddy', hint: '(.codebuddy/skills)' },
+    {
+      value: 'CommandCode',
+      label: 'Command Code',
+      hint: '(.commandcode/skills)',
+    },
+    { value: 'Continue', label: 'Continue', hint: '(.continue/skills)' },
+    { value: 'Crush', label: 'Crush', hint: '(.crush/skills)' },
+    { value: 'Droid', label: 'Droid', hint: '(.factory/skills)' },
+    { value: 'Goose', label: 'Goose', hint: '(.goose/skills)' },
+    { value: 'IFlow', label: 'iFlow CLI', hint: '(.iflow/skills)' },
+    { value: 'Junie', label: 'Junie', hint: '(.junie/skills)' },
+    { value: 'KiloCode', label: 'Kilo Code', hint: '(.kilocode/skills)' },
+    { value: 'Kiro', label: 'Kiro CLI', hint: '(.kiro/skills)' },
+    { value: 'Kode', label: 'Kode', hint: '(.kode/skills)' },
+    { value: 'MCPJam', label: 'MCPJam', hint: '(.mcpjam/skills)' },
+    { value: 'MistralVibe', label: 'Mistral Vibe', hint: '(.vibe/skills)' },
+    { value: 'Mux', label: 'Mux', hint: '(.mux/skills)' },
+    { value: 'OpenHands', label: 'OpenHands', hint: '(.openhands/skills)' },
+    { value: 'Pi', label: 'Pi', hint: '(.pi/skills)' },
+    { value: 'Qoder', label: 'Qoder', hint: '(.qoder/skills)' },
+    { value: 'Qwen', label: 'Qwen Code', hint: '(.qwen/skills)' },
+    { value: 'RooCode', label: 'Roo Code', hint: '(.roo/skills)' },
+    { value: 'Zencoder', label: 'Zencoder', hint: '(.zencoder/skills)' },
+    { value: 'Neovate', label: 'Neovate', hint: '(.neovate/skills)' },
+    { value: 'Pochi', label: 'Pochi', hint: '(.pochi/skills)' },
+    { value: 'Other', label: 'Other', hint: '(skills)' },
+  ] as { value: Platform; label: string; hint: string }[];
+
+  // Confirm or choose platforms
+  const prompt = new AutoComplete({
+    name: 'platforms',
+    message: 'Which platforms are you using?',
+    limit: 10,
+    initial: detectedPlatform
+      ? PLATFORM_OPTIONS.findIndex((p) => p.value === detectedPlatform)
+      : undefined,
+    multiple: true,
+    choices: PLATFORM_OPTIONS.map((p) => ({
+      name: p.value,
+      message: p.label,
+      hint: p.hint,
+    })),
+  });
+
+  let platforms: Platform[];
+  try {
+    platforms = (await prompt.run()) as Platform[];
+  } catch (error) {
+    p.cancel('Operation cancelled');
+    return;
   }
 
-  // Confirm or choose platform
-  const platform = (await p.select({
-    message: 'Which platform are you using?',
-    initialValue: detectedPlatform,
-    options: [
-      { value: 'Cursor', label: 'Cursor' },
-      { value: 'Windsurf', label: 'Windsurf' },
-      { value: 'Trae', label: 'Trae' },
-      { value: 'VSCode', label: 'VS Code' },
-      { value: 'OpenCode', label: 'OpenCode' },
-      { value: 'GitHub', label: 'GitHub Copilot Workspace' },
-      { value: 'Claude', label: 'Claude Code' },
-      { value: 'Antigravity', label: 'Antigravity' },
-      { value: 'Augment', label: 'Augment' },
-      { value: 'OpenClaw', label: 'OpenClaw' },
-      { value: 'Cline', label: 'Cline' },
-      { value: 'CodeBuddy', label: 'CodeBuddy' },
-      { value: 'CommandCode', label: 'CommandCode' },
-      { value: 'Continue', label: 'Continue' },
-      { value: 'Crush', label: 'Crush' },
-      { value: 'Droid', label: 'Droid' },
-      { value: 'Goose', label: 'Goose' },
-      { value: 'Junie', label: 'Junie' },
-      { value: 'IFlow', label: 'IFlow' },
-      { value: 'KiloCode', label: 'KiloCode' },
-      { value: 'Kiro', label: 'Kiro' },
-      { value: 'Kode', label: 'Kode' },
-      { value: 'MCPJam', label: 'MCPJam' },
-      { value: 'MistralVibe', label: 'MistralVibe' },
-      { value: 'Mux', label: 'Mux' },
-      { value: 'OpenHands', label: 'OpenHands' },
-      { value: 'Pi', label: 'Pi' },
-      { value: 'Qoder', label: 'Qoder' },
-      { value: 'Qwen', label: 'Qwen' },
-      { value: 'RooCode', label: 'RooCode' },
-      { value: 'TraeCN', label: 'TraeCN' },
-      { value: 'Zencoder', label: 'Zencoder' },
-      { value: 'Neovate', label: 'Neovate' },
-      { value: 'Pochi', label: 'Pochi' },
-      { value: 'Other', label: 'Other' },
-    ],
-  })) as Platform;
-
-  if (p.isCancel(platform)) {
-    p.cancel('Operation cancelled');
+  if (platforms.length === 0) {
+    p.log.warn('No platform selected. Nothing to install.');
     return;
   }
 
@@ -171,15 +219,21 @@ export const initSkills = async (projectRoot?: string) => {
     return;
   }
 
-  // Call installSkills
+  // Call installSkills for each platform
   const s = p.spinner();
   s.start('Installing skills...');
   try {
-    const result = await installSkills(root, platform, selectedSkills);
+    const results: string[] = [];
+    for (const platform of platforms) {
+      const result = await installSkills(root, platform, selectedSkills);
+      results.push(result);
+    }
     s.stop('Skills installed successfully');
 
-    // 6. Show success message
-    p.note(result, 'Success');
+    // Show success messages
+    for (const result of results) {
+      p.note(result, 'Success');
+    }
   } catch (error) {
     s.stop('Failed to install skills');
     p.log.error(String(error));
