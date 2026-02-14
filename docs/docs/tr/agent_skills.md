@@ -30,7 +30,7 @@ Bu komutu çalıştırdığınızda şu işlemleri yapar:
 
 1.  Kullandığınız framework'ü algılar (ör. Next.js, React, Vite).
 2.  Hangi platformlar için yetenekler yüklemek istediğinizi sorar (Cursor, Windsurf, VS Code, OpenCode, Claude Code, GitHub Copilot Workspace vb.).
-3.  Gerekli yapılandırma dosyalarını üretir (ör. `.cursor/skills/intlayer_next_js/SKILL.md`, `.windsurf/skills/intlayer_next_js/SKILL.md`, `.opencode/skills/next_js/SKILL.md`, `.vscode/mcp.json` vb.).
+3.  Gerekli yapılandırma dosyalarını üretir (ör. `.cursor/skills/intlayer_next_js/SKILL.md`, `.windsurf/skills/intlayer_next_js/SKILL.md`, `.opencode/skills/intlayer_next_js/SKILL.md`, `.vscode/mcp.json` vb.).
 
 ## Desteklenen Platformlar
 

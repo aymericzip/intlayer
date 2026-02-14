@@ -30,7 +30,7 @@ Khi bạn chạy lệnh này, nó sẽ:
 
 1.  Phát hiện framework mà bạn đang sử dụng (ví dụ: Next.js, React, Vite).
 2.  Hỏi bạn muốn cài kỹ năng cho nền tảng nào (Cursor, Windsurf, VS Code, OpenCode, Claude Code, GitHub Copilot Workspace, v.v.).
-3.  Tạo các tệp cấu hình cần thiết (chẳng hạn `.cursor/skills/intlayer_next_js/SKILL.md`, `.windsurf/skills/intlayer_next_js/SKILL.md`, `.opencode/skills/next_js/SKILL.md`, `.vscode/mcp.json`, v.v.).
+3.  Tạo các tệp cấu hình cần thiết (chẳng hạn `.cursor/skills/intlayer_next_js/SKILL.md`, `.windsurf/skills/intlayer_next_js/SKILL.md`, `.opencode/skills/intlayer_next_js/SKILL.md`, `.vscode/mcp.json`, v.v.).
 
 ## Các nền tảng được hỗ trợ
 

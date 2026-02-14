@@ -30,7 +30,7 @@ When you run this command, it will:
 
 1.  Detect the framework you are using (e.g., Next.js, React, Vite).
 2.  Ask you which platforms you want to install skills for (Cursor, Windsurf, VS Code, OpenCode, Claude Code, GitHub Copilot Workspace, etc.).
-3.  Generate the required configuration files (e.g., `.cursor/skills/intlayer_next_js/SKILL.md`, `.windsurf/skills/intlayer_next_js/SKILL.md`, `.opencode/skills/next_js/SKILL.md`, `.vscode/mcp.json`, etc.).
+3.  Generate the required configuration files (e.g., `.cursor/skills/intlayer_next_js/SKILL.md`, `.windsurf/skills/intlayer_next_js/SKILL.md`, `.opencode/skills/intlayer_next_js/SKILL.md`, `.vscode/mcp.json`, etc.).
 
 ## Supported Platforms
 
