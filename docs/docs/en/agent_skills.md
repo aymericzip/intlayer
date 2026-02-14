@@ -13,7 +13,7 @@ slugs:
   - doc
   - agent_skills
 history:
-  - version: 8.0.4
+  - version: 8.1.0
     date: 2026-02-09
     changes: Init history
 ---
