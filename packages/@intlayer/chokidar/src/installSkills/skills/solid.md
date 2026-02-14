@@ -1,5 +1,5 @@
 ---
-name: Solid
+name: Intlayer Solid
 description: Solid-specific primitives and syntax
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: Svelte
+name: Intlayer Svelte
 description: Svelte-specific stores and syntax
 ---
 

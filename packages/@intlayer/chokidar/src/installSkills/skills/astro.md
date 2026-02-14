@@ -1,5 +1,5 @@
 ---
-name: Astro
+name: Intlayer Astro
 description: Astro-specific usage and getIntlayer
 ---
 

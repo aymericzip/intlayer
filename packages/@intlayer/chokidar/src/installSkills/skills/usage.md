@@ -1,5 +1,5 @@
 ---
-name: Usage
+name: Intlayer Usage
 description: How to use Intlayer in your project
 ---
 

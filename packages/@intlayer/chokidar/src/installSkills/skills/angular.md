@@ -1,5 +1,5 @@
 ---
-name: Angular
+name: Intlayer Angular
 description: Angular-specific syntax and Injectable Function usage
 ---
 

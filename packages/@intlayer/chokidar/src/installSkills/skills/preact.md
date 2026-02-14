@@ -1,5 +1,5 @@
 ---
-name: Preact
+name: Intlayer Preact
 description: Preact-specific syntax and hooks usage
 ---
 

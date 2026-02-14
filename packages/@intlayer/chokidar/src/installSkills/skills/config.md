@@ -1,5 +1,5 @@
 ---
-name: Config
+name: Intlayer Config
 description: Intlayer configuration documentation
 ---
 

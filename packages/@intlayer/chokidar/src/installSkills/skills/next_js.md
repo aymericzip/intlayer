@@ -1,5 +1,5 @@
 ---
-name: NextJS
+name: Intlayer NextJS
 description: Next.js-specific usage (Server & Client components)
 ---
 

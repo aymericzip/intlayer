@@ -1,5 +1,5 @@
 ---
-name: Vue
+name: Intlayer Vue
 description: Vue-specific composables and syntax
 ---
 

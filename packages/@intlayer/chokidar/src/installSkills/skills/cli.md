@@ -1,5 +1,5 @@
 ---
-name: CLI
+name: Intlayer CLI
 description: Intlayer CLI commands and usage
 ---
 

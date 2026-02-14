@@ -1,5 +1,5 @@
 ---
-name: Content
+name: Intlayer Content
 description: Reference for all Intlayer content node types (t, enu, etc.)
 ---
 

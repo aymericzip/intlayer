@@ -1,5 +1,5 @@
 ---
-name: React
+name: Intlayer React
 description: React-specific syntax and hooks usage
 ---
 
