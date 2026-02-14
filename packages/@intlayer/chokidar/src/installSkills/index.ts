@@ -34,6 +34,33 @@ export type Platform =
   | 'GitHub'
   | 'Claude'
   | 'VSCode'
+  | 'Antigravity'
+  | 'Augment'
+  | 'OpenClaw'
+  | 'Cline'
+  | 'CodeBuddy'
+  | 'CommandCode'
+  | 'Continue'
+  | 'Crush'
+  | 'Droid'
+  | 'Goose'
+  | 'Junie'
+  | 'IFlow'
+  | 'KiloCode'
+  | 'Kiro'
+  | 'Kode'
+  | 'MCPJam'
+  | 'MistralVibe'
+  | 'Mux'
+  | 'OpenHands'
+  | 'Pi'
+  | 'Qoder'
+  | 'Qwen'
+  | 'RooCode'
+  | 'TraeCN'
+  | 'Zencoder'
+  | 'Neovate'
+  | 'Pochi'
   | 'Other';
 
 /**
@@ -122,7 +149,7 @@ export const installSkills = async (
   skills: Skill[]
 ): Promise<string> => {
   let skillsBaseDir = '';
-  const useAgentStructure = true;
+  const useAgentStructure = platform !== 'VSCode';
 
   // Determine the root configuration directory based on Platform
   switch (platform) {
@@ -146,6 +173,87 @@ export const installSkills = async (
       break;
     case 'VSCode':
       skillsBaseDir = path.join(projectRoot, '.github/skills');
+      break;
+    case 'Antigravity':
+      skillsBaseDir = path.join(projectRoot, '.agent/skills');
+      break;
+    case 'Augment':
+      skillsBaseDir = path.join(projectRoot, '.augment/skills');
+      break;
+    case 'OpenClaw':
+      skillsBaseDir = path.join(projectRoot, 'skills');
+      break;
+    case 'Cline':
+      skillsBaseDir = path.join(projectRoot, '.cline/skills');
+      break;
+    case 'CodeBuddy':
+      skillsBaseDir = path.join(projectRoot, '.codebuddy/skills');
+      break;
+    case 'CommandCode':
+      skillsBaseDir = path.join(projectRoot, '.commandcode/skills');
+      break;
+    case 'Continue':
+      skillsBaseDir = path.join(projectRoot, '.continue/skills');
+      break;
+    case 'Crush':
+      skillsBaseDir = path.join(projectRoot, '.crush/skills');
+      break;
+    case 'Droid':
+      skillsBaseDir = path.join(projectRoot, '.factory/skills');
+      break;
+    case 'Goose':
+      skillsBaseDir = path.join(projectRoot, '.goose/skills');
+      break;
+    case 'Junie':
+      skillsBaseDir = path.join(projectRoot, '.junie/skills');
+      break;
+    case 'IFlow':
+      skillsBaseDir = path.join(projectRoot, '.iflow/skills');
+      break;
+    case 'KiloCode':
+      skillsBaseDir = path.join(projectRoot, '.kilocode/skills');
+      break;
+    case 'Kiro':
+      skillsBaseDir = path.join(projectRoot, '.kiro/skills');
+      break;
+    case 'Kode':
+      skillsBaseDir = path.join(projectRoot, '.kode/skills');
+      break;
+    case 'MCPJam':
+      skillsBaseDir = path.join(projectRoot, '.mcpjam/skills');
+      break;
+    case 'MistralVibe':
+      skillsBaseDir = path.join(projectRoot, '.vibe/skills');
+      break;
+    case 'Mux':
+      skillsBaseDir = path.join(projectRoot, '.mux/skills');
+      break;
+    case 'OpenHands':
+      skillsBaseDir = path.join(projectRoot, '.openhands/skills');
+      break;
+    case 'Pi':
+      skillsBaseDir = path.join(projectRoot, '.pi/skills');
+      break;
+    case 'Qoder':
+      skillsBaseDir = path.join(projectRoot, '.qoder/skills');
+      break;
+    case 'Qwen':
+      skillsBaseDir = path.join(projectRoot, '.qwen/skills');
+      break;
+    case 'RooCode':
+      skillsBaseDir = path.join(projectRoot, '.roo/skills');
+      break;
+    case 'TraeCN':
+      skillsBaseDir = path.join(projectRoot, '.trae/skills');
+      break;
+    case 'Zencoder':
+      skillsBaseDir = path.join(projectRoot, '.zencoder/skills');
+      break;
+    case 'Neovate':
+      skillsBaseDir = path.join(projectRoot, '.neovate/skills');
+      break;
+    case 'Pochi':
+      skillsBaseDir = path.join(projectRoot, '.pochi/skills');
       break;
     default:
       skillsBaseDir = path.join(projectRoot, 'skills');
