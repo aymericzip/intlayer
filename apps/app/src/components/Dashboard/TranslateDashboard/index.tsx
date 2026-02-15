@@ -39,25 +39,22 @@ import {
 import { SaveAllButton } from './SaveAllButton';
 
 const TranslateRow: FC<{
-  node: FlattenedDictionaryNode;
+  nodes: FlattenedDictionaryNode[];
   selectedLocales: LocalesValues[];
-}> = ({ node, selectedLocales }) => {
+}> = ({ nodes, selectedLocales }) => {
   const { editedContent, addEditedContent } = useEditedContent();
   const configuration = useConfiguration();
   const { defaultLocale } = configuration.internationalization;
   const { addTranslation } = useIntlayer('dictionary-list');
 
-  if (!node) {
+  if (!nodes || nodes.length === 0) {
     return <></>;
   }
 
-  const { dictionary, keyPath, content: originalContent, nodeType } = node;
-
-  const editedDictionaryContent = editedContent?.[dictionary.localId!]?.content;
-  const content =
-    typeof editedDictionaryContent === 'undefined'
-      ? originalContent
-      : getContentNodeByKeyPath(editedDictionaryContent, keyPath);
+  // Assume all nodes have the same keyPath and dictionary.key (by grouping definition)
+  // We use the first node for shared metadata like breadcrumbs
+  const referenceNode = nodes[0];
+  const { dictionary, keyPath, nodeType } = referenceNode;
 
   if (nodeType === NodeType.Translation) {
     return (
@@ -71,57 +68,70 @@ const TranslateRow: FC<{
           />
         </div>
         <div className="flex w-full flex-1 gap-2">
-          {selectedLocales.map((locale) => {
-            const translationContent = (content as any)?.[nodeType]?.[locale];
+          {selectedLocales.map((locale) => (
+            <div key={locale} className="flex min-w-md flex-1 flex-col gap-2">
+              {nodes.map((node, index) => {
+                const { dictionary: dict, content: originalContent } = node;
+                const editedDictionaryContent =
+                  editedContent?.[dict.localId!]?.content;
+                const content =
+                  typeof editedDictionaryContent === 'undefined'
+                    ? originalContent
+                    : getContentNodeByKeyPath(editedDictionaryContent, keyPath);
 
-            if (typeof translationContent === 'undefined') {
-              return (
-                <div
-                  key={locale}
-                  className="mt-5 mb-auto flex min-w-md flex-1 justify-center"
-                >
-                  <Button
-                    label={addTranslation.value}
-                    variant="fade"
-                    Icon={Plus}
-                    color="neutral"
-                    onClick={() => {
-                      const contentMap = (content as any)?.[nodeType] ?? {};
-                      const referenceContent =
-                        contentMap[defaultLocale] ??
-                        contentMap[Object.keys(contentMap)[0]];
+                const translationContent = (content as any)?.[nodeType]?.[
+                  locale
+                ];
 
-                      const newContent = {
-                        ...((editedContent as Record<string, any>) ?? {}),
-                        [nodeType]: {
-                          ...contentMap,
-                          [locale]: getEmptyNode(referenceContent),
-                        },
-                      };
+                if (typeof translationContent === 'undefined') {
+                  return (
+                    <div
+                      key={dict.localId || index}
+                      className="mt-5 mb-auto flex w-full justify-center"
+                    >
+                      <Button
+                        label={addTranslation.value}
+                        variant="fade"
+                        Icon={Plus}
+                        color="neutral"
+                        onClick={() => {
+                          const contentMap = (content as any)?.[nodeType] ?? {};
+                          const referenceContent =
+                            contentMap[defaultLocale] ??
+                            contentMap[Object.keys(contentMap)[0]];
 
-                      addEditedContent(
-                        dictionary.localId!,
-                        newContent,
-                        keyPath
-                      );
-                    }}
-                  >
-                    {addTranslation}
-                  </Button>
-                </div>
-              );
-            }
+                          const newContent = {
+                            ...((editedContent as Record<string, any>) ?? {}),
+                            [nodeType]: {
+                              ...contentMap,
+                              [locale]: getEmptyNode(referenceContent),
+                            },
+                          };
 
-            return (
-              <div key={locale} className="min-w-md flex-1">
-                <TextEditor
-                  section={translationContent}
-                  keyPath={[...keyPath, { type: nodeType, key: locale } as any]}
-                  dictionary={dictionary}
-                />
-              </div>
-            );
-          })}
+                          addEditedContent(dict.localId!, newContent, keyPath);
+                        }}
+                      >
+                        {addTranslation}
+                      </Button>
+                    </div>
+                  );
+                }
+
+                return (
+                  <div key={dict.localId || index} className="w-full">
+                    <TextEditor
+                      section={translationContent}
+                      keyPath={[
+                        ...keyPath,
+                        { type: nodeType, key: locale } as any,
+                      ]}
+                      dictionary={dict}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          ))}
         </div>
       </div>
     );
@@ -137,15 +147,51 @@ const TranslateRow: FC<{
           color="neutral"
         />
       </div>
-      <div className="w-full flex-1">
-        <TextEditor
-          section={content}
-          keyPath={keyPath}
-          dictionary={dictionary}
-        />
+      <div className="flex w-full flex-1 flex-col gap-2">
+        {nodes.map((node, index) => {
+          const { dictionary: dict, content: originalContent } = node;
+          const editedDictionaryContent =
+            editedContent?.[dict.localId!]?.content;
+          const content =
+            typeof editedDictionaryContent === 'undefined'
+              ? originalContent
+              : getContentNodeByKeyPath(editedDictionaryContent, keyPath);
+
+          return (
+            <TextEditor
+              key={dict.localId || index}
+              section={content}
+              keyPath={keyPath}
+              dictionary={dict}
+            />
+          );
+        })}
       </div>
     </div>
   );
+};
+
+const mergeFlattenedNodes = (nodes: FlattenedDictionaryNode[]) => {
+  const groupedMap = new Map<string, FlattenedDictionaryNode[]>();
+  const result: FlattenedDictionaryNode[][] = [];
+
+  nodes.forEach((node) => {
+    // Group by dictionary Key + KeyPath + NodeType
+    const groupKey = JSON.stringify({
+      dKey: node.dictionary.key,
+      path: node.keyPath,
+      type: node.nodeType,
+    });
+
+    if (!groupedMap.has(groupKey)) {
+      const group: FlattenedDictionaryNode[] = [];
+      groupedMap.set(groupKey, group);
+      result.push(group);
+    }
+    groupedMap.get(groupKey)!.push(node);
+  });
+
+  return result;
 };
 
 const TranslateDashboardList: FC = () => {
@@ -200,15 +246,20 @@ const TranslateDashboardList: FC = () => {
       (page.data as Dictionary[]).flatMap(flattenDictionary)
     ) ?? [];
 
+  const mergedNodes = useMemo(
+    () => mergeFlattenedNodes(flattenedNodes),
+    [flattenedNodes]
+  );
+
   // though rangeChanged usually handles this once the list mounts.
   useEffect(() => {
-    if (flattenedNodes.length > 0 && initialTopIndex < flattenedNodes.length) {
-      setCurrentDictionaryKey(flattenedNodes[initialTopIndex]?.dictionary.key);
+    if (mergedNodes.length > 0 && initialTopIndex < mergedNodes.length) {
+      setCurrentDictionaryKey(mergedNodes[initialTopIndex][0]?.dictionary.key);
     }
-  }, [flattenedNodes, initialTopIndex]);
+  }, [mergedNodes, initialTopIndex]);
 
   const { groupCounts } = useMemo(() => {
-    if (!flattenedNodes || flattenedNodes.length === 0) {
+    if (!mergedNodes || mergedNodes.length === 0) {
       return { groupCounts: [], groupKeys: [] };
     }
 
@@ -218,8 +269,8 @@ const TranslateDashboardList: FC = () => {
     let currentKey: string | null = null;
     let currentCount = 0;
 
-    flattenedNodes.forEach((node) => {
-      const key = node.dictionary.key;
+    mergedNodes.forEach((nodes) => {
+      const key = nodes[0].dictionary.key;
 
       if (key !== currentKey) {
         if (currentKey !== null) {
@@ -239,7 +290,7 @@ const TranslateDashboardList: FC = () => {
     }
 
     return { groupCounts: counts, groupKeys: keys };
-  }, [flattenedNodes]);
+  }, [mergedNodes]);
 
   return (
     <div className="relative flex size-full flex-1 flex-col gap-2 overflow-hidden">
@@ -306,7 +357,7 @@ const TranslateDashboardList: FC = () => {
           </div>
         </div>
         <Loader isLoading={isPending}>
-          {flattenedNodes.length > 0 ? (
+          {mergedNodes.length > 0 ? (
             <GroupedVirtuoso
               ref={virtuosoRef}
               groupCounts={groupCounts}
@@ -324,7 +375,7 @@ const TranslateDashboardList: FC = () => {
               groupContent={() => <div className="my-4 border-card border-b" />}
               itemContent={(index) => (
                 <TranslateRow
-                  node={flattenedNodes[index]}
+                  nodes={mergedNodes[index]}
                   selectedLocales={selectedLocales}
                 />
               )}
