@@ -93,4 +93,8 @@ export const testMissingTranslations = async (
       }
     )}`
   );
+
+  if (result.missingRequiredLocales.length > 0) {
+    process.exit(1);
+  }
 };
