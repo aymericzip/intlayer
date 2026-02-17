@@ -81,7 +81,7 @@
     "@intlayer/core": "workspace:*",
     "@intlayer/types": "workspace:*",
     "cls-hooked": "4.2.2",
-    "fastify-plugin": "5.0.0",
+    "fastify-plugin": "5.1.0",
     "intlayer": "workspace:*"
   },
   "devDependencies": {
@@ -90,9 +90,9 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "fastify": "5.0.0",
+    "fastify": "5.7.4",
     "rimraf": "6.1.2",
-    "tsdown": "0.20.0",
+    "tsdown": "0.20.3",
     "typescript": "5.9.3",
     "vitest": "4.0.18"
   },

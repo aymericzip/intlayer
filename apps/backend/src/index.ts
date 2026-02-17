@@ -31,6 +31,7 @@ import { projectRoute, projectRouter } from '@routes/project.routes';
 import { searchRoute, searchRouter } from '@routes/search.routes';
 import { stripeRoute, stripeRouter } from '@routes/stripe.routes';
 import { tagRoute, tagRouter } from '@routes/tags.routes';
+import { translateRoute, translationRouter } from '@routes/translate.routes';
 import { userRoute, userRouter } from '@routes/user.routes';
 // Utils
 import { getAuth } from '@utils/auth/getAuth';
@@ -45,6 +46,8 @@ import Fastify, { type FastifyInstance } from 'fastify';
 import { intlayer, t } from 'fastify-intlayer';
 /// Logger
 import { logger } from './logger/index';
+
+import '@services/translationWorker.service';
 
 const startServer = async () => {
   const app: FastifyInstance = Fastify({
@@ -216,6 +219,7 @@ const startServer = async () => {
   await app.register(githubRouter, { prefix: githubRoute });
   await app.register(gitlabRouter, { prefix: gitlabRoute });
   await app.register(bitbucketRouter, { prefix: bitbucketRoute });
+  await app.register(translationRouter, { prefix: translateRoute });
 
   // Server
   await app.listen({

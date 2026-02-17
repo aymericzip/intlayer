@@ -5,6 +5,7 @@ import {
   DashboardSidebar,
   type SidebarNavigationItem,
 } from '@components/Dashboard/DashboardSidebar';
+import { TranslationStatusAside } from '@components/TranslationStatusAside';
 import { PageLayout } from '@layouts/PageLayout';
 import {
   type DehydratedState,
@@ -141,6 +142,7 @@ const DashboardLayoutContent: FC<DashboardLayoutContentProps> = ({
           <div className="flex min-h-0 flex-1 flex-col rounded-2xl bg-background md:mr-2 md:overflow-auto">
             <Suspense>{children}</Suspense>
           </div>
+          <TranslationStatusAside />
         </div>
       </DashboardHydrationBoundary>
     </PageLayout>

@@ -49,6 +49,7 @@ export type * from '@controllers/projectAccessKey.controller';
 export type * from '@controllers/search.controller';
 export type * from '@controllers/stripe.controller';
 export type * from '@controllers/tag.controller';
+export type * from '@controllers/translation.controller';
 export type * from '@controllers/user.controller';
 export { getAiRoutes } from '@routes/ai.routes';
 export { getBitbucketRoutes } from '@routes/bitbucket.routes';
@@ -58,6 +59,7 @@ export { getGitlabRoutes } from '@routes/gitlab.routes';
 export { getNewsletterRoutes } from '@routes/newsletter.routes';
 export { getOrganizationRoutes } from '@routes/organization.routes';
 export { getProjectRoutes } from '@routes/project.routes';
+export { getTranslationsRoutes } from '@routes/translate.routes';
 export { getUserRoutes } from '@routes/user.routes';
 
 // Utils
