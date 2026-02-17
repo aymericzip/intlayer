@@ -572,7 +572,7 @@ export const deleteOrganization = async (
   reply: FastifyReply
 ): Promise<void> => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-  const { organization, roles } = _request.locals || {};
+  const { organization, session, roles } = _request.locals || {};
 
   if (!organization) {
     return ErrorHandler.handleGenericErrorResponse(
@@ -603,6 +603,13 @@ export const deleteOrganization = async (
     return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
+  if (typeof session === 'undefined') {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'SESSION_NOT_DEFINED'
+    );
+  }
+
   try {
     // Cancel the subscription on Stripe if it exists
     if (organization.plan?.subscriptionId) {
@@ -621,6 +628,17 @@ export const deleteOrganization = async (
         }
       );
     }
+
+    // Update session to set activeOrganizationId
+    await SessionModel.updateOne(
+      { _id: session.id },
+      {
+        $set: {
+          activeOrganizationId: null,
+          activeProjectId: null,
+        },
+      }
+    );
 
     logger.info(`Organization deleted: ${String(deletedOrganization.id)}`);
 

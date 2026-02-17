@@ -170,6 +170,22 @@ export const getAuth = (dbClient: MongoClient): Auth => {
 
           if (orgData) {
             organizationAPI = mapOrganizationToAPI(orgData);
+          } else {
+            // Organization ID is present in session but not found in DB (Zombie session)
+            // We detach the organization to prevent login errors
+            await dbClient
+              .db()
+              .collection('sessions')
+              .updateOne(
+                { id: typedSession.id },
+                {
+                  $set: { activeOrganizationId: null, activeProjectId: null },
+                }
+              );
+
+            // Clear it locally so the current request proceeds without error
+            typedSession.activeOrganizationId = undefined;
+            typedSession.activeProjectId = undefined;
           }
         }
         if (typedSession.activeProjectId) {
@@ -179,6 +195,21 @@ export const getAuth = (dbClient: MongoClient): Auth => {
 
           if (projectData) {
             projectAPI = mapProjectToAPI(projectData);
+          } else {
+            // Organization ID is present in session but not found in DB (Zombie session)
+            // We detach the organization to prevent login errors
+            await dbClient
+              .db()
+              .collection('sessions')
+              .updateOne(
+                { id: typedSession.id },
+                {
+                  $set: { activeProjectId: null },
+                }
+              );
+
+            // Clear it locally so the current request proceeds without error
+            typedSession.activeProjectId = undefined;
           }
         }
 

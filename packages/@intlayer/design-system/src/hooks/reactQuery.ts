@@ -448,6 +448,9 @@ export const useAddOrganization = () => {
     mutationKey: ['organizations'],
     mutationFn: (args: AddOrganizationBody) =>
       intlayerOAuth.organization.addOrganization(args),
+    meta: {
+      invalidateQueries: [['organizations']],
+    },
   });
 };
 
@@ -517,7 +520,7 @@ export const useDeleteOrganization = () => {
     mutationKey: ['organizations'],
     mutationFn: () => intlayerOAuth.organization.deleteOrganization(),
     meta: {
-      invalidateQueries: [['organizations']],
+      invalidateQueries: [['organizations'], ['session']],
     },
   });
 };
@@ -532,6 +535,7 @@ export const useSelectOrganization = () => {
       intlayerOAuth.organization.selectOrganization(args),
     meta: {
       invalidateQueries: [
+        ['session'],
         ['organizations'],
         ['projects'],
         ['dictionaries'],
@@ -562,6 +566,7 @@ export const useUnselectOrganization = () => {
     mutationFn: () => intlayerOAuth.organization.unselectOrganization(),
     meta: {
       resetQueries: [
+        ['session'],
         ['organizations'],
         ['projects'],
         ['dictionaries'],

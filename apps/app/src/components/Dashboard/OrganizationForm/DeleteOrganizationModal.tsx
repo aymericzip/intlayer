@@ -21,9 +21,10 @@ export const DeleteOrganizationModal: FC<DeleteOrganizationModalProps> = ({
   onDelete,
   isOpen,
 }) => {
-  const { session } = useSession();
+  const { session, revalidateSession } = useSession();
   const { roles } = session ?? {};
   const isOrganizationAdmin = roles?.includes('org_admin');
+
   const { mutate: deleteOrganization, isPending: isDeleting } =
     useDeleteOrganization();
   const { confirmButton, cancelButton, description, title } = useIntlayer(
@@ -33,8 +34,10 @@ export const DeleteOrganizationModal: FC<DeleteOrganizationModalProps> = ({
 
   const handleDelete = () => {
     deleteOrganization(undefined, {
-      onSuccess: (response) => {
+      onSuccess: async (response) => {
         if (response.data) {
+          await revalidateSession();
+
           onDelete?.();
           onClose?.();
           router.push(PagesRoutes.Dashboard_Organization);
@@ -44,7 +47,13 @@ export const DeleteOrganizationModal: FC<DeleteOrganizationModalProps> = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={title.value} size="md">
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      title={title.value}
+      size="md"
+      padding="md"
+    >
       <form className="size-full px-3">
         <p className="py-4 text-neutral text-sm">{description}</p>
         <div className="mt-12 flex justify-end gap-2 max-md:flex-col">

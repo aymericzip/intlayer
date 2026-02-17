@@ -84,7 +84,7 @@ export const ProjectList: FC = () => {
           </div>
         ) : (
           <Container
-            roundedSize="xl"
+            roundedSize="3xl"
             className="m-auto flex justify-center p-6"
           >
             {search ? (
@@ -133,6 +133,7 @@ export const ProjectList: FC = () => {
         isOpen={isCreationModalOpen}
         onClose={() => setIsCreationModalOpen(false)}
         padding="md"
+        hasCloseButton
       >
         <ProjectCreationForm
           onProjectCreated={() => setIsCreationModalOpen(false)}

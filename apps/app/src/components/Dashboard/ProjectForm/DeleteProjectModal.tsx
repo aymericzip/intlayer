@@ -40,6 +40,7 @@ export const DeleteProjectModal: FC<DeleteProjectModalProps> = ({
       onClose={onClose}
       title={title.value}
       size="md"
+      hasCloseButton
       padding="md"
     >
       <form className="size-full px-3">

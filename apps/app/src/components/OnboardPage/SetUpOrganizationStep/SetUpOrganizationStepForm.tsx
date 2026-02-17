@@ -45,6 +45,8 @@ const OrganizationFormContent: FC<{
         <Modal
           isOpen={isCreationModalOpen}
           onClose={() => setIsCreationModalOpen(false)}
+          hasCloseButton
+          padding="md"
         >
           <OrganizationCreationForm />
         </Modal>

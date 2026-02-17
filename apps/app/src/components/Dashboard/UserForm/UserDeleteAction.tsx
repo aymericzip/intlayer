@@ -91,6 +91,8 @@ export const UserDeleteAction: FC<{ userId: string }> = ({ userId }) => {
         isOpen={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}
         title={deleteSection.modalTitle.value}
+        hasCloseButton
+        padding="md"
       >
         <div className="flex flex-col gap-8 px-3 pt-4">
           <div className="flex items-start gap-3 rounded-lg px-4">

@@ -6,6 +6,7 @@ import {
   useSelectOrganization,
   useSession,
   useUnselectOrganization,
+  useUnselectProject,
 } from '@intlayer/design-system/hooks';
 import { ChevronsUpDown } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
@@ -22,6 +23,7 @@ export const OrganizationDropdown: FC = () => {
     mutate: unselectOrganization,
     isPending: isUnselectOrganizationLoading,
   } = useUnselectOrganization();
+  const { mutate: unselectProject } = useUnselectProject();
   const {
     organizationTrigger,
     organizationLogout,
@@ -51,10 +53,12 @@ export const OrganizationDropdown: FC = () => {
       <Modal
         isOpen={isCreationModalOpen}
         onClose={() => setIsCreationModalOpen(false)}
+        padding="md"
       >
         <OrganizationCreationForm
           onOrganizationCreated={(organization) => {
             setIsCreationModalOpen(false);
+            unselectProject();
             handleSelectOrganization(String(organization.id));
           }}
         />
@@ -103,20 +107,20 @@ export const OrganizationDropdown: FC = () => {
             <Button
               variant="outline"
               color="text"
-              label={organizationLogout.label.value}
-              onClick={handleUnselectOrganization}
-              isLoading={isUnselectOrganizationLoading}
               className="mt-6"
-            >
-              {organizationLogout.text}
-            </Button>
-            <Button
-              variant="outline"
-              color="text"
               label={createNewOrganization.label.value}
               onClick={() => setIsCreationModalOpen(true)}
             >
               {createNewOrganization.text}
+            </Button>
+            <Button
+              variant="outline"
+              color="text"
+              label={organizationLogout.label.value}
+              onClick={handleUnselectOrganization}
+              isLoading={isUnselectOrganizationLoading}
+            >
+              {organizationLogout.text}
             </Button>
           </Container>
         </DropDown.Panel>

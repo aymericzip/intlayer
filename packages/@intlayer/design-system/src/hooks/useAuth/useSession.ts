@@ -19,10 +19,10 @@ export type UseSessionResult = {
   setSession: (nextSession: SessionAPI | null) => void;
 };
 
-export function useSession(
+export const useSession = (
   sessionProp?: SessionAPI | null,
   intlayerConfiguration?: IntlayerConfig
-): UseSessionResult {
+): UseSessionResult => {
   const configuration = useConfiguration();
   const config = intlayerConfiguration ?? configuration ?? defaultConfiguration;
 
@@ -67,4 +67,4 @@ export function useSession(
     revalidateSession,
     setSession,
   };
-}
+};

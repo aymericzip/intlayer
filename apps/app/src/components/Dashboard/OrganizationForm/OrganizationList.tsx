@@ -50,6 +50,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({
   const totalItems = organizationsResponse?.total_items ?? 0;
 
   const { mutate: selectOrganization } = useSelectOrganization();
+
   const { selectButton, addOrganizationButton } =
     useIntlayer('organization-form');
   const { searchPlaceholder, noOrganizationFound } =
@@ -172,6 +173,8 @@ export const OrganizationList: FC<OrganizationListProps> = ({
       <Modal
         isOpen={isCreationModalOpen}
         onClose={() => setIsCreationModalOpen(false)}
+        hasCloseButton
+        padding="md"
       >
         <OrganizationCreationForm />
       </Modal>

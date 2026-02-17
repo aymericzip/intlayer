@@ -210,7 +210,7 @@ export const updateProject = async (
   request: FastifyRequest<{ Body: UpdateProjectBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { organization, project, user, roles } = request.locals || {};
+  const { organization, project, user, session, roles } = request.locals || {};
   const projectData = request.body;
 
   if (!user) {
@@ -250,10 +250,28 @@ export const updateProject = async (
     return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
+  if (typeof session === 'undefined') {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'SESSION_NOT_DEFINED'
+    );
+  }
+
   try {
     const updatedProject = await projectService.updateProjectById(
       project.id,
       projectData
+    );
+
+    // Update session to set activeOrganizationId
+    await SessionModel.updateOne(
+      { _id: session.id },
+      {
+        $set: {
+          activeOrganizationId: String(organization.id),
+          activeProjectId: null,
+        },
+      }
     );
 
     const formattedProject = mapProjectToAPI(updatedProject);

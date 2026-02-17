@@ -69,7 +69,7 @@ export const DictionaryListDashboardContent: FC = () => {
     filterLabels,
     visibleColumns,
     selectColumns,
-  } = useIntlayer('dictionary-list') as any;
+  } = useIntlayer('dictionary-list');
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const [isFiltersModalOpen, setIsFiltersModalOpen] = useState(false);
   const [editingDictionaryKey, setEditingDictionaryKey] = useState<
@@ -125,7 +125,7 @@ export const DictionaryListDashboardContent: FC = () => {
   }, [watchSearch, params.search, setParam]);
 
   const { createDictionaryButton } = useIntlayer('dictionary-form') as any;
-  const { data, isPending, refetch } = useGetDictionaries({
+  const { data, isPending } = useGetDictionaries({
     page: params.page,
     pageSize: params.pageSize,
     search: params.search || undefined,
@@ -145,7 +145,7 @@ export const DictionaryListDashboardContent: FC = () => {
 
   const router = useRouter();
 
-  const dictionaries = useMemo(() => data?.data ?? [], [data?.data]);
+  const dictionaries = data?.data ?? [];
 
   const handleSort = (columnId: string) => {
     const isAsc = params.sortBy === columnId && params.sortOrder === 'asc';
@@ -675,6 +675,7 @@ export const DictionaryListDashboardContent: FC = () => {
         isOpen={isCreationModalOpen}
         onClose={() => setIsCreationModalOpen(false)}
         padding="md"
+        hasCloseButton
       >
         <DictionaryCreationForm
           onDictionaryCreated={() => {

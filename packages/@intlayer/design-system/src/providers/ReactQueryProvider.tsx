@@ -28,6 +28,8 @@ const defaultQueryOptions: DefaultOptions = {
   },
 };
 
+const SHOW_ERROR_CODE = false;
+
 declare module '@tanstack/react-query' {
   interface Register {
     mutationMeta: {
@@ -61,9 +63,9 @@ const useToastEvents = () => {
 
       toast({
         title: formatErrorCode(
-          (process.env.NODE_ENV === 'production'
-            ? (apiError?.title ?? err?.title)
-            : (apiError?.code ?? err?.code)) ?? 'Error'
+          SHOW_ERROR_CODE
+            ? (apiError?.code ?? err?.code)
+            : (apiError?.title ?? err?.title ?? 'Error')
         ),
         description:
           apiError?.message ??

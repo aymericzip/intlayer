@@ -51,8 +51,11 @@ export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
       <Modal
         isOpen={isCreationModalOpen}
         onClose={() => setIsCreationModalOpen(false)}
+        padding="md"
       >
-        <ProjectCreationForm />
+        <ProjectCreationForm
+          onProjectCreated={() => setIsCreationModalOpen(false)}
+        />
       </Modal>
       <DropDown identifier="project-dropdown">
         <DropDown.Trigger
@@ -96,20 +99,20 @@ export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
             <Button
               variant="outline"
               color="text"
-              label={projectLogout.label.value}
-              onClick={handleUnselectProject}
-              isLoading={isUnselectProjectLoading}
+              label={createNewProject.label.value}
+              onClick={() => setIsCreationModalOpen(true)}
               className="mt-6"
             >
-              {projectLogout.text}
+              {createNewProject.text}
             </Button>
             <Button
               variant="outline"
               color="text"
-              label={createNewProject.label.value}
-              onClick={() => setIsCreationModalOpen(true)}
+              label={projectLogout.label.value}
+              onClick={handleUnselectProject}
+              isLoading={isUnselectProjectLoading}
             >
-              {createNewProject.text}
+              {projectLogout.text}
             </Button>
           </Container>
         </DropDown.Panel>

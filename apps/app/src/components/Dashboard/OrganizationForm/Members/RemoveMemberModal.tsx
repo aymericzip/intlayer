@@ -78,6 +78,8 @@ export const RemoveMemberModal: FC<RemoveMemberModalProps> = ({
         memberName: user?.name ?? user?.email ?? String(memberId),
       })}
       size="md"
+      hasCloseButton
+      padding="md"
     >
       <Loader isLoading={isLoadingUsers}>
         <form className="size-full p-3">
