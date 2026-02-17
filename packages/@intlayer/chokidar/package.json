@@ -40,6 +40,26 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
+    "./watcher": {
+      "types": "./dist/types/watcher.d.ts",
+      "require": "./dist/cjs/watcher.cjs",
+      "import": "./dist/esm/watcher.mjs"
+    },
+    "./build": {
+      "types": "./dist/types/build.d.ts",
+      "require": "./dist/cjs/build.cjs",
+      "import": "./dist/esm/build.mjs"
+    },
+    "./cli": {
+      "types": "./dist/types/cli.d.ts",
+      "require": "./dist/cjs/cli.cjs",
+      "import": "./dist/esm/cli.mjs"
+    },
+    "./utils": {
+      "types": "./dist/types/utils/index.d.ts",
+      "require": "./dist/cjs/utils/index.cjs",
+      "import": "./dist/esm/utils/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
@@ -47,6 +67,18 @@
   "types": "dist/types/index.d.ts",
   "typesVersions": {
     "*": {
+      "watcher": [
+        "./dist/types/watcher.d.ts"
+      ],
+      "build": [
+        "./dist/types/build.d.ts"
+      ],
+      "cli": [
+        "./dist/types/cli.d.ts"
+      ],
+      "utils": [
+        "./dist/types/utils/index.d.ts"
+      ],
       "package.json": [
         "./package.json"
       ]

@@ -1,5 +1,5 @@
 import { relative } from 'node:path';
-import { listProjects } from '@intlayer/chokidar';
+import { listProjects } from '@intlayer/chokidar/cli';
 import {
   build,
   extract,

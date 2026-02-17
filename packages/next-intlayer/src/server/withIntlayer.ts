@@ -1,9 +1,9 @@
 import { join, relative, resolve } from 'node:path';
+import { prepareIntlayer } from '@intlayer/chokidar/build';
 import {
   getComponentTransformPatternSync,
-  prepareIntlayer,
   runOnce,
-} from '@intlayer/chokidar';
+} from '@intlayer/chokidar/utils';
 import {
   ANSIColors,
   colorize,

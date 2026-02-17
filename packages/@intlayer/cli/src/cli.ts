@@ -1,7 +1,7 @@
 import { dirname as pathDirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { AIOptions as BaseAIOptions } from '@intlayer/api';
-import type { DiffMode, ListGitFilesOptions } from '@intlayer/chokidar';
+import type { DiffMode, ListGitFilesOptions } from '@intlayer/chokidar/cli';
 import {
   type GetConfigurationOptions,
   getConfiguration,

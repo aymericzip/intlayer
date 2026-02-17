@@ -7,7 +7,7 @@ import {
   type Platform,
   SKILLS,
   SKILLS_METADATA,
-} from '@intlayer/chokidar';
+} from '@intlayer/chokidar/cli';
 // @ts-ignore
 import { AutoComplete } from 'enquirer';
 

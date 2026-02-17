@@ -1,4 +1,5 @@
-import { formatLocale, formatPath, prepareIntlayer } from '@intlayer/chokidar';
+import { prepareIntlayer } from '@intlayer/chokidar/build';
+import { formatLocale, formatPath } from '@intlayer/chokidar/utils';
 import {
   ANSIColors,
   colon,

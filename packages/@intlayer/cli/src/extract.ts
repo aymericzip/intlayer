@@ -2,7 +2,7 @@ import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { relative, resolve } from 'node:path';
 import { multiselect } from '@clack/prompts';
-import { type PackageName, transformFiles } from '@intlayer/chokidar';
+import { type PackageName, transformFiles } from '@intlayer/chokidar/cli';
 import {
   colorizePath,
   type GetConfigurationOptions,

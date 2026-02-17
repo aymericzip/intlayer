@@ -1,6 +1,5 @@
 import { relative } from 'node:path';
-import type { ListProjectsOptions } from '@intlayer/chokidar';
-import { listProjects } from '@intlayer/chokidar';
+import { type ListProjectsOptions, listProjects } from '@intlayer/chokidar/cli';
 
 export type ListProjectsCommandOptions = ListProjectsOptions & {
   json?: boolean;

@@ -1,5 +1,5 @@
 import * as readline from 'node:readline';
-import { installSkills, SKILLS, type Skill } from '@intlayer/chokidar';
+import { installSkills, SKILLS, type Skill } from '@intlayer/chokidar/cli';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import z from 'zod';
 
