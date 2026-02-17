@@ -1,14 +1,14 @@
 'use client';
 
-import { RightDrawer } from '@intlayer/design-system';
+import { Button, Loader, RightDrawer } from '@intlayer/design-system';
 import { clsx } from 'clsx';
 import {
   AlertCircle,
   CheckCircle2,
   Globe,
-  Languages,
   Loader2,
   X,
+  Zap,
 } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useState } from 'react';
@@ -24,14 +24,12 @@ type JobData = {
 
 const getStatusIcon = (state: JobState) => {
   switch (state) {
-    case 'active':
-      return <Loader2 className="h-4 w-4 animate-spin" />;
     case 'completed':
-      return <CheckCircle2 className="h-4 w-4 text-success" />;
+      return <CheckCircle2 className="size-4 text-success" />;
     case 'failed':
-      return <X className="h-4 w-4 text-error" />;
+      return <X className="size-4 text-error" />;
     default:
-      return <Loader2 className="h-4 w-4 text-slate-400" />;
+      return <Loader className="size-4" />;
   }
 };
 
@@ -104,28 +102,22 @@ export const TranslationStatusAside: FC = () => {
   return (
     <>
       {/* Floating Indicator Trigger */}
-      <button
+      <Button
         onClick={() => setIsOpen(true)}
-        className={clsx(
-          'fixed top-24 right-4 z-40 flex h-12 w-12 items-center justify-center rounded-full transition-all hover:scale-105 active:scale-95'
-        )}
         type="button"
-        aria-label={content.translationStatus.value}
+        variant="hoverable"
+        label={content.translationStatus.value}
+        Icon={Zap}
+        isLoading={isProcessing}
+        disabled={false}
+        size="icon-md"
       >
         <div className="relative">
-          {isProcessing ? (
-            <Loader2 className="h-6 w-6 animate-spin" />
-          ) : hasConnectionError ? (
-            <AlertCircle className="h-6 w-6 text-warning" />
-          ) : (
-            <Languages className="h-6 w-6 text-text" />
-          )}
-
           {hasUnseenChanges && (
             <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-error ring-2" />
           )}
         </div>
-      </button>
+      </Button>
 
       <RightDrawer
         isOpen={isOpen}
@@ -141,7 +133,7 @@ export const TranslationStatusAside: FC = () => {
         <div className="space-y-4 p-1">
           {hasConnectionError && (
             <div className="flex items-center gap-2 rounded-md bg-amber-50 p-3 text-sm text-warning">
-              <AlertCircle className="h-4 w-4" />
+              <AlertCircle className="size-4" />
               {content.connectionLostReconnecting.value}
             </div>
           )}

@@ -3,6 +3,7 @@
 import { Link } from '@components/Link/Link';
 import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
 import { ProfileDropDown } from '@components/ProfileDropdown/ProfileDropdown';
+import { TranslationStatusAside } from '@components/TranslationStatusAside';
 import { Container, Logo } from '@intlayer/design-system';
 import { useSession } from '@intlayer/design-system/hooks';
 import type { FC } from 'react';
@@ -41,6 +42,7 @@ export const DashboardNavbar: FC = () => {
           </div>
         </div>
         <div className="flex items-center gap-4">
+          {project && <TranslationStatusAside />}
           <LocaleSwitcher />
           <ProfileDropDown />
         </div>

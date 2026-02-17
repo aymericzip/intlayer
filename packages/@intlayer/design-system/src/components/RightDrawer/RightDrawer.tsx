@@ -1,5 +1,6 @@
 'use client';
 
+import { useGetElementOrWindow } from '@hooks/index';
 import { useDevice } from '@hooks/useDevice';
 import { useScrollBlockage } from '@hooks/useScrollBlockage';
 import { ChevronLeft, X } from 'lucide-react';
@@ -11,6 +12,7 @@ import {
   useEffect,
   useRef,
 } from 'react';
+import { createPortal } from 'react-dom';
 import { useIntlayer } from 'react-intlayer';
 import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
 import { Container } from '../Container';
@@ -81,6 +83,12 @@ type RightDrawerProps = {
    * Callback function triggered when the drawer is closed
    */
   onClose?: () => void;
+
+  /**
+   * Optional container to render the drawer into.
+   * If not provided, it will be rendered into the body.
+   */
+  container?: HTMLElement;
 };
 
 export const RightDrawer: FC<RightDrawerProps> = ({
@@ -93,11 +101,13 @@ export const RightDrawer: FC<RightDrawerProps> = ({
   backButton,
   isOpen: isOpenProp,
   onClose,
+  container,
 }) => {
   const content = useIntlayer('right-drawer');
   const { isMobile } = useDevice('md');
   const panelRef = useRef<HTMLDivElement>(null);
   const childrenContainerRef = useRef<HTMLDivElement>(null);
+  const containerElement = useGetElementOrWindow(container);
 
   const {
     open: openDrawer,
@@ -181,7 +191,9 @@ export const RightDrawer: FC<RightDrawerProps> = ({
     }
   };
 
-  return (
+  if (!containerElement) return <></>;
+
+  return createPortal(
     <div className="fixed top-0 right-0 z-50 flex h-full justify-end">
       <MaxWidthSmoother isHidden={!isOpen} align="right">
         <Container
@@ -265,6 +277,7 @@ export const RightDrawer: FC<RightDrawerProps> = ({
           {footer && <div className="shrink-0">{footer}</div>}
         </Container>
       </MaxWidthSmoother>
-    </div>
+    </div>,
+    containerElement
   );
 };
