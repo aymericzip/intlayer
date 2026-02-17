@@ -5,7 +5,7 @@ metadata:
   author: Intlayer
   url: https://intlayer.org
   license: Apache-2.0
-  mcp-server: @intlayer/mcp
+  mcp-server: "@intlayer/mcp"
   category: productivity
   tags: [i18n]
   documentation: https://intlayer.org/doc
@@ -18,3 +18,15 @@ metadata:
 For managing server-side content and using the Intlayer CMS:
 
 - [Intlayer CMS Documentation](https://intlayer.org/cms.md)
+
+## References
+
+### Concepts
+
+- [CMS Concept](https://intlayer.org/doc/concept/cms.md)
+- [Editor Concept](https://intlayer.org/doc/concept/editor.md)
+
+### Links
+
+- [CMS](https://intlayer.org/cms)
+- [TMS](https://intlayer.org/tms)

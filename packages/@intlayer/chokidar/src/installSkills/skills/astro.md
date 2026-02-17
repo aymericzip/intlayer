@@ -5,7 +5,7 @@ metadata:
   author: Intlayer
   url: https://intlayer.org
   license: Apache-2.0
-  mcp-server: @intlayer/mcp
+  mcp-server: "@intlayer/mcp"
   category: productivity
   tags: [i18n]
   documentation: https://intlayer.org/doc
@@ -30,3 +30,9 @@ const content = await getIntlayer("my-dictionary-key");
 ```
 
 [Astro Documentation](https://intlayer.org/doc/packages/astro-intlayer.md)
+
+## References
+
+- [Astro](https://intlayer.org/doc/environment/astro.md)
+- [Intlayer Exports](https://intlayer.org/doc/packages/intlayer/exports.md)
+- [Astro Intlayer Exports](https://intlayer.org/doc/packages/astro-intlayer/exports.md)

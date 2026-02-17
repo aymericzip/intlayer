@@ -184,7 +184,7 @@ slugs:
 
 **Оголошення контенту** (для кожного компонента):
 
-```ts fileName="./components/MyComponent/MyComponent.content.ts"
+```ts fileName="./components/MyComponent/myComponent.content.ts"
 import { t, type Dictionary } from "intlayer";
 
 const componentExampleContent = {

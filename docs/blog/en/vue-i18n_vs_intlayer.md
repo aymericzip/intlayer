@@ -184,7 +184,7 @@ This often slows development as apps grow:
 
 **Content declaration** (per component):
 
-```ts fileName="./components/MyComponent/MyComponent.content.ts"
+```ts fileName="./components/MyComponent/myComponent.content.ts"
 import { t, type Dictionary } from "intlayer";
 
 const componentExampleContent = {

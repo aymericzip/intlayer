@@ -5,7 +5,7 @@ metadata:
   author: Intlayer
   url: https://intlayer.org
   license: Apache-2.0
-  mcp-server: @intlayer/mcp
+  mcp-server: "@intlayer/mcp"
   category: productivity
   tags: [i18n]
   documentation: https://intlayer.org/doc
@@ -44,4 +44,11 @@ console.log(content.title.raw); // Render as raw
 </template>
 ```
 
-[Vue Documentation](https://intlayer.org/doc/packages/vue-intlayer.md)
+[Vue Documentation](https://intlayer.org/doc/packages/vue-intlayer/exports.md)
+
+## References
+
+- [Vite and Vue](https://intlayer.org/doc/environment/vite-and-vue.md)
+- [Nuxt and Vue](https://intlayer.org/doc/environment/nuxt-and-vue.md)
+- [Vue Intlayer Exports](https://intlayer.org/doc/packages/vue-intlayer/exports.md)
+- [Intlayer Exports](https://intlayer.org/doc/packages/intlayer/exports.md)

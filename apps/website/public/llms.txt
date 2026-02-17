@@ -117,9 +117,7 @@ For more information, see the [Intlayer MCP Server documentation](https://intlay
 
 ## Packages
 
-- [Angular Intlayer](https://intlayer.org/doc/packages/angular-intlayer.md)
 - [Angular Intlayer Exports](https://intlayer.org/doc/packages/angular-intlayer/exports.md)
-- [Astro Intlayer](https://intlayer.org/doc/packages/astro-intlayer.md)
 - [Astro Intlayer Exports](https://intlayer.org/doc/packages/astro-intlayer/exports.md)
 - [Express Intlayer Exports](https://intlayer.org/doc/packages/express-intlayer/exports.md)
 - [Express Intlayer](https://intlayer.org/doc/packages/express-intlayer/intlayer.md)
@@ -142,7 +140,6 @@ For more information, see the [Intlayer MCP Server documentation](https://intlay
 - [Intlayer getTranslation](https://intlayer.org/doc/packages/intlayer/getTranslation.md)
 - [Intlayer validatePrefix](https://intlayer.org/doc/packages/intlayer/validatePrefix.md)
 - [Lynx Intlayer Exports](https://intlayer.org/doc/packages/lynx-intlayer/exports.md)
-- [Next Intlayer](https://intlayer.org/doc/packages/next-intlayer.md)
 - [Next Intlayer Exports](https://intlayer.org/doc/packages/next-intlayer/exports.md)
 - [Next Intlayer Middleware](https://intlayer.org/doc/packages/next-intlayer/intlayerMiddleware.md)
 - [Next Intlayer T](https://intlayer.org/doc/packages/next-intlayer/t.md)
@@ -165,7 +162,7 @@ For more information, see the [Intlayer MCP Server documentation](https://intlay
 - [Vite Intlayer Exports](https://intlayer.org/doc/packages/vite-intlayer/exports.md)
 - [Vite Intlayer](https://intlayer.org/doc/packages/vite-intlayer/intlayer.md)
 - [Vite Intlayer Prune](https://intlayer.org/doc/packages/vite-intlayer/intlayerPrune.md)
-- [Vue Intlayer](https://intlayer.org/doc/packages/vue-intlayer.md)
+- [Vue Intlayer](https://intlayer.org/doc/packages/vue-intlayer/export.md)
 - [Vue Intlayer Exports](https://intlayer.org/doc/packages/vue-intlayer/exports.md)
 
 ## Comparison

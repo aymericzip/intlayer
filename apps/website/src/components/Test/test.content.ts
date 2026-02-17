@@ -1,4 +1,14 @@
-import { cond, enu, file, gender, insert, md, nest, t } from 'intlayer';
+import {
+  cond,
+  type Dictionary,
+  enu,
+  file,
+  gender,
+  insert,
+  md,
+  nest,
+  t,
+} from 'intlayer';
 
 const content = {
   key: 'test',
@@ -122,6 +132,6 @@ const content = {
     },
   },
   tags: ['test', 'component content', 'developer example'],
-};
+} satisfies Dictionary;
 
 export default content;

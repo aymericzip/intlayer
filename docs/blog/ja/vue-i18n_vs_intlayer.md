@@ -182,7 +182,7 @@ slugs:
 
 **コンテンツ宣言**（コンポーネント単位）:
 
-```ts fileName="./components/MyComponent/MyComponent.content.ts"
+```ts fileName="./components/MyComponent/myComponent.content.ts"
 import { t, type Dictionary } from "intlayer";
 
 const componentExampleContent = {
