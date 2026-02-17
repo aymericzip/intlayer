@@ -67,7 +67,7 @@
     "framer-motion": "12.34.0",
     "fuse.js": "7.1.0",
     "intlayer": "workspace:*",
-    "lucide-react": "0.563.0",
+    "lucide-react": "0.566.0",
     "next": "16.1.6",
     "next-intlayer": "workspace:*",
     "next-secure-headers": "2.2.0",
@@ -75,7 +75,7 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "sharp": "0.34.5",
-    "tailwind-merge": "3.4.0",
+    "tailwind-merge": "3.4.1",
     "zod": "4.3.6"
   },
   "devDependencies": {

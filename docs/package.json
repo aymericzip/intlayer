@@ -85,7 +85,7 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "fast-glob": "3.3.3",
-    "rimraf": "6.1.2",
+    "rimraf": "6.1.3",
     "tsdown": "0.20.3",
     "tsx": "4.20.6",
     "typescript": "5.9.3",

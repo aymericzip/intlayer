@@ -100,7 +100,7 @@
     "@utils/tsdown-config": "workspace:*",
     "expo": "54.0.30",
     "metro-resolver": "0.83.3",
-    "rimraf": "6.1.2",
+    "rimraf": "6.1.3",
     "tsdown": "0.20.3",
     "typescript": "5.9.3",
     "vitest": "4.0.18"
