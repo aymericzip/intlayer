@@ -72,7 +72,7 @@ const PLATFORM_DIRS = {
   Other: 'skills',
 };
 
-type Platform = keyof typeof PLATFORM_DIRS;
+export type Platform = keyof typeof PLATFORM_DIRS;
 
 /**
  * Helper to convert CamelCase to kebab-case for directory naming
