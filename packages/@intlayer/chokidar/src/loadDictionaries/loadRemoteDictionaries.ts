@@ -1,7 +1,7 @@
 import { getIntlayerAPIProxy } from '@intlayer/api';
 // @ts-ignore @intlayer/backend is not build yet
 import type { DictionaryAPI } from '@intlayer/backend';
-import { getConfiguration } from '@intlayer/config';
+import { getConfiguration } from '@intlayer/config/node';
 import { getRemoteDictionaries } from '@intlayer/remote-dictionaries-entry';
 import type { Dictionary, DictionaryId, DictionaryKey } from '@intlayer/types';
 import { fetchDistantDictionaries } from '../fetchDistantDictionaries';

@@ -138,7 +138,7 @@ const buildEntryContent = (
     `import { readFile } from 'node:fs/promises';`,
     `import { join, dirname as pathDirname } from 'node:path';`,
     `import { fileURLToPath } from 'node:url';`,
-    `import { getPackageJsonPath, getProjectRequire } from '@intlayer/config';`,
+    `import { getPackageJsonPath, getProjectRequire } from '@intlayer/config/utils';`,
     `import type { LocalesValues } from '@intlayer/types';`,
     ``,
     `// Robustly resolve the base directory of the @intlayer/docs package in both`,

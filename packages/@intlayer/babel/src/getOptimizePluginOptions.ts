@@ -3,7 +3,7 @@ import { getComponentTransformPatternSync } from '@intlayer/chokidar/utils';
 import {
   type GetConfigurationOptions,
   getConfiguration,
-} from '@intlayer/config';
+} from '@intlayer/config/node';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import type { OptimizePluginOptions } from './babel-plugin-intlayer-optimize';
 

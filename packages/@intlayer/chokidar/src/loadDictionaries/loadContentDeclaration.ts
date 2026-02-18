@@ -1,10 +1,7 @@
 import { writeFile } from 'node:fs/promises';
 import { join, relative } from 'node:path';
-import {
-  cacheDisk,
-  getProjectRequire,
-  loadExternalFile,
-} from '@intlayer/config';
+import { loadExternalFile } from '@intlayer/config/file';
+import { cacheDisk, getProjectRequire } from '@intlayer/config/utils';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { processContentDeclaration } from '../buildIntlayerDictionary/processContentDeclaration';
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';

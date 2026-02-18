@@ -1,7 +1,8 @@
 import { resolve } from 'node:path';
 import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { watch } from '@intlayer/chokidar/watcher';
-import { getAlias, getConfiguration } from '@intlayer/config';
+import { getConfiguration } from '@intlayer/config/node';
+import { getAlias } from '@intlayer/config/utils';
 import type { AstroIntegration } from 'astro';
 import {
   intlayerPrune,

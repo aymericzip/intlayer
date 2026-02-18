@@ -1,6 +1,6 @@
 import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { watch } from '@intlayer/chokidar/watcher';
-import { logger } from '@intlayer/config';
+import { logger } from '@intlayer/config/logger';
 import type { IntlayerConfig } from '@intlayer/types';
 import type { Compiler } from 'webpack';
 

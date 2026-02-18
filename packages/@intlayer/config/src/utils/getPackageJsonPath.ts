@@ -2,8 +2,6 @@ import { existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { cacheMemory } from './cacheMemory';
 
-export const isESModule = typeof import.meta.url === 'string';
-
 const MAX_LEVELS = 15;
 
 type PackageJsonPathCache = {

@@ -11,10 +11,12 @@ import {
   ANSIColors,
   colorize,
   colorizeKey,
-  type GetConfigurationOptions,
   getAppLogger,
+} from '@intlayer/config/logger';
+import {
+  type GetConfigurationOptions,
   getConfiguration,
-} from '@intlayer/config';
+} from '@intlayer/config/node';
 import type { Dictionary } from '@intlayer/types';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { PushLogger, type PushStatus } from '../pushLog';

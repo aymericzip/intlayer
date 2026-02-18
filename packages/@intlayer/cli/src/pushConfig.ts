@@ -1,9 +1,9 @@
 import { getIntlayerAPIProxy } from '@intlayer/api';
 import {
   type GetConfigurationOptions,
-  getAppLogger,
   getConfiguration,
-} from '@intlayer/config';
+} from '@intlayer/config/configuration';
+import { getAppLogger } from '@intlayer/config/logger';
 import { checkCMSAuth } from './utils/checkAccess';
 
 type PushOptions = {

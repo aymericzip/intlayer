@@ -1,10 +1,7 @@
 import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { watch } from '@intlayer/chokidar/watcher';
-import {
-  getAlias,
-  getConfiguration,
-  getProjectRequire,
-} from '@intlayer/config';
+import { getConfiguration } from '@intlayer/config/node';
+import { getAlias, getProjectRequire } from '@intlayer/config/utils';
 import type { RsbuildPlugin } from '@rsbuild/core';
 
 /**

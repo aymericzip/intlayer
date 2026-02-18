@@ -1,17 +1,9 @@
 import { existsSync } from 'node:fs';
 import { dirname, extname, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import {
-  type BuildOptions,
-  type BuildResult,
-  build,
-  buildSync,
-  type Plugin,
-} from 'esbuild';
-import { getPackageJsonPath } from '..';
+import { type BuildOptions, type BuildResult, build, buildSync } from 'esbuild';
+import { getPackageJsonPath } from '../utils/getPackageJsonPath';
 import { getLoader } from './bundleFile';
-
-export type ESBuildPlugin = Plugin;
 
 const getTsConfigPath = (filePath: string): string | undefined => {
   const tsconfigPath = join(

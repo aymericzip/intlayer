@@ -4,10 +4,12 @@ import {
   colon,
   colorizeKey,
   colorizeNumber,
-  type GetConfigurationOptions,
   getAppLogger,
+} from '@intlayer/config/logger';
+import {
+  type GetConfigurationOptions,
   getConfiguration,
-} from '@intlayer/config';
+} from '@intlayer/config/node';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 
 type ListContentDeclarationOptions = {

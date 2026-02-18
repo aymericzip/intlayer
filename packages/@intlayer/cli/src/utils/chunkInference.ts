@@ -1,6 +1,6 @@
 import type { AIConfig, AIOptions } from '@intlayer/ai';
 import { getIntlayerAPIProxy, type Messages } from '@intlayer/api';
-import { retryManager } from '@intlayer/config';
+import { retryManager } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types';
 import type { AIClient } from './setupAI';
 

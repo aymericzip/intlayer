@@ -3,12 +3,14 @@ import fs from 'node:fs/promises';
 import { basename, dirname, extname, join, relative, resolve } from 'node:path';
 import {
   ANSIColors,
-  camelCaseToKebabCase,
   colorizePath,
-  type GetConfigurationOptions,
   getAppLogger,
+} from '@intlayer/config/logger';
+import {
+  type GetConfigurationOptions,
   getConfiguration,
-} from '@intlayer/config';
+} from '@intlayer/config/node';
+import { camelCaseToKebabCase } from '@intlayer/config/utils';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { Node, Project, type SourceFile, SyntaxKind } from 'ts-morph';
 import { writeContentDeclaration } from '../writeContentDeclaration';

@@ -4,18 +4,18 @@ import {
   getComponentTransformPatternSync,
   runOnce,
 } from '@intlayer/chokidar/utils';
+import { DefaultValues } from '@intlayer/config/client';
+import { ANSIColors, colorize, getAppLogger } from '@intlayer/config/logger';
 import {
-  ANSIColors,
-  colorize,
-  compareVersions,
-  DefaultValues,
   type GetConfigurationOptions,
-  getAlias,
-  getAppLogger,
   getConfiguration,
+} from '@intlayer/config/node';
+import {
+  compareVersions,
+  getAlias,
   getProjectRequire,
   normalizePath,
-} from '@intlayer/config';
+} from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { IntlayerPlugin } from '@intlayer/webpack';

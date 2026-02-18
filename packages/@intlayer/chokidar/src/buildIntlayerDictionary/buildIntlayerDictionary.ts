@@ -1,4 +1,5 @@
-import { DefaultValues, getConfiguration } from '@intlayer/config';
+import { DefaultValues } from '@intlayer/config/client';
+import { getConfiguration } from '@intlayer/config/node';
 import type { Dictionary } from '@intlayer/types';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import {

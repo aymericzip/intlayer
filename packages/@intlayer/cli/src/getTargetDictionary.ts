@@ -3,7 +3,7 @@ import { type ListGitFilesOptions, listGitFiles } from '@intlayer/chokidar/cli';
 import {
   type GetConfigurationOptions,
   getConfiguration,
-} from '@intlayer/config';
+} from '@intlayer/config/node';
 import type { Dictionary } from '@intlayer/types';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 

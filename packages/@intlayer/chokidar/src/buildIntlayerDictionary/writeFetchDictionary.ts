@@ -1,10 +1,8 @@
 import { mkdir } from 'node:fs/promises';
 import { relative, resolve } from 'node:path';
-import {
-  colorizePath,
-  getConfiguration,
-  normalizePath,
-} from '@intlayer/config';
+import { colorizePath } from '@intlayer/config/logger';
+import { getConfiguration } from '@intlayer/config/node';
+import { normalizePath } from '@intlayer/config/utils';
 import { parallelize } from '../utils/parallelize';
 import { writeFileIfChanged } from '../writeFileIfChanged';
 import type {

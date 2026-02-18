@@ -1,4 +1,4 @@
-import { getAppLogger } from '@intlayer/config';
+import { getAppLogger } from '@intlayer/config/logger';
 import type { IntlayerConfig } from '@intlayer/types';
 import { cleanRemovedContentDeclaration } from './cleanRemovedContentDeclaration';
 import { handleContentDeclarationFileChange } from './handleContentDeclarationFileChange';

@@ -1,5 +1,5 @@
 import { prepareIntlayer } from '@intlayer/chokidar/build';
-import { getConfiguration } from '@intlayer/config';
+import { getConfiguration } from '@intlayer/config/node';
 import {
   getDictionary as getDictionaryFunction,
   getIntlayer as getIntlayerFunction,

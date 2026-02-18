@@ -5,7 +5,7 @@ import {
   buildDictionary,
   writeContentDeclaration,
 } from '@intlayer/chokidar/build';
-import { getConfiguration } from '@intlayer/config';
+import { getConfiguration } from '@intlayer/config/node';
 import type { Dictionary } from '@intlayer/types';
 import type {
   ExtractPluginOptions,

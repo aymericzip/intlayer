@@ -1,11 +1,7 @@
 import type { AIOptions } from '@intlayer/api';
 import { getIntlayerAPIProxy } from '@intlayer/api';
-import {
-  ANSIColors,
-  colorize,
-  extractErrorMessage,
-  getAppLogger,
-} from '@intlayer/config';
+import { ANSIColors, colorize, getAppLogger } from '@intlayer/config/logger';
+import { extractErrorMessage } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types';
 import { checkConfigConsistency } from './checkConfigConsistency';
 

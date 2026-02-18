@@ -5,7 +5,8 @@ import {
   getComponentTransformPattern,
   runOnce,
 } from '@intlayer/chokidar/utils';
-import { DefaultValues, getAppLogger } from '@intlayer/config';
+import { DefaultValues } from '@intlayer/config/client';
+import { getAppLogger } from '@intlayer/config/logger';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import type { PluginOption } from 'vite';

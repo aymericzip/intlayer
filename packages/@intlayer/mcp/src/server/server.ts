@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { dirname as pathDirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { isESModule } from '@intlayer/config';
+import { isESModule } from '@intlayer/config/utils';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { loadCLITools } from '../tools/cli';
 import { loadDocsTools } from '../tools/docs';

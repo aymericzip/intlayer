@@ -1,13 +1,12 @@
 import { readFile } from 'node:fs/promises';
 import { builtinModules, createRequire } from 'node:module';
 import { join } from 'node:path';
-import type { ESBuildPlugin } from '@intlayer/config';
+import { bundleFile, type ESBuildPlugin } from '@intlayer/config/file';
 import {
-  bundleFile,
   configESMxCJSRequire,
   getProjectRequire,
   isESModule,
-} from '@intlayer/config';
+} from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types';
 
 /**

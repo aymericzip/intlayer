@@ -3,12 +3,11 @@ import { readFile } from 'node:fs/promises';
 import { relative, resolve } from 'node:path';
 import { multiselect } from '@clack/prompts';
 import { type PackageName, transformFiles } from '@intlayer/chokidar/cli';
+import { colorizePath, getAppLogger } from '@intlayer/config/logger';
 import {
-  colorizePath,
   type GetConfigurationOptions,
-  getAppLogger,
   getConfiguration,
-} from '@intlayer/config';
+} from '@intlayer/config/node';
 import fg from 'fast-glob';
 
 type ExtractOptions = {

@@ -1,4 +1,4 @@
-import { getProjectRequire } from '@intlayer/config';
+import { getProjectRequire } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types';
 
 let cachedFormatCommand: string | undefined | null = null;

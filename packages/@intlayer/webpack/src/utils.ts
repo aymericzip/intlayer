@@ -1,6 +1,6 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { isESModule } from '@intlayer/config';
+import { isESModule } from '@intlayer/config/utils';
 import crypto from 'crypto-js';
 
 /**

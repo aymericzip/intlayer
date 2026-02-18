@@ -1,5 +1,6 @@
 import { basename, extname, relative } from 'node:path';
-import { getConfiguration, normalizePath } from '@intlayer/config';
+import { getConfiguration } from '@intlayer/config/node';
+import { normalizePath } from '@intlayer/config/utils';
 import { getFileHash } from '../utils/getFileHash';
 
 /**

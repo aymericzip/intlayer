@@ -1,13 +1,11 @@
 import { writeFile } from 'node:fs/promises';
 import { join, relative } from 'node:path';
 import { readAsset } from 'utils:asset';
+import { colorizePath, logger, v } from '@intlayer/config/logger';
 import {
-  colorizePath,
   type configurationFilesCandidates,
-  logger,
   searchConfigurationFile,
-  v,
-} from '@intlayer/config';
+} from '@intlayer/config/node';
 
 /**
  * UTILITIES

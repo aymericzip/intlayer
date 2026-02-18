@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { getAppLogger } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
+import { getAppLogger } from '@intlayer/config/logger';
 import simpleGit from 'simple-git';
 
 export type DiffMode = 'gitDiff' | 'uncommitted' | 'unpushed' | 'untracked';
@@ -39,7 +39,9 @@ export const listGitFiles = async ({
 
     if (mode.includes('untracked')) {
       const status = await git.status();
-      status.not_added.forEach((f) => diff.add(f));
+      status.not_added.forEach((file) => {
+        diff.add(file);
+      });
     }
 
     if (mode.includes('uncommitted')) {
@@ -48,7 +50,9 @@ export const listGitFiles = async ({
 
       const uncommittedFiles = uncommittedDiff.split('\n').filter(Boolean);
 
-      uncommittedFiles.forEach((file) => diff.add(file));
+      uncommittedFiles.forEach((file) => {
+        diff.add(file);
+      });
     }
 
     if (mode.includes('unpushed')) {
@@ -57,7 +61,9 @@ export const listGitFiles = async ({
 
       const unpushedFiles = unpushedDiff.split('\n').filter(Boolean);
 
-      unpushedFiles.forEach((file) => diff.add(file));
+      unpushedFiles.forEach((file) => {
+        diff.add(file);
+      });
     }
 
     if (mode.includes('gitDiff')) {
@@ -72,7 +78,9 @@ export const listGitFiles = async ({
 
       const gitDiffFiles = diffBranch.split('\n').filter(Boolean);
 
-      gitDiffFiles.forEach((file) => diff.add(file));
+      gitDiffFiles.forEach((file) => {
+        diff.add(file);
+      });
     }
 
     if (absolute) {
@@ -118,6 +126,7 @@ export const listGitLines = async (
     const hunkRegex = /@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@/g;
     let match: RegExpExecArray | null;
 
+    // biome-ignore lint/suspicious/noAssignInExpressions: Used in while loop condition
     while ((match = hunkRegex.exec(diffOutput)) !== null) {
       const oldCount = match[2] ? Number(match[2]) : 1;
       const newStart = Number(match[3]);
@@ -149,7 +158,9 @@ export const listGitLines = async (
     if (isUntracked) {
       try {
         const content = readFileSync(filePath, 'utf-8');
-        content.split('\n').forEach((_, idx) => changedLines.add(idx + 1));
+        content.split('\n').forEach((_, idx) => {
+          changedLines.add(idx + 1);
+        });
       } catch {
         // ignore read errors – file may have been deleted, etc.
       }

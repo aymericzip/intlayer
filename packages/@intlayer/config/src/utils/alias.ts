@@ -1,7 +1,7 @@
 import { join, relative } from 'node:path';
 import type { IntlayerConfig } from '@intlayer/types';
-import { getExtension } from './utils/getExtension';
-import { normalizePath } from './utils/normalizePath';
+import { getExtension } from './getExtension';
+import { normalizePath } from './normalizePath';
 
 export type GetAliasOptions = {
   configuration: IntlayerConfig;

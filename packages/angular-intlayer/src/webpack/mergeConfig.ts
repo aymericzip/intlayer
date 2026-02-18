@@ -1,5 +1,6 @@
 import { resolve } from 'node:path';
-import { getAlias, getConfiguration } from '@intlayer/config';
+import { getConfiguration } from '@intlayer/config/node';
+import { getAlias } from '@intlayer/config/utils';
 import { IntlayerPlugin } from '@intlayer/webpack'; // adjust path if needed
 import { defu } from 'defu';
 /** @ts-ignore Configuration type exist but raise error */

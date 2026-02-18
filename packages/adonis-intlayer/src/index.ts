@@ -1,6 +1,6 @@
 import type { HttpContext } from '@adonisjs/core/http';
 import { prepareIntlayer } from '@intlayer/chokidar/build';
-import { getConfiguration } from '@intlayer/config';
+import { getConfiguration } from '@intlayer/config/node';
 import type { getIntlayer as getIntlayerFunction } from '@intlayer/core/interpreter';
 import {
   getDictionary as getDictionaryFunction,

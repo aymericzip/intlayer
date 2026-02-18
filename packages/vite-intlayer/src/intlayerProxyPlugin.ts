@@ -1,10 +1,10 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { parse } from 'node:url';
+import { DefaultValues } from '@intlayer/config/client';
 import {
   type GetConfigurationOptions,
   getConfiguration,
-} from '@intlayer/config';
-import { DefaultValues } from '@intlayer/config/client';
+} from '@intlayer/config/node';
 import {
   getCanonicalPath,
   getLocalizedPath,

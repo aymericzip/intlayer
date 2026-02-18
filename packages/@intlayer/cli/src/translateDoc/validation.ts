@@ -1,4 +1,4 @@
-import type { Logger } from '@intlayer/config';
+import type { Logger } from '@intlayer/config/logger';
 
 /**
  * Validates that the translated content matches the structure of the original.

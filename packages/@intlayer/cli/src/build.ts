@@ -3,7 +3,7 @@ import { buildAndWatchIntlayer } from '@intlayer/chokidar/watcher';
 import {
   type GetConfigurationOptions,
   getConfiguration,
-} from '@intlayer/config';
+} from '@intlayer/config/node';
 
 type BuildOptions = {
   watch?: boolean;

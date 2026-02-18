@@ -16,8 +16,8 @@ import {
   colorizeNumber,
   colorizePath,
   getAppLogger,
-  retryManager,
-} from '@intlayer/config';
+} from '@intlayer/config/logger';
+import { retryManager } from '@intlayer/config/utils';
 import {
   getFilterMissingTranslationsDictionary,
   getMultilingualDictionary,

@@ -3,8 +3,11 @@ import { createServer } from 'node:http';
 import type { DictionaryAPI } from '@intlayer/backend';
 import { buildDictionary } from '@intlayer/chokidar/build';
 import { type ParallelHandle, runParallel } from '@intlayer/chokidar/utils';
-import type { GetConfigurationOptions } from '@intlayer/config';
-import { getAppLogger, getConfiguration } from '@intlayer/config';
+import { getAppLogger } from '@intlayer/config/logger';
+import {
+  type GetConfigurationOptions,
+  getConfiguration,
+} from '@intlayer/config/node';
 import packageJson from '@intlayer/config/package.json';
 import { getLocalizedContent } from '@intlayer/core/plugins';
 import { getDictionaries } from '@intlayer/dictionaries-entry';

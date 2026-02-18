@@ -10,8 +10,8 @@ import {
   colorize,
   colorizeNumber,
   getAppLogger,
-  retryManager,
-} from '@intlayer/config';
+} from '@intlayer/config/logger';
+import { retryManager } from '@intlayer/config/utils';
 import { chunkText } from '../utils/calculateChunks';
 import { chunkInference } from '../utils/chunkInference';
 import { fixChunkStartEndChars } from '../utils/fixChunkStartEndChars';

@@ -2,7 +2,7 @@ import { execSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { extname } from 'node:path';
-import { getAppLogger, logger } from '@intlayer/config';
+import { getAppLogger, logger } from '@intlayer/config/logger';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { getContentDeclarationFileTemplate } from '../getContentDeclarationFileTemplate/getContentDeclarationFileTemplate';
 import {

@@ -8,8 +8,8 @@ import {
   colorize,
   colorizeNumber,
   getAppLogger,
-  getConfiguration,
-} from '@intlayer/config';
+} from '@intlayer/config/logger';
+import { getConfiguration } from '@intlayer/config/node';
 import type { Locale } from '@intlayer/types';
 import fg from 'fast-glob';
 import { checkFileModifiedRange } from '../utils/checkFileModifiedRange';

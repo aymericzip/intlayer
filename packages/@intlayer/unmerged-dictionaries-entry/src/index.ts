@@ -6,8 +6,8 @@
 
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { clearModuleCache, configESMxCJSRequire } from '@intlayer/config';
 import config from '@intlayer/config/built';
+import { clearModuleCache, configESMxCJSRequire } from '@intlayer/config/utils';
 import type {
   Dictionary,
   DictionaryKeys,

@@ -1,8 +1,6 @@
 import configuration from '@intlayer/config/built';
-import {
-  getLocaleFromStorage,
-  localeDetector,
-} from '@intlayer/core/localization';
+import { localeDetector } from '@intlayer/core/localization';
+import { getLocaleFromStorage } from '@intlayer/core/utils';
 import { type Locale, Locales } from '@intlayer/types';
 import { cookies, headers } from 'next/headers.js';
 

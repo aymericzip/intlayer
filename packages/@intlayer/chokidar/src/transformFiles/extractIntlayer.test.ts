@@ -6,7 +6,7 @@ import {
   writeFileSync,
 } from 'node:fs';
 import { join } from 'node:path';
-import { getConfiguration } from '@intlayer/config';
+import { getConfiguration } from '@intlayer/config/node';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { extractIntlayer } from './transformFiles';
 

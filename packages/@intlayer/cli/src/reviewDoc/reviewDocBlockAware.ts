@@ -10,11 +10,13 @@ import {
   colon,
   colorize,
   colorizeNumber,
-  type GetConfigurationOptions,
   getAppLogger,
+} from '@intlayer/config/logger';
+import {
+  type GetConfigurationOptions,
   getConfiguration,
-  retryManager,
-} from '@intlayer/config';
+} from '@intlayer/config/node';
+import { retryManager } from '@intlayer/config/utils';
 import { getLocaleName } from '@intlayer/core/localization';
 import { type Locale, Locales } from '@intlayer/types';
 import { sanitizeChunk, validateTranslation } from '../translateDoc/validation';

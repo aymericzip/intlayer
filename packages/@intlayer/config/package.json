@@ -37,10 +37,10 @@
   ],
   "sideEffects": false,
   "exports": {
-    ".": {
-      "types": "./dist/types/index.d.ts",
-      "require": "./dist/cjs/index.cjs",
-      "import": "./dist/esm/index.mjs"
+    "./node": {
+      "types": "./dist/types/node.d.ts",
+      "require": "./dist/cjs/node.cjs",
+      "import": "./dist/esm/node.mjs"
     },
     "./client": {
       "types": "./dist/types/client.d.ts",
@@ -52,6 +52,26 @@
       "require": "./dist/cjs/built.cjs",
       "import": "./dist/esm/built.mjs"
     },
+    "./utils": {
+      "types": "./dist/types/utils/index.d.ts",
+      "require": "./dist/cjs/utils/index.cjs",
+      "import": "./dist/esm/utils/index.mjs"
+    },
+    "./file": {
+      "types": "./dist/types/loadExternalFile/index.d.ts",
+      "require": "./dist/cjs/loadExternalFile/index.cjs",
+      "import": "./dist/esm/loadExternalFile/index.mjs"
+    },
+    "./env": {
+      "types": "./dist/types/loadEnvFile.d.ts",
+      "require": "./dist/cjs/loadEnvFile.cjs",
+      "import": "./dist/esm/loadEnvFile.mjs"
+    },
+    "./logger": {
+      "types": "./dist/types/logger.d.ts",
+      "require": "./dist/cjs/logger.cjs",
+      "import": "./dist/esm/logger.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
@@ -59,14 +79,26 @@
   "types": "dist/types/index.d.ts",
   "typesVersions": {
     "*": {
-      ".": [
-        "./dist/types/index.d.ts"
-      ],
       "client": [
         "./dist/types/client.d.ts"
       ],
       "built": [
         "./dist/types/built.d.ts"
+      ],
+      "configuration": [
+        "./dist/types/configuration.d.ts"
+      ],
+      "utils": [
+        "./dist/types/utils/index.d.ts"
+      ],
+      "file": [
+        "./dist/types/loadExternalFile/index.d.ts"
+      ],
+      "env": [
+        "./dist/types/loadEnvFile.d.ts"
+      ],
+      "logger": [
+        "./dist/types/logger.d.ts"
       ],
       "package.json": [
         "./package.json"

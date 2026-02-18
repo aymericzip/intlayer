@@ -7,7 +7,7 @@ import {
   colorizeKey,
   colorizePath,
   getAppLogger,
-} from '@intlayer/config';
+} from '@intlayer/config/logger';
 import { getFilterTranslationsOnlyDictionary } from '@intlayer/core/plugins';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type {

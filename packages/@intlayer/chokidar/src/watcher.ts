@@ -1,10 +1,10 @@
 import { readFile } from 'node:fs/promises';
 import { basename } from 'node:path';
+import { getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
-  getAppLogger,
   getConfiguration,
-} from '@intlayer/config';
+} from '@intlayer/config/node';
 import type { IntlayerConfig } from '@intlayer/types';
 /** @ts-ignore remove error Module '"chokidar"' has no exported member 'ChokidarOptions' */
 import { type ChokidarOptions, watch as chokidarWatch } from 'chokidar';

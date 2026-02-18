@@ -1,5 +1,5 @@
 import { isAbsolute, join, relative, resolve } from 'node:path';
-import { getProjectRequire } from '@intlayer/config';
+import { getProjectRequire } from '@intlayer/config/utils';
 import type {
   Dictionary,
   DictionaryFormat,

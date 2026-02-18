@@ -1,5 +1,5 @@
 import { dirname } from 'node:path';
-import { configurationFilesCandidates } from '@intlayer/config';
+import { configurationFilesCandidates } from '@intlayer/config/node';
 import fg from 'fast-glob';
 import simpleGit from 'simple-git';
 

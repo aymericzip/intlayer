@@ -4,7 +4,7 @@ import {
   colorize,
   getAppLogger,
   type logger,
-} from '@intlayer/config';
+} from '@intlayer/config/logger';
 import type { IntlayerConfig } from '@intlayer/types';
 import { checkAIAccess } from './checkAccess';
 

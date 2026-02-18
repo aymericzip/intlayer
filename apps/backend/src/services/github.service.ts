@@ -1,4 +1,4 @@
-import { configurationFilesCandidates } from '@intlayer/config';
+import { configurationFilesCandidates } from '@intlayer/config/node';
 import { logger } from '@logger';
 import type { RestEndpointMethodTypes } from '@octokit/rest';
 import { Octokit } from '@octokit/rest';

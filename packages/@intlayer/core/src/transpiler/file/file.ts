@@ -1,6 +1,6 @@
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import { dirname, isAbsolute, relative, resolve } from 'node:path';
-import { colorizePath, getAppLogger } from '@intlayer/config';
+import { colorizePath, getAppLogger } from '@intlayer/config/logger';
 import { formatNodeType, NodeType, type TypedNodeModel } from '@intlayer/types';
 
 export type FileContentConstructor<T extends Record<string, any> = {}> =

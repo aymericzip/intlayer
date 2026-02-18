@@ -5,7 +5,8 @@ import type {
   CracoPlugin,
   WebpackConfigOverride,
 } from '@craco/types';
-import { getAlias, getConfiguration } from '@intlayer/config';
+import { getConfiguration } from '@intlayer/config/node';
+import { getAlias } from '@intlayer/config/utils';
 import { IntlayerPlugin as IntlayerWebpackPlugin } from '@intlayer/webpack';
 import { defu } from 'defu';
 import type { Configuration as WebpackConfig } from 'webpack';

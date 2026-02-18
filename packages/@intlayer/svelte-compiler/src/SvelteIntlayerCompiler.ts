@@ -4,11 +4,11 @@ import { intlayerOptimizeBabelPlugin } from '@intlayer/babel';
 import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { buildFilesList } from '@intlayer/chokidar/utils';
 import { watch as chokidarWatch } from '@intlayer/chokidar/watcher';
+import { getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
-  getAppLogger,
   getConfiguration,
-} from '@intlayer/config';
+} from '@intlayer/config/node';
 import type {
   CompilerConfig,
   Dictionary,

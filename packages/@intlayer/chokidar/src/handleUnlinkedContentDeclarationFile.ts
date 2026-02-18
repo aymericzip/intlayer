@@ -1,5 +1,5 @@
 import { normalize } from 'node:path';
-import { getAppLogger } from '@intlayer/config';
+import { getAppLogger } from '@intlayer/config/logger';
 import type { IntlayerConfig } from '@intlayer/types';
 import { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictionary';
 import { cleanRemovedContentDeclaration } from './cleanRemovedContentDeclaration';

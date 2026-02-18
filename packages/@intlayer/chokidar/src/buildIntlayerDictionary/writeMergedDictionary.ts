@@ -1,6 +1,7 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { colorizePath, getConfiguration } from '@intlayer/config';
+import { colorizePath } from '@intlayer/config/logger';
+import { getConfiguration } from '@intlayer/config/node';
 import {
   mergeDictionaries,
   normalizeDictionaries,

@@ -1,6 +1,6 @@
 import { mkdir } from 'node:fs/promises';
 import { basename, extname, join, relative } from 'node:path';
-import { kebabCaseToCamelCase, normalizePath } from '@intlayer/config';
+import { kebabCaseToCamelCase, normalizePath } from '@intlayer/config/utils';
 import type { IntlayerConfig, Locale } from '@intlayer/types';
 import fg from 'fast-glob';
 import { printNode, zodToTs } from 'zod-to-ts';

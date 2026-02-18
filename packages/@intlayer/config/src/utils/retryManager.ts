@@ -1,5 +1,5 @@
-import { logger } from './logger';
-import { extractErrorMessage } from './utils/extractErrorMessage';
+import { logger } from '../logger';
+import { extractErrorMessage } from './extractErrorMessage';
 
 export type RetryManagerOptions = {
   /** maximum number of retries before giving up */

@@ -1,4 +1,4 @@
-import { configurationFilesCandidates } from '@intlayer/config';
+import { configurationFilesCandidates } from '@intlayer/config/node';
 import { logger } from '@logger';
 import { getDBClient } from '@utils/mongoDB/connectDB';
 import { ObjectId } from 'mongodb';
@@ -43,7 +43,7 @@ export type BitbucketTreeItem = {
 /**
  * Get Bitbucket (Atlassian) authorization URL for OAuth flow
  */
-export const getAuthorizationUrl = (redirectUri: string): string => {
+export const getAuthorizationUrl = (_redirectUri: string): string => {
   const clientId = process.env.ATLASSIAN_CLIENT_ID;
 
   if (!clientId) {
@@ -327,13 +327,13 @@ export const checkPipelineFileExists = async (
  * This function returns false for allowAutoPush, requiring manual installation
  */
 export const createPipelineFile = async (
-  accessToken: string,
-  workspace: string,
-  repoSlug: string,
-  filename: string = 'bitbucket-pipelines.yml',
-  content: string,
-  branch: string = 'main',
-  message: string = 'Add Intlayer CI pipeline'
+  _accessToken: string,
+  _workspace: string,
+  _repoSlug: string,
+  _filename: string = 'bitbucket-pipelines.yml',
+  _content: string,
+  _branch: string = 'main',
+  _message: string = 'Add Intlayer CI pipeline'
 ): Promise<void> => {
   // Bitbucket API v2.0 doesn't support direct file creation/update
   // Users need to manually add the file or use the web interface

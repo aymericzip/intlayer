@@ -16,8 +16,8 @@ import {
   colorizeKey,
   colorizePath,
   getAppLogger,
-  getConfiguration,
-} from '@intlayer/config';
+} from '@intlayer/config/logger';
+import { getConfiguration } from '@intlayer/config/node';
 import type { Locale } from '@intlayer/types';
 import {
   ensureArray,

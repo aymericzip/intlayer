@@ -2,10 +2,12 @@ import { getSearchAPI } from '@intlayer/api';
 import {
   colorizeKey,
   colorizeNumber,
-  type GetConfigurationOptions,
   getAppLogger,
+} from '@intlayer/config/logger';
+import {
+  type GetConfigurationOptions,
   getConfiguration,
-} from '@intlayer/config';
+} from '@intlayer/config/node';
 
 interface SearchDocOptions {
   query: string;

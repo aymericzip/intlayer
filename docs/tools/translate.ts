@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { AIOptions } from '@intlayer/api';
 import { type ListGitFilesOptions, translateDoc } from '@intlayer/cli';
-import { getConfiguration } from '@intlayer/config';
+import { getConfiguration } from '@intlayer/config/node';
 import { type Locale, Locales } from '@intlayer/types';
 import { defaultLocale, locales } from '../intlayer.config';
 

@@ -1,4 +1,4 @@
-import { configurationFilesCandidates } from '@intlayer/config';
+import { configurationFilesCandidates } from '@intlayer/config/node';
 import { logger } from '@logger';
 import { getDBClient } from '@utils/mongoDB/connectDB';
 import { ObjectId } from 'mongodb';

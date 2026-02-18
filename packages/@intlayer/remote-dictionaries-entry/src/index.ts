@@ -7,8 +7,8 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import type { DictionaryAPI } from '@intlayer/backend';
-import { clearModuleCache, configESMxCJSRequire } from '@intlayer/config';
 import config from '@intlayer/config/built';
+import { clearModuleCache, configESMxCJSRequire } from '@intlayer/config/utils';
 import type { DictionaryKey, IntlayerConfig } from '@intlayer/types';
 
 export type RemoteDictionaries = Record<DictionaryKey, DictionaryAPI[]>;

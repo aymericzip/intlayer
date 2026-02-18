@@ -3,7 +3,7 @@ import {
   colorize,
   colorizeNumber,
   spinnerFrames,
-} from '@intlayer/config';
+} from '@intlayer/config/logger';
 
 export type PushStatus = {
   dictionaryKey: string;

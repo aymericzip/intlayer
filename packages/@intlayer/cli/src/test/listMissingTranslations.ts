@@ -1,7 +1,7 @@
 import {
   type GetConfigurationOptions,
   getConfiguration,
-} from '@intlayer/config';
+} from '@intlayer/config/node';
 import { getMissingLocalesContentFromDictionary } from '@intlayer/core/plugins';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { Dictionary, IntlayerConfig, Locale } from '@intlayer/types';

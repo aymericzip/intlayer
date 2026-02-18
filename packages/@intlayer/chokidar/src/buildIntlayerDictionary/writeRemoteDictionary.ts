@@ -1,6 +1,7 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { colorizePath, getConfiguration, x } from '@intlayer/config';
+import { colorizePath, x } from '@intlayer/config/logger';
+import { getConfiguration } from '@intlayer/config/node';
 import { orderDictionaries } from '@intlayer/core/dictionaryManipulator';
 import type { Dictionary } from '@intlayer/types';
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';

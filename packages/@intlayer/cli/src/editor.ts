@@ -1,7 +1,7 @@
 import { spawn } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { dirname as pathDirname, resolve as pathResolve } from 'node:path';
-import { isESModule } from '@intlayer/config';
+import { isESModule } from '@intlayer/config/utils';
 
 type StartEditorOptions = {
   env?: string;

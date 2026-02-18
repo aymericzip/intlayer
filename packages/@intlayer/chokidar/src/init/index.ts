@@ -2,12 +2,12 @@ import {
   ANSIColors,
   colorize,
   colorizePath,
-  getAlias,
-  getConfiguration,
   logger,
   v,
   x,
-} from '@intlayer/config';
+} from '@intlayer/config/logger';
+import { getConfiguration } from '@intlayer/config/node';
+import { getAlias } from '@intlayer/config/utils';
 import { initConfig } from '../initConfig';
 import {
   exists,
@@ -80,13 +80,13 @@ const getDocumentationUrl = (packageJson: any): string => {
   if (deps['@lynx-js/react'] || deps['@lynx-js/core']) {
     return DocumentationRouter.Lynx;
   }
-  if (deps['react-native'] || deps['expo']) {
+  if (deps['react-native'] || deps.expo) {
     return DocumentationRouter.ReactNativeAndExpo;
   }
 
   // Meta-frameworks (Next, Nuxt, Astro, SvelteKit)
-  if (deps['next']) {
-    const version = deps['next'];
+  if (deps.next) {
+    const version = deps.next;
 
     if (isVersion(version, 14)) {
       return DocumentationRouter.NextJS_14;
@@ -99,8 +99,8 @@ const getDocumentationUrl = (packageJson: any): string => {
     return DocumentationRouter.NextJS;
   }
 
-  if (deps['nuxt']) return DocumentationRouter.NuxtAndVue;
-  if (deps['astro']) return DocumentationRouter.Astro;
+  if (deps.nuxt) return DocumentationRouter.NuxtAndVue;
+  if (deps.astro) return DocumentationRouter.Astro;
   if (deps['@sveltejs/kit']) return DocumentationRouter.SvelteKit;
 
   // Routers (TanStack & React Router v7)
@@ -123,11 +123,11 @@ const getDocumentationUrl = (packageJson: any): string => {
   }
 
   // Vite Ecosystem (General)
-  if (deps['vite']) {
-    if (deps['vue']) return DocumentationRouter.ViteAndVue;
+  if (deps.vite) {
+    if (deps.vue) return DocumentationRouter.ViteAndVue;
     if (deps['solid-js']) return DocumentationRouter.ViteAndSolid;
-    if (deps['svelte']) return DocumentationRouter.ViteAndSvelte;
-    if (deps['preact']) return DocumentationRouter.ViteAndPreact;
+    if (deps.svelte) return DocumentationRouter.ViteAndSvelte;
+    if (deps.preact) return DocumentationRouter.ViteAndPreact;
 
     // Default to React if Vite is present but specific other frameworks aren't found
     return DocumentationRouter.ViteAndReact;
@@ -139,14 +139,14 @@ const getDocumentationUrl = (packageJson: any): string => {
 
   // Backend
   if (deps['@nestjs/core']) return DocumentationRouter.NestJS;
-  if (deps['express']) return DocumentationRouter.Express;
-  if (deps['fastify']) return DocumentationRouter.Fastify;
+  if (deps.express) return DocumentationRouter.Express;
+  if (deps.fastify) return DocumentationRouter.Fastify;
 
   // Competitor Libs (Migration Guides)
   // We check these last as specific environment setup is usually higher priority,
   // but if no specific framework logic matched (or as a fallback), we guide to migration.
   if (deps['next-intl']) return DocumentationRouter.NextIntl;
-  if (deps['react-i18next'] || deps['i18next'])
+  if (deps['react-i18next'] || deps.i18next)
     return DocumentationRouter.ReactI18Next;
   if (deps['react-intl']) return DocumentationRouter.ReactIntl;
   if (deps['next-i18next']) return DocumentationRouter.NextI18Next;

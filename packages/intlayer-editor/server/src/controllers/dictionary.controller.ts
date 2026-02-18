@@ -2,7 +2,7 @@ import {
   type DictionaryStatus,
   writeContentDeclaration as writeContentDeclarationEditor,
 } from '@intlayer/chokidar/build';
-import { getConfiguration } from '@intlayer/config';
+import { getConfiguration } from '@intlayer/config/node';
 import type { Dictionary } from '@intlayer/types';
 import {
   getUnmergedDictionaries,
@@ -11,8 +11,6 @@ import {
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { t } from 'fastify-intlayer';
-
-type GetDictionariesResult = ResponseData<UnmergedDictionaries>;
 
 /**
  * Get the Intlayer configuration

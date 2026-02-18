@@ -1,5 +1,5 @@
 import * as configurationController from '@controllers/configuration.controller';
-import { getConfiguration } from '@intlayer/config';
+import { getConfiguration } from '@intlayer/config/node';
 import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
 

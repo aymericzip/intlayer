@@ -1,6 +1,6 @@
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { colorizePath, x } from '@intlayer/config';
+import { colorizePath, x } from '@intlayer/config/logger';
 import { deepTransformNode, type Plugins } from '@intlayer/core/interpreter';
 import type {
   FileContent,

@@ -3,9 +3,9 @@ import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { watch } from '@intlayer/chokidar/watcher';
 import {
   type GetConfigurationOptions,
-  getAlias,
   getConfiguration,
-} from '@intlayer/config';
+} from '@intlayer/config/node';
+import { getAlias } from '@intlayer/config/utils';
 // @ts-ignore - Fix error Module '"vite"' has no exported member
 import type { PluginOption } from 'vite';
 import { intlayerPrune } from './intlayerPrunePlugin';

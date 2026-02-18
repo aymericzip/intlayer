@@ -2,11 +2,11 @@ import { dirname as pathDirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { AIOptions as BaseAIOptions } from '@intlayer/api';
 import type { DiffMode, ListGitFilesOptions } from '@intlayer/chokidar/cli';
+import { setPrefix } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,
-  setPrefix,
-} from '@intlayer/config';
+} from '@intlayer/config/node';
 import { Command } from 'commander';
 import { login } from './auth/login';
 import { build } from './build';

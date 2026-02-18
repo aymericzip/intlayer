@@ -1,13 +1,15 @@
 import http from 'node:http';
 import { URL } from 'node:url';
-import type { GetConfigurationOptions } from '@intlayer/config';
 import {
   ANSIColors,
   colorize,
   colorizePath,
   getAppLogger,
+} from '@intlayer/config/logger';
+import {
+  type GetConfigurationOptions,
   getConfiguration,
-} from '@intlayer/config';
+} from '@intlayer/config/node';
 import { openBrowser } from '../utils/openBrowser';
 
 type LoginOptions = {

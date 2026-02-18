@@ -6,13 +6,12 @@ import {
   writeContentDeclaration,
 } from '@intlayer/chokidar/build';
 import { parallelize } from '@intlayer/chokidar/utils';
+import { ANSIColors, getAppLogger } from '@intlayer/config/logger';
 import {
-  ANSIColors,
   type GetConfigurationOptions,
-  getAppLogger,
   getConfiguration,
-  getProjectRequire,
-} from '@intlayer/config';
+} from '@intlayer/config/node';
+import { getProjectRequire } from '@intlayer/config/utils';
 import type { Dictionary } from '@intlayer/types';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { PullLogger, type PullStatus } from './push/pullLog';
