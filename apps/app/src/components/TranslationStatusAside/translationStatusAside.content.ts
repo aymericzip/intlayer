@@ -3,6 +3,26 @@ import { type Dictionary, t } from 'intlayer';
 const translationStatusAsideContent = {
   key: 'translation-status-aside',
   content: {
+    translationStatusButtonDescription: t({
+      en: 'View translation job progress and status in real time',
+      fr: 'Voir la progression et le statut des traductions en temps réel',
+      es: 'Ver el progreso y el estado de las traducciones en tiempo real',
+      ru: 'Просмотр прогресса и статуса перевода в реальном времени',
+      ja: '翻訳の進行状況とステータスをリアルタイムで表示',
+      ko: '번역 작업 진행 상황과 상태를 실시간으로 확인',
+      zh: '实时查看翻译任务进度和状态',
+      de: 'Übersetzungsfortschritt und -status in Echtzeit anzeigen',
+      ar: 'عرض تقدم و حالة الترجمة في الوقت الفعلي',
+      it: 'Visualizza progresso e stato delle traduzioni in tempo reale',
+      'en-GB': 'View translation job progress and status in real time',
+      pt: 'Ver o progresso e o status das traduções em tempo real',
+      hi: 'अनुवाद की प्रगति और स्थिति को वास्तविक समय में देखें',
+      tr: 'Çeviri işinin ilerlemesini ve durumunu gerçek zamanlı görüntüleyin',
+      pl: 'Wyświetl postęp i status tłumaczeń w czasie rzeczywistym',
+      id: 'Lihat progres dan status terjemahan secara real time',
+      vi: 'Xem tiến trình và trạng thái dịch theo thời gian thực',
+      uk: 'Переглядати прогрес і статус перекладу в реальному часі',
+    }),
     translationStatus: t({
       en: 'Translation Status',
       fr: 'État de la traduction',

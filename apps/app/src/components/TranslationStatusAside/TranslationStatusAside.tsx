@@ -1,15 +1,13 @@
 'use client';
 
-import { Button, Loader, RightDrawer } from '@intlayer/design-system';
-import { clsx } from 'clsx';
 import {
-  AlertCircle,
-  CheckCircle2,
-  Globe,
-  Loader2,
-  X,
-  Zap,
-} from 'lucide-react';
+  Button,
+  Loader,
+  PopoverStatic,
+  RightDrawer,
+} from '@intlayer/design-system';
+import { cn } from '@utils/cn';
+import { AlertCircle, CheckCircle2, Globe, X, Zap } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useState } from 'react';
 
@@ -101,23 +99,30 @@ export const TranslationStatusAside: FC = () => {
 
   return (
     <>
-      {/* Floating Indicator Trigger */}
-      <Button
-        onClick={() => setIsOpen(true)}
-        type="button"
-        variant="hoverable"
-        label={content.translationStatus.value}
-        Icon={Zap}
-        isLoading={isProcessing}
-        disabled={false}
-        size="icon-md"
-      >
-        <div className="relative">
-          {hasUnseenChanges && (
-            <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-error ring-2" />
-          )}
-        </div>
-      </Button>
+      <PopoverStatic identifier="translation-status">
+        <Button
+          onClick={() => setIsOpen(true)}
+          type="button"
+          variant="hoverable"
+          label={content.translationStatus.value}
+          Icon={Zap}
+          isLoading={isProcessing}
+          disabled={false}
+          size="icon-lg"
+        >
+          <div className="relative">
+            {hasUnseenChanges && (
+              <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-error ring-2" />
+            )}
+          </div>
+        </Button>
+
+        <PopoverStatic.Detail identifier="translation-status" xAlign="end">
+          <span className="flex gap-4 text-nowrap py-2 pr-2 pl-4 text-neutral text-sm">
+            {content.translationStatusButtonDescription}
+          </span>
+        </PopoverStatic.Detail>
+      </PopoverStatic>
 
       <RightDrawer
         isOpen={isOpen}
@@ -160,13 +165,13 @@ export const TranslationStatusAside: FC = () => {
                     </div>
                   </div>
                   <div
-                    className={clsx(
+                    className={cn(
                       'rounded-full px-2 py-1 font-medium text-xs capitalize',
                       job.state === 'completed'
                         ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
                         : job.state === 'failed'
                           ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
-                          : 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
+                          : 'bg-neutral'
                     )}
                   >
                     {job.state}
@@ -196,7 +201,7 @@ export const TranslationStatusAside: FC = () => {
             ))}
           {Object.keys(jobs).length === 0 && !hasConnectionError && (
             <div className="flex flex-col items-center justify-center py-12 text-center">
-              <div className="mb-3 rounded-full bg-slate-50 p-4 dark:bg-slate-800/50">
+              <div className="mb-3 rounded-full bg-neutral p-4">
                 <Globe className="h-8 w-8 text-neutral" />
               </div>
               <p className="font-medium text-base text-text">
