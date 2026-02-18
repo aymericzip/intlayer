@@ -10,7 +10,6 @@ metadata:
   tags: [i18n, preact, vite]
   documentation: https://intlayer.org/doc
   support: contact@intlayer.org
-  version: 8.1.2
 ---
 
 # Intlayer Preact Usage

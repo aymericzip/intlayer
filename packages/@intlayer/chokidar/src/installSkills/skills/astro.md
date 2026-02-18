@@ -10,7 +10,6 @@ metadata:
   tags: [i18n]
   documentation: https://intlayer.org/doc
   support: contact@intlayer.org
-  version: 8.1.2
 ---
 
 # Intlayer Astro Usage
