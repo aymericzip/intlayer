@@ -36,7 +36,7 @@ Quando esegui questo comando, esso:
 
 1.  Rileverà il framework che stai utilizzando (es. Next.js, React, Vite).
 2.  Ti chiederà per quali piattaforme desideri installare le abilità (Cursor, Windsurf, VS Code, OpenCode, Claude Code, GitHub Copilot Workspace, ecc.).
-3.  Genererà i file di configurazione richiesti (es. `.cursor/skills/intlayer_next_js/SKILL.md`, `.windsurf/skills/intlayer_next_js/SKILL.md`, `.opencode/skills/intlayer_next_js/SKILL.md`, `.vscode/mcp.json`, ecc.).
+3.  Genererà i file di configurazione richiesti (es. `.cursor/skills/intlayer-next-js/SKILL.md`, `.windsurf/skills/intlayer-next-js/SKILL.md`, `.opencode/skills/intlayer-next-js/SKILL.md`, `.vscode/mcp.json`, ecc.).
 
 ## Piattaforme Supportate
 

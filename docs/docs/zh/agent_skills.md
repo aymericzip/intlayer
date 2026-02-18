@@ -36,7 +36,7 @@ npx skills add aymericzip/intlayer-skills
 
 1.  检测您正在使用的框架（例如 Next.js、React、Vite）。
 2.  询问您要为哪些平台安装技能（Cursor、Windsurf、VS Code、OpenCode、Claude Code、GitHub Copilot Workspace 等）。
-3.  生成所需的配置文件（例如 `.cursor/skills/intlayer_next_js/SKILL.md`、`.windsurf/skills/intlayer_next_js/SKILL.md`、`.opencode/skills/intlayer_next_js/SKILL.md`、`.vscode/mcp.json` 等）。
+3.  生成所需的配置文件（例如 `.cursor/skills/intlayer-next-js/SKILL.md`、`.windsurf/skills/intlayer-next-js/SKILL.md`、`.opencode/skills/intlayer-next-js/SKILL.md`、`.vscode/mcp.json` 等）。
 
 ## 支持的平台
 

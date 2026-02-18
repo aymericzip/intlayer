@@ -36,7 +36,7 @@ npx skills add aymericzip/intlayer-skills
 
 1.  Обнаружит фреймворк, который вы используете (например, Next.js, React, Vite).
 2.  Спросит, для каких платформ вы хотите установить skills (Cursor, Windsurf, VS Code, OpenCode, Claude Code, GitHub Copilot Workspace и т.д.).
-3.  Сгенерирует необходимые файлы конфигурации (например, `.cursor/skills/intlayer_next_js/SKILL.md`, `.windsurf/skills/intlayer_next_js/SKILL.md`, `.opencode/skills/intlayer_next_js/SKILL.md`, `.vscode/mcp.json` и т. д.).
+3.  Сгенерирует необходимые файлы конфигурации (например, `.cursor/skills/intlayer-next-js/SKILL.md`, `.windsurf/skills/intlayer-next-js/SKILL.md`, `.opencode/skills/intlayer-next-js/SKILL.md`, `.vscode/mcp.json` и т. д.).
 
 ## Поддерживаемые платформы
 

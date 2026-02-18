@@ -36,7 +36,7 @@ npx skills add aymericzip/intlayer-skills
 
 1.  使用しているフレームワーク（Next.js、React、Viteなど）を検出します。
 2.  どのプラットフォーム（Cursor、Windsurf、VS Code、OpenCode、Claude Code、GitHub Copilot Workspaceなど）のスキルをインストールするか尋ねます。
-3.  必要な設定ファイル（例：`.cursor/skills/intlayer_next_js/SKILL.md`、`.windsurf/skills/intlayer_next_js/SKILL.md`、`.opencode/skills/intlayer_next_js/SKILL.md`、`.vscode/mcp.json`など）を生成します。
+3.  必要な設定ファイル（例：`.cursor/skills/intlayer-next-js/SKILL.md`、`.windsurf/skills/intlayer-next-js/SKILL.md`、`.opencode/skills/intlayer-next-js/SKILL.md`、`.vscode/mcp.json`など）を生成します。
 
 ## サポートされているプラットフォーム
 

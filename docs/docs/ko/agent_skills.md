@@ -36,7 +36,7 @@ npx skills add aymericzip/intlayer-skills
 
 1.  사용 중인 프레임워크(예: Next.js, React, Vite)를 감지합니다.
 2.  어떤 플랫폼(Cursor, Windsurf, VS Code, OpenCode, Claude Code, GitHub Copilot Workspace 등)에 대한 스킬을 설치할지 묻습니다.
-3.  필요한 구성 파일(`.cursor/skills/intlayer_next_js/SKILL.md`, `.windsurf/skills/intlayer_next_js/SKILL.md`, `.opencode/skills/intlayer_next_js/SKILL.md`, `.vscode/mcp.json` 등)을 생성합니다.
+3.  필요한 구성 파일(`.cursor/skills/intlayer-next-js/SKILL.md`, `.windsurf/skills/intlayer-next-js/SKILL.md`, `.opencode/skills/intlayer-next-js/SKILL.md`, `.vscode/mcp.json` 등)을 생성합니다.
 
 ## 지원되는 플랫폼
 

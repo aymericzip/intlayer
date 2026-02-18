@@ -36,7 +36,7 @@ npx skills add aymericzip/intlayer-skills
 
 1.  اكتشاف الإطار الذي تستخدمه (مثل Next.js أو React أو Vite).
 2.  سوف يسألك عن المنصات التي تريد تثبيت المهارات لها (Cursor, Windsurf, VS Code, OpenCode, Claude Code, GitHub Copilot Workspace، إلخ).
-3.  سيُنشئ ملفات التكوين المطلوبة (مثل `.cursor/skills/intlayer_next_js/SKILL.md` و `.windsurf/skills/intlayer_next_js/SKILL.md` و `.opencode/skills/intlayer_next_js/SKILL.md` و `.vscode/mcp.json` إلخ).
+3.  سيُنشئ ملفات التكوين المطلوبة (مثل `.cursor/skills/intlayer-next-js/SKILL.md` و `.windsurf/skills/intlayer-next-js/SKILL.md` و `.opencode/skills/intlayer-next-js/SKILL.md` و `.vscode/mcp.json` إلخ).
 
 ## المنصات المدعومة
 
