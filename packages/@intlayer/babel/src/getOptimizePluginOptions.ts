@@ -1,5 +1,5 @@
 import { join } from 'node:path';
-import { getComponentTransformPatternSync } from '@intlayer/chokidar';
+import { getComponentTransformPatternSync } from '@intlayer/chokidar/utils';
 import {
   type GetConfigurationOptions,
   getConfiguration,

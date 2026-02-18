@@ -1,4 +1,4 @@
-import type { DictionaryStatus } from '@intlayer/chokidar';
+import type { DictionaryStatus } from '@intlayer/chokidar/build';
 import {
   ANSIColors,
   colorize,

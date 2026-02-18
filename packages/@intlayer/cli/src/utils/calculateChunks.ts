@@ -1,4 +1,4 @@
-import { splitTextByLines } from '@intlayer/chokidar';
+import { splitTextByLines } from '@intlayer/chokidar/utils';
 
 export type ChunkLineResult = {
   lineStart: number;

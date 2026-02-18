@@ -1,4 +1,7 @@
-export type * from '@intlayer/chokidar';
+export type * from '@intlayer/chokidar/build';
+export type * from '@intlayer/chokidar/cli';
+export type * from '@intlayer/chokidar/utils';
+export type * from '@intlayer/chokidar/watcher';
 export * from './build';
 export * from './cli';
 export * from './editor';

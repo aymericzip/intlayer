@@ -1,7 +1,7 @@
 import {
   type DictionaryStatus,
   writeContentDeclaration as writeContentDeclarationEditor,
-} from '@intlayer/chokidar';
+} from '@intlayer/chokidar/build';
 import { getConfiguration } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/types';
 import {

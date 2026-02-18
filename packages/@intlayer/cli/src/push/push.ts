@@ -2,13 +2,11 @@ import * as fsPromises from 'node:fs/promises';
 import { join } from 'node:path';
 import { getIntlayerAPIProxy } from '@intlayer/api';
 import {
-  formatPath,
-  type ListGitFilesOptions,
-  listGitFiles,
-  parallelize,
   prepareIntlayer,
   writeContentDeclaration,
-} from '@intlayer/chokidar';
+} from '@intlayer/chokidar/build';
+import { type ListGitFilesOptions, listGitFiles } from '@intlayer/chokidar/cli';
+import { formatPath, parallelize } from '@intlayer/chokidar/utils';
 import {
   ANSIColors,
   colorize,

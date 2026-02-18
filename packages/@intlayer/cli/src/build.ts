@@ -1,8 +1,5 @@
-import {
-  buildAndWatchIntlayer,
-  type ParallelHandle,
-  runParallel,
-} from '@intlayer/chokidar';
+import { type ParallelHandle, runParallel } from '@intlayer/chokidar/utils';
+import { buildAndWatchIntlayer } from '@intlayer/chokidar/watcher';
 import {
   type GetConfigurationOptions,
   getConfiguration,

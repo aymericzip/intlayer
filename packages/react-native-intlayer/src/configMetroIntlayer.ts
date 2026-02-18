@@ -1,5 +1,5 @@
 import { resolve as pathResolve } from 'node:path';
-import { prepareIntlayer } from '@intlayer/chokidar';
+import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { getAlias, getConfiguration } from '@intlayer/config';
 import type { getDefaultConfig } from 'expo/metro-config';
 import { resolve } from 'metro-resolver';

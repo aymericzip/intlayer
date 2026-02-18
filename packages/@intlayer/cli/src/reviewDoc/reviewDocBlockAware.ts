@@ -4,7 +4,7 @@ import { dirname } from 'node:path';
 import { readAsset } from 'utils:asset';
 import type { AIConfig } from '@intlayer/ai';
 import type { AIOptions } from '@intlayer/api';
-import { formatLocale, formatPath } from '@intlayer/chokidar';
+import { formatLocale, formatPath } from '@intlayer/chokidar/utils';
 import {
   ANSIColors,
   colon,

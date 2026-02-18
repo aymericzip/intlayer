@@ -1,5 +1,5 @@
 import type { AIConfig, AIOptions } from '@intlayer/ai';
-import type { ListGitFilesOptions } from '@intlayer/chokidar';
+import type { ListGitFilesOptions } from '@intlayer/chokidar/cli';
 import type { GetConfigurationOptions } from '@intlayer/config';
 import type { IntlayerConfig, Locale } from '@intlayer/types';
 import type { AIClient } from '../utils/setupAI';

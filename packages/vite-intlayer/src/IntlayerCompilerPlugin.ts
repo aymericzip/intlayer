@@ -8,10 +8,10 @@ import {
 } from '@intlayer/babel';
 import {
   buildDictionary,
-  buildFilesList,
   prepareIntlayer,
   writeContentDeclaration,
-} from '@intlayer/chokidar';
+} from '@intlayer/chokidar/build';
+import { buildFilesList } from '@intlayer/chokidar/utils';
 import {
   ANSIColors,
   colorize,

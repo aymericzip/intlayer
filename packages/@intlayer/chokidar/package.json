@@ -35,11 +35,6 @@
   ],
   "sideEffects": false,
   "exports": {
-    ".": {
-      "types": "./dist/types/index.d.ts",
-      "require": "./dist/cjs/index.cjs",
-      "import": "./dist/esm/index.mjs"
-    },
     "./watcher": {
       "types": "./dist/types/watcher.d.ts",
       "require": "./dist/cjs/watcher.cjs",

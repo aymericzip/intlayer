@@ -8,7 +8,7 @@ import {
   reconstructFromSingleChunk,
   reduceObjectFormat,
   verifyIdenticObjectFormat,
-} from '@intlayer/chokidar';
+} from '@intlayer/chokidar/utils';
 import {
   ANSIColors,
   colon,
@@ -40,7 +40,9 @@ type TranslateDictionaryOptions = {
   mode: 'complete' | 'review';
   aiOptions?: AIOptions;
   fillMetadata?: boolean;
-  onHandle?: ReturnType<typeof import('@intlayer/chokidar').getGlobalLimiter>;
+  onHandle?: ReturnType<
+    typeof import('@intlayer/chokidar/utils').getGlobalLimiter
+  >;
   onSuccess?: () => void;
   onError?: (error: unknown) => void;
   getAbortError?: () => Error | null;

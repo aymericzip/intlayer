@@ -1,5 +1,5 @@
 import { join, relative } from 'node:path';
-import { type ListGitFilesOptions, listGitFiles } from '@intlayer/chokidar';
+import { type ListGitFilesOptions, listGitFiles } from '@intlayer/chokidar/cli';
 import {
   type GetConfigurationOptions,
   getConfiguration,

@@ -1,3 +1,31 @@
+/**
+ * This export is deprecated, it should be changed by
+ *
+ * "exports": {
+ *  "./watcher": {
+ *    "types": "./dist/types/watcher.d.ts",
+ *    "require": "./dist/cjs/watcher.cjs",
+ *    "import": "./dist/esm/watcher.mjs"
+ *  },
+ *  "./build": {
+ *    "types": "./dist/types/build.d.ts",
+ *    "require": "./dist/cjs/build.cjs",
+ *    "import": "./dist/esm/build.mjs"
+ *  },
+ *  "./cli": {
+ *    "types": "./dist/types/cli.d.ts",
+ *    "require": "./dist/cjs/cli.cjs",
+ *    "import": "./dist/esm/cli.mjs"
+ *  },
+ *  "./utils": {
+ *    "types": "./dist/types/utils/index.d.ts",
+ *    "require": "./dist/cjs/utils/index.cjs",
+ *    "import": "./dist/esm/utils/index.mjs"
+ *  },
+ *  "./package.json": "./package.json"
+ * },
+ */
+
 export { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictionary';
 export { cleanOutputDir } from './cleanOutputDir';
 export {

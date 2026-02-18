@@ -1,11 +1,9 @@
 import { createRequire } from 'node:module';
 import { join, relative } from 'node:path';
 import { intlayerOptimizeBabelPlugin } from '@intlayer/babel';
-import {
-  buildFilesList,
-  watch as chokidarWatch,
-  prepareIntlayer,
-} from '@intlayer/chokidar';
+import { prepareIntlayer } from '@intlayer/chokidar/build';
+import { buildFilesList } from '@intlayer/chokidar/utils';
+import { watch as chokidarWatch } from '@intlayer/chokidar/watcher';
 import {
   type GetConfigurationOptions,
   getAppLogger,

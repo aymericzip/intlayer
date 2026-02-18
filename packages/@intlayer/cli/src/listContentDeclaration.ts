@@ -1,5 +1,5 @@
 import { relative } from 'node:path';
-import { formatPath } from '@intlayer/chokidar';
+import { formatPath } from '@intlayer/chokidar/utils';
 import {
   colon,
   colorizeKey,

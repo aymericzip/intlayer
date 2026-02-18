@@ -331,7 +331,9 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
 
     formatOutput: async ({ dictionary }) => {
       // Lazy import intlayer modules to avoid circular dependencies
-      const { formatDictionaryOutput } = await import('@intlayer/chokidar');
+      const { formatDictionaryOutput } = await import(
+        '@intlayer/chokidar/build'
+      );
 
       if (!dictionary.filePath || !dictionary.locale) return dictionary;
 
@@ -360,8 +362,9 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
     afterBuild: async ({ dictionaries, configuration }) => {
       // Lazy import intlayer modules to avoid circular dependencies
       const { getPerLocaleDictionary } = await import('@intlayer/core');
-      const { parallelize, formatDictionaryOutput } = await import(
-        '@intlayer/chokidar'
+      const { parallelize } = await import('@intlayer/chokidar/utils');
+      const { formatDictionaryOutput } = await import(
+        '@intlayer/chokidar/build'
       );
 
       const locales = configuration.internationalization.locales;

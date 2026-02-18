@@ -1,5 +1,5 @@
 import { basename } from 'node:path';
-import { formatLocale } from '@intlayer/chokidar';
+import { formatLocale } from '@intlayer/chokidar/utils';
 import {
   ANSIColors,
   colon,

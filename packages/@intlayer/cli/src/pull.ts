@@ -3,9 +3,9 @@ import { join } from 'node:path';
 import { getIntlayerAPIProxy } from '@intlayer/api';
 import {
   type DictionaryStatus,
-  parallelize,
   writeContentDeclaration,
-} from '@intlayer/chokidar';
+} from '@intlayer/chokidar/build';
+import { parallelize } from '@intlayer/chokidar/utils';
 import {
   ANSIColors,
   type GetConfigurationOptions,

@@ -1,7 +1,10 @@
 import { createRequire } from 'node:module';
 import { join } from 'node:path';
 import { intlayerOptimizeBabelPlugin } from '@intlayer/babel';
-import { getComponentTransformPattern, runOnce } from '@intlayer/chokidar';
+import {
+  getComponentTransformPattern,
+  runOnce,
+} from '@intlayer/chokidar/utils';
 import { DefaultValues, getAppLogger } from '@intlayer/config';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';

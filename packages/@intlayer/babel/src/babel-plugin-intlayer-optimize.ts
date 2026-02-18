@@ -1,7 +1,7 @@
 import { dirname, join, relative } from 'node:path';
 import type { NodePath, PluginObj, PluginPass } from '@babel/core';
 import type * as BabelTypes from '@babel/types';
-import { getFileHash } from '@intlayer/chokidar';
+import { getFileHash } from '@intlayer/chokidar/utils';
 import { normalizePath } from '@intlayer/config';
 
 const PACKAGE_LIST = [

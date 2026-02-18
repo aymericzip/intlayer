@@ -1,6 +1,6 @@
 import { spawnSync } from 'node:child_process';
 import { normalize, resolve } from 'node:path';
-import { listProjects } from '@intlayer/chokidar';
+import { listProjects } from '@intlayer/chokidar/cli';
 import { logger } from '@intlayer/config';
 
 // Helper to detect the package manager used to run the command

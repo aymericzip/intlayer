@@ -1,11 +1,8 @@
 import { createServer } from 'node:http';
 // @ts-ignore: @intlayer/backend is not built yet
 import type { DictionaryAPI } from '@intlayer/backend';
-import {
-  buildDictionary,
-  type ParallelHandle,
-  runParallel,
-} from '@intlayer/chokidar';
+import { buildDictionary } from '@intlayer/chokidar/build';
+import { type ParallelHandle, runParallel } from '@intlayer/chokidar/utils';
 import type { GetConfigurationOptions } from '@intlayer/config';
 import { getAppLogger, getConfiguration } from '@intlayer/config';
 import packageJson from '@intlayer/config/package.json';

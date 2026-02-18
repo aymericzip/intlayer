@@ -1,4 +1,5 @@
-import { prepareIntlayer, watch } from '@intlayer/chokidar';
+import { prepareIntlayer } from '@intlayer/chokidar/build';
+import { watch } from '@intlayer/chokidar/watcher';
 import {
   getAlias,
   getConfiguration,

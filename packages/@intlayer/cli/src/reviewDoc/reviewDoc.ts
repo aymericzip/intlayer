@@ -2,13 +2,15 @@ import { existsSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import type { AIOptions } from '@intlayer/api';
 import {
-  formatLocale,
-  formatPath,
   type ListGitFilesOptions,
   listGitFiles,
   listGitLines,
+} from '@intlayer/chokidar/cli';
+import {
+  formatLocale,
+  formatPath,
   parallelize,
-} from '@intlayer/chokidar';
+} from '@intlayer/chokidar/utils';
 import {
   ANSIColors,
   colorize,

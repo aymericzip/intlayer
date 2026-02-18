@@ -1,7 +1,10 @@
 import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { join, relative } from 'node:path';
-import { buildDictionary, writeContentDeclaration } from '@intlayer/chokidar';
+import {
+  buildDictionary,
+  writeContentDeclaration,
+} from '@intlayer/chokidar/build';
 import { getConfiguration } from '@intlayer/config';
 import type { Dictionary } from '@intlayer/types';
 import type {

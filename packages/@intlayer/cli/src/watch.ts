@@ -1,4 +1,5 @@
-import { runParallel, watch } from '@intlayer/chokidar';
+import { runParallel } from '@intlayer/chokidar/utils';
+import { watch } from '@intlayer/chokidar/watcher';
 import {
   type GetConfigurationOptions,
   getAppLogger,

@@ -5,7 +5,7 @@ import {
   ATTRIBUTES_TO_EXTRACT,
   shouldExtract as defaultShouldExtract,
   generateKey,
-} from '@intlayer/chokidar';
+} from '@intlayer/chokidar/cli';
 
 type ExtractedContent = Record<string, string>;
 

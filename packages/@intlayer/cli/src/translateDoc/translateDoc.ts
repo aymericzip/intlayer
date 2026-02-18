@@ -1,7 +1,8 @@
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { performance } from 'node:perf_hooks';
-import { listGitFiles, parallelize, pLimit } from '@intlayer/chokidar';
+import { listGitFiles } from '@intlayer/chokidar/cli';
+import { parallelize, pLimit } from '@intlayer/chokidar/utils';
 import {
   ANSIColors,
   colorize,

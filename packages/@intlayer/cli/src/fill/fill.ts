@@ -1,13 +1,15 @@
 import { basename, relative } from 'node:path';
 import type { AIOptions } from '@intlayer/api';
 import {
+  prepareIntlayer,
+  writeContentDeclaration,
+} from '@intlayer/chokidar/build';
+import type { ListGitFilesOptions } from '@intlayer/chokidar/cli';
+import {
   formatPath,
   getGlobalLimiter,
   getTaskLimiter,
-  type ListGitFilesOptions,
-  prepareIntlayer,
-  writeContentDeclaration,
-} from '@intlayer/chokidar';
+} from '@intlayer/chokidar/utils';
 import {
   ANSIColors,
   colorize,

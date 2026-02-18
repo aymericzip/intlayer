@@ -10,7 +10,7 @@ vi.mock('@intlayer/config', () => ({
   normalizePath: (path: string) => path.replace(/\\/g, '/'),
 }));
 
-vi.mock('@intlayer/chokidar', () => ({
+vi.mock('@intlayer/chokidar/utils', () => ({
   getFileHash: (key: string) => `dicHash`,
 }));
 
