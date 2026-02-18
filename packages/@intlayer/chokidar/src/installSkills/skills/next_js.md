@@ -109,6 +109,9 @@ export const MyClientComponent = () => {
 
 ## References
 
+- [Website](https://intlayer.org)
+- [Doc](https://intlayer.org/doc)
+
 ### Environments
 
 - [Next.js](https://intlayer.org/doc/environment/nextjs.md)

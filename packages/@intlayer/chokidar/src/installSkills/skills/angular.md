@@ -151,6 +151,9 @@ export class LinkComponent {
 
 ## References
 
+- [Website](https://intlayer.org)
+- [Doc](https://intlayer.org/doc)
+
 - [Angular](https://intlayer.org/doc/environment/angular.md)
 - [Angular Intlayer Exports](https://intlayer.org/doc/packages/angular-intlayer/exports.md)
 - [Intlayer Exports](https://intlayer.org/doc/packages/intlayer/exports.md)

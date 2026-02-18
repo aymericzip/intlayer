@@ -75,6 +75,9 @@ const MyComponent = () => {
 
 ## References
 
+- [Website](https://intlayer.org)
+- [Doc](https://intlayer.org/doc)
+
 - [Vite and Preact](https://intlayer.org/doc/environment/vite-and-preact.md)
 - [Intlayer Exports](https://intlayer.org/doc/packages/intlayer/exports.md)
 - [Preact Intlayer Exports](https://intlayer.org/doc/packages/preact-intlayer/exports.md)

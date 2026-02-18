@@ -78,6 +78,9 @@ const MyComponent = () => {
 
 ## References
 
+- [Website](https://intlayer.org)
+- [Doc](https://intlayer.org/doc)
+
 ### Environments
 
 - [Vite and Solid](https://intlayer.org/doc/environment/vite-and-solid.md)

@@ -62,5 +62,8 @@ npm install intlayer-cli
 
 ### Packages
 
+- [Website](https://intlayer.org)
+- [Doc](https://intlayer.org/doc/concept/cli)
+
 - [Intlayer CLI](https://intlayer.org/doc/packages/intlayer-cli/exports.md)
 - [Intlayer CLI Exports](https://intlayer.org/doc/packages/intlayer-cli/exports.md)

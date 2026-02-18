@@ -370,5 +370,8 @@ Behaviorals Settings
 
 ## References
 
+- [Website](https://intlayer.org)
+- [Doc](https://intlayer.org/doc)
+
 - [Content Overview](https://intlayer.org/doc/concept/content.md)
 - [Exports intlayer package](https://intlayer.org/doc/packages/intlayer/exports.md)

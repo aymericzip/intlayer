@@ -75,6 +75,9 @@ In Svelte, `useIntlayer` returns a **store**. You must use the `$` prefix to acc
 
 ## References
 
+- [Website](https://intlayer.org)
+- [Doc](https://intlayer.org/doc)
+
 - [Intlayer Exports](https://intlayer.org/doc/packages/intlayer/exports.md)
 - [Vite and Svelte](https://intlayer.org/doc/environment/vite-and-svelte.md)
 - [SvelteKit](https://intlayer.org/doc/environment/sveltekit.md)

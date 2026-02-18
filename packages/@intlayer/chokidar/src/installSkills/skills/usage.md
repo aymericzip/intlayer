@@ -40,3 +40,5 @@ To use Intlayer effectively:
 - [How Intlayer Works](https://intlayer.org/doc/concept/how-works-intlayer.md)
 - [Why Intlayer](https://intlayer.org/doc/why.md)
 - [Per-locale File](https://intlayer.org/doc/concept/per-locale-file.md)
+- [Website](https://intlayer.org)
+- [Doc](https://intlayer.org/doc)
