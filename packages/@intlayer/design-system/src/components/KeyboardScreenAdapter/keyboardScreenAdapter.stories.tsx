@@ -213,7 +213,10 @@ export const ChatInterface: Story = {
               placeholder="Type your message..."
               className="flex-1 rounded-full border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <button className="rounded-full bg-blue-600 px-6 py-2 text-white transition-colors hover:bg-blue-700">
+            <button
+              type="button"
+              className="rounded-full bg-blue-600 px-6 py-2 text-white transition-colors hover:bg-blue-700"
+            >
               Send
             </button>
           </div>
@@ -244,13 +247,15 @@ export const SearchInterface: Story = {
                 placeholder="Search for anything..."
                 className="w-full rounded-full border border-gray-300 px-4 py-3 pr-4 pl-12 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-              <div className="-translate-y-1/2 absolute top-1/2 left-4 transform">
+              <div className="absolute top-1/2 left-4 -translate-y-1/2 transform">
                 <svg
                   className="h-5 w-5 text-gray-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  aria-labelledby="search-icon"
                 >
+                  <title id="search-icon">Search Icon</title>
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -272,9 +277,9 @@ export const SearchInterface: Story = {
               'Handling virtual keyboards in web applications',
               'Accessibility best practices for mobile forms',
               'Progressive Web App development guide',
-            ].map((result, index) => (
+            ].map((result) => (
               <div
-                key={index}
+                key={result}
                 className="rounded-lg border border-gray-200 p-4 hover:bg-gray-50"
               >
                 <h3 className="font-medium text-gray-900">{result}</h3>
@@ -325,7 +330,10 @@ export const CustomStyling: Story = {
               placeholder="Password"
               className="w-full rounded-lg border border-gray-200 bg-white/50 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
-            <button className="w-full rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 py-3 font-medium text-white transition-all hover:from-purple-700 hover:to-pink-700">
+            <button
+              type="button"
+              className="w-full rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 py-3 font-medium text-white transition-all hover:from-purple-700 hover:to-pink-700"
+            >
               Sign In
             </button>
           </div>
@@ -360,7 +368,10 @@ export const MinimalHeight: Story = {
             placeholder="Password"
             className="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <button className="w-full rounded bg-blue-600 py-2 text-white hover:bg-blue-700">
+          <button
+            type="button"
+            className="w-full rounded bg-blue-600 py-2 text-white hover:bg-blue-700"
+          >
             Login
           </button>
         </div>
@@ -480,6 +491,7 @@ export const LongContent: Story = {
         <h1 className="mb-4 font-bold text-2xl">Long Scrollable Content</h1>
         <div className="space-y-6">
           {Array.from({ length: 10 }, (_, i) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: This is a story demonstration with static content
             <div key={i} className="rounded-lg bg-white p-4 shadow">
               <h3 className="mb-2 font-semibold">Section {i + 1}</h3>
               <p className="mb-4 text-gray-600">
@@ -553,20 +565,28 @@ export const MultiStepForm: Story = {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="mb-1 block font-medium text-gray-700 text-sm">
+                  <label
+                    className="mb-1 block font-medium text-gray-700 text-sm"
+                    htmlFor="first-name-input"
+                  >
                     First Name
                   </label>
                   <input
+                    id="first-name-input"
                     type="text"
                     className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="John"
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block font-medium text-gray-700 text-sm">
+                  <label
+                    className="mb-1 block font-medium text-gray-700 text-sm"
+                    htmlFor="last-name-input"
+                  >
                     Last Name
                   </label>
                   <input
+                    id="last-name-input"
                     type="text"
                     className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Doe"
@@ -575,20 +595,28 @@ export const MultiStepForm: Story = {
               </div>
 
               <div>
-                <label className="mb-1 block font-medium text-gray-700 text-sm">
+                <label
+                  className="mb-1 block font-medium text-gray-700 text-sm"
+                  htmlFor="dob-input"
+                >
                   Date of Birth
                 </label>
                 <input
+                  id="dob-input"
                   type="date"
                   className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
               <div>
-                <label className="mb-1 block font-medium text-gray-700 text-sm">
+                <label
+                  className="mb-1 block font-medium text-gray-700 text-sm"
+                  htmlFor="phone-input"
+                >
                   Phone Number
                 </label>
                 <input
+                  id="phone-input"
                   type="tel"
                   className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="+1 (555) 123-4567"
@@ -596,10 +624,16 @@ export const MultiStepForm: Story = {
               </div>
 
               <div className="flex justify-between pt-6">
-                <button className="rounded-md border border-gray-300 px-6 py-2 text-gray-700 hover:bg-gray-50">
+                <button
+                  type="button"
+                  className="rounded-md border border-gray-300 px-6 py-2 text-gray-700 hover:bg-gray-50"
+                >
                   Back
                 </button>
-                <button className="rounded-md bg-blue-600 px-6 py-2 text-white hover:bg-blue-700">
+                <button
+                  type="button"
+                  className="rounded-md bg-blue-600 px-6 py-2 text-white hover:bg-blue-700"
+                >
                   Next Step
                 </button>
               </div>

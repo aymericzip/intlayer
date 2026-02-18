@@ -1,4 +1,4 @@
-import { date } from '@intlayer/core';
+import { date } from '@intlayer/core/formatters';
 import { computed, inject } from 'vue';
 import {
   INTLAYER_SYMBOL,

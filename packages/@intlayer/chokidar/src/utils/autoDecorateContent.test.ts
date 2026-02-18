@@ -1,4 +1,4 @@
-import { html, insert, md, t } from '@intlayer/core';
+import { html, insert, md, t } from '@intlayer/core/transpiler';
 import { describe, expect, it } from 'vitest';
 import { autoDecorateContent } from './autoDecorateContent';
 import { resolveObjectPromises } from './resolveObjectPromises';

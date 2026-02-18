@@ -5,7 +5,7 @@ import {
   getConfiguration,
   normalizePath,
 } from '@intlayer/config';
-import { getPerLocaleDictionary } from '@intlayer/core';
+import { getPerLocaleDictionary } from '@intlayer/core/plugins';
 import type { Dictionary, Locale } from '@intlayer/types';
 import { parallelize } from '../utils/parallelize';
 import { writeFileIfChanged } from '../writeFileIfChanged';

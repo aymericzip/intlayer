@@ -1,6 +1,6 @@
 'use client';
 
-import { bindIntl } from '@intlayer/core';
+import { bindIntl } from '@intlayer/core/formatters';
 import type { LocalesValues } from '@intlayer/types';
 import { useContext, useMemo } from 'react';
 import { IntlayerClientContext } from '../IntlayerProvider';

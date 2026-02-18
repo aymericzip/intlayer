@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, computed, useSlots, onMounted, onBeforeUnmount } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref, useSlots } from 'vue';
+
 type Props = {
   onClickOutside?: () => void;
   pressDuration?: number;

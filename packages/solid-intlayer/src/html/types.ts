@@ -1,5 +1,5 @@
-import type { HTMLTagsType } from '@intlayer/core';
-import type { Component, JSX } from 'solid-js';
+import type { HTMLTagsType } from '@intlayer/core/transpiler';
+import type { JSX } from 'solid-js';
 
 /**
  * Helper to extract specific props from the configuration value.

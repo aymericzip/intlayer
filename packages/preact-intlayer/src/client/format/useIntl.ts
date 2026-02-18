@@ -1,4 +1,4 @@
-import { bindIntl } from '@intlayer/core';
+import { bindIntl } from '@intlayer/core/formatters';
 import type { LocalesValues } from '@intlayer/types';
 import { useContext, useMemo } from 'preact/hooks';
 import { IntlayerClientContext } from '../IntlayerProvider';

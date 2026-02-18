@@ -1,4 +1,4 @@
-import { localeDetector as localeDetectorCore } from '@intlayer/core';
+import { localeDetector as localeDetectorCore } from '@intlayer/core/localization';
 import type { LocalesValues } from '@intlayer/types';
 import type { NextRequest } from 'next/server.js';
 

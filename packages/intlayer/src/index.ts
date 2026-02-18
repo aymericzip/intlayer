@@ -58,8 +58,6 @@ import configuration from '@intlayer/config/built';
 
 /**
  * Returns the configuration of Intlayer.
- *
- * @deprecated Use `import { configuration } from 'intlayer'` instead.
  */
 const getConfiguration = () => configuration;
 
@@ -88,61 +86,67 @@ export {
   defaultLocale,
 };
 
+export { file } from '@intlayer/core/file'; // Include specific export for browser because of node js function that can't be used in browser
 export {
   compact,
-  cond,
   currency,
   date,
-  enu,
-  gender,
+  Intl,
+  number,
+  percentage,
+  relativeTime,
+  units,
+} from '@intlayer/core/formatters';
+export {
+  getDictionary,
+  getEnumeration /**
+   * @deprecated Use `getEnumeration` instead.
+   */,
+  getEnumeration as getEnumerationContent,
+  getIntlayer,
+  getNesting,
+  getTranslation /**
+   * @deprecated Use `getTranslation` instead.
+   */,
+  getTranslation as getTranslationContent,
+} from '@intlayer/core/interpreter';
+export {
   getBrowserLocale,
   getCanonicalPath,
-  getCookie,
-  getDictionary,
-  getEnumeration,
-  /**
-   * @deprecated Use `getEnumeration` instead.
-   */
-  getEnumeration as getEnumerationContent,
   getHTMLTextDir,
-  getIntlayer,
   getLocale,
   getLocaleFromPath,
-  getLocaleFromStorage,
   getLocaleLang,
   getLocaleName,
   getLocalizedPath,
   getLocalizedUrl,
-  getMarkdownMetadata,
   getMultilingualUrls,
-  getNesting,
   getPathWithoutLocale,
   getPrefix,
   getRewriteRules,
-  getTranslation,
-  /**
-   * @deprecated Use `getTranslation` instead.
-   */
-  getTranslation as getTranslationContent,
-  html,
-  Intl,
-  insert,
   localeDetector,
   localeFlatMap,
   localeMap,
   localeRecord,
   localeResolver,
+  validatePrefix,
+} from '@intlayer/core/localization';
+export { getMarkdownMetadata } from '@intlayer/core/markdown';
+export {
+  cond,
+  enu,
+  gender,
+  html,
+  insert,
   md,
   nest,
-  number,
-  percentage,
-  relativeTime,
-  setLocaleInStorage,
   t,
-  units,
-  validatePrefix,
-} from '@intlayer/core';
-export { file } from '@intlayer/core/file'; // Include specific export for browser because of node js function that can't be used in browser
+} from '@intlayer/core/transpiler';
+export {
+  getCookie,
+  getLocaleFromStorage,
+  setLocaleInStorage,
+} from '@intlayer/core/utils';
 
 // --- Registries to be augmented by the generator ---
 export interface __DictionaryRegistry {} // id -> interfaceof ictionary

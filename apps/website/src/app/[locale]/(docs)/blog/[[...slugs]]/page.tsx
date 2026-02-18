@@ -5,7 +5,7 @@ import {
   type DocPageNavigationProps,
 } from '@components/DocPage/DocPageNavigation/DocPageNavigation';
 import { DocumentationRender } from '@components/DocPage/DocumentationRender';
-import { getLocalizedUrl } from '@intlayer/core';
+import { getLocalizedUrl } from '@intlayer/core/localization';
 import { type BlogKey, getBlog, getBlogMetadataBySlug } from '@intlayer/docs';
 import { CreativeWorkHeader } from '@structuredData/CreativeWorkHeader';
 import { urlRenamer } from '@utils/markdown';

@@ -1,4 +1,7 @@
-import { getNodeChildren, getNodeType } from '@intlayer/core';
+import {
+  getNodeChildren,
+  getNodeType,
+} from '@intlayer/core/dictionaryManipulator';
 import { type ContentNode, NodeType, type TypedNode } from '@intlayer/types';
 
 export const getIsEditableSection = (section: ContentNode): boolean => {

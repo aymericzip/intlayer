@@ -14,8 +14,8 @@ import {
   getDefaultNode,
   getNodeChildren,
   getNodeType,
-  isSameKeyPath,
-} from '@intlayer/core';
+} from '@intlayer/core/dictionaryManipulator';
+import { isSameKeyPath } from '@intlayer/core/utils';
 import {
   useConfiguration,
   useEditedContentActions,

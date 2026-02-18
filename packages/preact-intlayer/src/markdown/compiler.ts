@@ -8,7 +8,7 @@ import {
   sanitizer as defaultSanitizer,
   slugify as defaultSlugify,
   RuleType,
-} from '@intlayer/core';
+} from '@intlayer/core/markdown';
 import { preactRuntime } from './runtime';
 
 // Re-export RuleType and utilities for compatibility

@@ -1,4 +1,4 @@
-import { bindIntl } from '@intlayer/core';
+import { bindIntl } from '@intlayer/core/utils';
 import type { LocalesValues } from '@intlayer/types';
 import { computed, inject } from 'vue';
 import {

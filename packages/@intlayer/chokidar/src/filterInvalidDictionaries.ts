@@ -6,7 +6,7 @@ import {
   getAppLogger,
   x,
 } from '@intlayer/config/client';
-import { getContent } from '@intlayer/core';
+import { getContent } from '@intlayer/core/interpreter';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { formatLocale, formatPath } from './utils/formatter';
 

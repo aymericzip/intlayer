@@ -1,12 +1,14 @@
-import {
-  type DeepTransformContent as DeepTransformContentCore,
-  getMarkdownMetadata,
-  type HTMLContent,
-  type IInterpreterPluginState as IInterpreterPluginStateCore,
-  type InsertionContent,
-  type MarkdownContent,
-  type Plugins,
-} from '@intlayer/core';
+import type {
+  DeepTransformContent as DeepTransformContentCore,
+  IInterpreterPluginState as IInterpreterPluginStateCore,
+  Plugins,
+} from '@intlayer/core/interpreter';
+import { getMarkdownMetadata } from '@intlayer/core/markdown';
+import type {
+  HTMLContent,
+  InsertionContent,
+  MarkdownContent,
+} from '@intlayer/core/transpiler';
 import type { DeclaredLocales, KeyPath, LocalesValues } from '@intlayer/types';
 import { NodeType } from '@intlayer/types';
 import { Fragment, h, type VNode } from 'preact';
@@ -324,7 +326,7 @@ export const markdownStringPlugin: Plugins = {
 
 export type MarkdownCond<T> = T extends {
   nodeType: NodeType | string;
-  [NodeType.Markdown]: infer M;
+  [NodeType.Markdown]: infer _M;
   metadata?: infer U;
   tags?: infer U;
 }
@@ -378,7 +380,7 @@ export const htmlPlugin: Plugins = {
     typeof node === 'object' && node?.nodeType === NodeType.HTML,
   transform: (node: HTMLContent<string>, props) => {
     const html = node[NodeType.HTML];
-    const tags = node.tags ?? [];
+    const _tags = node.tags ?? [];
     const { plugins, ...rest } = props;
 
     // Type-safe render function that accepts properly typed components

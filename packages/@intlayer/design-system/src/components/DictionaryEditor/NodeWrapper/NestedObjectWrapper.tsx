@@ -1,5 +1,5 @@
 import { camelCaseToSentence } from '@intlayer/config/client';
-import { isSameKeyPath } from '@intlayer/core';
+import { isSameKeyPath } from '@intlayer/core/utils';
 import { type ContentNode, type KeyPath, NodeType } from '@intlayer/types';
 import { type FC, memo, useMemo } from 'react';
 import { ItemLayout } from '../ItemLayout';

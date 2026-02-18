@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { getMarkdownMetadata } from '@intlayer/core';
+import { getMarkdownMetadata } from '@intlayer/core/markdown';
 import { getBlogs, getDocs, getFrequentQuestions } from '@intlayer/docs';
 import dotenv from 'dotenv';
 import { OpenAI } from 'openai';

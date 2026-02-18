@@ -1,6 +1,9 @@
 'use client';
 
-import { getLocalizedUrl, getPathWithoutLocale } from '@intlayer/core';
+import {
+  getLocalizedUrl,
+  getPathWithoutLocale,
+} from '@intlayer/core/localization';
 import type { LocalesValues } from '@intlayer/types';
 import { useRouter } from 'next/router.js';
 import { useCallback, useMemo } from 'react';

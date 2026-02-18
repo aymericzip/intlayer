@@ -17,7 +17,7 @@
 import { spawn } from 'node:child_process';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
-import { localeMap } from '@intlayer/core';
+import { localeMap } from '@intlayer/core/localization';
 import * as fg from 'fast-glob';
 import { locales } from '../intlayer.config';
 

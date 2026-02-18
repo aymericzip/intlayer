@@ -1,6 +1,6 @@
 'use client';
 
-import { getHTMLTextDir, getLocaleName } from '@intlayer/core';
+import { getHTMLTextDir, getLocaleName } from '@intlayer/core/localization';
 import { type Locale, Locales } from '@intlayer/types';
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { MoveVertical } from 'lucide-react';
@@ -38,7 +38,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   panelProps,
 }) => {
   let localeName = 'Select a locale';
-  const { switchTo, searchInput, languageListLabel } =
+  const { switchTo, searchInput, languageListLabel, localeSwitcherLabel } =
     useIntlayer('locale-switcher');
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -97,7 +97,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   }
 
   return (
-    <div
+    <nav
       className="rounded-xl border border-text text-text transition-colors"
       aria-label={localeSwitcherLabel.value}
     >
@@ -175,6 +175,6 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
           </Container>
         </DropDown.Panel>
       </DropDown>
-    </div>
+    </nav>
   );
 };

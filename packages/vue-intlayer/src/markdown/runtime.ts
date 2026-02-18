@@ -14,7 +14,7 @@
  * @see https://vuejs.org/guide/extras/render-function.html#passing-slots
  */
 
-import type { HTMLTag, MarkdownRuntime } from '@intlayer/core';
+import type { HTMLTag, MarkdownRuntime } from '@intlayer/core/markdown';
 import {
   type Component,
   cloneVNode,

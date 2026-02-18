@@ -1,4 +1,5 @@
-import { type FileContent, getContentNodeByKeyPath } from '@intlayer/core';
+import { getContentNodeByKeyPath } from '@intlayer/core/dictionaryManipulator';
+import type { FileContent } from '@intlayer/core/transpiler';
 import { useEditedContent } from '@intlayer/editor-react';
 import {
   type KeyPath,

@@ -1,5 +1,6 @@
 <script lang="ts">
-import { getContentNodeByKeyPath, getMarkdownMetadata } from '@intlayer/core';
+import { getContentNodeByKeyPath } from '@intlayer/core/dictionaryManipulator';
+import { getMarkdownMetadata } from '@intlayer/core/markdown';
 import type { ContentNode, KeyPath, Locale } from '@intlayer/types';
 import { useLocale } from '../client/useLocale';
 

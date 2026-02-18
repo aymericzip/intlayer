@@ -1,6 +1,6 @@
 'use client';
 
-import { date } from '@intlayer/core';
+import { date } from '@intlayer/core/formatters';
 import { useContext } from 'react';
 import { IntlayerClientContext } from '../IntlayerProvider';
 

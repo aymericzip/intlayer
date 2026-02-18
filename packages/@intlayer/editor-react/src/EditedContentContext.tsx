@@ -4,7 +4,7 @@ import {
   editDictionaryByKeyPath,
   getContentNodeByKeyPath,
   renameContentNodeByKeyPath,
-} from '@intlayer/core';
+} from '@intlayer/core/dictionaryManipulator';
 import { MessageKey } from '@intlayer/editor';
 import {
   type ContentNode,
@@ -266,12 +266,8 @@ export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
     localDictionaryId: LocalDictionaryId
   ) => {
     setEditedContentState((prev) => {
-      const filtered = Object.entries(prev).reduce((acc, [key, value]) => {
-        if (key === localDictionaryId) {
-          return acc;
-        }
-        return { ...acc, [key]: value };
-      }, {} as DictionaryContent);
+      const filtered = { ...prev };
+      delete filtered[localDictionaryId];
       return filtered;
     });
   };

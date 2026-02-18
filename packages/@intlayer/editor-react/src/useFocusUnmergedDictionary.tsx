@@ -1,6 +1,6 @@
 'use client';
 
-import { getContentNodeByKeyPath } from '@intlayer/core';
+import { getContentNodeByKeyPath } from '@intlayer/core/dictionaryManipulator';
 import type {
   Dictionary,
   KeyPath,

@@ -1,5 +1,8 @@
 import configuration from '@intlayer/config/built';
-import { getLocaleFromStorage, localeDetector } from '@intlayer/core';
+import {
+  getLocaleFromStorage,
+  localeDetector,
+} from '@intlayer/core/localization';
 import { type Locale, Locales } from '@intlayer/types';
 
 export enum LanguageDetector {

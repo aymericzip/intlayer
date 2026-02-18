@@ -1,5 +1,5 @@
-import type { HTMLTagsType } from '@intlayer/core';
-import type { ComponentProps, FunctionalComponent, JSX } from 'preact';
+import type { HTMLTagsType } from '@intlayer/core/transpiler';
+import type { FunctionalComponent, JSX } from 'preact';
 
 /**
  * Helper to extract specific props from the configuration value.

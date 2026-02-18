@@ -1,7 +1,15 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { cond, enu, gender, insert, md, nest, t } from '@intlayer/core';
 import { fileContent } from '@intlayer/core/file';
+import {
+  cond,
+  enu,
+  gender,
+  insert,
+  md,
+  nest,
+  t,
+} from '@intlayer/core/transpiler';
 import {
   type CustomIntlayerConfig,
   type Dictionary,

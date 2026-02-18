@@ -2,7 +2,7 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config';
-import { getMissingLocalesContentFromDictionary } from '@intlayer/core';
+import { getMissingLocalesContentFromDictionary } from '@intlayer/core/plugins';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { Dictionary, IntlayerConfig, Locale } from '@intlayer/types';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';

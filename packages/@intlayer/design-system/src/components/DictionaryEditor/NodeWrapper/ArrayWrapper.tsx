@@ -1,4 +1,4 @@
-import { isSameKeyPath } from '@intlayer/core';
+import { isSameKeyPath } from '@intlayer/core/utils';
 import type { ContentNode } from '@intlayer/types';
 import { type KeyPath, NodeType } from '@intlayer/types';
 import type { FC } from 'react';

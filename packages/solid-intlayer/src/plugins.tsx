@@ -1,15 +1,17 @@
 import {
   type DeepTransformContent as DeepTransformContentCore,
   getHTML,
-  getMarkdownMetadata,
-  HTML_TAGS,
-  type HTMLContent,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
-  type InsertionContent,
-  type MarkdownContent,
   type Plugins,
   splitInsertionTemplate,
-} from '@intlayer/core';
+} from '@intlayer/core/interpreter';
+import { getMarkdownMetadata } from '@intlayer/core/markdown';
+import {
+  HTML_TAGS,
+  type HTMLContent,
+  type InsertionContent,
+  type MarkdownContent,
+} from '@intlayer/core/transpiler';
 import {
   type DeclaredLocales,
   type KeyPath,
@@ -286,7 +288,7 @@ export const markdownStringPlugin: Plugins = {
 
 export type MarkdownCond<T> = T extends {
   nodeType: NodeType | string;
-  [NodeType.Markdown]: infer M;
+  [NodeType.Markdown]: infer _M;
   metadata?: infer U;
   tags?: infer U;
 }
@@ -373,7 +375,7 @@ export const htmlPlugin: Plugins = {
         ...defaultHTMLComponents,
         ...userComponents,
       };
-      return getHTML(html as string, mergedComponents);
+      return getHTML(html as string, mergedComponents as any);
     };
 
     const element = render() as any;
@@ -399,10 +401,10 @@ export const htmlPlugin: Plugins = {
  *  PLUGINS RESULT
  *  --------------------------------------------- */
 
-export interface IInterpreterPluginSolid<T, _S, _L extends LocalesValues> {
+export interface IInterpreterPluginSolid<T, S, L extends LocalesValues> {
   solidNode: SolidNodeCond<T>;
   solidIntlayerNode: IntlayerNodeCond<T>;
-  solidInsertion: InsertionCond<T>;
+  solidInsertion: InsertionCond<T, S, L>;
   solidMarkdown: MarkdownCond<T>;
   solidHtml: HTMLPluginCond<T>;
 }

@@ -4,8 +4,7 @@ import { getConfiguration } from '@intlayer/config';
 import {
   getDictionary as getDictionaryFunction,
   getIntlayer as getIntlayerFunction,
-  localeDetector,
-} from '@intlayer/core';
+} from '@intlayer/core/interpreter';
 import { appNamespace, getStorageLocale, translateFunction } from './index';
 
 const configuration = getConfiguration();

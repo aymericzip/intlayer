@@ -1,10 +1,10 @@
+import { getMarkdownMetadata } from '@intlayer/core/markdown';
 import {
   getInsertionValues,
-  getMarkdownMetadata,
   html,
   insert,
   md,
-} from '@intlayer/core';
+} from '@intlayer/core/transpiler';
 import { NodeType } from '@intlayer/types';
 
 /**

@@ -1,7 +1,7 @@
 'use client';
 
 import configuration from '@intlayer/config/built';
-import { getRewritePath } from '@intlayer/core';
+import { getRewritePath } from '@intlayer/core/localization';
 import { useEffect } from 'react';
 import { useLocale } from './useLocale';
 

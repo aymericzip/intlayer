@@ -1,4 +1,4 @@
-import { getHTML } from '@intlayer/core';
+import { getHTML } from '@intlayer/core/interpreter';
 import { defineComponent, type PropType, type VNodeChild } from 'vue';
 import { useHTML } from './installIntlayerHTML';
 import type { HTMLComponents } from './types';

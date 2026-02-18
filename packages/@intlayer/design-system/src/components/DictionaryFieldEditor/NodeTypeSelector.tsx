@@ -1,6 +1,6 @@
 'use client';
 
-import { getNodeType } from '@intlayer/core';
+import { getNodeType } from '@intlayer/core/dictionaryManipulator';
 import { type ContentNode, NodeType } from '@intlayer/types';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';

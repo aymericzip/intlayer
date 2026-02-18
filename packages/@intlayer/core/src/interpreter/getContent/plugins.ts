@@ -110,7 +110,7 @@ export const translationPlugin = (
  * ENUMERATION PLUGIN
  * --------------------------------------------- */
 
-export type EnumerationCond<T, S, L> = T extends {
+export type EnumerationCond<T, S, _L> = T extends {
   nodeType: NodeType | string;
   [NodeType.Enumeration]: object;
 }
@@ -163,7 +163,7 @@ export const enumerationPlugin: Plugins = {
  * CONDITION PLUGIN
  * --------------------------------------------- */
 
-export type ConditionCond<T, S, L> = T extends {
+export type ConditionCond<T, S, _L> = T extends {
   nodeType: NodeType | string;
   [NodeType.Condition]: object;
 }
@@ -216,7 +216,7 @@ export const conditionPlugin: Plugins = {
  *  INSERTION PLUGIN
  *  --------------------------------------------- */
 
-export type InsertionCond<T, S, L> = T extends {
+export type InsertionCond<T, S, _L> = T extends {
   nodeType: NodeType | string;
   [NodeType.Insertion]: string;
   fields: readonly string[];
@@ -322,7 +322,7 @@ export const genderPlugin: Plugins = {
  * NESTED PLUGIN
  * --------------------------------------------- */
 
-export type NestedCond<T, S, L> = T extends {
+export type NestedCond<T, S, _L> = T extends {
   nodeType: NodeType | string;
   [NodeType.Nested]: infer U;
 }
@@ -437,15 +437,12 @@ type CheckApplyPlugin<
 /**
  * Traverse recursively through an object or array, applying each plugin as needed.
  */
-type Traverse<
-  T,
-  S,
-  L extends LocalesValues = DeclaredLocales,
-> = T extends ReadonlyArray<infer U> // Turn any read-only array into a plain mutable array
-  ? Array<DeepTransformContent<U, S, L>>
-  : T extends object
-    ? { [K in keyof T]: DeepTransformContent<T[K], S, L> }
-    : T;
+type Traverse<T, S, L extends LocalesValues = DeclaredLocales> =
+  T extends ReadonlyArray<infer U> // Turn any read-only array into a plain mutable array
+    ? Array<DeepTransformContent<U, S, L>>
+    : T extends object
+      ? { [K in keyof T]: DeepTransformContent<T[K], S, L> }
+      : T;
 
 export type IsAny<T> = 0 extends 1 & T ? true : false;
 
@@ -456,10 +453,11 @@ export type DeepTransformContent<
   T,
   S = IInterpreterPluginState,
   L extends LocalesValues = DeclaredLocales,
-> = IsAny<T> extends true
-  ? T
-  : CheckApplyPlugin<T, keyof IInterpreterPlugin<T, S, L>, S, L> extends never // Check if there is a plugin for T:
-    ? // No plugin was found, so try to transform T recursively:
-      Traverse<T, S, L>
-    : // A plugin was found – use the plugin’s transformation.
-      CheckApplyPlugin<T, keyof IInterpreterPlugin<T, S, L>, S, L>;
+> =
+  IsAny<T> extends true
+    ? T
+    : CheckApplyPlugin<T, keyof IInterpreterPlugin<T, S, L>, S, L> extends never // Check if there is a plugin for T:
+      ? // No plugin was found, so try to transform T recursively:
+        Traverse<T, S, L>
+      : // A plugin was found – use the plugin’s transformation.
+        CheckApplyPlugin<T, keyof IInterpreterPlugin<T, S, L>, S, L>;

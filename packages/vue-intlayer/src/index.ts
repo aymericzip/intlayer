@@ -1,7 +1,7 @@
 import type { LocalesValues } from '@intlayer/types';
 import type { IInterpreterPluginVue } from './plugins';
 
-declare module '@intlayer/core' {
+declare module '@intlayer/core/interpreter' {
   interface IInterpreterPlugin<T, S, L extends LocalesValues>
     extends IInterpreterPluginVue<T, S, L> {}
 }

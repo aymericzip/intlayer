@@ -11,8 +11,8 @@ import {
   getContentNodeByKeyPath,
   getEmptyNode,
   getNodeType,
-  isSameKeyPath,
-} from '@intlayer/core';
+} from '@intlayer/core/dictionaryManipulator';
+import { isSameKeyPath } from '@intlayer/core/utils';
 import {
   useEditedContentActions,
   useEditorLocale,

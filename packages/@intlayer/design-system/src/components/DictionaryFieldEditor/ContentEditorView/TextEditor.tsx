@@ -29,18 +29,20 @@ import {
 } from '@components/SwitchSelector';
 import { useAuditContentDeclarationField } from '@hooks/reactQuery';
 import {
-  type ConditionContent,
-  type EnumerationContent,
-  type FileContent,
-  type GenderContent,
   getEmptyNode,
-  getLocaleName,
   getNodeType,
-  type HTMLContent,
-  type InsertionContent,
-  type MarkdownContent,
-  type TranslationContent,
-} from '@intlayer/core';
+} from '@intlayer/core/dictionaryManipulator';
+import { getLocaleName } from '@intlayer/core/localization';
+import type {
+  ConditionContent,
+  EnumerationContent,
+  FileContent,
+  GenderContent,
+  HTMLContent,
+  InsertionContent,
+  MarkdownContent,
+  TranslationContent,
+} from '@intlayer/core/transpiler';
 import { useConfiguration, useEditedContent } from '@intlayer/editor-react';
 import {
   type ContentNode,

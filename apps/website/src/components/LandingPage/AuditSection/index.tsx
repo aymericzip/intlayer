@@ -2,7 +2,7 @@
 
 import { Link } from '@components/Link/Link';
 import { AnalyzerForm } from '@components/ScannerPage/Analyzer/Form/AnalyzerForm';
-import { getLocalizedUrl } from '@intlayer/core';
+import { getLocalizedUrl } from '@intlayer/core/localization';
 import { useRouter } from 'next/navigation';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import type { FC } from 'react';

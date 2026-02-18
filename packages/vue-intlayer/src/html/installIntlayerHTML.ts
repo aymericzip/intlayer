@@ -1,4 +1,4 @@
-import { getHTML } from '@intlayer/core';
+import { getHTML } from '@intlayer/core/interpreter';
 import { type App, inject, provide, type VNodeChild } from 'vue';
 import type { HTMLComponents } from './types';
 

@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import { getRewritePath } from '@intlayer/core';
+import { getRewritePath } from '@intlayer/core/localization';
 import type { Locale } from '@intlayer/types';
 import { watch } from 'vue';
 import { useLocale } from './useLocale';

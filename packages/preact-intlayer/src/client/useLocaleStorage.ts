@@ -3,7 +3,7 @@ import {
   LocaleStorage,
   localeStorageOptions,
   setLocaleInStorage as setLocaleInStorageCore,
-} from '@intlayer/core';
+} from '@intlayer/core/localization';
 import type { LocalesValues } from '@intlayer/types';
 import { useMemo } from 'preact/hooks';
 

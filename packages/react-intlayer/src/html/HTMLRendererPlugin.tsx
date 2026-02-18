@@ -1,6 +1,6 @@
 'use client';
 
-import { getHTML } from '@intlayer/core';
+import { getHTML } from '@intlayer/core/interpreter';
 import type { KeyPath, Locale } from '@intlayer/types';
 import { createElement, type FC, type ReactNode } from 'react';
 import { ContentSelectorRenderer } from '../editor';

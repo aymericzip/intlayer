@@ -1,4 +1,4 @@
-import type { NodeProps } from '@intlayer/core';
+import type { NodeProps } from '@intlayer/core/interpreter';
 import type { JSX, ParentProps } from 'solid-js';
 
 export type IntlayerNode<

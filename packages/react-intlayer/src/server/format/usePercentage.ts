@@ -1,4 +1,4 @@
-import { percentage } from '@intlayer/core';
+import { percentage } from '@intlayer/core/formatters';
 import type { LocalesValues } from '@intlayer/types';
 import { IntlayerServerContext } from '../IntlayerServerProvider';
 import { getServerContext } from '../serverContext';

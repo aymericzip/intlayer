@@ -3,10 +3,10 @@ import { getConfiguration } from '@intlayer/config';
 import {
   getDictionary as getDictionaryFunction,
   getIntlayer as getIntlayerFunction,
-  getLocaleFromStorage,
   getTranslation,
-  localeDetector,
-} from '@intlayer/core';
+} from '@intlayer/core/interpreter';
+import { localeDetector } from '@intlayer/core/localization';
+import { getLocaleFromStorage } from '@intlayer/core/utils';
 import type { Locale, StrictModeLocaleMap } from '@intlayer/types';
 import { createNamespace } from 'cls-hooked';
 import type { FastifyPluginAsync, FastifyRequest } from 'fastify';

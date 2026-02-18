@@ -1,6 +1,7 @@
 'use client';
 
-import { getContentNodeByKeyPath, getMarkdownMetadata } from '@intlayer/core';
+import { getContentNodeByKeyPath } from '@intlayer/core/dictionaryManipulator';
+import { getMarkdownMetadata } from '@intlayer/core/markdown';
 import { useEditorLocale } from '@intlayer/editor-react';
 import type { ContentNode, KeyPath, LocalesValues } from '@intlayer/types';
 import type { FC, ReactNode } from 'react';

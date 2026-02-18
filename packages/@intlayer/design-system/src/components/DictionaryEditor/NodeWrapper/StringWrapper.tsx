@@ -1,5 +1,5 @@
 import { EditableFieldTextArea } from '@components/EditableField';
-import { getContentNodeByKeyPath } from '@intlayer/core';
+import { getContentNodeByKeyPath } from '@intlayer/core/dictionaryManipulator';
 import { useEditorLocale } from '@intlayer/editor-react';
 import { cn } from '@utils/cn';
 import type { FC } from 'react';
@@ -38,9 +38,8 @@ export const StringWrapper: FC<StringWrapperProps> = ({
   const content = String(editedContentValue ?? section);
 
   return (
-    <span
-      role="button"
-      tabIndex={0}
+    <button
+      type="button"
       className={cn(
         'w-full rounded-md p-2 text-left transition',
         'hover:bg-card/30 [&:has(.section:hover)]:bg-transparent',
@@ -62,6 +61,6 @@ export const StringWrapper: FC<StringWrapperProps> = ({
           onCancel={() => null}
         />
       )}
-    </span>
+    </button>
   );
 };

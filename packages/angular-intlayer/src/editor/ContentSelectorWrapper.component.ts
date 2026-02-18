@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, Input } from '@angular/core';
-import { isSameKeyPath, type NodeProps } from '@intlayer/core';
+import type { NodeProps } from '@intlayer/core/interpreter';
+import { isSameKeyPath } from '@intlayer/core/utils';
 import { NodeType } from '@intlayer/types';
 import { ContentSelectorComponent } from '../UI/ContentSelector.component';
 import { useEditorEnabled } from './editorEnabled';

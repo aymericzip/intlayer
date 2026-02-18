@@ -1,4 +1,4 @@
-import type { ValidDotPathsFor } from '@intlayer/core';
+import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
 import type {
   DictionaryKeys,
   DictionaryRegistryContent,

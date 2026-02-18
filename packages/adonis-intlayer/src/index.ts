@@ -1,12 +1,11 @@
 import type { HttpContext } from '@adonisjs/core/http';
 import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { getConfiguration } from '@intlayer/config';
+import type { getIntlayer as getIntlayerFunction } from '@intlayer/core/interpreter';
 import {
   getDictionary as getDictionaryFunction,
-  getIntlayer as getIntlayerFunction,
-  getLocaleFromStorage,
   getTranslation,
-} from '@intlayer/core';
+} from '@intlayer/core/interpreter';
 import type { Locale, StrictModeLocaleMap } from '@intlayer/types';
 import { createNamespace } from 'cls-hooked';
 
@@ -190,7 +189,7 @@ export const getLocale = (locale?: Locale): Locale => {
     return (
       appNamespace.get('locale') ?? locale ?? internationalization.defaultLocale
     );
-  } catch (error) {
+  } catch (_error) {
     return locale ?? internationalization.defaultLocale;
   }
 };

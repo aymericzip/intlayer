@@ -1,6 +1,6 @@
 'use client';
 
-import { compact } from '@intlayer/core';
+import { compact } from '@intlayer/core/formatters';
 import { useCallback, useContext } from 'react';
 import { IntlayerClientContext } from '../IntlayerProvider';
 

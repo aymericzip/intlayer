@@ -1,18 +1,20 @@
 import {
   type DeepTransformContent as DeepTransformContentCore,
   getHTML,
-  getMarkdownMetadata,
-  HTML_TAGS,
-  type HTMLContent,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
-  type InsertionContent,
-  type MarkdownContent,
   type Plugins,
   splitInsertionTemplate,
-} from '@intlayer/core';
+} from '@intlayer/core/interpreter';
+import { getMarkdownMetadata } from '@intlayer/core/markdown';
+import {
+  HTML_TAGS,
+  type HTMLContent,
+  type InsertionContent,
+  type MarkdownContent,
+} from '@intlayer/core/transpiler';
 import type { DeclaredLocales, KeyPath, LocalesValues } from '@intlayer/types';
 import { NodeType } from '@intlayer/types';
-import { type Component, Fragment, h, markRaw, type VNode } from 'vue';
+import { Fragment, h, markRaw, type VNode } from 'vue';
 import { ContentSelectorWrapper } from './editor';
 import type { HTMLComponents } from './html/types';
 import { useMarkdown } from './markdown/installIntlayerMarkdown';
@@ -38,7 +40,7 @@ export const intlayerNodePlugins: Plugins = {
     typeof node === 'bigint' ||
     typeof node === 'string' ||
     typeof node === 'number',
-  transform: (node, { children, ...rest }) => {
+  transform: (_node, { children, ...rest }) => {
     const render = (children: any) =>
       renderIntlayerNode({
         ...rest,
@@ -327,7 +329,7 @@ export const htmlPlugin: Plugins = {
     typeof node === 'object' && node?.nodeType === NodeType.HTML,
   transform: (node: HTMLContent<string>, props) => {
     const html = node[NodeType.HTML];
-    const tags = node.tags ?? [];
+    const _tags = node.tags ?? [];
 
     // Type-safe render function that accepts properly typed components
     const render = (userComponents?: HTMLComponents): VNode | VNode[] => {
@@ -352,9 +354,9 @@ export const htmlPlugin: Plugins = {
  * PLUGINS RESULT
  * --------------------------------------------- */
 
-export interface IInterpreterPluginVue<T, _S, _L extends LocalesValues> {
+export interface IInterpreterPluginVue<T, S, L extends LocalesValues> {
   vueIntlayerNode: IntlayerNodeCond<T>;
-  vueInsertion: InsertionCond<T>;
+  vueInsertion: InsertionCond<T, S, L>;
   vueMarkdown: MarkdownCond<T>;
   vueHtml: HTMLPluginCond<T>;
 }

@@ -4,7 +4,8 @@ import {
   inject,
   type TemplateRef,
 } from '@angular/core';
-import { compile, type MarkdownRuntime } from '@intlayer/core';
+import type { MarkdownRuntime } from '@intlayer/core/markdown';
+import { compile } from '@intlayer/core/markdown';
 
 export const INTLAYER_MARKDOWN_TOKEN =
   new InjectionToken<IntlayerMarkdownProvider>('intlayerMarkdown');

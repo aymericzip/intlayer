@@ -1,4 +1,4 @@
-import { getLocalizedUrl } from '@intlayer/core';
+import { getLocalizedUrl } from '@intlayer/core/localization';
 import type { LocalesValues } from '@intlayer/types';
 import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';

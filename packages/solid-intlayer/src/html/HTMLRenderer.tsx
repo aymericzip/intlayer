@@ -1,4 +1,5 @@
-import { getHTML, HTML_TAGS } from '@intlayer/core';
+import { getHTML } from '@intlayer/core/interpreter';
+import { HTML_TAGS } from '@intlayer/core/transpiler';
 import type { KeyPath } from '@intlayer/types';
 import {
   type Component,

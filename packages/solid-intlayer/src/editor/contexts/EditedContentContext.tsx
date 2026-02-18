@@ -2,7 +2,7 @@ import {
   editDictionaryByKeyPath,
   getContentNodeByKeyPath,
   renameContentNodeByKeyPath,
-} from '@intlayer/core';
+} from '@intlayer/core/dictionaryManipulator';
 import { MessageKey } from '@intlayer/editor';
 import {
   type ContentNode,

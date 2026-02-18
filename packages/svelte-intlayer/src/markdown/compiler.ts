@@ -1,4 +1,4 @@
-import { compileWithOptions } from '@intlayer/core';
+import { compileWithOptions } from '@intlayer/core/markdown';
 import { svelteHtmlRuntime } from './runtime';
 
 /**

@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { getMarkdownMetadata } from '@intlayer/core';
+import { getMarkdownMetadata } from '@intlayer/core/markdown';
 import fg from 'fast-glob';
 import { EXCLUDED_GLOB_PATTEN } from './markdownFormatting';
 

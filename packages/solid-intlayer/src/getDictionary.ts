@@ -1,7 +1,7 @@
 import {
   getDictionary as getDictionaryCore,
   type Plugins,
-} from '@intlayer/core';
+} from '@intlayer/core/interpreter';
 import type {
   DeclaredLocales,
   Dictionary,

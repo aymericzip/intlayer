@@ -1,4 +1,5 @@
-import { getContentNodeByKeyPath, getMarkdownMetadata } from '@intlayer/core';
+import { getContentNodeByKeyPath } from '@intlayer/core/dictionaryManipulator';
+import { getMarkdownMetadata } from '@intlayer/core/markdown';
 import type { ContentNode, KeyPath, LocalesValues } from '@intlayer/types';
 import { type Component, createMemo, type JSX, useContext } from 'solid-js';
 import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';

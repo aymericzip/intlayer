@@ -23,7 +23,7 @@ import {
   getMultilingualDictionary,
   getPerLocaleDictionary,
   insertContentInDictionary,
-} from '@intlayer/core';
+} from '@intlayer/core/plugins';
 import type { Dictionary, IntlayerConfig, Locale } from '@intlayer/types';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import type { AIClient } from '../utils/setupAI';

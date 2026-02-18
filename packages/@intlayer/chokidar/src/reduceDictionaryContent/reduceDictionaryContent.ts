@@ -1,4 +1,4 @@
-import { getMaskContent } from '@intlayer/core';
+import { getMaskContent } from '@intlayer/core/plugins';
 import type { Dictionary } from '@intlayer/types';
 import { applyMask } from './applyMask';
 

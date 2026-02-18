@@ -1,5 +1,5 @@
 <script lang="ts">
-import { getHTML } from '@intlayer/core';
+import { getHTML } from '@intlayer/core/interpreter';
 import { setHTMLContext } from './context';
 import type { HTMLComponents } from './types';
 

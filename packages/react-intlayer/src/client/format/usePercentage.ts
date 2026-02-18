@@ -1,6 +1,6 @@
 'use client';
 
-import { percentage } from '@intlayer/core';
+import { percentage } from '@intlayer/core/formatters';
 import { useCallback, useContext } from 'react';
 import { IntlayerClientContext } from '../IntlayerProvider';
 

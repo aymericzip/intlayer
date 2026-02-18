@@ -1,4 +1,7 @@
-import { getIntlayer as getIntlayerCore, type Plugins } from '@intlayer/core';
+import {
+  getIntlayer as getIntlayerCore,
+  type Plugins,
+} from '@intlayer/core/interpreter';
 import type {
   DeclaredLocales,
   DictionaryKeys,

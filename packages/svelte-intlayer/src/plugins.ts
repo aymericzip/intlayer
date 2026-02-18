@@ -1,15 +1,16 @@
 import {
-  compile,
   type DeepTransformContent as DeepTransformContentCore,
   getHTML,
-  getMarkdownMetadata,
+  type IInterpreterPluginState as IInterpreterPluginStateCore,
+  type Plugins,
+} from '@intlayer/core/interpreter';
+import { compile, getMarkdownMetadata } from '@intlayer/core/markdown';
+import {
   HTML_TAGS,
   type HTMLContent,
-  type IInterpreterPluginState as IInterpreterPluginStateCore,
   type InsertionContent,
   type MarkdownContent,
-  type Plugins,
-} from '@intlayer/core';
+} from '@intlayer/core/transpiler';
 import {
   type DeclaredLocales,
   type KeyPath,
@@ -299,9 +300,9 @@ export const markdownStringPlugin: Plugins = {
   },
 };
 
-export type MarkdownCond<T, S, L extends LocalesValues> = T extends {
+export type MarkdownCond<T, _S, L extends LocalesValues> = T extends {
   nodeType: NodeType | string;
-  [NodeType.Markdown]: infer M;
+  [NodeType.Markdown]: infer _M;
   metadata?: infer U;
   tags?: infer U;
 }
@@ -414,7 +415,7 @@ export const htmlPlugin: Plugins = {
     typeof node === 'object' && node?.nodeType === NodeType.HTML,
   transform: (node: HTMLContent<string>) => {
     const htmlString = node[NodeType.HTML];
-    const tags = node.tags ?? [];
+    const _tags = node.tags ?? [];
 
     const render = (userComponents?: HTMLComponents): any => {
       const mergedComponents = {

@@ -28,8 +28,6 @@ const external: string[] = [
   ...Object.keys(packageJson.dependencies),
   ...Object.keys(packageJson.peerDependencies),
   ...Object.keys(packageJson.devDependencies),
-  '@intlayer/config/built',
-  '@intlayer/config/client',
   'vue',
   'vue/runtime-core',
   '@vue/shared',
@@ -81,7 +79,10 @@ export default defineConfig({
     rollupOptions: {
       // external,
       external: (id) => {
-        return external.includes(id) || /^vue/.test(id);
+        return (
+          external.some((pkg) => id === pkg || id.startsWith(`${pkg}/`)) ||
+          /^vue/.test(id)
+        );
       },
       output: [
         {

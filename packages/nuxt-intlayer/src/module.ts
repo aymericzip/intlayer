@@ -1,5 +1,5 @@
 import { getConfiguration } from '@intlayer/config';
-import { getPrefix } from '@intlayer/core';
+import { getPrefix } from '@intlayer/core/localization';
 import { addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit';
 import type { NuxtModule } from '@nuxt/schema';
 import { intlayer, intlayerProxy } from 'vite-intlayer';

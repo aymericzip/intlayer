@@ -1,6 +1,6 @@
 'use client';
 
-import { getLocalizedUrl } from '@intlayer/core';
+import { getLocalizedUrl } from '@intlayer/core/localization';
 import {
   checkIsExternalLink,
   isTextChildren,

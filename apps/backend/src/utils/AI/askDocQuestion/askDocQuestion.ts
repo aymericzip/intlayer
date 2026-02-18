@@ -6,7 +6,7 @@ import {
   type ChatCompletionRequestMessage,
   streamText,
 } from '@intlayer/ai';
-import { getMarkdownMetadata } from '@intlayer/core';
+import { getMarkdownMetadata } from '@intlayer/core/markdown';
 import { getBlogs, getDocs, getFrequentQuestions } from '@intlayer/docs';
 import { OpenAI } from 'openai';
 

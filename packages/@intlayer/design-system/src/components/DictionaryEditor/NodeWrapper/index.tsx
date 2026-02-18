@@ -1,16 +1,18 @@
 'use client';
 
 import {
-  type ConditionContent,
-  type EnumerationContent,
-  type FileContent,
   getContentNodeByKeyPath,
   getNodeType,
-  type HTMLContent,
-  type InsertionContent,
-  type MarkdownContent,
-  type TranslationContent,
-} from '@intlayer/core';
+} from '@intlayer/core/dictionaryManipulator';
+import type {
+  ConditionContent,
+  EnumerationContent,
+  FileContent,
+  HTMLContent,
+  InsertionContent,
+  MarkdownContent,
+  TranslationContent,
+} from '@intlayer/core/transpiler';
 import { useEditorLocale } from '@intlayer/editor-react';
 import {
   type ContentNode,

@@ -5,7 +5,7 @@ import { isDeepStrictEqual } from 'node:util';
 import {
   getFilteredLocalesDictionary,
   getPerLocaleDictionary,
-} from '@intlayer/core';
+} from '@intlayer/core/plugins';
 import type {
   Dictionary,
   IntlayerConfig,

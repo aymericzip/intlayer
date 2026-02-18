@@ -1,7 +1,7 @@
 'use client';
 
 import configuration from '@intlayer/config/built';
-import { localeResolver } from '@intlayer/core';
+import { localeResolver } from '@intlayer/core/localization';
 import { MessageKey } from '@intlayer/editor';
 import type { LocalesValues } from '@intlayer/types';
 import {

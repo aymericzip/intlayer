@@ -1,6 +1,7 @@
 'use client';
 
-import { isSameKeyPath, type NodeProps } from '@intlayer/core';
+import type { NodeProps } from '@intlayer/core/interpreter';
+import { isSameKeyPath } from '@intlayer/core/utils';
 import { MessageKey } from '@intlayer/editor';
 import { NodeType } from '@intlayer/types';
 import type { FunctionalComponent, JSX } from 'preact';

@@ -1,4 +1,4 @@
-import type { HTMLContent } from '@intlayer/core';
+import type { HTMLContent } from '@intlayer/core/transpiler';
 import { type ContentNode, type KeyPath, NodeType } from '@intlayer/types';
 import type { FC } from 'react';
 import { NodeWrapper, type NodeWrapperProps } from './index';

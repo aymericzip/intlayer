@@ -1,6 +1,6 @@
 'use client';
 
-import { number } from '@intlayer/core';
+import { number } from '@intlayer/core/formatters';
 import { useCallback, useContext } from 'react';
 import { IntlayerClientContext } from '../IntlayerProvider';
 

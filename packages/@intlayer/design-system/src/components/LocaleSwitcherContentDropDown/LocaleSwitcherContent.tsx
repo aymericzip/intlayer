@@ -1,7 +1,7 @@
 'use client';
 
 import { usePersistedStore } from '@hooks/usePersistedStore';
-import { getHTMLTextDir, getLocaleName } from '@intlayer/core';
+import { getHTMLTextDir, getLocaleName } from '@intlayer/core/localization';
 import { Locales, type LocalesValues } from '@intlayer/types';
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { Check, Globe, MoveVertical } from 'lucide-react';

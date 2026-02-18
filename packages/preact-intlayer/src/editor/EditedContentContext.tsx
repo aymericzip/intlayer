@@ -4,7 +4,7 @@ import {
   editDictionaryByKeyPath,
   getContentNodeByKeyPath,
   renameContentNodeByKeyPath,
-} from '@intlayer/core';
+} from '@intlayer/core/dictionaryManipulator';
 import { MessageKey } from '@intlayer/editor';
 import {
   type ContentNode,
@@ -24,7 +24,7 @@ import {
   useDictionariesRecord,
 } from './DictionariesRecordContext';
 import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
-import { type StateUpdater, useCrossFrameState } from './useCrossFrameState';
+import { useCrossFrameState } from './useCrossFrameState';
 
 type EditedContentStateContextType = {
   editedContent: Record<LocalDictionaryId, Dictionary> | undefined;
@@ -259,12 +259,8 @@ export const EditedContentProvider: FunctionalComponent<
     dictionaryLocalId: LocalDictionaryId
   ) => {
     setEditedContentState((prev) => {
-      const filtered = Object.entries(prev).reduce((acc, [key, value]) => {
-        if (key === dictionaryLocalId) {
-          return acc;
-        }
-        return { ...acc, [key]: value };
-      }, {} as DictionaryContent);
+      const filtered = { ...prev };
+      delete filtered[dictionaryLocalId];
       return filtered;
     });
   };

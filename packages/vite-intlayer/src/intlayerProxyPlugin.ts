@@ -7,13 +7,15 @@ import {
 import { DefaultValues } from '@intlayer/config/client';
 import {
   getCanonicalPath,
-  getCookie,
-  getLocaleFromStorage,
   getLocalizedPath,
   getRewriteRules,
   localeDetector,
+} from '@intlayer/core/localization';
+import {
+  getCookie,
+  getLocaleFromStorage,
   setLocaleInStorage,
-} from '@intlayer/core';
+} from '@intlayer/core/utils';
 import type { Locale } from '@intlayer/types';
 /* @ts-ignore - Vite types error */
 import type { Connect, Plugin } from 'vite';
@@ -505,7 +507,6 @@ export const intlayerProxy = (
       req,
       res,
       next,
-      originalPath,
       searchParams,
       pathLocale,
       canonicalPath,
@@ -520,7 +521,6 @@ export const intlayerProxy = (
     req,
     res,
     next,
-    originalPath,
     searchParams,
     pathLocale,
     canonicalPath,
@@ -529,7 +529,6 @@ export const intlayerProxy = (
     req: Connect.IncomingMessage;
     res: ServerResponse<IncomingMessage>;
     next: Connect.NextFunction;
-    originalPath: string;
     searchParams: string;
     pathLocale: Locale;
     canonicalPath: string;
@@ -608,9 +607,7 @@ export const intlayerProxy = (
           /**
            * ./myFile.js
            */
-          req.url
-            ?.split('?')[0]
-            .match(/\.[a-z]+$/i) // checks for file extensions
+          req.url?.split('?')[0].match(/\.[a-z]+$/i) // checks for file extensions
         ) {
           return next();
         }

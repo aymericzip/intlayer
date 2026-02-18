@@ -1,4 +1,4 @@
-import type { HTMLTagsType } from '@intlayer/core';
+import type { HTMLTagsType } from '@intlayer/core/transpiler';
 import type { Component } from 'svelte';
 
 /**

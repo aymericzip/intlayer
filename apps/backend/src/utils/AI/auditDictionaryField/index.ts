@@ -3,7 +3,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { AIConfig, AIOptions } from '@intlayer/ai';
 import { generateText } from '@intlayer/ai';
-import { getLocaleName } from '@intlayer/core';
+import { getLocaleName } from '@intlayer/core/localization';
 import type { KeyPath } from '@intlayer/types';
 import { type Locale, Locales } from '@intlayer/types';
 import { logger } from '@logger';

@@ -1,9 +1,9 @@
+import { localeStorageOptions } from '@intlayer/core/localization';
 import {
   getLocaleFromStorage,
   LocaleStorage,
-  localeStorageOptions,
   setLocaleInStorage as setLocaleInStorageCore,
-} from '@intlayer/core';
+} from '@intlayer/core/utils';
 import type { LocalesValues } from '@intlayer/types';
 import { useMemo } from 'react';
 

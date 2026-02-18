@@ -1,4 +1,4 @@
-import type { InsertionContent } from '@intlayer/core';
+import type { InsertionContent } from '@intlayer/core/transpiler';
 import { type ContentNode, type KeyPath, NodeType } from '@intlayer/types';
 import type { FC } from 'react';
 import { NodeWrapper, type NodeWrapperProps } from './index';

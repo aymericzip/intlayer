@@ -37,9 +37,7 @@ export const getCapitals = (name: string, separator = ' '): string[] => {
 
   const parts =
     separator === ' '
-      ? name
-          .trim()
-          .split(/\s+/) // handle multiple spaces
+      ? name.trim().split(/\s+/) // handle multiple spaces
       : name.split(separator);
 
   return parts.filter(Boolean).map((word) => word.charAt(0).toUpperCase());
@@ -202,6 +200,7 @@ export const Avatar: FC<AvatarProps> = ({
           {displayInitials && (
             <div className="flex size-full items-center justify-center gap-[0.1rem] font-bold text-sm max-md:py-1">
               {capitals?.map((capital, index) => (
+                // biome-ignore lint/suspicious/noArrayIndexKey: Capitals are primitives and order is fixed
                 <span key={`${capital}-${index}`}>{capital}</span>
               ))}
             </div>

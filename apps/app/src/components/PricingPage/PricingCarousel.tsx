@@ -81,7 +81,7 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
   const [isClicked, setIsClicked] = useState(false); // Tracks if a plan has been clicked to prevent selection on hover
   const [focusTimeout, setFocusTimeout] = useState<NodeJS.Timeout | null>(null); // Timeout for delayed plan selection on hover
 
-  const columnRef = useRef<HTMLDivElement>(null); // Reference to the pricing column div element
+  const columnRef = useRef<HTMLButtonElement>(null); // Reference to the pricing column div element
 
   /**
    * Handle switching plans based on swipe or drag distance
@@ -276,7 +276,7 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
   }, [focusTimeout]);
 
   return (
-    <div
+    <section
       className="relative h-screen w-full cursor-grab select-none overflow-hidden active:cursor-grabbing"
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
@@ -285,8 +285,7 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
-      role="button"
-      tabIndex={0}
+      aria-label="Pricing Carousel"
       data-testid="pricing-carousel"
       style={{
         height: (columnRef?.current?.offsetHeight ?? 0) + 30,
@@ -294,14 +293,13 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
       {...props}
     >
       {plans.map((plan, index) => (
-        <div
-          className={`-translate-x-1/2 absolute left-1/2 transition duration-300 ease-in-out${setColumnStyle(
+        <button
+          type="button"
+          className={`absolute left-1/2 -translate-x-1/2 transition duration-300 ease-in-out${setColumnStyle(
             index,
             displayedPlanIndex
           )}`}
           ref={columnRef}
-          role="button"
-          tabIndex={0}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
               setSelectedPlanIndex(index); // Handle Enter/Space to activate
@@ -378,8 +376,8 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
             description={pricing[focusedPeriod][plan].description.value}
             className={displayedPlanIndex !== index ? 'hover:scale-103' : ''}
           />
-        </div>
+        </button>
       ))}
-    </div>
+    </section>
   );
 };

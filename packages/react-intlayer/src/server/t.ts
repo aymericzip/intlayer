@@ -1,4 +1,4 @@
-import { getTranslation } from '@intlayer/core';
+import { getTranslation } from '@intlayer/core/interpreter';
 import type { LocalesValues, StrictModeLocaleMap } from '@intlayer/types';
 import { IntlayerServerContext } from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';

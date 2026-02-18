@@ -1,6 +1,14 @@
 import { dirname } from 'node:path';
-import { cond, enu, gender, insert, md, nest, t } from '@intlayer/core';
 import { type FileContent, fileContent } from '@intlayer/core/file';
+import {
+  cond,
+  enu,
+  gender,
+  insert,
+  md,
+  nest,
+  t,
+} from '@intlayer/core/transpiler';
 import type { Dictionary } from '@intlayer/types';
 
 export const file = (path: string): FileContent => {

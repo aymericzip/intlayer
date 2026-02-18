@@ -1,8 +1,7 @@
 import {
   type CompileOptions,
   compileWithOptions,
-  type MarkdownOptions,
-} from '@intlayer/core';
+} from '@intlayer/core/markdown';
 import type { JSX } from 'solid-js';
 import { solidRuntime } from './runtime';
 

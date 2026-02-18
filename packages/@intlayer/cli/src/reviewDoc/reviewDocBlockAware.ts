@@ -15,7 +15,7 @@ import {
   getConfiguration,
   retryManager,
 } from '@intlayer/config';
-import { getLocaleName } from '@intlayer/core';
+import { getLocaleName } from '@intlayer/core/localization';
 import { type Locale, Locales } from '@intlayer/types';
 import { sanitizeChunk, validateTranslation } from '../translateDoc/validation';
 import {

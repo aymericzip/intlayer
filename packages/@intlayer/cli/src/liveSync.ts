@@ -6,7 +6,7 @@ import { type ParallelHandle, runParallel } from '@intlayer/chokidar/utils';
 import type { GetConfigurationOptions } from '@intlayer/config';
 import { getAppLogger, getConfiguration } from '@intlayer/config';
 import packageJson from '@intlayer/config/package.json';
-import { getLocalizedContent } from '@intlayer/core';
+import { getLocalizedContent } from '@intlayer/core/plugins';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { IntlayerConfig } from '@intlayer/types';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';

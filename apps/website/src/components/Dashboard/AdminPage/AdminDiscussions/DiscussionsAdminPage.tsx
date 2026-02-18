@@ -346,7 +346,7 @@ export const DiscussionsAdminPageContent: FC = () => {
       <div className="mb-4 space-y-4">
         <div className="flex flex-col gap-4 sm:flex-row">
           <div className="relative flex-1">
-            <Search className="-translate-y-1/2 absolute top-1/2 left-3 h-4 w-4 text-muted-foreground" />
+            <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <SearchInput
               placeholder={searchPlaceholder.value}
               onChange={(e) => handleSearch(e.target.value)}
@@ -404,15 +404,19 @@ export const DiscussionsAdminPageContent: FC = () => {
                     className="cursor-pointer whitespace-nowrap border-neutral-100 border-b hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <td
-                        key={cell.id}
-                        className="whitespace-nowrap px-4 py-3"
-                        onClick={() => setDiscussionId(String(row.original.id))}
-                      >
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
+                      <td key={cell.id} className="whitespace-nowrap px-4 py-3">
+                        <button
+                          type="button"
+                          className="w-full cursor-pointer text-left"
+                          onClick={() =>
+                            setDiscussionId(String(row.original.id))
+                          }
+                        >
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </button>
                       </td>
                     ))}
                   </tr>

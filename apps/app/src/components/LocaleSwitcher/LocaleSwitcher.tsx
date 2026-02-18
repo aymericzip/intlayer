@@ -1,7 +1,7 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import { getHTMLTextDir, getLocaleName } from '@intlayer/core';
+import { getHTMLTextDir, getLocaleName } from '@intlayer/core/localization';
 import {
   Container,
   DropDown,

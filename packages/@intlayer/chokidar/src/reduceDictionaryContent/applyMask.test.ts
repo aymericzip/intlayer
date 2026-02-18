@@ -1,4 +1,4 @@
-import { getMaskContent } from '@intlayer/core';
+import { getMaskContent } from '@intlayer/core/plugins';
 import { describe, expect, it } from 'vitest';
 import { applyMask } from './applyMask';
 

@@ -2,11 +2,10 @@ import configuration from '@intlayer/config/built';
 import { DefaultValues } from '@intlayer/config/client';
 import {
   getCanonicalPath,
-  getLocaleFromStorage,
   getLocalizedPath,
   getRewriteRules,
-  setLocaleInStorage,
-} from '@intlayer/core';
+} from '@intlayer/core/localization';
+import { getLocaleFromStorage, setLocaleInStorage } from '@intlayer/core/utils';
 import type { Locale } from '@intlayer/types';
 import {
   type NextFetchEvent,
@@ -394,12 +393,7 @@ const handleExistingPathLocale = (
 
   // Only handle redirect if we are strictly managing default locale prefixing
   if (!prefixDefault && pathLocale === defaultLocale) {
-    return handleDefaultLocaleRedirect(
-      request,
-      pathLocale,
-      pathname,
-      canonicalPath
-    );
+    return handleDefaultLocaleRedirect(request, pathLocale, pathname);
   }
 
   const search = request.nextUrl.search;
@@ -447,7 +441,6 @@ const handleCookieLocaleMismatch = (
 const handleDefaultLocaleRedirect = (
   request: NextRequest,
   pathLocale: Locale,
-  pathname: string, // Current URL path (e.g. /en/about)
   canonicalPath: string // Internal path (e.g. /about)
 ): NextResponse => {
   if (!prefixDefault && pathLocale === defaultLocale) {

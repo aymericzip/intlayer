@@ -1,3 +1,5 @@
+export * from '../transpiler/markdown';
+
 export * from './compiler';
 export * from './constants';
 export * from './parser';

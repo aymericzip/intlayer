@@ -1,18 +1,17 @@
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { colorizePath, x } from '@intlayer/config';
-import {
-  deepTransformNode,
-  type FileContent,
-  type FileContentConstructor,
-  type HTMLContent,
-  type HTMLContentConstructor,
-  type InsertionContent,
-  type InsertionContentConstructor,
-  type MarkdownContent,
-  type MarkdownContentConstructor,
-  type Plugins,
-} from '@intlayer/core';
+import { deepTransformNode, type Plugins } from '@intlayer/core/interpreter';
+import type {
+  FileContent,
+  FileContentConstructor,
+  HTMLContent,
+  HTMLContentConstructor,
+  InsertionContent,
+  InsertionContentConstructor,
+  MarkdownContent,
+  MarkdownContentConstructor,
+} from '@intlayer/core/transpiler';
 import { type Dictionary, NodeType } from '@intlayer/types';
 
 /**

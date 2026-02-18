@@ -1,7 +1,7 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { colorizePath, getConfiguration, x } from '@intlayer/config';
-import { orderDictionaries } from '@intlayer/core';
+import { orderDictionaries } from '@intlayer/core/dictionaryManipulator';
 import type { Dictionary } from '@intlayer/types';
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { formatDistantDictionaries } from '../loadDictionaries';

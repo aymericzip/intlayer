@@ -1,5 +1,5 @@
 import { effect, type Injector, type Signal, signal } from '@angular/core';
-import { getContentNodeByKeyPath } from '@intlayer/core';
+import { getContentNodeByKeyPath } from '@intlayer/core/dictionaryManipulator';
 import { MessageKey } from '@intlayer/editor';
 import type {
   ContentNode,

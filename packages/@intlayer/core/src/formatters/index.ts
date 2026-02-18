@@ -1,3 +1,4 @@
+export * from '../utils/intl';
 export * from './compact';
 export * from './currency';
 export * from './date';

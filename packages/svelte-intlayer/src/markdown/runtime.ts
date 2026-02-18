@@ -1,4 +1,4 @@
-import type { HTMLTag, MarkdownRuntime } from '@intlayer/core';
+import type { HTMLTag, MarkdownRuntime } from '@intlayer/core/markdown';
 
 /**
  * Svelte-specific runtime for the markdown processor.
@@ -71,7 +71,7 @@ export const svelteHtmlRuntime: MarkdownRuntime = {
     return `<${tagName}${attributes}>${childrenStr}</${tagName}>`;
   },
 
-  cloneElement: (element: unknown, props: Record<string, any>): string => {
+  cloneElement: (element: unknown, _props: Record<string, any>): string => {
     // Basic implementation: if it's an HTML string, we can't easily merge props
     // without re-parsing. For now, just return as is or wrap if needed.
     return String(element);

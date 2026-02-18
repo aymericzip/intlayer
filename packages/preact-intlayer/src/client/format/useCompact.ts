@@ -1,6 +1,6 @@
 'use client';
 
-import { compact } from '@intlayer/core';
+import { compact } from '@intlayer/core/formatters';
 import { useCallback, useContext } from 'preact/hooks';
 import { IntlayerClientContext } from '../IntlayerProvider';
 

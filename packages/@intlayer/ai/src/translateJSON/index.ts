@@ -1,5 +1,5 @@
 import { readAsset } from 'utils:asset';
-import { getLocaleName } from '@intlayer/core';
+import { getLocaleName } from '@intlayer/core/localization';
 import { type Locale, Locales } from '@intlayer/types';
 import { decode, encode } from '@toon-format/toon';
 import { generateText, Output } from 'ai';

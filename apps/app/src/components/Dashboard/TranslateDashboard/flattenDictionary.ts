@@ -1,4 +1,4 @@
-import { getNodeType } from '@intlayer/core';
+import { getNodeType } from '@intlayer/core/dictionaryManipulator';
 import {
   type ContentNode,
   type Dictionary,

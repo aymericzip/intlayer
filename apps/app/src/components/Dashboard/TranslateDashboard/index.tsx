@@ -3,8 +3,8 @@
 import {
   getContentNodeByKeyPath,
   getEmptyNode,
-  getLocaleName,
-} from '@intlayer/core';
+} from '@intlayer/core/dictionaryManipulator';
+import { getLocaleName } from '@intlayer/core/localization';
 import {
   Button,
   KeyboardShortcut,

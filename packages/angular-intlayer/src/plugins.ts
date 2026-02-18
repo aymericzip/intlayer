@@ -1,13 +1,14 @@
+import type {
+  DeepTransformContent as DeepTransformContentCore,
+  IInterpreterPluginState as IInterpreterPluginStateCore,
+  Plugins,
+} from '@intlayer/core/interpreter';
 import {
   compile,
-  type DeepTransformContent as DeepTransformContentCore,
   getMarkdownMetadata,
-  type HTMLContent,
-  type IInterpreterPluginState as IInterpreterPluginStateCore,
-  type InsertionContent,
   type MarkdownContent,
-  type Plugins,
-} from '@intlayer/core';
+} from '@intlayer/core/markdown';
+import type { HTMLContent, InsertionContent } from '@intlayer/core/transpiler';
 import {
   type DeclaredLocales,
   type KeyPath,

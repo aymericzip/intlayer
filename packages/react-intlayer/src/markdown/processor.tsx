@@ -13,7 +13,7 @@ import {
   type MarkdownRuntime,
   type RenderRuleHook,
   RuleType,
-} from '@intlayer/core';
+} from '@intlayer/core/markdown';
 import {
   cloneElement,
   createElement,

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { NodeProps } from '@intlayer/core';
+import type { NodeProps } from '@intlayer/core/interpreter';
 import type { HTMLAttributes } from 'vue';
 import ContentSelectorWrapper from './ContentSelectorWrapper.vue';
 import EditedContentRenderer from './EditedContentRenderer.vue';

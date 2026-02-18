@@ -1,4 +1,4 @@
-import { relativeTime } from '@intlayer/core';
+import { relativeTime } from '@intlayer/core/formatters';
 import type { LocalesValues } from '@intlayer/types';
 import { IntlayerServerContext } from '../IntlayerServerProvider';
 import { getServerContext } from '../serverContext';

@@ -1,6 +1,7 @@
 'use client';
 
-import { getHTML, HTML_TAGS } from '@intlayer/core';
+import { getHTML } from '@intlayer/core/interpreter';
+import { HTML_TAGS } from '@intlayer/core/transpiler';
 import { createElement, type FC, Fragment, type JSX } from 'react';
 import type { HTMLComponents } from './HTMLComponentTypes';
 import { useHTMLContext } from './HTMLProvider';

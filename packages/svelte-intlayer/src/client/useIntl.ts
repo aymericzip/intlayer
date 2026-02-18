@@ -1,4 +1,4 @@
-import { bindIntl } from '@intlayer/core';
+import { bindIntl } from '@intlayer/core/formatters';
 import type { LocalesValues } from '@intlayer/types';
 import { derived } from 'svelte/store';
 import { useLocale } from './useLocale';

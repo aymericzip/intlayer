@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import { getTranslation } from '@intlayer/core';
+import { getTranslation } from '@intlayer/core/interpreter';
 import type { StrictModeLocaleMap } from '@intlayer/types';
 import { useContext } from 'solid-js';
 import { IntlayerClientContext } from './IntlayerProvider';

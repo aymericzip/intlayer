@@ -2,7 +2,7 @@
  * Preact-specific MarkdownRuntime implementation.
  */
 
-import type { HTMLTag, MarkdownRuntime } from '@intlayer/core';
+import type { HTMLTag, MarkdownRuntime } from '@intlayer/core/markdown';
 import {
   type Component,
   cloneElement,

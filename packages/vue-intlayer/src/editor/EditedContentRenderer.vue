@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getContent } from '@intlayer/core';
+import { getContent } from '@intlayer/core/interpreter';
 import type { ContentNode, KeyPath, Locale } from '@intlayer/types';
 import { computed, useSlots } from 'vue';
 import { useEditedContentRenderer } from './useEditedContentRenderer';

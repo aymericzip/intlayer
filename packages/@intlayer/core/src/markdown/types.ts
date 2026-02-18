@@ -482,7 +482,7 @@ export type MarkdownOptions = {
  * Combined options including context and compiler options.
  * Used by framework adapters.
  */
-export type CompileOptions<T> = MarkdownOptions & {
+export type CompileOptions<T = any> = MarkdownOptions & {
   /** Component components */
   components?: ComponentOverrides<T>;
   /** Custom named codes to unicode mappings */

@@ -1,3 +1,5 @@
+import { getNodeType } from '@intlayer/core/dictionaryManipulator';
+import type { FileContent } from '@intlayer/core/file';
 import type {
   ConditionContent,
   EnumerationContent,
@@ -7,9 +9,7 @@ import type {
   MarkdownContent,
   NestedContent,
   TranslationContent,
-} from '@intlayer/core';
-import { getNodeType } from '@intlayer/core';
-import type { FileContent } from '@intlayer/core/file';
+} from '@intlayer/core/transpiler';
 import {
   type ContentNode,
   type Dictionary,
@@ -2557,70 +2557,6 @@ const processContentEntries = (
   }
 
   return contentWasChanged;
-};
-
-type ExistingInsertionContent =
-  | { kind: 'string'; value: string }
-  | { kind: 'translation'; map: Record<string, string> };
-
-const readExistingInsertion = (
-  contentObject: ObjectLiteralExpression,
-  propName: string
-): ExistingInsertionContent | undefined => {
-  const prop = contentObject.getProperty(propName);
-
-  if (!prop || !Node.isPropertyAssignment(prop)) return undefined;
-
-  const init = prop.getInitializer();
-
-  if (!init || !Node.isCallExpression(init)) return undefined;
-
-  const exp = init.getExpression();
-
-  if (!Node.isIdentifier(exp) || exp.getText() !== 'insert') return undefined;
-
-  const argument = init.getArguments()[0];
-
-  if (!argument) return undefined;
-
-  if (Node.isStringLiteral(argument)) {
-    return { kind: 'string', value: argument.getLiteralValue() };
-  }
-
-  if (Node.isCallExpression(argument)) {
-    const argumentExpression = argument.getExpression();
-
-    if (
-      Node.isIdentifier(argumentExpression) &&
-      argumentExpression.getText() === 't'
-    ) {
-      const translationArgument = argument.getArguments()[0];
-
-      if (
-        translationArgument &&
-        Node.isObjectLiteralExpression(translationArgument)
-      ) {
-        const map: Record<string, string> = {};
-
-        for (const propertyAssignment of translationArgument.getProperties()) {
-          if (!Node.isPropertyAssignment(propertyAssignment)) continue;
-
-          const nameNode = propertyAssignment.getNameNode();
-          const rawName = nameNode.getText();
-          const name = rawName.replace(/^['"]|['"]$/g, '');
-          const valueInitializer = propertyAssignment.getInitializer();
-
-          if (valueInitializer && Node.isStringLiteral(valueInitializer)) {
-            map[name] = valueInitializer.getLiteralValue();
-          }
-        }
-
-        return { kind: 'translation', map };
-      }
-    }
-  }
-
-  return;
 };
 
 type ExistingMarkdownContent =

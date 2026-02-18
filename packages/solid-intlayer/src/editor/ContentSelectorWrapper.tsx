@@ -1,4 +1,5 @@
-import { isSameKeyPath, type NodeProps } from '@intlayer/core';
+import type { NodeProps } from '@intlayer/core/interpreter';
+import { isSameKeyPath } from '@intlayer/core/utils';
 import { NodeType } from '@intlayer/types';
 import { type Component, createMemo, type JSX } from 'solid-js';
 import { useIntlayerContext } from '../client';

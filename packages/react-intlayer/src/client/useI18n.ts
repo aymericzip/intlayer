@@ -1,6 +1,7 @@
 'use client';
 
-import { getIntlayer, type ValidDotPathsFor } from '@intlayer/core';
+import { getIntlayer } from '@intlayer/core/interpreter';
+import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
 import type {
   DeclaredLocales,
   DictionaryKeys,

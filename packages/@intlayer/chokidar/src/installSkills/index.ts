@@ -1,7 +1,7 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { readAsset } from 'utils:asset';
-import { getMarkdownMetadata } from '@intlayer/core';
+import { getMarkdownMetadata } from '@intlayer/core/markdown';
 
 export const SKILLS_METADATA = {
   Usage: 'How to use Intlayer in your project',

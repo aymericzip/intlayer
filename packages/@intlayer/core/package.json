@@ -37,15 +37,45 @@
   ],
   "sideEffects": false,
   "exports": {
-    ".": {
-      "types": "./dist/types/index.d.ts",
-      "require": "./dist/cjs/index.cjs",
-      "import": "./dist/esm/index.mjs"
-    },
     "./markdown": {
       "types": "./dist/types/markdown/index.d.ts",
       "require": "./dist/cjs/markdown/index.cjs",
       "import": "./dist/esm/markdown/index.mjs"
+    },
+    "./utils": {
+      "types": "./dist/types/utils/index.d.ts",
+      "require": "./dist/cjs/utils/index.cjs",
+      "import": "./dist/esm/utils/index.mjs"
+    },
+    "./interpreter": {
+      "types": "./dist/types/interpreter/index.d.ts",
+      "require": "./dist/cjs/interpreter/index.cjs",
+      "import": "./dist/esm/interpreter/index.mjs"
+    },
+    "./formatters": {
+      "types": "./dist/types/formatters/index.d.ts",
+      "require": "./dist/cjs/formatters/index.cjs",
+      "import": "./dist/esm/formatters/index.mjs"
+    },
+    "./localization": {
+      "types": "./dist/types/localization/index.d.ts",
+      "require": "./dist/cjs/localization/index.cjs",
+      "import": "./dist/esm/localization/index.mjs"
+    },
+    "./dictionaryManipulator": {
+      "types": "./dist/types/dictionaryManipulator/index.d.ts",
+      "require": "./dist/cjs/dictionaryManipulator/index.cjs",
+      "import": "./dist/esm/dictionaryManipulator/index.mjs"
+    },
+    "./plugins": {
+      "types": "./dist/types/deepTransformPlugins/index.d.ts",
+      "require": "./dist/cjs/deepTransformPlugins/index.cjs",
+      "import": "./dist/esm/deepTransformPlugins/index.mjs"
+    },
+    "./transpiler": {
+      "types": "./dist/types/transpiler/index.d.ts",
+      "require": "./dist/cjs/transpiler/index.cjs",
+      "import": "./dist/esm/transpiler/index.mjs"
     },
     "./messageFormat": {
       "types": "./dist/types/messageFormat/index.d.ts",
@@ -79,6 +109,30 @@
       ],
       "markdown": [
         "./dist/types/markdown/index.d.ts"
+      ],
+      "utils": [
+        "./dist/types/utils/index.d.ts"
+      ],
+      "interpreter": [
+        "./dist/types/interpreter/index.d.ts"
+      ],
+      "formatters": [
+        "./dist/types/formatters/index.d.ts"
+      ],
+      "localization": [
+        "./dist/types/localization/index.d.ts"
+      ],
+      "dictionaryManipulator": [
+        "./dist/types/dictionaryManipulator/index.d.ts"
+      ],
+      "plugins": [
+        "./dist/types/deepTransformPlugins/index.d.ts"
+      ],
+      "transpiler": [
+        "./dist/types/transpiler/index.d.ts"
+      ],
+      "messageFormat": [
+        "./dist/types/messageFormat/index.d.ts"
       ],
       "file": [
         "./dist/types/transpiler/file/file.d.ts"
