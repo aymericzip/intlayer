@@ -42,7 +42,7 @@ const collapsibleTableVariants = cva(
 
 // Header variants
 const headerVariants = cva(
-  'flex cursor-pointer items-center justify-between p-3 transition-colors duration-200',
+  'flex w-full cursor-pointer items-center justify-between p-3 transition-colors duration-200',
   {
     variants: {
       variant: {
@@ -85,7 +85,7 @@ const tableVariants = cva('w-full border-collapse', {
 });
 
 export interface CollapsibleTableProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'title'>,
+  extends Omit<HTMLAttributes<HTMLElement>, 'title'>,
     VariantProps<typeof collapsibleTableVariants> {
   /** Table title displayed in the header */
   title: string;
@@ -135,88 +135,6 @@ export interface CollapsibleTableProps
 /**
  * CollapsibleTable component that displays tabular data in an expandable/collapsible format.
  * It provides a clickable header that controls the visibility of the table content with smooth animations.
- *
- * Features:
- * - Supports both controlled and uncontrolled modes
- * - Customizable styling with CVA variants (size, variant, spacing)
- * - Multiple className props for granular styling control
- * - Custom column rendering and ordering
- * - Accessible with proper ARIA attributes and keyboard navigation
- * - Responsive design with overflow handling
- * - Empty state customization
- * - Flexible data structure support
- *
- * @example
- * // Basic usage
- * const userData = [
- *   { name: 'John Doe', role: 'Developer', experience: '5 years' },
- *   { name: 'Jane Smith', role: 'Designer', experience: '3 years' },
- * ];
- *
- * <CollapsibleTable
- *   title="Team Members"
- *   data={userData}
- *   defaultExpanded={true}
- * />
- *
- * @example
- * // Advanced usage with custom styling and renderers
- * const projectData = [
- *   { name: 'Project A', status: 'active', priority: 'high' },
- *   { name: 'Project B', status: 'completed', priority: 'medium' },
- * ];
- *
- * const columnRenderers = {
- *   status: (value) => (
- *     <Badge variant={value === 'active' ? 'success' : 'default'}>
- *       {value}
- *     </Badge>
- *   ),
- *   priority: (value) => (
- *     <span className={`font-semibold ${
- *       value === 'high' ? 'text-red-600' :
- *       value === 'medium' ? 'text-yellow-600' : 'text-green-600'
- *     }`}>
- *       {value}
- *     </span>
- *   ),
- * };
- *
- * <CollapsibleTable
- *   title="Project Dashboard"
- *   data={projectData}
- *   variant="dark"
- *   size="lg"
- *   borderStyle="solid"
- *   columnRenderers={columnRenderers}
- *   headerClassName="bg-slate-800 text-white"
- *   tableClassName="bg-slate-900"
- *   onExpandToggle={(expanded) => console.log('Table expanded:', expanded)}
- * />
- *
- * @param title - The text or React node displayed in the table header
- * @param data - Array of objects representing table rows. Keys become column headers, values become cell content
- * @param className - Additional CSS classes for the main container element
- * @param headerClassName - Additional CSS classes for the clickable header section
- * @param contentClassName - Additional CSS classes for the table content wrapper
- * @param tableClassName - Additional CSS classes for the HTML table element
- * @param thClassName - Additional CSS classes for table header cells (th elements)
- * @param tdClassName - Additional CSS classes for table body cells (td elements)
- * @param trClassName - Additional CSS classes for table rows (tr elements)
- * @param defaultExpanded - Initial expansion state when component is uncontrolled (default: false)
- * @param isExpanded - Controls expansion state when component is controlled. When provided, component becomes controlled
- * @param onExpandToggle - Callback function called when expansion state changes. Receives new expanded state as parameter
- * @param toggleIcon - Custom React node to display as toggle icon. Defaults to ChevronRight from lucide-react
- * @param size - Size variant affecting container max-width: 'sm' | 'md' | 'lg' | 'xl' | 'full'
- * @param variant - Visual style variant: 'default' | 'dark' | 'ghost' | 'outlined'
- * @param spacing - Container margin spacing: 'none' | 'sm' | 'md' | 'lg' | 'auto'
- * @param borderStyle - Header border style when expanded: 'none' | 'dashed' | 'solid'
- * @param tableSpacing - Table cell spacing: 'none' | 'sm' | 'md' | 'lg'
- * @param tableLayout - CSS table-layout property: 'auto' | 'fixed'
- * @param columnRenderers - Object mapping column names to custom render functions. Function receives (value, rowData) and returns ReactNode
- * @param disabled - When true, disables click interaction and shows disabled visual state
- * @param aria-label - Accessible label for screen readers describing the table purpose
- * @param contentId - Custom ID for the table content area. Used for aria-controls. Auto-generated if not provided
  */
 export const CollapsibleTable: FC<CollapsibleTableProps> = ({
   title,
@@ -260,7 +178,9 @@ export const CollapsibleTable: FC<CollapsibleTableProps> = ({
       const allKeys = new Set<string>();
       data.forEach((item) => {
         if (item && typeof item === 'object') {
-          Object.keys(item).forEach((key) => allKeys.add(key));
+          Object.keys(item).forEach((key) => {
+            allKeys.add(key);
+          });
         }
       });
       return Array.from(allKeys);
@@ -284,7 +204,7 @@ export const CollapsibleTable: FC<CollapsibleTableProps> = ({
   };
 
   return (
-    <div
+    <section
       className={cn(
         collapsibleTableVariants({ size, variant, spacing }),
         className
@@ -292,8 +212,11 @@ export const CollapsibleTable: FC<CollapsibleTableProps> = ({
       aria-label={ariaLabel}
       {...props}
     >
-      <div
+      <button
+        id={`${generatedContentId}-header`}
+        type="button"
         onClick={toggleExpanded}
+        disabled={disabled}
         className={cn(
           headerVariants({
             variant,
@@ -302,11 +225,8 @@ export const CollapsibleTable: FC<CollapsibleTableProps> = ({
           headerClassName,
           disabled && 'cursor-not-allowed opacity-50'
         )}
-        role="button"
-        tabIndex={disabled ? -1 : 0}
         aria-expanded={isExpanded}
         aria-controls={generatedContentId}
-        aria-disabled={disabled}
       >
         <p className="font-semibold">{title}</p>
         <div
@@ -318,13 +238,12 @@ export const CollapsibleTable: FC<CollapsibleTableProps> = ({
         >
           {toggleIcon ?? <ChevronRight size={16} />}
         </div>
-      </div>
+      </button>
 
       <MaxHeightSmoother isHidden={!isExpanded}>
-        <div
+        <section
           id={generatedContentId}
           className={cn('overflow-x-auto p-3', contentClassName)}
-          role="region"
           aria-labelledby={`${generatedContentId}-header`}
         >
           <table
@@ -373,8 +292,8 @@ export const CollapsibleTable: FC<CollapsibleTableProps> = ({
               ))}
             </tbody>
           </table>
-        </div>
+        </section>
       </MaxHeightSmoother>
-    </div>
+    </section>
   );
 };

@@ -239,12 +239,12 @@ export const GridPatternVariations: StoryObj<typeof GridPattern> = {
 export const SpotlightBasic: StoryObj<typeof Spotlight> = {
   name: 'Spotlight - Basic',
   render: () => (
-    <div className="relative h-96 overflow-hidden rounded-lg border border-neutral-200 bg-slate-900">
+    <div className="relative h-96 overflow-hidden rounded-lg border border-neutral-200 bg-neutral-900">
       <Spotlight className="animate-pulse" />
       <Container className="relative z-10 flex h-full items-center justify-center">
         <div className="text-center text-white">
           <H3 className="text-white">Spotlight Effect</H3>
-          <p className="mt-2 text-slate-300">
+          <p className="mt-2 text-neutral-300">
             Dramatic lighting for hero sections
           </p>
         </div>
@@ -265,7 +265,7 @@ export const SpotlightVariations: StoryObj<typeof Spotlight> = {
   render: () => (
     <div className="space-y-6">
       {/* Blue Spotlight */}
-      <div className="relative h-48 overflow-hidden rounded-lg border border-neutral-200 bg-slate-900">
+      <div className="relative h-48 overflow-hidden rounded-lg border border-neutral-200 bg-neutral-900">
         <Spotlight fill="#3b82f6" opacity={0.3} className="animate-pulse" />
         <Container className="relative z-10 flex h-full items-center justify-center">
           <div className="text-center text-white">
@@ -278,7 +278,7 @@ export const SpotlightVariations: StoryObj<typeof Spotlight> = {
       </div>
 
       {/* Purple Spotlight */}
-      <div className="relative h-48 overflow-hidden rounded-lg border border-neutral-200 bg-slate-900">
+      <div className="relative h-48 overflow-hidden rounded-lg border border-neutral-200 bg-neutral-900">
         <Spotlight
           fill="rgb(236, 72, 153)"
           opacity={0.25}
@@ -295,7 +295,7 @@ export const SpotlightVariations: StoryObj<typeof Spotlight> = {
       </div>
 
       {/* Multiple Spotlights */}
-      <div className="relative h-48 overflow-hidden rounded-lg border border-neutral-200 bg-slate-900">
+      <div className="relative h-48 overflow-hidden rounded-lg border border-neutral-200 bg-neutral-900">
         <Spotlight
           fill="#3b82f6"
           opacity={0.15}
@@ -313,7 +313,7 @@ export const SpotlightVariations: StoryObj<typeof Spotlight> = {
         <Container className="relative z-10 flex h-full items-center justify-center">
           <div className="text-center text-white">
             <H3 className="text-lg text-white">Multiple Spotlights</H3>
-            <p className="text-slate-300 text-sm">Layered lighting effects</p>
+            <p className="text-neutral-300 text-sm">Layered lighting effects</p>
           </div>
         </Container>
       </div>
@@ -337,7 +337,7 @@ export const CombinedPatterns: StoryObj = {
   render: () => (
     <div className="space-y-8">
       {/* Hero Section Example */}
-      <div className="relative h-96 overflow-hidden rounded-lg border border-neutral-200 bg-linear-to-br from-slate-900 via-purple-900 to-slate-900">
+      <div className="relative h-96 overflow-hidden rounded-lg border border-neutral-200 bg-linear-to-br from-neutral-900 via-purple-900 to-neutral-900">
         <GridPattern
           width={50}
           height={50}
@@ -424,7 +424,7 @@ export const PatternPlayground: StoryObj = {
         <h4 className="mb-4 font-semibold text-lg">Light Theme Patterns</h4>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           <div className="relative h-32 overflow-hidden rounded-lg border bg-white">
-            <DotPattern className="fill-slate-400/20" />
+            <DotPattern className="fill-neutral-400/20" />
             <div className="relative z-10 flex h-full items-center justify-center">
               <span className="font-medium text-sm">Subtle Dots</span>
             </div>
@@ -434,14 +434,14 @@ export const PatternPlayground: StoryObj = {
             <GridPattern
               width={25}
               height={25}
-              className="stroke-slate-300/30"
+              className="stroke-neutral-300/30"
             />
             <div className="relative z-10 flex h-full items-center justify-center">
               <span className="font-medium text-sm">Clean Grid</span>
             </div>
           </div>
 
-          <div className="relative h-32 overflow-hidden rounded-lg border bg-slate-50">
+          <div className="relative h-32 overflow-hidden rounded-lg border bg-neutral-50">
             <GridPattern
               squares={[
                 [1, 1],
@@ -461,7 +461,7 @@ export const PatternPlayground: StoryObj = {
       <div>
         <h4 className="mb-4 font-semibold text-lg">Dark Theme Patterns</h4>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <div className="relative h-40 overflow-hidden rounded-lg bg-slate-900">
+          <div className="relative h-40 overflow-hidden rounded-lg bg-neutral-900">
             <DotPattern
               width={20}
               height={20}
@@ -475,7 +475,7 @@ export const PatternPlayground: StoryObj = {
             </div>
           </div>
 
-          <div className="relative h-40 overflow-hidden rounded-lg bg-slate-900">
+          <div className="relative h-40 overflow-hidden rounded-lg bg-neutral-900">
             <GridPattern strokeDasharray={3} className="stroke-violet-400/20" />
             <Spotlight
               fill="#8b5cf6"

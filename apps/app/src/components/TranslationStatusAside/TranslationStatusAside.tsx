@@ -131,7 +131,7 @@ export const TranslationStatusAside: FC = () => {
         title={
           <div className="flex items-center gap-2">
             <Globe className="h-5 w-5" />
-            <span>{content.translationStatus1.value}</span>
+            <span>{content.translationStatus1}</span>
           </div>
         }
       >
@@ -139,7 +139,7 @@ export const TranslationStatusAside: FC = () => {
           {hasConnectionError && (
             <div className="flex items-center gap-2 rounded-md bg-amber-50 p-3 text-sm text-warning">
               <AlertCircle className="size-4" />
-              {content.connectionLostReconnecting.value}
+              {content.connectionLostReconnecting}
             </div>
           )}
 
@@ -148,30 +148,29 @@ export const TranslationStatusAside: FC = () => {
             .map((job) => (
               <div
                 key={job.jobId}
-                className="flex flex-col gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-colors hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:hover:bg-slate-800/50"
+                className="flex flex-col gap-3 rounded-xl border border-neutral-200 bg-background p-4 shadow-sm transition-colors hover:bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:bg-neutral-800/50"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <div className="rounded-full bg-slate-100 p-2 dark:bg-slate-800">
+                    <div className="rounded-full bg-neutral-100 p-2 dark:bg-neutral-800">
                       {getStatusIcon(job.state)}
                     </div>
                     <div className="flex flex-col">
-                      <span className="font-medium text-slate-500 text-xs dark:text-slate-400">
-                        {content.jobId.value}
+                      <span className="font-medium text-neutral-500 text-xs dark:text-neutral-400">
+                        {content.jobId}
                       </span>
-                      <span className="font-mono text-slate-700 text-xs dark:text-slate-200">
+                      <span className="font-mono text-neutral-700 text-xs dark:text-neutral-200">
                         {job.jobId}
                       </span>
                     </div>
                   </div>
                   <div
                     className={cn(
-                      'rounded-full px-2 py-1 font-medium text-xs capitalize',
-                      job.state === 'completed'
-                        ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-                        : job.state === 'failed'
-                          ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
-                          : 'bg-neutral'
+                      'rounded-full bg-neutral px-2 py-1 font-medium text-xs capitalize',
+                      job.state === 'completed' &&
+                        'bg-success-100 text-success/30',
+                      job.state === 'failed' &&
+                        'bg-red-100 text-error dark:text-red-400'
                     )}
                   >
                     {job.state}
@@ -179,19 +178,16 @@ export const TranslationStatusAside: FC = () => {
                 </div>
 
                 <div className="space-y-1.5">
-                  <div className="flex justify-between text-slate-500 text-xs dark:text-slate-400">
+                  <div className="flex justify-between text-neutral-500 text-xs dark:text-neutral-400">
                     <span>Progress</span>
                     <span>{Math.round(job.progress)}%</span>
                   </div>
-                  <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
+                  <div className="h-1.5 w-full overflow-hidden rounded-full bg-neutral-100 dark:bg-neutral-800">
                     <div
-                      className={clsx(
-                        'h-full transition-all duration-500 ease-out',
-                        job.state === 'completed'
-                          ? 'bg-green-500'
-                          : job.state === 'failed'
-                            ? 'bg-error'
-                            : 'bg-blue-500'
+                      className={cn(
+                        'h-full bg-blue-500 transition-all duration-500 ease-out',
+                        job.state === 'completed' && 'bg-success',
+                        job.state === 'failed' && 'bg-error'
                       )}
                       style={{ width: `${Math.max(5, job.progress)}%` }}
                     />
@@ -201,14 +197,14 @@ export const TranslationStatusAside: FC = () => {
             ))}
           {Object.keys(jobs).length === 0 && !hasConnectionError && (
             <div className="flex flex-col items-center justify-center py-12 text-center">
-              <div className="mb-3 rounded-full bg-neutral p-4">
+              <div className="mb-3 rounded-full bg-neutral/20 p-4">
                 <Globe className="h-8 w-8 text-neutral" />
               </div>
               <p className="font-medium text-base text-text">
-                {content.noActiveTranslations.value}
+                {content.noActiveTranslations}
               </p>
               <p className="text-neutral text-sm">
-                {content.startATranslationToSee.value}
+                {content.startATranslationToSee}
               </p>
             </div>
           )}
