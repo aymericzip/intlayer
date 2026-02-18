@@ -134,7 +134,7 @@ Intlayer поддерживает несколько форматов конфи
 
 ### Управление компонентами
 
-- **[Преобразование компонентов](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/transform.md)** - Преобразование существующих компонентов для использования Intlayer
+- **[Преобразование компонентов](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/extract.md)** - Преобразование существующих компонентов для использования Intlayer
 
 ### Конфигурация
 

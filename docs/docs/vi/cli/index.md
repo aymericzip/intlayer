@@ -135,7 +135,7 @@ Intlayer chấp nhận nhiều định dạng tệp cấu hình:
 
 ### Quản lý Thành phần
 
-- **[Chuyển đổi Thành phần](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/transform.md)** - Chuyển đổi các thành phần hiện có để sử dụng Intlayer
+- **[Chuyển đổi Thành phần](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md)** - Chuyển đổi các thành phần hiện có để sử dụng Intlayer
 
 ### Cấu hình
 

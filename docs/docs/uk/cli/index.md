@@ -137,7 +137,7 @@ Intlayer підтримує кілька форматів конфігураці
 
 ### Керування компонентами
 
-- **[Трансформувати компоненти](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/transform.md)** - Трансформувати існуючі компоненти для використання Intlayer
+- **[Трансформувати компоненти](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md)** - Трансформувати існуючі компоненти для використання Intlayer
 
 ### Конфігурація
 

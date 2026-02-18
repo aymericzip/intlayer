@@ -49,7 +49,7 @@ Mặc dù trình biên dịch mang lại trải nghiệm "hoạt động ngay" t
 
 Để có so sánh kiến trúc sâu hơn, xem bài viết blog [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/compiler_vs_declarative_i18n.md).
 
-Như một giải pháp thay thế, để tự động hóa quy trình i18n của bạn trong khi vẫn giữ quyền kiểm soát hoàn toàn đối với nội dung của bạn, Intlayer cũng cung cấp lệnh tự động trích xuất `intlayer transform` (xem [tài liệu CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/transform.md)), hoặc lệnh `Intlayer: extract content to Dictionary` từ tiện ích mở rộng Intlayer VS Code (xem [tài liệu tiện ích mở rộng VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)).
+Như một giải pháp thay thế, để tự động hóa quy trình i18n của bạn trong khi vẫn giữ quyền kiểm soát hoàn toàn đối với nội dung của bạn, Intlayer cũng cung cấp lệnh tự động trích xuất `intlayer extract` (xem [tài liệu CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md)), hoặc lệnh `Intlayer: extract content to Dictionary` từ tiện ích mở rộng Intlayer VS Code (xem [tài liệu tiện ích mở rộng VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)).
 
 ## Cách sử dụng
 

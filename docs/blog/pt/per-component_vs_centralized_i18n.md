@@ -188,7 +188,7 @@ export const {
 }
 ```
 
-**Substituição:** Intlayer transforma seu componente durante o build da aplicação.
+**Substituição:** intlayer extracta seu componente durante o build da aplicação.
 
 **- Modo de Importação Estática:**
 

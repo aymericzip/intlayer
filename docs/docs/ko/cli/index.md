@@ -134,7 +134,7 @@ Intlayer는 여러 구성 파일 형식을 지원합니다:
 
 ### 컴포넌트 관리
 
-- **[컴포넌트 변환](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/transform.md)** - 기존 컴포넌트를 Intlayer를 사용하도록 변환
+- **[컴포넌트 변환](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)** - 기존 컴포넌트를 Intlayer를 사용하도록 변환
 
 ### 구성
 

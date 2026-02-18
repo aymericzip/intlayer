@@ -134,7 +134,7 @@ Mevcut yerellerin veya diğer parametrelerin nasıl yapılandırılacağını g�
 
 ### Bileşen Yönetimi
 
-- **[Bileşenleri Dönüştür](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/transform.md)** - Mevcut bileşenleri Intlayer kullanacak şekilde dönüştürün
+- **[Bileşenleri Dönüştür](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md)** - Mevcut bileşenleri Intlayer kullanacak şekilde dönüştürün
 
 ### Konfigürasyon
 

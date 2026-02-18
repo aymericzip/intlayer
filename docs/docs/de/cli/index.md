@@ -134,7 +134,7 @@ Um zu sehen, wie verfügbare Sprachen oder andere Parameter konfiguriert werden,
 
 ### Komponentenverwaltung
 
-- **[Komponenten transformieren](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/transform.md)** – Bestehende Komponenten transformieren, um Intlayer zu verwenden
+- **[Komponenten transformieren](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/extract.md)** – Bestehende Komponenten transformieren, um Intlayer zu verwenden
 
 ### Konfiguration
 

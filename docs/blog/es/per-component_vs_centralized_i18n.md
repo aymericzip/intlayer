@@ -188,7 +188,7 @@ export const {
 }
 ```
 
-**Reemplazo:** Intlayer transforma tu componente durante la compilación de la aplicación.
+**Reemplazo:** intlayer extracta tu componente durante la compilación de la aplicación.
 
 **- Modo de importación estática:**
 

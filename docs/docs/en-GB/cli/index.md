@@ -134,7 +134,7 @@ To see how to configure available locales, or other parameters, refer to the [co
 
 ### Component Management
 
-- **[Transform Components](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/transform.md)** - Transform existing components to use Intlayer
+- **[Transform Components](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/extract.md)** - Transform existing components to use Intlayer
 
 ### Configuration
 

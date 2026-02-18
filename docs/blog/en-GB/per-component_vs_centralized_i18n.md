@@ -190,7 +190,7 @@ export const {
 }
 ```
 
-**Replacement:** Intlayer transforms your component during the application build.
+**Replacement:** intlayer extracts your component during the application build.
 
 **- Static Import Mode:**
 

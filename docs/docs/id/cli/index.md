@@ -134,7 +134,7 @@ Untuk melihat cara mengonfigurasi locale yang tersedia, atau parameter lainnya, 
 
 ### Manajemen Komponen
 
-- **[Transformasi Komponen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/transform.md)** - Transformasi komponen yang ada untuk menggunakan Intlayer
+- **[Transformasi Komponen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md)** - Transformasi komponen yang ada untuk menggunakan Intlayer
 
 ### Konfigurasi
 

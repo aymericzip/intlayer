@@ -134,7 +134,7 @@ Intlayer 支持多种配置文件格式：
 
 ### 组件管理
 
-- **[转换组件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/transform.md)** - 转换现有组件以使用 Intlayer
+- **[转换组件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md)** - 转换现有组件以使用 Intlayer
 
 ### 配置
 

@@ -49,7 +49,7 @@ The **Intlayer Compiler** — потужний інструмент, створ�
 
 Для більш глибокого архітектурного порівняння див. публікацію в блозі [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/compiler_vs_declarative_i18n.md).
 
-Як альтернативу, щоб автоматизувати ваш процес i18n і зберегти повний контроль над контентом, Intlayer також надає команду автоматичної екстракції `intlayer transform` (див. [Документація CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/transform.md)), або команду `Intlayer: extract content to Dictionary` з розширення Intlayer для VS Code (див. [Документація розширення VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)).
+Як альтернативу, щоб автоматизувати ваш процес i18n і зберегти повний контроль над контентом, Intlayer також надає команду автоматичної екстракції `intlayer extract` (див. [Документація CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md)), або команду `Intlayer: extract content to Dictionary` з розширення Intlayer для VS Code (див. [Документація розширення VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/vs_code_extension.md)).
 
 ## Використання
 

@@ -134,7 +134,7 @@ Intlayer は複数の設定ファイル形式をサポートしています：
 
 ### コンポーネント管理
 
-- **[コンポーネントの変換](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/transform.md)** - 既存のコンポーネントをIntlayer対応に変換する
+- **[コンポーネントの変換](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)** - 既存のコンポーネントをIntlayer対応に変換する
 
 ### 設定
 

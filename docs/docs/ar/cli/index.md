@@ -134,7 +134,7 @@ bun add intlayer-cli -g
 
 ### إدارة المكونات
 
-- **[تحويل المكونات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/transform.md)** - تحويل المكونات الحالية لاستخدام Intlayer
+- **[تحويل المكونات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md)** - تحويل المكونات الحالية لاستخدام Intlayer
 
 ### التهيئة
 

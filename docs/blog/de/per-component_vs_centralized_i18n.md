@@ -191,7 +191,7 @@ export const {
 }
 ```
 
-**Ersetzung:** Intlayer transformiert Ihre Komponente während des Build-Prozesses der Anwendung.
+**Ersetzung:** intlayer extractiert Ihre Komponente während des Build-Prozesses der Anwendung.
 
 **- Statischer Import-Modus:**
 

@@ -134,7 +134,7 @@ Per vedere come configurare le localizzazioni disponibili o altri parametri, con
 
 ### Gestione Componenti
 
-- **[Trasforma Componenti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/transform.md)** - Trasforma i componenti esistenti per utilizzare Intlayer
+- **[Trasforma Componenti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/extract.md)** - Trasforma i componenti esistenti per utilizzare Intlayer
 
 ### Configurazione
 

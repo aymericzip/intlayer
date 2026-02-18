@@ -32,7 +32,7 @@ npm install intlayer-cli
 | `npx intlayer pull`      | Pulls dictionaries from a remote source (e.g., Intlayer CMS). |
 | `npx intlayer push`      | Pushes dictionaries to a remote source.                       |
 | `npx intlayer test`      | Runs tests on dictionaries.                                   |
-| `npx intlayer transform` | Transforms dictionaries between formats.                      |
+| `npx intlayer extract`   | Extract content from component to create dictionary.          |
 
 ## References
 
