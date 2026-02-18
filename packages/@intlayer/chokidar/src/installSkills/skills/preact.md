@@ -73,8 +73,6 @@ const MyComponent = () => {
 };
 ```
 
-[Preact package Documentation](https://intlayer.org/doc/packages/preact-intlayer.md)
-
 ## References
 
 - [Vite and Preact](https://intlayer.org/doc/environment/vite-and-preact.md)

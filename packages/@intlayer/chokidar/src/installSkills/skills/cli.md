@@ -40,13 +40,13 @@ npm install intlayer-cli
 
 - [Build](https://intlayer.org/doc/concept/cli/build.md)
 - [CI](https://intlayer.org/doc/concept/cli/ci.md)
+- [CLI Overview](https://intlayer.org/doc/concept/cli.md)
 - [Configuration](https://intlayer.org/doc/concept/cli/configuration.md)
 - [Debug](https://intlayer.org/doc/concept/cli/debug.md)
 - [Doc Review](https://intlayer.org/doc/concept/cli/doc-review.md)
 - [Doc Translate](https://intlayer.org/doc/concept/cli/doc-translate.md)
 - [Editor](https://intlayer.org/doc/concept/cli/editor.md)
 - [Fill](https://intlayer.org/doc/concept/cli/fill.md)
-- [Overview](https://intlayer.org/doc/concept/cli/overview.md)
 - [Init](https://intlayer.org/doc/concept/cli/init.md)
 - [List](https://intlayer.org/doc/concept/cli/list.md)
 - [List Projects](https://intlayer.org/doc/concept/cli/list-projects.md)
@@ -56,11 +56,11 @@ npm install intlayer-cli
 - [Push](https://intlayer.org/doc/concept/cli/push.md)
 - [SDK](https://intlayer.org/doc/concept/cli/sdk.md)
 - [Test](https://intlayer.org/doc/concept/cli/test.md)
-- [Transform](https://intlayer.org/doc/concept/cli/transform.md)
+- [Extract](https://intlayer.org/doc/concept/cli/extract.md)
 - [Version](https://intlayer.org/doc/concept/cli/version.md)
 - [Watch](https://intlayer.org/doc/concept/cli/watch.md)
 
 ### Packages
 
-- [Intlayer CLI](https://intlayer.org/doc/packages/intlayer-cli.md)
+- [Intlayer CLI](https://intlayer.org/doc/packages/intlayer-cli/exports.md)
 - [Intlayer CLI Exports](https://intlayer.org/doc/packages/intlayer-cli/exports.md)
