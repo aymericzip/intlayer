@@ -57,9 +57,9 @@
     },
     "./package.json": "./package.json"
   },
-  "main": "dist/cjs/build.cjs",
-  "module": "dist/esm/build.mjs",
-  "types": "dist/types/build.d.ts",
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
   "typesVersions": {
     "*": {
       "watcher": [
