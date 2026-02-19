@@ -178,7 +178,7 @@ export const loadDictionaries = async (
   );
 
   const loadPluginDictionariesPromise = pluginsWithLoadDictionaries.map(
-    async (plugin, index) => {
+    async (plugin) => {
       try {
         const res = await plugin.loadDictionaries?.({
           configuration,

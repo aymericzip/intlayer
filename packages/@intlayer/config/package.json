@@ -85,8 +85,8 @@
       "built": [
         "./dist/types/built.d.ts"
       ],
-      "configuration": [
-        "./dist/types/configuration.d.ts"
+      "node": [
+        "./dist/types/node.d.ts"
       ],
       "utils": [
         "./dist/types/utils/index.d.ts"

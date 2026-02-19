@@ -32,7 +32,8 @@ const config: IntlayerConfig = {
     ],
   },
   content: {
-    contentDir: ['./client/src', '../@intlayer/design-system/src'],
+    contentDir: ['./client/src', '../@intlayer/design-system/dist'],
+    codeDir: ['./client/src', '../@intlayer/design-system/dist'],
   },
 };
 

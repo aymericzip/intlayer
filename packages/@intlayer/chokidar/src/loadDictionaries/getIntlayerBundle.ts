@@ -72,7 +72,7 @@ export const getIntlayerBundle = async (configuration: IntlayerConfig) => {
     defu: configPackageRequire.resolve('defu'),
     esbuild: configPackageRequire.resolve('esbuild'),
     '@intlayer/config/built': configurationPath,
-    '@intlayer/config': localRequire.resolve('@intlayer/config'),
+    '@intlayer/config/utils': localRequire.resolve('@intlayer/config/utils'),
     '@intlayer/config/client': localRequire.resolve('@intlayer/config/client'),
     '@intlayer/core/file': localRequire.resolve('@intlayer/core/file'),
   };
