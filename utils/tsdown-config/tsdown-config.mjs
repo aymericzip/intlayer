@@ -54,7 +54,7 @@ export const commonOptions = {
   sourcemap: true,
   platform: 'browser',
   unbundle: true,
-  minify: false,
+  minify: true,
   fixedExtension: true,
   tsconfig: './tsconfig.json',
   // Externalize ALL bare imports (i.e., all packages)
