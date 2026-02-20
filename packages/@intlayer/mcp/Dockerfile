@@ -2,8 +2,6 @@
 
 FROM oven/bun:1.3.2-alpine AS builder
 
-RUN apk add --no-cache curl
-
 # Create app directory
 WORKDIR /workspace
 
@@ -83,8 +81,7 @@ EXPOSE 3000
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
   CMD \
-    curl -f http://localhost:3000/health || exit 1
-
+    wget -qO- http://localhost:3000/health > /dev/null || exit 1
 
 # Option 1: Use mcp-proxy (recommended - simpler)
 CMD ["bun", "run", "start:sse"]

@@ -61,7 +61,7 @@ RUN bun x intlayer build
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
   CMD \
-    curl -f http://localhost:6006/ || exit 1
+    wget -qO- http://localhost:6006/ > /dev/null || exit 1
 
 
 
@@ -76,7 +76,6 @@ RUN bun x storybook build --disable-telemetry
 FROM node:22-alpine
 
 RUN npm install -g bun@1.3.9
-RUN apk add --no-cache curl
 
 WORKDIR /www
 
@@ -88,7 +87,7 @@ EXPOSE 6006
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
   CMD \
-    curl -f http://localhost:6006/ || exit 1
+    wget -qO- http://localhost:6006/ > /dev/null || exit 1
 
 # -f foreground, -p port, -h doc root
 CMD ["bun", "x", "serve", ".", "-l", "6006"]

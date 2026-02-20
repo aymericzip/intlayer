@@ -9,8 +9,6 @@ FROM node:22-alpine AS builder
 
 RUN npm install -g bun@1.3.9
 
-RUN apk add --no-cache curl
-
 ARG INTLAYER_CLIENT_ID
 ARG INTLAYER_CLIENT_SECRET
 ARG NEXT_PUBLIC_DOMAIN
@@ -99,9 +97,8 @@ EXPOSE 3000
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
   CMD \
-    curl -f http://localhost:3000/ || exit 1 && \
-    curl -f http://localhost:3000/doc/environment/nextjs || exit 1
-
+    wget -qO- http://localhost:3000/ > /dev/null || exit 1 && \
+    wget -qO- http://localhost:3000/doc/environment/nextjs > /dev/null || exit 1
 
 # Start the website
 CMD ["bun", "run", "--bun", "next", "start"] 
