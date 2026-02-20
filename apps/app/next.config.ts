@@ -110,7 +110,9 @@ const secureHeaders = {
 const globalHeaders = [
   {
     key: 'Cache-Control',
-    value: 'public, max-age=0, must-revalidate',
+    // 1 day (86400s) fresh, s-maxage=86400, but allow background updates for 2 days (172800s)
+    value:
+      'public, max-age=86400, s-maxage=86400, stale-while-revalidate=172800',
   },
   { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
   { key: 'Cross-Origin-Embedder-Policy', value: 'same-origin' },
