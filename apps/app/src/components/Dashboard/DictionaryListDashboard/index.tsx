@@ -3,17 +3,11 @@
 import {
   Button,
   Checkbox,
-  Container,
   CopyToClipboard,
-  DictionaryCreationForm,
   Loader,
-  Modal,
   NumberItemsSelector,
   Pagination,
-  Popover,
-  SearchInput,
   ShowingResultsNumberItems,
-  Table,
   Tag,
 } from '@intlayer/design-system';
 import {
@@ -25,21 +19,16 @@ import { useFocusUnmergedDictionary } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types';
 import {
   type ColumnDef,
-  flexRender,
   getCoreRowModel,
   type RowSelectionState,
   useReactTable,
   type VisibilityState,
 } from '@tanstack/react-table';
-import { cn } from '@utils/cn';
 import {
   ChevronDown,
   ChevronsUpDown,
   ChevronUp,
-  Columns,
-  Filter,
   Pencil,
-  Plus,
   Trash2,
   X,
 } from 'lucide-react';
@@ -50,9 +39,44 @@ import { type FC, Suspense, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
 import { PagesRoutes } from '@/Routes';
-import { DeleteDictionaryModal } from './DeleteDictionaryModal';
-import { DictionaryDetailModal } from './DictionaryDetailModal';
-import { FiltersModal } from './FiltersModal';
+import { DictionaryModals } from './DictionaryModals';
+import { DictionaryTable } from './DictionaryTable';
+import { DictionaryToolbar } from './DictionaryToolbar';
+
+type SortHeaderProps = {
+  columnId: string;
+  label: string;
+  currentSortBy: string;
+  currentSortOrder: string;
+  onSort: (columnId: string) => void;
+};
+
+const SortHeader: FC<SortHeaderProps> = ({
+  columnId,
+  label,
+  currentSortBy,
+  currentSortOrder,
+  onSort,
+}) => {
+  const getSortIcon = () => {
+    if (currentSortBy !== columnId) return ChevronsUpDown;
+    return currentSortOrder === 'asc' ? ChevronUp : ChevronDown;
+  };
+
+  return (
+    <Button
+      variant="hoverable"
+      color="text"
+      size="sm"
+      className="flex items-center gap-1 font-medium"
+      onClick={() => onSort(columnId)}
+      Icon={getSortIcon()}
+      label={label}
+    >
+      {label}
+    </Button>
+  );
+};
 
 export const DictionaryListDashboardContent: FC = () => {
   const { setFocusedContent } = useFocusUnmergedDictionary();
@@ -102,17 +126,13 @@ export const DictionaryListDashboardContent: FC = () => {
   const { params, setParam, setParams } =
     useSearchParamState(searchParamsConfig);
 
-  const { register, watch, setValue } = useForm({
+  const { register, watch } = useForm({
     defaultValues: {
       search: params.search ?? '',
     },
   });
 
   const watchSearch = watch('search');
-
-  useEffect(() => {
-    setValue('search', params.search ?? '');
-  }, [params.search, setValue]);
 
   useEffect(() => {
     const search = params.search ?? '';
@@ -125,7 +145,7 @@ export const DictionaryListDashboardContent: FC = () => {
   }, [watchSearch, params.search, setParam]);
 
   const { createDictionaryButton } = useIntlayer('dictionary-form') as any;
-  const { data, isPending } = useGetDictionaries({
+  const { data, isPending, refetch } = useGetDictionaries({
     page: params.page,
     pageSize: params.pageSize,
     search: params.search || undefined,
@@ -155,28 +175,6 @@ export const DictionaryListDashboardContent: FC = () => {
       page: 1,
     });
   };
-
-  const getSortIcon = (columnId: string) => {
-    if (params.sortBy !== columnId) return ChevronsUpDown;
-    return params.sortOrder === 'asc' ? ChevronUp : ChevronDown;
-  };
-
-  const SortHeader: FC<{ columnId: string; label: string }> = ({
-    columnId,
-    label,
-  }) => (
-    <Button
-      variant="hoverable"
-      color="text"
-      size="sm"
-      className="flex items-center gap-1 font-medium"
-      onClick={() => handleSort(columnId)}
-      Icon={getSortIcon(columnId)}
-      label={label}
-    >
-      {label}
-    </Button>
-  );
 
   const columns: ColumnDef<Dictionary>[] = [
     {
@@ -219,7 +217,13 @@ export const DictionaryListDashboardContent: FC = () => {
     {
       accessorKey: 'key',
       header: () => (
-        <SortHeader columnId="key" label={tableHeaders.key.value} />
+        <SortHeader
+          columnId="key"
+          label={tableHeaders.key.value}
+          currentSortBy={params.sortBy}
+          currentSortOrder={params.sortOrder}
+          onSort={handleSort}
+        />
       ),
       cell: ({ row }) => (
         <CopyToClipboard text={row.original.key} size={9} className="font-mono">
@@ -230,7 +234,13 @@ export const DictionaryListDashboardContent: FC = () => {
     {
       accessorKey: 'title',
       header: () => (
-        <SortHeader columnId="title" label={tableHeaders.title.value} />
+        <SortHeader
+          columnId="title"
+          label={tableHeaders.title.value}
+          currentSortBy={params.sortBy}
+          currentSortOrder={params.sortOrder}
+          onSort={handleSort}
+        />
       ),
       cell: ({ row }) =>
         row.original.title ? (
@@ -309,7 +319,13 @@ export const DictionaryListDashboardContent: FC = () => {
     {
       accessorKey: 'createdAt',
       header: () => (
-        <SortHeader columnId="createdAt" label={tableHeaders.createdAt.value} />
+        <SortHeader
+          columnId="createdAt"
+          label={tableHeaders.createdAt.value}
+          currentSortBy={params.sortBy}
+          currentSortOrder={params.sortOrder}
+          onSort={handleSort}
+        />
       ),
       cell: ({ row }) => (
         <div className="text-neutral">
@@ -320,7 +336,13 @@ export const DictionaryListDashboardContent: FC = () => {
     {
       accessorKey: 'updatedAt',
       header: () => (
-        <SortHeader columnId="updatedAt" label={tableHeaders.updatedAt.value} />
+        <SortHeader
+          columnId="updatedAt"
+          label={tableHeaders.updatedAt.value}
+          currentSortBy={params.sortBy}
+          currentSortOrder={params.sortOrder}
+          onSort={handleSort}
+        />
       ),
       cell: ({ row }) => (
         <div className="text-neutral">
@@ -333,47 +355,33 @@ export const DictionaryListDashboardContent: FC = () => {
       header: tableHeaders.actions,
       cell: ({ row }) => (
         <div className="flex items-center gap-1">
-          <Popover identifier={`edit-${row.original.id}`}>
-            <Button
-              variant="hoverable"
-              color="text"
-              size="icon-sm"
-              onClick={(e: React.MouseEvent) => {
-                e.stopPropagation();
-                if (row.original.key) {
-                  setEditingDictionaryKey(row.original.key);
-                }
-              }}
-              Icon={Pencil}
-              label={editButton.label.value}
-            />
-            <Popover.Detail identifier={`edit-${row.original.id}`}>
-              <Container className="p-3">
-                <p>{editButton.popover}</p>
-              </Container>
-            </Popover.Detail>
-          </Popover>
-          <Popover identifier={`delete-${row.original.id}`}>
-            <Button
-              variant="hoverable"
-              color="error"
-              className="ml-auto text-text hover:text-error"
-              size="icon-sm"
-              onClick={(e: React.MouseEvent) => {
-                e.stopPropagation();
-                if (row.original.id) {
-                  setDictionaryToDelete(row.original.id);
-                }
-              }}
-              Icon={Trash2}
-              label={deleteButton.label.value}
-            />
-            <Popover.Detail identifier={`delete-${row.original.id}`}>
-              <Container className="p-3">
-                <p>{deleteButton.popover}</p>
-              </Container>
-            </Popover.Detail>
-          </Popover>
+          <Button
+            variant="hoverable"
+            color="text"
+            size="icon-sm"
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation();
+              if (row.original.key) {
+                setEditingDictionaryKey(row.original.key);
+              }
+            }}
+            Icon={Pencil}
+            label={editButton.label.value}
+          />
+          <Button
+            variant="hoverable"
+            color="error"
+            className="ml-auto text-text hover:text-error"
+            size="icon-sm"
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation();
+              if (row.original.id) {
+                setDictionaryToDelete(row.original.id);
+              }
+            }}
+            Icon={Trash2}
+            label={deleteButton.label.value}
+          />
         </div>
       ),
     },
@@ -445,97 +453,22 @@ export const DictionaryListDashboardContent: FC = () => {
 
   return (
     <div className="flex w-full flex-1 flex-col gap-6 py-6 text-sm">
-      <div className="flex items-center justify-between gap-4 px-10">
-        <div className="flex max-w-md flex-1 items-center gap-4">
-          <SearchInput
-            placeholder={searchPlaceholder.value}
-            {...register('search')}
-            className="flex-1"
-          />
-          <div className="flex items-center gap-0.5">
-            <Popover identifier="dictionary-filters">
-              <Button
-                variant="hoverable"
-                color="text"
-                size="icon-lg"
-                onClick={() => setIsFiltersModalOpen(true)}
-                Icon={Filter}
-                label={filterLabels.button.value}
-              />
-              <Popover.Detail identifier="dictionary-filters">
-                <Container className="p-3" roundedSize="xl">
-                  <p>{filterLabels.popover}</p>
-                </Container>
-              </Popover.Detail>
-            </Popover>
-            {hasAppliedFilters && (
-              <span className="absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full bg-text text-[10px] text-card">
-                {appliedFiltersCount}
-              </span>
-            )}
-
-            <Popover identifier="dictionary-columns">
-              <Button
-                variant="hoverable"
-                color="text"
-                size="icon-lg"
-                Icon={Columns}
-                label={selectColumns.value}
-              />
-              <Popover.Detail identifier="dictionary-columns">
-                <Container className="flex flex-col gap-2 p-3" roundedSize="xl">
-                  <p className="mb-2 font-bold">{visibleColumns}</p>
-                  {table
-                    .getAllLeafColumns()
-                    .filter((column) => column.getCanHide())
-                    .map((column) => (
-                      <div key={column.id} className="flex items-center gap-2">
-                        <Checkbox
-                          id={`col-${column.id}`}
-                          name={`col-${column.id}`}
-                          checked={column.getIsVisible()}
-                          onChange={(e) =>
-                            column.toggleVisibility(e.target.checked)
-                          }
-                          size="sm"
-                        />
-                        <label
-                          htmlFor={`col-${column.id}`}
-                          className="cursor-pointer"
-                        >
-                          {column.id.charAt(0).toUpperCase() +
-                            column.id.slice(1)}
-                        </label>
-                      </div>
-                    ))}
-                </Container>
-              </Popover.Detail>
-            </Popover>
-          </div>
-        </div>
-        <div className="flex items-center gap-2">
-          {selectedRows.length > 0 && (
-            <Button
-              color="error"
-              variant="outline"
-              onClick={handleBulkDelete}
-              Icon={Trash2}
-              label={deleteSelectedButton.label.value}
-            >
-              {deleteSelectedButton.text} ({selectedRows.length})
-            </Button>
-          )}
-          <Button
-            label={createDictionaryButton.ariaLabel.value}
-            Icon={Plus}
-            variant="default"
-            color="text"
-            onClick={() => setIsCreationModalOpen(true)}
-          >
-            {createDictionaryButton.text}
-          </Button>
-        </div>
-      </div>
+      <DictionaryToolbar
+        register={register}
+        searchPlaceholder={searchPlaceholder}
+        setIsFiltersModalOpen={setIsFiltersModalOpen}
+        filterLabels={filterLabels}
+        hasAppliedFilters={hasAppliedFilters}
+        appliedFiltersCount={appliedFiltersCount}
+        selectColumns={selectColumns}
+        visibleColumns={visibleColumns}
+        table={table}
+        selectedRows={selectedRows}
+        handleBulkDelete={handleBulkDelete}
+        deleteSelectedButton={deleteSelectedButton}
+        createDictionaryButton={createDictionaryButton}
+        setIsCreationModalOpen={setIsCreationModalOpen}
+      />
 
       {hasAppliedFilters && (
         <div className="flex flex-wrap items-center gap-2">
@@ -580,130 +513,29 @@ export const DictionaryListDashboardContent: FC = () => {
         </div>
       )}
 
-      <div className="flex w-full max-w-screen flex-1 flex-col overflow-x-auto overflow-y-hidden">
-        <Loader isLoading={isPending}>
-          {dictionaries.length === 0 ? (
-            <div className="flex min-h-60 items-center justify-center">
-              <span className="text-neutral">{noDictionaryFound}</span>
-            </div>
-          ) : (
-            <Table className="w-full border-separate border-spacing-0 px-10">
-              <thead>
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <tr
-                    key={headerGroup.id}
-                    className="border-neutral-200 border-b dark:border-neutral-700"
-                  >
-                    {headerGroup.headers.map((header) => (
-                      <th
-                        key={header.id}
-                        className="whitespace-nowrap px-4 py-3 text-left font-medium text-neutral-900 dark:text-neutral-100"
-                      >
-                        <div
-                          className={cn(
-                            'flex items-center',
-                            ['selection', 'actions'].includes(header.column.id)
-                              ? 'justify-center'
-                              : 'justify-start'
-                          )}
-                        >
-                          {header.isPlaceholder
-                            ? null
-                            : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
-                        </div>
-                      </th>
-                    ))}
-                  </tr>
-                ))}
-              </thead>
-              <tbody>
-                {table.getRowModel().rows.map((row) => {
-                  const visibleCells = row.getVisibleCells();
-                  return (
-                    <tr
-                      key={row.id}
-                      className="cursor-pointer whitespace-nowrap border-card border-b transition-colors hover:bg-card/30"
-                      onClick={() => {
-                        setFocusedContent({
-                          dictionaryKey: row.original.key,
-                          dictionaryLocalId: row.original.localId,
-                          keyPath: [],
-                        });
-                        router.push(
-                          `${PagesRoutes.Dashboard_Dictionaries}/${row.original.key}`
-                        );
-                      }}
-                    >
-                      {visibleCells.map((cell, cellIndex) => (
-                        <td
-                          key={cell.id}
-                          className={cn(
-                            'whitespace-nowrap px-4 py-3',
-                            cellIndex === 0 && 'first:rounded-l-2xl',
-                            cellIndex === visibleCells.length - 1 &&
-                              'last:rounded-r-2xl'
-                          )}
-                        >
-                          <div
-                            className={cn(
-                              'flex items-center',
-                              ['selection', 'actions'].includes(cell.column.id)
-                                ? 'justify-center'
-                                : 'justify-start'
-                            )}
-                          >
-                            {flexRender(
-                              cell.column.columnDef.cell,
-                              cell.getContext()
-                            )}
-                          </div>
-                        </td>
-                      ))}
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </Table>
-          )}
-        </Loader>
-      </div>
+      <DictionaryTable
+        table={table}
+        isPending={isPending}
+        dictionaries={dictionaries}
+        noDictionaryFound={noDictionaryFound}
+        setFocusedContent={setFocusedContent}
+        router={router}
+        PagesRoutes={PagesRoutes}
+      />
 
-      <Modal
-        isOpen={isCreationModalOpen}
-        onClose={() => setIsCreationModalOpen(false)}
-        padding="md"
-        hasCloseButton
-      >
-        <DictionaryCreationForm
-          onDictionaryCreated={() => {
-            setIsCreationModalOpen(false);
-            refetch();
-          }}
-        />
-      </Modal>
-
-      <DeleteDictionaryModal
-        isOpen={isDeleteModalOpen}
-        onClose={() => setDictionaryToDelete(null)}
-        onConfirm={onConfirmDelete}
+      <DictionaryModals
+        isCreationModalOpen={isCreationModalOpen}
+        setIsCreationModalOpen={setIsCreationModalOpen}
+        refetch={refetch}
+        isDeleteModalOpen={isDeleteModalOpen}
+        setDictionaryToDelete={setDictionaryToDelete}
+        onConfirmDelete={onConfirmDelete}
         isDeleting={isDeleting}
-        count={
-          Array.isArray(dictionaryToDelete) ? dictionaryToDelete.length : 1
-        }
-      />
-
-      <DictionaryDetailModal
-        isOpen={!!editingDictionaryKey}
-        onClose={() => setEditingDictionaryKey(null)}
-        dictionaryKey={editingDictionaryKey}
-      />
-
-      <FiltersModal
-        isOpen={isFiltersModalOpen}
-        onClose={() => setIsFiltersModalOpen(false)}
+        dictionaryToDelete={dictionaryToDelete}
+        editingDictionaryKey={editingDictionaryKey}
+        setEditingDictionaryKey={setEditingDictionaryKey}
+        isFiltersModalOpen={isFiltersModalOpen}
+        setIsFiltersModalOpen={setIsFiltersModalOpen}
         params={params}
         setParam={setParam}
         setParams={setParams}

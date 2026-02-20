@@ -3,13 +3,8 @@
 import { useSession } from '@intlayer/design-system/hooks';
 import { EditorProvider as EditorProviderComponent } from '@intlayer/editor-react';
 import type { IntlayerConfig } from '@intlayer/types';
-import {
-  type FC,
-  type PropsWithChildren,
-  type RefObject,
-  useEffect,
-  useState,
-} from 'react';
+import { useQuery } from '@tanstack/react-query';
+import type { FC, PropsWithChildren, RefObject } from 'react';
 import { ApplicationNotRunningView } from './ApplicationNotRunningView/ApplicationNotRunningView';
 import { CheckingApplicationStatusView } from './CheckingApplicationStatusView/CheckingApplicationStatusView';
 import { NoApplicationURLView } from './NoApplicationURLView/NoApplicationURLView';
@@ -31,43 +26,37 @@ export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
   const intlayerConfig =
     configuration ?? (session?.project?.configuration as IntlayerConfig);
   const applicationURL = intlayerConfig?.editor.applicationURL;
-  const [isApplicationRunning, setIsApplicationRunning] = useState<
-    boolean | null
-  >(null);
 
-  // Health check for the application URL
-  useEffect(() => {
-    if (!intlayerConfig) {
-      setIsApplicationRunning(false);
-      return;
-    }
-
-    const checkApplicationHealth = async () => {
+  // Health check for the application URL using react-query
+  const { data: isApplicationRunning, isPending } = useQuery({
+    queryKey: ['application-health', applicationURL],
+    queryFn: async () => {
+      if (!applicationURL) return false;
       try {
         const response = await fetch(applicationURL, {
           method: 'HEAD', // Use HEAD to avoid downloading the full page
         });
-
-        setIsApplicationRunning(response.ok);
+        return response.ok;
       } catch (error) {
         console.warn(
           'Application URL is not responding:',
           applicationURL,
           error
         );
-        setIsApplicationRunning(false);
+        return false;
       }
-    };
-
-    checkApplicationHealth();
-  }, [applicationURL, intlayerConfig]);
+    },
+    enabled: Boolean(intlayerConfig && applicationURL),
+    staleTime: 30 * 1000, // Cache for 30 seconds
+    retry: 1,
+  });
 
   if (!intlayerConfig) {
     return <NoApplicationURLView />;
   }
 
   // Show loading state while checking application health
-  if (isApplicationRunning === null) {
+  if (isPending) {
     return <CheckingApplicationStatusView />;
   }
 

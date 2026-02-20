@@ -14,9 +14,16 @@ import { getIntlayer } from 'intlayer';
 import { ArrowRight, Search } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useIntlayer, useLocale } from 'next-intlayer';
-import { type FC, useEffect, useRef, useState } from 'react';
+import {
+  type FC,
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
-// Convert the documentation into an array of objects for Fuse.js
 // Fuse.js options
 const fuseOptions: IFuseOptions<DocMetadata> = {
   keys: [
@@ -102,35 +109,16 @@ const SearchResultItem: FC<{
   );
 };
 
-export const SearchView: FC<{
+const SearchViewContent: FC<{
   onClickLink?: () => void;
   isOpen?: boolean;
 }> = ({ onClickLink = () => {}, isOpen = false }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
-  const searchQueryParam = useSearchParams().get('search');
-  const [results, setResults] = useState<DocMetadata[]>([]);
+  const searchParams = useSearchParams();
+  const searchQueryParam = searchParams.get('search');
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
-  const { search, setSearch } = useSearch({
-    defaultValue: searchQueryParam,
-    onClear: () => {
-      setResults([]);
-      setSelectedIndex(-1);
-    },
-    onSearch: (searchQuery: string) => {
-      const fuseSearchResults = fuse
-        .search(searchQuery)
-        .map((result) => result.item);
-
-      setResults(fuseSearchResults);
-      setSelectedIndex(-1);
-    },
-  });
-  const { data: searchDocData, isFetching } = useSearchDoc({
-    input: search,
-  });
-
-  const { noContentText, searchInput } = useIntlayer('doc-search-view');
+  const [frontendResults, setFrontendResults] = useState<DocMetadata[]>([]);
 
   const { locale } = useLocale();
   const docMetadata = getIntlayer('doc-metadata', locale) as DocMetadata[];
@@ -140,42 +128,63 @@ export const SearchView: FC<{
     locale
   ) as DocMetadata[];
 
-  const filesData = [
-    ...docMetadata,
-    ...blogMetadata,
-    ...frequentQuestionMetadata,
-  ].filter(isValidDoc);
+  const filesData = useMemo(
+    () =>
+      [...docMetadata, ...blogMetadata, ...frequentQuestionMetadata].filter(
+        isValidDoc
+      ),
+    [docMetadata, blogMetadata, frequentQuestionMetadata]
+  );
 
   // Create a new Fuse instance with the options and documentation data
-  const fuse = new Fuse(filesData, fuseOptions);
+  const fuse = useMemo(() => new Fuse(filesData, fuseOptions), [filesData]);
 
-  // Handle backend search results: append to Fuse results, avoiding duplicates
-  useEffect(() => {
-    if (searchDocData?.data && search) {
-      const backendResults: DocMetadata[] = searchDocData.data
-        .map((docKey: string) => filesData.find((doc) => doc.docKey === docKey))
-        .filter((doc: DocMetadata | undefined): doc is DocMetadata =>
-          Boolean(doc)
-        );
+  const { search, setSearch } = useSearch({
+    defaultValue: searchQueryParam,
+    onClear: () => {
+      setFrontendResults([]);
+      setSelectedIndex(-1);
+    },
+    onSearch: (searchQuery: string) => {
+      if (!fuse) return;
 
       const fuseSearchResults = fuse
-        .search(search)
+        .search(searchQuery)
         .map((result) => result.item);
 
-      const combinedResults = [...fuseSearchResults];
-      const seenDocKeys = new Set(combinedResults.map((doc) => doc.docKey));
+      setFrontendResults(fuseSearchResults);
+      setSelectedIndex(-1);
+    },
+  });
+  const { data: searchDocData, isFetching } = useSearchDoc({
+    input: search,
+  });
 
-      backendResults.forEach((backendDoc) => {
-        if (!seenDocKeys.has(backendDoc.docKey)) {
-          combinedResults.push(backendDoc);
-        }
-      });
+  const { noContentText, searchInput } = useIntlayer('doc-search-view');
 
-      console.log({ combinedResults });
-
-      setResults(combinedResults);
+  // Handle backend search results: append to Fuse results, avoiding duplicates
+  const results = useMemo(() => {
+    if (!searchDocData?.data || !search) {
+      return frontendResults;
     }
-  }, [searchDocData, search]);
+
+    const backendResults: DocMetadata[] = searchDocData.data
+      .map((docKey: string) => filesData.find((doc) => doc.docKey === docKey))
+      .filter((doc: DocMetadata | undefined): doc is DocMetadata =>
+        Boolean(doc)
+      );
+
+    const combinedResults = [...frontendResults];
+    const seenDocKeys = new Set(combinedResults.map((doc) => doc.docKey));
+
+    backendResults.forEach((backendDoc) => {
+      if (!seenDocKeys.has(backendDoc.docKey)) {
+        combinedResults.push(backendDoc);
+      }
+    });
+
+    return combinedResults;
+  }, [searchDocData, search, frontendResults, filesData]);
 
   // Focus input when modal opens using setTimeout
   // This waits for the browser's paint cycle and the modal animation
@@ -191,6 +200,15 @@ export const SearchView: FC<{
       if (timeout) clearTimeout(timeout);
     };
   }, [isOpen]);
+
+  const handleNavigate = useCallback(
+    (doc: DocMetadata) => {
+      const href = doc.url.replace(process.env.NEXT_PUBLIC_URL ?? '', '');
+      router.push(href);
+      onClickLink();
+    },
+    [router, onClickLink]
+  );
 
   // Handle keyboard navigation
   useEffect(() => {
@@ -209,19 +227,14 @@ export const SearchView: FC<{
         e.preventDefault();
         const selectedDoc = results[selectedIndex];
         if (selectedDoc) {
-          const href = selectedDoc.url.replace(
-            process.env.NEXT_PUBLIC_URL ?? '',
-            ''
-          );
-          router.push(href);
-          onClickLink();
+          handleNavigate(selectedDoc);
         }
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [results, selectedIndex, router, onClickLink]);
+  }, [results, selectedIndex, handleNavigate]);
 
   const isNoResult = !isFetching && results.length === 0 && search.length > 0;
 
@@ -261,3 +274,14 @@ export const SearchView: FC<{
     </>
   );
 };
+
+const SearchViewWrapper: FC<{
+  onClickLink?: () => void;
+  isOpen?: boolean;
+}> = (props) => (
+  <Suspense fallback={<Loader isLoading />}>
+    <SearchViewContent {...props} />
+  </Suspense>
+);
+
+export { SearchViewWrapper as SearchView };

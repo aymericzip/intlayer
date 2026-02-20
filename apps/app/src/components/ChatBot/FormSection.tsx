@@ -2,7 +2,13 @@ import { Form, useForm } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import { ArrowUp, Eraser } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { type FC, type ReactNode, useCallback, useEffect, useRef } from 'react';
+import {
+  type FC,
+  type KeyboardEvent,
+  type ReactNode,
+  useEffect,
+  useRef,
+} from 'react';
 import {
   type FormSectionSchemaData,
   useFormSectionSchema,
@@ -29,20 +35,17 @@ export const FormSection: FC<FormSectionProps> = ({
   const { sendQuestionButton, clearButton, textArea } =
     useIntlayer('chat-form-section');
 
-  const handleSubmit = useCallback(
-    (data: FormSectionSchemaData) => {
-      if (!data.question) return;
+  const handleSubmit = (data: FormSectionSchemaData) => {
+    if (!data.question) return;
 
-      askNewQuestion(data.question);
-      form.reset({ question: '' });
-    },
-    [askNewQuestion, form.reset]
-  );
+    askNewQuestion(data.question);
+    form.reset({ question: '' });
+  };
 
-  const handleClear = useCallback(() => {
+  const handleClear = () => {
     clear();
     form.reset({ question: '' });
-  }, [clear, form.reset]);
+  };
 
   const hasClearButton = nbMessages >= 1;
 
@@ -71,10 +74,9 @@ export const FormSection: FC<FormSectionProps> = ({
         maxRows={10}
         placeholder={textArea.placeholder.value}
         aria-label={textArea.label.value}
-        autoFocus={isActive}
         onKeyDown={
           // Submit the form when the user presses the Enter key
-          (e) => {
+          (e: KeyboardEvent<HTMLTextAreaElement>) => {
             if (e.key === 'Enter' && !e.shiftKey) {
               e.preventDefault();
               handleSubmit(form.getValues());

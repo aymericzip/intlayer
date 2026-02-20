@@ -2,7 +2,7 @@
 
 import { AutoCompleteTextarea, Container } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer';
-import { type FC, useEffect, useState } from 'react';
+import { type FC, useState } from 'react';
 
 const getTextContent = (text: string, textProgress: number) => {
   // Pleat text of 3 characters
@@ -26,14 +26,12 @@ export const AutocompletionSection: FC<AutocompletionSectionProps> = ({
   const { input, suggestion, ariaLabel } = useIntlayer(
     'autocompletion-section'
   );
-  const [text, setText] = useState<string>('');
+  const [manualText, setManualText] = useState<string>('');
   const [isControlled, setIsControlled] = useState(false);
 
-  useEffect(() => {
-    if (!isControlled) {
-      setText(getTextContent(input.value, scrollProgress * 1.5));
-    }
-  }, [input.value, scrollProgress, isControlled]);
+  const text = isControlled
+    ? manualText
+    : getTextContent(input.value, scrollProgress * 1.5);
 
   return (
     <div className="w-full scale-90">
@@ -47,7 +45,7 @@ export const AutocompletionSection: FC<AutocompletionSectionProps> = ({
           value={text}
           aria-label={ariaLabel.value}
           onChange={(e) => {
-            setText(e.target.value);
+            setManualText(e.target.value);
           }}
           onKeyDown={() => {
             setIsControlled(true);

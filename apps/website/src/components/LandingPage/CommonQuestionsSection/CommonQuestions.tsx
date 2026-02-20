@@ -5,7 +5,7 @@ import { Container, MaxHeightSmoother } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
 import { ArrowRight } from 'lucide-react';
 import { type IntlayerNode, useIntlayer } from 'next-intlayer';
-import { type FC, useEffect, useState } from 'react';
+import { type FC, useMemo, useSyncExternalStore } from 'react';
 import { PagesRoutes } from '@/Routes';
 
 const QuestionItem: FC<{
@@ -14,20 +14,18 @@ const QuestionItem: FC<{
   callToAction: { label: IntlayerNode; url: IntlayerNode };
   numberOfColumns: number;
 }> = ({ question, answer, callToAction, numberOfColumns }) => {
-  const [minHeight, setMinHeight] = useState<number>(100);
-
-  useEffect(() => {
+  // Deterministic minHeight based on question length and column count
+  // This avoids random values and hydration mismatches
+  const minHeight = useMemo(() => {
+    const seed = question.value.length;
     if (numberOfColumns > 2) {
-      // Generate random minHeight only on the client after mount.
-      setMinHeight(Math.random() * 150 + 75);
-    } else if (numberOfColumns === 2) {
-      // Generate random minHeight only on the client after mount.
-      setMinHeight(Math.random() * 50 + 100);
-    } else {
-      // Generate random minHeight only on the client after mount.
-      setMinHeight(90);
+      return (seed % 150) + 75;
     }
-  }, [numberOfColumns]);
+    if (numberOfColumns === 2) {
+      return (seed % 50) + 100;
+    }
+    return 90;
+  }, [numberOfColumns, question.value]);
 
   return (
     <Container
@@ -102,25 +100,19 @@ const distributeItemsIntoColumns = <T,>(
 // Custom hook to determine the number of columns based on window width.
 // You can tweak the breakpoints as needed.
 const useResponsiveColumns = (): number => {
-  const [columns, setColumns] = useState(2);
-
-  useEffect(() => {
-    const updateColumns = () => {
+  return useSyncExternalStore(
+    (callback) => {
+      window.addEventListener('resize', callback);
+      return () => window.removeEventListener('resize', callback);
+    },
+    () => {
       const width = window.innerWidth;
-      if (width < 600) {
-        setColumns(1);
-      } else if (width < 1024) {
-        setColumns(2);
-      } else {
-        setColumns(3);
-      }
-    };
-    updateColumns();
-    window.addEventListener('resize', updateColumns, { passive: true });
-    return () => window.removeEventListener('resize', updateColumns);
-  }, []);
-
-  return columns;
+      if (width < 600) return 1;
+      if (width < 1024) return 2;
+      return 3;
+    },
+    () => 2
+  );
 };
 
 export const CommonQuestionsSection: FC = () => {

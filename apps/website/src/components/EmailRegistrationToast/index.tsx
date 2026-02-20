@@ -10,7 +10,7 @@ import {
 import { cn } from '@utils/cn';
 import { Mail, X } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { type FC, useEffect, useState } from 'react';
+import { type FC, useEffect, useReducer, useRef } from 'react';
 import { type EmailSchemaValue, useEmailSchema } from './useEmailSchema';
 
 const MIN_VISITS_TO_SHOW = 3;
@@ -24,6 +24,21 @@ interface VisitData {
   lastVisit: Date;
   hasRegistered: boolean;
   isClosed: boolean;
+}
+
+type ToastState = {
+  isReady: boolean;
+};
+
+type ToastAction = { type: 'SET_READY'; payload: boolean };
+
+function toastReducer(state: ToastState, action: ToastAction): ToastState {
+  switch (action.type) {
+    case 'SET_READY':
+      return { ...state, isReady: action.payload };
+    default:
+      return state;
+  }
 }
 
 // Check if enough time has passed since last visit
@@ -45,8 +60,9 @@ export const EmailRegistrationToast: FC = () => {
     'email-registration-toast-visit-data',
     null
   );
-  const [isVisible, setIsVisible] = useState(false);
-  const [shouldShow, setShouldShow] = useState(false);
+  const [state, dispatch] = useReducer(toastReducer, { isReady: false });
+  const initializedRef = useRef(false);
+
   const { isPending: isLoading, mutateAsync: subscribeToNewsletter } =
     useSubscribeToNewsletter();
   const { content, closeLabel, registerLabel, emailInput } = useIntlayer(
@@ -64,8 +80,20 @@ export const EmailRegistrationToast: FC = () => {
     user?.emailsList?.[NEWS_LETTER_KEY as keyof typeof user.emailsList] ??
     false;
 
+  // Derive shouldShow from current state
+  const shouldShow =
+    !isRegistered &&
+    !!visitData &&
+    visitData.visits >= MIN_VISITS_TO_SHOW &&
+    !visitData.isClosed;
+
+  const isVisible = shouldShow && state.isReady;
+
   // Initialize visit tracking and determine if toast should show
   useEffect(() => {
+    if (initializedRef.current) return;
+    initializedRef.current = true;
+
     if (!visitData) {
       // First visit - initialize data
       setVisitData({
@@ -74,44 +102,50 @@ export const EmailRegistrationToast: FC = () => {
         hasRegistered: false,
         isClosed: false,
       });
-      setShouldShow(false);
       return;
     }
 
+    let newData = { ...visitData };
+    let hasChanged = false;
+
     // Check if we should increment the visit counter
     if (hasEnoughTimePassedSinceLastVisit(visitData.lastVisit)) {
-      setVisitData((prev) => ({
-        ...(prev as VisitData),
-        visits: prev?.visits ?? 0 + 1,
+      newData = {
+        ...newData,
+        visits: (newData.visits ?? 0) + 1,
         lastVisit: new Date(),
-      }));
+      };
+      hasChanged = true;
     }
 
     if (shouldAutoUnClose(visitData.lastVisit)) {
-      setVisitData((prev) => ({
-        ...(prev as VisitData),
+      newData = {
+        ...newData,
         isClosed: false,
-      }));
+      };
+      hasChanged = true;
     }
 
-    // Determine if toast should be visible
-    const shouldShowToast =
-      !isRegistered && visitData.visits >= MIN_VISITS_TO_SHOW;
+    if (hasChanged) {
+      setVisitData(newData);
+    }
+  }, [visitData, setVisitData]);
 
-    setShouldShow(shouldShowToast);
-  }, [visitData, setVisitData, isRegistered]);
-
-  // Handle the 30-second delay before showing the toast
+  // Handle the 20-second delay before showing the toast
   useEffect(() => {
-    if (shouldShow) {
-      const timer = setTimeout(() => {
-        setIsVisible(true);
-      }, VISIBLE_DELAY_TIME);
+    let timer: ReturnType<typeof setTimeout>;
 
-      return () => clearTimeout(timer);
+    if (shouldShow) {
+      timer = setTimeout(() => {
+        dispatch({ type: 'SET_READY', payload: true });
+      }, VISIBLE_DELAY_TIME);
     } else {
-      setIsVisible(false);
+      dispatch({ type: 'SET_READY', payload: false });
     }
+
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
   }, [shouldShow]);
 
   // Handle close button click - reset all data
@@ -120,8 +154,6 @@ export const EmailRegistrationToast: FC = () => {
       ...(prev as VisitData),
       isClosed: true,
     }));
-    setIsVisible(false);
-    setShouldShow(false);
   };
 
   // Handle email registration
@@ -132,8 +164,6 @@ export const EmailRegistrationToast: FC = () => {
         emailList: NEWS_LETTER_KEY,
       });
       // After successful registration, hide the toast
-      setIsVisible(false);
-      setShouldShow(false);
       setVisitData((prev) => ({
         ...(prev as VisitData),
         hasRegistered: true,

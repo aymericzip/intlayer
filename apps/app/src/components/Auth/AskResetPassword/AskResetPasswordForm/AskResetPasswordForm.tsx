@@ -42,41 +42,29 @@ export const AskResetPasswordForm: FC<AskResetPasswordFormProps> = ({
     defaultValues: { email },
   });
   const { isSubmitting, isSubmitted, isValid } = form.formState;
+
+  // Derive isFrozen from form state instead of using setState in effect
+  const isFrozen = !isValid || isSubmitted;
   const [submissionState, setSubmissionState] = useState({
-    isFrozen: isValid,
     remainingTime: 0,
   });
 
   useEffect(() => {
-    // If form valid and form is not submitted, unfreeze the submission
-    if (isValid && !isSubmitted) {
-      setSubmissionState((prevState) => ({
-        ...prevState,
-        isFrozen: false,
-      }));
-    }
-  }, [isSubmitted, isValid]);
-
-  useEffect(() => {
     // If form valid and submission is frozen and there is remaining time, start the timer
-    if (
-      isValid &&
-      submissionState.isFrozen &&
-      submissionState.remainingTime > 0
-    ) {
+    if (isValid && isFrozen && submissionState.remainingTime > 0) {
       const interval = setInterval(() => {
         setSubmissionState((prevState) => {
           if (prevState.remainingTime <= 1) {
             clearInterval(interval); // Stop the timer when reaching 0
-            return { ...prevState, isFrozen: false, remainingTime: 0 };
+            return { remainingTime: 0 };
           }
-          return { ...prevState, remainingTime: prevState.remainingTime - 1 };
+          return { remainingTime: prevState.remainingTime - 1 };
         });
       }, 1000);
 
       return () => clearInterval(interval);
     }
-  }, [isValid, submissionState.isFrozen, submissionState.remainingTime]);
+  }, [isValid, isFrozen, submissionState.remainingTime]);
 
   const getSubmitButtonText = (): ReactNode => {
     if (submissionState.remainingTime > 0) {
@@ -113,7 +101,7 @@ export const AskResetPasswordForm: FC<AskResetPasswordFormProps> = ({
         type="submit"
         color="text"
         isLoading={isSubmitting}
-        disabled={!isValid || submissionState.isFrozen}
+        disabled={!isValid || isFrozen}
         variant={isSubmitted ? 'outline' : 'default'}
         label={sendRecoveryEmailButton.ariaLabel.value}
       >

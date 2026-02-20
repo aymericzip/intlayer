@@ -5,7 +5,7 @@ import { Form, useForm } from '@intlayer/design-system';
 import { useAuditTag, useUpdateTag } from '@intlayer/design-system/hooks';
 import { Save, WandSparkles, XCircle } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { type FC, useMemo, useState } from 'react';
+import { type FC, useState } from 'react';
 import { DeleteTagModal } from './DeleteTagModal';
 import { type TagFormData, useTagSchema } from './useTagFormSchema';
 
@@ -35,7 +35,7 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
     updateTag(
       { tagId: tag.id, tag: data },
       {
-        onSuccess: (response) => {
+        onSuccess: (response: { data: TagAPI }) => {
           if (response.data) {
             form.reset(response.data);
           }
@@ -49,7 +49,7 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
     auditTag(
       { tag: { ...tag, ...tagToAudit } },
       {
-        onSuccess: (response) => {
+        onSuccess: (response: { data: { fileContent: string } }) => {
           if (!response.data) return;
 
           try {
@@ -64,10 +64,14 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
     );
   };
 
-  const isEdited = useMemo(
-    () => tag && JSON.stringify(tag) !== JSON.stringify(form.getValues()),
-
-    [tag, form.getValues()]
+  // Derive isEdited from form values using watch to track changes
+  const formValues = form.watch();
+  const isEdited = Boolean(
+    tag &&
+      (formValues.key !== tag.key ||
+        formValues.name !== tag.name ||
+        formValues.description !== tag.description ||
+        formValues.instructions !== tag.instructions)
   );
 
   return (

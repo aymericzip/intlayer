@@ -1,11 +1,9 @@
 'use client';
 
 import {
-  Button,
   Container,
   Form,
   H3,
-  H4,
   Loader,
   useForm,
   useToast,
@@ -16,10 +14,12 @@ import {
   useRegisterSSO,
   useSession,
 } from '@intlayer/design-system/hooks';
-import { Trash2 } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { type FC, useEffect, useMemo, useState } from 'react';
+import { type FC, useEffect } from 'react';
 import { z } from 'zod/v4';
+import { CurrentProviderInfo } from './CurrentProviderInfo';
+import { OIDCConfigForm } from './OIDCConfigForm';
+import { SAMLConfigForm } from './SAMLConfigForm';
 
 // SSO Provider type from better-auth
 type SSOProvider = {
@@ -70,7 +70,7 @@ const defaultSSOValues: Partial<SSOFormData> = {
 export const SSOSettings: FC = () => {
   const { session } = useSession();
   const { organization, roles } = session ?? {};
-  const isOrganizationAdmin = roles?.includes('org_admin');
+  const isOrganizationAdmin = !!roles?.includes('org_admin');
   const { toast } = useToast();
 
   const SSOConfigSchema = useSSOConfigSchema();
@@ -84,9 +84,6 @@ export const SSOSettings: FC = () => {
   const { form, isSubmitting } = useForm(SSOConfigSchema, {
     defaultValues: defaultSSOValues,
   });
-
-  const [ssoEnabled, setSsoEnabled] = useState(false);
-  const [providerType, setProviderType] = useState<'saml' | 'oidc'>('oidc');
 
   const {
     title,
@@ -104,31 +101,21 @@ export const SSOSettings: FC = () => {
   } = useIntlayer('sso-settings');
 
   // Get existing SSO provider for this organization
-  const existingProvider = useMemo(() => {
-    if (!ssoProvidersData?.data || !organization?.id) return null;
-    return (ssoProvidersData.data as SSOProvider[]).find(
-      (provider) => provider.organizationId === organization.id
-    );
-  }, [ssoProvidersData?.data, organization?.id]);
+  const existingProvider = (ssoProvidersData?.data as SSOProvider[])?.find(
+    (provider) => provider.organizationId === organization?.id
+  );
 
-  // Subscribe to form changes for enabled and provider type
-  useEffect(() => {
-    const subscription = form.watch((values) => {
-      setSsoEnabled(Boolean(values.enabled));
-      if (values.providerType) {
-        setProviderType(values.providerType as 'saml' | 'oidc');
-      }
-    });
-    return () => subscription.unsubscribe();
-  }, [form]);
+  // Derive state from form values instead of using effects
+  const formValues = form.watch();
+  const ssoEnabled = Boolean(formValues.enabled);
+  const providerType = (formValues.providerType as 'saml' | 'oidc') || 'oidc';
 
-  // Set enabled to true if there's an existing provider
+  // Set enabled to true if there's an existing provider (only once on mount)
   useEffect(() => {
-    if (existingProvider) {
-      form.setValue('enabled', true);
-      setSsoEnabled(true);
+    if (existingProvider && !formValues.enabled) {
+      form.reset({ ...formValues, enabled: true });
     }
-  }, [existingProvider, form]);
+  }, [existingProvider?.id]); // Only depend on the provider ID, not the whole object
 
   // Handle form submission - register SSO provider with better-auth
   const onSubmitSuccess = async (data: SSOFormData) => {
@@ -143,6 +130,27 @@ export const SSOSettings: FC = () => {
 
     // Generate a unique provider ID for this organization
     const providerId = `${organization.id}-${data.providerType}`;
+
+    // Prepare registration data
+    const registrationData: any = {
+      providerId,
+      domain: data.domain.toLowerCase().trim(),
+      organizationId: organization.id,
+    };
+
+    if (data.providerType === 'oidc' && data.oidcConfig) {
+      registrationData.issuer = data.oidcConfig.issuer;
+      registrationData.oidcConfig = {
+        clientId: data.oidcConfig.clientId,
+        clientSecret: data.oidcConfig.clientSecret,
+      };
+    } else if (data.providerType === 'saml' && data.samlConfig) {
+      registrationData.issuer = data.samlConfig.issuer;
+      registrationData.samlConfig = {
+        entryPoint: data.samlConfig.entryPoint,
+        cert: data.samlConfig.cert,
+      };
+    }
 
     try {
       // If there's an existing provider, delete it first
@@ -159,26 +167,6 @@ export const SSOSettings: FC = () => {
       }
 
       // Register the new SSO provider
-      const registrationData: any = {
-        providerId,
-        domain: data.domain.toLowerCase().trim(),
-        organizationId: organization.id,
-      };
-
-      if (data.providerType === 'oidc' && data.oidcConfig) {
-        registrationData.issuer = data.oidcConfig.issuer;
-        registrationData.oidcConfig = {
-          clientId: data.oidcConfig.clientId,
-          clientSecret: data.oidcConfig.clientSecret,
-        };
-      } else if (data.providerType === 'saml' && data.samlConfig) {
-        registrationData.issuer = data.samlConfig.issuer;
-        registrationData.samlConfig = {
-          entryPoint: data.samlConfig.entryPoint,
-          cert: data.samlConfig.cert,
-        };
-      }
-
       registerSSO(registrationData, {
         onSuccess: () => {
           toast({
@@ -273,38 +261,14 @@ export const SSOSettings: FC = () => {
           <>
             {/* Show existing provider info */}
             {existingProvider && (
-              <Container
-                border
-                borderColor="text"
-                className="mt-4 bg-card p-4"
-                roundedSize="2xl"
-              >
-                <div className="flex items-center justify-between">
-                  <div>
-                    <H4 className="mb-1">Current SSO Provider</H4>
-                    <p className="text-neutral text-sm dark:text-neutral-dark">
-                      <strong>Type:</strong>{' '}
-                      {existingProviderType === 'saml' ? 'SAML 2.0' : 'OIDC'}
-                      <br />
-                      <strong>Domain:</strong> {existingProvider.domain}
-                      <br />
-                      <strong>Provider ID:</strong>{' '}
-                      {existingProvider.providerId}
-                    </p>
-                  </div>
-                  <Button
-                    variant="outline"
-                    color="error"
-                    Icon={Trash2}
-                    onClick={handleDeleteProvider}
-                    isLoading={isPendingDelete}
-                    disabled={!isOrganizationAdmin}
-                    label={removeSSOProvider.label.value}
-                  >
-                    {removeSSOProvider.text}
-                  </Button>
-                </div>
-              </Container>
+              <CurrentProviderInfo
+                existingProvider={existingProvider}
+                existingProviderType={existingProviderType}
+                isOrganizationAdmin={isOrganizationAdmin}
+                handleDeleteProvider={handleDeleteProvider}
+                isPendingDelete={isPendingDelete}
+                removeSSOProvider={removeSSOProvider}
+              />
             )}
 
             {/* Show registration form only if no existing provider */}
@@ -343,78 +307,18 @@ export const SSOSettings: FC = () => {
 
                 {/* SAML Configuration */}
                 {providerType === 'saml' && (
-                  <Container
-                    border
-                    borderColor="text"
-                    className="mt-6 p-4"
-                    roundedSize="2xl"
-                  >
-                    <H4 className="mb-4">{samlConfigContent.title}</H4>
-                    <div className="flex flex-col gap-4">
-                      <Form.Input
-                        name="samlConfig.issuer"
-                        label={samlConfigContent.idpEntityIdLabel}
-                        placeholder={
-                          samlConfigContent.idpEntityIdPlaceholder.value
-                        }
-                        disabled={!isOrganizationAdmin}
-                      />
-                      <Form.Input
-                        name="samlConfig.entryPoint"
-                        label={samlConfigContent.idpSSOUrlLabel}
-                        placeholder={
-                          samlConfigContent.idpSSOUrlPlaceholder.value
-                        }
-                        disabled={!isOrganizationAdmin}
-                      />
-                      <Form.AutoSizedTextArea
-                        name="samlConfig.cert"
-                        label={samlConfigContent.idpCertificateLabel}
-                        placeholder={
-                          samlConfigContent.idpCertificatePlaceholder.value
-                        }
-                        rows={10}
-                        disabled={!isOrganizationAdmin}
-                      />
-                    </div>
-                  </Container>
+                  <SAMLConfigForm
+                    samlConfigContent={samlConfigContent}
+                    isOrganizationAdmin={isOrganizationAdmin}
+                  />
                 )}
 
                 {/* OIDC Configuration */}
                 {providerType === 'oidc' && (
-                  <Container
-                    border
-                    borderColor="text"
-                    className="mt-6 p-4"
-                    roundedSize="2xl"
-                  >
-                    <H4 className="mb-4">{oidcConfigContent.title}</H4>
-                    <div className="flex flex-col gap-4">
-                      <Form.Input
-                        name="oidcConfig.issuer"
-                        label={oidcConfigContent.issuerLabel}
-                        placeholder={oidcConfigContent.issuerPlaceholder.value}
-                        disabled={!isOrganizationAdmin}
-                      />
-                      <Form.Input
-                        name="oidcConfig.clientId"
-                        label={oidcConfigContent.clientIdLabel}
-                        placeholder={
-                          oidcConfigContent.clientIdPlaceholder.value
-                        }
-                        disabled={!isOrganizationAdmin}
-                      />
-                      <Form.Input
-                        name="oidcConfig.clientSecret"
-                        label={oidcConfigContent.clientSecretLabel}
-                        placeholder={
-                          oidcConfigContent.clientSecretPlaceholder.value
-                        }
-                        type="password"
-                        disabled={!isOrganizationAdmin}
-                      />
-                    </div>
-                  </Container>
+                  <OIDCConfigForm
+                    oidcConfigContent={oidcConfigContent}
+                    isOrganizationAdmin={isOrganizationAdmin}
+                  />
                 )}
               </>
             )}

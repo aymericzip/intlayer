@@ -10,7 +10,7 @@ import {
 } from '@intlayer/design-system';
 import { useDevice, useSession } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m, useReducedMotion } from 'framer-motion';
 import {
   ArrowLeftToLine,
   Book,
@@ -167,6 +167,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
   const { isMobile } = useDevice();
   const { pathWithoutLocale } = useLocale();
   const { session } = useSession();
+  const shouldReduceMotion = useReducedMotion();
 
   const { organization, project, roles } = session ?? {};
   const isSuperAdmin =
@@ -314,15 +315,29 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
                   )}
                   <AnimatePresence initial={false}>
                     {!isCollapsed && (
-                      <motion.span
-                        initial={{ opacity: 0, width: 0 }}
-                        animate={{ opacity: 1, width: 'auto' }}
-                        exit={{ opacity: 0, width: 0 }}
-                        transition={{ duration: 0.2, ease: 'easeInOut' }}
+                      <m.span
+                        initial={
+                          shouldReduceMotion ? false : { opacity: 0, width: 0 }
+                        }
+                        animate={
+                          shouldReduceMotion
+                            ? false
+                            : { opacity: 1, width: 'auto' }
+                        }
+                        exit={
+                          shouldReduceMotion
+                            ? undefined
+                            : { opacity: 0, width: 0 }
+                        }
+                        transition={
+                          shouldReduceMotion
+                            ? undefined
+                            : { duration: 0.2, ease: 'easeInOut' }
+                        }
                         className="overflow-hidden truncate whitespace-nowrap"
                       >
                         {item.title}
-                      </motion.span>
+                      </m.span>
                     )}
                   </AnimatePresence>
                 </Link>

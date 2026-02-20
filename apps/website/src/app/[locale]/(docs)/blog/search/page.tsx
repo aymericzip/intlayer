@@ -1,10 +1,5 @@
 import { SearchView } from '@components/DocPage/Search/SearchView';
 import { Container, H1, Loader } from '@intlayer/design-system';
-import {
-  getBlogMetadataBySlug,
-  getDocMetadataBySlug,
-  getFrequentQuestionMetadataBySlug,
-} from '@intlayer/docs';
 import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
@@ -28,23 +23,11 @@ const BlogSearchPageContent: FC = () => {
 
 const BlogSearchPage: NextPageIntlayer = async ({ params }) => {
   const { locale } = await params;
-  const blogMetadata = await getBlogMetadataBySlug([], locale);
-  const docMetadata = await getDocMetadataBySlug([], locale);
-  const frequentQuestionMetadata = await getFrequentQuestionMetadataBySlug(
-    [],
-    locale
-  );
 
   return (
     <IntlayerServerProvider locale={locale}>
       <WebsiteHeader />
-      <BlogSearchPageContent
-        filesData={[
-          ...blogMetadata,
-          ...docMetadata,
-          ...frequentQuestionMetadata,
-        ]}
-      />
+      <BlogSearchPageContent />
     </IntlayerServerProvider>
   );
 };
