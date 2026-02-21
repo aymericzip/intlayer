@@ -62,6 +62,8 @@ export const getAuth = (dbClient: MongoClient): Auth => {
   const auth = betterAuth({
     appName: 'Intlayer',
 
+    baseURL: process.env.BACKEND_URL,
+
     database: mongodbAdapter(dbClient.db()),
 
     /**
