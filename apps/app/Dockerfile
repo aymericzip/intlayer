@@ -9,7 +9,7 @@ FROM node:22-alpine AS builder
 
 RUN npm install -g bun@1.3.9
 
-RUN apk add --no-cache wget
+# RUN apk add --no-cache wget
 
 ARG NEXT_PUBLIC_DOMAIN
 ARG NEXT_PUBLIC_URL
@@ -97,9 +97,9 @@ USER app
 # Expose the API port (defaults to 3000 via .env, can be overridden)
 EXPOSE 3000
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
-  CMD \
-    wget -qO- http://localhost:3000/ > /dev/null || exit 1
+# HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
+#   CMD \
+#     wget -qO- http://localhost:3000/ > /dev/null || exit 1
 
 # Start the app
 CMD ["bun", "run", "--bun", "next", "start"] 

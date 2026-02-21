@@ -7,7 +7,7 @@ FROM node:22-alpine AS builder
 
 RUN npm install -g bun@1.3.9
 
-RUN apk add --no-cache nodejs npm wget
+# RUN apk add --no-cache nodejs npm wget
 
 # Put the repo in /workspace
 WORKDIR /workspace
@@ -59,9 +59,9 @@ WORKDIR /workspace/packages/@intlayer/design-system
 # Build the intlayer dictionaries (optional if turbo already did what you need)
 RUN bun x intlayer build
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
-  CMD \
-    wget -qO- http://localhost:6006/ > /dev/null || exit 1
+# HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
+#   CMD \
+#     wget -qO- http://localhost:6006/ > /dev/null || exit 1
 
 
 
@@ -85,9 +85,9 @@ COPY --from=builder /workspace/packages/@intlayer/design-system/storybook-static
 
 EXPOSE 6006
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
-  CMD \
-    wget -qO- http://localhost:6006/ > /dev/null || exit 1
+# HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
+#   CMD \
+#     wget -qO- http://localhost:6006/ > /dev/null || exit 1
 
 # -f foreground, -p port, -h doc root
 CMD ["bun", "x", "serve", ".", "-l", "6006"]
