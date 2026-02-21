@@ -128,32 +128,35 @@ export const FiltersModal: FC<FiltersModalProps> = ({
             roundedSize="xl"
             className="flex flex-col gap-4"
           >
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 px-2 py-1">
               <Checkbox
                 id="location-remote"
                 name="location-remote"
+                size="sm"
                 checked={activeLocations.includes('remote')}
                 onChange={() => handleLocationToggle('remote')}
               />
               <label
                 htmlFor="location-remote"
-                className="cursor-pointer text-sm"
+                className="block w-full cursor-pointer text-sm"
               >
-                {locationOptions.remote.value}
+                {locationOptions.remote}
               </label>
             </div>
-            <div className="flex items-center gap-4">
+
+            <div className="flex items-center gap-4 px-2 py-1">
               <Checkbox
                 id="location-local"
                 name="location-local"
+                size="sm"
                 checked={activeLocations.includes('local')}
                 onChange={() => handleLocationToggle('local')}
               />
               <label
                 htmlFor="location-local"
-                className="cursor-pointer text-sm"
+                className="block w-full cursor-pointer text-sm"
               >
-                {locationOptions.local.value}
+                {locationOptions.local}
               </label>
             </div>
           </Container>
@@ -175,16 +178,20 @@ export const FiltersModal: FC<FiltersModalProps> = ({
               className="flex max-h-40 flex-col gap-4 overflow-y-auto"
             >
               {filteredTags.map((tag) => (
-                <div key={tag.key} className="flex items-center gap-4">
+                <div
+                  key={tag.key}
+                  className="flex items-center gap-4 px-2 py-1"
+                >
                   <Checkbox
                     id={`tag-${tag.key}`}
                     name={`tag-${tag.key}`}
+                    size="sm"
                     checked={activeTags.includes(tag.key)}
                     onChange={() => handleTagToggle(tag.key)}
                   />
                   <label
                     htmlFor={`tag-${tag.key}`}
-                    className="cursor-pointer text-sm"
+                    className="block w-full cursor-pointer text-sm"
                   >
                     {tag.name || tag.key}
                   </label>

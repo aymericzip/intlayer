@@ -246,6 +246,57 @@ export const DictionaryListDashboardContent: FC = () => {
         header: content.tableHeaders.actions,
         cell: ({ row }) => (
           <div className="flex items-center gap-1">
+            <PopoverStatic identifier={`delete-${row.original.id}`}>
+              <Button
+                variant="hoverable"
+                color="error"
+                className="ml-auto text-text hover:text-error"
+                size="icon-sm"
+                onClick={(e: React.MouseEvent) => {
+                  e.stopPropagation();
+
+                  if (row.original.id) {
+                    dashboard.state.setDictionaryToDelete(row.original.id);
+                  }
+                }}
+                Icon={Trash2}
+                label={content.deleteButton.label.value}
+              />
+              <PopoverStatic.Detail
+                xAlign="end"
+                identifier={`delete-${row.original.id}`}
+              >
+                <Container className="p-3">
+                  <p>{content.deleteButton.popover}</p>
+                </Container>
+              </PopoverStatic.Detail>
+            </PopoverStatic>
+
+            <PopoverStatic identifier={`edit-${row.original.id}`}>
+              <Button
+                variant="hoverable"
+                color="text"
+                size="icon-sm"
+                onClick={(e: React.MouseEvent) => {
+                  e.stopPropagation();
+
+                  if (row.original.key) {
+                    dashboard.state.setEditingDictionaryKey(row.original.key);
+                  }
+                }}
+                Icon={Pencil}
+                label={content.editButton.label.value}
+              />
+              <PopoverStatic.Detail
+                xAlign="end"
+                identifier={`edit-${row.original.id}`}
+              >
+                <Container className="p-3">
+                  <p>{content.editButton.popover}</p>
+                </Container>
+              </PopoverStatic.Detail>
+            </PopoverStatic>
+
             <PopoverStatic identifier={`view-${row.original.id}`}>
               <Button
                 variant="hoverable"
@@ -273,55 +324,6 @@ export const DictionaryListDashboardContent: FC = () => {
               >
                 <Container className="p-3">
                   <p>{content.viewButton?.popover}</p>
-                </Container>
-              </PopoverStatic.Detail>
-            </PopoverStatic>
-            <PopoverStatic identifier={`edit-${row.original.id}`}>
-              <Button
-                variant="hoverable"
-                color="text"
-                size="icon-sm"
-                onClick={(e: React.MouseEvent) => {
-                  e.stopPropagation();
-
-                  if (row.original.key) {
-                    dashboard.state.setEditingDictionaryKey(row.original.key);
-                  }
-                }}
-                Icon={Pencil}
-                label={content.editButton.label.value}
-              />
-              <PopoverStatic.Detail
-                xAlign="end"
-                identifier={`edit-${row.original.id}`}
-              >
-                <Container className="p-3">
-                  <p>{content.editButton.popover}</p>
-                </Container>
-              </PopoverStatic.Detail>
-            </PopoverStatic>
-            <PopoverStatic identifier={`delete-${row.original.id}`}>
-              <Button
-                variant="hoverable"
-                color="error"
-                className="ml-auto text-text hover:text-error"
-                size="icon-sm"
-                onClick={(e: React.MouseEvent) => {
-                  e.stopPropagation();
-
-                  if (row.original.id) {
-                    dashboard.state.setDictionaryToDelete(row.original.id);
-                  }
-                }}
-                Icon={Trash2}
-                label={content.deleteButton.label.value}
-              />
-              <PopoverStatic.Detail
-                xAlign="end"
-                identifier={`delete-${row.original.id}`}
-              >
-                <Container className="p-3">
-                  <p>{content.deleteButton.popover}</p>
                 </Container>
               </PopoverStatic.Detail>
             </PopoverStatic>

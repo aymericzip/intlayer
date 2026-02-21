@@ -1,12 +1,13 @@
 import {
   Button,
+  Checkbox,
   Container,
   PopoverStatic,
   SearchInput,
 } from '@intlayer/design-system';
 import type { Dictionary } from '@intlayer/types';
 import type { Table } from '@tanstack/react-table';
-import { Filter, Plus, Trash2 } from 'lucide-react';
+import { Columns, Filter, Plus, Trash2 } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { useForm } from 'react-hook-form';
@@ -27,6 +28,18 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
 
   const selectedCount = Object.keys(state.rowSelection).length;
 
+  const hasAppliedFilters = params.location !== 'none' || !!params.tags;
+  const activeTags = params.tags ? (params.tags as string).split(',') : [];
+  const activeLocations =
+    params.location === 'none'
+      ? []
+      : params.location === 'both'
+        ? ['remote', 'local']
+        : params.location === 'remote'
+          ? ['remote']
+          : ['local'];
+  const appliedFiltersCount = activeTags.length + activeLocations.length;
+
   return (
     <div className="flex items-center justify-between gap-4 px-10">
       <div className="flex max-w-md flex-1 items-center gap-4">
@@ -36,12 +49,69 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
             onChange: (e) => setParam('search', e.target.value),
           })}
         />
-        <Button
-          variant="hoverable"
-          Icon={Filter}
-          onClick={() => state.setIsFiltersModalOpen(true)}
-          label={content.filterLabels.button.value}
-        />
+
+        <div className="flex items-center gap-0.5">
+          <PopoverStatic identifier="dictionary-filters">
+            <Button
+              variant="hoverable"
+              color="text"
+              size="icon-lg"
+              onClick={() => state.setIsFiltersModalOpen(true)}
+              Icon={Filter}
+              label={content.filterLabels.button.value}
+            />
+            <PopoverStatic.Detail identifier="dictionary-filters">
+              <Container className="p-3" roundedSize="xl">
+                <p>{content.filterLabels.popover}</p>
+              </Container>
+            </PopoverStatic.Detail>
+          </PopoverStatic>
+          {hasAppliedFilters && (
+            <span className="absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full bg-text text-[10px] text-card">
+              {appliedFiltersCount}
+            </span>
+          )}
+
+          <PopoverStatic identifier="dictionary-columns">
+            <Button
+              variant="hoverable"
+              color="text"
+              size="icon-lg"
+              Icon={Columns}
+              label={content.selectColumns.value}
+            />
+            <PopoverStatic.Detail identifier="dictionary-columns">
+              <Container className="flex flex-col gap-2 p-3" roundedSize="xl">
+                <p className="mb-2 font-bold">{content.visibleColumns}</p>
+                {table
+                  .getAllLeafColumns()
+                  .filter((column: any) => column.getCanHide())
+                  .map((column: any) => (
+                    <div
+                      key={column.id}
+                      className="flex items-center gap-2 p-2"
+                    >
+                      <Checkbox
+                        id={`col-${column.id}`}
+                        name={`col-${column.id}`}
+                        checked={column.getIsVisible()}
+                        onChange={(e) =>
+                          column.toggleVisibility(e.target.checked)
+                        }
+                        size="sm"
+                      />
+                      <label
+                        htmlFor={`col-${column.id}`}
+                        className="cursor-pointer"
+                      >
+                        {column.id.charAt(0).toUpperCase() + column.id.slice(1)}
+                      </label>
+                    </div>
+                  ))}
+              </Container>
+            </PopoverStatic.Detail>
+          </PopoverStatic>
+        </div>
       </div>
 
       <div className="flex items-center gap-2">
