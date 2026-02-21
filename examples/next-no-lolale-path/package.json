@@ -24,13 +24,13 @@
   "devDependencies": {
     "@intlayer/swc": "workspace:*",
     "@tailwindcss/postcss": "4.1.18.1.18",
-    "@types/node": "25.2.3",
+    "@types/node": "25.3.0",
     "@types/react": "19.2.8",
     "@types/react-dom": "19.2.3",
     "eslint": "9.39.2",
     "eslint-config-next": "16.1.4",
     "intlayer-editor": "workspace:*",
-    "tailwindcss": "4.1.18",
+    "tailwindcss": "4.2.0",
     "typescript": "5.9.3"
   }
 }

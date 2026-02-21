@@ -119,7 +119,7 @@
   },
   "devDependencies": {
     "@types/crypto-js": "4.2.2",
-    "@types/node": "25.2.3",
+    "@types/node": "25.3.0",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
