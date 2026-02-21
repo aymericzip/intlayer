@@ -6,6 +6,7 @@ export * from './getChunk';
 export * from './getComponentTransformPattern';
 export * from './getFileHash';
 export * from './getFormatFromExtension';
+export * from './mergeChunks';
 export * from './parallelize';
 export * from './parallelizeGlobal';
 export * from './pLimit';

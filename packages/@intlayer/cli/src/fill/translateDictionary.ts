@@ -5,6 +5,7 @@ import {
   chunkJSON,
   formatLocale,
   type JsonChunk,
+  mergeChunks,
   reconstructFromSingleChunk,
   reduceObjectFormat,
   verifyIdenticObjectFormat,
@@ -30,7 +31,6 @@ import type { AIClient } from '../utils/setupAI';
 import { deepMergeContent } from './deepMergeContent';
 import { getFilterMissingContentPerLocale } from './getFilterMissingContentPerLocale';
 import type { TranslationTask } from './listTranslationsTasks';
-import { mergeChunks } from './mergeChunks';
 
 type TranslateDictionaryResult = TranslationTask & {
   dictionaryOutput: Dictionary | null;

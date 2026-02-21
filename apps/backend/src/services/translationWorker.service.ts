@@ -1,6 +1,7 @@
 import type { ConnectionOptions } from 'node:tls';
 import * as eventListener from '@controllers/eventListener.controller';
 import { type AIOptions, getAIConfig } from '@intlayer/ai';
+import { DefaultValues } from '@intlayer/config/client';
 import type { Locale } from '@intlayer/types';
 import { logger } from '@logger';
 import * as dictionaryService from '@services/dictionary.service';
@@ -82,7 +83,8 @@ const processTranslationJob = async (job: Job<TranslationJobData>) => {
       // Let's use project default locale as source if not specified?
       // The job doesn't specify source locale. We should probably add it to job data or assume project default.
       const sourceLocale =
-        project.configuration?.internationalization?.defaultLocale || 'en';
+        project.configuration?.internationalization?.defaultLocale ||
+        DefaultValues.Internationalization.DEFAULT_LOCALE;
 
       const translationResult = await translateDictionaryDB({
         content: sourceContent as any,

@@ -2,6 +2,7 @@ import type { AIConfig } from '@intlayer/ai';
 import {
   chunkJSON,
   type JSONObject,
+  mergeChunks,
   reconstructFromSingleChunk,
   reduceObjectFormat,
   verifyIdenticObjectFormat,
@@ -38,6 +39,10 @@ export type TranslateDictionaryDBOptions = {
   dictionaryDescription?: string;
   applicationContext?: string;
 };
+
+type JSONValue = string | number | boolean | null | JSONObject | JSONArray;
+
+interface JSONArray extends Array<JSONValue> {}
 
 export const translateDictionaryDB = async ({
   content,
