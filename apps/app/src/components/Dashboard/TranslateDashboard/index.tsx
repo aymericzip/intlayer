@@ -204,10 +204,23 @@ const TranslateDashboardList: FC = () => {
   const { setLocaleDictionaries } = useDictionariesRecordActions() ?? {};
   const [currentDictionaryKey, setCurrentDictionaryKey] = useState<string>('');
 
-  const [initialTopIndex, setInitialTopIndex] = usePersistedStore(
+  const [persistedTopIndex, setPersistedTopIndex] = usePersistedStore(
     'intlayer-dashboard-scroll-index',
     0
   );
+
+  // Isolate mount-time Virtuoso index from reactive updates
+  const [initialTopIndex] = useState(persistedTopIndex);
+  // Track scroll position for breadcrumbs without interrupting Virtuoso
+  const [currentTopIndex, setCurrentTopIndex] = useState(persistedTopIndex);
+
+  // Debounce the persisted store write to prevent high-frequency I/O loops during scroll
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setPersistedTopIndex(currentTopIndex);
+    }, 500);
+    return () => clearTimeout(handler);
+  }, [currentTopIndex, setPersistedTopIndex]);
 
   // Refs for syncing scroll
   const virtuosoRef = useRef<GroupedVirtuosoHandle>(null);
@@ -235,26 +248,39 @@ const TranslateDashboardList: FC = () => {
       setLocaleDictionaries &&
       Object.keys(allLoadedDictionaries).length > 0
     ) {
-      setLocaleDictionaries((prev) => ({
-        ...prev,
-        ...allLoadedDictionaries,
-      }));
+      setLocaleDictionaries((prev) => {
+        let hasChanges = false;
+        const next = { ...prev };
+        for (const [key, value] of Object.entries(allLoadedDictionaries)) {
+          if (next[key] !== value) {
+            next[key] = value;
+            hasChanges = true;
+          }
+        }
+        return hasChanges ? next : prev; // Bail out of render if identical
+      });
     }
   }, [allLoadedDictionaries, setLocaleDictionaries]);
 
-  const flattenedNodes: FlattenedDictionaryNode[] =
-    data?.pages.flatMap((page: any) =>
-      (page.data as Dictionary[]).flatMap(flattenDictionary)
-    ) ?? [];
+  const flattenedNodes: FlattenedDictionaryNode[] = useMemo(() => {
+    return (
+      data?.pages.flatMap((page: any) =>
+        (page.data as Dictionary[]).flatMap(flattenDictionary)
+      ) ?? []
+    );
+  }, [data?.pages]);
 
-  const mergedNodes = mergeFlattenedNodes(flattenedNodes);
+  const mergedNodes = useMemo(
+    () => mergeFlattenedNodes(flattenedNodes),
+    [flattenedNodes]
+  );
 
   // though rangeChanged usually handles this once the list mounts.
   useEffect(() => {
-    if (mergedNodes.length > 0 && initialTopIndex < mergedNodes.length) {
-      setCurrentDictionaryKey(mergedNodes[initialTopIndex][0]?.dictionary.key);
+    if (mergedNodes.length > 0 && currentTopIndex < mergedNodes.length) {
+      setCurrentDictionaryKey(mergedNodes[currentTopIndex][0]?.dictionary.key);
     }
-  }, [mergedNodes, initialTopIndex]);
+  }, [mergedNodes, currentTopIndex]);
 
   const { groupCounts } = useMemo(() => {
     if (!mergedNodes || mergedNodes.length === 0) {
@@ -321,7 +347,7 @@ const TranslateDashboardList: FC = () => {
                 <KeyboardShortcut
                   shortcut="Alt + ArrowUp"
                   onTriggered={() => {
-                    setInitialTopIndex(0);
+                    setCurrentTopIndex(0);
 
                     virtuosoRef.current?.scrollToIndex({
                       index: 0,
@@ -368,7 +394,9 @@ const TranslateDashboardList: FC = () => {
                 }
               }}
               rangeChanged={({ startIndex }) => {
-                setInitialTopIndex(startIndex);
+                if (startIndex !== currentTopIndex) {
+                  setCurrentTopIndex(startIndex);
+                }
               }}
               groupContent={() => <div className="my-4 border-card border-b" />}
               itemContent={(index) => (
