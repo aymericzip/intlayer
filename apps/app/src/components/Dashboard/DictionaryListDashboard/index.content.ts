@@ -1,4 +1,4 @@
-import { type Dictionary, t } from 'intlayer';
+import { type Dictionary, insert, t } from 'intlayer';
 
 const dictionaryFormContent = {
   key: 'dictionary-list',
@@ -406,22 +406,21 @@ const dictionaryFormContent = {
         uk: 'Редагувати деталі та вміст словника',
       }),
     },
-    // Rest of your structure continues here...
     deleteSelectedButton: {
       text: t({
-        en: 'Delete selected',
-        fr: 'Supprimer la sélection',
-        es: 'Eliminar seleccionados',
-        'en-GB': 'Delete selected',
+        en: 'Delete',
+        fr: 'Supprimer',
+        es: 'Eliminar',
+        'en-GB': 'Delete',
         de: 'Ausgewählte löschen',
         ja: '選択したものを削除',
         ko: '선택 항목 삭제',
         zh: '删除所选',
-        it: 'Elimina selezionati',
-        pt: 'Excluir selecionados',
+        it: 'Elimina',
+        pt: 'Excluir',
         hi: 'चयनित हटाएं',
         ar: 'حذف المحدد',
-        ru: 'Удалить выбранные',
+        ru: 'Удалить',
         tr: 'Seçilenleri sil',
         pl: 'Usuń wybrane',
         id: 'Hapus yang dipilih',
