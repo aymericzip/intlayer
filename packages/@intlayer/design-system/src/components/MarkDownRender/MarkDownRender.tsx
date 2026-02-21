@@ -57,8 +57,6 @@ export const getIntlayerMarkdownOptions: (
       const language = (className?.replace(/lang(?:uage)?-/, '') ||
         'plaintext') as BundledLanguage;
 
-      console.log({ rest });
-
       return (
         <Code
           {...rest}
