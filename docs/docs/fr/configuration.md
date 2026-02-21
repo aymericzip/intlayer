@@ -88,6 +88,7 @@ Intlayer accepte les formats de fichiers de configuration JSON, JS, MJS et TS :
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
 
 /**
@@ -194,12 +195,12 @@ const config: IntlayerConfig = {
     /**
      * Custom URL rewriting rules for locale-specific paths.
      */
-    rewrite: {
-      "/about": {
-        en: "/about",
-        fr: "/a-propos",
+    rewrite: nextjsRewrite({
+      "/[locale]/about": {
+        en: "/[locale]/about",
+        fr: "/[locale]/a-propos",
       },
-    },
+    }),
   },
 
   /**
@@ -632,26 +633,27 @@ Paramètres qui contrôlent le comportement du middleware, y compris la gestion 
     ```typescript
     routing: {
       mode: "prefix-no-default", // Stratégie de repli
-      rewrite: {
-        "/about": {
-          en: "/about",
-          fr: "/a-propos",
+      rewrite: nextjsRewrite({
+        "/[locale]/about": {
+          en: "/[locale]/about",
+          fr: "/[locale]/a-propos",
         },
-        "/product/[slug]": {
-          en: "/product/[slug]",
-          fr: "/produit/[slug]",
+        "/[locale]/product/[slug]": {
+          en: "/[locale]/product/[slug]",
+          fr: "/[locale]/produit/[slug]",
         },
-        "/blog/[category]/[id]": {
-          en: "/blog/[category]/[id]",
-          fr: "/journal/[category]/[id]",
+        "/[locale]/blog/[category]/[id]": {
+          en: "/[locale]/blog/[category]/[id]",
+          fr: "/[locale]/journal/[category]/[id]",
         },
-      },
+      }),
     }
     ```
   - _Note_ : Les règles de réécriture ont la priorité sur le comportement du `mode` par défaut. Si un chemin correspond à une règle de réécriture, le chemin localisé de la configuration de réécriture sera utilisé au lieu du préfixe de langue standard.
   - _Note_ : Les paramètres de route dynamiques sont pris en charge en utilisant la notation entre crochets (par exemple, `[slug]`, `[id]`). Les valeurs des paramètres sont automatiquement extraites de l'URL et interpolées dans le chemin réécrit.
   - _Note_ : Fonctionne avec les applications Next.js et Vite. Le middleware/proxy réécrira automatiquement les requêtes entrantes pour correspondre à la structure de route interne.
   - _Note_ : Lors de la génération d'URLs avec `getLocalizedUrl()`, les règles de réécriture sont automatiquement appliquées si elles correspondent au chemin fourni.
+  - _Reference_ : Pour plus d'informations, voir [Réécriture d'URL personnalisée](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/custom_url_rewrites.md).
 
 - **serverSetCookie** :
   - _Type_ : `string`

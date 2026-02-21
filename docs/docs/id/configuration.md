@@ -103,6 +103,7 @@ Intlayer menerima format file konfigurasi JSON, JS, MJS, dan TS:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
 
 /**
@@ -209,12 +210,12 @@ const config: IntlayerConfig = {
     /**
      * Custom URL rewriting rules for locale-specific paths.
      */
-    rewrite: {
-      "/about": {
-        en: "/about",
-        fr: "/a-propos",
+    rewrite: nextjsRewrite({
+      "/[locale]/about": {
+        en: "/[locale]/about",
+        fr: "/[locale]/a-propos",
       },
-    },
+    }),
   },
 
   /**
@@ -663,26 +664,27 @@ Pengaturan yang mengontrol perilaku routing, termasuk struktur URL, penyimpanan 
     ```typescript
     routing: {
       mode: "prefix-no-default", // Strategi fallback
-      rewrite: {
-        "/about": {
-          en: "/about",
-          fr: "/a-propos",
+      rewrite: nextjsRewrite({
+        "/[locale]/about": {
+          en: "/[locale]/about",
+          fr: "/[locale]/a-propos",
         },
-        "/product/[slug]": {
-          en: "/product/[slug]",
-          fr: "/produit/[slug]",
+        "/[locale]/product/[slug]": {
+          en: "/[locale]/product/[slug]",
+          fr: "/[locale]/produit/[slug]",
         },
-        "/blog/[category]/[id]": {
-          en: "/blog/[category]/[id]",
-          fr: "/journal/[category]/[id]",
+        "/[locale]/blog/[category]/[id]": {
+          en: "/[locale]/blog/[category]/[id]",
+          fr: "/[locale]/journal/[category]/[id]",
         },
-      },
+      }),
     }
     ```
   - _Catatan_: Aturan penulisan ulang memiliki prioritas di atas perilaku `mode` default. Jika jalur cocok dengan aturan penulisan ulang, jalur yang dilokalisasi dari konfigurasi penulisan ulang akan digunakan alih-alih prefiks bahasa standar.
   - _Catatan_: Parameter rute dinamis didukung menggunakan notasi kurung siku (misalnya, `[slug]`, `[id]`). Nilai parameter secara otomatis diekstrak dari URL dan diinterpolasi ke dalam jalur yang ditulis ulang.
   - _Catatan_: Bekerja dengan aplikasi Next.js dan Vite. Middleware/proxy akan secara otomatis menulis ulang permintaan masuk untuk mencocokkan struktur rute internal.
   - _Catatan_: Saat menghasilkan URL dengan `getLocalizedUrl()`, aturan penulisan ulang secara otomatis diterapkan jika cocok dengan jalur yang disediakan.
+  - _Referensi_: Untuk informasi lebih lanjut, lihat [Penulisan Ulang URL Kustom](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/custom_url_rewrites.md).
 
 #### Atribut Cookie
 

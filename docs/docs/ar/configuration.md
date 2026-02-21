@@ -85,6 +85,7 @@ history:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
 
 /**
@@ -191,12 +192,12 @@ const config: IntlayerConfig = {
     /**
      * Custom URL rewriting rules for locale-specific paths.
      */
-    rewrite: {
-      "/about": {
-        en: "/about",
-        fr: "/a-propos",
+    rewrite: nextjsRewrite({
+      "/[locale]/about": {
+        en: "/[locale]/about",
+        fr: "/[locale]/a-propos",
       },
-    },
+    }),
   },
 
   /**
@@ -629,26 +630,27 @@ export default config;
     ```typescript
     routing: {
       mode: "prefix-no-default", // استراتيجية احتياطية
-      rewrite: {
-        "/about": {
-          en: "/about",
-          fr: "/a-propos",
+      rewrite: nextjsRewrite({
+        "/[locale]/about": {
+          en: "/[locale]/about",
+          fr: "/[locale]/a-propos",
         },
-        "/product/[slug]": {
-          en: "/product/[slug]",
-          fr: "/produit/[slug]",
+        "/[locale]/product/[slug]": {
+          en: "/[locale]/product/[slug]",
+          fr: "/[locale]/produit/[slug]",
         },
-        "/blog/[category]/[id]": {
-          en: "/blog/[category]/[id]",
-          fr: "/journal/[category]/[id]",
+        "/[locale]/blog/[category]/[id]": {
+          en: "/[locale]/blog/[category]/[id]",
+          fr: "/[locale]/journal/[category]/[id]",
         },
-      },
+      }),
     }
     ```
   - _ملاحظة_: قواعد إعادة الكتابة لها الأولوية على سلوك `mode` الافتراضي. إذا تطابق مسار مع قاعدة إعادة كتابة، سيتم استخدام المسار المترجم من تكوين إعادة الكتابة بدلاً من بادئة اللغة القياسية.
   - _ملاحظة_: معاملات المسار الديناميكية مدعومة باستخدام ترميز الأقواس (على سبيل المثال، `[slug]`، `[id]`). يتم استخراج قيم المعاملات تلقائيًا من URL وإدراجها في المسار المعاد كتابته.
   - _ملاحظة_: يعمل مع تطبيقات Next.js و Vite. ستعيد البرمجية الوسيطة/الوكيل كتابة الطلبات الواردة تلقائيًا لتطابق بنية المسار الداخلية.
   - _ملاحظة_: عند إنشاء عناوين URL باستخدام `getLocalizedUrl()`، يتم تطبيق قواعد إعادة الكتابة تلقائيًا إذا تطابقت مع المسار المقدم.
+  - _Reference_ : لمزيد من المعلومات، راجع [إعادة كتابة عناوين URL المخصصة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/custom_url_rewrites.md).
 
 - **serverSetCookie**:
   - _النوع_: `string`

@@ -88,6 +88,7 @@ Intlayer 支持 JSON、JS、MJS 和 TS 配置文件格式：
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
 
 /**
@@ -194,12 +195,12 @@ const config: IntlayerConfig = {
     /**
      * Custom URL rewriting rules for locale-specific paths.
      */
-    rewrite: {
-      "/about": {
-        en: "/about",
-        fr: "/a-propos",
+    rewrite: nextjsRewrite({
+      "/[locale]/about": {
+        en: "/[locale]/about",
+        fr: "/[locale]/a-propos",
       },
-    },
+    }),
   },
 
   /**
@@ -632,26 +633,27 @@ export default config;
     ```typescript
     routing: {
       mode: "prefix-no-default", // 回退策略
-      rewrite: {
-        "/about": {
-          en: "/about",
-          fr: "/a-propos",
+      rewrite: nextjsRewrite({
+        "/[locale]/about": {
+          en: "/[locale]/about",
+          fr: "/[locale]/a-propos",
         },
-        "/product/[slug]": {
-          en: "/product/[slug]",
-          fr: "/produit/[slug]",
+        "/[locale]/product/[slug]": {
+          en: "/[locale]/product/[slug]",
+          fr: "/[locale]/produit/[slug]",
         },
-        "/blog/[category]/[id]": {
-          en: "/blog/[category]/[id]",
-          fr: "/journal/[category]/[id]",
+        "/[locale]/blog/[category]/[id]": {
+          en: "/[locale]/blog/[category]/[id]",
+          fr: "/[locale]/journal/[category]/[id]",
         },
-      },
+      }),
     }
     ```
   - _说明_: 重写规则优先于默认的 `mode` 行为。如果路径匹配重写规则，将使用重写配置中的本地化路径，而不是标准语言前缀。
   - _说明_: 支持使用方括号表示法的动态路由参数（例如 `[slug]`、`[id]`）。参数值会自动从 URL 中提取并插入到重写的路径中。
   - _说明_: 适用于 Next.js 和 Vite 应用程序。中间件/代理会自动重写传入的请求以匹配内部路由结构。
   - _说明_: 使用 `getLocalizedUrl()` 生成 URL 时，如果重写规则与提供的路径匹配，将自动应用这些规则。
+  - _参考_: 有关更多信息，请参阅 [自定义 URL 重写](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/custom_url_rewrites.md)。
 
 - **serverSetCookie**：
   - _类型_：`string`

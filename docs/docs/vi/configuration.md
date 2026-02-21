@@ -103,6 +103,7 @@ Intlayer chấp nhận các định dạng tệp cấu hình JSON, JS, MJS và T
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
 
 /**
@@ -209,12 +210,12 @@ const config: IntlayerConfig = {
     /**
      * Custom URL rewriting rules for locale-specific paths.
      */
-    rewrite: {
-      "/about": {
-        en: "/about",
-        fr: "/a-propos",
+    rewrite: nextjsRewrite({
+      "/[locale]/about": {
+        en: "/[locale]/about",
+        fr: "/[locale]/a-propos",
       },
-    },
+    }),
   },
 
   /**
@@ -663,26 +664,27 @@ Các thiết lập kiểm soát hành vi routing, bao gồm cấu trúc URL, lư
     ```typescript
     routing: {
       mode: "prefix-no-default", // Chiến lược dự phòng
-      rewrite: {
-        "/about": {
-          en: "/about",
-          fr: "/a-propos",
+      rewrite: nextjsRewrite({
+        "/[locale]/about": {
+          en: "/[locale]/about",
+          fr: "/[locale]/a-propos",
         },
-        "/product/[slug]": {
-          en: "/product/[slug]",
-          fr: "/produit/[slug]",
+        "/[locale]/product/[slug]": {
+          en: "/[locale]/product/[slug]",
+          fr: "/[locale]/produit/[slug]",
         },
-        "/blog/[category]/[id]": {
-          en: "/blog/[category]/[id]",
-          fr: "/journal/[category]/[id]",
+        "/[locale]/blog/[category]/[id]": {
+          en: "/[locale]/blog/[category]/[id]",
+          fr: "/[locale]/journal/[category]/[id]",
         },
-      },
+      }),
     }
     ```
   - _Lưu ý_: Các quy tắc viết lại có ưu tiên cao hơn hành vi `mode` mặc định. Nếu một đường dẫn khớp với quy tắc viết lại, đường dẫn đã được bản địa hóa từ cấu hình viết lại sẽ được sử dụng thay vì tiền tố ngôn ngữ tiêu chuẩn.
   - _Lưu ý_: Tham số tuyến động được hỗ trợ bằng cách sử dụng ký hiệu ngoặc vuông (ví dụ: `[slug]`, `[id]`). Giá trị tham số được tự động trích xuất từ URL và nội suy vào đường dẫn đã viết lại.
   - _Lưu ý_: Hoạt động với ứng dụng Next.js và Vite. Middleware/proxy sẽ tự động viết lại các yêu cầu đến để khớp với cấu trúc tuyến nội bộ.
   - _Lưu ý_: Khi tạo URL bằng `getLocalizedUrl()`, các quy tắc viết lại được áp dụng tự động nếu chúng khớp với đường dẫn được cung cấp.
+  - _Tham khảo_: Để biết thêm thông tin, xem [Viết lại URL tùy chỉnh](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/custom_url_rewrites.md).
 
 #### Thuộc tính Cookie
 

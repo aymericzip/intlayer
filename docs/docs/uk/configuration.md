@@ -103,6 +103,7 @@ Intlayer підтримує формати файлів конфігурації
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
 
 /**
@@ -209,12 +210,12 @@ const config: IntlayerConfig = {
     /**
      * Custom URL rewriting rules for locale-specific paths.
      */
-    rewrite: {
-      "/about": {
-        en: "/about",
-        fr: "/a-propos",
+    rewrite: nextjsRewrite({
+      "/[locale]/about": {
+        en: "/[locale]/about",
+        fr: "/[locale]/a-propos",
       },
-    },
+    }),
   },
 
   /**
@@ -654,6 +655,36 @@ export default config;
     - Базовий шлях — `'/my-app'`
     - URL буде `https://example.com/my-app/en`
     - Якщо базовий шлях не встановлено, URL буде `https://example.com/en`
+
+- **rewrite**:
+  - _Тип_: `Record<string, StrictModeLocaleMap<string>>`
+  - _За замовчуванням_: `undefined`
+  - _Опис_: Користувацькі правила перезапису URL, які перевизначають режим маршрутизації за замовчуванням для певних шляхів. Дозволяє визначати специфічні для локалі шляхи, які відрізняються від стандартної поведінки маршрутизації. Підтримує динамічні параметри маршруту з використанням синтаксису `[param]`.
+  - _Приклад_:
+    ```typescript
+    routing: {
+      mode: "prefix-no-default", // Стратегія відкату
+      rewrite: nextjsRewrite({
+        "/[locale]/about": {
+          en: "/[locale]/about",
+          fr: "/[locale]/a-propos",
+        },
+        "/[locale]/product/[slug]": {
+          en: "/[locale]/product/[slug]",
+          fr: "/[locale]/produit/[slug]",
+        },
+        "/[locale]/blog/[category]/[id]": {
+          en: "/[locale]/blog/[category]/[id]",
+          fr: "/[locale]/journal/[category]/[id]",
+        },
+      }),
+    }
+    ```
+  - _Примітка_: Правила перезапису мають пріоритет над поведінкою `mode` за замовчуванням. Якщо шлях відповідає правилу перезапису, буде використано локалізований шлях з конфігурації перезапису замість стандартного префікса локалі.
+  - _Примітка_: Динамічні параметри маршруту підтримуються з використанням нотації в квадратних дужках (наприклад, `[slug]`, `[id]`). Значення параметрів автоматично витягуються з URL та інтерполюються в перезаписаний шлях.
+  - _Примітка_: Працює з додатками Next.js та Vite. Middleware/proxy автоматично перезапише вхідні запити, щоб відповідати внутрішній структурі маршруту.
+  - _Примітка_: При генерації URL за допомогою `getLocalizedUrl()` правила перезапису автоматично застосовуються, якщо вони відповідають наданому шляху.
+  - _Посилання_: Для отримання додаткової інформації див. [Користувацьке перезаписування URL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/custom_url_rewrites.md).
 
 #### Атрибути cookie
 

@@ -85,6 +85,7 @@ Intlayer akzeptiert JSON-, JS-, MJS- und TS-Konfigurationsdateiformate:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
 
 /**
@@ -191,12 +192,12 @@ const config: IntlayerConfig = {
     /**
      * Custom URL rewriting rules for locale-specific paths.
      */
-    rewrite: {
-      "/about": {
-        en: "/about",
-        fr: "/a-propos",
+    rewrite: nextjsRewrite({
+      "/[locale]/about": {
+        en: "/[locale]/about",
+        fr: "/[locale]/a-propos",
       },
-    },
+    }),
   },
 
   /**
@@ -629,26 +630,27 @@ Einstellungen, die das Verhalten der Middleware steuern, einschließlich wie die
     ```typescript
     routing: {
       mode: "prefix-no-default", // Fallback-Strategie
-      rewrite: {
-        "/about": {
-          en: "/about",
-          fr: "/a-propos",
+      rewrite: nextjsRewrite({
+        "/[locale]/about": {
+          en: "/[locale]/about",
+          fr: "/[locale]/a-propos",
         },
-        "/product/[slug]": {
-          en: "/product/[slug]",
-          fr: "/produit/[slug]",
+        "/[locale]/product/[slug]": {
+          en: "/[locale]/product/[slug]",
+          fr: "/[locale]/produit/[slug]",
         },
-        "/blog/[category]/[id]": {
-          en: "/blog/[category]/[id]",
-          fr: "/journal/[category]/[id]",
+        "/[locale]/blog/[category]/[id]": {
+          en: "/[locale]/blog/[category]/[id]",
+          fr: "/[locale]/journal/[category]/[id]",
         },
-      },
+      }),
     }
     ```
   - _Hinweis_: Die Umschreiberegeln haben Vorrang vor dem Standard-`mode`-Verhalten. Wenn ein Pfad mit einer Umschreiberegel übereinstimmt, wird der lokalisierte Pfad aus der Umschreibkonfiguration anstelle der Standard-Sprachpräfixierung verwendet.
   - _Hinweis_: Dynamische Routenparameter werden mit der Klammernotation unterstützt (z. B. `[slug]`, `[id]`). Die Parameterwerte werden automatisch aus der URL extrahiert und in den umgeschriebenen Pfad interpoliert.
   - _Hinweis_: Funktioniert mit Next.js- und Vite-Anwendungen. Der Middleware/Proxy schreibt eingehende Anfragen automatisch um, um der internen Routenstruktur zu entsprechen.
   - _Hinweis_: Beim Generieren von URLs mit `getLocalizedUrl()` werden die Umschreiberegeln automatisch angewendet, wenn sie mit dem bereitgestellten Pfad übereinstimmen.
+  - _Referenz_: Weitere Informationen finden Sie unter [Benutzerdefinierte URL-Umschreibungen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/custom_url_rewrites.md).
 
 - **serverSetCookie**:
   - _Typ_: `string`

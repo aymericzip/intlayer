@@ -85,6 +85,7 @@ Intlayer поддерживает форматы файлов конфигура
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
 
 /**
@@ -191,12 +192,12 @@ const config: IntlayerConfig = {
     /**
      * Custom URL rewriting rules for locale-specific paths.
      */
-    rewrite: {
-      "/about": {
-        en: "/about",
-        fr: "/a-propos",
+    rewrite: nextjsRewrite({
+      "/[locale]/about": {
+        en: "/[locale]/about",
+        fr: "/[locale]/a-propos",
       },
-    },
+    }),
   },
 
   /**
@@ -637,26 +638,27 @@ export default config;
     ```typescript
     routing: {
       mode: "prefix-no-default", // Стратегия отката
-      rewrite: {
-        "/about": {
-          en: "/about",
-          fr: "/a-propos",
+      rewrite: nextjsRewrite({
+        "/[locale]/about": {
+          en: "/[locale]/about",
+          fr: "/[locale]/a-propos",
         },
-        "/product/[slug]": {
-          en: "/product/[slug]",
-          fr: "/produit/[slug]",
+        "/[locale]/product/[slug]": {
+          en: "/[locale]/product/[slug]",
+          fr: "/[locale]/produit/[slug]",
         },
-        "/blog/[category]/[id]": {
-          en: "/blog/[category]/[id]",
-          fr: "/journal/[category]/[id]",
+        "/[locale]/blog/[category]/[id]": {
+          en: "/[locale]/blog/[category]/[id]",
+          fr: "/[locale]/journal/[category]/[id]",
         },
-      },
+      }),
     }
     ```
   - _Примечание_: Правила перезаписи имеют приоритет над поведением `mode` по умолчанию. Если путь соответствует правилу перезаписи, будет использован локализованный путь из конфигурации перезаписи вместо стандартного префикса языка.
   - _Примечание_: Динамические параметры маршрута поддерживаются с использованием нотации в квадратных скобках (например, `[slug]`, `[id]`). Значения параметров автоматически извлекаются из URL и интерполируются в перезаписанный путь.
   - _Примечание_: Работает с приложениями Next.js и Vite. Промежуточное ПО/прокси автоматически перезапишет входящие запросы, чтобы соответствовать внутренней структуре маршрута.
   - _Примечание_: При генерации URL с помощью `getLocalizedUrl()` правила перезаписи автоматически применяются, если они соответствуют предоставленному пути.
+  - _Ссылка_: Дополнительную информацию см. в разделе [Пользовательская перезапись URL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/custom_url_rewrites.md).
 
 - **serverSetCookie**:
   - _Тип_: `string`

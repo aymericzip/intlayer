@@ -88,6 +88,7 @@ Intlayer, JSON, JS, MJS ve TS yapılandırma dosyası formatlarını kabul eder:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
 
 /**
@@ -194,12 +195,12 @@ const config: IntlayerConfig = {
     /**
      * Custom URL rewriting rules for locale-specific paths.
      */
-    rewrite: {
-      "/about": {
-        en: "/about",
-        fr: "/a-propos",
+    rewrite: nextjsRewrite({
+      "/[locale]/about": {
+        en: "/[locale]/about",
+        fr: "/[locale]/a-propos",
       },
-    },
+    }),
   },
 
   /**
@@ -632,26 +633,27 @@ Uygulamanın çerezleri, başlıkları ve yerel yönetimi için URL öneklerini 
     ```typescript
     routing: {
       mode: "prefix-no-default", // Yedek strateji
-      rewrite: {
-        "/about": {
-          en: "/about",
-          fr: "/a-propos",
+      rewrite: nextjsRewrite({
+        "/[locale]/about": {
+          en: "/[locale]/about",
+          fr: "/[locale]/a-propos",
         },
-        "/product/[slug]": {
-          en: "/product/[slug]",
-          fr: "/produit/[slug]",
+        "/[locale]/product/[slug]": {
+          en: "/[locale]/product/[slug]",
+          fr: "/[locale]/produit/[slug]",
         },
-        "/blog/[category]/[id]": {
-          en: "/blog/[category]/[id]",
-          fr: "/journal/[category]/[id]",
+        "/[locale]/blog/[category]/[id]": {
+          en: "/[locale]/blog/[category]/[id]",
+          fr: "/[locale]/journal/[category]/[id]",
         },
-      },
+      }),
     }
     ```
   - _Not_: Yeniden yazma kuralları varsayılan `mode` davranışından önceliklidir. Bir yol bir yeniden yazma kuralıyla eşleşirse, standart dil öneki yerine yeniden yazma yapılandırmasından yerelleştirilmiş yol kullanılacaktır.
   - _Not_: Dinamik rota parametreleri köşeli ayraç gösterimi (örneğin, `[slug]`, `[id]`) kullanılarak desteklenir. Parametre değerleri URL'den otomatik olarak çıkarılır ve yeniden yazılan yola eklenir.
   - _Not_: Next.js ve Vite uygulamalarıyla çalışır. Middleware/proxy, gelen istekleri iç rota yapısıyla eşleşecek şekilde otomatik olarak yeniden yazacaktır.
   - _Not_: `getLocalizedUrl()` ile URL oluştururken, sağlanan yolla eşleşirlerse yeniden yazma kuralları otomatik olarak uygulanır.
+  - _Referans_: Daha fazla bilgi için, [Özel URL Yeniden Yazma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/custom_url_rewrites.md) konusuna bakın.
 
 - **serverSetCookie**:
   - _Tür_: `string`

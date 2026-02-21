@@ -88,6 +88,7 @@ IntlayerはJSON、JS、MJS、TSの設定ファイル形式をサポートして�
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
 
 /**
@@ -194,12 +195,12 @@ const config: IntlayerConfig = {
     /**
      * Custom URL rewriting rules for locale-specific paths.
      */
-    rewrite: {
-      "/about": {
-        en: "/about",
-        fr: "/a-propos",
+    rewrite: nextjsRewrite({
+      "/[locale]/about": {
+        en: "/[locale]/about",
+        fr: "/[locale]/a-propos",
       },
-    },
+    }),
   },
 
   /**
@@ -632,26 +633,27 @@ export default config;
     ```typescript
     routing: {
       mode: "prefix-no-default", // フォールバック戦略
-      rewrite: {
-        "/about": {
-          en: "/about",
-          fr: "/a-propos",
+      rewrite: nextjsRewrite({
+        "/[locale]/about": {
+          en: "/[locale]/about",
+          fr: "/[locale]/a-propos",
         },
-        "/product/[slug]": {
-          en: "/product/[slug]",
-          fr: "/produit/[slug]",
+        "/[locale]/product/[slug]": {
+          en: "/[locale]/product/[slug]",
+          fr: "/[locale]/produit/[slug]",
         },
-        "/blog/[category]/[id]": {
-          en: "/blog/[category]/[id]",
-          fr: "/journal/[category]/[id]",
+        "/[locale]/blog/[category]/[id]": {
+          en: "/[locale]/blog/[category]/[id]",
+          fr: "/[locale]/journal/[category]/[id]",
         },
-      },
+      }),
     }
     ```
   - _注意_: 書き換えルールはデフォルトの `mode` 動作よりも優先されます。パスが書き換えルールに一致する場合、標準の言語プレフィックスの代わりに書き換え設定のローカライズされたパスが使用されます。
   - _注意_: 動的ルートパラメータは角括弧表記（例：`[slug]`、`[id]`）を使用してサポートされます。パラメータ値はURLから自動的に抽出され、書き換えられたパスに補間されます。
   - _注意_: Next.js と Vite アプリケーションで動作します。ミドルウェア/プロキシは、内部ルート構造に一致するように受信リクエストを自動的に書き換えます。
   - _注意_: `getLocalizedUrl()` でURLを生成する場合、提供されたパスに一致する場合、書き換えルールが自動的に適用されます。
+  - _参照_: 詳細については、[カスタムURL書き換え](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/custom_url_rewrites.md)を参照してください。
 
 - **serverSetCookie**:
   - _タイプ_: `string`

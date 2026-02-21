@@ -85,6 +85,7 @@ Intlayer JSON, JS, MJS, और TS कॉन्फ़िगरेशन फ़ा
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
 
 /**
@@ -191,12 +192,12 @@ const config: IntlayerConfig = {
     /**
      * Custom URL rewriting rules for locale-specific paths.
      */
-    rewrite: {
-      "/about": {
-        en: "/about",
-        fr: "/a-propos",
+    rewrite: nextjsRewrite({
+      "/[locale]/about": {
+        en: "/[locale]/about",
+        fr: "/[locale]/a-propos",
       },
-    },
+    }),
   },
 
   /**
@@ -629,26 +630,27 @@ export default config;
     ```typescript
     routing: {
       mode: "prefix-no-default", // फॉलबैक रणनीति
-      rewrite: {
-        "/about": {
-          en: "/about",
-          fr: "/a-propos",
+      rewrite: nextjsRewrite({
+        "/[locale]/about": {
+          en: "/[locale]/about",
+          fr: "/[locale]/a-propos",
         },
-        "/product/[slug]": {
-          en: "/product/[slug]",
-          fr: "/produit/[slug]",
+        "/[locale]/product/[slug]": {
+          en: "/[locale]/product/[slug]",
+          fr: "/[locale]/produit/[slug]",
         },
-        "/blog/[category]/[id]": {
-          en: "/blog/[category]/[id]",
-          fr: "/journal/[category]/[id]",
+        "/[locale]/blog/[category]/[id]": {
+          en: "/[locale]/blog/[category]/[id]",
+          fr: "/[locale]/journal/[category]/[id]",
         },
-      },
+      }),
     }
     ```
   - _नोट_: रीराइट नियम डिफ़ॉल्ट `mode` व्यवहार पर प्राथमिकता लेते हैं। यदि कोई पथ रीराइट नियम से मेल खाता है, तो मानक भाषा उपसर्ग के बजाय रीराइट कॉन्फ़िगरेशन से स्थानीयकृत पथ का उपयोग किया जाएगा।
   - _नोट_: गतिशील रूट पैरामीटर कोष्ठक संकेतन (उदाहरण के लिए, `[slug]`, `[id]`) का उपयोग करके समर्थित हैं। पैरामीटर मान स्वचालित रूप से URL से निकाले जाते हैं और रीराइट किए गए पथ में इंटरपोलेट किए जाते हैं।
   - _नोट_: Next.js और Vite अनुप्रयोगों के साथ काम करता है। मिडलवेयर/प्रॉक्सी आने वाले अनुरोधों को आंतरिक रूट संरचना से मेल खाने के लिए स्वचालित रूप से रीराइट करेगा।
   - _नोट_: `getLocalizedUrl()` के साथ URL उत्पन्न करते समय, यदि वे प्रदान किए गए पथ से मेल खाते हैं, तो रीराइट नियम स्वचालित रूप से लागू होते हैं।
+  - _संदर्भ_: अधिक जानकारी के लिए, देखें [कस्टम URL रीराइट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/custom_url_rewrites.md)।
 
 - **serverSetCookie**:
   - _प्रकार_: `string`

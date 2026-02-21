@@ -100,6 +100,7 @@ Intlayer obsługuje formaty plików konfiguracyjnych JSON, JS, MJS oraz TS:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
 
 /**
@@ -206,12 +207,12 @@ const config: IntlayerConfig = {
     /**
      * Custom URL rewriting rules for locale-specific paths.
      */
-    rewrite: {
-      "/about": {
-        en: "/about",
-        fr: "/a-propos",
+    rewrite: nextjsRewrite({
+      "/[locale]/about": {
+        en: "/[locale]/about",
+        fr: "/[locale]/a-propos",
       },
-    },
+    }),
   },
 
   /**
@@ -660,26 +661,27 @@ Ustawienia kontrolujące zachowanie routingu, w tym strukturę URL, przechowywan
     ```typescript
     routing: {
       mode: "prefix-no-default", // Strategia zapasowa
-      rewrite: {
-        "/about": {
-          en: "/about",
-          fr: "/a-propos",
+      rewrite: nextjsRewrite({
+        "/[locale]/about": {
+          en: "/[locale]/about",
+          fr: "/[locale]/a-propos",
         },
-        "/product/[slug]": {
-          en: "/product/[slug]",
-          fr: "/produit/[slug]",
+        "/[locale]/product/[slug]": {
+          en: "/[locale]/product/[slug]",
+          fr: "/[locale]/produit/[slug]",
         },
-        "/blog/[category]/[id]": {
-          en: "/blog/[category]/[id]",
-          fr: "/journal/[category]/[id]",
+        "/[locale]/blog/[category]/[id]": {
+          en: "/[locale]/blog/[category]/[id]",
+          fr: "/[locale]/journal/[category]/[id]",
         },
-      },
+      }),
     }
     ```
   - _Uwaga_: Reguły przepisywania mają pierwszeństwo przed domyślnym zachowaniem `mode`. Jeśli ścieżka pasuje do reguły przepisywania, zostanie użyta zlokalizowana ścieżka z konfiguracji przepisywania zamiast standardowego prefiksu języka.
   - _Uwaga_: Dynamiczne parametry trasy są obsługiwane przy użyciu notacji nawiasów kwadratowych (np. `[slug]`, `[id]`). Wartości parametrów są automatycznie wyodrębniane z URL i interpolowane do przepisanej ścieżki.
   - _Uwaga_: Działa z aplikacjami Next.js i Vite. Middleware/proxy automatycznie przepisze przychodzące żądania, aby dopasować je do wewnętrznej struktury trasy.
   - _Uwaga_: Podczas generowania URL za pomocą `getLocalizedUrl()`, reguły przepisywania są automatycznie stosowane, jeśli pasują do podanej ścieżki.
+  - _Odniesienie_: Aby uzyskać więcej informacji, zobacz [Niestandardowe przepisywanie URL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/custom_url_rewrites.md).
 
 #### Atrybuty ciasteczek
 
