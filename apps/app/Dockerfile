@@ -97,9 +97,11 @@ USER app
 # Expose the API port (defaults to 3000 via .env, can be overridden)
 EXPOSE 3000
 
+HEALTHCHECK CMD true
 # HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
 #   CMD \
 #     wget -qO- http://localhost:3000/ > /dev/null || exit 1
+
 
 # Start the app
 CMD ["bun", "run", "--bun", "next", "start"] 

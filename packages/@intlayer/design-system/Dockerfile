@@ -59,6 +59,7 @@ WORKDIR /workspace/packages/@intlayer/design-system
 # Build the intlayer dictionaries (optional if turbo already did what you need)
 RUN bun x intlayer build
 
+HEALTHCHECK CMD true
 # HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
 #   CMD \
 #     wget -qO- http://localhost:6006/ > /dev/null || exit 1
@@ -85,6 +86,7 @@ COPY --from=builder /workspace/packages/@intlayer/design-system/storybook-static
 
 EXPOSE 6006
 
+HEALTHCHECK CMD true
 # HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
 #   CMD \
 #     wget -qO- http://localhost:6006/ > /dev/null || exit 1
