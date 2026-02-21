@@ -4,6 +4,8 @@ FROM node:22-alpine AS builder
 
 RUN npm install -g bun@1.3.9
 
+RUN apk add --no-cache wget
+
 # Create app directory
 WORKDIR /workspace
 
@@ -85,4 +87,4 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
   CMD \
     wget -qO- http://localhost:3100/ > /dev/null || exit 1
 
-CMD ["node", "dist/esm/index.mjs"] 
+CMD ["bun", "dist/esm/index.mjs"] 

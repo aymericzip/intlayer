@@ -9,6 +9,8 @@ FROM node:22-alpine AS builder
 
 RUN npm install -g bun@1.3.9
 
+RUN apk add --no-cache wget
+
 ARG NEXT_PUBLIC_DOMAIN
 ARG NEXT_PUBLIC_URL
 ARG NEXT_PUBLIC_EDITOR_URL

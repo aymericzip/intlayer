@@ -5,6 +5,8 @@ FROM oven/bun:1.3.2-alpine AS builder
 # Create app directory
 WORKDIR /workspace
 
+RUN apk add --no-cache wget
+
 # Copy the rest of the source code
 # Remove directories to keep the image slim
 COPY \

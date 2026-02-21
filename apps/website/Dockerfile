@@ -7,6 +7,8 @@
 # https://github.com/oven-sh/bun/issues/4795
 FROM node:22-alpine AS builder
 
+RUN apk add --no-cache wget
+
 RUN npm install -g bun@1.3.9
 
 ARG INTLAYER_CLIENT_ID

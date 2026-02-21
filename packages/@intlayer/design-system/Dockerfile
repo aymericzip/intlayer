@@ -7,7 +7,7 @@ FROM node:22-alpine AS builder
 
 RUN npm install -g bun@1.3.9
 
-RUN apk add --no-cache nodejs npm
+RUN apk add --no-cache nodejs npm wget
 
 # Put the repo in /workspace
 WORKDIR /workspace
