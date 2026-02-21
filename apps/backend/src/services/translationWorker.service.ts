@@ -1,3 +1,4 @@
+import type { ConnectionOptions } from 'node:tls';
 import * as eventListener from '@controllers/eventListener.controller';
 import { type AIOptions, getAIConfig } from '@intlayer/ai';
 import type { Locale } from '@intlayer/types';
@@ -7,20 +8,10 @@ import * as projectService from '@services/project.service';
 import * as userService from '@services/user.service';
 import { translateDictionaryDB } from '@utils/AI/translateDictionaryDB';
 import { mapDictionaryToAPI } from '@utils/mapper/dictionary';
+import { getRedisClient } from '@utils/redis/connectRedis';
 import { type Job, Worker } from 'bullmq';
 import { defu } from 'defu';
-import Redis from 'ioredis';
 import { translationQueueName } from './translationQueue.service';
-
-const redisUrl = process.env.REDIS_URL;
-
-if (!redisUrl) {
-  logger.error('REDIS_URL is not defined');
-}
-
-const connection = new Redis(redisUrl!, {
-  maxRetriesPerRequest: null,
-});
 
 type TranslationJobData = {
   dictionaryIds: string[];
@@ -180,21 +171,29 @@ const processTranslationJob = async (job: Job<TranslationJobData>) => {
   }
 };
 
-export const translationWorker = new Worker<TranslationJobData>(
-  translationQueueName,
-  processTranslationJob,
-  {
-    connection,
-    concurrency: 5, // Process 5 dictionaries in parallel (across jobs or same job? Worker concurrency is for jobs)
-    // Actually, one job has multiple dictionaries. `concurrency` applies to jobs.
-    // If we want parallel dictionaries within a job, we handled it sequentially in the loop above.
-  }
-);
+let translationWorker: Worker<TranslationJobData> | null = null;
 
-translationWorker.on('completed', (job) => {
-  logger.info(`Translation job ${job.id} completed`);
-});
+export const startTranslationWorker = () => {
+  if (translationWorker) return translationWorker;
 
-translationWorker.on('failed', (job, err) => {
-  logger.error(`Translation job ${job?.id} failed:`, err);
-});
+  const connection = getRedisClient();
+
+  translationWorker = new Worker<TranslationJobData>(
+    translationQueueName,
+    processTranslationJob,
+    {
+      connection: connection as unknown as ConnectionOptions,
+      concurrency: 5,
+    }
+  );
+
+  translationWorker.on('completed', (job) => {
+    logger.info(`Translation job ${job.id} completed`);
+  });
+
+  translationWorker.on('failed', (job, err) => {
+    logger.error(`Translation job ${job?.id} failed:`, err);
+  });
+
+  return translationWorker;
+};

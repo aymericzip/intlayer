@@ -2,7 +2,7 @@ import type { Locale } from '@intlayer/types';
 import { logger } from '@logger';
 import {
   addTranslationJob,
-  translationQueue,
+  getTranslationQueue,
 } from '@services/translationQueue.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { formatResponse, type ResponseData } from '@utils/responseData';
@@ -93,6 +93,8 @@ export const getTranslationStatus = async (
   };
 
   try {
+    const translationQueue = getTranslationQueue();
+
     const getRelevantJobs = async () => {
       const jobs = await translationQueue.getJobs([
         'active',
@@ -103,9 +105,9 @@ export const getTranslationStatus = async (
       ]);
 
       if (project) {
-        return jobs.filter((j) => j.data.projectId === project.id);
+        return jobs.filter((job) => job.data.projectId === project.id);
       }
-      return jobs.filter((j) => j.data.userId === user.id);
+      return jobs.filter((job) => job.data.userId === user.id);
     };
 
     // Send initial state

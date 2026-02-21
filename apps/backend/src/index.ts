@@ -33,11 +33,13 @@ import { stripeRoute, stripeRouter } from '@routes/stripe.routes';
 import { tagRoute, tagRouter } from '@routes/tags.routes';
 import { translateRoute, translationRouter } from '@routes/translate.routes';
 import { userRoute, userRouter } from '@routes/user.routes';
+import { startTranslationWorker } from '@services/translationWorker.service';
 // Utils
 import { getAuth } from '@utils/auth/getAuth';
 import { corsOptions } from '@utils/cors';
 import { connectDB } from '@utils/mongoDB/connectDB';
 import { ipLimiter } from '@utils/rateLimiter';
+import { connectRedis } from '@utils/redis/connectRedis';
 // Webhooks
 import { stripeWebhook } from '@webhooks/stripe.webhook';
 // Libraries
@@ -46,8 +48,6 @@ import Fastify, { type FastifyInstance } from 'fastify';
 import { intlayer, t } from 'fastify-intlayer';
 /// Logger
 import { logger } from './logger/index';
-
-import '@services/translationWorker.service';
 
 const startServer = async () => {
   const app: FastifyInstance = Fastify({
@@ -94,6 +94,12 @@ const startServer = async () => {
 
   // Connect to MongoDB
   const dbClient = await connectDB();
+
+  // Connect to Redis
+  await connectRedis();
+
+  // Start Translation Worker
+  startTranslationWorker();
 
   // Stripe webhook (needs raw body)
   // Register a content type parser for raw body
