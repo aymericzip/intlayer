@@ -195,8 +195,9 @@ const mergeFlattenedNodes = (nodes: FlattenedDictionaryNode[]) => {
 };
 
 const TranslateDashboardList: FC = () => {
-  const { searchPlaceholder, noDictionaries, scrollToTop } =
-    useIntlayer('dictionary-list');
+  const { searchPlaceholder, noDictionaries, scrollToTop } = useIntlayer(
+    'translate-dashboard'
+  );
   const { setSearch } = useSearch({});
   const { locale: currentLocale } = useLocale();
   const [search, setInternalSearch] = useState('');
@@ -246,10 +247,7 @@ const TranslateDashboardList: FC = () => {
       (page.data as Dictionary[]).flatMap(flattenDictionary)
     ) ?? [];
 
-  const mergedNodes = useMemo(
-    () => mergeFlattenedNodes(flattenedNodes),
-    [flattenedNodes]
-  );
+  const mergedNodes = mergeFlattenedNodes(flattenedNodes);
 
   // though rangeChanged usually handles this once the list mounts.
   useEffect(() => {
