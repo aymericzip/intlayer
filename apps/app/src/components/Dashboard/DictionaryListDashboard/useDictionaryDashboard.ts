@@ -3,34 +3,26 @@ import {
   useGetDictionaries,
   usePersistedStore,
 } from '@intlayer/design-system/hooks';
-import type { Dictionary } from '@intlayer/types';
-import {
-  type ColumnDef,
-  getCoreRowModel,
-  type RowSelectionState,
-  useReactTable,
-  type VisibilityState,
-} from '@tanstack/react-table';
+import type { RowSelectionState, VisibilityState } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
-import { useIntlayer } from 'next-intlayer';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
-import { PagesRoutes } from '@/Routes';
+
+const searchParams = {
+  page: { type: 'number', fallbackValue: 1 },
+  pageSize: { type: 'number', fallbackValue: 20 },
+  search: { type: 'string', fallbackValue: '' },
+  sortBy: { type: 'string', fallbackValue: 'updatedAt' },
+  sortOrder: { type: 'string', fallbackValue: 'desc' },
+  location: { type: 'string', fallbackValue: 'none' },
+  tags: { type: 'string', fallbackValue: '' },
+} as const;
 
 export const useDictionaryDashboard = () => {
   const router = useRouter();
-  const content = useIntlayer('dictionary-list');
 
   // Search & Pagination Params
-  const { params, setParam, setParams } = useSearchParamState({
-    page: { type: 'number', fallbackValue: 1 },
-    pageSize: { type: 'number', fallbackValue: 20 },
-    search: { type: 'string', fallbackValue: '' },
-    sortBy: { type: 'string', fallbackValue: 'updatedAt' },
-    sortOrder: { type: 'string', fallbackValue: 'desc' },
-    location: { type: 'string', fallbackValue: 'none' },
-    tags: { type: 'string', fallbackValue: '' },
-  } as const);
+  const { params, setParam, setParams } = useSearchParamState(searchParams);
 
   // Modals & Selection State
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
@@ -106,6 +98,5 @@ export const useDictionaryDashboard = () => {
       isPending,
     },
     actions: { refetch, onConfirmDelete, router },
-    content,
   };
 };

@@ -1,4 +1,5 @@
 import { DictionaryCreationForm, Modal } from '@intlayer/design-system';
+import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { DeleteDictionaryModal } from './DeleteDictionaryModal';
 import { DictionaryDetailModal } from './DictionaryDetailModal';
@@ -10,7 +11,9 @@ interface DictionaryModalsProps {
 }
 
 export const DictionaryModals: FC<DictionaryModalsProps> = ({ dashboard }) => {
-  const { state, actions, content, params, setParam, setParams } = dashboard;
+  const content = useIntlayer('dictionary-list');
+
+  const { state, actions, params, setParam, setParams } = dashboard;
 
   return (
     <>

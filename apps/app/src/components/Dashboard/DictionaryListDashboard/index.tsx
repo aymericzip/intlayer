@@ -8,7 +8,7 @@ import {
   Loader,
   NumberItemsSelector,
   Pagination,
-  Popover,
+  PopoverStatic,
   ShowingResultsNumberItems,
   Tag,
 } from '@intlayer/design-system';
@@ -20,12 +20,14 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import {
+  ArrowRight,
   ChevronDown,
   ChevronsUpDown,
   ChevronUp,
   Pencil,
   Trash2,
 } from 'lucide-react';
+import { useIntlayer } from 'next-intlayer';
 import { useDate } from 'next-intlayer/format';
 import { type FC, Suspense, useMemo } from 'react';
 import { PagesRoutes } from '@/Routes';
@@ -38,6 +40,7 @@ export const DictionaryListDashboardContent: FC = () => {
   const dashboard = useDictionaryDashboard();
   const { setFocusedContent } = useFocusUnmergedDictionary();
   const formatDate = useDate();
+  const content = useIntlayer('dictionary-list');
 
   const handleSort = (columnId: string) => {
     const isAsc =
@@ -82,7 +85,7 @@ export const DictionaryListDashboardContent: FC = () => {
             size="sm"
             checked={table.getIsAllPageRowsSelected()}
             onChange={(e) => table.toggleAllPageRowsSelected(e.target.checked)}
-            aria-label={dashboard.content.selectAll.value}
+            aria-label={content.selectAll.value}
           />
         ),
         cell: ({ row }) => (
@@ -92,7 +95,7 @@ export const DictionaryListDashboardContent: FC = () => {
             checked={row.getIsSelected()}
             onClick={(e) => e.stopPropagation()} // FIX: Prevent row click navigation
             onChange={(e) => row.toggleSelected(e.target.checked)}
-            aria-label={dashboard.content.selectRow.value}
+            aria-label={content.selectRow.value}
           />
         ),
         enableSorting: false,
@@ -100,7 +103,7 @@ export const DictionaryListDashboardContent: FC = () => {
       },
       {
         accessorKey: 'id',
-        header: dashboard.content.tableHeaders.id,
+        header: content.tableHeaders.id,
         cell: ({ row }) => (
           <CopyToClipboard
             text={row.original.id!}
@@ -114,10 +117,7 @@ export const DictionaryListDashboardContent: FC = () => {
       {
         accessorKey: 'key',
         header: () => (
-          <SortHeader
-            columnId="key"
-            label={dashboard.content.tableHeaders.key.value}
-          />
+          <SortHeader columnId="key" label={content.tableHeaders.key.value} />
         ),
         cell: ({ row }) => (
           <CopyToClipboard
@@ -134,7 +134,7 @@ export const DictionaryListDashboardContent: FC = () => {
         header: () => (
           <SortHeader
             columnId="title"
-            label={dashboard.content.tableHeaders.title.value}
+            label={content.tableHeaders.title.value}
           />
         ),
         cell: ({ row }) =>
@@ -146,7 +146,7 @@ export const DictionaryListDashboardContent: FC = () => {
       },
       {
         accessorKey: 'description',
-        header: dashboard.content.tableHeaders.description,
+        header: content.tableHeaders.description,
         cell: ({ row }) =>
           row.original.description ? (
             <div className="line-clamp-2 max-w-xs text-neutral">
@@ -158,7 +158,7 @@ export const DictionaryListDashboardContent: FC = () => {
       },
       {
         accessorKey: 'tags',
-        header: dashboard.content.tableHeaders.tags,
+        header: content.tableHeaders.tags,
         cell: ({ row }) => {
           const tags = (row.original as any).tags;
           return (
@@ -178,7 +178,7 @@ export const DictionaryListDashboardContent: FC = () => {
       },
       {
         accessorKey: 'location',
-        header: dashboard.content.tableHeaders.location,
+        header: content.tableHeaders.location,
         cell: ({ row }) => {
           const location = row.original.location ?? 'remote';
           const isLocal = location === 'local' || location === 'hybrid';
@@ -197,7 +197,7 @@ export const DictionaryListDashboardContent: FC = () => {
                   size="sm"
                   onClick={(e: React.MouseEvent) => e.stopPropagation()}
                 />
-                <span>{dashboard.content.locationOptions.local.value}</span>
+                <span>{content.locationOptions.local.value}</span>
               </div>
               <div className="flex items-center gap-1">
                 <Checkbox
@@ -207,7 +207,7 @@ export const DictionaryListDashboardContent: FC = () => {
                   size="sm"
                   onClick={(e: React.MouseEvent) => e.stopPropagation()}
                 />
-                <span>{dashboard.content.locationOptions.remote.value}</span>
+                <span>{content.locationOptions.remote.value}</span>
               </div>
             </div>
           );
@@ -218,7 +218,7 @@ export const DictionaryListDashboardContent: FC = () => {
         header: () => (
           <SortHeader
             columnId="createdAt"
-            label={dashboard.content.tableHeaders.createdAt.value}
+            label={content.tableHeaders.createdAt.value}
           />
         ),
         cell: ({ row }) => (
@@ -232,7 +232,7 @@ export const DictionaryListDashboardContent: FC = () => {
         header: () => (
           <SortHeader
             columnId="updatedAt"
-            label={dashboard.content.tableHeaders.updatedAt.value}
+            label={content.tableHeaders.updatedAt.value}
           />
         ),
         cell: ({ row }) => (
@@ -243,30 +243,64 @@ export const DictionaryListDashboardContent: FC = () => {
       },
       {
         id: 'actions',
-        header: dashboard.content.tableHeaders.actions,
+        header: content.tableHeaders.actions,
         cell: ({ row }) => (
           <div className="flex items-center gap-1">
-            <Popover identifier={`edit-${row.original.id}`}>
+            <PopoverStatic identifier={`view-${row.original.id}`}>
               <Button
                 variant="hoverable"
                 color="text"
                 size="icon-sm"
                 onClick={(e: React.MouseEvent) => {
                   e.stopPropagation();
+
+                  setFocusedContent({
+                    dictionaryKey: row.original.key,
+                    dictionaryLocalId: row.original.localId,
+                    keyPath: [],
+                  });
+
+                  dashboard.actions.router.push(
+                    `${PagesRoutes.Dashboard_Dictionaries}/${row.original.key}`
+                  );
+                }}
+                Icon={ArrowRight}
+                label={content.viewButton?.label?.value ?? 'View'}
+              />
+              <PopoverStatic.Detail
+                xAlign="end"
+                identifier={`view-${row.original.id}`}
+              >
+                <Container className="p-3">
+                  <p>{content.viewButton?.popover}</p>
+                </Container>
+              </PopoverStatic.Detail>
+            </PopoverStatic>
+            <PopoverStatic identifier={`edit-${row.original.id}`}>
+              <Button
+                variant="hoverable"
+                color="text"
+                size="icon-sm"
+                onClick={(e: React.MouseEvent) => {
+                  e.stopPropagation();
+
                   if (row.original.key) {
                     dashboard.state.setEditingDictionaryKey(row.original.key);
                   }
                 }}
                 Icon={Pencil}
-                label={dashboard.content.editButton.label.value}
+                label={content.editButton.label.value}
               />
-              <Popover.Detail identifier={`edit-${row.original.id}`}>
+              <PopoverStatic.Detail
+                xAlign="end"
+                identifier={`edit-${row.original.id}`}
+              >
                 <Container className="p-3">
-                  <p>{dashboard.content.editButton.popover}</p>
+                  <p>{content.editButton.popover}</p>
                 </Container>
-              </Popover.Detail>
-            </Popover>
-            <Popover identifier={`delete-${row.original.id}`}>
+              </PopoverStatic.Detail>
+            </PopoverStatic>
+            <PopoverStatic identifier={`delete-${row.original.id}`}>
               <Button
                 variant="hoverable"
                 color="error"
@@ -274,26 +308,28 @@ export const DictionaryListDashboardContent: FC = () => {
                 size="icon-sm"
                 onClick={(e: React.MouseEvent) => {
                   e.stopPropagation();
+
                   if (row.original.id) {
                     dashboard.state.setDictionaryToDelete(row.original.id);
                   }
                 }}
                 Icon={Trash2}
-                label={dashboard.content.deleteButton.label.value}
+                label={content.deleteButton.label.value}
               />
-              <Popover.Detail identifier={`delete-${row.original.id}`}>
+              <PopoverStatic.Detail
+                xAlign="end"
+                identifier={`delete-${row.original.id}`}
+              >
                 <Container className="p-3">
-                  <p>{dashboard.content.deleteButton.popover}</p>
+                  <p>{content.deleteButton.popover}</p>
                 </Container>
-              </Popover.Detail>
-            </Popover>
+              </PopoverStatic.Detail>
+            </PopoverStatic>
           </div>
         ),
       },
     ],
-    // The columns depend on dashboard state/content to trigger language swaps and sort updates properly
     [
-      dashboard.content,
       dashboard.params.sortBy,
       dashboard.params.sortOrder,
       formatDate,
@@ -321,16 +357,10 @@ export const DictionaryListDashboardContent: FC = () => {
       <DictionaryTable
         table={table}
         isPending={dashboard.data.isPending}
-        noDictionaryFound={dashboard.content.noDictionaryFound.value}
+        noDictionaryFound={content.noDictionaryFound.value}
         onRowClick={(row) => {
-          setFocusedContent({
-            dictionaryKey: row.original.key,
-            dictionaryLocalId: row.original.localId,
-            keyPath: [],
-          });
-          dashboard.actions.router.push(
-            `${PagesRoutes.Dashboard_Dictionaries}/${row.original.key}`
-          );
+          // Selection toggle instead of navigation
+          row.toggleSelected();
         }}
       />
 

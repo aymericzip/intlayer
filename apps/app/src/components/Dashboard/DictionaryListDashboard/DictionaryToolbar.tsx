@@ -1,21 +1,28 @@
-import { Button, SearchInput } from '@intlayer/design-system';
+import {
+  Button,
+  Container,
+  PopoverStatic,
+  SearchInput,
+} from '@intlayer/design-system';
 import type { Dictionary } from '@intlayer/types';
 import type { Table } from '@tanstack/react-table';
 import { Filter, Plus, Trash2 } from 'lucide-react';
+import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import type { useDictionaryDashboard } from './useDictionaryDashboard';
 
 interface DictionaryToolbarProps {
   dashboard: ReturnType<typeof useDictionaryDashboard>;
-  table: Table<Dictionary>; // Ideally typed to Table<Dictionary>
+  table: Table<Dictionary>;
 }
 
 export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
   dashboard,
   table,
 }) => {
-  const { content, params, setParam, state } = dashboard;
+  const content = useIntlayer('dictionary-list');
+  const { params, setParam, state } = dashboard;
   const { register } = useForm({ defaultValues: { search: params.search } });
 
   const selectedCount = Object.keys(state.rowSelection).length;
@@ -43,7 +50,7 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
             color="error"
             variant="outline"
             Icon={Trash2}
-            label=""
+            label={content.deleteSelectedButton.label.value}
             onClick={() => {
               const ids = table
                 .getSelectedRowModel()
@@ -54,14 +61,24 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
             {content.deleteSelectedButton.text} ({selectedCount})
           </Button>
         )}
-        <Button
-          Icon={Plus}
-          color="text"
-          label=""
-          onClick={() => state.setIsCreationModalOpen(true)}
-        >
-          {content.createDictionaryButton?.text}
-        </Button>
+        <PopoverStatic identifier="create-dictionary-toolbar">
+          <Button
+            Icon={Plus}
+            color="text"
+            label={content.createDictionaryButton.label.value}
+            onClick={() => state.setIsCreationModalOpen(true)}
+          >
+            {content.createDictionaryButton.text}
+          </Button>
+          <PopoverStatic.Detail
+            xAlign="end"
+            identifier="create-dictionary-toolbar"
+          >
+            <Container className="p-3">
+              <p>{content.createDictionaryButton.popover}</p>
+            </Container>
+          </PopoverStatic.Detail>
+        </PopoverStatic>
       </div>
     </div>
   );

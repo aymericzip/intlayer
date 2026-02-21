@@ -62,8 +62,29 @@ export const DictionaryTable: FC<DictionaryTableProps> = memo(
                 return (
                   <tr
                     key={row.id}
-                    className="cursor-pointer whitespace-nowrap border-card border-b transition-colors hover:bg-card/30"
+                    className="cursor-pointer whitespace-nowrap rounded-xl border-card border-b transition-colors hover:bg-card/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-card"
                     onClick={() => onRowClick(row)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        onRowClick(row);
+                      }
+
+                      if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        const nextRow = e.currentTarget
+                          .nextElementSibling as HTMLElement | null;
+                        nextRow?.focus();
+                      }
+
+                      if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        const prevRow = e.currentTarget
+                          .previousElementSibling as HTMLElement | null;
+                        prevRow?.focus();
+                      }
+                    }}
+                    tabIndex={0}
                   >
                     {visibleCells.map((cell, cellIndex) => (
                       <td
