@@ -13,6 +13,10 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: checkTypes विकल्प जोड़ें
 ---
 
 # शब्दकोश बनाएं
@@ -62,3 +66,7 @@ npx intlayer build --watch
 - **`--no-cache`**: कैश को अक्षम करें।
 
   > उदाहरण: `npx intlayer build --no-cache`
+
+- **`--check-types`**: सामग्री घोषणा फ़ाइलों के प्रकारों की जाँच करें।
+
+  > उदाहरण: `npx intlayer build --check-types`

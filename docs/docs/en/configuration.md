@@ -378,6 +378,12 @@ const config: IntlayerConfig = {
      * Default: ['esm', 'cjs']
      */
     outputFormat: ["esm"],
+
+    /**
+     * Indicates if the build should check TypeScript types.
+     * Default: false
+     */
+    checkTypes: false,
   },
 
   /**
@@ -1155,6 +1161,12 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Note_: Fetch mode will use the live sync API to fetch the dictionaries. If the API call fails, the dictionaries will be imported dynamically as "dynamic" mode.
   - _Note_: This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions.
   - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
+- **checkTypes**:
+  - _Type_: `boolean`
+  - _Default_: `false`
+  - _Description_: Indicates if the build should check TypeScript types and log errors.
+  - _Note_: This can slow down the build.
+
 - **outputFormat**:
   - _Type_: `'esm' | 'cjs'`
   - _Default_: `'esm'`

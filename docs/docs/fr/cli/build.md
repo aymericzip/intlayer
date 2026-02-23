@@ -13,6 +13,10 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: Ajouter l'option checkTypes
 ---
 
 # Construire des Dictionnaires
@@ -62,3 +66,7 @@ Cette commande trouvera par défaut vos fichiers de déclaration de contenu sous
 - **`--no-cache`** : Désactiver le cache.
 
   > Exemple : `npx intlayer build --no-cache`
+
+- **`--check-types`**: Vérifie les types des fichiers de déclaration de contenu.
+
+  > Exemple : `npx intlayer build --check-types`

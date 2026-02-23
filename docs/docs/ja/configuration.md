@@ -346,6 +346,12 @@ const config: IntlayerConfig = {
      * Default: ['esm', 'cjs']
      */
     outputFormat: ["esm"],
+
+    /**
+     * Indicates if the build should check TypeScript types.
+     * Default: false
+     */
+    checkTypes: false,
   },
 
   /**
@@ -931,6 +937,12 @@ Intlayerがアプリケーションの国際化をどのように最適化しビ
   - _注意_: 'auto'の場合、アプリケーションがビルドされると自動的にビルドが有効になります。
   - _注意_: 'manual'の場合、ビルドコマンドが実行されたときにのみビルドが設定されます。
   - _注意_: 辞書のビルドを無効にするために使用できます。たとえば、Node.js環境での実行を避ける必要がある場合などです。
+
+- **checkTypes**:
+  - _Type_: `boolean`
+  - _Default_: `false`
+  - _Description_: ビルドがTypeScriptの型をチェックし、エラーをログに記録するかどうかを示します。
+  - _Note_: これにより、ビルドが遅くなる可能性があります。
 
 - **optimize**:
   - _型_: `boolean`

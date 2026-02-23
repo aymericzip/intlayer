@@ -13,6 +13,10 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: Adicionar opção checkTypes
 ---
 
 # Construir Dicionários
@@ -62,3 +66,7 @@ Este comando irá localizar seus arquivos de declaração de conteúdo por padr�
 - **`--no-cache`**: Desativa o cache.
 
   > Exemplo: `npx intlayer build --no-cache`
+
+- **`--check-types`**: Verifica os tipos dos arquivos de declaração de conteúdo.
+
+  > Exemplo: `npx intlayer build --check-types`

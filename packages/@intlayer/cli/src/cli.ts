@@ -7,6 +7,7 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
+import type { CustomIntlayerConfig } from '@intlayer/types';
 import { Command } from 'commander';
 import { login } from './auth/login';
 import { build } from './build';
@@ -76,7 +77,7 @@ const gitOptions = [
 ];
 
 const extractKeysFromOptions = (options: object, keys: string[]) =>
-  keys.filter((key) => options[key as keyof typeof options]);
+  keys.filter((key) => options[key as keyof typeof options] !== undefined);
 
 /**
  * Helper functions to apply common options to commands
@@ -148,7 +149,7 @@ const extractGitOptions = (
 ): ListGitFilesOptions | undefined => {
   const filteredOptions = extractKeysFromOptions(options, gitOptionKeys);
 
-  const isOptionEmpty = !Object.values(filteredOptions).some(Boolean);
+  const isOptionEmpty = filteredOptions.length === 0;
 
   if (isOptionEmpty) return undefined;
 
@@ -186,6 +187,7 @@ export type ConfigurationOptions = {
   env?: string;
   envFile?: string;
   noCache?: boolean;
+  checkTypes?: boolean;
 } & LogOptions;
 
 const configurationOptionKeys: (keyof ConfigurationOptions)[] = [
@@ -194,47 +196,56 @@ const configurationOptionKeys: (keyof ConfigurationOptions)[] = [
   'envFile',
   'verbose',
   'prefix',
+  'checkTypes',
 ];
 
 const extractConfigOptions = (
-  options: ConfigurationOptions
+  options: ConfigurationOptions & { with?: string }
 ): GetConfigurationOptions | undefined => {
-  const configuration = getConfiguration(options);
   const filteredOptions = extractKeysFromOptions(
     options,
     configurationOptionKeys
   );
 
-  const isOptionEmpty = !Object.values(filteredOptions).some(Boolean);
+  const isOptionEmpty = filteredOptions.length === 0;
 
   if (isOptionEmpty) {
     return undefined;
   }
 
-  const { baseDir, env, envFile, verbose, prefix, noCache } = options;
-
-  const addPrefix: boolean = Boolean((options as any).with); // Hack to add the prefix when the command is run in parallel
-
-  if (typeof prefix === 'string') {
-    setPrefix(prefix);
-  } else if (addPrefix) {
-    setPrefix(configuration.log.prefix);
+  if (typeof options.with === 'undefined') {
+    setPrefix('');
   }
 
-  const log = {
-    verbose: verbose ?? true,
-  };
+  const { baseDir, env, envFile, verbose, noCache, checkTypes } = options;
 
-  const override = {
-    log,
-  };
+  const log = removeUndefined({
+    mode:
+      typeof verbose !== 'undefined'
+        ? verbose
+          ? 'verbose'
+          : 'default'
+        : undefined,
+  });
+
+  const build = removeUndefined({
+    checkTypes,
+  });
+
+  const override: CustomIntlayerConfig = removeUndefined({
+    log:
+      Object.keys(log).length > 0
+        ? (log as CustomIntlayerConfig['log'])
+        : undefined,
+    build: Object.keys(build).length > 0 ? build : undefined,
+  });
 
   return removeUndefined({
     baseDir,
     env,
     envFile,
-    override,
-    cache: !noCache,
+    override: Object.keys(override).length > 0 ? override : undefined,
+    cache: typeof noCache !== 'undefined' ? !noCache : undefined,
   });
 };
 
@@ -247,7 +258,12 @@ const extractConfigOptions = (
  * npm run intlayer push --dictionaries id1 id2 id3 --deleteLocaleDir
  */
 export const setAPI = (): Command => {
-  setPrefix('');
+  const isWithCommand = process.argv.includes('--with');
+
+  if (!isWithCommand) {
+    setPrefix('');
+  }
+
   const program = new Command();
 
   program.version(packageJson.version!).description('Intlayer CLI');
@@ -277,7 +293,7 @@ export const setAPI = (): Command => {
       override: {
         log: {
           prefix: '',
-          verbose: true,
+          mode: 'verbose',
         },
       },
     };
@@ -320,6 +336,7 @@ export const setAPI = (): Command => {
       ['-w, --watch', 'Watch for changes'],
       ['--skip-prepare', 'Skip the prepare step'],
       ['--with [with...]', 'Start command in parallel with the build'],
+      ['--check-types', 'Check TypeScript type and log errors'],
     ],
   };
 

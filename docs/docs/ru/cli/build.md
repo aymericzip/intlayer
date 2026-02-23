@@ -13,6 +13,10 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: Добавить опцию checkTypes
 ---
 
 # Построение словарей
@@ -62,3 +66,7 @@ npx intlayer build --watch
 - **`--no-cache`**: Отключить кэш.
 
   > Пример: `npx intlayer build --no-cache`
+
+- **`--check-types`**: Проверяет типы файлов объявления контента.
+
+  > Пример: `npx intlayer build --check-types`

@@ -13,6 +13,10 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: checkTypes 옵션 추가
 ---
 
 # 사전 빌드하기
@@ -62,3 +66,7 @@ npx intlayer build --watch
 - **`--no-cache`**: 캐시를 비활성화합니다.
 
   > 예시: `npx intlayer build --no-cache`
+
+- **`--check-types`**: 콘텐츠 선언 파일의 유형을 확인합니다.
+
+  > 예: `npx intlayer build --check-types`

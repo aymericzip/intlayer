@@ -13,6 +13,10 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: checkTypes seçeneği eklendi
 ---
 
 # Sözlükleri Oluşturma
@@ -62,3 +66,7 @@ Bu komut, varsayılan olarak `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` d
 - **`--no-cache`**: Önbelleği devre dışı bırakın.
 
   > Örnek: `npx intlayer build --no-cache`
+
+- **`--check-types`**: İçerik bildirim dosyalarının türlerini kontrol eder.
+
+  > Örnek: `npx intlayer build --check-types`

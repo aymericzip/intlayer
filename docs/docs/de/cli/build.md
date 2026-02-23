@@ -13,6 +13,10 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: checkTypes-Option hinzugefügt
 ---
 
 # Wörterbücher erstellen
@@ -62,3 +66,7 @@ Dieser Befehl findet standardmäßig Ihre Deklarations-Inhaltsdateien unter `./s
 - **`--no-cache`**: Deaktivieren Sie den Cache.
 
   > Beispiel: `npx intlayer build --no-cache`
+
+- **`--check-types`**: Überprüft die Typen der Inhaltsdeklarationsdateien.
+
+  > Beispiel: `npx intlayer build --check-types`

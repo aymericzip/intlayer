@@ -346,6 +346,12 @@ const config: IntlayerConfig = {
      * Default: ['esm', 'cjs']
      */
     outputFormat: ["esm"],
+
+    /**
+     * Indicates if the build should check TypeScript types.
+     * Default: false
+     */
+    checkTypes: false,
   },
 
   /**
@@ -936,6 +942,12 @@ Derleme seçenekleri `@intlayer/babel` ve `@intlayer/swc` eklentilerine uygulan�
   - _Not_: 'auto' ise, uygulama derlendiğinde derleme otomatik olarak etkinleştirilir.
   - _Not_: 'manual' ise, derleme yalnızca derleme komutu çalıştırıldığında ayarlanır.
   - _Not_: Sözlük derlemesini devre dışı bırakmak için kullanılabilir, örneğin Node.js ortamında yürütmeden kaçınılması gerektiğinde.
+
+- **checkTypes**:
+  - _Type_: `boolean`
+  - _Default_: `false`
+  - _Description_: Derlemenin TypeScript türlerini kontrol edip etmeyeceğini ve hataları kaydedip kaydetmeyeceğini belirtir.
+  - _Note_: Bu, derleme işlemini yavaşlatabilir.
 
 - **optimize**:
   - _Tür_: `boolean`

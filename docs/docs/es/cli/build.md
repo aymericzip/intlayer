@@ -13,6 +13,10 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: Añadir opción checkTypes
 ---
 
 # Construir Diccionarios
@@ -62,3 +66,7 @@ Este comando encontrará tus archivos de declaración de contenido por defecto e
 - **`--no-cache`**: Deshabilitar la caché.
 
   > Ejemplo: `npx intlayer build --no-cache`
+
+- **`--check-types`**: Comprueba los tipos de los archivos de declaración de contenido.
+
+  > Ejemplo: `npx intlayer build --check-types`

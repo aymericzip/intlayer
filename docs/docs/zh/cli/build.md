@@ -13,6 +13,10 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: 添加 checkTypes 选项
 ---
 
 # 构建字典
@@ -62,3 +66,7 @@ npx intlayer build --watch
 - **`--no-cache`**：禁用缓存。
 
   > 示例：`npx intlayer build --no-cache`
+
+- **`--check-types`**: 检查内容声明文件的类型。
+
+  > 示例： `npx intlayer build --check-types`

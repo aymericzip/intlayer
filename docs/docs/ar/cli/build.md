@@ -13,6 +13,10 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: إضافة خيار checkTypes
 ---
 
 # بناء القواميس
@@ -62,3 +66,7 @@ npx intlayer build --watch
 - **`--no-cache`**: تعطيل التخزين المؤقت.
 
   > مثال: `npx intlayer build --no-cache`
+
+- **`--check-types`**: التحقق من أنواع ملفات إعلان المحتوى.
+
+  > مثال: `npx intlayer build --check-types`

@@ -343,6 +343,12 @@ const config: IntlayerConfig = {
      * Default: ['esm', 'cjs']
      */
     outputFormat: ["esm"],
+
+    /**
+     * Indicates if the build should check TypeScript types.
+     * Default: false
+     */
+    checkTypes: false,
   },
 
   /**
@@ -928,6 +934,12 @@ Intlayer बेहतर लचीलापन और विकल्प के 
   - _नोट_: यदि 'auto', तो एप्लिकेशन बनाए जाने पर बिल्ड स्वचालित रूप से सक्षम हो जाएगा।
   - _नोट_: यदि 'manual', तो बिल्ड केवल तब सेट किया जाएगा जब बिल्ड कमांड निष्पादित की जाती है।
   - _नोट_: शब्दकोश बिल्ड को अक्षम करने के लिए उपयोग किया जा सकता है, उदाहरण के लिए जब Node.js वातावरण में निष्पादन से बचना चाहिए।
+
+- **checkTypes**:
+  - _Type_: `boolean`
+  - _Default_: `false`
+  - _Description_: इंगित करता है कि क्या बिल्ड को TypeScript प्रकारों की जांच करनी चाहिए और त्रुटियों को लॉग करना चाहिए।
+  - _Note_: यह बिल्ड को धीमा कर सकता है।
 
 - **optimize**:
   - _प्रकार_: `boolean`

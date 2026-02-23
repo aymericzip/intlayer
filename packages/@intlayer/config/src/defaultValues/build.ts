@@ -10,3 +10,5 @@ export const TRAVERSE_PATTERN = [
 export const OUTPUT_FORMAT: ('cjs' | 'esm')[] = ['esm', 'cjs'];
 
 export const CACHE = true;
+
+export const TYPE_CHECKING = false;

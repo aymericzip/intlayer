@@ -361,6 +361,12 @@ const config: IntlayerConfig = {
      * Default: ['esm', 'cjs']
      */
     outputFormat: ["esm"],
+
+    /**
+     * Indicates if the build should check TypeScript types.
+     * Default: false
+     */
+    checkTypes: false,
   },
 
   /**
@@ -1067,6 +1073,12 @@ Các tùy chọn build áp dụng cho các plugin `@intlayer/babel` và `@intlay
   - _Lưu ý_: Nếu được đặt thành "live", chỉ những từ điển bao gồm nội dung từ xa và được đánh dấu là "live" mới được chuyển đổi sang chế độ live. Các từ điển khác sẽ được nhập động dưới dạng chế độ "dynamic" để tối ưu số lượng truy vấn fetch và hiệu suất tải.
   - _Lưu ý_: Chế độ live sẽ sử dụng live sync API để lấy các từ điển. Nếu cuộc gọi API thất bại, các từ điển sẽ được nhập động dưới dạng chế độ "dynamic".
   - _Lưu ý_: Tùy chọn này sẽ không ảnh hưởng đến các hàm `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` và `useDictionaryDynamic`.
+- **checkTypes**:
+  - _Type_: `boolean`
+  - _Default_: `false`
+  - _Description_: Cho biết liệu quá trình xây dựng có nên kiểm tra các kiểu TypeScript và ghi lại lỗi hay không.
+  - _Note_: Điều này có thể làm chậm quá trình xây dựng.
+
 - **outputFormat**:
   - _Kiểu_: `'esm' | 'cjs'`
   - _Mặc định_: `'esm'`

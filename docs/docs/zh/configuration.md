@@ -346,6 +346,12 @@ const config: IntlayerConfig = {
      * Default: ['esm', 'cjs']
      */
     outputFormat: ["esm"],
+
+    /**
+     * Indicates if the build should check TypeScript types.
+     * Default: false
+     */
+    checkTypes: false,
   },
 
   /**
@@ -937,6 +943,12 @@ Intlayer 支持多个 AI 提供商，以增强灵活性和选择。目前支持�
   - _注意_：如果为 'auto'，构建将在应用程序构建时自动启用。
   - _注意_：如果为 'manual'，构建仅在执行构建命令时设置。
   - _注意_：可用于禁用字典构建，例如当应避免在 Node.js 环境中执行时。
+
+- **checkTypes**:
+  - _Type_: `boolean`
+  - _Default_: `false`
+  - _Description_: 指示构建是否应检查 TypeScript 类型并记录错误。
+  - _Note_: 这可能会减慢构建速度。
 
 - **optimize**：
   - _类型_：`boolean`

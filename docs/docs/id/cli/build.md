@@ -13,6 +13,10 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: Tambahkan opsi checkTypes
 ---
 
 # Bangun Kamus
@@ -62,3 +66,7 @@ Perintah ini akan mencari file deklarasi konten Anda secara default di `./src/**
 - **`--no-cache`**: Nonaktifkan cache.
 
   > Contoh: `npx intlayer build --no-cache`
+
+- **`--check-types`**: Memeriksa tipe file deklarasi konten.
+
+  > Contoh: `npx intlayer build --check-types`

@@ -8,6 +8,7 @@ import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { parallelize } from '../utils/parallelize';
 import { getIntlayerBundle } from './getIntlayerBundle';
 import type { DictionariesStatus } from './loadDictionaries';
+import { logTypeScriptErrors } from './logTypeScriptErrors';
 
 export const formatLocalDictionaries = (
   dictionariesRecord: Record<string, Dictionary>,
@@ -26,6 +27,15 @@ export const loadContentDeclarations = async (
   onStatusUpdate?: (status: DictionariesStatus[]) => void
 ): Promise<Dictionary[]> => {
   const { build, system } = configuration;
+
+  // Check for TypeScript warnings before we build
+  if (build.checkTypes) {
+    logTypeScriptErrors(contentDeclarationFilePath, configuration).catch(
+      (e) => {
+        console.error('Error during TypeScript validation:', e);
+      }
+    );
+  }
 
   const { set, isValid, clear } = cacheDisk(
     configuration,

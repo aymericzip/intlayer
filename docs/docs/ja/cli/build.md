@@ -13,6 +13,10 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: checkTypesオプションを追加
 ---
 
 # 辞書のビルド
@@ -76,3 +80,7 @@ npx intlayer build --watch
 - **`--no-cache`**: キャッシュを無効にします。
 
   > 例: `npx intlayer build --no-cache`
+
+- **`--check-types`**: コンテンツ宣言ファイルの型をチェックします。
+
+  > 例: `npx intlayer build --check-types`

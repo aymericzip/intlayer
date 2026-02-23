@@ -361,6 +361,12 @@ const config: IntlayerConfig = {
      * Default: ['esm', 'cjs']
      */
     outputFormat: ["esm"],
+
+    /**
+     * Indicates if the build should check TypeScript types.
+     * Default: false
+     */
+    checkTypes: false,
   },
 
   /**
@@ -1067,6 +1073,12 @@ Opsi build berlaku untuk plugin `@intlayer/babel` dan `@intlayer/swc`.
   - _Catatan_: Jika diatur ke "live", hanya kamus yang menyertakan konten jarak jauh, dan diatur sebagai flag "live" yang akan diubah menjadi mode live. Yang lainnya akan diimpor secara dinamis sebagai mode "dynamic" untuk mengoptimalkan jumlah kueri pengambilan, dan kinerja pemuatan.
   - _Catatan_: Mode live akan menggunakan API sinkronisasi live untuk mengambil kamus. Jika panggilan API gagal, kamus akan diimpor secara dinamis sebagai mode "dynamic".
   - _Catatan_: Opsi ini tidak akan memengaruhi fungsi `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` dan `useDictionaryDynamic`.
+- **checkTypes**:
+  - _Type_: `boolean`
+  - _Default_: `false`
+  - _Description_: Menunjukkan apakah build harus memeriksa tipe TypeScript dan mencatat kesalahan.
+  - _Note_: Hal ini dapat memperlambat proses build.
+
 - **outputFormat**:
   - _Tipe_: `'esm' | 'cjs'`
   - _Default_: `'esm'`

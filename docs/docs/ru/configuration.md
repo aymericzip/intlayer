@@ -351,6 +351,12 @@ const config: IntlayerConfig = {
      * Default: ['esm', 'cjs']
      */
     outputFormat: ["esm"],
+
+    /**
+     * Indicates if the build should check TypeScript types.
+     * Default: false
+     */
+    checkTypes: false,
   },
 
   /**
@@ -948,6 +954,12 @@ Intlayer поддерживает несколько провайдеров ИИ
   - _Примечание_: Если 'auto', сборка будет автоматически включена при сборке приложения.
   - _Примечание_: Если 'manual', сборка будет установлена только при выполнении команды сборки.
   - _Примечание_: Может использоваться для отключения сборки словарей, например, когда следует избегать выполнения в среде Node.js.
+
+- **checkTypes**:
+  - _Type_: `boolean`
+  - _Default_: `false`
+  - _Description_: Указывает, должна ли сборка проверять типы TypeScript и регистрировать ошибки.
+  - _Note_: Это может замедлить процесс сборки.
 
 - **optimize**:
   - _Тип_: `boolean`

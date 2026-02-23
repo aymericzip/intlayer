@@ -601,6 +601,16 @@ export type BuildConfig = {
    * ```
    */
   require?: NodeJS.Require;
+
+  /**
+   * Indicates if the build should check TypeScript types
+   *
+   * Default: false
+   *
+   * If true, the build will check TypeScript types and log errors.
+   * Note: This can slow down the build.
+   */
+  checkTypes: boolean;
 };
 
 export type CompilerConfig = {

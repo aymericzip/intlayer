@@ -343,6 +343,12 @@ const config: IntlayerConfig = {
      * Default: ['esm', 'cjs']
      */
     outputFormat: ["esm"],
+
+    /**
+     * Indicates if the build should check TypeScript types.
+     * Default: false
+     */
+    checkTypes: false,
   },
 
   /**
@@ -940,6 +946,12 @@ Las opciones de compilación se aplican a los plugins `@intlayer/babel` y `@intl
   - _Nota_: Si 'auto', la compilación se habilitará automáticamente cuando se construya la aplicación.
   - _Nota_: Si 'manual', la compilación se establecerá solo cuando se ejecute el comando de compilación.
   - _Nota_: Puede usarse para deshabilitar la compilación de diccionarios, por ejemplo cuando se debe evitar la ejecución en un entorno Node.js.
+
+- **checkTypes**:
+  - _Type_: `boolean`
+  - _Default_: `false`
+  - _Description_: Indica si la compilación debe comprobar los tipos de TypeScript y registrar errores.
+  - _Note_: Esto puede ralentizar la compilación.
 
 - **optimize**:
   - _Tipo_: `boolean`

@@ -21,6 +21,7 @@ import {
   CACHE,
   OUTPUT_FORMAT,
   TRAVERSE_PATTERN,
+  TYPE_CHECKING,
 } from '../defaultValues/build';
 import {
   COMPILER_ENABLED,
@@ -652,6 +653,16 @@ const buildBuildFields = (
    * Require function
    */
   require: customConfiguration?.require,
+
+  /**
+   * Indicates if the build should check TypeScript types
+   *
+   * Default: false
+   *
+   * If true, the build will check TypeScript types and log errors.
+   * Note: This can slow down the build.
+   */
+  checkTypes: customConfiguration?.checkTypes ?? TYPE_CHECKING,
 });
 
 const buildCompilerFields = (

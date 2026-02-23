@@ -343,6 +343,12 @@ const config: IntlayerConfig = {
      * Default: ['esm', 'cjs']
      */
     outputFormat: ["esm"],
+
+    /**
+     * Indicates if the build should check TypeScript types.
+     * Default: false
+     */
+    checkTypes: false,
   },
 
   /**
@@ -946,6 +952,12 @@ Le opzioni di build si applicano ai plugin `@intlayer/babel` e `@intlayer/swc`.
   - _Nota_: Se 'auto', la build sarà abilitata automaticamente quando l'applicazione viene costruita.
   - _Nota_: Se 'manual', la build sarà impostata solo quando viene eseguito il comando di build.
   - _Nota_: Può essere utilizzato per disabilitare la build dei dizionari, ad esempio quando l'esecuzione in un ambiente Node.js dovrebbe essere evitata.
+
+- **checkTypes**:
+  - _Type_: `boolean`
+  - _Default_: `false`
+  - _Description_: Indica se la build deve controllare i tipi TypeScript e registrare gli errori.
+  - _Note_: Questo può rallentare la build.
 
 - **optimize**:
   - _Tipo_: `boolean`

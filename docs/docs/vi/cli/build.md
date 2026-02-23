@@ -13,6 +13,10 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: Thêm tùy chọn checkTypes
 ---
 
 # Xây dựng Từ điển
@@ -62,3 +66,7 @@ Lệnh này sẽ tìm các tệp khai báo nội dung của bạn theo mặc đ�
 - **`--no-cache`**: Vô hiệu hóa bộ nhớ đệm.
 
   > Ví dụ: `npx intlayer build --no-cache`
+
+- **`--check-types`**: Kiểm tra các kiểu của tệp khai báo nội dung.
+
+  > Ví dụ: `npx intlayer build --check-types`

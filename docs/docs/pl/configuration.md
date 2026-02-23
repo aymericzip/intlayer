@@ -358,6 +358,12 @@ const config: IntlayerConfig = {
      * Default: ['esm', 'cjs']
      */
     outputFormat: ["esm"],
+
+    /**
+     * Indicates if the build should check TypeScript types.
+     * Default: false
+     */
+    checkTypes: false,
   },
 
   /**
@@ -1064,6 +1070,12 @@ Opcje budowania dotyczą wtyczek `@intlayer/babel` oraz `@intlayer/swc`.
   - _Uwaga_: Jeśli ustawione na "live", tylko słowniki zawierające zdalną zawartość i oznaczone flagą "live" zostaną przekształcone w tryb live. Pozostałe zostaną zaimportowane dynamicznie w trybie "dynamic", aby zoptymalizować liczbę zapytań fetch i wydajność ładowania.
   - _Uwaga_: Tryb live będzie korzystał z API synchronizacji na żywo do pobierania słowników. Jeśli wywołanie API się nie powiedzie, słowniki zostaną zaimportowane dynamicznie w trybie "dynamic".
   - _Uwaga_: Ta opcja nie wpłynie na funkcje `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` oraz `useDictionaryDynamic`.
+- **checkTypes**:
+  - _Type_: `boolean`
+  - _Default_: `false`
+  - _Description_: Wskazuje, czy kompilacja powinna sprawdzać typy TypeScript i rejestrować błędy.
+  - _Note_: Może to spowolnić proces kompilacji.
+
 - **outputFormat**:
   - _Typ_: `'esm' | 'cjs'`
   - _Domyślnie_: `'esm'`

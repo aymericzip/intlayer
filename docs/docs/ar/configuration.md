@@ -343,6 +343,12 @@ const config: IntlayerConfig = {
      * Default: ['esm', 'cjs']
      */
     outputFormat: ["esm"],
+
+    /**
+     * Indicates if the build should check TypeScript types.
+     * Default: false
+     */
+    checkTypes: false,
   },
 
   /**
@@ -934,6 +940,12 @@ export default config;
   - _ملاحظة_: إذا كان 'auto'، سيتم تفعيل البناء تلقائيًا عند بناء التطبيق.
   - _ملاحظة_: إذا كان 'manual'، سيتم تعيين البناء فقط عند تنفيذ أمر البناء.
   - _ملاحظة_: يمكن استخدامه لتعطيل بناء القواميس، على سبيل المثال عندما يجب تجنب التنفيذ في بيئة Node.js.
+
+- **checkTypes**:
+  - _Type_: `boolean`
+  - _Default_: `false`
+  - _Description_: يشير إلى ما إذا كان البناء يجب أن يتحقق من أنواع TypeScript ويسجل الأخطاء.
+  - _Note_: هذا يمكن أن يبطئ عملية البناء.
 
 - **optimize**:
   - _النوع_: `boolean`

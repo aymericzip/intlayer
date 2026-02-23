@@ -13,6 +13,10 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: Dodaj opcję checkTypes
 ---
 
 # Budowanie słowników
@@ -62,3 +66,7 @@ To polecenie domyślnie znajdzie Twoje pliki deklaracji treści w ścieżce `./s
 - **`--no-cache`**: Wyłącz pamięć podręczną.
 
   > Przykład: `npx intlayer build --no-cache`
+
+- **`--check-types`**: Sprawdza typy plików deklaracji treści.
+
+  > Przykład: `npx intlayer build --check-types`
