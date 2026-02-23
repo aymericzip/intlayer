@@ -154,6 +154,7 @@ export const getExtractPluginOptions = (): ExtractPluginOptions => {
   };
 
   return {
+    enabled: config.compiler?.enabled ?? true,
     defaultLocale: config.internationalization.defaultLocale,
     // filesList can be passed if needed, but usually handled by include/exclude in build tool
     onExtract: handleExtractedContent,

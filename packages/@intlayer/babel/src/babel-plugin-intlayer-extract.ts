@@ -55,6 +55,12 @@ export type ExtractPluginOptions = {
    * The dictionary will be updated: new keys added, unused keys removed.
    */
   onExtract?: (result: ExtractResult) => void;
+
+  /**
+   * Whether the extraction compiler is enabled.
+   * If false, the plugin will not process the file.
+   */
+  enabled?: boolean;
 };
 
 type State = PluginPass & {
@@ -212,6 +218,13 @@ export const intlayerExtractBabelPlugin = (babel: {
       if (!this.opts.packageName) {
         const searchDir = filename ? dirname(filename) : process.cwd();
         this.opts.packageName = detectPackageName(searchDir);
+      }
+
+      // Check if extraction is enabled
+      const isEnabled = this.opts.enabled ?? true;
+      if (!isEnabled) {
+        this._isIncluded = false;
+        return;
       }
 
       if (this.opts.filesList && filename) {

@@ -51,6 +51,18 @@ const getIsSwcPluginAvailable = (intlayerConfig: IntlayerConfig) => {
   }
 };
 
+// Check if Babel plugin is available
+const getIsBabelExtractPluginAvailable = (intlayerConfig: IntlayerConfig) => {
+  try {
+    const requireFunction =
+      intlayerConfig.build?.require ?? getProjectRequire();
+    requireFunction.resolve('@intlayer/babel');
+    return true;
+  } catch (_e) {
+    return false;
+  }
+};
+
 const resolvePluginPath = (
   pluginPath: string,
   intlayerConfig: IntlayerConfig,
@@ -114,6 +126,29 @@ const getPruneConfig = (
             ANSIColors.GREY_LIGHT
           ),
         ]);
+      }
+    },
+    {
+      cacheTimeoutMs: 1000 * 30, // 30 seconds
+    }
+  );
+
+  runOnce(
+    join(
+      baseDir,
+      '.intlayer',
+      'cache',
+      'intlayer-compiler-plugin-enabled.lock'
+    ),
+    () => {
+      const isBabelExtractPluginAvailable =
+        getIsBabelExtractPluginAvailable(intlayerConfig);
+      if (isBabelExtractPluginAvailable) {
+        if (intlayerConfig.compiler?.enabled !== false) {
+          logger('Intlayer compiler enabled');
+        } else {
+          logger('Intlayer compiler disabled');
+        }
       }
     },
     {
