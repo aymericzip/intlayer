@@ -56,9 +56,16 @@
       "import": "./dist/esm/proxy/middleware.mjs"
     },
     "./server": {
-      "types": "./dist/types/server/index.d.ts",
-      "require": "./dist/cjs/server/index.cjs",
-      "import": "./dist/esm/server/index.mjs"
+      "browser": {
+        "types": "./dist/types/index.d.ts",
+        "import": "./dist/esm/index.mjs",
+        "require": "./dist/cjs/index.cjs"
+      },
+      "default": {
+        "types": "./dist/types/server/index.d.ts",
+        "import": "./dist/esm/server/index.mjs",
+        "require": "./dist/cjs/server/index.cjs"
+      }
     },
     "./server/format": {
       "types": "./dist/types/server/format/index.d.ts",

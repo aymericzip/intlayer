@@ -435,7 +435,10 @@ const config: IntlayerConfig = {
     /**
      * Pattern to traverse the code to optimize.
      */
-    transformPattern: ["**/*.{js,ts,mjs,cjs,jsx,tsx}", "!**/node_modules/**"],
+    transformPattern: [
+      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
+      "!**/node_modules/**",
+    ],
 
     /**
      * Pattern to exclude from the optimization.

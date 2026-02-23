@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/babel",
-  "version": "8.1.3",
+  "version": "8.1.4",
   "private": false,
   "description": "A Babel plugin for Intlayer that transforms declaration files and provides internationalization features during the build process according to the Intlayer configuration.",
   "keywords": [
@@ -90,12 +90,14 @@
     "fast-glob": "3.3.3"
   },
   "devDependencies": {
+    "@babel/plugin-syntax-jsx": "^7.28.6",
     "@intlayer/dictionaries-entry": "workspace:*",
     "@types/crypto-js": "4.2.2",
     "@types/node": "25.3.0",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
+    "@vitejs/plugin-react": "5.1.2",
     "rimraf": "6.1.3",
     "tsdown": "0.20.3",
     "typescript": "5.9.3",

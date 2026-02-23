@@ -47,7 +47,13 @@ export const getExtractPluginOptions = (): ExtractPluginOptions => {
       }
       const content = await readFile(dictionaryPath, 'utf-8');
       return JSON.parse(content) as Dictionary;
-    } catch {
+    } catch (error) {
+      if (existsSync(dictionaryPath)) {
+        console.warn(
+          `[intlayer] Warning: Failed to read existing dictionary at ${dictionaryPath}. It might be corrupt. Translations may be lost. Error:`,
+          error
+        );
+      }
       return null;
     }
   };
@@ -68,7 +74,10 @@ export const getExtractPluginOptions = (): ExtractPluginOptions => {
       | DictionaryContentMap
       | undefined;
 
-    for (const [key, value] of Object.entries(extractedContent)) {
+    const sortedKeys = Object.keys(extractedContent).sort();
+
+    for (const key of sortedKeys) {
+      const value = extractedContent[key];
       const existingEntry = existingContent?.[key];
 
       if (
@@ -76,12 +85,13 @@ export const getExtractPluginOptions = (): ExtractPluginOptions => {
         existingEntry.nodeType === 'translation' &&
         existingEntry.translation
       ) {
-        // Key exists in both - preserve existing translations, update default locale
+        // Key exists in both - preserve existing translations AND existing metadata
         mergedContent[key] = {
+          ...existingEntry,
           nodeType: 'translation',
           translation: {
             ...existingEntry.translation,
-            [defaultLocale]: value,
+            [defaultLocale]: existingEntry.translation[defaultLocale] ?? value,
           },
         };
       } else {
@@ -115,6 +125,7 @@ export const getExtractPluginOptions = (): ExtractPluginOptions => {
       );
 
       const dictionary: Dictionary = {
+        ...existingDictionary,
         key: dictionaryKey,
         content: mergedContent,
         filePath: join(

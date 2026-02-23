@@ -21,6 +21,18 @@ const pendingUnlinks = new Map<
   { timer: NodeJS.Timeout; oldPath: string }
 >();
 
+// Task queue to ensure sequential processing of file events
+let processingQueue = Promise.resolve();
+const processEvent = (task: () => Promise<void>) => {
+  processingQueue = processingQueue.then(async () => {
+    try {
+      await task();
+    } catch (error) {
+      console.error(error);
+    }
+  });
+};
+
 type WatchOptions = ChokidarOptions & {
   configuration?: IntlayerConfig;
   configOptions?: GetConfigurationOptions;
@@ -87,54 +99,56 @@ export const watch = (options?: WatchOptions) => {
 
         isMove = true;
         appLogger(`File moved from ${matchedOldPath} to ${filePath}`);
-
-        await handleContentDeclarationFileMoved(
-          matchedOldPath,
-          filePath,
-          configuration
-        );
       }
 
-      // If it's NOT a move, perform standard "New File" logic
-      if (!isMove) {
-        const fileContent = await readFile(filePath, 'utf-8');
-        const isEmpty = fileContent === '';
-
-        // Fill template content declaration file if it is empty
-        if (isEmpty) {
-          const extensionPattern = fileExtensions
-            .map((ext) => ext.replace(/\./g, '\\.'))
-            .join('|');
-          const name = fileName.replace(
-            new RegExp(`(${extensionPattern})$`),
-            ''
-          );
-
-          await writeContentDeclaration(
-            {
-              key: name,
-              content: {},
-              filePath,
-            },
+      processEvent(async () => {
+        if (isMove && matchedOldPath) {
+          await handleContentDeclarationFileMoved(
+            matchedOldPath,
+            filePath,
             configuration
           );
-        }
-      }
+        } else {
+          const fileContent = await readFile(filePath, 'utf-8');
+          const isEmpty = fileContent === '';
 
-      // Always ensure the file is processed (both for moves and adds)
-      await handleAdditionalContentDeclarationFile(filePath, configuration);
+          // Fill template content declaration file if it is empty
+          if (isEmpty) {
+            const extensionPattern = fileExtensions
+              .map((ext) => ext.replace(/\./g, '\\.'))
+              .join('|');
+            const name = fileName.replace(
+              new RegExp(`(${extensionPattern})$`),
+              ''
+            );
+
+            await writeContentDeclaration(
+              {
+                key: name,
+                content: {},
+                filePath,
+              },
+              configuration
+            );
+          }
+
+          await handleAdditionalContentDeclarationFile(filePath, configuration);
+        }
+      });
     })
-    .on(
-      'change',
-      async (filePath) =>
-        await handleContentDeclarationFileChange(filePath, configuration)
+    .on('change', async (filePath) =>
+      processEvent(async () =>
+        handleContentDeclarationFileChange(filePath, configuration)
+      )
     )
     .on('unlink', async (filePath) => {
       // Delay unlink processing to see if an 'add' event occurs (indicating a move)
       const timer = setTimeout(async () => {
         // If timer fires, the file was genuinely removed
         pendingUnlinks.delete(filePath);
-        await handleUnlinkedContentDeclarationFile(filePath, configuration);
+        processEvent(async () =>
+          handleUnlinkedContentDeclarationFile(filePath, configuration)
+        );
       }, 200); // 200ms window to catch the 'add' event
 
       pendingUnlinks.set(filePath, { timer, oldPath: filePath });

@@ -37,6 +37,11 @@
   ],
   "sideEffects": false,
   "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/cjs/index.cjs",
+      "import": "./dist/esm/index.mjs"
+    },
     "./node": {
       "types": "./dist/types/node.d.ts",
       "require": "./dist/cjs/node.cjs",

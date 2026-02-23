@@ -615,7 +615,7 @@ export type CompilerConfig = {
    * Allows to avoid to traverse the code that is not relevant to the optimization.
    * Improve build performance.
    *
-   * Default: ['**\/*.{js,ts,mjs,cjs,jsx,tsx}', '!**\/node_modules/**']
+   * Default: ['**\/*.{ts,tsx,jsx,js,cjs,mjs,svelte,vue}', '!**\/node_modules/**']
    *
    * Example: `['src/**\/*.{ts,tsx}', '../ui-library/**\/*.{ts,tsx}', '!**\/node_modules/**']`
    *

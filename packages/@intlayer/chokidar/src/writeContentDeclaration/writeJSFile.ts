@@ -1,6 +1,6 @@
 import { execSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, rename, writeFile } from 'node:fs/promises';
 import { extname } from 'node:path';
 import { getAppLogger, logger } from '@intlayer/config/logger';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';
@@ -59,7 +59,9 @@ export const writeJSFile = async (
       )
     );
 
-    await writeFile(filePath, template, 'utf-8');
+    const tempPath = `${filePath}.${Date.now()}-${Math.random().toString(36).slice(2)}.tmp`;
+    await writeFile(tempPath, template, 'utf-8');
+    await rename(tempPath, filePath);
   }
 
   let fileContent = await readFile(filePath, 'utf-8');
@@ -77,7 +79,9 @@ export const writeJSFile = async (
 
   // Write the modified code back to the file
   try {
-    await writeFile(filePath, finalCode, 'utf-8');
+    const tempPath = `${filePath}.${Date.now()}-${Math.random().toString(36).slice(2)}.tmp`;
+    await writeFile(tempPath, finalCode, 'utf-8');
+    await rename(tempPath, filePath);
     logger(`Successfully updated ${filePath}`, {
       level: 'info',
       isVerbose: true,

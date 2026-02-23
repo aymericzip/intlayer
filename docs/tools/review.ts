@@ -11,7 +11,7 @@ import { defaultLocale, locales } from '../intlayer.config';
 const DOC_PATTERN: string[] = [
   './docs/en/**/*.md',
   './blog/en/**/*.md',
-  './docs/en/**/configuration.md',
+  './frequent_questions/en/**/*.md',
 ];
 const EXCLUDED_GLOB_PATTEN: string[] = [
   '**/_*',
