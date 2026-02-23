@@ -7,7 +7,7 @@ import {
   unlink,
   writeFile,
 } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
+import { basename, dirname, join } from 'node:path';
 import { deserialize, serialize } from 'node:v8';
 import { gunzipSync, gzipSync } from 'node:zlib';
 import type { IntlayerConfig } from '@intlayer/types';
@@ -49,10 +49,32 @@ const ensureDir = async (dir: string) => {
   await mkdir(dir, { recursive: true });
 };
 
-const atomicWriteFile = async (file: string, data: Buffer) => {
-  const tmp = `${file}.tmp-${process.pid}-${Math.random().toString(36).slice(2)}`;
-  await writeFile(tmp, data);
-  await rename(tmp, file);
+const atomicWriteFile = async (
+  file: string,
+  data: Buffer,
+  tempDir?: string
+) => {
+  if (tempDir) {
+    try {
+      await ensureDir(tempDir);
+    } catch {}
+  }
+
+  const tempFileName = `${basename(file)}.tmp-${process.pid}-${Math.random().toString(36).slice(2)}`;
+  const tmp = tempDir
+    ? join(tempDir, tempFileName)
+    : `${file}.tmp-${process.pid}-${Math.random().toString(36).slice(2)}`;
+  try {
+    await writeFile(tmp, data);
+    await rename(tmp, file);
+  } catch (error) {
+    try {
+      await rm(tmp, { force: true });
+    } catch {
+      // Ignore
+    }
+    throw error;
+  }
 };
 
 const shouldUseCompression = (buf: Buffer, force?: boolean) =>
@@ -71,7 +93,7 @@ export const cacheDisk = (
   keys: CacheKey[],
   options?: LocalCacheOptions
 ) => {
-  const { cacheDir } = intlayerConfig.system;
+  const { cacheDir, tempDir } = intlayerConfig.system;
   const buildCacheEnabled = intlayerConfig.build.cache ?? true;
   const persistent =
     options?.persistent === true ||
@@ -177,7 +199,7 @@ export const cacheDisk = (
         gz,
       ]);
 
-      await atomicWriteFile(filePath, buf);
+      await atomicWriteFile(filePath, buf, tempDir);
     } catch {
       // swallow disk errors for cache writes
     }

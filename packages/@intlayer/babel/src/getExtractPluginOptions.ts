@@ -5,6 +5,7 @@ import {
   buildDictionary,
   writeContentDeclaration,
 } from '@intlayer/chokidar/build';
+import { ANSIColors, colorize, getAppLogger } from '@intlayer/config/client';
 import { getConfiguration } from '@intlayer/config/node';
 import type { Dictionary } from '@intlayer/types';
 import type {
@@ -30,9 +31,12 @@ type DictionaryContentMap = Record<string, TranslationNode>;
  * This function loads the Intlayer configuration and sets up the onExtract callback
  * to write dictionaries to the filesystem.
  */
-export const getExtractPluginOptions = (): ExtractPluginOptions => {
+export const getExtractPluginOptions = (
+  isDev = process.env.INTLAYER_IS_DEV_COMMAND
+): ExtractPluginOptions => {
   const config = getConfiguration();
   const { baseDir } = config.content;
+
   const compilerDir = join(baseDir, config.compiler?.outputDir ?? 'compiler');
 
   /**
@@ -46,13 +50,28 @@ export const getExtractPluginOptions = (): ExtractPluginOptions => {
         return null;
       }
       const content = await readFile(dictionaryPath, 'utf-8');
-      return JSON.parse(content) as Dictionary;
+
+      if (!content || content.trim() === '') {
+        return null;
+      }
+
+      const parsed = JSON.parse(content);
+
+      if (Array.isArray(parsed)) {
+        return (parsed[0] ?? null) as Dictionary | null;
+      }
+
+      return parsed as Dictionary;
     } catch (error) {
       if (existsSync(dictionaryPath)) {
-        console.warn(
-          `[intlayer] Warning: Failed to read existing dictionary at ${dictionaryPath}. It might be corrupt. Translations may be lost. Error:`,
-          error
-        );
+        const content = await readFile(dictionaryPath, 'utf-8');
+
+        if (content.trim() !== '') {
+          console.warn(
+            `[intlayer] Warning: Failed to read existing dictionary at ${dictionaryPath}. It might be corrupt. Translations may be lost. Error:`,
+            error
+          );
+        }
       }
       return null;
     }
@@ -145,17 +164,55 @@ export const getExtractPluginOptions = (): ExtractPluginOptions => {
       };
 
       await buildDictionary([dictionaryToBuild], config);
-    } catch (error) {
+    } catch (error: any) {
       console.error(
         `[intlayer] Failed to process extracted content for ${dictionaryKey}:`,
         error
       );
+      if (
+        error instanceof SyntaxError &&
+        error.message.includes('Unexpected end of JSON input')
+      ) {
+        const match = error.message.match(
+          /^(.*\.json):\s*Unexpected end of JSON input/
+        );
+        if (match) {
+          const filePath = match[1];
+          try {
+            const fs = require('fs');
+            const fileContent = fs.readFileSync(filePath, 'utf-8');
+            console.error(
+              `[intlayer] Content of the corrupted file (${filePath}):\n"${fileContent}"`
+            );
+          } catch (e) {
+            console.error(
+              `[intlayer] Could not read corrupted file ${filePath}`,
+              e
+            );
+          }
+        }
+      }
     }
   };
 
+  const isDevBoolean = String(isDev) === 'true';
+  const isEnabled =
+    config.compiler?.enabled === 'build-only'
+      ? !isDevBoolean
+      : (config.compiler?.enabled ?? true);
+
+  const logger = getAppLogger(config);
+
+  if (config.compiler?.enabled === 'build-only' && isDevBoolean) {
+    logger(
+      `${colorize('Compiler:', ANSIColors.GREY_DARK)} i18n function is not inserted in the code in dev mode to optimize build time. (to test i18n in dev mode set compiler.enabled to true)`
+    );
+  }
+
   return {
-    enabled: config.compiler?.enabled ?? true,
+    enabled: isEnabled,
     defaultLocale: config.internationalization.defaultLocale,
+    prefix: config.compiler?.dictionaryKeyPrefix,
     // filesList can be passed if needed, but usually handled by include/exclude in build tool
     onExtract: handleExtractedContent,
   };

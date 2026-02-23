@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: Add compiler option 'build-only', and dictionary prefix
   - version: 8.0.6
     date: 2026-02-12
     changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
@@ -452,6 +455,7 @@ const config: IntlayerConfig = {
   compiler: {
     /**
      * Indicates if the compiler should be enabled.
+     * Set to 'build-only' to skip the compiler during development and speed up start times.
      */
     enabled: true,
 
@@ -471,7 +475,12 @@ const config: IntlayerConfig = {
     /**
      * Output directory for the optimized dictionaries.
      */
-    outputDir: "compiler",
+    outputDir: "i18n",
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "", // Remove base prefix
   },
 
   /**
@@ -1182,3 +1191,43 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Note_: Use this to limit optimization to relevant code files and improve build performance.
   - _Note_: This option will be ignored if `optimize` is disabled.
   - _Note_: Use glob pattern.
+
+---
+
+### Compiler Configuration
+
+Settings that control the Intlayer compiler, which extracts dictionaries straight from your components.
+
+#### Properties
+
+- **enabled**:
+  - _Type_: `boolean | 'build-only'`
+  - _Default_: `true`
+  - _Description_: Indicates if the compiler should be enabled to extract the dictionaries.
+  - _Example_: `'build-only'`
+  - _Note_: Setting it to `'build-only'` will skip the compiler during development mode to speed up build times. It will only run on build commands.
+
+- **dictionaryKeyPrefix**:
+  - _Type_: `string`
+  - _Default_: `'comp-'`
+  - _Description_: Prefix for the extracted dictionary keys.
+  - _Example_: `'my-key-'`
+  - _Note_: When dictionaries are extracted, the key is generated based on the file name. This prefix is added to the generated key to prevent conflicts.
+
+- **transformPattern**:
+  - _Type_: `string | string[]`
+  - _Default_: `['**/*.{ts,tsx,jsx,js,cjs,mjs,svelte,vue}', '!**/node_modules/**']`
+  - _Description_: Patterns that define which files should be traversed during optimization.
+  - _Example_: `['src/**/*.{ts,tsx}', '!**/node_modules/**']`
+  - _Note_: Use this to limit optimization to relevant code files and improve build performance.
+
+- **excludePattern**:
+  - _Type_: `string | string[]`
+  - _Default_: `['**/node_modules/**']`
+  - _Description_: Patterns that define which files should be excluded during optimization.
+  - _Example_: `['**/node_modules/**', '!**/node_modules/react/**']`
+
+- **outputDir**:
+  - _Type_: `string`
+  - _Default_: `'compiler'`
+  - _Description_: The directory where the extracted dictionaries will be stored, relative to your project base path.

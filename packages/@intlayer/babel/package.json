@@ -83,6 +83,7 @@
     "@babel/types": "7.28.4",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
+    "@intlayer/core": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@types/babel__core": "7.20.5",
     "@types/babel__generator": "7.27.0",

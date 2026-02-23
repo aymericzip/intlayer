@@ -615,9 +615,16 @@ export type BuildConfig = {
 
 export type CompilerConfig = {
   /**
-   * Indicates if the compiler should be enabled
+   * Indicates if the compiler should be enabled.
+   * If 'build-only', the compiler will be skipped during development mode to speed up start times.
    */
-  enabled: boolean;
+  enabled: boolean | 'build-only';
+
+  /**
+   * Prefix for the extracted dictionary keys.
+   * Default: 'comp-'
+   */
+  dictionaryKeyPrefix?: string;
 
   /**
    * Pattern to traverse the code to optimize.

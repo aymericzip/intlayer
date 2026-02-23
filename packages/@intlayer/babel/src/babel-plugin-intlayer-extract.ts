@@ -6,8 +6,8 @@ import type * as BabelTypes from '@babel/types';
 import {
   ATTRIBUTES_TO_EXTRACT,
   shouldExtract as defaultShouldExtract,
-  generateKey,
 } from '@intlayer/chokidar/cli';
+import { generateKey } from '@intlayer/core/utils';
 
 // Set this to true to enable debug logs
 const DEBUG_LOG = false;
@@ -61,6 +61,11 @@ export type ExtractPluginOptions = {
    * If false, the plugin will not process the file.
    */
   enabled?: boolean;
+
+  /**
+   * Prefix for the extracted dictionary keys.
+   */
+  prefix?: string;
 };
 
 type State = PluginPass & {
@@ -90,11 +95,14 @@ type State = PluginPass & {
   /** Whether there is extracted content at the top level (not in a function) */
   _hasTopLevelContent?: boolean;
 };
-const extractDictionaryKeyFromPath = (filePath: string): string => {
+const extractDictionaryKeyFromPath = (
+  filePath: string,
+  prefix = 'comp-'
+): string => {
   const ext = extname(filePath);
   let baseName = basename(filePath, ext);
   if (baseName === 'index') baseName = basename(dirname(filePath));
-  return `comp-${baseName
+  return `${prefix}${baseName
     .replace(/([a-z])([A-Z])/g, '$1-$2')
     .replace(/[\s_]+/g, '-')
     .toLowerCase()}`;
@@ -104,9 +112,11 @@ const detectPackageName = (dir: string): string => {
   let currentDir = dir;
   while (true) {
     const pkgPath = join(currentDir, 'package.json');
+
     if (existsSync(pkgPath)) {
       try {
         const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8'));
+
         if (
           pkg.dependencies?.['next-intlayer'] ||
           pkg.devDependencies?.['next-intlayer']
@@ -130,6 +140,7 @@ const detectPackageName = (dir: string): string => {
       } catch {}
     }
     const parentDir = dirname(currentDir);
+
     if (parentDir === currentDir) break;
     currentDir = parentDir;
   }
@@ -164,6 +175,7 @@ const isReactComponent = (
     ReturnStatement(p) {
       if (p.node.argument) {
         const unwrapped = unwrapParentheses(p.node.argument, t);
+
         if (t.isJSXElement(unwrapped) || t.isJSXFragment(unwrapped)) {
           returnsJSX = true;
         }
@@ -222,6 +234,7 @@ export const intlayerExtractBabelPlugin = (babel: {
 
       // Check if extraction is enabled
       const isEnabled = this.opts.enabled ?? true;
+
       if (!isEnabled) {
         this._isIncluded = false;
         return;
@@ -233,8 +246,12 @@ export const intlayerExtractBabelPlugin = (babel: {
           (f) => f.replace(/\\/g, '/') === normalizedFilename
         );
       }
+
       if (filename)
-        this._dictionaryKey = extractDictionaryKeyFromPath(filename);
+        this._dictionaryKey = extractDictionaryKeyFromPath(
+          filename,
+          this.opts.prefix
+        );
     },
 
     visitor: {
@@ -246,10 +263,12 @@ export const intlayerExtractBabelPlugin = (babel: {
           const importedName = t.isIdentifier(spec.imported)
             ? spec.imported.name
             : (spec.imported as BabelTypes.StringLiteral).value;
+
           if (importedName === 'useIntlayer') {
             state._hasUseIntlayerImport = true;
             state._useIntlayerLocalName = spec.local.name;
           }
+
           if (importedName === 'getIntlayer') {
             state._hasGetIntlayerImport = true;
             state._getIntlayerLocalName = spec.local.name;
@@ -298,6 +317,7 @@ export const intlayerExtractBabelPlugin = (babel: {
 
           const addTarget = (path: NodePath<any>) => {
             const func = findTargetFunction(path, t);
+
             if (func) {
               functionsToInject.add(func);
             } else {
@@ -309,6 +329,7 @@ export const intlayerExtractBabelPlugin = (babel: {
           programPath.traverse({
             JSXText(path) {
               const rawText = path.node.value;
+
               if (shouldExtract(rawText)) {
                 const text = rawText.replace(/\s+/g, ' ').trim();
                 let key = Object.keys(state._extractedContent!).find(
@@ -327,13 +348,16 @@ export const intlayerExtractBabelPlugin = (babel: {
             },
             JSXAttribute(path) {
               const attrName = path.node.name;
+
               if (!t.isJSXIdentifier(attrName)) return;
               const isKey = attrName.name === 'key';
+
               if (!ATTRIBUTES_TO_EXTRACT.includes(attrName.name) && !isKey)
                 return;
 
               const value = path.node.value;
               let text: string | null = null;
+
               if (t.isStringLiteral(value)) text = value.value;
               else if (
                 t.isJSXExpressionContainer(value) &&
@@ -359,6 +383,7 @@ export const intlayerExtractBabelPlugin = (babel: {
             },
             StringLiteral(path) {
               const parent = path.parentPath;
+
               if (
                 parent.isJSXAttribute() ||
                 parent.isImportDeclaration() ||
@@ -366,12 +391,16 @@ export const intlayerExtractBabelPlugin = (babel: {
                 parent.isImportSpecifier()
               )
                 return;
+
               if (parent.isObjectProperty() && path.key === 'key') return;
+
               if (parent.isMemberExpression() && path.key === 'property')
                 return;
+
               if (parent.isCallExpression()) {
                 const callee = (parent.node as BabelTypes.CallExpression)
                   .callee;
+
                 if (
                   (t.isMemberExpression(callee) &&
                     t.isIdentifier(callee.object) &&
@@ -386,6 +415,7 @@ export const intlayerExtractBabelPlugin = (babel: {
               }
 
               const text = path.node.value;
+
               if (shouldExtract(text)) {
                 const cleanText = text.trim();
                 let key = Object.keys(state._extractedContent!).find(
@@ -412,6 +442,7 @@ export const intlayerExtractBabelPlugin = (babel: {
             let hookDecided = false;
 
             const binding = path.scope.getBinding(state._contentVarName!);
+
             if (
               binding &&
               t.isVariableDeclarator(binding.path.node) &&
@@ -435,6 +466,7 @@ export const intlayerExtractBabelPlugin = (babel: {
 
             if (!hookDecided) {
               const func = findTargetFunction(path, t);
+
               if (func) {
                 isHook = isReactComponent(func, t);
               }
@@ -489,6 +521,7 @@ export const intlayerExtractBabelPlugin = (babel: {
           }
 
           // Report
+
           if (state.opts.onExtract && state._dictionaryKey) {
             state.opts.onExtract({
               dictionaryKey: state._dictionaryKey,
@@ -504,7 +537,9 @@ export const intlayerExtractBabelPlugin = (babel: {
 
           for (const funcPath of functionsToInject) {
             const type = injectHook(funcPath, state, t);
+
             if (type === 'hook') needsUseIntlayer = true;
+
             if (type === 'core') needsGetIntlayer = true;
           }
 
@@ -542,11 +577,13 @@ export const intlayerExtractBabelPlugin = (babel: {
           }
 
           // Pass 4: Imports
+
           if (needsUseIntlayer || needsGetIntlayer) {
             let hookPkg = state.opts.packageName ?? 'react-intlayer';
             const corePkg = 'intlayer';
 
             // Handle next-intlayer server/client split
+
             if (hookPkg === 'next-intlayer' && !state._isClient) {
               hookPkg = `${hookPkg}/server`;
             }
@@ -577,6 +614,7 @@ export const intlayerExtractBabelPlugin = (babel: {
                 )
               );
             }
+
             if (needsGetIntlayer && !state._hasGetIntlayerImport) {
               body.splice(
                 pos,

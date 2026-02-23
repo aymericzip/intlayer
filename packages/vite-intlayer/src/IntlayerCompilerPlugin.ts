@@ -91,6 +91,7 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
   let projectRoot = '';
   let filesList: string[] = [];
   let babel: any = null;
+  let activeCompilerMode: CompilerMode = 'build';
 
   // Promise to track dictionary writing (for synchronization)
   let pendingDictionaryWrite: Promise<void> | null = null;
@@ -174,9 +175,15 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
       compiler?: Partial<CompilerConfig>;
     };
 
+    let isEnabled =
+      customCompilerConfig?.enabled ?? rawConfig.compiler?.enabled ?? true;
+
+    if (isEnabled === 'build-only') {
+      isEnabled = activeCompilerMode === 'build';
+    }
+
     return {
-      enabled:
-        customCompilerConfig?.enabled ?? rawConfig.compiler?.enabled ?? true,
+      enabled: isEnabled as boolean,
       transformPattern:
         customCompilerConfig?.transformPattern ??
         rawConfig.compiler?.transformPattern ??
@@ -397,6 +404,7 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
    * Initialize the compiler with the given mode
    */
   const init = async (_compilerMode: CompilerMode): Promise<void> => {
+    activeCompilerMode = _compilerMode;
     config = getConfiguration(configOptions);
     logger = getAppLogger(config);
 

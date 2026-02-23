@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs';
 import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
-import { dirname, extname, join, resolve } from 'node:path';
+import { basename, dirname, extname, join, resolve } from 'node:path';
 import { isDeepStrictEqual } from 'node:util';
 import {
   getFilteredLocalesDictionary,
@@ -239,9 +239,26 @@ const writeFileWithDirectories = async (
     const jsonDictionary = JSON.stringify(dictionary, null, 2);
 
     // Write the file
-    const tempPath = `${absoluteFilePath}.${Date.now()}-${Math.random().toString(36).slice(2)}.tmp`;
-    await writeFile(tempPath, `${jsonDictionary}\n`); // Add a new line at the end of the file to avoid formatting issues with VSCode
-    await rename(tempPath, absoluteFilePath);
+    const tempDir = configuration.system?.tempDir;
+    if (tempDir) {
+      await mkdir(tempDir, { recursive: true });
+    }
+
+    const tempFileName = `${basename(absoluteFilePath)}.${Date.now()}-${Math.random().toString(36).slice(2)}.tmp`;
+    const tempPath = tempDir
+      ? join(tempDir, tempFileName)
+      : `${absoluteFilePath}.${tempFileName}`;
+    try {
+      await writeFile(tempPath, `${jsonDictionary}\n`); // Add a new line at the end of the file to avoid formatting issues with VSCode
+      await rename(tempPath, absoluteFilePath);
+    } catch (error) {
+      try {
+        await rm(tempPath, { force: true });
+      } catch {
+        // Ignore
+      }
+      throw error;
+    }
 
     return;
   }
@@ -261,9 +278,26 @@ const writeFileWithDirectories = async (
     const transformedContent = transformJSONFile(fileContent, dictionary);
 
     // We use standard writeFile because transformedContent is already a string
-    const tempPath = `${absoluteFilePath}.${Date.now()}-${Math.random().toString(36).slice(2)}.tmp`;
-    await writeFile(tempPath, transformedContent, 'utf-8');
-    await rename(tempPath, absoluteFilePath);
+    const tempDir = configuration.system?.tempDir;
+    if (tempDir) {
+      await mkdir(tempDir, { recursive: true });
+    }
+
+    const tempFileName = `${basename(absoluteFilePath)}.${Date.now()}-${Math.random().toString(36).slice(2)}.tmp`;
+    const tempPath = tempDir
+      ? join(tempDir, tempFileName)
+      : `${absoluteFilePath}.${tempFileName}`;
+    try {
+      await writeFile(tempPath, transformedContent, 'utf-8');
+      await rename(tempPath, absoluteFilePath);
+    } catch (error) {
+      try {
+        await rm(tempPath, { force: true });
+      } catch {
+        // Ignore
+      }
+      throw error;
+    }
     return;
   }
 

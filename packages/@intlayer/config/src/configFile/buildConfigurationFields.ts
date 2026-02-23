@@ -24,6 +24,7 @@ import {
   TYPE_CHECKING,
 } from '../defaultValues/build';
 import {
+  COMPILER_DICTIONARY_KEY_PREFIX,
   COMPILER_ENABLED,
   COMPILER_EXCLUDE_PATTERN,
   COMPILER_OUTPUT_DIR,
@@ -331,6 +332,7 @@ const buildSystemFields = (
       customConfiguration?.configDir ?? CONFIG_DIR
     ),
     cacheDir: optionalJoinBaseDir(customConfiguration?.cacheDir ?? CACHE_DIR),
+    tempDir: optionalJoinBaseDir(customConfiguration?.tempDir ?? TEMP_DIR),
     outputFilesPatternWithPath: `${normalizePath(dictionariesDir)}/**/*.json`,
   };
 };
@@ -672,6 +674,12 @@ const buildCompilerFields = (
    * Indicates if the compiler should be enabled
    */
   enabled: customConfiguration?.enabled ?? COMPILER_ENABLED,
+
+  /**
+   * Prefix for the extracted dictionary keys
+   */
+  dictionaryKeyPrefix:
+    customConfiguration?.dictionaryKeyPrefix ?? COMPILER_DICTIONARY_KEY_PREFIX,
 
   /**
    * Pattern to traverse the code to optimize.

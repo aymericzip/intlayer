@@ -271,4 +271,17 @@ describe('babel-plugin-intlayer-extract', () => {
     expect(output).toContain('const content = getIntlayer');
     expect(output).not.toContain('.value');
   });
+
+  it('should use custom prefix for the dictionary key if provided', () => {
+    const code = `
+      export function MyComponent() {
+        return <div>Hello World</div>;
+      }
+    `;
+    const output = transform(code, { prefix: 'my-custom-' });
+    expect(output).toContain('content?.["helloWorld"]');
+    expect(output).toContain(
+      'const content = useIntlayer("my-custom-my-component");'
+    );
+  });
 });

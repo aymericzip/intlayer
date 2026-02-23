@@ -1,72 +1,76 @@
-import { writeFile } from 'node:fs/promises';
-// import { createHash } from 'node:crypto';
-// import { createReadStream } from 'node:fs';
-// import type { Readable } from 'node:stream';
+import { createHash, randomBytes } from 'node:crypto';
+import { createReadStream, rmSync } from 'node:fs';
+import { chmod, mkdir, rename, rm, stat, writeFile } from 'node:fs/promises';
+import { basename, join } from 'node:path';
 
-// const hashFile = async (path: string) => {
-//   const h = createHash('sha256');
-//   const rs = createReadStream(path);
-//   rs.on('data', (chunk) => h.update(chunk));
-//   await new Promise<void>((res, rej) => {
-//     rs.on('end', () => res());
-//     rs.on('error', rej);
-//   });
-//   return h.digest('hex');
-// };
+const activeTempFiles = new Set<string>();
 
-// const isReadableStream = (value: unknown): value is Readable =>
-//   !!value &&
-//   typeof value === 'object' &&
-//   typeof (value as any).pipe === 'function';
+// Synchronous cleanup on process exit
+process.on('exit', () => {
+  for (const file of activeTempFiles) {
+    try {
+      rmSync(file, { force: true });
+    } catch {}
+  }
+});
+
+// Helper to hash existing file via stream
+const getFileHash = (path: string): Promise<string | null> => {
+  return new Promise((resolve) => {
+    const hash = createHash('sha256');
+    const stream = createReadStream(path);
+    stream.on('data', (chunk) => hash.update(chunk));
+    stream.on('end', () => resolve(hash.digest('hex')));
+    stream.on('error', () => resolve(null));
+  });
+};
 
 export const writeFileIfChanged = async (
   path: string,
-  dataOrStream: string,
-  { encoding = 'utf8' }: { encoding?: BufferEncoding } = {}
+  data: string,
+  {
+    encoding = 'utf8',
+    tempDir,
+  }: { encoding?: BufferEncoding; tempDir?: string } = {}
 ): Promise<boolean> => {
-  // Disabled because it's too slow. Build time increases from 3s to 7s.
-  await writeFile(path, dataOrStream, { encoding });
+  const newDataHash = createHash('sha256').update(data, encoding).digest('hex');
+  const existingHash = await getFileHash(path);
 
-  // 1) write new content to temporary file (stream-safe)
-  // const tmp = `${path}.tmp`;
+  if (newDataHash === existingHash) {
+    return false;
+  }
 
-  // if (isReadableStream(dataOrStream)) {
-  //   await pipeline(dataOrStream, createWriteStream(tmp));
-  // } else {
-  //   // dataOrStream = string | Buffer
-  //   const buf = Buffer.isBuffer(dataOrStream)
-  //     ? dataOrStream
-  //     : Buffer.from(dataOrStream, encoding);
-  //   await writeFile(tmp, buf);
-  // }
+  if (tempDir) {
+    await mkdir(tempDir, { recursive: true });
+  }
 
-  // 2) if old file exists, compare hashes (streaming)
-  // let same = false;
-  // try {
-  //   const [oldHash, newHash] = await Promise.all([
-  //     hashFile(path),
-  //     hashFile(tmp),
-  //   ]);
-  //   same = oldHash === newHash;
-  // } catch {
-  //   // old file missing -> will replace
-  // }
+  const tempFileName = `${basename(path)}.${Date.now()}-${randomBytes(4).toString('hex')}.tmp`;
+  const tempPath = tempDir
+    ? join(tempDir, tempFileName)
+    : `${path}.${tempFileName}`;
+  activeTempFiles.add(tempPath);
 
-  // if (same) {
-  //   await rm(tmp);
-  //   return false; // no change
-  // }
+  try {
+    let mode: number | undefined;
+    try {
+      mode = (await stat(path)).mode;
+    } catch {}
 
-  // 3) atomic replacement
-  // On Unix, rename is atomic. On Windows, if file exists, we can delete it first.
-  // try {
-  //   await rename(tmp, path);
-  // } catch {
-  //   try {
-  //     await rm(path);
-  //   } catch {}
-  //   await rename(tmp, path);
-  // }
+    await writeFile(tempPath, data, { encoding });
 
-  return true; // changed
+    if (mode !== undefined) {
+      await chmod(tempPath, mode);
+    }
+
+    await rename(tempPath, path);
+  } catch (error) {
+    try {
+      await rm(tempPath, { force: true });
+    } catch {}
+    throw error;
+  } finally {
+    activeTempFiles.delete(tempPath);
+  }
+
+  return true;
 };

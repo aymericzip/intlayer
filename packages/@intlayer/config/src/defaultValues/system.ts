@@ -19,3 +19,5 @@ export const MODULE_AUGMENTATION_DIR = '.intlayer/types';
 export const CONFIG_DIR = '.intlayer/config';
 
 export const CACHE_DIR = '.intlayer/cache';
+
+export const TEMP_DIR = '.intlayer/tmp';

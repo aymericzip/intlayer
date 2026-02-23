@@ -1,4 +1,7 @@
 export const COMPILER_ENABLED = true;
+
+export const COMPILER_DICTIONARY_KEY_PREFIX = 'comp-';
+
 export const COMPILER_TRANSFORM_PATTERN = [
   '**/*.{ts,tsx,jsx,js,cjs,mjs,svelte,vue}',
 ];

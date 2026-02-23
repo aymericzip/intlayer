@@ -82,7 +82,8 @@ const resolvePluginPath = (
 const getPruneConfig = (
   intlayerConfig: IntlayerConfig,
   isBuildCommand: boolean,
-  isTurbopackEnabled: boolean
+  isTurbopackEnabled: boolean,
+  isDevCommand: boolean
 ): Partial<NextConfig> => {
   const { optimize } = intlayerConfig.build;
   const importMode =
@@ -143,8 +144,15 @@ const getPruneConfig = (
     () => {
       const isBabelExtractPluginAvailable =
         getIsBabelExtractPluginAvailable(intlayerConfig);
+
       if (isBabelExtractPluginAvailable) {
-        if (intlayerConfig.compiler?.enabled !== false) {
+        let isEnabled = intlayerConfig.compiler?.enabled ?? true;
+
+        if (isEnabled === 'build-only') {
+          isEnabled = !isDevCommand;
+        }
+
+        if (isEnabled) {
           logger('Intlayer compiler enabled');
         } else {
           logger('Intlayer compiler disabled');
@@ -406,7 +414,8 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
   const pruneConfig: Partial<NextConfig> = getPruneConfig(
     intlayerConfig,
     isBuildCommand,
-    isTurbopackEnabled ?? false
+    isTurbopackEnabled ?? false,
+    isDevCommand
   );
 
   const intlayerNextConfig: Partial<NextConfig> = defu(
@@ -440,6 +449,9 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
   configOptions?: WithIntlayerOptions
 ): Promise<NextConfig & T> => {
   const { isBuildCommand, isDevCommand } = getCommandsEvent();
+
+  process.env.INTLAYER_IS_DEV_COMMAND = isDevCommand ? 'true' : 'false';
+
   const intlayerConfig = getConfiguration(configOptions);
 
   const { mode } = intlayerConfig.build;

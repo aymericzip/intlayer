@@ -1,7 +1,7 @@
 import { execSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
-import { readFile, rename, writeFile } from 'node:fs/promises';
-import { extname } from 'node:path';
+import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
+import { basename, extname, join } from 'node:path';
 import { getAppLogger, logger } from '@intlayer/config/logger';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { getContentDeclarationFileTemplate } from '../getContentDeclarationFileTemplate/getContentDeclarationFileTemplate';
@@ -59,9 +59,26 @@ export const writeJSFile = async (
       )
     );
 
-    const tempPath = `${filePath}.${Date.now()}-${Math.random().toString(36).slice(2)}.tmp`;
-    await writeFile(tempPath, template, 'utf-8');
-    await rename(tempPath, filePath);
+    const tempDir = configuration.system?.tempDir;
+    if (tempDir) {
+      await mkdir(tempDir, { recursive: true });
+    }
+
+    const tempFileName = `${basename(filePath)}.${Date.now()}-${Math.random().toString(36).slice(2)}.tmp`;
+    const tempPath = tempDir
+      ? join(tempDir, tempFileName)
+      : `${filePath}.${tempFileName}`;
+    try {
+      await writeFile(tempPath, template, 'utf-8');
+      await rename(tempPath, filePath);
+    } catch (error) {
+      try {
+        await rm(tempPath, { force: true });
+      } catch {
+        // Ignore
+      }
+      throw error;
+    }
   }
 
   let fileContent = await readFile(filePath, 'utf-8');
@@ -78,8 +95,16 @@ export const writeJSFile = async (
   const finalCode = await transformJSFile(fileContent, dictionary);
 
   // Write the modified code back to the file
+  const tempDir = configuration.system?.tempDir;
+  if (tempDir) {
+    await mkdir(tempDir, { recursive: true });
+  }
+
+  const tempFileName = `${basename(filePath)}.${Date.now()}-${Math.random().toString(36).slice(2)}.tmp`;
+  const tempPath = tempDir
+    ? join(tempDir, tempFileName)
+    : `${filePath}.${tempFileName}`;
   try {
-    const tempPath = `${filePath}.${Date.now()}-${Math.random().toString(36).slice(2)}.tmp`;
     await writeFile(tempPath, finalCode, 'utf-8');
     await rename(tempPath, filePath);
     logger(`Successfully updated ${filePath}`, {
@@ -87,6 +112,11 @@ export const writeJSFile = async (
       isVerbose: true,
     });
   } catch (error) {
+    try {
+      await rm(tempPath, { force: true });
+    } catch {
+      // Ignore
+    }
     const err = error as Error;
     logger(`Failed to write updated file: ${filePath}`, {
       level: 'error',
