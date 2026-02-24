@@ -29,7 +29,7 @@ history:
 
 <Tabs defaultTab="video">
   <Tab label="Vidéo" value="video">
-  
+
 <iframe title="La meilleure solution i18n pour Next.js ? Découvrez Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
   </Tab>
@@ -115,7 +115,7 @@ bunx intlayer init
 
 Créez un fichier de configuration pour définir les langues de votre application :
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -129,7 +129,7 @@ const config: IntlayerConfig = {
   compiler: {
     enabled: true, // Peut être défini sur 'build-only' pour limiter l'impact en mode dev
     outputDir: "i18n",
-    dictionaryKeyPrefix: "", // Pas de préfixe comp-
+    dictionaryKeyPrefix: "", // Pas de préfixe, le défaut est "comp-"
   },
   ai: {
     provider: "openai",
@@ -142,71 +142,15 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH],
-    defaultLocale: Locales.FRENCH,
-  },
-  routing: {
-    mode: "search-params",
-  },
-  compiler: {
-    enabled: true, // Peut être défini sur 'build-only' pour limiter l'impact en mode dev
-    outputDir: "i18n",
-    dictionaryKeyPrefix: "", // Pas de préfixe comp-
-  },
-  ai: {
-    provider: "openai",
-    model: "gpt-5-mini",
-    apiKey: process.env.OPEN_AI_API_KEY,
-    applicationContext: "Cette app est une application de cartographie",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH],
-    defaultLocale: Locales.FRENCH,
-  },
-  routing: {
-    mode: "search-params",
-  },
-  compiler: {
-    enabled: true, // Peut être défini sur 'build-only' pour limiter l'impact en mode dev
-    outputDir: "i18n",
-    dictionaryKeyPrefix: "", // Pas de préfixe comp-
-  },
-  ai: {
-    provider: "openai",
-    model: "gpt-5-mini",
-    apiKey: process.env.OPEN_AI_API_KEY,
-    applicationContext: "Cette app est une application de cartographie",
-  },
-};
-
-module.exports = config;
-```
-
-> **Remarque** : Assurez-vous d'avoir défini votre `OPEN_AI_API_KEY` dans vos variables d'environnement.
+> **Remarque** : Assurez-vous d'avoir votre `OPEN_AI_API_KEY` défini dans vos variables d'environnement.
 
 > Grâce à ce fichier de configuration, vous pouvez paramétrer des URL localisées, une redirection proxy, les noms des cookies, l'emplacement et l'extension de vos déclarations de contenu, désactiver les logs d'Intlayer dans la console, et plus encore. Pour une liste complète des paramètres disponibles, consultez la [documentation sur la configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
 
-### Étape 3 : Intégrer Intlayer dans la configuration Next.js
+### Étape 3 : Intégrer Intlayer dans votre configuration Next.js
 
 Configurez votre projet Next.js pour utiliser Intlayer :
 
-```typescript fileName="next.config.ts" codeFormat="typescript"
+```typescript fileName="next.config.ts"
 import type { NextConfig } from "next";
 import { withIntlayer } from "next-intlayer/server";
 
@@ -217,35 +161,13 @@ const nextConfig: NextConfig = {
 export default withIntlayer(nextConfig);
 ```
 
-```typescript fileName="next.config.mjs" codeFormat="esm"
-import { withIntlayer } from "next-intlayer/server";
-
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  /* options de configuration ici */
-};
-
-export default withIntlayer(nextConfig);
-```
-
-```typescript fileName="next.config.cjs" codeFormat="commonjs"
-const { withIntlayer } = require("next-intlayer/server");
-
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  /* options de configuration ici */
-};
-
-module.exports = withIntlayer(nextConfig);
-```
-
 > Le plugin Next.js `withIntlayer()` est utilisé pour intégrer Intlayer avec Next.js. Il s'occupe de la construction des fichiers de déclaration de contenu et les surveille en mode de développement. Il définit les variables d'environnement d'Intlayer au sein des environnements [Webpack](https://webpack.js.org/) ou [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). De plus, il fournit des alias pour optimiser les performances et garantir la compatibilité avec les composants serveur.
 
-### Configurer Babel
+### Étape 4 : Configurer Babel
 
 Le compilateur Intlayer nécessite Babel pour extraire et optimiser votre contenu. Mettez à jour votre `babel.config.js` (ou `babel.config.json`) pour inclure les plugins Intlayer :
 
-```js fileName="babel.config.js"
+```typescript fileName="babel.config.js"
 const {
   intlayerExtractBabelPlugin,
   intlayerOptimizeBabelPlugin,
@@ -262,11 +184,11 @@ module.exports = {
 };
 ```
 
-### Étape 4 : Définir des routes dynamiques localisées
+### Étape 5 : Détecter la locale dans vos pages
 
 Supprimez tout de `RootLayout` et remplacez-le par le code suivant :
 
-```tsx {3} fileName="src/app/layout.tsx" codeFormat="typescript"
+```tsx fileName="src/app/layout.tsx"
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
@@ -305,90 +227,18 @@ const RootLayout = async ({
 export default RootLayout;
 ```
 
-```jsx {3} fileName="src/app/layout.mjx" codeFormat="esm"
-import "./globals.css";
-import { IntlayerClientProvider } from "next-intlayer";
-import { getHTMLTextDir, getIntlayer } from "intlayer";
-import { getLocale } from "next-intlayer/server";
-export { generateStaticParams } from "next-intlayer";
-
-export const generateMetadata = async ({ params }) => {
-  const locale = await getLocale();
-  const { title, description, keywords } = getIntlayer("metadata", locale);
-
-  return {
-    title,
-    description,
-    keywords,
-  };
-};
-
-const RootLayout = async ({ children }) => {
-  const locale = await getLocale();
-
-  return (
-    <html lang={locale} dir={getHTMLTextDir(locale)}>
-      <IntlayerClientProvider defaultLocale={locale}>
-        <body>{children}</body>
-      </IntlayerClientProvider>
-    </html>
-  );
-};
-
-export default RootLayout;
-```
-
-```jsx {1,8} fileName="src/app/layout.csx" codeFormat="commonjs"
-require("./globals.css");
-const { IntlayerClientProvider } = require("next-intlayer");
-const { getHTMLTextDir, getIntlayer } = require("intlayer");
-const { getLocale } = require("next-intlayer/server");
-const { generateStaticParams } = require("next-intlayer");
-
-const generateMetadata = async ({ params }) => {
-  const locale = await getLocale();
-  const { title, description, keywords } = getIntlayer("metadata", locale);
-
-  return {
-    title,
-    description,
-    keywords,
-  };
-};
-
-const RootLayout = async ({ children }) => {
-  const locale = await getLocale();
-
-  return (
-    <html lang={locale} dir={getHTMLTextDir(locale)}>
-      <IntlayerClientProvider defaultLocale={locale}>
-        <body>{children}</body>
-      </IntlayerClientProvider>
-    </html>
-  );
-};
-
-module.exports = {
-  default: RootLayout,
-  generateStaticParams,
-  generateMetadata,
-};
-```
-
-### Étape 5 : Déclarer votre contenu (Automatisé)
+### Étape 6 : Compiler vos composants
 
 Avec le compilateur activé, vous **n'avez plus besoin** de déclarer manuellement les dictionnaires de contenu (comme les fichiers `.content.ts`).
 
 À la place, vous pouvez écrire votre contenu directement dans votre code en tant que chaînes de caractères. Intlayer analysera votre code, générera les traductions en utilisant le fournisseur d'IA configuré et remplacera les chaînes par du contenu localisé lors de la compilation.
-
-### Étape 6 : Utiliser le contenu dans votre code
 
 Rédigez simplement vos composants avec des chaînes de caractères codées en dur dans votre langue par défaut. Le compilateur s'occupe du reste.
 
 Exemple de ce à quoi pourrait ressembler votre page :
 
 <Tabs>
-  <Tab value="Code" label="Code">
+  <Tab value="Code">
 
 ```tsx fileName="src/app/page.tsx"
 import type { FC } from "react";
@@ -398,7 +248,7 @@ import { getLocale } from "next-intlayer/server";
 const PageContent: FC = () => {
   return (
     <>
-      <p>Commencez en éditant</p>
+      <p>Commencez par éditer</p>
       <code>src/app/page.tsx</code>
     </>
   );
@@ -416,7 +266,7 @@ export default async function Page() {
 ```
 
   </Tab>
-  <Tab value="Output" label="Sortie">
+  <Tab value="Output">
 
 ```ts fileName="i18n/page-content.content.tsx"
 {
@@ -428,7 +278,7 @@ export default async function Page() {
         getStartedByEditing: "Get started by editing",
       },
       fr: {
-        getStartedByEditing: "Commencez en éditant",
+        getStartedByEditing: "Commencez par éditer",
       },
       es: {
         getStartedByEditing: "Comience editando",
@@ -487,42 +337,22 @@ npx intlayer fill         # Remplir les traductions manquantes
 
 Mettez en place le proxy pour détecter la locale préférée de l'utilisateur :
 
-```typescript fileName="src/proxy.ts" codeFormat="typescript"
+```typescript fileName="src/proxy.ts"
 export { intlayerProxy as proxy } from "next-intlayer/proxy";
 
 export const config = {
   matcher:
     "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
 };
-```
-
-```javascript fileName="src/proxy.mjs" codeFormat="esm"
-export { intlayerProxy as proxy } from "next-intlayer/proxy";
-
-export const config = {
-  matcher:
-    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
-};
-```
-
-```javascript fileName="src/proxy.cjs" codeFormat="commonjs"
-const { intlayerProxy } = require("next-intlayer/proxy");
-
-const config = {
-  matcher:
-    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
-};
-
-module.exports = { proxy: intlayerProxy, config };
 ```
 
 > `intlayerProxy` est utilisé pour détecter la locale préférée de l'utilisateur et le rediriger vers l'URL appropriée telle que spécifiée dans la [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md). De plus, il permet de sauvegarder la locale préférée de l'utilisateur dans un cookie.
 
-### (Optionnel) Étape 9 : Changer la langue de votre contenu
+### (Optionnel) Étape 8 : Changer la langue de votre contenu
 
 Pour changer la langue de votre contenu dans Next.js, la méthode recommandée est d'utiliser le composant `Link` pour rediriger les utilisateurs vers la page localisée appropriée. Le composant `Link` permet le prefetch de la page, ce qui aide à éviter un rechargement complet de la page.
 
-```tsx fileName="src/components/localeSwitcher/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/localeSwitcher/LocaleSwitcher.tsx"
 "use client";
 
 import type { FC } from "react";
@@ -568,125 +398,9 @@ export const LocaleSwitcher: FC = () => {
 };
 ```
 
-```jsx fileName="src/components/localeSwitcher/LocaleSwitcher.msx" codeFormat="esm"
-"use client";
-
-import { Locales, getHTMLTextDir, getLocaleName } from "intlayer";
-import { useLocale } from "next-intlayer";
-
-export const LocaleSwitcher = () => {
-  const { locale, availableLocales, setLocale } = useLocale({
-    onChange: () => window.location.reload(),
-  });
-
-  return (
-    <div>
-      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover="auto">
-        {availableLocales.map((localeItem) => (
-          <button
-            key={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={() => setLocale(localeItem)}
-          >
-            <span>
-              {/* Locale - ex: FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* Langue dans sa propre Locale - ex: Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Langue dans la Locale actuelle - ex: Francés avec la locale actuelle définie sur Locales.SPANISH */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Langue en anglais - ex: French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/localeSwitcher/LocaleSwitcher.csx" codeFormat="commonjs"
-"use client";
-
-const { Locales, getHTMLTextDir, getLocaleName } = require("intlayer");
-const { useLocale } = require("next-intlayer");
-
-export const LocaleSwitcher = () => {
-  const path
-  const { locale availableLocales, setLocale } = useLocale({
-       onChange: ()=> window.location.reload(),
-  });
-
-  return (
-    <div>
-      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover="auto">
-        {availableLocales.map((localeItem) => (
-          <button
-            key={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={() => setLocale(localeItem)}
-          >
-            <span>
-              {/* Locale - ex: FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* Langue dans sa propre Locale - ex: Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Langue dans la Locale actuelle - ex: Francés avec la locale actuelle définie sur Locales.SPANISH */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Langue en anglais - ex: French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-};
-```
-
 > Une façon alternative d'utiliser la fonction `setLocale` fournie par le hook `useLocale`. Cette fonction ne permet pas de pré-fetcher la page. Consultez la [documentation du hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/next-intlayer/useLocale.md) pour plus de détails.
 
-### (Optionnel) Étape 10 : Récupérer la locale courante dans les Actions Serveur
-
-Si vous avez besoin de la locale active dans une Action Serveur (par ex., pour localiser des e-mails ou exécuter une logique tenant compte de la locale), appelez `getLocale` depuis `next-intlayer/server` :
-
-```tsx fileName="src/app/actions/getLocale.ts" codeFormat="typescript"
-"use server";
-
-import { getLocale } from "next-intlayer/server";
-
-export const myServerAction = async () => {
-  const locale = await getLocale();
-
-  // Faire quelque chose avec la locale
-};
-```
-
-> La fonction `getLocale` suit une stratégie en cascade pour déterminer la locale de l'utilisateur :
->
-> 1. D'abord, elle vérifie les en-têtes de la requête pour une valeur de locale qui pourrait avoir été définie par le proxy.
-> 2. Si aucune locale n'est trouvée dans les en-têtes, elle cherche une locale stockée dans les cookies.
-> 3. Si aucun cookie n'est trouvé, elle tente de détecter la langue préférée de l'utilisateur à partir des paramètres de son navigateur.
-> 4. En dernier recours, elle utilise par défaut la locale configurée pour l'application.
->
-> Cela garantit que la locale la plus appropriée est sélectionnée en fonction du contexte disponible.
-
-### (Optionnel) Étape 11 : Optimisez la taille de votre bundle
+### (Optionnel) Étape 10 : Optimisez la taille de votre bundle
 
 Lors de l'utilisation de `next-intlayer`, les dictionnaires sont par défaut inclus dans le bundle pour chaque page. Pour optimiser la taille du bundle, Intlayer fournit un plugin SWC optionnel qui remplace intelligemment les appels à `useIntlayer` via des macros. Cela garantit que les dictionnaires ne sont inclus que dans les bundles des pages qui les utilisent réellement.
 
@@ -713,24 +427,6 @@ bun add @intlayer/swc --dev
 > Note : Ce package n'est pas installé par défaut, car les plugins SWC sont encore expérimentaux dans Next.js. Cela pourrait changer à l'avenir.
 
 > Note : Si vous définissez l'option comme `importMode: 'dynamic'` ou `importMode: 'fetch'` (dans la configuration de `dictionary`), elle s'appuiera sur Suspense, de sorte que vous devrez envelopper vos appels à `useIntlayer` dans une frontière `Suspense`. Cela signifie que vous ne pourrez pas utiliser `useIntlayer` directement au niveau le plus haut de votre composant Page / Layout.
-
-### Survoler les changements des dictionnaires via Turbopack
-
-Si le développement requiert que le serveur gère des changements avec Turbopack de concert avec la commande `next dev`, les modifications au sein du dictionnaire échapperont à la détection par défaut.
-
-Cette limite découle du fait que Turbopack ne prend pas en charge l'exécution parallèle des plugins webpack pour surveiller ces révisions au sein des fichiers de contenus locaux. Pour contourner la situation, l'opérateur recourt nécessairement à la commande `intlayer watch`, lançant tant le serveur pour la configuration que la commande d'observation attitrée, ce conjointement.
-
-```json5 fileName="package.json"
-{
-  // ... Vos configurations existantes de package.json
-  "scripts": {
-    // ... Vos configurations existantes de scripts
-    "dev": "intlayer watch --with 'next dev'",
-  },
-}
-```
-
-> Si vous utilisez next-intlayer@<=6.x.x, vous devez conserver le drapeau `--turbopack` pour que l'application Next.js 16 fonctionne correctement avec Turbopack. Nous recommandons l'utilisation de next-intlayer@>=7.x.x pour éviter cette restriction.
 
 ### Configurer TypeScript
 
@@ -759,7 +455,7 @@ Il est recommandé d'ignorer les fichiers générés par Intlayer. Cela vous per
 Pour ce faire, vous pouvez ajouter les instructions suivantes à votre fichier `.gitignore` :
 
 ```plaintext fileName=".gitignore"
-# Ignorer les fichiers générés par Intlayer
+# Ignorer les fichiers générés by Intlayer
 .intlayer
 ```
 
@@ -780,4 +476,4 @@ Pour plus de détails sur l'utilisation de l'extension, consultez la [documentat
 
 ### Aller plus loin
 
-Pour aller plus loin, vous pouvez utiliser un [éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) ou externaliser le tout via le [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md).
+Pour aller plus loin, vous pouvez installer l'[éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) ou externaliser votre contenu via le [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md).
