@@ -174,7 +174,7 @@ const TabComponent = ({
                   id={`tab-${value}`}
                   type="button"
                 >
-                  {label}
+                  {label ?? value}
                 </button>
               );
             })}
