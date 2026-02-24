@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-01-10
-title: Next.js i18n - Як зробити існуючий додаток Next.js багатомовним (i18n) пізніше (посібник i18n 2026 року)
+title: Next.js i18n - Перетворення існуючого додатка Next.js на багатомовний додаток (посібник i18n 2026)
 description: Дізнайтеся, як зробити ваш існуючий додаток Next.js багатомовним за допомогою Intlayer Compiler. Дотримуйтесь документації, щоб інтернаціоналізувати (i18n) та перекласти ваш додаток за допомогою ШІ.
 keywords:
   - Інтернаціоналізація
@@ -26,7 +26,7 @@ history:
     changes: Перший випуск
 ---
 
-# Як зробити існуючий додаток Next.js багатомовним (i18n) пізніше (посібник i18n 2026 року)
+# Як зробити багатомовним (i18n) існуючий додаток Next.js (посібник i18n 2026)
 
 <Tabs defaultTab="video">
   <Tab label="Відео" value="video">
@@ -82,21 +82,25 @@ history:
 
 ```bash packageManager="npm"
 npm install intlayer next-intlayer
+npm install @intlayer/babel --save-dev
 npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer next-intlayer
+pnpm add @intlayer/babel --save-dev
 pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer next-intlayer
+yarn add @intlayer/babel --save-dev
 yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer next-intlayer
+bun add @intlayer/babel --dev
 bunx intlayer init
 ```
 
@@ -238,6 +242,27 @@ module.exports = withIntlayer(nextConfig);
 
 > Плагін Next.js `withIntlayer()` використовується для інтеграції Intlayer із Next.js. Він гарантує побудову файлів декларації змісту та словників (dictionary files) і слідкує (watch) за ними під час режиму розробника (dev mode). Він визначає змінні середовища Intlayer для [Webpack](https://webpack.js.org/) або [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). В додаток, він забезпечує псевдоніми (aliases) для оптимізації продуктивності та повністю підтримує роботу із Server Components (Серверними компонентами).
 
+### Налаштування Babel
+
+Компілятор Intlayer вимагає Babel для вилучення та оптимізації вашого контенту. Оновіть ваш `babel.config.js` (або `babel.config.json`), щоб долучити плагіни Intlayer:
+
+```js fileName="babel.config.js" codeFormat="commonjs"
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
+};
+```
+
 ### Крок 4: Визначення динамічної маршрутизації мов (Locale Routing)
 
 Очистіть все (весь код) всередині компонента `RootLayout` та замініть його прикладом коду нижче:
@@ -359,26 +384,28 @@ module.exports = {
 
 ### Крок 6: Використання вашого контенту в коді
 
-Просто напишіть ваші компоненти зі статичними (захардкодженими / hardcoded) рядками у мові, яка встановлена на замовчуванням (default), а компілятор зробить усю іншу роботу за вас.
+Просто пишіть свої компоненти з захардкодженими рядками у вашій мові за замовчуванням. Компілятор зробить все інше.
 
-Приклад базового файлу `page.tsx` для вашого додатку:
+Приклад того, як може виглядати ваша сторінка:
 
-```tsx fileName="src/app/page.tsx" codeFormat="typescript"
+<Tabs>
+  <Tab value="Code" label="Код">
+
+```tsx fileName="src/app/page.tsx"
 import type { FC } from "react";
 import { IntlayerServerProvider } from "next-intlayer/server";
 import { getLocale } from "next-intlayer/server";
-import { NextPage } from "next";
 
 const PageContent: FC = () => {
   return (
     <>
-      <p>Почніть розробку просто змінюючи код!</p>
+      <p>Почніть з редагування</p>
       <code>src/app/page.tsx</code>
     </>
   );
 };
 
-const Page: NextPage = async () => {
+export default async function Page() {
   const locale = await getLocale();
 
   return (
@@ -386,54 +413,78 @@ const Page: NextPage = async () => {
       <PageContent />
     </IntlayerServerProvider>
   );
-};
-
-export default Page;
+}
 ```
 
-```jsx fileName="src/app/page.mjx" codeFormat="esm"
-import { IntlayerServerProvider } from "next-intlayer/server";
-import { getLocale } from "intlayer";
-import { NextPage } from "next";
+  </Tab>
+  <Tab value="Output" label="Вивід">
 
-const Page: NextPage = async () => {
+```ts fileName="i18n/page-content.content.tsx"
+{
+  key: "page-content",
+  content: {
+    nodeType: "translation",
+    translation: {
+      en: {
+        getStartedByEditing: "Get started by editing",
+      },
+      fr: {
+        getStartedByEditing: "Commencez par éditer",
+      },
+      uk: {
+        getStartedByEditing: "Почніть з редагування",
+      },
+    }
+  }
+}
+```
+
+```tsx fileName="src/app/page.tsx"
+import { type FC } from "react";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
+import { getLocale } from "next-intlayer/server";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page-content");
+
+  return (
+    <>
+      <p>{content.getStartedByEditing}</p>
+      <code>src/app/page.tsx</code>
+    </>
+  );
+};
+
+export default async function Page() {
   const locale = await getLocale();
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <>
-        <p>Почніть розробку просто змінюючи код!</p>
-        <code>src/app/page.tsx</code>
-      </>
+      <PageContent />
     </IntlayerServerProvider>
   );
-};
-
-export default Page;
+}
 ```
 
-```jsx fileName="src/app/page.csx" codeFormat="commonjs"
-import { IntlayerServerProvider, getLocale } from "next-intlayer/server";
-import { NextPage } from "next";
-
-const Page: NextPage = async () => {
-  const locale = await getLocale();
-
-  return (
-    <IntlayerServerProvider locale={locale}>
-      <>
-        <p>Почніть розробку просто змінюючи код!</p>
-        <code>src/app/page.tsx</code>
-      </>
-    </IntlayerServerProvider>
-  );
-};
-```
+  </Tab>
+</Tabs>
 
 - Пам'ятайте, що **`IntlayerClientProvider`** використовується для розповсюдження мови (locale) зверху вниз до всіх елементів-нащадків в компонентах клієнтського типу (Client-side components).
 - Водночас **`IntlayerServerProvider`** натомість має функцію забезпечення мови для елементів-нащадків всередині структур "Серверних" (Server nodes) компонентів.
 
-### (Необов'язково) Крок 7: Налаштування проксі (Proxy) для визначення мови
+### (Опціонально) Крок 7: Заповнення відсутніх перекладів
+
+Intlayer надає інструмент CLI, який допоможе вам заповнити відсутні переклади. Ви можете використовувати команду `intlayer` для тестування та заповнення відсутніх перекладів із вашого коду.
+
+```bash
+npx intlayer test         # Перевірити наявність відсутніх перекладів
+```
+
+```bash
+npx intlayer fill         # Заповнити відсутні переклади
+```
+
+### (Необов'язково) Крок 8: Налаштування проксі (Proxy) для визначення мови
 
 Якщо ви бажаєте автоматично відстежувати та виявляти улюблену мову вашого користувача, налаштуйте проксі:
 
@@ -468,7 +519,7 @@ module.exports = { proxy: intlayerProxy, config };
 
 > `intlayerProxy` використовується для того, щоб виявити обрану мову вашого користувача та успішно перенаправити клієнта (відвідувача) до потрібної URL-адреси на основі налаштувань у файлі [конфігурацій (Configuration file)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md). Вона додатково уможливлює збереження цієї бажаної мови в cookie браузера (браузерній сесії) для зручності доступу користувача у майбутньому.
 
-### (Необов'язково) Крок 8: Переключення мов (Language Switcher)
+### (Необов'язково) Крок 9: Переключення мов (Language Switcher)
 
 Найефективніший спосіб зміни мови всередині Next.js (щоб уникнути жорсткого перезавантаження сторонки 'hard refresh') полягає у використанні компонента "посилання" (`Link`), аби направити користувача за потрібним маршрутом (route) для правильної мови. Такий спосіб використовує вбудовану технологію 'prefetch' (попереднього завантаження) фреймворку Next.js і захищає від небажаного перезавантаження екрану і всіх скриптів браузера.
 
@@ -611,7 +662,7 @@ export const LocaleSwitcher = () => {
 
 > Опціональною альтернативою є виклик функції `setLocale`, яка надається хуком `useLocale`. Детально про вдосконалені можливості хуків ви можете прочитати на [сторінці з довідником щодо роботи з `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/next-intlayer/useLocale.md).
 
-### (Необов'язково) Крок 9: Отримуйте або вказуйте поточну мову на Серверному рівні (в Server Action)
+### (Необов'язково) Крок 10: Отримуйте або вказуйте поточну мову на Серверному рівні (в Server Action)
 
 Якщо вам вкрай необхідно витягти мову користувача для виконання Серверних дій / "Server action" (як-от відправка цільового Email повідомлення певною мовою чи звернення до певного API на бекенді), інноваційне рішення лежить у функції `getLocale` з пакету `@next-intlayer/server` (яка автоматично визначає мову вашого запиту, що розглядається сервером).
 
@@ -634,7 +685,7 @@ export const myServerAction = async () => {
 > 3. Вона оцінює мову системних налаштувань вашого клієнта-пристрою (Client Device Preferences/Browser Headers).
 > 4. Коли всі верхні кроки відкладені (пусті), система переводить управління у безпечний "аварійний режим", де гарантовано вибирає Мову За Замовчуванням (Default Locale set-up in parameters of config) як найпридатнішу!
 
-### (Необов'язково) Крок 10: Зменшуйте файлові розміри збірки вашого додатку / Bundle-Optimizing. (Тільки із застосуванням SWC Транспілятора для фреймворку Next.JS)
+### (Необов'язково) Крок 11: Зменшуйте файлові розміри збірки вашого додатку / Bundle-Optimizing. (Тільки із застосуванням SWC Транспілятора для фреймворку Next.JS)
 
 Діючи за стандартним сценарієм інтеграції, пакет `next-intlayer` збиратиме весь масив створених словників ("словникового пулу додатку") в одну "зв'язку" ("Client Bundle") й дотисно прикріплюватиме його до кодів кожної Client Component сторінки (Page route). Зрозуміло, якщо багато словникових перекладів - це швидко тягне на занадто важкий трафік при завантажені сайту на пристрої клієнтів (величезні мегабайти JS на мережу). Розв'язати інцидент по-сучасному можна: Ви отримаєте доступ до плагіна Next.js SWC, та ще точніше `@intlayer/swc`. Плагін розпізнає контент і назавжди позбавляє ваш загальний клієнт-файл від маси непотрібних перекладів у мовах, залишаючи за собою лише ТУ саму фразу (text output data), безповоротно очищуючи весь масив.
 

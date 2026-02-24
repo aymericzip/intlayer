@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-01-10
-title: Next.js i18n - 如何将现有的 Next.js 应用程序转变为多语言 (i18n) (2026 i18n 指南)
+title: Next.js i18n - 将现有的 Next.js 应用程序转换为多语言应用程序 (i18n 指南 2026)
 description: 了解如何使用 Intlayer 编译器将现有的 Next.js 应用程序转换为多语言。按照文档进行国际化 (i18n) 并使用 AI 进行翻译。
 keywords:
   - 国际化
@@ -26,7 +26,7 @@ history:
     changes: 初始版本
 ---
 
-# 如何将现有的 Next.js 应用程序转变为多语言 (i18n) (2026 i18n 指南)
+# 如何将现有的 Next.js 应用程序多语言化 (i18n) (i18n 指南 2026)
 
 <Tabs defaultTab="video">
   <Tab label="视频" value="video">
@@ -82,21 +82,25 @@ history:
 
 ```bash packageManager="npm"
 npm install intlayer next-intlayer
+npm install @intlayer/babel --save-dev
 npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer next-intlayer
+pnpm add @intlayer/babel --save-dev
 pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer next-intlayer
+yarn add @intlayer/babel --save-dev
 yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer next-intlayer
+bun add @intlayer/babel --dev
 bunx intlayer init
 ```
 
@@ -238,6 +242,27 @@ module.exports = withIntlayer(nextConfig);
 
 > Next.js 插件 `withIntlayer()` 用于将 Intlayer 与 Next.js 集成。它确保内容声明文件的构建，并在开发模式下监视它们。它在 [Webpack](https://webpack.js.org/) 或 [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) 环境中定义 Intlayer 环境变量。此外，它还提供别名以优化性能，并保留与服务器组件的兼容性。
 
+### 配置 Babel
+
+Intlayer 编译器需要 Babel 来提取和优化您的内容。更新您的 `babel.config.js`（或 `babel.config.json`）以包含 Intlayer 插件：
+
+```js fileName="babel.config.js" codeFormat="commonjs"
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
+};
+```
+
 ### 步骤 4：定义动态语言环境路由
 
 清空 `RootLayout` 中的所有内容，并将其替换为以下代码：
@@ -359,26 +384,28 @@ module.exports = {
 
 ### 步骤 6：在代码中使用内容
 
-只需使用您系统默认语言环境的硬编码字符串来编写组件即可。剩下的交给编译器。
+只需使用您默认语言环境的硬编码字符串编写组件即可。编译器会处理剩下的工作。
 
-如果这是您的页面，它可能看起来像这样：
+您的页面可能看起来像这样：
 
-```tsx fileName="src/app/page.tsx" codeFormat="typescript"
+<Tabs>
+  <Tab value="Code" label="代码">
+
+```tsx fileName="src/app/page.tsx"
 import type { FC } from "react";
 import { IntlayerServerProvider } from "next-intlayer/server";
 import { getLocale } from "next-intlayer/server";
-import { NextPage } from "next";
 
 const PageContent: FC = () => {
   return (
     <>
-      <p>修改此处来开始吧</p>
+      <p>开始编辑</p>
       <code>src/app/page.tsx</code>
     </>
   );
 };
 
-const Page: NextPage = async () => {
+export default async function Page() {
   const locale = await getLocale();
 
   return (
@@ -386,54 +413,78 @@ const Page: NextPage = async () => {
       <PageContent />
     </IntlayerServerProvider>
   );
-};
-
-export default Page;
+}
 ```
 
-```jsx fileName="src/app/page.mjx" codeFormat="esm"
-import { IntlayerServerProvider } from "next-intlayer/server";
-import { getLocale } from "intlayer";
-import { NextPage } from "next";
+  </Tab>
+  <Tab value="Output" label="输出">
 
-const Page: NextPage = async () => {
+```ts fileName="i18n/page-content.content.tsx"
+{
+  key: "page-content",
+  content: {
+    nodeType: "translation",
+    translation: {
+      en: {
+        getStartedByEditing: "Get started by editing",
+      },
+      fr: {
+        getStartedByEditing: "Commencez par éditer",
+      },
+      zh: {
+        getStartedByEditing: "开始编辑",
+      },
+    }
+  }
+}
+```
+
+```tsx fileName="src/app/page.tsx"
+import { type FC } from "react";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
+import { getLocale } from "next-intlayer/server";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page-content");
+
+  return (
+    <>
+      <p>{content.getStartedByEditing}</p>
+      <code>src/app/page.tsx</code>
+    </>
+  );
+};
+
+export default async function Page() {
   const locale = await getLocale();
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <>
-        <p>修改此处来开始吧</p>
-        <code>src/app/page.tsx</code>
-      </>
+      <PageContent />
     </IntlayerServerProvider>
   );
-};
-
-export default Page;
+}
 ```
 
-```jsx fileName="src/app/page.csx" codeFormat="commonjs"
-import { IntlayerServerProvider, getLocale } from "next-intlayer/server";
-import { NextPage } from "next";
-
-const Page: NextPage = async () => {
-  const locale = await getLocale();
-
-  return (
-    <IntlayerServerProvider locale={locale}>
-      <>
-        <p>修改此处来开始吧</p>
-        <code>src/app/page.tsx</code>
-      </>
-    </IntlayerServerProvider>
-  );
-};
-```
+  </Tab>
+</Tabs>
 
 - **`IntlayerClientProvider`** 用于向客户端组件提供当前的语言环境。
 - **`IntlayerServerProvider`** 用于向服务器子节点提供当前的语言环境。
 
-### （可选）步骤 7：配置语言环境检测的代理
+### (可选) 第 7 步：填写缺失的翻译
+
+Intlayer 提供了一个 CLI 工具来帮助您填写缺失的翻译。您可以使用 `intlayer` 命令来测试并从您的代码中填写缺失的翻译。
+
+```bash
+npx intlayer test         # 测试是否有缺失的翻译
+```
+
+```bash
+npx intlayer fill         # 填写缺失的翻译
+```
+
+### (可选) 步骤 8：配置语言环境检测的代理
 
 设置代理解析以检测用户的首选语言环境：
 
@@ -468,7 +519,7 @@ module.exports = { proxy: intlayerProxy, config };
 
 > 代理 `intlayerProxy` 用于检测用户的首选语言环境并根据 [配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md) 将其重定向到适当的 URL。它还可以将用户的首选语言环境保存在 cookie 中。
 
-### （可选）步骤 8：更改内容语言环境
+### (可选) 第 9 步：更改内容语言环境
 
 要在 Next.js 中更改您的内容环境语言，最推荐的方法是使用 `Link` 组件将用户重定向到带有适用语言环境的特定路由。这是为了确保页面正确使用 Next.js 进行预加载，并避免强行刷新整个应用页面。
 
@@ -611,7 +662,7 @@ export const LocaleSwitcher = () => {
 
 > 您还可以使用通过 `useLocale` 提供的 `setLocale` 钩子作为不包含 Next.js `Link` 导航的一种替代选项。若需更全面和详细的指引，请访问 [`useLocale` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/useLocale.md)。
 
-### （可选）步骤 9：在 Server Actions（服务器操作）中检索当前区域设置
+### (可选) 第 10 步：在 Server Actions（服务器操作）中检索当前区域设置
 
 如果需要在诸如电子邮件发送、表单验证或数据入库等服务器端操作里获取语言环境，您可以直接导入并调用由 `next-intlayer/server` 提供的 `getLocale`。
 
@@ -636,7 +687,7 @@ export const myServerAction = async () => {
 >
 > 根据场景随时确保响应正确的语言。
 
-### （可选）步骤 10：优化并减小包体积 (Build Optimization)
+### (可选) 第 11 步：优化并减小包体积 (Build Optimization)
 
 根据默认情况，Next.js 会把所需要的包内容打包在客户端构建包中。因此当调用 `next-intlayer` 时所有的内容字典可能会在客户端被引入，如果词典非常多这可能造成无意义的打包占用膨胀。在这种情况下，我们可以采取 `SWC` 的方式，通过引入预构建分析扩展——`@intlayer/swc` 给系统实现极致优化，这能帮助我们的打包体仅保留必要的内容词条给相应的页面组件，进而优化编译性能：
 

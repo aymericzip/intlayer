@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-01-10
-title: Next.js i18n - 기존 Next.js 애플리케이션을 다국어(i18n)로 만드는 방법 (i18n 가이드 2026)
+title: Next.js i18n - 기존 Next.js 앱을 다국어 앱으로 변환하기 (i18n 가이드 2026)
 description: Intlayer Compiler를 사용하여 기존 Next.js 애플리케이션을 다국어로 만드는 방법을 알아보세요. 문서를 따라 국제화(i18n)하고 AI로 번역하세요.
 keywords:
   - 국제화
@@ -82,21 +82,25 @@ npm을 사용하여 필요한 패키지를 설치합니다:
 
 ```bash packageManager="npm"
 npm install intlayer next-intlayer
+npm install @intlayer/babel --save-dev
 npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer next-intlayer
+pnpm add @intlayer/babel --save-dev
 pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer next-intlayer
+yarn add @intlayer/babel --save-dev
 yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer next-intlayer
+bun add @intlayer/babel --dev
 bunx intlayer init
 ```
 
@@ -238,6 +242,27 @@ module.exports = withIntlayer(nextConfig);
 
 > `withIntlayer()` Next.js 플러그인은 Next.js와 Intlayer를 통합하는 데 사용됩니다. 콘텐츠 선언 파일의 빌드를 보장하고 개발 모드에서 파일를 모니터링합니다. [Webpack](https://webpack.js.org/) 또는 [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) 환경 내에서 Intlayer 환경 변수를 정의합니다. 또한 성능을 최적화하기 위한 별칭을 제공하고 서버 구성 요소와의 호환성을 보장합니다.
 
+### Babel 구성
+
+Intlayer 컴파일러는 콘텐츠를 추출하고 최적화하기 위해 Babel이 필요합니다. Intlayer 플러그인을 포함하도록 `babel.config.js` (또는 `babel.config.json`)를 업데이트하세요:
+
+```js fileName="babel.config.js" codeFormat="commonjs"
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
+};
+```
+
 ### 4단계: 동적 로캘 경로 정의
 
 `RootLayout`에서 모든 내용을 지우고 다음 코드로 대체합니다:
@@ -359,26 +384,28 @@ module.exports = {
 
 ### 6단계: 코드에서 콘텐츠 활용
 
-기본 로캘로 하드 코딩된 문자열을 사용하여 구성 요소를 작성하기만 하면 됩니다. 나머지는 컴파일러가 처리합니다.
+기본 로캘의 하드코딩된 문자열을 사용하여 컴포넌트를 작성하기만 하면 됩니다. 나머지는 컴파일러가 처리합니다.
 
 페이지의 모습 예시:
 
-```tsx fileName="src/app/page.tsx" codeFormat="typescript"
+<Tabs>
+  <Tab value="Code" label="코드">
+
+```tsx fileName="src/app/page.tsx"
 import type { FC } from "react";
 import { IntlayerServerProvider } from "next-intlayer/server";
 import { getLocale } from "next-intlayer/server";
-import { NextPage } from "next";
 
 const PageContent: FC = () => {
   return (
     <>
-      <p>다음을 편집하여 시작하세요</p>
+      <p>편집하여 시작하기</p>
       <code>src/app/page.tsx</code>
     </>
   );
 };
 
-const Page: NextPage = async () => {
+export default async function Page() {
   const locale = await getLocale();
 
   return (
@@ -386,54 +413,78 @@ const Page: NextPage = async () => {
       <PageContent />
     </IntlayerServerProvider>
   );
-};
-
-export default Page;
+}
 ```
 
-```jsx fileName="src/app/page.mjx" codeFormat="esm"
-import { IntlayerServerProvider } from "next-intlayer/server";
-import { getLocale } from "intlayer";
-import { NextPage } from "next";
+  </Tab>
+  <Tab value="Output" label="출력">
 
-const Page: NextPage = async () => {
+```ts fileName="i18n/page-content.content.tsx"
+{
+  key: "page-content",
+  content: {
+    nodeType: "translation",
+    translation: {
+      en: {
+        getStartedByEditing: "Get started by editing",
+      },
+      fr: {
+        getStartedByEditing: "Commencez par éditer",
+      },
+      ko: {
+        getStartedByEditing: "편집하여 시작하기",
+      },
+    }
+  }
+}
+```
+
+```tsx fileName="src/app/page.tsx"
+import { type FC } from "react";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
+import { getLocale } from "next-intlayer/server";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page-content");
+
+  return (
+    <>
+      <p>{content.getStartedByEditing}</p>
+      <code>src/app/page.tsx</code>
+    </>
+  );
+};
+
+export default async function Page() {
   const locale = await getLocale();
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <>
-        <p>다음을 편집하여 시작하세요</p>
-        <code>src/app/page.tsx</code>
-      </>
+      <PageContent />
     </IntlayerServerProvider>
   );
-};
-
-export default Page;
+}
 ```
 
-```jsx fileName="src/app/page.csx" codeFormat="commonjs"
-import { IntlayerServerProvider, getLocale } from "next-intlayer/server";
-import { NextPage } from "next";
-
-const Page: NextPage = async () => {
-  const locale = await getLocale();
-
-  return (
-    <IntlayerServerProvider locale={locale}>
-      <>
-        <p>다음을 편집하여 시작하세요</p>
-        <code>src/app/page.tsx</code>
-      </>
-    </IntlayerServerProvider>
-  );
-};
-```
+  </Tab>
+</Tabs>
 
 - **`IntlayerClientProvider`**는 클라이언트 측 구성요소에 로캘을 제공하는 데 사용됩니다.
 - **`IntlayerServerProvider`**는 서버 하위 노드에 로캘을 제공하는 데 사용됩니다.
 
-### (선택) 7단계: 로캘 감지를 위한 프록시 구성
+### (선택 사항) 7단계: 누락된 번역 채우기
+
+Intlayer는 누락된 번역을 채울 수 있도록 CLI 도구를 제공합니다. `intlayer` 명령을 사용하여 코드에서 누락된 번역을 테스트하고 채울 수 있습니다.
+
+```bash
+npx intlayer test         # 누락된 번역이 있는지 테스트
+```
+
+```bash
+npx intlayer fill         # 누락된 번역 채우기
+```
+
+### (선택 사항) 8단계: 로캘 감지를 위한 프록시 구성
 
 사용자의 선호 로캘을 감지하는 프록시를 설정합니다:
 
@@ -468,7 +519,7 @@ module.exports = { proxy: intlayerProxy, config };
 
 > `intlayerProxy`는 사용자의 선호 로캘을 감지하고 [구성](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)에 지정된 대로 적절한 URL로 리디렉션하는 데 사용됩니다. 또한 사용자의 선호 로캘을 쿠키에 저장할 수 있습니다.
 
-### (선택) 8단계: 콘텐츠 언어 변경
+### (선택 사항) 9단계: 콘텐츠 언어 변경
 
 Next.js에서 콘텐츠 언어를 가장 권장되는 방식으로 변경하려면 `Link` 컴포넌트를 사용하여 사용자를 적절한 언어 페이지로 리디렉션하는 것입니다. 이렇게 하면 Next.js 페이지 프리패치(prefetch)를 활용하여 페이지 전체가 리로드되는 일을 방지할 수 있습니다.
 
@@ -611,7 +662,7 @@ export const LocaleSwitcher = () => {
 
 > 페이지 프리패치를 허용하지 않고 `useLocale`에서 제공되는 `setLocale` 훅을 대안으로 사용할 수 있습니다. 해당 옵션에 관한 좀 더 깊은 정보는 링크를 참조하세요 [`useLocale` 훅 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/useLocale.md).
 
-### (선택) 9단계: 기존 Server Actions에서 현재의 로캘 가져오기
+### (선택 사항) 10단계: 기존 Server Actions에서 현재의 로캘 가져오기
 
 이메일이나 여러 언어가 필요한 Server Action 백엔드 동작을 수행하기 위해서 `getLocale` 함수를 Next 내의 `next-intlayer/server` 모듈을 통해 실행시킵니다:
 
@@ -636,7 +687,7 @@ export const myServerAction = async () => {
 >
 > 상황의 Context에 맞춘 알맞은 선택지를 부여합니다.
 
-### (선택) 10단계: 번들의 사이즈 줄이기 및 최적화하기
+### (선택 사항) 11단계: 번들의 사이즈 줄이기 및 최적화하기
 
 `next-intlayer`라는 모듈을 사용할 때 기본 정책에 따라 모든 텍스트나 사전들이 번들(모든 페이지의 공통 크기 및 데이터)에 병합되게 설정됩니다. 성능의 감소나 크기를 타의 추종을 불허하게 최적화하기 위해, Next.js 의 SWC 방식을 기반으로한 매크로로 플러그인 컴포넌트 `@intlayer/swc`를 추가 및 이용해 주세요. `useIntlayer`의 컴포넌트에 해당 페이지와 사용되는 텍스트 옵션만 포함할 수 있도록 유도합니다.
 

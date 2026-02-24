@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-01-10
-title: Next.js i18n - Jak uczynić istniejącą aplikację Next.js wielojęzyczną (i18n) (Poradnik i18n 2026)
+title: Next.js i18n - Przekształć istniejącą aplikację Next.js w aplikację wielojęzyczną (przewodnik i18n 2026)
 description: Dowiedz się, jak uczynić swoją istniejącą aplikację Next.js wielojęzyczną za pomocą Kompilatora Intlayer. Postępuj zgodnie z dokumentacją, aby umiędzynarodowić (i18n) i przetłumaczyć swoją aplikację przy użyciu AI.
 keywords:
   - Umiędzynarodowienie
@@ -26,7 +26,7 @@ history:
     changes: Pierwsze wydanie
 ---
 
-# Jak uczynić istniejącą aplikację Next.js wielojęzyczną (i18n) (Poradnik i18n 2026)
+# Jak sprawić, by istniejąca aplikacja Next.js stała się wielojęzyczna (i18n) (przewodnik i18n 2026)
 
 <Tabs defaultTab="video">
   <Tab label="Wideo" value="video">
@@ -82,21 +82,25 @@ Zainstaluj potrzebne pakiety za pomocą npm:
 
 ```bash packageManager="npm"
 npm install intlayer next-intlayer
+npm install @intlayer/babel --save-dev
 npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer next-intlayer
+pnpm add @intlayer/babel --save-dev
 pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer next-intlayer
+yarn add @intlayer/babel --save-dev
 yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer next-intlayer
+bun add @intlayer/babel --dev
 bunx intlayer init
 ```
 
@@ -238,6 +242,27 @@ module.exports = withIntlayer(nextConfig);
 
 > Plugin `withIntlayer()` to serce podłączenia dla Twojego frameworka Next. Wymusza tworzenie plików środowiska (środowiska [Webpack](https://webpack.js.org/) i [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack)), aliasy do optymalizacji serwera lub komponentu w Next.
 
+### Konfiguracja Babel
+
+Kompilator Intlayer wymaga Babel do wyodrębniania i optymalizacji treści. Zaktualizuj swój plik `babel.config.js` (lub `babel.config.json`), aby zawierał wtyczki Intlayer:
+
+```js fileName="babel.config.js" codeFormat="commonjs"
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
+};
+```
+
 ### Krok 4: Skonfigurowanie Routingu Komponentów
 
 Usuń wszystko z w pliku root layout (RootLayout) `layout.tsx` a następnie podmień na to kodowanie:
@@ -357,28 +382,30 @@ Z Włączonym kompilatorem, Ty absolutnie **nie masz wymogu** robić tego ręczn
 
 Zamiast dodawania każdego klucza do specjalnych słowników, z narzędziem `Intlayer`, ty po prostu umieszczasz standardowy bazowy tekst do własnego kodu. A sam proces silnika użyje wprowadzonych podłączeń AI. I dostarczy dla CI/CD pliki lokalizowane.
 
-### Krok 6: Gotowe wykorzystywanie kodu z Next
+### Krok 6: Wykorzystaj treść w swoim kodzie
 
-Można śmiało wpisać pożądany standard domyślnego tekstu do jakiegoś pliku bazowego i cieszyć się resztą działania dla reszty modułów.
+Po prostu napisz swoje komponenty z zakodowanymi na sztywno ciągami znaków w domyślnym języku. Kompilator zajmie się resztą.
 
-Przykład domyślnej wstawki kodowej na pliku na stronie.
+Przykład tego, jak może wyglądać Twoja strona:
 
-```tsx fileName="src/app/page.tsx" codeFormat="typescript"
+<Tabs>
+  <Tab value="Code" label="Kod">
+
+```tsx fileName="src/app/page.tsx"
 import type { FC } from "react";
 import { IntlayerServerProvider } from "next-intlayer/server";
 import { getLocale } from "next-intlayer/server";
-import { NextPage } from "next";
 
 const PageContent: FC = () => {
   return (
     <>
-      <p>Rozpocznij od edytowania:</p>
+      <p>Zacznij od edytowania</p>
       <code>src/app/page.tsx</code>
     </>
   );
 };
 
-const Page: NextPage = async () => {
+export default async function Page() {
   const locale = await getLocale();
 
   return (
@@ -386,54 +413,78 @@ const Page: NextPage = async () => {
       <PageContent />
     </IntlayerServerProvider>
   );
-};
-
-export default Page;
+}
 ```
 
-```jsx fileName="src/app/page.mjx" codeFormat="esm"
-import { IntlayerServerProvider } from "next-intlayer/server";
-import { getLocale } from "intlayer";
-import { NextPage } from "next";
+  </Tab>
+  <Tab value="Output" label="Wynik">
 
-const Page: NextPage = async () => {
+```ts fileName="i18n/page-content.content.tsx"
+{
+  key: "page-content",
+  content: {
+    nodeType: "translation",
+    translation: {
+      en: {
+        getStartedByEditing: "Get started by editing",
+      },
+      fr: {
+        getStartedByEditing: "Commencez par éditer",
+      },
+      pl: {
+        getStartedByEditing: "Zacznij od edytowania",
+      },
+    }
+  }
+}
+```
+
+```tsx fileName="src/app/page.tsx"
+import { type FC } from "react";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
+import { getLocale } from "next-intlayer/server";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page-content");
+
+  return (
+    <>
+      <p>{content.getStartedByEditing}</p>
+      <code>src/app/page.tsx</code>
+    </>
+  );
+};
+
+export default async function Page() {
   const locale = await getLocale();
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <>
-        <p>Rozpocznij od edytowania:</p>
-        <code>src/app/page.tsx</code>
-      </>
+      <PageContent />
     </IntlayerServerProvider>
   );
-};
-
-export default Page;
+}
 ```
 
-```jsx fileName="src/app/page.csx" codeFormat="commonjs"
-import { IntlayerServerProvider, getLocale } from "next-intlayer/server";
-import { NextPage } from "next";
-
-const Page: NextPage = async () => {
-  const locale = await getLocale();
-
-  return (
-    <IntlayerServerProvider locale={locale}>
-      <>
-        <p>Rozpocznij od edytowania:</p>
-        <code>src/app/page.tsx</code>
-      </>
-    </IntlayerServerProvider>
-  );
-};
-```
+  </Tab>
+</Tabs>
 
 - Polecenie i biblioteka kontextu: **`IntlayerClientProvider`** są wymogiem by renderować poprawnie pliki i treść.
 - Podobnie z Serverem (dla Next App Directory) jest zastosowany odpowiedni tag kontextowy **`IntlayerServerProvider`**.
 
-### (Opcjonalnie) Krok 7: Prosty i bardzo mądry Route Proxy do wykrywania preferencji
+### (Opcjonalnie) Krok 7: Uzupełnij brakujące tłumaczenia
+
+Intlayer udostępnia narzędzie CLI, które pomaga uzupełnić brakujące tłumaczenia. Możesz użyć polecenia `intlayer`, aby przetestować i uzupełnić brakujące tłumaczenia ze swojego kodu.
+
+```bash
+npx intlayer test         # Przetestuj, czy brakuje tłumaczeń
+```
+
+```bash
+npx intlayer fill         # Uzupełnij brakujące tłumaczenia
+```
+
+### (Opcjonalnie) Krok 8: Prosty i bardzo mądry Route Proxy do wykrywania preferencji
 
 Włącz middleware, dla bardzo szybkiej nawigacji klienta z językiem i regionem!
 
@@ -468,7 +519,7 @@ module.exports = { proxy: intlayerProxy, config };
 
 > Rozwiązanie z pliku zdefiniowane nazwane `intlayerProxy`, daje wykrycie języka naturalnego by przenieść przeglądarce preferencje by odpowiednio przeroutować (redirect URL) na pożądany parametr w standardzie, po czym ustali lub sprawdzi w tym czasie w razie wykrycia plików - po stronie sesyjnej w plikach z preferencji ciasta jako "Ciasteczko - Cookie Locale". Tzw [Konfiguracja Route System NextJS z Intlayer i Proxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md) dla odniesienia specyfiki pliku.
 
-### (Opcjonalnie) Krok 8: Widget do Zmiany Języka Lokalnego (Switcher)
+### (Opcjonalnie) Krok 9: Widget do Zmiany Języka Lokalnego (Switcher)
 
 Jeśli twój cel w rozwiązaniach Next.js (aplikacji opartych) polega na umożliwieniu odpalenia w interfejsie przełączania. Polegaj jako zalecane podejście przez wgranie bibliotek lub opcjonalnego linku ze strefy pod router (`Next Link`) celem podania mu prawidłowego Locale do strony odpowiedniej zamiast pisać nową stronę i odświeżeniu witryny bez tzn Prefetch.
 
@@ -611,7 +662,7 @@ export const LocaleSwitcher = () => {
 
 > Dodasz jeszcze prostszą wariację przez alternatywy czyli dynamiczą funkcje hook - `useLocale` korzystając z parametru `setLocale` funkcja zamiast preloading w Next. Bardziej konkretne informacje oraz detale w odniesieniu co do działania (lub jak go ulepszyć / wklejać do projektów i frameworków) poczytaj tutaj [Hook - `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/next-intlayer/useLocale.md).
 
-### (Opcjonalnie) Krok 9: Kontekst / odczyt Locale na serwerze (np: Server Action, wysłanie E-Mail)
+### (Opcjonalnie) Krok 10: Kontekst / odczyt Locale na serwerze (np: Server Action, wysłanie E-Mail)
 
 Przy procesie przysłania, zapisu poczty elektronicznej lub innej operacji Server Side Action gdzie zależałoby wykrycie, jaka i kiedy jest aktywowana funkcja na serwerach do odpowiedniego pobrania "jaki aktualnie jest język". Właśnie dlatego używamy polecenia - `getLocale` od obiektu z eksportu serwerowego dla Node / React jako - `next-intlayer/server`:
 
@@ -634,7 +685,7 @@ export const myServerAction = async () => {
 > 3. Na wypadek jeżeli parametry z cookie również stracono czy by użytkownik nic a nic nigdy wcześniej tego nie edytował lub wyczyścił cookie szukany jest z nagłówków wysyłkowych z żądania w OS.
 > 4. Nie udało się? Fallback i wybiera zadeklarowany i narzucony domyślny Default Locale dla reszty i niech się martwi ten kod że było co domyślnie :D.
 
-### (Opcjonalnie) Krok 10: Ograniczenia oraz wydajności! Odciąż i pomniejsz swoje zasoby na stronie. - Optymalizacja Build. Z pluginem "SWC" pod Next Framework.
+### (Opcjonalnie) Krok 11: Ograniczenia oraz wydajności! Odciąż i pomniejsz swoje zasoby na stronie. - Optymalizacja Build. Z pluginem "SWC" pod Next Framework.
 
 Narzędzie jakim używasz - "Next-Intlayer", bazuje dla poprawy doświadczeń programisty poprzez pakowanie - wysyłania (tzn: Import) na strony pełnych słowników bez Twojego ręcznego wyboru pliku w pakiecie Nexta. Odciąża ale przy rozroście dużej sieci aplikacji do ogromnych słowników dla każdego "z pliku i lokalizacji" do setki pakietowych danych spowalnia pobieranie skryptowych JS. Reagując natywnie w Next Framework Intlayer udostępnia - specjalistyczne makra (czyli taki re-build procesowy w "Turbo Webpack dla Next"), wygeneruje od początku plik a w zasadzie zmodyfikuje i ograniczy import plików Intlayera podczas "Compile/Vercel/Next" czasu do absolutnego minimum optymalnego pod twój kod w miejscu `useIntlayer` dzięki używanemu `@intlayer/swc`. Tego plugina - można nazwać dopalaczem kodu pod maską!
 

@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-01-10
-title: Next.js i18n - Mevcut bir Next.js uygulamasını sonradan nasıl çok dilli (i18n) yapabilirsiniz (2026 i18n Kılavuzu)
+title: Next.js i18n - Mevcut bir Next.js uygulamasını çok dilli bir uygulamaya dönüştürün (i18n kılavuzu 2026)
 description: Intlayer Derleyicisi'ni kullanarak mevcut Next.js uygulamanızı nasıl çok dilli yapacağınızı keşfedin. Yapay zeka kullanarak uygulamanızı uluslararasılaştırmak (i18n) ve çevirmek için belgelere göz atın.
 keywords:
   - Uluslararasılaştırma
@@ -27,7 +27,7 @@ history:
     changes: İlk Sürüm
 ---
 
-# Mevcut bir Next.js uygulamasını sonradan nasıl çok dilli (i18n) yapabilirsiniz (2026 i18n Kılavuzu)
+# Mevcut bir Next.js uygulamasını çok dilli (i18n) hale getirme (i18n kılavuzu 2026)
 
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">
@@ -83,21 +83,25 @@ Gerekli paketleri npm ile yükleyin:
 
 ```bash packageManager="npm"
 npm install intlayer next-intlayer
+npm install @intlayer/babel --save-dev
 npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer next-intlayer
+pnpm add @intlayer/babel --save-dev
 pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer next-intlayer
+yarn add @intlayer/babel --save-dev
 yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer next-intlayer
+bun add @intlayer/babel --dev
 bunx intlayer init
 ```
 
@@ -239,6 +243,27 @@ module.exports = withIntlayer(nextConfig);
 
 > Next.js `withIntlayer()` eklentisi, Intlayer'ı Next.js ortamı ile bütünleştirir. İçerik beyan dosyalarının (dictionary files) oluşturulmasını sağlar ve geliştirme modunda izlenmelerini (watch mode) üstlenir. Intlayer çevre değişkenlerini [Webpack](https://webpack.js.org/) ya da [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) içinde sisteme tanıtır. Dahası, performansı artırmak üzere takma adlar (alias) barındırır ve Sunucu Bileşenleriyle (Server Components) tam bir uyum yakalar.
 
+### Babel'i Yapılandır
+
+Intlayer derleyicisi, içeriğinizi çıkarmak ve optimize etmek için Babel gerektirir. Intlayer eklentilerini içerecek şekilde `babel.config.js` (veya `babel.config.json`) dosyanızı güncelleyin:
+
+```js fileName="babel.config.js" codeFormat="commonjs"
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
+};
+```
+
 ### Adım 4: Dinamik Dil Yönlendirmesini Tanımlayın
 
 `RootLayout` bileşeninizin içindekileri tamamen temizleyin ve kodu aşağıdaki örnek ile değiştirin:
@@ -360,26 +385,28 @@ Bunun yerine, uygulamanıza ait metinleri standart metin karakter dizileri (stri
 
 ### Adım 6: Şifrenizin İçerisinde Çeviriden Faydalanın
 
-Bileşenlerinizi (components) varsayılan (ana) dilinizde statik/hardcoded (koda sabitlenmiş) metin dizeleriyle oluşturun, geri kalan işleri derleyici halledecektir.
+Bileşenlerinizi varsayılan dilinizde sabit dizelerle yazmanız yeterlidir. Derleyici geri kalanını halleder.
 
-Örneğin, `page.tsx` sayfanızın şu şekilde göründüğünü düşünün:
+Sayfanızın nasıl görünebileceğine dair bir örnek:
 
-```tsx fileName="src/app/page.tsx" codeFormat="typescript"
+<Tabs>
+  <Tab value="Code" label="Kod">
+
+```tsx fileName="src/app/page.tsx"
 import type { FC } from "react";
 import { IntlayerServerProvider } from "next-intlayer/server";
 import { getLocale } from "next-intlayer/server";
-import { NextPage } from "next";
 
 const PageContent: FC = () => {
   return (
     <>
-      <p>Kodu düzenleyerek başlayın</p>
+      <p>Düzenleyerek başlayın</p>
       <code>src/app/page.tsx</code>
     </>
   );
 };
 
-const Page: NextPage = async () => {
+export default async function Page() {
   const locale = await getLocale();
 
   return (
@@ -387,54 +414,78 @@ const Page: NextPage = async () => {
       <PageContent />
     </IntlayerServerProvider>
   );
-};
-
-export default Page;
+}
 ```
 
-```jsx fileName="src/app/page.mjx" codeFormat="esm"
-import { IntlayerServerProvider } from "next-intlayer/server";
-import { getLocale } from "intlayer";
-import { NextPage } from "next";
+  </Tab>
+  <Tab value="Output" label="Çıktı">
 
-const Page: NextPage = async () => {
+```ts fileName="i18n/page-content.content.tsx"
+{
+  key: "page-content",
+  content: {
+    nodeType: "translation",
+    translation: {
+      en: {
+        getStartedByEditing: "Get started by editing",
+      },
+      fr: {
+        getStartedByEditing: "Commencez par éditer",
+      },
+      tr: {
+        getStartedByEditing: "Düzenleyerek başlayın",
+      },
+    }
+  }
+}
+```
+
+```tsx fileName="src/app/page.tsx"
+import { type FC } from "react";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
+import { getLocale } from "next-intlayer/server";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page-content");
+
+  return (
+    <>
+      <p>{content.getStartedByEditing}</p>
+      <code>src/app/page.tsx</code>
+    </>
+  );
+};
+
+export default async function Page() {
   const locale = await getLocale();
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <>
-        <p>Kodu düzenleyerek başlayın</p>
-        <code>src/app/page.tsx</code>
-      </>
+      <PageContent />
     </IntlayerServerProvider>
   );
-};
-
-export default Page;
+}
 ```
 
-```jsx fileName="src/app/page.csx" codeFormat="commonjs"
-import { IntlayerServerProvider, getLocale } from "next-intlayer/server";
-import { NextPage } from "next";
-
-const Page: NextPage = async () => {
-  const locale = await getLocale();
-
-  return (
-    <IntlayerServerProvider locale={locale}>
-      <>
-        <p>Kodu düzenleyerek başlayın</p>
-        <code>src/app/page.tsx</code>
-      </>
-    </IntlayerServerProvider>
-  );
-};
-```
+  </Tab>
+</Tabs>
 
 - **`IntlayerClientProvider`** - İstemci (client-side) bileşenlerine dil/lokasyon özelliklerini (locale) yaymak için kullanılır.
 - **`IntlayerServerProvider`** - Sunucu çocuk düğümlerine (Server child nodes) dil (locale) yapısını yaymak için işlev görür.
 
-### (İsteğe Bağlı) Adım 7: Dile Göre (Locale) Algılama için Proxy'yi Hazırlama
+### (İsteğe bağlı) Adım 7: Eksik çevirileri doldurma
+
+Intlayer, eksik çevirileri doldurmanıza yardımcı olacak bir CLI aracı sağlar. Kodunuzdaki eksik çevirileri test etmek ve doldurmak için `intlayer` komutunu kullanabilirsiniz.
+
+```bash
+npx intlayer test         # Eksik çeviri olup olmadığını test et
+```
+
+```bash
+npx intlayer fill         # Eksik çevirileri doldur
+```
+
+### (İsteğe Bağlı) Adım 8: Dile Göre (Locale) Algılama için Proxy'yi Hazırlama
 
 Kullanıcınızın kullanmayı tercih ettiği dili tespit etmek ve ona uygun yönlendirme sağlamak adına Proxy'i entegre edin:
 
@@ -469,7 +520,7 @@ module.exports = { proxy: intlayerProxy, config };
 
 > `intlayerProxy`, ziyaretçilerinizin potansiyel (tercih edilen) dilini keşfetmek ve ziyaretçiyi [Konfigürasyon (Configuration)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) dosyanızdaki ayarlara göre sorunsuz bir şekilde uygun URL'ye (ve dile) yönlendirmek için vazgeçilmez bir araçtır. İlave olarak aynı ayarları gelecekte yeniden hatırlayabilmek için sisteme bağlı (cookie) tercihler işler.
 
-### (İsteğe Bağlı) Adım 8: Sistemde Yeni Bir Dil Önerme / Değiştirme (Language Switcher)
+### (İsteğe Bağlı) Adım 9: Sistemde Yeni Bir Dil Önerme / Değiştirme (Language Switcher)
 
 Sayfa içi dil değişimlerinde en efektif yöntem: Ziyaretçiyi projenizdeki/kodunuzdaki dillerle eşleşen doğru URL yapısına bir `Link` öğesi yoluyla aktarmaktır. Next.js altyapısında bu seçenek kullanıldığında, önbellek "prefetch" becerileri güçlenir, üstüne tüm sayfanın gereksiz yere tamamen yeniden sunucudan indirilmesi (hard reload) engellenir.
 
@@ -612,7 +663,7 @@ export const LocaleSwitcher = () => {
 
 > Seçeneklerden birisi de yönlendirmeye bağımlı olmadan React/Next üzerinde `setLocale` fonksiyonunu tetiklemektir (`useLocale` hook yapısı sağlar). Bunun daha da derin entegrasyonlarını incelemek ve yeteneklerini değerlendirmek adına: [`useLocale` Referansları Sayfası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/useLocale.md)'na bakın.
 
-### (İsteğe Bağlı) Adım 9: Özel Sunucu İstekleri (Server-side) veya Ortamları için Algılama Mekanizması
+### (İsteğe Bağlı) Adım 10: Özel Sunucu İstekleri (Server-side) veya Ortamları için Algılama Mekanizması
 
 Yaptığınız mimaride örneğin; kayıt esnasında veya API servisinde arka planda dile özel mail (ör. Node Sunucusundan İngilizce yerine Türkçe bülten vb.) fırlatmanız gerekebilmektedir. İstemciden veriyi manuel gönderip hata riskini arttırmaktansa `@next-intlayer/server` kütüphanesinden entegre edilmiş `getLocale` kullanın.
 
@@ -635,7 +686,7 @@ export const myServerAction = async () => {
 > 3. İstemci Çevresel Ortamı (Client Browser Config): Browserın ya da donanımın Locale/Kültürel tercih ayarları.
 > 4. Varsayılan (Fallback) Locale Seçimi: Tüm seçeneklerden başarısız veya veri gelmeyen bir dönüşte, Intlayer ortam değişkenlerindeki ayarların Default locale karşılığı geçerli atanır!
 
-### (İsteğe Bağlı) Adım 10: Uygulamanızın İletim (Bundle) Yükünü İndirme - (SWC ile Optimize Etmek)
+### (İsteğe Bağlı) Adım 11: Uygulamanızın İletim (Bundle) Yükünü İndirme - (SWC ile Optimize Etmek)
 
 Geçmiş sistem yapısı standart bir işleyişi kabul ettiğinden "next-intlayer" dahil paketler çevrilen veriyi komple bir veri dizisi halinde Component içine entegre eder ve "Client Bundle" gereksiz şişirilmeyle yavaşlatır. (Anlık indirilecek verinin MB artışı). Tüm bu süreci değiştiren yapısı ile Next.js SWC Makrolarının gelişmiş esnekliği kullanılmalıdır. `@intlayer/swc` aracını entegre ettiğinizde bu yazılım sadece kullanılan dizeleri çeker ve ana koda sadece ihtiyaç dahilindeki diziyi (string değerini) taşır ve build yığınını küçültür.
 

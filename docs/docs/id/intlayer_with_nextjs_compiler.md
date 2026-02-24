@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-01-10
-title: Next.js i18n - Cara membuat aplikasi Next.js yang sudah ada menjadi multibahasa (i18n) di kemudian hari (Panduan i18n 2026)
+title: Next.js i18n - Ubah aplikasi Next.js yang sudah ada menjadi aplikasi multibahasa (panduan i18n 2026)
 description: Temukan cara membuat aplikasi Next.js Anda yang sudah ada menjadi multibahasa menggunakan Intlayer Compiler. Ikuti panduan dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkan aplikasi Anda menggunakan AI.
 keywords:
   - Internasionalisasi
@@ -26,7 +26,7 @@ history:
     changes: Rilis Awal
 ---
 
-# Cara membuat aplikasi Next.js yang sudah ada menjadi multibahasa (i18n) di kemudian hari (Panduan i18n 2026)
+# Cara membuat aplikasi Next.js yang sudah ada menjadi multibahasa (i18n) (Panduan i18n 2026)
 
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">
@@ -82,21 +82,25 @@ Instal paket-paket yang diperlukan menggunakan pengelola paket favorit Anda:
 
 ```bash packageManager="npm"
 npm install intlayer next-intlayer
+npm install @intlayer/babel --save-dev
 npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer next-intlayer
+pnpm add @intlayer/babel --save-dev
 pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer next-intlayer
+yarn add @intlayer/babel --save-dev
 yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer next-intlayer
+bun add @intlayer/babel --dev
 bunx intlayer init
 ```
 
@@ -238,6 +242,27 @@ module.exports = withIntlayer(nextConfig);
 
 > Plugin `withIntlayer()` untuk Next.js terintegrasi penuh mengawasi Intlayer menjadi environment Next.js. Ia memastikan file kamus (dictionary) di-build ulang (re-built) saat dimodifikasi dalam dev mode (watch mode). Ia mendefinisikan variabel environment Intlayer di dalam sistem [Webpack](https://webpack.js.org/) atau [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). Lebih lanjut menyediakan alias (aliases) untuk meningkatkan kinerja, dan bekerja sempurna dengan Komponen Server (Server Components).
 
+### Konfigurasi Babel
+
+Kompilator Intlayer memerlukan Babel untuk mengekstrak dan mengoptimalkan konten Anda. Perbarui `babel.config.js` (atau `babel.config.json`) Anda untuk menyertakan plugin Intlayer:
+
+```js fileName="babel.config.js" codeFormat="commonjs"
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
+};
+```
+
 ### Langkah 4: Rute bahasa (Locale) dinamis dikonfigurasi
 
 Kosongkan fungsionalitas di `RootLayout` Anda dan ganti isinya dengan contoh di bawah ini:
@@ -359,26 +384,28 @@ Sebaliknya, Anda cukup menulis konten Anda sebagai string numerik langsung di ko
 
 ### Langkah 6: Gunakan fungsionalitas di kode Anda
 
-Cukup ketik string statis/hardcoded di dalam lokakalan default Anda pada komponen, sisanya serahkan pada Compiler Intlayer.
+Cukup tulis komponen Anda dengan string hardcoded dalam bahasa default Anda. Kompiler akan menangani sisanya.
 
-Contoh dasar seperti apa `page.tsx` di aplikasi Anda:
+Contoh tampilan halaman Anda:
 
-```tsx fileName="src/app/page.tsx" codeFormat="typescript"
+<Tabs>
+  <Tab value="Code" label="Kode">
+
+```tsx fileName="src/app/page.tsx"
 import type { FC } from "react";
 import { IntlayerServerProvider } from "next-intlayer/server";
 import { getLocale } from "next-intlayer/server";
-import { NextPage } from "next";
 
 const PageContent: FC = () => {
   return (
     <>
-      <p>Mulai dengan mengubah ini!</p>
+      <p>Mulai dengan mengedit</p>
       <code>src/app/page.tsx</code>
     </>
   );
 };
 
-const Page: NextPage = async () => {
+export default async function Page() {
   const locale = await getLocale();
 
   return (
@@ -386,54 +413,78 @@ const Page: NextPage = async () => {
       <PageContent />
     </IntlayerServerProvider>
   );
-};
-
-export default Page;
+}
 ```
 
-```jsx fileName="src/app/page.mjx" codeFormat="esm"
-import { IntlayerServerProvider } from "next-intlayer/server";
-import { getLocale } from "intlayer";
-import { NextPage } from "next";
+  </Tab>
+  <Tab value="Output" label="Output">
 
-const Page: NextPage = async () => {
+```ts fileName="i18n/page-content.content.tsx"
+{
+  key: "page-content",
+  content: {
+    nodeType: "translation",
+    translation: {
+      en: {
+        getStartedByEditing: "Get started by editing",
+      },
+      fr: {
+        getStartedByEditing: "Commencez par éditer",
+      },
+      id: {
+        getStartedByEditing: "Mulai dengan mengedit",
+      },
+    }
+  }
+}
+```
+
+```tsx fileName="src/app/page.tsx"
+import { type FC } from "react";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
+import { getLocale } from "next-intlayer/server";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page-content");
+
+  return (
+    <>
+      <p>{content.getStartedByEditing}</p>
+      <code>src/app/page.tsx</code>
+    </>
+  );
+};
+
+export default async function Page() {
   const locale = await getLocale();
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <>
-        <p>Mulai dengan mengubah ini!</p>
-        <code>src/app/page.tsx</code>
-      </>
+      <PageContent />
     </IntlayerServerProvider>
   );
-};
-
-export default Page;
+}
 ```
 
-```jsx fileName="src/app/page.csx" codeFormat="commonjs"
-import { IntlayerServerProvider, getLocale } from "next-intlayer/server";
-import { NextPage } from "next";
-
-const Page: NextPage = async () => {
-  const locale = await getLocale();
-
-  return (
-    <IntlayerServerProvider locale={locale}>
-      <>
-        <p>Mulai dengan mengubah ini!</p>
-        <code>src/app/page.tsx</code>
-      </>
-    </IntlayerServerProvider>
-  );
-};
-```
+  </Tab>
+</Tabs>
 
 - Ingat bahwa **`IntlayerClientProvider`** ditujukan untuk mendistribusikan preferensi lokakalan sisi-Klien (Client-side) secara reaktif menuruni children.
 - Di sisi lain, **`IntlayerServerProvider`** bertugas memberikan lokakalan ke node anak (children nodes) dari komponen berjenis "Server render".
 
-### (Opsional) Langkah 7: Tambahkan Proxy intersepsi Next.js
+### (Opsional) Langkah 7: Isi terjemahan yang hilang
+
+Intlayer menyediakan alat CLI untuk membantu Anda mengisi terjemahan yang hilang. Anda dapat menggunakan perintah `intlayer` untuk menguji и mengisi terjemahan yang hilang dari kode Anda.
+
+```bash
+npx intlayer test         # Uji apakah ada terjemahan yang hilang
+```
+
+```bash
+npx intlayer fill         # Isi terjemahan yang hilang
+```
+
+### (Opsional) Langkah 8: Tambahkan Proxy intersepsi Next.js
 
 Jika Anda ingin pengguna otomatis diarahkan dan dilacak bahasanya, aktifkan Proxy di sistem aplikasi Anda:
 
@@ -468,7 +519,7 @@ module.exports = { proxy: intlayerProxy, config };
 
 > Fungsi kustom `intlayerProxy` akan secara proaktif membaca lokakalan dari pengguna Anda (berdasarkan bahasa browser) dan meredirect pengunjung ke tautan yang sesuai berlandaskan pengaturan di file [konfigurasi / Configuration file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md). Ia juga menyimpannya di cookie untuk akses ke depannya supaya memuat lebih efisien.
 
-### (Opsional) Langkah 8: Navigasi Antar Bahasa (Language Switcher)
+### (Opsional) Langkah 9: Navigasi Antar Bahasa (Language Switcher)
 
 Untuk antarmuka yang optimal dan navigasi organik Next.js (agar page tak mengalami _hard-refresh_ murni ke server), buat tombol perubah bahasa dengan memanggil `useLocale` hook kustom:
 
@@ -611,7 +662,7 @@ export const LocaleSwitcher = () => {
 
 > API properti `setLocale` mengubah string rute preferensi ke state, dan juga mengatur persistensi preferensi user melalui penyetelan cookie di balik layar. Simak referensi API/Hooks untuk kapabilitas _routing_ lebih jauh di artikel dokumentasi manual [referensi hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/next-intlayer/useLocale.md).
 
-### (Opsional) Langkah 9: Akses Server Actions / State Lokal Latar Belakang
+### (Opsional) Langkah 10: Akses Server Actions / State Lokal Latar Belakang
 
 Apabila aplikasi Next Anda bereaksi di arsitektur SSR di background layaknya trigger Email massal dinamis dengan lokakalan pengguna: `getLocale` adalah fungsi andalan Anda untuk mengait ke lokal data klien (meskipun ia bukan client render React visual):
 
@@ -634,7 +685,7 @@ export const myServerAction = async () => {
 > 3. Tipe Lokal bahasa Sistem perangkat (Client headers navigator request system preferensi).
 > 4. Pengambil-alihan Fall-over via penugasan dasar kunci "lokakalan fallback / Default Locale Config" pada string `intlayer.config.ts`.
 
-### (Opsional) Langkah 10: Kurangi beban di dalam Bundling File Client/Transpiler (SWC Plugin Next js)
+### (Opsional) Langkah 11: Kurangi beban di dalam Bundling File Client/Transpiler (SWC Plugin Next js)
 
 Di lingkungan Next.js modern, Anda bisa mencegah modul pengunduhan (Json payload bundle Client size) terlalu gemuk di jaringan transfer. Secara default pustaka komponen kamus dikirm via Client; namun ekstensi NextJS SWC (menggantikan webpack-loaders transpiler macro), seperti `@intlayer/swc`, dirakit untuk menjahit string hanya di komputasi dan mematikan pengiriman seluruh kamus untuk setiap pemuatan _page/rute_ statis. Transpiler hanya mengimbuhi kalimat spesifik!
 

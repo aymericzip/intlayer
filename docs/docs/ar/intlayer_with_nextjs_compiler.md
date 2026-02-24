@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-01-10
-title: Next.js i18n - كيفية جعل تطبيق Next.js الحالي متعدد اللغات (i18n) لاحقًا (دليل i18n 2026)
+title: Next.js i18n - تحويل تطبيق Next.js الحالي إلى تطبيق متعدد اللغات (دليل i18n 2026)
 description: اكتشف كيف تجعل تطبيق Next.js الحالي الخاص بك متعدد اللغات باستخدام مترجم Intlayer. اتبع التوثيق لتدويل (i18n) وترجمة تطبيقك باستخدام الذكاء الاصطناعي.
 keywords:
   - التدويل
@@ -26,7 +26,7 @@ history:
     changes: الإصدار الأولي
 ---
 
-# كيفية جعل تطبيق Next.js الحالي متعدد اللغات (i18n) لاحقًا (دليل i18n 2026)
+# كيفية جعل تطبيق Next.js الحالي متعدد اللغات (i18n) (دليل i18n 2026)
 
 <Tabs defaultTab="video">
   <Tab label="الفيديو" value="video">
@@ -82,21 +82,25 @@ history:
 
 ```bash packageManager="npm"
 npm install intlayer next-intlayer
+npm install @intlayer/babel --save-dev
 npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer next-intlayer
+pnpm add @intlayer/babel --save-dev
 pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer next-intlayer
+yarn add @intlayer/babel --save-dev
 yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer next-intlayer
+bun add @intlayer/babel --dev
 bunx intlayer init
 ```
 
@@ -238,6 +242,27 @@ module.exports = withIntlayer(nextConfig);
 
 > يُستخدم ملحق Next.js `withIntlayer()` لدمج Intlayer مع Next.js. وهو يضمن بناء ملفات إعلام المحتوى ومراقبتها في وضع التطوير. يحدد متغيرات بيئة Intlayer داخل بيئات [Webpack](https://webpack.js.org/) أو [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). بالإضافة إلى ذلك، يوفر أسماء مستعارة لتحسين الأداء ويضمن التوافق مع مكونات الخادم.
 
+### تكوين Babel
+
+يتطلب مترجم Intlayer استخدام Babel لاستخراج المحتوى الخاص بك وتحسينه. قم بتحديث `babel.config.js` (أو `babel.config.json`) لتضمين إضافات Intlayer:
+
+```js fileName="babel.config.js" codeFormat="commonjs"
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
+};
+```
+
 ### الخطوة 4: تحديد توجيهات اللغة الديناميكية
 
 احذف كل شيء من التخطيط الجذري `RootLayout` واستبدله بالكود التالي:
@@ -359,26 +384,28 @@ module.exports = {
 
 ### الخطوة 6: الاستفادة من المحتوى في كودك
 
-كل ما عليك فعله هو كتابة مكوناتك باستخدام سلاسل نصية مضمنة بشكل صلب بلغتك الافتراضية، وسيتولى المترجم الباقي.
+ما عليك سوى كتابة مكوناتك باستخدام سلاسل نصية ثابتة بلغتك الافتراضية. يتولى المترجم الباقي.
 
 مثال على ما قد تبدو عليه صفحتك:
 
-```tsx fileName="src/app/page.tsx" codeFormat="typescript"
+<Tabs>
+  <Tab value="Code" label="الكود">
+
+```tsx fileName="src/app/page.tsx"
 import type { FC } from "react";
 import { IntlayerServerProvider } from "next-intlayer/server";
 import { getLocale } from "next-intlayer/server";
-import { NextPage } from "next";
 
 const PageContent: FC = () => {
   return (
     <>
-      <p>ابدأ بالتعديل</p>
+      <p>ابدأ بتعديل</p>
       <code>src/app/page.tsx</code>
     </>
   );
 };
 
-const Page: NextPage = async () => {
+export default async function Page() {
   const locale = await getLocale();
 
   return (
@@ -386,54 +413,78 @@ const Page: NextPage = async () => {
       <PageContent />
     </IntlayerServerProvider>
   );
-};
-
-export default Page;
+}
 ```
 
-```jsx fileName="src/app/page.mjx" codeFormat="esm"
-import { IntlayerServerProvider } from "next-intlayer/server";
-import { getLocale } from "intlayer";
-import { NextPage } from "next";
+  </Tab>
+  <Tab value="Output" label="المخرجات">
 
-const Page: NextPage = async () => {
+```ts fileName="i18n/page-content.content.tsx"
+{
+  key: "page-content",
+  content: {
+    nodeType: "translation",
+    translation: {
+      en: {
+        getStartedByEditing: "Get started by editing",
+      },
+      fr: {
+        getStartedByEditing: "Commencez par éditer",
+      },
+      ar: {
+        getStartedByEditing: "ابدأ بتعديل",
+      },
+    }
+  }
+}
+```
+
+```tsx fileName="src/app/page.tsx"
+import { type FC } from "react";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
+import { getLocale } from "next-intlayer/server";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page-content");
+
+  return (
+    <>
+      <p>{content.getStartedByEditing}</p>
+      <code>src/app/page.tsx</code>
+    </>
+  );
+};
+
+export default async function Page() {
   const locale = await getLocale();
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <>
-        <p>ابدأ بالتعديل</p>
-        <code>src/app/page.tsx</code>
-      </>
+      <PageContent />
     </IntlayerServerProvider>
   );
-};
-
-export default Page;
+}
 ```
 
-```jsx fileName="src/app/page.csx" codeFormat="commonjs"
-import { IntlayerServerProvider, getLocale } from "next-intlayer/server";
-import { NextPage } from "next";
-
-const Page: NextPage = async () => {
-  const locale = await getLocale();
-
-  return (
-    <IntlayerServerProvider locale={locale}>
-      <>
-        <p>ابدأ بالتعديل</p>
-        <code>src/app/page.tsx</code>
-      </>
-    </IntlayerServerProvider>
-  );
-};
-```
+  </Tab>
+</Tabs>
 
 - يتم استخدام **`IntlayerClientProvider`** لتوفير الإعدادات اللغوية למكونات جانب العميل.
 - يتم استخدام **`IntlayerServerProvider`** لتوفير الإعدادات اللغوية للعقد الفرعية للخادم.
 
-### (اختياري) الخطوة 7: تهيئة الوكيل المخصص لاكتشاف اللغة
+### (اختياري) الخطوة 7: ملء الترجمات المفقودة
+
+توفر Intlayer أداة CLI لمساعدتك في ملء الترجمات المفقودة. يمكنك استخدام الأمر `intlayer` لاختبار وملء الترجمات المفقودة من التعليمات البرمجية الخاصة بك.
+
+```bash
+npx intlayer test         # اختبر ما إذا كانت هناك ترجمات مفقودة
+```
+
+```bash
+npx intlayer fill         # ملء الترجمات المفقودة
+```
+
+### (اختياري) الخطوة 8: تهيئة الوكيل المخصص لاكتشاف اللغة
 
 قم بتشغيل الوكيل المخصص لاكتشاف اللغة المفضلة للمستخدمين:
 
@@ -468,7 +519,7 @@ module.exports = { proxy: intlayerProxy, config };
 
 > يستخدم الوكيل المخصص `intlayerProxy` كوسيلة لاكتشاف اللغة المفضلة للمستخدمين والقيام بـ redirect/إعادة التوجيه إلى عنوان URL المناط بحالتهم ولغتهم مع مراعاة ما حدده المطور في ملف الإعدادات [التهيئة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md). كما يُمكّن من الحفاظ على حفظ لغة التفضيل الخاص بهم داخل ملف ارتباط (Cookie).
 
-### (اختياري) الخطوة 8: التبديل بين لغات الموقع
+### (اختياري) الخطوة 9: التبديل بين لغات الموقع
 
 لتغيير اللغة وتكييفها مع بنية Next.js، يُفضل تطبيق ذلك بالاستعانة بمكون الربط لشركة React / Next الذي يحمل اسم `Link` لتحويل العميل بصورة سلسة لتلك الصفحة وتجنب التعطيل الذي يقوم بإعادة طلب الملفات الكاملة للموقع عنوة.
 
@@ -611,7 +662,7 @@ export const LocaleSwitcher = () => {
 
 > كبديل إن لم تود تفعيل وظائف مكوّن `Link` فتتوفر الخاصية البديلة لك في الخطاف / hook لـ `useLocale` والمُسماه `setLocale`. لمزيدٍ من الوثائق المعمقة تفصيليًا لها بزيارة التوثيق الخاص بالخطاف التالي [دليل المرجع `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/useLocale.md).
 
-### (اختياري) الخطوة 9: فحص واستخدام اللغة المطبقة داخل مهام الخادم
+### (اختياري) الخطوة 10: فحص واستخدام اللغة المطبقة داخل مهام الخادم
 
 بحال الاستفادة وبناء ميزات تتطلب وظائف Next.js / Server Actions سواء في حالة تفعيل عمليات البريد الإلكتروني وخلافة من عمليات الـ Back-End، ستستخدم بكل بساطة `getLocale` من حزمة `next-intlayer/server` التي ستسهل الأمر.
 
@@ -634,7 +685,7 @@ export const myServerAction = async () => {
 > 3. التخمين الاستباقي للغة بالنظر لتكوينات الموقع والتطبيق.
 > 4. حال إخفاق جميع ما ذكر فستأخذ الخيار الأخير من تطبيق اللغة الافتراضية.
 
-### (اختياري) الخطوة 10: ضبط أمثلية أحجام حزمك عبر أداة المحسّن المُسبق
+### (اختياري) الخطوة 11: ضبط أمثلية أحجام حزمك عبر أداة المحسّن المُسبق
 
 في المعتاد لبيئة Next سيقوم بجلب محتوى بيانات التطبيق بالكامل بحزمة واحده وحشو كل شيء فيها وذلك غير فعّال للتطبيقات المدمجة مع `next-intlayer` في حالة زيادة الترجمات فتُصبح ثقيلة، لهذا ننصح باستخدام نظام الإضافة المدعوم SWC من Next و تحميل أداة التخفيف `@intlayer/swc`. سيجعل ذلك الأمر خفيفًا بتجزئة المعلومات ونزع الأحمال على الخطاف `useIntlayer`:
 

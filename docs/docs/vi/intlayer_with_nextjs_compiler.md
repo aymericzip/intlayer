@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-01-10
-title: Next.js i18n - Cách làm cho ứng dụng Next.js hiện tại trở nên đa ngôn ngữ (i18n) sau này (Hướng dẫn i18n năm 2026)
+title: Next.js i18n - Chuyển đổi ứng dụng Next.js hiện tại thành ứng dụng đa ngôn ngữ (hướng dẫn i18n 2026)
 description: Khám phá cách biến ứng dụng Next.js hiện tại của bạn thành một ứng dụng đa ngôn ngữ bằng cách sử dụng Intlayer Compiler. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch ứng dụng của bạn bằng trí tuệ nhân tạo (AI).
 keywords:
   - Quốc tế hóa
@@ -26,7 +26,7 @@ history:
     changes: Phiên bản đầu tiên
 ---
 
-# Cách làm cho ứng dụng Next.js hiện tại trở nên đa ngôn ngữ (i18n) sau này (Hướng dẫn i18n năm 2026)
+# Cách biến ứng dụng Next.js hiện tại thành đa ngôn ngữ (i18n) (hướng dẫn i18n 2026)
 
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">
@@ -82,21 +82,25 @@ Cài đặt các gói phần mềm cần thiết bằng trình quản lý gói �
 
 ```bash packageManager="npm"
 npm install intlayer next-intlayer
+npm install @intlayer/babel --save-dev
 npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer next-intlayer
+pnpm add @intlayer/babel --save-dev
 pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer next-intlayer
+yarn add @intlayer/babel --save-dev
 yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer next-intlayer
+bun add @intlayer/babel --dev
 bunx intlayer init
 ```
 
@@ -238,6 +242,27 @@ module.exports = withIntlayer(nextConfig);
 
 > Chức năng `withIntlayer()` vốn được mệnh danh trình Plugin tích hợp cho máy trạm Next.js sinh ra thuần khiết giúp dung hoà môi trường Intlayer hòa lẫn vào kho vận Next.js. Cụ thể thì chính thứ đồ chơi này mang hiệu ứng bảo hộ tính kiên cường trong việc duy trì và liên tục đảm định rằng file dạng kho từ điển đã được kiến tạo cũng như liên tục được theo dõi nếu người viết có vô tình tuỳ ý chỉnh (watch mode) bên trong khu kiểm định dev mode (Chế độ test môi trường lập trình viên). Đi xa với năng lực bẩm sinh khai triển giá trị chuẩn thuộc môi trường Intlayer trên bàn cờ [Webpack](https://webpack.js.org/) hoặc phiên bản tốc độ [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). Song hành nữa, tính năng "alias tự thu hẹp truy xuất" (aliases) bứt phá tăng cực đại sự thể hiện phần hiệu năng vận tác lẫn tính hòa quyện dẻo dai chung cùng Hệ Lõi Render Thành Phần Bố Cục Máy Chủ (Server Components).
 
+### Cấu hình Babel
+
+Trình biên dịch Intlayer yêu cầu Babel để trích xuất và tối ưu hóa nội dung của bạn. Cập nhật `babel.config.js` (hoặc `babel.config.json`) để bao gồm các plugin Intlayer:
+
+```js fileName="babel.config.js" codeFormat="commonjs"
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
+};
+```
+
 ### Bước 4: Tạo động cơ Điều phối/Khởi tạo Bộ Định Tuyến Quốc tế (Dynamic Locale Routing)
 
 Hãy dọn dẹp trống bỏ hàm chính ở trong tệp layout tổng `RootLayout` rồi đắp đậy vô lớp cấu hình cơ bản lấy ra theo hệ code điển hình phía sau:
@@ -357,28 +382,30 @@ module.exports = {
 
 Để mà bù lại công dụng vô biên này, dĩ nhiên anh em thoải mái nhả ra cả dãy văn bản string thuần thúy đi cắm chốt trực diện dưới lòng mã cấu tứ. Máy xử lí thuộc kho Intlayer quét nhạy vào bên nguồn tệp, sản sinh tự động lớp quy đổi ngôn từ chuẩn mực nhất thay qua cơ sở công nghệ thông minh từ máy Trí khôn nhân tạo (AI Provider), qua đấy hoán thế các câu ký tự trên mặt chữ trong đúng lộ trình vận tác đống build - tất cả đúc rút thầm kín và chính xác cho tới hồi sau. Mọi chuyện sẽ được cơ chế thao túng 100% thay con người xử lí mảng việc mệt nhọc trên.
 
-### Bước 6: Thúc Đẩy Tính Năng Đỉnh Điểm Ngay Vào Cơ Thể Code Chính
+### Bước 6: Sử dụng nội dung trong mã của bạn
 
-Cách thức trơn tru đó là duy trì phong cách viết các cụm văn chuỗi ký tự cứng trong React (Hardcoded string params) trực thuộc khung ngữ nguyên mặc định, trình cắm Compiler làm công lớn sẽ bưng cả mâm cỗ còn thừa phía sau lên chuẩn bị chỉ trong chốc lát.
+Chỉ cần viết các thành phần của bạn với các chuỗi ký tự cố định trong ngôn ngữ mặc định của bạn. Trình biên dịch sẽ xử lý phần còn lại.
 
-Hiển hiện ra một lát cắt mã chuẩn mực như `page.tsx` sẽ thay vỏ áo ra sao:
+Ví dụ về giao diện trang của bạn:
 
-```tsx fileName="src/app/page.tsx" codeFormat="typescript"
+<Tabs>
+  <Tab value="Code" label="Mã">
+
+```tsx fileName="src/app/page.tsx"
 import type { FC } from "react";
 import { IntlayerServerProvider } from "next-intlayer/server";
 import { getLocale } from "next-intlayer/server";
-import { NextPage } from "next";
 
 const PageContent: FC = () => {
   return (
     <>
-      <p>Bắt đầu công việc bằng cách thử chỉnh sửa nhé!</p>
+      <p>Bắt đầu bằng cách chỉnh sửa</p>
       <code>src/app/page.tsx</code>
     </>
   );
 };
 
-const Page: NextPage = async () => {
+export default async function Page() {
   const locale = await getLocale();
 
   return (
@@ -386,54 +413,78 @@ const Page: NextPage = async () => {
       <PageContent />
     </IntlayerServerProvider>
   );
-};
-
-export default Page;
+}
 ```
 
-```jsx fileName="src/app/page.mjx" codeFormat="esm"
-import { IntlayerServerProvider } from "next-intlayer/server";
-import { getLocale } from "intlayer";
-import { NextPage } from "next";
+  </Tab>
+  <Tab value="Output" label="Kết quả">
 
-const Page: NextPage = async () => {
+```ts fileName="i18n/page-content.content.tsx"
+{
+  key: "page-content",
+  content: {
+    nodeType: "translation",
+    translation: {
+      en: {
+        getStartedByEditing: "Get started by editing",
+      },
+      fr: {
+        getStartedByEditing: "Commencez par éditer",
+      },
+      vi: {
+        getStartedByEditing: "Bắt đầu bằng cách chỉnh sửa",
+      },
+    }
+  }
+}
+```
+
+```tsx fileName="src/app/page.tsx"
+import { type FC } from "react";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
+import { getLocale } from "next-intlayer/server";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page-content");
+
+  return (
+    <>
+      <p>{content.getStartedByEditing}</p>
+      <code>src/app/page.tsx</code>
+    </>
+  );
+};
+
+export default async function Page() {
   const locale = await getLocale();
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <>
-        <p>Bắt đầu công việc bằng cách thử chỉnh sửa nhé!</p>
-        <code>src/app/page.tsx</code>
-      </>
+      <PageContent />
     </IntlayerServerProvider>
   );
-};
-
-export default Page;
+}
 ```
 
-```jsx fileName="src/app/page.csx" codeFormat="commonjs"
-import { IntlayerServerProvider, getLocale } from "next-intlayer/server";
-import { NextPage } from "next";
-
-const Page: NextPage = async () => {
-  const locale = await getLocale();
-
-  return (
-    <IntlayerServerProvider locale={locale}>
-      <>
-        <p>Bắt đầu công việc bằng cách thử chỉnh sửa nhé!</p>
-        <code>src/app/page.tsx</code>
-      </>
-    </IntlayerServerProvider>
-  );
-};
-```
+  </Tab>
+</Tabs>
 
 - Ký tự gạch đầu dòng báo hiệu **`IntlayerClientProvider`** có tác dụng duy trì mạng lưới lan tỏa thuộc địa bàn cục bộ Ngôn ngữ đi xuống bộ rễ Client con cái bên Trình duyệt duyệt Web (Client Browser).
 - Chức danh ngược lại như **`IntlayerServerProvider`** sẽ phát lệnh áp dụng ngôn ngữ thẳng cho toàn Server con, chuyên thiết lập sự gắn kết của phần kết xuất phía máy chủ xử lí tĩnh.
 
-### (Chưa Bắt Buộc - Không ép) Bước 7: Móc thêm Tính năng Dò Theo Khuôn Mẫu Đi Lại Khách Đến Qua Proxy
+### (Tùy chọn) Bước 7: Điền các bản dịch còn thiếu
+
+Intlayer cung cấp một công cụ CLI để giúp bạn điền các bản dịch còn thiếu. Bạn có thể sử dụng lệnh `intlayer` để kiểm tra và điền các bản dịch còn thiếu từ mã của mình.
+
+```bash
+npx intlayer test         # Kiểm tra xem có thiếu bản dịch không
+```
+
+```bash
+npx intlayer fill         # Điền các bản dịch còn thiếu
+```
+
+### (Chưa Bắt Buộc - Không ép) Bước 8: Móc thêm Tính năng Dò Theo Khuôn Mẫu Đi Lại Khách Đến Qua Proxy
 
 Kể mà lúc cần thu thập thám thính để điều hướng tức thì ứng với "ngôn ngữ người truy cập khao khát đọc tiếp", chỉ cần bung cài khối Middleware kiểu rẽ nhánh Proxy:
 
@@ -468,7 +519,7 @@ module.exports = { proxy: intlayerProxy, config };
 
 > Công cụ đa hình đa nền tảng `intlayerProxy` không giấu gì ý định nhắm trúng sự lựa chọn ngữ nghĩa theo đuổi cá tính riêng người coi, sau ván trinh báo nó liền bứng chóp chuyển hướng "bất đắc dĩ nhưng mềm mại" thẳng cánh tới đuôi gốc Link phù hợp (URL base parameters) tùy theo dòng tham chiếu trên tệp cấu tạo ở khâu cốt cán mang [Dữ Liệu Khung Định Tuyến Chuẩn (Configuration file)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md). Thích ăn hơn cái là gã chúa tể Proxy ranh mãnh này nạp và ôm trọn cục session ngôn ngữ mong muốn lưu ngay vô tệp cookie của máy client (của phía anh bạn trình duyệt ghé chơi).
 
-### (Mục Đề Xuất Phụ) Bước 8: Hoán Đổi Bộ Cánh Giữa Hiện Trường Máy - Tính năng Chọn Lọc Ngôn Ngữ Switcher
+### (Mục Đề Xuất Phụ) Bước 9: Hoán Đổi Bộ Cánh Giữa Hiện Trường Máy - Tính năng Chọn Lọc Ngôn Ngữ Switcher
 
 Một số mẹo rẽ não chỉ tay đưa vào cấu trúc Ứng dụng Next.js đổi thay tiếng cho hay nằm ở việc phái thêm anh móc xích thẻ siêu kết nối `Link` (nhãn dẫn chuyển trang của nội hàm Next framework) có kẹp với chuỗi lộ trình Route đích thật cho phù tụng với dạng chữ người đọc yêu sách, nhãn liên tuyến kết cấu này tối ưu hoá thời gian chớp tải nhờ hưởng sái tuyệt kỹ năng bẩm sinh prefetch, từ giã viễn cảnh reset / khởi động máy lạnh sống (nghĩa là tải trống toàn mảng trắng) Hard reload page cực lâu.
 
@@ -611,7 +662,7 @@ export const LocaleSwitcher = () => {
 
 > Thêm 1 hướng đi bổ sung cũng rất đỉnh đấy chính là gõ gọi lệnh thông qua `setLocale` cung ứng trên mâm từ chiếc rổ nhỏ hook `useLocale`. Muốn đào bới kho tàng năng lượng cao hơn mời bạn tham chiếu cặn kẽ đường đường chính chính trong mục của kho lưu trữ [Chiêm bái công dụng bách khoa hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/useLocale.md).
 
-### (Khuyên dùng Mở Rộng) Bước 9: Thu thập Mã Nước Xứ Địa Hành Động Bên Server Gốc (Server Actions / Functions)
+### (Khuyên dùng Mở Rộng) Bước 10: Thu thập Mã Nước Xứ Địa Hành Động Bên Server Gốc (Server Actions / Functions)
 
 Rớt vào thế kẹt của các loại giao thức đẩy ngầm như gọi Hành Xử Máy Chủ Trạm Hành Động Dữ Liệu (Server action triggers) với mục tiêu ứng định ngôn ngữ đúng khớp của thiết bị tương lai (tiêu biểu như trò bấm máy gửi Emails ngầm chả hạn, hoặc gọi API nằng nặc nạp dữ liệu), bạn chỉ cần bê cái cuốc hàm `getLocale` mang mác gốc từ phần lõi phụ kiện ngòi thư viện tên gọi `@next-intlayer/server` chọc vào.
 
@@ -634,7 +685,7 @@ export const myServerAction = async () => {
 > 3. Trong trường vô vọng bánh đúc Cookies chả hiện thân, nó trích xuất phần tùy nghị từ chùm lệnh System OS / Client Preferences.
 > 4. Trường phái phòng thủ ngặt nghèo cuối cùng chốt chặn là gọi ngay em Dự kiến Đích Trễ Default (Default Locale Configured Set-Up System), vốn tựa như vị phao trên file cốt sống `intlayer.config.ts`.
 
-### (Đặc Sắc Tính Toán Nếu Giỏi NextJS Mới Nhất) Bước 10: Giáng cấp béo phì / Trẻ hóa Bundle ứt trệ (Sử dụng Khối lượng siêu nhẹ từ SWC Trình biên dịch mở rộng)
+### (Đặc Sắc Tính Toán Nếu Giỏi NextJS Mới Nhất) Bước 11: Giáng cấp béo phì / Trẻ hóa Bundle ứt trệ (Sử dụng Khối lượng siêu nhẹ từ SWC Trình biên dịch mở rộng)
 
 Trọng tâm là gói lõi Next-Intlayer thời trước luôn ném tất cả mớ cẩm nang bộ từ vựng ngầm bám dốc vô ngồn tài nguyên phía Khách hàng cho vào thẳng Page Tĩnh, biến mảng ứng dụng nhẹ hiếu thành con khủng long to mập cực cồng kềnh đối chọi các siêu dề kho dịch (Giết dung lượng mạng mạng Client Load times và size bundles).
 Không chịu thua, sức bật tiên tiến SWC Plugin xuất chinh. Cụ thể thì Intlayer SWC cho bạn giải quyết hiện trạng tắc nghẽn nực cười kia bằng hiệu năng cắt tỉa sạch bóng những chi tiết cồng kềnh bên phía Server - bằng mẹo chỉ đính tiêm cụm các dãy nhãn chuỗi vừa in trùng đúng khớp theo lời hô hoán của mảng render thay mặt khách trên Client, mọi mẩu thừa từ hệ bảng ngôn còn sót lại hoàn tác không tì vết tống khứ trả ngược chối nhận!

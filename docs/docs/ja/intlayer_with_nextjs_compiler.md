@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-01-10
-title: Next.js i18n - 既存のNext.jsアプリケーションを多言語化（i18n）する方法 (2026年 i18nガイド)
+title: Next.js i18n - 既存の Next.js アプリを多言語アプリに変換する (i18n ガイド 2026)
 description: Intlayerコンパイラを使用して、既存のNext.jsアプリケーションを多言語化する方法を学びます。ドキュメントに従って国際化（i18n）し、AIを利用して翻訳を行います。
 keywords:
   - 国際化
@@ -26,7 +26,7 @@ history:
     changes: 初期リリース
 ---
 
-# 既存のNext.jsアプリケーションを多言語化（i18n）する方法 (2026年 i18nガイド)
+# 既存の Next.js アプリケーションを多言語化 (i18n) する方法 (i18n ガイド 2026)
 
 <Tabs defaultTab="video">
   <Tab label="動画" value="video">
@@ -82,21 +82,25 @@ npmを使用して必要なパッケージをインストールします：
 
 ```bash packageManager="npm"
 npm install intlayer next-intlayer
+npm install @intlayer/babel --save-dev
 npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer next-intlayer
+pnpm add @intlayer/babel --save-dev
 pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer next-intlayer
+yarn add @intlayer/babel --save-dev
 yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer next-intlayer
+bun add @intlayer/babel --dev
 bunx intlayer init
 ```
 
@@ -238,6 +242,27 @@ module.exports = withIntlayer(nextConfig);
 
 > `withIntlayer()`プラグインは、IntlayerとNext.jsを統合するために使用されます。これにより、コンテンツ宣言ファイルがビルドされ、開発モードでそれらが監視されるようになります。[Webpack](https://webpack.js.org/)または[Turbopack](https://nextjs.org/docs/app/api-reference/turbopack)環境内でIntlayerの環境変数を定義します。さらに、パフォーマンスを最適化するためのエイリアスを提供し、Server Componentsとの互換性を確保します。
 
+### Babel の構成
+
+Intlayer コンパイラがコンテンツを抽出し最適化するには、Babel が必要です。Intlayer プラグインを含めるように `babel.config.js`（または `babel.config.json`）を更新します：
+
+```js fileName="babel.config.js" codeFormat="commonjs"
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
+};
+```
+
 ### ステップ4: 動的ロケールルーティングの定義
 
 `RootLayout`の中身をすべて空にし、以下のコードに置き換えます：
@@ -357,28 +382,30 @@ module.exports = {
 
 代わりに、コード内に文字列として直接コンテンツを書き込むことができます。Intlayerがコードを解析し、構成されたAIプロバイダーを使用して翻訳を生成し、コンパイル時に文字列をローカライズされたコンテンツに置き換えます。
 
-### ステップ6: コード内でコンテンツを利用する
+### ステップ 6: コード内でコンテンツを利用する
 
-単にデフォルトのローケルの言語で文字列をハードコーディングしてコンポーネントを記述するだけです。残りはコンパイラが処理します。
+デフォルトのロケールでハードコードされた文字列を使用してコンポーネントを記述するだけです。残りはコンパイラが処理します。
 
 ページの見た目の例：
 
-```tsx fileName="src/app/page.tsx" codeFormat="typescript"
+<Tabs>
+  <Tab value="Code" label="コード">
+
+```tsx fileName="src/app/page.tsx"
 import type { FC } from "react";
 import { IntlayerServerProvider } from "next-intlayer/server";
 import { getLocale } from "next-intlayer/server";
-import { NextPage } from "next";
 
 const PageContent: FC = () => {
   return (
     <>
-      <p>編集を始めてください</p>
+      <p>編集を始める</p>
       <code>src/app/page.tsx</code>
     </>
   );
 };
 
-const Page: NextPage = async () => {
+export default async function Page() {
   const locale = await getLocale();
 
   return (
@@ -386,54 +413,78 @@ const Page: NextPage = async () => {
       <PageContent />
     </IntlayerServerProvider>
   );
-};
-
-export default Page;
+}
 ```
 
-```jsx fileName="src/app/page.mjx" codeFormat="esm"
-import { IntlayerServerProvider } from "next-intlayer/server";
-import { getLocale } from "intlayer";
-import { NextPage } from "next";
+  </Tab>
+  <Tab value="Output" label="出力">
 
-const Page: NextPage = async () => {
+```ts fileName="i18n/page-content.content.tsx"
+{
+  key: "page-content",
+  content: {
+    nodeType: "translation",
+    translation: {
+      en: {
+        getStartedByEditing: "Get started by editing",
+      },
+      fr: {
+        getStartedByEditing: "Commencez par éditer",
+      },
+      ja: {
+        getStartedByEditing: "編集を始める",
+      },
+    }
+  }
+}
+```
+
+```tsx fileName="src/app/page.tsx"
+import { type FC } from "react";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
+import { getLocale } from "next-intlayer/server";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page-content");
+
+  return (
+    <>
+      <p>{content.getStartedByEditing}</p>
+      <code>src/app/page.tsx</code>
+    </>
+  );
+};
+
+export default async function Page() {
   const locale = await getLocale();
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <>
-        <p>編集を始めてください</p>
-        <code>src/app/page.tsx</code>
-      </>
+      <PageContent />
     </IntlayerServerProvider>
   );
-};
-
-export default Page;
+}
 ```
 
-```jsx fileName="src/app/page.csx" codeFormat="commonjs"
-import { IntlayerServerProvider, getLocale } from "next-intlayer/server";
-import { NextPage } from "next";
-
-const Page: NextPage = async () => {
-  const locale = await getLocale();
-
-  return (
-    <IntlayerServerProvider locale={locale}>
-      <>
-        <p>編集を始めてください</p>
-        <code>src/app/page.tsx</code>
-      </>
-    </IntlayerServerProvider>
-  );
-};
-```
+  </Tab>
+</Tabs>
 
 - **`IntlayerClientProvider`**は、クライアントサイドコンポーネントにロケールを提供するために使用されます。
 - **`IntlayerServerProvider`**は、サーバーの子ノードにロケールを提供するために使用されます。
 
-### （オプション）ステップ7: ロケール検出用のプロキシの構成
+### （オプション）ステップ 7: 不足している翻訳を埋める
+
+Intlayer は、不足している翻訳を埋めるための CLI ツールを提供しています。 `intlayer` コマンドを使用して、コード内の不足している翻訳をテストして埋めることができます。
+
+```bash
+npx intlayer test         # 不足している翻訳があるかテストする
+```
+
+```bash
+npx intlayer fill         # 不足している翻訳を埋める
+```
+
+### （オプション）ステップ 8: ロケール検出用のプロキシの構成
 
 プロキシを設定して、ユーザーの優先ロケールを検出します：
 
@@ -468,7 +519,7 @@ module.exports = { proxy: intlayerProxy, config };
 
 > `intlayerProxy`は、ユーザーの優先ロケールを検出し、[設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)に従って適切なURLにリダイレクトするために使用されます。また、ユーザーの優先ロケールをCookieに保存することもできます。
 
-### （オプション）ステップ8: コンテンツの言語を変更する
+### （オプション）ステップ 9: コンテンツの言語を変更する
 
 Next.js内でコンテンツの言語を変更する最も推奨される方法は、`Link`コンポーネントを使用して、ユーザーを適切な言語に対応したルート（ページ）にリダイレクトさせることです。これにより、Next.jsのプリフェッチ機能を活用し、ページ全体が強制的にロードされるのを防ぐことができます。
 
@@ -611,7 +662,7 @@ export const LocaleSwitcher = () => {
 
 > リンクに頼らず、`useLocale` フックで提供される `setLocale` 変数を使用することも一つの方法です。より高度な機能については、[`useLocale` ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/useLocale.md)を参照してください。
 
-### （オプション）ステップ9: 現在のロケールをServer Actionsで取得する
+### （オプション）ステップ 10: 現在のロケールをServer Actionsで取得する
 
 Server Actionsで現在のロケールを取得して、リクエストを実行する（例: メール送信やAPIのリクエスト）場合は、`next-intlayer/server`モジュールから`getLocale`関数を使用できます。
 
@@ -636,7 +687,7 @@ export const myServerAction = async () => {
 >
 > 優先順位により、柔軟にエラーレスで言語設定を行うことが可能です。
 
-### （オプション）ステップ10: ビルドバンドル（容量）の最適化
+### （オプション）ステップ 11: ビルドバンドル（容量）の最適化
 
 `next-intlayer` パッケージを使用すると、すべてのページコンポーネントにおける辞書を含んだクライアントサイドの「バンドル化」が行われます。
 これは全体のバンドル容量を無駄に大きくする原因になり得ます。最適化のためには、必要な要素だけをビルドに含める`@intlayer/swc`というNextのSWCプラグイン（マクロ）を使用することが推奨されます。

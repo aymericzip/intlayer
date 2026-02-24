@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-01-10
-title: Next.js i18n - How to make multilingual (i18n) an existing Next.js application afterward (i18n guide 2026)
+title: Next.js i18n - Transform an existing Next.js app into a multilingual app (i18n guide 2026)
 description: Discover how to make your existing Next.js application multilingual using Intlayer Compiler. Follow the documentation to internationalize (i18n) and translate it with AI.
 keywords:
   - Internationalization
@@ -81,21 +81,25 @@ Install the necessary packages using npm:
 
 ```bash packageManager="npm"
 npm install intlayer next-intlayer
+npm install @intlayer/babel --save-dev
 npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer next-intlayer
+pnpm add @intlayer/babel --save-dev
 pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer next-intlayer
+yarn add @intlayer/babel --save-dev
 yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer next-intlayer
+bun add @intlayer/babel --dev
 bunx intlayer init
 ```
 
@@ -237,6 +241,27 @@ module.exports = withIntlayer(nextConfig);
 
 > The `withIntlayer()` Next.js plugin is used to integrate Intlayer with Next.js. It ensures the building of content declaration files and monitors them in development mode. It defines Intlayer environment variables within the [Webpack](https://webpack.js.org/) or [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) environments. Additionally, it provides aliases to optimize performance and ensures compatibility with server components.
 
+### Configure Babel
+
+The Intlayer compiler requires Babel to extract and optimize your content. Update your `babel.config.js` (or `babel.config.json`) to include the Intlayer plugins:
+
+```js fileName="babel.config.js" codeFormat="commonjs"
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
+};
+```
+
 ### Step 4: Define Dynamic Locale Routes
 
 Remove everything from `RootLayout` and replace it with the following code:
@@ -362,11 +387,13 @@ Just write your components with hardcoded strings in your default locale. The co
 
 Example of how your page might look:
 
-```tsx fileName="src/app/page.tsx" codeFormat="typescript"
+<Tabs>
+  <Tab value="Code">
+
+```tsx fileName="src/app/page.tsx"
 import type { FC } from "react";
 import { IntlayerServerProvider } from "next-intlayer/server";
 import { getLocale } from "next-intlayer/server";
-import { NextPage } from "next";
 
 const PageContent: FC = () => {
   return (
@@ -377,7 +404,7 @@ const PageContent: FC = () => {
   );
 };
 
-const Page: NextPage = async () => {
+export default async function Page() {
   const locale = await getLocale();
 
   return (
@@ -385,54 +412,78 @@ const Page: NextPage = async () => {
       <PageContent />
     </IntlayerServerProvider>
   );
-};
-
-export default Page;
+}
 ```
 
-```jsx fileName="src/app/page.mjx" codeFormat="esm"
-import { IntlayerServerProvider } from "next-intlayer/server";
-import { getLocale } from "intlayer";
-import { NextPage } from "next";
+  </Tab>
+  <Tab value="Output">
 
-const Page: NextPage = async () => {
+```ts fileName="i18n/page-content.content.tsx"
+{
+  key: "page-content",
+  content: {
+    nodeType: "translation",
+    translation: {
+      en: {
+        getStartedByEditing: "Get started by editing",
+      },
+      fr: {
+        getStartedByEditing: "Commencez par éditer",
+      },
+      es: {
+        getStartedByEditing: "Comience editando",
+      },
+    }
+  }
+}
+```
+
+```tsx fileName="src/app/page.tsx"
+import { type FC } from "react";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
+import { getLocale } from "next-intlayer/server";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page-content");
+
+  return (
+    <>
+      <p>{content.getStartedByEditing}</p>
+      <code>src/app/page.tsx</code>
+    </>
+  );
+};
+
+export default async function Page() {
   const locale = await getLocale();
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <>
-        <p>Get started by editing</p>
-        <code>src/app/page.tsx</code>
-      </>
+      <PageContent />
     </IntlayerServerProvider>
   );
-};
-
-export default Page;
+}
 ```
 
-```jsx fileName="src/app/page.csx" codeFormat="commonjs"
-import { IntlayerServerProvider, getLocale } from "next-intlayer/server";
-import { NextPage } from "next";
-
-const Page: NextPage = async () => {
-  const locale = await getLocale();
-
-  return (
-    <IntlayerServerProvider locale={locale}>
-      <>
-        <p>Get started by editing</p>
-        <code>src/app/page.tsx</code>
-      </>
-    </IntlayerServerProvider>
-  );
-};
-```
+  </Tab>
+</Tabs>
 
 - **`IntlayerClientProvider`** is used to provide the locale to client-side components.
 - **`IntlayerServerProvider`** is used to provide the locale to the server children.
 
-### (Optional) Step 7: Configure Proxy for Locale Detection
+### (Optional) Step 7: Fill missing translation
+
+Intlayer provide a CLI tool to help you fill missing translations. You can use the `intlayer` command to test and fill missing translations from your code.
+
+```bash
+npx intlayer test         # Test is there is missing transaltions
+```
+
+```bash
+npx intlayer fill         # Fill missing transaltions
+```
+
+### (Optional) Step 8: Configure Proxy for Locale Detection
 
 Set up proxy to detect the user's preferred locale:
 
@@ -467,7 +518,7 @@ module.exports = { proxy: intlayerProxy, config };
 
 > The `intlayerProxy` is used to detect the user's preferred locale and redirect them to the appropriate URL as specified in the [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md). Additionally, it enables saving the user's preferred locale in a cookie.
 
-### (Optional) Step 8: Change the language of your content
+### (Optional) Step 9: Change the language of your content
 
 To change the language of your content in Next.js, the recommended way is to use the `Link` component to redirect users to the appropriate localized page. The `Link` component enables prefetching of the page, which helps avoid a full page reload.
 
@@ -610,7 +661,7 @@ export const LocaleSwitcher = () => {
 
 > An alternative way is to use the `setLocale` function provided by the `useLocale` hook. This function will not allow prefetching the page. See the [`useLocale` hook documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useLocale.md) for more details.
 
-### (Optional) Step 9: Get the current locale in Server Actions
+### (Optional) Step 10: Get the current locale in Server Actions
 
 If you need the active locale inside a Server Action (e.g., to localize emails or run locale-aware logic), call `getLocale` from `next-intlayer/server`:
 
@@ -635,7 +686,7 @@ export const myServerAction = async () => {
 >
 > This ensures the most appropriate locale is selected based on available context.
 
-### (Optional) Step 10: Optmize your bundle size
+### (Optional) Step 11: Optmize your bundle size
 
 When using `next-intlayer`, dictionaries are included in the bundle for every page by default. To optimize bundle size, Intlayer provides an optional SWC plugin that intelligently replace `useIntlayer` calls using macros. This ensures dictionaries are only included in bundles for pages that actually use them.
 

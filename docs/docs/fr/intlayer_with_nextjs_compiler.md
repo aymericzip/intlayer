@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-01-10
-title: Next.js i18n - Comment rendre multilingue (i18n) une application Next.js existante a posteriori (guide i18n 2026)
+title: Next.js i18n - Transformer une application Next.js existante en une application multilingue (guide i18n 2026)
 description: Découvrez comment rendre votre application Next.js existante multilingue avec le compilateur Intlayer. Suivez la documentation pour internationaliser (i18n) et la traduire avec l'IA.
 keywords:
   - Internationalisation
@@ -25,7 +25,7 @@ history:
     changes: Première version
 ---
 
-# Comment rendre multilingue (i18n) une application Next.js existante a posteriori (guide i18n 2026)
+# Comment rendre multilingue (i18n) une application Next.js existante (guide i18n 2026)
 
 <Tabs defaultTab="video">
   <Tab label="Vidéo" value="video">
@@ -81,21 +81,25 @@ Installez les packages nécessaires via npm :
 
 ```bash packageManager="npm"
 npm install intlayer next-intlayer
+npm install @intlayer/babel --save-dev
 npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer next-intlayer
+pnpm add @intlayer/babel --save-dev
 pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer next-intlayer
+yarn add @intlayer/babel --save-dev
 yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer next-intlayer
+bun add @intlayer/babel --dev
 bunx intlayer init
 ```
 
@@ -237,6 +241,27 @@ module.exports = withIntlayer(nextConfig);
 
 > Le plugin Next.js `withIntlayer()` est utilisé pour intégrer Intlayer avec Next.js. Il s'occupe de la construction des fichiers de déclaration de contenu et les surveille en mode de développement. Il définit les variables d'environnement d'Intlayer au sein des environnements [Webpack](https://webpack.js.org/) ou [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). De plus, il fournit des alias pour optimiser les performances et garantir la compatibilité avec les composants serveur.
 
+### Configurer Babel
+
+Le compilateur Intlayer nécessite Babel pour extraire et optimiser votre contenu. Mettez à jour votre `babel.config.js` (ou `babel.config.json`) pour inclure les plugins Intlayer :
+
+```js fileName="babel.config.js" codeFormat="commonjs"
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
+};
+```
+
 ### Étape 4 : Définir des routes dynamiques localisées
 
 Supprimez tout de `RootLayout` et remplacez-le par le code suivant :
@@ -362,11 +387,13 @@ Rédigez simplement vos composants avec des chaînes de caractères codées en d
 
 Exemple de ce à quoi pourrait ressembler votre page :
 
-```tsx fileName="src/app/page.tsx" codeFormat="typescript"
+<Tabs>
+  <Tab value="Code" label="Code">
+
+```tsx fileName="src/app/page.tsx"
 import type { FC } from "react";
 import { IntlayerServerProvider } from "next-intlayer/server";
 import { getLocale } from "next-intlayer/server";
-import { NextPage } from "next";
 
 const PageContent: FC = () => {
   return (
@@ -377,7 +404,7 @@ const PageContent: FC = () => {
   );
 };
 
-const Page: NextPage = async () => {
+export default async function Page() {
   const locale = await getLocale();
 
   return (
@@ -385,54 +412,78 @@ const Page: NextPage = async () => {
       <PageContent />
     </IntlayerServerProvider>
   );
-};
-
-export default Page;
+}
 ```
 
-```jsx fileName="src/app/page.mjx" codeFormat="esm"
-import { IntlayerServerProvider } from "next-intlayer/server";
-import { getLocale } from "intlayer";
-import { NextPage } from "next";
+  </Tab>
+  <Tab value="Output" label="Sortie">
 
-const Page: NextPage = async () => {
+```ts fileName="i18n/page-content.content.tsx"
+{
+  key: "page-content",
+  content: {
+    nodeType: "translation",
+    translation: {
+      en: {
+        getStartedByEditing: "Get started by editing",
+      },
+      fr: {
+        getStartedByEditing: "Commencez en éditant",
+      },
+      es: {
+        getStartedByEditing: "Comience editando",
+      },
+    }
+  }
+}
+```
+
+```tsx fileName="src/app/page.tsx"
+import { type FC } from "react";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
+import { getLocale } from "next-intlayer/server";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page-content");
+
+  return (
+    <>
+      <p>{content.getStartedByEditing}</p>
+      <code>src/app/page.tsx</code>
+    </>
+  );
+};
+
+export default async function Page() {
   const locale = await getLocale();
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <>
-        <p>Commencez en éditant</p>
-        <code>src/app/page.tsx</code>
-      </>
+      <PageContent />
     </IntlayerServerProvider>
   );
-};
-
-export default Page;
+}
 ```
 
-```jsx fileName="src/app/page.csx" codeFormat="commonjs"
-import { IntlayerServerProvider, getLocale } from "next-intlayer/server";
-import { NextPage } from "next";
-
-const Page: NextPage = async () => {
-  const locale = await getLocale();
-
-  return (
-    <IntlayerServerProvider locale={locale}>
-      <>
-        <p>Commencez en éditant</p>
-        <code>src/app/page.tsx</code>
-      </>
-    </IntlayerServerProvider>
-  );
-};
-```
+  </Tab>
+</Tabs>
 
 - **`IntlayerClientProvider`** est utilisé pour fournir la locale aux composants côté client.
 - **`IntlayerServerProvider`** est utilisé pour fournir la locale aux enfants serveurs.
 
-### (Optionnel) Étape 7 : Configurer le Proxy pour la Détection de Locale
+### (Optionnel) Étape 7 : Remplir les traductions manquantes
+
+Intlayer fournit un outil CLI pour vous aider à remplir les traductions manquantes. Vous pouvez utiliser la commande `intlayer` pour tester et remplir les traductions manquantes de votre code.
+
+```bash
+npx intlayer test         # Tester s'il y a des traductions manquantes
+```
+
+```bash
+npx intlayer fill         # Remplir les traductions manquantes
+```
+
+### (Optionnel) Étape 8 : Configurer le Proxy pour la Détection de Locale
 
 Mettez en place le proxy pour détecter la locale préférée de l'utilisateur :
 
@@ -467,7 +518,7 @@ module.exports = { proxy: intlayerProxy, config };
 
 > `intlayerProxy` est utilisé pour détecter la locale préférée de l'utilisateur et le rediriger vers l'URL appropriée telle que spécifiée dans la [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md). De plus, il permet de sauvegarder la locale préférée de l'utilisateur dans un cookie.
 
-### (Optionnel) Étape 8 : Changer la langue de votre contenu
+### (Optionnel) Étape 9 : Changer la langue de votre contenu
 
 Pour changer la langue de votre contenu dans Next.js, la méthode recommandée est d'utiliser le composant `Link` pour rediriger les utilisateurs vers la page localisée appropriée. Le composant `Link` permet le prefetch de la page, ce qui aide à éviter un rechargement complet de la page.
 
@@ -610,7 +661,7 @@ export const LocaleSwitcher = () => {
 
 > Une façon alternative d'utiliser la fonction `setLocale` fournie par le hook `useLocale`. Cette fonction ne permet pas de pré-fetcher la page. Consultez la [documentation du hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/next-intlayer/useLocale.md) pour plus de détails.
 
-### (Optionnel) Étape 9 : Récupérer la locale courante dans les Actions Serveur
+### (Optionnel) Étape 10 : Récupérer la locale courante dans les Actions Serveur
 
 Si vous avez besoin de la locale active dans une Action Serveur (par ex., pour localiser des e-mails ou exécuter une logique tenant compte de la locale), appelez `getLocale` depuis `next-intlayer/server` :
 
@@ -635,7 +686,7 @@ export const myServerAction = async () => {
 >
 > Cela garantit que la locale la plus appropriée est sélectionnée en fonction du contexte disponible.
 
-### (Optionnel) Étape 10 : Optimisez la taille de votre bundle
+### (Optionnel) Étape 11 : Optimisez la taille de votre bundle
 
 Lors de l'utilisation de `next-intlayer`, les dictionnaires sont par défaut inclus dans le bundle pour chaque page. Pour optimiser la taille du bundle, Intlayer fournit un plugin SWC optionnel qui remplace intelligemment les appels à `useIntlayer` via des macros. Cela garantit que les dictionnaires ne sont inclus que dans les bundles des pages qui les utilisent réellement.
 

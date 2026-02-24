@@ -730,24 +730,24 @@ const docDataContent: Dictionary = {
             },
             'next-with-compiler': {
               title: t({
-                en: 'Next.js and Compiler',
-                fr: 'Next.js et Compiler',
-                es: 'Next.js y Compiler',
-                'en-GB': 'Next.js and Compiler',
-                de: 'Next.js und Compiler',
-                ja: 'Next.jsとコンパイラ',
-                ko: 'Next.js 및 컴파일러',
-                zh: 'Next.js 和编译器',
-                it: 'Next.js e Compiler',
-                pt: 'Next.js e Compiler',
-                hi: 'Next.js और कंपाइलर',
-                ar: 'Next.js والمترجم',
-                uk: 'Next.js та Compiler',
-                ru: 'Next.js и Compiler',
-                tr: 'Next.js ve Derleyici',
-                pl: 'Next.js i Kompilator',
-                id: 'Next.js dan Compiler',
-                vi: 'Next.js và Trình biên dịch',
+                en: 'Compiler',
+                fr: 'Compiler',
+                es: 'Compiler',
+                'en-GB': 'Compiler',
+                de: 'Compiler',
+                ja: 'コンパイラ',
+                ko: '컴파일러',
+                zh: '编译器',
+                it: 'Compiler',
+                pt: 'Compiler',
+                hi: 'कंपाइलर',
+                ar: 'المترجم',
+                uk: 'Compiler',
+                ru: 'Compiler',
+                tr: 'Derleyici',
+                pl: 'Kompilator',
+                id: 'Compiler',
+                vi: 'Trình biên dịch',
               }),
               default: getDocMetadata(
                 './docs/en/intlayer_with_nextjs_compiler.md'
@@ -789,6 +789,12 @@ const docDataContent: Dictionary = {
               title: 'React Router v7 (fs-routes)',
               default: getDocMetadata(
                 './docs/en/intlayer_with_react_router_v7_fs_routes.md'
+              ),
+            },
+            compiler: {
+              title: 'Compiler',
+              default: getDocMetadata(
+                './docs/en/intlayer_with_vite+react_compiler.md'
               ),
             },
           },

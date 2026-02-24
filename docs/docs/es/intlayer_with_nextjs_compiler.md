@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-01-10
-title: Next.js i18n - Cómo hacer que una aplicación Next.js existente sea multilingüe (i18n) a posteriori (Guía i18n 2026)
+title: Next.js i18n - Transformar una aplicación Next.js existente en una aplicación multilingüe (guía i18n 2026)
 description: Descubra cómo hacer que su aplicación Next.js existente sea multilingüe utilizando el Compilador Intlayer. Siga la documentación para internacionalizar (i18n) y traducir su aplicación mediante Inteligencia Artificial (IA).
 keywords:
   - Internacionalización
@@ -26,7 +26,7 @@ history:
     changes: Versión Inicial
 ---
 
-# Cómo hacer que una aplicación Next.js existente sea multilingüe (i18n) a posteriori (Guía i18n 2026)
+# Cómo hacer que una aplicación Next.js existente sea multilingüe (i18n) (Guía i18n 2026)
 
 <Tabs defaultTab="video">
   <Tab label="Vídeo" value="video">
@@ -82,21 +82,25 @@ Instale los paquetes necesarios utilizando su gestor de paquetes favorito:
 
 ```bash packageManager="npm"
 npm install intlayer next-intlayer
+npm install @intlayer/babel --save-dev
 npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer next-intlayer
+pnpm add @intlayer/babel --save-dev
 pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer next-intlayer
+yarn add @intlayer/babel --save-dev
 yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer next-intlayer
+bun add @intlayer/babel --dev
 bunx intlayer init
 ```
 
@@ -241,6 +245,27 @@ module.exports = withIntlayer(nextConfig);
 
 > El versátil plugin de exportación envolvente `withIntlayer()` dentro de la estructura de configuración Next.js, se emplea para compenetrar con éxito pleno todo el marco natural de Intlayer junto a su marco central Next.js. De manera inmediata blinda las etapas cruciales donde se aseguran los procesos y se reescribe de fondo las tareas constructivas para edificar sus preciados y necesarios archivos de diccionarios, y lo que es mejor lo logra de forma observante incesante ante cambios de programación dentro del famoso entorno para su desarrollador en tiempo y espacio de desarrollo ('dev mode'). De manera secundaria, asocia e infiere toda variable elemental orientada hacia los ecosistemas [Webpack](https://webpack.js.org/) o hacia ecosistemas avanzados con velocidad puntera tipo [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). A mayores distancias y para sumar rendimiento incorpora alias que son altamente valiosos minimizando trayectos de importación abultados, operando minuciosamente todo en sinergía limpia al lado de su Server Components sin presentar fallas orgánicas.
 
+### Configurar Babel
+
+El compilador de Intlayer requiere Babel para extraer y optimizar su contenido. Actualice su `babel.config.js` (o `babel.config.json`) para incluir los complementos de Intlayer:
+
+```js fileName="babel.config.js" codeFormat="commonjs"
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
+};
+```
+
 ### Paso 4: Creando el enrutamiento para "Locale" y diseño de la red
 
 Borre o deshágase de todos los fragmentos genéricos originarios listados bajo el paraguas y jerarquía general desde la raíz `RootLayout` hasta transformarse a parecerse minuciosamente de la siguiente forma basándose puntillosamente del extracto de origen ejemplificado a continuación:
@@ -360,31 +385,30 @@ Con solo mantener habilitado (enabled) nuestro increíble Componente base del mo
 
 Lo grandioso de ésto es que, al contrario, el flujo productivo será asombroso pues solamente usted necesita redactar normalmente su texto principal codificado literalmente crudo sobre su matriz original. Posterior a ese hecho menor y tras validarse las etapas, todo un entramado invisible a cargo propiamente de "Intlayer" realizará escaneos íntegros abordando ese texto central original en el lenguaje elegido predeterminado para luego aplicar magia con apoyo masivo originario del potente modelo informático impulsado por un poderoso proveedor (Inteligencia Artificial IA) preestablecido dentro de su configuración. Seguido de este enorme paso de forma sigilosa sin dejar rastros de pausas para Ud. suplanta ágilmente aquellas líneas originales o letras originarias textuales por textos que yacen plenamente traducidos y bien formulados sin contrarrestar sus fases pre construídas relativas a los ciclos de build-step (tiempos donde las operaciones toman control para ser armadas formalmente para producción).
 
-### Paso 6: Demuestre y Pruebe los cambios internamente a lo largo de sus capas y componentes
+### Paso 6: Utilice el contenido en su código
 
-Si todo a estas alturas marchó como seda entonces todo recae sencillamente e incorporar texto inalterado directo "hardcoded" con soltura operante sobre el espectro de su "Lenguaje principal referenciado base (default locale)", para que finalizada nuestra línea instructiva lo abandone cediéndole esa colosal tarea a la percusión magistralmente articulada a cargo solo del "Intlayer Compiler" en forma constante.
+Simplemente escriba sus componentes con cadenas de texto literales en su idioma predeterminado. El compilador se encarga del resto.
 
-Visualice cómo terminará tomando vuelo su codificación al lado del tradicional `page.tsx`:
+Ejemplo de cómo podría verse su página:
 
-```tsx fileName="src/app/page.tsx" codeFormat="typescript"
+<Tabs>
+  <Tab value="Code" label="Código">
+
+```tsx fileName="src/app/page.tsx"
 import type { FC } from "react";
 import { IntlayerServerProvider } from "next-intlayer/server";
 import { getLocale } from "next-intlayer/server";
-import { NextPage } from "next";
 
 const PageContent: FC = () => {
   return (
     <>
-      <p>
-        ¡Dale con firmeza al editor creando contenido a tope aquí en tu página
-        inicial!
-      </p>
+      <p>Comienza editando</p>
       <code>src/app/page.tsx</code>
     </>
   );
 };
 
-const Page: NextPage = async () => {
+export default async function Page() {
   const locale = await getLocale();
 
   return (
@@ -392,54 +416,78 @@ const Page: NextPage = async () => {
       <PageContent />
     </IntlayerServerProvider>
   );
-};
-
-export default Page;
+}
 ```
 
-```jsx fileName="src/app/page.mjx" codeFormat="esm"
-import { IntlayerServerProvider } from "next-intlayer/server";
-import { getLocale } from "intlayer";
-import { NextPage } from "next";
+  </Tab>
+  <Tab value="Output" label="Salida">
 
-const Page: NextPage = async () => {
+```ts fileName="i18n/page-content.content.tsx"
+{
+  key: "page-content",
+  content: {
+    nodeType: "translation",
+    translation: {
+      en: {
+        getStartedByEditing: "Get started by editing",
+      },
+      fr: {
+        getStartedByEditing: "Commencez par éditer",
+      },
+      es: {
+        getStartedByEditing: "Comienza editando",
+      },
+    }
+  }
+}
+```
+
+```tsx fileName="src/app/page.tsx"
+import { type FC } from "react";
+import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
+import { getLocale } from "next-intlayer/server";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page-content");
+
+  return (
+    <>
+      <p>{content.getStartedByEditing}</p>
+      <code>src/app/page.tsx</code>
+    </>
+  );
+};
+
+export default async function Page() {
   const locale = await getLocale();
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <>
-        <p>¡Dale con firmeza al editor creando contenido a tope aquí en tu página inicial!</p>
-        <code>src/app/page.tsx</code>
-      </>
+      <PageContent />
     </IntlayerServerProvider>
   );
-};
-
-export default Page;
+}
 ```
 
-```jsx fileName="src/app/page.csx" codeFormat="commonjs"
-import { IntlayerServerProvider, getLocale } from "next-intlayer/server";
-import { NextPage } from "next";
-
-const Page: NextPage = async () => {
-  const locale = await getLocale();
-
-  return (
-    <IntlayerServerProvider locale={locale}>
-      <>
-        <p>¡Dale con firmeza al editor creando contenido a tope aquí en tu página inicial!</p>
-        <code>src/app/page.tsx</code>
-      </>
-    </IntlayerServerProvider>
-  );
-};
-```
+  </Tab>
+</Tabs>
 
 - Tome el respectivo recaudo e interiorícese en que **`IntlayerClientProvider`** es utilizado rigurosamente para otorgar el contexto asociado a la variable del origen del sistema de lenguaje (locale) y se infunde fluidamente escalando la jerarquía transmitiendo ese dato crucial en todos los subniveles subordinados descendentes mejor identificados como "sus componentes Hijos (Children)" por toda el área o ecosistema referenciado únicamente que opera "Del lado del cliente en sí (Client side)".
 - Muy distante y en contraparte a ésto localizamos la contraofensiva el cual es **`IntlayerServerProvider`** usado precisamente de igual manera para transferir el origen de raíz de este valioso parámetro de sistema local ("locale"), pero que, a desprendimiento del anterior este lo efectúa dentro de ambientes sumamente especializados tales como la área colindante y jerarquizada denominada "Áreas centralizadas u orígenes centralizados del Servidor (Server side / Server components)".
 
-### (De nivel opcional y libre) Paso 7: La incorporación del Middleware tipo Proxy dirigido a la localización base.
+### (Opcional) Paso 7: Completar traducciones faltantes
+
+Intlayer proporciona una herramienta de CLI para ayudarte a completar las traducciones faltantes. Puedes usar el comando `intlayer` para probar y completar las traducciones faltantes de tu código.
+
+```bash
+npx intlayer test         # Probar si faltan traducciones
+```
+
+```bash
+npx intlayer fill         # Completar las traducciones faltantes
+```
+
+### (De nivel opcional y libre) Paso 8: La incorporación del Middleware tipo Proxy dirigido a la localización base.
 
 No todo son riguras pero ¿Acaso existe alguna chance o el fervor sobre dirigir mágicamente y forzar las transiciones al visitante según su idioma de agrado de la mano de alguna rutina amena mediante Next.js? ¡Ahí tiene cabida en todo su derecho un aliado más bajo el título envolvente del "Middleware a tipo de proxy redireccionador"!
 
@@ -474,7 +522,7 @@ module.exports = { proxy: intlayerProxy, config };
 
 > La figura del `intlayerProxy` asume los dotes encomendados del sistema subyacente dedicado y a cargo de interceptar los gustos arraigados del usuario dictados como locale preferente o de navegador y enseguida con base a eso lanzar un redireccionamiento del plano natural para su visitante propinándole de frente la URL idealísima con concordancia extrema y unida férreamente a las bases impuestas en el [Panel de configuración (Configuration File settings)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md). Así también salva sin dejar mella la ubicación guardando la firma exacta de este tan apreciado elemento por medio de la famosa red interna alojada basada bajo los vestigios de un humilde almacenamiento "cookie", ¡Preparando cómodamente los recibimientos para los siguientes eventuales accesos futuros!
 
-### (Complemento opcional) Paso 8: Componente selector de Idioma (Menú conmutador Language Switcher)
+### (Complemento opcional) Paso 9: Componente selector de Idioma (Menú conmutador Language Switcher)
 
 Si ha soñado con elevar exponencialmente hasta lo estratosférico su UX (Nivel de excelencia experiencial brindado), y asentar soberbiamente ese flujo navegacional suave sin paradas crudas (o sea, librarse a todo riesgo por medio de la magia asincrónica del famoso recargo integral que paraliza "hard refresh" sobre su propia Next.js page), le instamos enormemente en la estructuración de su propio componente personalizado a función y talla, de botones (switcher selector intermedial) amarrados bajo la etiqueta invocadora "Link" con destino fiel a catapultar velozmente por todo lo grande a sus amados usuarios directos a encontrar y enclavar su travesía inter-lingüistica en segundos de gloria:
 
@@ -617,7 +665,7 @@ export const LocaleSwitcher = () => {
 
 > No olvide lo increíblemente útil y amigable que resultará si usted por decisión y empuje personal lograra sacar inmensos frutos acudiendo fiel a la función fundamental de denominación extraída de parte interna del `setLocale` dispuesta bondadosa mediante el valiosísimo y centralizado bloque estructural nativo originario y proveniente de `useLocale` (El Hook maestro). Expanda y explaye esos horizontes y navegue en todo límite revisando esta fenomenal e instructiva porción sobre el amplio territorio del router integrado ahondando a los rincones profundos en el magistral [Material Documentado Oficial (useLocale hook reference manual)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/useLocale.md).
 
-### (Agregado valioso Opcional) Paso 9: Adherencia a Server Actions en rescate incesante del identificador Maestro "Locale State"
+### (Agregado valioso Opcional) Paso 10: Adherencia a Server Actions en rescate incesante del identificador Maestro "Locale State"
 
 Dando un profundo sumergimiento por áreas altamente volátiles y escondidas (El Background End Sever Node Server Side Environment propiamente), existirá siempre aquel punto exacto de la ecuación dónde y en pleno procesamiento y evaluación de complejas peticiones u operaciones, nuestro gran y venerado "Server node nativo o Background process handler" dictará su propio veredicto o demanda infalible: Requerir obtener mágicamente pero al compás preciso y con efectividad inamovible el valor vivo originado local del estatus base (por ej: A la hora inexorable del evento de emisión con disparo automatizado de algún mensaje por e-mail, exigiendo que dicho correo resulte entregado a todas luces en el mismo compás idiomático por el que nuestro expectante usuario intercedió e inauguró sesión inicialmente antes que suceda el resto!) He aquí en este embudo la herramienta infalible y su fiel compañera: nos honramos presentar a `getLocale` derivada y provista con delicadeza pero con garra extrema por el núcleo `@next-intlayer/server` para su alivio infinito:
 
@@ -640,7 +688,7 @@ export const myServerAction = async () => {
 > 3. Evaluación exhaustiva, milimétrica y sopesada extrayendo a sangre de las propias vísceras recónditas (parámetros Device System o Configuración Navegador Browser Agent OS) por medio directo sin barreras por mediación de peticiones incrustadas (Request Object interceptor parameters array).
 > 4. La cuna final y salvamento extremo estelar si nada sobrevive con éxito en base al pre dictamen resguardado que hace honor al "Default-Fallback-Locale Baseline" que por supuesto con un poco su memoria fresca usted incrustó solemnemente aquel hermoso día que erigió y sentenció sobre su amado "intlayer.config.ts" (Su santo Grial!).
 
-### (Comprimido estelar para Avanzados) Paso 10: La magna reducción molecular y exilio extremo bajando tallas hacia sus Bundle compilados en lado Cliente Finales. (Apalancado y cortesía del prodigioso y mágico Plugin extension SWC Next.js).
+### (Comprimido estelar para Avanzados) Paso 11: La magna reducción molecular y exilio extremo bajando tallas hacia sus Bundle compilados en lado Cliente Finales. (Apalancado y cortesía del prodigioso y mágico Plugin extension SWC Next.js).
 
 Normalmente por las vías tradicionales carentes de la manipulación provistas de terceros módulos por extensión, nuestra libreria `next-intlayer` operando inocentemente e inmaculada procederá sin reparos en un volcado gigantezco a despachar indiscriminadamente todas sus colosales, mastodónticas y formidables estructuras anidadas que conforman a rajatabla todas las compilaciones diccionarias que posea enteritas arrojadas sin freno directamente sobre los adosados módulos orientados "Al Front Client Bundle (Componentes React cliente del usuario visuales en final)". Si bien esto es útil y veloz no nos enoja, pero es a costa por desgracia del tremendo pesaje volumétrico que ésto exige restando desempeño en su preciado puntaje referenciado "Bandwitdh de redes/ Performance SEO Payload size!". Al rescate para extirpar este trágico destino irrumpe y con armadura brillante The Master SWC next compiler plugin extension (Con gran acento de galantería referenida por su sello de la casa `@intlayer/swc` - Extracción Compilador Modificadora). Al desplegar a tamaño monstruo extrae con firmeza de cirujano la mismísima, genuina y concreta cadena original, extirpa y extingue enteramente al diccionario en crudo sobrecargado reduciéndolo a trizas a su plano mínimo eliminando basuras de descarte ajenos para su compilado central al entorno del Server Component base. Un gran régimen para una tremenda purga y limpieza al final del arcoíris y un peso ínfimo del resultado transferido por redes!.
 
