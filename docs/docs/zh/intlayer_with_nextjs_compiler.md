@@ -246,7 +246,7 @@ module.exports = withIntlayer(nextConfig);
 
 Intlayer 编译器需要 Babel 来提取和优化您的内容。更新您的 `babel.config.js`（或 `babel.config.json`）以包含 Intlayer 插件：
 
-```js fileName="babel.config.js" codeFormat="commonjs"
+```js fileName="babel.config.js"
 const {
   intlayerExtractBabelPlugin,
   intlayerOptimizeBabelPlugin,

@@ -246,7 +246,7 @@ module.exports = withIntlayer(nextConfig);
 
 Intlayer コンパイラがコンテンツを抽出し最適化するには、Babel が必要です。Intlayer プラグインを含めるように `babel.config.js`（または `babel.config.json`）を更新します：
 
-```js fileName="babel.config.js" codeFormat="commonjs"
+```js fileName="babel.config.js"
 const {
   intlayerExtractBabelPlugin,
   intlayerOptimizeBabelPlugin,

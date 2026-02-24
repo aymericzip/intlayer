@@ -163,26 +163,6 @@ export default defineConfig({
 
 > Plugin Vite `intlayerCompiler()` được sử dụng để trích xuất nội dung từ component và ghi các tệp `.content`.
 
-### Cấu hình Babel
-
-Trình biên dịch Intlayer yêu cầu Babel để trích xuất và tối ưu hóa nội dung của bạn. Cập nhật `babel.config.js` (hoặc `babel.config.json`) của bạn để bao gồm các plugin Intlayer:
-
-```js fileName="babel.config.js"
-const {
-  intlayerExtractBabelPlugin,
-  intlayerOptimizeBabelPlugin,
-  getExtractPluginOptions,
-  getOptimizePluginOptions,
-} = require("@intlayer/babel");
-
-module.exports = {
-  plugins: [
-    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
-    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
-  ],
-};
-```
-
 ### Bước 4: Biên dịch mã của bạn
 
 Chỉ cần viết các component của bạn với các chuỗi ký tự được mã hóa cứng (hardcoded) bằng ngôn ngữ mặc định của bạn. Trình biên dịch sẽ xử lý phần còn lại.

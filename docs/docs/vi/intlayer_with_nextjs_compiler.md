@@ -246,7 +246,7 @@ module.exports = withIntlayer(nextConfig);
 
 Trình biên dịch Intlayer yêu cầu Babel để trích xuất và tối ưu hóa nội dung của bạn. Cập nhật `babel.config.js` (hoặc `babel.config.json`) để bao gồm các plugin Intlayer:
 
-```js fileName="babel.config.js" codeFormat="commonjs"
+```js fileName="babel.config.js"
 const {
   intlayerExtractBabelPlugin,
   intlayerOptimizeBabelPlugin,

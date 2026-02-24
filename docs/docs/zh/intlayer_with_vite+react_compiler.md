@@ -168,26 +168,6 @@ export default defineConfig({
 
 > `intlayerCompiler()` Vite 插件用于从组件中提取内容并编写 `.content` 文件。
 
-### 配置 Babel
-
-Intlayer 编译器需要 Babel 来提取和优化您的内容。更新您的 `babel.config.js`（或 `babel.config.json`）以包含 Intlayer 插件：
-
-```js fileName="babel.config.js"
-const {
-  intlayerExtractBabelPlugin,
-  intlayerOptimizeBabelPlugin,
-  getExtractPluginOptions,
-  getOptimizePluginOptions,
-} = require("@intlayer/babel");
-
-module.exports = {
-  plugins: [
-    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
-    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
-  ],
-};
-```
-
 ### 第 4 步：编译您的代码
 
 只需使用您的默认语言在组件中编写硬编码字符串。编译器会处理剩下的工作。

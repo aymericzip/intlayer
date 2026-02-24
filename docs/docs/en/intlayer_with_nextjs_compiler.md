@@ -245,7 +245,7 @@ module.exports = withIntlayer(nextConfig);
 
 The Intlayer compiler requires Babel to extract and optimize your content. Update your `babel.config.js` (or `babel.config.json`) to include the Intlayer plugins:
 
-```js fileName="babel.config.js" codeFormat="commonjs"
+```typescript fileName="babel.config.js"
 const {
   intlayerExtractBabelPlugin,
   intlayerOptimizeBabelPlugin,

@@ -163,26 +163,6 @@ export default defineConfig({
 
 > يُستخدم مكون `intlayerCompiler()` الإضافي لـ Vite لاستخراج المحتوى من المكون وكتابة ملفات `.content`.
 
-### تكوين Babel
-
-يتطلب مترجم Intlayer استخدام Babel لاستخراج محتواك وتحسينه. قم بتحديث ملف `babel.config.js` (أو `babel.config.json`) لتضمين مكونات Intlayer الإضافية:
-
-```js fileName="babel.config.js"
-const {
-  intlayerExtractBabelPlugin,
-  intlayerOptimizeBabelPlugin,
-  getExtractPluginOptions,
-  getOptimizePluginOptions,
-} = require("@intlayer/babel");
-
-module.exports = {
-  plugins: [
-    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
-    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
-  ],
-};
-```
-
 ### الخطوة 4: ترجمة الكود الخاص بك
 
 فقط اكتب مكوناتك بسلاسل نصية ثابتة بلغتك الافتراضية. يتولى المترجم الباقي.

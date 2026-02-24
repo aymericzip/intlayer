@@ -247,7 +247,7 @@ module.exports = withIntlayer(nextConfig);
 
 Intlayer derleyicisi, içeriğinizi çıkarmak ve optimize etmek için Babel gerektirir. Intlayer eklentilerini içerecek şekilde `babel.config.js` (veya `babel.config.json`) dosyanızı güncelleyin:
 
-```js fileName="babel.config.js" codeFormat="commonjs"
+```js fileName="babel.config.js"
 const {
   intlayerExtractBabelPlugin,
   intlayerOptimizeBabelPlugin,

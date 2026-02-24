@@ -163,26 +163,6 @@ export default defineConfig({
 
 > `intlayerCompiler()` Vite 플러그인은 컴포넌트에서 콘텐츠를 추출하고 `.content` 파일을 작성하는 데 사용됩니다.
 
-### Babel 구성
-
-Intlayer 컴파일러는 콘텐츠를 추출하고 최적화하기 위해 Babel이 필요합니다. Intlayer 플러그인을 포함하도록 `babel.config.js` (또는 `babel.config.json`)를 업데이트하세요:
-
-```js fileName="babel.config.js"
-const {
-  intlayerExtractBabelPlugin,
-  intlayerOptimizeBabelPlugin,
-  getExtractPluginOptions,
-  getOptimizePluginOptions,
-} = require("@intlayer/babel");
-
-module.exports = {
-  plugins: [
-    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
-    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
-  ],
-};
-```
-
 ### 4단계: 코드 컴파일
 
 기본 로케일로 하드코딩된 문자열을 사용하여 컴포넌트를 작성하기만 하면 됩니다. 나머지는 컴파일러가 처리합니다.

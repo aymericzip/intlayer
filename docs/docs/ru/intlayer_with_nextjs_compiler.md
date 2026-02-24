@@ -239,7 +239,7 @@ module.exports = withIntlayer(nextConfig);
 
 Компилятору Intlayer требуется Babel для извлечения и оптимизации вашего контента. Обновите ваш `babel.config.js` (или `babel.config.json`), чтобы включить плагины Intlayer:
 
-```js fileName="babel.config.js" codeFormat="commonjs"
+```js fileName="babel.config.js"
 const {
   intlayerExtractBabelPlugin,
   intlayerOptimizeBabelPlugin,

@@ -163,26 +163,6 @@ export default defineConfig({
 
 > `intlayerCompiler()` Vite प्लगइन का उपयोग घटक से सामग्री निकालने और `.content` फ़ाइलें लिखने के लिए किया जाता है।
 
-### बेबेल कॉन्फ़िगर करें
-
-Intlayer कंपाइलर को आपकी सामग्री को निकालने और अनुकूलित करने के लिए बेबेल की आवश्यकता होती है। Intlayer प्लगइन्स को शामिल करने के लिए अपने `babel.config.js` (या `babel.config.json`) को अपडेट करें:
-
-```js fileName="babel.config.js"
-const {
-  intlayerExtractBabelPlugin,
-  intlayerOptimizeBabelPlugin,
-  getExtractPluginOptions,
-  getOptimizePluginOptions,
-} = require("@intlayer/babel");
-
-module.exports = {
-  plugins: [
-    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
-    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
-  ],
-};
-```
-
 ### चरण 4: अपना कोड कंपाइल करें
 
 बस अपनी डिफ़ॉल्ट भाषा में हार्डकोडेड स्ट्रिंग्स के साथ अपने घटक लिखें। कंपाइलर बाकी काम संभाल लेता है।

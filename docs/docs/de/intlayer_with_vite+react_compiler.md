@@ -163,26 +163,6 @@ export default defineConfig({
 
 > Das `intlayerCompiler()`-Vite-Plugin wird verwendet, um Inhalte aus Komponenten zu extrahieren und `.content`-Dateien zu schreiben.
 
-### Babel konfigurieren
-
-Der Intlayer-Compiler benötigt Babel, um Ihre Inhalte zu extrahieren und zu optimieren. Aktualisieren Sie Ihre `babel.config.js` (oder `babel.config.json`), um die Intlayer-Plugins aufzunehmen:
-
-```js fileName="babel.config.js"
-const {
-  intlayerExtractBabelPlugin,
-  intlayerOptimizeBabelPlugin,
-  getExtractPluginOptions,
-  getOptimizePluginOptions,
-} = require("@intlayer/babel");
-
-module.exports = {
-  plugins: [
-    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
-    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
-  ],
-};
-```
-
 ### Schritt 4: Kompilieren Sie Ihren Code
 
 Schreiben Sie Ihre Komponenten einfach mit fest codierten Zeichenfolgen in Ihrem Standard-Gebietsschema. Der Compiler kümmert sich um den Rest.

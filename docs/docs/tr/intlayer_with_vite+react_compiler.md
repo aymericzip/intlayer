@@ -168,26 +168,6 @@ export default defineConfig({
 
 > `intlayerCompiler()` Vite eklentisi, bileşenden içerik çıkarmak ve `.content` dosyalarını yazmak için kullanılır.
 
-### Babel Yapılandırması
-
-Intlayer derleyicisi, içeriğinizi çıkarmak ve optimize etmek için Babel gerektirir. Intlayer eklentilerini dahil etmek için `babel.config.js` (veya `babel.config.json`) dosyanızı güncelleyin:
-
-```js fileName="babel.config.js"
-const {
-  intlayerExtractBabelPlugin,
-  intlayerOptimizeBabelPlugin,
-  getExtractPluginOptions,
-  getOptimizePluginOptions,
-} = require("@intlayer/babel");
-
-module.exports = {
-  plugins: [
-    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
-    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
-  ],
-};
-```
-
 ### Adım 4: Kodunuzu Derleyin
 
 Sadece bileşenlerinizi varsayılan dilinizde sabit kodlu dizelerle yazın. Derleyici gerisini halleder.
