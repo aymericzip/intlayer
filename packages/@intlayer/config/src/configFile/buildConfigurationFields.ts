@@ -71,6 +71,7 @@ import {
   MAIN_DIR,
   MODULE_AUGMENTATION_DIR,
   REMOTE_DICTIONARIES_DIR,
+  TEMP_DIR,
   TYPES_DIR,
   UNMERGED_DICTIONARIES_DIR,
 } from '../defaultValues/system';

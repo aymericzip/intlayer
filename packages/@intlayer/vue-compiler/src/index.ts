@@ -18,7 +18,6 @@ export {
   type ExtractPluginOptions,
   type ExtractResult,
   extractDictionaryKeyFromPath,
-  generateKey,
   intlayerVueExtract,
   shouldProcessFile,
 } from './vue-intlayer-extract';

@@ -1051,6 +1051,15 @@ export type SystemConfig = {
   cacheDir: string;
 
   /**
+   * Directory where the temp files are stored, relative to the result directory
+   *
+   * Default: .intlayer/tmp
+   *
+   * Specifies the derived path for the tmp files relative to the result directory.
+   */
+  tempDir: string;
+
+  /**
    * Pattern for output files including the relative path
    *
    * Default: '{{dictionariesDir}}/**\/*.json'

@@ -18,7 +18,6 @@ export {
   type ExtractPluginOptions,
   type ExtractResult,
   extractDictionaryKeyFromPath,
-  generateKey,
   intlayerSvelteExtract,
   shouldProcessFile,
 } from './svelte-intlayer-extract';

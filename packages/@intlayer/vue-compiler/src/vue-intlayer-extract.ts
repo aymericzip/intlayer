@@ -321,7 +321,7 @@ export const intlayerVueExtract = async (
       });
 
       traverse(ast, {
-        StringLiteral(path) {
+        StringLiteral(path: any) {
           if (path.parentPath.isImportDeclaration()) return;
           if (path.parentPath.isExportDeclaration()) return;
           if (path.parentPath.isImportSpecifier()) return;
