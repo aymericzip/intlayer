@@ -728,6 +728,31 @@ const docDataContent: Dictionary = {
                 './docs/en/intlayer_with_nextjs_page_router.md'
               ),
             },
+            'next-with-compiler': {
+              title: t({
+                en: 'Next.js and Compiler',
+                fr: 'Next.js et Compiler',
+                es: 'Next.js y Compiler',
+                'en-GB': 'Next.js and Compiler',
+                de: 'Next.js und Compiler',
+                ja: 'Next.jsとコンパイラ',
+                ko: 'Next.js 및 컴파일러',
+                zh: 'Next.js 和编译器',
+                it: 'Next.js e Compiler',
+                pt: 'Next.js e Compiler',
+                hi: 'Next.js और कंपाइलर',
+                ar: 'Next.js والمترجم',
+                uk: 'Next.js та Compiler',
+                ru: 'Next.js и Compiler',
+                tr: 'Next.js ve Derleyici',
+                pl: 'Next.js i Kompilator',
+                id: 'Next.js dan Compiler',
+                vi: 'Next.js và Trình biên dịch',
+              }),
+              default: getDocMetadata(
+                './docs/en/intlayer_with_nextjs_compiler.md'
+              ),
+            },
           },
         },
 
