@@ -79,6 +79,8 @@ export default defineConfig({
 });
 ```
 
+Tam öğreticiyi görün: https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+react_compiler.md
+
 #### Framework Desteği
 
 Vite eklentisi farklı dosya türlerini otomatik olarak algılar ve işler:
@@ -131,3 +133,5 @@ module.exports = {
 ```
 
 Bu yapılandırma, bileşenlerinizde beyan edilen içeriğin otomatik olarak çıkarılmasını ve derleme süreciniz sırasında sözlüklerin oluşturulmasında kullanılmasını sağlar.
+
+Tam öğreticiyi görün: https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_compiler.md

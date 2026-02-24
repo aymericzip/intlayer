@@ -79,6 +79,8 @@ export default defineConfig({
 });
 ```
 
+Voir le tutoriel complet : https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_vite+react_compiler.md
+
 #### Support des frameworks
 
 Le plugin Vite détecte et gère automatiquement différents types de fichiers :
@@ -131,3 +133,5 @@ module.exports = {
 ```
 
 Cette configuration garantit que le contenu déclaré dans vos composants est automatiquement extrait et utilisé pour générer les dictionnaires lors de votre processus de build.
+
+Voir le tutoriel complet : https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nextjs_compiler.md

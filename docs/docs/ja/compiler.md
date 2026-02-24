@@ -79,6 +79,8 @@ export default defineConfig({
 });
 ```
 
+完全なチュートリアルを見る: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+react_compiler.md
+
 #### フレームワークサポート
 
 Viteプラグインは自動的に異なるファイルタイプを検出し処理します：
@@ -131,3 +133,5 @@ module.exports = {
 ```
 
 この設定により、コンポーネント内で宣言されたコンテンツが自動的に抽出され、ビルドプロセス中に辞書の生成に使用されます。
+
+完全なチュートリアルを見る: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_compiler.md

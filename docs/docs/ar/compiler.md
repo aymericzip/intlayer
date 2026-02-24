@@ -79,6 +79,8 @@ export default defineConfig({
 });
 ```
 
+عرض البرنامج التعليمي الكامل: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react_compiler.md
+
 #### دعم الأُطُر
 
 تقوم إضافة Vite بالكشف التلقائي والتعامل مع أنواع الملفات المختلفة:
@@ -131,3 +133,5 @@ module.exports = {
 ```
 
 يضمن هذا التكوين استخراج المحتوى المعلن في مكوناتك تلقائيًا واستخدامه لتوليد القواميس أثناء عملية البناء.
+
+عرض البرنامج التعليمي الكامل: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_compiler.md

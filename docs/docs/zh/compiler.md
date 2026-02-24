@@ -79,6 +79,8 @@ export default defineConfig({
 });
 ```
 
+查看完整教程： https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react_compiler.md
+
 #### 框架支持
 
 Vite 插件会自动检测并处理不同的文件类型：
@@ -131,3 +133,5 @@ module.exports = {
 ```
 
 此配置确保在构建过程中，组件中声明的内容会被自动提取并用于生成字典。
+
+查看完整教程： https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_compiler.md

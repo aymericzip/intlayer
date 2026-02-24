@@ -79,6 +79,8 @@ export default defineConfig({
 });
 ```
 
+Переглянути повний посібник: https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_vite+react_compiler.md
+
 #### Підтримка фреймворків
 
 Плагін Vite автоматично визначає та обробляє різні типи файлів:
@@ -131,3 +133,5 @@ module.exports = {
 ```
 
 Ця конфігурація гарантує, що контент, оголошений у ваших компонентах, автоматично витягується й використовується для генерації словників під час процесу збірки.
+
+Переглянути повний посібник: https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_compiler.md

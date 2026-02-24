@@ -79,6 +79,8 @@ export default defineConfig({
 });
 ```
 
+पूरा ट्यूटोरियल देखें: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+react_compiler.md
+
 #### फ्रेमवर्क समर्थन
 
 Vite प्लगइन स्वचालित रूप से विभिन्न फ़ाइल प्रकारों का पता लगाता है और उन्हें संभालता है:
@@ -131,3 +133,5 @@ module.exports = {
 ```
 
 यह कॉन्फ़िगरेशन सुनिश्चित करता है कि आपके कंपोनेंट्स में घोषित सामग्री स्वचालित रूप से निकाली जाए और आपके बिल्ड प्रक्रिया के दौरान शब्दकोश बनाने के लिए उपयोग की जाए।
+
+पूरा ट्यूटोरियल देखें: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_compiler.md

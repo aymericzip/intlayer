@@ -79,6 +79,8 @@ export default defineConfig({
 });
 ```
 
+Lihat tutorial lengkap: https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+react_compiler.md
+
 #### Dukungan Framework
 
 Plugin Vite secara otomatis mendeteksi dan menangani berbagai jenis file:
@@ -131,3 +133,5 @@ module.exports = {
 ```
 
 Konfigurasi ini memastikan bahwa konten yang dideklarasikan dalam komponen Anda secara otomatis diekstraksi dan digunakan untuk menghasilkan kamus selama proses build Anda.
+
+Lihat tutorial lengkap: https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_compiler.md

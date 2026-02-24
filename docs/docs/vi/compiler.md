@@ -79,6 +79,8 @@ export default defineConfig({
 });
 ```
 
+Xem hướng dẫn đầy đủ: https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+react_compiler.md
+
 #### Hỗ trợ Framework
 
 Plugin Vite tự động phát hiện và xử lý các loại file khác nhau:
@@ -131,3 +133,5 @@ module.exports = {
 ```
 
 Cấu hình này đảm bảo rằng nội dung được khai báo trong các component của bạn sẽ được tự động trích xuất và sử dụng để tạo từ điển trong quá trình build.
+
+Xem hướng dẫn đầy đủ: https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_compiler.md
