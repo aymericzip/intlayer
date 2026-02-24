@@ -225,7 +225,7 @@ export default App;
  </Tab>
  <Tab value="Output">
 
-```ts fileName="i18n/app-content.content.tsx"
+```ts fileName="i18n/app-content.content.json"
 {
   key: "app-content",
   content: {
