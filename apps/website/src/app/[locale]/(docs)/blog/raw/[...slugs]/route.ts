@@ -1,5 +1,4 @@
 import { getBlog, getBlogMetadataBySlug } from '@intlayer/docs';
-import { cacheLife } from 'next/cache';
 
 type RouteContext = {
   params: {
@@ -9,17 +8,11 @@ type RouteContext = {
 };
 
 async function findBlogMetadata(slugs: string | string[], locale: string) {
-  'use cache';
-  cacheLife('weeks');
-
   const normalizedSlugs = ['blog', ...(Array.isArray(slugs) ? slugs : [slugs])];
   return await getBlogMetadataBySlug(normalizedSlugs, locale as any, true);
 }
 
 async function getCachedBlog(docKey: string, locale: string) {
-  'use cache';
-  cacheLife('weeks');
-
   return await getBlog(docKey as any, locale as any);
 }
 

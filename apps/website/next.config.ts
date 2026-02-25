@@ -215,9 +215,8 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['@intlayer/design-system'],
   },
   reactCompiler: true,
-  cacheComponents: true,
+  cacheComponents: false, // Disabled because of latency issues
   productionBrowserSourceMaps: true,
-  // cacheComponents: true,
   images: {
     // Ensure long-lived caching for optimized remote images (e.g. YouTube thumbnails)
     // This is a minimum TTL; upstream headers may be higher.

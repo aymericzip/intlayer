@@ -5,7 +5,6 @@ import {
   getDocMetadataBySlug,
   getDocsKeys,
 } from '@intlayer/docs';
-import { cacheLife } from 'next/cache';
 
 type RouteContext = {
   params: Promise<{
@@ -18,9 +17,6 @@ async function findDocMetadata(
   slugs: string | string[],
   locale: string
 ): Promise<DocMetadata | undefined> {
-  'use cache';
-  cacheLife('weeks');
-
   const slugsArray = Array.isArray(slugs) ? slugs : [slugs];
 
   // 1. Try metadata slugs (normalized with 'doc' prefix)
@@ -60,8 +56,6 @@ async function findDocMetadata(
 }
 
 async function getCachedDoc(docKey: string, locale: string) {
-  'use cache';
-  cacheLife('weeks');
   return await getDoc(docKey as any, locale as any);
 }
 
