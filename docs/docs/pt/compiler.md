@@ -82,7 +82,7 @@ export default defineConfig({
 });
 ```
 
-Veja o tutorial completo: [Intlayer Compiler with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_vite+react_compiler.md)
+See complete tutorial: [Intlayer Compiler with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react_compiler.md)
 
 #### Suporte a Frameworks
 
@@ -140,7 +140,7 @@ module.exports = {
 
 Esta configuração garante que o conteúdo declarado em seus componentes seja automaticamente extraído e usado para gerar dicionários durante o processo de build.
 
-Veja o tutorial completo: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_nextjs_compiler.md)
+See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
 </Tabs>

@@ -82,7 +82,7 @@ export default defineConfig({
 });
 ```
 
-Tam öğreticiyi görün: [Intlayer Compiler with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+react_compiler.md)
+See complete tutorial: [Intlayer Compiler with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react_compiler.md)
 
 #### Framework Desteği
 
@@ -140,7 +140,7 @@ module.exports = {
 
 Bu yapılandırma, bileşenlerinizde beyan edilen içeriğin otomatik olarak çıkarılmasını ve derleme süreciniz sırasında sözlüklerin oluşturulmasında kullanılmasını sağlar.
 
-Tam öğreticiyi görün: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_compiler.md)
+See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
 </Tabs>

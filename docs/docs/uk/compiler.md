@@ -82,7 +82,7 @@ export default defineConfig({
 });
 ```
 
-Переглянути повний посібник: [Intlayer Compiler with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_vite+react_compiler.md)
+See complete tutorial: [Intlayer Compiler with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react_compiler.md)
 
 #### Підтримка фреймворків
 
@@ -140,7 +140,7 @@ module.exports = {
 
 Ця конфігурація гарантує, що контент, оголошений у ваших компонентах, автоматично витягується й використовується для генерації словників під час процесу збірки.
 
-Переглянути повний посібник: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_nextjs_compiler.md)
+See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
 </Tabs>

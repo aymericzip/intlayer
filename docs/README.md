@@ -51,6 +51,7 @@ With **per-locale content files**, **TypeScript autocompletion**, **tree-shakabl
 | <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/frameworks.png?raw=true" alt="Feature" width="700">                          | **Cross-Frameworks Support**<br><br>Intlayer is compatible with all major frameworks and libraries, including Next.js, React, Vite, Vue.js, Nuxt, Preact, Express, and more.                                                                                                                                                                                                                                                                                                |
 | <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/javascript_content_management.jpg?raw=true" alt="Feature" width="700">       | **JavaScript-Powered Content Management**<br><br>Harness the flexibility of JavaScript to define and manage your content efficiently. <br><br> - [Content declaration](https://intlayer.org/doc/concept/content)                                                                                                                                                                                                                                                            |
 | <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/per_locale_content_declaration_file.png?raw=true" alt="Feature" width="700"> | **Per-Locale Content Declaration File**<br><br>Speed up your development by declaring your content once, before auto generation.<br><br> - [Per-Locale Content Declaration File](https://intlayer.org/doc/concept/per-locale-file)                                                                                                                                                                                                                                          |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.jpg?raw=true" alt="Feature" width="700">                            | **Compiler**<br><br>The Intlayer Compiler extract automatically the content from the components and generate the dictionary files.<br><br> - [Compiler](https://intlayer.org/doc/compiler)                                                                                                                                                                                                                                                                                  |
 | <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true" alt="Feature" width="700">                      | **Type-Safe Environment**<br><br>Leverage TypeScript to ensure your content definitions and code are error-free, while also benefiting from IDE autocompletion.<br><br> - [TypeScript configuration](https://intlayer.org/doc/environment/vite-and-react#configure-typescript)                                                                                                                                                                                              |
 | <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/config_file.png?raw=true" alt="Feature" width="700">                         | **Simplified Setup**<br><br>Get up and running quickly with minimal configuration. Adjust settings for internationalization, routing, AI, build, and content handling with ease. <br><br> - [Explore Next.js integration](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                                                                      |
 | <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/content_retrieval.png?raw=true" alt="Feature" width="700">                   | **Simplified Content Retrieval**<br><br>No need to call your `t` function for each piece of content. Retrieve all your content directly using a single hook.<br><br> - [React integration](https://intlayer.org/doc/environment/create-react-app)                                                                                                                                                                                                                           |
@@ -153,6 +154,8 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
   <li><a href="https://intlayer.org/doc/concept/how-works-intlayer" rel=''>How Intlayer Works</a></li>
   <li><a href="https://intlayer.org/doc/concept/configuration" rel=''>Configuration</a></li>
   <li><a href="https://intlayer.org/doc/concept/cli" rel=''>Intlayer CLI</a></li>
+  <li><a href="https://intlayer.org/doc/compiler" rel=''>Compiler</a></li>
+
   <li><a href="https://intlayer.org/doc/concept/editor" rel=''>Intlayer Editor</a></li>
   <li><a href="https://intlayer.org/doc/concept/cms" rel=''>Intlayer CMS</a></li>
   <li><a href="https://intlayer.org/doc/concept/content" rel=''>Dictionary</a>
@@ -179,17 +182,15 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
       <li><a href="https://intlayer.org/doc/environment/nextjs/15" rel=''>Next.js 15</a></li>
       <li><a href="https://intlayer.org/doc/environment/nextjs/14" rel=''>Next.js 14 (App Router)</a></li>
       <li><a href="https://intlayer.org/doc/environment/nextjs/next-with-Page-Router" rel=''>Next.js Page Router</a></li>
+      <li><a href="https://intlayer.org/doc/environment/nextjs/compiler" rel=''>Next.js using Compiler</a></li>
     </ul>
   </li>
   <li><a href="https://intlayer.org/doc/environment/create-react-app" rel=''>React CRA</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-react" rel=''>Vite + React</a>
-     <ul>
-      <li><a href="https://intlayer.org/doc/environment/vite-and-react/react-router-v7" rel=''>React-router-v7</a></li>
-      <li><a href="https://intlayer.org/doc/environment/vite-and-react/tanstack-start" rel=''>Tanstack start</a></li>
-    </ul>
-  </li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-react" rel=''>Vite + React</a></li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-react" rel=''>Vite + React using Compiler</a></li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-react/compiler" rel=''>React-router-v7</a></li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-react/tanstack-start" rel=''>Tanstack start</a></li>
   <li><a href="https://intlayer.org/doc/environment/react-native-and-expo" rel=''>React Native</a></li>
-  <li><a href="https://intlayer.org/doc/environment/lynx-and-react" rel=''>Lynx + React</a></li>
   <li><a href="https://intlayer.org/doc/environment/vite-and-svelte" rel=''>Vite + Svelte</a></li>
   <li><a href="https://intlayer.org/doc/environment/sveltekit" rel=''>SvelteKit</a></li>
   <li><a href="https://intlayer.org/doc/environment/vite-and-preact" rel=''>Vite + Preact</a></li>
@@ -197,8 +198,16 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
   <li><a href="https://intlayer.org/doc/environment/vite-and-nuxt" rel=''>Vite + Nuxt</a></li>
   <li><a href="https://intlayer.org/doc/environment/vite-and-solid" rel=''>Vite + Solid</a></li>
   <li><a href="https://intlayer.org/doc/environment/angular" rel=''>Angular</a></li>
-  <li><a href="https://intlayer.org/doc/environment/express" rel=''>Express</a></li>
-  <li><a href="https://intlayer.org/doc/environment/nest" rel=''>NestJS</a></li>
+  <li>
+     <a href="https://intlayer.org/doc/environment/express" rel=''>Backend</a>
+     <ul>
+      <li><a href="https://intlayer.org/doc/environment/express" rel=''>Express</a></li>
+      <li><a href="https://intlayer.org/doc/environment/nest" rel=''>NestJS</a></li>
+      <li><a href="https://intlayer.org/doc/environment/fastify" rel=''>Fastify</a></li>
+      <li><a href="https://intlayer.org/doc/environment/adonisjs" rel=''>AdonisJS</a></li>
+      <li><a href="https://intlayer.org/doc/environment/hono" rel=''>Hono</a></li>
+    </ul>
+  </li>
 </ul>
 </details>
 

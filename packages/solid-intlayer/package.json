@@ -56,7 +56,6 @@
     "./package.json"
   ],
   "scripts": {
-    "_prepublish": "cp -f ../../README.md ./README.md",
     "build": "vite build",
     "build:ci": "vite build",
     "clean": "rimraf ./dist .turbo",
@@ -65,7 +64,7 @@
     "format:fix": "biome format --write .",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
-    "prepublish": "echo prepublish temporally disabled to avoid rewrite readme",
+    "prepublish": "cp -f ../../README.md ./README.md",
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",
     "publish:latest": "bun publish --access public --tag latest || true",

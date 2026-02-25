@@ -154,6 +154,8 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
   <li><a href="https://intlayer.org/doc/concept/how-works-intlayer" rel=''>How Intlayer Works</a></li>
   <li><a href="https://intlayer.org/doc/concept/configuration" rel=''>Configuration</a></li>
   <li><a href="https://intlayer.org/doc/concept/cli" rel=''>Intlayer CLI</a></li>
+  <li><a href="https://intlayer.org/doc/compiler" rel=''>Compiler</a></li>
+
   <li><a href="https://intlayer.org/doc/concept/editor" rel=''>Intlayer Editor</a></li>
   <li><a href="https://intlayer.org/doc/concept/cms" rel=''>Intlayer CMS</a></li>
   <li><a href="https://intlayer.org/doc/concept/content" rel=''>Dictionary</a>
@@ -180,17 +182,15 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
       <li><a href="https://intlayer.org/doc/environment/nextjs/15" rel=''>Next.js 15</a></li>
       <li><a href="https://intlayer.org/doc/environment/nextjs/14" rel=''>Next.js 14 (App Router)</a></li>
       <li><a href="https://intlayer.org/doc/environment/nextjs/next-with-Page-Router" rel=''>Next.js Page Router</a></li>
+      <li><a href="https://intlayer.org/doc/environment/nextjs/compiler" rel=''>Next.js using Compiler</a></li>
     </ul>
   </li>
   <li><a href="https://intlayer.org/doc/environment/create-react-app" rel=''>React CRA</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-react" rel=''>Vite + React</a>
-     <ul>
-      <li><a href="https://intlayer.org/doc/environment/vite-and-react/react-router-v7" rel=''>React-router-v7</a></li>
-      <li><a href="https://intlayer.org/doc/environment/vite-and-react/tanstack-start" rel=''>Tanstack start</a></li>
-    </ul>
-  </li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-react" rel=''>Vite + React</a></li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-react" rel=''>Vite + React using Compiler</a></li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-react/compiler" rel=''>React-router-v7</a></li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-react/tanstack-start" rel=''>Tanstack start</a></li>
   <li><a href="https://intlayer.org/doc/environment/react-native-and-expo" rel=''>React Native</a></li>
-  <li><a href="https://intlayer.org/doc/environment/lynx-and-react" rel=''>Lynx + React</a></li>
   <li><a href="https://intlayer.org/doc/environment/vite-and-svelte" rel=''>Vite + Svelte</a></li>
   <li><a href="https://intlayer.org/doc/environment/sveltekit" rel=''>SvelteKit</a></li>
   <li><a href="https://intlayer.org/doc/environment/vite-and-preact" rel=''>Vite + Preact</a></li>
@@ -204,6 +204,8 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
       <li><a href="https://intlayer.org/doc/environment/express" rel=''>Express</a></li>
       <li><a href="https://intlayer.org/doc/environment/nest" rel=''>NestJS</a></li>
       <li><a href="https://intlayer.org/doc/environment/fastify" rel=''>Fastify</a></li>
+      <li><a href="https://intlayer.org/doc/environment/adonisjs" rel=''>AdonisJS</a></li>
+      <li><a href="https://intlayer.org/doc/environment/hono" rel=''>Hono</a></li>
     </ul>
   </li>
 </ul>

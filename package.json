@@ -62,6 +62,7 @@
     "prepare": "husky",
     "prepare:publish": "bun run clean && bun install && bun run build",
     "prepublish_": "bun turbo prepublish --filter=./packages/** --filter=./docs --filter=./apps/backend --filter=./plugins/**",
+    "prepublish": "turbo prepublish --filter=./packages/** --filter=./docs --filter=./apps/backend",
     "publish": "bun turbo publish --filter=./packages/** --filter=./docs --filter=./apps/backend --filter=./plugins/**",
     "publish:canary": "bun run prepare:publish && turbo publish:canary --filter=./packages/@intlayer/design-system && turbo publish:canary --filter=./packages/** --filter=./docs --filter=./apps/backend --filter=./plugins/**",
     "publish:canary:ok": "bun turbo publish:canary --filter=./packages/@intlayer/design-system && turbo publish:canary --filter=./packages/** --filter=./docs --filter=./apps/backend --filter=./plugins/**",
