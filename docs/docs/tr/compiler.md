@@ -143,4 +143,17 @@ Bu yapılandırma, bileşenlerinizde beyan edilen içeriğin otomatik olarak ç�
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
-</Tabs>
+
+### Eksik çevirileri doldur
+
+Intlayer, eksik çevirileri doldurmanıza yardımcı olacak bir CLI aracı sağlar. Kodunuzdaki eksik çevirileri test etmek ve doldurmak için `intlayer` komutunu kullanabilirsiniz.
+
+```bash
+npx intlayer test         # Eksik çeviri olup olmadığını test et
+```
+
+```bash
+npx intlayer fill         # Eksik çevirileri doldur
+```
+
+> Daha fazla ayrıntı için [CLI belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/ci.md) bakın.

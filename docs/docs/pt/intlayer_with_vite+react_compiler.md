@@ -329,6 +329,20 @@ const LocaleSwitcher: FC = () => {
 
 > Para aprender mais sobre o hook `useLocale`, consulte a [documentação](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md).
 
+### (Opcional) Etapa 7: Preencher traduções ausentes
+
+Intlayer fornece uma ferramenta CLI para ajudá-lo a preencher as traduções ausentes. Você pode usar o comando `intlayer` para testar e preencher as traduções ausentes do seu código.
+
+```bash
+npx intlayer test         # Testa se há traduções ausentes
+```
+
+```bash
+npx intlayer fill         # Preencher traduções ausentes
+```
+
+> Para mais detalhes, consulte a [documentação da CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/ci.md)
+
 ### Configuração do Git
 
 É recomendado ignorar os arquivos gerados pelo Intlayer. Isso permite que você evite commitá-los no seu repositório Git.

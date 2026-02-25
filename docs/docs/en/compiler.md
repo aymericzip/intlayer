@@ -144,3 +144,17 @@ See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymer
 
  </Tab>
 </Tabs>
+
+### Fill missing translation
+
+Intlayer provide a CLI tool to help you fill missing translations. You can use the `intlayer` command to test and fill missing translations from your code.
+
+```bash
+npx intlayer test         # Test if there is missing translations
+```
+
+```bash
+npx intlayer fill         # Fill missing translations
+```
+
+> For more details, refer to the [CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/ci.md)

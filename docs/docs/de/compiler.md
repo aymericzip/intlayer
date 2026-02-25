@@ -143,4 +143,17 @@ Diese Konfiguration stellt sicher, dass Inhalte, die in Ihren Komponenten deklar
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
-</Tabs>
+
+### Fehlende Übersetzungen ausfüllen
+
+Intlayer bietet ein CLI-Tool an, mit dem Sie fehlende Übersetzungen ausfüllen können. Sie können den Befehl `intlayer` verwenden, um fehlende Übersetzungen in Ihrem Code zu testen und auszufüllen.
+
+```bash
+npx intlayer test         # Testen, ob Übersetzungen fehlen
+```
+
+```bash
+npx intlayer fill         # Fehlende Übersetzungen ausfüllen
+```
+
+> Weitere Informationen finden Sie in der [CLI-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/ci.md)

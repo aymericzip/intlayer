@@ -333,6 +333,8 @@ npx intlayer test         # Uji apakah ada terjemahan yang hilang
 npx intlayer fill         # Isi terjemahan yang hilang
 ```
 
+> Untuk detail lebih lanjut, silakan merujuk ke [dokumentasi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/ci.md)
+
 ### (Opsional) Langkah 8: Middleware Proxy Rute Lokal
 
 Jika Anda ingin secara otomatis mengalihkan pengguna ke bahasa pilihan mereka, buat middleware proxy:

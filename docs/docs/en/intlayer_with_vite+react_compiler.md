@@ -328,12 +328,14 @@ const LocaleSwitcher: FC = () => {
 Intlayer provide a CLI tool to help you fill missing translations. You can use the `intlayer` command to test and fill missing translations from your code.
 
 ```bash
-npx intlayer test         # Test if there is missing transaltions
+npx intlayer test         # Test if there is missing translations
 ```
 
 ```bash
-npx intlayer fill         # Fill missing transaltions
+npx intlayer fill         # Fill missing translations
 ```
+
+> For more details, refer to the [CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/ci.md)
 
 ### Git Configuration
 

@@ -143,4 +143,17 @@ module.exports = {
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
-</Tabs>
+
+### लापता अनुवाद भरें
+
+Intlayer अनुवादों को भरने में आपकी सहायता के लिए एक CLI टूल प्रदान करता है। आप अपने कोड से लापता अनुवादों का परीक्षण करने और उन्हें भरने के लिए `intlayer` कमांड का उपयोग कर सकते हैं।
+
+```bash
+npx intlayer test         # परीक्षण करें कि क्या कोई अनुवाद लापता है
+```
+
+```bash
+npx intlayer fill         # लापता अनुवाद भरें
+```
+
+> अधिक विवरण के लिए, [CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/ci.md) देखें।

@@ -143,4 +143,17 @@ Esta configuração garante que o conteúdo declarado em seus componentes seja a
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
-</Tabs>
+
+### Preencher traduções ausentes
+
+Intlayer fornece uma ferramenta CLI para ajudá-lo a preencher as traduções ausentes. Você pode usar o comando `intlayer` para testar e preencher as traduções ausentes do seu código.
+
+```bash
+npx intlayer test         # Testa se há traduções ausentes
+```
+
+```bash
+npx intlayer fill         # Preencher traduções ausentes
+```
+
+> Para mais detalhes, consulte a [documentação da CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/ci.md)

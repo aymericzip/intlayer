@@ -324,6 +324,20 @@ const LocaleSwitcher: FC = () => {
 
 > `useLocale` フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md) を参照してください。
 
+### (オプション) ステップ 7: 欠落した翻訳を埋める
+
+Intlayerは、欠落した翻訳を埋めるためのCLIツールを提供しています。`intlayer`コマンドを使用して、コードから欠落した翻訳をテストおよび埋めることができます。
+
+```bash
+npx intlayer test         # 欠落した翻訳があるかテストする
+```
+
+```bash
+npx intlayer fill         # 欠落した翻訳を埋める
+```
+
+> 詳細については、[CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/ci.md)を参照してください。
+
 ### Git の構成
 
 Intlayer によって生成されたファイルを無視することをお勧めします。これにより、Git リポジトリへのコミットを避けることができます。

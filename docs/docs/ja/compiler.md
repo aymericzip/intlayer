@@ -143,4 +143,17 @@ module.exports = {
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
-</Tabs>
+
+### 欠落した翻訳を埋める
+
+Intlayerは、欠落した翻訳を埋めるためのCLIツールを提供しています。`intlayer`コマンドを使用して、コード内の欠落した翻訳をテストし、埋めることができます。
+
+```bash
+npx intlayer test         # 欠落した翻訳があるかテストする
+```
+
+```bash
+npx intlayer fill         # 欠落した翻訳を埋める
+```
+
+> 詳細については、[CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/ci.md)を参照してください。

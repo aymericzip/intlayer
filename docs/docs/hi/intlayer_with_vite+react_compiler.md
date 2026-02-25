@@ -325,6 +325,20 @@ const LocaleSwitcher: FC = () => {
 
 > `useLocale` हुक के बारे में अधिक जानने के लिए, [दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md) देखें।
 
+### (वैकल्पिक) चरण 7: लापता अनुवाद भरें
+
+Intlayer अनुवादों को भरने में आपकी सहायता के लिए एक CLI टूल प्रदान करता है। आप अपने कोड से लापता अनुवादों का परीक्षण करने और उन्हें भरने के लिए `intlayer` कमांड का उपयोग कर सकते हैं।
+
+```bash
+npx intlayer test         # परीक्षण करें कि क्या कोई अनुवाद लापता है
+```
+
+```bash
+npx intlayer fill         # लापता अनुवाद भरें
+```
+
+> अधिक विवरण के लिए, [CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/ci.md) देखें।
+
 ### Git कॉन्फ़िगरेशन
 
 Intlayer द्वारा उत्पन्न फ़ाइलों को अनदेखा करने की अनुशंसा की जाती है। यह आपको उन्हें अपने Git रिपॉजिटरी में कमिट करने से बचने की अनुमति देता है।

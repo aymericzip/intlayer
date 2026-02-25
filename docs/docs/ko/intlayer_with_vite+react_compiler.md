@@ -324,6 +324,20 @@ const LocaleSwitcher: FC = () => {
 
 > `useLocale` 훅에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useLocale.md)를 참조하세요.
 
+### (선택 사항) 7단계: 누락된 번역 채우기
+
+Intlayer는 누락된 번역을 채울 수 있도록 돕는 CLI 도구를 제공합니다. `intlayer` 명령어를 사용하여 코드에서 누락된 번역을 테스트하고 채울 수 있습니다.
+
+```bash
+npx intlayer test         # 누락된 번역이 있는지 테스트
+```
+
+```bash
+npx intlayer fill         # 누락된 번역 채우기
+```
+
+> 자세한 내용은 [CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/ci.md)를 참조하세요.
+
 ### Git 구성
 
 Intlayer에서 생성된 파일은 무시하는 것이 좋습니다. 이렇게 하면 Git 저장소에 커밋되는 것을 방지할 수 있습니다.

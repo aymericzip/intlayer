@@ -333,6 +333,8 @@ npx intlayer test         # 测试是否有缺失的翻译
 npx intlayer fill         # 填写缺失的翻译
 ```
 
+> 有关更多详细信息，请参阅 [CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/ci.md)
+
 ### (可选) 步骤 8：本地化路由代理中间件
 
 如果您希望自动将用户重定向到其偏好的语言环境，请建立代理解析中间件：

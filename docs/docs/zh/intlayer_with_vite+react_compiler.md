@@ -327,6 +327,20 @@ const LocaleSwitcher: FC = () => {
 
 > 要了解有关 `useLocale` 钩子的更多信息，请参阅 [文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)。
 
+### (可选) 第 7 步：填充缺失的翻译
+
+Intlayer 提供了一个 CLI 工具来帮助您填充缺失的翻译。您可以使用 `intlayer` 命令来测试并填充代码中缺失的翻译。
+
+```bash
+npx intlayer test         # 测试是否存在缺失的翻译
+```
+
+```bash
+npx intlayer fill         # 填充缺失的翻译
+```
+
+> 有关更多详细信息，请参阅 [CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/ci.md)
+
 ### Git 配置
 
 建议忽略 Intlayer 生成的文件。这可以避免将它们提交到您的 Git 仓库。

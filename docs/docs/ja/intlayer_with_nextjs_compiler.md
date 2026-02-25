@@ -333,6 +333,8 @@ npx intlayer test         # 不足している翻訳があるかテスト
 npx intlayer fill         # 不足している翻訳を埋める
 ```
 
+> 詳細については、[CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/ci.md)を参照してください。
+
 ### (オプション) ステップ 8: ローカライズされたルーティングプロキシミドルウェア
 
 ユーザーを優先ロケールに自動的にリダイレクトしたい場合は、プロキシミドルウェアを設定します：

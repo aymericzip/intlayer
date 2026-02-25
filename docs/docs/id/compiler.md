@@ -143,4 +143,17 @@ Konfigurasi ini memastikan bahwa konten yang dideklarasikan dalam komponen Anda 
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
-</Tabs>
+
+### Isi terjemahan yang hilang
+
+Intlayer menyediakan alat CLI untuk membantu Anda mengisi terjemahan yang hilang. Anda dapat menggunakan perintah `intlayer` untuk menguji dan mengisi terjemahan yang hilang dari kode Anda.
+
+```bash
+npx intlayer test         # Uji apakah ada terjemahan yang hilang
+```
+
+```bash
+npx intlayer fill         # Isi terjemahan yang hilang
+```
+
+> Untuk rincian lebih lanjut, silakan merujuk ke [dokumentasi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/ci.md)

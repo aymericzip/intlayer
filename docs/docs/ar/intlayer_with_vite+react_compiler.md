@@ -324,6 +324,20 @@ const LocaleSwitcher: FC = () => {
 
 > لمعرفة المزيد حول خطاف `useLocale` ، راجع [الوثائق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useLocale.md).
 
+### (اختياري) المرحلة 7: ملء الترجمات المفقودة
+
+يوفر Intlayer أداة CLI لمساعدتك في ملء الترجمات المفقودة. يمكنك استخدام الأمر `intlayer` لاختبار وملء الترجمات المفقودة من التعليمات البرمجية الخاصة بك.
+
+```bash
+npx intlayer test         # اختبار ما إذا كانت هناك ترجمات مفقودة
+```
+
+```bash
+npx intlayer fill         # ملء الترجمات المفقودة
+```
+
+> لمزيد من التفاصيل، راجع [وثائق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/ci.md)
+
 ### تكوين Git
 
 يوصى بتجاهل الملفات التي تم إنشاؤها بواسطة Intlayer. يتيح لك ذلك تجنب إضافتها إلى مستودع Git الخاص بك.

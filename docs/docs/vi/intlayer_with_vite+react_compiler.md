@@ -324,6 +324,20 @@ const LocaleSwitcher: FC = () => {
 
 > Để tìm hiểu thêm về hook `useLocale`, hãy tham khảo [tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md).
 
+### (Tùy chọn) Bước 7: Điền các bản dịch còn thiếu
+
+Intlayer cung cấp một công cụ CLI để giúp bạn điền các bản dịch còn thiếu. Bạn có thể sử dụng lệnh `intlayer` để kiểm tra và điền các bản dịch còn thiếu từ mã nguồn của bạn.
+
+```bash
+npx intlayer test         # Kiểm tra xem có bản dịch nào còn thiếu không
+```
+
+```bash
+npx intlayer fill         # Điền các bản dịch còn thiếu
+```
+
+> Để biết thêm chi tiết, vui lòng tham khảo [tài liệu CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/ci.md)
+
 ### Cấu hình Git
 
 Khuyên dùng bỏ qua các tệp do Intlayer tạo ra. Điều này giúp bạn tránh việc commit chúng vào kho lưu trữ Git của mình.

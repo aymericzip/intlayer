@@ -333,6 +333,8 @@ npx intlayer test         # 누락된 번역이 있는지 테스트
 npx intlayer fill         # 누락된 번역 채우기
 ```
 
+> 자세한 내용은 [CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/ci.md)를 참조하세요.
+
 ### (선택 사항) 8단계: 지역화된 라우팅 프록시 미들웨어
 
 사용자를 선호하는 로캘로 자동으로 리디렉션하려면 프록시 미들웨어를 설정하세요:

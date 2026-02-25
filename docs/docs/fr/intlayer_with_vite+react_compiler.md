@@ -324,6 +324,20 @@ const LocaleSwitcher: FC = () => {
 
 > Pour en savoir plus sur le hook `useLocale`, reportez-vous à la [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/react-intlayer/useLocale.md).
 
+### (Facultatif) Étape 7 : Remplir les traductions manquantes
+
+Intlayer fournit un outil CLI pour vous aider à remplir les traductions manquantes. Vous pouvez utiliser la commande `intlayer` pour tester et remplir les traductions manquantes à partir de votre code.
+
+```bash
+npx intlayer test         # Tester s'il y a des traductions manquantes
+```
+
+```bash
+npx intlayer fill         # Remplir les traductions manquantes
+```
+
+> Pour plus de détails, consultez la [documentation CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/ci.md)
+
 ### Configuration Git
 
 Il est recommandé d'ignorer les fichiers générés par Intlayer. Cela vous permet d'éviter de les committer dans votre dépôt Git.

@@ -143,4 +143,17 @@ module.exports = {
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
-</Tabs>
+
+### ملء الترجمات المفقودة
+
+يوفر Intlayer أداة CLI لمساعدتك في ملء الترجمات المفقودة. يمكنك استخدام أمر `intlayer` لاختبار وملء الترجمات المفقودة من الكود الخاص بك.
+
+```bash
+npx intlayer test         # اختبار ما إذا كانت هناك ترجمات مفقودة
+```
+
+```bash
+npx intlayer fill         # ملء الترجمات المفقودة
+```
+
+> لمزيد من التفاصيل، راجع [توثيق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/ci.md)

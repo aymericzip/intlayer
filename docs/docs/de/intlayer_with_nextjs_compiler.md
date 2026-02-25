@@ -333,6 +333,8 @@ npx intlayer test         # Testen, ob Übersetzungen fehlen
 npx intlayer fill         # Fehlende Übersetzungen ausfüllen
 ```
 
+> Weitere Informationen finden Sie in der [CLI-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/ci.md)
+
 ### (Optional) Schritt 8: Proxy zur Erkennung der Sprache konfigurieren
 
 Richten Sie einen Proxy ein, um die bevorzugte Sprache des Benutzers zu erkennen:

@@ -330,6 +330,20 @@ const LocaleSwitcher: FC = () => {
 
 > `useLocale` kancası hakkında daha fazla bilgi edinmek için [belgelere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md) bakın.
 
+### (İsteğe Bağlı) Adım 7: Eksik çevirileri doldur
+
+Intlayer, eksik çevirileri doldurmanıza yardımcı olacak bir CLI aracı sağlar. Kodunuzdaki eksik çevirileri test etmek ve doldurmak için `intlayer` komutunu kullanabilirsiniz.
+
+```bash
+npx intlayer test         # Eksik çeviri olup olmadığını test edin
+```
+
+```bash
+npx intlayer fill         # Eksik çevirileri doldurun
+```
+
+> Daha fazla ayrıntı için [CLI belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/ci.md) bakın.
+
 ### Git Yapılandırması
 
 Intlayer tarafından oluşturulan dosyaların yoksayılması önerilir. Bu, onları Git deponuza göndermenizi engeller.

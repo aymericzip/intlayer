@@ -143,4 +143,17 @@ Cấu hình này đảm bảo rằng nội dung được khai báo trong các co
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
-</Tabs>
+
+### Điền các bản dịch còn thiếu
+
+Intlayer cung cấp một công cụ CLI để giúp bạn điền các bản dịch còn thiếu. Bạn có thể sử dụng lệnh `intlayer` để kiểm tra và điền các bản dịch còn thiếu từ mã của mình.
+
+```bash
+npx intlayer test         # Kiểm tra xem có thiếu bản dịch không
+```
+
+```bash
+npx intlayer fill         # Điền các bản dịch còn thiếu
+```
+
+> Để biết thêm chi tiết, hãy tham khảo [tài liệu CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/ci.md)

@@ -143,4 +143,17 @@ Ta konfiguracja zapewnia, że zawartość zadeklarowana w Twoich komponentach je
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
-</Tabs>
+
+### Uzupełnij brakujące tłumaczenia
+
+Intlayer udostępnia narzędzie CLI, które pomaga uzupełnić brakujące tłumaczenia. Możesz użyć polecenia `intlayer`, aby przetestować i uzupełnić brakujące tłumaczenia w swoim kodzie.
+
+```bash
+npx intlayer test         # Sprawdź, czy brakuje tłumaczeń
+```
+
+```bash
+npx intlayer fill         # Uzupełnij brakujące tłumaczenia
+```
+
+> Więcej szczegółów znajdziesz w [dokumentacji CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/ci.md)

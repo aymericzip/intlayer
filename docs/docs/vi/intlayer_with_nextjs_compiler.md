@@ -333,6 +333,8 @@ npx intlayer test         # Kiểm tra xem có thiếu bản dịch không
 npx intlayer fill         # Điền các bản dịch còn thiếu
 ```
 
+> Để biết thêm chi tiết, vui lòng tham khảo [tài liệu CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/ci.md)
+
 ### (Không bắt buộc) Bước 8: Middleware Proxy cho Router Localized
 
 Nếu bạn muốn tự động chuyển hướng người dùng đến ngôn ngữ ưu thích của họ, hãy thiết lập một middleware proxy:

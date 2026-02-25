@@ -333,6 +333,8 @@ npx intlayer test         # Eksik çeviri olup olmadığını test et
 npx intlayer fill         # Eksik çevirileri doldur
 ```
 
+> Daha fazla ayrıntı için [CLI belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/ci.md) bakın.
+
 ### (İsteğe Bağlı) Adım 8: Yerelleştirilmiş Yönlendirme Proxy Ara Yazılımı
 
 Kullanıcıları otomatik olarak tercih ettikleri dildeki URL'ye yönlendirmek istiyorsanız, bir proxy ara yazılımı (middleware) kurun:

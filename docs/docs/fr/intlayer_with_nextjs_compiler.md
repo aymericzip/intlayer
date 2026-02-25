@@ -333,6 +333,8 @@ npx intlayer test         # Tester s'il y a des traductions manquantes
 npx intlayer fill         # Remplir les traductions manquantes
 ```
 
+> Pour plus de détails, consultez la [documentation CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/ci.md)
+
 ### (Optionnel) Étape 8 : Configurer le Proxy pour la Détection de Locale
 
 Mettez en place le proxy pour détecter la locale préférée de l'utilisateur :
