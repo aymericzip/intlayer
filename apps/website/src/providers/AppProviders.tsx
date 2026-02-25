@@ -2,7 +2,7 @@ import { ChunkErrorListener } from '@components/ChunkErrorListener';
 import { ServiceWorkerSubscriber } from '@components/ServiceWorker/ServiceWorkerSubscriber';
 import { Toaster } from '@intlayer/design-system';
 import { ReactQueryProvider } from '@intlayer/design-system/providers';
-import { GoogleTagManager } from '@next/third-parties/google';
+import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import type { FC, PropsWithChildren } from 'react';
 import { AnimatePresenceProvider } from './AnimatePresenceProvider';
 import { FirstConsultationProvider } from './FirstConsultationProvider';
@@ -18,6 +18,9 @@ export const AppProviders: FC<PropsWithChildren> = ({ children }) => {
           <GoogleTagManager
             gtmId={process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}
           />
+        )}
+        {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID} />
         )}
         <FirstConsultationProvider>{children}</FirstConsultationProvider>
       </ReactQueryProvider>
