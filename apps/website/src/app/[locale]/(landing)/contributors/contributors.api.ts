@@ -1,13 +1,14 @@
 import type { Contributor } from '@components/Contributors/ContributorsList';
+import { cacheLife } from 'next/cache';
 
 export const getContributors = async () => {
+  'use cache';
+  cacheLife('days');
+
   let contributors: Contributor[] = [];
   try {
     const response = await fetch(
-      'https://api.github.com/repos/aymericzip/intlayer/contributors',
-      {
-        next: { revalidate: 86400 },
-      }
+      'https://api.github.com/repos/aymericzip/intlayer/contributors'
     );
 
     if (response.ok) {
