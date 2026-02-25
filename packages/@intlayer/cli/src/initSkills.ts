@@ -121,6 +121,7 @@ function getInitialSkills(
     'Config',
     'Content',
     'RemoteContent',
+    'Compiler',
   ];
 
   if (deps.react || deps.next) skills.push('React');

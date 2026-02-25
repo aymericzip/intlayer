@@ -18,6 +18,8 @@ export const SKILLS_METADATA = {
   Svelte: 'Svelte-specific stores and syntax',
   Astro: 'Astro-specific usage and getIntlayer',
   CLI: 'Intlayer CLI commands and usage',
+  Compiler:
+    'Intlayer Compiler setup and usage for automatic content extraction without .content files',
 } as const;
 
 export const SKILLS = Object.keys(
