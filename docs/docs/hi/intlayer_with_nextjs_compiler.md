@@ -63,7 +63,7 @@ GitHub पर [एप्लिकेशन टेम्पलेट](https://git
 **Intlayer Compiler** को उस मैन्युअल काम को छोड़ने के लिए बनाया गया था। स्ट्रिंग्स को मैन्युअल रूप से निकालने के बजाय, यह कंपाइलर आपके लिए ऐसा करता है। यह आपके कोड को स्कैन करता है, टेक्स्ट ढूंढता है, और पृष्ठभूमि में शब्दकोश उत्पन्न करने के लिए AI का उपयोग करता है।
 फिर, यह आवश्यक i18n हुक को इंजेक्ट करने के लिए बिल्ड चरण के दौरान आपके सोर्स कोड को संशोधित करता है। मूल रूप से, आप अपना ऐप लिखते रहें जैसे कि वह एक भाषा में हो, और कंपाइलर बहुभाषी रूपांतरण को मूल रूप से संभालता है।
 
-> कंपाइलर दस्तावेज़: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md
+> कंपाइलर दस्तावेज़: [https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md)
 
 ### सीमाएं
 

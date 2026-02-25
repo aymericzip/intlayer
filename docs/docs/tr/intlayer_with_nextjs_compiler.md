@@ -63,7 +63,7 @@ Ardından asıl riskli kısım gelir: Tasarımı veya iş mantığını bozmadan
 **Intlayer Derleyicisi**, bu manuel işleri atlamanız için yaratıldı. Metin dizelerini manuel olarak çıkarmak yerine, derleyici bunu sizin yerinize yapar. Kodunuzu tarar, metinleri bulur ve arka planda sözlükleri oluşturmak için AI kullanır.
 Daha sonra, derleme adımı sırasında gerekli i18n hook'larını yerleştirmek için kaynak kodunuzu değiştirir. Temel olarak uygulamanızı tek bir dildeymiş gibi yazmaya devam edersiniz ve derleyici çok dilli dönüştürme işlemini otomatik olarak yönetir.
 
-> Derleyici belgeleri: https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md
+> Derleyici belgeleri: [https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
 
 ### Sınırlamalar
 

@@ -63,7 +63,7 @@ Dann kommt der riskante Teil: Das Ersetzen all dieses Textes durch Code-Hooks, o
 Der **Intlayer Compiler** wurde entwickelt, um diese manuelle Fleißarbeit zu umgehen. Anstatt Zeichenfolgen manuell zu extrahieren, erledigt der Compiler dies für Sie. Er scannt Ihren Code, findet den Text und verwendet KI, um im Hintergrund die Wörterbücher zu generieren.
 Anschließend modifiziert er Ihren Code während des Builds, um die erforderlichen i18n-Hooks einzufügen. Im Grunde schreiben Sie Ihre App so weiter, als wäre sie einsprachig, und der Compiler kümmert sich automatisch um die mehrsprachige Transformation.
 
-> Doc Compiler: https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md
+> Doc Compiler: [https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md)
 
 ### Einschränkungen
 

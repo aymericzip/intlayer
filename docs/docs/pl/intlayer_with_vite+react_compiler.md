@@ -63,7 +63,7 @@ Następnie przychodzi ryzykowna część: zastąpienie całego tego tekstu hooka
 **Intlayer Compiler** został stworzony, aby pominąć tę ręczną, żmudną pracę. Zamiast ręcznego wyodrębniania ciągów znaków, kompilator robi to za Ciebie. Skanuje Twój kod, znajduje tekst i używa AI do generowania słowników w tle.
 Następnie modyfikuje Twój kod podczas budowania, aby wstrzyknąć niezbędne hooki i18n. Zasadniczo piszesz aplikację tak, jakby była jednojęzyczna, a kompilator automatycznie zajmuje się wielojęzyczną transformacją.
 
-> Dokumentacja kompilatora: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md
+> Dokumentacja kompilatora: [https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md)
 
 ### Ograniczenia
 

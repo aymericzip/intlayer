@@ -63,7 +63,7 @@ history:
 تم بناء **مترجم Intlayer** لتجاوز هذا العمل اليدوي الشاق. بدلاً من استخراج السلاسل يدويًا، يقوم المترجم بذلك نيابة عنك. يقوم بمسح الكود الخاص بك، والعثور على النص، واستخدام الذكاء الاصطناعي لإنشاء القواميس خلف الكواليس.
 بعد ذلك، يقوم بتعديل الكود الخاص بك أثناء عملية البناء لحقن خطافات i18n اللازمة. بشكل أساسي، تواصل كتابة تطبيقك كما لو كان بلغة واحدة، ويتولى المترجم التحويل متعدد اللغات تلقائيًا.
 
-> وثائق المترجم: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md
+> وثائق المترجم: [https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)
 
 ### القيود
 

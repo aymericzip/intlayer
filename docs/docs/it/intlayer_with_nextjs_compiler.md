@@ -63,7 +63,7 @@ Poi arriva la parte rischiosa: sostituire tutto quel testo con hook di codice se
 L'**Intlayer Compiler** è stato creato per saltare questo lavoro manuale. Invece di costringerti a estrarre le stringhe a mano, il compilatore lo fa per te. Scansiona il codice, trova il testo e usa l'IA per generare i dizionari dietro le quinte.
 Quindi, modifica il codice durante la build per iniettare gli hook i18n necessari. In sostanza, continui a scrivere l'app come se fosse monolingua, e il compilatore gestisce automaticamente la trasformazione multilingue.
 
-> Doc Compilatore: https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md
+> Doc Compilatore: [https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md)
 
 ### Limitazioni
 

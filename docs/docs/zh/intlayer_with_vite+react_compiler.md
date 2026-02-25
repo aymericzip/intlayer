@@ -63,7 +63,7 @@ history:
 **Intlayer 编译器** 旨在跳过那些手动的琐事。编译器为您完成字符串提取，而不是由您手动提取。它扫描您的代码，找到文本，并使用 AI 在幕后生成字典。
 然后，它在构建期间修改您的代码以注入必要的 i18n 钩子。基本上，您继续像编写单语言应用一样编写应用，编译器会自动处理多语言转换。
 
-> 编译器文档：https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md
+> 编译器文档：[https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)
 
 ### 局限性
 

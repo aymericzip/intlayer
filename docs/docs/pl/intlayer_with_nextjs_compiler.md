@@ -63,7 +63,7 @@ Potem nadchodzi ryzykowna część: zastąpienie całego tego tekstu wywołaniam
 **Kompilator Intlayer** został stworzony po to, by pominąć tę ręczną pracę. Zamiast zmuszać Cię do ręcznego wyciągania ciągów znaków, kompilator robi to za Ciebie. Skanuje Twój kod, znajduje tekst i wykorzystuje AI do generowania słowników w tle.
 Następnie modyfikuje Twój kod podczas kompilacji (build), automatycznie wstrzykując potrzebne wywołania i18n. Zasadniczo nadal piszesz aplikację tak, jakby była w jednym języku, a kompilator zajmuje się wielojęzyczną transformacją natywnie.
 
-> Dokumentacja kompilatora: https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md
+> Dokumentacja kompilatora: [https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md)
 
 ### Ograniczenia
 

@@ -63,7 +63,7 @@ GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlay
 **Intlayer Compiler**는 그런 수작업을 건너뛰기 위해 만들어졌습니다. 개발자가 문자열을 수동으로 추출하는 대신, 컴파일러가 알아서 해줍니다. 컴파일러는 코드를 스캔하고 텍스트를 찾아 AI를 사용하여 백그라운드에서 사전을 생성합니다.
 그런 다음 빌드 단계 중에 소스 코드를 수정하여 필요한 i18n 훅을 주입합니다. 기본적으로 앱을 단일 언어인 것처럼 계속 작성하면 컴파일러가 다국어 변환을 네이티브로 처리합니다.
 
-> 컴파일러 문서: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md
+> 컴파일러 문서: [https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md)
 
 ### 제한 사항
 

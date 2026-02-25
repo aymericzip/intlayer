@@ -63,7 +63,7 @@ Ensuite vient la partie risquée : remplacer tout ce texte par des hooks de code
 Le **Compilateur Intlayer** a été conçu pour vous épargner ce travail manuel fastidieux. Au lieu d'extraire manuellement les chaînes, le compilateur le fait pour vous. Il scanne votre code, repère le texte et utilise l'IA pour générer les dictionnaires en arrière-plan.
 Ensuite, il modifie votre code pendant la compilation pour injecter les hooks i18n nécessaires. En gros, vous continuez à coder votre application comme si elle était monolingue, et le compilateur se charge de la transformation multilingue automatiquement.
 
-> Doc Compilateur : https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md
+> Doc Compilateur : [https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md)
 
 ### Limites
 

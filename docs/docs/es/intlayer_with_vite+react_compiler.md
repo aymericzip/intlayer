@@ -63,7 +63,7 @@ Luego viene la parte arriesgada: reemplazar todo ese texto con ganchos de códig
 El **Compilador de Intlayer** fue construido para saltarse ese trabajo manual pesado. En lugar de extraer las cadenas manualmente, el compilador lo hace por ti. Escanea tu código, encuentra el texto y utiliza IA para generar los diccionarios en segundo plano.
 Luego, modifica tu código durante la construcción para inyectar los ganchos i18n necesarios. Básicamente, sigues escribiendo tu aplicación como si fuera de un solo idioma, y el compilador se encarga de la transformación multilingüe automáticamente.
 
-> Documentación del Compilador: https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md
+> Documentación del Compilador: [https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md)
 
 ### Limitaciones
 

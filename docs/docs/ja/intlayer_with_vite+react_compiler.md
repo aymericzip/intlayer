@@ -63,7 +63,7 @@ GitHub で [アプリケーションテンプレート](https://github.com/aymer
 **Intlayer Compiler** は、その手作業をスキップするために構築されました。手動で文字列を抽出する代わりに、コンパイラが自動的に行います。コードをスキャンしてテキストを見つけ、バックグラウンドで AI を使用して辞書を生成します。
 その後、ビルド中にコードを変更して、必要な i18n フックを注入します。基本的には、単一言語であるかのようにアプリを書き続け、コンパイラが多言語への変換を自動的に処理します。
 
-> Doc Compiler: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md
+> Doc Compiler: [https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
 
 ### 制限事項
 

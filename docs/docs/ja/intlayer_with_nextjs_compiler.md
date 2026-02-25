@@ -63,7 +63,7 @@ GitHubで[アプリケーションテンプレート](https://github.com/aymeric
 **Intlayerコンパイラ**は、そのような手作業を回避するために作られました。手動で文字列を抽出する代わりに、コンパイラがそれを自動で行います。コードをスキャンし、テキストを見つけ、バックグラウンドでAIを使用して辞書を生成します。
 その後、ビルドステップ中にソースコードを変更し、必要なi18nフックを注入します。基本的に、あなたは単一言語であるかのようにアプリケーションを書き続けるだけで、コンパイラが多言語への変換処理をネイティブに処理します。
 
-> コンパイラのドキュメント: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md
+> コンパイラのドキュメント: [https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md)
 
 ### 制限事項
 

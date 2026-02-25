@@ -63,7 +63,7 @@ Lalu bagian yang berisiko: mengganti semua teks tersebut dengan kait kode (code 
 **Intlayer Compiler** dibuat untuk melewati pekerjaan manual tersebut. Alih-alih memaksa Anda mengekstrak string secara manual, kompiler melakukannya untuk Anda. Ia memindai kode Anda, menemukan teks, dan menggunakan AI untuk menghasilkan kamus (dictionary) di latar belakang (background).
 Kemudian, ia memodifikasi kode sumber (source code) Anda selama langkah build untuk menyuntikkan i18n hooks yang diperlukan. Pada dasarnya, Anda tetap menulis aplikasi Anda seolah-olah dalam satu bahasa, dan kompiler akan menangani transformasi multibahasa secara asli.
 
-> Dokumentasi Kompiler: https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md
+> Dokumentasi Kompiler: [https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md)
 
 ### Keterbatasan
 

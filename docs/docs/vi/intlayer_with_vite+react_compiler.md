@@ -63,7 +63,7 @@ Sau đó là phần đầy rủi ro: thay thế toàn bộ văn bản đó bằn
 **Intlayer Compiler** được xây dựng để bỏ qua những công việc thủ công nặng nhọc đó. Thay vì bạn phải tự trích xuất các chuỗi ký tự, trình biên dịch sẽ làm việc đó cho bạn. Nó quét mã của bạn, tìm văn bản và sử dụng AI để tạo ra các từ điển ở chế độ nền.
 Sau đó, nó sửa đổi mã của bạn trong quá trình xây dựng (build) để chèn các hook i18n cần thiết. Về cơ bản, bạn vẫn viết ứng dụng như thể nó chỉ có một ngôn ngữ, và trình biên dịch sẽ tự động xử lý việc chuyển đổi đa ngôn ngữ.
 
-> Tài liệu trình biên dịch: https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md
+> Tài liệu trình biên dịch: [https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md)
 
 ### Hạn chế
 
