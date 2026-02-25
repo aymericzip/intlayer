@@ -6,9 +6,13 @@ import {
 } from '@intlayer/docs';
 import { getMultilingualUrls } from 'intlayer';
 import type { MetadataRoute } from 'next';
+import { cacheLife } from 'next/cache';
 import { PagesRoutes } from '@/Routes';
 
 const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
+  'use cache';
+  cacheLife('weeks');
+
   const docs = await getDocMetadataBySlug([]);
   const blob = await getBlogMetadataBySlug([]);
   const legal = await getLegalMetadataBySlug([]);

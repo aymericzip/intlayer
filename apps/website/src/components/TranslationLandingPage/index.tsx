@@ -1,109 +1,74 @@
-'use client';
-
+import dynamic from 'next/dynamic';
 import type { FC } from 'react';
-import { lazy, Suspense } from 'react';
 
-const HeroSection = lazy(() =>
-  import('./HeroSection').then((module) => ({ default: module.HeroSection }))
+const HeroSection = dynamic(() =>
+  import('./HeroSection').then((module) => module.HeroSection)
 );
-const ProvidersCarousel = lazy(() =>
-  import('./ProvidersCarousel').then((module) => ({
-    default: module.ProvidersCarousel,
-  }))
+const ProvidersCarousel = dynamic(() =>
+  import('./ProvidersCarousel').then((module) => module.ProvidersCarousel)
 );
-const CommandsSection = lazy(() =>
-  import('./CommandsSection').then((module) => ({
-    default: module.CommandsSection,
-  }))
+const CommandsSection = dynamic(() =>
+  import('./CommandsSection').then((module) => module.CommandsSection)
 );
-const KeyPointsSection = lazy(() =>
-  import('./KeyPointsSection').then((module) => ({
-    default: module.KeyPointsSection,
-  }))
+const KeyPointsSection = dynamic(() =>
+  import('./KeyPointsSection').then((module) => module.KeyPointsSection)
 );
-const LocalVsServerSection = lazy(() =>
-  import('./LocalVsServerSection').then((module) => ({
-    default: module.LocalVsServerSection,
-  }))
+const LocalVsServerSection = dynamic(() =>
+  import('./LocalVsServerSection').then((module) => module.LocalVsServerSection)
 );
-const HowItWorksSection = lazy(() =>
-  import('./HowItWorksSection').then((module) => ({
-    default: module.HowItWorksSection,
-  }))
+const HowItWorksSection = dynamic(() =>
+  import('./HowItWorksSection').then((module) => module.HowItWorksSection)
 );
-const CTASection = lazy(() =>
-  import('./CTASection').then((module) => ({ default: module.CTASection }))
+const CTASection = dynamic(() =>
+  import('./CTASection').then((module) => module.CTASection)
 );
-const ProductsSection = lazy(() =>
-  import('@components/LandingPage/ProductsSection').then((module) => ({
-    default: module.ProductsSection,
-  }))
+const ProductsSection = dynamic(() =>
+  import('@components/LandingPage/ProductsSection').then(
+    (module) => module.ProductsSection
+  )
 );
-const ContributorSection = lazy(() =>
-  import('@components/LandingPage/ContributorSection').then((module) => ({
-    default: module.ContributorSection,
-  }))
+const ContributorSection = dynamic(() =>
+  import('@components/LandingPage/ContributorSection').then(
+    (module) => module.ContributorSection
+  )
 );
-
-const LanguageSection = lazy(() =>
-  import('@intlayer/design-system').then((module) => ({
-    default: module.LanguageSection,
-  }))
+const LanguageSection = dynamic(() =>
+  import('@intlayer/design-system').then((module) => module.LanguageSection)
 );
 
 export const AiTranslationLandingCore: FC = () => {
   return (
     <div>
       {/* Hero Section with ambient effects */}
-      <Suspense fallback={<div className="min-h-screen" />}>
-        <HeroSection />
-        {/* Providers Carousel */}
-        <Suspense fallback={<div className="py-8" />}>
-          <ProvidersCarousel />
-        </Suspense>
-      </Suspense>
+      <HeroSection />
+      {/* Providers Carousel */}
+      <ProvidersCarousel />
 
       {/* Commands Section */}
-      <Suspense fallback={<div className="py-24" />}>
-        <CommandsSection />
-      </Suspense>
+      <CommandsSection />
 
       {/* Key Points Section */}
-      <Suspense fallback={<div className="py-24" />}>
-        <KeyPointsSection />
-      </Suspense>
+      <KeyPointsSection />
 
       {/* Local vs Server Section */}
-      <Suspense fallback={<div className="py-24" />}>
-        <LocalVsServerSection />
-      </Suspense>
+      <LocalVsServerSection />
 
       {/* Language Section (from design-system, not lazy) */}
-      <Suspense fallback={<div className="py-24" />}>
-        <LanguageSection />
-      </Suspense>
+      <LanguageSection />
 
       {/* How It Works Section */}
-      <Suspense fallback={<div className="py-24" />}>
-        <HowItWorksSection />
-      </Suspense>
+      <HowItWorksSection />
 
       {/* Products Section */}
-      <Suspense fallback={<div className="py-24" />}>
-        <ProductsSection />
-      </Suspense>
+      <ProductsSection />
 
       {/* Community Section */}
       <section>
-        <Suspense fallback={<div className="py-24" />}>
-          <ContributorSection />
-        </Suspense>
+        <ContributorSection />
       </section>
 
       {/* CTA Section */}
-      <Suspense fallback={<div className="py-24" />}>
-        <CTASection />
-      </Suspense>
+      <CTASection />
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import { getBlog, getBlogMetadataBySlug } from '@intlayer/docs';
+import { cacheLife } from 'next/cache';
 
 type RouteContext = {
   params: {
@@ -7,27 +8,38 @@ type RouteContext = {
   };
 };
 
+async function findFrequentQuestionMetadata(
+  slugs: string | string[],
+  locale: string
+) {
+  'use cache';
+  cacheLife('weeks');
+
+  const normalizedSlugs = ['blog', ...(Array.isArray(slugs) ? slugs : [slugs])];
+  return await getBlogMetadataBySlug(normalizedSlugs, locale as any, true);
+}
+
+async function getCachedFrequentQuestion(docKey: string, locale: string) {
+  'use cache';
+  cacheLife('weeks');
+
+  return await getBlog(docKey as any, locale as any);
+}
+
 export async function GET(request: Request, context: RouteContext) {
   try {
     const { locale, slugs } = context.params;
 
-    // Blog metadata slugs start with 'blog', while the route omits it.
-    const normalizedSlugs = [
-      'blog',
-      ...(Array.isArray(slugs) ? slugs : [slugs]),
-    ];
-
-    const matches = await getBlogMetadataBySlug(
-      normalizedSlugs,
-      locale as any,
-      true
-    );
+    const matches = await findFrequentQuestionMetadata(slugs, locale);
 
     if (!matches || matches.length === 0) {
       return new Response('Not found', { status: 404 });
     }
 
-    const file = await getBlog(matches[0].docKey as any, locale as any);
+    const file = await getCachedFrequentQuestion(
+      matches[0].docKey as string,
+      locale
+    );
 
     const url = new URL(request.url);
     const format = (url.searchParams.get('format') || '').toLowerCase();
@@ -96,16 +108,7 @@ export async function HEAD(request: Request, context: RouteContext) {
   try {
     const { locale, slugs } = context.params;
 
-    const normalizedSlugs = [
-      'blog',
-      ...(Array.isArray(slugs) ? slugs : [slugs]),
-    ];
-
-    const matches = await getBlogMetadataBySlug(
-      normalizedSlugs,
-      locale as any,
-      true
-    );
+    const matches = await findFrequentQuestionMetadata(slugs, locale);
 
     if (!matches || matches.length === 0) {
       return new Response(null, { status: 404 });

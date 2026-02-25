@@ -5,6 +5,7 @@ import {
   getDocMetadataBySlug,
   getDocsKeys,
 } from '@intlayer/docs';
+import { cacheLife } from 'next/cache';
 
 type RouteContext = {
   params: Promise<{
@@ -17,6 +18,9 @@ async function findDocMetadata(
   slugs: string | string[],
   locale: string
 ): Promise<DocMetadata | undefined> {
+  'use cache';
+  cacheLife('weeks');
+
   const slugsArray = Array.isArray(slugs) ? slugs : [slugs];
 
   // 1. Try metadata slugs (normalized with 'doc' prefix)
@@ -55,6 +59,12 @@ async function findDocMetadata(
   return undefined;
 }
 
+async function getCachedDoc(docKey: string, locale: string) {
+  'use cache';
+  cacheLife('weeks');
+  return await getDoc(docKey as any, locale as any);
+}
+
 export async function GET(request: Request, context: RouteContext) {
   try {
     const { locale, slugs } = await context.params;
@@ -78,7 +88,7 @@ Case-insensitive match? ${docsKeys.find((k) => k.toLowerCase() === potentialDocK
       );
     }
 
-    const file = await getDoc(fileMetadata.docKey as any, locale as any);
+    const file = await getCachedDoc(fileMetadata.docKey as string, locale);
 
     const url = new URL(request.url);
     const format = (url.searchParams.get('format') || '').toLowerCase();
