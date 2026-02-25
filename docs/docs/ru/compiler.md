@@ -53,6 +53,9 @@ history:
 
 ## Использование
 
+<Tabs>
+ <Tab value='vite'>
+
 ### Vite
 
 Для приложений на базе Vite (React, Vue, Svelte и др.) самый простой способ использовать компилятор — через плагин `vite-intlayer`.
@@ -99,6 +102,9 @@ npm install @intlayer/vue-compiler
 npm install @intlayer/svelte-compiler
 ```
 
+ </Tab>
+ <Tab value='nextjs'>
+
 ### Next.js (Babel)
 
 Для Next.js или других приложений на основе Webpack с использованием Babel вы можете настроить компилятор с помощью плагина `@intlayer/babel`.
@@ -135,3 +141,6 @@ module.exports = {
 Эта конфигурация гарантирует, что контент, объявленный в ваших компонентах, автоматически извлекается и используется для генерации словарей во время процесса сборки.
 
 Посмотреть полное руководство: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_compiler.md
+
+ </Tab>
+</Tabs>

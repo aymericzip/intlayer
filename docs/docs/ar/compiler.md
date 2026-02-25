@@ -53,6 +53,9 @@ history:
 
 ## الاستخدام
 
+<Tabs>
+ <Tab value='vite'>
+
 ### Vite
 
 بالنسبة للتطبيقات المبنية على Vite (React، Vue، Svelte، إلخ)، أسهل طريقة لاستخدام المترجم هي من خلال إضافة `vite-intlayer`.
@@ -99,6 +102,9 @@ npm install @intlayer/vue-compiler
 npm install @intlayer/svelte-compiler
 ```
 
+ </Tab>
+ <Tab value='nextjs'>
+
 ### Next.js (Babel)
 
 بالنسبة لتطبيقات Next.js أو التطبيقات الأخرى المبنية على Webpack والتي تستخدم Babel، يمكنك تكوين المترجم باستخدام إضافة `@intlayer/babel`.
@@ -135,3 +141,6 @@ module.exports = {
 يضمن هذا التكوين استخراج المحتوى المعلن في مكوناتك تلقائيًا واستخدامه لتوليد القواميس أثناء عملية البناء.
 
 عرض البرنامج التعليمي الكامل: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_compiler.md
+
+ </Tab>
+</Tabs>

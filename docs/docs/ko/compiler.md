@@ -53,6 +53,9 @@ history:
 
 ## 사용법
 
+<Tabs>
+ <Tab value='vite'>
+
 ### Vite
 
 Vite 기반 애플리케이션(React, Vue, Svelte 등)의 경우, 컴파일러를 사용하는 가장 쉬운 방법은 `vite-intlayer` 플러그인을 사용하는 것입니다.
@@ -99,6 +102,9 @@ npm install @intlayer/vue-compiler
 npm install @intlayer/svelte-compiler
 ```
 
+ </Tab>
+ <Tab value='nextjs'>
+
 ### Next.js (Babel)
 
 Next.js 또는 Babel을 사용하는 다른 Webpack 기반 애플리케이션의 경우, `@intlayer/babel` 플러그인을 사용하여 컴파일러를 구성할 수 있습니다.
@@ -135,3 +141,6 @@ module.exports = {
 이 구성은 컴포넌트 내에 선언된 콘텐츠가 자동으로 추출되어 빌드 과정 중에 사전 생성에 사용되도록 보장합니다.
 
 전체 튜토리얼 보기: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_compiler.md
+
+ </Tab>
+</Tabs>

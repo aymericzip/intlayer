@@ -53,6 +53,9 @@ Alternatif olarak, içeriğiniz üzerinde tam kontrolü korurken i18n süreciniz
 
 ## Kullanım
 
+<Tabs>
+ <Tab value='vite'>
+
 ### Vite
 
 Vite tabanlı uygulamalar (React, Vue, Svelte, vb.) için derleyiciyi kullanmanın en kolay yolu `vite-intlayer` eklentisidir.
@@ -99,6 +102,9 @@ npm install @intlayer/vue-compiler
 npm install @intlayer/svelte-compiler
 ```
 
+ </Tab>
+ <Tab value='nextjs'>
+
 ### Next.js (Babel)
 
 Next.js veya Babel kullanan diğer Webpack tabanlı uygulamalar için, derleyiciyi `@intlayer/babel` eklentisi ile yapılandırabilirsiniz.
@@ -135,3 +141,6 @@ module.exports = {
 Bu yapılandırma, bileşenlerinizde beyan edilen içeriğin otomatik olarak çıkarılmasını ve derleme süreciniz sırasında sözlüklerin oluşturulmasında kullanılmasını sağlar.
 
 Tam öğreticiyi görün: https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_nextjs_compiler.md
+
+ </Tab>
+</Tabs>

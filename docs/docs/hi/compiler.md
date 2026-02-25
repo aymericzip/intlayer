@@ -53,6 +53,9 @@ history:
 
 ## उपयोग
 
+<Tabs>
+ <Tab value='vite'>
+
 ### Vite
 
 Vite-आधारित एप्लिकेशन (React, Vue, Svelte, आदि) के लिए, कंपाइलर का उपयोग करने का सबसे आसान तरीका `vite-intlayer` प्लगइन के माध्यम से है।
@@ -99,6 +102,9 @@ npm install @intlayer/vue-compiler
 npm install @intlayer/svelte-compiler
 ```
 
+ </Tab>
+ <Tab value='nextjs'>
+
 ### Next.js (Babel)
 
 Next.js या अन्य Webpack-आधारित एप्लिकेशन जो Babel का उपयोग करते हैं, उनके लिए आप `@intlayer/babel` प्लगइन का उपयोग करके कंपाइलर को कॉन्फ़िगर कर सकते हैं।
@@ -135,3 +141,6 @@ module.exports = {
 यह कॉन्फ़िगरेशन सुनिश्चित करता है कि आपके कंपोनेंट्स में घोषित सामग्री स्वचालित रूप से निकाली जाए और आपके बिल्ड प्रक्रिया के दौरान शब्दकोश बनाने के लिए उपयोग की जाए।
 
 पूरा ट्यूटोरियल देखें: https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_compiler.md
+
+ </Tab>
+</Tabs>

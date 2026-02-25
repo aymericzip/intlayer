@@ -53,6 +53,9 @@ history:
 
 ## 使い方
 
+<Tabs>
+ <Tab value='vite'>
+
 ### Vite
 
 Viteベースのアプリケーション（React、Vue、Svelteなど）では、`vite-intlayer` プラグインを使うのが最も簡単な方法です。
@@ -99,6 +102,9 @@ npm install @intlayer/vue-compiler
 npm install @intlayer/svelte-compiler
 ```
 
+ </Tab>
+ <Tab value='nextjs'>
+
 ### Next.js (Babel)
 
 Next.jsやその他のWebpackベースのBabelを使用するアプリケーションでは、`@intlayer/babel`プラグインを使ってコンパイラを設定できます。
@@ -135,3 +141,6 @@ module.exports = {
 この設定により、コンポーネント内で宣言されたコンテンツが自動的に抽出され、ビルドプロセス中に辞書の生成に使用されます。
 
 完全なチュートリアルを見る: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_nextjs_compiler.md
+
+ </Tab>
+</Tabs>

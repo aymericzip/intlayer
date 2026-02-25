@@ -53,6 +53,9 @@ Come alternativa, per automatizzare il tuo processo i18n mantenendo il pieno con
 
 ## Utilizzo
 
+<Tabs>
+ <Tab value='vite'>
+
 ### Vite
 
 Per le applicazioni basate su Vite (React, Vue, Svelte, ecc.), il modo più semplice per utilizzare il compiler è tramite il plugin `vite-intlayer`.
@@ -99,6 +102,9 @@ npm install @intlayer/vue-compiler
 npm install @intlayer/svelte-compiler
 ```
 
+ </Tab>
+ <Tab value='nextjs'>
+
 ### Next.js (Babel)
 
 Per Next.js o altre applicazioni basate su Webpack che utilizzano Babel, puoi configurare il compiler usando il plugin `@intlayer/babel`.
@@ -135,3 +141,6 @@ module.exports = {
 Questa configurazione garantisce che il contenuto dichiarato nei tuoi componenti venga estratto automaticamente e utilizzato per generare i dizionari durante il processo di build.
 
 Vedi il tutorial completo: https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_compiler.md
+
+ </Tab>
+</Tabs>

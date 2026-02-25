@@ -53,6 +53,9 @@ history:
 
 ## 使用方法
 
+<Tabs>
+ <Tab value='vite'>
+
 ### Vite
 
 对于基于 Vite 的应用（React、Vue、Svelte 等），使用编译器最简单的方法是通过 `vite-intlayer` 插件。
@@ -99,6 +102,9 @@ npm install @intlayer/vue-compiler
 npm install @intlayer/svelte-compiler
 ```
 
+ </Tab>
+ <Tab value='nextjs'>
+
 ### Next.js（Babel）
 
 对于使用 Babel 的 Next.js 或其他基于 Webpack 的应用，可以通过 `@intlayer/babel` 插件配置编译器。
@@ -135,3 +141,6 @@ module.exports = {
 此配置确保在构建过程中，组件中声明的内容会被自动提取并用于生成字典。
 
 查看完整教程： https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_compiler.md
+
+ </Tab>
+</Tabs>

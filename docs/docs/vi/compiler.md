@@ -53,6 +53,9 @@ Như một giải pháp thay thế, để tự động hóa quy trình i18n củ
 
 ## Cách sử dụng
 
+<Tabs>
+ <Tab value='vite'>
+
 ### Vite
 
 Đối với các ứng dụng dựa trên Vite (React, Vue, Svelte, v.v.), cách dễ nhất để sử dụng trình biên dịch là thông qua plugin `vite-intlayer`.
@@ -99,6 +102,9 @@ npm install @intlayer/vue-compiler
 npm install @intlayer/svelte-compiler
 ```
 
+ </Tab>
+ <Tab value='nextjs'>
+
 ### Next.js (Babel)
 
 Đối với Next.js hoặc các ứng dụng dựa trên Webpack sử dụng Babel, bạn có thể cấu hình trình biên dịch bằng cách sử dụng plugin `@intlayer/babel`.
@@ -132,6 +138,9 @@ module.exports = {
 };
 ```
 
-Cấu hình này đảm bảo rằng nội dung được khai báo trong các component của bạn sẽ được tự động trích xuất và sử dụng để tạo từ điển trong quá trình build.
+Cấu hình này đảm bảo rằng nội dung được khai báo trong các component của bạn será được tự động trích xuất và sử dụng để tạo từ điển trong quá trình build.
 
 Xem hướng dẫn đầy đủ: https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_compiler.md
+
+ </Tab>
+</Tabs>
