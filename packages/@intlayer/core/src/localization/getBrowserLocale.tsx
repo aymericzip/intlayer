@@ -31,7 +31,7 @@ export const localeStorageOptions: LocaleStorageOptions = {
       expires: attributes.expires,
       sameSite: attributes.sameSite,
     }),
-  setCookieString: (cookie) => {
+  setCookieString: (_name, cookie) => {
     // biome-ignore lint/suspicious/noDocumentCookie: set cookie fallback
     document.cookie = cookie;
   },
