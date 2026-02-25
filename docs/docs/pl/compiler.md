@@ -82,7 +82,7 @@ export default defineConfig({
 });
 ```
 
-Zobacz pełny samouczek: https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_vite+react_compiler.md
+Zobacz pełny samouczek: [Intlayer Compiler with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_vite+react_compiler.md)
 
 #### Wsparcie dla frameworków
 
@@ -140,7 +140,7 @@ module.exports = {
 
 Ta konfiguracja zapewnia, że zawartość zadeklarowana w Twoich komponentach jest automatycznie wyodrębniana i używana do generowania słowników podczas procesu budowania.
 
-Zobacz pełny samouczek: https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_compiler.md
+Zobacz pełny samouczek: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_compiler.md)
 
  </Tab>
 </Tabs>

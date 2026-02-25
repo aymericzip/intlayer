@@ -82,7 +82,7 @@ export default defineConfig({
 });
 ```
 
-عرض البرنامج التعليمي الكامل: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react_compiler.md
+عرض البرنامج التعليمي الكامل: [Intlayer Compiler with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_vite+react_compiler.md)
 
 #### دعم الأُطُر
 
@@ -140,7 +140,7 @@ module.exports = {
 
 يضمن هذا التكوين استخراج المحتوى المعلن في مكوناتك تلقائيًا واستخدامه لتوليد القواميس أثناء عملية البناء.
 
-عرض البرنامج التعليمي الكامل: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_compiler.md
+عرض البرنامج التعليمي الكامل: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_compiler.md)
 
  </Tab>
 </Tabs>

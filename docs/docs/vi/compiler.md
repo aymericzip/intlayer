@@ -82,7 +82,7 @@ export default defineConfig({
 });
 ```
 
-Xem hướng dẫn đầy đủ: https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+react_compiler.md
+Xem hướng dẫn đầy đủ: [Intlayer Compiler with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_vite+react_compiler.md)
 
 #### Hỗ trợ Framework
 
@@ -140,7 +140,7 @@ module.exports = {
 
 Cấu hình này đảm bảo rằng nội dung được khai báo trong các component của bạn será được tự động trích xuất và sử dụng để tạo từ điển trong quá trình build.
 
-Xem hướng dẫn đầy đủ: https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_compiler.md
+Xem hướng dẫn đầy đủ: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_compiler.md)
 
  </Tab>
 </Tabs>

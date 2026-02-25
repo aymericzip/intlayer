@@ -82,7 +82,7 @@ export default defineConfig({
 });
 ```
 
-查看完整教程： https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react_compiler.md
+查看完整教程： [Intlayer Compiler with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react_compiler.md)
 
 #### 框架支持
 
@@ -140,7 +140,7 @@ module.exports = {
 
 此配置确保在构建过程中，组件中声明的内容会被自动提取并用于生成字典。
 
-查看完整教程： https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_compiler.md
+查看完整教程： [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_compiler.md)
 
  </Tab>
 </Tabs>

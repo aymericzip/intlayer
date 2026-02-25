@@ -82,7 +82,7 @@ export default defineConfig({
 });
 ```
 
-전체 튜토리얼 보기: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react_compiler.md
+전체 튜토리얼 보기: [Intlayer Compiler with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_vite+react_compiler.md)
 
 #### 프레임워크 지원
 
@@ -140,7 +140,7 @@ module.exports = {
 
 이 구성은 컴포넌트 내에 선언된 콘텐츠가 자동으로 추출되어 빌드 과정 중에 사전 생성에 사용되도록 보장합니다.
 
-전체 튜토리얼 보기: https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_compiler.md
+전체 튜토리얼 보기: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_compiler.md)
 
  </Tab>
 </Tabs>

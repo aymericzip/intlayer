@@ -82,7 +82,7 @@ export default defineConfig({
 });
 ```
 
-Lihat tutorial lengkap: https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+react_compiler.md
+Lihat tutorial lengkap: [Intlayer Compiler with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+react_compiler.md)
 
 #### Dukungan Framework
 
@@ -140,7 +140,7 @@ module.exports = {
 
 Konfigurasi ini memastikan bahwa konten yang dideklarasikan dalam komponen Anda secara otomatis diekstraksi dan digunakan untuk menghasilkan kamus selama proses build Anda.
 
-Lihat tutorial lengkap: https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_compiler.md
+Lihat tutorial lengkap: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_compiler.md)
 
  </Tab>
 </Tabs>
