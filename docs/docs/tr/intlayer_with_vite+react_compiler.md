@@ -63,7 +63,7 @@ Sonra riskli kısım gelir: tüm bu metni, düzeninizi veya mantığınızı boz
 **Intlayer Derleyicisi**, bu manuel angarya işi atlamak için oluşturuldu. Dizeleri manuel olarak çıkarmak yerine, derleyici bunu sizin yerinize yapar. Kodunuzu tarar, metni bulur ve perde arkasında sözlükleri oluşturmak için AI kullanır.
 Ardından, gerekli i18n kancalarını enjekte etmek için derleme sırasında kodunuzu değiştirir. Temel olarak, uygulamanızı sanki tek dilliymiş gibi yazmaya devam edersiniz ve derleyici çok dilli dönüşümü otomatik olarak halleder.
 
-> Derleyici Belgeleri: [https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md)
+> Derleyici Belgeleri: [https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)
 
 ### Sınırlamalar
 
