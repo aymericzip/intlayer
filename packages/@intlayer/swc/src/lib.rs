@@ -77,9 +77,40 @@ struct PluginConfig {
 struct PrePassVisitor<'a> {
     dictionary_mode_map: &'a BTreeMap<String, String>,
     has_dynamic_call: bool,
+    caller_map: BTreeMap<String, String>,
 }
 
 impl<'a> VisitMut for PrePassVisitor<'a> {
+    fn visit_mut_import_decl(&mut self, import: &mut ImportDecl) {
+        let pkg_atom = &import.src.value;
+        let pkg_str = pkg_atom.as_str().unwrap_or_default();
+
+        if !PACKAGE_LIST.iter().any(|a| a.as_str() == pkg_str) {
+            import.visit_mut_children_with(self);
+            return;
+        }
+
+        for spec in &import.specifiers {
+            if let ImportSpecifier::Named(named) = spec {
+                let imported_name = if let Some(ModuleExportName::Ident(id)) = &named.imported {
+                    id.sym.to_string()
+                } else if let Some(ModuleExportName::Str(str)) = &named.imported {
+                    str.value.to_string_lossy().into_owned()
+                } else {
+                    named.local.sym.to_string()
+                };
+
+                if imported_name == "useIntlayer" || imported_name == "getIntlayer" {
+                    self.caller_map.insert(
+                        named.local.sym.to_string(),
+                        imported_name,
+                    );
+                }
+            }
+        }
+        import.visit_mut_children_with(self);
+    }
+
     fn visit_mut_call_expr(&mut self, call: &mut CallExpr) {
         let callee_ident = match &call.callee {
             Callee::Expr(callee_expr) => {
@@ -92,13 +123,25 @@ impl<'a> VisitMut for PrePassVisitor<'a> {
             _ => return,
         };
 
-        if callee_ident == "useIntlayer" {
-            if let Some(first_arg) = call.args.first() {
-                if let Expr::Lit(Lit::Str(Str { value, .. })) = &*first_arg.expr {
-                    let key = value.as_str().unwrap_or_default();
-                    if let Some(mode) = self.dictionary_mode_map.get(key) {
-                        if mode == "dynamic" || mode == "fetch" {
-                            self.has_dynamic_call = true;
+        let original_caller = self.caller_map.get(callee_ident);
+
+        if let Some(caller) = original_caller {
+            if caller == "useIntlayer" {
+                if let Some(first_arg) = call.args.first() {
+                    let mut key_opt = None;
+                    if let Expr::Lit(Lit::Str(Str { value, .. })) = &*first_arg.expr {
+                        key_opt = Some(value.to_string_lossy().into_owned());
+                    } else if let Expr::Tpl(Tpl { exprs, quasis, .. }) = &*first_arg.expr {
+                        if exprs.is_empty() && quasis.len() == 1 {
+                            key_opt = Some(quasis[0].raw.to_string());
+                        }
+                    }
+
+                    if let Some(key) = key_opt {
+                        if let Some(mode) = self.dictionary_mode_map.get(&key) {
+                            if mode == "dynamic" || mode == "fetch" {
+                                self.has_dynamic_call = true;
+                            }
                         }
                     }
                 }
@@ -121,6 +164,8 @@ struct TransformVisitor<'a> {
     use_dynamic_helpers: bool,
     // Track if file has any dynamic/live call detected in pre-pass
     file_has_dynamic_call: bool,
+    // Caller map mapped from pre-pass
+    caller_map: BTreeMap<String, String>,
 }
 
 impl<'a> TransformVisitor<'a> {
@@ -130,6 +175,7 @@ impl<'a> TransformVisitor<'a> {
         import_mode: String,
         dictionary_mode_map: &'a BTreeMap<String, String>,
         file_has_dynamic_call: bool,
+        caller_map: BTreeMap<String, String>,
     ) -> Self {
         Self {
             dictionaries_dir,
@@ -140,6 +186,7 @@ impl<'a> TransformVisitor<'a> {
             new_dynamic_imports: BTreeMap::new(),
             use_dynamic_helpers: false,
             file_has_dynamic_call,
+            caller_map,
         }
     }
 
@@ -195,6 +242,7 @@ static PACKAGE_LIST: LazyLock<Vec<Atom>> = LazyLock::new(|| {
     [
         "intlayer",
         "@intlayer/core",
+        "@intlayer/core/interpreter",
         "react-intlayer",
         "react-intlayer/client",
         "react-intlayer/server",
@@ -251,19 +299,28 @@ impl<'a> VisitMut for TransformVisitor<'a> {
                 _ => return,
             };
 
-            if callee_ident != "useIntlayer" && callee_ident != "getIntlayer" {
+            let original_caller = self.caller_map.get(callee_ident);
+            if original_caller.is_none() {
                 return;
             }
+            let original_caller = original_caller.unwrap();
 
-            // First argument must be a string literal
             let Some(first_arg) = call.args.first_mut() else {
                 return;
             };
-            let Expr::Lit(Lit::Str(Str { value, .. })) = &*first_arg.expr else {
+
+            let mut key_opt = None;
+            if let Expr::Lit(Lit::Str(Str { value, .. })) = &*first_arg.expr {
+                key_opt = Some(value.to_string_lossy().into_owned());
+            } else if let Expr::Tpl(Tpl { exprs, quasis, .. }) = &*first_arg.expr {
+                if exprs.is_empty() && quasis.len() == 1 {
+                    key_opt = Some(quasis[0].raw.to_string());
+                }
+            }
+
+            let Some(key) = key_opt else {
                 return;
             };
-
-            let key = value.as_str().unwrap_or_default().to_string();
 
             // Remember the key globally (optional)
             if let Ok(mut set) = INTLAYER_KEYS.lock() {
@@ -274,13 +331,13 @@ impl<'a> VisitMut for TransformVisitor<'a> {
             let mut per_call_mode = "static".to_string();
             let dictionary_override_mode = self.dictionary_mode_map.get(&key);
 
-            if callee_ident == "useIntlayer" && self.use_dynamic_helpers {
+            if original_caller == "useIntlayer" && self.use_dynamic_helpers {
                 if let Some(mode) = dictionary_override_mode {
                     per_call_mode = mode.clone();
                 } else {
                     per_call_mode = self.import_mode.clone();
                 }
-            } else if callee_ident == "useIntlayer" && !self.use_dynamic_helpers {
+            } else if original_caller == "useIntlayer" && !self.use_dynamic_helpers {
                 // If dynamic helpers are NOT active (global mode is static),
                 // we STILL might want to force dynamic/live for this specific call
                 if let Some(mode) = dictionary_override_mode {
@@ -366,7 +423,15 @@ impl<'a> VisitMut for TransformVisitor<'a> {
 
         for spec in &mut import.specifiers {
             if let ImportSpecifier::Named(named) = spec {
-                match named.local.sym.as_ref() {
+                let imported_name = if let Some(ModuleExportName::Ident(id)) = &named.imported {
+                    id.sym.to_string()
+                } else if let Some(ModuleExportName::Str(str)) = &named.imported {
+                    str.value.to_string_lossy().into_owned()
+                } else {
+                    named.local.sym.to_string()
+                };
+
+                match imported_name.as_str() {
                     "useIntlayer" => {
                         if should_use_dynamic_helpers {
                             // Use dynamic helper for useIntlayer when dynamic mode is enabled
@@ -556,6 +621,7 @@ pub(crate) fn process_transform(
     let mut pre_pass = PrePassVisitor {
         dictionary_mode_map: &dictionary_mode_map,
         has_dynamic_call: false,
+        caller_map: BTreeMap::new(),
     };
     program.visit_mut_with(&mut pre_pass);
 
@@ -565,6 +631,7 @@ pub(crate) fn process_transform(
         import_mode.clone(),
         &dictionary_mode_map,
         pre_pass.has_dynamic_call,
+        pre_pass.caller_map,
     );
     program.visit_mut_with(&mut visitor);
     if DEBUG_LOG {
@@ -755,19 +822,9 @@ pub(crate) fn process_transform(
                 let code =
                     String::from_utf8(buf).expect("swc-intlayer: emitted code was not valid UTF-8");
 
-                // Only print first 500 chars to avoid flooding logs with large files
-                let truncated = if code.len() > 500 {
-                    format!(
-                        "{}...\n[truncated, total {} chars]",
-                        &code[..500],
-                        code.len()
-                    )
-                } else {
-                    code
-                };
                 println!(
                     "\n[swc-intlayer] final code for {}:\n{}\n",
-                    working_filename, truncated
+                    working_filename, code
                 );
             }
             println!("[swc-intlayer] [{}] step 5: done", working_filename);

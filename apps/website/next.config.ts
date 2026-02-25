@@ -215,6 +215,7 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['@intlayer/design-system'],
   },
   reactCompiler: true,
+  cacheComponents: true,
   productionBrowserSourceMaps: true,
   // cacheComponents: true,
   images: {

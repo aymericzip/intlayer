@@ -114,6 +114,8 @@ type State = PluginPass & {
   _newDynamicImports?: Map<string, BabelTypes.Identifier>;
   /** whether the current file imported *any* intlayer package */
   _hasValidImport?: boolean;
+  /** map from local identifier name to the imported intlayer func name ('useIntlayer' | 'getIntlayer') */
+  _callerMap?: Map<string, (typeof CALLER_LIST)[number]>;
   /** whether the current file *is* the dictionaries entry file */
   _isDictEntry?: boolean;
   /** whether dynamic helpers are active for this file */
@@ -259,6 +261,7 @@ export const intlayerOptimizeBabelPlugin = (babel: {
     pre() {
       this._newStaticImports = new Map();
       this._newDynamicImports = new Map();
+      this._callerMap = new Map();
       this._isIncluded = true;
       this._hasValidImport = false;
       this._isDictEntry = false;
@@ -345,13 +348,26 @@ export const intlayerOptimizeBabelPlugin = (babel: {
 
               if (!t.isIdentifier(callee)) return;
 
-              if (callee.name !== 'useIntlayer') return;
+              const originalImportedName = state._callerMap?.get(callee.name);
+              if (originalImportedName !== 'useIntlayer') return;
 
               const arg = path.node.arguments[0];
 
-              if (!arg || !t.isStringLiteral(arg)) return;
+              let key: string | undefined;
 
-              const key = arg.value;
+              if (arg && t.isStringLiteral(arg)) {
+                key = arg.value;
+              } else if (
+                arg &&
+                t.isTemplateLiteral(arg) &&
+                arg.expressions.length === 0 &&
+                arg.quasis.length === 1
+              ) {
+                // If the bundler output is `breadcrumb` instead of 'breadcrumb'
+                key = arg.quasis[0].value.cooked ?? arg.quasis[0].value.raw;
+              }
+
+              if (!key) return;
               const dictionaryOverrideMode =
                 state.opts.dictionaryModeMap?.[key];
 
@@ -377,10 +393,16 @@ export const intlayerOptimizeBabelPlugin = (babel: {
               for (const spec of path.node.specifiers) {
                 if (!t.isImportSpecifier(spec)) continue;
 
-                // ⚠️  We now key off *imported* name, *not* local name.
                 const importedName = t.isIdentifier(spec.imported)
                   ? spec.imported.name
                   : (spec.imported as BabelTypes.StringLiteral).value;
+
+                if (CALLER_LIST.includes(importedName as any)) {
+                  state._callerMap?.set(
+                    spec.local.name,
+                    importedName as (typeof CALLER_LIST)[number]
+                  );
+                }
 
                 const importMode = state.opts.importMode;
                 // Determine whether this import should use the dynamic helpers.
@@ -429,7 +451,8 @@ export const intlayerOptimizeBabelPlugin = (babel: {
 
               if (!t.isIdentifier(callee)) return;
 
-              if (!CALLER_LIST.includes(callee.name as any)) return;
+              const originalImportedName = state._callerMap?.get(callee.name);
+              if (!originalImportedName) return;
 
               // Ensure we ultimately emit helper imports for files that *invoke*
               // the hooks, even if they didn't import them directly (edge cases with
@@ -438,11 +461,23 @@ export const intlayerOptimizeBabelPlugin = (babel: {
 
               const arg = path.node.arguments[0];
 
-              if (!arg || !t.isStringLiteral(arg)) return; // must be literal
+              let key: string | undefined;
 
-              const key = arg.value;
+              if (arg && t.isStringLiteral(arg)) {
+                key = arg.value;
+              } else if (
+                arg &&
+                t.isTemplateLiteral(arg) &&
+                arg.expressions.length === 0 &&
+                arg.quasis.length === 1
+              ) {
+                // If the bundler output is `breadcrumb` instead of 'breadcrumb'
+                key = arg.quasis[0].value.cooked ?? arg.quasis[0].value.raw;
+              }
+
+              if (!key) return; // must be a static literal
               const importMode = state.opts.importMode;
-              const isUseIntlayer = callee.name === 'useIntlayer';
+              const isUseIntlayer = originalImportedName === 'useIntlayer';
               const useDynamicHelpers = Boolean(state._useDynamicHelpers);
 
               // Decide per-call mode: 'static' | 'dynamic' | 'fetch'

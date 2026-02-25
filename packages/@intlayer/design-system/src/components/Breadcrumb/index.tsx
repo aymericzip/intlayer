@@ -1,9 +1,9 @@
 'use client';
 
-import { getIntlayer } from '@intlayer/core/interpreter';
 import type { LocalesValues } from '@intlayer/types';
 import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
+import { getIntlayer } from 'intlayer';
 import { ChevronRightIcon } from 'lucide-react';
 import { type FC, Fragment, type HTMLAttributes, type ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';

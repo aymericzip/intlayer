@@ -448,7 +448,7 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
   nextConfig: T | Promise<T> = {} as T,
   configOptions?: WithIntlayerOptions
 ): Promise<NextConfig & T> => {
-  const { isBuildCommand, isDevCommand } = getCommandsEvent();
+  const { isBuildCommand, isDevCommand, isStartCommand } = getCommandsEvent();
 
   process.env.INTLAYER_IS_DEV_COMMAND = isDevCommand ? 'true' : 'false';
 
@@ -459,7 +459,7 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
   // Only call prepareIntlayer during `dev` or `build` (not during `start`)
   // If prod: clean and rebuild once
   // If dev: rebuild only once if it's more than 1 hour since last rebuild
-  if (isDevCommand || isBuildCommand || mode === 'auto') {
+  if (!isStartCommand && (isDevCommand || isBuildCommand || mode === 'auto')) {
     // prepareIntlayer use runOnce to ensure to run only once because will run twice on client and server side otherwise
     await prepareIntlayer(intlayerConfig, {
       clean: isBuildCommand,

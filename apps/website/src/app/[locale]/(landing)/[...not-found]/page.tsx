@@ -1,6 +1,6 @@
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
-import type { FC } from 'react';
+import { type FC, Suspense } from 'react';
 
 export { generateMetadata } from './metadata';
 
@@ -28,7 +28,9 @@ const NotFountPage: NextPageIntlayer = async ({ params }) => {
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <NotFountPageContent />
+      <Suspense>
+        <NotFountPageContent />
+      </Suspense>
     </IntlayerServerProvider>
   );
 };

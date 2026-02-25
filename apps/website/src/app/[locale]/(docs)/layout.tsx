@@ -1,6 +1,7 @@
 import { EmailRegistrationToast } from '@components/EmailRegistrationToast';
 import { PageLayout } from '@layouts/PageLayout';
 import type { NextLayoutIntlayer } from 'next-intlayer';
+import { Suspense } from 'react';
 
 const LandingLayout: NextLayoutIntlayer<{
   isSpecial: boolean;
@@ -8,10 +9,12 @@ const LandingLayout: NextLayoutIntlayer<{
   const { locale } = await params;
 
   return (
-    <PageLayout locale={locale} className="bg-card" mobileRollable={false}>
-      <EmailRegistrationToast />
-      {children}
-    </PageLayout>
+    <Suspense>
+      <PageLayout locale={locale} className="bg-card" mobileRollable={false}>
+        <EmailRegistrationToast />
+        {children}
+      </PageLayout>
+    </Suspense>
   );
 };
 

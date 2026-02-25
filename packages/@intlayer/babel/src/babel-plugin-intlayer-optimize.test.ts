@@ -11,7 +11,7 @@ vi.mock('@intlayer/config', () => ({
 }));
 
 vi.mock('@intlayer/chokidar/utils', () => ({
-  getFileHash: (key: string) => `dicHash`,
+  getFileHash: (key: string) => `dicHash${key === 'app' ? '2' : ''}`,
 }));
 
 const transform = (
@@ -223,6 +223,54 @@ describe('babel-plugin-intlayer-optimize', () => {
       expect(output).toContain(
         'import _dicHash from "../../.intlayer/dictionaries/locale-switcher.json"'
       );
+    });
+  });
+
+  describe('Aliased Imports', () => {
+    it('should transform aliased static imports', () => {
+      const code = `
+        import { useIntlayer as s, getIntlayer as g } from "react-intlayer";
+        const t = s("locale-switcher");
+        const u = g("app");
+      `;
+      const output = transform(
+        code,
+        { importMode: 'static' },
+        '/app/src/page.tsx'
+      );
+      expect(output).toContain(
+        'import _dicHash from "../.intlayer/dictionaries/locale-switcher.json" with { type: "json" };'
+      );
+      expect(output).toContain(
+        'import _dicHash2 from "../.intlayer/dictionaries/app.json" with { type: "json" };'
+      );
+      expect(output).toContain(
+        'import { useDictionary as s, getDictionary as g } from "react-intlayer";'
+      );
+      expect(output).toContain('const t = s(_dicHash);');
+      expect(output).toContain('const u = g(_dicHash2);');
+    });
+
+    it('should transform aliased dynamic imports', () => {
+      const code = `
+        import { useIntlayer as s } from "react-intlayer";
+        const t = s("locale-switcher");
+      `;
+      const output = transform(
+        code,
+        { importMode: 'dynamic' },
+        '/app/src/page.tsx'
+      );
+      expect(output).not.toContain(
+        'import _dicHash from "../.intlayer/dictionaries/locale-switcher.json" with { type: "json" };'
+      );
+      expect(output).toContain(
+        'import _dicHash_dyn from "../.intlayer/dynamic_dictionaries/locale-switcher.mjs";'
+      );
+      expect(output).toContain(
+        'import { useDictionaryDynamic as s } from "react-intlayer";'
+      );
+      expect(output).toContain('const t = s(_dicHash_dyn, "locale-switcher");');
     });
   });
 });
