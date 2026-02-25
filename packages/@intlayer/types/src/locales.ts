@@ -601,6 +601,8 @@ export const ARABIC_SOMALIA = 'ar-SO' as const;
 export const ARABIC_CHAD = 'ar-TD' as const;
 /** Arabic language as used in Comoros */
 export const ARABIC_COMOROS = 'ar-KM' as const;
+/** Malagasy language as used in Madagascar */
+export const MALAGASY_MADAGASCAR = 'mg-MG' as const;
 
 export const ALL_LOCALES = {
   AFRIKAANS,
@@ -904,6 +906,7 @@ export const ALL_LOCALES = {
   ARABIC_SOMALIA,
   ARABIC_CHAD,
   ARABIC_COMOROS,
+  MALAGASY_MADAGASCAR,
 } as const;
 
 export type Locale = (typeof ALL_LOCALES)[keyof typeof ALL_LOCALES]; // 'en' | 'en-US' | 'ar' | 'ar-AE' | ...
