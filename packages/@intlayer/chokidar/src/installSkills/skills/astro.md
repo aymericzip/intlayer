@@ -28,12 +28,12 @@ const content = await getIntlayer("my-dictionary-key");
 <h1>{content.title}</h1>
 ```
 
-[Astro Documentation](https://intlayer.org/doc/packages/astro-intlayer.md)
+[Astro Documentation](https://intlayer.org/doc/environment/astro.md)
 
 ## References
 
 - [Website](https://intlayer.org)
-- [Doc](https://intlayer.org/doc/concept/cli)
+- [Doc](https://intlayer.org/doc/concept/cli.md)
 
 - [Astro](https://intlayer.org/doc/environment/astro.md)
 - [Intlayer Exports](https://intlayer.org/doc/packages/intlayer/exports.md)

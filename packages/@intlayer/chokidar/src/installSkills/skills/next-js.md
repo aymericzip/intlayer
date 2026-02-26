@@ -104,8 +104,7 @@ export const MyClientComponent = () => {
 };
 ```
 
-[Next.js package Documentation](https://intlayer.org/doc/packages/next-intlayer.md)
-[Next.js package Documentation](https://intlayer.org/doc/packages/next-intlayer.md)
+[Next.js package Documentation](https://intlayer.org/doc/packages/next-intlayer/exports.md)
 
 ## References
 
