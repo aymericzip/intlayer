@@ -1,4 +1,4 @@
-import { access, readFile, writeFile } from 'node:fs/promises';
+import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
 /**
@@ -27,3 +27,14 @@ export const writeFileToRoot = async (
   filePath: string,
   content: string
 ) => await writeFile(join(rootDir, filePath), content, 'utf8');
+
+/**
+ * Helper to ensure a directory exists
+ */
+export const ensureDirectory = async (rootDir: string, dirPath: string) => {
+  try {
+    await mkdir(join(rootDir, dirPath), { recursive: true });
+  } catch {
+    // Directory already exists or could not be created
+  }
+};

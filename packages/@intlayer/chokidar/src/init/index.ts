@@ -1,3 +1,4 @@
+import { join } from 'node:path';
 import {
   ANSIColors,
   colorize,
@@ -7,9 +8,11 @@ import {
   x,
 } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
+
 import { getAlias } from '@intlayer/config/utils';
 import { initConfig } from '../initConfig';
 import {
+  ensureDirectory,
   exists,
   findTsConfigFiles,
   parseJSONWithComments,
@@ -199,6 +202,49 @@ export const initIntlayer = async (rootDir: string) => {
     } else {
       logger(`${v} ${colorizePath(gitignorePath)} already includes .intlayer`);
     }
+  }
+
+  // 3. CHECK VS CODE EXTENSION RECOMMENDATIONS
+  const vscodeDir = '.vscode';
+  const extensionsJsonPath = join(vscodeDir, 'extensions.json');
+  const extensionId = 'intlayer.intlayer-vs-code-extension';
+
+  try {
+    let extensionsConfig: { recommendations: string[] } = {
+      recommendations: [],
+    };
+
+    if (await exists(rootDir, extensionsJsonPath)) {
+      const content = await readFileFromRoot(rootDir, extensionsJsonPath);
+      extensionsConfig = parseJSONWithComments(content);
+    } else {
+      await ensureDirectory(rootDir, vscodeDir);
+    }
+
+    if (!extensionsConfig.recommendations) {
+      extensionsConfig.recommendations = [];
+    }
+
+    if (!extensionsConfig.recommendations.includes(extensionId)) {
+      extensionsConfig.recommendations.push(extensionId);
+      await writeFileToRoot(
+        rootDir,
+        extensionsJsonPath,
+        JSON.stringify(extensionsConfig, null, 2)
+      );
+      logger(
+        `${v} Added ${colorize(extensionId, ANSIColors.MAGENTA)} to ${colorizePath(extensionsJsonPath)}`
+      );
+    } else {
+      logger(
+        `${v} ${colorizePath(extensionsJsonPath)} already includes ${colorize(extensionId, ANSIColors.MAGENTA)}`
+      );
+    }
+  } catch {
+    logger(
+      `${x} Could not update ${colorizePath(extensionsJsonPath)}. You may need to add ${colorize(extensionId, ANSIColors.MAGENTA)} manually.`,
+      { level: 'warn' }
+    );
   }
 
   // CHECK TSCONFIGS
