@@ -86,13 +86,9 @@
     "vitest": "4.0.18"
   },
   "peerDependencies": {
-    "@intlayer/backend": "workspace:*",
     "intlayer-editor": "workspace:*"
   },
   "peerDependenciesMeta": {
-    "@intlayer/backend": {
-      "optional": true
-    },
     "intlayer-editor": {
       "optional": true
     }
