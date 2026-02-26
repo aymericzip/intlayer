@@ -470,6 +470,8 @@ const countRef = ref(0);
 </template>
 ```
 
+> If your app already exists, you can use the [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md), as well as the [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/extract.md), to transform thousands of components in a second.
+
 #### Accessing Content in Intlayer
 
 Intlayer offers different APIs to access your content:

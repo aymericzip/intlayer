@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
+updatedAt: 2026-02-25
 title: Intlayer Compiler | Автоматизированное извлечение контента для i18n
 description: Автоматизируйте процесс интернационализации с помощью Intlayer Compiler. Извлекайте контент напрямую из ваших компонентов для более быстрого и эффективного i18n в Vite, Next.js и других.
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: Обновление опций компилятора
   - version: 7.3.1
     date: 2025-11-27
     changes: Выпуск Compiler
@@ -143,6 +146,55 @@ module.exports = {
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
+
+### Пользовательская конфигурация
+
+Чтобы настроить поведение компилятора, вы можете обновить файл `intlayer.config.ts` в корне вашего проекта.
+
+```ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  compiler: {
+    /**
+     * Указывает, должен ли быть включен компилятор.
+     * Установите значение 'build-only', чтобы пропустить компилятор во время разработки и ускорить время запуска.
+     */
+    enabled: true,
+
+    /**
+     * Шаблон для обхода кода для оптимизации.
+     */
+    transformPattern: [
+      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
+      "!**/node_modules/**",
+    ],
+
+    /**
+     * Шаблон для исключения из оптимизации.
+     */
+    excludePattern: ["**/node_modules/**"],
+
+    /**
+     * Выходной каталог для оптимизированных словарей.
+     */
+    outputDir: "i18n",
+
+    /**
+     * Префикс ключа словаря
+     */
+    dictionaryKeyPrefix: "", // Удалить базовый префикс
+
+    /**
+     * Указывает, должны ли компоненты сохраняться после преобразования.
+     * Таким образом, компилятор можно запустить только один раз для преобразования приложения, а затем его можно удалить.
+     */
+    saveComponents: false,
+  },
+};
+
+export default config;
+```
 
 ### Заполнить недостающие переводы
 

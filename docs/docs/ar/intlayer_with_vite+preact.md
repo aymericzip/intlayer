@@ -591,6 +591,8 @@ module.exports = App;
 
 > لمعرفة المزيد حول الخطاف `useIntlayer` ، راجع [الوثائق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useIntlayer.md) (واجهة برمجة التطبيقات مماثلة لـ `preact-intlayer`).
 
+> إذا كان تطبيقك موجودًا بالفعل، يمكنك استخدام [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)، بالإضافة إلى [أمر الاستخراج](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md)، لتحويل آلاف المكونات في ثانية واحدة.
+
 ### (اختياري) الخطوة 6: تغيير لغة المحتوى الخاص بك
 
 لتغيير لغة المحتوى الخاص بك ، يمكنك استخدام وظيفة `setLocale` التي يوفرها خطاف `useLocale`. تتيح لك هذه الوظيفة تعيين لغة التطبيق وتحديث المحتوى وفقًا لذلك.

@@ -127,9 +127,26 @@ const config: IntlayerConfig = {
     mode: "search-params",
   },
   compiler: {
-    enabled: true, // Dapat diatur ke 'build-only' untuk membatasi dampak dalam mode dev
-    outputDir: "i18n",
-    dictionaryKeyPrefix: "", // Tidak ada awalan kompilasi, defaultnya "comp-"
+    /**
+     * Menunjukkan apakah kompilator harus diaktifkan.
+     */
+    enabled: true,
+
+    /**
+     * Direktori output untuk kamus yang dioptimalkan.
+     */
+    outputDir: "compiler",
+
+    /**
+     * Awalan kunci kamus
+     */
+    dictionaryKeyPrefix: "", // Hapus awalan dasar
+
+    /**
+     * Menunjukkan apakah komponen harus disimpan setelah diubah.
+     * Dengan begitu, kompilator dapat dijalankan satu kali saja untuk mengubah aplikasi, kemudian dapat dihapus.
+     */
+    saveComponents: false,
   },
   ai: {
     provider: "openai",

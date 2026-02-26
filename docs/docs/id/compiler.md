@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
+updatedAt: 2026-02-25
 title: Intlayer Compiler | Ekstraksi Konten Otomatis untuk i18n
 description: Otomatiskan proses internasionalisasi Anda dengan Intlayer Compiler. Ekstrak konten langsung dari komponen Anda untuk i18n yang lebih cepat dan efisien di Vite, Next.js, dan lainnya.
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: Perbarui opsi kompiler
   - version: 7.3.1
     date: 2025-11-27
     changes: Rilis Compiler
@@ -143,6 +146,55 @@ Konfigurasi ini memastikan bahwa konten yang dideklarasikan dalam komponen Anda 
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
+
+### Konfigurasi kustom
+
+Untuk menyesuaikan perilaku compiler, Anda dapat memperbarui file `intlayer.config.ts` di root proyek Anda.
+
+```ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  compiler: {
+    /**
+     * Menunjukkan apakah compiler harus diaktifkan.
+     * Atur ke 'build-only' untuk melewatkan compiler selama pengembangan dan mempercepat waktu startup.
+     */
+    enabled: true,
+
+    /**
+     * Pola untuk menelusuri kode yang akan dioptimalkan.
+     */
+    transformPattern: [
+      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
+      "!**/node_modules/**",
+    ],
+
+    /**
+     * Pola untuk dikecualikan dari pengoptimalan.
+     */
+    excludePattern: ["**/node_modules/**"],
+
+    /**
+     * Direktori output untuk kamus yang dioptimalkan.
+     */
+    outputDir: "i18n",
+
+    /**
+     * Awalan kunci kamus
+     */
+    dictionaryKeyPrefix: "", // Hapus awalan basis
+
+    /**
+     * Menunjukkan apakah komponen harus disimpan setelah ditransformasi.
+     * Dengan begitu, compiler hanya dapat dijalankan sekali untuk mentransformasi aplikasi, dan kemudian dapat dihapus.
+     */
+    saveComponents: false,
+  },
+};
+
+export default config;
+```
 
 ### Isi terjemahan yang hilang
 

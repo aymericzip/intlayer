@@ -360,13 +360,11 @@ export default function AboutPage() {
     <div>
       <h1>{title}</h1>
       <p>{content}</p>
-      <nav>
-        <LocalizedLink to="/">{homeLink}</LocalizedLink>
-      </nav>
-    </div>
   );
 }
 ```
+
+> Если ваше приложение уже существует, вы можете использовать [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md) в сочетании с [командой extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/extract.md), чтобы преобразовать тысячи компонентов за одну секунду.
 
 ### Шаг 6: Объявите ваш контент
 

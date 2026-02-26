@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-02-12
+updatedAt: 2026-02-25
 title: التهيئة
 description: تعلّم كيفية تهيئة Intlayer لتطبيقك. فهم الإعدادات والخيارات المختلفة المتاحة لتخصيص Intlayer حسب احتياجاتك.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: تحديث خيارات المترجم
   - version: 8.0.6
     date: 2026-02-12
     changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
@@ -437,6 +440,17 @@ const config: IntlayerConfig = {
      * Output directory for the optimized dictionaries.
      */
     outputDir: "compiler",
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "", // Remove base prefix
+
+    /**
+     * Indicates if the components should be saved after being transformed.
+     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     */
+    saveComponents: false,
   },
 
   /**
@@ -976,6 +990,13 @@ export default config;
   - _ملاحظة_: سيستخدم وضع البث المباشر واجهة برمجة التطبيقات للمزامنة الحية لجلب القواميس. إذا فشل استدعاء واجهة برمجة التطبيقات، فسيتم استيراد القواميس ديناميكيًا كـ "dynamic".
   - _ملاحظة_: لن تؤثر هذه الخيار على الدوال `getIntlayer`، `getDictionary`، `useDictionary`، `useDictionaryAsync` و `useDictionaryDynamic`.
 
+- **outputFormat**:
+  - _النوع_: `'esm' | 'cjs'`
+  - _الافتراضي_: `'esm'`
+  - _الوصف_: يتحكم في تنسيق إخراج القواميس.
+  - _المثال_: `'cjs'`
+  - _ملاحظة_: تنسيق إخراج القواميس.
+
 - **traversePattern**:
   - _النوع_: `string[]`
   - _الافتراضي_: `['**\/*.{js,ts,mjs,cjs,jsx,tsx}', '!**\/node_modules/**']`
@@ -984,3 +1005,49 @@ export default config;
   - _ملاحظة_: استخدم هذا لتحديد التحسين لملفات الكود ذات الصلة وتحسين أداء البناء.
   - _ملاحظة_: سيتم تجاهل هذا الخيار إذا تم تعطيل `optimize`.
   - _ملاحظة_: استخدم نمط glob.
+
+---
+
+### تكوين المترجم
+
+الإعدادات التي تتحكم في مترجم Intlayer، الذي يستخرج القواميس مباشرة من مكوناتك.
+
+#### الخصائص
+
+- **enabled**:
+  - _النوع_: `boolean | 'build-only'`
+  - _الافتراضي_: `true`
+  - _الوصف_: يشير إلى ما إذا كان يجب تمكين المترجم لاستخراج القواميس.
+  - _المثال_: `'build-only'`
+  - _ملاحظة_: تعيينه إلى `'build-only'` سيؤدي إلى تخطي المترجم أثناء وضع التطوير لتسريع أوقات البناء. سيعمل فقط مع أوامر البناء.
+
+- **dictionaryKeyPrefix**:
+  - _النوع_: `string`
+  - _الافتراضي_: `'comp-'`
+  - _الوصف_: بادئة لمفاتيح القاموس المستخرجة.
+  - _المثال_: `'my-key-'`
+  - _ملاحظة_: عند استخراج القواميس، يتم إنشاء المفتاح بناءً على اسم الملف. يتم إضافة هذه البادئة إلى المفتاح الذي تم إنشاؤه لمنع التضارب.
+
+- **saveComponents**:
+  - _النوع_: `boolean`
+  - _الافتراضي_: `false`
+  - _الوصف_: يشير إلى ما إذا كان يجب حفظ المكونات بعد تحويلها.
+  - _ملاحظة_: إذا كان صحيحًا، سيقوم المترجم باستبدال الملفات الأصلية بالملفات المحولة. بهذه الطريقة، يمكن تشغيل المترجم مرة واحدة فقط لتحويل التطبيق، ثم يمكن إزالته.
+
+- **transformPattern**:
+  - _النوع_: `string | string[]`
+  - _الافتراضي_: `['**/*.{ts,tsx,jsx,js,cjs,mjs,svelte,vue}', '!**/node_modules/**']`
+  - _الوصف_: الأنماط التي تحدد الملفات التي يجب استعراضها أثناء التحسين.
+  - _المثال_: `['src/**/*.{ts,tsx}', '!**/node_modules/**']`
+  - _ملاحظة_: استخدم هذا لتحديد التحسين لملفات الكود ذات الصلة وتحسين أداء البناء.
+
+- **excludePattern**:
+  - _النوع_: `string | string[]`
+  - _الافتراضي_: `['**/node_modules/**']`
+  - _الوصف_: الأنماط التي تحدد الملفات التي يجب استبعادها أثناء التحسين.
+  - _المثال_: `['**/node_modules/**', '!**/node_modules/react/**']`
+
+- **outputDir**:
+  - _النوع_: `string`
+  - _الافتراضي_: `'compiler'`
+  - _الوصف_: الدليل الذي سيتم تخزين القواميس المستخرجة فيه، بالنسبة لمسار أساس مشروعك.

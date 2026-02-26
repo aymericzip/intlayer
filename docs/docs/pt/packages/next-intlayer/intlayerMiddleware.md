@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
-title: Documentação do intlayerMiddleware | next-intlayer
+updatedAt: 2026-02-25
+title: Documentação do intlayerProxy | next-intlayer
 description: Veja como usar a função intlayerMiddleware do pacote next-intlayer
 keywords:
   - intlayerMiddleware
@@ -17,25 +17,44 @@ slugs:
   - next-intlayer
   - intlayerMiddleware
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: Renomear intlayerMiddleware para intlayerProxy
   - version: 8.0.0
     date: 2026-01-21
     changes: Doc inicial
 ---
 
-# Documentação do intlayerMiddleware
+# Documentação do intlayerProxy (intlayerMiddleware)
 
-A função `intlayerMiddleware` é um middleware do Next.js que gere o roteamento baseado em locale e os redirecionamentos. Ela detecta automaticamente o locale preferido do utilizador e o redireciona para o caminho localizado apropriado, quando necessário.
+A função `intlayerProxy` (`intlayerMiddleware` para nextjs < 16) é um middleware do Next.js que gere o roteamento baseado em locale e os redirecionamentos. Ela detecta automaticamente o locale preferido do utilizador e o redireciona para o caminho localizado apropriado, quando necessário.
 
 ## Uso
 
-```ts
-// middleware.ts
-export { intlayerMiddleware as middleware } from "next-intlayer";
+<Tabs>
+ <Tab value="nextjs >=16">
+
+```ts fileName="proxy.ts"
+export { intlayerProxy as proxy } from "next-intlayer/proxy";
 
 export const config = {
   matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };
 ```
+
+ </Tab>
+ <Tab value="nextjs <=15">
+
+```ts fileName="middleware.ts"
+export { intlayerMiddleware as middleware } from "next-intlayer/middleware";
+
+export const config = {
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+};
+```
+
+ </Tab>
+</Tabs>
 
 ## Descrição
 
@@ -48,3 +67,7 @@ O middleware executa as seguintes tarefas:
 ## Parâmetros
 
 A função recebe o `NextRequest` padrão do Next.js como parâmetro quando usada diretamente, ou pode ser exportada conforme mostrado acima.
+
+## Configuração
+
+Para configurar o middleware, pode configurar a opção `routing` no ficheiro `intlayer.config.ts`. Consulte a [configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md) para mais detalles.

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
+updatedAt: 2026-02-25
 title: Intlayer Compiler | Extracción Automática de Contenido para i18n
 description: Automatiza tu proceso de internacionalización con el Intlayer Compiler. Extrae contenido directamente de tus componentes para una i18n más rápida y eficiente en Vite, Next.js y más.
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: Actualizar opciones del compilador
   - version: 7.3.1
     date: 2025-11-27
     changes: Lanzamiento del Compiler
@@ -143,6 +146,55 @@ Esta configuración asegura que el contenido declarado en tus componentes se ext
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
+
+### Configuración personalizada
+
+Para personalizar el comportamiento del compilador, puedes actualizar el archivo `intlayer.config.ts` en la raíz de tu proyecto.
+
+```ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  compiler: {
+    /**
+     * Indica si el compilador debe estar habilitado.
+     * Establécelo en 'build-only' para omitir el compilador durante el desarrollo y acelerar los tiempos de inicio.
+     */
+    enabled: true,
+
+    /**
+     * Patrón para recorrer el código a optimizar.
+     */
+    transformPattern: [
+      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
+      "!**/node_modules/**",
+    ],
+
+    /**
+     * Patrón para excluir de la optimización.
+     */
+    excludePattern: ["**/node_modules/**"],
+
+    /**
+     * Directorio de salida para los diccionarios optimizados.
+     */
+    outputDir: "i18n",
+
+    /**
+     * Prefijo de clave de diccionario
+     */
+    dictionaryKeyPrefix: "", // Eliminar prefijo base
+
+    /**
+     * Indica si los componentes deben guardarse después de ser transformados.
+     * De esta manera, el compilador puede ejecutarse solo una vez para transformar la aplicación y luego puede eliminarse.
+     */
+    saveComponents: false,
+  },
+};
+
+export default config;
+```
 
 ### Rellenar traducciones faltantes
 

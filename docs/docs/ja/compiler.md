@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
+updatedAt: 2026-02-25
 title: Intlayer コンパイラー | i18n のための自動コンテンツ抽出
 description: Intlayer コンパイラーで国際化プロセスを自動化しましょう。コンポーネントから直接コンテンツを抽出し、Vite、Next.js などでより高速かつ効率的な i18n を実現します。
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: コンパイラーオプションの更新
   - version: 7.3.1
     date: 2025-11-27
     changes: コンパイラーリリース
@@ -143,6 +146,55 @@ module.exports = {
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
+
+### カスタム設定
+
+コンパイラの動作をカスタマイズするには、プロジェクトのルートにある `intlayer.config.ts` ファイルを更新します。
+
+```ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  compiler: {
+    /**
+     * コンパイラを有効にするかどうかを指定します。
+     * 開発中にコンパイラをスキップして起動時間を短縮するには、'build-only' に設定します。
+     */
+    enabled: true,
+
+    /**
+     * 最適化するためにコードを走査するパターン。
+     */
+    transformPattern: [
+      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
+      "!**/node_modules/**",
+    ],
+
+    /**
+     * 最適化から除外するパターン。
+     */
+    excludePattern: ["**/node_modules/**"],
+
+    /**
+     * 最適化された辞書の出力ディレクトリ。
+     */
+    outputDir: "i18n",
+
+    /**
+     * 辞書のキープレフィックス
+     */
+    dictionaryKeyPrefix: "", // ベースプレフィックスを削除
+
+    /**
+     * コンポーネントを変換した後に保存するかどうかを指定します。
+     * そうすることで、コンパイラを 1 回だけ実行してアプリを変換し、その後削除することができます。
+     */
+    saveComponents: false,
+  },
+};
+
+export default config;
+```
 
 ### 欠落した翻訳を埋める
 

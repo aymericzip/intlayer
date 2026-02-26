@@ -465,6 +465,17 @@ const config: IntlayerConfig = {
      * Output directory for the optimized dictionaries.
      */
     outputDir: "compiler",
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "", // Remove base prefix
+
+    /**
+     * Indicates if the components should be saved after being transformed.
+     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     */
+    saveComponents: false,
   },
 
   /**

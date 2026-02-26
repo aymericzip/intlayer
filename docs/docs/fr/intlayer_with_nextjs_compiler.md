@@ -127,9 +127,26 @@ const config: IntlayerConfig = {
     mode: "search-params",
   },
   compiler: {
-    enabled: true, // Peut être défini sur 'build-only' pour limiter l'impact en mode dev
-    outputDir: "i18n",
-    dictionaryKeyPrefix: "", // Pas de préfixe, le défaut est "comp-"
+    /**
+     * Indique si le compilateur doit être activé.
+     */
+    enabled: true,
+
+    /**
+     * Répertoire de sortie pour les dictionnaires optimisés.
+     */
+    outputDir: "compiler",
+
+    /**
+     * Préfixe de clé de dictionnaire
+     */
+    dictionaryKeyPrefix: "", // Supprimer le préfixe de base
+
+    /**
+     * Indique si les composants doivent être sauvegardés après avoir été transformés.
+     * De cette façon, le compilateur peut être exécuté une seule fois pour transformer l'application, puis il peut être supprimé.
+     */
+    saveComponents: false,
   },
   ai: {
     provider: "openai",

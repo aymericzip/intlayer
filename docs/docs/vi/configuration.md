@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-02-12
+updatedAt: 2026-02-25
 title: Cấu hình
 description: Tìm hiểu cách cấu hình Intlayer cho ứng dụng của bạn. Hiểu các thiết lập và tùy chọn khác nhau để tùy chỉnh Intlayer theo nhu cầu của bạn.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: Cập nhật các tùy chọn trình biên dịch
   - version: 8.0.6
     date: 2026-02-12
     changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
@@ -455,6 +458,17 @@ const config: IntlayerConfig = {
      * Output directory for the optimized dictionaries.
      */
     outputDir: "compiler",
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "", // Remove base prefix
+
+    /**
+     * Indicates if the components should be saved after being transformed.
+     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     */
+    saveComponents: false,
   },
 
   /**
@@ -1094,3 +1108,49 @@ Các tùy chọn build áp dụng cho các plugin `@intlayer/babel` và `@intlay
   - _Lưu ý_: Sử dụng để giới hạn tối ưu hóa chỉ cho các tệp mã liên quan và cải thiện hiệu suất xây dựng.
   - _Lưu ý_: Tùy chọn này sẽ bị bỏ qua nếu `optimize` bị vô hiệu hóa.
   - _Lưu ý_: Sử dụng mẫu glob.
+
+---
+
+### Cấu hình Trình biên dịch
+
+Các cài đặt kiểm soát trình biên dịch Intlayer, trình biên dịch này sẽ trích xuất các từ điển trực tiếp từ các thành phần của bạn.
+
+#### Thuộc tính
+
+- **enabled**:
+  - _Kiểu_: `boolean | 'build-only'`
+  - _Mặc định_: `true`
+  - _Mô tả_: Cho biết liệu trình biên dịch có nên được bật để trích xuất từ điển hay không.
+  - _Ví dụ_: `'build-only'`
+  - _Lưu ý_: Đặt thành `'build-only'` sẽ bỏ qua trình biên dịch trong chế độ phát triển để tăng tốc thời gian khởi động. Nó sẽ chỉ chạy trên các lệnh build.
+
+- **dictionaryKeyPrefix**:
+  - _Kiểu_: `string`
+  - _Mặc định_: `'comp-'`
+  - _Mô tả_: Tiền tố cho các khóa từ điển được trích xuất.
+  - _Ví dụ_: `'my-key-'`
+  - _Lưu ý_: Khi từ điển được trích xuất, khóa được tạo dựa trên tên tệp. Tiền tố này được thêm vào khóa đã tạo để ngăn chặn xung đột.
+
+- **saveComponents**:
+  - _Kiểu_: `boolean`
+  - _Mặc định_: `false`
+  - _Mô tả_: Cho biết liệu các thành phần có nên được lưu sau khi được chuyển đổi hay không.
+  - _Lưu ý_: Nếu đúng (true), trình biên dịch sẽ thay thế các tệp gốc bằng các tệp đã chuyển đổi. Bằng cách đó, trình biên dịch chỉ có thể được chạy một lần để chuyển đổi ứng dụng, sau đó có thể được gỡ bỏ.
+
+- **transformPattern**:
+  - _Kiểu_: `string | string[]`
+  - _Mặc định_: `['**/*.{ts,tsx,jsx,js,cjs,mjs,svelte,vue}', '!**/node_modules/**']`
+  - _Mô tả_: Các mẫu xác định những tệp nào akan được duyệt qua trong quá trình tối ưu hóa.
+  - _Ví dụ_: `['src/**/*.{ts,tsx}', '!**/node_modules/**']`
+  - _Lưu ý_: Sử dụng điều này để giới hạn tối ưu hóa cho các tệp mã liên quan và cải thiện hiệu suất xây dựng.
+
+- **excludePattern**:
+  - _Kiểu_: `string | string[]`
+  - _Mặc định_: `['**/node_modules/**']`
+  - _Mô tả_: Các mẫu xác định những tệp nào sẽ bị loại trừ trong quá trình tối ưu hóa.
+  - _Ví dụ_: `['**/node_modules/**', '!**/node_modules/react/**']`
+
+- **outputDir**:
+  - _Kiểu_: `string`
+  - _Mặc định_: `'compiler'`
+  - _Mô tả_: Thư mục nơi các từ điển trích xuất sẽ được lưu trữ, tương đối so với đường dẫn gốc dự án của bạn.

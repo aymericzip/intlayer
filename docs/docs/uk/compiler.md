@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
+updatedAt: 2026-02-25
 title: Intlayer Compiler | Автоматизоване витягування контенту для i18n
 description: Автоматизуйте процес інтернаціоналізації за допомогою Intlayer Compiler. Витягуйте контент безпосередньо з ваших компонентів для швидшого та ефективнішого i18n у Vite, Next.js та інших.
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: Оновлення опцій компілятора
   - version: 7.3.1
     date: 2025-11-27
     changes: Випуск компілятора
@@ -143,6 +146,55 @@ module.exports = {
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
+
+### Користувацька конфігурація
+
+Щоб налаштувати поведінку компілятора, ви можете оновити файл `intlayer.config.ts` у корені вашого проєкту.
+
+```ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  compiler: {
+    /**
+     * Вказує, чи має бути увімкнено компілятор.
+     * Встановіть 'build-only', щоб пропустити компілятор під час розробки та пришвидшити час запуску.
+     */
+    enabled: true,
+
+    /**
+     * Паттерн для обходу коду для оптимізації.
+     */
+    transformPattern: [
+      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
+      "!**/node_modules/**",
+    ],
+
+    /**
+     * Паттерн для виключення з оптимізації.
+     */
+    excludePattern: ["**/node_modules/**"],
+
+    /**
+     * Вихідний каталог для оптимізованих словників.
+     */
+    outputDir: "i18n",
+
+    /**
+     * Префікс ключа словника
+     */
+    dictionaryKeyPrefix: "", // Видалити базовий префікс
+
+    /**
+     * Вказує, чи мають компоненти зберігатися після перетворення.
+     * Таким чином, компілятор можна запустити лише один раз для перетворення додатка, а потім його можна видалити.
+     */
+    saveComponents: false,
+  },
+};
+
+export default config;
+```
 
 ### Заповнити відсутні переклади
 

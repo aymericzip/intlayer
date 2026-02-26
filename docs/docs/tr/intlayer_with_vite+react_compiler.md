@@ -130,9 +130,26 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
   },
   compiler: {
-    enabled: true, // Geliştirme modu üzerindeki etkiyi sınırlamak için 'build-only' olarak ayarlanabilir
-    outputDir: "i18n",
-    dictionaryKeyPrefix: "", // Ön ek comp- yok
+    /**
+     * Derleyicinin etkinleştirilip etkinleştirilmeyeceğini belirtir.
+     */
+    enabled: true,
+
+    /**
+     * Optimize edilmiş sözlükler için çıktı dizini.
+     */
+    outputDir: "compiler",
+
+    /**
+     * Sözlük anahtar öneki
+     */
+    dictionaryKeyPrefix: "", // Temel öneki kaldır
+
+    /**
+     * Bileşenlerin dönüştürüldükten sonra kaydedilip kaydedilmeyeceğini belirtir.
+     * Bu şekilde, derleyici uygulamayı dönüştürmek için yalnızca bir kez çalıştırılabilir ve ardından kaldırılabilir.
+     */
+    saveComponents: false,
   },
   ai: {
     provider: "openai",

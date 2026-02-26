@@ -1,11 +1,11 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
-title: Intlayer Compiler | Extraction Automatisée de Contenu pour i18n
-description: Automatisez votre processus d'internationalisation avec l'Intlayer Compiler. Extrayez le contenu directement de vos composants pour une i18n plus rapide et plus efficace dans Vite, Next.js, et plus encore.
+updatedAt: 2026-02-25
+title: Compilateur Intlayer | Extraction automatique de contenu pour l'i18n
+description: Automatisez votre processus d'internationalisation avec le compilateur Intlayer. Extrayez le contenu directement de vos composants pour une i18n plus rapide et plus efficace dans Vite, Next.js, et plus encore.
 keywords:
   - Intlayer
-  - Compiler
+  - Compilateur
   - Internationalisation
   - i18n
   - Automatisation
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: Mise à jour des options du compilateur
   - version: 7.3.1
     date: 2025-11-27
     changes: Sortie du Compiler
@@ -143,6 +146,55 @@ Cette configuration garantit que le contenu déclaré dans vos composants est au
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
+
+### Configuration personnalisée
+
+Pour personnaliser le comportement du compilateur, vous pouvez mettre à jour le fichier `intlayer.config.ts` à la racine de votre projet.
+
+```ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  compiler: {
+    /**
+     * Indique si le compilateur doit être activé.
+     * Réglez sur 'build-only' pour ignorer le compilateur pendant le développement et accélérer les temps de démarrage.
+     */
+    enabled: true,
+
+    /**
+     * Modèle pour parcourir le code à optimiser.
+     */
+    transformPattern: [
+      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
+      "!**/node_modules/**",
+    ],
+
+    /**
+     * Modèle à exclure de l'optimisation.
+     */
+    excludePattern: ["**/node_modules/**"],
+
+    /**
+     * Répertoire de sortie pour les dictionnaires optimisés.
+     */
+    outputDir: "i18n",
+
+    /**
+     * Préfixe de clé de dictionnaire
+     */
+    dictionaryKeyPrefix: "", // Supprimer le préfixe de base
+
+    /**
+     * Indique si les composants doivent être enregistrés après avoir été transformés.
+     * De cette façon, le compilateur peut être exécuté une seule fois pour transformer l'application, puis il peut être supprimé.
+     */
+    saveComponents: false,
+  },
+};
+
+export default config;
+```
 
 ### Remplir les traductions manquantes
 

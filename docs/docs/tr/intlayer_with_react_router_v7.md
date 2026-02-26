@@ -405,6 +405,8 @@ export default function Page() {
 
 > `useIntlayer` kancası hakkında daha fazla bilgi edinmek için [belgelere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useIntlayer.md) bakabilirsiniz.
 
+> Eğer uygulamanız zaten mevcutsa, binlerce bileşeni bir saniye içinde dönüştürmek için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)'ı [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) ile birlikte kullanabilirsiniz.
+
 ### Adım 9: Bir Dil Değiştirici Bileşeni Oluşturun
 
 Kullanıcıların dilleri değiştirmesine izin veren bir bileşen oluşturun:

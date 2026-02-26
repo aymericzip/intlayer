@@ -235,6 +235,8 @@ module.exports = appContent;
 <h1><svelte:component this={$content.title} /></h1>
 <!-- İçeriği string olarak render etmek için -->
 <div aria-label={$content.title.value}></div>
+
+> Eğer uygulamanız zaten mevcutsa, binlerce bileşeni bir saniye içinde dönüştürmek için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)'ı [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) ile birlikte kullanabilirsiniz.
 ```
 
 ### (İsteğe bağlı) Adım 6: İçeriğinizin dilini değiştirin

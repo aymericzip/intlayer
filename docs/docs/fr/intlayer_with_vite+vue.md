@@ -485,7 +485,9 @@ Intlayer propose différentes API pour accéder à votre contenu :
 - **Syntaxe de déstructuration** :
   Le composable `useIntlayer` retourne un Proxy avec le contenu. Ce proxy peut être déstructuré pour accéder au contenu tout en conservant la réactivité.
   - Utilisez `const content = useIntlayer("myContent");` et `{{ content.myContent }}` / `<content.myContent />`.
-  - Ou utilisez `const { myContent } = useIntlayer("myContent");` et `{{ myContent }}` / `<myContent/>` pour déstructurer le contenu.
+  - Ou utilisez `const { myContent } = useIntlayer(\"myContent\");` et `{{ myContent }}` / `<myContent/>` pour déstructurer le contenu.
+
+> Si votre application existe déjà, vous pouvez utiliser le [Compilateur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md), ainsi que la [commande d'extraction](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/extract.md), pour transformer des milliers de composants en une seconde.
 
 ### (Optionnel) Étape 6 : Changer la langue de votre contenu
 

@@ -708,6 +708,8 @@ const ServerComponentExample = () => {
 
 > `useIntlayer` kancası hakkında daha fazla bilgi edinmek için [dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/useIntlayer.md) bakın.
 
+> Eğer uygulamanız zaten mevcutsa, binlerce bileşeni bir saniye içinde dönüştürmek için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)'ı [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) ile birlikte kullanabilirsiniz.
+
 ### (İsteğe Bağlı) Adım 7: Yerel Ayar Algılama İçin Proxy Yapılandırın
 
 Kullanıcının tercih ettiği yerel ayarı algılamak için proxy'yi ayarlayın:

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
+updatedAt: 2026-02-25
 title: Intlayer Compiler | Automated Content Extraction for i18n
 description: Automate your internationalisation process with the Intlayer Compiler. Extract content directly from your components for faster, more efficient i18n in Vite, Next.js, and more.
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: Update compiler options
   - version: 7.3.1
     date: 2025-11-27
     changes: Release Compiler
@@ -143,6 +146,55 @@ This configuration ensures that content declared in your components is automatic
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
+
+### Custom config
+
+To customise the compiler behaviour, you can update the `intlayer.config.ts` file in the root of your project.
+
+```ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  compiler: {
+    /**
+     * Indicates if the compiler should be enabled.
+     * Set to 'build-only' to skip the compiler during development and speed up start times.
+     */
+    enabled: true,
+
+    /**
+     * Pattern to traverse the code to optimise.
+     */
+    transformPattern: [
+      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
+      "!**/node_modules/**",
+    ],
+
+    /**
+     * Pattern to exclude from the optimisation.
+     */
+    excludePattern: ["**/node_modules/**"],
+
+    /**
+     * Output directory for the optimised dictionaries.
+     */
+    outputDir: "i18n",
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "", // Remove base prefix
+
+    /**
+     * Indicates if the components should be saved after being transformed.
+     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     */
+    saveComponents: false,
+  },
+};
+
+export default config;
+```
 
 ### Fill missing translation
 

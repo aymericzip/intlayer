@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
+updatedAt: 2026-02-25
 title: Intlayer 编译器 | 用于 i18n 的自动内容提取
 description: 使用 Intlayer 编译器自动化您的国际化流程。直接从组件中提取内容，实现 Vite、Next.js 等框架中更快速、更高效的 i18n。
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: 更新编译器选项
   - version: 7.3.1
     date: 2025-11-27
     changes: 发布编译器
@@ -143,6 +146,55 @@ module.exports = {
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
+
+### 自定义配置
+
+要自定义编译器的行为，您可以更新项目根目录中的 `intlayer.config.ts` 文件。
+
+```ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  compiler: {
+    /**
+     * 指示是否应启用编译器。
+     * 设置为 'build-only' 可在开发期间跳过编译器并加快启动速度。
+     */
+    enabled: true,
+
+    /**
+     * 遍历要优化的代码的模式。
+     */
+    transformPattern: [
+      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
+      "!**/node_modules/**",
+    ],
+
+    /**
+     * 要从优化中排除的模式。
+     */
+    excludePattern: ["**/node_modules/**"],
+
+    /**
+     * 优化后字典的输出目录。
+     */
+    outputDir: "i18n",
+
+    /**
+     * 字典键前缀
+     */
+    dictionaryKeyPrefix: "", // 移除基本前缀
+
+    /**
+     * 指示是否应在转换后保存组件。
+     * 这样，编译器只需运行一次即可转换应用程序，然后可以将其移除。
+     */
+    saveComponents: false,
+  },
+};
+
+export default config;
+```
 
 ### 填充缺失的翻译
 

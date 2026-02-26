@@ -130,9 +130,26 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
   },
   compiler: {
-    enabled: true, // 可以设置为 'build-only' 以限制对开发模式的影响
-    outputDir: "i18n",
-    dictionaryKeyPrefix: "", // 无前缀 comp-
+    /**
+     * 指示是否启用编译器。
+     */
+    enabled: true,
+
+    /**
+     * 优化后字典的输出目录。
+     */
+    outputDir: "compiler",
+
+    /**
+     * 字典键前缀
+     */
+    dictionaryKeyPrefix: "", // 移除基础前缀
+
+    /**
+     * 指示转换后是否应保存组件。
+     * 这样，编译器只需运行一次即可转换应用程序，然后即可将其移除。
+     */
+    saveComponents: false,
   },
   ai: {
     provider: "openai",

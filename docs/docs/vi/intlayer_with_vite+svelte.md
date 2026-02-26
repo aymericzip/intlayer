@@ -235,6 +235,8 @@ module.exports = appContent;
 <h1><svelte:component this={$content.title} /></h1>
 <!-- Để hiển thị nội dung dưới dạng chuỗi -->
 <div aria-label={$content.title.value}></div>
+
+> Nếu ứng dụng của bạn đã tồn tại, bạn có thể sử dụng [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) kết hợp với [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md) để chuyển đổi hàng nghìn component chỉ trong một giây.
 ```
 
 ### (Tùy chọn) Bước 6: Thay đổi ngôn ngữ của nội dung

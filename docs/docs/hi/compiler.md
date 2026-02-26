@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
+updatedAt: 2026-02-25
 title: Intlayer Compiler | i18n के लिए स्वचालित सामग्री निष्कर्षण
 description: Intlayer Compiler के साथ अपने अंतरराष्ट्रीयकरण प्रक्रिया को स्वचालित करें। Vite, Next.js, और अन्य में तेज़, अधिक कुशल i18n के लिए सीधे अपने कंपोनेंट्स से सामग्री निकालें।
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: कंपाइलर विकल्पों को अपडेट करें
   - version: 7.3.1
     date: 2025-11-27
     changes: Release Compiler
@@ -143,6 +146,55 @@ module.exports = {
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
+
+### कस्टम कॉन्फ़िगरेशन
+
+कंपाइलर व्यवहार को अनुकूलित करने के लिए, आप अपने प्रोजेक्ट के रूट में `intlayer.config.ts` फ़ाइल को अपडेट कर सकते हैं।
+
+```ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  compiler: {
+    /**
+     * इंगित करता है कि क्या कंपाइलर सक्षम होना चाहिए।
+     * विकास के दौरान कंपाइलर को छोड़ने और स्टार्टअप समय को तेज़ करने के लिए 'build-only' पर सेट करें।
+     */
+    enabled: true,
+
+    /**
+     * अनुकूलित करने के लिए कोड को पार करने का पैटर्न।
+     */
+    transformPattern: [
+      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
+      "!**/node_modules/**",
+    ],
+
+    /**
+     * अनुकूलन से बाहर करने का पैटर्न।
+     */
+    excludePattern: ["**/node_modules/**"],
+
+    /**
+     * अनुकूलित शब्दकोशों के लिए आउटपुट निर्देशिका।
+     */
+    outputDir: "i18n",
+
+    /**
+     * शब्दकोश कुंजी उपसर्ग
+     */
+    dictionaryKeyPrefix: "", // बेस उपसर्ग हटाएँ
+
+    /**
+     * इंगित करता है कि क्या कंपोनेंट्स को रूपांतरित होने के बाद सहेजा जाना चाहिए।
+     * इस तरह, कंपाइलर को ऐप को रूपांतरित करने के लिए केवल एक बार चलाया जा सकता है, और फिर इसे हटाया जा सकता है।
+     */
+    saveComponents: false,
+  },
+};
+
+export default config;
+```
 
 ### लापता अनुवाद भरें
 

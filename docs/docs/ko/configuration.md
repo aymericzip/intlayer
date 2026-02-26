@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-02-12
+updatedAt: 2026-02-25
 title: 구성
 description: 애플리케이션에 맞게 Intlayer를 구성하는 방법을 배우세요. Intlayer를 사용자 요구에 맞게 맞춤 설정할 수 있는 다양한 설정과 옵션을 이해하세요.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: 컴파일러 옵션 업데이트
   - version: 8.0.6
     date: 2026-02-12
     changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
@@ -440,6 +443,17 @@ const config: IntlayerConfig = {
      * Output directory for the optimized dictionaries.
      */
     outputDir: "compiler",
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "", // Remove base prefix
+
+    /**
+     * Indicates if the components should be saved after being transformed.
+     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     */
+    saveComponents: false,
   },
 
   /**
@@ -973,6 +987,13 @@ Intlayer가 애플리케이션의 국제화를 최적화하고 빌드하는 방�
   - _참고_: 라이브 모드는 라이브 동기화 API를 사용하여 사전을 가져옵니다. API 호출이 실패하면 사전은 "dynamic" 모드로 동적으로 가져와집니다.
   - _참고_: 이 옵션은 `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` 및 `useDictionaryDynamic` 함수에는 영향을 미치지 않습니다.
 
+- **outputFormat**:
+  - _타입_: `'esm' | 'cjs'`
+  - _기본값_: `'esm'`
+  - _설명_: 사전의 출력 형식을 제어합니다.
+  - _예시_: `'cjs'`
+  - _참고_: 사전의 출력 형식입니다.
+
 - **traversePattern**:
   - _유형_: `string[]`
   - _기본값_: `['**\/*.{js,ts,mjs,cjs,jsx,tsx}', '!**\/node_modules/**']`
@@ -981,3 +1002,49 @@ Intlayer가 애플리케이션의 국제화를 최적화하고 빌드하는 방�
   - _참고_: 최적화를 관련 코드 파일로 제한하여 빌드 성능을 향상시키는 데 사용합니다.
   - _참고_: `optimize`가 비활성화된 경우 이 옵션은 무시됩니다.
   - _참고_: glob 패턴을 사용하세요.
+
+---
+
+### 컴파일러 설정
+
+구성 요소에서 직접 사전을 추출하는 Intlayer 컴파일러를 제어하는 설정입니다.
+
+#### 속성
+
+- **enabled**:
+  - _타입_: `boolean | 'build-only'`
+  - _기본값_: `true`
+  - _설명_: 사전을 추출하기 위해 컴파일러를 활성화해야 하는지 여부를 나타냅니다.
+  - _예시_: `'build-only'`
+  - _참고_: `'build-only'`로 설정하면 개발 모드 동안 컴파일러를 건너뛰어 시작 시간을 단축합니다. 빌드 명령 시에만 실행됩니다.
+
+- **dictionaryKeyPrefix**:
+  - _타입_: `string`
+  - _기본값_: `'comp-'`
+  - _설명_: 추출된 사전 키의 접두사입니다.
+  - _예시_: `'my-key-'`
+  - _참고_: 사전을 추출할 때 파일 이름을 기반으로 키가 생성됩니다. 충돌을 방지하기 위해 생성된 키에 이 접두사가 추가됩니다.
+
+- **saveComponents**:
+  - _타입_: `boolean`
+  - _기본값_: `false`
+  - _설명_: 변환 후 구성 요소를 저장해야 하는지 여부를 나타냅니다.
+  - _참고_: true인 경우 컴파일러는 원본 파일을 변환된 파일로 대체합니다. 그렇게 하면 컴파일러를 한 번만 실행하여 앱을 변환한 다음 제거할 수 있습니다.
+
+- **transformPattern**:
+  - _타입_: `string | string[]`
+  - _기본값_: `['**/*.{ts,tsx,jsx,js,cjs,mjs,svelte,vue}', '!**/node_modules/**']`
+  - _설명_: 최적화 중에 탐색할 파일을 정의하는 패턴입니다.
+  - _예시_: `['src/**/*.{ts,tsx}', '!**/node_modules/**']`
+  - _참고_: 최적화를 관련 코드 파일로 제한하여 빌드 성능을 향상시키는 데 사용합니다.
+
+- **excludePattern**:
+  - _타입_: `string | string[]`
+  - _기본값_: `['**/node_modules/**']`
+  - _설명_: 최적화 중에 제외할 파일을 정의하는 패턴입니다.
+  - _예시_: `['**/node_modules/**', '!**/node_modules/react/**']`
+
+- **outputDir**:
+  - _타입_: `string`
+  - _기본값_: `'compiler'`
+  - _설명_: 추출된 사전이 저장될 디렉토리로, 프로젝트 베이스 경로에 대한 상대 경로입니다.

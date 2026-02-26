@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-02-12
+updatedAt: 2026-02-25
 title: 設定
 description: Intlayerをアプリケーション向けに設定する方法を学びます。Intlayerをニーズに合わせてカスタマイズするためのさまざまな設定やオプションについて理解しましょう。
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: コンパイラーオプションの更新
   - version: 8.0.6
     date: 2026-02-12
     changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
@@ -440,6 +443,17 @@ const config: IntlayerConfig = {
      * Output directory for the optimized dictionaries.
      */
     outputDir: "compiler",
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "", // Remove base prefix
+
+    /**
+     * Indicates if the components should be saved after being transformed.
+     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     */
+    saveComponents: false,
   },
 
   /**
@@ -973,6 +987,13 @@ Intlayerがアプリケーションの国際化をどのように最適化しビ
   - _注意_: ライブモードはライブ同期APIを使用して辞書を取得します。APIコールが失敗した場合、辞書は動的モードとして動的にインポートされます。
   - _注意_: このオプションは `getIntlayer`、`getDictionary`、`useDictionary`、`useDictionaryAsync`、および `useDictionaryDynamic` 関数には影響しません。
 
+- **outputFormat**:
+  - _型_: `'esm' | 'cjs'`
+  - _デフォルト_: `'esm'`
+  - _説明_: 辞書の出力形式を制御します。
+  - _例_: `'cjs'`
+  - _注意_: 辞書の出力形式。
+
 - **traversePattern**:
   - _型_: `string[]`
   - _デフォルト_: `['**/*.{js,ts,mjs,cjs,jsx,tsx}', '!**/node_modules/**']`
@@ -981,3 +1002,49 @@ Intlayerがアプリケーションの国際化をどのように最適化しビ
   - _注意_: 最適化を関連するコードファイルに限定し、ビルドパフォーマンスを向上させるために使用します。
   - _注意_: `optimize` が無効の場合、このオプションは無視されます。
   - _注意_: グロブパターンを使用してください。
+
+---
+
+### コンパイラ設定
+
+コンポーネントから直接辞書を抽出する Intlayer コンパイラを制御する設定。
+
+#### プロパティ
+
+- **enabled**:
+  - _型_: `boolean | 'build-only'`
+  - _デフォルト_: `true`
+  - _説明_: 辞書を抽出するためにコンパイラを有効にするかどうかを示します。
+  - _例_: `'build-only'`
+  - _注意_: `'build-only'` に設定すると、開発モード中にコンパイラをスキップして起動時間を短縮します。ビルドコマンドでのみ実行されます。
+
+- **dictionaryKeyPrefix**:
+  - _型_: `string`
+  - _デフォルト_: `'comp-'`
+  - _説明_: 抽出された辞書キーのプレフィックス。
+  - _例_: `'my-key-'`
+  - _注意_: 辞書が抽出される際、キーはファイル名に基づいて生成されます。このプレフィックスは、競合を防ぐために生成されたキーに追加されます。
+
+- **saveComponents**:
+  - _型_: `boolean`
+  - _デフォルト_: `false`
+  - _説明_: 変換後にコンポーネントを保存するかどうかを示します。
+  - _注意_: true の場合、コンパイラは元のファイルを変換後のファイルで置き換えます。これにより、コンパイラを一度だけ実行してアプリケーションを変換し、その後コンパイラを削除することができます。
+
+- **transformPattern**:
+  - _型_: `string | string[]`
+  - _デフォルト_: `['**/*.{ts,tsx,jsx,js,cjs,mjs,svelte,vue}', '!**/node_modules/**']`
+  - _説明_: 最適化中に走査されるファイルを定義するパターン。
+  - _例_: `['src/**/*.{ts,tsx}', '!**/node_modules/**']`
+  - _注意_: 最適化を関連するコードファイルに限定し、ビルドパフォーマンスを向上させるために使用します。
+
+- **excludePattern**:
+  - _型_: `string | string[]`
+  - _デフォルト_: `['**/node_modules/**']`
+  - _説明_: 最適化中に除外されるファイルを定義するパターン。
+  - _例_: `['**/node_modules/**', '!**/node_modules/react/**']`
+
+- **outputDir**:
+  - _型_: `string`
+  - _デフォルト_: `'compiler'`
+  - _説明_: 抽出された辞書が保存されるディレクトリ（プロジェクトのベースパスからの相対パス）。

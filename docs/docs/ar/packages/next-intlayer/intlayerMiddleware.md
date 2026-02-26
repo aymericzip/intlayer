@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-02-25
 title: توثيق intlayerMiddleware | next-intlayer
 description: اطّلع على كيفية استخدام دالة intlayerMiddleware لحزمة next-intlayer
 keywords:
@@ -17,25 +17,44 @@ slugs:
   - next-intlayer
   - intlayerMiddleware
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: إعادة تسمية intlayerMiddleware إلى intlayerProxy
   - version: 8.0.0
     date: 2026-01-21
     changes: إنشاء المستند
 ---
 
-# توثيق intlayerMiddleware
+# توثيق intlayerProxy (intlayerMiddleware)
 
-دالة `intlayerMiddleware` هي middleware لـ Next.js تتعامل مع التوجيه (routing) وإعادة التوجيه استنادًا إلى locale. تقوم باكتشاف الـ locale المفضّل لدى المستخدم تلقائيًا وتعيد توجيهه إلى المسار المحلي المناسب عند الحاجة.
+دالة `intlayerProxy` (`intlayerMiddleware` لـ nextjs < 16) هي middleware لـ Next.js تتعامل مع التوجيه (routing) وإعادة التوجيه استنادًا إلى locale. تقوم باكتشاف الـ locale المفضّل لدى المستخدم تلقائيًا وتعيد توجيهه إلى المسار المحلي المناسب عند الحاجة.
 
 ## الاستخدام
 
-```ts
-// middleware.ts - ملف الوسيط
-export { intlayerMiddleware as middleware } from "next-intlayer";
+<Tabs>
+ <Tab value="nextjs >=16">
+
+```ts fileName="proxy.ts"
+export { intlayerProxy as proxy } from "next-intlayer/proxy";
 
 export const config = {
   matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };
 ```
+
+ </Tab>
+ <Tab value="nextjs <=15">
+
+```ts fileName="middleware.ts"
+export { intlayerMiddleware as middleware } from "next-intlayer/middleware";
+
+export const config = {
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+};
+```
+
+ </Tab>
+</Tabs>
 
 ## الوصف
 
@@ -48,3 +67,7 @@ export const config = {
 ## المعلمات
 
 تأخذ الدالة المعلمة القياسية من Next.js `NextRequest` عند استخدامها مباشرة، أو يمكن تصديرها كما هو موضح أعلاه.
+
+## الإعدادات
+
+لتكوين الـ middleware، يمكنك إعداد خيار `routing` في ملف `intlayer.config.ts`. انظر [الإعدادات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md) لمزيد من التفاصيل.

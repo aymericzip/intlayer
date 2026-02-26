@@ -127,9 +127,26 @@ const config: IntlayerConfig = {
     mode: "search-params",
   },
   compiler: {
-    enabled: true, // يمكن تعيينه إلى 'build-only' للحد من التأثير في وضع التطوير
-    outputDir: "i18n",
-    dictionaryKeyPrefix: "", // لا توجد بادئة، الافتراضي هو "comp-"
+    /**
+     * يحدد ما إذا كان يجب تمكين المترجم.
+     */
+    enabled: true,
+
+    /**
+     * دليل الإخراج للقواميس المحسنة.
+     */
+    outputDir: "compiler",
+
+    /**
+     * بادئة مفتاح القاموس
+     */
+    dictionaryKeyPrefix: "", // إزالة البادئة الأساسية
+
+    /**
+     * يحدد ما إذا كان يجب حفظ المكونات بعد تحويلها.
+     * بهذه الطريقة، يمكن تشغيل المترجم مرة واحدة فقط لتحويل التطبيق، ثم يمكن إزالته.
+     */
+    saveComponents: false,
   },
   ai: {
     provider: "openai",

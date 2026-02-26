@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-02-12
+updatedAt: 2026-02-25
 title: Konfigurasi
 description: Pelajari cara mengonfigurasi Intlayer untuk aplikasi Anda. Pahami berbagai pengaturan dan opsi yang tersedia untuk menyesuaikan Intlayer sesuai kebutuhan Anda.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: Perbarui opsi kompiler
   - version: 8.0.6
     date: 2026-02-12
     changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
@@ -455,6 +458,17 @@ const config: IntlayerConfig = {
      * Output directory for the optimized dictionaries.
      */
     outputDir: "compiler",
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "", // Remove base prefix
+
+    /**
+     * Indicates if the components should be saved after being transformed.
+     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     */
+    saveComponents: false,
   },
 
   /**
@@ -1094,3 +1108,49 @@ Opsi build berlaku untuk plugin `@intlayer/babel` dan `@intlayer/swc`.
   - _Catatan_: Gunakan ini untuk membatasi optimasi hanya pada file kode yang relevan dan meningkatkan performa build.
   - _Catatan_: Opsi ini akan diabaikan jika `optimize` dinonaktifkan.
   - _Catatan_: Gunakan pola glob.
+
+---
+
+### Konfigurasi Kompiler
+
+Pengaturan yang mengontrol kompiler Intlayer, yang mengekstrak kamus langsung dari komponen Anda.
+
+#### Properti
+
+- **enabled**:
+  - _Tipe_: `boolean | 'build-only'`
+  - _Default_: `true`
+  - _Deskripsi_: Menunjukkan apakah kompiler harus diaktifkan untuk mengekstrak kamus.
+  - _Contoh_: `'build-only'`
+  - _Catatan_: Menyetelnya ke `'build-only'` akan melewati kompiler selama mode pengembangan untuk mempercepat waktu build. Ini hanya akan berjalan pada perintah build.
+
+- **dictionaryKeyPrefix**:
+  - _Tipe_: `string`
+  - _Default_: `'comp-'`
+  - _Deskripsi_: Awalan untuk kunci kamus yang diekstrak.
+  - _Contoh_: `'my-key-'`
+  - _Catatan_: Saat kamus diekstrak, kunci dihasilkan berdasarkan nama file. Awalan ini ditambahkan ke kunci yang dihasilkan untuk mencegah konflik.
+
+- **saveComponents**:
+  - _Tipe_: `boolean`
+  - _Default_: `false`
+  - _Deskripsi_: Menunjukkan apakah komponen harus disimpan setelah diubah.
+  - _Catatan_: Jika true, kompiler akan mengganti file asli dengan file yang diubah. Dengan begitu, kompiler hanya dapat dijalankan sekali untuk mengubah aplikasi, dan kemudian dapat dihapus.
+
+- **transformPattern**:
+  - _Tipe_: `string | string[]`
+  - _Default_: `['**/*.{ts,tsx,jsx,js,cjs,mjs,svelte,vue}', '!**/node_modules/**']`
+  - _Deskripsi_: Pola yang menentukan file mana yang harus dilalui selama optimasi.
+  - _Contoh_: `['src/**/*.{ts,tsx}', '!**/node_modules/**']`
+  - _Catatan_: Gunakan ini untuk membatasi optimasi hanya pada file kode yang relevan dan meningkatkan performa build.
+
+- **excludePattern**:
+  - _Tipe_: `string | string[]`
+  - _Default_: `['**/node_modules/**']`
+  - _Deskripsi_: Pola yang menentukan file mana yang harus dikecualikan selama optimasi.
+  - _Contoh_: `['**/node_modules/**', '!**/node_modules/react/**']`
+
+- **outputDir**:
+  - _Tipe_: `string`
+  - _Default_: `'compiler'`
+  - _Deskripsi_: Direktori tempat kamus yang diekstrak akan disimpan, relatif terhadap jalur dasar proyek Anda.

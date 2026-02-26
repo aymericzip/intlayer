@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
+updatedAt: 2026-02-25
 title: Intlayer Compiler | Automatisierte Inhaltsextraktion für i18n
 description: Automatisieren Sie Ihren Internationalisierungsprozess mit dem Intlayer Compiler. Extrahieren Sie Inhalte direkt aus Ihren Komponenten für schnellere und effizientere i18n in Vite, Next.js und mehr.
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: Compiler-Optionen aktualisieren
   - version: 7.3.1
     date: 2025-11-27
     changes: Release Compiler
@@ -143,6 +146,55 @@ Diese Konfiguration stellt sicher, dass Inhalte, die in Ihren Komponenten deklar
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
+
+### Benutzerdefinierte Konfiguration
+
+Um das Verhalten des Compilers anzupassen, können Sie die Datei `intlayer.config.ts` im Stammverzeichnis Ihres Projekts aktualisieren.
+
+```ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  compiler: {
+    /**
+     * Gibt an, ob der Compiler aktiviert sein soll.
+     * Auf 'build-only' setzen, um den Compiler während der Entwicklung zu überspringen und die Startzeiten zu beschleunigen.
+     */
+    enabled: true,
+
+    /**
+     * Muster zum Durchlaufen des zu optimierenden Codes.
+     */
+    transformPattern: [
+      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
+      "!**/node_modules/**",
+    ],
+
+    /**
+     * Muster, das von der Optimierung ausgeschlossen werden soll.
+     */
+    excludePattern: ["**/node_modules/**"],
+
+    /**
+     * Ausgabeverzeichnis für die optimierten Wörterbücher.
+     */
+    outputDir: "i18n",
+
+    /**
+     * Wörterbuch-Schlüsselpräfix
+     */
+    dictionaryKeyPrefix: "", // Basis-Präfix entfernen
+
+    /**
+     * Gibt an, ob die Komponenten nach der Transformation gespeichert werden sollen.
+     * Auf diese Weise kann der Compiler nur einmal ausgeführt werden, um die App zu transformieren, und kann dann entfernt werden.
+     */
+    saveComponents: false,
+  },
+};
+
+export default config;
+```
 
 ### Fehlende Übersetzungen ausfüllen
 

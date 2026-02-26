@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-02-12
+updatedAt: 2026-02-25
 title: 配置
 description: 了解如何为您的应用程序配置 Intlayer。了解各种设置和选项，以根据您的需求自定义 Intlayer。
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: 更新编译器选项
   - version: 8.0.6
     date: 2026-02-12
     changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
@@ -440,6 +443,17 @@ const config: IntlayerConfig = {
      * Output directory for the optimized dictionaries.
      */
     outputDir: "compiler",
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "", // Remove base prefix
+
+    /**
+     * Indicates if the components should be saved after being transformed.
+     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     */
+    saveComponents: false,
   },
 
   /**
@@ -979,6 +993,13 @@ Intlayer 支持多个 AI 提供商，以增强灵活性和选择。目前支持�
   - _注意_: 实时模式将使用实时同步 API 来获取字典。如果 API 调用失败，字典将以 "dynamic" 模式动态导入。
   - _注意_: 此选项不会影响 `getIntlayer`、`getDictionary`、`useDictionary`、`useDictionaryAsync` 和 `useDictionaryDynamic` 函数。
 
+- **outputFormat**：
+  - _类型_： `'esm' | 'cjs'`
+  - _默认值_： `'esm'`
+  - _描述_： 控制字典的输出格式。
+  - _示例_： `'cjs'`
+  - _注意_： 字典的输出格式。
+
 - **traversePattern**:
   - _类型_: `string[]`
   - _默认值_: `['**\/*.{js,ts,mjs,cjs,jsx,tsx}', '!**\/node_modules/**']`
@@ -987,3 +1008,49 @@ Intlayer 支持多个 AI 提供商，以增强灵活性和选择。目前支持�
   - _注意_：使用此选项限制优化范围到相关代码文件，以提升构建性能。
   - _注意_：如果禁用 `optimize`，此选项将被忽略。
   - _注意_：使用 glob 模式。
+
+---
+
+### 编译器配置
+
+控制 Intlayer 编译器的设置，该编译器直接从您的组件中提取字典。
+
+#### 属性
+
+- **enabled**:
+  - _类型_：`boolean | 'build-only'`
+  - _默认值_：`true`
+  - _描述_：指示是否应启用编译器以提取字典。
+  - _示例_：`'build-only'`
+  - _注意_：设置为 `'build-only'` 将在开发模式下跳过编译器，以加快启动速度。它仅在构建命令时运行。
+
+- **dictionaryKeyPrefix**:
+  - _类型_：`string`
+  - _默认值_：`'comp-'`
+  - _描述_：提取的字典键的前缀。
+  - _示例_：`'my-key-'`
+  - _注意_：提取字典时，键是根据文件名生成的。此前缀会添加到生成的键中，以防止冲突。
+
+- **saveComponents**:
+  - _类型_：`boolean`
+  - _默认值_：`false`
+  - _描述_：指示是否应在转换后保存组件。
+  - _注意_：如果为 true，编译器将用转换后的文件替换原始文件。这样，编译器只需运行一次来转换应用，然后即可移除。
+
+- **transformPattern**:
+  - _类型_：`string | string[]`
+  - _默认值_：`['**/*.{ts,tsx,jsx,js,cjs,mjs,svelte,vue}', '!**/node_modules/**']`
+  - _描述_：定义在优化过程中应遍历哪些文件的模式。
+  - _示例_：`['src/**/*.{ts,tsx}', '!**/node_modules/**']`
+  - _注意_：使用此选项限制优化范围到相关代码文件，以提升构建性能。
+
+- **excludePattern**:
+  - _类型_：`string | string[]`
+  - _默认值_：`['**/node_modules/**']`
+  - _描述_：定义在优化过程中应排除哪些文件的模式。
+  - _示例_：`['**/node_modules/**', '!**/node_modules/react/**']`
+
+- **outputDir**:
+  - _类型_：`string`
+  - _默认值_： `'compiler'`
+  - _描述_：存储提取字典的目录，相对于您的项目基准路径。

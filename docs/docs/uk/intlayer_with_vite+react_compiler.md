@@ -125,9 +125,26 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
   },
   compiler: {
-    enabled: true, // Можна встановити 'build-only', щоб обмежити вплив на режим розробки
-    outputDir: "i18n",
-    dictionaryKeyPrefix: "", // Без префікса comp-
+    /**
+     * Вказує, чи повинен бути включений компілятор.
+     */
+    enabled: true,
+
+    /**
+     * Вихідний каталог для оптимізованих словників.
+     */
+    outputDir: "compiler",
+
+    /**
+     * Префікс ключа словника
+     */
+    dictionaryKeyPrefix: "", // Видалити базовий префікс
+
+    /**
+     * Вказує, чи повинні компоненти зберігатися після трансформації.
+     * Таким чином, компілятор можна запустити один раз для трансформації додатка, після чого його можна видалити.
+     */
+    saveComponents: false,
   },
   ai: {
     provider: "openai",

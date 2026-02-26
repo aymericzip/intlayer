@@ -237,6 +237,8 @@ module.exports = appContent;
 <div aria-label={$content.title.value}></div>
 ```
 
+> إذا كان تطبيقك موجودًا بالفعل، يمكنك استخدام [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)، بالإضافة إلى [أمر الاستخراج](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md)، لتحويل آلاف المكونات في ثانية واحدة.
+
 ### (اختياري) الخطوة 6: تغيير لغة المحتوى الخاص بك
 
 ```svelte fileName="src/App.svelte"

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-02-12
+updatedAt: 2026-02-25
 title: Configuration
 description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customize Intlayer to your needs.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: Update compiler options
   - version: 8.1.5
     date: 2026-02-23
     changes: Add compiler option 'build-only', and dictionary prefix
@@ -481,6 +484,12 @@ const config: IntlayerConfig = {
      * Dictionary key prefix
      */
     dictionaryKeyPrefix: "", // Remove base prefix
+
+    /**
+     * Indicates if the components should be saved after being transformed.
+     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     */
+    saveComponents: false,
   },
 
   /**
@@ -1213,6 +1222,12 @@ Settings that control the Intlayer compiler, which extracts dictionaries straigh
   - _Description_: Prefix for the extracted dictionary keys.
   - _Example_: `'my-key-'`
   - _Note_: When dictionaries are extracted, the key is generated based on the file name. This prefix is added to the generated key to prevent conflicts.
+
+- **saveComponents**:
+  - _Type_: `boolean`
+  - _Default_: `false`
+  - _Description_: Indicates if the components should be saved after being transformed.
+  - _Note_: If true, the compiler will replace the original files with the transformed files. That way, the compiler can be run only once to transform the app, and then it can be removed.
 
 - **transformPattern**:
   - _Type_: `string | string[]`

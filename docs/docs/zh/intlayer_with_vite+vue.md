@@ -518,6 +518,8 @@ Intlayer 提供了多种 API 来访问您的内容：
   - 使用 `const content = useIntlayer("myContent");` 并通过 `{{ content.myContent }}` / `<content.myContent />` 访问内容。
   - 或者使用 `const { myContent } = useIntlayer("myContent");` 并通过 `{{ myContent }}` / `<myContent/>` 解构访问内容。
 
+> 如果您的应用程序已经存在，您可以结合使用 [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 和 [提取命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 在一秒钟内转换成干个组件。
+
 ### （可选）步骤 6：更改内容语言
 
 要更改内容的语言，可以使用 `useLocale` 组合函数提供的 `setLocale` 函数。该函数允许你设置应用的语言环境，并相应地更新内容。

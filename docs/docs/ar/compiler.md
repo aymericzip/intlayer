@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
+updatedAt: 2026-02-25
 title: مترجم Intlayer | استخراج المحتوى الآلي للتدويل
 description: قم بأتمتة عملية التدويل الخاصة بك باستخدام مترجم Intlayer. استخرج المحتوى مباشرة من مكوناتك لتحقيق تدويل أسرع وأكثر كفاءة في Vite و Next.js والمزيد.
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: تحديث خيارات المترجم
   - version: 7.3.1
     date: 2025-11-27
     changes: إصدار المترجم
@@ -143,6 +146,55 @@ module.exports = {
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
+
+### التكوين المخصص
+
+لتخصيص سلوك المترجم، يمكنك تحديث ملف `intlayer.config.ts` في جذر مشروعك.
+
+```ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  compiler: {
+    /**
+     * يشير إلى ما إذا كان يجب تمكين المترجم.
+     * اضبطه على 'build-only' لتخطي المترجم أثناء التطوير وتسريع أوقات البدء.
+     */
+    enabled: true,
+
+    /**
+     * نمط لاجتياز الكود المراد تحسينه.
+     */
+    transformPattern: [
+      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
+      "!**/node_modules/**",
+    ],
+
+    /**
+     * نمط للاستبعاد من التحسين.
+     */
+    excludePattern: ["**/node_modules/**"],
+
+    /**
+     * دليل الإخراج للقواميس المحسنة.
+     */
+    outputDir: "i18n",
+
+    /**
+     * بادئة مفتاح القاموس
+     */
+    dictionaryKeyPrefix: "", // إزالة بادئة القاعدة
+
+    /**
+     * يشير إلى ما إذا كان يجب حفظ المكونات بعد تحويلها.
+     * بهذه الطريقة، يمكن تشغيل المترجم مرة واحدة فقط لتحويل التطبيق، ثم يمكن إزالته.
+     */
+    saveComponents: false,
+  },
+};
+
+export default config;
+```
 
 ### ملء الترجمات المفقودة
 

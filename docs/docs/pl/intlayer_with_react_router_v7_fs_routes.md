@@ -391,6 +391,8 @@ export default function AboutPage() {
 }
 ```
 
+> Jeśli Twoja aplikacja już istnieje, możesz użyć [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) w połączeniu z [poleceniem extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md), aby przekonwertować tysiące komponentów w jedną sekundę.
+
 ### Krok 6: Zadeklaruj swoją zawartość
 
 Utwórz i zarządzaj deklaracjami zawartości, aby przechowywać tłumaczenia. Umieść pliki zawartości obok plików tras:

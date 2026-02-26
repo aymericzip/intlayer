@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
+updatedAt: 2026-02-25
 title: Intlayer Compiler | Extração Automática de Conteúdo para i18n
 description: Automatize seu processo de internacionalização com o Intlayer Compiler. Extraia conteúdo diretamente dos seus componentes para uma i18n mais rápida e eficiente em Vite, Next.js e mais.
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: Atualizar opções do compilador
   - version: 7.3.1
     date: 2025-11-27
     changes: Lançamento do Compiler
@@ -143,6 +146,55 @@ Esta configuração garante que o conteúdo declarado em seus componentes seja a
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
+
+### Configuração personalizada
+
+Para personalizar o comportamento do compilador, você pode atualizar o arquivo `intlayer.config.ts` na raiz do seu projeto.
+
+```ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  compiler: {
+    /**
+     * Indica se o compilador deve ser ativado.
+     * Defina como 'build-only' para pular o compilador durante o desenvolvimento e acelerar os tempos de inicialização.
+     */
+    enabled: true,
+
+    /**
+     * Padrão para percorrer o código a ser otimizado.
+     */
+    transformPattern: [
+      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
+      "!**/node_modules/**",
+    ],
+
+    /**
+     * Padrão para excluir da otimização.
+     */
+    excludePattern: ["**/node_modules/**"],
+
+    /**
+     * Diretório de saída para os dicionários otimizados.
+     */
+    outputDir: "i18n",
+
+    /**
+     * Prefixo da chave do dicionário
+     */
+    dictionaryKeyPrefix: "", // Remover prefixo base
+
+    /**
+     * Indica se os componentes devem ser salvos após serem transformados.
+     * Dessa forma, o compilador pode ser executado apenas uma vez para transformar o app e depois pode ser removido.
+     */
+    saveComponents: false,
+  },
+};
+
+export default config;
+```
 
 ### Preencher traduções ausentes
 

@@ -125,9 +125,26 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
   },
   compiler: {
-    enabled: true, // Có thể được đặt thành 'build-only' để giới hạn tác động đến chế độ phát triển
-    outputDir: "i18n",
-    dictionaryKeyPrefix: "", // Không có tiền tố comp-
+    /**
+     * Cho biết liệu trình biên dịch có nên được bật hay không.
+     */
+    enabled: true,
+
+    /**
+     * Thư mục đầu ra cho các từ điển đã được tối ưu hóa.
+     */
+    outputDir: "compiler",
+
+    /**
+     * Tiền tố khóa từ điển
+     */
+    dictionaryKeyPrefix: "", // Xóa tiền tố cơ bản
+
+    /**
+     * Cho biết liệu các thành phần có nên được lưu lại sau khi được biến đổi hay không.
+     * Bằng cách này, trình biên dịch có thể được chạy một lần để biến đổi ứng dụng, sau đó nó có thể được gỡ bỏ.
+     */
+    saveComponents: false,
   },
   ai: {
     provider: "openai",

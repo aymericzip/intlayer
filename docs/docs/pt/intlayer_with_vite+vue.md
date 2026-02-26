@@ -510,6 +510,8 @@ O Intlayer oferece diferentes APIs para acessar seu conteúdo:
   - Use `const content = useIntlayer("myContent");` e `{{ content.myContent }}` / `<content.myContent />`.
   - Ou use `const { myContent } = useIntlayer("myContent");` e `{{ myContent }}` / `<myContent/>` para desestruturar o conteúdo.
 
+> Se a sua aplicação já existe, você pode usar o [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md) em conjunto com o [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/extract.md) para converter milhares de componentes em um segundo.
+
 ### (Opcional) Passo 6: Alterar o idioma do seu conteúdo
 
 Para alterar o idioma do seu conteúdo, você pode usar a função `setLocale` fornecida pelo composable `useLocale`. Essa função permite definir o locale da aplicação e atualizar o conteúdo de acordo.

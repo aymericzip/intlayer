@@ -371,6 +371,8 @@ export default function AboutPage() {
 }
 ```
 
+> Якщо ваш застосунок уже існує, ви можете скористатися [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) у поєднанні з [командой extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md), щоб перетворити тисячі компонентів за одну секунду.
+
 ### Крок 6: Оголосіть свій контент
 
 Створюйте та керуйте деклараціями контенту для зберігання перекладів. Розміщуйте файли контенту поруч із файлами маршрутів:

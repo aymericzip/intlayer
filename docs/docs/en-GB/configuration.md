@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-02-12
+updatedAt: 2026-02-25
 title: Configuration
 description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customise Intlayer to your needs.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: Update compiler options
   - version: 8.0.6
     date: 2026-02-12
     changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
@@ -437,6 +440,17 @@ const config: IntlayerConfig = {
      * Output directory for the optimized dictionaries.
      */
     outputDir: "compiler",
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "", // Remove base prefix
+
+    /**
+     * Indicates if the components should be saved after being transformed.
+     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     */
+    saveComponents: false,
   },
 
   /**
@@ -988,6 +1002,13 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Note_: Fetch mode will use the live sync API to fetch the dictionaries. If the API call fails, the dictionaries will be imported dynamically as "dynamic" mode.
   - _Note_: This option will not affect the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions.
 
+- **outputFormat**:
+  - _Type_: `'esm' | 'cjs'`
+  - _Default_: `'esm'`
+  - _Description_: Controls the output format of the dictionaries.
+  - _Example_: `'cjs'`
+  - _Note_: The output format of the dictionaries.
+
 - **traversePattern**:
   - _Type_: `string[]`
   - _Default_: `['**\/*.{js,ts,mjs,cjs,jsx,tsx}', '!**\/node_modules/**']`
@@ -996,3 +1017,49 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Note_: Use this to limit optimisation to relevant code files and improve build performance.
   - _Note_: This option will be ignored if `optimise` is disabled.
   - _Note_: Use glob pattern.
+
+---
+
+### Compiler Configuration
+
+Settings that control the Intlayer compiler, which extracts dictionaries straight from your components.
+
+#### Properties
+
+- **enabled**:
+  - _Type_: `boolean | 'build-only'`
+  - _Default_: `true`
+  - _Description_: Indicates if the compiler should be enabled to extract the dictionaries.
+  - _Example_: `'build-only'`
+  - _Note_: Setting it to `'build-only'` will skip the compiler during development mode to speed up build times. It will only run on build commands.
+
+- **dictionaryKeyPrefix**:
+  - _Type_: `string`
+  - _Default_: `'comp-'`
+  - _Description_: Prefix for the extracted dictionary keys.
+  - _Example_: `'my-key-'`
+  - _Note_: When dictionaries are extracted, the key is generated based on the file name. This prefix is added to the generated key to prevent conflicts.
+
+- **saveComponents**:
+  - _Type_: `boolean`
+  - _Default_: `false`
+  - _Description_: Indicates if the components should be saved after being transformed.
+  - _Note_: If true, the compiler will replace the original files with the transformed files. That way, the compiler can be run only once to transform the app, and then it can be removed.
+
+- **transformPattern**:
+  - _Type_: `string | string[]`
+  - _Default_: `['**/*.{ts,tsx,jsx,js,cjs,mjs,svelte,vue}', '!**/node_modules/**']`
+  - _Description_: Patterns that define which files should be traversed during optimisation.
+  - _Example_: `['src/**/*.{ts,tsx}', '!**/node_modules/**']`
+  - _Note_: Use this to limit optimisation to relevant code files and improve build performance.
+
+- **excludePattern**:
+  - _Type_: `string | string[]`
+  - _Default_: `['**/node_modules/**']`
+  - _Description_: Patterns that define which files should be excluded during optimisation.
+  - _Example_: `['**/node_modules/**', '!**/node_modules/react/**']`
+
+- **outputDir**:
+  - _Type_: `string`
+  - _Default_: `'compiler'`
+  - _Description_: The directory where the extracted dictionaries will be stored, relative to your project base path.

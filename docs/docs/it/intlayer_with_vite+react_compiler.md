@@ -130,9 +130,26 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
   },
   compiler: {
-    enabled: true, // Può essere impostato su 'build-only' per limitare l'impatto in modalità dev
-    outputDir: "i18n",
-    dictionaryKeyPrefix: "", // Nessun prefisso comp-
+    /**
+     * Indica se il compilatore deve essere abilitato.
+     */
+    enabled: true,
+
+    /**
+     * Directory di output per i dizionari ottimizzati.
+     */
+    outputDir: "compiler",
+
+    /**
+     * Prefisso della chiave del dizionario
+     */
+    dictionaryKeyPrefix: "", // Rimuovi il prefisso di base
+
+    /**
+     * Indica se i componenti devono essere salvati dopo essere stati trasformati.
+     * In questo modo, il compilatore può essere eseguito una sola volta per trasformare l'app e può quindi essere rimosso.
+     */
+    saveComponents: false,
   },
   ai: {
     provider: "openai",

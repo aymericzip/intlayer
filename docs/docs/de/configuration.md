@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-02-12
+updatedAt: 2026-02-25
 title: Konfiguration
 description: Erfahren Sie, wie Sie Intlayer für Ihre Anwendung konfigurieren. Verstehen Sie die verschiedenen Einstellungen und Optionen, um Intlayer an Ihre Bedürfnisse anzupassen.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: Compiler-Optionen aktualisieren
   - version: 8.0.6
     date: 2026-02-12
     changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
@@ -437,6 +440,17 @@ const config: IntlayerConfig = {
      * Output directory for the optimized dictionaries.
      */
     outputDir: "compiler",
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "", // Remove base prefix
+
+    /**
+     * Indicates if the components should be saved after being transformed.
+     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     */
+    saveComponents: false,
   },
 
   /**
@@ -982,6 +996,13 @@ Build-Optionen gelten für die Plugins `@intlayer/babel` und `@intlayer/swc`.
   - _Hinweis_: Der Live-Modus verwendet die Live-Sync-API, um die Wörterbücher abzurufen. Wenn der API-Aufruf fehlschlägt, werden die Wörterbücher dynamisch im "dynamic"-Modus importiert.
   - _Hinweis_: Diese Option hat keine Auswirkungen auf die Funktionen `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` und `useDictionaryDynamic`.
 
+- **outputFormat**:
+  - _Typ_: `'esm' | 'cjs'`
+  - _Standard_: `'esm'`
+  - _Beschreibung_: Steuert das Ausgabeformat der Wörterbücher.
+  - _Beispiel_: `'cjs'`
+  - _Hinweis_: Das Ausgabeformat der Wörterbücher.
+
 - **traversePattern**:
   - _Typ_: `string[]`
   - _Standard_: `['**\/*.{js,ts,mjs,cjs,jsx,tsx}', '!**\/node_modules/**']`
@@ -990,3 +1011,49 @@ Build-Optionen gelten für die Plugins `@intlayer/babel` und `@intlayer/swc`.
   - _Hinweis_: Verwenden Sie dies, um die Optimierung auf relevante Code-Dateien zu beschränken und die Build-Leistung zu verbessern.
   - _Hinweis_: Diese Option wird ignoriert, wenn `optimize` deaktiviert ist.
   - _Hinweis_: Verwenden Sie Glob-Muster.
+
+---
+
+### Compiler-Konfiguration
+
+Einstellungen zur Steuerung des Intlayer-Compilers, der Wörterbücher direkt aus Ihren Komponenten extrahiert.
+
+#### Eigenschaften
+
+- **enabled**:
+  - _Typ_: `boolean | 'build-only'`
+  - _Standard_: `true`
+  - _Beschreibung_: Gibt an, ob der Compiler aktiviert sein soll, um die Wörterbücher zu extrahieren.
+  - _Beispiel_: `'build-only'`
+  - _Hinweis_: Wenn Sie dies auf `'build-only'` setzen, wird der Compiler im Entwicklungsmodus übersprungen, um die Startzeiten zu beschleunigen. Er wird nur bei Build-Befehlen ausgeführt.
+
+- **dictionaryKeyPrefix**:
+  - _Typ_: `string`
+  - _Standard_: `'comp-'`
+  - _Beschreibung_: Präfix für die extrahierten Wörterbuchschlüssel.
+  - _Beispiel_: `'my-key-'`
+  - _Hinweis_: Wenn Wörterbücher extrahiert werden, wird der Schlüssel basierend auf dem Dateinamen generiert. Dieses Präfix wird dem generierten Schlüssel hinzugefügt, um Konflikte zu vermeiden.
+
+- **saveComponents**:
+  - _Typ_: `boolean`
+  - _Standard_: `false`
+  - _Beschreibung_: Gibt an, ob die Komponenten nach der Transformation gespeichert werden sollen.
+  - _Hinweis_: Wenn auf true gesetzt, ersetzt der Compiler die Originaldateien durch die transformierten Dateien. Auf diese Weise kann der Compiler nur einmal ausgeführt werden, um die App zu transformieren, und dann entfernt werden.
+
+- **transformPattern**:
+  - _Typ_: `string | string[]`
+  - _Standard_: `['**/*.{ts,tsx,jsx,js,cjs,mjs,svelte,vue}', '!**/node_modules/**']`
+  - _Beschreibung_: Muster, die definieren, welche Dateien während der Optimierung durchlaufen werden sollen.
+  - _Beispiel_: `['src/**/*.{ts,tsx}', '!**/node_modules/**']`
+  - _Hinweis_: Verwenden Sie dies, um die Optimierung auf relevante Code-Dateien zu beschränken und die Build-Leistung zu verbessern.
+
+- **excludePattern**:
+  - _Typ_: `string | string[]`
+  - _Standard_: `['**/node_modules/**']`
+  - _Beschreibung_: Muster, die definieren, welche Dateien während der Optimierung ausgeschlossen werden sollen.
+  - _Beispiel_: `['**/node_modules/**', '!**/node_modules/react/**']`
+
+- **outputDir**:
+  - _Typ_: `string`
+  - _Standard_: `'compiler'`
+  - _Beschreibung_: Das Verzeichnis, in dem die extrahierten Wörterbücher gespeichert werden, relativ zum Basispfad Ihres Projekts.

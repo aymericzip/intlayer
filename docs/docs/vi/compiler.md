@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
+updatedAt: 2026-02-25
 title: Trình Biên Dịch Intlayer | Trích Xuất Nội Dung Tự Động cho i18n
 description: Tự động hóa quy trình quốc tế hóa của bạn với Trình Biên Dịch Intlayer. Trích xuất nội dung trực tiếp từ các component để i18n nhanh hơn và hiệu quả hơn trong Vite, Next.js và nhiều hơn nữa.
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: Cập nhật các tùy chọn trình biên dịch
   - version: 7.3.1
     date: 2025-11-27
     changes: Phát hành Trình Biên Dịch
@@ -143,6 +146,55 @@ Cấu hình này đảm bảo rằng nội dung được khai báo trong các co
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
+
+### Cấu hình tùy chỉnh
+
+Để tùy chỉnh hành vi của trình biên dịch, bạn có thể cập nhật tệp `intlayer.config.ts` trong thư mục gốc của dự án.
+
+```ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  compiler: {
+    /**
+     * Chỉ định liệu trình biên dịch có nên được bật hay không.
+     * Đặt thành 'build-only' để bỏ qua trình biên dịch trong quá trình phát triển và tăng tốc thời gian khởi động.
+     */
+    enabled: true,
+
+    /**
+     * Mẫu để duyệt qua mã để tối ưu hóa.
+     */
+    transformPattern: [
+      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
+      "!**/node_modules/**",
+    ],
+
+    /**
+     * Mẫu để loại trừ khỏi quá trình tối ưu hóa.
+     */
+    excludePattern: ["**/node_modules/**"],
+
+    /**
+     * Thư mục đầu ra cho các từ điển đã được tối ưu hóa.
+     */
+    outputDir: "i18n",
+
+    /**
+     * Tiền tố phím từ điển
+     */
+    dictionaryKeyPrefix: "", // Xóa tiền tố cơ sở
+
+    /**
+     * Chỉ định liệu các component có nên được lưu sau khi được chuyển đổi hay không.
+     * Bằng cách đó, trình biên dịch có thể được chạy chỉ một lần để chuyển đổi ứng dụng, sau đó có thể được gỡ bỏ.
+     */
+    saveComponents: false,
+  },
+};
+
+export default config;
+```
 
 ### Điền các bản dịch còn thiếu
 

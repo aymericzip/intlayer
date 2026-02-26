@@ -125,9 +125,26 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
   },
   compiler: {
-    enabled: true, // 開発モードへの影響を制限するために 'build-only' に設定可能
-    outputDir: "i18n",
-    dictionaryKeyPrefix: "", // プレフィックス comp- なし
+    /**
+     * コンパイラを有効にするかどうかを指定します。
+     */
+    enabled: true,
+
+    /**
+     * 最適化された辞書の出力ディレクトリ。
+     */
+    outputDir: "compiler",
+
+    /**
+     * 辞書キーのプレフィックス
+     */
+    dictionaryKeyPrefix: "", // ベースプレフィックスを削除
+
+    /**
+     * 変換後にコンポーネントを保存するかどうかを指定します。
+     * これにより、コンパイラを 1 回実行してアプリを変換し、その後コンパイラを削除できるようになります。
+     */
+    saveComponents: false,
   },
   ai: {
     provider: "openai",

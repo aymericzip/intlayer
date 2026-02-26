@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
+updatedAt: 2026-02-25
 title: Intlayer Compiler | Zautomatyzowane wydobywanie treści dla i18n
 description: Zautomatyzuj proces internacjonalizacji za pomocą Intlayer Compiler. Wydobywaj treści bezpośrednio z komponentów dla szybszego i bardziej efektywnego i18n w Vite, Next.js i innych.
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: Aktualizacja opcji kompilatora
   - version: 7.3.1
     date: 2025-11-27
     changes: Wydanie kompilatora
@@ -143,6 +146,55 @@ Ta konfiguracja zapewnia, że zawartość zadeklarowana w Twoich komponentach je
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
+
+### Własna konfiguracja
+
+Aby dostosować zachowanie kompilatora, możesz zaktualizować plik `intlayer.config.ts` w katalogu głównym swojego projektu.
+
+```ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  compiler: {
+    /**
+     * Wskazuje, czy kompilator powinien być włączony.
+     * Ustaw na 'build-only', aby pominąć kompilator podczas programowania i przyspieszyć czas uruchamiania.
+     */
+    enabled: true,
+
+    /**
+     * Wzór do przeszukiwania kodu w celu optymalizacji.
+     */
+    transformPattern: [
+      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
+      "!**/node_modules/**",
+    ],
+
+    /**
+     * Wzór do wykluczenia z optymalizacji.
+     */
+    excludePattern: ["**/node_modules/**"],
+
+    /**
+     * Katalog wyjściowy dla zoptymalizowanych słowników.
+     */
+    outputDir: "i18n",
+
+    /**
+     * Prefiks klucza słownika
+     */
+    dictionaryKeyPrefix: "", // Usuń podstawowy prefiks
+
+    /**
+     * Wskazuje, czy komponenty powinny zostać zapisane po przekształceniu.
+     * W ten sposób kompilator może zostać uruchomiony tylko raz w celu przekształcenia aplikacji, a następnie można go usunąć.
+     */
+    saveComponents: false,
+  },
+};
+
+export default config;
+```
 
 ### Uzupełnij brakujące tłumaczenia
 

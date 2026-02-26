@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-02-25
 title: intlayerMiddleware दस्तावेज़ीकरण | next-intlayer
 description: next-intlayer पैकेज के लिए intlayerMiddleware फ़ंक्शन का उपयोग करने का तरीका देखें
 keywords:
@@ -17,25 +17,44 @@ slugs:
   - next-intlayer
   - intlayerMiddleware
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: intlayerMiddleware का नाम बदलकर intlayerProxy किया गया
   - version: 8.0.0
     date: 2026-01-21
     changes: Init doc
 ---
 
-# intlayerMiddleware दस्तावेज़ीकरण
+# intlayerProxy (intlayerMiddleware) दस्तावेज़ीकरण
 
-`intlayerMiddleware` फ़ंक्शन एक Next.js middleware है जो locale-आधारित रूटिंग और रीडायरेक्ट्स को संभालता है। यह स्वचालित रूप से उपयोगकर्ता की पसंदीदा locale का पता लगाता है और आवश्यक होने पर उन्हें उपयुक्त स्थानीयकृत पथ पर रीडायरेक्ट कर देता है।
+`intlayerProxy` फ़ंक्शन (`nextjs < 16` के लिए `intlayerMiddleware`) एक Next.js middleware है जो locale-आधारित रूटिंग और रीडायरेक्ट्स को संभालता है। यह स्वचालित रूप रूप से उपयोगकर्ता की पसंदीदा locale का पता लगाता है और आवश्यक होने पर उन्हें उपयुक्त स्थानीयकृत पथ पर रीडायरेक्ट कर देता है।
 
 ## उपयोग
 
-```ts
-// middleware.ts // मिडलवेयर फ़ाइल
-export { intlayerMiddleware as middleware } from "next-intlayer";
+<Tabs>
+ <Tab value="nextjs >=16">
+
+```ts fileName="proxy.ts"
+export { intlayerProxy as proxy } from "next-intlayer/proxy";
 
 export const config = {
   matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };
 ```
+
+ </Tab>
+ <Tab value="nextjs <=15">
+
+```ts fileName="middleware.ts"
+export { intlayerMiddleware as middleware } from "next-intlayer/middleware";
+
+export const config = {
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+};
+```
+
+ </Tab>
+</Tabs>
 
 ## विवरण
 
@@ -48,3 +67,7 @@ export const config = {
 ## पैरामीटर
 
 यह फ़ंक्शन सीधे उपयोग किए जाने पर मानक Next.js `NextRequest` को पैरामीटर के रूप में लेता है, या इसे ऊपर दिखाए अनुसार export किया जा सकता है।
+
+## कॉन्फ़िगरेशन
+
+मिडलवेयर को कॉन्फ़िगर करने के लिए, आप `intlayer.config.ts` फ़ाइल में `routing` विकल्प सेट कर सकते हैं। अधिक विवरण के लिए [कॉन्फ़िगरेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।

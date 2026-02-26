@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
-title: Intlayer Compiler | Estrazione Automatica dei Contenuti per i18n
-description: Automatizza il tuo processo di internazionalizzazione con Intlayer Compiler. Estrai contenuti direttamente dai tuoi componenti per un i18n più veloce ed efficiente in Vite, Next.js e altro.
+updatedAt: 2026-02-25
+title: Compiler Intlayer | Estrazione automatica dei contenuti per i18n
+description: Automatizza il tuo processo di internazionalizzazione con il compilatore Intlayer. Estrai contenuti direttamente dai tuoi componenti per un i18n più veloce ed efficiente in Vite, Next.js e altro.
 keywords:
   - Intlayer
   - Compiler
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: Aggiorna le opzioni del compilatore
   - version: 7.3.1
     date: 2025-11-27
     changes: Rilascio Compiler
@@ -143,6 +146,55 @@ Questa configurazione garantisce che il contenuto dichiarato nei tuoi componenti
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
+
+### Configurazione personalizzata
+
+Per personalizzare il comportamento del compiler, puoi aggiornare il file `intlayer.config.ts` nella radice del tuo progetto.
+
+```ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  compiler: {
+    /**
+     * Indica se il compiler deve essere abilitato.
+     * Imposta su 'build-only' per saltare il compiler durante lo sviluppo e velocizzare i tempi di avvio.
+     */
+    enabled: true,
+
+    /**
+     * Pattern per attraversare il codice da ottimizzare.
+     */
+    transformPattern: [
+      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
+      "!**/node_modules/**",
+    ],
+
+    /**
+     * Pattern da escludere dall'ottimizzazione.
+     */
+    excludePattern: ["**/node_modules/**"],
+
+    /**
+     * Directory di output per i dizionari ottimizzati.
+     */
+    outputDir: "i18n",
+
+    /**
+     * Prefisso chiave dizionario
+     */
+    dictionaryKeyPrefix: "", // Rimuovi prefisso di base
+
+    /**
+     * Indica se i componenti devono essere salvati dopo essere stati trasformati.
+     * In questo modo, il compiler può essere eseguito solo una volta per trasformare l'app, e poi può essere rimosso.
+     */
+    saveComponents: false,
+  },
+};
+
+export default config;
+```
 
 ### Riempire le traduzioni mancanti
 

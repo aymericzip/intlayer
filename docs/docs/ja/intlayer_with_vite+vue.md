@@ -522,6 +522,8 @@ Intlayerは、コンテンツにアクセスするためのさまざまなAPIを
   - `const content = useIntlayer("myContent");` と `{{ content.myContent }}` / `<content.myContent />` を使用します。
   - または `const { myContent } = useIntlayer("myContent");` と `{{ myContent }}` / `<myContent/>` を使用してコンテンツを分割代入します。
 
+> アプリケーションが既に存在する場合は、[Intlayer コンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) と [抽出コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md) を組み合わせて、1 秒で何千ものコンポーネントを変換できます。
+
 ### （オプション）ステップ6: コンテンツの言語を変更する
 
 コンテンツの言語を変更するには、`useLocale` コンポーザブルが提供する `setLocale` 関数を使用します。この関数により、アプリケーションのロケールを設定し、それに応じてコンテンツを更新できます。

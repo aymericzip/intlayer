@@ -605,6 +605,8 @@ module.exports = App;
 
 > 要了解有关 `useIntlayer` 钩子的更多信息，请参阅[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useIntlayer.md)。
 
+> 如果您的应用程序已经存在，您可以结合使用 [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 和 [提取命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 在一秒钟内转换成干个组件。
+
 ### （可选）步骤 6：更改内容的语言
 
 要更改内容的语言，可以使用 `useLocale` 钩子提供的 `setLocale` 函数。该函数允许您设置应用程序的语言环境并相应地更新内容。

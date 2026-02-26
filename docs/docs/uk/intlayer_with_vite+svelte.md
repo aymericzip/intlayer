@@ -237,6 +237,8 @@ module.exports = appContent;
 <h1><svelte:component this={$content.title} /></h1>
 <!-- Відобразити вміст як рядок -->
 <div aria-label={$content.title.value}></div>
+
+> Якщо ваш застосунок уже існує, ви можете скористатися [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) у поєднанні з [командой extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md), щоб перетворити тисячі компонентів за одну секунду.
 ```
 
 ### (Необов'язково) Крок 6: Змініть мову вашого вмісту

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-02-12
+updatedAt: 2026-02-25
 title: Yapılandırma
 description: Uygulamanız için Intlayer'ı nasıl yapılandıracağınızı öğrenin. Intlayer'ı ihtiyaçlarınıza göre özelleştirmek için mevcut çeşitli ayarları ve seçenekleri anlayın.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: Derleyici seçeneklerini güncelle
   - version: 8.0.6
     date: 2026-02-12
     changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
@@ -440,6 +443,17 @@ const config: IntlayerConfig = {
      * Output directory for the optimized dictionaries.
      */
     outputDir: "compiler",
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "", // Remove base prefix
+
+    /**
+     * Indicates if the components should be saved after being transformed.
+     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     */
+    saveComponents: false,
   },
 
   /**
@@ -978,6 +992,13 @@ Derleme seçenekleri `@intlayer/babel` ve `@intlayer/swc` eklentilerine uygulan�
   - _Not_: Canlı mod, sözlükleri almak için canlı senkronizasyon API'sini kullanır. API çağrısı başarısız olursa, sözlükler dinamik modda dinamik olarak içe aktarılır.
   - _Not_: Bu seçenek `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` ve `useDictionaryDynamic` fonksiyonlarını etkilemez.
 
+- **outputFormat**:
+  - _Tür_: `'esm' | 'cjs'`
+  - _Varsayılan_: `'esm'`
+  - _Açıklama_: Sözlüklerin çıktı biçimini kontrol eder.
+  - _Örnek_: `'cjs'`
+  - _Not_: Sözlüklerin çıktı biçimi.
+
 - **traversePattern**:
   - _Tür_: `string[]`
   - _Varsayılan_: `['**\/*.{js,ts,mjs,cjs,jsx,tsx}', '!**\/node_modules/**']`
@@ -986,3 +1007,49 @@ Derleme seçenekleri `@intlayer/babel` ve `@intlayer/swc` eklentilerine uygulan�
   - _Not_: Optimizasyonu ilgili kod dosyalarıyla sınırlamak ve derleme performansını artırmak için bunu kullanın.
   - _Not_: Bu seçenek `optimize` devre dışı bırakılırsa dikkate alınmaz.
   - _Not_: Glob deseni kullanın.
+
+---
+
+### Derleyici Yapılandırması
+
+Sözlükleri doğrudan bileşenlerinizden çıkaran Intlayer derleyicisini kontrol eden ayarlar.
+
+#### Özellikler
+
+- **enabled**:
+  - _Tür_: `boolean | 'build-only'`
+  - _Varsayılan_: `true`
+  - _Açıklama_: Sözlükleri çıkarmak için derleyicinin etkinleştirilip etkinleştirilmeyeceğini belirtir.
+  - _Örnek_: `'build-only'`
+  - _Not_: `'build-only'` olarak ayarlanması, derleme sürelerini hızlandırmak için geliştirme modu sırasında derleyiciyi atlayacaktır. Yalnızca derleme komutlarında çalışacaktır.
+
+- **dictionaryKeyPrefix**:
+  - _Tür_: `string`
+  - _Varsayılan_: `'comp-'`
+  - _Açıklama_: Çıkarılan sözlük anahtarları için önek.
+  - _Örnek_: `'my-key-'`
+  - _Not_: Sözlükler çıkarıldığında, anahtar dosya adına göre oluşturulur. Bu önek, çakışmaları önlemek için oluşturulan anahtara eklenir.
+
+- **saveComponents**:
+  - _Tür_: `boolean`
+  - _Varsayılan_: `false`
+  - _Açıklama_: Bileşenlerin dönüştürüldükten sonra kaydedilip kaydedilmeyeceğini belirtir.
+  - _Not_: Doğruysa, derleyici orijinal dosyaları dönüştürülmüş dosyalarla değiştirecektir. Bu şekilde, derleyici uygulamayı dönüştürmek için yalnızca bir kez çalıştırılabilir ve ardından kaldırılabilir.
+
+- **transformPattern**:
+  - _Tür_: `string | string[]`
+  - _Varsayılan_: `['**/*.{ts,tsx,jsx,js,cjs,mjs,svelte,vue}', '!**/node_modules/**']`
+  - _Açıklama_: Optimizasyon sırasında hangi dosyaların taranacağını tanımlayan desenler.
+  - _Örnek_: `['src/**/*.{ts,tsx}', '!**/node_modules/**']`
+  - _Not_: Optimizasyonu ilgili kod dosyalarıyla sınırlamak ve derleme performansını artırmak için bunu kullanın.
+
+- **excludePattern**:
+  - _Tür_: `string | string[]`
+  - _Varsayılan_: `['**/node_modules/**']`
+  - _Açıklama_: Optimizasyon sırasında hangi dosyaların hariç tutulacağını tanımlayan desenler.
+  - _Örnek_: `['**/node_modules/**', '!**/node_modules/react/**']`
+
+- **outputDir**:
+  - _Tür_: `string`
+  - _Varsayılan_: `'compiler'`
+  - _Açıklama_: Çıkarılan sözlüklerin, proje temel yolunuza göre saklanacağı dizin.

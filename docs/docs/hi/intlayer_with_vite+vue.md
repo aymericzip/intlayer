@@ -495,7 +495,9 @@ Intlayer आपकी सामग्री तक पहुंचने के 
 - **डिस्ट्रक्चरिंग सिंटैक्स**:
   `useIntlayer` कॉम्पोज़ेबल सामग्री के साथ एक प्रॉक्सी लौटाता है। इस प्रॉक्सी को डिस्ट्रक्चर करके सामग्री तक पहुंचा जा सकता है जबकि प्रतिक्रियाशीलता बनी रहती है।
   - `const content = useIntlayer("myContent");` का उपयोग करें और `{{ content.myContent }}` / `<content.myContent />`।
-  - या `const { myContent } = useIntlayer("myContent");` का उपयोग करें और `{{ myContent}}` / `<myContent/>` से सामग्री को डिस्ट्रक्चर करें।
+  - या `const { myContent } = useIntlayer(\"myContent\");` का उपयोग करें और `{{ myContent}}` / `<myContent/>` से सामग्री को डिस्ट्रक्चर करें।
+
+> यदि आपका ऐप पहले से मौजूद है, तो आप हजारों घटकों को एक सेकंड में बदलने के लिए [Intlayer कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) को [एक्सट्रैक्ट कमांड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md) के साथ उपयोग कर सकते हैं।
 
 ### (वैकल्पिक) चरण 6: अपनी सामग्री की भाषा बदलें
 

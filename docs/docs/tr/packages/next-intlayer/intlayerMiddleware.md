@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-02-25
 title: intlayerMiddleware Dokümantasyonu | next-intlayer
 description: next-intlayer paketi için intlayerMiddleware fonksiyonunun nasıl kullanılacağını görün
 keywords:
@@ -17,25 +17,44 @@ slugs:
   - next-intlayer
   - intlayerMiddleware
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: intlayerMiddleware'i intlayerProxy olarak yeniden adlandır
   - version: 8.0.0
     date: 2026-01-21
     changes: Doküman başlatıldı
 ---
 
-# intlayerMiddleware Dokümantasyonu
+# intlayerProxy (intlayerMiddleware) Dokümantasyonu
 
-`intlayerMiddleware` fonksiyonu, locale tabanlı yönlendirmeleri ve redirect'leri yöneten bir Next.js middleware'idir. Kullanıcının tercih ettiği locale'i otomatik olarak algılar ve gerekirse kullanıcıyı uygun yerelleştirilmiş yola yönlendirir.
+`intlayerProxy` fonksiyonu (`nextjs < 16` için `intlayerMiddleware`), locale tabanlı yönlendirmeleri ve redirect'leri yöneten bir Next.js middleware'idir. Kullanıcının tercih ettiği locale'i otomatik olarak algılar ve gerekirse kullanıcıyı uygun yerelleştirilmiş yola yönlendirir.
 
 ## Kullanım
 
-```ts
-// middleware.ts — ara katman
-export { intlayerMiddleware as middleware } from "next-intlayer";
+<Tabs>
+ <Tab value="nextjs >=16">
+
+```ts fileName="proxy.ts"
+export { intlayerProxy as proxy } from "next-intlayer/proxy";
 
 export const config = {
   matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };
 ```
+
+ </Tab>
+ <Tab value="nextjs <=15">
+
+```ts fileName="middleware.ts"
+export { intlayerMiddleware as middleware } from "next-intlayer/middleware";
+
+export const config = {
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+};
+```
+
+ </Tab>
+</Tabs>
 
 ## Açıklama
 
@@ -48,3 +67,7 @@ Middleware aşağıdaki görevleri yerine getirir:
 ## Parametreler
 
 Fonksiyon, doğrudan kullanıldığında standart Next.js `NextRequest`'i parametre olarak alır veya yukarıda gösterildiği gibi export edilebilir.
+
+## Yapılandırma
+
+Middleware'i yapılandırmak için `intlayer.config.ts` dosyasındaki `routing` seçeneğini ayarlayabilirsiniz. Daha fazla ayrıntı için [yapılandırma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) sayfasına bakın.

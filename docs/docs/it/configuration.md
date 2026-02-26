@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-02-12
+updatedAt: 2026-02-25
 title: Configurazione
 description: Scopri come configurare Intlayer per la tua applicazione. Comprendi le varie impostazioni e opzioni disponibili per personalizzare Intlayer secondo le tue esigenze.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: Aggiorna le opzioni del compilatore
   - version: 8.0.6
     date: 2026-02-12
     changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
@@ -437,6 +440,17 @@ const config: IntlayerConfig = {
      * Output directory for the optimized dictionaries.
      */
     outputDir: "compiler",
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "", // Remove base prefix
+
+    /**
+     * Indicates if the components should be saved after being transformed.
+     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     */
+    saveComponents: false,
   },
 
   /**
@@ -988,6 +1002,13 @@ Le opzioni di build si applicano ai plugin `@intlayer/babel` e `@intlayer/swc`.
   - _Nota_: La modalità live utilizzerà l'API di sincronizzazione live per recuperare i dizionari. Se la chiamata API fallisce, i dizionari saranno importati dinamicamente in modalità "dynamic".
   - _Nota_: Questa opzione non influenzerà le funzioni `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` e `useDictionaryDynamic`.
 
+- **outputFormat**:
+  - _Tipo_: `'esm' | 'cjs'`
+  - _Predefinito_: `'esm'`
+  - _Descrizione_: Controlla il formato di output dei dizionari.
+  - _Esempio_: `'cjs'`
+  - _Nota_: Il formato di output dei dizionari.
+
 - **traversePattern**:
   - _Tipo_: `string[]`
   - _Predefinito_: `['**\/*.{js,ts,mjs,cjs,jsx,tsx}', '!**\/node_modules/**']`
@@ -996,3 +1017,49 @@ Le opzioni di build si applicano ai plugin `@intlayer/babel` e `@intlayer/swc`.
   - _Nota_: Usare questo per limitare l'ottimizzazione ai file di codice rilevanti e migliorare le prestazioni di build.
   - _Nota_: Questa opzione sarà ignorata se `optimize` è disabilitato.
   - _Nota_: Usare pattern glob.
+
+---
+
+### Configurazione del Compilatore
+
+Impostazioni che controllano il compilatore Intlayer, che estrae i dizionari direttamente dai tuoi componenti.
+
+#### Proprietà
+
+- **enabled**:
+  - _Tipo_: `boolean | 'build-only'`
+  - _Predefinito_: `true`
+  - _Descrizione_: Indica se il compilatore deve essere abilitato per estrarre i dizionari.
+  - _Esempio_: `'build-only'`
+  - _Nota_: Impostarlo su `'build-only'` salterà il compilatore durante la modalità di sviluppo per accelerare i tempi di avvio. Verrà eseguito solo sui comandi di build.
+
+- **dictionaryKeyPrefix**:
+  - _Tipo_: `string`
+  - _Predefinito_: `'comp-'`
+  - _Descrizione_: Prefisso per le chiavi dei dizionari estratti.
+  - _Esempio_: `'my-key-'`
+  - _Nota_: Quando i dizionari vengono estratti, la chiave viene generata in base al nome del file. Questo prefisso viene aggiunto alla chiave generata per evitare conflitti.
+
+- **saveComponents**:
+  - _Tipo_: `boolean`
+  - _Predefinito_: `false`
+  - _Descrizione_: Indica se i componenti devono essere salvati dopo essere stati trasformati.
+  - _Nota_: Se vero, il compilatore sostituirà i file originali con i file trasformati. In questo modo, il compilatore può essere eseguito solo una volta per trasformare l'app, e poi può essere rimosso.
+
+- **transformPattern**:
+  - _Tipo_: `string | string[]`
+  - _Predefinito_: `['**/*.{ts,tsx,jsx,js,cjs,mjs,svelte,vue}', '!**/node_modules/**']`
+  - _Descrizione_: Pattern che definiscono quali file devono essere attraversati durante l'ottimizzazione.
+  - _Esempio_: `['src/**/*.{ts,tsx}', '!**/node_modules/**']`
+  - _Nota_: Usare questo per limitare l'ottimizzazione ai file di codice rilevanti e migliorare le prestazioni di build.
+
+- **excludePattern**:
+  - _Tipo_: `string | string[]`
+  - _Predefinito_: `['**/node_modules/**']`
+  - _Descrizione_: Pattern che definiscono quali file devono essere esclusi durante l'ottimizzazione.
+  - _Esempio_: `['**/node_modules/**', '!**/node_modules/react/**']`
+
+- **outputDir**:
+  - _Tipo_: `string`
+  - _Predefinito_: `'compiler'`
+  - _Descrizione_: La directory in cui verranno memorizzati i dizionari estratti, relativa al percorso di base del progetto.

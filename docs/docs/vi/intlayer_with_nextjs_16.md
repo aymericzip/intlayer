@@ -708,6 +708,8 @@ const ServerComponentExample = () => {
 
 > Để Tìm hiểu thêm về hook `useIntlayer`, hãy tham khảo [tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/useIntlayer.md).
 
+> Nếu ứng dụng của bạn đã tồn tại, bạn có thể sử dụng [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) kết hợp với [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md) để chuyển đổi hàng nghìn component chỉ trong một giây.
+
 ### (Tùy chọn) Bước 7: Cấu hình Proxy để Phát hiện Ngôn ngữ
 
 Thiết lập proxy để phát hiện ngôn ngữ ưu tiên của người dùng:

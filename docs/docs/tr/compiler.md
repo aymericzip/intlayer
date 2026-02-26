@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
+updatedAt: 2026-02-25
 title: Intlayer Compiler | i18n için Otomatik İçerik Çıkarımı
 description: Uluslararasılaştırma sürecinizi Intlayer Compiler ile otomatikleştirin. İçeriği bileşenlerinizden doğrudan çıkararak Vite, Next.js ve daha fazlasında daha hızlı ve verimli i18n sağlayın.
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: Derleyici seçeneklerini güncelle
   - version: 7.3.1
     date: 2025-11-27
     changes: Compiler Yayınlandı
@@ -143,6 +146,55 @@ Bu yapılandırma, bileşenlerinizde beyan edilen içeriğin otomatik olarak ç�
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
+
+### Özel yapılandırma
+
+Derleyici davranışını özelleştirmek için projenizin kök dizinindeki `intlayer.config.ts` dosyasını güncelleyebilirsiniz.
+
+```ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  compiler: {
+    /**
+     * Derleyicinin etkinleştirilip etkinleştirilmeyeceğini belirtir.
+     * Geliştirme sırasında derleyiciyi atlamak ve başlangıç sürelerini hızlandırmak için 'build-only' olarak ayarlayın.
+     */
+    enabled: true,
+
+    /**
+     * Optimize edilecek kodu taramak için desen.
+     */
+    transformPattern: [
+      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
+      "!**/node_modules/**",
+    ],
+
+    /**
+     * Optimizasyondan hariç tutulacak desen.
+     */
+    excludePattern: ["**/node_modules/**"],
+
+    /**
+     * Optimize edilmiş sözlükler için çıktı dizini.
+     */
+    outputDir: "i18n",
+
+    /**
+     * Sözlük anahtarı öneki
+     */
+    dictionaryKeyPrefix: "", // Temel öneki kaldır
+
+    /**
+     * Bileşenlerin dönüştürüldükten sonra kaydedilip kaydedilmeyeceğini belirtir.
+     * Bu şekilde, derleyici uygulamayı dönüştürmek için yalnızca bir kez çalıştırılabilir ve ardından kaldırılabilir.
+     */
+    saveComponents: false,
+  },
+};
+
+export default config;
+```
 
 ### Eksik çevirileri doldur
 

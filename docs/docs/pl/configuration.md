@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-02-12
+updatedAt: 2026-02-25
 title: Konfiguracja
 description: Dowiedz się, jak skonfigurować Intlayer dla swojej aplikacji. Zrozum różne ustawienia i opcje dostępne do dostosowania Intlayer do Twoich potrzeb.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: Aktualizacja opcji kompilatora
   - version: 8.0.6
     date: 2026-02-12
     changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
@@ -452,6 +455,17 @@ const config: IntlayerConfig = {
      * Output directory for the optimized dictionaries.
      */
     outputDir: "compiler",
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "", // Remove base prefix
+
+    /**
+     * Indicates if the components should be saved after being transformed.
+     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     */
+    saveComponents: false,
   },
 
   /**
@@ -1091,3 +1105,49 @@ Opcje budowania dotyczą wtyczek `@intlayer/babel` oraz `@intlayer/swc`.
   - _Uwaga_: Użyj tego, aby ograniczyć optymalizację do istotnych plików kodu i poprawić wydajność budowania.
   - _Uwaga_: Ta opcja zostanie zignorowana, jeśli `optimize` jest wyłączone.
   - _Uwaga_: Używaj wzorców glob.
+
+---
+
+### Konfiguracja Kompilatora
+
+Ustawienia kontrolujące kompilator Intlayer, który wyodrębnia słowniki bezpośrednio z Twoich komponentów.
+
+#### Właściwości
+
+- **enabled**:
+  - _Typ_: `boolean | 'build-only'`
+  - _Domyślnie_: `true`
+  - _Opis_: Wskazuje, czy kompilator powinien być włączony w celu wyodrębniania słowników.
+  - _Przykład_: `'build-only'`
+  - _Uwaga_: Ustawienie go na `'build-only'` spowoduje pominięcie kompilatora w trybie deweloperskim, co przyspieszy czas uruchamiania. Będzie on uruchamiany tylko przy poleceniach budowania.
+
+- **dictionaryKeyPrefix**:
+  - _Typ_: `string`
+  - _Domyślnie_: `'comp-'`
+  - _Opis_: Prefiks dla wyodrębnionych kluczy słownika.
+  - _Przykład_: `'my-key-'`
+  - _Uwaga_: Podczas wyodrębniania słowników klucz jest generowany na podstawie nazwy pliku. Ten prefiks jest dodawany do wygenerowanego klucza, aby zapobiec konfliktom.
+
+- **saveComponents**:
+  - _Typ_: `boolean`
+  - _Domyślnie_: `false`
+  - _Opis_: Wskazuje, czy komponenty powinny zostać zapisane po ich przekształceniu.
+  - _Uwaga_: Jeśli ustawiono na true, kompilator zastąpi oryginalne pliki plikami przekształconymi. W ten sposób kompilator można uruchomić tylko raz, aby przekształcić aplikację, a następnie można go usunąć.
+
+- **transformPattern**:
+  - _Typ_: `string | string[]`
+  - _Domyślnie_: `['**/*.{ts,tsx,jsx,js,cjs,mjs,svelte,vue}', '!**/node_modules/**']`
+  - _Opis_: Wzorce określające, które pliki powinny być przeszukiwane podczas optymalizacji.
+  - _Przykład_: `['src/**/*.{ts,tsx}', '!**/node_modules/**']`
+  - _Uwaga_: Użyj tego, aby ograniczyć optymalizację do istotnych plików kodu i poprawić wydajność budowania.
+
+- **excludePattern**:
+  - _Typ_: `string | string[]`
+  - _Domyślnie_: `['**/node_modules/**']`
+  - _Opis_: Wzorce określające, które pliki powinny być wykluczone podczas optymalizacji.
+  - _Przykład_: `['**/node_modules/**', '!**/node_modules/react/**']`
+
+- **outputDir**:
+  - _Typ_: `string`
+  - _Domyślnie_: `'compiler'`
+  - _Opis_: Katalog, w którym będą przechowywane wyodrębnione słowniki, względem ścieżki bazowej projektu.
