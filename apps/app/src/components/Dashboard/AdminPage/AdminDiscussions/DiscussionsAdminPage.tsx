@@ -446,6 +446,7 @@ export const DiscussionsAdminPageContent: FC = () => {
         title={modalTitle({ discussionId: discussionId ?? '' }).value}
         size="xl"
         hasCloseButton
+        isScrollable
       >
         <DiscussionAdminDetail discussionId={discussionId} />
       </Modal>
