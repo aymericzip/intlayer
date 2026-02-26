@@ -52,7 +52,21 @@ slugs:
 
 ---
 
-### 1. Vue I18n
+### 1. Intlayer
+
+> 网站：[https://intlayer.org/](https://intlayer.org/)
+
+**概述**  
+**Intlayer** 是一个开源的 i18n 解决方案，旨在简化包括 **Vue** 在内的多个框架的多语言支持。它强调声明式方法、强类型以及在其他生态系统中的 SSR 支持，尽管 SSR 在标准 Vue 中并不常见。
+
+**主要特性**
+
+- **声明式翻译**：在组件级或集中式文件中定义翻译字典，以实现更清晰的架构。
+- **TypeScript 和自动补全 (Web)**：虽然此功能主要惠及 Web 框架，但类型化的翻译方法仍可指导 Vue 中的结构化代码。
+- **异步加载**：动态加载翻译资源，潜在地减少多语言应用的初始包大小。
+- **与 Vue 集成**：可以建立基础集成，以利用 Intlayer 方法进行结构化翻译。
+
+### 2. Vue I18n
 
 > 网站：[https://vue-i18n.intlify.dev/](https://vue-i18n.intlify.dev/)
 
@@ -83,7 +97,7 @@ slugs:
 
 ---
 
-### 2. LinguiJS（Vue 集成）
+### 3. LinguiJS（Vue 集成）
 
 > 网站：[https://lingui.js.org/](https://lingui.js.org/)
 

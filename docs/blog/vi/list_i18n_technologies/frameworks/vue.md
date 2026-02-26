@@ -52,7 +52,21 @@ Dưới đây là một số thư viện và phương pháp phổ biến mà b�
 
 ---
 
-### 1. Vue I18n
+### 1. Intlayer
+
+> Trang web: [https://intlayer.org/](https://intlayer.org/)
+
+**Tổng quan**  
+**Intlayer** là một giải pháp i18n mã nguồn mở nhằm đơn giản hóa việc hỗ trợ đa ngôn ngữ trên nhiều framework, bao gồm cả **Vue**. Nó nhấn mạnh vào cách tiếp cận khai báo, định kiểu mạnh mẽ và hỗ trợ SSR trong các hệ sinh thái khác, mặc dù SSR không phải là điển hình trong Vue tiêu chuẩn.
+
+**Các tính năng chính**
+
+- **Dịch thuật khai báo**: Định nghĩa các từ điển dịch thuật ở cấp độ widget hoặc trong một tệp tập trung để có kiến trúc sạch hơn.
+- **TypeScript & Tự động hoàn thành (Web)**: Mặc dù tính năng này chủ yếu mang lại lợi ích cho các framework web, nhưng cách tiếp cận dịch thuật có kiểu vẫn có thể định hướng mã có cấu trúc trong Vue.
+- **Tải không đồng bộ**: Tải các tài sản dịch thuật một cách động, tiềm năng giảm kích thước bundle ban đầu cho các ứng dụng đa ngôn ngữ.
+- **Tích hợp với Vue**: Một tích hợp cơ bản có thể được thiết lập để tận dụng cách tiếp cận của Intlayer cho các bản dịch có cấu trúc.
+
+### 2. Vue I18n
 
 > Trang web: [https://vue-i18n.intlify.dev/](https://vue-i18n.intlify.dev/)
 
@@ -83,7 +97,7 @@ Dưới đây là một số thư viện và phương pháp phổ biến mà b�
 
 ---
 
-### 2. LinguiJS (Tích hợp Vue)
+### 3. LinguiJS (Tích hợp Vue)
 
 > Trang web: [https://lingui.js.org/](https://lingui.js.org/)
 

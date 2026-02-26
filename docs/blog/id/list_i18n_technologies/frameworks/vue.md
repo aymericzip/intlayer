@@ -52,7 +52,21 @@ Berikut adalah beberapa pustaka dan pendekatan populer yang dapat Anda gunakan u
 
 ---
 
-### 1. Vue I18n
+### 1. Intlayer
+
+> Situs Web: [https://intlayer.org/](https://intlayer.org/)
+
+**Gambaran Umum**  
+**Intlayer** adalah solusi i18n open-source yang bertujuan untuk menyederhanakan dukungan multibahasa di berbagai framework, termasuk **Vue**. Ini menekankan pendekatan deklaratif, pengetikan kuat (strong typing), dan dukungan SSR di ekosistem lain, meskipun SSR tidak umum di Vue standar.
+
+**Fitur Utama**
+
+- **Terjemahan Deklaratif**: Tentukan kamus terjemahan baik di tingkat widget atau dalam file terpusat untuk arsitektur yang lebih bersih.
+- **TypeScript & Autocompletion (Web)**: Meskipun fitur ini terutama bermanfaat bagi framework web, pendekatan terjemahan yang diketik masih dapat memandu kode terstruktur di Vue.
+- **Pemuatan Asinkron**: Muat aset terjemahan secara dinamis, yang berpotensi mengurangi ukuran bundle awal untuk aplikasi multibahasa.
+- **Integrasi dengan Vue**: Integrasi dasar dapat diatur untuk memanfaatkan pendekatan Intlayer untuk terjemahan terstruktur.
+
+### 2. Vue I18n
 
 > Situs web: [https://vue-i18n.intlify.dev/](https://vue-i18n.intlify.dev/)
 
@@ -83,7 +97,7 @@ Berikut adalah beberapa pustaka dan pendekatan populer yang dapat Anda gunakan u
 
 ---
 
-### 2. LinguiJS (Integrasi Vue)
+### 3. LinguiJS (Integrasi Vue)
 
 > Situs web: [https://lingui.js.org/](https://lingui.js.org/)
 

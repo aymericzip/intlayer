@@ -52,7 +52,21 @@ Aşağıda, Vue uygulamalarınıza uluslararasılaştırmayı dahil etmek için 
 
 ---
 
-### 1. Vue I18n
+### 1. Intlayer
+
+> Web sitesi: [https://intlayer.org/](https://intlayer.org/)
+
+**Genel Bakış**  
+**Intlayer**, **Vue** dahil olmak üzere birden fazla framework genelinde çoklu dil desteğini basitleştirmeyi amaçlayan açık kaynaklı bir i18n çözümüdür. Bildirimsel bir yaklaşımı, güçlü tiplemeyi ve standart Vue'da yaygın olmasa da diğer ekosistemlerdeki SSR desteğini vurgular.
+
+**Temel Özellikler**
+
+- **Bildirimsel Çeviri**: Daha temiz bir mimari için çeviri sözlüklerini bileşen düzeyinde veya merkezi bir dosyada tanımlayın.
+- **TypeScript ve Otomatik Tamamlama (Web)**: Bu özellik temel olarak web frameworklerine fayda sağlasa da, tiplendirilmiş çeviri yaklaşımı Vue'da yapılandırılmış kod yazımına hala rehberlik edebilir.
+- **Asenkron Yükleme**: Çeviri varlıklarını dinamik olarak yükleyerek çok dilli uygulamalar için başlangıç paket boyutunu potansiyel olarak azaltın.
+- **Vue ile Entegrasyon**: Yapılandırılmış çeviriler için Intlayer yaklaşımından yararlanmak üzere temel bir entegrasyon kurulabilir.
+
+### 2. Vue I18n
 
 > Website: [https://vue-i18n.intlify.dev/](https://vue-i18n.intlify.dev/)
 
@@ -83,7 +97,7 @@ Aşağıda, Vue uygulamalarınıza uluslararasılaştırmayı dahil etmek için 
 
 ---
 
-### 2. LinguiJS (Vue Entegrasyonu)
+### 3. LinguiJS (Vue Entegrasyonu)
 
 > Website: [https://lingui.js.org/](https://lingui.js.org/)
 

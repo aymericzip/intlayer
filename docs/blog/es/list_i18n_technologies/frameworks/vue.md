@@ -52,7 +52,21 @@ A continuación se presentan varias bibliotecas y enfoques populares que puedes 
 
 ---
 
-### 1. Vue I18n
+### 1. Intlayer
+
+> Sitio web: [https://intlayer.org/](https://intlayer.org/)
+
+**Descripción General**  
+**Intlayer** es una solución de i18n de código abierto que tiene como objetivo simplificar el soporte multilingüe en múltiples marcos, incluido **Vue**. Enfatiza un enfoque declarativo, tipado fuerte y soporte de SSR en otros ecosistemas, aunque el SSR no es típico en Vue estándar.
+
+**Características Clave**
+
+- **Traducción Declarativa**: Define diccionarios de traducción ya sea a nivel de widget o en un archivo centralizado para una arquitectura más limpia.
+- **TypeScript y Autocompletado (Web)**: Si bien esta característica beneficia principalmente a los marcos web, el enfoque de traducción tipada aún puede guiar el código estructurado en Vue.
+- **Carga Asíncrona**: Carga activos de traducción de forma dinámica, lo que potencialmente reduce el tamaño del paquete inicial para aplicaciones multilingües.
+- **Integración con Vue**: Se puede configurar una integración básica para aprovechar el enfoque de Intlayer para traducciones estructuradas.
+
+### 2. Vue I18n
 
 > Sitio web: [https://vue-i18n.intlify.dev/](https://vue-i18n.intlify.dev/)
 
@@ -83,7 +97,7 @@ A continuación se presentan varias bibliotecas y enfoques populares que puedes 
 
 ---
 
-### 2. LinguiJS (Integración con Vue)
+### 3. LinguiJS (Integración con Vue)
 
 > Sitio web: [https://lingui.js.org/](https://lingui.js.org/)
 
