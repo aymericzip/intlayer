@@ -29,10 +29,6 @@ Ein Translation Management System (TMS) ist eine Softwareplattform, die entwicke
 
 Im Wesentlichen war ein TMS historisch die Brücke zwischen dem technischen Code (wo die Strings liegen) und den menschlichen Linguisten (die die Kultur verstehen).
 
-Ein Translation Management System (TMS) ist eine Softwareplattform, die entwickelt wurde, um den Übersetzungs- und Lokalisierungsprozess (L10n) zu automatisieren und zu optimieren. Traditionell fungiert ein TMS als zentrales Hub, in das Inhalte hochgeladen, organisiert und an menschliche Übersetzer zugewiesen werden. Es verwaltet Workflows, speichert Translation Memories (um denselben Satz nicht mehrfach zu übersetzen) und übernimmt die Auslieferung der übersetzten Dateien an Entwickler oder Content-Manager.
-
-Im Kern war ein TMS historisch die Brücke zwischen dem technischen Code (wo die Strings liegen) und den menschlichen Linguisten (die die Kultur verstehen).
-
 # Phrase (ehemals PhraseApp)
 
 Phrase ist ein Schwergewicht im Bereich Enterprise-Localization. Ursprünglich als PhraseApp bekannt, ist es insbesondere nach der Fusion mit Memsource stark gewachsen. Es positioniert sich als umfassende Localization Suite, die für Software-Lokalisierung entwickelt wurde und leistungsstarke API-Funktionen sowie umfangreiche Formatunterstützung bietet.

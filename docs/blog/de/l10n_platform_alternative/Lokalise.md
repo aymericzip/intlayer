@@ -29,10 +29,6 @@ Ein Translation Management System (TMS) ist eine Softwareplattform, die entwicke
 
 Im Wesentlichen war ein TMS historisch die Brücke zwischen dem technischen Code (wo Strings liegen) und den menschlichen Linguisten (die die Kultur verstehen).
 
-Ein Translation Management System (TMS) ist eine Softwareplattform, die entwickelt wurde, um den Übersetzungs- und Lokalisierungsprozess (L10n) zu automatisieren und zu straffen. Traditionell dient ein TMS als zentraler Hub, in den Inhalte hochgeladen, organisiert und an menschliche Übersetzer zugewiesen werden. Es verwaltet Workflows, speichert Translation Memories (um zu vermeiden, denselben Satz zweimal zu übersetzen) und übernimmt die Auslieferung der übersetzten Dateien an Entwickler oder Content-Manager.
-
-Im Kern war ein TMS historisch gesehen die Brücke zwischen dem technischen Code (wo Strings liegen) und den menschlichen Linguisten (die die Kultur verstehen).
-
 # Lokalise
 
 Lokalise ist ein bedeutender Akteur im modernen TMS-Umfeld. Gegründet im Jahr 2017, trat es an, den Markt zu verändern, indem es sich stark auf die Developer Experience (DX) und die Design-Integration konzentrierte. Im Gegensatz zu älteren Wettbewerbern legte Lokalise Wert auf eine elegante UI, leistungsstarke APIs und Integrationen mit Tools wie Figma und GitHub, um die Reibung beim Hin- und Herschieben von Dateien zu verringern.

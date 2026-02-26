@@ -6,7 +6,7 @@ description: 翻訳のチャレンジを解決するためのトップのAngular
 keywords:
   - Angular
   - i18n
-  - マルチリング
+  - マルチリンガル
   - SEO
   - 国際化
   - ブログ

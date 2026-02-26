@@ -31,12 +31,6 @@ En substance, un TMS a historiquement été le pont entre le code technique (où
 
 # Phrase (anciennement PhraseApp)
 
-Un Système de gestion des traductions (TMS) est une plateforme logicielle conçue pour automatiser et rationaliser le processus de traduction et de localisation (L10n). Traditionnellement, un TMS sert de hub centralisé où le contenu est téléversé, organisé et assigné à des traducteurs humains. Il gère les workflows, stocke des mémoires de traduction (pour éviter de retraduire la même phrase deux fois) et prend en charge la livraison des fichiers traduits aux développeurs ou aux responsables de contenu.
-
-En substance, un TMS a historiquement été le pont entre le code technique (où résident les chaînes) et les linguistes humains (qui comprennent la culture).
-
-# Phrase (anciennement PhraseApp)
-
 Phrase est un acteur majeur dans le domaine de la localisation pour entreprises. À l'origine connu sous le nom de PhraseApp, il a connu une croissance significative, notamment après sa fusion avec Memsource. Il se positionne comme une suite de localisation complète conçue pour la localisation de logiciels, offrant des capacités API robustes et une prise en charge étendue des formats.
 
 Phrase est conçu pour évoluer à grande échelle. C'est le choix privilégié des grandes entreprises qui doivent gérer des workflows complexes, d'immenses mémoires de traduction et des processus de contrôle qualité stricts répartis entre de nombreuses équipes. Sa force réside dans sa capacité à gérer des tâches de localisation « lourdes », offrant un écosystème tout-en-un tant pour les chaînes logicielles que pour la traduction de documents.
@@ -65,22 +59,15 @@ Intlayer est une solution née à l'ère de l'IA, conçue spécifiquement pour l
 
 # Comparaison côte à côte
 
-| Feature                    | Phrase (Enterprise TMS)                                             | Intlayer (AI-Native)                                                         |
-| :------------------------- | :------------------------------------------------------------------ | :--------------------------------------------------------------------------- |
-| **Core Philosophy**        | Gouvernance d'entreprise & flux de travail.                         | Gère la logique de contenu & la génération par IA.                           |
-| **Pricing Model**          | Entreprise sur mesure / par siège (élevé).                          | Payez pour votre propre inférence (BYO Key).                                 |
-| **Integration**            | Usage intensif d'API / CLI.                                         | Intégration profonde au code (déclarative).                                  |
-| **Updates**                | Synchronisation requise / dépendant du pipeline.                    | Synchronisation instantanée avec la base de code ou l'app en direct.         |
-| **File Formats**           | Très large (Legacy & Documents).                                    | Web moderne (JSON, JS, TS).                                                  |
-| **Testing**                | Vérifications QA / étapes LQA.                                      | CI / CLI / tests A/B.                                                        |
-| **Hosting**                | SaaS (strictement Enterprise).                                      | Open Source & auto-hébergeable (Docker).                                     |
-| **Philosophie centrale**   | Gouvernance d'entreprise et flux de travail.                        | Gère la logique de contenu et la génération par IA.                          |
-| **Modèle de tarification** | Solution Enterprise personnalisée / facturation par siège (élevée). | Payez pour votre propre inference (BYO Key).                                 |
-| **Intégration**            | Utilisation intensive d'API / CLI.                                  | Intégration profonde au code (déclarative).                                  |
-| **Mises à jour**           | Synchronisation requise / Dépendant du pipeline.                    | Synchronisation instantanée avec la base de code ou l'application en direct. |
-| **Formats de fichiers**    | Extrêmement large (Legacy & Documents).                             | Web moderne (JSON, JS, TS).                                                  |
-| **Tests**                  | Contrôles QA / étapes LQA.                                          | CI / CLI / A/B Testing.                                                      |
-| **Hébergement**            | SaaS (strictement Enterprise).                                      | Open Source et auto-hébergeable (Docker).                                    |
+| Feature             | Phrase (Enterprise TMS)                          | Intlayer (AI-Native)                                                 |
+| :------------------ | :----------------------------------------------- | :------------------------------------------------------------------- |
+| **Core Philosophy** | Gouvernance d'entreprise & flux de travail.      | Gère la logique de contenu & la génération par IA.                   |
+| **Pricing Model**   | Entreprise sur mesure / par siège (élevé).       | Payez pour votre propre inférence (BYO Key).                         |
+| **Integration**     | Usage intensif d'API / CLI.                      | Intégration profonde au code (déclarative).                          |
+| **Updates**         | Synchronisation requise / dépendant du pipeline. | Synchronisation instantanée avec la base de code ou l'app en direct. |
+| **File Formats**    | Très large (Legacy & Documents).                 | Web moderne (JSON, JS, TS).                                          |
+| **Testing**         | Vérifications QA / étapes LQA.                   | CI / CLI / tests A/B.                                                |
+| **Hosting**         | SaaS (vendu aux entreprises uniquement).         | Open Source & auto-hébergeable (Docker).                             |
 
 Intlayer propose une solution i18n complète et tout-en-un permettant une intégration approfondie de votre contenu. Votre contenu distant peut être synchronisé directement avec votre codebase ou votre application en production. En comparaison, Phrase est une dépendance externe puissante mais complexe qui nécessite souvent des responsables de localisation dédiés pour fonctionner efficacement.
 

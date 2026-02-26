@@ -61,22 +61,15 @@ Lokalise thường bị chỉ trích vì các bậc giá cao, có thể trở n�
 
 # So sánh song song
 
-| Feature              | Lokalise (TMS hiện đại)                   | Intlayer (AI-Native)                                         |
-| :------------------- | :---------------------------------------- | :----------------------------------------------------------- |
-| **Triết lý cốt lõi** | Tự động hóa & L10n ở giai đoạn thiết kế.  | Quản lý logic nội dung & tạo nội dung bằng AI.               |
-| **Mô hình giá**      | Theo seat / MAU / số key (Chi phí cao).   | Trả cho inference của riêng bạn (BYO Key).                   |
-| **Tích hợp**         | Đồng bộ dựa trên API / plugin Figma.      | Tích hợp sâu vào code (Declarative).                         |
-| **Cập nhật**         | Trì hoãn đồng bộ / cần tạo PR.            | Đồng bộ tức thì với codebase hoặc ứng dụng đang chạy.        |
-| **Định dạng file**   | Không ràng buộc (Mobile, Web, Documents). | Web hiện đại (JSON, JS, TS).                                 |
-| **Kiểm thử**         | Quy trình rà soát.                        | CI / CLI / Kiểm thử A/B.                                     |
-| **Hosting**          | SaaS (Mã nguồn đóng).                     | Mã nguồn mở & Có thể tự lưu trữ (Docker).                    |
-| **Triết lý cốt lõi** | Tự động hóa & L10n ở giai đoạn thiết kế.  | Quản lý logic nội dung & sinh tạo nội dung bằng AI.          |
-| **Mô hình giá**      | Theo seat / MAU / số key (Chi phí cao).   | Trả cho inference của riêng bạn (Tự cung cấp Key - BYO Key). |
-| **Tích hợp**         | Đồng bộ dựa trên API / plugin Figma.      | Tích hợp sâu vào code (Declarative).                         |
-| **Cập nhật**         | Trì hoãn đồng bộ / yêu cầu tạo PR.        | Đồng bộ tức thì với codebase hoặc ứng dụng đang chạy.        |
-| **Định dạng file**   | Không phụ thuộc (Mobile, Web, Documents). | Web hiện đại (JSON, JS, TS).                                 |
-| **Kiểm thử**         | Quy trình review.                         | CI / CLI / Kiểm thử A/B.                                     |
-| **Lưu trữ**          | SaaS (Mã nguồn đóng).                     | Mã nguồn mở & Tự lưu trữ được (Docker).                      |
+| Feature              | Lokalise (TMS hiện đại)                   | Intlayer (AI-Native)                                  |
+| :------------------- | :---------------------------------------- | :---------------------------------------------------- |
+| **Triết lý cốt lõi** | Tự động hóa & L10n ở giai đoạn thiết kế.  | Quản lý logic nội dung & tạo nội dung bằng AI.        |
+| **Mô hình giá**      | Theo seat / MAU / số key (Chi phí cao).   | Trả cho inference của riêng bạn (BYO Key).            |
+| **Tích hợp**         | Đồng bộ dựa trên API / plugin Figma.      | Tích hợp sâu vào code (Declarative).                  |
+| **Cập nhật**         | Trì hoãn đồng bộ / cần tạo PR.            | Đồng bộ tức thì với codebase hoặc ứng dụng đang chạy. |
+| **Định dạng file**   | Không ràng buộc (Mobile, Web, Documents). | Web hiện đại (JSON, JS, TS).                          |
+| **Kiểm thử**         | Quy trình rà soát.                        | CI / CLI / Kiểm thử A/B.                              |
+| **Hosting**          | SaaS (Mã nguồn đóng).                     | Mã nguồn mở & Có thể tự lưu trữ (Docker).             |
 
 Intlayer cung cấp một giải pháp i18n đầy đủ, all-in-one cho phép tích hợp sâu nội dung của bạn. Nội dung từ xa của bạn có thể được đồng bộ trực tiếp với codebase hoặc với ứng dụng đang chạy của bạn. Ngược lại, Lokalise thường dựa vào việc tạo Pull Requests để cập nhật nội dung trong repo của bạn, điều này duy trì sự tách biệt giữa "content state" và "application state".
 

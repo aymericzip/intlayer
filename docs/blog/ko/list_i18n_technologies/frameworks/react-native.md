@@ -18,47 +18,47 @@ slugs:
   - react-native
 ---
 
-# Exploring i18n Solutions to Translate Your React Native App
+# React Native 앱 번역을 위한 i18n 솔루션 탐구
 
-In an increasingly global market, delivering your React Native app in multiple languages can significantly enhance accessibility and user satisfaction. Internationalization (i18n) is central to managing translations effectively, allowing you to display language-specific text, date and time formats, currency, and more without complicating your codebase. In this article, we’ll dive into various i18n approaches, ranging from dedicated libraries to more general solutions, and help you find the one that best fits your React Native project.
+점점 더 커지는 글로벌 시장에서 React Native 앱을 다국어로 제공하는 것은 접근성을 크게 높이고 사용자 만족도를 개선할 수 있습니다. 국제화(i18n)는 번역을 효율적으로 관리하는 데 핵심적인 역할을 하며, 코드베이스를 복잡하게 만들지 않고도 언어별 텍스트, 날짜 및 시간 형식, 통화 등을 표시할 수 있게 해줍니다. 이 글에서는 전용 라이브러리부터 보다 일반적인 솔루션에 이르기까지 다양한 i18n 접근 방식을 살펴보고, 귀하의 React Native 프로젝트에 가장 적합한 라이브러리를 찾는 데 도움을 드리고자 합니다.
 
 ---
 
 ![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
-## What is Internationalization (i18n)?
+## 국제화(i18n)란 무엇인가요?
 
-Internationalization, or i18n, involves structuring an application so it can easily adapt to different languages, regional formats, and cultural norms. In React Native, i18n includes handling strings for buttons and labels, as well as formatting dates, times, currencies, and more according to a user’s locale. Properly prepared React Native apps let you seamlessly integrate additional languages and locale-specific behavior later on, without massive refactors.
+국제화(i18n)는 애플리케이션을 다양한 언어, 지역 형식 및 문화적 관습에 쉽게 적응할 수 있도록 구조화하는 것을 포함합니다. React Native에서 i18n은 버튼과 라벨의 문자열을 처리하는 것뿐만 아니라 사용자의 로케일에 따라 날짜, 시간, 통화 등을 형식화하는 것을 포함합니다. 적절하게 준비된 React Native 앱을 사용하면 대대적인 리팩토링 없이도 나중에 추가 언어와 로케일별 동작을 원활하게 통합할 수 있습니다.
 
-For a deeper dive into internationalization concepts, check out our article:  
+국제화 개념에 대해 더 자세히 알아보려면 다음 기사를 확인하세요:  
 [What is Internationalization (i18n)? Definition and Challenges](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/what_is_internationalization.md).
 
 ---
 
-## The Translation Challenge for React Native Applications
+## React Native 애플리케이션을 위한 번역 도전 과제
 
-Working with translations in React Native introduces its own unique considerations:
+React Native에서 번역 작업을 수행할 때는 몇 가지 고유한 고려 사항이 있습니다:
 
-- **Component-Based Architecture**  
-  Just like in React for the web, React Native’s modular design can scatter text across numerous components. It’s crucial to centralize these translations in a robust manner.
+- **구성 요소 기반 아키텍처**  
+  웹용 React와 마찬가지로 React Native의 모듈식 디자인은 수많은 구성 요소에 텍스트를 분산시킬 수 있습니다. 이러한 번역을 견고한 방식으로 중앙 집중화하는 것이 중요합니다.
 
-- **Offline and Remote Data**  
-  While some strings can be embedded within the app, other content (e.g., newsfeeds, product data) may be fetched remotely. Handling translations for data that arrives asynchronously can be more complex on mobile.
+- **오프라인 및 원격 데이터**  
+  일부 문자열은 앱 내에 포함될 수 있지만, 다른 콘텐츠(예: 뉴스피드, 제품 데이터)는 원격으로 가져올 수 있습니다. 비동기적으로 도착하는 데이터에 대한 번역 처리는 모바일에서 더 복잡할 수 있습니다.
 
-- **Platform-Specific Behaviors**  
-  iOS and Android each have their own locale settings and formatting quirks. Ensuring consistent rendering of dates, currencies, and numbers across both platforms requires thorough testing.
+- **플랫폼별 동작**  
+  iOS와 Android는 각각 고유한 로케일 설정과 형식 지정 특성이 있습니다. 두 플랫폼 모두에서 날짜, 통화 및 숫자의 일관된 렌더링을 보장하려면 철저한 테스트가 필요합니다.
 
-- **State and Navigation Management**  
-  Maintaining the user’s selected language across screens, deep links, or tab-based navigations means tying i18n into your Redux, Context API, or other state management solution.
+- **상태 및 내비게이션 관리**  
+  스크린, 딥 링크 또는 탭 기반 내비게이션 전반에서 사용자가 선택한 언어를 유지하는 것은 Redux, Context API 또는 다른 상태 관리 솔루션에 i18n을 연결하는 것을 의미합니다.
 
-- **App Updates & Over-the-Air (OTA)**  
-  If you use CodePush or another OTA update mechanism, you need to plan how translation updates or new languages will be delivered without requiring a full app store release.
+- **앱 업데이트 및 OTA(Over-the-Air)**  
+  CodePush 또는 다른 OTA 업데이트 메커니즘을 사용하는 경우, 전체 앱 스토어 출시 없이 번역 업데이트나 새로운 언어가 어떻게 전달될지 계획해야 합니다.
 
 ---
 
-## Leading i18n Solutions for React Native
+## React Native를 위한 주요 i18n 솔루션
 
-Below are several popular approaches to managing multilingual content in React Native. Each aims to simplify your translation workflow in different ways.
+아래는 React Native에서 다국어 콘텐츠를 관리하기 위한 몇 가지 인기 있는 접근 방식입니다. 각각은 서로 다른 방식으로 번역 워크플로우를 간소화하는 것을 목표로 합니다.
 
 ### 1. Intlayer
 
@@ -138,7 +138,7 @@ Below are several popular approaches to managing multilingual content in React N
   `<FormattedMessage>`, `<FormattedDate>`, `<FormattedTime>` 등은 iOS 및 Android 간의 형식화 작업을 간소화합니다.
 
 - **Lightweight & Extensible**  
-  필요한 FormatJS의 부분만 가져와 전체 번들을 얇게 유지할 수 있습니다, 모바일에 매우 중요합니다.
+  필요한 FormatJS의 부분만 가져와 전체 번들을 얇게 유지할 수 있습니다. 이는 모바일에 매우 중요합니다.
 
 - **Polyfills for Unsupported Locales**  
   오래된 Android 또는 iOS 버전에서도 일관된 날짜/숫자 형식을 보장합니다.
@@ -193,29 +193,25 @@ Below are several popular approaches to managing multilingual content in React N
 
 ---
 
-## Final Thoughts
+## 최종 생각
 
-When selecting an i18n solution for your React Native application:
+React Native 애플리케이션을 위한 i18n 솔루션을 선택할 때:
 
-1. **Assess Your Requirements**
+1.  **요구 사항 평가**
+    - 현재와 미래에 얼마나 많은 언어가 필요한가요?
+    - 대규모 앱을 위한 온디맨드 로딩이 필요한가요?
 
-   - How many languages are needed now and in the future?
-   - Do you require on-demand loading for large apps?
+2.  **플랫폼 차이 유의**
+    - 어떤 라이브러리든 iOS와 Android 로케일 변형, 특히 날짜/숫자/통화 특성을 지원하는지 확인하세요.
+    - 오프라인 사용을 고려하세요. 일부 번역은 앱과 함께 번들로 제공되어야 할 수 있고, 다른 일부는 원격으로 가져올 수 있습니다.
 
-2. **Mind Platform Differences**
+3.  **확장성을 위한 구조 선택**
+    - 대규모 또는 장기 프로젝트를 계획 중이라면 강력한 추출 워크플로우나 타입 키가 번역을 잘 정리하는 데 도움이 될 수 있습니다.
 
-   - Ensure any library supports iOS and Android locale variations, especially date/number/currency quirks.
-   - Consider offline usage, some translations might need to be bundled with the app, while others can be fetched remotely.
+4.  **성능 및 번들 크기**
+    - 모바일 데이터 제약으로 인해 번역 파일과 폴리필의 크기를 면밀히 관찰해야 합니다.
 
-3. **Choose a Structure for Scalability**
+5.  **개발자 경험(DX)**
+    - 팀의 기술 수준과 일치하는 라이브러리를 찾으세요. 일부 솔루션은 장황하지만 직관적이며, 다른 솔루션은 설정의 복잡성 대신 더 많은 자동화를 제공합니다.
 
-   - If you’re planning a large or long-lived application, a strong extraction workflow or typed keys can help keep translations well-organized.
-
-4. **Performance & Bundle Size**
-
-   - Mobile data constraints mean you should keep a close eye on the size of your translation files and any polyfills.
-
-5. **Developer Experience (DX)**
-   - Look for libraries that align with your team’s skill set, some solutions are more verbose but straightforward, while others offer more automation at the cost of setup complexity.
-
-Each solution, Intlayer, React-i18next, React Intl, and LinguiJS, has proven effective in React Native environments, though with slightly different priorities. Evaluating your project’s roadmap, developer preferences, and localization needs will guide you to the ideal fit for delivering a truly global React Native app.
+Intlayer, React-i18next, React Intl 및 LinguiJS와 같은 각 솔루션은 각각 조금씩 다른 우선순위를 가지고 있지만 React Native 환경에서 효과적임이 입증되었습니다. 프로젝트의 로드맵, 개발자 선호도 및 로컬라이제이션 요구 사항을 평가하면 진정으로 글로벌한 React Native 앱을 제공하기 위한 최적의 솔루션을 찾을 수 있을 것입니다.

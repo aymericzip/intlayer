@@ -29,10 +29,6 @@ history:
 
 Özünde, TMS tarihsel olarak teknik kod (string'lerin bulunduğu yer) ile kültürü anlayan insan dil uzmanları arasında bir köprü olmuştur.
 
-Çeviri Yönetim Sistemi (TMS), çeviri ve yerelleştirme (L10n) süreçlerini otomatikleştirmek ve düzene sokmak için tasarlanmış bir yazılım platformudur. Geleneksel olarak bir TMS, içeriğin yüklendiği, düzenlendiği ve insan çevirmenlere atandığı merkezi bir merkez olarak hizmet eder. Çalışma akışlarını yönetir, çeviri belleklerini (aynı cümlenin iki kez çevrilmesini önlemek için) saklar ve çevrilmiş dosyaların geliştiricilere veya içerik yöneticilerine teslim edilmesini sağlar.
-
-Özünde, bir TMS tarihsel olarak teknik kod (metinlerin bulunduğu yer) ile kültürü anlayan insan dil uzmanları arasında bir köprü olmuştur.
-
 # Phrase (eski adıyla PhraseApp)
 
 Phrase, kurumsal lokalizasyon alanında önemli bir oyuncudur. Eskiden PhraseApp olarak bilinen Phrase, özellikle Memsource ile birleşmesinin ardından önemli ölçüde büyümüştür. Kendini, güçlü API yetenekleri ve geniş format desteği sunan, yazılım lokalizasyonu için tasarlanmış kapsamlı bir Localization Suite olarak konumlandırır.
@@ -63,22 +59,15 @@ Intlayer, Yapay Zeka çağında doğmuş, özellikle modern JavaScript/TypeScrip
 
 # Yan yana karşılaştırma
 
-| Özellik                  | Phrase (Kurumsal TMS)                        | Intlayer (AI-Native)                                               |
-| :----------------------- | :------------------------------------------- | :----------------------------------------------------------------- |
-| **Temel Felsefe**        | Kurumsal Yönetişim & İş Akışı.               | İçerik mantığını & AI üretimini yönetir.                           |
-| **Fiyatlandırma Modeli** | Özel Kurumsal / Seat bazlı (Yüksek).         | Kendi inference'ınız için ödeme (BYO Key).                         |
-| **Entegrasyon**          | Ağır API / CLI kullanımı.                    | Derin kod entegrasyonu (Deklaratif).                               |
-| **Güncellemeler**        | Senkronizasyon gerekli / Pipeline'a bağlı.   | Kod tabanı veya canlı uygulama ile anında senkronizasyon.          |
-| **Dosya Formatları**     | Son derece geniş (Legacy & Dökümanlar).      | Modern Web (JSON, JS, TS).                                         |
-| **Testler**              | QA Kontrolleri / LQA adımları.               | CI / CLI / A/B Testleri.                                           |
-| **Hosting**              | SaaS (Tamamen Kurumsal).                     | Açık Kaynak & Self-Host edilebilir (Docker).                       |
-| **Core Philosophy**      | Kurumsal Yönetişim ve İş Akışı.              | İçerik mantığını ve AI üretimini yönetir.                          |
-| **Pricing Model**        | Özel Kurumsal / Kullanıcı Başına (Yüksek).   | Kendi çıkarım maliyetinizi ödersiniz (Kendi Anahtarınızı Getirin). |
-| **Integration**          | Yoğun API / CLI kullanımı.                   | Derin kod entegrasyonu (Deklaratif).                               |
-| **Updates**              | Senkronizasyon gerekli / Pipeline'a bağımlı. | Kod tabanıyla veya canlı uygulamayla anlık senkronizasyon.         |
-| **File Formats**         | Oldukça geniş (Eski Sistemler & Belgeler).   | Modern Web (JSON, JS, TS).                                         |
-| **Testing**              | QA Kontrolleri / LQA adımları.               | CI / CLI / A/B Testleri.                                           |
-| **Hosting**              | SaaS (Sadece Kurumsal).                      | Açık Kaynak & Kendi Sunucunuzda Barındırılabilir (Docker).         |
+| Özellik                  | Phrase (Kurumsal TMS)                      | Intlayer (AI-Native)                                      |
+| :----------------------- | :----------------------------------------- | :-------------------------------------------------------- |
+| **Temel Felsefe**        | Kurumsal Yönetişim & İş Akışı.             | İçerik mantığını & AI üretimini yönetir.                  |
+| **Fiyatlandırma Modeli** | Özel Kurumsal / Seat bazlı (Yüksek).       | Kendi inference'ınız için ödeme (BYO Key).                |
+| **Entegrasyon**          | Ağır API / CLI kullanımı.                  | Derin kod entegrasyonu (Deklaratif).                      |
+| **Güncellemeler**        | Senkronizasyon gerekli / Pipeline'a bağlı. | Kod tabanı veya canlı uygulama ile anında senkronizasyon. |
+| **Dosya Formatları**     | Son derece geniş (Legacy & Dökümanlar).    | Modern Web (JSON, JS, TS).                                |
+| **Testler**              | QA Kontrolleri / LQA adımları.             | CI / CLI / A/B Testleri.                                  |
+| **Hosting**              | SaaS (Tamamen Kurumsal).                   | Açık Kaynak & Self-Host edilebilir (Docker).              |
 
 Intlayer, içeriğinizle derin entegrasyona izin veren eksiksiz, hepsi bir arada bir i18n çözümü sunar. Uzaktaki içerikleriniz doğrudan codebase'inizle veya canlı uygulamanızla senkronize edilebilir. Karşılaştırıldığında, Phrase güçlü fakat karmaşık bir dış bağımlılıktır ve genellikle etkili çalışabilmesi için adanmış yerelleştirme yöneticileri gerektirir.
 

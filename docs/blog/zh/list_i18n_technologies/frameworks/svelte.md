@@ -8,7 +8,7 @@ keywords:
   - i18n
   - 多语言
   - SEO
-  - 国際化
+  - 国际化
   - 博客
   - JavaScript
 slugs:
@@ -50,7 +50,23 @@ slugs:
 
 Svelte 并没有提供原生的内置 i18n 解决方案（如 Angular），但社区创造了多种强大的库和模式。以下是几种流行的方法。
 
-### 1. svelte-i18n
+### 1. Intlayer
+
+> 网站: [https://intlayer.org/](https://intlayer.org/)
+
+**概述**  
+**Intlayer** 是一个开源的 i18n 解决方案，旨在简化包括 **Svelte** 在内的多个框架的多语言支持。它强调声明式方法、强类型以及在其他生态系统中的 SSR 支持，尽管在标准 Svelte 中 SSR 并不常见。
+
+**主要特点**
+
+- **声明式翻译**：在组件级别或集中式文件中定义翻译字典，以实现更清晰的架构。
+- **TypeScript 与自动补全（Web）**：虽然此功能主要使 Web 框架受益，但类型化翻译方法仍然可以指导 Svelte 中的结构化代码。
+- **异步加载**：动态加载翻译资源，有可能减小多语言应用的初始包大小。
+- **与 Svelte 集成**：可以设置基本集成，以利用 Intlayer 方法进行结构化翻译。
+
+---
+
+### 2. svelte-i18n
 
 Repository: [https://github.com/kaisermann/svelte-i18n](https://github.com/kaisermann/svelte-i18n)
 
@@ -68,11 +84,11 @@ Repository: [https://github.com/kaisermann/svelte-i18n](https://github.com/kaise
 
 - **项目组织**: 随着项目的增长，您需要从逻辑上构建翻译文件。
 - **SSR 设置**: 配置 SSR 以实现 SEO 可能需要额外的步骤，以确保在服务器端正确检测到语言环境。
-- **性能**: 虽然运行时灵活，但一次加载大量翻译会影响初始加载时间, , 考虑使用惰性加载或缓存策略。
+- **性能**: 虽然运行时灵活，但一次加载大量翻译会影响初始加载时间，考虑使用惰性加载或缓存策略。
 
 ---
 
-### 2. svelte-intl-precompile
+### 3. svelte-intl-precompile
 
 Repository: [https://github.com/cibernox/svelte-intl-precompile](https://github.com/cibernox/svelte-intl-precompile)
 
@@ -94,7 +110,7 @@ Repository: [https://github.com/cibernox/svelte-intl-precompile](https://github.
 
 ---
 
-### 3. i18next 与 Svelte / SvelteKit
+### 4. i18next 与 Svelte / SvelteKit
 
 Website: [https://www.i18next.com/](https://www.i18next.com/)
 
@@ -121,9 +137,9 @@ Website: [https://www.i18next.com/](https://www.i18next.com/)
 在为您的 Svelte 应用程序选择 i18n 策略时：
 
 1. **评估项目规模**: 对于较小的项目或快速原型，像 **svelte-i18n** 或简单的 i18n 方法可能就足够了。较大、更复杂的应用程序可能会受益于类型化、预编译或更强大的生态系统解决方案。
-2. **SSO 和 SSR 考虑**: 如果 SEO 很关键，或者您需要 SvelteKit 的服务器端渲染，请选择一个有效支持 SSR 的库，并能处理本地化路由、元数据和站点地图。
+2. **SEO 和 SSR 考虑**: 如果 SEO 很关键，或者您需要 SvelteKit 的服务器端渲染，请选择一个有效支持 SSR 的库，并能处理本地化路由、元数据和站点地图。
 3. **运行时与构建时**: 决定您是否需要在运行时动态切换语言，或者更喜欢预编译翻译以获得更好的性能。每种方法都有不同的权衡。
 4. **TypeScript 集成**: 如果您在很大程度上依赖 TypeScript，像 **Intlayer** 或具有类型化键的库可以显著减少运行时错误，并改善开发者体验。
 5. **可维护性与可扩展性**: 计划如何组织、更新和版本控制您的翻译文件。自动提取、命名约定和一致的文件夹结构将从长远来看节省时间。
 
-最终，每个库都有独特的优势。您的选择取决于 **性能**、**开发者体验**、**SEO 需求** 和 **长期可维护性**。通过选择与您项目目标一致的解决方案，您可以在 Svelte 中创建一个真正全球化的应用程序, , 一个能让世界各地用户愉悦的应用。
+最终，每个库都有独特的优势。您的选择取决于 **性能**、**开发者体验**、**SEO 需求** 和 **长期可维护性**。通过选择与您项目目标一致的解决方案，您可以在 Svelte 中创建一个真正全球化的应用程序，一个能让世界各地用户愉悦的应用。

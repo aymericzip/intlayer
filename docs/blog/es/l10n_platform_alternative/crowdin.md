@@ -61,21 +61,16 @@ Con Intlayer, generas tus traducciones al costo de tus inferencias. No estás at
 
 # Comparación lado a lado
 
-| Característica          | Crowdin (TMS heredado)                                            | Intlayer (nativo en IA)                                             |
-| :---------------------- | :---------------------------------------------------------------- | :------------------------------------------------------------------ |
-| **Filosofía principal** | Conecta humanos con strings.                                      | Gestiona la lógica de contenido y la generación por IA.             |
-| **Modelo de precios**   | Por asiento / nivel alojado.                                      | Paga por tus propias inferencias (BYO Key).                         |
-| **Integración**         | Intercambio basado en archivos (Subir/Descargar).                 | Integración profunda con el código (Declarativa).                   |
-| **Actualizaciones**     | A menudo requiere reconstrucciones CI/CD para desplegar texto.    | Sincronización instantánea con la codebase o la app en vivo.        |
-| **Formatos de archivo** | Diversos (.po, .xml, .yaml, etc.).                                | Web moderna (JSON, JS, TS).                                         |
-| **Pruebas**             | Limitadas.                                                        | CI / CLI.                                                           |
-| **Alojamiento**         | SaaS (principalmente).                                            | Open Source y autoalojable (Docker).                                |
-| **Modelo de precios**   | Por asiento / nivel alojado.                                      | Paga por tus propias inferencias (BYO Key).                         |
-| **Integración**         | Intercambio basado en archivos (Subir/Descargar).                 | Integración profunda con el código (Declarativa).                   |
-| **Actualizaciones**     | A menudo requiere reconstrucciones en CI/CD para desplegar texto. | Sincronización instantánea con la codebase o la aplicación en vivo. |
-| **Formatos de archivo** | Diversos (.po, .xml, .yaml, etc.).                                | Web moderna (JSON, JS, TS).                                         |
-| **Pruebas**             | Limitadas.                                                        | CI / CLI.                                                           |
-| **Alojamiento**         | SaaS (mayoritariamente).                                          | Open Source y autoalojable (Docker).                                |
+| Característica          | Crowdin (TMS heredado)                                         | Intlayer (nativo en IA)                                      |
+| :---------------------- | :------------------------------------------------------------- | :----------------------------------------------------------- |
+| **Filosofía principal** | Conecta humanos con strings.                                   | Gestiona la lógica de contenido y la generación por IA.      |
+| **Modelo de precios**   | Por asiento / nivel alojado.                                   | Paga por tus propias inferencias (BYO Key).                  |
+| **Integración**         | Intercambio basado en archivos (Subir/Descargar).              | Integración profunda con el código (Declarativa).            |
+| **Actualizaciones**     | A menudo requiere reconstrucciones CI/CD para desplegar texto. | Sincronización instantánea con la codebase o la app en vivo. |
+| **Formatos de archivo** | Diversos (.po, .xml, .yaml, etc.).                             | Web moderna (JSON, JS, TS).                                  |
+| **Pruebas**             | Limitadas.                                                     | CI / CLI.                                                    |
+| **Alojamiento**         | SaaS (principalmente).                                         | Open Source y autoalojable (Docker).                         |
+| **Alojamiento**         | SaaS (mayoritariamente).                                       | Open Source y autoalojable (Docker).                         |
 
 Intlayer ofrece una solución i18n integral y todo en uno que permite una integración profunda de tu contenido. Tu contenido remoto puede sincronizarse directamente con tu codebase o con tu aplicación en vivo. En comparación, Crowdin a menudo exige reconstruir la aplicación en la canalización de CI/CD para actualizar el contenido, lo que genera fricción entre el equipo de traducción y el proceso de despliegue.
 

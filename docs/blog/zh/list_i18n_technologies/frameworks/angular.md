@@ -8,7 +8,7 @@ keywords:
   - i18n
   - 多语言
   - SEO
-  - 国際化
+  - 国际化
   - 博客
   - JavaScript
 slugs:
@@ -48,7 +48,29 @@ slugs:
 
 Angular 提供了一个内置的 i18n 框架，并且还有几个第三方库旨在简化您的多语言设置。以下是一些最流行的解决方案。
 
-### 1. Angular 的内置 i18n
+### 1. Intlayer
+
+网站: [https://intlayer.org/](https://intlayer.org/)
+
+**概述**  
+**Intlayer** 是一个创新的开源国际化 (i18n) 库，旨在简化现代 Angular（及其他）Web 应用程序的多语言支持。它采用声明式方法，允许您直接在组件内定义翻译字典。
+
+**主要特点**
+
+- **翻译声明**：允许在单个文件中声明所有翻译，并放置在组件级别，使其更易于维护和扩展。
+- **TypeScript 与自动补全**：为翻译键提供自动生成的类型定义，提供强大的自动补全和检测。
+- **服务器组件与 SSR**：在设计时充分考虑了服务器端渲染 (SSR) 和 Angular Universal，确保本地化内容在客户端和服务器端都能高效渲染。
+- **用于 SEO 的本地化元数据和 URL**：轻松处理基于区域设置的动态路由、站点地图和 robots.txt 条目，以提高可发现性和 SEO。
+- **无缝集成**：与 Angular CLI 和 Angular Universal 兼容，使设置变得简单直接。
+- **异步加载**：动态加载翻译字典，减小初始包大小并提高性能。
+
+**注意事项**
+
+- **社区与生态系统**：虽然正在成长，但生态系统相对较新，因此与更成熟的解决方案相比，社区驱动的插件和工具可能有限。
+
+---
+
+### 2. Angular 的内置 i18n
 
 **概述**  
 Angular 配备了一个 **内置的 i18n** 系统，包括提取翻译字符串、处理复数和插值的工具，并在编译时集成翻译。这个官方解决方案对于小型项目或可以紧密对齐 Angular 推荐结构的项目非常强大。
@@ -68,7 +90,7 @@ Angular 配备了一个 **内置的 i18n** 系统，包括提取翻译字符串�
 
 ---
 
-### 2. ngx-translate
+### 3. ngx-translate
 
 网站：[https://github.com/ngx-translate/core](https://github.com/ngx-translate/core)
 
@@ -90,7 +112,7 @@ Angular 配备了一个 **内置的 i18n** 系统，包括提取翻译字符串�
 
 ---
 
-### 3. Transloco
+### 4. Transloco
 
 网站：[https://ngneat.github.io/transloco/](https://ngneat.github.io/transloco/)
 

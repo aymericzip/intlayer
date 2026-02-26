@@ -31,12 +31,6 @@ En esencia, un TMS ha sido históricamente el puente entre el código técnico (
 
 # Phrase (anteriormente PhraseApp)
 
-Un Sistema de Gestión de Traducciones (TMS) es una plataforma de software diseñada para automatizar y optimizar el proceso de traducción y localización (L10n). Tradicionalmente, un TMS funciona como un centro centralizado donde se sube, organiza y asigna el contenido a traductores humanos. Gestiona flujos de trabajo, almacena memorias de traducción (para evitar volver a traducir la misma frase dos veces) y maneja la entrega de los archivos traducidos de vuelta a los desarrolladores o gestores de contenido.
-
-En esencia, un TMS ha sido históricamente el puente entre el código técnico (donde viven las cadenas) y los lingüistas humanos (que entienden la cultura).
-
-# Phrase (anteriormente PhraseApp)
-
 Phrase es un actor de peso en el espacio de localización empresarial. Originalmente conocido como PhraseApp, ha crecido significativamente, especialmente tras su fusión con Memsource. Se presenta como una Localization Suite integral diseñada para la localización de software, ofreciendo capacidades de API robustas y un amplio soporte de formatos.
 
 Phrase está diseñado para escalar. Es la opción preferida para grandes empresas que necesitan gestionar flujos de trabajo complejos, vastas memorias de traducción y estrictos procesos de aseguramiento de la calidad a lo largo de muchos equipos distintos. Su fortaleza radica en su capacidad para manejar tareas de localización "heavy duty", ofreciendo un ecosistema todo-en-uno tanto para cadenas de software como para la traducción de documentos.

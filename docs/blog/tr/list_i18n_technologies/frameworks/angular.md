@@ -50,7 +50,29 @@ Bir Angular uygulamasını çevirmek, birkaç zorluk getirir:
 
 Angular yerleşik bir i18n çerçevesi sunar ve çok dilli kurulumunuzu basitleştirmek için tasarlanmış birkaç üçüncü taraf kütüphanesi vardır. Aşağıda en popüler çözümlerden bazıları bulunmaktadır.
 
-### 1. Angular'ın Yerleşik i18n'ı
+### 1. Intlayer
+
+> Web sitesi: [https://intlayer.org/](https://intlayer.org/)
+
+**Genel Bakış**  
+**Intlayer**, modern Angular (ve diğer) web uygulamalarında çok dilli desteği basitleştirmek için tasarlanmış yenilikçi, açık kaynaklı bir uluslararasılaştırma (i18n) kütüphanesidir. Bildirimsel bir yaklaşım sunarak çeviri sözlüklerini doğrudan bileşenleriniz içinde tanımlamanızı sağlar.
+
+**Ana Özellikler**
+
+- **Çeviri Bildirimi**: Tüm çevirilerin tek bir dosyada, bileşen düzeyinde bildirilmesine izin verir, bakım ve ölçeklendirmeyi kolaylaştırır.
+- **TypeScript ve Otomatik Tamamlama**: Çeviri anahtarları için otomatik oluşturulan tür tanımlarını sunar, sağlam otomatik tamamlama ve hata algılama sağlar.
+- **Sunucu Bileşenleri ve SSR**: Hem sunucu tarafında işleme (SSR) hem de sunucu bileşenleri göz önünde bulundurularak oluşturulmuştur, yerelleştirilmiş içeriğin hem istemci hem de sunucuda verimli bir şekilde işlenmesini sağlar.
+- **SEO İçerikli Yerelleştirilmiş Meta Veriler ve URL'ler**: Keşfedilebilirliği ve SEO'yu iyileştirmek için dinamik yerel ayar tabanlı rotaları, site haritalarını ve robots.txt girişlerini kolayca yönetin.
+- **Sorunsuz Entegrasyon**: Angular CLI ve diğer araçlarla uyumlu, kurulumu basit hale getirir.
+- **Eşzamansız Yükleme**: Çeviri sözlüklerini dinamik olarak yükleyin, başlangıç paket boyutunu azaltın ve performansı iyileştirin.
+
+**Dikkat Edilmesi Gerekenler**
+
+- **Topluluk ve Ekosistem**: Büyümekte olsa da, ekosistem daha yeni, bu yüzden topluluk odaklı eklentiler ve araçlar daha yerleşik çözümlere kıyasla daha sınırlı olabilir.
+
+---
+
+### 2. Angular'ın Yerleşik i18n'ı
 
 **Genel Bakış**  
 Angular, çeviri dizelerini çıkarma, çoğullaştırma ve enterpolasyonu işleme ve çevirileri derleme zamanında entegre etme araçları içeren **yerleşik bir i18n** sistemiyle gelir. Bu resmi çözüm, daha küçük projeler veya Angular'ın önerilen yapısına yakından uyabilenler için güçlüdür.
@@ -70,7 +92,7 @@ Angular, çeviri dizelerini çıkarma, çoğullaştırma ve enterpolasyonu işle
 
 ---
 
-### 2. ngx-translate
+### 3. ngx-translate
 
 Web sitesi: [https://github.com/ngx-translate/core](https://github.com/ngx-translate/core)
 
@@ -92,7 +114,7 @@ Web sitesi: [https://github.com/ngx-translate/core](https://github.com/ngx-trans
 
 ---
 
-### 3. Transloco
+### 4. Transloco
 
 Web sitesi: [https://ngneat.github.io/transloco/](https://ngneat.github.io/transloco/)
 

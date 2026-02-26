@@ -29,10 +29,6 @@ Một Hệ thống Quản lý Dịch (TMS) là một nền tảng phần mềm �
 
 Về bản chất, một TMS theo truyền thống là cầu nối giữa mã kỹ thuật (nơi các chuỗi/strings tồn tại) và các chuyên gia ngôn ngữ (những người hiểu rõ văn hóa).
 
-Hệ thống Quản lý Dịch thuật (TMS) là một nền tảng phần mềm được thiết kế để tự động hóa và tinh giản quy trình dịch và bản địa hóa (L10n). Thông thường, một TMS hoạt động như một trung tâm tập trung nơi nội dung được tải lên, tổ chức và phân công cho các dịch giả. Nó quản lý các luồng công việc, lưu trữ translation memories (để tránh dịch lại cùng một câu nhiều lần) và xử lý việc chuyển giao các tệp đã dịch trở lại cho các developer hoặc người quản lý nội dung.
-
-Về bản chất, một TMS về lịch sử là cầu nối giữa mã kỹ thuật (nơi các chuỗi nằm) và các chuyên gia ngôn ngữ (những người hiểu văn hóa).
-
 # Phrase (trước đây là PhraseApp)
 
 Phrase là một giải pháp hạng nặng trong lĩnh vực bản địa hóa doanh nghiệp. Ban đầu được biết đến với tên PhraseApp, nó đã phát triển đáng kể, đặc biệt sau khi sáp nhập với Memsource. Nó định vị mình như một Localization Suite toàn diện được thiết kế cho bản địa hóa phần mềm, cung cấp khả năng API mạnh mẽ và hỗ trợ định dạng rộng rãi.

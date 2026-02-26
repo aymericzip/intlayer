@@ -25,21 +25,15 @@ history:
 
 # Sistem Manajemen Terjemahan
 
-# Sistem Manajemen Terjemahan
-
 Sistem Manajemen Terjemahan (Translation Management System, TMS) adalah platform perangkat lunak yang dirancang untuk mengotomatisasi dan merampingkan proses terjemahan dan lokalisasi (L10n). Secara tradisional, sebuah TMS berfungsi sebagai hub terpusat di mana konten diunggah, diorganisir, dan ditugaskan kepada penerjemah manusia. Ia mengelola alur kerja, menyimpan translation memories (untuk menghindari menerjemahkan ulang kalimat yang sama dua kali), dan menangani pengiriman berkas terjemahan kembali kepada pengembang atau manajer konten.
 
 Pada hakikatnya, TMS secara historis menjadi jembatan antara kode teknis (tempat string berada) dan ahli bahasa manusia (yang memahami budaya).
 
 # Lokalise
 
-# Lokalise
-
 Lokalise adalah pemain penting dalam lanskap TMS modern. Didirikan pada 2017, layanan ini hadir untuk mengganggu pasar dengan fokus besar pada developer experience (DX) dan integrasi desain. Tidak seperti pesaing lama, Lokalise mengutamakan UI yang mulus, API yang kuat, dan integrasi dengan alat seperti Figma dan GitHub untuk mengurangi gesekan saat memindahkan berkas bolak-balik.
 
 Kesuksesannya dibangun dari menjadi TMS yang "ramah pengembang", mengotomatisasi ekstraksi dan penyisipan string untuk membebaskan waktu engineering. Ia secara efektif menyelesaikan masalah _continuous localization_ bagi tim teknologi yang bergerak cepat yang ingin menyingkirkan email spreadsheet manual.
-
-# Intlayer
 
 # Intlayer
 

@@ -25,8 +25,6 @@ history:
 
 # Sistem Manajemen Terjemahan
 
-Sistem Manajemen Terjemahan
-
 Sistem Manajemen Terjemahan (TMS) adalah platform perangkat lunak yang dirancang untuk mengotomatisasi dan menyederhanakan proses terjemahan dan lokalisasi (L10n). Secara tradisional, TMS berfungsi sebagai pusat terpadu di mana konten diunggah, diorganisir, dan ditugaskan kepada penerjemah manusia. Ia mengelola alur kerja, menyimpan memori terjemahan (untuk menghindari menerjemahkan kembali kalimat yang sama), dan menangani pengiriman berkas terjemahan kembali ke pengembang atau manajer konten.
 
 Intinya, secara historis TMS adalah jembatan antara kode teknis (di mana string berada) dan ahli bahasa manusia (yang memahami konteks budaya).
@@ -61,24 +59,15 @@ Intlayer adalah solusi yang lahir di era AI, dirancang khusus untuk ekosistem Ja
 
 # Perbandingan berdampingan
 
-| Fitur               | Phrase (Enterprise TMS)                              | Intlayer (AI-Native)                                               |
-| :------------------ | :--------------------------------------------------- | :----------------------------------------------------------------- |
-| **Filosofi Inti**   | Tata Kelola & Alur Kerja Enterprise.                 | Mengelola logika konten & generasi AI.                             |
-| **Model Harga**     | Khusus Enterprise / Berbasis kursi (Tinggi).         | Bayar untuk inferensi Anda sendiri (BYO Key).                      |
-| **Integrasi**       | Penggunaan API / CLI secara intensif.                | Integrasi kode mendalam (Deklaratif).                              |
-| **Pembaruan**       | Perlu sinkronisasi / Bergantung pada pipeline.       | Sinkron instan dengan codebase atau aplikasi live.                 |
-| **Format File**     | Sangat luas (Legacy & Dokumen).                      | Web Modern (JSON, JS, TS).                                         |
-| **Pengujian**       | Pemeriksaan QA / Langkah LQA.                        | CI / CLI / Pengujian A/B.                                          |
-| **Hosting**         | SaaS (Murni Enterprise).                             | Open Source & Dapat di-host sendiri (Docker).                      |
-| Fitur               | Phrase (TMS Enterprise)                              | Intlayer (AI-Native)                                               |
-| :------------------ | :-------------------------------------               | :--------------------------------------                            |
-| **Filosofi Inti**   | Tata kelola perusahaan & alur kerja.                 | Mengelola logika konten & generasi AI.                             |
-| **Model Harga**     | Kustom Enterprise / berbasis kursi (Tinggi).         | Bayar untuk inferensi Anda sendiri (gunakan kunci Anda — BYO Key). |
-| **Integrasi**       | Penggunaan API / CLI yang intensif.                  | Integrasi kode mendalam (Deklaratif).                              |
-| **Pembaruan**       | Membutuhkan sinkronisasi / Bergantung pada pipeline. | Sinkronisasi instan dengan codebase atau aplikasi live.            |
-| **Format Berkas**   | Sangat luas (Legacy & Dokumen).                      | Web Modern (JSON, JS, TS).                                         |
-| **Pengujian**       | Pemeriksaan QA / Langkah LQA.                        | CI / CLI / Pengujian A/B.                                          |
-| **Hosting**         | SaaS (Khusus Enterprise).                            | Open Source & Dapat Di-host Sendiri (Docker).                      |
+| Fitur             | Phrase (Enterprise TMS)                        | Intlayer (AI-Native)                               |
+| :---------------- | :--------------------------------------------- | :------------------------------------------------- |
+| **Filosofi Inti** | Tata Kelola & Alur Kerja Enterprise.           | Mengelola logika konten & generasi AI.             |
+| **Model Harga**   | Khusus Enterprise / Berbasis kursi (Tinggi).   | Bayar untuk inferensi Anda sendiri (BYO Key).      |
+| **Integrasi**     | Penggunaan API / CLI secara intensif.          | Integrasi kode mendalam (Deklaratif).              |
+| **Pembaruan**     | Perlu sinkronisasi / Bergantung pada pipeline. | Sinkron instan dengan codebase atau aplikasi live. |
+| **Format File**   | Sangat luas (Legacy & Dokumen).                | Web Modern (JSON, JS, TS).                         |
+| **Pengujian**     | Pemeriksaan QA / Langkah LQA.                  | CI / CLI / Pengujian A/B.                          |
+| **Hosting**       | SaaS (Murni Enterprise).                       | Open Source & Dapat di-host sendiri (Docker).      |
 
 Intlayer menawarkan solusi i18n lengkap dan all-in-one yang memungkinkan integrasi mendalam terhadap konten Anda. Konten remote Anda dapat disinkronkan langsung dengan codebase atau aplikasi live Anda. Sebagai perbandingan, Phrase adalah dependency eksternal yang kuat tetapi kompleks yang sering kali memerlukan manajer lokalisasi khusus agar dapat beroperasi secara efektif.
 

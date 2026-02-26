@@ -50,7 +50,29 @@ Menerjemahkan aplikasi Angular menghadirkan beberapa tantangan:
 
 Angular menawarkan kerangka kerja i18n bawaan, dan ada beberapa pustaka pihak ketiga yang dirancang untuk menyederhanakan pengaturan multibahasa Anda. Berikut adalah beberapa solusi yang paling populer.
 
-### 1. i18n Bawaan Angular
+### 1. Intlayer
+
+> Situs Web: [https://intlayer.org/](https://intlayer.org/)
+
+**Ikhtisar**  
+**Intlayer** adalah pustaka internasionalisasi (i18n) sumber terbuka yang inovatif, dirancang untuk menyederhanakan dukungan multibahasa dalam aplikasi web Angular (dan lainnya) modern. Ini menawarkan pendekatan deklaratif yang memungkinkan Anda menentukan kamus terjemahan langsung di dalam komponen Anda.
+
+**Fitur Utama**
+
+- **Deklarasi Terjemahan**: Memungkinkan semua terjemahan dideklarasikan dalam satu file, yang disimpan di tingkat komponen, sehingga mudah untuk dipertahankan dan diskalakan.
+- **TypeScript & Autocomplete**: Menyediakan definisi tipe yang dibuat secara otomatis untuk kunci terjemahan, memastikan pelengkapan otomatis (autocomplete) yang kuat dan deteksi kesalahan.
+- **Komponen Server & SSR**: Dibuat dengan mempertimbangkan server-side rendering (SSR) dan komponen server, memastikan konten yang dilokalkan disajikan secara efisien baik di klien maupun server.
+- **Metadata & URL yang Dilokalkan untuk SEO**: Kelola rute berbasis lokal yang dinamis, sitemap, dan entri robots.txt dengan mudah untuk meningkatkan kemudahan temuan dan SEO.
+- **Integrasi yang Mulus**: Kompatibel dengan Angular CLI dan alat lainnya, membuat penyiapan menjadi sederhana.
+- **Pemuatan Asinkron**: Muat kamus terjemahan secara dinamis, mengurangi ukuran bundle awal dan meningkatkan kinerja.
+
+**Pertimbangan**
+
+- **Komunitas & Ekosistem**: Meskipun terus berkembang, ekosistemnya masih baru, sehingga plugin dan alat yang didorong oleh komunitas mungkin lebih terbatas dibandingkan dengan solusi yang lebih mapan.
+
+---
+
+### 2. i18n Bawaan Angular
 
 **Ikhtisar**  
 Angular dilengkapi dengan sistem **i18n bawaan** yang mencakup alat untuk mengekstrak string terjemahan, menangani pluralisasi dan interpolasi, serta mengintegrasikan terjemahan saat waktu kompilasi. Solusi resmi ini sangat kuat untuk proyek yang lebih kecil atau yang dapat selaras dengan struktur yang direkomendasikan Angular.
@@ -70,7 +92,7 @@ Angular dilengkapi dengan sistem **i18n bawaan** yang mencakup alat untuk mengek
 
 ---
 
-### 2. ngx-translate
+### 3. ngx-translate
 
 Situs Web: [https://github.com/ngx-translate/core](https://github.com/ngx-translate/core)
 
@@ -92,7 +114,7 @@ Situs Web: [https://github.com/ngx-translate/core](https://github.com/ngx-transl
 
 ---
 
-### 3. Transloco
+### 4. Transloco
 
 Website: [https://ngneat.github.io/transloco/](https://ngneat.github.io/transloco/)
 

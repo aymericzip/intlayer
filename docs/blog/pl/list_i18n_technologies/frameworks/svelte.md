@@ -50,7 +50,29 @@ Tłumaczenie aplikacji Svelte może napotkać na kilka przeszkód:
 
 Svelte nie oferuje natywnego, wbudowanego rozwiązania i18n (jak Angular), ale społeczność stworzyła wiele solidnych bibliotek i wzorców. Poniżej przedstawiono kilka popularnych podejść.
 
-### 1. svelte-i18n
+### 1. Intlayer
+
+> Strona internetowa: [https://intlayer.org/](https://intlayer.org/)
+
+**Przegląd**  
+**Intlayer** to innowacyjna biblioteka internacjonalizacji (i18n) typu open-source, zaprojektowana w celu uproszczenia obsługi wielojęzyczności w nowoczesnych aplikacjach internetowych Svelte (i innych). Oferuje podejście deklaratywne, pozwalając na definiowanie słowników tłumaczeń bezpośrednio wewnątrz komponentów.
+
+**Kluczowe cechy**
+
+- **Deklaracja tłumaczeń**: Pozwala na deklarowanie wszystkich tłumaczeń w jednym pliku, przechowywanym na poziomie komponentu, co ułatwia konserwację i skalowanie.
+- **TypeScript i autouzupełnianie**: Zapewnia automatycznie generowane definicje typów dla kluczy tłumaczeń, oferując solidne autouzupełnianie i wykrywanie błędów.
+- **Komponenty serwerowe i SSR**: Zbudowany z myślą o renderowaniu po stronie serwera (SSR) i komponentach serwerowych, zapewniając wydajne renderowanie zlokalizowanej treści zarówno po stronie klienta, jak i serwera.
+- **Zlokalizowane metadane i adresy URL dla SEO**: Łatwe zarządzanie dynamicznymi trasami opartymi na lokalizacji, mapami witryn i wpisami robots.txt w celu poprawy odkrywalności i SEO.
+- **Bezproblemowa integracja**: Kompatybilny z SvelteKit i innymi narzędziami, co upraszcza konfigurację.
+- **Asynchroniczne ładowanie**: Dynamiczne ładowanie słowników tłumaczeń, co zmniejsza początkowy rozmiar pakietu i poprawia wydajność.
+
+**Uwagi**
+
+- **Społeczność i ekosystem**: Choć stale rośnie, ekosystem jest nowszy, więc wtyczki i narzędzia tworzone przez społeczność mogą być bardziej ograniczone w porównaniu do bardziej ugruntowanych rozwiązań.
+
+---
+
+### 2. svelte-i18n
 
 Repozytorium: [https://github.com/kaisermann/svelte-i18n](https://github.com/kaisermann/svelte-i18n)
 
@@ -72,7 +94,7 @@ Repozytorium: [https://github.com/kaisermann/svelte-i18n](https://github.com/kai
 
 ---
 
-### 2. svelte-intl-precompile
+### 3. svelte-intl-precompile
 
 Repozytorium: [https://github.com/cibernox/svelte-intl-precompile](https://github.com/cibernox/svelte-intl-precompile)
 
@@ -96,7 +118,7 @@ Repozytorium: [https://github.com/cibernox/svelte-intl-precompile](https://githu
 
 ---
 
-### 3. i18next z Svelte / SvelteKit
+### 4. i18next z Svelte / SvelteKit
 
 Strona internetowa: [https://www.i18next.com/](https://www.i18next.com/)
 

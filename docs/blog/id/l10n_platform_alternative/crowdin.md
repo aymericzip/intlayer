@@ -29,10 +29,6 @@ Sistem Manajemen Terjemahan (TMS) adalah platform perangkat lunak yang dirancang
 
 Intinya, secara historis TMS menjadi jembatan antara kode teknis (di mana string berada) dan ahli bahasa manusia (yang memahami konteks budaya).
 
-Sistem Manajemen Terjemahan (TMS) adalah platform perangkat lunak yang dirancang untuk mengotomatisasi dan menyederhanakan proses terjemahan dan lokalisasi (L10n). Secara tradisional, TMS berperan sebagai pusat terpusat tempat konten diunggah, diorganisir, dan ditugaskan kepada penerjemah manusia. Sistem ini mengelola alur kerja, menyimpan translation memories (untuk menghindari menerjemahkan ulang kalimat yang sama dua kali), dan menangani pengiriman berkas terjemahan kembali ke pengembang atau pengelola konten.
-
-Intinya, TMS secara historis menjadi jembatan antara kode teknis (tempat string berada) dan para linguists (yang memahami budaya).
-
 # Crowdin
 
 Crowdin adalah pemain veteran di bidang ini. Didirikan pada 2009, ia muncul pada masa ketika tantangan utama lokalisasi adalah konektivitas. Misinya jelas: menghubungkan copywriter, penerjemah, dan pemilik proyek satu sama lain secara efektif.

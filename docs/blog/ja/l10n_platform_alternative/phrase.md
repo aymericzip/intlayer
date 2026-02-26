@@ -53,7 +53,8 @@ PhraseはAI機能を組み込んでいますが、それらはしばしば人間
 
 Intlayer は AI 時代に生まれ、特に現代の JavaScript/TypeScript エコシステム向けに設計されたソリューションです。Intlayer は、Phrase の重厚なエンタープライズモデルに対して、機敏性と透明性で挑戦します。
 
-1.  **Pricing Transparency（料金の透明性）:** Phrase は Enterprise 向けの料金体系で知られており、成長中の企業にとって不透明で高額になりがちです。Intlayer は独自の API キー（OpenAI、Anthropic など）を持ち込むことを許可し、プラットフォームのサブスクリプションへの上乗せではなく、インテリジェンスに対して市場価格を支払うことを可能にします。
+1.  **料金の透明性 (Pricing Transparency):** Phrase は Enterprise 向けの料金体系で知られており、成長中の企業にとって不透明で高額になりがちです。
+    Intlayer は独自の API キー（OpenAI、Anthropic など）を持ち込むことを許可し、プラットフォームのサブスクリプションへの上乗せではなく、インテリジェンスに対して市場価格を支払うことを可能にします。
 2.  **Developer Experience (DX):** Phraseはファイル同期にCLIツールやAPI呼び出しを多用します。Intlayerはバンドラーとランタイムに直接統合されます。つまり、あなたの定義は厳密に型付けされ（TypeScript）、欠落したキーは本番ではなくコンパイル時に検出されます。
 3.  **Speed to Market:** IntlayerはTMSの「ブラックボックス」を取り除きます。ファイルを外部に送って返ってくるのを待つ必要はありません。CIパイプラインやローカル環境でAIを使って即座に翻訳を生成でき、開発ループを短く保てます。
 

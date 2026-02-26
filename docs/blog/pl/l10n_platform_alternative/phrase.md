@@ -29,10 +29,6 @@ System zarządzania tłumaczeniami (TMS) to platforma programowa zaprojektowana 
 
 W istocie TMS od dawna jest pomostem między warstwą techniczną (gdzie znajdują się stringi) a ludzkimi lingwistami (którzy rozumieją kontekst kulturowy).
 
-System zarządzania tłumaczeniami (Translation Management System, TMS) to platforma programowa zaprojektowana do automatyzacji i usprawnienia procesu tłumaczenia i lokalizacji (L10n). Tradycyjnie TMS pełni rolę scentralizowanego centrum, gdzie treści są przesyłane, organizowane i przypisywane tłumaczom. Zarządza workflowami, przechowuje pamięci tłumaczeń (translation memories — aby uniknąć ponownego tłumaczenia tych samych zdań) i obsługuje dostarczanie przetłumaczonych plików z powrotem do deweloperów lub menedżerów treści.
-
-W istocie TMS historycznie stanowił pomost między technicznym kodem (gdzie znajdują się strings) a ludzkimi lingwistami (którzy rozumieją kontekst kulturowy).
-
 # Phrase (dawniej PhraseApp)
 
 Phrase to potęga w obszarze lokalizacji korporacyjnej. Początkowo znane jako PhraseApp, znacznie się rozrosło, zwłaszcza po połączeniu z Memsource. Pozycjonuje się jako kompleksowy Localization Suite zaprojektowany do lokalizacji oprogramowania, oferując rozbudowane możliwości API i szerokie wsparcie formatów.

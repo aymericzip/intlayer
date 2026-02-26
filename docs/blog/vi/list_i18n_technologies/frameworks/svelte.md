@@ -50,7 +50,29 @@ Việc dịch một ứng dụng Svelte có thể gặp phải một số khó k
 
 Svelte không cung cấp giải pháp i18n tích hợp sẵn (như Angular), nhưng cộng đồng đã tạo ra nhiều thư viện và mẫu thiết kế mạnh mẽ. Dưới đây là một số cách tiếp cận phổ biến.
 
-### 1. svelte-i18n
+### 1. Intlayer
+
+> Trang web: [https://intlayer.org/](https://intlayer.org/)
+
+**Tổng quan**  
+**Intlayer** là một thư viện quốc tế hóa (i18n) mã nguồn mở sáng tạo được thiết kế để đơn giản hóa việc hỗ trợ đa ngôn ngữ trong các ứng dụng web Svelte (và các ứng dụng khác) hiện đại. Nó cung cấp một phương pháp khai báo cho phép bạn xác định các từ điển dịch trực tiếp trong các thành phần của mình.
+
+**Các tính năng chính**
+
+- **Khai báo bản dịch**: Cho phép tất cả các bản dịch được khai báo trong một tệp duy nhất, được giữ ở cấp độ thành phần, giúp dễ dàng bảo trì và mở rộng.
+- **TypeScript và Autocomplete**: Cung cấp các định nghĩa kiểu được tạo tự động cho các khóa dịch, đảm bảo tự động hoàn thành mạnh mẽ và phát hiện lỗi.
+- **Thành phần máy chủ và SSR**: Được xây dựng với sự hỗ trợ cho hiển thị phía máy chủ (SSR) and các thành phần máy chủ, đảm bảo nội dung được bản địa hóa được hiển thị hiệu quả trên cả máy khách và máy chủ.
+- **Siêu dữ liệu và URL được bản địa hóa cho SEO**: Dễ dàng quản lý các tuyến dựa trên ngôn ngữ động, sơ đồ trang web và các mục nhập robots.txt để cải thiện khả năng khám phá và SEO.
+- **Tích hợp liền mạch**: Tương thích với SvelteKit và các công cụ khác, giúp việc thiết lập trở nên đơn giản.
+- **Tải không đồng bộ**: Tải các từ điển dịch một cách linh hoạt, giảm kích thước gói ban đầu và cải thiện hiệu suất.
+
+**Những điều cần lưu ý**
+
+- **Cộng đồng và Hệ sinh thái**: Mặc dù đang phát triển, hệ sinh thái vẫn còn mới, vì vậy các plugin và công cụ do cộng đồng thúc đẩy có thể hạn chế hơn so với các giải pháp lâu đời hơn.
+
+---
+
+### 2. svelte-i18n
 
 Kho lưu trữ: [https://github.com/kaisermann/svelte-i18n](https://github.com/kaisermann/svelte-i18n)
 
@@ -72,7 +94,7 @@ Kho lưu trữ: [https://github.com/kaisermann/svelte-i18n](https://github.com/k
 
 ---
 
-### 2. svelte-intl-precompile
+### 3. svelte-intl-precompile
 
 Kho lưu trữ: [https://github.com/cibernox/svelte-intl-precompile](https://github.com/cibernox/svelte-intl-precompile)
 
@@ -96,7 +118,7 @@ Kho lưu trữ: [https://github.com/cibernox/svelte-intl-precompile](https://git
 
 ---
 
-### 3. i18next với Svelte / SvelteKit
+### 4. i18next với Svelte / SvelteKit
 
 Website: [https://www.i18next.com/](https://www.i18next.com/)
 

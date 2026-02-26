@@ -25,11 +25,11 @@ history:
 
 # 번역 관리 시스템 (TMS)
 
-A Translation Management System (TMS) is a software platform designed to automate and streamline the translation and localization (L10n) process. Traditionally, a TMS serves as a centralized hub where content is uploaded, organized, and assigned to human translators. It manages workflows, stores translation memories (to avoid re-translating the same sentence twice), and handles the delivery of translated files back to the developers or content managers.
+번역 관리 시스템(TMS)은 번역 및 현지화(L10n) 프로세스를 자동화하고 간소화하도록 설계된 소프트웨어 플랫폼입니다. 전통적으로 TMS는 콘텐츠를 업로드하고 정리하며 인간 번역가에게 할당하는 중앙 허브 역할을 합니다. 워크플로우를 관리하고, 번역 메모리(같은 문장을 다시 번역하는 일을 방지하기 위해)를 저장하며, 번역된 파일을 개발자나 콘텐츠 관리자에게 다시 전달하는 작업을 처리합니다.
 
-In essence, a TMS has historically been the bridge between the technical code (where strings live) and the human linguists (who understand the culture).
+본질적으로 TMS는 기술적인 코드(문자열이 존재하는 곳)와 문화적 이해를 가진 인간 언어 전문가들 사이를 잇는 다리 역할을 해왔습니다.
 
-# Phrase (formerly PhraseApp)
+# Phrase (이전 PhraseApp)
 
 Phrase는 엔터프라이즈 로컬라이제이션 분야의 강자입니다. 원래 PhraseApp으로 알려졌으며, 특히 Memsource와의 합병 이후 크게 성장했습니다. 소프트웨어 현지화를 위해 설계된 포괄적인 Localization Suite로 자리매김하며, 강력한 API 기능과 광범위한 포맷 지원을 제공합니다.
 
@@ -49,7 +49,7 @@ Phrase가 AI 기능을 통합하긴 했지만, 그 기능들은 종종 사람 �
 
 오늘날 가장 효율적인 워크플로우는 먼저 AI를 사용해 페이지를 글로벌하게 번역하고 포지셔닝하는 것입니다. 그런 다음 두 번째 단계에서 제품이 이미 수익을 창출하기 시작한 후 특정 트래픽이 많은 콘텐츠를 인간 카피라이터가 최적화하여 전환율을 높이는 방식입니다.
 
-## 왜 Intlayer가 Phrase에 대한 좋은 대안인가?
+## 왜 Intlayer가 Phrase의 좋은 대안인가?
 
 Intlayer는 AI 시대에 탄생한 솔루션으로, 현대 JavaScript/TypeScript 생태계에 맞춰 설계되었습니다. 민첩성과 투명성으로 Phrase의 무거운 엔터프라이즈 모델에 도전합니다.
 
