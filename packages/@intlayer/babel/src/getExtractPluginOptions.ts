@@ -213,6 +213,7 @@ export const getExtractPluginOptions = (
     enabled: isEnabled,
     defaultLocale: config.internationalization.defaultLocale,
     prefix: config.compiler?.dictionaryKeyPrefix,
+    saveComponents: config.compiler?.saveComponents,
     // filesList can be passed if needed, but usually handled by include/exclude in build tool
     onExtract: handleExtractedContent,
   };

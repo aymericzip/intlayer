@@ -18,3 +18,5 @@ export const COMPILER_EXCLUDE_PATTERN = [
   '**/*.test.ts',
 ];
 export const COMPILER_OUTPUT_DIR = './compiler';
+
+export const COMPILER_SAVE_COMPONENTS = false;

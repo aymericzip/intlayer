@@ -1,13 +1,24 @@
-import { existsSync, readFileSync } from 'node:fs';
-import { basename, dirname, extname, join } from 'node:path';
+import { execSync } from 'node:child_process';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { basename, dirname, extname, join, relative } from 'node:path';
 import type { NodePath, PluginObj, PluginPass } from '@babel/core';
-import generator from '@babel/generator';
+import _generate from '@babel/generator';
 import type * as BabelTypes from '@babel/types';
 import {
   ATTRIBUTES_TO_EXTRACT,
   shouldExtract as defaultShouldExtract,
+  detectFormatCommand,
 } from '@intlayer/chokidar/cli';
+import {
+  ANSIColors,
+  colorize,
+  colorizePath,
+  getAppLogger,
+} from '@intlayer/config/client';
+import { getConfiguration } from '@intlayer/config/node';
 import { generateKey } from '@intlayer/core/utils';
+
+const generate = ((_generate as any).default ?? _generate) as typeof _generate;
 
 // Set this to true to enable debug logs
 const DEBUG_LOG = false;
@@ -66,6 +77,11 @@ export type ExtractPluginOptions = {
    * Prefix for the extracted dictionary keys.
    */
   prefix?: string;
+
+  /**
+   * Indicates if the components should be saved after being transformed.
+   */
+  saveComponents?: boolean;
 };
 
 type State = PluginPass & {
@@ -94,6 +110,14 @@ type State = PluginPass & {
   _isClient?: boolean;
   /** Whether there is extracted content at the top level (not in a function) */
   _hasTopLevelContent?: boolean;
+  /** Targets to extract and modify */
+  _extractionTargets?: {
+    path: NodePath<any>;
+    key: string;
+    isAttribute: boolean;
+  }[];
+  /** Functions to inject the hook/core logic into */
+  _functionsToInject?: Set<NodePath<BabelTypes.Function>>;
 };
 const extractDictionaryKeyFromPath = (
   filePath: string,
@@ -152,9 +176,11 @@ const unwrapParentheses = (
   t: typeof BabelTypes
 ): BabelTypes.Node => {
   let current = node;
+
   while (t.isParenthesizedExpression(current)) {
     current = current.expression;
   }
+
   return current;
 };
 
@@ -163,11 +189,14 @@ const isReactComponent = (
   t: typeof BabelTypes
 ): boolean => {
   const node = funcPath.node;
+
   if (!t.isBlockStatement(node.body)) {
     const unwrapped = unwrapParentheses(node.body, t);
     return t.isJSXElement(unwrapped) || t.isJSXFragment(unwrapped);
   }
+
   let returnsJSX = false;
+
   funcPath.traverse({
     Function(p) {
       p.skip();
@@ -208,6 +237,8 @@ export const intlayerExtractBabelPlugin = (babel: {
   types: typeof BabelTypes;
 }): PluginObj<State> => {
   const { types: t } = babel;
+  const config = getConfiguration();
+  const appLogger = getAppLogger(config);
 
   return {
     name: 'babel-plugin-intlayer-extract',
@@ -224,6 +255,8 @@ export const intlayerExtractBabelPlugin = (babel: {
       this._contentVarName = 'content';
       this._isClient = false;
       this._hasTopLevelContent = false;
+      this._extractionTargets = [];
+      this._functionsToInject = new Set();
 
       const filename = this.file.opts.filename;
 
@@ -253,7 +286,6 @@ export const intlayerExtractBabelPlugin = (babel: {
           this.opts.prefix
         );
     },
-
     visitor: {
       ImportDeclaration(path, state) {
         if (!state._isIncluded) return;
@@ -281,6 +313,132 @@ export const intlayerExtractBabelPlugin = (babel: {
         state._hasJSX = true;
       },
 
+      JSXText(path, state) {
+        if (!state._isIncluded || !state._dictionaryKey) return;
+        const shouldExtract = state.opts.shouldExtract ?? defaultShouldExtract;
+        const rawText = path.node.value;
+
+        if (shouldExtract(rawText)) {
+          const text = rawText.replace(/\s+/g, ' ').trim();
+          let key = Object.keys(state._extractedContent!).find(
+            (k) => state._extractedContent![k] === text
+          );
+
+          if (!key) {
+            key = generateKey(text, state._existingKeys!);
+            state._existingKeys!.add(key);
+            state._extractedContent![key] = text;
+          }
+
+          state._extractionTargets!.push({ path, key, isAttribute: false });
+          const func = findTargetFunction(path, t);
+          if (func) {
+            state._functionsToInject!.add(func);
+          } else {
+            state._hasTopLevelContent = true;
+          }
+        }
+      },
+
+      JSXAttribute(path, state) {
+        if (!state._isIncluded || !state._dictionaryKey) return;
+        const shouldExtract = state.opts.shouldExtract ?? defaultShouldExtract;
+        const attrName = path.node.name;
+
+        if (!t.isJSXIdentifier(attrName)) return;
+        const isKey = attrName.name === 'key';
+
+        if (!ATTRIBUTES_TO_EXTRACT.includes(attrName.name) && !isKey) return;
+
+        const value = path.node.value;
+        let text: string | null = null;
+
+        if (t.isStringLiteral(value)) text = value.value;
+        else if (
+          t.isJSXExpressionContainer(value) &&
+          t.isStringLiteral(value.expression)
+        )
+          text = value.expression.value;
+
+        if (text && shouldExtract(text)) {
+          const cleanText = text.trim();
+          let key = Object.keys(state._extractedContent!).find(
+            (k) => state._extractedContent![k] === cleanText
+          );
+
+          if (!key) {
+            key = generateKey(cleanText, state._existingKeys!);
+            state._existingKeys!.add(key);
+            state._extractedContent![key] = cleanText;
+          }
+
+          state._extractionTargets!.push({ path, key, isAttribute: true });
+          const func = findTargetFunction(path, t);
+          if (func) {
+            state._functionsToInject!.add(func);
+          } else {
+            state._hasTopLevelContent = true;
+          }
+        }
+      },
+
+      StringLiteral(path, state) {
+        if (!state._isIncluded || !state._dictionaryKey) return;
+        const shouldExtract = state.opts.shouldExtract ?? defaultShouldExtract;
+        const parent = path.parentPath;
+
+        if (
+          parent.isJSXAttribute() ||
+          parent.isImportDeclaration() ||
+          parent.isExportDeclaration() ||
+          parent.isImportSpecifier()
+        )
+          return;
+
+        if (parent.isObjectProperty() && path.key === 'key') return;
+
+        if (parent.isMemberExpression() && path.key === 'property') return;
+
+        if (parent.isCallExpression()) {
+          const callee = (parent.node as BabelTypes.CallExpression).callee;
+
+          if (
+            (t.isMemberExpression(callee) &&
+              t.isIdentifier(callee.object) &&
+              callee.object.name === 'console') ||
+            (t.isIdentifier(callee) &&
+              (callee.name === state._useIntlayerLocalName ||
+                callee.name === state._getIntlayerLocalName ||
+                callee.name === 'require')) ||
+            callee.type === 'Import'
+          )
+            return;
+        }
+
+        const text = path.node.value;
+
+        if (shouldExtract(text)) {
+          const cleanText = text.trim();
+          let key = Object.keys(state._extractedContent!).find(
+            (k) => state._extractedContent![k] === cleanText
+          );
+
+          if (!key) {
+            key = generateKey(cleanText, state._existingKeys!);
+            state._existingKeys!.add(key);
+            state._extractedContent![key] = cleanText;
+          }
+
+          state._extractionTargets!.push({ path, key, isAttribute: false });
+          const func = findTargetFunction(path, t);
+          if (func) {
+            state._functionsToInject!.add(func);
+          } else {
+            state._hasTopLevelContent = true;
+          }
+        }
+      },
+
       Program: {
         enter(programPath, state) {
           if (!state._isIncluded) return;
@@ -306,137 +464,12 @@ export const intlayerExtractBabelPlugin = (babel: {
         exit(programPath, state) {
           if (!state._isIncluded || !state._dictionaryKey) return;
 
-          const extractionTargets: {
-            path: NodePath<any>;
-            key: string;
-            isAttribute: boolean;
-          }[] = [];
-          const functionsToInject = new Set<NodePath<BabelTypes.Function>>();
-          const shouldExtract =
-            state.opts.shouldExtract ?? defaultShouldExtract;
-
-          const addTarget = (path: NodePath<any>) => {
-            const func = findTargetFunction(path, t);
-
-            if (func) {
-              functionsToInject.add(func);
-            } else {
-              state._hasTopLevelContent = true;
-            }
-          };
-
-          // Pass 1: Identification (Read only)
-          programPath.traverse({
-            JSXText(path) {
-              const rawText = path.node.value;
-
-              if (shouldExtract(rawText)) {
-                const text = rawText.replace(/\s+/g, ' ').trim();
-                let key = Object.keys(state._extractedContent!).find(
-                  (k) => state._extractedContent![k] === text
-                );
-
-                if (!key) {
-                  key = generateKey(text, state._existingKeys!);
-                  state._existingKeys!.add(key);
-                  state._extractedContent![key] = text;
-                }
-
-                extractionTargets.push({ path, key, isAttribute: false });
-                addTarget(path);
-              }
-            },
-            JSXAttribute(path) {
-              const attrName = path.node.name;
-
-              if (!t.isJSXIdentifier(attrName)) return;
-              const isKey = attrName.name === 'key';
-
-              if (!ATTRIBUTES_TO_EXTRACT.includes(attrName.name) && !isKey)
-                return;
-
-              const value = path.node.value;
-              let text: string | null = null;
-
-              if (t.isStringLiteral(value)) text = value.value;
-              else if (
-                t.isJSXExpressionContainer(value) &&
-                t.isStringLiteral(value.expression)
-              )
-                text = value.expression.value;
-
-              if (text && shouldExtract(text)) {
-                const cleanText = text.trim();
-                let key = Object.keys(state._extractedContent!).find(
-                  (k) => state._extractedContent![k] === cleanText
-                );
-
-                if (!key) {
-                  key = generateKey(cleanText, state._existingKeys!);
-                  state._existingKeys!.add(key);
-                  state._extractedContent![key] = cleanText;
-                }
-
-                extractionTargets.push({ path, key, isAttribute: true });
-                addTarget(path);
-              }
-            },
-            StringLiteral(path) {
-              const parent = path.parentPath;
-
-              if (
-                parent.isJSXAttribute() ||
-                parent.isImportDeclaration() ||
-                parent.isExportDeclaration() ||
-                parent.isImportSpecifier()
-              )
-                return;
-
-              if (parent.isObjectProperty() && path.key === 'key') return;
-
-              if (parent.isMemberExpression() && path.key === 'property')
-                return;
-
-              if (parent.isCallExpression()) {
-                const callee = (parent.node as BabelTypes.CallExpression)
-                  .callee;
-
-                if (
-                  (t.isMemberExpression(callee) &&
-                    t.isIdentifier(callee.object) &&
-                    callee.object.name === 'console') ||
-                  (t.isIdentifier(callee) &&
-                    (callee.name === state._useIntlayerLocalName ||
-                      callee.name === state._getIntlayerLocalName ||
-                      callee.name === 'require')) ||
-                  callee.type === 'Import'
-                )
-                  return;
-              }
-
-              const text = path.node.value;
-
-              if (shouldExtract(text)) {
-                const cleanText = text.trim();
-                let key = Object.keys(state._extractedContent!).find(
-                  (k) => state._extractedContent![k] === cleanText
-                );
-
-                if (!key) {
-                  key = generateKey(cleanText, state._existingKeys!);
-                  state._existingKeys!.add(key);
-                  state._extractedContent![key] = cleanText;
-                }
-
-                extractionTargets.push({ path, key, isAttribute: false });
-                addTarget(path);
-              }
-            },
-          });
+          const extractionTargets = state._extractionTargets!;
+          const functionsToInject = state._functionsToInject!;
 
           if (extractionTargets.length === 0) return;
 
-          // Pass 2: Extraction (Modification)
+          // Extraction (Modification)
           for (const { path, key, isAttribute } of extractionTargets) {
             let isHook = false;
             let hookDecided = false;
@@ -632,14 +665,55 @@ export const intlayerExtractBabelPlugin = (babel: {
             }
           }
 
-          if (DEBUG_LOG) {
-            console.log(
-              '[babel-plugin-intlayer-extract] Transformed:',
-              state.file.opts.filename
-            );
+          if (state.opts.saveComponents && state.file.opts.filename) {
+            try {
+              const transformedCode = generate(programPath.node, {
+                retainLines: true,
+              }).code;
 
-            console.log(
-              generator(programPath.node, { retainLines: true }).code
+              writeFileSync(state.file.opts.filename, transformedCode, 'utf-8');
+
+              const basedir = config.content?.baseDir ?? process.cwd();
+              const relativePath = relative(basedir, state.file.opts.filename);
+
+              appLogger(
+                `${colorize('Compiler:', ANSIColors.GREY_DARK)} Saved component: ${colorizePath(relativePath)}`,
+                { level: 'info' }
+              );
+
+              const formatCommand = detectFormatCommand(config);
+
+              if (formatCommand) {
+                try {
+                  execSync(
+                    formatCommand.replace('{{file}}', state.file.opts.filename),
+                    {
+                      stdio: 'ignore', // Use 'ignore' to prevent format output from cluttering the extraction process console
+                      cwd: basedir,
+                    }
+                  );
+                } catch (error) {
+                  appLogger(`Extractor formatting error: ${String(error)}`, {
+                    level: 'error',
+                  });
+                }
+              }
+            } catch (err: any) {
+              appLogger(`Extractor plugin error: ${String(err)}`, {
+                level: 'error',
+              });
+            }
+          }
+
+          if (DEBUG_LOG) {
+            const basedir = config.content?.baseDir ?? process.cwd();
+            const relativePath = state.file.opts.filename
+              ? relative(basedir, state.file.opts.filename)
+              : 'unknown';
+
+            appLogger(
+              `${colorize('Compiler:', ANSIColors.GREY_DARK)} Transformed: ${colorizePath(relativePath)}\n${generate(programPath.node, { retainLines: false }).code}`,
+              { level: 'debug' }
             );
           }
         },
@@ -662,6 +736,7 @@ const injectHook = (
     const hookName = returnsJSX
       ? state._useIntlayerLocalName!
       : state._getIntlayerLocalName!;
+
     const hookCall = t.variableDeclaration('const', [
       t.variableDeclarator(
         t.identifier(contentVarName),
@@ -670,16 +745,19 @@ const injectHook = (
         ])
       ),
     ]);
+
     node.body = t.blockStatement([
       hookCall,
       t.returnStatement(node.body as BabelTypes.Expression),
     ]);
+
     return returnsJSX ? 'hook' : 'core';
   }
 
   const hookName = returnsJSX
     ? state._useIntlayerLocalName!
     : state._getIntlayerLocalName!;
+
   const hasHook = node.body.body.some(
     (s) =>
       t.isVariableDeclaration(s) &&

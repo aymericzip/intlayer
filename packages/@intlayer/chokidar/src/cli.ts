@@ -1,3 +1,4 @@
+export * from './detectFormatCommand';
 export * from './getContentDeclarationFileTemplate';
 export * from './init/index';
 export * from './installSkills/index';

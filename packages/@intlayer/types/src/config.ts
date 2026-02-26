@@ -661,6 +661,16 @@ export type CompilerConfig = {
    * The directory where the optimized dictionaries will be stored.
    */
   outputDir: string;
+
+  /**
+   * Indicates if the components should be saved after being transformed.
+   *
+   * If true, the compiler will replace the original files with the transformed files.
+   * That way, the compiler can be run only once to transform the app, and then it can be removed.
+   *
+   * Default: false
+   */
+  saveComponents: boolean;
 };
 
 /**

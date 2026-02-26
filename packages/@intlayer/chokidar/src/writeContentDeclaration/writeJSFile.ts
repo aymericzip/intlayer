@@ -4,12 +4,12 @@ import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
 import { basename, extname, join } from 'node:path';
 import { getAppLogger, logger } from '@intlayer/config/logger';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';
+import { detectFormatCommand } from '../detectFormatCommand';
 import { getContentDeclarationFileTemplate } from '../getContentDeclarationFileTemplate/getContentDeclarationFileTemplate';
 import {
   type Extension,
   getFormatFromExtension,
 } from '../utils/getFormatFromExtension';
-import { detectFormatCommand } from './detectFormatCommand';
 import { transformJSFile } from './transformJSFile';
 
 /**

@@ -28,6 +28,7 @@ import {
   COMPILER_ENABLED,
   COMPILER_EXCLUDE_PATTERN,
   COMPILER_OUTPUT_DIR,
+  COMPILER_SAVE_COMPONENTS,
   COMPILER_TRANSFORM_PATTERN,
 } from '../defaultValues/compiler';
 import {
@@ -698,6 +699,12 @@ const buildCompilerFields = (
    * Output directory for the optimized dictionaries.
    */
   outputDir: customConfiguration?.outputDir ?? COMPILER_OUTPUT_DIR,
+
+  /**
+   * Indicates if the components should be saved after being transformed.
+   */
+  saveComponents:
+    customConfiguration?.saveComponents ?? COMPILER_SAVE_COMPONENTS,
 });
 
 const buildDictionaryFields = (

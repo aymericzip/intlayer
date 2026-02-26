@@ -85,7 +85,6 @@ export type IntlayerCompilerOptions = {
  * ```
  */
 export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
-  // Private state
   let config: IntlayerConfig;
   let logger: ReturnType<typeof getAppLogger>;
   let projectRoot = '';
@@ -143,7 +142,7 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
     return JSON.stringify(
       Object.keys(content)
         .sort()
-        .map((k) => [k, content[k]])
+        .map((key) => [key, content[key]])
     );
   };
 
@@ -197,6 +196,10 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
         customCompilerConfig?.outputDir ??
         rawConfig.compiler?.outputDir ??
         'compiler',
+      saveComponents:
+        customCompilerConfig?.saveComponents ??
+        rawConfig.compiler?.saveComponents ??
+        false,
     };
   };
 
@@ -304,7 +307,7 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
       );
       for (const key of removedKeys) {
         logger(
-          `${colorize('Compiler:', ANSIColors.GREY_DARK)} Removed key "${key}" (no longer in source)`,
+          `${colorize('Compiler:', ANSIColors.GREY_DARK)} Removed key ${colorizePath(`"${key}"`)} ${colorize('(no longer in source)', ANSIColors.GREY_LIGHT)}`,
           {
             level: 'info',
             isVerbose: true,
@@ -807,6 +810,7 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
             filesList,
             packageName,
             onExtract: handleExtractedContent,
+            saveComponents: getCompilerConfig().saveComponents,
           },
         ],
       ],

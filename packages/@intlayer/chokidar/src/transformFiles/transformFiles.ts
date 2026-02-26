@@ -14,8 +14,8 @@ import { camelCaseToKebabCase } from '@intlayer/config/utils';
 import { generateKey } from '@intlayer/core/utils';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { Node, Project, type SourceFile, SyntaxKind } from 'ts-morph';
+import { detectFormatCommand } from '../detectFormatCommand';
 import { writeContentDeclaration } from '../writeContentDeclaration';
-import { detectFormatCommand } from '../writeContentDeclaration/detectFormatCommand';
 import { extractDictionaryKey } from './extractDictionaryKey';
 
 // ==========================================
