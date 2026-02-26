@@ -6,7 +6,7 @@ import {
   getPrefix,
 } from 'intlayer';
 import type { FC } from 'react';
-import { setLocaleInStorage, useIntlayer, useLocale } from 'react-intlayer';
+import { useIntlayer, useLocale } from 'react-intlayer';
 
 import { LocalizedLink, type To } from './localized-link';
 
@@ -14,7 +14,7 @@ export const LocaleSwitcher: FC = () => {
   const { localeSwitcherLabel } = useIntlayer('locale-switcher');
   const { pathname } = useLocation();
 
-  const { availableLocales, locale } = useLocale();
+  const { availableLocales, locale, setLocale } = useLocale();
 
   const pathWithoutLocale = getPathWithoutLocale(pathname);
 
@@ -27,7 +27,7 @@ export const LocaleSwitcher: FC = () => {
             aria-label={
               localeSwitcherLabel({ language: getLocaleName(localeEl) }).value
             }
-            onClick={() => setLocaleInStorage(localeEl)}
+            onClick={() => setLocale(localeEl)}
             params={{ locale: getPrefix(localeEl).localePrefix }}
             to={pathWithoutLocale as To}
           >
