@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2025-12-30
-title: React Native + Expo i18n - Cara menerjemahkan aplikasi React Native di 2026
-description: Temukan cara membuat situs web React Native dan Expo Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya.
+title: Expo + React Native i18n - Cara menerjemahkan aplikasi React Native di 2026
+description: Temukan cara membuat situs web Expo dan React Native Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya.
 keywords:
   - Internasionalisasi
   - Dokumentasi
@@ -27,7 +27,7 @@ history:
     changes: Inisialisasi riwayat
 ---
 
-# Terjemahkan situs web React Native dan Expo Anda menggunakan Intlayer | Internasionalisasi (i18n)
+# Terjemahkan aplikasi Expo dan React Native Anda | Internasionalisasi (i18n)
 
 ## Daftar Isi
 

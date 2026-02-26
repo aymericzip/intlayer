@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-12-30
-title: React Native + Expo i18n - React Native uygulamasını çevirme 2026
+title: Expo + React Native i18n - React Native uygulamasını çevirme 2026
 description: React Native ve Expo web sitenizi çok dilli hale getirmeyi öğrenin. Uluslararasılaştırma (i18n) ve çeviri yapmak için dokümantasyonu takip edin.
 keywords:
   - Uluslararasılaştırma
@@ -24,7 +24,7 @@ history:
     changes: Geçmişi başlat
 ---
 
-# Intlayer ile React Native and Expo çevirin | Uluslararasılaştırma (i18n)
+# Expo ve React Native uygulamanızı çevirin | Uluslararasılaştırma (i18n)
 
 GitHub'da [Uygulama Şablonu](https://github.com/aymericzip/intlayer-react-native-template)na bakın.
 
@@ -345,8 +345,6 @@ import { type FC } from "react";
 const HomeScreen = (): FC => {
   const { title, steps } = useIntlayer("home-screen");
 
-> Eğer uygulamanız zaten mevcutsa, binlerce bileşeni bir saniye içinde dönüştürmek için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)'ı [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) ile birlikte kullanabilirsiniz.
-
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
@@ -457,6 +455,8 @@ module.exports = HomeScreen;
 ```
 
 > `content.someKey`'i dize tabanlı özelliklerde kullandığınızda (örneğin, bir düğmenin `title`ı veya bir `Text` bileşeninin `children`ı), gerçek dizeyi almak için **`content.someKey.value`** çağırın.
+
+> Eğer uygulamanız zaten mevcutsa, binlerce bileşeni bir saniye içinde dönüştürmek için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)'ı [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) ile birlikte kullanabilirsiniz.
 
 ---
 

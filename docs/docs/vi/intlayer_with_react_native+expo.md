@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2025-12-30
-title: React Native + Expo i18n - Cách dịch ứng dụng React Native năm 2026
-description: Khám phá cách làm cho trang web React Native và Expo của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó.
+title: Expo + React Native i18n - Cách dịch ứng dụng React Native năm 2026
+description: Khám phá cách làm cho trang web Expo và React Native của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó.
 keywords:
   - Quốc tế hóa
   - Tài liệu
@@ -27,7 +27,7 @@ history:
     changes: Khởi tạo lịch sử
 ---
 
-# Dịch trang web React Native và Expo của bạn bằng Intlayer | Quốc tế hóa (i18n)
+# Dịch ứng dụng Expo và React Native của bạn | Quốc tế hóa (i18n)
 
 ## Mục lục
 
@@ -367,8 +367,6 @@ import { type FC } from "react";
 const HomeScreen = (): FC => {
   const { title, steps } = useIntlayer("home-screen");
 
-> Nếu ứng dụng của bạn đã tồn tại, bạn có thể sử dụng [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) kết hợp với [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md) để chuyển đổi hàng nghìn component chỉ trong một giây.
-
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
@@ -479,6 +477,8 @@ module.exports = HomeScreen;
 ```
 
 > Khi sử dụng `content.someKey` trong các props dạng chuỗi (ví dụ, `title` của một nút hoặc `children` của một component `Text`), **hãy gọi `content.someKey.value`** để lấy chuỗi thực tế.
+
+> Nếu ứng dụng của bạn đã tồn tại, bạn có thể sử dụng [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) kết hợp với [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md) để chuyển đổi hàng nghìn component chỉ trong một giây.
 
 ---
 

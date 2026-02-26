@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2025-12-30
-title: React Native + Expo i18n - Как перевести приложение React Native в 2026
+title: Expo + React Native i18n - Как перевести приложение React Native в 2026
 description: Узнайте, как сделать ваш сайт на React Native и Expo многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
 keywords:
   - Интернационализация
@@ -24,7 +24,7 @@ history:
     changes: Инициализация истории
 ---
 
-# Переведите ваш React Native and Expo с Intlayer | Интернационализация (i18n)
+# Переведите ваше приложение Expo и React Native | Интернационализация (i18n)
 
 Смотрите [Шаблон приложения](https://github.com/aymericzip/intlayer-react-native-template) на GitHub.
 
