@@ -41,7 +41,7 @@ history:
 - **डेवलपर अनुभव**: सामग्री घोषणाओं को वहीं रखें जहां उनका उपयोग होता है, जिससे रखरखाव में सुधार होता है।
 - **लाइव अपडेट्स**: विकास के दौरान त्वरित प्रतिक्रिया के लिए Hot Module Replacement (HMR) का समर्थन करता है।
 
-गहरे तुलना के लिए [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/compiler_vs_declarative_i18n.md) ब्लॉग पोस्ट देखें।
+गहरे तुलना के लिए [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md) ब्लॉग पोस्ट देखें।
 
 ## Intlayer Compiler का उपयोग क्यों न करें?
 
@@ -50,7 +50,7 @@ history:
 - **हेयूरिस्टिक अस्पष्टता**: कंपाइलर को यह अनुमान लगाना होगा कि उपयोगकर्ता-सामना करने वाली सामग्री बनाम एप्लिकेशन लॉजिक क्या है (उदाहरण के लिए, `className="active"`, स्थिति कोड, उत्पाद ID)। जटिल कोडबेस में, यह गलत सकारात्मक या छूटी हुई स्ट्रिंग्स का कारण बन सकता है जिन्हें मैन्युअल एनोटेशन और अपवादों की आवश्यकता होती है।
 - **केवल स्थैतिक निष्कर्षण**: कंपाइलर-आधारित निष्कर्षण स्थैतिक विश्लेषण पर निर्भर करता है। स्ट्रिंग्स जो केवल रनटाइम पर मौजूद होती हैं (API त्रुटि कोड, CMS फ़ील्ड, आदि) को कंपाइलर द्वारा अकेले खोजा या अनुवादित नहीं किया जा सकता है, इसलिए आपको अभी भी एक पूरक रनटाइम i18n रणनीति की आवश्यकता है।
 
-गहरी वास्तुकला तुलना के लिए, [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/compiler_vs_declarative_i18n.md) ब्लॉग पोस्ट देखें।
+गहरी वास्तुकला तुलना के लिए, [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/compiler_vs_declarative_i18n.md) ब्लॉग पोस्ट देखें।
 
 वैकल्पिक रूप से, अपनी सामग्री पर पूर्ण नियंत्रण रखते हुए अपनी i18n प्रक्रिया को स्वचालित करने के लिए, Intlayer एक स्वचालित निष्कर्षण कमांड `intlayer extract` (देखें [CLI दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md)) या Intlayer VS Code एक्सटेंशन का `Intlayer: extract content to Dictionary` कमांड (देखें [VS Code एक्सटेंशन दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/vs_code_extension.md)) भी प्रदान करता है।
 

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-10-05
 updatedAt: 2025-10-05
-title: Next.js + next-intl i18n - Next.jsアプリの翻訳方法 2026
+title: next-intl - 2026年にNext.js (i18n) アプリを翻訳する方法
 description: Next.js 15 の App Router ウェブサイトを多言語対応にする方法を解説します。国際化（i18n）と翻訳のためのドキュメントに従ってください。
 keywords:
   - 国際化

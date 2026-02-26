@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-10-05
 updatedAt: 2025-10-05
-title: Next.js + next-i18next i18n - Cách dịch ứng dụng Next.js năm 2026
+title: next-i18next - Cách dịch ứng dụng Next.js (i18n) vào năm 2026
 description: Hướng dẫn thực tiễn, sẵn sàng cho sản xuất để quốc tế hóa ứng dụng Next.js 15 App Router với i18next/next-i18next và nâng cao với Intlayer.
 keywords:
   - Quốc tế hóa
@@ -37,7 +37,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-i18next-templat
 - Tích hợp Intlayer để tự động hóa quy trình dịch thuật (kiểm thử, điền AI, đồng bộ JSON)
 
 > Lưu ý: next-i18next được xây dựng dựa trên i18next. Hướng dẫn này sử dụng các primitive của i18next tương thích với next-i18next trong App Router, đồng thời giữ cho kiến trúc đơn giản và sẵn sàng cho môi trường production.
-> Để so sánh rộng hơn, xem [next-i18next vs next-i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-i18next_vs_intlayer.md).
+> Để so sánh rộng hơn, xem [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md).
 
 ---
 

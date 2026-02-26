@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-10-05
 updatedAt: 2025-10-05
-title: Next.js and next-i18next i18n - How to translate an Next.js app in 2026
+title: next-i18next - How to translate a Next.js (i18n) app in 2026
 description: A practical, production-ready guide to internationalise a Next.js 15 App Router app with i18next/next-i18next and enhance it with Intlayer.
 keywords:
   - Internationalisation
@@ -37,7 +37,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-i18next-templat
 - Intlayer integration to automate translation workflows (tests, AI fill, JSON sync)
 
 > Note: next-i18next is built on top of i18next. This guide uses the i18next primitives compatible with next-i18next in the App Router, while keeping the architecture simple and production-ready.
-> For a broader comparison, see [next-i18next vs next-i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/{{locale}}/next-i18next_vs_next-i18next_vs_intlayer.md).
+> For a broader comparison, see [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en-GB/next-i18next_vs_next-intl_vs_intlayer.md).
 
 ---
 

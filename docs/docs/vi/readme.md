@@ -214,7 +214,7 @@ Khám phá tài liệu toàn diện của chúng tôi để bắt đầu với I
 <details>
 <summary style="font-size:16px; font-weight:bold;">📰 Blog</summary>
 <ul>
-  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/what_is_internationalization.md" rel=''>i18n là gì</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/what_is_internationalization.md" rel=''>i18n là gì</a></li>
   <li><a href="https://intlayer.org/blog/SEO-and-i18n" rel=''>i18n và SEO</a></li>
   <li><a href="https://intlayer.org/blog/intlayer-with-next-i18next" rel=''>Intlayer và i18next</a></li>
   <li><a href="https://intlayer.org/blog/intlayer-with-react-i18next" rel=''>Intlayer và react-intl</a></li>

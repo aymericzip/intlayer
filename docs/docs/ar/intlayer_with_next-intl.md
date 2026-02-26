@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-10-05
 updatedAt: 2025-10-05
-title: Next.js + next-intl i18n - كيفية ترجمة تطبيق Next.js في 2026
+title: next-intl - كيفية ترجمة تطبيق Next.js (i18n) في عام 2026
 description: اكتشف كيفية جعل موقع Next.js 15 App Router متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته.
 keywords:
   - التدويل
@@ -21,7 +21,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-intl-template
 
 يرشدك هذا الدليل خلال أفضل الممارسات لاستخدام next-intl في تطبيق Next.js 15 (App Router)، ويُظهر كيفية إضافة Intlayer فوقه لإدارة الترجمة بشكل قوي وأتمتة العمليات.
 
-اطلع على المقارنة في [next-i18next مقابل next-intl مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md).
+اطلع على المقارنة في [next-i18next مقابل next-intl مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md).
 
 - للمبتدئين: اتبع الأقسام خطوة بخطوة للحصول على تطبيق متعدد اللغات يعمل.
 - للمطورين المتوسطين: انتبه إلى تحسين الحمولة وفصل الخادم/العميل.

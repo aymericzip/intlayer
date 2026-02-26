@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-10-05
 updatedAt: 2025-10-05
-title: Next.js + next-i18next i18n - Next.js uygulamasını çevirme 2026
+title: next-i18next - 2026'da bir Next.js (i18n) uygulaması nasıl çevrilir
 description: next-i18next/next-i18next ile Next.js 15 App Router uygulamasını uluslararasılaştırmak için pratik, üretime hazır bir rehber ve Intlayer ile geliştirme.
 keywords:
   - Uluslararasılaştırma
@@ -37,7 +37,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-i18next-templat
 - Çeviri iş akışlarını otomatikleştirmek için Intlayer entegrasyonu (testler, AI ile doldurma, JSON senkronizasyonu)
 
 > Not: next-i18next, i18next üzerine inşa edilmiştir. Bu rehber, App Router'da next-i18next ile uyumlu i18next ilkel fonksiyonlarını kullanırken mimariyi basit ve üretime hazır tutar.
-> Daha geniş bir karşılaştırma için bkz. [next-i18next vs next-i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-i18next_vs_intlayer.md).
+> Daha geniş bir karşılaştırma için bkz. [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md).
 
 ---
 

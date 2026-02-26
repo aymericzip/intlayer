@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-10-05
 updatedAt: 2025-10-05
-title: Next.js + next-i18next i18n - Как перевести приложение Next.js в 2026
+title: next-i18next - Как перевести приложение Next.js (i18n) в 2026 году
 description: Практическое руководство, готовое к использованию в продакшене, по интернационализации приложения Next.js 15 с App Router с использованием i18next/next-i18next и улучшению с помощью Intlayer.
 keywords:
   - Интернационализация
@@ -37,7 +37,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-i18next-templat
 - Интеграция Intlayer для автоматизации рабочих процессов перевода (тесты, заполнение AI, синхронизация JSON)
 
 > Примечание: next-i18next построен на основе i18next. В этом руководстве используются примитивы i18next, совместимые с next-i18next в App Router, при этом архитектура остаётся простой и готовой к продакшену.
-> Для более широкого сравнения смотрите [next-i18next vs next-i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-i18next_vs_intlayer.md).
+> Для более широкого сравнения смотрите [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md).
 
 ---
 

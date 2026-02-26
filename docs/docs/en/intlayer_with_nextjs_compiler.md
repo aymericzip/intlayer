@@ -419,7 +419,7 @@ export const LocaleSwitcher: FC = () => {
 
 > An alternative way is to use the `setLocale` function provided by the `useLocale` hook. This function will not allow prefetching the page. See the [`useLocale` hook documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useLocale.md) for more details.
 
-### (Optional) Step 10: Optmize your bundle size
+### (Optional) Step 10: Optimize your bundle size
 
 When using `next-intlayer`, dictionaries are included in the bundle for every page by default. To optimize bundle size, Intlayer provides an optional SWC plugin that intelligently replace `useIntlayer` calls using macros. This ensures dictionaries are only included in bundles for pages that actually use them.
 

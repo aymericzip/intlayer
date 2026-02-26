@@ -41,7 +41,7 @@ history:
 - **Geliştirici Deneyimi**: İçerik bildirimlerini kullanıldıkları yerde tutarak bakım kolaylığı sağlar.
 - **Canlı Güncellemeler**: Geliştirme sırasında anlık geri bildirim için Hot Module Replacement (HMR) desteği sağlar.
 
-Daha derin bir karşılaştırma için [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/compiler_vs_declarative_i18n.md) blog yazısına bakabilirsiniz.
+Daha derin bir karşılaştırma için [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md) blog yazısına bakabilirsiniz.
 
 ## Neden Intlayer Compiler Kullanmamalısınız?
 
@@ -50,7 +50,7 @@ Derleyici mükemmel bir "hemen çalışır" deneyimi sunarken, aynı zamanda far
 - **Sezgisel belirsizlik**: Derleyici, kullanıcıya yönelik içerik ile uygulama mantığı arasındaki farkı tahmin etmek zorundadır (örneğin, `className="active"`, durum kodları, ürün kimlikleri). Karmaşık kod tabanlarında, bu manuel açıklamalar ve istisnalar gerektiren yanlış pozitifler veya kaçırılan dizelerle sonuçlanabilir.
 - **Yalnızca statik çıkarım**: Derleyici tabanlı çıkarım statik analize dayanır. Yalnızca çalışma zamanında var olan dizeler (API hata kodları, CMS alanları vb.) derleyici tarafından tek başına keşfedilemez veya çevrilemez, bu nedenle hala tamamlayıcı bir çalışma zamanı i18n stratejisine ihtiyacınız vardır.
 
-Daha derin bir mimari karşılaştırma için [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/compiler_vs_declarative_i18n.md) blog yazısına bakın.
+Daha derin bir mimari karşılaştırma için [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md) blog yazısına bakın.
 
 Alternatif olarak, içeriğiniz üzerinde tam kontrolü korurken i18n sürecinizi otomatikleştirmek için, Intlayer ayrıca otomatik çıkarım komutu `intlayer extract` (bkz. [CLI dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md)) veya Intlayer VS Code uzantısının `Intlayer: extract content to Dictionary` komutunu (bkz. [VS Code uzantı dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md)) sağlar.
 

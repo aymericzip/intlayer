@@ -41,7 +41,7 @@ history:
 - **تجربة المطور**: احتفظ بإعلانات المحتوى في المكان الذي تُستخدم فيه، مما يحسن من سهولة الصيانة.
 - **التحديثات الحية**: يدعم استبدال الوحدات الساخنة (HMR) لتلقي ردود فعل فورية أثناء التطوير.
 
-راجع منشور المدونة [المترجم مقابل i18n التصريحي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/compiler_vs_declarative_i18n.md) لمقارنة أعمق.
+راجع منشور المدونة [المترجم مقابل i18n التصريحي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/compiler_vs_declarative_i18n.md) لمقارنة أعمق.
 
 ## لماذا لا تستخدم مترجم Intlayer؟
 
@@ -50,7 +50,7 @@ history:
 - **الغموض الاستدلالي**: يجب على المترجم تخمين ما هو المحتوى الموجه للمستخدم مقابل منطق التطبيق (على سبيل المثال، `className="active"`، رموز الحالة، معرفات المنتجات). في قواعد التعليمات البرمجية المعقدة، يمكن أن يؤدي هذا إلى إيجابيات خاطئة أو سلاسل مفقودة تتطلب تعليقات يدوية واستثناءات.
 - **الاستخراج الثابت فقط**: يعتمد الاستخراج القائم على المترجم على التحليل الثابت. لا يمكن اكتشاف السلاسل التي توجد فقط في وقت التشغيل (رموز أخطاء API، حقول CMS، إلخ) أو ترجمتها بواسطة المترجم وحده، لذلك لا يزال لديك حاجة إلى استراتيجية i18n وقت التشغيل التكميلية.
 
-لمقارنة معمارية أعمق، راجع منشور المدونة [المترجم مقابل i18n التصريحي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/compiler_vs_declarative_i18n.md).
+لمقارنة معمارية أعمق، راجع منشور المدونة [المترجم مقابل i18n التصريحي](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/compiler_vs_declarative_i18n.md).
 
 كبديل، لأتمتة عملية i18n الخاصة بك مع الحفاظ على السيطرة الكاملة على المحتوى الخاص بك، يوفر Intlayer أيضًا أمر الاستخراج التلقائي `intlayer extract` (راجع [وثائق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md))، أو أمر `Intlayer: extract content to Dictionary` من امتداد Intlayer VS Code (راجع [وثائق امتداد VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/vs_code_extension.md)).
 

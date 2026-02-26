@@ -1051,7 +1051,7 @@ export const myServerAction = async () => {
 >
 > Ini memastikan lokal yang paling sesuai dipilih berdasarkan konteks yang tersedia.
 
-### (Opsional) Langkah 10: Optmize ukuran bundle Anda
+### (Opsional) Langkah 10: Optimize ukuran bundle Anda
 
 Saat menggunakan `next-intlayer`, kamus disertakan dalam bundle untuk setiap halaman secara default. Untuk mengoptimalkan ukuran bundle, Intlayer menyediakan plugin SWC opsional yang secara cerdas menggantikan pemanggilan `useIntlayer` menggunakan makro. Ini memastikan kamus hanya disertakan dalam bundle untuk halaman yang benar-benar menggunakannya.
 
