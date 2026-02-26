@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-04
 updatedAt: 2025-12-30
-title: React Router v7 i18n - How to translate your React Router v7 app – guide 2026
+title: React Router v7 i18n - How to translate an React Router v7 app in 2026
 description: Learn how to add internationalization (i18n) to your React Router v7 application using Intlayer. Follow this comprehensive guide to make your app multilingual with locale-aware routing.
 keywords:
   - Internationalization
@@ -113,7 +113,7 @@ bunx intlayer init
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">
   
-<iframe title="How to translate your React Router v7 app using Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="How to translate an React Router v7 app using Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
   </Tab>
   <Tab label="Code" value="code">
@@ -412,6 +412,8 @@ export default function Page() {
 ```
 
 > To Learn more about the `useIntlayer` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md).
+
+> If your app already exists, you can use the [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md), as well as the [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/extract.md), to transform thousands of components in a second.
 
 ### Step 9: Create a Locale Switcher Component
 

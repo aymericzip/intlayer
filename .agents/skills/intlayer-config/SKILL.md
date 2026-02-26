@@ -51,6 +51,9 @@ Settings for the visual workflow and internal plumbing.
 
 ## References
 
+- [Website](https://intlayer.org)
+- [Doc](https://intlayer.org/doc)
+
 ### Concepts
 
 - [Configuration](references/concept_configuration.md)

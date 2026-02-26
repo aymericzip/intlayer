@@ -13,6 +13,10 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: Add checkTypes option
 ---
 
 # Build Dictionaries
@@ -62,3 +66,7 @@ This command will find your declaration content files as default as `./src/**/*.
 - **`--no-cache`**: Disable the cache.
 
   > Example: `npx intlayer build --no-cache`
+
+- **`--check-types`**: Check types of the content declaration files.
+
+  > Example: `npx intlayer build --check-types`
