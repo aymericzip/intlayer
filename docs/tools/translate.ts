@@ -44,16 +44,23 @@ const customInstructions = readFileSync(
   'utf-8'
 );
 
-translateDoc({
-  excludedGlobPattern: EXCLUDED_GLOB_PATTEN,
-  docPattern: DOC_PATTERN,
-  locales: LOCALE_LIST_TO_TRANSLATE,
-  baseLocale: defaultLocale,
-  aiOptions: configuration.ai as AIOptions,
-  nbSimultaneousFileProcessed: NB_SIMULTANEOUS_FILE_PROCESSED,
-  customInstructions,
-  skipIfModifiedBefore: SKIP_IF_MODIFIED_BEFORE,
-  skipIfModifiedAfter: SKIP_IF_MODIFIED_AFTER,
-  gitOptions: GIT_OPTIONS,
-  skipIfExists: true,
-});
+const translate = async () => {
+  for (const locale of LOCALE_LIST_TO_TRANSLATE) {
+    console.log(`Translating to ${locale}...`);
+    await translateDoc({
+      excludedGlobPattern: EXCLUDED_GLOB_PATTEN,
+      docPattern: DOC_PATTERN,
+      locales: [locale],
+      baseLocale: defaultLocale,
+      aiOptions: configuration.ai as AIOptions,
+      nbSimultaneousFileProcessed: 1, // Minimize simultaneous work
+      customInstructions,
+      skipIfModifiedBefore: SKIP_IF_MODIFIED_BEFORE,
+      skipIfModifiedAfter: SKIP_IF_MODIFIED_AFTER,
+      gitOptions: GIT_OPTIONS,
+      skipIfExists: true,
+    });
+  }
+};
+
+translate();
