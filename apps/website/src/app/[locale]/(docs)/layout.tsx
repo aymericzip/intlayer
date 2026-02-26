@@ -10,7 +10,12 @@ const LandingLayout: NextLayoutIntlayer<{
 
   return (
     <Suspense>
-      <PageLayout locale={locale} className="bg-card" mobileRollable={false}>
+      <PageLayout
+        locale={locale}
+        className="bg-card"
+        mobileRollable={false}
+        footer={<></>}
+      >
         <EmailRegistrationToast />
         {children}
       </PageLayout>
