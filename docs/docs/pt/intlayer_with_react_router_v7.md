@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-04
 updatedAt: 2025-12-30
-title: React Router v7 i18n - Como traduzir sua aplicação React Router v7 – guia 2026
+title: React Router v7 i18n - Como traduzir uma aplicação React Router v7 em 2026
 description: Aprenda como adicionar internacionalização (i18n) à sua aplicação React Router v7 usando Intlayer. Siga este guia completo para tornar seu app multilíngue com roteamento sensível à localidade.
 keywords:
   - Internacionalização
@@ -103,7 +103,7 @@ bunx intlayer init
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">
   
-<iframe title="How to translate your React Router v7 app using Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="How to translate an React Router v7 app using Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
   </Tab>
   <Tab label="Code" value="code">

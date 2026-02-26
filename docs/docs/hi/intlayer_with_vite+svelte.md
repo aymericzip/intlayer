@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Vite और Svelte i18n - अपना Svelte ऐप कैसे अनुवाद करें – गाइड 2026
+title: Vite + Svelte i18n - Svelte ऐप कैसे अनुवाद करें 2026 में
 description: जानें कि अपनी Vite और Svelte वेबसाइट को बहुभाषी कैसे बनाएं। अंतरराष्ट्रीयकरण (i18n) और अनुवाद के लिए दस्तावेज़ का पालन करें।
 keywords:
   - अंतरराष्ट्रीयकरण

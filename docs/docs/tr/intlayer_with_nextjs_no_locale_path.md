@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-01-10
-title: Next.js i18n - Next.js 16 uygulamanızı nasıl çevirirsiniz (sayfa yolunda [locale] olmadan) – rehber 2026
+title: Next.js i18n - Next.js 16 uygulamasını çevirme (sayfa yolunda [locale] olmadan) 2026
 description: Next.js 16 web sitenizi, sayfa yolunda [locale] olmadan nasıl çokdilli hale getireceğinizi keşfedin. Uluslararasılaştırma (i18n) ve çeviri için dokümantasyonu izleyin.
 keywords:
   - Uluslararasılaştırma

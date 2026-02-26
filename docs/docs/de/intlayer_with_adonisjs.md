@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-12-30
-title: AdonisJS i18n - So übersetzen Sie Ihre AdonisJS-App – Leitfaden 2026
+title: AdonisJS i18n - So übersetzen Sie eine AdonisJS-App in 2026
 description: Entdecken Sie, wie Sie Ihr AdonisJS-Backend mehrsprachig machen. Folgen Sie der Dokumentation zur Internationalisierung (i18n) und Übersetzung.
 keywords:
   - Internationalisierung

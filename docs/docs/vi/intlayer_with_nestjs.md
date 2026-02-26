@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2025-12-30
-title: NestJS i18n - Cách dịch ứng dụng NestJS của bạn – hướng dẫn 2026
+title: NestJS i18n - Cách dịch ứng dụng NestJS năm 2026
 description: Khám phá cách làm cho backend NestJS của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó.
 keywords:
   - Quốc tế hóa

@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-07
 updatedAt: 2025-12-30
-title: Next.js Page Router i18n - Як перекласти ваш додаток Next.js – посібник 2026
+title: Next.js Page Router i18n - Як перекласти додаток Next.js у 2026
 description: Дізнайтеся, як зробити ваш вебсайт на Next.js з Page Router багатомовним. Дотримуйтесь документації, щоб інтернаціоналізувати (i18n) і перекласти його.
 keywords:
   - Інтернаціоналізація

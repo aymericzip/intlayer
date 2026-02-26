@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-01-10
-title: Next.js i18n - كيفية ترجمة تطبيق Next.js 16 (بدون [locale] في مسار الصفحة) – دليل 2026
+title: Next.js i18n - كيفية ترجمة تطبيق Next.js 16 (بدون [locale] في مسار الصفحة) في 2026
 description: اكتشف كيفية جعل موقع Next.js 16 متعدد اللغات بدون [locale] في مسار الصفحة. اتبع الوثائق لعمل تدويل (i18n) وترجمته.
 keywords:
   - التدويل

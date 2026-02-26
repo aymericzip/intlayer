@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Vite ve Svelte i18n - Svelte uygulamanızı nasıl çevirirsiniz – rehber 2026
+title: Vite + Svelte i18n - Svelte uygulamasını çevirme 2026
 description: Vite ve Svelte web sitenizi çok dilli hale nasıl getireceğinizi keşfedin. Uluslararasılaştırma (i18n) ve çeviri için dokümantasyonu takip edin.
 keywords:
   - Uluslararasılaştırma

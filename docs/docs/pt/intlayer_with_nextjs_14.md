@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-06
 updatedAt: 2025-06-29
-title: Next.js i18n - Como traduzir sua aplicação Next.js 14 – guia 2026
+title: Next.js i18n - Como traduzir uma aplicação Next.js 14 em 2026
 description: Descubra como tornar seu site Next.js 14 App Router multilíngue. Siga a documentação para internacionalizar (i18n) e traduzi-lo.
 keywords:
   - Internacionalização

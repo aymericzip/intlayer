@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Vite dan Vue i18n - Cara menerjemahkan aplikasi Vue Anda – panduan 2026
+title: Vite + Vue i18n - Cara menerjemahkan aplikasi Vue di 2026
 description: Temukan cara membuat situs web Vite dan Vue Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya.
 keywords:
   - Internasionalisasi

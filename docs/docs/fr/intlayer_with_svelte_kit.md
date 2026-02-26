@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-11-20
 updatedAt: 2025-12-30
-title: SvelteKit i18n - Comment traduire votre application SvelteKit – guide 2026
+title: SvelteKit i18n - Comment traduire une application SvelteKit en 2026
 description: Découvrez comment rendre votre site SvelteKit multilingue. Suivez la documentation pour internationaliser (i18n) et traduire votre site en utilisant le Server-Side Rendering (SSR).
 keywords:
   - Internationalisation
@@ -186,7 +186,7 @@ Vous pouvez maintenant utiliser la fonction `useIntlayer` dans n'importe quel co
 > **Note :** `useIntlayer` retourne un store Svelte, vous devez donc utiliser le préfixe `---
 > createdAt: 2025-11-20
 > updatedAt: 2025-11-20
-> title: Comment traduire votre application SvelteKit – guide i18n 2026
+> title: Comment traduire votre application SvelteKit in i18n 2026
 > description: Découvrez comment rendre votre site SvelteKit multilingue. Suivez la documentation pour internationaliser (i18n) et traduire votre site en utilisant le Server-Side Rendering (SSR).
 > keywords:
 

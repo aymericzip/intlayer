@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Vite و Preact i18n - كيفية ترجمة تطبيق Preact – دليل 2026
+title: Vite + Preact i18n - كيفية ترجمة تطبيق Preact في 2026
 description: اكتشف كيفية جعل موقعك باستخدام Vite و Preact متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته.
 keywords:
   - التدويل

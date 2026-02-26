@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2025-12-30
-title: Fastify i18n - Fastify uygulamanızı nasıl çevirirsiniz – rehber 2026
+title: Fastify i18n - Fastify uygulamasını çevirme 2026
 description: Fastify backend'inizi çok dilli hale getirmenin yollarını keşfedin. Uluslararasılaştırma (i18n) ve çeviri için dokümantasyonu takip edin.
 keywords:
   - Uluslararasılaştırma

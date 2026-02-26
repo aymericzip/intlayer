@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-10-05
 updatedAt: 2025-10-05
-title: Next.js ve next-intl i18n - Next.js uygulamanızı nasıl çevirirsiniz – rehber 2026
+title: Next.js + next-intl i18n - Next.js uygulamasını çevirme 2026
 description: Next.js 15 App Router web sitenizi çok dilli hale nasıl getireceğinizi keşfedin. Uluslararasılaştırma (i18n) ve çeviri için dokümantasyonu takip edin.
 keywords:
   - Uluslararasılaştırma

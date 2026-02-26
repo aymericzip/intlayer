@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2025-12-30
-title: Fastify i18n - Fastify 앱 번역 방법 – 가이드 2026
+title: Fastify i18n - Fastify 앱 번역 방법 2026
 description: Fastify 백엔드를 다국어로 만드는 방법을 알아보세요. 국제화(i18n) 및 번역 절차를 따르세요.
 keywords:
   - 국제화 (i18n)

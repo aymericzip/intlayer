@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-01-10
-title: Next.js i18n - Transforme uma aplicação Next.js existente numa aplicação multilíngue (guia i18n 2026)
+title: Next.js i18n - Transforme uma aplicação Next.js existente numa aplicação multilíngue em 2026
 description: Descubra como tornar a sua aplicação Next.js existente multilíngue usando o Compilador Intlayer. Siga a documentação para internacionalizar (i18n) e traduzir o seu aplicativo com IA.
 keywords:
   - Internacionalização

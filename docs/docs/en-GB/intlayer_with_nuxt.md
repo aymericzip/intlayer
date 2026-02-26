@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2025-12-07
-title: Nuxt i18n - How to translate your Nuxt app – guide 2026
+title: Nuxt i18n - How to translate an Nuxt app in 2026
 description: Discover how to make your Nuxt and Vue website multilingual. Follow the documentation to internationalise (i18n) and translate it.
 keywords:
   - Internationalisation
@@ -49,7 +49,7 @@ With Intlayer, you can:
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">
   
-<iframe title="How to translate your Nuxt and Vue app using Intlayer? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/nhUcUAVQ6eQ?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="How to translate an Nuxt and Vue app using Intlayer? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/nhUcUAVQ6eQ?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
   </Tab>
   <Tab label="Code" value="code">

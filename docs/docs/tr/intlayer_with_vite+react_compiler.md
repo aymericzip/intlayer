@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2025-12-30
-title: Vite ve React i18n - Mevcut bir uygulamayı çok dilli bir uygulamaya dönüştürün (i18n rehberi 2026)
+title: Vite + React i18n - Mevcut bir uygulamayı çok dilli bir uygulamaya dönüştürün 2026
 description: Intlayer Compiler kullanarak mevcut Vite ve React uygulamanızı nasıl çok dilli hale getireceğinizi keşfedin. Uluslararasılaştırma (i18n) ve AI ile çeviri için belgeleri takip edin.
 keywords:
   - Uluslararasılaştırma

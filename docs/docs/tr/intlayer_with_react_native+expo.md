@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-12-30
-title: React Native ve Expo i18n - React Native uygulamanızı nasıl çevirirsiniz – rehber 2026
+title: React Native + Expo i18n - React Native uygulamasını çevirme 2026
 description: React Native ve Expo web sitenizi çok dilli hale getirmeyi öğrenin. Uluslararasılaştırma (i18n) ve çeviri yapmak için dokümantasyonu takip edin.
 keywords:
   - Uluslararasılaştırma

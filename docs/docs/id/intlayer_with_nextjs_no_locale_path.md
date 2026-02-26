@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-01-10
-title: Next.js i18n - Cara menerjemahkan aplikasi Next.js 16 Anda (tanpa [locale] di path halaman) – panduan 2026
+title: Next.js i18n - Cara menerjemahkan aplikasi Next.js 16 (tanpa [locale] di path halaman) di 2026
 description: Pelajari cara membuat situs Next.js 16 Anda menjadi multibahasa tanpa [locale] di path halaman. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya.
 keywords:
   - Internasionalisasi

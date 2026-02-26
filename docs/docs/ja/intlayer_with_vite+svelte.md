@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Vite と Svelte i18n - Svelteアプリの翻訳方法 – ガイド 2026
+title: Vite + Svelte i18n - Svelteアプリの翻訳方法 2026
 description: Vite と Svelte のウェブサイトを多言語対応にする方法を紹介します。国際化（i18n）と翻訳のドキュメントに従ってください。
 keywords:
   - 国際化

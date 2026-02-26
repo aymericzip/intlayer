@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Angular i18n - Cómo traducir tu aplicación Angular – guía 2026
+title: Angular i18n - Cómo traducir una aplicación Angular en 2026
 description: Descubre cómo hacer que tu sitio web Angular sea multilingüe. Sigue la documentación para internacionalizar (i18n) y traducirlo.
 keywords:
   - Internacionalización

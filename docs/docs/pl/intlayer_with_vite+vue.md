@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Vite i Vue i18n - Jak przetłumaczyć swoją aplikację Vue – przewodnik 2026
+title: Vite + Vue i18n - Jak przetłumaczyć aplikację Vue w 2026
 description: Dowiedz się, jak uczynić swoją stronę Vite i Vue wielojęzyczną. Postępuj zgodnie z dokumentacją, aby zinternacjonalizować (i18n) i przetłumaczyć ją.
 keywords:
   - Internacjonalizacja

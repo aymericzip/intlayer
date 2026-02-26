@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2025-12-30
-title: Vite 和 React i18n - 如何翻译您的 React 应用 – 指南 2026
+title: Vite + React i18n - 如何翻译React 应用 2026
 description: 学习如何使用 Intlayer 为您的 Vite 和 React 应用添加国际化 (i18n)。按照本指南使您的应用支持多语言。
 keywords:
   - 国际化

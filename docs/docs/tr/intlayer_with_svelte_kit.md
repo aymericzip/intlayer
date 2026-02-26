@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-11-20
 updatedAt: 2025-12-30
-title: SvelteKit i18n - SvelteKit uygulamanızı nasıl çevirirsiniz – rehber 2026
+title: SvelteKit i18n - SvelteKit uygulamasını çevirme 2026
 description: SvelteKit web sitenizi çok dilli hale nasıl getireceğinizi keşfedin. Server-Side Rendering (SSR) kullanarak uluslararasılaştırma (i18n) ve çeviri yapmak için dokümantasyonu takip edin.
 keywords:
   - Uluslararasılaştırma

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Vite و Svelte i18n - كيفية ترجمة تطبيق Svelte – دليل 2026
+title: Vite + Svelte i18n - كيفية ترجمة تطبيق Svelte في 2026
 description: اكتشف كيفية جعل موقعك الإلكتروني باستخدام Vite و Svelte متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته.
 keywords:
   - التدويل

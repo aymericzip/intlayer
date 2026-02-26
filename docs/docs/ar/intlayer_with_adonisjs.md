@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-12-30
-title: AdonisJS i18n - كيفية ترجمة تطبيق AdonisJS الخاص بك – دليل 2026
+title: AdonisJS i18n - كيفية ترجمة تطبيق AdonisJS في 2026
 description: اكتشف كيفية جعل الواجهة الخلفية لـ AdonisJS متعددة اللغات. اتبع الوثائق لتدويل (i18n) وترجمتها.
 keywords:
   - التدويل

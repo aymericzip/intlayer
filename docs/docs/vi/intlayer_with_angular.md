@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Angular i18n - Cách dịch ứng dụng Angular của bạn – hướng dẫn 2026
+title: Angular i18n - Cách dịch ứng dụng Angular năm 2026
 description: Khám phá cách làm cho trang web Angular của bạn đa ngôn ngữ. Làm theo tài liệu để quốc tế hóa (i18n) và dịch nó.
 keywords:
   - Quốc tế hóa

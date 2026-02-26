@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2025-12-30
-title: Vite ve React i18n - React uygulamanızı nasıl çevirirsiniz – rehber 2026
+title: Vite + React i18n - React uygulamasını çevirme 2026
 description: Intlayer kullanarak Vite ve React uygulamanıza uluslararasılaştırma (i18n) eklemeyi öğrenin. Bu kılavuzu takip ederek uygulamanızı çok dilli hale getirin.
 keywords:
   - Uluslararasılaştırma

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Angular i18n - 如何翻译你的 Angular 应用 – 2026 指南
+title: Angular i18n - 如何翻译Angular 应用 2026
 description: 探索如何让你的 Angular 网站支持多语言。遵循文档进行国际化 (i18n) 和翻译。
 keywords:
   - 国际化

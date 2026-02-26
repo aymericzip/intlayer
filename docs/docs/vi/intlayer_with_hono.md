@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-12-30
-title: i18n Hono - Cách dịch ứng dụng Hono của bạn – hướng dẫn 2026
+title: i18n Hono - Cách dịch ứng dụng Hono năm 2026
 description: Khám phá cách làm cho backend Hono của bạn đa ngôn ngữ. Làm theo tài liệu để quốc tế hóa (i18n) và dịch nó.
 keywords:
   - Quốc tế hóa

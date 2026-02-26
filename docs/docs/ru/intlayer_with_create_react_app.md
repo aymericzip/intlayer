@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-12-30
-title: Create React App i18n - Как перевести ваше приложение React – руководство 2026
+title: Create React App i18n - Как перевести приложение React в 2026
 description: Узнайте, как сделать ваш сайт Create React App (CRA) многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
 keywords:
   - Интернационализация

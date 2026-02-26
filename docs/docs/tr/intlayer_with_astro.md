@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2025-12-30
-title: Astro i18n - Astro uygulamanızı nasıl çevirirsiniz – rehber 2026
+title: Astro i18n - Astro uygulamasını çevirme 2026
 description: Intlayer kullanarak Astro web sitenize uluslararasılaştırma (i18n) nasıl eklenir öğrenin. Sitenizi çok dilli yapmak için bu kılavuzu takip edin.
 keywords:
   - Uluslararasılaştırma

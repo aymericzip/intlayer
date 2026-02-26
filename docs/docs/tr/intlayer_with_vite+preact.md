@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-12-30
-title: Vite ve Preact i18n - Preact uygulamanızı nasıl çevirirsiniz – rehber 2026
+title: Vite + Preact i18n - Preact uygulamasını çevirme 2026
 description: Vite ve Preact web sitenizi çok dilli hale getirmeyi öğrenin. Dokümantasyonu takip ederek uluslararasılaştırma (i18n) yapın ve çevirin.
 keywords:
   - Uluslararasılaştırma

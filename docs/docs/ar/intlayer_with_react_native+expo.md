@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2025-12-30
-title: React Native و Expo i18n - كيفية ترجمة تطبيق React Native – دليل 2026
+title: React Native + Expo i18n - كيفية ترجمة تطبيق React Native في 2026
 description: اكتشف كيفية جعل موقع React Native و Expo الخاص بك متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته.
 keywords:
   - التدويل

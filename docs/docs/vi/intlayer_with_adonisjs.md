@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-12-30
-title: AdonisJS i18n - Cách dịch ứng dụng AdonisJS của bạn – hướng dẫn 2026
+title: AdonisJS i18n - Cách dịch ứng dụng AdonisJS năm 2026
 description: Khám phá cách làm cho backend AdonisJS của bạn đa ngôn ngữ. Làm theo tài liệu để quốc tế hóa (i18n) và dịch nó.
 keywords:
   - Quốc tế hóa

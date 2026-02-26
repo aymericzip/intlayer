@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-01-10
-title: Next.js i18n - 如何翻译您的 Next.js 16 应用（页面路径中不包含 [locale]） – 指南 2026
+title: Next.js i18n - 如何翻译Next.js 16 应用（页面路径中不包含 [locale]） 2026
 description: 了解如何在页面路径中不包含 [locale] 的情况下，让你的 Next.js 16 网站支持多语言。按照文档进行国际化 (i18n) 并进行翻译。
 keywords:
   - 国际化

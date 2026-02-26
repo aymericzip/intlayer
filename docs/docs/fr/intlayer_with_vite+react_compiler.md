@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2025-12-30
-title: Vite et React i18n - Transformer une application existante en une application multilingue (guide i18n 2026)
+title: Vite + React i18n - Transformer une application existante en une application multilingue en 2026
 description: Découvrez comment rendre votre application Vite et React existante multilingue à l'aide d'Intlayer Compiler. Suivez la documentation pour l'internationaliser (i18n) et la traduire avec l'IA.
 keywords:
   - Internationalisation

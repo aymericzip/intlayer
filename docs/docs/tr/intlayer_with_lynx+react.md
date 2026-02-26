@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-12-30
-title: Lynx ve React i18n - Lynx uygulamanızı nasıl çevirirsiniz – rehber 2026
+title: Lynx + React i18n - Lynx uygulamasını çevirme 2026
 description: Lynx ve React mobil uygulamanızı çok dilli hale getirmeyi keşfedin. Dokümantasyonu takip ederek uluslararasılaştırma (i18n) yapın ve çevirin.
 keywords:
   - Uluslararasılaştırma

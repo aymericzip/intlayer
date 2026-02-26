@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2025-12-30
-title: Tanstack Start i18n - كيفية ترجمة تطبيق Tanstack Start – دليل 2026
+title: Tanstack Start i18n - كيفية ترجمة تطبيق Tanstack Start في 2026
 description: تعرف على كيفية إضافة التدويل (i18n) إلى تطبيق TanStack Start الخاص بك باستخدام Intlayer. اتبع هذا الدليل الشامل لجعل تطبيقك متعدد اللغات مع توجيه مدرك للغة.
 keywords:
   - التدويل

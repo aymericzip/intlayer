@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2025-12-30
-title: Tanstack Start i18n - Tanstack Start 앱 번역 방법 – 가이드 2026
+title: Tanstack Start i18n - Tanstack Start 앱 번역 방법 2026
 description: Intlayer를 사용하여 TanStack Start 애플리케이션에 국제화(i18n)를 추가하는 방법을 알아보세요. 로케일 인식 라우팅으로 앱을 다국어화하기 위한 이 포괄적인 가이드를 따르세요.
 keywords:
   - 국제화

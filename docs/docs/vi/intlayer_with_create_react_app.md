@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-12-30
-title: Create React App i18n - Cách dịch ứng dụng React của bạn – hướng dẫn 2026
+title: Create React App i18n - Cách dịch ứng dụng React năm 2026
 description: Khám phá cách làm cho trang web Create React App (CRA) của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó.
 keywords:
   - Quốc tế hóa

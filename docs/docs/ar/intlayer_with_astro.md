@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2025-12-30
-title: Astro i18n - كيفية ترجمة تطبيق Astro – دليل 2026
+title: Astro i18n - كيفية ترجمة تطبيق Astro في 2026
 description: تعلّم كيفية إضافة التدويل (i18n) إلى موقع Astro الخاص بك باستخدام Intlayer. اتبع هذا الدليل لجعل موقعك متعدد اللغات.
 keywords:
   - التدويل

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-12-30
-title: i18n Hono - Cara menerjemahkan aplikasi Hono Anda – panduan 2026
+title: i18n Hono - Cara menerjemahkan aplikasi Hono di 2026
 description: Temukan cara membuat backend Hono Anda multibahasa. Ikuti dokumentasi untuk internasionalisasi (i18n) dan menerjemahkannya.
 keywords:
   - Internasionalisasi

@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2025-12-30
-title: Vite và React i18n - Chuyển đổi ứng dụng hiện có thành ứng dụng đa ngôn ngữ (hướng dẫn i18n 2026)
+title: Vite + React i18n - Chuyển đổi ứng dụng hiện có thành ứng dụng đa ngôn ngữ năm 2026
 description: Khám phá cách làm cho ứng dụng Vite và React hiện tại của bạn trở nên đa ngôn ngữ bằng cách sử dụng Intlayer Compiler. Làm theo tài liệu để quốc tế hóa (i18n) và dịch nó bằng AI.
 keywords:
   - Quốc tế hóa

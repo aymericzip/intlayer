@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2025-12-30
-title: Fastify i18n - Come tradurre la tua app Fastify – guida 2026
+title: Fastify i18n - Come tradurre un'app Fastify nel 2026
 description: Scopri come rendere il tuo backend Fastify multilingue. Segui la documentazione per internazionalizzare (i18n) e tradurlo.
 keywords:
   - Internazionalizzazione

@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-12-30
-title: Express i18n - Como traduzir sua aplicação Express – guia 2026
+title: Express i18n - Como traduzir uma aplicação Express em 2026
 description: Descubra como tornar seu backend Express multilíngue. Siga a documentação para internacionalizar (i18n) e traduzi-lo.
 keywords:
   - Internacionalização

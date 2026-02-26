@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2025-12-30
-title: Vite ve Solid i18n - Solid uygulamanızı nasıl çevirirsiniz – rehber 2026
+title: Vite + Solid i18n - Solid uygulamasını çevirme 2026
 description: Vite ve Solid web sitenizi çok dilli hale getirmeyi öğrenin. Dokümantasyonu takip ederek uluslararasılaştırma (i18n) ve çevirisini yapın.
 keywords:
   - Uluslararasılaştırma

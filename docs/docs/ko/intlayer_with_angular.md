@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Angular i18n - Angular 앱을 번역하는 방법 – 2026년 가이드
+title: Angular i18n - Angular 앱을 번역하는 방법 2026
 description: Angular 웹사이트를 다국어로 만드는 방법을 알아보세요. 국제화(i18n) 및 번역을 위해 문서를 따르세요.
 keywords:
   - 국제화

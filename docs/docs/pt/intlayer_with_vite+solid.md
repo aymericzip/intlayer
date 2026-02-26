@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Vite e Solid i18n - Como traduzir sua aplicação Solid – guia 2026
+title: Vite + Solid i18n - Como traduzir uma aplicação Solid em 2026
 description: Descubra como tornar seu site Vite e Solid multilíngue. Siga a documentação para internacionalizar (i18n) e traduzir.
 keywords:
   - Internacionalização

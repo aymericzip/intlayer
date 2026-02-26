@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Vite và Solid i18n - Cách dịch ứng dụng Solid của bạn – hướng dẫn 2026
+title: Vite + Solid i18n - Cách dịch ứng dụng Solid năm 2026
 description: Khám phá cách làm cho trang web Vite và Solid của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó.
 keywords:
   - Quốc tế hóa

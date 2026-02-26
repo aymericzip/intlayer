@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-12-30
-title: Hono i18n - So übersetzen Sie Ihre Hono-App – Leitfaden 2026
+title: Hono i18n - So übersetzen Sie eine Hono-App in 2026
 description: Entdecken Sie, wie Sie Ihr Hono-Backend mehrsprachig machen. Folgen Sie der Dokumentation, um es zu internationalisieren (i18n) und zu übersetzen.
 keywords:
   - Internationalisierung

@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2025-12-30
-title: Vite और React i18n - अपना React ऐप कैसे अनुवाद करें – गाइड 2026
+title: Vite + React i18n - React ऐप कैसे अनुवाद करें 2026 में
 description: जानें कि कैसे Intlayer का उपयोग करके अपने Vite और React एप्लिकेशन में अंतरराष्ट्रीयकरण (i18n) जोड़ें। इस गाइड का पालन करके अपनी ऐप को बहुभाषी बनाएं।
 keywords:
   - अंतरराष्ट्रीयकरण

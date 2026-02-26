@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-12-30
-title: AdonisJS i18n - 如何翻译您的 AdonisJS 应用 – 2026 指南
+title: AdonisJS i18n - 如何翻译AdonisJS 应用 2026
 description: 探索如何使您的 AdonisJS 后端多语言化。遵循文档进行国际化 (i18n) 和翻译。
 keywords:
   - 国际化

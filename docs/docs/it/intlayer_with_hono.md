@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-12-30
-title: i18n Hono - Come tradurre la tua app Hono – guida 2026
+title: i18n Hono - Come tradurre un'app Hono nel 2026
 description: Scopri come rendere multilingue il tuo backend Hono. Segui la documentazione per internazionalizzarlo (i18n) e tradurlo.
 keywords:
   - Internazionalizzazione

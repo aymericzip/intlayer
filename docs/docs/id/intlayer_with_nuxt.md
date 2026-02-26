@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2025-12-07
-title: Nuxt i18n - Cara menerjemahkan aplikasi Nuxt Anda – panduan 2026
+title: Nuxt i18n - Cara menerjemahkan aplikasi Nuxt di 2026
 description: Temukan cara membuat situs web Nuxt dan Vue Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya.
 keywords:
   - Internasionalisasi

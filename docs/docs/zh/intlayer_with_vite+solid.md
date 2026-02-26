@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Vite 和 Solid i18n - 如何翻译您的 Solid 应用 – 指南 2026
+title: Vite + Solid i18n - 如何翻译Solid 应用 2026
 description: 了解如何使您的 Vite 和 Solid 网站支持多语言。按照文档进行国际化（i18n）和翻译。
 keywords:
   - 国际化

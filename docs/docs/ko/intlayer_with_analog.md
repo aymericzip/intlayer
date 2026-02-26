@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Analog i18n - Analog 앱 번역 방법 – 2026 가이드
+title: Analog i18n - Analog 앱 번역 방법 2026
 description: Analog 앱을 다국어로 만드는 방법을 알아보세요. 가이드를 따라 국제화(i18n) 및 번역을 적용하세요.
 keywords:
   - 국제화

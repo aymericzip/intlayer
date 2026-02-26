@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2025-12-30
-title: Vite dan React i18n - Ubah aplikasi yang ada menjadi aplikasi multibahasa (panduan i18n 2026)
+title: Vite + React i18n - Ubah aplikasi yang ada menjadi aplikasi multibahasa di 2026
 description: Temukan cara membuat aplikasi Vite dan React Anda yang sudah ada menjadi multibahasa menggunakan Intlayer Compiler. Ikuti dokumentasi untuk menginternasionalisasi (i18n) dan menerjemahkannya dengan AI.
 keywords:
   - Internasionalisasi

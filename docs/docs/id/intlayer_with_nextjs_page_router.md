@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-07
 updatedAt: 2025-12-30
-title: Next.js Page Router i18n - Cara menerjemahkan aplikasi Next.js Anda – panduan 2026
+title: Next.js Page Router i18n - Cara menerjemahkan aplikasi Next.js di 2026
 description: Temukan cara membuat situs web Next.js Anda yang menggunakan Page Router menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya.
 keywords:
   - Internasionalisasi

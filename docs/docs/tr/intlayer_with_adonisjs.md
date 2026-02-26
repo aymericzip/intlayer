@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-12-30
-title: AdonisJS i18n - AdonisJS uygulamanızı nasıl çevirirsiniz – kılavuz 2026
+title: AdonisJS i18n - AdonisJS uygulamasını çevirme 2026
 description: AdonisJS backend'inizi nasıl çok dilli hale getireceğinizi keşfedin. Uluslararasılaştırmak (i18n) ve çevirmek için belgeleri takip edin.
 keywords:
   - Uluslararasılaştırma

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Analog i18n - Analogアプリの翻訳方法 – 2026年ガイド
+title: Analog i18n - Analogアプリの翻訳方法 2026
 description: Analogアプリを多言語化する方法をご紹介します。ドキュメントに従って、国際化（i18n）と翻訳を実装してください。
 keywords:
   - 国際化

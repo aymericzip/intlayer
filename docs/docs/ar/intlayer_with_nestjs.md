@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2025-12-30
-title: NestJS i18n - كيفية ترجمة تطبيق NestJS – دليل 2026
+title: NestJS i18n - كيفية ترجمة تطبيق NestJS في 2026
 description: اكتشف كيفية جعل خلفية NestJS الخاصة بك متعددة اللغات. اتبع الوثائق لتدويل (i18n) وترجمتها.
 keywords:
   - التدويل

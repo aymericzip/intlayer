@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-01-10
-title: Next.js i18n - 将现有的 Next.js 应用程序转换为多语言应用程序 (i18n 指南 2026)
+title: Next.js i18n - 将现有的 Next.js 应用程序转换为多语言应用程序 2026
 description: 了解如何使用 Intlayer 编译器将现有的 Next.js 应用程序转换为多语言。按照文档进行国际化 (i18n) 并使用 AI 进行翻译。
 keywords:
   - 国际化

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Analog i18n - Jak przetłumaczyć swoją aplikację Analog – przewodnik 2026
+title: Analog i18n - Jak przetłumaczyć aplikację Analog w 2026
 description: Dowiedz się, jak uczynić swoją aplikację Analog wielojęzyczną. Postępuj zgodnie z dokumentacją, aby przeprowadzić internacjonalizację (i18n) i tłumaczenie.
 keywords:
   - Internacjonalizacja

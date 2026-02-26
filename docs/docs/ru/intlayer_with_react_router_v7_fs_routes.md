@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-12-07
 updatedAt: 2025-12-30
-title: React Router v7 i18n - Как перевести ваше приложение React Router v7 – руководство 2026
+title: React Router v7 i18n - Как перевести приложение React Router v7 в 2026
 description: Узнайте, как добавить интернационализацию (i18n) в ваше приложение на React Router v7 с помощью Intlayer с маршрутизацией на основе файловой системы. Следуйте этому подробному руководству, чтобы сделать ваше приложение многоязычным с маршрутизацией, учитывающей локаль.
 keywords:
   - Интернационализация
@@ -59,7 +59,7 @@ history:
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">
   
-<iframe title="How to translate your React Router v7 (File-System Routes) app using Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="How to translate an React Router v7 (File-System Routes) app using Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
   </Tab>
   <Tab label="Code" value="code">

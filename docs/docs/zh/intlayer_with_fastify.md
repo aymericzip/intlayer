@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2025-12-30
-title: Fastify i18n - 如何翻译您的 Fastify 应用 – 指南 2026
+title: Fastify i18n - 如何翻译Fastify 应用 2026
 description: 了解如何使你的 Fastify 后端实现多语言。按照文档对其进行国际化 (i18n) 并翻译。
 keywords:
   - 国际化

@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-06
 updatedAt: 2025-12-30
-title: Next.js i18n - كيفية ترجمة تطبيق Next.js 16 – دليل 2026
+title: Next.js i18n - كيفية ترجمة تطبيق Next.js 16 في 2026
 description: اكتشف كيفية جعل موقع Next.js 16 الخاص بك متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته.
 keywords:
   - التدويل

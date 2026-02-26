@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Angular i18n - Jak przetłumaczyć aplikację Angular – przewodnik 2026
+title: Angular i18n - Jak przetłumaczyć aplikację Angular w 2026
 description: Dowiedz się, jak uczynić swoją stronę Angular wielojęzyczną. Postępuj zgodnie z dokumentacją, aby ją umiędzynarodowić (i18n) i przetłumaczyć.
 keywords:
   - Umiędzynarodowienie

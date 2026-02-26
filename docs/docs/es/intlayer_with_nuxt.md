@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2025-12-07
-title: Nuxt i18n - Cómo traducir su aplicación Nuxt – guía 2026
+title: Nuxt i18n - Cómo traducir una aplicación Nuxt en 2026
 description: Descubre cómo hacer tu sitio web Nuxt y Vue multilingüe. Sigue la documentación para internacionalizar (i18n) y traducirlo.
 keywords:
   - Internacionalización

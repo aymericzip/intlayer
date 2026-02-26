@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2025-12-30
-title: Express i18n - كيفية ترجمة تطبيق Express – دليل 2026
+title: Express i18n - كيفية ترجمة تطبيق Express في 2026
 description: اكتشف كيفية جعل الواجهة الخلفية لـ Express متعددة اللغات. اتبع الوثائق لتدويل (i18n) وترجمتها.
 keywords:
   - دولية

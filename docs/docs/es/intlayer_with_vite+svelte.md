@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Vite y Svelte i18n - Cómo traducir su aplicación Svelte – guía 2026
+title: Vite + Svelte i18n - Cómo traducir una aplicación Svelte en 2026
 description: Descubre cómo hacer tu sitio web Vite y Svelte multilingüe. Sigue la documentación para internacionalizar (i18n) y traducirlo.
 keywords:
   - Internacionalización

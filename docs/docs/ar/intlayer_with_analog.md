@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: تدويل Analog - كيفية ترجمة تطبيق Analog الخاص بك – دليل 2026
+title: تدويل Analog - كيفية ترجمة تطبيق Analog في 2026
 description: اكتشف كيفية جعل تطبيق Analog الخاص بك متعدد اللغات. اتبع التوثيق لتدويله (i18n) وترجمته.
 keywords:
   - Internationalization

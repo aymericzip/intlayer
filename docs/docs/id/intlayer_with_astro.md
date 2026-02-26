@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2025-12-30
-title: Astro i18n - Cara menerjemahkan aplikasi Astro Anda – panduan 2026
+title: Astro i18n - Cara menerjemahkan aplikasi Astro di 2026
 description: Pelajari cara menambahkan internasionalisasi (i18n) ke situs web Astro Anda menggunakan Intlayer. Ikuti panduan ini untuk membuat situs web Anda multibahasa.
 keywords:
   - Internasionalisasi

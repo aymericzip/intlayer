@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2025-12-30
-title: Fastify i18n - अपना Fastify ऐप कैसे अनुवाद करें – गाइड 2026
+title: Fastify i18n - Fastify ऐप कैसे अनुवाद करें 2026 में
 description: जानिए कि कैसे अपने Fastify बैकएंड को बहुभाषी बनाएं। अंतरराष्ट्रीयकरण (i18n) और अनुवाद करने के लिए दस्तावेज़ का पालन करें।
 keywords:
   - Internationalization

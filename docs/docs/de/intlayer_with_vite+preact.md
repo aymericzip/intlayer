@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Vite und Preact i18n - Wie Sie Ihre Preact App übersetzen – Leitfaden 2026
+title: Vite + Preact i18n - Wie Sie eine Preact App übersetzen in 2026
 description: Entdecken Sie, wie Sie Ihre Vite- und Preact-Website mehrsprachig gestalten. Folgen Sie der Dokumentation, um sie zu internationalisieren (i18n) und zu übersetzen.
 keywords:
   - Internationalisierung

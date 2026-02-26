@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-01-10
-title: Next.js i18n - Chuyển đổi ứng dụng Next.js hiện tại thành ứng dụng đa ngôn ngữ (hướng dẫn i18n 2026)
+title: Next.js i18n - Chuyển đổi ứng dụng Next.js hiện tại thành ứng dụng đa ngôn ngữ năm 2026
 description: Khám phá cách biến ứng dụng Next.js hiện tại của bạn thành một ứng dụng đa ngôn ngữ bằng cách sử dụng Intlayer Compiler. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch ứng dụng của bạn bằng AI.
 keywords:
   - Quốc tế hóa

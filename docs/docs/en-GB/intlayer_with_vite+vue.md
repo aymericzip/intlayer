@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Vite and Vue i18n - How to translate your Vue app – guide 2026
+title: Vite + Vue i18n - How to translate an Vue app in 2026
 description: Discover how to make your Vite and Vue website multilingual. Follow the documentation to internationalise (i18n) and translate it.
 keywords:
   - Internationalisation

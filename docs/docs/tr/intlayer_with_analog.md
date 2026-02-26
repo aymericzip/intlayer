@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Analog i18n - Analog uygulamanızı nasıl tercüme edersiniz – rehber 2026
+title: Analog i18n - Analog uygulamasını çevirme 2026
 description: Analog uygulamanızı nasıl çok dilli hale getireceğinizi keşfedin. Uluslararasılaştırma (i18n) ve tercüme etmek için dokümantasyonu takip edin.
 keywords:
   - Uluslararasılaştırma

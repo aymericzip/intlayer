@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2025-12-30
-title: Tanstack Start i18n - How to translate your Tanstack Start app – guide 2026
+title: Tanstack Start i18n - How to translate an Tanstack Start app in 2026
 description: Learn how to add internationalisation (i18n) to your Tanstack Start application using Intlayer. Follow this comprehensive guide to make your app multilingual with locale-aware routing.
 keywords:
   - Internationalisation

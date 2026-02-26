@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Analog i18n - अपने Analog ऐप का अनुवाद कैसे करें – गाइड 2026
+title: Analog i18n - Analog ऐप का अनुवाद कैसे करें 2026 में
 description: जानें कि अपने Analog ऐप को बहुभाषी कैसे बनाया जाए। इसे अंतरराष्ट्रीयकरण (i18n) और अनुवाद करने के लिए दस्तावेज़ का पालन करें।
 keywords:
   - Internationalization

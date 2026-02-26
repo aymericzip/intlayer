@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-12-30
-title: Express i18n - How to translate your Express app – guide 2026
+title: Express i18n - How to translate an Express app in 2026
 description: Discover how to make your Express backend multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
   - Internationalization

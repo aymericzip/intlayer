@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Analog i18n - 如何翻译您的 Analog 应用 – 2026 指南
+title: Analog i18n - 如何翻译Analog 应用 2026
 description: 了解如何让您的 Analog 应用支持多语言。遵循文档进行国际化 (i18n) 和翻译。
 keywords:
   - 国际化

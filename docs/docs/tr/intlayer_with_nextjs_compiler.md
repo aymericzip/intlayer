@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-01-10
-title: Next.js i18n - Mevcut bir Next.js uygulamasını çok dilli bir uygulamaya dönüştürün (i18n kılavuzu 2026)
+title: Next.js i18n - Mevcut bir Next.js uygulamasını çok dilli bir uygulamaya dönüştürün 2026
 description: Intlayer Derleyicisi'ni kullanarak mevcut Next.js uygulamanızı nasıl çok dilli yapacağınızı keşfedin. Uygulamanızı uluslararasılaştırmak (i18n) ve AI ile çevirmek için kılavuzu takip edin.
 keywords:
   - Uluslararasılaştırma

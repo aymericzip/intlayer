@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-10-25
 updatedAt: 2025-12-30
-title: Next.js i18n - Cách dịch ứng dụng Next.js 15 của bạn – hướng dẫn 2026
+title: Next.js i18n - Cách dịch ứng dụng Next.js 15 năm 2026
 description: Khám phá cách làm cho trang web Next.js 15 của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó.
 keywords:
   - Quốc tế hóa

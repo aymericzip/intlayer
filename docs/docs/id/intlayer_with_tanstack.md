@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2025-12-30
-title: Tanstack Start i18n - Cara menerjemahkan aplikasi Tanstack Start Anda – panduan 2026
+title: Tanstack Start i18n - Cara menerjemahkan aplikasi Tanstack Start di 2026
 description: Pelajari cara menambahkan internasionalisasi (i18n) ke aplikasi TanStack Start Anda menggunakan Intlayer. Ikuti panduan komprehensif ini untuk membuat aplikasi Anda multibahasa dengan routing yang mendukung locale.
 keywords:
   - Internasionalisasi

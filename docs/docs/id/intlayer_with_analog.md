@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Analog i18n - Cara menerjemahkan aplikasi Analog Anda – panduan 2026
+title: Analog i18n - Cara menerjemahkan aplikasi Analog di 2026
 description: Temukan cara membuat aplikasi Analog Anda multibahasa. Ikuti dokumentasi untuk menginternasionalisasi (i18n) dan menerjemahkannya.
 keywords:
   - Internationalization

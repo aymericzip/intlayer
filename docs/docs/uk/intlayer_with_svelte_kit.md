@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-11-20
 updatedAt: 2025-12-30
-title: SvelteKit i18n - Як перекласти ваш додаток SvelteKit – посібник 2026
+title: SvelteKit i18n - Як перекласти додаток SvelteKit у 2026
 description: Дізнайтеся, як зробити ваш вебсайт на SvelteKit багатомовним. Дотримуйтесь документації, щоб інтернаціоналізувати (i18n) та перекласти його з використанням Server-Side Rendering (SSR).
 keywords:
   - Інтернаціоналізація (i18n)

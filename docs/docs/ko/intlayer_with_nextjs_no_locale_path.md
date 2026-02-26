@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-01-10
-title: Next.js i18n - Next.js 16 앱 번역 방법 (페이지 경로에 [locale] 없이) – 가이드 2026
+title: Next.js i18n - Next.js 16 앱 번역 방법 (페이지 경로에 [locale] 없이) 2026
 description: 페이지 경로에 [locale] 없이 Next.js 16 웹사이트를 다국어로 만드는 방법을 알아보세요. 문서를 따라 국제화(i18n)하고 번역하는 방법을 확인하세요.
 keywords:
   - 국제화

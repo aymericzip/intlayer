@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-12-30
-title: Angular i18n - Angular uygulamanızı nasıl çevirirsiniz – rehber 2026
+title: Angular i18n - Angular uygulamasını çevirme 2026
 description: Angular web sitenizi nasıl çok dilli hale getireceğinizi keşfedin. Uluslararasılaştırmak (i18n) ve çevirmek için belgeleri takip edin.
 keywords:
   - Uluslararasılaştırma

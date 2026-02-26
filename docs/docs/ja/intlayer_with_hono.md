@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-12-30
-title: Hono i18n - Hono アプリの翻訳方法 – 2026 ガイド
+title: Hono i18n - Hono アプリの翻訳方法 2026
 description: Hono バックエンドを多言語化する方法をご紹介します。ドキュメントに従って国際化 (i18n) と翻訳を行ってください。
 keywords:
   - 国際化

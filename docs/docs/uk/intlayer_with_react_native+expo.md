@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2025-12-30
-title: React Native і Expo i18n - Як перекласти ваш додаток React Native – посібник 2026
+title: React Native + Expo i18n - Як перекласти додаток React Native у 2026
 description: Дізнайтеся, як зробити ваш вебсайт на React Native та Expo багатомовним. Дотримуйтесь документації, щоб інтернаціоналізувати (i18n) та перекласти його.
 keywords:
   - Інтернаціоналізація

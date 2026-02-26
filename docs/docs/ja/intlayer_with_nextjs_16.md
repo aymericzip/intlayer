@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-06
 updatedAt: 2025-12-30
-title: Next.js i18n - Next.js 16アプリの翻訳方法 – ガイド 2026
+title: Next.js i18n - Next.js 16アプリの翻訳方法 2026
 description: Next.js 16のウェブサイトを多言語対応にする方法を紹介します。国際化（i18n）と翻訳のためのドキュメントに従ってください。
 keywords:
   - 国際化

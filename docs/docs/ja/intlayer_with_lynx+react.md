@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-03-09
 updatedAt: 2025-12-30
-title: Lynx と React i18n - Lynxアプリの翻訳方法 – ガイド 2026
+title: Lynx + React i18n - Lynxアプリの翻訳方法 2026
 description: LynxとReactを使用してPage Routerを利用したウェブサイトを多言語化する方法を見つけましょう。国際化（i18n）して翻訳するためにドキュメントに従ってください。
 keywords:
   - 国際化

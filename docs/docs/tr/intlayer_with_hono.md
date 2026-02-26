@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-12-30
-title: Hono i18n - Hono uygulamanızı nasıl çevirirsiniz – kılavuz 2026
+title: Hono i18n - Hono uygulamasını çevirme 2026
 description: Hono arka ucunuzu nasıl çok dilli hale getireceğinizi keşfedin. Uluslararasılaştırmak (i18n) ve çevirmek için dokümantasyonu izleyin.
 keywords:
   - Uluslararasılaştırma

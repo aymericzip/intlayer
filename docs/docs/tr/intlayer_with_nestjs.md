@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2025-12-30
-title: NestJS i18n - NestJS uygulamanızı nasıl çevirirsiniz – rehber 2026
+title: NestJS i18n - NestJS uygulamasını çevirme 2026
 description: NestJS backend'inizi çok dilli hale getirmeyi öğrenin. Dokümantasyonu takip ederek uluslararasılaştırma (i18n) yapın ve çevirin.
 keywords:
   - Uluslararasılaştırma
