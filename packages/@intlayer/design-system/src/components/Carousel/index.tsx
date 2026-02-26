@@ -8,7 +8,6 @@ import {
 } from '@components/Button';
 import { KeyboardShortcut } from '@components/KeyboardShortcut';
 import { Popover } from '@components/Popover';
-// Removed useIsMounted as it is no longer needed for positioning
 import { cn } from '@utils/cn';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import {
@@ -91,7 +90,7 @@ const getCardScale = (index: number, displayedIndex: number) => {
 // Your original logic: (3 * screenWidth) / 10  === 30% of viewport width
 const getCardPositionX = (index: number, displayedIndex: number) => {
   const diff = index - displayedIndex;
-  return `${diff * 30}vw`;
+  return `calc(${diff} * min(30vw, 300px))`;
 };
 
 // ------------------------------------------------------------------
@@ -380,6 +379,7 @@ const CarouselRoot: FC<CarouselProps> = ({
         ref={containerRef}
         className={cn(
           'relative w-full cursor-grab select-none overflow-hidden outline-none transition-[height] duration-300 ease-in-out focus:outline-none focus:outline-none focus:ring-0 active:cursor-grabbing',
+          'max-w-[1400px]',
           className
         )}
         style={{

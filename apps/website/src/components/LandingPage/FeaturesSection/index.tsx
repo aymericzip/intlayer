@@ -29,7 +29,7 @@ const SectionItem: FC<PropsWithChildren<SectionItemProps>> = ({
   isActive,
 }) => (
   <motion.div
-    className="flex size-full items-center justify-center p-10"
+    className="m-auto flex size-full max-w-5xl items-center justify-center p-10"
     initial={{ x: '100%', opacity: 0 }}
     animate={{ x: isActive ? '0%' : '100%', opacity: isActive ? 1 : 0 }}
     transition={{ duration: 0.5, ease: 'easeInOut' }}

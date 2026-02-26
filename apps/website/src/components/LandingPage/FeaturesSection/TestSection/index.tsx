@@ -1,5 +1,5 @@
 import { Terminal } from '@intlayer/design-system';
-import { useIntlayer } from 'next-intlayer';
+import { type IntlayerNode, useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';
 import { type FC, useState } from 'react';
 
@@ -20,7 +20,7 @@ export const TestSection: FC<TestSectionProps> = ({ scrollProgress }) => {
   };
 
   const displayContent = content
-    .map((item: string, index: number) => {
+    .map((item: IntlayerNode, index: number) => {
       if (index < itemsToShow) {
         return item.value; // Keep the value to return IntlayerNode as a string
       }
@@ -36,7 +36,7 @@ export const TestSection: FC<TestSectionProps> = ({ scrollProgress }) => {
     <Terminal
       isDarkMode={isDarkMode}
       title="intlayer test"
-      className="max-w-xl flex-1 scale-90 overflow-auto text-xs"
+      className="w-full flex-1 scale-90 overflow-auto text-xs"
       onSubmit={handleSubmit}
     >
       {fullContent}
