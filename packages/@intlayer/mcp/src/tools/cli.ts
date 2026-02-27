@@ -1,5 +1,4 @@
 import { relative } from 'node:path';
-import { listProjects } from '@intlayer/chokidar/cli';
 import {
   build,
   extract,
@@ -7,6 +6,7 @@ import {
   init,
   listContentDeclarationRows,
   listMissingTranslations,
+  listProjects,
   pull,
   push,
 } from '@intlayer/cli';
