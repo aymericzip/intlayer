@@ -127,8 +127,8 @@ The `syncJSON` plugin will automatically wrap the JSON. It will read and write t
 
 If you want to make coexist that JSON with intlayer content declaration files (`.content` files), Intlayer will proceed this way:
 
-    1. load both JSON and content declaration files and transform them into a intlayer dictionary.
-    2. if there is conflicts between the JSON and the content declaration files, Intlayer will process to the merge of that all dictionaries. Depending of the priority of the plugins, and the one of the content declaration file (all are configurable).
+1. load both JSON and content declaration files and transform them into a intlayer dictionary.
+2. if there is conflicts between the JSON and the content declaration files, Intlayer will process to the merge of that all dictionaries. Depending of the priority of the plugins, and the one of the content declaration file (all are configurable).
 
 If changes are made using the CLI to translate the JSON, or using the CMS, Intlayer will update the JSON file with the new translations.
 
