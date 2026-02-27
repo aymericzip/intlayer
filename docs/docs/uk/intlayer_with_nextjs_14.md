@@ -45,7 +45,7 @@ history:
 
 ## Що таке Intlayer?
 
-**Intlayer** — інноваційна відкрита бібліотека інтернаціоналізації (i18n), створена для спрощення підтримки кількох мов у сучасних вебзастосунках. Intlayer безшовно інтегрується з останнім фреймворком **Next.js 14**, включаючи його потужний **App Router**. Вона оптимізована для роботи з **Server Components** для ефективного рендерингу і повністю сумісна з [**Turbopack**](https://nextjs.org/docs/architecture/turbopack) (з Next.js >= 15).
+**Intlayer**, інноваційна відкрита бібліотека інтернаціоналізації (i18n), створена для спрощення підтримки кількох мов у сучасних вебзастосунках. Intlayer безшовно інтегрується з останнім фреймворком **Next.js 14**, включаючи його потужний **App Router**. Вона оптимізована для роботи з **Server Components** для ефективного рендерингу і повністю сумісна з [**Turbopack**](https://nextjs.org/docs/architecture/turbopack) (з Next.js >= 15).
 
 With Intlayer, you can:
 
@@ -64,7 +64,7 @@ With Intlayer, you can:
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-next-14-template?embed=1&ctl=1&file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демонстрація CodeSandbox — Як інтернаціоналізувати ваш додаток за допомогою Intlayer"
+  title="Демонстрація CodeSandbox. Як інтернаціоналізувати ваш додаток за допомогою Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -363,7 +363,7 @@ const LocaleLayout = ({ children, params: { locale } }) => (
 module.exports = LocaleLayout;
 ```
 
-> Сегмент шляху `[locale]` використовується для визначення локалі. Наприклад: `/en-US/about` відповідатиме `en-US`, а `/fr/about` — `fr`.
+> Сегмент шляху `[locale]` використовується для визначення локалі. Наприклад: `/en-US/about` відповідатиме `en-US`, а `/fr/about`, `fr`.
 
 > На цьому етапі ви зіткнетеся з помилкою: `Error: Missing <html> and <body> tags in the root layout.`. Це очікувано, оскільки файл `/app/page.tsx` більше не використовується і його можна видалити. Натомість сегмент шляху `[locale]` активує сторінку `/app/[locale]/page.tsx`. Внаслідок цього сторінки будуть доступні за шляхами типу `/en`, `/fr`, `/es` у вашому браузері. Щоб встановити локаль за замовчуванням як кореневу сторінку, зверніться до налаштування `middleware` у кроці 4.
 
@@ -1199,7 +1199,7 @@ module.exports = robots;
 
 ### (Необов'язково) Крок 10: Зміна мови вашого контенту
 
-Щоб змінити мову вашого контенту в Next.js, рекомендований спосіб — використовувати компонент `Link` для перенаправлення користувачів на відповідну локалізовану сторінку. Компонент `Link` дозволяє попередньо завантажувати сторінку (prefetch), що допомагає уникнути повного перезавантаження сторінки.
+Щоб змінити мову вашого контенту в Next.js, рекомендований спосіб, використовувати компонент `Link` для перенаправлення користувачів на відповідну локалізовану сторінку. Компонент `Link` дозволяє попередньо завантажувати сторінку (prefetch), що допомагає уникнути повного перезавантаження сторінки.
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
 "use client";
@@ -1285,19 +1285,19 @@ const LocaleSwitcher = () => {
             replace // Гарантує, що кнопка браузера «назад» перенаправлятиме на попередню сторінку
           >
             <span>
-              {/* Локаль — наприклад FR */}
+              {/* Локаль, наприклад FR */}
               {localeItem}
             </span>
             <span>
-              {/* Мова у власній локалі — наприклад Français */}
+              {/* Мова у власній локалі, наприклад Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Мова в поточному локалі — наприклад Francés при встановленому Locales.SPANISH */}
+              {/* Мова в поточному локалі, наприклад Francés при встановленому Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Мова англійською — наприклад French */}
+              {/* Мова англійською, наприклад French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </Link>
@@ -1361,7 +1361,7 @@ const LocaleSwitcher = () => {
 };
 ```
 
-> Альтернативний спосіб — використати функцію `setLocale`, надану хуком `useLocale`. Ця функція не дозволяє prefetching сторінки. Див. документацію хуку [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/next-intlayer/useLocale.md) для детальнішої інформації.
+> Альтернативний спосіб, використати функцію `setLocale`, надану хуком `useLocale`. Ця функція не дозволяє prefetching сторінки. Див. документацію хуку [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/next-intlayer/useLocale.md) для детальнішої інформації.
 
 > Ви також можете вказати функцію в опції `onLocaleChange`, щоб викликати власну функцію при зміні локалі.
 

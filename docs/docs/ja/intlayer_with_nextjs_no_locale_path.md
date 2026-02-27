@@ -23,7 +23,7 @@ history:
     changes: 初回リリース
 ---
 
-# Next.js 16 ウェブサイトを翻訳する（ページパスに [locale] を含めない） — Intlayer を使った国際化 (i18n)
+# Next.js 16 ウェブサイトを翻訳する（ページパスに [locale] を含めない）. Intlayer を使った国際化 (i18n)
 
 <Tabs defaultTab="video">
   <Tab label="動画" value="video">
@@ -979,7 +979,7 @@ export const LocaleSwitcher: FC = () => {
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* 英語での言語名 — 例: French */}
+              {/* 英語での言語名, 例: French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </button>

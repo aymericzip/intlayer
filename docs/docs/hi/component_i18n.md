@@ -78,7 +78,7 @@ export default componentContent;
 
 ## 2) अपनी सामग्री पुनः प्राप्त करें
 
-### केस A — React ऐप (Vite/SPA)
+### केस A. React ऐप (Vite/SPA)
 
 डिफ़ॉल्ट तरीका: कुंजी द्वारा पुनः प्राप्त करने के लिए `useIntlayer` का उपयोग करें। यह कंपोनेंट्स को हल्का और टाइप किया हुआ रखता है।
 
@@ -129,7 +129,7 @@ export function ComponentWithDictionary() {
 }
 ```
 
-### मामला बी — Next.js (ऐप राउटर)
+### मामला बी. Next.js (ऐप राउटर)
 
 डेटा सुरक्षा और प्रदर्शन के लिए सर्वर कंपोनेंट्स को प्राथमिकता दें। सर्वर फाइलों में `next-intlayer/server` से `useIntlayer` का उपयोग करें, और क्लाइंट कंपोनेंट्स में `next-intlayer` से `useIntlayer` का उपयोग करें।
 

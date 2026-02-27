@@ -78,7 +78,7 @@ export default componentContent;
 
 ## 2) コンテンツの取得
 
-### ケースA — Reactアプリ（Vite/SPA）
+### ケースA. Reactアプリ（Vite/SPA）
 
 デフォルトの方法：キーで取得するために `useIntlayer` を使用します。これによりコンポーネントはシンプルかつ型安全に保たれます。
 
@@ -129,7 +129,7 @@ export function ComponentWithDictionary() {
 }
 ```
 
-### ケースB — Next.js（App Router）
+### ケースB. Next.js（App Router）
 
 データの安全性とパフォーマンスのためにサーバーコンポーネントを優先してください。サーバーファイルでは `next-intlayer/server` から `useIntlayer` を使用し、クライアントコンポーネントでは `next-intlayer` から `useIntlayer` を使用します。
 

@@ -959,7 +959,7 @@ export const LocaleSwitcher: FC = () => {
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* 以当前 Locale 表示的语言名称 — 例如：当当前 locale 设置为 Locales.SPANISH 时显示：Francés */}
+              {/* 以当前 Locale 表示的语言名称, 例如：当当前 locale 设置为 Locales.SPANISH 时显示：Francés */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>

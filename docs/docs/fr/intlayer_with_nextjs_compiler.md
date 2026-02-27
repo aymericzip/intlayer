@@ -54,7 +54,7 @@ Voir [Modèle d'Application](https://github.com/aymericzip/intlayer-next-no-lola
 
 ## Pourquoi est-il difficile d'internationaliser une application existante ?
 
-Si vous avez déjà essayé d'ajouter plusieurs langues à une application conçue pour une seule, vous connaissez la difficulté. Ce n'est pas seulement « dur » — c'est fastidieux. Vous devez parcourir chaque fichier, débusquer chaque chaîne de texte et les déplacer dans des fichiers de dictionnaire séparés.
+Si vous avez déjà essayé d'ajouter plusieurs langues à une application conçue pour une seule, vous connaissez la difficulté. Ce n'est pas seulement « dur », c'est fastidieux. Vous devez parcourir chaque fichier, débusquer chaque chaîne de texte et les déplacer dans des fichiers de dictionnaire séparés.
 
 Ensuite vient la partie risquée : remplacer tout ce texte par des hooks de code sans casser votre mise en page ou votre logique. C'est le genre de travail qui suspend le développement de nouvelles fonctionnalités pendant des semaines et ressemble à une refonte sans fin.
 

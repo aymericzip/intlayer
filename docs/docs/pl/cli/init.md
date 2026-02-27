@@ -86,7 +86,7 @@ Utworzono intlayer.config.ts
 
 ## Uwagi:
 
-- Polecenie jest idempotentne — można je uruchamiać wielokrotnie bez obaw. Pomiń kroki, które są już skonfigurowane.
+- Polecenie jest idempotentne, można je uruchamiać wielokrotnie bez obaw. Pomiń kroki, które są już skonfigurowane.
 - Jeśli plik konfiguracyjny już istnieje, nie zostanie nadpisany.
 - Pliki konfiguracyjne TypeScript bez tablicy `include` (np. konfiguracje w stylu solution z odwołaniami) są pomijane.
 - Polecenie zakończy się błędem, jeśli w katalogu głównym projektu nie zostanie znaleziony plik `package.json`.

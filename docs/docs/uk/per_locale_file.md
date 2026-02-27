@@ -273,7 +273,7 @@ module.exports = helloWorldContent;
 
 ### Приклад
 
-Нижче — файл декларації мультимовного вмісту:
+Нижче, файл декларації мультимовного вмісту:
 
 ```tsx fileName="Components/MyComponent/index.content.ts"
 import { t, type Dictionary } from "intlayer";
@@ -312,7 +312,7 @@ Intlayer merges multilingual and per-locale files automatically.
 ```tsx fileName="Components/MyComponent/index.ts"
 import { getIntlayer, Locales } from "intlayer";
 
-const intlayer = getIntlayer("hello-world"); // Локаль за замовчуванням — ENGLISH, тому буде повернено контент англійською
+const intlayer = getIntlayer("hello-world"); // Локаль за замовчуванням. ENGLISH, тому буде повернено контент англійською
 
 console.log(JSON.stringify(intlayer, null, 2));
 // Результат:

@@ -78,7 +78,7 @@ export default componentContent;
 
 ## 2) 콘텐츠를 가져오기
 
-### 경우 A — React 앱 (Vite/SPA)
+### 경우 A. React 앱 (Vite/SPA)
 
 기본 접근법: 키로 검색하기 위해 `useIntlayer`를 사용합니다. 이렇게 하면 컴포넌트가 간결하고 타입이 지정됩니다.
 
@@ -129,7 +129,7 @@ export function ComponentWithDictionary() {
 }
 ```
 
-### 사례 B — Next.js (앱 라우터)
+### 사례 B. Next.js (앱 라우터)
 
 데이터 안전성과 성능을 위해 서버 컴포넌트를 선호하세요. 서버 파일에서는 `next-intlayer/server`에서 `useIntlayer`를 사용하고, 클라이언트 컴포넌트에서는 `next-intlayer`에서 `useIntlayer`를 사용하세요.
 

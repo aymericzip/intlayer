@@ -49,13 +49,13 @@ Os pacotes do Intlayer contêm código que pode funcionar tanto no Node como no 
 Na documentação do React-Router sobre as **convenções de módulos de servidor**
 (https://reactrouter.com/api/framework-conventions/server-modules), a equipe **sugere explicitamente usar `vite-env-only`** para evitar que importações exclusivas do servidor vazem para o bundle do cliente.
 
-Porém, essas convenções dependem do aliasing do Vite, das conditional exports e do tree-shaking para remover o código exclusivo do servidor. Embora o aliasing e as conditional exports já estejam aplicados, alguns utilitários baseados em Node ainda estão presentes em pacotes como `@intlayer/core` nessa fase (mesmo que nunca sejam importados pelo cliente). Como o tree-shaking ainda não foi executado, essas funções ainda são analisadas pelo Babel, e o `vite-env-only` detecta suas importações `node:` e gera um falso positivo — mesmo que elas sejam corretamente purgadas do bundle final do cliente.
+Porém, essas convenções dependem do aliasing do Vite, das conditional exports e do tree-shaking para remover o código exclusivo do servidor. Embora o aliasing e as conditional exports já estejam aplicados, alguns utilitários baseados em Node ainda estão presentes em pacotes como `@intlayer/core` nessa fase (mesmo que nunca sejam importados pelo cliente). Como o tree-shaking ainda não foi executado, essas funções ainda são analisadas pelo Babel, e o `vite-env-only` detecta suas importações `node:` e gera um falso positivo, mesmo que elas sejam corretamente purgadas do bundle final do cliente.
 
 ## Como corrigir / contornar
 
 ### Recomendado: Remover `vite-env-only`
 
-Simplesmente remova o plugin. Em muitos casos você não precisa dele — o Vite já lida com importações cliente vs servidor através da sua própria resolução.
+Simplesmente remova o plugin. Em muitos casos você não precisa dele, o Vite já lida com importações cliente vs servidor através da sua própria resolução.
 
 Isto corrige o erro falso de `node:fs` sem alterações no Intlayer.
 

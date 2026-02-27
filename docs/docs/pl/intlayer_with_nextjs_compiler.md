@@ -54,7 +54,7 @@ Zobacz [Szablon Aplikacji](https://github.com/aymericzip/intlayer-next-no-lolale
 
 ## Dlaczego umiędzynarodowienie istniejącej aplikacji jest trudne?
 
-Jeśli kiedykolwiek próbowałeś dodać wiele języków do aplikacji, która była budowana tylko dla jednego języka, to znasz ten ból. To nie jest tylko „trudne” — to żmudne. Musisz przejrzeć każdy plik, znaleźć każdy ciąg tekstowy i przenieść je do oddzielnych plików słownikowych.
+Jeśli kiedykolwiek próbowałeś dodać wiele języków do aplikacji, która była budowana tylko dla jednego języka, to znasz ten ból. To nie jest tylko „trudne”, to żmudne. Musisz przejrzeć każdy plik, znaleźć każdy ciąg tekstowy i przenieść je do oddzielnych plików słownikowych.
 
 Potem nadchodzi ryzykowna część: zastąpienie całego tego tekstu wywołaniami do kodu (hookami) bez psucia układu czy logiki. To ten rodzaj pracy, który wstrzymuje rozwój nowych funkcji na tygodnie i wydaje się być niekończącym się refaktoringiem.
 

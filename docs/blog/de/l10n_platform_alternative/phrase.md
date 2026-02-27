@@ -37,7 +37,7 @@ Phrase ist auf Skalierbarkeit ausgelegt. Es ist die erste Wahl für große Unter
 
 # Intlayer
 
-Intlayer ist hauptsächlich als i18n-Lösung bekannt, integriert aber auch ein Headless-CMS. Im Gegensatz zu Phrase, das als umfangreiche, externe Enterprise-Suite fungiert, agiert Intlayer als eine schlanke, in den Code integrierte Schicht. Es kontrolliert den gesamten Stack — von der Bundling-Schicht bis zur Bereitstellung entfernter Inhalte — und führt so zu einem reibungsloseren und effizienteren Content-Flow für moderne Webanwendungen.
+Intlayer ist hauptsächlich als i18n-Lösung bekannt, integriert aber auch ein Headless-CMS. Im Gegensatz zu Phrase, das als umfangreiche, externe Enterprise-Suite fungiert, agiert Intlayer als eine schlanke, in den Code integrierte Schicht. Es kontrolliert den gesamten Stack, von der Bundling-Schicht bis zur Bereitstellung entfernter Inhalte, und führt so zu einem reibungsloseren und effizienteren Content-Flow für moderne Webanwendungen.
 
 ## Warum haben sich die Paradigmen seit AI verändert?
 
@@ -75,4 +75,4 @@ Darüber hinaus kann Intlayer als Feature-Flag- oder A/B-Testing-Tool eingesetzt
 
 Auch wenn Phrase bei komplexen, multi-formatigen Unternehmensanforderungen (z. B. der gleichzeitigen Übersetzung von PDFs, Untertiteln und Software) unbestritten stark ist, ist Intlayer die überlegene Wahl für Produktteams, die Webanwendungen entwickeln und full ownership, type safety sowie einen modernen, AI-driven Workflow ohne den Enterprise-Overhead anstreben.
 
-Schließlich: Für diejenigen, die Datenhoheit und Kontrolle priorisieren, ist Intlayer open-source und kann self-hosted betrieben werden. Docker files sind direkt im Repository verfügbar und geben Ihnen die volle Kontrolle über Ihre Lokalisierungsinfrastruktur — etwas, das mit Phrases geschlossenem SaaS-Ökosystem nicht möglich ist.
+Schließlich: Für diejenigen, die Datenhoheit und Kontrolle priorisieren, ist Intlayer open-source und kann self-hosted betrieben werden. Docker files sind direkt im Repository verfügbar und geben Ihnen die volle Kontrolle über Ihre Lokalisierungsinfrastruktur, etwas, das mit Phrases geschlossenem SaaS-Ökosystem nicht möglich ist.

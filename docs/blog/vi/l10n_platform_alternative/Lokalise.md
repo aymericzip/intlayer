@@ -37,11 +37,11 @@ Nó xây dựng thành công bằng cách là một TMS "thân thiện với nh�
 
 # Intlayer
 
-Intlayer được biết chủ yếu là một giải pháp i18n, nhưng nó cũng tích hợp một headless CMS. Không giống Lokalise, vốn hoạt động chủ yếu như một công cụ đồng bộ hóa bên ngoài cho các strings của bạn, Intlayer tồn tại gần hơn với mã nguồn của bạn. Nó kiểm soát toàn bộ stack — từ lớp bundling đến phân phối nội dung từ xa — dẫn đến một luồng nội dung mượt mà và hiệu quả hơn.
+Intlayer được biết chủ yếu là một giải pháp i18n, nhưng nó cũng tích hợp một headless CMS. Không giống Lokalise, vốn hoạt động chủ yếu như một công cụ đồng bộ hóa bên ngoài cho các strings của bạn, Intlayer tồn tại gần hơn với mã nguồn của bạn. Nó kiểm soát toàn bộ stack, từ lớp bundling đến phân phối nội dung từ xa, dẫn đến một luồng nội dung mượt mà và hiệu quả hơn.
 
 ## Tại sao các paradigms đã thay đổi kể từ khi có AI?
 
-Lokalise đã hoàn thiện khía cạnh "DevOps" của bản địa hóa — tự động di chuyển các strings. Tuy nhiên, sự xuất hiện của các Mô hình Ngôn ngữ Lớn (Large Language Models - LLMs) đã thay đổi căn bản các paradigms của bản địa hóa. Điểm nghẽn giờ đây không còn là _di chuyển_ các strings; mà là _tạo ra_ chúng.
+Lokalise đã hoàn thiện khía cạnh "DevOps" của bản địa hóa, tự động di chuyển các strings. Tuy nhiên, sự xuất hiện của các Mô hình Ngôn ngữ Lớn (Large Language Models - LLMs) đã thay đổi căn bản các paradigms của bản địa hóa. Điểm nghẽn giờ đây không còn là _di chuyển_ các strings; mà là _tạo ra_ chúng.
 
 Với các Mô hình Ngôn ngữ Lớn (LLMs), chi phí dịch thuật đã giảm mạnh, và tốc độ đã tăng lên một cách cấp số. Vai trò của đội ngũ bản địa hóa đang chuyển từ "quản lý dịch giả" sang "quản lý ngữ cảnh và rà soát."
 
@@ -57,7 +57,7 @@ Lokalise thường bị chỉ trích vì các bậc giá cao, có thể trở n�
 
 1.  **Hiệu quả Chi phí:** Bạn không bị ràng buộc vào mô hình định giá "per key" hoặc "per seat" vốn phạt sự tăng trưởng. Với Intlayer, bạn trả cho việc suy luận của riêng bạn (BYO Key), nghĩa là chi phí của bạn tỉ lệ trực tiếp với mức sử dụng thực tế, chứ không phải biên lợi nhuận của nền tảng.
 2.  **Tích hợp luồng công việc:** Trong khi Lokalise yêu cầu đồng bộ file (ngay cả khi đã tự động), Intlayer cho phép định nghĩa Declarative Content trực tiếp trong các file component của bạn (React, Next.js, v.v.). Điều này giữ ngữ cảnh ngay sát giao diện người dùng, giảm lỗi.
-3.  **Quản lý trực quan:** Intlayer cung cấp một trình chỉnh sửa trực quan tương tác trực tiếp với ứng dụng đang chạy của bạn, đảm bảo các chỉnh sửa được thực hiện trong đầy đủ bối cảnh trực quan — điều thường bị tách rời trong danh sách file của TMS truyền thống.
+3.  **Quản lý trực quan:** Intlayer cung cấp một trình chỉnh sửa trực quan tương tác trực tiếp với ứng dụng đang chạy của bạn, đảm bảo các chỉnh sửa được thực hiện trong đầy đủ bối cảnh trực quan, điều thường bị tách rời trong danh sách file của TMS truyền thống.
 
 # So sánh song song
 
@@ -75,6 +75,6 @@ Intlayer cung cấp một giải pháp i18n đầy đủ, all-in-one cho phép t
 
 Hơn nữa, Intlayer có thể được sử dụng như một Feature Flag hoặc công cụ A/B testing, cho phép bạn thử nghiệm các biến thể nội dung khác nhau một cách động. Trong khi Lokalise tập trung vào việc đảm bảo từ ngữ chính xác, Intlayer tập trung vào việc tối ưu hóa _trải nghiệm người dùng_ thông qua việc phục vụ dữ liệu động.
 
-Lokalise rất phù hợp cho các ứng dụng di động (iOS/Android) và các quy trình làm việc do thiết kế dẫn dắt. Tuy nhiên, đối với các ứng dụng web hiện đại sử dụng các framework như Next.js hoặc React, khả năng xử lý bản địa của Intlayer với các định dạng `.js`, `.ts` và các từ điển JSON mang lại trải nghiệm nhà phát triển (DX) vượt trội với hỗ trợ TypeScript đầy đủ cho nội dung — đảm bảo bạn sẽ không bao giờ phát hành thiếu khóa dịch nữa.
+Lokalise rất phù hợp cho các ứng dụng di động (iOS/Android) và các quy trình làm việc do thiết kế dẫn dắt. Tuy nhiên, đối với các ứng dụng web hiện đại sử dụng các framework như Next.js hoặc React, khả năng xử lý bản địa của Intlayer với các định dạng `.js`, `.ts` và các từ điển JSON mang lại trải nghiệm nhà phát triển (DX) vượt trội với hỗ trợ TypeScript đầy đủ cho nội dung, đảm bảo bạn sẽ không bao giờ phát hành thiếu khóa dịch nữa.
 
-Cuối cùng, đối với những người ưu tiên chủ quyền dữ liệu và quyền kiểm soát, Intlayer là mã nguồn mở và có thể được tự lưu trữ. Các file Docker có sẵn trực tiếp trong repository, cho phép bạn sở hữu hoàn toàn cơ sở hạ tầng localization của mình — tương phản rõ rệt với mô hình SaaS đóng của Lokalise.
+Cuối cùng, đối với những người ưu tiên chủ quyền dữ liệu và quyền kiểm soát, Intlayer là mã nguồn mở và có thể được tự lưu trữ. Các file Docker có sẵn trực tiếp trong repository, cho phép bạn sở hữu hoàn toàn cơ sở hạ tầng localization của mình, tương phản rõ rệt với mô hình SaaS đóng của Lokalise.

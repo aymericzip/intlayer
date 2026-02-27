@@ -86,7 +86,7 @@ Criado intlayer.config.ts
 
 ## Notas:
 
-- O comando é idempotente — você pode executá-lo várias vezes com segurança. Ele vai pular etapas que já estão configuradas.
+- O comando é idempotente, você pode executá-lo várias vezes com segurança. Ele vai pular etapas que já estão configuradas.
 - Se um arquivo de configuração já existir, ele não será sobrescrito.
 - Arquivos de configuração do TypeScript sem um array `include` (por exemplo, configs no estilo solution com referências) são ignorados.
 - O comando encerrará com um erro se nenhum `package.json` for encontrado na raiz do projeto.

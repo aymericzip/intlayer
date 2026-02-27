@@ -78,7 +78,7 @@ Obsługiwany jest również format JSON, jeśli wolisz pliki konfiguracyjne.
 
 ## 2) Pobierz swoją treść
 
-### Przypadek A — aplikacja React (Vite/SPA)
+### Przypadek A, aplikacja React (Vite/SPA)
 
 Domyślne podejście: użyj `useIntlayer`, aby pobrać treść po kluczu. Pozwala to utrzymać komponenty lekkie i typowane.
 
@@ -129,7 +129,7 @@ export function ComponentWithDictionary() {
 }
 ```
 
-### Przypadek B — Next.js (App Router)
+### Przypadek B. Next.js (App Router)
 
 Preferuj komponenty serwerowe dla bezpieczeństwa danych i wydajności. Używaj `useIntlayer` z `next-intlayer/server` w plikach serwerowych oraz `useIntlayer` z `next-intlayer` w komponentach klienckich.
 

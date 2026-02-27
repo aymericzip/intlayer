@@ -96,7 +96,7 @@ Trotz dieser Ansätze ist klar, dass der zentralisierte Ansatz der populärste i
 Lass mich erklären, warum das problematisch für deine App sein kann:
 
 - **Unbenutzte Daten:**
-  Wenn eine Seite geladen wird, lädst du häufig den Inhalt aller anderen Seiten mit. (In einer 10-seitigen App sind das 90 % unbenutzter Inhalte, die geladen werden). Lädst du ein Modal per Lazy Loading? Der i18n‑Bibliothek ist das egal — sie lädt die Strings trotzdem zuerst.
+  Wenn eine Seite geladen wird, lädst du häufig den Inhalt aller anderen Seiten mit. (In einer 10-seitigen App sind das 90 % unbenutzter Inhalte, die geladen werden). Lädst du ein Modal per Lazy Loading? Der i18n‑Bibliothek ist das egal, sie lädt die Strings trotzdem zuerst.
 - **Performance:**
   Bei jedem Re-Render wird jede einzelne deiner Komponenten mit einer riesigen JSON-Payload hydriert, was die Reaktivität deiner App mit wachsender Größe beeinträchtigt.
 - **Wartung:**
@@ -245,4 +245,4 @@ Natürlich bringt dieser Ansatz Kompromisse mit sich:
 - Es ist schwieriger, sich mit anderen l10n-Systemen und zusätzlichem Tooling zu verbinden.
 - Es entsteht ein Lock-in (was bei jeder i18n-Lösung aufgrund ihrer spezifischen Syntax im Grunde bereits der Fall ist).
 
-Aus diesem Grund versucht Intlayer, ein vollständiges Toolset für i18n bereitzustellen (100% kostenlos und OSS), einschließlich AI-Übersetzung unter Verwendung Ihres eigenen AI-Providers und API-Keys. Intlayer stellt außerdem Tooling bereit, um Ihr JSON zu synchronisieren — dieses funktioniert wie die Message-Formatter von ICU / vue-i18n / i18next, um Inhalte in deren spezifische Formate zu überführen.
+Aus diesem Grund versucht Intlayer, ein vollständiges Toolset für i18n bereitzustellen (100% kostenlos und OSS), einschließlich AI-Übersetzung unter Verwendung Ihres eigenen AI-Providers und API-Keys. Intlayer stellt außerdem Tooling bereit, um Ihr JSON zu synchronisieren, dieses funktioniert wie die Message-Formatter von ICU / vue-i18n / i18next, um Inhalte in deren spezifische Formate zu überführen.

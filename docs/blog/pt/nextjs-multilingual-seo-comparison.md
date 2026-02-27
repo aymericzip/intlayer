@@ -54,7 +54,7 @@ Aqui está uma lista de verificação que todo app multilíngue deve implementar
 - **Use links localizados**  
   Exemplo: `<a href="/fr/about">À propos</a>` em vez de linkar para o padrão `/about`.
 
-Estes são passos simples — mas ignorá-los pode custar sua visibilidade.
+Estes são passos simples, mas ignorá-los pode custar sua visibilidade.
 
 ---
 

@@ -246,7 +246,7 @@ To podejście:
 ## Kiedy wybrać które?
 
 - **Wybierz vue-i18n**, jeśli chcesz **standardowe podejście Vue**, czujesz się komfortowo zarządzając katalogami/przestrzeniami nazw samodzielnie, a Twoja aplikacja jest **mała lub średnia** (lub już korzystasz z Nuxt i18n).
-- **Wybierz Intlayer**, jeśli cenisz **zawartość ograniczoną do komponentu**, **ścisły TypeScript**, **gwarancje na etapie budowania**, **tree-shaking** oraz **wbudowane narzędzia do routingu/SEO/edytora** — szczególnie dla **dużych, modułowych baz kodu Vue/Nuxt**, systemów projektowych itp.
+- **Wybierz Intlayer**, jeśli cenisz **zawartość ograniczoną do komponentu**, **ścisły TypeScript**, **gwarancje na etapie budowania**, **tree-shaking** oraz **wbudowane narzędzia do routingu/SEO/edytora**, szczególnie dla **dużych, modułowych baz kodu Vue/Nuxt**, systemów projektowych itp.
 
 ---
 

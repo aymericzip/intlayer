@@ -58,7 +58,7 @@ history:
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-vite-react-template?embed=1&ctl=1&file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демонстрация CodeSandbox — Как интернационализировать ваше приложение с помощью Intlayer"
+  title="Демонстрация CodeSandbox. Как интернационализировать ваше приложение с помощью Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -670,7 +670,7 @@ const LocaleSwitcher = () => {
 
 ### (Необязательно) Шаг 7: Добавьте локализованную маршрутизацию в ваше приложение
 
-Цель этого шага — создать уникальные маршруты для каждого языка. Это полезно для SEO и SEO-дружественных URL.
+Цель этого шага, создать уникальные маршруты для каждого языка. Это полезно для SEO и SEO-дружественных URL.
 Пример:
 
 ```plaintext

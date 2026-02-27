@@ -37,7 +37,7 @@ Phrase está diseñado para escalar. Es la opción preferida para grandes empres
 
 # Intlayer
 
-Intlayer es conocido principalmente como una solución de i18n, pero también integra un headless CMS. A diferencia de Phrase, que funciona como una suite empresarial masiva y externa, Intlayer actúa como una capa ágil integrada al código. Controla toda la pila —desde la capa de bundling hasta la entrega remota de contenido—, lo que resulta en un flujo de contenido más fluido y eficiente para aplicaciones web modernas.
+Intlayer es conocido principalmente como una solución de i18n, pero también integra un headless CMS. A diferencia de Phrase, que funciona como una suite empresarial masiva y externa, Intlayer actúa como una capa ágil integrada al código. Controla toda la pila, desde la capa de bundling hasta la entrega remota de contenido, lo que resulta en un flujo de contenido más fluido y eficiente para aplicaciones web modernas.
 
 ## ¿Por qué han cambiado los paradigmas con la llegada de la IA?
 
@@ -75,4 +75,4 @@ Además, Intlayer puede utilizarse como una herramienta de Feature Flag o de pru
 
 Aunque Phrase es indiscutible para necesidades empresariales complejas y multi-formato (por ejemplo, traducir PDFs, subtítulos y software simultáneamente), Intlayer es la opción superior para equipos de producto que construyen aplicaciones web y desean propiedad total, type safety y un flujo de trabajo moderno, AI-driven, sin la sobrecarga propia de las soluciones empresariales.
 
-Finalmente, para quienes priorizan la soberanía y el control de los datos, Intlayer es open-source y puede ser self-hosted. Los archivos Docker están disponibles directamente en el repositorio, dándote la propiedad completa de tu infraestructura de localización—algo imposible con el ecosistema SaaS cerrado de Phrase.
+Finalmente, para quienes priorizan la soberanía y el control de los datos, Intlayer es open-source y puede ser self-hosted. Los archivos Docker están disponibles directamente en el repositorio, dándote la propiedad completa de tu infraestructura de localización, algo imposible con el ecosistema SaaS cerrado de Phrase.

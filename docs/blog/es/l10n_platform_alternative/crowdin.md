@@ -37,7 +37,7 @@ Durante más de una década, Crowdin ha sido el estándar de la industria para g
 
 # Intlayer
 
-Intlayer es conocido principalmente como una solución de i18n, pero también integra un CMS. A diferencia de Crowdin, que está limitado a actuar como un envoltorio alrededor de tu configuración de i18n existente, Intlayer controla toda la pila —desde la capa de bundling hasta la entrega remota de contenido—, lo que resulta en un flujo de contenido más suave y eficiente.
+Intlayer es conocido principalmente como una solución de i18n, pero también integra un CMS. A diferencia de Crowdin, que está limitado a actuar como un envoltorio alrededor de tu configuración de i18n existente, Intlayer controla toda la pila, desde la capa de bundling hasta la entrega remota de contenido, lo que resulta en un flujo de contenido más suave y eficiente.
 
 ## ¿Por qué han cambiado los paradigmas desde la llegada de la IA?
 
@@ -49,7 +49,7 @@ Sin embargo, hay una limitación. El copywriting no consiste solo en traducción
 
 Hoy en día, el flujo de trabajo más eficiente es traducir y posicionar tus páginas globalmente usando IA primero. Luego, en una segunda fase, utilizas copywriters humanos para optimizar contenidos concretos de alto tráfico y aumentar la conversión una vez que el producto ya esté generando ingresos.
 
-Aunque los ingresos de Crowdin —impulsados principalmente por sus soluciones heredadas bien probadas— siguen siendo sólidos, creo que el sector tradicional de la localización se verá gravemente afectado en un horizonte de 5 a 10 años. El modelo de pago por palabra o por asiento para una herramienta de gestión se está volviendo obsoleto.
+Aunque los ingresos de Crowdin, impulsados principalmente por sus soluciones heredadas bien probadas, siguen siendo sólidos, creo que el sector tradicional de la localización se verá gravemente afectado en un horizonte de 5 a 10 años. El modelo de pago por palabra o por asiento para una herramienta de gestión se está volviendo obsoleto.
 
 ## ¿Por qué Intlayer es una buena alternativa a Crowdin?
 
@@ -74,8 +74,8 @@ Con Intlayer, generas tus traducciones al costo de tus inferencias. No estás at
 
 Intlayer ofrece una solución i18n integral y todo en uno que permite una integración profunda de tu contenido. Tu contenido remoto puede sincronizarse directamente con tu codebase o con tu aplicación en vivo. En comparación, Crowdin a menudo exige reconstruir la aplicación en la canalización de CI/CD para actualizar el contenido, lo que genera fricción entre el equipo de traducción y el proceso de despliegue.
 
-Además, Intlayer puede utilizarse como Feature Flag o como herramienta de A/B testing, permitiéndote probar distintas variaciones de contenido de forma dinámica —algo que las herramientas TMS estándar como Crowdin no soportan de forma nativa.
+Además, Intlayer puede utilizarse como Feature Flag o como herramienta de A/B testing, permitiéndote probar distintas variaciones de contenido de forma dinámica, algo que las herramientas TMS estándar como Crowdin no soportan de forma nativa.
 
-Crowdin admite una amplia gama de formatos de archivo —incluidos tipos legacy como `.po`, `.xml` y `.yaml`—, lo que puede ser beneficioso para proyectos con flujos de trabajo establecidos o sistemas más antiguos. Intlayer, por el contrario, trabaja principalmente con formatos modernos orientados a la web, como `.json`, `.js` y `.ts`. Esto significa que Intlayer puede no ser compatible con todos los formatos legacy, lo cual es una consideración para los equipos que migran desde plataformas antiguas.
+Crowdin admite una amplia gama de formatos de archivo, incluidos tipos legacy como `.po`, `.xml` y `.yaml`, lo que puede ser beneficioso para proyectos con flujos de trabajo establecidos o sistemas más antiguos. Intlayer, por el contrario, trabaja principalmente con formatos modernos orientados a la web, como `.json`, `.js` y `.ts`. Esto significa que Intlayer puede no ser compatible con todos los formatos legacy, lo cual es una consideración para los equipos que migran desde plataformas antiguas.
 
 Finalmente, para quienes priorizan la soberanía y el control de los datos, Intlayer es open-source y puede ser autoalojado. Los archivos Docker están disponibles directamente en el repositorio, proporcionándole la propiedad total de su infraestructura de localización.

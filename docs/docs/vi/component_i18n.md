@@ -78,7 +78,7 @@ JSON cũng được hỗ trợ nếu bạn thích dùng các file cấu hình.
 
 ## 2) Lấy nội dung của bạn
 
-### Trường hợp A — Ứng dụng React (Vite/SPA)
+### Trường hợp A, Ứng dụng React (Vite/SPA)
 
 Cách tiếp cận mặc định: sử dụng `useIntlayer` để lấy theo key. Điều này giữ cho các component gọn nhẹ và có kiểu dữ liệu.
 
@@ -129,7 +129,7 @@ export function ComponentWithDictionary() {
 }
 ```
 
-### Trường hợp B — Next.js (App Router)
+### Trường hợp B. Next.js (App Router)
 
 Ưu tiên sử dụng server components để đảm bảo an toàn dữ liệu và hiệu năng. Sử dụng `useIntlayer` từ `next-intlayer/server` trong các file server, và `useIntlayer` từ `next-intlayer` trong các component phía client.
 

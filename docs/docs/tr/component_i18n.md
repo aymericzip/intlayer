@@ -78,7 +78,7 @@ Yapılandırma dosyalarını tercih ediyorsanız JSON da desteklenmektedir.
 
 ## 2) İçeriğinizi alın
 
-### Durum A — React uygulaması (Vite/SPA)
+### Durum A. React uygulaması (Vite/SPA)
 
 Varsayılan yaklaşım: Anahtarla almak için `useIntlayer` kullanın. Bu, bileşenleri hafif ve tipli tutar.
 
@@ -129,7 +129,7 @@ export function ComponentWithDictionary() {
 }
 ```
 
-### Durum B — Next.js (App Router)
+### Durum B. Next.js (App Router)
 
 Veri güvenliği ve performans için sunucu bileşenlerini tercih edin. Sunucu dosyalarında `next-intlayer/server` içinden `useIntlayer` kullanın, istemci bileşenlerinde ise `next-intlayer` içinden `useIntlayer` kullanın.
 

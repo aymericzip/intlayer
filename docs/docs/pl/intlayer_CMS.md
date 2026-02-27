@@ -464,7 +464,7 @@ Przykład użycia Vite:
 
 Serwer Live Sync otacza Twoją aplikację i automatycznie stosuje zaktualizowaną zawartość w momencie jej pojawienia się.
 
-Aby otrzymywać powiadomienia o zmianach z CMS, serwer Live Sync utrzymuje połączenie SSE z backendem. Gdy zawartość w CMS ulega zmianie, backend przekazuje aktualizację do serwera Live Sync, który zapisuje nowe słowniki. Twoja aplikacja odzwierciedli aktualizację przy następnej nawigacji lub przeładowaniu przeglądarki — nie jest wymagane ponowne budowanie.
+Aby otrzymywać powiadomienia o zmianach z CMS, serwer Live Sync utrzymuje połączenie SSE z backendem. Gdy zawartość w CMS ulega zmianie, backend przekazuje aktualizację do serwera Live Sync, który zapisuje nowe słowniki. Twoja aplikacja odzwierciedli aktualizację przy następnej nawigacji lub przeładowaniu przeglądarki, nie jest wymagane ponowne budowanie.
 
 Schemat przepływu (CMS/Backend -> Serwer Live Sync -> Serwer aplikacji -> Frontend):
 

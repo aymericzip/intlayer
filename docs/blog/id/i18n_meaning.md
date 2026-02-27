@@ -26,7 +26,7 @@ Jika Anda terlibat dalam pengembangan perangkat lunak, desain web, atau pemasara
 
 Namun mengapa "i18n"? Singkatan tersebut dibuat dengan mengambil huruf pertama dari kata "internationalization" (**i**), huruf terakhir (**n**), dan menghitung jumlah huruf di antaranya (**18**). Konvensi ini sering digunakan dalam industri teknologi untuk menyingkat istilah yang panjang dan rumit (contoh umum lainnya adalah **l10n** untuk lokalisasi).
 
-Dalam istilah teknis, **arti i18n** merujuk pada proses perancangan dan penyiapan aplikasi perangkat lunak, situs web, atau produk sehingga dapat dengan mudah mendukung berbagai bahasa, norma regional, dan konvensi budaya—semuanya tanpa memerlukan perubahan teknik yang signifikan pada kode sumber yang mendasarinya.
+Dalam istilah teknis, **arti i18n** merujuk pada proses perancangan dan penyiapan aplikasi perangkat lunak, situs web, atau produk sehingga dapat dengan mudah mendukung berbagai bahasa, norma regional, dan konvensi budaya, semuanya tanpa memerlukan perubahan teknik yang signifikan pada kode sumber yang mendasarinya.
 
 ## Arti Inti i18n dalam Praktik
 

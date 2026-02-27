@@ -37,7 +37,7 @@ Phrase è pensato per operare su larga scala. È la scelta di riferimento per le
 
 # Intlayer
 
-Intlayer è conosciuto principalmente come soluzione i18n, ma integra anche un headless CMS. A differenza di Phrase, che funziona come una vasta suite enterprise esterna, Intlayer agisce come uno strato agile e integrato nel codice. Controlla l'intero stack — dal livello di bundling alla delivery remota dei contenuti — risultando in un flusso di contenuti più fluido ed efficiente per le moderne applicazioni web.
+Intlayer è conosciuto principalmente come soluzione i18n, ma integra anche un headless CMS. A differenza di Phrase, che funziona come una vasta suite enterprise esterna, Intlayer agisce come uno strato agile e integrato nel codice. Controlla l'intero stack, dal livello di bundling alla delivery remota dei contenuti, risultando in un flusso di contenuti più fluido ed efficiente per le moderne applicazioni web.
 
 ## Perché i paradigmi sono cambiati con l'arrivo dell'AI?
 
@@ -75,4 +75,4 @@ Inoltre, Intlayer può essere utilizzato come Feature Flag o strumento di A/B te
 
 Sebbene Phrase sia indiscutibile per esigenze aziendali complesse e multi-formato (ad es., tradurre PDF, sottotitoli e software simultaneamente), Intlayer è la scelta superiore per i team di prodotto che sviluppano applicazioni web e che vogliono piena proprietà, type safety e un workflow moderno guidato dall'AI senza l'overhead tipico delle soluzioni enterprise.
 
-Infine, per chi privilegia la sovranità e il controllo dei dati, Intlayer è open-source e può essere self-hosted. I file Docker sono disponibili direttamente nel repository, consentendoti la piena proprietà della tua infrastruttura di localizzazione — qualcosa di impossibile con l'ecosistema SaaS chiuso di Phrase.
+Infine, per chi privilegia la sovranità e il controllo dei dati, Intlayer è open-source e può essere self-hosted. I file Docker sono disponibili direttamente nel repository, consentendoti la piena proprietà della tua infrastruttura di localizzazione, qualcosa di impossibile con l'ecosistema SaaS chiuso di Phrase.

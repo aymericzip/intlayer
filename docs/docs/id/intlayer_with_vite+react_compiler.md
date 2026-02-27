@@ -53,7 +53,7 @@ Lihat [Templat Aplikasi](https://github.com/aymericzip/intlayer-vite-react-templ
 
 ## Mengapa sulit untuk menginternasionalisasi aplikasi yang sudah ada?
 
-Jika Anda pernah mencoba menambahkan banyak bahasa ke aplikasi yang dibuat hanya untuk satu bahasa, Anda pasti tahu betapa sulitnya itu. Bukan hanya "sulit"—tetapi membosankan. Anda harus menyisir setiap file, memburu setiap untaian teks, dan memindahkannya ke file kamus terpisah.
+Jika Anda pernah mencoba menambahkan banyak bahasa ke aplikasi yang dibuat hanya untuk satu bahasa, Anda pasti tahu betapa sulitnya itu. Bukan hanya "sulit", tetapi membosankan. Anda harus menyisir setiap file, memburu setiap untaian teks, dan memindahkannya ke file kamus terpisah.
 
 Kemudian datanglah bagian yang berisiko: mengganti semua teks tersebut dengan hook kode tanpa merusak tata letak atau logika Anda. Ini adalah jenis pekerjaan yang menghentikan pengembangan fitur baru selama berminggu-minggu dan terasa seperti refactoring tanpa akhir.
 

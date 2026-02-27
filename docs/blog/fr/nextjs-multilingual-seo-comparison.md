@@ -54,7 +54,7 @@ Voici une liste de contrôle que toute application multilingue devrait mettre en
 - **Utiliser des liens localisés**  
   Exemple : `<a href="/fr/about">À propos</a>` au lieu de lier vers la version par défaut `/about`.
 
-Ce sont des étapes simples — mais les ignorer peut vous coûter en visibilité.
+Ce sont des étapes simples, mais les ignorer peut vous coûter en visibilité.
 
 ---
 

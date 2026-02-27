@@ -246,7 +246,7 @@ Pendekatan ini:
 ## Kapan memilih yang mana?
 
 - **Pilih vue-i18n** jika Anda menginginkan **pendekatan Vue standar**, nyaman mengelola katalog/namespace sendiri, dan aplikasi Anda berukuran **kecil hingga menengah** (atau Anda sudah menggunakan Nuxt i18n).
-- **Pilih Intlayer** jika Anda menghargai **konten yang dibatasi pada komponen**, **TypeScript yang ketat**, **jaminan waktu build**, **tree-shaking**, dan alat routing/SEO/editor yang **lengkap** — terutama untuk **codebase Vue/Nuxt yang besar dan modular**, sistem desain, dll.
+- **Pilih Intlayer** jika Anda menghargai **konten yang dibatasi pada komponen**, **TypeScript yang ketat**, **jaminan waktu build**, **tree-shaking**, dan alat routing/SEO/editor yang **lengkap**, terutama untuk **codebase Vue/Nuxt yang besar dan modular**, sistem desain, dll.
 
 ---
 

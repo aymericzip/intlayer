@@ -53,7 +53,7 @@ See [Application Template](https://github.com/aymericzip/intlayer-vite-react-tem
 
 ## Why is it hard to internationalise an existing application?
 
-If you've ever tried to add multiple languages to an app that was built for just one, you know the pain. It's not just "hard"—it's tedious. You have to comb through every single file, hunt down every string of text, and move them into separate dictionary files.
+If you've ever tried to add multiple languages to an app that was built for just one, you know the pain. It's not just "hard", it's tedious. You have to comb through every single file, hunt down every string of text, and move them into separate dictionary files.
 
 Then comes the risky part: replacing all that text with code hooks without breaking your layout or logic. It's the kind of work that halts new feature development for weeks and feels like endless refactoring.
 

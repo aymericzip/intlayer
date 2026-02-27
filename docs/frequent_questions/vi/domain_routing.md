@@ -45,7 +45,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Chỉ vậy thôi — cách này hoạt động tương tự cho **Next.js**, **Vite + React**, **Vite + Vue**, v.v.
+Chỉ vậy thôi, cách này hoạt động tương tự cho **Next.js**, **Vite + React**, **Vite + Vue**, v.v.
 
 ## Nếu mọi tên miền đều trỏ đến cùng một lần triển khai thì sao?
 

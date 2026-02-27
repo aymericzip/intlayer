@@ -35,13 +35,13 @@ history:
 
 ## Що таке Intlayer?
 
-**Intlayer** — це **інноваційна, відкрита бібліотека для інтернаціоналізації (i18n)**, яка спрощує підтримку кількох мов у сучасних додатках. Вона працює у багатьох JavaScript/TypeScript середовищах, **включно з React Native** (через пакет `react-intlayer`).
+**Intlayer**, це **інноваційна, відкрита бібліотека для інтернаціоналізації (i18n)**, яка спрощує підтримку кількох мов у сучасних додатках. Вона працює у багатьох JavaScript/TypeScript середовищах, **включно з React Native** (через пакет `react-intlayer`).
 
 За допомогою Intlayer ви можете:
 
 - **Легко керувати перекладами** за допомогою декларативних словників на рівні компонентів.
 - **Забезпечити підтримку TypeScript** з автогенерованими типами.
-- **Динамічно локалізувати** контент, включно з текстами інтерфейсу (а в React для web — також HTML-метадані тощо).
+- **Динамічно локалізувати** контент, включно з текстами інтерфейсу (а в React для web, також HTML-метадані тощо).
 - **Отримати переваги розширених можливостей**, таких як динамічне визначення локалі та її перемикання.
 
 ///
@@ -53,7 +53,7 @@ history:
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-react-native-template?embed=1&ctl=1&file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо CodeSandbox — як інтернаціоналізувати ваш застосунок за допомогою Intlayer"
+  title="Демо CodeSandbox, як інтернаціоналізувати ваш застосунок за допомогою Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -166,7 +166,7 @@ module.exports = config;
 
 ## Крок 3: Додайте плагін Metro
 
-Metro — це бандлер для React Native. Він є бандлером за замовчуванням для проєктів React Native, створених за допомогою команди `react-native init`. Щоб використовувати Intlayer з Metro, потрібно додати плагін у файл `metro.config.js`:
+Metro, це бандлер для React Native. Він є бандлером за замовчуванням для проєктів React Native, створених за допомогою команди `react-native init`. Щоб використовувати Intlayer з Metro, потрібно додати плагін у файл `metro.config.js`:
 
 ```js fileName="metro.config.js"
 const { getDefaultConfig } = require("expo/metro-config");
@@ -179,7 +179,7 @@ module.exports = (async () => {
 })();
 ```
 
-> Примітка: `configMetroIntlayer` — це функція, яка повертає проміс. Використовуйте `configMetroIntlayerSync`, якщо хочете виконувати це синхронно, або уникайте IFFE (Immediately Invoked Function Expression).
+> Примітка: `configMetroIntlayer`, це функція, яка повертає проміс. Використовуйте `configMetroIntlayerSync`, якщо хочете виконувати це синхронно, або уникайте IFFE (Immediately Invoked Function Expression).
 > Примітка: `configMetroIntlayerSync` не дозволяє будувати словники intlayer під час запуску сервера
 
 ## Крок 4: Додайте провайдер Intlayer
@@ -623,7 +623,7 @@ const styles = StyleSheet.create({
 });
 ```
 
-Це спричиняє повторний рендер (re-render) усіх компонентів, що використовують контент Intlayer — тепер вони відображають переклади для нової локалі.
+Це спричиняє повторний рендер (re-render) усіх компонентів, що використовують контент Intlayer, тепер вони відображають переклади для нової локалі.
 
 > Див. документацію по [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/useLocale.md) для докладніших відомостей.
 

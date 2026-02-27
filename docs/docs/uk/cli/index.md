@@ -61,7 +61,7 @@ history:
     changes: Ініціалізація історії
 ---
 
-# Intlayer CLI — Усі команди Intlayer CLI для вашого багатомовного сайту
+# Intlayer CLI. Усі команди Intlayer CLI для вашого багатомовного сайту
 
 ---
 

@@ -49,13 +49,13 @@ Các package của Intlayer chứa mã có thể chạy trên cả Node và trì
 Trong tài liệu của React-Router về **server module conventions**
 (https://reactrouter.com/api/framework-conventions/server-modules), nhóm **rõ ràng khuyến nghị sử dụng `vite-env-only`** để ngăn các import chỉ dành cho server bị rò rỉ vào bundle phía client.
 
-Tuy nhiên, những quy ước đó dựa vào aliasing của Vite, conditional exports và tree-shaking để loại bỏ mã chỉ dành cho server. Trong khi aliasing và conditional exports đã được áp dụng, một số tiện ích dựa trên Node vẫn còn xuất hiện trong các package như `@intlayer/core` ở giai đoạn đó (mặc dù chúng không bao giờ được import vào client). Vì tree-shaking chưa chạy, các hàm đó vẫn bị Babel phân tích cú pháp, và `vite-env-only` phát hiện các import `node:` của chúng và báo dương tính giả — mặc dù chúng đã được loại bỏ chính xác khỏi bundle cuối cùng của client.
+Tuy nhiên, những quy ước đó dựa vào aliasing của Vite, conditional exports và tree-shaking để loại bỏ mã chỉ dành cho server. Trong khi aliasing và conditional exports đã được áp dụng, một số tiện ích dựa trên Node vẫn còn xuất hiện trong các package như `@intlayer/core` ở giai đoạn đó (mặc dù chúng không bao giờ được import vào client). Vì tree-shaking chưa chạy, các hàm đó vẫn bị Babel phân tích cú pháp, và `vite-env-only` phát hiện các import `node:` của chúng và báo dương tính giả, mặc dù chúng đã được loại bỏ chính xác khỏi bundle cuối cùng của client.
 
 ## Cách khắc phục / giải pháp tạm thời
 
 ### Khuyến nghị: Gỡ bỏ `vite-env-only`
 
-Chỉ cần gỡ plugin. Trong nhiều trường hợp bạn không cần nó — Vite đã xử lý việc phân biệt imports client và server thông qua cơ chế resolution của nó.
+Chỉ cần gỡ plugin. Trong nhiều trường hợp bạn không cần nó. Vite đã xử lý việc phân biệt imports client và server thông qua cơ chế resolution của nó.
 
 Điều này sửa lỗi báo sai `node:fs` mà không cần thay đổi Intlayer.
 

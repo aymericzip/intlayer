@@ -89,7 +89,7 @@ npx intlayer doc translate
 - **`--data-serialization [dataSerialization]`**: Формат сериализации данных для использования в функциях ИИ Intlayer. Опции: `json` (стандартный, надежный), `toon` (меньше токенов, менее стабильный).
 - **`--custom-prompt [prompt]`**: Настройка базового запроса, используемого для перевода. (Примечание: для большинства случаев рекомендуется использовать опцию `--custom-instructions`, так как она обеспечивает лучший контроль над поведением перевода.)
 
-  > Пример: `npx intlayer doc translate --model deepseek-chat --provider deepseek --temperature 0.5 --api-key sk-1234567890 --application-context "Мое приложение — магазин для кошек"`
+  > Пример: `npx intlayer doc translate --model deepseek-chat --provider deepseek --temperature 0.5 --api-key sk-1234567890 --application-context "Мое приложение, магазин для кошек"`
 
 **Опции переменных окружения:**
 

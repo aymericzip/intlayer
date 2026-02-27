@@ -2,7 +2,7 @@
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
 title: Документація пакета react-native-intlayer
-description: Підтримка React Native для Intlayer — надає провайдери та поліфіли.
+description: Підтримка React Native для Intlayer, надає провайдери та поліфіли.
 keywords:
   - react-native-intlayer
   - react-native

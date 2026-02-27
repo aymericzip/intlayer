@@ -49,13 +49,13 @@ Intlayer-Pakete enthalten Code, der sowohl in Node als auch im Browser funktioni
 In der React-Router-Dokumentation zu den **Konventionen für Server-Module**
 (https://reactrouter.com/api/framework-conventions/server-modules), das Team **empfiehlt ausdrücklich die Verwendung von `vite-env-only`**, um zu verhindern, dass serverseitige Importe in das Client-Bundle gelangen.
 
-Diese Konventionen beruhen jedoch auf Vites Aliasing, conditional exports und tree-shaking, um serverseitigen Code zu entfernen. Während Aliasing und conditional exports bereits angewendet werden, sind einige Node-basierte Hilfsfunktionen zu diesem Zeitpunkt in Paketen wie `@intlayer/core` noch vorhanden (obwohl sie im Client niemals importiert werden). Da das tree-shaking noch nicht ausgeführt wurde, werden diese Funktionen weiterhin von Babel geparst, und `vite-env-only` erkennt deren `node:`-Importe und meldet einen False Positive — obwohl sie im finalen Client-Bundle korrekt entfernt werden.
+Diese Konventionen beruhen jedoch auf Vites Aliasing, conditional exports und tree-shaking, um serverseitigen Code zu entfernen. Während Aliasing und conditional exports bereits angewendet werden, sind einige Node-basierte Hilfsfunktionen zu diesem Zeitpunkt in Paketen wie `@intlayer/core` noch vorhanden (obwohl sie im Client niemals importiert werden). Da das tree-shaking noch nicht ausgeführt wurde, werden diese Funktionen weiterhin von Babel geparst, und `vite-env-only` erkennt deren `node:`-Importe und meldet einen False Positive, obwohl sie im finalen Client-Bundle korrekt entfernt werden.
 
 ## Wie man das behebt / umgeht
 
 ### Empfehlung: `vite-env-only` entfernen
 
-Entfernen Sie einfach das Plugin. In vielen Fällen ist es nicht nötig — Vite unterscheidet bereits über seine eigene Auflösung zwischen Client- und Server-Imports.
+Entfernen Sie einfach das Plugin. In vielen Fällen ist es nicht nötig. Vite unterscheidet bereits über seine eigene Auflösung zwischen Client- und Server-Imports.
 
 Damit wird die fälschliche `node:fs`-Ablehnung behoben, ohne Änderungen an Intlayer.
 

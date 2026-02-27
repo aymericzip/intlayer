@@ -32,14 +32,14 @@ history:
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-lynx-template?embed=1&ctl=1&file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо в CodeSandbox — Як інтернаціоналізувати ваш застосунок за допомогою Intlayer"
+  title="Демо в CodeSandbox. Як інтернаціоналізувати ваш застосунок за допомогою Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
 
 ## Що таке Intlayer?
 
-**Intlayer** — інноваційна, відкрита бібліотека для інтернаціоналізації (i18n), яка спрощує багатомовну підтримку в сучасних застосунках. Вона працює в багатьох JavaScript/TypeScript середовищах, **включно з Lynx** (через пакет `react-intlayer`).
+**Intlayer**, інноваційна, відкрита бібліотека для інтернаціоналізації (i18n), яка спрощує багатомовну підтримку в сучасних застосунках. Вона працює в багатьох JavaScript/TypeScript середовищах, **включно з Lynx** (через пакет `react-intlayer`).
 
 За допомогою Intlayer ви можете:
 

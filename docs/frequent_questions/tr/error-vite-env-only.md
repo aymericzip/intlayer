@@ -49,13 +49,13 @@ Intlayer paketleri hem Node hem tarayıcı üzerinde çalışabilecek kod içeri
 React-Router dokümantasyonunda **sunucu modülü konvansiyonları** ile ilgili olarak
 (https://reactrouter.com/api/framework-conventions/server-modules), ekip, sunucuya özel importların istemci paketine sızmasını önlemek için **açıkça `vite-env-only` kullanmayı önerir**.
 
-Ancak bu konvansiyonlar, sunucuya özel kodu kaldırmak için Vite’in aliasing’ine, conditional exports'ına ve tree-shaking’ine dayanır. Alias’lama ve conditional exports zaten uygulanmış olsa da, bazı Node tabanlı yardımcılar bu aşamada `@intlayer/core` gibi paketlerde hâlâ mevcut olabilir (istemcide hiç import edilmemiş olsalar bile). Çünkü tree-shaking henüz çalışmadığından, bu fonksiyonlar hâlâ Babel tarafından parse edilir ve `vite-env-only` onların `node:` importlarını tespit edip yanlış pozitif bir hata verir — oysa bunlar nihai istemci paketinden doğru şekilde temizlenir.
+Ancak bu konvansiyonlar, sunucuya özel kodu kaldırmak için Vite’in aliasing’ine, conditional exports'ına ve tree-shaking’ine dayanır. Alias’lama ve conditional exports zaten uygulanmış olsa da, bazı Node tabanlı yardımcılar bu aşamada `@intlayer/core` gibi paketlerde hâlâ mevcut olabilir (istemcide hiç import edilmemiş olsalar bile). Çünkü tree-shaking henüz çalışmadığından, bu fonksiyonlar hâlâ Babel tarafından parse edilir ve `vite-env-only` onların `node:` importlarını tespit edip yanlış pozitif bir hata verir, oysa bunlar nihai istemci paketinden doğru şekilde temizlenir.
 
 ## Nasıl düzeltilecek / geçici çözümler
 
 ### Önerilen: `vite-env-only`'ı kaldırın
 
-Eklentiyi basitçe kaldırın. Birçok durumda buna gerek yok — Vite kendi çözümlemesiyle istemci ve sunucu importlarını zaten yönetir.
+Eklentiyi basitçe kaldırın. Birçok durumda buna gerek yok. Vite kendi çözümlemesiyle istemci ve sunucu importlarını zaten yönetir.
 
 Bu, Intlayer'da değişiklik yapmadan yanlış `node:fs` reddini düzeltir.
 

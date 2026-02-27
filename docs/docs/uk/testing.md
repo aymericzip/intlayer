@@ -100,7 +100,7 @@ test("has no missing required locales", async () => {
 Як це працює:
 
 - Intlayer читає вашу конфігурацію (locales, requiredLocales) та оголошені словники, а потім звітує:
-  - `missingTranslations`: по‑ключу — які локалі відсутні та з якого файлу.
+  - `missingTranslations`: по‑ключу, які локалі відсутні та з якого файлу.
   - `missingLocales`: об'єднання всіх відсутніх локалей.
   - `missingRequiredLocales`: підмножина, обмежена `requiredLocales` (або всі локалі, якщо `requiredLocales` не встановлено).
 

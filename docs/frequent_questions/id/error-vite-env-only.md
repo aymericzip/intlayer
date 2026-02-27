@@ -49,13 +49,13 @@ Paket Intlayer berisi kode yang dapat berjalan di Node maupun browser. Pada taha
 Dalam dokumentasi React-Router tentang **konvensi modul server**  
 (https://reactrouter.com/api/framework-conventions/server-modules), tim **secara eksplisit menyarankan menggunakan `vite-env-only`** untuk mencegah impor yang hanya untuk server bocor ke bundle klien.
 
-Namun, konvensi tersebut bergantung pada aliasing Vite, conditional exports, dan tree-shaking untuk menghapus kode yang hanya untuk server. Meskipun aliasing dan conditional exports sudah diterapkan, beberapa utilitas berbasis Node masih hadir dalam paket seperti `@intlayer/core` pada tahap itu (meskipun mereka tidak pernah diimpor di sisi klien). Karena tree-shaking belum dijalankan, fungsi-fungsi tersebut masih diparsing oleh Babel, dan `vite-env-only` mendeteksi impor `node:` mereka dan menghasilkan false positive — meskipun impor tersebut benar-benar dibersihkan dari bundle klien akhir.
+Namun, konvensi tersebut bergantung pada aliasing Vite, conditional exports, dan tree-shaking untuk menghapus kode yang hanya untuk server. Meskipun aliasing dan conditional exports sudah diterapkan, beberapa utilitas berbasis Node masih hadir dalam paket seperti `@intlayer/core` pada tahap itu (meskipun mereka tidak pernah diimpor di sisi klien). Karena tree-shaking belum dijalankan, fungsi-fungsi tersebut masih diparsing oleh Babel, dan `vite-env-only` mendeteksi impor `node:` mereka dan menghasilkan false positive, meskipun impor tersebut benar-benar dibersihkan dari bundle klien akhir.
 
 ## Cara memperbaiki / mengatasi
 
 ### Direkomendasikan: Hapus `vite-env-only`
 
-Cukup hapus plugin tersebut. Dalam banyak kasus Anda tidak membutuhkannya — Vite sudah menangani impor client vs server melalui resolusinya sendiri.
+Cukup hapus plugin tersebut. Dalam banyak kasus Anda tidak membutuhkannya. Vite sudah menangani impor client vs server melalui resolusinya sendiri.
 
 Ini memperbaiki penolakan `node:fs` yang keliru tanpa perubahan pada Intlayer.
 

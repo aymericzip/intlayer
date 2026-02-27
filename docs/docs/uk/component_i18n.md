@@ -86,7 +86,7 @@ JSON також підтримується, якщо ви віддаєте пе�
 
 ## 2) Отримайте свій вміст
 
-### Випадок A — React-додаток (Vite/SPA)
+### Випадок A. React-додаток (Vite/SPA)
 
 Стандартний підхід: використовуйте `useIntlayer` для отримання за ключем. Це тримає компоненти компактними та типізованими.
 
@@ -137,9 +137,9 @@ export function ComponentWithDictionary() {
 }
 ```
 
-### Варіант B — Next.js (App Router)
+### Варіант B. Next.js (App Router)
 
-Надавайте перевагу server components для безпеки даних та продуктивності. Використовуйте `useIntlayer` з `next-intlayer/server` у серверних файлах, а `useIntlayer` з `next-intlayer` — у client components.
+Надавайте перевагу server components для безпеки даних та продуктивності. Використовуйте `useIntlayer` з `next-intlayer/server` у серверних файлах, а `useIntlayer` з `next-intlayer`, у client components.
 
 ```tsx fileName="app/[locale]/example/ServerComponent.tsx"
 import { useIntlayer } from "next-intlayer/server";

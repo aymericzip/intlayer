@@ -894,19 +894,19 @@ export const LocaleSwitcher: FC = () => {
             onClick={() => setLocale(localeItem)}
           >
             <span>
-              {/* Skrót lokalizacji — np. FR */}
+              {/* Skrót lokalizacji, np. FR */}
               {localeItem}
             </span>
             <span>
-              {/* Nazwa języka w jego własnym locale — np. Français */}
+              {/* Nazwa języka w jego własnym locale, np. Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Nazwa języka w bieżącym locale — np. "Francés" jeśli bieżące locale to Locales.SPANISH */}
+              {/* Nazwa języka w bieżącym locale, np. "Francés" jeśli bieżące locale to Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Język w wersji angielskiej — np. French */}
+              {/* Język w wersji angielskiej, np. French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </button>

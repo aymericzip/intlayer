@@ -25,7 +25,7 @@ history:
 
 # System zarządzania tłumaczeniami
 
-System zarządzania tłumaczeniami (Translation Management System, TMS) to platforma programowa zaprojektowana w celu automatyzacji i usprawnienia procesu tłumaczenia i lokalizacji (L10n). Tradycyjnie TMS pełni rolę scentralizowanego centrum, do którego przesyła się treści, które są organizowane i przydzielane tłumaczom. Zarządza workflows, przechowuje pamięci tłumaczeń (translation memories — aby uniknąć ponownego tłumaczenia tych samych zdań) i obsługuje dostarczanie przetłumaczonych plików z powrotem do deweloperów lub menedżerów treści.
+System zarządzania tłumaczeniami (Translation Management System, TMS) to platforma programowa zaprojektowana w celu automatyzacji i usprawnienia procesu tłumaczenia i lokalizacji (L10n). Tradycyjnie TMS pełni rolę scentralizowanego centrum, do którego przesyła się treści, które są organizowane i przydzielane tłumaczom. Zarządza workflows, przechowuje pamięci tłumaczeń (translation memories, aby uniknąć ponownego tłumaczenia tych samych zdań) i obsługuje dostarczanie przetłumaczonych plików z powrotem do deweloperów lub menedżerów treści.
 
 W istocie TMS historycznie pełnił funkcję mostu między technicznym kodem (gdzie znajdują się strings) a ludzkimi lingwistami (którzy rozumieją kontekst kulturowy).
 
@@ -37,7 +37,7 @@ Przez ponad dekadę Crowdin był branżowym standardem w zarządzaniu lokalizacj
 
 # Intlayer
 
-Intlayer jest znany przede wszystkim jako rozwiązanie i18n, ale integruje też CMS. W przeciwieństwie do Crowdin, które ogranicza się do bycia nakładką na istniejącą konfigurację i18n, Intlayer kontroluje cały stos — od warstwy bundlingu po zdalne dostarczanie treści — co skutkuje płynniejszym i bardziej efektywnym przepływem treści.
+Intlayer jest znany przede wszystkim jako rozwiązanie i18n, ale integruje też CMS. W przeciwieństwie do Crowdin, które ogranicza się do bycia nakładką na istniejącą konfigurację i18n, Intlayer kontroluje cały stos, od warstwy bundlingu po zdalne dostarczanie treści, co skutkuje płynniejszym i bardziej efektywnym przepływem treści.
 
 ## Dlaczego paradygmaty zmieniły się od pojawienia się AI?
 
@@ -49,7 +49,7 @@ Jednak istnieje ograniczenie. Copywriting to nie tylko tłumaczenie; chodzi o do
 
 Dziś najefektywniejszy workflow polega na tym, by najpierw użyć AI do przetłumaczenia i globalnego umiejscowienia stron. Następnie, w drugiej fazie, korzysta się z ludzkich copywriterów, by zoptymalizować konkretne treści o dużym ruchu i zwiększyć konwersję, gdy produkt zaczyna już generować przychody.
 
-Chociaż przychody Crowdina — napędzane głównie przez jego dobrze sprawdzone legacy rozwiązania — nadal są solidne, uważam, że tradycyjny sektor lokalizacji zostanie poważnie dotknięty w horyzoncie 5–10 lat. Model płacenia za słowo lub za miejsce (per seat) za narzędzie do zarządzania staje się przestarzały.
+Chociaż przychody Crowdina, napędzane głównie przez jego dobrze sprawdzone legacy rozwiązania, nadal są solidne, uważam, że tradycyjny sektor lokalizacji zostanie poważnie dotknięty w horyzoncie 5–10 lat. Model płacenia za słowo lub za miejsce (per seat) za narzędzie do zarządzania staje się przestarzały.
 
 ## Dlaczego Intlayer jest dobrą alternatywą dla Crowdina?
 
@@ -73,8 +73,8 @@ Dzięki Intlayer generujesz tłumaczenia ponosząc koszt swoich inferencji. Nie 
 
 Intlayer oferuje kompletne, wszystko-w-jednym rozwiązanie i18n, które pozwala na głęboką integrację Twoich treści. Zdalne zasoby mogą być synchronizowane bezpośrednio z codebase'em lub z aplikacją działającą na żywo. Dla porównania, Crowdin często wymaga przebudowy aplikacji w pipeline CI/CD, aby zaktualizować treści, co powoduje tarcia między zespołem tłumaczeniowym a procesem wdrażania.
 
-Ponadto Intlayer może być używany jako Feature Flag lub narzędzie do testów A/B, umożliwiając dynamiczne testowanie różnych wariantów treści — czego standardowe narzędzia TMS, takie jak Crowdin, natywnie nie obsługują.
+Ponadto Intlayer może być używany jako Feature Flag lub narzędzie do testów A/B, umożliwiając dynamiczne testowanie różnych wariantów treści, czego standardowe narzędzia TMS, takie jak Crowdin, natywnie nie obsługują.
 
-Crowdin obsługuje szeroki zakres formatów plików — w tym starsze typy takie jak `.po`, `.xml` i `.yaml`, co może być korzystne dla projektów z ustalonymi workflowami lub starszymi systemami. Intlayer, w przeciwieństwie do tego, działa przede wszystkim z nowoczesnymi, webowymi formatami takimi jak `.json`, `.js` i `.ts`. Oznacza to, że Intlayer może nie być kompatybilny ze wszystkimi starszymi formatami plików, co jest istotne dla zespołów migrujących ze starszych platform.
+Crowdin obsługuje szeroki zakres formatów plików, w tym starsze typy takie jak `.po`, `.xml` i `.yaml`, co może być korzystne dla projektów z ustalonymi workflowami lub starszymi systemami. Intlayer, w przeciwieństwie do tego, działa przede wszystkim z nowoczesnymi, webowymi formatami takimi jak `.json`, `.js` i `.ts`. Oznacza to, że Intlayer może nie być kompatybilny ze wszystkimi starszymi formatami plików, co jest istotne dla zespołów migrujących ze starszych platform.
 
 Na koniec, dla tych, którzy priorytetowo traktują suwerenność danych i kontrolę, Intlayer jest open-source i może być samodzielnie hostowany (self-hosted). Pliki Docker są dostępne bezpośrednio w repozytorium, co daje pełną kontrolę i własność nad Twoją infrastrukturą lokalizacyjną.

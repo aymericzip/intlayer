@@ -86,7 +86,7 @@ Erstellt intlayer.config.ts
 
 ## Hinweise:
 
-- Der Befehl ist idempotent — Sie können ihn mehrfach gefahrlos ausführen. Er überspringt Schritte, die bereits konfiguriert sind.
+- Der Befehl ist idempotent. Sie können ihn mehrfach gefahrlos ausführen. Er überspringt Schritte, die bereits konfiguriert sind.
 - Wenn bereits eine Konfigurationsdatei existiert, wird sie nicht überschrieben.
 - TypeScript-Konfigurationsdateien ohne ein `include`-Array (z. B. solution-style-Konfigurationen mit references) werden übersprungen.
 - Der Befehl bricht mit einem Fehler ab, wenn im Projektstamm kein `package.json` gefunden wird.

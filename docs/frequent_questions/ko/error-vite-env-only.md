@@ -49,13 +49,13 @@ Intlayer 패키지는 Node와 브라우저 양쪽에서 동작할 수 있는 코
 React-Router 문서의 **server module conventions**
 (https://reactrouter.com/api/framework-conventions/server-modules), 팀은 클라이언트 번들로 서버 전용 import가 유출되는 것을 방지하기 위해 **명시적으로 `vite-env-only` 사용을 권장합니다**.
 
-하지만 이러한 규칙들은 서버 전용 코드를 제거하기 위해 Vite의 aliasing, conditional exports, 그리고 tree-shaking에 의존합니다. aliasing과 conditional exports는 이미 적용되더라도, 해당 단계에서는 `@intlayer/core` 같은 패키지에 Node 기반 유틸리티가 여전히 존재할 수 있습니다(클라이언트에서 실제로는 가져오지 않더라도). 아직 tree-shaking이 실행되지 않았기 때문에 이러한 함수들은 여전히 Babel에 의해 파싱되고, `vite-env-only`가 그들의 `node:` import를 감지하여 오탐을 발생시킵니다 — 최종 클라이언트 번들에서는 올바르게 제거되었음에도 불구하고.
+하지만 이러한 규칙들은 서버 전용 코드를 제거하기 위해 Vite의 aliasing, conditional exports, 그리고 tree-shaking에 의존합니다. aliasing과 conditional exports는 이미 적용되더라도, 해당 단계에서는 `@intlayer/core` 같은 패키지에 Node 기반 유틸리티가 여전히 존재할 수 있습니다(클라이언트에서 실제로는 가져오지 않더라도). 아직 tree-shaking이 실행되지 않았기 때문에 이러한 함수들은 여전히 Babel에 의해 파싱되고, `vite-env-only`가 그들의 `node:` import를 감지하여 오탐을 발생시킵니다, 최종 클라이언트 번들에서는 올바르게 제거되었음에도 불구하고.
 
 ## 수정 / 우회 방법
 
 ### 권장: `vite-env-only` 제거
 
-플러그인을 단순히 제거하세요. 대부분의 경우 필요하지 않습니다 — Vite는 자체 모듈 해석으로 클라이언트와 서버 임포트를 이미 처리합니다.
+플러그인을 단순히 제거하세요. 대부분의 경우 필요하지 않습니다. Vite는 자체 모듈 해석으로 클라이언트와 서버 임포트를 이미 처리합니다.
 
 이렇게 하면 Intlayer를 변경하지 않고도 잘못된 `node:fs` 차단이 해결됩니다.
 

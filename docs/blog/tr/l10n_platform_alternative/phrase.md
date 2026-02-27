@@ -75,4 +75,4 @@ Ayrıca Intlayer, Feature Flag veya A/B testing aracı olarak kullanılabilir; b
 
 Phrase, PDF'leri, altyazıları ve yazılımları eşzamanlı olarak çevirmek gibi karmaşık, çok formatlı kurumsal ihtiyaçlar için tartışılmaz bir seçenek olsa da, web uygulamaları geliştiren ve tam sahiplik, type safety ve kurumsal gereksinimlerin getirdiği ek yük olmadan modern, AI destekli bir iş akışı isteyen ürün ekipleri için Intlayer daha üstün bir tercihtir.
 
-Son olarak, veri egemenliğini ve kontrolü önceliklendirenler için Intlayer açık kaynaklıdır ve kendi sunucunuzda barındırılabilir. Docker dosyaları doğrudan depo içinde mevcuttur; bu, yerelleştirme altyapınızın tam sahipliğini sağlar — Phrase'in kapalı SaaS ekosistemiyle mümkün olmayan bir şeydir.
+Son olarak, veri egemenliğini ve kontrolü önceliklendirenler için Intlayer açık kaynaklıdır ve kendi sunucunuzda barındırılabilir. Docker dosyaları doğrudan depo içinde mevcuttur; bu, yerelleştirme altyapınızın tam sahipliğini sağlar. Phrase'in kapalı SaaS ekosistemiyle mümkün olmayan bir şeydir.

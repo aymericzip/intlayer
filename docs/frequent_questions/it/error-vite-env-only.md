@@ -49,13 +49,13 @@ I pacchetti Intlayer contengono codice che può funzionare sia su Node sia sul b
 Nella documentazione di React-Router sulle **convenzioni per i moduli lato server**  
 (https://reactrouter.com/api/framework-conventions/server-modules), il team **suggerisce esplicitamente di usare `vite-env-only`** per evitare che import specifici del server trapelino nel bundle client.
 
-Tuttavia, quelle convenzioni si basano su aliasing di Vite, conditional exports e tree-shaking per rimuovere il codice server-only. Sebbene aliasing e conditional exports siano già applicati, alcune utilità basate su Node sono ancora presenti in pacchetti come `@intlayer/core` in quella fase (anche se non vengono mai importate nel client). Poiché il tree-shaking non è ancora stato eseguito, quelle funzioni vengono comunque analizzate da Babel, e `vite-env-only` rileva i loro import `node:` e segnala un falso positivo — anche se vengono correttamente eliminati dal bundle client finale.
+Tuttavia, quelle convenzioni si basano su aliasing di Vite, conditional exports e tree-shaking per rimuovere il codice server-only. Sebbene aliasing e conditional exports siano già applicati, alcune utilità basate su Node sono ancora presenti in pacchetti come `@intlayer/core` in quella fase (anche se non vengono mai importate nel client). Poiché il tree-shaking non è ancora stato eseguito, quelle funzioni vengono comunque analizzate da Babel, e `vite-env-only` rileva i loro import `node:` e segnala un falso positivo, anche se vengono correttamente eliminati dal bundle client finale.
 
 ## Come risolvere / aggirare
 
 ### Consigliato: Rimuovere `vite-env-only`
 
-Rimuovi semplicemente il plugin. In molti casi non ti serve — Vite gestisce già le importazioni client vs server tramite la propria risoluzione.
+Rimuovi semplicemente il plugin. In molti casi non ti serve. Vite gestisce già le importazioni client vs server tramite la propria risoluzione.
 
 Questo risolve il falso errore su `node:fs` senza modifiche a Intlayer.
 

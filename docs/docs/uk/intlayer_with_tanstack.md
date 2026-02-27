@@ -52,7 +52,7 @@ history:
 
 ## Що таке Intlayer?
 
-**Intlayer** — інноваційна open-source бібліотека для інтернаціоналізації (i18n), призначена для спрощення підтримки кількох мов у сучасних вебзастосунках.
+**Intlayer**, інноваційна open-source бібліотека для інтернаціоналізації (i18n), призначена для спрощення підтримки кількох мов у сучасних вебзастосунках.
 
 За допомогою Intlayer ви можете:
 
@@ -77,7 +77,7 @@ history:
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-tanstack-start-template?embed=1&ctl=1&file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо CodeSandbox — як інтернаціоналізувати ваш додаток за допомогою Intlayer"
+  title="Демо CodeSandbox, як інтернаціоналізувати ваш додаток за допомогою Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -252,7 +252,7 @@ export const Route = createFileRoute("/{-$locale}")({
 });
 ```
 
-> Тут `{-$locale}` — динамічний параметр маршруту, який підставляється поточним локалем. Ця нотація робить слот необов'язковим, що дозволяє використовувати його з режимами маршрутизації, такими як `'prefix-no-default'` тощо.
+> Тут `{-$locale}`, динамічний параметр маршруту, який підставляється поточним локалем. Ця нотація робить слот необов'язковим, що дозволяє використовувати його з режимами маршрутизації, такими як `'prefix-no-default'` тощо.
 
 > Зауважте, що цей слот може викликати проблеми, якщо ви використовуєте кілька динамічних сегментів в одному маршруті (наприклад, `/{-$locale}/other-path/$anotherDynamicPath/...`).
 > У режимі `'prefix-all'` можливо краще змінити слот на `$locale`.
@@ -300,7 +300,7 @@ const appContent = {
 export default appContent;
 ```
 
-> Оголошення вмісту можна визначати будь-де у вашому застосунку, за умови, що вони включені у директорію `contentDir` (за замовчуванням — `./app`) та відповідають розширенню файлу декларації вмісту (за замовчуванням — `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+> Оголошення вмісту можна визначати будь-де у вашому застосунку, за умови, що вони включені у директорію `contentDir` (за замовчуванням, `./app`) та відповідають розширенню файлу декларації вмісту (за замовчуванням, `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
 > Для детальнішої інформації зверніться до [документації з оголошення вмісту](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/get_started.md).
 
@@ -513,19 +513,19 @@ export const LocaleSwitcher: FC = () => {
             to={pathWithoutLocale as To}
           >
             <span>
-              {/* Локаль — наприклад FR */}
+              {/* Локаль, наприклад FR */}
               {localeEl}
             </span>
             <span>
-              {/* Назва мови у власній локалі — наприклад Français */}
+              {/* Назва мови у власній локалі, наприклад Français */}
               {getLocaleName(localeEl, locale)}
             </span>
             <span dir={getHTMLTextDir(localeEl)} lang={localeEl}>
-              {/* Мова в поточній локалі — наприклад «Francés», коли поточна локаль встановлена як Locales.SPANISH */}
+              {/* Мова в поточній локалі, наприклад «Francés», коли поточна локаль встановлена як Locales.SPANISH */}
               {getLocaleName(localeEl)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Мова англійською — наприклад «French» */}
+              {/* Мова англійською, наприклад «French» */}
               {getLocaleName(localeEl, Locales.ENGLISH)}
             </span>
           </LocalizedLink>

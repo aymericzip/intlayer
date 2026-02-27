@@ -511,7 +511,7 @@ Sözlüğün konumunu belirtir ve CMS ile nasıl senkronize olduğunu kontrol ed
 
 - `'local'`: Sözlük yalnızca yerel olarak yönetilir. Uzaktan CMS'ye gönderilmeyecektir. Kod tabanınızda kalması gereken içerik için bunu kullanın.
 - `'remote'`: Sözlük yalnızca uzaktan yönetilir. CMS'ye gönderildikten sonra yerel dosyadan ayrılacaktır. İçerik yükleme zamanında uzaktan sözlük CMS'den çekilecektir. `remote` konumuna sahip bir `.content` dosyası ilk gönderimden sonra yok sayılacaktır.
-- `'hybrid'`: Sözlük hem yerel hem de uzaktan yönetilir. CMS'ye gönderildikten sonra senkronize kalacaktır—yerel dosyadaki değişiklikler CMS'ye gönderilir ve uzaktan değişiklikler yerel dosyaya geri çekilebilir.
+- `'hybrid'`: Sözlük hem yerel hem de uzaktan yönetilir. CMS'ye gönderildikten sonra senkronize kalacaktır, yerel dosyadaki değişiklikler CMS'ye gönderilir ve uzaktan değişiklikler yerel dosyaya geri çekilebilir.
 - `string` (örn. `'plugin'`): Sözlük bir eklenti veya özel kaynak tarafından yönetilir. Göndermeye çalıştığınızda sistem size ne yapacağınızı soracaktır.
 
 **Örnek:**

@@ -447,7 +447,7 @@ Exemple avec Vite :
 
 Le serveur Live Sync enveloppe votre application et applique automatiquement le contenu mis à jour dès son arrivée.
 
-Pour recevoir les notifications de changement depuis le CMS, le serveur Live Sync maintient une connexion SSE avec le backend. Lorsque le contenu change dans le CMS, le backend transmet la mise à jour au serveur Live Sync, qui écrit les nouveaux dictionnaires. Votre application reflétera la mise à jour lors de la prochaine navigation ou du rechargement du navigateur — aucune reconstruction n’est nécessaire.
+Pour recevoir les notifications de changement depuis le CMS, le serveur Live Sync maintient une connexion SSE avec le backend. Lorsque le contenu change dans le CMS, le backend transmet la mise à jour au serveur Live Sync, qui écrit les nouveaux dictionnaires. Votre application reflétera la mise à jour lors de la prochaine navigation ou du rechargement du navigateur, aucune reconstruction n’est nécessaire.
 
 Organigramme (CMS/Backend -> Serveur Live Sync -> Serveur d’application -> Frontend) :
 

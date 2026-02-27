@@ -78,7 +78,7 @@ JSON wird ebenfalls unterstützt, wenn Sie Konfigurationsdateien bevorzugen.
 
 ## 2) Rufen Sie Ihren Inhalt ab
 
-### Fall A — React-App (Vite/SPA)
+### Fall A. React-App (Vite/SPA)
 
 Standardansatz: Verwenden Sie `useIntlayer`, um per Schlüssel abzurufen. Dies hält Komponenten schlank und typisiert.
 
@@ -129,7 +129,7 @@ export function ComponentWithDictionary() {
 }
 ```
 
-### Fall B — Next.js (App Router)
+### Fall B. Next.js (App Router)
 
 Bevorzugen Sie Server-Komponenten für Datensicherheit und Leistung. Verwenden Sie `useIntlayer` aus `next-intlayer/server` in Server-Dateien und `useIntlayer` aus `next-intlayer` in Client-Komponenten.
 

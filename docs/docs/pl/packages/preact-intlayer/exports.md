@@ -2,7 +2,7 @@
 createdAt: 2026-01-21
 updatedAt: 2026-01-21
 title: Dokumentacja pakietu preact-intlayer
-description: Integracja Intlayer specyficzna dla Preact — dostarcza providery i hooki dla aplikacji Preact.
+description: Integracja Intlayer specyficzna dla Preact, dostarcza providery i hooki dla aplikacji Preact.
 keywords:
   - preact-intlayer
   - preact

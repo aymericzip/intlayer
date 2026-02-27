@@ -50,7 +50,7 @@ Intlayer offers a rich set of **advanced features** that go beyond traditional i
 
 However, **react-i18next** remains an excellent and widely adopted i18n solution thanks to its **mature ecosystem**, **broad community support**, and **extensive plugin compatibility**.
 
-By combining **Intlayer** with **react-i18next**, you get the best of both worlds — react-i18next’s stability and ecosystem maturity, with Intlayer’s modern content management, automation, and developer experience improvements.
+By combining **Intlayer** with **react-i18next**, you get the best of both worlds, react-i18next’s stability and ecosystem maturity, with Intlayer’s modern content management, automation, and developer experience improvements.
 
 This guide explains how to leverage Intlayer as an **adapter for react-i18next**, allowing you to:
 

@@ -37,7 +37,7 @@ Phrase được xây dựng để mở rộng quy mô. Đây là lựa chọn h�
 
 # Intlayer
 
-Intlayer được biết chủ yếu như một giải pháp i18n, nhưng nó cũng tích hợp một headless CMS. Không giống như Phrase, hoạt động như một bộ giải pháp doanh nghiệp lớn và bên ngoài, Intlayer hoạt động như một lớp tích hợp vào mã, linh hoạt. Nó kiểm soát toàn bộ stack — từ tầng bundling đến phân phối nội dung từ xa — dẫn đến một luồng nội dung mượt mà hơn và hiệu quả hơn cho các ứng dụng web hiện đại.
+Intlayer được biết chủ yếu như một giải pháp i18n, nhưng nó cũng tích hợp một headless CMS. Không giống như Phrase, hoạt động như một bộ giải pháp doanh nghiệp lớn và bên ngoài, Intlayer hoạt động như một lớp tích hợp vào mã, linh hoạt. Nó kiểm soát toàn bộ stack, từ tầng bundling đến phân phối nội dung từ xa, dẫn đến một luồng nội dung mượt mà hơn và hiệu quả hơn cho các ứng dụng web hiện đại.
 
 ## Tại sao các mô hình đã thay đổi kể từ khi có AI?
 
@@ -75,4 +75,4 @@ Hơn nữa, Intlayer có thể được sử dụng như một Feature Flag ho�
 
 Mặc dù Phrase không thể phủ nhận khả năng đáp ứng các nhu cầu doanh nghiệp phức tạp, đa định dạng (ví dụ: dịch PDF, phụ đề và phần mềm cùng lúc), Intlayer là lựa chọn vượt trội cho các nhóm sản phẩm xây dựng ứng dụng web muốn sở hữu toàn quyền, đảm bảo type safety và có quy trình làm việc hiện đại, dựa trên AI mà không phải chịu các chi phí và độ phức tạp của giải pháp enterprise.
 
-Cuối cùng, đối với những người ưu tiên chủ quyền dữ liệu và quyền kiểm soát, Intlayer là mã nguồn mở và có thể tự-host. Các file Docker có sẵn trực tiếp trong kho lưu trữ, giúp bạn sở hữu toàn bộ hạ tầng bản địa hóa của mình — điều mà hệ sinh thái SaaS đóng của Phrase không thể cung cấp.
+Cuối cùng, đối với những người ưu tiên chủ quyền dữ liệu và quyền kiểm soát, Intlayer là mã nguồn mở và có thể tự-host. Các file Docker có sẵn trực tiếp trong kho lưu trữ, giúp bạn sở hữu toàn bộ hạ tầng bản địa hóa của mình, điều mà hệ sinh thái SaaS đóng của Phrase không thể cung cấp.

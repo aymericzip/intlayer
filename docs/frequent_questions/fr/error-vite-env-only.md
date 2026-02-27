@@ -49,13 +49,13 @@ Les packages Intlayer contiennent du code pouvant s'exécuter à la fois sur Nod
 Dans la documentation de React-Router au sujet des **conventions des modules serveur**
 (https://reactrouter.com/api/framework-conventions/server-modules), l'équipe **suggère explicitement d'utiliser `vite-env-only`** pour empêcher que des imports réservés au serveur ne fuient dans le bundle client.
 
-Cependant, ces conventions s'appuient sur l'aliasing de Vite, les exports conditionnels et le tree-shaking pour éliminer le code réservé au serveur. Alors que l'aliasing et les exports conditionnels sont déjà appliqués, certains utilitaires basés sur Node sont encore présents dans des packages comme `@intlayer/core` à ce stade (même s'ils ne sont jamais importés côté client). Comme le tree-shaking n'a pas encore été exécuté, ces fonctions sont toujours analysées par Babel, et `vite-env-only` détecte leurs imports `node:` et génère un faux positif — alors qu'ils sont correctement purgés du bundle client final.
+Cependant, ces conventions s'appuient sur l'aliasing de Vite, les exports conditionnels et le tree-shaking pour éliminer le code réservé au serveur. Alors que l'aliasing et les exports conditionnels sont déjà appliqués, certains utilitaires basés sur Node sont encore présents dans des packages comme `@intlayer/core` à ce stade (même s'ils ne sont jamais importés côté client). Comme le tree-shaking n'a pas encore été exécuté, ces fonctions sont toujours analysées par Babel, et `vite-env-only` détecte leurs imports `node:` et génère un faux positif, alors qu'ils sont correctement purgés du bundle client final.
 
 ## Comment corriger / contourner
 
 ### Recommandation : Supprimer `vite-env-only`
 
-Supprimez simplement le plugin. Dans de nombreux cas, vous n'en avez pas besoin — Vite gère déjà les imports client vs serveur via sa propre résolution.
+Supprimez simplement le plugin. Dans de nombreux cas, vous n'en avez pas besoin. Vite gère déjà les imports client vs serveur via sa propre résolution.
 
 Cela corrige la fausse erreur sur `node:fs` sans modification d'Intlayer.
 

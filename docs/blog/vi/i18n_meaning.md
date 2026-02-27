@@ -26,7 +26,7 @@ Nếu bạn tham gia vào lĩnh vực phát triển phần mềm, thiết kế w
 
 Nhưng tại sao lại là "i18n"? Chữ viết tắt được tạo ra bằng cách lấy chữ cái đầu tiên của từ "internationalization" (**i**), chữ cái cuối cùng (**n**) và đếm số chữ cái ở giữa chúng (**18**). Quy ước này thường được sử dụng trong ngành công nghệ để rút ngắn các thuật ngữ dài và rườm rà (một ví dụ phổ biến khác là **l10n** cho bản địa hóa - localization).
 
-Về mặt kỹ thuật, **ý nghĩa i18n** đề cập đến quá trình thiết kế và chuẩn bị một ứng dụng phần mềm, trang web hoặc sản phẩm để nó có thể dễ dàng hỗ trợ nhiều ngôn ngữ, tiêu chuẩn khu vực và quy ước văn hóa — tất cả mà không yêu cầu thay đổi kỹ thuật đáng kể đối với mã nguồn cơ sở.
+Về mặt kỹ thuật, **ý nghĩa i18n** đề cập đến quá trình thiết kế và chuẩn bị một ứng dụng phần mềm, trang web hoặc sản phẩm để nó có thể dễ dàng hỗ trợ nhiều ngôn ngữ, tiêu chuẩn khu vực và quy ước văn hóa, tất cả mà không yêu cầu thay đổi kỹ thuật đáng kể đối với mã nguồn cơ sở.
 
 ## Ý nghĩa cốt lõi của i18n trong thực tế
 

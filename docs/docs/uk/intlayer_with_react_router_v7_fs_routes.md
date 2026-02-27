@@ -45,7 +45,7 @@ history:
 
 ## Що таке Intlayer?
 
-**Intlayer** — інноваційна, open-source бібліотека інтернаціоналізації (i18n), створена для спрощення підтримки кількох мов у сучасних вебдодатках.
+**Intlayer**, інноваційна, open-source бібліотека інтернаціоналізації (i18n), створена для спрощення підтримки кількох мов у сучасних вебдодатках.
 
 З Intlayer ви можете:
 
@@ -70,7 +70,7 @@ history:
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-react-router-v7-fs-routes-template?embed=1&ctl=1&file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо CodeSandbox — Як інтернаціоналізувати ваш додаток за допомогою Intlayer"
+  title="Демо CodeSandbox. Як інтернаціоналізувати ваш додаток за допомогою Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -206,7 +206,7 @@ export default routes;
 
 ### Крок 5: Створіть файли маршрутів за конвенціями файлової системи
 
-При маршрутизації на основі файлової системи використовується плоска конвенція іменування, де крапки (`.`) позначають сегменти шляху, а дужки `()` — необов'язкові сегменти.
+При маршрутизації на основі файлової системи використовується плоска конвенція іменування, де крапки (`.`) позначають сегменти шляху, а дужки `()`, необов'язкові сегменти.
 
 Створіть наступні файли у директорії `app/routes/`:
 
@@ -539,19 +539,19 @@ export const LocaleSwitcher: FC = () => {
             to={getLocalizedUrl(pathWithoutLocale, localeItem)}
           >
             <span>
-              {/* Локаль — наприклад FR */}
+              {/* Локаль, наприклад FR */}
               {localeItem}
             </span>
             <span>
-              {/* Мова у власній локалі — наприклад Français */}
+              {/* Мова у власній локалі, наприклад Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Назва мови у поточній локалі — напр., Francés коли поточна локаль встановлена як Locales.SPANISH */}
+              {/* Назва мови у поточній локалі, напр., Francés коли поточна локаль встановлена як Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Назва мови англійською — напр., French */}
+              {/* Назва мови англійською, напр., French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </Link>

@@ -52,7 +52,7 @@ history:
 
 ## Что такое Intlayer?
 
-**Intlayer** — это инновационная, открытая библиотека для интернационализации (i18n), созданная для упрощения поддержки нескольких языков в современных веб-приложениях. Intlayer бесшовно интегрируется с последним фреймворком **Next.js 16**, включая его мощный **App Router**. Он оптимизирован для работы с **Server Components** для эффективного рендеринга и полностью совместим с [**Turbopack**](https://nextjs.org/docs/architecture/turbopack).
+**Intlayer**, это инновационная, открытая библиотека для интернационализации (i18n), созданная для упрощения поддержки нескольких языков в современных веб-приложениях. Intlayer бесшовно интегрируется с последним фреймворком **Next.js 16**, включая его мощный **App Router**. Он оптимизирован для работы с **Server Components** для эффективного рендеринга и полностью совместим с [**Turbopack**](https://nextjs.org/docs/architecture/turbopack).
 
 С Intlayer вы можете:
 
@@ -62,7 +62,7 @@ history:
 - **Обеспечить поддержку TypeScript** с автогенерируемыми типами, улучшающими автодополнение и обнаружение ошибок.
 - **Воспользуйтесь продвинутыми возможностями**, такими как динамическое определение локали и её переключение.
 
-> Intlayer совместим с Next.js 12, 13, 14 и 16. Если вы используете Next.js Page Router, вы можете обратиться к этому [руководству](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_page_router.md). Для Next.js 12, 13, 14 с App Router — см. это [руководство](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_14.md).
+> Intlayer совместим с Next.js 12, 13, 14 и 16. Если вы используете Next.js Page Router, вы можете обратиться к этому [руководству](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_page_router.md). Для Next.js 12, 13, 14 с App Router, см. это [руководство](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_14.md).
 
 ---
 
@@ -146,7 +146,7 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
   },
   routing: {
-    mode: "search-params", // или `no-prefix` — полезно для обнаружения в middleware
+    mode: "search-params", // или `no-prefix`, полезно для обнаружения в middleware
   },
 };
 
@@ -168,7 +168,7 @@ const config = {
     defaultLocale: Locales.ENGLISH,
   },
   routing: {
-    mode: "search-params", // или `no-prefix` — полезно для обнаружения в middleware
+    mode: "search-params", // или `no-prefix`, полезно для обнаружения в middleware
   },
 };
 
@@ -190,7 +190,7 @@ const config = {
     defaultLocale: Locales.ENGLISH,
   },
   routing: {
-    mode: "search-params", // или `no-prefix` — полезно для обнаружения в middleware
+    mode: "search-params", // или `no-prefix`, полезно для обнаружения в middleware
   },
 };
 
@@ -949,19 +949,19 @@ export const LocaleSwitcher: FC = () => {
             onClick={() => setLocale(localeItem)}
           >
             <span>
-              {/* Локаль — например FR */}
+              {/* Локаль, например FR */}
               {localeItem}
             </span>
             <span>
-              {/* Название языка в своей локали — например Français */}
+              {/* Название языка в своей локали, например Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Название языка в текущей локали — например Francés при текущей локали Locales.SPANISH */}
+              {/* Название языка в текущей локали, например Francés при текущей локали Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Название языка на английском — напр., French */}
+              {/* Название языка на английском, напр., French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </button>
@@ -1063,7 +1063,7 @@ export const LocaleSwitcher = () => {
 };
 ```
 
-> Альтернативный способ — использовать функцию `setLocale`, предоставляемую хуком `useLocale`. Эта функция не будет позволять предзагружать страницу. См. документацию по хуку [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/next-intlayer/useLocale.md) для получения дополнительных сведений.
+> Альтернативный способ, использовать функцию `setLocale`, предоставляемую хуком `useLocale`. Эта функция не будет позволять предзагружать страницу. См. документацию по хуку [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/next-intlayer/useLocale.md) для получения дополнительных сведений.
 
 > Ссылки в документации:
 >

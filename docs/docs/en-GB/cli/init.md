@@ -78,7 +78,7 @@ Created intlayer.config.ts
 
 ## Notes:
 
-- The command is idempotent — you can run it multiple times safely. It will skip steps that are already configured.
+- The command is idempotent, you can run it multiple times safely. It will skip steps that are already configured.
 - If a configuration file already exists, it will not be overwritten.
 - TypeScript config files without an `include` array (e.g., solution-style configs with references) are skipped.
 - The command will exit with an error if no `package.json` is found in the project root.

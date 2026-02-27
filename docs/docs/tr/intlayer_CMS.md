@@ -446,7 +446,7 @@ Vite kullanarak örnek:
 
 Live Sync sunucusu uygulamanızı sarar ve güncellenen içeriği geldiği anda otomatik olarak uygular.
 
-CMS'den değişiklik bildirimleri almak için, Live Sync sunucusu backend ile bir SSE bağlantısı sürdürür. CMS'de içerik değiştiğinde, backend güncellemeyi Live Sync sunucusuna iletir ve bu sunucu yeni sözlükleri yazar. Uygulamanız, sonraki gezinme veya tarayıcı yenilemesinde güncellemeyi yansıtacaktır—yeniden derleme gerekmez.
+CMS'den değişiklik bildirimleri almak için, Live Sync sunucusu backend ile bir SSE bağlantısı sürdürür. CMS'de içerik değiştiğinde, backend güncellemeyi Live Sync sunucusuna iletir ve bu sunucu yeni sözlükleri yazar. Uygulamanız, sonraki gezinme veya tarayıcı yenilemesinde güncellemeyi yansıtacaktır, yeniden derleme gerekmez.
 
 Akış şeması (CMS/Backend -> Live Sync Sunucusu -> Uygulama Sunucusu -> Ön Yüz):
 

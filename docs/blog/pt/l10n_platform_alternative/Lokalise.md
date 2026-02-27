@@ -37,11 +37,11 @@ Construiu o seu sucesso por ser o TMS "developer-friendly", automatizando a extr
 
 # Intlayer
 
-Intlayer é conhecido principalmente como uma solução de i18n, mas também integra um headless CMS. Ao contrário da Lokalise, que atua em grande parte como uma ferramenta de sincronização externa para as suas strings, o Intlayer vive mais perto do seu código. Controla toda a stack — desde o bundling layer até o remote content delivery — resultando num fluxo de conteúdo mais suave e eficiente.
+Intlayer é conhecido principalmente como uma solução de i18n, mas também integra um headless CMS. Ao contrário da Lokalise, que atua em grande parte como uma ferramenta de sincronização externa para as suas strings, o Intlayer vive mais perto do seu código. Controla toda a stack, desde o bundling layer até o remote content delivery, resultando num fluxo de conteúdo mais suave e eficiente.
 
 ## Porque é que os paradigmas mudaram desde a IA?
 
-A Lokalise aperfeiçoou o lado "DevOps" da localização — mover strings automaticamente. Contudo, a chegada dos Large Language Models (LLMs) alterou fundamentalmente os paradigmas da localização. O gargalo já não é _mover_ as strings; é _gerá-las_.
+A Lokalise aperfeiçoou o lado "DevOps" da localização, mover strings automaticamente. Contudo, a chegada dos Large Language Models (LLMs) alterou fundamentalmente os paradigmas da localização. O gargalo já não é _mover_ as strings; é _gerá-las_.
 
 Com LLMs, o custo da tradução desabou e a velocidade aumentou exponencialmente. O papel da equipa de localização está a mudar de "gerir tradutores" para "gerir contexto e revisão".
 
@@ -57,7 +57,7 @@ A Lokalise é frequentemente criticada pelos seus escalões de preços elevados,
 
 1.  **Eficiência de custos:** Não fica preso a um modelo de preços "por chave" ou "por assento" que penaliza o crescimento. Com o Intlayer, paga pela sua própria inferência (BYO Key), o que significa que os seus custos escalam diretamente com o seu uso real, e não com as margens da plataforma.
 2.  **Integração de Workflow:** Enquanto a Lokalise exige sincronização de ficheiros (mesmo que automatizada), o Intlayer permite a definição de Conteúdo Declarativo diretamente nos seus ficheiros de componentes (React, Next.js, etc.). Isto mantém o contexto junto à UI, reduzindo erros.
-3.  **Gestão Visual:** O Intlayer fornece um editor visual que interage diretamente com a sua aplicação em execução, garantindo que as edições são feitas em contexto visual completo—algo frequentemente desconectado nas listas de ficheiros de TMS tradicionais.
+3.  **Gestão Visual:** O Intlayer fornece um editor visual que interage diretamente com a sua aplicação em execução, garantindo que as edições são feitas em contexto visual completo, algo frequentemente desconectado nas listas de ficheiros de TMS tradicionais.
 
 # Comparação lado a lado
 
@@ -75,6 +75,6 @@ Intlayer oferece uma solução i18n completa e tudo-em-um que permite uma integr
 
 Além disso, o Intlayer pode ser utilizado como um Feature Flag ou ferramenta de A/B testing, permitindo-lhe testar dinamicamente diferentes variações de conteúdo. Enquanto o Lokalise se foca em acertar as palavras, o Intlayer foca-se em acertar a _experiência do utilizador_ através do fornecimento dinâmico de dados.
 
-A Lokalise é excelente para aplicações móveis (iOS/Android) e fluxos de trabalho orientados por design. No entanto, para aplicações web modernas que utilizam frameworks como Next.js ou React, o tratamento nativo da Intlayer de `.js`, `.ts` e dicionários JSON oferece uma experiência de desenvolvedor (DX) superior, com suporte completo a TypeScript para conteúdo — garantindo que nunca envie uma chave de tradução em falta novamente.
+A Lokalise é excelente para aplicações móveis (iOS/Android) e fluxos de trabalho orientados por design. No entanto, para aplicações web modernas que utilizam frameworks como Next.js ou React, o tratamento nativo da Intlayer de `.js`, `.ts` e dicionários JSON oferece uma experiência de desenvolvedor (DX) superior, com suporte completo a TypeScript para conteúdo, garantindo que nunca envie uma chave de tradução em falta novamente.
 
-Por fim, para quem prioriza soberania e controlo dos dados, a Intlayer é open-source e pode ser self-hosted. Docker files estão disponíveis diretamente no repositório, dando-lhe propriedade total da sua infraestrutura de localização — um contraste acentuado com o modelo SaaS fechado da Lokalise.
+Por fim, para quem prioriza soberania e controlo dos dados, a Intlayer é open-source e pode ser self-hosted. Docker files estão disponíveis diretamente no repositório, dando-lhe propriedade total da sua infraestrutura de localização, um contraste acentuado com o modelo SaaS fechado da Lokalise.

@@ -54,7 +54,7 @@ Oto lista kontrolna, którą powinna wdrożyć każda wielojęzyczna aplikacja:
 - **Używaj zlokalizowanych linków**  
   Przykład: `<a href="/fr/about">À propos</a>` zamiast linkować do domyślnego `/about`.
 
-To proste kroki — ale ich pominięcie może kosztować Cię widoczność.
+To proste kroki, ale ich pominięcie może kosztować Cię widoczność.
 
 ---
 

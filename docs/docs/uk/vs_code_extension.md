@@ -37,7 +37,7 @@ history:
 
 ## Огляд
 
-[**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) — офіційне розширення Visual Studio Code для **Intlayer**, створене для покращення досвіду розробника під час роботи з локалізованим контентом у ваших проєктах.
+[**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension), офіційне розширення Visual Studio Code для **Intlayer**, створене для покращення досвіду розробника під час роботи з локалізованим контентом у ваших проєктах.
 
 ![Розширення Intlayer для VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif?raw=true)
 
@@ -119,7 +119,7 @@ Intlayer рекомендує зберігати ваші AI API keys, а так
 
 - **Порядок завантаження (за пріоритетом)**: `.env.<env>.local` → `.env.<env>` → `.env.local` → `.env`
 - **Недеструктивно**: існуючі значення `process.env` не перезаписуються.
-- **Область застосування**: файли визначаються з налаштованого базового каталогу (за замовчуванням — корінь робочого простору).
+- **Область застосування**: файли визначаються з налаштованого базового каталогу (за замовчуванням, корінь робочого простору).
 
 #### Вибір активного середовища
 

@@ -34,7 +34,7 @@ history:
 
 ## Що таке Intlayer?
 
-**Intlayer** — це інноваційна open-source бібліотека для інтернаціоналізації (i18n), створена для спрощення підтримки кількох мов у сучасних вебзастосунках.
+**Intlayer**, це інноваційна open-source бібліотека для інтернаціоналізації (i18n), створена для спрощення підтримки кількох мов у сучасних вебзастосунках.
 
 З Intlayer ви можете:
 
@@ -58,7 +58,7 @@ history:
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-vite-react-template?embed=1&ctl=1&file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо CodeSandbox — як інтернаціоналізувати ваш додаток за допомогою Intlayer"
+  title="Демо CodeSandbox, як інтернаціоналізувати ваш додаток за допомогою Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -696,7 +696,7 @@ const LocaleSwitcher = () => {
 
 ### (Необов'язково) Крок 7: Додайте локалізовану маршрутизацію до вашого застосунку
 
-Мета цього кроку — зробити унікальні маршрути для кожної мови. Це корисно для SEO та дружніх до SEO URL-адрес.
+Мета цього кроку, зробити унікальні маршрути для кожної мови. Це корисно для SEO та дружніх до SEO URL-адрес.
 Приклад:
 
 ```plaintext
@@ -931,7 +931,7 @@ const LocaleSwitcher: FC = () => {
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Мова англійською — наприклад, French */}
+              {/* Мова англійською, наприклад, French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </a>
@@ -987,15 +987,15 @@ const LocaleSwitcher = () => {
               {localeItem}
             </span>
             <span>
-              {/* Мова у власній локалі — наприклад Français */}
+              {/* Мова у власній локалі, наприклад Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Мова у поточній локалі — наприклад Francés, коли поточна локаль встановлена в Locales.SPANISH */}
+              {/* Мова у поточній локалі, наприклад Francés, коли поточна локаль встановлена в Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Мова англійською — наприклад French */}
+              {/* Мова англійською, наприклад French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </a>
@@ -1047,19 +1047,19 @@ const LocaleSwitcher = () => {
             key={localeItem}
           >
             <span>
-              {/* Локаль — наприклад FR */}
+              {/* Локаль, наприклад FR */}
               {localeItem}
             </span>
             <span>
-              {/* Мова у власній локалі — наприклад Français */}
+              {/* Мова у власній локалі, наприклад Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Мова у поточній локалі — напр., «Francés», якщо поточна локаль встановлена як Locales.SPANISH */}
+              {/* Мова у поточній локалі, напр., «Francés», якщо поточна локаль встановлена як Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Мова англійською — напр., «French» */}
+              {/* Мова англійською, напр., «French» */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </a>

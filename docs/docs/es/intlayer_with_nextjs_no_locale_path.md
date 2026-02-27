@@ -979,19 +979,19 @@ export const LocaleSwitcher = () => {
             onClick={() => setLocale(localeItem)}
           >
             <span>
-              {/* Locale — p. ej. FR */}
+              {/* Locale, p. ej. FR */}
               {localeItem}
             </span>
             <span>
-              {/* Idioma en su propio Locale — p. ej. Français */}
+              {/* Idioma en su propio Locale, p. ej. Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Idioma en el Locale actual — p. ej. Francés cuando el locale actual está establecido en Locales.SPANISH */}
+              {/* Idioma en el Locale actual, p. ej. Francés cuando el locale actual está establecido en Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Idioma en inglés — p. ej. French */}
+              {/* Idioma en inglés, p. ej. French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </button>

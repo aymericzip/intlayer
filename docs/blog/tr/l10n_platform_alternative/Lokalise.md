@@ -37,11 +37,11 @@ Başarısını "developer-friendly" bir TMS olmasına borçludur; string'lerin �
 
 # Intlayer
 
-Intlayer öncelikle bir i18n çözümü olarak bilinir, ancak aynı zamanda bir headless CMS ile entegre olur. String'leriniz için büyük ölçüde harici bir senkronizasyon aracı olarak hareket eden Lokalise'in aksine, Intlayer kodunuza daha yakın konumlanır. Tüm yığını — bundling layer'dan uzaktan içerik teslimine kadar — kontrol ederek daha pürüzsüz ve daha verimli bir içerik akışı sağlar.
+Intlayer öncelikle bir i18n çözümü olarak bilinir, ancak aynı zamanda bir headless CMS ile entegre olur. String'leriniz için büyük ölçüde harici bir senkronizasyon aracı olarak hareket eden Lokalise'in aksine, Intlayer kodunuza daha yakın konumlanır. Tüm yığını, bundling layer'dan uzaktan içerik teslimine kadar, kontrol ederek daha pürüzsüz ve daha verimli bir içerik akışı sağlar.
 
 ## AI'den sonra paradigmalar neden değişti?
 
-Lokalise, yerelleştirmenin "DevOps" tarafını — string'leri otomatik olarak taşımayı — mükemmelleştirdi. Ancak Büyük Dil Modelleri (LLM'lerin) gelişi yerelleştirmenin paradigmalarını kökten değiştirdi. Dar boğaz artık _taşımak_ değil; _üretmek_.
+Lokalise, yerelleştirmenin "DevOps" tarafını, string'leri otomatik olarak taşımayı, mükemmelleştirdi. Ancak Büyük Dil Modelleri (LLM'lerin) gelişi yerelleştirmenin paradigmalarını kökten değiştirdi. Dar boğaz artık _taşımak_ değil; _üretmek_.
 
 LLM'lerle çeviri maliyeti sert şekilde düştü ve hız katlanarak arttı. Yerelleştirme ekibinin rolü "çevirmenleri yönetmek"ten "bağlamı ve incelemeyi yönetmek"e doğru kayıyor.
 
@@ -57,7 +57,7 @@ Lokalise sık sık keskin fiyatlandırma kademeleri nedeniyle eleştirilir; bir 
 
 1.  **Maliyet Verimliliği:** Büyümeyi cezalandıran "anahtar başına" veya "koltuk başına" fiyatlandırma modeline bağlı kalmazsınız. Intlayer ile kendi çıkarımınızı (BYO Key) ödersiniz; bu, maliyetlerinizin platformun marjlarıyla değil, gerçek kullanımınızla doğrudan ölçeklendiği anlamına gelir.
 2.  **İş Akışı Entegrasyonu:** Lokalise dosyaların senkronize edilmesini gerektirir (otomatik olsa bile); Intlayer ise bileşen dosyalarınızda (React, Next.js, vb.) doğrudan Declarative Content tanımına izin verir. Bu, bağlamı kullanıcı arayüzünün hemen yanına yerleştirir ve hataları azaltır.
-3.  **Görsel Yönetim:** Intlayer, çalışan uygulamanızla doğrudan etkileşime giren bir görsel düzenleyici sağlar; böylece düzenlemeler tam görsel bağlam içinde yapılır — bu, geleneksel TMS dosya listelerinde sıklıkla kopuktur.
+3.  **Görsel Yönetim:** Intlayer, çalışan uygulamanızla doğrudan etkileşime giren bir görsel düzenleyici sağlar; böylece düzenlemeler tam görsel bağlam içinde yapılır, bu, geleneksel TMS dosya listelerinde sıklıkla kopuktur.
 
 # Yan Yana Karşılaştırma
 
@@ -75,6 +75,6 @@ Intlayer, içeriğinizin derin entegrasyonuna olanak veren eksiksiz, hepsi bir a
 
 Ayrıca Intlayer, Feature Flag veya A/B testing aracı olarak kullanılabilir ve farklı içerik varyasyonlarını dinamik olarak test etmenizi sağlar. Lokalise kelimeleri doğru hale getirmeye odaklanırken, Intlayer dinamik veri sunumu yoluyla _kullanıcı deneyimi_ ni doğru hale getirmeye odaklanır.
 
-Lokalise, mobil uygulamalar (iOS/Android) ve tasarım odaklı iş akışları için mükemmeldir. Ancak Next.js veya React gibi framework'leri kullanan modern web uygulamaları için Intlayer'ın `.js`, `.ts` ve JSON sözlüklerini yerel olarak işlemesi, içerik için tam TypeScript desteği ile üstün bir geliştirici deneyimi (DX) sunar — böylece eksik bir çeviri anahtarını bir daha asla yayınlamazsınız.
+Lokalise, mobil uygulamalar (iOS/Android) ve tasarım odaklı iş akışları için mükemmeldir. Ancak Next.js veya React gibi framework'leri kullanan modern web uygulamaları için Intlayer'ın `.js`, `.ts` ve JSON sözlüklerini yerel olarak işlemesi, içerik için tam TypeScript desteği ile üstün bir geliştirici deneyimi (DX) sunar, böylece eksik bir çeviri anahtarını bir daha asla yayınlamazsınız.
 
 Son olarak, veri egemenliği ve kontrolünü önceliklendirenler için Intlayer açık kaynaklıdır ve kendi sunucunuzda barındırılabilir. Docker dosyaları depoda doğrudan mevcuttur; bu, yerelleştirme altyapınız üzerinde tam sahiplik sağlar ve Lokalise'in kapalı SaaS modeline keskin bir tezat oluşturur.

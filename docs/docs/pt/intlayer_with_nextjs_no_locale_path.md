@@ -897,15 +897,15 @@ export const LocaleSwitcher: FC = () => {
             onClick={() => setLocale(localeItem)}
           >
             <span>
-              {/* Locale — ex.: FR */}
+              {/* Locale, ex.: FR */}
               {localeItem}
             </span>
             <span>
-              {/* Idioma em seu próprio locale — ex.: Français */}
+              {/* Idioma em seu próprio locale, ex.: Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Idioma no locale atual — ex.: Francés com o locale atual definido para Locales.SPANISH */}
+              {/* Idioma no locale atual, ex.: Francés com o locale atual definido para Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
@@ -988,19 +988,19 @@ export const LocaleSwitcher = () => {
             onClick={() => setLocale(localeItem)}
           >
             <span>
-              {/* Locale — por exemplo: FR */}
+              {/* Locale, por exemplo: FR */}
               {localeItem}
             </span>
             <span>
-              {/* Idioma no seu próprio locale — por exemplo: Français */}
+              {/* Idioma no seu próprio locale, por exemplo: Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Idioma no locale atual — por exemplo: Francés com o locale atual definido como Locales.SPANISH */}
+              {/* Idioma no locale atual, por exemplo: Francés com o locale atual definido como Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Idioma em inglês — por exemplo: French */}
+              {/* Idioma em inglês, por exemplo: French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </button>

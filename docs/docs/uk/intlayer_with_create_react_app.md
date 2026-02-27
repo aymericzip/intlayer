@@ -30,7 +30,7 @@ history:
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-react-cra-template?embed=1&ctl=1&file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо CodeSandbox — як інтернаціоналізувати ваш додаток за допомогою Intlayer"
+  title="Демо CodeSandbox, як інтернаціоналізувати ваш додаток за допомогою Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -39,7 +39,7 @@ history:
 
 ## Що таке Intlayer?
 
-**Intlayer** — інноваційна open-source бібліотека для інтернаціоналізації (i18n), розроблена, щоб спростити багатомовну підтримку в сучасних веб-застосунках.
+**Intlayer**, інноваційна open-source бібліотека для інтернаціоналізації (i18n), розроблена, щоб спростити багатомовну підтримку в сучасних веб-застосунках.
 
 За допомогою Intlayer ви можете:
 
@@ -443,7 +443,7 @@ const LocaleSwitcher = () => {
 
 ### (Необов'язково) Крок 7: Додайте локалізовану маршрутизацію до вашого додатку
 
-Мета цього кроку — створити унікальні маршрути для кожної мови. Це корисно для SEO та SEO-дружніх URL-адрес.
+Мета цього кроку, створити унікальні маршрути для кожної мови. Це корисно для SEO та SEO-дружніх URL-адрес.
 Приклад:
 
 ```plaintext
@@ -597,7 +597,7 @@ const { locales, defaultLocale } = internationalization;
 const AppLocalized = ({ children, locale }) => {
   const { pathname, search } = useLocation(); // Отримати поточний шлях URL
 
-  // Визначити поточну локаль, за відсутності — використовувати локаль за замовчуванням
+  // Визначити поточну локаль, за відсутності, використовувати локаль за замовчуванням
   const currentLocale = locale ?? defaultLocale;
 
   // Видалити префікс локалі з шляху, щоб побудувати базовий шлях
@@ -879,19 +879,19 @@ const LocaleSwitcher: FC = () => {
             key={localeItem}
           >
             <span>
-              {/* Локаль — напр. FR */}
+              {/* Локаль, напр. FR */}
               {localeItem}
             </span>
             <span>
-              {/* Назва мови у її власній локалі — напр. Français */}
+              {/* Назва мови у її власній локалі, напр. Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Назва мови у поточній локалі — напр. Francés, коли поточна локаль встановлена на Locales.SPANISH */}
+              {/* Назва мови у поточній локалі, напр. Francés, коли поточна локаль встановлена на Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Назва мови англійською — напр. French */}
+              {/* Назва мови англійською, напр. French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </a>
@@ -943,19 +943,19 @@ const LocaleSwitcher = () => {
             key={localeItem}
           >
             <span>
-              {/* Локаль — напр., FR */}
+              {/* Локаль, напр., FR */}
               {localeItem}
             </span>
             <span>
-              {/* Назва мови у своїй локалі — напр., Français */}
+              {/* Назва мови у своїй локалі, напр., Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Мова у поточній локалі — наприклад «Francés», якщо поточна локаль встановлена як Locales.SPANISH */}
+              {/* Мова у поточній локалі, наприклад «Francés», якщо поточна локаль встановлена як Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Мова англійською — наприклад «French» */}
+              {/* Мова англійською, наприклад «French» */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </a>

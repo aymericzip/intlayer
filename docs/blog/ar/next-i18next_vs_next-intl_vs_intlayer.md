@@ -37,7 +37,7 @@ slugs:
 
 > **ملخص**: يمكن لجميع الثلاثة تعريب تطبيق Next.js. إذا كنت تريد **محتوى مخصص للمكونات**، **أنواع TypeScript صارمة**، **فحوصات المفاتيح المفقودة أثناء البناء**، **قواميس مُحسّنة بالتخلص من الشجر غير المستخدم**، و**موجه تطبيقات من الدرجة الأولى + مساعدات SEO**، فإن **Intlayer** هو الخيار الأكثر اكتمالًا وحداثة.
 
-> من الالتباسات الشائعة بين المطورين هو الاعتقاد بأن `next-intl` هو نسخة Next.js من `react-intl`. هذا غير صحيح — فـ `next-intl` تتم صيانته بواسطة [Amann](https://github.com/amannn)، بينما `react-intl` تتم صيانته بواسطة [FormatJS](https://github.com/formatjs/formatjs).
+> من الالتباسات الشائعة بين المطورين هو الاعتقاد بأن `next-intl` هو نسخة Next.js من `react-intl`. هذا غير صحيح, فـ `next-intl` تتم صيانته بواسطة [Amann](https://github.com/amannn)، بينما `react-intl` تتم صيانته بواسطة [FormatJS](https://github.com/formatjs/formatjs).
 
 ---
 

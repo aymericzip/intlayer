@@ -52,7 +52,7 @@ history:
 
 ## Що таке Intlayer?
 
-**Intlayer** — інноваційна відкрита бібліотека інтернаціоналізації (i18n), створена для спрощення підтримки багатомовності в сучасних вебзастосунках. Intlayer безшовно інтегрується з останньою версією фреймворку **Next.js 16**, включно з його потужним **App Router**. Вона оптимізована для роботи з **Server Components** для ефективного рендерингу і повністю сумісна з [**Turbopack**](https://nextjs.org/docs/architecture/turbopack).
+**Intlayer**, інноваційна відкрита бібліотека інтернаціоналізації (i18n), створена для спрощення підтримки багатомовності в сучасних вебзастосунках. Intlayer безшовно інтегрується з останньою версією фреймворку **Next.js 16**, включно з його потужним **App Router**. Вона оптимізована для роботи з **Server Components** для ефективного рендерингу і повністю сумісна з [**Turbopack**](https://nextjs.org/docs/architecture/turbopack).
 
 З Intlayer ви можете:
 
@@ -879,7 +879,7 @@ export const proxy = multipleProxies([intlayerProxy, customProxy]);
 
 ### (Необов'язково) Крок 8: Змініть мову вашого контенту
 
-Щоб змінити мову вашого контенту в Next.js, рекомендований спосіб — використовувати компонент Link для перенаправлення користувачів на відповідну локалізовану сторінку. Компонент Link забезпечує prefetch сторінки, що допомагає уникнути повного перезавантаження сторінки.
+Щоб змінити мову вашого контенту в Next.js, рекомендований спосіб, використовувати компонент Link для перенаправлення користувачів на відповідну локалізовану сторінку. Компонент Link забезпечує prefetch сторінки, що допомагає уникнути повного перезавантаження сторінки.
 
 ```tsx fileName="src/components/localeSwitcher/LocaleSwitcher.tsx" codeFormat="typescript"
 "use client";
@@ -904,19 +904,19 @@ export const LocaleSwitcher: FC = () => {
             onClick={() => setLocale(localeItem)}
           >
             <span>
-              {/* Локаль — напр., FR */}
+              {/* Локаль, напр., FR */}
               {localeItem}
             </span>
             <span>
-              {/* Мова у власній локалі — напр., Français */}
+              {/* Мова у власній локалі, напр., Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Мова в поточній локалі — напр., Francés коли поточна локаль встановлена на Locales.SPANISH */}
+              {/* Мова в поточній локалі, напр., Francés коли поточна локаль встановлена на Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Мова англійською — наприклад, French */}
+              {/* Мова англійською, наприклад, French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </button>
@@ -995,19 +995,19 @@ export const LocaleSwitcher = () => {
             onClick={() => setLocale(localeItem)}
           >
             <span>
-              {/* Локаль — наприклад FR */}
+              {/* Локаль, наприклад FR */}
               {localeItem}
             </span>
             <span>
-              {/* Назва мови у власній локалі — наприклад Français */}
+              {/* Назва мови у власній локалі, наприклад Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Назва мови в поточній локалі — наприклад Francés, коли поточна локаль встановлена на Locales.SPANISH */}
+              {/* Назва мови в поточній локалі, наприклад Francés, коли поточна локаль встановлена на Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Назва мови англійською — наприклад French */}
+              {/* Назва мови англійською, наприклад French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </button>
@@ -1018,7 +1018,7 @@ export const LocaleSwitcher = () => {
 };
 ```
 
-> Альтернативний спосіб — використати функцію `setLocale`, яку надає хук `useLocale`. Ця функція не дозволяє виконувати prefetch сторінки. Детальніше див. документацію хуку [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/next-intlayer/useLocale.md).
+> Альтернативний спосіб, використати функцію `setLocale`, яку надає хук `useLocale`. Ця функція не дозволяє виконувати prefetch сторінки. Детальніше див. документацію хуку [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/next-intlayer/useLocale.md).
 
 > Посилання на документацію:
 >

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-02-07
 updatedAt: 2025-06-29
-title: Функція getTranslation — документація Intlayer для JavaScript
+title: Функція getTranslation, документація Intlayer для JavaScript
 description: Документація функції getTranslation у Intlayer, яка отримує локалізований контент для певної локалі з відкотом до локалі за замовчуванням.
 keywords:
   - getTranslation
@@ -32,9 +32,9 @@ history:
 ## Параметри
 
 - `languageContent: CustomizableLanguageContent<Content>`
-  - **Опис**: Об'єкт, що містить переклади для різних локалей. Кожен ключ відповідає локалі, а його значення — відповідний вміст.
+  - **Опис**: Об'єкт, що містить переклади для різних локалей. Кожен ключ відповідає локалі, а його значення, відповідний вміст.
   - **Тип**: `CustomizableLanguageContent<Content>`
-    - `Content` може бути будь-якого типу, за замовчуванням — `string`.
+    - `Content` може бути будь-якого типу, за замовчуванням, `string`.
 
 - `locale: Locales`
   - **Опис**: Локаль, для якої потрібно отримати вміст.

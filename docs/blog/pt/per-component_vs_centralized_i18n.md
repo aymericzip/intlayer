@@ -96,7 +96,7 @@ Mas, de todas essas soluções, fica claro que a abordagem mais popular é a cen
 Deixe-me explicar por que isso pode ser problemático para a sua app:
 
 - **Dados não utilizados:**
-  Quando uma página carrega, costuma-se carregar o conteúdo de todas as outras páginas. (Numa app de 10 páginas, isso significa 90% de conteúdo carregado que não é utilizado). Você faz lazy load de um modal? A biblioteca i18n não se importa — ela carrega as strings primeiro de qualquer forma.
+  Quando uma página carrega, costuma-se carregar o conteúdo de todas as outras páginas. (Numa app de 10 páginas, isso significa 90% de conteúdo carregado que não é utilizado). Você faz lazy load de um modal? A biblioteca i18n não se importa, ela carrega as strings primeiro de qualquer forma.
 - **Desempenho:**
   A cada re-render, todos os seus componentes são hidratados com um payload JSON massivo, o que impacta a reatividade da sua app à medida que ela cresce.
 - **Manutenção:**

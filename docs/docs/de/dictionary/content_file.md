@@ -495,7 +495,7 @@ Gibt den Speicherort des Wörterbuchs an und steuert, wie es mit dem CMS synchro
 
 - `'local'`: Das Wörterbuch wird nur lokal verwaltet. Es wird nicht zum entfernten CMS gepusht. Verwenden Sie dies für Inhalte, die in Ihrer Codebasis bleiben sollen.
 - `'remote'`: Das Wörterbuch wird nur remote verwaltet. Nach dem Push zum CMS wird es von der lokalen Datei getrennt. Zum Zeitpunkt des Ladens des Inhalts wird das Remote-Wörterbuch vom CMS abgerufen. Eine `.content`-Datei mit `remote`-Speicherort wird nach dem initialen Push ignoriert.
-- `'hybrid'`: Das Wörterbuch wird sowohl lokal als auch remote verwaltet. Nach dem Push zum CMS bleibt es synchronisiert—Änderungen von der lokalen Datei werden zum CMS gepusht, und Remote-Änderungen können in die lokale Datei zurückgeholt werden.
+- `'hybrid'`: Das Wörterbuch wird sowohl lokal als auch remote verwaltet. Nach dem Push zum CMS bleibt es synchronisiert, Änderungen von der lokalen Datei werden zum CMS gepusht, und Remote-Änderungen können in die lokale Datei zurückgeholt werden.
 - `string` (z. B. `'plugin'`): Das Wörterbuch wird von einem Plugin oder einer benutzerdefinierten Quelle verwaltet. Wenn Sie versuchen, es zu pushen, fragt Sie das System, was zu tun ist.
 
 **Beispiel:**

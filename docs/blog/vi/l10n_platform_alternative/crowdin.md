@@ -37,7 +37,7 @@ Trong hơn một thập kỷ, Crowdin đã là tiêu chuẩn ngành trong quản
 
 # Intlayer
 
-Intlayer được biết đến chủ yếu như một giải pháp i18n, nhưng nó cũng tích hợp một CMS. Khác với Crowdin, vốn chỉ giới hạn ở việc đóng vai trò như một lớp bọc quanh thiết lập i18n hiện có của bạn, Intlayer kiểm soát toàn bộ stack — từ lớp bundling đến phân phối nội dung từ xa — dẫn đến luồng nội dung mượt mà và hiệu quả hơn.
+Intlayer được biết đến chủ yếu như một giải pháp i18n, nhưng nó cũng tích hợp một CMS. Khác với Crowdin, vốn chỉ giới hạn ở việc đóng vai trò như một lớp bọc quanh thiết lập i18n hiện có của bạn, Intlayer kiểm soát toàn bộ stack, từ lớp bundling đến phân phối nội dung từ xa, dẫn đến luồng nội dung mượt mà và hiệu quả hơn.
 
 ## Tại sao các paradigms đã thay đổi kể từ khi có AI?
 
@@ -49,7 +49,7 @@ Tuy nhiên, có một hạn chế. Copywriting không chỉ đơn thuần là d�
 
 Ngày nay, quy trình làm việc hiệu quả nhất là trước tiên dùng AI để dịch và định vị trang của bạn trên phạm vi toàn cầu. Sau đó, ở giai đoạn hai, bạn sử dụng copywriter là con người để tối ưu hóa những nội dung cụ thể có lưu lượng truy cập cao nhằm tăng tỷ lệ chuyển đổi khi sản phẩm đã bắt đầu tạo ra doanh thu.
 
-Mặc dù doanh thu của Crowdin — chủ yếu đến từ các giải pháp legacy đã được kiểm chứng — vẫn đang hoạt động tốt, tôi tin rằng ngành localization truyền thống sẽ chịu tác động nặng nề trong khoảng 5 đến 10 năm tới. Mô hình trả theo số từ hoặc theo seat cho một công cụ quản lý đang dần trở nên lỗi thời.
+Mặc dù doanh thu của Crowdin, chủ yếu đến từ các giải pháp legacy đã được kiểm chứng, vẫn đang hoạt động tốt, tôi tin rằng ngành localization truyền thống sẽ chịu tác động nặng nề trong khoảng 5 đến 10 năm tới. Mô hình trả theo số từ hoặc theo seat cho một công cụ quản lý đang dần trở nên lỗi thời.
 
 ## Tại sao Intlayer là một lựa chọn thay thế tốt cho Crowdin?
 
@@ -73,8 +73,8 @@ Với Intlayer, bạn tạo bản dịch với chi phí inference của chính b
 
 Intlayer cung cấp một giải pháp i18n toàn diện, all-in-one cho phép tích hợp sâu nội dung của bạn. Nội dung từ xa của bạn có thể được đồng bộ trực tiếp với codebase hoặc ứng dụng đang chạy của bạn. Ngược lại, Crowdin thường đòi hỏi phải rebuild ứng dụng trong pipeline CI/CD để cập nhật nội dung, tạo ra ma sát giữa đội dịch và quy trình triển khai.
 
-Hơn nữa, Intlayer có thể được sử dụng như một Feature Flag hoặc công cụ A/B testing, cho phép bạn thử nghiệm các biến thể nội dung khác nhau một cách động — điều mà các công cụ TMS tiêu chuẩn như Crowdin không hỗ trợ một cách bản địa.
+Hơn nữa, Intlayer có thể được sử dụng như một Feature Flag hoặc công cụ A/B testing, cho phép bạn thử nghiệm các biến thể nội dung khác nhau một cách động, điều mà các công cụ TMS tiêu chuẩn như Crowdin không hỗ trợ một cách bản địa.
 
-Crowdin hỗ trợ nhiều định dạng tệp — bao gồm các loại kế thừa như `.po`, `.xml` và `.yaml`, điều này có thể có lợi cho các dự án có quy trình làm việc đã được thiết lập hoặc các hệ thống cũ. Ngược lại, Intlayer chủ yếu làm việc với các định dạng hướng web hiện đại như `.json`, `.js` và `.ts`. Điều này có nghĩa Intlayer có thể không tương thích với tất cả các định dạng tệp kế thừa, đây là một yếu tố cần cân nhắc cho các đội đang di chuyển từ các nền tảng cũ.
+Crowdin hỗ trợ nhiều định dạng tệp, bao gồm các loại kế thừa như `.po`, `.xml` và `.yaml`, điều này có thể có lợi cho các dự án có quy trình làm việc đã được thiết lập hoặc các hệ thống cũ. Ngược lại, Intlayer chủ yếu làm việc với các định dạng hướng web hiện đại như `.json`, `.js` và `.ts`. Điều này có nghĩa Intlayer có thể không tương thích với tất cả các định dạng tệp kế thừa, đây là một yếu tố cần cân nhắc cho các đội đang di chuyển từ các nền tảng cũ.
 
 Cuối cùng, đối với những người ưu tiên chủ quyền dữ liệu và kiểm soát, Intlayer là mã nguồn mở và có thể tự lưu trữ. Các file Docker có sẵn trực tiếp trong repository, cho phép bạn nắm hoàn toàn quyền sở hữu cơ sở hạ tầng localization của mình.

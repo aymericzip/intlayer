@@ -52,7 +52,7 @@ Intlayer offers a rich set of **advanced features** that go beyond traditional i
 
 However, **i18next** remains an excellent and widely adopted i18n solution thanks to its **mature ecosystem**, **broad community support**, and **extensive plugin compatibility**.
 
-By combining **Intlayer** with **i18next**, you get the best of both worlds — i18next’s stability and ecosystem maturity, with Intlayer’s modern content management, automation, and developer experience improvements.
+By combining **Intlayer** with **i18next**, you get the best of both worlds, i18next’s stability and ecosystem maturity, with Intlayer’s modern content management, automation, and developer experience improvements.
 
 This guide explains how to leverage Intlayer as an **adapter for i18next**, allowing you to:
 

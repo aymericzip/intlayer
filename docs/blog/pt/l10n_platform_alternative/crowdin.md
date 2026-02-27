@@ -43,7 +43,7 @@ Durante mais de uma década, o Crowdin tem sido o padrão da indústria para ger
 
 # Intlayer
 
-O Intlayer é conhecido principalmente como uma solução de i18n, mas também integra um CMS. Ao contrário do Crowdin, que se limita a atuar como um wrapper em torno da sua configuração de i18n existente, o Intlayer controla toda a stack — desde a camada de bundling até a entrega remota de conteúdo — resultando num fluxo de conteúdo mais fluido e eficiente.
+O Intlayer é conhecido principalmente como uma solução de i18n, mas também integra um CMS. Ao contrário do Crowdin, que se limita a atuar como um wrapper em torno da sua configuração de i18n existente, o Intlayer controla toda a stack, desde a camada de bundling até a entrega remota de conteúdo, resultando num fluxo de conteúdo mais fluido e eficiente.
 
 ## Por que os paradigmas mudaram desde a chegada da IA?
 
@@ -55,7 +55,7 @@ No entanto, existe uma limitação. O copywriting não se trata apenas de tradu�
 
 Hoje, o fluxo de trabalho mais eficiente é traduzir e posicionar as suas páginas globalmente usando AI primeiro. Depois, numa segunda fase, utiliza-se copywriters humanos para otimizar conteúdos específicos de alto tráfego e aumentar a conversão, uma vez que o produto já esteja a gerar receita.
 
-Embora a receita da Crowdin — impulsionada principalmente pelas suas soluções legadas bem comprovadas — continue a apresentar bom desempenho, acredito que o setor tradicional de localização será severamente impactado num horizonte de 5 a 10 anos. O modelo de pagar por palavra ou por seat por uma ferramenta de gestão está a tornar-se obsoleto.
+Embora a receita da Crowdin, impulsionada principalmente pelas suas soluções legadas bem comprovadas, continue a apresentar bom desempenho, acredito que o setor tradicional de localização será severamente impactado num horizonte de 5 a 10 anos. O modelo de pagar por palavra ou por seat por uma ferramenta de gestão está a tornar-se obsoleto.
 
 ## Por que o Intlayer é uma boa alternativa ao Crowdin?
 
@@ -67,20 +67,20 @@ Com o Intlayer, você gera suas traduções ao custo das suas inferências. Voc�
 
 # Comparação lado a lado
 
-| Funcionalidade           | Crowdin (TMS Legado)                                                 | Intlayer (Nativo em IA)                                                |
-| :----------------------- | :------------------------------------------------------------------- | :--------------------------------------------------------------------- |
-| **Filosofia Central**    | Conecta humanos a strings.                                           | Gerencia a lógica de conteúdo e geração por IA.                        |
-| **Modelo de Preços**     | Por assento / nível hospedado.                                       | Pague pela sua própria inferência (traga sua própria chave — BYO Key). |
-| **Integração**           | Troca baseada em ficheiros (Upload/Download).                        | Integração profunda com o código (Declarativa).                        |
-| **Atualizações**         | Frequentemente requer reconstruções no CI/CD para implantar o texto. | Sincronização instantânea com a codebase ou aplicação ao vivo.         |
-| **Formatos de Ficheiro** | Diversos (.po, .xml, .yaml, etc.).                                   | Web moderna (JSON, JS, TS).                                            |
-| **Testes**               | Limitado.                                                            | CI / CLI.                                                              |
-| **Hospedagem**           | SaaS (na sua maioria).                                               | Open Source e auto-hospedável (Docker).                                |
+| Funcionalidade           | Crowdin (TMS Legado)                                                 | Intlayer (Nativo em IA)                                               |
+| :----------------------- | :------------------------------------------------------------------- | :-------------------------------------------------------------------- |
+| **Filosofia Central**    | Conecta humanos a strings.                                           | Gerencia a lógica de conteúdo e geração por IA.                       |
+| **Modelo de Preços**     | Por assento / nível hospedado.                                       | Pague pela sua própria inferência (traga sua própria chave. BYO Key). |
+| **Integração**           | Troca baseada em ficheiros (Upload/Download).                        | Integração profunda com o código (Declarativa).                       |
+| **Atualizações**         | Frequentemente requer reconstruções no CI/CD para implantar o texto. | Sincronização instantânea com a codebase ou aplicação ao vivo.        |
+| **Formatos de Ficheiro** | Diversos (.po, .xml, .yaml, etc.).                                   | Web moderna (JSON, JS, TS).                                           |
+| **Testes**               | Limitado.                                                            | CI / CLI.                                                             |
+| **Hospedagem**           | SaaS (na sua maioria).                                               | Open Source e auto-hospedável (Docker).                               |
 
 Intlayer oferece uma solução i18n completa e tudo-em-um que permite uma integração profunda do seu conteúdo. O seu conteúdo remoto pode ser sincronizado diretamente com a sua codebase ou com a sua aplicação em produção. Em comparação, o Crowdin frequentemente exige uma reconstrução da sua aplicação na pipeline de CI/CD para atualizar o conteúdo, criando atrito entre a equipa de tradução e o processo de implantação.
 
-Além disso, o Intlayer pode ser utilizado como uma ferramenta de Feature Flag ou de A/B testing, permitindo testar dinamicamente diferentes variações de conteúdo — algo que ferramentas TMS padrão, como o Crowdin, não suportam nativamente.
+Além disso, o Intlayer pode ser utilizado como uma ferramenta de Feature Flag ou de A/B testing, permitindo testar dinamicamente diferentes variações de conteúdo, algo que ferramentas TMS padrão, como o Crowdin, não suportam nativamente.
 
-Crowdin suporta uma ampla gama de formatos de ficheiro — incluindo tipos legados como `.po`, `.xml` e `.yaml`, o que pode ser benéfico para projetos com fluxos de trabalho estabelecidos ou sistemas mais antigos. O Intlayer, por contraste, funciona principalmente com formatos modernos orientados para a web, como `.json`, `.js` e `.ts`. Isto significa que o Intlayer pode não ser compatível com todos os formatos legados, o que é uma consideração para equipas a migrarem de plataformas mais antigas.
+Crowdin suporta uma ampla gama de formatos de ficheiro, incluindo tipos legados como `.po`, `.xml` e `.yaml`, o que pode ser benéfico para projetos com fluxos de trabalho estabelecidos ou sistemas mais antigos. O Intlayer, por contraste, funciona principalmente com formatos modernos orientados para a web, como `.json`, `.js` e `.ts`. Isto significa que o Intlayer pode não ser compatível com todos os formatos legados, o que é uma consideração para equipas a migrarem de plataformas mais antigas.
 
 Finalmente, para quem prioriza a soberania e o controlo dos dados, o Intlayer é open-source e pode ser self-hosted. Ficheiros Docker estão disponíveis diretamente no repositório, permitindo-lhe controlo total sobre a sua infraestrutura de localização.

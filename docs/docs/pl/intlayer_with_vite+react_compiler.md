@@ -53,7 +53,7 @@ Zobacz [Szablon aplikacji](https://github.com/aymericzip/intlayer-vite-react-tem
 
 ## Dlaczego internacjonalizacja istniejącej aplikacji jest trudna?
 
-Jeśli kiedykolwiek próbowałeś dodać wiele języków do aplikacji, która została zbudowana tylko dla jednego, znasz ten ból. To nie jest tylko „trudne” — to jest żmudne. Musisz przeszukać każdy plik, wyłowić każdy ciąg tekstowy i przenieść go do oddzielnych plików słownikowych.
+Jeśli kiedykolwiek próbowałeś dodać wiele języków do aplikacji, która została zbudowana tylko dla jednego, znasz ten ból. To nie jest tylko „trudne”, to jest żmudne. Musisz przeszukać każdy plik, wyłowić każdy ciąg tekstowy i przenieść go do oddzielnych plików słownikowych.
 
 Następnie przychodzi ryzykowna część: zastąpienie całego tego tekstu hookami w kodzie bez psuciu układu lub logiki. To rodzaj pracy, który wstrzymuje rozwój nowych funkcji na tygodnie i wydaje się niekończącym się refaktoryzacją.
 

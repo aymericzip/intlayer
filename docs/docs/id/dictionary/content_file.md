@@ -493,7 +493,7 @@ Menunjukkan lokasi kamus dan mengontrol cara sinkronisasinya dengan CMS:
 
 - `'local'`: Kamus dikelola hanya secara lokal. Tidak akan didorong ke CMS jarak jauh. Gunakan ini untuk konten yang harus tetap berada di codebase Anda.
 - `'remote'`: Kamus dikelola hanya secara jarak jauh. Setelah didorong ke CMS, kamus akan terlepas dari file lokal. Saat memuat konten, kamus jarak jauh akan diambil dari CMS. File `.content` dengan lokasi `remote` akan diabaikan setelah push awal.
-- `'hybrid'`: Kamus dikelola baik secara lokal maupun jarak jauh. Setelah didorong ke CMS, kamus akan tetap tersinkronisasi—perubahan dari file lokal didorong ke CMS, dan perubahan jarak jauh dapat ditarik kembali ke file lokal.
+- `'hybrid'`: Kamus dikelola baik secara lokal maupun jarak jauh. Setelah didorong ke CMS, kamus akan tetap tersinkronisasi, perubahan dari file lokal didorong ke CMS, dan perubahan jarak jauh dapat ditarik kembali ke file lokal.
 - `string` (mis. `'plugin'`): Kamus dikelola oleh plugin atau sumber kustom. Saat Anda mencoba mendorongnya, sistem akan menanyakan apa yang harus dilakukan.
 
 **Contoh:**

@@ -96,7 +96,7 @@ Nhưng từ tất cả các giải pháp đó, rõ ràng rằng cách tiếp c�
 Hãy để tôi nói lý do điều đó có thể gây vấn đề cho ứng dụng của bạn:
 
 - **Dữ liệu không sử dụng:**
-  Khi một trang được tải, bạn thường tải luôn nội dung từ tất cả các trang khác. (Trong một ứng dụng 10 trang, đó là 90% nội dung bị tải nhưng không dùng). Bạn lazy-load một modal? Thư viện i18n cũng mặc kệ — nó vẫn tải các chuỗi lên trước.
+  Khi một trang được tải, bạn thường tải luôn nội dung từ tất cả các trang khác. (Trong một ứng dụng 10 trang, đó là 90% nội dung bị tải nhưng không dùng). Bạn lazy-load một modal? Thư viện i18n cũng mặc kệ, nó vẫn tải các chuỗi lên trước.
 - **Hiệu năng:**
   Mỗi lần re-render, từng component của bạn đều được hydrated với một payload JSON lớn, điều này ảnh hưởng đến tính phản ứng (reactivity) của app khi nó phát triển.
 - **Bảo trì:**

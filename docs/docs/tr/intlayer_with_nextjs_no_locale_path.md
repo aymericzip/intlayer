@@ -1143,8 +1143,8 @@ Bu uzantı şunları sağlar:
 
 - **Otomatik tamamlama** çeviri anahtarları için.
 - Eksik çeviriler için **gerçek zamanlı hata tespiti**.
-- **Satır içi önizlemeler** — çevrilmiş içeriğin önizlemeleri.
-- **Hızlı eylemler** — çevirileri kolayca oluşturup güncellemek için.
+- **Satır içi önizlemeler**, çevrilmiş içeriğin önizlemeleri.
+- **Hızlı eylemler**, çevirileri kolayca oluşturup güncellemek için.
 
 Daha fazla ayrıntı için uzantının nasıl kullanılacağına dair [Intlayer VS Code Extension belgelerine](https://intlayer.org/doc/vs-code-extension) bakın.
 

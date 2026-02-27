@@ -37,7 +37,7 @@ Phrase est conçu pour évoluer à grande échelle. C'est le choix privilégié 
 
 # Intlayer
 
-Intlayer est principalement connu comme une solution i18n, mais il intègre également un CMS headless. Contrairement à Phrase, qui fonctionne comme une suite d'entreprise massive et externe, Intlayer agit comme une couche agile intégrée au code. Il contrôle l'ensemble de la stack — de la couche de bundling à la livraison de contenu distante — ce qui se traduit par un flux de contenu plus fluide et plus efficace pour les applications web modernes.
+Intlayer est principalement connu comme une solution i18n, mais il intègre également un CMS headless. Contrairement à Phrase, qui fonctionne comme une suite d'entreprise massive et externe, Intlayer agit comme une couche agile intégrée au code. Il contrôle l'ensemble de la stack, de la couche de bundling à la livraison de contenu distante, ce qui se traduit par un flux de contenu plus fluide et plus efficace pour les applications web modernes.
 
 ## Pourquoi les paradigmes ont-ils changé depuis l'arrivée de l'IA ?
 
@@ -75,4 +75,4 @@ De plus, Intlayer peut être utilisé comme Feature Flag ou outil de test A/B, v
 
 Alors que Phrase est incontournable pour des besoins d'entreprise complexes et multi-formats (par ex. la traduction simultanée de PDF, de sous-titres et de logiciels), Intlayer est le choix privilégié des équipes produit qui développent des applications web et qui souhaitent la pleine propriété, la sécurité de typage (type safety) et un workflow moderne piloté par l'IA, sans la surcharge des solutions enterprise.
 
-Enfin, pour ceux qui privilégient la souveraineté et le contrôle des données, Intlayer est open-source et peut être self-hosted. Des fichiers Docker sont disponibles directement dans le dépôt, vous offrant la pleine maîtrise de votre infrastructure de localisation — ce qui est impossible avec l'écosystème SaaS fermé de Phrase.
+Enfin, pour ceux qui privilégient la souveraineté et le contrôle des données, Intlayer est open-source et peut être self-hosted. Des fichiers Docker sont disponibles directement dans le dépôt, vous offrant la pleine maîtrise de votre infrastructure de localisation, ce qui est impossible avec l'écosystème SaaS fermé de Phrase.

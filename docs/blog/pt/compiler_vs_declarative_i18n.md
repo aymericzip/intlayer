@@ -20,7 +20,7 @@ slugs:
 
 # O Caso a Favor e Contra a i18n Baseada em Compilador
 
-Se você tem construído aplicações web por mais de uma década, sabe que a Internacionalização (i18n) sempre foi um ponto de atrito. Frequentemente, é a tarefa que ninguém quer fazer — extrair strings, gerenciar arquivos JSON e se preocupar com regras de pluralização.
+Se você tem construído aplicações web por mais de uma década, sabe que a Internacionalização (i18n) sempre foi um ponto de atrito. Frequentemente, é a tarefa que ninguém quer fazer, extrair strings, gerenciar arquivos JSON e se preocupar com regras de pluralização.
 
 Recentemente, uma nova onda de ferramentas de i18n **"baseadas em compilador"** surgiu, prometendo fazer essa dor desaparecer. A proposta é sedutora: **Basta escrever o texto nos seus componentes e deixar a ferramenta de build cuidar do resto.** Sem chaves, sem imports, apenas mágica.
 

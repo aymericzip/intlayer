@@ -39,7 +39,7 @@ history:
 
 ## Що таке Intlayer?
 
-**Intlayer** — інноваційна відкрита бібліотека для інтернаціоналізації (i18n), створена для спрощення підтримки багатомовності в сучасних вебдодатках.
+**Intlayer**, інноваційна відкрита бібліотека для інтернаціоналізації (i18n), створена для спрощення підтримки багатомовності в сучасних вебдодатках.
 
 За допомогою Intlayer ви можете:
 
@@ -63,7 +63,7 @@ history:
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-nuxt-4-template?embed=1&ctl=1&file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо CodeSandbox — як інтернаціоналізувати ваш застосунок за допомогою Intlayer"
+  title="Демо CodeSandbox, як інтернаціоналізувати ваш застосунок за допомогою Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -299,7 +299,7 @@ Intlayer пропонує різні API для доступу до вашого
 
 Щоб змінити мову вашого контенту, ви можете використовувати функцію `setLocale`, яку надає composable `useLocale`. Ця функція дозволяє встановити локаль додатка та відповідно оновити контент.
 
-Створіть компонент для перемикання мов, використовуючи `NuxtLink`. **Використання посилань замість кнопок для перемикання локалі — найкраща практика для SEO та виявлення сторінок**, оскільки це дозволяє пошуковим системам обходити та індексувати всі локалізовані версії ваших сторінок:
+Створіть компонент для перемикання мов, використовуючи `NuxtLink`. **Використання посилань замість кнопок для перемикання локалі, найкраща практика для SEO та виявлення сторінок**, оскільки це дозволяє пошуковим системам обходити та індексувати всі локалізовані версії ваших сторінок:
 
 ```vue fileName="components/LocaleSwitcher.vue"
 <script setup lang="ts">
@@ -463,10 +463,10 @@ const finalPath = computed(() => {
   // 1. Перевірте, чи є посилання зовнішнім
   const isExternal = /^https?:\/\//.test(props.href || "");
 
-  // 2. Якщо зовнішній — повернути як є (NuxtLink генерує тег <a>)
+  // 2. Якщо зовнішній, повернути як є (NuxtLink генерує тег <a>)
   if (isExternal) return props.href;
 
-  // 3. Якщо внутрішній — локалізувати URL
+  // 3. Якщо внутрішній, локалізувати URL
   const targetLocale = props.locale || currentLocale.value;
   return getLocalizedUrl(props.href, targetLocale);
 });

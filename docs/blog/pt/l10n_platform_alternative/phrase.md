@@ -37,7 +37,7 @@ Phrase foi construída para escalar. É a escolha de referência para grandes em
 
 # Intlayer
 
-Intlayer é conhecido principalmente como uma solução i18n, mas também integra um headless CMS. Ao contrário do Phrase, que funciona como uma grande suíte empresarial externa, o Intlayer atua como uma camada ágil integrada ao código. Controla toda a stack — desde a camada de bundling até à entrega remota de conteúdo — resultando num fluxo de conteúdo mais fluido e eficiente para aplicações web modernas.
+Intlayer é conhecido principalmente como uma solução i18n, mas também integra um headless CMS. Ao contrário do Phrase, que funciona como uma grande suíte empresarial externa, o Intlayer atua como uma camada ágil integrada ao código. Controla toda a stack, desde a camada de bundling até à entrega remota de conteúdo, resultando num fluxo de conteúdo mais fluido e eficiente para aplicações web modernas.
 
 ## Porque é que os paradigmas mudaram desde a IA?
 
@@ -75,4 +75,4 @@ Além disso, o Intlayer pode ser utilizado como um Feature Flag ou ferramenta de
 
 Embora o Phrase seja incontestável para necessidades empresariais complexas e multi-formato (por exemplo, traduzir PDFs, legendas e software simultaneamente), o Intlayer é a escolha superior para equipes de produto que constroem aplicações web e que desejam propriedade total, type safety e um AI-driven workflow moderno, sem a sobrecarga empresarial.
 
-Por fim, para quem prioriza soberania e controle dos dados, o Intlayer é open-source e pode ser self-hosted. Os arquivos Docker estão disponíveis diretamente no repositório, dando-lhe propriedade total da sua infraestrutura de localização — algo impossível com o ecossistema SaaS fechado do Phrase.
+Por fim, para quem prioriza soberania e controle dos dados, o Intlayer é open-source e pode ser self-hosted. Os arquivos Docker estão disponíveis diretamente no repositório, dando-lhe propriedade total da sua infraestrutura de localização, algo impossível com o ecossistema SaaS fechado do Phrase.

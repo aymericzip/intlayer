@@ -49,13 +49,13 @@ Pakiety Intlayer zawierają kod, który może działać zarówno na Node, jak i 
 W dokumentacji React-Router dotyczącej **konwencji modułów serwerowych**  
 (https://reactrouter.com/api/framework-conventions/server-modules), zespół **wyraźnie sugeruje użycie `vite-env-only`**, aby zapobiec przedostawaniu się importów tylko dla serwera do bundle'a klienta.
 
-Jednakże te konwencje opierają się na aliasingu Vite, conditional exports oraz tree-shaking, aby usunąć kod tylko dla serwera. Chociaż aliasing i conditional exports są już stosowane, niektóre narzędzia oparte na Node nadal występują w pakietach takich jak `@intlayer/core` na tym etapie (nawet jeśli nigdy nie są importowane po stronie klienta). Ponieważ tree-shaking jeszcze się nie uruchomił, te funkcje są nadal parsowane przez Babel, a `vite-env-only` wykrywa ich importy `node:` i zgłasza false positive — mimo że są poprawnie usuwane z ostatecznego bundle'a klienta.
+Jednakże te konwencje opierają się na aliasingu Vite, conditional exports oraz tree-shaking, aby usunąć kod tylko dla serwera. Chociaż aliasing i conditional exports są już stosowane, niektóre narzędzia oparte na Node nadal występują w pakietach takich jak `@intlayer/core` na tym etapie (nawet jeśli nigdy nie są importowane po stronie klienta). Ponieważ tree-shaking jeszcze się nie uruchomił, te funkcje są nadal parsowane przez Babel, a `vite-env-only` wykrywa ich importy `node:` i zgłasza false positive, mimo że są poprawnie usuwane z ostatecznego bundle'a klienta.
 
 ## Jak naprawić / obejść
 
 ### Zalecane: Usuń `vite-env-only`
 
-Po prostu usuń wtyczkę. W wielu przypadkach nie jest ona potrzebna — Vite sam obsługuje rozróżnienie importów dla klienta i serwera poprzez własne rozwiązywanie.
+Po prostu usuń wtyczkę. W wielu przypadkach nie jest ona potrzebna. Vite sam obsługuje rozróżnienie importów dla klienta i serwera poprzez własne rozwiązywanie.
 
 To naprawia fałszywy błąd dotyczący `node:fs` bez konieczności wprowadzania zmian w Intlayer.
 

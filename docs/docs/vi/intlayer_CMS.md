@@ -464,7 +464,7 @@ Ví dụ sử dụng Vite:
 
 Server Live Sync bao bọc ứng dụng của bạn và tự động áp dụng nội dung cập nhật khi nó đến.
 
-Để nhận thông báo thay đổi từ CMS, server Live Sync duy trì một kết nối SSE đến backend. Khi nội dung thay đổi trong CMS, backend chuyển tiếp bản cập nhật đến server Live Sync, server này sẽ ghi các từ điển mới. Ứng dụng của bạn sẽ phản ánh bản cập nhật trong lần điều hướng tiếp theo hoặc khi tải lại trình duyệt — không cần phải xây dựng lại.
+Để nhận thông báo thay đổi từ CMS, server Live Sync duy trì một kết nối SSE đến backend. Khi nội dung thay đổi trong CMS, backend chuyển tiếp bản cập nhật đến server Live Sync, server này sẽ ghi các từ điển mới. Ứng dụng của bạn sẽ phản ánh bản cập nhật trong lần điều hướng tiếp theo hoặc khi tải lại trình duyệt, không cần phải xây dựng lại.
 
 Sơ đồ luồng (CMS/Backend -> Live Sync Server -> Application Server -> Frontend):
 

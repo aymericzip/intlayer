@@ -54,7 +54,7 @@ Her çok dilli uygulamanın uygulaması gereken kontrol listesi:
 - **Yerelleştirilmiş bağlantılar kullanın**  
   Örnek: Varsayılan `/about` yerine `<a href="/fr/about">À propos</a>` kullanın.
 
-Bunlar basit adımlar — ancak atlanmaları görünürlüğünüzü kaybetmenize neden olabilir.
+Bunlar basit adımlar, ancak atlanmaları görünürlüğünüzü kaybetmenize neden olabilir.
 
 ---
 

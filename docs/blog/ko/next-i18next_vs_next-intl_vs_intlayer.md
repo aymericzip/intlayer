@@ -39,7 +39,7 @@ Next.js를 위한 세 가지 i18n 옵션인 next-i18next, next-intl, Intlayer의
 
 > **요약**: 세 가지 모두 Next.js 앱을 현지화할 수 있습니다. 만약 **컴포넌트 범위 콘텐츠**, **엄격한 TypeScript 타입**, **빌드 시 누락 키 검사**, **트리 쉐이킹된 사전**, 그리고 **최고급 App Router + SEO 도우미**를 원한다면, **Intlayer**가 가장 완전하고 현대적인 선택입니다.
 
-> 개발자들이 자주 혼동하는 점 중 하나는 `next-intl`이 `react-intl`의 Next.js 버전이라고 생각하는 것입니다. 그렇지 않습니다—`next-intl`은 [Amann](https://github.com/amannn)이 유지 관리하며, `react-intl`은 [FormatJS](https://github.com/formatjs/formatjs)가 유지 관리합니다.
+> 개발자들이 자주 혼동하는 점 중 하나는 `next-intl`이 `react-intl`의 Next.js 버전이라고 생각하는 것입니다. 그렇지 않습니다, `next-intl`은 [Amann](https://github.com/amannn)이 유지 관리하며, `react-intl`은 [FormatJS](https://github.com/formatjs/formatjs)가 유지 관리합니다.
 
 ---
 

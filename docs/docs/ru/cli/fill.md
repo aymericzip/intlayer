@@ -128,7 +128,7 @@ Affected dictionary keys for processing: app, comp-test, hello-world, lang-switc
 - **`--application-context [applicationContext]`**: Предоставить дополнительный контекст для перевода ИИ.
 - **`--data-serialization [dataSerialization]`**: Формат сериализации данных для использования в функциях ИИ Intlayer. Опции: `json` (стандартный, надежный), `toon` (меньше токенов, менее стабильный).
 
-  > Пример: `npx intlayer fill --model gpt-3.5-turbo --provider openai --temperature 0.5 --api-key sk-1234567890 --application-context "Моё приложение — магазин для кошек"`
+  > Пример: `npx intlayer fill --model gpt-3.5-turbo --provider openai --temperature 0.5 --api-key sk-1234567890 --application-context "Моё приложение, магазин для кошек"`
 
   **Опции переменных окружения:**
 

@@ -49,13 +49,13 @@ Intlayer packages contain code that can work on both Node and the browser. At an
 In the React-Router documentation about **server module conventions**  
 (https://reactrouter.com/api/framework-conventions/server-modules), the team **explicitly recommends using `vite-env-only`** to prevent server-only imports from leaking into the client bundle.
 
-However, those conventions rely on Vite’s aliasing, conditional exports, and tree-shaking to remove server-only code. While aliasing and conditional exports are already applied, some Node-based utilities are still present in packages like `@intlayer/core` at that stage (even though they are never imported on the client). Because tree-shaking has not run yet, those functions are still parsed by Babel, and `vite-env-only` detects their `node:` imports and flags a false positive — even though they are correctly removed from the final client bundle.
+However, those conventions rely on Vite’s aliasing, conditional exports, and tree-shaking to remove server-only code. While aliasing and conditional exports are already applied, some Node-based utilities are still present in packages like `@intlayer/core` at that stage (even though they are never imported on the client). Because tree-shaking has not run yet, those functions are still parsed by Babel, and `vite-env-only` detects their `node:` imports and flags a false positive, even though they are correctly removed from the final client bundle.
 
 ## How to fix / work around
 
 ### Recommended: Remove `vite-env-only`
 
-Simply remove the plugin. In many cases you don’t need it — Vite already handles client vs server imports via its own resolution.
+Simply remove the plugin. In many cases you don’t need it. Vite already handles client vs server imports via its own resolution.
 
 This fixes the false `node:fs` denial without any changes to Intlayer.
 

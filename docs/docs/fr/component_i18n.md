@@ -78,7 +78,7 @@ Le JSON est également supporté si vous préférez les fichiers de configuratio
 
 ## 2) Récupérez votre contenu
 
-### Cas A — Application React (Vite/SPA)
+### Cas A. Application React (Vite/SPA)
 
 Approche par défaut : utilisez `useIntlayer` pour récupérer par clé. Cela permet de garder les composants légers et typés.
 
@@ -129,7 +129,7 @@ export function ComponentWithDictionary() {
 }
 ```
 
-### Cas B — Next.js (App Router)
+### Cas B. Next.js (App Router)
 
 Privilégiez les composants serveur pour la sécurité des données et la performance. Utilisez `useIntlayer` depuis `next-intlayer/server` dans les fichiers serveur, et `useIntlayer` depuis `next-intlayer` dans les composants clients.
 

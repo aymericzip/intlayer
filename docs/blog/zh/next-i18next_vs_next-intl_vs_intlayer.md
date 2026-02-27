@@ -39,7 +39,7 @@ slugs:
 
 > **简而言之**：这三者都能实现 Next.js 应用的本地化。如果你需要**组件范围的内容**、**严格的 TypeScript 类型**、**构建时缺失键检查**、**摇树优化的字典**，以及**一流的 App Router + SEO 辅助功能**，那么**Intlayer** 是最完整、最现代的选择。
 
-> 开发者常犯的一个误解是认为 `next-intl` 是 `react-intl` 的 Next.js 版本。事实并非如此——`next-intl` 由 [Amann](https://github.com/amannn) 维护，而 `react-intl` 由 [FormatJS](https://github.com/formatjs/formatjs) 维护。
+> 开发者常犯的一个误解是认为 `next-intl` 是 `react-intl` 的 Next.js 版本。事实并非如此, `next-intl` 由 [Amann](https://github.com/amannn) 维护，而 `react-intl` 由 [FormatJS](https://github.com/formatjs/formatjs) 维护。
 
 ---
 
@@ -1212,7 +1212,7 @@ export default robots;
 
 **Intlayer**
 
-- 为现代 Next.js 构建，具有模块化内容、类型安全、工具支持和更少的样板代码。如果你重视**组件范围的内容**、**严格的 TypeScript**、**构建时保证**、**摇树优化**，以及**内置的**路由/SEO/编辑器工具——尤其是针对**Next.js 应用路由器**、设计系统和**大型模块化代码库**。
+- 为现代 Next.js 构建，具有模块化内容、类型安全、工具支持和更少的样板代码。如果你重视**组件范围的内容**、**严格的 TypeScript**、**构建时保证**、**摇树优化**，以及**内置的**路由/SEO/编辑器工具, 尤其是针对**Next.js 应用路由器**、设计系统和**大型模块化代码库**。
 
   </Column>
 </Columns>

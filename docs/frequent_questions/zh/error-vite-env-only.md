@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-11
 updatedAt: 2026-01-11
-title: "`vite-env-only` 与 Intlayer — 错误的 `node:fs` 导入被拒绝"
+title: "`vite-env-only` 与 Intlayer, 错误的 `node:fs` 导入被拒绝"
 description: 为什么在 Intlayer + React-Router + Vite 的组合中，vite-env-only 报告 `node:fs` 导入被拒绝，以及应如何处理。
 keywords:
   - intlayer
@@ -49,13 +49,13 @@ Intlayer 的包包含可以在 Node 与浏览器上运行的代码。在一个 _
 在 React-Router 关于 **服务端模块约定** 的文档中
 (https://reactrouter.com/api/framework-conventions/server-modules)，团队**明确建议使用 `vite-env-only`\*\*以防止仅用于服务器的导入泄漏到客户端包中。
 
-然而，这些约定依赖于 Vite 的 aliasing、conditional exports 和 tree-shaking 来移除仅用于服务器的代码。尽管 aliasing 和 conditional exports 已经被应用，但在该阶段某些基于 Node 的实用工具仍然存在于像 `@intlayer/core` 这样的包中（即便它们从未在客户端被导入）。因为 tree-shaking 尚未运行，那些函数仍会被 Babel 解析，`vite-env-only` 检测到它们的 `node:` 导入并报出误报 —— 即便这些导入在最终的客户端包中已被正确清除。
+然而，这些约定依赖于 Vite 的 aliasing、conditional exports 和 tree-shaking 来移除仅用于服务器的代码。尽管 aliasing 和 conditional exports 已经被应用，但在该阶段某些基于 Node 的实用工具仍然存在于像 `@intlayer/core` 这样的包中（即便它们从未在客户端被导入）。因为 tree-shaking 尚未运行，那些函数仍会被 Babel 解析，`vite-env-only` 检测到它们的 `node:` 导入并报出误报, 即便这些导入在最终的客户端包中已被正确清除。
 
 ## 如何修复 / 规避
 
 ### 建议：移除 `vite-env-only`
 
-只需移除该插件。在许多情况下你不需要它 — Vite 已通过自身解析处理客户端与服务器导入的区分。
+只需移除该插件。在许多情况下你不需要它. Vite 已通过自身解析处理客户端与服务器导入的区分。
 
 这能修复误报的 `node:fs` 错误，而无需对 Intlayer 进行任何修改。
 

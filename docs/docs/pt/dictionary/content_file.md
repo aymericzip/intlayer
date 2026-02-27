@@ -493,7 +493,7 @@ Indica a localização do dicionário e controla como ele sincroniza com o CMS:
 
 - `'local'`: O dicionário é gerenciado apenas localmente. Ele não será enviado para o CMS remoto. Use isso para conteúdo que deve permanecer em sua base de código.
 - `'remote'`: O dicionário é gerenciado apenas remotamente. Uma vez enviado para o CMS, ele será desvinculado do arquivo local. No momento do carregamento do conteúdo, o dicionário remoto será obtido do CMS. Um arquivo `.content` com localização `remote` será ignorado após o envio inicial.
-- `'hybrid'`: O dicionário é gerenciado tanto localmente quanto remotamente. Uma vez enviado para o CMS, ele permanecerá sincronizado—alterações do arquivo local são enviadas para o CMS, e alterações remotas podem ser recuperadas no arquivo local.
+- `'hybrid'`: O dicionário é gerenciado tanto localmente quanto remotamente. Uma vez enviado para o CMS, ele permanecerá sincronizado, alterações do arquivo local são enviadas para o CMS, e alterações remotas podem ser recuperadas no arquivo local.
 - `string` (ex.: `'plugin'`): O dicionário é gerenciado por um plugin ou uma fonte personalizada. Quando você tentar enviá-lo, o sistema perguntará o que fazer.
 
 **Exemplo:**

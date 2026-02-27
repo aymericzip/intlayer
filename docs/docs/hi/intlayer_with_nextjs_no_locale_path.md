@@ -256,9 +256,9 @@ module.exports = withIntlayer(nextConfig);
 > export default nextConfigWithOtherPlugins;
 > ```
 >
-> Intlayer स्वचालित रूप से पहचानता है कि आपका प्रोजेक्ट **webpack** या **Turbopack** का उपयोग कर रहा है या नहीं — यह कमांड-लाइन फ्लैग `--webpack`, `--turbo`, या `--turbopack`, साथ ही आपकी वर्तमान **Next.js version** के आधार पर निर्धारित होता है।
+> Intlayer स्वचालित रूप से पहचानता है कि आपका प्रोजेक्ट **webpack** या **Turbopack** का उपयोग कर रहा है या नहीं, यह कमांड-लाइन फ्लैग `--webpack`, `--turbo`, या `--turbopack`, साथ ही आपकी वर्तमान **Next.js version** के आधार पर निर्धारित होता है।
 >
-> यदि `next>=16` है और आप **Rspack** का उपयोग कर रहे हैं, तो आपको स्पष्ट रूप से Intlayer को webpack कॉन्फ़िगरेशन उपयोग करने के लिए मजबूर करना होगा — इसके लिए Turbopack को अक्षम करें:
+> यदि `next>=16` है और आप **Rspack** का उपयोग कर रहे हैं, तो आपको स्पष्ट रूप से Intlayer को webpack कॉन्फ़िगरेशन उपयोग करने के लिए मजबूर करना होगा, इसके लिए Turbopack को अक्षम करें:
 >
 > ```ts
 > withRspack(withIntlayer(nextConfig, { enableTurbopack: false }));

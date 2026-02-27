@@ -146,7 +146,7 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
   },
   routing: {
-    mode: "search-params", // or `no-prefix` — useful for middleware detection
+    mode: "search-params", // or `no-prefix`, useful for middleware detection
   },
 };
 
@@ -168,7 +168,7 @@ const config = {
     defaultLocale: Locales.ENGLISH,
   },
   routing: {
-    mode: "search-params", // or `no-prefix` — useful for middleware detection
+    mode: "search-params", // or `no-prefix`, useful for middleware detection
   },
 };
 
@@ -899,19 +899,19 @@ export const LocaleSwitcher: FC = () => {
             onClick={() => setLocale(localeItem)}
           >
             <span>
-              {/* Locale — e.g. FR */}
+              {/* Locale, e.g. FR */}
               {localeItem}
             </span>
             <span>
-              {/* Language in its own locale — e.g. Français */}
+              {/* Language in its own locale, e.g. Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Language in the current locale — e.g. Francés with current locale set to Locales.SPANISH */}
+              {/* Language in the current locale, e.g. Francés with current locale set to Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Language in English — e.g. French */}
+              {/* Language in English, e.g. French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </button>
@@ -944,19 +944,19 @@ export const LocaleSwitcher = () => {
             onClick={() => setLocale(localeItem)}
           >
             <span>
-              {/* Locale — e.g. FR */}
+              {/* Locale, e.g. FR */}
               {localeItem}
             </span>
             <span>
-              {/* Language in its own locale — e.g. Français */}
+              {/* Language in its own locale, e.g. Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Language in the current locale — e.g. Francés when the current locale is set to Locales.SPANISH */}
+              {/* Language in the current locale, e.g. Francés when the current locale is set to Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Language in English — e.g. French */}
+              {/* Language in English, e.g. French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </button>
@@ -990,19 +990,19 @@ export const LocaleSwitcher = () => {
             onClick={() => setLocale(localeItem)}
           >
             <span>
-              {/* Locale — e.g. FR */}
+              {/* Locale, e.g. FR */}
               {localeItem}
             </span>
             <span>
-              {/* Language in its own locale — e.g. Français */}
+              {/* Language in its own locale, e.g. Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Language in the current locale — e.g. Francés when current locale is Locales.SPANISH */}
+              {/* Language in the current locale, e.g. Francés when current locale is Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Language in English — e.g. French */}
+              {/* Language in English, e.g. French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </button>

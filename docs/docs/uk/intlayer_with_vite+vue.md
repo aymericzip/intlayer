@@ -33,7 +33,7 @@ history:
 
 ## Що таке Intlayer?
 
-**Intlayer** — інноваційна відкрита бібліотека для інтернаціоналізації (i18n), створена для спрощення підтримки багатомовності в сучасних веб-додатках.
+**Intlayer**, інноваційна відкрита бібліотека для інтернаціоналізації (i18n), створена для спрощення підтримки багатомовності в сучасних веб-додатках.
 
 За допомогою Intlayer ви можете:
 
@@ -57,7 +57,7 @@ history:
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-vite-vue-template?embed=1&ctl=1&file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо CodeSandbox — Як інтернаціоналізувати ваш додаток за допомогою Intlayer"
+  title="Демо CodeSandbox. Як інтернаціоналізувати ваш додаток за допомогою Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -248,7 +248,7 @@ const helloWorldContent = {
       es: "Aprenda más sobre el soporte IDE para Vue en el ",
     }),
     vueDocs: t({
-      uk: "Керівництво Vue Docs — Scaling up",
+      uk: "Керівництво Vue Docs. Scaling up",
       en: "Vue Docs Scaling up Guide",
       fr: "Vue Docs Scaling up Guide",
       es: "Vue Docs Scaling up Guide",
@@ -746,7 +746,7 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { intlayer, intlayerProxy } from "vite-intlayer";
 
-// https://vitejs.dev/config/ — документація Vite
+// https://vitejs.dev/config/, документація Vite
 export default defineConfig({
   plugins: [vue(), intlayer(), intlayerProxy()],
 });
@@ -757,7 +757,7 @@ const { defineConfig } = require("vite");
 const vue = require("@vitejs/plugin-vue");
 const { intlayer, intlayerProxy } = require("vite-intlayer");
 
-// https://vitejs.dev/config/ — документація Vite
+// https://vitejs.dev/config/, документація Vite
 module.exports = defineConfig({
   plugins: [vue(), intlayer(), intlayerProxy()],
 });
@@ -1014,7 +1014,7 @@ import RouterLink from "@components/RouterLink.vue";
 
 ### (Необов'язково) Крок 11: Відображення Markdown
 
-Intlayer підтримує відображення вмісту Markdown безпосередньо у вашому Vue-додатку. За замовчуванням Markdown обробляється як звичайний текст. Щоб перетворити Markdown на структурований HTML, можна інтегрувати [markdown-it](https://github.com/markdown-it/markdown-it) — парсер Markdown.
+Intlayer підтримує відображення вмісту Markdown безпосередньо у вашому Vue-додатку. За замовчуванням Markdown обробляється як звичайний текст. Щоб перетворити Markdown на структурований HTML, можна інтегрувати [markdown-it](https://github.com/markdown-it/markdown-it), парсер Markdown.
 
 Це особливо корисно, коли ваші переклади містять форматований контент, наприклад списки, посилання або виділення.
 

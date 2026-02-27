@@ -75,4 +75,4 @@ Intlayer는 콘텐츠의 깊은 통합을 가능하게 하는 완전한 올인�
 
 Phrase는 복잡하고 다중 포맷의 엔터프라이즈 요구사항(예: PDF, 자막 및 소프트웨어를 동시에 번역하는 경우)에 대해 강력한 도구인 것은 부정할 수 없지만, Intlayer는 product teams가 웹 애플리케이션을 구축하면서 full ownership, type safety 및 엔터프라이즈 오버헤드 없이 현대적이고 AI-driven한 워크플로우를 원할 때 더 우수한 선택입니다.
 
-마지막으로 데이터 주권(data sovereignty)과 통제를 우선시하는 경우, Intlayer는 open-source이며 self-hosted가 가능합니다. Docker 파일은 리포지토리에서 직접 제공되어 로컬라이제이션 인프라에 대한 완전한 소유권을 부여합니다 — Phrase의 폐쇄형 SaaS 생태계에서는 불가능한 일입니다.
+마지막으로 데이터 주권(data sovereignty)과 통제를 우선시하는 경우, Intlayer는 open-source이며 self-hosted가 가능합니다. Docker 파일은 리포지토리에서 직접 제공되어 로컬라이제이션 인프라에 대한 완전한 소유권을 부여합니다. Phrase의 폐쇄형 SaaS 생태계에서는 불가능한 일입니다.

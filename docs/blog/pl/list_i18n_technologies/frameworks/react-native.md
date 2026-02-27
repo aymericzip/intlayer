@@ -203,7 +203,7 @@ Wybierając rozwiązanie i18n dla swojej aplikacji React Native:
 
 2. **Zwróć uwagę na różnice między platformami**
    - Upewnij się, że każda biblioteka obsługuje warianty lokalizacji iOS i Android, zwłaszcza niuanse dotyczące dat, liczb i walut.
-   - Weź pod uwagę tryb offline — niektóre tłumaczenia mogą wymagać dołączenia do aplikacji, podczas gdy inne mogą być pobierane zdalnie.
+   - Weź pod uwagę tryb offline, niektóre tłumaczenia mogą wymagać dołączenia do aplikacji, podczas gdy inne mogą być pobierane zdalnie.
 
 3. **Wybierz strukturę dla skalowalności**
    - Jeśli planujesz dużą lub długotrwałą aplikację, silny workflow ekstrakcji lub typowane klucze mogą pomóc utrzymać tłumaczenia w dobrej organizacji.
@@ -212,6 +212,6 @@ Wybierając rozwiązanie i18n dla swojej aplikacji React Native:
    - Ograniczenia danych mobilnych oznaczają, że powinieneś uważnie kontrolować rozmiar plików tłumaczeń i wszelkich polyfilli.
 
 5. **Doświadczenie dewelopera (DX)**
-   - Szukaj bibliotek, które odpowiadają umiejętnościom Twojego zespołu — niektóre rozwiązania są bardziej rozbudowane, ale proste w użyciu, podczas gdy inne oferują więcej automatyzacji kosztem złożoności konfiguracji.
+   - Szukaj bibliotek, które odpowiadają umiejętnościom Twojego zespołu, niektóre rozwiązania są bardziej rozbudowane, ale proste w użyciu, podczas gdy inne oferują więcej automatyzacji kosztem złożoności konfiguracji.
 
 Każde z rozwiązań: Intlayer, React-i18next, React Intl oraz LinguiJS, okazało się skuteczne w środowiskach React Native, choć z nieco różnymi priorytetami. Ocena harmonogramu projektu, preferencji deweloperów oraz potrzeb lokalizacyjnych pomoże wybrać idealne rozwiązanie do stworzenia naprawdę globalnej aplikacji React Native.

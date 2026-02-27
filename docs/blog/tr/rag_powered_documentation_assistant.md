@@ -95,7 +95,7 @@ Bu trade-off (parça boyutu vs örtüşme) RAG verimliliği için anahtardır:
 
 ## Adım 3: Embeddings Oluşturma
 
-Dokümanlar parçalandıktan sonra, **embeddings** oluştururuz — her parçayı temsil eden yüksek boyutlu vektörler.
+Dokümanlar parçalandıktan sonra, **embeddings** oluştururuz, her parçayı temsil eden yüksek boyutlu vektörler.
 
 OpenAI'nin text-embedding-3-large modelini kullandım, ama herhangi bir modern embedding modelini kullanabilirsiniz.
 

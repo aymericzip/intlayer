@@ -59,7 +59,7 @@ Jednak w świecie React głównie widzimy różne podejścia, które pogrupuję 
 
 Drobnoziarniste podejście (intlayer, inlang)
 
-- pobieranie treści w sposób drobnoziarnisty — na poziomie klucza lub komponentu.
+- pobieranie treści w sposób drobnoziarnisty, na poziomie klucza lub komponentu.
 
   </Column>
 </Columns>
@@ -80,7 +80,7 @@ Oczywiście autorzy bibliotek zdają sobie sprawę z tych ograniczeń i proponuj
 
 Jednocześnie powinieneś wiedzieć, że gdy dynamicznie ładujesz swoją zawartość, wprowadzasz dodatkowe żądania do serwera. Każde dodatkowe `useState` lub hook oznacza dodatkowe żądanie do serwera.
 
-> Aby rozwiązać ten problem, Intlayer proponuje grupowanie wielu definicji treści pod tym samym kluczem — Intlayer następnie scali tę zawartość.
+> Aby rozwiązać ten problem, Intlayer proponuje grupowanie wielu definicji treści pod tym samym kluczem. Intlayer następnie scali tę zawartość.
 
 Ale z tych wszystkich rozwiązań jasno wynika, że najbardziej popularnym podejściem jest podejście scentralizowane.
 
@@ -96,7 +96,7 @@ Ale z tych wszystkich rozwiązań jasno wynika, że najbardziej popularnym podej
 Pozwól, że wyjaśnię, dlaczego może to być problematyczne dla Twojej aplikacji:
 
 - **Nieużywane dane:**
-  Gdy ładuje się strona, często pobierane są treści ze wszystkich pozostałych stron. (W aplikacji z 10 stronami to 90% załadowanej zawartości jest nieużywane). Lazy-loadujesz modal? Biblioteka i18n i tak na to nie zważa — i tak najpierw ładuje stringi.
+  Gdy ładuje się strona, często pobierane są treści ze wszystkich pozostałych stron. (W aplikacji z 10 stronami to 90% załadowanej zawartości jest nieużywane). Lazy-loadujesz modal? Biblioteka i18n i tak na to nie zważa, i tak najpierw ładuje stringi.
 - **Wydajność:**
   Przy każdym re-renderze każdy komponent zostaje obciążony olbrzymim ładunkiem JSON, co negatywnie wpływa na reaktywność aplikacji w miarę jej rozrostu.
 - **Utrzymanie:**
@@ -106,7 +106,7 @@ Pozwól, że wyjaśnię, dlaczego może to być problematyczne dla Twojej aplika
 
 **"Ale wymyśliliśmy Namespaces!"**
 
-Oczywiście — to ogromny krok naprzód. Przyjrzyjmy się porównaniu rozmiaru głównego bundle'a dla konfiguracji Vite + React + React Router v7 + Intlayer. Zasymulowaliśmy aplikację z 20 stronami.
+Oczywiście, to ogromny krok naprzód. Przyjrzyjmy się porównaniu rozmiaru głównego bundle'a dla konfiguracji Vite + React + React Router v7 + Intlayer. Zasymulowaliśmy aplikację z 20 stronami.
 
 Pierwszy przykład nie uwzględnia leniwego ładowania tłumaczeń dla każdego locale i nie stosuje podziału na namespaces. Drugi obejmuje content purging + dynamiczne ładowanie tłumaczeń.
 

@@ -54,7 +54,7 @@ Ecco una checklist che ogni app multilingue dovrebbe implementare:
 - **Usa link localizzati**  
   Esempio: `<a href="/fr/about">À propos</a>` invece di collegarti alla versione predefinita `/about`.
 
-Questi sono passaggi semplici — ma saltarli può costarti visibilità.
+Questi sono passaggi semplici, ma saltarli può costarti visibilità.
 
 ---
 

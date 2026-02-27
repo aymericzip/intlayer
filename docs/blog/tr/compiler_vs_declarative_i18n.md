@@ -20,7 +20,7 @@ slugs:
 
 # Derleyici Tabanlı i18n İçin ve Karşı Argümanlar
 
-On yıldan fazla süredir web uygulamaları geliştiriyorsanız, Uluslararasılaştırmanın (i18n) her zaman bir sürtüşme noktası olduğunu bilirsiniz. Genellikle kimsenin yapmak istemediği bir görevdir—metinleri çıkarmak, JSON dosyalarını yönetmek ve çoğul kurallarıyla uğraşmak.
+On yıldan fazla süredir web uygulamaları geliştiriyorsanız, Uluslararasılaştırmanın (i18n) her zaman bir sürtüşme noktası olduğunu bilirsiniz. Genellikle kimsenin yapmak istemediği bir görevdir, metinleri çıkarmak, JSON dosyalarını yönetmek ve çoğul kurallarıyla uğraşmak.
 
 Son zamanlarda, bu acıyı ortadan kaldırmayı vaat eden yeni bir **"Derleyici tabanlı" i18n araçları** dalgası ortaya çıktı. Sunum çok cazip: **Sadece bileşenlerinizde metni yazın ve geri kalanını derleme aracı halletsin.** Anahtar yok, import yok, sadece sihir.
 
@@ -205,7 +205,7 @@ Peki, hangisini seçmelisiniz?
 Derleyici tabanlı yaklaşım geçerli bir seçimdir. Çok hızlı ilerlemenizi sağlar. Dosya yapıları veya anahtarlar hakkında endişelenmenize gerek yoktur. Sadece inşa edersiniz. Teknik borç, "Gelecekteki Siz" için bir sorundur.
 
 **Eğer Junior Geliştiriciyseniz veya optimizasyona önem vermiyorsanız:**
-En az manuel yönetim istiyorsanız, derleyici tabanlı yaklaşım muhtemelen en iyisidir. Anahtarları veya çeviri dosyalarını kendiniz yönetmenize gerek kalmaz—sadece metni yazarsınız ve derleyici geri kalanını otomatikleştirir. Bu, kurulum çabasını ve manuel adımlara bağlı yaygın i18n hatalarını azaltır.
+En az manuel yönetim istiyorsanız, derleyici tabanlı yaklaşım muhtemelen en iyisidir. Anahtarları veya çeviri dosyalarını kendiniz yönetmenize gerek kalmaz, sadece metni yazarsınız ve derleyici geri kalanını otomatikleştirir. Bu, kurulum çabasını ve manuel adımlara bağlı yaygın i18n hatalarını azaltır.
 
 **Eğer zaten binlerce bileşeni yeniden düzenlemeyi gerektiren mevcut bir projeyi uluslararasılaştırıyorsanız:**
 Derleyici tabanlı bir yaklaşım burada pragmatik bir seçim olabilir. İlk çıkarım aşaması haftalar veya aylar süren manuel çalışmayı kurtarabilir. Ancak, Intlayer'ın `transform` komutu gibi bir aracı kullanmayı düşünün; bu araç dizeleri çıkarabilir ve bunları açık beyan edici içerik deklarasyonlarına dönüştürebilir. Bu, otomasyon hızını sağlarken, beyan edici yaklaşımın güvenliği ve taşınabilirliğini korur. İki dünyanın en iyisini elde edersiniz: uzun vadeli mimari borç olmadan hızlı ilk geçiş.

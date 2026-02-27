@@ -17,7 +17,7 @@ slugs:
 
 # SDK для CLI
 
-CLI SDK — це бібліотека, яка дозволяє використовувати Intlayer CLI у вашому власному коді.
+CLI SDK, це бібліотека, яка дозволяє використовувати Intlayer CLI у вашому власному коді.
 
 ```bash packageManager="npm"
 npm install @intlayer/cli --save-dev

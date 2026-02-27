@@ -78,7 +78,7 @@ También se admite JSON si prefieres archivos de configuración.
 
 ## 2) Recupera tu contenido
 
-### Caso A — Aplicación React (Vite/SPA)
+### Caso A. Aplicación React (Vite/SPA)
 
 Enfoque por defecto: usa `useIntlayer` para recuperar por clave. Esto mantiene los componentes ligeros y tipados.
 
@@ -129,7 +129,7 @@ export function ComponentWithDictionary() {
 }
 ```
 
-### Caso B — Next.js (App Router)
+### Caso B. Next.js (App Router)
 
 Prefiere componentes de servidor por seguridad y rendimiento. Usa `useIntlayer` de `next-intlayer/server` en archivos de servidor, y `useIntlayer` de `next-intlayer` en componentes cliente.
 

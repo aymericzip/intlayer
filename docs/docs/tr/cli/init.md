@@ -78,12 +78,12 @@ intlayer.config.ts oluşturuldu
 
 ## Notlar:
 
-- Komut idempotent'tir — güvenle birden çok kez çalıştırabilirsiniz. Zaten yapılandırılmış adımları atlayacaktır.
+- Komut idempotent'tir, güvenle birden çok kez çalıştırabilirsiniz. Zaten yapılandırılmış adımları atlayacaktır.
 - Bir yapılandırma dosyası zaten mevcutsa, üzerine yazılmaz.
 - `include` dizisi olmayan TypeScript yapılandırma dosyaları (ör. referans içeren çözüm tarzı konfigürasyonlar) atlanır.
 - Komut, proje kökünde `package.json` bulunamazsa hata ile sonlanır.
 
-- Komut idempotent — güvenle birden çok kez çalıştırabilirsiniz. Zaten yapılandırılmış adımları atlayacaktır.
+- Komut idempotent, güvenle birden çok kez çalıştırabilirsiniz. Zaten yapılandırılmış adımları atlayacaktır.
 - Bir yapılandırma dosyası zaten mevcutsa, üzerine yazılmayacaktır.
 - `include` dizisi olmayan TypeScript yapılandırma dosyaları (ör. referans içeren solution tarzı konfigürasyonlar) atlanır.
 - Komut, proje kökünde `package.json` bulunamazsa bir hata ile sonlanacaktır.

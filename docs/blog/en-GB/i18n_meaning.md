@@ -26,7 +26,7 @@ If you are involved in software development, web design, or digital marketing, y
 
 But why "i18n"? The abbreviation is created by taking the first letter of the word "internationalisation" (**i**), the last letter (**n**), and counting the number of letters in between them (**18**). This convention is used frequently in the tech industry to shorten long, cumbersome terms (another common example is **l10n** for localisation).
 
-In technical terms, the **i18n meaning** refers to the process of designing and preparing a software application, website, or product so that it can easily support multiple languages, regional norms, and cultural conventions—all without requiring significant engineering changes to the underlying source code.
+In technical terms, the **i18n meaning** refers to the process of designing and preparing a software application, website, or product so that it can easily support multiple languages, regional norms, and cultural conventions, all without requiring significant engineering changes to the underlying source code.
 
 ## The Core Meaning of i18n in Practice
 

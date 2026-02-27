@@ -95,7 +95,7 @@ Este compromiso (tamaño del fragmento vs superposición) es clave para la efici
 
 ## Paso 3: Generación de Embeddings
 
-Una vez que los documentos están fragmentados, generamos **embeddings** — vectores de alta dimensión que representan cada fragmento.
+Una vez que los documentos están fragmentados, generamos **embeddings**, vectores de alta dimensión que representan cada fragmento.
 
 Usé el modelo text-embedding-3-large de OpenAI, pero podrías usar cualquier modelo moderno de embeddings.
 

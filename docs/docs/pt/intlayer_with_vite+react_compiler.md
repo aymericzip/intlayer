@@ -53,7 +53,7 @@ Veja o [Modelo de Aplicação](https://github.com/aymericzip/intlayer-vite-react
 
 ## Por que é difícil internacionalizar uma aplicação existente?
 
-Se você já tentou adicionar vários idiomas a um app que foi construído para apenas um, você conhece a dor. Não é apenas "difícil" — é tedioso. Você tem que vasculhar cada arquivo, caçar cada string de texto e movê-las para arquivos de dicionário separados.
+Se você já tentou adicionar vários idiomas a um app que foi construído para apenas um, você conhece a dor. Não é apenas "difícil", é tedioso. Você tem que vasculhar cada arquivo, caçar cada string de texto e movê-las para arquivos de dicionário separados.
 
 Depois vem a parte arriscada: substituir todo esse texto por hooks de código sem quebrar o layout ou a lógica. É o tipo di trabalho que interrompe o desenvolvimento de novas funcionalidades por semanas e parece uma refatoração interminável.
 

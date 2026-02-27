@@ -36,7 +36,7 @@ history:
 
 ## Що таке Intlayer?
 
-**Intlayer** — інноваційна open-source бібліотека інтернаціоналізації (i18n), створена для спрощення підтримки багатомовності в сучасних вебдодатках. Intlayer безшовно інтегрується з останніми версіями **Next.js**, включно з традиційним **Page Router**.
+**Intlayer**, інноваційна open-source бібліотека інтернаціоналізації (i18n), створена для спрощення підтримки багатомовності в сучасних вебдодатках. Intlayer безшовно інтегрується з останніми версіями **Next.js**, включно з традиційним **Page Router**.
 
 За допомогою Intlayer ви можете:
 
@@ -1155,19 +1155,19 @@ const LocaleSwitcher: FC = () => {
             onClick={() => setLocale(localeItem)}
           >
             <span>
-              {/* Локаль — наприклад FR */}
+              {/* Локаль, наприклад FR */}
               {localeItem}
             </span>
             <span>
-              {/* Мова у власній локалі — наприклад Français */}
+              {/* Мова у власній локалі, наприклад Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Мова в поточній локалі — наприклад Francés, коли поточна локаль встановлена на Locales.SPANISH */}
+              {/* Мова в поточній локалі, наприклад Francés, коли поточна локаль встановлена на Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Мова англійською — наприклад French */}
+              {/* Мова англійською, наприклад French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </Link>
@@ -1212,11 +1212,11 @@ const LocaleSwitcher = () => {
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Мова в поточній локалі — наприклад, Francés при поточній локалі Locales.SPANISH */}
+              {/* Мова в поточній локалі, наприклад, Francés при поточній локалі Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Мова англійською — наприклад, French */}
+              {/* Мова англійською, наприклад, French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </Link>
@@ -1274,7 +1274,7 @@ const LocaleSwitcher = () => {
 };
 ```
 
-> Альтернативний спосіб — використати функцію `setLocale`, яку надає хук `useLocale`. Ця функція не дозволяє попереднє завантаження (prefetch) сторінки і призведе до перезавантаження сторінки.
+> Альтернативний спосіб, використати функцію `setLocale`, яку надає хук `useLocale`. Ця функція не дозволяє попереднє завантаження (prefetch) сторінки і призведе до перезавантаження сторінки.
 
 > У такому випадку, без перенаправлення через `router.push`, змінить локаль вмісту лише ваш серверний код.
 

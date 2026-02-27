@@ -490,7 +490,7 @@ Indique l'emplacement du dictionnaire et contrôle la façon dont il se synchron
 
 - `'local'` : Le dictionnaire est géré localement uniquement. Il ne sera pas poussé vers le CMS distant. Utilisez ceci pour le contenu qui doit rester dans votre codebase.
 - `'remote'` : Le dictionnaire est géré à distance uniquement. Une fois poussé vers le CMS, il sera détaché du fichier local. Au moment du chargement du contenu, le dictionnaire distant sera récupéré depuis le CMS. Un fichier `.content` avec l'emplacement `remote` sera ignoré après le push initial.
-- `'hybrid'` : Le dictionnaire est géré à la fois localement et à distance. Une fois poussé vers le CMS, il restera synchronisé—les modifications du fichier local sont poussées vers le CMS, et les modifications distantes peuvent être récupérées dans le fichier local.
+- `'hybrid'` : Le dictionnaire est géré à la fois localement et à distance. Une fois poussé vers le CMS, il restera synchronisé, les modifications du fichier local sont poussées vers le CMS, et les modifications distantes peuvent être récupérées dans le fichier local.
 - `string` (par ex., `'plugin'`) : Le dictionnaire est géré par un plugin ou une source personnalisée. Lorsque vous essayez de le pousser, le système vous demandera quoi faire.
 
 **Exemple :**

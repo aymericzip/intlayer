@@ -95,7 +95,7 @@ Esse equilíbrio (tamanho do chunk vs sobreposição) é fundamental para a efic
 
 ## Passo 3: Gerando Embeddings
 
-Uma vez que os documentos são divididos em chunks, geramos **embeddings** — vetores de alta dimensão que representam cada chunk.
+Uma vez que os documentos são divididos em chunks, geramos **embeddings**, vetores de alta dimensão que representam cada chunk.
 
 Usei o modelo text-embedding-3-large da OpenAI, mas você pode usar qualquer modelo moderno de embedding.
 

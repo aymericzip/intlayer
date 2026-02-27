@@ -406,7 +406,7 @@ start();
 - [`next-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/next-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/next-intlayer/index.md)>) Next.js एप्लिकेशन के लिए
 - [`vite-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vite-intlayer/index.md)>) Vite अनुप्रयोगों के लिए
 
-यह किसी भी internationalization समाधान के साथ विभिन्न वातावरणों में—ब्राउज़र और API अनुरोधों सहित—सहज रूप से काम करता है। आप middleware को हेडर या कुकीज़ के माध्यम से locale का पता लगाने के लिए अनुकूलित कर सकते हैं:
+यह किसी भी internationalization समाधान के साथ विभिन्न वातावरणों में, ब्राउज़र और API अनुरोधों सहित, सहज रूप से काम करता है। आप middleware को हेडर या कुकीज़ के माध्यम से locale का पता लगाने के लिए अनुकूलित कर सकते हैं:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";

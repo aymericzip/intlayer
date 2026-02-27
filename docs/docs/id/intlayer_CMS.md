@@ -464,7 +464,7 @@ Contoh menggunakan Vite:
 
 Server Live Sync membungkus aplikasi Anda dan secara otomatis menerapkan konten yang diperbarui saat konten tersebut tiba.
 
-Untuk menerima notifikasi perubahan dari CMS, server Live Sync mempertahankan koneksi SSE ke backend. Ketika konten berubah di CMS, backend meneruskan pembaruan ke server Live Sync, yang kemudian menulis kamus baru. Aplikasi Anda akan mencerminkan pembaruan tersebut pada navigasi berikutnya atau saat memuat ulang browser—tidak perlu membangun ulang.
+Untuk menerima notifikasi perubahan dari CMS, server Live Sync mempertahankan koneksi SSE ke backend. Ketika konten berubah di CMS, backend meneruskan pembaruan ke server Live Sync, yang kemudian menulis kamus baru. Aplikasi Anda akan mencerminkan pembaruan tersebut pada navigasi berikutnya atau saat memuat ulang browser, tidak perlu membangun ulang.
 
 Diagram alur (CMS/Backend -> Server Live Sync -> Server Aplikasi -> Frontend):
 

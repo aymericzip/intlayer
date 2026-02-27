@@ -78,7 +78,7 @@ export default componentContent;
 
 ## 2) 获取您的内容
 
-### 情况 A — React 应用 (Vite/SPA)
+### 情况 A. React 应用 (Vite/SPA)
 
 默认方法：使用 `useIntlayer` 通过键来获取内容。这使组件保持简洁且类型安全。
 
@@ -129,7 +129,7 @@ export function ComponentWithDictionary() {
 }
 ```
 
-### 方案 B — Next.js（App 路由）
+### 方案 B. Next.js（App 路由）
 
 优先使用服务器组件以确保数据安全和性能。在服务器文件中使用来自 `next-intlayer/server` 的 `useIntlayer`，在客户端组件中使用来自 `next-intlayer` 的 `useIntlayer`。
 

@@ -39,7 +39,7 @@ Focamos no **Next.js 13+ App Router** (com **React Server Components**) e avalia
 
 > **resumo**: Todos os três podem localizar uma aplicação Next.js. Se você deseja **conteúdo com escopo por componente**, **tipos TypeScript rigorosos**, **verificações de chaves ausentes em tempo de build**, **dicionários otimizados por tree-shaking** e **suporte nativo ao App Router + helpers de SEO**, **Intlayer** é a escolha mais completa e moderna.
 
-> Uma confusão comum feita por desenvolvedores é pensar que `next-intl` é a versão Next.js do `react-intl`. Não é — `next-intl` é mantido por [Amann](https://github.com/amannn), enquanto `react-intl` é mantido por [FormatJS](https://github.com/formatjs/formatjs).
+> Uma confusão comum feita por desenvolvedores é pensar que `next-intl` é a versão Next.js do `react-intl`. Não é, `next-intl` é mantido por [Amann](https://github.com/amannn), enquanto `react-intl` é mantido por [FormatJS](https://github.com/formatjs/formatjs).
 
 ---
 

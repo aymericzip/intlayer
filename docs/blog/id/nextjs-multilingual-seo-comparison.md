@@ -54,7 +54,7 @@ Berikut adalah daftar periksa yang harus diimplementasikan setiap aplikasi multi
 - **Gunakan tautan yang dilokalkan**  
   Contoh: `<a href="/fr/about">À propos</a>` daripada menautkan ke `/about` default.
 
-Ini adalah langkah sederhana — tetapi melewatkannya dapat mengurangi visibilitas Anda.
+Ini adalah langkah sederhana, tetapi melewatkannya dapat mengurangi visibilitas Anda.
 
 ---
 

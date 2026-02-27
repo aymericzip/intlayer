@@ -31,11 +31,11 @@ Swoje sukcesy zbudował na byciu "developer-friendly" TMS, automatyzując ekstra
 
 # Intlayer
 
-Intlayer jest znany przede wszystkim jako rozwiązanie i18n, ale integruje także headless CMS. W przeciwieństwie do Lokalise, które działa w dużej mierze jako zewnętrzne narzędzie do synchronizacji Twoich strings, Intlayer funkcjonuje bliżej Twojego kodu. Kontroluje cały stos — od warstwy bundlingu po zdalne dostarczanie treści — co skutkuje płynniejszym i bardziej efektywnym przepływem zawartości.
+Intlayer jest znany przede wszystkim jako rozwiązanie i18n, ale integruje także headless CMS. W przeciwieństwie do Lokalise, które działa w dużej mierze jako zewnętrzne narzędzie do synchronizacji Twoich strings, Intlayer funkcjonuje bliżej Twojego kodu. Kontroluje cały stos, od warstwy bundlingu po zdalne dostarczanie treści, co skutkuje płynniejszym i bardziej efektywnym przepływem zawartości.
 
 ## Dlaczego paradygmaty zmieniły się od pojawienia się AI?
 
-Lokalise udoskonaliło stronę „DevOps” lokalizacji — automatyczne przenoszenie strings. Jednak pojawienie się Large Language Models (LLMs) zasadniczo przesunęło paradygmaty lokalizacji. Wąskim gardłem nie jest już _przenoszenie_ strings; jest nim _generowanie_ ich.
+Lokalise udoskonaliło stronę „DevOps” lokalizacji, automatyczne przenoszenie strings. Jednak pojawienie się Large Language Models (LLMs) zasadniczo przesunęło paradygmaty lokalizacji. Wąskim gardłem nie jest już _przenoszenie_ strings; jest nim _generowanie_ ich.
 
 Dzięki LLMs koszt tłumaczeń drastycznie spadł, a szybkość wzrosła wykładniczo. Rola zespołu lokalizacyjnego przesuwa się z "zarządzania tłumaczami" na "zarządzanie kontekstem i przeglądem".
 
@@ -51,14 +51,14 @@ Lokalise bywa często krytykowane za strome progi cenowe, które mogą stać si�
 
 1.  **Efektywność kosztowa:** Nie jesteś związany modelem cenowym "per key" lub "per seat", który penalizuje wzrost. W Intlayer płacisz za własne inferencje (BYO Key), co oznacza, że twoje koszty skalują się bezpośrednio z rzeczywistym użyciem, a nie z marżami platformy.
 2.  **Integracja workflow:** Podczas gdy Lokalise wymaga synchronizacji plików (nawet jeśli zautomatyzowanej), Intlayer pozwala na definiowanie Declarative Content bezpośrednio w plikach komponentów (React, Next.js, itd.). Dzięki temu kontekst znajduje się tuż obok UI, co zmniejsza liczbę błędów.
-3.  **Zarządzanie wizualne:** Intlayer udostępnia edytor wizualny, który wchodzi w bezpośrednią interakcję z uruchomioną aplikacją, zapewniając, że zmiany są dokonywane w pełnym kontekście wizualnym — coś, co w tradycyjnych listach plików TMS jest często rozłączone.
+3.  **Zarządzanie wizualne:** Intlayer udostępnia edytor wizualny, który wchodzi w bezpośrednią interakcję z uruchomioną aplikacją, zapewniając, że zmiany są dokonywane w pełnym kontekście wizualnym, coś, co w tradycyjnych listach plików TMS jest często rozłączone.
 
 # Porównanie obok siebie
 
 | Funkcja              | Lokalise (Nowoczesny TMS)                          | Intlayer (AI-Native)                                                      |
 | :------------------- | :------------------------------------------------- | :------------------------------------------------------------------------ |
 | **Główna filozofia** | Automatyzacja i L10n na etapie projektowania.      | Zarządza logiką treści i generowaniem przez AI.                           |
-| **Model cenowy**     | Per seat / MAU / liczba kluczy (wysoki koszt).     | Płacisz za własne inferencje (BYO Key — użyj własnego klucza).            |
+| **Model cenowy**     | Per seat / MAU / liczba kluczy (wysoki koszt).     | Płacisz za własne inferencje (BYO Key, użyj własnego klucza).             |
 | **Integracja**       | Synchronizacja przez API / wtyczki do Figma.       | Głęboka integracja z kodem (deklaratywna).                                |
 | **Aktualizacje**     | Opóźnienia synchronizacji / wymóg tworzenia PR-ów. | Błyskawiczna synchronizacja z repozytorium kodu lub działającą aplikacją. |
 | **Formaty plików**   | Agnostyczne (Mobile, Web, Documents).              | Nowoczesne webowe (JSON, JS, TS).                                         |
@@ -69,6 +69,6 @@ Intlayer oferuje kompletne, all-in-one rozwiązanie i18n, które umożliwia gł�
 
 Ponadto Intlayer może być wykorzystywany jako narzędzie Feature Flag lub A/B testing, umożliwiając dynamiczne testowanie różnych wariantów treści. Podczas gdy Lokalise skupia się na poprawności słów, Intlayer skupia się na zapewnieniu właściwego _doświadczenia użytkownika_ poprzez dynamiczne serwowanie danych.
 
-Lokalise sprawdza się świetnie w aplikacjach mobilnych (iOS/Android) oraz w workflowach zorientowanych na design. Jednak dla nowoczesnych aplikacji webowych korzystających z frameworków takich jak Next.js czy React, natywne obsługiwanie przez Intlayer plików `.js`, `.ts` oraz słowników JSON oferuje lepsze doświadczenie deweloperskie (DX) z pełnym wsparciem TypeScript dla treści — dzięki czemu nigdy więcej nie wypuścisz aplikacji z brakującym kluczem tłumaczenia.
+Lokalise sprawdza się świetnie w aplikacjach mobilnych (iOS/Android) oraz w workflowach zorientowanych na design. Jednak dla nowoczesnych aplikacji webowych korzystających z frameworków takich jak Next.js czy React, natywne obsługiwanie przez Intlayer plików `.js`, `.ts` oraz słowników JSON oferuje lepsze doświadczenie deweloperskie (DX) z pełnym wsparciem TypeScript dla treści, dzięki czemu nigdy więcej nie wypuścisz aplikacji z brakującym kluczem tłumaczenia.
 
-Na koniec, dla tych, którzy priorytetowo traktują suwerenność danych i kontrolę, Intlayer jest open-source i może być hostowany lokalnie. Pliki Docker są dostępne bezpośrednio w repozytorium, dając Ci pełną kontrolę nad infrastrukturą lokalizacyjną — co stanowi wyraźny kontrast w stosunku do zamkniętego modelu SaaS Lokalise.
+Na koniec, dla tych, którzy priorytetowo traktują suwerenność danych i kontrolę, Intlayer jest open-source i może być hostowany lokalnie. Pliki Docker są dostępne bezpośrednio w repozytorium, dając Ci pełną kontrolę nad infrastrukturą lokalizacyjną, co stanowi wyraźny kontrast w stosunku do zamkniętego modelu SaaS Lokalise.

@@ -74,7 +74,7 @@ history:
 
 ## Що таке Intlayer?
 
-**Intlayer** — інноваційна бібліотека для інтернаціоналізації (i18n) з відкритим кодом, створена для спрощення багатомовної підтримки в сучасних веб‑додатках. Intlayer плавно інтегрується з останньою версією **Next.js 15**, включаючи його потужний **App Router**. Вона оптимізована для роботи з **Server Components** для ефективного рендерингу і повністю сумісна з [**Turbopack**](https://nextjs.org/docs/architecture/turbopack).
+**Intlayer**, інноваційна бібліотека для інтернаціоналізації (i18n) з відкритим кодом, створена для спрощення багатомовної підтримки в сучасних веб‑додатках. Intlayer плавно інтегрується з останньою версією **Next.js 15**, включаючи його потужний **App Router**. Вона оптимізована для роботи з **Server Components** для ефективного рендерингу і повністю сумісна з [**Turbopack**](https://nextjs.org/docs/architecture/turbopack).
 
 З Intlayer ви можете:
 
@@ -101,7 +101,7 @@ history:
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-next-15-template?embed=1&ctl=1&file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо CodeSandbox — Як інтернаціоналізувати ваш застосунок за допомогою Intlayer"
+  title="Демо CodeSandbox. Як інтернаціоналізувати ваш застосунок за допомогою Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -395,7 +395,7 @@ const LocaleLayout = async ({ children, params: { locale } }) => {
 module.exports = LocaleLayout;
 ```
 
-> Сегмент шляху `[locale]` використовується для визначення локалі. Приклад: `/en-US/about` відповідатиме `en-US`, а `/fr/about` — `fr`.
+> Сегмент шляху `[locale]` використовується для визначення локалі. Приклад: `/en-US/about` відповідатиме `en-US`, а `/fr/about`, `fr`.
 
 > На цьому етапі ви зіткнетесь з помилкою: `Error: Missing <html> and <body> tags in the root layout.`. Це очікувано, оскільки файл `/app/page.tsx` більше не використовується і його можна видалити. Натомість сегмент шляху `[locale]` активуватиме сторінку `/app/[locale]/page.tsx`. Отже, сторінки будуть доступні за шляхами на кшталт `/en`, `/fr`, `/es` у вашому браузері. Щоб встановити локаль за замовчуванням для кореневої сторінки, зверніться до налаштування `middleware` у кроці 7.
 
@@ -525,7 +525,7 @@ module.exports = pageContent;
 }
 ```
 
-> Декларації контенту можна визначати будь-де у вашому застосунку, якщо вони включені в директорію `contentDir` (за замовчуванням — `./src`). І вони повинні відповідати розширенню файлу декларації контенту (за замовчуванням — `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+> Декларації контенту можна визначати будь-де у вашому застосунку, якщо вони включені в директорію `contentDir` (за замовчуванням, `./src`). І вони повинні відповідати розширенню файлу декларації контенту (за замовчуванням, `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
 > Для детальнішої інформації зверніться до [документації щодо декларації контенту](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md).
 
@@ -1390,19 +1390,19 @@ export const LocaleSwitcher: FC = () => {
             replace // Гарантує, що кнопка «назад» в браузері перенаправлятиме на попередню сторінку
           >
             <span>
-              {/* Локаль — наприклад, FR */}
+              {/* Локаль, наприклад, FR */}
               {localeItem}
             </span>
             <span>
-              {/* Мова у власній локалі — наприклад, Français */}
+              {/* Мова у власній локалі, наприклад, Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Мова у поточній локалі — наприклад, Francés коли поточна локаль встановлена на Locales.SPANISH */}
+              {/* Мова у поточній локалі, наприклад, Francés коли поточна локаль встановлена на Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Мова англійською — наприклад, French */}
+              {/* Мова англійською, наприклад, French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </Link>
@@ -1412,19 +1412,19 @@ export const LocaleSwitcher: FC = () => {
   );
 };
             <span>
-              {/* Локаль — наприклад: FR */}
+              {/* Локаль, наприклад: FR */}
               {localeItem}
             </span>
             <span>
-              {/* Назва мови в її власній локалі — наприклад: Français */}
+              {/* Назва мови в її власній локалі, наприклад: Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Назва мови в поточній локалі — наприклад: Francés при поточній локалі Locales.SPANISH */}
+              {/* Назва мови в поточній локалі, наприклад: Francés при поточній локалі Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Назва мови англійською — наприклад: French */}
+              {/* Назва мови англійською, наприклад: French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </Link>
@@ -1492,19 +1492,19 @@ export const LocaleSwitcher = () => {
             replace // Це гарантує, що кнопка "назад" в браузері перенаправить на попередню сторінку
           >
             <span>
-              {/* Локаль — напр., FR */}
+              {/* Локаль, напр., FR */}
               {localeItem}
             </span>
             <span>
-              {/* Мова у власній локалі — напр., Français */}
+              {/* Мова у власній локалі, напр., Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Мова у поточній локалі — напр., Francés коли поточна локаль встановлена в Locales.SPANISH */}
+              {/* Мова у поточній локалі, напр., Francés коли поточна локаль встановлена в Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Назва мови англійською — напр., French */}
+              {/* Назва мови англійською, напр., French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             key={localeItem}
             aria-current={locale === localeItem ? "page" : undefined}
@@ -1590,19 +1590,19 @@ export const LocaleSwitcher = () => {
             replace // Це гарантує, що кнопка браузера "назад" перенаправлятиме на попередню сторінку
           >
             <span>
-              {/* Локаль — наприклад FR */}
+              {/* Локаль, наприклад FR */}
               {localeItem}
             </span>
             <span>
-              {/* Назва мови у власній локалі — наприклад Français */}
+              {/* Назва мови у власній локалі, наприклад Français */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Назва мови у поточній локалі — наприклад Francés, коли поточна локаль встановлена на Locales.SPANISH */}
+              {/* Назва мови у поточній локалі, наприклад Francés, коли поточна локаль встановлена на Locales.SPANISH */}
               {getLocaleName(localeItem)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Мова англійською — наприклад French */}
+              {/* Мова англійською, наприклад French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </Link>

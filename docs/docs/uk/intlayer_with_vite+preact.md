@@ -54,7 +54,7 @@ history:
 
 ## Що таке Intlayer?
 
-**Intlayer** — це інноваційна open-source бібліотека для інтернаціоналізації (i18n), створена для спрощення багатомовної підтримки в сучасних вебзастосунках.
+**Intlayer**, це інноваційна open-source бібліотека для інтернаціоналізації (i18n), створена для спрощення багатомовної підтримки в сучасних вебзастосунках.
 
 За допомогою Intlayer ви можете:
 
@@ -192,7 +192,7 @@ import { defineConfig } from "vite";
 import preact from "@preact/preset-vite";
 import { intlayer } from "vite-intlayer";
 
-// https://vitejs.dev/config/ — документація Vite
+// https://vitejs.dev/config/, документація Vite
 export default defineConfig({
   plugins: [preact(), intlayer()],
 });
@@ -203,7 +203,7 @@ import { defineConfig } from "vite";
 import preact from "@preact/preset-vite";
 import { intlayer } from "vite-intlayer";
 
-// https://vitejs.dev/config/ — документація Vite
+// https://vitejs.dev/config/, документація Vite
 export default defineConfig({
   plugins: [preact(), intlayer()],
 });
@@ -214,7 +214,7 @@ const { defineConfig } = require("vite");
 const preact = require("@preact/preset-vite");
 const { intlayer } = require("vite-intlayer");
 
-// https://vitejs.dev/config/ — документація Vite
+// https://vitejs.dev/config/, документація Vite
 module.exports = defineConfig({
   plugins: [preact(), intlayer()],
 });
@@ -656,7 +656,7 @@ module.exports = LocaleSwitcher;
 
 ### (Необов'язково) Крок 7: Додайте локалізовану маршрутизацію до вашого додатка
 
-Мета цього кроку — створити унікальні маршрути для кожної мови. Це корисно для SEO та SEO-дружніх URL-адрес.
+Мета цього кроку, створити унікальні маршрути для кожної мови. Це корисно для SEO та SEO-дружніх URL-адрес.
 Приклад:
 
 ```plaintext
@@ -849,19 +849,19 @@ const LocaleSwitcher: FunctionalComponent = () => {
             key={localeItem}
           >
             <span>
-              {/* Локаль — наприклад FR */}
+              {/* Локаль, наприклад FR */}
               {localeItem}
             </span>
             <span>
-              {/* Мова у своїй локалі — наприклад Français */}
+              {/* Мова у своїй локалі, наприклад Français */}
               {getLocaleName(localeItem, localeItem)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Мова у поточній локалі — наприклад Francés коли поточна локаль встановлена на Locales.SPANISH */}
+              {/* Мова у поточній локалі, наприклад Francés коли поточна локаль встановлена на Locales.SPANISH */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Мова англійською — наприклад French */}
+              {/* Мова англійською, наприклад French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </a>
@@ -1082,7 +1082,7 @@ const AppWithHooks: FunctionalComponent = () => {
   // Застосовуємо хук, щоб оновити атрибути lang і dir елемента <html> відповідно до локалі.
   useI18nHTMLAttributes();
 
-  // Припускаючи, що AppContent — ваш основний компонент для відображення вмісту з Кроку 5
+  // Припускаючи, що AppContent, ваш основний компонент для відображення вмісту з Кроку 5
   return <AppContent />;
 };
 

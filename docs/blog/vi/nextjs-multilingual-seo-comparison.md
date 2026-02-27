@@ -54,7 +54,7 @@ Dưới đây là danh sách kiểm tra mà mọi ứng dụng đa ngôn ngữ n
 - **Sử dụng các liên kết địa phương hóa**  
   Ví dụ: `<a href="/fr/about">À propos</a>` thay vì liên kết đến trang mặc định `/about`.
 
-Đây là những bước đơn giản — nhưng bỏ qua chúng có thể khiến bạn mất đi khả năng hiển thị.
+Đây là những bước đơn giản, nhưng bỏ qua chúng có thể khiến bạn mất đi khả năng hiển thị.
 
 ---
 

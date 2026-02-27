@@ -48,13 +48,13 @@ Los paquetes de Intlayer contienen código que puede funcionar tanto en Node com
 
 (https://reactrouter.com/api/framework-conventions/server-modules), el equipo **sugiere explícitamente usar `vite-env-only`** para evitar que las importaciones exclusivas del servidor se filtren en el bundle del cliente.
 
-Sin embargo, esas convenciones dependen del aliasing de Vite, las exportaciones condicionales y el tree-shaking para eliminar el código exclusivo del servidor. Aunque el aliasing y las exportaciones condicionales ya se aplican, algunas utilidades basadas en Node aún están presentes en paquetes como `@intlayer/core` en esa etapa (aunque nunca se importan en el cliente). Como el tree-shaking no se ha ejecutado todavía, esas funciones todavía son parseadas por Babel, y `vite-env-only` detecta sus importaciones `node:` y produce un falso positivo — aunque se purgan correctamente del bundle final del cliente.
+Sin embargo, esas convenciones dependen del aliasing de Vite, las exportaciones condicionales y el tree-shaking para eliminar el código exclusivo del servidor. Aunque el aliasing y las exportaciones condicionales ya se aplican, algunas utilidades basadas en Node aún están presentes en paquetes como `@intlayer/core` en esa etapa (aunque nunca se importan en el cliente). Como el tree-shaking no se ha ejecutado todavía, esas funciones todavía son parseadas por Babel, y `vite-env-only` detecta sus importaciones `node:` y produce un falso positivo, aunque se purgan correctamente del bundle final del cliente.
 
 ## Cómo solucionarlo / soluciones alternativas
 
 ### Recomendado: Eliminar `vite-env-only`
 
-Simplemente elimina el plugin. En muchos casos no lo necesitas — Vite ya gestiona las importaciones cliente vs servidor mediante su propia resolución.
+Simplemente elimina el plugin. En muchos casos no lo necesitas. Vite ya gestiona las importaciones cliente vs servidor mediante su propia resolución.
 
 Esto soluciona la denegación falsa de `node:fs` sin cambios en Intlayer.
 

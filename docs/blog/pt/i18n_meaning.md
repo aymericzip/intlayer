@@ -26,7 +26,7 @@ Se você está envolvido em desenvolvimento de software, web design ou marketing
 
 Mas por que "i18n"? A abreviação é criada pegando a primeira letra da palavra "internationalization" (**i**), a última letra (**n**) e contando o número de letras entre elas (**18**). Essa convenção é usada frequentemente na indústria de tecnologia para encurtar termos longos e complicados (outro exemplo comum é **l10n** para localização - localization).
 
-Em termos técnicos, o **significado de i18n** refere-se ao processo de design e preparação de um aplicativo de software, site ou produto para que ele possa suportar facilmente vários idiomas, normas regionais e convenções culturais — tudo isso sem exigir alterações significativas de engenharia no código-fonte subjacente.
+Em termos técnicos, o **significado de i18n** refere-se ao processo de design e preparação de um aplicativo de software, site ou produto para que ele possa suportar facilmente vários idiomas, normas regionais e convenções culturais, tudo isso sem exigir alterações significativas de engenharia no código-fonte subjacente.
 
 ## O significado central de i18n na prática
 

@@ -49,13 +49,13 @@ Intlayer पैकेजों में ऐसा कोड होता है
 React-Router के दस्तावेज़ में **server module conventions**  
 (https://reactrouter.com/api/framework-conventions/server-modules), टीम **स्पष्ट रूप से `vite-env-only` का उपयोग करने का सुझाव देती है** ताकि server-only imports क्लाइंट बंडल में लीक न हों।
 
-हालाँकि, ये कन्वेंशन्स Vite की aliasing, conditional exports, और tree-shaking पर निर्भर करते हैं ताकि server-only कोड हटाया जा सके। जबकि aliasing और conditional exports पहले से लागू हैं, कुछ Node-आधारित utilities उस चरण में अभी भी पैकेजेज़ जैसे `@intlayer/core` में मौजूद रहते हैं (हालाँकि वे क्लाइंट पर कभी import नहीं होते)। क्योंकि tree-shaking अभी तक नहीं चला है, वे फ़ंक्शंस अभी भी Babel द्वारा पार्स किए जाते हैं, और `vite-env-only` उनके `node:` imports का पता लगा कर एक false positive उठाता है — भले ही वे अंतिम क्लाइंट बंडल से सही तरीके से हटाए जा चुके हों।
+हालाँकि, ये कन्वेंशन्स Vite की aliasing, conditional exports, और tree-shaking पर निर्भर करते हैं ताकि server-only कोड हटाया जा सके। जबकि aliasing और conditional exports पहले से लागू हैं, कुछ Node-आधारित utilities उस चरण में अभी भी पैकेजेज़ जैसे `@intlayer/core` में मौजूद रहते हैं (हालाँकि वे क्लाइंट पर कभी import नहीं होते)। क्योंकि tree-shaking अभी तक नहीं चला है, वे फ़ंक्शंस अभी भी Babel द्वारा पार्स किए जाते हैं, और `vite-env-only` उनके `node:` imports का पता लगा कर एक false positive उठाता है, भले ही वे अंतिम क्लाइंट बंडल से सही तरीके से हटाए जा चुके हों।
 
 ## कैसे ठीक करें / वर्कअराउंड
 
 ### अनुशंसित: `vite-env-only` हटाएँ
 
-सिर्फ़ प्लगइन को हटा दें। कई मामलों में इसकी आवश्यकता नहीं होती — Vite अपने resolution के माध्यम से क्लाइंट बनाम सर्वर इम्पोर्ट्स को पहले से ही संभालता है।
+सिर्फ़ प्लगइन को हटा दें। कई मामलों में इसकी आवश्यकता नहीं होती. Vite अपने resolution के माध्यम से क्लाइंट बनाम सर्वर इम्पोर्ट्स को पहले से ही संभालता है।
 
 यह Intlayer में किसी बदलाव के बिना `node:fs` पर दिखने वाली false positive को ठीक कर देता है।
 

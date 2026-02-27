@@ -2,7 +2,7 @@
 createdAt: 2025-11-01
 updatedAt: 2025-11-01
 title: Як інтернаціоналізувати ваш додаток Next.js за допомогою next-intl у 2025 році
-description: Налаштування i18n за допомогою next-intl — найкращі практики та поради з SEO для багатомовних додатків Next.js, що охоплюють інтернаціоналізацію, організацію контенту та технічну конфігурацію.
+description: Налаштування i18n за допомогою next-intl, найкращі практики та поради з SEO для багатомовних додатків Next.js, що охоплюють інтернаціоналізацію, організацію контенту та технічну конфігурацію.
 keywords:
   - next-intl
   - Інтернаціоналізація
@@ -28,7 +28,7 @@ history:
 
 ## Що таке next-intl?
 
-**next-intl** — популярна бібліотека для інтернаціоналізації (i18n), спеціально створена для Next.js App Router. Вона забезпечує зручний спосіб створення багатомовних додатків на Next.js з відмінною підтримкою TypeScript і вбудованими оптимізаціями.
+**next-intl**, популярна бібліотека для інтернаціоналізації (i18n), спеціально створена для Next.js App Router. Вона забезпечує зручний спосіб створення багатомовних додатків на Next.js з відмінною підтримкою TypeScript і вбудованими оптимізаціями.
 
 > Якщо бажаєте, також можете звернутися до [посібника next-i18next](https://github.com/aymericzip/intlayer/blob/main/docs/blog/uk/i18n_using_next-i18next.md), або безпосередньо використати [Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_with_next-intl.md).
 
@@ -70,7 +70,7 @@ history:
 <iframe
   src="https://stackblitz.com/github/aymericzip/next-intl-template?embed=1&ctl=1&file=src/i18n.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо CodeSandbox — Як інтернаціоналізувати ваш застосунок за допомогою Intlayer"
+  title="Демо CodeSandbox. Як інтернаціоналізувати ваш застосунок за допомогою Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -235,7 +235,7 @@ export default function LocaleLayout({
   children: ReactNode;
   params: Promise<{ locale: string }>;
 }) {
-  // У Next.js App Router, params — це Promise (можна використовувати await)
+  // У Next.js App Router, params, це Promise (можна використовувати await)
   // Це дозволяє асинхронно вирішувати динамічні сегменти маршруту
   const { locale } = await params;
 
@@ -408,7 +408,7 @@ import { useTranslations, useFormatter } from "next-intl";
 
 const ClientComponent = () => {
   // Застосувати область безпосередньо до вкладеного об'єкта
-  // useTranslations/useFormatter — це хуки, які читають контекст NextIntlClientProvider
+  // useTranslations/useFormatter, це хуки, які читають контекст NextIntlClientProvider
   // Вони працюють лише якщо компонент обгорнутий у NextIntlClientProvider
   const t = useTranslations("about.counter");
   const format = useFormatter();
@@ -569,7 +569,7 @@ export async function handleContactForm(formData: FormData) {
 
 ### (Необов'язково) Крок 11: Інтернаціоналізуйте свої метадані
 
-Переклад контенту важливий, але головна мета інтернаціоналізації — зробити ваш вебсайт більш помітним у світі. I18n — неймовірний важіль для підвищення видимості вашого вебсайту за допомогою правильної SEO.
+Переклад контенту важливий, але головна мета інтернаціоналізації, зробити ваш вебсайт більш помітним у світі. I18n, неймовірний важіль для підвищення видимості вашого вебсайту за допомогою правильної SEO.
 
 Коректно інтернаціоналізовані метадані допомагають пошуковим системам зрозуміти, якими мовами доступні ваші сторінки. Це включає встановлення meta-тегів hreflang, переклад заголовків і описів, а також забезпечення правильності canonical URL для кожної локалі.
 
@@ -735,7 +735,7 @@ declare module "next-intl" {
 
 ### (Необов'язково) Крок 15: Автоматизуйте переклади за допомогою Intlayer
 
-Intlayer — це **безкоштовна** та **відкрита** бібліотека, створена для полегшення процесу локалізації у вашому застосунку. У той час як next-intl відповідає за завантаження та управління перекладами, Intlayer допомагає автоматизувати робочий процес перекладів.
+Intlayer, це **безкоштовна** та **відкрита** бібліотека, створена для полегшення процесу локалізації у вашому застосунку. У той час як next-intl відповідає за завантаження та управління перекладами, Intlayer допомагає автоматизувати робочий процес перекладів.
 
 Ручне керування перекладами може займати багато часу та бути схильним до помилок. Intlayer автоматизує тестування, генерацію та управління перекладами, заощаджуючи ваш час і забезпечуючи узгодженість у всьому застосунку.
 
