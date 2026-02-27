@@ -30,12 +30,23 @@ export const getIntlayerMarkdownOptions: (
   isDarkMode: boolean
 ) => RenderMarkdownProps = (isDarkMode) => ({
   components: {
-    h1: (props) => <H1 isClickable={true} {...props} />,
-    h2: (props) => <H2 isClickable={true} className="mt-16" {...props} />,
-    h3: (props) => <H3 isClickable={true} className="mt-5" {...props} />,
-    h4: (props) => <H4 isClickable={true} className="mt-3" {...props} />,
-    h5: (props) => <H5 isClickable={true} className="mt-3" {...props} />,
-    h6: (props) => <H6 isClickable={true} className="mt-3" {...props} />,
+    h1: (props) => <H1 isClickable={true} className="text-text" {...props} />,
+    h2: (props) => (
+      <H2 isClickable={true} className="mt-16 text-text" {...props} />
+    ),
+    h3: (props) => (
+      <H3 isClickable={true} className="mt-5 text-text" {...props} />
+    ),
+    h4: (props) => (
+      <H4 isClickable={true} className="mt-3 text-text" {...props} />
+    ),
+    h5: (props) => (
+      <H5 isClickable={true} className="mt-3 text-text" {...props} />
+    ),
+    h6: (props) => (
+      <H6 isClickable={true} className="mt-3 text-text" {...props} />
+    ),
+    strong: (props) => <strong className="text-text" {...props} />,
 
     code: ({ className, children, ...rest }: ComponentProps<'code'>) => {
       // Ensure children is a string (Markdown renderer might pass ReactNodes)
@@ -47,9 +58,9 @@ export const getIntlayerMarkdownOptions: (
 
       if (!isBlock) {
         return (
-          <strong className="rounded bg-card/60 box-decoration-clone px-1 py-0.5 font-mono text-sm">
+          <code className="rounded-md border border-neutral/30 bg-card/60 box-decoration-clone px-1.5 py-0.5 font-mono text-sm">
             {content}
-          </strong>
+          </code>
         );
       }
 
@@ -68,11 +79,11 @@ export const getIntlayerMarkdownOptions: (
         </Code>
       );
     },
-
     blockquote: ({ className, ...props }) => (
       <blockquote
         className={cn(
           'mt-5 gap-3 border-card border-l-4 pl-5 text-neutral',
+          '[&_strong]:text-neutral',
           className
         )}
         {...props}
@@ -80,13 +91,19 @@ export const getIntlayerMarkdownOptions: (
     ),
     ul: ({ className, ...props }) => (
       <ul
-        className={cn('mt-5 flex list-disc flex-col gap-3 pl-5', className)}
+        className={cn(
+          'mt-5 flex list-disc flex-col gap-3 pl-5 marker:text-neutral/80',
+          className
+        )}
         {...props}
       />
     ),
     ol: ({ className, ...props }) => (
       <ol
-        className={cn('mt-5 flex list-decimal flex-col gap-3 pl-5', className)}
+        className={cn(
+          'mt-5 flex list-decimal flex-col gap-3 pl-5 marker:text-neutral/80',
+          className
+        )}
         {...props}
       />
     ),
@@ -106,7 +123,6 @@ export const getIntlayerMarkdownOptions: (
         underlined={true}
         // locale={locale}
         {...props}
-        color="neutral"
       />
     ),
     pre: (props) => props.children,
@@ -188,9 +204,9 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
 
         if (!isBlock) {
           return (
-            <strong className="rounded bg-card/60 box-decoration-clone px-1 py-0.5 font-mono text-sm">
+            <code className="rounded-md border border-neutral/30 bg-card/60 box-decoration-clone px-1.5 py-0.5 font-mono text-sm">
               {content}
-            </strong>
+            </code>
           );
         }
 
@@ -211,13 +227,13 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
       },
 
       a: (props) => (
-        // @ts-expect-error - label is not required in LinkProps
         <Link
           isExternalLink={props.href?.startsWith('http')}
           underlined={true}
           locale={locale}
+          label=""
           {...props}
-          color="neutral"
+          color="text"
         />
       ),
       ...componentsProp,

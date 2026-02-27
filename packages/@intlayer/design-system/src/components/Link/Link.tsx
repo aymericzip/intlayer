@@ -70,9 +70,9 @@ export const linkVariants = cva(
     variants: {
       variant: {
         [`${LinkVariant.DEFAULT}`]:
-          'h-auto justify-start border-inherit bg-current/0 px-1 decoration-1 underline-offset-4 hover:bg-current/0 hover:underline',
+          'h-auto justify-start border-inherit bg-current/0 px-1 font-medium decoration-[1.5] underline-offset-5 hover:bg-current/0 hover:text-current/80 hover:underline hover:underline-offset-6',
         [`${LinkVariant.INVISIBLE_LINK}`]:
-          'h-auto justify-start border-inherit bg-current/0 px-1 underline-offset-4 hover:bg-current/0',
+          'h-auto justify-start border-inherit bg-current/0 px-1 underline-offset-5 hover:bg-current/0',
 
         [`${LinkVariant.BUTTON}`]:
           'relative flex cursor-pointer flex-row items-center justify-center gap-2 rounded-full bg-current text-center font-medium text-text ring-0 *:text-text-opposite hover:bg-current/90 hover:ring-5 aria-selected:ring-5',
@@ -223,7 +223,6 @@ export const linkVariants = cva(
 
     defaultVariants: {
       variant: LinkVariant.DEFAULT,
-      color: LinkColor.PRIMARY,
       roundedSize: LinkRoundedSize.MD,
       underlined: LinkUnderlined.DEFAULT,
       size: LinkSize.MD,
@@ -275,7 +274,7 @@ export const isTextChildren = (children: ReactNode): boolean => {
 export const Link: FC<LinkProps> = (props) => {
   const {
     variant = LinkVariant.DEFAULT,
-    color = LinkColor.PRIMARY,
+    color = LinkColor.CUSTOM,
     roundedSize,
     children,
     label,

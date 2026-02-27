@@ -27,7 +27,7 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
   const isDarkMode = resolvedTheme === 'dark';
 
   return (
-    <div className="m-auto flex max-w-3xl flex-col gap-8 p-10 max-md:px-0">
+    <div className="m-auto flex max-w-3xl flex-col gap-8 p-10 text-text/90 max-md:px-0">
       <MarkdownRenderer
         isDarkMode={isDarkMode}
         locale={locale}
@@ -37,7 +37,6 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
               underlined={true}
               locale={locale}
               {...props}
-              color="neutral"
               label=""
               href={props.href ?? ''}
             />

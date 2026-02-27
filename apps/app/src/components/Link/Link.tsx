@@ -21,7 +21,7 @@ const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN;
 export const Link: FC<LinkProps> = (props) => {
   const {
     variant = 'default',
-    color = 'primary',
+    color,
     children,
     label,
     className,

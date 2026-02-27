@@ -27,11 +27,12 @@ export const DocPageNavigation: FC<DocPageNavigationProps> = ({
           <Link
             href={prevDoc?.url}
             label={goToPreviousSection.label.value}
-            color="text"
+            color="neutral"
+            variant="button-outlined"
             className="ml-auto flex h-auto w-full flex-1 flex-row items-center justify-start gap-2 whitespace-normal text-nowrap break-words rounded-lg px-2 py-5"
           >
             <ChevronLeft className="size-5" />
-            {prevDoc?.title}
+            <span className="text-text">{prevDoc?.title}</span>
           </Link>
         </Container>
       )}
@@ -40,10 +41,11 @@ export const DocPageNavigation: FC<DocPageNavigationProps> = ({
           <Link
             href={nextDoc?.url}
             label={goToNextSection.label.value}
-            color="text"
+            variant="button-outlined"
+            color="neutral"
             className="flex h-auto w-full flex-1 flex-row items-center justify-end gap-2 whitespace-normal text-nowrap break-words rounded-lg px-2 py-5"
           >
-            {nextDoc?.title}
+            <span className="text-text">{nextDoc?.title}</span>
             <ChevronRight className="size-5" />
           </Link>
         </Container>
