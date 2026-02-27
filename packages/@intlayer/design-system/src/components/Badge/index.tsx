@@ -49,38 +49,39 @@ export const badgeVariants = cva(
   {
     variants: {
       color: {
-        [BadgeColor.PRIMARY]:
+        [`${BadgeColor.PRIMARY}`]:
           'border-primary bg-primary text-primary hover:bg-primary-500',
-        [BadgeColor.SECONDARY]:
+        [`${BadgeColor.SECONDARY}`]:
           'border-secondary bg-secondary text-secondary hover:bg-secondary-300',
-        [BadgeColor.DESTRUCTIVE]:
+        [`${BadgeColor.DESTRUCTIVE}`]:
           'border-destructive bg-destructive text-destructive hover:bg-destructive-500',
-        [BadgeColor.SUCCESS]:
+        [`${BadgeColor.SUCCESS}`]:
           'border-success bg-success text-success hover:bg-success-500',
-        [BadgeColor.ERROR]:
+        [`${BadgeColor.ERROR}`]:
           'border-error bg-error text-error hover:bg-error-500',
-        [BadgeColor.NEUTRAL]:
+        [`${BadgeColor.NEUTRAL}`]:
           'border-neutral bg-neutral text-neutral hover:bg-neutral-600',
-        [BadgeColor.LIGHT]:
+        [`${BadgeColor.LIGHT}`]:
           'border-white bg-white text-white hover:bg-neutral-500',
-        [BadgeColor.DARK]:
+        [`${BadgeColor.DARK}`]:
           'border-neutral-800 bg-neutral-800 text-neutral-800 hover:bg-neutral-900',
-        [BadgeColor.TEXT]: 'border-text bg-text text-text hover:opacity-80',
-        [BadgeColor.CUSTOM]: '',
+        [`${BadgeColor.TEXT}`]:
+          'border-text bg-text text-text hover:opacity-80',
+        [`${BadgeColor.CUSTOM}`]: '',
       },
       variant: {
-        [BadgeVariant.DEFAULT]: 'rounded-lg text-text-opposite',
-        [BadgeVariant.NONE]:
+        [`${BadgeVariant.DEFAULT}`]: 'rounded-lg text-text-opposite',
+        [`${BadgeVariant.NONE}`]:
           'border-none bg-opacity-0 text-inherit hover:bg-opacity-0',
-        [BadgeVariant.OUTLINE]:
+        [`${BadgeVariant.OUTLINE}`]:
           'rounded-lg border-[1.3px] bg-opacity-0 hover:bg-opacity-30',
-        [BadgeVariant.HOVERABLE]:
+        [`${BadgeVariant.HOVERABLE}`]:
           'rounded-lg border-none bg-opacity-0 transition hover:bg-opacity-10',
       },
       size: {
-        [BadgeSize.SMALL]: 'px-2 py-0.5 text-xs',
-        [BadgeSize.MEDIUM]: 'px-2.5 py-0.5 text-xs',
-        [BadgeSize.LARGE]: 'px-3 py-1 text-sm',
+        [`${BadgeSize.SMALL}`]: 'px-2 py-0.5 text-xs',
+        [`${BadgeSize.MEDIUM}`]: 'px-2.5 py-0.5 text-xs',
+        [`${BadgeSize.LARGE}`]: 'px-3 py-1 text-sm',
       },
     },
     defaultVariants: {
@@ -95,15 +96,15 @@ export const badgeVariants = cva(
  * Badge component props interface
  * @description Comprehensive props for the Badge component with accessibility and interactive features
  */
-export interface BadgeProps extends HTMLAttributes<HTMLElement> {
+export type BadgeProps = HTMLAttributes<HTMLElement> & {
   /** The content to display inside the badge */
   children?: React.ReactNode;
   /** Color theme variant */
-  color?: BadgeColor;
+  color?: BadgeColor | `${BadgeColor}`;
   /** Visual style variant */
-  variant?: BadgeVariant;
+  variant?: BadgeVariant | `${BadgeVariant}`;
   /** Size of the badge */
-  size?: BadgeSize;
+  size?: BadgeSize | `${BadgeSize}`;
   /** Whether the badge is clickable */
   clickable?: boolean;
   /** Whether the badge is dismissible (shows close button) */
@@ -118,7 +119,7 @@ export interface BadgeProps extends HTMLAttributes<HTMLElement> {
   role?: 'status' | 'button' | 'generic';
   /** Whether badge should be focusable */
   tabIndex?: number;
-}
+};
 
 /**
  * Utility type for badge variant props
