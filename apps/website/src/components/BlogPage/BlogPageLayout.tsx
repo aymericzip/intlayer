@@ -22,7 +22,7 @@ export const BlogPageLayout: FC<BlogPageLayoutProps> = ({
 
   return (
     <Suspense fallback={<></>}>
-      <div className="flex max-w-screen flex-1 border-b-[0.5px] bg-card max-md:flex-col">
+      <div className="flex max-w-screen flex-1 bg-card max-md:flex-col">
         <aside className="z-10 flex-none">
           <BlogNavList
             blogData={blogData}
@@ -31,7 +31,7 @@ export const BlogPageLayout: FC<BlogPageLayoutProps> = ({
         </aside>
         <div className="flex flex-1 flex-row">
           <article
-            className="relative mb-3 h-full max-h-screen w-auto flex-1 grow overflow-auto rounded-xl bg-background px-4 pb-24 max-md:pl-16 md:max-h-[calc(100vh-4rem)] md:px-10"
+            className="relative mb-3 h-full max-h-screen w-auto flex-1 grow overflow-auto rounded-xl bg-background px-4 pb-24 max-md:pl-16 md:max-h-[calc(100vh-4.5rem)] md:px-10"
             id="content"
           >
             <div className="m-auto max-w-3xl">
