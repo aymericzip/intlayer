@@ -165,7 +165,7 @@ Tổ chức nội dung đa ngôn ngữ gần với mã nguồn của bạn để
 - **[Liệt kê](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/enumeration.md)**  
   Quản lý dễ dàng các tập dữ liệu lặp lại hoặc cố định trên nhiều ngôn ngữ khác nhau.
 
-- **[Điều kiện](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/conditional.md)**  
+- **[Điều kiện](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/condition.md)**  
   Tìm hiểu cách sử dụng logic điều kiện trong Intlayer để tạo nội dung động.
 
 - **[Chèn giá trị](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/insertion.md)**  
@@ -177,7 +177,7 @@ Tổ chức nội dung đa ngôn ngữ gần với mã nguồn của bạn để
 - **[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/markdown.md)**  
   Tìm hiểu cách sử dụng Markdown trong Intlayer để tạo nội dung phong phú.
 
-- **[Nhúng tệp](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/file_embeddings.md)**  
+- **[Nhúng tệp](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/file.md)**  
   Khám phá cách nhúng các tệp bên ngoài vào Intlayer để sử dụng trong trình soạn thảo nội dung.
 
 - **[Lồng nhau](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/nesting.md)**  

@@ -64,7 +64,7 @@ Intlayer, uygulamanızı çevirmek için esnek, modern bir yaklaşım sunar. Bel
 - **[Numaralandırma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md)**  
   Çeşitli dillerde tekrarlanan veya sabit veri kümelerini kolayca yönetin.
 
-- **[Koşul](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/conditional.md)**  
+- **[Koşul](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/condition.md)**  
   Intlayer'da dinamik içerik oluşturmak için koşullu mantığı nasıl kullanacağınızı öğrenin.
 
 - **[Cinsiyet](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/gender.md)**  
@@ -79,7 +79,7 @@ Intlayer, uygulamanızı çevirmek için esnek, modern bir yaklaşım sunar. Bel
 - **[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md)**  
   Zengin içerik oluşturmak için Intlayer'da Markdown'ı nasıl kullanacağınızı öğrenin.
 
-- **[Dosya gömme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file_embeddings.md)**  
+- **[Dosya gömme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md)**  
   İçerik düzenleyicide kullanmak için Intlayer'da harici dosyaları nasıl gömeceğinizi keşfedin.
 
 - **[İç içe yerleştirme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/nesting.md)**  

@@ -64,7 +64,7 @@ Intlayer пропонує гнучкий, сучасний підхід до п�
 - **[Перелічення](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/enumeration.md)**  
   Легко керуйте повторюваними або фіксованими наборами даних у різних мовах.
 
-- **[Умова](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/conditional.md)**  
+- **[Умова](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/condition.md)**  
   Дізнайтеся, як використовувати умовну логіку в Intlayer для створення динамічного контенту.
 
 - **[Гендер](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/gender.md)**  
@@ -79,7 +79,7 @@ Intlayer пропонує гнучкий, сучасний підхід до п�
 - **[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/markdown.md)**  
   Дізнайтеся, як використовувати Markdown в Intlayer для створення багатого контенту.
 
-- **[Вбудовування файлів](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/file_embeddings.md)**  
+- **[Вбудовування файлів](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/file.md)**  
   Дізнайтеся, як вбудовувати зовнішні файли в Intlayer для використання їх у редакторі контенту.
 
 - **[Вкладення](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/nesting.md)**  

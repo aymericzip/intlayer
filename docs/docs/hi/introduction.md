@@ -170,7 +170,7 @@ Intlayer आधुनिक वेब विकास की आवश्यक�
 - **[सूचीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/enumeration.md)**  
   विभिन्न भाषाओं में बार-बार आने वाले या निश्चित डेटा सेट को आसानी से प्रबंधित करें।
 
-- **[शर्त](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/conditional.md)**  
+- **[शर्त](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/condition.md)**  
   Intlayer में गतिशील सामग्री बनाने के लिए शर्तीय तर्क का उपयोग करना सीखें।
 
 - **[सम्मिलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md)**  
@@ -182,7 +182,7 @@ Intlayer आधुनिक वेब विकास की आवश्यक�
 - **[मार्कडाउन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md)**  
   जानें कि Intlayer में समृद्ध सामग्री बनाने के लिए मार्कडाउन का उपयोग कैसे करें।
 
-- **[फ़ाइल एम्बेडिंग](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/file_embeddings.md)**  
+- **[फ़ाइल एम्बेडिंग](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/file.md)**  
   जानें कि Intlayer में बाहरी फ़ाइलों को एम्बेड कैसे करें ताकि उन्हें सामग्री संपादक में उपयोग किया जा सके।
 
 - **[नेस्टिंग](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/nesting.md)**  

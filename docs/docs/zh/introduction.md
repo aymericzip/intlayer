@@ -166,7 +166,7 @@ Intlayer 提供了多种功能，专为满足现代网页开发的需求而设�
 - **[枚举](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/enumeration.md)**  
   轻松管理跨多语言的重复或固定数据集。
 
-- **[条件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/conditional.md)**  
+- **[条件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/condition.md)**  
   学习如何在 Intlayer 中使用条件逻辑来创建动态内容。
 
 - **[插入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/insertion.md)**  
@@ -178,7 +178,7 @@ Intlayer 提供了多种功能，专为满足现代网页开发的需求而设�
 - **[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/markdown.md)**  
   学习如何在 Intlayer 中使用 Markdown 创建丰富的内容。
 
-- **[文件嵌入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/file_embeddings.md)**  
+- **[文件嵌入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/file.md)**  
   发现如何在 Intlayer 中嵌入外部文件，以便在内容编辑器中使用它们。
 
 - **[嵌套](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/nesting.md)**  

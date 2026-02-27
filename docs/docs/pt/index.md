@@ -66,7 +66,7 @@ Entenda como as traduções são geradas, armazenadas e utilizadas em sua aplica
 - **[Enumeração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/enumeration.md)**  
   Gerencie facilmente conjuntos repetidos ou fixos de dados em vários idiomas.
 
-- **[Condição](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/conditional.md)**  
+- **[Condição](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/condition.md)**  
   Aprenda a usar lógica condicional no Intlayer para criar conteúdo dinâmico.
 
 - **[Inserção](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/insertion.md)**  
@@ -79,7 +79,7 @@ Veja como buscar conteúdo dinamicamente com lógica personalizada para correspo
 - **[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/markdown.md)**  
   Aprenda a usar Markdown no Intlayer para criar conteúdo rico.
 
-- **[Incorporação de arquivos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/file_embeddings.md)**  
+- **[Incorporação de arquivos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/file.md)**  
   Descubra como incorporar arquivos externos no Intlayer para usá-los no editor de conteúdo.
 
 - **[Aninhamento](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/nesting.md)**  

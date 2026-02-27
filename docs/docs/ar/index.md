@@ -65,7 +65,7 @@ history:
 - **[التعداد](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/enumeration.md)**  
   إدارة مجموعات البيانات المتكررة أو الثابتة بسهولة عبر لغات متعددة.
 
-- **[الشرط](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/conditional.md)**  
+- **[الشرط](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/condition.md)**  
   تعلّم كيفية استخدام المنطق الشرطي في Intlayer لإنشاء محتوى ديناميكي.
 
 - **[الإدخال](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md)**  
@@ -77,7 +77,7 @@ history:
 - **[ماركداون](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown.md)**  
   تعلّم كيفية استخدام ماركداون في Intlayer لإنشاء محتوى غني.
 
-- **[تضمين الملفات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/file_embeddings.md)**  
+- **[تضمين الملفات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/file.md)**  
   اكتشف كيفية تضمين ملفات خارجية في Intlayer لاستخدامها في محرر المحتوى.
 
 - **[التداخل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/nesting.md)**  

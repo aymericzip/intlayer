@@ -64,7 +64,7 @@ Organizuj swoje wielojęzyczne treści blisko kodu, aby wszystko było spójne i
 - **[Enumeracja](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/enumeration.md)**  
   Łatwo zarządzaj powtarzającymi się lub stałymi zestawami danych w różnych językach.
 
-- **[Warunek](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/conditional.md)**  
+- **[Warunek](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/condition.md)**  
   Naucz się, jak używać logiki warunkowej w Intlayer, aby tworzyć dynamiczne treści.
 
 - **[Rodzaj gramatyczny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/gender.md)**  
@@ -80,7 +80,7 @@ Odkryj, jak wstawiać wartości w ciągu znaków za pomocą symboli zastępczych
 - **[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/markdown.md)**  
   Naucz się, jak używać Markdown w Intlayer do tworzenia bogatych treści.
 
-- **[Osadzanie plików](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/file_embeddings.md)**  
+- **[Osadzanie plików](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/file.md)**  
   Dowiedz się, jak osadzać zewnętrzne pliki w Intlayer, aby używać ich w edytorze treści.
 
 - **[Zagnieżdżanie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/nesting.md)**

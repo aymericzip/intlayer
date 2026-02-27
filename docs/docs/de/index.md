@@ -66,7 +66,7 @@ Verstehen Sie, wie Übersetzungen generiert, gespeichert und in Ihrer Anwendung 
 - **[Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/enumeration.md)**  
   Verwalten Sie einfach wiederholte oder feste Datensätze in verschiedenen Sprachen.
 
-- **[Condition](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/conditional.md)**  
+- **[Condition](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/condition.md)**  
   Lernen Sie, wie Sie bedingte Logik in Intlayer verwenden, um dynamische Inhalte zu erstellen.
 
 - **[Insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/insertion.md)**  
@@ -79,7 +79,7 @@ Sehen Sie, wie Sie Inhalte mit benutzerdefinierter Logik dynamisch abrufen könn
 - **[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/markdown.md)**  
   Lernen Sie, wie Sie Markdown in Intlayer verwenden, um reichhaltige Inhalte zu erstellen.
 
-- **[Datei-Einbettungen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/file_embeddings.md)**  
+- **[Datei-Einbettungen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/file.md)**  
   Entdecken Sie, wie Sie externe Dateien in Intlayer einbetten, um sie im Inhaltseditor zu verwenden.
 
 - **[Verschachtelung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/nesting.md)**  

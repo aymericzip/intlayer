@@ -64,7 +64,7 @@ Intlayerは、アプリケーションの翻訳に柔軟でモダンなアプロ
 - **[列挙](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/enumeration.md)**  
   複数言語にわたる繰り返しや固定データのセットを簡単に管理します。
 
-- **[条件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/conditional.md)**  
+- **[条件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/condition.md)**  
   Intlayerで条件ロジックを使用して動的なコンテンツを作成する方法を学びます。
 
 - **[挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)**  
@@ -77,7 +77,7 @@ Intlayerは、アプリケーションの翻訳に柔軟でモダンなアプロ
 - **[マークダウン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)**  
   Intlayerでリッチコンテンツを作成するためにMarkdownを使用する方法を学びます。
 
-- **[ファイル埋め込み](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/file_embeddings.md)**  
+- **[ファイル埋め込み](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/file.md)**  
   Intlayerで外部ファイルを埋め込み、コンテンツエディタで使用する方法を発見します。
 
 - **[ネスティング](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/nesting.md)**  

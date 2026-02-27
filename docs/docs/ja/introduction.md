@@ -166,7 +166,7 @@ Intlayerは、現代のウェブ開発のニーズに応える多彩な機能を
 - **[列挙](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/enumeration.md)**  
   複数言語にわたる繰り返しや固定データセットを簡単に管理します。
 
-- **[条件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/conditional.md)**  
+- **[条件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/condition.md)**  
   Intlayerで条件ロジックを使用して動的なコンテンツを作成する方法を学びます。
 
 - **[挿入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md)**  
@@ -178,7 +178,7 @@ Intlayerは、現代のウェブ開発のニーズに応える多彩な機能を
 - **[マークダウン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md)**  
   Intlayerでリッチコンテンツを作成するためのMarkdownの使い方を学びます。
 
-- **[ファイル埋め込み](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/file_embeddings.md)**  
+- **[ファイル埋め込み](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/file.md)**  
   Intlayerで外部ファイルを埋め込み、コンテンツエディターで使用する方法を発見します。
 
 - **[ネスティング](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/nesting.md)**  

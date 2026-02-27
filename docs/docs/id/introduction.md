@@ -168,7 +168,7 @@ Atur konten multibahasa Anda dekat dengan kode Anda untuk menjaga semuanya tetap
 - **[Enumerasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/enumeration.md)**  
   Kelola dengan mudah data yang berulang atau tetap di berbagai bahasa.
 
-- **[Kondisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/conditional.md)**  
+- **[Kondisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/condition.md)**  
   Pelajari cara menggunakan logika kondisional di Intlayer untuk membuat konten dinamis.
 
 - **[Penyisipan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/insertion.md)**  
@@ -180,7 +180,7 @@ Atur konten multibahasa Anda dekat dengan kode Anda untuk menjaga semuanya tetap
 - **[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/markdown.md)**  
   Pelajari cara menggunakan Markdown di Intlayer untuk membuat konten yang kaya.
 
-- **[Penyematan File](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/file_embeddings.md)**  
+- **[Penyematan File](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/file.md)**  
   Temukan cara menyematkan file eksternal di Intlayer untuk digunakan dalam editor konten.
 
 - **[Nesting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/nesting.md)**  

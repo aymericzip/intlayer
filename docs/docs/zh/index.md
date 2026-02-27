@@ -64,7 +64,7 @@ Intlayer 提供了一种灵活且现代化的应用翻译方案。我们的文�
 - **[枚举](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/enumeration.md)**  
   轻松管理跨多种语言的重复或固定数据集。
 
-- **[条件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/conditional.md)**  
+- **[条件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/condition.md)**  
   学习如何在 Intlayer 中使用条件逻辑来创建动态内容。
 
 - **[插入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/insertion.md)**  
@@ -76,7 +76,7 @@ Intlayer 提供了一种灵活且现代化的应用翻译方案。我们的文�
 - **[枚举](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/enumeration.md)**  
   轻松管理跨多语言的重复或固定数据集。
 
-- **[条件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/conditional.md)**  
+- **[条件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/condition.md)**  
   学习如何在 Intlayer 中使用条件逻辑来创建动态内容。
 
 - **[插入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/insertion.md)**  
@@ -88,7 +88,7 @@ Intlayer 提供了一种灵活且现代化的应用翻译方案。我们的文�
 - **[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/markdown.md)**  
   学习如何在 Intlayer 中使用 Markdown 创建丰富内容。
 
-- **[文件嵌入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/file_embeddings.md)**  
+- **[文件嵌入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/file.md)**  
   了解如何在 Intlayer 中嵌入外部文件，以便在内容编辑器中使用。
 
 - **[嵌套](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/nesting.md)**  

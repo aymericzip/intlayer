@@ -170,7 +170,7 @@ Intlayer предлагает множество функций, адаптир�
 - **[Перечисление](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/enumeration.md)**  
   Легко управляйте повторяющимися или фиксированными наборами данных на разных языках.
 
-- **[Условие](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/conditional.md)**  
+- **[Условие](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/condition.md)**  
   Узнайте, как использовать условную логику в Intlayer для создания динамического контента.
 
 - **[Вставка](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/insertion.md)**  
@@ -182,7 +182,7 @@ Intlayer предлагает множество функций, адаптир�
 - **[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/markdown.md)**  
   Изучите, как использовать Markdown в Intlayer для создания насыщенного контента.
 
-- **[Встраивание файлов](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/file_embeddings.md)**  
+- **[Встраивание файлов](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/file.md)**  
   Узнайте, как встраивать внешние файлы в Intlayer для использования их в редакторе контента.
 
 - **[Вложенность](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/nesting.md)**  

@@ -167,7 +167,7 @@ Organizza i tuoi contenuti multilingue vicino al codice per mantenere tutto coer
 - **[Enumerazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/enumeration.md)**  
   Gestisci facilmente insiemi di dati ripetuti o fissi in diverse lingue.
 
-- **[Condizione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/conditional.md)**  
+- **[Condizione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/condition.md)**  
   Impara a usare la logica condizionale in Intlayer per creare contenuti dinamici.
 
 - **[Inserimento](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/insertion.md)**  
@@ -179,7 +179,7 @@ Organizza i tuoi contenuti multilingue vicino al codice per mantenere tutto coer
 - **[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/markdown.md)**  
   Impara a usare Markdown in Intlayer per creare contenuti ricchi.
 
-- **[Incorporamento File](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/file_embeddings.md)**  
+- **[Incorporamento File](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/file.md)**  
   Scopri come incorporare file esterni in Intlayer per usarli nell’editor di contenuti.
 
 - **[Annidamento](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/nesting.md)**  

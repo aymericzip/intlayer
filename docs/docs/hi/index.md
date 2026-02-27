@@ -66,7 +66,7 @@ Intlayer आपके एप्लिकेशन का अनुवाद क�
 - **[एन्यूमरेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/enumeration.md)**  
   विभिन्न भाषाओं में दोहराए जाने वाले या निश्चित डेटा सेट को आसानी से प्रबंधित करें।
 
-- **[शर्त](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/conditional.md)**  
+- **[शर्त](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/condition.md)**  
   Intlayer में गतिशील सामग्री बनाने के लिए शर्तीय तर्क का उपयोग करना सीखें।
 
 - **[इन्सर्शन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md)**  
@@ -79,7 +79,7 @@ Intlayer आपके एप्लिकेशन का अनुवाद क�
 - **[मार्कडाउन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md)**  
   Intlayer में समृद्ध सामग्री बनाने के लिए Markdown का उपयोग करना सीखें।
 
-- **[फ़ाइल एम्बेडिंग](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/file_embeddings.md)**  
+- **[फ़ाइल एम्बेडिंग](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/file.md)**  
   जानें कि Intlayer में बाहरी फ़ाइलों को कैसे एम्बेड करें ताकि उन्हें सामग्री संपादक में उपयोग किया जा सके।
 
 - **[नेस्टिंग](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/nesting.md)**  

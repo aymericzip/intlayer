@@ -167,7 +167,7 @@ Intlayer는 현대 웹 개발의 요구에 맞춘 다양한 기능을 제공합�
 - **[열거](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/enumeration.md)**  
   여러 언어에 걸쳐 반복되거나 고정된 데이터 집합을 쉽게 관리하세요.
 
-- **[조건](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/conditional.md)**  
+- **[조건](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/condition.md)**  
   Intlayer에서 조건 논리를 사용하여 동적 콘텐츠를 만드는 방법을 배우세요.
 
 - **[삽입](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/insertion.md)**  
@@ -179,7 +179,7 @@ Intlayer는 현대 웹 개발의 요구에 맞춘 다양한 기능을 제공합�
 - **[마크다운](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/markdown.md)**  
   Intlayer에서 마크다운을 사용하여 풍부한 콘텐츠를 만드는 방법을 배우세요.
 
-- **[파일 임베딩](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/file_embeddings.md)**  
+- **[파일 임베딩](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/file.md)**  
   Intlayer에서 외부 파일을 임베딩하여 콘텐츠 편집기에서 사용하는 방법을 알아보세요.
 
 - **[중첩](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/nesting.md)**  
