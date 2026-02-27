@@ -96,7 +96,6 @@
   },
   "dependencies": {
     "@intlayer/api": "workspace:*",
-    "@intlayer/chokidar": "workspace:*",
     "@intlayer/cli": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/docs": "workspace:*",

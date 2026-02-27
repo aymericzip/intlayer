@@ -1,5 +1,5 @@
 import * as readline from 'node:readline';
-import { installSkills, SKILLS, type Skill } from '@intlayer/chokidar/cli';
+import { installSkills, SKILLS, type Skill } from '@intlayer/cli';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import z from 'zod';
 
@@ -199,8 +199,10 @@ export const runInstallSkillsCLI = async (): Promise<void> => {
     } else {
       const indices = skillsInput
         .split(',')
-        .map((s) => parseInt(s.trim()) - 1)
-        .filter((i) => !isNaN(i) && i >= 0 && i < availableSkills.length);
+        .map((s) => parseInt(s.trim(), 10) - 1)
+        .filter(
+          (s) => !Number.isNaN(s) && s >= 0 && s < availableSkills.length
+        );
       selectedSkills = indices.map((i) => availableSkills[i] as any);
     }
 

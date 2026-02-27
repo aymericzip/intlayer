@@ -1030,11 +1030,9 @@
         "vitest": "4.0.18",
       },
       "peerDependencies": {
-        "intlayer": "workspace:*",
         "react": ">=16.0.0",
       },
       "optionalPeers": [
-        "intlayer",
         "react",
       ],
     },
@@ -1256,7 +1254,6 @@
       "bin": "dist/cjs/server/stdio.cjs",
       "dependencies": {
         "@intlayer/api": "workspace:*",
-        "@intlayer/chokidar": "workspace:*",
         "@intlayer/cli": "workspace:*",
         "@intlayer/config": "workspace:*",
         "@intlayer/docs": "workspace:*",
