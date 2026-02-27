@@ -129,6 +129,7 @@ export const intlayerProxy = (
   _response?: NextResponse
 ): NextResponse => {
   const pathname = request.nextUrl.pathname;
+
   const localLocale = getLocalLocale(request);
 
   if (noPrefix) {
@@ -160,7 +161,6 @@ const handleNoPrefix = (
   pathname: string
 ): NextResponse => {
   const pathLocale = getPathLocale(pathname);
-  const locale = localLocale ?? defaultLocale;
 
   if (pathLocale) {
     const pathWithoutLocale = pathname.slice(`/${pathLocale}`.length) || '/';
@@ -183,17 +183,25 @@ const handleNoPrefix = (
     return redirectUrl(request, redirectPath);
   }
 
-  // Resolve the internal canonical path
-  // If user visits /a-propos (no prefix), and we detect 'fr', we resolve to /about
-  const canonicalPath = getCanonicalPath(
-    pathname,
-    locale as Locale,
-    rewriteRules
-  );
-
   if (effectiveMode === 'search-params') {
     const existingSearchParams = new URLSearchParams(request.nextUrl.search);
     const existingLocale = existingSearchParams.get('locale');
+    const isExistingValid = locales?.includes(existingLocale as Locale);
+
+    let locale = (localLocale ??
+      (isExistingValid ? (existingLocale as Locale) : undefined) ??
+      localeDetector?.(request) ??
+      defaultLocale) as Locale;
+
+    if (!locales?.includes(locale as Locale)) {
+      locale = defaultLocale as Locale;
+    }
+
+    const canonicalPath = getCanonicalPath(
+      pathname,
+      locale as Locale,
+      rewriteRules
+    );
 
     if (existingLocale === locale) {
       const internalPath = internalPrefix
@@ -214,6 +222,21 @@ const handleNoPrefix = (
 
     return redirectUrl(request, redirectPath);
   }
+
+  // effectiveMode === 'no-prefix'
+  let locale = (localLocale ??
+    localeDetector?.(request) ??
+    defaultLocale) as Locale;
+
+  if (!locales?.includes(locale as Locale)) {
+    locale = defaultLocale as Locale;
+  }
+
+  const canonicalPath = getCanonicalPath(
+    pathname,
+    locale as Locale,
+    rewriteRules
+  );
 
   const internalPath = internalPrefix
     ? `/${locale}${canonicalPath}`
@@ -547,6 +570,10 @@ const rewriteUrl = (
   const pathWithSearch =
     search && !newPath.includes('?') ? `${newPath}${search}` : newPath;
 
+  console.log(
+    `[intlayerProxy] Rewriting to ${pathWithSearch} with locale ${locale}`
+  );
+
   const requestHeaders = new Headers(request.headers);
   setLocaleInStorage(locale, {
     setHeader: (name: string, value: string) => {
@@ -554,11 +581,22 @@ const rewriteUrl = (
     },
   });
 
-  const response = NextResponse.rewrite(new URL(pathWithSearch, request.url), {
-    request: {
-      headers: requestHeaders,
-    },
-  });
+  const targetUrl = new URL(pathWithSearch, request.url);
+
+  // If the target URL is exactly the current request URL,
+  // we just want to `next()` to avoid losing headers on a redundant rewrite.
+  const response =
+    targetUrl.href === request.nextUrl.href
+      ? NextResponse.next({
+          request: {
+            headers: requestHeaders,
+          },
+        })
+      : NextResponse.rewrite(targetUrl, {
+          request: {
+            headers: requestHeaders,
+          },
+        });
 
   setLocaleInStorage(locale, {
     setHeader: (name: string, value: string) => {
@@ -579,5 +617,6 @@ const redirectUrl = (request: NextRequest, newPath: string): NextResponse => {
   const search = request.nextUrl.search;
   const pathWithSearch =
     search && !newPath.includes('?') ? `${newPath}${search}` : newPath;
+
   return NextResponse.redirect(new URL(pathWithSearch, request.url));
 };

@@ -1,6 +1,6 @@
 'use client';
 
-import { getHTMLTextDir, getLocaleName } from 'intlayer';
+import { getHTMLTextDir, getLocaleName, getLocalizedUrl } from 'intlayer';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC, useRef, useState } from 'react';
 import { useLocaleSearch } from './useLocaleSearch';
@@ -9,9 +9,11 @@ export const LocaleSwitcher: FC = () => {
   const { searchInput, localeSwitcherLabel } = useIntlayer('locale-switcher');
   const inputRef = useRef<HTMLInputElement>(null);
   const [isOpen, setIsOpen] = useState(false);
-  const { locale, availableLocales, setLocale } = useLocale({
-    onChange: () => {
-      window.location.reload(); // Reload to refresh server components
+  const { locale, availableLocales, pathWithoutLocale, setLocale } = useLocale({
+    onChange: (newLocale) => {
+      // In a no-cookie environment, the proxy depends on the URL search param to know the locale
+      // We must navigate to the new localized URL so the proxy reads ?locale=...
+      window.location.href = getLocalizedUrl(pathWithoutLocale, newLocale);
     },
   });
   const { searchResults, handleSearch } = useLocaleSearch(

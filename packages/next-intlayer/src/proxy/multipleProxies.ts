@@ -59,7 +59,7 @@ export const multipleProxies =
     const mergedHeaders = new Headers();
 
     // Merge all the custom headers added by the proxies
-    const transmittedHeaders = new Headers();
+    const transmittedHeaders = new Headers(req.headers);
 
     // Merge headers
     proxyHeader.forEach((header) => {

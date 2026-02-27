@@ -7,6 +7,7 @@ const config: IntlayerConfig = {
   },
   routing: {
     mode: 'search-params', // or `no-prefix` - Useful for middleware detection
+    storage: ['localStorage', 'header'],
   },
   build: {
     optimize: true,
