@@ -415,7 +415,7 @@ const metadataContent = {
 export default metadataContent;
 ```
 
-```tsx fileName="src/app/metadata.content.mjs" contentDeclarationFormat="typescript"
+```tsx fileName="src/app/metadata.content.mjs" contentDeclarationFormat="esm"
 import { t, type Dictionary } from "intlayer";
 
 /** @type {import('intlayer').Dictionary<import('next').Metadata>} */
