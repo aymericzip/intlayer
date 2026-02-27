@@ -33,6 +33,9 @@ export const generateMetadata = async ({
     alternates: {
       canonical: getLocalizedUrl('/', locale),
       languages: { ...getMultilingualUrls('/'), 'x-default': '/' },
+      types: {
+        'application/rss+xml': `${process.env.NEXT_PUBLIC_URL}/feed.xml`,
+      },
     },
     icons: {
       icon: [

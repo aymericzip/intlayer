@@ -75,6 +75,7 @@
     "posthog-js": "^1.354.2",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "rss": "^1.2.2",
     "sharp": "0.34.5",
     "tailwind-merge": "3.5.0",
     "zod": "4.3.6"
@@ -85,6 +86,7 @@
     "@types/node": "25.3.0",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
+    "@types/rss": "^0.0.32",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
