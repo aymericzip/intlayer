@@ -1,11 +1,6 @@
-import configuration from '@intlayer/config/built';
-import type { IntlayerConfig } from '@intlayer/types';
-import { type FetcherOptions, fetcher } from '../fetcher';
 import type {
   CreateUserBody,
   CreateUserResult,
-  GetUserByAccountParams,
-  GetUserByAccountResult,
   GetUserByEmailParams,
   GetUserByEmailResult,
   GetUserByIdParams,
@@ -15,7 +10,13 @@ import type {
   UpdateUserBody,
   UpdateUserResult,
   UserAPI,
-} from '../types';
+} from '@intlayer/backend';
+import configuration from '@intlayer/config/built';
+import type { IntlayerConfig } from '@intlayer/types';
+import { type FetcherOptions, fetcher } from '../fetcher';
+
+type GetUserByAccountParams = { providerAccountId: string; provider: string };
+type GetUserByAccountResult = import('@intlayer/backend').ResponseData<UserAPI>;
 
 export const getUserAPI = (
   authAPIOptions: FetcherOptions = {},

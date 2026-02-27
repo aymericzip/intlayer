@@ -1,6 +1,3 @@
-import configuration from '@intlayer/config/built';
-import type { IntlayerConfig } from '@intlayer/types';
-import { type FetcherOptions, fetcher } from '../fetcher';
 import type {
   AddNewAccessKeyBody,
   AddNewAccessKeyResponse,
@@ -9,14 +6,13 @@ import type {
   DeleteAccessKeyBody,
   DeleteAccessKeyResponse,
   DeleteProjectResult,
-  GetCIConfigResult,
   GetProjectsParams,
   GetProjectsResult,
-  PushCIConfigResult,
   PushProjectConfigurationBody,
   PushProjectConfigurationResult,
   RefreshAccessKeyBody,
   RefreshAccessKeyResponse,
+  ResponseData,
   SelectProjectParam,
   SelectProjectResult,
   TriggerBuildResult,
@@ -27,7 +23,10 @@ import type {
   UpdateProjectMembersBody,
   UpdateProjectMembersResult,
   UpdateProjectResult,
-} from '../types';
+} from '@intlayer/backend';
+import configuration from '@intlayer/config/built';
+import type { IntlayerConfig } from '@intlayer/types';
+import { type FetcherOptions, fetcher } from '../fetcher';
 
 export const getProjectAPI = (
   authAPIOptions: FetcherOptions = {},
@@ -280,7 +279,7 @@ export const getProjectAPI = (
    * @returns The CI configuration status.
    */
   const getCIConfig = async (otherOptions: FetcherOptions = {}) =>
-    await fetcher<GetCIConfigResult>(
+    await fetcher<ResponseData<any>>(
       `${PROJECT_API_ROUTE}/ci`,
       authAPIOptions,
       otherOptions,
@@ -295,7 +294,7 @@ export const getProjectAPI = (
    * @returns Success status.
    */
   const pushCIConfig = async (otherOptions: FetcherOptions = {}) =>
-    await fetcher<PushCIConfigResult>(
+    await fetcher<ResponseData<any>>(
       `${PROJECT_API_ROUTE}/ci`,
       authAPIOptions,
       otherOptions,

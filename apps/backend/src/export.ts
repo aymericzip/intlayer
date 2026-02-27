@@ -1,8 +1,5 @@
-// Routes
-
 // Controllers types
 export type * from '@controllers/ai.controller';
-// Explicitly export types from controllers with conflicting function names
 export type {
   BitbucketAuthCallbackBody,
   BitbucketAuthCallbackResult,
@@ -43,6 +40,7 @@ export type {
 } from '@controllers/gitlab.controller';
 export type * from '@controllers/newsletter.controller';
 export type * from '@controllers/oAuth2.controller';
+export type * from '@controllers/oAuth2.controller';
 export type * from '@controllers/organization.controller';
 export type * from '@controllers/project.controller';
 export type * from '@controllers/projectAccessKey.controller';
@@ -51,6 +49,8 @@ export type * from '@controllers/stripe.controller';
 export type * from '@controllers/tag.controller';
 export type * from '@controllers/translation.controller';
 export type * from '@controllers/user.controller';
+
+// Routes
 export { getAiRoutes } from '@routes/ai.routes';
 export { getBitbucketRoutes } from '@routes/bitbucket.routes';
 export { getDictionaryRoutes } from '@routes/dictionary.routes';

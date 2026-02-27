@@ -12,6 +12,8 @@ import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { t } from 'fastify-intlayer';
 
+export type GetEditorDictionariesResult = ResponseData<UnmergedDictionaries>;
+
 /**
  * Get the Intlayer configuration
  */

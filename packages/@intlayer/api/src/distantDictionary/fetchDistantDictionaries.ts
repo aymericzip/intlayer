@@ -1,6 +1,6 @@
+import type { DictionaryAPI } from '@intlayer/backend';
 import type { IntlayerConfig } from '@intlayer/types';
 import { getIntlayerAPIProxy } from '../proxy';
-import type { DictionaryAPI } from '../types';
 
 /**
  * Fetch distant dictionary

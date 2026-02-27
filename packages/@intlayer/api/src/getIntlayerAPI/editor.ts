@@ -1,12 +1,12 @@
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/types';
-import { type FetcherOptions, fetcher } from '../fetcher';
 import type {
   GetConfigurationResult,
   GetEditorDictionariesResult,
   WriteContentDeclarationBody,
   WriteContentDeclarationResult,
-} from '../types';
+} from 'intlayer-editor';
+import { type FetcherOptions, fetcher } from '../fetcher';
 
 export const getEditorAPI = (
   authAPIOptions: FetcherOptions = {},

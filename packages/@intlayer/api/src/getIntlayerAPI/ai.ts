@@ -1,7 +1,5 @@
-import configuration from '@intlayer/config/built';
-import type { IntlayerConfig } from '@intlayer/types';
-import { type FetcherOptions, fetcher } from '../fetcher';
 import type {
+  AIOptions,
   AskDocQuestionResult,
   AuditContentDeclarationBody,
   AuditContentDeclarationFieldBody,
@@ -11,7 +9,6 @@ import type {
   AuditContentDeclarationResult,
   AuditTagBody,
   AuditTagResult,
-  AutocompleteBody,
   AutocompleteResponse,
   ChatCompletionRequestMessage,
   CustomQueryBody,
@@ -20,7 +17,18 @@ import type {
   GetDiscussionsResult,
   TranslateJSONBody,
   TranslateJSONResult,
-} from '../types';
+} from '@intlayer/backend';
+import configuration from '@intlayer/config/built';
+import type { IntlayerConfig } from '@intlayer/types';
+import { type FetcherOptions, fetcher } from '../fetcher';
+
+export type AutocompleteBody = {
+  text: string;
+  aiOptions?: AIOptions;
+  contextBefore?: string;
+  currentLine?: string;
+  contextAfter?: string;
+};
 
 export type AskDocQuestionBody = {
   messages: ChatCompletionRequestMessage[];

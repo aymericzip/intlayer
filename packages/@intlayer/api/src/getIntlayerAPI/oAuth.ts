@@ -1,7 +1,10 @@
+import type {
+  GetOAuth2TokenBody,
+  GetOAuth2TokenResult,
+} from '@intlayer/backend';
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/types';
 import { type FetcherOptions, fetcher } from '../fetcher';
-import type { GetOAuth2TokenBody, GetOAuth2TokenResult } from '../types';
 
 export const getOAuthAPI = (intlayerConfig?: IntlayerConfig) => {
   const backendURL =

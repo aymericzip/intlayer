@@ -1,6 +1,3 @@
-import configuration from '@intlayer/config/built';
-import type { IntlayerConfig } from '@intlayer/types';
-import { type FetcherOptions, fetcher } from '../fetcher';
 import type {
   AddOrganizationBody,
   AddOrganizationMemberBody,
@@ -18,7 +15,10 @@ import type {
   UpdateOrganizationMembersBody,
   UpdateOrganizationMembersResult,
   UpdateOrganizationResult,
-} from '../types';
+} from '@intlayer/backend';
+import configuration from '@intlayer/config/built';
+import type { IntlayerConfig } from '@intlayer/types';
+import { type FetcherOptions, fetcher } from '../fetcher';
 
 export const getOrganizationAPI = (
   authAPIOptions: FetcherOptions = {},

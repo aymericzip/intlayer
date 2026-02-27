@@ -2,7 +2,6 @@ export * from './distantDictionary/index';
 export * from './fetcher';
 export * from './getIntlayerAPI';
 export * from './getIntlayerAPI/ai';
-export * from './getIntlayerAPI/audit';
 export * from './getIntlayerAPI/bitbucket';
 export * from './getIntlayerAPI/dictionary';
 export * from './getIntlayerAPI/editor';

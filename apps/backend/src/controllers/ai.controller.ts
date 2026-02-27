@@ -34,6 +34,13 @@ import type { Dictionary } from '@/types/dictionary.types';
 import type { DiscussionAPI } from '@/types/discussion.types';
 import type { Tag, TagAPI } from '@/types/tag.types';
 
+export type {
+  AIConfig,
+  AIOptions,
+  AIProvider,
+  ChatCompletionRequestMessage,
+} from '@intlayer/ai';
+
 type ReplaceAIConfigByOptions<T> = Omit<T, 'aiConfig'> & {
   aiOptions?: AIOptions;
 };

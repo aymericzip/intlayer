@@ -1,7 +1,6 @@
 import type { IntlayerConfig } from '@intlayer/types';
 import type { FetcherOptions } from '../fetcher';
 import { getAiAPI } from './ai';
-import { getAuditAPI } from './audit';
 import { getBitbucketAPI } from './bitbucket';
 import { getDictionaryAPI } from './dictionary';
 import { getEditorAPI } from './editor';
@@ -31,7 +30,6 @@ interface IntlayerAPIReturn {
   github: ReturnType<typeof getGithubAPI>;
   gitlab: ReturnType<typeof getGitlabAPI>;
   bitbucket: ReturnType<typeof getBitbucketAPI>;
-  audit: ReturnType<typeof getAuditAPI>;
 }
 
 export const getIntlayerAPI = (
@@ -52,7 +50,6 @@ export const getIntlayerAPI = (
   github: getGithubAPI(authAPIOptions, intlayerConfig),
   gitlab: getGitlabAPI(authAPIOptions, intlayerConfig),
   bitbucket: getBitbucketAPI(authAPIOptions, intlayerConfig),
-  audit: getAuditAPI(authAPIOptions, intlayerConfig),
 });
 
 export type IntlayerAPI = ReturnType<typeof getIntlayerAPI>;

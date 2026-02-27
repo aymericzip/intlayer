@@ -1,6 +1,3 @@
-import configuration from '@intlayer/config/built';
-import type { IntlayerConfig } from '@intlayer/types';
-import { type FetcherOptions, fetcher } from '../fetcher';
 import type {
   AddTagBody,
   AddTagResult,
@@ -11,7 +8,10 @@ import type {
   UpdateTagBody,
   UpdateTagParams,
   UpdateTagResult,
-} from '../types';
+} from '@intlayer/backend';
+import configuration from '@intlayer/config/built';
+import type { IntlayerConfig } from '@intlayer/types';
+import { type FetcherOptions, fetcher } from '../fetcher';
 
 export const getTagAPI = (
   authAPIOptions: FetcherOptions = {},
