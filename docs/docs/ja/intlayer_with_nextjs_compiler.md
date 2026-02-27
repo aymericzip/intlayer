@@ -14,7 +14,7 @@ keywords:
   - AI
 slugs:
   - doc
-  - configuration
+  - environment
   - nextjs
   - compiler
 applicationTemplate: https://github.com/aymericzip/intlayer-next-no-lolale-path-template

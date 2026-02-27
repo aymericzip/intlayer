@@ -18,6 +18,8 @@ history:
     changes: Initialiser l'historique
 ---
 
+# Compétences de lagent
+
 ## La commande `intlayer init skills`
 
 La commande `intlayer init skills` est le moyen le plus simple de configurer les compétences de l'agent dans votre projet. Elle détecte votre environnement et installe les fichiers de configuration nécessaires pour vos plateformes préférées.

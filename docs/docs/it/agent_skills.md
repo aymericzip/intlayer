@@ -18,6 +18,8 @@ history:
     changes: Inizializza cronologia
 ---
 
+# Abilità dellAgente
+
 ## Il comando `intlayer init skills`
 
 Il comando `intlayer init skills` è il modo più semplice per configurare le abilità dell'agente nel tuo progetto. Rileva il tuo ambiente e installa i file di configurazione necessari per le tue piattaforme preferite.

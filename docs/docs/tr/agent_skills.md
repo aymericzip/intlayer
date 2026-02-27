@@ -18,6 +18,8 @@ history:
     changes: İlk kayıt
 ---
 
+# Agent Becerileri
+
 ## `intlayer init skills` Komutu
 
 `intlayer init skills` komutu, projenizde agent becerilerini kurmanın en kolay yoludur. Ortamınızı tespit eder ve tercih ettiğiniz platformlar için gerekli yapılandırma dosyalarını yükler.

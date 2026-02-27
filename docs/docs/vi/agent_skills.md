@@ -18,6 +18,8 @@ history:
     changes: Init history
 ---
 
+# Kỹ năng Agent
+
 ## Lệnh `intlayer init skills`
 
 Lệnh `intlayer init skills` là cách dễ nhất để thiết lập agent skills trong dự án của bạn. Nó phát hiện môi trường và cài đặt các tập tin cấu hình cần thiết cho các nền tảng bạn ưu tiên.

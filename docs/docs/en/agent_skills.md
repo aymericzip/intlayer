@@ -18,6 +18,8 @@ history:
     changes: Init history
 ---
 
+# Agent Skills
+
 ## The `intlayer init skills` Command
 
 The `intlayer init skills` command is the easiest way to set up agent skills in your project. It detects your environment and installs the necessary configuration files for your preferred platforms.

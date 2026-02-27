@@ -14,9 +14,9 @@ keywords:
   - AI
 slugs:
   - doc
-  - cau hinh
+  - environment
   - nextjs
-  - trình biên dịch
+  - compiler
 applicationTemplate: https://github.com/aymericzip/intlayer-next-no-lolale-path-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:

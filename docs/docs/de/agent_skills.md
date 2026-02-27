@@ -18,6 +18,8 @@ history:
     changes: Versionshistorie initialisieren
 ---
 
+# Agenten-Fähigkeiten
+
 ## Der Befehl `intlayer init skills`
 
 Der Befehl `intlayer init skills` ist der einfachste Weg, um Agenten-Fähigkeiten in Ihrem Projekt einzurichten. Er erkennt Ihre Umgebung und installiert die notwendigen Konfigurationsdateien für Ihre bevorzugten Plattformen.

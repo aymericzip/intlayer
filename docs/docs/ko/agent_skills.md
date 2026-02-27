@@ -18,6 +18,8 @@ history:
     changes: 내역 초기화
 ---
 
+# 에이전트 스킬
+
 ## `intlayer init skills` 명령어
 
 `intlayer init skills` 명령어는 프로젝트에 에이전트 스킬을 설정하는 가장 쉬운 방법입니다. 사용자 환경을 감지하고 선호하는 플랫폼에 필요한 구성 파일을 설치합니다.

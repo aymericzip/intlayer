@@ -18,6 +18,8 @@ history:
     changes: 初始化历史
 ---
 
+# 代理技能
+
 ## `intlayer init skills` 命令
 
 `intlayer init skills` 命令是在项目中设置代理技能的最简单方法。它会检测您的环境并为您喜欢的平台安装必要的配置文件。

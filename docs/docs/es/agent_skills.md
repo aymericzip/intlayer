@@ -18,6 +18,8 @@ history:
     changes: Inicializar historial
 ---
 
+# Habilidades del Agente
+
 ## El comando `intlayer init skills`
 
 El comando `intlayer init skills` es la forma más fácil de configurar las habilidades del agente en tu proyecto. Detecta tu entorno e instala los archivos de configuración necesarios para tus plataformas preferidas.

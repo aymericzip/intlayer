@@ -13,7 +13,7 @@ keywords:
   - Desarrollo Web
 slugs:
   - blog
-  - significado-i18n
+  - i18n-meaning
 ---
 
 # Significado de i18n: ¿Qué es la internacionalización y por qué es importante?

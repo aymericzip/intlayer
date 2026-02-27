@@ -15,8 +15,7 @@ slugs:
   - doc
   - environment
   - vite-and-react
-  - compilateur
-  - IA
+  - compiler
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:

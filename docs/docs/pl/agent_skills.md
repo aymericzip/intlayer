@@ -18,6 +18,8 @@ history:
     changes: Historia początkowa
 ---
 
+# Umiejętności agenta
+
 ## Polecenie `intlayer init skills`
 
 Polecenie `intlayer init skills` to najprostszy sposób na skonfigurowanie umiejętności agenta w Twoim projekcie. Wykrywa Twoje środowisko i instaluje niezbędne pliki konfiguracyjne dla preferowanych platform.

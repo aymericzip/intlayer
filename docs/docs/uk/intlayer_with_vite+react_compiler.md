@@ -13,10 +13,9 @@ keywords:
   - ШІ
 slugs:
   - doc
-  - середовище
-  - vite-та-react
-  - компілятор
-  - ШІ
+  - environment
+  - vite-and-react
+  - compiler
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:

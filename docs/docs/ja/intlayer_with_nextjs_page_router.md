@@ -239,18 +239,16 @@ module.exports = { middleware: intlayerProxy, config };
         ```
 
         ```jsx fileName="src/pages/_app.csx" codeFormat="commonjs"
+        const { IntlayerClientProvider } = require("next-intlayer");
 
-    const { IntlayerClientProvider } = require("next-intlayer");
+        const App = ({ Component, pageProps }) => (
+          <IntlayerClientProvider locale={locale}>
+            <Component {...pageProps} />
+          </IntlayerClientProvider>
+        );
 
-const App = ({ Component, pageProps }) => (
-<IntlayerClientProvider locale={locale}>
-<Component {...pageProps} />
-</IntlayerClientProvider>
-);
-
-module.exports = App;
-
-````
+        module.exports = App;
+        ```
 
 3.  **`getStaticPaths` と `getStaticProps` の設定:**
 
@@ -264,90 +262,90 @@ import { type Locales, getConfiguration } from "intlayer";
 const HomePage: FC = () => <div>{/* ここにコンテンツを記述 */}</div>;
 
 export const getStaticPaths: GetStaticPaths = () => {
-      const { internationalization } = getConfiguration();
-      const { locales } = internationalization;
+  const { internationalization } = getConfiguration();
+  const { locales } = internationalization;
 
-      const paths = locales.map((locale) => ({
-        params: { locale },
-      }));
+  const paths = locales.map((locale) => ({
+    params: { locale },
+  }));
 
-      return { paths, fallback: false };
-    };
+  return { paths, fallback: false };
+};
 
-    export const getStaticProps: GetStaticProps = ({ params }) => {
-      const locale = params?.locale as string;
+export const getStaticProps: GetStaticProps = ({ params }) => {
+  const locale = params?.locale as string;
 
-      return {
-        props: {
-          locale,
-        },
-      };
-    };
+  return {
+    props: {
+      locale,
+    },
+  };
+};
 
-    export default HomePage;
-    ```
+export default HomePage;
+```
 
-    ```jsx fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
-    import { getConfiguration } from "intlayer";
-    import { ComponentExample } from "@components/ComponentExample";
+```jsx fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
+import { getConfiguration } from "intlayer";
+import { ComponentExample } from "@components/ComponentExample";
 
-    const HomePage = () => <div>{/* ここにコンテンツを記述 */}</div>;
+const HomePage = () => <div>{/* ここにコンテンツを記述 */}</div>;
 
-    export const getStaticPaths = () => {
-      const { internationalization } = getConfiguration();
-      const { locales } = internationalization;
+export const getStaticPaths = () => {
+  const { internationalization } = getConfiguration();
+  const { locales } = internationalization;
 
-      const paths = locales.map((locale) => ({
-        params: { locale },
-      }));
+  const paths = locales.map((locale) => ({
+    params: { locale },
+  }));
 
-      return { paths, fallback: false };
-    };
+  return { paths, fallback: false };
+};
 
-    export const getStaticProps = ({ params }) => {
-      const locale = params?.locale;
+export const getStaticProps = ({ params }) => {
+  const locale = params?.locale;
 
-      return {
-        props: {
-          locale,
-        },
-      };
-    };
-    ```
+  return {
+    props: {
+      locale,
+    },
+  };
+};
+```
 
-    ```jsx fileName="src/pages/[locale]/index.csx" codeFormat="commonjs"
-    const { getConfiguration } = require("intlayer");
-    const { ComponentExample } = require("@components/ComponentExample");
+```jsx fileName="src/pages/[locale]/index.csx" codeFormat="commonjs"
+const { getConfiguration } = require("intlayer");
+const { ComponentExample } = require("@components/ComponentExample");
 
-    const HomePage = () => <div>{/* ここにコンテンツを記述 */}</div>;
+const HomePage = () => <div>{/* ここにコンテンツを記述 */}</div>;
 
-    const getStaticPaths = async () => {
-      const { internationalization } = getConfiguration();
-      const { locales } = internationalization;
+const getStaticPaths = async () => {
+  const { internationalization } = getConfiguration();
+  const { locales } = internationalization;
 
-      const paths = locales.map((locale) => ({
-        params: { locale },
-      }));
+  const paths = locales.map((locale) => ({
+    params: { locale },
+  }));
 
-      return { paths, fallback: false };
-    };
+  return { paths, fallback: false };
+};
 
-    const getStaticProps = async ({ params }) => {
-      const locale = params?.locale;
+const getStaticProps = async ({ params }) => {
+  const locale = params?.locale;
 
-      return {
-        props: {
-          locale,
-        },
-      };
-    };
+  return {
+    props: {
+      locale,
+    },
+  };
+};
 
-    module.exports = {
-      getStaticProps,
-      getStaticPaths,
-      default: HomePage,
-    };
-    ```
+module.exports = {
+  getStaticProps,
+  getStaticPaths,
+  default: HomePage,
+};
+```
 
 > `getStaticPaths` と `getStaticProps` は、Next.js のページルーターにおいて、すべてのロケールに対して必要なページを事前にビルドすることを保証します。このアプローチにより、実行時の計算が削減され、ユーザー体験が向上します。詳細については、Next.js のドキュメントの [`getStaticPaths`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths) および [`getStaticProps`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-props) を参照してください。
 
@@ -377,7 +375,7 @@ const homeContent = {
 } satisfies Dictionary;
 
 export default homeContent;
-````
+```
 
 ```javascript fileName="src/pages/[locale]/home.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
@@ -517,8 +515,9 @@ const HomePage = () => {
     </div>
   );
 };
+```
 
-tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer";
 

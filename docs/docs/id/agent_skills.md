@@ -18,6 +18,8 @@ history:
     changes: Inisialisasi riwayat
 ---
 
+# Keterampilan Agen
+
 ## Perintah `intlayer init skills`
 
 Perintah `intlayer init skills` adalah cara termudah untuk mengatur agent skills di proyek Anda. Perintah ini mendeteksi lingkungan Anda dan menginstal file konfigurasi yang diperlukan untuk platform pilihan Anda.

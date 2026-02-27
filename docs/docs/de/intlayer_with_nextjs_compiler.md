@@ -14,7 +14,7 @@ keywords:
   - KI
 slugs:
   - doc
-  - umgebung
+  - environment
   - nextjs
   - compiler
 applicationTemplate: https://github.com/aymericzip/intlayer-next-no-lolale-path-template
