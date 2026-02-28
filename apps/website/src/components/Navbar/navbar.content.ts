@@ -9,16 +9,11 @@ type SectionsContent = {
     label: string;
   }[];
   github: {
-    id: string;
     url: string;
-    title: string;
     label: string;
-    gitHubLogoAlt: string;
   };
   discord: {
-    id: string;
     url: string;
-    title: string;
     label: string;
   };
   logo: {
@@ -286,9 +281,7 @@ export const navbarContent = {
       },
     ],
     github: {
-      id: 'github',
       url: ExternalLinks.Github,
-      title: 'Github',
       label: t({
         en: 'Go to the github repo',
         fr: 'Aller sur le dépôt github',
@@ -309,31 +302,9 @@ export const navbarContent = {
         vi: 'Đi đến kho GitHub',
         uk: 'Перейти до репозиторію на GitHub',
       }),
-      gitHubLogoAlt: t({
-        en: 'Github logo',
-        fr: 'Logo Github',
-        es: 'Logo de Github',
-        'en-GB': 'Github logo',
-        de: 'Github-Logo',
-        ja: 'Githubロゴ',
-        ko: 'Github 로고',
-        zh: 'Github标志',
-        it: 'Logo di Github',
-        pt: 'Logotipo do Github',
-        hi: 'Github लोगो',
-        ar: 'شعار Github',
-        ru: 'Логотип Github',
-        tr: 'Github logosu',
-        pl: 'Logo GitHuba',
-        id: 'Logo GitHub',
-        vi: 'Biểu tượng GitHub',
-        uk: 'Логотип GitHub',
-      }),
     },
     discord: {
-      id: 'discord',
       url: ExternalLinks.Discord,
-      title: 'Discord',
       label: t({
         en: 'Go to the discord server',
         fr: 'Aller sur le serveur discord',
