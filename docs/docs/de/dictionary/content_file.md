@@ -484,7 +484,7 @@ const aboutPageMetaContent = {
     title: "About Our Company - Learn More About Us",
     description: "Discover our company's mission, values, and team.",
   },
-} satisfies Dictionary<"seo-metadata">;
+} satisfies Dictionary;
 
 export default aboutPageMetaContent;
 ```
