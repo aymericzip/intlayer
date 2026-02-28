@@ -365,11 +365,7 @@ export type Dictionary<
 > = DictionaryBase &
   (SchemaKey extends SchemaKeys
     ? DictionaryWithSchema<ContentType, FetchableNode, SchemaKey>
-    : undefined extends SchemaKey // Check if SchemaKey is missing/undefined
-      ?
-          | DictionaryWithoutSchema<ContentType, FetchableNode>
-          | DictionaryWithSchema<ContentType, FetchableNode>
-      : never);
+    : DictionaryWithoutSchema<ContentType, FetchableNode>);
 
 export type GetSubPath<T, P> = P extends `${infer K}.${infer Rest}`
   ? K extends keyof T
