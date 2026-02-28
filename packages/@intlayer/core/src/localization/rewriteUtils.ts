@@ -1,5 +1,6 @@
 import type {
   Locale,
+  LocalesValues,
   RewriteObject,
   RewriteRules,
   RoutingConfig,
@@ -123,7 +124,7 @@ export const getCanonicalPath = (
  */
 export const getLocalizedPath = (
   canonicalPath: string,
-  locale: Locale,
+  locale: LocalesValues,
   rewriteRules?: RewriteRules
 ): LocalizedPathResult => {
   if (!rewriteRules) return { path: canonicalPath, isRewritten: false };
