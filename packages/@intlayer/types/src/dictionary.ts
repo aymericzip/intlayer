@@ -346,10 +346,10 @@ type DictionaryWithSchema<
   : never;
 
 /**
- * No Schema Branch
+ * Strict Discrimination Branch
  */
 type DictionaryWithoutSchema<ContentType, FetchableNode> = {
-  schema?: undefined;
+  schema?: never;
   content: ContentType extends undefined
     ? any
     : ReplaceContentValue<ContentType, FetchableNode> | ContentType;
@@ -365,7 +365,11 @@ export type Dictionary<
 > = DictionaryBase &
   (SchemaKey extends SchemaKeys
     ? DictionaryWithSchema<ContentType, FetchableNode, SchemaKey>
-    : DictionaryWithoutSchema<ContentType, FetchableNode>);
+    : undefined extends SchemaKey
+      ?
+          | DictionaryWithoutSchema<ContentType, FetchableNode>
+          | DictionaryWithSchema<ContentType, FetchableNode>
+      : never);
 
 export type GetSubPath<T, P> = P extends `${infer K}.${infer Rest}`
   ? K extends keyof T
