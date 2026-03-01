@@ -34,7 +34,7 @@
     "postcss": "^8.5.3",
     "prismjs": "^1.29.0",
     "rxjs": "~7.8.0",
-    "tailwindcss": "4.2.0",
+    "tailwindcss": "4.2.1",
     "tslib": "^2.3.0"
   },
   "devDependencies": {

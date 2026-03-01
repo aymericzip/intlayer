@@ -112,7 +112,7 @@
     "crypto-js": "4.2.0",
     "defu": "6.1.4",
     "fast-glob": "3.3.3",
-    "simple-git": "3.31.1",
+    "simple-git": "3.32.3",
     "ts-morph": "27.0.2",
     "zod-to-ts": "2.0.0"
   },

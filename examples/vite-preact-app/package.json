@@ -19,7 +19,7 @@
     "@preact/preset-vite": "2.10.1",
     "@tailwindcss/vite": "4.2.0",
     "intlayer-editor": "workspace:*",
-    "tailwindcss": "4.2.0",
+    "tailwindcss": "4.2.1",
     "typescript": "5.9.3",
     "vite": "7.3.1",
     "vite-intlayer": "workspace:*"
