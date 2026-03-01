@@ -570,10 +570,6 @@ const rewriteUrl = (
   const pathWithSearch =
     search && !newPath.includes('?') ? `${newPath}${search}` : newPath;
 
-  console.log(
-    `[intlayerProxy] Rewriting to ${pathWithSearch} with locale ${locale}`
-  );
-
   const requestHeaders = new Headers(request.headers);
   setLocaleInStorage(locale, {
     setHeader: (name: string, value: string) => {
