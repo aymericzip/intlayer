@@ -372,7 +372,7 @@ module.exports = appContent;
 }
 ```
 
-> Для получения подробной информации о декларациях контента, см. [документацию по контенту Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/get_started.md).
+> Для получения подробной информации о декларациях контента, см. [документацию по контенту Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md).
 
 ---
 

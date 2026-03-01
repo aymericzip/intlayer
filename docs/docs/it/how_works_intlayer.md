@@ -77,7 +77,7 @@ const MyComponent = () => {
 
 Questo hook gestirà per te il rilevamento della lingua e restituirà il contenuto per la lingua corrente. Utilizzando questo hook, sarai anche in grado di interpretare markdown, gestire la pluralizzazione e altro.
 
-> Per vedere tutte le funzionalità di Intlayer, puoi leggere la [documentazione sui dizionari](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/get_started.md).
+> Per vedere tutte le funzionalità di Intlayer, puoi leggere la [documentazione sui dizionari](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_file.md).
 
 ## Contenuto remoto
 

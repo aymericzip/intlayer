@@ -69,7 +69,7 @@ history:
 
 ## Словарь
 
-Все объекты словаря должны быть объявлены в структурированных файлах контента для обеспечения типобезопасности и предотвращения ошибок во время выполнения. Вы можете найти [инструкции по настройке здесь](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/get_started.md). Вот пример объявления контента:
+Все объекты словаря должны быть объявлены в структурированных файлах контента для обеспечения типобезопасности и предотвращения ошибок во время выполнения. Вы можете найти [инструкции по настройке здесь](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md). Вот пример объявления контента:
 
 ```typescript fileName="component.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";

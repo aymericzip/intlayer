@@ -158,7 +158,7 @@ Intlayer offre una varietà di funzionalità progettate per soddisfare le esigen
 
 Organizza i tuoi contenuti multilingue vicino al codice per mantenere tutto coerente e facilmente gestibile.
 
-- **[Inizia Qui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/get_started.md)**  
+- **[Inizia Qui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_file.md)**  
   Impara le basi per dichiarare i tuoi contenuti in Intlayer.
 
 - **[Traduzione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/translation.md)**  

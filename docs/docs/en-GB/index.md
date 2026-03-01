@@ -55,7 +55,7 @@ Intlayer offers a flexible, modern approach to translating your application. Our
 
 Organise your multilingual content close to your code to keep everything consistent and maintainable.
 
-- **[Get Started](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/get_started.md)**  
+- **[Get Started](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md)**  
   Learn the basics of declaring your content in Intlayer.
 
 - **[Translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/translation.md)**  

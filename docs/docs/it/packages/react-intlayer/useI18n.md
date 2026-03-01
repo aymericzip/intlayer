@@ -70,7 +70,7 @@ Questo hook accetta due parametri:
 
 ## Dizionario
 
-Tutte le chiavi del dizionario devono essere dichiarate all'interno dei file di dichiarazione del contenuto per migliorare la sicurezza dei tipi e prevenire errori. [Le istruzioni di configurazione si trovano qui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/get_started.md).
+Tutte le chiavi del dizionario devono essere dichiarate all'interno dei file di dichiarazione del contenuto per migliorare la sicurezza dei tipi e prevenire errori. [Le istruzioni di configurazione si trovano qui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_file.md).
 
 ## Esempi di utilizzo in React
 

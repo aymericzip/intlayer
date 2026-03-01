@@ -77,7 +77,7 @@ const MyComponent = () => {
 
 Этот хук будет управлять обнаружением локали за вас и возвращать контент для текущей локали. Используя этот хук, вы также сможете интерпретировать markdown, управлять множественным числом и многое другое.
 
-> Чтобы увидеть все возможности Intlayer, вы можете прочитать [документацию по словарям](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/get_started.md).
+> Чтобы увидеть все возможности Intlayer, вы можете прочитать [документацию по словарям](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md).
 
 ## Удалённый контент
 

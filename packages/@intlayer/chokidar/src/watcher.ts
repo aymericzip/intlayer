@@ -49,8 +49,6 @@ export const watch = (options?: WatchOptions) => {
     options?.configuration ?? configResult.configuration;
   const appLogger = getAppLogger(configuration);
 
-  console.log({ configuration });
-
   const {
     watch: isWatchMode,
     watchedFilesPatternWithPath,

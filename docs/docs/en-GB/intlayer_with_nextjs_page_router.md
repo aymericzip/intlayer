@@ -72,7 +72,7 @@ bunx intlayer init
 
 - **intlayer**
 
-  The core package that provides internationalisation tools for configuration management, translation, [content declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/get_started.md), transpilation, and [CLI commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md).
+  The core package that provides internationalisation tools for configuration management, translation, [content declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md), transpilation, and [CLI commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md).
 
 - **next-intlayer**
 
@@ -449,7 +449,7 @@ module.exports = homeContent;
 }
 ```
 
-For more information on declaring content, refer to the [content declaration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/get_started.md).
+For more information on declaring content, refer to the [content declaration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md).
 
 ### Step 7: Utilise Content in Your Code
 
@@ -1495,7 +1495,7 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 ## Additional Resources
 
 - **Intlayer Documentation:** [GitHub Repository](https://github.com/aymericzip/intlayer)
-- **Dictionary Guide:** [Dictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/dictionary/get_started.md)
+- **Dictionary Guide:** [Dictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/dictionary/content_file.md)
 - **Configuration Documentation:** [Configuration Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/configuration.md)
 
 By following this guide, you can effectively integrate Intlayer into your Next.js application using the Page Router, enabling robust and scalable internationalisation support for your web projects.

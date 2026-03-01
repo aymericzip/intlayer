@@ -72,7 +72,7 @@ bunx intlayer init
 
 - **intlayer**
 
-  Il pacchetto principale che fornisce strumenti di internazionalizzazione per la gestione della configurazione, la traduzione, la [dichiarazione dei contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/get_started.md), la traspilazione e i [comandi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_cli.md).
+  Il pacchetto principale che fornisce strumenti di internazionalizzazione per la gestione della configurazione, la traduzione, la [dichiarazione dei contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_file.md), la traspilazione e i [comandi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_cli.md).
 
 - **next-intlayer**
 
@@ -443,7 +443,7 @@ module.exports = homeContent;
 }
 ```
 
-Per maggiori informazioni sulla dichiarazione dei contenuti, consulta la [guida alla dichiarazione dei contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/get_started.md).
+Per maggiori informazioni sulla dichiarazione dei contenuti, consulta la [guida alla dichiarazione dei contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_file.md).
 
 ### Passo 7: Utilizza i Contenuti nel Tuo Codice
 
@@ -1494,7 +1494,7 @@ Per maggiori dettagli su come utilizzare l'estensione, consulta la [documentazio
 ## Risorse Aggiuntive
 
 - **Documentazione Intlayer:** [Repository GitHub](https://github.com/aymericzip/intlayer)
-- **Guida al Dizionario:** [Dizionario](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/get_started.md)
+- **Guida al Dizionario:** [Dizionario](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_file.md)
 - **Documentazione di Configurazione:** [Guida alla Configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md)
 
 Seguendo questa guida, puoi integrare efficacemente Intlayer nella tua applicazione Next.js utilizzando il Page Router, abilitando un supporto per l'internazionalizzazione robusto e scalabile per i tuoi progetti web.
