@@ -532,29 +532,30 @@ export const askDocQuestion = async (
         : 0;
 
     if (lastUserMessageNbWords >= 2 || messages.length >= 2) {
+      const updatePayload: any = {
+        discussionId,
+        messages: [
+          ...messages.map((msg) => ({
+            role: msg.role,
+            content: msg.content,
+            timestamp: msg.timestamp ?? new Date(),
+          })),
+          {
+            role: 'assistant',
+            content: fullResponse.response,
+            relatedFiles: fullResponse.relatedFiles,
+            timestamp: new Date(),
+          },
+        ],
+      };
+
+      if (user?.id) updatePayload.userId = user.id;
+      if (project?.id) updatePayload.projectId = project.id;
+      if (organization?.id) updatePayload.organizationId = organization.id;
+
       await DiscussionModel.findOneAndUpdate(
         { discussionId },
-        {
-          $set: {
-            discussionId,
-            userId: user?.id,
-            projectId: project?.id,
-            organizationId: organization?.id,
-            messages: [
-              ...messages.map((msg) => ({
-                role: msg.role,
-                content: msg.content,
-                timestamp: msg.timestamp ?? new Date(),
-              })),
-              {
-                role: 'assistant',
-                content: fullResponse.response,
-                relatedFiles: fullResponse.relatedFiles,
-                timestamp: new Date(),
-              },
-            ],
-          },
-        },
+        { $set: updatePayload },
         { upsert: true, new: true }
       );
     }

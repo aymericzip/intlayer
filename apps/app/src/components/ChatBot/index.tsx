@@ -96,21 +96,21 @@ export const ChatBot: FC<ChatBotProps> = ({
     const newDiscussionId = discussion?.discussionId ?? uuid();
     const currentStoredPrompt = discussion?.storedPrompt ?? [];
 
-    setDiscussion(
-      (prevDiscussion) =>
-        ({
-          ...prevDiscussion,
-          discussionId: newDiscussionId,
-          storedPrompt: [
-            ...currentStoredPrompt,
-            {
-              role: 'user' as const,
-              content: newQuestion,
-              timestamp: new Date(),
-            },
-          ],
-        }) as DiscussionStore
-    );
+    setDiscussion((prevDiscussion) => {
+      const prevStoredPrompt = prevDiscussion?.storedPrompt ?? [];
+      return {
+        ...prevDiscussion,
+        discussionId: newDiscussionId,
+        storedPrompt: [
+          ...prevStoredPrompt,
+          {
+            role: 'user' as const,
+            content: newQuestion,
+            timestamp: new Date(),
+          },
+        ],
+      } as DiscussionStore;
+    });
 
     const newMessages: ChatCompletionRequestMessage[] = [
       ...currentStoredPrompt,
@@ -134,32 +134,28 @@ export const ChatBot: FC<ChatBotProps> = ({
             return;
           }
 
-          setDiscussion(
-            (discussion) =>
-              ({
-                ...discussion,
-                storedPrompt: [
-                  ...(discussion?.storedPrompt ?? []),
-                  {
-                    role: 'assistant' as const,
-                    content: responseData.response,
-                    timestamp: new Date(),
-                  },
-                ],
-              }) as DiscussionStore
-          );
-          setDiscussion(
-            (discussion) =>
-              ({
-                ...discussion,
-                relatedFiles: [
-                  ...new Set([
-                    ...(discussion?.relatedFiles ?? []),
-                    ...(responseData.relatedFiles ?? []),
-                  ]),
-                ],
-              }) as DiscussionStore
-          );
+          setDiscussion((prevDiscussion) => {
+            const nextStoredPrompt = [
+              ...(prevDiscussion?.storedPrompt ?? []),
+              {
+                role: 'assistant' as const,
+                content: responseData.response,
+                timestamp: new Date(),
+              },
+            ];
+            const nextRelatedFiles = [
+              ...new Set([
+                ...(prevDiscussion?.relatedFiles ?? []),
+                ...(responseData.relatedFiles ?? []),
+              ]),
+            ];
+
+            return {
+              ...prevDiscussion,
+              storedPrompt: nextStoredPrompt,
+              relatedFiles: nextRelatedFiles,
+            } as DiscussionStore;
+          });
           setCurrentResponse('');
         },
       },
