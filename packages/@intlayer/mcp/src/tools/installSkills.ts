@@ -3,6 +3,44 @@ import { installSkills, SKILLS, type Skill } from '@intlayer/cli';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import z from 'zod';
 
+const PLATFORMS = [
+  'Cursor',
+  'Windsurf',
+  'Trae',
+  'OpenCode',
+  'GitHub',
+  'Claude',
+  'VSCode',
+  'Antigravity',
+  'Augment',
+  'OpenClaw',
+  'Cline',
+  'CodeBuddy',
+  'CommandCode',
+  'Continue',
+  'Crush',
+  'Droid',
+  'Goose',
+  'Junie',
+  'IFlow',
+  'KiloCode',
+  'Kiro',
+  'Kode',
+  'MCPJam',
+  'MistralVibe',
+  'Mux',
+  'OpenHands',
+  'Pi',
+  'Qoder',
+  'Qwen',
+  'RooCode',
+  'TraeCN',
+  'Zencoder',
+  'Neovate',
+  'Pochi',
+  'Other',
+] as const;
+
 export const loadInstallSkillsTool = (server: McpServer): void => {
   server.registerTool(
     'intlayer-install-skills',
@@ -107,86 +145,20 @@ export const runInstallSkillsCLI = async (): Promise<void> => {
     const platformInput = await question(
       'Which platform are you using? (Cursor, Windsurf, Trae, OpenCode, GitHub, Claude, VSCode, Cline, RooCode, etc. or "Other"): '
     );
-    const platform = ([
-      'Cursor',
-      'Windsurf',
-      'Trae',
-      'OpenCode',
-      'GitHub',
-      'Claude',
-      'VSCode',
-      'Antigravity',
-      'Augment',
-      'OpenClaw',
-      'Cline',
-      'CodeBuddy',
-      'CommandCode',
-      'Continue',
-      'Crush',
-      'Droid',
-      'Goose',
-      'Junie',
-      'IFlow',
-      'KiloCode',
-      'Kiro',
-      'Kode',
-      'MCPJam',
-      'MistralVibe',
-      'Mux',
-      'OpenHands',
-      'Pi',
-      'Qoder',
-      'Qwen',
-      'RooCode',
-      'TraeCN',
-      'Zencoder',
-      'Neovate',
-      'Pochi',
-      'Other',
-    ].find((p) => p.toLowerCase() === platformInput.trim().toLowerCase()) ||
-      'Other') as
-      | 'Cursor'
-      | 'Windsurf'
-      | 'Trae'
-      | 'OpenCode'
-      | 'GitHub'
-      | 'Claude'
-      | 'VSCode'
-      | 'Antigravity'
-      | 'Augment'
-      | 'OpenClaw'
-      | 'Cline'
-      | 'CodeBuddy'
-      | 'CommandCode'
-      | 'Continue'
-      | 'Crush'
-      | 'Droid'
-      | 'Goose'
-      | 'Junie'
-      | 'IFlow'
-      | 'KiloCode'
-      | 'Kiro'
-      | 'Kode'
-      | 'MCPJam'
-      | 'MistralVibe'
-      | 'Mux'
-      | 'OpenHands'
-      | 'Pi'
-      | 'Qoder'
-      | 'Qwen'
-      | 'RooCode'
-      | 'TraeCN'
-      | 'Zencoder'
-      | 'Neovate'
-      | 'Pochi'
-      | 'Other';
+
+    // we only accept a single platform here, not an array like the main CLI
+    const platform =
+      PLATFORMS.find(
+        (platform) =>
+          platform.toLowerCase() === platformInput.trim().toLowerCase()
+      ) || ('Other' as const);
 
     console.log(`Selected platform: ${platform}`);
 
-    const availableSkills = SKILLS;
     console.log('\nAvailable skills:');
-    availableSkills.forEach((s, i) => {
-      console.log(`${i + 1}. ${s}`);
+
+    SKILLS.forEach((skill, i) => {
+      console.log(`${i + 1}. ${skill}`);
     });
 
     const skillsInput = await question(
@@ -195,15 +167,15 @@ export const runInstallSkillsCLI = async (): Promise<void> => {
 
     let selectedSkills: Skill[] = [];
     if (skillsInput.trim().toLowerCase() === 'all') {
-      selectedSkills = [...availableSkills];
+      selectedSkills = [...SKILLS];
     } else {
       const indices = skillsInput
         .split(',')
-        .map((s) => parseInt(s.trim(), 10) - 1)
+        .map((skill) => parseInt(skill.trim(), 10) - 1)
         .filter(
-          (s) => !Number.isNaN(s) && s >= 0 && s < availableSkills.length
+          (skill) => !Number.isNaN(skill) && skill >= 0 && skill < SKILLS.length
         );
-      selectedSkills = indices.map((i) => availableSkills[i] as any);
+      selectedSkills = indices.map((i) => SKILLS[i] as any);
     }
 
     if (selectedSkills.length === 0) {
