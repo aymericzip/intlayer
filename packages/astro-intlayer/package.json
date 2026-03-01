@@ -83,7 +83,7 @@
     "vite-intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "25.3.0",
+    "@types/node": "25.3.3",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",

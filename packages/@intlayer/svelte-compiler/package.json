@@ -80,7 +80,7 @@
     "watch": "webpack --config ./webpack.config.ts --watch"
   },
   "dependencies": {
-    "@babel/core": "7.28.6",
+    "@babel/core": "7.29.0",
     "@intlayer/babel": "workspace:*",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/cli": "workspace:*",
@@ -89,10 +89,10 @@
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/types": "workspace:*",
     "fast-glob": "3.3.3",
-    "magic-string": "0.30.17"
+    "magic-string": "0.30.21"
   },
   "devDependencies": {
-    "@types/node": "25.3.0",
+    "@types/node": "25.3.3",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",

@@ -93,7 +93,7 @@
     "react-intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "25.3.0",
+    "@types/node": "25.3.3",
     "@types/react": ">=18.0.0",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",

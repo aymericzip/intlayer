@@ -70,12 +70,12 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@vue/compiler-sfc": "3.4.21",
-    "magic-string": "0.30.8",
-    "ts-morph": "27.0.0"
+    "@vue/compiler-sfc": "3.5.29",
+    "magic-string": "0.30.21",
+    "ts-morph": "27.0.2"
   },
   "devDependencies": {
-    "@types/node": "25.3.0",
+    "@types/node": "25.3.3",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
