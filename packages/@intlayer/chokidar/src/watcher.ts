@@ -4,7 +4,9 @@ import { getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,
+  getConfigurationAndFilePath,
 } from '@intlayer/config/node';
+import { clearAllCache, clearModuleCache } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types';
 /** @ts-ignore remove error Module '"chokidar"' has no exported member 'ChokidarOptions' */
 import { type ChokidarOptions, watch as chokidarWatch } from 'chokidar';
@@ -41,9 +43,13 @@ type WatchOptions = ChokidarOptions & {
 
 // Initialize chokidar watcher (non-persistent)
 export const watch = (options?: WatchOptions) => {
-  const configuration: IntlayerConfig =
-    options?.configuration ?? getConfiguration(options?.configOptions);
+  const configResult = getConfigurationAndFilePath(options?.configOptions);
+  const configurationFilePath = configResult.configurationFilePath;
+  let configuration: IntlayerConfig =
+    options?.configuration ?? configResult.configuration;
   const appLogger = getAppLogger(configuration);
+
+  console.log({ configuration });
 
   const {
     watch: isWatchMode,
@@ -51,7 +57,14 @@ export const watch = (options?: WatchOptions) => {
     fileExtensions,
   } = configuration.content;
 
-  return chokidarWatch(watchedFilesPatternWithPath, {
+  const pathsToWatch = [
+    ...(Array.isArray(watchedFilesPatternWithPath)
+      ? watchedFilesPatternWithPath
+      : [watchedFilesPatternWithPath]),
+    ...(configurationFilePath ? [configurationFilePath] : []),
+  ];
+
+  return chokidarWatch(pathsToWatch, {
     persistent: isWatchMode, // Make the watcher persistent
     ignoreInitial: true, // Process existing files
     awaitWriteFinish: {
@@ -137,9 +150,23 @@ export const watch = (options?: WatchOptions) => {
       });
     })
     .on('change', async (filePath) =>
-      processEvent(async () =>
-        handleContentDeclarationFileChange(filePath, configuration)
-      )
+      processEvent(async () => {
+        if (configurationFilePath && filePath === configurationFilePath) {
+          appLogger('Configuration file changed, repreparing Intlayer');
+
+          clearModuleCache(configurationFilePath);
+          clearAllCache();
+
+          const { configuration: newConfiguration } =
+            getConfigurationAndFilePath(options?.configOptions);
+
+          configuration = options?.configuration ?? newConfiguration;
+
+          await prepareIntlayer(configuration, { clean: false });
+        } else {
+          await handleContentDeclarationFileChange(filePath, configuration);
+        }
+      })
     )
     .on('unlink', async (filePath) => {
       // Delay unlink processing to see if an 'add' event occurs (indicating a move)
