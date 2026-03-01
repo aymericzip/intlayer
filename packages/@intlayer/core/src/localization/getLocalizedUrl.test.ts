@@ -76,6 +76,52 @@ describe('getLocalizedUrl', () => {
       });
       expect(result).toBe('/fr/about');
     });
+
+    it('should handle path that is just a locale', () => {
+      const result1 = getLocalizedUrl('/fr', Locales.FRENCH, {
+        locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+        defaultLocale: Locales.ENGLISH,
+        mode: 'prefix-no-default',
+      });
+      expect(result1).toBe('/fr');
+
+      const result2 = getLocalizedUrl('/fr', Locales.SPANISH, {
+        locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+        defaultLocale: Locales.ENGLISH,
+        mode: 'prefix-no-default',
+      });
+      expect(result2).toBe('/es');
+
+      const result3 = getLocalizedUrl('/fr', Locales.ENGLISH, {
+        locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+        defaultLocale: Locales.ENGLISH,
+        mode: 'prefix-no-default',
+      });
+      expect(result3).toBe('/');
+    });
+
+    it('should handle path that is just a locale without leading slash', () => {
+      const result1 = getLocalizedUrl('fr', Locales.FRENCH, {
+        locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+        defaultLocale: Locales.ENGLISH,
+        mode: 'prefix-no-default',
+      });
+      expect(result1).toBe('/fr');
+
+      const result2 = getLocalizedUrl('fr', Locales.SPANISH, {
+        locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+        defaultLocale: Locales.ENGLISH,
+        mode: 'prefix-no-default',
+      });
+      expect(result2).toBe('/es');
+
+      const result3 = getLocalizedUrl('fr', Locales.ENGLISH, {
+        locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+        defaultLocale: Locales.ENGLISH,
+        mode: 'prefix-no-default',
+      });
+      expect(result3).toBe('/');
+    });
   });
 
   describe('prefix-all mode', () => {
