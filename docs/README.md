@@ -4,7 +4,9 @@
   </a>
 </p>
 
-# Per-component i18n
+<h1 align="center">
+  <strong>Per-component i18n</strong>
+</h1>
 
 <h2 align="center">
   <strong>AI-powered translation. Visual Editor. Multilingual CMS.</strong>
