@@ -70,7 +70,7 @@ bunx intlayer init
 
 - **intlayer**
 
-الحزمة الأساسية التي توفر أدوات التدويل لإدارة التكوين، والترجمة، و[إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md)، والترجمة البرمجية، و[أوامر CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md).
+الحزمة الأساسية التي توفر أدوات التدويل لإدارة التكوين، والترجمة، و[إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md)، والترجمة البرمجية، و[أوامر CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md).
 
 - **next-intlayer**
 
@@ -446,7 +446,7 @@ module.exports = homeContent;
 }
 ```
 
-لمزيد من المعلومات حول إعلان المحتوى، راجع [دليل إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md).
+لمزيد من المعلومات حول إعلان المحتوى، راجع [دليل إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
 ### الخطوة 7: استخدام المحتوى في الكود الخاص بك
 
@@ -1498,7 +1498,7 @@ bun add @intlayer/swc --dev
 ## موارد إضافية
 
 - **توثيق Intlayer:** [مستودع GitHub](https://github.com/aymericzip/intlayer)
-- **دليل القاموس:** [القاموس](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md)
+- **دليل القاموس:** [القاموس](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md)
 - **توثيق التهيئة:** [دليل التهيئة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
 
 باتباع هذا الدليل، يمكنك دمج Intlayer بفعالية في تطبيق Next.js الخاص بك باستخدام Page Router، مما يتيح دعمًا قويًا وقابلًا للتوسع للتدويل في مشاريع الويب الخاصة بك.

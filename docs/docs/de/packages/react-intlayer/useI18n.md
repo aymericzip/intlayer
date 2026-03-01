@@ -70,7 +70,7 @@ Dieser Hook akzeptiert zwei Parameter:
 
 ## Wörterbuch
 
-Alle Wörterbuchschlüssel müssen in Inhaltsdeklarationsdateien deklariert werden, um die Typsicherheit zu erhöhen und Fehler zu vermeiden. [Konfigurationsanweisungen finden Sie hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md).
+Alle Wörterbuchschlüssel müssen in Inhaltsdeklarationsdateien deklariert werden, um die Typsicherheit zu erhöhen und Fehler zu vermeiden. [Konfigurationsanweisungen finden Sie hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md).
 
 ## Anwendungsbeispiele in React
 

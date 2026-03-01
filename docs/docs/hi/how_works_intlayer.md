@@ -77,7 +77,7 @@ const MyComponent = () => {
 
 यह हुक आपके लिए लोकेल का पता लगाने का प्रबंधन करेगा और वर्तमान लोकेल के लिए सामग्री लौटाएगा। इस हुक का उपयोग करके, आप मार्कडाउन की व्याख्या कर सकते हैं, बहुवचन प्रबंधन कर सकते हैं, और भी बहुत कुछ।
 
-> Intlayer की सभी विशेषताओं को देखने के लिए, आप [डिक्शनरी दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/get_started.md) पढ़ सकते हैं।
+> Intlayer की सभी विशेषताओं को देखने के लिए, आप [डिक्शनरी दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md) पढ़ सकते हैं।
 
 ## दूरस्थ सामग्री
 

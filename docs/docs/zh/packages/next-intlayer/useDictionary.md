@@ -69,7 +69,7 @@ history:
 
 ## 字典
 
-所有字典对象都应声明在结构化内容文件中，以确保类型安全并防止运行时错误。您可以在[此处找到设置说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)。以下是内容声明的示例：
+所有字典对象都应声明在结构化内容文件中，以确保类型安全并防止运行时错误。您可以在[此处找到设置说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。以下是内容声明的示例：
 
 ```typescript fileName="component.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";

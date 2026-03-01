@@ -66,10 +66,10 @@ npm i -D @intlayer/sync-json-plugin
 Eklentiyi `intlayer.config.ts` dosyanıza ekleyin ve mevcut JSON yapınıza işaret edin.
 
 ```ts fileName="intlayer.config.ts"
-import { defineConfig, Locales } from "intlayer";
+import { Locales, type IntlayerConfig } from "intlayer";
 import { syncJSON } from "@intlayer/sync-json-plugin";
 
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
@@ -82,7 +82,9 @@ export default defineConfig({
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],
-});
+};
+
+export default config;
 ```
 
 Alternatif: her yerel için tek dosya (i18next/react-intl yapılandırmalarında yaygın):
@@ -148,10 +150,10 @@ Birden fazla eklenti aynı sözlük anahtarını hedeflediğinde, `priority` par
 - Aynı önceliğe sahip eklentiler, yapılandırmada göründükleri sırayla işlenir
 
 ```ts fileName="intlayer.config.ts"
-import { defineConfig, Locales } from "intlayer";
+import { Locales, type IntlayerConfig } from "intlayer";
 import { syncJSON } from "@intlayer/sync-json-plugin";
 
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH],
     defaultLocale: Locales.ENGLISH,
@@ -182,7 +184,9 @@ export default defineConfig({
       priority: 1,
     }),
   ],
-});
+};
+
+export default config;
 ```
 
 ### Çakışma çözümü

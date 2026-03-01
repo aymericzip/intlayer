@@ -72,7 +72,7 @@ bunx intlayer init
 
 - **intlayer**
 
-  設定管理、翻訳、[コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)、トランスパイル、および[CLIコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)のための国際化ツールを提供するコアパッケージ。
+  設定管理、翻訳、[コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)、トランスパイル、および[CLIコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)のための国際化ツールを提供するコアパッケージ。
 
 - **next-intlayer**
 
@@ -446,7 +446,7 @@ module.exports = homeContent;
 }
 ```
 
-詳細なコンテンツ宣言については、[コンテンツ宣言ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)を参照してください。
+詳細なコンテンツ宣言については、[コンテンツ宣言ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。
 
 ### ステップ7: コード内でコンテンツを利用する
 
@@ -1491,7 +1491,7 @@ Intlayerでの開発体験を向上させるために、公式の **Intlayer VS 
 ## 追加リソース
 
 - **Intlayer ドキュメント:** [GitHub リポジトリ](https://github.com/aymericzip/intlayer)
-- **辞書ガイド:** [辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)
+- **辞書ガイド:** [辞書](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)
 - **設定ドキュメント:** [設定ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
 
 このガイドに従うことで、Next.js アプリケーションの Page Router を使用して Intlayer を効果的に統合し、ウェブプロジェクトに対して堅牢でスケーラブルな国際化サポートを実現できます。

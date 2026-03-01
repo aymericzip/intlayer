@@ -77,7 +77,7 @@ const MeineKomponente = () => {
 
 Dieser Hook übernimmt die Lokalisierungserkennung für Sie und gibt die Inhalte für die aktuelle Sprache zurück. Mit diesem Hook können Sie auch Markdown interpretieren, Pluralisierung verwalten und mehr.
 
-> Um alle Funktionen von Intlayer zu sehen, können Sie die [Wörterbuchdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md) lesen.
+> Um alle Funktionen von Intlayer zu sehen, können Sie die [Wörterbuchdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md) lesen.
 
 ## Entfernte Inhalte
 

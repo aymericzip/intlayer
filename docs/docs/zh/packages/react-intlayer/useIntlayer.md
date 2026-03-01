@@ -69,7 +69,7 @@ history:
 
 ## 字典
 
-所有字典键必须在内容声明文件中声明，以增强类型安全并避免错误。您可以在[此处找到设置说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)。
+所有字典键必须在内容声明文件中声明，以增强类型安全并避免错误。您可以在[此处找到设置说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
 
 ## React 中的示例用法
 

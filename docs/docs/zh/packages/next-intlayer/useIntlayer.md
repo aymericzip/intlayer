@@ -69,7 +69,7 @@ history:
 
 确保所有内容键都在内容声明文件中定义，以防止运行时错误并确保类型安全。这种方法还便于 TypeScript 集成，实现编译时验证。
 
-有关设置内容声明文件的说明，请参见[此处](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)。
+有关设置内容声明文件的说明，请参见[此处](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
 
 ## 在 Next.js 中的示例用法
 

@@ -425,7 +425,7 @@ module.exports = appContent;
 
 > 콘텐츠 선언은 애플리케이션 내 어디에서든 `contentDir` 디렉토리(기본값은 `./src`)에 포함되기만 하면 정의할 수 있습니다. 그리고 콘텐츠 선언 파일 확장자(기본값은 `.content.{json,ts,tsx,js,jsx,mjs,cjs}`)와 일치해야 합니다.
 
-> 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/get_started.md)를 참조하세요.
+> 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 
 > 콘텐츠 파일에 TSX 코드가 포함된 경우, `import { h } from "preact";`를 임포트하거나 JSX 프래그마가 Preact에 맞게 올바르게 설정되어 있는지 확인해야 할 수 있습니다.
 

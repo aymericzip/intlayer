@@ -66,7 +66,7 @@ slugs:
 
 ## القاموس
 
-يجب إعلان جميع مفاتيح القاموس داخل ملفات إعلان المحتوى لتعزيز سلامة النوع ومنع الأخطاء. [يمكن العثور على تعليمات التكوين هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md).
+يجب إعلان جميع مفاتيح القاموس داخل ملفات إعلان المحتوى لتعزيز سلامة النوع ومنع الأخطاء. [يمكن العثور على تعليمات التكوين هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
 ## أمثلة الاستخدام في React
 

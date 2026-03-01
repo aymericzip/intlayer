@@ -69,7 +69,7 @@ history:
 
 सभी सामग्री कुंजियाँ कंटेंट घोषणा फ़ाइलों के भीतर परिभाषित होना अत्यंत आवश्यक है ताकि रनटाइम त्रुटियों से बचा जा सके और टाइप सुरक्षा सुनिश्चित की जा सके। यह तरीका कंपाइल-टाइम सत्यापन के लिए TypeScript एकीकरण को भी सुगम बनाता है।
 
-कंटेंट घोषणा फ़ाइलों को सेटअप करने के निर्देश [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/get_started.md) उपलब्ध हैं।
+कंटेंट घोषणा फ़ाइलों को सेटअप करने के निर्देश [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md) उपलब्ध हैं।
 
 ## Next.js में उदाहरण उपयोग
 

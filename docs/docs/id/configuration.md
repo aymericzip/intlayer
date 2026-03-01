@@ -735,8 +735,9 @@ Berikut beberapa contoh konfigurasi umum untuk struktur routing v7 yang baru:
 **Konfigurasi Dasar (Default)**:
 
 ```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: ["en", "fr", "es"],
     defaultLocale: "en",
@@ -747,14 +748,17 @@ export default defineConfig({
     headerName: "x-intlayer-locale",
     basePath: "",
   },
-});
+};
+
+export default config;
 ```
 
 **Konfigurasi Sesuai GDPR**:
 
 ```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: ["en", "fr", "es"],
     defaultLocale: "en",
@@ -777,14 +781,17 @@ export default defineConfig({
     headerName: "x-intlayer-locale",
     basePath: "",
   },
-});
+};
+
+export default config;
 ```
 
 **Mode Parameter Pencarian**:
 
 ```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: ["en", "fr", "es"],
     defaultLocale: "en",
@@ -795,14 +802,17 @@ export default defineConfig({
     headerName: "x-intlayer-locale",
     basePath: "",
   },
-});
+};
+
+export default config;
 ```
 
 **Mode Tanpa Prefix dengan Penyimpanan Kustom**:
 
 ```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: ["en", "fr", "es"],
     defaultLocale: "en",
@@ -816,7 +826,9 @@ export default defineConfig({
     headerName: "x-custom-locale",
     basePath: "/my-app",
   },
-});
+};
+
+export default config;
 ```
 
 ---

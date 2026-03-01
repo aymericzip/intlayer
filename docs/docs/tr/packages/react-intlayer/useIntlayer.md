@@ -69,7 +69,7 @@ Hook iki parametre kabul eder:
 
 ## Sözlük
 
-Tüm sözlük anahtarları, tür güvenliğini geliştirmek ve hataları önlemek için içerik bildirim dosyalarında bildirilmelidir. [Kurulum talimatlarını burada](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/get_started.md) bulabilirsiniz.
+Tüm sözlük anahtarları, tür güvenliğini geliştirmek ve hataları önlemek için içerik bildirim dosyalarında bildirilmelidir. [Kurulum talimatlarını burada](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bulabilirsiniz.
 
 ## React'te Örnek Kullanım
 

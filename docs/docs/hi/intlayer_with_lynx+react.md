@@ -379,7 +379,7 @@ module.exports = appContent;
 }
 ```
 
-> सामग्री घोषणाओं पर विवरण के लिए, [Intlayer की सामग्री दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/get_started.md) देखें।
+> सामग्री घोषणाओं पर विवरण के लिए, [Intlayer की सामग्री दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md) देखें।
 
 ---
 

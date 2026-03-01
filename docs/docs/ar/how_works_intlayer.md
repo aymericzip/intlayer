@@ -77,7 +77,7 @@ const MyComponent = () => {
 
 سيقوم هذا الخطاف بإدارة اكتشاف اللغة المحلية نيابة عنك وسيعيد المحتوى للغة المحلية الحالية. باستخدام هذا الخطاف، ستتمكن أيضًا من تفسير Markdown، إدارة الجمع، والمزيد.
 
-> لرؤية جميع ميزات Intlayer، يمكنك قراءة [وثائق القواميس](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md).
+> لرؤية جميع ميزات Intlayer، يمكنك قراءة [وثائق القواميس](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
 ## المحتوى البعيد
 

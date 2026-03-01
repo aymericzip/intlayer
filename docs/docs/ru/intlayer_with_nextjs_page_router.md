@@ -72,7 +72,7 @@ bunx intlayer init
 
 - **intlayer**
 
-  Основной пакет, предоставляющий инструменты интернационализации для управления конфигурацией, перевода, [объявления контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/get_started.md), транспиляции и [CLI-команд](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_cli.md).
+  Основной пакет, предоставляющий инструменты интернационализации для управления конфигурацией, перевода, [объявления контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md), транспиляции и [CLI-команд](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_cli.md).
 
 - **next-intlayer**
 
@@ -448,7 +448,7 @@ module.exports = homeContent;
 }
 ```
 
-Для получения дополнительной информации о декларации контента обратитесь к [руководству по декларации контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/get_started.md).
+Для получения дополнительной информации о декларации контента обратитесь к [руководству по декларации контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md).
 
 ### Шаг 7: Использование контента в вашем коде
 
@@ -1518,7 +1518,7 @@ Intlayer использует расширение модулей (module augmen
 ## Дополнительные ресурсы
 
 - **Документация Intlayer:** [Репозиторий GitHub](https://github.com/aymericzip/intlayer)
-- **Руководство по словарю:** [Словарь](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/get_started.md)
+- **Руководство по словарю:** [Словарь](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md)
 - **Документация по конфигурации:** [Руководство по конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md)
 
 Следуя этому руководству, вы сможете эффективно интегрировать Intlayer в ваше приложение Next.js с использованием Page Router, обеспечивая надежную и масштабируемую поддержку интернационализации для ваших веб-проектов.

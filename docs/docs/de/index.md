@@ -56,7 +56,7 @@ Verwalten Sie Inhalte und Übersetzungen mit unserem Kommandozeilen-Tool. Entdec
 
 Organisieren Sie Ihre mehrsprachigen Inhalte nahe am Code, um alles konsistent und wartbar zu halten.
 
-- **[Erste Schritte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md)**  
+- **[Erste Schritte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md)**  
   Lernen Sie die Grundlagen der Inhaltserklärung in Intlayer kennen.
 
 - **[Übersetzung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/translation.md)**

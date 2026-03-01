@@ -39,7 +39,7 @@ Intlayer ist eine Content-Management- und Internationalisierungslösung, die dar
 
 > Ressourcen:
 >
-> - [Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md)
+> - [Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md)
 
 ### 2. Internationalisierung
 

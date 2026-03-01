@@ -69,7 +69,7 @@ history:
 
 من الضروري أن يتم تعريف جميع مفاتيح المحتوى داخل ملفات إعلان المحتوى لمنع أخطاء وقت التشغيل وضمان سلامة الأنواع. كما أن هذا النهج يسهل دمج TypeScript للتحقق من الصحة أثناء وقت الترجمة.
 
-تعليمات إعداد ملفات إعلان المحتوى متاحة [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md).
+تعليمات إعداد ملفات إعلان المحتوى متاحة [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
 ## مثال على الاستخدام في Next.js
 

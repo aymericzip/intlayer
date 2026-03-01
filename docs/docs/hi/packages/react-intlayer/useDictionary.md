@@ -68,7 +68,7 @@ history:
 
 ## शब्दकोश
 
-सभी शब्दकोश ऑब्जेक्ट्स को संरचित सामग्री फ़ाइलों में घोषित किया जाना चाहिए ताकि टाइप सुरक्षा सुनिश्चित हो सके और रनटाइम त्रुटियों को रोका जा सके। आप [सेटअप निर्देश यहाँ पा सकते हैं](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/get_started.md)। यहाँ सामग्री घोषणा का एक उदाहरण है:
+सभी शब्दकोश ऑब्जेक्ट्स को संरचित सामग्री फ़ाइलों में घोषित किया जाना चाहिए ताकि टाइप सुरक्षा सुनिश्चित हो सके और रनटाइम त्रुटियों को रोका जा सके। आप [सेटअप निर्देश यहाँ पा सकते हैं](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md)। यहाँ सामग्री घोषणा का एक उदाहरण है:
 
 ```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";

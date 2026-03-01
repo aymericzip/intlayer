@@ -70,7 +70,7 @@ history:
 
 ## 사전
 
-모든 사전 키는 타입 안전성을 높이고 오류를 방지하기 위해 콘텐츠 선언 파일 내에 선언되어야 합니다. [설정 지침은 여기에서 확인할 수 있습니다](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/get_started.md).
+모든 사전 키는 타입 안전성을 높이고 오류를 방지하기 위해 콘텐츠 선언 파일 내에 선언되어야 합니다. [설정 지침은 여기에서 확인할 수 있습니다](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md).
 
 ## React에서의 사용 예시
 

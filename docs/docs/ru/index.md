@@ -55,7 +55,7 @@ Intlayer предлагает гибкий, современный подход 
 
 Организуйте ваш многоязычный контент рядом с кодом, чтобы всё оставалось последовательным и удобным для поддержки.
 
-- **[Начало работы](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/get_started.md)**  
+- **[Начало работы](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md)**  
   Изучите основы объявления контента в Intlayer.
 
 - **[Перевод](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/translation.md)**  

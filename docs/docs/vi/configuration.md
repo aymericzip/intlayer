@@ -735,8 +735,9 @@ Dưới đây là một số ví dụ cấu hình phổ biến cho cấu trúc r
 **Cấu hình cơ bản (Mặc định)**:
 
 ```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: ["en", "fr", "es"],
     defaultLocale: "en",
@@ -745,16 +746,18 @@ export default defineConfig({
     mode: "prefix-no-default",
     storage: "localStorage",
     headerName: "x-intlayer-locale",
-    basePath: "",
   },
-});
+};
+
+export default config;
 ```
 
 **Cấu hình tuân thủ GDPR**:
 
 ```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: ["en", "fr", "es"],
     defaultLocale: "en",
@@ -774,35 +777,36 @@ export default defineConfig({
         httpOnly: false,
       },
     ],
-    headerName: "x-intlayer-locale",
-    basePath: "",
   },
-});
+};
+
+export default config;
 ```
 
 **Chế độ Tham số Tìm kiếm**:
 
 ```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: ["en", "fr", "es"],
     defaultLocale: "en",
   },
   routing: {
     mode: "search-params",
-    storage: "localStorage",
-    headerName: "x-intlayer-locale",
-    basePath: "",
   },
-});
+};
+
+export default config;
 ```
 
 **Chế độ Không Tiền Tố với Bộ Lưu Trữ Tùy Chỉnh**:
 
 ```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: ["en", "fr", "es"],
     defaultLocale: "en",
@@ -811,12 +815,11 @@ export default defineConfig({
     mode: "no-prefix",
     storage: {
       type: "sessionStorage",
-      name: "app-locale",
     },
-    headerName: "x-custom-locale",
-    basePath: "/my-app",
   },
-});
+};
+
+export default config;
 ```
 
 ---

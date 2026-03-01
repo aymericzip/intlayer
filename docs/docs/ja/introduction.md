@@ -157,7 +157,7 @@ Intlayerは、現代のウェブ開発のニーズに応える多彩な機能を
 
 コードの近くに多言語コンテンツを整理し、一貫性と保守性を保ちましょう。
 
-- **[はじめに](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)**  
+- **[はじめに](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)**  
   Intlayerでコンテンツを宣言する基本を学びましょう。
 
 - **[翻訳](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/translation.md)**  

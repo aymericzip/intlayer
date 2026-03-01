@@ -70,7 +70,7 @@ bunx intlayer init
 
 - **intlayer**
 
-국제화 도구를 제공하는 핵심 패키지로, 구성 관리, 번역, [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/get_started.md), 트랜스파일링 및 [CLI 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_cli.md)를 지원합니다.
+국제화 도구를 제공하는 핵심 패키지로, 구성 관리, 번역, [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md), 트랜스파일링 및 [CLI 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_cli.md)를 지원합니다.
 
 - **next-intlayer**
 
@@ -472,7 +472,7 @@ module.exports = homeContent;
 }
 ```
 
-자세한 내용은 [콘텐츠 선언 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/get_started.md)를 참조하세요.
+자세한 내용은 [콘텐츠 선언 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 
 ### 7단계: 코드에서 콘텐츠 활용하기
 
@@ -1516,7 +1516,7 @@ Intlayer와 함께 개발 경험을 향상시키기 위해 공식 **Intlayer VS 
 ## 추가 자료
 
 - **Intlayer 문서:** [GitHub 저장소](https://github.com/aymericzip/intlayer)
-- **사전 가이드:** [사전](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/get_started.md)
+- **사전 가이드:** [사전](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)
 - **설정 문서:** [설정 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
 
 이 가이드를 따르면 Next.js 애플리케이션에서 페이지 라우터를 사용하여 Intlayer를 효과적으로 통합할 수 있으며, 웹 프로젝트에 강력하고 확장 가능한 국제화 지원을 제공할 수 있습니다.

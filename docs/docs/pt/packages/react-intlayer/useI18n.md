@@ -70,7 +70,7 @@ Este hook aceita dois parâmetros:
 
 ## Dicionário
 
-Todas as chaves do dicionário devem ser declaradas dentro dos arquivos de declaração de conteúdo para aumentar a segurança de tipos e evitar erros. [Instruções de configuração podem ser encontradas aqui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/get_started.md).
+Todas as chaves do dicionário devem ser declaradas dentro dos arquivos de declaração de conteúdo para aumentar a segurança de tipos e evitar erros. [Instruções de configuração podem ser encontradas aqui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md).
 
 ## Exemplos de Uso em React
 

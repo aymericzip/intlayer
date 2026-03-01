@@ -39,7 +39,7 @@ Intlayerは、アプリケーション全体でコンテンツを宣言、管理
 
 > リソース:
 >
-> - [コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)
+> - [コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)
 
 ### 2. 国際化
 

@@ -63,10 +63,10 @@ npm i -D @intlayer/sync-json-plugin
 Dodaj wtyczkę do swojego pliku `intlayer.config.ts` i wskaż ją na istniejącą strukturę JSON.
 
 ```ts fileName="intlayer.config.ts"
-import { defineConfig, Locales } from "intlayer";
+import { Locales, type IntlayerConfig } from "intlayer";
 import { syncJSON } from "@intlayer/sync-json-plugin";
 
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
@@ -79,7 +79,9 @@ export default defineConfig({
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],
-});
+};
+
+export default config;
 ```
 
 Alternatywa: pojedynczy plik na locale (częste w konfiguracjach i18next/react-intl):
@@ -144,10 +146,10 @@ Gdy wiele wtyczek celuje w ten sam klucz słownika, parametr `priority` decyduje
 - Wtyczki o tym samym priorytecie są przetwarzane w kolejności, w jakiej pojawiają się w konfiguracji
 
 ```ts fileName="intlayer.config.ts"
-import { defineConfig, Locales } from "intlayer";
+import { Locales, type IntlayerConfig } from "intlayer";
 import { syncJSON } from "@intlayer/sync-json-plugin";
 
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH],
     defaultLocale: Locales.ENGLISH,
@@ -178,7 +180,9 @@ export default defineConfig({
       priority: 1,
     }),
   ],
-});
+};
+
+export default config;
 ```
 
 ### Rozwiązywanie konfliktów

@@ -72,7 +72,7 @@ bunx intlayer init
 
 - **intlayer**
 
-  Le paquet principal qui fournit des outils d'internationalisation pour la gestion de la configuration, la traduction, la [déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/get_started.md), la transpilation, et les [commandes CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_cli.md).
+  Le paquet principal qui fournit des outils d'internationalisation pour la gestion de la configuration, la traduction, la [déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md), la transpilation, et les [commandes CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_cli.md).
 
 - **next-intlayer**
 
@@ -442,7 +442,7 @@ module.exports = homeContent;
 }
 ```
 
-Pour plus d'informations sur la déclaration de contenu, consultez le [guide de déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/get_started.md).
+Pour plus d'informations sur la déclaration de contenu, consultez le [guide de déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md).
 
 ### Étape 7 : Utilisez le contenu dans votre code
 
@@ -1488,7 +1488,7 @@ Pour plus de détails sur l'utilisation de l'extension, consultez la [documentat
 ## Ressources supplémentaires
 
 - **Documentation Intlayer :** [Dépôt GitHub](https://github.com/aymericzip/intlayer)
-- **Guide du dictionnaire :** [Dictionnaire](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/get_started.md)
+- **Guide du dictionnaire :** [Dictionnaire](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md)
 - **Documentation de configuration :** [Guide de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md)
 
 En suivant ce guide, vous pouvez intégrer efficacement Intlayer dans votre application Next.js en utilisant le Page Router, ce qui permet un support d'internationalisation robuste et évolutif pour vos projets web.

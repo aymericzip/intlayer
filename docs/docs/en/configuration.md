@@ -758,8 +758,9 @@ Here are some common configuration examples for the new v7 routing structure:
 **Basic Configuration (Default)**:
 
 ```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: ["en", "fr", "es"],
     defaultLocale: "en",
@@ -770,14 +771,17 @@ export default defineConfig({
     headerName: "x-intlayer-locale",
     basePath: "",
   },
-});
+};
+
+export default config;
 ```
 
 **GDPR Compliant Configuration**:
 
 ```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: ["en", "fr", "es"],
     defaultLocale: "en",
@@ -800,14 +804,17 @@ export default defineConfig({
     headerName: "x-intlayer-locale",
     basePath: "",
   },
-});
+};
+
+export default config;
 ```
 
 **Search Parameters Mode**:
 
 ```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: ["en", "fr", "es"],
     defaultLocale: "en",
@@ -818,14 +825,17 @@ export default defineConfig({
     headerName: "x-intlayer-locale",
     basePath: "",
   },
-});
+};
+
+export default config;
 ```
 
 **No Prefix Mode with Custom Storage**:
 
 ```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: ["en", "fr", "es"],
     defaultLocale: "en",
@@ -839,7 +849,9 @@ export default defineConfig({
     headerName: "x-custom-locale",
     basePath: "/my-app",
   },
-});
+};
+
+export default config;
 ```
 
 **Custom URL Rewriting with Dynamic Routes**:
@@ -848,7 +860,8 @@ export default defineConfig({
 // intlayer.config.ts
 import { nextjsRewrite } from "intlayer/routing";
 
-export default defineConfig({
+const config: IntlayerConfig = {
+
   internationalization: {
     locales: ["en", "fr"],
     defaultLocale: "en",
@@ -869,7 +882,10 @@ export default defineConfig({
         en: "/blog/[category]/[id]",
         fr: "/journal/[category]/[id]",
       },
-    }),
+
+};
+
+export default config;,
   },
 });
 ```

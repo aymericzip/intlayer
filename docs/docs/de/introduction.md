@@ -160,7 +160,7 @@ Intlayer bietet eine Vielzahl von Funktionen, die auf die Bedürfnisse der moder
 
 Organisieren Sie Ihre mehrsprachigen Inhalte nahe am Code, um alles konsistent und wartbar zu halten.
 
-- **[Erste Schritte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md)**  
+- **[Erste Schritte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md)**  
   Lernen Sie die Grundlagen der Deklaration Ihrer Inhalte in Intlayer kennen.
 
 - **[Übersetzung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/translation.md)**  

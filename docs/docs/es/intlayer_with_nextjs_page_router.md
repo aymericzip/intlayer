@@ -72,7 +72,7 @@ bunx intlayer init
 
 - **intlayer**
 
-  El paquete principal que proporciona herramientas de internacionalización para la gestión de configuración, traducción, [declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/get_started.md), transpilación y [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_cli.md).
+  El paquete principal que proporciona herramientas de internacionalización para la gestión de configuración, traducción, [declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md), transpilación y [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_cli.md).
 
 - **next-intlayer**
 
@@ -441,7 +441,7 @@ module.exports = homeContent;
 }
 ```
 
-Para más información sobre cómo declarar contenido, consulte la [guía de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/get_started.md).
+Para más información sobre cómo declarar contenido, consulte la [guía de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md).
 
 ### Paso 7: Utilice el Contenido en Su Código
 
@@ -1488,7 +1488,7 @@ Para más detalles sobre cómo usar la extensión, consulta la [documentación d
 ## Recursos adicionales
 
 - **Documentación de Intlayer:** [Repositorio GitHub](https://github.com/aymericzip/intlayer)
-- **Guía del Diccionario:** [Diccionario](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/get_started.md)
+- **Guía del Diccionario:** [Diccionario](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md)
 - **Documentación de Configuración:** [Guía de Configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md)
 
 Siguiendo esta guía, puedes integrar eficazmente Intlayer en tu aplicación Next.js usando el Page Router, permitiendo un soporte de internacionalización robusto y escalable para tus proyectos web.

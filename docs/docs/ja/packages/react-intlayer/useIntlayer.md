@@ -69,7 +69,7 @@ history:
 
 ## 辞書
 
-すべての辞書キーは型安全性を高め、エラーを防ぐためにコンテンツ宣言ファイル内で宣言されている必要があります。セットアップ手順は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)で確認できます。
+すべての辞書キーは型安全性を高め、エラーを防ぐためにコンテンツ宣言ファイル内で宣言されている必要があります。セットアップ手順は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)で確認できます。
 
 ## Reactでの使用例
 

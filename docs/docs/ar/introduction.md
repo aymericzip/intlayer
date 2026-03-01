@@ -156,7 +156,7 @@ const MyComponent = () => {
 
 نظم محتواك متعدد اللغات بالقرب من الكود الخاص بك للحفاظ على كل شيء متسقًا وقابلًا للصيانة.
 
-- **[البدء](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md)**  
+- **[البدء](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md)**  
   تعلّم أساسيات إعلان المحتوى الخاص بك في Intlayer.
 
 - **[الترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/translation.md)**  

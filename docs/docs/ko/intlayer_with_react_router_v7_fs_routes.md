@@ -88,7 +88,7 @@ bunx intlayer init
 - **intlayer**
 
 - **intlayer**  
-  구성 관리, 번역, [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/get_started.md), 트랜스파일링 및 [CLI 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_cli.md)를 위한 국제화 도구를 제공하는 핵심 패키지입니다.
+  구성 관리, 번역, [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md), 트랜스파일링 및 [CLI 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_cli.md)를 위한 국제화 도구를 제공하는 핵심 패키지입니다.
 
 - **react-intlayer**  
   Intlayer를 React 애플리케이션과 통합하는 패키지로, React 국제화를 위한 컨텍스트 제공자와 훅을 제공합니다.
@@ -259,7 +259,7 @@ export default pageContent;
 
 > 콘텐츠 선언은 애플리케이션 내 어디서든 정의할 수 있으며, `contentDir` 디렉토리(기본값: `./app`)에 포함되면 자동으로 인식됩니다. 또한 콘텐츠 선언 파일 확장자(기본값: `.content.{json,ts,tsx,js,jsx,mjs,cjs}`)와 일치해야 합니다.
 
-> 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/get_started.md)를 참조하세요.
+> 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 
 ### 7단계: 로케일 인식 컴포넌트 생성
 
@@ -528,7 +528,7 @@ Intlayer 개발 경험을 향상시키기 위해 공식 **Intlayer VS 코드 확
 - [React Router v7 문서](https://reactrouter.com/)
 - [useIntlayer 훅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useIntlayer.md)
 - [useLocale 훅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useLocale.md)
-- [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/get_started.md)
+- [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)
 - [설정](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
 
 이 포괄적인 가이드는 Intlayer를 React Router v7과 통합하여 로케일 인식 라우팅과 TypeScript 지원이 포함된 완전한 국제화 애플리케이션을 구축하는 데 필요한 모든 것을 제공합니다.

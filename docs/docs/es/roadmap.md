@@ -39,7 +39,7 @@ Intlayer es una soluci처n de gesti처n de contenido e internacionalizaci처n dise�
 
 > Recursos:
 >
-> - [Declaraci처n de Contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/get_started.md)
+> - [Declaraci처n de Contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md)
 
 ### 2. Internacionalizaci처n
 

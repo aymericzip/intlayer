@@ -66,10 +66,10 @@ npm i -D @intlayer/sync-json-plugin
 अपने `intlayer.config.ts` में प्लगइन जोड़ें और इसे अपनी मौजूदा JSON संरचना की ओर इंगित करें।
 
 ```ts fileName="intlayer.config.ts"
-import { defineConfig, Locales } from "intlayer";
+import { Locales, type IntlayerConfig } from "intlayer";
 import { syncJSON } from "@intlayer/sync-json-plugin";
 
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
@@ -82,7 +82,9 @@ export default defineConfig({
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],
-});
+};
+
+export default config;
 ```
 
 वैकल्पिक: प्रति-लोकल एकल फ़ाइल (i18next/react-intl सेटअप में सामान्य):
@@ -147,10 +149,10 @@ syncJSON({
 - समान प्राथमिकता वाले प्लगइन्स को कॉन्फ़िगरेशन में उनके प्रकट होने के क्रम में संसाधित किया जाता है
 
 ```ts fileName="intlayer.config.ts"
-import { defineConfig, Locales } from "intlayer";
+import { Locales, type IntlayerConfig } from "intlayer";
 import { syncJSON } from "@intlayer/sync-json-plugin";
 
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH],
     defaultLocale: Locales.ENGLISH,
@@ -181,7 +183,9 @@ export default defineConfig({
       priority: 1,
     }),
   ],
-});
+};
+
+export default config;
 ```
 
 ### संघर्ष समाधान

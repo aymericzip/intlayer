@@ -735,8 +735,9 @@ export default config;
 **Базова конфігурація (за замовчуванням)**:
 
 ```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: ["en", "fr", "es"],
     defaultLocale: "en",
@@ -745,16 +746,18 @@ export default defineConfig({
     mode: "prefix-no-default",
     storage: "localStorage",
     headerName: "x-intlayer-locale",
-    basePath: "",
   },
-});
+};
+
+export default config;
 ```
 
 **Конфігурація, сумісна з GDPR**:
 
 ```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: ["en", "fr", "es"],
     defaultLocale: "en",
@@ -774,35 +777,36 @@ export default defineConfig({
         httpOnly: false,
       },
     ],
-    headerName: "x-intlayer-locale",
-    basePath: "",
   },
-});
+};
+
+export default config;
 ```
 
 **Режим параметрів пошуку**:
 
 ```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: ["en", "fr", "es"],
     defaultLocale: "en",
   },
   routing: {
     mode: "search-params",
-    storage: "localStorage",
-    headerName: "x-intlayer-locale",
-    basePath: "",
   },
-});
+};
+
+export default config;
 ```
 
 **Режим без префікса з кастомним сховищем**:
 
 ```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: ["en", "fr", "es"],
     defaultLocale: "en",
@@ -811,12 +815,11 @@ export default defineConfig({
     mode: "no-prefix",
     storage: {
       type: "sessionStorage",
-      name: "app-locale",
     },
-    headerName: "x-custom-locale",
-    basePath: "/my-app",
   },
-});
+};
+
+export default config;
 ```
 
 ---

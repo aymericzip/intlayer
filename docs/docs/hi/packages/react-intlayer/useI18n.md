@@ -66,7 +66,7 @@ slugs:
 
 ## शब्दकोश
 
-सभी शब्दकोश कुंजियाँ सामग्री घोषणा फ़ाइलों के भीतर घोषित की जानी चाहिए ताकि प्रकार सुरक्षा बढ़े और त्रुटियों से बचा जा सके। [कॉन्फ़िगरेशन निर्देश यहाँ पाए जा सकते हैं](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/get_started.md)।
+सभी शब्दकोश कुंजियाँ सामग्री घोषणा फ़ाइलों के भीतर घोषित की जानी चाहिए ताकि प्रकार सुरक्षा बढ़े और त्रुटियों से बचा जा सके। [कॉन्फ़िगरेशन निर्देश यहाँ पाए जा सकते हैं](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md)।
 
 ## React में उपयोग के उदाहरण
 

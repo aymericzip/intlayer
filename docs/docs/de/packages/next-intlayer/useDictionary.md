@@ -69,7 +69,7 @@ Der Hook akzeptiert zwei Parameter:
 
 ## Wörterbuch
 
-Alle Wörterbuchobjekte sollten in strukturierten Inhaltsdateien deklariert werden, um Typensicherheit zu gewährleisten und Laufzeitfehler zu vermeiden. Die [Einrichtungsanleitung finden Sie hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md). Hier ist ein Beispiel für die Inhaltsdeklaration:
+Alle Wörterbuchobjekte sollten in strukturierten Inhaltsdateien deklariert werden, um Typensicherheit zu gewährleisten und Laufzeitfehler zu vermeiden. Die [Einrichtungsanleitung finden Sie hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md). Hier ist ein Beispiel für die Inhaltsdeklaration:
 
 ```typescript fileName="component.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";

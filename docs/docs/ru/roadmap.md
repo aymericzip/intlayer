@@ -39,7 +39,7 @@ Intlayer - это решение для управления контентом 
 
 > Ресурсы:
 >
-> - [Объявление контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/get_started.md)
+> - [Объявление контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md)
 
 ### 2. Интернационализация
 

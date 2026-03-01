@@ -55,7 +55,7 @@ Intlayer는 애플리케이션 번역을 위한 유연하고 현대적인 접근
 
 코드와 가까운 곳에 다국어 콘텐츠를 조직하여 모든 것을 일관되고 유지 관리하기 쉽게 만드세요.
 
-- **[시작하기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/get_started.md)**  
+- **[시작하기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)**  
   Intlayer에서 콘텐츠를 선언하는 기본을 배워보세요.
 
 - **[번역](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/translation.md)**

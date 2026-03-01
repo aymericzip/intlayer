@@ -69,7 +69,7 @@ history:
 
 ## القاموس
 
-يجب إعلان جميع كائنات القاموس في ملفات محتوى منظمة لضمان سلامة النوع ومنع أخطاء وقت التشغيل. يمكنك العثور على [تعليمات الإعداد هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md). إليك مثال على إعلان المحتوى:
+يجب إعلان جميع كائنات القاموس في ملفات محتوى منظمة لضمان سلامة النوع ومنع أخطاء وقت التشغيل. يمكنك العثور على [تعليمات الإعداد هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md). إليك مثال على إعلان المحتوى:
 
 ```typescript fileName="component.content.ts" codeFormat="typescript"
 import { t, type Dictionary } from "intlayer";

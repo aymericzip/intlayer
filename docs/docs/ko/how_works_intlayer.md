@@ -77,7 +77,7 @@ const MyComponent = () => {
 
 이 훅은 로케일 감지를 관리하고 현재 로케일에 대한 콘텐츠를 반환합니다. 이 훅을 사용하면 마크다운 해석, 복수형 관리 등을 수행할 수 있습니다.
 
-> Intlayer의 모든 기능을 보려면 [사전 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/get_started.md)를 읽어보세요.
+> Intlayer의 모든 기능을 보려면 [사전 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 읽어보세요.
 
 ## 원격 콘텐츠
 

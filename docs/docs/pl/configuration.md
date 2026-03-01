@@ -732,8 +732,9 @@ Oto kilka typowych przykładów konfiguracji dla nowej struktury routingu w wers
 **Podstawowa konfiguracja (domyślna)**:
 
 ```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: ["en", "fr", "es"],
     defaultLocale: "en",
@@ -742,16 +743,18 @@ export default defineConfig({
     mode: "prefix-no-default",
     storage: "localStorage",
     headerName: "x-intlayer-locale",
-    basePath: "",
   },
-});
+};
+
+export default config;
 ```
 
 **Konfiguracja zgodna z RODO**:
 
 ```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: ["en", "fr", "es"],
     defaultLocale: "en",
@@ -771,35 +774,36 @@ export default defineConfig({
         httpOnly: false,
       },
     ],
-    headerName: "x-intlayer-locale",
-    basePath: "",
   },
-});
+};
+
+export default config;
 ```
 
 **Tryb parametrów wyszukiwania**:
 
 ```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: ["en", "fr", "es"],
     defaultLocale: "en",
   },
   routing: {
     mode: "search-params",
-    storage: "localStorage",
-    headerName: "x-intlayer-locale",
-    basePath: "",
   },
-});
+};
+
+export default config;
 ```
 
 **Tryb bez prefiksu z niestandardową pamięcią**:
 
 ```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: ["en", "fr", "es"],
     defaultLocale: "en",
@@ -808,12 +812,11 @@ export default defineConfig({
     mode: "no-prefix",
     storage: {
       type: "sessionStorage",
-      name: "app-locale",
     },
-    headerName: "x-custom-locale",
-    basePath: "/my-app",
   },
-});
+};
+
+export default config;
 ```
 
 ---

@@ -72,7 +72,7 @@ bunx intlayer init
 
 - **intlayer**
 
-  Das Kernpaket, das Internationalisierungswerkzeuge für Konfigurationsmanagement, Übersetzung, [Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md), Transpilierung und [CLI-Befehle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md) bereitstellt.
+  Das Kernpaket, das Internationalisierungswerkzeuge für Konfigurationsmanagement, Übersetzung, [Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md), Transpilierung und [CLI-Befehle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md) bereitstellt.
 
 - **next-intlayer**
 
@@ -447,7 +447,7 @@ module.exports = homeContent;
 }
 ```
 
-Für weitere Informationen zur Inhaltsdeklaration siehe die [Anleitung zur Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md).
+Für weitere Informationen zur Inhaltsdeklaration siehe die [Anleitung zur Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md).
 
 ### Schritt 7: Inhalte in Ihrem Code verwenden
 
@@ -1496,7 +1496,7 @@ Für weitere Details zur Verwendung der Erweiterung siehe die [Intlayer VS Code 
 ## Zusätzliche Ressourcen
 
 - **Intlayer Dokumentation:** [GitHub Repository](https://github.com/aymericzip/intlayer)
-- **Wörterbuch-Anleitung:** [Wörterbuch](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md)
+- **Wörterbuch-Anleitung:** [Wörterbuch](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md)
 - **Konfigurationsdokumentation:** [Konfigurationsanleitung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md)
 
 Indem Sie dieser Anleitung folgen, können Sie Intlayer effektiv in Ihre Next.js-Anwendung mit dem Page Router integrieren und so eine robuste und skalierbare Internationalisierungsunterstützung für Ihre Webprojekte ermöglichen.

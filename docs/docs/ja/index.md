@@ -55,7 +55,7 @@ Intlayerは、アプリケーションの翻訳に柔軟でモダンなアプロ
 
 多言語コンテンツをコードの近くに整理し、一貫性と保守性を保ちます。
 
-- **[はじめに](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)**  
+- **[はじめに](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)**  
   Intlayerでコンテンツを宣言する基本を学びます。
 
 - **[翻訳](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/translation.md)**  

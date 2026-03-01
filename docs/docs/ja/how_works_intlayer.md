@@ -77,7 +77,7 @@ const MyComponent = () => {
 
 このフックはロケールの検出を管理し、現在のロケールに対応するコンテンツを返します。このフックを使用すると、Markdownの解釈、複数形の管理なども可能です。
 
-> Intlayerのすべての機能を見るには、[辞書ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)を参照してください。
+> Intlayerのすべての機能を見るには、[辞書ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。
 
 ## 遠隔コンテンツ
 
