@@ -45,8 +45,8 @@ export const DiscussionsAdminPageContent: FC = () => {
     page: { type: 'number', fallbackValue: 1 },
     pageSize: { type: 'number', fallbackValue: 10 },
     search: { type: 'string', fallbackValue: undefined },
-    sortBy: { type: 'string', fallbackValue: undefined },
-    sortOrder: { type: 'string', fallbackValue: 'asc' },
+    sortBy: { type: 'string', fallbackValue: 'updatedAt' },
+    sortOrder: { type: 'string', fallbackValue: 'desc' },
   });
 
   const { setSearch, search } = useSearch({});

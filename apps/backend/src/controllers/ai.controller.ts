@@ -522,14 +522,16 @@ export const askDocQuestion = async (
     );
 
     // Persist Discussion (Only on success)
-    const lastUserMessageContent = messages.findLast(
-      (m) => m.role === 'user'
+    const reversedMessages = [...messages].reverse();
+    const lastUserMessageContent = reversedMessages.find(
+      (message) => message.role === 'user'
     )?.content;
-    const lastUserMessageNbWords = lastUserMessageContent
-      ? lastUserMessageContent.split(' ').length
-      : 0;
+    const lastUserMessageNbWords =
+      typeof lastUserMessageContent === 'string'
+        ? lastUserMessageContent.split(' ').length
+        : 0;
 
-    if (lastUserMessageNbWords > 2) {
+    if (lastUserMessageNbWords >= 2 || messages.length >= 2) {
       await DiscussionModel.findOneAndUpdate(
         { discussionId },
         {
@@ -542,7 +544,7 @@ export const askDocQuestion = async (
               ...messages.map((msg) => ({
                 role: msg.role,
                 content: msg.content,
-                timestamp: msg.timestamp,
+                timestamp: msg.timestamp ?? new Date(),
               })),
               {
                 role: 'assistant',

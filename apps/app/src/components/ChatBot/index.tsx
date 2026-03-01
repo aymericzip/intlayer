@@ -9,7 +9,7 @@ import {
 import { InfoIcon } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, type ReactNode, useEffect, useRef, useState } from 'react';
-import { AppRoutes } from '@/Routes';
+import { PagesRoutes } from '@/Routes';
 import { FileReference } from './FileReference';
 import { FormSection } from './FormSection';
 import {
@@ -92,13 +92,17 @@ export const ChatBot: FC<ChatBotProps> = ({
 
   const handleAskNewQuestion = (newQuestion: string) => {
     setCurrentResponse('');
+
+    const newDiscussionId = discussion?.discussionId ?? uuid();
+    const currentStoredPrompt = discussion?.storedPrompt ?? [];
+
     setDiscussion(
-      (discussion) =>
+      (prevDiscussion) =>
         ({
-          ...discussion,
-          discussionId: discussion?.discussionId ?? uuid(),
+          ...prevDiscussion,
+          discussionId: newDiscussionId,
           storedPrompt: [
-            ...(discussion?.storedPrompt ?? []),
+            ...currentStoredPrompt,
             {
               role: 'user' as const,
               content: newQuestion,
@@ -109,7 +113,7 @@ export const ChatBot: FC<ChatBotProps> = ({
     );
 
     const newMessages: ChatCompletionRequestMessage[] = [
-      ...(discussion?.storedPrompt ?? []),
+      ...currentStoredPrompt,
       {
         role: 'user' as const,
         content: newQuestion,
@@ -119,7 +123,7 @@ export const ChatBot: FC<ChatBotProps> = ({
     askDocQuestion(
       {
         messages: newMessages,
-        discussionId: discussion?.discussionId ?? '',
+        discussionId: newDiscussionId,
         onMessage: (chunk: string) =>
           setCurrentResponse((prev) => prev + chunk),
         onDone: (response: AskDocQuestionResult) => {
@@ -248,7 +252,7 @@ export const ChatBot: FC<ChatBotProps> = ({
           >
             <span>{rateLimitExceededMessage}</span>
             <Link
-              href={AppRoutes.Auth_SignIn}
+              href={PagesRoutes.Auth_SignIn}
               label={signInButton.label.value}
               color="text"
               variant="button-outlined"

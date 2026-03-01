@@ -31,17 +31,17 @@ export const discussionSchema = new Schema<DiscussionSchema>(
     userId: {
       type: Schema.Types.ObjectId,
       ref: 'user',
-      required: true,
+      required: false,
     },
     projectId: {
       type: Schema.Types.ObjectId,
       ref: 'project',
-      required: true,
+      required: false,
     },
     organizationId: {
       type: Schema.Types.ObjectId,
       ref: 'organization',
-      required: true,
+      required: false,
     },
     title: {
       type: String,
