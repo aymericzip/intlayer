@@ -76,6 +76,7 @@ import {
   TYPES_DIR,
   UNMERGED_DICTIONARIES_DIR,
 } from '../defaultValues/system';
+import { getProjectRequire } from '../utils';
 import { normalizePath } from '../utils/normalizePath';
 
 let storedConfiguration: IntlayerConfig;
@@ -219,7 +220,9 @@ const buildContentFields = (
     try {
       // Try resolving as a Node module first (e.g. '@intlayer/design-system')
       // Passing { paths: [...] } ensures we look starting from your project baseDir
-      absolutePath = require.resolve(pathInput, {
+      const requireFunction = getProjectRequire(projectBaseDir);
+
+      absolutePath = requireFunction.resolve(pathInput, {
         paths: [projectBaseDir],
       });
     } catch {
@@ -284,7 +287,9 @@ const buildSystemFields = (
     let absolutePath: string;
 
     try {
-      absolutePath = require.resolve(pathInput, {
+      const requireFunction = getProjectRequire(projectBaseDir);
+
+      absolutePath = requireFunction.resolve(pathInput, {
         paths: [projectBaseDir],
       });
     } catch {
