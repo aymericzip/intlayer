@@ -934,9 +934,7 @@ import { Locales, getHTMLTextDir, getLocaleName } from "intlayer";
 import { useLocale } from "next-intlayer";
 
 export const LocaleSwitcher: FC = () => {
-  const { locale, availableLocales, setLocale } = useLocale({
-    onChange: () => window.location.reload(),
-  });
+  const { locale, availableLocales, setLocale } = useLocale();
 
   return (
     <div>
@@ -979,9 +977,7 @@ import { Locales, getHTMLTextDir, getLocaleName } from "intlayer";
 import { useLocale } from "next-intlayer";
 
 export const LocaleSwitcher = () => {
-  const { locale, availableLocales, setLocale } = useLocale({
-    onChange: () => window.location.reload(),
-  });
+  const { locale, availableLocales, setLocale } = useLocale();
 
   return (
     <div>
