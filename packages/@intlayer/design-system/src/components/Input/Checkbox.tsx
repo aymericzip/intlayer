@@ -137,6 +137,7 @@ export const Checkbox: FC<CheckboxProps> = (props) => {
       htmlFor={id ?? name}
       className={cn(
         'flex w-full cursor-pointer items-center gap-x-4 font-medium text-sm',
+        props.size === 'xs' && 'text-xs',
         props.labelClassName
       )}
     >
