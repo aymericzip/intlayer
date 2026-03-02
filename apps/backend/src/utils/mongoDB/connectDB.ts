@@ -1,5 +1,6 @@
 import { logger } from '@logger';
 import { DictionaryModel } from '@models/dictionary.model';
+import { DiscussionModel } from '@models/discussion.model';
 import { OAuth2AccessTokenModel } from '@models/oAuth2.model';
 import { OrganizationModel } from '@models/organization.model';
 import { ProjectModel } from '@models/project.model';
@@ -20,6 +21,7 @@ export const connectDB = async (): Promise<mongo.MongoClient> => {
 
     // Recreate indexes for models
     await ProjectModel.syncIndexes();
+    await DiscussionModel.syncIndexes();
     await UserModel.createIndexes();
     await OAuth2AccessTokenModel.createIndexes();
     await TagModel.createIndexes();
