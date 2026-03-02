@@ -1,5 +1,5 @@
 import { type IntlayerConfig, Locales } from 'intlayer';
-import { vueRewrite } from 'intlayer/routing';
+import { vueRouterRewrite } from 'intlayer/routing';
 
 const config: IntlayerConfig = {
   internationalization: {
@@ -9,7 +9,7 @@ const config: IntlayerConfig = {
   },
   routing: {
     mode: 'prefix-no-default',
-    rewrite: vueRewrite({
+    rewrite: vueRouterRewrite({
       '/:locale/tests': {
         fr: '/:locale/essais',
         es: '/:locale/pruebas',
