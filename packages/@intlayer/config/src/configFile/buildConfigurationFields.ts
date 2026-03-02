@@ -207,8 +207,7 @@ const buildRoutingFields = (
 
 const buildContentFields = (
   customConfiguration?: Partial<ContentConfig>,
-  baseDir?: string,
-  logFunctions?: LogFunctions
+  baseDir?: string
 ): ContentConfig => {
   const fileExtensions = customConfiguration?.fileExtensions ?? FILE_EXTENSIONS;
   const projectBaseDir =
@@ -218,19 +217,21 @@ const buildContentFields = (
     let absolutePath: string;
 
     try {
-      // Try resolving as a Node module first (e.g. '@intlayer/design-system')
-      // Passing { paths: [...] } ensures we look starting from your project baseDir
+      // Try resolving as a Node module first
       const requireFunction = getProjectRequire(projectBaseDir);
-
       absolutePath = requireFunction.resolve(pathInput, {
         paths: [projectBaseDir],
       });
     } catch {
-      // If resolution fails (it's not a module or it's a relative path like './src'),
-      // fall back to standard path joining.
-      absolutePath = isAbsolute(pathInput)
-        ? pathInput
-        : join(projectBaseDir, pathInput);
+      try {
+        // Fall back to native require.resolve if the custom require fails
+        absolutePath = require.resolve(pathInput, { paths: [projectBaseDir] });
+      } catch {
+        // If all resolution fails, fall back to standard path joining
+        absolutePath = isAbsolute(pathInput)
+          ? pathInput
+          : join(projectBaseDir, pathInput);
+      }
     }
 
     try {
@@ -810,8 +811,7 @@ export const buildConfigurationFields = (
 
   const contentConfig = buildContentFields(
     customConfiguration?.content,
-    baseDir,
-    logFunctions
+    baseDir
   );
 
   const systemConfig = buildSystemFields(
