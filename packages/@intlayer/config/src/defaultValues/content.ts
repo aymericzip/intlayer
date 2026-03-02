@@ -30,4 +30,4 @@ export const I18NEXT_DICTIONARIES_DIR = 'i18next_resources';
 
 export const REACT_INTL_MESSAGES_DIR = 'intl_messages';
 
-export const WATCH = process.env.NODE_ENV === 'development';
+export const WATCH = true;
