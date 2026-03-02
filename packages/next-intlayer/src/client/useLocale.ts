@@ -4,13 +4,17 @@ import {
   getLocalizedUrl,
   getPathWithoutLocale,
 } from '@intlayer/core/localization';
-import type { LocalesValues } from '@intlayer/types';
+import type { DeclaredLocales } from '@intlayer/types';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLocale as useLocaleReact } from 'react-intlayer';
 
 type UseLocaleProps = {
-  onChange?: 'replace' | 'push' | 'none' | ((locale: LocalesValues) => void);
+  onChange?:
+    | 'replace'
+    | 'push'
+    | 'none'
+    | ((params: { locale: DeclaredLocales; path: string }) => void);
 };
 
 const usePathWithoutLocale = () => {
@@ -56,15 +60,15 @@ export const useLocale = ({ onChange = 'replace' }: UseLocaleProps = {}) => {
   const pathWithoutLocale = usePathWithoutLocale();
 
   const redirectionFunction = useCallback(
-    (locale: LocalesValues) => {
+    (locale: DeclaredLocales) => {
       if (!onChange) return;
 
+      const pathWithLocale = getLocalizedUrl(pathWithoutLocale, locale);
+
       if (typeof onChange === 'function') {
-        onChange(locale);
+        onChange({ locale, path: pathWithLocale });
         return;
       }
-
-      const pathWithLocale = getLocalizedUrl(pathWithoutLocale, locale);
 
       if (onChange === 'replace') {
         replace(pathWithLocale);

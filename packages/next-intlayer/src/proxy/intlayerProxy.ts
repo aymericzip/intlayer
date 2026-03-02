@@ -186,10 +186,12 @@ const handleNoPrefix = (
   if (effectiveMode === 'search-params') {
     const existingSearchParams = new URLSearchParams(request.nextUrl.search);
     const existingLocale = existingSearchParams.get('locale');
+
     const isExistingValid = locales?.includes(existingLocale as Locale);
 
     let locale = (localLocale ??
       (isExistingValid ? (existingLocale as Locale) : undefined) ??
+      localLocale ??
       localeDetector?.(request) ??
       defaultLocale) as Locale;
 
@@ -291,7 +293,7 @@ const handlePrefix = (
     return handleMissingPathLocale(request, localLocale, pathname);
   }
 
-  return handleExistingPathLocale(request, localLocale, pathLocale, pathname);
+  return handleExistingPathLocale(request, pathLocale, pathname);
 };
 
 /**
@@ -359,7 +361,6 @@ const handleMissingPathLocale = (
  */
 const handleExistingPathLocale = (
   request: NextRequest,
-  localLocale: Locale | undefined,
   pathLocale: Locale,
   pathname: string
 ): NextResponse => {
@@ -369,16 +370,8 @@ const handleExistingPathLocale = (
   // Ex: /a-propos (from URL) -> /about (Canonical)
   const canonicalPath = getCanonicalPath(rawPath, pathLocale, rewriteRules);
 
-  if (localLocale && localLocale !== pathLocale) {
-    // Cookie mismatch: Redirect to the correct locale using the Canonical Path as the source
-    const newPath = handleCookieLocaleMismatch(
-      request,
-      canonicalPath, // Pass /about
-      localLocale,
-      basePath as string
-    );
-    return redirectUrl(request, newPath);
-  }
+  // By skipping the forced localLocale check, we allow the explicit pathLocale
+  // to take precedence, which correctly updates the header/cookie when navigating.
 
   // Rewrite Logic
   // We must rewrite to the Next.js internal structure: /[locale]/[canonicalPath]
@@ -433,30 +426,7 @@ const handleExistingPathLocale = (
  * @param basePath - The base path of the application.
  * @returns - The new URL path with the correct locale.
  */
-const handleCookieLocaleMismatch = (
-  request: NextRequest,
-  canonicalPath: string,
-  localLocale: Locale,
-  basePath: string
-): string => {
-  // Translate canonical path (/about) to target locale path (/es/acerca)
-  const targetLocalizedPathResult = getLocalizedPath(
-    canonicalPath,
-    localLocale,
-    rewriteRules
-  );
-  const targetLocalizedPath =
-    typeof targetLocalizedPathResult === 'string'
-      ? targetLocalizedPathResult
-      : targetLocalizedPathResult.path;
-
-  return constructPath(
-    localLocale,
-    targetLocalizedPath,
-    basePath,
-    appendLocaleSearchIfNeeded(request.nextUrl.search, localLocale)
-  );
-};
+// Function handleCookieLocaleMismatch was removed because the URL locale should take precedence over the stored locale.
 
 /**
  * The key fix for 404s without [locale] folders
