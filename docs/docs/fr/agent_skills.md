@@ -43,35 +43,3 @@ Lorsque vous exécutez cette commande, elle :
 ## Plateformes supportées
 
 Intlayer fournit une documentation spécifique au framework (Configuration, Utilisation, Métadonnées, Plan du site, Actions serveur, etc.) pour aider l'agent IA à comprendre comment travailler avec Intlayer dans votre projet spécifique. Ces compétences sont conçues pour guider l'agent à travers les complexités de l'internationalisation, en s'assurant qu'il suit les modèles et les meilleures pratiques appropriés.
-
-Intlayer supporte l'intégration avec les plateformes suivantes :
-
-### 1. Cursor
-
-Cursor supporte les serveurs MCP (Model Context Protocol) et les compétences personnalisées. L'exécution de `intlayer init skills` va :
-
-- Créer un fichier `.cursor/mcp.json` pour communiquer avec le serveur MCP d'Intlayer.
-- Installer des compétences spécifiques au framework dans le répertoire `.cursor/skills`.
-
-### 2. Windsurf
-
-Windsurf est un IDE propulsé par l'IA. L'exécution de `intlayer init skills` installera des compétences spécifiques au framework dans le répertoire `.windsurf/skills`.
-
-### 3. VS Code
-
-Pour les utilisateurs de VS Code, en particulier ceux utilisant GitHub Copilot ou d'autres extensions compatibles MCP, la commande :
-
-- Crée une configuration `.vscode/mcp.json`.
-- Installe des compétences spécifiques au framework dans le répertoire `skills/` à la racine de votre projet.
-
-### 4. OpenCode
-
-OpenCode est un agent CLI interactif conçu pour les tâches d'ingénierie logicielle. Intlayer fournit des compétences spécifiques pour aider OpenCode à vous assister dans vos tâches d'internationalisation. Celles-ci sont installées dans le répertoire `.opencode/skills`.
-
-### 5. Claude Code
-
-Claude Code peut être configuré pour utiliser les compétences d'Intlayer. La commande installe des compétences spécifiques au framework dans le répertoire `.claude/skills`.
-
-### 6. GitHub Copilot Workspace
-
-GitHub Copilot Workspace vous permet de définir des compétences personnalisées. La commande installe des compétences spécifiques au framework dans le répertoire `.github/skills`.

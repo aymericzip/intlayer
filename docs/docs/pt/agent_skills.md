@@ -43,35 +43,3 @@ Quando você executa este comando, ele irá:
 ## Plataformas Suportadas
 
 O Intlayer fornece documentação específica da estrutura (Configuração, Uso, Metadados, Sitemap, Server Actions, etc.) para ajudar o agente de IA a entender como trabalhar com o Intlayer em seu projeto específico. Essas habilidades são projetadas para guiar o agente através das complexidades da internacionalização, garantindo que ele siga os padrões e as melhores práticas corretas.
-
-Intlayer suporta integração com as seguintes plataformas:
-
-### 1. Cursor
-
-O Cursor suporta servidores MCP (Model Context Protocol) e habilidades personalizadas. A execução do `intlayer init skills` irá:
-
-- Criar um arquivo `.cursor/mcp.json` para se comunicar com o servidor MCP do Intlayer.
-- Instalar habilidades específicas do framework no diretório `.cursor/skills`.
-
-### 2. Windsurf
-
-O Windsurf é um IDE impulsionado por IA. A execução do `intlayer init skills` instalará habilidades específicas do framework no diretório `.windsurf/skills`.
-
-### 3. VS Code
-
-Para usuários do VS Code, especialmente aqueles que usam GitHub Copilot ou outras extensões compatíveis com MCP, o comando:
-
-- Cria uma configuração `.vscode/mcp.json`.
-- Instala habilidades específicas do framework no diretório `skills/` na raiz do seu projeto.
-
-### 4. OpenCode
-
-O OpenCode é um agente CLI interativo projetado para tarefas de engenharia de software. O Intlayer fornece habilidades específicas para ajudar o OpenCode a auxiliá-lo em suas tarefas de internacionalização. Estas são instaladas no diretório `.opencode/skills`.
-
-### 5. Claude Code
-
-O Claude Code pode ser configurado para usar as habilidades do Intlayer. O comando instala habilidades específicas do framework no diretório `.claude/skills`.
-
-### 6. GitHub Copilot Workspace
-
-O GitHub Copilot Workspace permite definir habilidades personalizadas. O comando instala habilidades específicas do framework no diretório `.github/skills`.

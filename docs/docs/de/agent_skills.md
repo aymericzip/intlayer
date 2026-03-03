@@ -43,35 +43,3 @@ Wenn Sie diesen Befehl ausführen, wird er:
 ## Unterstützte Plattformen
 
 Intlayer bietet frameworkspezifische Dokumentation (Einrichtung, Verwendung, Metadaten, Sitemap, Server-Aktionen usw.), um dem KI-Agenten zu helfen, zu verstehen, wie er in Ihrem spezifischen Projekt mit Intlayer arbeiten kann. Diese Fähigkeiten sind darauf ausgelegt, den Agenten durch die Komplexität der Internationalisierung zu führen und sicherzustellen, dass er den richtigen Mustern und Best Practices folgt.
-
-Intlayer unterstützt die Integration mit den folgenden Plattformen:
-
-### 1. Cursor
-
-Cursor unterstützt MCP (Model Context Protocol) Server und benutzerdefinierte Fähigkeiten (custom skills). Das Ausführen von `intlayer init skills` wird:
-
-- Eine `.cursor/mcp.json`-Datei erstellen, um mit dem Intlayer MCP-Server zu kommunizieren.
-- Framework-spezifische Fähigkeiten im Verzeichnis `.cursor/skills` installieren.
-
-### 2. Windsurf
-
-Windsurf ist eine KI-gestützte IDE. Das Ausführen von `intlayer init skills` installiert framework-spezifische Fähigkeiten im Verzeichnis `.windsurf/skills`.
-
-### 3. VS Code
-
-Für VS Code-Benutzer, insbesondere diejenigen, die GitHub Copilot oder andere MCP-kompatible Erweiterungen verwenden, wird durch den Befehl:
-
-- Eine `.vscode/mcp.json`-Konfiguration erstellt.
-- Framework-spezifische Fähigkeiten im Verzeichnis `skills/` im Stammverzeichnis Ihres Projekts installiert.
-
-### 4. OpenCode
-
-OpenCode ist ein interaktiver CLI-Agent, der für Software-Engineering-Aufgaben entwickelt wurde. Intlayer bietet spezifische Fähigkeiten, um OpenCode bei Ihren Internationalisierungsaufgaben zu unterstützen. Diese werden im Verzeichnis `.opencode/skills` installiert.
-
-### 5. Claude Code
-
-Claude Code kann so konfiguriert werden, dass er Intlayer-Fähigkeiten nutzt. Der Befehl installiert framework-spezifische Fähigkeiten im Verzeichnis `.claude/skills`.
-
-### 6. GitHub Copilot Workspace
-
-GitHub Copilot Workspace ermöglicht es Ihnen, benutzerdefinierte Fähigkeiten zu definieren. Der Befehl installiert framework-spezifische Fähigkeiten im Verzeichnis `.github/skills`.

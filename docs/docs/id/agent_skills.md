@@ -43,35 +43,3 @@ Saat Anda menjalankan perintah ini, perintah tersebut akan:
 ## Platform yang Didukung
 
 Intlayer menyediakan dokumentasi khusus kerangka kerja (Pengaturan, Penggunaan, Metadata, Sitemap, Server Actions, dll.) untuk membantu agen AI memahami cara bekerja dengan Intlayer di proyek spesifik Anda. Keterampilan ini dirancang untuk memandu agen melalui kerumitan internasionalisasi, memastikannya mengikuti pola dan praktik terbaik yang benar.
-
-Intlayer mendukung integrasi dengan platform berikut:
-
-### 1. Cursor
-
-Cursor mendukung server MCP (Model Context Protocol) dan custom skills. Menjalankan `intlayer init skills` akan:
-
-- Membuat file `.cursor/mcp.json` untuk berkomunikasi dengan server MCP Intlayer.
-- Menginstal framework-specific skills di direktori `.cursor/skills`.
-
-### 2. Windsurf
-
-Windsurf adalah IDE bertenaga AI. Menjalankan `intlayer init skills` akan menginstal framework-specific skills di direktori `.windsurf/skills`.
-
-### 3. VS Code
-
-Untuk pengguna VS Code, terutama yang menggunakan GitHub Copilot atau ekstensi lain yang kompatibel dengan MCP, perintah ini:
-
-- Membuat konfigurasi `.vscode/mcp.json`.
-- Menginstal framework-specific skills di direktori `skills/` pada root proyek Anda.
-
-### 4. OpenCode
-
-OpenCode adalah agen CLI interaktif yang dirancang untuk tugas rekayasa perangkat lunak. Intlayer menyediakan keterampilan khusus untuk membantu OpenCode membantu Anda dengan tugas internasionalisasi. Keterampilan ini diinstal di direktori `.opencode/skills`.
-
-### 5. Claude Code
-
-Claude Code dapat dikonfigurasi untuk menggunakan keterampilan Intlayer. Perintah ini menginstal framework-specific skills di direktori `.claude/skills`.
-
-### 6. GitHub Copilot Workspace
-
-GitHub Copilot Workspace memungkinkan Anda menentukan custom skills. Perintah ini menginstal framework-specific skills di direktori `.github/skills`.
