@@ -132,7 +132,10 @@ export const PopoverStatic: PopoverType = ({
   ...props
 }) => (
   <div
-    className={cn('group/popover relative flex cursor-pointer', className)}
+    className={cn(
+      `group/${identifier} relative flex cursor-pointer`,
+      className
+    )}
     id={`unrollable-panel-button-${identifier}`}
     aria-haspopup
     {...props}
@@ -278,9 +281,9 @@ const Detail: FC<DetailProps> = ({
       'overflow-x-visible opacity-0 transition-all duration-400 ease-in-out',
       isHidden !== false ? 'invisible' : 'visible opacity-100 delay-800',
       isOverable &&
-        'group-hover/popover:visible group-hover/popover:opacity-100 group-hover/popover:delay-800',
+        `group-hover/${identifier}:visible group-hover/${identifier}:opacity-100 group-hover/${identifier}:delay-800`,
       isFocusable &&
-        'group-focus-within/popover:visible group-focus-within/popover:opacity-100 group-focus-within/popover:delay-800',
+        `group-focus-within/${identifier}:visible group-focus-within/${identifier}:opacity-100 group-focus-within/${identifier}:delay-800`,
       className
     )}
     {...props}

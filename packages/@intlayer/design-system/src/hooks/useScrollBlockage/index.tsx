@@ -39,6 +39,10 @@ export const useScrollBlockage = (
     } else {
       removeBlockage(key, el);
     }
+
+    return () => {
+      removeBlockage(key, el);
+    };
   }, [addBlockage, disableScroll, element, key, removeBlockage]);
 
   const isScrollBlocked = containerElement

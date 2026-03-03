@@ -25,9 +25,7 @@ export const NumberItemsSelector: FC<NumberItemsSelectorProps> = ({
 
   return (
     <div className="flex items-center gap-2">
-      <span className="text-neutral-600 text-sm dark:text-neutral-400">
-        {numberItemsSelector}
-      </span>
+      <span className="text-neutral text-sm">{numberItemsSelector}</span>
       <Select value={value.toString()} onValueChange={onValueChange}>
         <Select.Trigger className="w-20">
           <Select.Value placeholder={selectPageSize} />

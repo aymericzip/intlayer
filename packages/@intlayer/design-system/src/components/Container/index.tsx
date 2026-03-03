@@ -25,7 +25,7 @@ export const containerVariants = cva('flex flex-col text-text backdrop-blur', {
         'rounded-3xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-4xl',
       '4xl':
         'rounded-4xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-[2.5rem]',
-      full: 'rounded-full [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-full',
+      full: 'rounded-full',
     },
     transparency: {
       none: 'bg-card',

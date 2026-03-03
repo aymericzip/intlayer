@@ -28,7 +28,7 @@ export const ShowingResultsNumberItems: FC<ShowingResultsNumberItemsProps> = ({
   const end = totalItems === 0 ? 0 : Math.min(page * safePageSize, totalItems);
 
   return (
-    <div className="text-neutral-600 text-sm dark:text-neutral-400">
+    <div className="text-neutral text-sm">
       {showingResults({
         start: number(start),
         end: number(end),
