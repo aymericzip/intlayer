@@ -21,7 +21,7 @@ export const RobotsSection: FC<RobotsSectionProps> = memo(
         <h3 className="mt-6 mb-3 font-semibold text-lg text-text/80">
           {sections.robots}
         </h3>
-        <div className="mt-2 grid grid-cols-1 gap-x-8 gap-y-2 px-2 text-left text-sm sm:grid-cols-2">
+        <div className="mt-2 grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-x-8 gap-y-2 px-2 text-sm">
           <FieldItem
             id="accessible"
             icon={<Bot size={16} />}
