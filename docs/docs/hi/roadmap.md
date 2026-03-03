@@ -277,7 +277,7 @@ Intlayer सामग्री घोषित करने के लिए **T
 
 > संसाधन:
 >
-> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_cli.md)
+> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md)
 
 ---
 

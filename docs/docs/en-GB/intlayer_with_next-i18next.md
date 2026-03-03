@@ -616,7 +616,7 @@ Common flows:
 - `pnpm i18n:test` in CI to fail builds on missing keys
 - `pnpm i18n:fill` locally to propose AI translations for newly added keys
 
-> You can provide CLI arguments; see the [Intlayer CLI docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md).
+> You can provide CLI arguments; see the [Intlayer CLI docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/index.md).
 
 ---
 

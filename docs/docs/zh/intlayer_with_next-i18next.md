@@ -617,7 +617,7 @@ export default config;
 - 在 CI 中运行 `pnpm i18n:test`，以在缺少键时使构建失败
 - 在本地运行 `pnpm i18n:fill`，为新添加的键提供 AI 翻译建议
 
-> 你可以提供 CLI 参数；请参阅[Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)。
+> 你可以提供 CLI 参数；请参阅[Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。
 
 ---
 

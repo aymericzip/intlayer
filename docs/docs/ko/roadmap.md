@@ -277,7 +277,7 @@ Intlayer는 콘텐츠 선언을 위해 **TypeScript**(및 JavaScript)와 **JSON*
 
 > 자료:
 >
-> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_cli.md)
+> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)
 
 ---
 

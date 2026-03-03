@@ -453,4 +453,4 @@ export default config;
 - `intlayer fill`: 구성된 로케일을 기반으로 AI 공급자를 사용하여 누락된 번역을 채웁니다.
 - `intlayer test`: 누락되거나 잘못된 번역을 검사합니다(CI에서 사용).
 
-인수 및 공급자를 구성할 수 있습니다. 자세한 내용은 [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_cli.md)를 참조하세요.
+인수 및 공급자를 구성할 수 있습니다. 자세한 내용은 [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)를 참조하세요.

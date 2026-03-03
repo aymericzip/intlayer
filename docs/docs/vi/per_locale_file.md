@@ -341,4 +341,4 @@ console.log(JSON.stringify(intlayer, null, 2));
 
 ### Tạo Dịch Tự Động
 
-Sử dụng [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_cli.md) để tự động điền các bản dịch còn thiếu dựa trên các dịch vụ bạn ưu tiên.
+Sử dụng [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md) để tự động điền các bản dịch còn thiếu dựa trên các dịch vụ bạn ưu tiên.

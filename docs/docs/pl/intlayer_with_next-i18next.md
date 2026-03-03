@@ -617,7 +617,7 @@ Typowe przepływy:
 - `pnpm i18n:test` w CI, aby przerwać budowanie przy brakujących kluczach
 - `pnpm i18n:fill` lokalnie, aby zaproponować tłumaczenia AI dla nowo dodanych kluczy
 
-> Możesz podać argumenty CLI; zobacz [dokumentację Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_cli.md).
+> Możesz podać argumenty CLI; zobacz [dokumentację Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md).
 
 ---
 

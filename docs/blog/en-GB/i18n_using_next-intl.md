@@ -752,7 +752,7 @@ Intlayer will allow you to:
   Intlayer provides test functions that can be integrated into your CI/CD pipeline, or in your unit tests. Learn more about [testing your translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/testing.md).
 
 - **Automate your translations**
-  Intlayer provides a CLI and a VSCode extension to automate your translations. These can be integrated into your CI/CD pipeline. Learn more about [automating your translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md).
+  Intlayer provides a CLI and a VSCode extension to automate your translations. These can be integrated into your CI/CD pipeline. Learn more about [automating your translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/index.md).
   You can use your **own API key, and the AI provider of your choice**. It also provides context-aware translations; see [fill content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/autoFill.md).
 
 - **Connect external content**

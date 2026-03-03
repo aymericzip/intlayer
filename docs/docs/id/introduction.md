@@ -151,7 +151,7 @@ Intlayer menawarkan berbagai fitur yang disesuaikan untuk memenuhi kebutuhan pen
 - **Dukungan Internasionalisasi**: Tingkatkan jangkauan global aplikasi Anda dengan dukungan bawaan untuk internasionalisasi.
 - **Editor Visual**: Tingkatkan alur kerja pengembangan Anda dengan plugin editor yang dirancang untuk Intlayer. Lihat [Panduan Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md).
 - **Fleksibilitas Konfigurasi**: Sesuaikan pengaturan Anda dengan opsi konfigurasi yang luas yang dijelaskan secara rinci dalam [Panduan Konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
-- **Alat CLI Lanjutan**: Kelola proyek Anda dengan efisien menggunakan antarmuka baris perintah Intlayer. Jelajahi kemampuannya dalam [Dokumentasi Alat CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md).
+- **Alat CLI Lanjutan**: Kelola proyek Anda dengan efisien menggunakan antarmuka baris perintah Intlayer. Jelajahi kemampuannya dalam [Dokumentasi Alat CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md).
 
 ## Konsep Inti
 

@@ -453,4 +453,4 @@ Note:
 - `intlayer fill`: utilizza il tuo provider AI per completare le traduzioni mancanti in base alle localizzazioni configurate.
 - `intlayer test`: verifica la presenza di traduzioni mancanti o non valide (usalo in CI).
 
-Puoi configurare argomenti e provider; vedi [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_cli.md).
+Puoi configurare argomenti e provider; vedi [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/index.md).

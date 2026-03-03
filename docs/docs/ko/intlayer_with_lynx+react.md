@@ -528,6 +528,6 @@ Intlayer와 함께 개발 경험을 향상시키려면 공식 **Intlayer VS Code
 
 - **시각적 편집기**: [Intlayer 시각적 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 사용하여 번역을 시각적으로 관리하세요.
 - **CMS 통합**: 사전 콘텐츠를 외부화하고 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)에서 가져올 수도 있습니다.
-- **CLI 명령어**: **번역 추출** 또는 **누락된 키 확인**과 같은 작업을 위한 [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_cli.md)를 탐색하세요.
+- **CLI 명령어**: **번역 추출** 또는 **누락된 키 확인**과 같은 작업을 위한 [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)를 탐색하세요.
 
 ---

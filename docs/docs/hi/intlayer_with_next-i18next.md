@@ -617,7 +617,7 @@ export default config;
 - `pnpm i18n:test` CI में अनुपस्थित keys पर बिल्ड विफल करने के लिए
 - `pnpm i18n:fill` स्थानीय रूप से नए जोड़े गए keys के लिए AI अनुवाद प्रस्तावित करने के लिए
 
-> आप CLI आर्गुमेंट्स प्रदान कर सकते हैं; देखें [Intlayer CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_cli.md)।
+> आप CLI आर्गुमेंट्स प्रदान कर सकते हैं; देखें [Intlayer CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md)।
 
 ---
 

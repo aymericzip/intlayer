@@ -286,7 +286,7 @@ Intlayer hỗ trợ **TypeScript** (cũng như JavaScript) và **JSON** để kh
 
 > Tài nguyên:
 >
-> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_cli.md)
+> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md)
 
 ---
 

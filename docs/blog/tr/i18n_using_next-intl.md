@@ -755,7 +755,7 @@ Intlayer size şunları sağlar:
   Intlayer, CI/CD pipeline'ınıza veya birim testlerinize entegre edilebilen test fonksiyonları sağlar. Çevirilerinizi test etmek hakkında daha fazla bilgi edinin: [testing your translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/testing.md).
 
 - **Çevirilerinizi otomatikleştirin**  
-  Intlayer, çevirilerinizi otomatikleştirmek için bir CLI ve bir VSCode uzantısı sağlar. Bu, CI/CD pipeline'ınıza entegre edilebilir. Çevirilerinizi otomatikleştirmek hakkında daha fazla bilgi edinin: [automating your translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_cli.md).  
+  Intlayer, çevirilerinizi otomatikleştirmek için bir CLI ve bir VSCode uzantısı sağlar. Bu, CI/CD pipeline'ınıza entegre edilebilir. Çevirilerinizi otomatikleştirmek hakkında daha fazla bilgi edinin: [automating your translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md).  
   Kendi **API anahtarınızı ve tercih ettiğiniz AI sağlayıcısını** kullanabilirsiniz. Ayrıca bağlama duyarlı çeviriler sağlar, bkz. [fill content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/autoFill.md).
 
 - **Harici içeriği bağlayın**  

@@ -252,7 +252,7 @@ module.exports = config;
 
 ### 設定のプッシュ
 
-Intlayer CMSを設定するには、[intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/ja/intlayer_cli.md)コマンドを使用できます。
+Intlayer CMSを設定するには、[intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/ja/cli/index.md)コマンドを使用できます。
 
 ```bash
 npx intlayer config push
@@ -268,7 +268,7 @@ npx intlayer config push --env production
 
 ### 辞書をプッシュする
 
-ロケール辞書をリモート辞書に変換するには、[intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/ja/intlayer_cli.md)コマンドを使用できます。
+ロケール辞書をリモート辞書に変換するには、[intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/ja/cli/index.md)コマンドを使用できます。
 
 ```bash
 npx intlayer dictionary push -d my-first-dictionary-key

@@ -93,7 +93,7 @@ npx intlayer build                          # To ensure dictionaries are up to d
 npx intlayer fill --unpushed --mode fill    # Only fill missing content, does not update existing ones
 ```
 
-> For more information about Intlayer CLI commands and their usage, refer to the [CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md).
+> For more information about Intlayer CLI commands and their usage, refer to the [CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/index.md).
 
 > If you have multiple apps in your repo using separate intlayer instances, you can use the `--base-dir` argument like this:
 
@@ -193,4 +193,4 @@ To set up the environment variables, go to GitHub → Settings → Secrets and v
 
 > By default, the `--git-diff` argument filters dictionaries that include changes from the base (default `origin/main`) to the current branch (default: `HEAD`).
 
-> For more information about Intlayer CLI commands and their usage, refer to the [CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md).
+> For more information about Intlayer CLI commands and their usage, refer to the [CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/index.md).

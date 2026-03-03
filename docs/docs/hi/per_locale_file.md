@@ -336,4 +336,4 @@ console.log(JSON.stringify(intlayer, null, 2));
 
 ### स्वचालित अनुवाद निर्माण
 
-अपने पसंदीदा सेवाओं के आधार पर गायब अनुवादों को स्वचालित रूप से भरने के लिए [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_cli.md) का उपयोग करें।
+अपने पसंदीदा सेवाओं के आधार पर गायब अनुवादों को स्वचालित रूप से भरने के लिए [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md) का उपयोग करें।

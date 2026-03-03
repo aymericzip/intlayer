@@ -41,7 +41,7 @@ Intlayer는 애플리케이션 번역을 위한 유연하고 현대적인 접근
 - **[구성](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)**  
   프로젝트 요구에 맞게 Intlayer를 맞춤 설정하세요. 미들웨어 옵션, 디렉터리 구조, 고급 설정을 탐색할 수 있습니다.
 
-- **[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_cli.md)**  
+- **[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)**  
   명령줄 도구를 사용하여 콘텐츠와 번역을 관리하세요. 콘텐츠를 푸시하고 풀하는 방법, 번역 자동화 등 다양한 기능을 알아보세요.
 
 - **[Intlayer Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)**  

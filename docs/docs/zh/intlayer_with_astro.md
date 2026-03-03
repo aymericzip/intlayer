@@ -67,7 +67,7 @@ yarn add react react-dom react-intlayer @astrojs/react
 ```
 
 - **intlayer**  
-  核心包，提供国际化工具，用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、转译以及[命令行工具](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)。
+  核心包，提供国际化工具，用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、转译以及[命令行工具](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。
 
 - **astro-intlayer**  
   包括用于将 Intlayer 与 [Vite 打包工具](https://vite.dev/guide/why.html#why-bundle-for-production) 集成的 Astro 集成插件，以及用于检测用户首选语言环境、管理 Cookie 和处理 URL 重定向的中间件。

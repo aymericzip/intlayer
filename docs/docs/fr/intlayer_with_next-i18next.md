@@ -617,7 +617,7 @@ Flux courants :
 - `pnpm i18n:test` en CI pour échouer la build en cas de clés manquantes
 - `pnpm i18n:fill` localement pour proposer des traductions AI pour les clés nouvellement ajoutées
 
-> Vous pouvez fournir des arguments CLI ; consultez la [documentation CLI d'Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_cli.md).
+> Vous pouvez fournir des arguments CLI ; consultez la [documentation CLI d'Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md).
 
 ---
 

@@ -277,7 +277,7 @@ Intlayer はコンテンツ宣言に **TypeScript**（および JavaScript）と
 
 > リソース:
 >
-> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)
+> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)
 
 ---
 

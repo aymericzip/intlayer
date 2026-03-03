@@ -258,7 +258,7 @@ module.exports = config;
 
 ### Đẩy cấu hình của bạn
 
-Để cấu hình Intlayer CMS, bạn có thể sử dụng các lệnh của [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/vi/intlayer_cli.md).
+Để cấu hình Intlayer CMS, bạn có thể sử dụng các lệnh của [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/vi/cli/index.md).
 
 ```bash
 npx intlayer config push
@@ -274,7 +274,7 @@ Lệnh này sẽ tải cấu hình của bạn lên Intlayer CMS.
 
 ### Đẩy một từ điển
 
-Để chuyển đổi các từ điển locale của bạn thành một từ điển từ xa, bạn có thể sử dụng các lệnh của [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/vi/intlayer_cli.md).
+Để chuyển đổi các từ điển locale của bạn thành một từ điển từ xa, bạn có thể sử dụng các lệnh của [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/vi/cli/index.md).
 
 ```bash
 npx intlayer dictionary push -d my-first-dictionary-key

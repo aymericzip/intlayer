@@ -277,7 +277,7 @@ Intlayer поддерживает **TypeScript** (также JavaScript) и **JS
 
 > Ресурсы:
 >
-> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_cli.md)
+> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md)
 
 ---
 

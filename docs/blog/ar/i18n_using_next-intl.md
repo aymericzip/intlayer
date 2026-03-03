@@ -756,14 +756,14 @@ Intlayer هي مكتبة **مجانية** و**مفتوحة المصدر** مصم
   توفر Intlayer وظائف اختبار يمكن دمجها في خط أنابيب CI/CD الخاص بك، أو في اختبارات الوحدة الخاصة بك. تعرّف على المزيد حول [اختبار ترجماتك](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/testing.md).
 
 - **أتمتة ترجماتك**  
-  توفر Intlayer واجهة سطر أوامر وامتداد VSCode لأتمتة ترجماتك. يمكن دمجها في خط أنابيب CI/CD الخاص بك. تعرّف على المزيد حول [أتمتة ترجماتك](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md).  
+  توفر Intlayer واجهة سطر أوامر وامتداد VSCode لأتمتة ترجماتك. يمكن دمجها في خط أنابيب CI/CD الخاص بك. تعرّف على المزيد حول [أتمتة ترجماتك](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md).  
   يمكنك استخدام **مفتاح API الخاص بك، ومزود الذكاء الاصطناعي الذي تختاره**. كما توفر ترجمات واعية للسياق، راجع [ملء المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/autoFill.md).
 
 - **ربط المحتوى الخارجي**  
   توفر Intlayer وظائف اختبار يمكن دمجها في خط أنابيب CI/CD الخاص بك، أو في اختبارات الوحدة الخاصة بك. تعرّف على المزيد حول [اختبار ترجماتك](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/testing.md).
 
 - **أتمتة ترجماتك**،  
-  توفر Intlayer أداة CLI وامتداد VSCode لأتمتة ترجماتك. يمكن دمجها في خط أنابيب CI/CD الخاص بك. تعرّف على المزيد حول [أتمتة ترجماتك](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md).  
+  توفر Intlayer أداة CLI وامتداد VSCode لأتمتة ترجماتك. يمكن دمجها في خط أنابيب CI/CD الخاص بك. تعرّف على المزيد حول [أتمتة ترجماتك](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md).  
   يمكنك استخدام **مفتاح API الخاص بك، ومزود الذكاء الاصطناعي الذي تختاره**. كما توفر ترجمات واعية للسياق، راجع [ملء المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/autoFill.md).
 
 - **ربط المحتوى الخارجي**  

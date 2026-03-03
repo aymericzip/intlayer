@@ -41,7 +41,7 @@ history:
 - **[التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)**  
   خصص Intlayer ليناسب احتياجات مشروعك. استكشف خيارات الوسيط، وهياكل الدليل، والإعدادات المتقدمة.
 
-- **[واجهة سطر أوامر Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md)**
+- **[واجهة سطر أوامر Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)**
 
 قم بإدارة المحتوى والترجمات باستخدام أداة سطر الأوامر الخاصة بنا. اكتشف كيفية دفع وسحب المحتوى، وأتمتة الترجمات، والمزيد.
 

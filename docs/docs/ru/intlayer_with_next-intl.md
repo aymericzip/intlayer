@@ -455,4 +455,4 @@ export default config;
 - `intlayer fill`: использует вашего AI-провайдера для заполнения отсутствующих переводов на основе настроенных локалей.
 - `intlayer test`: проверяет отсутствующие/недействительные переводы (используйте в CI).
 
-Вы можете настроить аргументы и провайдеров; смотрите [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_cli.md).
+Вы можете настроить аргументы и провайдеров; смотрите [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md).

@@ -230,7 +230,7 @@ module.exports = ConditionalComponent;
 
 Để biết thêm thông tin chi tiết về cấu hình và cách sử dụng, vui lòng tham khảo các tài nguyên sau:
 
-- [Tài liệu CLI của Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_cli.md)
+- [Tài liệu CLI của Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md)
 - [Tài liệu React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_create_react_app.md)
 - [Tài liệu Intlayer cho Next](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_15.md)
 

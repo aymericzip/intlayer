@@ -265,7 +265,7 @@ Các tệp JSON được đồng bộ sẽ được coi như các tệp `.conten
 - `intlayer content push` để đẩy các tệp JSON được đồng bộ lên
 - `intlayer content pull` để kéo các tệp JSON được đồng bộ về
 
-Xem [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_cli.md) để biết thêm chi tiết.
+Xem [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md) để biết thêm chi tiết.
 
 ## Hạn chế (hiện tại)
 

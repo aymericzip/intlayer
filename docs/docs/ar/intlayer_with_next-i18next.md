@@ -608,7 +608,7 @@ export default config;
 - `pnpm i18n:test` في CI لفشل البناء عند وجود مفاتيح مفقودة
 - `pnpm i18n:fill` محليًا لاقتراح ترجمات الذكاء الاصطناعي للمفاتيح المضافة حديثًا
 
-> يمكنك تقديم وسائط CLI؛ راجع [وثائق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md).
+> يمكنك تقديم وسائط CLI؛ راجع [وثائق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md).
 
 ---
 

@@ -453,4 +453,4 @@ export default config;
 - `intlayer fill`: आपके कॉन्फ़िगर किए गए लोकल्स के आधार पर आपकी AI प्रदाता का उपयोग करके गायब अनुवादों को भरता है।
 - `intlayer test`: गायब/अमान्य अनुवादों की जांच करता है (इसे CI में उपयोग करें)।
 
-आप तर्क और प्रदाताओं को कॉन्फ़िगर कर सकते हैं; देखें [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_cli.md)।
+आप तर्क और प्रदाताओं को कॉन्फ़िगर कर सकते हैं; देखें [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md)।

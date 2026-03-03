@@ -286,7 +286,7 @@ Intlayer mendukung **TypeScript** (juga JavaScript) dan **JSON** untuk mendeklar
 
 > Sumber daya:
 >
-> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md)
+> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md)
 
 ---
 

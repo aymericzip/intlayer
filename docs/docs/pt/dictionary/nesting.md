@@ -262,7 +262,7 @@ module.exports = NestComponent;
 
 Para mais informações detalhadas sobre configuração e uso, consulte os seguintes recursos:
 
-- [Documentação do CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_cli.md)
+- [Documentação do CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md)
 - [Documentação do React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_create_react_app.md)
 - [Documentação do Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_nextjs_15.md)
 

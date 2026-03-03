@@ -248,7 +248,7 @@ Trong ví dụ này, component tự động điều chỉnh kết quả hiển t
 
 Để biết thêm thông tin chi tiết về cấu hình và cách sử dụng, hãy tham khảo các tài nguyên sau:
 
-- [Tài liệu CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_cli.md)
+- [Tài liệu CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md)
 - [Tài liệu React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_create_react_app.md)
 - [Tài liệu Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_15.md)
 

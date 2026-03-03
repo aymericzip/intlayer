@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-03-03
 title: MCP Sunucu Dokümantasyonu
 description: Sunucu yönetimini ve işlemlerinizi optimize etmek için MCP Sunucusu'nun özelliklerini ve kurulumunu keşfedin.
 keywords:
@@ -71,6 +71,32 @@ MCP sunucusu ayrıca uzak olarak, SSE aktarım yöntemini kullanarak kullanılab
 Uzak sunucunun CLI araçlarını, AI otomatik tamamlama vb. entegre etmediğini unutmayın. Uzak sunucu sadece AI asistanınızın Intlayer ekosistemiyle etkileşim kurması için dokümantasyon içindir.
 
 > Sunucu barındırma maliyetleri nedeniyle, uzak sunucunun kullanılabilirliği garanti edilemez. Eşzamanlı bağlantı sayısını sınırlıyoruz. En güvenilir deneyim için yerel sunucu (stdio) aktarım yöntemini kullanmanızı öneririz.
+
+---
+
+## Intlayer CLI aracılığıyla kurulum (önerilen)
+
+Intlayer, projenizde MCP sunucusunu otomatik olarak yapılandırmak için bir CLI komutu sağlar.
+
+```bash
+npx intlayer init mcp
+```
+
+Bu komut şunları yapacaktır:
+
+1. Hangi platformu kullandığınızı soracaktır (Cursor, VS Code, Claude Desktop vb.).
+2. Hangi taşıma yöntemini kullanmak istediğinizi soracaktır (Yerel sunucu (stdio) veya Uzak sunucu (SSE)).
+3. Yapılandırma dosyanızı otomatik olarak güncelleyecektir (örneğin, `.cursor/mcp.json`, `.vscode/mcp.json` veya genel Claude Desktop yapılandırması).
+
+---
+
+## Setup via Intlayer VS Code extension
+
+1. Komut Paletini açın (Ctrl+Shift+P veya Cmd+Shift+P).
+2. `Intlayer: Setup AI Agent Skills` yazın
+3. Kullandığınız platformu seçin (örn. `VS Code`, `Cursor`, `Windsurf`, `OpenCode`, `Claude Code`, `GitHub Copilot Workspace` vb.).
+4. Kurulacak MCP'yi seçin (stdio, SSE)
+5. Enter'a basın.
 
 ---
 

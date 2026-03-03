@@ -527,6 +527,6 @@ Questa estensione offre:
 
 - **Editor Visivo**: Usa l'[Editor Visivo di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) per gestire le traduzioni visivamente.
 - **Integrazione CMS**: Puoi anche esternalizzare e recuperare i contenuti del tuo dizionario da un [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md).
-- **Comandi CLI**: Esplora la [CLI di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_cli.md) per attività come **estrarre traduzioni** o **controllare chiavi mancanti**.
+- **Comandi CLI**: Esplora la [CLI di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/index.md) per attività come **estrarre traduzioni** o **controllare chiavi mancanti**.
 
 ---

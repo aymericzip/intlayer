@@ -453,4 +453,4 @@ Ghi chú:
 - `intlayer fill`: sử dụng nhà cung cấp AI của bạn để điền các bản dịch còn thiếu dựa trên các locale đã cấu hình.
 - `intlayer test`: kiểm tra các bản dịch bị thiếu hoặc không hợp lệ (sử dụng trong CI).
 
-Bạn có thể cấu hình các đối số và nhà cung cấp; xem thêm tại [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_cli.md).
+Bạn có thể cấu hình các đối số và nhà cung cấp; xem thêm tại [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md).

@@ -1098,12 +1098,12 @@ Intlayer ermöglicht Ihnen:
   Intlayer stellt Testfunktionen bereit, die in Ihre CI/CD-Pipeline oder in Ihre Unit-Tests integriert werden können. Erfahren Sie mehr über das [Testen Ihrer Übersetzungen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/testing.md).
 
 - **Automatisieren Sie Ihre Übersetzungen**  
-  Intlayer bietet eine CLI und eine VSCode-Erweiterung, um Ihre Übersetzungen zu automatisieren. Diese können in Ihre CI/CD-Pipeline integriert werden. Erfahren Sie mehr über das [Automatisieren Ihrer Übersetzungen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md).  
+  Intlayer bietet eine CLI und eine VSCode-Erweiterung, um Ihre Übersetzungen zu automatisieren. Diese können in Ihre CI/CD-Pipeline integriert werden. Erfahren Sie mehr über das [Automatisieren Ihrer Übersetzungen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md).  
   Sie können Ihren **eigenen API-Schlüssel und den KI-Anbieter Ihrer Wahl** verwenden. Es werden auch kontextbewusste Übersetzungen bereitgestellt, siehe [Inhalt automatisch ausfüllen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/autoFill.md).
 
 - **Externe Inhalte verbinden**
 - **Automatisieren Sie Ihre Übersetzungen**  
-  Intlayer bietet eine CLI und eine VSCode-Erweiterung, um Ihre Übersetzungen zu automatisieren. Diese können in Ihre CI/CD-Pipeline integriert werden. Erfahren Sie mehr über das [Automatisieren Ihrer Übersetzungen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md).  
+  Intlayer bietet eine CLI und eine VSCode-Erweiterung, um Ihre Übersetzungen zu automatisieren. Diese können in Ihre CI/CD-Pipeline integriert werden. Erfahren Sie mehr über das [Automatisieren Ihrer Übersetzungen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md).  
   Sie können Ihren **eigenen API-Schlüssel und den AI-Anbieter Ihrer Wahl** verwenden. Es werden auch kontextbewusste Übersetzungen angeboten, siehe [Inhalt automatisch ausfüllen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/autoFill.md).
 
 - **Externe Inhalte anbinden**  

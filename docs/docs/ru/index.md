@@ -41,7 +41,7 @@ Intlayer предлагает гибкий, современный подход 
 - **[Конфигурация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md)**  
   Настройте Intlayer под нужды вашего проекта. Изучите варианты промежуточного программного обеспечения, структуру каталогов и расширенные настройки.
 
-- **[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_cli.md)**  
+- **[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md)**  
   Управляйте контентом и переводами с помощью нашего инструмента командной строки. Узнайте, как отправлять и получать контент, автоматизировать переводы и многое другое.
 
 - **[Редактор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md)**  

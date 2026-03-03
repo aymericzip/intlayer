@@ -148,7 +148,7 @@ const MyComponent = () => {
 - **دعم التدويل**: عزز الوصول العالمي لتطبيقك من خلال دعم مدمج للتدويل.
 - **المحرر المرئي**: حسّن سير عمل التطوير الخاص بك باستخدام إضافات المحرر المصممة لـ Intlayer. اطلع على [دليل المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md).
 - **مرونة التكوين**: قم بتخصيص إعداداتك باستخدام خيارات تكوين واسعة مفصلة في [دليل التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
-- **أدوات CLI المتقدمة**: قم بإدارة مشاريعك بكفاءة باستخدام واجهة سطر الأوامر الخاصة بـ Intlayer. استكشف الإمكانيات في [توثيق أدوات CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md).
+- **أدوات CLI المتقدمة**: قم بإدارة مشاريعك بكفاءة باستخدام واجهة سطر الأوامر الخاصة بـ Intlayer. استكشف الإمكانيات في [توثيق أدوات CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md).
 
 ## المفاهيم الأساسية
 

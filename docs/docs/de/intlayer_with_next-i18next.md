@@ -616,7 +616,7 @@ Fügen Sie Paketskripte hinzu:
 - `pnpm i18n:test` in CI, um Builds bei fehlenden Schlüsseln fehlschlagen zu lassen
 - `pnpm i18n:fill` lokal, um KI-Übersetzungen für neu hinzugefügte Schlüssel vorzuschlagen
 
-> Sie können CLI-Argumente angeben; siehe die [Intlayer CLI-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md).
+> Sie können CLI-Argumente angeben; siehe die [Intlayer CLI-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md).
 
 ---
 

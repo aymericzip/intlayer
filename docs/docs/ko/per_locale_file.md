@@ -336,4 +336,4 @@ console.log(JSON.stringify(intlayer, null, 2));
 
 ### 자동 번역 생성
 
-[intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_cli.md)를 사용하여 선호하는 서비스를 기반으로 누락된 번역을 자동으로 채우세요.
+[intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)를 사용하여 선호하는 서비스를 기반으로 누락된 번역을 자동으로 채우세요.

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2025-07-11
+updatedAt: 2026-03-03
 title: Tài liệu Máy chủ MCP
 description: Khám phá các tính năng và cách thiết lập Máy chủ MCP để tối ưu hóa quản lý và vận hành máy chủ của bạn.
 keywords:
@@ -49,7 +49,7 @@ Bằng cách kích hoạt Máy chủ Intlayer MCP trong IDE của bạn, bạn s
 - **Tích hợp CLI thông minh**
   Truy cập và chạy các lệnh Intlayer CLI trực tiếp từ giao diện IDE của bạn. Sử dụng máy chủ MCP, bạn có thể để trợ lý AI của mình chạy các lệnh như `intlayer dictionaries build` để cập nhật từ điển, hoặc `intlayer dictionaries fill` để điền các bản dịch còn thiếu.
 
-> Xem danh sách đầy đủ các lệnh và tùy chọn trong [tài liệu Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_cli.md).
+> Xem danh sách đầy đủ các lệnh và tùy chọn trong [tài liệu Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md).
 
 ## Máy chủ cục bộ (stdio) và máy chủ từ xa (SSE)
 
@@ -71,6 +71,32 @@ Máy chủ MCP cũng có thể được sử dụng từ xa, sử dụng phươn
 Lưu ý rằng máy chủ từ xa không tích hợp các công cụ CLI, tự động hoàn thành AI, v.v. Máy chủ từ xa chỉ dùng để tương tác với tài liệu nhằm hỗ trợ trợ lý AI của bạn với hệ sinh thái Intlayer.
 
 > Do chi phí lưu trữ máy chủ, không thể đảm bảo tính khả dụng của máy chủ từ xa. Chúng tôi giới hạn số lượng kết nối đồng thời. Chúng tôi khuyến nghị sử dụng phương thức truyền máy chủ cục bộ (stdio) để có trải nghiệm ổn định nhất.
+
+---
+
+## Thiết lập qua Intlayer CLI (khuyên dùng)
+
+Intlayer cung cấp lệnh CLI để tự động cấu hình máy chủ MCP trong dự án của bạn.
+
+```bash
+npx intlayer init mcp
+```
+
+Lệnh này sẽ:
+
+1. Hỏi bạn đang sử dụng nền tảng nào (Cursor, VS Code, Claude Desktop, v.v.).
+2. Hỏi bạn muốn sử dụng phương thức vận chuyển nào (Máy chủ cục bộ (stdio) hoặc Máy chủ từ xa (SSE)).
+3. Tự động cập nhật tệp cấu hình của bạn (ví dụ: `.cursor/mcp.json`, `.vscode/mcp.json` hoặc cấu hình Claude Desktop chung).
+
+---
+
+## Setup via Intlayer VS Code extension
+
+1. Mở Command Palette (Ctrl+Shift+P hoặc Cmd+Shift+P).
+2. Nhập `Intlayer: Setup AI Agent Skills`
+3. Chọn nền tảng bạn sử dụng (ví dụ: `VSC Code`, `Cursor`, `Windsurf`, `OpenCode`, `Claude Code`, `GitHub Copilot Workspace`, v.v.).
+4. Chọn MCP để cài đặt (stdio, SSE)
+5. Nhấn Enter.
 
 ---
 

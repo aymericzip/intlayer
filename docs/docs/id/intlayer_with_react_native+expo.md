@@ -676,7 +676,7 @@ Untuk detail lebih lanjut tentang cara menggunakan ekstensi ini, lihat [dokument
 
 - **Visual Editor**: Gunakan [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) untuk mengelola terjemahan secara visual.
 - **Integrasi CMS**: Anda juga dapat mengeksternalisasi dan mengambil konten kamus Anda dari sebuah [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
-- **Perintah CLI**: Jelajahi [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md) untuk tugas seperti **mengekstrak terjemahan** atau **memeriksa kunci yang hilang**.
+- **Perintah CLI**: Jelajahi [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) untuk tugas seperti **mengekstrak terjemahan** atau **memeriksa kunci yang hilang**.
 
 Nikmati membangun aplikasi **React Native** Anda dengan i18n yang sepenuhnya didukung melalui **Intlayer**!
 

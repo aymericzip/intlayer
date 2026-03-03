@@ -753,7 +753,7 @@ Intlayerは以下のことを可能にします：
   Intlayerは、CI/CDパイプラインやユニットテストに統合できるテスト機能を提供します。詳細は[翻訳のテスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/testing.md)をご覧ください。
 
 - **翻訳の自動化**
-  Intlayerは、翻訳を自動化するためのCLIとVSCode拡張機能を提供します。これらはCI/CDパイプラインに統合可能です。詳細は[翻訳の自動化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)をご覧ください。
+  Intlayerは、翻訳を自動化するためのCLIとVSCode拡張機能を提供します。これらはCI/CDパイプラインに統合可能です。詳細は[翻訳の自動化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)をご覧ください。
   ご自身の**APIキーとお好みのAIプロバイダー**を使用できます。また、コンテキストに応じた翻訳も提供します。詳細は[コンテンツの自動補完](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/autoFill.md)をご覧ください。
 
 - **外部コンテンツの接続**

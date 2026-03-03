@@ -616,7 +616,7 @@ Yaygın akışlar:
 - Eksik anahtarlar için CI'de `pnpm i18n:test` çalıştırarak derlemelerin başarısız olmasını sağlamak
 - Yeni eklenen anahtarlar için yerel olarak AI çevirileri önermek amacıyla `pnpm i18n:fill` çalıştırmak
 
-> CLI argümanları sağlayabilirsiniz; bkz. [Intlayer CLI dokümanları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_cli.md).
+> CLI argümanları sağlayabilirsiniz; bkz. [Intlayer CLI dokümanları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md).
 
 ---
 

@@ -453,4 +453,4 @@ export default config;
 - `intlayer fill`: يستخدم مزود الذكاء الاصطناعي الخاص بك لملء الترجمات المفقودة بناءً على اللغات التي قمت بتكوينها.
 - `intlayer test`: يتحقق من الترجمات المفقودة أو غير الصالحة (استخدمه في بيئة التكامل المستمر CI).
 
-يمكنك تكوين الوسائط والمزودين؛ راجع [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md).
+يمكنك تكوين الوسائط والمزودين؛ راجع [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md).

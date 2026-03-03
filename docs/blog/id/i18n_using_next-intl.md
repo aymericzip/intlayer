@@ -752,7 +752,7 @@ Intlayer memungkinkan Anda untuk:
   Intlayer menyediakan fungsi pengujian yang dapat diintegrasikan ke dalam pipeline CI/CD Anda, atau dalam unit test Anda. Pelajari lebih lanjut tentang [mengujikan terjemahan Anda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/testing.md).
 
 - **Otomatisasi terjemahan Anda**,
-  Intlayer menyediakan CLI dan ekstensi VSCode untuk mengotomatisasi terjemahan Anda. Ini dapat diintegrasikan ke dalam pipeline CI/CD Anda. Pelajari lebih lanjut tentang [mengotomatisasi terjemahan Anda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md).
+  Intlayer menyediakan CLI dan ekstensi VSCode untuk mengotomatisasi terjemahan Anda. Ini dapat diintegrasikan ke dalam pipeline CI/CD Anda. Pelajari lebih lanjut tentang [mengotomatisasi terjemahan Anda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md).
   Anda dapat menggunakan **API key Anda sendiri, dan penyedia AI pilihan Anda**. Ini juga menyediakan terjemahan yang sadar konteks, lihat [mengisi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/autoFill.md).
 
 - **Menghubungkan konten eksternal**

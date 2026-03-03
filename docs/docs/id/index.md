@@ -41,7 +41,7 @@ Intlayer menawarkan pendekatan yang fleksibel dan modern untuk menerjemahkan apl
 - **[Konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)**  
   Sesuaikan Intlayer agar sesuai dengan kebutuhan proyek Anda. Jelajahi opsi middleware, struktur direktori, dan pengaturan lanjutan.
 
-- **[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md)**  
+- **[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md)**  
   Kelola konten dan terjemahan menggunakan alat baris perintah kami. Temukan cara untuk mengirim dan menarik konten, mengotomatisasi terjemahan, dan lainnya.
 
 - **[Editor Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md)**  

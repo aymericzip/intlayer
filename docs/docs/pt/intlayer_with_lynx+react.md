@@ -527,6 +527,6 @@ Esta extensão oferece:
 
 - **Editor Visual**: Use o [Editor Visual do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) para gerenciar traduções visualmente.
 - **Integração com CMS**: Você também pode externalizar e buscar o conteúdo do seu dicionário a partir de um [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).
-- **Comandos CLI**: Explore o [CLI do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_cli.md) para tarefas como **extrair traduções** ou **verificar chaves faltantes**.
+- **Comandos CLI**: Explore o [CLI do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md) para tarefas como **extrair traduções** ou **verificar chaves faltantes**.
 
 ---

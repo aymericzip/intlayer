@@ -1096,12 +1096,12 @@ Intlayer 允许您：
   Intlayer 提供测试功能，可以集成到您的 CI/CD 流水线或单元测试中。了解更多关于[测试您的翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/testing.md)。
 
 - **自动化您的翻译**  
-  Intlayer 提供了一个 CLI 和一个 VSCode 扩展来自动化您的翻译流程。它可以集成到您的 CI/CD 管道中。了解更多关于[自动化您的翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)。  
+  Intlayer 提供了一个 CLI 和一个 VSCode 扩展来自动化您的翻译流程。它可以集成到您的 CI/CD 管道中。了解更多关于[自动化您的翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。  
   您可以使用您**自己的 API 密钥和您选择的 AI 提供商**。它还提供上下文感知的翻译，详见[填充内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/autoFill.md)。
 
 - **连接外部内容**
 - **自动化您的翻译**，  
-  Intlayer 提供了一个 CLI 和一个 VSCode 扩展来自动化您的翻译。它可以集成到您的 CI/CD 流水线中。了解更多关于[自动化您的翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)。  
+  Intlayer 提供了一个 CLI 和一个 VSCode 扩展来自动化您的翻译。它可以集成到您的 CI/CD 流水线中。了解更多关于[自动化您的翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。  
   您可以使用您**自己的 API 密钥和您选择的 AI 提供商**。它还提供上下文感知的翻译，详见[填充内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/autoFill.md)。
 
 - **连接外部内容**  

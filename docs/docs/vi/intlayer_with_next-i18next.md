@@ -617,7 +617,7 @@ Các luồng phổ biến:
 - `pnpm i18n:test` trong CI để làm cho build thất bại khi thiếu key
 - `pnpm i18n:fill` chạy cục bộ để đề xuất bản dịch AI cho các key mới được thêm vào
 
-> Bạn có thể cung cấp các đối số CLI; xem thêm tại [Tài liệu CLI của Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_cli.md).
+> Bạn có thể cung cấp các đối số CLI; xem thêm tại [Tài liệu CLI của Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md).
 
 ---
 

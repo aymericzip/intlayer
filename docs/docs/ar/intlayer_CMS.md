@@ -252,7 +252,7 @@ module.exports = config;
 
 ### دفع التهيئة الخاصة بك
 
-لتكوين نظام إدارة محتوى Intlayer، يمكنك استخدام أوامر [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/ar/intlayer_cli.md).
+لتكوين نظام إدارة محتوى Intlayer، يمكنك استخدام أوامر [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/ar/cli/index.md).
 
 ```bash
 npx intlayer config push
@@ -268,7 +268,7 @@ npx intlayer config push --env production
 
 ### دفع قاموس
 
-لتحويل قواميس اللغة المحلية الخاصة بك إلى قاموس بعيد، يمكنك استخدام أوامر [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/ar/intlayer_cli.md).
+لتحويل قواميس اللغة المحلية الخاصة بك إلى قاموس بعيد، يمكنك استخدام أوامر [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/ar/cli/index.md).
 
 ```bash
 npx intlayer dictionary push -d my-first-dictionary-key

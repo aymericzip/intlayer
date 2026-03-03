@@ -616,7 +616,7 @@ export default config;
 - CIで `pnpm i18n:test` を実行し、キーが不足している場合にビルドを失敗させる
 - ローカルで `pnpm i18n:fill` を実行し、新しく追加されたキーに対してAI翻訳を提案する
 
-> CLI引数を指定することも可能です。詳細は[Intlayer CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)をご覧ください。
+> CLI引数を指定することも可能です。詳細は[Intlayer CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)をご覧ください。
 
 ---
 

@@ -265,7 +265,7 @@ plugins: [
 - `intlayer content push` 用于推送同步的 JSON 文件
 - `intlayer content pull` 用于拉取同步的 JSON 文件
 
-请参阅[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)了解更多详情。
+请参阅[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)了解更多详情。
 
 ## 限制（当前）
 

@@ -213,7 +213,7 @@ Die `file`-Funktion basiert auf dem `fs`-Modul von Node.js, um den Inhalt der an
 
 Für weitere Details zur Konfiguration und Verwendung der Dateieinbettung in Intlayer verweisen wir auf die folgenden Ressourcen:
 
-- [Intlayer CLI Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md)
+- [Intlayer CLI Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md)
 - [React Intlayer Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_create_react_app.md)
 - [Next Intlayer Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nextjs_15.md)
 - [Markdown Inhaltsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/markdown.md)

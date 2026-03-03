@@ -509,6 +509,6 @@ Diese Erweiterung bietet:
 
 - **Visueller Editor**: Verwenden Sie den [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md), um Übersetzungen visuell zu verwalten.
 - **CMS-Integration**: Sie können Ihr Wörterbuch auch externisieren und Inhalte aus einem [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) abrufen.
-- **CLI-Befehle**: Erkunden Sie die [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md) für Aufgaben wie **Übersetzungen extrahieren** oder **fehlende Schlüssel überprüfen**.
+- **CLI-Befehle**: Erkunden Sie die [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md) für Aufgaben wie **Übersetzungen extrahieren** oder **fehlende Schlüssel überprüfen**.
 
 ---

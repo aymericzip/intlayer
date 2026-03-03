@@ -1,1 +1,1 @@
-import type { AIOptions } from '@intlayer/backend';
+export type { AIOptions } from '@intlayer/backend';

@@ -677,7 +677,7 @@ Aby uzyskać więcej informacji o korzystaniu z rozszerzenia, zapoznaj się z [d
 
 - **Edytor wizualny**: Użyj [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) do wizualnego zarządzania tłumaczeniami.
 - **Integracja z CMS**: Możesz również zewnętrznie przechowywać i pobierać zawartość swojego słownika z [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
-- **Polecenia CLI**: Poznaj [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_cli.md) do zadań takich jak **wyodrębnianie tłumaczeń** lub **sprawdzanie brakujących kluczy**.
+- **Polecenia CLI**: Poznaj [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md) do zadań takich jak **wyodrębnianie tłumaczeń** lub **sprawdzanie brakujących kluczy**.
 
 Ciesz się tworzeniem swoich aplikacji **React Native** z pełnym wsparciem i18n dzięki **Intlayer**!
 

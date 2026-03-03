@@ -56,7 +56,7 @@ For more information, see the [Intlayer MCP Server documentation](https://intlay
 - [CLI Doc Translate](https://intlayer.org/doc/concept/cli/doc-translate.md)
 - [CLI Editor](https://intlayer.org/doc/concept/cli/editor.md)
 - [CLI Fill](https://intlayer.org/doc/concept/cli/fill.md)
-- [CLI Overview](https://intlayer.org/doc/concept/cli.md)
+- [CLI Overview](https://intlayer.org/doc/concept/cli/index.md)
 - [CLI Init](https://intlayer.org/doc/concept/cli/init.md)
 - [CLI List](https://intlayer.org/doc/concept/cli/list.md)
 - [CLI List Projects](https://intlayer.org/doc/concept/cli/list-projects.md)

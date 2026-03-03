@@ -67,7 +67,7 @@ yarn add react react-dom react-intlayer @astrojs/react
 ```
 
 - **intlayer**  
-  設定管理、翻訳、[コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)、トランスパイル、および[CLIコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)のための国際化ツールを提供するコアパッケージ。
+  設定管理、翻訳、[コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)、トランスパイル、および[CLIコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)のための国際化ツールを提供するコアパッケージ。
 
 - **astro-intlayer**  
   Astroとの統合プラグインを含み、Intlayerを[Viteバンドラー](https://vite.dev/guide/why.html#why-bundle-for-production)と連携させるほか、ユーザーの優先ロケールの検出、クッキー管理、URLリダイレクトの処理を行うミドルウェアも提供します。

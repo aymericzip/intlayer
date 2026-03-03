@@ -453,4 +453,4 @@ export default config;
 - `intlayer fill`: 設定されたロケールに基づいて、AIプロバイダーを使用して不足している翻訳を補完します。
 - `intlayer test`: 不足している翻訳や無効な翻訳をチェックします（CIでの使用を推奨）。
 
-引数やプロバイダーの設定方法については、[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md) を参照してください。
+引数やプロバイダーの設定方法については、[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md) を参照してください。

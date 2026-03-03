@@ -265,7 +265,7 @@ plugins: [
 - `intlayer content push` для отправки синхронизированных JSON-файлов
 - `intlayer content pull` для загрузки синхронизированных JSON-файлов
 
-См. [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_cli.md) для получения дополнительной информации.
+См. [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md) для получения дополнительной информации.
 
 ## Ограничения (текущие)
 

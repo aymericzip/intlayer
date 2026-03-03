@@ -455,4 +455,4 @@ export default config;
 - `intlayer fill`：使用您的 AI 提供者根据配置的语言环境填充缺失的翻译。
 - `intlayer test`：检查缺失或无效的翻译（在持续集成中使用）。
 
-您可以配置参数和提供者；详情请参见 [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)。
+您可以配置参数和提供者；详情请参见 [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。

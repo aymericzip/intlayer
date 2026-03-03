@@ -617,7 +617,7 @@ Alur umum:
 - `pnpm i18n:test` di CI untuk gagal membangun jika ada kunci yang hilang
 - `pnpm i18n:fill` secara lokal untuk mengusulkan terjemahan AI untuk kunci yang baru ditambahkan
 
-> Anda dapat memberikan argumen CLI; lihat [dokumentasi Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md).
+> Anda dapat memberikan argumen CLI; lihat [dokumentasi Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md).
 
 ---
 

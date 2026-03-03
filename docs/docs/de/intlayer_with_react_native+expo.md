@@ -652,7 +652,7 @@ Für weitere Details zur Verwendung der Erweiterung siehe die [Intlayer VS Code 
 
 - **Visueller Editor**: Verwenden Sie den [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md), um Übersetzungen visuell zu verwalten.
 - **CMS-Integration**: Sie können auch Ihre Wörterbuchinhalte aus einem [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) auslagern und abrufen.
-- **CLI-Befehle**: Erkunden Sie die [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md) für Aufgaben wie das **Extrahieren von Übersetzungen** oder das **Überprüfen fehlender Schlüssel**.
+- **CLI-Befehle**: Erkunden Sie die [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md) für Aufgaben wie das **Extrahieren von Übersetzungen** oder das **Überprüfen fehlender Schlüssel**.
 
 Viel Spaß beim Erstellen Ihrer **React Native**-Apps mit voll ausgestatteter i18n durch **Intlayer**!
 

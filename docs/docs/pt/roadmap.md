@@ -277,7 +277,7 @@ O Intlayer suporta **TypeScript** (também JavaScript) e **JSON** para declarar 
 
 > Recursos:
 >
-> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_cli.md)
+> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md)
 
 ---
 

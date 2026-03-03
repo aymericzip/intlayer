@@ -258,7 +258,7 @@ module.exports = config;
 
 ### Wypchnij swoją konfigurację
 
-Aby skonfigurować Intlayer CMS, możesz użyć poleceń [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/pl/intlayer_cli.md).
+Aby skonfigurować Intlayer CMS, możesz użyć poleceń [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/pl/cli/index.md).
 
 ```bash
 npx intlayer config push
@@ -274,7 +274,7 @@ To polecenie przesyła Twoją konfigurację do Intlayer CMS.
 
 ### Wypchnij słownik
 
-Aby przekształcić swoje słowniki lokalizacyjne w zdalny słownik, możesz użyć poleceń [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/pl/intlayer_cli.md).
+Aby przekształcić swoje słowniki lokalizacyjne w zdalny słownik, możesz użyć poleceń [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/pl/cli/index.md).
 
 ```bash
 npx intlayer dictionary push -d my-first-dictionary-key

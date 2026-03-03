@@ -95,7 +95,7 @@ bunx intlayer init
 
 - **intlayer**
 
-  核心包，提供国际化工具，用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、转译以及[命令行工具](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)。
+  核心包，提供国际化工具，用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、转译以及[命令行工具](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。
 
 - **vue-intlayer**
   将 Intlayer 集成到 Vue 应用中的包，提供 Vue 国际化的上下文提供者和组合式函数。

@@ -338,4 +338,4 @@ console.log(JSON.stringify(intlayer, null, 2));
 
 ### Geração Automática de Tradução
 
-Use o [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_cli.md) para preencher automaticamente as traduções faltantes com base nos seus serviços preferidos.
+Use o [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md) para preencher automaticamente as traduções faltantes com base nos seus serviços preferidos.

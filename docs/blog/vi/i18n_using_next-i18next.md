@@ -1071,12 +1071,12 @@ Intlayer sẽ cho phép bạn:
   Intlayer cung cấp các hàm kiểm thử có thể tích hợp vào pipeline CI/CD của bạn hoặc trong các unit test. Tìm hiểu thêm về [kiểm thử bản dịch của bạn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/testing.md).
 
 - **Tự động hóa việc dịch của bạn**,
-  Intlayer cung cấp một CLI và một tiện ích mở rộng VSCode để tự động hóa việc dịch của bạn. Nó có thể được tích hợp vào pipeline CI/CD của bạn. Tìm hiểu thêm về [tự động hóa việc dịch của bạn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_cli.md).
+  Intlayer cung cấp một CLI và một tiện ích mở rộng VSCode để tự động hóa việc dịch của bạn. Nó có thể được tích hợp vào pipeline CI/CD của bạn. Tìm hiểu thêm về [tự động hóa việc dịch của bạn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md).
   Bạn có thể sử dụng **khóa API riêng của bạn và nhà cung cấp AI mà bạn chọn**. Nó cũng cung cấp các bản dịch nhận biết ngữ cảnh, xem thêm [tự động điền nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/autoFill.md).
 
 - **Kết nối nội dung bên ngoài**
 - **Tự động hóa việc dịch của bạn**,  
-  Intlayer cung cấp một CLI và một tiện ích mở rộng VSCode để tự động hóa việc dịch của bạn. Nó có thể được tích hợp vào pipeline CI/CD của bạn. Tìm hiểu thêm về [tự động hóa việc dịch của bạn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_cli.md).  
+  Intlayer cung cấp một CLI và một tiện ích mở rộng VSCode để tự động hóa việc dịch của bạn. Nó có thể được tích hợp vào pipeline CI/CD của bạn. Tìm hiểu thêm về [tự động hóa việc dịch của bạn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md).  
   Bạn có thể sử dụng **khóa API riêng của bạn và nhà cung cấp AI bạn chọn**. Nó cũng cung cấp các bản dịch nhận biết ngữ cảnh, xem thêm [tự động điền nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/autoFill.md).
 
 - **Kết nối nội dung bên ngoài**  

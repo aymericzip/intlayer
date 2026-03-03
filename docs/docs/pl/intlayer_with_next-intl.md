@@ -453,4 +453,4 @@ Notatki:
 - `intlayer fill`: używa Twojego dostawcy AI do uzupełniania brakujących tłumaczeń na podstawie skonfigurowanych lokalizacji.
 - `intlayer test`: sprawdza brakujące/nieprawidłowe tłumaczenia (używaj tego w CI).
 
-Możesz konfigurować argumenty i dostawców; zobacz [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_cli.md).
+Możesz konfigurować argumenty i dostawców; zobacz [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md).

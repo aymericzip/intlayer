@@ -689,7 +689,7 @@ Intlayerの開発体験を向上させるために、公式の**Intlayer VS Code
 
 - **ビジュアルエディター**：翻訳を視覚的に管理するために、[Intlayerビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を使用してください。
 - **CMS統合**: 辞書コンテンツを外部化し、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)から取得することも可能です。
-- **CLIコマンド**: 翻訳の**抽出**や**欠落キーの確認**などのタスクには、[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)を活用してください。
+- **CLIコマンド**: 翻訳の**抽出**や**欠落キーの確認**などのタスクには、[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)を活用してください。
 
 **Intlayer**を通じて、完全なi18n機能を備えた**React Native**アプリの開発をお楽しみください！
 

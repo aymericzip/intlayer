@@ -1069,12 +1069,12 @@ Intlayer ti permette di:
   Intlayer fornisce funzioni di test che possono essere integrate nella tua pipeline CI/CD o nei tuoi test unitari. Scopri di più su [come testare le tue traduzioni](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/testing.md).
 
 - **Automatizza le tue traduzioni**,
-  Intlayer fornisce una CLI e un'estensione per VSCode per automatizzare le tue traduzioni. Può essere integrato nella tua pipeline CI/CD. Scopri di più su [automatizzare le tue traduzioni](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_cli.md).
+  Intlayer fornisce una CLI e un'estensione per VSCode per automatizzare le tue traduzioni. Può essere integrato nella tua pipeline CI/CD. Scopri di più su [automatizzare le tue traduzioni](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/index.md).
   Puoi utilizzare la tua **chiave API personale e il provider AI di tua scelta**. Fornisce inoltre traduzioni contestuali, vedi [riempi contenuto](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/autoFill.md).
 
 - **Connetti contenuti esterni**
 - **Automatizza le tue traduzioni**,  
-  Intlayer fornisce una CLI e un'estensione VSCode per automatizzare le tue traduzioni. Può essere integrato nella tua pipeline CI/CD. Scopri di più su [automatizzare le tue traduzioni](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_cli.md).  
+  Intlayer fornisce una CLI e un'estensione VSCode per automatizzare le tue traduzioni. Può essere integrato nella tua pipeline CI/CD. Scopri di più su [automatizzare le tue traduzioni](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/index.md).  
   Puoi utilizzare la tua **chiave API personale e il provider AI di tua scelta**. Offre inoltre traduzioni contestuali, vedi [riempimento contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/autoFill.md).
 
 - **Connetti contenuti esterni**  

@@ -1070,7 +1070,7 @@ Intlayer는 다음을 가능하게 합니다:
   Intlayer는 CI/CD 파이프라인이나 단위 테스트에 통합할 수 있는 테스트 기능을 제공합니다. [번역 테스트하기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/testing.md)에서 자세히 알아보세요.
 
 - **번역 자동화**  
-  Intlayer는 번역을 자동화할 수 있는 CLI와 VSCode 확장 기능을 제공합니다. 이를 CI/CD 파이프라인에 통합할 수 있습니다. [번역 자동화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_cli.md) 에 대해 자세히 알아보세요.  
+  Intlayer는 번역을 자동화할 수 있는 CLI와 VSCode 확장 기능을 제공합니다. 이를 CI/CD 파이프라인에 통합할 수 있습니다. [번역 자동화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md) 에 대해 자세히 알아보세요.  
   사용자는 **자신의 API 키와 원하는 AI 제공자를 사용할 수 있습니다**. 또한 문맥 인식 번역도 지원합니다. 자세한 내용은 [콘텐츠 채우기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/autoFill.md)를 참조하세요.
 
 - **외부 콘텐츠 연결**

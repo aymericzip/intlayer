@@ -258,7 +258,7 @@ module.exports = config;
 
 ### Надіслати вашу конфігурацію
 
-Щоб налаштувати Intlayer CMS, ви можете використовувати команди [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/uk/intlayer_cli.md).
+Щоб налаштувати Intlayer CMS, ви можете використовувати команди [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/uk/cli/index.md).
 
 ```bash
 npx intlayer config push
@@ -274,7 +274,7 @@ npx intlayer config push --env production
 
 ### Відправити словник
 
-Щоб перетворити ваші локальні словники у віддалений словник, ви можете використовувати команди [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/uk/intlayer_cli.md).
+Щоб перетворити ваші локальні словники у віддалений словник, ви можете використовувати команди [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/uk/cli/index.md).
 
 ```bash
 npx intlayer dictionary push -d my-first-dictionary-key

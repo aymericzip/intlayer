@@ -277,7 +277,7 @@ Intlayer supporte **TypeScript** (ainsi que JavaScript) et **JSON** pour la déc
 
 > Ressources :
 >
-> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_cli.md)
+> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md)
 
 ---
 

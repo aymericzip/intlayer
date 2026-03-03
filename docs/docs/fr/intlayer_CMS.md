@@ -252,7 +252,7 @@ module.exports = config;
 
 ### Poussez votre configuration
 
-Pour configurer le CMS Intlayer, vous pouvez utiliser les commandes du [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/fr/intlayer_cli.md).
+Pour configurer le CMS Intlayer, vous pouvez utiliser les commandes du [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/fr/cli/index.md).
 
 ```bash
 npx intlayer config push
@@ -268,7 +268,7 @@ Cette commande téléverse votre configuration vers le CMS Intlayer.
 
 ### Pousser un dictionnaire
 
-Pour transformer vos dictionnaires de locale en un dictionnaire distant, vous pouvez utiliser les commandes du [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/fr/intlayer_cli.md).
+Pour transformer vos dictionnaires de locale en un dictionnaire distant, vous pouvez utiliser les commandes du [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/fr/cli/index.md).
 
 ```bash
 npx intlayer dictionary push -d my-first-dictionary-key

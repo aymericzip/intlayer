@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2025-07-11
+updatedAt: 2026-03-03
 title: MCP Server Dokumentation
 description: Entdecken Sie die Funktionen und die Einrichtung des MCP Servers, um Ihre Serververwaltung und -betrieb zu optimieren.
 keywords:
@@ -49,7 +49,7 @@ Durch die Aktivierung des Intlayer MCP Servers in Ihrer IDE erhalten Sie:
 - **Intelligente CLI-Integration**
   Greifen Sie direkt über die Benutzeroberfläche Ihrer IDE auf Intlayer CLI-Befehle zu und führen Sie diese aus. Mithilfe des MCP-Servers kann Ihr KI-Assistent Befehle wie `intlayer dictionaries build` ausführen, um Ihre Wörterbücher zu aktualisieren, oder `intlayer dictionaries fill`, um fehlende Übersetzungen zu ergänzen.
 
-  > Die vollständige Liste der Befehle und Optionen finden Sie in der [Intlayer CLI-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md).
+  > Die vollständige Liste der Befehle und Optionen finden Sie in der [Intlayer CLI-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md).
 
 ## Lokaler Server (stdio) vs. Remote-Server (SSE)
 
@@ -71,6 +71,32 @@ Der MCP-Server kann auch remote über die SSE-Transportmethode verwendet werden.
 Beachten Sie, dass der Remote-Server keine CLI-Tools, keine KI-Autovervollständigung usw. integriert. Der entfernte Server dient nur zur Interaktion mit der Dokumentation, um Ihrem KI-Assistenten im Intlayer-Ökosystem zu helfen.
 
 > Aufgrund der Hosting-Kosten für den Server kann die Verfügbarkeit des Remote-Servers nicht garantiert werden. Wir begrenzen die Anzahl gleichzeitiger Verbindungen. Für die zuverlässigste Erfahrung empfehlen wir die Verwendung der lokalen Server-Transportmethode (stdio).
+
+---
+
+## Einrichtung über die Intlayer CLI (empfohlen)
+
+Intlayer stellt einen CLI-Befehl zur Verfügung, um den MCP-Server automatisch in Ihrem Projekt zu konfigurieren.
+
+```bash
+npx intlayer init mcp
+```
+
+Dieser Befehl wird:
+
+1. Sie fragen, welche Plattform Sie verwenden (Cursor, VS Code, Claude Desktop usw.).
+2. Sie fragen, welche Transportmethode Sie verwenden möchten (lokal (stdio) oder remote (SSE)).
+3. Automatisch Ihre Konfigurationsdatei aktualisieren (z. B. `.cursor/mcp.json`, `.vscode/mcp.json` oder die globale Claude Desktop-Konfiguration).
+
+---
+
+## Setup via Intlayer VS Code extension
+
+1. Öffnen Sie die Befehlspalette (Strg+Umschalt+P oder Cmd+Umschalt+P).
+2. Geben Sie `Intlayer: Setup AI Agent Skills` ein.
+3. Wählen Sie die von Ihnen verwendete Plattform aus (z. B. `VS Code`, `Cursor`, `Windsurf`, `OpenCode`, `Claude Code`, `GitHub Copilot Workspace` usw.).
+4. Wählen Sie den zu installierenden MCP aus (stdio, SSE).
+5. Drücken Sie die Eingabetaste.
 
 ---
 
@@ -163,7 +189,6 @@ Folgen Sie der [offiziellen Dokumentation](https://platform.openai.com/docs/mcp#
 4. Wählen Sie `MCP-Server`
 5. Klicken Sie auf `Neu hinzufügen`
 6. Füllen Sie die folgenden Felder aus:
-
    - URL: `https://mcp.intlayer.org`
    - Bezeichnung: `Intlayer MCP-Server`
    - Name: `intlayer-mcp-server`

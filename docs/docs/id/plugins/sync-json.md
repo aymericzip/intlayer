@@ -265,7 +265,7 @@ File JSON yang disinkronkan akan dianggap sebagai file `.content` lainnya. Artin
 - `intlayer content push` untuk mengirim file JSON yang disinkronkan
 - `intlayer content pull` untuk menarik file JSON yang disinkronkan
 
-Lihat [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md) untuk detail lebih lanjut.
+Lihat [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) untuk detail lebih lanjut.
 
 ## Keterbatasan (saat ini)
 

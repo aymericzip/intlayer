@@ -258,7 +258,7 @@ module.exports = config;
 
 ### Push konfigurasi Anda
 
-Untuk mengonfigurasi Intlayer CMS, Anda dapat menggunakan perintah [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/id/intlayer_cli.md).
+Untuk mengonfigurasi Intlayer CMS, Anda dapat menggunakan perintah [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/id/cli/index.md).
 
 ```bash
 npx intlayer config push
@@ -274,7 +274,7 @@ Perintah ini mengunggah konfigurasi Anda ke Intlayer CMS.
 
 ### Push kamus
 
-Untuk mengubah kamus lokal Anda menjadi kamus jarak jauh, Anda dapat menggunakan perintah [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/id/intlayer_cli.md).
+Untuk mengubah kamus lokal Anda menjadi kamus jarak jauh, Anda dapat menggunakan perintah [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/id/cli/index.md).
 
 ```bash
 npx intlayer dictionary push -d my-first-dictionary-key

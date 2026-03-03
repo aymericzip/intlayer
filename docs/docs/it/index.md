@@ -41,7 +41,7 @@ Intlayer offre un approccio flessibile e moderno per tradurre la tua applicazion
 - **[Configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md)**  
   Personalizza Intlayer per adattarlo alle esigenze del tuo progetto. Esplora le opzioni middleware, le strutture delle directory e le impostazioni avanzate.
 
-- **[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_cli.md)**
+- **[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/index.md)**
 
 Gestisci contenuti e traduzioni utilizzando il nostro strumento da linea di comando. Scopri come inviare e ricevere contenuti, automatizzare le traduzioni e altro ancora.
 

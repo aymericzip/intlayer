@@ -293,15 +293,21 @@ const processTsxFile = async (
 // 5. Main Dispatcher
 // ==========================================
 
-export type PackageName =
-  | 'next-intlayer'
-  | 'react-intlayer'
-  | 'vue-intlayer'
-  | 'svelte-intlayer'
-  | 'preact-intlayer'
-  | 'solid-intlayer'
-  | 'angular-intlayer'
-  | 'express-intlayer';
+const packageList = [
+  'next-intlayer',
+  'react-intlayer',
+  'vue-intlayer',
+  'svelte-intlayer',
+  'preact-intlayer',
+  'solid-intlayer',
+  'angular-intlayer',
+  'express-intlayer',
+  'hono-intlayer',
+  'fastify-intlayer',
+  'adonis-intlayer',
+] as const;
+
+export type PackageName = (typeof packageList)[number];
 
 export type ExtractIntlayerOptions = {
   configOptions?: GetConfigurationOptions;

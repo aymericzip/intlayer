@@ -281,7 +281,7 @@ export const installSkills = async (
   platform: Platform,
   skills: Skill[]
 ): Promise<string> => {
-  // 1. Determine destination directory
+  // Determine destination directory
   const relativeDir = PLATFORMS_METADATA[platform].dir ?? 'skills';
   const skillsBaseDir = path.join(projectRoot, relativeDir);
 

@@ -266,7 +266,7 @@ Eşzamanlanmış JSON dosyaları diğer `.content` dosyaları gibi kabul edilece
 - Eşzamanlanmış JSON dosyalarını göndermek için `intlayer content push`
 - Eşzamanlanmış JSON dosyalarını çekmek için `intlayer content pull`
 
-Daha fazla detay için [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_cli.md) sayfasına bakınız.
+Daha fazla detay için [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) sayfasına bakınız.
 
 ## Sınırlamalar (mevcut)
 

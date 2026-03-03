@@ -265,7 +265,7 @@ plugins: [
 - `intlayer content push` で同期されたJSONファイルをプッシュする
 - `intlayer content pull` で同期されたJSONファイルをプルする
 
-See [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md) for more details.
+See [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md) for more details.
 
 ## 制限事項（現状）
 

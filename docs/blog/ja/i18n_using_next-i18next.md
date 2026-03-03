@@ -1069,12 +1069,12 @@ Intlayerが可能にすること：
   Intlayerは、CI/CDパイプラインやユニットテストに統合可能なテスト機能を提供します。詳細は[翻訳のテスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/testing.md)をご覧ください。
 
 - **翻訳の自動化**  
-  Intlayerは翻訳を自動化するためのCLIとVSCode拡張機能を提供します。これらはCI/CDパイプラインに統合可能です。詳細は[翻訳の自動化について](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)をご覧ください。  
+  Intlayerは翻訳を自動化するためのCLIとVSCode拡張機能を提供します。これらはCI/CDパイプラインに統合可能です。詳細は[翻訳の自動化について](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)をご覧ください。  
   ご自身の**APIキーやお好みのAIプロバイダーを使用**できます。また、コンテキストに応じた翻訳も提供しています。詳細は[コンテンツの自動補完](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/autoFill.md)をご覧ください。
 
 - **外部コンテンツの接続**
 - **翻訳の自動化**  
-  Intlayerは翻訳を自動化するためのCLIとVSCode拡張機能を提供しています。これらはCI/CDパイプラインに統合可能です。詳細は[翻訳の自動化について](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)をご覧ください。  
+  Intlayerは翻訳を自動化するためのCLIとVSCode拡張機能を提供しています。これらはCI/CDパイプラインに統合可能です。詳細は[翻訳の自動化について](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)をご覧ください。  
   ご自身の**APIキーやお好みのAIプロバイダー**を使用することもできます。また、コンテキストに応じた翻訳も提供しています。詳しくは[コンテンツの自動補完](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/autoFill.md)をご覧ください。
 
 - **外部コンテンツの接続**  

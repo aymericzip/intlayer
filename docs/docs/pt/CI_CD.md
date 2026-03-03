@@ -93,7 +93,7 @@ npx intlayer build                          # Para garantir que os dicionários 
 npx intlayer fill --unpushed --mode fill    # Apenas preenche o conteúdo faltante, não atualiza os existentes
 ```
 
-> Para mais informações sobre os comandos CLI do Intlayer e seu uso, consulte a [documentação CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_cli.md).
+> Para mais informações sobre os comandos CLI do Intlayer e seu uso, consulte a [documentação CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md).
 
 > Se você tiver múltiplos aplicativos no seu repositório usando instâncias separadas do Intlayer, você pode usar o argumento `--base-dir` assim:
 
@@ -193,4 +193,4 @@ Para configurar as variáveis de ambiente, vá para GitHub → Configurações �
 
 > Por padrão, o argumento `--git-diff` filtra os dicionários que incluem alterações da base (padrão `origin/main`) para o branch atual (padrão: `HEAD`).
 
-> Para mais informações sobre os comandos do Intlayer CLI e seu uso, consulte a [documentação do CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_cli.md).
+> Para mais informações sobre os comandos do Intlayer CLI e seu uso, consulte a [documentação do CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md).

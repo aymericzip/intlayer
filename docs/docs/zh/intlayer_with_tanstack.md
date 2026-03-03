@@ -121,7 +121,7 @@ bunx intlayer init
 
 - **intlayer**
 
-  核心包，提供用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)，转译以及[命令行工具](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)的国际化工具。
+  核心包，提供用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)，转译以及[命令行工具](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)的国际化工具。
 
 - **react-intlayer**  
   将 Intlayer 集成到 React 应用中的包。它为 React 国际化提供上下文提供者和钩子。

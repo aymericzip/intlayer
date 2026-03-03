@@ -67,7 +67,7 @@ yarn add react react-dom react-intlayer @astrojs/react
 ```
 
 - **intlayer**
-  Yapılandırma yönetimi, çeviri, [içerik bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md), transpile etme ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_cli.md) için uluslararasılaştırma araçları sağlayan temel paket.
+  Yapılandırma yönetimi, çeviri, [içerik bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md), transpile etme ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) için uluslararasılaştırma araçları sağlayan temel paket.
 
 - **astro-intlayer**
   Astro entegrasyon eklentisini içerir; bu eklenti, Intlayer'ı [Vite paketleyici](https://vite.dev/guide/why.html#why-bundle-for-production) ile entegre etmek için kullanılır ve ayrıca kullanıcının tercih ettiği yerel dili algılamak, çerezleri yönetmek ve URL yönlendirmesini işlemek için ara yazılım sağlar.

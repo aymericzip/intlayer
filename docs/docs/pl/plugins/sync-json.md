@@ -262,7 +262,7 @@ Synchronizowane pliki JSON będą traktowane jak inne pliki `.content`. Oznacza 
 - `intlayer content push` do wysyłania synchronizowanych plików JSON
 - `intlayer content pull` do pobierania synchronizowanych plików JSON
 
-Zobacz [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_cli.md) po więcej szczegółów.
+Zobacz [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md) po więcej szczegółów.
 
 ## Ograniczenia (aktualne)
 

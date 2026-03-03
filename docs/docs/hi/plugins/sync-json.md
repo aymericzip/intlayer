@@ -265,7 +265,7 @@ plugins: [
 - `intlayer content push` सिंक किए गए JSON फ़ाइलों को पुश करने के लिए
 - `intlayer content pull` सिंक किए गए JSON फ़ाइलों को पुल करने के लिए
 
-अधिक जानकारी के लिए [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_cli.md) देखें।
+अधिक जानकारी के लिए [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md) देखें।
 
 ## सीमाएँ (वर्तमान)
 

@@ -265,7 +265,7 @@ Les fichiers JSON synchronisés seront considérés comme d'autres fichiers `.co
 - `intlayer content push` pour pousser les fichiers JSON synchronisés
 - `intlayer content pull` pour récupérer les fichiers JSON synchronisés
 
-Voir [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_cli.md) pour plus de détails.
+Voir [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md) pour plus de détails.
 
 ## Limitations (actuelles)
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-02-09
-updatedAt: 2026-02-12
+updatedAt: 2026-03-03
 title: Keterampilan Agen
 description: Pelajari cara menggunakan Intlayer Agent Skills untuk meningkatkan pemahaman agen AI Anda terhadap proyek Anda, termasuk panduan pengaturan komprehensif untuk Metadata, Sitemaps, dan Server Actions.
 keywords:
@@ -20,26 +20,84 @@ history:
 
 # Keterampilan Agen
 
-## Perintah `intlayer init skills`
+## Penyiapan
 
-Perintah `intlayer init skills` adalah cara termudah untuk mengatur agent skills di proyek Anda. Perintah ini mendeteksi lingkungan Anda dan menginstal file konfigurasi yang diperlukan untuk platform pilihan Anda.
+### Menggunakan CLI
+
+Perintah `intlayer init skills` adalah cara termudah untuk mengatur keterampilan agen di proyek Anda. Perintah ini mendeteksi lingkungan Anda dan menginstal file konfigurasi yang diperlukan untuk platform pilihan Anda.
 
 ```bash
 npx intlayer init skills
 ```
 
-Atau menggunakan Vercel Skill SDK
+### Menggunakan SDK Vercel Skill
 
 ```bash
 npx skills add aymericzip/intlayer-skills
 ```
 
-Saat Anda menjalankan perintah ini, perintah tersebut akan:
+### Menggunakan ekstensi VS Code
 
-1.  Mendeteksi framework yang Anda gunakan (mis. Next.js, React, Vite).
-2.  Menanyakan platform mana yang ingin Anda pasang skills-nya (Cursor, Windsurf, VS Code, OpenCode, Claude Code, GitHub Copilot Workspace, dll.).
-3.  Menghasilkan file konfigurasi yang diperlukan (seperti `.cursor/skills/intlayer-next-js/SKILL.md`, `.windsurf/skills/intlayer-next-js/SKILL.md`, `.opencode/skills/intlayer-next-js/SKILL.md`, `.vscode/mcp.json`, dll.).
+1. Buka Command Palette (Ctrl+Shift+P atau Cmd+Shift+P).
+2. Ketik `Intlayer: Setup AI Agent Skills`
+3. Pilih platform yang Anda gunakan (misalnya `VS Code`, `Cursor`, `Windsurf`, `OpenCode`, `Claude Code`, `GitHub Copilot Workspace`, dll.).
+4. Pilih Keterampilan yang ingin Anda instal (misalnya `Next.js`, `React`, `Vite`, `Compiler`, `Configuration`).
+5. Tekan Enter.
 
-## Platform yang Didukung
+## Daftar Keterampilan
 
-Intlayer menyediakan dokumentasi khusus kerangka kerja (Pengaturan, Penggunaan, Metadata, Sitemap, Server Actions, dll.) untuk membantu agen AI memahami cara bekerja dengan Intlayer di proyek spesifik Anda. Keterampilan ini dirancang untuk memandu agen melalui kerumitan internasionalisasi, memastikannya mengikuti pola dan praktik terbaik yang benar.
+**intlayer-config**
+
+- Memberdayakan agen untuk memahami pengaturan i18n spesifik proyek Anda, memungkinkan agen untuk mengonfigurasi lokal, pola perutean, dan strategi fallback secara akurat.
+
+**intlayer-cli**
+
+- Memungkinkan agen untuk mengelola siklus hidup terjemahan Anda secara mandiri, termasuk mengaudit terjemahan yang hilang, membangun kamus, dan menyelaraskan konten melalui baris perintah.
+
+**intlayer-angular**
+
+- Membekali agen dengan keahlian khusus kerangka kerja untuk menerapkan pola i18n reaktif dan sinyal dengan benar sesuai dengan praktik terbaik Angular.
+
+**intlayer-astro**
+
+- Memberikan pengetahuan kepada agen untuk menangani terjemahan sisi server dan pola perutean lokal yang unik untuk ekosistem Astro.
+
+**intlayer-content**
+
+- Mengajarkan agen cara memanfaatkan simpul konten tingkat lanjut—seperti pluralisasi, kondisi, dan markdown—untuk membangun kamus yang kaya, dinamis, dan terlokalisasi.
+
+**intlayer-next-js**
+
+- Memberikan kedalaman bagi agen untuk menerapkan i18n di seluruh komponen Server dan Client Next.js, memastikan pengoptimalan SEO dan perutean lokal yang mulus.
+
+**intlayer-react**
+
+- Memberikan pengetahuan khusus bagi agen untuk menerapkan komponen dan hook i18n deklaratif secara efisien dalam lingkungan berbasis React apa pun.
+
+**intlayer-preact**
+
+- Mengoptimalkan kemampuan agen untuk menerapkan i18n bagi Preact, memungkinkannya menulis komponen lokal yang ringan menggunakan sinyal dan pola reaktif yang efisien.
+
+**intlayer-solid**
+
+- Memungkinkan agen untuk memanfaatkan reaktivitas halus SolidJS untuk manajemen konten lokal berkinerja tinggi.
+
+**intlayer-svelte**
+
+- Mengajarkan agen untuk menggunakan store Svelte dan sintaksis idiomatik untuk konten lokal yang reaktif dan aman secara tipe di seluruh aplikasi Svelte dan SvelteKit.
+
+**intlayer-cms**
+
+- Memungkinkan agen untuk mengintegrasikan dan mengelola konten jarak jauh, memungkinkannya menangani penyelarasan langsung dan alur kerja terjemahan jarak jauh melalui CMS Intlayer.
+
+**intlayer-usage**
+
+- Menstandardisasi pendekatan agen terhadap struktur proyek dan deklarasi konten, memastikannya mengikuti alur kerja yang paling efisien untuk proyek i18n Anda.
+
+**intlayer-vue**
+
+- Membekali agen dengan pola khusus Vue—termasuk Composable dan dukungan Nuxt—untuk membangun aplikasi web modern dan terlokalisasi.
+
+**intlayer-compiler**
+
+- Menyederhanakan alur kerja agen dengan mengaktifkan ekstraksi konten otomatis, memungkinkannya menulis string yang dapat diterjemahkan langsung dalam kode Anda tanpa file kamus manual.

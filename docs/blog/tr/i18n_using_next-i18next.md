@@ -1069,12 +1069,12 @@ Intlayer size şunları sağlar:
   Intlayer, CI/CD pipeline'ınıza veya birim testlerinize entegre edilebilen test fonksiyonları sağlar. Çevirilerinizi test etmek hakkında daha fazla bilgi için [buraya bakın](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/testing.md).
 
 - **Çevirilerinizi otomatikleştirin**,
-  Intlayer, çevirilerinizi otomatikleştirmek için bir CLI ve bir VSCode eklentisi sağlar. Bu, CI/CD pipeline'ınıza entegre edilebilir. Çevirilerinizi otomatikleştirme hakkında daha fazla bilgi edinin: [çevirilerinizi otomatikleştirme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_cli.md).
+  Intlayer, çevirilerinizi otomatikleştirmek için bir CLI ve bir VSCode eklentisi sağlar. Bu, CI/CD pipeline'ınıza entegre edilebilir. Çevirilerinizi otomatikleştirme hakkında daha fazla bilgi edinin: [çevirilerinizi otomatikleştirme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md).
   Kendi **API anahtarınızı ve tercih ettiğiniz AI sağlayıcısını** kullanabilirsiniz. Ayrıca bağlama duyarlı çeviriler sağlar, bkz. [içerik doldurma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/autoFill.md).
 
 - **Dış içerik bağlayın**
 - **Çevirilerinizi otomatikleştirin**,  
-  Intlayer, çevirilerinizi otomatikleştirmek için bir CLI ve bir VSCode eklentisi sağlar. Bunlar CI/CD pipeline'ınıza entegre edilebilir. [Çevirilerinizi otomatikleştirme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_cli.md) hakkında daha fazla bilgi edinin.  
+  Intlayer, çevirilerinizi otomatikleştirmek için bir CLI ve bir VSCode eklentisi sağlar. Bunlar CI/CD pipeline'ınıza entegre edilebilir. [Çevirilerinizi otomatikleştirme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) hakkında daha fazla bilgi edinin.  
   Kendi **API anahtarınızı ve tercih ettiğiniz AI sağlayıcısını** kullanabilirsiniz. Ayrıca bağlama duyarlı çeviriler sağlar, bkz. [içerik doldurma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/autoFill.md).
 
 - **Dış içerik bağlayın**  

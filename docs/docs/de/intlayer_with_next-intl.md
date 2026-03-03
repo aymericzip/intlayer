@@ -453,9 +453,9 @@ Hinweise:
 - `intlayer fill`: Verwendet Ihren AI-Anbieter, um fehlende Übersetzungen basierend auf Ihren konfigurierten Sprachen zu ergänzen.
 - `intlayer test`: Überprüft fehlende oder ungültige Übersetzungen (ideal für den Einsatz in CI).
 
-Sie können Argumente und Anbieter konfigurieren; siehe [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md).
+Sie können Argumente und Anbieter konfigurieren; siehe [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md).
 
 - `intlayer fill`: verwendet Ihren KI-Anbieter, um fehlende Übersetzungen basierend auf Ihren konfigurierten Sprachversionen zu ergänzen.
 - `intlayer test`: überprüft fehlende/ungültige Übersetzungen (verwenden Sie es im CI).
 
-Sie können Argumente und Anbieter konfigurieren; siehe [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md).
+Sie können Argumente und Anbieter konfigurieren; siehe [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md).

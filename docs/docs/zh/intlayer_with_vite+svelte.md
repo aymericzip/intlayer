@@ -88,7 +88,7 @@ bunx intlayer init
 
 - **intlayer**
 
-  核心包，提供国际化工具，用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、转译以及[CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)。
+  核心包，提供国际化工具，用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、转译以及[CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。
 
 - **svelte-intlayer**
   将 Intlayer 与 Svelte 应用程序集成的包。它提供了用于 Svelte 国际化的上下文提供者和钩子。

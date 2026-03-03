@@ -528,6 +528,6 @@ export const LocaleSwitcher: FC = () => {
 
 - **المحرر المرئي**: استخدم [المحرر المرئي لـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) لإدارة الترجمات بشكل مرئي.
 - **تكامل CMS**: يمكنك أيضًا استخراج محتوى قاموسك وجلبه من [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
-- **أوامر CLI**: استكشف [CLI الخاص بـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md) للمهام مثل **استخراج الترجمات** أو **التحقق من المفاتيح المفقودة**.
+- **أوامر CLI**: استكشف [CLI الخاص بـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) للمهام مثل **استخراج الترجمات** أو **التحقق من المفاتيح المفقودة**.
 
 ---

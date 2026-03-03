@@ -616,7 +616,7 @@ export default config;
 - CI에서 `pnpm i18n:test`를 실행하여 누락된 키가 있을 경우 빌드 실패 처리
 - 로컬에서 `pnpm i18n:fill`을 실행하여 새로 추가된 키에 대해 AI 번역 제안 받기
 
-> CLI 인수를 제공할 수 있습니다; 자세한 내용은 [Intlayer CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_cli.md)를 참조하세요.
+> CLI 인수를 제공할 수 있습니다; 자세한 내용은 [Intlayer CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)를 참조하세요.
 
 ---
 

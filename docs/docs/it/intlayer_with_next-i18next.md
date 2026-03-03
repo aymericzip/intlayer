@@ -617,7 +617,7 @@ Flussi comuni:
 - `pnpm i18n:test` in CI per far fallire le build in caso di chiavi mancanti
 - `pnpm i18n:fill` in locale per proporre traduzioni AI per le chiavi appena aggiunte
 
-> Puoi fornire argomenti CLI; consulta la [documentazione CLI di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_cli.md).
+> Puoi fornire argomenti CLI; consulta la [documentazione CLI di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/index.md).
 
 ---
 

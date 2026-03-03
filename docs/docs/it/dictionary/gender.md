@@ -266,7 +266,7 @@ module.exports = GenderComponent;
 
 Per informazioni più dettagliate sulla configurazione e l'uso, consulta le seguenti risorse:
 
-- [Documentazione Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_cli.md)
+- [Documentazione Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/index.md)
 - [Documentazione React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_create_react_app.md)
 - [Documentazione Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_with_nextjs_15.md)
 

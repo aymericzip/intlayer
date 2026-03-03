@@ -338,4 +338,4 @@ console.log(JSON.stringify(intlayer, null, 2));
 
 ### Pembuatan Terjemahan Otomatis
 
-Gunakan [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md) untuk mengisi otomatis terjemahan yang hilang berdasarkan layanan yang Anda pilih.
+Gunakan [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) untuk mengisi otomatis terjemahan yang hilang berdasarkan layanan yang Anda pilih.

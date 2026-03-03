@@ -88,7 +88,7 @@ bunx intlayer init
 
 - **intlayer**
 
-  Konfigürasyon yönetimi, çeviri, [içerik bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md), transpile etme ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_cli.md) için uluslararasılaştırma araçları sağlayan temel paket.
+  Konfigürasyon yönetimi, çeviri, [içerik bildirimi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md), transpile etme ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) için uluslararasılaştırma araçları sağlayan temel paket.
 
 - **svelte-intlayer**
   Intlayer'ı Svelte uygulamasıyla entegre eden paket. Svelte uluslararasılaştırması için context sağlayıcıları ve hook'lar sunar.

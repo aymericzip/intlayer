@@ -149,7 +149,7 @@ Intlayerは、現代のウェブ開発のニーズに応える多彩な機能を
 - **国際化サポート**：組み込みの国際化サポートで、アプリケーションのグローバル展開を強化します。
 - **ビジュアルエディター**：Intlayer専用のエディタープラグインで開発ワークフローを改善します。[ビジュアルエディターガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)をご覧ください。
 - **設定の柔軟性**: 詳細な設定オプションを使ってセットアップをカスタマイズしましょう。詳しくは[設定ガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)をご覧ください。
-- **高度なCLIツール**: Intlayerのコマンドラインインターフェースを使ってプロジェクトを効率的に管理しましょう。機能の詳細は[CLIツールのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)で確認できます。
+- **高度なCLIツール**: Intlayerのコマンドラインインターフェースを使ってプロジェクトを効率的に管理しましょう。機能の詳細は[CLIツールのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)で確認できます。
 
 ## コアコンセプト
 

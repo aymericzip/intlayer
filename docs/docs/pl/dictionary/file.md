@@ -225,7 +225,7 @@ Funkcja `file` opiera się na module `fs` Node.js, aby odczytać zawartość okr
 
 Aby uzyskać więcej informacji na temat konfigurowania i używania osadzania plików w Intlayer, zapoznaj się z następującymi zasobami:
 
-- [Dokumentacja Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_cli.md)
+- [Dokumentacja Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md)
 - [Dokumentacja React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_create_react_app.md)
 - [Dokumentacja Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_15.md)
 - [Dokumentacja zawartości Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/markdown.md)

@@ -265,7 +265,7 @@ plugins: [
 - `intlayer content push` لدفع ملفات JSON المتزامنة
 - `intlayer content pull` لسحب ملفات JSON المتزامنة
 
-راجع [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md) لمزيد من التفاصيل.
+راجع [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) لمزيد من التفاصيل.
 
 ## القيود (الحالية)
 

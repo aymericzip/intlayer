@@ -617,7 +617,7 @@ Flujos comunes:
 - `pnpm i18n:test` en CI para fallar la compilación si faltan keys
 - `pnpm i18n:fill` localmente para proponer traducciones con IA para keys recién añadidas
 
-> Puedes proporcionar argumentos CLI; consulta la [documentación CLI de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_cli.md).
+> Puedes proporcionar argumentos CLI; consulta la [documentación CLI de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/index.md).
 
 ---
 

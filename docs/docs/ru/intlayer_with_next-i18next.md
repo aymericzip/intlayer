@@ -618,7 +618,7 @@ export default config;
 - `pnpm i18n:test` в CI для прерывания сборки при отсутствии ключей
 - `pnpm i18n:fill` локально для предложения AI-переводов для недавно добавленных ключей
 
-> Вы можете передавать аргументы CLI; смотрите [документацию Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_cli.md).
+> Вы можете передавать аргументы CLI; смотрите [документацию Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md).
 
 ---
 

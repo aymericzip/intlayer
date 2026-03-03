@@ -528,6 +528,6 @@ Intlayerでの開発体験を向上させるために、公式の**Intlayer VS C
 
 - **ビジュアルエディター**: [Intlayerビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を使用して翻訳を視覚的に管理します。
 - **CMS統合**: 辞書コンテンツを[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)から外部化して取得することもできます。
-- **CLIコマンド**: [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)を使用して、**翻訳の抽出**や**欠落キーの確認**などのタスクを実行します。
+- **CLIコマンド**: [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)を使用して、**翻訳の抽出**や**欠落キーの確認**などのタスクを実行します。
 
 ---

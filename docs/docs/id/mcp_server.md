@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2025-07-11
+updatedAt: 2026-03-03
 title: Dokumentasi Server MCP
 description: Jelajahi fitur dan pengaturan Server MCP untuk mengoptimalkan manajemen dan operasi server Anda.
 keywords:
@@ -49,7 +49,7 @@ Dengan mengaktifkan Intlayer MCP Server di IDE Anda, Anda membuka:
 - **Integrasi CLI Cerdas**  
   Akses dan jalankan perintah Intlayer CLI langsung dari antarmuka IDE Anda. Dengan menggunakan server MCP, Anda dapat membiarkan asisten AI Anda menjalankan perintah seperti `intlayer dictionaries build` untuk memperbarui kamus Anda, atau `intlayer dictionaries fill` untuk mengisi terjemahan yang hilang.
 
-> Lihat daftar lengkap perintah dan opsi di [dokumentasi Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md).
+> Lihat daftar lengkap perintah dan opsi di [dokumentasi Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md).
 
 ## Server lokal (stdio) vs Server jarak jauh (SSE)
 
@@ -71,6 +71,32 @@ Server MCP juga dapat digunakan secara jarak jauh, menggunakan metode transport 
 Perlu dicatat bahwa server jarak jauh tidak mengintegrasikan alat CLI, autocompletion AI, dll. Server jarak jauh hanya untuk interaksi dengan dokumentasi guna membantu asisten AI Anda dengan ekosistem Intlayer.
 
 > Karena biaya hosting server, ketersediaan server jarak jauh tidak dapat dijamin. Kami membatasi jumlah koneksi simultan. Kami merekomendasikan menggunakan metode transport server lokal (stdio) untuk pengalaman yang paling andal.
+
+---
+
+## Setup melalui CLI Intlayer (disarankan)
+
+Intlayer menyediakan perintah CLI untuk secara otomatis mengonfigurasi server MCP di proyek Anda.
+
+```bash
+npx intlayer init mcp
+```
+
+Perintah ini akan:
+
+1. Menanyakan platform apa yang Anda gunakan (Cursor, VS Code, Claude Desktop, dll.).
+2. Menanyakan metode transportasi apa yang ingin Anda gunakan (Server lokal (stdio) atau Server jarak jauh (SSE)).
+3. Secara otomatis memperbarui file konfigurasi Anda (misalnya, `.cursor/mcp.json`, `.vscode/mcp.json`, atau konfigurasi global Claude Desktop).
+
+---
+
+## Setup via Intlayer VS Code extension
+
+1. Buka Command Palette (Ctrl+Shift+P atau Cmd+Shift+P).
+2. Ketik `Intlayer: Setup AI Agent Skills`
+3. Pilih platform yang Anda gunakan (mis. `VS Code`, `Cursor`, `Windsurf`, `OpenCode`, `Claude Code`, `GitHub Copilot Workspace`, dll.).
+4. Pilih MCP yang akan diinstal (stdio, SSE)
+5. Tekan Enter.
 
 ---
 

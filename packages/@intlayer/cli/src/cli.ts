@@ -17,6 +17,7 @@ import { startEditor } from './editor';
 import { extract } from './extract';
 import { type FillOptions, fill } from './fill/fill';
 import { init } from './init';
+import { initMCP } from './initMCP';
 import { initSkills } from './initSkills';
 import { listContentDeclaration } from './listContentDeclaration';
 import { listProjectsCommand } from './listProjects';
@@ -318,6 +319,12 @@ export const setAPI = (): Command => {
     .description('Initialize Intlayer skills in the project')
     .option('--project-root [projectRoot]', 'Project root directory')
     .action((options) => initSkills(options.projectRoot));
+
+  initCmd
+    .command('mcp')
+    .description('Initialize Intlayer MCP server in the project')
+    .option('--project-root [projectRoot]', 'Project root directory')
+    .action((options) => initMCP(options.projectRoot));
 
   /**
    * DICTIONARIES

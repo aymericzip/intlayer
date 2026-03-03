@@ -453,4 +453,4 @@ Catatan:
 - `intlayer fill`: menggunakan penyedia AI Anda untuk mengisi terjemahan yang hilang berdasarkan locale yang telah Anda konfigurasikan.
 - `intlayer test`: memeriksa terjemahan yang hilang/tidak valid (gunakan dalam CI).
 
-Anda dapat mengonfigurasi argumen dan penyedia; lihat [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md).
+Anda dapat mengonfigurasi argumen dan penyedia; lihat [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md).

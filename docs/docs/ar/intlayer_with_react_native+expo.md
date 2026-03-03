@@ -656,7 +656,7 @@ const styles = StyleSheet.create({
 
 - **المحرر المرئي**: استخدم [المحرر المرئي لـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) لإدارة الترجمات بشكل بصري.
 - **تكامل نظام إدارة المحتوى (CMS)**: يمكنك أيضًا تعهيد واستيراد محتوى القاموس الخاص بك من خلال [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
-- **أوامر سطر الأوامر (CLI)**: استكشف [أدوات سطر الأوامر لـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md) للمهام مثل **استخراج الترجمات** أو **التحقق من المفاتيح المفقودة**.
+- **أوامر سطر الأوامر (CLI)**: استكشف [أدوات سطر الأوامر لـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) للمهام مثل **استخراج الترجمات** أو **التحقق من المفاتيح المفقودة**.
 
 استمتع ببناء تطبيقات **React Native** الخاصة بك مع دعم كامل للترجمة الدولية (i18n) من خلال **Intlayer**!
 

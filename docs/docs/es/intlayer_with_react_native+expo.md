@@ -657,7 +657,7 @@ Para más detalles sobre cómo usar la extensión, consulta la [documentación d
 
 - **Editor Visual**: Usa el [Editor Visual de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) para gestionar las traducciones visualmente.
 - **Integración con CMS**: También puedes externalizar y obtener el contenido de tu diccionario desde un [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
-- **Comandos CLI**: Explora el [CLI de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_cli.md) para tareas como **extraer traducciones** o **verificar claves faltantes**.
+- **Comandos CLI**: Explora el [CLI de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/index.md) para tareas como **extraer traducciones** o **verificar claves faltantes**.
 
 ¡Disfruta construyendo tus aplicaciones **React Native** con i18n completamente potenciado a través de **Intlayer**!
 

@@ -453,4 +453,4 @@ Notlar:
 - `intlayer fill`: yapılandırdığınız yerel ayarlara göre eksik çevirileri doldurmak için AI sağlayıcınızı kullanır.
 - `intlayer test`: eksik/geçersiz çevirileri kontrol eder (CI'da kullanın).
 
-Argümanları ve sağlayıcıları yapılandırabilirsiniz; bkz. [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_cli.md).
+Argümanları ve sağlayıcıları yapılandırabilirsiniz; bkz. [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md).

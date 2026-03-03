@@ -93,7 +93,7 @@ npx intlayer build                          # 确保词典是最新的
 npx intlayer fill --unpushed --mode fill    # 仅填充缺失内容，不更新已有内容
 ```
 
-> 有关 Intlayer CLI 命令及其用法的更多信息，请参阅 [CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)。
+> 有关 Intlayer CLI 命令及其用法的更多信息，请参阅 [CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。
 
 > 如果您的仓库中有多个应用使用独立的 intlayer 实例，可以使用 `--base-dir` 参数，如下所示：
 
@@ -193,4 +193,4 @@ jobs:
 
 > 默认情况下，`--git-diff` 参数会筛选包含从基线（默认 `origin/main`）到当前分支（默认 `HEAD`）的更改的字典。
 
-> 有关 Intlayer CLI 命令及其用法的更多信息，请参阅 [CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)。
+> 有关 Intlayer CLI 命令及其用法的更多信息，请参阅 [CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2025-07-11
+updatedAt: 2026-03-03
 title: MCP Server Documentation
 description: Explore the features and setup of the MCP Server to optimize your server management and operations.
 keywords:
@@ -71,6 +71,32 @@ The MCP server can also be used remotely, using the SSE transport method. This s
 Note that the remote server does not integrate CLI tools, AI autocompletion, etc. The distant server is only for interaction with the documentation to help your AI assistant with the Intlayer ecosystem.
 
 > Due to server hosting costs, the availability of the remote server cannot be guaranteed. We limit the number of simultaneous connections. We recommend using the local server (stdio) transport method for the most reliable experience.
+
+---
+
+## Setup via Intlayer CLI (recommended)
+
+Intlayer provides a CLI command to automatically configure the MCP server in your project.
+
+```bash
+npx intlayer init mcp
+```
+
+This command will:
+
+1. Ask you which platform you are using (Cursor, VS Code, Claude Desktop, etc.).
+2. Ask you which transport method you want to use (Local server (stdio) or Remote server (SSE)).
+3. Automatically update your configuration file (e.g., `.cursor/mcp.json`, `.vscode/mcp.json`, or the global Claude Desktop config).
+
+---
+
+## Setup via Intlayer VS Code extension
+
+1. Open the Command Palette (Ctrl+Shift+P or Cmd+Shift+P).
+2. Type `Intlayer: Setup AI Agent Skills`
+3. Pick the platform you use (e.g. `VS Code`, `Cursor`, `Windsurf`, `OpenCode`, `Claude Code`, `GitHub Copilot Workspace`, etc.).
+4. Pick the MCP to install (stdio, SSE)
+5. Press Enter.
 
 ---
 
@@ -207,5 +233,3 @@ npm install -g @intlayer/mcp
 # Or use directly with npx (recommended)
 npx @intlayer/mcp
 ```
-
----

@@ -150,7 +150,7 @@ Intlayer offre une variété de fonctionnalités adaptées aux besoins du dével
 - **Support de l'internationalisation** : Améliorez la portée mondiale de votre application grâce au support intégré de l'internationalisation.
 - **Éditeur visuel** : Améliorez votre flux de développement avec des plugins d'éditeur conçus pour Intlayer. Consultez le [Guide de l'éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md).
 - **Flexibilité de configuration** : Personnalisez votre configuration avec de nombreuses options détaillées dans le [Guide de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
-- **Outils CLI avancés** : Gérez vos projets efficacement grâce à l'interface en ligne de commande d'Intlayer. Découvrez les fonctionnalités dans la [Documentation des outils CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_cli.md).
+- **Outils CLI avancés** : Gérez vos projets efficacement grâce à l'interface en ligne de commande d'Intlayer. Découvrez les fonctionnalités dans la [Documentation des outils CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md).
 
 ## Concepts clés
 

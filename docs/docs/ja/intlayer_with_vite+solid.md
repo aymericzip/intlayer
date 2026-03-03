@@ -102,7 +102,7 @@ bunx intlayer init
 
 - **intlayer**
 
-  国際化のための設定管理、翻訳、[コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)、トランスパイル、および[CLIコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)のツールを提供するコアパッケージ。
+  国際化のための設定管理、翻訳、[コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)、トランスパイル、および[CLIコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)のツールを提供するコアパッケージ。
 
 - **solid-intlayer**
   IntlayerをSolidアプリケーションと統合するパッケージです。Solidの国際化のためのコンテキストプロバイダーとフックを提供します。

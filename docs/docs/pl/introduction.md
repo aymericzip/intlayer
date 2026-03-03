@@ -138,7 +138,7 @@ Intlayer oferuje szereg funkcji dostosowanych do potrzeb nowoczesnego tworzenia 
 - **Wsparcie dla internacjonalizacji**: Zwiększ globalny zasięg swojej aplikacji dzięki wbudowanemu wsparciu dla internacjonalizacji.
 - **Edytor wizualny**: Ulepsz swój proces tworzenia dzięki wtyczkom do edytorów zaprojektowanym dla Intlayer. Sprawdź [Przewodnik po edytorze wizualnym](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md).
 - **Elastyczność konfiguracji**: Dostosuj swoje środowisko za pomocą rozbudowanych opcji konfiguracyjnych opisanych w [Przewodniku po konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
-- **Zaawansowane narzędzia CLI**: Zarządzaj swoimi projektami efektywnie, korzystając z interfejsu wiersza poleceń Intlayer. Poznaj możliwości w [Dokumentacji narzędzi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_cli.md).
+- **Zaawansowane narzędzia CLI**: Zarządzaj swoimi projektami efektywnie, korzystając z interfejsu wiersza poleceń Intlayer. Poznaj możliwości w [Dokumentacji narzędzi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md).
 
 ## Podstawowe koncepcje
 

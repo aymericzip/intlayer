@@ -228,7 +228,7 @@ Fungsi `file` didasarkan pada modul `fs` Node.js untuk membaca konten file yang 
 
 Untuk detail lebih lanjut tentang konfigurasi dan penggunaan penyematan file di Intlayer, lihat sumber daya berikut:
 
-- [Dokumentasi Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md)
+- [Dokumentasi Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md)
 - [Dokumentasi React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_create_react_app.md)
 - [Dokumentasi Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_15.md)
 - [Dokumentasi Konten Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/markdown.md)

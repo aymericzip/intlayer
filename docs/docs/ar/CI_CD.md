@@ -93,7 +93,7 @@ npx intlayer build                          # لضمان تحديث القوام
 npx intlayer fill --unpushed --mode fill    # ملء المحتوى المفقود فقط، لا يقوم بتحديث المحتويات الموجودة
 ```
 
-> لمزيد من المعلومات حول أوامر Intlayer CLI وكيفية استخدامها، راجع [توثيق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md).
+> لمزيد من المعلومات حول أوامر Intlayer CLI وكيفية استخدامها، راجع [توثيق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md).
 
 > إذا كان لديك عدة تطبيقات في مستودعك تستخدم نسخ منفصلة من intlayer، يمكنك استخدام الوسيط `--base-dir` كما يلي:
 
@@ -193,4 +193,4 @@ jobs:
 
 > بشكل افتراضي، تقوم الوسيطة `--git-diff` بتصفية القواميس التي تتضمن تغييرات من القاعدة (الافتراضية `origin/main`) إلى الفرع الحالي (الافتراضي: `HEAD`).
 
-> لمزيد من المعلومات حول أوامر Intlayer CLI وكيفية استخدامها، راجع [توثيق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md).
+> لمزيد من المعلومات حول أوامر Intlayer CLI وكيفية استخدامها، راجع [توثيق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md).

@@ -286,7 +286,7 @@ Intlayer obsługuje **TypeScript** (również JavaScript) oraz **JSON** do dekla
 
 > Zasoby:
 >
-> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_cli.md)
+> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md)
 
 ---
 

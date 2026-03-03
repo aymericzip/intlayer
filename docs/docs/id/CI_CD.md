@@ -95,7 +95,7 @@ npx intlayer build                          # Untuk memastikan kamus sudah diper
 npx intlayer fill --unpushed --mode fill    # Hanya mengisi konten yang hilang, tidak memperbarui yang sudah ada
 ```
 
-> Untuk informasi lebih lanjut tentang perintah Intlayer CLI dan penggunaannya, lihat [dokumentasi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md).
+> Untuk informasi lebih lanjut tentang perintah Intlayer CLI dan penggunaannya, lihat [dokumentasi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md).
 
 > Jika Anda memiliki beberapa aplikasi dalam repo Anda yang menggunakan instance intlayer terpisah, Anda dapat menggunakan argumen `--base-dir` seperti ini:
 
@@ -195,4 +195,4 @@ Untuk mengatur variabel lingkungan, buka GitHub → Settings → Secrets and var
 
 > Secara default, argumen `--git-diff` memfilter kamus yang mencakup perubahan dari basis (default `origin/main`) ke cabang saat ini (default: `HEAD`).
 
-> Untuk informasi lebih lanjut tentang perintah Intlayer CLI dan penggunaannya, lihat [dokumentasi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md).
+> Untuk informasi lebih lanjut tentang perintah Intlayer CLI dan penggunaannya, lihat [dokumentasi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md).
