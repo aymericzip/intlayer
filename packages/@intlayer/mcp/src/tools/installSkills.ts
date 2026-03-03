@@ -1,45 +1,7 @@
 import * as readline from 'node:readline';
-import { installSkills, SKILLS, type Skill } from '@intlayer/cli';
+import { installSkills, PLATFORMS, SKILLS, type Skill } from '@intlayer/cli';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import z from 'zod';
-
-const PLATFORMS = [
-  'Cursor',
-  'Windsurf',
-  'Trae',
-  'OpenCode',
-  'GitHub',
-  'Claude',
-  'VSCode',
-  'Antigravity',
-  'Augment',
-  'OpenClaw',
-  'Cline',
-  'CodeBuddy',
-  'CommandCode',
-  'Continue',
-  'Crush',
-  'Droid',
-  'Goose',
-  'Junie',
-  'IFlow',
-  'KiloCode',
-  'Kiro',
-  'Kode',
-  'MCPJam',
-  'MistralVibe',
-  'Mux',
-  'OpenHands',
-  'Pi',
-  'Qoder',
-  'Qwen',
-  'RooCode',
-  'TraeCN',
-  'Zencoder',
-  'Neovate',
-  'Pochi',
-  'Other',
-] as const;
 
 export const loadInstallSkillsTool = (server: McpServer): void => {
   server.registerTool(
@@ -50,43 +12,7 @@ export const loadInstallSkillsTool = (server: McpServer): void => {
         'Install Intlayer documentation and skills to the project to assist AI agents. Ask the user for the platform (Cursor, VSCode, OpenCode, Claude, etc.) and which skills they want to install before calling this tool.',
       inputSchema: {
         platform: z
-          .enum([
-            'Cursor',
-            'Windsurf',
-            'Trae',
-            'OpenCode',
-            'GitHub',
-            'Claude',
-            'VSCode',
-            'Antigravity',
-            'Augment',
-            'OpenClaw',
-            'Cline',
-            'CodeBuddy',
-            'CommandCode',
-            'Continue',
-            'Crush',
-            'Droid',
-            'Goose',
-            'Junie',
-            'IFlow',
-            'KiloCode',
-            'Kiro',
-            'Kode',
-            'MCPJam',
-            'MistralVibe',
-            'Mux',
-            'OpenHands',
-            'Pi',
-            'Qoder',
-            'Qwen',
-            'RooCode',
-            'TraeCN',
-            'Zencoder',
-            'Neovate',
-            'Pochi',
-            'Other',
-          ])
+          .enum(PLATFORMS)
           .describe('The platform to install skills for'),
         skills: z.array(z.enum(SKILLS)).describe('List of skills to install'),
         projectRoot: z
@@ -97,6 +23,7 @@ export const loadInstallSkillsTool = (server: McpServer): void => {
           ),
       },
     },
+
     async ({ platform, skills, projectRoot }) => {
       try {
         const root = projectRoot || process.cwd();
