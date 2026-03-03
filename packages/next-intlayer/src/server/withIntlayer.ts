@@ -123,7 +123,7 @@ const getPruneConfig = (
             ANSIColors.GREY
           ),
           colorize(
-            'https://intlayer.org/docs/en/bundle_optimization',
+            'https://intlayer.org/docs/bundle-optimization',
             ANSIColors.GREY_LIGHT
           ),
         ]);
