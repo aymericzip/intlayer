@@ -52,11 +52,11 @@ let pendingRefresh: Promise<void> | undefined;
  * The returned API matches the shape of getIntlayerAPI.
  */
 export const getIntlayerAPIProxy = (
-  _baseAuthOptions: FetcherOptions = {},
+  baseAuthOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ): IntlayerAPI => {
   // Use a shared mutable auth options object captured by the API closures
-  const authOptionsRef: FetcherOptions = { ..._baseAuthOptions };
+  const authOptionsRef: FetcherOptions = { ...baseAuthOptions };
   const hasCMSAuth =
     intlayerConfig?.editor?.clientId && intlayerConfig?.editor?.clientSecret;
   const baseApi = getIntlayerAPI(authOptionsRef, intlayerConfig);
@@ -148,7 +148,6 @@ export const getIntlayerAPIProxy = (
     editor: wrapSection(baseApi.editor),
     newsletter: wrapSection(baseApi.newsletter),
     github: wrapSection(baseApi.github),
-    audit: wrapSection(baseApi.audit),
   } as IntlayerAPI;
 };
 
