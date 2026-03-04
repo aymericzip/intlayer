@@ -32,8 +32,6 @@ export const watchContentDeclaration = async (options?: WatchOptions) => {
     });
   }
 
-  appLogger('Watching Intlayer content declarations');
-
   // Capture the watcher instance
   const watcher = watch({
     persistent: true,

@@ -62,6 +62,10 @@ export const watch = (options?: WatchOptions) => {
     ...(configurationFilePath ? [configurationFilePath] : []),
   ];
 
+  if (!configuration.content.watch) return;
+
+  appLogger('Watching Intlayer content declarations');
+
   return chokidarWatch(pathsToWatch, {
     persistent: isWatchMode, // Make the watcher persistent
     ignoreInitial: true, // Process existing files
@@ -199,9 +203,6 @@ export const buildAndWatchIntlayer = async (options?: WatchOptions) => {
   }
 
   if (configuration.content.watch || options?.persistent) {
-    const appLogger = getAppLogger(configuration);
-
-    appLogger('Watching Intlayer content declarations');
     watch({ ...rest, configuration });
   }
 };

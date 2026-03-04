@@ -8,7 +8,6 @@ import {
 } from '@intlayer/babel';
 import {
   buildDictionary,
-  prepareIntlayer,
   writeContentDeclaration,
 } from '@intlayer/chokidar/build';
 import { buildFilesList } from '@intlayer/chokidar/utils';
@@ -423,33 +422,6 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
 
     // Build files list for transformation
     await buildFilesListFn();
-  };
-
-  /**
-   * Vite hook: config
-   * Called before Vite config is resolved - perfect time to prepare dictionaries
-   */
-  const configHook = async (
-    _config: unknown,
-    env: { command: string; mode: string }
-  ): Promise<void> => {
-    // Initialize config early
-    config = getConfiguration(configOptions);
-    logger = getAppLogger(config);
-
-    const isDevCommand = env.command === 'serve' && env.mode === 'development';
-    const isBuildCommand = env.command === 'build';
-
-    // Prepare all existing dictionaries (builds them to .intlayer/dictionary/)
-    // This ensures built dictionaries exist before the prune plugin runs
-    if (isDevCommand || isBuildCommand) {
-      await prepareIntlayer(config, {
-        clean: isBuildCommand,
-        cacheTimeoutMs: isBuildCommand
-          ? 1000 * 30 // 30 seconds for build
-          : 1000 * 60 * 60, // 1 hour for dev
-      });
-    }
   };
 
   /**
@@ -961,7 +933,6 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
   return {
     name: 'vite-intlayer-compiler',
     enforce: 'pre',
-    config: configHook,
     configResolved,
     buildStart,
     buildEnd,
