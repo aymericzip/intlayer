@@ -1,0 +1,303 @@
+{
+  "meta": {
+    "appName": "Application de test de stress de découpage",
+    "version": "1.0.0",
+    "environment": "développement",
+    "build": {
+      "timestamp": "2025-12-09T12:00:00Z",
+      "commit": "a8f3c92d1a8f3c92d1a8f3c92d",
+      "branch": "main"
+    }
+  },
+  "actions": {
+    "common": {
+      "save": "Enregistrer",
+      "cancel": "Annuler",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "update": "Mettre à jour",
+      "close": "Fermer",
+      "confirm": "Confirmer",
+      "search": "Rechercher",
+      "reset": "Réinitialiser",
+      "submit": "Soumettre",
+      "next": "Suivant",
+      "previous": "Précédent",
+      "refresh": "Actualiser"
+    },
+    "bulk": {
+      "bulkDelete": "Supprimer les éléments sélectionnés",
+      "bulkUpdate": "Mettre à jour les éléments sélectionnés",
+      "bulkExport": "Exporter les éléments sélectionnés",
+      "bulkArchive": "Archiver les éléments sélectionnés"
+    },
+    "navigation": {
+      "goBack": "Retour",
+      "goForward": "Avancer",
+      "goHome": "Aller à l'accueil",
+      "openSettings": "Ouvrir les paramètres"
+    }
+  },
+  "messages": {
+    "global": {
+      "loading": "Chargement...",
+      "processing": "Traitement...",
+      "success": "Opération terminée avec succès.",
+      "error": "Une erreur inattendue est survenue.",
+      "networkError": "Erreur réseau.",
+      "unauthorized": "Accès non autorisé.",
+      "forbidden": "Action interdite.",
+      "notFound": "Ressource non trouvée."
+    },
+    "crud": {
+      "create": {
+        "pending": "Création de la ressource...",
+        "success": "Ressource créée.",
+        "error": "Échec de la création de la ressource."
+      },
+      "update": {
+        "pending": "Mise à jour de la ressource...",
+        "success": "Ressource mise à jour.",
+        "error": "Échec de la mise à jour de la ressource."
+      },
+      "delete": {
+        "pending": "Suppression de la ressource...",
+        "success": "Ressource supprimée.",
+        "error": "Échec de la suppression de la ressource."
+      }
+    },
+    "validation": {
+      "required": "Ce champ est requis.",
+      "minLength": "Longueur minimale non atteinte.",
+      "maxLength": "Longueur maximale dépassée.",
+      "email": "Adresse e-mail invalide.",
+      "password": {
+        "weak": "Le mot de passe est trop faible.",
+        "mismatch": "Les mots de passe ne correspondent pas."
+      }
+    }
+  },
+  "languages": {
+    "available": "enfresdeitptruzhjakoar",
+    "labels": {
+      "en": "Anglais",
+      "fr": "Français",
+      "es": "Espagnol",
+      "de": "Allemand",
+      "it": "Italien",
+      "pt": "Portugais",
+      "ru": "Russe",
+      "zh": "Chinois",
+      "ja": "Japonais",
+      "ko": "Coréen",
+      "ar": "Arabe"
+    }
+  },
+  "navbar": {
+    "primary": {
+      "home": "Accueil",
+      "about": "À propos",
+      "docs": "Documentation",
+      "blog": "Blog",
+      "dashboard": "Tableau de bord",
+      "pricing": "Tarifs",
+      "contact": "Contact"
+    },
+    "secondary": {
+      "profile": "Profil",
+      "settings": "Paramètres",
+      "notifications": "Notifications",
+      "billing": "Facturation",
+      "support": "Support",
+      "logout": "Se déconnecter"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Se connecter",
+      "email": "E-mail",
+      "password": "Mot de passe",
+      "submit": "Se connecter",
+      "errors": {
+        "invalid": "Identifiants invalides",
+        "locked": "Compte verrouillé",
+        "expired": "Session expirée"
+      }
+    },
+    "register": {
+      "title": "S'inscrire",
+      "email": "E-mail",
+      "password": "Mot de passe",
+      "confirmPassword": "Confirmer le mot de passe",
+      "submit": "Créer un compte"
+    },
+    "reset": {
+      "title": "Réinitialiser le mot de passe",
+      "email": "E-mail",
+      "submit": "Envoyer le lien de réinitialisation"
+    }
+  },
+  "settings": {
+    "general": {
+      "language": "Langue",
+      "timezone": "Fuseau horaire",
+      "dateFormat": "Format de date"
+    },
+    "appearance": {
+      "theme": {
+        "label": "Thème",
+        "options": {
+          "light": "Clair",
+          "dark": "Sombre",
+          "system": "Système"
+        }
+      },
+      "density": {
+        "label": "Densité",
+        "options": {
+          "compact": "Compact",
+          "comfortable": "Confortable",
+          "spacious": "Spacieux"
+        }
+      }
+    },
+    "performance": {
+      "animations": true,
+      "lazyLoading": true,
+      "cache": true
+    },
+    "privacy": {
+      "tracking": false,
+      "personalization": true,
+      "ads": false
+    }
+  },
+  "tables": {
+    "users": {
+      "columns": "IDPrénomNomE-mailRôleCréé leMis à jour leStatut",
+      "filters": {
+        "role": "AdministrateurÉditeurLecteur",
+        "status": "ActifSuspenduSupprimé"
+      },
+      "actions": "ModifierSupprimerSuspendreRéinitialiser le mot de passe"
+    },
+    "projects": {
+      "columns": "IDNomPropriétaireVisibilitéCréé leMis à jour leContributeursStatut",
+      "filters": {
+        "visibility": "PublicPrivé",
+        "status": "ActifArchivé"
+      }
+    }
+  },
+  "notifications": {
+    "types": {
+      "system": {
+        "maintenance": "Maintenance planifiée",
+        "outage": "Interruption de service",
+        "update": "Mise à jour du système"
+      },
+      "social": {
+        "newFollower": "Nouvel abonné",
+        "newComment": "Nouveau commentaire",
+        "newMention": "Vous avez été mentionné"
+      },
+      "billing": {
+        "invoiceCreated": "Facture créée",
+        "paymentFailed": "Paiement échoué",
+        "subscriptionUpdated": "Abonnement mis à jour"
+      }
+    }
+  },
+  "files": {
+    "limits": {
+      "maxSizeMb": 50,
+      "allowedTypes": "image/pngimage/jpegimage/webpapplication/pdfapplication/ziptext/csv"
+    },
+    "ui": {
+      "upload": "Téléverser le fichier",
+      "download": "Télécharger le fichier",
+      "delete": "Supprimer le fichier",
+      "rename": "Renommer le fichier",
+      "move": "Déplacer le fichier",
+      "preview": "Aperçu du fichier"
+    }
+  },
+  "api": {
+    "errors": {
+      "400": "Requête incorrecte",
+      "401": "Non autorisé",
+      "403": "Accès refusé",
+      "404": "Introuvable",
+      "409": "Conflit",
+      "422": "Entité non traitable",
+      "429": "Trop de requêtes",
+      "500": "Erreur interne du serveur",
+      "502": "Mauvaise passerelle",
+      "503": "Service indisponible",
+      "504": "Délai d'attente de la passerelle"
+    },
+    "rateLimits": {
+      "public": {
+        "requestsPerMinute": 60,
+        "burst": 20
+      },
+      "authenticated": {
+        "requestsPerMinute": 300,
+        "burst": 100
+      },
+      "admin": {
+        "requestsPerMinute": 1000,
+        "burst": 300
+      }
+    }
+  },
+  "reports": {
+    "types": "quotidienhebdomadairemensueltrimestrielannuel",
+    "exports": {
+      "pdf": true,
+      "csv": true,
+      "xlsx": true,
+      "json": true
+    },
+    "metrics": "utilisateurssessionsrétentionconversionrevenustaux de rebondengagement"
+  },
+  "onboarding": {
+    "steps": "[object Object][object Object][object Object][object Object][object Object]"
+  },
+  "permissions": {
+    "roles": {
+      "superAdmin": {
+        "can": "readcreateupdatedeletemanageUsersmanageBillingmanageRolesaccessAuditLogs"
+      },
+      "admin": {
+        "can": "readcreateupdatedeletemanageUsersmanageBilling"
+      },
+      "editor": {
+        "can": "readcreateupdate"
+      },
+      "viewer": {
+        "can": "read"
+      }
+    }
+  },
+  "cache": {
+    "strategies": {
+      "staleWhileRevalidate": true,
+      "cacheFirst": true,
+      "networkFirst": false
+    },
+    "ttl": {
+      "short": 60,
+      "medium": 300,
+      "long": 3600,
+      "veryLong": 86400
+    }
+  },
+  "featureFlags": {
+    "newDashboard": true,
+    "betaEditor": false,
+    "realtimeAnalytics": true,
+    "aiAssistant": false,
+    "newBilling": true
+  }
+}

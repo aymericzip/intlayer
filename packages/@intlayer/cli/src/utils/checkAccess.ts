@@ -63,8 +63,7 @@ export const checkCMSAuth = async (
 
         // Recursively check if project.configuration (subset) matches configuration (superset)
         checkConfigConsistency(remoteConfigToCheck, configuration);
-      } catch (error) {
-        console.dir(error, { depth: null });
+      } catch {
         appLogger(
           [
             'Remote configuration is not up to date. The project configuration does not match the local configuration.',

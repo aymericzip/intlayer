@@ -1,0 +1,303 @@
+{
+  "meta": {
+    "appName": "Aplicación de prueba de estrés de fragmentación",
+    "version": "1.0.0",
+    "environment": "desarrollo",
+    "build": {
+      "timestamp": "2025-12-09T12:00:00Z",
+      "commit": "a8f3c92d1a8f3c92d1a8f3c92d",
+      "branch": "main"
+    }
+  },
+  "actions": {
+    "common": {
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "update": "Actualizar",
+      "close": "Cerrar",
+      "confirm": "Confirmar",
+      "search": "Buscar",
+      "reset": "Restablecer",
+      "submit": "Enviar",
+      "next": "Siguiente",
+      "previous": "Anterior",
+      "refresh": "Actualizar"
+    },
+    "bulk": {
+      "bulkDelete": "Eliminar seleccionados",
+      "bulkUpdate": "Actualizar seleccionados",
+      "bulkExport": "Exportar seleccionados",
+      "bulkArchive": "Archivar seleccionados"
+    },
+    "navigation": {
+      "goBack": "Volver",
+      "goForward": "Ir hacia adelante",
+      "goHome": "Ir al inicio",
+      "openSettings": "Abrir configuración"
+    }
+  },
+  "messages": {
+    "global": {
+      "loading": "Cargando...",
+      "processing": "Procesando...",
+      "success": "Operación completada con éxito.",
+      "error": "Ocurrió un error inesperado.",
+      "networkError": "Error de red.",
+      "unauthorized": "Acceso no autorizado.",
+      "forbidden": "Acción prohibida.",
+      "notFound": "Recurso no encontrado."
+    },
+    "crud": {
+      "create": {
+        "pending": "Creando recurso...",
+        "success": "Recurso creado.",
+        "error": "No se pudo crear el recurso."
+      },
+      "update": {
+        "pending": "Actualizando recurso...",
+        "success": "Recurso actualizado.",
+        "error": "No se pudo actualizar el recurso."
+      },
+      "delete": {
+        "pending": "Eliminando recurso...",
+        "success": "Recurso eliminado.",
+        "error": "No se pudo eliminar el recurso."
+      }
+    },
+    "validation": {
+      "required": "Este campo es obligatorio.",
+      "minLength": "Longitud mínima no alcanzada.",
+      "maxLength": "Se excedió la longitud máxima.",
+      "email": "Dirección de correo electrónico no válida.",
+      "password": {
+        "weak": "La contraseña es demasiado débil.",
+        "mismatch": "Las contraseñas no coinciden."
+      }
+    }
+  },
+  "languages": {
+    "available": "enfresdeitptruzhjakoar",
+    "labels": {
+      "en": "Inglés",
+      "fr": "Francés",
+      "es": "Español",
+      "de": "Alemán",
+      "it": "Italiano",
+      "pt": "Portugués",
+      "ru": "Ruso",
+      "zh": "Chino",
+      "ja": "Japonés",
+      "ko": "Coreano",
+      "ar": "Árabe"
+    }
+  },
+  "navbar": {
+    "primary": {
+      "home": "Inicio",
+      "about": "Acerca de",
+      "docs": "Documentación",
+      "blog": "Blog",
+      "dashboard": "Panel",
+      "pricing": "Precios",
+      "contact": "Contacto"
+    },
+    "secondary": {
+      "profile": "Perfil",
+      "settings": "Configuración",
+      "notifications": "Notificaciones",
+      "billing": "Facturación",
+      "support": "Soporte",
+      "logout": "Cerrar sesión"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Iniciar sesión",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "submit": "Iniciar sesión",
+      "errors": {
+        "invalid": "Credenciales inválidas",
+        "locked": "La cuenta está bloqueada",
+        "expired": "La sesión ha expirado"
+      }
+    },
+    "register": {
+      "title": "Registrarse",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "confirmPassword": "Confirmar contraseña",
+      "submit": "Crear cuenta"
+    },
+    "reset": {
+      "title": "Restablecer contraseña",
+      "email": "Correo electrónico",
+      "submit": "Enviar enlace de restablecimiento"
+    }
+  },
+  "settings": {
+    "general": {
+      "language": "Idioma",
+      "timezone": "Zona horaria",
+      "dateFormat": "Formato de fecha"
+    },
+    "appearance": {
+      "theme": {
+        "label": "Tema",
+        "options": {
+          "light": "Claro",
+          "dark": "Oscuro",
+          "system": "Sistema"
+        }
+      },
+      "density": {
+        "label": "Densidad",
+        "options": {
+          "compact": "Compacto",
+          "comfortable": "Cómodo",
+          "spacious": "Espacioso"
+        }
+      }
+    },
+    "performance": {
+      "animations": true,
+      "lazyLoading": true,
+      "cache": true
+    },
+    "privacy": {
+      "tracking": false,
+      "personalization": true,
+      "ads": false
+    }
+  },
+  "tables": {
+    "users": {
+      "columns": "IDNombreApellidoCorreo electrónicoRolCreado elActualizado elEstado",
+      "filters": {
+        "role": "administradoreditorespectador",
+        "status": "activosuspendidoeliminado"
+      },
+      "actions": "editareliminarsuspenderrestablecer contraseña"
+    },
+    "projects": {
+      "columns": "IDNombrePropietarioVisibilidadCreado elActualizado elColaboradoresEstado",
+      "filters": {
+        "visibility": "públicoprivado",
+        "status": "activoarchivado"
+      }
+    }
+  },
+  "notifications": {
+    "types": {
+      "system": {
+        "maintenance": "Mantenimiento programado",
+        "outage": "Interrupción del servicio",
+        "update": "Actualización del sistema"
+      },
+      "social": {
+        "newFollower": "Nuevo seguidor",
+        "newComment": "Nuevo comentario",
+        "newMention": "Te mencionaron"
+      },
+      "billing": {
+        "invoiceCreated": "Factura creada",
+        "paymentFailed": "Pago fallido",
+        "subscriptionUpdated": "Suscripción actualizada"
+      }
+    }
+  },
+  "files": {
+    "limits": {
+      "maxSizeMb": 50,
+      "allowedTypes": "image/pngimage/jpegimage/webpapplication/pdfapplication/ziptext/csv"
+    },
+    "ui": {
+      "upload": "Subir archivo",
+      "download": "Descargar archivo",
+      "delete": "Eliminar archivo",
+      "rename": "Renombrar archivo",
+      "move": "Mover archivo",
+      "preview": "Vista previa del archivo"
+    }
+  },
+  "api": {
+    "errors": {
+      "400": "Solicitud incorrecta",
+      "401": "No autorizado",
+      "403": "Prohibido",
+      "404": "No encontrado",
+      "409": "Conflicto",
+      "422": "Entidad no procesable",
+      "429": "Demasiadas solicitudes",
+      "500": "Error interno del servidor",
+      "502": "Puerta de enlace incorrecta",
+      "503": "Servicio no disponible",
+      "504": "Tiempo de espera de la puerta de enlace agotado"
+    },
+    "rateLimits": {
+      "public": {
+        "requestsPerMinute": 60,
+        "burst": 20
+      },
+      "authenticated": {
+        "requestsPerMinute": 300,
+        "burst": 100
+      },
+      "admin": {
+        "requestsPerMinute": 1000,
+        "burst": 300
+      }
+    }
+  },
+  "reports": {
+    "types": "diariosemanalmensualtrimestralanual",
+    "exports": {
+      "pdf": true,
+      "csv": true,
+      "xlsx": true,
+      "json": true
+    },
+    "metrics": "usuariossesionesretenciónconversióningresostasaDeReboteinteracción"
+  },
+  "onboarding": {
+    "steps": "[object Object][object Object][object Object][object Object][object Object]"
+  },
+  "permissions": {
+    "roles": {
+      "superAdmin": {
+        "can": "leercrearactualizareliminargestionarUsuariosgestionarFacturaciongestionarRolesaccederRegistrosAuditoria"
+      },
+      "admin": {
+        "can": "leercrearactualizareliminargestionarUsuariosgestionarFacturacion"
+      },
+      "editor": {
+        "can": "leercrearactualizar"
+      },
+      "viewer": {
+        "can": "leer"
+      }
+    }
+  },
+  "cache": {
+    "strategies": {
+      "staleWhileRevalidate": true,
+      "cacheFirst": true,
+      "networkFirst": false
+    },
+    "ttl": {
+      "short": 60,
+      "medium": 300,
+      "long": 3600,
+      "veryLong": 86400
+    }
+  },
+  "featureFlags": {
+    "newDashboard": true,
+    "betaEditor": false,
+    "realtimeAnalytics": true,
+    "aiAssistant": false,
+    "newBilling": true
+  }
+}

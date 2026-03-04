@@ -1,0 +1,43 @@
+{
+  "title": "关于",
+  "description": "关于页面描述",
+  "counter": {
+    "label": "计数器",
+    "increment": "增加",
+    "decrement": "减少",
+    "reset": "重置"
+  },
+  "team": {
+    "title": "我们的团队",
+    "subtitle": "认识我们成功背后的优秀人才",
+    "members": {
+      "founder": {
+        "name": "约翰·多伊",
+        "role": "创始人兼首席执行官",
+        "bio": "约翰在科技和创新领域拥有超过15年的经验。他创立了这家公司，以革新该行业为愿景。"
+      },
+      "cto": {
+        "name": "简·史密斯",
+        "role": "首席技术官",
+        "bio": "简是一位技术爱好者，具有云计算和分布式系统方面的专业知识。她领导我们的工程团队。"
+      }
+    }
+  },
+  "mission": {
+    "title": "我们的使命",
+    "content": "我们致力于创造创新解决方案，对人们的生活产生积极影响。我们的使命是构建既强大又易于使用的产品。"
+  },
+  "values": {
+    "title": "我们的价值观",
+    "innovation": "创新",
+    "integrity": "诚信",
+    "excellence": "卓越",
+    "collaboration": "协作"
+  },
+  "contact": {
+    "title": "联系我们",
+    "email": "给我们发送电子邮件",
+    "phone": "致电我们",
+    "address": "访问我们"
+  }
+}

@@ -5,6 +5,7 @@ import { decode, encode } from '@toon-format/toon';
 import { generateText, Output } from 'ai';
 import { z } from 'zod';
 import { type AIConfig, type AIOptions, AIProvider } from '../aiSdk';
+import { extractJson } from '../utils/extractJSON';
 
 type Tag = {
   key: string;
@@ -102,7 +103,16 @@ const jsonToZod = (content: any): z.ZodTypeAny => {
   }
 
   // Fallback
-  return z.any();
+  return z.string();
+};
+
+const countKeys = (obj: any): number => {
+  if (typeof obj !== 'object' || obj === null) return 0;
+  let count = 0;
+  for (const key in obj) {
+    count += 1 + countKeys(obj[key]);
+  }
+  return count;
 };
 
 /**
@@ -124,7 +134,6 @@ export const translateJSON = async <T>({
   TranslateJSONResultData<T> | undefined
 > => {
   const { dataSerialization, ...restAiConfig } = aiConfig;
-  // @ts-ignore
   const { output: _unusedOutput, ...validAiConfig } = restAiConfig;
 
   const formattedEntryLocale = formatLocaleWithName(entryLocale);
@@ -140,6 +149,8 @@ export const translateJSON = async <T>({
   const presetContentStr = isToon
     ? encode(presetOutputContent)
     : JSON.stringify(presetOutputContent);
+
+  const schema = jsonToZod(entryFileContent);
 
   // Prepare the prompt for AI by replacing placeholders with actual values.
   const prompt = promptFile
@@ -176,28 +187,42 @@ export const translateJSON = async <T>({
       .replace(/^```(?:toon)?\n([\s\S]*?)\n```$/gm, '$1')
       .trim();
 
+    const decodedJson = decode(cleanedText) as T;
+
+    // schema.parse(decodedJson);
+
     return {
-      fileContent: decode(cleanedText) as T,
+      fileContent: decodedJson,
       tokenUsed: usage?.totalTokens ?? 0,
     };
   }
 
+  const totalKeys = countKeys(entryFileContent);
+
+  const MAX_SAFE_KEYS = 70; // You will need to tune this threshold based on testing
+
+  const useStrictOutput = totalKeys <= MAX_SAFE_KEYS;
+
   // Use the AI SDK to generate the completion
-  const { output, usage } = await generateText({
+  const { text, usage } = await generateText({
     ...validAiConfig,
-    output: Output.object({
-      schema: jsonToZod(entryFileContent),
-    }),
+
+    // Disable schema if Schema is too complex (Block with Anthropic)
+    output: useStrictOutput ? Output.object({ schema }) : undefined,
     messages: [
       { role: 'system', content: prompt },
       {
         role: 'user',
-        // KEY CHANGE: Explicitly repeating instructions in the user message
         content: [
           `# Translation Request`,
           `Please translate the following JSON content.`,
           `- **From:** ${formattedEntryLocale}`,
           `- **To:** ${formattedOutputLocale}`,
+          ``,
+          `CRITICAL INSTRUCTIONS:`,
+          `- You MUST return ONLY raw, valid JSON.`,
+          `- DO NOT wrap the response in Markdown code blocks (e.g., no \`\`\`json).`,
+          `- DO NOT include any conversational text before or after the JSON object.`,
           ``,
           `## Entry Content:`,
           entryContentStr,
@@ -206,8 +231,12 @@ export const translateJSON = async <T>({
     ],
   });
 
+  // Extract and re-validate deeply
+  const extractedJSON = extractJson(text);
+  const validatedContent = schema.parse(extractedJSON) as T;
+
   return {
-    fileContent: output as T,
+    fileContent: validatedContent,
     tokenUsed: usage?.totalTokens ?? 0,
   };
 };
