@@ -61,5 +61,5 @@ Lệnh này phân tích các tệp mã của bạn để trích xuất chuỗi t
 
 Lệnh extract hoạt động mà không cần plugin bổ sung đối với các tệp TypeScript / JSX. Tuy nhiên, nó yêu cầu các plugin sau phải được cài đặt cho các dự án Vue và Svelte:
 
-- **`@intlayer/vue-transformer`**: Cho các tệp Vue.
-- **`@intlayer/svelte-transformer`**: Cho các tệp Svelte.
+- **`@intlayer/vue-compiler`**: Cho các tệp Vue.
+- **`@intlayer/svelte-compiler`**: Cho các tệp Svelte.

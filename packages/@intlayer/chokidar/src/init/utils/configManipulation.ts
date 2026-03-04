@@ -1,312 +1,237 @@
-import {
-  type ObjectLiteralExpression,
-  Project,
-  type SourceFile,
-  SyntaxKind,
-} from 'ts-morph';
+import * as recast from 'recast';
+
+const b = recast.types.builders;
+const n = recast.types.namedTypes;
 
 /**
- * Checks if a module is already imported or required in the source file.
+ * Checks if a module is already imported or required.
  */
-const isModuleImported = (
-  sourceFile: SourceFile,
-  moduleName: string
-): boolean => {
-  const hasImport = sourceFile
-    .getImportDeclarations()
-    .some((i) => i.getModuleSpecifierValue() === moduleName);
+const isModuleImported = (ast: any, moduleName: string): boolean => {
+  let found = false;
+  recast.visit(ast, {
+    visitImportDeclaration(path) {
+      if (path.node.source.value === moduleName) {
+        found = true;
+      }
+      return false;
+    },
+    visitCallExpression(path) {
+      const { callee, arguments: args } = path.node;
 
-  const hasRequire = sourceFile
-    .getDescendantsOfKind(SyntaxKind.CallExpression)
-    .some((c) => {
-      const expression = c.getExpression();
-      return (
-        expression.getText() === 'require' &&
-        c
-          .getArguments()[0]
-          ?.asKind(SyntaxKind.StringLiteral)
-          ?.getLiteralValue() === moduleName
+      if (
+        n.Identifier.check(callee) &&
+        callee.name === 'require' &&
+        args[0] &&
+        n.StringLiteral.check(args[0]) &&
+        args[0].value === moduleName
+      ) {
+        found = true;
+      }
+      return false;
+    },
+  });
+  return found;
+};
+
+/**
+ * Injects import/require at the top of the file.
+ */
+const injectImport = (
+  ast: any,
+  isCJS: boolean,
+  importName: string,
+  source: string
+) => {
+  if (isModuleImported(ast, source)) return;
+
+  const declaration = isCJS
+    ? b.variableDeclaration('const', [
+        b.variableDeclarator(
+          b.objectPattern([
+            b.objectProperty.from({
+              key: b.identifier(importName),
+              value: b.identifier(importName),
+              shorthand: true,
+            }),
+          ]),
+          b.callExpression(b.identifier('require'), [b.stringLiteral(source)])
+        ),
+      ])
+    : b.importDeclaration(
+        [b.importSpecifier(b.identifier(importName))],
+        b.stringLiteral(source)
       );
-    });
 
-  return hasImport || hasRequire;
+  ast.program.body.unshift(declaration);
 };
 
-/**
- * Checks if the file should be treated as CommonJS.
- */
-const isCJS = (content: string, extension: string): boolean => {
-  if (extension === 'cjs') return true;
-  if (['mjs', 'ts'].includes(extension)) return false;
-
-  return (
-    content.includes('module.exports') &&
-    !content.includes('import ') &&
-    !content.includes('export ')
-  );
-};
-
-/**
- * Updates a Vite configuration file to include the Intlayer plugin.
- * @param content The content of the vite.config file
- * @param extension The file extension (ts, js, mjs, cjs)
- * @returns The updated content
- */
 export const updateViteConfig = (
   content: string,
   extension: string
 ): string => {
-  const project = new Project({ useInMemoryFileSystem: true });
-  const sourceFile = project.createSourceFile(
-    `vite.config.${extension}`,
-    content
-  );
+  const ast = recast.parse(content, {
+    parser: require('recast/parsers/typescript'),
+  });
+  const isCJSFile =
+    extension === 'cjs' ||
+    (content.includes('module.exports') && !content.includes('import '));
 
-  const isCJSFile = isCJS(content, extension);
+  injectImport(ast, isCJSFile, 'intlayer', 'vite-intlayer');
 
-  // Add import if missing
-  const hasIntlayerImport = isModuleImported(sourceFile, 'vite-intlayer');
+  const updateConfigObject = (objExpr: any) => {
+    if (
+      !objExpr ||
+      (objExpr.type !== 'ObjectExpression' &&
+        !n.ObjectExpression.check(objExpr))
+    )
+      return;
 
-  if (!hasIntlayerImport) {
-    if (isCJSFile) {
-      sourceFile.insertVariableStatement(0, {
-        declarationKind: 'const' as any,
-        declarations: [
-          {
-            name: '{ intlayer }',
-            initializer: 'require("vite-intlayer")',
-          },
-        ],
-      });
-    } else {
-      sourceFile.addImportDeclaration({
-        moduleSpecifier: 'vite-intlayer',
-        namedImports: ['intlayer'],
-      });
-    }
-  }
-
-  // Find the configuration object
-  let configObject: ObjectLiteralExpression | undefined;
-
-  // Case: export default defineConfig({...})
-  const exportDefault = sourceFile.getExportAssignment(
-    (e) => !e.isExportEquals()
-  );
-  if (exportDefault) {
-    const expression = exportDefault.getExpression();
-
-    if (expression.getKind() === SyntaxKind.CallExpression) {
-      const call = expression.asKind(SyntaxKind.CallExpression);
-
-      if (call?.getExpression().getText() === 'defineConfig') {
-        const arg = call.getArguments()[0];
-
-        if (arg?.getKind() === SyntaxKind.ObjectLiteralExpression) {
-          configObject = arg.asKind(SyntaxKind.ObjectLiteralExpression);
-        }
-      }
-    } else if (expression.getKind() === SyntaxKind.ObjectLiteralExpression) {
-      // Case: export default {...}
-      configObject = expression.asKind(SyntaxKind.ObjectLiteralExpression);
-    } else if (expression.getKind() === SyntaxKind.Identifier) {
-      // Case: const config = {...}; export default config;
-      const identifier = expression.asKind(SyntaxKind.Identifier);
-      const definitions = identifier?.getDefinitions();
-
-      if (definitions && definitions.length > 0) {
-        const node = definitions[0].getDeclarationNode();
-
-        if (node?.getKind() === SyntaxKind.VariableDeclaration) {
-          const init = node
-            .asKind(SyntaxKind.VariableDeclaration)
-            ?.getInitializer();
-
-          if (init?.getKind() === SyntaxKind.ObjectLiteralExpression) {
-            configObject = init.asKind(SyntaxKind.ObjectLiteralExpression);
-          }
-        }
-      }
-    }
-  }
-
-  // Case: module.exports = {...}
-  if (!configObject) {
-    const expressionStatements = sourceFile.getStatements();
-    for (const statement of expressionStatements) {
-      if (statement.getKind() === SyntaxKind.ExpressionStatement) {
-        const expr = statement
-          .asKind(SyntaxKind.ExpressionStatement)
-          ?.getExpression();
-
-        if (expr?.getKind() === SyntaxKind.BinaryExpression) {
-          const binary = expr.asKind(SyntaxKind.BinaryExpression);
-
-          if (
-            binary?.getLeft().getText() === 'module.exports' &&
-            binary.getOperatorToken().getKind() === SyntaxKind.EqualsToken
-          ) {
-            const right = binary.getRight();
-
-            if (right.getKind() === SyntaxKind.ObjectLiteralExpression) {
-              configObject = right.asKind(SyntaxKind.ObjectLiteralExpression);
-            } else if (right.getKind() === SyntaxKind.CallExpression) {
-              // Case: module.exports = defineConfig({...})
-              const call = right.asKind(SyntaxKind.CallExpression);
-
-              if (call?.getExpression().getText() === 'defineConfig') {
-                const arg = call.getArguments()[0];
-
-                if (arg?.getKind() === SyntaxKind.ObjectLiteralExpression) {
-                  configObject = arg.asKind(SyntaxKind.ObjectLiteralExpression);
-                }
-              }
-            } else if (right.getKind() === SyntaxKind.Identifier) {
-              // Case: const config = {...}; module.exports = config;
-              const identifier = right.asKind(SyntaxKind.Identifier);
-              const definitions = identifier?.getDefinitions();
-
-              if (definitions && definitions.length > 0) {
-                const node = definitions[0].getDeclarationNode();
-
-                if (node?.getKind() === SyntaxKind.VariableDeclaration) {
-                  const init = node
-                    .asKind(SyntaxKind.VariableDeclaration)
-                    ?.getInitializer();
-
-                  if (init?.getKind() === SyntaxKind.ObjectLiteralExpression) {
-                    configObject = init.asKind(
-                      SyntaxKind.ObjectLiteralExpression
-                    );
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  // 3. Update plugins array
-  if (configObject) {
-    let pluginsProp = configObject.getProperty('plugins');
+    let pluginsProp = objExpr.properties.find((p: any) => {
+      if (!p || !p.key) return false;
+      const keyName = p.key.name || p.key.value;
+      return keyName === 'plugins';
+    }) as any;
 
     if (!pluginsProp) {
-      configObject.addPropertyAssignment({
-        name: 'plugins',
-        initializer: '[]',
-      });
-      pluginsProp = configObject.getProperty('plugins');
+      pluginsProp = b.property(
+        'init',
+        b.identifier('plugins'),
+        b.arrayExpression([])
+      );
+      objExpr.properties.push(pluginsProp);
     }
 
-    if (pluginsProp?.getKind() === SyntaxKind.PropertyAssignment) {
-      const initializer = pluginsProp
-        .asKind(SyntaxKind.PropertyAssignment)
-        ?.getInitializer();
+    const pluginsValue = pluginsProp.value;
 
-      if (initializer?.getKind() === SyntaxKind.ArrayLiteralExpression) {
-        const array = initializer.asKind(SyntaxKind.ArrayLiteralExpression);
-        const hasIntlayer = array
-          ?.getElements()
-          .some((el) => el.getText().includes('intlayer('));
+    if (
+      pluginsValue &&
+      (pluginsValue.type === 'ArrayExpression' ||
+        n.ArrayExpression.check(pluginsValue))
+    ) {
+      const hasPlugin = pluginsValue.elements.some((el: any) => {
+        const callee = el?.callee;
 
-        if (!hasIntlayer) {
-          array?.addElement('intlayer()');
-        }
+        if (!callee) return false;
+        const name = callee.name || callee.id?.name;
+        return name === 'intlayer' || name === 'il';
+      });
+
+      if (!hasPlugin) {
+        pluginsValue.elements.push(
+          b.callExpression(b.identifier('intlayer'), [])
+        );
       }
     }
-  }
+  };
 
-  return sourceFile.getFullText();
+  recast.visit(ast, {
+    visitExportDefaultDeclaration(path) {
+      const decl = path.node.declaration;
+
+      if (n.ObjectExpression.check(decl)) {
+        updateConfigObject(decl);
+      } else if (
+        n.CallExpression.check(decl) &&
+        n.Identifier.check(decl.callee) &&
+        decl.callee.name === 'defineConfig'
+      ) {
+        if (n.ObjectExpression.check(decl.arguments[0])) {
+          updateConfigObject(decl.arguments[0]);
+        }
+      } else if (n.Identifier.check(decl)) {
+        const name = decl.name;
+        ast.program.body.forEach((stmt: any) => {
+          if (n.VariableDeclaration.check(stmt)) {
+            stmt.declarations.forEach((vdecl: any) => {
+              if (
+                n.VariableDeclarator.check(vdecl) &&
+                n.Identifier.check(vdecl.id) &&
+                vdecl.id.name === name &&
+                n.ObjectExpression.check(vdecl.init)
+              ) {
+                updateConfigObject(vdecl.init);
+              }
+            });
+          }
+        });
+      }
+      return false;
+    },
+    visitAssignmentExpression(path) {
+      const { left, right } = path.node;
+
+      if (
+        n.MemberExpression.check(left) &&
+        recast.print(left).code === 'module.exports'
+      ) {
+        if (n.ObjectExpression.check(right)) {
+          updateConfigObject(right);
+        } else if (
+          n.CallExpression.check(right) &&
+          n.Identifier.check(right.callee) &&
+          right.callee.name === 'defineConfig'
+        ) {
+          if (n.ObjectExpression.check(right.arguments[0])) {
+            updateConfigObject(right.arguments[0]);
+          }
+        }
+      }
+      return false;
+    },
+  });
+
+  return recast.print(ast).code;
 };
 
-/**
- * Updates a Next.js configuration file to wrap the export with withIntlayer.
- * @param content The content of the next.config file
- * @param extension The file extension (ts, js, mjs, cjs)
- * @returns The updated content
- */
 export const updateNextConfig = (
   content: string,
   extension: string
 ): string => {
-  const project = new Project({ useInMemoryFileSystem: true });
-  const sourceFile = project.createSourceFile(
-    `next.config.${extension}`,
-    content
-  );
+  const ast = recast.parse(content, {
+    parser: require('recast/parsers/typescript'),
+  });
+  const isCJSFile = extension === 'cjs' || content.includes('module.exports');
 
-  const isCJSFile = isCJS(content, extension);
+  injectImport(ast, isCJSFile, 'withIntlayer', 'next-intlayer/server');
 
-  // 1. Add import if missing
-  const hasIntlayerImport = isModuleImported(
-    sourceFile,
-    'next-intlayer/server'
-  );
-
-  if (!hasIntlayerImport) {
-    if (isCJSFile) {
-      sourceFile.insertVariableStatement(0, {
-        declarationKind: 'const' as any,
-        declarations: [
-          {
-            name: '{ withIntlayer }',
-            initializer: 'require("next-intlayer/server")',
-          },
-        ],
-      });
-    } else {
-      sourceFile.addImportDeclaration({
-        moduleSpecifier: 'next-intlayer/server',
-        namedImports: ['withIntlayer'],
-      });
-    }
-  }
-
-  // 2. Wrap export
-  let updated = false;
-
-  // Case: export default ...
-  const exportDefault = sourceFile.getExportAssignment(
-    (e) => !e.isExportEquals()
-  );
-  if (exportDefault) {
-    const expression = exportDefault.getExpression();
-
-    if (!expression.getText().includes('withIntlayer')) {
-      exportDefault.setExpression(`withIntlayer(${expression.getText()})`);
-      updated = true;
-    }
-  }
-
-  // Case: module.exports = ...
-  if (!updated) {
-    const expressionStatements = sourceFile.getStatements();
-    for (const statement of expressionStatements) {
-      if (statement.getKind() === SyntaxKind.ExpressionStatement) {
-        const expr = statement
-          .asKind(SyntaxKind.ExpressionStatement)
-          ?.getExpression();
-
-        if (expr?.getKind() === SyntaxKind.BinaryExpression) {
-          const binary = expr.asKind(SyntaxKind.BinaryExpression);
-
-          if (
-            binary?.getLeft().getText() === 'module.exports' &&
-            binary.getOperatorToken().getKind() === SyntaxKind.EqualsToken
-          ) {
-            const right = binary.getRight();
-
-            if (!right.getText().includes('withIntlayer')) {
-              right.replaceWithText(`withIntlayer(${right.getText()})`);
-              updated = true;
-            }
-          }
-        }
+  recast.visit(ast, {
+    visitExportDefaultDeclaration(path) {
+      const declaration = path.node.declaration;
+      if (
+        n.Expression.check(declaration) &&
+        !(
+          n.CallExpression.check(declaration) &&
+          n.Identifier.check(declaration.callee) &&
+          declaration.callee.name === 'withIntlayer'
+        )
+      ) {
+        path
+          .get('declaration')
+          .replace(
+            b.callExpression(b.identifier('withIntlayer'), [declaration as any])
+          );
       }
-    }
-  }
+      return false;
+    },
+    visitAssignmentExpression(path) {
+      const { left, right } = path.node;
 
-  return sourceFile.getFullText();
+      if (
+        n.MemberExpression.check(left) &&
+        recast.print(left).code === 'module.exports' &&
+        !(
+          n.CallExpression.check(right) &&
+          n.Identifier.check(right.callee) &&
+          right.callee.name === 'withIntlayer'
+        )
+      ) {
+        path
+          .get('right')
+          .replace(b.callExpression(b.identifier('withIntlayer'), [right]));
+      }
+      return false;
+    },
+  });
+
+  return recast.print(ast).code;
 };

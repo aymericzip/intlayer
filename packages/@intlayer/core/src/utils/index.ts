@@ -1,6 +1,4 @@
 export * from './checkIsURLAbsolute';
-export * from './generateKey';
-export * from './generateKey';
 export * from './getCookie';
 export * from './intl';
 export * from './isSameKeyPath';

@@ -61,5 +61,5 @@ npx intlayer extract
 
 Команда extract работает без дополнительных плагинов для файлов TypeScript / JSX. Однако для проектов на Vue и Svelte требуется установка следующих плагинов:
 
-- **`@intlayer/vue-transformer`**: Для файлов Vue.
-- **`@intlayer/svelte-transformer`**: Для файлов Svelte.
+- **`@intlayer/vue-compiler`**: Для файлов Vue.
+- **`@intlayer/svelte-compiler`**: Для файлов Svelte.

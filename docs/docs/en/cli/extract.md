@@ -61,5 +61,5 @@ This command analyzes your code files to extract strings from components into a 
 
 The extract command works without additional plugin on TypeScript / JSX files. However, it requires the following plugins to be installed for Vue and Svelte projects:
 
-- **`@intlayer/vue-transformer`**: For Vue files.
-- **`@intlayer/svelte-transformer`**: For Svelte files.
+- **`@intlayer/vue-compiler`**: For Vue files.
+- **`@intlayer/svelte-compiler`**: For Svelte files.

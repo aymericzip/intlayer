@@ -1,7 +1,7 @@
 import { dirname, join, relative } from 'node:path';
 import type { NodePath, PluginObj, PluginPass } from '@babel/core';
 import type * as BabelTypes from '@babel/types';
-import { getFileHash } from '@intlayer/chokidar/utils';
+import { getPathHash } from '@intlayer/chokidar/utils';
 import { normalizePath } from '@intlayer/config/utils';
 
 const PACKAGE_LIST = [
@@ -133,7 +133,7 @@ const makeIdent = (
   key: string,
   t: typeof BabelTypes
 ): BabelTypes.Identifier => {
-  const hash = getFileHash(key);
+  const hash = getPathHash(key);
   return t.identifier(`_${hash}`);
 };
 
@@ -513,7 +513,7 @@ export const intlayerOptimizeBabelPlugin = (babel: {
                 let dynamicIdent = state._newDynamicImports?.get(key);
 
                 if (!dynamicIdent) {
-                  const hash = getFileHash(key);
+                  const hash = getPathHash(key);
                   dynamicIdent = t.identifier(`_${hash}_fetch`);
                   state._newDynamicImports?.set(key, dynamicIdent);
                 }
@@ -530,7 +530,7 @@ export const intlayerOptimizeBabelPlugin = (babel: {
 
                 if (!dynamicIdent) {
                   // Create a unique identifier for dynamic imports by appending a suffix
-                  const hash = getFileHash(key);
+                  const hash = getPathHash(key);
                   dynamicIdent = t.identifier(`_${hash}_dyn`);
                   state._newDynamicImports?.set(key, dynamicIdent);
                 }

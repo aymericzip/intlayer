@@ -11,7 +11,7 @@ vi.mock('@intlayer/config', () => ({
 }));
 
 vi.mock('@intlayer/chokidar/utils', () => ({
-  getFileHash: (key: string) => `dicHash${key === 'app' ? '2' : ''}`,
+  getPathHash: (key: string) => `dicHash${key === 'app' ? '2' : ''}`,
 }));
 
 const transform = (

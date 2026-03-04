@@ -76,10 +76,11 @@
   },
   "dependencies": {
     "@babel/core": "7.29.0",
-    "@babel/generator": "7.27.0",
-    "@babel/parser": "7.1.5",
-    "@babel/traverse": "7.28.0",
-    "@babel/types": "7.28.4",
+    "@babel/generator": "7.29.1",
+    "@babel/parser": "7.29.0",
+    "@babel/plugin-syntax-jsx": "7.28.6",
+    "@babel/traverse": "7.29.0",
+    "@babel/types": "7.29.0",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
@@ -92,7 +93,6 @@
   "devDependencies": {
     "@babel/plugin-syntax-jsx": "^7.28.6",
     "@intlayer/dictionaries-entry": "workspace:*",
-    "@types/crypto-js": "4.2.2",
     "@types/node": "25.3.3",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
@@ -102,14 +102,6 @@
     "tsdown": "0.20.3",
     "typescript": "5.9.3",
     "vitest": "4.0.18"
-  },
-  "peerDependencies": {
-    "@intlayer/dictionaries-entry": "workspace:*"
-  },
-  "peerDependenciesMeta": {
-    "@intlayer/dictionaries-entry": {
-      "optional": true
-    }
   },
   "engines": {
     "node": ">=14.18"

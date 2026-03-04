@@ -61,5 +61,5 @@ Questo comando analizza i tuoi file di codice per estrarre le stringhe dai compo
 
 Il comando extract funziona senza plugin aggiuntivi per file TypeScript/JSX. Tuttavia, richiede che i seguenti plugin siano installati per i progetti Vue e Svelte:
 
-- **`@intlayer/vue-transformer`**: Per i file Vue.
-- **`@intlayer/svelte-transformer`**: Per i file Svelte.
+- **`@intlayer/vue-compiler`**: Per i file Vue.
+- **`@intlayer/svelte-compiler`**: Per i file Svelte.

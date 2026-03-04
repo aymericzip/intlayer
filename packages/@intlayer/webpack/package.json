@@ -80,13 +80,11 @@
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/types": "workspace:*",
-    "crypto-js": "4.2.0",
     "fast-glob": "3.3.3",
     "webpack": "5.104.1",
     "webpack-dev-server": "5.2.2"
   },
   "devDependencies": {
-    "@types/crypto-js": "4.2.2",
     "@types/node": "25.3.3",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",

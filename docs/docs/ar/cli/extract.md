@@ -61,5 +61,5 @@ npx intlayer extract
 
 يعمل أمر extract دون الحاجة إلى إضافات على ملفات TypeScript / JSX. ومع ذلك، يتطلب تثبيت الإضافات التالية لمشاريع Vue و Svelte:
 
-- **`@intlayer/vue-transformer`**: لملفات Vue.
-- **`@intlayer/svelte-transformer`**: لملفات Svelte.
+- **`@intlayer/vue-compiler`**: لملفات Vue.
+- **`@intlayer/svelte-compiler`**: لملفات Svelte.

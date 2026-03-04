@@ -109,15 +109,13 @@
     "@intlayer/types": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "chokidar": "3.6.0",
-    "crypto-js": "4.2.0",
     "defu": "6.1.4",
     "fast-glob": "3.3.3",
+    "recast": "^0.23.11",
     "simple-git": "3.32.3",
-    "ts-morph": "27.0.2",
     "zod-to-ts": "2.0.0"
   },
   "devDependencies": {
-    "@types/crypto-js": "4.2.2",
     "@types/node": "25.3.3",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
@@ -129,14 +127,18 @@
     "zod": "4.3.6"
   },
   "peerDependencies": {
-    "@intlayer/svelte-transformer": "workspace:*",
-    "@intlayer/vue-transformer": "workspace:*"
+    "@intlayer/babel": "workspace:*",
+    "@intlayer/svelte-compiler": "workspace:*",
+    "@intlayer/vue-compiler": "workspace:*"
   },
   "peerDependenciesMeta": {
-    "@intlayer/svelte-transformer": {
+    "@intlayer/babel": {
       "optional": true
     },
-    "@intlayer/vue-transformer": {
+    "@intlayer/svelte-compiler": {
+      "optional": true
+    },
+    "@intlayer/vue-compiler": {
       "optional": true
     }
   },

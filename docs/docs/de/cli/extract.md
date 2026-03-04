@@ -61,5 +61,5 @@ Dieser Befehl analysiert Ihre Codedateien, um Strings aus Komponenten in eine .c
 
 Der `extract`-Befehl funktioniert ohne zusätzliche Plugins bei TypeScript / JSX-Dateien. Für Vue- und Svelte-Projekte müssen jedoch die folgenden Plugins installiert sein:
 
-- **`@intlayer/vue-transformer`**: Für Vue-Dateien.
-- **`@intlayer/svelte-transformer`**: Für Svelte-Dateien.
+- **`@intlayer/vue-compiler`**: Für Vue-Dateien.
+- **`@intlayer/svelte-compiler`**: Für Svelte-Dateien.

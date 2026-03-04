@@ -1,5 +1,6 @@
-import { basename, dirname, extname } from 'node:path';
+import { camelCaseToKebabCase } from '@intlayer/config/utils';
 import { detectExportedComponentName } from '../writeContentDeclaration/detectExportedComponentName';
+import { extractDictionaryKeyFromPath } from './extractor';
 
 export const extractDictionaryKey = (
   filePath: string,
@@ -7,15 +8,8 @@ export const extractDictionaryKey = (
 ): string => {
   const componentName = detectExportedComponentName(fileText);
   if (componentName) {
-    return componentName;
+    return camelCaseToKebabCase(componentName);
   }
 
-  const ext = extname(filePath);
-  let baseName = basename(filePath, ext);
-
-  if (baseName === 'index') {
-    baseName = basename(dirname(filePath));
-  }
-
-  return baseName;
+  return extractDictionaryKeyFromPath(filePath, '');
 };

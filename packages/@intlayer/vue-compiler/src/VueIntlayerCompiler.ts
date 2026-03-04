@@ -174,7 +174,7 @@ export const createVueIntlayerCompiler = (
 
       Object.values(dictionaries).forEach((dictionary) => {
         dictionaryModeMap[dictionary.key] =
-          dictionary.importMode ?? config.build.importMode;
+          dictionary.importMode ?? config.build.importMode ?? 'static';
       });
     } catch {
       // ignore

@@ -61,5 +61,5 @@ Perintah ini menganalisis berkas kode Anda untuk mengekstrak string dari kompone
 
 Perintah extract bekerja tanpa plugin tambahan pada berkas TypeScript / JSX. Namun, ia memerlukan plugin berikut untuk diinstal pada proyek Vue dan Svelte:
 
-- **`@intlayer/vue-transformer`**: Untuk berkas Vue.
-- **`@intlayer/svelte-transformer`**: Untuk berkas Svelte.
+- **`@intlayer/vue-compiler`**: Untuk berkas Vue.
+- **`@intlayer/svelte-compiler`**: Untuk berkas Svelte.

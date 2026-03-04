@@ -92,6 +92,9 @@
     "magic-string": "0.30.21"
   },
   "devDependencies": {
+    "@types/babel__core": "7.20.5",
+    "@types/babel__generator": "7.27.0",
+    "@types/babel__traverse": "7.28.0",
     "@types/node": "25.3.3",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",

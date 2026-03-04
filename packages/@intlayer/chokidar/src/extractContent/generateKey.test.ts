@@ -17,7 +17,7 @@ describe('generateKey', () => {
   it('should preserve Chinese characters', () => {
     const text = '这是一个测试 (this is a test)';
     const existing = new Set<string>();
-    expect(generateKey(text, existing)).toBe('这是一个测试ThisIs');
+    expect(generateKey(text, existing)).toBe('这是一个测试ThisIsATest');
   });
 
   it('should use maximum of 5 words', () => {

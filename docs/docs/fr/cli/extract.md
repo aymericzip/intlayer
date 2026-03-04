@@ -61,5 +61,5 @@ Cette commande analyse vos fichiers de code pour extraire les chaînes des compo
 
 La commande extract fonctionne sans plugin supplémentaire pour les fichiers TypeScript / JSX. Cependant, elle nécessite l'installation des plugins suivants pour les projets Vue et Svelte :
 
-- **`@intlayer/vue-transformer`**: Pour les fichiers Vue.
-- **`@intlayer/svelte-transformer`**: Pour les fichiers Svelte.
+- **`@intlayer/vue-compiler`**: Pour les fichiers Vue.
+- **`@intlayer/svelte-compiler`**: Pour les fichiers Svelte.

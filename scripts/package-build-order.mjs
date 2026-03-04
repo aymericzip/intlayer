@@ -44,6 +44,4 @@ export const packageBuildOrder = [
   'packages/intlayer-editor',
   'packages/fastify-intlayer',
   'plugins/sync-json-plugin',
-  'plugins/vue-transformer',
-  'plugins/svelte-transformer',
 ];

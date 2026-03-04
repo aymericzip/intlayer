@@ -19,5 +19,6 @@ export {
   type ExtractResult,
   extractDictionaryKeyFromPath,
   intlayerSvelteExtract,
+  processSvelteFile,
   shouldProcessFile,
 } from './svelte-intlayer-extract';

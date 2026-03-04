@@ -61,5 +61,5 @@ npx intlayer extract
 
 extract 命令在 TypeScript / JSX 文件上无需额外插件即可运行。但是，对于 Vue 和 Svelte 项目，需要安装以下插件：
 
-- **`@intlayer/vue-transformer`**：用于 Vue 文件。
-- **`@intlayer/svelte-transformer`**：用于 Svelte 文件。
+- **`@intlayer/vue-compiler`**：用于 Vue 文件。
+- **`@intlayer/svelte-compiler`**：用于 Svelte 文件。

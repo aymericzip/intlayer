@@ -4,7 +4,7 @@ import { kebabCaseToCamelCase, normalizePath } from '@intlayer/config/utils';
 import type { IntlayerConfig, Locale } from '@intlayer/types';
 import fg from 'fast-glob';
 import { printNode, zodToTs } from 'zod-to-ts';
-import { getFileHash } from '../utils/getFileHash';
+import { getFileHash } from '../utils/getPathHash';
 import { writeFileIfChanged } from '../writeFileIfChanged';
 
 export const getTypeName = (key: string): string =>

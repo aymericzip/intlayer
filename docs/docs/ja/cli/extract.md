@@ -61,5 +61,5 @@ npx intlayer extract
 
 extract コマンドは TypeScript / JSX ファイルでは追加のプラグインなしで動作します。ただし、Vue および Svelte プロジェクトでは以下のプラグインのインストールが必要です:
 
-- **`@intlayer/vue-transformer`**: Vue ファイル用。
-- **`@intlayer/svelte-transformer`**: Svelte ファイル用。
+- **`@intlayer/vue-compiler`**: Vue ファイル用。
+- **`@intlayer/svelte-compiler`**: Svelte ファイル用。

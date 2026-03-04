@@ -1,3 +1,4 @@
+import { execSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
 import { basename, dirname, extname, join, resolve } from 'node:path';
@@ -13,6 +14,7 @@ import type {
   LocalesValues,
 } from '@intlayer/types';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
+import { detectFormatCommand } from '../detectFormatCommand';
 import {
   type Extension,
   getFormatFromExtension,
@@ -260,6 +262,19 @@ const writeFileWithDirectories = async (
       throw error;
     }
 
+    const formatCommand = detectFormatCommand(configuration);
+
+    if (formatCommand) {
+      try {
+        execSync(formatCommand.replace('{{file}}', absoluteFilePath), {
+          stdio: 'inherit',
+          cwd: configuration.content.baseDir,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
     return;
   }
 
@@ -298,6 +313,20 @@ const writeFileWithDirectories = async (
       }
       throw error;
     }
+
+    const formatCommand = detectFormatCommand(configuration);
+
+    if (formatCommand) {
+      try {
+        execSync(formatCommand.replace('{{file}}', absoluteFilePath), {
+          stdio: 'inherit',
+          cwd: configuration.content.baseDir,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
     return;
   }
 

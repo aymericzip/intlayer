@@ -1,4 +1,3 @@
-// Export the VueIntlayerCompiler for programmatic use
 export {
   type CompilerMode,
   createVueIntlayerCompiler,
@@ -9,7 +8,6 @@ export {
   type VueIntlayerVitePlugin,
   vueIntlayerCompiler,
 } from './VueIntlayerCompiler';
-
 // Export the Vue extraction plugin
 export {
   ATTRIBUTES_TO_EXTRACT,
@@ -19,5 +17,6 @@ export {
   type ExtractResult,
   extractDictionaryKeyFromPath,
   intlayerVueExtract,
+  processVueFile,
   shouldProcessFile,
 } from './vue-intlayer-extract';

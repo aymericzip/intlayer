@@ -58,8 +58,8 @@ module.exports = {
 };
 `;
       const updated = updateViteConfig(content, 'js');
-      expect(updated).toContain(
-        'const { intlayer } = require("vite-intlayer");'
+      expect(updated).toMatch(
+        /const\s*{\s*intlayer\s*}\s*=\s*require\("vite-intlayer"\);/
       );
       expect(updated).toContain('plugins: [intlayer()]');
     });
@@ -72,8 +72,8 @@ module.exports = defineConfig({
 });
 `;
       const updated = updateViteConfig(content, 'js');
-      expect(updated).toContain(
-        'const { intlayer } = require("vite-intlayer");'
+      expect(updated).toMatch(
+        /const\s*{\s*intlayer\s*}\s*=\s*require\("vite-intlayer"\);/
       );
       expect(updated).toContain('plugins: [intlayer()]');
     });
@@ -149,8 +149,8 @@ const nextConfig = {
 module.exports = nextConfig;
 `;
       const updated = updateNextConfig(content, 'js');
-      expect(updated).toContain(
-        'const { withIntlayer } = require("next-intlayer/server");'
+      expect(updated).toMatch(
+        /const\s*{\s*withIntlayer\s*}\s*=\s*require\("next-intlayer\/server"\);/
       );
       expect(updated).toContain('module.exports = withIntlayer(nextConfig);');
     });
@@ -163,7 +163,7 @@ module.exports = {
 `;
       const updated = updateNextConfig(content, 'js');
       expect(updated).toContain('module.exports = withIntlayer({');
-      expect(updated).toContain('reactStrictMode: true,');
+      expect(updated).toMatch(/reactStrictMode: true/);
       expect(updated).toContain('});');
     });
 

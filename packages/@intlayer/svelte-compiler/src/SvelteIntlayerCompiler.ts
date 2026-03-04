@@ -121,7 +121,6 @@ export const createSvelteIntlayerCompiler = (
   const lastSourceTriggeredWrite = 0;
   let filesList: string[] = [];
 
-  // @ts-expect-error - @babel/core is a peer dependency
   let babel: typeof import('@babel/core') | null = null;
   const dictionaryModeMap: Record<string, 'static' | 'dynamic' | 'fetch'> = {};
 

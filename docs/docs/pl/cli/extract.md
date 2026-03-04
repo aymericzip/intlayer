@@ -61,5 +61,5 @@ Ten polecenie analizuje pliki z kodem, aby wyodrębnić stringi z komponentów d
 
 Polecenie extract działa bez dodatkowych wtyczek dla plików TypeScript / JSX. Jednak dla projektów Vue i Svelte wymaga zainstalowania następujących wtyczek:
 
-- **`@intlayer/vue-transformer`**: Dla plików Vue.
-- **`@intlayer/svelte-transformer`**: Dla plików Svelte.
+- **`@intlayer/vue-compiler`**: Dla plików Vue.
+- **`@intlayer/svelte-compiler`**: Dla plików Svelte.

@@ -1,12 +1,8 @@
 import type { Dictionary } from '@intlayer/types';
-import {
-  IndentationText,
-  Node,
-  type ObjectLiteralExpression,
-  Project,
-  QuoteKind,
-  SyntaxKind,
-} from 'ts-morph';
+import * as recast from 'recast';
+
+const b = recast.types.builders;
+const n = recast.types.namedTypes;
 
 /**
  * Checks if a value is a plain object (and not null/array)
@@ -16,87 +12,83 @@ const isPlainObject = (value: unknown): value is Record<string, unknown> => {
 };
 
 /**
- * Safely formats a key for use in object literals.
- * Always quotes keys to ensure compatibility with standard JSON files.
+ * Robustly finds a property in a recast ObjectExpression.
+ * Handles quoted ("key") or unquoted (key) properties.
  */
-const stringifyKey = (objectKey: string): string => {
-  return JSON.stringify(objectKey);
-};
-
-/**
- * Robustly finds a property in an ObjectLiteralExpression.
- * Handles cases where the property name in the source file is quoted ("key") or unquoted (key).
- */
-const getMatchingProperty = (node: ObjectLiteralExpression, key: string) => {
-  return node.getProperties().find((prop) => {
-    // We only care about property assignments (key: value)
-    if (Node.isPropertyAssignment(prop)) {
-      const propName = prop.getName();
-      // Check for strict match (unquoted identifier) or quoted match (string literal)
-      // We check both double and single quotes to handle JSONC/JSON5 variations.
-      return (
-        propName === key || propName === `"${key}"` || propName === `'${key}'`
-      );
+const getMatchingProperty = (node: any, key: string) => {
+  return node.properties.find((prop: any) => {
+    if (n.Property.check(prop) || n.ObjectProperty.check(prop)) {
+      if (n.Identifier.check(prop.key) && prop.key.name === key) return true;
+      if (n.StringLiteral.check(prop.key) && prop.key.value === key)
+        return true;
+      if (n.Literal.check(prop.key) && prop.key.value === key) return true;
     }
     return false;
   });
 };
 
 /**
+ * Recursively builds a clean recast AST node from a plain JS value.
+ * Because these nodes lack `loc` tracking, recast is forced to pretty-print them.
+ */
+const buildASTNode = (val: unknown): any => {
+  if (val === null) return b.literal(null);
+
+  if (
+    typeof val === 'string' ||
+    typeof val === 'number' ||
+    typeof val === 'boolean'
+  ) {
+    return b.literal(val);
+  }
+
+  if (Array.isArray(val)) {
+    return b.arrayExpression(val.map((item) => buildASTNode(item)));
+  }
+
+  if (isPlainObject(val)) {
+    return b.objectExpression(
+      Object.entries(val)
+        .filter(([, v]) => v !== undefined)
+        .map(([k, v]) =>
+          b.property('init', b.stringLiteral(k), buildASTNode(v))
+        )
+    );
+  }
+
+  return b.literal(null); // Fallback
+};
+
+/**
  * Recursively updates the AST object literal with new data.
  */
-const updateObjectLiteral = (
-  node: ObjectLiteralExpression,
-  data: Record<string, any>
-) => {
+const updateObjectLiteral = (node: any, data: Record<string, any>) => {
   for (const [key, val] of Object.entries(data)) {
-    // Skip undefined values.
     if (val === undefined) continue;
 
-    const stringifiedValue = JSON.stringify(val, null, 2);
-
-    // Safety check: ensure we have a string unless we are recursing into an object
-    if (stringifiedValue === undefined && !isPlainObject(val)) continue;
-
-    // Use robust lookup instead of node.getProperty(key)
     const existingProp = getMatchingProperty(node, key);
 
     if (isPlainObject(val)) {
-      if (existingProp && Node.isPropertyAssignment(existingProp)) {
-        const initializer = existingProp.getInitializer();
-
-        if (Node.isObjectLiteralExpression(initializer)) {
-          // Recurse into nested object
-          updateObjectLiteral(initializer, val);
-        } else {
-          // Property exists but is not an object (e.g. was null or number), overwrite with new object
-          existingProp.setInitializer(stringifiedValue!);
-        }
-      } else if (existingProp) {
-        // Property exists but isn't a simple assignment, overwrite it safely
-        existingProp.replaceWithText(
-          `${stringifyKey(key)}: ${stringifiedValue}`
-        );
+      if (existingProp && n.ObjectExpression.check(existingProp.value)) {
+        updateObjectLiteral(existingProp.value, val);
       } else {
-        // Property doesn't exist, add it
-        node.addPropertyAssignment({
-          name: stringifyKey(key),
-          initializer: stringifiedValue!,
-        });
+        const valueNode = buildASTNode(val);
+        if (existingProp) {
+          existingProp.value = valueNode;
+        } else {
+          node.properties.push(
+            b.property('init', b.stringLiteral(key), valueNode)
+          );
+        }
       }
     } else {
-      // Handling Primitives / Arrays
-      if (existingProp && Node.isPropertyAssignment(existingProp)) {
-        existingProp.setInitializer(stringifiedValue!);
-      } else if (existingProp) {
-        existingProp.replaceWithText(
-          `${stringifyKey(key)}: ${stringifiedValue}`
-        );
+      const valueNode = buildASTNode(val);
+      if (existingProp) {
+        existingProp.value = valueNode;
       } else {
-        node.addPropertyAssignment({
-          name: stringifyKey(key),
-          initializer: stringifiedValue!,
-        });
+        node.properties.push(
+          b.property('init', b.stringLiteral(key), valueNode)
+        );
       }
     }
   }
@@ -106,37 +98,42 @@ export const transformJSONFile = (
   fileContent: string,
   dictionary: Dictionary
 ): string => {
-  // Initialize a virtual project
-  const project = new Project({
-    useInMemoryFileSystem: true,
-    manipulationSettings: {
-      indentationText: IndentationText.TwoSpaces,
-      quoteKind: QuoteKind.Double,
-    },
-  });
+  // Wrap content to create valid syntax for the parser
+  const wrappedContent = `const _config = ${fileContent.trim() || '{}'};`;
 
-  // Wrap content in a variable declaration so it acts as a valid SourceFile
-  const dummyFileName = 'temp.ts';
-  const wrappedContent = `const _config = ${fileContent.trim() || '{}'}`;
-  const sourceFile = project.createSourceFile(dummyFileName, wrappedContent);
-
-  // Locate the object literal
-  const varDecl = sourceFile.getVariableDeclaration('_config');
-  const objectLiteral = varDecl?.getInitializerIfKind(
-    SyntaxKind.ObjectLiteralExpression
-  );
-
-  if (!objectLiteral) {
+  let ast: ReturnType<typeof recast.parse>;
+  try {
+    ast = recast.parse(wrappedContent);
+  } catch {
     // Fallback if parsing failed
     return JSON.stringify(dictionary, null, 2);
   }
 
-  // Update the AST
+  // Navigate the AST to locate the object literal initialized to `_config`
+  const declaration = ast.program.body[0];
+  let objectLiteral: any;
+
+  if (
+    n.VariableDeclaration.check(declaration) &&
+    declaration.declarations.length > 0 &&
+    n.VariableDeclarator.check(declaration.declarations[0]) &&
+    n.ObjectExpression.check(declaration.declarations[0].init)
+  ) {
+    objectLiteral = declaration.declarations[0].init;
+  }
+
+  if (!objectLiteral) {
+    // Fallback if the AST structure isn't what we expect
+    return JSON.stringify(dictionary, null, 2);
+  }
+
+  // Update the AST in place
   updateObjectLiteral(objectLiteral, dictionary);
 
-  // Format text to ensure new properties are aligned
-  sourceFile.formatText();
-
-  // Extract the object literal text.
-  return objectLiteral.getText();
+  // Print only the target object literal node
+  return recast.print(objectLiteral, {
+    tabWidth: 2,
+    quote: 'double',
+    trailingComma: false,
+  }).code;
 };
