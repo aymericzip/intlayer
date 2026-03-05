@@ -222,7 +222,7 @@
     },
     "docs": {
       "name": "@intlayer/docs",
-      "version": "8.1.11",
+      "version": "8.2.0",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -961,7 +961,7 @@
     },
     "packages/@intlayer/cli": {
       "name": "@intlayer/cli",
-      "version": "8.1.11",
+      "version": "8.2.0",
       "dependencies": {
         "@clack/prompts": "0.11.0",
         "@intlayer/ai": "workspace:*",
@@ -1047,7 +1047,7 @@
     },
     "packages/@intlayer/design-system": {
       "name": "@intlayer/design-system",
-      "version": "8.1.11",
+      "version": "8.2.0",
       "dependencies": {
         "@better-auth/passkey": "1.4.18",
         "@better-auth/sso": "1.4.18",
@@ -1157,7 +1157,7 @@
     },
     "packages/@intlayer/dynamic-dictionaries-entry": {
       "name": "@intlayer/dynamic-dictionaries-entry",
-      "version": "8.1.11",
+      "version": "8.2.0",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -1175,7 +1175,7 @@
     },
     "packages/@intlayer/editor": {
       "name": "@intlayer/editor",
-      "version": "8.1.11",
+      "version": "8.2.0",
       "devDependencies": {
         "@types/node": "25.3.3",
         "@utils/ts-config": "workspace:*",
@@ -1189,7 +1189,7 @@
     },
     "packages/@intlayer/editor-react": {
       "name": "@intlayer/editor-react",
-      "version": "8.1.11",
+      "version": "8.2.0",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -1218,7 +1218,7 @@
     },
     "packages/@intlayer/fetch-dictionaries-entry": {
       "name": "@intlayer/fetch-dictionaries-entry",
-      "version": "8.1.11",
+      "version": "8.2.0",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -1318,11 +1318,11 @@
     },
     "packages/@intlayer/swc": {
       "name": "@intlayer/swc",
-      "version": "8.1.11",
+      "version": "8.2.0",
     },
     "packages/@intlayer/types": {
       "name": "@intlayer/types",
-      "version": "8.1.11",
+      "version": "8.2.0",
       "devDependencies": {
         "@types/node": "25.3.3",
         "@utils/ts-config": "workspace:*",
@@ -1355,7 +1355,7 @@
     },
     "packages/@intlayer/vue-compiler": {
       "name": "@intlayer/vue-compiler",
-      "version": "8.1.11",
+      "version": "8.2.0",
       "bin": {
         "intlayer": "./dist/cjs/index.cjs",
       },
@@ -1388,7 +1388,7 @@
     },
     "packages/@intlayer/webpack": {
       "name": "@intlayer/webpack",
-      "version": "8.1.11",
+      "version": "8.2.0",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1592,7 +1592,7 @@
     },
     "packages/intlayer-cli": {
       "name": "intlayer-cli",
-      "version": "8.1.11",
+      "version": "8.2.0",
       "bin": {
         "intlayer": "./dist/cjs/index.cjs",
       },
