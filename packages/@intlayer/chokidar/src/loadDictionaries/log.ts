@@ -1,4 +1,3 @@
-import { extractErrorMessage } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
 import {
   ANSIColors,
@@ -8,6 +7,7 @@ import {
   v,
   x,
 } from '@intlayer/config/logger';
+import { extractErrorMessage } from '@intlayer/config/utils';
 import type { DictionariesStatus } from './loadDictionaries';
 
 export class DictionariesLogger {
