@@ -45,7 +45,8 @@ export const detectFormatCommand = (
   // Try ESLint
   try {
     projectRequire.resolve('eslint');
-    cachedFormatCommand = 'eslint --fix "{{file}}" --quiet';
+    cachedFormatCommand =
+      'eslint --fix "{{file}}" --quiet || node -e "process.exit(0)"';
     return cachedFormatCommand;
   } catch (_error) {
     // ESLint not found
