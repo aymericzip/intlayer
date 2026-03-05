@@ -10,12 +10,9 @@ export {
 } from './VueIntlayerCompiler';
 // Export the Vue extraction plugin
 export {
-  ATTRIBUTES_TO_EXTRACT,
-  defaultShouldExtract,
   type ExtractedContent,
   type ExtractPluginOptions,
   type ExtractResult,
-  extractDictionaryKeyFromPath,
   intlayerVueExtract,
   processVueFile,
   shouldProcessFile,

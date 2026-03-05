@@ -5,7 +5,7 @@ import {
   shouldExtract as defaultShouldExtract,
   extractDictionaryKeyFromPath,
   generateKey,
-} from '@intlayer/core/utils';
+} from '@intlayer/chokidar/cli';
 import MagicString from 'magic-string';
 import * as svelteCompiler from 'svelte/compiler';
 

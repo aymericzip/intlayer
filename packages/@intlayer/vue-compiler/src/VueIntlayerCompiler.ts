@@ -118,9 +118,12 @@ export const createVueIntlayerCompiler = (
   let hmrVersion = -1;
   const lastSourceTriggeredWrite = 0;
   let filesList: string[] = [];
-  // @ts-expect-error - @babel/core is a peer dependency
+
   let babel: typeof import('@babel/core') | null = null;
-  const dictionaryModeMap: Record<string, 'static' | 'dynamic' | 'fetch'> = {};
+  const dictionaryModeMap: Record<
+    string,
+    'static' | 'dynamic' | 'fetch' | undefined
+  > = {};
 
   const configOptions = options?.configOptions;
   const customCompilerConfig = options?.compilerConfig;
@@ -174,7 +177,7 @@ export const createVueIntlayerCompiler = (
 
       Object.values(dictionaries).forEach((dictionary) => {
         dictionaryModeMap[dictionary.key] =
-          dictionary.importMode ?? config.build.importMode ?? 'static';
+          dictionary.importMode ?? config.build.importMode;
       });
     } catch {
       // ignore

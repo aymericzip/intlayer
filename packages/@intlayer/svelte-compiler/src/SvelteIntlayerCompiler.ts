@@ -122,7 +122,10 @@ export const createSvelteIntlayerCompiler = (
   let filesList: string[] = [];
 
   let babel: typeof import('@babel/core') | null = null;
-  const dictionaryModeMap: Record<string, 'static' | 'dynamic' | 'fetch'> = {};
+  const dictionaryModeMap: Record<
+    string,
+    'static' | 'dynamic' | 'fetch' | undefined
+  > = {};
 
   const configOptions = options?.configOptions;
   const customCompilerConfig = options?.compilerConfig;

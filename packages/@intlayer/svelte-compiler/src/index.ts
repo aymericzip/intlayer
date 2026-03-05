@@ -12,12 +12,9 @@ export {
 
 // Export the Svelte extraction plugin
 export {
-  ATTRIBUTES_TO_EXTRACT,
-  defaultShouldExtract,
   type ExtractedContent,
   type ExtractPluginOptions,
   type ExtractResult,
-  extractDictionaryKeyFromPath,
   intlayerSvelteExtract,
   processSvelteFile,
   shouldProcessFile,
