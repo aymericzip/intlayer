@@ -324,15 +324,6 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
         dictionaries.push(dictionary);
       }
 
-      console.dir(
-        {
-          dictionaries: dictionaries
-            .filter((el) => el.key === 'common')
-            .map((el) => el.content),
-        },
-        { depth: null }
-      );
-
       return dictionaries;
     },
 
