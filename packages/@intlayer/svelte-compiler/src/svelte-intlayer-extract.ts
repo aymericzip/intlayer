@@ -1,15 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { parse as babelParse, types as t, traverse } from '@babel/core';
-import {
-  ATTRIBUTES_TO_EXTRACT,
-  shouldExtract as defaultShouldExtract,
-  extractDictionaryKeyFromPath,
-  generateKey,
-} from '@intlayer/chokidar/cli';
 import MagicString from 'magic-string';
 import * as svelteCompiler from 'svelte/compiler';
-
-/* ────────────────────────────────────────── types ───────────────────────── */
 
 export type ExtractedContent = Record<string, string>;
 
@@ -27,6 +19,9 @@ export type ExtractPluginOptions = {
   shouldExtract?: (text: string) => boolean;
   onExtract?: (result: ExtractResult) => void;
   dictionaryKey?: string;
+  attributesToExtract?: readonly string[];
+  extractDictionaryKeyFromPath?: (path: string) => string;
+  generateKey?: (text: string, existingKeys: Set<string>) => string;
 };
 
 type Replacement = {
@@ -64,9 +59,12 @@ export const intlayerSvelteExtract = (
     defaultLocale = 'en',
     packageName = 'svelte-intlayer',
     filesList,
-    shouldExtract = defaultShouldExtract,
+    shouldExtract,
     onExtract,
     dictionaryKey: dictionaryKeyOption,
+    attributesToExtract = [],
+    extractDictionaryKeyFromPath,
+    generateKey,
   } = options;
 
   if (!shouldProcessFile(filename, filesList)) return null;
@@ -76,7 +74,7 @@ export const intlayerSvelteExtract = (
   const extractedContent: ExtractedContent = {};
   const existingKeys = new Set<string>();
   const dictionaryKey =
-    dictionaryKeyOption ?? extractDictionaryKeyFromPath(filename);
+    dictionaryKeyOption ?? extractDictionaryKeyFromPath?.(filename) ?? '';
   const replacements: Replacement[] = [];
 
   let ast: any;
@@ -90,11 +88,17 @@ export const intlayerSvelteExtract = (
     return null;
   }
 
-  // 1. Walk Svelte HTML AST
+  // Walk Svelte HTML AST.
+  // Svelte 4 used numeric type constants; Svelte 5 uses string type names.
+  // We check for both to remain compatible.
+  const isTextNode = (node: any) => node.type === 'Text' || node.type === 3;
+  const isAttributeNode = (node: any) =>
+    node.type === 'Attribute' || node.type === 6;
+
   const walkSvelte = (node: any) => {
-    if (node.type === 'Text') {
-      const text = node.data;
-      if (shouldExtract(text)) {
+    if (isTextNode(node)) {
+      const text = node.data ?? node.content ?? '';
+      if (shouldExtract?.(text) && generateKey) {
         const key = generateKey(text, existingKeys);
         existingKeys.add(key);
         replacements.push({
@@ -106,16 +110,12 @@ export const intlayerSvelteExtract = (
         });
       }
     } else if (
-      node.type === 'Attribute' &&
-      (ATTRIBUTES_TO_EXTRACT as readonly string[]).includes(node.name)
+      isAttributeNode(node) &&
+      (attributesToExtract as readonly string[]).includes(node.name)
     ) {
-      if (
-        node.value &&
-        node.value.length === 1 &&
-        node.value[0].type === 'Text'
-      ) {
-        const text = node.value[0].data;
-        if (shouldExtract(text)) {
+      if (node.value && node.value.length === 1 && isTextNode(node.value[0])) {
+        const text = node.value[0].data ?? node.value[0].content ?? '';
+        if (shouldExtract?.(text) && generateKey) {
           const key = generateKey(text, existingKeys);
           existingKeys.add(key);
           replacements.push({
@@ -129,9 +129,9 @@ export const intlayerSvelteExtract = (
       }
     }
 
-    if (node.children) node.children.forEach(walkSvelte);
-    else if (node.fragment?.children)
-      node.fragment.children.forEach(walkSvelte);
+    const children =
+      node.children ?? node.fragment?.nodes ?? node.fragment?.children;
+    if (children) children.forEach(walkSvelte);
     if (node.attributes) node.attributes.forEach(walkSvelte);
   };
 
@@ -139,7 +139,7 @@ export const intlayerSvelteExtract = (
     walkSvelte(ast.html);
   }
 
-  // 2. Extract and walk Script using Babel
+  // Extract and walk Script using Babel
   const scriptRegex = /<script[^>]*>([\s\S]*?)<\/script>/;
   const scriptMatch = scriptRegex.exec(code);
   let hasScriptExtraction = false;
@@ -186,7 +186,7 @@ export const intlayerSvelteExtract = (
             }
 
             const text = path.node.value;
-            if (shouldExtract(text)) {
+            if (shouldExtract?.(text) && generateKey) {
               const key = generateKey(text, existingKeys);
               existingKeys.add(key);
               hasScriptExtraction = true;
@@ -215,14 +215,14 @@ export const intlayerSvelteExtract = (
   // Abort if nothing was extracted
   if (replacements.length === 0) return null;
 
-  // 3. Apply Replacements in Reverse Order (prevents magic-string chunk errors)
+  // Apply Replacements in Reverse Order (prevents magic-string chunk errors)
   replacements.sort((a, b) => b.start - a.start);
   for (const { start, end, replacement, key, value } of replacements) {
     magic.overwrite(start, end, replacement);
     extractedContent[key] = value;
   }
 
-  // 4. Inject necessary imports and setup
+  // Inject necessary imports and setup
   const hasUseIntlayerImport =
     /import\s*{[^}]*useIntlayer[^}]*}\s*from\s*['"][^'"]+['"]/.test(
       scriptContent
@@ -284,6 +284,8 @@ export const intlayerSvelteExtract = (
 type Tools = {
   generateKey: (text: string, existingKeys: Set<string>) => string;
   shouldExtract: (text: string) => boolean;
+  extractDictionaryKeyFromPath: (path: string) => string;
+  attributesToExtract: readonly string[];
   extractTsContent: any;
 };
 
@@ -297,10 +299,13 @@ export const processSvelteFile = async (
   const code = await readFile(filePath, 'utf-8');
   let extractedContent: Record<string, string> | null = null;
 
-  const result = await intlayerSvelteExtract(code, filePath, {
+  const result = intlayerSvelteExtract(code, filePath, {
     packageName,
     dictionaryKey: _componentKey,
     shouldExtract: tools.shouldExtract,
+    generateKey: tools.generateKey,
+    extractDictionaryKeyFromPath: tools.extractDictionaryKeyFromPath,
+    attributesToExtract: tools.attributesToExtract,
     onExtract: (extractResult) => {
       extractedContent = extractResult.content;
     },

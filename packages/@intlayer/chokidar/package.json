@@ -126,22 +126,6 @@
     "vitest": "4.0.18",
     "zod": "4.3.6"
   },
-  "peerDependencies": {
-    "@intlayer/babel": "workspace:*",
-    "@intlayer/svelte-compiler": "workspace:*",
-    "@intlayer/vue-compiler": "workspace:*"
-  },
-  "peerDependenciesMeta": {
-    "@intlayer/babel": {
-      "optional": true
-    },
-    "@intlayer/svelte-compiler": {
-      "optional": true
-    },
-    "@intlayer/vue-compiler": {
-      "optional": true
-    }
-  },
   "engines": {
     "node": ">=14.18"
   },

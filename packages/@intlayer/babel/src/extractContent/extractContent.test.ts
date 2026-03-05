@@ -6,10 +6,11 @@ import {
   writeFileSync,
 } from 'node:fs';
 import { join } from 'node:path';
+// unused import removed
 import { getConfiguration } from '@intlayer/config/node';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { extractIntlayer } from './extractContent';
+import { extractContent } from './extractContent';
 
 vi.mock('@intlayer/config/node', async () => {
   const actual = await vi.importActual('@intlayer/config/node');
@@ -31,9 +32,14 @@ vi.mock('@intlayer/unmerged-dictionaries-entry', () => ({
   getUnmergedDictionaries: vi.fn().mockReturnValue({}),
 }));
 
-vi.mock('../writeContentDeclaration', () => ({
-  writeContentDeclaration: vi.fn(),
-}));
+vi.mock('@intlayer/chokidar/cli', async (importOriginal) => {
+  const actual = await importOriginal<any>();
+  return {
+    ...actual,
+    writeContentDeclaration: vi.fn(),
+    detectFormatCommand: vi.fn(),
+  };
+});
 
 const tmpDir = join(process.cwd(), 'tmp_test_extract_advanced');
 
@@ -89,7 +95,7 @@ export const Test = () => {
 `;
     writeFileSync(componentPath, componentCode);
 
-    await extractIntlayer(componentPath, 'next-intlayer');
+    await extractContent(componentPath, 'next-intlayer');
 
     const updatedCode = readFileSync(componentPath, 'utf-8');
 
@@ -123,7 +129,7 @@ export const SolidTest = () => {
 `;
     writeFileSync(componentPath, componentCode);
 
-    await extractIntlayer(componentPath, 'solid-intlayer');
+    await extractContent(componentPath, 'solid-intlayer');
 
     const updatedCode = readFileSync(componentPath, 'utf-8');
 
@@ -155,7 +161,7 @@ export const SolidTest = () => {
  `;
     writeFileSync(componentPath, componentCode);
 
-    await extractIntlayer(componentPath, 'react-intlayer');
+    await extractContent(componentPath, 'react-intlayer');
 
     const updatedCode = readFileSync(componentPath, 'utf-8');
 
@@ -180,7 +186,7 @@ export const InsertionTest = () => {
 `;
     writeFileSync(componentPath, componentCode);
 
-    await extractIntlayer(componentPath, 'react-intlayer');
+    await extractContent(componentPath, 'react-intlayer');
 
     const updatedCode = readFileSync(componentPath, 'utf-8');
 
@@ -212,7 +218,7 @@ export const InsertionTest = () => {
       }
     `;
     writeFileSync(componentPath, componentCode);
-    await extractIntlayer(componentPath, 'react-intlayer');
+    await extractContent(componentPath, 'react-intlayer');
     const updatedCode = readFileSync(componentPath, 'utf-8');
 
     expect(updatedCode).toMatch(/['"]Compiler Generated String['"]:/);
@@ -228,7 +234,7 @@ export const InsertionTest = () => {
       }
     `;
     writeFileSync(componentPath, componentCode);
-    await extractIntlayer(componentPath, 'react-intlayer');
+    await extractContent(componentPath, 'react-intlayer');
     const updatedCode = readFileSync(componentPath, 'utf-8');
 
     expect(updatedCode).toContain('{content.helloWorld}');
@@ -248,7 +254,7 @@ export const InsertionTest = () => {
       }
     `;
     writeFileSync(componentPath, componentCode);
-    await extractIntlayer(componentPath, 'react-intlayer');
+    await extractContent(componentPath, 'react-intlayer');
     const updatedCode = readFileSync(componentPath, 'utf-8');
 
     expect(updatedCode).toContain('content.utilityText');
@@ -269,7 +275,7 @@ export const InsertionTest = () => {
       }
     `;
     writeFileSync(componentPath, componentCode);
-    await extractIntlayer(componentPath, 'react-intlayer');
+    await extractContent(componentPath, 'react-intlayer');
     const updatedCode = readFileSync(componentPath, 'utf-8');
 
     expect(updatedCode).toContain(
@@ -290,7 +296,7 @@ export const InsertionTest = () => {
       }
     `;
     writeFileSync(componentPath, componentCode);
-    await extractIntlayer(componentPath, 'react-intlayer');
+    await extractContent(componentPath, 'react-intlayer');
     const updatedCode = readFileSync(componentPath, 'utf-8');
 
     expect(updatedCode).toContain('title={content.componentTitle.value}');
@@ -307,7 +313,7 @@ export const InsertionTest = () => {
       }
     `;
     writeFileSync(componentPath, componentCode);
-    await extractIntlayer(componentPath, 'react-intlayer');
+    await extractContent(componentPath, 'react-intlayer');
     const updatedCode = readFileSync(componentPath, 'utf-8');
 
     expect(updatedCode).not.toContain('useIntlayer');
@@ -322,7 +328,7 @@ export const InsertionTest = () => {
       }
     `;
     writeFileSync(componentPath, componentCode);
-    await extractIntlayer(componentPath, 'react-intlayer');
+    await extractContent(componentPath, 'react-intlayer');
     const updatedCode = readFileSync(componentPath, 'utf-8');
 
     expect(updatedCode).toMatch(
@@ -343,7 +349,7 @@ export const InsertionTest = () => {
       }
     `;
     writeFileSync(componentPath, componentCode);
-    await extractIntlayer(componentPath, 'react-intlayer');
+    await extractContent(componentPath, 'react-intlayer');
     const updatedCode = readFileSync(componentPath, 'utf-8');
 
     const matches = updatedCode.match(
@@ -362,7 +368,7 @@ export const InsertionTest = () => {
       }
     `;
     writeFileSync(componentPath, componentCode);
-    await extractIntlayer(componentPath, 'react-intlayer');
+    await extractContent(componentPath, 'react-intlayer');
     const updatedCode = readFileSync(componentPath, 'utf-8');
 
     expect(updatedCode).toContain('content.identicalString.value');
@@ -393,12 +399,37 @@ export const InsertionTest = () => {
       rmSync(tmpDir, { recursive: true, force: true });
     });
 
+    it('should handle object property arrow function with parenthesized JSX return', async () => {
+      const componentPath = join(tmpDir, 'ObjectPropReturn.tsx');
+      const componentCode = `
+export const routes = {
+  'custom-component': (props) => (
+    <h1 style={{ color: 'red' }} {...props}>
+      Custom 1
+    </h1>
+  ),
+};
+`;
+
+      writeFileSync(componentPath, componentCode);
+      await extractContent(componentPath, 'react-intlayer');
+
+      const updatedCode = readFileSync(componentPath, 'utf-8');
+
+      // The return statement must NOT be split by ASI
+      expect(updatedCode).not.toContain('return;');
+      // Content should be accessed correctly
+      expect(updatedCode).toContain('{content.custom1}');
+      // The block body must be syntactically valid: return followed by `(`
+      expect(updatedCode).toMatch(/return\s*\(/);
+    });
+
     it('should handle React component with direct fragment return (implicit return)', async () => {
       const componentPath = join(tmpDir, 'DirectReturn.tsx');
       const componentCode = `export const DirectReturn = () => <>My text</>;`;
 
       writeFileSync(componentPath, componentCode);
-      await extractIntlayer(componentPath, 'react-intlayer');
+      await extractContent(componentPath, 'react-intlayer');
 
       const updatedCode = readFileSync(componentPath, 'utf-8');
 
@@ -418,7 +449,7 @@ export const InsertionTest = () => {
       const componentCode = `export const myUtility = () => "My utility text";`;
 
       writeFileSync(componentPath, componentCode);
-      await extractIntlayer(componentPath, 'react-intlayer');
+      await extractContent(componentPath, 'react-intlayer');
 
       const updatedCode = readFileSync(componentPath, 'utf-8');
 
@@ -441,7 +472,7 @@ export const InsertionTest = () => {
     `;
 
       writeFileSync(componentPath, componentCode);
-      await extractIntlayer(componentPath, 'react-intlayer');
+      await extractContent(componentPath, 'react-intlayer');
 
       const updatedCode = readFileSync(componentPath, 'utf-8');
 
@@ -461,7 +492,7 @@ export const InsertionTest = () => {
     `;
 
       writeFileSync(componentPath, componentCode);
-      await extractIntlayer(componentPath, 'react-intlayer');
+      await extractContent(componentPath, 'react-intlayer');
 
       const updatedCode = readFileSync(componentPath, 'utf-8');
 
@@ -502,7 +533,7 @@ export const InsertionTest = () => {
     `;
       writeFileSync(componentPath, componentCode);
 
-      await extractIntlayer(componentPath, 'react-intlayer');
+      await extractContent(componentPath, 'react-intlayer');
 
       const updatedCode = readFileSync(componentPath, 'utf-8');
       // Should NOT use 'existing-key' but 'custom-key'
@@ -522,7 +553,7 @@ export const InsertionTest = () => {
     `;
       writeFileSync(componentPath, componentCode);
 
-      await extractIntlayer(componentPath, 'react-intlayer');
+      await extractContent(componentPath, 'react-intlayer');
 
       const updatedCode = readFileSync(componentPath, 'utf-8');
       // 'collision' is taken by the file, so it should try 'collision1'
@@ -544,7 +575,7 @@ export const InsertionTest = () => {
         ],
       } as any);
 
-      await extractIntlayer(componentPath, 'react-intlayer');
+      await extractContent(componentPath, 'react-intlayer');
 
       const updatedCode = readFileSync(componentPath, 'utf-8');
       expect(updatedCode).toMatch(/useIntlayer\(['"]registry-match1['"]\)/);
@@ -559,7 +590,7 @@ export const InsertionTest = () => {
       const componentCode = `export const MyComponent = () => <div>Index Text</div>;`;
       writeFileSync(componentPath, componentCode);
 
-      await extractIntlayer(componentPath, 'react-intlayer');
+      await extractContent(componentPath, 'react-intlayer');
 
       const updatedCode = readFileSync(componentPath, 'utf-8');
       // Key should be kebab-case of parent directory 'MyComponent' -> 'my-component'
@@ -579,7 +610,7 @@ export const InsertionTest = () => {
       `;
       writeFileSync(componentPath, componentCode);
 
-      await extractIntlayer(componentPath, 'react-intlayer');
+      await extractContent(componentPath, 'react-intlayer');
 
       const updatedCode = readFileSync(componentPath, 'utf-8');
 
@@ -603,7 +634,7 @@ export function bar() {
 `;
       writeFileSync(componentPath, componentCode);
 
-      await extractIntlayer(componentPath, 'react-intlayer');
+      await extractContent(componentPath, 'react-intlayer');
 
       const updatedCode = readFileSync(componentPath, 'utf-8');
 

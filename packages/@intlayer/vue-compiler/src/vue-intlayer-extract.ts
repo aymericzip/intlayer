@@ -1,13 +1,6 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { parse as babelParse, types as t, traverse } from '@babel/core';
-import {
-  ATTRIBUTES_TO_EXTRACT,
-  shouldExtract as defaultShouldExtract,
-  extractDictionaryKeyFromPath,
-  generateKey,
-} from '@intlayer/chokidar/cli';
-
-/* ────────────────────────────────────────── types ───────────────────────── */
+import vueSfc from '@vue/compiler-sfc';
 
 export type ExtractedContent = Record<string, string>;
 
@@ -25,6 +18,9 @@ export type ExtractPluginOptions = {
   shouldExtract?: (text: string) => boolean;
   onExtract?: (result: ExtractResult) => void;
   dictionaryKey?: string;
+  attributesToExtract?: readonly string[];
+  extractDictionaryKeyFromPath?: (path: string) => string;
+  generateKey?: (text: string, existingKeys: Set<string>) => string;
 };
 
 type Replacement = {
@@ -34,8 +30,6 @@ type Replacement = {
   key: string;
   value: string;
 };
-
-/* ────────────────────────────────────────── helpers ─────────────────────── */
 
 export const shouldProcessFile = (
   filename: string | undefined,
@@ -50,8 +44,6 @@ export const shouldProcessFile = (
     return normalizedF === normalizedFilename;
   });
 };
-
-/* ────────────────────────────────────────── Vue types ───────────────────── */
 
 type VueParseResult = {
   descriptor: {
@@ -102,8 +94,6 @@ type MagicStringType = {
   }) => unknown;
 };
 
-/* ────────────────────────────────────────── plugin ──────────────────────── */
-
 export const intlayerVueExtract = async (
   code: string,
   filename: string,
@@ -113,9 +103,12 @@ export const intlayerVueExtract = async (
     defaultLocale = 'en',
     packageName = 'vue-intlayer',
     filesList,
-    shouldExtract = defaultShouldExtract,
+    shouldExtract,
     onExtract,
     dictionaryKey: dictionaryKeyOption,
+    attributesToExtract = [],
+    extractDictionaryKeyFromPath,
+    generateKey,
   } = options;
 
   if (!shouldProcessFile(filename, filesList)) return null;
@@ -125,7 +118,6 @@ export const intlayerVueExtract = async (
   let MagicString: new (code: string) => MagicStringType;
 
   try {
-    const vueSfc = await import('@vue/compiler-sfc');
     parseVue = vueSfc.parse as unknown as (code: string) => VueParseResult;
   } catch {
     console.warn('Vue extraction: @vue/compiler-sfc not found.');
@@ -146,7 +138,7 @@ export const intlayerVueExtract = async (
   const extractedContent: ExtractedContent = {};
   const existingKeys = new Set<string>();
   const dictionaryKey =
-    dictionaryKeyOption ?? extractDictionaryKeyFromPath(filename);
+    dictionaryKeyOption ?? extractDictionaryKeyFromPath?.(filename) ?? '';
   const replacements: Replacement[] = [];
 
   // 1. Walk Vue Template AST
@@ -154,7 +146,7 @@ export const intlayerVueExtract = async (
     const walkVueAst = (node: VueAstNode) => {
       if (node.type === NODE_TYPES.TEXT) {
         const text = node.content ?? '';
-        if (shouldExtract(text)) {
+        if (shouldExtract?.(text) && generateKey) {
           const key = generateKey(text, existingKeys);
           existingKeys.add(key);
           replacements.push({
@@ -169,11 +161,11 @@ export const intlayerVueExtract = async (
         node.props?.forEach((prop) => {
           if (
             prop.type === NODE_TYPES.ATTRIBUTE &&
-            (ATTRIBUTES_TO_EXTRACT as readonly string[]).includes(prop.name) &&
+            (attributesToExtract as readonly string[]).includes(prop.name) &&
             prop.value
           ) {
             const text = prop.value.content;
-            if (shouldExtract(text)) {
+            if (shouldExtract?.(text) && generateKey) {
               const key = generateKey(text, existingKeys);
               existingKeys.add(key);
               replacements.push({
@@ -240,7 +232,7 @@ export const intlayerVueExtract = async (
             }
 
             const text = path.node.value;
-            if (shouldExtract(text)) {
+            if (shouldExtract?.(text) && generateKey) {
               const key = generateKey(text, existingKeys);
               existingKeys.add(key);
 
@@ -330,6 +322,8 @@ export const intlayerVueExtract = async (
 type Tools = {
   generateKey: (text: string, existingKeys: Set<string>) => string;
   shouldExtract: (text: string) => boolean;
+  extractDictionaryKeyFromPath: (path: string) => string;
+  attributesToExtract: readonly string[];
   extractTsContent: any;
 };
 
@@ -347,6 +341,9 @@ export const processVueFile = async (
     packageName,
     dictionaryKey: _componentKey,
     shouldExtract: tools.shouldExtract,
+    generateKey: tools.generateKey,
+    extractDictionaryKeyFromPath: tools.extractDictionaryKeyFromPath,
+    attributesToExtract: tools.attributesToExtract,
     onExtract: (extractResult) => {
       extractedContent = extractResult.content;
     },

@@ -1,10 +1,10 @@
 import { existsSync } from 'node:fs';
 import { mkdir, readFile } from 'node:fs/promises';
-import { createRequire } from 'node:module';
-import { join, relative } from 'node:path';
+import { dirname, join, relative } from 'node:path';
 import {
+  detectPackageName,
   type ExtractResult,
-  intlayerExtractBabelPlugin,
+  extractContent,
 } from '@intlayer/babel';
 import {
   buildDictionary,
@@ -88,7 +88,6 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
   let logger: ReturnType<typeof getAppLogger>;
   let projectRoot = '';
   let filesList: string[] = [];
-  let babel: any = null;
   let activeCompilerMode: CompilerMode = 'build';
 
   // Promise to track dictionary writing (for synchronization)
@@ -410,16 +409,6 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
     config = getConfiguration(configOptions);
     logger = getAppLogger(config);
 
-    // Load Babel dynamically
-    try {
-      const localRequire = createRequire(import.meta.url);
-      babel = localRequire('@babel/core');
-    } catch {
-      logger('Failed to load @babel/core. Transformation will be disabled.', {
-        level: 'warn',
-      });
-    }
-
     // Build files list for transformation
     await buildFilesListFn();
   };
@@ -706,23 +695,6 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
   };
 
   /**
-   * Detect the package name to import useIntlayer from based on file extension
-   */
-  const detectPackageName = (filename: string): string => {
-    if (filename.endsWith('.vue')) {
-      return 'vue-intlayer';
-    }
-    if (filename.endsWith('.svelte')) {
-      return 'svelte-intlayer';
-    }
-    if (filename.endsWith('.tsx') || filename.endsWith('.jsx')) {
-      return 'react-intlayer';
-    }
-    // Default to react-intlayer for JSX/TSX files
-    return 'intlayer';
-  };
-
-  /**
    * Transform a Vue file using the Vue extraction plugin
    */
   const transformVue = async (
@@ -759,59 +731,35 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
   };
 
   /**
-   * Transform a JSX/TSX file using the Babel extraction plugin
+   * Transform a TSX/JSX/TS/JS file by delegating to `extractContent` from
+   * `@intlayer/babel`. This reuses the same extraction pipeline as the CLI
+   * (`intlayer extract`) but without writing the transformed source back to
+   * disk — the resulting code is returned to Vite instead.
    */
-  const transformJsx = (
+  const transformTs = async (
     code: string,
-    filename: string,
-    defaultLocale: string
-  ) => {
-    if (!babel) {
-      return undefined;
-    }
+    filename: string
+  ): Promise<{ code: string; map?: unknown } | undefined> => {
+    const pkg = detectPackageName(dirname(filename)) ?? 'react-intlayer';
 
-    const packageName = detectPackageName(filename);
-
-    const result = babel.transformSync(code, {
-      filename,
-      plugins: [
-        [
-          intlayerExtractBabelPlugin,
-          {
-            defaultLocale,
-            filesList,
-            packageName,
-            onExtract: handleExtractedContent,
-            saveComponents: getCompilerConfig().saveComponents,
-          },
-        ],
-      ],
-      parserOpts: {
-        sourceType: 'module',
-        allowImportExportEverywhere: true,
-        plugins: [
-          'typescript',
-          'jsx',
-          'decorators-legacy',
-          'classProperties',
-          'objectRestSpread',
-          'asyncGenerators',
-          'functionBind',
-          'exportDefaultFrom',
-          'exportNamespaceFrom',
-          'dynamicImport',
-          'nullishCoalescingOperator',
-          'optionalChaining',
-        ],
+    const result = await extractContent(filename, pkg as any, {
+      configuration: config,
+      code,
+      // Never write the modified source back to disk — Vite owns the file.
+      declarationOnly: !getCompilerConfig().saveComponents,
+      // Dictionary writing is handled by handleExtractedContent below.
+      onExtract: ({ key, content }) => {
+        handleExtractedContent({
+          dictionaryKey: key,
+          content,
+          filePath: filename,
+          locale: config.internationalization.defaultLocale,
+        });
       },
     });
 
-    if (result?.code) {
-      return {
-        code: result.code,
-        map: result.map,
-        extracted: true,
-      };
+    if (result?.transformedCode) {
+      return { code: result.transformedCode };
     }
 
     return undefined;
@@ -852,9 +800,9 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
     const isSvelte = filename.endsWith('.svelte');
 
     if (!isVue && !isSvelte) {
-      // For non-Vue/Svelte files, use JSX transformation via Babel
+      // For non-Vue/Svelte files, use the extractContent-based transformation
       try {
-        const result = transformJsx(code, filename, defaultLocale);
+        const result = await transformTs(code, filename);
 
         if (pendingDictionaryWrite) {
           await pendingDictionaryWrite;

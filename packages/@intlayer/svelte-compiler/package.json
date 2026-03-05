@@ -81,13 +81,6 @@
   },
   "dependencies": {
     "@babel/core": "7.29.0",
-    "@intlayer/babel": "workspace:*",
-    "@intlayer/chokidar": "workspace:*",
-    "@intlayer/cli": "workspace:*",
-    "@intlayer/config": "workspace:*",
-    "@intlayer/core": "workspace:*",
-    "@intlayer/dictionaries-entry": "workspace:*",
-    "@intlayer/types": "workspace:*",
     "fast-glob": "3.3.3",
     "magic-string": "0.30.21"
   },

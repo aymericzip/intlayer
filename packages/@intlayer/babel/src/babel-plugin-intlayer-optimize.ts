@@ -95,11 +95,14 @@ export type OptimizePluginOptions = {
   /**
    * If true, the plugin will activate the dynamic import of the dictionaries. It will rely on Suspense to load the dictionaries.
    */
-  importMode: 'static' | 'dynamic' | 'fetch';
+  importMode: 'static' | 'dynamic' | 'fetch' | undefined;
   /**
    * Map of dictionary keys to their specific import mode.
    */
-  dictionaryModeMap?: Record<string, 'static' | 'dynamic' | 'fetch'>;
+  dictionaryModeMap?: Record<
+    string,
+    'static' | 'dynamic' | 'fetch' | undefined
+  >;
   /**
    * Files list to traverse.
    */

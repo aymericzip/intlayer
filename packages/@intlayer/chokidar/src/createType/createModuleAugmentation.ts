@@ -3,8 +3,8 @@ import { basename, extname, join, relative } from 'node:path';
 import { kebabCaseToCamelCase, normalizePath } from '@intlayer/config/utils';
 import type { IntlayerConfig, Locale } from '@intlayer/types';
 import fg from 'fast-glob';
-import { printNode, zodToTs } from 'zod-to-ts';
-import { getFileHash } from '../utils/getPathHash';
+import { createAuxiliaryTypeStore, printNode, zodToTs } from 'zod-to-ts';
+import { getPathHash } from '../utils';
 import { writeFileIfChanged } from '../writeFileIfChanged';
 
 export const getTypeName = (key: string): string =>
@@ -96,7 +96,7 @@ const generateTypeIndexContent = (
   const dictionariesRef = typeFiles.map((dictionaryPath) => ({
     relativePath: `./${relative(moduleAugmentationDir, dictionaryPath)}`,
     id: basename(dictionaryPath, extname(dictionaryPath)),
-    hash: `_${getFileHash(dictionaryPath)}`,
+    hash: `_${getPathHash(dictionaryPath)}`,
   }));
 
   // Import all dictionaries
@@ -129,7 +129,9 @@ const generateTypeIndexContent = (
 
       if (schema) {
         try {
-          const { node } = zodToTs(schema as any, key);
+          const { node } = zodToTs(schema, {
+            auxiliaryTypeStore: createAuxiliaryTypeStore(),
+          });
           // 133 is the kind for AnyKeyword in TypeScript
           if ((node as any).kind !== 133) {
             typeStr = printNode(node);

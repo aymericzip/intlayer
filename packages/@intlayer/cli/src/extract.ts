@@ -2,12 +2,13 @@ import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { relative, resolve } from 'node:path';
 import { multiselect } from '@clack/prompts';
-import { type PackageName, transformFiles } from '@intlayer/chokidar/cli';
+import { extractContent, type PackageName } from '@intlayer/babel';
 import { colorizePath, getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
+import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import fg from 'fast-glob';
 
 type ExtractOptions = {
@@ -146,10 +147,23 @@ export const extract = async (options: ExtractOptions) => {
     return;
   }
 
-  await transformFiles(absoluteFiles, packageName, {
-    configOptions: options.configOptions,
-    outputDir: options.outputContentDeclarations,
-    codeOnly: options.codeOnly,
-    declarationOnly: options.declarationOnly,
-  });
+  const unmergedDictionaries = getUnmergedDictionaries(configuration);
+
+  await Promise.all(
+    absoluteFiles.map(async (filePath) => {
+      try {
+        await extractContent(filePath, packageName, {
+          unmergedDictionaries,
+          configuration,
+          outputDir: options.outputContentDeclarations,
+          codeOnly: options.codeOnly,
+          declarationOnly: options.declarationOnly,
+        });
+      } catch (error) {
+        appLogger(
+          `Failed to transform ${filePath}: ${(error as Error).message}`
+        );
+      }
+    })
+  );
 };

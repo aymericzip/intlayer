@@ -36,6 +36,7 @@ const config: IntlayerConfig = {
     enabled: true,
     transformPattern: ['**/*.{ts,tsx}'],
     outputDir: './compiler',
+    saveComponents: true,
   },
   routing: {
     storage: ['cookie', 'localStorage', 'header'],

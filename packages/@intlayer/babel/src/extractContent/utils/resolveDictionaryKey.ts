@@ -17,7 +17,9 @@ export const resolveDictionaryKey = (
 ): string => {
   const dicts =
     unmergedDictionaries ?? getUnmergedDictionaries(configuration) ?? {};
+
   const { fileExtensions } = configuration.content;
+
   const dirName = dirname(filePath);
   const firstExtension = fileExtensions[0];
   const extension = firstExtension.startsWith('.')
@@ -25,6 +27,7 @@ export const resolveDictionaryKey = (
     : `.${firstExtension}`;
 
   let index = 0;
+
   while (index < 100) {
     const keyToTest = index === 0 ? initialKey : `${initialKey}${index}`;
     const dictionaries = dicts[keyToTest] as Dictionary[] | undefined;
@@ -38,5 +41,6 @@ export const resolveDictionaryKey = (
     }
     index++;
   }
+
   return initialKey;
 };

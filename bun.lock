@@ -909,6 +909,7 @@
       "devDependencies": {
         "@babel/plugin-syntax-jsx": "^7.28.6",
         "@intlayer/dictionaries-entry": "workspace:*",
+        "@intlayer/unmerged-dictionaries-entry": "workspace:*",
         "@types/node": "25.3.3",
         "@utils/ts-config": "workspace:*",
         "@utils/ts-config-types": "workspace:*",
@@ -919,6 +920,14 @@
         "typescript": "5.9.3",
         "vitest": "4.0.18",
       },
+      "peerDependencies": {
+        "@intlayer/svelte-compiler": "workspace:*",
+        "@intlayer/vue-compiler": "workspace:*",
+      },
+      "optionalPeers": [
+        "@intlayer/svelte-compiler",
+        "@intlayer/vue-compiler",
+      ],
     },
     "packages/@intlayer/chokidar": {
       "name": "@intlayer/chokidar",
@@ -949,16 +958,6 @@
         "vitest": "4.0.18",
         "zod": "4.3.6",
       },
-      "peerDependencies": {
-        "@intlayer/babel": "workspace:*",
-        "@intlayer/svelte-compiler": "workspace:*",
-        "@intlayer/vue-compiler": "workspace:*",
-      },
-      "optionalPeers": [
-        "@intlayer/babel",
-        "@intlayer/svelte-compiler",
-        "@intlayer/vue-compiler",
-      ],
     },
     "packages/@intlayer/cli": {
       "name": "@intlayer/cli",
@@ -967,6 +966,7 @@
         "@clack/prompts": "0.11.0",
         "@intlayer/ai": "workspace:*",
         "@intlayer/api": "workspace:*",
+        "@intlayer/babel": "workspace:*",
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -1290,13 +1290,6 @@
       },
       "dependencies": {
         "@babel/core": "7.29.0",
-        "@intlayer/babel": "workspace:*",
-        "@intlayer/chokidar": "workspace:*",
-        "@intlayer/cli": "workspace:*",
-        "@intlayer/config": "workspace:*",
-        "@intlayer/core": "workspace:*",
-        "@intlayer/dictionaries-entry": "workspace:*",
-        "@intlayer/types": "workspace:*",
         "fast-glob": "3.3.3",
         "magic-string": "0.30.21",
       },
@@ -1368,13 +1361,7 @@
       },
       "dependencies": {
         "@babel/core": "7.29.0",
-        "@intlayer/babel": "workspace:*",
-        "@intlayer/chokidar": "workspace:*",
-        "@intlayer/cli": "workspace:*",
-        "@intlayer/config": "workspace:*",
-        "@intlayer/core": "workspace:*",
-        "@intlayer/dictionaries-entry": "workspace:*",
-        "@intlayer/types": "workspace:*",
+        "@vue/compiler-sfc": ">=3.0.0",
         "fast-glob": "3.3.3",
         "magic-string": "0.30.21",
       },
@@ -1393,12 +1380,10 @@
       },
       "peerDependencies": {
         "@babel/core": ">=6.0.0",
-        "@vue/compiler-sfc": ">=3.0.0",
         "vite": ">=4.0.0",
       },
       "optionalPeers": [
         "@babel/core",
-        "@vue/compiler-sfc",
       ],
     },
     "packages/@intlayer/webpack": {

@@ -1,13 +1,14 @@
-import traverse, { type NodePath } from '@babel/traverse';
+import _traverse, { type NodePath } from '@babel/traverse';
 import * as t from '@babel/types';
+import type { IntlayerConfig } from '@intlayer/types';
+import { resolveDictionaryKey } from '../extractContent/utils';
 import {
   ATTRIBUTES_TO_EXTRACT,
+  getComponentName,
+  getExistingIntlayerInfo,
   getOrGenerateKey,
-  resolveDictionaryKey,
   shouldExtract,
-} from '@intlayer/chokidar/cli';
-import type { IntlayerConfig } from '@intlayer/types';
-import { getComponentName, getExistingIntlayerInfo } from './utils';
+} from './utils';
 
 export type BabelReplacement = {
   path: NodePath;
@@ -22,6 +23,11 @@ export type BabelReplacement = {
   childrenToReplace?: t.Node[];
   variables?: string[];
 };
+
+// CJS/ESM interop: @babel/traverse exports its function as `.default` in CJS bundles
+const traverse = (
+  typeof _traverse === 'function' ? _traverse : (_traverse as any).default
+) as typeof _traverse;
 
 /**
  * Handles JSX insertions (elements with multiple children, including expressions).

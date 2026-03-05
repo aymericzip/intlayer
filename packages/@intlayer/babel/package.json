@@ -93,6 +93,7 @@
   "devDependencies": {
     "@babel/plugin-syntax-jsx": "^7.28.6",
     "@intlayer/dictionaries-entry": "workspace:*",
+    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "@types/node": "25.3.3",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
@@ -102,6 +103,18 @@
     "tsdown": "0.20.3",
     "typescript": "5.9.3",
     "vitest": "4.0.18"
+  },
+  "peerDependencies": {
+    "@intlayer/svelte-compiler": "workspace:*",
+    "@intlayer/vue-compiler": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@intlayer/svelte-compiler": {
+      "optional": true
+    },
+    "@intlayer/vue-compiler": {
+      "optional": true
+    }
   },
   "engines": {
     "node": ">=14.18"
