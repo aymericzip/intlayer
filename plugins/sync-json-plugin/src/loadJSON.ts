@@ -1,5 +1,5 @@
 import { isAbsolute, join, relative, resolve } from 'node:path';
-import { getProjectRequire } from '@intlayer/config/utils';
+import { loadExternalFile } from '@intlayer/config/file';
 import type {
   Dictionary,
   DictionaryFormat,
@@ -225,11 +225,9 @@ export const loadJSON = (options: LoadJSONPluginOptions): Plugin => {
       const dictionaries: Dictionary[] = [];
 
       for (const { path, key } of dictionariesMap) {
-        const requireFunction =
-          configuration.build?.require ?? getProjectRequire();
         let json: JSONContent = {};
         try {
-          json = requireFunction(path as string);
+          json = await loadExternalFile(path as string);
         } catch {
           // File does not exist yet; default to empty content so it can be filled later
           json = {};

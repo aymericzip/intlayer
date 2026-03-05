@@ -9,13 +9,18 @@ import type { Dictionary } from '@intlayer/types';
  * @returns Only the content that's missing in the target
  */
 const filterMissingContent = (sourceContent: any, targetContent: any): any => {
-  // If target doesn't exist, all source content is missing
+  // Source is null - nothing to translate even if target is also null
+  if (sourceContent === null) {
+    return undefined;
+  }
+
+  // If target doesn't exist or is null, all source content is missing
   if (targetContent === undefined || targetContent === null) {
     return sourceContent;
   }
 
   // Primitive values: if target exists (even if empty string), consider it translated
-  if (typeof sourceContent !== 'object' || sourceContent === null) {
+  if (typeof sourceContent !== 'object') {
     return undefined;
   }
 

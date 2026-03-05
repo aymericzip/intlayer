@@ -1,6 +1,6 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, isAbsolute, join, relative, resolve } from 'node:path';
-import { getProjectRequire } from '@intlayer/config/utils';
+import { loadExternalFile } from '@intlayer/config/file';
 import type {
   Dictionary,
   DictionaryFormat,
@@ -296,11 +296,9 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
       const dictionaries: Dictionary[] = [];
 
       for (const { locale, path, key } of dictionariesMap) {
-        const requireFunction =
-          configuration.build?.require ?? getProjectRequire();
         let json: JSONContent = {};
         try {
-          json = requireFunction(path as string);
+          json = await loadExternalFile(path as string);
         } catch {
           json = {};
         }
@@ -325,6 +323,15 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
 
         dictionaries.push(dictionary);
       }
+
+      console.dir(
+        {
+          dictionaries: dictionaries
+            .filter((el) => el.key === 'common')
+            .map((el) => el.content),
+        },
+        { depth: null }
+      );
 
       return dictionaries;
     },
@@ -361,7 +368,7 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
 
     afterBuild: async ({ dictionaries, configuration }) => {
       // Lazy import intlayer modules to avoid circular dependencies
-      const { getPerLocaleDictionary } = await import('@intlayer/core');
+      const { getPerLocaleDictionary } = await import('@intlayer/core/plugins');
       const { parallelize } = await import('@intlayer/chokidar/utils');
       const { formatDictionaryOutput } = await import(
         '@intlayer/chokidar/build'
