@@ -1,5 +1,4 @@
 import { relative } from 'node:path';
-import { formatPath } from '@intlayer/chokidar/utils';
 import type {
   CustomIntlayerConfig,
   IntlayerConfig,
@@ -8,7 +7,7 @@ import type {
 import { defu } from 'defu';
 import { getEnvFilePath } from '../loadEnvFile';
 import type { SandBoxContextOptions } from '../loadExternalFile/parseFileContent';
-import { getAppLogger } from '../logger';
+import { colorizePath, getAppLogger } from '../logger';
 import { cacheMemory } from '../utils/cacheMemory';
 import { getPackageJsonPath } from '../utils/getPackageJsonPath';
 import { buildConfigurationFields } from './buildConfigurationFields';
@@ -135,6 +134,9 @@ export const getConfigurationAndFilePath = (
 
     if (numCustomConfiguration === 1) {
       const dotEnvFilePath = getEnvFilePath(options?.env, options?.envFile);
+
+      const formatPath = (path: string) =>
+        colorizePath(relative(configuration.content.baseDir, path));
 
       appLogger(
         `Configuration loaded ${formatPath(relativeOutputPath)}${dotEnvFilePath ? ` - Env: ${formatPath(dotEnvFilePath)}` : ''}`,
