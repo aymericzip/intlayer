@@ -25,9 +25,6 @@
     "confirmDelete": "¿Estás seguro de que quieres eliminar este elemento?",
     "saved": "Cambios guardados con éxito"
   },
-  "test": {
-    "test": "test"
-  },
   "footer": {
     "copyright": "© 2024 Nombre de la Empresa. Todos los derechos reservados.",
     "privacy": "Política de Privacidad",
@@ -43,5 +40,9 @@
     "placeholder": "Buscar...",
     "noResults": "No se encontraron resultados",
     "results": "resultados encontrados"
+  },
+  "test": {
+    "test": "test",
+    "testNull": null
   }
 }

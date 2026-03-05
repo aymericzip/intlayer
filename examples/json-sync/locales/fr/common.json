@@ -42,6 +42,7 @@
     "results": "résultats trouvés"
   },
   "test": {
-    "test": "test"
+    "test": "test",
+    "testNull": null
   }
 }

@@ -53,6 +53,39 @@ type TranslateDictionaryOptions = {
 const hasMissingMetadata = (dictionary: Dictionary) =>
   !dictionary.description || !dictionary.title || !dictionary.tags;
 
+/**
+ * Recursively strips null values from an object, returning the cleaned content
+ * and a separate object containing only the null-valued paths so they can be
+ * re-injected after AI translation (nulls don't need translation).
+ */
+const stripNullValues = (
+  obj: any
+): { content: any; nulls: any; hasNulls: boolean } => {
+  if (typeof obj !== 'object' || obj === null || Array.isArray(obj)) {
+    return { content: obj, nulls: undefined, hasNulls: false };
+  }
+
+  const content: any = {};
+  const nulls: any = {};
+  let hasNulls = false;
+
+  for (const [key, value] of Object.entries(obj)) {
+    if (value === null) {
+      nulls[key] = null;
+      hasNulls = true;
+    } else {
+      const child = stripNullValues(value);
+      content[key] = child.content;
+      if (child.hasNulls) {
+        nulls[key] = child.nulls;
+        hasNulls = true;
+      }
+    }
+  }
+
+  return { content, nulls: hasNulls ? nulls : undefined, hasNulls };
+};
+
 const CHUNK_SIZE = 7000; // GPT-5 Mini safe input size
 const GROUP_MAX_RETRY = 2;
 const MAX_RETRY = 3;
@@ -252,12 +285,17 @@ export const translateDictionary = async (
               dictionaryToProcess.content !== null) ||
             Array.isArray(dictionaryToProcess.content);
 
-          const contentToProcess = isContentStructured
+          const rawContentToProcess = isContentStructured
             ? dictionaryToProcess.content
             : {
                 __INTLAYER_ROOT_PRIMITIVE_CONTENT__:
                   dictionaryToProcess.content,
               };
+
+          // Strip null values before sending to AI — nulls need no translation
+          // and confuse the model. They will be re-injected after merging.
+          const { content: contentToProcess, nulls: strippedNullValues } =
+            stripNullValues(rawContentToProcess);
 
           const chunkedJsonContent: JsonChunk[] = chunkJSON(
             contentToProcess as unknown as Record<string, any>,
@@ -401,7 +439,12 @@ export const translateDictionary = async (
             });
 
           // Merge partial JSON objects produced from each chunk into a single object
-          const mergedContent = mergeChunks(chunkResult);
+          let mergedContent = mergeChunks(chunkResult);
+
+          // Re-inject null values that were stripped before AI translation
+          if (strippedNullValues) {
+            mergedContent = deepMergeContent(mergedContent, strippedNullValues);
+          }
 
           const merged = {
             ...dictionaryToProcess,

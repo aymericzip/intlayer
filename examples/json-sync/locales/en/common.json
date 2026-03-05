@@ -18,7 +18,8 @@
     "previous": "Previous"
   },
   "test": {
-    "test": "test"
+    "test": "test",
+    "testNull": null
   },
   "messages": {
     "success": "Operation completed successfully",
