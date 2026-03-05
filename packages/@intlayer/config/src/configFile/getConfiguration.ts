@@ -1,12 +1,14 @@
 import { relative } from 'node:path';
+import { formatPath } from '@intlayer/chokidar/utils';
 import type {
   CustomIntlayerConfig,
   IntlayerConfig,
   LogFunctions,
 } from '@intlayer/types';
 import { defu } from 'defu';
+import { getEnvFilePath } from '../loadEnvFile';
 import type { SandBoxContextOptions } from '../loadExternalFile/parseFileContent';
-import { logger } from '../logger';
+import { getAppLogger } from '../logger';
 import { cacheMemory } from '../utils/cacheMemory';
 import { getPackageJsonPath } from '../utils/getPackageJsonPath';
 import { buildConfigurationFields } from './buildConfigurationFields';
@@ -63,10 +65,6 @@ export const getConfigurationAndFilePath = (
   // Search for configuration files
   const { configurationFilePath, numCustomConfiguration } =
     searchConfigurationFile(baseDir);
-
-  if (options?.override?.log?.mode === 'verbose') {
-    logConfigFileResult(baseDir, numCustomConfiguration, configurationFilePath);
-  }
 
   let storedConfiguration: IntlayerConfig;
 
@@ -126,6 +124,34 @@ export const getConfigurationAndFilePath = (
     configurationFilePath,
   });
 
+  const appLogger = getAppLogger(configuration);
+
+  if (numCustomConfiguration === 0) {
+    appLogger('Configuration file not found, using default configuration.', {
+      isVerbose: true,
+    });
+  } else {
+    const relativeOutputPath = relative(baseDir, configurationFilePath!);
+
+    if (numCustomConfiguration === 1) {
+      const dotEnvFilePath = getEnvFilePath(options?.env, options?.envFile);
+
+      appLogger(
+        `Configuration loaded ${formatPath(relativeOutputPath)}${dotEnvFilePath ? ` - Env: ${formatPath(dotEnvFilePath)}` : ''}`,
+        {
+          isVerbose: true,
+        }
+      );
+    } else {
+      appLogger(
+        `Multiple configuration files found, using ${relativeOutputPath}.`,
+        {
+          isVerbose: true,
+        }
+      );
+    }
+  }
+
   return {
     configuration,
     configurationFilePath,
@@ -138,30 +164,3 @@ export const getConfigurationAndFilePath = (
 export const getConfiguration = (
   options?: GetConfigurationOptions
 ): IntlayerConfig => getConfigurationAndFilePath(options).configuration;
-
-const logConfigFileResult = (
-  baseDir: string,
-  numCustomConfiguration?: number,
-  configurationFilePath?: string
-) => {
-  if (numCustomConfiguration === 0) {
-    logger('Configuration file not found, using default configuration.', {
-      isVerbose: true,
-    });
-  } else {
-    const relativeOutputPath = relative(baseDir, configurationFilePath!);
-
-    if (numCustomConfiguration === 1) {
-      logger(`Configuration file found: ${relativeOutputPath}.`, {
-        isVerbose: true,
-      });
-    } else {
-      logger(
-        `Multiple configuration files found, using ${relativeOutputPath}.`,
-        {
-          isVerbose: true,
-        }
-      );
-    }
-  }
-};

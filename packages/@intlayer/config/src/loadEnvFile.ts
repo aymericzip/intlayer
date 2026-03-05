@@ -22,9 +22,11 @@ export const getEnvFilePath = (
 export const loadEnvFile = (options?: Partial<LoadEnvFileOptions>) => {
   const env = options?.env ?? DEFAULT_ENV;
 
-  const envFiles = options?.envFile
-    ? [options.envFile]
-    : [`.env.${env}.local`, `.env.${env}`, '.env.local', '.env'];
+  const envFiles = getEnvFilePath(env, options?.envFile);
+
+  if (!envFiles) {
+    return {};
+  }
 
   const result = {};
 

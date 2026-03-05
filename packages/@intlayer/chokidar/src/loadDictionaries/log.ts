@@ -3,6 +3,7 @@ import {
   ANSIColors,
   colorize,
   extractErrorMessage,
+  getPrefix,
   spinnerFrames,
   v,
   x,
@@ -26,7 +27,7 @@ export class DictionariesLogger {
   private pluginError: string | undefined;
 
   constructor() {
-    this.prefix = configuration?.log?.prefix ?? '';
+    this.prefix = getPrefix(configuration?.log?.prefix) ?? '';
   }
 
   setExpectRemote(expect: boolean) {

@@ -214,10 +214,6 @@ const extractConfigOptions = (
     return undefined;
   }
 
-  if (typeof options.with === 'undefined') {
-    setPrefix('');
-  }
-
   const { baseDir, env, envFile, verbose, noCache, checkTypes } = options;
 
   const log = removeUndefined({
