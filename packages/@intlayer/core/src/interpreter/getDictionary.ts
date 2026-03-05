@@ -34,5 +34,5 @@ export const getDictionary = <
     plugins,
   };
 
-  return getContent(dictionary.content, props, locale);
+  return getContent(dictionary.content, props, locale, true);
 };
