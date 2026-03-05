@@ -12,7 +12,6 @@ WORKDIR /workspace
 # Copy the rest of the source code
 # Remove directories to keep the image slim
 COPY \
-    --exclude=packages/@intlayer/babel \
     --exclude=packages/@intlayer/vue-compiler \
     --exclude=packages/@intlayer/svelte-compiler \
     --exclude=packages/@intlayer/swc \
