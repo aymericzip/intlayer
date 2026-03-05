@@ -4,6 +4,7 @@ import { extname, relative } from 'node:path';
 import { detectFormatCommand } from '@intlayer/chokidar/cli';
 import {
   ANSIColors,
+  colorize,
   colorizePath,
   getAppLogger,
 } from '@intlayer/config/logger';
@@ -222,7 +223,7 @@ export const extractContent = async (
 
   if (!extractedContentMap || Object.keys(extractedContentMap).length === 0) {
     appLogger(
-      `No extractable text found in ${colorizePath(relativeFilePath)}`,
+      `${colorize('Compiler:', ANSIColors.GREY_DARK)}  No extractable text found in ${colorizePath(relativeFilePath)}`,
       {
         isVerbose: true,
       }
@@ -253,7 +254,7 @@ export const extractContent = async (
         contentFilePath
       );
       appLogger(
-        `Created content file: ${colorizePath(relativeContentFilePath)}`
+        `${colorize('Compiler:', ANSIColors.GREY_DARK)} Created content file: ${colorizePath(relativeContentFilePath)}`
       );
     }
   }
@@ -273,7 +274,7 @@ export const extractContent = async (
     }
 
     appLogger(
-      `Updated component: ${colorizePath(relative(baseDir, filePath))}`
+      `${colorize('Compiler:', ANSIColors.GREY_DARK)} Updated component: ${colorizePath(relative(baseDir, filePath))}`
     );
   }
 
