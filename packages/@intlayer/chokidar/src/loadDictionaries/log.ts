@@ -1,13 +1,13 @@
+import { extractErrorMessage } from '@intlayer/config';
 import configuration from '@intlayer/config/built';
 import {
   ANSIColors,
   colorize,
-  extractErrorMessage,
   getPrefix,
   spinnerFrames,
   v,
   x,
-} from '@intlayer/config/client';
+} from '@intlayer/config/logger';
 import type { DictionariesStatus } from './loadDictionaries';
 
 export class DictionariesLogger {

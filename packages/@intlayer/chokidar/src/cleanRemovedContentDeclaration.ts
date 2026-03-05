@@ -1,11 +1,11 @@
 import { readFile, rm } from 'node:fs/promises';
 import { join, normalize, relative } from 'node:path';
+import { normalizePath } from '@intlayer/config/client';
 import {
   colorizeKey,
   colorizePath,
   getAppLogger,
-  normalizePath,
-} from '@intlayer/config/client';
+} from '@intlayer/config/logger';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';

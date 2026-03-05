@@ -1,7 +1,5 @@
-// packages/@intlayer/core/src/interpreter/getIntlayer.ts
-
 import configuration from '@intlayer/config/built';
-import { colorizeKey, getAppLogger } from '@intlayer/config/client';
+import { colorizeKey, getAppLogger } from '@intlayer/config/logger';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type {
   DeclaredLocales,

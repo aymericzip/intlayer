@@ -4,7 +4,7 @@ import {
   colorize,
   colorizeKey,
   getAppLogger,
-} from '@intlayer/config/client';
+} from '@intlayer/config/logger';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { formatDictionaries } from '../formatDictionary';

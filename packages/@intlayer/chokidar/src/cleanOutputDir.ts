@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs';
 import { rm } from 'node:fs/promises';
-import { getAppLogger } from '@intlayer/config/client';
+import { getAppLogger } from '@intlayer/config/logger';
 import type { IntlayerConfig } from '@intlayer/types';
 
 export const cleanOutputDir = async (configuration: IntlayerConfig) => {

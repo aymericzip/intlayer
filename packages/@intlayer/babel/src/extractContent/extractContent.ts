@@ -1,6 +1,6 @@
 import { execSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
-import { basename, extname, relative } from 'node:path';
+import { extname, relative } from 'node:path';
 import { detectFormatCommand } from '@intlayer/chokidar/cli';
 import {
   ANSIColors,
@@ -90,7 +90,6 @@ export const extractContent = async (
   const fileText = options?.code ?? readFileSync(filePath, 'utf-8');
   const componentKey = extractDictionaryKey(filePath, fileText);
   const ext = extname(filePath);
-  const fileBaseName = basename(filePath, ext);
   const relativeFilePath = relative(baseDir, filePath);
 
   let extractedContentMap: Record<string, Record<string, string>> | null = null;
@@ -222,7 +221,12 @@ export const extractContent = async (
   }
 
   if (!extractedContentMap || Object.keys(extractedContentMap).length === 0) {
-    appLogger(`No extractable text found in ${colorizePath(relativeFilePath)}`);
+    appLogger(
+      `No extractable text found in ${colorizePath(relativeFilePath)}`,
+      {
+        isVerbose: true,
+      }
+    );
     return undefined;
   }
 

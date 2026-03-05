@@ -5,7 +5,7 @@ import {
   colorizePath,
   getAppLogger,
   x,
-} from '@intlayer/config/client';
+} from '@intlayer/config/logger';
 import { getContent } from '@intlayer/core/interpreter';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { formatLocale, formatPath } from './utils/formatter';

@@ -1,12 +1,9 @@
 import { dirname, extname } from 'node:path';
-
-import { getAppLogger } from '@intlayer/config';
-
+import { getAppLogger } from '@intlayer/config/logger';
 import type { IntlayerConfig } from '@intlayer/types';
 
 export const logTypeScriptErrors = async (
   filePaths: string[],
-
   configuration: IntlayerConfig
 ) => {
   const appLogger = getAppLogger(configuration);
@@ -33,9 +30,7 @@ export const logTypeScriptErrors = async (
 
   const configFileName = ts.findConfigFile(
     configuration.content?.baseDir ?? process.cwd(),
-
     ts.sys.fileExists,
-
     'tsconfig.json'
   );
 

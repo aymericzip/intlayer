@@ -74,6 +74,7 @@ export const getIntlayerBundle = async (configuration: IntlayerConfig) => {
     '@intlayer/config/built': configurationPath,
     '@intlayer/config/utils': localRequire.resolve('@intlayer/config/utils'),
     '@intlayer/config/client': localRequire.resolve('@intlayer/config/client'),
+    '@intlayer/config/logger': localRequire.resolve('@intlayer/config/logger'),
     '@intlayer/core/file': localRequire.resolve('@intlayer/core/file'),
   };
 

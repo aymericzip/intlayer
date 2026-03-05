@@ -7,7 +7,7 @@ import {
   colorize,
   colorizePath,
   getAppLogger,
-} from '@intlayer/config/client';
+} from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
 import { processTsxFile } from './extractContent/processTsxFile';
 import type { PackageName } from './extractContent/utils/constants';

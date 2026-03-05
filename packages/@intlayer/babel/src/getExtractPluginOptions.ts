@@ -5,7 +5,7 @@ import {
   buildDictionary,
   writeContentDeclaration,
 } from '@intlayer/chokidar/build';
-import { ANSIColors, colorize, getAppLogger } from '@intlayer/config/client';
+import { ANSIColors, colorize, getAppLogger } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
 import type { Dictionary } from '@intlayer/types';
 import type {

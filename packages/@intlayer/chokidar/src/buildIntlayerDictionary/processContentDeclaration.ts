@@ -1,4 +1,4 @@
-import { logger } from '@intlayer/config/client';
+import { logger } from '@intlayer/config/logger';
 import type { Dictionary, IntlayerConfig } from '@intlayer/types';
 import { autoDecorateContent } from '../utils/autoDecorateContent';
 import { resolveObjectPromises } from '../utils/resolveObjectPromises';
