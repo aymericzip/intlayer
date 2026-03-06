@@ -73,6 +73,7 @@ export const getAuditAPI = (
         ...otherOptions.headers,
       },
       credentials: 'include',
+      signal: otherOptions.signal,
     });
 
     if (!response.ok) {

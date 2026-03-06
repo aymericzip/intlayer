@@ -66,6 +66,7 @@ COPY \
     --exclude=packages/hono-intlayer \
     --exclude=packages/adonis-intlayer \
     --exclude=apps/app \
+    --exclude=apps/showcase \
     --exclude=plugins \
     --exclude=docs/assets \
     --exclude=examples \

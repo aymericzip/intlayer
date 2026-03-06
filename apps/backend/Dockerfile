@@ -60,6 +60,7 @@ COPY \
     --exclude=docs/legal \
     --exclude=examples \
     --exclude=apps/website \
+    --exclude=apps/showcase \
     --exclude=apps/app \
     --exclude=**/*.stories.* \
     . .
