@@ -94,7 +94,7 @@ USER app
 # Expose the API port
 EXPOSE 3100
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=5s --start-period=100s --retries=3 \
   CMD wget -qO- http://localhost:3100/ > /dev/null || exit 1
 
 CMD ["bun", "dist/esm/index.mjs"]
