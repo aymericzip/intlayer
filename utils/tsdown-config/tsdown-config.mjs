@@ -57,8 +57,10 @@ export const commonOptions = {
   minify: true,
   fixedExtension: true,
   tsconfig: './tsconfig.json',
-  // Externalize ALL bare imports (i.e., all packages)
-  external: isExternal,
+  deps: {
+    // Externalize ALL bare imports (i.e., all packages)
+    neverBundle: isExternal,
+  },
   plugins: [AssetPlugin()],
 };
 
