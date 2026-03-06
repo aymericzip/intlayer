@@ -14,6 +14,7 @@ import {
 import { authMiddleware } from '@middlewares/sessionAuth.middleware';
 // Routes
 import { aiRoute, aiRouter } from '@routes/ai.routes';
+import { auditRoute, auditRouter } from '@routes/audit.routes';
 import { bitbucketRoute, bitbucketRouter } from '@routes/bitbucket.routes';
 import { dictionaryRoute, dictionaryRouter } from '@routes/dictionary.routes';
 import {
@@ -29,10 +30,15 @@ import {
 } from '@routes/organization.routes';
 import { projectRoute, projectRouter } from '@routes/project.routes';
 import { searchRoute, searchRouter } from '@routes/search.routes';
+import {
+  showcaseProjectRoute,
+  showcaseProjectRouter,
+} from '@routes/showcaseProject.routes';
 import { stripeRoute, stripeRouter } from '@routes/stripe.routes';
 import { tagRoute, tagRouter } from '@routes/tags.routes';
 import { translateRoute, translationRouter } from '@routes/translate.routes';
 import { userRoute, userRouter } from '@routes/user.routes';
+import { processAuditJobs } from '@services/audit/recursiveAudit.service';
 import { startTranslationWorker } from '@services/translationWorker.service';
 // Utils
 import { getAuth } from '@utils/auth/getAuth';
@@ -100,6 +106,9 @@ const startServer = async () => {
 
   // Start Translation Worker
   startTranslationWorker();
+
+  // Resume any pending recursive audits
+  processAuditJobs().catch((err) => logger.error(err));
 
   // Stripe webhook (needs raw body)
   // Register a content type parser for raw body
@@ -226,6 +235,8 @@ const startServer = async () => {
   await app.register(gitlabRouter, { prefix: gitlabRoute });
   await app.register(bitbucketRouter, { prefix: bitbucketRoute });
   await app.register(translationRouter, { prefix: translateRoute });
+  await app.register(showcaseProjectRouter, { prefix: showcaseProjectRoute });
+  await app.register(auditRouter, { prefix: auditRoute });
 
   // Server
   await app.listen({

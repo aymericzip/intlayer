@@ -4,13 +4,27 @@ FROM node:22-alpine AS builder
 
 RUN npm install -g bun@1.3.10
 
-RUN apk add --no-cache wget
+# System deps for wget (healthcheck) + headless Chromium (Puppeteer)
+RUN apk add --no-cache \
+  wget \
+  chromium \
+  nss \
+  harfbuzz \
+  ca-certificates \
+  ttf-freefont \
+  font-noto-emoji \
+  udev
+
+# Tell Puppeteer to use system Chromium instead of downloading its own
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+ENV PUPPETEER_SKIP_DOWNLOAD=true
+ENV PUPPETEER_CACHE_DIR=/home/app/.cache/puppeteer
+ENV TMPDIR=/workspace/apps/backend/tmp
 
 # Create app directory
 WORKDIR /workspace
 
-# Copy the rest of the source code
-# Remove directories to keep the image slim
+# Copy the monorepo, excluding packages not needed by the backend
 COPY \
     --exclude=packages/@intlayer/vue-compiler \
     --exclude=packages/@intlayer/svelte-compiler \
@@ -55,25 +69,22 @@ COPY docs/blog/en/                 docs/blog/en/
 COPY docs/frequent_questions/en/   docs/frequent_questions/en/
 COPY docs/legal/en/                docs/legal/en/
 
-# Install all dependencies (dev + prod) (frozen for reproducible builds)
+# Install all dependencies (dev + prod) for the backend filter
 RUN bun install --ignore-scripts --filter=./apps/backend
 
-# Build every package in the workspace (uses the root "build" script)
+# Build every package needed by the backend
 RUN bun x turbo run build:ci --filter=./apps/backend
 
-# Remove all dev dependencies
-# RUN CI=true bun pm prune --production
-
-# Remove .ts, .tsx and .map files only within src/** directories, ignoring node_modules, so configuration files like intlayer.config.ts are kept
+# Strip source files to keep the image slim
 RUN find . -path "*/src/*" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.map" \) -not -path "*/node_modules/*" -delete
-
 
 ENV NODE_ENV=production
 
-# Create and use a non-root user for security
+# Create a non-root user for security
 RUN addgroup -S app && adduser -S app -G app
 
-RUN chown -R app:app /workspace/apps/backend
+RUN mkdir -p /workspace/apps/backend/tmp /home/app/.cache/puppeteer && \
+    chown -R app:app /workspace/apps/backend /home/app/.cache
 
 WORKDIR /workspace/apps/backend
 
@@ -83,7 +94,6 @@ USER app
 EXPOSE 3100
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
-  CMD \
-    wget -qO- http://localhost:3100/ > /dev/null || exit 1
+  CMD wget -qO- http://localhost:3100/ > /dev/null || exit 1
 
-CMD ["bun", "dist/esm/index.mjs"] 
+CMD ["bun", "dist/esm/index.mjs"]

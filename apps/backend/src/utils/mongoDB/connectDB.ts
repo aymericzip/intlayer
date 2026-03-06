@@ -1,9 +1,13 @@
 import { logger } from '@logger';
+import { AuditModel } from '@models/audit.model';
+import { AuditJobModel } from '@models/auditJob.model';
+import { AuditPageModel } from '@models/auditPage.model';
 import { DictionaryModel } from '@models/dictionary.model';
 import { DiscussionModel } from '@models/discussion.model';
 import { OAuth2AccessTokenModel } from '@models/oAuth2.model';
 import { OrganizationModel } from '@models/organization.model';
 import { ProjectModel } from '@models/project.model';
+import { ShowcaseProjectModel } from '@models/showcaseProject.model';
 import { TagModel } from '@models/tag.model';
 import { UserModel } from '@models/user.model';
 import { connect, type mongo } from 'mongoose';
@@ -27,6 +31,10 @@ export const connectDB = async (): Promise<mongo.MongoClient> => {
     await TagModel.createIndexes();
     await DictionaryModel.createIndexes();
     await OrganizationModel.createIndexes();
+    await ShowcaseProjectModel.syncIndexes();
+    await AuditModel.syncIndexes();
+    await AuditJobModel.syncIndexes();
+    await AuditPageModel.syncIndexes();
 
     dbClientInstance = client.connection.getClient();
 

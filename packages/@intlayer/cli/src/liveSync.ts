@@ -8,7 +8,7 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
-import packageJson from '@intlayer/config/package.json';
+import packageJson from '@intlayer/config/package.json' with { type: 'json' };
 import { getLocalizedContent } from '@intlayer/core/plugins';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { IntlayerConfig } from '@intlayer/types';

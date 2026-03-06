@@ -1,3 +1,4 @@
+import { logger } from '@logger';
 import { DictionaryModel } from '@models/dictionary.model';
 import { getDemoDictionaries } from '@utils/demoDictionaries';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
@@ -58,7 +59,7 @@ export const findDictionaries = async (
 
     return formattedResults;
   } catch (error) {
-    console.error('Error fetching dictionaries:', error);
+    logger.error('Error fetching dictionaries:', error);
     throw error;
   }
 };

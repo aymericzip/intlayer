@@ -1624,6 +1624,45 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.NOT_FOUND_404,
   },
+  SHOWCASE_PROJECT_NOT_FOUND: {
+    title: {
+      en: 'Showcase Project Not Found',
+      fr: 'Projet Showcase Non Trouvé',
+      es: 'Proyecto Showcase No Encontrado',
+    },
+    message: {
+      en: 'The showcase project was not found.',
+      fr: "Le projet showcase n'a pas été trouvé.",
+      es: 'El proyecto showcase no se encontró.',
+    },
+    statusCode: HttpStatusCodes.NOT_FOUND_404,
+  },
+  SHOWCASE_PROJECT_URL_ALREADY_EXISTS: {
+    title: {
+      en: 'Showcase Project Already Exists',
+      fr: 'Projet Showcase Déjà Existant',
+      es: 'Proyecto Showcase Ya Existe',
+    },
+    message: {
+      en: 'A project with this URL has already been submitted.',
+      fr: 'Un projet avec cette URL a déjà été soumis.',
+      es: 'Ya se ha enviado un proyecto con esta URL.',
+    },
+    statusCode: HttpStatusCodes.CONFLICT_409,
+  },
+  SHOWCASE_PROJECT_NOT_INTLAYER: {
+    title: {
+      en: 'Not an Intlayer Application',
+      fr: 'Pas une Application Intlayer',
+      es: 'No es una Aplicación Intlayer',
+    },
+    message: {
+      en: 'The URL does not seem to contain a valid Intlayer application. Ensure Intlayer is installed and deployed.',
+      fr: "L'URL ne semble pas contenir une application Intlayer valide. Assurez-vous qu'Intlayer est installé et déployé.",
+      es: 'La URL no parece contener una aplicación Intlayer válida. Asegúrese de que Intlayer esté instalado y desplegado.',
+    },
+    statusCode: HttpStatusCodes.BAD_REQUEST_400,
+  },
 } satisfies Record<string, ErrorCode>;
 
 export type ErrorCodes = keyof typeof errorData;

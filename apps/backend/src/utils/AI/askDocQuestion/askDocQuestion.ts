@@ -8,6 +8,7 @@ import {
 } from '@intlayer/ai';
 import { getMarkdownMetadata } from '@intlayer/core/markdown';
 import { getBlogs, getDocs, getFrequentQuestions } from '@intlayer/docs';
+import { logger } from '@logger';
 import { OpenAI } from 'openai';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -174,7 +175,7 @@ export const loadMarkdownFiles = async (): Promise<void> => {
 
     // If chunk count differs, we need to regenerate embeddings for this file
     if (currentChunkCount !== previousChunkCount) {
-      console.info(
+      logger.info(
         `File "${fileKey}" chunk count changed: ${previousChunkCount} -> ${currentChunkCount}. Regenerating embeddings.`
       );
 
@@ -215,7 +216,7 @@ export const loadMarkdownFiles = async (): Promise<void> => {
         docName: fileMetadata.title,
       });
 
-      console.info(`- Loaded: ${fileKey}/${chunkKeyName}/${chunksNumber}`);
+      logger.info(`- Loaded: ${fileKey}/${chunkKeyName}/${chunksNumber}`);
     }
   }
 };

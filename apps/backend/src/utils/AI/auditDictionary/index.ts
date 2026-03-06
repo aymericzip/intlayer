@@ -1,12 +1,15 @@
 import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import type { AIConfig, AIOptions } from '@intlayer/ai';
-import { generateText } from '@intlayer/ai';
+import {
+  type AIConfig,
+  type AIOptions,
+  extractJson,
+  generateText,
+} from '@intlayer/ai';
 import { getLocaleName } from '@intlayer/core/localization';
 import { type Locale, Locales } from '@intlayer/types';
 import { logger } from '@logger';
-import { extractJson } from '@utils/extractJSON';
 import type { Tag } from '@/types/tag.types';
 
 export type AuditOptions = {

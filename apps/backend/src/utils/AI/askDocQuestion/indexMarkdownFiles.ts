@@ -3,6 +3,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getMarkdownMetadata } from '@intlayer/core/markdown';
 import { getBlogs, getDocs, getFrequentQuestions } from '@intlayer/docs';
+import { logger } from '@logger';
 import dotenv from 'dotenv';
 import { OpenAI } from 'openai';
 
@@ -121,7 +122,7 @@ const generateEmbedding = async (text: string): Promise<number[]> => {
 
     return response.data[0].embedding;
   } catch (error) {
-    console.error('Error generating embedding:', error);
+    logger.error('Error generating embedding:', error);
     return [];
   }
 };
@@ -169,7 +170,7 @@ export const indexMarkdownFiles = async (): Promise<void> => {
 
     // If chunk count differs, we need to regenerate embeddings for this file
     if (currentChunkCount !== previousChunkCount) {
-      console.info(
+      logger.info(
         `File "${fileKey}" chunk count changed: ${previousChunkCount} -> ${currentChunkCount}. Regenerating embeddings.`
       );
 
@@ -199,7 +200,7 @@ export const indexMarkdownFiles = async (): Promise<void> => {
 
       if (!embedding) {
         embedding = await generateEmbedding(fileChunk); // Generate embedding if not present or file changed
-        console.info(`- Generated new embedding: ${fileKey}/${chunkKeyName}`);
+        logger.info(`- Generated new embedding: ${fileKey}/${chunkKeyName}`);
       }
 
       // Update the file-scoped result object with the embedding
@@ -215,7 +216,7 @@ export const indexMarkdownFiles = async (): Promise<void> => {
         docName: fileMetadata.title,
       });
 
-      console.info(`- Indexed: ${fileKey}/${chunkKeyName}/${chunksNumber}`);
+      logger.info(`- Indexed: ${fileKey}/${chunkKeyName}/${chunksNumber}`);
     }
 
     // Persist per-file embeddings if changed
@@ -226,7 +227,7 @@ export const indexMarkdownFiles = async (): Promise<void> => {
         writeEmbeddingsForFile(fileKey, resultForFile);
       }
     } catch (error) {
-      console.error(error);
+      logger.error(error);
     }
   }
 };

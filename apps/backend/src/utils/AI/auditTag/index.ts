@@ -1,10 +1,13 @@
 import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import type { AIConfig, AIOptions } from '@intlayer/ai';
-import { generateText } from '@intlayer/ai';
+import {
+  type AIConfig,
+  type AIOptions,
+  extractJson,
+  generateText,
+} from '@intlayer/ai';
 import { logger } from '@logger';
-import { extractJson } from '@utils/extractJSON';
 import type { Dictionary } from '@/types/dictionary.types';
 import type { TagAPI } from '@/types/tag.types';
 

@@ -217,7 +217,7 @@ export const getCouponId = async (
 
     return matchingCoupon ? matchingCoupon.id : null;
   } catch (error) {
-    console.error('Error retrieving coupon:', error);
+    logger.error('Error retrieving coupon:', error);
     return null;
   }
 };
@@ -316,7 +316,7 @@ export const getPricing = async (
 
     return results;
   } catch (error) {
-    console.error('Error calculating pricing per priceId:', error);
+    logger.error('Error calculating pricing per priceId:', error);
     throw new Error('Failed to calculate pricing breakdown.');
   }
 };

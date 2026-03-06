@@ -71,6 +71,7 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1003.0",
     "@better-auth/core": "1.4.18",
     "@better-auth/passkey": "1.4.18",
     "@better-auth/sso": "1.4.18",
@@ -87,6 +88,7 @@
     "@react-email/components": "1.0.8",
     "better-auth": "1.4.18",
     "bullmq": "^5.69.4",
+    "cheerio": "^1.2.0",
     "cross-env": "10.1.0",
     "defu": "^6.1.4",
     "dotenv": "17.3.1",
@@ -97,12 +99,14 @@
     "mongoose": "8.23.0",
     "oauth2-server": "3.1.1",
     "openai": "6.22.0",
+    "puppeteer": "^24.35.0",
     "react": "19.2.4",
     "react-email": "5.2.8",
     "resend": "6.9.2",
     "stripe": "20.3.1",
     "validator": "13.15.26",
-    "winston": "3.19.0"
+    "winston": "3.19.0",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@intlayer/config": "workspace:*",
