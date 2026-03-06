@@ -4,7 +4,7 @@ import type {
   StrictModeLocaleMap,
 } from '@intlayer/types';
 import { useDictionaryAsync as useDictionaryAsyncBase } from 'react-intlayer/server';
-import { getLocale } from './getLocale';
+// import { getLocale } from './getLocale';
 
 /**
  * On the server side, Hook that transform a dictionary and return the content
@@ -18,7 +18,11 @@ export const useDictionaryAsync = async <
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   locale?: L
 ): ReturnType<typeof useDictionaryAsyncBase<T, L>> => {
-  const storedLocale = await getLocale();
+  // const storedLocale = await getLocale();
 
-  return useDictionaryAsyncBase<T, L>(dictionaryPromise, locale, storedLocale);
+  return useDictionaryAsyncBase<T, L>(
+    dictionaryPromise,
+    locale
+    // storedLocale
+  );
 };

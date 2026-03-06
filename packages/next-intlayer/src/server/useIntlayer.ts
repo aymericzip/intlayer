@@ -1,27 +1,27 @@
-import type { DeclaredLocales, DictionaryKeys, Locale } from '@intlayer/types';
-import React from 'react';
+import type { DeclaredLocales, DictionaryKeys } from '@intlayer/types';
+// import React from 'react';
 import { useIntlayer as useIntlayerBase } from 'react-intlayer/server';
-import { getLocale } from './getLocale';
+// import { getLocale } from './getLocale';
 
-const getCachedLocale =
-  typeof React.cache === 'function' ? React.cache(getLocale) : getLocale;
+// const getCachedLocale =
+//   typeof React.cache === 'function' ? React.cache(getLocale) : getLocale;
 
-export const safeUseLocale = (): Locale | undefined => {
-  // getLocale returns a Promise based on your TS error
-  const localeData = getCachedLocale() as Promise<Locale> | Locale;
+// export const safeUseLocale = (): Locale | undefined => {
+//   // getLocale returns a Promise based on your TS error
+//   const localeData = getCachedLocale() as Promise<Locale> | Locale;
 
-  if (localeData instanceof Promise) {
-    if (typeof React.use === 'function') {
-      return React.use(localeData); // Safely unwraps in React 19+
-    }
+//   if (localeData instanceof Promise) {
+//     if (typeof React.use === 'function') {
+//       return React.use(localeData); // Safely unwraps in React 19+
+//     }
 
-    // React < 19 cannot synchronously unwrap Promises in hooks.
-    // Return undefined to trigger the localeTarget fallback.
-    return undefined;
-  }
+//     // React < 19 cannot synchronously unwrap Promises in hooks.
+//     // Return undefined to trigger the localeTarget fallback.
+//     return undefined;
+//   }
 
-  return localeData;
-};
+//   return localeData;
+// };
 
 /**
  * On the server side, Hook that picking one dictionary by its key and return the content
@@ -35,7 +35,11 @@ export const useIntlayer = <
   key: T,
   locale?: L
 ): ReturnType<typeof useIntlayerBase<T, L>> => {
-  const storedLocale = safeUseLocale();
+  // const storedLocale = safeUseLocale();
 
-  return useIntlayerBase<T, L>(key, locale, storedLocale);
+  return useIntlayerBase<T, L>(
+    key,
+    locale
+    // storedLocale
+  );
 };

@@ -4,7 +4,7 @@ import type {
   StrictModeLocaleMap,
 } from '@intlayer/types';
 import { useDictionaryDynamic as useDictionaryDynamicBase } from 'react-intlayer/server';
-import { safeUseLocale } from './useIntlayer';
+// import { safeUseLocale } from './useIntlayer';
 
 /**
  * On the server side, Hook that transform a dictionary and return the content
@@ -19,12 +19,12 @@ export const useDictionaryDynamic = <
   key: string,
   locale?: L
 ): ReturnType<typeof useDictionaryDynamicBase<T, L>> => {
-  const storedLocale = safeUseLocale();
+  // const storedLocale = safeUseLocale();
 
   return useDictionaryDynamicBase<T, L>(
     dictionaryPromise,
     key,
-    locale,
-    storedLocale
+    locale
+    // storedLocale
   );
 };
