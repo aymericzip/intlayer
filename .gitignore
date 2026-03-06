@@ -41,5 +41,5 @@ workbox-*.js
 # cursor
 .cursor/worktree
 
-# __ files
-__*
+# ___ files (Used just to keep some files in local for dev)
+___*

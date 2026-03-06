@@ -8,13 +8,13 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root';
-import { Route as Char123LocaleChar125SplatRouteImport } from './routes/{-$locale}/$';
-import { Route as Char123LocaleChar125404RouteImport } from './routes/{-$locale}/404';
+import { Route as rootRouteImport } from './routes/__root.tsx';
+import { Route as Char123LocaleChar125SplatRouteImport } from './routes/{-$locale}/$.tsx';
+import { Route as Char123LocaleChar125404RouteImport } from './routes/{-$locale}/404.tsx';
 import { Route as Char123LocaleChar125IndexRouteImport } from './routes/{-$locale}/index';
-import { Route as Char123LocaleChar125ProjectProjectIdRouteImport } from './routes/{-$locale}/project.$projectId';
-import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route';
-import { Route as Char123LocaleChar125SubmitRouteImport } from './routes/{-$locale}/submit';
+import { Route as Char123LocaleChar125ProjectProjectIdRouteImport } from './routes/{-$locale}/project.$projectId.tsx';
+import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route.tsx';
+import { Route as Char123LocaleChar125SubmitRouteImport } from './routes/{-$locale}/submit.tsx';
 
 const Char123LocaleChar125RouteRoute =
   Char123LocaleChar125RouteRouteImport.update({
