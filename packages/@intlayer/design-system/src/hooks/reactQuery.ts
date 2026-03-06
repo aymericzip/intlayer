@@ -2,6 +2,11 @@
 
 import type {} from '@better-fetch/fetch'; // Import for type inference
 import type {
+  GetRecursiveAuditStatusParams,
+  ScanUrlBody,
+  StartRecursiveAuditBody,
+} from '@intlayer/api';
+import type {
   AddDictionaryBody,
   AddNewAccessKeyBody,
   AddOrganizationBody,
@@ -1119,6 +1124,44 @@ export const useAutocomplete = () => {
     mutationKey: ['ai-autocomplete'],
     mutationFn: (args?: AutocompleteBody) =>
       intlayerOAuth.ai.autocomplete(args),
+  });
+};
+
+/**
+ * Audit
+ */
+
+export const useAuditScan = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['audit-scan'],
+    mutationFn: (args: ScanUrlBody) => intlayerOAuth.audit.scanUrl(args),
+  });
+};
+
+export const useStartRecursiveAudit = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['audit-recursive-start'],
+    mutationFn: (args: StartRecursiveAuditBody) =>
+      intlayerOAuth.audit.startRecursiveAudit(args),
+  });
+};
+
+export const useGetRecursiveAuditStatus = (
+  params?: GetRecursiveAuditStatusParams,
+  options?: Partial<UseQueryOptions>
+) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useAppQuery({
+    queryKey: ['audit-recursive-status', params?.jobId],
+    queryFn: ({ signal }) =>
+      intlayerOAuth.audit.getRecursiveAuditStatus(params, { signal }),
+    enabled: Boolean(params?.jobId),
+    ...options,
   });
 };
 

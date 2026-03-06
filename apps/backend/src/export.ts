@@ -1,5 +1,6 @@
 // Controllers types
 export type * from '@controllers/ai.controller';
+export type * from '@controllers/audit.controller';
 export type {
   BitbucketAuthCallbackBody,
   BitbucketAuthCallbackResult,
@@ -44,14 +45,15 @@ export type * from '@controllers/oAuth2.controller';
 export type * from '@controllers/organization.controller';
 export type * from '@controllers/project.controller';
 export type * from '@controllers/projectAccessKey.controller';
+export type * from '@controllers/recursiveAudit.controller';
 export type * from '@controllers/search.controller';
 export type * from '@controllers/stripe.controller';
 export type * from '@controllers/tag.controller';
 export type * from '@controllers/translation.controller';
 export type * from '@controllers/user.controller';
-
-// Routes
 export { getAiRoutes } from '@routes/ai.routes';
+// Routes
+export { getAuditRoutes } from '@routes/audit.routes';
 export { getBitbucketRoutes } from '@routes/bitbucket.routes';
 export { getDictionaryRoutes } from '@routes/dictionary.routes';
 export { getGithubRoutes } from '@routes/github.routes';
@@ -61,7 +63,8 @@ export { getOrganizationRoutes } from '@routes/organization.routes';
 export { getProjectRoutes } from '@routes/project.routes';
 export { getTranslationsRoutes } from '@routes/translate.routes';
 export { getUserRoutes } from '@routes/user.routes';
-
+// Audit types
+export type { AuditEvent } from '@services/audit/types';
 // Utils
 export * from '@utils/auth/getAuth';
 export * from '@utils/httpStatusCodes';

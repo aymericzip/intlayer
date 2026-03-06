@@ -4,6 +4,35 @@ import {
 } from '@services/audit/recursiveAudit.service';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 
+export type StartRecursiveAuditResult = {
+  jobId: string;
+};
+
+export type RecursiveAuditJobInfo = {
+  _id: string;
+  targetUrl: string;
+  userId?: string;
+  status: 'pending' | 'running' | 'completed' | 'failed';
+  progress: number;
+  totalPageCount: number;
+  completedPageCount: number;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type RecursiveAuditPageInfo = {
+  _id: string;
+  url: string;
+  status: 'pending' | 'running' | 'completed' | 'failed';
+  score?: number;
+  error?: string;
+};
+
+export type GetRecursiveAuditStatusResult = {
+  job: RecursiveAuditJobInfo;
+  pages: RecursiveAuditPageInfo[];
+};
+
 export const startRecursiveAudit = async (
   request: FastifyRequest<{ Querystring: { url: string } }>,
   reply: FastifyReply
