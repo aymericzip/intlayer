@@ -1,3 +1,4 @@
+import { getAuditAPI } from '@intlayer/api';
 import { extractErrorMessage } from '@intlayer/config/client';
 import { useQuery } from '@tanstack/react-query';
 import { useReducer } from 'react';
@@ -41,31 +42,28 @@ function recursiveReducer(
   }
 }
 
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_DOMAIN as string;
+
 export const useRecursiveScan = (
-  session: any,
+  _session: any,
   setError: (err: string | null) => void
 ) => {
   const [state, dispatch] = useReducer(recursiveReducer, initialRecursiveState);
+
+  const auditAPI = getAuditAPI({}, {
+    editor: { backendURL: BACKEND_URL },
+  } as any);
 
   const handleStartRecursiveAudit = async (url: string) => {
     if (!url) return;
     dispatch({ type: 'START_RECURSIVE_SCAN' });
 
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SCANNER_API_URL}/recursive/start?url=${encodeURIComponent(url)}`,
-        {
-          method: 'POST',
-          headers: {
-            'x-user-id': session?.user?.id ?? '',
-          },
-        }
-      );
-      const data = await response.json();
-      if (data.jobId) {
+      const data = await auditAPI.startRecursiveAudit({ url });
+      if (data?.jobId) {
         dispatch({ type: 'SET_RECURSIVE_JOB_ID', payload: data.jobId });
       } else {
-        setError(data.error || 'Failed to start recursive audit');
+        setError('Failed to start recursive audit');
         dispatch({ type: 'SET_ERROR' });
       }
     } catch (err) {
@@ -78,13 +76,12 @@ export const useRecursiveScan = (
     queryKey: ['recursive-status', state.recursiveJobId],
     queryFn: async () => {
       if (!state.recursiveJobId) return null;
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SCANNER_API_URL}/recursive/${state.recursiveJobId}`
-      );
-      const data = await response.json();
+      const data = await auditAPI.getRecursiveAuditStatus({
+        jobId: state.recursiveJobId,
+      });
       dispatch({ type: 'SET_RECURSIVE_STATUS', payload: data });
 
-      if (data.job.status === 'completed' || data.job.status === 'failed') {
+      if (data?.job?.status === 'completed' || data?.job?.status === 'failed') {
         dispatch({ type: 'FINISH_RECURSIVE_SCAN' });
       }
       return data;

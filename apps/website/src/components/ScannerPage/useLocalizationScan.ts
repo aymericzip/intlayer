@@ -53,7 +53,7 @@ function analyzerReducer(
   }
 }
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL as string;
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_DOMAIN as string;
 
 export const useLocalizationScan = (globalErrorMessage: string) => {
   const [state, dispatch] = useReducer(analyzerReducer, initialState);

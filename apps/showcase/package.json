@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@intlayer/api": "workspace:*",
+    "@intlayer/config": "workspace:*",
     "@intlayer/design-system": "workspace",
     "@posthog/react": "1.8.2",
     "@tailwindcss/aspect-ratio": "0.4.2",
