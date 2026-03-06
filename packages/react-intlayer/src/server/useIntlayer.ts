@@ -14,7 +14,7 @@ import { getServerContext } from './serverContext';
  */
 export const useIntlayer = <
   T extends DictionaryKeys,
-  L extends DeclaredLocales = DeclaredLocales,
+  L extends LocalesValues = DeclaredLocales,
 >(
   key: T,
   locale?: L,

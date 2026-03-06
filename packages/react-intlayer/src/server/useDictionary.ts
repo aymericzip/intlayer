@@ -14,7 +14,7 @@ import { getServerContext } from './serverContext';
  */
 export const useDictionary = <
   T extends Dictionary,
-  L extends DeclaredLocales = DeclaredLocales,
+  L extends LocalesValues = DeclaredLocales,
 >(
   dictionary: T,
   locale?: L,

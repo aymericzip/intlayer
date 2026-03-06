@@ -17,7 +17,7 @@ import { useLoadDynamic } from './useLoadDynamic';
  */
 export const useDictionaryDynamic = <
   T extends Dictionary,
-  L extends DeclaredLocales = DeclaredLocales,
+  L extends LocalesValues = DeclaredLocales,
 >(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   key: string,

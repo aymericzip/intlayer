@@ -16,7 +16,7 @@ import { useDictionary } from './useDictionary';
  */
 export const useDictionaryAsync = async <
   T extends Dictionary,
-  L extends DeclaredLocales = DeclaredLocales,
+  L extends LocalesValues = DeclaredLocales,
 >(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   locale?: L,

@@ -1,6 +1,6 @@
 import type { DeclaredLocales, Dictionary } from '@intlayer/types';
 import { useDictionary as useDictionaryBase } from 'react-intlayer/server';
-// import { safeUseLocale } from './useIntlayer';
+import { safeUseLocale } from './useIntlayer';
 
 /**
  * On the server side, Hook that transform a dictionary and return the content
@@ -14,11 +14,7 @@ export const useDictionary = <
   dictionary: T,
   locale?: L
 ): ReturnType<typeof useDictionaryBase<T, L>> => {
-  // const storedLocale = safeUseLocale();
+  const storedLocale = safeUseLocale();
 
-  return useDictionaryBase<T, L>(
-    dictionary,
-    locale
-    // storedLocale
-  );
+  return useDictionaryBase<T, L>(dictionary, locale, storedLocale);
 };
