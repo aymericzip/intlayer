@@ -112,6 +112,7 @@ const extractAiOptions = (options: AIOptions): AIOptions | undefined => {
   } = options;
 
   const configuration = getConfiguration();
+
   const { ai } = configuration;
 
   return removeUndefined({

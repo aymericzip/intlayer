@@ -1,3 +1,4 @@
+import { logConfigDetails } from '@intlayer/chokidar/cli';
 import { runParallel } from '@intlayer/chokidar/utils';
 import { watch } from '@intlayer/chokidar/watcher';
 import { getAppLogger } from '@intlayer/config/logger';
@@ -18,6 +19,8 @@ type WatchOptions = {
  */
 export const watchContentDeclaration = async (options?: WatchOptions) => {
   const config = getConfiguration(options?.configOptions);
+  logConfigDetails(options?.configOptions);
+
   const appLogger = getAppLogger(config);
 
   // Store references to the child process

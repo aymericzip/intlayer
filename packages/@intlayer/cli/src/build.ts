@@ -1,3 +1,4 @@
+import { logConfigDetails } from '@intlayer/chokidar/cli';
 import { type ParallelHandle, runParallel } from '@intlayer/chokidar/utils';
 import { buildAndWatchIntlayer } from '@intlayer/chokidar/watcher';
 import {
@@ -18,6 +19,8 @@ type BuildOptions = {
  */
 export const build = async (options?: BuildOptions) => {
   const config = getConfiguration(options?.configOptions);
+  logConfigDetails(options?.configOptions);
+
   let parallelProcess: ParallelHandle | null = null;
 
   if (options?.with) {

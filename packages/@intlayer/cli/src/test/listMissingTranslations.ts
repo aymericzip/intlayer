@@ -1,3 +1,4 @@
+import { logConfigDetails } from '@intlayer/chokidar/cli';
 import {
   type GetConfigurationOptions,
   getConfiguration,
@@ -88,6 +89,7 @@ export const listMissingTranslations = (
   configurationOptions?: GetConfigurationOptions
 ) => {
   const configuration = getConfiguration(configurationOptions);
+  logConfigDetails(configurationOptions);
 
   return listMissingTranslationsWithConfig(configuration);
 };

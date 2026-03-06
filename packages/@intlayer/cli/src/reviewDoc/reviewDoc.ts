@@ -5,6 +5,7 @@ import {
   type ListGitFilesOptions,
   listGitFiles,
   listGitLines,
+  logConfigDetails,
 } from '@intlayer/chokidar/cli';
 import {
   formatLocale,
@@ -62,6 +63,8 @@ export const reviewDoc = async ({
   gitOptions,
 }: ReviewDocOptions) => {
   const configuration = getConfiguration(configOptions);
+  logConfigDetails(configOptions);
+
   const appLogger = getAppLogger(configuration);
 
   const aiResult = await setupAI(configuration, aiOptions);

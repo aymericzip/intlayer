@@ -5,6 +5,7 @@ import {
   type DictionaryStatus,
   writeContentDeclaration,
 } from '@intlayer/chokidar/build';
+import { logConfigDetails } from '@intlayer/chokidar/cli';
 import { parallelize } from '@intlayer/chokidar/utils';
 import { ANSIColors, getAppLogger } from '@intlayer/config/logger';
 import {
@@ -39,6 +40,7 @@ export const pull = async (options?: PullOptions): Promise<void> => {
 
   try {
     const config = getConfiguration(options?.configOptions);
+    logConfigDetails(options?.configOptions);
 
     const hasCMSAuth = await checkCMSAuth(config);
 

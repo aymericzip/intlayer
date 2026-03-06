@@ -1,13 +1,10 @@
-import { relative } from 'node:path';
 import type {
   CustomIntlayerConfig,
   IntlayerConfig,
   LogFunctions,
 } from '@intlayer/types';
 import { defu } from 'defu';
-import { getEnvFilePath } from '../loadEnvFile';
 import type { SandBoxContextOptions } from '../loadExternalFile/parseFileContent';
-import { colorizePath, getAppLogger } from '../logger';
 import { cacheMemory } from '../utils/cacheMemory';
 import { getPackageJsonPath } from '../utils/getPackageJsonPath';
 import { buildConfigurationFields } from './buildConfigurationFields';
@@ -30,6 +27,7 @@ export type GetConfigurationOptions = {
 
 export type GetConfigurationAndFilePathResult = {
   configuration: IntlayerConfig;
+  numCustomConfiguration: number;
   configurationFilePath: string | undefined;
 };
 
@@ -52,6 +50,7 @@ export const getConfigurationAndFilePath = (
         options?.baseDir,
         options?.logFunctions
       ),
+      numCustomConfiguration: 0,
       configurationFilePath: undefined,
     };
   }
@@ -120,42 +119,13 @@ export const getConfigurationAndFilePath = (
 
   cacheMemory.set(options, {
     configuration,
+    numCustomConfiguration,
     configurationFilePath,
   });
 
-  const appLogger = getAppLogger(configuration);
-
-  if (numCustomConfiguration === 0) {
-    appLogger('Configuration file not found, using default configuration.', {
-      isVerbose: true,
-    });
-  } else {
-    const relativeOutputPath = relative(baseDir, configurationFilePath!);
-
-    if (numCustomConfiguration === 1) {
-      const dotEnvFilePath = getEnvFilePath(options?.env, options?.envFile);
-
-      const formatPath = (path: string) =>
-        colorizePath(relative(configuration.content.baseDir, path));
-
-      appLogger(
-        `Configuration loaded ${formatPath(relativeOutputPath)}${dotEnvFilePath ? ` - Env: ${formatPath(dotEnvFilePath)}` : ''}`,
-        {
-          isVerbose: true,
-        }
-      );
-    } else {
-      appLogger(
-        `Multiple configuration files found, using ${relativeOutputPath}.`,
-        {
-          isVerbose: true,
-        }
-      );
-    }
-  }
-
   return {
     configuration,
+    numCustomConfiguration,
     configurationFilePath,
   };
 };

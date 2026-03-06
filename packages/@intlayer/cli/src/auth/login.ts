@@ -1,5 +1,6 @@
 import http from 'node:http';
 import { URL } from 'node:url';
+import { logConfigDetails } from '@intlayer/chokidar/cli';
 import {
   ANSIColors,
   colorize,
@@ -19,6 +20,8 @@ type LoginOptions = {
 
 export const login = async (options: LoginOptions) => {
   const configuration = getConfiguration(options.configOptions);
+  logConfigDetails(options?.configOptions);
+
   const logger = getAppLogger(configuration);
 
   const cmsUrl = options.cmsUrl ?? configuration.editor.cmsURL;

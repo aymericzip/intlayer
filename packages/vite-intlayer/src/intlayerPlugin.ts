@@ -6,6 +6,7 @@ import {
   getConfiguration,
 } from '@intlayer/config/node';
 import { getAlias } from '@intlayer/config/utils';
+import { logConfigDetails } from 'intlayer/cli';
 // @ts-ignore - Fix error Module '"vite"' has no exported member
 import type { PluginOption } from 'vite';
 import { intlayerPrune } from './intlayerPrunePlugin';
@@ -35,6 +36,7 @@ export const intlayerPlugin = (
   configOptions?: GetConfigurationOptions
 ): PluginOption => {
   const intlayerConfig = getConfiguration(configOptions);
+  logConfigDetails(configOptions);
 
   const alias = getAlias({
     configuration: intlayerConfig,

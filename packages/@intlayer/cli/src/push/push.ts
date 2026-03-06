@@ -5,7 +5,11 @@ import {
   prepareIntlayer,
   writeContentDeclaration,
 } from '@intlayer/chokidar/build';
-import { type ListGitFilesOptions, listGitFiles } from '@intlayer/chokidar/cli';
+import {
+  type ListGitFilesOptions,
+  listGitFiles,
+  logConfigDetails,
+} from '@intlayer/chokidar/cli';
 import { formatPath, parallelize } from '@intlayer/chokidar/utils';
 import {
   ANSIColors,
@@ -58,6 +62,8 @@ const getIconAndColor = (status: DictionariesStatus['status']) => {
  */
 export const push = async (options?: PushOptions): Promise<void> => {
   const config = getConfiguration(options?.configOptions);
+  logConfigDetails(options?.configOptions);
+
   const appLogger = getAppLogger(config);
 
   if (options?.build === true) {

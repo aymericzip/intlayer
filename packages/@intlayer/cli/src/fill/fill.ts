@@ -4,7 +4,10 @@ import {
   prepareIntlayer,
   writeContentDeclaration,
 } from '@intlayer/chokidar/build';
-import type { ListGitFilesOptions } from '@intlayer/chokidar/cli';
+import {
+  type ListGitFilesOptions,
+  logConfigDetails,
+} from '@intlayer/chokidar/cli';
 import {
   formatPath,
   getGlobalLimiter,
@@ -53,6 +56,8 @@ export type FillOptions = {
  */
 export const fill = async (options?: FillOptions): Promise<void> => {
   const configuration = getConfiguration(options?.configOptions);
+  logConfigDetails(options?.configOptions);
+
   const appLogger = getAppLogger(configuration);
 
   if (options?.build === true) {

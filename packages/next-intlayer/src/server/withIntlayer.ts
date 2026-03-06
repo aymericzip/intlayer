@@ -1,5 +1,6 @@
 import { join, relative, resolve } from 'node:path';
 import { prepareIntlayer } from '@intlayer/chokidar/build';
+import { logConfigDetails } from '@intlayer/chokidar/cli';
 import {
   getComponentTransformPatternSync,
   runOnce,
@@ -282,6 +283,9 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
   }
 
   const intlayerConfig = getConfiguration(configOptions);
+
+  logConfigDetails(configOptions);
+
   const logger = getAppLogger(intlayerConfig);
 
   const isTurbopackEnabled =

@@ -1,4 +1,5 @@
 import { getSearchAPI } from '@intlayer/api';
+import { logConfigDetails } from '@intlayer/chokidar/cli';
 import {
   colorizeKey,
   colorizeNumber,
@@ -21,6 +22,8 @@ export const searchDoc = async ({
   configOptions,
 }: SearchDocOptions) => {
   const config = getConfiguration(configOptions);
+  logConfigDetails(configOptions);
+
   const appLogger = getAppLogger(config);
 
   try {

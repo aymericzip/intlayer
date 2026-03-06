@@ -1,3 +1,4 @@
+import { logConfigDetails } from '@intlayer/chokidar/cli';
 import { getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
@@ -10,6 +11,8 @@ type ConfigOptions = {
 
 export const getConfig = (options?: ConfigOptions) => {
   const config = getConfiguration(options?.configOptions);
+  logConfigDetails(options?.configOptions);
+
   const appLogger = getAppLogger(config);
 
   appLogger(JSON.stringify(config, null, 2));

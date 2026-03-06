@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { performance } from 'node:perf_hooks';
-import { listGitFiles } from '@intlayer/chokidar/cli';
+import { listGitFiles, logConfigDetails } from '@intlayer/chokidar/cli';
 import { parallelize, pLimit } from '@intlayer/chokidar/utils';
 import {
   ANSIColors,
@@ -34,6 +34,8 @@ export const translateDoc = async ({
   flushStrategy = 'incremental',
 }: TranslateDocOptions) => {
   const configuration = getConfiguration(configOptions);
+  logConfigDetails(configOptions);
+
   const appLogger = getAppLogger(configuration);
 
   // 1. GLOBAL QUEUE SETUP

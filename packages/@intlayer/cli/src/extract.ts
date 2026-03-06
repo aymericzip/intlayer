@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { relative, resolve } from 'node:path';
 import { multiselect } from '@clack/prompts';
 import { extractContent, type PackageName } from '@intlayer/babel';
+import { logConfigDetails } from '@intlayer/chokidar/cli';
 import { colorizePath, getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
@@ -38,6 +39,8 @@ const getDependencies = async (baseDir: string) => {
 
 export const extract = async (options: ExtractOptions) => {
   const configuration = getConfiguration(options.configOptions);
+  logConfigDetails(options?.configOptions);
+
   const appLogger = getAppLogger(configuration);
   const { baseDir, codeDir } = configuration.content;
 

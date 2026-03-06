@@ -98,7 +98,7 @@ export const runCI = async (commands: string[]) => {
     } else if (credentialsEnv) {
       logger(
         `CI: No matching credentials found for ${projectPath} in INTLAYER_PROJECT_CREDENTIALS.`,
-        { level: 'verbose' }
+        { isVerbose: true }
       );
     }
 
