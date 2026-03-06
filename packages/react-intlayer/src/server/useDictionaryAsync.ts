@@ -16,14 +16,16 @@ import { useDictionary } from './useDictionary';
  */
 export const useDictionaryAsync = async <
   T extends Dictionary,
-  L extends LocalesValues = DeclaredLocales,
+  L extends DeclaredLocales = DeclaredLocales,
 >(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
-  locale?: L
+  locale?: L,
+  fallbackLocale?: DeclaredLocales
 ) => {
   const localeTarget =
     locale ??
     getServerContext<LocalesValues>(IntlayerServerContext) ??
+    fallbackLocale ??
     configuration?.internationalization.defaultLocale;
 
   const dictionary = await (dictionaryPromise as any)[localeTarget]?.();

@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-16-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.3.0
+    date: 2026-03-05
+    changes: Made optional IntlayerServerProvider
   - version: 7.5.9
     date: 2025-12-30
     changes: init komutu ekle
@@ -601,6 +604,8 @@ const Page = async ({ params }) => {
 - **`IntlayerServerProvider`**, yerel ayarı sunucu tarafı çocuklara sağlamak için kullanılır. Düzende (layout) ayarlanamaz.
 
   > Düzen (layout) ve sayfa ortak bir sunucu bağlamını paylaşamaz çünkü sunucu bağlamı sistemi her istek için veri deposuna ([React'in cache](https://react.dev/reference/react/cache) mekanizması aracılığıyla) dayanır ve her "bağlamın" uygulamanın farklı segmentleri için yeniden oluşturulmasına neden olur. Sağlayıcıyı paylaşılan bir düzene yerleştirmek bu izolasyonu bozacak ve sunucu bağlamı değerlerinin sunucu bileşenlerinize doğru şekilde yayılmasını engelleyecektir.
+
+  > If you use `intlayer >= 8.3.0` `react >= 15` with `intlayerProxy` / `intlayerMiddleware`, the usage of `IntlayerServerProvider` becomes optional. The locale will be automatically resolved using your cookies and headers configuration [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
 
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
 "use client";

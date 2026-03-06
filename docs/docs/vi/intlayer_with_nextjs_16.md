@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-16-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.3.0
+    date: 2026-03-05
+    changes: Made optional IntlayerServerProvider
   - version: 7.5.9
     date: 2025-12-30
     changes: Thêm lệnh init
@@ -601,6 +604,8 @@ const Page = async ({ params }) => {
 - **`IntlayerServerProvider`** được sử dụng để cung cấp ngôn ngữ cho các thành phần con phía máy chủ. Nó không thể được đặt trong bố cục.
 
   > Bố cục và trang không thể chia sẻ ngữ cảnh máy chủ chung vì hệ thống ngữ cảnh máy chủ dựa trên kho dữ liệu theo từng yêu cầu (thông qua cơ chế [React's cache](https://react.dev/reference/react/cache)), khiến mỗi "ngữ cảnh" được tạo lại cho các đoạn khác nhau của ứng dụng. Việc đặt nhà cung cấp trong một bố cục dùng chung sẽ phá vỡ sự cô lập này, ngăn cản việc truyền đúng các giá trị ngữ cảnh máy chủ đến các thành phần máy chủ của bạn.
+
+  > If you use `intlayer >= 8.3.0` `react >= 15` with `intlayerProxy` / `intlayerMiddleware`, the usage of `IntlayerServerProvider` becomes optional. The locale will be automatically resolved using your cookies and headers configuration [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md)
 
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
 "use client";

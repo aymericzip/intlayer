@@ -17,15 +17,17 @@ import { useLoadDynamic } from './useLoadDynamic';
  */
 export const useDictionaryDynamic = <
   T extends Dictionary,
-  L extends LocalesValues = DeclaredLocales,
+  L extends DeclaredLocales = DeclaredLocales,
 >(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   key: string,
-  locale?: L
+  locale?: L,
+  fallbackLocale?: DeclaredLocales
 ) => {
   const localeTarget =
     locale ??
     getServerContext<LocalesValues>(IntlayerServerContext) ??
+    fallbackLocale ??
     configuration?.internationalization.defaultLocale;
 
   const dictionary = useLoadDynamic<T>(

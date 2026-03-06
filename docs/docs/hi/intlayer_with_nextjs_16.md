@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-16-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.3.0
+    date: 2026-03-05
+    changes: Made optional IntlayerServerProvider
   - version: 7.5.9
     date: 2025-12-30
     changes: init कमांड जोड़ें
@@ -601,6 +604,8 @@ const Page = async ({ params }) => {
 - **`IntlayerServerProvider`** सर्वर चाइल्ड्स को लोकल प्रदान करने के लिए उपयोग किया जाता है। इसे लेआउट में सेट नहीं किया जा सकता।
 
   > लेआउट और पेज एक सामान्य सर्वर संदर्भ साझा नहीं कर सकते क्योंकि सर्वर संदर्भ प्रणाली प्रति अनुरोध डेटा स्टोर (React के कैश [React's cache](https://react.dev/reference/react/cache) मैकेनिज्म के माध्यम से) पर आधारित है, जिससे एप्लिकेशन के विभिन्न सेगमेंट के लिए प्रत्येक "संदर्भ" पुनः बनाया जाता है। प्रदाता को साझा लेआउट में रखना इस पृथक्करण को तोड़ देगा, जिससे आपके सर्वर कंपोनेंट्स को सर्वर संदर्भ मानों का सही प्रसार नहीं हो पाएगा।
+
+  > If you use `intlayer >= 8.3.0` `react >= 15` with `intlayerProxy` / `intlayerMiddleware`, the usage of `IntlayerServerProvider` becomes optional. The locale will be automatically resolved using your cookies and headers configuration [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md)
 
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
 "use client";

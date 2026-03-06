@@ -14,13 +14,16 @@ import { getServerContext } from './serverContext';
  */
 export const useDictionary = <
   T extends Dictionary,
-  L extends LocalesValues = DeclaredLocales,
+  L extends DeclaredLocales = DeclaredLocales,
 >(
   dictionary: T,
-  locale?: L
+  locale?: L,
+  fallbackLocale?: DeclaredLocales
 ) => {
   const localeTarget =
-    locale ?? getServerContext<LocalesValues>(IntlayerServerContext);
+    locale ??
+    getServerContext<LocalesValues>(IntlayerServerContext) ??
+    fallbackLocale;
 
   return getDictionary<T, L>(dictionary, localeTarget as L);
 };

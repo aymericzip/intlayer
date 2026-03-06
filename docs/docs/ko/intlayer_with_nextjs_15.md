@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.3.0
+    date: 2026-03-05
+    changes: Made optional IntlayerServerProvider
   - version: 7.5.9
     date: 2025-12-30
     changes: init 명령어 추가
@@ -583,7 +586,8 @@ const Page = async ({ params }) => {
 
   > 레이아웃과 페이지는 공통 서버 컨텍스트를 공유할 수 없습니다. 서버 컨텍스트 시스템이 요청별 데이터 저장소([React의 cache](https://react.dev/reference/react/cache) 메커니즘)를 기반으로 하기 때문에 애플리케이션의 서로 다른 세그먼트마다 각 "컨텍스트"가 다시 생성됩니다. 공급자를 공유 레이아웃에 배치하면 이러한 격리가 깨져 서버 컴포넌트에 서버 컨텍스트 값이 올바르게 전파되지 않습니다.
 
-> 레이아웃과 페이지는 공통 서버 컨텍스트를 공유할 수 없습니다. 서버 컨텍스트 시스템이 요청별 데이터 저장소([React의 캐시](https://react.dev/reference/react/cache) 메커니즘)를 기반으로 하기 때문에 애플리케이션의 서로 다른 세그먼트마다 각 "컨텍스트"가 다시 생성됩니다. 제공자를 공유 레이아웃에 배치하면 이 격리가 깨져 서버 컨텍스트 값이 서버 컴포넌트에 올바르게 전달되지 않습니다.
+  > If you use `intlayer >= 8.3.0` `react >= 15` with `intlayerProxy` / `intlayerMiddleware`, the usage of `IntlayerServerProvider` becomes optional. The locale will be automatically resolved using your cookies and headers configuration [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)
+  > 레이아웃과 페이지는 공통 서버 컨텍스트를 공유할 수 없습니다. 서버 컨텍스트 시스템이 요청별 데이터 저장소([React의 캐시](https://react.dev/reference/react/cache) 메커니즘)를 기반으로 하기 때문에 애플리케이션의 서로 다른 세그먼트마다 각 "컨텍스트"가 다시 생성됩니다. 제공자를 공유 레이아웃에 배치하면 이 격리가 깨져 서버 컨텍스트 값이 서버 컴포넌트에 올바르게 전달되지 않습니다.
 
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
 "use client";

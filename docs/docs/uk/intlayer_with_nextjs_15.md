@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.3.0
+    date: 2026-03-05
+    changes: Made optional IntlayerServerProvider
   - version: 7.5.9
     date: 2025-12-30
     changes: Додано команду init
@@ -640,6 +643,7 @@ export default Page;
 
   > Layout і сторінка не можуть спільно використовувати спільний server context, оскільки система server context базується на сховищі даних для кожного запиту (через механізм [React's cache](https://react.dev/reference/react/cache)), що призводить до повторного створення кожного "контексту" для різних сегментів додатку. Розміщення провайдера в загальному layout порушить цю ізоляцію і не дозволить правильно передавати значення server context вашим server components.
 
+  > If you use `intlayer >= 8.3.0` `react >= 15` with `intlayerProxy` / `intlayerMiddleware`, the usage of `IntlayerServerProvider` becomes optional. The locale will be automatically resolved using your cookies and headers configuration [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md)
   > Layout і page не можуть мати спільного server context, оскільки система server context базується на сховищі даних на запит (через механізм [React's cache](https://react.dev/reference/react/cache)), внаслідок чого кожен «context» створюється заново для різних сегментів застосунку. Розміщення провайдера в спільному layout порушило б цю ізоляцію й не дозволило б коректно пропагувати значення server context до ваших server components.
 
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"

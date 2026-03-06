@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-no-lolale-path-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.3.0
+    date: 2026-03-05
+    changes: Made optional IntlayerServerProvider
   - version: 8.0.0
     date: 2026-01-10
     changes: الإصدار الأولي
@@ -728,6 +731,8 @@ const Page: NextPage = async () => {
 
   > لا يمكن أن يتشارك الـ layout والصفحة نفس سياق الخادم لأن نظام سياق الخادم يعتمد على مخزن بيانات لكل طلب (عبر آلية [React's cache](https://react.dev/reference/react/cache))، مما يجعل كل "context" يُعاد إنشاؤه لأجزاء مختلفة من التطبيق. وضع الـ provider في layout مشترك سيكسر هذا العزل، وسيمنع الانتشار الصحيح لقيم سياق الخادم إلى مكوناتك على الخادم.
 
+
+  > If you use `intlayer >= 8.3.0` `react >= 15` with `intlayerProxy` / `intlayerMiddleware`, the usage of `IntlayerServerProvider` becomes optional. The locale will be automatically resolved using your cookies and headers configuration [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
 ```tsx {4,7} fileName="src/components/clientComponentExample/ClientComponentExample.tsx" codeFormat="typescript"
 "use client";
 

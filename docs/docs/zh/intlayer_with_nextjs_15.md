@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.3.0
+    date: 2026-03-05
+    changes: Made optional IntlayerServerProvider
   - version: 7.5.9
     date: 2025-12-30
     changes: 添加 init 命令
@@ -544,6 +547,8 @@ const Page = async ({ params }) => {
 - **`IntlayerServerProvider`** 用于向服务器端子组件提供语言环境。它不能设置在布局中。
 
 > 布局和页面不能共享公共的服务器上下文，因为服务器上下文系统基于每次请求的数据存储（通过 [React 的缓存](https://react.dev/reference/react/cache) 机制），导致每个“上下文”会为应用程序的不同部分重新创建。在共享布局中放置提供者会破坏这种隔离，阻止服务器上下文值正确传播到你的服务器组件。
+
+> If you use `intlayer >= 8.3.0` `react >= 15` with `intlayerProxy` / `intlayerMiddleware`, the usage of `IntlayerServerProvider` becomes optional. The locale will be automatically resolved using your cookies and headers configuration [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
 
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
 "use client";

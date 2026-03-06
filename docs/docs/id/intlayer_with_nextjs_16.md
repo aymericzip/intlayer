@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-16-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.3.0
+    date: 2026-03-05
+    changes: Made optional IntlayerServerProvider
   - version: 7.5.9
     date: 2025-12-30
     changes: Tambahkan perintah init
@@ -601,6 +604,8 @@ const Page = async ({ params }) => {
 - **`IntlayerServerProvider`** digunakan untuk menyediakan locale ke anak server. Ini tidak dapat ditempatkan di layout.
 
   > Layout dan halaman tidak dapat berbagi konteks server yang sama karena sistem konteks server didasarkan pada penyimpanan data per permintaan (melalui mekanisme [cache React](https://react.dev/reference/react/cache)), yang menyebabkan setiap "konteks" dibuat ulang untuk segmen aplikasi yang berbeda. Menempatkan provider di layout bersama akan memecah isolasi ini, sehingga mencegah propagasi nilai konteks server yang benar ke komponen server Anda.
+
+  > If you use `intlayer >= 8.3.0` `react >= 15` with `intlayerProxy` / `intlayerMiddleware`, the usage of `IntlayerServerProvider` becomes optional. The locale will be automatically resolved using your cookies and headers configuration [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)
 
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
 "use client";
