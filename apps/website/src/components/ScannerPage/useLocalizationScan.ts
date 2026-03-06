@@ -1,3 +1,4 @@
+import { getAuditAPI } from '@intlayer/api';
 import { extractErrorMessage } from '@intlayer/config/client';
 import { usePersistedStore } from '@intlayer/design-system/hooks';
 import { useReducer, useRef } from 'react';
@@ -52,6 +53,8 @@ function analyzerReducer(
   }
 }
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL as string;
+
 export const useLocalizationScan = (globalErrorMessage: string) => {
   const [state, dispatch] = useReducer(analyzerReducer, initialState);
   const [progress, setProgress] = usePersistedStore<number>(
@@ -74,75 +77,47 @@ export const useLocalizationScan = (globalErrorMessage: string) => {
     {}
   );
 
-  const eventSourceRef = useRef<EventSource | null>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
-  const handleMessage = (event: MessageEvent) => {
-    let message: AuditEvent;
-    try {
-      message = JSON.parse(event.data);
-    } catch (err) {
-      console.error('Failed to parse SSE message:', err);
-      return;
-    }
-
-    if (typeof message.globalError === 'string') {
-      console.error(message.globalError);
+  const handleMessage = (event: AuditEvent) => {
+    if (typeof event.globalError === 'string') {
+      console.error(event.globalError);
       dispatch({ type: 'SET_ERROR', payload: globalErrorMessage });
-      if (eventSourceRef.current) {
-        eventSourceRef.current.close();
-        eventSourceRef.current = null;
-      }
+      abortControllerRef.current?.abort();
       dispatch({ type: 'FINISH_SINGLE_SCAN' });
       return;
     }
 
-    if (typeof message.message === 'string') {
-      setStepsMessage(message.message);
+    if (typeof event.message === 'string') {
+      setStepsMessage(event.message);
     }
-    if (typeof message.progress === 'number') {
-      setProgress(message.progress ?? 0);
+    if (typeof event.progress === 'number') {
+      setProgress(event.progress ?? 0);
     }
-    if (typeof message.score === 'number') {
-      setScore(message.score);
+    if (typeof event.score === 'number') {
+      setScore(event.score);
     }
-    if (typeof message.type === 'string') {
+    if (typeof event.type === 'string') {
       setMergedData((prev) => ({
         ...prev,
-        [message.type!]: {
-          status: message.status,
-          data: message.data,
+        [event.type!]: {
+          status: event.status,
+          data: event.data,
         },
       }));
     }
-
-    if (typeof message.domainData === 'object') {
-      setDomainData((prev) => ({ ...prev, ...message.domainData }));
+    if (typeof event.domainData === 'object') {
+      setDomainData((prev) => ({ ...prev, ...event.domainData }));
     }
-
-    if (typeof message.progress === 'number' && message.progress === 100) {
+    if (typeof event.progress === 'number' && event.progress === 100) {
       dispatch({ type: 'FINISH_SINGLE_SCAN' });
-      setTimeout(() => {
-        if (eventSourceRef.current) {
-          eventSourceRef.current.close();
-          eventSourceRef.current = null;
-        }
-      }, 1000);
     }
-  };
-
-  const handleError = (error: Event) => {
-    console.error('SSE error:', error);
-    if (eventSourceRef.current) {
-      eventSourceRef.current.close();
-      eventSourceRef.current = null;
-    }
-    dispatch({ type: 'FINISH_SINGLE_SCAN' });
   };
 
   const handleAnalyze = async (url: string) => {
-    if (eventSourceRef.current) {
-      eventSourceRef.current.close();
-      eventSourceRef.current = null;
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
     }
 
     dispatch({ type: 'START_SINGLE_SCAN' });
@@ -152,24 +127,35 @@ export const useLocalizationScan = (globalErrorMessage: string) => {
     setDomainData(undefined);
     setScore(0);
 
-    try {
-      const eventSource = new EventSource(
-        `${process.env.NEXT_PUBLIC_SCANNER_API_URL}?url=${encodeURIComponent(url)}`
-      );
-      eventSourceRef.current = eventSource;
+    const abortController = new AbortController();
+    abortControllerRef.current = abortController;
 
-      eventSource.onmessage = handleMessage;
-      eventSource.onerror = handleError;
+    const auditAPI = getAuditAPI({}, {
+      editor: { backendURL: BACKEND_URL },
+    } as any);
+
+    try {
+      await auditAPI.scanUrl(
+        {
+          url,
+          onMessage: handleMessage,
+          onDone: () => dispatch({ type: 'FINISH_SINGLE_SCAN' }),
+        },
+        { signal: abortController.signal }
+      );
     } catch (error) {
+      if ((error as Error).name === 'AbortError') return;
       setMergedData({});
       dispatch({ type: 'SET_ERROR', payload: extractErrorMessage(error) });
+    } finally {
+      abortControllerRef.current = null;
     }
   };
 
   const handleCancel = () => {
-    if (eventSourceRef.current) {
-      eventSourceRef.current.close();
-      eventSourceRef.current = null;
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
     }
     dispatch({ type: 'CANCEL' });
     setStepsMessage('Analysis cancelled');
