@@ -57,8 +57,11 @@ WORKDIR /workspace/apps/showcase
 
 ENV NODE_ENV=production
 
+# Build the showcase app
+RUN bun run build
+
 # Create and use a non-root user for security
-RUN addgroup -S app && adduser -S app -G app && chown -R app:app ./
+RUN addgroup -S app && adduser -S app -G app && chown -R app:app ./.output
 
 USER app
 
@@ -72,5 +75,5 @@ HEALTHCHECK CMD true
 #     wget -qO- http://localhost:3000/ > /dev/null || exit 1 && \
 #     wget -qO- http://localhost:3000/doc/environment/nextjs > /dev/null || exit 1
 
-# Start the website
-CMD ["bun", "run", "--bun", "vite", "preview"] 
+# Start the showcase server
+CMD ["node", ".output/server/index.mjs"]

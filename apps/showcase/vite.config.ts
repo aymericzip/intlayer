@@ -5,6 +5,7 @@ import viteReact from '@vitejs/plugin-react';
 import { nitro } from 'nitro/vite';
 import { defineConfig } from 'vite';
 import { intlayer, intlayerProxy } from 'vite-intlayer';
+import wasm from 'vite-plugin-wasm';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 const config = defineConfig({
@@ -22,7 +23,13 @@ const config = defineConfig({
       },
     }),
     viteReact(),
+    wasm(),
   ],
+  build: {
+    rollupOptions: {
+      external: ['wasi_snapshot_preview1', 'esbuild', 'env'],
+    },
+  },
 });
 
 export default config;
