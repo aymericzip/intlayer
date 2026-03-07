@@ -187,7 +187,7 @@ export default defineConfig(({ mode }) => {
         },
         sitemap: {
           enabled: true,
-          host: env.VITE_APP_URL,
+          host: import.meta.env.VITE_APP_URL,
         },
         prerender: {
           enabled: true,
