@@ -43,6 +43,9 @@ const loadLanguage = async (lang: BundledLanguage): Promise<any> => {
     case 'html':
       languageModule = await import('shiki/langs/html.mjs');
       break;
+    case 'xml':
+      languageModule = await import('shiki/langs/xml.mjs');
+      break;
     default:
       languageModule = await import('shiki/langs/typescript.mjs');
       break;
