@@ -285,7 +285,7 @@ const nextConfig: NextConfig = {
     },
     {
       source:
-        '/:path*\\.(?:mp4|webm|ogg|webp|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|otf|eot|css|js)',
+        '/:path*\\.(mp4|webm|ogg|webp|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|otf|eot|css|js)',
       headers: [
         {
           key: 'Cache-Control',
