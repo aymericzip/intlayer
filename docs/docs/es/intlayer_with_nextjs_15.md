@@ -18,9 +18,6 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
-  - version: 8.3.0
-    date: 2026-03-05
-    changes: Made optional IntlayerServerProvider
   - version: 7.5.9
     date: 2025-12-30
     changes: Agregar comando init
@@ -543,7 +540,6 @@ const Page = async ({ params }) => {
 
   > El layout y la página no pueden compartir un contexto común del servidor porque el sistema de contexto del servidor se basa en un almacén de datos por solicitud (a través del mecanismo [React's cache](https://react.dev/reference/react/cache)), lo que hace que cada "contexto" se recree para diferentes segmentos de la aplicación. Colocar el proveedor en un layout compartido rompería este aislamiento, impidiendo la correcta propagación de los valores del contexto del servidor a tus componentes del servidor.
 
-  > If you use `intlayer >= 8.3.0` `react >= 15` with `intlayerProxy` / `intlayerMiddleware`, the usage of `IntlayerServerProvider` becomes optional. The locale will be automatically resolved using your cookies and headers configuration [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md)
   > El diseño y la página no pueden compartir un contexto de servidor común porque el sistema de contexto del servidor se basa en un almacén de datos por solicitud (a través del mecanismo de [caché de React](https://react.dev/reference/react/cache)), lo que provoca que cada "contexto" se vuelva a crear para diferentes segmentos de la aplicación. Colocar el proveedor en un diseño compartido rompería este aislamiento, impidiendo la correcta propagación de los valores del contexto del servidor a tus componentes del servidor.
 
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"

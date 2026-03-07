@@ -18,9 +18,6 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-no-lolale-path-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
-  - version: 8.3.0
-    date: 2026-03-05
-    changes: Made optional IntlayerServerProvider
   - version: 8.0.0
     date: 2026-01-10
     changes: Initial release
@@ -713,8 +710,6 @@ const Page: NextPage = async () => {
 - **`IntlayerServerProvider`** se utiliza para proporcionar el locale a los hijos en el servidor. No puede establecerse en el layout.
 
 > El layout y la página no pueden compartir un contexto del servidor común porque el sistema de contexto del servidor se basa en un almacenamiento de datos por solicitud (a través del mecanismo de [cache de React](https://react.dev/reference/react/cache)), lo que hace que cada "context" se vuelva a crear para diferentes segmentos de la aplicación. Colocar el provider en un layout compartido rompería este aislamiento, impidiendo la propagación correcta de los valores del contexto del servidor a tus server components.
-
-> If you use `intlayer >= 8.3.0` `react >= 15` with `intlayerProxy` / `intlayerMiddleware`, the usage of `IntlayerServerProvider` becomes optional. The locale will be automatically resolved using your cookies and headers configuration [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md)
 
 ```tsx {4,7} fileName="src/components/clientComponentExample/ClientComponentExample.tsx" codeFormat="typescript"
 "use client";

@@ -17,9 +17,6 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-16-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
-  - version: 8.3.0
-    date: 2026-03-05
-    changes: Made optional IntlayerServerProvider
   - version: 7.5.9
     date: 2025-12-30
     changes: Aggiungi comando init
@@ -604,8 +601,6 @@ const Page = async ({ params }) => {
 - **`IntlayerServerProvider`** viene utilizzato per fornire la localizzazione ai componenti lato server. Non può essere impostato nel layout.
 
   > Layout e pagina non possono condividere un contesto server comune perché il sistema di contesto server si basa su un archivio dati per richiesta (tramite il meccanismo [React's cache](https://react.dev/reference/react/cache)), causando la ricreazione di ogni "contesto" per diversi segmenti dell'applicazione. Posizionare il provider in un layout condiviso romperebbe questa isolazione, impedendo la corretta propagazione dei valori del contesto server ai tuoi componenti server.
-
-  > If you use `intlayer >= 8.3.0` `react >= 15` with `intlayerProxy` / `intlayerMiddleware`, the usage of `IntlayerServerProvider` becomes optional. The locale will be automatically resolved using your cookies and headers configuration [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md)
 
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
 "use client";

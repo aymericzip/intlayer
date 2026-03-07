@@ -18,9 +18,6 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-no-lolale-path-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
-  - version: 8.3.0
-    date: 2026-03-05
-    changes: Made optional IntlayerServerProvider
   - version: 8.0.0
     date: 2026-01-10
     changes: 初回リリース
@@ -776,7 +773,6 @@ const Page: NextPage = async () => {
   > Layout と page は共通の server context を共有できません。server context システムはリクエスト単位のデータストア（[React の cache](https://react.dev/reference/react/cache) 機構）に基づいており、アプリケーションの異なるセグメントごとに各 "context" が再作成されます。provider を共有 layout に配置するとこの分離が壊れ、server component に対する server context 値の正しい伝播が妨げられます。
 
 
-  > If you use `intlayer >= 8.3.0` `react >= 15` with `intlayerProxy` / `intlayerMiddleware`, the usage of `IntlayerServerProvider` becomes optional. The locale will be automatically resolved using your cookies and headers configuration [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
 ```tsx {4,7} fileName="src/components/clientComponentExample/ClientComponentExample.tsx" codeFormat="typescript"
 "use client";
 

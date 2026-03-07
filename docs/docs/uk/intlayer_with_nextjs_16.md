@@ -17,9 +17,6 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-16-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
-  - version: 8.3.0
-    date: 2026-03-05
-    changes: Made optional IntlayerServerProvider
   - version: 7.5.9
     date: 2025-12-30
     changes: Додати команду init
@@ -604,8 +601,6 @@ const Page = async ({ params }) => {
 - **`IntlayerServerProvider`** використовується для надання локалі серверним дочірнім компонентам. Його не можна встановити в макеті.
 
   > Макет і сторінка не можуть ділити загальний серверний контекст, оскільки система серверного контексту базується на сховищі даних для кожного запиту (через механізм [кешування React](https://react.dev/reference/react/cache)), що призводить до повторного створення кожного "контексту" для різних сегментів додатка. Розміщення провайдера в спільному макеті порушить цю ізоляцію, запобігаючи правильному поширенню значень серверного контексту до ваших серверних компонентів.
-
-  > If you use `intlayer >= 8.3.0` `react >= 15` with `intlayerProxy` / `intlayerMiddleware`, the usage of `IntlayerServerProvider` becomes optional. The locale will be automatically resolved using your cookies and headers configuration [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md)
 
 ```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
 "use client";
