@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { getIntlayer } from 'intlayer';
+import { useIntlayer } from 'react-intlayer';
 import { Link } from '#/components/Link';
 import { PagesRoutes } from '#/Routes';
 
@@ -23,6 +24,8 @@ export const Route = createFileRoute('/{-$locale}/404')({
 });
 
 export function NotFoundComponent() {
+  const content = useIntlayer('404');
+
   return (
     <main className="page-wrap relative flex min-h-[60vh] flex-col items-center justify-center overflow-hidden px-4 py-12 text-center">
       <p className="pointer-events-none absolute top-1/2 left-1/2 -z-10 -translate-x-1/2 -translate-y-1/2 font-bold text-[350px] text-text/10">
@@ -30,13 +33,13 @@ export function NotFoundComponent() {
       </p>
 
       <h1 className="display-title mb-4 font-bold text-6xl text-text">
-        Page not found
+        {content.pageNotFound}
       </h1>
       <p className="mb-8 max-w-md text-base text-neutral">
-        The page you&apos;re looking for doesn&apos;t exist or has been moved.
+        {content.thePageYoureLookingFor}
       </p>
       <Link href={PagesRoutes.Showcase} variant="button" color="text">
-        Back to home
+        {content.backToHome}
       </Link>
     </main>
   );
