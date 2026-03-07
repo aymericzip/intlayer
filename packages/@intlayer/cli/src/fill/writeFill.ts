@@ -83,7 +83,6 @@ export const writeFill = async (
       continue;
     }
 
-    // biome-ignore lint/correctness/noUnusedVariables: Just filtering out the fill property
     const { fill, ...rest } = contentDeclarationFile;
 
     const relativeFilePath = relative(

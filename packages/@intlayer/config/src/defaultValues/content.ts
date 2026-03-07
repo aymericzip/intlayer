@@ -9,6 +9,7 @@ export const FILE_EXTENSIONS = [
   '.content.tsx',
   '.content.jsx',
 ];
+
 export const EXCLUDED_PATHS = [
   '**/node_modules/**',
   '**/dist/**',

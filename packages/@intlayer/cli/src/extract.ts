@@ -1,7 +1,6 @@
 import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { relative, resolve } from 'node:path';
-import { multiselect } from '@clack/prompts';
 import { extractContent, type PackageName } from '@intlayer/babel';
 import { logConfigDetails } from '@intlayer/chokidar/cli';
 import { colorizePath, getAppLogger } from '@intlayer/config/logger';
@@ -10,6 +9,7 @@ import {
   getConfiguration,
 } from '@intlayer/config/node';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
+import enquirer from 'enquirer';
 import fg from 'fast-glob';
 
 type ExtractOptions = {
@@ -42,7 +42,8 @@ export const extract = async (options: ExtractOptions) => {
   logConfigDetails(options?.configOptions);
 
   const appLogger = getAppLogger(configuration);
-  const { baseDir, codeDir } = configuration.content;
+  const { baseDir, codeDir, excludedPath } = configuration.content;
+  const { traversePattern } = configuration.build;
 
   const formatPath = (path: string) => {
     const relativePath = relative(baseDir, path);
@@ -74,26 +75,27 @@ export const extract = async (options: ExtractOptions) => {
   let filesToExtract = options.files ?? [];
 
   if (filesToExtract.length === 0) {
-    const globPattern = '**/*.{tsx,jsx,vue,svelte,ts,js}';
-    const excludePattern = [
-      '**/*.content.{ts,tsx,js,jsx,mjs,cjs}',
-      '**/*.config.{ts,tsx,js,jsx,mjs,cjs}',
-      '**/*.test.{ts,tsx,js,jsx,mjs,cjs}',
-      '**/*.stories.{ts,tsx,js,jsx,mjs,cjs}',
-      '**/node_modules/**',
-      '**/dist/**',
-      '**/build/**',
-    ];
+    // Filter out codeDirs that are themselves inside an excluded path (e.g. dist, node_modules)
+    const isDirExcluded = (dirPath: string): boolean =>
+      (excludedPath ?? []).some((pattern) => {
+        const segments = pattern
+          .split('/')
+          .filter((s) => !s.includes('*') && s.length > 0);
+        const parts = dirPath.split('/');
+        return segments.some((seg) => parts.includes(seg));
+      });
 
     // Await all promises simultaneously
     const resultsArray = await Promise.all(
-      codeDir.map((dir) =>
-        fg(globPattern, {
-          cwd: dir,
-          ignore: excludePattern,
-          absolute: true,
-        })
-      )
+      codeDir
+        .filter((dir) => !isDirExcluded(dir))
+        .map((dir) =>
+          fg(traversePattern, {
+            cwd: dir,
+            ignore: excludedPath,
+            absolute: true,
+          })
+        )
     );
 
     // Flatten the nested arrays and remove duplicates
@@ -117,11 +119,75 @@ export const extract = async (options: ExtractOptions) => {
       return;
     }
 
-    const selectedFiles = await multiselect({
-      message: 'Select files to extract:',
-      options: choices,
-      required: false,
-    });
+    const SELECT_ALL = '__select_all__';
+
+    type PromptChoice = {
+      name: string;
+      enabled: boolean;
+      disabled?: boolean | string;
+    };
+
+    type PromptContext = {
+      choices: PromptChoice[];
+      render(): void | Promise<void>;
+      state: { submitted: boolean };
+      selected: PromptChoice[];
+      input: string;
+      options: { multiple?: boolean };
+    };
+
+    let selectedFiles: string[] | symbol;
+    try {
+      const maxLen = Math.max((process.stdout.columns || 80) - 15, 20);
+      const truncatePath = (path: string) =>
+        path.length > maxLen ? `...${path.slice(-(maxLen - 3))}` : path;
+
+      const { files: enquirerSelectedFiles } = await enquirer.prompt<{
+        files: string[];
+      }>({
+        type: 'autocomplete',
+        name: 'files',
+        message: 'Select files to extract (Type to search):',
+        multiple: true,
+        // @ts-ignore limit exist but is not typed
+        limit: 40,
+        choices: [
+          { name: SELECT_ALL, message: '────── Select all ──────' },
+          ...choices.map((choice) => ({
+            name: choice.value,
+            message: truncatePath(choice.label),
+          })),
+        ],
+        async toggle(
+          this: PromptContext,
+          choice: PromptChoice,
+          enabled?: boolean
+        ) {
+          if (!choice || choice.disabled) return;
+          choice.enabled = enabled == null ? !choice.enabled : enabled;
+
+          if (choice.name === SELECT_ALL) {
+            this.choices
+              .filter((choiceEl) => choiceEl.name !== SELECT_ALL)
+              .forEach((choiceEl) => {
+                choiceEl.enabled = choice.enabled;
+              });
+          }
+
+          return this.render();
+        },
+        format(this: PromptContext) {
+          if (this.state?.submitted && this.options?.multiple) {
+            return `${this.selected.filter((s) => s.name !== SELECT_ALL).length} file(s) selected`;
+          }
+          return this.input ?? '';
+        },
+      });
+
+      selectedFiles = enquirerSelectedFiles.filter((f) => f !== SELECT_ALL);
+    } catch {
+      selectedFiles = Symbol('cancel');
+    }
 
     if (typeof selectedFiles === 'symbol') {
       // User cancelled
