@@ -43,6 +43,23 @@ export const Route = createFileRoute('/{-$locale}/project/$projectId')({
         { name: 'twitter:description', content: description },
       ],
       links: [{ rel: 'canonical', href: canonicalUrl }],
+      scripts: project
+        ? [
+            {
+              type: 'application/ld+json',
+              children: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'SoftwareApplication',
+                name: title,
+                description: description,
+                image: project.imageUrl,
+                url: canonicalUrl,
+                applicationCategory: 'WebApplication',
+                datePublished: project.createdAt,
+              }),
+            },
+          ]
+        : [],
     };
   },
 });

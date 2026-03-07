@@ -61,6 +61,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
           locale: locale || 'en',
           projectId: project._id,
         }}
+        preload="viewport"
         className="flex flex-1 flex-col"
       >
         <div className="relative aspect-video overflow-hidden bg-background">

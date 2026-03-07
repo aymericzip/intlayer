@@ -135,12 +135,6 @@ const secureHeaders = {
 } satisfies Parameters<typeof createSecureHeaders>[0];
 
 const globalHeaders = [
-  {
-    key: 'Cache-Control',
-    // 1 day (86400s) fresh, s-maxage=86400, but allow background updates for 2 days (172800s)
-    value:
-      'public, max-age=86400, s-maxage=86400, stale-while-revalidate=172800',
-  },
   { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
   { key: 'Cross-Origin-Embedder-Policy', value: 'same-origin' },
   {
@@ -290,7 +284,8 @@ const nextConfig: NextConfig = {
       ],
     },
     {
-      source: '/:path*(.mp4|.webp|.png|.jpg)',
+      source:
+        '/:path*\\.(?:mp4|webm|ogg|webp|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|otf|eot|css|js)',
       headers: [
         {
           key: 'Cache-Control',

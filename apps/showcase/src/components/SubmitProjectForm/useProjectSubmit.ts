@@ -1,14 +1,16 @@
-import { usePersistedStore, useSession } from '@intlayer/design-system/hooks';
+import { usePersistedStore } from '@intlayer/design-system/hooks';
 import { useRef, useState } from 'react';
+import { AppRoutes } from '#/Routes';
 import { submitProject as submitProjectAction } from '@/server/projectActions/projectActions';
 import type { Project, SubmitStep } from '@/server/projectActions/types';
 import type { SubmitProjectFormData } from './useSubmitProjectFormSchema';
 
 export const useProjectSubmit = () => {
-  const { session } = useSession();
   const [submitStep, setSubmitStep] = useState<SubmitStep | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [submittedProject, setSubmittedProject] = useState<Project | null>(null);
+  const [submittedProject, setSubmittedProject] = useState<Project | null>(
+    null
+  );
   const abortRef = useRef(false);
 
   const [, setFormValue] = usePersistedStore('submit-project-form', {
@@ -32,17 +34,6 @@ export const useProjectSubmit = () => {
   };
 
   const submitProject = async (data: SubmitProjectFormData) => {
-    const isAuthEnabled = import.meta.env.VITE_IS_AUTH_ENABLED !== 'false';
-
-    if (isAuthEnabled && !session) {
-      const redirectUrl =
-        typeof window !== 'undefined'
-          ? encodeURIComponent(window.location.pathname)
-          : '';
-      window.location.href = `https://app.intlayer.org/auth/login?redirect_url=${redirectUrl}`;
-      return;
-    }
-
     setSubmitStep('START');
     setSubmitError(null);
     setSubmittedProject(null);
@@ -56,6 +47,12 @@ export const useProjectSubmit = () => {
 
         if (msg.step) {
           setSubmitStep(msg.step as SubmitStep);
+        }
+
+        if (msg.step === 'UNAUTHENTICATED') {
+          const redirectUrl = encodeURIComponent(window.location.href);
+          window.location.href = `${AppRoutes.Auth_SignIn}?redirect_url=${redirectUrl}`;
+          return;
         }
 
         if (msg.step === 'ERROR') {

@@ -69,10 +69,32 @@ export const findShowcaseProjectById = async (
   return project as unknown as ShowcaseProjectDocument;
 };
 
+/**
+ * Finds an existing project whose websiteUrl shares the same hostname as the
+ * given URL. This treats `example.com` and `example.com/path` as duplicates
+ * while allowing `sub.example.com` as a distinct entry.
+ */
 export const findShowcaseProjectByUrl = async (
   websiteUrl: string
 ): Promise<ShowcaseProjectDocument | null> => {
-  const project = await ShowcaseProjectModel.findOne({ websiteUrl }).lean();
+  let hostname: string;
+  try {
+    hostname = new URL(websiteUrl).hostname;
+  } catch {
+    // Fallback to exact match if URL is unparseable
+    const project = await ShowcaseProjectModel.findOne({ websiteUrl }).lean();
+    return project as unknown as ShowcaseProjectDocument | null;
+  }
+
+  // Match any stored URL whose authority (scheme + hostname) equals this hostname.
+  // Anchored after the scheme so sub.example.com does NOT match example.com.
+  const hostnameRegex = new RegExp(
+    `^https?://${hostname.replace(/\./g, '\\.')}(/|$)`,
+    'i'
+  );
+  const project = await ShowcaseProjectModel.findOne({
+    websiteUrl: { $regex: hostnameRegex },
+  }).lean();
   return project as unknown as ShowcaseProjectDocument | null;
 };
 

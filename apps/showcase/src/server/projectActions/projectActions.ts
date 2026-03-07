@@ -1,4 +1,5 @@
 import { createServerFn } from '@tanstack/react-start';
+import { getRequestHeader } from '@tanstack/react-start/server';
 import { z } from 'zod';
 import { submitProjectSchema } from './projectSchema';
 import type { Project } from './types';
@@ -28,9 +29,14 @@ export const submitProject = createServerFn({ method: 'POST' })
     try {
       yield { step: 'START' };
 
+      const cookie = getRequestHeader('cookie') ?? '';
+
       const response = await fetch(`${SHOWCASE_API}/submit`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(cookie ? { Cookie: cookie } : {}),
+        },
         body: JSON.stringify({
           name: data.name,
           url: data.url,
@@ -40,6 +46,11 @@ export const submitProject = createServerFn({ method: 'POST' })
           useCases: data.useCases,
         }),
       });
+
+      if (response.status === 401) {
+        yield { step: 'UNAUTHENTICATED' };
+        return;
+      }
 
       const result = await response.json();
 

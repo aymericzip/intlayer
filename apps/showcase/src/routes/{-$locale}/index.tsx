@@ -104,6 +104,18 @@ export const Route = createFileRoute('/{-$locale}/')({
         })),
         { rel: 'alternate', hrefLang: 'x-default', href: SITE_URL },
       ],
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebPage',
+            name: content.metadata.title,
+            description: content.metadata.description,
+            url: canonicalUrl,
+          }),
+        },
+      ],
     };
   },
 });

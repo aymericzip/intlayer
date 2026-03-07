@@ -338,6 +338,7 @@ export const getAuth = (dbClient: MongoClient): Auth => {
     trustedOrigins: [
       process.env.WEBSITE_URL as string,
       process.env.APP_URL as string,
+      process.env.SHOWCASE_URL as string,
     ],
 
     accountLinking: {

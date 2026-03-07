@@ -44,7 +44,7 @@ export interface Project {
   isOwner?: boolean;
 }
 
-export type SubmitStep = 'START' | 'SUCCESS' | 'ERROR';
+export type SubmitStep = 'START' | 'SUCCESS' | 'ERROR' | 'UNAUTHENTICATED';
 
 export type ScanStep =
   | 'SCANNING_START'

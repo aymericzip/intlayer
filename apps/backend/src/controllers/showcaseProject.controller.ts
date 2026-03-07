@@ -85,6 +85,13 @@ export const submitShowcaseProject = async (
 
   const userId = getUserId(request);
 
+  if (!userId) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'USER_NOT_AUTHENTICATED'
+    );
+  }
+
   try {
     // Check for existing project with the same URL
     const existing = await showcaseProjectService.findShowcaseProjectByUrl(

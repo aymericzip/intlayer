@@ -1,9 +1,14 @@
-import { Link as UILink } from '@intlayer/design-system';
+import {
+  isTextChildren,
+  LinkVariant,
+  linkVariants,
+} from '@intlayer/design-system';
 import {
   type LinkComponentProps,
   Link as TanStackLink,
 } from '@tanstack/react-router';
 import { getPrefix } from 'intlayer';
+import { ExternalLink, MoveRight } from 'lucide-react';
 import type {
   AnchorHTMLAttributes,
   FC,
@@ -11,6 +16,7 @@ import type {
   ReactNode,
 } from 'react';
 import { useLocale } from 'react-intlayer';
+import { cn } from '#/utils/cn';
 
 export const LOCALE_ROUTE = '{-$locale}' as const;
 
@@ -38,9 +44,11 @@ type LinkProps = {
   label?: string;
   children?: ReactNode;
   isExternalLink?: boolean;
-  color?: string;
-  variant?: string;
-  roundedSize?: string;
+  color?: any;
+  variant?: LinkVariant | string;
+  roundedSize?: any;
+  size?: any;
+  className?: string;
   isActive?: boolean;
   replace?: boolean;
   onClick?: MouseEventHandler<HTMLAnchorElement>;
@@ -58,6 +66,12 @@ export const Link: FC<LinkProps> = ({
   replace,
   onClick,
   params,
+  variant = 'default',
+  color,
+  underlined,
+  roundedSize,
+  size,
+  className,
   ...props
 }) => {
   const { locale } = useLocale();
@@ -71,20 +85,47 @@ export const Link: FC<LinkProps> = ({
     targetUrl.startsWith('#');
 
   const isExternal = isExternalLink ?? isExternalLinkUrl;
+  const isPageSection = targetUrl.startsWith('#');
+
+  const isChildrenString = isTextChildren(children);
+  const isButton =
+    variant === LinkVariant.BUTTON || variant === LinkVariant.BUTTON_OUTLINED;
+
+  const content = (
+    <>
+      {isButton && isChildrenString ? <span>{children}</span> : children}
+
+      {isExternal && isChildrenString && (
+        <ExternalLink className="ml-2 inline-block size-4" />
+      )}
+      {isPageSection && <MoveRight className="ml-2 inline-block size-4" />}
+    </>
+  );
+
+  const classes = cn(
+    linkVariants({
+      variant: variant as any,
+      color: color as any,
+      underlined,
+      roundedSize: roundedSize as any,
+      size: size as any,
+      className,
+    })
+  );
 
   if (isExternal || isExternalLinkUrl) {
     return (
-      <UILink
+      <a
         href={targetUrl}
         aria-label={label}
         target={isExternal ? '_blank' : undefined}
         rel={isExternal ? 'noopener noreferrer' : undefined}
-        isExternalLink={isExternal}
         onClick={onClick}
+        className={classes}
         {...(props as any)}
       >
-        {children}
-      </UILink>
+        {content}
+      </a>
     );
   }
 
@@ -102,12 +143,13 @@ export const Link: FC<LinkProps> = ({
         to={tanstackTo}
         params={tanstackParams as LinkComponentProps['params']}
         aria-label={label}
-        isActive={isActive}
+        aria-current={isActive ? 'page' : undefined}
         replace={replace}
         onClick={onClick}
+        className={classes}
         {...(props as LinkComponentProps)}
       >
-        {children}
+        {content}
       </TanStackLink>
     );
   }
@@ -120,12 +162,13 @@ export const Link: FC<LinkProps> = ({
     <TanStackLink
       to={localizedHref as To}
       aria-label={label}
-      isActive={isActive}
+      aria-current={isActive ? 'page' : undefined}
       replace={replace}
       onClick={onClick}
+      className={classes}
       {...(props as LinkComponentProps)}
     >
-      {children}
+      {content}
     </TanStackLink>
   );
 };
