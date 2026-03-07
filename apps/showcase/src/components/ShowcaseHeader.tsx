@@ -1,7 +1,7 @@
 import { H1, Link } from '@intlayer/design-system';
 import { Plus } from 'lucide-react';
 import { useIntlayer } from 'react-intlayer';
-import { PagesRoutes } from '@/route';
+import { PagesRoutes } from '#/Routes';
 
 export const ShowcaseHeader = () => {
   const content = useIntlayer('app');

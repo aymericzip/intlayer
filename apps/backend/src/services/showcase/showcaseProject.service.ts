@@ -3,6 +3,7 @@ import { GenericError } from '@utils/errors';
 import type {
   ShowcaseProjectData,
   ShowcaseProjectDocument,
+  ShowcaseProjectStatus,
 } from '@/types/showcaseProject.types';
 
 export const findShowcaseProjects = async (filters: {
@@ -99,6 +100,34 @@ export const createShowcaseProject = async (
 
   await newProject.save();
   return newProject as unknown as ShowcaseProjectDocument;
+};
+
+export type UpdateShowcaseProjectScanData = {
+  intlayerVersion?: string;
+  libsUsed?: string[];
+  packageDetails?: Record<string, string>;
+  scanDetails?: ShowcaseProjectData['scanDetails'];
+  imageUrl?: string;
+  isOpenSource?: boolean;
+  status?: ShowcaseProjectStatus;
+  lastScanDate?: Date;
+};
+
+export const updateShowcaseProject = async (
+  projectId: string,
+  updates: UpdateShowcaseProjectScanData
+): Promise<ShowcaseProjectDocument> => {
+  const project = await ShowcaseProjectModel.findByIdAndUpdate(
+    projectId,
+    { $set: updates },
+    { new: true }
+  ).lean();
+
+  if (!project) {
+    throw new GenericError('SHOWCASE_PROJECT_NOT_FOUND', { projectId });
+  }
+
+  return project as unknown as ShowcaseProjectDocument;
 };
 
 export const toggleShowcaseLike = async (

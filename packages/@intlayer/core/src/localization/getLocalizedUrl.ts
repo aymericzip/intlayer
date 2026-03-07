@@ -48,7 +48,8 @@ import {
  */
 export const getLocalizedUrl = (
   url: string,
-  currentLocale: LocalesValues,
+  currentLocale: LocalesValues = configuration?.internationalization
+    ?.defaultLocale,
   options: {
     locales?: LocalesValues[];
     defaultLocale?: LocalesValues;

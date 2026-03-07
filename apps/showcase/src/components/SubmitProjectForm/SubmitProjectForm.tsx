@@ -32,6 +32,7 @@ export const SubmitProjectForm: FC = () => {
   const {
     submitStep,
     submitError,
+    submittedProject,
     submitProject,
     setSubmitStep,
     setSubmitError,
@@ -126,8 +127,14 @@ export const SubmitProjectForm: FC = () => {
             setSubmitStep(null);
             setSubmitError(null);
           }}
-          onSuccess={() => navigate({ to: `/${locale}` })}
-          hasGithubUrl={!!form.watch('githubUrl')}
+          onSuccess={() =>
+            submittedProject
+              ? navigate({
+                  to: '/{-$locale}/project/$projectId',
+                  params: { locale, projectId: submittedProject._id },
+                })
+              : navigate({ to: '/{-$locale}', params: { locale } })
+          }
         />
       </Container>
     </div>

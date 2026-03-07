@@ -1,7 +1,13 @@
 import { Badge, Button, Container } from '@intlayer/design-system';
+import {
+  useSession,
+  useToggleShowcaseLike,
+} from '@intlayer/design-system/hooks';
 import { Link, useParams } from '@tanstack/react-router';
 import { ExternalLink, ThumbsDown, ThumbsUp } from 'lucide-react';
+import { useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { AppRoutes } from '#/Routes';
 import { getFaviconUrl } from '#/utils/getFaviconUrl';
 import type { Project } from '@/server/projectActions/types';
 
@@ -12,8 +18,35 @@ interface ProjectCardProps {
 export const ProjectCard = ({ project }: ProjectCardProps) => {
   const content = useIntlayer('app');
   const { locale } = useParams({ from: '/{-$locale}' });
+  const { session } = useSession();
+  const { mutateAsync: toggleLike, isPending } = useToggleShowcaseLike();
+
+  // isLiked is determined by whether the current user's id is in upvoters
+  const [upvotes, setUpvotes] = useState(project.upvotes);
+  const [isLiked, setIsLiked] = useState(project.upvoters.length > 0);
 
   const faviconUrl = getFaviconUrl(project.websiteUrl);
+
+  const handleVote = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!session) {
+      const redirectUrl = encodeURIComponent(window.location.href);
+      window.location.href = `${AppRoutes.Auth_SignIn}?redirect_url=${redirectUrl}`;
+      return;
+    }
+
+    try {
+      const result = await toggleLike(project._id);
+      if (result?.data) {
+        setUpvotes(result.data.upvotes);
+        setIsLiked(result.data.isLiked);
+      }
+    } catch {
+      // ignore
+    }
+  };
 
   return (
     <Container
@@ -89,12 +122,14 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
               type="button"
               variant="hoverable"
               label={content.showcase.upvote.label.value}
-              color="neutral"
+              color={isLiked ? 'primary' : 'neutral'}
               size="icon-sm"
               Icon={ThumbsUp}
+              onClick={handleVote}
+              disabled={isPending}
             />
             <span className="min-w-6 text-center font-medium text-sm text-text">
-              {project.upvotes}
+              {upvotes}
             </span>
             <Button
               type="button"
@@ -103,6 +138,8 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
               color="neutral"
               size="icon-sm"
               Icon={ThumbsDown}
+              onClick={handleVote}
+              disabled={isPending}
             />
           </div>
         </div>

@@ -14,6 +14,7 @@ import { IntlayerMarkdownProvider } from "../components/IntlayerMarkdownProvider
 import { ThemeProvider } from "../components/ThemeProvider";
 import PostHogProvider from "../integrations/posthog/provider";
 import TanStackQueryProvider from "../integrations/tanstack-query/root-provider";
+import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from "../lib/site";
 import appCss from "../styles.css?url";
 
 interface MyRouterContext {
@@ -32,15 +33,30 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 				name: "viewport",
 				content: "width=device-width, initial-scale=1",
 			},
-			{
-				title: "TanStack Start Starter",
-			},
+			{ title: SITE_TITLE },
+			{ name: "description", content: SITE_DESCRIPTION },
+			{ name: "application-name", content: SITE_TITLE },
+			{ name: "robots", content: "index, follow" },
+			{ property: "og:site_name", content: "Intlayer" },
+			{ property: "og:type", content: "website" },
+			{ property: "og:image", content: `${SITE_URL}/github-social-preview.png` },
+			{ property: "og:image:width", content: "1200" },
+			{ property: "og:image:height", content: "630" },
+			{ name: "twitter:card", content: "summary_large_image" },
+			{ name: "twitter:site", content: "@Intlayer183096" },
+			{ name: "twitter:creator", content: "@aymericzip" },
+			{ name: "twitter:image", content: `${SITE_URL}/github-social-preview.png` },
 		],
 		links: [
 			{
 				rel: "stylesheet",
 				href: appCss,
 			},
+			{ rel: "icon", type: "image/x-icon", href: `${SITE_URL}/favicon.ico` },
+			{ rel: "icon", type: "image/png", sizes: "16x16", href: `${SITE_URL}/favicon-16x16.png` },
+			{ rel: "icon", type: "image/png", sizes: "32x32", href: `${SITE_URL}/favicon-32x32.png` },
+			{ rel: "icon", type: "image/svg+xml", href: `${SITE_URL}/logo.svg` },
+			{ rel: "apple-touch-icon", sizes: "180x180", href: `${SITE_URL}/apple-touch-icon.png` },
 		],
 	}),
 	shellComponent: RootDocument,

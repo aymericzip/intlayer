@@ -20,6 +20,8 @@ export interface ShowcaseScanDetails {
   };
 }
 
+export type ShowcaseProjectStatus = 'pending_scan' | 'active' | 'scan_failed';
+
 export interface ShowcaseProject {
   _id: Types.ObjectId;
   title: string;
@@ -35,14 +37,18 @@ export interface ShowcaseProject {
   createdAt: Date;
   intlayerVersion?: string;
   libsUsed: string[];
+  /** Map of package name → version for all detected intlayer-related packages */
+  packageDetails?: Record<string, string>;
   lastScanDate?: Date;
   scanDetails?: ShowcaseScanDetails;
+  owner?: string;
+  status?: ShowcaseProjectStatus;
 }
 
 export interface ShowcaseProjectData {
   title: string;
   description: string;
-  imageUrl: string;
+  imageUrl?: string;
   logoUrl?: string;
   websiteUrl: string;
   githubUrl?: string;
@@ -50,7 +56,10 @@ export interface ShowcaseProjectData {
   isOpenSource?: boolean;
   intlayerVersion?: string;
   libsUsed?: string[];
+  packageDetails?: Record<string, string>;
   scanDetails?: ShowcaseScanDetails;
+  owner?: string;
+  status?: ShowcaseProjectStatus;
 }
 
 export interface ShowcaseProjectAPI
@@ -58,6 +67,7 @@ export interface ShowcaseProjectAPI
   id: string;
   createdAt: string;
   lastScanDate?: string;
+  isOwner?: boolean;
 }
 
 export type ShowcaseProjectDocument = ShowcaseProject & Document;

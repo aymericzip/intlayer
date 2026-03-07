@@ -1,9 +1,10 @@
 import { Button } from '@intlayer/design-system';
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { getIntlayer } from 'intlayer';
+import { getIntlayer, getLocalizedUrl } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { ProjectFocus } from '@/components/ProjectFocus/ProjectFocus';
 import { ShowcaseHeader } from '@/components/ShowcaseHeader';
+import { SITE_URL } from '@/lib/site';
 import { getProjectById } from '@/server/projectActions/projectActions';
 
 export const Route = createFileRoute('/{-$locale}/project/$projectId')({
@@ -17,18 +18,31 @@ export const Route = createFileRoute('/{-$locale}/project/$projectId')({
     };
   },
   component: ProjectPage,
-  head: ({ params }) => {
-    const { locale } = params as { locale?: string };
+  head: ({ params, loaderData }) => {
+    const { locale, projectId } = params as {
+      locale?: string;
+      projectId: string;
+    };
     const content = getIntlayer('app', locale);
+    const project = loaderData?.project;
+    const title = project?.title
+      ? `${project.title} – Intlayer Showcase`
+      : content.projectPage.metadata.title;
+    const description =
+      project?.description ?? content.projectPage.metadata.description;
+    const canonicalUrl = `${SITE_URL}${getLocalizedUrl(`/project/${projectId}`, locale)}`;
 
     return {
       meta: [
-        { title: `Project Details - ${content.metadata.title}` },
-        {
-          name: 'description',
-          content: content.metadata.description,
-        },
+        { title },
+        { name: 'description', content: description },
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: description },
+        { property: 'og:url', content: canonicalUrl },
+        { name: 'twitter:title', content: title },
+        { name: 'twitter:description', content: description },
       ],
+      links: [{ rel: 'canonical', href: canonicalUrl }],
     };
   },
 });

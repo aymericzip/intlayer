@@ -10,7 +10,6 @@ interface ModalStatusProps {
   onClose: () => void;
   onRetry: () => void;
   onSuccess: () => void;
-  hasGithubUrl: boolean;
 }
 
 export const ModalStatus: FC<ModalStatusProps> = ({
@@ -19,7 +18,6 @@ export const ModalStatus: FC<ModalStatusProps> = ({
   onClose,
   onRetry,
   onSuccess,
-  hasGithubUrl,
 }) => {
   const content = useIntlayer('submit-project-form');
 
@@ -78,39 +76,6 @@ export const ModalStatus: FC<ModalStatusProps> = ({
           <>
             <H2>{content.modal.title}</H2>
             <Loader isLoading={true} />
-            <div className="my-4 flex w-full max-w-md flex-col gap-4 border-l border-l-neutral/30 pl-4">
-              <ul className="space-y-3 text-neutral text-sm">
-                <StepItem
-                  label={content.modal.steps.verifyBundle.value}
-                  isCurrent={submitStep === 'SCANNING_START'}
-                  isWaiting={submitStep === 'START'}
-                />
-
-                {hasGithubUrl && (
-                  <StepItem
-                    label={content.modal.steps.verifyGithub.value}
-                    isCurrent={submitStep === 'VERIFY_GITHUB_START'}
-                    isWaiting={[
-                      'START',
-                      'SCANNING_START',
-                      'SCANNING_SUCCESS',
-                    ].includes(submitStep as string)}
-                  />
-                )}
-
-                <StepItem
-                  label={content.modal.steps.screenshotAndSave.value}
-                  isCurrent={submitStep === 'DB_SCREENSHOT_START'}
-                  isWaiting={[
-                    'START',
-                    'SCANNING_START',
-                    'SCANNING_SUCCESS',
-                    'VERIFY_GITHUB_START',
-                    'VERIFY_GITHUB_SUCCESS',
-                  ].includes(submitStep as string)}
-                />
-              </ul>
-            </div>
           </>
         )}
       </div>
@@ -118,21 +83,3 @@ export const ModalStatus: FC<ModalStatusProps> = ({
   );
 };
 
-const StepItem: FC<{
-  label: string;
-  isCurrent: boolean;
-  isWaiting: boolean;
-}> = ({ label, isCurrent, isWaiting }) => (
-  <li className="flex items-center gap-2">
-    <span className="flex size-6 items-center justify-center">
-      {isWaiting ? (
-        <span>⏳</span>
-      ) : isCurrent ? (
-        <Loader className="h-4 w-4" />
-      ) : (
-        <Check className="h-4 w-4 text-success" />
-      )}
-    </span>
-    <span className={isWaiting ? 'animate-pulse' : ''}>{label}</span>
-  </li>
-);

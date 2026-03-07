@@ -1,4 +1,4 @@
-export const SITE_TITLE = 'TanStack Start';
+export const SITE_TITLE = 'Intlayer Showcase';
 export const SITE_DESCRIPTION =
-  'A tropical, breathable app starter with full-document SSR, server functions, streaming, and type-safe routing.';
-export const SITE_URL = 'https://example.com';
+  'Discover projects built with Intlayer — the i18n and content management solution for React, Next.js, Vue, Svelte and more.';
+export const SITE_URL = import.meta.env?.VITE_SITE_URL;

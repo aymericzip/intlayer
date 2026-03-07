@@ -18,6 +18,8 @@ export interface ScanDetails {
   };
 }
 
+export type ProjectStatus = 'pending_scan' | 'active' | 'scan_failed';
+
 export interface Project {
   _id: string;
   title: string;
@@ -33,16 +35,23 @@ export interface Project {
   createdAt: string; // Dates are serialized as strings in server functions
   intlayerVersion?: string;
   libsUsed: string[];
+  /** Map of package name → version for all detected intlayer-related packages */
+  packageDetails?: Record<string, string>;
   lastScanDate?: string;
   scanDetails?: ScanDetails;
+  owner?: string;
+  status?: ProjectStatus;
+  isOwner?: boolean;
 }
 
-export type SubmitStep =
-  | 'START'
+export type SubmitStep = 'START' | 'SUCCESS' | 'ERROR';
+
+export type ScanStep =
   | 'SCANNING_START'
   | 'SCANNING_SUCCESS'
   | 'VERIFY_GITHUB_START'
   | 'VERIFY_GITHUB_SUCCESS'
-  | 'DB_SCREENSHOT_START'
+  | 'SCREENSHOT_START'
+  | 'SCREENSHOT_SUCCESS'
   | 'SUCCESS'
   | 'ERROR';

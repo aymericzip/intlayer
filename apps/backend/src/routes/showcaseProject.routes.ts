@@ -2,6 +2,7 @@ import {
   getOtherShowcaseProjects,
   getShowcaseProjectById,
   getShowcaseProjects,
+  scanShowcaseProject,
   submitShowcaseProject,
   toggleShowcaseLike,
 } from '@controllers/showcaseProject.controller';
@@ -40,6 +41,12 @@ export const getShowcaseProjectRoutes = () =>
         `${baseURL()}/${projectId}`,
       method: 'GET',
     },
+    scanShowcaseProject: {
+      urlModel: '/:projectId/scan',
+      url: ({ projectId }: { projectId: string }) =>
+        `${baseURL()}/${projectId}/scan`,
+      method: 'GET',
+    },
   }) satisfies Routes;
 
 export const showcaseProjectRouter = async (fastify: FastifyInstance) => {
@@ -62,5 +69,9 @@ export const showcaseProjectRouter = async (fastify: FastifyInstance) => {
   fastify.get(
     getShowcaseProjectRoutes().getShowcaseProjectById.urlModel,
     getShowcaseProjectById
+  );
+  fastify.get(
+    getShowcaseProjectRoutes().scanShowcaseProject.urlModel,
+    scanShowcaseProject
   );
 };

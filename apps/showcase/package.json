@@ -8,7 +8,7 @@
   "scripts": {
     "build": "vite build",
     "check": "biome check",
-    "dev": "vite dev --port 3000",
+    "dev": "vite dev --port 3200",
     "format": "biome format",
     "lint": "biome lint",
     "preview": "vite preview",

@@ -3,6 +3,7 @@ import { useParams } from '@tanstack/react-router';
 import { defaultLocale } from 'intlayer';
 import { ArrowLeft } from 'lucide-react';
 import { useIntlayer } from 'react-intlayer';
+import { PagesRoutes } from '#/Routes';
 import { Link } from '@/components/Link';
 import type { Project } from '@/server/projectActions/types';
 import { MoreProjects } from './MoreProjects';
@@ -48,7 +49,7 @@ export const ProjectFocus = ({ project }: ProjectFocusProps) => {
     <div className="mx-auto max-w-6xl px-6 py-8">
       {/* Back Link */}
       <Link
-        to="/"
+        to={PagesRoutes.Showcase}
         params={{ locale: locale || defaultLocale }}
         className="group mb-6 inline-flex items-center gap-2 text-neutral text-sm transition-colors hover:text-text"
       >

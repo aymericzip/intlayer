@@ -8,13 +8,14 @@ import {
 import { useSearch } from '@intlayer/design-system/hooks';
 import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { getIntlayer } from 'intlayer';
+import { getIntlayer, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import { useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { FiltersBar } from '@/components/FiltersBar';
 import { ProjectCard } from '@/components/ProjectCard';
 import { ShowcaseHeader } from '@/components/ShowcaseHeader';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
+import { SITE_URL } from '@/lib/site';
 import { getProjects } from '@/server/projectActions/projectActions';
 
 type ProjectSearchParams = {
@@ -75,16 +76,33 @@ export const Route = createFileRoute('/{-$locale}/')({
     });
   },
   head: ({ params }) => {
-    const { locale } = params as { locale?: string };
+    const { locale } = params;
     const content = getIntlayer('app', locale);
+    const canonicalUrl = `${SITE_URL}${getLocalizedUrl('/', locale)}`;
+    const multilingualUrls = getMultilingualUrls('/');
 
     return {
       meta: [
         { title: content.metadata.title },
+        { name: 'description', content: content.metadata.description },
         {
-          name: 'description',
-          content: content.metadata.description,
+          name: 'keywords',
+          content: (content.metadata.keywords as string[]).join(', '),
         },
+        { property: 'og:title', content: content.metadata.openGraph.title },
+        { property: 'og:description', content: content.metadata.description },
+        { property: 'og:url', content: canonicalUrl },
+        { name: 'twitter:title', content: content.metadata.title },
+        { name: 'twitter:description', content: content.metadata.description },
+      ],
+      links: [
+        { rel: 'canonical', href: canonicalUrl },
+        ...Object.entries(multilingualUrls).map(([lang, path]) => ({
+          rel: 'alternate',
+          hrefLang: lang,
+          href: `${SITE_URL}${path}`,
+        })),
+        { rel: 'alternate', hrefLang: 'x-default', href: SITE_URL },
       ],
     };
   },
@@ -150,7 +168,7 @@ function App() {
   };
 
   return (
-    <div className="flex min-h-screen w-full flex-col">
+    <div className="flex w-full flex-1 flex-col">
       <ShowcaseHeader />
 
       <FiltersBar

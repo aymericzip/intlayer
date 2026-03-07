@@ -9,6 +9,10 @@ import { verifyGithubRepo } from '@services/showcase/showcaseVerifyGithub.servic
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { getFaviconUrl } from '@utils/getFaviconUrl';
 import {
+  mapShowcaseProjectsToAPI,
+  mapShowcaseProjectToAPI,
+} from '@utils/mapper/showcaseProject';
+import {
   formatPaginatedResponse,
   formatResponse,
   type PaginatedResponse,
@@ -17,39 +21,16 @@ import {
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { t } from 'fastify-intlayer';
 import { z } from 'zod';
-import type {
-  ShowcaseProjectAPI,
-  ShowcaseProjectDocument,
-} from '@/types/showcaseProject.types';
+import type { ShowcaseProjectAPI } from '@/types/showcaseProject.types';
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
-const mapToAPI = (doc: ShowcaseProjectDocument): ShowcaseProjectAPI => ({
-  id: String((doc as any)._id),
-  title: doc.title,
-  description: doc.description,
-  imageUrl: doc.imageUrl,
-  logoUrl: doc.logoUrl,
-  websiteUrl: doc.websiteUrl,
-  githubUrl: doc.githubUrl,
-  tags: doc.tags,
-  upvotes: doc.upvotes,
-  upvoters: doc.upvoters,
-  isOpenSource: doc.isOpenSource,
-  createdAt:
-    doc.createdAt instanceof Date
-      ? doc.createdAt.toISOString()
-      : String(doc.createdAt),
-  lastScanDate:
-    doc.lastScanDate instanceof Date
-      ? doc.lastScanDate.toISOString()
-      : doc.lastScanDate
-        ? String(doc.lastScanDate)
-        : undefined,
-  intlayerVersion: doc.intlayerVersion,
-  libsUsed: doc.libsUsed,
-  scanDetails: doc.scanDetails,
-});
+const getUserId = (request: FastifyRequest): string | undefined =>
+  request.locals?.user
+    ? String(
+        (request.locals.user as any).id ?? (request.locals.user as any)._id
+      )
+    : undefined;
 
 // ─── Input Schemas ────────────────────────────────────────────────────────────
 
@@ -102,6 +83,8 @@ export const submitShowcaseProject = async (
 
   const validatedData = parsed.data;
 
+  const userId = getUserId(request);
+
   try {
     // Check for existing project with the same URL
     const existing = await showcaseProjectService.findShowcaseProjectByUrl(
@@ -116,55 +99,17 @@ export const submitShowcaseProject = async (
       );
     }
 
-    // Scan via i18n-seo-scanner service
-    logger.info(`Scanning ${validatedData.url}...`);
-    const scanResult = await scanShowcaseProjectViaService(validatedData.url);
-
-    if (
-      !scanResult.intlayerVersion &&
-      !scanResult.libsUsed.includes('intlayer')
-    ) {
-      return ErrorHandler.handleGenericErrorResponse(
-        reply,
-        'SHOWCASE_PROJECT_NOT_INTLAYER',
-        { url: validatedData.url }
-      );
-    }
-
-    // Verify GitHub repo if provided
-    let isOpenSource = false;
-    let githubUrl = validatedData.githubUrl;
-
-    if (githubUrl) {
-      logger.info(`Verifying GitHub ${githubUrl}...`);
-      const isIntlayerRepo = await verifyGithubRepo(githubUrl);
-
-      if (isIntlayerRepo) {
-        isOpenSource = true;
-      } else {
-        githubUrl = undefined;
-      }
-    }
-
-    // Take screenshot and upload to S3
-    logger.info(`[Taking screenshot of ${validatedData.url}...`);
+    // Save project to DB immediately — scan is triggered separately by the owner
     const logoUrl = getFaviconUrl(validatedData.url);
-    const screenshotBuffer = await takeScreenshotViaService(validatedData.url);
-    const imageUrl = await uploadShowcaseScreenshot(screenshotBuffer);
-
-    // Save to DB
     const newProject = await showcaseProjectService.createShowcaseProject({
       title: validatedData.name,
       description: validatedData.tagline,
       websiteUrl: validatedData.url,
-      githubUrl,
+      githubUrl: validatedData.githubUrl,
       logoUrl: logoUrl ?? '',
-      imageUrl: imageUrl ?? '',
       tags: validatedData.useCases || [],
-      isOpenSource,
-      intlayerVersion: scanResult.intlayerVersion,
-      libsUsed: scanResult.libsUsed,
-      scanDetails: scanResult.scanDetails,
+      owner: userId,
+      status: 'pending_scan',
     });
 
     const responseData = formatResponse<ShowcaseProjectAPI>({
@@ -174,11 +119,11 @@ export const submitShowcaseProject = async (
         es: 'Proyecto enviado con éxito',
       }),
       description: t({
-        en: 'Your project has been added to the showcase',
-        fr: 'Votre projet a été ajouté à la vitrine',
-        es: 'Su proyecto ha sido añadido al showcase',
+        en: 'Your project has been added to the showcase. Use the Scan button to verify and enrich it.',
+        fr: 'Votre projet a été ajouté à la vitrine. Utilisez le bouton Scan pour le vérifier.',
+        es: 'Su proyecto ha sido añadido al showcase. Use el botón Scan para verificarlo.',
       }),
-      data: mapToAPI(newProject),
+      data: mapShowcaseProjectToAPI(newProject, userId),
     });
 
     return reply.send(responseData);
@@ -234,8 +179,10 @@ export const getShowcaseProjects = async (
         pageSize,
       });
 
+    const userId = getUserId(request);
+
     const responseData = formatPaginatedResponse<ShowcaseProjectAPI>({
-      data: data.map(mapToAPI),
+      data: mapShowcaseProjectsToAPI(data, userId),
       page,
       pageSize,
       totalPages: total_pages,
@@ -266,8 +213,12 @@ export const getShowcaseProjectById = async (
     const project =
       await showcaseProjectService.findShowcaseProjectById(projectId);
 
+    const userId = getUserId(request);
+
     return reply.send(
-      formatResponse<ShowcaseProjectAPI>({ data: mapToAPI(project) })
+      formatResponse<ShowcaseProjectAPI>({
+        data: mapShowcaseProjectToAPI(project, userId),
+      })
     );
   } catch (error) {
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
@@ -306,8 +257,12 @@ export const getOtherShowcaseProjects = async (
       limit
     );
 
+    const userId = getUserId(request);
+
     return reply.send(
-      formatResponse<ShowcaseProjectAPI[]>({ data: projects.map(mapToAPI) })
+      formatResponse<ShowcaseProjectAPI[]>({
+        data: mapShowcaseProjectsToAPI(projects, userId),
+      })
     );
   } catch (error) {
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
@@ -316,7 +271,7 @@ export const getOtherShowcaseProjects = async (
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-export type ToggleShowcaseLikeBody = { projectId: string; userId: string };
+export type ToggleShowcaseLikeBody = { projectId: string };
 export type ToggleShowcaseLikeResult = ResponseData<{
   upvotes: number;
   isLiked: boolean;
@@ -324,18 +279,28 @@ export type ToggleShowcaseLikeResult = ResponseData<{
 
 /**
  * POST /api/showcase-project/like
+ * Requires authentication — userId is read from the session.
  */
 export const toggleShowcaseLike = async (
   request: FastifyRequest<{ Body: ToggleShowcaseLikeBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { projectId, userId } = request.body;
+  const userId = getUserId(request);
 
-  if (!projectId || !userId) {
+  if (!userId) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'USER_NOT_AUTHENTICATED'
+    );
+  }
+
+  const { projectId } = request.body;
+
+  if (!projectId) {
     return ErrorHandler.handleGenericErrorResponse(
       reply,
       'INVALID_REQUEST_BODY',
-      { detail: 'projectId and userId are required' }
+      { detail: 'projectId is required' }
     );
   }
 
@@ -351,4 +316,147 @@ export const toggleShowcaseLike = async (
   } catch (error) {
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+
+export type ScanShowcaseProjectParams = { projectId: string };
+
+/**
+ * GET /api/showcase-project/:projectId/scan
+ * SSE endpoint — streams scan progress to the owner.
+ * Requires authentication: only the project owner can trigger the scan.
+ */
+export const scanShowcaseProject = async (
+  request: FastifyRequest<{ Params: ScanShowcaseProjectParams }>,
+  reply: FastifyReply
+): Promise<void> => {
+  const userId = getUserId(request);
+
+  if (!userId) {
+    reply.status(401).send({ error: { message: 'Authentication required' } });
+    return;
+  }
+
+  const { projectId } = request.params;
+
+  let project: Awaited<
+    ReturnType<typeof showcaseProjectService.findShowcaseProjectById>
+  >;
+  try {
+    project = await showcaseProjectService.findShowcaseProjectById(projectId);
+  } catch {
+    reply.status(404).send({ error: { message: 'Project not found' } });
+    return;
+  }
+
+  if (project.owner !== userId) {
+    reply.status(403).send({
+      error: { message: 'Only the project owner can trigger a scan' },
+    });
+    return;
+  }
+
+  // Hijack the reply and write SSE manually
+  reply.hijack();
+  const raw = reply.raw;
+  const origin = request.headers.origin ?? '*';
+  raw.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    Connection: 'keep-alive',
+    'Access-Control-Allow-Origin': origin,
+    'Access-Control-Allow-Credentials': 'true',
+  });
+
+  const send = (data: Record<string, unknown>) => {
+    raw.write(`data: ${JSON.stringify(data)}\n\n`);
+  };
+
+  try {
+    // ── Step 1: Scan website ──────────────────────────────────────────────────
+    send({ step: 'SCANNING_START' });
+    logger.info(`[scanShowcaseProject] Scanning ${project.websiteUrl}...`);
+    const scanResult = await scanShowcaseProjectViaService(project.websiteUrl);
+
+    if (!scanResult.hasIntlayer && !scanResult.libsUsed.includes('intlayer')) {
+      await showcaseProjectService.updateShowcaseProject(projectId, {
+        status: 'scan_failed',
+      });
+      send({ step: 'ERROR', message: 'Intlayer not detected on this website' });
+      raw.end();
+      return;
+    }
+    send({ step: 'SCANNING_SUCCESS' });
+
+    // ── Step 2: Verify GitHub (if provided) ───────────────────────────────────
+    let isOpenSource = false;
+    let githubPackageDetails: Record<string, string> = {};
+
+    if (project.githubUrl) {
+      send({ step: 'VERIFY_GITHUB_START' });
+      logger.info(
+        `[scanShowcaseProject] Verifying GitHub ${project.githubUrl}...`
+      );
+      const githubResult = await verifyGithubRepo(project.githubUrl);
+      if (githubResult?.isValid) {
+        isOpenSource = true;
+        githubPackageDetails = githubResult.packageDetails ?? {};
+      }
+      send({ step: 'VERIFY_GITHUB_SUCCESS' });
+    }
+
+    // ── Step 3: Screenshot ────────────────────────────────────────────────────
+    send({ step: 'SCREENSHOT_START' });
+    logger.info(
+      `[scanShowcaseProject] Taking screenshot of ${project.websiteUrl}...`
+    );
+    const screenshotBuffer = await takeScreenshotViaService(project.websiteUrl);
+    const imageUrl = await uploadShowcaseScreenshot(screenshotBuffer);
+    send({ step: 'SCREENSHOT_SUCCESS' });
+
+    // ── Step 4: Merge & save ──────────────────────────────────────────────────
+    const mergedPackageDetails: Record<string, string> = {
+      ...(scanResult.packageDetails ?? {}),
+      ...githubPackageDetails,
+    };
+    const mergedLibsUsed = Array.from(
+      new Set([...scanResult.libsUsed, ...Object.keys(githubPackageDetails)])
+    );
+    const intlayerVersion =
+      mergedPackageDetails.intlayer || scanResult.intlayerVersion;
+
+    const updated = await showcaseProjectService.updateShowcaseProject(
+      projectId,
+      {
+        intlayerVersion,
+        libsUsed: mergedLibsUsed,
+        packageDetails: mergedPackageDetails,
+        scanDetails: scanResult.scanDetails,
+        imageUrl: imageUrl ?? project.imageUrl,
+        isOpenSource,
+        status: 'active',
+        lastScanDate: new Date(),
+      }
+    );
+
+    send({
+      step: 'SUCCESS',
+      project: mapShowcaseProjectToAPI(updated, userId),
+    });
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : 'Scan failed unexpectedly';
+    logger.error('[scanShowcaseProject] Error:', error);
+    try {
+      await showcaseProjectService.updateShowcaseProject(projectId, {
+        status: 'scan_failed',
+      });
+      send({ step: 'ERROR', message });
+    } catch {
+      // ignore secondary error
+    }
+  }
+
+  raw.end();
 };

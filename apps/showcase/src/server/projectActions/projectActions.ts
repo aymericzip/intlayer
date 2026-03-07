@@ -27,7 +27,6 @@ export const submitProject = createServerFn({ method: 'POST' })
   .handler(async function* ({ data }: { data: SubmitProjectInput }) {
     try {
       yield { step: 'START' };
-      yield { step: 'SCANNING_START' };
 
       const response = await fetch(`${SHOWCASE_API}/submit`, {
         method: 'POST',
@@ -53,14 +52,6 @@ export const submitProject = createServerFn({ method: 'POST' })
         return;
       }
 
-      yield { step: 'SCANNING_SUCCESS' };
-
-      if (data.githubUrl) {
-        yield { step: 'VERIFY_GITHUB_START' };
-        yield { step: 'VERIFY_GITHUB_SUCCESS' };
-      }
-
-      yield { step: 'DB_SCREENSHOT_START' };
       yield { step: 'SUCCESS', project: mapProject(result.data) };
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Unknown error';

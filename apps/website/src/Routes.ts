@@ -62,6 +62,11 @@ export enum PagesRoutes {
   Contributors = '/contributors',
 }
 
+export enum ShowcaseRoutes {
+  Showcase = 'https://showcase.intlayer.org',
+  ShowcaseSubmit = 'https://showcase.intlayer.org/submit',
+}
+
 export enum AppRoutes {
   Dashboard = 'https://app.intlayer.org',
   Dashboard_Editor = 'https://app.intlayer.org/editor',

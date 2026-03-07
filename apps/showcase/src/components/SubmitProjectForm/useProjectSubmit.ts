@@ -1,13 +1,14 @@
 import { usePersistedStore, useSession } from '@intlayer/design-system/hooks';
 import { useRef, useState } from 'react';
 import { submitProject as submitProjectAction } from '@/server/projectActions/projectActions';
-import type { SubmitStep } from '@/server/projectActions/types';
+import type { Project, SubmitStep } from '@/server/projectActions/types';
 import type { SubmitProjectFormData } from './useSubmitProjectFormSchema';
 
 export const useProjectSubmit = () => {
   const { session } = useSession();
   const [submitStep, setSubmitStep] = useState<SubmitStep | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submittedProject, setSubmittedProject] = useState<Project | null>(null);
   const abortRef = useRef(false);
 
   const [, setFormValue] = usePersistedStore('submit-project-form', {
@@ -44,38 +45,29 @@ export const useProjectSubmit = () => {
 
     setSubmitStep('START');
     setSubmitError(null);
+    setSubmittedProject(null);
     abortRef.current = false;
 
     try {
-      // Call the Server Function directly
       const stream = await submitProjectAction({ data });
 
-      // TanStack Start automatically parses the chunks from the async generator!
       for await (const msg of stream) {
-        if (abortRef.current) {
-          console.log('[useProjectSubmit] Submission cancelled client-side.');
-          break;
-        }
-
-        console.log('[useProjectSubmit] msg received from stream:', msg);
+        if (abortRef.current) break;
 
         if (msg.step) {
           setSubmitStep(msg.step as SubmitStep);
         }
 
         if (msg.step === 'ERROR') {
-          console.error('[useProjectSubmit] Error received:', msg.message);
-          setSubmitError(msg.message || 'Failed to submit project.');
-          setSubmitStep('ERROR' as SubmitStep);
+          setSubmitError((msg as any).message || 'Failed to submit project.');
           break;
         } else if (msg.step === 'SUCCESS') {
-          console.log('[useProjectSubmit] Successful submission:', msg.project);
+          setSubmittedProject((msg as any).project ?? null);
           resetForm();
           break;
         }
       }
     } catch (error) {
-      console.error('Error submitting project:', error);
       const message = error instanceof Error ? error.message : 'Unknown error';
       setSubmitError(message);
       setSubmitStep('ERROR');
@@ -90,6 +82,7 @@ export const useProjectSubmit = () => {
   return {
     submitStep,
     submitError,
+    submittedProject,
     submitProject,
     setSubmitStep,
     setSubmitError,

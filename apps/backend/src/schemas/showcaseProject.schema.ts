@@ -28,7 +28,7 @@ export const showcaseProjectSchema = new Schema<ShowcaseProjectDocument>(
   {
     title: { type: String, required: true },
     description: { type: String, required: true },
-    imageUrl: { type: String, required: true },
+    imageUrl: { type: String, default: '' },
     logoUrl: { type: String },
     websiteUrl: { type: String, required: true, unique: true },
     githubUrl: { type: String },
@@ -39,8 +39,15 @@ export const showcaseProjectSchema = new Schema<ShowcaseProjectDocument>(
     createdAt: { type: Date, default: Date.now },
     intlayerVersion: { type: String },
     libsUsed: { type: [String], default: [] },
-    lastScanDate: { type: Date, default: Date.now },
+    packageDetails: { type: Map, of: String, default: {} },
+    lastScanDate: { type: Date },
     scanDetails: { type: scanDetailsSchema },
+    owner: { type: String },
+    status: {
+      type: String,
+      enum: ['pending_scan', 'active', 'scan_failed'],
+      default: 'pending_scan',
+    },
   },
   { timestamps: false }
 );

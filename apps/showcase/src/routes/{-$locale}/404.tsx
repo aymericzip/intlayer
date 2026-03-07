@@ -1,8 +1,24 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { WebsiteRoutes } from '@/route';
+import { getIntlayer } from 'intlayer';
+import { WebsiteRoutes } from '#/Routes';
 
 export const Route = createFileRoute('/{-$locale}/404')({
   component: NotFoundComponent,
+  head: ({ params }) => {
+    const { locale } = params;
+    const content = getIntlayer('app', locale);
+
+    return {
+      meta: [
+        { title: content.notFoundPage.metadata.title },
+        {
+          name: 'description',
+          content: content.notFoundPage.metadata.description,
+        },
+        { name: 'robots', content: 'noindex, nofollow' },
+      ],
+    };
+  },
 });
 
 export function NotFoundComponent() {

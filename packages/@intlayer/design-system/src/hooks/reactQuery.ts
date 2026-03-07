@@ -1482,3 +1482,17 @@ export const useWriteDictionary = () => {
       intlayerOAuth.editor.writeDictionary(args),
   });
 };
+
+/**
+ * Showcase
+ */
+
+export const useToggleShowcaseLike = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['showcase', 'like'],
+    mutationFn: (projectId: string) =>
+      intlayerOAuth.showcaseProject.toggleShowcaseLike({ projectId }),
+  });
+};

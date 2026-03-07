@@ -10,12 +10,13 @@ import { mapOrganizationToAPI } from '@utils/mapper/organization';
 import { mapProjectToAPI } from '@utils/mapper/project';
 import { mapSessionToAPI } from '@utils/mapper/session';
 import { mapUserToAPI } from '@utils/mapper/user';
+import type { OmitId } from '@utils/mongoDB/types';
 import {
   computeEffectivePermission,
   getSessionRoles,
   intersectPermissions,
 } from '@utils/permissions';
-import { betterAuth, type OmitId } from 'better-auth';
+import { betterAuth } from 'better-auth';
 import { mongodbAdapter } from 'better-auth/adapters/mongodb';
 import { createAuthMiddleware } from 'better-auth/api';
 import { customSession, lastLoginMethod, twoFactor } from 'better-auth/plugins';
@@ -166,9 +167,22 @@ export const getAuth = (dbClient: MongoClient): Auth => {
         }
 
         if (typedSession.activeOrganizationId) {
-          const orgData = await getOrganizationById(
-            typedSession.activeOrganizationId
-          );
+          // activeOrganizationId may be stored as a BSON ObjectId in MongoDB
+          // (legacy data), so we normalize it to a string before querying.
+          const rawOrgId = typedSession.activeOrganizationId as any;
+          const orgIdStr: string | null =
+            typeof rawOrgId === 'string'
+              ? rawOrgId
+              : rawOrgId.buffer instanceof Uint8Array
+                ? Buffer.from(rawOrgId.buffer).toString('hex')
+                : null;
+
+          if (!orgIdStr) {
+            typedSession.activeOrganizationId = undefined;
+            typedSession.activeProjectId = undefined;
+          }
+
+          const orgData = orgIdStr ? await getOrganizationById(orgIdStr) : null;
 
           if (orgData) {
             organizationAPI = mapOrganizationToAPI(orgData);
@@ -191,9 +205,16 @@ export const getAuth = (dbClient: MongoClient): Auth => {
           }
         }
         if (typedSession.activeProjectId) {
-          const projectData = await getProjectById(
-            typedSession.activeProjectId
-          );
+          const rawProjectId = typedSession.activeProjectId as any;
+          const projectIdStr: string | null =
+            typeof rawProjectId === 'string'
+              ? rawProjectId
+              : rawProjectId.buffer instanceof Uint8Array
+                ? Buffer.from(rawProjectId.buffer).toString('hex')
+                : null;
+          const projectData = projectIdStr
+            ? await getProjectById(projectIdStr)
+            : null;
 
           if (projectData) {
             projectAPI = mapProjectToAPI(projectData);

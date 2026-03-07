@@ -1,6 +1,6 @@
 import type { LinkGroup } from '@intlayer/design-system';
 import { type Dictionary, t } from 'intlayer';
-import { ExternalLinks, WebsiteRoutes } from '../../route';
+import { ExternalLinks, WebsiteRoutes } from '../../Routes';
 
 type FooterContent = {
   content: LinkGroup[];
