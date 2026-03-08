@@ -4,6 +4,7 @@ import type { GetUsersResult, ProjectAPI } from '@intlayer/backend';
 import { Avatar, Button, Container } from '@intlayer/design-system';
 import { useGetUsers } from '@intlayer/design-system/hooks';
 import { GitBranch } from 'lucide-react';
+import Image from 'next/image';
 import type { FC } from 'react';
 
 export interface ProjectCardProps {
@@ -35,12 +36,29 @@ export const ProjectCard: FC<ProjectCardProps> = ({
 
   return (
     <Container
-      roundedSize="xl"
+      roundedSize="2xl"
       border
       borderColor="neutral"
       padding="md"
       className="gap-4"
     >
+      {project.imageUrl && (
+        <Container
+          className="aspect-video overflow-hidden"
+          roundedSize="xl"
+          background="none"
+        >
+          <Image
+            src={project.imageUrl}
+            alt={`${project.name} screenshot`}
+            width={1280}
+            height={720}
+            crossOrigin="anonymous"
+            className="aspect-video w-full object-cover"
+            priority={true}
+          />
+        </Container>
+      )}
       <h3 className="font-bold text-xl">{project.name}</h3>
 
       {project.repository && (

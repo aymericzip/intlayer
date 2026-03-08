@@ -5,12 +5,14 @@ import { getS3Client } from '@utils/s3/s3Client';
  * Derives a deterministic S3 key from a website URL.
  * e.g. "https://intlayer.org" → "screenshots/intlayer_org.jpg"
  */
-const getScreenshotKey = (websiteUrl: string): string => {
+const getScreenshotKey = (websiteUrl: string, id?: string): string => {
   const { hostname, pathname } = new URL(websiteUrl);
   const slug = (hostname + pathname)
     .replace(/\/$/, '')
     .replaceAll('.', '_')
     .replace(/[^a-z0-9.\-_]/gi, '_');
+
+  if (id) return `screenshots/${id}/${slug}.jpg`;
 
   return `screenshots/${slug}.jpg`;
 };
@@ -21,9 +23,10 @@ const getScreenshotKey = (websiteUrl: string): string => {
  */
 export const uploadShowcaseScreenshot = async (
   screenshotBuffer: Buffer,
-  websiteUrl: string
+  websiteUrl: string,
+  projectId?: string
 ): Promise<string> => {
-  const key = getScreenshotKey(websiteUrl);
+  const key = getScreenshotKey(websiteUrl, projectId);
   const s3Client = getS3Client();
 
   await s3Client.send(
@@ -35,7 +38,7 @@ export const uploadShowcaseScreenshot = async (
     })
   );
 
-  return `${process.env.R2_PUBLIC_URL}/${key}`;
+  return `${process.env.S3_PUBLIC_URL}/${key}`;
 };
 
 /**
@@ -45,8 +48,8 @@ export const uploadShowcaseScreenshot = async (
 export const deleteShowcaseScreenshot = async (
   imageUrl: string
 ): Promise<void> => {
-  // Extract everything after the R2_PUBLIC_URL prefix, or fall back to the last segment
-  const publicUrl = process.env.R2_PUBLIC_URL ?? '';
+  // Extract everything after the S3_PUBLIC_URL prefix, or fall back to the last segment
+  const publicUrl = process.env.S3_PUBLIC_URL ?? '';
   const key = imageUrl.startsWith(publicUrl)
     ? imageUrl.slice(publicUrl.length + 1)
     : imageUrl.split('/').pop();

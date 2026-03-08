@@ -2,6 +2,7 @@ import { logger } from '@logger';
 import { SessionModel } from '@models/session.model';
 import * as ciService from '@services/ci.service';
 import { createDemoDictionaries } from '@services/dictionary.service';
+import { refreshProjectScreenshotIfChanged } from '@services/project/projectScreenshot.service';
 import * as projectService from '@services/project.service';
 import * as userService from '@services/user.service';
 import * as webhooksService from '@services/webhook.service';
@@ -258,6 +259,12 @@ export const updateProject = async (
   }
 
   try {
+    const existingProject = await projectService.getProjectById(project.id);
+
+    const previousApplicationUrl =
+      existingProject.configuration?.editor?.applicationURL;
+    const newApplicationUrl = projectData.configuration?.editor?.applicationURL;
+
     const updatedProject = await projectService.updateProjectById(
       project.id,
       projectData
@@ -273,6 +280,22 @@ export const updateProject = async (
         },
       }
     );
+
+    // Fire-and-forget screenshot generation
+    refreshProjectScreenshotIfChanged({
+      newApplicationUrl,
+      previousApplicationUrl,
+      existingImageUrl: existingProject.imageUrl,
+      projectId: project.id.toString(),
+    })
+      .then((imageUrl) => {
+        if (imageUrl !== undefined) {
+          projectService
+            .updateProjectById(project.id, { imageUrl })
+            .catch(() => {});
+        }
+      })
+      .catch(() => {});
 
     const formattedProject = mapProjectToAPI(updatedProject);
 
@@ -470,9 +493,29 @@ export const pushProjectConfiguration = async (
       projectConfiguration.ai.apiKey = projectObject.configuration.ai.apiKey;
     }
 
+    const previousApplicationUrl =
+      projectObject.configuration?.editor?.applicationURL;
+    const newApplicationUrl = projectConfiguration.editor?.applicationURL;
+
     projectObject.configuration = projectConfiguration;
 
     await projectObject.save();
+
+    // Fire-and-forget screenshot generation
+    refreshProjectScreenshotIfChanged({
+      newApplicationUrl,
+      previousApplicationUrl,
+      existingImageUrl: projectObject.imageUrl,
+      projectId: project.id.toString(),
+    })
+      .then((imageUrl) => {
+        if (imageUrl !== undefined) {
+          projectService
+            .updateProjectById(project.id, { imageUrl })
+            .catch(() => {});
+        }
+      })
+      .catch(() => {});
 
     if (!projectObject.configuration) {
       return ErrorHandler.handleGenericErrorResponse(

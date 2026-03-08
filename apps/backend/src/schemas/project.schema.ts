@@ -137,6 +137,9 @@ export const projectSchema = new Schema<ProjectSchema>(
     oAuth2Access: [oAuth2AccessSchema],
     repository: repositorySchema,
     webhooks: webhooksConfigSchema,
+    imageUrl: {
+      type: String,
+    },
     membersIds: {
       type: [Schema.Types.ObjectId],
       ref: 'User',

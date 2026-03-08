@@ -85,6 +85,8 @@ export type ProjectData = {
   configuration?: ProjectConfiguration;
   repository?: RepositoryConnection;
   webhooks?: ProjectConfigCI;
+  /** Screenshot of the application URL, generated automatically when applicationURL is set */
+  imageUrl?: string;
 };
 
 export type AccessKeyData = {
