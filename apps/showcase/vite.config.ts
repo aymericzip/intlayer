@@ -187,7 +187,7 @@ export default defineConfig(({ mode }) => {
         },
         sitemap: {
           enabled: true,
-          host: import.meta.env.VITE_APP_URL,
+          host: 'https://showcase.intlayer.org',
         },
         prerender: {
           enabled: true,
