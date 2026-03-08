@@ -85,6 +85,7 @@ export const Label: FC<LabelProps> = ({
       className
     )}
     htmlFor={htmlFor}
+    suppressHydrationWarning
     {...props}
   >
     {children}

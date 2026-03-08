@@ -557,7 +557,7 @@ export const askDocQuestion = async (
       await DiscussionModel.findOneAndUpdate(
         { discussionId },
         { $set: updatePayload },
-        { upsert: true, new: true }
+        { upsert: true, returnDocument: 'after' }
       );
     }
 

@@ -1,10 +1,11 @@
 import { Container, Form, useForm } from '@intlayer/design-system';
-import { usePersistedStore } from '@intlayer/design-system/hooks';
+import { usePersistedStore, useUser } from '@intlayer/design-system/hooks';
 import { useNavigate } from '@tanstack/react-router';
 import { ArrowLeft } from 'lucide-react';
-import type { FC, FocusEvent } from 'react';
+import { type FC, type FocusEvent, useEffect } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { Link } from '@/components/Link';
+import { AppRoutes } from '@/Routes';
 import { ModalStatus } from './ModalStatus';
 import { ProjectFormFields } from './ProjectFormFields';
 import { useProjectSubmit } from './useProjectSubmit';
@@ -16,6 +17,7 @@ import {
 export const SubmitProjectForm: FC = () => {
   const navigate = useNavigate();
   const { locale } = useLocale();
+  const { isAuthenticated, revalidateSession } = useUser();
   const schema = useSubmitProjectFormSchema();
   const [formValue, setFormValue, , clearFormValue] =
     usePersistedStore<SubmitProjectFormData>('submit-project-form', {
@@ -42,6 +44,18 @@ export const SubmitProjectForm: FC = () => {
   });
 
   const content = useIntlayer('submit-project-form');
+
+  // Re-check auth when user returns to the page (e.g. after signing in in another tab/window)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        revalidateSession();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () =>
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, [revalidateSession]);
 
   // Save form state to persisted store on blur (click out)
   const handleBlur = (_e: FocusEvent<HTMLDivElement>) => {
@@ -95,25 +109,39 @@ export const SubmitProjectForm: FC = () => {
           <ProjectFormFields form={form} />
 
           <div className="flex flex-col gap-3 pt-4">
-            <Form.Button
-              className="w-full"
-              type="submit"
-              color="text"
-              isLoading={
-                isSubmitting ||
-                (!!submitStep &&
+            {isAuthenticated ? (
+              <Form.Button
+                className="w-full"
+                type="submit"
+                color="text"
+                isLoading={
+                  isSubmitting ||
+                  (!!submitStep &&
+                    submitStep !== 'SUCCESS' &&
+                    submitStep !== 'ERROR')
+                }
+                label={content.submitButton.label.value}
+                disabled={
+                  !!submitStep &&
                   submitStep !== 'SUCCESS' &&
-                  submitStep !== 'ERROR')
-              }
-              label={content.submitButton.label.value}
-              disabled={
-                !!submitStep &&
-                submitStep !== 'SUCCESS' &&
-                submitStep !== 'ERROR'
-              }
-            >
-              {content.submitButton.label}
-            </Form.Button>
+                  submitStep !== 'ERROR'
+                }
+              >
+                {content.submitButton.label}
+              </Form.Button>
+            ) : (
+              <Form.Button
+                className="w-full"
+                type="button"
+                color="text"
+                label={content.signInButton.label.value}
+                onClick={() => {
+                  window.location.href = AppRoutes.Auth_SignIn;
+                }}
+              >
+                {content.signInButton.label}
+              </Form.Button>
+            )}
           </div>
         </Form>
 

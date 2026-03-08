@@ -360,6 +360,28 @@ const submitProjectFormContent = {
         vi: 'Gửi để xem xét',
       }),
     },
+    signInButton: {
+      label: t({
+        en: 'Sign in to publish',
+        'en-GB': 'Sign in to publish',
+        fr: 'Se connecter pour publier',
+        es: 'Iniciar sesión para publicar',
+        de: 'Anmelden zum Veröffentlichen',
+        ja: 'ログインして公開',
+        ko: '로그인하여 게시',
+        zh: '登录以发布',
+        it: 'Accedi per pubblicare',
+        pt: 'Entrar para publicar',
+        hi: 'प्रकाशित करने के लिए साइन इन करें',
+        ar: 'تسجيل الدخول للنشر',
+        ru: 'Войти для публикации',
+        tr: 'Yayınlamak için giriş yapın',
+        pl: 'Zaloguj się, aby opublikować',
+        id: 'Masuk untuk menerbitkan',
+        uk: 'Увійдіть для публікації',
+        vi: 'Đăng nhập để xuất bản',
+      }),
+    },
     modal: {
       title: t({
         en: 'Processing Submission',

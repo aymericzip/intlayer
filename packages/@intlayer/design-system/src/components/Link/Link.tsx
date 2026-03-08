@@ -312,6 +312,7 @@ export const Link: FC<LinkProps> = (props) => {
       rel={rel}
       target={target}
       aria-current={isActive ? 'page' : undefined}
+      suppressHydrationWarning
       className={cn(
         linkVariants({
           variant,

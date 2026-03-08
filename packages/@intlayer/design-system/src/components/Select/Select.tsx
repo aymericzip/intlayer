@@ -59,6 +59,7 @@ const SelectTrigger: FC<
   }
 > = ({ validationStyleEnabled = false, className, children, ...props }) => (
   <SelectPrimitive.Trigger
+    suppressHydrationWarning
     className={cn(
       // Base layout and typography
       'flex w-full cursor-pointer items-center justify-between whitespace-nowrap',

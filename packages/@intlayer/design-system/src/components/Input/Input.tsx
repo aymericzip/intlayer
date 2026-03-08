@@ -89,6 +89,7 @@ export const Input: FC<InputProps> = ({
       }),
       className
     )}
+    suppressHydrationWarning
     {...props}
   />
 );
