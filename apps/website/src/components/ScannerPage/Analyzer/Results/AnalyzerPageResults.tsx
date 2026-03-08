@@ -1,6 +1,7 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
+import { CodeBlock } from '@intlayer/design-system';
 import { FileText, Globe, Link as LinkIcon } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC, ReactNode } from 'react';
@@ -12,7 +13,7 @@ type FieldItemData = {
   key: AuditDataList<string>;
   icon: ReactNode;
   label: string;
-  description: string;
+  description: ReactNode;
 };
 
 type AnalyzerPageResultsProps = {
@@ -33,44 +34,72 @@ export const AnalyzerPageResults: FC<AnalyzerPageResultsProps> = memo(
       {
         key: `url_htmlLang\\${url}`,
         icon: <Globe size={16} />,
-        label: fields.langTag,
-        description: fieldsDescription.langTag,
+        label: fields.langTag.value,
+        description: fieldsDescription.langTag.use({
+          code: ({ children, className }) => (
+            <CodeBlock lang={className as 'ts'}>{children as string}</CodeBlock>
+          ),
+        }),
       },
       {
         key: `url_htmlDir\\${url}`,
         icon: <Globe size={16} />,
-        label: fields.htmlDir,
-        description: fieldsDescription.htmlDir,
+        label: fields.htmlDir.value,
+        description: fieldsDescription.htmlDir.use({
+          code: ({ children, className }) => (
+            <CodeBlock lang={className as 'ts'}>{children as string}</CodeBlock>
+          ),
+        }),
       },
       {
         key: `url_hreflang\\${url}`,
         icon: <FileText size={16} />,
-        label: fields.hreflangs,
-        description: fieldsDescription.hreflangs,
+        label: fields.hreflangs.value,
+        description: fieldsDescription.hreflangs.use({
+          code: ({ children, className }) => (
+            <CodeBlock lang={className as 'ts'}>{children as string}</CodeBlock>
+          ),
+        }),
       },
       {
         key: `url_hasXDefault\\${url}`,
         icon: <FileText size={16} />,
-        label: fields.hasXDefault,
-        description: fieldsDescription.hasXDefault,
+        label: fields.hasXDefault.value,
+        description: fieldsDescription.hasXDefault.use({
+          code: ({ children, className }) => (
+            <CodeBlock lang={className as 'ts'}>{children as string}</CodeBlock>
+          ),
+        }),
       },
       {
         key: `url_hasCanonical\\${url}`,
         icon: <LinkIcon size={16} />,
-        label: fields.canonical,
-        description: fieldsDescription.canonical,
+        label: fields.canonical.value,
+        description: fieldsDescription.canonical.use({
+          code: ({ children, className }) => (
+            <CodeBlock lang={className as 'ts'}>{children as string}</CodeBlock>
+          ),
+        }),
       },
       {
         key: `url_hasLocalizedLinks\\${url}`,
         icon: <LinkIcon size={16} />,
-        label: fields.localizedLinks,
-        description: fieldsDescription.localizedLinks,
+        label: fields.localizedLinks.value,
+        description: fieldsDescription.localizedLinks.use({
+          code: ({ children, className }) => (
+            <CodeBlock lang={className as 'ts'}>{children as string}</CodeBlock>
+          ),
+        }),
       },
       {
         key: `url_allAnchorsLocalized\\${url}`,
         icon: <LinkIcon size={16} />,
-        label: fields.allAnchorsLocalized,
-        description: fieldsDescription.allAnchorsLocalized,
+        label: fields.allAnchorsLocalized.value,
+        description: fieldsDescription.allAnchorsLocalized.use({
+          code: ({ children, className }) => (
+            <CodeBlock lang={className as 'ts'}>{children as string}</CodeBlock>
+          ),
+        }),
       },
     ];
 

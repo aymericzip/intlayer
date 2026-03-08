@@ -1,18 +1,12 @@
-import { useSession } from '@intlayer/design-system/hooks';
 import { type FC, useEffect, useRef, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
-import { AnalyzerLoading } from './Analyzer/AnalyzerLoading';
 import { AnalyzerForm } from './Analyzer/Form/AnalyzerForm';
 import { useAnalyzerUrlSchema } from './Analyzer/Form/useAnalyzerUrlSchema';
 import { AnalyzerResultsSection } from './AnalyzerResultsSection';
 import { useLocalizationScan } from './useLocalizationScan';
-import { useRecursiveScan } from './useRecursiveScan';
 
 export const LocalizationAnalyzer: FC = () => {
-  const { session } = useSession();
-  const isLoggedIn = !!session;
-
   const { globalError: globalErrorMessage } = useIntlayer(
     'localization-analyzer'
   );
@@ -22,8 +16,6 @@ export const LocalizationAnalyzer: FC = () => {
   const {
     error: scanError,
     isSingleScanLoading,
-    progress,
-    stepsMessage,
     score,
     domainData,
     mergedData,
@@ -31,14 +23,7 @@ export const LocalizationAnalyzer: FC = () => {
     handleCancel,
   } = useLocalizationScan(globalErrorMessage.value);
 
-  const {
-    isRecursiveScanLoading,
-    recursiveJobId,
-    recursiveStatus,
-    handleStartRecursiveAudit,
-  } = useRecursiveScan(session, setExternalError);
-
-  const isLoading = isSingleScanLoading || isRecursiveScanLoading;
+  const isLoading = isSingleScanLoading;
   const error = scanError || externalError;
 
   const urlSchema = useAnalyzerUrlSchema();
@@ -79,23 +64,12 @@ export const LocalizationAnalyzer: FC = () => {
         />
       </div>
 
-      {isSingleScanLoading && !recursiveJobId && (
-        <AnalyzerLoading
-          progress={progress}
-          currentStep={stepsMessage ?? 'Analyzing...'}
-        />
-      )}
-
       <AnalyzerResultsSection
         domainData={domainData}
         score={score}
         mergedData={mergedData}
         url={params.url}
         isSingleScanLoading={isSingleScanLoading}
-        recursiveJobId={recursiveJobId}
-        recursiveStatus={recursiveStatus}
-        isLoggedIn={isLoggedIn}
-        handleStartRecursiveAudit={() => handleStartRecursiveAudit(params.url)}
       />
 
       {error && <p className="text-error">{error}</p>}

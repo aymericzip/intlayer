@@ -2,6 +2,8 @@ import { cn } from '@utils/cn';
 import { type FC, type HTMLAttributes, lazy, Suspense } from 'react';
 import type { BundledLanguage } from 'shiki/bundle/web';
 
+export type { BundledLanguage as CodeLanguage } from 'shiki/bundle/web';
+
 export const CodeDefault: FC<{ children: string }> = ({ children }) => (
   <div className="min-w-0 max-w-full overflow-x-auto">
     <pre className="min-w-0 max-w-full overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">

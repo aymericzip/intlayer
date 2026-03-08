@@ -114,7 +114,7 @@ export const EventTag: FC<{
 export type FieldItemProps = {
   id: string;
   icon: ReactNode;
-  details?: string;
+  details?: ReactNode;
   label: ReactNode;
   event?: AuditEvent;
   isLoading?: boolean;

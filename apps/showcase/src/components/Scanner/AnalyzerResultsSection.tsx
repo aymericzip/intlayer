@@ -1,13 +1,8 @@
-import { Button, ButtonColor, ButtonVariant } from '@intlayer/design-system';
 import type { FC } from 'react';
-import { useIntlayer } from 'react-intlayer';
-import { Link } from '@/components/Link/Link';
-import { AppRoutes } from '@/Routes';
 import { AnalyzerPageResults } from './Analyzer/Results/AnalyzerPageResults';
 import { AnalyzerSiteResults } from './Analyzer/Results/AnalyzerSiteResults';
 import { RobotsSection } from './Analyzer/Results/RobotsSection';
 import { SitemapSection } from './Analyzer/Results/SitemapSection';
-import { RecursiveAuditResults } from './RecursiveAuditResults';
 
 interface AnalyzerResultsSectionProps {
   domainData: any;
@@ -15,10 +10,6 @@ interface AnalyzerResultsSectionProps {
   mergedData: any;
   url: string;
   isSingleScanLoading: boolean;
-  recursiveJobId: string | null;
-  recursiveStatus: any;
-  isLoggedIn: boolean;
-  handleStartRecursiveAudit: () => void;
 }
 
 export const AnalyzerResultsSection: FC<AnalyzerResultsSectionProps> = ({
@@ -27,14 +18,7 @@ export const AnalyzerResultsSection: FC<AnalyzerResultsSectionProps> = ({
   mergedData,
   url,
   isSingleScanLoading,
-  recursiveJobId,
-  recursiveStatus,
-  isLoggedIn,
-  handleStartRecursiveAudit,
 }) => {
-  const { fullSiteAudit, loginToAuditFullSite, wantToAnalyzeFullSite } =
-    useIntlayer('localization-analyzer');
-
   const hasData = mergedData && Object.keys(mergedData).length > 0;
 
   if (!hasData && !isSingleScanLoading) return null;
@@ -56,36 +40,6 @@ export const AnalyzerResultsSection: FC<AnalyzerResultsSectionProps> = ({
       <RobotsSection data={mergedData} isLoading={isSingleScanLoading} />
 
       <SitemapSection data={mergedData} isLoading={isSingleScanLoading} />
-
-      {!recursiveJobId && !isSingleScanLoading && hasData && (
-        <div className="mt-6 flex flex-col items-center gap-4 border-neutral border-t border-dashed pt-6">
-          <p className="text-neutral text-sm">{wantToAnalyzeFullSite}</p>
-          {isLoggedIn ? (
-            <Button
-              onClick={handleStartRecursiveAudit}
-              disabled={isSingleScanLoading || !url}
-              variant={ButtonVariant.OUTLINE}
-              color={ButtonColor.TEXT}
-              label={fullSiteAudit.value}
-            >
-              {fullSiteAudit}
-            </Button>
-          ) : (
-            <Link
-              href={`${AppRoutes.Auth_SignIn}?redirect_url=${encodeURIComponent(
-                typeof window !== 'undefined' ? window.location.href : ''
-              )}`}
-              color="text"
-              variant="button"
-              label={loginToAuditFullSite.value}
-            >
-              {loginToAuditFullSite}
-            </Link>
-          )}
-        </div>
-      )}
-
-      {recursiveStatus && <RecursiveAuditResults status={recursiveStatus} />}
     </div>
   );
 };

@@ -7,7 +7,7 @@ import type { FC, HTMLProps } from 'react';
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  preload: true,
+  weight: ['300', '400', '500', '600', '700'],
 });
 
 export type LocalParams = HTMLProps<HTMLHtmlElement> & {
