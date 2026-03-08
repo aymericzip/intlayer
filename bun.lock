@@ -56,7 +56,7 @@
         "clsx": "2.1.1",
         "cobe": "0.6.5",
         "defu": "6.1.4",
-        "framer-motion": "12.35.0",
+        "framer-motion": "12.35.1",
         "fuse.js": "7.1.0",
         "intlayer": "workspace:*",
         "lucide-react": "0.577.0",
@@ -180,7 +180,7 @@
         "@tanstack/react-table": "8.21.3",
         "@tanstack/router-plugin": "1.166.2",
         "clsx": "^2.1.1",
-        "framer-motion": "12.35.0",
+        "framer-motion": "12.35.1",
         "fuse.js": "7.1.0",
         "intlayer": "workspace",
         "lucide-react": "0.577.0",
@@ -231,7 +231,7 @@
         "babel-plugin-react-compiler": "1.0.0",
         "clsx": "2.1.1",
         "defu": "6.1.4",
-        "framer-motion": "12.35.0",
+        "framer-motion": "12.35.1",
         "fuse.js": "7.1.0",
         "intlayer": "workspace:*",
         "lucide-react": "0.577.0",
@@ -1176,7 +1176,7 @@
         "@tanstack/react-query": "5.90.21",
         "@tanstack/react-query-devtools": "5.91.3",
         "clsx": "2.1.1",
-        "framer-motion": "12.35.0",
+        "framer-motion": "12.35.1",
         "fuse.js": "7.1.0",
         "intlayer": "workspace:*",
         "lucide-react": "0.577.0",
@@ -1699,7 +1699,7 @@
         "autoprefixer": "10.4.27",
         "babel-plugin-react-compiler": "1.0.0",
         "clsx": "2.1.1",
-        "framer-motion": "12.35.0",
+        "framer-motion": "12.35.1",
         "fuse.js": "7.1.0",
         "globals": "17.4.0",
         "intlayer": "workspace:*",
@@ -2104,9 +2104,7 @@
     },
   },
   "overrides": {
-    "framer-motion": "12.35.0",
-    "motion-dom": "12.35.0",
-    "motion-utils": "12.29.2",
+    "framer-motion": "12.35.1",
     "next": "16.1.6",
   },
   "packages": {
@@ -6272,7 +6270,7 @@
 
     "fraction.js": ["fraction.js@5.3.4", "", {}, "sha512-1X1NTtiJphryn/uLQz3whtY6jK3fTqoE3ohKs0tT+Ujr1W59oopxmoEh7Lu5p6vBaPbgoM0bzveAW4Qi5RyWDQ=="],
 
-    "framer-motion": ["framer-motion@12.35.0", "", { "dependencies": { "motion-dom": "^12.35.0", "motion-utils": "^12.29.2", "tslib": "^2.4.0" }, "peerDependencies": { "@emotion/is-prop-valid": "*", "react": "^18.0.0 || ^19.0.0", "react-dom": "^18.0.0 || ^19.0.0" }, "optionalPeers": ["@emotion/is-prop-valid", "react", "react-dom"] }, "sha512-w8hghCMQ4oq10j6aZh3U2yeEQv5K69O/seDI/41PK4HtgkLrcBovUNc0ayBC3UyyU7V1mrY2yLzvYdWJX9pGZQ=="],
+    "framer-motion": ["framer-motion@12.35.1", "", { "dependencies": { "motion-dom": "^12.35.1", "motion-utils": "^12.29.2", "tslib": "^2.4.0" }, "peerDependencies": { "@emotion/is-prop-valid": "*", "react": "^18.0.0 || ^19.0.0", "react-dom": "^18.0.0 || ^19.0.0" }, "optionalPeers": ["@emotion/is-prop-valid", "react", "react-dom"] }, "sha512-rL8cLrjYZNShZqKV3U0Qj6Y5WDiZXYEM5giiTLfEqsIZxtspzMDCkKmrO5po76jWfvOg04+Vk+sfBvTD0iMmLw=="],
 
     "freeport-async": ["freeport-async@2.0.0", "", {}, "sha512-K7od3Uw45AJg00XUmy15+Hae2hOcgKcmN3/EF6Y7i01O0gaqiRx8sUSpsb9+BRNL8RPBrhzPsVfy8q9ADlJuWQ=="],
 
@@ -7300,7 +7298,7 @@
 
     "morgan": ["morgan@1.10.1", "", { "dependencies": { "basic-auth": "~2.0.1", "debug": "2.6.9", "depd": "~2.0.0", "on-finished": "~2.3.0", "on-headers": "~1.1.0" } }, "sha512-223dMRJtI/l25dJKWpgij2cMtywuG/WiUKXdvwfbhGKBhy1puASqXwFzmWZ7+K73vUPoR7SS2Qz2cI/g9MKw0A=="],
 
-    "motion-dom": ["motion-dom@12.35.0", "", { "dependencies": { "motion-utils": "^12.29.2" } }, "sha512-FFMLEnIejK/zDABn+vqGVAUN4T0+3fw+cVAY8MMT65yR+j5uMuvWdd4npACWhh94OVWQs79CrBBuwOwGRZAQiA=="],
+    "motion-dom": ["motion-dom@12.35.1", "", { "dependencies": { "motion-utils": "^12.29.2" } }, "sha512-7n6r7TtNOsH2UFSAXzTkfzOeO5616v9B178qBIjmu/WgEyJK0uqwytCEhwKBTuM/HJA40ptAw7hLFpxtPAMRZQ=="],
 
     "motion-utils": ["motion-utils@12.29.2", "", {}, "sha512-G3kc34H2cX2gI63RqU+cZq+zWRRPSsNIOjpdl9TN4AQwC4sgwYPl/Q/Obf/d53nOm569T0fYK+tcoSV50BWx8A=="],
 

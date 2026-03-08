@@ -76,9 +76,7 @@
     "typecheck": "bun turbo typecheck --filter=./packages/** --filter=./docs --filter=./apps/backend --filter=./plugins/** --concurrency=1"
   },
   "overrides": {
-    "framer-motion": "12.35.0",
-    "motion-dom": "12.35.0",
-    "motion-utils": "12.29.2",
+    "framer-motion": "12.35.1",
     "next": "16.1.6"
   },
   "devDependencies": {

@@ -112,7 +112,7 @@
     "autoprefixer": "10.4.27",
     "babel-plugin-react-compiler": "1.0.0",
     "clsx": "2.1.1",
-    "framer-motion": "12.35.0",
+    "framer-motion": "12.35.1",
     "fuse.js": "7.1.0",
     "globals": "17.4.0",
     "intlayer": "workspace:*",
