@@ -10,6 +10,7 @@ import { useIntlayer } from 'react-intlayer';
 import { Link } from '@/components/Link';
 import { LocaleSwitcher } from '@/components/LocaleSwitcher/LocaleSwitcher';
 import { GithubLogo } from '@/components/logo/GithubLogo';
+import { ProfileDropDown } from '@/components/ProfileDropdown/ProfileDropdown';
 import { SwitchThemeSwitcher } from '@/components/SwitchThemeSwitcher';
 
 const getCleanChoice = (path?: string): string => {
@@ -55,7 +56,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
     <UINavBar
       logo={
         <Link
-          href={logo.url.value}
+          to={logo.url.value}
           label={logo.label.value}
           isExternalLink={false}
           color="text"
@@ -70,7 +71,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
           <Link
             id={id?.value}
             key={getCleanChoice(url.value)}
-            href={url.value}
+            to={url.value}
             label={label.value}
             isExternalLink={false}
             aria-current={
@@ -89,7 +90,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
           <Link
             id={id?.value}
             key={getCleanChoice(url.value)}
-            href={url.value}
+            to={url.value}
             isExternalLink={false}
             isActive={selectedChoice === getCleanChoice(url.value)}
             label={label.value}
@@ -105,7 +106,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
         <div className="flex w-full flex-col gap-4">
           <Link
             label={github.label.value}
-            href={github.url.value}
+            to={github.url.value}
             variant="button-outlined"
             color="text"
             className="group/github rounded-2xl! leading-6"
@@ -130,7 +131,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
           ) : (
             <Link
               label={login.label.value}
-              href={login.url.value}
+              to={login.url.value}
               variant="button"
               color="text"
             >
@@ -143,15 +144,17 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
         <div className="flex items-center gap-2">
           <LocaleSwitcher />
           <SwitchThemeSwitcher />
+          <ProfileDropDown />
         </div>
       }
       rightItemsDesktop={
         <>
           <LocaleSwitcher />
           <SwitchThemeSwitcher />
+          <ProfileDropDown />
           <Link
             label={discord.label.value}
-            href={discord.url.value}
+            to={discord.url.value}
             target="_blank"
             color="text"
             variant="button-outlined"
@@ -163,7 +166,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
           </Link>
           <Link
             label={github.label.value}
-            href={github.url.value}
+            to={github.url.value}
             color="text"
             variant="button"
             roundedSize="full"

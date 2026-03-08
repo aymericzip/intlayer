@@ -8,6 +8,7 @@ import { AnalyzerSiteResults } from './Analyzer/Results/AnalyzerSiteResults';
 import { RobotsSection } from './Analyzer/Results/RobotsSection';
 import { SitemapSection } from './Analyzer/Results/SitemapSection';
 import { RecursiveAuditResults } from './RecursiveAuditResults';
+import { UrlDiscoveryList } from './UrlDiscoveryList';
 
 interface AnalyzerResultsSectionProps {
   domainData: any;
@@ -15,10 +16,20 @@ interface AnalyzerResultsSectionProps {
   mergedData: any;
   url: string;
   isSingleScanLoading: boolean;
+  // discovery phase
+  isDiscovering: boolean;
+  discoveredUrls: string[] | null;
+  onDiscoverUrls: () => void;
+  onStartWithUrls: (urls: string[]) => void;
+  // recursive audit
   recursiveJobId: string | null;
   recursiveStatus: any;
+  isRecursiveScanLoading: boolean;
+  isPaused: boolean;
+  onPause: () => void;
+  onResume: () => void;
+  onCancel: () => void;
   isLoggedIn: boolean;
-  handleStartRecursiveAudit: () => void;
 }
 
 export const AnalyzerResultsSection: FC<AnalyzerResultsSectionProps> = ({
@@ -27,15 +38,34 @@ export const AnalyzerResultsSection: FC<AnalyzerResultsSectionProps> = ({
   mergedData,
   url,
   isSingleScanLoading,
+  isDiscovering,
+  discoveredUrls,
+  onDiscoverUrls,
+  onStartWithUrls,
   recursiveJobId,
   recursiveStatus,
+  isRecursiveScanLoading,
+  isPaused,
+  onPause,
+  onResume,
+  onCancel,
   isLoggedIn,
-  handleStartRecursiveAudit,
 }) => {
-  const { fullSiteAudit, loginToAuditFullSite, wantToAnalyzeFullSite } =
-    useIntlayer('localization-analyzer');
+  const {
+    fullSiteAudit,
+    loginToAuditFullSite,
+    wantToAnalyzeFullSite,
+    discoveringUrls,
+    discoveringUrlsButton,
+  } = useIntlayer('localization-analyzer');
 
   const hasData = mergedData && Object.keys(mergedData).length > 0;
+  const showFullSiteButton =
+    !recursiveJobId &&
+    !isSingleScanLoading &&
+    !isDiscovering &&
+    !discoveredUrls &&
+    hasData;
 
   if (!hasData && !isSingleScanLoading) return null;
 
@@ -57,18 +87,18 @@ export const AnalyzerResultsSection: FC<AnalyzerResultsSectionProps> = ({
 
       <SitemapSection data={mergedData} isLoading={isSingleScanLoading} />
 
-      {!recursiveJobId && !isSingleScanLoading && hasData && (
+      {showFullSiteButton && (
         <div className="mt-6 flex flex-col items-center gap-4 border-neutral border-t border-dashed pt-6">
           <p className="text-neutral text-sm">{wantToAnalyzeFullSite}</p>
           {isLoggedIn ? (
             <Button
-              onClick={handleStartRecursiveAudit}
-              disabled={isSingleScanLoading || !url}
+              onClick={onDiscoverUrls}
+              disabled={isSingleScanLoading || !url || isDiscovering}
               variant={ButtonVariant.OUTLINE}
               color={ButtonColor.TEXT}
               label={fullSiteAudit.value}
             >
-              {fullSiteAudit}
+              {isDiscovering ? discoveringUrlsButton : fullSiteAudit}
             </Button>
           ) : (
             <Link
@@ -85,7 +115,30 @@ export const AnalyzerResultsSection: FC<AnalyzerResultsSectionProps> = ({
         </div>
       )}
 
-      {recursiveStatus && <RecursiveAuditResults status={recursiveStatus} />}
+      {isDiscovering && (
+        <div className="mt-6 border-neutral border-t border-dashed pt-6 text-center text-sm text-text/60">
+          {discoveringUrls}
+        </div>
+      )}
+
+      {discoveredUrls && !recursiveJobId && (
+        <UrlDiscoveryList
+          urls={discoveredUrls}
+          isLoading={isRecursiveScanLoading}
+          onStart={onStartWithUrls}
+          onCancel={() => onStartWithUrls([])}
+        />
+      )}
+
+      {recursiveStatus && (
+        <RecursiveAuditResults
+          status={recursiveStatus}
+          isPaused={isPaused}
+          onPause={onPause}
+          onResume={onResume}
+          onCancel={onCancel}
+        />
+      )}
     </div>
   );
 };

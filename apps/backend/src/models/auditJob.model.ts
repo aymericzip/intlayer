@@ -3,6 +3,8 @@ import mongoose, { type Document, Schema } from 'mongoose';
 export enum AuditJobStatus {
   PENDING = 'pending',
   RUNNING = 'running',
+  PAUSED = 'paused',
+  CANCELLED = 'cancelled',
   COMPLETED = 'completed',
   FAILED = 'failed',
 }

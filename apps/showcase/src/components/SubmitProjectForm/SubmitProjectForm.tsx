@@ -17,17 +17,15 @@ export const SubmitProjectForm: FC = () => {
   const navigate = useNavigate();
   const { locale } = useLocale();
   const schema = useSubmitProjectFormSchema();
-  const [formValue, setFormValue] = usePersistedStore<SubmitProjectFormData>(
-    'submit-project-form',
-    {
+  const [formValue, setFormValue, , clearFormValue] =
+    usePersistedStore<SubmitProjectFormData>('submit-project-form', {
       name: '',
       url: '',
       githubUrl: '',
       tagline: '',
       description: '',
       useCases: [],
-    }
-  );
+    });
 
   const {
     submitStep,
@@ -52,6 +50,7 @@ export const SubmitProjectForm: FC = () => {
 
   const onSubmitSuccess = async (data: SubmitProjectFormData) => {
     await submitProject(data);
+    clearFormValue();
   };
 
   const handleModalClose = () => {
@@ -70,7 +69,6 @@ export const SubmitProjectForm: FC = () => {
       {/* Back Link */}
       <Link
         to="/"
-        params={{ locale }}
         className="group mb-6 inline-flex items-center gap-2 text-neutral text-sm transition-colors hover:text-text"
       >
         <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />

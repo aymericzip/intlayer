@@ -40,12 +40,10 @@ export const getShowcaseProjectAPI = (
     if (query?.selectedUseCases?.length)
       params.selectedUseCases = query.selectedUseCases;
 
-    return await fetcher(
-      SHOWCASE_API_ROUTE,
-      authAPIOptions,
-      otherOptions,
-      { method: 'GET', params: params as any }
-    );
+    return await fetcher(SHOWCASE_API_ROUTE, authAPIOptions, otherOptions, {
+      method: 'GET',
+      params: params as any,
+    });
   };
 
   const getShowcaseProjectById = async (
@@ -85,10 +83,22 @@ export const getShowcaseProjectAPI = (
       { method: 'POST', body }
     );
 
+  const deleteShowcaseProject = async (
+    projectId: string,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<{ data: { success: boolean } }>(
+      `${SHOWCASE_API_ROUTE}/${projectId}`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'DELETE' }
+    );
+
   return {
     getShowcaseProjects,
     getShowcaseProjectById,
     getOtherShowcaseProjects,
     toggleShowcaseLike,
+    deleteShowcaseProject,
   };
 };

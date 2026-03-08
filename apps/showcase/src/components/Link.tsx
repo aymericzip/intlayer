@@ -39,8 +39,7 @@ type RemoveLocaleFromString<S extends string> = CollapseDoubleSlashes<
 >;
 
 type LinkProps = {
-  href?: string;
-  to?: To;
+  to: To;
   label?: string;
   children?: ReactNode;
   isExternalLink?: boolean;
@@ -57,7 +56,6 @@ type LinkProps = {
   Omit<LinkComponentProps, 'to' | 'href' | 'children'>;
 
 export const Link: FC<LinkProps> = ({
-  href,
   to,
   label,
   children,
@@ -76,7 +74,7 @@ export const Link: FC<LinkProps> = ({
 }) => {
   const { locale } = useLocale();
 
-  const targetUrl = href || (to as string) || '';
+  const targetUrl = (to as string) || '';
 
   const isExternalLinkUrl =
     targetUrl.startsWith('http') ||
@@ -131,36 +129,16 @@ export const Link: FC<LinkProps> = ({
 
   const { localePrefix } = getPrefix(locale);
 
-  if (to) {
-    const tanstackTo = `/${LOCALE_ROUTE}${to}` as LinkComponentProps['to'];
-    const tanstackParams = {
-      locale: localePrefix,
-      ...(typeof params === 'object' && params !== null ? params : {}),
-    };
-
-    return (
-      <TanStackLink
-        to={tanstackTo}
-        params={tanstackParams as LinkComponentProps['params']}
-        aria-label={label}
-        aria-current={isActive ? 'page' : undefined}
-        replace={replace}
-        onClick={onClick}
-        className={classes}
-        {...(props as LinkComponentProps)}
-      >
-        {content}
-      </TanStackLink>
-    );
-  }
-
-  const localizedHref = isExternalLinkUrl
-    ? targetUrl
-    : `/${locale}${targetUrl === '/' ? '' : targetUrl}`;
+  const tanstackTo = `/${LOCALE_ROUTE}${to}` as LinkComponentProps['to'];
+  const tanstackParams = {
+    locale: localePrefix ?? '',
+    ...(typeof params === 'object' && params !== null ? params : {}),
+  };
 
   return (
     <TanStackLink
-      to={localizedHref as To}
+      to={tanstackTo}
+      params={tanstackParams as LinkComponentProps['params']}
       aria-label={label}
       aria-current={isActive ? 'page' : undefined}
       replace={replace}

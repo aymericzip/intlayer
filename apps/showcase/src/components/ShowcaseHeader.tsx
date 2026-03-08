@@ -7,7 +7,7 @@ export const ShowcaseHeader = () => {
   const content = useIntlayer('app');
 
   return (
-    <div className="flex w-full max-w-7xl flex-col gap-4 py-12 pr-4 pl-10 sm:flex-row sm:items-center sm:justify-between sm:py-16">
+    <div className="flex w-full max-w-7xl flex-col gap-4 py-12 pl-10 sm:flex-row sm:items-center sm:justify-between sm:py-16">
       <div>
         <H1 className="font-bold text-4xl text-text">
           {content.showcase.title}

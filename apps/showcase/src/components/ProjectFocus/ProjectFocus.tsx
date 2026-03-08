@@ -38,7 +38,7 @@ export const ProjectFocus = ({ project }: ProjectFocusProps) => {
           {content.projectNotFound.title}
         </h1>
         <p className="text-neutral">{content.projectNotFound.description}</p>
-        <Link to="/" params={{ locale: locale || defaultLocale }}>
+        <Link to="/" color="text" variant="button">
           {content.projectNotFound.backToGallery}
         </Link>
       </div>
@@ -50,7 +50,7 @@ export const ProjectFocus = ({ project }: ProjectFocusProps) => {
       {/* Back Link */}
       <Link
         to={PagesRoutes.Showcase}
-        params={{ locale: locale || defaultLocale }}
+        color="text"
         className="group mb-6 inline-flex items-center gap-2 text-neutral text-sm transition-colors hover:text-text"
       >
         <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
@@ -60,17 +60,19 @@ export const ProjectFocus = ({ project }: ProjectFocusProps) => {
       {/* Main Layout Grid */}
       <div className="mb-12 grid grid-cols-1 gap-8 lg:grid-cols-12">
         {/* Left Column: Image and Description */}
-        <Container
-          className="group relative aspect-video overflow-hidden bg-card shadow-lg lg:col-span-7"
-          roundedSize="3xl"
-          transparency="lg"
-        >
-          <img
-            src={project.imageUrl}
-            alt={project.title}
-            className="size-full object-cover"
-          />
-        </Container>
+        <div className="relative size-full lg:col-span-7">
+          <Container
+            className="group relative sticky top-26 aspect-video overflow-hidden bg-card shadow-lg"
+            roundedSize="3xl"
+            transparency="lg"
+          >
+            <img
+              src={project.imageUrl}
+              alt={project.title}
+              className="size-full object-cover"
+            />
+          </Container>
+        </div>
         {/* Right Column: Sidebar Info */}
         <div className="lg:col-span-5">
           <ProjectSidebar project={project} formatDate={formatDate} />

@@ -180,7 +180,7 @@ function App() {
   };
 
   return (
-    <div className="flex w-full flex-1 flex-col">
+    <div className="flex w-full flex-1 flex-col px-6">
       <ShowcaseHeader />
 
       <FiltersBar
@@ -229,7 +229,7 @@ function App() {
       </div>
 
       <div className="mx-auto mt-8 mb-12 w-full max-w-7xl px-4">
-        <div className="flex w-full flex-row items-end justify-between gap-4 pt-8">
+        <div className="flex w-full flex-row items-end justify-between gap-4">
           <div className="flex flex-col gap-4">
             <ShowingResultsNumberItems
               currentPage={params.page}

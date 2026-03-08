@@ -2,7 +2,6 @@ import { FileText, Globe, Link as LinkIcon } from 'lucide-react';
 import type { FC, ReactNode } from 'react';
 import { memo } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { Link } from '@/components/Link';
 import { FieldItem } from './FieldItem';
 import type { AuditDataList, MergedData } from './types';
 

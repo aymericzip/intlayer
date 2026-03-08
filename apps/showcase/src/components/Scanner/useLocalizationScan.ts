@@ -81,7 +81,6 @@ export const useLocalizationScan = (globalErrorMessage: string) => {
 
   const handleMessage = (event: AuditEvent) => {
     if (typeof event.globalError === 'string') {
-      console.error(event.globalError);
       dispatch({ type: 'SET_ERROR', payload: globalErrorMessage });
       abortControllerRef.current?.abort();
       dispatch({ type: 'FINISH_SINGLE_SCAN' });
@@ -139,7 +138,9 @@ export const useLocalizationScan = (globalErrorMessage: string) => {
         {
           url,
           onMessage: handleMessage,
-          onDone: () => dispatch({ type: 'FINISH_SINGLE_SCAN' }),
+          onDone: () => {
+            dispatch({ type: 'FINISH_SINGLE_SCAN' });
+          },
         },
         { signal: abortController.signal }
       );

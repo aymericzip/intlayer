@@ -7,10 +7,7 @@ import {
   Modal,
   ModalSize,
 } from '@intlayer/design-system';
-import {
-  useSession,
-  useToggleShowcaseLike,
-} from '@intlayer/design-system/hooks';
+import { useAuth } from '@intlayer/design-system/hooks';
 import {
   Badge,
   Calendar,
@@ -20,15 +17,20 @@ import {
   RefreshCw,
   ThumbsDown,
   ThumbsUp,
+  Trash2,
   X,
   Zap,
 } from 'lucide-react';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { AppRoutes } from '#/Routes';
+import { PagesRoutes } from '#/Routes';
+import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
+import { useShowcaseLike } from '@/hooks/useShowcaseLike';
 import type { Project } from '@/server/projectActions/types';
 import { useScanProject } from './useScanProject';
+
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL ?? '';
 
 interface ProjectSidebarProps {
   project: Project;
@@ -86,8 +88,8 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
 }) => {
   const content = useIntlayer('project-sidebar');
   const appContent = useIntlayer('app');
-  const { session } = useSession();
-  const { mutateAsync: toggleLike, isPending } = useToggleShowcaseLike();
+  const { oAuth2AccessToken } = useAuth();
+  const navigate = useLocalizedNavigate();
   const {
     scanStep,
     scanError,
@@ -97,27 +99,44 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
     resetScan,
   } = useScanProject();
 
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+
   // Use scanned result if available, otherwise fall back to initial data
   const project = scannedProject ?? initialProject;
 
-  const [upvotes, setUpvotes] = useState(project.upvotes);
-  const [isLiked, setIsLiked] = useState(project.upvoters.length > 0);
+  const {
+    upvotes,
+    isLiked,
+    isDisabled: isVoteDisabled,
+    handleVote,
+  } = useShowcaseLike(project);
 
-  const handleVote = async (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (!session) {
-      const redirectUrl = encodeURIComponent(window.location.href);
-      window.location.href = `${AppRoutes.Auth_SignIn}?redirect_url=${redirectUrl}`;
-      return;
-    }
+  const handleDelete = async () => {
+    setIsDeleting(true);
+    setDeleteError(null);
     try {
-      const result = await toggleLike(project._id);
-      if (result?.data) {
-        setUpvotes(result.data.upvotes);
-        setIsLiked(result.data.isLiked);
+      const headers: Record<string, string> = {};
+      const token =
+        (oAuth2AccessToken as any)?.accessToken ?? oAuth2AccessToken;
+      if (token && typeof token === 'string') {
+        headers.Authorization = `Bearer ${token}`;
       }
-    } catch {
-      // ignore
+      const res = await fetch(
+        `${BACKEND_URL}/api/showcase-project/${initialProject._id}`,
+        { method: 'DELETE', headers, credentials: 'include' }
+      );
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        setDeleteError(body?.error?.message ?? 'Failed to delete project');
+        return;
+      }
+      navigate(PagesRoutes.Showcase);
+    } catch (e) {
+      setDeleteError((e as Error).message ?? 'Failed to delete project');
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -219,7 +238,7 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
       )}
 
       <Container padding="xl" roundedSize="3xl" transparency="lg">
-        <div className="flex items-center gap-4">
+        <div className="flex items-start gap-4">
           {project.logoUrl && (
             <Container
               roundedSize="3xl"
@@ -264,7 +283,9 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              variant="button"
+              variant="button-outlined"
+              className="flex-1 py-3 text-sm"
+              color="text"
               label={content.githubRepo.value}
             >
               <Code className="size-4 text-text" />
@@ -280,7 +301,7 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
           variant="button"
           label={content.visitWebsite.value}
           isExternalLink
-          className="flex-2 py-3 text-sm"
+          className="flex-1 py-3 text-sm"
         >
           {content.visitWebsite}
         </Link>
@@ -309,22 +330,77 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
           value={project.intlayerVersion || content.stable}
         />
 
-        {/* Scan button — only visible to the project owner */}
+        {/* Owner-only actions */}
         {initialProject.isOwner && (
-          <Button
-            type="button"
-            variant="hoverable"
-            color="text"
-            label="Scan project"
-            Icon={RefreshCw}
-            isLoading={isScanRunning}
-            disabled={isScanRunning}
-            onClick={() => scanProject(project._id)}
-            className="mt-2 w-full"
-          >
-            {isScanRunning ? 'Scanning…' : 'Scan Project'}
-          </Button>
+          <>
+            <Button
+              type="button"
+              variant="hoverable"
+              color="text"
+              label="Scan project"
+              Icon={RefreshCw}
+              isLoading={isScanRunning}
+              disabled={isScanRunning}
+              onClick={() => scanProject(project._id)}
+              className="mt-2 w-full"
+            >
+              {isScanRunning ? 'Scanning…' : 'Scan Project'}
+            </Button>
+            <Button
+              type="button"
+              variant="hoverable"
+              color="error"
+              label={content.deleteProject.value}
+              Icon={Trash2}
+              disabled={isScanRunning}
+              onClick={() => setDeleteConfirmOpen(true)}
+              className="w-full"
+            >
+              {content.deleteProject}
+            </Button>
+          </>
         )}
+
+        {/* Delete confirmation modal */}
+        <Modal
+          isOpen={deleteConfirmOpen}
+          onClose={() => setDeleteConfirmOpen(false)}
+          size={ModalSize.SM}
+          hasCloseButton
+        >
+          <div className="flex flex-col gap-4 px-4 py-6">
+            <H2>{content.deleteConfirmTitle}</H2>
+            <p className="text-neutral text-sm">
+              {content.deleteConfirmDescription}
+            </p>
+            {deleteError && <p className="text-error text-sm">{deleteError}</p>}
+            <div className="flex gap-3">
+              <Button
+                type="button"
+                variant="hoverable"
+                color="neutral"
+                label={content.deleteCancel.value}
+                onClick={() => setDeleteConfirmOpen(false)}
+                className="flex-1"
+              >
+                {content.deleteCancel}
+              </Button>
+              <Button
+                type="button"
+                variant="default"
+                color="error"
+                label={content.deleteConfirm.value}
+                Icon={Trash2}
+                isLoading={isDeleting}
+                disabled={isDeleting}
+                onClick={handleDelete}
+                className="flex-1"
+              >
+                {content.deleteConfirm}
+              </Button>
+            </div>
+          </div>
+        </Modal>
       </Container>
 
       {/* Rating Section inside Sidebar */}
@@ -353,7 +429,7 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
             Icon={ThumbsUp}
             className="flex-1"
             onClick={handleVote}
-            disabled={isPending}
+            disabled={isVoteDisabled}
           />
           <Button
             type="button"
@@ -363,7 +439,7 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
             Icon={ThumbsDown}
             className="flex-1"
             onClick={handleVote}
-            disabled={isPending}
+            disabled={isVoteDisabled}
           />
         </div>
       </Container>

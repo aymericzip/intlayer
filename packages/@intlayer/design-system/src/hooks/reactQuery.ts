@@ -62,7 +62,11 @@ import type {} from 'better-auth'; // Import for type inference
 import type { WriteContentDeclarationBody } from 'intlayer-editor';
 import type { AuthAPI } from '../libs/auth';
 import { useAuth } from './useAuth';
-import { useIntlayerAuth, useIntlayerOAuth } from './useIntlayerAPI';
+import {
+  type UseIntlayerAuthProps,
+  useIntlayerAuth,
+  useIntlayerOAuth,
+} from './useIntlayerAPI';
 
 export { useQueryClient };
 
@@ -1487,8 +1491,8 @@ export const useWriteDictionary = () => {
  * Showcase
  */
 
-export const useToggleShowcaseLike = () => {
-  const intlayerOAuth = useIntlayerOAuth();
+export const useToggleShowcaseLike = (props?: UseIntlayerAuthProps) => {
+  const intlayerOAuth = useIntlayerOAuth(props);
 
   return useMutation({
     mutationKey: ['showcase', 'like'],

@@ -12,17 +12,12 @@ export interface ShowcaseScannedInfo {
   /** List of detected intlayer package names */
   libsUsed: string[];
   scanDetails: ShowcaseScanDetails;
+  /** JPEG screenshot buffer taken on the same page load */
+  screenshotBuffer: Buffer;
 }
 
 /**
  * Regex that matches any intlayer package name and its version from a minified bundle.
- * Matches patterns like:
- *   name:"intlayer",version:"3.x.x"
- *   name:'react-intlayer',version:'3.x.x'
- *   name:"@intlayer/core",version:"3.x.x"
- *
- * Uses [^'"]*intlayer[^'"]* to match any package name containing "intlayer" regardless
- * of prefix (@intlayer/...) or suffix (-intlayer, intlayer-...).
  */
 const INTLAYER_BUNDLE_PKG_REGEX =
   /name\s*:\s*['"]([^'"]*intlayer[^'"]*)['"]\s*,\s*version\s*:\s*['"]([^'"]+)['"]/gi;
@@ -30,9 +25,17 @@ const INTLAYER_BUNDLE_PKG_REGEX =
 /**
  * The distinct bundle marker emitted by intlayer:
  *   { name: 'Intlayer', version: '...', doc: 'https://intlayer.org/docs' }
+ * Matches the exact property order from buildConfigurationFields.ts.
  */
 const INTLAYER_BUNDLE_MARKER =
   /name\s*:\s*['"]Intlayer['"]\s*,\s*version\s*:\s*['"][^'"]+['"]\s*,\s*doc\s*:\s*[`'"]https:\/\/intlayer\.org\/docs[`'"]/i;
+
+/**
+ * Simpler fallback: the doc URL alone is unique enough to identify the bundle.
+ * Matches e.g. `doc:"https://intlayer.org/docs"` regardless of property order.
+ */
+const INTLAYER_DOC_URL_MARKER =
+  /doc\s*:\s*[`'"]https:\/\/intlayer\.org\/docs[`'"]/i;
 
 /** Extract all intlayer packages from a script text blob. */
 export const extractPackagesFromScript = (
@@ -48,24 +51,33 @@ export const extractPackagesFromScript = (
   return result;
 };
 
-const MAX_EXTERNAL_SCRIPTS = 8;
+const MAX_EXTERNAL_SCRIPTS = 20;
 const MAX_SCRIPT_BYTES = 5 * 1024 * 1024; // 5 MB
 
+/**
+ * Opens a single browser session, scans the page for Intlayer usage,
+ * takes a screenshot, then closes the browser.
+ * Combining both operations avoids launching Puppeteer twice.
+ */
 export const scanShowcaseProject = async (
   url: string
 ): Promise<ShowcaseScannedInfo> => {
   logger.info(`[scanShowcaseProject] Scanning ${url}...`);
 
-  const browser = await launchBrowser();
+  const browser = await launchBrowser({ pipe: false, dumpio: false });
 
   try {
     const page = await browser.newPage();
     await page.setViewport({ width: 1280, height: 720 });
-    await page.goto(url, {
-      waitUntil: 'networkidle2',
-      timeout: 30000,
-    });
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
+    await page.waitForSelector('body', { timeout: 10000 });
+    await page
+      .waitForNetworkIdle({ idleTime: 1000, timeout: 10000 })
+      .catch(() => {
+        /* ok if the page never fully idles (SPAs, analytics, etc.) */
+      });
 
+    // ── Page-level details (DOM evaluation) ──────────────────────────────────
     const pageDetails = await page.evaluate(() => {
       const html = document.documentElement;
       const lang = html.getAttribute('lang') || '';
@@ -109,14 +121,12 @@ export const scanShowcaseProject = async (
         internalLinks.length > 0 &&
         localizedLinks.length === internalLinks.length;
 
-      // Inline script text
       const inlineScripts = Array.from(
         document.querySelectorAll('script:not([src])')
       )
         .map((s) => s.textContent || '')
         .filter(Boolean);
 
-      // External script absolute URLs
       const externalScriptUrls = Array.from(
         document.querySelectorAll('script[src]')
       )
@@ -135,14 +145,23 @@ export const scanShowcaseProject = async (
       };
     });
 
-    // ─── robots.txt ───────────────────────────────────────────────────────────
+    // ── Screenshot (same page, no extra navigation) ──────────────────────────
+    logger.info(`[scanShowcaseProject] Taking screenshot of ${url}...`);
+    const screenshotBuffer = (await page.screenshot({
+      type: 'jpeg',
+      quality: 30,
+    })) as Buffer;
+
+    await page.close();
+
+    // ── robots.txt ────────────────────────────────────────────────────────────
     let robotsAccessible = false;
     try {
       const robotsRes = await fetch(new URL('/robots.txt', url).toString());
       robotsAccessible = robotsRes.ok;
     } catch {}
 
-    // ─── sitemap.xml ──────────────────────────────────────────────────────────
+    // ── sitemap.xml ───────────────────────────────────────────────────────────
     let sitemapDiscoverable = false;
     let sitemapUrlCount = 0;
     try {
@@ -154,15 +173,14 @@ export const scanShowcaseProject = async (
       }
     } catch {}
 
-    // ─── Intlayer bundle detection ────────────────────────────────────────────
+    // ── Intlayer bundle detection ─────────────────────────────────────────────
     const packageDetails: Record<string, string> = {};
+    let markerFoundInExternalScript = false;
 
-    // Phase 1: scan inline scripts (fast, no network)
     for (const script of pageDetails.inlineScripts) {
       Object.assign(packageDetails, extractPackagesFromScript(script));
     }
 
-    // Phase 2: fetch external scripts if intlayer not yet found
     if (
       !packageDetails.intlayer &&
       !Object.keys(packageDetails).some((k) => k.includes('intlayer'))
@@ -171,6 +189,7 @@ export const scanShowcaseProject = async (
         0,
         MAX_EXTERNAL_SCRIPTS
       );
+
       await Promise.allSettled(
         scriptUrls.map(async (src) => {
           try {
@@ -184,13 +203,14 @@ export const scanShowcaseProject = async (
             if (text.length > MAX_SCRIPT_BYTES) return;
             if (
               INTLAYER_BUNDLE_MARKER.test(text) ||
-              text.includes('intlayer')
+              INTLAYER_DOC_URL_MARKER.test(text)
             ) {
+              markerFoundInExternalScript = true;
+              Object.assign(packageDetails, extractPackagesFromScript(text));
+            } else if (text.includes('intlayer')) {
               Object.assign(packageDetails, extractPackagesFromScript(text));
             }
-          } catch {
-            // ignore unreachable / CORS-restricted scripts
-          }
+          } catch {}
         })
       );
     }
@@ -199,12 +219,15 @@ export const scanShowcaseProject = async (
       Object.keys(packageDetails).some((k) =>
         k.toLowerCase().includes('intlayer')
       ) ||
-      pageDetails.inlineScripts.some((s) => INTLAYER_BUNDLE_MARKER.test(s));
+      pageDetails.inlineScripts.some(
+        (s) => INTLAYER_BUNDLE_MARKER.test(s) || INTLAYER_DOC_URL_MARKER.test(s)
+      ) ||
+      markerFoundInExternalScript;
 
     const libsUsed = Object.keys(packageDetails);
     const intlayerVersion = packageDetails.intlayer;
 
-    // ─── SEO score ────────────────────────────────────────────────────────────
+    // ── SEO score ─────────────────────────────────────────────────────────────
     let score = 0;
     if (pageDetails.lang) score += 10;
     if (pageDetails.canonical) score += 10;
@@ -220,6 +243,7 @@ export const scanShowcaseProject = async (
       intlayerVersion,
       packageDetails,
       libsUsed,
+      screenshotBuffer,
       scanDetails: {
         score,
         langTag: pageDetails.lang,
@@ -241,32 +265,6 @@ export const scanShowcaseProject = async (
       },
     };
   } finally {
-    await browser.close();
-  }
-};
-
-export const takeShowcaseScreenshot = async (url: string): Promise<Buffer> => {
-  logger.info('[takeShowcaseScreenshot] Launching puppeteer...');
-
-  const browser = await launchBrowser();
-
-  try {
-    const page = await browser.newPage();
-    await page.setViewport({ width: 1280, height: 720 });
-    await page.goto(url, {
-      waitUntil: 'networkidle2',
-      timeout: 15000,
-    });
-
-    logger.info('[takeShowcaseScreenshot] Taking screenshot...');
-
-    const screenshotBuffer = await page.screenshot({
-      type: 'jpeg',
-      quality: 30,
-    });
-
-    return screenshotBuffer as Buffer;
-  } finally {
-    await browser.close();
+    await browser.close().catch(() => {});
   }
 };

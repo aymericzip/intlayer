@@ -34,10 +34,17 @@ export const LocalizationAnalyzer: FC = () => {
   } = useLocalizationScan(globalErrorMessage.value);
 
   const {
+    isDiscovering,
+    discoveredUrls,
     isRecursiveScanLoading,
+    isPaused,
     recursiveJobId,
     recursiveStatus,
+    handleDiscoverUrls,
     handleStartRecursiveAudit,
+    handlePauseRecursiveAudit,
+    handleResumeRecursiveAudit,
+    handleCancelRecursiveAudit,
   } = useRecursiveScan(session, setExternalError);
 
   const isLoading = isSingleScanLoading || isRecursiveScanLoading;
@@ -94,10 +101,18 @@ export const LocalizationAnalyzer: FC = () => {
         mergedData={mergedData}
         url={params.url}
         isSingleScanLoading={isSingleScanLoading}
+        isDiscovering={isDiscovering}
+        discoveredUrls={discoveredUrls}
+        onDiscoverUrls={() => handleDiscoverUrls(params.url)}
+        onStartWithUrls={(urls) => handleStartRecursiveAudit(params.url, urls)}
         recursiveJobId={recursiveJobId}
         recursiveStatus={recursiveStatus}
+        isRecursiveScanLoading={isRecursiveScanLoading}
+        isPaused={isPaused}
+        onPause={handlePauseRecursiveAudit}
+        onResume={handleResumeRecursiveAudit}
+        onCancel={handleCancelRecursiveAudit}
         isLoggedIn={isLoggedIn}
-        handleStartRecursiveAudit={() => handleStartRecursiveAudit(params.url)}
       />
 
       {error && <p className="text-error">{error}</p>}

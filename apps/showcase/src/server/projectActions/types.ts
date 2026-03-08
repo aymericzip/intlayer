@@ -55,3 +55,5 @@ export type ScanStep =
   | 'SCREENSHOT_SUCCESS'
   | 'SUCCESS'
   | 'ERROR';
+
+export type AllStep = SubmitStep | ScanStep;

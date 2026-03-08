@@ -8,7 +8,7 @@ import type { IntlayerConfig } from '@intlayer/types';
 import { type AuthAPI, getAuthAPI } from '../libs/auth';
 import { useAuth } from './useAuth';
 
-type UseIntlayerAuthProps = {
+export type UseIntlayerAuthProps = {
   options?: FetcherOptions;
   intlayerConfiguration?: IntlayerConfig;
 };

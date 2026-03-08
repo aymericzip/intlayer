@@ -152,6 +152,12 @@ export const updateShowcaseProject = async (
   return project as unknown as ShowcaseProjectDocument;
 };
 
+export const deleteShowcaseProject = async (
+  projectId: string
+): Promise<void> => {
+  await ShowcaseProjectModel.findByIdAndDelete(projectId);
+};
+
 export const toggleShowcaseLike = async (
   projectId: string,
   userId: string

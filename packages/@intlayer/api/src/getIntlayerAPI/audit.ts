@@ -19,11 +19,24 @@ export type ScanUrlBody = {
   onDone?: () => void;
 };
 
-export type StartRecursiveAuditBody = {
+export type DiscoverUrlsParams = {
   url: string;
 };
 
+export type DiscoverUrlsResult = {
+  urls: string[];
+};
+
+export type StartRecursiveAuditBody = {
+  url: string;
+  urls?: string[];
+};
+
 export type GetRecursiveAuditStatusParams = {
+  jobId: string;
+};
+
+export type RecursiveAuditJobParams = {
   jobId: string;
 };
 
@@ -54,6 +67,20 @@ export const getAuditAPI = (
    * });
    * ```
    */
+  const discoverUrls = async (
+    params?: DiscoverUrlsParams,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<DiscoverUrlsResult>(
+      `${AUDIT_API_ROUTE}/recursive/discover`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'GET',
+        params,
+      }
+    );
+
   const scanUrl = async (
     body?: ScanUrlBody,
     otherOptions: FetcherOptions = {}
@@ -100,6 +127,7 @@ export const getAuditAPI = (
 
     while (true) {
       const { done, value } = await reader.read();
+
       if (done) break;
 
       buffer += decoder.decode(value, { stream: true });
@@ -112,7 +140,7 @@ export const getAuditAPI = (
             const event = JSON.parse(line.slice(6)) as AuditEvent;
             onMessage?.(event);
           } catch {
-            // ignore unparseable lines
+            // ignore malformed lines
           }
         }
       }
@@ -134,8 +162,8 @@ export const getAuditAPI = (
       otherOptions,
       {
         method: 'POST',
-        // @ts-ignore params will be stringified by the fetcher
-        params: body,
+        params: body?.url ? { url: body.url } : undefined,
+        body: body?.urls !== undefined ? { urls: body.urls as any } : undefined,
       }
     );
 
@@ -155,9 +183,46 @@ export const getAuditAPI = (
       }
     );
 
+  const cancelRecursiveAudit = async (
+    params?: RecursiveAuditJobParams,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<{ success: boolean }>(
+      `${AUDIT_API_ROUTE}/recursive/${params?.jobId}/cancel`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'POST' }
+    );
+
+  const pauseRecursiveAudit = async (
+    params?: RecursiveAuditJobParams,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<{ success: boolean }>(
+      `${AUDIT_API_ROUTE}/recursive/${params?.jobId}/pause`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'POST' }
+    );
+
+  const resumeRecursiveAudit = async (
+    params?: RecursiveAuditJobParams,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<{ success: boolean }>(
+      `${AUDIT_API_ROUTE}/recursive/${params?.jobId}/resume`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'POST' }
+    );
+
   return {
+    discoverUrls,
     scanUrl,
     startRecursiveAudit,
     getRecursiveAuditStatus,
+    cancelRecursiveAudit,
+    pauseRecursiveAudit,
+    resumeRecursiveAudit,
   };
 };

@@ -92,7 +92,7 @@
     "cross-env": "10.1.0",
     "defu": "6.1.4",
     "dotenv": "17.3.1",
-    "fastify": "5.8.1",
+    "fastify": "5.8.2",
     "fastify-intlayer": "workspace:*",
     "ioredis": "5.10.0",
     "mongodb": "7.1.0",

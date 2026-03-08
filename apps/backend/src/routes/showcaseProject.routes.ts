@@ -1,4 +1,5 @@
 import {
+  deleteShowcaseProjectHandler,
   getOtherShowcaseProjects,
   getShowcaseProjectById,
   getShowcaseProjects,
@@ -47,6 +48,12 @@ export const getShowcaseProjectRoutes = () =>
         `${baseURL()}/${projectId}/scan`,
       method: 'GET',
     },
+    deleteShowcaseProject: {
+      urlModel: '/:projectId',
+      url: ({ projectId }: { projectId: string }) =>
+        `${baseURL()}/${projectId}`,
+      method: 'DELETE',
+    },
   }) satisfies Routes;
 
 export const showcaseProjectRouter = async (fastify: FastifyInstance) => {
@@ -73,5 +80,9 @@ export const showcaseProjectRouter = async (fastify: FastifyInstance) => {
   fastify.get(
     getShowcaseProjectRoutes().scanShowcaseProject.urlModel,
     scanShowcaseProject
+  );
+  fastify.delete(
+    getShowcaseProjectRoutes().deleteShowcaseProject.urlModel,
+    deleteShowcaseProjectHandler
   );
 };

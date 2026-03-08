@@ -1,7 +1,7 @@
-import { Button } from '@intlayer/design-system';
-import { createFileRoute, Link } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 import { getIntlayer, getLocalizedUrl } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
+import { Link } from '#/components/Link';
 import { ProjectFocus } from '@/components/ProjectFocus/ProjectFocus';
 import { ShowcaseHeader } from '@/components/ShowcaseHeader';
 import { SITE_URL } from '@/lib/site';
@@ -79,13 +79,13 @@ function ProjectPage() {
           <p className="mb-8 text-neutral">
             {content.projectNotFound.description}
           </p>
-          <Link to="/{-$locale}">
-            <Button
-              label={content.projectNotFound.backToGallery.value}
-              variant="default"
-            >
-              {content.projectNotFound.backToGallery}
-            </Button>
+          <Link
+            to="/"
+            color="text"
+            variant="button"
+            aria-label={content.projectNotFound.backToGallery.value}
+          >
+            {content.projectNotFound.backToGallery}
           </Link>
         </div>
       </div>

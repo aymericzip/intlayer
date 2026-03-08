@@ -9,7 +9,6 @@ import type { AuditEvent } from '@services/audit/types';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 
 const sendSSE = (res: FastifyReply, data: AuditEvent) => {
-  logger.info(JSON.stringify(data, null, 2));
   res.raw.write(`data: ${JSON.stringify(data)}\n\n`);
 };
 
@@ -76,11 +75,6 @@ export const auditGetHandler = async (
       }
 
       if (!aborted) {
-        logger.info(`Processing event: ${event.type || 'no-type'}`, {
-          status: event.status,
-          progress: event.progress,
-        });
-
         sendSSE(res, {
           ...event,
           progress: currentProgress,

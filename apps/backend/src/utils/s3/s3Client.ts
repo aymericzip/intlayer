@@ -13,5 +13,6 @@ export const getS3Client = (): S3Client => {
       },
     });
   }
+
   return cachedClient;
 };

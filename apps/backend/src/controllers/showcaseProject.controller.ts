@@ -1,10 +1,10 @@
 import { logger } from '@logger';
 import * as showcaseProjectService from '@services/showcase/showcaseProject.service';
+import { scanShowcaseProject as scanShowcaseProjectViaService } from '@services/showcase/showcaseScan.service';
 import {
-  scanShowcaseProject as scanShowcaseProjectViaService,
-  takeShowcaseScreenshot as takeScreenshotViaService,
-} from '@services/showcase/showcaseScan.service';
-import { uploadShowcaseScreenshot } from '@services/showcase/showcaseUploadScreenshot.service';
+  deleteShowcaseScreenshot,
+  uploadShowcaseScreenshot,
+} from '@services/showcase/showcaseUploadScreenshot.service';
 import { verifyGithubRepo } from '@services/showcase/showcaseVerifyGithub.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { getFaviconUrl } from '@utils/getFaviconUrl';
@@ -23,16 +23,12 @@ import { t } from 'fastify-intlayer';
 import { z } from 'zod';
 import type { ShowcaseProjectAPI } from '@/types/showcaseProject.types';
 
-// ─── Helpers ─────────────────────────────────────────────────────────────────
-
 const getUserId = (request: FastifyRequest): string | undefined =>
   request.locals?.user
     ? String(
         (request.locals.user as any).id ?? (request.locals.user as any)._id
       )
     : undefined;
-
-// ─── Input Schemas ────────────────────────────────────────────────────────────
 
 const urlSchema = z
   .string()
@@ -54,8 +50,6 @@ const submitProjectSchema = z.object({
   description: z.string().optional(),
   useCases: z.array(z.string()).optional(),
 });
-
-// ─── Controllers ──────────────────────────────────────────────────────────────
 
 export type SubmitShowcaseProjectBody = z.input<typeof submitProjectSchema>;
 export type SubmitShowcaseProjectResult = ResponseData<ShowcaseProjectAPI>;
@@ -327,6 +321,52 @@ export const toggleShowcaseLike = async (
 
 // ─────────────────────────────────────────────────────────────────────────────
 
+// ─────────────────────────────────────────────────────────────────────────────
+
+export type DeleteShowcaseProjectParams = { projectId: string };
+
+/**
+ * DELETE /api/showcase-project/:projectId
+ * Deletes a project (DB + R2 screenshot). Only the owner can delete.
+ */
+export const deleteShowcaseProjectHandler = async (
+  request: FastifyRequest<{ Params: DeleteShowcaseProjectParams }>,
+  reply: FastifyReply
+): Promise<void> => {
+  const userId = getUserId(request);
+
+  if (!userId) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'USER_NOT_AUTHENTICATED'
+    );
+  }
+
+  const { projectId } = request.params;
+
+  try {
+    const project =
+      await showcaseProjectService.findShowcaseProjectById(projectId);
+
+    if (String(project.owner) !== userId) {
+      return ErrorHandler.handleGenericErrorResponse(reply, 'FORBIDDEN');
+    }
+
+    await Promise.allSettled([
+      showcaseProjectService.deleteShowcaseProject(projectId),
+      project.imageUrl
+        ? deleteShowcaseScreenshot(project.imageUrl)
+        : Promise.resolve(),
+    ]);
+
+    return reply.send(formatResponse({ data: { success: true } }));
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 export type ScanShowcaseProjectParams = { projectId: string };
 
 /**
@@ -380,17 +420,26 @@ export const scanShowcaseProject = async (
     raw.write(`data: ${JSON.stringify(data)}\n\n`);
   };
 
+  // Track the uploaded screenshot URL so we can delete it on failure.
+  let uploadedImageUrl: string | null = null;
+
+  const cleanup = async (message: string) => {
+    await Promise.allSettled([
+      showcaseProjectService.deleteShowcaseProject(projectId),
+      uploadedImageUrl
+        ? deleteShowcaseScreenshot(uploadedImageUrl)
+        : Promise.resolve(),
+    ]);
+    send({ step: 'ERROR', message });
+  };
+
   try {
-    // ── Step 1: Scan website ──────────────────────────────────────────────────
+    // ── Step 1: Scan website + take screenshot (single browser session) ────────
     send({ step: 'SCANNING_START' });
-    logger.info(`[scanShowcaseProject] Scanning ${project.websiteUrl}...`);
     const scanResult = await scanShowcaseProjectViaService(project.websiteUrl);
 
     if (!scanResult.hasIntlayer && !scanResult.libsUsed.includes('intlayer')) {
-      await showcaseProjectService.updateShowcaseProject(projectId, {
-        status: 'scan_failed',
-      });
-      send({ step: 'ERROR', message: 'Intlayer not detected on this website' });
+      await cleanup('Intlayer not detected on this website');
       raw.end();
       return;
     }
@@ -413,13 +462,11 @@ export const scanShowcaseProject = async (
       send({ step: 'VERIFY_GITHUB_SUCCESS' });
     }
 
-    // ── Step 3: Screenshot ────────────────────────────────────────────────────
+    // ── Step 3: Upload the screenshot captured during scan ────────────────────
     send({ step: 'SCREENSHOT_START' });
-    logger.info(
-      `[scanShowcaseProject] Taking screenshot of ${project.websiteUrl}...`
+    uploadedImageUrl = await uploadShowcaseScreenshot(
+      scanResult.screenshotBuffer
     );
-    const screenshotBuffer = await takeScreenshotViaService(project.websiteUrl);
-    const imageUrl = await uploadShowcaseScreenshot(screenshotBuffer);
     send({ step: 'SCREENSHOT_SUCCESS' });
 
     // ── Step 4: Merge & save ──────────────────────────────────────────────────
@@ -440,7 +487,7 @@ export const scanShowcaseProject = async (
         libsUsed: mergedLibsUsed,
         packageDetails: mergedPackageDetails,
         scanDetails: scanResult.scanDetails,
-        imageUrl: imageUrl ?? project.imageUrl,
+        imageUrl: uploadedImageUrl ?? project.imageUrl,
         isOpenSource,
         status: 'active',
         lastScanDate: new Date(),
@@ -455,14 +502,7 @@ export const scanShowcaseProject = async (
     const message =
       error instanceof Error ? error.message : 'Scan failed unexpectedly';
     logger.error('[scanShowcaseProject] Error:', error);
-    try {
-      await showcaseProjectService.updateShowcaseProject(projectId, {
-        status: 'scan_failed',
-      });
-      send({ step: 'ERROR', message });
-    } catch {
-      // ignore secondary error
-    }
+    await cleanup(message);
   }
 
   raw.end();
