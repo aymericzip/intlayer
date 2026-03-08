@@ -455,6 +455,15 @@ export const askDocQuestion = async (
   // Hijack response
   reply.hijack();
 
+  // Copy all Fastify-managed headers (including CORS) to the raw response
+  // immediately after hijacking, before any early returns.
+  const headers = reply.getHeaders();
+  for (const [key, value] of Object.entries(headers)) {
+    if (value !== undefined) {
+      reply.raw.setHeader(key, value);
+    }
+  }
+
   const projectAIOptions = project?.configuration?.ai
     ? (project.configuration.ai as AIOptions)
     : undefined;
@@ -485,14 +494,6 @@ export const askDocQuestion = async (
       );
       reply.raw.end();
       return;
-    }
-
-    // Copy Headers
-    const headers = reply.getHeaders();
-    for (const [key, value] of Object.entries(headers)) {
-      if (value !== undefined) {
-        reply.raw.setHeader(key, value);
-      }
     }
 
     // Set Stream Headers & Flush
