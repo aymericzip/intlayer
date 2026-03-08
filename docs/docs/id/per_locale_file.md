@@ -128,7 +128,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Dengan menggunakan konfigurasi ini, semua file per-locale akan dibuat dengan locale default yang diatur ke bahasa Inggris. Ini juga mencakup pembuatan file `.content` menggunakan perintah `extract`, dan compiler. (Lihat [Compiler](https://intlayer.org/doc/compiler) atau [Extract](https://intlayer.org/doc/concept/cli/extract) untuk informasi lebih lanjut.)
+Dengan menggunakan konfigurasi ini, semua file per-locale akan dibuat dengan locale default yang diatur ke bahasa Inggris. Ini juga mencakup pembuatan file `.content` menggunakan perintah `extract`, dan compiler. (Lihat [Compiler](https://intlayer.org/doc/compiler) atau [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md) untuk informasi lebih lanjut.)
 
 ## Format Per-Locale
 

@@ -128,7 +128,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Sử dụng cấu hình này, tất cả các tệp theo từng locale sẽ được tạo với locale mặc định được đặt là tiếng Anh. Nó cũng bao gồm việc tạo các tệp `.content` bằng cách sử dụng lệnh `extract` và compiler. (Xem [Compiler](https://intlayer.org/doc/compiler) hoặc [Extract](https://intlayer.org/doc/concept/cli/extract) để biết thêm thông tin.)
+Sử dụng cấu hình này, tất cả các tệp theo từng locale sẽ được tạo với locale mặc định được đặt là tiếng Anh. Nó cũng bao gồm việc tạo các tệp `.content` bằng cách sử dụng lệnh `extract` và compiler. (Xem [Compiler](https://intlayer.org/doc/compiler) hoặc [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md) để biết thêm thông tin.)
 
 ## Định dạng theo từng locale
 

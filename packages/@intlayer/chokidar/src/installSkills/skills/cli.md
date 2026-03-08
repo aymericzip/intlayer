@@ -39,8 +39,8 @@ npm install intlayer-cli
 ### Concepts
 
 - [Build](https://intlayer.org/doc/concept/cli/build.md)
-- [CI](https://intlayer.org/doc/concept/cli/ci.md)
-- [CLI Overview](https://intlayer.org/doc/concept/cli/index.md)
+- [CI](https://intlayer.org/doc/concept/cli.md)
+- [CLI Overview](https://intlayer.org/doc/concept/cli/export.md)
 - [Configuration](https://intlayer.org/doc/concept/cli/configuration.md)
 - [Debug](https://intlayer.org/doc/concept/cli/debug.md)
 - [Doc Review](https://intlayer.org/doc/concept/cli/doc-review.md)
@@ -63,7 +63,7 @@ npm install intlayer-cli
 ### Packages
 
 - [Website](https://intlayer.org)
-- [Doc](https://intlayer.org/doc/concept/cli/index.md)
+- [Doc](https://intlayer.org/doc/concept/cli.md)
 
 - [Intlayer CLI](https://intlayer.org/doc/packages/intlayer-cli/exports.md)
 - [Intlayer CLI Exports](https://intlayer.org/doc/packages/intlayer-cli/exports.md)

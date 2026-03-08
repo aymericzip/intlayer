@@ -126,7 +126,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-Bu yapılandırmayı kullanarak, tüm yerel ayar başına dosyalar varsayılan yerel ayar İngilizce olarak ayarlanmış şekilde oluşturulacaktır. Ayrıca `extract` komutu kullanılarak `.content` dosyalarının oluşturulmasını ve derleyiciyi (compiler) içerir. (Daha fazla bilgi için [Compiler](https://intlayer.org/doc/compiler) veya [Extract](https://intlayer.org/doc/concept/cli/extract) bölümlerine bakın.)
+Bu yapılandırmayı kullanarak, tüm yerel ayar başına dosyalar varsayılan yerel ayar İngilizce olarak ayarlanmış şekilde oluşturulacaktır. Ayrıca `extract` komutu kullanılarak `.content` dosyalarının oluşturulmasını ve derleyiciyi (compiler) içerir. (Daha fazla bilgi için [Compiler](https://intlayer.org/doc/compiler) veya [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md) bölümlerine bakın.)
 
 ## Yerel Ayar Başına Format
 

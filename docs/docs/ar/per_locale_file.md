@@ -128,7 +128,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-باستخدام هذا التكوين، سيتم إنشاء جميع ملفات كل لغة مع تعيين اللغة الافتراضية إلى الإنجليزية. يتضمن ذلك أيضاً إنشاء ملفات `.content` باستخدام أمر `extract` والمترجم (compiler). (انظر [Compiler](https://intlayer.org/doc/compiler) أو [Extract](https://intlayer.org/doc/concept/cli/extract) لمزيد من المعلومات.)
+باستخدام هذا التكوين، سيتم إنشاء جميع ملفات كل لغة مع تعيين اللغة الافتراضية إلى الإنجليزية. يتضمن ذلك أيضاً إنشاء ملفات `.content` باستخدام أمر `extract` والمترجم (compiler). (انظر [Compiler](https://intlayer.org/doc/compiler) أو [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md) لمزيد من المعلومات.)
 
 ## تنسيق حسب اللغة
 

@@ -128,7 +128,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-इस कॉन्फ़िगरेशन का उपयोग करते हुए, सभी प्रति-लोकेल फ़ाइलें डिफ़ॉल्ट लोकेल को अंग्रेज़ी पर सेट करके जेनरेट की जाएंगी। इसमें `extract` कमांड और कंपाइलर का उपयोग करके `.content` फ़ाइलों का जनरेशन भी शामिल है। (अधिक जानकारी के लिए [Compiler](https://intlayer.org/doc/compiler) या [Extract](https://intlayer.org/doc/concept/cli/extract) देखें।)
+इस कॉन्फ़िगरेशन का उपयोग करते हुए, सभी प्रति-लोकेल फ़ाइलें डिफ़ॉल्ट लोकेल को अंग्रेज़ी पर सेट करके जेनरेट की जाएंगी। इसमें `extract` कमांड और कंपाइलर का उपयोग करके `.content` फ़ाइलों का जनरेशन भी शामिल है। (अधिक जानकारी के लिए [Compiler](https://intlayer.org/doc/compiler) या [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md) देखें।)
 
 ## प्रति-स्थान प्रारूप
 

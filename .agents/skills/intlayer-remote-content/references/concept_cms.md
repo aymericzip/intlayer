@@ -464,7 +464,7 @@ Example using Vite:
 
 The Live Sync server wraps your application and automatically applies updated content as it arrives.
 
-To receive change notifications from the CMS, the Live Sync server maintains an SSE connection to the backend. When content changes in the CMS, the backend forwards the update to the Live Sync server, which writes the new dictionaries. Your application will reflect the update on the next navigation or browser reload—no rebuild required.
+To receive change notifications from the CMS, the Live Sync server maintains an SSE connection to the backend. When content changes in the CMS, the backend forwards the update to the Live Sync server, which writes the new dictionaries. Your application will reflect the update on the next navigation or browser reload, no rebuild required.
 
 Flow chart (CMS/Backend -> Live Sync Server -> Application Server -> Frontend):
 

@@ -33,7 +33,7 @@ const content = await getIntlayer("my-dictionary-key");
 ## References
 
 - [Website](https://intlayer.org)
-- [Doc](https://intlayer.org/doc/concept/cli/index.md)
+- [Doc](https://intlayer.org/doc/concept/cli.md)
 
 - [Astro](https://intlayer.org/doc/environment/astro.md)
 - [Intlayer Exports](https://intlayer.org/doc/packages/intlayer/exports.md)

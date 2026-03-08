@@ -94,6 +94,7 @@
     "enquirer": "2.4.1",
     "fast-glob": "3.3.3",
     "husky": "9.1.7",
+    "intlayer": "workspace:*",
     "lint-staged": "16.3.2",
     "minimist": "1.2.8",
     "prettier": "3.8.1",
