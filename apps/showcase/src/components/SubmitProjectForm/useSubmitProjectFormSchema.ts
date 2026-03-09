@@ -2,9 +2,8 @@ import { useIntlayer } from 'react-intlayer';
 import { z } from 'zod';
 
 export const useSubmitProjectFormSchema = () => {
-  const { projectNameRequired, urlInvalid, projectUrlRequired } = useIntlayer(
-    'submit-project-form-schema'
-  );
+  const { projectNameRequired, urlInvalid, projectUrlRequired, maxUseCases } =
+    useIntlayer('submit-project-form-schema');
 
   const ensureHttps = (val: string) => {
     if (!val) return val;
@@ -21,7 +20,6 @@ export const useSubmitProjectFormSchema = () => {
       .transform(ensureHttps)
       .pipe(
         z
-          .string()
           .url(urlInvalid.value)
           .refine(
             (val) => !/github\.com|gitlab\.com|bitbucket\.org/.test(val),
@@ -37,7 +35,6 @@ export const useSubmitProjectFormSchema = () => {
       .transform(ensureHttps)
       .pipe(
         z
-          .string()
           .url(urlInvalid.value)
           .refine(
             (val) =>
@@ -47,7 +44,7 @@ export const useSubmitProjectFormSchema = () => {
       )
       .optional()
       .or(z.literal('')),
-    useCases: z.array(z.string()).optional(),
+    useCases: z.array(z.string()).max(3, maxUseCases.value).optional(),
   });
 };
 

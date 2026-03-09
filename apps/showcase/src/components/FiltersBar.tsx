@@ -61,7 +61,12 @@ export const FiltersBar = ({
             </span>
           </Button>
 
-          <PopoverStatic.Detail identifier="use-case-filter" xAlign="start">
+          <PopoverStatic.Detail
+            identifier="use-case-filter"
+            xAlign="start"
+            isFocusable
+            isOverable
+          >
             <Container className="min-w-[180px]" roundedSize="xl" padding="sm">
               <div className="z-50 flex flex-col gap-2">
                 {useCasesList.map((uc) => (

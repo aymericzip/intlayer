@@ -44,11 +44,22 @@ export const findShowcaseProjects = async (filters: {
   const total_items = await ShowcaseProjectModel.countDocuments(query);
   const total_pages = Math.ceil(total_items / pageSize) || 1;
 
-  const data = await ShowcaseProjectModel.find(query)
-    .sort({ upvotes: -1 })
-    .skip((page - 1) * pageSize)
-    .limit(pageSize)
-    .lean();
+  const data = await ShowcaseProjectModel.aggregate([
+    { $match: query },
+    {
+      $addFields: {
+        score: {
+          $subtract: [
+            { $size: { $ifNull: ['$upvoters', []] } },
+            { $size: { $ifNull: ['$downvoters', []] } },
+          ],
+        },
+      },
+    },
+    { $sort: { score: -1, createdAt: -1 } },
+    { $skip: (page - 1) * pageSize },
+    { $limit: pageSize },
+  ]);
 
   return {
     data: data as unknown as ShowcaseProjectDocument[],
@@ -116,9 +127,8 @@ export const createShowcaseProject = async (
 ): Promise<ShowcaseProjectDocument> => {
   const newProject = new ShowcaseProjectModel({
     ...projectData,
-    upvotes: 0,
+    ...projectData,
     upvoters: [],
-    downvotes: 0,
     downvoters: [],
   });
 
@@ -191,22 +201,19 @@ const toggleShowcaseVote = async (
 
     if (wasUpvoted) {
       project.upvoters = upvoters.filter((id) => id !== userId);
-      project.upvotes = Math.max(0, project.upvotes - 1);
     } else {
       project.upvoters.push(userId);
-      project.upvotes += 1;
       if (downvoters.includes(userId)) {
         project.downvoters = downvoters.filter((id) => id !== userId);
-        project.downvotes = Math.max(0, project.downvotes - 1);
       }
     }
 
     await project.save();
 
     return {
-      upvotes: project.upvotes,
+      upvotes: project.upvoters.length,
       isUpVoted: !wasUpvoted,
-      downvotes: project.downvotes,
+      downvotes: project.downvoters.length,
       isDownVoted: false,
     };
   } else {
@@ -214,21 +221,18 @@ const toggleShowcaseVote = async (
 
     if (wasDownvoted) {
       project.downvoters = downvoters.filter((id) => id !== userId);
-      project.downvotes = Math.max(0, project.downvotes - 1);
     } else {
       project.downvoters.push(userId);
-      project.downvotes += 1;
 
       if (upvoters.includes(userId)) {
         project.upvoters = upvoters.filter((id) => id !== userId);
-        project.upvotes = Math.max(0, project.upvotes - 1);
       }
     }
     await project.save();
     return {
-      upvotes: project.upvotes,
+      upvotes: project.upvoters.length,
       isUpVoted: false,
-      downvotes: project.downvotes,
+      downvotes: project.downvoters.length,
       isDownVoted: !wasDownvoted,
     };
   }

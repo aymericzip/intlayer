@@ -31,9 +31,7 @@ export interface ShowcaseProject {
   websiteUrl: string;
   githubUrl?: string;
   tags: string[];
-  upvotes: number;
   upvoters: string[];
-  downvotes: number;
   downvoters: string[];
   isOpenSource: boolean;
   createdAt: Date;
@@ -70,7 +68,9 @@ export interface ShowcaseProjectAPI
     '_id' | 'createdAt' | 'lastScanDate' | 'upvoters' | 'downvoters'
   > {
   id: string;
+  upvotes: number;
   isUpVoted: boolean;
+  downvotes: number;
   isDownVoted: boolean;
   createdAt: string;
   lastScanDate?: string;

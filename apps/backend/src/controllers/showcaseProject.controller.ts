@@ -44,10 +44,8 @@ const submitProjectSchema = z.object({
       message: 'Repository URLs should be placed in the GitHub URL field',
     }),
   githubUrl: urlSchema,
-  useCases: z.array(z.string()).optional(),
+  useCases: z.array(z.string()).max(3).optional(),
 });
-
-export type SubmitShowcaseProjectBody = z.input<typeof submitProjectSchema>;
 export type SubmitShowcaseProjectResult = ResponseData<ShowcaseProjectAPI>;
 
 /**
@@ -384,7 +382,7 @@ const updateProjectSchema = z.object({
     }),
   tagline: z.string().min(1).max(500).optional(),
   description: z.string().optional(),
-  useCases: z.array(z.string()).optional(),
+  useCases: z.array(z.string()).max(3).optional(),
 });
 
 export type UpdateShowcaseProjectBody = z.input<typeof updateProjectSchema>;

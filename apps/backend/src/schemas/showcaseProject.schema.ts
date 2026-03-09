@@ -27,15 +27,13 @@ const scanDetailsSchema = new Schema(
 export const showcaseProjectSchema = new Schema<ShowcaseProjectDocument>(
   {
     title: { type: String, required: true },
-    description: { type: String, required: true },
+    description: { type: String, default: '' },
     imageUrl: { type: String, default: '' },
     logoUrl: { type: String },
     websiteUrl: { type: String, required: true, unique: true },
     githubUrl: { type: String },
     tags: { type: [String], default: [] },
-    upvotes: { type: Number, default: 0 },
     upvoters: { type: [String], default: [] },
-    downvotes: { type: Number, default: 0 },
     downvoters: { type: [String], default: [] },
     isOpenSource: { type: Boolean, default: false },
     createdAt: { type: Date, default: Date.now },
@@ -51,5 +49,29 @@ export const showcaseProjectSchema = new Schema<ShowcaseProjectDocument>(
       default: 'pending_scan',
     },
   },
-  { timestamps: false }
+  {
+    timestamps: false,
+
+    toJSON: {
+      virtuals: true, // keep the automatic `id` getter
+      versionKey: false, // drop __v
+      transform(_doc, ret: any) {
+        const { _id, ...rest } = ret;
+        return {
+          ...rest,
+          id: _id.toString(),
+        };
+      },
+    },
+    toObject: {
+      virtuals: true,
+      transform(_doc, ret: any) {
+        const { _id, ...rest } = ret;
+        return {
+          ...rest,
+          id: _id,
+        };
+      },
+    },
+  }
 );
