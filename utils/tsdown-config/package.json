@@ -10,7 +10,7 @@
   "scripts": {},
   "dependencies": {
     "fast-glob": "3.3.3",
-    "tsdown": "0.20.1"
+    "tsdown": "0.21.0"
   },
   "devDependencies": {
     "@types/node": "25.3.5",
