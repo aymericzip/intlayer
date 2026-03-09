@@ -1,7 +1,7 @@
-import { Container } from '@intlayer/design-system';
+import { Container, Link as DSLink } from '@intlayer/design-system';
 import { useParams } from '@tanstack/react-router';
 import { defaultLocale } from 'intlayer';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Code } from 'lucide-react';
 import { useIntlayer } from 'react-intlayer';
 import { PagesRoutes } from '#/Routes';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
@@ -17,6 +17,7 @@ interface ProjectFocusProps {
 
 export const ProjectFocus = ({ project }: ProjectFocusProps) => {
   const content = useIntlayer('project-focus');
+  const contentSidebar = useIntlayer('project-sidebar');
   const { locale } = useParams({ from: '/{-$locale}' });
 
   const formatDate = (dateStr?: string) => {
@@ -62,17 +63,55 @@ export const ProjectFocus = ({ project }: ProjectFocusProps) => {
       <div className="mb-12 grid grid-cols-1 gap-8 lg:grid-cols-12">
         {/* Left Column: Image and Description */}
         <div className="relative size-full lg:col-span-7">
-          <Container
-            className="group relative sticky top-26 aspect-video overflow-hidden bg-card shadow-lg"
-            roundedSize="3xl"
-            transparency="lg"
-          >
-            <img
-              src={project.imageUrl}
-              alt={project.title}
-              className="size-full object-cover"
-            />
-          </Container>
+          <div className="relative sticky top-40 flex flex-col gap-6">
+            <Container
+              className="group aspect-video overflow-hidden bg-card shadow-lg"
+              roundedSize="3xl"
+              transparency="lg"
+            >
+              <img
+                src={project.imageUrl}
+                alt={project.title}
+                className="size-full object-cover"
+              />
+            </Container>
+            <div className="flex items-center gap-3">
+              {project.githubUrl && (
+                <Container
+                  roundedSize="2xl"
+                  transparency="lg"
+                  className="group h-full flex-1 shadow-sm transition-all"
+                >
+                  <DSLink
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    variant="button-outlined"
+                    className="flex-1 py-3 text-sm"
+                    color="text"
+                    label={contentSidebar.githubRepo.value}
+                  >
+                    <Code className="size-4 text-text" />
+                    <span className="font-medium text-sm">
+                      {contentSidebar.githubRepo}
+                    </span>
+                  </DSLink>
+                </Container>
+              )}
+              <DSLink
+                href={project.websiteUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                color="text"
+                variant="button"
+                label={contentSidebar.visitWebsite.value}
+                isExternalLink
+                className="flex-1 py-3 text-sm"
+              >
+                {contentSidebar.visitWebsite}
+              </DSLink>
+            </div>
+          </div>
         </div>
         {/* Right Column: Sidebar Info */}
         <div className="lg:col-span-5">

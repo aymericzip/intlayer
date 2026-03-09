@@ -75,7 +75,7 @@ export const ProjectScanDetails: FC<ProjectScanDetailsProps> = ({
     <div className="space-y-6">
       <div className="flex flex-col gap-1">
         <H2 className="font-bold text-text text-xl">{content.seoHeader}</H2>
-        <p className="text-neutral text-sm">{content.seoDescription}</p>
+        <p className="text-neutral text-xs">{content.seoDescription}</p>
       </div>
       <Container roundedSize="3xl" padding="lg" transparency="lg">
         <AnalyzerPageResults data={mergedData} url={url} />

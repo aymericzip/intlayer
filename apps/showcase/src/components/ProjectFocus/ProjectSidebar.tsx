@@ -2,7 +2,6 @@ import {
   Button,
   Container,
   H2,
-  Link,
   Loader,
   Modal,
   ModalSize,
@@ -13,7 +12,6 @@ import {
   Calendar,
   Check,
   Circle,
-  Code,
   Layers,
   Pencil,
   RefreshCw,
@@ -286,40 +284,6 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
           {project.description}
         </p>
       </Container>
-      <div className="flex items-center gap-3">
-        {project.githubUrl && (
-          <Container
-            roundedSize="2xl"
-            transparency="lg"
-            className="group h-full flex-1 shadow-sm transition-all"
-          >
-            <Link
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              variant="button-outlined"
-              className="flex-1 py-3 text-sm"
-              color="text"
-              label={content.githubRepo.value}
-            >
-              <Code className="size-4 text-text" />
-              <span className="font-medium text-sm">{content.githubRepo}</span>
-            </Link>
-          </Container>
-        )}
-        <Link
-          href={project.websiteUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          color="text"
-          variant="button"
-          label={content.visitWebsite.value}
-          isExternalLink
-          className="flex-1 py-3 text-sm"
-        >
-          {content.visitWebsite}
-        </Link>
-      </div>
 
       <Container
         className="flex flex-col"
