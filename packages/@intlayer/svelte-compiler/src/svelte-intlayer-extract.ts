@@ -1,7 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { parse as babelParse, types as t, traverse } from '@babel/core';
 import MagicString from 'magic-string';
-import * as svelteCompiler from 'svelte/compiler';
+import { parse } from 'svelte/compiler';
 
 export type ExtractedContent = Record<string, string>;
 
@@ -79,7 +79,7 @@ export const intlayerSvelteExtract = (
 
   let ast: any;
   try {
-    ast = svelteCompiler.parse(code);
+    ast = parse(code);
   } catch (e) {
     console.warn(
       `Svelte extraction: Failed to parse Svelte AST for ${filename}`,
