@@ -42,7 +42,12 @@ const internalRenderMarkdown = (
   wrapperOverride?: any
 ) => {
   if (typeof customRenderMarkdown === 'function') {
-    return customRenderMarkdown(markdown, options, componentsOverride, wrapperOverride);
+    return customRenderMarkdown(
+      markdown,
+      options,
+      componentsOverride,
+      wrapperOverride
+    );
   }
 
   const mergedOptions = {

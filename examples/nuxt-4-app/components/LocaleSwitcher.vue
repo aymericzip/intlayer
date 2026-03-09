@@ -1,11 +1,11 @@
 <script setup lang="ts">
-  import { getLocaleName, getLocalizedUrl } from "intlayer";
-  import { useLocale } from "vue-intlayer";
-  
-  // Nuxt auto-imports useRoute, but explicit import is fine if you prefer strictness
-  const route = useRoute();
-  const { locale, availableLocales, setLocale } = useLocale();
-  </script>
+import { getLocaleName, getLocalizedUrl } from 'intlayer';
+import { useLocale } from 'vue-intlayer';
+
+// Nuxt auto-imports useRoute, but explicit import is fine if you prefer strictness
+const route = useRoute();
+const { locale, availableLocales, setLocale } = useLocale();
+</script>
   
   <template>
     <nav class="locale-switcher">

@@ -151,7 +151,6 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
         <>
           <LocaleSwitcher />
           <SwitchThemeSwitcher />
-          <ProfileDropDown />
           <Link
             label={discord.label.value}
             href={discord.url.value}
@@ -177,6 +176,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
               width={18}
               className="mr-1 group-hover/github:fill-text-opposite"
             />
+            <ProfileDropDown />
           </Link>
         </>
       }

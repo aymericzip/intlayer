@@ -18,7 +18,7 @@ const {
   vueDocs,
 } = useIntlayer('hello-world');
 
-const content = useIntlayer('hello-world')
+const content = useIntlayer('hello-world');
 const countRef = ref(0);
 </script>
 
