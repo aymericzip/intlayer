@@ -6,19 +6,20 @@ import type {
 /**
  * Maps a ShowcaseProjectDocument to a ShowcaseProjectAPI response.
  * Reduces the `upvoters` array to a numeric `upvotes` count and
- * optionally computes `isLiked` for the given userId.
+ * optionally computes `isUpvoted`/`isDownVoted` for the given userId.
  */
 export const mapShowcaseProjectToAPI = (
   doc: ShowcaseProjectDocument,
   userId?: string
 ): ShowcaseProjectAPI => {
   const upvoters: string[] = doc.upvoters ?? [];
+  const downvoters: string[] = doc.downvoters ?? [];
 
   // Mongoose Map fields must be converted to plain objects
   const packageDetails: Record<string, string> =
     doc.packageDetails instanceof Map
       ? Object.fromEntries(doc.packageDetails)
-      : (doc.packageDetails as Record<string, string> | undefined) ?? {};
+      : ((doc.packageDetails as Record<string, string> | undefined) ?? {});
 
   return {
     id: String((doc as any)._id),
@@ -30,7 +31,9 @@ export const mapShowcaseProjectToAPI = (
     githubUrl: doc.githubUrl,
     tags: doc.tags,
     upvotes: upvoters.length,
-    upvoters: userId ? [userId].filter((id) => upvoters.includes(id)) : [],
+    isUpVoted: userId ? upvoters.includes(userId) : false,
+    isDownVoted: userId ? downvoters.includes(userId) : false,
+    downvotes: downvoters.length,
     isOpenSource: doc.isOpenSource,
     createdAt:
       doc.createdAt instanceof Date
@@ -55,4 +58,5 @@ export const mapShowcaseProjectToAPI = (
 export const mapShowcaseProjectsToAPI = (
   docs: ShowcaseProjectDocument[],
   userId?: string
-): ShowcaseProjectAPI[] => docs.map((doc) => mapShowcaseProjectToAPI(doc, userId));
+): ShowcaseProjectAPI[] =>
+  docs.map((doc) => mapShowcaseProjectToAPI(doc, userId));

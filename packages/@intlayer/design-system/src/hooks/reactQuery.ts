@@ -31,15 +31,20 @@ import type {
   GetPricingBody,
   GetPricingResult,
   GetProjectsParams,
+  GetShowcaseProjectByIdParams,
+  GetShowcaseProjectsResult,
   GetTagsParams,
   GetUsersParams,
   NewsletterSubscriptionBody,
   NewsletterUnsubscriptionBody,
+  OtherShowcaseProjectsQuery,
   PushDictionariesBody,
   RefreshAccessKeyBody,
   SearchDocUtilParams,
   SelectOrganizationParam,
   SelectProjectParam,
+  ShowcaseProjectsQuery,
+  SubmitShowcaseProjectBody,
   TranslateJSONBody,
   UpdateDictionaryBody,
   UpdateOrganizationBody,
@@ -1491,12 +1496,122 @@ export const useWriteDictionary = () => {
  * Showcase
  */
 
-export const useToggleShowcaseLike = (props?: UseIntlayerAuthProps) => {
+export const useGetShowcaseProjects = (
+  query?: ShowcaseProjectsQuery,
+  options?: Partial<UseQueryOptions<GetShowcaseProjectsResult>>
+) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useQuery({
+    queryKey: ['showcase', 'projects', query],
+    queryFn: ({ signal }) =>
+      intlayerOAuth.showcaseProject.getShowcaseProjects(query, { signal }),
+    ...options,
+  });
+};
+
+export const useGetShowcaseProjectById = (
+  projectId: GetShowcaseProjectByIdParams['projectId'],
+  options?: Partial<UseQueryOptions>
+) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useQuery({
+    queryKey: ['showcase', 'project', projectId],
+    queryFn: ({ signal }) =>
+      intlayerOAuth.showcaseProject.getShowcaseProjectById(projectId, {
+        signal,
+      }),
+    enabled: Boolean(projectId),
+    ...options,
+  });
+};
+
+export const useGetOtherShowcaseProjects = (
+  query: OtherShowcaseProjectsQuery,
+  options?: Partial<UseQueryOptions>
+) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useQuery({
+    queryKey: ['showcase', 'other-projects', query],
+    queryFn: ({ signal }) =>
+      intlayerOAuth.showcaseProject.getOtherShowcaseProjects(query, {
+        signal,
+      }),
+    enabled: Boolean(query.excludeId),
+    ...options,
+  });
+};
+
+export const useSubmitShowcaseProject = (props?: UseIntlayerAuthProps) => {
+  const intlayerOAuth = useIntlayerOAuth(props);
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['showcase', 'submit'],
+    mutationFn: (body: SubmitShowcaseProjectBody) =>
+      intlayerOAuth.showcaseProject.submitShowcaseProject(body),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['showcase'] });
+    },
+  });
+};
+
+export const useDeleteShowcaseProject = (props?: UseIntlayerAuthProps) => {
+  const intlayerOAuth = useIntlayerOAuth(props);
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['showcase', 'delete'],
+    mutationFn: (projectId: string) =>
+      intlayerOAuth.showcaseProject.deleteShowcaseProject(projectId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['showcase'] });
+    },
+  });
+};
+
+export const useToggleShowcaseUpvote = (props?: UseIntlayerAuthProps) => {
   const intlayerOAuth = useIntlayerOAuth(props);
 
   return useMutation({
-    mutationKey: ['showcase', 'like'],
+    mutationKey: ['showcase', 'upvote'],
     mutationFn: (projectId: string) =>
-      intlayerOAuth.showcaseProject.toggleShowcaseLike({ projectId }),
+      intlayerOAuth.showcaseProject.toggleShowcaseUpvote({ projectId }),
+  });
+};
+
+export const useToggleShowcaseDownvote = (props?: UseIntlayerAuthProps) => {
+  const intlayerOAuth = useIntlayerOAuth(props);
+
+  return useMutation({
+    mutationKey: ['showcase', 'downvote'],
+    mutationFn: (projectId: string) =>
+      intlayerOAuth.showcaseProject.toggleShowcaseDownvote({ projectId }),
+  });
+};
+
+export const useUpdateShowcaseProject = (props?: UseIntlayerAuthProps) => {
+  const intlayerOAuth = useIntlayerOAuth(props);
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['showcase', 'update'],
+    mutationFn: ({
+      projectId,
+      ...body
+    }: {
+      projectId: string;
+      name?: string;
+      url?: string;
+      githubUrl?: string;
+      tagline?: string;
+      description?: string;
+      useCases?: string[];
+    }) => intlayerOAuth.showcaseProject.updateShowcaseProject(projectId, body),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['showcase'] });
+    },
   });
 };

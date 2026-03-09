@@ -33,6 +33,9 @@ import type { User, UserAPI } from '@/types/user.types';
 
 export type Auth = ReturnType<typeof betterAuth>;
 
+// Check if we are in production based on the domain or NODE_ENV
+const isProd = process.env.DOMAIN !== 'localhost';
+
 export const formatSession = (session: SessionContext): OmitId<Session> => {
   const roles = getSessionRoles(session);
   let permissions = computeEffectivePermission(roles);
@@ -128,13 +131,20 @@ export const getAuth = (dbClient: MongoClient): Auth => {
     },
 
     advanced: {
-      cookiePrefix: 'intlayer', // =>  session_token  (no prefix)
-
-      // Override just the session‑token cookie
+      crossSubDomainCookies: {
+        enabled: isProd,
+        domain: isProd ? process.env.DOMAIN : undefined,
+        additionalCookies: ['session_token'],
+      },
+      cookiePrefix: 'intlayer',
       cookies: {
         session_token: {
-          // name: 'intlayer_session_token', // final name depends on the prefix above
-          // attributes: { sameSite: "lax", maxAge: 60 * 60 * 24 } // optional
+          name: 'session_token',
+          attributes: {
+            httpOnly: true,
+            secure: isProd,
+            sameSite: 'lax',
+          },
         },
       },
     },
@@ -316,22 +326,6 @@ export const getAuth = (dbClient: MongoClient): Auth => {
           username: user.name ?? user.email.split('@')[0],
           validationLink: url,
         });
-      },
-    },
-
-    crossSubDomainCookies: {
-      enabled: true,
-      additionalCookies: ['session_token'],
-      domain: process.env.DOMAIN as string,
-    },
-    cookiePrefix: 'intlayer',
-    cookies: {
-      session_token: {
-        name: 'session_token',
-        attributes: {
-          httpOnly: true,
-          secure: true,
-        },
       },
     },
 

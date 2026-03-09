@@ -12,8 +12,10 @@ import {
   Badge,
   Calendar,
   Check,
+  Circle,
   Code,
   Layers,
+  Pencil,
   RefreshCw,
   ThumbsDown,
   ThumbsUp,
@@ -25,15 +27,16 @@ import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { PagesRoutes } from '#/Routes';
+import type { ShowcaseProject } from '#/utils/projectActions/types';
 import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
 import { useShowcaseLike } from '@/hooks/useShowcaseLike';
-import type { Project } from '@/server/projectActions/types';
+import { EditProjectModal } from './EditProjectModal';
 import { useScanProject } from './useScanProject';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL ?? '';
 
 interface ProjectSidebarProps {
-  project: Project;
+  project: ShowcaseProject;
   formatDate: (dateStr?: string) => string;
 }
 
@@ -49,7 +52,7 @@ const ScanStepItem: FC<{
       ) : isCurrent ? (
         <Loader className="h-4 w-4" />
       ) : (
-        <span className="animate-pulse">⏳</span>
+        <Circle className="size-5 shrink-0 text-neutral/30" />
       )}
     </span>
     <span
@@ -87,6 +90,7 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
   formatDate,
 }) => {
   const content = useIntlayer('project-sidebar');
+  const submitFormContent = useIntlayer('submit-project-form');
   const appContent = useIntlayer('app');
   const { oAuth2AccessToken } = useAuth();
   const navigate = useLocalizedNavigate();
@@ -102,15 +106,21 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleteError, setDeleteError] = useState<string | null>(null);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [editedProject, setEditedProject] = useState<ShowcaseProject | null>(
+    null
+  );
 
-  // Use scanned result if available, otherwise fall back to initial data
-  const project = scannedProject ?? initialProject;
+  // Use scanned result if available, then edited, otherwise fall back to initial data
+  const project = scannedProject ?? editedProject ?? initialProject;
 
   const {
-    upvotes,
-    isLiked,
-    isDisabled: isVoteDisabled,
-    handleVote,
+    score,
+    isUpvoted,
+    isDownVoted,
+    isPending: isVoteDisabled,
+    handleUpvote,
+    handleDownvote,
   } = useShowcaseLike(project);
 
   const handleDelete = async () => {
@@ -124,7 +134,7 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
         headers.Authorization = `Bearer ${token}`;
       }
       const res = await fetch(
-        `${BACKEND_URL}/api/showcase-project/${initialProject._id}`,
+        `${BACKEND_URL}/api/showcase-project/${initialProject.id}`,
         { method: 'DELETE', headers, credentials: 'include' }
       );
       if (!res.ok) {
@@ -158,7 +168,7 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
           <div className="flex flex-col items-center justify-center gap-5 px-4 py-6">
             {scanError ? (
               <>
-                <H2>Scan Failed</H2>
+                <H2>{submitFormContent.modal.errorTitle}</H2>
                 <span className="max-w-full overflow-hidden text-clip text-center text-neutral text-sm">
                   {scanError}
                 </span>
@@ -171,16 +181,16 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
                   onClick={resetScan}
                   isFullWidth
                   className="mt-6"
-                  label="Close"
+                  label={submitFormContent.modal.closeButton.value}
                 >
-                  Close
+                  {submitFormContent.modal.closeButton}
                 </Button>
               </>
             ) : scanStep === 'SUCCESS' ? (
               <>
-                <H2>Scan Complete!</H2>
+                <H2>{submitFormContent.modal.successTitle}</H2>
                 <span className="text-center text-neutral text-sm">
-                  Your project has been successfully scanned and updated.
+                  {submitFormContent.modal.successMessage}
                 </span>
                 <div className="m-auto mt-4 aspect-square rounded-full bg-success/30 p-5">
                   <Check className="text-success" size={50} />
@@ -191,19 +201,21 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
                   onClick={resetScan}
                   isFullWidth
                   className="mt-6"
-                  label="Done"
+                  label={submitFormContent.modal.closeButton.value}
                 >
-                  Done
+                  {submitFormContent.modal.closeButton}
                 </Button>
               </>
             ) : (
               <>
-                <H2>Scanning Project</H2>
+                <H2>{submitFormContent.modal.title}</H2>
+
                 <Loader isLoading={true} />
+
                 <div className="my-4 flex w-full max-w-md flex-col gap-4 border-l border-l-neutral/30 pl-4">
                   <ul className="space-y-3 text-neutral text-sm">
                     <ScanStepItem
-                      label="Scanning website for Intlayer usage..."
+                      label={submitFormContent.modal.steps.verifyBundle.value}
                       isCurrent={scanStep === 'SCANNING_START'}
                       isDone={[
                         'SCANNING_SUCCESS',
@@ -215,7 +227,7 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
                     />
                     {initialProject.githubUrl && (
                       <ScanStepItem
-                        label="Verifying GitHub repository..."
+                        label={submitFormContent.modal.steps.verifyGithub.value}
                         isCurrent={scanStep === 'VERIFY_GITHUB_START'}
                         isDone={[
                           'VERIFY_GITHUB_SUCCESS',
@@ -225,7 +237,9 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
                       />
                     )}
                     <ScanStepItem
-                      label="Taking screenshot & saving..."
+                      label={
+                        submitFormContent.modal.steps.screenshotAndSave.value
+                      }
                       isCurrent={scanStep === 'SCREENSHOT_START'}
                       isDone={scanStep === 'SCREENSHOT_SUCCESS'}
                     />
@@ -329,7 +343,15 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
           label={content.intlayerVersion}
           value={project.intlayerVersion || content.stable}
         />
+      </Container>
 
+      <Container
+        className="flex flex-col"
+        roundedSize="3xl"
+        padding="md"
+        gap="md"
+        transparency="lg"
+      >
         {/* Owner-only actions */}
         {initialProject.isOwner && (
           <>
@@ -341,7 +363,7 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
               Icon={RefreshCw}
               isLoading={isScanRunning}
               disabled={isScanRunning}
-              onClick={() => scanProject(project._id)}
+              onClick={() => scanProject(project.id)}
               className="mt-2 w-full"
             >
               {isScanRunning ? 'Scanning…' : 'Scan Project'}
@@ -349,6 +371,18 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
             <Button
               type="button"
               variant="hoverable"
+              color="text"
+              label="Edit project"
+              Icon={Pencil}
+              disabled={isScanRunning}
+              onClick={() => setEditModalOpen(true)}
+              className="w-full"
+            >
+              Edit Project
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
               color="error"
               label={content.deleteProject.value}
               Icon={Trash2}
@@ -361,15 +395,31 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
           </>
         )}
 
+        {/* Edit modal */}
+        {editModalOpen && (
+          <EditProjectModal
+            project={project}
+            onClose={() => setEditModalOpen(false)}
+            onUpdated={(updated) => {
+              // The API returns `id` (not `_id`), so normalise before storing.
+              setEditedProject({
+                ...updated,
+                id: updated.id,
+              });
+              setEditModalOpen(false);
+            }}
+          />
+        )}
+
         {/* Delete confirmation modal */}
         <Modal
           isOpen={deleteConfirmOpen}
           onClose={() => setDeleteConfirmOpen(false)}
           size={ModalSize.SM}
           hasCloseButton
+          title={content.deleteConfirmTitle}
         >
           <div className="flex flex-col gap-4 px-4 py-6">
-            <H2>{content.deleteConfirmTitle}</H2>
             <p className="text-neutral text-sm">
               {content.deleteConfirmDescription}
             </p>
@@ -387,7 +437,7 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
               </Button>
               <Button
                 type="button"
-                variant="default"
+                variant="outline"
                 color="error"
                 label={content.deleteConfirm.value}
                 Icon={Trash2}
@@ -416,7 +466,7 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
             {content.rateThisProject}
           </span>
           <Container className="flex aspect-square size-10 items-center justify-center rounded-full font-bold text-lg text-text/70">
-            {upvotes}
+            {score}
           </Container>
         </div>
 
@@ -424,22 +474,24 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
           <Button
             type="button"
             variant="hoverable"
-            color={isLiked ? 'primary' : 'neutral'}
+            color="text"
             label={appContent.showcase.upvote.label.value}
             Icon={ThumbsUp}
             className="flex-1"
-            onClick={handleVote}
+            onClick={handleUpvote}
             disabled={isVoteDisabled}
+            isActive={isUpvoted}
           />
           <Button
             type="button"
             variant="hoverable"
-            color="neutral"
+            color="text"
             label={appContent.showcase.downvote.label.value}
             Icon={ThumbsDown}
             className="flex-1"
-            onClick={handleVote}
+            onClick={handleDownvote}
             disabled={isVoteDisabled}
+            isActive={isDownVoted}
           />
         </div>
       </Container>

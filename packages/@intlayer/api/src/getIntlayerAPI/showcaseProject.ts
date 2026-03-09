@@ -1,7 +1,23 @@
+import type {
+  GetOtherShowcaseProjectsResult,
+  GetShowcaseProjectByIdParams,
+  GetShowcaseProjectByIdResult,
+  GetShowcaseProjectsResult,
+  SubmitShowcaseProjectBody,
+  SubmitShowcaseProjectResult,
+  ToggleShowcaseDownvoteBody,
+  ToggleShowcaseDownvoteResult,
+  ToggleShowcaseUpvoteBody,
+  ToggleShowcaseUpvoteResult,
+  UpdateShowcaseProjectBody,
+  UpdateShowcaseProjectResult,
+} from '@intlayer/backend';
 import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/types';
 import { type FetcherOptions, fetcher } from '../fetcher';
 
+// Client-side query types use proper JS types (numbers/booleans) rather than
+// the backend querystring types which are always strings.
 export type ShowcaseProjectsQuery = {
   page?: number;
   pageSize?: number;
@@ -10,7 +26,10 @@ export type ShowcaseProjectsQuery = {
   isOpenSource?: boolean;
 };
 
-export type ToggleShowcaseLikeBody = { projectId: string };
+export type OtherShowcaseProjectsQuery = {
+  excludeId: string;
+  limit?: number;
+};
 
 export const getShowcaseProjectAPI = (
   authAPIOptions: FetcherOptions = {},
@@ -40,17 +59,19 @@ export const getShowcaseProjectAPI = (
     if (query?.selectedUseCases?.length)
       params.selectedUseCases = query.selectedUseCases;
 
-    return await fetcher(SHOWCASE_API_ROUTE, authAPIOptions, otherOptions, {
-      method: 'GET',
-      params: params as any,
-    });
+    return await fetcher<GetShowcaseProjectsResult>(
+      SHOWCASE_API_ROUTE,
+      authAPIOptions,
+      otherOptions,
+      { method: 'GET', params: params as any }
+    );
   };
 
   const getShowcaseProjectById = async (
-    projectId: string,
+    projectId: GetShowcaseProjectByIdParams['projectId'],
     otherOptions: FetcherOptions = {}
   ) =>
-    await fetcher(
+    await fetcher<GetShowcaseProjectByIdResult>(
       `${SHOWCASE_API_ROUTE}/${projectId}`,
       authAPIOptions,
       otherOptions,
@@ -58,13 +79,12 @@ export const getShowcaseProjectAPI = (
     );
 
   const getOtherShowcaseProjects = async (
-    excludeId: string,
-    limit?: number,
+    query: OtherShowcaseProjectsQuery,
     otherOptions: FetcherOptions = {}
   ) => {
-    const params: Record<string, string> = { excludeId };
-    if (limit !== undefined) params.limit = String(limit);
-    return await fetcher(
+    const params: Record<string, string> = { excludeId: query.excludeId };
+    if (query.limit !== undefined) params.limit = String(query.limit);
+    return await fetcher<GetOtherShowcaseProjectsResult>(
       `${SHOWCASE_API_ROUTE}/others`,
       authAPIOptions,
       otherOptions,
@@ -72,19 +92,41 @@ export const getShowcaseProjectAPI = (
     );
   };
 
-  const toggleShowcaseLike = async (
-    body: ToggleShowcaseLikeBody,
+  const submitShowcaseProject = async (
+    body: SubmitShowcaseProjectBody,
     otherOptions: FetcherOptions = {}
   ) =>
-    await fetcher<{ data: { upvotes: number; isLiked: boolean } }>(
-      `${SHOWCASE_API_ROUTE}/like`,
+    await fetcher<SubmitShowcaseProjectResult>(
+      `${SHOWCASE_API_ROUTE}/submit`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'POST', body }
+    );
+
+  const toggleShowcaseUpvote = async (
+    body: ToggleShowcaseUpvoteBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<ToggleShowcaseUpvoteResult>(
+      `${SHOWCASE_API_ROUTE}/upvote`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'POST', body }
+    );
+
+  const toggleShowcaseDownvote = async (
+    body: ToggleShowcaseDownvoteBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<ToggleShowcaseDownvoteResult>(
+      `${SHOWCASE_API_ROUTE}/downvote`,
       authAPIOptions,
       otherOptions,
       { method: 'POST', body }
     );
 
   const deleteShowcaseProject = async (
-    projectId: string,
+    projectId: GetShowcaseProjectByIdParams['projectId'],
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<{ data: { success: boolean } }>(
@@ -94,11 +136,26 @@ export const getShowcaseProjectAPI = (
       { method: 'DELETE' }
     );
 
+  const updateShowcaseProject = async (
+    projectId: GetShowcaseProjectByIdParams['projectId'],
+    body: UpdateShowcaseProjectBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<UpdateShowcaseProjectResult>(
+      `${SHOWCASE_API_ROUTE}/${projectId}`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'PATCH', body }
+    );
+
   return {
     getShowcaseProjects,
     getShowcaseProjectById,
     getOtherShowcaseProjects,
-    toggleShowcaseLike,
+    submitShowcaseProject,
+    toggleShowcaseUpvote,
+    toggleShowcaseDownvote,
     deleteShowcaseProject,
+    updateShowcaseProject,
   };
 };

@@ -1,3 +1,4 @@
+import { Locales } from '@intlayer/types';
 import { logger } from '@logger';
 import { launchBrowser } from '@utils/puppeteer/launchBrowser';
 import type { ShowcaseScanDetails } from '@/types/showcaseProject.types';
@@ -29,13 +30,6 @@ const INTLAYER_BUNDLE_PKG_REGEX =
  */
 const INTLAYER_BUNDLE_MARKER =
   /name\s*:\s*['"]Intlayer['"]\s*,\s*version\s*:\s*['"][^'"]+['"]\s*,\s*doc\s*:\s*[`'"]https:\/\/intlayer\.org\/docs[`'"]/i;
-
-/**
- * Simpler fallback: the doc URL alone is unique enough to identify the bundle.
- * Matches e.g. `doc:"https://intlayer.org/docs"` regardless of property order.
- */
-const INTLAYER_DOC_URL_MARKER =
-  /doc\s*:\s*[`'"]https:\/\/intlayer\.org\/docs[`'"]/i;
 
 /** Extract all intlayer packages from a script text blob. */
 export const extractPackagesFromScript = (
@@ -77,8 +71,10 @@ export const scanShowcaseProject = async (
         /* ok if the page never fully idles (SPAs, analytics, etc.) */
       });
 
-    // ── Page-level details (DOM evaluation) ──────────────────────────────────
-    const pageDetails = await page.evaluate(() => {
+    const allLocales = Object.values(Locales.ALL_LOCALES);
+
+    // Page-level details (DOM evaluation)
+    const pageDetails = await page.evaluate((locales) => {
       const html = document.documentElement;
       const lang = html.getAttribute('lang') || '';
       const dir = html.getAttribute('dir') || 'ltr';
@@ -95,18 +91,7 @@ export const scanShowcaseProject = async (
         (a) => a.getAttribute('href') || ''
       );
 
-      const localizedPrefixes = [
-        '/en',
-        '/fr',
-        '/es',
-        '/de',
-        '/it',
-        '/ja',
-        '/ko',
-        '/pt',
-        '/ru',
-        '/zh',
-      ];
+      const localizedPrefixes = locales.map((el) => `/${el}`);
       const internalLinks = links.filter(
         (href) =>
           href.startsWith('/') || href.startsWith(window.location.origin)
@@ -124,13 +109,13 @@ export const scanShowcaseProject = async (
       const inlineScripts = Array.from(
         document.querySelectorAll('script:not([src])')
       )
-        .map((s) => s.textContent || '')
+        .map((script) => script.textContent || '')
         .filter(Boolean);
 
       const externalScriptUrls = Array.from(
         document.querySelectorAll('script[src]')
       )
-        .map((s) => (s as HTMLScriptElement).src)
+        .map((script) => (script as HTMLScriptElement).src)
         .filter(Boolean);
 
       return {
@@ -143,9 +128,9 @@ export const scanShowcaseProject = async (
         inlineScripts,
         externalScriptUrls,
       };
-    });
+    }, allLocales);
 
-    // ── Screenshot (same page, no extra navigation) ──────────────────────────
+    // Screenshot (same page, no extra navigation)
     logger.info(`[scanShowcaseProject] Taking screenshot of ${url}...`);
     const screenshotBuffer = (await page.screenshot({
       type: 'jpeg',
@@ -154,18 +139,19 @@ export const scanShowcaseProject = async (
 
     await page.close();
 
-    // ── robots.txt ────────────────────────────────────────────────────────────
+    // robots.txt
     let robotsAccessible = false;
     try {
       const robotsRes = await fetch(new URL('/robots.txt', url).toString());
       robotsAccessible = robotsRes.ok;
     } catch {}
 
-    // ── sitemap.xml ───────────────────────────────────────────────────────────
+    // sitemap.xml
     let sitemapDiscoverable = false;
     let sitemapUrlCount = 0;
     try {
       const sitemapRes = await fetch(new URL('/sitemap.xml', url).toString());
+
       if (sitemapRes.ok) {
         sitemapDiscoverable = true;
         const text = await sitemapRes.text();
@@ -173,7 +159,7 @@ export const scanShowcaseProject = async (
       }
     } catch {}
 
-    // ── Intlayer bundle detection ─────────────────────────────────────────────
+    // Intlayer bundle detection
     const packageDetails: Record<string, string> = {};
     let markerFoundInExternalScript = false;
 
@@ -194,17 +180,18 @@ export const scanShowcaseProject = async (
         scriptUrls.map(async (src) => {
           try {
             const res = await fetch(src);
+
             if (!res.ok) return;
             const contentLength = Number(
               res.headers.get('content-length') || 0
             );
+
             if (contentLength > MAX_SCRIPT_BYTES) return;
             const text = await res.text();
+
             if (text.length > MAX_SCRIPT_BYTES) return;
-            if (
-              INTLAYER_BUNDLE_MARKER.test(text) ||
-              INTLAYER_DOC_URL_MARKER.test(text)
-            ) {
+
+            if (INTLAYER_BUNDLE_MARKER.test(text)) {
               markerFoundInExternalScript = true;
               Object.assign(packageDetails, extractPackagesFromScript(text));
             } else if (text.includes('intlayer')) {
@@ -216,18 +203,20 @@ export const scanShowcaseProject = async (
     }
 
     const hasIntlayer =
-      Object.keys(packageDetails).some((k) =>
-        k.toLowerCase().includes('intlayer')
+      Object.keys(packageDetails).some(
+        (key) =>
+          key.toLowerCase().includes('intlayer') &&
+          !key.toLowerCase().includes('@intlayer')
       ) ||
-      pageDetails.inlineScripts.some(
-        (s) => INTLAYER_BUNDLE_MARKER.test(s) || INTLAYER_DOC_URL_MARKER.test(s)
+      pageDetails.inlineScripts.some((script) =>
+        INTLAYER_BUNDLE_MARKER.test(script)
       ) ||
       markerFoundInExternalScript;
 
     const libsUsed = Object.keys(packageDetails);
     const intlayerVersion = packageDetails.intlayer;
 
-    // ── SEO score ─────────────────────────────────────────────────────────────
+    // SEO score
     let score = 0;
     if (pageDetails.lang) score += 10;
     if (pageDetails.canonical) score += 10;

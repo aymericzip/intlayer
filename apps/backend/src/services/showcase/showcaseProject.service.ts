@@ -118,6 +118,8 @@ export const createShowcaseProject = async (
     ...projectData,
     upvotes: 0,
     upvoters: [],
+    downvotes: 0,
+    downvoters: [],
   });
 
   await newProject.save();
@@ -125,6 +127,11 @@ export const createShowcaseProject = async (
 };
 
 export type UpdateShowcaseProjectScanData = {
+  title?: string;
+  description?: string;
+  websiteUrl?: string;
+  githubUrl?: string | null;
+  tags?: string[];
   intlayerVersion?: string;
   libsUsed?: string[];
   packageDetails?: Record<string, string>;
@@ -158,10 +165,18 @@ export const deleteShowcaseProject = async (
   await ShowcaseProjectModel.findByIdAndDelete(projectId);
 };
 
-export const toggleShowcaseLike = async (
+type VoteResult = {
+  upvotes: number;
+  isUpVoted: boolean;
+  downvotes: number;
+  isDownVoted: boolean;
+};
+
+const toggleShowcaseVote = async (
   projectId: string,
-  userId: string
-): Promise<{ upvotes: number; isLiked: boolean }> => {
+  userId: string,
+  voteType: 'up' | 'down'
+): Promise<VoteResult> => {
   const project = await ShowcaseProjectModel.findById(projectId);
 
   if (!project) {
@@ -169,17 +184,62 @@ export const toggleShowcaseLike = async (
   }
 
   const upvoters: string[] = project.upvoters || [];
-  const isLiked = upvoters.includes(userId);
+  const downvoters: string[] = project.downvoters || [];
 
-  if (isLiked) {
-    project.upvoters = upvoters.filter((id) => id !== userId);
-    project.upvotes = Math.max(0, (project.upvotes || 0) - 1);
+  if (voteType === 'up') {
+    const wasUpvoted = upvoters.includes(userId);
+
+    if (wasUpvoted) {
+      project.upvoters = upvoters.filter((id) => id !== userId);
+      project.upvotes = Math.max(0, project.upvotes - 1);
+    } else {
+      project.upvoters.push(userId);
+      project.upvotes += 1;
+      if (downvoters.includes(userId)) {
+        project.downvoters = downvoters.filter((id) => id !== userId);
+        project.downvotes = Math.max(0, project.downvotes - 1);
+      }
+    }
+
+    await project.save();
+
+    return {
+      upvotes: project.upvotes,
+      isUpVoted: !wasUpvoted,
+      downvotes: project.downvotes,
+      isDownVoted: false,
+    };
   } else {
-    project.upvoters.push(userId);
-    project.upvotes = (project.upvotes || 0) + 1;
+    const wasDownvoted = downvoters.includes(userId);
+
+    if (wasDownvoted) {
+      project.downvoters = downvoters.filter((id) => id !== userId);
+      project.downvotes = Math.max(0, project.downvotes - 1);
+    } else {
+      project.downvoters.push(userId);
+      project.downvotes += 1;
+
+      if (upvoters.includes(userId)) {
+        project.upvoters = upvoters.filter((id) => id !== userId);
+        project.upvotes = Math.max(0, project.upvotes - 1);
+      }
+    }
+    await project.save();
+    return {
+      upvotes: project.upvotes,
+      isUpVoted: false,
+      downvotes: project.downvotes,
+      isDownVoted: !wasDownvoted,
+    };
   }
-
-  await project.save();
-
-  return { upvotes: project.upvotes, isLiked: !isLiked };
 };
+
+export const toggleShowcaseUpvote = (
+  projectId: string,
+  userId: string
+): Promise<VoteResult> => toggleShowcaseVote(projectId, userId, 'up');
+
+export const toggleShowcaseDownvote = (
+  projectId: string,
+  userId: string
+): Promise<VoteResult> => toggleShowcaseVote(projectId, userId, 'down');

@@ -1,9 +1,9 @@
-import { Carousel, Container } from '@intlayer/design-system';
-import { useQuery } from '@tanstack/react-query';
+import { Carousel, Container, H2 } from '@intlayer/design-system';
+import { useGetOtherShowcaseProjects } from '@intlayer/design-system/hooks';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import type { ShowcaseProject } from '#/utils/projectActions/types';
 import { ProjectCard } from '@/components/ProjectCard';
-import { getOtherProjects } from '@/server/projectActions/projectActions';
 
 interface MoreProjectsProps {
   excludeId: string;
@@ -12,16 +12,17 @@ interface MoreProjectsProps {
 export const MoreProjects: FC<MoreProjectsProps> = ({ excludeId }) => {
   const content = useIntlayer('project-more-projects');
 
-  const { data: otherProjects = [] } = useQuery({
-    queryKey: ['otherProjects', excludeId],
-    queryFn: () => getOtherProjects({ data: { excludeId, limit: 10 } }),
-    select: (response) => response.data ?? [],
+  const { data: response } = useGetOtherShowcaseProjects({
+    excludeId,
+    limit: 10,
   });
+
+  const otherProjects = response?.data ?? [];
 
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-1">
-        <h2 className="font-bold text-text text-xl">{content.moreProjects}</h2>
+        <H2 className="font-bold text-text text-xl">{content.moreProjects}</H2>
         <p className="text-neutral text-xs">
           {content.moreProjectsDescription}
         </p>
@@ -40,9 +41,9 @@ export const MoreProjects: FC<MoreProjectsProps> = ({ excludeId }) => {
         ) : (
           <div className="flex flex-col gap-6">
             <Carousel>
-              {otherProjects.map((proj) => (
-                <Carousel.Item key={proj._id}>
-                  <ProjectCard project={proj} />
+              {otherProjects.map((project: ShowcaseProject) => (
+                <Carousel.Item key={project.id}>
+                  <ProjectCard project={project} />
                 </Carousel.Item>
               ))}
               <Carousel.Indicators />

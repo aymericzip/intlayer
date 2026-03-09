@@ -24,10 +24,10 @@ const initialState: AnalyzerState = {
   isSingleScanLoading: false,
 };
 
-function analyzerReducer(
+const analyzerReducer = (
   state: AnalyzerState,
   action: AnalyzerAction
-): AnalyzerState {
+): AnalyzerState => {
   switch (action.type) {
     case 'START_SINGLE_SCAN':
       return {
@@ -51,7 +51,7 @@ function analyzerReducer(
     default:
       return state;
   }
-}
+};
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL as string;
 

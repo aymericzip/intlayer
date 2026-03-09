@@ -3,22 +3,29 @@ import { Link } from '@tanstack/react-router';
 import { ExternalLink, ThumbsDown, ThumbsUp } from 'lucide-react';
 import { useIntlayer } from 'react-intlayer';
 import { getFaviconUrl } from '#/utils/getFaviconUrl';
+import type { ShowcaseProject } from '#/utils/projectActions/types';
 import { useShowcaseLike } from '@/hooks/useShowcaseLike';
-import type { Project } from '@/server/projectActions/types';
 
 interface ProjectCardProps {
-  project: Project;
+  project: ShowcaseProject;
 }
 
 export const ProjectCard = ({ project }: ProjectCardProps) => {
   const content = useIntlayer('app');
-  const { upvotes, isLiked, isDisabled, handleVote } = useShowcaseLike(project);
+  const {
+    score,
+    isUpvoted,
+    isDownVoted,
+    isPending: isDisabled,
+    handleUpvote,
+    handleDownvote,
+  } = useShowcaseLike(project);
 
   const faviconUrl = getFaviconUrl(project.websiteUrl);
 
   return (
     <Container
-      key={project._id}
+      key={project.id}
       className="group relative h-full overflow-hidden shadow-lg transition-all [-webkit-mask-image:-webkit-radial-gradient(white,black)] hover:shadow-xl"
       roundedSize="3xl"
       transparency="lg"
@@ -26,7 +33,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
       <Link
         to="/{-$locale}/project/$projectId"
         params={{
-          projectId: project._id,
+          projectId: project.id,
         }}
         preload="viewport"
         className="flex flex-1 flex-col"
@@ -90,23 +97,25 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
               type="button"
               variant="hoverable"
               label={content.showcase.upvote.label.value}
-              color={isLiked ? 'primary' : 'neutral'}
+              color="text"
               size="icon-sm"
               Icon={ThumbsUp}
-              onClick={handleVote}
+              onClick={handleUpvote}
               disabled={isDisabled}
+              isActive={isUpvoted}
             />
             <span className="min-w-6 text-center font-medium text-sm text-text">
-              {upvotes}
+              {score}
             </span>
             <Button
               type="button"
               variant="hoverable"
               label={content.showcase.downvote.label.value}
-              color="neutral"
+              color="text"
               size="icon-sm"
               Icon={ThumbsDown}
-              onClick={handleVote}
+              onClick={handleDownvote}
+              isActive={isDownVoted}
               disabled={isDisabled}
             />
           </div>

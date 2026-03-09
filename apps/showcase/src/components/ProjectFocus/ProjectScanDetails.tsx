@@ -1,14 +1,17 @@
-import { Container } from '@intlayer/design-system';
+import { Container, H2 } from '@intlayer/design-system';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import type { Project } from '@/server/projectActions/types';
+import type { ShowcaseProject } from '#/utils/projectActions/types';
 import { AnalyzerPageResults } from '../Scanner/Analyzer/Results/AnalyzerPageResults';
 import { RobotsSection } from '../Scanner/Analyzer/Results/RobotsSection';
 import { SitemapSection } from '../Scanner/Analyzer/Results/SitemapSection';
-import type { MergedData } from '../Scanner/Analyzer/Results/types';
+import type {
+  AuditStatus,
+  MergedData,
+} from '../Scanner/Analyzer/Results/types';
 
 interface ProjectScanDetailsProps {
-  project: Project;
+  project: ShowcaseProject;
 }
 
 export const ProjectScanDetails: FC<ProjectScanDetailsProps> = ({
@@ -21,49 +24,57 @@ export const ProjectScanDetails: FC<ProjectScanDetailsProps> = ({
   const url = project.websiteUrl;
   const mergedData: MergedData = {
     [`url_htmlLang\\${url}`]: {
-      status: scan?.langTag ? 'success' : 'error',
+      status: (scan?.langTag ? 'success' : 'error') as AuditStatus,
       data: { successDetails: scan?.langTag || null },
     },
     [`url_htmlDir\\${url}`]: {
-      status: 'success',
+      status: 'success' as AuditStatus,
       data: { successDetails: scan?.htmlDir || 'ltr' },
     },
     [`url_hreflang\\${url}`]: {
-      status: scan?.hreflangs?.length ? 'success' : 'error',
+      status: (scan?.hreflangs?.length ? 'success' : 'error') as AuditStatus,
       data: { successDetails: scan?.hreflangs || [] },
     },
     [`url_hasXDefault\\${url}`]: {
-      status: scan?.hasXDefault ? 'success' : 'error',
+      status: (scan?.hasXDefault ? 'success' : 'error') as AuditStatus,
     },
     [`url_hasCanonical\\${url}`]: {
-      status: scan?.hasCanonical ? 'success' : 'error',
+      status: (scan?.hasCanonical ? 'success' : 'error') as AuditStatus,
     },
     [`url_hasLocalizedLinks\\${url}`]: {
-      status: scan?.hasLocalizedLinks ? 'success' : 'error',
+      status: (scan?.hasLocalizedLinks ? 'success' : 'error') as AuditStatus,
     },
     robots_robotsPresent: {
-      status: scan?.robotsTxt?.accessible ? 'success' : 'error',
+      status: (scan?.robotsTxt?.accessible
+        ? 'success'
+        : 'error') as AuditStatus,
     },
     robots_noLocalizedUrlsForgotten: {
-      status: scan?.robotsTxt?.disallowWithoutLocaleAlternates
+      status: (scan?.robotsTxt?.disallowWithoutLocaleAlternates
         ? 'success'
-        : 'error',
+        : 'error') as AuditStatus,
     },
     sitemap_sitemapPresent: {
-      status: scan?.sitemapXml?.urlsDiscoveredCount ? 'success' : 'error',
+      status: (scan?.sitemapXml?.urlsDiscoveredCount
+        ? 'success'
+        : 'error') as AuditStatus,
     },
     sitemap_noLocalizedUrlsForgotten: {
-      status: scan?.sitemapXml?.alternatesPresent ? 'success' : 'error',
+      status: (scan?.sitemapXml?.alternatesPresent
+        ? 'success'
+        : 'error') as AuditStatus,
     },
     sitemap_hasXDefault: {
-      status: scan?.sitemapXml?.xDefaultPresent ? 'success' : 'error',
+      status: (scan?.sitemapXml?.xDefaultPresent
+        ? 'success'
+        : 'error') as AuditStatus,
     },
   };
 
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-1">
-        <h2 className="font-bold text-text text-xl">{content.seoHeader}</h2>
+        <H2 className="font-bold text-text text-xl">{content.seoHeader}</H2>
         <p className="text-neutral text-sm">{content.seoDescription}</p>
       </div>
       <Container roundedSize="3xl" padding="lg" transparency="lg">

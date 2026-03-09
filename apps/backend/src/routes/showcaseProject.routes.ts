@@ -5,7 +5,9 @@ import {
   getShowcaseProjects,
   scanShowcaseProject,
   submitShowcaseProject,
-  toggleShowcaseLike,
+  toggleShowcaseDownvote,
+  toggleShowcaseUpvote,
+  updateShowcaseProjectHandler,
 } from '@controllers/showcaseProject.controller';
 import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
@@ -31,9 +33,14 @@ export const getShowcaseProjectRoutes = () =>
       url: `${baseURL()}/others`,
       method: 'GET',
     },
-    toggleShowcaseLike: {
-      urlModel: '/like',
-      url: `${baseURL()}/like`,
+    toggleShowcaseUpvote: {
+      urlModel: '/upvote',
+      url: `${baseURL()}/upvote`,
+      method: 'POST',
+    },
+    toggleShowcaseDownvote: {
+      urlModel: '/downvote',
+      url: `${baseURL()}/downvote`,
       method: 'POST',
     },
     getShowcaseProjectById: {
@@ -54,6 +61,12 @@ export const getShowcaseProjectRoutes = () =>
         `${baseURL()}/${projectId}`,
       method: 'DELETE',
     },
+    updateShowcaseProject: {
+      urlModel: '/:projectId',
+      url: ({ projectId }: { projectId: string }) =>
+        `${baseURL()}/${projectId}`,
+      method: 'PATCH',
+    },
   }) satisfies Routes;
 
 export const showcaseProjectRouter = async (fastify: FastifyInstance) => {
@@ -70,8 +83,12 @@ export const showcaseProjectRouter = async (fastify: FastifyInstance) => {
     getOtherShowcaseProjects
   );
   fastify.post(
-    getShowcaseProjectRoutes().toggleShowcaseLike.urlModel,
-    toggleShowcaseLike
+    getShowcaseProjectRoutes().toggleShowcaseUpvote.urlModel,
+    toggleShowcaseUpvote
+  );
+  fastify.post(
+    getShowcaseProjectRoutes().toggleShowcaseDownvote.urlModel,
+    toggleShowcaseDownvote
   );
   fastify.get(
     getShowcaseProjectRoutes().getShowcaseProjectById.urlModel,
@@ -84,5 +101,9 @@ export const showcaseProjectRouter = async (fastify: FastifyInstance) => {
   fastify.delete(
     getShowcaseProjectRoutes().deleteShowcaseProject.urlModel,
     deleteShowcaseProjectHandler
+  );
+  fastify.patch(
+    getShowcaseProjectRoutes().updateShowcaseProject.urlModel,
+    updateShowcaseProjectHandler
   );
 };

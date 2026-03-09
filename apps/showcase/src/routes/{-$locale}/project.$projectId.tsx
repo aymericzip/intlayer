@@ -1,20 +1,22 @@
+import { getIntlayerAPI } from '@intlayer/api';
 import { createFileRoute } from '@tanstack/react-router';
 import { getIntlayer, getLocalizedUrl } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#/components/Link';
+import type { ShowcaseProject } from '#/utils/projectActions/types';
 import { ProjectFocus } from '@/components/ProjectFocus/ProjectFocus';
 import { ShowcaseHeader } from '@/components/ShowcaseHeader';
 import { SITE_URL } from '@/lib/site';
-import { getProjectById } from '@/server/projectActions/projectActions';
 
 export const Route = createFileRoute('/{-$locale}/project/$projectId')({
   loader: async ({ params }) => {
-    const projectResponse = await getProjectById({
-      data: { projectId: params.projectId },
-    });
+    const projectResponse =
+      await getIntlayerAPI().showcaseProject.getShowcaseProjectById(
+        params.projectId
+      );
 
     return {
-      project: projectResponse.data,
+      project: projectResponse.data as unknown as ShowcaseProject,
     };
   },
   component: ProjectPage,
@@ -70,7 +72,7 @@ function ProjectPage() {
 
   if (!project) {
     return (
-      <div className="flex min-h-screen flex-col">
+      <div className="flex min-h-screen flex-col px-10">
         <ShowcaseHeader />
         <div className="flex flex-1 flex-col items-center justify-center p-8 text-center">
           <h2 className="mb-4 font-bold text-2xl">
@@ -93,11 +95,9 @@ function ProjectPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col px-10">
       <ShowcaseHeader />
-      <div className="flex-1">
-        <ProjectFocus project={project} />
-      </div>
+      <ProjectFocus project={project} />
     </div>
   );
 }

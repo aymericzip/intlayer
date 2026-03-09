@@ -20,8 +20,8 @@ export interface ScanDetails {
 
 export type ProjectStatus = 'pending_scan' | 'active' | 'scan_failed';
 
-export interface Project {
-  _id: string;
+export interface ShowcaseProject {
+  id: string;
   title: string;
   description: string;
   imageUrl: string;
@@ -30,7 +30,9 @@ export interface Project {
   githubUrl?: string;
   tags: string[];
   upvotes: number;
-  upvoters: string[];
+  isUpVoted: boolean;
+  downvotes: number;
+  isDownVoted: boolean;
   isOpenSource: boolean;
   createdAt: string; // Dates are serialized as strings in server functions
   intlayerVersion?: string;

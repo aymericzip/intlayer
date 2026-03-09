@@ -451,11 +451,14 @@ export const intlayerProxy = (
       return redirectUrl(res, newPath, undefined, originalUrl);
     }
 
-    // If we do NOT prefix the default locale, just rewrite in place using canonical path for framework matching
+    // If we do NOT prefix the default locale, just rewrite in place using canonical path for framework matching.
+    // searchParams MUST be preserved here — dropping them causes the framework (e.g. TanStack Start) to
+    // see a URL with no search params, trigger a validateSearch normalisation redirect to the prefixed URL
+    // (e.g. /en?page=1&...), which the middleware then strips back to /?..., creating an infinite loop.
     rewriteUrl(
       req,
       res,
-      `/${locale}${canonicalPath === '/' ? '' : canonicalPath}`,
+      `/${locale}${canonicalPath === '/' ? '' : canonicalPath}${searchParams}`,
       locale
     );
     return next();

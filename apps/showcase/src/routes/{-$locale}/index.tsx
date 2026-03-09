@@ -1,3 +1,4 @@
+import { getIntlayerAPI } from '@intlayer/api';
 import {
   Button,
   Loader,
@@ -5,18 +6,20 @@ import {
   Pagination,
   ShowingResultsNumberItems,
 } from '@intlayer/design-system';
-import { useSearch } from '@intlayer/design-system/hooks';
-import { useQuery } from '@tanstack/react-query';
+import {
+  useGetShowcaseProjects,
+  useSearch,
+} from '@intlayer/design-system/hooks';
 import { createFileRoute } from '@tanstack/react-router';
 import { getIntlayer, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import { useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import type { ShowcaseProject } from '#/utils/projectActions/types';
 import { FiltersBar } from '@/components/FiltersBar';
 import { ProjectCard } from '@/components/ProjectCard';
 import { ShowcaseHeader } from '@/components/ShowcaseHeader';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
 import { SITE_URL } from '@/lib/site';
-import { getProjects } from '@/server/projectActions/projectActions';
 
 type ProjectSearchParams = {
   page?: number;
@@ -29,18 +32,28 @@ type ProjectSearchParams = {
 export const Route = createFileRoute('/{-$locale}/')({
   component: App,
   validateSearch: (search: Record<string, unknown>): ProjectSearchParams => {
-    return {
-      page: search.page ? Number(search.page) : 1,
-      pageSize: search.pageSize ? Number(search.pageSize) : 20,
-      search: search.search ? String(search.search) : '',
-      selectedUseCases: Array.isArray(search.selectedUseCases)
+    const result: ProjectSearchParams = {};
+
+    if (search.page !== undefined) result.page = Number(search.page);
+
+    if (search.pageSize !== undefined)
+      result.pageSize = Number(search.pageSize);
+
+    if (search.search !== undefined) result.search = String(search.search);
+
+    if (search.selectedUseCases !== undefined) {
+      result.selectedUseCases = Array.isArray(search.selectedUseCases)
         ? search.selectedUseCases.map(String)
         : typeof search.selectedUseCases === 'string'
           ? [search.selectedUseCases]
-          : [],
-      isOpenSource:
-        search.isOpenSource === 'true' || search.isOpenSource === true,
-    };
+          : [];
+    }
+
+    if (search.isOpenSource !== undefined) {
+      result.isOpenSource =
+        search.isOpenSource === 'true' || search.isOpenSource === true;
+    }
+    return result;
   },
   loaderDeps: ({
     search: { page, pageSize, search, selectedUseCases, isOpenSource },
@@ -64,14 +77,12 @@ export const Route = createFileRoute('/{-$locale}/')({
         },
       ],
       queryFn: () =>
-        getProjects({
-          data: {
-            page: deps.page ?? 1,
-            pageSize: deps.pageSize ?? 20,
-            search: deps.search ?? '',
-            selectedUseCases: deps.selectedUseCases ?? [],
-            isOpenSource: deps.isOpenSource ?? false,
-          },
+        getIntlayerAPI().showcaseProject.getShowcaseProjects({
+          page: deps.page ?? 1,
+          pageSize: deps.pageSize ?? 20,
+          search: deps.search ?? '',
+          selectedUseCases: deps.selectedUseCases ?? [],
+          isOpenSource: deps.isOpenSource ?? false,
         }),
     });
   },
@@ -87,7 +98,7 @@ export const Route = createFileRoute('/{-$locale}/')({
         { name: 'description', content: content.metadata.description },
         {
           name: 'keywords',
-          content: (content.metadata.keywords as string[]).join(', '),
+          content: content.metadata.keywords.join(', '),
         },
         { property: 'og:title', content: content.metadata.openGraph.title },
         { property: 'og:description', content: content.metadata.description },
@@ -125,9 +136,9 @@ function App() {
   const { params, setParam, setParams } = useSearchParamState({
     page: { type: 'number', fallbackValue: 1 },
     pageSize: { type: 'number', fallbackValue: 20 },
-    search: { type: 'string', fallbackValue: '' },
-    selectedUseCases: { type: 'stringArray', fallbackValue: [] },
-    isOpenSource: { type: 'boolean', fallbackValue: false },
+    search: { type: 'string' },
+    selectedUseCases: { type: 'stringArray' },
+    isOpenSource: { type: 'boolean' },
   });
 
   const { search, setSearch } = useSearch({
@@ -139,27 +150,12 @@ function App() {
     setSearch(params.search ?? '');
   }, [params.search, setSearch]);
 
-  const { data: response, isPending } = useQuery({
-    queryKey: [
-      'projects',
-      {
-        page: params.page,
-        pageSize: params.pageSize,
-        search: search,
-        selectedUseCases: params.selectedUseCases,
-        isOpenSource: params.isOpenSource,
-      },
-    ],
-    queryFn: () =>
-      getProjects({
-        data: {
-          page: params.page,
-          pageSize: params.pageSize,
-          search: search,
-          selectedUseCases: params.selectedUseCases,
-          isOpenSource: params.isOpenSource,
-        },
-      }),
+  const { data: response, isPending } = useGetShowcaseProjects({
+    page: params.page,
+    pageSize: params.pageSize,
+    search: search,
+    selectedUseCases: params.selectedUseCases,
+    isOpenSource: params.isOpenSource,
   });
 
   const projects = response?.data ?? [];
@@ -202,8 +198,11 @@ function App() {
       <div className="mx-auto max-w-7xl px-4 py-8">
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projects.length > 0 ? (
-            projects.map((project) => (
-              <ProjectCard key={project._id} project={project} />
+            projects.map((project: any) => (
+              <ProjectCard
+                key={project._id}
+                project={project as unknown as ShowcaseProject}
+              />
             ))
           ) : (
             <div className="col-span-full flex flex-col items-center justify-center gap-4 py-12 text-center text-neutral text-sm">

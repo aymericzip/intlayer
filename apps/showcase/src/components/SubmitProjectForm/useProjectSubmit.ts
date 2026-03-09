@@ -1,7 +1,28 @@
 import { usePersistedStore } from '@intlayer/design-system/hooks';
 import { useRef, useState } from 'react';
 import { AppRoutes } from '#/Routes';
-import type { AllStep, Project } from '@/server/projectActions/types';
+
+export type AllStep =
+  | 'START'
+  | 'UNAUTHENTICATED'
+  | 'SUCCESS'
+  | 'ERROR'
+  | 'SCANNING_START'
+  | 'SCANNING_SUCCESS'
+  | 'VERIFY_GITHUB_START'
+  | 'VERIFY_GITHUB_SUCCESS'
+  | 'SCREENSHOT_START'
+  | 'SCREENSHOT_SUCCESS'
+  | 'GITHUB_DATA_FETCHED'
+  | 'GITHUB_DATA_FETCH_ERROR'
+  | 'NPM_DATA_FETCHED'
+  | 'NPM_DATA_FETCH_ERROR'
+  | 'URL_CONTENT_FETCHED'
+  | 'URL_CONTENT_FETCH_ERROR'
+  | 'AI_CONTENT_GENERATED'
+  | 'AI_CONTENT_GENERATION_ERROR';
+
+import type { ShowcaseProject } from '#/utils/projectActions/types';
 import type { SubmitProjectFormData } from './useSubmitProjectFormSchema';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL ?? '';
@@ -10,33 +31,24 @@ const SHOWCASE_API = `${BACKEND_URL}/api/showcase-project`;
 export const useProjectSubmit = () => {
   const [submitStep, setSubmitStep] = useState<AllStep | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [submittedProject, setSubmittedProject] = useState<Project | null>(
-    null
-  );
+  const [submittedProject, setSubmittedProject] =
+    useState<ShowcaseProject | null>(null);
   const abortRef = useRef(false);
   const readerRef = useRef<ReadableStreamDefaultReader<Uint8Array> | null>(
     null
   );
 
-  const [, setFormValue] = usePersistedStore('submit-project-form', {
-    name: '',
-    url: '',
-    githubUrl: '',
-    tagline: '',
-    description: '',
-    useCases: [],
-  });
-
-  const resetForm = () => {
-    setFormValue({
+  const [formValue, setFormValue, , clearFormValue] = usePersistedStore(
+    'submit-project-form',
+    {
       name: '',
       url: '',
       githubUrl: '',
       tagline: '',
       description: '',
       useCases: [],
-    });
-  };
+    } as SubmitProjectFormData
+  );
 
   const submitProject = async (data: SubmitProjectFormData) => {
     setSubmitStep('START');
@@ -78,6 +90,7 @@ export const useProjectSubmit = () => {
           `Request failed: ${response.statusText}`;
         setSubmitError(message);
         setSubmitStep('ERROR');
+
         return;
       }
 
@@ -136,7 +149,7 @@ export const useProjectSubmit = () => {
             if (event.step === 'SUCCESS') {
               setSubmittedProject(event.project ?? null);
               setSubmitStep('SUCCESS');
-              resetForm();
+              clearFormValue();
             } else if (event.step === 'ERROR') {
               setSubmitError(event.message ?? 'Scan failed.');
               setSubmitStep('ERROR');
@@ -166,6 +179,8 @@ export const useProjectSubmit = () => {
   };
 
   return {
+    formValue,
+    setFormValue,
     submitStep,
     submitError,
     submittedProject,

@@ -33,6 +33,8 @@ export interface ShowcaseProject {
   tags: string[];
   upvotes: number;
   upvoters: string[];
+  downvotes: number;
+  downvoters: string[];
   isOpenSource: boolean;
   createdAt: Date;
   intlayerVersion?: string;
@@ -63,8 +65,13 @@ export interface ShowcaseProjectData {
 }
 
 export interface ShowcaseProjectAPI
-  extends Omit<ShowcaseProject, '_id' | 'createdAt' | 'lastScanDate'> {
+  extends Omit<
+    ShowcaseProject,
+    '_id' | 'createdAt' | 'lastScanDate' | 'upvoters' | 'downvoters'
+  > {
   id: string;
+  isUpVoted: boolean;
+  isDownVoted: boolean;
   createdAt: string;
   lastScanDate?: string;
   isOwner?: boolean;

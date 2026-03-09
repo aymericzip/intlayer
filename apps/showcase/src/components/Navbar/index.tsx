@@ -1,5 +1,6 @@
 import {
   DiscordLogo,
+  Link,
   LogoWithText,
   Navbar as UINavBar,
 } from '@intlayer/design-system';
@@ -7,7 +8,6 @@ import { useLocation, useRouter } from '@tanstack/react-router';
 import { StarIcon } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { Link } from '@/components/Link';
 import { LocaleSwitcher } from '@/components/LocaleSwitcher/LocaleSwitcher';
 import { GithubLogo } from '@/components/logo/GithubLogo';
 import { ProfileDropDown } from '@/components/ProfileDropdown/ProfileDropdown';
@@ -56,7 +56,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
     <UINavBar
       logo={
         <Link
-          to={logo.url.value}
+          href={logo.url.value}
           label={logo.label.value}
           isExternalLink={false}
           color="text"
@@ -71,7 +71,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
           <Link
             id={id?.value}
             key={getCleanChoice(url.value)}
-            to={url.value}
+            href={url.value}
             label={label.value}
             isExternalLink={false}
             aria-current={
@@ -90,7 +90,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
           <Link
             id={id?.value}
             key={getCleanChoice(url.value)}
-            to={url.value}
+            href={url.value}
             isExternalLink={false}
             isActive={selectedChoice === getCleanChoice(url.value)}
             label={label.value}
@@ -106,7 +106,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
         <div className="flex w-full flex-col gap-4">
           <Link
             label={github.label.value}
-            to={github.url.value}
+            href={github.url.value}
             variant="button-outlined"
             color="text"
             className="group/github rounded-2xl! leading-6"
@@ -131,7 +131,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
           ) : (
             <Link
               label={login.label.value}
-              to={login.url.value}
+              href={login.url.value}
               variant="button"
               color="text"
             >
@@ -154,7 +154,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
           <ProfileDropDown />
           <Link
             label={discord.label.value}
-            to={discord.url.value}
+            href={discord.url.value}
             target="_blank"
             color="text"
             variant="button-outlined"
@@ -166,7 +166,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
           </Link>
           <Link
             label={github.label.value}
-            to={github.url.value}
+            href={github.url.value}
             color="text"
             variant="button"
             roundedSize="full"

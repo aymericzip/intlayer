@@ -35,6 +35,8 @@ export const showcaseProjectSchema = new Schema<ShowcaseProjectDocument>(
     tags: { type: [String], default: [] },
     upvotes: { type: Number, default: 0 },
     upvoters: { type: [String], default: [] },
+    downvotes: { type: Number, default: 0 },
+    downvoters: { type: [String], default: [] },
     isOpenSource: { type: Boolean, default: false },
     createdAt: { type: Date, default: Date.now },
     intlayerVersion: { type: String },

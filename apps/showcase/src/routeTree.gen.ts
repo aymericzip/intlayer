@@ -8,157 +8,177 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route'
-import { Route as Char123LocaleChar125IndexRouteImport } from './routes/{-$locale}/index'
-import { Route as Char123LocaleChar125SubmitRouteImport } from './routes/{-$locale}/submit'
-import { Route as Char123LocaleChar125404RouteImport } from './routes/{-$locale}/404'
-import { Route as Char123LocaleChar125SplatRouteImport } from './routes/{-$locale}/$'
-import { Route as Char123LocaleChar125ProjectProjectIdRouteImport } from './routes/{-$locale}/project.$projectId'
+import { Route as rootRouteImport } from './routes/__root';
+import { Route as Char123LocaleChar125SplatRouteImport } from './routes/{-$locale}/$';
+import { Route as Char123LocaleChar125404RouteImport } from './routes/{-$locale}/404';
+import { Route as Char123LocaleChar125IndexRouteImport } from './routes/{-$locale}/index';
+import { Route as Char123LocaleChar125ProjectProjectIdRouteImport } from './routes/{-$locale}/project.$projectId';
+import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route';
+import { Route as Char123LocaleChar125SubmitRouteImport } from './routes/{-$locale}/submit';
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml';
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any);
 const Char123LocaleChar125RouteRoute =
   Char123LocaleChar125RouteRouteImport.update({
     id: '/{-$locale}',
     path: '/{-$locale}',
     getParentRoute: () => rootRouteImport,
-  } as any)
+  } as any);
 const Char123LocaleChar125IndexRoute =
   Char123LocaleChar125IndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125SubmitRoute =
   Char123LocaleChar125SubmitRouteImport.update({
     id: '/submit',
     path: '/submit',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125404Route = Char123LocaleChar125404RouteImport.update({
   id: '/404',
   path: '/404',
   getParentRoute: () => Char123LocaleChar125RouteRoute,
-} as any)
+} as any);
 const Char123LocaleChar125SplatRoute =
   Char123LocaleChar125SplatRouteImport.update({
     id: '/$',
     path: '/$',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125ProjectProjectIdRoute =
   Char123LocaleChar125ProjectProjectIdRouteImport.update({
     id: '/project/$projectId',
     path: '/project/$projectId',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any)
+  } as any);
 
 export interface FileRoutesByFullPath {
-  '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
-  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
-  '/{-$locale}/404': typeof Char123LocaleChar125404Route
-  '/{-$locale}/submit': typeof Char123LocaleChar125SubmitRoute
-  '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
-  '/{-$locale}/project/$projectId': typeof Char123LocaleChar125ProjectProjectIdRoute
+  '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren;
+  '/sitemap.xml': typeof SitemapDotxmlRoute;
+  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute;
+  '/{-$locale}/404': typeof Char123LocaleChar125404Route;
+  '/{-$locale}/submit': typeof Char123LocaleChar125SubmitRoute;
+  '/{-$locale}/': typeof Char123LocaleChar125IndexRoute;
+  '/{-$locale}/project/$projectId': typeof Char123LocaleChar125ProjectProjectIdRoute;
 }
 export interface FileRoutesByTo {
-  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
-  '/{-$locale}/404': typeof Char123LocaleChar125404Route
-  '/{-$locale}/submit': typeof Char123LocaleChar125SubmitRoute
-  '/{-$locale}': typeof Char123LocaleChar125IndexRoute
-  '/{-$locale}/project/$projectId': typeof Char123LocaleChar125ProjectProjectIdRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute;
+  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute;
+  '/{-$locale}/404': typeof Char123LocaleChar125404Route;
+  '/{-$locale}/submit': typeof Char123LocaleChar125SubmitRoute;
+  '/{-$locale}': typeof Char123LocaleChar125IndexRoute;
+  '/{-$locale}/project/$projectId': typeof Char123LocaleChar125ProjectProjectIdRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
-  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
-  '/{-$locale}/404': typeof Char123LocaleChar125404Route
-  '/{-$locale}/submit': typeof Char123LocaleChar125SubmitRoute
-  '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
-  '/{-$locale}/project/$projectId': typeof Char123LocaleChar125ProjectProjectIdRoute
+  __root__: typeof rootRouteImport;
+  '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren;
+  '/sitemap.xml': typeof SitemapDotxmlRoute;
+  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute;
+  '/{-$locale}/404': typeof Char123LocaleChar125404Route;
+  '/{-$locale}/submit': typeof Char123LocaleChar125SubmitRoute;
+  '/{-$locale}/': typeof Char123LocaleChar125IndexRoute;
+  '/{-$locale}/project/$projectId': typeof Char123LocaleChar125ProjectProjectIdRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
     | '/{-$locale}'
+    | '/sitemap.xml'
     | '/{-$locale}/$'
     | '/{-$locale}/404'
     | '/{-$locale}/submit'
     | '/{-$locale}/'
-    | '/{-$locale}/project/$projectId'
-  fileRoutesByTo: FileRoutesByTo
+    | '/{-$locale}/project/$projectId';
+  fileRoutesByTo: FileRoutesByTo;
   to:
+    | '/sitemap.xml'
     | '/{-$locale}/$'
     | '/{-$locale}/404'
     | '/{-$locale}/submit'
     | '/{-$locale}'
-    | '/{-$locale}/project/$projectId'
+    | '/{-$locale}/project/$projectId';
   id:
     | '__root__'
     | '/{-$locale}'
+    | '/sitemap.xml'
     | '/{-$locale}/$'
     | '/{-$locale}/404'
     | '/{-$locale}/submit'
     | '/{-$locale}/'
-    | '/{-$locale}/project/$projectId'
-  fileRoutesById: FileRoutesById
+    | '/{-$locale}/project/$projectId';
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  Char123LocaleChar125RouteRoute: typeof Char123LocaleChar125RouteRouteWithChildren
+  Char123LocaleChar125RouteRoute: typeof Char123LocaleChar125RouteRouteWithChildren;
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute;
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml';
+      path: '/sitemap.xml';
+      fullPath: '/sitemap.xml';
+      preLoaderRoute: typeof SitemapDotxmlRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/{-$locale}': {
-      id: '/{-$locale}'
-      path: '/{-$locale}'
-      fullPath: '/{-$locale}'
-      preLoaderRoute: typeof Char123LocaleChar125RouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/{-$locale}';
+      path: '/{-$locale}';
+      fullPath: '/{-$locale}';
+      preLoaderRoute: typeof Char123LocaleChar125RouteRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/{-$locale}/': {
-      id: '/{-$locale}/'
-      path: '/'
-      fullPath: '/{-$locale}/'
-      preLoaderRoute: typeof Char123LocaleChar125IndexRouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
+      id: '/{-$locale}/';
+      path: '/';
+      fullPath: '/{-$locale}/';
+      preLoaderRoute: typeof Char123LocaleChar125IndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125RouteRoute;
+    };
     '/{-$locale}/submit': {
-      id: '/{-$locale}/submit'
-      path: '/submit'
-      fullPath: '/{-$locale}/submit'
-      preLoaderRoute: typeof Char123LocaleChar125SubmitRouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
+      id: '/{-$locale}/submit';
+      path: '/submit';
+      fullPath: '/{-$locale}/submit';
+      preLoaderRoute: typeof Char123LocaleChar125SubmitRouteImport;
+      parentRoute: typeof Char123LocaleChar125RouteRoute;
+    };
     '/{-$locale}/404': {
-      id: '/{-$locale}/404'
-      path: '/404'
-      fullPath: '/{-$locale}/404'
-      preLoaderRoute: typeof Char123LocaleChar125404RouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
+      id: '/{-$locale}/404';
+      path: '/404';
+      fullPath: '/{-$locale}/404';
+      preLoaderRoute: typeof Char123LocaleChar125404RouteImport;
+      parentRoute: typeof Char123LocaleChar125RouteRoute;
+    };
     '/{-$locale}/$': {
-      id: '/{-$locale}/$'
-      path: '/$'
-      fullPath: '/{-$locale}/$'
-      preLoaderRoute: typeof Char123LocaleChar125SplatRouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
+      id: '/{-$locale}/$';
+      path: '/$';
+      fullPath: '/{-$locale}/$';
+      preLoaderRoute: typeof Char123LocaleChar125SplatRouteImport;
+      parentRoute: typeof Char123LocaleChar125RouteRoute;
+    };
     '/{-$locale}/project/$projectId': {
-      id: '/{-$locale}/project/$projectId'
-      path: '/project/$projectId'
-      fullPath: '/{-$locale}/project/$projectId'
-      preLoaderRoute: typeof Char123LocaleChar125ProjectProjectIdRouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
+      id: '/{-$locale}/project/$projectId';
+      path: '/project/$projectId';
+      fullPath: '/{-$locale}/project/$projectId';
+      preLoaderRoute: typeof Char123LocaleChar125ProjectProjectIdRouteImport;
+      parentRoute: typeof Char123LocaleChar125RouteRoute;
+    };
   }
 }
 
 interface Char123LocaleChar125RouteRouteChildren {
-  Char123LocaleChar125SplatRoute: typeof Char123LocaleChar125SplatRoute
-  Char123LocaleChar125404Route: typeof Char123LocaleChar125404Route
-  Char123LocaleChar125SubmitRoute: typeof Char123LocaleChar125SubmitRoute
-  Char123LocaleChar125IndexRoute: typeof Char123LocaleChar125IndexRoute
-  Char123LocaleChar125ProjectProjectIdRoute: typeof Char123LocaleChar125ProjectProjectIdRoute
+  Char123LocaleChar125SplatRoute: typeof Char123LocaleChar125SplatRoute;
+  Char123LocaleChar125404Route: typeof Char123LocaleChar125404Route;
+  Char123LocaleChar125SubmitRoute: typeof Char123LocaleChar125SubmitRoute;
+  Char123LocaleChar125IndexRoute: typeof Char123LocaleChar125IndexRoute;
+  Char123LocaleChar125ProjectProjectIdRoute: typeof Char123LocaleChar125ProjectProjectIdRoute;
 }
 
 const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChildren =
@@ -169,25 +189,27 @@ const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChil
     Char123LocaleChar125IndexRoute: Char123LocaleChar125IndexRoute,
     Char123LocaleChar125ProjectProjectIdRoute:
       Char123LocaleChar125ProjectProjectIdRoute,
-  }
+  };
 
 const Char123LocaleChar125RouteRouteWithChildren =
   Char123LocaleChar125RouteRoute._addFileChildren(
-    Char123LocaleChar125RouteRouteChildren,
-  )
+    Char123LocaleChar125RouteRouteChildren
+  );
 
 const rootRouteChildren: RootRouteChildren = {
   Char123LocaleChar125RouteRoute: Char123LocaleChar125RouteRouteWithChildren,
-}
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+};
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
+import type { createStart } from '@tanstack/react-start';
+import type { getRouter } from './router.tsx';
+
 declare module '@tanstack/react-start' {
   interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
+    ssr: true;
+    router: Awaited<ReturnType<typeof getRouter>>;
   }
 }

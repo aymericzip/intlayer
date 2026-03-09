@@ -1,5 +1,5 @@
 import { Container, Form, useForm } from '@intlayer/design-system';
-import { usePersistedStore, useUser } from '@intlayer/design-system/hooks';
+import { useSession } from '@intlayer/design-system/hooks';
 import { useNavigate } from '@tanstack/react-router';
 import { ArrowLeft } from 'lucide-react';
 import { type FC, type FocusEvent, useEffect } from 'react';
@@ -9,27 +9,17 @@ import { AppRoutes } from '@/Routes';
 import { ModalStatus } from './ModalStatus';
 import { ProjectFormFields } from './ProjectFormFields';
 import { useProjectSubmit } from './useProjectSubmit';
-import {
-  type SubmitProjectFormData,
-  useSubmitProjectFormSchema,
-} from './useSubmitProjectFormSchema';
+import { useSubmitProjectFormSchema } from './useSubmitProjectFormSchema';
 
 export const SubmitProjectForm: FC = () => {
   const navigate = useNavigate();
   const { locale } = useLocale();
-  const { isAuthenticated, revalidateSession } = useUser();
+  const { session, revalidateSession } = useSession();
   const schema = useSubmitProjectFormSchema();
-  const [formValue, setFormValue, , clearFormValue] =
-    usePersistedStore<SubmitProjectFormData>('submit-project-form', {
-      name: '',
-      url: '',
-      githubUrl: '',
-      tagline: '',
-      description: '',
-      useCases: [],
-    });
 
   const {
+    formValue,
+    setFormValue,
     submitStep,
     submitError,
     submittedProject,
@@ -59,12 +49,7 @@ export const SubmitProjectForm: FC = () => {
 
   // Save form state to persisted store on blur (click out)
   const handleBlur = (_e: FocusEvent<HTMLDivElement>) => {
-    setFormValue(form.getValues() as SubmitProjectFormData);
-  };
-
-  const onSubmitSuccess = async (data: SubmitProjectFormData) => {
-    await submitProject(data);
-    clearFormValue();
+    setFormValue(form.getValues());
   };
 
   const handleModalClose = () => {
@@ -102,14 +87,28 @@ export const SubmitProjectForm: FC = () => {
       >
         <Form
           schema={schema}
-          onSubmitSuccess={onSubmitSuccess}
+          onSubmitSuccess={submitProject}
           className="space-y-1"
           {...form}
         >
           <ProjectFormFields form={form} />
 
           <div className="flex flex-col gap-3 pt-4">
-            {isAuthenticated ? (
+            {!session?.user ? (
+              <Form.Button
+                className="w-full"
+                type="button"
+                color="text"
+                label={content.signInButton.label.value}
+                onClick={() => {
+                  const redirectUrl = encodeURIComponent(window.location.href);
+
+                  window.location.href = `${AppRoutes.Auth_SignIn}?redirect_url=${redirectUrl}`;
+                }}
+              >
+                {content.signInButton.label}
+              </Form.Button>
+            ) : (
               <Form.Button
                 className="w-full"
                 type="submit"
@@ -129,18 +128,6 @@ export const SubmitProjectForm: FC = () => {
               >
                 {content.submitButton.label}
               </Form.Button>
-            ) : (
-              <Form.Button
-                className="w-full"
-                type="button"
-                color="text"
-                label={content.signInButton.label.value}
-                onClick={() => {
-                  window.location.href = AppRoutes.Auth_SignIn;
-                }}
-              >
-                {content.signInButton.label}
-              </Form.Button>
             )}
           </div>
         </Form>
@@ -157,7 +144,7 @@ export const SubmitProjectForm: FC = () => {
             submittedProject
               ? navigate({
                   to: '/{-$locale}/project/$projectId',
-                  params: { locale, projectId: submittedProject._id },
+                  params: { locale, projectId: submittedProject.id },
                 })
               : navigate({ to: '/{-$locale}', params: { locale } })
           }

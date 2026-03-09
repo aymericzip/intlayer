@@ -1,6 +1,6 @@
 import { useAuth } from '@intlayer/design-system/hooks';
 import { useRef, useState } from 'react';
-import type { Project, ScanStep } from '@/server/projectActions/types';
+import type { ScanStep, ShowcaseProject } from '#/utils/projectActions/types';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL ?? '';
 
@@ -8,7 +8,9 @@ export const useScanProject = () => {
   const { oAuth2AccessToken } = useAuth();
   const [scanStep, setScanStep] = useState<ScanStep | null>(null);
   const [scanError, setScanError] = useState<string | null>(null);
-  const [scannedProject, setScannedProject] = useState<Project | null>(null);
+  const [scannedProject, setScannedProject] = useState<ShowcaseProject | null>(
+    null
+  );
   const abortControllerRef = useRef<AbortController | null>(null);
 
   const scanProject = async (projectId: string) => {
@@ -29,7 +31,11 @@ export const useScanProject = () => {
 
       const response = await fetch(
         `${BACKEND_URL}/api/showcase-project/${projectId}/scan`,
-        { headers, signal: abortControllerRef.current.signal }
+        {
+          headers,
+          signal: abortControllerRef.current.signal,
+          credentials: 'include',
+        }
       );
 
       if (!response.ok || !response.body) {
@@ -57,7 +63,7 @@ export const useScanProject = () => {
             const msg = JSON.parse(line.slice(6)) as {
               step: ScanStep;
               message?: string;
-              project?: Project;
+              project?: ShowcaseProject;
             };
 
             if (msg.step) setScanStep(msg.step);
@@ -68,11 +74,7 @@ export const useScanProject = () => {
             }
 
             if (msg.step === 'SUCCESS' && msg.project) {
-              // Map id → _id for consistency
-              setScannedProject({
-                ...msg.project,
-                _id: (msg.project as any).id ?? msg.project._id,
-              });
+              setScannedProject(msg.project);
             }
           } catch {
             // ignore malformed SSE lines

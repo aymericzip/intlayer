@@ -2,7 +2,7 @@ import { Button, H2, Loader, Modal, ModalSize } from '@intlayer/design-system';
 import { Check, CheckCircle2, Circle, X, XCircle } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import type { AllStep } from '@/server/projectActions/types';
+import type { AllStep } from './useProjectSubmit';
 
 interface ModalStatusProps {
   submitStep: AllStep | null;
@@ -49,7 +49,7 @@ const StepIcon: FC<{ status: StepStatus }> = ({ status }) => {
     return <CheckCircle2 className="size-5 shrink-0 text-success" />;
 
   if (status === 'active')
-    return <Loader isLoading className="size-5 flex-0 flex-initial shrink-0" />;
+    return <Loader isLoading className="size-5 flex-initial shrink-0" />;
 
   if (status === 'error')
     return <XCircle className="size-5 shrink-0 text-error" />;
@@ -109,6 +109,7 @@ export const ModalStatus: FC<ModalStatusProps> = ({
         {submitStep === 'SUCCESS' ? (
           <>
             <H2>{content.modal.successTitle}</H2>
+
             <span className="text-center text-neutral text-sm">
               {content.modal.successMessage}
             </span>
@@ -149,6 +150,7 @@ export const ModalStatus: FC<ModalStatusProps> = ({
         ) : (
           <>
             <H2>{content.modal.title}</H2>
+            <Loader className="size-30 text-succes" />
             <ol className="mt-2 w-full space-y-3">
               {visualSteps.map((step) => {
                 const status = getStepStatus(

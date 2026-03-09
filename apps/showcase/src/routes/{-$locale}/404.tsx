@@ -38,7 +38,7 @@ export function NotFoundComponent() {
       <p className="mb-8 max-w-md text-base text-neutral">
         {content.thePageYoureLookingFor}
       </p>
-      <Link href={PagesRoutes.Showcase} variant="button" color="text">
+      <Link to={PagesRoutes.Showcase} variant="button" color="text">
         {content.backToHome}
       </Link>
     </main>

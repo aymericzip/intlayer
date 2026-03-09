@@ -31,7 +31,6 @@ const getUserId = (request: FastifyRequest): string | undefined =>
     : undefined;
 
 const urlSchema = z
-  .string()
   .url()
   .optional()
   .or(z.literal(''))
@@ -40,7 +39,6 @@ const urlSchema = z
 const submitProjectSchema = z.object({
   name: z.string().min(1),
   url: z
-    .string()
     .url()
     .refine((val) => !/github\.com|gitlab\.com|bitbucket\.org/.test(val), {
       message: 'Repository URLs should be placed in the GitHub URL field',
@@ -272,18 +270,20 @@ export const getOtherShowcaseProjects = async (
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-export type ToggleShowcaseLikeBody = { projectId: string };
-export type ToggleShowcaseLikeResult = ResponseData<{
+export type ToggleShowcaseUpvoteBody = { projectId: string };
+export type ToggleShowcaseUpvoteResult = ResponseData<{
   upvotes: number;
-  isLiked: boolean;
+  isUpVoted: boolean;
+  downvotes: number;
+  isDownVoted: boolean;
 }>;
 
 /**
- * POST /api/showcase-project/like
+ * POST /api/showcase-project/upvote
  * Requires authentication — userId is read from the session.
  */
-export const toggleShowcaseLike = async (
-  request: FastifyRequest<{ Body: ToggleShowcaseLikeBody }>,
+export const toggleShowcaseUpvote = async (
+  request: FastifyRequest<{ Body: ToggleShowcaseUpvoteBody }>,
   reply: FastifyReply
 ): Promise<void> => {
   const userId = getUserId(request);
@@ -306,20 +306,166 @@ export const toggleShowcaseLike = async (
   }
 
   try {
-    const result = await showcaseProjectService.toggleShowcaseLike(
+    const result = await showcaseProjectService.toggleShowcaseUpvote(
       projectId,
       userId
     );
 
-    return reply.send(
-      formatResponse<{ upvotes: number; isLiked: boolean }>({ data: result })
-    );
+    return reply.send(formatResponse({ data: result }));
   } catch (error) {
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
+
+export type ToggleShowcaseDownvoteBody = { projectId: string };
+export type ToggleShowcaseDownvoteResult = ResponseData<{
+  upvotes: number;
+  isUpVoted: boolean;
+  downvotes: number;
+  isDownVoted: boolean;
+}>;
+
+/**
+ * POST /api/showcase-project/downvote
+ * Requires authentication — userId is read from the session.
+ */
+export const toggleShowcaseDownvote = async (
+  request: FastifyRequest<{ Body: ToggleShowcaseDownvoteBody }>,
+  reply: FastifyReply
+): Promise<void> => {
+  const userId = getUserId(request);
+
+  if (!userId) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'USER_NOT_AUTHENTICATED'
+    );
+  }
+
+  const { projectId } = request.body;
+
+  if (!projectId) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'INVALID_REQUEST_BODY',
+      { detail: 'projectId is required' }
+    );
+  }
+
+  try {
+    const result = await showcaseProjectService.toggleShowcaseDownvote(
+      projectId,
+      userId
+    );
+
+    return reply.send(formatResponse({ data: result }));
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+const updateProjectSchema = z.object({
+  name: z.string().min(1).max(255).optional(),
+  url: z
+    .url()
+    .refine((val) => !/github\.com|gitlab\.com|bitbucket\.org/.test(val), {
+      message: 'Repository URLs should be placed in the GitHub URL field',
+    })
+    .optional(),
+  githubUrl: z
+    .string()
+    .optional()
+    .transform((value) => {
+      if (!value) return null;
+      if (value.startsWith('http://') || value.startsWith('https://'))
+        return value;
+      return `https://${value}`;
+    }),
+  tagline: z.string().min(1).max(500).optional(),
+  description: z.string().optional(),
+  useCases: z.array(z.string()).optional(),
+});
+
+export type UpdateShowcaseProjectBody = z.input<typeof updateProjectSchema>;
+export type UpdateShowcaseProjectParams = { projectId: string };
+export type UpdateShowcaseProjectResult = ResponseData<ShowcaseProjectAPI>;
+
+/**
+ * PATCH /api/showcase-project/:projectId
+ * Updates an existing project. Only the owner can update.
+ */
+export const updateShowcaseProjectHandler = async (
+  request: FastifyRequest<{
+    Params: UpdateShowcaseProjectParams;
+    Body: UpdateShowcaseProjectBody;
+  }>,
+  reply: FastifyReply
+): Promise<void> => {
+  const userId = getUserId(request);
+
+  if (!userId) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'USER_NOT_AUTHENTICATED'
+    );
+  }
+
+  const parsed = updateProjectSchema.safeParse(request.body);
+
+  if (!parsed.success) {
+    const message = parsed.error.issues
+      .map((e) => `${e.path.join('.')}: ${e.message}`)
+      .join(', ');
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'INVALID_REQUEST_BODY',
+      { message }
+    );
+  }
+
+  const { projectId } = request.params;
+
+  try {
+    const project =
+      await showcaseProjectService.findShowcaseProjectById(projectId);
+
+    if (String(project.owner) !== userId) {
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_ID_MISMATCH');
+    }
+
+    const { name, url, githubUrl, tagline, useCases } = parsed.data;
+    const updates: Parameters<
+      typeof showcaseProjectService.updateShowcaseProject
+    >[1] = {};
+
+    if (name !== undefined) updates.title = name;
+    if (url !== undefined) updates.websiteUrl = url;
+    if ('githubUrl' in parsed.data) updates.githubUrl = githubUrl;
+    if (tagline !== undefined) updates.description = tagline;
+    if (useCases !== undefined) updates.tags = useCases;
+
+    const updated = await showcaseProjectService.updateShowcaseProject(
+      projectId,
+      updates
+    );
+
+    return reply.send(
+      formatResponse<ShowcaseProjectAPI>({
+        message: t({
+          en: 'Project updated successfully',
+          fr: 'Projet mis à jour avec succès',
+          es: 'Proyecto actualizado con éxito',
+        }),
+        data: mapShowcaseProjectToAPI(updated, userId),
+      })
+    );
+  } catch (error) {
+    logger.error('[updateShowcaseProjectHandler] Error:', error);
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -349,7 +495,7 @@ export const deleteShowcaseProjectHandler = async (
       await showcaseProjectService.findShowcaseProjectById(projectId);
 
     if (String(project.owner) !== userId) {
-      return ErrorHandler.handleGenericErrorResponse(reply, 'FORBIDDEN');
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_ID_MISMATCH');
     }
 
     await Promise.allSettled([

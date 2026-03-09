@@ -4,14 +4,15 @@ import { defaultLocale } from 'intlayer';
 import { ArrowLeft } from 'lucide-react';
 import { useIntlayer } from 'react-intlayer';
 import { PagesRoutes } from '#/Routes';
+import type { ShowcaseProject } from '#/utils/projectActions/types';
 import { Link } from '@/components/Link';
-import type { Project } from '@/server/projectActions/types';
 import { MoreProjects } from './MoreProjects';
+import { ProjectReadme } from './ProjectReadme';
 import { ProjectScanDetails } from './ProjectScanDetails';
 import { ProjectSidebar } from './ProjectSidebar';
 
 interface ProjectFocusProps {
-  project: Project | null;
+  project: ShowcaseProject | null;
 }
 
 export const ProjectFocus = ({ project }: ProjectFocusProps) => {
@@ -46,7 +47,7 @@ export const ProjectFocus = ({ project }: ProjectFocusProps) => {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-8">
+    <div className="mx-auto max-w-6xl py-8">
       {/* Back Link */}
       <Link
         to={PagesRoutes.Showcase}
@@ -79,11 +80,14 @@ export const ProjectFocus = ({ project }: ProjectFocusProps) => {
         </div>
       </div>
 
+      {/* README Section */}
+      {project.githubUrl && <ProjectReadme githubUrl={project.githubUrl} />}
+
       {/* Bottom Sections: More Projects & Scan Details */}
       <div className="grid grid-cols-1 gap-12 border-neutral/10 border-t pt-12 lg:grid-cols-12">
         {/* Left Column: More Projects */}
         <div className="lg:col-span-5">
-          <MoreProjects excludeId={project._id} />
+          <MoreProjects excludeId={project.id} />
         </div>
 
         {/* Right Column: Scan Details (SEO) */}

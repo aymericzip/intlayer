@@ -37,6 +37,14 @@ const defaultForType = (type: ParamType): unknown => {
   }
 };
 
+const isAtDefault = (value: unknown, config: ParamConfig): boolean => {
+  if (Array.isArray(value)) return value.length === 0;
+
+  const fallback = config.fallbackValue ?? defaultForType(config.type);
+
+  return value === fallback;
+};
+
 const parseValue = (val: unknown, cfg: ParamConfig): unknown => {
   if (val === undefined || val === null) {
     return cfg.fallbackValue ?? defaultForType(cfg.type);
@@ -74,12 +82,14 @@ export const useSearchParamState = <TConfig extends ConfigMap>(
 
   const params = useMemo(() => {
     const computed: Partial<StateFromConfig<TConfig>> = {};
+
     for (const [key, cfg] of Object.entries(config)) {
       computed[key as keyof TConfig] = parseValue(
         searchParams[key],
         cfg
       ) as InferType<TConfig[keyof TConfig]['type']>;
     }
+
     return computed as StateFromConfig<TConfig>;
   }, [searchParams, config]);
 
@@ -90,12 +100,15 @@ export const useSearchParamState = <TConfig extends ConfigMap>(
           const prevObj = (
             prev && typeof prev === 'object' ? prev : {}
           ) as Record<string, unknown>;
+
           const next = { ...prevObj };
+
           for (const [key, value] of Object.entries(updates)) {
+            const cfg = config[key];
             if (
               value === null ||
               value === undefined ||
-              (Array.isArray(value) && value.length === 0)
+              (cfg && isAtDefault(value, cfg))
             ) {
               delete next[key];
             } else {
@@ -107,7 +120,7 @@ export const useSearchParamState = <TConfig extends ConfigMap>(
         replace: true,
       });
     },
-    [navigate]
+    [navigate, config]
   );
 
   const setParam = useCallback(
