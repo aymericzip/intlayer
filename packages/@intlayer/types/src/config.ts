@@ -1,10 +1,10 @@
 import type { z } from 'zod';
+import type { Locale } from './allLocales';
 import type {
   ContentAutoTransformation,
   DictionaryLocation,
   Fill,
 } from './dictionary';
-import type { Locale } from './locales';
 import type { LocalesValues, StrictModeLocaleMap } from './module_augmentation';
 import type { Plugin } from './plugin';
 

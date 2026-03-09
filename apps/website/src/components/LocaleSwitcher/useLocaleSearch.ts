@@ -1,5 +1,5 @@
 import Fuse, { type IFuseOptions } from 'fuse.js';
-import { getLocaleName, Locales, type LocalesValues } from 'intlayer';
+import { getLocaleName, Locales, type LocalesValues, locales } from 'intlayer';
 import { useCallback, useMemo, useState } from 'react';
 
 type MultilingualAvailableLocales = {
@@ -10,7 +10,7 @@ type MultilingualAvailableLocales = {
 };
 
 export const useLocaleSearch = (
-  availableLocales: LocalesValues[] = Object.values(Locales.ALL_LOCALES),
+  availableLocales: LocalesValues[] = locales,
   locale: LocalesValues = Locales.ENGLISH
 ) => {
   const multilingualAvailableLocales: MultilingualAvailableLocales[] = useMemo(

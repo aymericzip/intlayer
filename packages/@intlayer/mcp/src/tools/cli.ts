@@ -10,7 +10,7 @@ import {
   pull,
   push,
 } from '@intlayer/cli';
-import { Locales, type LogConfig } from '@intlayer/types';
+import { ALL_LOCALES, type LogConfig } from '@intlayer/types';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import z from 'zod/v3';
 
@@ -127,13 +127,13 @@ export const loadCLITools: LoadCLITools = async (server) => {
         'Fill the dictionaries with missing translations / review translations using Intlayer servers',
       inputSchema: {
         sourceLocale: z
-          .nativeEnum(Locales.ALL_LOCALES)
+          .nativeEnum(ALL_LOCALES)
           .optional()
           .describe('Source locale'),
         outputLocales: z
           .union([
-            z.nativeEnum(Locales.ALL_LOCALES),
-            z.array(z.nativeEnum(Locales.ALL_LOCALES)),
+            z.nativeEnum(ALL_LOCALES),
+            z.array(z.nativeEnum(ALL_LOCALES)),
           ])
           .optional()
           .describe('Output locales'),

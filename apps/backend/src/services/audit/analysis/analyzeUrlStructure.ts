@@ -1,4 +1,4 @@
-import { Locales } from 'intlayer';
+import { ALL_LOCALES, Locales } from '@intlayer/types';
 
 const getBaseDomain = (hostname: string): string => {
   const parts = hostname.split('.');
@@ -76,7 +76,7 @@ export const analyzeUrlStructure = async (page: any, origin: string) => {
           }
         );
 
-        const hasLocaleInSubdomain = Object.values(Locales.ALL_LOCALES).some(
+        const hasLocaleInSubdomain = Object.values(ALL_LOCALES).some(
           (locale) => {
             const localeLower = (locale as string).toLowerCase();
             return (

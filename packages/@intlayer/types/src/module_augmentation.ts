@@ -5,9 +5,9 @@ import type {
   __SchemaRegistry,
   __StrictModeRegistry,
 } from 'intlayer';
+import type { Locale } from './allLocales';
 import type { StrictMode } from './config';
 import type { Dictionary } from './dictionary';
-import type { Locale } from './locales';
 
 export type SchemaKeys = keyof __SchemaRegistry extends never
   ? string

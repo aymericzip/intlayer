@@ -1,4 +1,4 @@
-import { AiProviders, Locales } from '@intlayer/types';
+import { AiProviders, ALL_LOCALES } from '@intlayer/types';
 import type { RenameId } from '@utils/mongoDB/types';
 import {
   MEMBERS_MIN_LENGTH,
@@ -44,12 +44,12 @@ const projectConfigSchema = new Schema<Project['configuration']>(
     internationalization: {
       locales: {
         type: [String],
-        enum: Object.values(Locales.ALL_LOCALES),
+        enum: Object.values(ALL_LOCALES),
         required: true,
       },
       defaultLocale: {
         type: String,
-        enum: Object.values(Locales.ALL_LOCALES),
+        enum: Object.values(ALL_LOCALES),
       },
     },
     editor: {
