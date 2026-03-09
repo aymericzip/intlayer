@@ -2003,6 +2003,7 @@
         "intlayer": "workspace:*",
       },
       "devDependencies": {
+        "@types/babel__core": "7.20.5",
         "@types/node": "25.3.5",
         "@utils/ts-config": "workspace:*",
         "@utils/ts-config-types": "workspace:*",

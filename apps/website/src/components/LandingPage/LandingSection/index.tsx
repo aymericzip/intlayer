@@ -104,7 +104,7 @@ export const LandingSection: FC = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
-            className="mx-auto max-w-2xl text-center font-medium text-neutral-600 text-sm leading-relaxed sm:text-lg lg:mb-12 dark:text-neutral-200"
+            className="mx-auto max-w-2xl text-center font-medium text-neutral text-sm leading-relaxed sm:text-lg lg:mb-12"
           >
             {description}
           </motion.p>

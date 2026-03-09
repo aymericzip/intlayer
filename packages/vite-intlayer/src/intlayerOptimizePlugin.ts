@@ -14,12 +14,11 @@ import { intlayerVueAsyncPlugin } from './intlayerVueAsyncPlugin';
 
 const INTLAYER_USAGE_REGEX = /\b(use|get)Intlayer\b/;
 
-export const intlayerPrune = async (
+export const intlayerOptimize = async (
   intlayerConfig: IntlayerConfig
 ): Promise<PluginOption[]> => {
   try {
-    const localeRequire = createRequire(import.meta.url);
-    const babel = localeRequire('@babel/core');
+    const babel = await import('@babel/core');
     const logger = getAppLogger(intlayerConfig);
 
     const { optimize } = intlayerConfig.build;

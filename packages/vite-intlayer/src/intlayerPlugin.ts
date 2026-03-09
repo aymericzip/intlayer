@@ -9,7 +9,7 @@ import {
 import { getAlias } from '@intlayer/config/utils';
 // @ts-ignore - Fix error Module '"vite"' has no exported member
 import type { PluginOption } from 'vite';
-import { intlayerPrune } from './intlayerPrunePlugin';
+import { intlayerOptimize } from './intlayerOptimizePlugin';
 
 /**
  * Vite plugin that integrates Intlayer into the Vite build process.
@@ -116,7 +116,7 @@ export const intlayerPlugin = (
   ];
 
   // Add Babel transform plugin if enabled
-  plugins.push(intlayerPrune(intlayerConfig));
+  plugins.push(intlayerOptimize(intlayerConfig));
 
   return plugins;
 };

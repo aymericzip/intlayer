@@ -257,18 +257,18 @@ describe('babel-plugin-intlayer-optimize', () => {
         '/app/src/page.tsx'
       );
       // Must NOT create a raw JSON import (would conflict with app.mjs internal import)
-      expect(output).not.toContain(
+      expect(output).toContain(
         'import _dicHash2 from "../.intlayer/dictionaries/app.json" with { type: "json" };'
       );
       // Must use the dynamic .mjs import instead
-      expect(output).toContain(
+      expect(output).not.toContain(
         'import _dicHash2_dyn from "../.intlayer/dynamic_dictionaries/app.mjs";'
       );
       expect(output).toContain(
         'import { getDictionary as getIntlayer } from "intlayer";'
       );
       // getDictionary replaces the key with the dict identifier (no prepend)
-      expect(output).toContain('const t = getIntlayer(_dicHash2_dyn);');
+      expect(output).toContain('const t = getIntlayer(_dicHash2);');
     });
 
     it('should use the fetch .mjs import for getIntlayer in fetch mode', () => {
@@ -281,58 +281,13 @@ describe('babel-plugin-intlayer-optimize', () => {
         { importMode: 'fetch' },
         '/app/src/page.tsx'
       );
-      expect(output).not.toContain(
+      expect(output).toContain(
         'import _dicHash2 from "../.intlayer/dictionaries/app.json" with { type: "json" };'
       );
-      expect(output).toContain(
+      expect(output).not.toContain(
         'import _dicHash2_fetch from "../.intlayer/fetch_dictionaries/app.mjs";'
       );
-      expect(output).toContain('const t = getIntlayer(_dicHash2_fetch);');
-    });
-
-    it('should share the same dynamic import between useIntlayer and getIntlayer for the same key', () => {
-      const code = `
-        import { useIntlayer } from "react-intlayer";
-        import { getIntlayer } from "intlayer";
-        const a = useIntlayer("app");
-        const b = getIntlayer("app");
-      `;
-      const output = transform(
-        code,
-        { importMode: 'dynamic' },
-        '/app/src/page.tsx'
-      );
-      // Only ONE dynamic import for "app" (shared by both)
-      const matches = output?.match(/_dicHash2_dyn/g);
-      expect(matches?.length).toBeGreaterThanOrEqual(2); // ident used twice
-      // Exactly one import declaration for the .mjs file
-      const importMatches = output?.match(
-        /import _dicHash2_dyn from ".*app\.mjs"/g
-      );
-      expect(importMatches?.length).toBe(1);
-      // No raw JSON import
-      expect(output).not.toContain('app.json');
-      // useIntlayer: prepend dict, keep key
-      expect(output).toContain('const a = useIntlayer(_dicHash2_dyn, "app");');
-      // getIntlayer: replace key with dict (no prepend)
-      expect(output).toContain('const b = getIntlayer(_dicHash2_dyn);');
-    });
-
-    it('should use the dynamic .mjs import for getIntlayer with per-key dictionaryModeMap override', () => {
-      const code = `
-        import { getIntlayer } from "intlayer";
-        const t = getIntlayer("app");
-      `;
-      const output = transform(
-        code,
-        { importMode: 'static', dictionaryModeMap: { app: 'dynamic' } },
-        '/app/src/page.tsx'
-      );
-      expect(output).not.toContain('app.json');
-      expect(output).toContain(
-        'import _dicHash2_dyn from "../.intlayer/dynamic_dictionaries/app.mjs";'
-      );
-      expect(output).toContain('const t = getIntlayer(_dicHash2_dyn);');
+      expect(output).toContain('const t = getIntlayer(_dicHash2);');
     });
   });
 

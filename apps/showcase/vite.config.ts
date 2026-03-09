@@ -175,7 +175,13 @@ export default defineConfig(({ mode }) => {
         routeRules: {
           '/**': { headers },
         },
-        rollupConfig: { external: [/^@sentry\//] },
+        rollupConfig: {
+          // Add onwarn to Nitro's Rollup config to catch server-build warnings
+          onwarn(warning, warn) {
+            if (warning.code === 'MODULE_LEVEL_DIRECTIVE') return;
+            warn(warning);
+          },
+        },
       }),
       tsconfigPaths({ projects: ['./tsconfig.json'] }),
       intlayer(),

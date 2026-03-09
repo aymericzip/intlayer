@@ -507,18 +507,6 @@ export const intlayerOptimizeBabelPlugin = (babel: {
                 ) {
                   perCallMode = dictionaryOverrideMode;
                 }
-              } else {
-                // getIntlayer: align with the global importMode so it uses the same
-                // .mjs file as useIntlayer and avoids creating a raw JSON import with
-                // `{ type: 'json' }` that conflicts with the dynamic .mjs file's
-                // internal JSON import (which has no import attribute).
-                if (dictionaryOverrideMode) {
-                  perCallMode = dictionaryOverrideMode;
-                } else if (importMode === 'dynamic') {
-                  perCallMode = 'dynamic';
-                } else if (importMode === 'fetch') {
-                  perCallMode = 'fetch';
-                }
               }
 
               let ident: BabelTypes.Identifier;
@@ -534,16 +522,11 @@ export const intlayerOptimizeBabelPlugin = (babel: {
                 }
                 ident = dynamicIdent;
 
-                if (isUseIntlayer) {
-                  // useDictionaryDynamic: first argument is the dictionary entry, second is the key
-                  path.node.arguments = [
-                    t.identifier(ident.name),
-                    ...path.node.arguments,
-                  ];
-                } else {
-                  // getDictionary: replace the key argument with the dictionary identifier
-                  path.node.arguments[0] = t.identifier(ident.name);
-                }
+                // Helper: first argument is the dictionary entry, second is the key
+                path.node.arguments = [
+                  t.identifier(ident.name),
+                  ...path.node.arguments,
+                ];
               } else if (perCallMode === 'dynamic') {
                 // Use dynamic dictionaries entry
                 let dynamicIdent = state._newDynamicImports?.get(key);
@@ -556,16 +539,11 @@ export const intlayerOptimizeBabelPlugin = (babel: {
                 }
                 ident = dynamicIdent;
 
-                if (isUseIntlayer) {
-                  // useDictionaryDynamic: first argument is the dictionary, second is the key.
-                  path.node.arguments = [
-                    t.identifier(ident.name),
-                    ...path.node.arguments,
-                  ];
-                } else {
-                  // getDictionary: replace the key argument with the dictionary identifier
-                  path.node.arguments[0] = t.identifier(ident.name);
-                }
+                // Dynamic helper: first argument is the dictionary, second is the key.
+                path.node.arguments = [
+                  t.identifier(ident.name),
+                  ...path.node.arguments,
+                ];
               } else {
                 // Use static imports for getIntlayer or useIntlayer when not using dynamic helpers
                 let staticIdent = state._newStaticImports?.get(key);
