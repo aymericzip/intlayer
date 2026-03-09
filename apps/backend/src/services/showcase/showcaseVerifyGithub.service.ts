@@ -75,9 +75,13 @@ export const extractIntlayerPackages = (
         deps as Record<string, string>
       )) {
         if (INTLAYER_PKG_PATTERN.test(name)) {
-          // Prefer non-range version (strip leading ^ ~ >= etc.)
-          result[name] =
-            String(version).replace(/^[^0-9]*/, '') || String(version);
+          const strVersion = String(version);
+
+          if (strVersion === 'workspace:*') {
+            result[name] = 'latest';
+          } else {
+            result[name] = strVersion;
+          }
         }
       }
     }
@@ -104,11 +108,11 @@ export const verifyGithubRepo = async (
   const octokit = getOctokitForHost(hostname);
 
   try {
-    // 1. Get default branch
+    // Get default branch
     const repoInfo = await octokit.rest.repos.get({ owner, repo });
     const defaultBranch = repoInfo.data.default_branch;
 
-    // 2. Get the full recursive tree
+    // Get the full recursive tree
     const treeResponse = await octokit.rest.git.getTree({
       owner,
       repo,
@@ -151,8 +155,10 @@ export const verifyGithubRepo = async (
               response.data.content,
               'base64'
             ).toString('utf-8');
+
             const pkg = JSON.parse(content) as Record<string, unknown>;
             const found = extractIntlayerPackages(pkg);
+
             Object.assign(allPackageDetails, found);
           }
         } catch (e) {
