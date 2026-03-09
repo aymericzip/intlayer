@@ -1,6 +1,5 @@
+import { z } from 'zod';
 import type { Organization, OrganizationAPI } from '@/types/organization.types';
-import { validateArray } from './validateArray';
-import { validateString } from './validateString';
 
 export type OrganizationFields = (keyof Organization)[];
 
@@ -10,7 +9,7 @@ const defaultFieldsToCheck: OrganizationFields = [
   'adminsIds',
 ];
 
-type FieldsToCheck = (typeof defaultFieldsToCheck)[number];
+export type FieldsToCheck = (typeof defaultFieldsToCheck)[number];
 type ValidationErrors = Partial<
   Record<(typeof defaultFieldsToCheck)[number], string[]>
 >;
@@ -19,6 +18,41 @@ export const NAME_MIN_LENGTH = 4;
 export const NAME_MAX_LENGTH = 100;
 
 export const MEMBERS_MIN_LENGTH = 1;
+
+const organizationZodSchema = z.object({
+  name: z
+    .string({
+      message: 'Name must be a string.',
+    })
+    .min(
+      NAME_MIN_LENGTH,
+      `Name must be at least ${NAME_MIN_LENGTH} characters long.`
+    )
+    .max(
+      NAME_MAX_LENGTH,
+      `Name must be at most ${NAME_MAX_LENGTH} characters long.`
+    ),
+  membersIds: z
+    .array(
+      z.string({
+        message: 'Members must contain only string elements.',
+      })
+    )
+    .min(
+      MEMBERS_MIN_LENGTH,
+      `Members must be at least ${MEMBERS_MIN_LENGTH} items long.`
+    ),
+  adminsIds: z
+    .array(
+      z.string({
+        message: 'Members must contain only string elements.',
+      })
+    )
+    .min(
+      MEMBERS_MIN_LENGTH,
+      `Members must be at least ${MEMBERS_MIN_LENGTH} items long.`
+    ),
+});
 
 /**
  * Validates an organization object.
@@ -29,53 +63,20 @@ export const validateOrganization = (
   organization: Partial<Organization | OrganizationAPI>,
   fieldsToCheck = defaultFieldsToCheck
 ): ValidationErrors => {
-  const errors: ValidationErrors = {};
+  const mask = fieldsToCheck.reduce(
+    (acc, curr) => {
+      acc[curr as string] = true;
+      return acc;
+    },
+    {} as Record<string, true>
+  );
 
-  const organizationObject = JSON.parse(JSON.stringify(organization));
+  const schema = organizationZodSchema.pick(mask as any);
+  const parsed = schema.safeParse(organization);
 
-  // Define the fields to validate
-  const fieldsToValidate = new Set<FieldsToCheck>(fieldsToCheck);
-
-  // Validate each field
-  for (const field of fieldsToValidate) {
-    const value = organizationObject[field];
-
-    // Initialize error array for the field
-    errors[field] = [];
-
-    // Check for name validity
-    if (field === 'name') {
-      const nameErrors = validateString(
-        value,
-        'Name',
-        NAME_MIN_LENGTH,
-        NAME_MAX_LENGTH
-      );
-
-      if (nameErrors.length > 0) {
-        errors[field] = nameErrors;
-      }
-    }
-
-    if (field === 'membersIds' || field === 'adminsIds') {
-      const membersErrors = validateArray<string>(
-        value as unknown as string[],
-        'Members',
-        'string',
-        undefined,
-        MEMBERS_MIN_LENGTH
-      );
-
-      if (membersErrors.length > 0) {
-        errors[field] = membersErrors;
-      }
-    }
-
-    // Remove the error field if there are no errors
-    if (errors[field].length === 0) {
-      delete errors[field];
-    }
+  if (parsed.success) {
+    return {};
   }
 
-  return errors;
+  return parsed.error.flatten().fieldErrors as ValidationErrors;
 };
