@@ -345,113 +345,113 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
         />
       </Container>
 
-      <Container
-        className="flex flex-col"
-        roundedSize="3xl"
-        padding="md"
-        gap="md"
-        transparency="lg"
-      >
-        {/* Owner-only actions */}
-        {initialProject.isOwner && (
-          <>
-            <Button
-              type="button"
-              variant="hoverable"
-              color="text"
-              label="Scan project"
-              Icon={RefreshCw}
-              isLoading={isScanRunning}
-              disabled={isScanRunning}
-              onClick={() => scanProject(project.id)}
-              className="mt-2 w-full"
-            >
-              {isScanRunning ? 'Scanning…' : 'Scan Project'}
-            </Button>
-            <Button
-              type="button"
-              variant="hoverable"
-              color="text"
-              label="Edit project"
-              Icon={Pencil}
-              disabled={isScanRunning}
-              onClick={() => setEditModalOpen(true)}
-              className="w-full"
-            >
-              Edit Project
-            </Button>
-            <Button
-              type="button"
-              variant="outline"
-              color="error"
-              label={content.deleteProject.value}
-              Icon={Trash2}
-              disabled={isScanRunning}
-              onClick={() => setDeleteConfirmOpen(true)}
-              className="w-full"
-            >
-              {content.deleteProject}
-            </Button>
-          </>
-        )}
-
-        {/* Edit modal */}
-        {editModalOpen && (
-          <EditProjectModal
-            project={project}
-            onClose={() => setEditModalOpen(false)}
-            onUpdated={(updated) => {
-              // The API returns `id` (not `_id`), so normalise before storing.
-              setEditedProject({
-                ...updated,
-                id: updated.id,
-              });
-              setEditModalOpen(false);
-            }}
-          />
-        )}
-
-        {/* Delete confirmation modal */}
-        <Modal
-          isOpen={deleteConfirmOpen}
-          onClose={() => setDeleteConfirmOpen(false)}
-          size={ModalSize.SM}
-          hasCloseButton
-          title={content.deleteConfirmTitle}
+      {/* Owner-only actions */}
+      {initialProject.isOwner && (
+        <Container
+          className="flex flex-col"
+          roundedSize="3xl"
+          padding="md"
+          gap="md"
+          transparency="lg"
         >
-          <div className="flex flex-col gap-4 px-4 py-6">
-            <p className="text-neutral text-sm">
-              {content.deleteConfirmDescription}
-            </p>
-            {deleteError && <p className="text-error text-sm">{deleteError}</p>}
-            <div className="flex gap-3">
-              <Button
-                type="button"
-                variant="hoverable"
-                color="neutral"
-                label={content.deleteCancel.value}
-                onClick={() => setDeleteConfirmOpen(false)}
-                className="flex-1"
-              >
-                {content.deleteCancel}
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                color="error"
-                label={content.deleteConfirm.value}
-                Icon={Trash2}
-                isLoading={isDeleting}
-                disabled={isDeleting}
-                onClick={handleDelete}
-                className="flex-1"
-              >
-                {content.deleteConfirm}
-              </Button>
+          <Button
+            type="button"
+            variant="hoverable"
+            color="text"
+            label="Scan project"
+            Icon={RefreshCw}
+            isLoading={isScanRunning}
+            disabled={isScanRunning}
+            onClick={() => scanProject(project.id)}
+            className="mt-2 w-full"
+          >
+            {isScanRunning ? 'Scanning…' : 'Scan Project'}
+          </Button>
+          <Button
+            type="button"
+            variant="hoverable"
+            color="text"
+            label="Edit project"
+            Icon={Pencil}
+            disabled={isScanRunning}
+            onClick={() => setEditModalOpen(true)}
+            className="w-full"
+          >
+            Edit Project
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            color="error"
+            label={content.deleteProject.value}
+            Icon={Trash2}
+            disabled={isScanRunning}
+            onClick={() => setDeleteConfirmOpen(true)}
+            className="w-full"
+          >
+            {content.deleteProject}
+          </Button>
+
+          {/* Edit modal */}
+          {editModalOpen && (
+            <EditProjectModal
+              project={project}
+              onClose={() => setEditModalOpen(false)}
+              onUpdated={(updated) => {
+                // The API returns `id` (not `_id`), so normalise before storing.
+                setEditedProject({
+                  ...updated,
+                  id: updated.id,
+                });
+                setEditModalOpen(false);
+              }}
+            />
+          )}
+
+          {/* Delete confirmation modal */}
+          <Modal
+            isOpen={deleteConfirmOpen}
+            onClose={() => setDeleteConfirmOpen(false)}
+            size={ModalSize.SM}
+            hasCloseButton
+            title={content.deleteConfirmTitle}
+          >
+            <div className="flex flex-col gap-4 px-4 py-6">
+              <p className="text-neutral text-sm">
+                {content.deleteConfirmDescription}
+              </p>
+              {deleteError && (
+                <p className="text-error text-sm">{deleteError}</p>
+              )}
+              <div className="flex gap-3">
+                <Button
+                  type="button"
+                  variant="hoverable"
+                  color="neutral"
+                  label={content.deleteCancel.value}
+                  onClick={() => setDeleteConfirmOpen(false)}
+                  className="flex-1"
+                >
+                  {content.deleteCancel}
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  color="error"
+                  label={content.deleteConfirm.value}
+                  Icon={Trash2}
+                  isLoading={isDeleting}
+                  disabled={isDeleting}
+                  onClick={handleDelete}
+                  className="flex-1"
+                >
+                  {content.deleteConfirm}
+                </Button>
+              </div>
             </div>
-          </div>
-        </Modal>
-      </Container>
+          </Modal>
+        </Container>
+      )}
 
       {/* Rating Section inside Sidebar */}
       <Container
