@@ -230,7 +230,6 @@ export const markdownStringPlugin: Plugins = {
         value: node,
         children: () =>
           h(
-            // EditorSelectorRenderer, // Maximum stack size exceeded
             ContentSelectorWrapper,
             {
               dictionaryKey: rest.dictionaryKey,
@@ -238,8 +237,12 @@ export const markdownStringPlugin: Plugins = {
             },
             {
               default: () => {
-                const { renderMarkdown } = useMarkdown();
-                return renderMarkdown(node, components);
+                const { renderMarkdown, components: contextComponents } =
+                  useMarkdown();
+                return renderMarkdown(node, undefined, {
+                  ...(contextComponents ?? {}),
+                  ...(components ?? {}),
+                });
               },
             }
           ),
@@ -248,7 +251,24 @@ export const markdownStringPlugin: Plugins = {
         },
       });
 
-    return render() as any;
+    const element = render() as any;
+
+    return new Proxy(element, {
+      get(target, prop, receiver) {
+        if (prop === 'value') {
+          return node;
+        }
+        if (prop === 'metadata') {
+          return metadataNodes;
+        }
+
+        if (prop === 'use') {
+          return (components?: any) => render(components);
+        }
+
+        return Reflect.get(target, prop, receiver);
+      },
+    }) as any;
   },
 };
 

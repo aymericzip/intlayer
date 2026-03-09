@@ -5,11 +5,7 @@ import {
   type PanelProps,
 } from '@intlayer/design-system';
 import { Link, useLocation } from '@tanstack/react-router';
-import {
-  getHTMLTextDir,
-  getLocalizedUrl,
-  getPathWithoutLocale,
-} from 'intlayer';
+import { getHTMLTextDir, getLocalizedUrl } from 'intlayer';
 import { MoveVertical } from 'lucide-react';
 import { type FC, useRef } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
@@ -96,7 +92,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ panelProps }) => {
                     <Link
                       aria-label={switchTo({ locale: localeItem }).value}
                       to={getLocalizedUrl(location.pathname, localeItem)}
-                      aria-active={locale === localeItem} // Add aria-current="page" for accessibility
+                      aria-current={locale === localeItem ? 'true' : undefined}
                       replace // Will ensure that the "go back" browser button will redirect to the previous page
                       onClick={() => setLocale(localeItem)}
                     >

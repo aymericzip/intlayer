@@ -85,8 +85,8 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
         </span>
 
         <Skeleton isLoading={isLoading && !score}>
-          <Tag color={status(score).color.value} size="md">
-            {status(score).label}
+          <Tag color={status(score ?? 0).color.value} size="md">
+            {status(score ?? 0).label}
           </Tag>
         </Skeleton>
       </div>

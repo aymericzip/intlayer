@@ -280,7 +280,7 @@ export const markdownStringPlugin: Plugins = {
         value: node,
         children: (
           <ContentSelectorRenderer {...rest}>
-            <MarkdownRendererPlugin {...rest} {...(components ?? {})}>
+            <MarkdownRendererPlugin {...rest} components={components}>
               {node}
             </MarkdownRendererPlugin>
           </ContentSelectorRenderer>

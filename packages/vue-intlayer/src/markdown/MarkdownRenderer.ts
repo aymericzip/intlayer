@@ -11,13 +11,9 @@ import {
  * Props for rendering markdown content.
  */
 export type RenderMarkdownProps = MarkdownPluginOptions & {
-  /**
-   * Component overrides for HTML tags.
-   */
+  /** Component overrides for HTML tags. */
   components?: HTMLComponents<'permissive', {}>;
-  /**
-   * Wrapper element or component to be used when there are multiple children.
-   */
+  /** Wrapper element or component to be used when there are multiple children. */
   wrapper?: any;
 };
 
@@ -66,17 +62,25 @@ export const useMarkdownRenderer = ({
   tagfilter,
 }: RenderMarkdownProps = {}) => {
   try {
-    const { renderMarkdown: contextRenderMarkdown } = useMarkdown();
+    const {
+      renderMarkdown: contextRenderMarkdown,
+      components: contextComponents,
+    } = useMarkdown();
     return (content: string) => {
-      // If context is available, use it
-      return contextRenderMarkdown(content, {
-        components,
-        wrapper,
-        forceBlock,
-        forceInline,
-        preserveFrontmatter,
-        tagfilter,
-      });
+      return contextRenderMarkdown(
+        content,
+        {
+          forceBlock,
+          forceInline,
+          preserveFrontmatter,
+          tagfilter,
+        },
+        {
+          ...(contextComponents ?? {}),
+          ...(components ?? {}),
+        },
+        wrapper
+      );
     };
   } catch {
     // Fallback if not wrapped in MarkdownProvider
@@ -138,14 +142,17 @@ export const MarkdownRenderer = defineComponent({
 
     if (renderMarkdownProp) {
       return () =>
-        renderMarkdownProp(props.content, {
-          components: props.components,
-          wrapper: props.wrapper,
-          forceBlock: props.forceBlock,
-          forceInline: props.forceInline,
-          preserveFrontmatter: props.preserveFrontmatter,
-          tagfilter: props.tagfilter,
-        });
+        renderMarkdownProp(
+          props.content,
+          {
+            forceBlock: props.forceBlock,
+            forceInline: props.forceInline,
+            preserveFrontmatter: props.preserveFrontmatter,
+            tagfilter: props.tagfilter,
+          },
+          props.components,
+          props.wrapper
+        );
     }
 
     try {

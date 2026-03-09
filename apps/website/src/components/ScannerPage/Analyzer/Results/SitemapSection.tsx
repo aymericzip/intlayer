@@ -4,6 +4,7 @@ import { Globe, Link as LinkIcon, Map as MapIcon } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { memo } from 'react';
+import { compOverwrite } from './AnalyzerPageResults';
 import { FieldItem } from './FieldItem';
 import type { MergedData } from './types';
 
@@ -27,7 +28,7 @@ export const SitemapSection: FC<SitemapSectionProps> = memo(
             icon={<MapIcon size={16} />}
             label={sitemapLabels.urlsDiscovered}
             event={data['sitemap_sitemapPresent']}
-            details={sitemapLabels.urlsDiscoveredDescription}
+            details={sitemapLabels.urlsDiscoveredDescription.use(compOverwrite)}
             isLoading={isLoading}
           />
           <FieldItem
@@ -35,7 +36,9 @@ export const SitemapSection: FC<SitemapSectionProps> = memo(
             icon={<LinkIcon size={16} />}
             label={sitemapLabels.alternatesPresent}
             event={data['sitemap_noLocalizedUrlsForgotten']}
-            details={sitemapLabels.alternatesPresentDescription}
+            details={sitemapLabels.alternatesPresentDescription.use(
+              compOverwrite
+            )}
             isLoading={isLoading}
           />
           <FieldItem
@@ -43,7 +46,9 @@ export const SitemapSection: FC<SitemapSectionProps> = memo(
             icon={<Globe size={16} />}
             label={sitemapLabels.xDefaultPresent}
             event={data['sitemap_hasXDefault']}
-            details={sitemapLabels.xDefaultPresentDescription}
+            details={sitemapLabels.xDefaultPresentDescription.use(
+              compOverwrite
+            )}
             isLoading={isLoading}
           />
         </div>

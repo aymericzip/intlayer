@@ -249,13 +249,13 @@ export const markdownStringPlugin: Plugins = {
       keyPath: [],
     });
 
-    const render = (components?: any) =>
+    const render = (components?: HTMLComponents) =>
       renderIntlayerNode({
         ...props,
         value: node,
         children: (
           <ContentSelectorRenderer {...rest}>
-            <MarkdownRenderer {...rest} {...components}>
+            <MarkdownRenderer {...rest} components={components}>
               {node}
             </MarkdownRenderer>
           </ContentSelectorRenderer>

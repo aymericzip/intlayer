@@ -4,20 +4,25 @@ import type { ContentNode, KeyPath, LocalesValues } from '@intlayer/types';
 import type { ComponentChildren, FunctionComponent } from 'preact';
 import { useLocale } from '../client/useLocale';
 import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';
-import { useMarkdownContext } from './MarkdownProvider';
+import type { HTMLComponents } from '../html/types';
+import {
+  type MarkdownProviderOptions,
+  useMarkdownContext,
+} from './MarkdownProvider';
 
 type MarkdownRendererPluginProps = {
   dictionaryKey: string;
   keyPath: KeyPath[];
   locale?: LocalesValues;
   children: string;
-  [key: string]: any;
+  options?: MarkdownProviderOptions;
+  components?: HTMLComponents<'permissive', {}>;
 };
 
 export const MarkdownRendererPlugin: FunctionComponent<
   MarkdownRendererPluginProps
-> = (props) => {
-  const { dictionaryKey, keyPath, children, locale, ...components } = props;
+> = (props): ComponentChildren => {
+  const { dictionaryKey, keyPath, children, options, components } = props;
   const context = useMarkdownContext();
   const renderMarkdown = context?.renderMarkdown ?? ((md) => md);
   const editedContentContext = useEditedContentRenderer({
@@ -29,7 +34,10 @@ export const MarkdownRendererPlugin: FunctionComponent<
   const contentToRender =
     typeof editedContentContext === 'string' ? editedContentContext : children;
 
-  return renderMarkdown(contentToRender, components) as ComponentChildren;
+  return renderMarkdown(contentToRender, options, {
+    ...(context?.components ?? {}),
+    ...(components ?? {}),
+  }) as ComponentChildren;
 };
 
 type MarkdownMetadataRendererProps = MarkdownRendererPluginProps & {
@@ -38,7 +46,12 @@ type MarkdownMetadataRendererProps = MarkdownRendererPluginProps & {
 
 export const MarkdownMetadataRenderer: FunctionComponent<
   MarkdownMetadataRendererProps
-> = ({ dictionaryKey, keyPath, children, metadataKeyPath }) => {
+> = ({
+  dictionaryKey,
+  keyPath,
+  children,
+  metadataKeyPath,
+}): ComponentChildren => {
   const editedContentContext = useEditedContentRenderer({
     dictionaryKey,
     keyPath,

@@ -4,6 +4,7 @@ import { Bot, FileText } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { memo } from 'react';
+import { compOverwrite } from './AnalyzerPageResults';
 import { FieldItem } from './FieldItem';
 import type { MergedData } from './types';
 
@@ -27,7 +28,7 @@ export const RobotsSection: FC<RobotsSectionProps> = memo(
             icon={<Bot size={16} />}
             label={robotsLabels.accessible}
             event={data['robots_robotsPresent']}
-            details={robotsLabels.accessibleDescription}
+            details={robotsLabels.accessibleDescription.use(compOverwrite)}
             isLoading={isLoading}
           />
           <FieldItem
@@ -35,7 +36,9 @@ export const RobotsSection: FC<RobotsSectionProps> = memo(
             icon={<FileText size={16} />}
             label={robotsLabels.disallowWithoutLocaleAlternates}
             event={data['robots_noLocalizedUrlsForgotten']}
-            details={robotsLabels.disallowWithoutLocaleAlternatesDescription}
+            details={robotsLabels.disallowWithoutLocaleAlternatesDescription.use(
+              compOverwrite
+            )}
             isLoading={isLoading}
           />
         </div>

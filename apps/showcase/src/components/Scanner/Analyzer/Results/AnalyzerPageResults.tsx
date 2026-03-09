@@ -1,6 +1,6 @@
-import { CodeBlock } from '@intlayer/design-system';
+import { Code, type CodeLanguage } from '@intlayer/design-system';
 import { FileText, Globe, Link as LinkIcon } from 'lucide-react';
-import type { FC, ReactNode } from 'react';
+import type { FC, HTMLProps, ReactNode } from 'react';
 import { memo } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { FieldItem } from './FieldItem';
@@ -9,7 +9,7 @@ import type { AuditDataList, MergedData } from './types';
 type FieldItemData = {
   key: AuditDataList<string>;
   icon: ReactNode;
-  label: string;
+  label: ReactNode;
   description: ReactNode;
 };
 
@@ -17,6 +17,23 @@ type AnalyzerPageResultsProps = {
   data: MergedData;
   url: string;
   isLoading?: boolean;
+};
+
+export const compOverwrite = {
+  code: ({ className, children, ...props }: HTMLProps<HTMLElement>) => (
+    <Code
+      {...props}
+      language={className?.replace('lang-', '') as CodeLanguage}
+      showHeader={false}
+    >
+      {children as string}
+    </Code>
+  ),
+  pre: ({ children }: HTMLProps<HTMLElement>) => <>{children}</>,
+  // Use div instead of p to prevent block elements (code/pre/div) from nesting inside <p>
+  p: ({ children }: HTMLProps<HTMLElement>) => (
+    <div className="mb-2">{children}</div>
+  ),
 };
 
 export const AnalyzerPageResults: FC<AnalyzerPageResultsProps> = memo(
@@ -27,72 +44,44 @@ export const AnalyzerPageResults: FC<AnalyzerPageResultsProps> = memo(
       {
         key: `url_htmlLang\\${url}`,
         icon: <Globe size={16} />,
-        label: fields.langTag.value,
-        description: fieldsDescription.langTag.use({
-          code: ({ children, className }) => (
-            <CodeBlock lang={className as 'ts'}>{children as string}</CodeBlock>
-          ),
-        }),
+        label: fields.langTag,
+        description: fieldsDescription.langTag.use(compOverwrite),
       },
       {
         key: `url_htmlDir\\${url}`,
         icon: <Globe size={16} />,
-        label: fields.htmlDir.value,
-        description: fieldsDescription.htmlDir.use({
-          code: ({ children, className }) => (
-            <CodeBlock lang={className as 'ts'}>{children as string}</CodeBlock>
-          ),
-        }),
+        label: fields.htmlDir,
+        description: fieldsDescription.htmlDir.use(compOverwrite),
       },
       {
         key: `url_hreflang\\${url}`,
         icon: <FileText size={16} />,
-        label: fields.hreflangs.value,
-        description: fieldsDescription.hreflangs.use({
-          code: ({ children, className }) => (
-            <CodeBlock lang={className as 'ts'}>{children as string}</CodeBlock>
-          ),
-        }),
+        label: fields.hreflangs,
+        description: fieldsDescription.hreflangs.use(compOverwrite),
       },
       {
         key: `url_hasXDefault\\${url}`,
         icon: <FileText size={16} />,
-        label: fields.hasXDefault.value,
-        description: fieldsDescription.hasXDefault.use({
-          code: ({ children, className }) => (
-            <CodeBlock lang={className as 'ts'}>{children as string}</CodeBlock>
-          ),
-        }),
+        label: fields.hasXDefault,
+        description: fieldsDescription.hasXDefault.use(compOverwrite),
       },
       {
         key: `url_hasCanonical\\${url}`,
         icon: <LinkIcon size={16} />,
-        label: fields.canonical.value,
-        description: fieldsDescription.canonical.use({
-          code: ({ children, className }) => (
-            <CodeBlock lang={className as 'ts'}>{children as string}</CodeBlock>
-          ),
-        }),
+        label: fields.canonical,
+        description: fieldsDescription.canonical.use(compOverwrite),
       },
       {
         key: `url_hasLocalizedLinks\\${url}`,
         icon: <LinkIcon size={16} />,
-        label: fields.localizedLinks.value,
-        description: fieldsDescription.localizedLinks.use({
-          code: ({ children, className }) => (
-            <CodeBlock lang={className as 'ts'}>{children as string}</CodeBlock>
-          ),
-        }),
+        label: fields.localizedLinks,
+        description: fieldsDescription.localizedLinks.use(compOverwrite),
       },
       {
         key: `url_allAnchorsLocalized\\${url}`,
         icon: <LinkIcon size={16} />,
-        label: fields.allAnchorsLocalized.value,
-        description: fieldsDescription.allAnchorsLocalized.use({
-          code: ({ children, className }) => (
-            <CodeBlock lang={className as 'ts'}>{children as string}</CodeBlock>
-          ),
-        }),
+        label: fields.allAnchorsLocalized,
+        description: fieldsDescription.allAnchorsLocalized.use(compOverwrite),
       },
     ];
 

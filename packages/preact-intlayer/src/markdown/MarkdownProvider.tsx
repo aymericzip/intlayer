@@ -37,9 +37,12 @@ type RenderMarkdownOptions = MarkdownProviderOptions & {
 };
 
 type MarkdownContextValue = {
+  components?: HTMLComponents<'permissive', {}>;
   renderMarkdown: (
     markdown: string,
-    overrides?: HTMLComponents<'permissive', {}> | RenderMarkdownOptions
+    options?: MarkdownProviderOptions,
+    components?: HTMLComponents<'permissive', {}>,
+    wrapper?: any
   ) => ComponentChildren;
 };
 
@@ -59,7 +62,9 @@ type MarkdownProviderProps = PropsWithChildren<
      */
     renderMarkdown?: (
       markdown: string,
-      overrides?: HTMLComponents<'permissive', {}> | RenderMarkdownOptions
+      options?: MarkdownProviderOptions,
+      components?: HTMLComponents<'permissive', {}>,
+      wrapper?: any
     ) => ComponentChildren;
   }
 >;
@@ -70,6 +75,27 @@ const MarkdownContext = createContext<MarkdownContextValue | undefined>(
 
 export const useMarkdownContext = () => useContext(MarkdownContext);
 
+const mergeOptions = (
+  baseComponents: HTMLComponents<'permissive', {}> | undefined,
+  baseOptions: Omit<RenderMarkdownOptions, 'components'>,
+  options: MarkdownProviderOptions = {},
+  components: HTMLComponents<'permissive', {}> = {},
+  wrapper?: any
+): RenderMarkdownOptions => {
+  return {
+    ...baseOptions,
+    ...options,
+    forceBlock: options.forceBlock ?? baseOptions.forceBlock,
+    forceInline: options.forceInline ?? baseOptions.forceInline,
+    preserveFrontmatter:
+      options.preserveFrontmatter ?? baseOptions.preserveFrontmatter,
+    tagfilter: options.tagfilter ?? baseOptions.tagfilter,
+    wrapper: wrapper || baseOptions.wrapper,
+    forceWrapper: !!(wrapper || baseOptions.wrapper),
+    components: { ...baseComponents, ...components },
+  };
+};
+
 export const MarkdownProvider: FunctionComponent<MarkdownProviderProps> = ({
   children,
   components,
@@ -78,11 +104,9 @@ export const MarkdownProvider: FunctionComponent<MarkdownProviderProps> = ({
   forceInline,
   preserveFrontmatter,
   tagfilter,
-  renderMarkdown,
+  renderMarkdown: customRenderFn,
 }) => {
-  // Map public options to internal processor options
-  const internalOptions: any = {
-    components,
+  const baseOptions: Omit<RenderMarkdownOptions, 'components'> = {
     forceBlock,
     forceInline,
     wrapper,
@@ -91,54 +115,45 @@ export const MarkdownProvider: FunctionComponent<MarkdownProviderProps> = ({
     tagfilter,
   };
 
-  const finalRenderMarkdown = renderMarkdown
-    ? (
-        markdown: string,
-        componentsOverride?:
-          | HTMLComponents<'permissive', {}>
-          | RenderMarkdownOptions
-      ) => (
-        <MarkdownContext.Provider value={undefined}>
-          {renderMarkdown(markdown, componentsOverride)}
-        </MarkdownContext.Provider>
-      )
-    : (
-        markdown: string,
-        componentsOverride?:
-          | HTMLComponents<'permissive', {}>
-          | RenderMarkdownOptions
-      ) => {
-        const {
-          components: overrideComponents,
-          wrapper: localWrapper,
-          forceBlock: localForceBlock,
-          forceInline: localForceInline,
-          preserveFrontmatter: localPreserveFrontmatter,
-          tagfilter: localTagfilter,
-          ...componentsFromRest
-        } = componentsOverride as RenderMarkdownOptions;
+  // Standard internal renderer
+  const defaultRenderMarkdown = (
+    markdown: string,
+    options?: MarkdownProviderOptions,
+    componentsOverride?: HTMLComponents<'permissive', {}>,
+    wrapperOverride?: any
+  ): ComponentChildren => {
+    const mergedOptions = mergeOptions(
+      components,
+      baseOptions,
+      options,
+      componentsOverride ?? {},
+      wrapperOverride
+    );
+    return compileMarkdown(markdown, mergedOptions) as ComponentChildren;
+  };
 
-        const localComponents = (overrideComponents ||
-          componentsFromRest) as HTMLComponents<'permissive', {}>;
-
-        return compileMarkdown(markdown, {
-          ...internalOptions,
-          forceBlock: localForceBlock ?? internalOptions.forceBlock,
-          forceInline: localForceInline ?? internalOptions.forceInline,
-          preserveFrontmatter:
-            localPreserveFrontmatter ?? internalOptions.preserveFrontmatter,
-          tagfilter: localTagfilter ?? internalOptions.tagfilter,
-          wrapper: localWrapper || wrapper || internalOptions.wrapper,
-          forceWrapper: !!(localWrapper || wrapper),
-          components: {
-            ...internalOptions.components,
-            ...localComponents,
-          },
-        }) as ComponentChildren;
-      };
+  // Wrapper for user-provided custom renderer
+  // Note: We wrap in a clean Provider to prevent infinite recursion
+  const customRenderMarkdownWrapper = (
+    markdown: string,
+    options?: MarkdownProviderOptions,
+    componentsOverride?: HTMLComponents<'permissive', {}>,
+    wrapperOverride?: any
+  ): ComponentChildren => (
+    <MarkdownContext.Provider value={undefined}>
+      {customRenderFn?.(markdown, options, componentsOverride, wrapperOverride)}
+    </MarkdownContext.Provider>
+  );
 
   return (
-    <MarkdownContext.Provider value={{ renderMarkdown: finalRenderMarkdown }}>
+    <MarkdownContext.Provider
+      value={{
+        components,
+        renderMarkdown: customRenderFn
+          ? customRenderMarkdownWrapper
+          : defaultRenderMarkdown,
+      }}
+    >
       {children}
     </MarkdownContext.Provider>
   );

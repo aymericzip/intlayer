@@ -13,14 +13,20 @@ export const tagfilter: boolean | undefined = undefined;
 
 const context = getMarkdownContext();
 
-$: htmlContent = context.renderMarkdown(value, {
-  components,
-  wrapper,
-  forceBlock,
-  forceInline,
-  preserveFrontmatter,
-  tagfilter,
-});
+$: htmlContent = context.renderMarkdown(
+  value,
+  {
+    forceBlock,
+    forceInline,
+    preserveFrontmatter,
+    tagfilter,
+  },
+  {
+    ...(context.components ?? {}),
+    ...(components ?? {}),
+  },
+  wrapper
+);
 </script>
 
 {@html htmlContent}

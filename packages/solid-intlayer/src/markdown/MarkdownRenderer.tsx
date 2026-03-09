@@ -27,7 +27,16 @@ export const useMarkdownRenderer = (options: RenderMarkdownOptions = {}) => {
 
   return (content: string) => {
     if (context) {
-      return context.renderMarkdown(content, options);
+      return context.renderMarkdown(
+        content,
+        {
+          forceBlock: options.forceBlock,
+          preserveFrontmatter: options.preserveFrontmatter,
+          tagfilter: options.tagfilter,
+        },
+        options.components,
+        options.wrapper
+      );
     }
     return renderMarkdown(content, options);
   };
@@ -38,10 +47,10 @@ type MarkdownRendererProps = RenderMarkdownOptions & {
   keyPath: KeyPath[];
   locale?: LocalesValues;
   children: string;
-  [key: string]: any;
 };
 
 export const MarkdownRenderer: Component<MarkdownRendererProps> = (props) => {
+  const context = useContext(MarkdownContext);
   const { renderMarkdown } = useMarkdown();
   const editedContentContext = createMemo(() =>
     useEditedContentRenderer({
@@ -56,27 +65,19 @@ export const MarkdownRenderer: Component<MarkdownRendererProps> = (props) => {
       ? (editedContentContext() as string)
       : props.children;
 
-  const {
-    dictionaryKey,
-    keyPath,
-    locale,
-    children,
-    components,
-    wrapper,
-    forceBlock,
-    preserveFrontmatter,
-    tagfilter,
-    ...rest
-  } = props;
-
-  return renderMarkdown(contentToRender(), {
-    components,
-    wrapper,
-    forceBlock,
-    preserveFrontmatter,
-    tagfilter,
-    ...rest,
-  });
+  return renderMarkdown(
+    contentToRender(),
+    {
+      forceBlock: props.forceBlock,
+      preserveFrontmatter: props.preserveFrontmatter,
+      tagfilter: props.tagfilter,
+    },
+    {
+      ...(context?.components ?? {}),
+      ...(props.components ?? {}),
+    },
+    props.wrapper
+  );
 };
 
 type MarkdownMetadataRendererProps = MarkdownRendererProps & {

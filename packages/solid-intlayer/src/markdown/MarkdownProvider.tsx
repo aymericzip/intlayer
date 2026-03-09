@@ -8,18 +8,27 @@ import {
 import type { HTMLComponents } from '../html/types';
 import { compileMarkdown } from './compiler';
 
-type RenderMarkdownOptions = {
-  components?: HTMLComponents<'permissive', {}>;
-  wrapper?: any;
+export type MarkdownProviderOptions = {
+  /** Forces the compiler to always output content with a block-level wrapper. */
   forceBlock?: boolean;
+  /** Whether to preserve frontmatter in the markdown content. */
   preserveFrontmatter?: boolean;
+  /** Whether to use the GitHub Tag Filter. */
   tagfilter?: boolean;
 };
 
+type RenderMarkdownOptions = MarkdownProviderOptions & {
+  components?: HTMLComponents<'permissive', {}>;
+  wrapper?: any;
+};
+
 type MarkdownProviderValue = {
+  components?: HTMLComponents<'permissive', {}>;
   renderMarkdown: (
     content: string,
-    overrides?: HTMLComponents<'permissive', {}> | RenderMarkdownOptions
+    options?: MarkdownProviderOptions,
+    components?: HTMLComponents<'permissive', {}>,
+    wrapper?: any
   ) => JSXElement;
 };
 
@@ -33,46 +42,38 @@ export type MarkdownProviderProps = ParentProps<{
   tagfilter?: boolean;
   renderMarkdown?: (
     content: string,
-    overrides?: HTMLComponents<'permissive', {}> | RenderMarkdownOptions
+    options?: MarkdownProviderOptions,
+    components?: HTMLComponents<'permissive', {}>,
+    wrapper?: any
   ) => JSXElement;
 }>;
 
 export const MarkdownProvider: Component<MarkdownProviderProps> = (props) => {
-  const defaultRenderMarkdown = (content: string, overrides?: any) => {
-    // If props.renderMarkdown is provided, it handles the logic
+  const defaultRenderMarkdown = (
+    content: string,
+    options?: MarkdownProviderOptions,
+    componentsOverride?: HTMLComponents<'permissive', {}>,
+    wrapperOverride?: any
+  ): JSXElement => {
     if (props.renderMarkdown) {
-      return props.renderMarkdown(content, overrides);
+      return props.renderMarkdown(
+        content,
+        options,
+        componentsOverride,
+        wrapperOverride
+      );
     }
 
-    const isOptionsObject =
-      overrides &&
-      typeof overrides === 'object' &&
-      ('components' in overrides ||
-        'wrapper' in overrides ||
-        'forceBlock' in overrides ||
-        'preserveFrontmatter' in overrides ||
-        'tagfilter' in overrides);
-
-    const {
-      components: overrideComponents,
-      wrapper: localWrapper,
-      forceBlock: localForceBlock,
-      preserveFrontmatter: localPreserveFrontmatter,
-      tagfilter: localTagfilter,
-      ...componentsFromRest
-    } = isOptionsObject ? overrides : { components: overrides };
-
-    const actualComponents = overrideComponents || componentsFromRest;
-
-    const mergedOptions = {
-      forceBlock: localForceBlock ?? props.forceBlock,
+    const mergedOptions: RenderMarkdownOptions = {
+      forceBlock: options?.forceBlock ?? props.forceBlock,
       preserveFrontmatter:
-        localPreserveFrontmatter ?? props.preserveFrontmatter,
-      tagfilter: localTagfilter ?? props.tagfilter,
-      wrapper: localWrapper || props.wrapper,
+        options?.preserveFrontmatter ?? props.preserveFrontmatter,
+      tagfilter: options?.tagfilter ?? props.tagfilter,
+      wrapper: wrapperOverride || props.wrapper,
+      forceWrapper: !!(wrapperOverride || props.wrapper),
       components: {
         ...props.components,
-        ...actualComponents,
+        ...(componentsOverride ?? {}),
       },
     };
 
@@ -82,6 +83,7 @@ export const MarkdownProvider: Component<MarkdownProviderProps> = (props) => {
   return (
     <MarkdownContext.Provider
       value={{
+        components: props.components,
         renderMarkdown: defaultRenderMarkdown,
       }}
     >

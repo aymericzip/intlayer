@@ -8,14 +8,14 @@ import { setLocaleInStorage } from './useLocaleStorage';
 
 type UseLocaleProps = {
   isCookieEnabled?: boolean;
-  onLocaleChange?: (locale: DeclaredLocales) => void;
+  onLocaleChange?: (locale: LocalesValues) => void;
 };
 
 type UseLocaleResult = {
-  locale: DeclaredLocales;
-  defaultLocale: DeclaredLocales;
-  availableLocales: DeclaredLocales[];
-  setLocale: (locale: DeclaredLocales) => void;
+  locale: LocalesValues;
+  defaultLocale: LocalesValues;
+  availableLocales: LocalesValues[];
+  setLocale: (locale: LocalesValues) => void;
 };
 
 /**

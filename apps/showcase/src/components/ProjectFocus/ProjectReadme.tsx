@@ -9,6 +9,7 @@ import {
   MarkdownRenderer,
 } from '@intlayer/design-system';
 import { useQuery } from '@tanstack/react-query';
+import React, { type HTMLProps, memo } from 'react';
 import { cn } from '#/utils/cn';
 
 const parseGithubRawUrl = (githubUrl: string): string | null => {
@@ -30,11 +31,36 @@ const fetchReadme = async (rawUrl: string): Promise<string> => {
   return res.text();
 };
 
+const markdownComponents = {
+  h1: H2,
+  h2: H3,
+  h3: H4,
+  h4: H5,
+  h5: H6,
+  // Use div instead of p to avoid invalid nesting (e.g. <p align="center"> inside a markdown <p>)
+  p: ({ children, ...props }: HTMLProps<HTMLElement>) => (
+    <div {...(props as HTMLProps<HTMLDivElement>)}>{children}</div>
+  ),
+};
+
+const MarkdownWrapper = ({ className, children, ...props }: any) => (
+  <div className={cn('flex flex-col gap-4 p-10', className)} {...props}>
+    {children}
+  </div>
+);
+
+// Isolate and memoize the heavy Markdown component
+const MemoizedMarkdown = memo(({ content }: { content: string }) => (
+  <MarkdownRenderer components={markdownComponents} wrapper={MarkdownWrapper}>
+    {content}
+  </MarkdownRenderer>
+));
+
 interface ProjectReadmeProps {
   githubUrl: string;
 }
 
-export const ProjectReadme = ({ githubUrl }: ProjectReadmeProps) => {
+export const ProjectReadme = React.memo(({ githubUrl }: ProjectReadmeProps) => {
   const rawUrl = parseGithubRawUrl(githubUrl);
 
   const { data: readme, isPending } = useQuery({
@@ -42,7 +68,7 @@ export const ProjectReadme = ({ githubUrl }: ProjectReadmeProps) => {
     queryFn: () => fetchReadme(rawUrl!),
     enabled: !!rawUrl,
     retry: false,
-    staleTime: 1000 * 60 * 60,
+    staleTime: 1000 * 60 * 60, // 1 hour
   });
 
   if (!rawUrl) return null;
@@ -73,21 +99,9 @@ export const ProjectReadme = ({ githubUrl }: ProjectReadmeProps) => {
         className="overflow-hidden bg-text-opposite"
       >
         <ExpandCollapse>
-          <MarkdownRenderer
-            components={{ h1: H2, h2: H3, h3: H4, h4: H5, h5: H6 }}
-            wrapper={({ className, children, ...props }) => (
-              <div
-                className={cn('flex flex-col gap-4 p-10', className)}
-                {...props}
-              >
-                {children}
-              </div>
-            )}
-          >
-            {readme}
-          </MarkdownRenderer>
+          <MemoizedMarkdown content={readme} />
         </ExpandCollapse>
       </Container>
     </>
   );
-};
+});

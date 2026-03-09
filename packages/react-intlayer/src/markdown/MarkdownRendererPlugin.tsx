@@ -6,20 +6,25 @@ import { useEditorLocale } from '@intlayer/editor-react';
 import type { ContentNode, KeyPath, LocalesValues } from '@intlayer/types';
 import type { FC, ReactNode } from 'react';
 import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';
-import { useMarkdownContext } from './MarkdownProvider';
+import type { HTMLComponents } from '../html/HTMLComponentTypes';
+import {
+  type MarkdownProviderOptions,
+  useMarkdownContext,
+} from './MarkdownProvider';
 
 type MarkdownRendererPluginProps = {
   dictionaryKey: string;
   keyPath: KeyPath[];
   locale?: LocalesValues;
   children: string;
-  [key: string]: any;
+  options?: MarkdownProviderOptions;
+  components?: HTMLComponents<'permissive', {}>;
 };
 
 export const MarkdownRendererPlugin: FC<MarkdownRendererPluginProps> = (
   props
 ): ReactNode => {
-  const { dictionaryKey, keyPath, children, locale, ...components } = props;
+  const { dictionaryKey, keyPath, children, options, components } = props;
   const context = useMarkdownContext();
   const renderMarkdown = context?.renderMarkdown ?? ((md) => md);
   const editedContentContext = useEditedContentRenderer({
@@ -31,7 +36,10 @@ export const MarkdownRendererPlugin: FC<MarkdownRendererPluginProps> = (
   const contentToRender =
     typeof editedContentContext === 'string' ? editedContentContext : children;
 
-  return renderMarkdown(contentToRender, components);
+  return renderMarkdown(contentToRender, options, {
+    ...(context?.components ?? {}),
+    ...(components ?? {}),
+  });
 };
 
 type MarkdownMetadataRendererProps = MarkdownRendererPluginProps & {

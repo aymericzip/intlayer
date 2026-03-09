@@ -23,6 +23,7 @@ export type MarkdownProviderOptions = {
 };
 
 type MarkdownContextValue = {
+  components?: HTMLComponents<'permissive', {}>;
   renderMarkdown: (
     markdown: string,
     options?: MarkdownProviderOptions,
@@ -148,6 +149,7 @@ export const MarkdownProvider: FC<MarkdownProviderProps> = ({
   return (
     <MarkdownContext.Provider
       value={{
+        components,
         renderMarkdown: customRenderFn
           ? customRenderMarkdownWrapper
           : defaultRenderMarkdown,

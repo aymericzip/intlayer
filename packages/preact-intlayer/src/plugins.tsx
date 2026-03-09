@@ -17,7 +17,7 @@ import { EditedContentRenderer } from './editor/useEditedContentRenderer';
 import { HTMLRenderer } from './html/HTMLRenderer';
 import type { HTMLComponents } from './html/types';
 import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
-import { MarkdownMetadataRenderer, MarkdownRenderer } from './markdown';
+import { MarkdownMetadataRenderer, MarkdownRendererPlugin } from './markdown';
 import { renderPreactElement } from './preactElement/renderPreactElement';
 
 /** ---------------------------------------------
@@ -293,9 +293,9 @@ export const markdownStringPlugin: Plugins = {
         value: node,
         children: (
           <ContentSelectorRenderer {...rest}>
-            <MarkdownRenderer {...rest} {...components}>
+            <MarkdownRendererPlugin {...rest} components={components}>
               {node}
-            </MarkdownRenderer>
+            </MarkdownRendererPlugin>
           </ContentSelectorRenderer>
         ),
         additionalProps: {
