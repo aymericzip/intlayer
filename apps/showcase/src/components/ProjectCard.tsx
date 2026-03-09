@@ -1,6 +1,7 @@
 import { Badge, Button, Container } from '@intlayer/design-system';
 import { Link } from '@tanstack/react-router';
 import { ExternalLink, ThumbsDown, ThumbsUp } from 'lucide-react';
+import { useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { getFaviconUrl } from '#/utils/getFaviconUrl';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
@@ -21,6 +22,9 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
     handleDownvote,
   } = useShowcaseLike(project);
 
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [isFaviconLoaded, setIsFaviconLoaded] = useState(false);
+
   const faviconUrl = getFaviconUrl(project.websiteUrl);
 
   return (
@@ -39,21 +43,38 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
         className="flex flex-1 flex-col"
       >
         <div className="relative aspect-video overflow-hidden bg-background">
+          {/* Main Image Skeleton */}
+          {!isImageLoaded && (
+            <div className="absolute inset-0 animate-pulse bg-neutral/20" />
+          )}
           <img
             alt={`${project.title} screenshot`}
-            className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+            width={1280}
+            height={720}
+            className={`h-full w-full object-cover transition-all duration-500 ease-out group-hover:scale-105 ${
+              isImageLoaded ? 'opacity-100' : 'opacity-0'
+            }`}
             src={project.imageUrl}
+            onLoad={() => setIsImageLoaded(true)}
           />
+
           {faviconUrl && (
             <Container
               roundedSize="xl"
               transparency="lg"
-              className="absolute bottom-3 left-3 size-8 shrink-0 overflow-hidden shadow-md"
+              className="absolute bottom-3 left-3 size-5 shrink-0 overflow-hidden bg-background shadow-md"
             >
+              {/* Favicon Skeleton */}
+              {!isFaviconLoaded && (
+                <div className="absolute inset-0 animate-pulse bg-neutral/20" />
+              )}
               <img
                 alt={`${project.title} favicon`}
-                className="h-full w-full object-cover"
+                className={`h-full w-full object-cover transition-opacity duration-300 ${
+                  isFaviconLoaded ? 'opacity-100' : 'opacity-0'
+                }`}
                 src={faviconUrl}
+                onLoad={() => setIsFaviconLoaded(true)}
               />
             </Container>
           )}

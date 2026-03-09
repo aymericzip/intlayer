@@ -44,8 +44,6 @@ export const useProjectSubmit = () => {
       name: '',
       url: '',
       githubUrl: '',
-      tagline: '',
-      description: '',
       useCases: [],
     } as SubmitProjectFormData
   );
@@ -66,8 +64,6 @@ export const useProjectSubmit = () => {
           name: data.name,
           url: data.url,
           githubUrl: data.githubUrl,
-          tagline: data.tagline,
-          description: data.description,
           useCases: data.useCases,
         }),
       });

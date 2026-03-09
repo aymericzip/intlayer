@@ -1,7 +1,5 @@
 import { Form, MultiSelect } from '@intlayer/design-system';
-import type { UseFormReturn } from 'react-hook-form';
 import { useIntlayer } from 'react-intlayer';
-import type { SubmitProjectFormData } from './useSubmitProjectFormSchema';
 
 const useCasesList = [
   'Blog',
@@ -16,11 +14,7 @@ const useCasesList = [
   'Media',
 ];
 
-interface ProjectFormFieldsProps {
-  form: UseFormReturn<SubmitProjectFormData>;
-}
-
-export const ProjectFormFields = ({ form }: ProjectFormFieldsProps) => {
+export const ProjectFormFields = () => {
   const content = useIntlayer('submit-project-form');
 
   return (
@@ -46,24 +40,6 @@ export const ProjectFormFields = ({ form }: ProjectFormFieldsProps) => {
         label={content.githubUrlInput.label}
         placeholder={content.githubUrlInput.placeholder.value}
         type="url"
-      />
-
-      <Form.Input
-        name="tagline"
-        label={content.taglineInput.label}
-        placeholder={content.taglineInput.placeholder.value}
-        maxLength={500}
-        description={content.taglineInput.charactersInfo({
-          count: form.watch('tagline')?.length ?? 0,
-        })}
-        isRequired
-      />
-
-      <Form.AutoSizedTextArea
-        name="description"
-        label={content.descriptionInput.label}
-        placeholder={content.descriptionInput.placeholder.value}
-        rows={4}
       />
 
       <Form.MultiSelect

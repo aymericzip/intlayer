@@ -44,8 +44,6 @@ const submitProjectSchema = z.object({
       message: 'Repository URLs should be placed in the GitHub URL field',
     }),
   githubUrl: urlSchema,
-  tagline: z.string().min(1),
-  description: z.string().optional(),
   useCases: z.array(z.string()).optional(),
 });
 
@@ -99,10 +97,11 @@ export const submitShowcaseProject = async (
     }
 
     // Save project to DB immediately — scan is triggered separately by the owner
+    // tagline and description will be populated automatically during the scan step
     const logoUrl = getFaviconUrl(validatedData.url);
     const newProject = await showcaseProjectService.createShowcaseProject({
       title: validatedData.name,
-      description: validatedData.tagline,
+      description: '',
       websiteUrl: validatedData.url,
       githubUrl: validatedData.githubUrl,
       logoUrl: logoUrl ?? '',
@@ -638,6 +637,11 @@ export const scanShowcaseProject = async (
         isOpenSource,
         status: 'active',
         lastScanDate: new Date(),
+        // Populate tagline/description from page metadata if not already set
+        ...((!project.description || project.description === '') &&
+        scanResult.metaDescription
+          ? { description: scanResult.metaDescription }
+          : {}),
       }
     );
 

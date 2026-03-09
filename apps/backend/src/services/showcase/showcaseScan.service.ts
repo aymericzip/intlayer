@@ -15,6 +15,10 @@ export interface ShowcaseScannedInfo {
   scanDetails: ShowcaseScanDetails;
   /** JPEG screenshot buffer taken on the same page load */
   screenshotBuffer: Buffer;
+  /** Page title extracted from og:title or <title> */
+  metaTitle?: string;
+  /** Short description extracted from og:description or meta description */
+  metaDescription?: string;
 }
 
 /**
@@ -118,6 +122,22 @@ export const scanShowcaseProject = async (
         .map((script) => (script as HTMLScriptElement).src)
         .filter(Boolean);
 
+      // Meta tag extraction
+      const metaTitle =
+        document
+          .querySelector('meta[property="og:title"]')
+          ?.getAttribute('content') ||
+        document.title ||
+        '';
+      const metaDescription =
+        document
+          .querySelector('meta[property="og:description"]')
+          ?.getAttribute('content') ||
+        document
+          .querySelector('meta[name="description"]')
+          ?.getAttribute('content') ||
+        '';
+
       return {
         lang,
         dir,
@@ -127,6 +147,8 @@ export const scanShowcaseProject = async (
         allAnchorsLocalized,
         inlineScripts,
         externalScriptUrls,
+        metaTitle,
+        metaDescription,
       };
     }, allLocales);
 
@@ -233,6 +255,8 @@ export const scanShowcaseProject = async (
       packageDetails,
       libsUsed,
       screenshotBuffer,
+      metaTitle: pageDetails.metaTitle || undefined,
+      metaDescription: pageDetails.metaDescription || undefined,
       scanDetails: {
         score,
         langTag: pageDetails.lang,

@@ -1,7 +1,6 @@
 import { getIntlayerAPI } from '@intlayer/api';
 import {
   Button,
-  Loader,
   NumberItemsSelector,
   Pagination,
   ShowingResultsNumberItems,
@@ -17,6 +16,7 @@ import { useIntlayer } from 'react-intlayer';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
 import { FiltersBar } from '@/components/FiltersBar';
 import { ProjectCard } from '@/components/ProjectCard';
+import { ProjectCardSkeleton } from '@/components/ProjectCardSkeleton';
 import { ShowcaseHeader } from '@/components/ShowcaseHeader';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
 import { SITE_URL } from '@/lib/site';
@@ -197,7 +197,11 @@ function App() {
 
       <div className="mx-auto max-w-7xl px-4 py-8">
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.length > 0 ? (
+          {isPending ? (
+            Array.from({ length: 5 }, (_, i) => (
+              <ProjectCardSkeleton key={`skeleton-${i}`} />
+            ))
+          ) : projects.length > 0 ? (
             projects.map((project: any) => (
               <ProjectCard
                 key={project._id}
@@ -224,7 +228,6 @@ function App() {
             </div>
           )}
         </div>
-        <Loader isLoading={isPending} />
       </div>
 
       <div className="mx-auto mt-8 mb-12 w-full max-w-7xl px-4">
