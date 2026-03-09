@@ -9,13 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root';
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml';
-import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route';
-import { Route as Char123LocaleChar125IndexRouteImport } from './routes/{-$locale}/index';
-import { Route as Char123LocaleChar125SubmitRouteImport } from './routes/{-$locale}/submit';
-import { Route as Char123LocaleChar125404RouteImport } from './routes/{-$locale}/404';
 import { Route as Char123LocaleChar125SplatRouteImport } from './routes/{-$locale}/$';
+import { Route as Char123LocaleChar125404RouteImport } from './routes/{-$locale}/404';
+import { Route as Char123LocaleChar125IndexRouteImport } from './routes/{-$locale}/index';
 import { Route as Char123LocaleChar125ProjectProjectIdRouteImport } from './routes/{-$locale}/project.$projectId';
+import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route';
+import { Route as Char123LocaleChar125SubmitRouteImport } from './routes/{-$locale}/submit';
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml';
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -204,8 +204,9 @@ export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>();
 
-import type { getRouter } from './router.tsx';
 import type { createStart } from '@tanstack/react-start';
+import type { getRouter } from './router.tsx';
+
 declare module '@tanstack/react-start' {
   interface Register {
     ssr: true;

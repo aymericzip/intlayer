@@ -14,15 +14,14 @@ export const verifyIntlayerBundle = async (url: string): Promise<boolean> => {
 
     const html = await response.text();
 
-    const regex =
-      /name\s*:\s*['"]Intlayer['"]\s*,\s*version\s*:\s*['"][^'"]+['"]\s*,\s*doc\s*:\s*[`'"]https:\/\/intlayer\.org\/docs[`'"]/i;
+    const regex = /['"]?name['"]?\s*:\s*['"]Intlayer['"]/i;
 
     if (regex.test(html)) {
       return true;
     }
 
     const scriptSrcRegex =
-      /(?:src=|href=|import\()\\?['"]([^'"]+\.(?:js|mjs|cjs)[^'"]*)['"]/gi;
+      /(?:src=|href=|import\()\\?['"]?([^'"\s>]+\.(?:js|mjs|cjs)[^'"\s>]*)['"]?/gi;
     const scriptUrls: string[] = [];
     let match: RegExpExecArray | null = scriptSrcRegex.exec(html);
 
