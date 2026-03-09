@@ -64,28 +64,30 @@ export const ProjectReadme = ({ githubUrl }: ProjectReadmeProps) => {
   if (!readme) return null;
 
   return (
-    <Container
-      roundedSize="2xl"
-      border
-      borderColor="text"
-      className="overflow-hidden bg-text-opposite"
-    >
-      <ExpandCollapse>
-        <H2 className="pt-10 pl-10">Readme</H2>
-        <MarkdownRenderer
-          components={{ h1: H2, h2: H3, h3: H4, h4: H5, h5: H6 }}
-          wrapper={({ className, children, ...props }) => (
-            <div
-              className={cn('flex flex-col gap-4 p-10', className)}
-              {...props}
-            >
-              {children}
-            </div>
-          )}
-        >
-          {readme}
-        </MarkdownRenderer>
-      </ExpandCollapse>
-    </Container>
+    <>
+      <H2 className="py-10 pl-10">Readme</H2>
+      <Container
+        roundedSize="2xl"
+        border
+        borderColor="text"
+        className="overflow-hidden bg-text-opposite"
+      >
+        <ExpandCollapse>
+          <MarkdownRenderer
+            components={{ h1: H2, h2: H3, h3: H4, h4: H5, h5: H6 }}
+            wrapper={({ className, children, ...props }) => (
+              <div
+                className={cn('flex flex-col gap-4 p-10', className)}
+                {...props}
+              >
+                {children}
+              </div>
+            )}
+          >
+            {readme}
+          </MarkdownRenderer>
+        </ExpandCollapse>
+      </Container>
+    </>
   );
 };
