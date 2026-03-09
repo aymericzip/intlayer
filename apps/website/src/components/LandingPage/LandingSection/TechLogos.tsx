@@ -44,7 +44,7 @@ const logos = [
   {
     Logo: NextJSLogo,
     key: 'nextjs',
-    route: PagesRoutes.Doc_Environment_NextJS_15,
+    route: PagesRoutes.Doc_Environment_NextJS,
   },
   { Logo: ReactLogo, key: 'react', route: PagesRoutes.Doc_Environment_CRA },
   {
