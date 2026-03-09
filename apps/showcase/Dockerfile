@@ -9,7 +9,7 @@ FROM node:22-alpine AS builder
 
 # RUN apk add --no-cache wget
 
-RUN npm install -g bun@1.3.9
+RUN npm install -g bun@1.3.10
 
 
 # Create app directory
