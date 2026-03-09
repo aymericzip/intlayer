@@ -19,8 +19,8 @@ export enum WebsiteRoutes {
 }
 
 export enum AppRoutes {
-  Dashboard = 'http://localhost:3000',
-  Auth_SignIn = 'http://localhost:3000/auth/login',
+  Dashboard = 'https://app.intlayer.org',
+  Auth_SignIn = 'https://app.intlayer.org/auth/login',
 }
 
 export enum ExternalLinks {
