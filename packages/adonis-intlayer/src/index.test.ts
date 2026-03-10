@@ -1,5 +1,5 @@
-import { Locales } from '@intlayer/types';
-import { describe, expect, it, vi } from 'vitest';
+import * as Locales from '@intlayer/types/locales';
+import { describe, expect, it } from 'vitest';
 import { getLocale, t } from './index';
 
 describe('adonis-intlayer', () => {

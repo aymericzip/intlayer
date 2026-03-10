@@ -1,5 +1,6 @@
 import { computed, inject, type Signal } from '@angular/core';
-import type { Dictionary, LocalesValues } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { getDictionary } from '../getDictionary';
 import type { DeepTransformContent } from '../plugins';
 import { INTLAYER_TOKEN, type IntlayerProvider } from './installIntlayer';

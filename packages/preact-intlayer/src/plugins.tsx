@@ -9,8 +9,9 @@ import type {
   InsertionContent,
   MarkdownContent,
 } from '@intlayer/core/transpiler';
-import type { DeclaredLocales, KeyPath, LocalesValues } from '@intlayer/types';
-import { NodeType } from '@intlayer/types';
+import type { DeclaredLocales, LocalesValues } from '@intlayer/types/module_augmentation';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import { NodeType } from '@intlayer/types/nodeType';
 import { Fragment, h, type VNode } from 'preact';
 import { ContentSelectorRenderer } from './editor';
 import { EditedContentRenderer } from './editor/useEditedContentRenderer';
@@ -411,10 +412,10 @@ export const htmlPlugin: Plugins = {
  * PLUGINS RESULT
  * --------------------------------------------- */
 
-export interface IInterpreterPluginPreact<T, _S, _L extends LocalesValues> {
+export interface IInterpreterPluginPreact<T, S, L extends LocalesValues> {
   preactNode: PreactNodeCond<T>;
   preactIntlayerNode: IntlayerNodeCond<T>;
-  preactInsertion: InsertionCond<T>;
+  preactInsertion: InsertionCond<T, S, L>;
   preactMarkdown: MarkdownCond<T>;
   preactHtml: HTMLPluginCond<T>;
 }

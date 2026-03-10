@@ -1,5 +1,5 @@
 import { isAbsolute, relative, resolve } from 'node:path';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import fg from 'fast-glob';
 
 /**

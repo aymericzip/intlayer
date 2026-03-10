@@ -4,7 +4,7 @@ import {
   getLocalizedUrl,
   getPathWithoutLocale,
 } from '@intlayer/core/localization';
-import type { LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { useRouter } from 'next/router.js';
 import { useCallback, useMemo } from 'react';
 import { useLocale as useLocaleReact } from 'react-intlayer';

@@ -7,12 +7,10 @@ import {
   getFilteredLocalesDictionary,
   getPerLocaleDictionary,
 } from '@intlayer/core/plugins';
-import type {
-  Dictionary,
-  IntlayerConfig,
-  Locale,
-  LocalesValues,
-} from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import type { Locale } from '@intlayer/types/allLocales';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { detectFormatCommand } from '../detectFormatCommand';
 import {

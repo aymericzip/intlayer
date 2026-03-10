@@ -7,7 +7,8 @@ import {
   getAppLogger,
 } from '@intlayer/config/logger';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import type { Dictionary, IntlayerConfig } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import fg from 'fast-glob';
 import { createDictionaryEntryPoint } from './createDictionaryEntryPoint';

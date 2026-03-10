@@ -1,7 +1,7 @@
 import { mkdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { isDeepStrictEqual } from 'node:util';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';
 
 const getCachedConfiguration = async (configuration: IntlayerConfig) => {

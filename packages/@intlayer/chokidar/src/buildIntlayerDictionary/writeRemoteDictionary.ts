@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 import { colorizePath, x } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
 import { orderDictionaries } from '@intlayer/core/dictionaryManipulator';
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { formatDistantDictionaries } from '../loadDictionaries';
 import { parallelize } from '../utils/parallelize';

@@ -2,8 +2,8 @@
 
 import { useGetDictionaries } from '@intlayer/design-system/hooks';
 import { useDictionariesRecord } from '@intlayer/editor-react';
-import type { Dictionary, LocalDictionaryId } from '@intlayer/types';
-import { type FC, useEffect, useState } from 'react';
+import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
+import { type FC, useEffect } from 'react';
 
 export const DictionaryLoaderDashboard: FC = () => {
   // Will receive the locale dictionaries from the client, and will add remote dictionaries to the list

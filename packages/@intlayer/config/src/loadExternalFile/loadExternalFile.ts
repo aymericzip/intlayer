@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { extname } from 'node:path';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import type { BuildOptions } from 'esbuild';
 import JSON5 from 'json5';
 import { colorizePath, logger } from '../logger';

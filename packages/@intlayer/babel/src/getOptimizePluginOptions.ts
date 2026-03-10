@@ -4,7 +4,8 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
-import type { Dictionary, IntlayerConfig } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import type { OptimizePluginOptions } from './babel-plugin-intlayer-optimize';
 
 type GetOptimizePluginOptionsParams = {

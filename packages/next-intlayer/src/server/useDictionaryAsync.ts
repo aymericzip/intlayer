@@ -1,8 +1,5 @@
-import type {
-  DeclaredLocales,
-  Dictionary,
-  StrictModeLocaleMap,
-} from '@intlayer/types';
+import type { DeclaredLocales, StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { useDictionaryAsync as useDictionaryAsyncBase } from 'react-intlayer/server';
 import { getLocale } from './getLocale';
 

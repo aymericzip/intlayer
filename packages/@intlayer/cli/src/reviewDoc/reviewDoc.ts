@@ -22,7 +22,7 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
-import type { Locale } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
 import fg from 'fast-glob';
 import { checkFileModifiedRange } from '../utils/checkFileModifiedRange';
 import { getOutputFilePath } from '../utils/getOutputFilePath';

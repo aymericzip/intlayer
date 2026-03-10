@@ -1,7 +1,7 @@
 import type { AIConfig, AIOptions } from '@intlayer/ai';
 import { getIntlayerAPIProxy, type Messages } from '@intlayer/api';
 import { retryManager } from '@intlayer/config/utils';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import type { AIClient } from './setupAI';
 
 type ChunkInferenceResult = {

@@ -1,4 +1,4 @@
-import type { CustomIntlayerConfig } from '@intlayer/types';
+import type { CustomIntlayerConfig } from '@intlayer/types/config';
 import {
   type LoadExternalFileOptions,
   loadExternalFileSync,

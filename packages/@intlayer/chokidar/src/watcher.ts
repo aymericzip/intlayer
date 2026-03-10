@@ -7,7 +7,7 @@ import {
   getConfigurationAndFilePath,
 } from '@intlayer/config/node';
 import { clearAllCache, clearModuleCache } from '@intlayer/config/utils';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 /** @ts-ignore remove error Module '"chokidar"' has no exported member 'ChokidarOptions' */
 import { type ChokidarOptions, watch as chokidarWatch } from 'chokidar';
 import { handleAdditionalContentDeclarationFile } from './handleAdditionalContentDeclarationFile';

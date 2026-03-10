@@ -1,6 +1,7 @@
 import { effect, inject } from '@angular/core';
 import { MessageKey } from '@intlayer/editor';
-import type { Locale, LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import type { Locale } from '@intlayer/types/allLocales';
 import { INTLAYER_TOKEN, type IntlayerProvider } from '../client';
 import { createSharedComposable } from './createSharedComposable';
 import { useCrossFrameState } from './useCrossFrameState';

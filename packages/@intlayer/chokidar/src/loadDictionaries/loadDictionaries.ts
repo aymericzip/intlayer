@@ -5,7 +5,8 @@ import {
   colorizeKey,
   getAppLogger,
 } from '@intlayer/config/logger';
-import type { Dictionary, IntlayerConfig } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { formatDictionaries } from '../formatDictionary';
 import { loadContentDeclarations } from './loadContentDeclaration';

@@ -8,7 +8,7 @@ import {
   useEditorEnabled,
   useFocusDictionary,
 } from '@intlayer/editor-react';
-import { NodeType } from '@intlayer/types';
+import { NodeType } from '@intlayer/types/nodeType';
 import { type FC, type HTMLAttributes, useCallback, useMemo } from 'react';
 import { useIntlayerContext } from '../client';
 import { ContentSelector } from '../UI/ContentSelector';

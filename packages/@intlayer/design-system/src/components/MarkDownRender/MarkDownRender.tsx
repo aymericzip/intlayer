@@ -1,4 +1,4 @@
-import type { LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { cn } from '@utils/cn';
 import {
   type ComponentProps,
@@ -220,7 +220,7 @@ type MarkdownRendererProps = {
   wrapper?: ComponentProps<typeof MarkdownRendererIntlayer>['wrapper'];
 };
 
-export const getIntlayerMarkdownOptions = (isDarkMode?: boolean) => ({
+export const getIntlayerMarkdownOptions = (_isDarkMode?: boolean) => ({
   components: baseMarkdownComponents,
 });
 

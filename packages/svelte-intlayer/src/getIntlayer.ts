@@ -2,12 +2,7 @@ import {
   getIntlayer as getIntlayerCore,
   type Plugins,
 } from '@intlayer/core/interpreter';
-import type {
-  DeclaredLocales,
-  DictionaryKeys,
-  DictionaryRegistryContent,
-  LocalesValues,
-} from '@intlayer/types';
+import type { DeclaredLocales, DictionaryKeys, DictionaryRegistryContent, LocalesValues } from '@intlayer/types/module_augmentation';
 import {
   type DeepTransformContent,
   htmlPlugin,

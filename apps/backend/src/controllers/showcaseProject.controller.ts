@@ -46,6 +46,7 @@ const submitProjectSchema = z.object({
   githubUrl: urlSchema,
   useCases: z.array(z.string()).max(3).optional(),
 });
+export type SubmitShowcaseProjectBody = z.input<typeof submitProjectSchema>;
 export type SubmitShowcaseProjectResult = ResponseData<ShowcaseProjectAPI>;
 
 /**

@@ -10,8 +10,9 @@ import {
   useForm,
 } from '@intlayer/design-system';
 import { useSession, useUpdateProject } from '@intlayer/design-system/hooks';
-import { AiProviders } from '@intlayer/types';
-import { getLocaleName, type Locale, Locales } from 'intlayer';
+import { ALL_LOCALES } from '@intlayer/types/allLocales';
+import { AiProviders } from '@intlayer/types/config';
+import { getLocaleName, type Locale } from 'intlayer';
 import { Save } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
@@ -26,7 +27,7 @@ type ConfigEditionFormProps = {
   onClose: () => void;
 };
 
-const allLocales = Object.values(Locales.ALL_LOCALES) as Locale[];
+const allLocales = Object.values(ALL_LOCALES) as Locale[];
 const allAiProviders = Object.values(AiProviders);
 
 export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({

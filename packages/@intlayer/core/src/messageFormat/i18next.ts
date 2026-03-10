@@ -1,5 +1,5 @@
-import type { Dictionary } from '@intlayer/types';
-import { NodeType } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import { NodeType } from '@intlayer/types/nodeType';
 import { deepTransformNode } from '../interpreter';
 import { enu, gender, html, insert } from '../transpiler';
 import type { JsonValue } from './ICU';

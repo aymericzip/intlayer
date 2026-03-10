@@ -1,6 +1,6 @@
 import configuration from '@intlayer/config/built';
 import { MessageKey } from '@intlayer/editor';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { onMounted } from 'vue';
 import { useCrossFrameState } from './useCrossFrameState';
 

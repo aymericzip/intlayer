@@ -1,4 +1,7 @@
-import { type Locale, Locales, type StrictMode } from '@intlayer/types';
+import type { StrictMode } from '@intlayer/types/config';
+import type { Locale } from '@intlayer/types/allLocales';
+
+import * as Locales from '@intlayer/types/locales';
 
 export const LOCALES: Locale[] = [Locales.ENGLISH];
 

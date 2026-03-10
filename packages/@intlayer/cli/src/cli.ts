@@ -7,7 +7,7 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
-import type { CustomIntlayerConfig } from '@intlayer/types';
+import type { CustomIntlayerConfig } from '@intlayer/types/config';
 import { Command } from 'commander';
 import { login } from './auth/login';
 import { build } from './build';

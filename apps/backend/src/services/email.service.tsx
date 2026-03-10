@@ -49,7 +49,7 @@ import {
   WelcomeEmailES,
   WelcomeEmailFR,
 } from '@emails/Welcome';
-import type { Locale } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
 import { logger } from '@logger';
 import { t } from 'fastify-intlayer';
 import type { ComponentProps, JSX } from 'react';

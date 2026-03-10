@@ -2,7 +2,8 @@
 
 import { getContent } from '@intlayer/core/interpreter';
 import { useEditedContentActions } from '@intlayer/editor-react';
-import type { KeyPath, Locale } from '@intlayer/types';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import type { Locale } from '@intlayer/types/allLocales';
 import type { FC } from 'react';
 import { ContentSelectorRenderer } from './ContentSelectorWrapper';
 

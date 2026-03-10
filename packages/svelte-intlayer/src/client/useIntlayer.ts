@@ -1,8 +1,4 @@
-import type {
-  DictionaryKeys,
-  DictionaryRegistryContent,
-  LocalesValues,
-} from '@intlayer/types';
+import type { DictionaryKeys, DictionaryRegistryContent, LocalesValues } from '@intlayer/types/module_augmentation';
 import { derived, type Readable } from 'svelte/store';
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';

@@ -1,12 +1,12 @@
 import { getContentNodeByKeyPath } from '@intlayer/core/dictionaryManipulator';
 import { MessageKey } from '@intlayer/editor';
-import {
-  type ContentNode,
-  type Dictionary,
-  type KeyPath,
-  type LocalDictionaryId,
-  NodeType,
-} from '@intlayer/types';
+import type {
+  ContentNode,
+  Dictionary,
+  LocalDictionaryId,
+} from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import { NodeType } from '@intlayer/types/nodeType';
 import { type App, inject, type Ref, readonly, ref, watch } from 'vue';
 import type { IntlayerProvider } from '../client';
 import { createSharedComposable } from './createSharedComposable';

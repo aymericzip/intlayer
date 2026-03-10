@@ -1,6 +1,7 @@
 import { readAsset } from 'utils:asset';
 import { getLocaleName } from '@intlayer/core/localization';
-import { type Locale, Locales } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
+import * as Locales from '@intlayer/types/locales';
 import { decode, encode } from '@toon-format/toon';
 import { generateText, Output } from 'ai';
 import { z } from 'zod';

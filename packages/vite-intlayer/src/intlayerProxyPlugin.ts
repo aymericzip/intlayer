@@ -16,7 +16,7 @@ import {
   getLocaleFromStorage,
   setLocaleInStorage,
 } from '@intlayer/core/utils';
-import type { Locale } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
 /* @ts-ignore - Vite types error */
 import type { Connect, Plugin } from 'vite';
 

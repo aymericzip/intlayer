@@ -1,9 +1,5 @@
 import { DefaultValues } from '@intlayer/config/client';
-import type {
-  CookiesAttributes,
-  IntlayerConfig,
-  StorageAttributes,
-} from '@intlayer/types';
+import type { CookiesAttributes, IntlayerConfig, StorageAttributes } from '@intlayer/types/config';
 
 // ============================================================================
 // Types

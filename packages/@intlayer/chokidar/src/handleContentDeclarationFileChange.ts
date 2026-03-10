@@ -1,5 +1,5 @@
 import { getAppLogger } from '@intlayer/config/logger';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictionary';
 import { cleanRemovedContentDeclaration } from './cleanRemovedContentDeclaration';
 import { createDictionaryEntryPoint } from './createDictionaryEntryPoint/createDictionaryEntryPoint';

@@ -1,4 +1,6 @@
-import { type Dictionary, type KeyPath, NodeType } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';;
+import { NodeType } from '@intlayer/types/nodeType';
 import { describe, expect, it } from 'vitest';
 import { t } from '../transpiler';
 import { getContentNodeByKeyPath } from './getContentNodeByKeyPath';

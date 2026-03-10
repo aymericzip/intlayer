@@ -9,7 +9,7 @@ import {
   nest,
   t,
 } from '@intlayer/core/transpiler';
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
 
 export const file = (path: string): FileContent => {
   const INTLAYER_FILE_PATH = '/User/file.md';

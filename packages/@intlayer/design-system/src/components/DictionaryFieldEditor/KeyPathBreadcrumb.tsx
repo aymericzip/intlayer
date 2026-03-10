@@ -1,5 +1,6 @@
 import { camelCaseToSentence } from '@intlayer/config/client';
-import type { KeyPath, Locale } from '@intlayer/types';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import type { Locale } from '@intlayer/types/allLocales';
 import type { FC } from 'react';
 import { Breadcrumb, type BreadcrumbLink } from '../Breadcrumb';
 import type { LinkColor } from '../Link';

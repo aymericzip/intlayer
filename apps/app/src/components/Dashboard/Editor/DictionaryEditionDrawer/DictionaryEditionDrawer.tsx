@@ -15,7 +15,7 @@ import {
   useDictionariesRecord,
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
-import type { Locale } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
 import { PencilRuler } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';

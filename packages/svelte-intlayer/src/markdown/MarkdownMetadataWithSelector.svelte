@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { KeyPath } from '@intlayer/types';
+import type { KeyPath } from '@intlayer/types/keyPath';
 import ContentSelectorWrapper from '../editor/ContentSelectorWrapper.svelte';
 import MarkdownMetadataRenderer from './MarkdownMetadataRenderer.svelte';
 

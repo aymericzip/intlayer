@@ -2,7 +2,7 @@ import type { AIOptions } from '@intlayer/api';
 import { getIntlayerAPIProxy } from '@intlayer/api';
 import { ANSIColors, colorize, getAppLogger } from '@intlayer/config/logger';
 import { extractErrorMessage } from '@intlayer/config/utils';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { checkConfigConsistency } from './checkConfigConsistency';
 
 export const checkCMSAuth = async (

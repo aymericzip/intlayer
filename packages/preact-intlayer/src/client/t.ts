@@ -1,7 +1,8 @@
 'use client';
 
 import { getTranslation } from '@intlayer/core/interpreter';
-import type { Locale, StrictModeLocaleMap } from '@intlayer/types';
+import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
+import type { Locale } from '@intlayer/types/allLocales';
 import { useContext } from 'preact/hooks';
 import { IntlayerClientContext } from './IntlayerProvider';
 

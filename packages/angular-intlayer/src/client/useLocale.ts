@@ -1,6 +1,6 @@
 import { computed, inject } from '@angular/core';
 import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { INTLAYER_TOKEN, type IntlayerProvider } from './installIntlayer';
 import { setLocaleInStorage } from './useLocaleStorage';
 

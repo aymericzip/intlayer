@@ -1,6 +1,6 @@
 'use client';
 
-import type { LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { getIntlayer } from 'intlayer';

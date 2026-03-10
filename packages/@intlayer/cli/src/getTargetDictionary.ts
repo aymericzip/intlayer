@@ -4,7 +4,7 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 
 export const ensureArray = <T>(value: T | T[]): T[] => [value].flat() as T[];

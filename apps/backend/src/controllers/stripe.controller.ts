@@ -1,4 +1,4 @@
-import type { Locale } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
 import * as emailService from '@services/email.service';
 import * as subscriptionService from '@services/subscription.service';
 import { type AppError, ErrorHandler } from '@utils/errors';

@@ -44,14 +44,11 @@ import type {
   TranslationContent,
 } from '@intlayer/core/transpiler';
 import { useConfiguration, useEditedContent } from '@intlayer/editor-react';
-import {
-  type ContentNode,
-  type Dictionary,
-  type KeyPath,
-  type Locale,
-  type LocalesValues,
-  NodeType,
-} from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import { NodeType } from '@intlayer/types/nodeType';
 import { renameKey } from '@utils/object';
 import { Plus, Trash, WandSparkles } from 'lucide-react';
 import { type FC, Fragment, type ReactNode, useState } from 'react';

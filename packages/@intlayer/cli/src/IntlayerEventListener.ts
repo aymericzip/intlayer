@@ -3,7 +3,7 @@ import { getIntlayerAPIProxy } from '@intlayer/api';
 import type { DictionaryAPI, MessageEventData } from '@intlayer/backend';
 import configuration from '@intlayer/config/built';
 import { getAppLogger } from '@intlayer/config/logger';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { EventSource } from 'eventsource';
 
 export type IntlayerMessageEvent = MessageEvent;

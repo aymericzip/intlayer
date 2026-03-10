@@ -10,12 +10,12 @@ import type {
   InsertionContent,
   MarkdownContent,
 } from '@intlayer/core/transpiler';
-import {
-  type DeclaredLocales,
-  type KeyPath,
-  type LocalesValues,
-  NodeType,
-} from '@intlayer/types';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
+import { NodeType } from '@intlayer/types/nodeType';
 import {
   createElement,
   Fragment,

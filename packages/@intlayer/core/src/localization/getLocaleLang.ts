@@ -1,4 +1,4 @@
-import type { LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
 /**
  * Returns the language code of the given locale for locales including the country code.

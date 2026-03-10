@@ -1,5 +1,5 @@
 import { bindIntl } from '@intlayer/core/utils';
-import type { LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { computed, inject } from 'vue';
 import {
   INTLAYER_SYMBOL,

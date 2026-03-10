@@ -1,6 +1,6 @@
 import { Injectable, InjectionToken, type Signal, signal } from '@angular/core';
 import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
 export const INTLAYER_TOKEN = new InjectionToken<IntlayerProvider>('intlayer');
 

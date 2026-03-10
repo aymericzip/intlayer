@@ -13,7 +13,7 @@ import {
   getConfiguration,
 } from '@intlayer/config/node';
 import { getProjectRequire } from '@intlayer/config/utils';
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { PullLogger, type PullStatus } from './push/pullLog';
 import { checkCMSAuth } from './utils/checkAccess';

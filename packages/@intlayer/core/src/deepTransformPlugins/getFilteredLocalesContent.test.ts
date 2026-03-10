@@ -1,9 +1,6 @@
-import {
-  type ContentNode,
-  type CustomIntlayerConfig,
-  type Dictionary,
-  Locales,
-} from '@intlayer/types';
+import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
+import type { CustomIntlayerConfig } from '@intlayer/types/config';
+import * as Locales from '@intlayer/types/locales';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { md } from '../transpiler/markdown';
 import { t as tCore } from '../transpiler/translation';

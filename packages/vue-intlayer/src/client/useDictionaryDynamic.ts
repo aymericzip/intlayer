@@ -1,9 +1,5 @@
-import type {
-  Dictionary,
-  DictionaryKeys,
-  LocalesValues,
-  StrictModeLocaleMap,
-} from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type { DictionaryKeys, LocalesValues, StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import type { MaybeRefOrGetter } from 'vue';
 import { useDictionaryAsync } from './useDictionaryAsync';
 

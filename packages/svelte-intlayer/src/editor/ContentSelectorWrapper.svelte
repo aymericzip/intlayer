@@ -2,7 +2,7 @@
 import type { NodeProps } from '@intlayer/core/interpreter';
 import { isSameKeyPath } from '@intlayer/core/utils';
 import { MessageKey } from '@intlayer/editor';
-import { NodeType } from '@intlayer/types';
+import { NodeType } from '@intlayer/types/nodeType';
 import { get } from 'svelte/store';
 import ContentSelector from './ContentSelector.svelte';
 import { useCommunicator } from './communicator';

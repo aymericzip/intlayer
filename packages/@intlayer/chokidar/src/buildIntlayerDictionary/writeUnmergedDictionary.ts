@@ -2,11 +2,8 @@ import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { colorizePath, x } from '@intlayer/config/logger';
 import { orderDictionaries } from '@intlayer/core/dictionaryManipulator';
-import type {
-  Dictionary,
-  DictionaryKey,
-  IntlayerConfig,
-} from '@intlayer/types';
+import type { Dictionary, DictionaryKey } from '@intlayer/types/dictionary';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { parallelize } from '../utils/parallelize';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';

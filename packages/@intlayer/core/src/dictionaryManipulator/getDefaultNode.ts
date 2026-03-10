@@ -1,8 +1,6 @@
-import {
-  type ContentNode,
-  type LocalesValues,
-  NodeType,
-} from '@intlayer/types';
+import type { ContentNode } from '@intlayer/types/dictionary';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';;
+import { NodeType } from '@intlayer/types/nodeType';
 
 export const getDefaultNode = (
   nodeType: NodeType,

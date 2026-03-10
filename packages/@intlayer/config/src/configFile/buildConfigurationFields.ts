@@ -1,20 +1,6 @@
 import { statSync } from 'node:fs';
 import { dirname, isAbsolute, join } from 'node:path';
-import type {
-  AiConfig,
-  BuildConfig,
-  CompilerConfig,
-  ContentConfig,
-  CustomIntlayerConfig,
-  DictionaryConfig,
-  EditorConfig,
-  InternationalizationConfig,
-  IntlayerConfig,
-  LogConfig,
-  LogFunctions,
-  RoutingConfig,
-  SystemConfig,
-} from '@intlayer/types';
+import type { AiConfig, BuildConfig, CompilerConfig, ContentConfig, CustomIntlayerConfig, DictionaryConfig, EditorConfig, InternationalizationConfig, IntlayerConfig, LogConfig, LogFunctions, RoutingConfig, SystemConfig } from '@intlayer/types/config';
 import packageJson from '@intlayer/types/package.json' with { type: 'json' };
 import {
   BUILD_MODE,

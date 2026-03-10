@@ -1,4 +1,4 @@
-import type { DeclaredLocales, LocalesValues } from '@intlayer/types';
+import type { DeclaredLocales, LocalesValues } from '@intlayer/types/module_augmentation';
 import {
   defaultLocale,
   type FileMetadata,

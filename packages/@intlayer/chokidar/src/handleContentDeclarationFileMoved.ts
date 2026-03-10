@@ -1,5 +1,5 @@
 import { getAppLogger } from '@intlayer/config/logger';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { cleanRemovedContentDeclaration } from './cleanRemovedContentDeclaration';
 import { handleContentDeclarationFileChange } from './handleContentDeclarationFileChange';
 import { loadLocalDictionaries } from './loadDictionaries/loadLocalDictionaries';

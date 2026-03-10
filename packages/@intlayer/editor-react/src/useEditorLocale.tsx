@@ -1,5 +1,5 @@
 import { MessageKey } from '@intlayer/editor';
-import type { Locale } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
 import { useCrossFrameState } from './useCrossFrameState';
 
 export const useEditorLocale = () => {

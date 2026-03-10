@@ -1,5 +1,5 @@
 import { bindIntl } from '@intlayer/core/formatters';
-import type { LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { derived } from 'svelte/store';
 import { useLocale } from './useLocale';
 

@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import type { DeclaredLocales, LocalesValues } from '@intlayer/types';
+import type { DeclaredLocales, LocalesValues } from '@intlayer/types/module_augmentation';
 import { useContext } from 'solid-js';
 import { IntlayerClientContext } from './IntlayerProvider';
 

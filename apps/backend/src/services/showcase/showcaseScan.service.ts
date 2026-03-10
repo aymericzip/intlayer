@@ -1,4 +1,4 @@
-import { Locales } from '@intlayer/types';
+import * as Locales from '@intlayer/types/locales';
 import { logger } from '@logger';
 import { launchBrowser } from '@utils/puppeteer/launchBrowser';
 import type { ShowcaseScanDetails } from '@/types/showcaseProject.types';

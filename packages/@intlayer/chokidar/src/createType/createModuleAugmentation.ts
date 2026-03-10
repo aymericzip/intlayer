@@ -1,7 +1,8 @@
 import { mkdir } from 'node:fs/promises';
 import { basename, extname, join, relative } from 'node:path';
 import { kebabCaseToCamelCase, normalizePath } from '@intlayer/config/utils';
-import type { IntlayerConfig, Locale } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Locale } from '@intlayer/types/allLocales';
 import fg from 'fast-glob';
 import { createAuxiliaryTypeStore, printNode, zodToTs } from 'zod-to-ts';
 import { getPathHash } from '../utils';

@@ -1,6 +1,6 @@
 'use client';
 
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { type FC, useRef } from 'react';
 import { EditorLayout } from './EditorLayout';
 import { EditorProvider } from './EditorProvider';

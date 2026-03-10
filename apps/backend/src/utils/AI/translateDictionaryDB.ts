@@ -7,7 +7,7 @@ import {
   reduceObjectFormat,
   verifyIdenticObjectFormat,
 } from '@intlayer/chokidar/utils';
-import type { Locale } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
 import { logger } from '@logger';
 import { translateJSON } from './translateJSON';
 

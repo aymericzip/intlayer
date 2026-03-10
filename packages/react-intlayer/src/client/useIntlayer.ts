@@ -1,10 +1,6 @@
 'use client';
 
-import type {
-  DeclaredLocales,
-  DictionaryKeys,
-  LocalesValues,
-} from '@intlayer/types';
+import type { DeclaredLocales, DictionaryKeys, LocalesValues } from '@intlayer/types/module_augmentation';
 import { useContext, useMemo } from 'react';
 import { getIntlayer } from '../getIntlayer';
 import { IntlayerClientContext } from './IntlayerProvider';

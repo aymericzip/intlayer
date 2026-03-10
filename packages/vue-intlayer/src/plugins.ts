@@ -12,8 +12,12 @@ import {
   type InsertionContent,
   type MarkdownContent,
 } from '@intlayer/core/transpiler';
-import type { DeclaredLocales, KeyPath, LocalesValues } from '@intlayer/types';
-import { NodeType } from '@intlayer/types';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
+import { NodeType } from '@intlayer/types/nodeType';
 import { Fragment, h, markRaw, type VNode } from 'vue';
 import { ContentSelectorWrapper } from './editor';
 import type { HTMLComponents } from './html/types';

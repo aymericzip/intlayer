@@ -1,6 +1,6 @@
 import { computed, inject } from '@angular/core';
 import { bindIntl } from '@intlayer/core/formatters';
-import type { LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { IntlayerProvider } from './installIntlayer';
 
 /**

@@ -1,9 +1,4 @@
-import type {
-  DeclaredLocales,
-  DictionaryKeys,
-  DictionaryRegistryContent,
-  LocalesValues,
-} from '@intlayer/types';
+import type { DeclaredLocales, DictionaryKeys, DictionaryRegistryContent, LocalesValues } from '@intlayer/types/module_augmentation';
 import { type Accessor, createMemo, useContext } from 'solid-js';
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';

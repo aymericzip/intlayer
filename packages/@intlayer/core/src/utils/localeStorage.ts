@@ -1,5 +1,7 @@
 import configuration from '@intlayer/config/built';
-import type { CookiesAttributes, Locale, LocalesValues } from '@intlayer/types';
+import type { CookiesAttributes } from '@intlayer/types/config';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import type { Locale } from '@intlayer/types/allLocales';
 import { getStorageAttributes } from '../getStorageAttributes';
 import { getCookie } from './getCookie';
 

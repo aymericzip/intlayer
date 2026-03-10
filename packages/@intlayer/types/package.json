@@ -35,21 +35,73 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
+    "./config": {
+      "types": "./dist/types/config.d.ts",
+      "require": "./dist/cjs/config.cjs",
+      "import": "./dist/esm/config.mjs"
+    },
+    "./dictionary": {
+      "types": "./dist/types/dictionary.d.ts",
+      "require": "./dist/cjs/dictionary.cjs",
+      "import": "./dist/esm/dictionary.mjs"
+    },
+    "./keyPath": {
+      "types": "./dist/types/keyPath.d.ts",
+      "require": "./dist/cjs/keyPath.cjs",
+      "import": "./dist/esm/keyPath.mjs"
+    },
+    "./module_augmentation": {
+      "types": "./dist/types/module_augmentation.d.ts",
+      "require": "./dist/cjs/module_augmentation.cjs",
+      "import": "./dist/esm/module_augmentation.mjs"
+    },
+    "./nodeType": {
+      "types": "./dist/types/nodeType.d.ts",
+      "require": "./dist/cjs/nodeType.cjs",
+      "import": "./dist/esm/nodeType.mjs"
+    },
+    "./plugin": {
+      "types": "./dist/types/plugin.d.ts",
+      "require": "./dist/cjs/plugin.cjs",
+      "import": "./dist/esm/plugin.mjs"
+    },
+    "./locales": {
+      "types": "./dist/types/locales.d.ts",
+      "require": "./dist/cjs/locales.cjs",
+      "import": "./dist/esm/locales.mjs"
+    },
+    "./allLocales": {
+      "types": "./dist/types/allLocales.d.ts",
+      "require": "./dist/cjs/allLocales.cjs",
+      "import": "./dist/esm/allLocales.mjs"
+    },
     "./package.json": "./package.json"
   },
-  "main": "dist/cjs/index.cjs",
-  "module": "dist/esm/index.mjs",
-  "types": "dist/types/index.d.ts",
   "typesVersions": {
     "*": {
-      ".": [
-        "./dist/types/index.d.ts"
+      "config": [
+        "./dist/types/config.d.ts"
       ],
-      "client": [
-        "./dist/types/client.d.ts"
+      "dictionary": [
+        "./dist/types/dictionary.d.ts"
       ],
-      "built": [
-        "./dist/types/built.d.ts"
+      "keyPath": [
+        "./dist/types/keyPath.d.ts"
+      ],
+      "module_augmentation": [
+        "./dist/types/module_augmentation.d.ts"
+      ],
+      "nodeType": [
+        "./dist/types/nodeType.d.ts"
+      ],
+      "plugin": [
+        "./dist/types/plugin.d.ts"
+      ],
+      "locales": [
+        "./dist/types/locales.d.ts"
+      ],
+      "allLocales": [
+        "./dist/types/allLocales.d.ts"
       ],
       "package.json": [
         "./package.json"
@@ -83,7 +135,7 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "rimraf": "6.1.3",
-    "tsdown": "0.21.0",
+    "tsdown": "0.21.1",
     "typescript": "5.9.3",
     "vitest": "4.0.18",
     "zod": "4.3.6"

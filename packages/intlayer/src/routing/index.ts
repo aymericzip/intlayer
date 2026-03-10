@@ -1,9 +1,5 @@
-import type {
-  RewriteObject,
-  RewriteRule,
-  RewriteRules,
-  StrictModeLocaleMap,
-} from '@intlayer/types';
+import type { RewriteObject, RewriteRule, RewriteRules } from '@intlayer/types/config';
+import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 
 const buildRules = (
   rules: Record<string, StrictModeLocaleMap<string>>,

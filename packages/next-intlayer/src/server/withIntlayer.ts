@@ -18,7 +18,8 @@ import {
   normalizePath,
 } from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import type { Dictionary, IntlayerConfig } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { IntlayerPlugin } from '@intlayer/webpack';
 import { defu } from 'defu';
 import type { NextConfig } from 'next';

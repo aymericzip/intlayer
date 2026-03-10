@@ -1,10 +1,9 @@
-import { Locales } from '@intlayer/types';
+import * as Locales from '@intlayer/types/locales';
 import { describe, expect, it } from 'vitest';
 import {
   getCanonicalPath,
   getInternalPath,
   getLocalizedPath,
-  getRewritePath,
   getRewriteRules,
 } from './rewriteUtils';
 

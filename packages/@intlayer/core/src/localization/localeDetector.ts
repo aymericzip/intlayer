@@ -1,4 +1,4 @@
-import type { Locale } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
 import { localeResolver } from './localeResolver';
 
 /**

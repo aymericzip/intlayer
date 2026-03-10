@@ -10,7 +10,7 @@ import {
   useDictionariesRecordActions,
   useEditedContent,
 } from '@intlayer/editor-react';
-import type { Dictionary, LocalDictionaryId } from '@intlayer/types';
+import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
 import { RotateCcw, Save } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';

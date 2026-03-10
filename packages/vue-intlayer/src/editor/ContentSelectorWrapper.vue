@@ -2,7 +2,7 @@
 import type { NodeProps } from '@intlayer/core/interpreter';
 import { isSameKeyPath } from '@intlayer/core/utils';
 import { MessageKey } from '@intlayer/editor';
-import { NodeType } from '@intlayer/types';
+import { NodeType } from '@intlayer/types/nodeType';
 import { computed, type HTMLAttributes } from 'vue';
 import ContentSelector from '../UI/ContentSelector.vue';
 import { useCommunicator } from './communicator';

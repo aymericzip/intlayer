@@ -13,7 +13,7 @@ import {
   Tag,
 } from '@intlayer/design-system';
 import { useFocusUnmergedDictionary } from '@intlayer/editor-react';
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import {
   type ColumnDef,
   getCoreRowModel,

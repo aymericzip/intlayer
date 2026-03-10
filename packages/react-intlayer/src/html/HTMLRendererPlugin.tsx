@@ -1,7 +1,8 @@
 'use client';
 
 import { getHTML } from '@intlayer/core/interpreter';
-import type { KeyPath, Locale } from '@intlayer/types';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import type { Locale } from '@intlayer/types/allLocales';
 import { createElement, type FC, type ReactNode } from 'react';
 import { ContentSelectorRenderer } from '../editor';
 import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';

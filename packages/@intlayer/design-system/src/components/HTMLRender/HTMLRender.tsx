@@ -1,4 +1,4 @@
-import type { LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import type { ComponentProps, FC } from 'react';
 import {
   type HTMLRenderer as HTMLRendererIntlayer,

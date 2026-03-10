@@ -21,12 +21,9 @@ import {
   useEditedContentActions,
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
-import {
-  type KeyPath,
-  type LocalDictionaryId,
-  NodeType,
-  type TypedNode,
-} from '@intlayer/types';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import type { LocalDictionaryId, TypedNode } from '@intlayer/types/dictionary';;
+import { NodeType } from '@intlayer/types/nodeType';
 import type { ContentNode } from 'intlayer';
 import { Plus, Trash } from 'lucide-react';
 import type { FC } from 'react';

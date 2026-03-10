@@ -1,12 +1,8 @@
 'use client';
 
 import configuration from '@intlayer/config/built';
-import type {
-  DeclaredLocales,
-  Dictionary,
-  LocalesValues,
-  StrictModeLocaleMap,
-} from '@intlayer/types';
+import type { DeclaredLocales, LocalesValues, StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { useContext, useMemo } from 'react';
 import { IntlayerClientContext } from './IntlayerProvider';
 import { useDictionary } from './useDictionary';

@@ -1,4 +1,4 @@
-import type { RoutingConfig } from '@intlayer/types';
+import type { RoutingConfig } from '@intlayer/types/config';
 
 export const HEADER_NAME = 'x-intlayer-locale';
 

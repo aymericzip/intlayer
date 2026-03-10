@@ -1,11 +1,9 @@
 import { getContentNodeByKeyPath } from '@intlayer/core/dictionaryManipulator';
 import type { FileContent } from '@intlayer/core/transpiler';
 import { useEditedContent } from '@intlayer/editor-react';
-import {
-  type KeyPath,
-  type LocalDictionaryId,
-  NodeType,
-} from '@intlayer/types';
+import type { LocalDictionaryId } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import { NodeType } from '@intlayer/types/nodeType';
 import type { FC } from 'react';
 import { StringWrapper, type StringWrapperProps } from './StringWrapper';
 

@@ -1,4 +1,5 @@
-import { type Dictionary, NodeType } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import { NodeType } from '@intlayer/types/nodeType';
 import { describe, expect, it } from 'vitest';
 import { t } from '../transpiler';
 import {

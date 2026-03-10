@@ -1,7 +1,12 @@
 'use client';
 
 import { cn } from '@utils/cn';
-import { getHTMLTextDir, getLocaleName, type Locale, Locales } from 'intlayer';
+import {
+  ALL_LOCALES,
+  getHTMLTextDir,
+  getLocaleName,
+  type Locale,
+} from 'intlayer';
 import {
   type FC,
   type HTMLAttributes,
@@ -77,7 +82,7 @@ const NUM_OF_LOCALES = 15;
 const emptyArrayOfLocale: string[][] = new Array(4).fill(0).map(() => []);
 const arrayOfLocale: string[][] = new Array(4)
   .fill(0)
-  .map(() => shuffleArray(Object.values(Locales.ALL_LOCALES), NUM_OF_LOCALES));
+  .map(() => shuffleArray(Object.values(ALL_LOCALES), NUM_OF_LOCALES));
 
 export const LanguageSection: FC<HTMLAttributes<HTMLElement>> = ({
   className,

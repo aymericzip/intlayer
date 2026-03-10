@@ -1,6 +1,6 @@
 import configuration from '@intlayer/config/built';
 import { getRewritePath } from '@intlayer/core/localization';
-import type { Locale } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
 import { useLocale } from './useLocale';
 
 /**

@@ -3,7 +3,8 @@ import { join } from 'node:path';
 import type { AIOptions } from '@intlayer/api';
 import { type ListGitFilesOptions, translateDoc } from '@intlayer/cli';
 import { getConfiguration } from '@intlayer/config/node';
-import { type Locale, Locales } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
+import * as Locales from '@intlayer/types/locales';
 import { defaultLocale, locales } from '../intlayer.config';
 
 // Fill the list of files to audit if you want to audit only a subset of the files
@@ -53,7 +54,7 @@ const translate = async () => {
       locales: [locale],
       baseLocale: defaultLocale,
       aiOptions: configuration.ai as AIOptions,
-      nbSimultaneousFileProcessed: 1, // Minimize simultaneous work
+      nbSimultaneousFileProcessed: NB_SIMULTANEOUS_FILE_PROCESSED, // Minimize simultaneous work
       customInstructions,
       skipIfModifiedBefore: SKIP_IF_MODIFIED_BEFORE,
       skipIfModifiedAfter: SKIP_IF_MODIFIED_AFTER,

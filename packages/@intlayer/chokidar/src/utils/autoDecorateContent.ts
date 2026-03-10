@@ -5,7 +5,7 @@ import {
   insert,
   md,
 } from '@intlayer/core/transpiler';
-import { NodeType } from '@intlayer/types';
+import { NodeType } from '@intlayer/types/nodeType';
 
 /**
  * Check if a string is a markdown string

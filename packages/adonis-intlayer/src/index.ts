@@ -6,7 +6,9 @@ import {
   getDictionary as getDictionaryFunction,
   getTranslation,
 } from '@intlayer/core/interpreter';
-import type { Locale, StrictModeLocaleMap } from '@intlayer/types';
+import { getLocaleFromStorage } from '@intlayer/core/utils';
+import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
+import type { Locale } from '@intlayer/types/allLocales';
 import { createNamespace } from 'cls-hooked';
 
 const configuration = getConfiguration();

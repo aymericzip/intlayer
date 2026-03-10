@@ -2,7 +2,7 @@
 
 import { useSession } from '@intlayer/design-system/hooks';
 import { ConfigurationProvider } from '@intlayer/editor-react';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import type { FC, PropsWithChildren } from 'react';
 
 export const EditorConfigurationProvider: FC<PropsWithChildren> = ({

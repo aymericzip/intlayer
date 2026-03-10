@@ -96,7 +96,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <HeadContent />
       </head>
-      <body className="relative flex min-h-screen flex-col overflow-x-clip scroll-smooth bg-background leading-8 transition md:flex text-text">
+      <body className="relative flex min-h-screen flex-col overflow-x-clip scroll-smooth bg-background text-text leading-8 transition md:flex">
         <IntlayerProvider locale={locale}>
           <ThemeProvider>
             <IntlayerMarkdownProvider>

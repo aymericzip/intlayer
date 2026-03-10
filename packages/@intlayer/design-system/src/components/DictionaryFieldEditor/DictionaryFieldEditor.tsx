@@ -6,7 +6,7 @@ import {
   useDictionariesRecordActions,
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { ArrowLeft } from 'lucide-react';
 import { type FC, useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';

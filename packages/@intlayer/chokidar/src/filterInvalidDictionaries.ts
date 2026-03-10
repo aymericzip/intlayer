@@ -7,7 +7,8 @@ import {
   x,
 } from '@intlayer/config/logger';
 import { getContent } from '@intlayer/core/interpreter';
-import type { Dictionary, IntlayerConfig } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { formatLocale, formatPath } from './utils/formatter';
 
 type IsInvalidDictionaryOptions = { checkSchema: boolean };

@@ -1,4 +1,5 @@
-import { AiProviders, ALL_LOCALES } from '@intlayer/types';
+import { ALL_LOCALES } from '@intlayer/types/allLocales';
+import { AiProviders } from '@intlayer/types/config';
 import type { RenameId } from '@utils/mongoDB/types';
 import {
   MEMBERS_MIN_LENGTH,

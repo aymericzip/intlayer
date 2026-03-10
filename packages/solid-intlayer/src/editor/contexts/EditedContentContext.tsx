@@ -4,13 +4,10 @@ import {
   renameContentNodeByKeyPath,
 } from '@intlayer/core/dictionaryManipulator';
 import { MessageKey } from '@intlayer/editor';
-import {
-  type ContentNode,
-  type Dictionary,
-  type KeyPath,
-  type LocalDictionaryId,
-  NodeType,
-} from '@intlayer/types';
+import type { LocalDictionaryId } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import { NodeType } from '@intlayer/types/nodeType';
+import type { ContentNode, Dictionary } from 'intlayer';
 import {
   type Component,
   createContext,

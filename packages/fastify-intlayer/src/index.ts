@@ -7,7 +7,8 @@ import {
 } from '@intlayer/core/interpreter';
 import { localeDetector } from '@intlayer/core/localization';
 import { getLocaleFromStorage } from '@intlayer/core/utils';
-import type { Locale, StrictModeLocaleMap } from '@intlayer/types';
+import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
+import type { Locale } from '@intlayer/types/allLocales';
 import { createNamespace } from 'cls-hooked';
 import type { FastifyPluginAsync, FastifyRequest } from 'fastify';
 import fp from 'fastify-plugin';

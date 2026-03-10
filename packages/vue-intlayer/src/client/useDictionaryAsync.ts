@@ -1,9 +1,6 @@
 import configuration from '@intlayer/config/built';
-import type {
-  Dictionary,
-  LocalesValues,
-  StrictModeLocaleMap,
-} from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type { LocalesValues, StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import { computed, inject, type MaybeRefOrGetter, ref, watch } from 'vue';
 import { INTLAYER_SYMBOL, type IntlayerProvider } from './installIntlayer';
 import { useDictionary } from './useDictionary';

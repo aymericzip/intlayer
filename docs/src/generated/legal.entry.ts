@@ -5,7 +5,7 @@ import { readFile } from 'node:fs/promises';
 import { join, dirname as pathDirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getPackageJsonPath, getProjectRequire } from '@intlayer/config/utils';
-import type { LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
 // Robustly resolve the base directory of the @intlayer/docs package in both
 // bundled environments (Next.js) and standalone CLIs (MCP via npx).

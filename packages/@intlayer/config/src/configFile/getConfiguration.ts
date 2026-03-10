@@ -1,8 +1,4 @@
-import type {
-  CustomIntlayerConfig,
-  IntlayerConfig,
-  LogFunctions,
-} from '@intlayer/types';
+import type { CustomIntlayerConfig, IntlayerConfig, LogFunctions } from '@intlayer/types/config';
 import { defu } from 'defu';
 import type { SandBoxContextOptions } from '../loadExternalFile/parseFileContent';
 import { cacheMemory } from '../utils/cacheMemory';

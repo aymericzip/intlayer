@@ -1,10 +1,11 @@
 import configuration from '@intlayer/config/built';
+import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
 import type {
   DeclaredLocales,
-  Dictionary,
   LocalesValues,
-} from '@intlayer/types';
-import { type ContentNode, type KeyPath, NodeType } from '@intlayer/types';
+} from '@intlayer/types/module_augmentation';
+import { NodeType } from '@intlayer/types/nodeType';
 import {
   type DeepTransformContent,
   getTranslation,

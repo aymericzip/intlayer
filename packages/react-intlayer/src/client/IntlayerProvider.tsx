@@ -3,7 +3,7 @@
 import configuration from '@intlayer/config/built';
 import { localeResolver } from '@intlayer/core/localization';
 import { MessageKey, useCrossFrameState } from '@intlayer/editor-react';
-import type { LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import {
   createContext,
   type FC,

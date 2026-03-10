@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync } from 'node:fs';
 import { basename } from 'node:path';
 import { normalizePath } from '@intlayer/config/utils';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import fg from 'fast-glob';
 
 /**

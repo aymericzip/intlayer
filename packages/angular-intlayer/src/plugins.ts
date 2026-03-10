@@ -9,12 +9,12 @@ import {
   type MarkdownContent,
 } from '@intlayer/core/markdown';
 import type { HTMLContent, InsertionContent } from '@intlayer/core/transpiler';
-import {
-  type DeclaredLocales,
-  type KeyPath,
-  type LocalesValues,
-  NodeType,
-} from '@intlayer/types';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
+import { NodeType } from '@intlayer/types/nodeType';
 import { ContentSelectorWrapperComponent } from './editor';
 import { htmlRuntime, useMarkdown } from './markdown/installIntlayerMarkdown';
 import { renderIntlayerNode } from './renderIntlayerNode';

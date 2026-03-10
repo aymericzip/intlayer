@@ -1,10 +1,6 @@
-import type {
-  Locale,
-  LocalesValues,
-  RewriteObject,
-  RewriteRules,
-  RoutingConfig,
-} from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import type { RewriteObject, RewriteRules, RoutingConfig } from '@intlayer/types/config';
+import type { Locale } from '@intlayer/types/allLocales';
 
 export type LocalizedPathResult = {
   path: string;

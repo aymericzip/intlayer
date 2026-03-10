@@ -6,7 +6,7 @@ import {
   intlayerToVueI18nFormatter,
   vueI18nToIntlayerFormatter,
 } from '@intlayer/core/messageFormat';
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
 
 export const formatDictionary = (dictionary: Dictionary): Dictionary => {
   if (dictionary.format === 'icu') {

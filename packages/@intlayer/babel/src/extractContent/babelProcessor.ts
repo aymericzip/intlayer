@@ -1,6 +1,6 @@
 import _traverse, { type NodePath } from '@babel/traverse';
 import * as t from '@babel/types';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { resolveDictionaryKey } from '../extractContent/utils';
 import {
   ATTRIBUTES_TO_EXTRACT,

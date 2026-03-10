@@ -6,7 +6,7 @@ import {
   getRewriteRules,
 } from '@intlayer/core/localization';
 import { getLocaleFromStorage, setLocaleInStorage } from '@intlayer/core/utils';
-import type { Locale } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
 import {
   type NextFetchEvent,
   type NextRequest,

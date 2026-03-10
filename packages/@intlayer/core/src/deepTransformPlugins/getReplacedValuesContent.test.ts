@@ -1,4 +1,5 @@
-import { type ContentNode, NodeType } from '@intlayer/types';
+import type { ContentNode } from '@intlayer/types/dictionary';;
+import { NodeType } from '@intlayer/types/nodeType';
 import { describe, expect, it } from 'vitest';
 import { getReplacedValuesContent } from './getReplacedValuesContent';
 

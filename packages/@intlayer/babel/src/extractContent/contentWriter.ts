@@ -1,10 +1,7 @@
 import { basename, dirname, extname, join, relative, resolve } from 'node:path';
 import { writeContentDeclaration } from '@intlayer/chokidar/cli';
-import type {
-  Dictionary,
-  DictionaryKey,
-  IntlayerConfig,
-} from '@intlayer/types';
+import type { Dictionary, DictionaryKey } from '@intlayer/types/dictionary';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 
 export type TranslationNode = {

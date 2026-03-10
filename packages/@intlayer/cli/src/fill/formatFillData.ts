@@ -1,4 +1,6 @@
-import type { Fill, IntlayerConfig, LocalesValues } from '@intlayer/types';
+import type { Fill } from '@intlayer/types/dictionary';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { formatAutoFilledFilePath } from './formatAutoFilledFilePath';
 
 export type FillData = {

@@ -1,9 +1,6 @@
 import configuration from '@intlayer/config/built';
-import type {
-  DeclaredLocales,
-  Dictionary,
-  LocalesValues,
-} from '@intlayer/types';
+import type { DeclaredLocales, LocalesValues } from '@intlayer/types/module_augmentation';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import {
   type ComputedRef,
   computed,

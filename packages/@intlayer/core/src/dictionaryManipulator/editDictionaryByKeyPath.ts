@@ -1,4 +1,7 @@
-import { type ContentNode, type KeyPath, NodeType } from '@intlayer/types';
+import type { ContentNode } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
+
+import { NodeType } from '@intlayer/types/nodeType';
 
 type LastKeyType = string | number;
 
@@ -22,6 +25,7 @@ export const editDictionaryByKeyPath = (
 
       if (keyObj.type === NodeType.Object || keyObj.type === NodeType.Array) {
         lastKeys = [keyObj.key];
+
         if (
           !currentValue[keyObj.key] ||
           typeof currentValue[keyObj.key] !== 'object'
@@ -36,12 +40,14 @@ export const editDictionaryByKeyPath = (
         keyObj.type === NodeType.Enumeration
       ) {
         lastKeys = [keyObj.type, keyObj.key];
+
         if (
           !currentValue[keyObj.type] ||
           typeof currentValue[keyObj.type] !== 'object'
         ) {
           currentValue[keyObj.type] = {};
         }
+
         if (
           !currentValue[keyObj.type][keyObj.key] ||
           typeof currentValue[keyObj.type][keyObj.key] !== 'object'
@@ -60,6 +66,7 @@ export const editDictionaryByKeyPath = (
         // The important part is below in the final update block.
 
         // Assuming this block runs for Condition/Gender/etc:
+
         if (keyObj.type !== NodeType.Enumeration) {
           lastKeys = [keyObj.type, keyObj.key];
           currentValue = currentValue[keyObj.type][keyObj.key];
@@ -72,6 +79,7 @@ export const editDictionaryByKeyPath = (
         keyObj.type === NodeType.Insertion
       ) {
         lastKeys = [keyObj.type];
+
         if (
           !currentValue[keyObj.type] ||
           typeof currentValue[keyObj.type] !== 'object'
@@ -87,6 +95,7 @@ export const editDictionaryByKeyPath = (
       }
 
       // Only update the value when processing the last key in the keyPath.
+
       if (i === keyPath.length - 1 && parentValue && lastKeys.length > 0) {
         let target = parentValue;
 
@@ -99,9 +108,11 @@ export const editDictionaryByKeyPath = (
 
         if (typeof newValue === 'undefined') {
           // Use splice for arrays to re-index the list, use delete for objects
+
           if (Array.isArray(target)) {
             const index = Number(finalKey);
-            if (!isNaN(index) && index >= 0 && index < target.length) {
+
+            if (!Number.isNaN(index) && index >= 0 && index < target.length) {
               target.splice(index, 1);
             }
           } else {

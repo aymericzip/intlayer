@@ -1,8 +1,6 @@
-import {
-  type ContentNode,
-  type CustomIntlayerConfig,
-  Locales,
-} from '@intlayer/types';
+import type { ContentNode } from '@intlayer/types/dictionary';
+import type { CustomIntlayerConfig } from '@intlayer/types/config';
+import * as Locales from '@intlayer/types/locales';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { t } from '../transpiler';
 import { getFilterMissingTranslationsContent } from './getFilterMissingTranslationsContent';

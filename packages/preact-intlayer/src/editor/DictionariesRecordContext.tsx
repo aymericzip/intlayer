@@ -1,7 +1,7 @@
 'use client';
 
 import { MessageKey } from '@intlayer/editor';
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import {
   createContext,
   type FunctionalComponent,

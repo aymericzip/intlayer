@@ -22,11 +22,8 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
-import type {
-  CompilerConfig,
-  Dictionary,
-  IntlayerConfig,
-} from '@intlayer/types';
+import type { CompilerConfig, IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
 
 /**
  * Translation node structure used in dictionaries

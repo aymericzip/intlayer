@@ -1,5 +1,5 @@
 import { Loader, Table } from '@intlayer/design-system';
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import {
   flexRender,
   type Table as ReactTableType,

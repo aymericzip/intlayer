@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, Input } from '@angular/core';
 import type { NodeProps } from '@intlayer/core/interpreter';
 import { isSameKeyPath } from '@intlayer/core/utils';
-import { NodeType } from '@intlayer/types';
+import { NodeType } from '@intlayer/types/nodeType';
 import { ContentSelectorComponent } from '../UI/ContentSelector.component';
 import { useEditorEnabled } from './editorEnabled';
 import { useFocusDictionary } from './focusDictionary';

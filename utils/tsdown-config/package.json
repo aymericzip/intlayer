@@ -5,6 +5,7 @@
   "description": "",
   "license": "ISC",
   "author": "",
+  "sideEffects": false,
   "main": "./tsdown-config.mjs",
   "module": "./tsdown-config.mjs",
   "scripts": {},

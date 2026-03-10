@@ -1,10 +1,7 @@
 import { getNodeType } from '@intlayer/core/dictionaryManipulator';
-import {
-  type ContentNode,
-  type Dictionary,
-  type KeyPath,
-  NodeType,
-} from '@intlayer/types';
+import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import { NodeType } from '@intlayer/types/nodeType';
 
 export type FlattenedDictionaryNode = {
   dictionary: Dictionary;

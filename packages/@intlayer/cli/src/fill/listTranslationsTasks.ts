@@ -10,12 +10,9 @@ import {
 } from '@intlayer/config/logger';
 import { getFilterTranslationsOnlyDictionary } from '@intlayer/core/plugins';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import type {
-  Dictionary,
-  IntlayerConfig,
-  LocalDictionaryId,
-  Locale,
-} from '@intlayer/types';
+import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Locale } from '@intlayer/types/allLocales';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { listMissingTranslationsWithConfig } from '../test';
 

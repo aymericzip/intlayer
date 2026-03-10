@@ -1,9 +1,5 @@
-import type {
-  Dictionary,
-  DictionaryKeys,
-  LocalesValues,
-  StrictModeLocaleMap,
-} from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type { DictionaryKeys, LocalesValues, StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import { derived, type Readable } from 'svelte/store';
 import { getDictionary } from '../getDictionary';
 import type { DeepTransformContent } from '../plugins';

@@ -1,9 +1,6 @@
 import configuration from '@intlayer/config/built';
-import type {
-  ContentNode,
-  DeclaredLocales,
-  LocalesValues,
-} from '@intlayer/types';
+import type { ContentNode } from '@intlayer/types/dictionary';
+import type { DeclaredLocales, LocalesValues } from '@intlayer/types/module_augmentation';
 import { deepTransformNode } from './deepTransform';
 import {
   conditionPlugin,

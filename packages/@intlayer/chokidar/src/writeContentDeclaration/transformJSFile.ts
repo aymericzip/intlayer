@@ -1,6 +1,7 @@
 import { getNodeType } from '@intlayer/core/dictionaryManipulator';
-import type { ContentNode, Dictionary, Locale } from '@intlayer/types';
-import { NodeType } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
+import { NodeType } from '@intlayer/types/nodeType';
 import * as recast from 'recast';
 
 const b = recast.types.builders;
@@ -559,7 +560,7 @@ export const transformJSFile = async (
   let isESM = false;
 
   recast.visit(ast, {
-    visitExportDefaultDeclaration(path) {
+    visitExportDefaultDeclaration() {
       isESM = true;
 
       return false;

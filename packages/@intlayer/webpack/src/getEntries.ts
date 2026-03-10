@@ -1,5 +1,5 @@
 import { getPathHash } from '@intlayer/chokidar/utils';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import fg from 'fast-glob';
 import type { EntryObject } from 'webpack';
 

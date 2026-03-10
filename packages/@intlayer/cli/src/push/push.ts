@@ -21,7 +21,7 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { PushLogger, type PushStatus } from '../pushLog';
 import { checkCMSAuth } from '../utils/checkAccess';

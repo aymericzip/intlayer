@@ -1,4 +1,4 @@
-import type { DictionaryLocation } from '@intlayer/types';
+import type { DictionaryLocation } from '@intlayer/types/dictionary';
 
 export const FILL = true;
 export const LOCATION: DictionaryLocation = 'local';

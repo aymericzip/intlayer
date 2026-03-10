@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { getContent } from '@intlayer/core/interpreter';
-import type { ContentNode, KeyPath, Locale } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { ContentNode } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
 import { computed, useSlots } from 'vue';
 import { useEditedContentRenderer } from './useEditedContentRenderer';
 

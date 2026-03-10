@@ -1,4 +1,4 @@
-import type { LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { getContext, setContext } from 'svelte';
 
 export interface IntlayerContextType {

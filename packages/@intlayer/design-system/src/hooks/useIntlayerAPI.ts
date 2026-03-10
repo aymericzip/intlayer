@@ -4,7 +4,7 @@ import {
   type IntlayerAPI,
 } from '@intlayer/api';
 import { useConfiguration } from '@intlayer/editor-react';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { type AuthAPI, getAuthAPI } from '../libs/auth';
 import { useAuth } from './useAuth';
 

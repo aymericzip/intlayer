@@ -1,7 +1,9 @@
 'use client';
 
 import { getContent } from '@intlayer/core/interpreter';
-import type { Dictionary, KeyPath, Locale } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
 import type { FunctionalComponent } from 'preact';
 import { useEditedContentActions } from './EditedContentContext';
 

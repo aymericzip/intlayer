@@ -4,7 +4,8 @@ import {
   useEditedContent,
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
-import type { Dictionary, Locale } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type { Locale } from '@intlayer/types/allLocales';
 import type { FC } from 'react';
 import { NodeWrapper } from './NodeWrapper';
 

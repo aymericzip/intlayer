@@ -1,6 +1,6 @@
 import { dirname, extname } from 'node:path';
 import { getAppLogger } from '@intlayer/config/logger';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 
 export const logTypeScriptErrors = async (
   filePaths: string[],

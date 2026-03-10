@@ -1,10 +1,7 @@
-import type { DictionaryRegistryContent } from '@intlayer/types';
-import {
-  type DictionaryKeys,
-  formatNodeType,
-  NodeType,
-  type TypedNodeModel,
-} from '@intlayer/types';
+import type { DictionaryRegistryContent } from '@intlayer/types/module_augmentation';
+import type { DictionaryKeys } from '@intlayer/types/module_augmentation';
+import type { TypedNodeModel } from '@intlayer/types/nodeType';;
+import { formatNodeType, NodeType } from '@intlayer/types/nodeType';
 import type { DeepTransformContent } from '../../interpreter';
 
 /**

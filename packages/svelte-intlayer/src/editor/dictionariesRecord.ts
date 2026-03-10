@@ -1,5 +1,5 @@
 import { MessageKey } from '@intlayer/editor';
-import type { Dictionary, LocalDictionaryId } from '@intlayer/types';
+import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
 import { useCrossFrameState } from './useCrossFrameState';
 
 export type DictionaryContent = Record<LocalDictionaryId, Dictionary>;

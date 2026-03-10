@@ -1,5 +1,5 @@
 import { join, relative } from 'node:path';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { getExtension } from './getExtension';
 import { normalizePath } from './normalizePath';
 

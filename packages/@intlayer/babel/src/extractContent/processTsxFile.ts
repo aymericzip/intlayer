@@ -4,7 +4,7 @@ import { parse } from '@babel/parser';
 import _traverse, { type NodePath } from '@babel/traverse';
 import * as t from '@babel/types';
 import { detectFormatCommand } from '@intlayer/chokidar/cli';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { extractBabelContentForComponents } from './babelProcessor';
 import { getExistingIntlayerInfo } from './utils';
 

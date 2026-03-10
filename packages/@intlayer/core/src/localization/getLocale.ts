@@ -1,6 +1,6 @@
 import configuration from '@intlayer/config/built';
 import { DefaultValues } from '@intlayer/config/client';
-import type { Locale } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
 import { getLocaleFromStorage } from '../utils/localeStorage';
 import { getPreferredLanguages } from './localeDetector';
 import { localeResolver } from './localeResolver';

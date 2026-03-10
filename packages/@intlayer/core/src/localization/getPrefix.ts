@@ -1,6 +1,8 @@
 import configuration from '@intlayer/config/built';
 import { DefaultValues } from '@intlayer/config/client';
-import type { Locale, LocalesValues, RoutingConfig } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import type { RoutingConfig } from '@intlayer/types/config';
+import type { Locale } from '@intlayer/types/allLocales';
 
 export type GetPrefixOptions = {
   defaultLocale?: LocalesValues;

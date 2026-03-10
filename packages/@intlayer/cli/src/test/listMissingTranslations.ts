@@ -5,7 +5,9 @@ import {
 } from '@intlayer/config/node';
 import { getMissingLocalesContentFromDictionary } from '@intlayer/core/plugins';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import type { Dictionary, IntlayerConfig, Locale } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Locale } from '@intlayer/types/allLocales';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 
 export const listMissingTranslationsWithConfig = (

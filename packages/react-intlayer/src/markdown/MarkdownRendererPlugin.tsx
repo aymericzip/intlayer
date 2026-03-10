@@ -3,7 +3,9 @@
 import { getContentNodeByKeyPath } from '@intlayer/core/dictionaryManipulator';
 import { getMarkdownMetadata } from '@intlayer/core/markdown';
 import { useEditorLocale } from '@intlayer/editor-react';
-import type { ContentNode, KeyPath, LocalesValues } from '@intlayer/types';
+import type { ContentNode } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import type { FC, ReactNode } from 'react';
 import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';
 import type { HTMLComponents } from '../html/HTMLComponentTypes';

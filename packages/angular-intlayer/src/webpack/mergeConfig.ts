@@ -3,7 +3,6 @@ import { getConfiguration } from '@intlayer/config/node';
 import { getAlias } from '@intlayer/config/utils';
 import { IntlayerPlugin } from '@intlayer/webpack'; // adjust path if needed
 import { defu } from 'defu';
-/** @ts-ignore Configuration type exist but raise error */
 import type { Configuration as WebpackConfig } from 'webpack';
 
 export const mergeConfig = (baseConfig: WebpackConfig): WebpackConfig => {

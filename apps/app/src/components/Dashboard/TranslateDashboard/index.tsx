@@ -27,7 +27,9 @@ import {
   useDictionariesRecordActions,
   useEditedContent,
 } from '@intlayer/editor-react';
-import { type Dictionary, type LocalesValues, NodeType } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import { NodeType } from '@intlayer/types/nodeType';
 import { ArrowUp, Plus } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC, Suspense, useEffect, useMemo, useRef, useState } from 'react';

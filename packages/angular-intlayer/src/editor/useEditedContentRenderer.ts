@@ -5,7 +5,7 @@ import {
   inject,
   type Signal,
 } from '@angular/core';
-import type { KeyPath } from '@intlayer/types';
+import type { KeyPath } from '@intlayer/types/keyPath';
 
 export interface EditedContentActions {
   getEditedContentValue(dictionaryKey: string, keyPath: KeyPath[]): unknown;

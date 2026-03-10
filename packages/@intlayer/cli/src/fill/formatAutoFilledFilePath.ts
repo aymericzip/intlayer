@@ -1,5 +1,5 @@
 import { basename, dirname, isAbsolute, normalize, resolve } from 'node:path';
-import type { LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
 export const formatAutoFilledFilePath = (
   autoFillField: string,

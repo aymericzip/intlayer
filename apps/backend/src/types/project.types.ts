@@ -1,4 +1,4 @@
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import type { RenameId } from '@utils/mongoDB/types';
 import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
 import type { Token } from 'oauth2-server';

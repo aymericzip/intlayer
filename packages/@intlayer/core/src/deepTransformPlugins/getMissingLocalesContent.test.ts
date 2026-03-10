@@ -1,4 +1,6 @@
-import { type ContentNode, Locales, NodeType } from '@intlayer/types';
+import type { ContentNode } from '@intlayer/types/dictionary';
+import * as Locales from '@intlayer/types/locales';
+import { NodeType } from '@intlayer/types/nodeType';
 import { describe, expect, it } from 'vitest';
 import { getMissingLocalesContent } from './getMissingLocalesContent';
 

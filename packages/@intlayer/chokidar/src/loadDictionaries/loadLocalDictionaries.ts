@@ -1,6 +1,7 @@
 import { mkdir } from 'node:fs/promises';
 import { relative, resolve } from 'node:path';
-import type { Dictionary, IntlayerConfig } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { loadContentDeclarations } from './loadContentDeclaration';
 
 export const loadLocalDictionaries = async (

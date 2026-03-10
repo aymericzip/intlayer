@@ -1,5 +1,6 @@
 import { MessageKey } from '@intlayer/editor';
-import type { DictionaryKeys, KeyPath } from '@intlayer/types';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import type { DictionaryKeys } from '@intlayer/types/module_augmentation';
 import { getContext, setContext } from 'svelte';
 import type { Writable } from 'svelte/store';
 import { useCrossFrameState } from './useCrossFrameState';

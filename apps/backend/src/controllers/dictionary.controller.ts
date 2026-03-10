@@ -5,7 +5,7 @@ import type {
   DictionaryId,
   Dictionary as LocalDictionary,
   LocalDictionaryId,
-} from '@intlayer/types';
+} from '@intlayer/types/dictionary';
 import { logger } from '@logger';
 import * as dictionaryService from '@services/dictionary.service';
 import * as projectService from '@services/project.service';

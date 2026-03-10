@@ -1,6 +1,6 @@
 import { getHTML } from '@intlayer/core/interpreter';
 import { HTML_TAGS } from '@intlayer/core/transpiler';
-import type { KeyPath } from '@intlayer/types';
+import type { KeyPath } from '@intlayer/types/keyPath';
 import { Fragment, type FunctionComponent, h, type JSX } from 'preact';
 import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';
 import { useHTMLContext } from './HTMLProvider';

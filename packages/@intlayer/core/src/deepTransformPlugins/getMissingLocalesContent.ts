@@ -1,11 +1,8 @@
 import configuration from '@intlayer/config/built';
-import type { Dictionary } from '@intlayer/types';
-import {
-  type ContentNode,
-  type Locale,
-  type LocalesValues,
-  NodeType,
-} from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import { NodeType } from '@intlayer/types/nodeType';
 import type { DeepTransformContent, NodeProps, Plugins } from '../interpreter';
 import { deepTransformNode } from '../interpreter/getContent/deepTransform';
 import type { TranslationContent } from '../transpiler';

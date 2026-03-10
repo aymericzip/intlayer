@@ -17,7 +17,7 @@ import type {
   UpdateOrganizationResult,
 } from '@intlayer/backend';
 import configuration from '@intlayer/config/built';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { type FetcherOptions, fetcher } from '../fetcher';
 
 export const getOrganizationAPI = (

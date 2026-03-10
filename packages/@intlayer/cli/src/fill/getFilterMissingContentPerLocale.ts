@@ -1,4 +1,4 @@
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
 
 /**
  * Recursively compares source content with target content and returns only the missing parts.

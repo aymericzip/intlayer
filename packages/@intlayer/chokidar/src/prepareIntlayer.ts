@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import { ANSIColors, colorize, getAppLogger } from '@intlayer/config/logger';
 import packageJson from '@intlayer/config/package.json' with { type: 'json' };
 import { cacheDisk } from '@intlayer/config/utils';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictionary';
 import { writeRemoteDictionary } from './buildIntlayerDictionary/writeRemoteDictionary';
 import { cleanOutputDir } from './cleanOutputDir';

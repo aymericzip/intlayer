@@ -1,4 +1,4 @@
-import type { LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import type { IInterpreterPluginVue } from './plugins';
 
 declare module '@intlayer/core/interpreter' {

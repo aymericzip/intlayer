@@ -13,7 +13,7 @@ import {
   useEditedContent,
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import Fuse from 'fuse.js';
 import { ChevronRight, Pencil } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';

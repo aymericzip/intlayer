@@ -18,11 +18,9 @@ import {
   useEditorLocale,
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
-import {
-  type KeyPath,
-  type LocalDictionaryId,
-  NodeType,
-} from '@intlayer/types';
+import type { LocalDictionaryId } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import { NodeType } from '@intlayer/types/nodeType';
 import type { ContentNode, Dictionary } from 'intlayer';
 import { ChevronRight, Plus } from 'lucide-react';
 import type { FC } from 'react';

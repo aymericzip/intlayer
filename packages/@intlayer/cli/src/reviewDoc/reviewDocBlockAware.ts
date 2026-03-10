@@ -18,7 +18,8 @@ import {
 } from '@intlayer/config/node';
 import { retryManager } from '@intlayer/config/utils';
 import { getLocaleName } from '@intlayer/core/localization';
-import { type Locale, Locales } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
+import * as Locales from '@intlayer/types/locales';
 import { sanitizeChunk, validateTranslation } from '../translateDoc/validation';
 import {
   buildAlignmentPlan,

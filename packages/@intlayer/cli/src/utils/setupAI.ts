@@ -5,7 +5,7 @@ import {
   getAppLogger,
   type logger,
 } from '@intlayer/config/logger';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { checkAIAccess } from './checkAccess';
 
 export type AIClient = typeof import('@intlayer/ai');

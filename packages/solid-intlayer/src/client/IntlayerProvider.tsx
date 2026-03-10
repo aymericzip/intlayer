@@ -1,6 +1,6 @@
 import configuration from '@intlayer/config/built';
 import { localeResolver } from '@intlayer/core/localization';
-import type { LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import {
   type Component,
   createContext,

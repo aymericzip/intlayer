@@ -1,9 +1,8 @@
 /** biome-ignore-all lint/suspicious/noEmptyInterface: Intlayer module augmentation registries */
-import type {
-  Dictionary as DictionaryCore,
-  CustomIntlayerConfig as IntlayerConfig,
-  SchemaKeys,
-} from '@intlayer/types';
+
+import type { CustomIntlayerConfig as IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary as DictionaryCore } from '@intlayer/types/dictionary';
+import type { SchemaKeys } from '@intlayer/types/module_augmentation';
 
 /**
  * The dictionary type used to define the structure of a dictionary.
@@ -31,14 +30,14 @@ type DeclarationContent<
   SchemaKey extends SchemaKeys | undefined = undefined,
 > = Dictionary<T, SchemaKey>;
 
-export {
-  ALL_LOCALES,
-  type ContentNode,
-  type Locale,
-  Locales,
-  type LocalesValues,
-  type StrictModeLocaleMap,
-} from '@intlayer/types';
+export { ALL_LOCALES, type Locale } from '@intlayer/types/allLocales';
+export type { ContentNode } from '@intlayer/types/dictionary';
+export type {
+  LocalesValues,
+  StrictModeLocaleMap,
+} from '@intlayer/types/module_augmentation';
+
+import * as Locales from '@intlayer/types/locales';
 export type { DeclarationContent, Dictionary, IntlayerConfig };
 
 /**
@@ -77,6 +76,7 @@ export {
   locales,
   requiredLocales,
   defaultLocale,
+  Locales,
 };
 
 export { file } from '@intlayer/core/file'; // Include specific export for browser because of node js function that can't be used in browser

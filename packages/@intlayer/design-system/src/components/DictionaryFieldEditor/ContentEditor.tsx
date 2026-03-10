@@ -6,7 +6,7 @@ import {
   useEditorLocale,
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
-import type { Dictionary, LocalDictionaryId } from '@intlayer/types';
+import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
 import { type FC, useEffect } from 'react';
 import { Container } from '../Container';
 import { LocaleSwitcherContent } from '../LocaleSwitcherContentDropDown';

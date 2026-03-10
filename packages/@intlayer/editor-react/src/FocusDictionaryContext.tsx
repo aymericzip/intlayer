@@ -1,11 +1,9 @@
 'use client';
 
 import { MessageKey } from '@intlayer/editor';
-import {
-  type KeyPath,
-  type LocalDictionaryId,
-  NodeType,
-} from '@intlayer/types';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import type { LocalDictionaryId } from '@intlayer/types/dictionary';;
+import { NodeType } from '@intlayer/types/nodeType';
 import {
   createContext,
   type Dispatch,

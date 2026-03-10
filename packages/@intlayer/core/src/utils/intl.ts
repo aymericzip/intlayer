@@ -22,7 +22,8 @@
 //
 // ---------------------------------------------------------------------
 
-import { Locales, type LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import * as Locales from '@intlayer/types/locales';
 
 // Helper type that picks just the constructor members off `typeof Intl`.
 // The "capital‑letter" heuristic is 100 % accurate today and keeps the

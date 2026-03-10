@@ -5,7 +5,7 @@ import {
   PopoverStatic,
   SearchInput,
 } from '@intlayer/design-system';
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import type { Table } from '@tanstack/react-table';
 import { Columns, Filter, Plus, Trash2 } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';

@@ -1,5 +1,5 @@
 import { MessageKey } from '@intlayer/editor';
-import type { Dictionary, LocalDictionaryId } from '@intlayer/types';
+import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
 import { type App, inject, type Ref, readonly, ref, watch } from 'vue';
 import { createSharedComposable } from './createSharedComposable';
 import { useCrossFrameState } from './useCrossFrameState';

@@ -13,7 +13,8 @@ import {
 } from '@intlayer/design-system';
 import { useGetEditorDictionaries } from '@intlayer/design-system/hooks';
 import { useFocusUnmergedDictionary } from '@intlayer/editor-react';
-import type { Dictionary, Locale } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type { Locale } from '@intlayer/types/allLocales';
 import { PencilRuler } from 'lucide-react';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';

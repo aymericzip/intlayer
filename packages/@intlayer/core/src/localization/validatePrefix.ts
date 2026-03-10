@@ -1,6 +1,6 @@
 import configuration from '@intlayer/config/built';
 import { DefaultValues } from '@intlayer/config/client';
-import type { LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { getPrefix } from './getPrefix';
 
 export type ValidatePrefixResult = {

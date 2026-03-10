@@ -2,11 +2,8 @@
 
 import { computed, inject } from '@angular/core';
 import configuration from '@intlayer/config/built';
-import type {
-  Dictionary,
-  LocalesValues,
-  StrictModeLocaleMap,
-} from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type { LocalesValues, StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import { INTLAYER_TOKEN, type IntlayerProvider } from './installIntlayer';
 import { useDictionary } from './useDictionary';
 

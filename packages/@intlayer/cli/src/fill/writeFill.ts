@@ -3,7 +3,9 @@ import { writeContentDeclaration } from '@intlayer/chokidar/build';
 import { formatLocale, formatPath } from '@intlayer/chokidar/utils';
 import { colorizeKey, getAppLogger } from '@intlayer/config/logger';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import type { Dictionary, Fill, IntlayerConfig, Locale } from '@intlayer/types';
+import type { Dictionary, Fill } from '@intlayer/types/dictionary';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Locale } from '@intlayer/types/allLocales';
 import { type FillData, formatFillData } from './formatFillData';
 import { getAvailableLocalesInDictionary } from './getAvailableLocalesInDictionary';
 

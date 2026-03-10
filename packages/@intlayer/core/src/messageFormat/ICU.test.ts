@@ -1,4 +1,4 @@
-import { NodeType } from '@intlayer/types';
+import { NodeType } from '@intlayer/types/nodeType';
 import { describe, expect, it } from 'vitest';
 import { enu, gender, html, insert } from '../transpiler';
 import { icuToIntlayerFormatter, intlayerToICUFormatter } from './ICU';

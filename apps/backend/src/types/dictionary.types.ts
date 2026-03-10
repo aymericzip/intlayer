@@ -1,7 +1,4 @@
-import type {
-  ContentNode,
-  Dictionary as DictionaryCore,
-} from '@intlayer/types';
+import type { ContentNode, Dictionary as DictionaryCore } from '@intlayer/types/dictionary';
 import type { RenameId } from '@utils/mongoDB/types';
 import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
 import type { Project } from './project.types';

@@ -1,9 +1,6 @@
-import {
-  formatNodeType,
-  NodeType,
-  type StrictModeLocaleMap,
-  type TypedNodeModel,
-} from '@intlayer/types';
+import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
+import type { TypedNodeModel } from '@intlayer/types/nodeType';
+import { formatNodeType, NodeType } from '@intlayer/types/nodeType';
 
 export type TranslationContent<
   Content = unknown,

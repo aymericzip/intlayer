@@ -1,10 +1,7 @@
 import configuration from '@intlayer/config/built';
 import { DefaultValues } from '@intlayer/config/client';
-import type {
-  LocalesValues,
-  RoutingConfig,
-  StrictModeLocaleMap,
-} from '@intlayer/types';
+import type { LocalesValues, StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
+import type { RoutingConfig } from '@intlayer/types/config';
 import { getLocalizedUrl } from './getLocalizedUrl';
 
 /**

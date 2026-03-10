@@ -1,7 +1,7 @@
 import { DestroyRef, inject } from '@angular/core';
 import configuration from '@intlayer/config/built';
 import { MessageKey } from '@intlayer/editor';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { useCrossFrameState } from './useCrossFrameState';
 
 export const useConfiguration = () => {

@@ -3,7 +3,7 @@ import { getIntlayerAPIProxy } from '@intlayer/api';
 import type { DictionaryAPI } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config/node';
 import { getRemoteDictionaries } from '@intlayer/remote-dictionaries-entry';
-import type { Dictionary, DictionaryId, DictionaryKey } from '@intlayer/types';
+import type { Dictionary, DictionaryId, DictionaryKey } from '@intlayer/types/dictionary';
 import { fetchDistantDictionaries } from '../fetchDistantDictionaries';
 import type { DictionariesStatus } from '../loadDictionaries/loadDictionaries';
 import { sortAlphabetically } from '../utils/sortAlphabetically';

@@ -1,4 +1,3 @@
-import { createRequire } from 'node:module';
 import { join } from 'node:path';
 import { intlayerOptimizeBabelPlugin } from '@intlayer/babel';
 import {
@@ -8,7 +7,8 @@ import {
 import { DefaultValues } from '@intlayer/config/client';
 import { getAppLogger } from '@intlayer/config/logger';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import type { Dictionary, IntlayerConfig } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import type { PluginOption } from 'vite';
 import { intlayerVueAsyncPlugin } from './intlayerVueAsyncPlugin';
 

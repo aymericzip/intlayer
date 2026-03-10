@@ -1,6 +1,7 @@
 // Import required modules and types from their respective locations.
 
-import { Locales, type StrictModeLocaleMap } from '@intlayer/types';
+import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
+import * as Locales from '@intlayer/types/locales';
 import { logger } from '@logger';
 import { formatPaginatedResponse, formatResponse } from '@utils/responseData';
 import type { Response } from 'express';

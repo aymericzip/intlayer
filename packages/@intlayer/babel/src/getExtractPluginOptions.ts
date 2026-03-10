@@ -7,7 +7,7 @@ import {
 } from '@intlayer/chokidar/build';
 import { ANSIColors, colorize, getAppLogger } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   ExtractPluginOptions,
   ExtractResult,
@@ -179,8 +179,7 @@ export const getExtractPluginOptions = (
         if (match) {
           const filePath = match[1];
           try {
-            const fs = require('fs');
-            const fileContent = fs.readFileSync(filePath, 'utf-8');
+            const fileContent = await readFile(filePath, 'utf-8');
             console.error(
               `[intlayer] Content of the corrupted file (${filePath}):\n"${fileContent}"`
             );

@@ -4,7 +4,8 @@ import {
   type ChatCompletionRequestMessage,
   getAIConfig,
 } from '@intlayer/ai';
-import type { KeyPath, Locale } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { KeyPath } from '@intlayer/types/keyPath';
 import { logger } from '@logger';
 import { getDictionariesByTags } from '@services/dictionary.service';
 import * as tagService from '@services/tag.service';

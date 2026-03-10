@@ -1,4 +1,4 @@
-import { Locales } from '@intlayer/types';
+import * as Locales from '@intlayer/types/locales';
 import { describe, expect, it, vi } from 'vitest';
 import { getLocale } from './getLocale';
 

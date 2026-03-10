@@ -1,5 +1,5 @@
 import type { DictionaryAPI } from '@intlayer/backend';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { getIntlayerAPIProxy } from '../proxy';
 
 /**

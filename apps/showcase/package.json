@@ -2,6 +2,7 @@
   "name": "intlayer-showcase",
   "private": true,
   "type": "module",
+  "sideEffects": false,
   "imports": {
     "#/*": "./src/*"
   },

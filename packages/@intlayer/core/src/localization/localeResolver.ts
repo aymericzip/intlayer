@@ -1,5 +1,6 @@
 import configuration from '@intlayer/config/built';
-import type { Locale, LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import type { Locale } from '@intlayer/types/allLocales';
 
 /**
  * Resolves the most specific locale from a user-provided list,

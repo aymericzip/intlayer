@@ -1,9 +1,5 @@
 import configuration from '@intlayer/config/built';
-import type {
-  DictionaryKeys,
-  DictionaryRegistryContent,
-  LocalesValues,
-} from '@intlayer/types';
+import type { DictionaryKeys, DictionaryRegistryContent, LocalesValues } from '@intlayer/types/module_augmentation';
 import {
   type ComputedRef,
   computed,

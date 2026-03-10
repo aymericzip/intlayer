@@ -14,13 +14,10 @@ import type {
   TranslationContent,
 } from '@intlayer/core/transpiler';
 import { useEditorLocale } from '@intlayer/editor-react';
-import {
-  type ContentNode,
-  type Dictionary,
-  type KeyPath,
-  type Locale,
-  NodeType,
-} from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import { NodeType } from '@intlayer/types/nodeType';
 import { type FC, memo, type ReactNode, useMemo } from 'react';
 import { ArrayWrapper } from './ArrayWrapper';
 import { ConditionWrapper } from './ConditionWrapper';

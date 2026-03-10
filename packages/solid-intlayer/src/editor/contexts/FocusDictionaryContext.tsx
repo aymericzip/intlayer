@@ -1,5 +1,5 @@
 import { MessageKey } from '@intlayer/editor';
-import type { KeyPath } from '@intlayer/types';
+import type { KeyPath } from '@intlayer/types/keyPath';
 import {
   type Component,
   createContext,

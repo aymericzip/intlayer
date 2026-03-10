@@ -33,7 +33,7 @@ export {
 } from './translateJSON';
 export { extractJson } from './utils/extractJSON';
 
-declare module '@intlayer/types' {
+declare module '@intlayer/types/config' {
   // @ts-ignore redeclared for module augmentations
   interface AiProviderConfigMap {
     openai: OpenAIProviderOptions;

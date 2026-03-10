@@ -3,7 +3,7 @@
 import type { NodeProps } from '@intlayer/core/interpreter';
 import { isSameKeyPath } from '@intlayer/core/utils';
 import { MessageKey } from '@intlayer/editor';
-import { NodeType } from '@intlayer/types';
+import { NodeType } from '@intlayer/types/nodeType';
 import type { FunctionalComponent, JSX } from 'preact';
 import { useCallback, useMemo } from 'preact/hooks';
 import { useIntlayerContext } from '../client';

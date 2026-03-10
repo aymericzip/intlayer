@@ -21,7 +21,7 @@ import {
   getAppLogger,
 } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
-import type { Locale } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
 import {
   ensureArray,
   type GetTargetDictionaryOptions,

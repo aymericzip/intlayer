@@ -1,7 +1,7 @@
 import { passkeyClient } from '@better-auth/passkey/client';
 import { ssoClient } from '@better-auth/sso/client';
 import configuration from '@intlayer/config/built';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { createAuthClient } from 'better-auth/client';
 import { magicLinkClient, twoFactorClient } from 'better-auth/client/plugins';
 
@@ -259,7 +259,7 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
     // Not implemented yet
   };
 
-  const deleteSSOProvider = async (args: { providerId: string }) => {
+  const deleteSSOProvider = async (_args: { providerId: string }) => {
     // Not implemented yet
   };
 

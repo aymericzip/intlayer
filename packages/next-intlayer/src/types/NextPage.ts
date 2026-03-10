@@ -1,4 +1,4 @@
-import type { LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import type { NextPage } from 'next';
 import type { PropsWithChildren, ReactNode } from 'react';
 

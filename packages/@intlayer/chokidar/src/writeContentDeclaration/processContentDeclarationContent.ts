@@ -12,7 +12,8 @@ import type {
   MarkdownContent,
   MarkdownContentConstructor,
 } from '@intlayer/core/transpiler';
-import { type Dictionary, NodeType } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';;
+import { NodeType } from '@intlayer/types/nodeType';
 
 /**
  * Write file plugin

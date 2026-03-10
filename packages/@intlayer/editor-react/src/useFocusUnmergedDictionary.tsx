@@ -1,12 +1,9 @@
 'use client';
 
 import { getContentNodeByKeyPath } from '@intlayer/core/dictionaryManipulator';
-import type {
-  Dictionary,
-  KeyPath,
-  LocalDictionaryId,
-  Locale,
-} from '@intlayer/types';
+import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import type { Locale } from '@intlayer/types/allLocales';
 import { useMemo } from 'react';
 import { useDictionariesRecord } from './DictionariesRecordContext';
 import { type FileContent, useFocusDictionary } from './FocusDictionaryContext';

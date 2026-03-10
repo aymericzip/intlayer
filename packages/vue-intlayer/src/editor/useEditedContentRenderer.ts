@@ -1,4 +1,4 @@
-import type { KeyPath } from '@intlayer/types';
+import type { KeyPath } from '@intlayer/types/keyPath';
 import { type ComputedRef, computed, inject } from 'vue';
 import { createSharedComposable } from './createSharedComposable';
 

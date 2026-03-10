@@ -10,11 +10,9 @@ import {
   nest,
   t,
 } from '@intlayer/core/transpiler';
-import {
-  type CustomIntlayerConfig,
-  type Dictionary,
-  Locales,
-} from '@intlayer/types';
+import type { CustomIntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import * as Locales from '@intlayer/types/locales';
 import { defu } from 'defu';
 import { describe, expect, it, vi } from 'vitest';
 import { transformJSFile } from './transformJSFile';

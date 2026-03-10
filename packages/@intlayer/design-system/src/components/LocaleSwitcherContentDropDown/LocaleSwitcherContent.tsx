@@ -2,7 +2,8 @@
 
 import { usePersistedStore } from '@hooks/usePersistedStore';
 import { getHTMLTextDir, getLocaleName } from '@intlayer/core/localization';
-import { Locales, type LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import * as Locales from '@intlayer/types/locales';
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { Check, Globe, MoveVertical } from 'lucide-react';
 import { type FC, useMemo, useRef, useState } from 'react';

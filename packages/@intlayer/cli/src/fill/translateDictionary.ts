@@ -25,7 +25,9 @@ import {
   getPerLocaleDictionary,
   insertContentInDictionary,
 } from '@intlayer/core/plugins';
-import type { Dictionary, IntlayerConfig, Locale } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Locale } from '@intlayer/types/allLocales';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import type { AIClient } from '../utils/setupAI';
 import { deepMergeContent } from './deepMergeContent';

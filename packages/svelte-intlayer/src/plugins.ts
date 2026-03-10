@@ -11,12 +11,12 @@ import {
   type InsertionContent,
   type MarkdownContent,
 } from '@intlayer/core/transpiler';
-import {
-  type DeclaredLocales,
-  type KeyPath,
-  type LocalesValues,
-  NodeType,
-} from '@intlayer/types';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
+import { NodeType } from '@intlayer/types/nodeType';
 import { ContentSelectorWrapper } from './editor';
 import type { HTMLComponents } from './html/types';
 import MarkdownMetadataWithSelector from './markdown/MarkdownMetadataWithSelector.svelte';
@@ -460,7 +460,7 @@ export const htmlPlugin: Plugins = {
 
 export interface IInterpreterPluginSvelte<T, S, L extends LocalesValues> {
   svelteIntlayerNode: T extends string | number ? IntlayerNode<T> : never;
-  svelteInsertion: InsertionCond<T>;
+  svelteInsertion: InsertionCond<T, S, L>;
   svelteMarkdown: MarkdownCond<T, S, L>;
   svelteHtml: HTMLPluginCond<T>;
 }

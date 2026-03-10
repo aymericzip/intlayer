@@ -1,5 +1,5 @@
 import { getConfiguration as getApplicationConfiguration } from '@intlayer/config/node';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 

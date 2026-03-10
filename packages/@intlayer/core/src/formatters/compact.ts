@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { Intl as CachedIntl } from '../utils/intl';
 
 /**

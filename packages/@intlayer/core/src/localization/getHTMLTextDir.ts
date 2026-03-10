@@ -1,4 +1,5 @@
-import { Locales, type LocalesValues } from '@intlayer/types';
+import * as Locales from '@intlayer/types/locales';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
 type Dir = 'ltr' | 'rtl' | 'auto';
 

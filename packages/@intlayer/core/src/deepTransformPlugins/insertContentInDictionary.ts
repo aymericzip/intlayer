@@ -1,4 +1,6 @@
-import { type Dictionary, type LocalesValues, NodeType } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import { NodeType } from '@intlayer/types/nodeType';
 
 // {
 //     {

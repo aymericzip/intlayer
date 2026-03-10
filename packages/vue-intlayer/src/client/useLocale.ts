@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import type { DeclaredLocales, LocalesValues } from '@intlayer/types';
+import type { DeclaredLocales, LocalesValues } from '@intlayer/types/module_augmentation';
 import { type ComputedRef, computed, inject } from 'vue';
 import { INTLAYER_SYMBOL, type IntlayerProvider } from './installIntlayer';
 import { setLocaleInStorage } from './useLocaleStorage';

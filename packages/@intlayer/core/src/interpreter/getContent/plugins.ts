@@ -1,11 +1,11 @@
-import {
-  type DeclaredLocales,
-  type DictionaryKeys,
-  type KeyPath,
-  type Locale,
-  type LocalesValues,
-  NodeType,
-} from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import type {
+  DeclaredLocales,
+  DictionaryKeys,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
+import { NodeType } from '@intlayer/types/nodeType';
 import type {
   ConditionContent,
   EnumerationContent,

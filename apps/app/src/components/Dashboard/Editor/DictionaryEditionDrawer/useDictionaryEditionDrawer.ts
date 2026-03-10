@@ -4,12 +4,8 @@ import {
   useEditedContentActions,
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
-import type {
-  ContentNode,
-  Dictionary,
-  KeyPath,
-  LocalDictionaryId,
-} from '@intlayer/types';
+import type { ContentNode, Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
 import { useEffect } from 'react';
 
 export const getDrawerIdentifier = (dictionaryKey: string) =>

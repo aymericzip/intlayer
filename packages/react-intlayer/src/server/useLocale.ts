@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import type { DeclaredLocales } from '@intlayer/types';
+import type { DeclaredLocales } from '@intlayer/types/module_augmentation';
 import { IntlayerServerContext } from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';
 

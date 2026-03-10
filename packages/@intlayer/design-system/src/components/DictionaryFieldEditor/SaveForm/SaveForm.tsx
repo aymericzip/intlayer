@@ -14,7 +14,7 @@ import {
   useDictionariesRecordActions,
   useEditedContent,
 } from '@intlayer/editor-react';
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { cn } from '@utils/cn';
 import {
   ArrowUpFromLine,

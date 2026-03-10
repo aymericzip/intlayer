@@ -2,7 +2,7 @@
 
 import { useSession } from '@intlayer/design-system/hooks';
 import { EditorProvider as EditorProviderComponent } from '@intlayer/editor-react';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { useQuery } from '@tanstack/react-query';
 import type { FC, PropsWithChildren, RefObject } from 'react';
 import { ApplicationNotRunningView } from './ApplicationNotRunningView/ApplicationNotRunningView';

@@ -1,5 +1,5 @@
 import { bindIntl } from '@intlayer/core/formatters';
-import type { LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { createMemo, useContext } from 'solid-js';
 import { IntlayerClientContext } from '../IntlayerProvider';
 

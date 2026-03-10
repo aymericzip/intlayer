@@ -5,6 +5,7 @@
   "description": "",
   "license": "ISC",
   "author": "",
+  "sideEffects": false,
   "main": "./tsconfig.json",
   "module": "./tsconfig.json",
   "scripts": {},

@@ -7,7 +7,7 @@ import {
   getProjectRequire,
   isESModule,
 } from '@intlayer/config/utils';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 
 /**
  * Rewrites selected bare specifiers (and any of their subpaths) to absolute file paths,

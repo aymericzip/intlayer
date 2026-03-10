@@ -1,10 +1,6 @@
 import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
-import type {
-  DictionaryKeys,
-  DictionaryRegistryContent,
-  GetSubPath,
-  LocalesValues,
-} from '@intlayer/types';
+import type { DictionaryKeys, DictionaryRegistryContent, LocalesValues } from '@intlayer/types/module_augmentation';
+import type { GetSubPath } from '@intlayer/types/dictionary';
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';
 import { IntlayerServerContext } from './IntlayerServerProvider';

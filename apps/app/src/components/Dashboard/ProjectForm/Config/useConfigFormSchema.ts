@@ -1,4 +1,4 @@
-import { AiProviders } from '@intlayer/types';
+import { AiProviders } from '@intlayer/types/config';
 import { Locales } from 'intlayer';
 import { useIntlayer } from 'next-intlayer';
 import { z } from 'zod/v4';

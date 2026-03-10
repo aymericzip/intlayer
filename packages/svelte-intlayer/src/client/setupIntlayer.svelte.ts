@@ -1,4 +1,4 @@
-import type { LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { createCommunicator } from '../editor/communicator';
 import { createEditorEnabledClient } from '../editor/editorEnabled';
 import { createFocusDictionaryClient } from '../editor/focusDictionary';

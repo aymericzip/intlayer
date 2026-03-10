@@ -1,5 +1,6 @@
 import { buildConfigurationFields } from '@intlayer/config/node';
-import type { CustomIntlayerConfig, Dictionary } from '@intlayer/types';
+import type { CustomIntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { orderDictionaries } from './orderDictionaries';
 

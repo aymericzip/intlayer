@@ -6,7 +6,7 @@ import {
   mergeDictionaries,
   normalizeDictionaries,
 } from '@intlayer/core/dictionaryManipulator';
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { parallelize } from '../utils/parallelize';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';
 import type { UnmergedDictionaryOutput } from './writeUnmergedDictionary';

@@ -2,11 +2,8 @@ import {
   getDictionary as getDictionaryCore,
   type Plugins,
 } from '@intlayer/core/interpreter';
-import type {
-  DeclaredLocales,
-  Dictionary,
-  LocalesValues,
-} from '@intlayer/types';
+import type { DeclaredLocales, LocalesValues } from '@intlayer/types/module_augmentation';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import {
   type DeepTransformContent,
   htmlPlugin,

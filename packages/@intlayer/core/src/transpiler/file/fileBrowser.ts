@@ -1,4 +1,3 @@
-import { formatNodeType, NodeType } from '@intlayer/types';
 import type { FileContent } from './file';
 
 /**
@@ -16,11 +15,11 @@ import type { FileContent } from './file';
  * file('path/to/file.md') // relative path
  * ```
  */
-export const file = (path: string): FileContent => {
+export const file = (_path: string): FileContent => {
   throw new Error('file is not available in browser');
 
-  return formatNodeType(NodeType.File, path, {
-    content: '',
-    fixedPath: '',
-  });
+  // return formatNodeType(NodeType.File, path, {
+  //   content: '',
+  //   fixedPath: '',
+  // });
 };

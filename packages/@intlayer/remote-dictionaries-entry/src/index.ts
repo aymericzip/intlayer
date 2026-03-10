@@ -9,7 +9,8 @@ import { join } from 'node:path';
 import type { DictionaryAPI } from '@intlayer/backend';
 import config from '@intlayer/config/built';
 import { clearModuleCache, configESMxCJSRequire } from '@intlayer/config/utils';
-import type { DictionaryKey, IntlayerConfig } from '@intlayer/types';
+import type { DictionaryKey } from '@intlayer/types/dictionary';
+import type { IntlayerConfig } from '@intlayer/types/config';
 
 export type RemoteDictionaries = Record<DictionaryKey, DictionaryAPI[]>;
 

@@ -8,7 +8,7 @@
 import * as Locales from './locales';
 
 /** Object containing all locale string values as properties, e.g. { ENGLISH: 'en', ... } */
-export const ALL_LOCALES = { ...Locales } as const;
+export const ALL_LOCALES: typeof Locales = { ...Locales } as const;
 
 /** Union of all locale string values, e.g. 'en' | 'en-US' | 'ar' | 'ar-AE' | ... */
 export type Locale = (typeof Locales)[keyof typeof Locales];

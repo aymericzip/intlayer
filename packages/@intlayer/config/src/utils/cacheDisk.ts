@@ -10,7 +10,7 @@ import {
 import { basename, dirname, join } from 'node:path';
 import { deserialize, serialize } from 'node:v8';
 import { gunzipSync, gzipSync } from 'node:zlib';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import configPackageJson from '@intlayer/types/package.json' with {
   type: 'json',
 };

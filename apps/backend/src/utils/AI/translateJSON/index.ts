@@ -5,7 +5,7 @@ import {
   type TranslateJSONResultData,
   translateJSON as translateJSONAI,
 } from '@intlayer/ai';
-import type { Locale } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
 import { logger } from '@logger';
 import type { Tag } from '@/types/tag.types';
 

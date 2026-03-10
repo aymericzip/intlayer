@@ -1,7 +1,9 @@
 <script lang="ts">
 import { getContentNodeByKeyPath } from '@intlayer/core/dictionaryManipulator';
 import { getMarkdownMetadata } from '@intlayer/core/markdown';
-import type { ContentNode, KeyPath, Locale } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { ContentNode } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
 import { useLocale } from '../client/useLocale';
 
 export const locale: Locale | undefined = undefined;
@@ -15,7 +17,7 @@ $: currentLocale = locale ?? $contextLocale;
 $: metadataEl = getContentNodeByKeyPath(
   metadata as ContentNode,
   metadataKeyPath,
-  currentLocale
+  currentLocale as Locale
 );
 </script>
 

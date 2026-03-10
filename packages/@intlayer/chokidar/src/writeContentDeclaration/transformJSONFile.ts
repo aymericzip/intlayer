@@ -1,4 +1,4 @@
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import * as recast from 'recast';
 
 const b = recast.types.builders;

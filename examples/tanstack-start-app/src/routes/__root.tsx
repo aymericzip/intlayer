@@ -5,7 +5,7 @@ import {
   useMatches,
 } from '@tanstack/react-router';
 import { defaultLocale, getHTMLTextDir } from 'intlayer';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { IntlayerProvider } from 'react-intlayer';
 
 import Header from '@/components/Header';

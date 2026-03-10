@@ -1,9 +1,7 @@
-import {
-  type ContentNode,
-  type KeyPath,
-  type Locale,
-  NodeType,
-} from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { ContentNode } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import { NodeType } from '@intlayer/types/nodeType';
 
 export const getContentNodeByKeyPath = (
   dictionaryContent: ContentNode,

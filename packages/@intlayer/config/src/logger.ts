@@ -1,4 +1,5 @@
-import type { CustomIntlayerConfig, Locale } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { CustomIntlayerConfig } from '@intlayer/types/config';
 
 export type Details = {
   isVerbose?: boolean;
@@ -208,7 +209,7 @@ export const colon = (
   [text]
     .flat()
     .map((text) => {
-      const { colSize, minSize, maxSize, pad, padChar } = {
+      const { colSize, minSize, maxSize, pad } = {
         ...defaultColonOptions,
         ...(options ?? {}),
       };

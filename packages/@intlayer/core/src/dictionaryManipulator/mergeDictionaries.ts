@@ -1,10 +1,6 @@
 import configuration from '@intlayer/config/built';
 import { colorizeKey, getAppLogger } from '@intlayer/config/logger';
-import type {
-  ContentNode,
-  Dictionary,
-  LocalDictionaryId,
-} from '@intlayer/types';
+import type { ContentNode, Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
 import { getMultilingualDictionary } from '../deepTransformPlugins';
 import { getNodeType } from './getNodeType';
 

@@ -12,7 +12,7 @@ import {
 } from '@hooks/reactQuery';
 import { useSession } from '@hooks/useAuth';
 import { useEditedContent } from '@intlayer/editor-react';
-import type { Dictionary, LocalDictionaryId } from '@intlayer/types';
+import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
 import { AnimatePresence, motion } from 'framer-motion';
 import { WandSparkles } from 'lucide-react';
 import { type FC, useEffect } from 'react';

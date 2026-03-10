@@ -12,7 +12,7 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { extractTsContent } from './babelProcessor';
 import { writeContentHelper } from './contentWriter';

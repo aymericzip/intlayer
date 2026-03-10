@@ -1,13 +1,13 @@
 import { isAbsolute, join, relative, resolve } from 'node:path';
 import { loadExternalFile } from '@intlayer/config/file';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import type {
   Dictionary,
   DictionaryFormat,
-  IntlayerConfig,
   LocalDictionaryId,
-  Locale,
-  Plugin,
-} from '@intlayer/types';
+} from '@intlayer/types/dictionary';
+import type { Plugin } from '@intlayer/types/plugin';
 import fg from 'fast-glob';
 import { extractKeyAndLocaleFromPath } from './syncJSON';
 

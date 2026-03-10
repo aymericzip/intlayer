@@ -4,7 +4,7 @@ import { useQueryClient } from '@hooks/reactQuery';
 import type { SessionAPI } from '@intlayer/backend';
 import defaultConfiguration from '@intlayer/config/built';
 import { useConfiguration } from '@intlayer/editor-react';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { getAuthAPI } from '@libs/auth';
 import { useQuery } from '@tanstack/react-query';
 

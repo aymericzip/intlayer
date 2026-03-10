@@ -1,8 +1,6 @@
-import {
-  type CustomIntlayerConfig,
-  type Locale,
-  Locales,
-} from '@intlayer/types';
+import type { CustomIntlayerConfig } from '@intlayer/types/config';
+import type { Locale } from '@intlayer/types/allLocales';
+import * as Locales from '@intlayer/types/locales';
 import { nextjsRewrite } from 'intlayer/routing';
 
 export const locales: Locale[] = [

@@ -1,9 +1,6 @@
-import {
-  type ContentNode,
-  type DeclaredLocales,
-  type Dictionary,
-  NodeType,
-} from '@intlayer/types';
+import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
+import type { DeclaredLocales } from '@intlayer/types/module_augmentation';
+import { NodeType } from '@intlayer/types/nodeType';
 
 type SplittedContentOutput<T = ContentNode> = Record<DeclaredLocales, T> & {
   common: T;

@@ -2,7 +2,7 @@ import type { ConnectionOptions } from 'node:tls';
 import * as eventListener from '@controllers/eventListener.controller';
 import { type AIOptions, getAIConfig } from '@intlayer/ai';
 import { DefaultValues } from '@intlayer/config/client';
-import type { Locale } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
 import { logger } from '@logger';
 import * as dictionaryService from '@services/dictionary.service';
 import * as projectService from '@services/project.service';
