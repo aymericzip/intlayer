@@ -1,15 +1,26 @@
 import { join, relative } from 'node:path';
 import { getEnvFilePath } from '@intlayer/config/env';
-import { getAppLogger } from '@intlayer/config/logger';
+import {
+  ANSIColors,
+  colorize,
+  colorizePath,
+  getAppLogger,
+  x,
+} from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfigurationAndFilePath,
+  intlayerConfigSchema,
 } from '@intlayer/config/node';
 import { formatPath, runOnce } from './utils';
 
 export const logConfigDetails = (options?: GetConfigurationOptions) => {
-  const { configuration, numCustomConfiguration, configurationFilePath } =
-    getConfigurationAndFilePath(options);
+  const {
+    configuration,
+    customConfiguration,
+    numCustomConfiguration,
+    configurationFilePath,
+  } = getConfigurationAndFilePath(options);
   const appLogger = getAppLogger(configuration);
 
   runOnce(
@@ -49,9 +60,26 @@ export const logConfigDetails = (options?: GetConfigurationOptions) => {
           );
         }
       }
+
+      if (customConfiguration) {
+        const validation = intlayerConfigSchema.safeParse(customConfiguration);
+
+        if (!validation.success) {
+          const errorMessages = validation.error.issues
+            .map((error) => {
+              const path = colorizePath(` - ${error.path.join('.')}:`);
+              const message = colorize(error.message, ANSIColors.GREY_DARK);
+              return `${path} ${message}`;
+            })
+            .join('\n');
+          const errorMessage = `${x} Invalid configuration:\n${errorMessages}`;
+
+          appLogger(errorMessage);
+        }
+      }
     },
     {
-      cacheTimeoutMs: 1000 * 30, // 30 seconds
+      cacheTimeoutMs: 1000 * 60, // 1 minute
     }
   );
 };

@@ -1,4 +1,4 @@
-export const APPLICATION_URL = '';
+export const APPLICATION_URL = undefined;
 export const EDITOR_URL = 'http://localhost:8000';
 export const CMS_URL = 'https://app.intlayer.org';
 export const BACKEND_URL = 'https://back.intlayer.org';

@@ -1,4 +1,8 @@
-import type { CustomIntlayerConfig, IntlayerConfig, LogFunctions } from '@intlayer/types/config';
+import type {
+  CustomIntlayerConfig,
+  IntlayerConfig,
+  LogFunctions,
+} from '@intlayer/types/config';
 import { defu } from 'defu';
 import type { SandBoxContextOptions } from '../loadExternalFile/parseFileContent';
 import { cacheMemory } from '../utils/cacheMemory';
@@ -23,6 +27,7 @@ export type GetConfigurationOptions = {
 
 export type GetConfigurationAndFilePathResult = {
   configuration: IntlayerConfig;
+  customConfiguration: CustomIntlayerConfig | undefined;
   numCustomConfiguration: number;
   configurationFilePath: string | undefined;
 };
@@ -46,6 +51,7 @@ export const getConfigurationAndFilePath = (
         options?.baseDir,
         options?.logFunctions
       ),
+      customConfiguration: undefined,
       numCustomConfiguration: 0,
       configurationFilePath: undefined,
     };
@@ -61,21 +67,21 @@ export const getConfigurationAndFilePath = (
     searchConfigurationFile(baseDir);
 
   let storedConfiguration: IntlayerConfig;
+  let customConfiguration: CustomIntlayerConfig | undefined;
 
   if (configurationFilePath) {
     // Load the custom configuration
-    const customConfiguration: CustomIntlayerConfig | undefined =
-      loadConfigurationFile(configurationFilePath, {
-        projectRequire: options?.require,
-        // Dotenv options
-        envVarOptions: {
-          env: options?.env,
-          envFile: options?.envFile,
-        },
-        // Sandbox context additional variables
-        additionalEnvVars: options?.additionalEnvVars,
-        aliases: options?.aliases,
-      });
+    customConfiguration = loadConfigurationFile(configurationFilePath, {
+      projectRequire: options?.require,
+      // Dotenv options
+      envVarOptions: {
+        env: options?.env,
+        envFile: options?.envFile,
+      },
+      // Sandbox context additional variables
+      additionalEnvVars: options?.additionalEnvVars,
+      aliases: options?.aliases,
+    });
 
     // Save the configuration to avoid reading the file again
     storedConfiguration = buildConfigurationFields(
@@ -93,7 +99,6 @@ export const getConfigurationAndFilePath = (
   }
 
   // Log warning if multiple configuration files are found
-
   const projectRequireConfig: CustomIntlayerConfig = options?.require
     ? {
         build: {
@@ -115,12 +120,14 @@ export const getConfigurationAndFilePath = (
 
   cacheMemory.set(options, {
     configuration,
+    customConfiguration,
     numCustomConfiguration,
     configurationFilePath,
   });
 
   return {
     configuration,
+    customConfiguration,
     numCustomConfiguration,
     configurationFilePath,
   };

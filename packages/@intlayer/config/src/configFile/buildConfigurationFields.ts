@@ -16,6 +16,7 @@ import type {
   SystemConfig,
 } from '@intlayer/types/config';
 import packageJson from '@intlayer/types/package.json' with { type: 'json' };
+import type { z } from 'zod';
 import {
   BUILD_MODE,
   CACHE,

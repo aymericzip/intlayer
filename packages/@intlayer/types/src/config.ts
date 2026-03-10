@@ -286,30 +286,10 @@ export type EditorConfig = {
    *
    * Default: ''
    */
-  applicationURL: URLType;
-
-  /**
-   * URL of the editor server. Used to restrict the origin of the editor for security reasons.
-   *
-   * Default: 'http://localhost:8000'
-   */
-  editorURL: URLType;
-
-  /**
-   * URL of the CMS server. Used to restrict the origin of the editor for security reasons.
-   *
-   * Default: 'https://app.intlayer.org'
-   */
-  cmsURL: URLType;
-
-  /**
-   * URL of the backend
-   *
-   * Default: 'https://back.intlayer.org'
-   *
-   * The URL of the backend server.
-   */
-  backendURL: URLType;
+  applicationURL?: URLType;
+  editorURL?: URLType;
+  cmsURL?: URLType;
+  backendURL?: URLType;
 
   /**
    * Indicates if the application interact with the visual editor

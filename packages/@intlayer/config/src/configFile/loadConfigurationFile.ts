@@ -5,13 +5,6 @@ import {
 } from '../loadExternalFile/loadExternalFile';
 import { configESMxCJSRequire } from '../utils/ESMxCJSHelpers';
 
-const filterValidConfiguration = (
-  configuration: CustomIntlayerConfig
-): CustomIntlayerConfig => {
-  // @TODO Implement filtering of valid configuration
-  return configuration;
-};
-
 const getAliases = (
   options?: Omit<LoadExternalFileOptions, 'configuration'>
 ) => {
@@ -42,5 +35,5 @@ export const loadConfigurationFile = (
     aliases: getAliases(options),
   });
 
-  return filterValidConfiguration(fileContent);
+  return fileContent;
 };
