@@ -65,12 +65,14 @@ describe('parseGithubUrl', () => {
 describe('extractIntlayerPackages', () => {
   it('extracts intlayer from dependencies', () => {
     const pkg = { dependencies: { intlayer: '^3.1.0' } };
-    expect(extractIntlayerPackages(pkg)).toEqual({ intlayer: '3.1.0' });
+    expect(extractIntlayerPackages(pkg)).toEqual({ intlayer: '^3.1.0' });
   });
 
   it('extracts react-intlayer from devDependencies', () => {
     const pkg = { devDependencies: { 'react-intlayer': '~3.0.0' } };
-    expect(extractIntlayerPackages(pkg)).toEqual({ 'react-intlayer': '3.0.0' });
+    expect(extractIntlayerPackages(pkg)).toEqual({
+      'react-intlayer': '~3.0.0',
+    });
   });
 
   it('extracts @intlayer/* scoped packages', () => {
@@ -82,7 +84,7 @@ describe('extractIntlayerPackages', () => {
     };
     expect(extractIntlayerPackages(pkg)).toEqual({
       '@intlayer/core': '3.2.0',
-      '@intlayer/config': '3.2.0',
+      '@intlayer/config': '^3.2.0',
     });
   });
 
@@ -92,8 +94,8 @@ describe('extractIntlayerPackages', () => {
       devDependencies: { 'react-intlayer': '3.0.0' },
     };
     expect(extractIntlayerPackages(pkg)).toEqual({
-      intlayer: '3.0.0',
-      'next-intlayer': '3.0.0',
+      intlayer: '^3.0.0',
+      'next-intlayer': '^3.0.0',
       'react-intlayer': '3.0.0',
     });
   });
@@ -123,17 +125,22 @@ vi.mock('@logger', () => ({
 }));
 
 vi.mock('@octokit/rest', () => {
-  const MockOctokit = vi.fn();
-  MockOctokit.prototype.rest = {
-    repos: {
-      get: vi.fn(),
-      getContent: vi.fn(),
-    },
-    git: {
-      getTree: vi.fn(),
-    },
+  const mockRepos = {
+    get: vi.fn(),
+    getContent: vi.fn(),
   };
-  return { Octokit: MockOctokit };
+  const mockGit = {
+    getTree: vi.fn(),
+  };
+
+  class Octokit {
+    rest = {
+      repos: mockRepos,
+      git: mockGit,
+    };
+  }
+
+  return { Octokit };
 });
 
 const { Octokit } = await import('@octokit/rest');
@@ -195,8 +202,8 @@ describe('verifyGithubRepo', () => {
 
     const result = await verifyGithubRepo('https://github.com/owner/repo');
     expect(result?.isValid).toBe(true);
-    expect(result?.intlayerVersion).toBe('3.1.0');
-    expect(result?.packageDetails['next-intlayer']).toBe('3.1.0');
+    expect(result?.intlayerVersion).toBe('^3.1.0');
+    expect(result?.packageDetails['next-intlayer']).toBe('^3.1.0');
   });
 
   it('finds intlayer in a nested package.json (monorepo)', async () => {
