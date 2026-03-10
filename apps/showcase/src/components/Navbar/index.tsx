@@ -163,6 +163,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
           >
             <DiscordLogo width={20} className="aspect-square h-auto" />
           </Link>
+
           <Link
             label={github.label.value}
             href={github.url.value}
@@ -176,8 +177,9 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
               width={18}
               className="mr-1 group-hover/github:fill-text-opposite"
             />
-            <ProfileDropDown />
           </Link>
+
+          <ProfileDropDown />
         </>
       }
     />
