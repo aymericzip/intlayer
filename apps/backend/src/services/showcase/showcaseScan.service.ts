@@ -1,4 +1,4 @@
-import * as Locales from '@intlayer/types/locales';
+import { ALL_LOCALES } from '@intlayer/types/allLocales';
 import { logger } from '@logger';
 import { launchBrowser } from '@utils/puppeteer/launchBrowser';
 import type { ShowcaseScanDetails } from '@/types/showcaseProject.types';
@@ -75,7 +75,7 @@ export const scanShowcaseProject = async (
         /* ok if the page never fully idles (SPAs, analytics, etc.) */
       });
 
-    const allLocales = Object.values(Locales.ALL_LOCALES);
+    const allLocales = Object.values(ALL_LOCALES);
 
     // Page-level details (DOM evaluation)
     const pageDetails = await page.evaluate((locales) => {
