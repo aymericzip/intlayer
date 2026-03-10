@@ -7,7 +7,7 @@
     "start": "node dist/server/server.js",
     "build": "vite build",
     "serve": "vite preview",
-    "test": "vitest run",
+    "test": "bun --bun vitest run",
     "typecheck": "tsc --noEmit --project tsconfig.types.json",
     "start:editor": "npx intlayer-editor start -e development",
     "intlayer:build": "intlayer build"

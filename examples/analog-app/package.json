@@ -9,7 +9,7 @@
     "ng": "ng",
     "preview": "node dist/analog/server/index.mjs",
     "start": "bun run dev",
-    "test": "vitest",
+    "test": "bun --bun vitest",
     "watch": "vite build --watch"
   },
   "dependencies": {

@@ -46,7 +46,7 @@
     "serve": "npx intlayer serve --bun",
     "start": "bun run --bun next start",
     "start:editor": "npx intlayer-editor start --with 'bun run --bun next dev'",
-    "test": "vitest run"
+    "test": "bun --bun vitest run"
   },
   "dependencies": {
     "@better-auth/sso": "1.5.4",

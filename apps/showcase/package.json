@@ -1,19 +1,19 @@
 {
   "name": "intlayer-showcase",
   "private": true,
-  "type": "module",
   "sideEffects": false,
+  "type": "module",
   "imports": {
     "#/*": "./src/*"
   },
   "scripts": {
     "build": "vite build",
-    "check": "biome check",
+    "check": "bun --bun biome check",
     "dev": "vite dev --port 3200",
-    "format": "biome format",
-    "lint": "biome lint",
+    "format": "bun --bun biome format",
+    "lint": "bun --bun biome lint",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "bun --bun vitest run"
   },
   "dependencies": {
     "@intlayer/api": "workspace:*",
