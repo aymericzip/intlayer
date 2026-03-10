@@ -1,5 +1,6 @@
 import { isAbsolute, join, relative, resolve } from 'node:path';
 import { loadExternalFile } from '@intlayer/config/file';
+import { parseFilePathPattern } from '@intlayer/config/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type {
@@ -7,24 +8,17 @@ import type {
   DictionaryFormat,
   LocalDictionaryId,
 } from '@intlayer/types/dictionary';
+import type { FilePathPattern } from '@intlayer/types/filePathPattern';
 import type { Plugin } from '@intlayer/types/plugin';
 import fg from 'fast-glob';
 import { extractKeyAndLocaleFromPath } from './syncJSON';
 
 type JSONContent = Record<string, any>;
 
-type Builder = ({
-  key,
-  locale,
-}: {
-  key: string;
-  locale?: Locale | (string & {});
-}) => string;
-
 type MessagesRecord = Record<Locale, Record<Dictionary['key'], FilePath>>;
 
 const listMessages = (
-  builder: Builder,
+  source: FilePathPattern,
   configuration: IntlayerConfig,
   selectedLocale: Locale
 ): MessagesRecord => {
@@ -35,8 +29,14 @@ const listMessages = (
 
   const localePattern = `{${locales.map((locale) => locale).join(',')}}`;
 
-  const globPattern = builder({ key: '*', locale: localePattern });
-  const maskPattern = builder({ key: '{{__KEY__}}', locale: '{{__LOCALE__}}' });
+  const globPattern = parseFilePathPattern(source, {
+    key: '*',
+    locale: localePattern,
+  });
+  const maskPattern = parseFilePathPattern(source, {
+    key: '{{__KEY__}}',
+    locale: '{{__LOCALE__}}',
+  });
 
   const files = fg.sync(globPattern, {
     cwd: baseDir,
@@ -77,18 +77,18 @@ type FilePath = string;
 type DictionariesMap = { path: string; locale: Locale; key: string }[];
 
 const loadMessagePathMap = (
-  source: MessagesRecord | Builder,
+  source: MessagesRecord | FilePathPattern,
   configuration: IntlayerConfig,
   selectedLocale: Locale
 ) => {
-  const builder = source as Builder;
+  const sourcePattern = source as FilePathPattern;
   const messages: MessagesRecord = listMessages(
-    builder,
+    sourcePattern,
     configuration,
     selectedLocale
   );
 
-  const maskPattern = builder({
+  const maskPattern = parseFilePathPattern(sourcePattern, {
     key: '{{__KEY__}}',
     locale: '{{__LOCALE__}}',
   });
@@ -130,7 +130,7 @@ type LoadJSONPluginOptions = {
    * })
    * ```
    */
-  source: Builder;
+  source: FilePathPattern;
 
   /**
    * Locale
@@ -214,7 +214,7 @@ export const loadJSON = (options: LoadJSONPluginOptions): Plugin => {
         usedLocale
       );
 
-      let filePath: string = options.source({
+      let filePath: string = parseFilePathPattern(options.source, {
         key: '{{key}}',
       });
 

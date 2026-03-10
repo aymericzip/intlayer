@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-no-lolale-path-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.6
     date: 2026-02-23
     changes: 최초 릴리스
@@ -127,9 +130,25 @@ const config: IntlayerConfig = {
     mode: "search-params",
   },
   compiler: {
-    enabled: true, // dev 모드 영향을 줄이려면 'build-only'로 설정 가능
-    outputDir: "i18n",
-    dictionaryKeyPrefix: "", // 컴파일 접두사 없음, 기본값은 "comp-"
+    /**
+     * 개발 중에 컴파일러를 건너뛰고 시작 시간을 단축하려면 'build-only'로 설정하십시오.
+     */
+    enabled: true,
+
+    /**
+     * 최적화된 사전의 출력 디렉터리.
+     */
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
+
+    /**
+     * 키 없이 생성된 파일에 콘텐츠만 삽입합니다.
+     */
+    noMetadata: false,
+
+    /**
+     * 사전 키 접두사
+     */
+    dictionaryKeyPrefix: "", // Remove base prefix
   },
   ai: {
     provider: "openai",

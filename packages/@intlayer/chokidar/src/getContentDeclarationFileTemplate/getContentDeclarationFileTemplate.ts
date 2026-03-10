@@ -1,61 +1,89 @@
-import { readAsset } from 'utils:asset';
 import { kebabCaseToCamelCase } from '@intlayer/config/utils';
 import type { Format } from '../utils/getFormatFromExtension';
 
 export const getContentDeclarationFileTemplate = async (
   key: string,
   format: Format,
-  fileParams: Record<string, any> = {}
+  fileParams: Record<string, any> = {},
+  noMetadata?: boolean
 ) => {
-  let fileTemplate: string;
-
-  switch (format) {
-    case 'ts':
-      fileTemplate = './tsTemplate.txt';
-      break;
-    case 'cjs':
-      fileTemplate = './cjsTemplate.txt';
-      break;
-    case 'json':
-    case 'jsonc':
-    case 'json5':
-      fileTemplate = './jsonTemplate.txt';
-      break;
-    default:
-      fileTemplate = './esmTemplate.txt';
-      break;
-  }
-
-  const fileContent = readAsset(fileTemplate);
   const camelCaseKey = kebabCaseToCamelCase(key);
-  const nonCapitalizedCamelCaseKey =
-    camelCaseKey.charAt(0).toLowerCase() + camelCaseKey.slice(1);
+  const name = camelCaseKey.charAt(0).toLowerCase() + camelCaseKey.slice(1);
 
   const fileParamsString = Object.entries(fileParams)
     .filter(([, value]) => value !== undefined)
-    .map(([key, value]) => {
-      const formattedKey = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(key)
-        ? key
-        : JSON.stringify(key);
+    .map(([paramKey, value]) => {
+      const formattedKey = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(paramKey)
+        ? paramKey
+        : JSON.stringify(paramKey);
 
-      if (typeof value === 'object') {
-        return `\n  ${formattedKey}: ${JSON.stringify(value)},`;
-      }
+      const formattedValue =
+        typeof value === 'object' || typeof value === 'string'
+          ? JSON.stringify(value)
+          : value;
 
-      if (typeof value === 'boolean' || typeof value === 'number') {
-        return `\n  ${formattedKey}: ${value},`;
-      }
-
-      if (typeof value === 'string') {
-        return `\n  ${formattedKey}: ${JSON.stringify(value)},`;
-      }
-
-      return `\n  ${formattedKey}: ${value},`;
+      return `\n  ${formattedKey}: ${formattedValue},`;
     })
     .join('');
 
-  return fileContent
-    .replace('{{key}}', key)
-    .replaceAll('{{name}}', nonCapitalizedCamelCaseKey)
-    .replace('{{fileParams}}', fileParamsString);
+  let content: string;
+
+  if (noMetadata) {
+    content = '{}';
+  } else if (format === 'json' || format === 'jsonc' || format === 'json5') {
+    content = [
+      '{',
+      '  "$schema": "https://intlayer.org/schema.json",',
+      `  "key": "${key}",${fileParamsString}`,
+      '  "content": {',
+      '  }',
+      '}',
+    ].join('\n');
+  } else {
+    content = [
+      '{',
+      `  key: '${key}',${fileParamsString}`,
+      '  content: {',
+      '  },',
+      '}',
+    ].join('\n');
+  }
+
+  const jsdoc = `/** @type {import('intlayer').Dictionary${noMetadata ? "['content']" : ''}} **/`;
+  const satisfiesType = noMetadata ? "Dictionary['content']" : 'Dictionary';
+
+  switch (format) {
+    case 'ts':
+      return [
+        "import { type Dictionary } from 'intlayer';",
+        '',
+        `const ${name}Content = ${content} satisfies ${satisfiesType};`,
+        '',
+        `export default ${name}Content;`,
+        '',
+      ].join('\n');
+
+    case 'cjs':
+      return [
+        jsdoc,
+        `const ${name}Content = ${content};`,
+        '',
+        `module.exports = ${name}Content;`,
+        '',
+      ].join('\n');
+
+    case 'json':
+    case 'jsonc':
+    case 'json5':
+      return [content, ''].join('\n');
+
+    default: // esm
+      return [
+        jsdoc,
+        `const ${name}Content = ${content};`,
+        '',
+        `export default ${name}Content;`,
+        '',
+      ].join('\n');
+  }
 };

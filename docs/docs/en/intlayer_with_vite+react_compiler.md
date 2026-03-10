@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.6
     date: 2026-02-23
     changes: Initial release
@@ -132,7 +135,12 @@ const config: IntlayerConfig = {
     /**
      * Output directory for the optimized dictionaries.
      */
-    outputDir: "compiler",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
+
+    /**
+     * Inset only content in generated file, without key.
+     */
+    noMetadata: false,
 
     /**
      * Dictionary key prefix

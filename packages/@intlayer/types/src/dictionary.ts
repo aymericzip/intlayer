@@ -1,3 +1,4 @@
+import type { FilePathPattern } from './filePathPattern';
 import type {
   DeclaredLocales,
   LocalesValues,
@@ -55,8 +56,8 @@ type ReplaceContentValue<
 
 export type Fill =
   | boolean
-  | string
-  | Partial<Record<DeclaredLocales, boolean | string>>;
+  | FilePathPattern
+  | Partial<Record<DeclaredLocales, boolean | FilePathPattern>>;
 
 export type DictionaryId = string;
 export type DictionaryKey = string;

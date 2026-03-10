@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-02-25
+updatedAt: 2026-03-10
 title: Intlayer Compiler | Автоматизоване витягування контенту для i18n
 description: Автоматизуйте процес інтернаціоналізації за допомогою Intlayer Compiler. Витягуйте контент безпосередньо з ваших компонентів для швидшого та ефективнішого i18n у Vite, Next.js та інших.
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.7
     date: 2026-02-25
     changes: Оновлення опцій компілятора
@@ -157,13 +160,12 @@ import { type IntlayerConfig, Locales } from "intlayer";
 const config: IntlayerConfig = {
   compiler: {
     /**
-     * Вказує, чи має бути увімкнено компілятор.
-     * Встановіть 'build-only', щоб пропустити компілятор під час розробки та пришвидшити час запуску.
+     * Встановіть значення 'build-only', щоб пропустити компілятор під час розробки та прискорити запуск.
      */
     enabled: true,
 
     /**
-     * Паттерн для обходу коду для оптимізації.
+     * Pattern to traverse the code to optimize.
      */
     transformPattern: [
       "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
@@ -171,23 +173,28 @@ const config: IntlayerConfig = {
     ],
 
     /**
-     * Паттерн для виключення з оптимізації.
+     * Pattern to exclude from the optimization.
      */
     excludePattern: ["**/node_modules/**"],
 
     /**
      * Вихідний каталог для оптимізованих словників.
      */
-    outputDir: "i18n",
+    output: ({ key }) => `compiler/${key}.content.json`,
+
+    /**
+     * Вставте лише вміст у згенерований файл, без ключа.
+     */
+    noMetadata: false,
 
     /**
      * Префікс ключа словника
      */
-    dictionaryKeyPrefix: "", // Видалити базовий префікс
+    dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
-     * Вказує, чи мають компоненти зберігатися після перетворення.
-     * Таким чином, компілятор можна запустити лише один раз для перетворення додатка, а потім його можна видалити.
+     * Вказує, чи мають компоненти зберігатися після трансформації.
+     * Таким чином компілятор можна запустити лише один раз для трансформації додатка, а потім видалити.
      */
     saveComponents: false,
   },
@@ -209,3 +216,61 @@ npx intlayer fill         # Заповнити відсутні переклад
 ```
 
 > Для отримання додаткової інформації зверніться до [документації CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/ci.md)
+
+### Довідник з конфігурації компілятора
+
+Наступні властивості можна налаштувати в блоці `compiler` вашого файлу `intlayer.config.ts`:
+
+- **enabled**:
+  - _Тип_: `boolean | 'build-only'`
+  - _Типово_: `true`
+  - _Опис_: Вказує, чи має бути увімкнено компілятор.
+- **dictionaryKeyPrefix**:
+  - _Тип_: `string`
+  - _Типово_: `'comp-'`
+  - _Опис_: Префікс для витягнутих ключів словника.
+- **transformPattern**:
+  - _Тип_: `string | string[]`
+  - _Типово_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}', '!**/node_modules/**']`
+  - _Опис_: Шаблони для обходу коду для оптимізації.
+- **excludePattern**:
+  - _Тип_: `string | string[]`
+  - _Типово_: `['**/node_modules/**']`
+  - _Опис_: Шаблони для виключення з оптимізації.
+- **outputDir** (Deprecated):
+  - _Тип_: `string`
+  - _Типово_: `'compiler'`
+  - _Опис_: Каталог, у якому зберігатимуться витягнуті словники.
+
+- **output**:
+  - _Тип_: `FilePathPattern`
+  - _Типово_: `({ key }) => 'compiler/${key}.content.json'`
+  - _Опис_: Визначає шлях до вихідних файлів. Замінює `outputDir`. Обробляє динамічні змінні, такі як `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}` та `{{componentFormat}}`. Можна встановити як рядок у форматі `'my/{{var}}/path'` або як функцію.
+  - _Примітка_: Шляхи `./**/*` розв'язуються відносно компонента. Шляхи `/**/*` розв'язуються відносно `baseDir` Intlayer.
+  - _Приклад_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _Тип_: `boolean`
+  - _Типово_: `false`
+  - _Опис_: Вказує, чи мають метадані зберігатися у файлі. Якщо true, компілятор не зберігатиме метадані словників (ключ, оболонка вмісту).
+  - _Примітка_: Корисно при використанні з плагіном `loadJSON`.
+  - _Приклад_: Якщо `true`:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    Якщо `false`:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```
+
+- **saveComponents**:
+  - _Тип_: `boolean`
+  - _Типово_: `false`
+  - _Опис_: Вказує, чи мають компоненти зберігатися після трансформації.

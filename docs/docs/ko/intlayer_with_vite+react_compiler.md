@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.6
     date: 2026-02-23
     changes: 초기 릴리스
@@ -124,9 +127,25 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
   },
   compiler: {
-    enabled: true, // 개발 모드에서의 영향을 제한하기 위해 'build-only'로 설정 가능
-    outputDir: "i18n",
-    dictionaryKeyPrefix: "", // 접두사 comp- 없음
+    /**
+     * 개발 중에 컴파일러를 건너뛰고 시작 시간을 단축하려면 'build-only'로 설정하십시오.
+     */
+    enabled: true,
+
+    /**
+     * 최적화된 사전의 출력 디렉터리.
+     */
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
+
+    /**
+     * 키 없이 생성된 파일에 콘텐츠만 삽입합니다.
+     */
+    noMetadata: false,
+
+    /**
+     * 사전 키 접두사
+     */
+    dictionaryKeyPrefix: "", // Remove base prefix
   },
   ai: {
     provider: "openai",

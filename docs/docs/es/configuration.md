@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-02-25
+updatedAt: 2026-03-10
 title: Configuración
 description: Aprende cómo configurar Intlayer para tu aplicación. Entiende las diversas configuraciones y opciones disponibles para personalizar Intlayer según tus necesidades.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.2.0
+    date: 2026-03-10
+    changes: Update compiler options, add 'output' and 'noMetadata' support
   - version: 8.1.7
     date: 2026-02-25
     changes: Actualizar opciones del compilador
@@ -419,12 +422,12 @@ const config: IntlayerConfig = {
    */
   compiler: {
     /**
-     * Indicates if the compiler should be enabled.
+     * Establécelo en 'build-only' para omitir el compilador durante el desarrollo y acelerar los tiempos de inicio.
      */
     enabled: true,
 
     /**
-     * Pattern to traverse the code to optimize.
+     * Patrón para recorrer el código a optimizar.
      */
     transformPattern: [
       "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
@@ -432,23 +435,28 @@ const config: IntlayerConfig = {
     ],
 
     /**
-     * Pattern to exclude from the optimization.
+     * Patrón a excluir de la optimización.
      */
     excludePattern: ["**/node_modules/**"],
 
     /**
-     * Output directory for the optimized dictionaries.
+     * Directorio de salida para los diccionarios optimizados.
      */
-    outputDir: "compiler",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
 
     /**
-     * Dictionary key prefix
+     * Inserta solo el contenido en el archivo generado, sin clave.
      */
-    dictionaryKeyPrefix: "", // Remove base prefix
+    noMetadata: false,
 
     /**
-     * Indicates if the components should be saved after being transformed.
-     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     * Prefijo de clave de diccionario
+     */
+    dictionaryKeyPrefix: "", // Eliminar el prefijo base
+
+    /**
+     * Indica si los componentes deben guardarse después de ser transformados.
+     * De esta manera, el compilador puede ejecutarse una sola vez para transformar la aplicación y luego puede eliminarse.
      */
     saveComponents: false,
   },
@@ -704,7 +712,7 @@ Configuraciones relacionadas con el manejo de contenido dentro de la aplicación
 #### Propiedades
 
 - **autoFill**:
-  - _Tipo_: `boolean | string | { [key in Locales]?: string }`
+  - _Tipo_: `boolean | string | FilePathPattern | { [key in Locales]?: string }`
   - _Por defecto_: `undefined`
   - _Descripción_: Indica cómo debe completarse automáticamente el contenido usando IA. Puede declararse globalmente en el archivo `intlayer.config.ts`.
   - _Ejemplo_: true
@@ -962,10 +970,10 @@ Las opciones de compilación se aplican a los plugins `@intlayer/babel` y `@intl
   - _Nota_: Puede usarse para deshabilitar la compilación de diccionarios, por ejemplo cuando se debe evitar la ejecución en un entorno Node.js.
 
 - **checkTypes**:
-  - _Type_: `boolean`
-  - _Default_: `false`
-  - _Description_: Indica si la compilación debe comprobar los tipos de TypeScript y registrar errores.
-  - _Note_: Esto puede ralentizar la compilación.
+  - _Tipo_: `boolean`
+  - _Por defecto_: `false`
+  - _Descripción_: Indica si la compilación debe comprobar los tipos de TypeScript y registrar errores.
+  - _Nota_: Esto puede ralentizar la compilación.
 
 - **optimize**:
   - _Tipo_: `boolean`
@@ -978,7 +986,7 @@ Las opciones de compilación se aplican a los plugins `@intlayer/babel` y `@intl
   - _Nota_: Asegúrese de que todas las claves estén declaradas estáticamente en las llamadas a `useIntlayer`. Por ejemplo, `useIntlayer('navbar')`.
 
 - **importMode**:
-  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
+  - _Nota_: **Deprecated**: Use `dictionary.importMode` instead.
   - _Tipo_: `'static' | 'dynamic' | 'fetch'`
   - _Por defecto_: `'static'`
   - _Descripción_: Controla cómo se importan los diccionarios.
@@ -1057,3 +1065,31 @@ Ajustes que controlan el compilador Intlayer, que extrae diccionarios directamen
   - _Tipo_: `string`
   - _Por defecto_: `'compiler'`
   - _Descripción_: El directorio donde se almacenarán los diccionarios extraídos, relativo a la ruta base de su proyecto.
+
+- **output**:
+  - _Type_: `FilePathPattern`
+  - _Por defecto_: `({ key }) => 'compiler/${key}.content.json'`
+  - _Descripción_: Define la ruta de los archivos de salida. Reemplaza `outputDir`. Maneja variables dinámicas como `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{componentFormat}}`. Se puede configurar como una cadena usando el formato `'my/{{var}}/path'` o como una función.
+  - _Nota_: `./**/*` Los caminos se resuelven de forma relativa al componente. `/**/*` los caminos se resuelven de forma relativa al `baseDir` de Intlayer.
+  - _Ejemplo_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _Tipo_: `boolean`
+  - _Por defecto_: `false`
+  - _Descripción_: Indica si los metadatos deben guardarse en el archivo. Si es verdadero, el compilador no guardará los metadatos de los diccionarios (clave, contenedor de contenido).
+  - _Nota_: Útil si se usa con el plugin `loadJSON`.
+  - _Ejemplo_: Si es `true`:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    Si es `false`:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```

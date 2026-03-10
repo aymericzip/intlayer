@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.6
     date: 2026-02-23
     changes: Lanzamiento inicial
@@ -132,7 +135,12 @@ const config: IntlayerConfig = {
     /**
      * Directorio de salida para los diccionarios optimizados.
      */
-    outputDir: "compiler",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
+
+    /**
+     * Inserta solo el contenido en el archivo generado, sin clave.
+     */
+    noMetadata: false,
 
     /**
      * Prefijo de clave de diccionario

@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.6
     date: 2026-02-23
     changes: İlk sürüm
@@ -135,14 +138,19 @@ const config: IntlayerConfig = {
     enabled: true,
 
     /**
-     * Optimize edilmiş sözlükler için çıktı dizini.
+     * Optimize edilmiş sözlükler für çıktı dizini.
      */
-    outputDir: "compiler",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
+
+    /**
+     * Oluşturulan dosyaya yalnızca içeriği yerleştirin, anahtar olmadan.
+     */
+    noMetadata: false,
 
     /**
      * Sözlük anahtar öneki
      */
-    dictionaryKeyPrefix: "", // Temel öneki kaldır
+    dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
      * Bileşenlerin dönüştürüldükten sonra kaydedilip kaydedilmeyeceğini belirtir.

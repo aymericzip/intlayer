@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-no-lolale-path-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.6
     date: 2026-02-23
     changes: 初始版本
@@ -128,23 +131,28 @@ const config: IntlayerConfig = {
   },
   compiler: {
     /**
-     * 指示是否启用编译器。
+     * 指示是否应启用编译器。
      */
     enabled: true,
 
     /**
-     * 优化后字典的输出目录。
+     * 优化字典的输出目录。
      */
-    outputDir: "compiler",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
+
+    /**
+     * 仅在生成的文件中插入内容，不含键。
+     */
+    noMetadata: false,
 
     /**
      * 字典键前缀
      */
-    dictionaryKeyPrefix: "", // 移除基础前缀
+    dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
      * 指示转换后是否应保存组件。
-     * 这样，编译器只需运行一次即可转换应用程序，然后即可将其移除。
+     * 这样，编译器只需运行一次即可转换应用程序，然后即可将其删除。
      */
     saveComponents: false,
   },

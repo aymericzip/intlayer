@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.6
     date: 2026-02-23
     changes: Rilis awal
@@ -125,23 +128,28 @@ const config: IntlayerConfig = {
   },
   compiler: {
     /**
-     * Menunjukkan apakah kompilator harus diaktifkan.
+     * Menunjukkan apakah kompiler harus diaktifkan.
      */
     enabled: true,
 
     /**
      * Direktori output untuk kamus yang dioptimalkan.
      */
-    outputDir: "compiler",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
+
+    /**
+     * Masukkan konten saja dalam file yang dihasilkan, tanpa kunci.
+     */
+    noMetadata: false,
 
     /**
      * Awalan kunci kamus
      */
-    dictionaryKeyPrefix: "", // Hapus awalan dasar
+    dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
-     * Menunjukkan apakah komponen harus disimpan setelah diubah.
-     * Dengan begitu, kompilator dapat dijalankan satu kali saja untuk mengubah aplikasi, kemudian dapat dihapus.
+     * Menunjukkan apakah komponen harus disimpan setelah ditransformasi.
+     * Dengan begitu, kompiler hanya perlu dijalankan sekali untuk mentransformasi aplikasi, lalu dapat dihapus.
      */
     saveComponents: false,
   },

@@ -5,6 +5,7 @@ import type {
   DictionaryLocation,
   Fill,
 } from './dictionary';
+import type { FilePathPattern } from './filePathPattern';
 import type { LocalesValues, StrictModeLocaleMap } from './module_augmentation';
 import type { Plugin } from './plugin';
 
@@ -659,8 +660,64 @@ export type CompilerConfig = {
    * Default: 'compiler'
    *
    * The directory where the optimized dictionaries will be stored.
+   *
+   * @deprecated use `output` instead
    */
-  outputDir: string;
+  outputDir?: string;
+
+  /**
+   * Defines the output files path. Replaces `outputDir`.
+   * Handles the extensions via the {{extension}} variable.
+   *
+   * Default:
+   * ```ts
+   * ({ key }) => `compiler/${key}.json`
+   * ```
+   *
+   * Example:
+   * ```ts
+   * {
+   *   output: ({ key, fileName, extension, locale }) => `compiler/${locale}/${key}/${fileName}.${extension}`,
+   * }
+   * ```
+   * ```js
+   * {
+   *   output: 'compiler/{{locale}}/{{key}}/{{fileName}}.{{extension}}',
+   * }
+   * ```
+   */
+  output?: FilePathPattern;
+
+  /**
+   * Indicates if the metadata should be saved in the file.
+   *
+   * If true, the compiler will not save the metadata of the dictionaries.
+   *
+   * If true:
+   *
+   * ```json
+   * {
+   *   "key": "value"
+   * }
+   * ```
+   *
+   * If false:
+   *
+   * ```json
+   * {
+   *   "key": "value",
+   *   "content": {
+   *     "key": "value"
+   *   }
+   * }
+   * ```
+   *
+   * Default: false
+   *
+   * Note: Useful if used with loadJSON plugin
+   *
+   */
+  noMetadata?: boolean;
 
   /**
    * Indicates if the components should be saved after being transformed.

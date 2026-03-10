@@ -8,13 +8,14 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
+import type { FilePathPattern } from '@intlayer/types/filePathPattern';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import enquirer from 'enquirer';
 import fg from 'fast-glob';
 
 type ExtractOptions = {
   files?: string[];
-  outputContentDeclarations?: string;
+  output?: FilePathPattern;
   configOptions?: GetConfigurationOptions;
   codeOnly?: boolean;
   declarationOnly?: boolean;
@@ -224,7 +225,7 @@ export const extract = async (options: ExtractOptions) => {
         await extractContent(filePath, packageName, {
           unmergedDictionaries,
           configuration,
-          outputDir: options.outputContentDeclarations,
+          output: options.output,
           codeOnly: options.codeOnly,
           declarationOnly: options.declarationOnly,
         });

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-02-25
+updatedAt: 2026-03-10
 title: Intlayer Compiler | Extracción Automática de Contenido para i18n
 description: Automatiza tu proceso de internacionalización con el Intlayer Compiler. Extrae contenido directamente de tus componentes para una i18n más rápida y eficiente en Vite, Next.js y más.
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.2.0
+    date: 2026-03-10
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.7
     date: 2026-02-25
     changes: Actualizar opciones del compilador
@@ -157,7 +160,6 @@ import { type IntlayerConfig, Locales } from "intlayer";
 const config: IntlayerConfig = {
   compiler: {
     /**
-     * Indica si el compilador debe estar habilitado.
      * Establécelo en 'build-only' para omitir el compilador durante el desarrollo y acelerar los tiempos de inicio.
      */
     enabled: true,
@@ -171,23 +173,28 @@ const config: IntlayerConfig = {
     ],
 
     /**
-     * Patrón para excluir de la optimización.
+     * Patrón a excluir de la optimización.
      */
     excludePattern: ["**/node_modules/**"],
 
     /**
      * Directorio de salida para los diccionarios optimizados.
      */
-    outputDir: "i18n",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
+
+    /**
+     * Inserta solo el contenido en el archivo generado, sin clave.
+     */
+    noMetadata: false,
 
     /**
      * Prefijo de clave de diccionario
      */
-    dictionaryKeyPrefix: "", // Eliminar prefijo base
+    dictionaryKeyPrefix: "", // Eliminar el prefijo base
 
     /**
      * Indica si los componentes deben guardarse después de ser transformados.
-     * De esta manera, el compilador puede ejecutarse solo una vez para transformar la aplicación y luego puede eliminarse.
+     * De esta manera, el compilador puede ejecutarse una sola vez para transformar la aplicación y luego puede eliminarse.
      */
     saveComponents: false,
   },
@@ -209,3 +216,61 @@ npx intlayer fill         # Rellenar traducciones faltantes
 ```
 
 > Para más detalles, consulta la [documentación de la CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/ci.md)
+
+### Referencia de configuración del compilador
+
+Las siguientes propiedades pueden configurarse en el bloque `compiler` de tu archivo `intlayer.config.ts`:
+
+- **enabled**:
+  - _Tipo_: `boolean | 'build-only'`
+  - _Por defecto_: `true`
+  - _Descripción_: Indica si el compilador debe estar habilitado.
+- **dictionaryKeyPrefix**:
+  - _Tipo_: `string`
+  - _Por defecto_: `'comp-'`
+  - _Descripción_: Prefijo para las claves de diccionario extraídas.
+- **transformPattern**:
+  - _Tipo_: `string | string[]`
+  - _Por defecto_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}', '!**/node_modules/**']`
+  - _Descripción_: Patrones para recorrer el código a optimizar.
+- **excludePattern**:
+  - _Tipo_: `string | string[]`
+  - _Por defecto_: `['**/node_modules/**']`
+  - _Descripción_: Patrones para excluir de la optimización.
+- **outputDir** (Deprecated):
+  - _Tipo_: `string`
+  - _Por defecto_: `'compiler'`
+  - _Descripción_: El directorio donde se almacenarán los diccionarios extraídos.
+
+- **output**:
+  - _Type_: `FilePathPattern`
+  - _Por defecto_: `({ key }) => 'compiler/${key}.content.json'`
+  - _Descripción_: Define la ruta de los archivos de salida. Reemplaza `outputDir`. Maneja variables dinámicas como `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{componentFormat}}`. Se puede configurar como una cadena usando el formato `'my/{{var}}/path'` o como una función.
+  - _Nota_: `./**/*` Los caminos se resuelven de forma relativa al componente. `/**/*` los caminos se resuelven de forma relativa al `baseDir` de Intlayer.
+  - _Ejemplo_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _Tipo_: `boolean`
+  - _Por defecto_: `false`
+  - _Descripción_: Indica si los metadatos deben guardarse en el archivo. Si es verdadero, el compilador no guardará los metadatos de los diccionarios (clave, contenedor de contenido).
+  - _Nota_: Útil si se usa con el plugin `loadJSON`.
+  - _Ejemplo_: Si es `true`:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    Si es `false`:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```
+
+- **saveComponents**:
+  - _Tipo_: `boolean`
+  - _Por defecto_: `false`
+  - _Descripción_: Indica si los componentes deben guardarse después de ser transformados.

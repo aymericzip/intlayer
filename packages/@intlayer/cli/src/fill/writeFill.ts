@@ -3,9 +3,9 @@ import { writeContentDeclaration } from '@intlayer/chokidar/build';
 import { formatLocale, formatPath } from '@intlayer/chokidar/utils';
 import { colorizeKey, getAppLogger } from '@intlayer/config/logger';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import type { Dictionary, Fill } from '@intlayer/types/dictionary';
-import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Locale } from '@intlayer/types/allLocales';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary, Fill } from '@intlayer/types/dictionary';
 import { type FillData, formatFillData } from './formatFillData';
 import { getAvailableLocalesInDictionary } from './getAvailableLocalesInDictionary';
 
@@ -66,7 +66,7 @@ export const writeFill = async (
     return;
   }
 
-  const fillData: FillData[] = formatFillData(
+  const fillData: FillData[] = await formatFillData(
     fillOptions as Fill,
     localeList,
     filePath,

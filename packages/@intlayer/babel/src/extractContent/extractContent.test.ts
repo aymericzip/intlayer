@@ -1,16 +1,5 @@
-import {
-  existsSync,
-  mkdirSync,
-  readFileSync,
-  rmSync,
-  writeFileSync,
-} from 'node:fs';
 import { join } from 'node:path';
-// unused import removed
-import { getConfiguration } from '@intlayer/config/node';
-import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { extractContent } from './extractContent';
 
 vi.mock('@intlayer/config/node', async () => {
   const actual = await vi.importActual('@intlayer/config/node');
@@ -32,14 +21,34 @@ vi.mock('@intlayer/unmerged-dictionaries-entry', () => ({
   getUnmergedDictionaries: vi.fn().mockReturnValue({}),
 }));
 
-vi.mock('@intlayer/chokidar/cli', async (importOriginal) => {
+vi.mock('@intlayer/chokidar/build', () => ({
+  writeContentDeclaration: vi
+    .fn()
+    .mockResolvedValue({ status: 'created', path: '/temp/path.json' }),
+  buildDictionary: vi.fn().mockResolvedValue({}),
+  ensureIntlayerBundle: vi.fn().mockResolvedValue('/temp/path.cjs'),
+  loadContentDeclaration: vi.fn().mockResolvedValue(null),
+}));
+
+vi.mock('@intlayer/chokidar/utils', async (importOriginal) => {
   const actual = await importOriginal<any>();
   return {
     ...actual,
-    writeContentDeclaration: vi.fn(),
-    detectFormatCommand: vi.fn(),
+    getFormatFromExtension: vi.fn().mockReturnValue('json'),
+    getContentExtension: vi.fn().mockReturnValue('.content.json'),
   };
 });
+
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs';
+import { getConfiguration } from '@intlayer/config/node';
+import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
+import { extractContent } from './extractContent';
 
 const tmpDir = join(process.cwd(), 'tmp_test_extract_advanced');
 
@@ -50,11 +59,27 @@ describe('extractIntlayer', () => {
     }
     vi.mocked(getConfiguration).mockReturnValue({
       internationalization: {
+        locales: ['en', 'fr'],
         defaultLocale: 'en',
       },
       content: {
         baseDir: tmpDir,
         fileExtensions: ['.ts', '.tsx', '.js', '.jsx'],
+      },
+      compiler: {
+        noMetadata: false,
+      },
+      build: {
+        importMode: 'esm',
+      },
+      system: {
+        unmergedDictionariesDir: join(
+          tmpDir,
+          '.intlayer/unmerged_dictionaries'
+        ),
+      },
+      editor: {
+        enabled: false,
       },
     } as any);
   });
@@ -387,10 +412,25 @@ export const InsertionTest = () => {
         mkdirSync(tmpDir, { recursive: true });
       }
       vi.mocked(getConfiguration).mockReturnValue({
-        internationalization: { defaultLocale: 'en' },
+        internationalization: { locales: ['en'], defaultLocale: 'en' },
         content: {
           baseDir: tmpDir,
           fileExtensions: ['.ts', '.tsx'],
+        },
+        compiler: {
+          noMetadata: false,
+        },
+        build: {
+          importMode: 'esm',
+        },
+        system: {
+          unmergedDictionariesDir: join(
+            tmpDir,
+            '.intlayer/unmerged_dictionaries'
+          ),
+        },
+        editor: {
+          enabled: false,
         },
       } as any);
     });
@@ -510,10 +550,25 @@ export const routes = {
         mkdirSync(tmpDir, { recursive: true });
       }
       vi.mocked(getConfiguration).mockReturnValue({
-        internationalization: { defaultLocale: 'en' },
+        internationalization: { locales: ['en'], defaultLocale: 'en' },
         content: {
           baseDir: tmpDir,
           fileExtensions: ['.content.ts'], // Custom extension
+        },
+        compiler: {
+          noMetadata: false,
+        },
+        build: {
+          importMode: 'esm',
+        },
+        system: {
+          unmergedDictionariesDir: join(
+            tmpDir,
+            '.intlayer/unmerged_dictionaries'
+          ),
+        },
+        editor: {
+          enabled: false,
         },
       } as any);
     });

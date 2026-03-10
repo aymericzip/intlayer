@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add 'output' and 'noMetadata' support
   - version: 8.1.7
     date: 2026-02-25
     changes: Update compiler options
@@ -478,7 +481,12 @@ const config: IntlayerConfig = {
     /**
      * Output directory for the optimized dictionaries.
      */
-    outputDir: "i18n",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
+
+    /**
+     * Inset only content in generated file, without key.
+     */
+    noMetadata: false,
 
     /**
      * Dictionary key prefix
@@ -1262,3 +1270,33 @@ Settings that control the Intlayer compiler, which extracts dictionaries straigh
   - _Type_: `string`
   - _Default_: `'compiler'`
   - _Description_: The directory where the extracted dictionaries will be stored, relative to your project base path.
+
+- **output**:
+  - _Type_: `FilePathPattern`
+  - _Default_: `({ key }) => 'compiler/${key}.content.json'`
+  - _Description_: Defines the output files path. Replaces `outputDir`. Handles dynamic variables like `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{componentFormat}}`. Can be set as a string using `'my/{{var}}/path'` format, or as a function.
+  - _Note_: `./**/*` Path are resolved relatively to the component. `/**/*` path are resolved relatively to the Intlayer `baseDir`.
+  - _Note_: If locale is set in the path, it will generate per-locale dictionaries.
+  - _Example_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _Type_: `boolean`
+  - _Default_: `false`
+  - _Description_: Indicates if the metadata should be saved in the file. If true, the compiler will not save the metadata of the dictionaries (key, content wrapper).
+  - _Note_: Useful if used with `loadJSON` plugin.
+  - _Example_:
+    If `true`:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    If `false`:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-02-25
+updatedAt: 2026-03-10
 title: Konfiguration
 description: Erfahren Sie, wie Sie Intlayer für Ihre Anwendung konfigurieren. Verstehen Sie die verschiedenen Einstellungen und Optionen, um Intlayer an Ihre Bedürfnisse anzupassen.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.2.0
+    date: 2026-03-10
+    changes: Update compiler options, add 'output' and 'noMetadata' support
   - version: 8.1.7
     date: 2026-02-25
     changes: Compiler-Optionen aktualisieren
@@ -419,7 +422,7 @@ const config: IntlayerConfig = {
    */
   compiler: {
     /**
-     * Indicates if the compiler should be enabled.
+     * Gibt an, ob der Compiler aktiviert werden soll.
      */
     enabled: true,
 
@@ -437,18 +440,23 @@ const config: IntlayerConfig = {
     excludePattern: ["**/node_modules/**"],
 
     /**
-     * Output directory for the optimized dictionaries.
+     * Ausgabeverzeichnis für die optimierten Wörterbücher.
      */
-    outputDir: "compiler",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
 
     /**
-     * Dictionary key prefix
+     * Fügen Sie nur den Inhalt in die generierte Datei ein, ohne Schlüssel.
+     */
+    noMetadata: false,
+
+    /**
+     * Wörterbuch-Präfix
      */
     dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
-     * Indicates if the components should be saved after being transformed.
-     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     * Gibt an, ob die Komponenten nach der Transformation gespeichert werden sollen.
+     * Auf diese Weise kann der Compiler nur einmal ausgeführt werden, um die App zu transformieren, und dann entfernt werden.
      */
     saveComponents: false,
   },
@@ -704,7 +712,7 @@ Einstellungen im Zusammenhang mit der Inhaltsverwaltung innerhalb der Anwendung,
 #### Eigenschaften
 
 - **autoFill**:
-  - _Typ_: `boolean | string | { [key in Locales]?: string }`
+  - _Typ_: `boolean | string | FilePathPattern | { [key in Locales]?: string }`
   - _Standard_: `undefined`
   - _Beschreibung_: Gibt an, wie der Inhalt automatisch mit KI ausgefüllt werden soll. Kann global in der Datei `intlayer.config.ts` deklariert werden.
   - _Beispiel_: true
@@ -962,10 +970,10 @@ Build-Optionen gelten für die Plugins `@intlayer/babel` und `@intlayer/swc`.
   - _Hinweis_: Kann verwendet werden, um die Erstellung von Wörterbüchern zu deaktivieren, z.B. wenn die Ausführung in einer Node.js-Umgebung vermieden werden sollte.
 
 - **checkTypes**:
-  - _Type_: `boolean`
-  - _Default_: `false`
-  - _Description_: Gibt an, ob der Build TypeScript-Typen überprüfen und Fehler protokollieren soll.
-  - _Note_: Dies kann den Build-Vorgang verlangsamen.
+  - _Typ_: `boolean`
+  - _Standard_: `false`
+  - _Beschreibung_: Gibt an, ob der Build TypeScript-Typen überprüfen und Fehler protokollieren soll.
+  - _Hinweis_: Dies kann den Build-Vorgang verlangsamen.
 
 - **optimize**:
   - _Typ_: `boolean`
@@ -978,7 +986,7 @@ Build-Optionen gelten für die Plugins `@intlayer/babel` und `@intlayer/swc`.
   - _Hinweis_: Stellen Sie sicher, dass alle Schlüssel statisch in den `useIntlayer`-Aufrufen deklariert sind, z.B. `useIntlayer('navbar')`.
 
 - **importMode**:
-  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
+  - _Hinweis_: **Deprecated**: Use `dictionary.importMode` instead.
   - _Typ_: `'static' | 'dynamic' | 'fetch'`
   - _Standard_: `'static'`
   - _Beschreibung_: Steuert, wie Wörterbücher importiert werden.
@@ -1057,3 +1065,31 @@ Einstellungen zur Steuerung des Intlayer-Compilers, der Wörterbücher direkt au
   - _Typ_: `string`
   - _Standard_: `'compiler'`
   - _Beschreibung_: Das Verzeichnis, in dem die extrahierten Wörterbücher gespeichert werden, relativ zum Basispfad Ihres Projekts.
+
+- **output**:
+  - _Typ_: `FilePathPattern`
+  - _Standard_: `({ key }) => 'compiler/${key}.content.json'`
+  - _Beschreibung_: Definiert den Pfad der Ausgabedateien. Ersetzt `outputDir`. Verarbeitet dynamische Variablen wie `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{componentFormat}}`. Kann als String im Format `'my/{{var}}/path'` oder als Funktion festgelegt werden.
+  - _Hinweis_: `./**/*` Pfade werden relativ zur Komponente aufgelöst. `/**/*` Pfade werden relativ zum Intlayer `baseDir` aufgelöst.
+  - _Beispiel_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _Typ_: `boolean`
+  - _Standard_: `false`
+  - _Beschreibung_: Gibt an, ob die Metadaten in der Datei gespeichert werden sollen. Wenn true, speichert der Compiler nicht die Metadaten der Wörterbücher (Schlüssel, Content-Wrapper).
+  - _Hinweis_: Nützlich bei Verwendung mit dem `loadJSON`-Plugin.
+  - _Beispiel_: Wenn `true`:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    Wenn `false`:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```

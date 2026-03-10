@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.7
     date: 2026-02-25
     changes: Update compiler options
@@ -37,8 +40,11 @@ The **Intlayer Compiler** is a powerful tool designed to automate the process of
 ## Why Use the Intlayer Compiler?
 
 - **Automation**: Eliminates manual copy-pasting of content into dictionaries.
+
 - **Speed**: Optimized content extraction ensuring your build process remains fast.
+
 - **Developer Experience**: Keep content declarations right where they are used, improving maintainability.
+
 - **Live Updates**: Supports Hot Module Replacement (HMR) for instant feedback during development.
 
 See the [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/compiler_vs_declarative_i18n.md) blog post for a deeper comparison.
@@ -48,6 +54,7 @@ See the [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/b
 While the compiler offers an excellent "just works" experience, it also introduces some trade-offs you should be aware of:
 
 - **Heuristic ambiguity**: The compiler must guess what is user-facing content vs. application logic (e.g., `className="active"`, status codes, product IDs). In complex codebases, this can lead to false positives or missed strings that require manual annotations and exceptions.
+
 - **Static-only extraction**: Compiler-based extraction relies on static analysis. Strings that only exist at runtime (API error codes, CMS fields, etc.) cannot be discovered or translated by the compiler alone, so you still need a complementary runtime i18n strategy.
 
 For a deeper architectural comparison, see the blog post [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/compiler_vs_declarative_i18n.md).
@@ -92,7 +99,9 @@ See complete tutorial: [Intlayer Compiler with Vite+React](https://github.com/ay
 The Vite plugin automatically detects and handles different file types:
 
 - **React / JSX / TSX**: Handled natively.
+
 - **Vue**: Requires `@intlayer/vue-compiler`.
+
 - **Svelte**: Requires `@intlayer/svelte-compiler`.
 
 Make sure to install the appropriate compiler package for your framework:
@@ -179,7 +188,12 @@ const config: IntlayerConfig = {
     /**
      * Output directory for the optimized dictionaries.
      */
-    outputDir: "i18n",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
+
+    /**
+     * Inset only content in generated file, without key.
+     */
+    noMetadata: false,
 
     /**
      * Dictionary key prefix
@@ -196,6 +210,70 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
+
+### Compiler Configuration Reference
+
+The following properties can be configured in the `compiler` block of your `intlayer.config.ts` file:
+
+- **enabled**:
+  - _Type_: `boolean | 'build-only'`
+  - _Default_: `true`
+  - _Description_: Indicates if the compiler should be enabled.
+
+- **dictionaryKeyPrefix**:
+  - _Type_: `string`
+  - _Default_: `'comp-'`
+  - _Description_: Prefix for the extracted dictionary keys.
+
+- **transformPattern**:
+  - _Type_: `string | string[]`
+  - _Default_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}', '!**/node_modules/**']`
+  - _Description_: Patterns to traverse the code to optimize.
+
+- **excludePattern**:
+  - _Type_: `string | string[]`
+  - _Default_: `['**/node_modules/**']`
+  - _Description_: Patterns to exclude from the optimization.
+
+- **outputDir** (Deprecated):
+  - _Type_: `string`
+  - _Default_: `'compiler'`
+  - _Description_: The directory where the extracted dictionaries will be stored.
+
+- **output**:
+  - _Type_: `FilePathPattern`
+  - _Default_: `({ key }) => 'compiler/${key}.content.json'`
+  - _Description_: Defines the output files path. Replaces `outputDir`. Handles dynamic variables like `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{componentFormat}}`. Can be set as a string using `'my/{{var}}/path'` format, or as a function.
+  - _Note_: `./**/*` Path are resolved relatively to the component. `/**/*` path are resolved relatively to the Intlayer `baseDir`.
+  - _Note_: If locale is set in the path, it will generate per-locale dictionaries.
+  - _Example_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _Type_: `boolean`
+  - _Default_: `false`
+  - _Description_: Indicates if the metadata should be saved in the file. If true, the compiler will not save the metadata of the dictionaries (key, content wrapper).
+  - _Note_: Useful if used with `loadJSON` plugin.
+  - _Example_:
+    If `true`:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    If `false`:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```
+
+- **saveComponents**:
+  - _Type_: `boolean`
+  - _Default_: `false`
+  - _Description_: Indicates if the components should be saved after being transformed.
 
 ### Fill missing translation
 

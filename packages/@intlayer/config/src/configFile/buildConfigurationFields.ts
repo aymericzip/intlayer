@@ -1,6 +1,20 @@
 import { statSync } from 'node:fs';
 import { dirname, isAbsolute, join } from 'node:path';
-import type { AiConfig, BuildConfig, CompilerConfig, ContentConfig, CustomIntlayerConfig, DictionaryConfig, EditorConfig, InternationalizationConfig, IntlayerConfig, LogConfig, LogFunctions, RoutingConfig, SystemConfig } from '@intlayer/types/config';
+import type {
+  AiConfig,
+  BuildConfig,
+  CompilerConfig,
+  ContentConfig,
+  CustomIntlayerConfig,
+  DictionaryConfig,
+  EditorConfig,
+  InternationalizationConfig,
+  IntlayerConfig,
+  LogConfig,
+  LogFunctions,
+  RoutingConfig,
+  SystemConfig,
+} from '@intlayer/types/config';
 import packageJson from '@intlayer/types/package.json' with { type: 'json' };
 import {
   BUILD_MODE,
@@ -13,7 +27,8 @@ import {
   COMPILER_DICTIONARY_KEY_PREFIX,
   COMPILER_ENABLED,
   COMPILER_EXCLUDE_PATTERN,
-  COMPILER_OUTPUT_DIR,
+  COMPILER_NO_METADATA,
+  COMPILER_OUTPUT,
   COMPILER_SAVE_COMPONENTS,
   COMPILER_TRANSFORM_PATTERN,
 } from '../defaultValues/compiler';
@@ -689,8 +704,44 @@ const buildCompilerFields = (
 
   /**
    * Output directory for the optimized dictionaries.
+   * @deprecated use `output` instead
    */
-  outputDir: customConfiguration?.outputDir ?? COMPILER_OUTPUT_DIR,
+  outputDir: customConfiguration?.outputDir,
+
+  /**
+   * File path pattern for generated dictionaries.
+   */
+  output: customConfiguration?.output ?? COMPILER_OUTPUT,
+
+  /**
+   * Indicates if the metadata should be saved in the file.
+   *
+   * If true, the compiler will not save the metadata of the dictionaries.
+   *
+   * If true:
+   *
+   * ```json
+   * {
+   *   "key": "value"
+   * }
+   * ```
+   *
+   * If false:
+   *
+   * ```json
+   * {
+   *   "key": "value",
+   *   "content": {
+   *      "key": "value"
+   *   }
+   * }
+   * ```
+   *
+   * Default: false
+   *
+   * Note: Useful if used with loadJSON plugin
+   */
+  noMetadata: customConfiguration?.noMetadata ?? COMPILER_NO_METADATA,
 
   /**
    * Indicates if the components should be saved after being transformed.

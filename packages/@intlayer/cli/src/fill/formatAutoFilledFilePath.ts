@@ -1,16 +1,18 @@
 import { basename, dirname, isAbsolute, normalize, resolve } from 'node:path';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import { parseFilePathPattern } from '@intlayer/config/utils';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { FilePathPattern } from '@intlayer/types/filePathPattern';
 
-export const formatAutoFilledFilePath = (
-  autoFillField: string,
+export const formatAutoFilledFilePath = async (
+  autoFillField: FilePathPattern,
   dictionaryKey: string,
   dictionaryFilePath: string,
   baseDir: string,
-  locale?: LocalesValues
-): string => {
+  locale?: Locale
+): Promise<string> => {
   // Validate inputs
-  if (!autoFillField || typeof autoFillField !== 'string') {
-    throw new Error('autoFillField must be a non-empty string');
+  if (!autoFillField) {
+    throw new Error('autoFillField must be provided');
   }
   if (!dictionaryKey || typeof dictionaryKey !== 'string') {
     throw new Error('dictionaryKey must be a non-empty string');
@@ -29,13 +31,11 @@ export const formatAutoFilledFilePath = (
     .join('.');
 
   // Replace placeholders in autoFillField
-  let result: string = autoFillField
-    .replace(/\{\{key\}\}/g, dictionaryKey) // Use original filename, not dictionaryKey
-    .replace(/\{\{fileName\}\}/g, originalFileName);
-
-  if (locale) {
-    result = result.replace(/\{\{locale\}\}/g, locale);
-  }
+  const result: string = await parseFilePathPattern(autoFillField, {
+    key: dictionaryKey,
+    fileName: originalFileName,
+    locale,
+  });
 
   // Normalize the dictionary file path - if it's relative, make it absolute relative to baseDir
   const absoluteDictionaryPath = isAbsolute(dictionaryFilePath)

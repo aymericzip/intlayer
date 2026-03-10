@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-02-25
+updatedAt: 2026-03-10
 title: Trình Biên Dịch Intlayer | Trích Xuất Nội Dung Tự Động cho i18n
 description: Tự động hóa quy trình quốc tế hóa của bạn với Trình Biên Dịch Intlayer. Trích xuất nội dung trực tiếp từ các component để i18n nhanh hơn và hiệu quả hơn trong Vite, Next.js và nhiều hơn nữa.
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.7
     date: 2026-02-25
     changes: Cập nhật các tùy chọn trình biên dịch
@@ -157,13 +160,12 @@ import { type IntlayerConfig, Locales } from "intlayer";
 const config: IntlayerConfig = {
   compiler: {
     /**
-     * Chỉ định liệu trình biên dịch có nên được bật hay không.
      * Đặt thành 'build-only' để bỏ qua trình biên dịch trong quá trình phát triển và tăng tốc thời gian khởi động.
      */
     enabled: true,
 
     /**
-     * Mẫu để duyệt qua mã để tối ưu hóa.
+     * Pattern to traverse the code to optimize.
      */
     transformPattern: [
       "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
@@ -171,23 +173,28 @@ const config: IntlayerConfig = {
     ],
 
     /**
-     * Mẫu để loại trừ khỏi quá trình tối ưu hóa.
+     * Pattern to exclude from the optimization.
      */
     excludePattern: ["**/node_modules/**"],
 
     /**
-     * Thư mục đầu ra cho các từ điển đã được tối ưu hóa.
+     * Thư mục đầu ra cho các từ điển được tối ưu hóa.
      */
-    outputDir: "i18n",
+    output: ({ key }) => `compiler/${key}.content.json`,
 
     /**
-     * Tiền tố phím từ điển
+     * Chỉ chèn nội dung vào tệp đã tạo, không có khóa.
      */
-    dictionaryKeyPrefix: "", // Xóa tiền tố cơ sở
+    noMetadata: false,
 
     /**
-     * Chỉ định liệu các component có nên được lưu sau khi được chuyển đổi hay không.
-     * Bằng cách đó, trình biên dịch có thể được chạy chỉ một lần để chuyển đổi ứng dụng, sau đó có thể được gỡ bỏ.
+     * Tiền tố khóa từ điển
+     */
+    dictionaryKeyPrefix: "", // Remove base prefix
+
+    /**
+     * Cho biết liệu các thành phần có nên được lưu sau khi được chuyển đổi hay không.
+     * Bằng cách đó, trình biên dịch có thể được chạy một lần duy nhất để chuyển đổi ứng dụng, và sau đó nó có thể được gỡ bỏ.
      */
     saveComponents: false,
   },
@@ -209,3 +216,61 @@ npx intlayer fill         # Điền các bản dịch còn thiếu
 ```
 
 > Để biết thêm chi tiết, hãy tham khảo [tài liệu CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/ci.md)
+
+### Tham khảo cấu hình trình biên dịch
+
+Các thuộc tính sau có thể được cấu hình trong khối `compiler` của tệp `intlayer.config.ts` của bạn:
+
+- **enabled**:
+  - _Loại_: `boolean | 'build-only'`
+  - _Mặc định_: `true`
+  - _Mô tả_: Cho biết trình biên dịch có nên được bật hay không.
+- **dictionaryKeyPrefix**:
+  - _Loại_: `string`
+  - _Mặc định_: `'comp-'`
+  - _Mô tả_: Tiền tố cho các khóa từ điển được trích xuất.
+- **transformPattern**:
+  - _Loại_: `string | string[]`
+  - _Mặc định_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}', '!**/node_modules/**']`
+  - _Mô tả_: Các mẫu để duyệt mã để tối ưu hóa.
+- **excludePattern**:
+  - _Loại_: `string | string[]`
+  - _Mặc định_: `['**/node_modules/**']`
+  - _Mô tả_: Các mẫu để loại trừ khỏi quá trình tối ưu hóa.
+- **outputDir** (Deprecated):
+  - _Loại_: `string`
+  - _Mặc định_: `'compiler'`
+  - _Mô tả_: Thư mục nơi lưu trữ các từ điển được trích xuất.
+
+- **output**:
+  - _Loại_: `FilePathPattern`
+  - _Mặc định_: `({ key }) => 'compiler/${key}.content.json'`
+  - _Mô tả_: Xác định đường dẫn tệp đầu ra. Thay thế `outputDir`. Xử lý các biến động như `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}` và `{{componentFormat}}`. Có thể được đặt dưới dạng chuỗi bằng định dạng `'my/{{var}}/path'` hoặc dưới dạng hàm.
+  - _Ghi chú_: Các đường dẫn `./**/*` được giải quyết tương đối so với component. Các đường dẫn `/**/*` được giải quyết tương đối so với `baseDir` của Intlayer.
+  - _Ví dụ_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _Loại_: `boolean`
+  - _Mặc định_: `false`
+  - _Mô tả_: Cho biết liệu siêu dữ liệu có nên được lưu trong tệp hay không. Nếu true, trình biên dịch sẽ không lưu siêu dữ liệu của từ điển (khóa, trình bao bọc nội dung).
+  - _Ghi chú_: Hữu ích nếu được sử dụng với plugin `loadJSON`.
+  - _Ví dụ_: Nếu `true`:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    Nếu `false`:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```
+
+- **saveComponents**:
+  - _Loại_: `boolean`
+  - _Mặc định_: `false`
+  - _Mô tả_: Cho biết liệu các thành phần có nên được lưu sau khi được chuyển đổi hay không.

@@ -749,4 +749,71 @@ describe('transformJSFile', () => {
     expect(result).toContain('de: "Weniger anzeigen"');
     expect(result).toContain('pl: "Pokaż mniej"');
   });
+
+  it('works with ESM default export and satisfies operator (simulated chokidar log)', async () => {
+    const tsContent = `
+import { t, type Dictionary } from 'intlayer';
+
+const helloWorld2Content = {
+  key: 'hello-world2',
+  content: {},
+} satisfies Dictionary;
+
+export default helloWorld2Content;
+`;
+
+    const dict: Dictionary = {
+      key: 'hello-world2',
+      content: {
+        thisIsASentenceIf: {
+          nodeType: 'translation',
+          translation: {
+            en: 'This is a sentence if a state (should be extracted)',
+          },
+        },
+        helloWorldShouldBeExtracted: {
+          nodeType: 'translation',
+          translation: { en: 'Hello World (should be extracted)' },
+        },
+      },
+    } as any;
+
+    const result = await transformJSFile(tsContent, dict);
+
+    expect(result).toContain('thisIsASentenceIf: t({');
+    expect(result).toContain(
+      'en: "This is a sentence if a state (should be extracted)"'
+    );
+    expect(result).toContain('helloWorldShouldBeExtracted: t({');
+    expect(result).toContain('en: "Hello World (should be extracted)"');
+    expect(result).toContain('satisfies Dictionary');
+  });
+
+  it('works with ESM default export and "as" operator', async () => {
+    const tsContent = `
+import { t, type Dictionary } from 'intlayer';
+
+const helloWorld2Content = {
+  key: 'hello-world2',
+  content: {},
+} as Dictionary;
+
+export default helloWorld2Content;
+`;
+    const dict: Dictionary = {
+      key: 'hello-world2',
+      content: {
+        testKey: {
+          nodeType: 'translation',
+          translation: { en: 'Test extracted' },
+        },
+      },
+    } as any;
+
+    const result = await transformJSFile(tsContent, dict);
+
+    expect(result).toContain('testKey: t({');
+    expect(result).toContain('en: "Test extracted"');
+    expect(result).toContain('as Dictionary');
+  });
 });

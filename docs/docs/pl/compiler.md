@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-02-25
+updatedAt: 2026-03-10
 title: Intlayer Compiler | Zautomatyzowane wydobywanie treści dla i18n
 description: Zautomatyzuj proces internacjonalizacji za pomocą Intlayer Compiler. Wydobywaj treści bezpośrednio z komponentów dla szybszego i bardziej efektywnego i18n w Vite, Next.js i innych.
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.7
     date: 2026-02-25
     changes: Aktualizacja opcji kompilatora
@@ -157,13 +160,12 @@ import { type IntlayerConfig, Locales } from "intlayer";
 const config: IntlayerConfig = {
   compiler: {
     /**
-     * Wskazuje, czy kompilator powinien być włączony.
      * Ustaw na 'build-only', aby pominąć kompilator podczas programowania i przyspieszyć czas uruchamiania.
      */
     enabled: true,
 
     /**
-     * Wzór do przeszukiwania kodu w celu optymalizacji.
+     * Pattern to traverse the code to optimize.
      */
     transformPattern: [
       "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
@@ -171,23 +173,28 @@ const config: IntlayerConfig = {
     ],
 
     /**
-     * Wzór do wykluczenia z optymalizacji.
+     * Pattern to exclude from the optimization.
      */
     excludePattern: ["**/node_modules/**"],
 
     /**
      * Katalog wyjściowy dla zoptymalizowanych słowników.
      */
-    outputDir: "i18n",
+    output: ({ key }) => `compiler/${key}.content.json`,
+
+    /**
+     * Wstaw tylko zawartość do wygenerowanego pliku, bez klucza.
+     */
+    noMetadata: false,
 
     /**
      * Prefiks klucza słownika
      */
-    dictionaryKeyPrefix: "", // Usuń podstawowy prefiks
+    dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
-     * Wskazuje, czy komponenty powinny zostać zapisane po przekształceniu.
-     * W ten sposób kompilator może zostać uruchomiony tylko raz w celu przekształcenia aplikacji, a następnie można go usunąć.
+     * Wskazuje, czy komponenty powinny być zapisywane po transformacji.
+     * W ten sposób kompilator można uruchomić tylko raz, aby przetransformować aplikację, a następnie go usunąć.
      */
     saveComponents: false,
   },
@@ -209,3 +216,61 @@ npx intlayer fill         # Uzupełnij brakujące tłumaczenia
 ```
 
 > Więcej szczegółów znajdziesz w [dokumentacji CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/ci.md)
+
+### Odniesienie do konfiguracji kompilatora
+
+Następujące właściwości można skonfigurować w bloku `compiler` pliku `intlayer.config.ts`:
+
+- **enabled**:
+  - _Typ_: `boolean | 'build-only'`
+  - _Domyślny_: `true`
+  - _Opis_: Wskazuje, czy kompilator powinien być włączony.
+- **dictionaryKeyPrefix**:
+  - _Typ_: `string`
+  - _Domyślny_: `'comp-'`
+  - _Opis_: Prefiks dla wyekstrahowanych kluczy słownika.
+- **transformPattern**:
+  - _Typ_: `string | string[]`
+  - _Domyślny_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}', '!**/node_modules/**']`
+  - _Opis_: Wzorce do przeszukiwania kodu w celu optymalizacji.
+- **excludePattern**:
+  - _Typ_: `string | string[]`
+  - _Domyślny_: `['**/node_modules/**']`
+  - _Opis_: Wzorce do wykluczenia z optymalizacji.
+- **outputDir** (Deprecated):
+  - _Typ_: `string`
+  - _Domyślny_: `'compiler'`
+  - _Opis_: Katalog, w którym będą przechowywane wyekstrahowane słowniki.
+
+- **output**:
+  - _Typ_: `FilePathPattern`
+  - _Domyślny_: `({ key }) => 'compiler/${key}.content.json'`
+  - _Opis_: Definiuje ścieżkę plików wyjściowych. Zastępuje `outputDir`. Obsługuje zmienne dynamiczne, takie jak `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{componentFormat}}`. Można ustawić jako ciąg znaków w formacie `'my/{{var}}/path'` lub jako funkcję.
+  - _Uwaga_: Ścieżki `./**/*` są rozwiązywane względem komponentu. Ścieżki `/**/*` są rozwiązywane względem `baseDir` Intlayer.
+  - _Przykład_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _Typ_: `boolean`
+  - _Domyślny_: `false`
+  - _Opis_: Wskazuje, czy metadane powinny być zapisywane w pliku. Jeśli true, kompilator nie będzie zapisywał metadanych słowników (klucza, otoczki zawartości).
+  - _Uwaga_: Przydatne w przypadku korzystania z wtyczki `loadJSON`.
+  - _Przykład_: Jeśli `true`:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    Jeśli `false`:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```
+
+- **saveComponents**:
+  - _Typ_: `boolean`
+  - _Domyślny_: `false`
+  - _Opis_: Wskazuje, czy komponenty powinny być zapisywane po transformacji.

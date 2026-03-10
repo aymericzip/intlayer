@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add 'output' and 'noMetadata' support
   - version: 8.1.7
     date: 2026-02-25
     changes: تحديث خيارات المترجم
@@ -419,7 +422,7 @@ const config: IntlayerConfig = {
    */
   compiler: {
     /**
-     * Indicates if the compiler should be enabled.
+     * يشير إلى ما إذا كان يجب تمكين المجمّع.
      */
     enabled: true,
 
@@ -437,18 +440,23 @@ const config: IntlayerConfig = {
     excludePattern: ["**/node_modules/**"],
 
     /**
-     * Output directory for the optimized dictionaries.
+     * دليل الإخراج للقواميس المحسنة.
      */
-    outputDir: "compiler",
+    output: ({ key }) => `compiler/${key}.content.json`,
 
     /**
-     * Dictionary key prefix
+     * أدخل المحتوى فقط في الملف الذي تم إنشاؤه، بدون مفتاح.
+     */
+    noMetadata: false,
+
+    /**
+     * بادئة مفتاح القاموس
      */
     dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
-     * Indicates if the components should be saved after being transformed.
-     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     * يشير إلى ما إذا كان يجب حفظ المكونات بعد تحويلها.
+     * بهذه الطريقة، يمكن تشغيل المجمّع مرة واحدة فقط لتحويل التطبيق، ثم يمكن إزالته.
      */
     saveComponents: false,
   },
@@ -704,7 +712,7 @@ export default config;
 #### الخصائص
 
 - **autoFill**:
-  - _النوع_: `boolean | string | { [key in Locales]?: string }`
+  - _النوع_: `boolean | string | FilePathPattern | { [key in Locales]?: string }`
   - _الافتراضي_: `undefined`
   - _الوصف_: يشير إلى كيفية ملء المحتوى تلقائيًا باستخدام الذكاء الاصطناعي. يمكن الإعلان عنه عالميًا في ملف `intlayer.config.ts`.
   - _مثال_: true
@@ -820,11 +828,11 @@ export default config;
 - **locale**
 - **location**
 - **importMode**:
-  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
-  - _Type_: `'static' | 'dynamic' | 'fetch'`
-  - _Default_: `'static'`
-  - _Description_: Controls how dictionaries are imported.
-  - _Example_: `'dynamic'`
+  - _ملاحظة_: **Deprecated**: Use `dictionary.importMode` instead.
+  - _النوع_: `'static' | 'dynamic' | 'fetch'`
+  - _الافتراضي_: `'static'`
+  - _الوصف_: Controls how dictionaries are imported.
+  - _مثال_: `'dynamic'`
 - **priority**
 - **live**
 - **schema**
@@ -956,10 +964,10 @@ export default config;
   - _ملاحظة_: يمكن استخدامه لتعطيل بناء القواميس، على سبيل المثال عندما يجب تجنب التنفيذ في بيئة Node.js.
 
 - **checkTypes**:
-  - _Type_: `boolean`
-  - _Default_: `false`
-  - _Description_: يشير إلى ما إذا كان البناء يجب أن يتحقق من أنواع TypeScript ويسجل الأخطاء.
-  - _Note_: هذا يمكن أن يبطئ عملية البناء.
+  - _النوع_: `boolean`
+  - _الافتراضي_: `false`
+  - _الوصف_: يشير إلى ما إذا كان البناء يجب أن يتحقق من أنواع TypeScript ويسجل الأخطاء.
+  - _ملاحظة_: هذا يمكن أن يبطئ عملية البناء.
 
 - **optimize**:
   - _النوع_: `boolean`
@@ -972,7 +980,7 @@ export default config;
   - _ملاحظة_: تأكد من إعلان جميع المفاتيح بشكل ثابت في استدعاءات `useIntlayer`، على سبيل المثال `useIntlayer('navbar')`.
 
 - **importMode**:
-  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
+  - _ملاحظة_: **Deprecated**: Use `dictionary.importMode` instead.
   - _النوع_: `'static' | 'dynamic' | 'fetch'`
   - _الافتراضي_: `'static'`
   - _الوصف_: يتحكم في كيفية استيراد القواميس.
@@ -1051,3 +1059,31 @@ export default config;
   - _النوع_: `string`
   - _الافتراضي_: `'compiler'`
   - _الوصف_: الدليل الذي سيتم تخزين القواميس المستخرجة فيه، بالنسبة لمسار أساس مشروعك.
+
+- **output**:
+  - _النوع_: `FilePathPattern`
+  - _الافتراضي_: `({ key }) => 'compiler/${key}.content.json'`
+  - _الوصف_: يحدد مسار ملفات الإخراج. يستبدل `outputDir`. يتعامل مع المتغيرات الديناميكية مثل `{{locale}}` و `{{key}}` و `{{fileName}}` و `{{extension}}` و `{{format}}` و `{{dirPath}}` و `{{componentFileName}}` و `{{componentExtension}}` و `{{componentFormat}}`. يمكن تعيينه كسلسلة باستخدام تنسيق `'my/{{var}}/path'`، أو كدالة.
+  - _ملاحظة_: يتم حل مسار `./**/*` بالنسبة للمكون. يتم حل مسار `/**/*` بالنسبة لـ `baseDir` الخاص بـ Intlayer.
+  - _مثال_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _النوع_: `boolean`
+  - _الافتراضي_: `false`
+  - _الوصف_: يشير إلى ما إذا كان سيتم حفظ البيانات الوصفية في الملف. إذا كان صحيحا، فلن يحفظ المجمّع البيانات الوصفية للقواميس (المفتاح، غلاف المحتوى).
+  - _ملاحظة_: مفيد إذا تم استخدامه مع إضافة `loadJSON`.
+  - _مثال_: إذا كان `true`:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    إذا كان `false`:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```

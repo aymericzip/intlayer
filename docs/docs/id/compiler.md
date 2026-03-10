@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-02-25
+updatedAt: 2026-03-10
 title: Intlayer Compiler | Ekstraksi Konten Otomatis untuk i18n
 description: Otomatiskan proses internasionalisasi Anda dengan Intlayer Compiler. Ekstrak konten langsung dari komponen Anda untuk i18n yang lebih cepat dan efisien di Vite, Next.js, dan lainnya.
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.7
     date: 2026-02-25
     changes: Perbarui opsi kompiler
@@ -157,13 +160,12 @@ import { type IntlayerConfig, Locales } from "intlayer";
 const config: IntlayerConfig = {
   compiler: {
     /**
-     * Menunjukkan apakah compiler harus diaktifkan.
-     * Atur ke 'build-only' untuk melewatkan compiler selama pengembangan dan mempercepat waktu startup.
+     * Atur ke 'build-only' untuk melewatkan kompiler selama pengembangan dan mempercepat waktu mulai.
      */
     enabled: true,
 
     /**
-     * Pola untuk menelusuri kode yang akan dioptimalkan.
+     * Pattern to traverse the code to optimize.
      */
     transformPattern: [
       "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
@@ -171,23 +173,28 @@ const config: IntlayerConfig = {
     ],
 
     /**
-     * Pola untuk dikecualikan dari pengoptimalan.
+     * Pattern to exclude from the optimization.
      */
     excludePattern: ["**/node_modules/**"],
 
     /**
      * Direktori output untuk kamus yang dioptimalkan.
      */
-    outputDir: "i18n",
+    output: ({ key }) => `compiler/${key}.content.json`,
+
+    /**
+     * Masukkan konten saja dalam file yang dihasilkan, tanpa kunci.
+     */
+    noMetadata: false,
 
     /**
      * Awalan kunci kamus
      */
-    dictionaryKeyPrefix: "", // Hapus awalan basis
+    dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
      * Menunjukkan apakah komponen harus disimpan setelah ditransformasi.
-     * Dengan begitu, compiler hanya dapat dijalankan sekali untuk mentransformasi aplikasi, dan kemudian dapat dihapus.
+     * Dengan begitu, kompiler hanya perlu dijalankan sekali untuk mentransformasi aplikasi, lalu dapat dihapus.
      */
     saveComponents: false,
   },
@@ -209,3 +216,61 @@ npx intlayer fill         # Isi terjemahan yang hilang
 ```
 
 > Untuk rincian lebih lanjut, silakan merujuk ke [dokumentasi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/ci.md)
+
+### Referensi Konfigurasi Kompiler
+
+Properti berikut dapat dikonfigurasi dalam blok `compiler` pada file `intlayer.config.ts` Anda:
+
+- **enabled**:
+  - _Tipe_: `boolean | 'build-only'`
+  - _Default_: `true`
+  - _Deskripsi_: Menunjukkan apakah kompiler harus diaktifkan.
+- **dictionaryKeyPrefix**:
+  - _Tipe_: `string`
+  - _Default_: `'comp-'`
+  - _Deskripsi_: Awalan untuk kunci kamus yang diekstrak.
+- **transformPattern**:
+  - _Tipe_: `string | string[]`
+  - _Default_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}', '!**/node_modules/**']`
+  - _Deskripsi_: Pola untuk menelusuri kode yang ingin dioptimalkan.
+- **excludePattern**:
+  - _Tipe_: `string | string[]`
+  - _Default_: `['**/node_modules/**']`
+  - _Deskripsi_: Pola yang harus dikecualikan dari optimasi.
+- **outputDir** (Deprecated):
+  - _Tipe_: `string`
+  - _Default_: `'compiler'`
+  - _Deskripsi_: Direktori tempat kamus yang diekstrak akan disimpan.
+
+- **output**:
+  - _Tipe_: `FilePathPattern`
+  - _Default_: `({ key }) => 'compiler/${key}.content.json'`
+  - _Deskripsi_: Mendefinisikan jalur file output. Menggantikan `outputDir`. Menangani variabel dinamis seperti `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, dan `{{componentFormat}}`. Dapat diatur sebagai string menggunakan format `'my/{{var}}/path'`, atau sebagai fungsi.
+  - _Catatan_: Jalur `./**/*` diselesaikan relatif terhadap komponen. Jalur `/**/*` diselesaikan relatif terhadap `baseDir` Intlayer.
+  - _Contoh_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _Tipe_: `boolean`
+  - _Default_: `false`
+  - _Deskripsi_: Menunjukkan apakah metadata harus disimpan dalam file. Jika benar, kompiler tidak akan menyimpan metadata kamus (kunci, pembungkus konten).
+  - _Catatan_: Berguna jika digunakan dengan plugin `loadJSON`.
+  - _Contoh_: Jika `true`:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    Jika `false`:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```
+
+- **saveComponents**:
+  - _Tipe_: `boolean`
+  - _Default_: `false`
+  - _Deskripsi_: Menunjukkan apakah komponen harus disimpan setelah ditransformasi.

@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-no-lolale-path-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.6
     date: 2026-02-23
     changes: प्रारंभिक विमोचन
@@ -128,23 +131,28 @@ const config: IntlayerConfig = {
   },
   compiler: {
     /**
-     * इंगित करता है कि कंपाइलर सक्षम होना चाहिए या नहीं।
+     * इंगित करता है कि क्या कंपाइलर सक्षम होना चाहिए।
      */
     enabled: true,
 
     /**
-     * ऑप्टिमाइज़ किए गए शब्दकोशों के लिए आउटपुट डायरेक्टरी।
+     * अनुकूलित शब्दकोशों के लिए आउटपुट निर्देशिका।
      */
-    outputDir: "compiler",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
 
     /**
-     * डिक्शनरी कुंजी उपसर्ग (प्रीफ़िक्स)
+     * उत्पन्न फ़ाइल में केवल सामग्री डालें, बिना कुंजी के।
      */
-    dictionaryKeyPrefix: "", // बेस प्रीफ़िक्स हटाएँ
+    noMetadata: false,
 
     /**
-     * इंगित करता है कि क्या ट्रांसफ़ॉर्म होने के बाद कंपोनेंट्स को सहेजा जाना चाहिए।
-     * इस तरह, ऐप को ट्रांसफ़ॉर्म करने के लिए कंपाइलर को केवल एक बार चलाया जा सकता है, और फिर इसे हटाया जा सकता है।
+     * शब्दकोश कुंजी उपसर्ग
+     */
+    dictionaryKeyPrefix: "", // Remove base prefix
+
+    /**
+     * इंगित करता है कि क्या घटकों को रूपांतरित होने के बाद सहेजा जाना चाहिए।
+     * इस तरह, कंपाइलer को ऐप को रूपांतरित करने के लिए केवल एक बार चलाया जा सकता है, और फिर इसे हटाया जा सकता है।
      */
     saveComponents: false,
   },

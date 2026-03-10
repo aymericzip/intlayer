@@ -92,15 +92,17 @@ export {
 } from '@intlayer/core/formatters';
 export {
   getDictionary,
-  getEnumeration /**
+  getEnumeration,
+  /**
    * @deprecated Use `getEnumeration` instead.
-   */,
+   */
   getEnumeration as getEnumerationContent,
   getIntlayer,
   getNesting,
-  getTranslation /**
+  getTranslation,
+  /**
    * @deprecated Use `getTranslation` instead.
-   */,
+   */
   getTranslation as getTranslationContent,
 } from '@intlayer/core/interpreter';
 export {

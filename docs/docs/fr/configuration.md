@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-02-25
+updatedAt: 2026-03-10
 title: Configuration
 description: Apprenez à configurer Intlayer pour votre application. Comprenez les différents paramètres et options disponibles pour personnaliser Intlayer selon vos besoins.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.2.0
+    date: 2026-03-10
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.7
     date: 2026-02-25
     changes: Mise à jour des options du compilateur
@@ -422,12 +425,12 @@ const config: IntlayerConfig = {
    */
   compiler: {
     /**
-     * Indicates if the compiler should be enabled.
+     * Réglez sur 'build-only' pour ignorer le compilateur pendant le développement et accélérer les temps de démarrage.
      */
     enabled: true,
 
     /**
-     * Pattern to traverse the code to optimize.
+     * Modèle pour parcourir le code à optimiser.
      */
     transformPattern: [
       "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
@@ -435,23 +438,28 @@ const config: IntlayerConfig = {
     ],
 
     /**
-     * Pattern to exclude from the optimization.
+     * Modèle à exclure de l'optimisation.
      */
     excludePattern: ["**/node_modules/**"],
 
     /**
-     * Output directory for the optimized dictionaries.
+     * Répertoire de sortie pour les dictionnaires optimisés.
      */
-    outputDir: "compiler",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
 
     /**
-     * Dictionary key prefix
+     * Insérer uniquement le contenu dans le fichier généré, sans clé.
      */
-    dictionaryKeyPrefix: "", // Remove base prefix
+    noMetadata: false,
 
     /**
-     * Indicates if the components should be saved after being transformed.
-     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     * Préfixe de clé de dictionnaire
+     */
+    dictionaryKeyPrefix: "", // Supprimer le préfixe de base
+
+    /**
+     * Indique si les composants doivent être sauvegardés après avoir été transformés.
+     * De cette façon, le compilateur peut être exécuté une seule fois pour transformer l'application, puis il peut être supprimé.
      */
     saveComponents: false,
   },
@@ -707,7 +715,7 @@ Paramètres liés à la gestion du contenu au sein de l'application, incluant le
 #### Propriétés
 
 - **autoFill** :
-  - _Type_ : `boolean | string | { [key in Locales]?: string }`
+  - _Type_ : `boolean | string | FilePathPattern | { [key in Locales]?: string }`
   - _Défaut_ : `undefined`
   - _Description_ : Indique comment le contenu doit être automatiquement rempli à l'aide de l'IA. Peut être déclaré globalement dans le fichier `intlayer.config.ts`.
   - _Exemple_ : true
@@ -837,9 +845,9 @@ Pour plus d'informations sur les fichiers de déclaration de contenu et la faço
 - **importMode**:
   - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
   - _Type_: `'static' | 'dynamic' | 'fetch'`
-  - _Default_: `'static'`
+  - _Par défaut_: `'static'`
   - _Description_: Controls how dictionaries are imported.
-  - _Example_: `'dynamic'`
+  - _Exemple_: `'dynamic'`
 - **priority**
 - **live**
 - **schema**
@@ -1061,7 +1069,35 @@ Paramètres qui contrôlent le compilateur Intlayer, qui extrait les dictionnair
   - _Description_ : Modèles qui définissent quels fichiers doivent être exclus lors de l'optimisation.
   - _Exemple_ : `['**/node_modules/**', '!**/node_modules/react/**']`
 
-- **outputDir** :
+- **outputDir** (Deprecated) :
   - _Type_ : `string`
   - _Par défaut_ : `'compiler'`
   - _Description_ : Le répertoire où les dictionnaires extraits seront stockés, relatif au chemin de base de votre projet.
+
+- **output**:
+  - _Type_: `FilePathPattern`
+  - _Par défaut_: `({ key }) => 'compiler/${key}.content.json'`
+  - _Description_: Définit le chemin des fichiers de sortie. Remplace `outputDir`. Gère les variables dynamiques telles que `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{componentFormat}}`. Peut être configuré sous forme de chaîne à l'aide du format `'my/{{var}}/path'` ou sous forme de fonction.
+  - _Note_: `./**/*` Les chemins sont résolus par rapport au composant. `/**/*` les chemins sont résolus par rapport au `baseDir` d'Intlayer.
+  - _Exemple_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _Type_: `boolean`
+  - _Par défaut_: `false`
+  - _Description_: Indique si les métadonnées doivent être enregistrées dans le fichier. Si vrai, le compilateur n'enregistrera pas les métadonnées des dictionnaires (clé, enveloppe de contenu).
+  - _Note_: Utile si utilisé avec le plugin `loadJSON`.
+  - _Exemple_: Si `true` :
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    Si `false` :
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```

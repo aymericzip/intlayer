@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-02-25
+updatedAt: 2026-03-10
 title: Конфигурация
 description: Узнайте, как настроить Intlayer для вашего приложения. Поймите различные параметры и опции, доступные для настройки Intlayer под ваши нужды.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.2.0
+    date: 2026-03-10
+    changes: Update compiler options, add 'output' and 'noMetadata' support
   - version: 8.1.7
     date: 2026-02-25
     changes: Обновление опций компилятора
@@ -427,7 +430,7 @@ const config: IntlayerConfig = {
    */
   compiler: {
     /**
-     * Indicates if the compiler should be enabled.
+     * Указывает, должен ли компилятор быть включен.
      */
     enabled: true,
 
@@ -445,18 +448,23 @@ const config: IntlayerConfig = {
     excludePattern: ["**/node_modules/**"],
 
     /**
-     * Output directory for the optimized dictionaries.
+     * Выходной каталог для оптимизированных словарей.
      */
-    outputDir: "compiler",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
 
     /**
-     * Dictionary key prefix
+     * Вставьте только содержимое в сгенерированный файл, без ключа.
+     */
+    noMetadata: false,
+
+    /**
+     * Префикс ключа словаря
      */
     dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
-     * Indicates if the components should be saved after being transformed.
-     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     * Указывает, должны ли компоненты сохраняться после трансформации.
+     * Таким образом, компилятор можно запустить только один раз для трансформации приложения, а затем удалить.
      */
     saveComponents: false,
   },
@@ -712,7 +720,7 @@ export default config;
 #### Свойства
 
 - **autoFill**:
-  - _Тип_: `boolean | string | { [key in Locales]?: string }`
+  - _Тип_: `boolean | string | FilePathPattern | { [key in Locales]?: string }`
   - _По умолчанию_: `undefined`
   - _Описание_: Указывает, как содержимое должно автоматически заполняться с помощью ИИ. Может быть объявлено глобально в файле `intlayer.config.ts`.
   - _Пример_: true
@@ -970,10 +978,10 @@ Intlayer поддерживает несколько провайдеров ИИ
   - _Примечание_: Может использоваться для отключения сборки словарей, например, когда следует избегать выполнения в среде Node.js.
 
 - **checkTypes**:
-  - _Type_: `boolean`
-  - _Default_: `false`
-  - _Description_: Указывает, должна ли сборка проверять типы TypeScript и регистрировать ошибки.
-  - _Note_: Это может замедлить процесс сборки.
+  - _Тип_: `boolean`
+  - _По умолчанию_: `false`
+  - _Описание_: Указывает, должна ли сборка проверять типы TypeScript и регистрировать ошибки.
+  - _Примечание_: Это может замедлить процесс сборки.
 
 - **optimize**:
   - _Тип_: `boolean`
@@ -986,7 +994,7 @@ Intlayer поддерживает несколько провайдеров ИИ
   - _Примечание_: Убедитесь, что все ключи объявлены статически в вызовах `useIntlayer`, например `useIntlayer('navbar')`.
 
 - **importMode**:
-  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
+  - _Примечание_: **Deprecated**: Use `dictionary.importMode` instead.
   - _Тип_: `'static' | 'dynamic' | 'fetch'`
   - _По умолчанию_: `'static'`
   - _Описание_: Управляет способом импорта словарей.
@@ -1065,3 +1073,31 @@ Intlayer поддерживает несколько провайдеров ИИ
   - _Тип_: `string`
   - _По умолчанию_: `'compiler'`
   - _Описание_: Каталог, в котором будут храниться извлеченные словари, относительно базового пути вашего проекта.
+
+- **output**:
+  - _Тип_: `FilePathPattern`
+  - _По умолчанию_: `({ key }) => 'compiler/${key}.content.json'`
+  - _Описание_: Определяет путь к выходным файлам. Заменяет `outputDir`. Поддерживает динамические переменные, такие как `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{componentFormat}}`. Может быть задано как строка в формате `'my/{{var}}/path'` или как функция.
+  - _Примечание_: `./**/*` Пути разрешаются относительно компонента. `/**/*` пути разрешаются относительно `baseDir` Intlayer.
+  - _Пример_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _Тип_: `boolean`
+  - _По умолчанию_: `false`
+  - _Описание_: Указывает, должны ли метаданные сохраняться в файле. Если true, компилятор не будет сохранять метаданные словарей (ключ, оболочка содержимого).
+  - _Примечание_: Полезно при использовании с плагином `loadJSON`.
+  - _Пример_: Если `true`:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    Если `false`:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```

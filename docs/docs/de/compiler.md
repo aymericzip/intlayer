@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-02-25
+updatedAt: 2026-03-10
 title: Intlayer Compiler | Automatisierte Inhaltsextraktion für i18n
 description: Automatisieren Sie Ihren Internationalisierungsprozess mit dem Intlayer Compiler. Extrahieren Sie Inhalte direkt aus Ihren Komponenten für schnellere und effizientere i18n in Vite, Next.js und mehr.
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.2.0
+    date: 2026-03-10
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.7
     date: 2026-02-25
     changes: Compiler-Optionen aktualisieren
@@ -157,13 +160,12 @@ import { type IntlayerConfig, Locales } from "intlayer";
 const config: IntlayerConfig = {
   compiler: {
     /**
-     * Gibt an, ob der Compiler aktiviert sein soll.
-     * Auf 'build-only' setzen, um den Compiler während der Entwicklung zu überspringen und die Startzeiten zu beschleunigen.
+     * Stellen Sie build-only ein, um den Compiler während der Entwicklung zu überspringen und die Startzeiten zu beschleunigen.
      */
     enabled: true,
 
     /**
-     * Muster zum Durchlaufen des zu optimierenden Codes.
+     * Pattern to traverse the code to optimize.
      */
     transformPattern: [
       "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
@@ -171,23 +173,28 @@ const config: IntlayerConfig = {
     ],
 
     /**
-     * Muster, das von der Optimierung ausgeschlossen werden soll.
+     * Pattern to exclude from the optimization.
      */
     excludePattern: ["**/node_modules/**"],
 
     /**
      * Ausgabeverzeichnis für die optimierten Wörterbücher.
      */
-    outputDir: "i18n",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
 
     /**
-     * Wörterbuch-Schlüsselpräfix
+     * Fügen Sie nur den Inhalt in die generierte Datei ein, ohne Schlüssel.
      */
-    dictionaryKeyPrefix: "", // Basis-Präfix entfernen
+    noMetadata: false,
+
+    /**
+     * Wörterbuch-Präfix
+     */
+    dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
      * Gibt an, ob die Komponenten nach der Transformation gespeichert werden sollen.
-     * Auf diese Weise kann der Compiler nur einmal ausgeführt werden, um die App zu transformieren, und kann dann entfernt werden.
+     * Auf diese Weise kann der Compiler nur einmal ausgeführt werden, um die App zu transformieren, und dann entfernt werden.
      */
     saveComponents: false,
   },
@@ -209,3 +216,61 @@ npx intlayer fill         # Fehlende Übersetzungen ausfüllen
 ```
 
 > Weitere Informationen finden Sie in der [CLI-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/ci.md)
+
+### Compiler-Konfigurationsreferenz
+
+Die folgenden Eigenschaften können im Block `compiler` Ihrer Datei `intlayer.config.ts` konfiguriert werden:
+
+- **enabled**:
+  - _Typ_: `boolean | 'build-only'`
+  - _Standard_: `true`
+  - _Beschreibung_: Gibt an, ob der Compiler aktiviert werden soll.
+- **dictionaryKeyPrefix**:
+  - _Typ_: `string`
+  - _Standard_: `'comp-'`
+  - _Beschreibung_: Präfix für die extrahierten Wörterbuchschlüssel.
+- **transformPattern**:
+  - _Typ_: `string | string[]`
+  - _Standard_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}', '!**/node_modules/**']`
+  - _Beschreibung_: Muster zum Durchlaufen des zu optimierenden Codes.
+- **excludePattern**:
+  - _Typ_: `string | string[]`
+  - _Standard_: `['**/node_modules/**']`
+  - _Beschreibung_: Muster, die von der Optimierung ausgeschlossen werden sollen.
+- **outputDir** (Deprecated):
+  - _Typ_: `string`
+  - _Standard_: `'compiler'`
+  - _Beschreibung_: Das Verzeichnis, in dem die extrahierten Wörterbücher gespeichert werden.
+
+- **output**:
+  - _Typ_: `FilePathPattern`
+  - _Standard_: `({ key }) => 'compiler/${key}.content.json'`
+  - _Beschreibung_: Definiert den Pfad der Ausgabedateien. Ersetzt `outputDir`. Verarbeitet dynamische Variablen wie `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{componentFormat}}`. Kann als String im Format `'my/{{var}}/path'` oder als Funktion festgelegt werden.
+  - _Hinweis_: `./**/*` Pfade werden relativ zur Komponente aufgelöst. `/**/*` Pfade werden relativ zum Intlayer `baseDir` aufgelöst.
+  - _Beispiel_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _Typ_: `boolean`
+  - _Standard_: `false`
+  - _Beschreibung_: Gibt an, ob die Metadaten in der Datei gespeichert werden sollen. Wenn true, speichert der Compiler nicht die Metadaten der Wörterbücher (Schlüssel, Content-Wrapper).
+  - _Hinweis_: Nützlich bei Verwendung mit dem `loadJSON`-Plugin.
+  - _Beispiel_: Wenn `true`:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    Wenn `false`:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```
+
+- **saveComponents**:
+  - _Typ_: `boolean`
+  - _Standard_: `false`
+  - _Beschreibung_: Gibt an, ob die Komponenten nach der Transformation gespeichert werden sollen.

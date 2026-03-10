@@ -3,12 +3,14 @@ import type { Locale } from '@intlayer/types/allLocales';
 import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
 import { NodeType } from '@intlayer/types/nodeType';
 import * as recast from 'recast';
+import * as tsParser from 'recast/parsers/typescript.js';
 
 const b = recast.types.builders;
 const n = recast.types.namedTypes;
 
 /**
  * Unwraps TypeScript/Babel expression wrappers (satisfies, as, !, <Type>).
+ * Uses string fallbacks to bypass outdated ast-types definitions.
  */
 const unwrap = (node: any) => {
   while (
@@ -16,7 +18,13 @@ const unwrap = (node: any) => {
     (n.TSSatisfiesExpression?.check(node) ||
       n.TSAsExpression?.check(node) ||
       n.TSTypeAssertion?.check(node) ||
-      n.TSNonNullExpression?.check(node))
+      n.TSNonNullExpression?.check(node) ||
+      [
+        'TSSatisfiesExpression',
+        'TSAsExpression',
+        'TSTypeAssertion',
+        'TSNonNullExpression',
+      ].includes(node.type))
   ) {
     node = node.expression;
   }
@@ -144,9 +152,23 @@ const isMultilingualNode = (val: any): boolean => {
 const buildNodeForValue = (
   val: any,
   existingNode: any,
-  fallbackLocale: string | undefined,
+  fallbackLocale: string | undefined, // In per-locale mode, this is the locale of the file
   requiredImports: Set<string>
 ): any => {
+  // If we are in per-locale mode (fallbackLocale is set)
+  // and the value is not already a complex translation node,
+  // we want to store it as a simple literal, NOT wrapped in t().
+  if (fallbackLocale && !existingNode && !isMultilingualNode(val)) {
+    if (val === null) return b.literal(null);
+    if (
+      typeof val === 'string' ||
+      typeof val === 'number' ||
+      typeof val === 'boolean'
+    ) {
+      return b.literal(val);
+    }
+  }
+
   if (fallbackLocale && existingNode && !isMultilingualNode(val)) {
     if (
       n.CallExpression.check(existingNode) &&
@@ -165,7 +187,10 @@ const buildNodeForValue = (
           fallbackLocale,
           requiredImports
         );
-        requiredImports.add('t');
+
+        if (!fallbackLocale) {
+          requiredImports.add('t');
+        }
 
         return existingNode;
       }
@@ -420,10 +445,20 @@ const addImports = (ast: any, requiredImports: Set<string>, isESM: boolean) => {
             if (arg.value === 'intlayer') {
               if (n.ObjectPattern.check(decl.id)) {
                 decl.id.properties.forEach((prop) => {
-                  if (n.Property.check(prop) && n.Identifier.check(prop.key)) {
-                    existingCoreImports.add(prop.key.name);
+                  if (
+                    n.Property.check(prop) &&
+                    (n.Identifier.check(prop.key) ||
+                      n.Identifier.check(prop.value))
+                  ) {
+                    const name = n.Identifier.check(prop.key)
+                      ? prop.key.name
+                      : (prop.value as any).name;
+                    existingCoreImports.add(name);
                   }
                 });
+              } else if (n.Identifier.check(decl.id)) {
+                // Handle const intlayer = require('intlayer')
+                existingCoreImports.add(decl.id.name);
               }
             } else if (arg.value === 'intlayer/file') {
               hasFileImport = true;
@@ -539,19 +574,21 @@ const addImports = (ast: any, requiredImports: Set<string>, isESM: boolean) => {
 export const transformJSFile = async (
   fileContent: string,
   dictionary: Dictionary,
-  fallbackLocale?: Locale
+  fallbackLocale?: Locale,
+  noMetadata?: boolean
 ): Promise<string> => {
   if (!dictionary || typeof dictionary !== 'object') return fileContent;
 
   let ast: any;
   try {
     ast = recast.parse(fileContent, {
-      parser: require('recast/parsers/typescript'),
+      parser: tsParser,
     });
   } catch {
     try {
       ast = recast.parse(fileContent); // Strict ESM fallback
-    } catch {
+    } catch (error) {
+      console.error({ error });
       return fileContent;
     }
   }
@@ -666,21 +703,59 @@ export const transformJSFile = async (
     'contentAutoTransformation',
   ];
 
-  for (const prop of metadataProperties) {
-    if ((dictionary as any)[prop] !== undefined) {
-      updateObjectLiteral(
-        rootObject,
-        { [prop]: (dictionary as any)[prop] },
-        undefined,
-        requiredImports
-      );
+  if (noMetadata) {
+    // Remove key, content and metadata properties if they exist
+    rootObject.properties = rootObject.properties.filter((prop: any) => {
+      if (n.Property.check(prop) || n.ObjectProperty.check(prop)) {
+        let propName = '';
+        if (n.Identifier.check(prop.key)) propName = prop.key.name;
+        else if (n.StringLiteral.check(prop.key)) propName = prop.key.value;
+        else if (n.Literal.check(prop.key)) propName = String(prop.key.value);
+
+        return !['key', 'content', ...metadataProperties].includes(propName);
+      }
+      return true;
+    });
+
+    // Update satisfies type if exists
+    recast.visit(ast, {
+      visitNode(path) {
+        const node = path.node;
+        if (
+          (n.TSSatisfiesExpression?.check(node) ||
+            node.type === 'TSSatisfiesExpression') &&
+          (node as any).typeAnnotation &&
+          n.TSTypeReference.check((node as any).typeAnnotation) &&
+          n.Identifier.check((node as any).typeAnnotation.typeName) &&
+          (node as any).typeAnnotation.typeName.name === 'Dictionary'
+        ) {
+          (node as any).typeAnnotation = b.tsIndexedAccessType(
+            b.tsTypeReference(b.identifier('Dictionary')),
+            b.tsLiteralType(b.stringLiteral('content'))
+          );
+        }
+        this.traverse(path);
+      },
+    });
+  } else {
+    for (const prop of metadataProperties) {
+      if ((dictionary as any)[prop] !== undefined) {
+        updateObjectLiteral(
+          rootObject,
+          { [prop]: (dictionary as any)[prop] },
+          undefined,
+          requiredImports
+        );
+      }
     }
   }
 
   if (dictionary.content !== undefined) {
     updateObjectLiteral(
       rootObject,
-      { content: dictionary.content },
+      noMetadata
+        ? (dictionary.content as Record<string, any>)
+        : { content: dictionary.content },
       effectiveFallbackLocale,
       requiredImports
     );

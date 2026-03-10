@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-02-25
+updatedAt: 2026-03-10
 title: Intlayer 컴파일러 | i18n을 위한 자동화된 콘텐츠 추출
 description: Intlayer 컴파일러로 국제화 프로세스를 자동화하세요. Vite, Next.js 등에서 더 빠르고 효율적인 i18n을 위해 컴포넌트에서 직접 콘텐츠를 추출합니다.
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.2.0
+    date: 2026-03-10
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.7
     date: 2026-02-25
     changes: 컴파일러 옵션 업데이트
@@ -157,13 +160,12 @@ import { type IntlayerConfig, Locales } from "intlayer";
 const config: IntlayerConfig = {
   compiler: {
     /**
-     * 컴파일러를 활성화할지 여부를 나타냅니다.
-     * 개발 중에 컴파일러를 건너뛰고 시작 시간을 단축하려면 'build-only'로 설정하세요.
+     * 개발 중에 컴파일러를 건너뛰고 시작 시간을 단축하려면 'build-only'로 설정하십시오.
      */
     enabled: true,
 
     /**
-     * 최적화할 코드를 순회하는 패턴.
+     * Pattern to traverse the code to optimize.
      */
     transformPattern: [
       "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
@@ -171,23 +173,28 @@ const config: IntlayerConfig = {
     ],
 
     /**
-     * 최적화에서 제외할 패턴.
+     * Pattern to exclude from the optimization.
      */
     excludePattern: ["**/node_modules/**"],
 
     /**
-     * 최적화된 사전의 출력 디렉토리.
+     * 최적화된 사전의 출력 디렉터리.
      */
-    outputDir: "i18n",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
+
+    /**
+     * 키 없이 생성된 파일에 콘텐츠만 삽입합니다.
+     */
+    noMetadata: false,
 
     /**
      * 사전 키 접두사
      */
-    dictionaryKeyPrefix: "", // 기본 접두사 제거
+    dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
-     * 컴포넌트가 변환된 후 저장되어야 하는지 여부를 나타냅니다.
-     * 그렇게 하면 컴파일러를 한 번만 실행하여 앱을 변환한 다음 나중에 제거할 수 있습니다.
+     * 변환된 후 구성 요소를 저장할지 여부를 나타냅니다.
+     * 이렇게 하면 컴파일러를 한 번만 실행하여 앱을 변환한 다음 제거할 수 있습니다.
      */
     saveComponents: false,
   },
@@ -209,3 +216,61 @@ npx intlayer fill         # 누락된 번역 채우기
 ```
 
 > 자세한 내용은 [CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/ci.md)를 참조하세요.
+
+### 컴파일러 구성 참조
+
+다음 속성은 `intlayer.config.ts` 파일의 `compiler` 블록에서 구성할 수 있습니다.
+
+- **enabled**:
+  - _형식_: `boolean | 'build-only'`
+  - _기본값_: `true`
+  - _설명_: 컴파일러 활성화 여부를 나타냅니다.
+- **dictionaryKeyPrefix**:
+  - _형식_: `string`
+  - _기본값_: `'comp-'`
+  - _설명_: 추출된 사전 키의 접두사.
+- **transformPattern**:
+  - _형식_: `string | string[]`
+  - _기본값_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}', '!**/node_modules/**']`
+  - _설명_: 최적화할 코드를 탐색하는 패턴.
+- **excludePattern**:
+  - _형식_: `string | string[]`
+  - _기본값_: `['**/node_modules/**']`
+  - _설명_: 최적화에서 제외할 패턴.
+- **outputDir** (Deprecated):
+  - _형식_: `string`
+  - _기본값_: `'compiler'`
+  - _설명_: 추출된 사전이 저장될 디렉터리.
+
+- **output**:
+  - _형식_: `FilePathPattern`
+  - _기본값_: `({ key }) => 'compiler/${key}.content.json'`
+  - _설명_: 출력 파일 경로를 정의합니다. `outputDir`을 대체합니다. `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{componentFormat}}`와 같은 동적 변수를 처리합니다. `'my/{{var}}/path'` 형식을 사용하여 문자열로 설정하거나 함수로 설정할 수 있습니다.
+  - _참고_: `./**/*` 경로는 구성 요소를 기준으로 해결됩니다. `/**/*` 경로는 Intlayer `baseDir`을 기준으로 해결됩니다.
+  - _예시_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _형식_: `boolean`
+  - _기본값_: `false`
+  - _설명_: 메타데이터를 파일에 저장할지 여부를 나타냅니다. true인 경우 컴파일러는 사전의 메타데이터(키, 콘텐츠 래퍼)를 저장하지 않습니다.
+  - _참고_: `loadJSON` 플러그인과 함께 사용할 때 유용합니다.
+  - _예시_: `true`인 경우:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    `false`인 경우:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```
+
+- **saveComponents**:
+  - _형식_: `boolean`
+  - _기본값_: `false`
+  - _설명_: 변환된 후 구성 요소를 저장할지 여부를 나타냅니다.

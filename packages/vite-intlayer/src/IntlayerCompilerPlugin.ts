@@ -1,20 +1,18 @@
-import { existsSync } from 'node:fs';
-import { mkdir, readFile } from 'node:fs/promises';
-import { dirname, join, relative } from 'node:path';
+import { readFile } from 'node:fs/promises';
+import { dirname, relative } from 'node:path';
 import {
   detectPackageName,
   type ExtractResult,
   extractContent,
+  writeContentHelper,
 } from '@intlayer/babel';
-import {
-  buildDictionary,
-  writeContentDeclaration,
-} from '@intlayer/chokidar/build';
+import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { buildFilesList } from '@intlayer/chokidar/utils';
 import {
   ANSIColors,
   colorize,
   colorizeKey,
+  colorizeNumber,
   colorizePath,
   getAppLogger,
 } from '@intlayer/config/logger';
@@ -23,7 +21,7 @@ import {
   getConfiguration,
 } from '@intlayer/config/node';
 import type { CompilerConfig, IntlayerConfig } from '@intlayer/types/config';
-import type { Dictionary } from '@intlayer/types/dictionary';
+import type { FilePathPattern } from '@intlayer/types/filePathPattern';
 
 /**
  * Translation node structure used in dictionaries
@@ -191,6 +189,9 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
         customCompilerConfig?.outputDir ??
         rawConfig.compiler?.outputDir ??
         'compiler',
+      output: (customCompilerConfig?.output ??
+        rawConfig.compiler?.output ??
+        config.compiler?.output) as FilePathPattern,
       saveComponents:
         customCompilerConfig?.saveComponents ??
         rawConfig.compiler?.saveComponents ??
@@ -199,182 +200,12 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
   };
 
   /**
-   * Get the output directory path for compiler dictionaries
+   * (Removed merging logic - now handled by @intlayer/babel:writeContentHelper)
    */
-  const getOutputDir = (): string => {
-    const { baseDir } = config.content;
-    const compilerConfig = getCompilerConfig();
-    return join(baseDir, compilerConfig.outputDir);
-  };
 
   /**
-   * Get the file path for a dictionary
+   * (Removed merging logic - now handled by @intlayer/babel:writeContentHelper)
    */
-  const getDictionaryFilePath = (dictionaryKey: string): string => {
-    const outputDir = getOutputDir();
-    return join(outputDir, `${dictionaryKey}.content.json`);
-  };
-
-  /**
-   * Read an existing dictionary file if it exists
-   */
-  const readExistingDictionary = async (
-    dictionaryKey: string
-  ): Promise<Dictionary | null> => {
-    const filePath = getDictionaryFilePath(dictionaryKey);
-
-    if (!existsSync(filePath)) {
-      return null;
-    }
-
-    try {
-      const content = await readFile(filePath, 'utf-8');
-      return JSON.parse(content) as Dictionary;
-    } catch {
-      return null;
-    }
-  };
-
-  /**
-   * Merge extracted content with existing dictionary for multilingual format.
-   * - Keys in extracted but not in existing: added with default locale only
-   * - Keys in both: preserve existing translations, update default locale value
-   * - Keys in existing but not in extracted: removed (no longer in source)
-   */
-  const mergeWithExistingMultilingualDictionary = (
-    extractedContent: Record<string, string>,
-    existingDictionary: Dictionary | null,
-    defaultLocale: string
-  ): DictionaryContentMap => {
-    const mergedContent: DictionaryContentMap = {};
-    const existingContent = existingDictionary?.content as
-      | DictionaryContentMap
-      | undefined;
-
-    for (const [key, value] of Object.entries(extractedContent)) {
-      const existingEntry = existingContent?.[key];
-
-      if (
-        existingEntry &&
-        existingEntry.nodeType === 'translation' &&
-        existingEntry.translation
-      ) {
-        const oldValue = existingEntry.translation[defaultLocale];
-        const isUpdated = oldValue !== value;
-
-        // Key exists in both - preserve existing translations, update default locale
-        mergedContent[key] = {
-          nodeType: 'translation',
-          translation: {
-            ...existingEntry.translation,
-            [defaultLocale]: value,
-          },
-        };
-
-        if (isUpdated) {
-          logger(
-            `${colorize('Compiler:', ANSIColors.GREY_DARK)} Updated "${key}" [${defaultLocale}]: "${oldValue?.slice(0, 30)}..." → "${value.slice(0, 30)}..."`,
-            { level: 'info', isVerbose: true }
-          );
-        }
-      } else {
-        // New key - add with default locale only
-        mergedContent[key] = {
-          nodeType: 'translation',
-          translation: {
-            [defaultLocale]: value,
-          },
-        };
-        logger(
-          `${colorize('Compiler:', ANSIColors.GREY_DARK)} Added new key "${key}"`,
-          {
-            level: 'info',
-            isVerbose: true,
-          }
-        );
-      }
-    }
-
-    // Log removed keys
-    if (existingContent) {
-      const removedKeys = Object.keys(existingContent).filter(
-        (key) => !(key in extractedContent)
-      );
-      for (const key of removedKeys) {
-        logger(
-          `${colorize('Compiler:', ANSIColors.GREY_DARK)} Removed key ${colorizePath(`"${key}"`)} ${colorize('(no longer in source)', ANSIColors.GREY_LIGHT)}`,
-          {
-            level: 'info',
-            isVerbose: true,
-          }
-        );
-      }
-    }
-
-    return mergedContent;
-  };
-
-  /**
-   * Merge extracted content with existing dictionary for per-locale format.
-   * - Keys in extracted but not in existing: added
-   * - Keys in both: update value
-   * - Keys in existing but not in extracted: removed (no longer in source)
-   */
-  const mergeWithExistingPerLocaleDictionary = (
-    extractedContent: Record<string, string>,
-    existingDictionary: Dictionary | null,
-    defaultLocale: string
-  ): Record<string, string> => {
-    const mergedContent: Record<string, string> = {};
-    const existingContent = existingDictionary?.content as
-      | Record<string, string>
-      | undefined;
-
-    for (const [key, value] of Object.entries(extractedContent)) {
-      const existingValue = existingContent?.[key];
-
-      if (existingValue && typeof existingValue === 'string') {
-        const isUpdated = existingValue !== value;
-
-        mergedContent[key] = value;
-
-        if (isUpdated) {
-          logger(
-            `${colorize('Compiler:', ANSIColors.GREY_DARK)} Updated "${key}" [${defaultLocale}]: "${existingValue?.slice(0, 30)}..." → "${value.slice(0, 30)}..."`,
-            { level: 'info', isVerbose: true }
-          );
-        }
-      } else {
-        // New key
-        mergedContent[key] = value;
-        logger(
-          `${colorize('Compiler:', ANSIColors.GREY_DARK)} Added new key "${key}"`,
-          {
-            level: 'info',
-            isVerbose: true,
-          }
-        );
-      }
-    }
-
-    // Log removed keys
-    if (existingContent) {
-      const removedKeys = Object.keys(existingContent).filter(
-        (key) => !(key in extractedContent)
-      );
-      for (const key of removedKeys) {
-        logger(
-          `${colorize('Compiler:', ANSIColors.GREY_DARK)} Removed key "${key}" (no longer in source)`,
-          {
-            level: 'info',
-            isVerbose: true,
-          }
-        );
-      }
-    }
-
-    return mergedContent;
-  };
 
   /**
    * Build the list of files to transform based on configuration patterns
@@ -428,11 +259,24 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
    * The compiler is now autonomous and extracts content inline
    */
   const buildStart = async (): Promise<void> => {
-    // Autonomous compiler - no need to prepare dictionaries
-    // Content is extracted inline during transformation
-    logger('Intlayer compiler initialized', {
-      level: 'info',
-    });
+    // Bootstrap dictionaries and types before build starts
+    // This ensures existing dictionaries are available for resolution
+    try {
+      await prepareIntlayer(config, {
+        clean: activeCompilerMode === 'build',
+      });
+
+      logger('Intlayer compiler initialized', {
+        level: 'info',
+      });
+    } catch (error) {
+      logger(
+        `${colorize('Compiler:', ANSIColors.GREY_DARK)} Failed to prepare Intlayer: ${error}`,
+        {
+          level: 'error',
+        }
+      );
+    }
   };
 
   /**
@@ -443,14 +287,6 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
     if (pendingDictionaryWrite) {
       await pendingDictionaryWrite;
     }
-  };
-
-  /**
-   * Configure the dev server
-   */
-  const configureServer = async (): Promise<void> => {
-    // In autonomous mode, we don't need file watching for dictionaries
-    // Content is extracted inline during transformation
   };
 
   /**
@@ -511,22 +347,13 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
   };
 
   /**
-   * Write and build a single dictionary immediately
-   * This is called during transform to ensure dictionaries are always up-to-date.
-   *
-   * The merge strategy:
-   * - New keys are added with the default locale only
-   * - Existing keys preserve their translations, with default locale updated
-   * - Keys no longer in source are removed
-   *
-   * Dictionary format:
-   * - Per-locale: When config.dictionary.locale is set, content is simple strings with locale property
-   * - Multilingual: When not set, content is wrapped in translation nodes without locale property
+   * Write and build one or more dictionaries based on extracted content.
+   * Leverages shared logic from @intlayer/babel.
    */
   const writeAndBuildDictionary = async (
     result: ExtractResult
   ): Promise<void> => {
-    const { dictionaryKey, content } = result;
+    const { dictionaryKey, content, filePath: sourceFilePath } = result;
 
     // Skip if content hasn't changed - prevents infinite loops during HMR
     if (!hasDictionaryContentChanged(dictionaryKey, content)) {
@@ -540,119 +367,15 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
       return;
     }
 
-    const outputDir = getOutputDir();
-    const { defaultLocale } = config.internationalization;
-
-    // Check if per-locale format is configured
-    // When config.dictionary.locale is set, use per-locale format (simple strings with locale property)
-    // Otherwise, use multilingual format (content wrapped in TranslationNode objects)
-    const isPerLocaleFile = Boolean(config?.dictionary?.locale);
-
-    // Ensure output directory exists
-    await mkdir(outputDir, { recursive: true });
-
-    // Read existing dictionary to preserve translations and metadata
-    const existingDictionary = await readExistingDictionary(dictionaryKey);
-
-    const relativeFilePath = join(
-      relative(config.content.baseDir, outputDir),
-      `${dictionaryKey}.content.json`
-    );
-
-    // Build dictionary based on format - matching transformFiles.ts behavior
-    let mergedDictionary: Dictionary;
-
-    if (isPerLocaleFile) {
-      // Per-locale format: simple string content with locale property
-      const mergedContent = mergeWithExistingPerLocaleDictionary(
-        content,
-        existingDictionary,
-        defaultLocale
-      );
-
-      mergedDictionary = {
-        // Preserve existing metadata (title, description, tags, etc.)
-        ...(existingDictionary && {
-          $schema: existingDictionary.$schema,
-          id: existingDictionary.id,
-          title: existingDictionary.title,
-          description: existingDictionary.description,
-          tags: existingDictionary.tags,
-          fill: existingDictionary.fill,
-          filled: existingDictionary.filled,
-          priority: existingDictionary.priority,
-          version: existingDictionary.version,
-        }),
-        // Required fields
-        key: dictionaryKey,
-        content: mergedContent,
-        locale: defaultLocale,
-        filePath: relativeFilePath,
-      };
-    } else {
-      // Multilingual format: content wrapped in translation nodes, no locale property
-      const mergedContent = mergeWithExistingMultilingualDictionary(
-        content,
-        existingDictionary,
-        defaultLocale
-      );
-
-      mergedDictionary = {
-        // Preserve existing metadata (title, description, tags, etc.)
-        ...(existingDictionary && {
-          $schema: existingDictionary.$schema,
-          id: existingDictionary.id,
-          title: existingDictionary.title,
-          description: existingDictionary.description,
-          tags: existingDictionary.tags,
-          fill: existingDictionary.fill,
-          filled: existingDictionary.filled,
-          priority: existingDictionary.priority,
-          version: existingDictionary.version,
-        }),
-        // Required fields
-        key: dictionaryKey,
-        content: mergedContent,
-        filePath: relativeFilePath,
-      };
-    }
+    const compilerConfig = getCompilerConfig();
 
     try {
-      const writeResult = await writeContentDeclaration(
-        mergedDictionary,
+      await writeContentHelper(
+        content,
+        dictionaryKey,
+        sourceFilePath!,
         config,
-        {
-          newDictionariesPath: relative(config.content.baseDir, outputDir),
-        }
-      );
-
-      logger(
-        `${colorize('Compiler:', ANSIColors.GREY_DARK)} ${writeResult.status === 'created' ? 'Created' : writeResult.status === 'updated' ? 'Updated' : 'Processed'} content declaration: ${colorizePath(relative(projectRoot, writeResult.path))}`,
-        {
-          level: 'info',
-        }
-      );
-
-      // Build the dictionary immediately so it's available for the prune plugin
-      const dictionaryToBuild: Dictionary = {
-        ...mergedDictionary,
-        filePath: relative(config.content.baseDir, writeResult.path),
-      };
-
-      logger(
-        `${colorize('Compiler:', ANSIColors.GREY_DARK)} Building dictionary ${colorizeKey(dictionaryKey)}`,
-        {
-          level: 'info',
-        }
-      );
-
-      await buildDictionary([dictionaryToBuild], config);
-
-      logger(
-        `${colorize('Compiler:', ANSIColors.GREY_DARK)} Dictionary ${colorizeKey(dictionaryKey)} built successfully`,
-        {
-          level: 'info',
-        }
+        compilerConfig.output
       );
     } catch (error) {
       logger(
@@ -668,11 +391,13 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
    * Callback for when content is extracted from a file
    * Immediately writes and builds the dictionary
    */
-  const handleExtractedContent = (result: ExtractResult): void => {
+  const handleExtractedContent = async (
+    result: ExtractResult
+  ): Promise<void> => {
     const contentKeys = Object.keys(result.content);
 
     logger(
-      `${colorize('Compiler:', ANSIColors.GREY_DARK)} Extracted ${contentKeys.length} content keys from ${colorizePath(relative(projectRoot, result.filePath))}`,
+      `${colorize('Compiler:', ANSIColors.GREY_DARK)} Extracted ${colorizeNumber(contentKeys.length)} content keys from ${colorizePath(relative(projectRoot, result.filePath))}`,
       {
         level: 'info',
       }
@@ -689,6 +414,8 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
           }
         );
       });
+
+    return pendingDictionaryWrite;
   };
 
   /**
@@ -745,8 +472,8 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
       // Never write the modified source back to disk — Vite owns the file.
       declarationOnly: !getCompilerConfig().saveComponents,
       // Dictionary writing is handled by handleExtractedContent below.
-      onExtract: ({ key, content }) => {
-        handleExtractedContent({
+      onExtract: async ({ key, content }) => {
+        await handleExtractedContent({
           dictionaryKey: key,
           content,
           filePath: filename,
@@ -881,7 +608,6 @@ export const intlayerCompiler = (options?: IntlayerCompilerOptions): any => {
     configResolved,
     buildStart,
     buildEnd,
-    configureServer,
     handleHotUpdate,
     transform: transformHandler,
     apply: (_viteConfig: unknown, env: { command: string }) => {

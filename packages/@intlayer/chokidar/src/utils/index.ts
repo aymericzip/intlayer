@@ -4,6 +4,7 @@ export * from './chunkJSON';
 export * from './formatter';
 export * from './getChunk';
 export * from './getComponentTransformPattern';
+export * from './getContentExtension';
 export * from './getFormatFromExtension';
 export * from './getPathHash';
 export * from './mergeChunks';

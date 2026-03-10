@@ -1,6 +1,7 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, isAbsolute, join, relative, resolve } from 'node:path';
 import { loadExternalFile } from '@intlayer/config/file';
+import { parseFilePathPattern } from '@intlayer/config/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type {
@@ -9,19 +10,10 @@ import type {
   DictionaryLocation,
   LocalDictionaryId,
 } from '@intlayer/types/dictionary';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import type { Plugin } from '@intlayer/types/plugin';
+import type { FilePathPattern } from '@intlayer/types/filePathPattern';
 import fg from 'fast-glob';
 
 type JSONContent = Record<string, any>;
-
-type Builder = ({
-  key,
-  locale,
-}: {
-  key: string;
-  locale: LocalesValues | (string & {});
-}) => string;
 
 type MessagesRecord = Record<Locale, Record<Dictionary['key'], FilePath>>;
 
@@ -78,7 +70,7 @@ export const extractKeyAndLocaleFromPath = (
 };
 
 const listMessages = (
-  builder: Builder,
+  source: FilePathPattern,
   configuration: IntlayerConfig
 ): MessagesRecord => {
   const { content, internationalization } = configuration;
@@ -90,8 +82,14 @@ const listMessages = (
   const localePattern = `{${locales.map((locale) => locale).join(',')}}`;
 
   // FIX: Use '**' instead of '*' to allow recursive globbing for the key
-  const globPattern = builder({ key: '**', locale: localePattern });
-  const maskPattern = builder({ key: '{{__KEY__}}', locale: '{{__LOCALE__}}' });
+  const globPattern = parseFilePathPattern(source, {
+    key: '**',
+    locale: localePattern,
+  });
+  const maskPattern = parseFilePathPattern(source, {
+    key: '{{__KEY__}}',
+    locale: '{{__LOCALE__}}',
+  });
 
   const files = fg.sync(globPattern, {
     cwd: baseDir,
@@ -115,7 +113,7 @@ const listMessages = (
     const { key, locale } = extraction;
 
     // Generate what the path SHOULD be for this key/locale using the current builder
-    const expectedPath = builder({ key, locale });
+    const expectedPath = parseFilePathPattern(source, { key, locale });
 
     // Resolve both to absolute paths to ensure safe comparison
     const absoluteFoundPath = isAbsolute(file) ? file : resolve(baseDir, file);
@@ -159,7 +157,7 @@ const listMessages = (
 
     for (const key of keysToEnsure) {
       if (!result[locale][key as Dictionary['key']]) {
-        const builtPath = builder({ key, locale });
+        const builtPath = parseFilePathPattern(source, { key, locale });
         const absoluteBuiltPath = isAbsolute(builtPath)
           ? builtPath
           : resolve(baseDir, builtPath);
@@ -177,11 +175,11 @@ type FilePath = string;
 type DictionariesMap = { path: string; locale: Locale; key: string }[];
 
 const loadMessagePathMap = (
-  source: MessagesRecord | Builder,
+  source: MessagesRecord | FilePathPattern,
   configuration: IntlayerConfig
 ) => {
   const messages: MessagesRecord = listMessages(
-    source as Builder,
+    source as FilePathPattern,
     configuration
   );
 
@@ -214,7 +212,7 @@ type SyncJSONPluginOptions = {
    * })
    * ```
    */
-  source: Builder;
+  source: FilePathPattern;
 
   /**
    * Because Intlayer transform the JSON files into Dictionary, we need to identify the plugin in the dictionary.
@@ -263,7 +261,7 @@ type SyncJSONPluginOptions = {
 export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
   // Generate a unique default location based on the source pattern.
   // This ensures that if you have multiple plugins, they don't share the same 'plugin' ID.
-  const patternMarker = options.source({
+  const patternMarker = parseFilePathPattern(options.source, {
     key: '{{key}}',
     locale: '{{locale}}',
   });
@@ -284,7 +282,7 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
         configuration
       );
 
-      let fill: string = options.source({
+      let fill: string = parseFilePathPattern(options.source, {
         key: '{{key}}',
         locale: '{{locale}}',
       });
@@ -335,7 +333,7 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
 
       if (!dictionary.filePath || !dictionary.locale) return dictionary;
 
-      const builderPath = options.source({
+      const builderPath = parseFilePathPattern(options.source, {
         key: dictionary.key,
         locale: dictionary.locale,
       });
@@ -390,7 +388,7 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
           return;
         }
 
-        const builderPath = options.source({
+        const builderPath = parseFilePathPattern(options.source, {
           key,
           locale,
         });

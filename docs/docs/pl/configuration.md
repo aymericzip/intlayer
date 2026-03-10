@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add 'output' and 'noMetadata' support
   - version: 8.1.7
     date: 2026-02-25
     changes: Aktualizacja opcji kompilatora
@@ -434,7 +437,7 @@ const config: IntlayerConfig = {
    */
   compiler: {
     /**
-     * Indicates if the compiler should be enabled.
+     * Wskazuje, czy kompilator powinien być włączony.
      */
     enabled: true,
 
@@ -452,18 +455,23 @@ const config: IntlayerConfig = {
     excludePattern: ["**/node_modules/**"],
 
     /**
-     * Output directory for the optimized dictionaries.
+     * Katalog wyjściowy dla zoptymalizowanych słowników.
      */
-    outputDir: "compiler",
+    output: ({ key }) => `compiler/${key}.content.json`,
 
     /**
-     * Dictionary key prefix
+     * Wstaw tylko zawartość do wygenerowanego pliku, bez klucza.
+     */
+    noMetadata: false,
+
+    /**
+     * Prefiks klucza słownika
      */
     dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
-     * Indicates if the components should be saved after being transformed.
-     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     * Wskazuje, czy komponenty powinny być zapisywane po transformacji.
+     * W ten sposób kompilator można uruchomić tylko raz, aby przetransformować aplikację, a następnie go usunąć.
      */
     saveComponents: false,
   },
@@ -1070,7 +1078,7 @@ Opcje budowania dotyczą wtyczek `@intlayer/babel` oraz `@intlayer/swc`.
   - _Uwaga_: Upewnij się, że wszystkie klucze są deklarowane statycznie w wywołaniach `useIntlayer`, np. `useIntlayer('navbar')`.
 
 - **importMode**:
-  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
+  - _Uwaga_: **Deprecated**: Use `dictionary.importMode` instead.
   - _Typ_: `'static' | 'dynamic' | 'fetch'`
   - _Domyślnie_: `'static'`
   - _Opis_: Kontroluje sposób importowania słowników.
@@ -1088,10 +1096,10 @@ Opcje budowania dotyczą wtyczek `@intlayer/babel` oraz `@intlayer/swc`.
   - _Uwaga_: Tryb live będzie korzystał z API synchronizacji na żywo do pobierania słowników. Jeśli wywołanie API się nie powiedzie, słowniki zostaną zaimportowane dynamicznie w trybie "dynamic".
   - _Uwaga_: Ta opcja nie wpłynie na funkcje `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` oraz `useDictionaryDynamic`.
 - **checkTypes**:
-  - _Type_: `boolean`
-  - _Default_: `false`
-  - _Description_: Wskazuje, czy kompilacja powinna sprawdzać typy TypeScript i rejestrować błędy.
-  - _Note_: Może to spowolnić proces kompilacji.
+  - _Typ_: `boolean`
+  - _Domyślny_: `false`
+  - _Opis_: Wskazuje, czy kompilacja powinna sprawdzać typy TypeScript i rejestrować błędy.
+  - _Uwaga_: Może to spowolnić proces kompilacji.
 
 - **outputFormat**:
   - _Typ_: `'esm' | 'cjs'`
@@ -1154,3 +1162,31 @@ Ustawienia kontrolujące kompilator Intlayer, który wyodrębnia słowniki bezpo
   - _Typ_: `string`
   - _Domyślnie_: `'compiler'`
   - _Opis_: Katalog, w którym będą przechowywane wyodrębnione słowniki, względem ścieżki bazowej projektu.
+
+- **output**:
+  - _Typ_: `FilePathPattern`
+  - _Domyślny_: `({ key }) => 'compiler/${key}.content.json'`
+  - _Opis_: Definiuje ścieżkę plików wyjściowych. Zastępuje `outputDir`. Obsługuje zmienne dynamiczne, takie jak `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{componentFormat}}`. Można ustawić jako ciąg znaków w formacie `'my/{{var}}/path'` lub jako funkcję.
+  - _Uwaga_: Ścieżki `./**/*` są rozwiązywane względem komponentu. Ścieżki `/**/*` są rozwiązywane względem `baseDir` Intlayer.
+  - _Przykład_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _Typ_: `boolean`
+  - _Domyślny_: `false`
+  - _Opis_: Wskazuje, czy metadane powinny być zapisywane w pliku. Jeśli true, kompilator nie będzie zapisywał metadanych słowników (klucza, otoczki zawartości).
+  - _Uwaga_: Przydatne w przypadku korzystania z wtyczki `loadJSON`.
+  - _Przykład_: Jeśli `true`:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    Jeśli `false`:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```

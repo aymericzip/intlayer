@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-02-25
+updatedAt: 2026-03-10
 title: 設定
 description: Intlayerをアプリケーション向けに設定する方法を学びます。Intlayerをニーズに合わせてカスタマイズするためのさまざまな設定やオプションについて理解しましょう。
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.2.0
+    date: 2026-03-10
+    changes: Update compiler options, add 'output' and 'noMetadata' support
   - version: 8.1.7
     date: 2026-02-25
     changes: コンパイラーオプションの更新
@@ -422,7 +425,7 @@ const config: IntlayerConfig = {
    */
   compiler: {
     /**
-     * Indicates if the compiler should be enabled.
+     * コンパイラを有効にするかどうかを示します。
      */
     enabled: true,
 
@@ -440,18 +443,23 @@ const config: IntlayerConfig = {
     excludePattern: ["**/node_modules/**"],
 
     /**
-     * Output directory for the optimized dictionaries.
+     * 最適化された辞書の出力ディレクトリ。
      */
-    outputDir: "compiler",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
 
     /**
-     * Dictionary key prefix
+     * キーなしで、生成されたファイルにコンテンツのみを挿入します。
+     */
+    noMetadata: false,
+
+    /**
+     * 辞書キーのプレフィックス
      */
     dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
-     * Indicates if the components should be saved after being transformed.
-     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     * 変換後にコンポーネントを保存するかどうかを示します。
+     * これにより、コンパイラを1回だけ実行してアプリを変換し、その後削除することができます。
      */
     saveComponents: false,
   },
@@ -707,7 +715,7 @@ export default config;
 #### プロパティ
 
 - **autoFill**:
-  - _型_: `boolean | string | { [key in Locales]?: string }`
+  - _型_: `boolean | string | FilePathPattern | { [key in Locales]?: string }`
   - _デフォルト_: `undefined`
   - _説明_: コンテンツをAIを使って自動的にどのように埋めるかを示します。`intlayer.config.ts`ファイルでグローバルに宣言することができます。
   - _例_: true
@@ -850,7 +858,7 @@ export default config;
   - _デフォルト_: `'[intlayer] '`
   - _説明_: ロガーのプレフィックス。
   - _例_: `'[my custom prefix] '`
-  - _Note_: ロガーのプレフィックス。
+  - _注_: ロガーのプレフィックス。
 
 ### AI構成
 
@@ -953,10 +961,10 @@ Intlayerがアプリケーションの国際化をどのように最適化しビ
   - _注意_: 辞書のビルドを無効にするために使用できます。たとえば、Node.js環境での実行を避ける必要がある場合などです。
 
 - **checkTypes**:
-  - _Type_: `boolean`
-  - _Default_: `false`
-  - _Description_: ビルドがTypeScriptの型をチェックし、エラーをログに記録するかどうかを示します。
-  - _Note_: これにより、ビルドが遅くなる可能性があります。
+  - _タイプ_: `boolean`
+  - _デフォルト_: `false`
+  - _説明_: ビルドがTypeScriptの型をチェックし、エラーをログに記録するかどうかを示します。
+  - _注_: これにより、ビルドが遅くなる可能性があります。
 
 - **optimize**:
   - _型_: `boolean`
@@ -969,7 +977,7 @@ Intlayerがアプリケーションの国際化をどのように最適化しビ
   - _注意_: `useIntlayer`の呼び出し内で、すべてのキーが静的に宣言されていることを確認してください。例: `useIntlayer('navbar')`。
 
 - **importMode**:
-  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
+  - _注_: **Deprecated**: Use `dictionary.importMode` instead.
   - _タイプ_: `'static' | 'dynamic' | 'fetch'`
   - _デフォルト_: `'static'`
   - _説明_: 辞書のインポート方法を制御します。
@@ -1048,3 +1056,31 @@ Intlayerがアプリケーションの国際化をどのように最適化しビ
   - _型_: `string`
   - _デフォルト_: `'compiler'`
   - _説明_: 抽出された辞書が保存されるディレクトリ（プロジェクトのベースパスからの相対パス）。
+
+- **output**:
+  - _型_: `FilePathPattern`
+  - _デフォルト_: `({ key }) => 'compiler/${key}.content.json'`
+  - _説明_: 出力ファイルのパスを定義します。 `outputDir` を置き換えます。 `{{locale}}`、 `{{key}}`、 `{{fileName}}`、 `{{extension}}`、 `{{format}}`、 `{{dirPath}}`、 `{{componentFileName}}`、 `{{componentExtension}}`、 `{{componentFormat}}` などの動的変数を処理します。 `'my/{{var}}/path'` 形式の文字列または関数として設定できます。
+  - _注_: `./**/*` パスはコンポーネントを基準に解決されます。 `/**/*` パスは Intlayer の `baseDir` を基準に解決されます。
+  - _例_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _タイプ_: `boolean`
+  - _デフォルト_: `false`
+  - _説明_: メタデータをファイルに保存するかどうかを示します。trueの場合、コンパイラは辞書のメタデータ（キー、コンテンツラッパー）を保存しません。
+  - _注_: `loadJSON`プラグインを使用する場合に便利です。
+  - _例_: `true`の場合:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    `false`の場合:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```

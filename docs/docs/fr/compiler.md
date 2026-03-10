@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-02-25
+updatedAt: 2026-03-10
 title: Compilateur Intlayer | Extraction automatique de contenu pour l'i18n
 description: Automatisez votre processus d'internationalisation avec le compilateur Intlayer. Extrayez le contenu directement de vos composants pour une i18n plus rapide et plus efficace dans Vite, Next.js, et plus encore.
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.2.0
+    date: 2026-03-10
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.7
     date: 2026-02-25
     changes: Mise à jour des options du compilateur
@@ -157,7 +160,6 @@ import { type IntlayerConfig, Locales } from "intlayer";
 const config: IntlayerConfig = {
   compiler: {
     /**
-     * Indique si le compilateur doit être activé.
      * Réglez sur 'build-only' pour ignorer le compilateur pendant le développement et accélérer les temps de démarrage.
      */
     enabled: true,
@@ -178,7 +180,12 @@ const config: IntlayerConfig = {
     /**
      * Répertoire de sortie pour les dictionnaires optimisés.
      */
-    outputDir: "i18n",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
+
+    /**
+     * Insérer uniquement le contenu dans le fichier généré, sans clé.
+     */
+    noMetadata: false,
 
     /**
      * Préfixe de clé de dictionnaire
@@ -186,7 +193,7 @@ const config: IntlayerConfig = {
     dictionaryKeyPrefix: "", // Supprimer le préfixe de base
 
     /**
-     * Indique si les composants doivent être enregistrés après avoir été transformés.
+     * Indique si les composants doivent être sauvegardés après avoir été transformés.
      * De cette façon, le compilateur peut être exécuté une seule fois pour transformer l'application, puis il peut être supprimé.
      */
     saveComponents: false,
@@ -209,3 +216,61 @@ npx intlayer fill         # Remplir les traductions manquantes
 ```
 
 > Pour plus de détails, consultez la [documentation CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/ci.md)
+
+### Référence de la configuration du compilateur
+
+Les propriétés suivantes peuvent être configurées dans le bloc `compiler` de votre fichier `intlayer.config.ts` :
+
+- **enabled**:
+  - _Type_: `boolean | 'build-only'`
+  - _Par défaut_: `true`
+  - _Description_: Indique si le compilateur doit être activé.
+- **dictionaryKeyPrefix**:
+  - _Type_: `string`
+  - _Par défaut_: `'comp-'`
+  - _Description_: Préfixe pour les clés de dictionnaire extraites.
+- **transformPattern**:
+  - _Type_: `string | string[]`
+  - _Par défaut_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}', '!**/node_modules/**']`
+  - _Description_: Modèles pour parcourir le code à optimiser.
+- **excludePattern**:
+  - _Type_: `string | string[]`
+  - _Par défaut_: `['**/node_modules/**']`
+  - _Description_: Modèles à exclure de l'optimisation.
+- **outputDir** (Deprecated):
+  - _Type_: `string`
+  - _Par défaut_: `'compiler'`
+  - _Description_: Le répertoire où les dictionnaires extraits seront stockés.
+
+- **output**:
+  - _Type_: `FilePathPattern`
+  - _Par défaut_: `({ key }) => 'compiler/${key}.content.json'`
+  - _Description_: Définit le chemin des fichiers de sortie. Remplace `outputDir`. Gère les variables dynamiques telles que `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{componentFormat}}`. Peut être configuré sous forme de chaîne à l'aide du format `'my/{{var}}/path'` ou sous forme de fonction.
+  - _Note_: `./**/*` Les chemins sont résolus par rapport au composant. `/**/*` les chemins sont résolus par rapport au `baseDir` d'Intlayer.
+  - _Exemple_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _Type_: `boolean`
+  - _Par défaut_: `false`
+  - _Description_: Indique si les métadonnées doivent être enregistrées dans le fichier. Si vrai, le compilateur n'enregistrera pas les métadonnées des dictionnaires (clé, enveloppe de contenu).
+  - _Note_: Utile si utilisé avec le plugin `loadJSON`.
+  - _Exemple_: Si `true` :
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    Si `false` :
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```
+
+- **saveComponents**:
+  - _Type_: `boolean`
+  - _Par défaut_: `false`
+  - _Description_: Indique si les composants doivent être sauvegardés après avoir été transformés.

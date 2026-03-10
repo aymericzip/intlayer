@@ -1,4 +1,3 @@
-import { getIntlayer } from 'intlayer';
 import {
   type DetailedHTMLProps,
   type FC,

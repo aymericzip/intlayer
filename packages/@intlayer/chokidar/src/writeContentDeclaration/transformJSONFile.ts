@@ -96,7 +96,8 @@ const updateObjectLiteral = (node: any, data: Record<string, any>) => {
 
 export const transformJSONFile = (
   fileContent: string,
-  dictionary: Dictionary
+  dictionary: Dictionary,
+  noMetadata?: boolean
 ): string => {
   // Wrap content to create valid syntax for the parser
   const wrappedContent = `const _config = ${fileContent.trim() || '{}'};`;
@@ -106,7 +107,11 @@ export const transformJSONFile = (
     ast = recast.parse(wrappedContent);
   } catch {
     // Fallback if parsing failed
-    return JSON.stringify(dictionary, null, 2);
+    return JSON.stringify(
+      noMetadata ? dictionary.content : dictionary,
+      null,
+      2
+    );
   }
 
   // Navigate the AST to locate the object literal initialized to `_config`
@@ -122,13 +127,40 @@ export const transformJSONFile = (
     objectLiteral = declaration.declarations[0].init;
   }
 
-  if (!objectLiteral) {
-    // Fallback if the AST structure isn't what we expect
-    return JSON.stringify(dictionary, null, 2);
+  if (noMetadata) {
+    // Remove key, content and metadata properties if they exist
+    const metadataProperties = [
+      'id',
+      'locale',
+      'filled',
+      'fill',
+      'title',
+      'description',
+      'tags',
+      'version',
+      'priority',
+      'contentAutoTransformation',
+      '$schema',
+    ];
+
+    objectLiteral.properties = objectLiteral.properties.filter((prop: any) => {
+      if (n.Property.check(prop) || n.ObjectProperty.check(prop)) {
+        let propName = '';
+        if (n.Identifier.check(prop.key)) propName = prop.key.name;
+        else if (n.StringLiteral.check(prop.key)) propName = prop.key.value;
+        else if (n.Literal.check(prop.key)) propName = String(prop.key.value);
+
+        return !['key', 'content', ...metadataProperties].includes(propName);
+      }
+      return true;
+    });
   }
 
   // Update the AST in place
-  updateObjectLiteral(objectLiteral, dictionary);
+  updateObjectLiteral(
+    objectLiteral,
+    noMetadata ? (dictionary.content as Record<string, any>) : dictionary
+  );
 
   // Print only the target object literal node
   return recast.print(objectLiteral, {

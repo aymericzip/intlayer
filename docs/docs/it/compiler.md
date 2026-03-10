@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-02-25
+updatedAt: 2026-03-10
 title: Compiler Intlayer | Estrazione automatica dei contenuti per i18n
 description: Automatizza il tuo processo di internazionalizzazione con il compilatore Intlayer. Estrai contenuti direttamente dai tuoi componenti per un i18n più veloce ed efficiente in Vite, Next.js e altro.
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.2.0
+    date: 2026-03-10
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.7
     date: 2026-02-25
     changes: Aggiorna le opzioni del compilatore
@@ -157,13 +160,12 @@ import { type IntlayerConfig, Locales } from "intlayer";
 const config: IntlayerConfig = {
   compiler: {
     /**
-     * Indica se il compiler deve essere abilitato.
-     * Imposta su 'build-only' per saltare il compiler durante lo sviluppo e velocizzare i tempi di avvio.
+     * Imposta su 'build-only' per saltare il compilatore durante lo sviluppo e accelerare i tempi di avvio.
      */
     enabled: true,
 
     /**
-     * Pattern per attraversare il codice da ottimizzare.
+     * Pattern to traverse the code to optimize.
      */
     transformPattern: [
       "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
@@ -171,23 +173,28 @@ const config: IntlayerConfig = {
     ],
 
     /**
-     * Pattern da escludere dall'ottimizzazione.
+     * Pattern to exclude from the optimization.
      */
     excludePattern: ["**/node_modules/**"],
 
     /**
      * Directory di output per i dizionari ottimizzati.
      */
-    outputDir: "i18n",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
+
+    /**
+     * Inserisci solo il contenuto nel file generato, senza chiave.
+     */
+    noMetadata: false,
 
     /**
      * Prefisso chiave dizionario
      */
-    dictionaryKeyPrefix: "", // Rimuovi prefisso di base
+    dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
      * Indica se i componenti devono essere salvati dopo essere stati trasformati.
-     * In questo modo, il compiler può essere eseguito solo una volta per trasformare l'app, e poi può essere rimosso.
+     * In questo modo, il compilatore può essere eseguito una sola volta per trasformare l'app e poi rimosso.
      */
     saveComponents: false,
   },
@@ -209,3 +216,61 @@ npx intlayer fill         # Riempi le traduzioni mancanti
 ```
 
 > Per maggiori dettagli, fare riferimento alla [documentazione CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/ci.md)
+
+### Riferimento alla configurazione del compilatore
+
+Le seguenti proprietà possono essere configurate nel blocco `compiler` del file `intlayer.config.ts`:
+
+- **enabled**:
+  - _Tipo_: `boolean | 'build-only'`
+  - _Predefinito_: `true`
+  - _Descrizione_: Indica se il compilatore deve essere abilitato.
+- **dictionaryKeyPrefix**:
+  - _Tipo_: `string`
+  - _Predefinito_: `'comp-'`
+  - _Descrizione_: Prefisso per le chiavi del dizionario estratte.
+- **transformPattern**:
+  - _Tipo_: `string | string[]`
+  - _Predefinito_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}', '!**/node_modules/**']`
+  - _Descrizione_: Modelli per attraversare il codice da ottimizzare.
+- **excludePattern**:
+  - _Tipo_: `string | string[]`
+  - _Predefinito_: `['**/node_modules/**']`
+  - _Descrizione_: Modelli da escludere dall'ottimizzazione.
+- **outputDir** (Deprecated):
+  - _Tipo_: `string`
+  - _Predefinito_: `'compiler'`
+  - _Descrizione_: La directory in cui verranno memorizzati i dizionari estratti.
+
+- **output**:
+  - _Type_: `FilePathPattern`
+  - _Default_: `({ key }) => 'compiler/${key}.content.json'`
+  - _Descrizione_: Definisce il percorso dei file di output. Sostituisce `outputDir`. Gestisce variabili dinamiche come `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{componentFormat}}`. Può essere impostato come stringa utilizzando il formato `'my/{{var}}/path'` o come funzione.
+  - _Nota_: `./**/*` I percorsi sono risolti relativamente al componente. `/**/*` i percorsi sono risolti relativamente al `baseDir` di Intlayer.
+  - _Esempio_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _Tipo_: `boolean`
+  - _Predefinito_: `false`
+  - _Descrizione_: Indica se i metadati devono essere salvati nel file. Se vero, il compilatore non salverà i metadatati dei dizionari (chiave, contenitore del contenuto).
+  - _Nota_: Utile se utilizzato con il plugin `loadJSON`.
+  - _Esempio_: Se `true`:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    Se `false`:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```
+
+- **saveComponents**:
+  - _Tipo_: `boolean`
+  - _Predefinito_: `false`
+  - _Descrizione_: Indica se i componenti devono essere salvati dopo essere stati trasformati.

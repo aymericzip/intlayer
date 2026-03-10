@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-no-lolale-path-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.6
     date: 2026-02-23
     changes: Phiên bản đầu tiên
@@ -128,23 +131,28 @@ const config: IntlayerConfig = {
   },
   compiler: {
     /**
-     * Cho biết liệu trình biên dịch có nên được bật hay không.
+     * Cho biết trình biên dịch có nên được bật hay không.
      */
     enabled: true,
 
     /**
-     * Thư mục đầu ra cho các từ điển đã được tối ưu hóa.
+     * Thư mục đầu ra cho các từ điển được tối ưu hóa.
      */
-    outputDir: "compiler",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
+
+    /**
+     * Chỉ chèn nội dung vào tệp đã tạo, không có khóa.
+     */
+    noMetadata: false,
 
     /**
      * Tiền tố khóa từ điển
      */
-    dictionaryKeyPrefix: "", // Xóa tiền tố cơ bản
+    dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
-     * Cho biết liệu các thành phần có nên được lưu lại sau khi được biến đổi hay không.
-     * Bằng cách này, trình biên dịch có thể được chạy một lần để biến đổi ứng dụng, sau đó nó có thể được gỡ bỏ.
+     * Cho biết liệu các thành phần có nên được lưu sau khi được chuyển đổi hay không.
+     * Bằng cách đó, trình biên dịch có thể được chạy một lần duy nhất để chuyển đổi ứng dụng, và sau đó nó có thể được gỡ bỏ.
      */
     saveComponents: false,
   },

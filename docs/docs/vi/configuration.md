@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add 'output' and 'noMetadata' support
   - version: 8.1.7
     date: 2026-02-25
     changes: Cập nhật các tùy chọn trình biên dịch
@@ -437,7 +440,7 @@ const config: IntlayerConfig = {
    */
   compiler: {
     /**
-     * Indicates if the compiler should be enabled.
+     * Cho biết trình biên dịch có nên được bật hay không.
      */
     enabled: true,
 
@@ -455,18 +458,23 @@ const config: IntlayerConfig = {
     excludePattern: ["**/node_modules/**"],
 
     /**
-     * Output directory for the optimized dictionaries.
+     * Thư mục đầu ra cho các từ điển được tối ưu hóa.
      */
-    outputDir: "compiler",
+    output: ({ key }) => `compiler/${key}.content.json`,
 
     /**
-     * Dictionary key prefix
+     * Chỉ chèn nội dung vào tệp đã tạo, không có khóa.
+     */
+    noMetadata: false,
+
+    /**
+     * Tiền tố khóa từ điển
      */
     dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
-     * Indicates if the components should be saved after being transformed.
-     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     * Cho biết liệu các thành phần có nên được lưu sau khi được chuyển đổi hay không.
+     * Bằng cách đó, trình biên dịch có thể được chạy một lần duy nhất để chuyển đổi ứng dụng, và sau đó nó có thể được gỡ bỏ.
      */
     saveComponents: false,
   },
@@ -1073,7 +1081,7 @@ Các tùy chọn build áp dụng cho các plugin `@intlayer/babel` và `@intlay
   - _Lưu ý_: Đảm bảo tất cả các khóa được khai báo tĩnh trong các lệnh gọi `useIntlayer`. Ví dụ: `useIntlayer('navbar')`.
 
 - **importMode**:
-  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
+  - _Ghi chú_: **Deprecated**: Use `dictionary.importMode` instead.
   - _Kiểu_: `'static' | 'dynamic' | 'fetch'`
   - _Mặc định_: `'static'`
   - _Mô tả_: Điều khiển cách các từ điển được nhập.
@@ -1091,10 +1099,10 @@ Các tùy chọn build áp dụng cho các plugin `@intlayer/babel` và `@intlay
   - _Lưu ý_: Chế độ live sẽ sử dụng live sync API để lấy các từ điển. Nếu cuộc gọi API thất bại, các từ điển sẽ được nhập động dưới dạng chế độ "dynamic".
   - _Lưu ý_: Tùy chọn này sẽ không ảnh hưởng đến các hàm `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` và `useDictionaryDynamic`.
 - **checkTypes**:
-  - _Type_: `boolean`
-  - _Default_: `false`
-  - _Description_: Cho biết liệu quá trình xây dựng có nên kiểm tra các kiểu TypeScript và ghi lại lỗi hay không.
-  - _Note_: Điều này có thể làm chậm quá trình xây dựng.
+  - _Loại_: `boolean`
+  - _Mặc định_: `false`
+  - _Mô tả_: Cho biết liệu quá trình xây dựng có nên kiểm tra các kiểu TypeScript và ghi lại lỗi hay không.
+  - _Ghi chú_: Điều này có thể làm chậm quá trình xây dựng.
 
 - **outputFormat**:
   - _Kiểu_: `'esm' | 'cjs'`
@@ -1157,3 +1165,31 @@ Các cài đặt kiểm soát trình biên dịch Intlayer, trình biên dịch 
   - _Kiểu_: `string`
   - _Mặc định_: `'compiler'`
   - _Mô tả_: Thư mục nơi các từ điển trích xuất sẽ được lưu trữ, tương đối so với đường dẫn gốc dự án của bạn.
+
+- **output**:
+  - _Loại_: `FilePathPattern`
+  - _Mặc định_: `({ key }) => 'compiler/${key}.content.json'`
+  - _Mô tả_: Xác định đường dẫn tệp đầu ra. Thay thế `outputDir`. Xử lý các biến động như `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}` và `{{componentFormat}}`. Có thể được đặt dưới dạng chuỗi bằng định dạng `'my/{{var}}/path'` hoặc dưới dạng hàm.
+  - _Ghi chú_: Các đường dẫn `./**/*` được giải quyết tương đối so với component. Các đường dẫn `/**/*` được giải quyết tương đối so với `baseDir` của Intlayer.
+  - _Ví dụ_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _Loại_: `boolean`
+  - _Mặc định_: `false`
+  - _Mô tả_: Cho biết liệu siêu dữ liệu có nên được lưu trong tệp hay không. Nếu true, trình biên dịch sẽ không lưu siêu dữ liệu của từ điển (khóa, trình bao bọc nội dung).
+  - _Ghi chú_: Hữu ích nếu được sử dụng với plugin `loadJSON`.
+  - _Ví dụ_: Nếu `true`:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    Nếu `false`:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```

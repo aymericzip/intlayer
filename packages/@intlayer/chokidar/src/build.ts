@@ -1,5 +1,5 @@
 export * from './buildIntlayerDictionary/index';
-export { cleanOutputDir } from './cleanOutputDir';
+export * from './cleanOutputDir';
 export * from './createDictionaryEntryPoint/index';
 export * from './createType/index';
 export * from './formatDictionary';

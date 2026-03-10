@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.6
     date: 2026-02-23
     changes: Erstveröffentlichung
@@ -132,16 +135,21 @@ const config: IntlayerConfig = {
     /**
      * Ausgabeverzeichnis für die optimierten Wörterbücher.
      */
-    outputDir: "compiler",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
 
     /**
-     * Wörterbuch-Schlüsselpräfix
+     * Fügen Sie nur den Inhalt in die generierte Datei ein, ohne Schlüssel.
      */
-    dictionaryKeyPrefix: "", // Basispräfix entfernen
+    noMetadata: false,
+
+    /**
+     * Wörterbuch-Präfix
+     */
+    dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
      * Gibt an, ob die Komponenten nach der Transformation gespeichert werden sollen.
-     * Auf diese Weise kann der Compiler nur einmal ausgeführt werden, um die App zu transformieren, und kann dann entfernt werden.
+     * Auf diese Weise kann der Compiler nur einmal ausgeführt werden, um die App zu transformieren, und dann entfernt werden.
      */
     saveComponents: false,
   },

@@ -1,101 +1,48 @@
-import type { Fill } from '@intlayer/types/dictionary';
+import { extname } from 'node:path';
+import {
+  getContentExtension,
+  getFormatFromExtension,
+} from '@intlayer/chokidar/utils';
+import { resolveDictionaryPaths } from '@intlayer/config/utils';
+import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import { formatAutoFilledFilePath } from './formatAutoFilledFilePath';
+import type { DictionaryKey, Fill } from '@intlayer/types/dictionary';
 
 export type FillData = {
-  localeList: LocalesValues[];
+  localeList: Locale[];
   filePath: string;
   isPerLocale: boolean;
 };
 
-export const formatFillData = (
+export const formatFillData = async (
   fillField: Fill,
-  localeList: LocalesValues[],
+  localeList: Locale[],
   filePath: string,
-  dictionaryKey: string,
+  dictionaryKey: DictionaryKey,
   configuration: IntlayerConfig
-): FillData[] => {
-  const outputContentDeclarationFile: FillData[] = [];
+): Promise<FillData[]> => {
+  if (!fillField) return [];
 
-  const baseDir = configuration.content.baseDir;
+  const { baseDir } = configuration.content;
+  const { defaultLocale } = configuration.internationalization;
 
-  if (!fillField) return outputContentDeclarationFile;
+  const format = getFormatFromExtension(extname(fillField as string) as any);
 
-  if (typeof fillField === 'string') {
-    if (fillField.includes('{{locale}}')) {
-      const output = localeList.map((locale) => {
-        const formattedFilePath = formatAutoFilledFilePath(
-          fillField,
-          dictionaryKey,
-          filePath,
-          baseDir,
-          locale
-        );
+  // Resolve all paths using the shared utility
+  const resolvedPaths = await resolveDictionaryPaths({
+    pattern: fillField as any, // resolveDictionaryPaths handles string/object/function
+    dictionaryKey,
+    sourceFilePath: filePath,
+    baseDir,
+    locales: localeList,
+    defaultLocale,
+    contentExtension: getContentExtension(format, configuration),
+    format,
+  });
 
-        return {
-          localeList: [locale],
-          filePath: formattedFilePath,
-          isPerLocale: true,
-        };
-      });
-
-      outputContentDeclarationFile.push(...output);
-    } else {
-      const formattedFilePath = formatAutoFilledFilePath(
-        fillField,
-        dictionaryKey,
-        filePath,
-        baseDir
-      );
-
-      outputContentDeclarationFile.push({
-        localeList,
-        filePath: formattedFilePath,
-        isPerLocale: false,
-      });
-    }
-
-    return outputContentDeclarationFile;
-  }
-
-  if (typeof fillField === 'object') {
-    const localeList = Object.keys(fillField).filter(
-      (locale) =>
-        typeof fillField[locale as keyof typeof fillField] === 'string'
-    ) as LocalesValues[];
-
-    const output: FillData[] = localeList
-      .filter((locale) => Boolean(fillField[locale as keyof typeof fillField]))
-      .map((locale) => {
-        const formattedFilePath = formatAutoFilledFilePath(
-          fillField[locale as keyof typeof fillField] as string,
-          dictionaryKey,
-          filePath,
-          baseDir,
-          locale
-        );
-
-        return {
-          localeList: [locale],
-          filePath: formattedFilePath,
-          isPerLocale: true,
-        };
-      });
-
-    // Group by filePath and merge localeList
-    const groupedByFilePath = output.reduce((acc, curr) => {
-      const existing = acc.find((item) => item.filePath === curr.filePath);
-      if (existing) {
-        existing.localeList.push(...curr.localeList);
-      } else {
-        acc.push(curr);
-      }
-      return acc;
-    }, [] as FillData[]);
-
-    outputContentDeclarationFile.push(...groupedByFilePath);
-  }
-
-  return outputContentDeclarationFile;
+  return resolvedPaths.map((resolved) => ({
+    localeList: resolved.locales,
+    filePath: resolved.filePath,
+    isPerLocale: resolved.isPerLocale,
+  }));
 };

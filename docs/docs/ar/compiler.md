@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-02-25
+updatedAt: 2026-03-10
 title: مترجم Intlayer | استخراج المحتوى الآلي للتدويل
 description: قم بأتمتة عملية التدويل الخاصة بك باستخدام مترجم Intlayer. استخرج المحتوى مباشرة من مكوناتك لتحقيق تدويل أسرع وأكثر كفاءة في Vite و Next.js والمزيد.
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.7
     date: 2026-02-25
     changes: تحديث خيارات المترجم
@@ -157,13 +160,12 @@ import { type IntlayerConfig, Locales } from "intlayer";
 const config: IntlayerConfig = {
   compiler: {
     /**
-     * يشير إلى ما إذا كان يجب تمكين المترجم.
-     * اضبطه على 'build-only' لتخطي المترجم أثناء التطوير وتسريع أوقات البدء.
+     * اضبط على 'build-only' لتخطي المجمّع أثناء التطوير وتسريع أوقات التشغيل.
      */
     enabled: true,
 
     /**
-     * نمط لاجتياز الكود المراد تحسينه.
+     * Pattern to traverse the code to optimize.
      */
     transformPattern: [
       "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
@@ -171,23 +173,28 @@ const config: IntlayerConfig = {
     ],
 
     /**
-     * نمط للاستبعاد من التحسين.
+     * Pattern to exclude from the optimization.
      */
     excludePattern: ["**/node_modules/**"],
 
     /**
      * دليل الإخراج للقواميس المحسنة.
      */
-    outputDir: "i18n",
+    output: ({ key }) => `compiler/${key}.content.json`,
+
+    /**
+     * أدخل المحتوى فقط في الملف الذي تم إنشاؤه، بدون مفتاح.
+     */
+    noMetadata: false,
 
     /**
      * بادئة مفتاح القاموس
      */
-    dictionaryKeyPrefix: "", // إزالة بادئة القاعدة
+    dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
      * يشير إلى ما إذا كان يجب حفظ المكونات بعد تحويلها.
-     * بهذه الطريقة، يمكن تشغيل المترجم مرة واحدة فقط لتحويل التطبيق، ثم يمكن إزالته.
+     * بهذه الطريقة، يمكن تشغيل المجمّع مرة واحدة فقط لتحويل التطبيق، ثم يمكن إزالته.
      */
     saveComponents: false,
   },
@@ -209,3 +216,61 @@ npx intlayer fill         # ملء الترجمات المفقودة
 ```
 
 > لمزيد من التفاصيل، راجع [توثيق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/ci.md)
+
+### مرجع تكوين المجمّع
+
+يمكن تكوين الخصائص التالية في كتلة `compiler` في ملف `intlayer.config.ts` الخاص بك:
+
+- **enabled**:
+  - _النوع_: `boolean | 'build-only'`
+  - _الافتراضي_: `true`
+  - _الوصف_: يشير إلى ما إذا كان يجب تمكين المجمّع.
+- **dictionaryKeyPrefix**:
+  - _النوع_: `string`
+  - _الافتراضي_: `'comp-'`
+  - _الوصف_: بادئة لمفاتيح القواميس المستخرجة.
+- **transformPattern**:
+  - _النوع_: `string | string[]`
+  - _الافتراضي_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}', '!**/node_modules/**']`
+  - _الوصف_: أنماط لاجتياز الكود لتحسينه.
+- **excludePattern**:
+  - _النوع_: `string | string[]`
+  - _الافتراضي_: `['**/node_modules/**']`
+  - _الوصف_: أنماط لاستبعادها من التحسين.
+- **outputDir** (Deprecated):
+  - _النوع_: `string`
+  - _الافتراضي_: `'compiler'`
+  - _الوصف_: الدليل الذي سيتم تخزين القواميس المستخرجة فيه.
+
+- **output**:
+  - _النوع_: `FilePathPattern`
+  - _الافتراضي_: `({ key }) => 'compiler/${key}.content.json'`
+  - _الوصف_: يحدد مسار ملفات الإخراج. يستبدل `outputDir`. يتعامل مع المتغيرات الديناميكية مثل `{{locale}}` و `{{key}}` و `{{fileName}}` و `{{extension}}` و `{{format}}` و `{{dirPath}}` و `{{componentFileName}}` و `{{componentExtension}}` و `{{componentFormat}}`. يمكن تعيينه كسلسلة باستخدام تنسيق `'my/{{var}}/path'`، أو كدالة.
+  - _ملاحظة_: يتم حل مسار `./**/*` بالنسبة للمكون. يتم حل مسار `/**/*` بالنسبة لـ `baseDir` الخاص بـ Intlayer.
+  - _مثال_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _النوع_: `boolean`
+  - _الافتراضي_: `false`
+  - _الوصف_: يشير إلى ما إذا كان سيتم حفظ البيانات الوصفية في الملف. إذا كان صحيحا، فلن يحفظ المجمّع البيانات الوصفية للقواميس (المفتاح، غلاف المحتوى).
+  - _ملاحظة_: مفيد إذا تم استخدامه مع إضافة `loadJSON`.
+  - _مثال_: إذا كان `true`:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    إذا كان `false`:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```
+
+- **saveComponents**:
+  - _النوع_: `boolean`
+  - _الافتراضي_: `false`
+  - _الوصف_: يشير إلى ما إذا كان يجب حفظ المكونات بعد تحويلها.

@@ -2,8 +2,8 @@ import { writeFile } from 'node:fs/promises';
 import { join, relative } from 'node:path';
 import { loadExternalFile } from '@intlayer/config/file';
 import { cacheDisk, getProjectRequire } from '@intlayer/config/utils';
-import type { Dictionary } from '@intlayer/types/dictionary';
 import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { processContentDeclaration } from '../buildIntlayerDictionary/processContentDeclaration';
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { parallelize } from '../utils/parallelize';
@@ -22,6 +22,60 @@ export const formatLocalDictionaries = (
     filePath: relativePath,
   }));
 
+export const ensureIntlayerBundle = async (
+  configuration: IntlayerConfig
+): Promise<string> => {
+  const { system } = configuration;
+
+  const { set, isValid } = cacheDisk(configuration, ['intlayer-bundle'], {
+    ttlMs: 1000 * 60 * 60 * 24 * 5, // 5 days
+  });
+
+  const filePath = join(system.cacheDir, 'intlayer-bundle.cjs');
+  const hasIntlayerBundle = await isValid();
+
+  if (!hasIntlayerBundle) {
+    const intlayerBundle = await getIntlayerBundle(configuration);
+    await writeFile(filePath, intlayerBundle);
+    await set('ok');
+  }
+
+  return filePath;
+};
+
+export const loadContentDeclaration = async (
+  path: string,
+  configuration: IntlayerConfig,
+  bundleFilePath?: string
+): Promise<Dictionary | undefined> => {
+  const { build } = configuration;
+
+  const resolvedBundleFilePath =
+    bundleFilePath ?? (await ensureIntlayerBundle(configuration));
+
+  try {
+    const dictionary = await loadExternalFile(path, {
+      projectRequire: build.require ?? getProjectRequire(),
+      buildOptions: {
+        banner: {
+          js: [
+            `globalThis.INTLAYER_FILE_PATH = '${path}';`,
+            `globalThis.INTLAYER_BASE_DIR = '${configuration.content.baseDir}';`,
+          ].join('\n'),
+        },
+      },
+      aliases: {
+        intlayer: resolvedBundleFilePath,
+      },
+    });
+
+    return dictionary;
+  } catch (error) {
+    console.error(`Error loading content declaration at ${path}:`, error);
+    return undefined;
+  }
+};
+
 export const loadContentDeclarations = async (
   contentDeclarationFilePath: string[],
   configuration: IntlayerConfig,
@@ -38,43 +92,18 @@ export const loadContentDeclarations = async (
     );
   }
 
-  const { set, isValid, clear } = cacheDisk(
-    configuration,
-    ['intlayer-bundle'],
-    {
-      ttlMs: 1000 * 60 * 60 * 24 * 5, // 5 days
-    }
-  );
-
-  const filePath = join(system.cacheDir, 'intlayer-bundle.cjs');
-  const hasIntlayerBundle = await isValid();
-
-  // If cache is invalid, write the intlayer bundle to the cache
-  if (!hasIntlayerBundle) {
-    const intlayerBundle = await getIntlayerBundle(configuration);
-    await writeFile(filePath, intlayerBundle);
-    await set('ok');
-  }
+  const bundleFilePath = await ensureIntlayerBundle(configuration);
 
   try {
     const dictionariesPromises = contentDeclarationFilePath.map(
       async (path) => {
         const relativePath = relative(configuration.content.baseDir, path);
 
-        const dictionary = await loadExternalFile(path, {
-          projectRequire: build.require ?? getProjectRequire(),
-          buildOptions: {
-            banner: {
-              js: [
-                `globalThis.INTLAYER_FILE_PATH = '${path}';`,
-                `globalThis.INTLAYER_BASE_DIR = '${configuration.content.baseDir}';`,
-              ].join('\n'),
-            },
-          },
-          aliases: {
-            intlayer: filePath,
-          },
-        });
+        const dictionary = await loadContentDeclaration(
+          path,
+          configuration,
+          bundleFilePath
+        );
 
         return { relativePath, dictionary };
       }
@@ -83,7 +112,9 @@ export const loadContentDeclarations = async (
     const dictionariesArray = await Promise.all(dictionariesPromises);
     const dictionariesRecord = dictionariesArray.reduce(
       (acc, { relativePath, dictionary }) => {
-        acc[relativePath] = dictionary;
+        if (dictionary) {
+          acc[relativePath] = dictionary;
+        }
         return acc;
       },
       {} as Record<string, Dictionary>
@@ -143,7 +174,6 @@ export const loadContentDeclarations = async (
     });
   } catch {
     console.error('Error loading content declarations');
-    await clear();
   }
 
   return [];

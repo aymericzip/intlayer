@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-02-25
+updatedAt: 2026-03-10
 title: Intlayer コンパイラー | i18n のための自動コンテンツ抽出
 description: Intlayer コンパイラーで国際化プロセスを自動化しましょう。コンポーネントから直接コンテンツを抽出し、Vite、Next.js などでより高速かつ効率的な i18n を実現します。
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.2.0
+    date: 2026-03-10
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.7
     date: 2026-02-25
     changes: コンパイラーオプションの更新
@@ -157,13 +160,12 @@ import { type IntlayerConfig, Locales } from "intlayer";
 const config: IntlayerConfig = {
   compiler: {
     /**
-     * コンパイラを有効にするかどうかを指定します。
-     * 開発中にコンパイラをスキップして起動時間を短縮するには、'build-only' に設定します。
+     * 開発中のコンパイラをスキップして起動時間を短縮するには、'build-only'に設定します。
      */
     enabled: true,
 
     /**
-     * 最適化するためにコードを走査するパターン。
+     * Pattern to traverse the code to optimize.
      */
     transformPattern: [
       "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
@@ -171,23 +173,28 @@ const config: IntlayerConfig = {
     ],
 
     /**
-     * 最適化から除外するパターン。
+     * Pattern to exclude from the optimization.
      */
     excludePattern: ["**/node_modules/**"],
 
     /**
      * 最適化された辞書の出力ディレクトリ。
      */
-    outputDir: "i18n",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
 
     /**
-     * 辞書のキープレフィックス
+     * キーなしで、生成されたファイルにコンテンツのみを挿入します。
      */
-    dictionaryKeyPrefix: "", // ベースプレフィックスを削除
+    noMetadata: false,
 
     /**
-     * コンポーネントを変換した後に保存するかどうかを指定します。
-     * そうすることで、コンパイラを 1 回だけ実行してアプリを変換し、その後削除することができます。
+     * 辞書キーのプレフィックス
+     */
+    dictionaryKeyPrefix: "", // Remove base prefix
+
+    /**
+     * 変換後にコンポーネントを保存するかどうかを示します。
+     * これにより、コンパイラを1回だけ実行してアプリを変換し、その後削除することができます。
      */
     saveComponents: false,
   },
@@ -209,3 +216,61 @@ npx intlayer fill         # 欠落した翻訳を埋める
 ```
 
 > 詳細については、[CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/ci.md)を参照してください。
+
+### コンパイラ設定リファレンス
+
+以下のプロパティは、`intlayer.config.ts`ファイルの`compiler`ブロックで設定できます。
+
+- **enabled**:
+  - _タイプ_: `boolean | 'build-only'`
+  - _デフォルト_: `true`
+  - _説明_: コンパイラを有効にするかどうかを示します。
+- **dictionaryKeyPrefix**:
+  - _タイプ_: `string`
+  - _デフォルト_: `'comp-'`
+  - _説明_: 抽出された辞書キーのプレフィックス。
+- **transformPattern**:
+  - _タイプ_: `string | string[]`
+  - _デフォルト_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}', '!**/node_modules/**']`
+  - _説明_: 最適化のためにコードをトラバースするパターン。
+- **excludePattern**:
+  - _タイプ_: `string | string[]`
+  - _デフォルト_: `['**/node_modules/**']`
+  - _説明_: 最適化から除外するパターン。
+- **outputDir** (Deprecated):
+  - _タイプ_: `string`
+  - _デフォルト_: `'compiler'`
+  - _説明_: 抽出された辞書が保存されるディレクトリ。
+
+- **output**:
+  - _型_: `FilePathPattern`
+  - _デフォルト_: `({ key }) => 'compiler/${key}.content.json'`
+  - _説明_: 出力ファイルのパスを定義します。 `outputDir` を置き換えます。 `{{locale}}`、 `{{key}}`、 `{{fileName}}`、 `{{extension}}`、 `{{format}}`、 `{{dirPath}}`、 `{{componentFileName}}`、 `{{componentExtension}}`、 `{{componentFormat}}` などの動的変数を処理します。 `'my/{{var}}/path'` 形式の文字列または関数として設定できます。
+  - _注_: `./**/*` パスはコンポーネントを基準に解決されます。 `/**/*` パスは Intlayer の `baseDir` を基準に解決されます。
+  - _例_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _タイプ_: `boolean`
+  - _デフォルト_: `false`
+  - _説明_: メタデータをファイルに保存するかどうかを示します。trueの場合、コンパイラは辞書のメタデータ（キー、コンテンツラッパー）を保存しません。
+  - _注_: `loadJSON`プラグインを使用する場合に便利です。
+  - _例_: `true`の場合:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    `false`の場合:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```
+
+- **saveComponents**:
+  - _タイプ_: `boolean`
+  - _デフォルト_: `false`
+  - _説明_: 変換後にコンポーネントを保存するかどうかを示します。

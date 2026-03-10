@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-02-25
+updatedAt: 2026-03-10
 title: Intlayer Compiler | i18n के लिए स्वचालित सामग्री निष्कर्षण
 description: Intlayer Compiler के साथ अपने अंतरराष्ट्रीयकरण प्रक्रिया को स्वचालित करें। Vite, Next.js, और अन्य में तेज़, अधिक कुशल i18n के लिए सीधे अपने कंपोनेंट्स से सामग्री निकालें।
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.7
     date: 2026-02-25
     changes: कंपाइलर विकल्पों को अपडेट करें
@@ -157,13 +160,12 @@ import { type IntlayerConfig, Locales } from "intlayer";
 const config: IntlayerConfig = {
   compiler: {
     /**
-     * इंगित करता है कि क्या कंपाइलर सक्षम होना चाहिए।
-     * विकास के दौरान कंपाइलर को छोड़ने और स्टार्टअप समय को तेज़ करने के लिए 'build-only' पर सेट करें।
+     * विकास के दौरान कंपाइलर को छोड़ने और स्टार्टअप समय को तेज करने के लिए 'build-only' पर सेट करें।
      */
     enabled: true,
 
     /**
-     * अनुकूलित करने के लिए कोड को पार करने का पैटर्न।
+     * Pattern to traverse the code to optimize.
      */
     transformPattern: [
       "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
@@ -171,23 +173,28 @@ const config: IntlayerConfig = {
     ],
 
     /**
-     * अनुकूलन से बाहर करने का पैटर्न।
+     * Pattern to exclude from the optimization.
      */
     excludePattern: ["**/node_modules/**"],
 
     /**
      * अनुकूलित शब्दकोशों के लिए आउटपुट निर्देशिका।
      */
-    outputDir: "i18n",
+    output: ({ key }) => `compiler/${key}.content.json`,
+
+    /**
+     * उत्पन्न फ़ाइल में केवल सामग्री डालें, बिना कुंजी के।
+     */
+    noMetadata: false,
 
     /**
      * शब्दकोश कुंजी उपसर्ग
      */
-    dictionaryKeyPrefix: "", // बेस उपसर्ग हटाएँ
+    dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
-     * इंगित करता है कि क्या कंपोनेंट्स को रूपांतरित होने के बाद सहेजा जाना चाहिए।
-     * इस तरह, कंपाइलर को ऐप को रूपांतरित करने के लिए केवल एक बार चलाया जा सकता है, और फिर इसे हटाया जा सकता है।
+     * इंगित करता है कि क्या घटकों को रूपांतरित होने के बाद सहेजा जाना चाहिए।
+     * इस तरह, कंपाइलer को ऐप को रूपांतरित करने के लिए केवल एक बार चलाया जा सकता है, और फिर इसे हटाया जा सकता है।
      */
     saveComponents: false,
   },
@@ -209,3 +216,61 @@ npx intlayer fill         # लापता अनुवाद भरें
 ```
 
 > अधिक विवरण के लिए, [CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/ci.md) देखें।
+
+### कंपाइलर कॉन्फ़िगरेशन संदर्भ
+
+निम्नलिखित गुणों को आपकी `intlayer.config.ts` फ़ाइल के `compiler` ब्लॉक में कॉन्फ़िगर किया जा सकता है:
+
+- **enabled**:
+  - _प्रकार_: `boolean | 'build-only'`
+  - _डिफ़ॉल्ट_: `true`
+  - _विवरण_: इंगित करता है कि क्या कंपाइलर सक्षम होना चाहिए।
+- **dictionaryKeyPrefix**:
+  - _प्रकार_: `string`
+  - _डिफ़ॉल्ट_: `'comp-'`
+  - _विवरण_: निकाली गई शब्दकोश कुंजियों के लिए उपसर्ग।
+- **transformPattern**:
+  - _प्रकार_: `string | string[]`
+  - _डिफ़ॉल्ट_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}', '!**/node_modules/**']`
+  - _विवरण_: ऑप्टिमाइज़ करने के लिए कोड को पार करने के पैटर्न।
+- **excludePattern**:
+  - _प्रकार_: `string | string[]`
+  - _डिफ़ॉल्ट_: `['**/node_modules/**']`
+  - _विवरण_: ऑप्टिमाइज़ेशन से बाहर रखने के पैटर्न।
+- **outputDir** (Deprecated):
+  - _प्रकार_: `string`
+  - _डिफ़ॉल्ट_: `'compiler'`
+  - _विवरण_: वह निर्देशिका जहाँ निकाली गई शब्दकोश सामग्री संग्रहीत की जाएगी।
+
+- **output**:
+  - _प्रकार_: `FilePathPattern`
+  - _डिफ़ॉल्ट_: `({ key }) => 'compiler/${key}.content.json'`
+  - _विवरण_: आउटपुट फ़ाइल पथ को परिभाषित करता है। `outputDir` को प्रतिस्थापित करता है। `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, और `{{componentFormat}}` जैसे गतिशील चरों को संभालता है। इसे `'my/{{var}}/path'` प्रारूप का उपयोग करके एक स्ट्रिंग के रूप में, या एक फ़ंक्शन के रूप में सेट किया जा सकता है।
+  - _नोट_: `./**/*` पथ घटक के सापेक्ष हल किए जाते हैं। `/**/*` पथ Intlayer `baseDir` के सापेक्ष हल किए जाते हैं।
+  - _उदाहरण_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _प्रकार_: `boolean`
+  - _डिफ़ॉल्ट_: `false`
+  - _विवरण_: इंगित करता है कि फ़ाइल में मेटाडेटा सहेजा जाना चाहिए या नहीं। यदि सही है, तो कंपाइलर शब्दकोशों (कुंजी, सामग्री रैपर) के मेटाडेटा को नहीं बचाएगा।
+  - _नोट_: `loadJSON` प्लगइन के साथ उपयोग किए जाने पर उपयोगी।
+  - _उदाहरण_: यदि `सही` है:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    यदि `गलत` है:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```
+
+- **saveComponents**:
+  - _प्रकार_: `boolean`
+  - _डिफ़ॉल्ट_: `false`
+  - _विवरण_: इंगित करता है कि क्या घटकों को रूपांतरित होने के बाद सहेजा जाना चाहिए।

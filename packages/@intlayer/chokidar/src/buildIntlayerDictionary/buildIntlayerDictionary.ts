@@ -20,8 +20,8 @@ export const buildDictionary = async (
   importOtherDictionaries = true
 ) => {
   const importMode =
-    configuration.build.importMode ??
-    configuration.dictionary?.importMode ??
+    configuration?.build?.importMode ??
+    configuration?.dictionary?.importMode ??
     DefaultValues.Dictionary.IMPORT_MODE;
 
   const unmergedDictionariesToUpdate: Dictionary[] = [

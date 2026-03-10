@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-02-25
+updatedAt: 2026-03-10
 title: Configurazione
 description: Scopri come configurare Intlayer per la tua applicazione. Comprendi le varie impostazioni e opzioni disponibili per personalizzare Intlayer secondo le tue esigenze.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.2.0
+    date: 2026-03-10
+    changes: Update compiler options, add 'output' and 'noMetadata' support
   - version: 8.1.7
     date: 2026-02-25
     changes: Aggiorna le opzioni del compilatore
@@ -419,7 +422,7 @@ const config: IntlayerConfig = {
    */
   compiler: {
     /**
-     * Indicates if the compiler should be enabled.
+     * Indica se il compilatore deve essere abilitato.
      */
     enabled: true,
 
@@ -437,18 +440,23 @@ const config: IntlayerConfig = {
     excludePattern: ["**/node_modules/**"],
 
     /**
-     * Output directory for the optimized dictionaries.
+     * Directory di output per i dizionari ottimizzati.
      */
-    outputDir: "compiler",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
 
     /**
-     * Dictionary key prefix
+     * Inserisci solo il contenuto nel file generato, senza chiave.
+     */
+    noMetadata: false,
+
+    /**
+     * Prefisso chiave dizionario
      */
     dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
-     * Indicates if the components should be saved after being transformed.
-     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     * Indica se i componenti devono essere salvati dopo essere stati trasformati.
+     * In questo modo, il compilatore può essere eseguito una sola volta per trasformare l'app e poi rimosso.
      */
     saveComponents: false,
   },
@@ -704,7 +712,7 @@ Impostazioni relative alla gestione del contenuto all'interno dell'applicazione,
 #### Proprietà
 
 - **autoFill**:
-  - _Tipo_: `boolean | string | { [key in Locales]?: string }`
+  - _Tipo_: `boolean | string | FilePathPattern | { [key in Locales]?: string }`
   - _Predefinito_: `undefined`
   - _Descrizione_: Indica come il contenuto dovrebbe essere compilato automaticamente usando l'IA. Può essere dichiarato globalmente nel file `intlayer.config.ts`.
   - _Esempio_: true
@@ -832,11 +840,11 @@ Per ulteriori informazioni sui file di dichiarazione del contenuto e su come ven
 - **locale**
 - **location**
 - **importMode**:
-  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
-  - _Type_: `'static' | 'dynamic' | 'fetch'`
-  - _Default_: `'static'`
-  - _Description_: Controls how dictionaries are imported.
-  - _Example_: `'dynamic'`
+  - _Nota_: **Deprecated**: Use `dictionary.importMode` instead.
+  - _Tipo_: `'static' | 'dynamic' | 'fetch'`
+  - _Predefinito_: `'static'`
+  - _Descrizione_: Controls how dictionaries are imported.
+  - _Esempio_: `'dynamic'`
 - **priority**
 - **live**
 - **schema**
@@ -968,10 +976,10 @@ Le opzioni di build si applicano ai plugin `@intlayer/babel` e `@intlayer/swc`.
   - _Nota_: Può essere utilizzato per disabilitare la build dei dizionari, ad esempio quando l'esecuzione in un ambiente Node.js dovrebbe essere evitata.
 
 - **checkTypes**:
-  - _Type_: `boolean`
-  - _Default_: `false`
-  - _Description_: Indica se la build deve controllare i tipi TypeScript e registrare gli errori.
-  - _Note_: Questo può rallentare la build.
+  - _Tipo_: `boolean`
+  - _Predefinito_: `false`
+  - _Descrizione_: Indica se la build deve controllare i tipi TypeScript e registrare gli errori.
+  - _Nota_: Questo può rallentare la build.
 
 - **optimize**:
   - _Tipo_: `boolean`
@@ -984,7 +992,7 @@ Le opzioni di build si applicano ai plugin `@intlayer/babel` e `@intlayer/swc`.
   - _Nota_: Assicurarsi che tutte le chiavi siano dichiarate staticamente nelle chiamate a `useIntlayer`. Es. `useIntlayer('navbar')`.
 
 - **importMode**:
-  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
+  - _Nota_: **Deprecated**: Use `dictionary.importMode` instead.
   - _Tipo_: `'static' | 'dynamic' | 'fetch'`
   - _Predefinito_: `'static'`
   - _Descrizione_: Controlla come vengono importati i dizionari.
@@ -1063,3 +1071,31 @@ Impostazioni che controllano il compilatore Intlayer, che estrae i dizionari dir
   - _Tipo_: `string`
   - _Predefinito_: `'compiler'`
   - _Descrizione_: La directory in cui verranno memorizzati i dizionari estratti, relativa al percorso di base del progetto.
+
+- **output**:
+  - _Type_: `FilePathPattern`
+  - _Default_: `({ key }) => 'compiler/${key}.content.json'`
+  - _Descrizione_: Definisce il percorso dei file di output. Sostituisce `outputDir`. Gestisce variabili dinamiche come `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{componentFormat}}`. Può essere impostato come stringa utilizzando il formato `'my/{{var}}/path'` o come funzione.
+  - _Nota_: `./**/*` I percorsi sono risolti relativamente al componente. `/**/*` i percorsi sono risolti relativamente al `baseDir` di Intlayer.
+  - _Esempio_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _Tipo_: `boolean`
+  - _Predefinito_: `false`
+  - _Descrizione_: Indica se i metadati devono essere salvati nel file. Se vero, il compilatore non salverà i metadatati dei dizionari (chiave, contenitore del contenuto).
+  - _Nota_: Utile se utilizzato con il plugin `loadJSON`.
+  - _Esempio_: Se `true`:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    Se `false`:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-02-25
+updatedAt: 2026-03-10
 title: Intlayer Compiler | Автоматизированное извлечение контента для i18n
 description: Автоматизируйте процесс интернационализации с помощью Intlayer Compiler. Извлекайте контент напрямую из ваших компонентов для более быстрого и эффективного i18n в Vite, Next.js и других.
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.2.0
+    date: 2026-03-10
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.7
     date: 2026-02-25
     changes: Обновление опций компилятора
@@ -157,13 +160,12 @@ import { type IntlayerConfig, Locales } from "intlayer";
 const config: IntlayerConfig = {
   compiler: {
     /**
-     * Указывает, должен ли быть включен компилятор.
-     * Установите значение 'build-only', чтобы пропустить компилятор во время разработки и ускорить время запуска.
+     * Установите значение 'build-only', чтобы пропустить компилятор во время разработки и ускорить запуск.
      */
     enabled: true,
 
     /**
-     * Шаблон для обхода кода для оптимизации.
+     * Pattern to traverse the code to optimize.
      */
     transformPattern: [
       "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
@@ -171,23 +173,28 @@ const config: IntlayerConfig = {
     ],
 
     /**
-     * Шаблон для исключения из оптимизации.
+     * Pattern to exclude from the optimization.
      */
     excludePattern: ["**/node_modules/**"],
 
     /**
      * Выходной каталог для оптимизированных словарей.
      */
-    outputDir: "i18n",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
+
+    /**
+     * Вставьте только содержимое в сгенерированный файл, без ключа.
+     */
+    noMetadata: false,
 
     /**
      * Префикс ключа словаря
      */
-    dictionaryKeyPrefix: "", // Удалить базовый префикс
+    dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
-     * Указывает, должны ли компоненты сохраняться после преобразования.
-     * Таким образом, компилятор можно запустить только один раз для преобразования приложения, а затем его можно удалить.
+     * Указывает, должны ли компоненты сохраняться после трансформации.
+     * Таким образом, компилятор можно запустить только один раз для трансформации приложения, а затем удалить.
      */
     saveComponents: false,
   },
@@ -209,3 +216,61 @@ npx intlayer fill         # Заполнить недостающие перев
 ```
 
 > Для получения более подробной информации обратитесь к [документации CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/ci.md)
+
+### Справочник по конфигурации компилятора
+
+Следующие свойства могут быть настроены в блоке `compiler` вашего файла `intlayer.config.ts`:
+
+- **enabled**:
+  - _Тип_: `boolean | 'build-only'`
+  - _По умолчанию_: `true`
+  - _Описание_: Указывает, должен ли компилятор быть включен.
+- **dictionaryKeyPrefix**:
+  - _Тип_: `string`
+  - _По умолчанию_: `'comp-'`
+  - _Описание_: Префикс для извлеченных ключей словаря.
+- **transformPattern**:
+  - _Тип_: `string | string[]`
+  - _По умолчанию_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}', '!**/node_modules/**']`
+  - _Описание_: Шаблоны для обхода кода для оптимизации.
+- **excludePattern**:
+  - _Тип_: `string | string[]`
+  - _По умолчанию_: `['**/node_modules/**']`
+  - _Описание_: Шаблоны для исключения из оптимизации.
+- **outputDir** (Deprecated):
+  - _Тип_: `string`
+  - _По умолчанию_: `'compiler'`
+  - _Описание_: Каталог, в котором будут храниться извлеченные словари.
+
+- **output**:
+  - _Тип_: `FilePathPattern`
+  - _По умолчанию_: `({ key }) => 'compiler/${key}.content.json'`
+  - _Описание_: Определяет путь к выходным файлам. Заменяет `outputDir`. Поддерживает динамические переменные, такие как `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{componentFormat}}`. Может быть задано как строка в формате `'my/{{var}}/path'` или как функция.
+  - _Примечание_: `./**/*` Пути разрешаются относительно компонента. `/**/*` пути разрешаются относительно `baseDir` Intlayer.
+  - _Пример_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _Тип_: `boolean`
+  - _По умолчанию_: `false`
+  - _Описание_: Указывает, должны ли метаданные сохраняться в файле. Если true, компилятор не будет сохранять метаданные словарей (ключ, оболочка содержимого).
+  - _Примечание_: Полезно при использовании с плагином `loadJSON`.
+  - _Пример_: Если `true`:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    Если `false`:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```
+
+- **saveComponents**:
+  - _Тип_: `boolean`
+  - _По умолчанию_: `false`
+  - _Описание_: Указывает, должны ли компоненты сохраняться после трансформации.

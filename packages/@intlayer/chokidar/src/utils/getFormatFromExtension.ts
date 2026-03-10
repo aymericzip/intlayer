@@ -20,7 +20,10 @@ export const getFormatFromExtension = (extension: Extension): Format => {
     case '.cjs':
     case '.cjsx':
       return 'cjs';
+    case '.js':
+    case '.jsx':
     case '.mjs':
+    case '.mjsx':
       return 'esm';
     case '.json':
     case '.jsonc':

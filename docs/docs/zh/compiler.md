@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-02-25
+updatedAt: 2026-03-10
 title: Intlayer 编译器 | 用于 i18n 的自动内容提取
 description: 使用 Intlayer 编译器自动化您的国际化流程。直接从组件中提取内容，实现 Vite、Next.js 等框架中更快速、更高效的 i18n。
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.2.0
+    date: 2026-03-10
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.7
     date: 2026-02-25
     changes: 更新编译器选项
@@ -157,13 +160,12 @@ import { type IntlayerConfig, Locales } from "intlayer";
 const config: IntlayerConfig = {
   compiler: {
     /**
-     * 指示是否应启用编译器。
-     * 设置为 'build-only' 可在开发期间跳过编译器并加快启动速度。
+     * 设置为 “build-only” 以在开发期间跳过编译器并加快启动速度。
      */
     enabled: true,
 
     /**
-     * 遍历要优化的代码的模式。
+     * Pattern to traverse the code to optimize.
      */
     transformPattern: [
       "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
@@ -171,23 +173,28 @@ const config: IntlayerConfig = {
     ],
 
     /**
-     * 要从优化中排除的模式。
+     * Pattern to exclude from the optimization.
      */
     excludePattern: ["**/node_modules/**"],
 
     /**
-     * 优化后字典的输出目录。
+     * 优化字典的输出目录。
      */
-    outputDir: "i18n",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
+
+    /**
+     * 仅在生成的文件中插入内容，不含键。
+     */
+    noMetadata: false,
 
     /**
      * 字典键前缀
      */
-    dictionaryKeyPrefix: "", // 移除基本前缀
+    dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
-     * 指示是否应在转换后保存组件。
-     * 这样，编译器只需运行一次即可转换应用程序，然后可以将其移除。
+     * 指示转换后是否应保存组件。
+     * 这样，编译器只需运行一次即可转换应用程序，然后即可将其删除。
      */
     saveComponents: false,
   },
@@ -209,3 +216,61 @@ npx intlayer fill         # 填充缺失的翻译
 ```
 
 > 有关更多详细信息，请参阅 [CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/ci.md)
+
+### 编译器配置参考
+
+可以在 `intlayer.config.ts` 文件的 `compiler` 块中配置以下属性：
+
+- **enabled**:
+  - _类型_: `boolean | 'build-only'`
+  - _默认值_: `true`
+  - _描述_: 指示是否应启用编译器。
+- **dictionaryKeyPrefix**:
+  - _类型_: `string`
+  - _默认值_: `'comp-'`
+  - _描述_: 提取的字典键的前缀。
+- **transformPattern**:
+  - _类型_: `string | string[]`
+  - _默认值_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}', '!**/node_modules/**']`
+  - _描述_: 遍历代码进行优化的模式。
+- **excludePattern**:
+  - _类型_: `string | string[]`
+  - _默认值_: `['**/node_modules/**']`
+  - _描述_: 优化中排除的模式。
+- **outputDir** (Deprecated):
+  - _类型_: `string`
+  - _默认值_: `'compiler'`
+  - _描述_: 存储提取的字典的目录。
+
+- **output**:
+  - _类型_: `FilePathPattern`
+  - _默认值_: `({ key }) => 'compiler/${key}.content.json'`
+  - _描述_: 定义输出文件路径。替换 `outputDir`。处理动态变量，如 `{{locale}}`、`{{key}}`、`{{fileName}}`、`{{extension}}`、`{{format}}`、`{{dirPath}}`、`{{componentFileName}}`、`{{componentExtension}}`、`{{componentFormat}}`。可以设置为字符串（使用 `'my/{{var}}/path'` 格式）或函数。
+  - _注意_: `./**/*` 路径相对于组件解析。`/**/*` 路径相对于 Intlayer 的 `baseDir` 解析。
+  - _示例_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _类型_: `boolean`
+  - _默认值_: `false`
+  - _描述_: 指示是否应在文件中保存元数据。如果为 true，编译器将不会保存字典的元数据（键、内容包装器）。
+  - _注意_: 如果与 `loadJSON` 插件一起使用，则非常有用。
+  - _示例_: 如果为 `true`：
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    如果为 `false`：
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```
+
+- **saveComponents**:
+  - _类型_: `boolean`
+  - _默认值_: `false`
+  - _描述_: 指示转换后是否应保存组件。

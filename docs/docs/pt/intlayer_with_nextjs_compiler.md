@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-no-lolale-path-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.6
     date: 2026-02-23
     changes: Lançamento inicial
@@ -133,18 +136,23 @@ const config: IntlayerConfig = {
     enabled: true,
 
     /**
-     * Diretório de saída para os dicionários otimizados.
+     * Diretório de saída para os dicionários optimizados.
      */
-    outputDir: "compiler",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
+
+    /**
+     * Inserir apenas o conteúdo no arquivo gerado, sem chave.
+     */
+    noMetadata: false,
 
     /**
      * Prefixo da chave do dicionário
      */
-    dictionaryKeyPrefix: "", // Remover prefixo base
+    dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
      * Indica se os componentes devem ser salvos após serem transformados.
-     * Dessa forma, o compilador pode ser executado apenas uma vez para transformar o aplicativo e depois pode ser removido.
+     * Dessa forma, o compilador pode ser executado apenas uma vez para transformar o app e depois removido.
      */
     saveComponents: false,
   },

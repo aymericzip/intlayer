@@ -9,5 +9,7 @@ export * from './getExtension';
 export * from './getPackageJsonPath';
 export * from './logStack';
 export * from './normalizePath';
+export * from './parseFilePathPattern';
+export * from './resolveDictionaryPaths';
 export * from './retryManager';
 export * from './stringFormatter';

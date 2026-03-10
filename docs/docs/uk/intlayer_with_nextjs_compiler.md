@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-no-lolale-path-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.6
     date: 2026-02-23
     changes: Перший випуск
@@ -128,23 +131,28 @@ const config: IntlayerConfig = {
   },
   compiler: {
     /**
-     * Вказує, чи повинен бути включений компілятор.
+     * Вказує, чи має бути увімкнено компілятор.
      */
     enabled: true,
 
     /**
      * Вихідний каталог для оптимізованих словників.
      */
-    outputDir: "compiler",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
+
+    /**
+     * Вставте лише вміст у згенерований файл, без ключа.
+     */
+    noMetadata: false,
 
     /**
      * Префікс ключа словника
      */
-    dictionaryKeyPrefix: "", // Видалити базовий префікс
+    dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
-     * Вказує, чи повинні компоненти зберігатися після трансформації.
-     * Таким чином, компілятор можна запустити один раз для трансформації додатка, після чого його можна видалити.
+     * Вказує, чи мають компоненти зберігатися після трансформації.
+     * Таким чином компілятор можна запустити лише один раз для трансформації додатка, а потім видалити.
      */
     saveComponents: false,
   },

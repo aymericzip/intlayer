@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-no-lolale-path-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.6
     date: 2026-02-23
     changes: Initial release
@@ -127,9 +130,25 @@ const config: IntlayerConfig = {
     mode: "search-params",
   },
   compiler: {
-    enabled: true, // Can be set to 'build-only' to limit impact on dev mode
-    outputDir: "i18n",
-    dictionaryKeyPrefix: "", // No prefix, default is "comp-"
+    /**
+     * Set to 'build-only' to skip the compiler during development and speed up start times.
+     */
+    enabled: true,
+
+    /**
+     * Output directory for the optimized dictionaries.
+     */
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
+
+    /**
+     * Inset only content in generated file, without key.
+     */
+    noMetadata: false,
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "", // Remove base prefix
   },
   ai: {
     provider: "openai",

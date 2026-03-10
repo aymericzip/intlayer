@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-no-lolale-path-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.6
     date: 2026-02-23
     changes: Première version
@@ -135,7 +138,12 @@ const config: IntlayerConfig = {
     /**
      * Répertoire de sortie pour les dictionnaires optimisés.
      */
-    outputDir: "compiler",
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
+
+    /**
+     * Insérer uniquement le contenu dans le fichier généré, sans clé.
+     */
+    noMetadata: false,
 
     /**
      * Préfixe de clé de dictionnaire

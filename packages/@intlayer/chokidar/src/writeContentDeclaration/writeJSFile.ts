@@ -3,8 +3,8 @@ import { existsSync } from 'node:fs';
 import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
 import { basename, extname, join } from 'node:path';
 import { getAppLogger, logger } from '@intlayer/config/logger';
-import type { Dictionary } from '@intlayer/types/dictionary';
 import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { detectFormatCommand } from '../detectFormatCommand';
 import { getContentDeclarationFileTemplate } from '../getContentDeclarationFileTemplate/getContentDeclarationFileTemplate';
 import {
@@ -22,7 +22,8 @@ import { transformJSFile } from './transformJSFile';
 export const writeJSFile = async (
   filePath: string,
   dictionary: Dictionary,
-  configuration: IntlayerConfig
+  configuration: IntlayerConfig,
+  noMetadata?: boolean
 ): Promise<void> => {
   const mergedDictionary = {
     ...configuration.dictionary,
@@ -46,18 +47,19 @@ export const writeJSFile = async (
       // Filter out undefined values
       Object.fromEntries(
         Object.entries({
-          id: mergedDictionary.id,
-          locale: mergedDictionary.locale,
-          filled: mergedDictionary.filled,
-          fill: mergedDictionary.fill,
-          description: mergedDictionary.description,
-          title: mergedDictionary.title,
-          tags: mergedDictionary.tags,
-          version: mergedDictionary.version,
-          priority: mergedDictionary.priority,
-          importMode: mergedDictionary.importMode,
+          id: noMetadata ? undefined : mergedDictionary.id,
+          locale: noMetadata ? undefined : mergedDictionary.locale,
+          filled: noMetadata ? undefined : mergedDictionary.filled,
+          fill: noMetadata ? undefined : mergedDictionary.fill,
+          description: noMetadata ? undefined : mergedDictionary.description,
+          title: noMetadata ? undefined : mergedDictionary.title,
+          tags: noMetadata ? undefined : mergedDictionary.tags,
+          version: noMetadata ? undefined : mergedDictionary.version,
+          priority: noMetadata ? undefined : mergedDictionary.priority,
+          importMode: noMetadata ? undefined : mergedDictionary.importMode,
         }).filter(([, value]) => value !== undefined)
-      )
+      ),
+      noMetadata
     );
 
     const tempDir = configuration.system?.tempDir;
@@ -89,11 +91,18 @@ export const writeJSFile = async (
 
     fileContent = await getContentDeclarationFileTemplate(
       mergedDictionary.key,
-      format
+      format,
+      {},
+      noMetadata
     );
   }
 
-  const finalCode = await transformJSFile(fileContent, dictionary);
+  const finalCode = await transformJSFile(
+    fileContent,
+    dictionary,
+    dictionary.locale as any,
+    noMetadata
+  );
 
   // Write the modified code back to the file
   const tempDir = configuration.system?.tempDir;

@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add 'output' and 'noMetadata' support
   - version: 8.1.7
     date: 2026-02-25
     changes: Perbarui opsi kompiler
@@ -437,7 +440,7 @@ const config: IntlayerConfig = {
    */
   compiler: {
     /**
-     * Indicates if the compiler should be enabled.
+     * Menunjukkan apakah kompiler harus diaktifkan.
      */
     enabled: true,
 
@@ -455,18 +458,23 @@ const config: IntlayerConfig = {
     excludePattern: ["**/node_modules/**"],
 
     /**
-     * Output directory for the optimized dictionaries.
+     * Direktori output untuk kamus yang dioptimalkan.
      */
-    outputDir: "compiler",
+    output: ({ key }) => `compiler/${key}.content.json`,
 
     /**
-     * Dictionary key prefix
+     * Masukkan konten saja dalam file yang dihasilkan, tanpa kunci.
+     */
+    noMetadata: false,
+
+    /**
+     * Awalan kunci kamus
      */
     dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
-     * Indicates if the components should be saved after being transformed.
-     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     * Menunjukkan apakah komponen harus disimpan setelah ditransformasi.
+     * Dengan begitu, kompiler hanya perlu dijalankan sekali untuk mentransformasi aplikasi, lalu dapat dihapus.
      */
     saveComponents: false,
   },
@@ -1082,7 +1090,7 @@ Opsi build berlaku untuk plugin `@intlayer/babel` dan `@intlayer/swc`.
   - _Catatan_: Pastikan semua kunci dideklarasikan secara statis dalam panggilan `useIntlayer`. Contoh: `useIntlayer('navbar')`.
 
 - **importMode**:
-  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
+  - _Catatan_: **Deprecated**: Use `dictionary.importMode` instead.
   - _Tipe_: `'static' | 'dynamic' | 'fetch'`
   - _Default_: `'static'`
   - _Deskripsi_: Mengontrol bagaimana kamus diimpor.
@@ -1100,10 +1108,10 @@ Opsi build berlaku untuk plugin `@intlayer/babel` dan `@intlayer/swc`.
   - _Catatan_: Mode live akan menggunakan API sinkronisasi live untuk mengambil kamus. Jika panggilan API gagal, kamus akan diimpor secara dinamis sebagai mode "dynamic".
   - _Catatan_: Opsi ini tidak akan memengaruhi fungsi `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` dan `useDictionaryDynamic`.
 - **checkTypes**:
-  - _Type_: `boolean`
+  - _Tipe_: `boolean`
   - _Default_: `false`
-  - _Description_: Menunjukkan apakah build harus memeriksa tipe TypeScript dan mencatat kesalahan.
-  - _Note_: Hal ini dapat memperlambat proses build.
+  - _Deskripsi_: Menunjukkan apakah build harus memeriksa tipe TypeScript dan mencatat kesalahan.
+  - _Catatan_: Hal ini dapat memperlambat proses build.
 
 - **outputFormat**:
   - _Tipe_: `'esm' | 'cjs'`
@@ -1166,3 +1174,31 @@ Pengaturan yang mengontrol kompiler Intlayer, yang mengekstrak kamus langsung da
   - _Tipe_: `string`
   - _Default_: `'compiler'`
   - _Deskripsi_: Direktori tempat kamus yang diekstrak akan disimpan, relatif terhadap jalur dasar proyek Anda.
+
+- **output**:
+  - _Tipe_: `FilePathPattern`
+  - _Default_: `({ key }) => 'compiler/${key}.content.json'`
+  - _Deskripsi_: Mendefinisikan jalur file output. Menggantikan `outputDir`. Menangani variabel dinamis seperti `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, dan `{{componentFormat}}`. Dapat diatur sebagai string menggunakan format `'my/{{var}}/path'`, atau sebagai fungsi.
+  - _Catatan_: Jalur `./**/*` diselesaikan relatif terhadap komponen. Jalur `/**/*` diselesaikan relatif terhadap `baseDir` Intlayer.
+  - _Contoh_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _Tipe_: `boolean`
+  - _Default_: `false`
+  - _Deskripsi_: Menunjukkan apakah metadata harus disimpan dalam file. Jika benar, kompiler tidak akan menyimpan metadata kamus (kunci, pembungkus konten).
+  - _Catatan_: Berguna jika digunakan dengan plugin `loadJSON`.
+  - _Contoh_: Jika `true`:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    Jika `false`:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```

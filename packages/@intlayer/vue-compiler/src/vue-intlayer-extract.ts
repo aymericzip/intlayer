@@ -1,5 +1,6 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { parse as babelParse, types as t, traverse } from '@babel/core';
+import type { Locale } from '@intlayer/types/locale';
 import vueSfc from '@vue/compiler-sfc';
 
 export type ExtractedContent = Record<string, string>;
@@ -8,7 +9,7 @@ export type ExtractResult = {
   dictionaryKey: string;
   filePath: string;
   content: ExtractedContent;
-  locale: string;
+  locale: Locale;
 };
 
 export type ExtractPluginOptions = {

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-02-25
+updatedAt: 2026-03-10
 title: Intlayer Compiler | i18n için Otomatik İçerik Çıkarımı
 description: Uluslararasılaştırma sürecinizi Intlayer Compiler ile otomatikleştirin. İçeriği bileşenlerinizden doğrudan çıkararak Vite, Next.js ve daha fazlasında daha hızlı ve verimli i18n sağlayın.
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add FilePathPattern support
   - version: 8.1.7
     date: 2026-02-25
     changes: Derleyici seçeneklerini güncelle
@@ -157,13 +160,12 @@ import { type IntlayerConfig, Locales } from "intlayer";
 const config: IntlayerConfig = {
   compiler: {
     /**
-     * Derleyicinin etkinleştirilip etkinleştirilmeyeceğini belirtir.
      * Geliştirme sırasında derleyiciyi atlamak ve başlangıç sürelerini hızlandırmak için 'build-only' olarak ayarlayın.
      */
     enabled: true,
 
     /**
-     * Optimize edilecek kodu taramak için desen.
+     * Pattern to traverse the code to optimize.
      */
     transformPattern: [
       "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
@@ -171,19 +173,24 @@ const config: IntlayerConfig = {
     ],
 
     /**
-     * Optimizasyondan hariç tutulacak desen.
+     * Pattern to exclude from the optimization.
      */
     excludePattern: ["**/node_modules/**"],
 
     /**
-     * Optimize edilmiş sözlükler için çıktı dizini.
+     * Optimize edilmiş sözlükler für çıktı dizini.
      */
-    outputDir: "i18n",
+    output: ({ key }) => `compiler/${key}.content.json`,
 
     /**
-     * Sözlük anahtarı öneki
+     * Oluşturulan dosyaya yalnızca içeriği yerleştirin, anahtar olmadan.
      */
-    dictionaryKeyPrefix: "", // Temel öneki kaldır
+    noMetadata: false,
+
+    /**
+     * Sözlük anahtar öneki
+     */
+    dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
      * Bileşenlerin dönüştürüldükten sonra kaydedilip kaydedilmeyeceğini belirtir.
@@ -209,3 +216,61 @@ npx intlayer fill         # Eksik çevirileri doldur
 ```
 
 > Daha fazla ayrıntı için [CLI belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/ci.md) bakın.
+
+### Derleyici Yapılandırma Referansı
+
+Aşağıdaki özellikler `intlayer.config.ts` dosyanızın `compiler` bloğunda yapılandırılabilir:
+
+- **enabled**:
+  - _Tip_: `boolean | 'build-only'`
+  - _Varsayılan_: `true`
+  - _Açıklama_: Derleyicinin etkinleştirilip etkinleştirilmeyeceğini belirtir.
+- **dictionaryKeyPrefix**:
+  - _Tip_: `string`
+  - _Varsayılan_: `'comp-'`
+  - _Açıklama_: Ayıklanan sözlük anahtarları için önek.
+- **transformPattern**:
+  - _Tip_: `string | string[]`
+  - _Varsayılan_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}', '!**/node_modules/**']`
+  - _Açıklama_: Optimize edilecek kodu taramak için desenler.
+- **excludePattern**:
+  - _Tip_: `string | string[]`
+  - _Varsayılan_: `['**/node_modules/**']`
+  - _Açıklama_: Optimizasyondan hariç tutulacak desenler.
+- **outputDir** (Deprecated):
+  - _Tip_: `string`
+  - _Varsayılan_: `'compiler'`
+  - _Açıklama_: Ayıklanan sözlüklerin saklanacağı dizin.
+
+- **output**:
+  - _Tip_: `FilePathPattern`
+  - _Varsayılan_: `({ key }) => 'compiler/${key}.content.json'`
+  - _Açıklama_: Çıktı dosyalarının yolunu tanımlar. `outputDir` yerine geçer. `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, ve `{{componentFormat}}` gibi dinamik değişkenleri işler. `'my/{{var}}/path'` formatı kullanılarak bir dize olarak veya bir fonksiyon olarak ayarlanabilir.
+  - _Not_: `./**/*` yolları bileşene göre çözümlenir. `/**/*` yolları Intlayer `baseDir`'e göre çözümlenir.
+  - _Örnek_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _Tip_: `boolean`
+  - _Varsayılan_: `false`
+  - _Açıklama_: Meta verilerin dosyaya kaydedilip kaydedilmeyeceğini belirtir. Doğruysa, derleyici sözlüklerin meta verilerini (anahtar, içerik sarmalayıcı) kaydetmez.
+  - _Not_: `loadJSON` eklentisi ile kullanıldığında kullanışlıdır.
+  - _Örnek_: `true` ise:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    `false` ise:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```
+
+- **saveComponents**:
+  - _Tip_: `boolean`
+  - _Varsayılan_: `false`
+  - _Açıklama_: Bileşenlerin dönüştürüldükten sonra kaydedilip kaydedilmeyeceğini belirtir.

@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: Update compiler options, add 'output' and 'noMetadata' support
   - version: 8.1.7
     date: 2026-02-25
     changes: कंपाइलर विकल्पों को अपडेट करें
@@ -419,7 +422,7 @@ const config: IntlayerConfig = {
    */
   compiler: {
     /**
-     * Indicates if the compiler should be enabled.
+     * इंगित करता है कि क्या कंपाइलर सक्षम होना चाहिए।
      */
     enabled: true,
 
@@ -437,18 +440,23 @@ const config: IntlayerConfig = {
     excludePattern: ["**/node_modules/**"],
 
     /**
-     * Output directory for the optimized dictionaries.
+     * अनुकूलित शब्दकोशों के लिए आउटपुट निर्देशिका।
      */
-    outputDir: "compiler",
+    output: ({ key }) => `compiler/${key}.content.json`,
 
     /**
-     * Dictionary key prefix
+     * उत्पन्न फ़ाइल में केवल सामग्री डालें, बिना कुंजी के।
+     */
+    noMetadata: false,
+
+    /**
+     * शब्दकोश कुंजी उपसर्ग
      */
     dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
-     * Indicates if the components should be saved after being transformed.
-     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     * इंगित करता है कि क्या घटकों को रूपांतरित होने के बाद सहेजा जाना चाहिए।
+     * इस तरह, कंपाइलer को ऐप को रूपांतरित करने के लिए केवल एक बार चलाया जा सकता है, और फिर इसे हटाया जा सकता है।
      */
     saveComponents: false,
   },
@@ -704,7 +712,7 @@ export default config;
 #### गुण
 
 - **autoFill**:
-  - _प्रकार_: `boolean | string | { [key in Locales]?: string }`
+  - _प्रकार_: `boolean | string | FilePathPattern | { [key in Locales]?: string }`
   - _डिफ़ॉल्ट_: `undefined`
   - _विवरण_: यह संकेत करता है कि सामग्री को AI का उपयोग करके स्वचालित रूप से कैसे भरा जाना चाहिए। इसे वैश्विक रूप से `intlayer.config.ts` फ़ाइल में घोषित किया जा सकता है।
   - _उदाहरण_: true
@@ -847,7 +855,7 @@ export default config;
   - _डिफ़ॉल्ट_: `'[intlayer] '`
   - _विवरण_: लॉगर का उपसर्ग।
   - _उदाहरण_: `'[my custom prefix] '`
-  - _Note_: लॉगर का उपसर्ग।
+  - _नोट_: लॉगर का उपसर्ग।
 
 ### एआई कॉन्फ़िगरेशन
 
@@ -950,10 +958,10 @@ Intlayer बेहतर लचीलापन और विकल्प के 
   - _नोट_: शब्दकोश बिल्ड को अक्षम करने के लिए उपयोग किया जा सकता है, उदाहरण के लिए जब Node.js वातावरण में निष्पादन से बचना चाहिए।
 
 - **checkTypes**:
-  - _Type_: `boolean`
-  - _Default_: `false`
-  - _Description_: इंगित करता है कि क्या बिल्ड को TypeScript प्रकारों की जांच करनी चाहिए और त्रुटियों को लॉग करना चाहिए।
-  - _Note_: यह बिल्ड को धीमा कर सकता है।
+  - _प्रकार_: `boolean`
+  - _डिफ़ॉल्ट_: `false`
+  - _विवरण_: इंगित करता है कि क्या बिल्ड को TypeScript प्रकारों की जांच करनी चाहिए और त्रुटियों को लॉग करना चाहिए।
+  - _नोट_: यह बिल्ड को धीमा कर सकता है।
 
 - **optimize**:
   - _प्रकार_: `boolean`
@@ -966,7 +974,7 @@ Intlayer बेहतर लचीलापन और विकल्प के 
   - _नोट_: सुनिश्चित करें कि सभी कुंजियाँ `useIntlayer` कॉल्स में स्थैतिक रूप से घोषित हों। उदाहरण के लिए `useIntlayer('navbar')`।
 
 - **importMode**:
-  - _Note_: **Deprecated**: Use `dictionary.importMode` instead.
+  - _नोट_: **Deprecated**: Use `dictionary.importMode` instead.
   - _प्रकार_: `'static' | 'dynamic' | 'fetch'`
   - _डिफ़ॉल्ट_: `'static'`
   - _विवरण_: नियंत्रित करता है कि शब्दकोश कैसे आयात किए जाते हैं।
@@ -1045,3 +1053,31 @@ Intlayer बेहतर लचीलापन और विकल्प के 
   - _प्रकार_: `string`
   - _डिफ़ॉल्ट_: `'compiler'`
   - _विवरण_: वह निर्देशिका जहाँ निकाले गए शब्दकोश संग्रहीत किए जाएंगे, आपके प्रोजेक्ट बेस पाथ के सापेक्ष।
+
+- **output**:
+  - _प्रकार_: `FilePathPattern`
+  - _डिफ़ॉल्ट_: `({ key }) => 'compiler/${key}.content.json'`
+  - _विवरण_: आउटपुट फ़ाइल पथ को परिभाषित करता है। `outputDir` को प्रतिस्थापित करता है। `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, और `{{componentFormat}}` जैसे गतिशील चरों को संभालता है। इसे `'my/{{var}}/path'` प्रारूप का उपयोग करके एक स्ट्रिंग के रूप में, या एक फ़ंक्शन के रूप में सेट किया जा सकता है।
+  - _नोट_: `./**/*` पथ घटक के सापेक्ष हल किए जाते हैं। `/**/*` पथ Intlayer `baseDir` के सापेक्ष हल किए जाते हैं।
+  - _उदाहरण_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _प्रकार_: `boolean`
+  - _डिफ़ॉल्ट_: `false`
+  - _विवरण_: इंगित करता है कि फ़ाइल में मेटाडेटा सहेजा जाना चाहिए या नहीं। यदि सही है, तो कंपाइलर शब्दकोशों (कुंजी, सामग्री रैपर) के मेटाडेटा को नहीं बचाएगा।
+  - _नोट_: `loadJSON` प्लगइन के साथ उपयोग किए जाने पर उपयोगी।
+  - _उदाहरण_: यदि `सही` है:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    यदि `गलत` है:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```

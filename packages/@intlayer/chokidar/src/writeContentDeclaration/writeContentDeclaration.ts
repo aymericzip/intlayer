@@ -3,14 +3,15 @@ import { existsSync } from 'node:fs';
 import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
 import { basename, dirname, extname, join, resolve } from 'node:path';
 import { isDeepStrictEqual } from 'node:util';
+import { DefaultValues } from '@intlayer/config/client';
 import {
   getFilteredLocalesDictionary,
   getPerLocaleDictionary,
 } from '@intlayer/core/plugins';
-import type { Dictionary } from '@intlayer/types/dictionary';
-import type { IntlayerConfig } from '@intlayer/types/config';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import type { Locale } from '@intlayer/types/allLocales';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { detectFormatCommand } from '../detectFormatCommand';
 import {
@@ -130,8 +131,10 @@ export const writeContentDeclaration = async (
   configuration: IntlayerConfig,
   options?: WriteContentDeclarationOptions
 ): Promise<{ status: DictionaryStatus; path: string }> => {
-  const { content } = configuration;
+  const { content, compiler } = configuration;
   const { baseDir } = content;
+  const noMetadata =
+    compiler?.noMetadata ?? DefaultValues.Compiler.COMPILER_NO_METADATA;
   const { newDictionariesPath, localeList } = {
     ...defaultOptions,
     ...options,
@@ -174,7 +177,8 @@ export const writeContentDeclaration = async (
     await writeFileWithDirectories(
       filePath,
       formattedContentDeclaration,
-      configuration
+      configuration,
+      noMetadata
     );
 
     return { status: 'updated', path: filePath };
@@ -189,7 +193,8 @@ export const writeContentDeclaration = async (
     await writeFileWithDirectories(
       filePath,
       formattedContentDeclaration,
-      configuration
+      configuration,
+      noMetadata
     );
 
     return { status: 'created', path: filePath };
@@ -204,7 +209,8 @@ export const writeContentDeclaration = async (
   await writeFileWithDirectories(
     contentDeclarationPath,
     formattedContentDeclaration,
-    configuration
+    configuration,
+    noMetadata
   );
 
   return {
@@ -216,7 +222,8 @@ export const writeContentDeclaration = async (
 const writeFileWithDirectories = async (
   absoluteFilePath: string,
   dictionary: Dictionary,
-  configuration: IntlayerConfig
+  configuration: IntlayerConfig,
+  noMetadata?: boolean
 ): Promise<void> => {
   // Extract the directory from the file path
   const dir = dirname(absoluteFilePath);
@@ -225,18 +232,26 @@ const writeFileWithDirectories = async (
   await mkdir(dir, { recursive: true });
 
   const extension = extname(absoluteFilePath);
-  const acceptedExtensions = configuration.content.fileExtensions.map(
-    (extension) => extname(extension)
+  const acceptedExtensions = configuration.content.fileExtensions.map((ext) =>
+    ext.startsWith('.') ? ext : `.${ext}`
   );
 
-  if (!acceptedExtensions.includes(extension)) {
+  const hasAcceptedExtension = acceptedExtensions.some((ext) =>
+    absoluteFilePath.endsWith(ext)
+  );
+
+  if (!hasAcceptedExtension) {
     throw new Error(
       `Invalid file extension: ${extension}, file: ${absoluteFilePath}`
     );
   }
 
   if (extension === '.json') {
-    const jsonDictionary = JSON.stringify(dictionary, null, 2);
+    const jsonDictionary = JSON.stringify(
+      noMetadata ? dictionary.content : dictionary,
+      null,
+      2
+    );
 
     // Write the file
     const tempDir = configuration.system?.tempDir;
@@ -288,7 +303,11 @@ const writeFileWithDirectories = async (
       }
     }
 
-    const transformedContent = transformJSONFile(fileContent, dictionary);
+    const transformedContent = transformJSONFile(
+      fileContent,
+      dictionary,
+      noMetadata
+    );
 
     // We use standard writeFile because transformedContent is already a string
     const tempDir = configuration.system?.tempDir;
@@ -328,7 +347,7 @@ const writeFileWithDirectories = async (
     return;
   }
 
-  await writeJSFile(absoluteFilePath, dictionary, configuration);
+  await writeJSFile(absoluteFilePath, dictionary, configuration, noMetadata);
 
   // remove the cache as content has changed
   // Will force a new preparation of the intlayer on next build

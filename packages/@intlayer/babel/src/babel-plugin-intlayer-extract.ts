@@ -9,6 +9,8 @@ import {
   getAppLogger,
 } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { FilePathPattern } from '@intlayer/types/filePathPattern';
 import { processTsxFile } from './extractContent/processTsxFile';
 import type { PackageName } from './extractContent/utils/constants';
 import { detectPackageName } from './extractContent/utils/detectPackageName';
@@ -21,11 +23,11 @@ export type ExtractResult = {
   dictionaryKey: string;
   filePath: string;
   content: Record<string, string>;
-  locale: string;
+  locale: Locale;
 };
 
 export type ExtractPluginOptions = {
-  defaultLocale?: string;
+  defaultLocale?: Locale;
   packageName?: string;
   filesList?: string[];
   shouldExtract?: (text: string) => boolean;
@@ -39,6 +41,10 @@ export type ExtractPluginOptions = {
    * May be async — the plugin will fire-and-forget (Babel transforms are sync).
    */
   onExtract?: (result: ExtractResult) => void | Promise<void>;
+  /**
+   * Defines the output files path.
+   */
+  output?: FilePathPattern;
 };
 
 type State = PluginPass & { opts: ExtractPluginOptions };

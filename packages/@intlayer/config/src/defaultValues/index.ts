@@ -1,4 +1,5 @@
 export * as Build from './build';
+export * as Compiler from './compiler';
 export * as Content from './content';
 export * as Dictionary from './dictionary';
 export * as Editor from './editor';

@@ -13,6 +13,7 @@ import {
   getConfiguration,
 } from '@intlayer/config/node';
 import type { IntlayerConfig } from '@intlayer/types/config';
+import type { FilePathPattern } from '@intlayer/types/filePathPattern';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { extractTsContent } from './babelProcessor';
 import { writeContentHelper } from './contentWriter';
@@ -28,7 +29,7 @@ import { generateKey } from './utils/generateKey';
 
 export type ExtractIntlayerOptions = {
   configOptions?: GetConfigurationOptions;
-  outputDir?: string;
+  output?: FilePathPattern;
   /**
    * If true, only transform the source file — skip writing content declarations.
    */
@@ -84,6 +85,8 @@ export const extractContent = async (
     options?.configuration ?? getConfiguration(options?.configOptions);
   const appLogger = getAppLogger(configuration);
   const { baseDir } = configuration.content;
+
+  const output = options?.output ?? configuration.compiler?.output;
 
   const unmergedDictionaries =
     options?.unmergedDictionaries ?? getUnmergedDictionaries(configuration);
@@ -223,7 +226,7 @@ export const extractContent = async (
 
   if (!extractedContentMap || Object.keys(extractedContentMap).length === 0) {
     appLogger(
-      `${colorize('Compiler:', ANSIColors.GREY_DARK)}  No extractable text found in ${colorizePath(relativeFilePath)}`,
+      `${colorize('Compiler:', ANSIColors.GREY_DARK)} No extractable text found in ${colorizePath(relativeFilePath)}`,
       {
         isVerbose: true,
       }
@@ -246,7 +249,7 @@ export const extractContent = async (
         key,
         filePath,
         configuration,
-        options?.outputDir
+        output
       );
 
       const relativeContentFilePath = relative(

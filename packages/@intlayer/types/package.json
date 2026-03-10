@@ -40,6 +40,11 @@
       "require": "./dist/cjs/config.cjs",
       "import": "./dist/esm/config.mjs"
     },
+    "./filePathPattern": {
+      "types": "./dist/types/filePathPattern.d.ts",
+      "require": "./dist/cjs/filePathPattern.cjs",
+      "import": "./dist/esm/filePathPattern.mjs"
+    },
     "./dictionary": {
       "types": "./dist/types/dictionary.d.ts",
       "require": "./dist/cjs/dictionary.cjs",
