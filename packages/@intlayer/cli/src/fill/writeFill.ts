@@ -88,7 +88,7 @@ export const writeFill = async (
     const { fill, ...rest } = contentDeclarationFile;
 
     const relativeFilePath = relative(
-      configuration.content.baseDir,
+      configuration.system.baseDir,
       output.filePath
     );
 

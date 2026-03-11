@@ -80,7 +80,7 @@ export const translateDoc = async ({
     locales.map((locale) => async () => {
       if (errorState.shouldStop) return;
 
-      const absoluteBaseFilePath = join(configuration.content.baseDir, docPath);
+      const absoluteBaseFilePath = join(configuration.system.baseDir, docPath);
       const outputFilePath = getOutputFilePath(
         absoluteBaseFilePath,
         locale,

@@ -140,7 +140,7 @@ export const writeJSFile = async (
     try {
       execSync(formatCommand.replace('{{file}}', filePath), {
         stdio: 'inherit',
-        cwd: configuration.content.baseDir,
+        cwd: configuration.system.baseDir,
       });
     } catch (error) {
       console.error(error);

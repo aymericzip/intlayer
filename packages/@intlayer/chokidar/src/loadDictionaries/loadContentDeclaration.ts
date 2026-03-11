@@ -60,7 +60,7 @@ export const loadContentDeclaration = async (
         banner: {
           js: [
             `globalThis.INTLAYER_FILE_PATH = '${path}';`,
-            `globalThis.INTLAYER_BASE_DIR = '${configuration.content.baseDir}';`,
+            `globalThis.INTLAYER_BASE_DIR = '${configuration.system.baseDir}';`,
           ].join('\n'),
         },
       },
@@ -97,7 +97,7 @@ export const loadContentDeclarations = async (
   try {
     const dictionariesPromises = contentDeclarationFilePath.map(
       async (path) => {
-        const relativePath = relative(configuration.content.baseDir, path);
+        const relativePath = relative(configuration.system.baseDir, path);
 
         const dictionary = await loadContentDeclaration(
           path,

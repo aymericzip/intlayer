@@ -31,7 +31,7 @@ export const listContentDeclarationRows = (
       key: dictionary.key ?? '',
       path: options?.absolute
         ? (dictionary.filePath ?? 'Remote')
-        : relative(config.content.baseDir, dictionary.filePath ?? 'Remote'),
+        : relative(config.system.baseDir, dictionary.filePath ?? 'Remote'),
     }));
   return rows;
 };

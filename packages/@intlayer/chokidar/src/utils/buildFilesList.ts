@@ -1,4 +1,4 @@
-import { join } from 'node:path';
+import { join, normalize } from 'node:path';
 import fg from 'fast-glob';
 
 /**
@@ -22,9 +22,8 @@ export type BuildFilesListOptions = {
 /**
  * Normalizes a pattern value to an array
  */
-const normalizeToArray = <T>(value: T | T[]): T[] => {
-  return Array.isArray(value) ? value : [value];
-};
+const normalizeToArray = <T>(value: T | T[]): T[] =>
+  Array.isArray(value) ? value : [value];
 
 /**
  * Builds a list of files matching the given patterns.
@@ -54,8 +53,26 @@ const normalizeToArray = <T>(value: T | T[]): T[] => {
 export const buildFilesList = (options: BuildFilesListOptions): string[] => {
   const { transformPattern, excludePattern, baseDir } = options;
 
-  const patterns = normalizeToArray(transformPattern);
-  const excludePatterns = normalizeToArray(excludePattern);
+  // Ensure patterns are strings and not empty
+  const patterns = normalizeToArray(transformPattern)
+    .filter(
+      (pattern): pattern is string =>
+        typeof pattern === 'string' && !pattern.startsWith('!')
+    )
+    .map(normalize); // Ensure it works with Windows
+
+  // Filter out undefined/null from the combined exclude list
+  const excludePatterns = [
+    ...normalizeToArray(excludePattern),
+    ...normalizeToArray(transformPattern)
+      .filter(
+        (pattern): pattern is string =>
+          typeof pattern === 'string' && pattern.startsWith('!')
+      )
+      .map((pattern) => pattern.slice(1)),
+  ]
+    .filter((pattern): pattern is string => typeof pattern === 'string')
+    .map(normalize); // Ensure it works with Windows
 
   const files = fg
     .sync(patterns, {

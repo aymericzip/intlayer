@@ -2,7 +2,7 @@ import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('@intlayer/config/node', async () => {
-  const actual = await vi.importActual('@intlayer/config/node');
+  const actual = await vi.importActual<any>('@intlayer/config/node');
   return {
     ...actual,
     getConfiguration: vi.fn(),
@@ -30,8 +30,8 @@ vi.mock('@intlayer/chokidar/build', () => ({
   loadContentDeclaration: vi.fn().mockResolvedValue(null),
 }));
 
-vi.mock('@intlayer/chokidar/utils', async (importOriginal) => {
-  const actual = await importOriginal<any>();
+vi.mock('@intlayer/chokidar/utils', async () => {
+  const actual = await vi.importActual<any>('@intlayer/chokidar/utils');
   return {
     ...actual,
     getFormatFromExtension: vi.fn().mockReturnValue('json'),
@@ -68,11 +68,13 @@ describe('extractIntlayer', () => {
       },
       compiler: {
         noMetadata: false,
+        dictionaryKeyPrefix: '',
       },
       build: {
         importMode: 'esm',
       },
       system: {
+        baseDir: tmpDir,
         unmergedDictionariesDir: join(
           tmpDir,
           '.intlayer/unmerged_dictionaries'
@@ -215,8 +217,8 @@ export const InsertionTest = () => {
 
     const updatedCode = readFileSync(componentPath, 'utf-8');
 
-    expect(updatedCode).toContain(
-      "import { useIntlayer } from 'react-intlayer';"
+    expect(updatedCode).toMatch(
+      /import \{ useIntlayer \} from ['"]react-intlayer(\/server)?['"];/
     );
     expect(updatedCode).toContain(
       "const content = useIntlayer('insertion-test');"
@@ -266,8 +268,8 @@ export const InsertionTest = () => {
     expect(updatedCode).toContain(
       "const content = useIntlayer('basic-jsx-test');"
     );
-    expect(updatedCode).toContain(
-      "import { useIntlayer } from 'react-intlayer';"
+    expect(updatedCode).toMatch(
+      /import \{ useIntlayer \} from ['"]react-intlayer(\/server)?['"];/
     );
   });
 
@@ -419,11 +421,13 @@ export const InsertionTest = () => {
         },
         compiler: {
           noMetadata: false,
+          dictionaryKeyPrefix: '',
         },
         build: {
           importMode: 'esm',
         },
         system: {
+          baseDir: tmpDir,
           unmergedDictionariesDir: join(
             tmpDir,
             '.intlayer/unmerged_dictionaries'
@@ -557,11 +561,13 @@ export const routes = {
         },
         compiler: {
           noMetadata: false,
+          dictionaryKeyPrefix: '',
         },
         build: {
           importMode: 'esm',
         },
         system: {
+          baseDir: tmpDir,
           unmergedDictionariesDir: join(
             tmpDir,
             '.intlayer/unmerged_dictionaries'

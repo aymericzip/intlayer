@@ -13,6 +13,7 @@ export * from './parallelizeGlobal';
 export * from './pLimit';
 export * from './reduceObjectFormat';
 export * from './resolveObjectPromises';
+export * from './resolveRelativePath';
 export * from './runOnce';
 export * from './runParallel/index';
 export * from './sortAlphabetically';

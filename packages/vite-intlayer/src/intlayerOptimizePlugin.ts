@@ -1,4 +1,5 @@
 import { join } from 'node:path';
+import { transformSync } from '@babel/core';
 import { intlayerOptimizeBabelPlugin } from '@intlayer/babel';
 import {
   getComponentTransformPattern,
@@ -7,8 +8,8 @@ import {
 import { DefaultValues } from '@intlayer/config/client';
 import { getAppLogger } from '@intlayer/config/logger';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import type { Dictionary } from '@intlayer/types/dictionary';
 import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import type { PluginOption } from 'vite';
 import { intlayerVueAsyncPlugin } from './intlayerVueAsyncPlugin';
 
@@ -18,7 +19,6 @@ export const intlayerOptimize = async (
   intlayerConfig: IntlayerConfig
 ): Promise<PluginOption[]> => {
   try {
-    const babel = await import('@babel/core');
     const logger = getAppLogger(intlayerConfig);
 
     const { optimize } = intlayerConfig.build;
@@ -32,7 +32,7 @@ export const intlayerOptimize = async (
       fetchDictionariesDir,
       mainDir,
     } = intlayerConfig.system;
-    const { baseDir } = intlayerConfig.content;
+    const { baseDir } = intlayerConfig.system;
 
     const filesListPattern = await getComponentTransformPattern(intlayerConfig);
 
@@ -117,7 +117,7 @@ export const intlayerOptimize = async (
 
           if (!shouldTransform) return null;
 
-          const result = babel.transformSync(code, {
+          const result = transformSync(code, {
             filename,
             plugins: [
               [

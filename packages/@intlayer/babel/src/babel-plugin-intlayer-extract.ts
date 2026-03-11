@@ -1,4 +1,4 @@
-import { dirname, extname, relative } from 'node:path';
+import { relative } from 'node:path';
 import type { PluginObj, PluginPass } from '@babel/core';
 import { parse } from '@babel/parser';
 import type * as BabelTypes from '@babel/types';
@@ -8,16 +8,12 @@ import {
   colorizePath,
   getAppLogger,
 } from '@intlayer/config/logger';
-import { getConfiguration } from '@intlayer/config/node';
 import type { Locale } from '@intlayer/types/allLocales';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import type { FilePathPattern } from '@intlayer/types/filePathPattern';
-import { processTsxFile } from './extractContent/processTsxFile';
+import { extractContentSync } from './extractContent/extractContent';
 import type { PackageName } from './extractContent/utils/constants';
 import { detectPackageName } from './extractContent/utils/detectPackageName';
-import { extractDictionaryKeyFromPath } from './extractContent/utils/extractDictionaryKey';
-
-/** Packages that support a `/server` sub-path for React Server Components. */
-const SERVER_CAPABLE_PACKAGES: ReadonlySet<string> = new Set(['next-intlayer']);
 
 export type ExtractResult = {
   dictionaryKey: string;
@@ -27,14 +23,12 @@ export type ExtractResult = {
 };
 
 export type ExtractPluginOptions = {
-  defaultLocale?: Locale;
-  packageName?: string;
-  filesList?: string[];
+  packageName?: PackageName;
+  filesList: string[];
+  enabled: boolean;
+
   shouldExtract?: (text: string) => boolean;
-  enabled?: boolean;
-  prefix?: string;
-  saveComponents?: boolean;
-  formatCommand?: string;
+  configuration: IntlayerConfig;
   /**
    * Callback invoked for each extracted dictionary key/content pair.
    * Used by `getExtractPluginOptions` to write dictionaries to disk.
@@ -66,7 +60,7 @@ type State = PluginPass & { opts: ExtractPluginOptions };
  * };
  * ```
  */
-export const intlayerExtractBabelPlugin = (babel: {
+export const intlayerExtractBabelPlugin = (_babel: {
   types: typeof BabelTypes;
 }): PluginObj<State> => {
   return {
@@ -77,72 +71,49 @@ export const intlayerExtractBabelPlugin = (babel: {
         enter(programPath, state) {
           const opts = state.opts;
 
-          if (opts.enabled === false) return;
+          // Merge plugin options with the unified compiler config
+          const isEnabled = opts.enabled;
+
+          if (isEnabled === false) return;
 
           const filename = state.file.opts.filename;
-          if (!filename) return;
 
-          const ext = extname(filename);
-          if (!['.tsx', '.jsx', '.ts', '.js'].includes(ext)) return;
+          if (!filename) return;
 
           if (opts.filesList && !opts.filesList.includes(filename)) return;
 
-          // Grab the original source from the Babel file object
-          const fileCode: string = (state.file as any).code ?? '';
+          const fileCode: string = state.file.code ?? '';
           if (!fileCode) return;
 
-          const configuration = getConfiguration();
-          const appLogger = getAppLogger(configuration);
+          const appLogger = getAppLogger(opts.configuration);
+          const packageName = opts.packageName ?? detectPackageName(filename);
 
-          const packageName = (opts.packageName ??
-            detectPackageName(dirname(filename)) ??
-            'react-intlayer') as PackageName;
+          const { saveComponents } = opts.configuration.compiler;
 
-          const prefix = opts.prefix ?? 'comp-';
-          const componentKey = extractDictionaryKeyFromPath(filename, prefix);
-          const saveComponents = opts.saveComponents ?? false;
-
-          // For packages that expose a `/server` entry (e.g. next-intlayer),
-          // use that sub-path when no "use client" directive is present so that
-          // React Server Components receive the correct import.
-          const hasUseClient = programPath.node.directives.some(
-            (d) => d.value.value === 'use client'
-          );
-          const effectivePackageName =
-            SERVER_CAPABLE_PACKAGES.has(packageName) && !hasUseClient
-              ? `${packageName}/server`
-              : packageName;
-
-          const result = processTsxFile(
-            filename,
-            componentKey,
-            effectivePackageName,
-            configuration,
-            saveComponents,
-            {}, // unmergedDictionaries — not needed for Babel plugin use case
-            fileCode
-          );
+          const result = extractContentSync(filename, packageName, {
+            configuration: opts.configuration,
+            code: fileCode,
+            onExtract: (extractResult: {
+              key: string;
+              content: Record<string, string>;
+            }) => {
+              if (opts.onExtract) {
+                void opts.onExtract({
+                  dictionaryKey: extractResult.key,
+                  filePath: filename,
+                  content: extractResult.content,
+                  locale: opts.configuration.internationalization.defaultLocale,
+                });
+              }
+            },
+            declarationOnly: !saveComponents,
+          });
 
           if (!result) return;
 
-          const { extractedContent, modifiedCode } = result;
+          const { transformedCode: modifiedCode } = result;
 
-          // Fire-and-forget: Babel transforms are synchronous, but onExtract may
-          // be async (e.g. writing files). We don't await here.
-          if (opts.onExtract) {
-            const defaultLocale =
-              opts.defaultLocale ??
-              configuration.internationalization.defaultLocale;
-
-            for (const [key, content] of Object.entries(extractedContent)) {
-              void opts.onExtract({
-                dictionaryKey: key,
-                filePath: filename,
-                content,
-                locale: defaultLocale,
-              });
-            }
-          }
+          if (!modifiedCode) return;
 
           // Replace the Babel AST with the transformed code by re-parsing it.
           // This lets Babel serialise the injected hooks/imports through its
@@ -157,7 +128,7 @@ export const intlayerExtractBabelPlugin = (babel: {
             programPath.node.directives = newAst.program.directives;
 
             appLogger(
-              `${colorize('Compiler:', ANSIColors.GREY_DARK)} Extracted content from ${colorizePath(relative(configuration.content.baseDir, filename))}`,
+              `${colorize('Compiler:', ANSIColors.GREY_DARK)} Extracted content from ${colorizePath(relative(opts.configuration.system.baseDir, filename))}`,
               { level: 'debug' }
             );
           } catch (error) {

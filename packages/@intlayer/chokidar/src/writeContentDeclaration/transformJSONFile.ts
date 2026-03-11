@@ -1,5 +1,6 @@
 import type { Dictionary } from '@intlayer/types/dictionary';
 import * as recast from 'recast';
+import * as babelParser from 'recast/parsers/babel.js';
 
 const b = recast.types.builders;
 const n = recast.types.namedTypes;
@@ -104,7 +105,9 @@ export const transformJSONFile = (
 
   let ast: ReturnType<typeof recast.parse>;
   try {
-    ast = recast.parse(wrappedContent);
+    ast = recast.parse(wrappedContent, {
+      parser: babelParser,
+    });
   } catch {
     // Fallback if parsing failed
     return JSON.stringify(

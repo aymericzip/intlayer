@@ -25,7 +25,7 @@ export const getTargetUnmergedDictionaries = async (
 ): Promise<Dictionary[]> => {
   const configuration = getConfiguration(options?.configOptions);
 
-  const { baseDir } = configuration.content;
+  const { baseDir } = configuration.system;
 
   const unmergedDictionariesRecord = getUnmergedDictionaries(configuration);
   let result = Object.values(unmergedDictionariesRecord).flat();

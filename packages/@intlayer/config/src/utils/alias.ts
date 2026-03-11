@@ -19,7 +19,7 @@ export const getAlias = ({
     format ?? configuration.build.outputFormat[0] ?? 'esm'
   );
 
-  const { baseDir } = configuration.content;
+  const { baseDir } = configuration.system;
   const { mainDir, configDir } = configuration.system;
 
   /**

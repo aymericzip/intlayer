@@ -105,7 +105,7 @@ const loadMessagePathMap = (
       Object.entries(keysRecord).map(([key, path]) => {
         const absolutePath = isAbsolute(path)
           ? path
-          : resolve(configuration.content.baseDir, path);
+          : resolve(configuration.system.baseDir, path);
 
         return {
           path: absolutePath,
@@ -219,7 +219,7 @@ export const loadJSON = (options: LoadJSONPluginOptions): Plugin => {
       });
 
       if (filePath && !isAbsolute(filePath)) {
-        filePath = join(configuration.content.baseDir, filePath);
+        filePath = join(configuration.system.baseDir, filePath);
       }
 
       const dictionaries: Dictionary[] = [];
@@ -233,7 +233,7 @@ export const loadJSON = (options: LoadJSONPluginOptions): Plugin => {
           json = {};
         }
 
-        const filePath = relative(configuration.content.baseDir, path);
+        const filePath = relative(configuration.system.baseDir, path);
 
         const dictionary: Dictionary = {
           key,

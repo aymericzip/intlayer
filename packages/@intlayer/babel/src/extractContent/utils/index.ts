@@ -1,5 +1,6 @@
 export * from './constants';
 export * from './detectPackageName';
+export * from './extractDictionaryInfo';
 export * from './extractDictionaryKey';
 export * from './generateKey';
 export * from './getComponentName';

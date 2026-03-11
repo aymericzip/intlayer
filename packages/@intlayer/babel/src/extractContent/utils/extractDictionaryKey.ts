@@ -1,4 +1,5 @@
 import { detectExportedComponentName } from '@intlayer/chokidar/cli';
+import { DefaultValues } from '@intlayer/config/node';
 import { camelCaseToKebabCase } from '@intlayer/config/utils';
 
 /**
@@ -8,7 +9,7 @@ import { camelCaseToKebabCase } from '@intlayer/config/utils';
  */
 export const extractDictionaryKeyFromPath = (
   filePath: string,
-  prefix = 'comp-'
+  prefix = DefaultValues.Compiler.COMPILER_DICTIONARY_KEY_PREFIX
 ): string => {
   const pathParts = filePath.split(/[\\/]/);
   const fileNameWithExt = pathParts.pop() || '';
@@ -30,13 +31,14 @@ export const extractDictionaryKeyFromPath = (
 
 export const extractDictionaryKey = (
   filePath: string,
-  fileText: string
+  fileText: string,
+  prefix = DefaultValues.Compiler.COMPILER_DICTIONARY_KEY_PREFIX
 ): string => {
   const componentName = detectExportedComponentName(fileText);
 
   if (componentName) {
-    return camelCaseToKebabCase(componentName);
+    return `${prefix}${camelCaseToKebabCase(componentName)}`;
   }
 
-  return extractDictionaryKeyFromPath(filePath, '');
+  return extractDictionaryKeyFromPath(filePath, prefix);
 };

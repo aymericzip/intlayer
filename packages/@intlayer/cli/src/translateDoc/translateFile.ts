@@ -205,10 +205,7 @@ export const translateFile = async ({
 
     const fileEndTime = performance.now();
     const totalDuration = ((fileEndTime - fileStartTime) / 1000).toFixed(2);
-    const relativePath = relative(
-      configuration.content.baseDir,
-      outputFilePath
-    );
+    const relativePath = relative(configuration.system.baseDir, outputFilePath);
 
     appLogger(
       `${colorize('✔', ANSIColors.GREEN)} File ${formatPath(relativePath)} completed in ${colorizeNumber(totalDuration)}s.`

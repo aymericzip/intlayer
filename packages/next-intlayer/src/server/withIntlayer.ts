@@ -18,8 +18,8 @@ import {
   normalizePath,
 } from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import type { Dictionary } from '@intlayer/types/dictionary';
 import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { IntlayerPlugin } from '@intlayer/webpack';
 import { defu } from 'defu';
 import type { NextConfig } from 'next';
@@ -97,7 +97,7 @@ const getPruneConfig = (
     fetchDictionariesDir,
     mainDir,
   } = intlayerConfig.system;
-  const { baseDir } = intlayerConfig.content;
+  const { baseDir } = intlayerConfig.system;
   const logger = getAppLogger(intlayerConfig);
 
   if (optimize === false) {

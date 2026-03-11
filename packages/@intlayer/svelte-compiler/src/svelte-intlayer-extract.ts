@@ -1,6 +1,7 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { parse as babelParse, types as t, traverse } from '@babel/core';
-import type { Locale } from '@intlayer/types/locale';
+import { DefaultValues } from '@intlayer/config/client';
+import type { Locale } from '@intlayer/types/allLocales';
 import MagicString from 'magic-string';
 import { parse } from 'svelte/compiler';
 
@@ -14,7 +15,7 @@ export type ExtractResult = {
 };
 
 export type ExtractPluginOptions = {
-  defaultLocale?: string;
+  defaultLocale?: Locale;
   packageName?: string;
   filesList?: string[];
   shouldExtract?: (text: string) => boolean;
@@ -57,7 +58,7 @@ export const intlayerSvelteExtract = (
   options: ExtractPluginOptions = {}
 ): { code: string; map?: unknown; extracted: boolean } | null => {
   const {
-    defaultLocale = 'en',
+    defaultLocale = DefaultValues.Internationalization.DEFAULT_LOCALE,
     packageName = 'svelte-intlayer',
     filesList,
     shouldExtract,
@@ -270,7 +271,7 @@ export const intlayerSvelteExtract = (
     onExtract({
       dictionaryKey,
       filePath: filename,
-      content: { ...extractedContent },
+      content: extractedContent,
       locale: defaultLocale,
     });
   }
@@ -290,14 +291,18 @@ type Tools = {
   extractTsContent: any;
 };
 
-export const processSvelteFile = async (
+export const processSvelteFile = (
   filePath: string,
   _componentKey: string,
   packageName: string,
   tools: Tools,
   save: boolean = true
-): Promise<Record<string, string> | null> => {
-  const code = await readFile(filePath, 'utf-8');
+): {
+  extractedContent: Record<string, string>;
+  code: string;
+  map?: any;
+} | null => {
+  const code = readFileSync(filePath, 'utf-8');
   let extractedContent: Record<string, string> | null = null;
 
   const result = intlayerSvelteExtract(code, filePath, {
@@ -315,8 +320,12 @@ export const processSvelteFile = async (
   if (!result) return null;
 
   if (save) {
-    await writeFile(filePath, result.code);
+    writeFileSync(filePath, result.code);
   }
 
-  return extractedContent;
+  return {
+    extractedContent: extractedContent!,
+    code: result.code,
+    map: result.map,
+  };
 };

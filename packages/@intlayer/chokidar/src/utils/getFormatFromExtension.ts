@@ -12,7 +12,9 @@ export type Extension =
   | '.jsonc'
   | '.json5';
 
-export const getFormatFromExtension = (extension: Extension): Format => {
+export const getFormatFromExtension = (
+  extension: Extension | (string & {})
+): Format => {
   switch (extension) {
     case '.ts':
     case '.tsx':
@@ -34,7 +36,9 @@ export const getFormatFromExtension = (extension: Extension): Format => {
   return 'ts';
 };
 
-export const getExtensionFromFormat = (format: Format): Extension => {
+export const getExtensionFromFormat = (
+  format: Format | (string & {})
+): Extension => {
   switch (format) {
     case 'ts':
       return '.ts';

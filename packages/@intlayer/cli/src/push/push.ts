@@ -185,7 +185,7 @@ export const push = async (options?: PushOptions): Promise<void> => {
 
       dictionaries = dictionaries.filter((dictionary) =>
         gitFiles.includes(
-          join(config.content.baseDir, dictionary.filePath ?? '')
+          join(config.system.baseDir, dictionary.filePath ?? '')
         )
       );
     }

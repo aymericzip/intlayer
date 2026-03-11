@@ -33,7 +33,7 @@ export const parseFilePathPattern = async (
   return '';
 };
 
-const parseStringPattern = (
+export const parseStringPattern = (
   pattern: string,
   context: FilePathPatternContext
 ): string =>

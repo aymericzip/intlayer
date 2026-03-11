@@ -131,8 +131,9 @@ export const writeContentDeclaration = async (
   configuration: IntlayerConfig,
   options?: WriteContentDeclarationOptions
 ): Promise<{ status: DictionaryStatus; path: string }> => {
-  const { content, compiler } = configuration;
-  const { baseDir } = content;
+  const { system, compiler } = configuration;
+  const { baseDir } = system;
+
   const noMetadata =
     compiler?.noMetadata ?? DefaultValues.Compiler.COMPILER_NO_METADATA;
   const { newDictionariesPath, localeList } = {
@@ -162,7 +163,7 @@ export const writeContentDeclaration = async (
     const isSameContent = isDeepStrictEqual(existingDictionary, dictionary);
 
     const filePath = resolve(
-      configuration.content.baseDir,
+      configuration.system.baseDir,
       existingDictionary.filePath
     );
 
@@ -185,10 +186,7 @@ export const writeContentDeclaration = async (
   }
 
   if (dictionary.filePath) {
-    const filePath = resolve(
-      configuration.content.baseDir,
-      dictionary.filePath
-    );
+    const filePath = resolve(configuration.system.baseDir, dictionary.filePath);
 
     await writeFileWithDirectories(
       filePath,
@@ -281,7 +279,7 @@ const writeFileWithDirectories = async (
       try {
         execSync(formatCommand.replace('{{file}}', absoluteFilePath), {
           stdio: 'inherit',
-          cwd: configuration.content.baseDir,
+          cwd: configuration.system.baseDir,
         });
       } catch (error) {
         console.error(error);
@@ -337,7 +335,7 @@ const writeFileWithDirectories = async (
       try {
         execSync(formatCommand.replace('{{file}}', absoluteFilePath), {
           stdio: 'inherit',
-          cwd: configuration.content.baseDir,
+          cwd: configuration.system.baseDir,
         });
       } catch (error) {
         console.error(error);

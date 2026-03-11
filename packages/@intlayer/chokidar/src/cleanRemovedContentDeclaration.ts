@@ -7,8 +7,8 @@ import {
   getAppLogger,
 } from '@intlayer/config/logger';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import type { Dictionary } from '@intlayer/types/dictionary';
 import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import fg from 'fast-glob';
 import { createDictionaryEntryPoint } from './createDictionaryEntryPoint';
@@ -27,7 +27,7 @@ export const cleanRemovedContentDeclaration = async (
 
   const unmergedDictionaries = getUnmergedDictionaries(configuration);
 
-  const baseDir = configuration.content.baseDir;
+  const baseDir = configuration.system.baseDir;
 
   const relativeFilePath = relative(baseDir, filePath);
   const flatUnmergedDictionaries = Object.values(unmergedDictionaries).flat();

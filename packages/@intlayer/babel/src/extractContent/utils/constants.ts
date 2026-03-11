@@ -14,6 +14,8 @@ export const ATTRIBUTES_TO_EXTRACT = [
 /**
  * The list of supported Intlayer integration packages.
  * This is the single source of truth for package name validation.
+ *
+ * Order matter for resolution
  */
 export const packageList = [
   'next-intlayer',
@@ -27,6 +29,12 @@ export const packageList = [
   'hono-intlayer',
   'fastify-intlayer',
   'adonis-intlayer',
+  'intlayer',
 ] as const;
+
+/** Packages that support a `/server` sub-path for React Server Components. */
+export const SERVER_CAPABLE_PACKAGES: ReadonlySet<string> = new Set([
+  'next-intlayer',
+]);
 
 export type PackageName = (typeof packageList)[number];

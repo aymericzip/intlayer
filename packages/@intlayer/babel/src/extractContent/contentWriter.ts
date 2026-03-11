@@ -1,30 +1,17 @@
 import { existsSync } from 'node:fs';
-import { mkdir, readFile } from 'node:fs/promises';
-import { basename, dirname, extname, relative, resolve } from 'node:path';
+import { mkdir } from 'node:fs/promises';
+import { dirname, relative } from 'node:path';
 import {
   buildDictionary,
   ensureIntlayerBundle,
   loadContentDeclaration,
   writeContentDeclaration,
 } from '@intlayer/chokidar/build';
-import {
-  getContentExtension,
-  getFormatFromExtension,
-} from '@intlayer/chokidar/utils';
-import { DefaultValues } from '@intlayer/config/client';
-import {
-  parseFilePathPattern,
-  resolveDictionaryPaths,
-} from '@intlayer/config/utils';
-import {
-  getMultilingualDictionary,
-  insertContentInDictionary,
-} from '@intlayer/core/plugins';
+import { insertContentInDictionary } from '@intlayer/core/plugins';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
-import type { Dictionary } from '@intlayer/types/dictionary';
-import type { FilePathPattern } from '@intlayer/types/filePathPattern';
-import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
+import type { Dictionary, DictionaryKey } from '@intlayer/types/dictionary';
+import { resolveContentFilePaths } from './utils/extractDictionaryInfo';
 
 /**
  * Translation node structure used in dictionaries
@@ -43,60 +30,6 @@ type DictionaryContentMap = Record<string, TranslationNode>;
  * Cached bundle file path to optimize performance
  */
 let cachedBundleFilePath: string | undefined;
-
-/**
- * Resolves the paths for the content files associated with a component.
- * Checks for existing dictionaries first.
- */
-export const resolveContentFilePaths = async (
-  filePath: string,
-  componentKey: string,
-  configuration: IntlayerConfig,
-  output?: FilePathPattern
-): Promise<{ filePath: string; locales: Locale[]; isPerLocale: boolean }[]> => {
-  const { baseDir } = configuration.content;
-  const { locales, defaultLocale } = configuration.internationalization;
-
-  const unmergedDictionaries = getUnmergedDictionaries(configuration) ?? {};
-  const existingDicts = unmergedDictionaries[componentKey];
-
-  if (existingDicts?.[0]?.filePath) {
-    return [
-      {
-        filePath: resolve(baseDir, existingDicts[0].filePath),
-        locales,
-        isPerLocale: false,
-      },
-    ];
-  }
-
-  const pattern = output ?? DefaultValues.Compiler.COMPILER_OUTPUT;
-
-  const samplePattern = await parseFilePathPattern(pattern, {
-    key: componentKey,
-    dirPath: relative(baseDir, dirname(filePath)),
-    fileName: basename(filePath, extname(filePath)).toLowerCase(),
-    componentFileName: basename(filePath, extname(filePath)),
-    extension: extname(filePath) as any,
-    format: getFormatFromExtension(extname(filePath) as any),
-    locale: defaultLocale,
-  });
-
-  const format = getFormatFromExtension(extname(samplePattern) as any);
-
-  const resolvedPaths = await resolveDictionaryPaths({
-    pattern,
-    dictionaryKey: componentKey,
-    sourceFilePath: filePath,
-    baseDir,
-    locales,
-    defaultLocale,
-    contentExtension: getContentExtension(format, configuration),
-    format,
-  });
-
-  return resolvedPaths;
-};
 
 /**
  * Merge extracted content with existing dictionary for multilingual format.
@@ -169,151 +102,103 @@ export const mergeWithExistingPerLocaleDictionary = (
 };
 
 /**
- * Creates a dictionary object from extracted content.
- * Handles both single-locale and multi-locale formats based on configuration.
- *
- * @deprecated Use merge logic instead
- */
-export const createDictionary = (
-  extractedContent: Record<string, string>,
-  componentKey: string,
-  relativeContentFilePath: string,
-  configuration: IntlayerConfig,
-  targetLocale?: Locale
-): Dictionary => {
-  const dictionary: Dictionary = {
-    key: componentKey,
-    content: extractedContent,
-    filePath: relativeContentFilePath,
-    locale: targetLocale ?? configuration.internationalization.defaultLocale,
-  } as Dictionary;
-
-  if (targetLocale) {
-    return dictionary;
-  }
-
-  return getMultilingualDictionary(dictionary);
-};
-
-/**
  * Helper to write extracted content to dictionary file(s).
  */
 export const writeContentHelper = async (
   extractedContent: Record<string, string>,
-  componentKey: string,
+  dictionaryKey: DictionaryKey,
   filePath: string,
-  configuration: IntlayerConfig,
-  output?: FilePathPattern
+  configuration: IntlayerConfig
 ): Promise<string> => {
-  const resolvedPaths = await resolveContentFilePaths(
+  const { absolutePath, isPerLocale } = await resolveContentFilePaths(
     filePath,
-    componentKey,
-    configuration,
-    output
+    dictionaryKey,
+    configuration
   );
 
   const { defaultLocale } = configuration.internationalization;
-  const { baseDir } = configuration.content;
+  const { baseDir } = configuration.system;
 
   if (!cachedBundleFilePath) {
     cachedBundleFilePath = await ensureIntlayerBundle(configuration);
   }
 
-  let lastWrittenFilePath = '';
+  const outputDir = dirname(absolutePath);
 
-  for (const resolved of resolvedPaths) {
-    const {
-      filePath: contentFilePath,
-      locales: targetLocales,
-      isPerLocale,
-    } = resolved;
+  // Ensure output directory exists
+  await mkdir(outputDir, { recursive: true });
 
-    // In compiler mode, we only extract content for the base locale.
-    // If we are in per-locale mode, we should only generate the file for the default locale.
-    if (isPerLocale && !targetLocales.includes(defaultLocale)) {
-      continue;
-    }
+  // Read existing dictionary to preserve translations and metadata
+  let existingDictionary: Dictionary | null = null;
 
-    const outputDir = dirname(contentFilePath);
-
-    // Ensure output directory exists
-    await mkdir(outputDir, { recursive: true });
-
-    // Read existing dictionary to preserve translations and metadata
-    let existingDictionary: Dictionary | null = null;
-
-    if (existsSync(contentFilePath)) {
-      try {
-        const dictionary = await loadContentDeclaration(
-          contentFilePath,
-          configuration,
-          cachedBundleFilePath
-        );
-
-        existingDictionary = dictionary ?? null;
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    const relativeContentFilePath = relative(baseDir, contentFilePath);
-
-    let mergedDictionary: Dictionary;
-
-    if (isPerLocale) {
-      // Per-locale format: simple string content for a single locale
-      const targetLocale = targetLocales[0];
-      const mergedContent = mergeWithExistingPerLocaleDictionary(
-        extractedContent,
-        existingDictionary
+  if (existsSync(absolutePath)) {
+    try {
+      const dictionary = await loadContentDeclaration(
+        absolutePath,
+        configuration,
+        cachedBundleFilePath
       );
 
-      mergedDictionary = {
-        // Preserve existing metadata
-        ...existingDictionary,
-        key: componentKey,
-        content: mergedContent,
-        locale: targetLocale,
-        filePath: relativeContentFilePath,
-      };
-    } else {
-      // Multilingual format: content wrapped in translation nodes for multiple locales
-      const mergedContent = mergeWithExistingMultilingualDictionary(
-        extractedContent,
-        existingDictionary,
-        defaultLocale
-      );
-
-      mergedDictionary = {
-        // Preserve existing metadata
-        ...existingDictionary,
-        key: componentKey,
-        content: mergedContent,
-        filePath: relativeContentFilePath,
-      };
+      existingDictionary = dictionary ?? null;
+    } catch (error) {
+      console.error(error);
     }
-
-    const relativeDir = relative(baseDir, outputDir);
-
-    const writeResult = await writeContentDeclaration(
-      mergedDictionary,
-      configuration,
-      {
-        newDictionariesPath: relativeDir,
-        localeList: targetLocales,
-      }
-    );
-
-    // Build the dictionary immediately
-    const dictionaryToBuild: Dictionary = {
-      ...mergedDictionary,
-      filePath: relative(baseDir, writeResult?.path ?? contentFilePath),
-    };
-
-    await buildDictionary([dictionaryToBuild], configuration);
-
-    lastWrittenFilePath = contentFilePath;
   }
 
-  return lastWrittenFilePath;
+  const relativeContentFilePath = relative(baseDir, absolutePath);
+
+  let mergedDictionary: Dictionary;
+
+  if (isPerLocale) {
+    // Per-locale format: simple string content for a single locale
+    const mergedContent = mergeWithExistingPerLocaleDictionary(
+      extractedContent,
+      existingDictionary
+    );
+
+    mergedDictionary = {
+      // Preserve existing metadata
+      ...existingDictionary,
+      key: dictionaryKey,
+      content: mergedContent,
+      locale: defaultLocale,
+      filePath: relativeContentFilePath,
+    };
+  } else {
+    // Multilingual format: content wrapped in translation nodes for multiple locales
+    const mergedContent = mergeWithExistingMultilingualDictionary(
+      extractedContent,
+      existingDictionary,
+      defaultLocale
+    );
+
+    mergedDictionary = {
+      // Preserve existing metadata
+      ...existingDictionary,
+      key: dictionaryKey,
+      content: mergedContent,
+      filePath: relativeContentFilePath,
+    };
+  }
+
+  const relativeDir = relative(baseDir, outputDir);
+
+  const writeResult = await writeContentDeclaration(
+    mergedDictionary,
+    configuration,
+    {
+      newDictionariesPath: relativeDir,
+      localeList: [defaultLocale],
+    }
+  );
+
+  // Build the dictionary immediately
+  const dictionaryToBuild: Dictionary = {
+    ...mergedDictionary,
+    filePath: relative(baseDir, writeResult?.path ?? absolutePath),
+  };
+
+  await buildDictionary([dictionaryToBuild], configuration);
+
+  return absolutePath;
 };

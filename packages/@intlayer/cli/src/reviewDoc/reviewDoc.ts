@@ -114,7 +114,7 @@ export const reviewDoc = async ({
         `Reviewing file: ${formatPath(docPath)} to ${formatLocale(locale)}`
       );
 
-      const absoluteBaseFilePath = join(configuration.content.baseDir, docPath);
+      const absoluteBaseFilePath = join(configuration.system.baseDir, docPath);
       const outputFilePath = getOutputFilePath(
         absoluteBaseFilePath,
         locale,
@@ -124,7 +124,7 @@ export const reviewDoc = async ({
       // Skip if file exists and skipIfExists option is enabled
       if (skipIfExists && existsSync(outputFilePath)) {
         const relativePath = relative(
-          configuration.content.baseDir,
+          configuration.system.baseDir,
           outputFilePath
         );
         appLogger(

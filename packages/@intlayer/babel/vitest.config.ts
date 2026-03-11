@@ -10,5 +10,10 @@ export default defineConfig({
     passWithNoTests: true,
     include: ['src/**/*.test.{js,jsx,ts,tsx}'],
     exclude: ['**/node_modules/**', '**/dist/**'],
+    server: {
+      deps: {
+        inline: ['zod'],
+      },
+    },
   },
 });

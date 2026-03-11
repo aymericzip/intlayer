@@ -1,7 +1,9 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { parse as babelParse, types as t, traverse } from '@babel/core';
-import type { Locale } from '@intlayer/types/locale';
+import { DefaultValues } from '@intlayer/config/client';
+import type { Locale } from '@intlayer/types/allLocales';
 import vueSfc from '@vue/compiler-sfc';
+import MagicString from 'magic-string';
 
 export type ExtractedContent = Record<string, string>;
 
@@ -13,7 +15,7 @@ export type ExtractResult = {
 };
 
 export type ExtractPluginOptions = {
-  defaultLocale?: string;
+  defaultLocale?: Locale;
   packageName?: string;
   filesList?: string[];
   shouldExtract?: (text: string) => boolean;
@@ -84,24 +86,13 @@ const NODE_TYPES = {
   ATTRIBUTE: 6,
 };
 
-type MagicStringType = {
-  overwrite: (start: number, end: number, content: string) => void;
-  appendLeft: (index: number, content: string) => void;
-  prepend: (content: string) => void;
-  toString: () => string;
-  generateMap: (options: {
-    source: string;
-    includeContent: boolean;
-  }) => unknown;
-};
-
-export const intlayerVueExtract = async (
+export const intlayerVueExtract = (
   code: string,
   filename: string,
   options: ExtractPluginOptions = {}
-): Promise<{ code: string; map?: unknown; extracted: boolean } | null> => {
+): { code: string; map?: unknown; extracted: boolean } | null => {
   const {
-    defaultLocale = 'en',
+    defaultLocale = DefaultValues.Internationalization.DEFAULT_LOCALE,
     packageName = 'vue-intlayer',
     filesList,
     shouldExtract,
@@ -116,20 +107,11 @@ export const intlayerVueExtract = async (
   if (!filename.endsWith('.vue')) return null;
 
   let parseVue: (code: string) => VueParseResult;
-  let MagicString: new (code: string) => MagicStringType;
 
   try {
     parseVue = vueSfc.parse as unknown as (code: string) => VueParseResult;
   } catch {
     console.warn('Vue extraction: @vue/compiler-sfc not found.');
-    return null;
-  }
-
-  try {
-    const magicStringModule = await import('magic-string');
-    MagicString = magicStringModule.default;
-  } catch {
-    console.warn('Vue extraction: magic-string not found.');
     return null;
   }
 
@@ -142,11 +124,12 @@ export const intlayerVueExtract = async (
     dictionaryKeyOption ?? extractDictionaryKeyFromPath?.(filename) ?? '';
   const replacements: Replacement[] = [];
 
-  // 1. Walk Vue Template AST
+  // Walk Vue Template AST
   if (sfc.descriptor.template) {
     const walkVueAst = (node: VueAstNode) => {
       if (node.type === NODE_TYPES.TEXT) {
         const text = node.content ?? '';
+
         if (shouldExtract?.(text) && generateKey) {
           const key = generateKey(text, existingKeys);
           existingKeys.add(key);
@@ -166,6 +149,7 @@ export const intlayerVueExtract = async (
             prop.value
           ) {
             const text = prop.value.content;
+
             if (shouldExtract?.(text) && generateKey) {
               const key = generateKey(text, existingKeys);
               existingKeys.add(key);
@@ -189,7 +173,7 @@ export const intlayerVueExtract = async (
     walkVueAst(sfc.descriptor.template.ast);
   }
 
-  // 2. Extract and Walk Script using Babel
+  // Extract and Walk Script using Babel
   const scriptBlock = sfc.descriptor.scriptSetup ?? sfc.descriptor.script;
 
   if (scriptBlock) {
@@ -208,13 +192,17 @@ export const intlayerVueExtract = async (
         traverse(ast, {
           StringLiteral(path: any) {
             if (path.parentPath.isImportDeclaration()) return;
+
             if (path.parentPath.isExportDeclaration()) return;
+
             if (path.parentPath.isImportSpecifier()) return;
+
             if (path.parentPath.isObjectProperty() && path.key === 'key')
               return;
 
             if (path.parentPath.isCallExpression()) {
               const callee = path.parentPath.node.callee;
+
               if (
                 t.isMemberExpression(callee) &&
                 t.isIdentifier(callee.object) &&
@@ -229,10 +217,12 @@ export const intlayerVueExtract = async (
                 return;
 
               if (callee.type === 'Import') return;
+
               if (t.isIdentifier(callee) && callee.name === 'require') return;
             }
 
             const text = path.node.value;
+
             if (shouldExtract?.(text) && generateKey) {
               const key = generateKey(text, existingKeys);
               existingKeys.add(key);
@@ -261,8 +251,9 @@ export const intlayerVueExtract = async (
   // Abort if nothing was extracted
   if (replacements.length === 0) return null;
 
-  // 3. Apply Replacements in Reverse Order
+  // Apply Replacements in Reverse Order
   replacements.sort((a, b) => b.start - a.start);
+
   for (const { start, end, replacement, key, value } of replacements) {
     magic.overwrite(start, end, replacement);
     extractedContent[key] = value;
@@ -328,17 +319,21 @@ type Tools = {
   extractTsContent: any;
 };
 
-export const processVueFile = async (
+export const processVueFile = (
   filePath: string,
   _componentKey: string,
   packageName: string,
   tools: Tools,
   save: boolean = true
-): Promise<Record<string, string> | null> => {
-  const code = await readFile(filePath, 'utf-8');
+): {
+  extractedContent: Record<string, string>;
+  code: string;
+  map?: any;
+} | null => {
+  const code = readFileSync(filePath, 'utf-8');
   let extractedContent: Record<string, string> = {};
 
-  const result = await intlayerVueExtract(code, filePath, {
+  const result = intlayerVueExtract(code, filePath, {
     packageName,
     dictionaryKey: _componentKey,
     shouldExtract: tools.shouldExtract,
@@ -353,8 +348,12 @@ export const processVueFile = async (
   if (!result) return null;
 
   if (save) {
-    await writeFile(filePath, result.code);
+    writeFileSync(filePath, result.code);
   }
 
-  return extractedContent;
+  return {
+    extractedContent,
+    code: result.code,
+    map: result.map,
+  };
 };

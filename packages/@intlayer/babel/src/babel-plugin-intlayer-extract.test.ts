@@ -1,4 +1,5 @@
 import { transformSync } from '@babel/core';
+import { getConfiguration } from '@intlayer/config/node';
 import { describe, expect, it } from 'vitest';
 import {
   type ExtractPluginOptions,
@@ -20,6 +21,7 @@ const transform = (
           packageName: 'react-intlayer',
           defaultLocale: 'en',
           onExtract: () => {},
+          configuration: getConfiguration(),
           ...options,
         },
       ],
@@ -281,7 +283,9 @@ describe('babel-plugin-intlayer-extract', () => {
         return <div>Hello World</div>;
       }
     `;
-    const output = transform(code, { prefix: 'my-custom-' });
+    const conf = getConfiguration();
+    conf.compiler.dictionaryKeyPrefix = 'my-custom-';
+    const output = transform(code, { configuration: conf });
     expect(output).toContain('content.helloWorld');
     expect(output).toContain(
       "const content = useIntlayer('my-custom-my-component');"

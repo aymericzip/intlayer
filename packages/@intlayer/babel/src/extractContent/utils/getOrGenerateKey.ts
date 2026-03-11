@@ -20,6 +20,7 @@ export const getOrGenerateKey = (
     return existingEntry[0];
   }
   const key = generateKey(text, existingKeys);
+
   existingKeys.add(key);
   extractedContent[componentKey][key] = text;
   return key;

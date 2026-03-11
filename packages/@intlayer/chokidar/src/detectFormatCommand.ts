@@ -7,7 +7,8 @@ export const detectFormatCommand = (
   configuration: IntlayerConfig,
   projectRequireProp?: NodeJS.Require
 ) => {
-  const { formatCommand, baseDir } = configuration.content;
+  const { baseDir } = configuration.system;
+  const { formatCommand } = configuration.content;
   const projectRequire = projectRequireProp ?? getProjectRequire(baseDir);
 
   // Priority: Explicit configuration

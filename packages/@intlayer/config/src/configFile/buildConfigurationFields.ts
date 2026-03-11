@@ -16,7 +16,6 @@ import type {
   SystemConfig,
 } from '@intlayer/types/config';
 import packageJson from '@intlayer/types/package.json' with { type: 'json' };
-import type { z } from 'zod';
 import {
   BUILD_MODE,
   CACHE,
@@ -27,11 +26,9 @@ import {
 import {
   COMPILER_DICTIONARY_KEY_PREFIX,
   COMPILER_ENABLED,
-  COMPILER_EXCLUDE_PATTERN,
   COMPILER_NO_METADATA,
   COMPILER_OUTPUT,
   COMPILER_SAVE_COMPONENTS,
-  COMPILER_TRANSFORM_PATTERN,
 } from '../defaultValues/compiler';
 import {
   CODE_DIR,
@@ -207,84 +204,11 @@ const buildRoutingFields = (
   rewrite: customConfiguration?.rewrite,
 });
 
-const buildContentFields = (
-  customConfiguration?: Partial<ContentConfig>,
-  baseDir?: string
-): ContentConfig => {
-  const fileExtensions = customConfiguration?.fileExtensions ?? FILE_EXTENSIONS;
-  const projectBaseDir =
-    customConfiguration?.baseDir ?? baseDir ?? process.cwd();
-
-  const optionalJoinBaseDir = (pathInput: string) => {
-    let absolutePath: string;
-
-    try {
-      // Try resolving as a Node module first
-      const requireFunction = getProjectRequire(projectBaseDir);
-      absolutePath = requireFunction.resolve(pathInput, {
-        paths: [projectBaseDir],
-      });
-    } catch {
-      try {
-        // Fall back to native require.resolve if the custom require fails
-        absolutePath = require.resolve(pathInput, { paths: [projectBaseDir] });
-      } catch {
-        // If all resolution fails, fall back to standard path joining
-        absolutePath = isAbsolute(pathInput)
-          ? pathInput
-          : join(projectBaseDir, pathInput);
-      }
-    }
-
-    try {
-      // Smart Detection: File vs Directory
-      const stats = statSync(absolutePath);
-
-      // If it resolved to a file (like package.json "main" or index.js),
-      // we want the FOLDER containing that file.
-      if (stats.isFile()) {
-        return dirname(absolutePath);
-      }
-    } catch {
-      // Safety Fallback:
-      // If statSync fails but it looks like a file (has an extension), strip it.
-      if (/\.[a-z0-9]+$/i.test(absolutePath)) {
-        return dirname(absolutePath);
-      }
-    }
-
-    // Return the calculated path (usually a directory)
-    return absolutePath;
-  };
-
-  const contentDir = (customConfiguration?.contentDir ?? CONTENT_DIR).map(
-    optionalJoinBaseDir
-  );
-
-  const codeDirInput = customConfiguration?.codeDir;
-
-  const codeDir = (codeDirInput ?? CODE_DIR).map(optionalJoinBaseDir);
-
-  return {
-    fileExtensions,
-    baseDir: projectBaseDir,
-    contentDir,
-    codeDir,
-    excludedPath: customConfiguration?.excludedPath ?? EXCLUDED_PATHS,
-    watch: customConfiguration?.watch ?? WATCH,
-    formatCommand: customConfiguration?.formatCommand,
-    watchedFilesPattern: fileExtensions.map((ext) => `/**/*${ext}`),
-    watchedFilesPatternWithPath: fileExtensions.flatMap((ext) =>
-      contentDir.map((dir) => `${normalizePath(dir)}/**/*${ext}`)
-    ),
-  };
-};
-
 const buildSystemFields = (
-  customConfiguration?: Partial<SystemConfig>,
-  contentConfig?: ContentConfig
+  baseDir?: string,
+  customConfiguration?: Partial<SystemConfig>
 ): SystemConfig => {
-  const projectBaseDir = contentConfig?.baseDir ?? process.cwd();
+  const projectBaseDir = baseDir ?? process.cwd();
 
   const optionalJoinBaseDir = (pathInput: string) => {
     let absolutePath: string;
@@ -320,6 +244,7 @@ const buildSystemFields = (
   );
 
   return {
+    baseDir: projectBaseDir,
     moduleAugmentationDir: optionalJoinBaseDir(
       customConfiguration?.moduleAugmentationDir ?? MODULE_AUGMENTATION_DIR
     ),
@@ -344,6 +269,78 @@ const buildSystemFields = (
     cacheDir: optionalJoinBaseDir(customConfiguration?.cacheDir ?? CACHE_DIR),
     tempDir: optionalJoinBaseDir(customConfiguration?.tempDir ?? TEMP_DIR),
     outputFilesPatternWithPath: `${normalizePath(dictionariesDir)}/**/*.json`,
+  };
+};
+
+const buildContentFields = (
+  systemConfig: SystemConfig,
+  customConfiguration?: Partial<ContentConfig>
+): ContentConfig => {
+  const fileExtensions = customConfiguration?.fileExtensions ?? FILE_EXTENSIONS;
+
+  const optionalJoinBaseDir = (pathInput: string) => {
+    let absolutePath: string;
+
+    try {
+      // Try resolving as a Node module first
+      const requireFunction = getProjectRequire(systemConfig.baseDir);
+      absolutePath = requireFunction.resolve(pathInput, {
+        paths: [systemConfig.baseDir],
+      });
+    } catch {
+      try {
+        // Fall back to native require.resolve if the custom require fails
+        absolutePath = require.resolve(pathInput, {
+          paths: [systemConfig.baseDir],
+        });
+      } catch {
+        // If all resolution fails, fall back to standard path joining
+        absolutePath = isAbsolute(pathInput)
+          ? pathInput
+          : join(systemConfig.baseDir, pathInput);
+      }
+    }
+
+    try {
+      // Smart Detection: File vs Directory
+      const stats = statSync(absolutePath);
+
+      // If it resolved to a file (like package.json "main" or index.js),
+      // we want the FOLDER containing that file.
+      if (stats.isFile()) {
+        return dirname(absolutePath);
+      }
+    } catch {
+      // Safety Fallback:
+      // If statSync fails but it looks like a file (has an extension), strip it.
+      if (/\.[a-z0-9]+$/i.test(absolutePath)) {
+        return dirname(absolutePath);
+      }
+    }
+
+    // Return the calculated path (usually a directory)
+    return absolutePath;
+  };
+
+  const contentDir = (customConfiguration?.contentDir ?? CONTENT_DIR).map(
+    optionalJoinBaseDir
+  );
+
+  const codeDirInput = customConfiguration?.codeDir;
+
+  const codeDir = (codeDirInput ?? CODE_DIR).map(optionalJoinBaseDir);
+
+  return {
+    fileExtensions,
+    contentDir,
+    codeDir,
+    excludedPath: customConfiguration?.excludedPath ?? EXCLUDED_PATHS,
+    watch: customConfiguration?.watch ?? WATCH,
+    formatCommand: customConfiguration?.formatCommand,
+    watchedFilesPattern: fileExtensions.map((ext) => `/**/*${ext}`),
+    watchedFilesPatternWithPath: fileExtensions.flatMap((ext) =>
+      contentDir.map((dir) => `${normalizePath(dir)}/**/*${ext}`)
+    ),
   };
 };
 
@@ -693,15 +690,17 @@ const buildCompilerFields = (
 
   /**
    * Pattern to traverse the code to optimize.
+   *
+   * @deprecated use build.traversePattern instead
    */
-  transformPattern:
-    customConfiguration?.transformPattern ?? COMPILER_TRANSFORM_PATTERN,
+  transformPattern: customConfiguration?.transformPattern,
 
   /**
    * Pattern to exclude from the optimization.
+   *
+   * @deprecated use build.traversePattern instead
    */
-  excludePattern:
-    customConfiguration?.excludePattern ?? COMPILER_EXCLUDE_PATTERN,
+  excludePattern: customConfiguration?.excludePattern,
 
   /**
    * Output directory for the optimized dictionaries.
@@ -712,7 +711,7 @@ const buildCompilerFields = (
   /**
    * File path pattern for generated dictionaries.
    */
-  output: customConfiguration?.output ?? COMPILER_OUTPUT,
+  output: customConfiguration?.output,
 
   /**
    * Indicates if the metadata should be saved in the file.
@@ -847,14 +846,11 @@ export const buildConfigurationFields = (
 
   const routingConfig = buildRoutingFields(customConfiguration?.routing);
 
-  const contentConfig = buildContentFields(
-    customConfiguration?.content,
-    baseDir
-  );
+  const systemConfig = buildSystemFields(baseDir, customConfiguration?.system);
 
-  const systemConfig = buildSystemFields(
-    customConfiguration?.system,
-    contentConfig
+  const contentConfig = buildContentFields(
+    systemConfig,
+    customConfiguration?.content
   );
 
   const editorConfig = buildEditorFields(customConfiguration?.editor);

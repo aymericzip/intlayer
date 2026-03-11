@@ -25,7 +25,7 @@ export const logConfigDetails = (options?: GetConfigurationOptions) => {
 
   runOnce(
     join(
-      configuration.content.baseDir,
+      configuration.system.baseDir,
       '.intlayer',
       'cache',
       'intlayer-config-locaded.lock'
@@ -39,7 +39,7 @@ export const logConfigDetails = (options?: GetConfigurationOptions) => {
           }
         );
       } else {
-        const baseDir = configuration.content.baseDir;
+        const baseDir = configuration.system.baseDir;
         const relativeOutputPath = relative(baseDir, configurationFilePath!);
 
         if (numCustomConfiguration === 1) {
@@ -75,6 +75,28 @@ export const logConfigDetails = (options?: GetConfigurationOptions) => {
           const errorMessage = `${x} Invalid configuration:\n${errorMessages}`;
 
           appLogger(errorMessage);
+        }
+
+        // Deprecation warning: compiler.outputDir -> compiler.output
+        if (customConfiguration.compiler?.outputDir) {
+          appLogger(
+            `${colorizePath('compiler.outputDir')} is deprecated, use ${colorizePath('compiler.output')} instead`
+          );
+        }
+        if (customConfiguration.build?.importMode) {
+          appLogger(
+            `${colorizePath('build.importMode')} is deprecated, use ${colorizePath('dictionary.importMode')} instead`
+          );
+        }
+        if (customConfiguration.compiler?.transformPattern) {
+          appLogger(
+            `${colorizePath('compiler.transformPattern')} is deprecated, use ${colorizePath('build.traversePattern')} instead`
+          );
+        }
+        if (customConfiguration.compiler?.excludePattern) {
+          appLogger(
+            `${colorizePath('compiler.excludePattern')} is deprecated, use ${colorizePath('build.traversePattern')} instead`
+          );
         }
       }
     },

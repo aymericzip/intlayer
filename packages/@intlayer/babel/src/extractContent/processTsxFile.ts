@@ -6,7 +6,11 @@ import * as t from '@babel/types';
 import { detectFormatCommand } from '@intlayer/chokidar/cli';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { extractBabelContentForComponents } from './babelProcessor';
-import { getExistingIntlayerInfo } from './utils';
+import {
+  getExistingIntlayerInfo,
+  type PackageName,
+  SERVER_CAPABLE_PACKAGES,
+} from './utils';
 
 export type TextEdit = {
   start: number;
@@ -24,7 +28,7 @@ const traverse = (
 export const processTsxFile = (
   filePath: string,
   componentKey: string,
-  packageName: string,
+  packageName: PackageName,
   configuration: IntlayerConfig,
   save: boolean = true,
   unmergedDictionaries: Record<string, unknown> = {},
@@ -39,6 +43,15 @@ export const processTsxFile = (
     sourceType: 'module',
     plugins: ['jsx', 'typescript'],
   });
+
+  const hasUseClient = ast.program.directives.some(
+    (directive) => directive.value.value === 'use client'
+  );
+
+  const effectivePackageName =
+    SERVER_CAPABLE_PACKAGES.has(packageName) && !hasUseClient
+      ? `${packageName}/server`
+      : packageName;
 
   const isSolid = packageName === 'solid-intlayer';
   const existingKeys = new Set<string>();
@@ -190,22 +203,24 @@ export const processTsxFile = (
         let parenEnd = -1;
 
         for (let i = start - 1; i >= 0; i--) {
-          const ch = fileCode[i];
-          if (ch === '(') {
+          const char = fileCode[i];
+          if (char === '(') {
             parenStart = i;
             break;
           }
-          if (ch !== ' ' && ch !== '\n' && ch !== '\r' && ch !== '\t') break;
+          if (char !== ' ' && char !== '\n' && char !== '\r' && char !== '\t')
+            break;
         }
 
         if (parenStart !== -1) {
           for (let i = end; i < fileCode.length; i++) {
-            const ch = fileCode[i];
-            if (ch === ')') {
+            const char = fileCode[i];
+            if (char === ')') {
               parenEnd = i;
               break;
             }
-            if (ch !== ' ' && ch !== '\n' && ch !== '\r' && ch !== '\t') break;
+            if (char !== ' ' && char !== '\n' && char !== '\r' && char !== '\t')
+              break;
           }
         }
 
@@ -316,7 +331,7 @@ export const processTsxFile = (
     }
   };
 
-  if (needsUseIntlayer) injectImport('useIntlayer', packageName);
+  if (needsUseIntlayer) injectImport('useIntlayer', effectivePackageName);
 
   if (needsGetIntlayer) injectImport('getIntlayer', 'intlayer');
 
@@ -344,7 +359,7 @@ export const processTsxFile = (
       try {
         execSync(formatCommand.replace('{{file}}', filePath), {
           stdio: 'inherit',
-          cwd: configuration.content.baseDir,
+          cwd: configuration.system.baseDir,
         });
       } catch (error) {
         console.error(error);

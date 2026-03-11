@@ -2,8 +2,8 @@ import { relative } from 'node:path';
 import configuration from '@intlayer/config/built';
 import { ANSIColors, colorize, colorizePath } from '@intlayer/config/logger';
 import { getLocaleName } from '@intlayer/core/localization';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import * as Locales from '@intlayer/types/locales';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
 export const formatPath = (
   path: string | string[],
@@ -12,9 +12,7 @@ export const formatPath = (
   [path]
     .flat()
     .map((path) =>
-      path.startsWith('/')
-        ? relative(configuration.content.baseDir, path)
-        : path
+      path.startsWith('/') ? relative(configuration.system.baseDir, path) : path
     )
     .map((relativePath) =>
       color === false ? relativePath : colorizePath(relativePath, color)

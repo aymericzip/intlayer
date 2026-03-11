@@ -620,8 +620,10 @@ export type CompilerConfig = {
    * Note:
    * - This option will be ignored if `optimize` is disabled.
    * - Use glob pattern.
+   *
+   * @deprecated use build.traversePattern instead
    */
-  transformPattern: string | string[];
+  transformPattern?: string | string[];
 
   /**
    * Pattern to exclude from the optimization.
@@ -631,8 +633,10 @@ export type CompilerConfig = {
    * Default: ['**\/node_modules/**']
    *
    * Example: `['**\/node_modules/**', '!**\/node_modules/react/**']`
+   *
+   * @deprecated use build.traversePattern instead
    */
-  excludePattern: string | string[];
+  excludePattern?: string | string[];
 
   /**
    * Output directory for the optimized dictionaries.
@@ -914,15 +918,6 @@ export type ContentConfig = {
   fileExtensions: string[];
 
   /**
-   * Absolute path of the project's base directory
-   *
-   * Default: process.cwd()
-   *
-   * The root directory of the project, typically used for resolving other paths.
-   */
-  baseDir: string;
-
-  /**
    * Directory where the content is stored, relative to the base directory
    *
    * Default: ['.']
@@ -1007,6 +1002,15 @@ export type ContentConfig = {
 };
 
 export type SystemConfig = {
+  /**
+   * Absolute path of the project's base directory
+   *
+   * Default: process.cwd()
+   *
+   * The root directory of the project, typically used for resolving other paths.
+   */
+  baseDir: string;
+
   /**
    * Directory for module augmentation, relative to the base directory
    *

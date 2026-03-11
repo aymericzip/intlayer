@@ -35,7 +35,8 @@ const getDistinctRootDirs = (dirs: string[]): string[] => {
 export const getComponentTransformPattern = async (
   intlayerConfig: IntlayerConfig
 ): Promise<string[]> => {
-  const { baseDir, codeDir } = intlayerConfig.content;
+  const { baseDir } = intlayerConfig.system;
+  const { codeDir } = intlayerConfig.content;
   const { traversePattern } = intlayerConfig.build;
 
   // Optimize: Filter out codeDir paths if they are already covered by baseDir
@@ -58,7 +59,8 @@ export const getComponentTransformPattern = async (
 export const getComponentTransformPatternSync = (
   intlayerConfig: IntlayerConfig
 ): string[] => {
-  const { baseDir, codeDir } = intlayerConfig.content;
+  const { baseDir } = intlayerConfig.system;
+  const { codeDir } = intlayerConfig.content;
   const { traversePattern } = intlayerConfig.build;
 
   // Optimize: Filter out codeDir paths if they are already covered by baseDir

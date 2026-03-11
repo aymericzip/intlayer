@@ -3,7 +3,7 @@ import type { Locale } from '@intlayer/types/allLocales';
 import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
 import { NodeType } from '@intlayer/types/nodeType';
 import * as recast from 'recast';
-import * as tsParser from 'recast/parsers/typescript.js';
+import * as babelTsParser from 'recast/parsers/babel-ts.js';
 
 const b = recast.types.builders;
 const n = recast.types.namedTypes;
@@ -155,6 +155,39 @@ const buildNodeForValue = (
   fallbackLocale: string | undefined, // In per-locale mode, this is the locale of the file
   requiredImports: Set<string>
 ): any => {
+  const unwrappedExisting = unwrap(existingNode);
+
+  // --- CRITICAL GUARD: STRICT AST PRESERVATION ---
+  // If the existing node is code (JSX, Variables, standard functions), leave it alone.
+  // Only allow updates to literals, plain objects, arrays, and Intlayer helpers.
+  if (unwrappedExisting) {
+    const isUpdatableNode =
+      n.Literal.check(unwrappedExisting) ||
+      n.StringLiteral.check(unwrappedExisting) ||
+      n.NumericLiteral.check(unwrappedExisting) ||
+      n.BooleanLiteral.check(unwrappedExisting) ||
+      n.TemplateLiteral.check(unwrappedExisting) ||
+      n.ObjectExpression.check(unwrappedExisting) ||
+      n.ArrayExpression.check(unwrappedExisting) ||
+      (n.CallExpression.check(unwrappedExisting) &&
+        n.Identifier.check(unwrappedExisting.callee) &&
+        [
+          't',
+          'enu',
+          'cond',
+          'gender',
+          'insert',
+          'md',
+          'html',
+          'file',
+          'nest',
+        ].includes(unwrappedExisting.callee.name));
+
+    if (!isUpdatableNode) {
+      return existingNode;
+    }
+  }
+
   // If we are in per-locale mode (fallbackLocale is set)
   // and the value is not already a complex translation node,
   // we want to store it as a simple literal, NOT wrapped in t().
@@ -165,6 +198,12 @@ const buildNodeForValue = (
       typeof val === 'number' ||
       typeof val === 'boolean'
     ) {
+      if (typeof val === 'string' && val.includes('\n')) {
+        return b.templateLiteral(
+          [b.templateElement({ raw: val, cooked: val }, true)],
+          []
+        );
+      }
       return b.literal(val);
     }
   }
@@ -237,13 +276,38 @@ const buildNodeForValue = (
     typeof val === 'number' ||
     typeof val === 'boolean'
   ) {
+    if (unwrappedExisting) {
+      // Preserve existing template literals (backticks)
+      if (
+        n.TemplateLiteral.check(unwrappedExisting) &&
+        unwrappedExisting.expressions.length === 0
+      ) {
+        unwrappedExisting.quasis[0].value.raw = String(val);
+        unwrappedExisting.quasis[0].value.cooked = String(val);
+        return existingNode;
+      }
+      // Preserve existing standard literals (keeps quote styling)
+      if (
+        n.Literal.check(unwrappedExisting) ||
+        n.StringLiteral.check(unwrappedExisting)
+      ) {
+        unwrappedExisting.value = val;
+        return existingNode;
+      }
+    }
+
+    // Force multiline strings to use Template Literals
+    if (typeof val === 'string' && val.includes('\n')) {
+      return b.templateLiteral(
+        [b.templateElement({ raw: val, cooked: val }, true)],
+        []
+      );
+    }
     return b.literal(val);
   }
 
   // 2. Arrays
   if (Array.isArray(val)) {
-    const unwrappedExisting = unwrap(existingNode);
-
     if (unwrappedExisting && n.ArrayExpression.check(unwrappedExisting)) {
       const elements = [...unwrappedExisting.elements];
       val.forEach((item, i) => {
@@ -268,7 +332,7 @@ const buildNodeForValue = (
     }
   }
 
-  // 3. Intlayer Specialized Nodes (t, enu, cond, gender, insert, md, html, file, nest)
+  // 3. Intlayer Specialized Nodes
   const nodeType =
     val && typeof val === 'object' && !Array.isArray(val)
       ? getNodeType(val as ContentNode)
@@ -354,11 +418,11 @@ const buildNodeForValue = (
   }
 
   // 4. Plain Object
-  const unwrappedExisting = unwrap(existingNode);
   const objNode =
     unwrappedExisting && n.ObjectExpression.check(unwrappedExisting)
       ? unwrappedExisting
       : b.objectExpression([]);
+
   updateObjectLiteral(objNode, val, fallbackLocale, requiredImports);
 
   return existingNode && unwrappedExisting === existingNode
@@ -408,7 +472,6 @@ const addImports = (ast: any, requiredImports: Set<string>, isESM: boolean) => {
   if (requiredImports.size === 0) return;
 
   const existingCoreImports = new Set<string>();
-  let hasFileImport = false;
   let coreImportPath: any = null;
 
   recast.visit(ast, {
@@ -425,8 +488,6 @@ const addImports = (ast: any, requiredImports: Set<string>, isESM: boolean) => {
             existingCoreImports.add(spec.imported.name);
           }
         });
-      } else if (source === 'intlayer/file') {
-        hasFileImport = true;
       }
 
       return false;
@@ -460,8 +521,6 @@ const addImports = (ast: any, requiredImports: Set<string>, isESM: boolean) => {
                 // Handle const intlayer = require('intlayer')
                 existingCoreImports.add(decl.id.name);
               }
-            } else if (arg.value === 'intlayer/file') {
-              hasFileImport = true;
             }
           }
         }
@@ -472,50 +531,27 @@ const addImports = (ast: any, requiredImports: Set<string>, isESM: boolean) => {
   });
 
   const missingCore = Array.from(requiredImports).filter(
-    (imp) => imp !== 'file' && !existingCoreImports.has(imp)
+    (imp) => !existingCoreImports.has(imp)
   );
-  const needsFile = requiredImports.has('file') && !hasFileImport;
 
-  if (missingCore.length === 0 && !needsFile) return;
+  if (missingCore.length === 0) return;
 
   if (isESM) {
-    if (missingCore.length > 0) {
-      if (coreImportPath) {
-        missingCore.forEach((imp) => {
-          coreImportPath.node.specifiers.push(
-            b.importSpecifier(b.identifier(imp))
-          );
-        });
-        coreImportPath.node.specifiers.sort((a: any, b: any) =>
-          a.imported.name.localeCompare(b.imported.name)
+    if (coreImportPath) {
+      missingCore.forEach((imp) => {
+        coreImportPath.node.specifiers.push(
+          b.importSpecifier(b.identifier(imp))
         );
-      } else {
-        const specifiers = missingCore
-          .sort()
-          .map((imp) => b.importSpecifier(b.identifier(imp)));
-        const newImport = b.importDeclaration(
-          specifiers,
-          b.literal('intlayer')
-        );
-        ast.program.body.unshift(newImport);
-      }
-    }
-
-    if (needsFile) {
-      let insertIndex = 0;
-      ast.program.body.forEach((node: any, i: number) => {
-        if (
-          n.ImportDeclaration.check(node) &&
-          node.source.value === 'intlayer'
-        ) {
-          insertIndex = i + 1;
-        }
       });
-      const fileImport = b.importDeclaration(
-        [b.importSpecifier(b.identifier('file'))],
-        b.literal('intlayer/file')
+      coreImportPath.node.specifiers.sort((a: any, b: any) =>
+        a.imported.name.localeCompare(b.imported.name)
       );
-      ast.program.body.splice(insertIndex, 0, fileImport);
+    } else {
+      const specifiers = missingCore
+        .sort()
+        .map((imp) => b.importSpecifier(b.identifier(imp)));
+      const newImport = b.importDeclaration(specifiers, b.literal('intlayer'));
+      ast.program.body.unshift(newImport);
     }
   } else {
     let insertIndex = 0;
@@ -529,41 +565,21 @@ const addImports = (ast: any, requiredImports: Set<string>, isESM: boolean) => {
     }
     const cjsLines: any[] = [];
 
-    if (missingCore.length > 0) {
-      const properties = missingCore.sort().map((imp) => {
-        const prop = b.property('init', b.identifier(imp), b.identifier(imp));
-        prop.shorthand = true;
-
-        return prop;
-      });
-      cjsLines.push(
-        b.variableDeclaration('const', [
-          b.variableDeclarator(
-            b.objectPattern(properties),
-            b.callExpression(b.identifier('require'), [b.literal('intlayer')])
-          ),
-        ])
-      );
-    }
-
-    if (needsFile) {
-      const prop = b.property(
-        'init',
-        b.identifier('file'),
-        b.identifier('file')
-      );
+    const properties = missingCore.sort().map((imp) => {
+      const prop = b.property('init', b.identifier(imp), b.identifier(imp));
       prop.shorthand = true;
-      cjsLines.push(
-        b.variableDeclaration('const', [
-          b.variableDeclarator(
-            b.objectPattern([prop]),
-            b.callExpression(b.identifier('require'), [
-              b.literal('intlayer/file'),
-            ])
-          ),
-        ])
-      );
-    }
+
+      return prop;
+    });
+    cjsLines.push(
+      b.variableDeclaration('const', [
+        b.variableDeclarator(
+          b.objectPattern(properties),
+          b.callExpression(b.identifier('require'), [b.literal('intlayer')])
+        ),
+      ])
+    );
+
     ast.program.body.splice(insertIndex, 0, ...cjsLines);
   }
 };
@@ -582,15 +598,11 @@ export const transformJSFile = async (
   let ast: any;
   try {
     ast = recast.parse(fileContent, {
-      parser: tsParser,
+      parser: babelTsParser,
     });
-  } catch {
-    try {
-      ast = recast.parse(fileContent); // Strict ESM fallback
-    } catch (error) {
-      console.error({ error });
-      return fileContent;
-    }
+  } catch (error) {
+    console.error({ error });
+    return fileContent;
   }
 
   let rootObject: any = null;

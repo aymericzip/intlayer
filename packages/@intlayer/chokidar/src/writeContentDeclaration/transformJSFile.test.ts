@@ -500,8 +500,7 @@ describe('transformJSFile', () => {
 
     const result = await transformJSFile(fileWithoutImports, dict);
 
-    expect(result).toContain('import { md } from "intlayer"');
-    expect(result).toContain('import { file } from "intlayer/file"');
+    expect(result).toContain('import { file, md } from "intlayer"');
     expect(result).toContain('readme: md(file("./README.md"))');
   });
 
@@ -737,15 +736,15 @@ describe('transformJSFile', () => {
 
     expect(result).toContain('expandCollapseToggle: cond({');
     expect(result).toContain('true: t({');
-    expect(result).toContain('en: "Show all"');
-    expect(result).toContain('fr: "Afficher tout"');
-    expect(result).toContain('es: "Mostrar todo"');
+    expect(result).toContain("en: 'Show all'");
+    expect(result).toContain("fr: 'Afficher tout'");
+    expect(result).toContain("es: 'Mostrar todo'");
     expect(result).toContain('de: "Mehr anzeigen"');
     expect(result).toContain('pl: "Pokaż wszystko"');
     expect(result).toContain('false: t({');
-    expect(result).toContain('en: "Show less"');
-    expect(result).toContain('fr: "Afficher moins"');
-    expect(result).toContain('es: "Mostrar menos"');
+    expect(result).toContain("en: 'Show less'");
+    expect(result).toContain("fr: 'Afficher moins'");
+    expect(result).toContain("es: 'Mostrar menos'");
     expect(result).toContain('de: "Weniger anzeigen"');
     expect(result).toContain('pl: "Pokaż mniej"');
   });
@@ -815,5 +814,48 @@ export default helloWorld2Content;
     expect(result).toContain('testKey: t({');
     expect(result).toContain('en: "Test extracted"');
     expect(result).toContain('as Dictionary');
+  });
+
+  it('works with JSX/TSX content', async () => {
+    const tsxContent = `
+import { t, type Dictionary } from 'intlayer';
+import type { ReactNode } from 'react';
+
+const appContent = {
+  key: 'app',
+  content: {
+    edit: t<ReactNode>({
+      en: <>test</>,
+    }),
+  },
+} satisfies Dictionary;
+
+export default appContent;
+`;
+
+    const dict: Dictionary = {
+      key: 'app',
+      content: {
+        edit: {
+          nodeType: 'translation',
+          translation: {
+            en: {
+              nodeType: 'text',
+              text: 'test updated',
+            },
+          },
+        },
+      },
+    } as any;
+
+    // Direct AST manipulation for JSX in tests is tricky with defu,
+    // so we just test if it can parse and print JSX correctly without error.
+    // In actual usage, the content comes from the AI translation results.
+
+    const result = await transformJSFile(tsxContent, dict);
+
+    // Verify it parsed and preserved the JSX structure
+    expect(result).toContain('en: <>test</>,');
+    expect(result).toContain('satisfies Dictionary');
   });
 });

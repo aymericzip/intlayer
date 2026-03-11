@@ -59,7 +59,7 @@ const rewritePathsPlugin = (
  * Get the intlayer bundle to embed @intlayer/core and be able to mock @intlayer/config/built to mock the configuration file.
  */
 export const getIntlayerBundle = async (configuration: IntlayerConfig) => {
-  const rootRequire = getProjectRequire(configuration.content.baseDir);
+  const rootRequire = getProjectRequire(configuration.system.baseDir);
   const configPackageRequire = configESMxCJSRequire;
   const localRequire = isESModule ? createRequire(import.meta.url) : require;
 
