@@ -608,10 +608,12 @@ export const scanShowcaseProject = async (
 
     // ── Step 3: Upload the screenshot captured during scan ────────────────────
     send({ step: 'SCREENSHOT_START' });
-    uploadedImageUrl = await uploadShowcaseScreenshot(
-      scanResult.screenshotBuffer,
-      project.websiteUrl
-    );
+    if (scanResult.screenshotBuffer) {
+      uploadedImageUrl = await uploadShowcaseScreenshot(
+        scanResult.screenshotBuffer,
+        project.websiteUrl
+      );
+    }
     send({ step: 'SCREENSHOT_SUCCESS' });
 
     // ── Step 4: Merge & save ──────────────────────────────────────────────────

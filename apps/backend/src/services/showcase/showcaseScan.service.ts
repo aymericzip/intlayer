@@ -13,8 +13,8 @@ export interface ShowcaseScannedInfo {
   /** List of detected intlayer package names */
   libsUsed: string[];
   scanDetails: ShowcaseScanDetails;
-  /** JPEG screenshot buffer taken on the same page load */
-  screenshotBuffer: Buffer;
+  /** JPEG screenshot buffer taken on the same page load. Undefined if scan fails. */
+  screenshotBuffer?: Buffer;
   /** Page title extracted from og:title or <title> */
   metaTitle?: string;
   /** Short description extracted from og:description or meta description */
@@ -49,7 +49,7 @@ export const extractPackagesFromScript = (
   return result;
 };
 
-const MAX_EXTERNAL_SCRIPTS = 20;
+const MAX_EXTERNAL_SCRIPTS = 50;
 const MAX_SCRIPT_BYTES = 5 * 1024 * 1024; // 5 MB
 
 /**
@@ -122,6 +122,20 @@ export const scanShowcaseProject = async (
         .map((script) => (script as HTMLScriptElement).src)
         .filter(Boolean);
 
+      const resourceScripts = (
+        performance.getEntriesByType('resource') as PerformanceResourceTiming[]
+      )
+        .filter(
+          (resource) =>
+            resource.initiatorType === 'script' ||
+            resource.name.match(/\.(js|mjs|cjs)(\?[^"'\s]*)?$/i)
+        )
+        .map((resource) => resource.name);
+
+      const allScriptUrls = Array.from(
+        new Set([...externalScriptUrls, ...resourceScripts])
+      );
+
       // Meta tag extraction
       const metaTitle =
         document
@@ -146,20 +160,13 @@ export const scanShowcaseProject = async (
         hasLocalizedLinks,
         allAnchorsLocalized,
         inlineScripts,
-        externalScriptUrls,
+        externalScriptUrls: allScriptUrls,
         metaTitle,
         metaDescription,
       };
     }, allLocales);
 
-    // Screenshot (same page, no extra navigation)
-    logger.info(`[scanShowcaseProject] Taking screenshot of ${url}...`);
-    const screenshotBuffer = (await page.screenshot({
-      type: 'jpeg',
-      quality: 30,
-    })) as Buffer;
-
-    await page.close();
+    // Delaying screenshot until we verify the package presence
 
     // robots.txt
     let robotsAccessible = false;
@@ -201,7 +208,12 @@ export const scanShowcaseProject = async (
       await Promise.allSettled(
         scriptUrls.map(async (src) => {
           try {
-            const res = await fetch(src);
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+            const res = await fetch(src, { signal: controller.signal }).finally(
+              () => clearTimeout(timeoutId)
+            );
 
             if (!res.ok) return;
             const contentLength = Number(
@@ -249,14 +261,27 @@ export const scanShowcaseProject = async (
     if (pageDetails.hasLocalizedLinks) score += 20;
     if (pageDetails.allAnchorsLocalized) score += 10;
 
+    let screenshotBuffer: Buffer | undefined;
+
+    if (hasIntlayer) {
+      // Screenshot (same page, no extra navigation)
+      logger.info(`[scanShowcaseProject] Taking screenshot of ${url}...`);
+      screenshotBuffer = (await page.screenshot({
+        type: 'jpeg',
+        quality: 30,
+      })) as Buffer;
+    }
+
+    await page.close();
+
     return {
       hasIntlayer,
       intlayerVersion,
       packageDetails,
       libsUsed,
       screenshotBuffer,
-      metaTitle: pageDetails.metaTitle || undefined,
-      metaDescription: pageDetails.metaDescription || undefined,
+      metaTitle: pageDetails.metaTitle,
+      metaDescription: pageDetails.metaDescription,
       scanDetails: {
         score,
         langTag: pageDetails.lang,

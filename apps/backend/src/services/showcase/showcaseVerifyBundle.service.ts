@@ -56,11 +56,28 @@ export const verifyIntlayerBundle = async (url: string): Promise<boolean> => {
       }
     }
 
-    const uniqueScriptUrls = Array.from(new Set(scriptUrls));
+    // Look for any JS files referenced in string literals, like arrays of preloads in HTML
+    const jsStringRegex =
+      /['"]([^'"\s>]+(?:\.js|\.mjs|\.cjs)(?:\?[^'"\s>]*)?)['"]/gi;
 
-    for (const scriptSrc of uniqueScriptUrls) {
+    for (const match of html.matchAll(jsStringRegex)) {
+      if (match[1]) {
+        scriptUrls.push(match[1]);
+      }
+    }
+
+    const uniqueScriptUrls = Array.from(new Set(scriptUrls));
+    const visitedUrls = new Set<string>();
+    const MAX_URLS_TO_CHECK = 50;
+
+    for (let i = 0; i < uniqueScriptUrls.length && i < MAX_URLS_TO_CHECK; i++) {
+      const scriptSrc = uniqueScriptUrls[i];
       try {
         const scriptUrl = new URL(scriptSrc, url).toString();
+
+        if (visitedUrls.has(scriptUrl)) continue;
+        visitedUrls.add(scriptUrl);
+
         const scriptResponse = await fetch(scriptUrl, fetchOptions);
 
         if (!scriptResponse.ok) continue;
@@ -68,6 +85,16 @@ export const verifyIntlayerBundle = async (url: string): Promise<boolean> => {
         const scriptText = await scriptResponse.text();
         if (metadataRegex.test(scriptText)) {
           return true;
+        }
+
+        // If not found here, maybe this is an entry file that imports chunks.
+        // We can look for strings that are `.js` files from this text, and append them
+        // to `uniqueScriptUrls` to be checked in subsequent iterations.
+        for (const match of scriptText.matchAll(jsStringRegex)) {
+          const newSrc = match[1];
+          if (newSrc && !uniqueScriptUrls.includes(newSrc)) {
+            uniqueScriptUrls.push(newSrc);
+          }
         }
       } catch (error) {
         // ignore cross-origin or unreachable scripts
