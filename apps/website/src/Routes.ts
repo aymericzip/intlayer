@@ -109,6 +109,8 @@ export enum ExternalLinks {
 
   AI_Landing_Page = 'https://ai.intlayer.org',
 
+  ShowcaseApp = 'https://showcase.intlayer.org',
+
   ExampleIntlayerWithNextjs = 'https://github.com/aymericzip/intlayer/tree/main/examples/nextjs-15-app',
   ExampleIntlayerWithReactJS = 'https://github.com/aymericzip/intlayer/tree/main/examples/react-app',
   ExampleIntlayerWithViteAndReact = 'https://github.com/aymericzip/intlayer/tree/main/examples/vite-react-app',
