@@ -16,7 +16,6 @@ export const corsOptions: FastifyCorsOptions = {
     }
 
     if (whitelist.includes(origin)) {
-      logger.info('whitelisted origin', origin);
       callback(null, true);
       return;
     }
