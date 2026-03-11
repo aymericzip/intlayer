@@ -52,4 +52,7 @@ export const parseStringPattern = (
     )
     .replaceAll(/\{\{\s*format\s*\}\}/g, context.format ?? '')
     .replaceAll(/\{\{\s*componentFormat\s*\}\}/g, context.componentFormat ?? '')
-    .replaceAll(/\{\{\s*dirPath\s*\}\}/g, context.dirPath ?? '');
+    .replaceAll(
+      /\{\{\s*componentDirPath\s*\}\}/g,
+      context.componentDirPath ?? ''
+    );

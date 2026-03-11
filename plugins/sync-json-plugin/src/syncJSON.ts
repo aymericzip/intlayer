@@ -10,10 +10,16 @@ import type {
   DictionaryLocation,
   LocalDictionaryId,
 } from '@intlayer/types/dictionary';
-import type { FilePathPattern } from '@intlayer/types/filePathPattern';
+import type {
+  FilePathPattern,
+  FilePathPatternContext,
+} from '@intlayer/types/filePathPattern';
+import type { Plugin } from '@intlayer/types/plugin';
 import fg from 'fast-glob';
 
 type JSONContent = Record<string, any>;
+
+type FilePath = string;
 
 type MessagesRecord = Record<Locale, Record<Dictionary['key'], FilePath>>;
 
@@ -69,72 +75,80 @@ export const extractKeyAndLocaleFromPath = (
   };
 };
 
-const listMessages = (
+const listMessages = async (
   source: FilePathPattern,
   configuration: IntlayerConfig
-): MessagesRecord => {
-  const { content, internationalization } = configuration;
+): Promise<MessagesRecord> => {
+  const { system, internationalization } = configuration;
 
-  const baseDir = content.baseDir;
-  const locales = internationalization.locales;
-  const defaultLocale = internationalization.defaultLocale;
-
-  const localePattern = `{${locales.map((locale) => locale).join(',')}}`;
-
-  // FIX: Use '**' instead of '*' to allow recursive globbing for the key
-  const globPattern = parseFilePathPattern(source, {
-    key: '**',
-    locale: localePattern,
-  });
-  const maskPattern = parseFilePathPattern(source, {
-    key: '{{__KEY__}}',
-    locale: '{{__LOCALE__}}',
-  });
-
-  const files = fg.sync(globPattern, {
-    cwd: baseDir,
-  });
+  const { baseDir } = system;
+  const { locales } = internationalization;
 
   const result: MessagesRecord = {} as MessagesRecord;
 
-  for (const file of files) {
-    const extraction = extractKeyAndLocaleFromPath(
-      file,
-      maskPattern,
-      locales,
-      defaultLocale
-    );
+  for (const locale of locales) {
+    const globPatternLocale = await parseFilePathPattern(source, {
+      key: '**',
+      locale,
+    } as any as FilePathPatternContext);
 
-    // If extraction failed (regex mismatch), skip this file
-    if (!extraction) {
+    const maskPatternLocale = await parseFilePathPattern(source, {
+      key: '{{__KEY__}}',
+      locale,
+    } as any as FilePathPatternContext);
+
+    if (!globPatternLocale || !maskPatternLocale) {
       continue;
     }
 
-    const { key, locale } = extraction;
+    const files = await fg(globPatternLocale, {
+      cwd: baseDir,
+    });
 
-    // Generate what the path SHOULD be for this key/locale using the current builder
-    const expectedPath = parseFilePathPattern(source, { key, locale });
+    for (const file of files) {
+      const extraction = extractKeyAndLocaleFromPath(
+        file,
+        maskPatternLocale,
+        locales,
+        locale
+      );
 
-    // Resolve both to absolute paths to ensure safe comparison
-    const absoluteFoundPath = isAbsolute(file) ? file : resolve(baseDir, file);
-    const absoluteExpectedPath = isAbsolute(expectedPath)
-      ? expectedPath
-      : resolve(baseDir, expectedPath);
+      if (!extraction) {
+        continue;
+      }
 
-    // If the file found doesn't exactly match the file expected, it belongs to another plugin/structure
-    if (absoluteFoundPath !== absoluteExpectedPath) {
-      continue;
+      const { key, locale: extractedLocale } = extraction;
+
+      // Generate what the path SHOULD be for this key/locale using the current builder
+      const expectedPath = await parseFilePathPattern(source, {
+        key,
+        locale: extractedLocale,
+      } as any as FilePathPatternContext);
+
+      // Resolve both to absolute paths to ensure safe comparison
+      const absoluteFoundPath = isAbsolute(file)
+        ? file
+        : resolve(baseDir, file);
+      const absoluteExpectedPath = isAbsolute(expectedPath)
+        ? expectedPath
+        : resolve(baseDir, expectedPath);
+
+      // If the file found doesn't exactly match the file expected, it belongs to another plugin/structure
+      if (absoluteFoundPath !== absoluteExpectedPath) {
+        continue;
+      }
+
+      const usedLocale = extractedLocale as Locale;
+      if (!result[usedLocale]) {
+        result[usedLocale] = {};
+      }
+
+      result[usedLocale][key as Dictionary['key']] = absoluteFoundPath;
     }
-
-    if (!result[locale as Locale]) {
-      result[locale as Locale] = {};
-    }
-
-    result[locale as Locale][key as Dictionary['key']] = absoluteFoundPath;
   }
 
   // Ensure all declared locales are present even if the file doesn't exist yet
-  const hasKeyInMask = maskPattern.includes('{{__KEY__}}');
+  const hasKeyInMask = true; // We check keys manually below
   const discoveredKeys = new Set<string>();
 
   for (const locale of Object.keys(result)) {
@@ -157,7 +171,10 @@ const listMessages = (
 
     for (const key of keysToEnsure) {
       if (!result[locale][key as Dictionary['key']]) {
-        const builtPath = parseFilePathPattern(source, { key, locale });
+        const builtPath = await parseFilePathPattern(source, {
+          key,
+          locale,
+        } as any as FilePathPatternContext);
         const absoluteBuiltPath = isAbsolute(builtPath)
           ? builtPath
           : resolve(baseDir, builtPath);
@@ -170,15 +187,13 @@ const listMessages = (
   return result;
 };
 
-type FilePath = string;
-
 type DictionariesMap = { path: string; locale: Locale; key: string }[];
 
-const loadMessagePathMap = (
+const loadMessagePathMap = async (
   source: MessagesRecord | FilePathPattern,
   configuration: IntlayerConfig
 ) => {
-  const messages: MessagesRecord = listMessages(
+  const messages: MessagesRecord = await listMessages(
     source as FilePathPattern,
     configuration
   );
@@ -258,13 +273,15 @@ type SyncJSONPluginOptions = {
   format?: DictionaryFormat;
 };
 
-export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
+export const syncJSON = async (
+  options: SyncJSONPluginOptions
+): Promise<Plugin> => {
   // Generate a unique default location based on the source pattern.
   // This ensures that if you have multiple plugins, they don't share the same 'plugin' ID.
-  const patternMarker = parseFilePathPattern(options.source, {
+  const patternMarker = await parseFilePathPattern(options.source, {
     key: '{{key}}',
     locale: '{{locale}}',
-  });
+  } as any as FilePathPatternContext);
   const defaultLocation = `sync-json::${patternMarker}`;
 
   const { location, priority, format } = {
@@ -277,15 +294,15 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
     name: 'sync-json',
 
     loadDictionaries: async ({ configuration }) => {
-      const dictionariesMap: DictionariesMap = loadMessagePathMap(
+      const dictionariesMap: DictionariesMap = await loadMessagePathMap(
         options.source,
         configuration
       );
 
-      let fill: string = parseFilePathPattern(options.source, {
+      let fill: string = await parseFilePathPattern(options.source, {
         key: '{{key}}',
         locale: '{{locale}}',
-      });
+      } as any as FilePathPatternContext);
 
       if (fill && !isAbsolute(fill)) {
         fill = join(configuration.system.baseDir, fill);
@@ -333,10 +350,10 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
 
       if (!dictionary.filePath || !dictionary.locale) return dictionary;
 
-      const builderPath = parseFilePathPattern(options.source, {
+      const builderPath = await parseFilePathPattern(options.source, {
         key: dictionary.key,
         locale: dictionary.locale,
-      });
+      } as any as FilePathPatternContext);
 
       // Verification to ensure we are formatting the correct file
       if (resolve(builderPath) !== resolve(dictionary.filePath)) {
@@ -388,10 +405,10 @@ export const syncJSON = (options: SyncJSONPluginOptions): Plugin => {
           return;
         }
 
-        const builderPath = parseFilePathPattern(options.source, {
+        const builderPath = await parseFilePathPattern(options.source, {
           key,
           locale,
-        });
+        } as any as FilePathPatternContext);
 
         const localizedDictionary = getPerLocaleDictionary(dictionary, locale);
 

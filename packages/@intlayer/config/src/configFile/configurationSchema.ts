@@ -67,19 +67,8 @@ export const routingSchema = z.object({
   basePath: z.string().optional(),
 });
 
-export const contentSchema = z.object({
-  fileExtensions: z.array(z.string()).optional(),
-  baseDir: z.string().optional(),
-  contentDir: z.array(z.string()).optional(),
-  codeDir: z.array(z.string()).optional(),
-  excludedPath: z.array(z.string()).optional(),
-  watch: z.boolean().optional(),
-  formatCommand: z.string().optional(),
-  watchedFilesPattern: z.array(z.string()).optional(),
-  watchedFilesPatternWithPath: z.array(z.string()).optional(),
-});
-
 export const systemSchema = z.object({
+  baseDir: z.string().optional(),
   moduleAugmentationDir: z.string().optional(),
   unmergedDictionariesDir: z.string().optional(),
   remoteDictionariesDir: z.string().optional(),
@@ -92,6 +81,17 @@ export const systemSchema = z.object({
   cacheDir: z.string().optional(),
   tempDir: z.string().optional(),
   outputFilesPatternWithPath: z.string().optional(),
+});
+
+export const contentSchema = z.object({
+  fileExtensions: z.array(z.string()).optional(),
+  contentDir: z.array(z.string()).optional(),
+  codeDir: z.array(z.string()).optional(),
+  excludedPath: z.array(z.string()).optional(),
+  watch: z.boolean().optional(),
+  formatCommand: z.string().optional(),
+  watchedFilesPattern: z.array(z.string()).optional(),
+  watchedFilesPatternWithPath: z.array(z.string()).optional(),
 });
 
 export const editorSchema = z.object({

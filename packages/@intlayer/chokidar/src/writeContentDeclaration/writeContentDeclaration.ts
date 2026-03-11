@@ -230,67 +230,9 @@ const writeFileWithDirectories = async (
   await mkdir(dir, { recursive: true });
 
   const extension = extname(absoluteFilePath);
-  const acceptedExtensions = configuration.content.fileExtensions.map((ext) =>
-    ext.startsWith('.') ? ext : `.${ext}`
-  );
 
-  const hasAcceptedExtension = acceptedExtensions.some((ext) =>
-    absoluteFilePath.endsWith(ext)
-  );
-
-  if (!hasAcceptedExtension) {
-    throw new Error(
-      `Invalid file extension: ${extension}, file: ${absoluteFilePath}`
-    );
-  }
-
-  if (extension === '.json') {
-    const jsonDictionary = JSON.stringify(
-      noMetadata ? dictionary.content : dictionary,
-      null,
-      2
-    );
-
-    // Write the file
-    const tempDir = configuration.system?.tempDir;
-    if (tempDir) {
-      await mkdir(tempDir, { recursive: true });
-    }
-
-    const tempFileName = `${basename(absoluteFilePath)}.${Date.now()}-${Math.random().toString(36).slice(2)}.tmp`;
-    const tempPath = tempDir
-      ? join(tempDir, tempFileName)
-      : `${absoluteFilePath}.${tempFileName}`;
-    try {
-      await writeFile(tempPath, `${jsonDictionary}\n`); // Add a new line at the end of the file to avoid formatting issues with VSCode
-      await rename(tempPath, absoluteFilePath);
-    } catch (error) {
-      try {
-        await rm(tempPath, { force: true });
-      } catch {
-        // Ignore
-      }
-      throw error;
-    }
-
-    const formatCommand = detectFormatCommand(configuration);
-
-    if (formatCommand) {
-      try {
-        execSync(formatCommand.replace('{{file}}', absoluteFilePath), {
-          stdio: 'inherit',
-          cwd: configuration.system.baseDir,
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    return;
-  }
-
-  // Handle JSONC, and JSON5 via the AST transformer
-  if (['.jsonc', '.json5'].includes(extension)) {
+  // Handle JSON, JSONC, and JSON5 via the AST transformer
+  if (['.json', '.jsonc', '.json5'].includes(extension)) {
     let fileContent = '{}';
 
     if (existsSync(absoluteFilePath)) {

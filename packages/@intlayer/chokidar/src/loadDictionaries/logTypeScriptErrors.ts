@@ -29,7 +29,7 @@ export const logTypeScriptErrors = async (
   }
 
   const configFileName = ts.findConfigFile(
-    configuration.content?.baseDir ?? process.cwd(),
+    configuration.system?.baseDir ?? process.cwd(),
     ts.sys.fileExists,
     'tsconfig.json'
   );

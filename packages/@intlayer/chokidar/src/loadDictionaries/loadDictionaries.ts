@@ -5,8 +5,8 @@ import {
   colorizeKey,
   getAppLogger,
 } from '@intlayer/config/logger';
-import type { Dictionary } from '@intlayer/types/dictionary';
 import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { formatDictionaries } from '../formatDictionary';
 import { loadContentDeclarations } from './loadContentDeclaration';
@@ -174,7 +174,9 @@ export const loadDictionaries = async (
   appLogger('Dictionaries:', { isVerbose: true });
 
   // Load additional dictionaries via plugins (e.g., ICU JSON ingestion)
-  const pluginsWithLoadDictionaries = (plugins ?? []).filter(
+  const resolvedPlugins = await Promise.all(plugins ?? []);
+
+  const pluginsWithLoadDictionaries = resolvedPlugins.filter(
     (plugin) => plugin.loadDictionaries
   );
 

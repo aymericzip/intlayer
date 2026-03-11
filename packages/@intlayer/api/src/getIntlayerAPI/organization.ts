@@ -17,6 +17,7 @@ import type {
   UpdateOrganizationResult,
 } from '@intlayer/backend';
 import configuration from '@intlayer/config/built';
+import { DefaultValues } from '@intlayer/config/client';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { type FetcherOptions, fetcher } from '../fetcher';
 
@@ -24,13 +25,13 @@ export const getOrganizationAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL =
+  let backendURL =
     intlayerConfig?.editor?.backendURL ?? configuration?.editor?.backendURL;
 
   if (!backendURL) {
-    throw new Error(
-      'Backend URL is not defined in the Intlayer configuration--.'
-    );
+    backendURL = DefaultValues.Editor.BACKEND_URL;
+    console.dir({ intlayerConfig, configuration }, { depth: null });
+    console.error('Backend URL is not defined in the Intlayer configuration.');
   }
 
   const ORGANIZATION_API_ROUTE = `${backendURL}/api/organization`;

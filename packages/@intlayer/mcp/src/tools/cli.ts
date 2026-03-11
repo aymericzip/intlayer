@@ -11,7 +11,7 @@ import {
   push,
 } from '@intlayer/cli';
 import { ALL_LOCALES } from '@intlayer/types/allLocales';
-import type { LogConfig } from '@intlayer/types/config';;
+import type { LogConfig } from '@intlayer/types/config';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import z from 'zod/v3';
 
@@ -518,7 +518,6 @@ export const loadCLITools: LoadCLITools = async (server) => {
             : props.file
               ? [props.file]
               : undefined,
-          outputContentDeclarations: props.outputContentDeclarations,
           configOptions: props.configOptions,
         });
 

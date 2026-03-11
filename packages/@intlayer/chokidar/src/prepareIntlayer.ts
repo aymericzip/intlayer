@@ -62,7 +62,8 @@ export const prepareIntlayer = async (
     );
   } catch {}
 
-  const hasPluginLoadDictionaries = configuration.plugins?.some((plugin) =>
+  const resolvedPlugins = await Promise.all(configuration.plugins ?? []);
+  const hasPluginLoadDictionaries = resolvedPlugins.some((plugin) =>
     Boolean(plugin.loadDictionaries)
   ); // Disable cache if any plugin because it can have custom behavior
 

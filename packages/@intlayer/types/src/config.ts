@@ -788,7 +788,7 @@ export type CustomIntlayerConfig = {
   /**
    * Custom plugins configuration
    */
-  plugins?: Plugin[];
+  plugins?: (Plugin | Promise<Plugin>)[];
 };
 
 export type DictionaryConfig = {
