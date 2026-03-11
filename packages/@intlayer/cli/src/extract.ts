@@ -1,7 +1,11 @@
 import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { relative, resolve } from 'node:path';
-import { extractContent, type PackageName } from '@intlayer/babel';
+import {
+  detectPackageName,
+  extractContent,
+  type PackageName,
+} from '@intlayer/babel';
 import { logConfigDetails } from '@intlayer/chokidar/cli';
 import { colorizePath, getAppLogger } from '@intlayer/config/logger';
 import {
@@ -21,29 +25,13 @@ type ExtractOptions = {
   declarationOnly?: boolean;
 };
 
-// Helper to read package.json dependencies
-const getDependencies = async (baseDir: string) => {
-  try {
-    const packageJsonPath = resolve(baseDir, 'package.json');
-    if (!existsSync(packageJsonPath)) {
-      // Try parent directory if not found in baseDir
-      return {};
-    }
-    const file = await readFile(packageJsonPath, 'utf8');
-    const packageJSON = JSON.parse(file);
-
-    return packageJSON.dependencies;
-  } catch {
-    return {};
-  }
-};
-
 export const extract = async (options: ExtractOptions) => {
   const configuration = getConfiguration(options.configOptions);
   logConfigDetails(options?.configOptions);
 
   const appLogger = getAppLogger(configuration);
-  const { baseDir, codeDir, excludedPath } = configuration.content;
+  const { baseDir } = configuration.system;
+  const { codeDir, excludedPath } = configuration.content;
   const { traversePattern } = configuration.build;
 
   const formatPath = (path: string) => {
@@ -52,26 +40,7 @@ export const extract = async (options: ExtractOptions) => {
   };
 
   // Detect package
-  const dependencies = await getDependencies(baseDir);
-  let packageName: PackageName = 'react-intlayer';
-
-  if (dependencies['next-intlayer']) {
-    packageName = 'next-intlayer';
-  } else if (dependencies['vue-intlayer']) {
-    packageName = 'vue-intlayer';
-  } else if (dependencies['svelte-intlayer']) {
-    packageName = 'svelte-intlayer';
-  } else if (dependencies['react-intlayer']) {
-    packageName = 'react-intlayer';
-  } else if (dependencies['preact-intlayer']) {
-    packageName = 'preact-intlayer';
-  } else if (dependencies['solid-intlayer']) {
-    packageName = 'solid-intlayer';
-  } else if (dependencies['angular-intlayer']) {
-    packageName = 'angular-intlayer';
-  } else if (dependencies['express-intlayer']) {
-    packageName = 'express-intlayer';
-  }
+  const packageName: PackageName = detectPackageName(baseDir);
 
   let filesToExtract = options.files ?? [];
 
@@ -225,7 +194,6 @@ export const extract = async (options: ExtractOptions) => {
         await extractContent(filePath, packageName, {
           unmergedDictionaries,
           configuration,
-          output: options.output,
           codeOnly: options.codeOnly,
           declarationOnly: options.declarationOnly,
         });

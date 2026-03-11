@@ -961,7 +961,6 @@
         "@types/babel__core": "7.20.5",
         "@types/babel__generator": "7.27.0",
         "@types/babel__traverse": "7.28.0",
-        "fast-glob": "3.3.3",
       },
       "devDependencies": {
         "@babel/plugin-syntax-jsx": "^7.28.6",
@@ -990,6 +989,7 @@
       "name": "@intlayer/chokidar",
       "version": "8.2.4",
       "dependencies": {
+        "@babel/parser": "7.29.0",
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
