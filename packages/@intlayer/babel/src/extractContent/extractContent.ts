@@ -306,17 +306,6 @@ export const extractContent = async (
     return undefined;
   }
 
-  const { relativePath } = await resolveContentFilePaths(
-    filePath,
-    dictionaryKey,
-    configuration
-  );
-
-  appLogger(
-    `${colorize('Compiler:', ANSIColors.GREY_DARK)} Target dictionary path: ${colorizePath(relativePath)}`,
-    { isVerbose: true }
-  );
-
   await handleExtractionSideEffects(
     result.extractedContentMap,
     filePath,
