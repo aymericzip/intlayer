@@ -1,4 +1,5 @@
-import type { Dictionary } from '@intlayer/types/dictionary';;
+import type { Dictionary } from '@intlayer/types/dictionary';
+
 import { NodeType } from '@intlayer/types/nodeType';
 import { deepTransformNode } from '../interpreter';
 import { enu, insert } from '../transpiler';
@@ -137,15 +138,52 @@ const vueI18nToIntlayerPlugin = {
 };
 
 const intlayerToVueI18nPlugin = {
-  canHandle: (node: any) =>
-    typeof node === 'string' ||
-    (node &&
+  canHandle: (node: any) => {
+    if (typeof node === 'string') return true;
+
+    if (
+      node &&
       typeof node === 'object' &&
       (node.nodeType === NodeType.Insertion ||
         node.nodeType === NodeType.Enumeration ||
         node.nodeType === NodeType.Gender ||
-        node.nodeType === 'composite')) ||
-    Array.isArray(node),
+        node.nodeType === 'composite')
+    ) {
+      return true;
+    }
+
+    if (Array.isArray(node)) {
+      if (node.length === 0) return false;
+
+      let hasNode = false;
+      let hasPlainObjectOrArray = false;
+
+      for (const item of node) {
+        if (typeof item === 'string') {
+        } else if (
+          item &&
+          typeof item === 'object' &&
+          (item.nodeType === NodeType.Insertion ||
+            item.nodeType === NodeType.Enumeration ||
+            item.nodeType === NodeType.Gender ||
+            item.nodeType === 'composite')
+        ) {
+          hasNode = true;
+        } else {
+          hasPlainObjectOrArray = true;
+        }
+      }
+
+      // If it contains plain objects or nested arrays, it's a structural array
+      if (hasPlainObjectOrArray) return false;
+      // If it contains ONLY strings, it's a structural array, not a composite string
+      if (!hasNode) return false;
+
+      return true;
+    }
+
+    return false;
+  },
   transform: (node: any, props: any, next: any) => {
     if (typeof node === 'string') {
       // replace {{...}} with {...} even in strings
@@ -168,16 +206,8 @@ const intlayerToVueI18nPlugin = {
           typeof childVal === 'string' ? childVal : JSON.stringify(childVal);
       }
 
-      // We need to reconstruct the pipe-separated string.
-      // 2 parts: 1, fallback
-      // 3 parts: 0, 1, fallback
-
       const keys = Object.keys(transformedOptions);
 
-      // Heuristic to decide format
-      // Use loose condition for 3 parts: if 0 exists, OR if 2 exists, etc.
-      // But typically 0, 1, 2...
-      // If '0' is present, we likely want the 3+ parts format.
       if (keys.includes('0')) {
         const indices = keys.filter((key) => /^\d+$/.test(key)).map(Number);
         const maxIndex = Math.max(...indices);
@@ -186,15 +216,12 @@ const intlayerToVueI18nPlugin = {
           transformedOptions.fallback || transformedOptions.other;
         const resultParts = [];
 
-        // Check if we can use simple 3-part: 0 | 1 | fallback
-        // Only if maxIndex <= 1
         if (maxIndex <= 1 && !keys.includes('2')) {
           const zero = transformedOptions['0'] || '';
-          const one = transformedOptions['1'] || ''; // Gap handling?
+          const one = transformedOptions['1'] || '';
           return `${zero} | ${one} | ${fallback}`;
         }
 
-        // General case: loop until maxIndex
         const limit = Math.max(1, maxIndex);
 
         for (let i = 0; i <= limit; i++) {
@@ -202,14 +229,13 @@ const intlayerToVueI18nPlugin = {
           if (transformedOptions[key]) {
             resultParts.push(transformedOptions[key]);
           } else {
-            resultParts.push(''); // Empty string for gaps
+            resultParts.push('');
           }
         }
         resultParts.push(fallback);
         return resultParts.join(' | ').replace(/ \| {2}\| /g, ' | | ');
       }
 
-      // 2 parts: 1 | fallback
       if (
         keys.includes('1') &&
         (keys.includes('fallback') || keys.includes('other'))
@@ -217,7 +243,6 @@ const intlayerToVueI18nPlugin = {
         return `${transformedOptions['1']} | ${transformedOptions.fallback || transformedOptions.other}`;
       }
 
-      // Fallback for only fallback?
       if (
         keys.length === 1 &&
         (keys.includes('fallback') || keys.includes('other'))
@@ -225,21 +250,18 @@ const intlayerToVueI18nPlugin = {
         return transformedOptions.fallback || transformedOptions.other;
       }
 
-      // Default fallback
       return (
         transformedOptions.fallback || Object.values(transformedOptions)[0]
       );
     }
 
-    // Gender not supported by vue-i18n string format, return object
     if (node.nodeType === NodeType.Gender) {
       const options = node.gender;
       const transformedOptions: Record<string, any> = {};
 
-      // Just map values
       for (const [key, val] of Object.entries(options)) {
         let newKey = key;
-        if (key === 'fallback') newKey = 'other'; // vue-i18n doesn't strictly have 'other' for gender objects but standard convention often uses similar keys
+        if (key === 'fallback') newKey = 'other';
 
         const childVal = next(val, props);
         transformedOptions[newKey] = childVal;

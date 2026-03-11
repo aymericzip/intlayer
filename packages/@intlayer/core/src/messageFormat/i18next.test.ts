@@ -184,4 +184,34 @@ describe('i18next', () => {
       expect(backToI18next).toEqual(original);
     });
   });
+
+  describe('Structural Arrays Processing', () => {
+    it('should strictly preserve structural arrays of primitive strings', () => {
+      const input = { types: ['daily', 'weekly', 'monthly'] };
+      const result = intlayerToI18nextFormatter(input as any);
+      expect(result).toEqual({ types: ['daily', 'weekly', 'monthly'] });
+    });
+
+    it('should strictly preserve structural arrays of objects', () => {
+      const input = { steps: [{ id: 1 }, { id: 2 }] };
+      const result = intlayerToI18nextFormatter(input as any);
+      expect(result).toEqual({ steps: [{ id: 1 }, { id: 2 }] });
+    });
+
+    it('should map and concatenate arrays representing composite i18next strings', () => {
+      const input = { message: ['Hello ', insert('{{name}}')] };
+      const result = intlayerToI18nextFormatter(input as any);
+      expect(result).toEqual({ message: 'Hello {{name}}' });
+    });
+
+    it('should preserve arrays of already formatted i18next strings', () => {
+      const input = {
+        items: ['{count, plural, =0 {none} other {#}}', 'Hello {{name}}'],
+      };
+      const result = intlayerToI18nextFormatter(input as any);
+      expect(result).toEqual({
+        items: ['{count, plural, =0 {none} other {#}}', 'Hello {{name}}'],
+      });
+    });
+  });
 });

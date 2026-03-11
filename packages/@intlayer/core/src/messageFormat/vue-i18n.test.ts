@@ -119,4 +119,30 @@ describe('vue-i18n', () => {
       expect(backToVue).toEqual(original);
     });
   });
+
+  describe('Structural Arrays Processing', () => {
+    it('should strictly preserve structural arrays of primitive strings', () => {
+      const input = { types: ['daily', 'weekly', 'monthly'] };
+      const result = intlayerToVueI18nFormatter(input as any);
+      expect(result).toEqual({ types: ['daily', 'weekly', 'monthly'] });
+    });
+
+    it('should strictly preserve structural arrays of objects', () => {
+      const input = { steps: [{ id: 1 }, { id: 2 }] };
+      const result = intlayerToVueI18nFormatter(input as any);
+      expect(result).toEqual({ steps: [{ id: 1 }, { id: 2 }] });
+    });
+
+    it('should map and concatenate arrays representing composite vue-i18n strings', () => {
+      const input = { message: ['Hello ', insert('{{name}}')] };
+      const result = intlayerToVueI18nFormatter(input as any);
+      expect(result).toEqual({ message: 'Hello {name}' });
+    });
+
+    it('should preserve arrays of already formatted vue-i18n strings', () => {
+      const input = { items: ['car | cars', 'Hello {name}'] };
+      const result = intlayerToVueI18nFormatter(input as any);
+      expect(result).toEqual({ items: ['car | cars', 'Hello {name}'] });
+    });
+  });
 });

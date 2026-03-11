@@ -309,4 +309,34 @@ describe('ICU Formatter', () => {
       expect(backToICU).toEqual(original);
     });
   });
+
+  describe('Structural Arrays Processing', () => {
+    it('should strictly preserve structural arrays of primitive strings', () => {
+      const input = { types: ['daily', 'weekly', 'monthly'] };
+      const result = intlayerToICUFormatter(input as any);
+      expect(result).toEqual({ types: ['daily', 'weekly', 'monthly'] });
+    });
+
+    it('should strictly preserve structural arrays of objects', () => {
+      const input = { steps: [{ id: 1 }, { id: 2 }] };
+      const result = intlayerToICUFormatter(input as any);
+      expect(result).toEqual({ steps: [{ id: 1 }, { id: 2 }] });
+    });
+
+    it('should map and concatenate arrays representing composite ICU strings', () => {
+      const input = { message: ['Hello ', insert('{{name}}')] };
+      const result = intlayerToICUFormatter(input as any);
+      expect(result).toEqual({ message: 'Hello {name}' });
+    });
+
+    it('should preserve arrays of already formatted ICU strings', () => {
+      const input = {
+        items: ['{count, plural, =0 {none} other {#}}', 'Hello {name}'],
+      };
+      const result = intlayerToICUFormatter(input as any);
+      expect(result).toEqual({
+        items: ['{count, plural, =0 {none} other {#}}', 'Hello {name}'],
+      });
+    });
+  });
 });

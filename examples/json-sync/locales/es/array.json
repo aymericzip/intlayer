@@ -1,0 +1,86 @@
+{
+  "reports": {
+    "types": ["diario", "semanal", "mensual", "trimestral", "anual"],
+    "exports": {
+      "pdf": true,
+      "csv": true,
+      "xlsx": true,
+      "json": true
+    },
+    "metrics": [
+      "usuarios",
+      "sesiones",
+      "retención",
+      "conversión",
+      "ingresos",
+      "tasaRebote",
+      "engagement"
+    ]
+  },
+  "onboarding": {
+    "steps": [
+      {
+        "id": "welcome",
+        "title": "Bienvenido",
+        "description": "Bienvenido a la plataforma.",
+        "skippable": false
+      },
+      {
+        "id": "profile",
+        "title": "Completar perfil",
+        "description": "Completa tu información personal.",
+        "skippable": false
+      },
+      {
+        "id": "preferences",
+        "title": "Establecer preferencias",
+        "description": "Elige tus preferencias de aplicación.",
+        "skippable": true
+      },
+      {
+        "id": "invite",
+        "title": "Invitar tu equipo",
+        "description": "Invita colaboradores.",
+        "skippable": true
+      },
+      {
+        "id": "finish",
+        "title": "Finalizar",
+        "description": "¡Todo listo!",
+        "skippable": false
+      }
+    ]
+  },
+  "permissions": {
+    "roles": {
+      "superAdmin": {
+        "can": [
+          "leer",
+          "crear",
+          "actualizar",
+          "eliminar",
+          "gestionarUsuarios",
+          "gestionarFacturación",
+          "gestionarRoles",
+          "accederRegistroAuditoria"
+        ]
+      },
+      "admin": {
+        "can": [
+          "leer",
+          "crear",
+          "actualizar",
+          "eliminar",
+          "gestionarUsuarios",
+          "gestionarFacturación"
+        ]
+      },
+      "editor": {
+        "can": ["leer", "crear", "actualizar"]
+      },
+      "viewer": {
+        "can": ["leer"]
+      }
+    }
+  }
+}

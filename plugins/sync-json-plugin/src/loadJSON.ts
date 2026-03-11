@@ -236,7 +236,7 @@ export const loadJSON = (options: LoadJSONPluginOptions): Plugin => {
       for (const { path, key } of dictionariesMap) {
         let json: JSONContent = {};
         try {
-          json = await loadExternalFile(path as string);
+          json = await loadExternalFile(path, { logError: false });
         } catch {
           // File does not exist yet; default to empty content so it can be filled later
           json = {};

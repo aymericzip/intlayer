@@ -1,6 +1,5 @@
 import type { Dictionary } from '@intlayer/types/dictionary';
 import * as recast from 'recast';
-import * as babelParser from 'recast/parsers/babel.js';
 
 const b = recast.types.builders;
 const n = recast.types.namedTypes;
@@ -10,6 +9,29 @@ const n = recast.types.namedTypes;
  */
 const isPlainObject = (value: unknown): value is Record<string, unknown> => {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
+};
+
+/**
+ * Checks if a recast AST node value matches the incoming primitive value.
+ */
+const isPrimitiveEqual = (astNode: any, val: unknown): boolean => {
+  if (val === null) {
+    return n.Literal.check(astNode) && astNode.value === null;
+  }
+  if (
+    typeof val === 'string' ||
+    typeof val === 'number' ||
+    typeof val === 'boolean'
+  ) {
+    return (
+      (n.Literal.check(astNode) ||
+        n.StringLiteral.check(astNode) ||
+        n.NumericLiteral.check(astNode) ||
+        n.BooleanLiteral.check(astNode)) &&
+      astNode.value === val
+    );
+  }
+  return false;
 };
 
 /**
@@ -65,30 +87,53 @@ const buildASTNode = (val: unknown): any => {
  */
 const updateObjectLiteral = (node: any, data: Record<string, any>) => {
   for (const [key, val] of Object.entries(data)) {
-    if (val === undefined) continue;
+    if (val === undefined) {
+      continue;
+    }
 
     const existingProp = getMatchingProperty(node, key);
+
+    if (existingProp?.comments) {
+      existingProp.comments.forEach((c: any) => {
+        if (c.type === 'Line' || c.type === 'CommentLine') {
+          // Convert to block comment and tag it to force Recast to print it inline
+          c.type = c.type === 'Line' ? 'Block' : 'CommentBlock';
+          c.value = `__INLINE_LINE__${c.value}`;
+          c.leading = false;
+          c.trailing = true;
+        }
+      });
+    }
 
     if (isPlainObject(val)) {
       if (existingProp && n.ObjectExpression.check(existingProp.value)) {
         updateObjectLiteral(existingProp.value, val);
       } else {
-        const valueNode = buildASTNode(val);
         if (existingProp) {
-          existingProp.value = valueNode;
+          // Prevent AST invalidation if the primitive value is identical
+          const isIdentical =
+            n.Literal.check(existingProp.value) &&
+            existingProp.value.value === val;
+
+          if (!isIdentical) {
+            existingProp.value = buildASTNode(val);
+          }
         } else {
           node.properties.push(
-            b.property('init', b.stringLiteral(key), valueNode)
+            b.property('init', b.stringLiteral(key), buildASTNode(val))
           );
         }
       }
     } else {
-      const valueNode = buildASTNode(val);
+      // Handle primitives and arrays
       if (existingProp) {
-        existingProp.value = valueNode;
+        // Skip assignment if the primitive value is identical
+        if (!isPrimitiveEqual(existingProp.value, val)) {
+          existingProp.value = buildASTNode(val);
+        }
       } else {
         node.properties.push(
-          b.property('init', b.stringLiteral(key), valueNode)
+          b.property('init', b.stringLiteral(key), buildASTNode(val))
         );
       }
     }
@@ -105,9 +150,7 @@ export const transformJSONFile = (
 
   let ast: ReturnType<typeof recast.parse>;
   try {
-    ast = recast.parse(wrappedContent, {
-      parser: babelParser,
-    });
+    ast = recast.parse(wrappedContent);
   } catch {
     // Fallback if parsing failed
     return JSON.stringify(
@@ -131,7 +174,6 @@ export const transformJSONFile = (
   }
 
   if (noMetadata) {
-    // Remove key, content and metadata properties if they exist
     const metadataProperties = [
       'id',
       'locale',
@@ -146,17 +188,20 @@ export const transformJSONFile = (
       '$schema',
     ];
 
-    objectLiteral.properties = objectLiteral.properties.filter((prop: any) => {
+    // Mutate the array backwards instead of using .filter() to prevent layout invalidation
+    for (let i = objectLiteral.properties.length - 1; i >= 0; i--) {
+      const prop = objectLiteral.properties[i];
       if (n.Property.check(prop) || n.ObjectProperty.check(prop)) {
         let propName = '';
         if (n.Identifier.check(prop.key)) propName = prop.key.name;
         else if (n.StringLiteral.check(prop.key)) propName = prop.key.value;
         else if (n.Literal.check(prop.key)) propName = String(prop.key.value);
 
-        return !['key', 'content', ...metadataProperties].includes(propName);
+        if (['key', 'content', ...metadataProperties].includes(propName)) {
+          objectLiteral.properties.splice(i, 1);
+        }
       }
-      return true;
-    });
+    }
   }
 
   // Update the AST in place
@@ -165,10 +210,26 @@ export const transformJSONFile = (
     noMetadata ? (dictionary.content as Record<string, any>) : dictionary
   );
 
-  // Print only the target object literal node
-  return recast.print(objectLiteral, {
+  // Print the full AST to utilize the global token stream for inline comments
+  const printedCode = recast.print(ast, {
     tabWidth: 2,
     quote: 'double',
     trailingComma: false,
   }).code;
+
+  // Extract the target object literal cleanly
+  const startIndex = printedCode.indexOf('{');
+  const endIndex = printedCode.lastIndexOf('}');
+  let finalOutput = printedCode.substring(startIndex, endIndex + 1);
+
+  // Revert the tagged block comment back to an inline line comment and fix comma placement
+  finalOutput = finalOutput.replace(
+    /\s*\/\*__INLINE_LINE__(.*?)\*\/(\s*,?)/g,
+    '$2 //$1'
+  );
+
+  // Collapse empty lines injected by Recast around commented properties
+  finalOutput = finalOutput.replace(/\n[ \t]*\n/g, '\n');
+
+  return finalOutput;
 };

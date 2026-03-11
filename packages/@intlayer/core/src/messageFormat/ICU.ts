@@ -1,4 +1,5 @@
-import type { Dictionary } from '@intlayer/types/dictionary';;
+import type { Dictionary } from '@intlayer/types/dictionary';
+
 import { NodeType } from '@intlayer/types/nodeType';
 import { deepTransformNode } from '../interpreter';
 import { enu, gender, html, insert } from '../transpiler';
@@ -355,16 +356,59 @@ const icuToIntlayerPlugin = {
 };
 
 const intlayerToIcuPlugin = {
-  canHandle: (node: any) =>
-    (typeof node === 'string' && (node.includes('{') || node.includes('}'))) ||
-    (node &&
+  canHandle: (node: any) => {
+    if (
+      typeof node === 'string' &&
+      (node.includes('{') || node.includes('}'))
+    ) {
+      return true;
+    }
+
+    if (
+      node &&
       typeof node === 'object' &&
       (node.nodeType === NodeType.Insertion ||
         node.nodeType === NodeType.HTML ||
         node.nodeType === NodeType.Enumeration ||
         node.nodeType === NodeType.Gender ||
-        node.nodeType === 'composite')) ||
-    Array.isArray(node),
+        node.nodeType === 'composite')
+    ) {
+      return true;
+    }
+
+    if (Array.isArray(node)) {
+      if (node.length === 0) return false;
+
+      let hasNode = false;
+      let hasPlainObjectOrArray = false;
+
+      for (const item of node) {
+        if (typeof item === 'string') {
+        } else if (
+          item &&
+          typeof item === 'object' &&
+          (item.nodeType === NodeType.Insertion ||
+            item.nodeType === NodeType.HTML ||
+            item.nodeType === NodeType.Enumeration ||
+            item.nodeType === NodeType.Gender ||
+            item.nodeType === 'composite')
+        ) {
+          hasNode = true;
+        } else {
+          hasPlainObjectOrArray = true;
+        }
+      }
+
+      // If it contains plain objects or nested arrays, it's a structural array
+      if (hasPlainObjectOrArray) return false;
+      // If it contains ONLY strings, it's a structural array, not a composite string
+      if (!hasNode) return false;
+
+      return true;
+    }
+
+    return false;
+  },
   transform: (node: any, props: any, next: any) => {
     // Convert Intlayer's double-brace format {{var}} to ICU's single-brace format {var}
     if (typeof node === 'string') {
@@ -372,9 +416,6 @@ const intlayerToIcuPlugin = {
     }
 
     if (node.nodeType === NodeType.Insertion) {
-      // Convert Intlayer format to ICU format:
-      // - {{name}} → {name}  (simple variable)
-      // - {amount, number, currency} → {amount, number, currency}  (formatted variable, already in ICU format)
       return node.insertion.replace(/\{\{([^}]+)\}\}/g, '{$1}');
     }
 
@@ -385,7 +426,6 @@ const intlayerToIcuPlugin = {
     if (node.nodeType === NodeType.Enumeration) {
       const options = node.enumeration;
 
-      // Transform all values first
       const transformedOptions: Record<string, string> = {};
       for (const [key, val] of Object.entries(options)) {
         if (key === '__intlayer_icu_var') continue;
@@ -394,7 +434,6 @@ const intlayerToIcuPlugin = {
           typeof childVal === 'string' ? childVal : JSON.stringify(childVal);
       }
 
-      // Infer variable name
       let varName = options.__intlayer_icu_var || 'n';
 
       if (!options.__intlayer_icu_var) {
@@ -402,10 +441,6 @@ const intlayerToIcuPlugin = {
           transformedOptions.fallback ||
           transformedOptions.other ||
           Object.values(transformedOptions)[0];
-        // Match {variable} but avoid {variable, ...} (which are nested ICUs)
-        // Actually nested ICU starts with {var, ...
-        // Simple variable is {var}
-        // We look for {var} that is NOT followed by ,
         const match = fallbackVal.match(/\{([a-zA-Z0-9_]+)\}(?!,)/);
         if (match) {
           varName = match[1];
@@ -426,7 +461,7 @@ const intlayerToIcuPlugin = {
         'few',
         'many',
       ];
-      // Also check for numbers
+
       const isPlural = keys.every(
         (k) => pluralKeys.includes(k) || /^[<>=]?\d+(\.\d+)?$/.test(k)
       );
@@ -436,7 +471,6 @@ const intlayerToIcuPlugin = {
       if (isPlural) {
         for (const [key, val] of Object.entries(transformedOptions)) {
           let icuKey = key;
-
           if (key === 'fallback') icuKey = 'other';
           else if (key === '<=3') icuKey = 'few';
           else if (key === '>=4') icuKey = 'many';
@@ -445,17 +479,11 @@ const intlayerToIcuPlugin = {
           else icuKey = 'other';
 
           let strVal = val;
-
-          // Replace {varName} with #
-          // Note: next() has already converted {{var}} -> {var}
           strVal = strVal.replace(new RegExp(`\\{${varName}\\}`, 'g'), '#');
-
           parts.push(`${icuKey} {${strVal}}`);
         }
-
         return `{${varName}, plural, ${parts.join(' ')}}`;
       } else {
-        // Select
         const entries = Object.entries(transformedOptions).sort(
           ([keyA], [keyB]) => {
             if (keyA === 'fallback' || keyA === 'other') return 1;
@@ -467,8 +495,6 @@ const intlayerToIcuPlugin = {
         for (const [key, val] of entries) {
           let icuKey = key;
           if (key === 'fallback') icuKey = 'other';
-          // Do NOT map other keys to 'other'. Keep 'active', 'inactive', etc.
-
           parts.push(`${icuKey} {${val}}`);
         }
         return `{${varName}, select, ${parts.join(' ')}}`;
@@ -503,7 +529,7 @@ const intlayerToIcuPlugin = {
       Array.isArray(node) ||
       (node.nodeType === 'composite' && Array.isArray(node.composite))
     ) {
-      // handle array/composite
+      // handle array/composite strings that passed canHandle
       const arr = Array.isArray(node) ? node : node.composite;
       const items = arr.map((item: any) => next(item, props));
       return items.join('');

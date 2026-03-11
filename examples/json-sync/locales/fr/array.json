@@ -1,0 +1,86 @@
+{
+  "reports": {
+    "types": ["quotidien", "hebdomadaire", "mensuel", "trimestriel", "annuel"],
+    "exports": {
+      "pdf": true,
+      "csv": true,
+      "xlsx": true,
+      "json": true
+    },
+    "metrics": [
+      "utilisateurs",
+      "sessions",
+      "rétention",
+      "conversion",
+      "revenu",
+      "tauxRebond",
+      "engagement"
+    ]
+  },
+  "onboarding": {
+    "steps": [
+      {
+        "id": "welcome",
+        "title": "Bienvenue",
+        "description": "Bienvenue sur la plateforme.",
+        "skippable": false
+      },
+      {
+        "id": "profile",
+        "title": "Complétez votre profil",
+        "description": "Remplissez vos informations personnelles.",
+        "skippable": false
+      },
+      {
+        "id": "preferences",
+        "title": "Définissez vos préférences",
+        "description": "Choisissez vos préférences d'application.",
+        "skippable": true
+      },
+      {
+        "id": "invite",
+        "title": "Invitez votre équipe",
+        "description": "Invitez des collaborateurs.",
+        "skippable": true
+      },
+      {
+        "id": "finish",
+        "title": "Terminer",
+        "description": "C'est tout réglé !",
+        "skippable": false
+      }
+    ]
+  },
+  "permissions": {
+    "roles": {
+      "superAdmin": {
+        "can": [
+          "lire",
+          "créer",
+          "modifier",
+          "supprimer",
+          "gérerUtilisateurs",
+          "gérerFacturation",
+          "gérerRôles",
+          "accéderJournauxAudit"
+        ]
+      },
+      "admin": {
+        "can": [
+          "lire",
+          "créer",
+          "modifier",
+          "supprimer",
+          "gérerUtilisateurs",
+          "gérerFacturation"
+        ]
+      },
+      "editor": {
+        "can": ["lire", "créer", "modifier"]
+      },
+      "viewer": {
+        "can": ["lire"]
+      }
+    }
+  }
+}

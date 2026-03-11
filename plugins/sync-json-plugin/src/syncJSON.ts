@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir } from 'node:fs/promises';
 import { dirname, isAbsolute, join, relative, resolve } from 'node:path';
 import { loadExternalFile } from '@intlayer/config/file';
 import { parseFilePathPattern } from '@intlayer/config/utils';
@@ -313,7 +313,7 @@ export const syncJSON = async (
       for (const { locale, path, key } of dictionariesMap) {
         let json: JSONContent = {};
         try {
-          json = await loadExternalFile(path as string);
+          json = await loadExternalFile(path, { logError: false });
         } catch {
           json = {};
         }
@@ -380,7 +380,7 @@ export const syncJSON = async (
         '@intlayer/chokidar/build'
       );
 
-      const locales = configuration.internationalization.locales;
+      const { locales } = configuration.internationalization;
 
       type RecordList = {
         key: string;
@@ -433,7 +433,13 @@ export const syncJSON = async (
 
         const stringContent = JSON.stringify(content, null, 2);
 
-        await writeFile(builderPath, `${stringContent}\n`, 'utf-8');
+        console.log({ content, stringContent });
+
+        await writeContentDeclaration(
+          builderPath,
+          `${stringContent}\n`,
+          'utf-8'
+        );
       });
     },
   };

@@ -1,0 +1,86 @@
+{
+  "reports": {
+    "types": ["daily", "weekly", "monthly", "quarterly", "yearly"],
+    "exports": {
+      "pdf": true,
+      "csv": true,
+      "xlsx": true,
+      "json": true
+    },
+    "metrics": [
+      "users",
+      "sessions",
+      "retention",
+      "conversion",
+      "revenue",
+      "bounceRate",
+      "engagement"
+    ]
+  },
+  "onboarding": {
+    "steps": [
+      {
+        "id": "welcome",
+        "title": "Welcome",
+        "description": "Welcome to the platform.",
+        "skippable": false
+      },
+      {
+        "id": "profile",
+        "title": "Complete profile",
+        "description": "Fill in your personal information.",
+        "skippable": false
+      },
+      {
+        "id": "preferences",
+        "title": "Set preferences",
+        "description": "Choose your application preferences.",
+        "skippable": true
+      },
+      {
+        "id": "invite",
+        "title": "Invite your team",
+        "description": "Invite collaborators.",
+        "skippable": true
+      },
+      {
+        "id": "finish",
+        "title": "Finish",
+        "description": "You're all set!",
+        "skippable": false
+      }
+    ]
+  },
+  "permissions": {
+    "roles": {
+      "superAdmin": {
+        "can": [
+          "read",
+          "create",
+          "update",
+          "delete",
+          "manageUsers",
+          "manageBilling",
+          "manageRoles",
+          "accessAuditLogs"
+        ]
+      },
+      "admin": {
+        "can": [
+          "read",
+          "create",
+          "update",
+          "delete",
+          "manageUsers",
+          "manageBilling"
+        ]
+      },
+      "editor": {
+        "can": ["read", "create", "update"]
+      },
+      "viewer": {
+        "can": ["read"]
+      }
+    }
+  }
+}

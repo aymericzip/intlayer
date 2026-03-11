@@ -41,7 +41,7 @@ const config: IntlayerConfig = {
     liveSync: false,
     dictionaryPriorityStrategy: 'local_first',
     applicationURL: process.env.VITE_SITE_URL,
-    backendURL: process.env.VITE_BACKEND_URL,
+    // backendURL: process.env.VITE_BACKEND_URL,
     // clientId: process.env.INTLAYER_CLIENT_ID,
     // clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },

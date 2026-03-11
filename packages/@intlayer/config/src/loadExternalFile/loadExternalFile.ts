@@ -14,6 +14,7 @@ import { transpileTSToCJS, transpileTSToCJSSync } from './transpileTSToCJS';
 export type LoadExternalFileOptions = {
   configuration?: IntlayerConfig;
   buildOptions?: BuildOptions;
+  logError?: boolean;
 } & SandBoxContextOptions;
 
 /**
@@ -128,14 +129,16 @@ export const loadExternalFile = async (
 
     return fileContent;
   } catch (error) {
-    logger(
-      [
-        `Error: ${(error as Error).message} - `,
-        JSON.stringify((error as Error).stack, null, 2),
-      ],
-      {
-        level: 'error',
-      }
-    );
+    if (options?.logError ?? true) {
+      logger(
+        [
+          `Error: ${(error as Error).message} - `,
+          JSON.stringify((error as Error).stack, null, 2),
+        ],
+        {
+          level: 'error',
+        }
+      );
+    }
   }
 };

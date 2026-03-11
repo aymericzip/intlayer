@@ -312,33 +312,63 @@ const i18nextToIntlayerPlugin = {
 };
 
 const intlayerToI18nextPlugin = {
-  canHandle: (node: any) =>
-    typeof node === 'string' ||
-    (node &&
+  canHandle: (node: any) => {
+    if (typeof node === 'string') return true;
+
+    if (
+      node &&
       typeof node === 'object' &&
       (node.nodeType === NodeType.Insertion ||
         node.nodeType === NodeType.HTML ||
         node.nodeType === NodeType.Enumeration ||
         node.nodeType === NodeType.Gender ||
-        node.nodeType === 'composite')) ||
-    Array.isArray(node),
+        node.nodeType === 'composite')
+    ) {
+      return true;
+    }
+
+    if (Array.isArray(node)) {
+      if (node.length === 0) return false;
+
+      let hasNode = false;
+      let hasPlainObjectOrArray = false;
+
+      for (const item of node) {
+        if (typeof item === 'string') {
+        } else if (
+          item &&
+          typeof item === 'object' &&
+          (item.nodeType === NodeType.Insertion ||
+            item.nodeType === NodeType.HTML ||
+            item.nodeType === NodeType.Enumeration ||
+            item.nodeType === NodeType.Gender ||
+            item.nodeType === 'composite')
+        ) {
+          hasNode = true;
+        } else {
+          hasPlainObjectOrArray = true;
+        }
+      }
+
+      // If it contains plain objects or nested arrays, it's a structural array
+      if (hasPlainObjectOrArray) return false;
+      // If it contains ONLY strings, it's a structural array, not a composite string
+      if (!hasNode) return false;
+
+      return true;
+    }
+
+    return false;
+  },
   transform: (node: any, props: any, next: any) => {
     if (typeof node === 'string') {
       return node;
     }
 
     if (node.nodeType === NodeType.Insertion) {
-      // If it contains ICU format syntax (curly braces but not double curly), keep it as is
-      // But standard insert creates {{var}}.
-      // Check if the original string was formatted (e.g. {val, number})
       if (node.insertion.match(/\{[^}]*,[^}]*\}/)) {
-        // It's likely an ICU format string like {val, number}
-        // We might need to ensure variables inside are not double-braced if they are part of the format
-        // But wait, our parser outputs {val, number} as string for insertion.
         return node.insertion;
       }
-
-      // Otherwise keep {{name}} for i18next
       return node.insertion;
     }
 
@@ -357,7 +387,6 @@ const intlayerToI18nextPlugin = {
           typeof childVal === 'string' ? childVal : JSON.stringify(childVal);
       }
 
-      // Infer variable name
       let varName = options.__intlayer_icu_var || 'count';
 
       if (!options.__intlayer_icu_var) {
@@ -366,8 +395,6 @@ const intlayerToI18nextPlugin = {
           transformedOptions.other ||
           Object.values(transformedOptions)[0];
 
-        // Search for {{var}} or {var}
-        // Match {variable} but avoid {variable, ...} (which are nested ICUs)
         const match =
           fallbackVal.match(/\{\{([a-zA-Z0-9_]+)\}\}/) ||
           fallbackVal.match(/\{([a-zA-Z0-9_]+)\}(?!,)/);
@@ -390,7 +417,6 @@ const intlayerToI18nextPlugin = {
         'few',
         'many',
       ];
-      // Check if it is a plural
       const isPlural = keys.every(
         (k) => pluralKeys.includes(k) || /^[<>=]?\d+(\.\d+)?$/.test(k)
       );
@@ -407,8 +433,6 @@ const intlayerToI18nextPlugin = {
 
           let strVal = val;
 
-          // Convert {{var}} to {var} inside ICU string
-          // Also replace {varName} with # if it matches
           strVal = strVal.replace(/\{\{([^}]+)\}\}/g, '{$1}');
           strVal = strVal.replace(new RegExp(`\\{${varName}\\}`, 'g'), '#');
 
@@ -416,7 +440,6 @@ const intlayerToI18nextPlugin = {
         }
         return `{${varName}, plural, ${parts.join(' ')}}`;
       } else {
-        // Select
         const entries = Object.entries(transformedOptions).sort(
           ([keyA], [keyB]) => {
             if (keyA === 'fallback' || keyA === 'other') return 1;
