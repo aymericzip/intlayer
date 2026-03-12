@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-02-25
+updatedAt: 2026-03-11
 title: Konfigurasi
 description: Pelajari cara mengonfigurasi Intlayer untuk aplikasi Anda. Pahami berbagai pengaturan dan opsi yang tersedia untuk menyesuaikan Intlayer sesuai kebutuhan Anda.
 keywords:
@@ -14,21 +14,24 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.3.0
+    data: 2026-03-11
+    changes: Pindahkan 'baseDir' dari konfigurasi 'content' ke 'system'
   - version: 8.2.0
     date: 2026-03-09
-    changes: Update compiler options, add 'output' and 'noMetadata' support
+    changes: Perbarui opsi kompiler, tambahkan dukungan 'output' dan 'noMetadata'
   - version: 8.1.7
     date: 2026-02-25
     changes: Perbarui opsi kompiler
   - version: 8.0.6
     date: 2026-02-12
-    changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
+    changes: Tambahkan dukungan untuk penyedia Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, dan Together.ai
   - version: 8.0.5
     date: 2026-02-06
     changes: Tambahkan `dataSerialization` ke konfigurasi AI
   - version: 8.0.0
     date: 2026-01-22
-    changes: Move `importMode` build configuration to `dictionary` configuration.
+    changes: Pindahkan konfigurasi build importMode ke konfigurasi kamus.
   - version: 8.0.0
     date: 2026-01-18
     changes: Pisahkan konfigurasi sistem dari konfigurasi konten. Pindahkan jalur internal ke properti `system`. Tambahkan `codeDir` untuk memisahkan file konten dari transformasi kode.
@@ -859,13 +862,6 @@ Pengaturan terkait penanganan konten dalam aplikasi, termasuk nama direktori, ek
   - _Contoh_: `['.data.ts', '.data.js', '.data.json']`
   - _Catatan_: Menyesuaikan ekstensi file dapat membantu menghindari konflik.
 
-- **baseDir**:
-  - _Tipe_: `string`
-  - _Default_: `process.cwd()`
-  - _Deskripsi_: Direktori dasar untuk proyek.
-  - _Contoh_: `'/path/to/project'`
-  - _Catatan_: Ini digunakan untuk menyelesaikan semua direktori terkait Intlayer.
-
 - **contentDir**:
   - _Tipe_: `string[]`
   - _Default_: `['.']`
@@ -921,6 +917,21 @@ Pengaturan terkait penanganan konten dalam aplikasi, termasuk nama direktori, ek
   - _Default_: `['**/node_modules/**', '**/dist/**', '**/build/**', '**/.intlayer/**', '**/.next/**', '**/.nuxt/**', '**/.expo/**', '**/.vercel/**', '**/.turbo/**', '**/.tanstack/**']`
   - _Deskripsi_: Direktori yang dikecualikan dari pencarian konten.
   - _Catatan_: Pengaturan ini belum digunakan, tetapi direncanakan untuk implementasi di masa depan.
+
+---
+
+### Konfigurasi Sistem
+
+Pengaturan terkait jalur internal dan hasil output Intlayer. Pengaturan ini biasanya bersifat internal dan tidak perlu diubah oleh pengguna.
+
+#### Properti
+
+- **baseDir**:
+  - _Tipe_: `string`
+  - _Default_: `process.cwd()`
+  - _Deskripsi_: Direktori dasar untuk proyek.
+  - _Contoh_: `'/path/to/project'`
+  - _Catatan_: Ini digunakan untuk menyelesaikan semua direktori terkait Intlayer.
 
 - **formatCommand**:
   - _Tipe_: `string`

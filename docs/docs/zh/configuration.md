@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-03-10
+updatedAt: 2026-03-11
 title: 配置
 description: 了解如何为您的应用程序配置 Intlayer。了解各种设置和选项，以根据您的需求自定义 Intlayer。
 keywords:
@@ -14,21 +14,24 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.3.0
+    data: 2026-03-11
+    changes: 将 'baseDir' 从 'content' 配置移动到 'system' 配置
   - version: 8.2.0
     date: 2026-03-10
-    changes: Update compiler options, add 'output' and 'noMetadata' support
+    changes: 更新编译器选项，增加 'output' 和 'noMetadata' 支持
   - version: 8.1.7
     date: 2026-02-25
     changes: 更新编译器选项
   - version: 8.0.6
     date: 2026-02-12
-    changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
+    changes: 新增对 Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, 以及 Together.ai 提供商的支持
   - version: 8.0.5
     date: 2026-02-06
     changes: 在 AI 配置中添加 `dataSerialization`
   - version: 8.0.0
     date: 2026-01-22
-    changes: Move `importMode` build configuration to `dictionary` configuration.
+    changes: 将 importMode 构建配置移动到字典配置。
   - version: 8.0.0
     date: 2026-01-18
     changes: 将系统配置与内容配置分离。将内部路径移至 `system` 属性。添加 `codeDir` 以将内容文件与代码转换分离。
@@ -738,13 +741,6 @@ export default config;
   - _示例_: `['.data.ts', '.data.js', '.data.json']`
   - _备注_: 自定义文件扩展名可以帮助避免冲突。
 
-- **baseDir**:
-  - _类型_: `string`
-  - _默认值_: `process.cwd()`
-  - _描述_: 项目的基础目录。
-  - _示例_: `'/path/to/project'`
-  - _备注_: 用于解析所有与 Intlayer 相关的目录。
-
 - **dictionaryOutput**:
   - _类型_: `string[]`
   - _默认值_: `['intlayer']`
@@ -764,10 +760,26 @@ export default config;
   - _描述_: 存储代码的目录路径，相对于基础目录。
   - _备注_: 用于监视代码文件以进行转换（修剪、优化）。将此与 `contentDir` 分开可以提高构建性能，避免不必要地扫描内容文件。
 
+---
+
+### 系统配置
+
+与 Intlayer 内部路径和输出结果相关的设置。这些设置通常是内部的，用户无需修改。
+
+#### 属性
+
+- **baseDir**:
+  - _类型_: `string`
+  - _默认值_: `process.cwd()`
+  - _描述_: 项目的基础目录。
+  - _示例_: `'/path/to/project'`
+  - _备注_: 用于解析所有与 Intlayer 相关的目录。
+
 - **dictionariesDir**:
   - _类型_: `string`
-  - _默认_: `'.intlayer/dictionaries'`
-  - _描述_: 用于存储中间结果或输出结果的目录路径。
+  - _默认值_: `'.intlayer/dictionary'`
+  - _描述_: 用于存储本地化词典的目录。
+  - _示例_: `'translations'`
 
 - **moduleAugmentationDir**:
   - _类型_: `string`
@@ -781,19 +793,6 @@ export default config;
   - _默认_: `'.intlayer/unmerged_dictionary'`
   - _描述_: 用于存储未合并字典的目录。
   - _示例_: `'translations'`
-
-- **dictionariesDir**:
-  - _类型_: `string`
-  - _默认值_: `'.intlayer/dictionary'`
-  - _描述_: 用于存储本地化词典的目录。
-  - _示例_: `'translations'`
-
-- **i18nextResourcesDir**:
-  - _类型_: `string`
-  - _默认值_: `'i18next_dictionary'`
-  - _描述_: 用于存储 i18n 词典的目录。
-  - _示例_: `'translations'`
-  - _注意_: 确保该目录已为 i18next 输出类型进行配置。
 
 - **typesDir**:
   - _类型_: `string`

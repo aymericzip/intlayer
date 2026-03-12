@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-02-25
+updatedAt: 2026-03-11
 title: التهيئة
 description: تعلّم كيفية تهيئة Intlayer لتطبيقك. فهم الإعدادات والخيارات المختلفة المتاحة لتخصيص Intlayer حسب احتياجاتك.
 keywords:
@@ -14,21 +14,24 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.3.0
+    data: 2026-03-11
+    changes: نقل 'baseDir' من تكوين 'content' إلى تكوين 'system'
   - version: 8.2.0
     date: 2026-03-09
-    changes: Update compiler options, add 'output' and 'noMetadata' support
+    changes: تحديث خيارات المترجم، وإضافة دعم لـ 'output' و 'noMetadata'
   - version: 8.1.7
     date: 2026-02-25
     changes: تحديث خيارات المترجم
   - version: 8.0.6
     date: 2026-02-12
-    changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
+    changes: إضافة دعم لمقدمي Open Router و Alibaba و Amazon و Google Vertex Bedrock و Fireworks و Groq و Hugging Face و Together.ai
   - version: 8.0.5
     date: 2026-02-06
     changes: إضافة `dataSerialization` إلى تكوين الذكاء الاصطناعي
   - version: 8.0.0
     date: 2026-01-22
-    changes: Move `importMode` build configuration to `dictionary` configuration.
+    changes: نقل تكوين بناء importMode إلى تكوين القاموس.
   - version: 8.0.0
     date: 2026-01-18
     changes: فصل تكوين النظام عن تكوين المحتوى. نقل المسارات الداخلية إلى خاصية `system`. إضافة `codeDir` لفصل ملفات المحتوى عن تحويل الكود.
@@ -735,13 +738,6 @@ export default config;
   - _مثال_: `['.data.ts', '.data.js', '.data.json']`
   - _ملاحظة_: تخصيص امتدادات الملفات يمكن أن يساعد في تجنب التعارضات.
 
-- **baseDir**:
-  - _النوع_: `string`
-  - _الافتراضي_: `process.cwd()`
-  - _الوصف_: الدليل الأساسي للمشروع.
-  - _مثال_: `'/path/to/project'`
-  - _ملاحظة_: يُستخدم هذا لحل جميع الدلائل المتعلقة بـ Intlayer.
-
 - **dictionaryOutput**:
   - _النوع_: `string[]`
   - _الافتراضي_: `['intlayer']`
@@ -809,6 +805,21 @@ export default config;
   - _الافتراضي_: `['node_modules']`
   - _الوصف_: الأدلة المستبعدة من البحث في المحتوى.
   - _ملاحظة_: هذا الإعداد غير مستخدم حالياً، لكنه مخطط لتطبيقه في المستقبل.
+
+---
+
+### تكوين النظام
+
+الإعدادات المتعلقة بالمسارات الداخلية ونتائج الإخراج لـ Intlayer. عادة ما تكون هذه الإعدادات داخلية ولا يجب تعديلها من قبل المستخدم.
+
+#### الخصائص
+
+- **baseDir**:
+  - _النوع_: `string`
+  - _الافتراضي_: `process.cwd()`
+  - _الوصف_: الدليل الأساسي للمشروع.
+  - _مثال_: `'/path/to/project'`
+  - _ملاحظة_: يُستخدم هذا لحل جميع الدلائل المتعلقة بـ Intlayer.
 
 ### تكوين القاموس
 

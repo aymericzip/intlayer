@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-03-10
+updatedAt: 2026-03-11
 title: 設定
 description: Intlayerをアプリケーション向けに設定する方法を学びます。Intlayerをニーズに合わせてカスタマイズするためのさまざまな設定やオプションについて理解しましょう。
 keywords:
@@ -14,21 +14,24 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.3.0
+    data: 2026-03-11
+    changes: 'baseDir' を 'content' 設定から 'system' 設定に移動
   - version: 8.2.0
     date: 2026-03-10
-    changes: Update compiler options, add 'output' and 'noMetadata' support
+    changes: コンパイラーオプションの更新、'output' および 'noMetadata' のサポートを追加
   - version: 8.1.7
     date: 2026-02-25
     changes: コンパイラーオプションの更新
   - version: 8.0.6
     date: 2026-02-12
-    changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
+    changes: Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, Together.ai プロバイダーのサポートを追加
   - version: 8.0.5
     date: 2026-02-06
     changes: AI設定に `dataSerialization` を追加
   - version: 8.0.0
     date: 2026-01-22
-    changes: Move `importMode` build configuration to `dictionary` configuration.
+    changes: importMode のビルド設定を辞書設定に移動。
   - version: 8.0.0
     date: 2026-01-18
     changes: システム設定をコンテンツ設定から分離。内部パスを `system` プロパティに移動。コンテンツファイルとコード変換を分離するために `codeDir` を追加。
@@ -738,13 +741,6 @@ export default config;
   - _例_: `['.data.ts', '.data.js', '.data.json']`
   - _注意_: ファイル拡張子をカスタマイズすることで競合を回避できます。
 
-- **baseDir**:
-  - _タイプ_: `string`
-  - _デフォルト_: `process.cwd()`
-  - _説明_: プロジェクトのベースディレクトリ。
-  - _例_: `'/path/to/project'`
-  - _注意_: これはすべてのIntlayer関連ディレクトリを解決するために使用されます。
-
 - **dictionaryOutput**:
   - _タイプ_: `string[]`
   - _デフォルト_: `['intlayer']`
@@ -812,6 +808,21 @@ export default config;
   - _デフォルト_: `['node_modules']`
   - _説明_: コンテンツ検索から除外するディレクトリ。
   - _注意_: この設定はまだ使用されていませんが、将来的に実装予定です。
+
+---
+
+### システム設定
+
+Intlayerの内部パスと出力結果に関連する設定。これらの設定は通常内部的なものであり、ユーザーが変更する必要はありません。
+
+#### プロパティ
+
+- **baseDir**:
+  - _タイプ_: `string`
+  - _デフォルト_: `process.cwd()`
+  - _説明_: プロジェクトのベースディレクトリ。
+  - _例_: `'/path/to/project'`
+  - _注意_: これはすべてのIntlayer関連ディレクトリを解決するために使用されます。
 
 ### 辞書設定
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-02-25
+updatedAt: 2026-03-11
 title: Configuration
 description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customise Intlayer to your needs.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.3.0
+    data: 2026-03-11
+    changes: Move 'baseDir' from 'content' to 'system' config
   - version: 8.2.0
     date: 2026-03-09
     changes: Update compiler options, add 'output' and 'noMetadata' support
@@ -735,13 +738,6 @@ Settings related to content handling within the application, including directory
   - _Example_: `['.data.ts', '.data.js', '.data.json']`
   - _Note_: Customising file extensions can help avoid conflicts.
 
-- **baseDir**:
-  - _Type_: `string`
-  - _Default_: `process.cwd()`
-  - _Description_: The base directory for the project.
-  - _Example_: `'/path/to/project'`
-  - _Note_: This is used to resolve all Intlayer-related directories.
-
 - **contentDir**:
   - _Type_: `string[]`
   - _Default_: `['.']`
@@ -779,6 +775,13 @@ Settings related to content handling within the application, including directory
 Settings related to internal paths and output results of Intlayer. These settings are typically internal and should not need to be modified by the user.
 
 #### Properties
+
+- **baseDir**:
+  - _Type_: `string`
+  - _Default_: `process.cwd()`
+  - _Description_: The base directory for the project.
+  - _Example_: `'/path/to/project'`
+  - _Note_: This is used to resolve all Intlayer-related directories.
 
 - **dictionariesDir**:
   - _Type_: `string`

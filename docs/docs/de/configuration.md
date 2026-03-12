@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-03-10
+updatedAt: 2026-03-11
 title: Konfiguration
 description: Erfahren Sie, wie Sie Intlayer für Ihre Anwendung konfigurieren. Verstehen Sie die verschiedenen Einstellungen und Optionen, um Intlayer an Ihre Bedürfnisse anzupassen.
 keywords:
@@ -14,21 +14,24 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.3.0
+    data: 2026-03-11
+    changes: Verschiebe 'baseDir' von 'content' nach 'system' Konfiguration
   - version: 8.2.0
     date: 2026-03-10
-    changes: Update compiler options, add 'output' and 'noMetadata' support
+    changes: Compiler-Optionen aktualisieren, Unterstützung für 'output' und 'noMetadata' hinzufügen
   - version: 8.1.7
     date: 2026-02-25
     changes: Compiler-Optionen aktualisieren
   - version: 8.0.6
     date: 2026-02-12
-    changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
+    changes: Unterstützung für Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face und Together.ai Provider hinzufügen
   - version: 8.0.5
     date: 2026-02-06
     changes: Hinzufügen von `dataSerialization` zur KI-Konfiguration
   - version: 8.0.0
     date: 2026-01-22
-    changes: Move `importMode` build configuration to `dictionary` configuration.
+    changes: Build-Konfiguration für importMode in die Wörterbuch-Konfiguration verschoben.
   - version: 8.0.0
     date: 2026-01-18
     changes: Systemkonfiguration von der Inhaltskonfiguration trennen. Interne Pfade zur Eigenschaft `system` verschieben. `codeDir` hinzufügen, um Inhaltsdateien von der Codetransformation zu trennen.
@@ -735,13 +738,6 @@ Einstellungen im Zusammenhang mit der Inhaltsverwaltung innerhalb der Anwendung,
   - _Beispiel_: `['.data.ts', '.data.js', '.data.json']`
   - _Hinweis_: Die Anpassung der Dateierweiterungen kann helfen, Konflikte zu vermeiden.
 
-- **baseDir**:
-  - _Typ_: `string`
-  - _Standard_: `process.cwd()`
-  - _Beschreibung_: Das Basisverzeichnis für das Projekt.
-  - _Beispiel_: `'/path/to/project'`
-  - _Hinweis_: Dies wird verwendet, um alle Intlayer-bezogenen Verzeichnisse aufzulösen.
-
 - **contentDir**:
   - _Typ_: `string[]`
   - _Standard_: `['.']`
@@ -779,6 +775,13 @@ Einstellungen im Zusammenhang mit der Inhaltsverwaltung innerhalb der Anwendung,
 Einstellungen im Zusammenhang mit internen Pfaden und Ausgabeergebnissen von Intlayer. Diese Einstellungen sind typischerweise intern und sollten nicht vom Benutzer geändert werden müssen.
 
 #### Eigenschaften
+
+- **baseDir**:
+  - _Typ_: `string`
+  - _Standard_: `process.cwd()`
+  - _Beschreibung_: Das Basisverzeichnis für das Projekt.
+  - _Beispiel_: `'/path/to/project'`
+  - _Hinweis_: Dies wird verwendet, um alle Intlayer-bezogenen Verzeichnisse aufzulösen.
 
 - **dictionariesDir**:
   - _Typ_: `string`

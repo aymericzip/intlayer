@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-02-25
+updatedAt: 2026-03-11
 title: Cấu hình
 description: Tìm hiểu cách cấu hình Intlayer cho ứng dụng của bạn. Hiểu các thiết lập và tùy chọn khác nhau để tùy chỉnh Intlayer theo nhu cầu của bạn.
 keywords:
@@ -14,21 +14,24 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.3.0
+    data: 2026-03-11
+    changes: Di chuyển 'baseDir' từ cấu hình 'content' sang cấu hình 'system'
   - version: 8.2.0
     date: 2026-03-09
-    changes: Update compiler options, add 'output' and 'noMetadata' support
+    changes: Cập nhật các tùy chọn trình biên dịch, thêm hỗ trợ 'output' và 'noMetadata'
   - version: 8.1.7
     date: 2026-02-25
     changes: Cập nhật các tùy chọn trình biên dịch
   - version: 8.0.6
     date: 2026-02-12
-    changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
+    changes: Thêm hỗ trợ cho các nhà cung cấp Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face và Together.ai
   - version: 8.0.5
     date: 2026-02-06
     changes: Thêm `dataSerialization` vào cấu hình AI
   - version: 8.0.0
     date: 2026-01-22
-    changes: Move `importMode` build configuration to `dictionary` configuration.
+    changes: Di chuyển cấu hình build importMode sang cấu hình từ điển.
   - version: 8.0.0
     date: 2026-01-18
     changes: Tách cấu hình hệ thống khỏi cấu hình nội dung. Di chuyển các đường dẫn nội bộ sang thuộc tính `system`. Thêm `codeDir` để tách các tệp nội dung khỏi việc chuyển đổi mã.
@@ -736,6 +739,50 @@ Khi sử dụng localStorage hoặc sessionStorage:
 - **type**: Loại lưu trữ (`'localStorage' | 'sessionStorage'`)
 - **name**: Tên khóa lưu trữ (mặc định: `'INTLAYER_LOCALE'`)
 
+### Cấu hình Hệ thống
+
+Các cài đặt liên quan đến đường dẫn nội bộ và kết quả đầu ra của Intlayer. Các cài đặt này thường mang tính nội bộ và người dùng không cần phải sửa đổi.
+
+#### Thuộc tính
+
+- **baseDir**:
+  - _Kiểu_: `string`
+  - _Mặc định_: `process.cwd()`
+  - _Mô tả_: Thư mục gốc của dự án.
+  - _Ví dụ_: `'/path/to/project'`
+  - _Lưu ý_: Được sử dụng để giải quyết tất cả các thư mục liên quan đến Intlayer.
+
+- **dictionariesDir**:
+  - _Kiểu_: `string`
+  - _Mặc định_: `'.intlayer/dictionary'`
+  - _Mô tả_: Đường dẫn thư mục để lưu trữ các từ điển bản địa hóa.
+  - _Ví dụ_: `'translations'`
+
+- **moduleAugmentationDir**:
+  - _Kiểu_: `string`
+  - _Mặc định_: `'.intlayer/types'`
+  - _Mô tả_: Thư mục dành cho việc mở rộng module, giúp IDE gợi ý và kiểm tra kiểu tốt hơn.
+  - _Ví dụ_: `'intlayer-types'`
+  - _Lưu ý_: Hãy chắc chắn bao gồm thư mục này trong `tsconfig.json`.
+
+- **unmergedDictionariesDir**:
+  - _Kiểu_: `string`
+  - _Mặc định_: `'.intlayer/unmerged_dictionary'`
+  - _Mô tả_: Thư mục để lưu trữ các từ điển chưa được hợp nhất.
+  - _Ví dụ_: `'translations'`
+
+- **typesDir**:
+  - _Kiểu_: `string`
+  - _Mặc định_: `'types'`
+  - _Mô tả_: Thư mục để lưu trữ các kiểu của từ điển.
+  - _Ví dụ_: `'intlayer-types'`
+
+- **mainDir**:
+  - _Kiểu_: `string`
+  - _Mặc định_: `'main'`
+  - _Mô tả_: Thư mục nơi lưu trữ các tệp chính của ứng dụng.
+  - _Ví dụ_: `'intlayer-main'`
+
 #### Ví dụ cấu hình
 
 Dưới đây là một số ví dụ cấu hình phổ biến cho cấu trúc routing mới v7:
@@ -849,13 +896,6 @@ Các thiết lập liên quan đến việc xử lý nội dung trong ứng dụ
   - _Mô tả_: Các phần mở rộng tệp cần tìm khi xây dựng từ điển.
   - _Ví dụ_: `['.data.ts', '.data.js', '.data.json']`
   - _Lưu ý_: Tùy chỉnh phần mở rộng tệp có thể giúp tránh xung đột.
-
-- **baseDir**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `process.cwd()`
-  - _Mô tả_: Thư mục gốc của dự án.
-  - _Ví dụ_: `'/path/to/project'`
-  - _Lưu ý_: Được sử dụng để giải quyết tất cả các thư mục liên quan đến Intlayer.
 
 - **contentDir**:
   - _Kiểu_: `string[]`

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-03-10
+updatedAt: 2026-03-11
 title: Configuración
 description: Aprende cómo configurar Intlayer para tu aplicación. Entiende las diversas configuraciones y opciones disponibles para personalizar Intlayer según tus necesidades.
 keywords:
@@ -14,21 +14,24 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.3.0
+    data: 2026-03-11
+    changes: Mover 'baseDir' de la configuración 'content' a la de 'system'
   - version: 8.2.0
     date: 2026-03-10
-    changes: Update compiler options, add 'output' and 'noMetadata' support
+    changes: Actualizar opciones del compilador, añadir soporte para 'output' y 'noMetadata'
   - version: 8.1.7
     date: 2026-02-25
     changes: Actualizar opciones del compilador
   - version: 8.0.6
     date: 2026-02-12
-    changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
+    changes: Añadir soporte para los proveedores Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face y Together.ai
   - version: 8.0.5
     date: 2026-02-06
     changes: Añadir `dataSerialization` a la configuración de IA
   - version: 8.0.0
     date: 2026-01-22
-    changes: Move `importMode` build configuration to `dictionary` configuration.
+    changes: Mover la configuración de construcción para importMode a la configuración del diccionario.
   - version: 8.0.0
     date: 2026-01-18
     changes: Separar la configuración del sistema de la configuración del contenido. Mover las rutas internas a la propiedad `system`. Añadir `codeDir` para separar los archivos de contenido de la transformación del código.
@@ -735,13 +738,6 @@ Configuraciones relacionadas con el manejo de contenido dentro de la aplicación
   - _Ejemplo_: `['.data.ts', '.data.js', '.data.json']`
   - _Nota_: Personalizar las extensiones de archivo puede ayudar a evitar conflictos.
 
-- **baseDir**:
-  - _Tipo_: `string`
-  - _Por defecto_: `process.cwd()`
-  - _Descripción_: El directorio base para el proyecto.
-  - _Ejemplo_: `'/ruta/al/proyecto'`
-  - _Nota_: Esto se usa para resolver todos los directorios relacionados con Intlayer.
-
 - **contentDir**:
   - _Tipo_: `string[]`
   - _Por defecto_: `['.']`
@@ -776,9 +772,16 @@ Configuraciones relacionadas con el manejo de contenido dentro de la aplicación
 
 ### Configuración del Sistema
 
-Configuraciones relacionadas con las rutas internas y los resultados de salida de Intlayer. Estas configuraciones son típicamente internas y no deberían necesitar ser modificadas por el usuario.
+Estructura de directorios y resultados de salida de Intlayer. Estas configuraciones son típicamente internas y no deberían necesitar ser modificadas por el usuario.
 
 #### Propiedades
+
+- **baseDir**:
+  - _Tipo_: `string`
+  - _Por defecto_: `process.cwd()`
+  - _Descripción_: El directorio base para el proyecto.
+  - _Ejemplo_: `'/ruta/al/proyecto'`
+  - _Nota_: Esto se usa para resolver todos los directorios relacionados con Intlayer.
 
 - **dictionariesDir**:
   - _Tipo_: `string`

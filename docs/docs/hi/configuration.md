@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-02-25
+updatedAt: 2026-03-11
 title: कॉन्फ़िगरेशन
 description: अपने एप्लिकेशन के लिए Intlayer को कॉन्फ़िगर करना सीखें। Intlayer को अपनी आवश्यकताओं के अनुसार अनुकूलित करने के लिए विभिन्न सेटिंग्स और विकल्पों को समझें।
 keywords:
@@ -14,21 +14,24 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.3.0
+    data: 2026-03-11
+    changes: 'baseDir' को 'content' से 'system' कॉन्फिग में ले जाया गया
   - version: 8.2.0
     date: 2026-03-09
-    changes: Update compiler options, add 'output' and 'noMetadata' support
+    changes: कंपाइलर विकल्पों को अपडेट करें, 'output' और 'noMetadata' समर्थन जोड़ें
   - version: 8.1.7
     date: 2026-02-25
     changes: कंपाइलर विकल्पों को अपडेट करें
   - version: 8.0.6
     date: 2026-02-12
-    changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
+    changes: Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, और Together.ai प्रदाताओं के लिए समर्थन जोड़ें
   - version: 8.0.5
     date: 2026-02-06
     changes: AI कॉन्फ़िगरेशन में `dataSerialization` जोड़ें
   - version: 8.0.0
     date: 2026-01-22
-    changes: Move `importMode` build configuration to `dictionary` configuration.
+    changes: आयात मोड निर्माण कॉन्फ़िगरेशन को शब्दकोश कॉन्फ़िगरेशन में ले जाएं।
   - version: 8.0.0
     date: 2026-01-18
     changes: सिस्टम कॉन्फ़िगरेशन को सामग्री कॉन्फ़िगरेशन से अलग करें। आंतरिक पथों को `system` गुण में ले जाएं। सामग्री फ़ाइलों को कोड परिवर्तन से अलग करने के लिए `codeDir` जोड़ें।
@@ -735,13 +738,6 @@ export default config;
   - _उदाहरण_: `['.data.ts', '.data.js', '.data.json']`
   - _टिप्पणी_: फ़ाइल एक्सटेंशन को कस्टमाइज़ करने से टकराव से बचा जा सकता है।
 
-- **baseDir**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `process.cwd()`
-  - _विवरण_: परियोजना के लिए मूल निर्देशिका।
-  - _उदाहरण_: `'/path/to/project'`
-  - _टिप्पणी_: इसका उपयोग सभी Intlayer-संबंधित निर्देशिकाओं को हल करने के लिए किया जाता है।
-
 - **dictionaryOutput**:
   - _प्रकार_: `string[]`
   - _डिफ़ॉल्ट_: `['intlayer']`
@@ -809,6 +805,21 @@ export default config;
   - _डिफ़ॉल्ट_: `['node_modules']`
   - _विवरण_: सामग्री खोज से बाहर किए गए निर्देशिकाएँ।
   - _नोट_: यह सेटिंग अभी उपयोग में नहीं है, लेकिन भविष्य में लागू करने की योजना है।
+
+---
+
+### सिस्टम कॉन्फ़िगरेशन
+
+Intlayer के आंतरिक पथों और आउटपुट परिणामों से संबंधित सेटिंग्स। ये सेटिंग्स आमतौर पर आंतरिक होती हैं और उपयोगकर्ता द्वारा संशोधित करने की आवश्यकता नहीं होनी चाहिए।
+
+#### गुण
+
+- **baseDir**:
+  - _प्रकार_: `string`
+  - _डिफ़ॉल्ट_: `process.cwd()`
+  - _विवरण_: परियोजना के लिए मूल निर्देशिका।
+  - _उदाहरण_: `'/path/to/project'`
+  - _टिप्पणी_: इसका उपयोग सभी Intlayer-संबंधित निर्देशिकाओं को हल करने के लिए किया जाता है।
 
 ### शब्दकोश कॉन्फ़िगरेशन
 

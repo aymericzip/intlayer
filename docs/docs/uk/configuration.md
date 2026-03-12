@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-02-25
+updatedAt: 2026-03-11
 title: Конфігурація
 description: Дізнайтеся, як налаштувати Intlayer для вашого застосунку. Зрозумійте різні параметри та опції, доступні для налаштування Intlayer відповідно до ваших потреб.
 keywords:
@@ -14,21 +14,24 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.3.0
+    data: 2026-03-11
+    changes: Перемістити 'baseDir' з конфігурації 'content' до конфігурації 'system'
   - version: 8.2.0
     date: 2026-03-09
-    changes: Update compiler options, add 'output' and 'noMetadata' support
+    changes: Оновлення опцій компілятора, додавання підтримки 'output' та 'noMetadata'
   - version: 8.1.7
     date: 2026-02-25
     changes: Оновлення опцій компілятора
   - version: 8.0.6
     date: 2026-02-12
-    changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
+    changes: Додано підтримку провайдерів Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face та Together.ai
   - version: 8.0.5
     date: 2026-02-06
     changes: Додано `dataSerialization` до конфігурації AI
   - version: 8.0.0
     date: 2026-01-22
-    changes: Move `importMode` build configuration to `dictionary` configuration.
+    changes: Перемістити конфігурацію збірки importMode до конфігурації словника.
   - version: 8.0.0
     date: 2026-01-18
     changes: Розділити конфігурацію системи від конфігурації контенту. Перемістити внутрішні шляхи до властивості `system`. Додати `codeDir` для розділення файлів контенту та перетворення коду.
@@ -850,13 +853,6 @@ export default config;
   - _Приклад_: `['.data.ts', '.data.js', '.data.json']`
   - _Примітка_: Налаштування розширень файлів може допомогти уникнути конфліктів.
 
-- **baseDir**:
-  - _Тип_: `string`
-  - _За замовчуванням_: `process.cwd()`
-  - _Опис_: Базова директорія проекту.
-  - _Приклад_: `'/path/to/project'`
-  - _Примітка_: Використовується для визначення всіх директорій, пов'язаних з Intlayer.
-
 - **contentDir**:
   - _Тип_: `string[]`
   - _За замовчуванням_: `['.']`
@@ -871,10 +867,26 @@ export default config;
   - _Опис_: Шлях до каталогу, де зберігається код, відносно базового каталогу.
   - _Примітка_: Використовується для відстеження файлів коду для перетворення (обрізання, оптимізація). Тримання цього окремо від `contentDir` може покращити продуктивність збірки, уникаючи непотрібного сканування файлів контенту.
 
+---
+
+### Конфігурація системи
+
+Налаштування, пов'язані з внутрішніми шляхами та вихідними результатами Intlayer. Ці налаштування зазвичай є внутрішніми і не повинні змінюватися користувачем.
+
+#### Властивості
+
+- **baseDir**:
+  - _Тип_: `string`
+  - _За замовчуванням_: `process.cwd()`
+  - _Опис_: Базова директорія проекту.
+  - _Приклад_: `'/path/to/project'`
+  - _Примітка_: Використовується для визначення всіх директорій, пов'язаних з Intlayer.
+
 - **dictionariesDir**:
   - _Тип_: `string`
-  - _За замовчуванням_: `'.intlayer/dictionaries'`
-  - _Опис_: Шлях до каталогу для збереження проміжних або вихідних результатів.
+  - _За замовчуванням_: `'.intlayer/dictionary'`
+  - _Опис_: Каталог для збереження словників локалізації.
+  - _Приклад_: `'translations'`
 
 - **moduleAugmentationDir**:
   - _Тип_: `string`
@@ -887,12 +899,6 @@ export default config;
   - _Тип_: `string`
   - _За замовчуванням_: `'.intlayer/unmerged_dictionary'`
   - _Опис_: Каталог для збереження незлитих словників.
-  - _Приклад_: `'translations'`
-
-- **dictionariesDir**:
-  - _Тип_: `string`
-  - _За замовчуванням_: `'.intlayer/dictionary'`
-  - _Опис_: Каталог для збереження словників локалізації.
   - _Приклад_: `'translations'`
 
 - **typesDir**:

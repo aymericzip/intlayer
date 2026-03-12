@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-02-25
+updatedAt: 2026-03-11
 title: Yapılandırma
 description: Uygulamanız için Intlayer'ı nasıl yapılandıracağınızı öğrenin. Intlayer'ı ihtiyaçlarınıza göre özelleştirmek için mevcut çeşitli ayarları ve seçenekleri anlayın.
 keywords:
@@ -14,21 +14,24 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.3.0
+    data: 2026-03-11
+    changes: 'baseDir''i ''content'' yapılandırmasından ''system'' yapılandırmasına taşıyın
   - version: 8.2.0
     date: 2026-03-09
-    changes: Update compiler options, add 'output' and 'noMetadata' support
+    changes: Derleyici seçeneklerini güncelle, 'output' ve 'noMetadata' desteği ekle
   - version: 8.1.7
     date: 2026-02-25
     changes: Derleyici seçeneklerini güncelle
   - version: 8.0.6
     date: 2026-02-12
-    changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
+    changes: Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face ve Together.ai sağlayıcıları için destek ekle
   - version: 8.0.5
     date: 2026-02-06
     changes: AI yapılandırmasına `dataSerialization` eklendi
   - version: 8.0.0
     date: 2026-01-22
-    changes: Move `importMode` build configuration to `dictionary` configuration.
+    changes: importMode derleme yapılandırmasını sözlük yapılandırmasına taşıyın.
   - version: 8.0.0
     date: 2026-01-18
     changes: Sistem yapılandırmasını içerik yapılandırmasından ayırın. İç yolları `system` özelliğine taşıyın. İçerik dosyalarını kod dönüşümünden ayırmak için `codeDir` ekleyin.
@@ -738,13 +741,6 @@ Uygulama içindeki içerik yönetimi ile ilgili ayarlar; dizin isimleri, dosya u
   - _Örnek_: `['.data.ts', '.data.js', '.data.json']`
   - _Not_: Dosya uzantılarının özelleştirilmesi çakışmaları önlemeye yardımcı olabilir.
 
-- **baseDir**:
-  - _Tür_: `string`
-  - _Varsayılan_: `process.cwd()`
-  - _Açıklama_: Projenin temel dizini.
-  - _Örnek_: `'/path/to/project'`
-  - _Not_: Tüm Intlayer ile ilgili dizinlerin çözülmesinde kullanılır.
-
 - **dictionaryOutput**:
   - _Tür_: `string[]`
   - _Varsayılan_: `['intlayer']`
@@ -764,10 +760,26 @@ Uygulama içindeki içerik yönetimi ile ilgili ayarlar; dizin isimleri, dosya u
   - _Açıklama_: Kodun depolandığı dizin yolu, temel dizine göre.
   - _Not_: Bu, kod dosyalarını dönüştürmek (budama, optimizasyon) için izlemek için kullanılır. Bunu `contentDir`'den ayrı tutmak, içerik dosyalarının gereksiz taramalarından kaçınarak derleme performansını artırabilir.
 
+---
+
+### Sistem Yapılandırması
+
+Intlayer'ın iç yolları ve çıktı sonuçlarıyla ilgili ayarlar. Bu ayarlar genellikle dâhildir ve kullanıcı tarafından değiştirilmeleri gerekmez.
+
+#### Özellikler
+
+- **baseDir**:
+  - _Tür_: `string`
+  - _Varsayılan_: `process.cwd()`
+  - _Açıklama_: Projenin temel dizini.
+  - _Örnek_: `'/path/to/project'`
+  - _Not_: Tüm Intlayer ile ilgili dizinlerin çözülmesinde kullanılır.
+
 - **dictionariesDir**:
   - _Tür_: `string`
-  - _Varsayılan_: `'.intlayer/dictionaries'`
-  - _Açıklama_: Ara sonuçların veya çıktıların depolanacağı dizin yolu.
+  - _Varsayılan_: `'.intlayer/dictionary'`
+  - _Açıklama_: Yerelleştirme sözlüklerinin saklandığı dizin.
+  - _Örnek_: `'translations'`
 
 - **moduleAugmentationDir**:
   - _Tür_: `string`
@@ -781,19 +793,6 @@ Uygulama içindeki içerik yönetimi ile ilgili ayarlar; dizin isimleri, dosya u
   - _Varsayılan_: `'.intlayer/unmerged_dictionary'`
   - _Açıklama_: Birleştirilmemiş sözlüklerin depolanacağı dizin.
   - _Örnek_: `'translations'`
-
-- **dictionariesDir**:
-  - _Tür_: `string`
-  - _Varsayılan_: `'.intlayer/dictionary'`
-  - _Açıklama_: Yerelleştirme sözlüklerinin saklandığı dizin.
-  - _Örnek_: `'translations'`
-
-- **i18nextResourcesDir**:
-  - _Tür_: `string`
-  - _Varsayılan_: `'i18next_dictionary'`
-  - _Açıklama_: i18n sözlüklerinin saklandığı dizin.
-  - _Örnek_: `'translations'`
-  - _Not_: Bu dizinin i18next çıktı türü için yapılandırıldığından emin olun.
 
 - **typesDir**:
   - _Tür_: `string`

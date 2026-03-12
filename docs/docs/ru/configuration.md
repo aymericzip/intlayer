@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-03-10
+updatedAt: 2026-03-11
 title: Конфигурация
 description: Узнайте, как настроить Intlayer для вашего приложения. Поймите различные параметры и опции, доступные для настройки Intlayer под ваши нужды.
 keywords:
@@ -14,21 +14,24 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.3.0
+    data: 2026-03-11
+    changes: Переместить 'baseDir' из конфигурации 'content' в конфигурацию 'system'
   - version: 8.2.0
     date: 2026-03-10
-    changes: Update compiler options, add 'output' and 'noMetadata' support
+    changes: Обновление опций компилятора, добавление поддержки 'output' и 'noMetadata'
   - version: 8.1.7
     date: 2026-02-25
     changes: Обновление опций компилятора
   - version: 8.0.6
     date: 2026-02-12
-    changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
+    changes: Добавление поддержки провайдеров Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face и Together.ai
   - version: 8.0.5
     date: 2026-02-06
     changes: Добавление `dataSerialization` в конфигурацию ИИ
   - version: 8.0.0
     date: 2026-01-22
-    changes: Move `importMode` build configuration to `dictionary` configuration.
+    changes: Переместить конфигурацию сборки importMode в конфигурацию словаря.
   - version: 8.0.0
     date: 2026-01-18
     changes: Разделение конфигурации системы и конфигурации контента. Перемещение внутренних путей в свойство `system`. Добавление `codeDir` для разделения файлов контента и преобразования кода.
@@ -743,13 +746,6 @@ export default config;
   - _Пример_: `['.data.ts', '.data.js', '.data.json']`
   - _Примечание_: Настройка расширений файлов может помочь избежать конфликтов.
 
-- **baseDir**:
-  - _Тип_: `string`
-  - _По умолчанию_: `process.cwd()`
-  - _Описание_: Базовый каталог проекта.
-  - _Пример_: `'/path/to/project'`
-  - _Примечание_: Используется для разрешения всех директорий, связанных с Intlayer.
-
 - **contentDir**:
   - _Тип_: `string[]`
   - _По умолчанию_: `['.']`
@@ -787,6 +783,13 @@ export default config;
 Настройки, связанные с внутренними путями и результатами вывода Intlayer. Эти настройки обычно являются внутренними и не должны изменяться пользователем.
 
 #### Свойства
+
+- **baseDir**:
+  - _Тип_: `string`
+  - _По умолчанию_: `process.cwd()`
+  - _Описание_: Базовый каталог проекта.
+  - _Пример_: `'/path/to/project'`
+  - _Примечание_: Используется для разрешения всех директорий, связанных с Intlayer.
 
 - **dictionariesDir**:
   - _Тип_: `string`

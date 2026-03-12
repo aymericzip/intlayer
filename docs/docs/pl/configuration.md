@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-02-25
+updatedAt: 2026-03-11
 title: Konfiguracja
 description: Dowiedz się, jak skonfigurować Intlayer dla swojej aplikacji. Zrozum różne ustawienia i opcje dostępne do dostosowania Intlayer do Twoich potrzeb.
 keywords:
@@ -14,21 +14,24 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.3.0
+    data: 2026-03-11
+    changes: Przenieś 'baseDir' z konfiguracji 'content' do konfiguracji 'system'
   - version: 8.2.0
     date: 2026-03-09
-    changes: Update compiler options, add 'output' and 'noMetadata' support
+    changes: Zaktualizuj opcje kompilatora, dodaj obsługę 'output' i 'noMetadata'
   - version: 8.1.7
     date: 2026-02-25
     changes: Aktualizacja opcji kompilatora
   - version: 8.0.6
     date: 2026-02-12
-    changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
+    changes: Dodaj obsługę dostawców Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face i Together.ai
   - version: 8.0.5
     date: 2026-02-06
     changes: Dodano `dataSerialization` do konfiguracji AI
   - version: 8.0.0
     date: 2026-01-22
-    changes: Move `importMode` build configuration to `dictionary` configuration.
+    changes: Przenieś konfigurację budowania importMode do konfiguracji słownika.
   - version: 8.0.0
     date: 2026-01-18
     changes: Oddziel konfigurację systemu od konfiguracji treści. Przenieś wewnętrzne ścieżki do właściwości `system`. Dodaj `codeDir`, aby oddzielić pliki treści od transformacji kodu.
@@ -847,13 +850,6 @@ Ustawienia związane z obsługą treści w aplikacji, w tym nazwy katalogów, ro
   - _Przykład_: `['.data.ts', '.data.js', '.data.json']`
   - _Uwaga_: Dostosowanie rozszerzeń plików może pomóc uniknąć konfliktów.
 
-- **baseDir**:
-  - _Typ_: `string`
-  - _Domyślnie_: `process.cwd()`
-  - _Opis_: Katalog bazowy projektu.
-  - _Przykład_: `'/path/to/project'`
-  - _Uwaga_: Jest używany do rozwiązywania wszystkich katalogów związanych z Intlayer.
-
 - **contentDir**:
   - _Typ_: `string[]`
   - _Domyślnie_: `['.']`
@@ -868,10 +864,26 @@ Ustawienia związane z obsługą treści w aplikacji, w tym nazwy katalogów, ro
   - _Opis_: Ścieżka katalogu, w którym przechowywany jest kod, względem katalogu bazowego.
   - _Uwaga_: Jest używany do monitorowania plików kodu w celu transformacji (przycinanie, optymalizacja). Utrzymanie tego oddzielnie od `contentDir` może poprawić wydajność kompilacji, unikając niepotrzebnego skanowania plików treści.
 
+---
+
+### Konfiguracja systemu
+
+Ustawienia związane z wewnętrznymi ścieżkami oraz wynikami wyjściowymi Intlayer. Te ustawienia są zazwyczaj wewnętrzne i nie powinny być modyfikowane przez użytkownika.
+
+#### Właściwości
+
+- **baseDir**:
+  - _Typ_: `string`
+  - _Domyślnie_: `process.cwd()`
+  - _Opis_: Katalog bazowy projektu.
+  - _Przykład_: `'/path/to/project'`
+  - _Uwaga_: Jest używany do rozwiązywania wszystkich katalogów związanych z Intlayer.
+
 - **dictionariesDir**:
   - _Typ_: `string`
-  - _Domyślnie_: `'.intlayer/dictionaries'`
-  - _Opis_: Ścieżka katalogu do przechowywania wyników pośrednich lub wyjściowych.
+  - _Domyślnie_: `'.intlayer/dictionary'`
+  - _Opis_: Ścieżka katalogu do przechowywania słowników lokalizacyjnych.
+  - _Przykład_: `'translations'`
 
 - **moduleAugmentationDir**:
   - _Typ_: `string`
@@ -884,12 +896,6 @@ Ustawienia związane z obsługą treści w aplikacji, w tym nazwy katalogów, ro
   - _Typ_: `string`
   - _Domyślnie_: `'.intlayer/unmerged_dictionary'`
   - _Opis_: Katalog do przechowywania niepołączonych słowników.
-  - _Przykład_: `'translations'`
-
-- **dictionariesDir**:
-  - _Typ_: `string`
-  - _Domyślnie_: `'.intlayer/dictionary'`
-  - _Opis_: Katalog do przechowywania słowników lokalizacyjnych.
   - _Przykład_: `'translations'`
 
 - **typesDir**:

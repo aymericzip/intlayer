@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-03-10
+updatedAt: 2026-03-11
 title: 구성
 description: 애플리케이션에 맞게 Intlayer를 구성하는 방법을 배우세요. Intlayer를 사용자 요구에 맞게 맞춤 설정할 수 있는 다양한 설정과 옵션을 이해하세요.
 keywords:
@@ -14,21 +14,24 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.3.0
+    data: 2026-03-11
+    changes: 'baseDir'을 'content' 구성에서 'system' 구성으로 이동
   - version: 8.2.0
     date: 2026-03-10
-    changes: Update compiler options, add 'output' and 'noMetadata' support
+    changes: 컴파일러 옵션 업데이트, 'output' 및 'noMetadata' 지원 추가
   - version: 8.1.7
     date: 2026-02-25
     changes: 컴파일러 옵션 업데이트
   - version: 8.0.6
     date: 2026-02-12
-    changes: Add support for Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, and Together.ai providers
+    changes: Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, Together.ai 제공업체 지원 추가
   - version: 8.0.5
     date: 2026-02-06
     changes: AI 구성에 `dataSerialization` 추가
   - version: 8.0.0
     date: 2026-01-22
-    changes: Move `importMode` build configuration to `dictionary` configuration.
+    changes: importMode 빌드 구성을 사전 구성으로 이동.
   - version: 8.0.0
     date: 2026-01-18
     changes: 시스템 구성에서 콘텐츠 구성을 분리합니다. 내부 경로를 `system` 속성으로 이동합니다. 콘텐츠 파일과 코드 변환을 분리하기 위해 `codeDir`를 추가합니다.
@@ -738,13 +741,6 @@ export default config;
   - _예시_: `['.data.ts', '.data.js', '.data.json']`
   - _참고_: 파일 확장자를 사용자 정의하면 충돌을 방지할 수 있습니다.
 
-- **baseDir**:
-  - _유형_: `string`
-  - _기본값_: `process.cwd()`
-  - _설명_: 프로젝트의 기본 디렉토리입니다.
-  - _예시_: `'/path/to/project'`
-  - _참고_: 모든 Intlayer 관련 디렉토리를 해석하는 데 사용됩니다.
-
 - **dictionaryOutput**:
   - _유형_: `string[]`
   - _기본값_: `['intlayer']`
@@ -812,6 +808,21 @@ export default config;
   - _기본값_: `['node_modules']`
   - _설명_: 콘텐츠 검색에서 제외할 디렉토리 목록입니다.
   - _참고_: 이 설정은 아직 사용되지 않았으며, 향후 구현될 예정입니다.
+
+---
+
+### 시스템 구성
+
+Intlayer의 내부 경로 및 출력 결과와 관련된 설정입니다. 이러한 설정은 일반적으로 내부적이며 사용자가 수정할 필요가 없습니다.
+
+#### 속성
+
+- **baseDir**:
+  - _유형_: `string`
+  - _기본값_: `process.cwd()`
+  - _설명_: 프로젝트의 기본 디렉토리입니다.
+  - _예시_: `'/path/to/project'`
+  - _참고_: 모든 Intlayer 관련 디렉토리를 해석하는 데 사용됩니다.
 
 ### 사전 구성
 
