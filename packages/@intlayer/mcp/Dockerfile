@@ -17,7 +17,6 @@ WORKDIR /workspace
 # Copy the rest of the source code
 # Remove directories to keep the image slim
 COPY \
-    --exclude=packages/@intlayer/babel \
     --exclude=packages/@intlayer/vue-compiler \
     --exclude=packages/@intlayer/svelte-compiler \
     --exclude=packages/@intlayer/webpack \
@@ -50,6 +49,7 @@ COPY \
     --exclude=examples \
     --exclude=plugins \
     --exclude=apps/website \
+    --exclude=apps/showcase \
     --exclude=apps/app \
     --exclude=**/*.stories.* \
     . .
@@ -61,7 +61,7 @@ COPY docs/legal/en/                docs/legal/en/
     
 
 # Install all dependencies (dev + prod) (frozen for reproducible builds)
-RUN bun install --ignore-scripts --filter=./packages/@intlayer/mcp
+RUN bun install
 
 # Build every package in the workspace (uses the root "build" script)
 RUN bun x turbo run build:ci --filter=./packages/@intlayer/mcp
