@@ -326,13 +326,29 @@ export const askDocQuestion = async (
           .join('\n\n') // Insert relevant docs into the prompt
   );
 
+  let processedMessages: ChatCompletionRequestMessage[] = messages;
+
+  if (messages.length > 8) {
+    const truncatedCount = messages.length - 8;
+    const placeholderMessage = {
+      role: 'system',
+      content: `(truncated discussion, ${truncatedCount} more messages)`,
+    } as const;
+
+    processedMessages = [
+      ...messages.slice(0, 3),
+      placeholderMessage,
+      ...messages.slice(-5),
+    ];
+  }
+
   // Format messages for AI SDK
   const aiMessages = [
     {
       role: 'system' as const,
       content: systemPrompt,
     },
-    ...messages.slice(-8),
+    ...processedMessages,
   ];
 
   if (!aiConfig) {
