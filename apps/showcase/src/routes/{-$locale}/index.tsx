@@ -10,16 +10,21 @@ import {
   useSearch,
 } from '@intlayer/design-system/hooks';
 import { createFileRoute } from '@tanstack/react-router';
-import { getIntlayer, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from 'intlayer';
 import { useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { PagesRoutes } from '#/Routes';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
 import { FiltersBar } from '@/components/FiltersBar';
 import { ProjectCard } from '@/components/ProjectCard';
 import { ProjectCardSkeleton } from '@/components/ProjectCardSkeleton';
 import { ShowcaseHeader } from '@/components/ShowcaseHeader';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
-import { SITE_URL } from '@/lib/site';
 
 type ProjectSearchParams = {
   page?: number;
@@ -88,11 +93,31 @@ export const Route = createFileRoute('/{-$locale}/')({
   },
   head: ({ params }) => {
     const { locale } = params;
+    const path = PagesRoutes.Showcase;
     const content = getIntlayer('app', locale);
-    const canonicalUrl = `${SITE_URL}${getLocalizedUrl('/', locale)}`;
-    const multilingualUrls = getMultilingualUrls('/');
+
+    const canonicalUrl = getLocalizedUrl(path, locale);
 
     return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: 'canonical', href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: 'alternate',
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: 'alternate',
+          hrefLang: 'x-default',
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
       meta: [
         { title: content.metadata.title },
         { name: 'description', content: content.metadata.description },
@@ -106,15 +131,7 @@ export const Route = createFileRoute('/{-$locale}/')({
         { name: 'twitter:title', content: content.metadata.title },
         { name: 'twitter:description', content: content.metadata.description },
       ],
-      links: [
-        { rel: 'canonical', href: canonicalUrl },
-        ...Object.entries(multilingualUrls).map(([lang, path]) => ({
-          rel: 'alternate',
-          hrefLang: lang,
-          href: `${SITE_URL}${path}`,
-        })),
-        { rel: 'alternate', hrefLang: 'x-default', href: SITE_URL },
-      ],
+
       scripts: [
         {
           type: 'application/ld+json',

@@ -426,7 +426,7 @@ Access your content dictionaries throughout your application:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
-import { getIntlayer } from "intlayer";
+import { getIntlayer, defaultLocale } from "intlayer";
 import { useIntlayer } from "react-intlayer";
 
 import LocaleSwitcher from "@/components/locale-switcher";
@@ -437,12 +437,33 @@ export const Route = createFileRoute("/{-$locale}/")({
   component: RouteComponent,
   head: ({ params }) => {
     const { locale } = params;
+    const path = "/"; // The path for this route
+
     const metaContent = getIntlayer("app", locale);
 
     return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
       meta: [
         { title: metaContent.title },
-        { content: metaContent.meta.description, name: "description" },
+        { name: "description", content: metaContent.meta.description },
       ],
     };
   },

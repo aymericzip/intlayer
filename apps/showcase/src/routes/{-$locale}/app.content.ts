@@ -1,4 +1,4 @@
-import { type Dictionary, t } from 'intlayer';
+import { type Dictionary, insert, t } from 'intlayer';
 
 const appContent = {
   key: 'app',
@@ -644,26 +644,28 @@ const appContent = {
     },
     projectPage: {
       metadata: {
-        title: t({
-          en: 'Project Details – Intlayer Showcase',
-          'en-GB': 'Project Details – Intlayer Showcase',
-          fr: 'Détails du projet – Showcase Intlayer',
-          es: 'Detalles del proyecto – Showcase de Intlayer',
-          de: 'Projektdetails – Intlayer Schaufenster',
-          ja: 'プロジェクト詳細 – Intlayerショーケース',
-          ko: '프로젝트 세부 정보 – Intlayer 쇼케이스',
-          zh: '项目详情 – Intlayer 展示',
-          it: 'Dettagli del progetto – Vetrina Intlayer',
-          pt: 'Detalhes do projeto – Vitrine do Intlayer',
-          hi: 'प्रोजेक्ट विवरण – Intlayer शोकेस',
-          ar: 'تفاصيل المشروع – عرض Intlayer',
-          ru: 'Детали проекта – Витрина Intlayer',
-          tr: 'Proje Detayları – Intlayer Vitrini',
-          pl: 'Szczegóły projektu – Wizytówka Intlayer',
-          id: 'Detail Proyek – Showcase Intlayer',
-          uk: 'Деталі проекту – Вітрина Intlayer',
-          vi: 'Chi tiết dự án – Trưng bày Intlayer',
-        }),
+        title: insert(
+          t({
+            en: '{{projectDetails}} – Intlayer Showcase',
+            'en-GB': '{{projectDetails}} – Intlayer Showcase',
+            fr: '{{projectDetails}} – Showcase Intlayer',
+            es: '{{projectDetails}} – Showcase de Intlayer',
+            de: '{{projectDetails}} – Intlayer Schaufenster',
+            ja: '{{projectDetails}} – Intlayerショーケース',
+            ko: '{{projectDetails}} – Intlayer 쇼케이스',
+            zh: '{{projectDetails}} – Intlayer 展示',
+            it: '{{projectDetails}} – Vetrina Intlayer',
+            pt: '{{projectDetails}} – Vitrine do Intlayer',
+            hi: '{{projectDetails}} – Intlayer शोकेस',
+            ar: 'تفاصيل المشروع – {{projectDetails}} Intlayer',
+            ru: '{{projectDetails}} – Витрина Intlayer',
+            tr: '{{projectDetails}} – Intlayer Vitrini',
+            pl: '{{projectDetails}} – Wizytówka Intlayer',
+            id: '{{projectDetails}} – Showcase Intlayer',
+            uk: '{{projectDetails}} – Вітрина Intlayer',
+            vi: '{{projectDetails}} – Trưng bày Intlayer',
+          })
+        ),
         description: t({
           en: 'Explore this project built with Intlayer — see its features, tech stack, and localization details.',
           'en-GB':

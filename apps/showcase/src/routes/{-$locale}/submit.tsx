@@ -1,21 +1,50 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { getIntlayer, getLocalizedUrl } from 'intlayer';
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from 'intlayer';
+import { PagesRoutes } from '#/Routes';
 import { SubmitProjectForm } from '@/components/SubmitProjectForm/SubmitProjectForm';
-import { SITE_URL } from '@/lib/site';
 
 export const Route = createFileRoute('/{-$locale}/submit')({
   component: SubmitProjectForm,
   head: ({ params }) => {
-    const { locale } = params;
+    const { locale } = params as { locale?: string };
+    const path = PagesRoutes.ShowcaseSubmit;
     const content = getIntlayer('app', locale);
-    const canonicalUrl = `${SITE_URL}${getLocalizedUrl('/submit', locale)}`;
+    const canonicalUrl = getLocalizedUrl(path, locale);
 
     return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: 'canonical', href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: 'alternate',
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: 'alternate',
+          hrefLang: 'x-default',
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
       meta: [
         { title: content.submitPage.metadata.title },
         {
           name: 'description',
           content: content.submitPage.metadata.description,
+        },
+        {
+          name: 'keywords',
+          content: content.metadata.keywords.join(', '),
         },
         { property: 'og:title', content: content.submitPage.metadata.title },
         {
@@ -29,7 +58,19 @@ export const Route = createFileRoute('/{-$locale}/submit')({
           content: content.submitPage.metadata.description,
         },
       ],
-      links: [{ rel: 'canonical', href: canonicalUrl }],
+
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebPage',
+            name: content.submitPage.metadata.title,
+            description: content.submitPage.metadata.description,
+            url: canonicalUrl,
+          }),
+        },
+      ],
     };
   },
 });

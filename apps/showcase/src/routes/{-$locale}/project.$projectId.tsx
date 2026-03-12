@@ -1,12 +1,16 @@
 import { getIntlayerAPI } from '@intlayer/api';
 import { createFileRoute } from '@tanstack/react-router';
-import { getIntlayer, getLocalizedUrl } from 'intlayer';
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#/components/Link';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
 import { ProjectFocus } from '@/components/ProjectFocus/ProjectFocus';
 import { ShowcaseHeader } from '@/components/ShowcaseHeader';
-import { SITE_URL } from '@/lib/site';
 
 export const Route = createFileRoute('/{-$locale}/project/$projectId')({
   loader: async ({ params }) => {
@@ -21,43 +25,65 @@ export const Route = createFileRoute('/{-$locale}/project/$projectId')({
   },
   component: ProjectPage,
   head: ({ params, loaderData }) => {
-    const { locale, projectId } = params as {
-      locale?: string;
-      projectId: string;
-    };
+    const { locale, projectId } = params;
+
+    const path = `/project/${projectId}`;
     const content = getIntlayer('app', locale);
     const project = loaderData?.project;
-    const title = project?.title
-      ? `${project.title} – Intlayer Showcase`
-      : content.projectPage.metadata.title;
+
+    const title = content.projectPage.metadata.title({
+      projectDetail: project?.title ?? '-',
+    });
+
     const description =
       project?.description ?? content.projectPage.metadata.description;
-    const canonicalUrl = `${SITE_URL}${getLocalizedUrl(`/project/${projectId}`, locale)}`;
+
+    const canonicalUrl = getLocalizedUrl(path, locale);
 
     return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: 'canonical', href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: 'alternate',
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: 'alternate',
+          hrefLang: 'x-default',
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
       meta: [
         { title },
         { name: 'description', content: description },
+        {
+          name: 'keywords',
+          content: content.metadata.keywords.join(', '),
+        },
         { property: 'og:title', content: title },
         { property: 'og:description', content: description },
         { property: 'og:url', content: canonicalUrl },
         { name: 'twitter:title', content: title },
         { name: 'twitter:description', content: description },
       ],
-      links: [{ rel: 'canonical', href: canonicalUrl }],
+
       scripts: project
         ? [
             {
               type: 'application/ld+json',
               children: JSON.stringify({
                 '@context': 'https://schema.org',
-                '@type': 'SoftwareApplication',
+                '@type': 'WebPage',
                 name: title,
                 description: description,
-                image: project.imageUrl,
                 url: canonicalUrl,
-                applicationCategory: 'WebApplication',
-                datePublished: project.createdAt,
               }),
             },
           ]
