@@ -85,12 +85,19 @@ const getCardScale = (index: number, displayedIndex: number) => {
   }
 };
 
-// FIX 1: Use CSS units (vw) instead of window.innerWidth (pixels)
 // This allows the calculation to work on SSR without hydration mismatch.
 // Your original logic: (3 * screenWidth) / 10  === 30% of viewport width
-const getCardPositionX = (index: number, displayedIndex: number) => {
+const getCardPositionX = (
+  index: number,
+  displayedIndex: number,
+  containerWidth: number
+) => {
   const diff = index - displayedIndex;
-  return `calc(${diff} * min(30vw, 300px))`;
+  const gapPercentage = containerWidth < 600 ? 0.15 : 0.3; // Dropped to 15% for a tighter cluster
+  const step = Math.min(containerWidth * gapPercentage, 300);
+
+  // The 'px' here is mandatory
+  return `${diff * step}px`;
 };
 
 // ------------------------------------------------------------------
@@ -266,6 +273,37 @@ const CarouselRoot: FC<CarouselProps> = ({
   const [selectedIndex, setSelectedIndex] = useState<number>(initialIndex);
   const [displayedIndex, setDisplayedIndex] = useState<number>(initialIndex);
   const [containerHeight, setContainerHeight] = useState<number>(0);
+  const [containerWidth, setContainerWidth] = useState<number>(0);
+
+  useEffect(() => {
+    const calculateDimensions = () => {
+      if (!containerRef.current) return;
+
+      // Track Width
+      const width = containerRef.current.clientWidth;
+      setContainerWidth(width);
+
+      // Track Height (existing logic)
+      const heights = itemsRef.current.map((item) => item?.offsetHeight || 0);
+      const maxHeight = Math.max(0, ...heights);
+      if (maxHeight > 0) {
+        setContainerHeight(maxHeight + 40);
+      }
+    };
+
+    calculateDimensions();
+
+    const observer = new ResizeObserver(() => {
+      calculateDimensions();
+    });
+
+    if (containerRef.current) observer.observe(containerRef.current);
+    itemsRef.current.forEach((item) => {
+      if (item) observer.observe(item);
+    });
+
+    return () => observer.disconnect();
+  }, [totalItems]);
 
   // Drag State
   const [startX, setStartX] = useState(0);
@@ -277,10 +315,10 @@ const CarouselRoot: FC<CarouselProps> = ({
 
   // Navigation Logic
   const handleSwitchItem = (diff: number) => {
-    if (typeof window === 'undefined') return;
+    if (containerWidth === 0) return;
 
-    const screenWidth = window.innerWidth;
-    const swipeStep = screenWidth / SWIPE_THRESHOLD_DIVISOR;
+    // Use container width for the threshold
+    const swipeStep = containerWidth / SWIPE_THRESHOLD_DIVISOR;
     const numSwipe = Math.round(diff / swipeStep);
 
     if (Math.abs(numSwipe) >= 1) {
@@ -378,7 +416,7 @@ const CarouselRoot: FC<CarouselProps> = ({
       <div
         ref={containerRef}
         className={cn(
-          'relative w-full cursor-grab select-none overflow-hidden outline-none transition-[height] duration-300 ease-in-out focus:outline-none focus:outline-none focus:ring-0 active:cursor-grabbing',
+          'relative flex w-full cursor-grab select-none items-center overflow-hidden outline-none transition-[height] duration-300 ease-in-out focus:outline-none focus:outline-none focus:ring-0 active:cursor-grabbing',
           'max-w-[1400px]',
           className
         )}
@@ -421,9 +459,12 @@ const CarouselRoot: FC<CarouselProps> = ({
                 if (e.key === 'Enter' || e.key === ' ') setSelectedIndex(index);
               }}
               style={{
-                // FIX 3: getCardPositionX now returns '30vw', so no 'px' suffix needed here
                 transform: `
-                  translateX(${getCardPositionX(index, displayedIndex)}) 
+                  translateX(${getCardPositionX(
+                    index,
+                    displayedIndex,
+                    containerWidth
+                  )})
                   scale(${getCardScale(index, displayedIndex)})
                 `,
               }}

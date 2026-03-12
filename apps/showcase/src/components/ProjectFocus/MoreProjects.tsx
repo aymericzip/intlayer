@@ -14,7 +14,7 @@ export const MoreProjects: FC<MoreProjectsProps> = ({ excludeId }) => {
 
   const { data: response } = useGetOtherShowcaseProjects({
     excludeId,
-    limit: 10,
+    limit: 8,
   });
 
   const otherProjects = response?.data ?? [];
@@ -27,7 +27,13 @@ export const MoreProjects: FC<MoreProjectsProps> = ({ excludeId }) => {
           {content.moreProjectsDescription}
         </p>
       </div>
-      <div className="relative w-full">
+      <Container
+        className="relative w-full"
+        roundedSize="3xl"
+        background="none"
+        border
+        borderColor="text"
+      >
         {otherProjects.length === 0 ? (
           <Container
             roundedSize="3xl"
@@ -42,15 +48,15 @@ export const MoreProjects: FC<MoreProjectsProps> = ({ excludeId }) => {
           <div className="flex flex-col gap-6">
             <Carousel>
               {otherProjects.map((project: ShowcaseProject) => (
-                <Carousel.Item key={project.id}>
-                  <ProjectCard project={project} />
+                <Carousel.Item key={project.id} className="shadow-lg">
+                  <ProjectCard project={project} transparency="sm" />
                 </Carousel.Item>
               ))}
               <Carousel.Indicators />
             </Carousel>
           </div>
         )}
-      </div>
+      </Container>
     </div>
   );
 };

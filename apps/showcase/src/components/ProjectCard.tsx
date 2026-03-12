@@ -1,4 +1,9 @@
-import { Badge, Button, Container } from '@intlayer/design-system';
+import {
+  Badge,
+  Button,
+  Container,
+  type ContainerProps,
+} from '@intlayer/design-system';
 import { Link } from '@tanstack/react-router';
 import { ExternalLink, ThumbsDown, ThumbsUp } from 'lucide-react';
 import { useState } from 'react';
@@ -7,11 +12,11 @@ import { getFaviconUrl } from '#/utils/getFaviconUrl';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
 import { useShowcaseLike } from '@/hooks/useShowcaseLike';
 
-interface ProjectCardProps {
+type ProjectCardProps = {
   project: ShowcaseProject;
-}
+} & ContainerProps;
 
-export const ProjectCard = ({ project }: ProjectCardProps) => {
+export const ProjectCard = ({ project, ...props }: ProjectCardProps) => {
   const content = useIntlayer('app');
   const {
     score,
@@ -33,6 +38,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
       className="group relative h-full overflow-hidden shadow-lg transition-all [-webkit-mask-image:-webkit-radial-gradient(white,black)] hover:shadow-xl"
       roundedSize="3xl"
       transparency="lg"
+      {...props}
     >
       <Link
         to="/{-$locale}/project/$projectId"
