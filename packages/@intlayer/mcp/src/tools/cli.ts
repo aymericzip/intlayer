@@ -1,4 +1,5 @@
 import { relative } from 'node:path';
+import { listProjects } from '@intlayer/chokidar/cli';
 import {
   build,
   extract,
@@ -6,14 +7,13 @@ import {
   init,
   listContentDeclarationRows,
   listMissingTranslations,
-  listProjects,
   pull,
   push,
 } from '@intlayer/cli';
 import { ALL_LOCALES } from '@intlayer/types/allLocales';
 import type { LogConfig } from '@intlayer/types/config';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import z from 'zod/v3';
+import z from 'zod';
 
 type LoadCLITools = (server: McpServer) => Promise<void>;
 

@@ -10,6 +10,7 @@ export * from './fill/fill';
 export * from './init';
 export * from './initSkills';
 export * from './listContentDeclaration';
+export * from './listProjects';
 export * from './liveSync';
 export * from './pull';
 export * from './push/push';

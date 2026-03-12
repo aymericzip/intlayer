@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
+import { randomUUID } from 'node:crypto';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import dotenv from 'dotenv';
 import express, { type Request, type Response } from 'express';
 import { loadServer } from './server';
 
-const server = loadServer({ isLocal: false });
 const app = express();
 const env = app.get('env');
 
@@ -17,7 +17,7 @@ dotenv.config({
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, mcp-session-id');
   if (req.method === 'OPTIONS') {
     res.sendStatus(200);
     return;
@@ -28,34 +28,59 @@ app.use((req, res, next) => {
 app.use(express.json());
 const router = express.Router();
 
-const sessionIdGenerator = () => Math.random().toString(36).slice(2);
 const transports: { [sessionId: string]: StreamableHTTPServerTransport } = {};
 
-router.all('/', async (req: Request, res: Response) => {
-  if (req.method === 'GET') {
-    const sessionId = sessionIdGenerator();
-    const transport = new StreamableHTTPServerTransport({
-      sessionIdGenerator: () => sessionId,
+router.post('/', async (req: Request, res: Response) => {
+  const sessionId = req.headers['mcp-session-id'] as string | undefined;
+
+  let transport: StreamableHTTPServerTransport;
+
+  if (sessionId && transports[sessionId]) {
+    transport = transports[sessionId];
+  } else if (!sessionId) {
+    transport = new StreamableHTTPServerTransport({
+      sessionIdGenerator: () => randomUUID(),
     });
-    transports[sessionId] = transport;
-    res.on('close', () => {
-      delete transports[sessionId];
-    });
+    transport.onclose = () => {
+      if (transport.sessionId) {
+        delete transports[transport.sessionId];
+      }
+    };
+    const server = loadServer({ isLocal: false });
     await server.connect(transport);
-    await transport.handleRequest(req, res);
-  } else if (req.method === 'POST') {
-    const sessionId = req.query.sessionId;
-    if (typeof sessionId !== 'string') {
-      res.status(400).send({ messages: 'Bad session id.' });
-      return;
-    }
-    const transport = transports[sessionId];
-    if (!transport) {
-      res.status(400).send({ messages: 'No transport found for sessionId.' });
-      return;
-    }
-    await transport.handleRequest(req, res, req.body);
+  } else {
+    res.status(400).send({ messages: 'Bad session id.' });
+    return;
   }
+
+  await transport.handleRequest(req, res, req.body);
+
+  const newSessionId = transport.sessionId;
+  if (newSessionId && !transports[newSessionId]) {
+    transports[newSessionId] = transport;
+  }
+});
+
+router.get('/', async (req: Request, res: Response) => {
+  const sessionId = req.headers['mcp-session-id'] as string | undefined;
+
+  if (!sessionId || !transports[sessionId]) {
+    res.status(400).send({ messages: 'Bad session id.' });
+    return;
+  }
+
+  await transports[sessionId].handleRequest(req, res);
+});
+
+router.delete('/', async (req: Request, res: Response) => {
+  const sessionId = req.headers['mcp-session-id'] as string | undefined;
+
+  if (!sessionId || !transports[sessionId]) {
+    res.status(400).send({ messages: 'Bad session id.' });
+    return;
+  }
+
+  await transports[sessionId].handleRequest(req, res);
 });
 
 app.use('/', router);

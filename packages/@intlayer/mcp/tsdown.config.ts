@@ -1,7 +1,7 @@
 import { getOptions } from '@utils/tsdown-config';
 import { defineConfig, type UserConfig } from 'tsdown';
 
-const options: UserConfig[] = getOptions({
+const [esm, , types] = getOptions({
   types: {
     dts: {
       oxc: true,
@@ -10,4 +10,4 @@ const options: UserConfig[] = getOptions({
   },
 });
 
-export default defineConfig(options);
+export default defineConfig([esm, types] as UserConfig[]);

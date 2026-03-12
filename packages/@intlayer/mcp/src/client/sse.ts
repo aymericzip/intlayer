@@ -1,6 +1,6 @@
 import { URL } from 'node:url';
 import type { Client } from '@modelcontextprotocol/sdk/client/index.js';
-import { SSEClientTransport } from '@modelcontextprotocol/sdk/client/sse.js';
+import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
 import type { Transport } from '@modelcontextprotocol/sdk/shared/transport.js';
 import { loadClient } from './client';
 
@@ -14,39 +14,37 @@ class SSEClient {
   }
 
   async connectToServer() {
-    const mcpServerURL =
-      process.env.MCP_SERVER_URL ?? 'https://mcp.intlayer.org';
+    const mcpServerURL = process.env.MCP_SERVER_URL ?? 'http://localhost:3000/';
 
     const url = new URL(mcpServerURL);
     try {
       console.info(`Connecting to server - ${mcpServerURL}`);
-      this.transport = new SSEClientTransport(url);
+      this.transport = new StreamableHTTPClientTransport(url);
       await this.client.connect(this.transport);
       console.info('Connected to MCP server');
 
       this.setUpTransport();
     } catch (e) {
-      console.info('Failed to connect to MCP server: ', e);
+      console.error('Failed to connect to MCP server: ', e);
       throw e;
     }
   }
 
   private setUpTransport() {
-    if (this.transport === null) {
-      return;
-    }
+    if (this.transport === null) return;
+
     this.transport.onclose = () => {
-      console.info('SSE transport closed.');
+      console.info('Transport closed.');
       this.isCompleted = true;
     };
 
     this.transport.onerror = async (error) => {
-      console.info('SSE transport error: ', error);
+      console.error('Transport error: ', error);
       await this.cleanup();
     };
 
     this.transport.onmessage = (message) => {
-      console.info('message received: ', message);
+      console.info('Message received: ', message);
     };
   }
 
@@ -57,16 +55,19 @@ class SSEClient {
   }
 
   async cleanup() {
-    await this.client.close();
+    if (this.transport) {
+      await this.client.close();
+    }
   }
 }
 
 const main = async () => {
   const client = new SSEClient();
-
   try {
     await client.connectToServer();
     await client.waitForCompletion();
+  } catch (error) {
+    console.error(error);
   } finally {
     await client.cleanup();
   }

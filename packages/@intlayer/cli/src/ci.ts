@@ -58,7 +58,10 @@ export const runCI = async (commands: string[]) => {
   const { command, args: pmArgs } = getPackageManagerCommand();
   const finalArgs = [...pmArgs, ...commands];
 
-  logger(`CI: Using package manager: ${command}`, { level: 'verbose' });
+  logger(`CI: Using package manager: ${command}`, {
+    level: 'info',
+    isVerbose: true,
+  });
 
   if (currentProject) {
     logger(`CI: Detected project context: ${currentProject}`, {

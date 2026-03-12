@@ -1,5 +1,10 @@
 import * as readline from 'node:readline';
-import { installSkills, PLATFORMS, SKILLS, type Skill } from '@intlayer/cli';
+import {
+  installSkills,
+  PLATFORMS,
+  SKILLS,
+  type Skill,
+} from '@intlayer/chokidar/cli';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import z from 'zod';
 
@@ -27,11 +32,7 @@ export const loadInstallSkillsTool = (server: McpServer): void => {
     async ({ platform, skills, projectRoot }) => {
       try {
         const root = projectRoot || process.cwd();
-        const message = await installSkills(
-          root,
-          platform as any,
-          skills as any
-        );
+        const message = await installSkills(root, platform, skills);
 
         return {
           content: [
