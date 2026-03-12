@@ -85,7 +85,7 @@
     "start:client": "bun dist/esm/client/sse.mjs",
     "start:docker": "docker run --rm -p 3000:3000 --name intlayer-mcp-app intlayer-mcp",
     "start:inspector": "npx @modelcontextprotocol/inspector bun dist/esm/server/stdio.mjs",
-    "start:inspector:sse": "npx @modelcontextprotocol/inspector",
+    "start:inspector:sse": "npx @modelcontextprotocol/inspector bun dist/esm/server/sse.mjs",
     "start:sse": "bun dist/esm/server/sse.mjs",
     "start:stdio": "bun dist/esm/server/stdio.mjs",
     "test": "bun --bun vitest run",
