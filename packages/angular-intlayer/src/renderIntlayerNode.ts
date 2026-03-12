@@ -1,4 +1,9 @@
-export type IntlayerNode<T = string, AdditionalProps = {}> = any & {
+import type { ResolvedEditor } from '@intlayer/types/module_augmentation';
+
+export type IntlayerNode<T = string, AdditionalProps = {}> = ResolvedEditor<
+  T,
+  any
+> & {
   value: T;
 } & AdditionalProps;
 

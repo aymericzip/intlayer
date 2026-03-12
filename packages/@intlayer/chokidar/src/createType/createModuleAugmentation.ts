@@ -1,8 +1,8 @@
 import { mkdir } from 'node:fs/promises';
 import { basename, extname, join, relative } from 'node:path';
 import { kebabCaseToCamelCase, normalizePath } from '@intlayer/config/utils';
-import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Locale } from '@intlayer/types/allLocales';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import fg from 'fast-glob';
 import { createAuxiliaryTypeStore, printNode, zodToTs } from 'zod-to-ts';
 import { getPathHash } from '../utils';
@@ -87,8 +87,9 @@ const generateTypeIndexContent = (
   typeFiles: string[],
   configuration: IntlayerConfig
 ): string => {
-  const { internationalization, system } = configuration;
+  const { internationalization, system, editor } = configuration;
   const { moduleAugmentationDir } = system;
+  const { enabled } = editor;
   const { locales, requiredLocales, strictMode } = internationalization;
 
   let fileContent = 'import "intlayer";\n';
@@ -170,7 +171,9 @@ const generateTypeIndexContent = (
   // Schema registry
   fileContent += `  interface __SchemaRegistry {\n${formattedSchemas}\n  }\n\n`;
   // Resolved strict mode (narrow the literal at build time)
-  fileContent += `  interface __StrictModeRegistry { mode: '${strictKey}' }\n`;
+  fileContent += `  interface __StrictModeRegistry { mode: '${strictKey}' }\n\n`;
+  // Editor registry
+  fileContent += `  interface __EditorRegistry { enabled : ${enabled} } \n`;
   fileContent += `}\n`;
 
   return fileContent;

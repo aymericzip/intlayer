@@ -1,4 +1,5 @@
 import type { NodeProps } from '@intlayer/core/interpreter';
+import type { ResolvedEditor } from '@intlayer/types/module_augmentation';
 import {
   isValidElement,
   type PropsWithChildren,
@@ -9,7 +10,7 @@ import {
 export type IntlayerNode<
   T = NodeProps['children'],
   AdditionalProps = Record<string, never>,
-> = ReactNode & {
+> = ResolvedEditor<ReactNode, T> & {
   value: T;
 } & AdditionalProps;
 

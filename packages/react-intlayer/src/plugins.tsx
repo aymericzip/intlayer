@@ -1,3 +1,4 @@
+import configuration from '@intlayer/config/built';
 import {
   type DeepTransformContent as DeepTransformContentCore,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
@@ -55,8 +56,10 @@ export const intlayerNodePlugins: Plugins = {
     renderIntlayerNode({
       ...rest,
       value: rest.children,
-      children: (
+      children: configuration?.editor.enabled ? (
         <EditedContentRenderer {...rest}>{rest.children}</EditedContentRenderer>
+      ) : (
+        rest.children
       ),
     }),
 };

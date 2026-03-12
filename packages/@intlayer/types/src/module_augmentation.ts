@@ -1,6 +1,7 @@
 import type {
   __DeclaredLocalesRegistry,
   __DictionaryRegistry,
+  __EditorRegistry,
   __RequiredLocalesRegistry,
   __SchemaRegistry,
   __StrictModeRegistry,
@@ -23,7 +24,7 @@ export type DictionaryKeys = keyof __DictionaryRegistry extends never
   ? string
   : keyof __DictionaryRegistry;
 
-// --- Dictionaries ---
+// Dictionaries
 export type DictionaryRegistry =
   __DictionaryRegistry[keyof __DictionaryRegistry] extends never
     ? Record<string, Dictionary>
@@ -45,7 +46,7 @@ export type DictionaryRegistryContent<T extends PropertyKey> = [T] extends [
     : Dictionary['content']
   : Dictionary['content'];
 
-// --- Derived unions from registries ---
+// Derived unions from registries
 
 type NarrowStringKeys<T> = string extends keyof T
   ? never
@@ -66,12 +67,12 @@ export type RequiredLocales = [
 /** Define MyType using the ValueOf utility type on Locales */
 export type LocalesValues = DeclaredLocales | (string & {});
 
-// --- Strict mode selection from registry (default 'loose') ---
+// Strict mode selection from registry (default 'loose')
 type ResolvedStrictMode = __StrictModeRegistry extends { mode: infer M }
   ? M
   : 'inclusive';
 
-// --- Config shape (type alias; interfaces can’t extend conditional types) ---
+// Config shape (type alias; interfaces can’t extend conditional types)
 export type StrictModeLocaleMap<
   Content = unknown,
   Mode extends StrictMode = ResolvedStrictMode,
@@ -84,3 +85,10 @@ export type StrictModeLocaleMap<
       ? Required<Record<RequiredLocales, Content>> &
           Partial<Record<Locale, Content>>
       : Partial<Record<Locale, Content>>; // Fallback, all locales are optional
+
+// Editor registry
+export type ResolvedEditor<Node, Editor> = __EditorRegistry extends {
+  enabled: true;
+}
+  ? Editor
+  : Node;

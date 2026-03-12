@@ -1,3 +1,4 @@
+import configuration from '@intlayer/config/built';
 import {
   type DeepTransformContent as DeepTransformContentCore,
   getHTML,
@@ -52,12 +53,14 @@ export const intlayerNodePlugins: Plugins = {
     renderIntlayerNode({
       ...rest,
       value: rest.children,
-      children: (
+      children: configuration?.editor.enabled ? (
         <ContentSelectorRenderer {...rest}>
           <EditedContentRenderer {...rest}>
             {rest.children}
           </EditedContentRenderer>
         </ContentSelectorRenderer>
+      ) : (
+        rest.children
       ),
     }),
 };

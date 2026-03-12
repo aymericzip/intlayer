@@ -1,3 +1,4 @@
+import configuration from '@intlayer/config/built';
 import type {
   DeepTransformContent as DeepTransformContentCore,
   IInterpreterPluginState as IInterpreterPluginStateCore,
@@ -9,8 +10,11 @@ import type {
   InsertionContent,
   MarkdownContent,
 } from '@intlayer/core/transpiler';
-import type { DeclaredLocales, LocalesValues } from '@intlayer/types/module_augmentation';
 import type { KeyPath } from '@intlayer/types/keyPath';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import { NodeType } from '@intlayer/types/nodeType';
 import { Fragment, h, type VNode } from 'preact';
 import { ContentSelectorRenderer } from './editor';
@@ -46,12 +50,14 @@ export const intlayerNodePlugins: Plugins = {
     renderIntlayerNode({
       ...rest,
       value: rest.children,
-      children: (
+      children: configuration?.editor.enabled ? (
         <ContentSelectorRenderer {...rest} key={rest.children}>
           <EditedContentRenderer {...rest}>
             {rest.children}
           </EditedContentRenderer>
         </ContentSelectorRenderer>
+      ) : (
+        rest.children
       ),
     }),
 };

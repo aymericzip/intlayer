@@ -1,3 +1,4 @@
+import configuration from '@intlayer/config/built';
 import {
   type DeepTransformContent as DeepTransformContentCore,
   getHTML,
@@ -49,19 +50,21 @@ export const intlayerNodePlugins: Plugins = {
       renderIntlayerNode({
         ...rest,
         value: children,
-        children: () =>
-          h(
-            // EditorSelectorRenderer, // Maximum stack size exceeded
-            ContentSelectorWrapper,
-            {
-              dictionaryKey: rest.dictionaryKey,
-              keyPath: rest.keyPath,
-            },
-            {
-              default: () =>
-                typeof children === 'function' ? children() : children,
-            }
-          ),
+        children: configuration?.editor.enabled
+          ? () =>
+              h(
+                // EditorSelectorRenderer, // Maximum stack size exceeded
+                ContentSelectorWrapper,
+                {
+                  dictionaryKey: rest.dictionaryKey,
+                  keyPath: rest.keyPath,
+                },
+                {
+                  default: () =>
+                    typeof children === 'function' ? children() : children,
+                }
+              )
+          : children,
       });
 
     const element = render(children) as any;

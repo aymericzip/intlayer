@@ -1,3 +1,4 @@
+// import type { ResolvedEditor } from '@intlayer/types/module_augmentation';
 import IntlayerNodeWrapper from './IntlayerNodeWrapper.svelte';
 
 type IntlayerNodeProps = {

@@ -1,4 +1,5 @@
 import type { NodeProps } from '@intlayer/core/interpreter';
+import type { ResolvedEditor } from '@intlayer/types/module_augmentation';
 import {
   type ComponentChildren,
   Fragment,
@@ -10,7 +11,7 @@ import {
 export type IntlayerNode<
   T = NodeProps['children'],
   AdditionalProps = {},
-> = VNode & {
+> = ResolvedEditor<T, VNode> & {
   value: T;
 } & AdditionalProps;
 

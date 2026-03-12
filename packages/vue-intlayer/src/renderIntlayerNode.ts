@@ -1,13 +1,21 @@
-import { markRaw, ref, type VNode, type VNodeChild } from 'vue';
+import type { ResolvedEditor } from '@intlayer/types/module_augmentation';
+import { markRaw, ref, type VNodeChild } from 'vue';
 
-export type IntlayerNode<T = string> = {
-  raw: T; // primitive value (reactive)
-  render: (props?: any) => VNodeChild; // component renderer
-  toString: () => string; // string interpolation
-  value: T;
-  use: (props?: any) => IntlayerNode<T>;
-  __update: (next: IntlayerNode<T>) => void; // invoked by useIntlayer
-};
+export type IntlayerNode<T = string> = ResolvedEditor<
+  T & {
+    raw: T; // primitive value (reactive)
+    render: (props?: any) => VNodeChild; // component renderer
+    value: T;
+  },
+  VNodeChild & {
+    raw: T; // primitive value (reactive)
+    render: (props?: any) => VNodeChild; // component renderer
+    toString: () => string; // string interpolation
+    value: T;
+    use: (props?: any) => IntlayerNode<T>;
+    __update: (next: IntlayerNode<T>) => void; // invoked by useIntlayer
+  }
+>;
 
 export const renderIntlayerNode = <
   T extends string | number | boolean | null | undefined,

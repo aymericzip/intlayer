@@ -1,3 +1,4 @@
+import configuration from '@intlayer/config/built';
 import type {
   DeepTransformContent as DeepTransformContentCore,
   IInterpreterPluginState as IInterpreterPluginStateCore,
@@ -73,7 +74,9 @@ export const intlayerNodePlugins: Plugins = {
       ...rest,
       value: children,
       children: () => ({
-        component: ContentSelectorWrapperComponent,
+        component: configuration?.editor.enabled
+          ? ContentSelectorWrapperComponent
+          : children,
         props: {
           dictionaryKey: rest.dictionaryKey,
           keyPath: rest.keyPath,

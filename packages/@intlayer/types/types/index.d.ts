@@ -16,4 +16,8 @@ declare module 'intlayer' {
   interface __SchemaRegistry {
     test: {};
   }
+
+  interface __EditorRegistry {
+    enabled: false;
+  }
 }
