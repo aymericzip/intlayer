@@ -12,8 +12,6 @@ import type {
   UpdateShowcaseProjectBody,
   UpdateShowcaseProjectResult,
 } from '@intlayer/backend';
-import configuration from '@intlayer/config/built';
-import { DefaultValues } from '@intlayer/config/client';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { type FetcherOptions, fetcher } from '../fetcher';
 
@@ -34,16 +32,9 @@ export type OtherShowcaseProjectsQuery = {
 
 export const getShowcaseProjectAPI = (
   authAPIOptions: FetcherOptions = {},
-  intlayerConfig?: IntlayerConfig
+  intlayerConfig: IntlayerConfig
 ) => {
-  let backendURL =
-    intlayerConfig?.editor?.backendURL ?? configuration?.editor?.backendURL;
-
-  if (!backendURL) {
-    backendURL = DefaultValues.Editor.BACKEND_URL;
-    console.dir({ intlayerConfig, configuration }, { depth: null });
-    console.error('Backend URL is not defined in the Intlayer configuration.');
-  }
+  const backendURL = intlayerConfig.editor.backendURL;
 
   const SHOWCASE_API_ROUTE = `${backendURL}/api/showcase-project`;
 

@@ -2,22 +2,12 @@ import type {
   GetOAuth2TokenBody,
   GetOAuth2TokenResult,
 } from '@intlayer/backend';
-import configuration from '@intlayer/config/built';
-import { DefaultValues } from '@intlayer/config/client';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { type FetcherOptions, fetcher } from '../fetcher';
 
-export const getOAuthAPI = (intlayerConfig?: IntlayerConfig) => {
-  let backendURL =
-    intlayerConfig?.editor?.backendURL ??
-    configuration?.editor?.backendURL ??
-    DefaultValues.Editor.BACKEND_URL;
-  const { clientId, clientSecret } = intlayerConfig?.editor ?? {};
-
-  if (!backendURL) {
-    backendURL = DefaultValues.Editor.BACKEND_URL;
-    console.error('Backend URL is not defined in the Intlayer configuration.');
-  }
+export const getOAuthAPI = (intlayerConfig: IntlayerConfig) => {
+  const backendURL = intlayerConfig.editor.backendURL;
+  const { clientId, clientSecret } = intlayerConfig.editor;
 
   /**
    * Gets an oAuth2 accessToken

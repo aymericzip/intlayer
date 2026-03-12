@@ -1,4 +1,3 @@
-import configuration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type {
   GetConfigurationResult,
@@ -10,10 +9,9 @@ import { type FetcherOptions, fetcher } from '../fetcher';
 
 export const getEditorAPI = (
   authAPIOptions: FetcherOptions = {},
-  intlayerConfig?: IntlayerConfig
+  intlayerConfig: IntlayerConfig
 ) => {
-  const editorURL =
-    intlayerConfig?.editor?.editorURL ?? configuration?.editor?.editorURL;
+  const editorURL = intlayerConfig.editor.editorURL;
 
   if (!editorURL) {
     throw new Error('Editor URL is not defined in the Intlayer configuration.');

@@ -354,7 +354,7 @@ const buildEditorFields = (
    *
    * Default: '*'
    */
-  applicationURL: customConfiguration?.applicationURL ?? APPLICATION_URL,
+  applicationURL: customConfiguration?.applicationURL || APPLICATION_URL,
 
   /**
    * URL of the editor server. Used to restrict the origin of the editor for security reasons.
@@ -363,19 +363,19 @@ const buildEditorFields = (
    *
    * Default: '*'
    */
-  editorURL: customConfiguration?.editorURL ?? EDITOR_URL,
+  editorURL: customConfiguration?.editorURL || EDITOR_URL,
 
   /**
    * URL of the CMS server. Used to restrict the origin of the editor for security reasons.
    */
-  cmsURL: customConfiguration?.cmsURL ?? CMS_URL,
+  cmsURL: customConfiguration?.cmsURL || CMS_URL,
 
   /**
    * URL of the editor server
    *
    * Default: 'https://back.intlayer.org'
    */
-  backendURL: customConfiguration?.backendURL ?? BACKEND_URL,
+  backendURL: customConfiguration?.backendURL || BACKEND_URL,
 
   /** Port of the editor server
    *

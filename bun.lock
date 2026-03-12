@@ -932,6 +932,7 @@
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/types": "workspace:*",
+        "defu": "6.1.4",
       },
       "devDependencies": {
         "@types/node": "25.4.0",
@@ -1295,7 +1296,7 @@
     "packages/@intlayer/mcp": {
       "name": "@intlayer/mcp",
       "version": "8.2.4",
-      "bin": "dist/cjs/server/stdio.cjs",
+      "bin": "dist/esm/server/stdio.mjs",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/cli": "workspace:*",
