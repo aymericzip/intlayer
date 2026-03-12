@@ -5,6 +5,12 @@ export const OPTIMIZE = undefined;
 export const TRAVERSE_PATTERN = [
   '**/*.{tsx,ts,js,mjs,cjs,jsx,vue,svelte,svte}',
   '!**/node_modules/**',
+  '!**/*.config.*',
+  '!**/*.test.*',
+  '!**/*.spec.*',
+  '!**/*.stories.*',
+  '!**/*.d.ts',
+  '!**/*.d.ts.map',
 ];
 
 export const OUTPUT_FORMAT: ('cjs' | 'esm')[] = ['esm', 'cjs'];
