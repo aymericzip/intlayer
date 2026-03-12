@@ -120,22 +120,18 @@ export const sanitizer = (input: string): string | null => {
     const decoded = decodeURIComponent(input).replace(/[^A-Za-z0-9/:]/g, '');
 
     if (SANITIZE_R.test(decoded)) {
-      if (process.env.NODE_ENV !== 'production') {
-        console.warn(
-          'Input contains an unsafe JavaScript/VBScript/data expression, it will not be rendered.',
-          decoded
-        );
-      }
+      console.warn(
+        'Input contains an unsafe JavaScript/VBScript/data expression, it will not be rendered.',
+        decoded
+      );
 
       return null;
     }
   } catch (_e) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.warn(
-        'Input could not be decoded due to malformed syntax or characters, it will not be rendered.',
-        input
-      );
-    }
+    console.warn(
+      'Input could not be decoded due to malformed syntax or characters, it will not be rendered.',
+      input
+    );
 
     // decodeURIComponent sometimes throws a URIError
     return null;
