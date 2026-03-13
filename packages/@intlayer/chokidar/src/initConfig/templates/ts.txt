@@ -1,9 +1,106 @@
+/**
+* Intlayer configuration file documentation 
+* @see https://intlayer.org/doc/concept/configuration
+*/
+
 import { type IntlayerConfig, Locales } from 'intlayer';
 
 const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH],
+    /**
+     * Default locale used as a fallback if the requested locale is not found.
+     */
     defaultLocale: Locales.ENGLISH,
+  },
+  routing: {
+    /**
+     * Locale routing strategy.
+     * - "prefix-no-default": Prefix all except the default locale (e.g., /dashboard, /fr/dashboard).
+     * - "prefix-all": Prefix all locales (e.g., /en/dashboard, /fr/dashboard).
+     * - "no-prefix": No locale in the URL.
+     * - "search-params": Use ?locale=...
+     * Default: "prefix-no-default"
+     */
+    mode: 'prefix-no-default',
+  },
+  content: {
+    /**
+     * File extensions to scan for dictionaries.
+     * Default: ['.content.ts', '.content.js', '.content.json', etc.]
+     */
+    fileExtensions: ['.content.ts'],
+    /**
+     * Directories where .content files are located.
+     */
+    contentDir: ['.'],
+    /**
+     * Directories where source code is located.
+     * Used for build optimization and code transformation.
+     */
+    codeDir: ['.'],
+  },
+  editor: {
+    /**
+     * Whether the visual editor is enabled.
+     */
+    enabled: false,
+
+    /**
+     * URL of your application for origin validation.
+     */
+    applicationURL: 'http://localhost:3000',
+  },
+  build: {
+    /**
+     * Controls how dictionaries are imported.
+     * - "static": Statically imported at build time.
+     * - "dynamic": Dynamically imported using Suspense.
+     * - "fetch": Fetched dynamically via the live sync API.
+     */
+    importMode: 'static',
+  },
+  ai: {
+    /**
+     * AI provider to use.
+     * Options: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama', 'openrouter', 'alibaba', 'fireworks', 'groq', 'huggingface', 'bedrock', 'googlevertex', 'togetherai'
+     */
+    provider: 'openai',
+    model: 'gpt-5-mini',
+    apiKey: process.env.OPENAI_API_KEY,
+    applicationContext: [''].join('\n'),
+  },
+  compiler: {
+    /**
+     * Defines the output files path. Replaces `outputDir`.
+     *
+     * - `./` paths are resolved relative to the component directory.
+     * - `/` paths are resolved relative to the project root (`baseDir`).
+     *
+     * - Including the `{{locale}}` variable in the path will trigger the generation of separate dictionaries per locale.
+     *
+     * Example:
+     * ```ts
+     * {
+     *   // Create Multilingual .content.ts files close to the component
+     *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
+     * }
+     * ```
+     *
+     * ```ts
+     * {
+     *   // Create centralize per-locale JSON at the root of the project
+     *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+     * }
+     * ```
+     */
+    output: ({ fileName }) => `./${fileName}.content.ts`,
+
+    /**
+     * Indicates if the components should be saved after being transformed.
+     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     */
+    saveComponents: false,
   },
 };
 

@@ -2,6 +2,31 @@
   "internationalization": {
     "locales": ["en"],
     "defaultLocale": "en"
-  }
+  },
+  "routing": {
+    "mode": "prefix-no-default"
+  },
+  "content": {
+    "fileExtensions": [".content.ts"],
+    "contentDir": ["./src"],
+    "codeDir": ["./src"],
+  },
+  "editor": {
+    "enabled": false,
+    "applicationURL": 'http://localhost:3000',
+  },
+  "build": {
+    "importMode": "static",
+  },
+  "ai": {
+    "provider": 'openai',
+    "model": 'gpt-5-mini',
+    "apiKey": process.env.OPENAI_API_KEY,
+    "applicationContext": ',
+  },
+  "compiler": {
+    "output": './{{fileName}}.content.ts',
+    "saveComponents": false,
+  },
 }
 
