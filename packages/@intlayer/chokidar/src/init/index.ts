@@ -321,8 +321,10 @@ export const initIntlayer = async (rootDir: string) => {
 
   // CHECK NEXT CONFIG
   const nextConfigs = ['next.config.js', 'next.config.mjs', 'next.config.ts'];
+  let isNextJsProject = false;
   for (const file of nextConfigs) {
     if (await exists(rootDir, file)) {
+      isNextJsProject = true;
       hasAliasConfiguration = true;
       const content = await readFileFromRoot(rootDir, file);
 
@@ -333,6 +335,46 @@ export const initIntlayer = async (rootDir: string) => {
         logger(`${v} Updated ${colorizePath(file)} to include Intlayer plugin`);
       }
       break;
+    }
+  }
+
+  // UPDATE PACKAGE.JSON DEV SCRIPT FOR NEXT.JS >= 16
+  if (isNextJsProject) {
+    const nextVersion =
+      packageJson.dependencies?.next || packageJson.devDependencies?.next;
+
+    const isVersionGreaterOrEqual = (
+      versionString: string,
+      major: number
+    ): boolean => {
+      if (!versionString || typeof versionString !== 'string') return false;
+      const match = versionString.match(/^[^\d]*(\d+)/);
+      if (!match) return false;
+      const majorVersion = parseInt(match[1], 10);
+      return majorVersion >= major;
+    };
+
+    if (nextVersion && isVersionGreaterOrEqual(nextVersion, 16)) {
+      const devScript = packageJson.scripts?.dev;
+      const expectedScript = "intlayer watch --with 'bun run --bun next dev'";
+
+      if (
+        devScript &&
+        devScript !== expectedScript &&
+        devScript.includes('next dev')
+      ) {
+        packageJson.scripts.dev = expectedScript;
+
+        await writeFileToRoot(
+          rootDir,
+          packageJsonPath,
+          JSON.stringify(packageJson, null, 2)
+        );
+
+        logger(
+          `${v} Updated ${colorizePath('package.json')} dev script for Next.js >= 16`
+        );
+      }
     }
   }
 
