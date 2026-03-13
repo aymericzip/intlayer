@@ -1,12 +1,6 @@
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { cn } from '@utils/cn';
-import {
-  type ComponentProps,
-  type ComponentPropsWithoutRef,
-  createContext,
-  type FC,
-  useContext,
-} from 'react';
+import type { ComponentProps, ComponentPropsWithoutRef, FC } from 'react';
 import {
   type MarkdownRenderer as MarkdownRendererIntlayer,
   renderMarkdown,
@@ -19,13 +13,6 @@ import { Link } from '../Link';
 import { Tab } from '../Tab';
 import { TabProvider } from '../Tab/TabContext';
 import { Table } from '../Table';
-
-// Context to pass dynamic variables to static components without re-creating them
-interface MarkdownContextType {
-  isDarkMode?: boolean;
-  locale?: LocalesValues;
-}
-const MarkdownContext = createContext<MarkdownContextType>({});
 
 // Extracted, stable component renderers
 const H1Renderer = (props: ComponentProps<'h1'>) => (
@@ -50,31 +37,28 @@ const StrongRenderer = (props: ComponentProps<'strong'>) => (
   <strong className="text-text" {...props} />
 );
 
-const CodeRenderer = ({
-  className,
-  children,
-  ...rest
-}: ComponentProps<'code'>) => {
-  const { isDarkMode } = useContext(MarkdownContext);
-  const content = String(children ?? '').replace(/\n$/, '');
-  const isBlock = !!className;
+const createCodeRenderer = (isDarkMode?: boolean) => {
+  return ({ className, children, ...rest }: ComponentProps<'code'>) => {
+    const content = String(children ?? '').replace(/\n$/, '');
+    const isBlock = !!className;
 
-  if (!isBlock) {
+    if (!isBlock) {
+      return (
+        <code className="rounded-md border border-neutral/30 bg-card/60 box-decoration-clone px-1.5 py-0.5 font-mono text-sm">
+          {content}
+        </code>
+      );
+    }
+
+    const language = (className?.replace(/lang(?:uage)?-/, '') ||
+      'plaintext') as BundledLanguage;
+
     return (
-      <code className="rounded-md border border-neutral/30 bg-card/60 box-decoration-clone px-1.5 py-0.5 font-mono text-sm">
+      <Code {...rest} language={language} showHeader isDarkMode={isDarkMode}>
         {content}
-      </code>
+      </Code>
     );
-  }
-
-  const language = (className?.replace(/lang(?:uage)?-/, '') ||
-    'plaintext') as BundledLanguage;
-
-  return (
-    <Code {...rest} language={language} showHeader isDarkMode={isDarkMode}>
-      {content}
-    </Code>
-  );
+  };
 };
 
 const BlockquoteRenderer = ({
@@ -125,9 +109,8 @@ const ImgRenderer = ({
   />
 );
 
-const LinkRenderer = (props: ComponentProps<'a'>) => {
-  const { locale } = useContext(MarkdownContext);
-  return (
+const createLinkRenderer = (locale?: LocalesValues) => {
+  return (props: ComponentProps<'a'>) => (
     <Link
       isExternalLink={props.href?.startsWith('http')}
       underlined
@@ -182,8 +165,8 @@ const ColumnRenderer = ({
   <div className={cn('flex-1', className)} {...props} />
 );
 
-// Static configuration object
-export const baseMarkdownComponents = {
+// Static configuration object for static renderers
+const staticMarkdownComponents = {
   h1: H1Renderer,
   h2: H2Renderer,
   h3: H3Renderer,
@@ -191,12 +174,10 @@ export const baseMarkdownComponents = {
   h5: H5Renderer,
   h6: H6Renderer,
   strong: StrongRenderer,
-  code: CodeRenderer,
   blockquote: BlockquoteRenderer,
   ul: UlRenderer,
   ol: OlRenderer,
   img: ImgRenderer,
-  a: LinkRenderer,
   pre: PreRenderer,
   table: TableRenderer,
   th: ThRenderer,
@@ -208,6 +189,19 @@ export const baseMarkdownComponents = {
   Columns: ColumnsRenderer,
   Column: ColumnRenderer,
 };
+
+// Factory function to create components with dynamic props
+const createMarkdownComponents = (
+  isDarkMode?: boolean,
+  locale?: LocalesValues
+) => ({
+  ...staticMarkdownComponents,
+  code: createCodeRenderer(isDarkMode),
+  a: createLinkRenderer(locale),
+});
+
+// Export static renderers for backward compatibility
+export const baseMarkdownComponents = staticMarkdownComponents;
 
 type MarkdownRendererProps = {
   children: string;
@@ -234,10 +228,12 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   components: componentsProp,
   wrapper,
 }) => {
-  // `renderMarkdown` now receives stable object references.
+  // Generate components with props bound to them
+  const markdownComponents = createMarkdownComponents(isDarkMode, locale);
+
   const markdownContent = renderMarkdown(children, {
     components: {
-      ...baseMarkdownComponents,
+      ...markdownComponents,
       ...componentsProp,
     },
     wrapper,
@@ -247,10 +243,8 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   });
 
   return (
-    <MarkdownContext.Provider value={{ isDarkMode, locale }}>
-      <CodeProvider>
-        <TabProvider>{markdownContent}</TabProvider>
-      </CodeProvider>
-    </MarkdownContext.Provider>
+    <CodeProvider>
+      <TabProvider>{markdownContent}</TabProvider>
+    </CodeProvider>
   );
 };
