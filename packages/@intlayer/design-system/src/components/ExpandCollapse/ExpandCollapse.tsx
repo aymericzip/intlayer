@@ -89,7 +89,7 @@ export const ExpandCollapse: FC<ExpandCollapseProps> = ({
   useEffect(() => {
     const measure = () => {
       if (codeContainerRef.current) {
-        setCodeContainerHeight(codeContainerRef.current.scrollHeight);
+        setCodeContainerHeight(codeContainerRef.current.clientHeight);
       }
     };
 
@@ -105,45 +105,31 @@ export const ExpandCollapse: FC<ExpandCollapseProps> = ({
 
   if (!isTooBig) {
     return (
-      <div
-        className={cn('grid min-h-0 w-full', className)}
-        ref={codeContainerRef}
-      >
+      <div className={cn('grid w-full', className)} ref={codeContainerRef}>
         {children}
       </div>
     );
   }
 
   return (
-    <div className="w-full">
-      <MaxHeightSmoother
-        isHidden={isCollapsed}
-        minHeight={minHeight}
-        className="w-full overflow-x-auto overflow-y-hidden"
+    <MaxHeightSmoother
+      isHidden={isCollapsed}
+      minHeight={minHeight}
+      className="w-full overflow-x-auto overflow-y-hidden"
+    >
+      <div className={cn('grid w-full', className)} ref={codeContainerRef}>
+        {children}
+      </div>
+      <button
+        className={cn(
+          'absolute right-0 bottom-0 flex w-full cursor-pointer items-center justify-center rounded-t-2xl bg-gradient-to-t from-card/80 to-transparent px-3 py-0.5 text-md text-neutral-700 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur transition-all duration-300 hover:py-1 dark:text-neutral-400',
+          isCollapsed ? 'w-full' : 'w-32'
+        )}
+        type="button"
+        onClick={() => setIsCollapsed((prev) => !prev)}
       >
-        <div
-          className={cn('grid min-h-0 w-full', className)}
-          ref={codeContainerRef}
-        >
-          {children}
-        </div>
-      </MaxHeightSmoother>
-
-      {isTooBig && (
-        <button
-          className={cn(
-            'flex w-full cursor-pointer items-center justify-center',
-            'bg-gradient-to-t from-card/80 to-transparent px-3 py-2',
-            'text-md text-neutral-700 backdrop-blur',
-            'transition-all duration-300 hover:py-3',
-            'dark:text-neutral-400'
-          )}
-          type="button"
-          onClick={() => setIsCollapsed((prev) => !prev)}
-        >
-          {expandCollapseContent(isCollapsed)}
-        </button>
-      )}
-    </div>
+        {expandCollapseContent(isCollapsed)}
+      </button>
+    </MaxHeightSmoother>
   );
 };
