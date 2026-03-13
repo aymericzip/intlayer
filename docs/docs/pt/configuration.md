@@ -1210,16 +1210,6 @@ As opções de build se aplicam aos plugins `@intlayer/babel` e `@intlayer/swc`.
   - _Nota_ : Esta opção depende dos plugins `@intlayer/babel` e `@intlayer/swc`.
   - _Nota_ : Certifique-se de que todas as chaves sejam declaradas estaticamente nas chamadas de `useIntlayer`. Exemplo: `useIntlayer('navbar')`.
 
-- **importMode** :
-  - _Tipo_ : `'static' | 'dynamic' | 'fetch'`
-  - _Padrão_ : `'static'`
-  - _Descrição_ : Controla como os dicionários são importados.
-  - _Exemplo_ : `'dynamic'`
-  - _Nota_ : Modos disponíveis:
-    - "static": Os dicionários são importados estaticamente. Substitui `useIntlayer` por `useDictionary`.
-    - "dynamic": Os dicionários são importados dinamicamente usando Suspense. Substitui `useIntlayer` por `useDictionaryDynamic`.
-  - _Nota_: O formato de saída dos dicionários.
-
 - **traversePattern**:
   - _Tipo_: `string[]`
   - _Padrão_: `['**\/*.{js,ts,mjs,cjs,jsx,tsx}', '!**\/node_modules/**']`
