@@ -1,5 +1,4 @@
 import { existsSync } from 'node:fs';
-import { readFile } from 'node:fs/promises';
 import { relative, resolve } from 'node:path';
 import {
   detectPackageName,
@@ -7,7 +6,14 @@ import {
   type PackageName,
 } from '@intlayer/babel';
 import { logConfigDetails } from '@intlayer/chokidar/cli';
-import { colorizePath, getAppLogger } from '@intlayer/config/logger';
+import { buildComponentFilesList } from '@intlayer/chokidar/utils';
+import {
+  ANSIColors,
+  colorize,
+  colorizePath,
+  getAppLogger,
+  x,
+} from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,
@@ -15,7 +21,7 @@ import {
 import type { FilePathPattern } from '@intlayer/types/filePathPattern';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import enquirer from 'enquirer';
-import fg from 'fast-glob';
+import { prepareIntlayer } from 'intlayer/cli';
 
 type ExtractOptions = {
   files?: string[];
@@ -27,17 +33,28 @@ type ExtractOptions = {
 
 export const extract = async (options: ExtractOptions) => {
   const configuration = getConfiguration(options.configOptions);
+
   logConfigDetails(options?.configOptions);
 
   const appLogger = getAppLogger(configuration);
+
   const { baseDir } = configuration.system;
-  const { codeDir, excludedPath } = configuration.content;
-  const { traversePattern } = configuration.build;
+  const { output } = configuration.compiler;
 
   const formatPath = (path: string) => {
     const relativePath = relative(baseDir, path);
     return colorizePath(relativePath);
   };
+
+  if (!output) {
+    appLogger(
+      `${x} No output configuration found. Add a ${colorize('compiler.output', ANSIColors.BLUE)} in your configuration.`,
+      {
+        level: 'error',
+      }
+    );
+    return;
+  }
 
   // Detect package
   const packageName: PackageName = detectPackageName(baseDir);
@@ -45,38 +62,12 @@ export const extract = async (options: ExtractOptions) => {
   let filesToExtract = options.files ?? [];
 
   if (filesToExtract.length === 0) {
-    // Filter out codeDirs that are themselves inside an excluded path (e.g. dist, node_modules)
-    const isDirExcluded = (dirPath: string): boolean =>
-      (excludedPath ?? []).some((pattern) => {
-        const segments = pattern
-          .split('/')
-          .filter((s) => !s.includes('*') && s.length > 0);
-        const parts = dirPath.split('/');
-        return segments.some((seg) => parts.includes(seg));
-      });
-
     // Await all promises simultaneously
-    const resultsArray = await Promise.all(
-      codeDir
-        .filter((dir) => !isDirExcluded(dir))
-        .map((dir) =>
-          fg(traversePattern, {
-            cwd: dir,
-            ignore: excludedPath,
-            absolute: true,
-          })
-        )
-    );
+    const fileList = buildComponentFilesList(configuration);
 
     // Flatten the nested arrays and remove duplicates
-    const allFiles = resultsArray.flat();
-
-    const uniqueFiles = [...new Set(allFiles)].filter((file) =>
-      existsSync(file)
-    );
-
     // Relative paths for selection
-    const choices = uniqueFiles.map((file) => {
+    const choices = fileList.map((file) => {
       const relPath = relative(baseDir, file);
       return {
         value: file,
@@ -204,4 +195,6 @@ export const extract = async (options: ExtractOptions) => {
       }
     })
   );
+
+  await prepareIntlayer(configuration); // Prepare Intlayer to apply the changes
 };

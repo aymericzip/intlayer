@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2025-12-30
+updatedAt: 2026-03-12
 title: SvelteKit i18n - Cara menerjemahkan aplikasi SvelteKit di 2026
 description: Temukan cara membuat situs web SvelteKit Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya menggunakan Server-Side Rendering (SSR).
 keywords:
@@ -185,7 +185,7 @@ Sekarang Anda dapat menggunakan fungsi `useIntlayer` di komponen Svelte mana pun
 
 > **Catatan:** `useIntlayer` mengembalikan store Svelte, jadi Anda perlu menggunakan prefix `---
 > createdAt: 2025-11-20
-> updatedAt: 2025-11-20
+> updatedAt: 2026-03-12
 > title: Cara menerjemahkan aplikasi SvelteKit Anda – panduan i18n 2026
 > description: Temukan cara membuat situs web SvelteKit Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya menggunakan Server-Side Rendering (SSR).
 > keywords:
@@ -743,6 +743,162 @@ Disarankan untuk mengabaikan file-file yang dihasilkan oleh Intlayer.
 ```
 
 ---
+
+### (Opsional) Langkah 1 : Ekstrak konten komponen Anda
+
+Jika Anda memiliki basis kode yang ada, mengubah ribuan file bisa memakan waktu lama.
+
+Untuk memudahkan proses ini, Intlayer mengusulkan [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) / [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md) untuk mengubah komponen Anda dan mengekstrak kontennya.
+
+Untuk mengaturnya, Anda dapat menambahkan bagian `compiler` di file `intlayer.config.ts` Anda:
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Sisa konfigurasi Anda
+  compiler: {
+    /**
+     * Menunjukkan apakah compiler harus diaktifkan.
+     */
+    enabled: true,
+
+    /**
+     * Menentukan jalur file output
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Menunjukkan apakah komponen harus disimpan setelah diubah. Dengan begitu, compiler dapat dijalankan satu kali saja untuk mengubah aplikasi, lalu dapat dihapus.
+     */
+    saveComponents: false,
+
+    /**
+     * Prefiks kunci kamus
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... Sisa konfigurasi Anda
+  compiler: {
+    /**
+     * Menunjukkan apakah compiler harus diaktifkan.
+     */
+    enabled: true,
+
+    /**
+     * Menentukan jalur file output
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Menunjukkan apakah komponen harus disimpan setelah diubah. Dengan begitu, compiler dapat dijalankan satu kali saja untuk mengubah aplikasi, lalu dapat dihapus.
+     */
+    saveComponents: false,
+
+    /**
+     * Prefiks kunci kamus
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... Sisa konfigurasi Anda
+  compiler: {
+    /**
+     * Menunjukkan apakah compiler harus diaktifkan.
+     */
+    enabled: true,
+
+    /**
+     * Menentukan jalur file output
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Menunjukkan apakah komponen harus disimpan setelah diubah. Dengan begitu, compiler dapat dijalankan satu kali saja untuk mengubah aplikasi, lalu dapat dihapus.
+     */
+    saveComponents: false,
+
+    /**
+     * Prefiks kunci kamus
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+module.exports = config;
+```
+
+<Tabs>
+ <Tab value='Perintah ekstrak'>
+
+Jalankan extractor untuk mengubah komponen Anda dan mengekstrak kontennya
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bunx intlayer extract
+```
+
+ </Tab>
+ <Tab value='Compiler Babel'>
+
+Perbarui `vite.config.ts` Anda untuk menyertakan plugin `intlayerCompiler`:
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // Menambahkan plugin compiler
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # Atau npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # Or pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Or yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
 
 ### Melangkah Lebih Jauh
 

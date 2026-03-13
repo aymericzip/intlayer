@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-03-11
+updatedAt: 2026-03-12
 title: Configuration
 description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customize Intlayer to your needs.
 keywords:
@@ -15,7 +15,7 @@ slugs:
   - configuration
 history:
   - version: 8.3.0
-    data: 2026-03-11
+    date: 2026-03-11
     changes: Move 'baseDir' from 'content' to 'system' config
   - version: 8.2.0
     date: 2026-03-09
@@ -119,7 +119,7 @@ Intlayer accepts JSON, JS, MJS, and TS configuration file formats:
 
 ## Example config file
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
@@ -217,7 +217,7 @@ const config: IntlayerConfig = {
      * Options: 'cookie', 'localStorage', 'sessionStorage', 'header', or an array of these.
      * Default: ['cookie', 'header']
      */
-    storage: "cookie",
+    storage: ["cookie", "header"],
 
     /**
      * Base path for the application URLs.
@@ -387,9 +387,9 @@ const config: IntlayerConfig = {
 
     /**
      * Output format for generated dictionary files.
-     * Default: ['esm', 'cjs']
+     * Default: ['cjs', 'esm']
      */
-    outputFormat: ["esm"],
+    outputFormat: ["cjs", "esm"],
 
     /**
      * Indicates if the build should check TypeScript types.
@@ -464,43 +464,70 @@ const config: IntlayerConfig = {
   compiler: {
     /**
      * Indicates if the compiler should be enabled.
-     * Set to 'build-only' to skip the compiler during development and speed up start times.
+     *
+     * - false: Disable the compiler.
+     * - true: Enable the compiler.
+     * - "build-only": Skip the compiler during development and speed up start times.
+     *
+     * Default: false
      */
     enabled: true,
 
     /**
-     * Pattern to traverse the code to optimize.
-     */
-    transformPattern: [
-      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
-      "!**/node_modules/**",
-    ],
-
-    /**
-     * Pattern to exclude from the optimization.
-     */
-    excludePattern: ["**/node_modules/**"],
-
-    /**
-     * Output directory for the optimized dictionaries.
+     * Defines the output files path. Replaces `outputDir`.
+     *
+     * - `./` paths are resolved relative to the component directory.
+     * - `/` paths are resolved relative to the project root (`baseDir`).
+     *
+     * - Including the `{{locale}}` variable in the path will trigger the generation of separate dictionaries per locale.
+     *
+     * Example:
+     * ```ts
+     * {
+     *   // Create Multilingual .content.ts files close to the component
+     *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
+     *
+     *   // output: './{{fileName}}{{extension}}', // Equivalent using template string
+     * }
+     * ```
+     *
+     * ```ts
+     * {
+     *   // Create centralize per-locale JSON at the root of the project
+     *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+     *
+     *   // output: '/locales/{{locale}}/{{key}}.content.json', // Equivalent using template string
+     * }
+     * ```
+     *
+     * Variable list:
+     *   - `fileName`: The name of the file.
+     *   - `key`: The key of the content.
+     *   - `locale`: The locale of the content.
+     *   - `extension`: The extension of the file.
+     *   - `componentFileName`: The name of the component file.
+     *   - `componentExtension`: The extension of the component file.
+     *   - `format`: The format of the dictionary.
+     *   - `componentFormat`: The format of the component dictionary.
+     *   - `componentDirPath`: The directory path of the component.
      */
     output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
-
-    /**
-     * Inset only content in generated file, without key.
-     */
-    noMetadata: false,
-
-    /**
-     * Dictionary key prefix
-     */
-    dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
      * Indicates if the components should be saved after being transformed.
      * That way, the compiler can be run only once to transform the app, and then it can be removed.
      */
     saveComponents: false,
+
+    /**
+     * Inset only content into the generated file. Useful for per-locale i18next or ICU MessageFormat JSON outputs.
+     */
+    noMetadata: false,
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "", // Add an optional prefix for the extracted dictionary keys
   },
 
   /**
@@ -519,7 +546,7 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
+````
 
 ---
 
@@ -537,7 +564,7 @@ Defines settings related to internationalization, including available locales an
 
 - **locales**:
   - _Type_: `string[]`
-  - _Default_: `['en']`
+  - _Default_: `[Locales.ENGLISH]`
   - _Description_: The list of supported locales in the application.
   - _Example_: `['en', 'fr', 'es']`
 
@@ -558,7 +585,7 @@ Defines settings related to internationalization, including available locales an
 
 - **defaultLocale**:
   - _Type_: `string`
-  - _Default_: `'en'`
+  - _Default_: `Locales.ENGLISH`
   - _Description_: The default locale used as a fallback if the requested locale is not found.
   - _Example_: `'en'`
   - _Note_: This is used to determine the locale when none is specified in the URL, cookie, or header.
@@ -573,7 +600,7 @@ Defines settings related to the integrated editor, including server port and act
 
 - **applicationURL**:
   - _Type_: `string`
-  - _Default_: `http://localhost:3000`
+  - _Default_: `''`
   - _Description_: The URL of the application. Used to restrict the origin of the editor for security reasons.
   - _Example_:
     - `'http://localhost:3000'`
@@ -637,7 +664,7 @@ Defines settings related to the integrated editor, including server port and act
 
 - **liveSync**:
   - _Type_: `boolean`
-  - _Default_: `false`
+  - _Default_: `true`
   - _Description_: Indicates if the application server should hot reload the content of the application when a change is detected on the CMS / Visual Editor / Backend.
   - _Example_: `true`
   - _Note_: For example, when a new dictionary is added or updated, the application will update the content to display in the page.
@@ -676,7 +703,7 @@ Settings that control routing behavior, including URL structure, locale storage,
 
 - **storage**:
   - _Type_: `false | 'cookie' | 'localStorage' | 'sessionStorage' | 'header' | CookiesAttributes | StorageAttributes | Array`
-  - _Default_: `'localStorage'`
+  - _Default_: `['cookie', 'header']`
   - _Description_: Configuration for storing the locale in the client.
 
   - **cookie**:
@@ -779,7 +806,6 @@ const config: IntlayerConfig = {
   routing: {
     mode: "prefix-no-default",
     storage: "localStorage",
-    headerName: "x-intlayer-locale",
     basePath: "",
   },
 };
@@ -812,7 +838,6 @@ const config: IntlayerConfig = {
         httpOnly: false,
       },
     ],
-    headerName: "x-intlayer-locale",
     basePath: "",
   },
 };
@@ -833,7 +858,6 @@ const config: IntlayerConfig = {
   routing: {
     mode: "search-params",
     storage: "localStorage",
-    headerName: "x-intlayer-locale",
     basePath: "",
   },
 };
@@ -857,7 +881,6 @@ const config: IntlayerConfig = {
       type: "sessionStorage",
       name: "app-locale",
     },
-    headerName: "x-custom-locale",
     basePath: "/my-app",
   },
 };
@@ -872,7 +895,6 @@ export default config;
 import { nextjsRewrite } from "intlayer/routing";
 
 const config: IntlayerConfig = {
-
   internationalization: {
     locales: ["en", "fr"],
     defaultLocale: "en",
@@ -893,12 +915,11 @@ const config: IntlayerConfig = {
         en: "/blog/[category]/[id]",
         fr: "/journal/[category]/[id]",
       },
-
+    }),
+  },
 };
 
-export default config;,
-  },
-});
+export default config;
 ```
 
 ---
@@ -916,7 +937,7 @@ Settings related to content handling within the application, including directory
 
 - **fileExtensions**:
   - _Type_: `string[]`
-  - _Default_: `['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.tsx', '.content.jsx']`
+  - _Default_: `['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.json5', '.content.jsonc', '.content.tsx', '.content.jsx']`
   - _Description_: File extensions to look for when building dictionaries.
   - _Example_: `['.data.ts', '.data.js', '.data.json']`
   - _Note_: Customizing file extensions can help avoid conflicts.
@@ -1213,8 +1234,8 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
   - _Note_: This can slow down the build.
 
 - **outputFormat**:
-  - _Type_: `'esm' | 'cjs'`
-  - _Default_: `'esm'`
+  - _Type_: `('esm' | 'cjs')[]`
+  - _Default_: `['cjs', 'esm']`
   - _Description_: Controls the output format of the dictionaries.
   - _Example_: `'cjs'`
   - _Note_: The output format of the dictionaries.
@@ -1245,7 +1266,7 @@ Settings that control the Intlayer compiler, which extracts dictionaries straigh
 
 - **dictionaryKeyPrefix**:
   - _Type_: `string`
-  - _Default_: `'comp-'`
+  - _Default_: `''`
   - _Description_: Prefix for the extracted dictionary keys.
   - _Example_: `'my-key-'`
   - _Note_: When dictionaries are extracted, the key is generated based on the file name. This prefix is added to the generated key to prevent conflicts.
@@ -1269,23 +1290,25 @@ Settings that control the Intlayer compiler, which extracts dictionaries straigh
   - _Description_: Patterns that define which files should be excluded during optimization.
   - _Example_: `['**/node_modules/**', '!**/node_modules/react/**']`
 
-- **outputDir**:
-  - _Type_: `string`
-  - _Default_: `'compiler'`
-  - _Description_: The directory where the extracted dictionaries will be stored, relative to your project base path.
-
 - **output**:
   - _Type_: `FilePathPattern`
-  - _Default_: `({ key }) => 'compiler/${key}.content.json'`
-  - _Description_: Defines the output files path. Replaces `outputDir`. Handles dynamic variables like `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{componentFormat}}`. Can be set as a string using `'my/{{var}}/path'` format, or as a function.
-  - _Note_: `./**/*` Path are resolved relatively to the component. `/**/*` path are resolved relatively to the Intlayer `baseDir`.
-  - _Note_: If locale is set in the path, it will generate per-locale dictionaries.
-  - _Example_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+  - _Default_: `undefined`
+  - _Description_: Defines the output files path. Replaces `outputDir`. Handles dynamic variables via template strings or a function. Supported variables: `{{fileName}}`, `{{key}}`, `{{locale}}`, `{{extension}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{format}}`, `{{componentFormat}}`, and `{{componentDirPath}}`.
+  - _Note_: `./` paths are resolved relative to the component directory. `/` paths are resolved relative to the project root (`baseDir`).
+  - _Note_: Including the `{{locale}}` variable in the path will trigger the generation of separate dictionaries per locale.
+  - _Example_:
+    - **Multilingual files near component**:
+    - String: `'./{{fileName}}{{extension}}'`
+    - Function: `({ fileName, extension }) => \`./${fileName}${extension}``
+
+    - **Centralized per-locale JSON**:
+    - String: `'/locales/{{locale}}/{{key}}.content.json'`
+    - Function: `({ key, locale }) => \`/locales/${locale}/${key}.content.json``
 
 - **noMetadata**:
   - _Type_: `boolean`
   - _Default_: `false`
-  - _Description_: Indicates if the metadata should be saved in the file. If true, the compiler will not save the metadata of the dictionaries (key, content wrapper).
+  - _Description_: Indicates if the metadata should be saved in the file. If true, the compiler will not save the metadata of the dictionaries (key, content wrapper). Useful for per-locale i18next or ICU MessageFormat JSON outputs.
   - _Note_: Useful if used with `loadJSON` plugin.
   - _Example_:
     If `true`:

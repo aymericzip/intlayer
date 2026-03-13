@@ -5,6 +5,88 @@ import type { Locale } from '@intlayer/types/allLocales';
 import MagicString from 'magic-string';
 import { parse } from 'svelte/compiler';
 
+type ExistingCallInfo = {
+  isDestructured: boolean;
+  existingDestructuredKeys: string[];
+  /** The variable name used to store the call result (e.g. `t` in `const t = useIntlayer(...)`) */
+  variableName: string;
+  /** Absolute position of `}` in the full file — only valid when `isDestructured` */
+  closingBraceAbsolutePos: number;
+  /** Absolute position of end of last property — only valid when `isDestructured` */
+  lastPropAbsoluteEnd: number;
+} | null;
+
+/**
+ * Detects whether a script block already contains a `useIntlayer` /
+ * `getIntlayer` call and whether its result is destructured.
+ */
+const detectExistingIntlayerCall = (
+  scriptText: string,
+  absoluteOffset: number
+): ExistingCallInfo => {
+  let info: ExistingCallInfo = null;
+
+  try {
+    const ast = babelParse(scriptText, {
+      parserOpts: { sourceType: 'module', plugins: ['typescript', 'jsx'] },
+    });
+
+    if (!ast) return null;
+
+    traverse(ast, {
+      CallExpression(path: any) {
+        const callee = path.node.callee;
+
+        if (
+          !t.isIdentifier(callee) ||
+          (callee.name !== 'useIntlayer' && callee.name !== 'getIntlayer')
+        )
+          return;
+
+        const parent = path.parent;
+
+        if (t.isVariableDeclarator(parent) && t.isObjectPattern(parent.id)) {
+          const properties = parent.id.properties;
+          const existingDestructuredKeys = properties
+            .filter(
+              (p: any): p is typeof t.objectProperty =>
+                t.isObjectProperty(p) && t.isIdentifier(p.key)
+            )
+            .map((p: any) => (p.key as any).name as string);
+          const lastProp = properties[properties.length - 1];
+
+          info = {
+            isDestructured: true,
+            variableName: 'content',
+            existingDestructuredKeys,
+            closingBraceAbsolutePos: absoluteOffset + (parent.id.end! - 1),
+            lastPropAbsoluteEnd: absoluteOffset + lastProp.end!,
+          };
+        } else {
+          const variableName =
+            t.isVariableDeclarator(parent) && t.isIdentifier(parent.id)
+              ? parent.id.name
+              : 'content';
+
+          info = {
+            isDestructured: false,
+            variableName,
+            existingDestructuredKeys: [],
+            closingBraceAbsolutePos: -1,
+            lastPropAbsoluteEnd: -1,
+          };
+        }
+
+        path.stop();
+      },
+    });
+  } catch {
+    // Silently ignore parse failures — fall back to no-info
+  }
+
+  return info;
+};
+
 export type ExtractedContent = Record<string, string>;
 
 export type ExtractResult = {
@@ -79,6 +161,24 @@ export const intlayerSvelteExtract = (
     dictionaryKeyOption ?? extractDictionaryKeyFromPath?.(filename) ?? '';
   const replacements: Replacement[] = [];
 
+  // Extract and walk Script using Babel
+  const scriptRegex = /<script[^>]*>([\s\S]*?)<\/script>/;
+  const scriptMatch = scriptRegex.exec(code);
+  let hasScriptExtraction = false;
+  const scriptContent = scriptMatch ? scriptMatch[1] : '';
+
+  // Detect existing call BEFORE walking the template so the access pattern
+  // (bare key vs. $content.key) can be chosen consistently.
+  const existingCallInfo = scriptMatch
+    ? detectExistingIntlayerCall(
+        scriptContent,
+        scriptMatch.index + scriptMatch[0].indexOf('>') + 1
+      )
+    : null;
+
+  const isDestructured = existingCallInfo?.isDestructured ?? false;
+  const varName = existingCallInfo?.variableName ?? 'content';
+
   let ast: any;
   try {
     ast = parse(code);
@@ -96,6 +196,10 @@ export const intlayerSvelteExtract = (
   const isTextNode = (node: any) => node.type === 'Text' || node.type === 3;
   const isAttributeNode = (node: any) =>
     node.type === 'Attribute' || node.type === 6;
+  const isExpressionTagNode = (node: any): boolean =>
+    node.type === 'MustacheTag' ||
+    node.type === 8 || // Svelte 4 numeric
+    node.type === 'ExpressionTag'; // Svelte 5
 
   const walkSvelte = (node: any) => {
     if (isTextNode(node)) {
@@ -103,10 +207,13 @@ export const intlayerSvelteExtract = (
       if (shouldExtract?.(text) && generateKey) {
         const key = generateKey(text, existingKeys);
         existingKeys.add(key);
+        // Destructured: each property is a plain value → `{key}`.
+        // Otherwise use the reactive store subscription `{$content.key}`.
+        const ref = isDestructured ? key : `$${varName}.${key}`;
         replacements.push({
           start: node.start,
           end: node.end,
-          replacement: `{$content.${key}}`,
+          replacement: `{${ref}}`,
           key,
           value: text.replace(/\s+/g, ' ').trim(),
         });
@@ -120,10 +227,11 @@ export const intlayerSvelteExtract = (
         if (shouldExtract?.(text) && generateKey) {
           const key = generateKey(text, existingKeys);
           existingKeys.add(key);
+          const ref = isDestructured ? key : `$${varName}.${key}`;
           replacements.push({
             start: node.start,
             end: node.end,
-            replacement: `${node.name}={$content.${key}}`,
+            replacement: `${node.name}={${ref}}`,
             key,
             value: text.trim(),
           });
@@ -133,6 +241,81 @@ export const intlayerSvelteExtract = (
 
     const children =
       node.children ?? node.fragment?.nodes ?? node.fragment?.children;
+
+    // Try to handle mixed text + expression children as an insertion
+    if (children?.some(isExpressionTagNode)) {
+      const parts: {
+        type: 'text' | 'var';
+        value: string;
+        originalExpr: string;
+      }[] = [];
+      let hasSignificantText = false;
+      let isValid = true;
+
+      for (const child of children) {
+        if (isTextNode(child)) {
+          const text = child.data ?? child.content ?? '';
+          if (text.trim().length > 0) hasSignificantText = true;
+          parts.push({ type: 'text', value: text, originalExpr: '' });
+        } else if (isExpressionTagNode(child)) {
+          // Source slice: skip the leading `{` and trailing `}`
+          const exprCode = code.slice(child.start + 1, child.end - 1).trim();
+          const varName = exprCode.includes('.')
+            ? exprCode
+                .split('.')
+                .pop()!
+                .replace(/[^\w$]/g, '')
+            : exprCode;
+          parts.push({ type: 'var', value: varName, originalExpr: exprCode });
+        } else {
+          isValid = false;
+          break;
+        }
+      }
+
+      if (
+        isValid &&
+        hasSignificantText &&
+        parts.some((p) => p.type === 'var')
+      ) {
+        let combined = '';
+        for (const p of parts) {
+          combined += p.type === 'var' ? `{{${p.value}}}` : p.value;
+        }
+        const cleanString = combined.replace(/\s+/g, ' ').trim();
+
+        if (shouldExtract?.(cleanString) && generateKey) {
+          const key = generateKey(cleanString, existingKeys);
+          existingKeys.add(key);
+          const ref = isDestructured ? key : `$${varName}.${key}`;
+
+          const uniqueVarPairs = [
+            ...new Set(
+              parts
+                .filter((p) => p.type === 'var')
+                .map((p) => `${p.value}: ${p.originalExpr}`)
+            ),
+          ];
+          const varArgs = uniqueVarPairs.join(', ');
+          const replacement = `{${ref}({ ${varArgs} })}`;
+
+          const firstChild = children[0];
+          const lastChild = children[children.length - 1];
+          replacements.push({
+            start: firstChild.start,
+            end: lastChild.end,
+            replacement,
+            key,
+            value: cleanString,
+          });
+
+          // Don't recurse into these children
+          if (node.attributes) node.attributes.forEach(walkSvelte);
+          return;
+        }
+      }
+    }
+
     if (children) children.forEach(walkSvelte);
     if (node.attributes) node.attributes.forEach(walkSvelte);
   };
@@ -140,12 +323,6 @@ export const intlayerSvelteExtract = (
   if (ast.html) {
     walkSvelte(ast.html);
   }
-
-  // Extract and walk Script using Babel
-  const scriptRegex = /<script[^>]*>([\s\S]*?)<\/script>/;
-  const scriptMatch = scriptRegex.exec(code);
-  let hasScriptExtraction = false;
-  const scriptContent = scriptMatch ? scriptMatch[1] : '';
 
   if (scriptMatch) {
     const openTagEndIndex = scriptMatch[0].indexOf('>') + 1;
@@ -194,10 +371,13 @@ export const intlayerSvelteExtract = (
               hasScriptExtraction = true;
 
               if (path.node.start != null && path.node.end != null) {
+                // Destructured: each property is a plain value → access directly.
+                // Otherwise use `get(content).key` to read the Svelte store.
+                const ref = isDestructured ? key : `get(${varName}).${key}`;
                 replacements.push({
                   start: offset + path.node.start,
                   end: offset + path.node.end,
-                  replacement: `get(content).${key}`,
+                  replacement: ref,
                   key,
                   value: text.trim(),
                 });
@@ -206,10 +386,10 @@ export const intlayerSvelteExtract = (
           },
         });
       }
-    } catch (e) {
+    } catch (error) {
       console.warn(
         `Svelte extraction: Failed to parse script content for ${filename}`,
-        e
+        error
       );
     }
   }
@@ -224,6 +404,26 @@ export const intlayerSvelteExtract = (
     extractedContent[key] = value;
   }
 
+  // When the existing call is destructured, inject only the missing keys into
+  // the ObjectPattern — no new `content` variable is needed.
+  if (
+    existingCallInfo?.isDestructured &&
+    existingCallInfo.closingBraceAbsolutePos >= 0
+  ) {
+    const missingKeys = Object.keys(extractedContent).filter(
+      (k) => !existingCallInfo.existingDestructuredKeys.includes(k)
+    );
+
+    if (missingKeys.length > 0) {
+      // Insert right after the last property so the space/newline before `}`
+      // is naturally preserved: `{ a }` → `{ a, b }`.
+      magic.appendLeft(
+        existingCallInfo.lastPropAbsoluteEnd,
+        `, ${missingKeys.join(', ')}`
+      );
+    }
+  }
+
   // Inject necessary imports and setup
   const hasUseIntlayerImport =
     /import\s*{[^}]*useIntlayer[^}]*}\s*from\s*['"][^'"]+['"]/.test(
@@ -234,15 +434,17 @@ export const intlayerSvelteExtract = (
     /import\s*{[^}]*get[^}]*}\s*from\s*['"]svelte\/store['"]/.test(
       scriptContent
     );
-  const hasContentDeclaration = /const\s+content\s*=\s*useIntlayer\s*\(/.test(
-    scriptContent
-  );
+
+  // An existing call (destructured or not) means no new declaration is needed.
+  const hasContentDeclaration =
+    existingCallInfo !== null ||
+    /const\s+content\s*=\s*useIntlayer\s*\(/.test(scriptContent);
 
   const importStmt = hasUseIntlayerImport
     ? ''
     : `import { useIntlayer } from '${packageName}';`;
   const getImportStmt =
-    hasScriptExtraction && !hasGetImport
+    hasScriptExtraction && !isDestructured && !hasGetImport
       ? `import { get } from 'svelte/store';`
       : '';
   const contentDecl = hasContentDeclaration

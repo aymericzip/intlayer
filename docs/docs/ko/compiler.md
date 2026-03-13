@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-03-10
+updatedAt: 2026-03-12
 title: Intlayer 컴파일러 | i18n을 위한 자동화된 콘텐츠 추출
 description: Intlayer 컴파일러로 국제화 프로세스를 자동화하세요. Vite, Next.js 등에서 더 빠르고 효율적인 i18n을 위해 컴포넌트에서 직접 콘텐츠를 추출합니다.
 keywords:
@@ -21,8 +21,8 @@ slugs:
   - compiler
 history:
   - version: 8.2.0
-    date: 2026-03-10
-    changes: Update compiler options, add FilePathPattern support
+    date: 2026-03-09
+    changes: 컴파일러 옵션 업데이트, FilePathPattern 지원 추가
   - version: 8.1.7
     date: 2026-02-25
     changes: 컴파일러 옵션 업데이트
@@ -136,9 +136,9 @@ const {
 module.exports = {
   presets: ["next/babel"],
   plugins: [
-    // Extract content from components into dictionaries
+    // 컴포넌트에서 콘텐츠를 추출하여 사전으로 변환
     [intlayerExtractBabelPlugin, getExtractPluginOptions()],
-    // Optimize imports by replacing useIntlayer with direct dictionary imports
+    // useIntlayer를 직접 사전 임포트로 대체하여 임포트 최적화
     [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
   ],
 };
@@ -149,73 +149,85 @@ module.exports = {
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
+</Tabs>
 
 ### 사용자 정의 구성
 
 컴파일러 동작을 사용자 정의하려면 프로젝트 루트에 있는 `intlayer.config.ts` 파일을 업데이트할 수 있습니다.
 
-```ts fileName="intlayer.config.ts"
+````ts fileName="intlayer.config.ts"
 import { type IntlayerConfig, Locales } from "intlayer";
 
 const config: IntlayerConfig = {
   compiler: {
     /**
+     * 컴파일러 활성화 여부를 나타냅니다.
      * 개발 중에 컴파일러를 건너뛰고 시작 시간을 단축하려면 'build-only'로 설정하십시오.
      */
     enabled: true,
 
     /**
-     * Pattern to traverse the code to optimize.
+     * 출력 파일 경로를 정의합니다. `outputDir`을 대체합니다.
+     *
+     * - `./` 경로는 컴포넌트 디렉터리를 기준으로 해결됩니다.
+     * - `/` 경로는 프로젝트 루트(`baseDir`)를 기준으로 해결됩니다.
+     *
+     * - 경로에 `{{locale}}` 변수를 넣으면 언어별로 분리된 사전 생성이 활성화됩니다.
+     *
+     * 예시:
+     * ```ts
+     * {
+     *   // 컴포넌트 옆에 다국어 .content.ts 파일 생성
+     *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
+     *
+     *   // output: './{{fileName}}{{extension}}', // 문자열 템플릿을 사용한 동일한 표현
+     * }
+     * ```
+     *
+     * ```ts
+     * {
+     *   // 프로젝트 루트의 언어별 중앙 집중식 JSON 파일 생성
+     *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+     *
+     *   // output: '/locales/{{locale}}/{{key}}.content.json', // 문자열 템플릿을 사용한 동일한 표현
+     * }
+     * ```
+     *
+     * 변수 목록:
+     *   - `fileName`: 파일 이름.
+     *   - `key`: 콘텐츠 키.
+     *   - `locale`: 콘텐츠 로케일.
+     *   - `extension`: 파일 확장자.
+     *   - `componentFileName`: 컴포넌트 파일 이름.
+     *   - `componentExtension`: 컴포넌트 파일 확장자.
+     *   - `format`: 사전 형식.
+     *   - `componentFormat`: 컴포넌트 사전 형식.
+     *   - `componentDirPath`: 컴포넌트 디렉터리 경로.
      */
-    transformPattern: [
-      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
-      "!**/node_modules/**",
-    ],
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
 
     /**
-     * Pattern to exclude from the optimization.
+     * 변환된 후 컴포넌트를 저장할지 여부를 나타냅니다.
+     * 이렇게 하면 컴파일러를 한 번만 실행하여 앱을 변환한 다음 제거할 수 있습니다.
      */
-    excludePattern: ["**/node_modules/**"],
+    saveComponents: false,
 
     /**
-     * 최적화된 사전의 출력 디렉터리.
-     */
-    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
-
-    /**
-     * 키 없이 생성된 파일에 콘텐츠만 삽입합니다.
+     * 생성된 파일에 콘텐츠만 삽입합니다. 로케일당 i18next 또는 ICU MessageFormat JSON 출력에 유용합니다.
+     *
+     * - `output: ({ locale, key }) => `./locale/${locale}/${key}.json`,`
      */
     noMetadata: false,
 
     /**
      * 사전 키 접두사
      */
-    dictionaryKeyPrefix: "", // Remove base prefix
-
-    /**
-     * 변환된 후 구성 요소를 저장할지 여부를 나타냅니다.
-     * 이렇게 하면 컴파일러를 한 번만 실행하여 앱을 변환한 다음 제거할 수 있습니다.
-     */
-    saveComponents: false,
+    dictionaryKeyPrefix: "", // 추출된 사전 키에 선택적 접두사 추가
   },
 };
 
 export default config;
-```
-
-### 누락된 번역 채우기
-
-Intlayer는 누락된 번역을 채우는 데 도움이 되는 CLI 도구를 제공합니다. `intlayer` 명령을 사용하여 코드에서 누락된 번역을 테스트하고 채울 수 있습니다.
-
-```bash
-npx intlayer test         # 누락된 번역이 있는지 테스트
-```
-
-```bash
-npx intlayer fill         # 누락된 번역 채우기
-```
-
-> 자세한 내용은 [CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/ci.md)를 참조하세요.
+````
 
 ### 컴파일러 구성 참조
 
@@ -225,36 +237,37 @@ npx intlayer fill         # 누락된 번역 채우기
   - _형식_: `boolean | 'build-only'`
   - _기본값_: `true`
   - _설명_: 컴파일러 활성화 여부를 나타냅니다.
+
 - **dictionaryKeyPrefix**:
   - _형식_: `string`
-  - _기본값_: `'comp-'`
+  - _기본값_: `''`
   - _설명_: 추출된 사전 키의 접두사.
+
 - **transformPattern**:
   - _형식_: `string | string[]`
   - _기본값_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}', '!**/node_modules/**']`
-  - _설명_: 최적화할 코드를 탐색하는 패턴.
+  - _설명_: (사용 중단됨: 대신 `build.traversePattern`을 사용하세요) 최적화할 코드를 탐색하는 패턴.
+
 - **excludePattern**:
   - _형식_: `string | string[]`
   - _기본값_: `['**/node_modules/**']`
-  - _설명_: 최적화에서 제외할 패턴.
-- **outputDir** (Deprecated):
-  - _형식_: `string`
-  - _기본값_: `'compiler'`
-  - _설명_: 추출된 사전이 저장될 디렉터리.
+  - _설명_: (사용 중단됨: 대신 `build.traversePattern`을 사용하세요) 최적화에서 제외할 패턴.
 
 - **output**:
   - _형식_: `FilePathPattern`
   - _기본값_: `({ key }) => 'compiler/${key}.content.json'`
   - _설명_: 출력 파일 경로를 정의합니다. `outputDir`을 대체합니다. `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{componentFormat}}`와 같은 동적 변수를 처리합니다. `'my/{{var}}/path'` 형식을 사용하여 문자열로 설정하거나 함수로 설정할 수 있습니다.
-  - _참고_: `./**/*` 경로는 구성 요소를 기준으로 해결됩니다. `/**/*` 경로는 Intlayer `baseDir`을 기준으로 해결됩니다.
+  - _참고_: `./**/*` 경로는 컴포넌트를 기준으로 해결됩니다. `/**/*` 경로는 Intlayer `baseDir`을 기준으로 해결됩니다.
+  - _참고_: 로케일이 경로에 정의된 경우 사전은 로케일별로 생성됩니다.
   - _예시_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
 
 - **noMetadata**:
   - _형식_: `boolean`
   - _기본값_: `false`
-  - _설명_: 메타데이터를 파일에 저장할지 여부를 나타냅니다. true인 경우 컴파일러는 사전의 메타데이터(키, 콘텐츠 래퍼)를 저장하지 않습니다.
+  - _설명_: 메타데이터를 파일에 저장할지 여부를 나타냅니다. true인 경우 컴파일러는 사전의 메타데이터(키, 콘텐츠 래퍼)를 저장하지 않습니다. 로케일별 i18next 또는 ICU MessageFormat JSON 출력에 유용합니다.
   - _참고_: `loadJSON` 플러그인과 함께 사용할 때 유용합니다.
-  - _예시_: `true`인 경우:
+  - _예시_:
+    `true`인 경우:
     ```json
     {
       "key": "value"
@@ -273,4 +286,27 @@ npx intlayer fill         # 누락된 번역 채우기
 - **saveComponents**:
   - _형식_: `boolean`
   - _기본값_: `false`
-  - _설명_: 변환된 후 구성 요소를 저장할지 여부를 나타냅니다.
+  - _설명_: 변환된 후 컴포넌트를 저장할지 여부를 나타냅니다.
+
+### 누락된 번역 채우기
+
+Intlayer는 누락된 번역을 채우는 데 도움이 되는 CLI 도구를 제공합니다. `intlayer` 명령을 사용하여 코드에서 누락된 번역을 테스트하고 채울 수 있습니다.
+
+```bash
+npx intlayer test         # 누락된 번역이 있는지 테스트
+```
+
+```bash
+npx intlayer fill         # 누락된 번역 채우기
+```
+
+### 추출
+
+Intlayer는 코드에서 콘텐츠를 추출하는 데 도움이 되는 CLI 도구를 제공합니다. `intlayer extract` 명령을 사용하여 코드에서 콘텐츠를 추출할 수 있습니다.
+
+```bash
+npx intlayer extract
+```
+
+> 자세한 내용은 [CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)
+> 를 참조하세요.

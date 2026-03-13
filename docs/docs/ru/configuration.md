@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-03-11
+updatedAt: 2026-03-12
 title: Конфигурация
 description: Узнайте, как настроить Intlayer для вашего приложения. Поймите различные параметры и опции, доступные для настройки Intlayer под ваши нужды.
 keywords:
@@ -15,7 +15,7 @@ slugs:
   - configuration
 history:
   - version: 8.3.0
-    data: 2026-03-11
+    date: 2026-03-11
     changes: Переместить 'baseDir' из конфигурации 'content' в конфигурацию 'system'
   - version: 8.2.0
     date: 2026-03-10
@@ -92,7 +92,7 @@ Intlayer поддерживает форматы файлов конфигура
 
 ## Пример файла конфигурации
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
@@ -190,7 +190,7 @@ const config: IntlayerConfig = {
      * Options: 'cookie', 'localStorage', 'sessionStorage', 'header', or an array of these.
      * Default: ['cookie', 'header']
      */
-    storage: "cookie",
+    storage: ["cookie", "header"],
 
     /**
      * Base path for the application URLs.
@@ -321,18 +321,16 @@ const config: IntlayerConfig = {
     /**
      * Global context to guide the AI in generating translations.
      */
-    applicationContext: "This is a travel booking application.",
-
-    /**
-     * Base URL for the AI API.
-     */
     baseURL: "http://localhost:3000",
 
     /**
-     * Data serialization format to use for the AI features of Intlayer.
-     * - "json": The industry standard. Highly reliable and structured, but consumes more tokens.
-     * - "toon": An optimized format designed to reduce token consumption (cost-effective). However, it may slightly increase the risk of output inconsistency compared to standard JSON
-     * Default: "json"
+     * Сериализация данных
+     *
+     * Опции:
+     * - "json": Стандартный, надежный; использует больше токенов.
+     * - "toon": Меньше токенов, менее последователен, чем JSON.
+     *
+     * По умолчанию: "json"
      */
     dataSerialization: "json",
   },
@@ -434,42 +432,70 @@ const config: IntlayerConfig = {
   compiler: {
     /**
      * Указывает, должен ли компилятор быть включен.
+     *
+     * - false : Отключить компилятор.
+     * - true : Включить компилятор.
+     * - "build-only" : Пропустить компилятор во время разработки для ускорения запуска.
+     *
+     * По умолчанию : false
      */
     enabled: true,
 
     /**
-     * Pattern to traverse the code to optimize.
-     */
-    transformPattern: [
-      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
-      "!**/node_modules/**",
-    ],
-
-    /**
-     * Pattern to exclude from the optimization.
-     */
-    excludePattern: ["**/node_modules/**"],
-
-    /**
-     * Выходной каталог для оптимизированных словарей.
+     * Определяет путь к выходным файлам. Заменяет `outputDir`.
+     *
+     * - Пути `./` разрешаются относительно каталога компонента.
+     * - Пути `/` разрешаются относительно корня проекта (`baseDir`).
+     *
+     * - Включение переменной `{{locale}}` в путь приведет к генерации отдельных словарей для каждой локали.
+     *
+     * Пример:
+     * ```ts
+     * {
+     *   // Создавать многоязычные файлы .content.ts рядом с компонентом
+     *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
+     *
+     *   // output: './{{fileName}}{{extension}}', // Эквивалент с использованием строки шаблона
+     * }
+     * ```
+     *
+     * ```ts
+     * {
+     *   // Создавать централизованные JSON по локалям в корне проекта
+     *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+     *
+     *   // output: '/locales/{{locale}}/{{key}}.content.json', // Эквивалент с использованием строки шаблона
+     * }
+     * ```
+     *
+     * Список переменных:
+     *   - `fileName`: Имя файла.
+     *   - `key`: Ключ контента.
+     *   - `locale`: Локаль контента.
+     *   - `extension`: Расширение файла.
+     *   - `componentFileName`: Имя файла компонента.
+     *   - `componentExtension`: Расширение файла компонента.
+     *   - `format`: Формат словаря.
+     *   - `componentFormat`: Формат словаря компонента.
+     *   - `componentDirPath`: Путь к каталогу компонента.
      */
     output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
-
-    /**
-     * Вставьте только содержимое в сгенерированный файл, без ключа.
-     */
-    noMetadata: false,
-
-    /**
-     * Префикс ключа словаря
-     */
-    dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
      * Указывает, должны ли компоненты сохраняться после трансформации.
      * Таким образом, компилятор можно запустить только один раз для трансформации приложения, а затем удалить.
      */
     saveComponents: false,
+
+    /**
+     * Вставьте только содержимое в сгенерированный файл. Полезно для вывода JSON i18next или ICU MessageFormat для каждой локали.
+     */
+    noMetadata: false,
+
+    /**
+     * Префикс ключа словаря
+     */
+    dictionaryKeyPrefix: "", // Добавьте необязательный префикс для извлеченных ключей словаря
   },
 
   /**
@@ -488,7 +514,7 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
+````
 
 ## Справочник по конфигурации
 
@@ -1048,7 +1074,7 @@ Intlayer поддерживает несколько провайдеров ИИ
 
 - **dictionaryKeyPrefix**:
   - _Тип_: `string`
-  - _По умолчанию_: `'comp-'`
+  - _По умолчанию_: `''`
   - _Описание_: Префикс для извлеченных ключей словаря.
   - _Пример_: `'my-key-'`
   - _Примечание_: При извлечении словарей ключ генерируется на основе имени файла. Этот префикс добавляется к сгенерированному ключу для предотвращения конфликтов.
@@ -1072,24 +1098,28 @@ Intlayer поддерживает несколько провайдеров ИИ
   - _Описание_: Шаблоны, определяющие, какие файлы должны быть исключены во время оптимизации.
   - _Пример_: `['**/node_modules/**', '!**/node_modules/react/**']`
 
-- **outputDir**:
-  - _Тип_: `string`
-  - _По умолчанию_: `'compiler'`
-  - _Описание_: Каталог, в котором будут храниться извлеченные словари, относительно базового пути вашего проекта.
-
 - **output**:
   - _Тип_: `FilePathPattern`
-  - _По умолчанию_: `({ key }) => 'compiler/${key}.content.json'`
-  - _Описание_: Определяет путь к выходным файлам. Заменяет `outputDir`. Поддерживает динамические переменные, такие как `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{componentFormat}}`. Может быть задано как строка в формате `'my/{{var}}/path'` или как функция.
-  - _Примечание_: `./**/*` Пути разрешаются относительно компонента. `/**/*` пути разрешаются относительно `baseDir` Intlayer.
-  - _Пример_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+  - _По умолчанию_: `undefined`
+  - _Описание_: Определяет путь к выходным файлам. Заменяет `outputDir`. Поддерживает динамические переменные через шаблоны строк или функцию. Поддерживаемые переменные: `{{fileName}}`, `{{key}}`, `{{locale}}`, `{{extension}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{format}}`, `{{componentFormat}}` и `{{componentDirPath}}`.
+  - _Примечание_: Пути `./` разрешаются относительно каталога компонента. Пути `/` разрешаются относительно корня проекта (`baseDir`).
+  - _Примечание_: Включение переменной `{{locale}}` в путь приведет к генерации отдельных словарей для каждой локали.
+  - _Пример_:
+    - **Мультиязычные файлы рядом с компонентом**:
+    - Строка: `'./{{fileName}}{{extension}}'`
+    - Функция: `({ fileName, extension }) => \`./${fileName}${extension}\``
+
+    - **Централизованный JSON по локалям**:
+    - Строка: `'/locales/{{locale}}/{{key}}.content.json'`
+    - Функция: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\``
 
 - **noMetadata**:
   - _Тип_: `boolean`
   - _По умолчанию_: `false`
-  - _Описание_: Указывает, должны ли метаданные сохраняться в файле. Если true, компилятор не будет сохранять метаданные словарей (ключ, оболочка содержимого).
+  - _Описание_: Указывает, должны ли метаданные сохраняться в файле. Если true, компилятор не будет сохранять метаданные словарей (ключ, оболочка содержимого). Полезно для вывода JSON i18next или ICU MessageFormat для каждой локали.
   - _Примечание_: Полезно при использовании с плагином `loadJSON`.
-  - _Пример_: Если `true`:
+  - _Пример_:
+    Если `true`:
     ```json
     {
       "key": "value"

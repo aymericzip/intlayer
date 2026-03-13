@@ -4,7 +4,18 @@ export const OPTIMIZE = undefined;
 
 export const TRAVERSE_PATTERN = [
   '**/*.{tsx,ts,js,mjs,cjs,jsx,vue,svelte,svte}',
+
   '!**/node_modules/**',
+  '!**/dist/**',
+  '!**/build/**',
+  '!**/.intlayer/**',
+  '!**/.next/**',
+  '!**/.nuxt/**',
+  '!**/.expo/**',
+  '!**/.vercel/**',
+  '!**/.turbo/**',
+  '!**/.tanstack/**',
+
   '!**/*.config.*',
   '!**/*.test.*',
   '!**/*.spec.*',

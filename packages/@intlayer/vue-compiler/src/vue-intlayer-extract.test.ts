@@ -268,6 +268,167 @@ const someVar = someHelper();
   });
 });
 
+describe('intlayerVueExtract – existing destructured call', () => {
+  it('adds missing keys to existing destructured useIntlayer and uses bare key in template', async () => {
+    const code = `
+<template>
+  <h1>{{ title }}</h1>
+  <p>New paragraph text</p>
+</template>
+<script setup lang="ts">
+import { useIntlayer } from 'vue-intlayer';
+const { title } = useIntlayer('my-page');
+</script>
+`;
+    const result = await extract(code, 'my-page');
+    expect(result).not.toBeNull();
+
+    // Template text replaced with bare key (no 'content.' prefix)
+    expect(result!.code).toContain('{{ newParagraphText }}');
+    expect(result!.code).not.toContain('{{ content.newParagraphText }}');
+
+    // Missing key added to the existing destructuring
+    expect(result!.code).toMatch(/\{\s*title,\s*newParagraphText\s*\}/);
+
+    // No duplicate useIntlayer call injected
+    const callCount = (result!.code.match(/useIntlayer\(/g) ?? []).length;
+    expect(callCount).toBe(1);
+  });
+
+  it('adds missing keys to destructured call for extractable attributes', async () => {
+    const code = `
+<template>
+  <h1>{{ title }}</h1>
+  <input placeholder="Enter Email" />
+</template>
+<script setup lang="ts">
+import { useIntlayer } from 'vue-intlayer';
+const { title } = useIntlayer('my-page');
+</script>
+`;
+    const result = await extract(code, 'my-page');
+    expect(result).not.toBeNull();
+
+    // Attribute replaced with bare key binding
+    expect(result!.code).toContain(':placeholder="enterEmail"');
+    expect(result!.code).not.toContain(':placeholder="content.enterEmail"');
+
+    // Missing key added to destructuring
+    expect(result!.code).toMatch(/\{\s*title,\s*enterEmail\s*\}/);
+
+    const callCount = (result!.code.match(/useIntlayer\(/g) ?? []).length;
+    expect(callCount).toBe(1);
+  });
+
+  it('does not inject new content declaration when existing call is destructured', async () => {
+    const code = `
+<template>
+  <h1>Hello World</h1>
+</template>
+<script setup lang="ts">
+import { useIntlayer } from 'vue-intlayer';
+const { title, description } = useIntlayer('page');
+</script>
+`;
+    const result = await extract(code, 'page');
+    expect(result).not.toBeNull();
+
+    // No 'const content = useIntlayer' should be injected
+    expect(result!.code).not.toMatch(/const content = useIntlayer/);
+
+    const callCount = (result!.code.match(/useIntlayer\(/g) ?? []).length;
+    expect(callCount).toBe(1);
+  });
+
+  it('handles destructured call with extractable script strings', async () => {
+    const code = `
+<template>
+  <div></div>
+</template>
+<script setup lang="ts">
+import { useIntlayer } from 'vue-intlayer';
+const { title } = useIntlayer('my-comp');
+const label = "Submit Button";
+</script>
+`;
+    const result = await extract(code, 'my-comp');
+    expect(result).not.toBeNull();
+
+    // Script string replaced with bare key
+    expect(result!.code).toContain('submitButton');
+    expect(result!.code).not.toContain('content.submitButton');
+
+    // Key added to destructuring
+    expect(result!.code).toMatch(/\{\s*title,\s*submitButton\s*\}/);
+
+    const callCount = (result!.code.match(/useIntlayer\(/g) ?? []).length;
+    expect(callCount).toBe(1);
+  });
+});
+
+describe('intlayerVueExtract – insertion (mixed text + interpolation)', () => {
+  it('extracts mixed text and interpolation as insertion content', async () => {
+    const code = `
+<template>
+  <p>Hello {{ name }}!</p>
+</template>
+<script setup lang="ts">
+const name = 'World';
+</script>
+`;
+    const result = await extract(code);
+    expect(result).not.toBeNull();
+    expect(result!.extracted).toBe(true);
+    // Template replaced with function call
+    expect(result!.code).toContain('{{ content.helloName({ name: name }) }}');
+    // Original text removed
+    expect(result!.code).not.toContain('Hello {{ name }}!');
+  });
+
+  it('extracts mixed content with member expression variable', async () => {
+    const code = `
+<template>
+  <p>Welcome {{ user.name }}!</p>
+</template>
+<script setup lang="ts">
+const user = { name: 'Alice' };
+</script>
+`;
+    const result = await extract(code);
+    expect(result).not.toBeNull();
+    expect(result!.code).toContain(
+      '{{ content.welcomeName({ name: user.name }) }}'
+    );
+  });
+
+  it('does not extract element with only interpolation (no significant text)', async () => {
+    const code = `
+<template>
+  <p>{{ name }}</p>
+</template>
+<script setup lang="ts">
+const name = 'World';
+</script>
+`;
+    const result = await extract(code);
+    // Only an interpolation with no surrounding text should NOT be extracted as insertion
+    expect(result).toBeNull();
+  });
+
+  it('does not extract mixed content with non-text/interpolation children', async () => {
+    const code = `
+<template>
+  <p>Hello <strong>{{ name }}</strong></p>
+</template>
+<script setup lang="ts">
+</script>
+`;
+    const result = await extract(code);
+    // Has child element, not pure text+interpolation mix
+    expect(result).toBeNull();
+  });
+});
+
 describe('intlayerVueExtract – onExtract callback', () => {
   it('calls onExtract with extracted content', async () => {
     const code = `

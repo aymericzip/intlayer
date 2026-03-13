@@ -622,43 +622,164 @@ export const Link: ParentComponent<AnchorProps> = (props) => {
 };
 ```
 
-### (Optional) Step 11: Render Markdown
+### (Optional) Step 11: Extract the content of your components
 
-Intlayer supports rendering Markdown content directly in your Solid application using its own internal parser. By default, Markdown is treated as plain text. To render it as rich HTML, wrap your application with the `MarkdownProvider`.
+If you have an existing codebase, transforming thousands of files can be time-consuming.
 
-```tsx fileName="src/index.tsx"
-import { render } from "solid-js/web";
-import { MarkdownProvider } from "solid-intlayer";
-import App from "./App";
+To ease this process, Intlayer propose a [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md) / [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/extract.md) to transform your components and extract the content.
 
-const root = document.getElementById("root");
+To set it up, you can add a `compiler` section in your `intlayer.config.ts` file:
 
-render(
-  () => (
-    <MarkdownProvider>
-      <App />
-    </MarkdownProvider>
-  ),
-  root!
-);
-```
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import { type IntlayerConfig } from "intlayer";
 
-Then you can use it in your components:
+const config: IntlayerConfig = {
+  // ... Rest of your config
+  compiler: {
+    /**
+     * Indicates if the compiler should be enabled.
+     */
+    enabled: true,
 
-```tsx
-import { useIntlayer } from "solid-intlayer";
+    /**
+     * Defines the output files path
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
 
-const MyComponent = () => {
-  const content = useIntlayer("my-content");
+    /**
+     * Indicates if the components should be saved after being transformed.
+     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     */
+    saveComponents: false,
 
-  return (
-    <div>
-      {/* Renders as HTML via MarkdownProvider */}
-      {content().markdownContent}
-    </div>
-  );
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "",
+  },
 };
+
+export default config;
 ```
+
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... Rest of your config
+  compiler: {
+    /**
+     * Indicates if the compiler should be enabled.
+     */
+    enabled: true,
+
+    /**
+     * Defines the output files path
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Indicates if the components should be saved after being transformed.
+     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     */
+    saveComponents: false,
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... Rest of your config
+  compiler: {
+    /**
+     * Indicates if the compiler should be enabled.
+     */
+    enabled: true,
+
+    /**
+     * Defines the output files path
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Indicates if the components should be saved after being transformed.
+     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     */
+    saveComponents: false,
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+module.exports = config;
+```
+
+<Tabs>
+ <Tab value='Extract command'>
+
+Run the extractor to transform your components and extract the content
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bunx intlayer extract
+```
+
+ </Tab>
+ <Tab value='Babel compiler'>
+
+Update your `vite.config.ts` to include the `intlayerCompiler` plugin:
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // Adds the compiler plugin
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # Or npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # Or pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Or yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
 
 ### Configure TypeScript
 

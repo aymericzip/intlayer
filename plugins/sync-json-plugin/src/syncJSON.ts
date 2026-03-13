@@ -1,4 +1,4 @@
-import { mkdir } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, isAbsolute, join, relative, resolve } from 'node:path';
 import { loadExternalFile } from '@intlayer/config/file';
 import { parseFilePathPattern } from '@intlayer/config/utils';
@@ -433,13 +433,7 @@ export const syncJSON = async (
 
         const stringContent = JSON.stringify(content, null, 2);
 
-        console.log({ content, stringContent });
-
-        await writeContentDeclaration(
-          builderPath,
-          `${stringContent}\n`,
-          'utf-8'
-        );
+        await writeFile(builderPath, `${stringContent}\n`, 'utf-8');
       });
     },
   };

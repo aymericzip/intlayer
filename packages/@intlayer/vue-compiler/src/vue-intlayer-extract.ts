@@ -5,6 +5,91 @@ import type { Locale } from '@intlayer/types/allLocales';
 import vueSfc from '@vue/compiler-sfc';
 import MagicString from 'magic-string';
 
+type ExistingCallInfo = {
+  isDestructured: boolean;
+  existingDestructuredKeys: string[];
+  /** The variable name used to store the call result (e.g. `t` in `const t = useIntlayer(...)`) */
+  variableName: string;
+  /** Absolute position of `}` in the full file — only valid when `isDestructured` */
+  closingBraceAbsolutePos: number;
+  /** Absolute position of end of last property — only valid when `isDestructured` */
+  lastPropAbsoluteEnd: number;
+} | null;
+
+/**
+ * Detects whether the script block already contains a `useIntlayer` /
+ * `getIntlayer` call and, if so, whether its result is destructured.
+ *
+ * @param scriptText    Raw text of the script block content.
+ * @param absoluteOffset Byte offset of `scriptText[0]` in the full SFC source.
+ */
+const detectExistingIntlayerCall = (
+  scriptText: string,
+  absoluteOffset: number
+): ExistingCallInfo => {
+  let info: ExistingCallInfo = null;
+
+  try {
+    const ast = babelParse(scriptText, {
+      parserOpts: { sourceType: 'module', plugins: ['typescript', 'jsx'] },
+    });
+
+    if (!ast) return null;
+
+    traverse(ast, {
+      CallExpression(path: any) {
+        const callee = path.node.callee;
+
+        if (
+          !t.isIdentifier(callee) ||
+          (callee.name !== 'useIntlayer' && callee.name !== 'getIntlayer')
+        )
+          return;
+
+        const parent = path.parent;
+
+        if (t.isVariableDeclarator(parent) && t.isObjectPattern(parent.id)) {
+          const properties = parent.id.properties;
+          const existingDestructuredKeys = properties
+            .filter(
+              (property: any): property is typeof t.objectProperty =>
+                t.isObjectProperty(property) && t.isIdentifier(property.key)
+            )
+            .map((property: any) => (property.key as any).name as string);
+          const lastProp = properties[properties.length - 1];
+
+          info = {
+            isDestructured: true,
+            variableName: 'content',
+            existingDestructuredKeys,
+            closingBraceAbsolutePos: absoluteOffset + (parent.id.end! - 1),
+            lastPropAbsoluteEnd: absoluteOffset + lastProp.end!,
+          };
+        } else {
+          const variableName =
+            t.isVariableDeclarator(parent) && t.isIdentifier(parent.id)
+              ? parent.id.name
+              : 'content';
+
+          info = {
+            isDestructured: false,
+            variableName,
+            existingDestructuredKeys: [],
+            closingBraceAbsolutePos: -1,
+            lastPropAbsoluteEnd: -1,
+          };
+        }
+
+        path.stop();
+      },
+    });
+  } catch {
+    // Silently ignore parse failures — fall back to no-info
+  }
+
+  return info;
+};
+
 export type ExtractedContent = Record<string, string>;
 
 export type ExtractResult = {
@@ -84,6 +169,7 @@ const NODE_TYPES = {
   TEXT: 2,
   ELEMENT: 1,
   ATTRIBUTE: 6,
+  INTERPOLATION: 5,
 };
 
 export const intlayerVueExtract = (
@@ -124,6 +210,19 @@ export const intlayerVueExtract = (
     dictionaryKeyOption ?? extractDictionaryKeyFromPath?.(filename) ?? '';
   const replacements: Replacement[] = [];
 
+  // Detect existing useIntlayer / getIntlayer call in the script block BEFORE
+  // walking the template, so the correct access pattern can be chosen.
+  const scriptBlock = sfc.descriptor.scriptSetup ?? sfc.descriptor.script;
+  const existingCallInfo = scriptBlock
+    ? detectExistingIntlayerCall(
+        scriptBlock.content,
+        scriptBlock.loc.start.offset
+      )
+    : null;
+
+  const isDestructured = existingCallInfo?.isDestructured ?? false;
+  const varName = existingCallInfo?.variableName ?? 'content';
+
   // Walk Vue Template AST
   if (sfc.descriptor.template) {
     const walkVueAst = (node: VueAstNode) => {
@@ -133,15 +232,128 @@ export const intlayerVueExtract = (
         if (shouldExtract?.(text) && generateKey) {
           const key = generateKey(text, existingKeys);
           existingKeys.add(key);
+          // When the existing call is destructured, access the key directly;
+          // otherwise use the `content` variable.
+          const ref = isDestructured ? key : `${varName}.${key}`;
           replacements.push({
             start: node.loc.start.offset,
             end: node.loc.end.offset,
-            replacement: `{{ content.${key} }}`,
+            replacement: `{{ ${ref} }}`,
             key,
             value: text.replace(/\s+/g, ' ').trim(),
           });
         }
       } else if (node.type === NODE_TYPES.ELEMENT) {
+        const children = node.children ?? [];
+
+        // Try to handle as insertion (mixed TEXT + INTERPOLATION children)
+        if (
+          children.length > 0 &&
+          children.some((c) => c.type === NODE_TYPES.INTERPOLATION)
+        ) {
+          const parts: {
+            type: 'text' | 'var';
+            value: string;
+            originalExpr: string;
+          }[] = [];
+          let hasSignificantText = false;
+          let isValid = true;
+
+          for (const child of children) {
+            if (child.type === NODE_TYPES.TEXT) {
+              const text = child.content ?? '';
+              if (text.trim().length > 0) hasSignificantText = true;
+              parts.push({ type: 'text', value: text, originalExpr: '' });
+            } else if (child.type === NODE_TYPES.INTERPOLATION) {
+              // Extract the expression source between {{ and }}
+              const exprCode = code
+                .slice(child.loc.start.offset + 2, child.loc.end.offset - 2)
+                .trim();
+              const varName = exprCode.includes('.')
+                ? exprCode
+                    .split('.')
+                    .pop()!
+                    .replace(/[^\w$]/g, '')
+                : exprCode;
+              parts.push({
+                type: 'var',
+                value: varName,
+                originalExpr: exprCode,
+              });
+            } else {
+              isValid = false;
+              break;
+            }
+          }
+
+          if (
+            isValid &&
+            hasSignificantText &&
+            parts.some((p) => p.type === 'var')
+          ) {
+            let combined = '';
+            for (const p of parts) {
+              combined += p.type === 'var' ? `{{${p.value}}}` : p.value;
+            }
+            const cleanString = combined.replace(/\s+/g, ' ').trim();
+
+            if (shouldExtract?.(cleanString) && generateKey) {
+              const key = generateKey(cleanString, existingKeys);
+              existingKeys.add(key);
+              const ref = isDestructured ? key : `${varName}.${key}`;
+
+              const uniqueVarPairs = [
+                ...new Set(
+                  parts
+                    .filter((p) => p.type === 'var')
+                    .map((p) => `${p.value}: ${p.originalExpr}`)
+                ),
+              ];
+              const varArgs = uniqueVarPairs.join(', ');
+              const replacement = `{{ ${ref}({ ${varArgs} }) }}`;
+
+              const firstChild = children[0];
+              const lastChild = children[children.length - 1];
+              replacements.push({
+                start: firstChild.loc.start.offset,
+                end: lastChild.loc.end.offset,
+                replacement,
+                key,
+                value: cleanString,
+              });
+
+              // Process props but skip children (they are replaced)
+              node.props?.forEach((prop) => {
+                if (
+                  prop.type === NODE_TYPES.ATTRIBUTE &&
+                  (attributesToExtract as readonly string[]).includes(
+                    prop.name
+                  ) &&
+                  prop.value
+                ) {
+                  const text = prop.value.content;
+                  if (shouldExtract?.(text) && generateKey) {
+                    const propKey = generateKey(text, existingKeys);
+                    existingKeys.add(propKey);
+                    const propRef = isDestructured
+                      ? propKey
+                      : `${varName}.${propKey}`;
+                    replacements.push({
+                      start: prop.loc.start.offset,
+                      end: prop.loc.end.offset,
+                      replacement: `:${prop.name}="${propRef}"`,
+                      key: propKey,
+                      value: text.trim(),
+                    });
+                  }
+                }
+              });
+              return; // don't recurse into children
+            }
+          }
+        }
+
+        // Regular element: handle props
         node.props?.forEach((prop) => {
           if (
             prop.type === NODE_TYPES.ATTRIBUTE &&
@@ -153,10 +365,11 @@ export const intlayerVueExtract = (
             if (shouldExtract?.(text) && generateKey) {
               const key = generateKey(text, existingKeys);
               existingKeys.add(key);
+              const ref = isDestructured ? key : `${varName}.${key}`;
               replacements.push({
                 start: prop.loc.start.offset,
                 end: prop.loc.end.offset,
-                replacement: `:${prop.name}="content.${key}"`,
+                replacement: `:${prop.name}="${ref}"`,
                 key,
                 value: text.trim(),
               });
@@ -174,8 +387,6 @@ export const intlayerVueExtract = (
   }
 
   // Extract and Walk Script using Babel
-  const scriptBlock = sfc.descriptor.scriptSetup ?? sfc.descriptor.script;
-
   if (scriptBlock) {
     const scriptText = scriptBlock.content;
     const offset = scriptBlock.loc.start.offset;
@@ -228,10 +439,11 @@ export const intlayerVueExtract = (
               existingKeys.add(key);
 
               if (path.node.start != null && path.node.end != null) {
+                const ref = isDestructured ? key : `${varName}.${key}`;
                 replacements.push({
                   start: offset + path.node.start,
                   end: offset + path.node.end,
-                  replacement: `content.${key}`,
+                  replacement: ref,
                   key,
                   value: text.trim(),
                 });
@@ -259,7 +471,27 @@ export const intlayerVueExtract = (
     extractedContent[key] = value;
   }
 
-  // 4. Inject necessary imports and setup
+  // When the existing call is destructured, inject only the missing keys into
+  // the ObjectPattern — no new `content` variable is needed.
+  if (
+    existingCallInfo?.isDestructured &&
+    existingCallInfo.closingBraceAbsolutePos >= 0
+  ) {
+    const missingKeys = Object.keys(extractedContent).filter(
+      (k) => !existingCallInfo.existingDestructuredKeys.includes(k)
+    );
+
+    if (missingKeys.length > 0) {
+      // Insert right after the last property so the space/newline before `}`
+      // is naturally preserved: `{ a }` → `{ a, b }`.
+      magic.appendLeft(
+        existingCallInfo.lastPropAbsoluteEnd,
+        `, ${missingKeys.join(', ')}`
+      );
+    }
+  }
+
+  // Inject necessary imports and setup (only when no existing call was detected)
   const finalScriptContent = scriptBlock?.content ?? '';
 
   const hasUseIntlayerImport =
@@ -268,9 +500,10 @@ export const intlayerVueExtract = (
     ) ||
     /import\s+useIntlayer\s+from\s*['"][^'"]+['"]/.test(finalScriptContent);
 
-  const hasContentDeclaration = /const\s+content\s*=\s*useIntlayer\s*\(/.test(
-    finalScriptContent
-  );
+  // An existing call (destructured or not) means no new declaration is needed.
+  const hasContentDeclaration =
+    existingCallInfo !== null ||
+    /const\s+content\s*=\s*useIntlayer\s*\(/.test(finalScriptContent);
 
   const importStmt = hasUseIntlayerImport
     ? ''

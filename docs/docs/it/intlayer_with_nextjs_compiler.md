@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-01-10
+updatedAt: 2026-03-12
 title: Next.js i18n - Trasforma un'app Next.js esistente in un'app multilingue nel 2026
 description: Scopri come rendere multilingue la tua applicazione Next.js esistente utilizzando Intlayer Compiler. Segui la documentazione per internazionalizzarla (i18n) e tradurla con l'IA.
 keywords:
@@ -500,6 +500,179 @@ Caratteristiche:
 - **Azioni rapide** per creare/aggiornare traduzioni.
 
 Consulta la [documentazione dell'estensione](https://intlayer.org/doc/vs-code-extension) per i dettagli.
+
+### (Opzionale) Passaggio 1 : Estrarre il contenuto dei tuoi componenti
+
+Se hai una base di codice esistente, trasformare migliaia di file può richiedere molto tempo.
+
+Per facilitare questo processo, Intlayer propone un [compilatore](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md) / [estrattore](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/extract.md) per trasformare i tuoi componenti ed estrarre il contenuto.
+
+Per configurarlo, puoi aggiungere una sezione `compiler` nel tuo file `intlayer.config.ts`:
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Resto della tua configurazione
+  compiler: {
+    /**
+     * Indica se il compilatore deve essere abilitato.
+     */
+    enabled: true,
+
+    /**
+     * Definisce il percorso dei file di output
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Indica se i componenti devono essere salvati dopo essere stati trasformati. In questo modo, il compilatore può essere eseguito solo una volta per trasformare l'app e poi rimosso.
+     */
+    saveComponents: false,
+
+    /**
+     * Prefisso chiave dizionario
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... Resto della tua configurazione
+  compiler: {
+    /**
+     * Indica se il compilatore deve essere abilitato.
+     */
+    enabled: true,
+
+    /**
+     * Definisce il percorso dei file di output
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Indica se i componenti devono essere salvati dopo essere stati trasformati. In questo modo, il compilatore può essere eseguito solo una volta per trasformare l'app e poi rimosso.
+     */
+    saveComponents: false,
+
+    /**
+     * Prefisso chiave dizionario
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... Resto della tua configurazione
+  compiler: {
+    /**
+     * Indica se il compilatore deve essere abilitato.
+     */
+    enabled: true,
+
+    /**
+     * Definisce il percorso dei file di output
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Indica se i componenti devono essere salvati dopo essere stati trasformati. In questo modo, il compilatore può essere eseguito solo una volta per trasformare l'app e poi rimosso.
+     */
+    saveComponents: false,
+
+    /**
+     * Prefisso chiave dizionario
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+module.exports = config;
+```
+
+<Tabs>
+ <Tab value='Comando di estrazione'>
+
+Esegui l'estrattore per trasformare i tuoi componenti ed estrarre il contenuto
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bunx intlayer extract
+```
+
+ </Tab>
+ <Tab value='Compilatore Babel'>
+
+```bash packageManager="npm"
+npm install @intlayer/babel --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/babel --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/babel --save-dev
+```
+
+```bash packageManager="bun"
+bun add @intlayer/babel --dev
+```
+
+```js fileName="babel.config.js"
+const {
+  intlayerExtractBabelPlugin,
+  getExtractPluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    // Estrai il contenuto dai componenti nei dizionari
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+  ],
+};
+```
+
+```bash packageManager="npm"
+npm run build # Oppure npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # O pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # O yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
 
 ### Vai oltre
 

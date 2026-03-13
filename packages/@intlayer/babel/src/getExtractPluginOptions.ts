@@ -1,4 +1,4 @@
-import { buildFilesList } from '@intlayer/chokidar/utils';
+import { buildComponentFilesList } from '@intlayer/chokidar/utils';
 import {
   ANSIColors,
   colorize,
@@ -24,9 +24,10 @@ export type CompilerMode = 'dev' | 'build';
  */
 export const getExtractPluginOptions = (
   configuration: IntlayerConfig = getConfiguration(),
-  isDev = process.env.INTLAYER_IS_DEV_COMMAND
+  isDev: CompilerMode | string | undefined = process.env.INTLAYER_IS_DEV_COMMAND
 ): ExtractPluginOptions => {
-  const isDevBoolean = String(isDev) === 'true';
+  // Accept 'dev'/'serve' (Vite), boolean true, or the string 'true' (env var)
+  const isDevBoolean = isDev === 'dev' || isDev === 'serve' || isDev === 'true';
 
   const compilerMode: CompilerMode = isDevBoolean ? 'dev' : 'build';
 
@@ -50,24 +51,7 @@ export const getExtractPluginOptions = (
     }
   }
 
-  const transformPattern =
-    configuration.build.traversePattern ??
-    configuration.compiler?.transformPattern;
-
-  const excludePattern = [
-    // Ensure extensions are treated as glob patterns (e.g., **/*.ts)
-    ...configuration.content.fileExtensions.map((ext) => `**/*${ext}`),
-
-    ...(Array.isArray(configuration.compiler.excludePattern)
-      ? configuration.compiler.excludePattern
-      : [configuration.compiler.excludePattern]),
-  ] as string[];
-
-  const filesList = buildFilesList({
-    transformPattern,
-    excludePattern,
-    baseDir: configuration.system.baseDir,
-  });
+  const filesList = buildComponentFilesList(configuration);
 
   return {
     enabled,

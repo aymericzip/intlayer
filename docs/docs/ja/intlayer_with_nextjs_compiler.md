@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-01-10
+updatedAt: 2026-03-12
 title: Next.js i18n - 既存の Next.js アプリを多言語アプリに変換する 2026
 description: Intlayerコンパイラを使用して、既存のNext.jsアプリケーションを多言語化する方法を学びます。ドキュメントに従って国際化（i18n）し、AIを利用して翻訳を行います。
 keywords:
@@ -500,6 +500,179 @@ Intlayerでの開発体験を向上させるために、**公式の Intlayer VS 
 - 翻訳を簡単に作成・更新できる **クイックアクション**。
 
 拡張機能の使用方法の詳細については、 [Intlayer VS Code 拡張機能のドキュメント](https://intlayer.org/doc/vs-code-extension) を参照してください。
+
+### (オプション) ステップ 1 : コンポーネントのコンテンツを抽出する
+
+既存のコードベースがある場合、数千のファイルを変換するのは時間がかかることがあります。
+
+このプロセスを容易にするために、Intlayerは、コンポーネントを変換しコンテンツを抽出するための [コンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) / [エクストラクタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md) を提案しています。
+
+セットアップするには、`intlayer.config.ts` ファイルに `compiler` セクションを追加します。
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... 他の構成
+  compiler: {
+    /**
+     * コンパイラを有効にするかどうかを指定します。
+     */
+    enabled: true,
+
+    /**
+     * 出力ファイルのパスを定義します。
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * 変換後にコンポーネントを保存するかどうかを指定します。これにより、コンパイラを一度だけ実行してアプリを変換し、その後削除することができます。
+     */
+    saveComponents: false,
+
+    /**
+     * 辞書キーの接頭辞
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... 他の構成
+  compiler: {
+    /**
+     * コンパイラを有効にするかどうかを指定します。
+     */
+    enabled: true,
+
+    /**
+     * 出力ファイルのパスを定義します。
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * 変換後にコンポーネントを保存するかどうかを指定します。これにより、コンパイラを一度だけ実行してアプリを変換し、その後削除することができます。
+     */
+    saveComponents: false,
+
+    /**
+     * 辞書キーの接頭辞
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... 他の構成
+  compiler: {
+    /**
+     * コンパイラを有効にするかどうかを指定します。
+     */
+    enabled: true,
+
+    /**
+     * 出力ファイルのパスを定義します。
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * 変換後にコンポーネントを保存するかどうかを指定します。これにより、コンパイラを一度だけ実行してアプリを変換し、その後削除することができます。
+     */
+    saveComponents: false,
+
+    /**
+     * 辞書キーの接頭辞
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+module.exports = config;
+```
+
+<Tabs>
+ <Tab value='抽出コマンド'>
+
+コンポーネントを変換してコンテンツを抽出するためにエクストラクタを実行します
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bunx intlayer extract
+```
+
+ </Tab>
+ <Tab value='Babelコンパイラ'>
+
+```bash packageManager="npm"
+npm install @intlayer/babel --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/babel --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/babel --save-dev
+```
+
+```bash packageManager="bun"
+bun add @intlayer/babel --dev
+```
+
+```js fileName="babel.config.js"
+const {
+  intlayerExtractBabelPlugin,
+  getExtractPluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    // コンポーネントから辞書へコンテンツを抽出する
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+  ],
+};
+```
+
+```bash packageManager="npm"
+npm run build # または npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # または pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # または yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
 
 ### さらに進む
 

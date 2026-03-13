@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-03-11
+updatedAt: 2026-03-12
 title: التهيئة
 description: تعلّم كيفية تهيئة Intlayer لتطبيقك. فهم الإعدادات والخيارات المختلفة المتاحة لتخصيص Intlayer حسب احتياجاتك.
 keywords:
@@ -15,7 +15,7 @@ slugs:
   - configuration
 history:
   - version: 8.3.0
-    data: 2026-03-11
+    date: 2026-03-11
     changes: نقل 'baseDir' من تكوين 'content' إلى تكوين 'system'
   - version: 8.2.0
     date: 2026-03-09
@@ -92,7 +92,7 @@ history:
 
 ## مثال على ملف التهيئة
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
@@ -190,7 +190,7 @@ const config: IntlayerConfig = {
      * Options: 'cookie', 'localStorage', 'sessionStorage', 'header', or an array of these.
      * Default: ['cookie', 'header']
      */
-    storage: "cookie",
+    storage: ["cookie", "header"],
 
     /**
      * Base path for the application URLs.
@@ -327,6 +327,17 @@ const config: IntlayerConfig = {
      * Base URL for the AI API.
      */
     baseURL: "http://localhost:3000",
+
+    /**
+     * تسلسل البيانات
+     *
+     * الخيارات:
+     * - "json": معيار ، موثوق ؛ يستخدم المزيد من الرموز.
+     * - "toon": عدد أقل من الرموز المميزة ، أقل اتساقا من JSON.
+     *
+     * الافتراضي: "json"
+     */
+    dataSerialization: "json",
   },
 
   /**
@@ -426,42 +437,70 @@ const config: IntlayerConfig = {
   compiler: {
     /**
      * يشير إلى ما إذا كان يجب تمكين المجمّع.
+     *
+     * - false : تعطيل المجمّع.
+     * - true : تمكين المجمّع.
+     * - "build-only" : تخطي المجمّع أثناء التطوير لتسريع أوقات التشغيل.
+     *
+     * الافتراضي : false
      */
     enabled: true,
 
     /**
-     * Pattern to traverse the code to optimize.
+     * يحدد مسار ملفات الإخراج. يستبدل `outputDir`.
+     *
+     * - المسارات التي تبدأ بـ `./` يتم حلها بالنسبة لدليل المكون.
+     * - المسارات التي تبدأ بـ `/` يتم حلها بالنسبة لجذر المشروع (`baseDir`).
+     *
+     * - تضمين متغير `{{locale}}` في المسار سيمكن توليد قواميس منفصلة لكل لغة.
+     *
+     * أمثلة:
+     * ```ts
+     * {
+     *   // إنشاء ملف .content.ts متعدد اللغات بجانب المكون
+     *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
+     *
+     *   // output: './{{fileName}}{{extension}}', // تعبير مكافئ باستخدام قالب السلسلة
+     * }
+     * ```
+     *
+     * ```ts
+     * {
+     *   // إنشاء ملفات JSON مركزية لكل لغة في جذر المشروع
+     *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+     *
+     *   // output: '/locales/{{locale}}/{{key}}.content.json', // تعبير مكافئ باستخدام قالب السلسلة
+     * }
+     * ```
+     *
+     * قائمة المتغيرات:
+     *   - `fileName`: اسم الملف.
+     *   - `key`: مفتاح المحتوى.
+     *   - `locale`: لغة المحتوى.
+     *   - `extension`: امتداد الملف.
+     *   - `componentFileName`: اسم ملف المكون.
+     *   - `componentExtension`: امتداد ملف المكون.
+     *   - `format`: تنسيق القاموس.
+     *   - `componentFormat`: تنسيق قاموس المكون.
+     *   - `componentDirPath`: مسار دليل المكون.
      */
-    transformPattern: [
-      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
-      "!**/node_modules/**",
-    ],
-
-    /**
-     * Pattern to exclude from the optimization.
-     */
-    excludePattern: ["**/node_modules/**"],
-
-    /**
-     * دليل الإخراج للقواميس المحسنة.
-     */
-    output: ({ key }) => `compiler/${key}.content.json`,
-
-    /**
-     * أدخل المحتوى فقط في الملف الذي تم إنشاؤه، بدون مفتاح.
-     */
-    noMetadata: false,
-
-    /**
-     * بادئة مفتاح القاموس
-     */
-    dictionaryKeyPrefix: "", // Remove base prefix
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
 
     /**
      * يشير إلى ما إذا كان يجب حفظ المكونات بعد تحويلها.
      * بهذه الطريقة، يمكن تشغيل المجمّع مرة واحدة فقط لتحويل التطبيق، ثم يمكن إزالته.
      */
     saveComponents: false,
+
+    /**
+     * أدخل المحتوى فقط في الملف الذي تم إنشاؤه. مفيد لمخرجات JSON i18next أو ICU MessageFormat لكل لغة.
+     */
+    noMetadata: false,
+
+    /**
+     * بادئة مفتاح القاموس
+     */
+    dictionaryKeyPrefix: "", // إضافة بادئة اختيارية لمفاتيح القاموس المستخرجة
   },
 
   /**
@@ -480,7 +519,7 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
+````
 
 ## مرجع التهيئة
 
@@ -1042,7 +1081,7 @@ export default config;
 
 - **dictionaryKeyPrefix**:
   - _النوع_: `string`
-  - _الافتراضي_: `'comp-'`
+  - _الافتراضي_: `''`
   - _الوصف_: بادئة لمفاتيح القاموس المستخرجة.
   - _المثال_: `'my-key-'`
   - _ملاحظة_: عند استخراج القواميس، يتم إنشاء المفتاح بناءً على اسم الملف. يتم إضافة هذه البادئة إلى المفتاح الذي تم إنشاؤه لمنع التضارب.
@@ -1066,24 +1105,28 @@ export default config;
   - _الوصف_: الأنماط التي تحدد الملفات التي يجب استبعادها أثناء التحسين.
   - _المثال_: `['**/node_modules/**', '!**/node_modules/react/**']`
 
-- **outputDir**:
-  - _النوع_: `string`
-  - _الافتراضي_: `'compiler'`
-  - _الوصف_: الدليل الذي سيتم تخزين القواميس المستخرجة فيه، بالنسبة لمسار أساس مشروعك.
-
 - **output**:
   - _النوع_: `FilePathPattern`
-  - _الافتراضي_: `({ key }) => 'compiler/${key}.content.json'`
-  - _الوصف_: يحدد مسار ملفات الإخراج. يستبدل `outputDir`. يتعامل مع المتغيرات الديناميكية مثل `{{locale}}` و `{{key}}` و `{{fileName}}` و `{{extension}}` و `{{format}}` و `{{dirPath}}` و `{{componentFileName}}` و `{{componentExtension}}` و `{{componentFormat}}`. يمكن تعيينه كسلسلة باستخدام تنسيق `'my/{{var}}/path'`، أو كدالة.
-  - _ملاحظة_: يتم حل مسار `./**/*` بالنسبة للمكون. يتم حل مسار `/**/*` بالنسبة لـ `baseDir` الخاص بـ Intlayer.
-  - _مثال_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+  - _الافتراضي_: `undefined`
+  - _الوصف_: يحدد مسار ملفات الإخراج. يستبدل `outputDir`. يدعم المتغيرات الديناميكية عبر قالب سلسلة أو دالة. المتغيرات المدعومة: `{{fileName}}`, `{{key}}`, `{{locale}}`, `{{extension}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{format}}`, `{{componentFormat}}`, `{{componentDirPath}}`.
+  - _ملاحظة_: يتم حل المسارات التي تبدأ بـ `./` بالنسبة لدليل المكون. يتم حل المسارات التي تبدأ بـ `/` بالنسبة لجذر المشروع (`baseDir`).
+  - _ملاحظة_: تضمين المتغير `{{locale}}` في المسار سيمكن من توليد قواميس منفصلة حسب اللغة.
+  - _مثال_:
+    - **إنشاء ملفات متعددة اللغات بجانب المكون**:
+    - سلسلة: `'./{{fileName}}{{extension}}'`
+    - دالة: `({ fileName, extension }) => \`./${fileName}${extension}\``
+
+    - **إخراج ملفات JSON مركزية حسب اللغة**:
+    - سلسلة: `'/locales/{{locale}}/{{key}}.content.json'`
+    - دالة: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\``
 
 - **noMetadata**:
   - _النوع_: `boolean`
   - _الافتراضي_: `false`
-  - _الوصف_: يشير إلى ما إذا كان سيتم حفظ البيانات الوصفية في الملف. إذا كان صحيحا، فلن يحفظ المجمّع البيانات الوصفية للقواميس (المفتاح، غلاف المحتوى).
+  - _الوصف_: يشير إلى ما إذا كان سيتم حفظ البيانات الوصفية في الملف. إذا كان صحيحا، فلن يحفظ المجمّع البيانات الوصفية للقواميس (المفتاح، غلاف المحتوى). مفيد لمخرجات JSON i18next أو ICU MessageFormat لكل لغة.
   - _ملاحظة_: مفيد إذا تم استخدامه مع إضافة `loadJSON`.
-  - _مثال_: إذا كان `true`:
+  - _مثال_:
+    إذا كان `true`:
     ```json
     {
       "key": "value"

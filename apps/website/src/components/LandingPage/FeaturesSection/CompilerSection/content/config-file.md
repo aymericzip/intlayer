@@ -11,7 +11,7 @@ const config: IntlayerConfig = {
   compiler: {
     enabled: true,
     transformPattern: ["**/*.{ts,tsx}"],
-    outputDir: "./compiler",
+    output: ({ fileName }) => `./${fileName}.content.ts`,
   },
 };
 

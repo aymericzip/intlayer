@@ -255,6 +255,138 @@ describe('intlayerSvelteExtract – script extraction', () => {
   });
 });
 
+describe('intlayerSvelteExtract – existing destructured call', () => {
+  it('adds missing keys to existing destructured useIntlayer and uses bare key in template', () => {
+    const code = `
+<script>
+  import { useIntlayer } from 'svelte-intlayer';
+  const { title } = useIntlayer('app');
+</script>
+<h1>{title}</h1>
+<p>New paragraph text</p>
+`;
+    const result = extract(code, 'app');
+    expect(result).not.toBeNull();
+
+    // Template text replaced with bare key (no '$content.' prefix)
+    expect(result!.code).toContain('{newParagraphText}');
+    expect(result!.code).not.toContain('{$content.newParagraphText}');
+
+    // Missing key added to the existing destructuring
+    expect(result!.code).toMatch(/\{\s*title,\s*newParagraphText\s*\}/);
+
+    // No duplicate useIntlayer call injected
+    const callCount = (result!.code.match(/useIntlayer\(/g) ?? []).length;
+    expect(callCount).toBe(1);
+  });
+
+  it('adds missing keys for extractable attributes when call is destructured', () => {
+    const code = `
+<script>
+  import { useIntlayer } from 'svelte-intlayer';
+  const { title } = useIntlayer('app');
+</script>
+<input placeholder="Enter Email" />
+`;
+    const result = extract(code, 'app');
+    expect(result).not.toBeNull();
+
+    // Attribute replaced with bare key (no '$content.' prefix)
+    expect(result!.code).toContain('placeholder={enterEmail}');
+    expect(result!.code).not.toContain('placeholder={$content.enterEmail}');
+
+    // Key added to destructuring
+    expect(result!.code).toMatch(/\{\s*title,\s*enterEmail\s*\}/);
+
+    const callCount = (result!.code.match(/useIntlayer\(/g) ?? []).length;
+    expect(callCount).toBe(1);
+  });
+
+  it('does not inject new content declaration when existing call is destructured', () => {
+    const code = `
+<script>
+  import { useIntlayer } from 'svelte-intlayer';
+  const { title, description } = useIntlayer('app');
+</script>
+<h1>Hello World</h1>
+`;
+    const result = extract(code, 'app');
+    expect(result).not.toBeNull();
+
+    // No 'const content = useIntlayer' should be injected
+    expect(result!.code).not.toMatch(/const content = useIntlayer/);
+
+    const callCount = (result!.code.match(/useIntlayer\(/g) ?? []).length;
+    expect(callCount).toBe(1);
+  });
+
+  it('handles destructured call with extractable script strings — no svelte/store import', () => {
+    const code = `
+<script>
+  import { useIntlayer } from 'svelte-intlayer';
+  const { title } = useIntlayer('app');
+  const label = "Submit Button";
+</script>
+<div></div>
+`;
+    const result = extract(code, 'app');
+    expect(result).not.toBeNull();
+
+    // Script string replaced with bare key (no 'get(content).' prefix)
+    expect(result!.code).toContain('submitButton');
+    expect(result!.code).not.toContain('get(content).submitButton');
+
+    // Key added to destructuring
+    expect(result!.code).toMatch(/\{\s*title,\s*submitButton\s*\}/);
+
+    // No svelte/store import needed for destructured plain values
+    expect(result!.code).not.toContain("from 'svelte/store'");
+
+    const callCount = (result!.code.match(/useIntlayer\(/g) ?? []).length;
+    expect(callCount).toBe(1);
+  });
+});
+
+describe('intlayerSvelteExtract – insertion (mixed text + expression tags)', () => {
+  it('extracts mixed text and expression tag as insertion content', () => {
+    const code = `
+<script>
+</script>
+<p>Hello {name}!</p>
+`;
+    const result = extract(code);
+    expect(result).not.toBeNull();
+    expect(result!.extracted).toBe(true);
+    // Template replaced with function call
+    expect(result!.code).toContain('{$content.helloName({ name: name })}');
+    // Original text removed
+    expect(result!.code).not.toContain('Hello {name}!');
+  });
+
+  it('extracts mixed content with member expression variable', () => {
+    const code = `
+<script>
+</script>
+<p>Welcome {user.name}!</p>
+`;
+    const result = extract(code);
+    expect(result).not.toBeNull();
+    expect(result!.code).toContain(
+      '{$content.welcomeName({ name: user.name })}'
+    );
+  });
+
+  it('does not extract element with only expression tag (no significant text)', () => {
+    const code = `
+<script>
+</script>
+<p>{name}</p>
+`;
+    const result = extract(code);
+    expect(result).toBeNull();
+  });
+});
+
 describe('intlayerSvelteExtract – onExtract callback', () => {
   it('calls onExtract with extracted content map', () => {
     const code = `

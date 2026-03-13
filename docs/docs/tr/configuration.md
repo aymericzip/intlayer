@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-03-11
+updatedAt: 2026-03-12
 title: Yapılandırma
 description: Uygulamanız için Intlayer'ı nasıl yapılandıracağınızı öğrenin. Intlayer'ı ihtiyaçlarınıza göre özelleştirmek için mevcut çeşitli ayarları ve seçenekleri anlayın.
 keywords:
@@ -15,7 +15,7 @@ slugs:
   - configuration
 history:
   - version: 8.3.0
-    data: 2026-03-11
+    date: 2026-03-11
     changes: 'baseDir''i ''content'' yapılandırmasından ''system'' yapılandırmasına taşıyın
   - version: 8.2.0
     date: 2026-03-09
@@ -95,7 +95,7 @@ Intlayer, JSON, JS, MJS ve TS yapılandırma dosyası formatlarını kabul eder:
 
 ## Örnek yapılandırma dosyası
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
@@ -193,7 +193,7 @@ const config: IntlayerConfig = {
      * Options: 'cookie', 'localStorage', 'sessionStorage', 'header', or an array of these.
      * Default: ['cookie', 'header']
      */
-    storage: "cookie",
+    storage: ["cookie", "header"],
 
     /**
      * Base path for the application URLs.
@@ -330,6 +330,17 @@ const config: IntlayerConfig = {
      * Base URL for the AI API.
      */
     baseURL: "http://localhost:3000",
+
+    /**
+     * Veri Serileştirme
+     *
+     * Seçenekler:
+     * - "json": Standart, güvenilir; daha fazla token kullanır.
+     * - "toon": Daha az token, JSON'dan daha az tutarlı.
+     *
+     * Varsayılan: "json"
+     */
+    dataSerialization: "json",
   },
 
   /**
@@ -429,42 +440,70 @@ const config: IntlayerConfig = {
   compiler: {
     /**
      * Derleyicinin etkinleştirilip etkinleştirilmeyeceğini belirtir.
+     *
+     * - false : Derleyiciyi devre dışı bırakır.
+     * - true : Derleyiciyi etkinleştirir.
+     * - "build-only" : Başlangıç sürelerini hızlandırmak için geliştirme sırasında derleyiciyi atlar.
+     *
+     * Varsayılan değer : false
      */
     enabled: true,
 
     /**
-     * Pattern to traverse the code to optimize.
+     * Çıktı dosyalarının yolunu tanımlar. `outputDir` yerine geçer.
+     *
+     * - `./` ile başlayan yollar bileşen dizinine göre çözümlenir.
+     * - `/` ile başlayan yollar projenin kök dizinine (`baseDir`) göre çözümlenir.
+     *
+     * - Yola `{{locale}}` değişkenini dahil etmek, dile göre ayrılmış sözlüklerin oluşturulmasını etkinleştirir.
+     *
+     * Örnek:
+     * ```ts
+     * {
+     *   // Bileşenin yanına çok dilli .content.ts dosyaları oluşturun
+     *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
+     *
+     *   // output: './{{fileName}}{{extension}}', // Şablon dizesi kullanarak eşdeğer
+     * }
+     * ```
+     *
+     * ```ts
+     * {
+     *   // Proje kökünde dile göre merkezileştirilmiş JSON dosyaları oluşturun
+     *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+     *
+     *   // output: '/locales/{{locale}}/{{key}}.content.json', // Şablon dizesi kullanarak eşdeğer
+     * }
+     * ```
+     *
+     * Değişken listesi:
+     *   - `fileName`: Dosya adı.
+     *   - `key`: İçerik anahtarı.
+     *   - `locale`: İçerik dili.
+     *   - `extension`: Dosya uzantısı.
+     *   - `componentFileName`: Bileşen dosya adı.
+     *   - `componentExtension`: Bileşen dosya uzantısı.
+     *   - `format`: Sözlük formatı.
+     *   - `componentFormat`: Bileşen sözlük formatı.
+     *   - `componentDirPath`: Bileşen dizin yolu.
      */
-    transformPattern: [
-      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
-      "!**/node_modules/**",
-    ],
-
-    /**
-     * Pattern to exclude from the optimization.
-     */
-    excludePattern: ["**/node_modules/**"],
-
-    /**
-     * Optimize edilmiş sözlükler für çıktı dizini.
-     */
-    output: ({ key }) => `compiler/${key}.content.json`,
-
-    /**
-     * Oluşturulan dosyaya yalnızca içeriği yerleştirin, anahtar olmadan.
-     */
-    noMetadata: false,
-
-    /**
-     * Sözlük anahtar öneki
-     */
-    dictionaryKeyPrefix: "", // Remove base prefix
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
 
     /**
      * Bileşenlerin dönüştürüldükten sonra kaydedilip kaydedilmeyeceğini belirtir.
      * Bu şekilde, derleyici uygulamayı dönüştürmek için yalnızca bir kez çalıştırılabilir ve ardından kaldırılabilir.
      */
     saveComponents: false,
+
+    /**
+     * Oluşturulan dosyaya yalnızca içeriği yerleştirin. Yerel ayar başına i18next veya ICU MessageFormat JSON çıktıları için yararlıdır.
+     */
+    noMetadata: false,
+
+    /**
+     * Sözlük anahtar öneki
+     */
+    dictionaryKeyPrefix: "", // Ayıklanan sözlük anahtarları için isteğe bağlı önek ekleyin
   },
 
   /**
@@ -483,7 +522,7 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
+````
 
 ## Konfigürasyon Referansı
 
@@ -1032,7 +1071,7 @@ Sözlükleri doğrudan bileşenlerinizden çıkaran Intlayer derleyicisini kontr
 
 - **dictionaryKeyPrefix**:
   - _Tür_: `string`
-  - _Varsayılan_: `'comp-'`
+  - _Varsayılan_: `''`
   - _Açıklama_: Çıkarılan sözlük anahtarları için önek.
   - _Örnek_: `'my-key-'`
   - _Not_: Sözlükler çıkarıldığında, anahtar dosya adına göre oluşturulur. Bu önek, çakışmaları önlemek için oluşturulan anahtara eklenir.
@@ -1056,30 +1095,34 @@ Sözlükleri doğrudan bileşenlerinizden çıkaran Intlayer derleyicisini kontr
   - _Açıklama_: Optimizasyon sırasında hangi dosyaların hariç tutulacağını tanımlayan desenler.
   - _Örnek_: `['**/node_modules/**', '!**/node_modules/react/**']`
 
-- **outputDir**:
-  - _Tür_: `string`
-  - _Varsayılan_: `'compiler'`
-  - _Açıklama_: Çıkarılan sözlüklerin, proje temel yolunuza göre saklanacağı dizin.
-
 - **output**:
-  - _Tip_: `FilePathPattern`
-  - _Varsayılan_: `({ key }) => 'compiler/${key}.content.json'`
-  - _Açıklama_: Çıktı dosyalarının yolunu tanımlar. `outputDir` yerine geçer. `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, ve `{{componentFormat}}` gibi dinamik değişkenleri işler. `'my/{{var}}/path'` formatı kullanılarak bir dize olarak veya bir fonksiyon olarak ayarlanabilir.
-  - _Not_: `./**/*` yolları bileşene göre çözümlenir. `/**/*` yolları Intlayer `baseDir`'e göre çözümlenir.
-  - _Örnek_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+  - _Tür_: `FilePathPattern`
+  - _Varsayılan_: `undefined`
+  - _Açıklama_: Çıktı dosyalarının yolunu tanımlar. `outputDir` yerine geçer. Şablon dizeleri veya bir fonksiyon aracılığıyla dinamik değişkenleri işler. Desteklenen değişkenler: `{{fileName}}`, `{{key}}`, `{{locale}}`, `{{extension}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{format}}`, `{{componentFormat}}` ve `{{componentDirPath}}`.
+  - _Not_: `./` ile başlayan yollar bileşen dizinine göre çözümlenir. `/` ile başlayan yollar projenin kök dizinine (`baseDir`) göre çözümlenir.
+  - _Not_: Yola `{{locale}}` değişkenini dahil etmek, dile göre ayrılmış sözlüklerin oluşturulmasını etkinleştirir.
+  - _Örnek_:
+    - **Bileşenin yanında çok dilli dosyalar oluşturun**:
+    - Dize: `'./{{fileName}}{{extension}}'`
+    - Fonksiyon: `({ fileName, extension }) => \`./${fileName}${extension}\``
+
+    - **Dil başına merkezi JSON dosyaları çıktılayın**:
+    - Dize: `'/locales/{{locale}}/{{key}}.content.json'`
+    - Fonksiyon: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\``
 
 - **noMetadata**:
-  - _Tip_: `boolean`
+  - _Tür_: `boolean`
   - _Varsayılan_: `false`
-  - _Açıklama_: Meta verilerin dosyaya kaydedilip kaydedilmeyeceğini belirtir. Doğruysa, derleyici sözlüklerin meta verilerini (anahtar, içerik sarmalayıcı) kaydetmez.
+  - _Açıklama_: Meta verilerin dosyaya kaydedilip kaydedilmeyeceğini belirtir. Doğruysa, derleyici sözlüklerin meta verilerini (anahtar, içerik sarmalayıcı) kaydetmez. Dil başına i18next veya ICU MessageFormat JSON çıktıları için kullanışlıdır.
   - _Not_: `loadJSON` eklentisi ile kullanıldığında kullanışlıdır.
-  - _Örnek_: `true` ise:
+  - _Örnek_:
+    Eğer `true` ise :
     ```json
     {
       "key": "value"
     }
     ```
-    `false` ise:
+    Eğer `false` ise :
     ```json
     {
       "key": "value",

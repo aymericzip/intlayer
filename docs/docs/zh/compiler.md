@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-03-10
+updatedAt: 2026-03-12
 title: Intlayer 编译器 | 用于 i18n 的自动内容提取
 description: 使用 Intlayer 编译器自动化您的国际化流程。直接从组件中提取内容，实现 Vite、Next.js 等框架中更快速、更高效的 i18n。
 keywords:
@@ -21,8 +21,8 @@ slugs:
   - compiler
 history:
   - version: 8.2.0
-    date: 2026-03-10
-    changes: Update compiler options, add FilePathPattern support
+    date: 2026-03-09
+    changes: 更新编译器选项，添加 FilePathPattern 支持
   - version: 8.1.7
     date: 2026-02-25
     changes: 更新编译器选项
@@ -136,9 +136,9 @@ const {
 module.exports = {
   presets: ["next/babel"],
   plugins: [
-    // Extract content from components into dictionaries
+    // 从组件提取内容到字典
     [intlayerExtractBabelPlugin, getExtractPluginOptions()],
-    // Optimize imports by replacing useIntlayer with direct dictionary imports
+    // 通过将 useIntlayer 替换为直接字典导入来优化导入
     [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
   ],
 };
@@ -149,73 +149,85 @@ module.exports = {
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
+</Tabs>
 
 ### 自定义配置
 
 要自定义编译器的行为，您可以更新项目根目录中的 `intlayer.config.ts` 文件。
 
-```ts fileName="intlayer.config.ts"
+````ts fileName="intlayer.config.ts"
 import { type IntlayerConfig, Locales } from "intlayer";
 
 const config: IntlayerConfig = {
   compiler: {
     /**
+     * 指示是否应启用编译器。
      * 设置为 “build-only” 以在开发期间跳过编译器并加快启动速度。
      */
     enabled: true,
 
     /**
-     * Pattern to traverse the code to optimize.
+     * 定义输出文件路径。替换 `outputDir`。
+     *
+     * - 以 `./` 开头的路径相对于组件目录解析。
+     * - 以 `/` 开头的路径相对于项目根目录 (`baseDir`) 解析。
+     *
+     * - 在路径中包含 `{{locale}}` 变量将启用按语言分离开的字典生成。
+     *
+     * 示例：
+     * ```ts
+     * {
+     *   // 在组件旁边创建多语言 .content.ts 文件
+     *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
+     *
+     *   // output: './{{fileName}}{{extension}}', // 使用字符串模板的等效写法
+     * }
+     * ```
+     *
+     * ```ts
+     * {
+     *   // 在项目根目录下创建按语言集中的 JSON 文件
+     *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+     *
+     *   // output: '/locales/{{locale}}/{{key}}.content.json', // 使用字符串模板的等效写法
+     * }
+     * ```
+     *
+     * 变量列表：
+     *   - `fileName`: 文件名。
+     *   - `key`: 内容键。
+     *   - `locale`: 内容语言。
+     *   - `extension`: 文件扩展名。
+     *   - `componentFileName`: 组件文件名。
+     *   - `componentExtension`: 组件文件扩展名。
+     *   - `format`: 字典格式。
+     *   - `componentFormat`: 组件字典格式。
+     *   - `componentDirPath`: 组件目录路径。
      */
-    transformPattern: [
-      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
-      "!**/node_modules/**",
-    ],
-
-    /**
-     * Pattern to exclude from the optimization.
-     */
-    excludePattern: ["**/node_modules/**"],
-
-    /**
-     * 优化字典的输出目录。
-     */
-    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
-
-    /**
-     * 仅在生成的文件中插入内容，不含键。
-     */
-    noMetadata: false,
-
-    /**
-     * 字典键前缀
-     */
-    dictionaryKeyPrefix: "", // Remove base prefix
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
 
     /**
      * 指示转换后是否应保存组件。
      * 这样，编译器只需运行一次即可转换应用程序，然后即可将其删除。
      */
     saveComponents: false,
+
+    /**
+     * 仅在生成的文件中插入内容。对于每种语言的 i18next 或 ICU MessageFormat JSON 输出非常有用。
+     *
+     * - `output: ({ locale, key }) => `./locale/${locale}/${key}.json`,`
+     */
+    noMetadata: false,
+
+    /**
+     * 字典键前缀
+     */
+    dictionaryKeyPrefix: "", // 为提取的字典键添加可选前缀
   },
 };
 
 export default config;
-```
-
-### 填充缺失的翻译
-
-Intlayer 提供了一个 CLI 工具来帮助您填充缺失的翻译。您可以使用 `intlayer` 命令来测试并从代码中填充缺失的翻译。
-
-```bash
-npx intlayer test         # 测试是否存在缺失的翻译
-```
-
-```bash
-npx intlayer fill         # 填充缺失的翻译
-```
-
-> 有关更多详细信息，请参阅 [CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/ci.md)
+````
 
 ### 编译器配置参考
 
@@ -225,28 +237,28 @@ npx intlayer fill         # 填充缺失的翻译
   - _类型_: `boolean | 'build-only'`
   - _默认值_: `true`
   - _描述_: 指示是否应启用编译器。
+
 - **dictionaryKeyPrefix**:
   - _类型_: `string`
-  - _默认值_: `'comp-'`
+  - _默认值_: `''`
   - _描述_: 提取的字典键的前缀。
+
 - **transformPattern**:
   - _类型_: `string | string[]`
   - _默认值_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}', '!**/node_modules/**']`
-  - _描述_: 遍历代码进行优化的模式。
+  - _描述_: (已弃用：请改为使用 `build.traversePattern`) 遍历代码进行优化的模式。
+
 - **excludePattern**:
   - _类型_: `string | string[]`
   - _默认值_: `['**/node_modules/**']`
-  - _描述_: 优化中排除的模式。
-- **outputDir** (Deprecated):
-  - _类型_: `string`
-  - _默认值_: `'compiler'`
-  - _描述_: 存储提取的字典的目录。
+  - _描述_: (已弃用：请改为使用 `build.traversePattern`) 优化中排除的模式。
 
 - **output**:
   - _类型_: `FilePathPattern`
   - _默认值_: `({ key }) => 'compiler/${key}.content.json'`
   - _描述_: 定义输出文件路径。替换 `outputDir`。处理动态变量，如 `{{locale}}`、`{{key}}`、`{{fileName}}`、`{{extension}}`、`{{format}}`、`{{dirPath}}`、`{{componentFileName}}`、`{{componentExtension}}`、`{{componentFormat}}`。可以设置为字符串（使用 `'my/{{var}}/path'` 格式）或函数。
   - _注意_: `./**/*` 路径相对于组件解析。`/**/*` 路径相对于 Intlayer 的 `baseDir` 解析。
+  - _注意_: 如果路径中定义了语言，字典将按语言生成。
   - _示例_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
 
 - **noMetadata**:
@@ -254,7 +266,8 @@ npx intlayer fill         # 填充缺失的翻译
   - _默认值_: `false`
   - _描述_: 指示是否应在文件中保存元数据。如果为 true，编译器将不会保存字典的元数据（键、内容包装器）。
   - _注意_: 如果与 `loadJSON` 插件一起使用，则非常有用。
-  - _示例_: 如果为 `true`：
+  - _示例_:
+    如果为 `true`：
     ```json
     {
       "key": "value"
@@ -274,3 +287,25 @@ npx intlayer fill         # 填充缺失的翻译
   - _类型_: `boolean`
   - _默认值_: `false`
   - _描述_: 指示转换后是否应保存组件。
+
+### 填充缺失的翻译
+
+Intlayer 提供了一个 CLI 工具来帮助您填充缺失的翻译。您可以使用 `intlayer` 命令来测试并从代码中填充缺失的翻译。
+
+```bash
+npx intlayer test         # 测试是否存在缺失的翻译
+```
+
+```bash
+npx intlayer fill         # 填充缺失的翻译
+```
+
+### 提取
+
+Intlayer 提供了一个 CLI 工具来从您的代码中提取内容。您可以使用 `intlayer extract` 命令从代码中提取内容。
+
+```bash
+npx intlayer extract
+```
+
+> 有关更多详细信息，请参阅 [CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)

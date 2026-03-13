@@ -146,7 +146,6 @@ export const compilerSchema = z.object({
   dictionaryKeyPrefix: z.string().optional(),
   transformPattern: z.union([z.string(), z.array(z.string())]).optional(),
   excludePattern: z.union([z.string(), z.array(z.string())]).optional(),
-  outputDir: z.string().optional(),
   output: z.unknown().optional(),
   noMetadata: z.boolean().optional(),
   saveComponents: z.boolean().optional(),

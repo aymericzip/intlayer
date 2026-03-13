@@ -51,8 +51,13 @@ const config: CustomIntlayerConfig = {
     // clientId: process.env.INTLAYER_CLIENT_ID,
     // clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
-  build: {
+  dictionary: {
     importMode: 'dynamic',
+  },
+  compiler: {
+    enabled: false,
+    saveComponents: true,
+    output: ({ fileName }) => `./${fileName}.content.ts`,
   },
   ai: {
     provider: 'openai',

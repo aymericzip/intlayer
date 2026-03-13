@@ -7,6 +7,7 @@ import { detectFormatCommand } from '@intlayer/chokidar/cli';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { extractBabelContentForComponents } from './babelProcessor';
 import {
+  type ExistingIntlayerInfo,
   getExistingIntlayerInfo,
   type PackageName,
   SERVER_CAPABLE_PACKAGES,
@@ -77,24 +78,54 @@ export const processTsxFile = (
 
   const textEdits: TextEdit[] = [];
 
+  // Build a lookup map: component AST node → NodePath (O(1) access)
+  const componentNodeToPath = new Map<t.Node, NodePath>();
+  for (const componentPath of componentPaths) {
+    componentNodeToPath.set(componentPath.node, componentPath);
+  }
+
+  // Cache getExistingIntlayerInfo results for all component paths (avoids repeated traversals)
+  const existingInfoCache = new Map<t.Node, ExistingIntlayerInfo | undefined>();
+  for (const componentPath of componentPaths) {
+    existingInfoCache.set(
+      componentPath.node,
+      getExistingIntlayerInfo(componentPath)
+    );
+  }
+
+  /**
+   * Walks up the ancestor chain to find the nearest enclosing component's
+   * existing Intlayer info (if any).
+   */
+  const getExistingInfoForPath = (
+    path: NodePath
+  ): ExistingIntlayerInfo | undefined => {
+    let current: NodePath | null = path;
+    while (current) {
+      if (componentNodeToPath.has(current.node)) {
+        return existingInfoCache.get(current.node);
+      }
+      current = current.parentPath;
+    }
+    return undefined;
+  };
+
   const getProvidingHookType = (
     path: NodePath
   ): 'useIntlayer' | 'getIntlayer' => {
     let current: NodePath | null = path;
     while (current) {
-      const functionPath = componentPaths.find(
-        (path) => path.node === current?.node
-      );
+      const componentPath = componentNodeToPath.get(current.node);
 
-      if (functionPath) {
-        const existingInfo = getExistingIntlayerInfo(functionPath);
+      if (componentPath) {
+        const existingInfo = existingInfoCache.get(componentPath.node);
 
         if (existingInfo) {
           return existingInfo.hook;
         }
 
-        if (componentsNeedingHooks.has(functionPath)) {
-          return hookMap.get(functionPath.node) || 'useIntlayer';
+        if (componentsNeedingHooks.has(componentPath)) {
+          return hookMap.get(componentPath.node) || 'useIntlayer';
         }
       }
       current = current.parentPath;
@@ -109,7 +140,15 @@ export const processTsxFile = (
     variables,
     childrenToReplace,
   } of replacements) {
-    const contentAccessCode = isSolid ? `content().${key}` : `content.${key}`;
+    const existingInfo = getExistingInfoForPath(path);
+    // When the existing call is destructured (e.g. `const { a } = getIntlayer(...)`),
+    // new keys are added directly to that destructuring, so access them by name alone.
+    const varName = existingInfo?.variableName ?? 'content';
+    const contentAccessCode = existingInfo?.isDestructured
+      ? key
+      : isSolid
+        ? `${varName}().${key}`
+        : `${varName}.${key}`;
     const hookType = getProvidingHookType(path);
     const valueSuffix = hookType === 'getIntlayer' ? '' : '.value';
 
@@ -171,12 +210,49 @@ export const processTsxFile = (
 
   for (const componentPath of componentsNeedingHooks) {
     const finalKey = componentKeyMap.get(componentPath.node)!;
-    const existingInfo = getExistingIntlayerInfo(componentPath);
+    const existingInfo = existingInfoCache.get(componentPath.node);
 
     if (existingInfo) {
       if (existingInfo.hook === 'useIntlayer') needsUseIntlayer = true;
 
       if (existingInfo.hook === 'getIntlayer') needsGetIntlayer = true;
+
+      // When the existing call is destructured, inject any missing keys into
+      // the destructuring pattern so they can be accessed by name directly.
+      if (existingInfo.isDestructured && existingInfo.objectPatternNode) {
+        const neededKeys = new Set<string>();
+
+        for (const { path: rPath, key: rKey } of replacements) {
+          let current: NodePath | null = rPath;
+
+          while (current) {
+            if (current.node === componentPath.node) {
+              neededKeys.add(rKey);
+              break;
+            }
+            current = current.parentPath;
+          }
+        }
+
+        const missingKeys = [...neededKeys].filter(
+          (key) => !existingInfo.existingDestructuredKeys.includes(key)
+        );
+
+        if (missingKeys.length > 0) {
+          const { objectPatternNode } = existingInfo;
+          // Insert right after the last property so the space/newline before
+          // `}` is naturally preserved: `{ a }` → `{ a, b }`.
+          const lastProp =
+            objectPatternNode.properties[
+              objectPatternNode.properties.length - 1
+            ];
+          textEdits.push({
+            start: lastProp.end!,
+            end: lastProp.end!,
+            replacement: `, ${missingKeys.join(', ')}`,
+          });
+        }
+      }
     } else {
       const hook = hookMap.get(componentPath.node) || 'useIntlayer';
 

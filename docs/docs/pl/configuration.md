@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-03-11
+updatedAt: 2026-03-12
 title: Konfiguracja
 description: Dowiedz się, jak skonfigurować Intlayer dla swojej aplikacji. Zrozum różne ustawienia i opcje dostępne do dostosowania Intlayer do Twoich potrzeb.
 keywords:
@@ -15,7 +15,7 @@ slugs:
   - configuration
 history:
   - version: 8.3.0
-    data: 2026-03-11
+    date: 2026-03-11
     changes: Przenieś 'baseDir' z konfiguracji 'content' do konfiguracji 'system'
   - version: 8.2.0
     date: 2026-03-09
@@ -107,7 +107,7 @@ Intlayer obsługuje formaty plików konfiguracyjnych JSON, JS, MJS oraz TS:
 
 ## Przykładowy plik konfiguracyjny
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
@@ -205,7 +205,7 @@ const config: IntlayerConfig = {
      * Options: 'cookie', 'localStorage', 'sessionStorage', 'header', or an array of these.
      * Default: ['cookie', 'header']
      */
-    storage: "cookie",
+    storage: ["cookie", "header"],
 
     /**
      * Base path for the application URLs.
@@ -342,6 +342,17 @@ const config: IntlayerConfig = {
      * Base URL for the AI API.
      */
     baseURL: "http://localhost:3000",
+
+    /**
+     * Serializacja danych
+     *
+     * Opcje:
+     * - "json": Standardowa, niezawodna; zużywa więcej tokenów.
+     * - "toon": Mniej tokenów, mniej spójna niż JSON.
+     *
+     * Domyślnie: "json"
+     */
+    dataSerialization: "json",
   },
 
   /**
@@ -441,42 +452,70 @@ const config: IntlayerConfig = {
   compiler: {
     /**
      * Wskazuje, czy kompilator powinien być włączony.
+     *
+     * - false : Wyłącza kompilator.
+     * - true : Włącza kompilator.
+     * - "build-only" : Pomija kompilator podczas programowania, aby przyspieszyć czas uruchamiania.
+     *
+     * Wartość domyślna : false
      */
     enabled: true,
 
     /**
-     * Pattern to traverse the code to optimize.
+     * Definiuje ścieżkę plików wyjściowych. Zastępuje `outputDir`.
+     *
+     * - Ścieżki zaczynające się od `./` są rozwiązywane względem katalogu komponentu.
+     * - Ścieżki zaczynające się od `/` są rozwiązywane względem katalogu głównego projektu (`baseDir`).
+     *
+     * - Uwzględnienie zmiennej `{{locale}}` w ścieżce umożliwi generowanie słowników oddzielonych według języka.
+     *
+     * Przykład:
+     * ```ts
+     * {
+     *   // Utwórz wielojęzyczne pliki .content.ts obok komponentu
+     *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
+     *
+     *   // output: './{{fileName}}{{extension}}', // Równoważne użycie szablonu ciągu znaków
+     * }
+     * ```
+     *
+     * ```ts
+     * {
+     *   // Utwórz scentralizowane pliki JSON według języka w katalogu głównym projektu
+     *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+     *
+     *   // output: '/locales/{{locale}}/{{key}}.content.json', // Równoważne użycie szablonu ciągu znaków
+     * }
+     * ```
+     *
+     * Lista zmiennych:
+     *   - `fileName`: Nazwa pliku.
+     *   - `key`: Klucz zawartości.
+     *   - `locale`: Język zawartości.
+     *   - `extension`: Rozszerzenie pliku.
+     *   - `componentFileName`: Nazwa pliku komponentu.
+     *   - `componentExtension`: Rozszerzenie pliku komponentu.
+     *   - `format`: Format słownika.
+     *   - `componentFormat`: Format słownika komponentu.
+     *   - `componentDirPath`: Ścieżka do katalogu komponentu.
      */
-    transformPattern: [
-      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
-      "!**/node_modules/**",
-    ],
-
-    /**
-     * Pattern to exclude from the optimization.
-     */
-    excludePattern: ["**/node_modules/**"],
-
-    /**
-     * Katalog wyjściowy dla zoptymalizowanych słowników.
-     */
-    output: ({ key }) => `compiler/${key}.content.json`,
-
-    /**
-     * Wstaw tylko zawartość do wygenerowanego pliku, bez klucza.
-     */
-    noMetadata: false,
-
-    /**
-     * Prefiks klucza słownika
-     */
-    dictionaryKeyPrefix: "", // Remove base prefix
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
 
     /**
      * Wskazuje, czy komponenty powinny być zapisywane po transformacji.
      * W ten sposób kompilator można uruchomić tylko raz, aby przetransformować aplikację, a następnie go usunąć.
      */
     saveComponents: false,
+
+    /**
+     * Wstaw tylko zawartość do wygenerowanego pliku. Przydatne dla wyjść JSON i18next lub ICU MessageFormat na lokalizację.
+     */
+    noMetadata: false,
+
+    /**
+     * Prefiks klucza słownika
+     */
+    dictionaryKeyPrefix: "", // Dodaj opcjonalny prefiks dla wyodrębnionych kluczy słownika
   },
 
   /**
@@ -495,7 +534,7 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
+````
 
 ## Odniesienie do konfiguracji
 
@@ -1140,7 +1179,7 @@ Ustawienia kontrolujące kompilator Intlayer, który wyodrębnia słowniki bezpo
 
 - **dictionaryKeyPrefix**:
   - _Typ_: `string`
-  - _Domyślnie_: `'comp-'`
+  - _Domyślnie_: `''`
   - _Opis_: Prefiks dla wyodrębnionych kluczy słownika.
   - _Przykład_: `'my-key-'`
   - _Uwaga_: Podczas wyodrębniania słowników klucz jest generowany na podstawie nazwy pliku. Ten prefiks jest dodawany do wygenerowanego klucza, aby zapobiec konfliktom.
@@ -1164,30 +1203,37 @@ Ustawienia kontrolujące kompilator Intlayer, który wyodrębnia słowniki bezpo
   - _Opis_: Wzorce określające, które pliki powinny być wykluczone podczas optymalizacji.
   - _Przykład_: `['**/node_modules/**', '!**/node_modules/react/**']`
 
-- **outputDir**:
-  - _Typ_: `string`
-  - _Domyślnie_: `'compiler'`
-  - _Opis_: Katalog, w którym będą przechowywane wyodrębnione słowniki, względem ścieżki bazowej projektu.
-
 - **output**:
   - _Typ_: `FilePathPattern`
-  - _Domyślny_: `({ key }) => 'compiler/${key}.content.json'`
-  - _Opis_: Definiuje ścieżkę plików wyjściowych. Zastępuje `outputDir`. Obsługuje zmienne dynamiczne, takie jak `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{componentFormat}}`. Można ustawić jako ciąg znaków w formacie `'my/{{var}}/path'` lub jako funkcję.
-  - _Uwaga_: Ścieżki `./**/*` są rozwiązywane względem komponentu. Ścieżki `/**/*` są rozwiązywane względem `baseDir` Intlayer.
-  - _Przykład_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+  - _Domyślny_: `undefined`
+  - _Opis_: Definiuje ścieżkę plików wyjściowych. Zastępuje `outputDir`. Obsługuje zmienne dynamiczne poprzez szablony ciągów znaków lub funkcję. Obsługiwane zmienne: `{{fileName}}`, `{{key}}`, `{{locale}}`, `{{extension}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{format}}`, `{{componentFormat}}` oraz `{{componentDirPath}}`.
+  - _Uwaga_: Ścieżki zaczynające się od `./` są rozwiązywane względem katalogu komponentu. Ścieżki zaczynające się od `/` są rozwiązywane względem katalogu głównego projektu (`baseDir`).
+  - _Uwaga_: Uwzględnienie zmiennej `{{locale}}` w ścieżce umożliwi generowanie słowników oddzielonych według języka.
+  - _Przykład_:
+    - **Plik wielojęzyczny obok komponentu**:
+    - Ciąg znaków: `'./{{fileName}}{{extension}}'`
+    - Funkcja: `({ fileName, extension }) => \`./${fileName}${extension}\``
+
+    - **Zcentralizowane pliki JSON według języka**:
+    - Ciąg znaków: `'/locales/{{locale}}/{{key}}.content.json'`
+    - Funkcja: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\``
 
 - **noMetadata**:
   - _Typ_: `boolean`
   - _Domyślny_: `false`
-  - _Opis_: Wskazuje, czy metadane powinny być zapisywane w pliku. Jeśli true, kompilator nie będzie zapisywał metadanych słowników (klucza, otoczki zawartości).
+  - _Opis_: Wskazuje, czy metadane powinny być zapisywane w pliku. Jeśli true, kompilator nie będzie zapisywał metadanych słowników (klucza, otoczki zawartości). Przydatne dla wyjść JSON i18next lub ICU MessageFormat na lokalizację.
   - _Uwaga_: Przydatne w przypadku korzystania z wtyczki `loadJSON`.
-  - _Przykład_: Jeśli `true`:
+  - _Przykład_:
+    Jeśli `true`:
+
     ```json
     {
       "key": "value"
     }
     ```
+
     Jeśli `false`:
+
     ```json
     {
       "key": "value",

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-03-11
+updatedAt: 2026-03-12
 title: Configuration
 description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customise Intlayer to your needs.
 keywords:
@@ -15,7 +15,7 @@ slugs:
   - configuration
 history:
   - version: 8.3.0
-    data: 2026-03-11
+    date: 2026-03-11
     changes: Move 'baseDir' from 'content' to 'system' config
   - version: 8.2.0
     date: 2026-03-09
@@ -92,7 +92,7 @@ Intlayer accepts JSON, JS, MJS, and TS configuration file formats:
 
 ## Example config file
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
@@ -190,7 +190,7 @@ const config: IntlayerConfig = {
      * Options: 'cookie', 'localStorage', 'sessionStorage', 'header', or an array of these.
      * Default: ['cookie', 'header']
      */
-    storage: "cookie",
+    storage: ["cookie", "header"],
 
     /**
      * Base path for the application URLs.
@@ -327,6 +327,17 @@ const config: IntlayerConfig = {
      * Base URL for the AI API.
      */
     baseURL: "http://localhost:3000",
+
+    /**
+     * Data serialisation
+     *
+     * Options:
+     * - "json": Standard, reliable; uses more tokens.
+     * - "toon": Fewer tokens, less consistent than JSON.
+     *
+     * Default: "json"
+     */
+    dataSerialization: "json",
   },
 
   /**
@@ -426,42 +437,70 @@ const config: IntlayerConfig = {
   compiler: {
     /**
      * Indicates if the compiler should be enabled.
+     *
+     * - false : Disables the compiler.
+     * - true : Enables the compiler.
+     * - "build-only" : Skips the compiler during development to speed up start times.
+     *
+     * Default: false
      */
     enabled: true,
 
     /**
-     * Pattern to traverse the code to optimize.
+     * Defines the output files path. Replaces `outputDir`.
+     *
+     * - Paths starting with `./` are resolved relatively to the component directory.
+     * - Paths starting with `/` are resolved relatively to the project root (`baseDir`).
+     *
+     * - Including the `{{locale}}` variable in the path will trigger the generation of separate dictionaries per locale.
+     *
+     * Examples:
+     * ```ts
+     * {
+     *   // Create multi-locale .content.ts files next to the component
+     *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
+     *
+     *   // output: './{{fileName}}{{extension}}', // Equivalent using a string template
+     * }
+     * ```
+     *
+     * ```ts
+     * {
+     *   // Create centralised JSON files by locale in the project root
+     *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+     *
+     *   // output: '/locales/{{locale}}/{{key}}.content.json', // Equivalent using a string template
+     * }
+     * ```
+     *
+     * List of variables:
+     *   - `fileName`: The file name.
+     *   - `key`: The content key.
+     *   - `locale`: The content locale.
+     *   - `extension`: The file extension.
+     *   - `componentFileName`: The component file name.
+     *   - `componentExtension`: The component file extension.
+     *   - `format`: The dictionary format.
+     *   - `componentFormat`: The component dictionary format.
+     *   - `componentDirPath`: The component directory path.
      */
-    transformPattern: [
-      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
-      "!**/node_modules/**",
-    ],
-
-    /**
-     * Pattern to exclude from the optimization.
-     */
-    excludePattern: ["**/node_modules/**"],
-
-    /**
-     * Output directory for the optimized dictionaries.
-     */
-    output: ({ key }) => `compiler/${key}.content.json`,
-
-    /**
-     * Inset only content in generated file, without key.
-     */
-    noMetadata: false,
-
-    /**
-     * Dictionary key prefix
-     */
-    dictionaryKeyPrefix: "", // Remove base prefix
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
 
     /**
      * Indicates if the components should be saved after being transformed.
      * That way, the compiler can be run only once to transform the app, and then it can be removed.
      */
     saveComponents: false,
+
+    /**
+     * Insert only content into the generated file. Useful for per-locale i18next or ICU MessageFormat JSON outputs.
+     */
+    noMetadata: false,
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "", // Add optional prefix for the extracted dictionary keys
   },
 
   /**
@@ -480,7 +519,7 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
+````
 
 ## Configuration Reference
 
@@ -1046,7 +1085,7 @@ Settings that control the Intlayer compiler, which extracts dictionaries straigh
 
 - **dictionaryKeyPrefix**:
   - _Type_: `string`
-  - _Default_: `'comp-'`
+  - _Default_: `''`
   - _Description_: Prefix for the extracted dictionary keys.
   - _Example_: `'my-key-'`
   - _Note_: When dictionaries are extracted, the key is generated based on the file name. This prefix is added to the generated key to prevent conflicts.
@@ -1070,22 +1109,25 @@ Settings that control the Intlayer compiler, which extracts dictionaries straigh
   - _Description_: Patterns that define which files should be excluded during optimisation.
   - _Example_: `['**/node_modules/**', '!**/node_modules/react/**']`
 
-- **outputDir**:
-  - _Type_: `string`
-  - _Default_: `'compiler'`
-  - _Description_: The directory where the extracted dictionaries will be stored, relative to your project base path.
-
 - **output**:
   - _Type_: `FilePathPattern`
-  - _Default_: `({ key }) => 'compiler/${key}.content.json'`
-  - _Description_: Defines the output files path. Replaces `outputDir`. Handles dynamic variables like `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{componentFormat}}`. Can be set as a string using `'my/{{var}}/path'` format, or as a function.
-  - _Note_: `./**/*` Path are resolved relatively to the component. `/**/*` path are resolved relatively to the Intlayer `baseDir`.
-  - _Example_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+  - _Default_: `undefined`
+  - _Description_: Defines the output files path. Replaces `outputDir`. Supports dynamic variables via a template string or a function. Supported variables: `{{fileName}}`, `{{key}}`, `{{locale}}`, `{{extension}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{format}}`, `{{componentFormat}}`, `{{componentDirPath}}`.
+  - _Note_: Paths starting with `./` are resolved relatively to the component directory. Paths starting with `/` are resolved relatively to the project root (`baseDir`).
+  - _Note_: Including the `{{locale}}` variable in the path will enable the generation of separate dictionaries per locale.
+  - _Example_:
+    - **Create multi-locale files next to the component**:
+    - String: `'./{{fileName}}{{extension}}'`
+    - Function: `({ fileName, extension }) => \`./${fileName}${extension}\``
+
+    - **Output centralised JSON files per locale**:
+    - String: `'/locales/{{locale}}/{{key}}.content.json'`
+    - Function: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\``
 
 - **noMetadata**:
   - _Type_: `boolean`
   - _Default_: `false`
-  - _Description_: Indicates if the metadata should be saved in the file. If true, the compiler will not save the metadata of the dictionaries (key, content wrapper).
+  - _Description_: Indicates if the metadata should be saved in the file. If true, the compiler will not save the metadata of the dictionaries (key, content wrapper). Useful for per-locale i18next or ICU MessageFormat JSON outputs.
   - _Note_: Useful if used with `loadJSON` plugin.
   - _Example_:
     If `true`:

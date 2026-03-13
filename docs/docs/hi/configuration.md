@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-03-11
+updatedAt: 2026-03-12
 title: कॉन्फ़िगरेशन
 description: अपने एप्लिकेशन के लिए Intlayer को कॉन्फ़िगर करना सीखें। Intlayer को अपनी आवश्यकताओं के अनुसार अनुकूलित करने के लिए विभिन्न सेटिंग्स और विकल्पों को समझें।
 keywords:
@@ -15,8 +15,8 @@ slugs:
   - configuration
 history:
   - version: 8.3.0
-    data: 2026-03-11
-    changes: 'baseDir' को 'content' से 'system' कॉन्फिग में ले जाया गया
+    date: 2026-03-11
+    changes: "'baseDir' को 'content' से 'system' कॉन्फिग में ले जाया गया"
   - version: 8.2.0
     date: 2026-03-09
     changes: कंपाइलर विकल्पों को अपडेट करें, 'output' और 'noMetadata' समर्थन जोड़ें
@@ -43,22 +43,22 @@ history:
     changes: JSON5 और JSONC फ़ाइल प्रारूपों के लिए समर्थन जोड़ा
   - version: 7.5.0
     date: 2025-12-17
-    changes: `buildMode` विकल्प जोड़ा
+    changes: "`buildMode` विकल्प जोड़ा"
   - version: 6.0.0
     date: 2025-09-16
-    changes: `live` आयात मोड जोड़ा
+    changes: "`live` आयात मोड जोड़ा"
   - version: 6.0.0
     date: 2025-09-04
-    changes: `hotReload` फ़ील्ड को `liveSync` से बदलें और `liveSyncPort` और `liveSyncURL` फ़ील्ड जोड़ें
+    changes: "`hotReload` फ़ील्ड को `liveSync` से बदलें और `liveSyncPort` और `liveSyncURL` फ़ील्ड जोड़ें"
   - version: 5.6.1
     date: 2025-07-25
-    changes: `activateDynamicImport` को `importMode` विकल्प से बदलें
+    changes: "`activateDynamicImport` को `importMode` विकल्प से बदलें"
   - version: 5.6.0
     date: 2025-07-13
     changes: डिफ़ॉल्ट contentDir को `['src']` से बदलकर `['.']` करें
   - version: 5.5.11
     date: 2025-06-29
-    changes: `docs` कमांड जोड़ें
+    changes: "`docs` कमांड जोड़ें"
 ---
 
 # Intlayer कॉन्फ़िगरेशन दस्तावेज़ीकरण
@@ -92,7 +92,7 @@ Intlayer JSON, JS, MJS, और TS कॉन्फ़िगरेशन फ़ा
 
 ## उदाहरण कॉन्फ़िगरेशन फ़ाइल
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
@@ -190,7 +190,7 @@ const config: IntlayerConfig = {
      * Options: 'cookie', 'localStorage', 'sessionStorage', 'header', or an array of these.
      * Default: ['cookie', 'header']
      */
-    storage: "cookie",
+    storage: ["cookie", "header"],
 
     /**
      * Base path for the application URLs.
@@ -327,6 +327,17 @@ const config: IntlayerConfig = {
      * Base URL for the AI API.
      */
     baseURL: "http://localhost:3000",
+
+    /**
+     * डेटा क्रमांकन (सीरियलाइजेशन)
+     *
+     * विकल्प:
+     * - "json": मानक, विश्वसनीय; अधिक टोकन का उपयोग करता है।
+     * - "toon": कम टोकन, JSON की तुलना में कम सुसंगत।
+     *
+     * डिफ़ॉल्ट: "json"
+     */
+    dataSerialization: "json",
   },
 
   /**
@@ -426,42 +437,70 @@ const config: IntlayerConfig = {
   compiler: {
     /**
      * इंगित करता है कि क्या कंपाइलर सक्षम होना चाहिए।
+     *
+     * - false : कंपाइलर को अक्षम करता है।
+     * - true : कंपाइलर को सक्षम करता है।
+     * - "build-only" : स्टार्टअप समय को तेज करने के लिए विकास के दौरान कंपाइलर को छोड़ देता है।
+     *
+     * डिफ़ॉल्ट मान : false
      */
     enabled: true,
 
     /**
-     * Pattern to traverse the code to optimize.
+     * आउटपुट फ़ाइल पथ को परिभाषित करता है। `outputDir` को प्रतिस्थापित करता है।
+     *
+     * - `./` पथ घटक निर्देशिका के सापेक्ष हल किए जाते हैं।
+     * - `/` पथ प्रोजेक्ट रूट (`baseDir`) के सापेक्ष हल किए जाते हैं।
+     *
+     * - पथ में `{{locale}}` चर डालने से भाषा द्वारा अलग किए गए शब्दकोश निर्माण सक्षम हो जाएंगे।
+     *
+     * उदाहरण:
+     * ```ts
+     * {
+     *   // घटक के बगल में बहुभाषी .content.ts फ़ाइलें बनाएँ
+     *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
+     *
+     *   // output: './{{fileName}}{{extension}}', // स्ट्रिंग टेम्प्लेट का उपयोग करके समकक्ष
+     * }
+     * ```
+     *
+     * ```ts
+     * {
+     *   // प्रोजेक्ट रूट पर भाषा द्वारा केंद्रीकृत JSON फ़ाइलें बनाएँ
+     *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+     *
+     *   // output: '/locales/{{locale}}/{{key}}.content.json', // स्ट्रिंग टेम्प्लेट का उपयोग करके समकक्ष
+     * }
+     * ```
+     *
+     * चर सूची:
+     *   - `fileName`: फ़ाइल का नाम।
+     *   - `key`: सामग्री की कुंजी।
+     *   - `locale`: सामग्री का स्थानीय मान (लोकल)।
+     *   - `extension`: फ़ाइल एक्सटेंशन।
+     *   - `componentFileName`: घटक फ़ाइल का नाम।
+     *   - `componentExtension`: घटक फ़ाइल एक्सटेंशन।
+     *   - `format`: शब्दकोश प्रारूप।
+     *   - `componentFormat`: घटक शब्दकोश प्रारूप।
+     *   - `componentDirPath`: घटक निर्देशिका पथ।
      */
-    transformPattern: [
-      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
-      "!**/node_modules/**",
-    ],
-
-    /**
-     * Pattern to exclude from the optimization.
-     */
-    excludePattern: ["**/node_modules/**"],
-
-    /**
-     * अनुकूलित शब्दकोशों के लिए आउटपुट निर्देशिका।
-     */
-    output: ({ key }) => `compiler/${key}.content.json`,
-
-    /**
-     * उत्पन्न फ़ाइल में केवल सामग्री डालें, बिना कुंजी के।
-     */
-    noMetadata: false,
-
-    /**
-     * शब्दकोश कुंजी उपसर्ग
-     */
-    dictionaryKeyPrefix: "", // Remove base prefix
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
 
     /**
      * इंगित करता है कि क्या घटकों को रूपांतरित होने के बाद सहेजा जाना चाहिए।
      * इस तरह, कंपाइलer को ऐप को रूपांतरित करने के लिए केवल एक बार चलाया जा सकता है, और फिर इसे हटाया जा सकता है।
      */
     saveComponents: false,
+
+    /**
+     * उत्पन्न फ़ाइल में केवल सामग्री डालें। प्रति-लोकल i18next या ICU MessageFormat JSON आउटपुट के लिए उपयोगी।
+     */
+    noMetadata: false,
+
+    /**
+     * शब्दकोश कुंजी उपसर्ग
+     */
+    dictionaryKeyPrefix: "", // निकाली गई शब्दकोश कुंजियों के लिए वैकल्पिक उपसर्ग जोड़ें
   },
 
   /**
@@ -480,7 +519,7 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
+````
 
 ## कॉन्फ़िगरेशन संदर्भ
 
@@ -1036,7 +1075,7 @@ Intlayer बेहतर लचीलापन और विकल्प के 
 
 - **dictionaryKeyPrefix**:
   - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `'comp-'`
+  - _डिफ़ॉल्ट_: `''`
   - _विवरण_: निकाले गए शब्दकोश कुंजियों के लिए उपसर्ग।
   - _उदाहरण_: `'my-key-'`
   - _नोट_: जब शब्दकोश निकाले जाते हैं, तो कुंजी फ़ाइल नाम के आधार पर उत्पन्न होती है। संघर्षों को रोकने के लिए उत्पन्न कुंजी में यह उपसर्ग जोड़ा जाता है।
@@ -1060,30 +1099,34 @@ Intlayer बेहतर लचीलापन और विकल्प के 
   - _विवरण_: पैटर्न जो यह परिभाषित करते हैं कि अनुकूलन के दौरान किन फ़ाइलों को बाहर रखा जाना चाहिए।
   - _उदाहरण_: `['**/node_modules/**', '!**/node_modules/react/**']`
 
-- **outputDir**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `'compiler'`
-  - _विवरण_: वह निर्देशिका जहाँ निकाले गए शब्दकोश संग्रहीत किए जाएंगे, आपके प्रोजेक्ट बेस पाथ के सापेक्ष।
-
 - **output**:
   - _प्रकार_: `FilePathPattern`
-  - _डिफ़ॉल्ट_: `({ key }) => 'compiler/${key}.content.json'`
-  - _विवरण_: आउटपुट फ़ाइल पथ को परिभाषित करता है। `outputDir` को प्रतिस्थापित करता है। `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, और `{{componentFormat}}` जैसे गतिशील चरों को संभालता है। इसे `'my/{{var}}/path'` प्रारूप का उपयोग करके एक स्ट्रिंग के रूप में, या एक फ़ंक्शन के रूप में सेट किया जा सकता है।
-  - _नोट_: `./**/*` पथ घटक के सापेक्ष हल किए जाते हैं। `/**/*` पथ Intlayer `baseDir` के सापेक्ष हल किए जाते हैं।
-  - _उदाहरण_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+  - _डिफ़ॉल्ट_: `undefined`
+  - _विवरण_: आउटपुट फ़ाइल पथ को परिभाषित करता है। `outputDir` को प्रतिस्थापित करता है। टेम्प्लेट स्ट्रिंग या फ़ंक्शन के माध्यम से डायनेमिक वैरिएबल का समर्थन करता है। समर्थित वैरिएबल: `{{fileName}}`, `{{key}}`, `{{locale}}`, `{{extension}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{format}}`, `{{componentFormat}}`, `{{componentDirPath}}` ।
+  - _नोट_: `./` से शुरू होने वाले पथ घटक निर्देशिका के सापेक्ष हल किए जाते हैं। `/` से शुरू होने वाले पथ प्रोजेक्ट रूट (`baseDir`) के सापेक्ष हल किए जाते हैं।
+  - _नोट_: पथ में `{{locale}}` वैरिएबल को शामिल करने से प्रति भाषा अलग शब्दकोश तैयार होंगे।
+  - _उदाहरण_:
+    - **घटक के पास बहु-भाषा फ़ाइलें बनाएँ**:
+    - स्ट्रिंग: `'./{{fileName}}{{extension}}'`
+    - फ़ंक्शन: `({ fileName, extension }) => \`./${fileName}${extension}\``
+
+    - **प्रति भाषा केंद्रीकृत JSON फ़ाइलें आउटपुट करें**:
+    - स्ट्रिंग: `'/locales/{{locale}}/{{key}}.content.json'`
+    - फ़ंक्शन: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\``
 
 - **noMetadata**:
   - _प्रकार_: `boolean`
   - _डिफ़ॉल्ट_: `false`
-  - _विवरण_: इंगित करता है कि फ़ाइल में मेटाडेटा सहेजा जाना चाहिए या नहीं। यदि सही है, तो कंपाइलर शब्दकोशों (कुंजी, सामग्री रैपर) के मेटाडेटा को नहीं बचाएगा।
+  - _विवरण_: इंगित करता है कि फ़ाइल में मेटाडेटा सहेजा जाना चाहिए या नहीं। यदि सही है, तो कंपाइलर शब्दकोशों (कुंजी, सामग्री रैपर) के मेटाडेटा को नहीं बचाएगा। प्रति-लोकल i18next या ICU MessageFormat JSON आउटपुट के लिए उपयोगी।
   - _नोट_: `loadJSON` प्लगइन के साथ उपयोग किए जाने पर उपयोगी।
-  - _उदाहरण_: यदि `सही` है:
+  - _उदाहरण_:
+    यदि `सही` है :
     ```json
     {
       "key": "value"
     }
     ```
-    यदि `गलत` है:
+    यदि `गलत` है :
     ```json
     {
       "key": "value",

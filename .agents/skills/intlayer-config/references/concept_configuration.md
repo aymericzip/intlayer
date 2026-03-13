@@ -463,19 +463,6 @@ const config: IntlayerConfig = {
     enabled: true,
 
     /**
-     * Pattern to traverse the code to optimize.
-     */
-    transformPattern: [
-      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
-      "!**/node_modules/**",
-    ],
-
-    /**
-     * Pattern to exclude from the optimization.
-     */
-    excludePattern: ["**/node_modules/**"],
-
-    /**
      * Output directory for the optimized dictionaries.
      */
     outputDir: "i18n",
@@ -1234,7 +1221,7 @@ Settings that control the Intlayer compiler, which extracts dictionaries straigh
 
 - **dictionaryKeyPrefix**:
   - _Type_: `string`
-  - _Default_: `'comp-'`
+  - _Default_: `''`
   - _Description_: Prefix for the extracted dictionary keys.
   - _Example_: `'my-key-'`
   - _Note_: When dictionaries are extracted, the key is generated based on the file name. This prefix is added to the generated key to prevent conflicts.

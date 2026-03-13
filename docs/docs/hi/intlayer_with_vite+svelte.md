@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-12-30
+updatedAt: 2026-03-12
 title: Vite + Svelte i18n - Svelte ऐप कैसे अनुवाद करें 2026 में
 description: जानें कि अपनी Vite और Svelte वेबसाइट को बहुभाषी कैसे बनाएं। अंतरराष्ट्रीयकरण (i18n) और अनुवाद के लिए दस्तावेज़ का पालन करें।
 keywords:
@@ -494,6 +494,162 @@ const changeLocale = (event: Event) => {
 एक्सटेंशन का उपयोग कैसे करें, इसके लिए अधिक जानकारी के लिए देखें [Intlayer VS Code Extension दस्तावेज़](https://intlayer.org/doc/vs-code-extension)।
 
 ---
+
+### (वैकल्पिक) कदम 1 : अपने घटकों की सामग्री निकालें
+
+यदि आपके पास मौजूदा कोडबेस है, तो हजारों फ़ाइलों को बदलना समय लेने वाला हो सकता है।
+
+इस प्रक्रिया को आसान बनाने के लिए, Intlayer आपके घटकों को बदलने और सामग्री निकालने के लिए एक [कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) / [एक्सट्रैक्टर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md) का प्रस्ताव करता है।
+
+इसे सेट करने के लिए, आप अपनी `intlayer.config.ts` फ़ाइल में एक `compiler` अनुभाग जोड़ सकते हैं:
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... आपका शेष कॉन्फ़िगरेशन
+  compiler: {
+    /**
+     * इंगित करता है कि क्या कंपाइलर सक्षम होना चाहिए।
+     */
+    enabled: true,
+
+    /**
+     * आउटपुट फ़ाइलों का पथ परिभाषित करता है
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * इंगित करता है कि क्या घटकों को बदलने के बाद सहेजा जाना चाहिए। उस तरह से, कंपाइलर को ऐप बदलने के लिए केवल एक बार चलाया जा सकता है, और फिर इसे हटाया जा सकता है।
+     */
+    saveComponents: false,
+
+    /**
+     * शब्दकोश कुंजी उपसर्ग
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... आपका शेष कॉन्फ़िगरेशन
+  compiler: {
+    /**
+     * इंगित करता है कि क्या कंपाइलर सक्षम होना चाहिए।
+     */
+    enabled: true,
+
+    /**
+     * आउटपुट फ़ाइलों का पथ परिभाषित करता है
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * इंगित करता है कि क्या घटकों को बदलने के बाद सहेजा जाना चाहिए। उस तरह से, कंपाइलर को ऐप बदलने के लिए केवल एक बार चलाया जा सकता है, और फिर इसे हटाया जा सकता है।
+     */
+    saveComponents: false,
+
+    /**
+     * शब्दकोश कुंजी उपसर्ग
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... आपका शेष कॉन्फ़िगरेशन
+  compiler: {
+    /**
+     * इंगित करता है कि क्या कंपाइलर सक्षम होना चाहिए।
+     */
+    enabled: true,
+
+    /**
+     * आउटपुट फ़ाइलों का पथ परिभाषित करता है
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * इंगित करता है कि क्या घटकों को बदलने के बाद सहेजा जाना चाहिए। उस तरह से, कंपाइलर को ऐप बदलने के लिए केवल एक बार चलाया जा सकता है, और फिर इसे हटाया जा सकता है।
+     */
+    saveComponents: false,
+
+    /**
+     * शब्दकोश कुंजी उपसर्ग
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+module.exports = config;
+```
+
+<Tabs>
+ <Tab value='निकालें कमांड'>
+
+अपने घटकों को बदलने और सामग्री निकालने के लिए एक्सट्रैक्टर चलाएँ
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bunx intlayer extract
+```
+
+ </Tab>
+ <Tab value='बैबेल कंपाइलर'>
+
+intlayerCompiler प्लगइन शामिल करने के लिए अपनी `vite.config.ts` अपडेट करें:
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // कंपाइलर प्लगइन जोड़ता है
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # या npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # Or pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Or yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
 
 ### आगे बढ़ें
 

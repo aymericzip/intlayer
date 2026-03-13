@@ -98,7 +98,7 @@ export const intlayerExtractBabelPlugin = (_babel: {
               content: Record<string, string>;
             }) => {
               if (opts.onExtract) {
-                void opts.onExtract({
+                opts.onExtract({
                   dictionaryKey: extractResult.key,
                   filePath: filename,
                   content: extractResult.content,
@@ -132,9 +132,12 @@ export const intlayerExtractBabelPlugin = (_babel: {
               { level: 'debug' }
             );
           } catch (error) {
-            console.error(
-              `[intlayer] Failed to parse transformed code for ${filename}:`,
-              error
+            appLogger(
+              [
+                `Failed to parse transformed code for ${colorizePath(relative(opts.configuration.system.baseDir, filename))}:`,
+                error,
+              ],
+              { level: 'error' }
             );
           }
         },

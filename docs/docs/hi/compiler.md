@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-03-10
+updatedAt: 2026-03-12
 title: Intlayer Compiler | i18n के लिए स्वचालित सामग्री निष्कर्षण
 description: Intlayer Compiler के साथ अपने अंतरराष्ट्रीयकरण प्रक्रिया को स्वचालित करें। Vite, Next.js, और अन्य में तेज़, अधिक कुशल i18n के लिए सीधे अपने कंपोनेंट्स से सामग्री निकालें।
 keywords:
@@ -149,73 +149,85 @@ module.exports = {
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
+</Tabs>
 
 ### कस्टम कॉन्फ़िगरेशन
 
 कंपाइलर व्यवहार को अनुकूलित करने के लिए, आप अपने प्रोजेक्ट के रूट में `intlayer.config.ts` फ़ाइल को अपडेट कर सकते हैं।
 
-```ts fileName="intlayer.config.ts"
+````ts fileName="intlayer.config.ts"
 import { type IntlayerConfig, Locales } from "intlayer";
 
 const config: IntlayerConfig = {
   compiler: {
     /**
+     * इंगित करता है कि क्या कंपाइलर सक्षम होना चाहिए।
      * विकास के दौरान कंपाइलर को छोड़ने और स्टार्टअप समय को तेज करने के लिए 'build-only' पर सेट करें।
      */
     enabled: true,
 
     /**
-     * Pattern to traverse the code to optimize.
+     * आउटपुट फ़ाइल पथ को परिभाषित करता है। `outputDir` को प्रतिस्थापित करता है।
+     *
+     * - `./` पथ घटक निर्देशिका के सापेक्ष हल किए जाते हैं।
+     * - `/` पथ प्रोजेक्ट रूट (`baseDir`) के सापेक्ष हल किए जाते हैं।
+     *
+     * - पथ में `{{locale}}` चर डालने से भाषा द्वारा अलग किए गए शब्दकोश निर्माण सक्षम हो जाएंगे।
+     *
+     * उदाहरण:
+     * ```ts
+     * {
+     *   // घटक के बगल में बहुभाषी .content.ts फ़ाइलें बनाएँ
+     *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
+     *
+     *   // output: './{{fileName}}{{extension}}', // स्ट्रिंग टेम्प्लेट का उपयोग करके समकक्ष
+     * }
+     * ```
+     *
+     * ```ts
+     * {
+     *   // प्रोजेक्ट रूट पर भाषा द्वारा केंद्रीकृत JSON फ़ाइलें बनाएँ
+     *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+     *
+     *   // output: '/locales/{{locale}}/{{key}}.content.json', // स्ट्रिंग टेम्प्लेट का उपयोग करके समकक्ष
+     * }
+     * ```
+     *
+     * चर सूची:
+     *   - `fileName`: फ़ाइल का नाम।
+     *   - `key`: सामग्री की कुंजी।
+     *   - `locale`: सामग्री का स्थानीय मान (लोकल)।
+     *   - `extension`: फ़ाइल एक्सटेंशन।
+     *   - `componentFileName`: घटक फ़ाइल का नाम।
+     *   - `componentExtension`: घटक फ़ाइल एक्सटेंशन।
+     *   - `format`: शब्दकोश प्रारूप।
+     *   - `componentFormat`: घटक शब्दकोश प्रारूप।
+     *   - `componentDirPath`: घटक निर्देशिका पथ।
      */
-    transformPattern: [
-      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
-      "!**/node_modules/**",
-    ],
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
 
     /**
-     * Pattern to exclude from the optimization.
+     * इंगित करता है कि क्या घटकों को रूपांतरित होने के बाद सहेजा जाना चाहिए।
+     * इस तरह, कंपाइलर को ऐप को रूपांतरित करने के लिए केवल एक बार चलाया जा सकता है, और फिर इसे हटाया जा सकता है।
      */
-    excludePattern: ["**/node_modules/**"],
+    saveComponents: false,
 
     /**
-     * अनुकूलित शब्दकोशों के लिए आउटपुट निर्देशिका।
-     */
-    output: ({ key }) => `compiler/${key}.content.json`,
-
-    /**
-     * उत्पन्न फ़ाइल में केवल सामग्री डालें, बिना कुंजी के।
+     * उत्पन्न फ़ाइल में केवल सामग्री डालें। i18next या ICU MessageFormat JSON आउटपुट प्रति लोकल के लिए उपयोगी।
+     *
+     * - `output: ({ locale, key }) => `./locale/${locale}/${key}.json`,`
      */
     noMetadata: false,
 
     /**
      * शब्दकोश कुंजी उपसर्ग
      */
-    dictionaryKeyPrefix: "", // Remove base prefix
-
-    /**
-     * इंगित करता है कि क्या घटकों को रूपांतरित होने के बाद सहेजा जाना चाहिए।
-     * इस तरह, कंपाइलer को ऐप को रूपांतरित करने के लिए केवल एक बार चलाया जा सकता है, और फिर इसे हटाया जा सकता है।
-     */
-    saveComponents: false,
+    dictionaryKeyPrefix: "", // निकाली गई शब्दकोश कुंजियों के लिए वैकल्पिक उपसर्ग जोड़ें
   },
 };
 
 export default config;
-```
-
-### लापता अनुवाद भरें
-
-Intlayer अनुवादों को भरने में आपकी सहायता के लिए एक CLI टूल प्रदान करता है। आप अपने कोड से लापता अनुवादों का परीक्षण करने और उन्हें भरने के लिए `intlayer` कमांड का उपयोग कर सकते हैं।
-
-```bash
-npx intlayer test         # परीक्षण करें कि क्या कोई अनुवाद लापता है
-```
-
-```bash
-npx intlayer fill         # लापता अनुवाद भरें
-```
-
-> अधिक विवरण के लिए, [CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/ci.md) देखें।
+````
 
 ### कंपाइलर कॉन्फ़िगरेशन संदर्भ
 
@@ -225,36 +237,37 @@ npx intlayer fill         # लापता अनुवाद भरें
   - _प्रकार_: `boolean | 'build-only'`
   - _डिफ़ॉल्ट_: `true`
   - _विवरण_: इंगित करता है कि क्या कंपाइलर सक्षम होना चाहिए।
+
 - **dictionaryKeyPrefix**:
   - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `'comp-'`
+  - _डिफ़ॉल्ट_: `''`
   - _विवरण_: निकाली गई शब्दकोश कुंजियों के लिए उपसर्ग।
+
 - **transformPattern**:
   - _प्रकार_: `string | string[]`
   - _डिफ़ॉल्ट_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}', '!**/node_modules/**']`
-  - _विवरण_: ऑप्टिमाइज़ करने के लिए कोड को पार करने के पैटर्न।
+  - _विवरण_: (पुराना (Deprecated): इसके बजाय `build.traversePattern` का उपयोग करें) ऑप्टिमाइज़ करने के लिए कोड को पार करने के पैटर्न।
+
 - **excludePattern**:
   - _प्रकार_: `string | string[]`
   - _डिफ़ॉल्ट_: `['**/node_modules/**']`
-  - _विवरण_: ऑप्टिमाइज़ेशन से बाहर रखने के पैटर्न।
-- **outputDir** (Deprecated):
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `'compiler'`
-  - _विवरण_: वह निर्देशिका जहाँ निकाली गई शब्दकोश सामग्री संग्रहीत की जाएगी।
+  - _विवरण_: (पुराना (Deprecated): इसके बजाय `build.traversePattern` का उपयोग करें) ऑप्टिमाइज़ेशन से बाहर रखने के पैटर्न।
 
 - **output**:
   - _प्रकार_: `FilePathPattern`
   - _डिफ़ॉल्ट_: `({ key }) => 'compiler/${key}.content.json'`
   - _विवरण_: आउटपुट फ़ाइल पथ को परिभाषित करता है। `outputDir` को प्रतिस्थापित करता है। `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, और `{{componentFormat}}` जैसे गतिशील चरों को संभालता है। इसे `'my/{{var}}/path'` प्रारूप का उपयोग करके एक स्ट्रिंग के रूप में, या एक फ़ंक्शन के रूप में सेट किया जा सकता है।
   - _नोट_: `./**/*` पथ घटक के सापेक्ष हल किए जाते हैं। `/**/*` पथ Intlayer `baseDir` के सापेक्ष हल किए जाते हैं।
+  - _नोट_: यदि पथ में लोकेल (locale) परिभाषित है, तो शब्दकोश लोकेल द्वारा उत्पन्न किए जाएंगे।
   - _उदाहरण_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
 
 - **noMetadata**:
   - _प्रकार_: `boolean`
   - _डिफ़ॉल्ट_: `false`
-  - _विवरण_: इंगित करता है कि फ़ाइल में मेटाडेटा सहेजा जाना चाहिए या नहीं। यदि सही है, तो कंपाइलर शब्दकोशों (कुंजी, सामग्री रैपर) के मेटाडेटा को नहीं बचाएगा।
+  - _विवरण_: इंगित करता है कि फ़ाइल में मेटाडेटा सहेजा जाना चाहिए या नहीं। यदि सही है, तो कंपाइलर शब्दकोशों (कुंजी, सामग्री रैपर) के मेटाडेटा को नहीं बचाएगा। प्रति-लोकल i18next या ICU MessageFormat JSON आउटपुट के लिए उपयोगी।
   - _नोट_: `loadJSON` प्लगइन के साथ उपयोग किए जाने पर उपयोगी।
-  - _उदाहरण_: यदि `सही` है:
+  - _उदाहरण_:
+    यदि `सही` है:
     ```json
     {
       "key": "value"
@@ -274,3 +287,25 @@ npx intlayer fill         # लापता अनुवाद भरें
   - _प्रकार_: `boolean`
   - _डिफ़ॉल्ट_: `false`
   - _विवरण_: इंगित करता है कि क्या घटकों को रूपांतरित होने के बाद सहेजा जाना चाहिए।
+
+### लापता अनुवाद भरें
+
+Intlayer अनुवादों को भरने में आपकी सहायता के लिए एक CLI टूल प्रदान करता है। आप अपने कोड से लापता अनुवादों का परीक्षण करने और उन्हें भरने के लिए `intlayer` कमांड का उपयोग कर सकते हैं।
+
+```bash
+npx intlayer test         # परीक्षण करें कि क्या कोई अनुवाद लापता है
+```
+
+```bash
+npx intlayer fill         # लापता अनुवाद भरें
+```
+
+### निष्कर्षण
+
+Intlayer आपके कोड से सामग्री निकालने के लिए एक CLI टूल प्रदान करता है। आप अपने कोड से सामग्री निकालने के लिए `intlayer extract` कमांड का उपयोग कर सकते हैं।
+
+```bash
+npx intlayer extract
+```
+
+> अधिक विवरण के लिए, [CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md) देखें।

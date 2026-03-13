@@ -25,7 +25,6 @@ const config: IntlayerConfig = {
   },
   compiler: {
     enabled: true,
-    outputDir: './compiler',
   },
 };
 

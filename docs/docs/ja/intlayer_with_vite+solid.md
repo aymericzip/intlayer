@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-12-30
+updatedAt: 2026-03-12
 title: Vite + Solid i18n - Solidアプリの翻訳方法 2026
 description: Vite と Solid のウェブサイトを多言語対応にする方法を紹介します。国際化（i18n）と翻訳のドキュメントに従ってください。
 keywords:
@@ -45,7 +45,7 @@ history:
   </Tab>
 </Tabs>
 
-## Table of Contents
+## 目次
 
 <TOC/>
 
@@ -68,7 +68,7 @@ Intlayerを使うと、以下が可能です：
 
 ## ViteとSolidアプリケーションでIntlayerをセットアップするステップバイステップガイド
 
-## Table of Contents
+## 目次
 
 <TOC/>
 
@@ -603,6 +603,162 @@ Intlayerでの開発体験を向上させるために、公式の**Intlayer VS C
 拡張機能の使い方の詳細については、[Intlayer VS Code 拡張機能のドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
 
 ---
+
+### (オプション) ステップ 1 : コンポーネントのコンテンツを抽出する
+
+既存のコードベースがある場合、数千のファイルを変換するのは時間がかかることがあります。
+
+このプロセスを容易にするために、Intlayerは、コンポーネントを変換しコンテンツを抽出するための [コンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) / [エクストラクタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md) を提案しています。
+
+セットアップするには、`intlayer.config.ts` ファイルに `compiler` セクションを追加します。
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... 他の構成
+  compiler: {
+    /**
+     * コンパイラを有効にするかどうかを指定します。
+     */
+    enabled: true,
+
+    /**
+     * 出力ファイルのパスを定義します。
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * 変換後にコンポーネントを保存するかどうかを指定します。これにより、コンパイラを一度だけ実行してアプリを変換し、その後削除することができます。
+     */
+    saveComponents: false,
+
+    /**
+     * 辞書キーの接頭辞
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... 他の構成
+  compiler: {
+    /**
+     * コンパイラを有効にするかどうかを指定します。
+     */
+    enabled: true,
+
+    /**
+     * 出力ファイルのパスを定義します。
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * 変換後にコンポーネントを保存するかどうかを指定します。これにより、コンパイラを一度だけ実行してアプリを変換し、その後削除することができます。
+     */
+    saveComponents: false,
+
+    /**
+     * 辞書キーの接頭辞
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... 他の構成
+  compiler: {
+    /**
+     * コンパイラを有効にするかどうかを指定します。
+     */
+    enabled: true,
+
+    /**
+     * 出力ファイルのパスを定義します。
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * 変換後にコンポーネントを保存するかどうかを指定します。これにより、コンパイラを一度だけ実行してアプリを変換し、その後削除することができます。
+     */
+    saveComponents: false,
+
+    /**
+     * 辞書キーの接頭辞
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+module.exports = config;
+```
+
+<Tabs>
+ <Tab value='抽出コマンド'>
+
+コンポーネントを変換してコンテンツを抽出するためにエクストラクタを実行します
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bunx intlayer extract
+```
+
+ </Tab>
+ <Tab value='Babelコンパイラ'>
+
+`vite.config.ts` を更新して `intlayerCompiler` プラグインを含めます。
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // コンパイラプラグインを追加します
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # または npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # または pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # または yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
 
 ### さらに進むために
 

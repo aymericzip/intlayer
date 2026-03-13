@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-03-10
+updatedAt: 2026-03-12
 title: Intlayer Compiler | Extracción Automática de Contenido para i18n
 description: Automatiza tu proceso de internacionalización con el Intlayer Compiler. Extrae contenido directamente de tus componentes para una i18n más rápida y eficiente en Vite, Next.js y más.
 keywords:
@@ -149,73 +149,85 @@ Esta configuración asegura que el contenido declarado en tus componentes se ext
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
+</Tabs>
 
 ### Configuración personalizada
 
 Para personalizar el comportamiento del compilador, puedes actualizar el archivo `intlayer.config.ts` en la raíz de tu proyecto.
 
-```ts fileName="intlayer.config.ts"
+````ts fileName="intlayer.config.ts"
 import { type IntlayerConfig, Locales } from "intlayer";
 
 const config: IntlayerConfig = {
   compiler: {
     /**
+     * Indica si el compilador debe estar habilitado.
      * Establécelo en 'build-only' para omitir el compilador durante el desarrollo y acelerar los tiempos de inicio.
      */
     enabled: true,
 
     /**
-     * Patrón para recorrer el código a optimizar.
+     * Define la ruta de los archivos de salida. Reemplaza `outputDir`.
+     *
+     * - Las rutas `./` se resuelven de forma relativa al directorio del componente.
+     * - Las rutas `/` se resuelven de forma relativa a la raíz del proyecto (`baseDir`).
+     *
+     * - Incluir la variable `{{locale}}` en la ruta activará la generación de diccionarios separados por locale.
+     *
+     * Ejemplo:
+     * ```ts
+     * {
+     *   // Crear archivos .content.ts multilingües cerca del componente
+     *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
+     *
+     *   // output: './{{fileName}}{{extension}}', // Equivalente usando una cadena de plantilla
+     * }
+     * ```
+     *
+     * ```ts
+     * {
+     *   // Crear JSON centralizados por locale en la raíz del proyecto
+     *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+     *
+     *   // output: '/locales/{{locale}}/{{key}}.content.json', // Equivalente usando una cadena de plantilla
+     * }
+     * ```
+     *
+     * Lista de variables:
+     *   - `fileName`: El nombre del archivo.
+     *   - `key`: La clave del contenido.
+     *   - `locale`: El locale del contenido.
+     *   - `extension`: La extensión del archivo.
+     *   - `componentFileName`: El nombre del archivo del componente.
+     *   - `componentExtension`: La extensión del archivo del componente.
+     *   - `format`: El formato del diccionario.
+     *   - `componentFormat`: El formato del diccionario del componente.
+     *   - `componentDirPath`: La ruta del directorio del componente.
      */
-    transformPattern: [
-      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
-      "!**/node_modules/**",
-    ],
-
-    /**
-     * Patrón a excluir de la optimización.
-     */
-    excludePattern: ["**/node_modules/**"],
-
-    /**
-     * Directorio de salida para los diccionarios optimizados.
-     */
-    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
-
-    /**
-     * Inserta solo el contenido en el archivo generado, sin clave.
-     */
-    noMetadata: false,
-
-    /**
-     * Prefijo de clave de diccionario
-     */
-    dictionaryKeyPrefix: "", // Eliminar el prefijo base
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
 
     /**
      * Indica si los componentes deben guardarse después de ser transformados.
      * De esta manera, el compilador puede ejecutarse una sola vez para transformar la aplicación y luego puede eliminarse.
      */
     saveComponents: false,
+
+    /**
+     * Insertar solo contenido en el archivo generado, útil para salidas JSON de i18next o ICU MessageFormat por locale.
+     *
+     * - `output: ({ locale, key }) => `./locale/${locale}/${key}.json`,`
+     */
+    noMetadata: false,
+
+    /**
+     * Prefijo de clave de diccionario
+     */
+    dictionaryKeyPrefix: "", // Añadir un prefijo opcional para las claves de diccionario extraídas
   },
 };
 
 export default config;
-```
-
-### Rellenar traducciones faltantes
-
-Intlayer proporciona una herramienta CLI para ayudarte a rellenar las traducciones faltantes. Puedes usar el comando `intlayer` para probar y rellenar las traducciones faltantes de tu código.
-
-```bash
-npx intlayer test         # Probar si faltan traducciones
-```
-
-```bash
-npx intlayer fill         # Rellenar traducciones faltantes
-```
-
-> Para más detalles, consulta la [documentación de la CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/ci.md)
+````
 
 ### Referencia de configuración del compilador
 
@@ -225,36 +237,37 @@ Las siguientes propiedades pueden configurarse en el bloque `compiler` de tu arc
   - _Tipo_: `boolean | 'build-only'`
   - _Por defecto_: `true`
   - _Descripción_: Indica si el compilador debe estar habilitado.
+
 - **dictionaryKeyPrefix**:
   - _Tipo_: `string`
-  - _Por defecto_: `'comp-'`
+  - _Por defecto_: `''`
   - _Descripción_: Prefijo para las claves de diccionario extraídas.
+
 - **transformPattern**:
   - _Tipo_: `string | string[]`
   - _Por defecto_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}', '!**/node_modules/**']`
-  - _Descripción_: Patrones para recorrer el código a optimizar.
+  - _Descripción_: (Obsoleto: usa `build.traversePattern` en su lugar) Patrones para recorrer el código a optimizar.
+
 - **excludePattern**:
   - _Tipo_: `string | string[]`
   - _Por defecto_: `['**/node_modules/**']`
-  - _Descripción_: Patrones para excluir de la optimización.
-- **outputDir** (Deprecated):
-  - _Tipo_: `string`
-  - _Por defecto_: `'compiler'`
-  - _Descripción_: El directorio donde se almacenarán los diccionarios extraídos.
+  - _Descripción_: (Obsoleto: usa `build.traversePattern` en su lugar) Patrones para excluir de la optimización.
 
 - **output**:
-  - _Type_: `FilePathPattern`
+  - _Tipo_: `FilePathPattern`
   - _Por defecto_: `({ key }) => 'compiler/${key}.content.json'`
   - _Descripción_: Define la ruta de los archivos de salida. Reemplaza `outputDir`. Maneja variables dinámicas como `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{componentFormat}}`. Se puede configurar como una cadena usando el formato `'my/{{var}}/path'` o como una función.
-  - _Nota_: `./**/*` Los caminos se resuelven de forma relativa al componente. `/**/*` los caminos se resuelven de forma relativa al `baseDir` de Intlayer.
+  - _Nota_: `./**/*` Las rutas se resuelven de forma relativa al componente. `/**/*` las rutas se resuelven de forma relativa al `baseDir` de Intlayer.
+  - _Note_: Si el locale se establece en la ruta, generará diccionarios por locale.
   - _Ejemplo_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
 
 - **noMetadata**:
   - _Tipo_: `boolean`
   - _Por defecto_: `false`
-  - _Descripción_: Indica si los metadatos deben guardarse en el archivo. Si es verdadero, el compilador no guardará los metadatos de los diccionarios (clave, contenedor de contenido).
+  - _Descripción_: Indica si los metadatos deben guardarse en el archivo. Si es verdadero, el compilador no guardará los metadatos de los diccionarios (clave, contenedor de contenido). Útil para las salidas JSON de i18next o ICU MessageFormat por locale.
   - _Nota_: Útil si se usa con el plugin `loadJSON`.
-  - _Ejemplo_: Si es `true`:
+  - _Ejemplo_:
+    Si es `true`:
     ```json
     {
       "key": "value"
@@ -274,3 +287,25 @@ Las siguientes propiedades pueden configurarse en el bloque `compiler` de tu arc
   - _Tipo_: `boolean`
   - _Por defecto_: `false`
   - _Descripción_: Indica si los componentes deben guardarse después de ser transformados.
+
+### Rellenar traducciones faltantes
+
+Intlayer proporciona una herramienta CLI para ayudarte a rellenar las traducciones faltantes. Puedes usar el comando `intlayer` para probar y rellenar las traducciones faltantes de tu código.
+
+```bash
+npx intlayer test         # Probar si faltan traducciones
+```
+
+```bash
+npx intlayer fill         # Rellenar traducciones faltantes
+```
+
+### Extracción
+
+Intlayer proporciona una herramienta CLI para extraer contenido de tu código. Puedes usar el comando `intlayer extract` para extraer contenido de tu código.
+
+```bash
+npx intlayer extract
+```
+
+> Para más detalles, consulta la [documentación de la CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/index.md)

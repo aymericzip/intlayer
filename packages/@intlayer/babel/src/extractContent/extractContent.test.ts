@@ -48,6 +48,10 @@ import {
 } from 'node:fs';
 import { getConfiguration } from '@intlayer/config/node';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
+import {
+  mergeWithExistingMultilingualDictionary,
+  mergeWithExistingPerLocaleDictionary,
+} from './contentWriter';
 import { extractContent } from './extractContent';
 
 const tmpDir = join(process.cwd(), 'tmp_test_extract_advanced');
@@ -544,6 +548,127 @@ export const routes = {
       expect(updatedCode).toContain("useIntlayer('xxxx')");
       expect(updatedCode).toContain('<div>{content.newTextToExtract}</div>');
     });
+
+    it('should use the actual variable name when it differs from "content"', async () => {
+      const componentPath = join(tmpDir, 'AliasedVar.tsx');
+      const componentCode = `
+      import { useIntlayer } from 'react-intlayer';
+      export const AliasedVar = () => {
+        const t = useIntlayer('my-page');
+        return <div>New text to extract</div>;
+      };
+    `;
+
+      writeFileSync(componentPath, componentCode);
+      await extractContent(componentPath, 'react-intlayer', { codeOnly: true });
+
+      const updatedCode = readFileSync(componentPath, 'utf-8');
+
+      // Should reference 't.newTextToExtract', not 'content.newTextToExtract'
+      expect(updatedCode).toContain("useIntlayer('my-page')");
+      expect(updatedCode).toContain('<div>{t.newTextToExtract}</div>');
+      expect(updatedCode).not.toContain('content.newTextToExtract');
+    });
+
+    it('should use the actual variable name for getIntlayer calls aliased to non-"content"', async () => {
+      const componentPath = join(tmpDir, 'AliasedGetIntlayer.ts');
+      const componentCode = `
+      import { getIntlayer } from 'intlayer';
+      export const generateMetadata = async ({ locale }: { locale: string }) => {
+        const t = getIntlayer('locale-metadata', locale);
+        return { title: "New Title" };
+      };
+    `;
+
+      writeFileSync(componentPath, componentCode);
+      await extractContent(componentPath, 'next-intlayer', { codeOnly: true });
+
+      const updatedCode = readFileSync(componentPath, 'utf-8');
+
+      // Should reference 't.newTitle', not 'content.newTitle'
+      expect(updatedCode).toContain("getIntlayer('locale-metadata'");
+      expect(updatedCode).toContain('t.newTitle');
+      expect(updatedCode).not.toContain('content.newTitle');
+    });
+
+    it('should add missing keys to existing destructured getIntlayer call', async () => {
+      const componentPath = join(tmpDir, 'DestructuredGetIntlayer.ts');
+      const componentCode = `
+import { getIntlayer } from 'intlayer';
+export const generateMetadata = async ({ locale }: { locale: string }) => {
+  const { title, description } = getIntlayer('page-meta', locale);
+  return { title, description, author: "Aymeric Pineau" };
+};
+`;
+
+      writeFileSync(componentPath, componentCode);
+      // codeOnly: true skips content-file writing (avoids missing compiler.output config)
+      await extractContent(componentPath, 'next-intlayer', { codeOnly: true });
+
+      const updatedCode = readFileSync(componentPath, 'utf-8');
+
+      // Missing key 'aymericPineau' should be added to the existing destructuring
+      expect(updatedCode).toMatch(
+        /\{\s*title,\s*description,\s*aymericPineau\s*\}/
+      );
+      // The string should be replaced with the bare key name (no 'content.' prefix)
+      expect(updatedCode).toContain('author: aymericPineau');
+      // No duplicate getIntlayer call should be injected
+      const callCount = (updatedCode.match(/getIntlayer\(/g) ?? []).length;
+      expect(callCount).toBe(1);
+    });
+
+    it('should add missing keys to existing destructured useIntlayer call', async () => {
+      const componentPath = join(tmpDir, 'DestructuredUseIntlayer.tsx');
+      const componentCode = `
+import { useIntlayer } from 'react-intlayer';
+export const MyComponent = () => {
+  const { title } = useIntlayer('my-page');
+  return (
+    <div>
+      <h1>{title}</h1>
+      <p>New paragraph text</p>
+    </div>
+  );
+};
+`;
+
+      writeFileSync(componentPath, componentCode);
+      await extractContent(componentPath, 'react-intlayer', { codeOnly: true });
+
+      const updatedCode = readFileSync(componentPath, 'utf-8');
+
+      // 'newParagraphText' should be added to the existing destructuring
+      expect(updatedCode).toMatch(/\{\s*title,\s*newParagraphText\s*\}/);
+      // JSX text replaced with bare key name
+      expect(updatedCode).toContain('{newParagraphText}');
+      // No new useIntlayer call should be injected
+      const callCount = (updatedCode.match(/useIntlayer\(/g) ?? []).length;
+      expect(callCount).toBe(1);
+    });
+
+    it('should handle destructured call with trailing comma', async () => {
+      const componentPath = join(tmpDir, 'TrailingComma.ts');
+      const componentCode = `
+import { getIntlayer } from 'intlayer';
+export const trailingComma = (locale: string) => {
+  const { title, } = getIntlayer('page', locale);
+  return { title, author: "New Author Name" };
+};
+`;
+
+      writeFileSync(componentPath, componentCode);
+      await extractContent(componentPath, 'next-intlayer', { codeOnly: true });
+
+      const updatedCode = readFileSync(componentPath, 'utf-8');
+
+      // Key should be inserted without a double comma
+      expect(updatedCode).not.toMatch(/,\s*,/);
+      expect(updatedCode).toContain('newAuthorName');
+      // No duplicate call
+      const callCount = (updatedCode.match(/getIntlayer\(/g) ?? []).length;
+      expect(callCount).toBe(1);
+    });
   });
 
   describe('extractIntlayer - Key and Path Resolution', () => {
@@ -706,5 +831,63 @@ export function bar() {
       // Verify there is a newline between functions
       expect(updatedCode).toMatch(/\}\n\n\s*export function/);
     });
+  });
+});
+
+describe('mergeWithExistingMultilingualDictionary – insertion nodes', () => {
+  it('converts a string with {{vars}} to an insertion node (multilingual)', () => {
+    const result = mergeWithExistingMultilingualDictionary(
+      { helloName: 'Hello {{name}}!' },
+      null,
+      'en'
+    );
+    const node = result.helloName as any;
+    expect(node.nodeType).toBe('insertion');
+    expect(node.insertion.nodeType).toBe('translation');
+    expect(node.insertion.translation.en).toBe('Hello {{name}}!');
+    expect(node.fields).toEqual(['name']);
+  });
+
+  it('keeps plain strings as translation nodes (multilingual)', () => {
+    const result = mergeWithExistingMultilingualDictionary(
+      { hello: 'Hello World' },
+      null,
+      'en'
+    );
+    const node = result.hello as any;
+    expect(node.nodeType).toBe('translation');
+    expect(node.translation.en).toBe('Hello World');
+  });
+
+  it('extracts multiple variable fields from insertion string', () => {
+    const result = mergeWithExistingMultilingualDictionary(
+      { greeting: 'Hi {{name}}, you have {{count}} messages' },
+      null,
+      'en'
+    );
+    const node = result.greeting as any;
+    expect(node.nodeType).toBe('insertion');
+    expect(node.fields).toEqual(['name', 'count']);
+  });
+});
+
+describe('mergeWithExistingPerLocaleDictionary – insertion nodes', () => {
+  it('converts a string with {{vars}} to an insertion node (per-locale)', () => {
+    const result = mergeWithExistingPerLocaleDictionary(
+      { helloName: 'Hello {{name}}!' },
+      null
+    );
+    const node = result.helloName as any;
+    expect(node.nodeType).toBe('insertion');
+    expect(node.insertion).toBe('Hello {{name}}!');
+    expect(node.fields).toEqual(['name']);
+  });
+
+  it('keeps plain strings as-is (per-locale)', () => {
+    const result = mergeWithExistingPerLocaleDictionary(
+      { hello: 'Hello World' },
+      null
+    );
+    expect(result.hello).toBe('Hello World');
   });
 });

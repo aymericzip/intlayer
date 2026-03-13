@@ -11,7 +11,26 @@ import { insertContentInDictionary } from '@intlayer/core/plugins';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary, DictionaryKey } from '@intlayer/types/dictionary';
+import { NodeType } from '@intlayer/types/nodeType';
 import { resolveContentFilePaths } from './utils/extractDictionaryInfo';
+
+const hasInsertionVars = (str: string): boolean => /\{\{[^}]+\}\}/.test(str);
+
+const getInsertionFields = (template: string): string[] => {
+  const fields: string[] = [];
+  const regex = /\{\{([^}]+)\}\}/g;
+  let match: RegExpExecArray | null;
+  for (
+    let result = regex.exec(template);
+    result !== null;
+    result = regex.exec(template)
+  ) {
+    match = result;
+    const field = match[1].trim();
+    if (!fields.includes(field)) fields.push(field);
+  }
+  return fields;
+};
 
 /**
  * Translation node structure used in dictionaries
@@ -64,6 +83,21 @@ export const mergeWithExistingMultilingualDictionary = (
     finalContent[key] = mergedContent[key];
   }
 
+  // Promote any key whose source text contains {{vars}} to an insertion node
+  for (const key in extractedContent) {
+    const rawValue = extractedContent[key];
+    if (typeof rawValue === 'string' && hasInsertionVars(rawValue)) {
+      const node = finalContent[key] as any;
+      if (node && node.nodeType === NodeType.Translation) {
+        (finalContent as any)[key] = {
+          nodeType: NodeType.Insertion,
+          [NodeType.Insertion]: node,
+          fields: getInsertionFields(rawValue),
+        };
+      }
+    }
+  }
+
   return finalContent;
 };
 
@@ -96,6 +130,21 @@ export const mergeWithExistingPerLocaleDictionary = (
   const finalContent: Record<string, string> = {};
   for (const key in extractedContent) {
     finalContent[key] = mergedContent[key];
+  }
+
+  // Promote any key whose source text contains {{vars}} to an insertion node
+  for (const key in extractedContent) {
+    const rawValue = extractedContent[key];
+    if (typeof rawValue === 'string' && hasInsertionVars(rawValue)) {
+      const currentVal = finalContent[key];
+      if (typeof currentVal === 'string') {
+        (finalContent as any)[key] = {
+          nodeType: NodeType.Insertion,
+          [NodeType.Insertion]: currentVal,
+          fields: getInsertionFields(rawValue),
+        };
+      }
+    }
   }
 
   return finalContent;

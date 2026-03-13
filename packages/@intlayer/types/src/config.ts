@@ -603,7 +603,7 @@ export type CompilerConfig = {
 
   /**
    * Prefix for the extracted dictionary keys.
-   * Default: 'comp-'
+   * Default: ''
    */
   dictionaryKeyPrefix?: string;
 
@@ -639,36 +639,42 @@ export type CompilerConfig = {
   excludePattern?: string | string[];
 
   /**
-   * Output directory for the optimized dictionaries.
-   *
-   * Default: 'compiler'
-   *
-   * The directory where the optimized dictionaries will be stored.
-   *
-   * @deprecated use `output` instead
-   */
-  outputDir?: string;
-
-  /**
    * Defines the output files path. Replaces `outputDir`.
-   * Handles the extensions via the {{extension}} variable.
    *
-   * Default:
-   * ```ts
-   * ({ key }) => `compiler/${key}.json`
-   * ```
+   * - `./` paths are resolved relative to the component directory.
+   * - `/` paths are resolved relative to the project root (`baseDir`).
+   *
+   * - Including the `{{locale}}` variable in the path will trigger the generation of separate dictionaries per locale.
    *
    * Example:
    * ```ts
    * {
-   *   output: ({ key, fileName, extension, locale }) => `compiler/${locale}/${key}/${fileName}.${extension}`,
+   *   // Create Multilingual .content.ts files close to the component
+   *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
+   *
+   *   // output: './{{fileName}}{{extension}}', // Equivalent using template string
    * }
    * ```
-   * ```js
+   *
+   * ```ts
    * {
-   *   output: 'compiler/{{locale}}/{{key}}/{{fileName}}.{{extension}}',
+   *   // Create centralize per-locale JSON at the root of the project
+   *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+   *
+   *   // output: '/locales/{{locale}}/{{key}}.content.json', // Equivalent using template string
    * }
    * ```
+   *
+   * Variable list:
+   *   - `fileName`: The name of the file.
+   *   - `key`: The key of the content.
+   *   - `locale`: The locale of the content.
+   *   - `extension`: The extension of the file.
+   *   - `componentFileName`: The name of the component file.
+   *   - `componentExtension`: The extension of the component file.
+   *   - `format`: The format of the dictionary.
+   *   - `componentFormat`: The format of the component dictionary.
+   *   - `componentDirPath`: The directory path of the component.
    */
   output?: FilePathPattern;
 
@@ -792,10 +798,116 @@ export type CustomIntlayerConfig = {
 };
 
 export type DictionaryConfig = {
+  /**
+   * Indicate how the dictionary should be filled using AI.
+   *
+   * Default: `true`
+   *
+   * - If `true`, will consider the `compiler.output` field.
+   * - If `false`, will skip the fill process.
+   *
+   * - `./` paths are resolved relative to the component directory.
+   * - `/` paths are resolved relative to the project root (`baseDir`).
+   *
+   * - If includes `{{locale}}` variable in the path, will trigger the generation of separate dictionaries per locale.
+   *
+   * Example:
+   * ```ts
+   * {
+   *   // Create Multilingual .content.ts files close to the component
+   *   fill: ({ fileName, extension }) => `./${fileName}${extension}`,
+   *
+   *   // fill: './{{fileName}}{{extension}}', // Equivalent using template string
+   * }
+   * ```
+   *
+   * ```ts
+   * {
+   *   // Create centralize per-locale JSON at the root of the project
+   *   fill: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+   *
+   *   // fill: '/locales/{{locale}}/{{key}}.content.json', // Equivalent using template string
+   * }
+   * ```
+   *
+   * ```ts
+   * {
+   *   // Create custom output based on the locale
+   *   fill: {
+   *     en: ({ key }) => `/locales/en/${key}.content.json`,
+   *     fr: '/locales/fr/{{key}}.content.json',
+   *     es: false,
+   *     de: true,
+   *   },
+   * }
+   * ```
+   *
+   *
+   * Variable list:
+   *   - `fileName`: The name of the file.
+   *   - `key`: The key of the content.
+   *   - `locale`: The locale of the content.
+   *   - `extension`: The extension of the file.
+   *   - `componentFileName`: The name of the component file.
+   *   - `componentExtension`: The extension of the component file.
+   *   - `format`: The format of the dictionary.
+   *   - `componentFormat`: The format of the component dictionary.
+   *   - `componentDirPath`: The directory path of the component.
+   */
   fill?: Fill;
+  /**
+   * The description of the dictionary. Helps to understand the purpose of the dictionary in the editor, and the CMS.
+   * The description is also used as context for translations generation.
+   *
+   * Example:
+   * ```ts
+   * {
+   *   "key": "about-page-meta",
+   *   "description":[
+   *     "This dictionary is manage the metadata of the About Page",
+   *     "Consider good practices for SEO:",
+   *     "- The title should be between 50 and 60 characters",
+   *     "- The description should be between 150 and 160 characters",
+   *   ].join('\n'),
+   *   "content": { ... }
+   * }
+   * ```
+   */
   description?: string;
+  /**
+   * Transform the dictionary in a per-locale dictionary.
+   * Each field declared in a per-locale dictionary will be transformed in a translation node.
+   * If missing, the dictionary will be treated as a multilingual dictionary.
+   * If declared, do not use translation nodes in the content.
+   *
+   * Example:
+   * ```json
+   * {
+   *   "key": "about-page",
+   *   "locale": "en",
+   *   "content": {
+   *     "multilingualContent": "English content"
+   *   }
+   * }
+   * ```
+   */
   locale?: LocalesValues;
+  /**
+   * Indicators if the content of the dictionary should be automatically transformed.
+   * If true, the content will be transformed to the corresponding node type.
+   * - Markdown: `### Title` -> `md('### Title')`
+   * - HTML: `<div>Title</div>` -> `html('<div>Title</div>')`
+   * - Insertion: `Hello {{name}}` -> `insert('Hello {{name}}')`
+   *
+   * If an object is provided, you can specify which transformations should be enabled.
+   *
+   * Default: false
+   */
   contentAutoTransformation?: ContentAutoTransformation;
+  /**
+   * Indicates the priority of the dictionary.
+   * In the case of conflicts, the dictionary with the highest priority will override the other dictionaries.
+   */
   priority?: number;
   /**
    * Indicates the mode of import to use for the dictionaries.
@@ -815,7 +927,7 @@ export type DictionaryConfig = {
    *
    * Note:
    * - Dynamic imports rely on Suspense and may slightly impact rendering performance.
-   * - If desabled all locales will be loaded at once, even if they are not used.
+   * - If disabled all locales will be loaded at once, even if they are not used.
    * - This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
    * - Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
    * - This option will be ignored if `optimize` is disabled.
@@ -824,9 +936,39 @@ export type DictionaryConfig = {
    * - Require static key to work. Example of invalid code: `const navbarKey = "my-key"; useIntlayer(navbarKey)`.
    */
   importMode?: 'static' | 'dynamic' | 'fetch';
+  /**
+   * The title of the dictionary. Helps to identify the dictionary in the editor, and the CMS.
+   *
+   * Example:
+   * ```json
+   * {
+   *   "key": "about-page-meta",
+   *   "title": "About Page",
+   *   "content": { ... }
+   * }
+   * ```
+   */
   title?: string;
+  /**
+   * Helps to categorize the dictionaries. The tags can provide more context and instructions for the dictionary.
+   *
+   * Example:
+   * ```json
+   * {
+   *   "key": "about-page-meta",
+   *   "tags": ["metadata","about-page"]
+   * }
+   * ```
+   */
   tags?: string[];
-  version?: string;
+  /**
+   * Indicates the location of the dictionary and controls how it synchronizes with the CMS.
+   *
+   * - 'hybrid': The dictionary is managed locally and remotely. Once pushed on the CMS, it will be synchronized from the local one. The local dictionary will be pulled from the CMS.
+   * - 'remote': The dictionary is managed remotely only. Once pushed on the CMS, it will be detached from the local one. At content load time, the remote dictionary will be pulled from the CMS. A '.content' file with remote location will be ignored.
+   * - 'local': The dictionary is managed locally. It will not be pushed to the remote CMS.
+   * - 'plugin' (or any custom string): The dictionary is managed by a plugin, or a custom source. When you will try to push it, the system will ask an action to the user.
+   */
   location?: DictionaryLocation;
 };
 

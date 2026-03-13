@@ -27,7 +27,6 @@ import {
   COMPILER_DICTIONARY_KEY_PREFIX,
   COMPILER_ENABLED,
   COMPILER_NO_METADATA,
-  COMPILER_OUTPUT,
   COMPILER_SAVE_COMPONENTS,
 } from '../defaultValues/compiler';
 import {
@@ -703,13 +702,42 @@ const buildCompilerFields = (
   excludePattern: customConfiguration?.excludePattern,
 
   /**
-   * Output directory for the optimized dictionaries.
-   * @deprecated use `output` instead
-   */
-  outputDir: customConfiguration?.outputDir,
-
-  /**
-   * File path pattern for generated dictionaries.
+   * Defines the output files path. Replaces `outputDir`.
+   *
+   * - `./` paths are resolved relative to the component directory.
+   * - `/` paths are resolved relative to the project root (`baseDir`).
+   *
+   * - Including the `{{locale}}` variable in the path will trigger the generation of separate dictionaries per locale.
+   *
+   * Example:
+   * ```ts
+   * {
+   *   // Create Multilingual .content.ts files close to the component
+   *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
+   *
+   *   // output: './{{fileName}}{{extension}}', // Equivalent using template string
+   * }
+   * ```
+   *
+   * ```ts
+   * {
+   *   // Create centralize per-locale JSON at the root of the project
+   *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+   *
+   *   // output: '/locales/{{locale}}/{{key}}.content.json', // Equivalent using template string
+   * }
+   * ```
+   *
+   * Variable list:
+   *   - `fileName`: The name of the file.
+   *   - `key`: The key of the content.
+   *   - `locale`: The locale of the content.
+   *   - `extension`: The extension of the file.
+   *   - `componentFileName`: The name of the component file.
+   *   - `componentExtension`: The extension of the component file.
+   *   - `format`: The format of the dictionary.
+   *   - `componentFormat`: The format of the component dictionary.
+   *   - `componentDirPath`: The directory path of the component.
    */
   output: customConfiguration?.output,
 
@@ -761,7 +789,58 @@ const buildDictionaryFields = (
     /**
      * Indicate how the dictionary should be filled using AI.
      *
-     * Default: true
+     * Default: `true`
+     *
+     * - If `true`, will consider the `compiler.output` field.
+     * - If `false`, will skip the fill process.
+     *
+     * - `./` paths are resolved relative to the component directory.
+     * - `/` paths are resolved relative to the project root (`baseDir`).
+     *
+     * - If includes `{{locale}}` variable in the path, will trigger the generation of separate dictionaries per locale.
+     *
+     * Example:
+     * ```ts
+     * {
+     *   // Create Multilingual .content.ts files close to the component
+     *   fill: ({ fileName, extension }) => `./${fileName}${extension}`,
+     *
+     *   // fill: './{{fileName}}{{extension}}', // Equivalent using template string
+     * }
+     * ```
+     *
+     * ```ts
+     * {
+     *   // Create centralize per-locale JSON at the root of the project
+     *   fill: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+     *
+     *   // fill: '/locales/{{locale}}/{{key}}.content.json', // Equivalent using template string
+     * }
+     * ```
+     *
+     * ```ts
+     * {
+     *   // Create custom output based on the locale
+     *   fill: {
+     *     en: ({ key }) => `/locales/en/${key}.content.json`,
+     *     fr: '/locales/fr/{{key}}.content.json',
+     *     es: false,
+     *     de: true,
+     *   },
+     * }
+     * ```
+     *
+     *
+     * Variable list:
+     *   - `fileName`: The name of the file.
+     *   - `key`: The key of the content.
+     *   - `locale`: The locale of the content.
+     *   - `extension`: The extension of the file.
+     *   - `componentFileName`: The name of the component file.
+     *   - `componentExtension`: The extension of the component file.
+     *   - `format`: The format of the dictionary.
+     *   - `componentFormat`: The format of the component dictionary.
+     *   - `componentDirPath`: The directory path of the component.
      */
     fill: customConfiguration?.fill ?? FILL,
 
@@ -824,11 +903,6 @@ const buildDictionaryFields = (
      * Default: 'static'
      */
     importMode: customConfiguration?.importMode ?? IMPORT_MODE,
-
-    /**
-     * The version of the dictionary.
-     */
-    version: customConfiguration?.version,
   };
 };
 

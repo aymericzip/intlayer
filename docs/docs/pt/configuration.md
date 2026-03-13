@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-03-11
+updatedAt: 2026-03-12
 title: Configuração
 description: Aprenda como configurar o Intlayer para sua aplicação. Entenda as várias configurações e opções disponíveis para personalizar o Intlayer conforme suas necessidades.
 keywords:
@@ -15,23 +15,32 @@ slugs:
   - configuration
 history:
   - version: 8.3.0
-    data: 2026-03-11
+    date: 2026-03-11
     changes: Mover 'baseDir' da configuração de 'content' para a configuração de 'system'
   - version: 8.2.0
-    date: 2026-03-10
+    date: 2026-03-09
     changes: Atualizar opções do compilador, adicionar suporte para 'output' e 'noMetadata'
   - version: 8.1.7
     date: 2026-02-25
     changes: Atualizar opções do compilador
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: Adicionado a opção do compilador 'build-only' e o prefixo do dicionário
   - version: 8.0.6
     date: 2026-02-12
     changes: Adicionar suporte para os provedores Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face e Together.ai
-  - version: 8.0.4
+  - version: 8.0.5
     date: 2026-02-06
     changes: Adicionar `dataSerialization` à configuração de IA
   - version: 8.0.0
+    date: 2026-01-24
+    changes: Renomear o modo de importação `live` para `fetch` para descrever melhor o mecanismo subjacente.
+  - version: 8.0.0
     date: 2026-01-22
-    changes: Mover a configuração de build importMode para a configuração do dicionário.
+    changes: Mover a configuração de build para `importMode` na configuração do dicionário.
+  - version: 8.0.0
+    date: 2026-01-22
+    changes: Adicionada a opção `rewrite` à configuração de roteamento
   - version: 8.0.0
     date: 2026-01-18
     changes: Separar a configuração do sistema da configuração do conteúdo. Mover os caminhos internos para a propriedade `system`. Adicionar `codeDir` para separar os arquivos de conteúdo da transformação do código.
@@ -44,6 +53,24 @@ history:
   - version: 7.5.0
     date: 2025-12-17
     changes: Adicionar opção `buildMode`
+  - version: 7.0.0
+    date: 2025-10-25
+    changes: Adicionada a configuração `dictionary`
+  - version: 7.0.0
+    date: 2025-10-21
+    changes: Substituído o `middleware` pela configuração `routing`
+  - version: 7.0.0
+    date: 2025-10-12
+    changes: Adicionada a opção `formatCommand`
+  - version: 6.2.0
+    date: 2025-10-12
+    changes: Atualizada a opção `excludedPath`
+  - version: 6.0.2
+    date: 2025-09-23
+    changes: Adicionada a opção `outputFormat`
+  - version: 6.0.0
+    date: 2025-09-21
+    changes: Removido o campo `dictionaryOutput` e o campo `i18nextResourcesDir`
   - version: 6.0.0
     date: 2025-09-16
     changes: Adicionado modo de importação `live`
@@ -92,7 +119,7 @@ O Intlayer aceita formatos de arquivos de configuração JSON, JS, MJS e TS:
 
 ## Exemplo de arquivo de configuração
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
@@ -190,7 +217,7 @@ const config: IntlayerConfig = {
      * Options: 'cookie', 'localStorage', 'sessionStorage', 'header', or an array of these.
      * Default: ['cookie', 'header']
      */
-    storage: "cookie",
+    storage: ["cookie", "header"],
 
     /**
      * Base path for the application URLs.
@@ -321,12 +348,23 @@ const config: IntlayerConfig = {
     /**
      * Global context to guide the AI in generating translations.
      */
-    applicationContext: "This is a travel booking application.",
+    applicationContext: "Esta é uma aplicação de reserva de viagens.",
 
     /**
      * Base URL for the AI API.
      */
     baseURL: "http://localhost:3000",
+
+    /**
+     * Serialização de dados
+     *
+     * Opções:
+     * - "json": Padrão, confiável; consome mais tokens.
+     * - "toon": Menos tokens, menos consistente que o JSON.
+     *
+     * Padrão: "json"
+     */
+    dataSerialization: "json",
   },
 
   /**
@@ -349,9 +387,9 @@ const config: IntlayerConfig = {
 
     /**
      * Output format for generated dictionary files.
-     * Default: ['esm', 'cjs']
+     * Default: ['cjs', 'esm']
      */
-    outputFormat: ["esm"],
+    outputFormat: ["cjs", "esm"],
 
     /**
      * Indicates if the build should check TypeScript types.
@@ -426,42 +464,70 @@ const config: IntlayerConfig = {
   compiler: {
     /**
      * Indica se o compilador deve ser habilitado.
+     *
+     * - false : Desabilita o compilador.
+     * - true : Habilita o compilador.
+     * - "build-only" : Ignora o compilador durante o desenvolvimento para acelerar os tempos de inicialização.
+     *
+     * Valor padrão : false
      */
     enabled: true,
 
     /**
-     * Pattern to traverse the code to optimize.
-     */
-    transformPattern: [
-      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
-      "!**/node_modules/**",
-    ],
-
-    /**
-     * Pattern to exclude from the optimization.
-     */
-    excludePattern: ["**/node_modules/**"],
-
-    /**
-     * Diretório de saída para os dicionários optimizados.
+     * Define o caminho dos arquivos de saída. Substitui `outputDir`.
+     *
+     * - Os caminhos `./` são resolvidos em relação ao diretório do componente.
+     * - Os caminhos `/` são resolvidos em relação à raiz do projeto (`baseDir`).
+     *
+     * - A inserção da variável `{{locale}}` no caminho ativará a geração de dicionários separados por idioma.
+     *
+     * Exemplo:
+     * ```ts
+     * {
+     *   // Cria arquivos .content.ts multilíngues próximos ao componente
+     *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
+     *
+     *   // output: './{{fileName}}{{extension}}', // Equivalente usando uma string template
+     * }
+     * ```
+     *
+     * ```ts
+     * {
+     *   // Cria arquivos JSON centralizados por idioma na raiz do projeto
+     *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+     *
+     *   // output: '/locales/{{locale}}/{{key}}.content.json', // Equivalente usando uma string template
+     * }
+     * ```
+     *
+     * Lista de variáveis:
+     *   - `fileName`: O nome do arquivo.
+     *   - `key`: A chave do conteúdo.
+     *   - `locale`: O idioma do conteúdo.
+     *   - `extension`: A extensão do arquivo.
+     *   - `componentFileName`: O nome do arquivo do componente.
+     *   - `componentExtension`: A extensão do arquivo do componente.
+     *   - `format`: O formato do dicionário.
+     *   - `componentFormat`: O formato do dicionário do componente.
+     *   - `componentDirPath`: O caminho do diretório do componente.
      */
     output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
-
-    /**
-     * Inserir apenas o conteúdo no arquivo gerado, sem chave.
-     */
-    noMetadata: false,
-
-    /**
-     * Prefixo da chave do dicionário
-     */
-    dictionaryKeyPrefix: "", // Remove base prefix
 
     /**
      * Indica se os componentes devem ser salvos após serem transformados.
      * Dessa forma, o compilador pode ser executado apenas uma vez para transformar o app e depois removido.
      */
     saveComponents: false,
+
+    /**
+     * Inserir apenas o conteúdo no arquivo gerado. Útil para saídas JSON i18next ou ICU MessageFormat por localidade.
+     */
+    noMetadata: false,
+
+    /**
+     * Prefixo da chave do dicionário
+     */
+    dictionaryKeyPrefix: "", // Adicionar um prefixo opcional para as chaves do dicionário extraídas
   },
 
   /**
@@ -480,7 +546,7 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
+````
 
 ## Referência de Configuração
 
@@ -609,41 +675,50 @@ Define configurações relacionadas ao editor integrado, incluindo porta do serv
   - _Exemplo_: `4000`
   - _Nota_: A porta do servidor de sincronização ao vivo.
 
-- **liveSyncURL**:
-  - _Tipo_: `string`
-  - _Padrão_: `'http://localhost:{liveSyncPort}'`
-  - _Descrição_: A URL do servidor de sincronização ao vivo.
-  - _Exemplo_: `'https://example.com'`
-  - _Nota_: Aponta para localhost por padrão, mas pode ser alterado para qualquer URL no caso de um servidor de sincronização ao vivo remoto.
+### Configuração de Roteamento
 
-### Configuração do Middleware
-
-Configurações que controlam o comportamento do middleware, incluindo como a aplicação lida com cookies, cabeçalhos e prefixos de URL para gerenciamento de localidade.
+Configurações que controlam o comportamento do roteamento, incluindo estrutura de URL, armazenamento de localidade e como o middleware opera.
 
 #### Propriedades
 
-- **headerName**:
-  - _Tipo_: `string`
-  - _Padrão_: `'x-intlayer-locale'`
-  - _Descrição_: O nome do cabeçalho HTTP usado para determinar a localidade.
-  - _Exemplo_: `'x-custom-locale'`
-  - _Nota_: Útil para determinação de localidade baseada em API.
+- **mode**:
+  - _Tipo_: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+  - _Padrão_: `'prefix-no-default'`
+  - _Descrição_: Modo de roteamento de URL para lidar com a localidade.
+  - _Exemplos_:
+    - `'prefix-no-default'`: `/dashboard` (pt) ou `/fr/dashboard` (fr)
+    - `'prefix-all'`: `/pt/dashboard` (pt) ou `/fr/dashboard` (fr)
+    - `'no-prefix'`: `/dashboard` (localidade tratada por outros meios)
+    - `'search-params'`: `/dashboard?locale=fr`
+  - _Nota_: Esta configuração não afeta a manipulação de cookies ou o armazenamento da localidade.
 
-- **cookieName**:
-  - _Tipo_: `string`
-  - _Padrão_: `'intlayer-locale'`
-  - _Descrição_: O nome do cookie usado para armazenar a localidade.
-  - _Exemplo_: `'custom-locale'`
-  - _Nota_: Usado para persistir a localidade entre sessões.
+- **storage**:
+  - _Tipo_: `false | 'cookie' | 'localStorage' | 'sessionStorage' | 'header' | CookiesAttributes | StorageAttributes | Array`
+  - _Padrão_: `['cookie', 'header']`
+  - _Descrição_: Configuração para armazenar a localidade no cliente.
 
-- **prefixDefault**:
-  - _Tipo_: `boolean`
-  - _Padrão_: `false`
-  - _Descrição_: Se deve incluir a localidade padrão na URL.
-  - _Exemplo_: `true`
-  - _Nota_:
-    - Se `true` e `defaultLocale = 'en'`: caminho = `/en/dashboard` ou `/fr/dashboard`
-    - Se `false` e `defaultLocale = 'en'`: caminho = `/dashboard` ou `/fr/dashboard`
+  - **cookie**:
+    - _Descrição_: Armazena os dados em cookies, pequenos pedaços de dados armazenados no navegador do cliente, acessíveis tanto do lado do cliente quanto do servidor.
+    - _Nota_: Para armazenamento em conformidade com o GDPR, certifique-se do consentimento do usuário antes de usar.
+    - _Nota_: Os parâmetros do cookie são personalizáveis se configurados como CookiesAttributes (`{ type: 'cookie', name: 'custom-locale', secure: true, httpOnly: false }`).
+
+  - **localStorage**:
+    - _Descrição_: Armazena dados no navegador sem datas de expiração, permitindo a persistência dos dados entre sessões; acessível apenas do lado do cliente.
+    - _Nota_: Ideal para armazenamento de dados a longo prazo, mas esteja ciente das implicações de privacidade e segurança.
+    - _Nota_: O local storage é acessível apenas do lado do cliente; o proxy do intlayer não poderá acessá-lo.
+    - _Nota_: Os parâmetros do local storage são personalizáveis se configurados como StorageAttributes (`{ type: 'localStorage', name: 'custom-locale' }`).
+
+  - **sessionStorage**:
+    - _Descrição_: Armazena dados pela duração da sessão da página, o que significa que são limpos quando a aba ou janela é fechada; acessível apenas do lado do cliente.
+    - _Nota_: Adequado para armazenamento temporário de dados por sessão.
+    - _Nota_: O local storage é acessível apenas do lado do cliente; o proxy do intlayer não poderá acessá-lo.
+    - _Nota_: Os parâmetros do local storage são personalizáveis se configurados como StorageAttributes (`{ type: 'sessionStorage', name: 'custom-locale' }`).
+
+  - **header**:
+    - _Descrição_: Utiliza cabeçalhos HTTP para armazenar ou transmitir dados de localidade, útil para determinar o idioma no lado do servidor.
+    - _Nota_: Útil em chamadas de API para manter configurações de idioma consistentes entre solicitações.
+    - _Nota_: O cabeçalho é acessível apenas do lado do servidor; o lado do cliente não poderá acessá-lo.
+    - _Nota_: O nome do cabeçalho é personalizável se configurado como StorageAttributes (`{ type: 'header', name: 'custom-locale' }`).
 
 - **basePath**:
   - _Tipo_: `string`
@@ -651,10 +726,23 @@ Configurações que controlam o comportamento do middleware, incluindo como a ap
   - _Descrição_: O caminho base para as URLs da aplicação.
   - _Exemplo_: `'/my-app'`
   - _Nota_:
-    - Se a aplicação estiver hospedada em `https://example.com/my-app`
-    - O caminho base é `'/my-app'`
-    - A URL será `https://example.com/my-app/en`
-    - Se o caminho base não estiver definido, a URL será `https://example.com/en`
+    - Se a aplicação estiver hospedada em `https://example.com/my-app`,
+    - o caminho base é `'/my-app'`.
+    - A URL será `https://example.com/my-app/pt`.
+    - Se o caminho base não estiver definido, a URL será `https://example.com/pt`.
+
+- **noPrefix**:
+  - _Tipo_: `boolean`
+  - _Padrão_: `false`
+  - _Descrição_: Indica se deve omitir o prefixo da localidade nas URLs.
+  - _Exemplo_: `true`
+  - _Nota_:
+    - Se `true`: Sem prefixo na URL
+    - Se `false`: Com prefixo na URL
+    - Exemplo com `basePath = '/my-app'`:
+      - Se `noPrefix = false`: a URL será `https://example.com/my-app/pt`
+      - Se `noPrefix = true`: a URL será `https://example.com/my-app`
+    - Esta opção só é válida se `mode` for `'prefix-no-default'` ou `'prefix-all'`.
 
 - **rewrite**:
   - _Tipo_: `Record<string, StrictModeLocaleMap<string>>`
@@ -665,17 +753,20 @@ Configurações que controlam o comportamento do middleware, incluindo como a ap
     routing: {
       mode: "prefix-no-default", // Estratégia de fallback
       rewrite: nextjsRewrite({
-        "/[locale]/about": {
-          en: "/[locale]/about",
-          fr: "/[locale]/a-propos",
+        "/about": {
+          pt: "/sobre-nos",
+          en: "/about",
+          fr: "/a-propos",
         },
-        "/[locale]/product/[slug]": {
-          en: "/[locale]/product/[slug]",
-          fr: "/[locale]/produit/[slug]",
+        "/product/[slug]": {
+          pt: "/produto/[slug]",
+          en: "/product/[slug]",
+          fr: "/produit/[slug]",
         },
-        "/[locale]/blog/[category]/[id]": {
-          en: "/[locale]/blog/[category]/[id]",
-          fr: "/[locale]/journal/[category]/[id]",
+        "/blog/[category]/[id]": {
+          pt: "/blog/[category]/[id]",
+          en: "/blog/[category]/[id]",
+          fr: "/journal/[category]/[id]",
         },
       }),
     }
@@ -686,25 +777,157 @@ Configurações que controlam o comportamento do middleware, incluindo como a ap
   - _Nota_: Ao gerar URLs com `getLocalizedUrl()`, as regras de reescrita são aplicadas automaticamente se corresponderem ao caminho fornecido.
   - _Referência_: Para mais informações, consulte [Reescrita de URL personalizada](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/custom_url_rewrites.md).
 
-- **serverSetCookie**:
-  - _Tipo_: `string`
-  - _Padrão_: `'always'`
-  - _Descrição_: Regra para definir o cookie de localidade no servidor.
-  - _Opções_: `'always'`, `'never'`
-  - _Exemplo_: `'never'`
-  - _Nota_: Controla se o cookie de localidade é definido a cada requisição ou nunca.
+#### Atributos de Cookie
 
-- **noPrefix**:
-  - _Tipo_: `boolean`
-  - _Padrão_: `false`
-  - _Descrição_: Se deve omitir o prefixo da localidade nas URLs.
-  - _Exemplo_: `true`
-  - _Nota_:
-    - Se `true`: Sem prefixo na URL
-    - Se `false`: Com prefixo na URL
-    - Exemplo com `basePath = '/my-app'`:
-      - Se `noPrefix = false`: a URL será `https://example.com/my-app/en`
-      - Se `noPrefix = true`: a URL será `https://example.com`
+Ao usar o armazenamento de cookie, você pode configurar atributos de cookie adicionais:
+
+- **name**: Nome do cookie (padrão: `'INTLAYER_LOCALE'`)
+- **domain**: Domínio do cookie (padrão: undefined)
+- **path**: Caminho do cookie (padrão: undefined)
+- **secure**: Requer HTTPS (padrão: undefined)
+- **httpOnly**: Flag HTTP-only (padrão: undefined)
+- **sameSite**: Política SameSite (`'strict' | 'lax' | 'none'`)
+- **expires**: Data de expiração ou dias (padrão: undefined)
+
+#### Atributos de Armazenamento Local
+
+Ao usar localStorage ou sessionStorage:
+
+- **type**: Tipo de armazenamento (`'localStorage' | 'sessionStorage'`)
+- **name**: Nome da chave de armazenamento (padrão: `'INTLAYER_LOCALE'`)
+
+#### Exemplos de Configuração
+
+Aqui estão alguns exemplos comuns de configuração para a nova estrutura de roteamento v8:
+
+**Configuração Básica (Padrão)**:
+
+```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
+// intlayer.config.ts
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: ["en", "fr", "pt"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "prefix-no-default",
+    storage: "localStorage",
+    basePath: "",
+  },
+};
+
+export default config;
+```
+
+**Configuração em Conformidade com o GDPR**:
+
+```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
+// intlayer.config.ts
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: ["en", "fr", "pt"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "prefix-no-default",
+    storage: [
+      {
+        type: "localStorage",
+        name: "user-locale",
+      },
+      {
+        type: "cookie",
+        name: "user-locale",
+        secure: true,
+        sameSite: "strict",
+        httpOnly: false,
+      },
+    ],
+    basePath: "",
+  },
+};
+
+export default config;
+```
+
+**Modo de Parâmetros de Busca**:
+
+```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
+// intlayer.config.ts
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: ["en", "fr", "pt"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "search-params",
+    storage: "localStorage",
+    basePath: "",
+  },
+};
+
+export default config;
+```
+
+**Modo Sem Prefixo com Armazenamento Personalizado**:
+
+```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
+// intlayer.config.ts
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: ["en", "fr", "pt"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "no-prefix",
+    storage: {
+      type: "sessionStorage",
+      name: "app-locale",
+    },
+    basePath: "/my-app",
+  },
+};
+
+export default config;
+```
+
+**Reescrita de URL Personalizada com Rotas Dinâmicas**:
+
+```typescript
+// intlayer.config.ts
+import { nextjsRewrite } from "intlayer/routing";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: ["en", "fr"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "prefix-no-default", // Estratégia de fallback para rotas não reescritas
+    storage: "cookie",
+    rewrite: nextjsRewrite({
+      "/about": {
+        en: "/about",
+        fr: "/a-propos",
+      },
+      "/product/[slug]": {
+        en: "/product/[slug]",
+        fr: "/produit/[slug]",
+      },
+      "/blog/[category]/[id]": {
+        en: "/blog/[category]/[id]",
+        fr: "/journal/[category]/[id]",
+      },
+    }),
+  },
+};
+
+export default config;
+```
 
 ---
 
@@ -831,8 +1054,8 @@ Configurações que controlam as operações do dicionário, incluindo o comport
 
 Esta configuração de dicionário serve a dois propósitos principais:
 
-1. **Valores padrão**: Define valores padrão ao criar arquivos de declaração de conteúdo
-2. **Comportamento de fallback**: Fornece valores de fallback quando campos específicos não estão definidos, permitindo que você defina o comportamento das operações do dicionário globalmente
+1.  **Valores padrão**: Define valores padrão ao criar arquivos de declaração de conteúdo
+2.  **Comportamento de fallback**: Fornece valores de fallback quando campos específicos não estão definidos, permitindo que você defina o comportamento das operações do dicionário globalmente
 
 Para mais informações sobre arquivos de declaração de conteúdo e como os valores de configuração são aplicados, consulte a [Documentação do arquivo de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md).
 
@@ -903,53 +1126,57 @@ O Intlayer suporta múltiplos provedores de IA para maior flexibilidade e escolh
 
 #### Propriedades
 
-- **provider**:
-  - _Tipo_: `string`
-  - _Padrão_: `'openai'`
-  - _Descrição_: O provedor a ser usado para os recursos de IA do Intlayer.
-  - _Opções_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googleaistudio'`, `'googlevertex'`, `'togetherai'`
-  - _Exemplo_: `'anthropic'`
+- **provider** :
+  - _Tipo_ : `string`
+  - _Padrão_ : `'openai'`
+  - _Descrição_ : O provedor a ser usado para os recursos de IA do Intlayer.
+  - _Opções_ : `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googleaistudio'`, `'googlevertex'`, `'togetherai'`
+  - _Exemplo_ : `'anthropic'`
   - _Nota_: Diferentes provedores podem exigir diferentes chaves de API e possuir modelos de preços distintos.
 
-- **model**:
-  - _Tipo_: `string`
-  - _Padrão_: Nenhum
-  - _Descrição_: O modelo a ser usado para os recursos de IA do Intlayer.
-  - _Exemplo_: `'gpt-4o-2024-11-20'`
-  - _Nota_: O modelo específico a ser usado varia conforme o provedor.
+- **model** :
+  - _Tipo_ : `string`
+  - _Padrão_ : Nenhum
+  - _Descrição_ : O modelo a ser usado para os recursos de IA do Intlayer.
+  - _Exemplo_ : `'gpt-4o-2024-11-20'`
+  - _Nota_ : O modelo específico a ser usado varia conforme o provedor.
 
-- **temperature**:
-  - _Tipo_: `number`
-  - _Padrão_: Nenhum
-  - _Descrição_: A temperatura controla a aleatoriedade das respostas da IA.
-  - _Exemplo_: `0.1`
-  - _Nota_: Uma temperatura mais alta tornará a IA mais criativa e menos previsível.
+- **temperature** :
+  - _Tipo_ : `number`
+  - _Padrão_ : Nenhum
+  - _Descrição_ : A temperatura controla a aleatoriedade das respostas da IA.
+  - _Exemplo_ : `0.1`
+  - _Nota_ : Uma temperatura mais alta tornará a IA mais criativa e menos previsível.
 
-- **apiKey**:
-  - _Tipo_: `string`
-  - _Padrão_: Nenhum
-  - _Descrição_: Sua chave de API para o provedor selecionado.
-  - _Exemplo_: `process.env.OPENAI_API_KEY`
-  - _Nota_: Importante: As chaves de API devem ser mantidas em segredo e não compartilhadas publicamente. Por favor, certifique-se de mantê-las em um local seguro, como variáveis de ambiente.
+- **apiKey** :
+  - _Tipo_ : `string`
+  - _Padrão_ : Nenhum
+  - _Descrição_ : Sua chave de API para o provedor selecionado.
+  - _Exemplo_ : `process.env.OPENAI_API_KEY`
+  - _Nota_ : Importante: As chaves de API devem ser mantidas em segredo e não compartilhadas publicamente. Por favor, certifique-se de mantê-las em um local seguro, como variáveis de ambiente.
 
-- **applicationContext**:
-  - _Tipo_: `string`
-  - _Padrão_: Nenhum
-  - _Descrição_: Fornece contexto adicional sobre sua aplicação para o modelo de IA, ajudando-o a gerar traduções mais precisas e contextualmente apropriadas. Isso pode incluir informações sobre o domínio do seu app, público-alvo, tom ou terminologia específica.
+- **applicationContext** :
+  - _Tipo_ : `string`
+  - _Padrão_ : Nenhum
+  - _Descrição_ : Fornece contexto adicional sobre sua aplicação para o modelo de IA, ajudando-o a gerar traduções mais precisas e contextualmente apropriadas. Isso pode incluir informações sobre o domínio do seu app, público-alvo, tom ou terminologia específica.
+  - _Nota_: Você pode usar isso para adicionar outras regras ao modelo de IA (por exemplo, "não transforme URLs").
+  - _Exemplo_ : `'O contexto da minha aplicação'`
 
-- **baseURL**:
-  - _Tipo_: `string`
-  - _Padrão_: Nenhum
-  - _Descrição_: A URL base para a API de IA.
-  - _Exemplo_: `'https://api.openai.com/v1'`
-  - _Nota_: Pode ser usado para apontar para um endpoint de API de IA local ou personalizado.
+- **baseURL** :
+  - _Tipo_ : `string`
+  - _Padrão_ : Nenhum
+  - _Descrição_ : A URL base para a API de IA.
+  - _Exemplo_ : `'https://api.openai.com/v1'`
+  - _Exemplo_ : `'http://localhost:5000'`
+  - _Nota_ : Pode ser usado para apontar para um endpoint de API de IA local ou personalizado.
 
 - **dataSerialization**:
   - _Tipo_: `'json' | 'toon'`
   - _Padrão_: `'json'`
-  - _Descrição_: O formato de serialización de dados a ser usado nas funcionalidades de IA do Intlayer.
+  - _Descrição_: O formato de serialização de dados a ser usado nas funcionalidades de IA do Intlayer.
   - _Exemplo_: `'toon'`
   - _Nota_: `json`: Padrão, confiável; usa mais tokens. `toon`: Menos tokens, menos consistente que o JSON.
+    > Se você fornecer parâmetros adicionais, o Intlayer os passará para o modelo de IA como contexto. Isso pode ser usado para ajustar o esforço de raciocínio, a verbosidade do texto, etc.
 
 ### Configuração de Build
 
@@ -963,55 +1190,34 @@ As opções de build se aplicam aos plugins `@intlayer/babel` e `@intlayer/swc`.
 
 #### Propriedades
 
-- **mode**:
-  - _Tipo_: `'auto' | 'manual'`
-  - _Padrão_: `'auto'`
-  - _Descrição_: Controla o modo da build.
-  - _Exemplo_: `'manual'`
-  - _Nota_: Se 'auto', a build será habilitada automaticamente quando a aplicação for construída.
-  - _Nota_: Se 'manual', a build será definida apenas quando o comando de build for executado.
-  - _Nota_: Pode ser usado para desabilitar a build de dicionários, por exemplo quando a execução em um ambiente Node.js deve ser evitada.
+- **mode** :
+  - _Tipo_ : `'auto' | 'manual'`
+  - _Padrão_ : `'auto'`
+  - _Descrição_ : Controla o modo da build.
+  - _Exemplo_ : `'manual'`
+  - _Nota_ : Se 'auto', a build será habilitada automaticamente durante o build da app.
+  - _Nota_ : Se 'manual', a build só será acionada quando o comando de build for executado.
+  - _Nota_ : Pode ser usado para desabilitar a build de dicionários, por exemplo, quando se deseja evitar a execução em um ambiente Node.js.
 
-- **checkTypes**:
-  - _Tipo_: `boolean`
-  - _Padrão_: `false`
-  - _Descrição_: Indica se a compilação deve verificar os tipos do TypeScript e registrar erros.
-  - _Nota_: Isso pode atrasar a compilação.
+- **optimize** :
+  - _Tipo_ : `boolean`
+  - _Padrão_ : `undefined`
+  - _Descrição_ : Controla se a build deve ser otimizada.
+  - _Exemplo_ : `process.env.NODE_ENV === 'production'`
+  - _Nota_ : Por padrão, a otimização da build é indefinida. Se não definida, o Intlayer habilitará a otimização da build durante o build da sua aplicação (vite / nextjs / etc). Definir como `true` forçará a otimização da build, mesmo no modo de desenvolvimento. Definir como `false` desativará a otimização da build.
+  - _Nota_ : Quando ativado, o Intlayer substituirá todas as chamadas de dicionários para otimizar a divisão em chunks. Dessa forma, o pacote final importará apenas os dicionários que são usados. Todas as importações permanecerão como importações estáticas para evitar processamento assíncrono ao carregar os dicionários.
+  - _Nota_ : O Intlayer substituirá todas as chamadas de `useIntlayer` pelo modo definido pela opção `importMode` e `getIntlayer` por `getDictionary`.
+  - _Nota_ : Esta opção depende dos plugins `@intlayer/babel` e `@intlayer/swc`.
+  - _Nota_ : Certifique-se de que todas as chaves sejam declaradas estaticamente nas chamadas de `useIntlayer`. Exemplo: `useIntlayer('navbar')`.
 
-- **optimize**:
-  - _Tipo_: `boolean`
-  - _Padrão_: `process.env.NODE_ENV === 'production'`
-  - _Descrição_: Controla se a build deve ser otimizada.
-  - _Exemplo_: `true`
-  - _Nota_: Quando ativado, o Intlayer substituirá todas as chamadas de dicionários para otimizar a divisão em chunks. Dessa forma, o pacote final importará apenas os dicionários que são usados. Todas as importações permanecerão como importações estáticas para evitar processamento assíncrono ao carregar os dicionários.
-  - _Nota_: O Intlayer substituirá todas as chamadas de `useIntlayer` pelo modo definido pela opção `importMode` e `getIntlayer` por `getDictionary`.
-  - _Nota_: Esta opção depende dos plugins `@intlayer/babel` e `@intlayer/swc`.
-  - _Nota_: Certifique-se de que todas as chaves sejam declaradas estaticamente nas chamadas de `useIntlayer`. Exemplo: `useIntlayer('navbar')`.
-
-- **importMode**:
-  - _Nota_: **Deprecated**: Use `dictionary.importMode` instead.
-  - _Tipo_: `'static' | 'dynamic' | 'fetch'`
-  - _Padrão_: `'static'`
-  - _Descrição_: Controla como os dicionários são importados.
-  - _Exemplo_: `'dynamic'`
-  - _Nota_: Modos disponíveis:
+- **importMode** :
+  - _Tipo_ : `'static' | 'dynamic' | 'fetch'`
+  - _Padrão_ : `'static'`
+  - _Descrição_ : Controla como os dicionários são importados.
+  - _Exemplo_ : `'dynamic'`
+  - _Nota_ : Modos disponíveis:
     - "static": Os dicionários são importados estaticamente. Substitui `useIntlayer` por `useDictionary`.
     - "dynamic": Os dicionários são importados dinamicamente usando Suspense. Substitui `useIntlayer` por `useDictionaryDynamic`.
-  - "fetch": Os dicionários são buscados dinamicamente usando a API de sincronização ao vivo. Substitui `useIntlayer` por `useDictionaryFetch`.
-  - _Nota_: Importações dinâmicas dependem do Suspense e podem impactar levemente o desempenho da renderização.
-  - _Nota_: Se desativado, todos os idiomas serão carregados de uma vez, mesmo que não sejam usados.
-  - _Nota_: Esta opção depende dos plugins `@intlayer/babel` e `@intlayer/swc`.
-  - _Nota_: Garanta que todas as chaves sejam declaradas estaticamente nas chamadas `useIntlayer`. Exemplo: `useIntlayer('navbar')`.
-  - _Nota_: Esta opção será ignorada se `optimize` estiver desativado.
-  - _Nota_: Se definido como "live", apenas os dicionários que incluem conteúdo remoto e estão marcados como "live" serão transformados no modo live. Os outros serão importados dinamicamente no modo "dynamic" para otimizar o número de consultas fetch e o desempenho de carregamento.
-  - _Nota_: O modo live usará a API de sincronização ao vivo para buscar os dicionários. Se a chamada da API falhar, os dicionários serão importados dinamicamente no modo "dynamic".
-  - _Nota_: Esta opção não impactará as funções `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` e `useDictionaryDynamic`.
-
-- **outputFormat**:
-  - _Tipo_: `'esm' | 'cjs'`
-  - _Padrão_: `'esm'`
-  - _Descrição_: Controla o formato de saída dos dicionários.
-  - _Exemplo_: `'cjs'`
   - _Nota_: O formato de saída dos dicionários.
 
 - **traversePattern**:
@@ -1040,7 +1246,7 @@ Configurações que controlan o compilador Intlayer, que extrai dicionários dir
 
 - **dictionaryKeyPrefix**:
   - _Tipo_: `string`
-  - _Padrão_: `'comp-'`
+  - _Padrão_: `''`
   - _Descrição_: Prefixo para as chaves de dicionário extraídas.
   - _Exemplo_: `'my-key-'`
   - _Nota_: Quando os dicionários são extraídos, a chave é gerada com base no nome do arquivo. Este prefixo é adicionado à chave gerada para evitar conflitos.
@@ -1064,30 +1270,34 @@ Configurações que controlan o compilador Intlayer, que extrai dicionários dir
   - _Descrição_: Padrões que definem quais arquivos devem ser excluídos durante a otimização.
   - _Exemplo_: `['**/node_modules/**', '!**/node_modules/react/**']`
 
-- **outputDir**:
-  - _Tipo_: `string`
-  - _Padrão_: `'compiler'`
-  - _Descrição_: O diretório onde os dicionários extraídos serão armazenados, relativo ao caminho base do seu projeto.
-
 - **output**:
   - _Tipo_: `FilePathPattern`
-  - _Padrão_: `({ key }) => 'compiler/${key}.content.json'`
-  - _Descrição_: Define o caminho dos arquivos de saída. Substitui `outputDir`. Manipula variáveis dinâmicas como `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{componentFormat}}`. Pode ser definido como uma string usando o formato `'my/{{var}}/path'` ou como uma função.
-  - _Nota_: `./**/*` Os caminhos são resolvidos relativamente ao componente. `/**/*` os caminhos são resolvidos relativamente ao `baseDir` do Intlayer.
-  - _Exemplo_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+  - _Padrão_: `undefined`
+  - _Descrição_: Define o caminho dos arquivos de saída. Substitui `outputDir`. Manipula variáveis dinâmicas por meio de strings de modelo ou uma função. Variáveis suportadas: `{{fileName}}`, `{{key}}`, `{{locale}}`, `{{extension}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{format}}`, `{{componentFormat}}` e `{{componentDirPath}}`.
+  - _Nota_: Os caminhos `./` são resolvidos em relação ao diretório do componente. Os caminhos `/` são resolvidos em relação à raiz do projeto (`baseDir`).
+  - _Nota_: A inserção da variável `{{locale}}` no caminho ativará a geração de dicionários separados por idioma.
+  - _Exemplo_:
+    - **Arquivo multilíngue próximo ao componente** :
+    - String: `'./{{fileName}}{{extension}}'`
+    - Função: `({ fileName, extension }) => \`./${fileName}${extension}\``
+
+    - **Arquivos JSON centralizados por idioma** :
+    - String: `'/locales/{{locale}}/{{key}}.content.json'`
+    - Função: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\``
 
 - **noMetadata**:
   - _Tipo_: `boolean`
   - _Padrão_: `false`
-  - _Descrição_: Indica se os metadados devem ser salvos no arquivo. Se verdadeiro, o compilador não salvará os metadados dos dicionários (chave, wrapper de conteúdo).
+  - _Descrição_: Indica se os metadados devem ser salvos no arquivo. Se verdadeiro, o compilador não salvará os metadados dos dicionários (chave, wrapper de conteúdo). Útil para saídas JSON i18next ou ICU MessageFormat por localidade.
   - _Nota_: Útil se usado com o plugin `loadJSON`.
-  - _Exemplo_: Se `true`:
+  - _Exemplo_:
+    Se `true` :
     ```json
     {
       "key": "value"
     }
     ```
-    Se `false`:
+    Se `false` :
     ```json
     {
       "key": "value",

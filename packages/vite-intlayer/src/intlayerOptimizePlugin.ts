@@ -1,10 +1,7 @@
 import { join } from 'node:path';
 import { transformSync } from '@babel/core';
 import { intlayerOptimizeBabelPlugin } from '@intlayer/babel';
-import {
-  getComponentTransformPattern,
-  runOnce,
-} from '@intlayer/chokidar/utils';
+import { buildComponentFilesList, runOnce } from '@intlayer/chokidar/utils';
 import { DefaultValues } from '@intlayer/config/client';
 import { getAppLogger } from '@intlayer/config/logger';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
@@ -34,8 +31,6 @@ export const intlayerOptimize = async (
     } = intlayerConfig.system;
     const { baseDir } = intlayerConfig.system;
 
-    const filesListPattern = await getComponentTransformPattern(intlayerConfig);
-
     const dictionariesEntryPath = join(mainDir, 'dictionaries.mjs');
     const unmergedDictionariesEntryPath = join(
       mainDir,
@@ -46,8 +41,10 @@ export const intlayerOptimize = async (
       'dynamic_dictionaries.mjs'
     );
 
+    const baseFilesList = buildComponentFilesList(intlayerConfig);
+
     const filesList = [
-      ...filesListPattern,
+      ...baseFilesList,
       dictionariesEntryPath, // should add dictionariesEntryPath to replace it by a empty object if import made dynamic
       unmergedDictionariesEntryPath, // should add dictionariesEntryPath to replace it by a empty object if import made dynamic
     ];

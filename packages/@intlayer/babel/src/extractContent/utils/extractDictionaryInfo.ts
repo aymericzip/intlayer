@@ -3,7 +3,7 @@ import {
   getFormatFromExtension,
   resolveRelativePath,
 } from '@intlayer/chokidar/utils';
-import { DefaultValues } from '@intlayer/config/node';
+import { ANSIColors, colorize } from '@intlayer/config/logger';
 import { parseStringPattern } from '@intlayer/config/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
@@ -26,21 +26,9 @@ export const getOutput = (
     return configuration.compiler.output;
   }
 
-  if (typeof configuration.compiler?.outputDir === 'string') {
-    // Resolve outputDir against baseDir immediately to guarantee a valid absolute path everywhere
-    const absoluteOutputDir = resolve(
-      configuration.system.baseDir,
-      configuration.compiler.outputDir
-    );
-
-    return (context: FilePathPatternContext) =>
-      parseStringPattern(
-        `${absoluteOutputDir}/{{fileName}}.${configuration.content.fileExtensions[0].split('.')[1]}.json`,
-        context
-      );
-  }
-
-  return DefaultValues.Compiler.COMPILER_OUTPUT;
+  throw new Error(
+    `No output configuration found. Add a ${colorize('compiler.output', ANSIColors.BLUE)} in your configuration.`
+  );
 };
 
 export type ResolveContentFilePaths = {

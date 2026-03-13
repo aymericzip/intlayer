@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-03-10
+updatedAt: 2026-03-12
 title: Intlayer Compiler | Zautomatyzowane wydobywanie treści dla i18n
 description: Zautomatyzuj proces internacjonalizacji za pomocą Intlayer Compiler. Wydobywaj treści bezpośrednio z komponentów dla szybszego i bardziej efektywnego i18n w Vite, Next.js i innych.
 keywords:
@@ -22,7 +22,7 @@ slugs:
 history:
   - version: 8.2.0
     date: 2026-03-09
-    changes: Update compiler options, add FilePathPattern support
+    changes: Aktualizacja opcji kompilatora, dodanie wsparcia dla FilePathPattern
   - version: 8.1.7
     date: 2026-02-25
     changes: Aktualizacja opcji kompilatora
@@ -136,9 +136,9 @@ const {
 module.exports = {
   presets: ["next/babel"],
   plugins: [
-    // Extract content from components into dictionaries
+    // Wyodrębnij zawartość z komponentów do słowników
     [intlayerExtractBabelPlugin, getExtractPluginOptions()],
-    // Optimize imports by replacing useIntlayer with direct dictionary imports
+    // Optymalizuj importy, zastępując useIntlayer bezpośrednimi importami słowników
     [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
   ],
 };
@@ -149,73 +149,83 @@ Ta konfiguracja zapewnia, że zawartość zadeklarowana w Twoich komponentach je
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
+</Tabs>
 
 ### Własna konfiguracja
 
 Aby dostosować zachowanie kompilatora, możesz zaktualizować plik `intlayer.config.ts` w katalogu głównym swojego projektu.
 
-```ts fileName="intlayer.config.ts"
+````ts fileName="intlayer.config.ts"
 import { type IntlayerConfig, Locales } from "intlayer";
 
 const config: IntlayerConfig = {
   compiler: {
     /**
+     * Wskazuje, czy kompilator powinien być włączony.
      * Ustaw na 'build-only', aby pominąć kompilator podczas programowania i przyspieszyć czas uruchamiania.
      */
     enabled: true,
 
     /**
-     * Pattern to traverse the code to optimize.
+     * Definiuje ścieżkę plików wyjściowych. Zastępuje `outputDir`.
+     *
+     * - Ścieżki zaczynające się od `./` są rozwiązywane względem katalogu komponentu.
+     * - Ścieżki zaczynające się od `/` są rozwiązywane względem katalogu głównego projektu (`baseDir`).
+     *
+     * - Uwzględnienie zmiennej `{{locale}}` w ścieżce umożliwi generowanie słowników oddzielonych według języka.
+     *
+     * Przykłady:
+     * ```ts
+     * {
+     *   // Utwórz wielojęzyczne pliki .content.ts obok komponentu
+     *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
+     *
+     *   // output: './{{fileName}}{{extension}}', // Równoważne użycie szablonu ciągu znaków
+     * }
+     * ```
+     *
+     * ```ts
+     * {
+     *   // Utwórz scentralizowane pliki JSON według języka w katalogu głównym projektu
+     *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+     *
+     *   // output: '/locales/{{locale}}/{{key}}.content.json', // Równoważne użycie szablonu ciągu znaków
+     * }
+     * ```
+     *
+     * Lista zmiennych:
+     *   - `fileName`: Nazwa pliku.
+     *   - `key`: Klucz zawartości.
+     *   - `locale`: Język zawartości.
+     *   - `extension`: Rozszerzenie pliku.
+     *   - `componentFileName`: Nazwa pliku komponentu.
+     *   - `componentExtension`: Rozszerzenie pliku komponentu.
+     *   - `format`: Format słownika.
+     *   - `componentFormat`: Format słownika komponentu.
+     *   - `componentDirPath`: Ścieżka do katalogu komponentu.
      */
-    transformPattern: [
-      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
-      "!**/node_modules/**",
-    ],
-
-    /**
-     * Pattern to exclude from the optimization.
-     */
-    excludePattern: ["**/node_modules/**"],
-
-    /**
-     * Katalog wyjściowy dla zoptymalizowanych słowników.
-     */
-    output: ({ key }) => `compiler/${key}.content.json`,
-
-    /**
-     * Wstaw tylko zawartość do wygenerowanego pliku, bez klucza.
-     */
-    noMetadata: false,
-
-    /**
-     * Prefiks klucza słownika
-     */
-    dictionaryKeyPrefix: "", // Remove base prefix
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
 
     /**
      * Wskazuje, czy komponenty powinny być zapisywane po transformacji.
      * W ten sposób kompilator można uruchomić tylko raz, aby przetransformować aplikację, a następnie go usunąć.
      */
     saveComponents: false,
+
+    /**
+     * Wstaw tylko zawartość do wygenerowanego pliku. Przydatne dla wyjścia JSON i18next lub ICU MessageFormat na język.
+     *
+     * - `output: ({ locale, key }) => `./locale/${locale}/${key}.json`,`
+     */
+    noMetadata: false,
+
+    /**
+     * Prefiks klucza słownika
+     */
+    dictionaryKeyPrefix: "", // Dodaj opcjonalny prefiks dla wyekstrahowanych kluczy słownika
   },
 };
-
-export default config;
-```
-
-### Uzupełnij brakujące tłumaczenia
-
-Intlayer udostępnia narzędzie CLI, które pomaga uzupełnić brakujące tłumaczenia. Możesz użyć polecenia `intlayer`, aby przetestować i uzupełnić brakujące tłumaczenia w swoim kodzie.
-
-```bash
-npx intlayer test         # Sprawdź, czy brakuje tłumaczeń
-```
-
-```bash
-npx intlayer fill         # Uzupełnij brakujące tłumaczenia
-```
-
-> Więcej szczegółów znajdziesz w [dokumentacji CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/ci.md)
+````
 
 ### Odniesienie do konfiguracji kompilatora
 
@@ -225,36 +235,37 @@ Następujące właściwości można skonfigurować w bloku `compiler` pliku `int
   - _Typ_: `boolean | 'build-only'`
   - _Domyślny_: `true`
   - _Opis_: Wskazuje, czy kompilator powinien być włączony.
+
 - **dictionaryKeyPrefix**:
   - _Typ_: `string`
-  - _Domyślny_: `'comp-'`
+  - _Domyślny_: `''`
   - _Opis_: Prefiks dla wyekstrahowanych kluczy słownika.
+
 - **transformPattern**:
   - _Typ_: `string | string[]`
   - _Domyślny_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}', '!**/node_modules/**']`
-  - _Opis_: Wzorce do przeszukiwania kodu w celu optymalizacji.
+  - _Opis_: (Zdeprecjonowane: użyj `build.traversePattern` zamiast tego) Wzorce do przeszukiwania kodu w celu optymalizacji.
+
 - **excludePattern**:
   - _Typ_: `string | string[]`
   - _Domyślny_: `['**/node_modules/**']`
-  - _Opis_: Wzorce do wykluczenia z optymalizacji.
-- **outputDir** (Deprecated):
-  - _Typ_: `string`
-  - _Domyślny_: `'compiler'`
-  - _Opis_: Katalog, w którym będą przechowywane wyekstrahowane słowniki.
+  - _Opis_: (Zdeprecjonowane: użyj `build.traversePattern` zamiast tego) Wzorce do wykluczenia z optymalizacji.
 
 - **output**:
   - _Typ_: `FilePathPattern`
   - _Domyślny_: `({ key }) => 'compiler/${key}.content.json'`
   - _Opis_: Definiuje ścieżkę plików wyjściowych. Zastępuje `outputDir`. Obsługuje zmienne dynamiczne, takie jak `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{componentFormat}}`. Można ustawić jako ciąg znaków w formacie `'my/{{var}}/path'` lub jako funkcję.
   - _Uwaga_: Ścieżki `./**/*` są rozwiązywane względem komponentu. Ścieżki `/**/*` są rozwiązywane względem `baseDir` Intlayer.
+  - _Uwaga_: Jeśli język jest zdefiniowany w ścieżce, słowniki będą generowane na język.
   - _Przykład_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
 
 - **noMetadata**:
   - _Typ_: `boolean`
   - _Domyślny_: `false`
-  - _Opis_: Wskazuje, czy metadane powinny być zapisywane w pliku. Jeśli true, kompilator nie będzie zapisywał metadanych słowników (klucza, otoczki zawartości).
+  - _Opis_: Wskazuje, czy metadane powinny być zapisywane w pliku. Jeśli true, kompilator nie będzie zapisywał metadanych słowników (klucza, otoczki zawartości). Przydatne dla wyjść JSON i18next lub ICU MessageFormat na lokalizację.
   - _Uwaga_: Przydatne w przypadku korzystania z wtyczki `loadJSON`.
-  - _Przykład_: Jeśli `true`:
+  - _Przykład_:
+    Jeśli `true`:
     ```json
     {
       "key": "value"
@@ -274,3 +285,25 @@ Następujące właściwości można skonfigurować w bloku `compiler` pliku `int
   - _Typ_: `boolean`
   - _Domyślny_: `false`
   - _Opis_: Wskazuje, czy komponenty powinny być zapisywane po transformacji.
+
+### Uzupełnij brakujące tłumaczenia
+
+Intlayer udostępnia narzędzie CLI, które pomaga uzupełnić brakujące tłumaczenia. Możesz użyć polecenia `intlayer`, aby przetestować i uzupełnić brakujące tłumaczenia w swoim kodzie.
+
+```bash
+npx intlayer test         # Sprawdź, czy brakuje tłumaczeń
+```
+
+```bash
+npx intlayer fill         # Uzupełnij brakujące tłumaczenia
+```
+
+### Ekstrakcja
+
+Intlayer udostępnia narzędzie CLI do wyodrębniania treści z Twojego kodu. Możesz użyć polecenia `intlayer extract`, aby wyodrębnić treść ze swojego kodu.
+
+```bash
+npx intlayer extract
+```
+
+> Więcej szczegółów znajdziesz w [dokumentacji CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md)

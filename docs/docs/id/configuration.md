@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-03-11
+updatedAt: 2026-03-12
 title: Konfigurasi
 description: Pelajari cara mengonfigurasi Intlayer untuk aplikasi Anda. Pahami berbagai pengaturan dan opsi yang tersedia untuk menyesuaikan Intlayer sesuai kebutuhan Anda.
 keywords:
@@ -15,7 +15,7 @@ slugs:
   - configuration
 history:
   - version: 8.3.0
-    data: 2026-03-11
+    date: 2026-03-11
     changes: Pindahkan 'baseDir' dari konfigurasi 'content' ke 'system'
   - version: 8.2.0
     date: 2026-03-09
@@ -110,7 +110,7 @@ Intlayer menerima format file konfigurasi JSON, JS, MJS, dan TS:
 
 ## Contoh file konfigurasi
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
@@ -208,7 +208,7 @@ const config: IntlayerConfig = {
      * Options: 'cookie', 'localStorage', 'sessionStorage', 'header', or an array of these.
      * Default: ['cookie', 'header']
      */
-    storage: "cookie",
+    storage: ["cookie", "header"],
 
     /**
      * Base path for the application URLs.
@@ -344,7 +344,16 @@ const config: IntlayerConfig = {
     /**
      * Base URL for the AI API.
      */
-    baseURL: "http://localhost:3000",
+    /**
+     * Data serialisasi
+     *
+     * Opsi:
+     * - "json": Standar, andal; menggunakan lebih banyak token.
+     * - "toon": Token lebih sedikit, kurang konsisten dibandingkan JSON.
+     *
+     * Default: "json"
+     */
+    dataSerialization: "json",
   },
 
   /**
@@ -444,42 +453,70 @@ const config: IntlayerConfig = {
   compiler: {
     /**
      * Menunjukkan apakah kompiler harus diaktifkan.
+     *
+     * - false : Menonaktifkan kompiler.
+     * - true : Mengaktifkan kompiler.
+     * - "build-only" : Melewatkan kompiler selama pengembangan untuk mempercepat waktu mulai.
+     *
+     * Nilai default : false
      */
     enabled: true,
 
     /**
-     * Pattern to traverse the code to optimize.
+     * Mendefinisikan jalur file output. Menggantikan `outputDir`.
+     *
+     * - Jalur yang dimulai dengan `./` diselesaikan relatif terhadap direktori komponen.
+     * - Jalur yang dimulai dengan `/` diselesaikan relatif terhadap root proyek (`baseDir`).
+     *
+     * - Menyertakan variabel `{{locale}}` dalam jalur akan mengaktifkan pembuatan kamus yang dipisahkan berdasarkan bahasa.
+     *
+     * Contoh:
+     * ```ts
+     * {
+     *   // Buat file .content.ts multi-bahasa di sebelah komponen
+     *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
+     *
+     *   // output: './{{fileName}}{{extension}}', // Padanan menggunakan string template
+     * }
+     * ```
+     *
+     * ```ts
+     * {
+     *   // Buat file JSON terpusat berdasarkan bahasa di root proyek
+     *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+     *
+     *   // output: '/locales/{{locale}}/{{key}}.content.json', // Padanan menggunakan string template
+     * }
+     * ```
+     *
+     * Daftar variabel:
+     *   - `fileName`: Nama file.
+     *   - `key`: Kunci konten.
+     *   - `locale`: Bahasa konten.
+     *   - `extension`: Ekstensi file.
+     *   - `componentFileName`: Nama file komponen.
+     *   - `componentExtension`: Ekstensi file komponen.
+     *   - `format`: Format kamus.
+     *   - `componentFormat`: Format kamus komponen.
+     *   - `componentDirPath`: Jalur direktori komponen.
      */
-    transformPattern: [
-      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
-      "!**/node_modules/**",
-    ],
-
-    /**
-     * Pattern to exclude from the optimization.
-     */
-    excludePattern: ["**/node_modules/**"],
-
-    /**
-     * Direktori output untuk kamus yang dioptimalkan.
-     */
-    output: ({ key }) => `compiler/${key}.content.json`,
-
-    /**
-     * Masukkan konten saja dalam file yang dihasilkan, tanpa kunci.
-     */
-    noMetadata: false,
-
-    /**
-     * Awalan kunci kamus
-     */
-    dictionaryKeyPrefix: "", // Remove base prefix
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
 
     /**
      * Menunjukkan apakah komponen harus disimpan setelah ditransformasi.
      * Dengan begitu, kompiler hanya perlu dijalankan sekali untuk mentransformasi aplikasi, lalu dapat dihapus.
      */
     saveComponents: false,
+
+    /**
+     * Masukkan konten saja dalam file yang dihasilkan. Berguna untuk output JSON i18next atau ICU MessageFormat per bahasa.
+     */
+    noMetadata: false,
+
+    /**
+     * Awalan kunci kamus
+     */
+    dictionaryKeyPrefix: "", // Tambahkan awalan opsional untuk kunci kamus yang diekstrak
   },
 
   /**
@@ -498,7 +535,7 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
+````
 
 ## Referensi Konfigurasi
 
@@ -878,7 +915,7 @@ Pengaturan terkait penanganan konten dalam aplikasi, termasuk nama direktori, ek
 
 - **dictionariesDir**:
   - _Tipe_: `string`
-  - _Default_: `'.intlayer/dictionaries'`
+  - _Default_: `'.intlayer/dictionary'`
   - _Deskripsi_: Jalur direktori untuk menyimpan hasil sementara atau output.
 
 - **moduleAugmentationDir**:
@@ -892,12 +929,6 @@ Pengaturan terkait penanganan konten dalam aplikasi, termasuk nama direktori, ek
   - _Tipe_: `string`
   - _Default_: `'.intlayer/unmerged_dictionary'`
   - _Deskripsi_: Direktori untuk menyimpan kamus yang belum digabungkan.
-  - _Contoh_: `'translations'`
-
-- **dictionariesDir**:
-  - _Tipe_: `string`
-  - _Default_: `'.intlayer/dictionary'`
-  - _Deskripsi_: Direktori untuk menyimpan kamus lokal.
   - _Contoh_: `'translations'`
 
 - **typesDir**:
@@ -1157,7 +1188,7 @@ Pengaturan yang mengontrol kompiler Intlayer, yang mengekstrak kamus langsung da
 
 - **dictionaryKeyPrefix**:
   - _Tipe_: `string`
-  - _Default_: `'comp-'`
+  - _Default_: `''`
   - _Deskripsi_: Awalan untuk kunci kamus yang diekstrak.
   - _Contoh_: `'my-key-'`
   - _Catatan_: Saat kamus diekstrak, kunci dihasilkan berdasarkan nama file. Awalan ini ditambahkan ke kunci yang dihasilkan untuk mencegah konflik.
@@ -1181,30 +1212,37 @@ Pengaturan yang mengontrol kompiler Intlayer, yang mengekstrak kamus langsung da
   - _Deskripsi_: Pola yang menentukan file mana yang harus dikecualikan selama optimasi.
   - _Contoh_: `['**/node_modules/**', '!**/node_modules/react/**']`
 
-- **outputDir**:
-  - _Tipe_: `string`
-  - _Default_: `'compiler'`
-  - _Deskripsi_: Direktori tempat kamus yang diekstrak akan disimpan, relatif terhadap jalur dasar proyek Anda.
-
 - **output**:
   - _Tipe_: `FilePathPattern`
-  - _Default_: `({ key }) => 'compiler/${key}.content.json'`
-  - _Deskripsi_: Mendefinisikan jalur file output. Menggantikan `outputDir`. Menangani variabel dinamis seperti `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, dan `{{componentFormat}}`. Dapat diatur sebagai string menggunakan format `'my/{{var}}/path'`, atau sebagai fungsi.
-  - _Catatan_: Jalur `./**/*` diselesaikan relatif terhadap komponen. Jalur `/**/*` diselesaikan relatif terhadap `baseDir` Intlayer.
-  - _Contoh_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+  - _Default_: `undefined`
+  - _Deskripsi_: Mendefinisikan jalur file output. Menggantikan `outputDir`. Menangani variabel dinamis melalui string template atau fungsi. Variabel yang didukung: `{{fileName}}`, `{{key}}`, `{{locale}}`, `{{extension}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{format}}`, `{{componentFormat}}`, dan `{{componentDirPath}}`.
+  - _Catatan_: Jalur yang dimulai dengan `./` diselesaikan relatif terhadap direktori komponen. Jalur yang dimulai dengan `/` diselesaikan relatif terhadap root proyek (`baseDir`).
+  - _Catatan_: Menyertakan variabel `{{locale}}` dalam jalur akan mengaktifkan pembuatan kamus yang dipisahkan berdasarkan bahasa.
+  - _Contoh_:
+    - **Buat file multi-bahasa di samping komponen**:
+    - String: `'./{{fileName}}{{extension}}'`
+    - Fungsi: `({ fileName, extension }) => \`./${fileName}${extension}\``
+
+    - **Output file JSON terpusat per bahasa**:
+    - String: `'/locales/{{locale}}/{{key}}.content.json'`
+    - Fungsi: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\``
 
 - **noMetadata**:
   - _Tipe_: `boolean`
   - _Default_: `false`
   - _Deskripsi_: Menunjukkan apakah metadata harus disimpan dalam file. Jika benar, kompiler tidak akan menyimpan metadata kamus (kunci, pembungkus konten).
-  - _Catatan_: Berguna jika digunakan dengan plugin `loadJSON`.
-  - _Contoh_: Jika `true`:
+  - _Catatan_: Berguna jika digunakan dengan plugin `loadJSON`. Berguna untuk output JSON i18next atau ICU MessageFormat per bahasa.
+  - _Contoh_:
+    Jika `true` :
+
     ```json
     {
       "key": "value"
     }
     ```
+
     Jika `false`:
+
     ```json
     {
       "key": "value",

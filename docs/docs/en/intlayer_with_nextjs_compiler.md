@@ -431,7 +431,9 @@ export const LocaleSwitcher: FC = () => {
 
 When using `next-intlayer`, dictionaries are included in the bundle for every page by default. To optimize bundle size, Intlayer provides an optional SWC plugin that intelligently replace `useIntlayer` calls using macros. This ensures dictionaries are only included in bundles for pages that actually use them.
 
-To enable this optimization, install the `@intlayer/swc` package. Once installed, `next-intlayer` will automatically detect and use the plugin:
+The `@intlayer/babel` plugin already integrate the bundling optimization (see `babel.config.js`). But the `@intlayer/swc` plugin is more performant. If you remove the `@intlayer/babel` plugin, you can use the `@intlayer/swc` plugin.
+
+Install the `@intlayer/swc` package. Once installed, `next-intlayer` will automatically detect and use the plugin:
 
 ```bash packageManager="npm"
 npm install @intlayer/swc --save-dev
@@ -454,6 +456,182 @@ bun add @intlayer/swc --dev
 > Note: This package is not installed by default because SWC plugins are still experimental on Next.js. It may change in the future.
 
 > Note: If you set the option as `importMode: 'dynamic'` or `importMode: 'fetch'` (in the `dictionary` configuration), it will rely on Suspense, so you will have to wrap your `useIntlayer` calls in a `Suspense` boundary. That means, you will not be able to use the `useIntlayer` directly at the top level of your Page / Layout component.
+
+### (Optional) Step 11: Extract the content of your components
+
+If you have an existing codebase, transforming thousands of files can be time-consuming.
+
+To ease this process, Intlayer propose a [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md) / [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/extract.md) to transform your components and extract the content.
+
+To set it up, you can add a `compiler` section in your `intlayer.config.ts` file:
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Rest of your config
+  compiler: {
+    /**
+     * Indicates if the compiler should be enabled.
+     */
+    enabled: true,
+
+    /**
+     * Defines the output files path
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Indicates if the components should be saved after being transformed.
+     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     */
+    saveComponents: false,
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... Rest of your config
+  compiler: {
+    /**
+     * Indicates if the compiler should be enabled.
+     */
+    enabled: true,
+
+    /**
+     * Defines the output files path
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Indicates if the components should be saved after being transformed.
+     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     */
+    saveComponents: false,
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... Rest of your config
+  compiler: {
+    /**
+     * Indicates if the compiler should be enabled.
+     */
+    enabled: true,
+
+    /**
+     * Defines the output files path
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Indicates if the components should be saved after being transformed.
+     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     */
+    saveComponents: false,
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+module.exports = config;
+```
+
+<Tabs>
+ <Tab value='Extract command'>
+
+Run the extractor to transform your components and extract the content
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bunx intlayer extract
+```
+
+ </Tab>
+ <Tab value='Babel compiler'>
+
+```bash packageManager="npm"
+npm install @intlayer/babel --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/babel --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/babel --save-dev
+```
+
+```bash packageManager="bun"
+bun add @intlayer/babel --dev
+```
+
+```js fileName="babel.config.js"
+const {
+  intlayerExtractBabelPlugin,
+  getExtractPluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    // Extract content from components into dictionaries
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+  ],
+};
+```
+
+```bash packageManager="npm"
+npm run build # Or npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # Or pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Or yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
 
 ### Configure TypeScript
 

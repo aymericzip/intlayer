@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-12-30
+updatedAt: 2026-03-12
 title: Vite + Svelte i18n - 如何翻译Svelte 应用 2026
 description: 了解如何使您的 Vite 和 Svelte 网站支持多语言。按照文档进行国际化 (i18n) 和翻译。
 keywords:
@@ -519,6 +519,162 @@ const changeLocale = (event: Event) => {
 有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
 
 ---
+
+### (可选) 步骤 1 : 提取组件内容
+
+如果您有现有的代码库，转换数千个文件可能会非常耗时。
+
+为了简化此过程，Intlayer 提出了 [编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) / [提取器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 来转换您的组件并提取内容。
+
+要进行设置，您可以在 `intlayer.config.ts` 文件中添加 `compiler` 部分：
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... 您的其他配置
+  compiler: {
+    /**
+     * 指示是否应启用编译器。
+     */
+    enabled: true,
+
+    /**
+     * 定义输出文件路径
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * 指示在转换后是否应保存组件。这样，编译器只需运行一次即可转换应用程序，然后即可将其删除。
+     */
+    saveComponents: false,
+
+    /**
+     * 字典键前缀
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... 您的其他配置
+  compiler: {
+    /**
+     * 指示是否应启用编译器。
+     */
+    enabled: true,
+
+    /**
+     * 定义输出文件路径
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * 指示在转换后是否应保存组件。这样，编译器只需运行一次即可转换应用程序，然后即可将其删除。
+     */
+    saveComponents: false,
+
+    /**
+     * 字典键前缀
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... 您的其他配置
+  compiler: {
+    /**
+     * 指示是否应启用编译器。
+     */
+    enabled: true,
+
+    /**
+     * 定义输出文件路径
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * 指示在转换后是否应保存组件。这样，编译器只需运行一次即可转换应用程序，然后即可将其删除。
+     */
+    saveComponents: false,
+
+    /**
+     * 字典键前缀
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+module.exports = config;
+```
+
+<Tabs>
+ <Tab value='提取命令'>
+
+运行提取器以转换组件并提取内容
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bunx intlayer extract
+```
+
+ </Tab>
+ <Tab value='Babel 编译器'>
+
+更新您的 `vite.config.ts` 以包含 `intlayerCompiler` 插件：
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // 添加编译器插件
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # 或 npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # 或 pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # 或 yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
 
 ### 深入了解
 

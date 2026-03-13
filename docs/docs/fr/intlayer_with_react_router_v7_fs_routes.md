@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-07
-updatedAt: 2025-12-30
+updatedAt: 2026-03-12
 title: React Router v7 i18n - Comment traduire une application React Router v7 en 2026
 description: Apprenez à ajouter l'internationalisation (i18n) à votre application React Router v7 en utilisant Intlayer avec un routage basé sur le système de fichiers. Suivez ce guide complet pour rendre votre application multilingue avec un routage sensible à la locale.
 keywords:
@@ -36,7 +36,7 @@ Ce guide montre comment intégrer **Intlayer** pour une internationalisation flu
 
 Pour le routage côté client, consultez le guide [Intlayer avec React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_react_router_v7.md).
 
-## Table of Contents
+## Table des matières
 
 <TOC/>
 
@@ -57,9 +57,9 @@ Avec Intlayer, vous pouvez :
 ## Guide étape par étape pour configurer Intlayer dans une application React Router v7 avec des routes basées sur le système de fichiers
 
 <Tabs defaultTab="video">
-  <Tab label="Video" value="video">
+  <Tab label="Vidéo" value="video">
   
-<iframe title="How to translate an React Router v7 (File-System Routes) app using Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Comment traduire une application React Router v7 (File-System Routes) avec Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
   </Tab>
   <Tab label="Code" value="code">
@@ -67,7 +67,7 @@ Avec Intlayer, vous pouvez :
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-react-router-v7-fs-routes-template?embed=1&ctl=1&file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  title="Démo CodeSandbox - Comment internationaliser votre application avec Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -75,7 +75,7 @@ Avec Intlayer, vous pouvez :
   </Tab>
 </Tabs>
 
-See [Application Template](https://github.com/aymericzip/intlayer-react-router-v7-fs-routes-template) on GitHub.
+Voir le [Modèle d'Application](https://github.com/aymericzip/intlayer-react-router-v7-fs-routes-template) sur GitHub.
 
 ### Étape 1 : Installer les dépendances
 
@@ -575,6 +575,237 @@ export const useI18nHTMLAttributes = () => {
 ```
 
 Ce hook est déjà utilisé dans le composant de mise en page (`root.tsx`) montré à l'Étape 5.
+
+### (Optionnel) Étape 11 : Extraire le contenu de vos composants
+
+Si vous avez une base de code existante, transformer des milliers de fichiers peut prendre beaucoup de temps.
+
+Pour faciliter ce processus, Intlayer propose un [compilateur](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md) / [extracteur](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/extract.md) pour transformer vos composants et extraire le contenu.
+
+Pour le configurer, vous pouvez ajouter une section `compiler` dans votre fichier `intlayer.config.ts` :
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Reste de votre configuration
+  compiler: {
+    /**
+     * Indique si le compilateur doit être activé.
+     */
+    enabled: true,
+
+    /**
+     * Définit le chemin des fichiers de sortie
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Indique si les composants doivent être sauvegardés après avoir été transformés.
+     * De cette façon, le compilateur peut être exécuté une seule fois pour transformer l'application, puis il peut être supprimé.
+     */
+    saveComponents: false,
+
+    /**
+     * Préfixe de clé de dictionnaire
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... Reste de votre configuration
+  compiler: {
+    /**
+     * Indique si le compilateur doit être activé.
+     */
+    enabled: true,
+
+    /**
+     * Définit le chemin des fichiers de sortie
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Indique si les composants doivent être sauvegardés après avoir été transformés.
+     * De cette façon, le compilateur peut être exécuté une seule fois pour transformer l'application, puis il peut être supprimé.
+     */
+    saveComponents: false,
+
+    /**
+     * Préfixe de clé de dictionnaire
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... Reste de votre configuration
+  compiler: {
+    /**
+     * Indique si le compilateur doit être activé.
+     */
+    enabled: true,
+
+    /**
+     * Définit le chemin des fichiers de sortie
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Indique si les composants doivent être sauvegardés après avoir été transformés.
+     * De cette façon, le compilateur peut être exécuté une seule fois pour transformer l'application, puis il peut être supprimé.
+     */
+    saveComponents: false,
+
+    /**
+     * Préfixe de clé de dictionnaire
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+module.exports = config;
+```
+
+<Tabs>
+ <Tab value='Commande d'extraction'>
+
+Exécutez l'extracteur pour transformer vos composants et extraire le contenu
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bunx intlayer extract
+```
+
+ </Tab>
+ <Tab value='Compilateur Babel'>
+
+Mettez à jour votre fichier `vite.config.ts` pour inclure le plugin `intlayerCompiler` :
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // Ajoute le plugin du compilateur
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # Ou npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # Ou pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Ou yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Ou bun run dev
+```
+
+ </Tab>
+</Tabs>
+
+---
+
+## Configurer TypeScript
+
+Intlayer utilise l'augmentation de module pour tirer parti des avantages de TypeScript et renforcer votre base de code.
+
+![Autocomplétion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Erreur de traduction](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+Assurez-vous que votre configuration TypeScript inclut les types générés automatiquement :
+
+```json5 fileName="tsconfig.json"
+{
+  // ... vos configurations existantes
+  include: [
+    // ... vos configurations existantes
+    ".intlayer/**/*.ts", // Inclure les types générés automatiquement
+  ],
+}
+```
+
+---
+
+## Configuration de Git
+
+Il est recommandé d'ignorer les fichiers générés par Intlayer. Cela vous permet d'éviter de les committer dans votre dépôt Git.
+
+Pour ce faire, vous pouvez ajouter les instructions suivantes à votre fichier `.gitignore` :
+
+```plaintext fileName=".gitignore"
+# Ignorer les fichiers générés par Intlayer
+.intlayer
+```
+
+---
+
+## Extension VS Code
+
+Pour améliorer votre expérience de développement avec Intlayer, vous pouvez installer l'extension officielle **Intlayer VS Code Extension**.
+
+[Installer depuis le Marketplace VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Cette extension fournit :
+
+- **L'autocomplétion** pour les clés de traduction.
+- **La détection des erreurs en temps réel** pour les traductions manquantes.
+- **Des aperçus en ligne** du contenu traduit.
+- **Des actions rapides** pour faciliter la création et la mise à jour des traductions.
+
+Pour plus de détails sur l'utilisation de l'extension, reportez-vous à la [documentation de l'extension Intlayer pour VS Code](https://intlayer.org/doc/vs-code-extension).
+
+---
+
+## Aller plus loin
+
+Pour aller plus loin, vous pouvez implémenter l'[éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) ou externaliser votre contenu en utilisant le [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md).
+
+---
+
+## Références de Documentation
+
+- [Documentation Intlayer](https://intlayer.org)
+- [Documentation React Router v7](https://reactrouter.com/)
+- [Documentation React Router fs-routes](https://reactrouter.com/how-to/file-route-conventions)
+- [Hook useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/react-intlayer/useIntlayer.md)
+- [Hook useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/react-intlayer/useLocale.md)
+- [Déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md)
+- [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md)
+
+Ce guide complet vous fournit tout ce dont vous avez besoin pour intégrer Intlayer avec React Router v7 en utilisant un routage basé sur le système de fichiers pour obtenir une application entièrement internationalisée avec un routage sensible à la locale et une prise en charge de TypeScript.
 
 ### Étape 10 : Ajouter un middleware (Optionnel)
 

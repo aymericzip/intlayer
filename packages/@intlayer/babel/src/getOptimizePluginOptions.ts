@@ -1,11 +1,11 @@
 import { join } from 'node:path';
-import { getComponentTransformPatternSync } from '@intlayer/chokidar/utils';
+import { buildComponentFilesList } from '@intlayer/chokidar/utils';
 import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
-import type { Dictionary } from '@intlayer/types/dictionary';
 import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import type { OptimizePluginOptions } from './babel-plugin-intlayer-optimize';
 
 type GetOptimizePluginOptionsParams = {
@@ -31,10 +31,8 @@ const loadDictionaries = (config: IntlayerConfig): Dictionary[] => {
     // Dynamic require to avoid build-time dependency issues
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { getDictionaries } = require('@intlayer/dictionaries-entry');
-    const dictionariesRecord = getDictionaries(config) as Record<
-      string,
-      Dictionary
-    >;
+    const dictionariesRecord = getDictionaries(config);
+
     return Object.values(dictionariesRecord);
   } catch {
     // If dictionaries-entry is not available, return empty array
@@ -66,9 +64,6 @@ export const getOptimizePluginOptions = (
   } = config.system;
   const { importMode, optimize } = config.build;
 
-  // Build files list from traverse pattern
-  const filesListPattern = getComponentTransformPatternSync(config);
-
   const dictionariesEntryPath = join(mainDir, 'dictionaries.mjs');
   const unmergedDictionariesEntryPath = join(
     mainDir,
@@ -79,6 +74,8 @@ export const getOptimizePluginOptions = (
     'dynamic_dictionaries.mjs'
   );
   const fetchDictionariesEntryPath = join(mainDir, 'fetch_dictionaries.mjs');
+
+  const filesListPattern = buildComponentFilesList(config);
 
   const filesList = [
     ...filesListPattern,

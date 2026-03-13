@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-03-11
+updatedAt: 2026-03-12
 title: Cấu hình
 description: Tìm hiểu cách cấu hình Intlayer cho ứng dụng của bạn. Hiểu các thiết lập và tùy chọn khác nhau để tùy chỉnh Intlayer theo nhu cầu của bạn.
 keywords:
@@ -15,7 +15,7 @@ slugs:
   - configuration
 history:
   - version: 8.3.0
-    data: 2026-03-11
+    date: 2026-03-11
     changes: Di chuyển 'baseDir' từ cấu hình 'content' sang cấu hình 'system'
   - version: 8.2.0
     date: 2026-03-09
@@ -110,7 +110,7 @@ Intlayer chấp nhận các định dạng tệp cấu hình JSON, JS, MJS và T
 
 ## Ví dụ tệp cấu hình
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
@@ -208,7 +208,7 @@ const config: IntlayerConfig = {
      * Options: 'cookie', 'localStorage', 'sessionStorage', 'header', or an array of these.
      * Default: ['cookie', 'header']
      */
-    storage: "cookie",
+    storage: ["cookie", "header"],
 
     /**
      * Base path for the application URLs.
@@ -345,6 +345,17 @@ const config: IntlayerConfig = {
      * Base URL for the AI API.
      */
     baseURL: "http://localhost:3000",
+
+    /**
+     * Tuần tự hóa dữ liệu
+     *
+     * Tùy chọn:
+     * - "json": Tiêu chuẩn, đáng tin cậy; tiêu tốn nhiều token hơn.
+     * - "toon": Ít token hơn, kém nhất quán hơn JSON.
+     *
+     * Mặc định: "json"
+     */
+    dataSerialization: "json",
   },
 
   /**
@@ -444,42 +455,70 @@ const config: IntlayerConfig = {
   compiler: {
     /**
      * Cho biết trình biên dịch có nên được bật hay không.
+     *
+     * - false : Vô hiệu hóa trình biên dịch.
+     * - true : Kích hoạt trình biên dịch.
+     * - "build-only" : Bỏ qua trình biên dịch trong quá trình phát triển để tăng tốc thời gian khởi động.
+     *
+     * Giá trị mặc định : false
      */
     enabled: true,
 
     /**
-     * Pattern to traverse the code to optimize.
+     * Xác định đường dẫn tệp đầu ra. Thay thế `outputDir`.
+     *
+     * - Các đường dẫn bắt đầu bằng `./` được giải quyết tương đối so với thư mục component.
+     * - Các đường dẫn bắt đầu bằng `/` được giải quyết tương đối so với thư mục gốc của dự án (`baseDir`).
+     *
+     * - Việc bao gồm biến `{{locale}}` trong đường dẫn sẽ cho phép tạo các từ điển được tách biệt theo ngôn ngữ.
+     *
+     * Ví dụ:
+     * ```ts
+     * {
+     *   // Tạo tệp .content.ts đa ngôn ngữ bên cạnh component
+     *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
+     *
+     *   // output: './{{fileName}}{{extension}}', // Cách viết tương đương bằng template string
+     * }
+     * ```
+     *
+     * ```ts
+     * {
+     *   // Tạo tệp JSON tập trung theo ngôn ngữ trong thư mục gốc của dự án
+     *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+     *
+     *   // output: '/locales/{{locale}}/{{key}}.content.json', // Cách viết tương đương bằng template string
+     * }
+     * ```
+     *
+     * Danh sách biến:
+     *   - `fileName`: Tên tệp.
+     *   - `key`: Khóa nội dung.
+     *   - `locale`: Ngôn ngữ nội dung.
+     *   - `extension`: Phần mở rộng tệp.
+     *   - `componentFileName`: Tên tệp component.
+     *   - `componentExtension`: Phần mở rộng tệp component.
+     *   - `format`: Định dạng từ điển.
+     *   - `componentFormat`: Định dạng từ điển component.
+     *   - `componentDirPath`: Đường dẫn thư mục component.
      */
-    transformPattern: [
-      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
-      "!**/node_modules/**",
-    ],
-
-    /**
-     * Pattern to exclude from the optimization.
-     */
-    excludePattern: ["**/node_modules/**"],
-
-    /**
-     * Thư mục đầu ra cho các từ điển được tối ưu hóa.
-     */
-    output: ({ key }) => `compiler/${key}.content.json`,
-
-    /**
-     * Chỉ chèn nội dung vào tệp đã tạo, không có khóa.
-     */
-    noMetadata: false,
-
-    /**
-     * Tiền tố khóa từ điển
-     */
-    dictionaryKeyPrefix: "", // Remove base prefix
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
 
     /**
      * Cho biết liệu các thành phần có nên được lưu sau khi được chuyển đổi hay không.
      * Bằng cách đó, trình biên dịch có thể được chạy một lần duy nhất để chuyển đổi ứng dụng, và sau đó nó có thể được gỡ bỏ.
      */
     saveComponents: false,
+
+    /**
+     * Chỉ chèn nội dung vào tệp đã tạo. Hữu ích cho đầu ra JSON i18next hoặc ICU MessageFormat theo từng ngôn ngữ.
+     */
+    noMetadata: false,
+
+    /**
+     * Tiền tố khóa từ điển
+     */
+    dictionaryKeyPrefix: "", // Thêm tiền tố tùy chọn cho các khóa từ điển được trích xuất
   },
 
   /**
@@ -498,7 +537,7 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
+````
 
 ## Tham chiếu Cấu hình
 
@@ -1177,7 +1216,7 @@ Các cài đặt kiểm soát trình biên dịch Intlayer, trình biên dịch 
 
 - **dictionaryKeyPrefix**:
   - _Kiểu_: `string`
-  - _Mặc định_: `'comp-'`
+  - _Mặc định_: `''`
   - _Mô tả_: Tiền tố cho các khóa từ điển được trích xuất.
   - _Ví dụ_: `'my-key-'`
   - _Lưu ý_: Khi từ điển được trích xuất, khóa được tạo dựa trên tên tệp. Tiền tố này được thêm vào khóa đã tạo để ngăn chặn xung đột.
@@ -1201,30 +1240,37 @@ Các cài đặt kiểm soát trình biên dịch Intlayer, trình biên dịch 
   - _Mô tả_: Các mẫu xác định những tệp nào sẽ bị loại trừ trong quá trình tối ưu hóa.
   - _Ví dụ_: `['**/node_modules/**', '!**/node_modules/react/**']`
 
-- **outputDir**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `'compiler'`
-  - _Mô tả_: Thư mục nơi các từ điển trích xuất sẽ được lưu trữ, tương đối so với đường dẫn gốc dự án của bạn.
-
 - **output**:
-  - _Loại_: `FilePathPattern`
-  - _Mặc định_: `({ key }) => 'compiler/${key}.content.json'`
-  - _Mô tả_: Xác định đường dẫn tệp đầu ra. Thay thế `outputDir`. Xử lý các biến động như `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}` và `{{componentFormat}}`. Có thể được đặt dưới dạng chuỗi bằng định dạng `'my/{{var}}/path'` hoặc dưới dạng hàm.
-  - _Ghi chú_: Các đường dẫn `./**/*` được giải quyết tương đối so với component. Các đường dẫn `/**/*` được giải quyết tương đối so với `baseDir` của Intlayer.
-  - _Ví dụ_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+  - _Kiểu_: `FilePathPattern`
+  - _Mặc định_: `undefined`
+  - _Mô tả_: Xác định đường dẫn tệp đầu ra. Thay thế `outputDir`. Hỗ trợ các biến động thông qua template string hoặc hàm. Các biến được hỗ trợ: `{{fileName}}`, `{{key}}`, `{{locale}}`, `{{extension}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{format}}`, `{{componentFormat}}`, và `{{componentDirPath}}`.
+  - _Lưu ý_: Các đường dẫn bắt đầu bằng `./` được giải quyết tương đối so với thư mục component. Các đường dẫn bắt đầu bằng `/` được giải quyết tương đối so với thư mục gốc của dự án (`baseDir`).
+  - _Lưu ý_: Việc bao gồm biến `{{locale}}` trong đường dẫn sẽ cho phép tạo các từ điển được tách biệt theo ngôn ngữ.
+  - _Ví dụ_:
+    - **Tạo các tệp đa ngôn ngữ bên cạnh component**:
+    - Chuỗi: `'./{{fileName}}{{extension}}'`
+    - Hàm: `({ fileName, extension }) => \`./${fileName}${extension}\``
+
+    - **Xuất các tệp JSON tập trung cho mỗi ngôn ngữ**:
+    - Chuỗi: `'/locales/{{locale}}/{{key}}.content.json'`
+    - Hàm: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\``
 
 - **noMetadata**:
-  - _Loại_: `boolean`
+  - _Kiểu_: `boolean`
   - _Mặc định_: `false`
-  - _Mô tả_: Cho biết liệu siêu dữ liệu có nên được lưu trong tệp hay không. Nếu true, trình biên dịch sẽ không lưu siêu dữ liệu của từ điển (khóa, trình bao bọc nội dung).
+  - _Mô tả_: Cho biết liệu siêu dữ liệu có nên được lưu trong tệp hay không. Nếu true, trình biên dịch sẽ không lưu siêu dữ liệu của từ điển (khóa, trình bao bọc nội dung). Hữu ích cho đầu ra JSON i18next hoặc ICU MessageFormat cho mỗi ngôn ngữ.
   - _Ghi chú_: Hữu ích nếu được sử dụng với plugin `loadJSON`.
-  - _Ví dụ_: Nếu `true`:
+  - _Ví dụ_:
+    Nếu `true` :
+
     ```json
     {
       "key": "value"
     }
     ```
+
     Nếu `false`:
+
     ```json
     {
       "key": "value",

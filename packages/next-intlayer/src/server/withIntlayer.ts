@@ -1,10 +1,7 @@
 import { join, relative, resolve } from 'node:path';
 import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { logConfigDetails } from '@intlayer/chokidar/cli';
-import {
-  getComponentTransformPatternSync,
-  runOnce,
-} from '@intlayer/chokidar/utils';
+import { buildComponentFilesList, runOnce } from '@intlayer/chokidar/utils';
 import { DefaultValues } from '@intlayer/config/client';
 import { ANSIColors, colorize, getAppLogger } from '@intlayer/config/logger';
 import {
@@ -184,7 +181,7 @@ const getPruneConfig = (
 
   const fetchDictionariesEntryPath = join(mainDir, 'fetch_dictionaries.mjs');
 
-  const filesListPattern = getComponentTransformPatternSync(intlayerConfig);
+  const filesListPattern = buildComponentFilesList(intlayerConfig);
 
   const filesList = [
     ...filesListPattern,

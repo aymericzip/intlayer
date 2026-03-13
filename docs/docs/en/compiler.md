@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-02-25
+updatedAt: 2026-03-12
 title: Intlayer Compiler | Automated Content Extraction for i18n
 description: Automate your internationalization process with the Intlayer Compiler. Extract content directly from your components for faster, more efficient i18n in Vite, Next.js, and more.
 keywords:
@@ -161,7 +161,7 @@ See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymer
 
 To customize the compiler behavior, you can update the `intlayer.config.ts` file in the root of your project.
 
-```ts fileName="intlayer.config.ts"
+````ts fileName="intlayer.config.ts"
 import { type IntlayerConfig, Locales } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -173,43 +173,67 @@ const config: IntlayerConfig = {
     enabled: true,
 
     /**
-     * Pattern to traverse the code to optimize.
+     * Defines the output files path. Replaces `outputDir`.
+     *
+     * - `./` paths are resolved relative to the component directory.
+     * - `/` paths are resolved relative to the project root (`baseDir`).
+     *
+     * - Including the `{{locale}}` variable in the path will trigger the generation of separate dictionaries per locale.
+     *
+     * Example:
+     * ```ts
+     * {
+     *   // Create Multilingual .content.ts files close to the component
+     *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
+     *
+     *   // output: './{{fileName}}{{extension}}', // Equivalent using template string
+     * }
+     * ```
+     *
+     * ```ts
+     * {
+     *   // Create centralize per-locale JSON at the root of the project
+     *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+     *
+     *   // output: '/locales/{{locale}}/{{key}}.content.json', // Equivalent using template string
+     * }
+     * ```
+     *
+     * Variable list:
+     *   - `fileName`: The name of the file.
+     *   - `key`: The key of the content.
+     *   - `locale`: The locale of the content.
+     *   - `extension`: The extension of the file.
+     *   - `componentFileName`: The name of the component file.
+     *   - `componentExtension`: The extension of the component file.
+     *   - `format`: The format of the dictionary.
+     *   - `componentFormat`: The format of the component dictionary.
+     *   - `componentDirPath`: The directory path of the component.
      */
-    transformPattern: [
-      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
-      "!**/node_modules/**",
-    ],
-
-    /**
-     * Pattern to exclude from the optimization.
-     */
-    excludePattern: ["**/node_modules/**"],
-
-    /**
-     * Output directory for the optimized dictionaries.
-     */
-    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
-
-    /**
-     * Inset only content in generated file, without key.
-     */
-    noMetadata: false,
-
-    /**
-     * Dictionary key prefix
-     */
-    dictionaryKeyPrefix: "", // Remove base prefix
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
 
     /**
      * Indicates if the components should be saved after being transformed.
      * That way, the compiler can be run only once to transform the app, and then it can be removed.
      */
     saveComponents: false,
+
+    /**
+     * Inset only content into the generated file. Useful for per-locale i18next or ICU MessageFormat JSON outputs.
+     *
+     * - `output: ({ locale, key }) => `./locale/${locale}/${key}.json`,`
+     */
+    noMetadata: false,
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "", // Add an optional prefix for the extracted dictionary keys
   },
 };
 
 export default config;
-```
+````
 
 ### Compiler Configuration Reference
 
@@ -222,23 +246,18 @@ The following properties can be configured in the `compiler` block of your `intl
 
 - **dictionaryKeyPrefix**:
   - _Type_: `string`
-  - _Default_: `'comp-'`
+  - _Default_: `''`
   - _Description_: Prefix for the extracted dictionary keys.
 
 - **transformPattern**:
   - _Type_: `string | string[]`
   - _Default_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}', '!**/node_modules/**']`
-  - _Description_: Patterns to traverse the code to optimize.
+  - _Description_: (Deprecated: use `build.traversePattern` instead) Patterns to traverse the code to optimize.
 
 - **excludePattern**:
   - _Type_: `string | string[]`
   - _Default_: `['**/node_modules/**']`
-  - _Description_: Patterns to exclude from the optimization.
-
-- **outputDir** (Deprecated):
-  - _Type_: `string`
-  - _Default_: `'compiler'`
-  - _Description_: The directory where the extracted dictionaries will be stored.
+  - _Description_: (Deprecated: use `build.traversePattern` instead) Patterns to exclude from the optimization.
 
 - **output**:
   - _Type_: `FilePathPattern`
@@ -251,7 +270,7 @@ The following properties can be configured in the `compiler` block of your `intl
 - **noMetadata**:
   - _Type_: `boolean`
   - _Default_: `false`
-  - _Description_: Indicates if the metadata should be saved in the file. If true, the compiler will not save the metadata of the dictionaries (key, content wrapper).
+  - _Description_: Indicates if the metadata should be saved in the file. If true, the compiler will not save the metadata of the dictionaries (key, content wrapper). Useful for per-locale i18next or ICU MessageFormat JSON outputs.
   - _Note_: Useful if used with `loadJSON` plugin.
   - _Example_:
     If `true`:
@@ -287,4 +306,12 @@ npx intlayer test         # Test if there is missing translations
 npx intlayer fill         # Fill missing translations
 ```
 
-> For more details, refer to the [CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/ci.md)
+### Extract
+
+Intlayer provide a CLI tool to extract content from your code. You can use the `intlayer extract` command to extract content from your code.
+
+```bash
+npx intlayer extract
+```
+
+> For more details, refer to the [CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)

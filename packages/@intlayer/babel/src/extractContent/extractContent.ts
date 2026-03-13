@@ -3,7 +3,6 @@ import { readFileSync } from 'node:fs';
 import { extname, relative } from 'node:path';
 import type * as t from '@babel/types';
 import { detectFormatCommand } from '@intlayer/chokidar/cli';
-import { formatPath } from '@intlayer/chokidar/utils';
 import {
   ANSIColors,
   colorize,
@@ -26,7 +25,6 @@ import {
   type PackageName,
   shouldExtract,
 } from './utils';
-import { resolveContentFilePaths } from './utils/extractDictionaryInfo';
 import { extractDictionaryKey } from './utils/extractDictionaryKey';
 import { generateKey } from './utils/generateKey';
 
@@ -101,10 +99,7 @@ const processFileInternal = (
   dependencies: Dependencies,
   saveComponent: boolean,
   providedComponentKey?: string
-):
-  | InternalExtractResult
-  | Promise<InternalExtractResult | undefined>
-  | undefined => {
+): InternalExtractResult | undefined => {
   const fileText = options?.code ?? readFileSync(filePath, 'utf-8');
   const componentKey =
     providedComponentKey ??
@@ -255,31 +250,75 @@ const handleExtractionSideEffects = async (
   }
 };
 
-export const extractContent = async (
+type ExtractResult = {
+  transformedCode: string | null;
+  extractedContentMap: Record<string, Record<string, string>>;
+};
+
+type ExtractContext = {
+  configuration: IntlayerConfig;
+  appLogger: ReturnType<typeof getAppLogger>;
+  baseDir: string;
+  unmergedDictionaries: Record<string, unknown>;
+  saveComponent: boolean;
+  componentExtension: string;
+};
+
+const buildContext = (
   filePath: string,
-  packageName: PackageName,
-  options?: ExtractIntlayerOptions
-): Promise<{ transformedCode: string | null } | undefined> => {
+  options: ExtractIntlayerOptions | undefined
+): ExtractContext => {
   const configuration =
     options?.configuration ?? getConfiguration(options?.configOptions);
   const appLogger = getAppLogger(configuration);
-
   const { baseDir } = configuration.system;
   const unmergedDictionaries =
     options?.unmergedDictionaries ?? getUnmergedDictionaries(configuration);
   const saveComponent = !options?.declarationOnly;
   const componentExtension = extname(filePath);
 
+  return {
+    configuration,
+    appLogger,
+    baseDir,
+    unmergedDictionaries,
+    saveComponent,
+    componentExtension,
+  };
+};
+
+export const extractContent = async (
+  filePath: string,
+  packageName: PackageName,
+  options?: ExtractIntlayerOptions
+): Promise<ExtractResult | undefined> => {
+  const {
+    configuration,
+    appLogger,
+    baseDir,
+    unmergedDictionaries,
+    saveComponent,
+    componentExtension,
+  } = buildContext(filePath, options);
+
   if (componentExtension === '.vue' && !vueCompiler) {
-    vueCompiler = (await import(
-      '@intlayer/vue-compiler'
-    )) as unknown as VueCompiler;
+    try {
+      vueCompiler = await import('@intlayer/vue-compiler');
+    } catch {
+      appLogger(
+        `${colorize('Compiler:', ANSIColors.GREY_DARK)} Install ${colorizePath('@intlayer/vue-compiler', ANSIColors.YELLOW)} to process Vue files.`
+      );
+    }
   }
 
   if (componentExtension === '.svelte' && !svelteCompiler) {
-    svelteCompiler = (await import(
-      '@intlayer/svelte-compiler'
-    )) as unknown as SvelteCompiler;
+    try {
+      svelteCompiler = await import('@intlayer/svelte-compiler');
+    } catch {
+      appLogger(
+        `${colorize('Compiler:', ANSIColors.GREY_DARK)} Install ${colorizePath('@intlayer/svelte-compiler', ANSIColors.YELLOW)} to process Svelte files.`
+      );
+    }
   }
 
   const fileText = options?.code ?? readFileSync(filePath, 'utf-8');
@@ -289,7 +328,7 @@ export const extractContent = async (
     configuration.compiler.dictionaryKeyPrefix
   );
 
-  const result = await processFileInternal(
+  const result = processFileInternal(
     filePath,
     packageName,
     options,
@@ -314,27 +353,35 @@ export const extractContent = async (
     saveComponent
   );
 
-  return { transformedCode: result.transformedCode };
+  return {
+    transformedCode: result.transformedCode,
+    extractedContentMap: result.extractedContentMap,
+  };
 };
 
+/**
+ * Synchronous variant of `extractContent` — used by the Babel plugin which
+ * runs in a sync transform context (e.g. Next.js / Webpack).
+ *
+ * Differences from `extractContent`:
+ * - Loads external compilers (Vue, Svelte) via `require()` instead of `import()`
+ * - Fires `onExtract` callbacks as fire-and-forget (cannot await in sync context)
+ * - Does NOT write dictionary files or run the code formatter; callers that
+ *   need persistence should supply an `onExtract` callback
+ */
 export const extractContentSync = (
   filePath: string,
   packageName: PackageName,
   options?: ExtractIntlayerOptions
-):
-  | {
-      transformedCode: string | null;
-      extractedContent: Record<string, Record<string, string>>;
-    }
-  | undefined => {
-  const configuration =
-    options?.configuration ?? getConfiguration(options?.configOptions);
-  const appLogger = getAppLogger(configuration);
-  const { baseDir } = configuration.system;
-  const unmergedDictionaries =
-    options?.unmergedDictionaries ?? getUnmergedDictionaries(configuration);
-  const saveComponent = !options?.declarationOnly;
-  const componentExtension = extname(filePath);
+): ExtractResult | undefined => {
+  const {
+    configuration,
+    appLogger,
+    baseDir,
+    unmergedDictionaries,
+    saveComponent,
+    componentExtension,
+  } = buildContext(filePath, options);
 
   const requireFn = getProjectRequire();
 
@@ -342,14 +389,19 @@ export const extractContentSync = (
     try {
       vueCompiler = requireFn('@intlayer/vue-compiler') as VueCompiler;
     } catch {
-      // Ignored
+      appLogger(
+        `${colorize('Compiler:', ANSIColors.GREY_DARK)} Install ${colorizePath('@intlayer/vue-compiler', ANSIColors.YELLOW)} to process Vue files.`
+      );
     }
   }
+
   if (componentExtension === '.svelte' && !svelteCompiler) {
     try {
       svelteCompiler = requireFn('@intlayer/svelte-compiler') as SvelteCompiler;
     } catch {
-      // Ignored
+      appLogger(
+        `${colorize('Compiler:', ANSIColors.GREY_DARK)} Install ${colorizePath('@intlayer/svelte-compiler', ANSIColors.YELLOW)} to process Svelte files.`
+      );
     }
   }
 
@@ -361,28 +413,21 @@ export const extractContentSync = (
     saveComponent
   );
 
-  if (result instanceof Promise) {
-    throw new Error(
-      `Synchronous extraction failed: External compiler returned a Promise for ${formatPath(relative(baseDir, filePath))}`
+  if (!result?.extractedContentMap) {
+    appLogger(
+      `${colorize('Compiler:', ANSIColors.GREY_DARK)} No extractable text found in ${colorizePath(relative(baseDir, filePath))}`,
+      { isVerbose: true }
     );
+    return undefined;
   }
 
-  if (result?.extractedContentMap) {
-    const { extractedContentMap, transformedCode } = result;
+  const { extractedContentMap, transformedCode } = result;
 
-    if (options?.onExtract) {
-      for (const [key, content] of Object.entries(extractedContentMap)) {
-        void options.onExtract({ key, content, filePath });
-      }
+  if (options?.onExtract) {
+    for (const [key, content] of Object.entries(extractedContentMap)) {
+      void options.onExtract({ key, content, filePath });
     }
-
-    return { transformedCode, extractedContent: extractedContentMap };
   }
 
-  appLogger(
-    `${colorize('Compiler:', ANSIColors.GREY_DARK)} No extractable text found in ${colorizePath(relative(baseDir, filePath))}`,
-    { isVerbose: true }
-  );
-
-  return undefined;
+  return { transformedCode, extractedContentMap };
 };

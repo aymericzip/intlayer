@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-03-10
+updatedAt: 2026-03-12
 title: مترجم Intlayer | استخراج المحتوى الآلي للتدويل
 description: قم بأتمتة عملية التدويل الخاصة بك باستخدام مترجم Intlayer. استخرج المحتوى مباشرة من مكوناتك لتحقيق تدويل أسرع وأكثر كفاءة في Vite و Next.js والمزيد.
 keywords:
@@ -22,7 +22,7 @@ slugs:
 history:
   - version: 8.2.0
     date: 2026-03-09
-    changes: Update compiler options, add FilePathPattern support
+    changes: تحديث خيارات المترجم، إضافة دعم FilePathPattern
   - version: 8.1.7
     date: 2026-02-25
     changes: تحديث خيارات المترجم
@@ -136,9 +136,9 @@ const {
 module.exports = {
   presets: ["next/babel"],
   plugins: [
-    // Extract content from components into dictionaries
+    // استخراج المحتوى من المكونات إلى قواميس
     [intlayerExtractBabelPlugin, getExtractPluginOptions()],
-    // Optimize imports by replacing useIntlayer with direct dictionary imports
+    // تحسين الاستيراد عن طريق استبدال useIntlayer باستيراد قواميس مباشر
     [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
   ],
 };
@@ -149,73 +149,85 @@ module.exports = {
 See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
 
  </Tab>
+</Tabs>
 
 ### التكوين المخصص
 
 لتخصيص سلوك المترجم، يمكنك تحديث ملف `intlayer.config.ts` في جذر مشروعك.
 
-```ts fileName="intlayer.config.ts"
+````ts fileName="intlayer.config.ts"
 import { type IntlayerConfig, Locales } from "intlayer";
 
 const config: IntlayerConfig = {
   compiler: {
     /**
+     * يشير إلى ما إذا كان يجب تمكين المجمّع.
      * اضبط على 'build-only' لتخطي المجمّع أثناء التطوير وتسريع أوقات التشغيل.
      */
     enabled: true,
 
     /**
-     * Pattern to traverse the code to optimize.
+     * يحدد مسار ملفات الإخراج. يستبدل `outputDir`.
+     *
+     * - المسارات التي تبدأ بـ `./` يتم حلها بالنسبة لدليل المكون.
+     * - المسارات التي تبدأ بـ `/` يتم حلها بالنسبة لجذر المشروع (`baseDir`).
+     *
+     * - تضمين متغير `{{locale}}` في المسار سيمكن توليد قواميس منفصلة لكل لغة.
+     *
+     * أمثلة:
+     * ```ts
+     * {
+     *   // إنشاء ملف .content.ts متعدد اللغات بجانب المكون
+     *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
+     *
+     *   // output: './{{fileName}}{{extension}}', // تعبير مكافئ باستخدام قالب السلسلة
+     * }
+     * ```
+     *
+     * ```ts
+     * {
+     *   // إنشاء ملفات JSON مركزية لكل لغة في جذر المشروع
+     *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+     *
+     *   // output: '/locales/{{locale}}/{{key}}.content.json', // تعبير مكافئ باستخدام قالب السلسلة
+     * }
+     * ```
+     *
+     * قائمة المتغيرات:
+     *   - `fileName`: اسم الملف.
+     *   - `key`: مفتاح المحتوى.
+     *   - `locale`: لغة المحتوى.
+     *   - `extension`: امتداد الملف.
+     *   - `componentFileName`: اسم ملف المكون.
+     *   - `componentExtension`: امتداد ملف المكون.
+     *   - `format`: تنسيق القاموس.
+     *   - `componentFormat`: تنسيق قاموس المكون.
+     *   - `componentDirPath`: مسار دليل المكون.
      */
-    transformPattern: [
-      "**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}",
-      "!**/node_modules/**",
-    ],
-
-    /**
-     * Pattern to exclude from the optimization.
-     */
-    excludePattern: ["**/node_modules/**"],
-
-    /**
-     * دليل الإخراج للقواميس المحسنة.
-     */
-    output: ({ key }) => `compiler/${key}.content.json`,
-
-    /**
-     * أدخل المحتوى فقط في الملف الذي تم إنشاؤه، بدون مفتاح.
-     */
-    noMetadata: false,
-
-    /**
-     * بادئة مفتاح القاموس
-     */
-    dictionaryKeyPrefix: "", // Remove base prefix
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
 
     /**
      * يشير إلى ما إذا كان يجب حفظ المكونات بعد تحويلها.
      * بهذه الطريقة، يمكن تشغيل المجمّع مرة واحدة فقط لتحويل التطبيق، ثم يمكن إزالته.
      */
     saveComponents: false,
+
+    /**
+     * أدخل المحتوى فقط في الملف الذي تم إنشاؤه. مفيد لإخراج JSON لـ i18next أو ICU MessageFormat لكل لغة.
+     *
+     * - `output: ({ locale, key }) => `./locale/${locale}/${key}.json`,`
+     */
+    noMetadata: false,
+
+    /**
+     * بادئة مفتاح القاموس
+     */
+    dictionaryKeyPrefix: "", // إضافة بادئة اختيارية لمفاتيح القواميس المستخرجة
   },
 };
 
 export default config;
-```
-
-### ملء الترجمات المفقودة
-
-يوفر Intlayer أداة CLI لمساعدتك في ملء الترجمات المفقودة. يمكنك استخدام أمر `intlayer` لاختبار وملء الترجمات المفقودة من الكود الخاص بك.
-
-```bash
-npx intlayer test         # اختبار ما إذا كانت هناك ترجمات مفقودة
-```
-
-```bash
-npx intlayer fill         # ملء الترجمات المفقودة
-```
-
-> لمزيد من التفاصيل، راجع [توثيق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/ci.md)
+````
 
 ### مرجع تكوين المجمّع
 
@@ -225,36 +237,37 @@ npx intlayer fill         # ملء الترجمات المفقودة
   - _النوع_: `boolean | 'build-only'`
   - _الافتراضي_: `true`
   - _الوصف_: يشير إلى ما إذا كان يجب تمكين المجمّع.
+
 - **dictionaryKeyPrefix**:
   - _النوع_: `string`
-  - _الافتراضي_: `'comp-'`
+  - _الافتراضي_: `''`
   - _الوصف_: بادئة لمفاتيح القواميس المستخرجة.
+
 - **transformPattern**:
   - _النوع_: `string | string[]`
   - _الافتراضي_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}', '!**/node_modules/**']`
-  - _الوصف_: أنماط لاجتياز الكود لتحسينه.
+  - _الوصف_: (مهجور: استخدم `build.traversePattern` بدلاً من ذلك) أنماط لاجتياز الكود لتحسينه.
+
 - **excludePattern**:
   - _النوع_: `string | string[]`
   - _الافتراضي_: `['**/node_modules/**']`
-  - _الوصف_: أنماط لاستبعادها من التحسين.
-- **outputDir** (Deprecated):
-  - _النوع_: `string`
-  - _الافتراضي_: `'compiler'`
-  - _الوصف_: الدليل الذي سيتم تخزين القواميس المستخرجة فيه.
+  - _الوصف_: (مهجور: استخدم `build.traversePattern` بدلاً من ذلك) أنماط لاستبعادها من التحسين.
 
 - **output**:
   - _النوع_: `FilePathPattern`
   - _الافتراضي_: `({ key }) => 'compiler/${key}.content.json'`
   - _الوصف_: يحدد مسار ملفات الإخراج. يستبدل `outputDir`. يتعامل مع المتغيرات الديناميكية مثل `{{locale}}` و `{{key}}` و `{{fileName}}` و `{{extension}}` و `{{format}}` و `{{dirPath}}` و `{{componentFileName}}` و `{{componentExtension}}` و `{{componentFormat}}`. يمكن تعيينه كسلسلة باستخدام تنسيق `'my/{{var}}/path'`، أو كدالة.
   - _ملاحظة_: يتم حل مسار `./**/*` بالنسبة للمكون. يتم حل مسار `/**/*` بالنسبة لـ `baseDir` الخاص بـ Intlayer.
+  - _ملاحظة_: إذا تم تعريف اللغة في المسار، سيتم توليد القواميس لكل لغة.
   - _مثال_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
 
 - **noMetadata**:
   - _النوع_: `boolean`
   - _الافتراضي_: `false`
-  - _الوصف_: يشير إلى ما إذا كان سيتم حفظ البيانات الوصفية في الملف. إذا كان صحيحا، فلن يحفظ المجمّع البيانات الوصفية للقواميس (المفتاح، غلاف المحتوى).
+  - _الوصف_: يشير إلى ما إذا كان سيتم حفظ البيانات الوصفية في الملف. إذا كان صحيحا، فلن يحفظ المجمّع البيانات الوصفية للقواميس (المفتاح، غلاف المحتوى). مفيد لمخرجات JSON i18next أو ICU MessageFormat لكل لغة.
   - _ملاحظة_: مفيد إذا تم استخدامه مع إضافة `loadJSON`.
-  - _مثال_: إذا كان `true`:
+  - _مثال_:
+    إذا كان `true`:
     ```json
     {
       "key": "value"
@@ -274,3 +287,25 @@ npx intlayer fill         # ملء الترجمات المفقودة
   - _النوع_: `boolean`
   - _الافتراضي_: `false`
   - _الوصف_: يشير إلى ما إذا كان يجب حفظ المكونات بعد تحويلها.
+
+### ملء الترجمات المفقودة
+
+يوفر Intlayer أداة CLI لمساعدتك في ملء الترجمات المفقودة. يمكنك استخدام أمر `intlayer` لاختبار وملء الترجمات المفقودة من الكود الخاص بك.
+
+```bash
+npx intlayer test         # اختبار ما إذا كانت هناك ترجمات مفقودة
+```
+
+```bash
+npx intlayer fill         # ملء الترجمات المفقودة
+```
+
+### الاستخراج
+
+يوفر Intlayer أداة CLI لاستخراج المحتوى من الكود الخاص بك. يمكنك استخدام أمر `intlayer extract` لاستخراج المحتوى من الكود الخاص بك.
+
+```bash
+npx intlayer extract
+```
+
+> لمزيد من التفاصيل، راجع [توثيق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)

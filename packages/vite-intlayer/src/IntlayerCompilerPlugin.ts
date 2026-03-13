@@ -16,6 +16,7 @@ import {
   colorizeNumber,
   colorizePath,
   getAppLogger,
+  x,
 } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
@@ -412,6 +413,17 @@ export const intlayerCompiler = (
       }
       if (!logger) {
         logger = getAppLogger(config);
+      }
+
+      if (!config.compiler.output) {
+        logger(
+          `${x} No output configuration found. Add a ${colorize('compiler.output', ANSIColors.BLUE)} in your configuration.`,
+          {
+            level: 'error',
+          }
+        );
+
+        return false;
       }
 
       if (!compilerConfig) {

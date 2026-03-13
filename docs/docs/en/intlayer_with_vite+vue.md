@@ -957,63 +957,164 @@ import RouterLink from "@components/RouterLink.vue";
 </template>
 ```
 
-### (Optional) Step 11: Render Markdown
+### (Optional) Step 11: Extract the content of your components
 
-Intlayer supports rendering Markdown content directly in your Vue application. By default, Markdown is treated as plain text. To convert Markdown into rich HTML, you can integrate [markdown-it](https://github.com/markdown-it/markdown-it), a Markdown parser.
+If you have an existing codebase, transforming thousands of files can be time-consuming.
 
-This is particularly useful when your translations include formatted content like lists, links, or emphasis.
+To ease this process, Intlayer propose a [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/compiler.md) / [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/extract.md) to transform your components and extract the content.
 
-By default Intlayer render markdown as string. But Intlayer also provides a way to render markdown into HTML using the `installIntlayerMarkdown` function.
+To set it up, you can add a `compiler` section in your `intlayer.config.ts` file:
 
-> To see how to declare markdown content using the `intlayer` package, see the [markdown doc](https://github.com/aymericzip/intlayer/tree/main/docs/en/dictionary/markdown.md).
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import { type IntlayerConfig } from "intlayer";
 
-```ts fileName="main.ts"
-import MarkdownIt from "markdown-it";
-import { createApp, h } from "vue";
-import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
+const config: IntlayerConfig = {
+  // ... Rest of your config
+  compiler: {
+    /**
+     * Indicates if the compiler should be enabled.
+     */
+    enabled: true,
 
-const app = createApp(App);
+    /**
+     * Defines the output files path
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
 
-installIntlayer(app);
+    /**
+     * Indicates if the components should be saved after being transformed.
+     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     */
+    saveComponents: false,
 
-const md = new MarkdownIt({
-  html: true, // allow HTML tags
-  linkify: true, // auto-link URLs
-  typographer: true, // enable smart quotes, dashes, etc.
-});
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
 
-// Tell Intlayer to use md.render() whenever it needs to turn markdown into HTML
-installIntlayerMarkdown(app, (markdown) => {
-  const html = md.render(markdown);
-  return h("div", { innerHTML: html });
+export default config;
+```
+
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... Rest of your config
+  compiler: {
+    /**
+     * Indicates if the compiler should be enabled.
+     */
+    enabled: true,
+
+    /**
+     * Defines the output files path
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Indicates if the components should be saved after being transformed.
+     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     */
+    saveComponents: false,
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... Rest of your config
+  compiler: {
+    /**
+     * Indicates if the compiler should be enabled.
+     */
+    enabled: true,
+
+    /**
+     * Defines the output files path
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Indicates if the components should be saved after being transformed.
+     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     */
+    saveComponents: false,
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+module.exports = config;
+```
+
+<Tabs>
+ <Tab value='Extract command'>
+
+Run the extractor to transform your components and extract the content
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bunx intlayer extract
+```
+
+ </Tab>
+ <Tab value='Babel compiler'>
+
+Update your `vite.config.ts` to include the `intlayerCompiler` plugin:
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // Adds the compiler plugin
+  ],
 });
 ```
 
-Once registered, you can use the component-based syntax to display the Markdown content directly:
-
-```vue
-<script setup lang="ts">
-import { useIntlayer } from "vue-intlayer";
-
-const { myMarkdownContent } = useIntlayer("my-component");
-</script>
-
-<template>
-  <div>
-    <!-- Basic syntax -->
-    <myMarkdownContent />
-
-    <!-- Or with custom components -->
-    <component
-      :is="
-        myMarkdownContent.use({
-          h1: (props) => h('h1', { style: { color: 'red' } }, props.children),
-        })
-      "
-    />
-  </div>
-</template>
+```bash packageManager="npm"
+npm run build # Or npm run dev
 ```
+
+```bash packageManager="pnpm"
+pnpm run build # Or pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Or yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
 
 ### Configure TypeScript
 

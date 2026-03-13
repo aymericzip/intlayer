@@ -42,7 +42,7 @@ export const formatFillData = async (
     cleanComponentFileName.charAt(0).toLowerCase() +
     cleanComponentFileName.slice(1);
 
-  const componentFormat = getFormatFromExtension(extension as any);
+  const componentFormat = getFormatFromExtension(extension);
 
   const getContext = (
     locale: Locale,
@@ -67,7 +67,7 @@ export const formatFillData = async (
         extension as FilePathPatternContext['componentExtension'],
       format,
       locale,
-      extension: configuration.content.fileExtensions[0] as any,
+      extension: configuration.content.fileExtensions[0],
     };
   };
 
@@ -139,7 +139,7 @@ export const formatFillData = async (
     }
   };
 
-  // 1. Handle Record of Locales
+  // Handle Record of Locales
   if (typeof fillField === 'object' && fillField !== null) {
     const results: FillData[] = [];
 
@@ -170,7 +170,7 @@ export const formatFillData = async (
     return grouped;
   }
 
-  // 2. Handle static string or function patterns
+  // Handle static string or function patterns
   if (typeof fillField === 'string' || typeof fillField === 'function') {
     return processPattern(fillField as FilePathPattern, localeList);
   }

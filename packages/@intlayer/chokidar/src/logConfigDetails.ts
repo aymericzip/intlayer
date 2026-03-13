@@ -77,25 +77,19 @@ export const logConfigDetails = (options?: GetConfigurationOptions) => {
           appLogger(errorMessage);
         }
 
-        // Deprecation warning: compiler.outputDir -> compiler.output
-        if (customConfiguration.compiler?.outputDir) {
-          appLogger(
-            `${colorizePath('compiler.outputDir')} is deprecated, use ${colorizePath('compiler.output')} instead`
-          );
-        }
         if (customConfiguration.build?.importMode) {
           appLogger(
-            `${colorizePath('build.importMode')} is deprecated, use ${colorizePath('dictionary.importMode')} instead`
+            `${colorize('build.importMode', ANSIColors.BLUE)} is deprecated, use ${colorize('dictionary.importMode', ANSIColors.BLUE)} instead`
           );
         }
         if (customConfiguration.compiler?.transformPattern) {
           appLogger(
-            `${colorizePath('compiler.transformPattern')} is deprecated, use ${colorizePath('build.traversePattern')} instead`
+            `${colorize('compiler.transformPattern', ANSIColors.BLUE)} is deprecated, use ${colorize('build.traversePattern', ANSIColors.BLUE)} instead`
           );
         }
         if (customConfiguration.compiler?.excludePattern) {
           appLogger(
-            `${colorizePath('compiler.excludePattern')} is deprecated, use ${colorizePath('build.traversePattern')} instead`
+            `${colorize('compiler.excludePattern', ANSIColors.BLUE)} is deprecated, use ${colorize('build.traversePattern', ANSIColors.BLUE)} instead`
           );
         }
       }

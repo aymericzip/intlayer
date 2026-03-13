@@ -54,6 +54,62 @@ type ReplaceContentValue<
         | ReplaceContentValueObject<NodeType, FetchableNode>
   : ContentNode<NodeType, FetchableNode>;
 
+/**
+ * Indicate how the dictionary should be filled using AI.
+ *
+ * Default: `true`
+ *
+ * - If `true`, will consider the `compiler.output` field.
+ * - If `false`, will skip the fill process.
+ *
+ * - `./` paths are resolved relative to the component directory.
+ * - `/` paths are resolved relative to the project root (`baseDir`).
+ *
+ * - If includes `{{locale}}` variable in the path, will trigger the generation of separate dictionaries per locale.
+ *
+ * Example:
+ * ```ts
+ * {
+ *   // Create Multilingual .content.ts files close to the component
+ *   fill: ({ fileName, extension }) => `./${fileName}${extension}`,
+ *
+ *   // fill: './{{fileName}}{{extension}}', // Equivalent using template string
+ * }
+ * ```
+ *
+ * ```ts
+ * {
+ *   // Create centralize per-locale JSON at the root of the project
+ *   fill: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+ *
+ *   // fill: '/locales/{{locale}}/{{key}}.content.json', // Equivalent using template string
+ * }
+ * ```
+ *
+ * ```ts
+ * {
+ *   // Create custom output based on the locale
+ *   fill: {
+ *     en: ({ key }) => `/locales/en/${key}.content.json`,
+ *     fr: '/locales/fr/{{key}}.content.json',
+ *     es: false,
+ *     de: true,
+ *   },
+ * }
+ * ```
+ *
+ *
+ * Variable list:
+ *   - `fileName`: The name of the file.
+ *   - `key`: The key of the content.
+ *   - `locale`: The locale of the content.
+ *   - `extension`: The extension of the file.
+ *   - `componentFileName`: The name of the component file.
+ *   - `componentExtension`: The extension of the component file.
+ *   - `format`: The format of the dictionary.
+ *   - `componentFormat`: The format of the component dictionary.
+ *   - `componentDirPath`: The directory path of the component.
+ */
 export type Fill =
   | boolean
   | FilePathPattern
@@ -165,8 +221,8 @@ type DictionaryBase = {
    * Example:
    * ```json
    * {
-   * "key": "about-page-meta",
-   * "content": { ... }
+   *   "key": "about-page-meta",
+   *   "content": { ... }
    * }
    * ```
    */
@@ -178,9 +234,9 @@ type DictionaryBase = {
    * Example:
    * ```json
    * {
-   * "key": "about-page-meta",
-   * "title": "About Page",
-   * "content": { ... }
+   *   "key": "about-page-meta",
+   *   "title": "About Page",
+   *   "content": { ... }
    * }
    * ```
    */
@@ -193,14 +249,14 @@ type DictionaryBase = {
    * Example:
    * ```ts
    * {
-   * "key": "about-page-meta",
-   * "description":[
-   * "This dictionary is manage the metadata of the About Page",
-   * "Consider good practices for SEO:",
-   * "- The title should be between 50 and 60 characters",
-   * "- The description should be between 150 and 160 characters",
-   * ].join('\n'),
-   * "content": { ... }
+   *   "key": "about-page-meta",
+   *   "description":[
+   *     "This dictionary is manage the metadata of the About Page",
+   *     "Consider good practices for SEO:",
+   *     "- The title should be between 50 and 60 characters",
+   *     "- The description should be between 150 and 160 characters",
+   *   ].join('\n'),
+   *   "content": { ... }
    * }
    * ```
    */
@@ -233,8 +289,8 @@ type DictionaryBase = {
    * Example:
    * ```json
    * {
-   * "key": "about-page-meta",
-   * "tags": ["metadata","about-page"]
+   *   "key": "about-page-meta",
+   *   "tags": ["metadata","about-page"]
    * }
    * ```
    */
@@ -249,11 +305,11 @@ type DictionaryBase = {
    * Example:
    * ```json
    * {
-   * "key": "about-page",
-   * "locale": "en",
-   * "content": {
-   * "multilingualContent": "English content"
-   * }
+   *   "key": "about-page",
+   *   "locale": "en",
+   *   "content": {
+   *     "multilingualContent": "English content"
+   *   }
    * }
    * ```
    */
@@ -273,16 +329,60 @@ type DictionaryBase = {
   contentAutoTransformation?: ContentAutoTransformation;
 
   /**
-   * Instruction to fill the dictionary.
-   * Can also be declared globally in the `intlayer.config.ts` file.
+   * Indicate how the dictionary should be filled using AI.
+   *
+   * Default: `true`
+   *
+   * - If `true`, will consider the `compiler.output` field.
+   * - If `false`, will skip the fill process.
+   *
+   * - `./` paths are resolved relative to the component directory.
+   * - `/` paths are resolved relative to the project root (`baseDir`).
+   *
+   * - If includes `{{locale}}` variable in the path, will trigger the generation of separate dictionaries per locale.
    *
    * Example:
-   * ```json
+   * ```ts
    * {
-   * "key": "about-page",
-   * "fill": true
+   *   // Create Multilingual .content.ts files close to the component
+   *   fill: ({ fileName, extension }) => `./${fileName}${extension}`,
+   *
+   *   // fill: './{{fileName}}{{extension}}', // Equivalent using template string
    * }
    * ```
+   *
+   * ```ts
+   * {
+   *   // Create centralize per-locale JSON at the root of the project
+   *   fill: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+   *
+   *   // fill: '/locales/{{locale}}/{{key}}.content.json', // Equivalent using template string
+   * }
+   * ```
+   *
+   * ```ts
+   * {
+   *   // Create custom output based on the locale
+   *   fill: {
+   *     en: ({ key }) => `/locales/en/${key}.content.json`,
+   *     fr: '/locales/fr/{{key}}.content.json',
+   *     es: false,
+   *     de: true,
+   *   },
+   * }
+   * ```
+   *
+   *
+   * Variable list:
+   *   - `fileName`: The name of the file.
+   *   - `key`: The key of the content.
+   *   - `locale`: The locale of the content.
+   *   - `extension`: The extension of the file.
+   *   - `componentFileName`: The name of the component file.
+   *   - `componentExtension`: The extension of the component file.
+   *   - `format`: The format of the dictionary.
+   *   - `componentFormat`: The format of the component dictionary.
+   *   - `componentDirPath`: The directory path of the component.
    */
   fill?: Fill;
 
