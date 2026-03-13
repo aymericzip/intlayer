@@ -256,13 +256,13 @@ const config: IntlayerConfig = {
   editor: {
     /**
      * Whether the visual editor is enabled.
-     * Default: true
+     * Default: false
      */
     enabled: true,
 
     /**
      * URL of your application for origin validation.
-     * Default: "*"
+     * Default: ""
      */
     applicationURL: "http://localhost:3000",
 

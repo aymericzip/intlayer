@@ -385,7 +385,7 @@ const buildEditorFields = (
   /**
    * Indicates if the application interact with the visual editor
    *
-   * Default: true;
+   * Default: false;
    *
    * If true, the editor will be able to interact with the application.
    * If false, the editor will not be able to interact with the application.
