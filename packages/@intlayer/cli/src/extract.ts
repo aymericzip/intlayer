@@ -5,6 +5,7 @@ import {
   extractContent,
   type PackageName,
 } from '@intlayer/babel';
+import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { logConfigDetails } from '@intlayer/chokidar/cli';
 import { buildComponentFilesList } from '@intlayer/chokidar/utils';
 import {
@@ -21,7 +22,6 @@ import {
 import type { FilePathPattern } from '@intlayer/types/filePathPattern';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import enquirer from 'enquirer';
-import { prepareIntlayer } from 'intlayer/cli';
 
 type ExtractOptions = {
   files?: string[];
