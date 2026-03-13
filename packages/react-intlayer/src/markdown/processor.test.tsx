@@ -137,7 +137,7 @@ it('#700 perf regression with unclosed inline syntax', () => {
   );
 
   expect(container.innerHTML).toMatchInlineSnapshot(
-    `"<span>«Cleanliness is the finest of uniforms and a great defender against disease»*. Silver fabric was flowing. A wasp, buzzing, touches the bronze lips of the dragon with delicate <tooltip><tooltiptrigger>hymenous wings</tooltiptrigger><tooltipcontent>wings thin like a membrane (hymenous = thin, like a hymen, meaning very thin skin).</tooltipcontent></tooltip>. On the <tooltip><tooltiptrigger>carved</tooltiptrigger><tooltipcontent>engraved.</tooltipcontent></tooltip> tree trunk like a <tooltip><tooltiptrigger>cradle</tooltiptrigger><tooltipcontent>a swing.</tooltipcontent></tooltip> trough, where the animals quench their thirst, the beehive rests after gathering from the flowers.</span>"`
+    `"<span>«Cleanliness is the finest of uniforms and a great defender against disease»*. Silver fabric was flowing. A wasp, buzzing, touches the bronze lips of the dragon with delicate <tooltip></tooltip><tooltiptrigger>hymenous wings</tooltiptrigger><tooltipcontent>wings thin like a membrane (hymenous = thin, like a hymen, meaning very thin skin).</tooltipcontent>&lt;/Tooltip&gt;. On the <tooltip></tooltip><tooltiptrigger>carved</tooltiptrigger><tooltipcontent>engraved.</tooltipcontent>&lt;/Tooltip&gt; tree trunk like a <tooltip></tooltip><tooltiptrigger>cradle</tooltiptrigger><tooltipcontent>a swing.</tooltipcontent>&lt;/Tooltip&gt; trough, where the animals quench their thirst, the beehive rests after gathering from the flowers.</span>"`
   );
 });
 

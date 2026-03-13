@@ -91,15 +91,20 @@ const parseHTML = (content: string): ASTNode[] => {
     const cleanedAttributes = attributesRaw.trim().replace(/\/$/, '').trim();
 
     if (isClosing) {
-      const last = stack.pop();
+      const last = stack[stack.length - 1];
 
-      if (last) {
-        appendChild({
-          tagName: last.tagName,
-          props: last.props,
-          children: last.children,
-        });
+      // Only pop if the tag names match
+      if (last && last.tagName === tagName) {
+        const popped = stack.pop();
+        if (popped) {
+          appendChild({
+            tagName: popped.tagName,
+            props: popped.props,
+            children: popped.children,
+          });
+        }
       }
+      // If tags don't match or no open tag, silently ignore the closing tag
     } else if (isSelfClosing) {
       const tagProps = parseAttributes(cleanedAttributes);
       appendChild({

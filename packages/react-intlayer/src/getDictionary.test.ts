@@ -1,7 +1,6 @@
 import { NodeType } from '@intlayer/types/nodeType';
-import { createElement, Fragment, ReactElement } from 'react';
+import { createElement, Fragment } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { renderIntlayerNode } from './IntlayerNode';
 
 // ---------------------------------------------------------------------------
 // Mocks – must be declared before any imports that transitively load them.
@@ -130,7 +129,7 @@ describe('getDictionary – insertion with React nodes', () => {
     // Should render without converting to [object Object]
     expect(rendered.type).toBe(Fragment);
     // Children should contain the JSX fragment, not a string representation
-    expect(rendered.props.children).toBeDefined();
+    expect((rendered.props as any).children).toBeDefined();
   });
 
   it('insertion preserves React element in rendered output', () => {
