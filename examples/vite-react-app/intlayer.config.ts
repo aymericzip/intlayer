@@ -35,7 +35,7 @@ const config: IntlayerConfig = {
   compiler: {
     enabled: true,
     transformPattern: ['**/*.{ts,tsx}'],
-    output: (ctx) => `./${ctx.fileName}.content.ts`,
+    // output: (ctx) => `./${ctx.fileName}.content.ts`,
     noMetadata: false,
     saveComponents: true,
   },

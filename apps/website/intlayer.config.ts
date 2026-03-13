@@ -62,6 +62,9 @@ const config: CustomIntlayerConfig = {
     codeDir: ['./src', '../../packages/@intlayer/design-system/dist'],
     formatCommand: 'bun x biome format "{{file}}" --write --log-level none',
   },
+  compiler: {
+    output: ({ fileName }) => `./${fileName}.content.ts`,
+  },
   editor: {
     enabled: true,
     liveSync: false,
@@ -73,7 +76,7 @@ const config: CustomIntlayerConfig = {
     // clientId: process.env.INTLAYER_CLIENT_ID,
     // clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
-  build: {
+  dictionary: {
     importMode: 'dynamic',
   },
   ai: {
