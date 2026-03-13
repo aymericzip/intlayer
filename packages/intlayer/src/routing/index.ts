@@ -1,4 +1,8 @@
-import type { RewriteObject, RewriteRule, RewriteRules } from '@intlayer/types/config';
+import type {
+  RewriteObject,
+  RewriteRule,
+  RewriteRules,
+} from '@intlayer/types/config';
 import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 
 const buildRules = (
@@ -71,7 +75,7 @@ const stripLocale = (pattern: string) =>
 const createFormatter =
   (proxyKey: 'nextjs' | 'vite', framework?: string) =>
   <T extends string = string>(
-    rules: Record<T, StrictModeLocaleMap<string>>
+    rules: Record<T, Partial<StrictModeLocaleMap<string>>>
   ): RewriteObject => {
     const normalize = (pattern: string) => normalizePattern(pattern, framework);
     const strip = (pattern: string) => stripLocale(normalize(pattern));
