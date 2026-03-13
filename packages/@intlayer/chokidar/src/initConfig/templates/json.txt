@@ -15,7 +15,7 @@
     "enabled": false,
     "applicationURL": 'http://localhost:3000',
   },
-  "build": {
+  "dictionary": {
     "importMode": "static",
   },
   "ai": {
