@@ -105,7 +105,13 @@ const ImgRenderer = ({
     alt={alt ?? ''}
     loading="lazy"
     className={cn('max-h-[80vh] max-w-full rounded-md', className)}
-    src={`${src}?raw=true`}
+    src={
+      src?.includes('github.com')
+        ? src
+            ?.replace('github.com', 'raw.githubusercontent.com')
+            .replace('/blob/', '/') // GitHub raw URLs do not use /blob/
+        : src
+    }
   />
 );
 
