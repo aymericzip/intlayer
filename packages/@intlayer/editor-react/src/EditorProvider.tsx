@@ -94,26 +94,38 @@ export type EditorProviderProps = CommunicatorProviderProps &
     mode: 'editor' | 'client';
   };
 
+/**
+ * Inner component for client mode with communicator context available
+ */
+const ClientModeContent: FC<PropsWithChildren<FallbackProps>> = ({
+  children,
+  fallback,
+}) => (
+  <EditorEnabledProvider>
+    <IframeCheckRenderer fallback={fallback}>
+      <EditorEnabledCheckRenderer fallback={fallback}>
+        <EditorProvidersWrapper>{children}</EditorProvidersWrapper>
+      </EditorEnabledCheckRenderer>
+    </IframeCheckRenderer>
+  </EditorEnabledProvider>
+);
+
 export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
   children,
   configuration,
-  ...props
+  postMessage,
+  allowedOrigins,
+  mode,
 }) => (
-  <EditorEnabledProvider>
-    <ConfigurationProvider configuration={configuration}>
-      {props.mode === 'editor' ? (
-        <CommunicatorProvider {...props}>
-          <EditorProvidersWrapper>{children}</EditorProvidersWrapper>
-        </CommunicatorProvider>
+  <ConfigurationProvider configuration={configuration}>
+    <CommunicatorProvider postMessage={postMessage} allowedOrigins={allowedOrigins}>
+      {mode === 'editor' ? (
+        <EditorProvidersWrapper>{children}</EditorProvidersWrapper>
       ) : (
-        <IframeCheckRenderer fallback={children}>
-          <CommunicatorProvider {...props}>
-            <EditorEnabledCheckRenderer fallback={children}>
-              <EditorProvidersWrapper>{children}</EditorProvidersWrapper>
-            </EditorEnabledCheckRenderer>
-          </CommunicatorProvider>
-        </IframeCheckRenderer>
+        <ClientModeContent fallback={children}>
+          {children}
+        </ClientModeContent>
       )}
-    </ConfigurationProvider>
-  </EditorEnabledProvider>
+    </CommunicatorProvider>
+  </ConfigurationProvider>
 );

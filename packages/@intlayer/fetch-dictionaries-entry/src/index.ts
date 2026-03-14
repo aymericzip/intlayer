@@ -8,9 +8,12 @@ import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import config from '@intlayer/config/built';
 import { clearModuleCache, configESMxCJSRequire } from '@intlayer/config/utils';
-import type { Dictionary } from '@intlayer/types/dictionary';
-import type { DictionaryKeys, StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type {
+  DictionaryKeys,
+  StrictModeLocaleMap,
+} from '@intlayer/types/module_augmentation';
 
 export type FetchDictionaries = Record<
   DictionaryKeys,

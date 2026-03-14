@@ -176,14 +176,14 @@
     "defu": "6.1.4"
   },
   "devDependencies": {
-    "@types/node": "25.4.0",
+    "@types/node": "25.5.0",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "rimraf": "6.1.3",
     "tsdown": "0.21.2",
     "typescript": "5.9.3",
-    "vitest": "4.0.18"
+    "vitest": "4.1.0"
   },
   "engines": {
     "node": ">=14.18"

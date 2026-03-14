@@ -13,7 +13,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "types": ["vite/client", "node"],
+    "types": ["vite/client"],
 
     /* Linting */
     "strict": true,

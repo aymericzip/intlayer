@@ -1,10 +1,16 @@
 import configuration from '@intlayer/config/built';
 import {
+  conditionPlugin,
   type DeepTransformContent as DeepTransformContentCore,
+  enumerationPlugin,
+  filePlugin,
+  genderPlugin,
   getHTML,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
+  nestedPlugin,
   type Plugins,
   splitInsertionTemplate,
+  translationPlugin,
 } from '@intlayer/core/interpreter';
 import { getMarkdownMetadata } from '@intlayer/core/markdown';
 import {
@@ -93,12 +99,16 @@ export const solidNodePlugins: Plugins = {
     renderIntlayerNode({
       ...rest,
       value: '[[solid-element]]',
-      children: (
+      children: configuration?.editor.enabled ? (
         <ContentSelectorRenderer {...rest}>
           {typeof Node !== 'undefined' && node instanceof Node
             ? node
             : renderSolidElement(node)}
         </ContentSelectorRenderer>
+      ) : typeof Node !== 'undefined' && node instanceof Node ? (
+        node
+      ) : (
+        renderSolidElement(node)
       ),
     }),
 };
@@ -107,16 +117,18 @@ export const solidNodePlugins: Plugins = {
  *  INSERTION PLUGIN
  *  --------------------------------------------- */
 
-export type InsertionCond<T, _S, _L> = T extends {
+export type InsertionCond<T, _S, L extends LocalesValues> = T extends {
   nodeType: NodeType | string;
-  [NodeType.Insertion]: string;
-  fields: readonly string[];
+  [NodeType.Insertion]: infer I;
+  fields: readonly (infer F)[];
 }
-  ? <V extends { [K in T['fields'][number]]: JSX.Element }>(
+  ? <V extends { [K in Extract<F, string>]: string | number | JSX.Element }>(
       values: V
-    ) => V[keyof V] extends string | number
-      ? IntlayerNode<string>
-      : IntlayerNode<JSX.Element>
+    ) => I extends string
+      ? V[keyof V] extends string | number
+        ? IntlayerNode<string>
+        : IntlayerNode<JSX.Element>
+      : DeepTransformContent<I, L>
   : never;
 
 /**
@@ -128,6 +140,7 @@ const splitAndJoinInsertion = (
 ): JSX.Element => {
   const result = splitInsertionTemplate(template, values);
 
+  // No JSX elements - use original logic
   if (result.isSimple) {
     // Simple string replacement
     return result.parts as string;
@@ -152,29 +165,24 @@ export const insertionPlugin: Plugins = {
 
     const children = node[NodeType.Insertion];
 
-    /** Insertion string plugin. Replaces string node with a component that render the insertion. */
-    const insertionStringPlugin: Plugins = {
-      id: 'insertion-string-plugin',
-      canHandle: (node) => typeof node === 'string',
-      transform: (node: string, subProps, deepTransformNode) => {
-        const transformedResult = deepTransformNode(node, {
-          ...subProps,
-          children: node,
-          plugins: [
-            ...(props.plugins ?? ([] as Plugins[])).filter(
-              (plugin) => plugin.id !== 'intlayer-node-plugin'
-            ),
-          ],
-        });
+    // Return the (values) => wrapper at the Insertion level
+    return (values: Record<string, string | number | JSX.Element>) => {
+      /** Insertion string plugin. Replaces strings by injecting the values. */
+      const insertionStringPlugin: Plugins = {
+        id: 'insertion-string-plugin',
+        canHandle: (n) => typeof n === 'string',
+        transform: (n: string, subProps, deepTransformNode) => {
+          const transformedResult = deepTransformNode(n, {
+            ...subProps,
+            children: n,
+            plugins: [
+              ...(props.plugins ?? ([] as Plugins[])).filter(
+                (plugin) => plugin.id !== 'intlayer-node-plugin'
+              ),
+            ],
+          });
 
-        return (
-          values: {
-            [K in InsertionContent['fields'][number]]:
-              | string
-              | number
-              | JSX.Element;
-          }
-        ) => {
+          // Inject the values captured from the parent scope
           const result = splitAndJoinInsertion(transformedResult, values);
 
           return deepTransformNode(result, {
@@ -182,16 +190,17 @@ export const insertionPlugin: Plugins = {
             plugins: props.plugins,
             children: result,
           });
-        };
-      },
-    };
+        },
+      };
 
-    return deepTransformNode(children, {
-      ...props,
-      children,
-      keyPath: newKeyPath,
-      plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
-    });
+      // Process the child nodes (strings or enumerations) with the string plugin active
+      return deepTransformNode(children, {
+        ...props,
+        children,
+        keyPath: newKeyPath,
+        plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
+      });
+    };
   },
 };
 
@@ -285,20 +294,23 @@ export const markdownStringPlugin: Plugins = {
 
         return Reflect.get(target, prop, receiver);
       },
-    }) as any;
+    });
   },
 };
 
 export type MarkdownCond<T> = T extends {
   nodeType: NodeType | string;
-  [NodeType.Markdown]: infer _M;
+  [NodeType.Markdown]: infer M;
   metadata?: infer U;
   tags?: infer U;
 }
-  ? {
-      use: (components?: HTMLComponents<'permissive', U>) => JSX.Element;
-      metadata: DeepTransformContent<U>;
-    }
+  ? IntlayerNode<
+      M,
+      {
+        use: (components?: HTMLComponents<'permissive', U>) => JSX.Element;
+        metadata: DeepTransformContent<U>;
+      }
+    >
   : never;
 
 export const markdownPlugin: Plugins = {
@@ -358,9 +370,12 @@ export type HTMLPluginCond<T> = T extends {
   [NodeType.HTML]: infer I;
   tags?: infer U;
 }
-  ? {
-      use: (components?: HTMLComponents<'permissive', U>) => IntlayerNode<I>;
-    }
+  ? IntlayerNode<
+      I,
+      {
+        use: (components?: HTMLComponents<'permissive', U>) => IntlayerNode<I>;
+      }
+    >
   : never;
 
 /** HTML plugin. Replaces node with a function that takes components => JSX.Element. */
@@ -396,7 +411,7 @@ export const htmlPlugin: Plugins = {
 
         return Reflect.get(target, prop, receiver);
       },
-    }) as any;
+    });
   },
 };
 
@@ -432,3 +447,27 @@ export type DeepTransformContent<
   T,
   L extends LocalesValues = DeclaredLocales,
 > = DeepTransformContentCore<T, IInterpreterPluginState, L>;
+
+/**
+ * Get the plugins array for Solid content transformation.
+ * This function is used by both getIntlayer and getDictionary to ensure consistent plugin configuration.
+ */
+export const getPlugins = (
+  locale?: LocalesValues,
+  fallback: boolean = true
+): Plugins[] => [
+  translationPlugin(
+    locale ?? configuration.internationalization.defaultLocale,
+    fallback ? configuration.internationalization.defaultLocale : undefined
+  ),
+  enumerationPlugin,
+  conditionPlugin,
+  nestedPlugin(locale ?? configuration.internationalization.defaultLocale),
+  filePlugin,
+  genderPlugin,
+  intlayerNodePlugins,
+  solidNodePlugins,
+  insertionPlugin,
+  markdownPlugin,
+  htmlPlugin,
+];

@@ -1,5 +1,5 @@
+import type { TypedNodeModel } from '@intlayer/types/nodeType';
 import { formatNodeType, NodeType } from '@intlayer/types/nodeType';
-import type { TypedNodeModel } from '@intlayer/types/nodeType';;
 
 type Positive = number | `${number}`;
 type Negative = `-${number}`;
@@ -50,7 +50,8 @@ export type EnumerationContent<Content = unknown> = TypedNodeModel<
  * > The order of the keys will define the priority of the content.
  *
  */
-const enumeration = <Content>(content?: EnumerationContentState<Content>) =>
-  formatNodeType(NodeType.Enumeration, content);
+const enumeration = <Content = unknown>(
+  content?: EnumerationContentState<Content>
+) => formatNodeType(NodeType.Enumeration, content);
 
 export { enumeration as enu };

@@ -12,12 +12,12 @@
     "@solidjs/router": "0.15.4",
     "intlayer": "workspace:*",
     "solid-intlayer": "workspace:*",
-    "solid-js": "1.9.10"
+    "solid-js": "1.9.11"
   },
   "devDependencies": {
-    "solid-refresh": "0.7.5",
+    "solid-refresh": "0.7.8",
     "typescript": "5.9.3",
-    "vite": "7.3.1",
+    "vite": "8.0.0",
     "vite-intlayer": "workspace:*",
     "vite-plugin-solid": "2.11.10"
   }

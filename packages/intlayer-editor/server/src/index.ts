@@ -8,7 +8,12 @@ import fastifyFormbody from '@fastify/formbody';
 import fastifyHelmet from '@fastify/helmet';
 import fastifyStatic from '@fastify/static';
 import { getEnvFilePath } from '@intlayer/config/env';
-import { ANSIColors, colorize, colorizePath } from '@intlayer/config/logger';
+import {
+  ANSIColors,
+  colorize,
+  colorizePath,
+  getAppLogger,
+} from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
 import { configurationRouter } from '@routes/config.routes';
 import { dictionaryRouter } from '@routes/dictionary.routes';
@@ -24,6 +29,22 @@ const envFileOptions = {
   envFile: process.env.ENV_FILE,
 };
 
+const FALLBACK_PORT = 8000;
+const config = getConfiguration(envFileOptions);
+
+const appLogger = getAppLogger(config);
+const port = config.editor.port ?? FALLBACK_PORT;
+
+if (!config.editor.enabled) {
+  appLogger(
+    `Editor is not enabled. Add ${colorize('compiler.enabled', ANSIColors.BLUE)} to ${colorizePath('intlayer.config.ts')} file to enable it.`,
+    {
+      level: 'error',
+    }
+  );
+  process.exit(1);
+}
+
 // Load package.json
 const packageJson = JSON.parse(
   readFileSync(resolve(__dirname, '../../package.json'), 'utf8')
@@ -37,10 +58,6 @@ const app: FastifyInstance = Fastify({
 // Assuming fastify-intlayer is the Fastify equivalent of express-intlayer
 app.register(intlayer);
 
-const FALLBACK_PORT = 8000;
-const config = getConfiguration(envFileOptions);
-const port = config.editor.port ?? FALLBACK_PORT;
-
 const clientDistPath = resolve(__dirname, '../../client/dist');
 
 const corsOptions: FastifyCorsOptions = {
@@ -52,7 +69,9 @@ const startServer = async (app: FastifyInstance) => {
   const isPortAvailable = await checkPortAvailability(port);
 
   if (!isPortAvailable) {
-    console.error(`\x1b[1;31mError: Port ${port} is already in use.\x1b[0m`);
+    appLogger(`Error: Port ${port} is already in use.`, {
+      level: 'error',
+    });
     process.exit(255);
   }
 

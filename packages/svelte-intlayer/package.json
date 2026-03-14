@@ -80,20 +80,20 @@
     "@intlayer/unmerged-dictionaries-entry": "workspace:*"
   },
   "devDependencies": {
-    "@sveltejs/adapter-auto": "7.0.0",
-    "@sveltejs/package": "2.5.4",
-    "@sveltejs/vite-plugin-svelte": "4.0.0",
-    "@types/node": "25.4.0",
+    "@sveltejs/adapter-auto": "7.0.1",
+    "@sveltejs/package": "2.5.7",
+    "@sveltejs/vite-plugin-svelte": "7.0.0",
+    "@types/node": "25.5.0",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "rimraf": "6.1.3",
-    "svelte": "5.0.0",
-    "svelte-check": "4.0.0",
+    "svelte": "5.53.11",
+    "svelte-check": "4.4.5",
     "tsdown": "0.21.2",
     "typescript": "5.9.3",
-    "vite": "5.0.0",
-    "vitest": "4.0.18"
+    "vite": "8.0.0",
+    "vitest": "4.1.0"
   },
   "peerDependencies": {
     "svelte": ">=5.0.0"

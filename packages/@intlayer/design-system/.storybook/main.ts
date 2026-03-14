@@ -1,5 +1,5 @@
+import { resolve } from 'node:path';
 import type { StorybookConfig } from '@storybook/react-vite';
-import { resolve } from 'path';
 import { defineConfig, mergeConfig } from 'vite';
 import { intlayer } from 'vite-intlayer';
 
@@ -31,19 +31,8 @@ const config: StorybookConfig = {
     } as const;
 
     const tailwindcss = (await import('@tailwindcss/vite')).default;
-    const path = await import('node:path');
 
     const viteConfig = defineConfig(() => ({
-      resolve: {
-        alias: {
-          '@components': path.resolve(process.cwd(), 'src/components'),
-          '@utils': path.resolve(process.cwd(), 'src/utils'),
-          '@hooks': path.resolve(process.cwd(), 'src/hooks'),
-          '@libs': path.resolve(process.cwd(), 'src/libs'),
-          '@providers': path.resolve(process.cwd(), 'src/providers'),
-          '@': path.resolve(process.cwd(), 'src'),
-        },
-      },
       plugins: [intlayer(), tailwindcss()],
       resolve: {
         alias: {
@@ -62,7 +51,7 @@ const config: StorybookConfig = {
         // Optional: silence the “chunks > 500kB” warning
         chunkSizeWarningLimit: 1500,
 
-        rollupOptions: {
+        rolldownOptions: {
           onwarn(warning, defaultHandler) {
             // Hide `"use client"` warnings
             if (warning.code === 'MODULE_LEVEL_DIRECTIVE') return;

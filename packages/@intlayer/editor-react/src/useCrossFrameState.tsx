@@ -42,7 +42,7 @@ export const useCrossFrameState = <S,>(
   initialState?: S | (() => S),
   options?: CrossFrameStateOptions
 ): [S, Dispatch<SetStateAction<S>>, typeof postState] => {
-  const { postMessage, senderId } = useCommunicator();
+  const { postMessage, senderId } = useCommunicator() ?? {};
 
   const { emit, receive } = options ?? { emit: true, receive: true };
 

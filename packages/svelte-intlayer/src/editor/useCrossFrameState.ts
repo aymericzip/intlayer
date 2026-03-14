@@ -50,7 +50,7 @@ export const useCrossFrameState = <S>(
   const communicatorStore = useCommunicator();
 
   const broadcastState = (value: S | undefined) => {
-    const { postMessage, senderId } = get(communicatorStore);
+    const { postMessage, senderId } = get(communicatorStore) ?? {};
 
     if (
       !emit ||
@@ -80,7 +80,7 @@ export const useCrossFrameState = <S>(
   };
 
   const postState = () => {
-    const { postMessage, senderId } = get(communicatorStore);
+    const { postMessage, senderId } = get(communicatorStore) ?? {};
     if (typeof postMessage !== 'function') return;
     postMessage(
       {
@@ -97,7 +97,7 @@ export const useCrossFrameState = <S>(
 
   // If receiving, ask for state
   if (receive && typeof get(state) === 'undefined') {
-    const { postMessage, senderId } = get(communicatorStore);
+    const { postMessage, senderId } = get(communicatorStore) ?? {};
     if (typeof postMessage === 'function') {
       postMessage({ type: `${key}/get`, senderId }, '*');
     }
@@ -105,7 +105,7 @@ export const useCrossFrameState = <S>(
 
   // Listen for updates
   const listenerKey = receive ? `${key}/post` : (`${key}/ignore` as any);
-  const listener = useCrossFrameMessageListener<S>(listenerKey, (data) => {
+  useCrossFrameMessageListener<S>(listenerKey, (data) => {
     if (receive) {
       state.set(data);
     }
@@ -113,14 +113,11 @@ export const useCrossFrameState = <S>(
 
   // Listen for requests
   const getListenerKey = emit ? `${key}/get` : (`${key}/ignore` as any);
-  const getListener = useCrossFrameMessageListener(
-    getListenerKey,
-    (_: unknown) => {
-      if (emit) {
-        broadcastState(get(state));
-      }
+  useCrossFrameMessageListener(getListenerKey, (_: unknown) => {
+    if (emit) {
+      broadcastState(get(state));
     }
-  );
+  });
 
   crossFrameStateCache.set(key, { state, setState, postState });
 

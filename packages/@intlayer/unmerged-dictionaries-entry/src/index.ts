@@ -8,9 +8,9 @@ import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import config from '@intlayer/config/built';
 import { clearModuleCache, configESMxCJSRequire } from '@intlayer/config/utils';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type { DictionaryKeys } from '@intlayer/types/module_augmentation';
-import type { IntlayerConfig } from '@intlayer/types/config';
 
 export type UnmergedDictionaries = Record<DictionaryKeys, Dictionary[]>;
 

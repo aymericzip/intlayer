@@ -1,10 +1,16 @@
 import configuration from '@intlayer/config/built';
 import {
+  conditionPlugin,
   type DeepTransformContent as DeepTransformContentCore,
+  enumerationPlugin,
+  filePlugin,
+  genderPlugin,
   getHTML,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
+  nestedPlugin,
   type Plugins,
   splitInsertionTemplate,
+  translationPlugin,
 } from '@intlayer/core/interpreter';
 import { getMarkdownMetadata } from '@intlayer/core/markdown';
 import {
@@ -117,14 +123,86 @@ const splitAndJoinInsertion = (
   template: string,
   values: Record<string, string | number | VNode>
 ): VNode | VNode[] => {
-  const result = splitInsertionTemplate(template, values);
+  // Separate VNode values from primitives
+  const vNodeMap = new Map<string, VNode>();
+  const primitiveValues: Record<string, string | number> = {};
 
+  for (const [key, value] of Object.entries(values)) {
+    if (typeof value === 'string' || typeof value === 'number') {
+      primitiveValues[key] = value;
+    } else {
+      // Store VNode for later reconstruction
+      vNodeMap.set(key, value);
+      // Use a placeholder string for template processing
+      primitiveValues[key] = `__VNODE_${key}__`;
+    }
+  }
+
+  const result = splitInsertionTemplate(template, primitiveValues);
+
+  // If there are VNodes, we need to process them
+  if (vNodeMap.size > 0) {
+    const parts: any[] = [];
+
+    if (result.isSimple) {
+      // Simple string replacement
+      const str = result.parts as string;
+      let lastIndex = 0;
+
+      for (const [key] of vNodeMap) {
+        const placeholder = `__VNODE_${key}__`;
+        const index = str.indexOf(placeholder);
+
+        if (index !== -1) {
+          if (index > lastIndex) {
+            parts.push(str.substring(lastIndex, index));
+          }
+          parts.push(vNodeMap.get(key)!);
+          lastIndex = index + placeholder.length;
+        }
+      }
+
+      if (lastIndex < str.length) {
+        parts.push(str.substring(lastIndex));
+      }
+
+      return h(Fragment, null, ...parts);
+    } else {
+      // Complex case with multiple parts
+      (result.parts as any[]).forEach((part) => {
+        if (typeof part === 'string') {
+          let remaining = part;
+
+          for (const [key] of vNodeMap) {
+            const placeholder = `__VNODE_${key}__`;
+            const idx = remaining.indexOf(placeholder);
+
+            if (idx !== -1) {
+              if (idx > 0) {
+                parts.push(remaining.substring(0, idx));
+              }
+              parts.push(vNodeMap.get(key)!);
+              remaining = remaining.substring(idx + placeholder.length);
+            }
+          }
+
+          if (remaining.length > 0) {
+            parts.push(remaining);
+          }
+        } else {
+          parts.push(part);
+        }
+      });
+
+      return h(Fragment, null, ...parts);
+    }
+  }
+
+  // No VNodes - use original logic
   if (result.isSimple) {
-    // Simple string replacement
     return result.parts as any;
   }
 
-  // Return as Fragment
   return h(Fragment, null, result.parts as any);
 };
 
@@ -407,3 +485,26 @@ export type DeepTransformContent<
   T,
   L extends LocalesValues = DeclaredLocales,
 > = DeepTransformContentCore<T, IInterpreterPluginState, L>;
+
+/**
+ * Get the plugins array for Vue content transformation.
+ * This function is used by both getIntlayer and getDictionary to ensure consistent plugin configuration.
+ */
+export const getPlugins = (
+  locale?: LocalesValues,
+  fallback: boolean = true
+): Plugins[] => [
+  translationPlugin(
+    locale ?? configuration.internationalization.defaultLocale,
+    fallback ? configuration.internationalization.defaultLocale : undefined
+  ),
+  enumerationPlugin,
+  conditionPlugin,
+  nestedPlugin(locale ?? configuration.internationalization.defaultLocale),
+  filePlugin,
+  genderPlugin,
+  intlayerNodePlugins,
+  insertionPlugin,
+  markdownPlugin,
+  htmlPlugin,
+];

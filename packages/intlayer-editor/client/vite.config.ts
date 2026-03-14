@@ -15,7 +15,7 @@ export default defineConfig({
     port: 8000,
   },
   build: {
-    rollupOptions: {
+    rolldownOptions: {
       treeshake: { moduleSideEffects: false },
     },
     minify: false,

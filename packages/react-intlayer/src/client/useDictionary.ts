@@ -1,7 +1,10 @@
 'use client';
 
-import type { DeclaredLocales, LocalesValues } from '@intlayer/types/module_augmentation';
 import type { Dictionary } from '@intlayer/types/dictionary';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import { useContext, useMemo } from 'react';
 import { getDictionary } from '../getDictionary';
 import { IntlayerClientContext } from './IntlayerProvider';
@@ -24,5 +27,5 @@ export const useDictionary = <
     const localeTarget = locale ?? currentLocale;
 
     return getDictionary<T, L>(dictionary, localeTarget as L);
-  }, [dictionary, currentLocale, locale]);
+  }, [dictionary.key, currentLocale, locale]);
 };

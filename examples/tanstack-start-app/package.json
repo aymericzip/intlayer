@@ -33,12 +33,12 @@
     "@testing-library/react": "16.3.2",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
-    "@vitejs/plugin-react": "5.1.4",
+    "@vitejs/plugin-react": "6.0.1",
     "jsdom": "28.1.0",
     "typescript": "5.9.3",
-    "vite": "7.3.1",
+    "vite": "8.0.0",
     "vite-intlayer": "workspace:*",
-    "vitest": "4.0.18",
+    "vitest": "4.1.0",
     "web-vitals": "5.1.0"
   }
 }

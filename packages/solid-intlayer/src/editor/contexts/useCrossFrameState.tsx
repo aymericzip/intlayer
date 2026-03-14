@@ -35,7 +35,7 @@ export const useCrossFrameState = <S,>(
   initialState?: S | (() => S),
   options?: CrossFrameStateOptions
 ): [Accessor<S>, (value: S | ((prev: S) => S)) => void, () => void] => {
-  const { postMessage, senderId } = useCommunicator();
+  const { postMessage, senderId } = useCommunicator() ?? {};
 
   const { emit, receive } = options ?? { emit: true, receive: true };
 

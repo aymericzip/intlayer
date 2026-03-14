@@ -87,7 +87,7 @@ export const useCrossFrameState = <S>(
   const state = ref<S | undefined>(resolveState<S>(initialState));
 
   // Get communicator within setup lifecycle
-  const { postMessage, senderId } = useCommunicator();
+  const { postMessage, senderId } = useCommunicator() ?? {};
 
   /**
    * Broadcast the given value if emitting is allowed and the communicator is ready.

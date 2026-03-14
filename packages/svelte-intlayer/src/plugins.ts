@@ -1,9 +1,15 @@
 import configuration from '@intlayer/config/built';
 import {
+  conditionPlugin,
   type DeepTransformContent as DeepTransformContentCore,
+  enumerationPlugin,
+  filePlugin,
+  genderPlugin,
   getHTML,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
+  nestedPlugin,
   type Plugins,
+  translationPlugin,
 } from '@intlayer/core/interpreter';
 import { compile, getMarkdownMetadata } from '@intlayer/core/markdown';
 import {
@@ -467,3 +473,27 @@ export interface IInterpreterPluginSvelte<T, S, L extends LocalesValues> {
   svelteMarkdown: MarkdownCond<T, S, L>;
   svelteHtml: HTMLPluginCond<T>;
 }
+
+/**
+ * Get the plugins array for Svelte content transformation.
+ * This function is used by both getIntlayer and getDictionary to ensure consistent plugin configuration.
+ */
+export const getPlugins = (
+  locale?: LocalesValues,
+  fallback: boolean = true
+): Plugins[] => [
+  translationPlugin(
+    locale ?? configuration.internationalization.defaultLocale,
+    fallback ? configuration.internationalization.defaultLocale : undefined
+  ),
+  enumerationPlugin,
+  conditionPlugin,
+  nestedPlugin(locale ?? configuration.internationalization.defaultLocale),
+  filePlugin,
+  genderPlugin,
+  intlayerNodePlugins,
+  svelteNodePlugins,
+  insertionPlugin,
+  markdownPlugin,
+  htmlPlugin,
+];

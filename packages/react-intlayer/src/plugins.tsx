@@ -1,9 +1,15 @@
 import configuration from '@intlayer/config/built';
 import {
+  conditionPlugin,
   type DeepTransformContent as DeepTransformContentCore,
+  enumerationPlugin,
+  filePlugin,
+  genderPlugin,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
+  nestedPlugin,
   type Plugins,
   splitInsertionTemplate,
+  translationPlugin,
 } from '@intlayer/core/interpreter';
 import { getMarkdownMetadata } from '@intlayer/core/markdown';
 import type {
@@ -93,10 +99,12 @@ export const reactNodePlugins: Plugins = {
     renderIntlayerNode({
       ...rest,
       value: '[[react-element]]',
-      children: (
+      children: configuration?.editor.enabled ? (
         <ContentSelectorRenderer {...rest}>
           {renderReactElement(node)}
         </ContentSelectorRenderer>
+      ) : (
+        renderReactElement(node)
       ),
     }),
 };
@@ -293,7 +301,7 @@ export const markdownStringPlugin: Plugins = {
         },
       });
 
-    const element = render() as ReactElement;
+    const element = render() as unknown as ReactElement;
 
     return new Proxy(element, {
       get(target, prop, receiver) {
@@ -442,3 +450,27 @@ export type DeepTransformContent<
   T,
   L extends LocalesValues = DeclaredLocales,
 > = DeepTransformContentCore<T, IInterpreterPluginState, L>;
+
+/**
+ * Get the plugins array for React content transformation.
+ * This function is used by both getIntlayer and getDictionary to ensure consistent plugin configuration.
+ */
+export const getPlugins = (
+  locale?: LocalesValues,
+  fallback: boolean = true
+): Plugins[] => [
+  translationPlugin(
+    locale ?? configuration.internationalization.defaultLocale,
+    fallback ? configuration.internationalization.defaultLocale : undefined
+  ),
+  enumerationPlugin,
+  conditionPlugin,
+  nestedPlugin(locale ?? configuration.internationalization.defaultLocale),
+  filePlugin,
+  genderPlugin,
+  intlayerNodePlugins,
+  reactNodePlugins,
+  insertionPlugin,
+  markdownPlugin,
+  htmlPlugin,
+];

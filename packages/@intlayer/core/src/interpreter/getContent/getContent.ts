@@ -1,6 +1,9 @@
 import configuration from '@intlayer/config/built';
 import type { ContentNode } from '@intlayer/types/dictionary';
-import type { DeclaredLocales, LocalesValues } from '@intlayer/types/module_augmentation';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import { deepTransformNode } from './deepTransform';
 import {
   conditionPlugin,
@@ -16,6 +19,22 @@ import {
   translationPlugin,
 } from './plugins';
 
+export const getBasePlugins = (
+  locale?: LocalesValues,
+  fallback: boolean = true
+): Plugins[] => [
+  translationPlugin(
+    locale ?? configuration.internationalization.defaultLocale,
+    fallback ? configuration.internationalization.defaultLocale : undefined
+  ),
+  enumerationPlugin,
+  conditionPlugin,
+  insertionPlugin,
+  nestedPlugin(locale ?? configuration.internationalization.defaultLocale),
+  filePlugin,
+  genderPlugin,
+];
+
 /**
  * Transforms a node in a single pass, applying each plugin as needed.
  *
@@ -28,27 +47,9 @@ export const getContent = <
 >(
   node: T,
   nodeProps: NodeProps,
-  locale?: L,
-  fallback?: boolean
-) => {
-  const defaultLocale = configuration?.internationalization?.defaultLocale;
-
-  const plugins: Plugins[] = [
-    translationPlugin(
-      locale ?? defaultLocale,
-      fallback ? defaultLocale : undefined
-    ),
-    enumerationPlugin,
-    conditionPlugin,
-    nestedPlugin(locale ?? defaultLocale),
-    filePlugin,
-    insertionPlugin,
-    genderPlugin,
-    ...(nodeProps.plugins ?? []),
-  ];
-
-  return deepTransformNode(node, {
+  plugins: Plugins[] = []
+) =>
+  deepTransformNode(node, {
     ...nodeProps,
     plugins,
   }) as DeepTransformContent<T, IInterpreterPluginState, L>;
-};

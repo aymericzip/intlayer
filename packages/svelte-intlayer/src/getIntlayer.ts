@@ -1,22 +1,16 @@
-import {
-  getIntlayer as getIntlayerCore,
-  type Plugins,
-} from '@intlayer/core/interpreter';
-import type { DeclaredLocales, DictionaryKeys, DictionaryRegistryContent, LocalesValues } from '@intlayer/types/module_augmentation';
-import {
-  type DeepTransformContent,
-  htmlPlugin,
-  insertionPlugin,
-  intlayerNodePlugins,
-  markdownPlugin,
-  svelteNodePlugins,
-} from './plugins';
+import { getIntlayer as getIntlayerCore } from '@intlayer/core/interpreter';
+import type {
+  DeclaredLocales,
+  DictionaryKeys,
+  DictionaryRegistryContent,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
+import { type DeepTransformContent, getPlugins } from './plugins';
 
 /**
  * Get dictionary content by key for Svelte applications
  * @param key The dictionary key to retrieve
  * @param locale The target locale (optional)
- * @param additionalPlugins Additional transformation plugins
  * @returns Transformed dictionary content optimized for Svelte
  */
 export const getIntlayer = <
@@ -24,19 +18,6 @@ export const getIntlayer = <
   L extends LocalesValues = DeclaredLocales,
 >(
   key: T,
-  locale?: L,
-  additionalPlugins?: Plugins[]
-) => {
-  const plugins: Plugins[] = [
-    intlayerNodePlugins,
-    svelteNodePlugins,
-    insertionPlugin,
-    markdownPlugin,
-    htmlPlugin,
-    ...(additionalPlugins ?? []),
-  ];
-
-  return getIntlayerCore(key, locale, plugins) as any as DeepTransformContent<
-    DictionaryRegistryContent<T>
-  >;
-};
+  locale?: L
+): DeepTransformContent<DictionaryRegistryContent<T>> =>
+  getIntlayerCore(key, locale, getPlugins(locale)) as any;

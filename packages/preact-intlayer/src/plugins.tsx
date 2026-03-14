@@ -1,8 +1,14 @@
 import configuration from '@intlayer/config/built';
-import type {
-  DeepTransformContent as DeepTransformContentCore,
-  IInterpreterPluginState as IInterpreterPluginStateCore,
-  Plugins,
+import {
+  conditionPlugin,
+  type DeepTransformContent as DeepTransformContentCore,
+  enumerationPlugin,
+  filePlugin,
+  genderPlugin,
+  type IInterpreterPluginState as IInterpreterPluginStateCore,
+  nestedPlugin,
+  type Plugins,
+  translationPlugin,
 } from '@intlayer/core/interpreter';
 import { getMarkdownMetadata } from '@intlayer/core/markdown';
 import type {
@@ -91,10 +97,12 @@ export const preactNodePlugins: Plugins = {
     renderIntlayerNode({
       ...rest,
       value: '[[preact-element]]',
-      children: (
+      children: configuration?.editor.enabled ? (
         <ContentSelectorRenderer {...rest}>
           {renderPreactElement(node)}
         </ContentSelectorRenderer>
+      ) : (
+        renderPreactElement(node)
       ),
     }),
 };
@@ -103,16 +111,18 @@ export const preactNodePlugins: Plugins = {
  * INSERTION PLUGIN
  * --------------------------------------------- */
 
-export type InsertionCond<T, _S, _L> = T extends {
+export type InsertionCond<T, _S, L extends LocalesValues> = T extends {
   nodeType: NodeType | string;
-  [NodeType.Insertion]: string;
-  fields: readonly string[];
+  [NodeType.Insertion]: infer I; // Accept strings OR nested nodes like enumerations
+  fields: readonly (infer F)[]; // Infer the exact string literals in the array
 }
-  ? <V extends { [K in T['fields'][number]]: VNode }>(
+  ? <V extends { [K in Extract<F, string>]: string | number | VNode }>(
       values: V
-    ) => V[keyof V] extends string | number
-      ? IntlayerNode<string>
-      : IntlayerNode<VNode>
+    ) => I extends string
+      ? V[keyof V] extends string | number
+        ? IntlayerNode<string>
+        : IntlayerNode<VNode>
+      : DeepTransformContent<I, L> // Delegate nested nodes (like enumerations) back to the core
   : never;
 
 /**
@@ -446,3 +456,27 @@ export type DeepTransformContent<
   T,
   L extends LocalesValues = DeclaredLocales,
 > = DeepTransformContentCore<T, IInterpreterPluginState, L>;
+
+/**
+ * Get the plugins array for Preact content transformation.
+ * This function is used by both getIntlayer and getDictionary to ensure consistent plugin configuration.
+ */
+export const getPlugins = (
+  locale?: LocalesValues,
+  fallback: boolean = true
+): Plugins[] => [
+  translationPlugin(
+    locale ?? configuration.internationalization.defaultLocale,
+    fallback ? configuration.internationalization.defaultLocale : undefined
+  ),
+  enumerationPlugin,
+  conditionPlugin,
+  nestedPlugin(locale ?? configuration.internationalization.defaultLocale),
+  filePlugin,
+  genderPlugin,
+  intlayerNodePlugins,
+  preactNodePlugins,
+  insertionPlugin,
+  markdownPlugin,
+  htmlPlugin,
+];

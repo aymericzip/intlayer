@@ -85,7 +85,9 @@ export const translationPlugin = (
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.Translation,
   transform: (node: TranslationContent, props, deepTransformNode) => {
-    const result = structuredClone(node[NodeType.Translation]);
+    const result = {
+      ...(node[NodeType.Translation] ?? {}),
+    };
 
     for (const key in result) {
       const childProps = {
@@ -128,7 +130,7 @@ export const enumerationPlugin: Plugins = {
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.Enumeration,
   transform: (node: EnumerationContent, props, deepTransformNode) => {
-    const result = structuredClone(node[NodeType.Enumeration]);
+    const result = { ...node[NodeType.Enumeration] };
 
     for (const key in result) {
       const child = result[key as unknown as keyof typeof result];
@@ -181,7 +183,7 @@ export const conditionPlugin: Plugins = {
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.Condition,
   transform: (node: ConditionContent, props, deepTransformNode) => {
-    const result = structuredClone(node[NodeType.Condition]);
+    const result = { ...node[NodeType.Condition] };
 
     for (const key in result) {
       const child = result[key as keyof typeof result];
@@ -302,7 +304,7 @@ export const genderPlugin: Plugins = {
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeType.Gender,
   transform: (node: GenderContent, props, deepTransformNode) => {
-    const result = structuredClone(node[NodeType.Gender]);
+    const result = { ...node[NodeType.Gender] };
 
     for (const key in result) {
       const child = result[key as keyof typeof result];

@@ -1,8 +1,14 @@
 import configuration from '@intlayer/config/built';
-import type {
-  DeepTransformContent as DeepTransformContentCore,
-  IInterpreterPluginState as IInterpreterPluginStateCore,
-  Plugins,
+import {
+  conditionPlugin,
+  type DeepTransformContent as DeepTransformContentCore,
+  enumerationPlugin,
+  filePlugin,
+  genderPlugin,
+  type IInterpreterPluginState as IInterpreterPluginStateCore,
+  nestedPlugin,
+  type Plugins,
+  translationPlugin,
 } from '@intlayer/core/interpreter';
 import {
   compile,
@@ -413,3 +419,26 @@ export type DeepTransformContent<
   T,
   L extends LocalesValues = DeclaredLocales,
 > = DeepTransformContentCore<T, IInterpreterPluginState, L>;
+
+/**
+ * Get the plugins array for Angular content transformation.
+ * This function is used by both getIntlayer and getDictionary to ensure consistent plugin configuration.
+ */
+export const getPlugins = (
+  locale?: LocalesValues,
+  fallback: boolean = true
+): Plugins[] => [
+  translationPlugin(
+    locale ?? configuration.internationalization.defaultLocale,
+    fallback ? configuration.internationalization.defaultLocale : undefined
+  ),
+  enumerationPlugin,
+  conditionPlugin,
+  nestedPlugin(locale ?? configuration.internationalization.defaultLocale),
+  filePlugin,
+  genderPlugin,
+  intlayerNodePlugins,
+  markdownPlugin,
+  htmlPlugin,
+  insertionPlugin,
+];

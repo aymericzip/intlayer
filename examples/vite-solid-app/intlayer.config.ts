@@ -1,5 +1,5 @@
 import { type IntlayerConfig, Locales } from 'intlayer';
-import { solidjsRewrite } from 'intlayer/routing';
+import { solidRouterRewrite } from 'intlayer/routing';
 
 /** @type {import('intlayer').IntlayerConfig} */
 
@@ -9,7 +9,7 @@ const config: IntlayerConfig = {
   },
   routing: {
     mode: 'prefix-all',
-    rewrite: solidjsRewrite({
+    rewrite: solidRouterRewrite({
       '/:locale/tests': {
         fr: '/:locale/essais',
         es: '/:locale/pruebas',
@@ -17,7 +17,7 @@ const config: IntlayerConfig = {
     }),
   },
   editor: {
-    enabled: true,
+    enabled: false,
     applicationURL: 'http://localhost:5173',
     cmsURL: 'http://localhost:3000',
     editorURL: 'http://localhost:8000',

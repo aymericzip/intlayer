@@ -7,7 +7,6 @@ import {
   MarkdownRenderer,
   useIntlayer,
 } from 'preact-intlayer';
-import { compileMarkdown } from 'preact-intlayer/markdown';
 import './app.css';
 import viteLogo from '/vite.svg';
 import preactLogo from './assets/preact.svg';

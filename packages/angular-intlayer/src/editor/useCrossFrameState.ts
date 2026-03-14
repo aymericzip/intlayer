@@ -80,7 +80,7 @@ export const useCrossFrameState = <S>(
   const stateSignal = signal<S | undefined>(resolveState<S>(initialState));
 
   // Get communicator within injection context
-  const { postMessage, senderId } = useCommunicator();
+  const { postMessage, senderId } = useCommunicator() ?? {};
 
   /**
    * Broadcast the given value if emitting is allowed and the communicator is ready.

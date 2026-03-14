@@ -11,18 +11,18 @@
   },
   "dependencies": {
     "intlayer": "workspace:*",
-    "markdown-it": "14.1.0",
-    "vue": "3.5.26",
+    "markdown-it": "14.1.1",
+    "vue": "3.5.30",
     "vue-intlayer": "workspace:*",
-    "vue-router": "4.6.4"
+    "vue-router": "5.0.3"
   },
   "devDependencies": {
     "@types/markdown-it": "14.1.2",
-    "@types/node": "25.4.0",
-    "@vitejs/plugin-vue": "6.0.3",
-    "@vue/tsconfig": "0.8.1",
+    "@types/node": "25.5.0",
+    "@vitejs/plugin-vue": "6.0.5",
+    "@vue/tsconfig": "0.9.0",
     "intlayer-editor": "workspace:*",
-    "vite": "7.3.1",
+    "vite": "8.0.0",
     "vite-intlayer": "workspace:*",
     "vue-demi": "0.14.10"
   }

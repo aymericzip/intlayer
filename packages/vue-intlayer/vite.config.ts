@@ -76,7 +76,7 @@ export default defineConfig({
       entry,
       name: 'VueIntlayer',
     },
-    rollupOptions: {
+    rolldownOptions: {
       // external,
       external: (id) => {
         return (

@@ -6,6 +6,9 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "dist/types",
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "paths": {
+      "@intlayer/backend": ["../../../apps/backend/dist/types/export"]
+    }
   }
 }

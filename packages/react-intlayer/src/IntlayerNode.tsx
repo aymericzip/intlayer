@@ -10,7 +10,7 @@ import {
 export type IntlayerNode<
   T = NodeProps['children'],
   AdditionalProps = Record<string, never>,
-> = ResolvedEditor<ReactNode, T> & {
+> = ResolvedEditor<T, ReactNode> & {
   value: T;
 } & AdditionalProps;
 

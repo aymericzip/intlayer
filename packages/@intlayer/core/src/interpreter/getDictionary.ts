@@ -1,12 +1,15 @@
-import type { DeclaredLocales, LocalesValues } from '@intlayer/types/module_augmentation';
 import type { Dictionary } from '@intlayer/types/dictionary';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import type {
   DeepTransformContent,
   IInterpreterPluginState,
   NodeProps,
   Plugins,
 } from './getContent';
-import { getContent } from './getContent/getContent';
+import { getBasePlugins, getContent } from './getContent/getContent';
 
 /**
  * Transforms a dictionary in a single pass, applying each plugin as needed.
@@ -22,7 +25,7 @@ export const getDictionary = <
 >(
   dictionary: T,
   locale?: L,
-  plugins?: Plugins[]
+  plugins: Plugins[] = getBasePlugins(locale)
 ): DeepTransformContent<T['content'], IInterpreterPluginState, L> => {
   const props: NodeProps = {
     dictionaryKey: dictionary.key,
@@ -31,5 +34,5 @@ export const getDictionary = <
     plugins,
   };
 
-  return getContent(dictionary.content, props, locale, true);
+  return getContent(dictionary.content, props, plugins);
 };

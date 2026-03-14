@@ -1,7 +1,13 @@
 import configuration from '@intlayer/config/built';
 import { colorizeKey, getAppLogger } from '@intlayer/config/logger';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import type { DeclaredLocales, DictionaryKeys, DictionaryRegistryContent, DictionaryRegistryElement, LocalesValues } from '@intlayer/types/module_augmentation';
+import type {
+  DeclaredLocales,
+  DictionaryKeys,
+  DictionaryRegistryContent,
+  DictionaryRegistryElement,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import type {
   DeepTransformContent,
   IInterpreterPluginState,

@@ -118,9 +118,9 @@ const Tests = () => {
       </div>
       <div class="test-item">
         <h3>Enumeration Test</h3>
-        <p>0: {content().enumerationTest({ count: 0 })}</p>
-        <p>1: {content().enumerationTest({ count: 1 })}</p>
-        <p>10: {content().enumerationTest({ count: 10 })}</p>
+        <p>0: {content().enumerationTest({ count: 0 })(0)}</p>
+        <p>1: {content().enumerationTest({ count: 1 })(1)}</p>
+        <p>10: {content().enumerationTest({ count: 10 })(10)}</p>
       </div>
     </div>
   );

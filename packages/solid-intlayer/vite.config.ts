@@ -73,7 +73,7 @@ export default defineConfig({
       entry,
       name: 'SolidIntlayer',
     },
-    rollupOptions: {
+    rolldownOptions: {
       // external,
       external: (id) => {
         return (

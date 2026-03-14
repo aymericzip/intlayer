@@ -1,11 +1,11 @@
 import type { NodeProps } from '@intlayer/core/interpreter';
-import type { ResolvedEditor } from '@intlayer/types/module_augmentation';
+// import type { ResolvedEditor } from '@intlayer/types/module_augmentation';
 import type { JSX, ParentProps } from 'solid-js';
 
 export type IntlayerNode<
   T = NodeProps['children'],
   AdditionalProps = {},
-> = ResolvedEditor<T, JSX.Element> & {
+> = T & {
   value: T;
 } & AdditionalProps;
 

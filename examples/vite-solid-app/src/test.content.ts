@@ -22,11 +22,13 @@ const testContent = {
         es: '### Prueba de Markdown\n\nEsto está en **negrita** et esto en *cursiva*.',
       })
     ),
-    enumerationTest: enu({
-      '0': 'No items',
-      '1': 'One item',
-      '>1': insert('{{count}} items'),
-    }),
+    enumerationTest: insert(
+      enu({
+        '0': 'No items',
+        '1': 'One item',
+        '>1': '{{count}} items',
+      })
+    ),
   },
 } satisfies Dictionary;
 
