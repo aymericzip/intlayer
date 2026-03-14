@@ -80,6 +80,7 @@ history:
   title="عرض توضيحي CodeSandbox - كيفية تدويل تطبيقك باستخدام Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
+/>
 
 > راجع [قالب التطبيق](https://github.com/aymericzip/next-i18next-template) على GitHub.
 

@@ -571,21 +571,16 @@ const pageContent = {
       main: t({
         tr: "Düzenleyerek başlayın",
         en: "Get started by editing",
-        fr: "Commencez par éditer",
-```
-
         tr: "Düzenleyerek başlayın",
         es: "Comience por editar",
       }),
       pageLink: "src/app/page.tsx",
     },
-
-},
+  },
 };
 
 module.exports = pageContent;
-
-````
+```
 
 ```json fileName="src/app/page.content.json" contentDeclarationFormat="json"
 {
@@ -604,7 +599,7 @@ module.exports = pageContent;
     "pageLink": "src/app/page.tsx"
   }
 }
-````
+```
 
 > İçerik deklarasyonlarınız, `contentDir` dizinine (varsayılan olarak `./src`) dahil edildikleri sürece uygulamanızda herhangi bir yerde tanımlanabilir. Ve içerik deklarasyon dosya uzantısıyla eşleşmelidir (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
@@ -678,18 +673,15 @@ const Page = async () => {
   return (
     <IntlayerServerProvider locale={locale}>
       <PageContent />
-```
-
       <ServerComponentExample />
       <ClientComponentExample />
     </IntlayerServerProvider>
-
-);
+  );
 };
 
 export default Page;
 
-````
+```
 
 ```jsx fileName="src/app/page.csx" codeFormat="commonjs"
 import { ClientComponentExample } from "@components/clientComponentExample/ClientComponentExample";
@@ -720,7 +712,7 @@ const Page: NextPage = async () => {
     </IntlayerServerProvider>
   );
 };
-````
+```
 
 - **`IntlayerClientProvider`** istemci tarafı bileşenlerine locale sağlamak için kullanılır. Layout dahil herhangi bir üst bileşene yerleştirilebilir. Ancak, Next.js'in layout kodunu sayfalar arasında paylaştığı ve bu nedenle daha verimli olduğu için bir layout içine yerleştirilmesi önerilir. `IntlayerClientProvider`'ı layout'ta kullanarak, her sayfa için yeniden oluşturulmasını önleyerek performansı artırır ve uygulamanız boyunca tutarlı bir yerelleştirme bağlamı sağlar.
 - **`IntlayerServerProvider`** sunucu çocuklarına locale sağlamak için kullanılır. Layout içinde ayarlanamaz.

@@ -120,7 +120,7 @@ Die Erweiterung kann Umgebungsvariablen aus Ihrem Arbeitsbereich laden, um Intla
 
 #### Auswahl der aktiven Umgebung
 
-- **Befehls-Palette**: Öffnen Sie die Palette und führen Sie `Intlayer: Select Environment` aus, wählen Sie dann die Umgebung aus (z. B. `development`, `staging`, `production`). Die Erweiterung versucht, die erste verfügbare Datei in der oben genannten Prioritätsliste zu laden und zeigt eine Benachrichtigung wie „Env geladen von .env.<env>.local“ an.
+- **Befehls-Palette**: Öffnen Sie die Palette und führen Sie `Intlayer: Select Environment` aus, wählen Sie dann die Umgebung aus (z. B. `development`, `staging`, `production`). Die Erweiterung versucht, die erste verfügbare Datei in der oben genannten Prioritätsliste zu laden und zeigt eine Benachrichtigung wie „Env geladen von `.env.<env>.local`“ an.
 - **Einstellungen**: Gehen Sie zu `Einstellungen → Erweiterungen → Intlayer` und setzen Sie:
   - **Umgebung**: der Umgebungsname, der zur Auflösung von `.env.<env>*` Dateien verwendet wird.
   - (Optional) **Env-Datei**: ein expliziter Pfad zu einer `.env`-Datei. Wenn angegeben, hat dieser Vorrang vor der ermittelten Liste.

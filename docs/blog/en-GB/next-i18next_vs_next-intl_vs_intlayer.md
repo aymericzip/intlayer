@@ -225,35 +225,6 @@ Here is an example of the impact of bundle size optimisation using `intlayer` in
 
 ## Routing, middleware & URL strategy
 
-- **Generates strict types** from your content. **IDE autocompletion** and **compile-time errors** catch typos and missing keys before deployment.
-
-  </Column>
-</Columns>
-
-**Why it matters:** Strong typing shifts failures **left** (CI/build) instead of **right** (runtime).
-
----
-
-## Missing translation handling
-
-**next-intl**
-
-- Relies on **runtime fallbacks** (e.g., show the key or default locale). Build does not fail.
-
-**next-i18next**
-
-- Relies on **runtime fallbacks** (e.g., show the key or default locale). Build does not fail.
-
-**intlayer**
-
-- **Build-time detection** with **warnings/errors** for missing locales or keys.
-
-**Why it matters:** Catching gaps during build prevents “mystery strings” in production and aligns with strict release gates.
-
----
-
-## Routing, middleware & URL strategy
-
 <Columns>
   <Column>
 

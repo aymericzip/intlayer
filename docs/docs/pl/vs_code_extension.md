@@ -120,7 +120,7 @@ Rozszerzenie może ładować zmienne środowiskowe z twojego workspace, aby uruc
 
 #### Wybór aktywnego środowiska
 
-- **Command Palette**: otwórz paletę i uruchom `Intlayer: Select Environment`, następnie wybierz środowisko (np. `development`, `staging`, `production`). Rozszerzenie spróbuje załadować pierwszy dostępny plik z powyższej listy priorytetów i wyświetli powiadomienie takie jak „Załadowano env z .env.<env>.local”.
+- **Command Palette**: otwórz paletę i uruchom `Intlayer: Select Environment`, następnie wybierz środowisko (np. `development`, `staging`, `production`). Rozszerzenie spróbuje załadować pierwszy dostępny plik z powyższej listy priorytetów i wyświetli powiadomienie takie jak „Załadowano env z `.env.<env>.local`”.
 - **Ustawienia**: przejdź do `Settings → Extensions → Intlayer` i ustaw:
   - **Environment**: nazwa środowiska używana do rozwiązywania plików `.env.<env>*`.
   - (Opcjonalnie) **Plik Env**: jawna ścieżka do pliku `.env`. Jeśli jest podana, ma pierwszeństwo przed listą domyślną.

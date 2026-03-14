@@ -120,7 +120,7 @@ Eklenti, Intlayer komutlarını doğru bağlamda çalıştırmak için çalışm
 
 #### Aktif ortamı seçme
 
-- **Komut Paleti**: paleti açın ve `Intlayer: Select Environment` komutunu çalıştırın, ardından ortamı seçin (örneğin, `development`, `staging`, `production`). Eklenti, yukarıdaki öncelik listesinde bulunan ilk uygun dosyayı yüklemeye çalışacak ve “.env.<env>.local dosyasından ortam yüklendi” gibi bir bildirim gösterecektir.
+- **Komut Paleti**: paleti açın ve `Intlayer: Select Environment` komutunu çalıştırın, ardından ortamı seçin (örneğin, `development`, `staging`, `production`). Eklenti, yukarıdaki öncelik listesinde bulunan ilk uygun dosyayı yüklemeye çalışacak ve “`.env.<env>.local` dosyasından ortam yüklendi” gibi bir bildirim gösterecektir.
 - **Ayarlar**: `Ayarlar → Eklentiler → Intlayer` yolunu izleyin ve şunları ayarlayın:
   - **Ortam**: `.env.<env>*` dosyalarını çözümlemek için kullanılan ortam adı.
   - (İsteğe bağlı) **Env Dosyası**: açıkça belirtilmiş bir `.env` dosyası yolu. Sağlandığında, çıkarılan listedeki dosyalardan öncelikli olarak kullanılır.

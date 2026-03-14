@@ -120,7 +120,7 @@ L'extension peut charger les variables d'environnement depuis votre espace de tr
 
 #### Sélection de l'environnement actif
 
-- **Palette de commandes** : ouvrez la palette et exécutez `Intlayer : Sélectionner l’environnement`, puis choisissez l’environnement (par exemple, `development`, `staging`, `production`). L’extension tentera de charger le premier fichier disponible dans la liste de priorité ci-dessus et affichera une notification comme « Environnement chargé depuis .env.<env>.local ».
+- **Palette de commandes** : ouvrez la palette et exécutez `Intlayer : Sélectionner l’environnement`, puis choisissez l’environnement (par exemple, `development`, `staging`, `production`). L’extension tentera de charger le premier fichier disponible dans la liste de priorité ci-dessus et affichera une notification comme « Environnement chargé depuis `.env.<env>.local` ».
 - **Paramètres** : allez dans `Paramètres → Extensions → Intlayer`, et configurez :
   - **Environnement** : le nom de l’environnement utilisé pour résoudre les fichiers `.env.<env>*`.
   - (Optionnel) **Fichier Env** : un chemin explicite vers un fichier `.env`. Lorsqu’il est fourni, il prend le pas sur la liste déduite.

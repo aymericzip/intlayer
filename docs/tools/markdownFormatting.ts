@@ -1,5 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { validateMarkdown } from '@intlayer/core/transpiler';
 import fg from 'fast-glob';
 
 // Import the same DOC_PATTERN from translate.ts for consistency
@@ -12,7 +13,7 @@ export const EXCLUDED_GLOB_PATTEN: string[] = [
   '**/readme.md',
 ];
 
-interface MarkdownValidationResult {
+interface FileValidationResult {
   filePath: string;
   exists: boolean;
   errors: string[];
@@ -222,8 +223,8 @@ const validationRules: ValidationRule[] = [
   },
 ];
 
-const validateMarkdownFile = (filePath: string): MarkdownValidationResult => {
-  const result: MarkdownValidationResult = {
+const validateMarkdownFile = (filePath: string): FileValidationResult => {
+  const result: FileValidationResult = {
     filePath,
     exists: false,
     errors: [],
@@ -242,7 +243,17 @@ const validateMarkdownFile = (filePath: string): MarkdownValidationResult => {
   try {
     const content = readFileSync(fullPath, 'utf-8');
 
-    // Run all validation rules
+    // Structural validation via core validateMarkdown (code blocks + HTML tags)
+    const { issues } = validateMarkdown(content);
+    for (const issue of issues) {
+      if (issue.type === 'error') {
+        result.errors.push(`[Markdown Structure] ${issue.message}`);
+      } else {
+        result.warnings.push(`[Markdown Structure] ${issue.message}`);
+      }
+    }
+
+    // Run additional doc-level validation rules
     validationRules.forEach((rule) => {
       const ruleResult = rule.validate(content, filePath);
       result.errors.push(
@@ -262,7 +273,7 @@ const validateMarkdownFile = (filePath: string): MarkdownValidationResult => {
 export const runMarkdownFormattingTest = () => {
   console.info('Running Markdown Formatting Test...\n');
 
-  const results: MarkdownValidationResult[] = [];
+  const results: FileValidationResult[] = [];
   let totalFiles = 0;
   let validFiles = 0;
   let filesWithWarnings = 0;

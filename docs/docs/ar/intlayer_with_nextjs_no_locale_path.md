@@ -680,18 +680,15 @@ const Page = async () => {
   return (
     <IntlayerServerProvider locale={locale}>
       <PageContent />
-```
-
       <ServerComponentExample />
       <ClientComponentExample />
     </IntlayerServerProvider>
-
-);
+  );
 };
 
 export default Page;
 
-````
+```
 
 ```jsx fileName="src/app/page.csx" codeFormat="commonjs"
 import { ClientComponentExample } from "@components/clientComponentExample/ClientComponentExample";
@@ -722,12 +719,12 @@ const Page: NextPage = async () => {
     </IntlayerServerProvider>
   );
 };
+```
 
 - **`IntlayerClientProvider`** يُستخدم لتوفير الـ locale للمكونات على جانب العميل. يمكن وضعه في أي مكوّن أصل (parent component)، بما في ذلك الـ layout. ومع ذلك، يُنصح بوضعه في الـ layout لأن Next.js يشارك كود الـ layout عبر الصفحات، مما يجعله أكثر كفاءة. باستخدام `IntlayerClientProvider` داخل الـ layout، تتجنّب إعادة تهيئته لكل صفحة، مما يحسّن الأداء ويحافظ على سياق التعريب المتسق في تطبيقك.
 - **`IntlayerServerProvider`** تُستخدم لتزويد العناصر الفرعية التي تعمل على الخادم بالـ locale. لا يمكن تعيينها في الـ layout.
 
   > لا يمكن أن يتشارك الـ layout والصفحة نفس سياق الخادم لأن نظام سياق الخادم يعتمد على مخزن بيانات لكل طلب (عبر آلية [React's cache](https://react.dev/reference/react/cache))، مما يجعل كل "context" يُعاد إنشاؤه لأجزاء مختلفة من التطبيق. وضع الـ provider في layout مشترك سيكسر هذا العزل، وسيمنع الانتشار الصحيح لقيم سياق الخادم إلى مكوناتك على الخادم.
-
 
 ```tsx {4,7} fileName="src/components/clientComponentExample/ClientComponentExample.tsx" codeFormat="typescript"
 "use client";
@@ -745,7 +742,7 @@ export const ClientComponentExample: FC = () => {
     </div>
   );
 };
-````
+```
 
 ```jsx {3,6} fileName="src/components/clientComponentExample/ClientComponentExample.mjx" codeFormat="esm"
 "use client";

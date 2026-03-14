@@ -1,4 +1,5 @@
 import { HTML_TAGS } from './index';
+import { validateHTML } from './validateHTML';
 
 const parseAttributes = (attributesString: string): Record<string, string> => {
   const attributes: Record<string, string> = {};
@@ -39,6 +40,12 @@ export const getHTMLCustomComponents = (
   const tagRegex = /<(\/)?([a-zA-Z0-9.-]+)\s*([\s\S]*?)(\/?)>/g;
   const matches = [...content.matchAll(tagRegex)];
 
+  // Validate HTML structure and report issues to console
+  const { issues } = validateHTML(content);
+  for (const issue of issues) {
+    console.error(`HTML Validation Error: ${issue.message}`);
+  }
+
   const components: Record<string, Record<string, string> | true> = {};
 
   matches.forEach((match) => {
@@ -47,7 +54,7 @@ export const getHTMLCustomComponents = (
     const attributesString = match[3];
     const isSelfClosing = !!match[4];
 
-    // If it's a standard HTML tag, mark it as true and skip prop parsing
+    // Component extraction logic
     if ((HTML_TAGS as readonly string[]).includes(tagName.toLowerCase())) {
       components[tagName] = true;
       return;

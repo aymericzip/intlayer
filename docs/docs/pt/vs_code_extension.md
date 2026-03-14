@@ -120,7 +120,7 @@ A extensão pode carregar variáveis de ambiente do seu espaço de trabalho para
 
 #### Selecionando o ambiente ativo
 
-- **Paleta de Comandos**: abra a paleta e execute `Intlayer: Select Environment`, depois escolha o ambiente (por exemplo, `development`, `staging`, `production`). A extensão tentará carregar o primeiro arquivo disponível na lista de prioridade acima e mostrará uma notificação como “Loaded env from .env.<env>.local”.
+- **Paleta de Comandos**: abra a paleta e execute `Intlayer: Select Environment`, depois escolha o ambiente (por exemplo, `development`, `staging`, `production`). A extensão tentará carregar o primeiro arquivo disponível na lista de prioridade acima e mostrará uma notificação como “Loaded env from `.env.<env>.local`”.
 - **Configurações**: vá para `Settings → Extensions → Intlayer` e defina:
   - **Environment**: o nome do ambiente usado para resolver arquivos `.env.<env>*`.
   - (Opcional) **Env File**: um caminho explícito para um arquivo `.env`. Quando fornecido, ele tem precedência sobre a lista inferida.

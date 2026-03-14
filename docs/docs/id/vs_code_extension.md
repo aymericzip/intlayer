@@ -120,7 +120,7 @@ Ekstensi dapat memuat variabel lingkungan dari workspace Anda untuk menjalankan 
 
 #### Memilih environment aktif
 
-- **Command Palette**: buka palette dan jalankan `Intlayer: Select Environment`, lalu pilih environment (misalnya, `development`, `staging`, `production`). Ekstensi akan mencoba memuat file pertama yang tersedia dalam daftar prioritas di atas dan menampilkan notifikasi seperti “Loaded env from .env.<env>.local”.
+- **Command Palette**: buka palette dan jalankan `Intlayer: Select Environment`, lalu pilih environment (misalnya, `development`, `staging`, `production`). Ekstensi akan mencoba memuat file pertama yang tersedia dalam daftar prioritas di atas dan menampilkan notifikasi seperti “Loaded env from `.env.<env>.local`”.
 - **Settings**: buka `Settings → Extensions → Intlayer`, dan atur:
   - **Environment**: nama environment yang digunakan untuk menyelesaikan file `.env.<env>*`.
   - (Opsional) **Env File**: jalur eksplisit ke file `.env`. Jika disediakan, ini akan memiliki prioritas lebih tinggi daripada daftar yang diinferensikan.

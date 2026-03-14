@@ -506,21 +506,6 @@ module.exports = metadataContent;
     },
 ```
 
-    "keywords": {
-      "nodeType": "translation",
-      "translation": {
-        "uk": ["інновації", "продуктивність", "робочий процес", "SaaS"],
-        "en": ["innovation", "productivity", "workflow", "SaaS"],
-        "fr": ["innovation", "productivité", "flux de travail", "SaaS"],
-        "es": ["innovación", "productividad", "flujo de trabajo", "SaaS"]
-      }
-    }
-
-}
-}
-
-````
-
 ```tsx fileName="src/app/page.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
 
@@ -540,7 +525,7 @@ const pageContent = {
 } satisfies Dictionary;
 
 export default pageContent;
-````
+```
 
 ```javascript fileName="src/app/page.content.mjs" contentDeclarationFormat="esm"
 import { t } from "intlayer";
@@ -678,18 +663,15 @@ const Page = async () => {
   return (
     <IntlayerServerProvider locale={locale}>
       <PageContent />
-```
-
       <ServerComponentExample />
       <ClientComponentExample />
     </IntlayerServerProvider>
-
-);
+  );
 };
 
 export default Page;
 
-````
+```
 
 ```jsx fileName="src/app/page.csx" codeFormat="commonjs"
 import { ClientComponentExample } from "@components/clientComponentExample/ClientComponentExample";
@@ -720,7 +702,7 @@ const Page: NextPage = async () => {
     </IntlayerServerProvider>
   );
 };
-````
+```
 
 - **`IntlayerClientProvider`** використовується для надання локалі компонентам на стороні клієнта. Його можна розмістити в будь-якому батьківському компоненті, включно з layout. Однак рекомендовано розміщувати його в layout, оскільки Next.js спільно використовує код layout між сторінками, що робить це ефективнішим. Використовуючи `IntlayerClientProvider` у layout, ви уникаєте повторної ініціалізації для кожної сторінки, покращуєте продуктивність і підтримуєте послідовний контекст локалізації в усьому застосунку.
 - **`IntlayerServerProvider`** використовується для надання локалі дочірнім серверним компонентам. Його не можна встановлювати в layout.

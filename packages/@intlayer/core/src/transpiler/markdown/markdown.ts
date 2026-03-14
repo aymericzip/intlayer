@@ -3,6 +3,7 @@ import { formatNodeType, NodeType } from '@intlayer/types/nodeType';
 import { getContent } from '../../interpreter/getContent/getContent';
 import { getHTMLCustomComponents } from '../html/getHTMLCustomComponents';
 import { getMarkdownMetadata } from './getMarkdownMetadata';
+import { validateMarkdown } from './validateMarkdown';
 
 type PropsType = 'number' | 'string' | 'node';
 
@@ -68,6 +69,17 @@ const markdown = <
     });
 
     if (typeof flatContent === 'string') {
+      if (process.env.NODE_ENV !== 'production') {
+        const { issues } = validateMarkdown(flatContent);
+        for (const issue of issues) {
+          if (issue.type === 'error') {
+            console.error(`[intlayer/markdown] ${issue.message}`);
+          } else {
+            console.warn(`[intlayer/markdown] ${issue.message}`);
+          }
+        }
+      }
+
       return getMarkdownMetadata(flatContent);
     }
   };

@@ -120,7 +120,7 @@ L'estensione può caricare le variabili d'ambiente dal tuo workspace per eseguir
 
 #### Selezione dell'ambiente attivo
 
-- **Palette dei Comandi**: apri la palette ed esegui `Intlayer: Select Environment`, quindi scegli l'ambiente (ad esempio, `development`, `staging`, `production`). L'estensione tenterà di caricare il primo file disponibile nella lista di priorità sopra indicata e mostrerà una notifica come “Caricato env da .env.<env>.local”.
+- **Palette dei Comandi**: apri la palette ed esegui `Intlayer: Select Environment`, quindi scegli l'ambiente (ad esempio, `development`, `staging`, `production`). L'estensione tenterà di caricare il primo file disponibile nella lista di priorità sopra indicata e mostrerà una notifica come “Caricato env da `.env.<env>.local`”.
 - **Impostazioni**: vai su `Impostazioni → Estensioni → Intlayer`, e imposta:
   - **Ambiente**: il nome dell'ambiente usato per risolvere i file `.env.<env>*`.
   - (Opzionale) **File Env**: un percorso esplicito a un file `.env`. Quando fornito, ha la precedenza sulla lista dedotta.
