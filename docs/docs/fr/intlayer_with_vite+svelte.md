@@ -649,8 +649,8 @@ Il est recommandé d’ignorer les fichiers générés par Intlayer. Cela vous p
 
 Pour ce faire, vous pouvez ajouter les instructions suivantes dans votre fichier `.gitignore` :
 
-```plaintext
-# Ignorer les fichiers générés par Intlayer
+```bash
+#  Ignorer les fichiers générés par Intlayer
 .intlayer
 ```
 

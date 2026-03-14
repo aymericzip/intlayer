@@ -501,8 +501,8 @@ Intlayerは、自動補完を改善し翻訳エラーを検出するために、
 
 Intlayerによって自動生成されたファイルをコミットしないようにするには、以下を`.gitignore`に追加します。
 
-```plaintext
-# Intlayerによって生成されたファイルを無視
+```bash
+#  Intlayerによって生成されたファイルを無視
 .intlayer
 ```
 

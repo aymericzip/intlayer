@@ -398,8 +398,8 @@ Disarankan untuk mengabaikan file yang dihasilkan oleh Intlayer. Ini memungkinka
 
 To do this, you can add the following instructions to your `.gitignore` file:
 
-```plaintext
-# Abaikan file yang dihasilkan oleh Intlayer
+```bash
+#  Abaikan file yang dihasilkan oleh Intlayer
 .intlayer
 ```
 

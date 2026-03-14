@@ -496,8 +496,8 @@ To umożliwia funkcje takie jak:
 
 Aby uniknąć zatwierdzania automatycznie generowanych plików przez Intlayer, dodaj następujące do swojego `.gitignore`:
 
-```plaintext
-# Ignoruj pliki generowane przez Intlayer
+```bash
+#  Ignoruj pliki generowane przez Intlayer
 .intlayer
 ```
 

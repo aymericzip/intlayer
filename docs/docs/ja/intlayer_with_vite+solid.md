@@ -582,8 +582,8 @@ Intlayerによって生成されたファイルは、Gitリポジトリにコミ
 
 これを行うには、`.gitignore`ファイルに以下の指示を追加してください。
 
-```plaintext
-# Intlayerによって生成されたファイルを無視する
+```bash
+#  Intlayerによって生成されたファイルを無視する
 .intlayer
 ```
 

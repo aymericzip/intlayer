@@ -474,8 +474,8 @@ const changeLocale = (event: Event) => {
 
 Для этого вы можете добавить следующие инструкции в ваш файл `.gitignore`:
 
-```plaintext
-# Игнорировать файлы, сгенерированные Intlayer
+```bash
+#  Игнорировать файлы, сгенерированные Intlayer
 .intlayer
 ```
 

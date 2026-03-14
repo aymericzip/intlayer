@@ -342,8 +342,8 @@ Es wird empfohlen, die von Intlayer generierten Dateien zu ignorieren. Dies erm�
 
 Dazu können Sie die folgenden Anweisungen zu Ihrer `.gitignore`-Datei hinzufügen:
 
-```plaintext
-# Von Intlayer generierte Dateien ignorieren
+```bash
+#  Von Intlayer generierte Dateien ignorieren
 .intlayer
 ```
 

@@ -218,8 +218,8 @@ Intlayerによって生成されたファイルは無視することを推奨し
 
 これを行うには、以下の指示を `.gitignore` ファイルに追加できます。
 
-```plaintext
-# Intlayer によって生成されたファイルを無視する
+```bash
+#  Intlayer によって生成されたファイルを無視する
 .intlayer
 ```
 

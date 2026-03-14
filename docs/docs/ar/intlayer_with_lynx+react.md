@@ -501,8 +501,8 @@ export const LocaleSwitcher: FC = () => {
 
 لتجنب الالتزام بالملفات التي يتم إنشاؤها تلقائيًا بواسطة Intlayer، أضف التالي إلى ملف `.gitignore` الخاص بك:
 
-```plaintext
-# تجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer
+```bash
+#  تجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer
 .intlayer
 ```
 

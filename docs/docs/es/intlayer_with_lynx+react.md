@@ -486,8 +486,8 @@ Esto habilita características como:
 
 Para evitar subir a tu repositorio los archivos generados automáticamente por Intlayer, añade lo siguiente a tu `.gitignore`:
 
-```plaintext
-# Ignora los archivos generados por Intlayer
+```bash
+#  Ignora los archivos generados por Intlayer
 .intlayer
 ```
 

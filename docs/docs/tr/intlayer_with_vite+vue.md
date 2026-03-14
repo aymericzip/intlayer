@@ -1027,8 +1027,8 @@ Intlayer tarafından oluşturulan dosyaları Git deponuza kaydetmekten kaçınma
 
 Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyin:
 
-```plaintext
-# Intlayer tarafından oluşturulan dosyaları yok say
+```bash
+#  Intlayer tarafından oluşturulan dosyaları yok say
 .intlayer
 ```
 

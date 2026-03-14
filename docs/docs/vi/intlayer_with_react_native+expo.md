@@ -650,8 +650,8 @@ Intlayer tạo ra các định nghĩa kiểu trong một thư mục ẩn (mặc 
 
 Để tránh commit các file được Intlayer tự động tạo, hãy thêm đoạn sau vào `.gitignore` của bạn:
 
-```plaintext
-# Bỏ qua các file do Intlayer tạo ra
+```bash
+#  Bỏ qua các file do Intlayer tạo ra
 .intlayer
 ```
 

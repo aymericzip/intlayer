@@ -226,8 +226,8 @@ Disarankan untuk mengabaikan file yang dihasilkan oleh Intlayer. Ini memungkinka
 
 Untuk melakukannya, Anda dapat menambahkan instruksi berikut ke file `.gitignore` Anda:
 
-```plaintext
-# Abaikan file yang dihasilkan oleh Intlayer
+```bash
+#  Abaikan file yang dihasilkan oleh Intlayer
 .intlayer
 ```
 

@@ -344,8 +344,8 @@ Intlayerによって生成されたファイルは無視することをお勧め
 
 これを行うには、`.gitignore`ファイルに以下の指示を追加してください：
 
-```plaintext
-# Intlayerによって生成されたファイルを無視
+```bash
+#  Intlayerによって生成されたファイルを無視
 .intlayer
 ```
 

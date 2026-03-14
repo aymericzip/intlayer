@@ -628,8 +628,8 @@ const styles = StyleSheet.create({
 
 لتجنب الالتزام بالملفات التي تم إنشاؤها تلقائيًا بواسطة Intlayer، أضف ما يلي إلى ملف `.gitignore` الخاص بك:
 
-```plaintext
-# تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
+```bash
+#  تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
 .intlayer
 ```
 

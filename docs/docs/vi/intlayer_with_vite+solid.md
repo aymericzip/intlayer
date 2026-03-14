@@ -554,8 +554,8 @@ Khuyến nghị bỏ qua các file được tạo bởi Intlayer. Điều này g
 
 Để làm điều này, bạn có thể thêm các hướng dẫn sau vào file `.gitignore` của bạn:
 
-```plaintext
-# Bỏ qua các file được tạo bởi Intlayer
+```bash
+#  Bỏ qua các file được tạo bởi Intlayer
 .intlayer
 ```
 

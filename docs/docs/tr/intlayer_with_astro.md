@@ -218,8 +218,8 @@ Intlayer tarafından oluşturulan dosyaların göz ardı edilmesi önerilir. Bu,
 
 Bunu yapmak için, `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirsiniz:
 
-```plaintext
-# Intlayer tarafından oluşturulan dosyaları yoksay
+```bash
+#  Intlayer tarafından oluşturulan dosyaları yoksay
 .intlayer
 ```
 

@@ -629,8 +629,8 @@ Esto habilita características como:
 
 Para evitar comprometer archivos generados automáticamente por Intlayer, añade lo siguiente a tu `.gitignore`:
 
-```plaintext
-# Ignorar los archivos generados por Intlayer
+```bash
+#  Ignorar los archivos generados por Intlayer
 .intlayer
 ```
 

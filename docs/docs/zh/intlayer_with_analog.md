@@ -344,8 +344,8 @@ Intlayer 使用模块扩充 (module augmentation) 来利用 TypeScript 的优势
 
 为此，您可以将以下指令添加到 `.gitignore` 文件中：
 
-```plaintext
-# 忽略 Intlayer 生成的文件
+```bash
+#  忽略 Intlayer 生成的文件
 .intlayer
 ```
 

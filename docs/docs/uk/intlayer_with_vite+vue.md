@@ -1086,8 +1086,8 @@ Intlayer використовує module augmentation, щоб скористат
 
 Для цього можна додати такі інструкції до вашого файлу `.gitignore`:
 
-```plaintext
-# Ігнорувати файли, згенеровані Intlayer
+```bash
+#  Ігнорувати файли, згенеровані Intlayer
 .intlayer
 ```
 

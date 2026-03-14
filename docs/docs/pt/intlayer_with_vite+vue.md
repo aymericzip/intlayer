@@ -1219,8 +1219,8 @@ Certifique-se de que sua configuração do TypeScript inclua os tipos gerados au
 
 Para isso, você pode adicionar as seguintes instruções ao seu arquivo `.gitignore`:
 
-```plaintext
-# Ignorar os arquivos gerados pelo Intlayer
+```bash
+#  Ignorar os arquivos gerados pelo Intlayer
 .intlayer
 ```
 

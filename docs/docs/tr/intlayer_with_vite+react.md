@@ -1383,8 +1383,8 @@ Intlayer tarafından oluşturulan dosyaların yok sayılması önerilir. Bu, bu 
 
 Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirsiniz:
 
-```plaintext
-# Intlayer tarafından oluşturulan dosyaları yok say
+```bash
+#  Intlayer tarafından oluşturulan dosyaları yok say
 .intlayer
 ```
 

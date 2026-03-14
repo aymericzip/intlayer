@@ -498,8 +498,8 @@ const changeLocale = (event: Event) => {
 
 为此，您可以在 `.gitignore` 文件中添加以下指令：
 
-```plaintext
-# 忽略 Intlayer 生成的文件
+```bash
+#  忽略 Intlayer 生成的文件
 .intlayer
 ```
 

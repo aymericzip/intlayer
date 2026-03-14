@@ -1245,8 +1245,8 @@ Se recomienda ignorar los archivos generados por Intlayer. Esto te permite evita
 
 Para hacerlo, puedes agregar las siguientes instrucciones a tu archivo `.gitignore`:
 
-```plaintext
-# Ignorar los archivos generados por Intlayer
+```bash
+#  Ignorar los archivos generados por Intlayer
 .intlayer
 ```
 
@@ -1267,8 +1267,8 @@ Se recomienda ignorar los archivos generados por Intlayer. Esto te permite evita
 
 Para hacer esto, puedes agregar las siguientes instrucciones a tu archivo `.gitignore`:
 
-```plaintext
-# Ignorar los archivos generados por Intlayer
+```bash
+#  Ignorar los archivos generados por Intlayer
 .intlayer
 ```
 

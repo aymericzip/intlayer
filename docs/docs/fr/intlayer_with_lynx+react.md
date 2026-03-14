@@ -487,8 +487,8 @@ Cela permet des fonctionnalités comme :
 
 Pour éviter de commettre les fichiers générés automatiquement par Intlayer, ajoutez ce qui suit à votre `.gitignore` :
 
-```plaintext
-# Ignorer les fichiers générés par Intlayer
+```bash
+#  Ignorer les fichiers générés par Intlayer
 .intlayer
 ```
 

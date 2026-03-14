@@ -500,8 +500,8 @@ Isso possibilita recursos como:
 
 Para evitar o commit de arquivos gerados automaticamente pelo Intlayer, adicione o seguinte ao seu `.gitignore`:
 
-```plaintext
-# Ignore os arquivos gerados pelo Intlayer
+```bash
+#  Ignore os arquivos gerados pelo Intlayer
 .intlayer
 ```
 

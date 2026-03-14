@@ -624,8 +624,8 @@ Dies ermöglicht Funktionen wie:
 
 Um zu vermeiden, dass automatisch generierte Dateien von Intlayer committet werden, fügen Sie Folgendes zu Ihrer `.gitignore` hinzu:
 
-```plaintext
-# Ignoriere die von Intlayer generierten Dateien
+```bash
+#  Ignoriere die von Intlayer generierten Dateien
 .intlayer
 ```
 

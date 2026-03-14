@@ -398,8 +398,8 @@ export class AppComponent {
 
 للقيام بذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
 
-```plaintext
-# تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
+```bash
+#  تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
 .intlayer
 ```
 

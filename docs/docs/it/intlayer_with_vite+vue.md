@@ -1080,8 +1080,8 @@ Si consiglia di ignorare i file generati da Intlayer. Questo ti permette di evit
 
 Per fare ciò, puoi aggiungere le seguenti istruzioni al tuo file `.gitignore`:
 
-```plaintext
-# Ignora i file generati da Intlayer
+```bash
+#  Ignora i file generati da Intlayer
 .intlayer
 ```
 
@@ -1102,8 +1102,8 @@ Si consiglia di ignorare i file generati da Intlayer. Questo permette di evitare
 
 Per fare ciò, puoi aggiungere le seguenti istruzioni al tuo file `.gitignore`:
 
-```plaintext
-# Ignora i file generati da Intlayer
+```bash
+#  Ignora i file generati da Intlayer
 .intlayer
 ```
 

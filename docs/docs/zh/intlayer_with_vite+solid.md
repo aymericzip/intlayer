@@ -554,8 +554,8 @@ const MyComponent = () => {
 
 为此，您可以将以下指令添加到您的 `.gitignore` 文件中：
 
-```plaintext
-# 忽略 Intlayer 生成的文件
+```bash
+#  忽略 Intlayer 生成的文件
 .intlayer
 ```
 

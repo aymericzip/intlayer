@@ -1043,8 +1043,8 @@ const { myMarkdownContent } = useIntlayer("my-component");
 
 للقيام بذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
 
-```plaintext
-# تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
+```bash
+#  تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
 .intlayer
 ```
 
@@ -1065,8 +1065,8 @@ const { myMarkdownContent } = useIntlayer("my-component");
 
 للقيام بذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
 
-```plaintext
-# تجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer
+```bash
+#  تجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer
 .intlayer
 ```
 

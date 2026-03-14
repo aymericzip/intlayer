@@ -400,8 +400,8 @@ Intlayer tarafından oluşturulan dosyaların yoksayılması önerilir. Bu, onla
 
 Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirsiniz:
 
-```plaintext
-# Intlayer tarafından oluşturulan dosyaları yoksay
+```bash
+#  Intlayer tarafından oluşturulan dosyaları yoksay
 .intlayer
 ```
 

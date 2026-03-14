@@ -709,8 +709,8 @@ Certifique-se de que a sua configuração TypeScript inclui os tipos autogerados
 
 Para isso, pode adicionar as seguintes instruções ao seu ficheiro `.gitignore`:
 
-```plaintext
-# Ignorar os ficheiros gerados pelo Intlayer
+```bash
+#  Ignorar os ficheiros gerados pelo Intlayer
 .intlayer
 ```
 
