@@ -47,7 +47,7 @@ const TranslateRow: FC<{
   const { editedContent, addEditedContent } = useEditedContent();
   const configuration = useConfiguration();
   const { defaultLocale } = configuration.internationalization;
-  const { addTranslation } = useIntlayer('dictionary-list');
+  const { addTranslation } = useIntlayer('translate-dashboard');
 
   if (!nodes || nodes.length === 0) {
     return <></>;
