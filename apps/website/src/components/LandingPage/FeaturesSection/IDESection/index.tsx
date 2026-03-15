@@ -2,14 +2,15 @@
 
 import { IDE, SwitchSelector } from '@intlayer/design-system';
 import { useTheme } from 'next-themes';
-import { type FC, useMemo, useState } from 'react';
+import { type FC, useState } from 'react';
 
 import clientComponent from './content/client-component.md';
 import clientComponentI18nEn from './content/client-component-i18n-en.md';
 import clientComponentI18nEs from './content/client-component-i18n-es.md';
 import clientComponentI18nFr from './content/client-component-i18n-fr.md';
 import clientComponentContent from './content/client-content.md';
-import configFile from './content/config-file.md';
+import configFileCentralized from './content/config-file-centralized.md';
+import configFilePerComponent from './content/config-file-per-component.md';
 import serverComponent from './content/server-component.md';
 import serverComponentI18nEn from './content/server-component-i18n-en.md';
 import serverComponentI18nEs from './content/server-component-i18n-es.md';
@@ -39,7 +40,7 @@ const intlayerTabs = [
   },
   {
     path: 'intlayer.config.ts',
-    content: configFile,
+    content: configFileCentralized,
     isOpen: false,
   },
 ];
@@ -87,7 +88,7 @@ const i18nTabs = [
   },
   {
     path: 'intlayer.config.ts',
-    content: configFile,
+    content: configFilePerComponent,
     isOpen: false,
   },
 ];
