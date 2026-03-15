@@ -10,7 +10,6 @@ const config: IntlayerConfig = {
   },
   compiler: {
     enabled: true,
-    transformPattern: ["**/*.{ts,tsx}"],
     output: ({ fileName }) => `./${fileName}.content.ts`,
   },
 };

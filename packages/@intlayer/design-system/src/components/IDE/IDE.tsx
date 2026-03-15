@@ -82,7 +82,7 @@ export const IDE: FC<IDEProps> = ({
             return (
               <button
                 className={cn(
-                  'flex h-8 min-w-20 items-center justify-start px-3 py-1 transition',
+                  'flex h-8 min-w-20 max-w-30 items-center justify-start truncate text-nowrap px-3 py-1 transition',
                   isActive
                     ? 'bg-card'
                     : 'cursor-pointer bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-950'
@@ -100,11 +100,13 @@ export const IDE: FC<IDEProps> = ({
         <div className="absolute top-0 left-0 size-full">
           <div className="flex size-full">
             <WithResizer initialWidth={150}>
-              <FileTree
-                filesPaths={filePaths}
-                activeFile={path}
-                onClickFile={handleClickFile}
-              />
+              <div className="max-h-full flex-1 overflow-y-auto">
+                <FileTree
+                  filesPaths={filePaths}
+                  activeFile={path}
+                  onClickFile={handleClickFile}
+                />
+              </div>
             </WithResizer>
 
             <div className="size-full flex-1 overflow-auto pt-2 text-xs">

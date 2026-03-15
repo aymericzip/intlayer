@@ -28,6 +28,7 @@ export type SwitchSelectorProps<T = boolean> = {
   defaultValue?: T;
   onChange?: (choice: T) => void;
   className?: string;
+  itemClassName?: string;
   hoverable?: boolean;
   disabled?: boolean;
 } & VariantProps<typeof switchSelectorVariant> &
@@ -140,6 +141,7 @@ export const SwitchSelector = <T,>({
   color = SwitchSelectorColor.PRIMARY,
   size = SwitchSelectorSize.MD,
   className,
+  itemClassName,
   hoverable = true,
   disabled = false,
 }: SwitchSelectorProps<T>) => {
@@ -199,7 +201,8 @@ export const SwitchSelector = <T,>({
                 choiceVariant({
                   size,
                 }),
-                disabled && 'cursor-not-allowed'
+                disabled && 'cursor-not-allowed',
+                itemClassName
               )}
               key={isKeyOfKey ? value : index}
               role="tab"

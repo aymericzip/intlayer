@@ -3,8 +3,8 @@
 
 import { t, type Dictionary } from "intlayer";
 
-const componentContent = {
-  key: "component",
+const clientComponentContent = {
+  key: "client-component",
   content: {
     title: t({
       en: "Title of my component",
@@ -16,5 +16,5 @@ const componentContent = {
   },
 } satisfies Dictionary;
 
-export default componentContent;
+export default clientComponentContent;
 ```
