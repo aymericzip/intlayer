@@ -48,6 +48,7 @@ const config: IntlayerConfig = {
   routing: {
     mode: 'prefix-no-default',
   },
+  build: { outputFormat: ['esm'] },
   log: {
     mode: 'verbose',
   },
