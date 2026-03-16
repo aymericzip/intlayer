@@ -1,5 +1,5 @@
 import { cn } from '@utils/cn';
-import type { FC, HTMLAttributes, ReactNode } from 'react';
+import type { CSSProperties, FC, HTMLAttributes, ReactNode } from 'react';
 
 /**
  * Props for the MaxHeightSmoother component
@@ -21,9 +21,9 @@ interface MaxHeightSmootherProps extends HTMLAttributes<HTMLDivElement> {
  * MaxHeightSmoother Component
  *
  * A sophisticated container component that provides smooth height transitions
- * for collapsible content. Uses CSS Grid's fractional rows to create fluid
- * animations without JavaScript height calculations, making it performant
- * and smooth across all devices and screen sizes.
+ * for collapsible content. Implemented entirely in CSS — no client-side
+ * JavaScript, hooks, or event listeners — making it compatible with React
+ * Server Components and Next.js App Router without `'use client'`.
  *
  * @component
  * @example
@@ -39,125 +39,105 @@ interface MaxHeightSmootherProps extends HTMLAttributes<HTMLDivElement> {
  * @example
  * Hover-triggered expansion:
  * ```tsx
- * <MaxHeightSmoother isOverable={true}>
- *   <div>
- *     <p>This content expands when you hover over the container.</p>
- *     <p>Perfect for preview cards or tooltips.</p>
- *   </div>
+ * <MaxHeightSmoother isOverable>
+ *   <p>This content expands when you hover over the container.</p>
  * </MaxHeightSmoother>
  * ```
  *
  * @example
- * Accessible focus-triggered expansion:
+ * Focus-triggered expansion (keyboard accessible):
  * ```tsx
- * <MaxHeightSmoother isFocusable={true}>
- *   <div>
- *     <h3>Expandable Section</h3>
- *     <p>Tab to focus this container to expand the content.</p>
- *     <p>Great for accessible progressive disclosure.</p>
- *   </div>
+ * <MaxHeightSmoother isFocusable>
+ *   <p>Tab to focus this container to expand the content.</p>
  * </MaxHeightSmoother>
  * ```
  *
  * @example
  * With minimum height for preview:
  * ```tsx
- * <MaxHeightSmoother
- *   isOverable={true}
- *   minHeight={100}
- *   className="border rounded-lg p-4"
- * >
- *   <div>
- *     <h3>Article Preview</h3>
- *     <p>This article preview shows the first few lines...</p>
- *     <p>Hover to see the full content with smooth expansion.</p>
- *     <p>The minHeight ensures some content is always visible.</p>
- *   </div>
+ * <MaxHeightSmoother isOverable minHeight={100} className="border rounded-lg p-4">
+ *   <h3>Article Preview</h3>
+ *   <p>This shows a preview of the content. Hover to see all.</p>
  * </MaxHeightSmoother>
  * ```
  *
  * @example
- * Combined hover and focus behavior:
+ * Combined hover and focus:
  * ```tsx
- * <MaxHeightSmoother
- *   isOverable={true}
- *   isFocusable={true}
- *   minHeight={80}
- * >
- *   <div>
- *     <h4>Interactive Card</h4>
- *     <p>Expands on both hover and keyboard focus.</p>
- *     <p>Accessible to both mouse and keyboard users.</p>
- *   </div>
+ * <MaxHeightSmoother isOverable isFocusable minHeight={80}>
+ *   <h4>Interactive Card</h4>
+ *   <p>Expands on both hover and keyboard focus.</p>
  * </MaxHeightSmoother>
  * ```
  *
- * Features:
- * - Smooth CSS Grid-based height transitions (700ms duration)
- * - Three interaction modes: controlled, hover, and focus
- * - Configurable minimum height for collapsed state
- * - Accessible keyboard navigation support
- * - Overflow handling with smooth scrolling
- * - ARIA attributes for screen reader compatibility
- * - Performance-optimized with CSS-only animations
- * - Responsive design that works on all screen sizes
+ * ## Animation Strategies
  *
- * Animation Technique:
- * Uses CSS Grid `grid-rows-[0fr]` to `grid-rows-[1fr]` transitions
- * instead of height animations, which provides:
- * - Smooth animations without knowing content height
- * - Better performance (no layout recalculations)
- * - More reliable across different content types
- * - Automatic adaptation to dynamic content changes
+ * ### Strategy A — `grid-template-rows` (`minHeight === 0`)
+ * Transitions between `grid-rows-[0fr]` and `grid-rows-[1fr]`.
+ * Clean and performant; no fixed height ceiling required.
+ * Requires `min-h-0` on the inner wrapper so the grid track can fully collapse.
  *
- * Interaction Modes:
- * 1. **Controlled**: Use `isHidden` prop for external state control
- * 2. **Hover**: Set `isOverable={true}` for mouse hover expansion
- * 3. **Focus**: Set `isFocusable={true}` for keyboard focus expansion
- * 4. **Combined**: Use both `isOverable` and `isFocusable` together
+ * ### Strategy B — `max-height` via CSS custom properties (`minHeight > 0`)
+ * When a visible preview floor is required, `grid-template-rows` produces a
+ * "dead time" artifact: the track silently grows from 0 → minHeight before
+ * anything visible happens, resulting in a perceived snap.
  *
- * Accessibility Features:
- * - `role="button"` when focusable for proper screen reader context
- * - `tabIndex={0}` for keyboard navigation when focusable
- * - `aria-hidden` attribute for screen reader control
- * - Semantic focus management with focus-within pseudo-class
- * - High contrast focus indicators
- * - Respects prefers-reduced-motion settings
+ * `max-height` sidesteps this entirely — the transition starts from the
+ * already-visible floor value, producing a single continuous expansion.
  *
- * Use Cases:
- * - FAQ accordions and expandable sections
- * - Article previews and read-more functionality
- * - Card hover effects and content previews
- * - Progressive disclosure for complex forms
- * - Tooltip and popover content containers
- * - Mobile-friendly collapsible navigation
- * - Dashboard widget expansion
- * - Email preview in mail clients
+ * The collapsed floor (`--mhs-collapsed`) and expanded ceiling
+ * (`--mhs-expanded`) are injected as CSS variables via inline style,
+ * NOT as `max-height` directly. This lets Tailwind own `max-height`
+ * entirely, so `:hover` and `:focus-within` can override it freely
+ * without fighting inline-style specificity.
  *
- * Performance Considerations:
- * - Pure CSS animations (no JavaScript timer overhead)
- * - GPU acceleration through transform-based animations
- * - Minimal repaints and layout shifts
- * - Efficient event handling with CSS pseudo-classes
- * - No DOM measurements or calculations required
+ * Both variables are consumer-overridable via CSS:
+ * ```css
+ * .my-container {
+ *   --mhs-collapsed: 80px;
+ *   --mhs-expanded: 1200px;
+ * }
+ * ```
+ *
+ * Trade-off: easing is applied over [minHeight → 3000px], not the real
+ * content height. For typical content this is imperceptible. If pixel-perfect
+ * easing is critical, use a JS-measured height with a controlled `isHidden`
+ * prop and a `style={{ maxHeight }}` override instead.
+ *
+ * ## Interaction Modes
+ *
+ * 1. **Controlled** — Pass `isHidden` for external state control (e.g. accordion)
+ * 2. **Hover** — Set `isOverable` for mouse hover expansion
+ * 3. **Focus** — Set `isFocusable` for keyboard focus expansion
+ * 4. **Combined** — Use `isOverable` and `isFocusable` together
+ *
+ * ## Accessibility
+ *
+ * - `role="button"` and `tabIndex={0}` when `isFocusable` is true
+ * - `aria-expanded` reflects the current disclosure state
+ * - Focus expansion via `:focus-within` CSS pseudo-class
+ * - `motion-reduce:transition-none` respects `prefers-reduced-motion`
+ *
+ * Note: because this component relies on CSS pseudo-classes for interaction,
+ * keyboard toggle (Enter / Space) is not supported in uncontrolled mode.
+ * For full keyboard toggle behaviour, manage `isHidden` externally and
+ * wire an `onClick` / `onKeyDown` handler on the parent.
+ *
+ * ## Performance
+ *
+ * - Pure CSS animations — no JavaScript timers or DOM measurements
+ * - No `'use client'` directive required
+ * - Compatible with React Server Components and Next.js App Router
+ * - GPU-accelerated transitions
  *
  * @param props - Component props extending HTML div attributes
  * @param props.children - Content to render within the container
- * @param props.isHidden - Controlled collapse state (true=collapsed, false=expanded)
- * @param props.isOverable - Enable hover-to-expand behavior
- * @param props.isFocusable - Enable focus-to-expand behavior with keyboard navigation
- * @param props.minHeight - Minimum height in pixels for collapsed state (default: 0)
- * @param props.className - Additional CSS classes for styling
- * @param props.style - Inline styles (note: minHeight style will be applied)
- * @param props.role - ARIA role (automatically set to "button" when focusable)
- * @param props.tabIndex - Tab index (automatically set to 0 when focusable)
- * @param props.aria-hidden - ARIA hidden state (controlled by isHidden when focusable)
- * @param props.onClick - Click event handler
- * @param props.onMouseEnter - Mouse enter event handler
- * @param props.onMouseLeave - Mouse leave event handler
- * @param props.onFocus - Focus event handler
- * @param props.onBlur - Blur event handler
- * @param props...rest - All other standard HTML div attributes
+ * @param props.isHidden - Controlled collapse state (`true` = collapsed, `false` = expanded)
+ * @param props.isOverable - Enable hover-to-expand behaviour
+ * @param props.isFocusable - Enable focus-to-expand behaviour with keyboard navigation
+ * @param props.minHeight - Minimum height in pixels for the collapsed state (default: 0)
+ * @param props.className - Additional CSS classes
+ * @param props.style - Inline styles (CSS variable overrides will be merged)
  *
  * @returns A smooth height-transitioning container with configurable interaction modes
  */
@@ -168,35 +148,79 @@ export const MaxHeightSmoother: FC<MaxHeightSmootherProps> = ({
   isOverable = false,
   isFocusable = false,
   minHeight = 0,
+  style,
   ...props
-}) => (
-  <div
-    aria-hidden={isFocusable ? isHidden : undefined}
-    tabIndex={isFocusable ? 0 : undefined}
-    role={isFocusable ? 'button' : 'none'}
-    className={cn(
-      'group/height-smoother relative grid w-full grid-rows-[0fr] overflow-hidden transition-all duration-700 ease-in-out',
-      typeof isHidden !== 'undefined' &&
-        !isHidden &&
-        'grid-rows-[1fr] overflow-x-auto',
-      isOverable && 'hover:grid-rows-[1fr] hover:overflow-x-auto',
-      isFocusable &&
-        'focus-within:grid-rows-[1fr] focus-within:overflow-x-auto focus:grid-rows-[1fr] focus:overflow-x-auto',
-      className
-    )}
-    {...props}
-  >
+}) => {
+  const hasMinHeight = minHeight > 0;
+
+  /**
+   * True when the component should render visually collapsed.
+   * In uncontrolled hover/focus mode we always start collapsed
+   * so the CSS interaction selectors have something to open.
+   */
+  const isCollapsed =
+    isHidden === true ||
+    (isHidden === undefined && (isOverable || isFocusable));
+
+  return (
     <div
-      style={{
-        minHeight: `${minHeight}px`,
-      }}
+      role={isFocusable ? 'button' : undefined}
+      tabIndex={isFocusable ? 0 : undefined}
+      aria-expanded={isFocusable && isHidden !== undefined ? !isHidden : undefined}
+      style={
+        hasMinHeight
+          ? ({
+              '--mhs-collapsed': `${minHeight}px`,
+              '--mhs-expanded': '3000px',
+              ...style,
+            } as CSSProperties)
+          : style
+      }
       className={cn(
-        isOverable && 'group-hover/height-smoother:visible',
-        isFocusable && 'group-focus/height-smoother:visible',
-        className
+        'group/mhs relative w-full',
+
+        // ── Strategy A: grid-template-rows (minHeight === 0) ─────────────────
+        // overflow-hidden lives on the inner wrapper so box-shadows and outlines
+        // on children are not clipped by the outer container.
+        !hasMinHeight && [
+          'grid transition-[grid-template-rows] duration-500 ease-in-out motion-reduce:transition-none',
+          isCollapsed ? 'grid-rows-[0fr]' : 'grid-rows-[1fr]',
+          isOverable && 'hover:grid-rows-[1fr]',
+          isFocusable && 'focus:grid-rows-[1fr] focus-within:grid-rows-[1fr]',
+        ],
+
+        // ── Strategy B: max-height via CSS variables (minHeight > 0) ─────────
+        // `--mhs-collapsed` and `--mhs-expanded` are set via inline style above.
+        // Tailwind owns `max-height` entirely so :hover/:focus-within override freely.
+        hasMinHeight && [
+          'overflow-hidden transition-[max-height] duration-500 ease-in-out motion-reduce:transition-none',
+          isCollapsed
+            ? 'max-h-[var(--mhs-collapsed)]'
+            : 'max-h-[var(--mhs-expanded)]',
+          isOverable && 'hover:max-h-[var(--mhs-expanded)]',
+          isFocusable && 'focus-within:max-h-[var(--mhs-expanded)]',
+        ],
+
+        className,
       )}
+      {...props}
     >
-      {children}
+      {/*
+       * Inner wrapper:
+       *   Strategy A — `min-h-0` + `overflow-hidden` lets the grid track
+       *                collapse to 0 and clips content during animation.
+       *   Strategy B — `min-h-[var(--mhs-collapsed)]` provides the visible
+       *                floor via the same CSS variable as the container.
+       */}
+      <div
+        className={cn(
+          'overflow-hidden',
+          !hasMinHeight && 'min-h-0',
+          hasMinHeight && 'min-h-[var(--mhs-collapsed)]',
+        )}
+      >
+        {children}
+      </div>
     </div>
-  </div>
-);
+  );
+};
