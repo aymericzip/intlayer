@@ -30,7 +30,9 @@ import { intlayerOptimize } from './intlayerOptimizePlugin';
  * export default defineConfig({
  *   plugins: [intlayer()],
  * });
+ *
  * ```
+ * @deprecated Rename to intlayer instead
  */
 export const intlayerPlugin = (
   configOptions?: GetConfigurationOptions
