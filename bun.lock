@@ -36,7 +36,7 @@
     },
     "apps/app": {
       "name": "app",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@better-auth/sso": "1.5.5",
         "@intlayer/api": "workspace:*",
@@ -104,7 +104,7 @@
     },
     "apps/backend": {
       "name": "@intlayer/backend",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@aws-sdk/client-s3": "^3.1004.0",
         "@better-auth/core": "1.5.5",
@@ -216,7 +216,7 @@
     },
     "apps/website": {
       "name": "website",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -279,7 +279,7 @@
     },
     "docs": {
       "name": "@intlayer/docs",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -450,7 +450,7 @@
     },
     "examples/hono-app": {
       "name": "hono-app",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@hono/node-server": "1.13.7",
         "hono": "4.7.4",
@@ -865,7 +865,7 @@
     },
     "packages/@intlayer/ai": {
       "name": "@intlayer/ai",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@ai-sdk/anthropic": "3.0.55",
         "@ai-sdk/google": "3.0.37",
@@ -928,7 +928,7 @@
     },
     "packages/@intlayer/api": {
       "name": "@intlayer/api",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/types": "workspace:*",
@@ -947,7 +947,7 @@
     },
     "packages/@intlayer/babel": {
       "name": "@intlayer/babel",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@babel/core": "7.29.0",
         "@babel/generator": "7.29.1",
@@ -988,7 +988,7 @@
     },
     "packages/@intlayer/chokidar": {
       "name": "@intlayer/chokidar",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@babel/parser": "7.29.0",
         "@intlayer/api": "workspace:*",
@@ -1019,7 +1019,7 @@
     },
     "packages/@intlayer/cli": {
       "name": "@intlayer/cli",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@clack/prompts": "0.11.0",
         "@intlayer/ai": "workspace:*",
@@ -1056,7 +1056,7 @@
     },
     "packages/@intlayer/config": {
       "name": "@intlayer/config",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@intlayer/types": "workspace:*",
         "defu": "6.1.4",
@@ -1084,7 +1084,7 @@
     },
     "packages/@intlayer/core": {
       "name": "@intlayer/core",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1106,7 +1106,7 @@
     },
     "packages/@intlayer/design-system": {
       "name": "@intlayer/design-system",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@better-auth/passkey": "1.5.5",
         "@better-auth/sso": "1.5.5",
@@ -1197,7 +1197,7 @@
     },
     "packages/@intlayer/dictionaries-entry": {
       "name": "@intlayer/dictionaries-entry",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -1215,7 +1215,7 @@
     },
     "packages/@intlayer/dynamic-dictionaries-entry": {
       "name": "@intlayer/dynamic-dictionaries-entry",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -1233,7 +1233,7 @@
     },
     "packages/@intlayer/editor": {
       "name": "@intlayer/editor",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "devDependencies": {
         "@types/node": "25.5.0",
         "@utils/ts-config": "workspace:*",
@@ -1247,7 +1247,7 @@
     },
     "packages/@intlayer/editor-react": {
       "name": "@intlayer/editor-react",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -1276,7 +1276,7 @@
     },
     "packages/@intlayer/fetch-dictionaries-entry": {
       "name": "@intlayer/fetch-dictionaries-entry",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -1295,7 +1295,7 @@
     },
     "packages/@intlayer/mcp": {
       "name": "@intlayer/mcp",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "bin": "dist/esm/server/stdio.mjs",
       "dependencies": {
         "@intlayer/api": "workspace:*",
@@ -1324,7 +1324,7 @@
     },
     "packages/@intlayer/remote-dictionaries-entry": {
       "name": "@intlayer/remote-dictionaries-entry",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -1342,7 +1342,7 @@
     },
     "packages/@intlayer/svelte-compiler": {
       "name": "@intlayer/svelte-compiler",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "bin": {
         "intlayer": "./dist/cjs/index.cjs",
       },
@@ -1379,11 +1379,11 @@
     },
     "packages/@intlayer/swc": {
       "name": "@intlayer/swc",
-      "version": "8.3.2",
+      "version": "8.3.3",
     },
     "packages/@intlayer/types": {
       "name": "@intlayer/types",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "devDependencies": {
         "@types/node": "25.5.0",
         "@utils/ts-config": "workspace:*",
@@ -1398,7 +1398,7 @@
     },
     "packages/@intlayer/unmerged-dictionaries-entry": {
       "name": "@intlayer/unmerged-dictionaries-entry",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -1416,7 +1416,7 @@
     },
     "packages/@intlayer/vue-compiler": {
       "name": "@intlayer/vue-compiler",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "bin": {
         "intlayer": "./dist/cjs/index.cjs",
       },
@@ -1451,7 +1451,7 @@
     },
     "packages/@intlayer/webpack": {
       "name": "@intlayer/webpack",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1476,7 +1476,7 @@
     },
     "packages/adonis-intlayer": {
       "name": "adonis-intlayer",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1500,7 +1500,7 @@
     },
     "packages/angular-intlayer": {
       "name": "angular-intlayer",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@babel/plugin-syntax-import-attributes": "^7.28.6",
         "@babel/preset-env": "^7.29.0",
@@ -1533,7 +1533,7 @@
     },
     "packages/astro-intlayer": {
       "name": "astro-intlayer",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1558,7 +1558,7 @@
     },
     "packages/express-intlayer": {
       "name": "express-intlayer",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1583,7 +1583,7 @@
     },
     "packages/fastify-intlayer": {
       "name": "fastify-intlayer",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1608,7 +1608,7 @@
     },
     "packages/hono-intlayer": {
       "name": "hono-intlayer",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1632,7 +1632,7 @@
     },
     "packages/intlayer": {
       "name": "intlayer",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "bin": {
         "intlayer": "./dist/cjs/cli/script.cjs",
       },
@@ -1655,7 +1655,7 @@
     },
     "packages/intlayer-cli": {
       "name": "intlayer-cli",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "bin": {
         "intlayer": "./dist/cjs/index.cjs",
       },
@@ -1675,7 +1675,7 @@
     },
     "packages/intlayer-editor": {
       "name": "intlayer-editor",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "bin": {
         "intlayer-editor": "./bin/intlayer-editor.mjs",
       },
@@ -1727,7 +1727,7 @@
     },
     "packages/lynx-intlayer": {
       "name": "lynx-intlayer",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1754,7 +1754,7 @@
     },
     "packages/next-intlayer": {
       "name": "next-intlayer",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1786,7 +1786,7 @@
     },
     "packages/nuxt-intlayer": {
       "name": "nuxt-intlayer",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -1812,7 +1812,7 @@
     },
     "packages/preact-intlayer": {
       "name": "preact-intlayer",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/chokidar": "workspace:*",
@@ -1838,7 +1838,7 @@
     },
     "packages/react-intlayer": {
       "name": "react-intlayer",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1871,7 +1871,7 @@
     },
     "packages/react-native-intlayer": {
       "name": "react-native-intlayer",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1902,7 +1902,7 @@
     },
     "packages/react-scripts-intlayer": {
       "name": "react-scripts-intlayer",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "bin": {
         "react-scripts-intlayer": "./dist/cjs/cli/react-scripts-intlayer.cjs",
       },
@@ -1935,7 +1935,7 @@
     },
     "packages/solid-intlayer": {
       "name": "solid-intlayer",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1967,7 +1967,7 @@
     },
     "packages/svelte-intlayer": {
       "name": "svelte-intlayer",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1998,7 +1998,7 @@
     },
     "packages/vite-intlayer": {
       "name": "vite-intlayer",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@babel/core": "7.29.0",
         "@intlayer/babel": "workspace:*",
@@ -2030,7 +2030,7 @@
     },
     "packages/vue-intlayer": {
       "name": "vue-intlayer",
-      "version": "8.3.2",
+      "version": "8.3.3",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
