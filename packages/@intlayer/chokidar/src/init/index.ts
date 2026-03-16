@@ -188,7 +188,7 @@ export const initIntlayer = async (rootDir: string) => {
   // Determine the correct documentation URL based on dependencies
   const guideUrl = getDocumentationUrl(packageJson);
 
-  // 2. CHECK .GITIGNORE
+  // CHECK .GITIGNORE
   const gitignorePath = '.gitignore';
   if (await exists(rootDir, gitignorePath)) {
     const gitignoreContent = await readFileFromRoot(rootDir, gitignorePath);
@@ -204,7 +204,7 @@ export const initIntlayer = async (rootDir: string) => {
     }
   }
 
-  // 3. CHECK VS CODE EXTENSION RECOMMENDATIONS
+  // CHECK VS CODE EXTENSION RECOMMENDATIONS
   const vscodeDir = '.vscode';
   const extensionsJsonPath = join(vscodeDir, 'extensions.json');
   const extensionId = 'intlayer.intlayer-vs-code-extension';
@@ -304,6 +304,7 @@ export const initIntlayer = async (rootDir: string) => {
 
   // CHECK VITE CONFIG
   const viteConfigs = ['vite.config.ts', 'vite.config.js', 'vite.config.mjs'];
+
   for (const file of viteConfigs) {
     if (await exists(rootDir, file)) {
       hasAliasConfiguration = true;
@@ -322,6 +323,7 @@ export const initIntlayer = async (rootDir: string) => {
   // CHECK NEXT CONFIG
   const nextConfigs = ['next.config.js', 'next.config.mjs', 'next.config.ts'];
   let isNextJsProject = false;
+
   for (const file of nextConfigs) {
     if (await exists(rootDir, file)) {
       isNextJsProject = true;
@@ -349,6 +351,7 @@ export const initIntlayer = async (rootDir: string) => {
     ): boolean => {
       if (!versionString || typeof versionString !== 'string') return false;
       const match = versionString.match(/^[^\d]*(\d+)/);
+
       if (!match) return false;
       const majorVersion = parseInt(match[1], 10);
       return majorVersion >= major;
@@ -385,6 +388,7 @@ export const initIntlayer = async (rootDir: string) => {
     'webpack.config.mjs',
     'webpack.config.cjs',
   ];
+
   for (const file of webpackConfigs) {
     if (await exists(rootDir, file)) {
       hasAliasConfiguration = true;
@@ -425,6 +429,7 @@ export const initIntlayer = async (rootDir: string) => {
           tsConfigPath,
           JSON.stringify(config, null, 2)
         );
+
         logger(
           `${v} Updated ${colorizePath(
             tsConfigPath
@@ -433,6 +438,7 @@ export const initIntlayer = async (rootDir: string) => {
       }
     } else {
       const jsConfigPath = 'jsconfig.json';
+
       if (await exists(rootDir, jsConfigPath)) {
         const jsConfigContent = await readFileFromRoot(rootDir, jsConfigPath);
         const config = parseJSONWithComments(jsConfigContent);

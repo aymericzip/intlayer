@@ -59,5 +59,5 @@ export const initConfig = async (
   const configContent = readAsset(templatePath);
 
   await writeFileToRoot(format, configContent);
-  logger(`Created ${format}`);
+  logger(`${v} Created ${colorizePath(format)}`);
 };

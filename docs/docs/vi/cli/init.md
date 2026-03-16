@@ -71,7 +71,7 @@ npx intlayer init
 Checking Intlayer configuration...
 ✓ Added .intlayer to .gitignore
 ✓ Updated tsconfig.json to include intlayer types
-Created intlayer.config.ts
+✓ Created intlayer.config.ts
 ✓ Injected import into vite.config.ts
 ✓ Intlayer init setup complete.
 ```

@@ -1,6 +1,7 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { readAsset } from 'utils:asset';
+import { v } from '@intlayer/config/logger';
 import { getMarkdownMetadata } from '@intlayer/core/markdown';
 
 /**
@@ -393,5 +394,5 @@ export const installSkills = async (
     return `No skill files were created. Check your asset paths.`;
   }
 
-  return `Created ${createdSkills.length} skills in ${skillsBaseDir}`;
+  return `${v} Created ${createdSkills.length} skills in ${skillsBaseDir}`;
 };
