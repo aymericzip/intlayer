@@ -1,5 +1,4 @@
 import { HTML_TAGS } from './index';
-import { validateHTML } from './validateHTML';
 
 const parseAttributes = (attributesString: string): Record<string, string> => {
   const attributes: Record<string, string> = {};
@@ -39,12 +38,6 @@ export const getHTMLCustomComponents = (
   // Captures: 1: Closing slash (if any), 2: Tag Name, 3: Attributes, 4: Self-closing slash (if any)
   const tagRegex = /<(\/)?([a-zA-Z0-9.-]+)\s*([\s\S]*?)(\/?)>/g;
   const matches = [...content.matchAll(tagRegex)];
-
-  // Validate HTML structure and report issues to console
-  const { issues } = validateHTML(content);
-  for (const issue of issues) {
-    console.error(`HTML Validation Error: ${issue.message}`);
-  }
 
   const components: Record<string, Record<string, string> | true> = {};
 

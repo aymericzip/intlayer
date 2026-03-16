@@ -1,6 +1,7 @@
 import type { TypedNodeModel } from '@intlayer/types/nodeType';
 import { formatNodeType, NodeType } from '@intlayer/types/nodeType';
 import { getHTMLCustomComponents } from './getHTMLCustomComponents';
+import { validateHTML } from './validateHTML';
 
 type PropsType = 'number' | 'string' | 'node';
 
@@ -49,6 +50,16 @@ export const html = <
     }
 
     if (typeof content === 'string') {
+      const { issues } = validateHTML(content);
+
+      for (const issue of issues) {
+        if (issue.type === 'error') {
+          console.error(`[intlayer/html] ${issue.message}`);
+        } else {
+          console.warn(`[intlayer/html] ${issue.message}`);
+        }
+      }
+
       return getHTMLCustomComponents(content);
     }
 
