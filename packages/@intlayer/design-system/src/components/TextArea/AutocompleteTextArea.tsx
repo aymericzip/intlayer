@@ -1,6 +1,6 @@
 'use client';
 
-import { type FC, useCallback, useEffect, useRef, useState } from 'react';
+import { type FC, useEffect, useRef, useState } from 'react';
 import type { AutoSizedTextAreaProps } from './AutoSizeTextArea';
 import {
   ContentEditableTextArea,
@@ -41,7 +41,7 @@ export const AutoCompleteTextarea: FC<AutocompleteTextAreaProps> = ({
     setText(String(props.value ?? props.defaultValue ?? ''));
   }, [props.value, props.defaultValue]);
 
-  const acceptSuggestion = useCallback(() => {
+  const acceptSuggestion = () => {
     const active = suggestionProp ?? suggestion;
     if (!active) return;
 
@@ -54,7 +54,7 @@ export const AutoCompleteTextarea: FC<AutocompleteTextAreaProps> = ({
       editorRef.current?.focus();
       editorRef.current?.setCursorAtOffset(cursor + active.length);
     }, 0);
-  }, [text, suggestion, suggestionProp]);
+  };
 
   const activeGhost = isActive
     ? (suggestionProp ?? (suggestion || undefined))

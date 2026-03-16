@@ -5,8 +5,6 @@ import type { VariantProps } from 'class-variance-authority';
 import {
   type FC,
   type HTMLAttributes,
-  memo,
-  useCallback,
   useEffect,
   useImperativeHandle,
   useRef,
@@ -162,9 +160,9 @@ export const useContentEditable = ({
     }
   }, [value, isControlled]);
 
-  const getText = useCallback(() => linesRef.current.join('\n'), []);
+  const getText = () => linesRef.current.join('\n');
 
-  const getCaretPosition = useCallback((): CaretPosition | null => {
+  const getCaretPosition = (): CaretPosition | null => {
     const sel = window.getSelection();
     if (!sel?.rangeCount || !containerRef.current) return null;
 
@@ -177,9 +175,9 @@ export const useContentEditable = ({
       }
     }
     return null;
-  }, []);
+  };
 
-  const getSelectionOffsets = useCallback((): {
+  const getSelectionOffsets = (): {
     start: number;
     end: number;
     hasSelection: boolean;
@@ -217,9 +215,9 @@ export const useContentEditable = ({
       end: Math.max(start, end),
       hasSelection: !range.collapsed,
     };
-  }, []);
+  };
 
-  const setCaretPosition = useCallback((pos: CaretPosition) => {
+  const setCaretPosition = (pos: CaretPosition) => {
     if (!containerRef.current) return;
 
     const lineEls = containerRef.current.querySelectorAll('[data-line]');
@@ -247,7 +245,7 @@ export const useContentEditable = ({
       sel.removeAllRanges();
       sel.addRange(range);
     }
-  }, []);
+  };
 
   useEffect(() => {
     if (pendingCaretRef.current && containerRef.current) {
@@ -256,52 +254,49 @@ export const useContentEditable = ({
     }
   });
 
-  const flatOffsetFromCaret = useCallback((pos: CaretPosition): number => {
+  const flatOffsetFromCaret = (pos: CaretPosition): number => {
     const currentLines = linesRef.current;
     let offset = 0;
     for (let i = 0; i < pos.line; i++) {
       offset += currentLines[i].length + 1;
     }
     return offset + pos.offset;
-  }, []);
+  };
 
-  const caretFromFlatOffset = useCallback(
-    (flat: number, targetLines: string[]): CaretPosition => {
-      let rem = flat;
-      for (let i = 0; i < targetLines.length; i++) {
-        if (rem <= targetLines[i].length) {
-          return { line: i, offset: rem };
-        }
-        rem -= targetLines[i].length + 1;
+  const caretFromFlatOffset = (
+    flat: number,
+    targetLines: string[]
+  ): CaretPosition => {
+    let rem = flat;
+    for (let i = 0; i < targetLines.length; i++) {
+      if (rem <= targetLines[i].length) {
+        return { line: i, offset: rem };
       }
-      return {
-        line: targetLines.length - 1,
-        offset: targetLines[targetLines.length - 1]?.length ?? 0,
-      };
-    },
-    []
-  );
+      rem -= targetLines[i].length + 1;
+    }
+    return {
+      line: targetLines.length - 1,
+      offset: targetLines[targetLines.length - 1]?.length ?? 0,
+    };
+  };
 
-  const getCursorOffset = useCallback((): number => {
+  const getCursorOffset = (): number => {
     const pos = getCaretPosition();
     if (!pos) return 0;
     return flatOffsetFromCaret(pos);
-  }, [getCaretPosition, flatOffsetFromCaret]);
+  };
 
   /**
    * Applies a text mutation: computes new lines, sets pending caret, updates state.
    */
-  const applyTextChange = useCallback(
-    (newText: string, caretOffset: number) => {
-      const newLines = splitLines(newText);
-      pendingCaretRef.current = caretFromFlatOffset(caretOffset, newLines);
-      setLines(newLines);
-      onChange?.(newText);
-    },
-    [caretFromFlatOffset, onChange]
-  );
+  const applyTextChange = (newText: string, caretOffset: number) => {
+    const newLines = splitLines(newText);
+    pendingCaretRef.current = caretFromFlatOffset(caretOffset, newLines);
+    setLines(newLines);
+    onChange?.(newText);
+  };
 
-  const handleInput = useCallback(() => {
+  const handleInput = () => {
     if (pendingCaretRef.current !== null) return;
     if (disabled || !containerRef.current) return;
 
@@ -312,244 +307,227 @@ export const useContentEditable = ({
     pendingCaretRef.current = caretPos;
     setLines(newLines);
     onChange?.(newText);
-  }, [disabled, onChange, getCaretPosition]);
+  };
 
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLDivElement>) => {
-      if (disabled) {
-        e.preventDefault();
-        return;
-      }
-
-      // Don't intercept during IME composition (CJK input)
-      if (e.nativeEvent.isComposing) return;
-
-      // Block undo/redo — browser would mutate DOM out of sync with React
-      if ((e.metaKey || e.ctrlKey) && e.key === 'z') {
-        e.preventDefault();
-        return;
-      }
-
-      const selInfo = getSelectionOffsets();
-      if (!selInfo) return;
-
-      const currentText = linesRef.current.join('\n');
-
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        const newText =
-          currentText.slice(0, selInfo.start) +
-          '\n' +
-          currentText.slice(selInfo.end);
-        applyTextChange(newText, selInfo.start + 1);
-        return;
-      }
-
-      if (e.key === 'Backspace') {
-        e.preventDefault();
-
-        if (selInfo.hasSelection) {
-          const newText =
-            currentText.slice(0, selInfo.start) +
-            currentText.slice(selInfo.end);
-          applyTextChange(newText, selInfo.start);
-        } else {
-          if (selInfo.start === 0) return;
-
-          let deleteFrom: number;
-          if (e.metaKey) {
-            // Cmd+Backspace: delete to start of line
-            deleteFrom = lineStart(currentText, selInfo.start);
-          } else if (e.altKey) {
-            // Option+Backspace: delete previous word
-            deleteFrom = prevWordBoundary(currentText, selInfo.start);
-          } else {
-            // Regular backspace: delete one grapheme
-            deleteFrom = prevGraphemeBoundary(currentText, selInfo.start);
-          }
-
-          const newText =
-            currentText.slice(0, deleteFrom) + currentText.slice(selInfo.start);
-          applyTextChange(newText, deleteFrom);
-        }
-        return;
-      }
-
-      if (e.key === 'Delete') {
-        e.preventDefault();
-
-        if (selInfo.hasSelection) {
-          const newText =
-            currentText.slice(0, selInfo.start) +
-            currentText.slice(selInfo.end);
-          applyTextChange(newText, selInfo.start);
-        } else {
-          if (selInfo.start >= currentText.length) return;
-
-          let deleteTo: number;
-          if (e.metaKey) {
-            // Cmd+Delete: delete to end of line
-            deleteTo = lineEnd(currentText, selInfo.start);
-          } else if (e.altKey) {
-            // Option+Delete: delete next word
-            deleteTo = nextWordBoundary(currentText, selInfo.start);
-          } else {
-            // Regular delete: delete one grapheme
-            deleteTo = nextGraphemeBoundary(currentText, selInfo.start);
-          }
-
-          const newText =
-            currentText.slice(0, selInfo.start) + currentText.slice(deleteTo);
-          applyTextChange(newText, selInfo.start);
-        }
-        return;
-      }
-    },
-    [disabled, getSelectionOffsets, applyTextChange]
-  );
-
-  const handleCut = useCallback(
-    (e: React.ClipboardEvent<HTMLDivElement>) => {
-      if (disabled) {
-        e.preventDefault();
-        return;
-      }
-
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (disabled) {
       e.preventDefault();
-      const selInfo = getSelectionOffsets();
-      if (!selInfo || !selInfo.hasSelection) return;
+      return;
+    }
 
-      const currentText = linesRef.current.join('\n');
-      const selectedText = currentText.slice(selInfo.start, selInfo.end);
+    // Don't intercept during IME composition (CJK input)
+    if (e.nativeEvent.isComposing) return;
 
-      // Write selected text to clipboard
-      e.clipboardData.setData('text/plain', selectedText);
-
-      // Delete the selected text
-      const newText =
-        currentText.slice(0, selInfo.start) + currentText.slice(selInfo.end);
-      applyTextChange(newText, selInfo.start);
-    },
-    [disabled, getSelectionOffsets, applyTextChange]
-  );
-
-  const handlePaste = useCallback(
-    (e: React.ClipboardEvent<HTMLDivElement>) => {
-      if (disabled) {
-        e.preventDefault();
-        return;
-      }
-
+    // Block undo/redo — browser would mutate DOM out of sync with React
+    if ((e.metaKey || e.ctrlKey) && e.key === 'z') {
       e.preventDefault();
-      const pastedText = e.clipboardData.getData('text/plain');
-      if (!pastedText) return;
+      return;
+    }
 
-      const selInfo = getSelectionOffsets();
-      if (!selInfo) return;
+    const selInfo = getSelectionOffsets();
+    if (!selInfo) return;
 
-      const currentText = linesRef.current.join('\n');
+    const currentText = linesRef.current.join('\n');
+
+    if (e.key === 'Enter') {
+      e.preventDefault();
       const newText =
         currentText.slice(0, selInfo.start) +
-        pastedText +
+        '\n' +
         currentText.slice(selInfo.end);
-      applyTextChange(newText, selInfo.start + pastedText.length);
-    },
-    [disabled, getSelectionOffsets, applyTextChange]
-  );
+      applyTextChange(newText, selInfo.start + 1);
+      return;
+    }
 
-  const handleBeforeInput = useCallback(
-    (e: React.FormEvent<HTMLDivElement>) => {
-      if (disabled) return;
+    if (e.key === 'Backspace') {
+      e.preventDefault();
 
-      const inputEvent = e.nativeEvent as InputEvent;
+      if (selInfo.hasSelection) {
+        const newText =
+          currentText.slice(0, selInfo.start) + currentText.slice(selInfo.end);
+        applyTextChange(newText, selInfo.start);
+      } else {
+        if (selInfo.start === 0) return;
 
-      // Don't intercept during IME composition (CJK input)
-      if (inputEvent.isComposing) return;
-
-      const inputType = inputEvent.inputType;
-
-      // Skip types handled by handleKeyDown (when keydown fires)
-      if (inputType === 'insertParagraph' || inputType === 'insertLineBreak') {
-        return;
-      }
-
-      // Handle deletions as fallback for mobile keyboards that don't fire keydown
-      if (
-        inputType === 'deleteContentBackward' ||
-        inputType === 'deleteContentForward'
-      ) {
-        e.preventDefault();
-        const selInfo = getSelectionOffsets();
-        if (!selInfo) return;
-
-        const currentText = linesRef.current.join('\n');
-
-        if (selInfo.hasSelection) {
-          const newText =
-            currentText.slice(0, selInfo.start) +
-            currentText.slice(selInfo.end);
-          applyTextChange(newText, selInfo.start);
-        } else if (inputType === 'deleteContentBackward') {
-          if (selInfo.start === 0) return;
-          const deleteFrom = prevGraphemeBoundary(currentText, selInfo.start);
-          const newText =
-            currentText.slice(0, deleteFrom) + currentText.slice(selInfo.start);
-          applyTextChange(newText, deleteFrom);
+        let deleteFrom: number;
+        if (e.metaKey) {
+          // Cmd+Backspace: delete to start of line
+          deleteFrom = lineStart(currentText, selInfo.start);
+        } else if (e.altKey) {
+          // Option+Backspace: delete previous word
+          deleteFrom = prevWordBoundary(currentText, selInfo.start);
         } else {
-          if (selInfo.start >= currentText.length) return;
-          const deleteTo = nextGraphemeBoundary(currentText, selInfo.start);
-          const newText =
-            currentText.slice(0, selInfo.start) + currentText.slice(deleteTo);
-          applyTextChange(newText, selInfo.start);
+          // Regular backspace: delete one grapheme
+          deleteFrom = prevGraphemeBoundary(currentText, selInfo.start);
         }
-        return;
-      }
 
-      // Handle spell-check replacements
-      if (inputType === 'insertReplacementText') {
-        e.preventDefault();
-        const selInfo = getSelectionOffsets();
-        if (!selInfo) return;
-
-        const currentText = linesRef.current.join('\n');
-        const replacement =
-          inputEvent.data ??
-          inputEvent.dataTransfer?.getData('text/plain') ??
-          '';
         const newText =
-          currentText.slice(0, selInfo.start) +
-          replacement +
-          currentText.slice(selInfo.end);
-        applyTextChange(newText, selInfo.start + replacement.length);
-        return;
+          currentText.slice(0, deleteFrom) + currentText.slice(selInfo.start);
+        applyTextChange(newText, deleteFrom);
       }
+      return;
+    }
 
-      if (inputType === 'insertText' && inputEvent.data) {
-        e.preventDefault();
+    if (e.key === 'Delete') {
+      e.preventDefault();
 
-        const selInfo = getSelectionOffsets();
-        if (!selInfo) return;
-
-        const currentText = linesRef.current.join('\n');
-        const inserted = inputEvent.data;
+      if (selInfo.hasSelection) {
         const newText =
-          currentText.slice(0, selInfo.start) +
-          inserted +
-          currentText.slice(selInfo.end);
-        applyTextChange(newText, selInfo.start + inserted.length);
-      }
-    },
-    [disabled, getSelectionOffsets, applyTextChange]
-  );
+          currentText.slice(0, selInfo.start) + currentText.slice(selInfo.end);
+        applyTextChange(newText, selInfo.start);
+      } else {
+        if (selInfo.start >= currentText.length) return;
 
-  const handleDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+        let deleteTo: number;
+        if (e.metaKey) {
+          // Cmd+Delete: delete to end of line
+          deleteTo = lineEnd(currentText, selInfo.start);
+        } else if (e.altKey) {
+          // Option+Delete: delete next word
+          deleteTo = nextWordBoundary(currentText, selInfo.start);
+        } else {
+          // Regular delete: delete one grapheme
+          deleteTo = nextGraphemeBoundary(currentText, selInfo.start);
+        }
+
+        const newText =
+          currentText.slice(0, selInfo.start) + currentText.slice(deleteTo);
+        applyTextChange(newText, selInfo.start);
+      }
+      return;
+    }
+  };
+
+  const handleCut = (e: React.ClipboardEvent<HTMLDivElement>) => {
+    if (disabled) {
+      e.preventDefault();
+      return;
+    }
+
+    e.preventDefault();
+    const selInfo = getSelectionOffsets();
+    if (!selInfo || !selInfo.hasSelection) return;
+
+    const currentText = linesRef.current.join('\n');
+    const selectedText = currentText.slice(selInfo.start, selInfo.end);
+
+    // Write selected text to clipboard
+    e.clipboardData.setData('text/plain', selectedText);
+
+    // Delete the selected text
+    const newText =
+      currentText.slice(0, selInfo.start) + currentText.slice(selInfo.end);
+    applyTextChange(newText, selInfo.start);
+  };
+
+  const handlePaste = (e: React.ClipboardEvent<HTMLDivElement>) => {
+    if (disabled) {
+      e.preventDefault();
+      return;
+    }
+
+    e.preventDefault();
+    const pastedText = e.clipboardData.getData('text/plain');
+    if (!pastedText) return;
+
+    const selInfo = getSelectionOffsets();
+    if (!selInfo) return;
+
+    const currentText = linesRef.current.join('\n');
+    const newText =
+      currentText.slice(0, selInfo.start) +
+      pastedText +
+      currentText.slice(selInfo.end);
+    applyTextChange(newText, selInfo.start + pastedText.length);
+  };
+
+  const handleBeforeInput = (e: React.FormEvent<HTMLDivElement>) => {
+    if (disabled) return;
+
+    const inputEvent = e.nativeEvent as InputEvent;
+
+    // Don't intercept during IME composition (CJK input)
+    if (inputEvent.isComposing) return;
+
+    const inputType = inputEvent.inputType;
+
+    // Skip types handled by handleKeyDown (when keydown fires)
+    if (inputType === 'insertParagraph' || inputType === 'insertLineBreak') {
+      return;
+    }
+
+    // Handle deletions as fallback for mobile keyboards that don't fire keydown
+    if (
+      inputType === 'deleteContentBackward' ||
+      inputType === 'deleteContentForward'
+    ) {
+      e.preventDefault();
+      const selInfo = getSelectionOffsets();
+      if (!selInfo) return;
+
+      const currentText = linesRef.current.join('\n');
+
+      if (selInfo.hasSelection) {
+        const newText =
+          currentText.slice(0, selInfo.start) + currentText.slice(selInfo.end);
+        applyTextChange(newText, selInfo.start);
+      } else if (inputType === 'deleteContentBackward') {
+        if (selInfo.start === 0) return;
+        const deleteFrom = prevGraphemeBoundary(currentText, selInfo.start);
+        const newText =
+          currentText.slice(0, deleteFrom) + currentText.slice(selInfo.start);
+        applyTextChange(newText, deleteFrom);
+      } else {
+        if (selInfo.start >= currentText.length) return;
+        const deleteTo = nextGraphemeBoundary(currentText, selInfo.start);
+        const newText =
+          currentText.slice(0, selInfo.start) + currentText.slice(deleteTo);
+        applyTextChange(newText, selInfo.start);
+      }
+      return;
+    }
+
+    // Handle spell-check replacements
+    if (inputType === 'insertReplacementText') {
+      e.preventDefault();
+      const selInfo = getSelectionOffsets();
+      if (!selInfo) return;
+
+      const currentText = linesRef.current.join('\n');
+      const replacement =
+        inputEvent.data ?? inputEvent.dataTransfer?.getData('text/plain') ?? '';
+      const newText =
+        currentText.slice(0, selInfo.start) +
+        replacement +
+        currentText.slice(selInfo.end);
+      applyTextChange(newText, selInfo.start + replacement.length);
+      return;
+    }
+
+    if (inputType === 'insertText' && inputEvent.data) {
+      e.preventDefault();
+
+      const selInfo = getSelectionOffsets();
+      if (!selInfo) return;
+
+      const currentText = linesRef.current.join('\n');
+      const inserted = inputEvent.data;
+      const newText =
+        currentText.slice(0, selInfo.start) +
+        inserted +
+        currentText.slice(selInfo.end);
+      applyTextChange(newText, selInfo.start + inserted.length);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     // Block drag-and-drop to prevent uncontrolled DOM mutations
     e.preventDefault();
-  }, []);
+  };
 
-  const handleDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-  }, []);
+  };
 
   return {
     lines,
@@ -576,30 +554,21 @@ type LineProps = {
   ghostText?: string;
 };
 
-const Line: FC<LineProps> = memo(
-  ({ index, text, isLast, ghostText }) => (
-    <span data-line={index} className="block min-h-[1.5rem]">
-      <span data-editable>{text || '\u200B'}</span>
-      {ghostText && (
-        <span
-          data-ghost
-          className="pointer-events-none select-none text-neutral"
-          aria-hidden="true"
-        >
-          {ghostText}
-        </span>
-      )}
-      {!isLast && <br />}
-    </span>
-  ),
-  (prev, next) =>
-    prev.text === next.text &&
-    prev.ghostText === next.ghostText &&
-    prev.index === next.index &&
-    prev.isLast === next.isLast
+const Line: FC<LineProps> = ({ index, text, isLast, ghostText }) => (
+  <span data-line={index} className="block min-h-[1.5rem]">
+    <span data-editable>{text || '\u200B'}</span>
+    {ghostText && (
+      <span
+        data-ghost
+        className="pointer-events-none select-none text-neutral"
+        aria-hidden="true"
+      >
+        {ghostText}
+      </span>
+    )}
+    {!isLast && <br />}
+  </span>
 );
-
-Line.displayName = 'Line';
 
 export type ContentEditableTextAreaHandle = {
   getContainer: () => HTMLDivElement | null;
@@ -674,14 +643,11 @@ export const ContentEditableTextArea: FC<ContentEditableTextAreaProps> = ({
 
   const elRef = useRef<HTMLDivElement | null>(null);
 
-  const setRef = useCallback(
-    (el: HTMLDivElement | null) => {
-      elRef.current = el;
-      (containerRef as React.MutableRefObject<HTMLDivElement | null>).current =
-        el;
-    },
-    [containerRef]
-  );
+  const setRef = (el: HTMLDivElement | null) => {
+    elRef.current = el;
+    (containerRef as React.MutableRefObject<HTMLDivElement | null>).current =
+      el;
+  };
 
   useImperativeHandle(ref, () => ({
     getContainer: () => elRef.current,
