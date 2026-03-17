@@ -8,23 +8,25 @@ export type { DictionaryContent };
 export const useDictionariesRecord = () => {
   const manager = useEditorStateManager();
   const [localeDictionaries, setLocaleDictionariesSignal] =
-    createSignal<DictionaryContent>(manager.localeDictionaries.value ?? {});
+    createSignal<DictionaryContent>(manager?.localeDictionaries.value ?? {});
 
-  const handler = (e: Event) =>
-    setLocaleDictionariesSignal(
-      (e as CustomEvent<DictionaryContent>).detail ?? {}
+  if (manager) {
+    const handler = (e: Event) =>
+      setLocaleDictionariesSignal(
+        (e as CustomEvent<DictionaryContent>).detail ?? {}
+      );
+    manager.localeDictionaries.addEventListener('change', handler);
+    onCleanup(() =>
+      manager.localeDictionaries.removeEventListener('change', handler)
     );
-  manager.localeDictionaries.addEventListener('change', handler);
-  onCleanup(() =>
-    manager.localeDictionaries.removeEventListener('change', handler)
-  );
+  }
 
   return {
     localeDictionaries,
     setLocaleDictionaries: (value: DictionaryContent) =>
-      manager.localeDictionaries.set(value),
+      manager?.localeDictionaries.set(value),
     setLocaleDictionary: (dictionary: Dictionary) =>
-      manager.setLocaleDictionary(dictionary),
+      manager?.setLocaleDictionary(dictionary),
   };
 };
 

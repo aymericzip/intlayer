@@ -99,11 +99,11 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
 
   return (
     <nav
-      className="rounded-xl border border-text text-text transition-colors"
+      className="rounded-xl border border-text"
       aria-label={localeSwitcherLabel.value}
     >
       <DropDown identifier={DROPDOWN_IDENTIFIER}>
-        <DropDown.Trigger identifier={DROPDOWN_IDENTIFIER}>
+        <DropDown.Trigger identifier={DROPDOWN_IDENTIFIER} color="text">
           <div className="flex w-full items-center justify-between">
             <div className="text-nowrap px-2">{localeName}</div>
             <MoveVertical className="w-5 self-center" />
@@ -114,6 +114,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
           identifier={DROPDOWN_IDENTIFIER}
           isOverable
           isFocusable
+          align="end"
           {...panelProps}
         >
           <Container

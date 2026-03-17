@@ -27,8 +27,8 @@ export const useFocusDictionary = () => {
   return {
     focusedContent: focusedContent.asReadonly(),
     setFocusedContent: (value: FileContent | null) =>
-      manager?.focusedContent.set(value),
+      getEditorStateManager()?.focusedContent.set(value),
     setFocusedContentKeyPath: (keyPath: KeyPath[]) =>
-      manager?.setFocusedContentKeyPath(keyPath),
+      getEditorStateManager()?.setFocusedContentKeyPath(keyPath),
   };
 };

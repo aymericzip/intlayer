@@ -5,13 +5,17 @@ import { useEditorStateManager } from './EditorProvider';
 export const useConfiguration = () => {
   const manager = useEditorStateManager();
   const [config, setConfigSignal] = createSignal<IntlayerConfig | undefined>(
-    manager.configuration.value
+    manager?.configuration.value
   );
 
-  const handler = (e: Event) =>
-    setConfigSignal((e as CustomEvent<IntlayerConfig>).detail);
-  manager.configuration.addEventListener('change', handler);
-  onCleanup(() => manager.configuration.removeEventListener('change', handler));
+  if (manager) {
+    const handler = (e: Event) =>
+      setConfigSignal((e as CustomEvent<IntlayerConfig>).detail);
+    manager.configuration.addEventListener('change', handler);
+    onCleanup(() =>
+      manager.configuration.removeEventListener('change', handler)
+    );
+  }
 
   return config;
 };

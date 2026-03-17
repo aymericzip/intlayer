@@ -2,8 +2,8 @@
 
 import { usePersistedStore } from '@hooks/usePersistedStore';
 import { getHTMLTextDir, getLocaleName } from '@intlayer/core/localization';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import * as Locales from '@intlayer/types/locales';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { Check, Globe, MoveVertical } from 'lucide-react';
 import { type FC, useMemo, useRef, useState } from 'react';
@@ -134,8 +134,9 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
           label={localeSwitcherLabel.value}
           className="p-0!"
           roundedSize="3xl"
+          color="text"
         >
-          <div className="flex w-full items-center justify-between">
+          <div className="flex w-full items-center justify-between text-text">
             <div className="px-2 py-1">
               <Globe size={16} />
             </div>
@@ -147,7 +148,7 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
           identifier={DROPDOWN_IDENTIFIER}
           isOverable
           isFocusable
-          className="right-0 left-auto"
+          align="end"
           {...panelProps}
         >
           <Container
@@ -156,7 +157,7 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
             role="listbox"
             transparency="xs"
             border
-            roundedSize="2xl"
+            roundedSize="3xl"
             borderColor="text"
             aria-label={languageListLabel.value}
           >

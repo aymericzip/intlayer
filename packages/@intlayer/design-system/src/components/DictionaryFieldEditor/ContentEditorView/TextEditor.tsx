@@ -98,11 +98,11 @@ const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
                   ...(editedContent?.[dictionary.localId!] ?? {}),
                 }),
                 keyPath,
-                locales: configuration.internationalization.locales ?? [],
+                locales: configuration?.internationalization.locales ?? [],
                 aiOptions: {
-                  apiKey: configuration.ai?.apiKey,
-                  model: configuration.ai?.model,
-                  temperature: configuration.ai?.temperature,
+                  apiKey: configuration?.ai?.apiKey,
+                  model: configuration?.ai?.model,
+                  temperature: configuration?.ai?.temperature,
                 },
               },
               {

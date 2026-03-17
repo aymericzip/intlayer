@@ -2,10 +2,10 @@
 
 import {
   type FileContent,
-  MessageKey,
   useCrossFrameState,
   useEditorLocale,
 } from '@intlayer/editor-react';
+import { MessageKey } from '@intlayer/types/messageKey';
 import type { FC, PropsWithChildren } from 'react';
 import { DictionaryEditionDrawerController } from './DictionaryEditionDrawer';
 import { DictionaryListDrawer } from './DictionaryListDrawer';

@@ -1,4 +1,4 @@
-import type { MessageKey } from '@intlayer/editor';
+import type { MessageKey } from '@intlayer/types/messageKey';
 import { useEffect } from 'preact/hooks';
 import { useEditorStateManager } from './EditorStateContext';
 
@@ -11,8 +11,10 @@ export const useCrossFrameMessageListener = <S,>(
 
   useEffect(() => {
     if (!onEventTriggered) return;
+    if (!manager) return;
+
     return manager.messenger.subscribe<S>(key, onEventTriggered);
   }, [manager, key, revalidator]);
 
-  return (data?: S) => manager.messenger.send(key, data);
+  return (data?: S) => manager?.messenger.send(key, data);
 };

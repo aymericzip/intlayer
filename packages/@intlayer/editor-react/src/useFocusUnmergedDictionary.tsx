@@ -1,9 +1,9 @@
 'use client';
 
 import { getContentNodeByKeyPath } from '@intlayer/core/dictionaryManipulator';
+import type { Locale } from '@intlayer/types/allLocales';
 import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
-import type { Locale } from '@intlayer/types/allLocales';
 import { useMemo } from 'react';
 import { useDictionariesRecord } from './DictionariesRecordContext';
 import { type FileContent, useFocusDictionary } from './FocusDictionaryContext';
@@ -22,7 +22,7 @@ type UnmergedKeyPath = {
 const mergedKeyPathToUnmergedKeyPath = (
   keyPath: KeyPath[],
   dictionaries: Dictionary[],
-  locale: Locale
+  locale?: Locale
 ): UnmergedKeyPath | undefined => {
   // If we have a dictionary, verify the path exists
   // Try to find the correct position for the translation key

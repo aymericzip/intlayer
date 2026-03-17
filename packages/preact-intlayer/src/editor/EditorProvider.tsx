@@ -1,9 +1,5 @@
 import configuration from '@intlayer/config/built';
-import {
-  defineIntlayerElements,
-  EditorStateManager,
-  type MessengerConfig,
-} from '@intlayer/editor';
+import type { EditorStateManager, MessengerConfig } from '@intlayer/editor';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { ComponentChildren, FunctionComponent } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
@@ -68,29 +64,49 @@ export const EditorProvider: FunctionComponent<EditorProviderProps> = ({
   postMessage: customPostMessage,
   allowedOrigins: customAllowedOrigins,
 }) => {
+  const [manager, setManager] = useState<EditorStateManager | null>(null);
   const managerRef = useRef<EditorStateManager | null>(null);
-  if (!managerRef.current) {
-    const messengerConfig: MessengerConfig =
-      customPostMessage || customAllowedOrigins
-        ? {
-            allowedOrigins: customAllowedOrigins ?? ['*'],
-            postMessageFn: customPostMessage
-              ? (payload) => customPostMessage(payload)
-              : buildDefaultMessengerConfig().postMessageFn,
-          }
-        : buildDefaultMessengerConfig();
-    managerRef.current = new EditorStateManager({
-      mode,
-      messenger: messengerConfig,
-      configuration: configProp ?? configuration,
-    });
-  }
-  const manager = managerRef.current;
 
   useEffect(() => {
-    defineIntlayerElements();
-    manager.start();
-    return () => manager.stop();
+    let stopped = false;
+
+    import('@intlayer/editor').then(
+      ({ defineIntlayerElements, EditorStateManager }) => {
+        if (stopped) return;
+
+        const messengerConfig: MessengerConfig =
+          customPostMessage || customAllowedOrigins
+            ? {
+                allowedOrigins: customAllowedOrigins ?? ['*'],
+                postMessageFn: customPostMessage
+                  ? (payload) => customPostMessage(payload)
+                  : buildDefaultMessengerConfig().postMessageFn,
+              }
+            : buildDefaultMessengerConfig();
+
+        const editorManager = new EditorStateManager({
+          mode,
+          messenger: messengerConfig,
+          configuration: configProp ?? configuration,
+        });
+
+        managerRef.current = editorManager;
+        defineIntlayerElements();
+        editorManager.start();
+        setManager(editorManager);
+      }
+    );
+
+    return () => {
+      stopped = true;
+      managerRef.current?.stop();
+      managerRef.current = null;
+    };
+  }, [mode]);
+
+  // Cleanup when manager state changes (on unmount)
+  useEffect(() => {
+    return () => manager?.stop();
   }, [manager]);
 
   const content =

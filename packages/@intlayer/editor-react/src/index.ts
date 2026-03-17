@@ -1,4 +1,3 @@
-export * from '@intlayer/editor';
 export * from './CommunicatorContext';
 export * from './ConfigurationContext';
 export * from './DictionariesRecordContext';

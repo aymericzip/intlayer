@@ -1,11 +1,9 @@
 'use client';
 
-import { getBasePlugins, getContent } from '@intlayer/core/interpreter';
-import { useEditedContentActions } from '@intlayer/editor-react';
+import configuration from '@intlayer/config/built';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { KeyPath } from '@intlayer/types/keyPath';
-import type { FC } from 'react';
-import { ContentSelectorRenderer } from './ContentSelectorWrapper';
+import { type FC, lazy, Suspense } from 'react';
 
 type EditedContentRendererProps = {
   dictionaryKey: string;
@@ -15,60 +13,30 @@ type EditedContentRendererProps = {
 };
 
 export const useEditedContentRenderer = ({
-  dictionaryKey,
-  keyPath,
   children,
 }: EditedContentRendererProps) => {
-  const editedContentContext = useEditedContentActions();
-
-  if (editedContentContext) {
-    const editedValue = editedContentContext.getEditedContentValue(
-      dictionaryKey,
-      keyPath
-    ) as string;
-
-    const value = editedValue ?? children;
-
-    return value;
-  }
-
   return children;
 };
+
+const DynamicEditedContentRendererInternal = lazy(() =>
+  import('./EditedContentRendererInternal').then((module) => ({
+    default: module.EditedContentRendererInternal,
+  }))
+);
 
 export const EditedContentRenderer: FC<EditedContentRendererProps> = (
   props
 ) => {
-  const content = useEditedContentRenderer(props);
+  const { editor } = configuration ?? {};
+  const isEnabled = editor?.enabled ?? false;
 
-  if (typeof content === 'object') {
-    const transformedEditedContent = getContent(
-      content,
-      { ...props, locale: props.locale },
-      getBasePlugins(props.locale)
-    );
-
-    if (typeof transformedEditedContent !== 'string') {
-      console.error(
-        `Incorrect edited content format. Content type: ${typeof transformedEditedContent}. Expected string. Value ${JSON.stringify(transformedEditedContent)}`
-      );
-
-      return (
-        <ContentSelectorRenderer {...props} key={props.children}>
-          {props.children}
-        </ContentSelectorRenderer>
-      );
-    }
-
+  if (typeof window !== 'undefined' && isEnabled) {
     return (
-      <ContentSelectorRenderer {...props} key={props.children}>
-        {transformedEditedContent}
-      </ContentSelectorRenderer>
+      <Suspense fallback={props.children}>
+        <DynamicEditedContentRendererInternal {...props} />
+      </Suspense>
     );
   }
 
-  return (
-    <ContentSelectorRenderer {...props} key={props.children}>
-      {content}
-    </ContentSelectorRenderer>
-  );
+  return <>{props.children}</>;
 };

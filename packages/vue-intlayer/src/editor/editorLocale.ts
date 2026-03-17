@@ -1,4 +1,4 @@
-import type { Locale } from '@intlayer/types/allLocales';
+import { MessageKey } from '@intlayer/types/messageKey';
 import { inject, watch } from 'vue';
 import { INTLAYER_SYMBOL, type IntlayerProvider } from '../client';
 import {
@@ -18,7 +18,10 @@ export const useEditorLocale = () => {
     watch(
       client.locale,
       (newLocale) => {
-        manager?.currentLocale.set(newLocale as Locale);
+        manager?.messenger.send(
+          `${MessageKey.INTLAYER_CURRENT_LOCALE}/post`,
+          newLocale
+        );
       },
       { immediate: true }
     );

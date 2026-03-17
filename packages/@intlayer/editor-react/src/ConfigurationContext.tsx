@@ -1,23 +1,36 @@
 'use client';
 
 import type { IntlayerConfig } from '@intlayer/types/config';
-import { useEffect, useState } from 'react';
+import { type FC, type PropsWithChildren, useEffect, useState } from 'react';
 import { useEditorStateManager } from './EditorStateContext';
 
-export type ConfigurationProviderProps = {
+export type ConfigurationProviderProps = PropsWithChildren<{
   configuration?: IntlayerConfig;
+}>;
+
+export const ConfigurationProvider: FC<ConfigurationProviderProps> = ({
+  configuration,
+  children,
+}) => {
+  const manager = useEditorStateManager();
+
+  useEffect(() => {
+    if (!manager || !configuration) return;
+    manager.configuration.set(configuration);
+  }, [manager, configuration]);
+
+  return <>{children}</>;
 };
 
-/**
- * Returns the current configuration, backed by EditorStateManager.
- */
 export const useConfiguration = (): IntlayerConfig | undefined => {
   const manager = useEditorStateManager();
   const [config, setConfig] = useState<IntlayerConfig | undefined>(
-    manager.configuration.value
+    manager?.configuration.value
   );
 
   useEffect(() => {
+    if (!manager) return;
+
     const handler = (e: Event) =>
       setConfig((e as CustomEvent<IntlayerConfig>).detail);
     manager.configuration.addEventListener('change', handler);
@@ -27,19 +40,16 @@ export const useConfiguration = (): IntlayerConfig | undefined => {
   return config;
 };
 
-/**
- * Returns a function that broadcasts the current configuration.
- */
 export const useConfigurationState = () => {
   const manager = useEditorStateManager();
 
   const [config, setConfig] = useState<IntlayerConfig | undefined>(
-    manager.configuration.value
+    manager?.configuration.value
   );
 
   return [
     config,
     setConfig,
-    () => manager.configuration.postCurrentValue(),
+    () => manager?.configuration.postCurrentValue(),
   ] as const;
 };

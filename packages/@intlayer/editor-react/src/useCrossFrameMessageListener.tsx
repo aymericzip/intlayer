@@ -1,6 +1,6 @@
 'use client';
 
-import type { MessageKey } from '@intlayer/editor';
+import type { MessageKey } from '@intlayer/types/messageKey';
 import { useEffect } from 'react';
 import { useEditorStateManager } from './EditorStateContext';
 

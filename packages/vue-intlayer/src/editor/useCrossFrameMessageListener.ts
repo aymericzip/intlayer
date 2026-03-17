@@ -1,4 +1,4 @@
-import type { MessageKey } from '@intlayer/editor';
+import type { MessageKey } from '@intlayer/types/messageKey';
 import { inject, onScopeDispose } from 'vue';
 import {
   getEditorStateManager,

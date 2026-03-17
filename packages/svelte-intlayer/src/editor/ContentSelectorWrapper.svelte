@@ -1,24 +1,30 @@
 <script lang="ts">
 import type { NodeProps } from '@intlayer/core/interpreter';
 import { isSameKeyPath } from '@intlayer/core/utils';
-import { defineIntlayerElements, MessageKey } from '@intlayer/editor';
 import { NodeType } from '@intlayer/types/nodeType';
+import { MessageKey } from '@intlayer/types/messageKey';
 import { onMount } from 'svelte';
 import { getEditorStateManager } from './communicator';
-import { useEditorEnabled } from './editorEnabled';
 import { useFocusDictionary } from './focusDictionary';
 import { useEditor } from './useEditor';
 
 export let dictionaryKey: NodeProps['dictionaryKey'];
 export let keyPath: NodeProps['keyPath'];
 
-const manager = getEditorStateManager();
 const { focusedContent, setFocusedContent } = useFocusDictionary();
-const { enabled } = useEditorEnabled();
 
 useEditor();
 
-onMount(() => defineIntlayerElements());
+let isInIframe = false;
+onMount(() => {
+  isInIframe = window.self !== window.top;
+  if (isInIframe) {
+    
+    import('@intlayer/editor').then(({ defineIntlayerElements }) => {
+      defineIntlayerElements();
+    });
+  }
+});
 
 $: filteredKeyPath = keyPath.filter((key) => key.type !== NodeType.Translation);
 
@@ -32,21 +38,21 @@ const handlePress = () => {
 };
 
 const handleHover = () => {
-  manager.messenger.send(
+  getEditorStateManager()?.messenger.send(
     `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
     { dictionaryKey, keyPath: filteredKeyPath }
   );
 };
 
 const handleUnhover = () => {
-  manager.messenger.send(
+  getEditorStateManager()?.messenger.send(
     `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
     null
   );
 };
 </script>
 
-{#if $enabled}
+{#if isInIframe}
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   <intlayer-content-selector
     is-selecting={isSelected || undefined}

@@ -1,12 +1,20 @@
-import { CommonModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/common';
-import { Component, computed, Input, type OnInit } from '@angular/core';
-import type { NodeProps } from '@intlayer/core/interpreter';
+import { CommonModule } from '@angular/common';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  computed,
+  Input,
+  type OnInit,
+  signal,
+} from '@angular/core';
 import { isSameKeyPath } from '@intlayer/core/utils';
-import { defineIntlayerElements, MessageKey } from '@intlayer/editor';
+import { MessageKey } from '@intlayer/types/messageKey';
 import { NodeType } from '@intlayer/types/nodeType';
-import { useEditorEnabled } from './editorEnabled';
 import { useFocusDictionary } from './focusDictionary';
-import { getEditorStateManager } from './installIntlayerEditor';
+import {
+  getEditorStateManager,
+  installIntlayerEditor,
+} from './installIntlayerEditor';
 
 @Component({
   selector: 'app-content-selector-wrapper',
@@ -14,7 +22,7 @@ import { getEditorStateManager } from './installIntlayerEditor';
   imports: [CommonModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: `
-    <ng-container *ngIf="enabled(); else plainContent">
+    <ng-container *ngIf="isInIframe(); else plainContent">
       <intlayer-content-selector
         [attr.is-selecting]="isSelected() || null"
         (intlayer:press)="handlePress()"
@@ -34,11 +42,16 @@ export class ContentSelectorWrapperComponent implements OnInit {
   @Input() keyPath!: any[];
 
   private focusDictionary = useFocusDictionary();
-  private editorEnabled = useEditorEnabled();
   private manager = getEditorStateManager();
 
+  readonly isInIframe = signal(
+    typeof window !== 'undefined' && window.self !== window.top
+  );
+
   ngOnInit() {
-    defineIntlayerElements();
+    if (this.isInIframe()) {
+      installIntlayerEditor();
+    }
   }
 
   get filteredKeyPath() {
@@ -54,8 +67,6 @@ export class ContentSelectorWrapperComponent implements OnInit {
     );
   });
 
-  enabled = computed(() => this.editorEnabled.enabled());
-
   handlePress() {
     this.focusDictionary.setFocusedContent?.({
       dictionaryKey: this.dictionaryKey,
@@ -66,7 +77,10 @@ export class ContentSelectorWrapperComponent implements OnInit {
   handleHover() {
     this.manager?.messenger.send(
       `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
-      { dictionaryKey: this.dictionaryKey, keyPath: this.filteredKeyPath }
+      {
+        dictionaryKey: this.dictionaryKey,
+        keyPath: this.filteredKeyPath,
+      }
     );
   }
 

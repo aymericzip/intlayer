@@ -15,8 +15,10 @@ export const useFocusDictionary = (): FocusDictionaryStateProps => {
   const manager = getEditorStateManager();
 
   const focusedContent = readable<FileContent | null>(
-    manager.focusedContent.value ?? null,
+    manager?.focusedContent.value ?? null,
     (set) => {
+      if (!manager) return;
+
       const handler = (e: Event) =>
         set((e as CustomEvent<FileContent | null>).detail);
       manager.focusedContent.addEventListener('change', handler);
@@ -28,8 +30,8 @@ export const useFocusDictionary = (): FocusDictionaryStateProps => {
   return {
     focusedContent,
     setFocusedContent: (content: FileContent | null) =>
-      manager.focusedContent.set(content),
+      getEditorStateManager()?.focusedContent.set(content),
     setFocusedContentKeyPath: (keyPath: KeyPath[]) =>
-      manager.setFocusedContentKeyPath(keyPath),
+      getEditorStateManager()?.setFocusedContentKeyPath(keyPath),
   };
 };

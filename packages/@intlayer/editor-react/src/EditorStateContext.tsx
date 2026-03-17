@@ -18,12 +18,5 @@ export const EditorStateProvider: FC<
   </EditorStateContext.Provider>
 );
 
-export const useEditorStateManager = (): EditorStateManager => {
-  const ctx = useContext(EditorStateContext);
-  if (!ctx) {
-    throw new Error(
-      'useEditorStateManager must be used within an EditorProvider'
-    );
-  }
-  return ctx;
-};
+export const useEditorStateManager = (): EditorStateManager | null =>
+  useContext(EditorStateContext);

@@ -1,5 +1,5 @@
 import { effect, inject } from '@angular/core';
-import type { Locale } from '@intlayer/types/allLocales';
+import { MessageKey } from '@intlayer/types/messageKey';
 import { INTLAYER_TOKEN, type IntlayerProvider } from '../client';
 import { getEditorStateManager } from './installIntlayerEditor';
 
@@ -12,7 +12,10 @@ export const useEditorLocale = () => {
   if (client && manager) {
     effect(() => {
       const locale = client.locale();
-      manager.currentLocale.set(locale as Locale);
+      manager.messenger.send(
+        `${MessageKey.INTLAYER_CURRENT_LOCALE}/post`,
+        locale
+      );
     });
   }
 

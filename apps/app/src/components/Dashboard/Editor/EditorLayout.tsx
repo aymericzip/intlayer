@@ -3,10 +3,10 @@
 import { Container } from '@intlayer/design-system';
 import {
   type FileContent,
-  MessageKey,
   useCrossFrameState,
   useEditorLocale,
 } from '@intlayer/editor-react';
+import { MessageKey } from '@intlayer/types/messageKey';
 import { useTheme } from 'next-themes';
 import type { FC, PropsWithChildren } from 'react';
 import { DictionaryEditionDrawerController } from './DictionaryEditionDrawer';

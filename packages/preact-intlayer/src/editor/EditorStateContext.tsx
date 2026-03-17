@@ -9,7 +9,7 @@ import { useContext } from 'preact/hooks';
 const EditorStateContext = createContext<EditorStateManager | null>(null);
 
 export const EditorStateProvider: FunctionComponent<{
-  manager: EditorStateManager;
+  manager: EditorStateManager | null;
   children?: ComponentChildren;
 }> = ({ manager, children }) => (
   <EditorStateContext.Provider value={manager}>
@@ -17,9 +17,5 @@ export const EditorStateProvider: FunctionComponent<{
   </EditorStateContext.Provider>
 );
 
-export const useEditorStateManager = (): EditorStateManager => {
-  const ctx = useContext(EditorStateContext);
-  if (!ctx)
-    throw new Error('useEditorStateManager: no EditorStateProvider found');
-  return ctx;
-};
+export const useEditorStateManager = (): EditorStateManager | null =>
+  useContext(EditorStateContext);

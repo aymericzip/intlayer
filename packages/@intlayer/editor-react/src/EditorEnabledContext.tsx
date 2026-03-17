@@ -1,6 +1,6 @@
 'use client';
 
-import { MessageKey } from '@intlayer/editor';
+import { MessageKey } from '@intlayer/types/messageKey';
 import { useEffect, useState } from 'react';
 import { useEditorStateManager } from './EditorStateContext';
 
@@ -15,10 +15,12 @@ export type EditorEnabledStateProps = {
 export const useEditorEnabled = (): EditorEnabledStateProps => {
   const manager = useEditorStateManager();
   const [enabled, setEnabled] = useState<boolean>(
-    manager.editorEnabled.value ?? false
+    manager?.editorEnabled.value ?? false
   );
 
   useEffect(() => {
+    if (!manager) return;
+
     const handler = (e: Event) =>
       setEnabled((e as CustomEvent<boolean>).detail);
     manager.editorEnabled.addEventListener('change', handler);
@@ -38,7 +40,7 @@ export const useGetEditorEnabledState = (onRequest?: () => void) => {
 
   useEffect(() => {
     if (!onRequest) return;
-    return manager.messenger.subscribe(
+    return manager?.messenger.subscribe(
       `${MessageKey.INTLAYER_EDITOR_ENABLED}/get`,
       onRequest
     );
@@ -51,14 +53,15 @@ export const useGetEditorEnabledState = (onRequest?: () => void) => {
 export const usePostEditorEnabledState = () => {
   const manager = useEditorStateManager();
   return (value: boolean) => {
-    manager.editorEnabled.set(value);
-    manager.editorEnabled.postCurrentValue();
+    manager?.editorEnabled.set(value);
+    manager?.editorEnabled.postCurrentValue();
   };
 };
 
 export const useEditorEnabledState = () => {
   const { enabled } = useEditorEnabled();
   const manager = useEditorStateManager();
-  const setter = (value: boolean) => manager.editorEnabled.set(value);
+  const setter = (value: boolean) => manager?.editorEnabled.set(value);
+
   return [enabled, setter] as const;
 };

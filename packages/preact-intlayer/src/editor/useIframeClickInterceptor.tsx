@@ -1,4 +1,5 @@
-import { MessageKey, mergeIframeClick } from '@intlayer/editor';
+import { mergeIframeClick } from '@intlayer/editor';
+import { MessageKey } from '@intlayer/types/messageKey';
 import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
 
 export const useIframeClickInterceptor = () => {

@@ -11,8 +11,8 @@ import type {
   LocalDictionaryId,
 } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
+import { MessageKey } from '@intlayer/types/messageKey';
 import { NodeType } from '@intlayer/types/nodeType';
-import { MessageKey } from '../messagesKeys';
 import {
   CrossFrameMessenger,
   type MessengerConfig,

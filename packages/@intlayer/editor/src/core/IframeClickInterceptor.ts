@@ -1,5 +1,5 @@
+import { MessageKey } from '@intlayer/types/messageKey';
 import { mergeIframeClick } from '../mergeIframeClick';
-import { MessageKey } from '../messagesKeys';
 import type { CrossFrameMessenger } from './CrossFrameMessenger';
 
 /**

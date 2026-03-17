@@ -1,3 +1,5 @@
+'use client';
+
 import { getContentNodeByKeyPath } from '@intlayer/core/dictionaryManipulator';
 import { getMarkdownMetadata } from '@intlayer/core/markdown';
 import type { ContentNode } from '@intlayer/types/dictionary';

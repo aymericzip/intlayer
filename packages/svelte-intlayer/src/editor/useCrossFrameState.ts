@@ -1,6 +1,6 @@
-import { CrossFrameStateManager, type MessageKey } from '@intlayer/editor';
+import type { MessageKey } from '@intlayer/types/messageKey';
 import { onDestroy } from 'svelte';
-import { readable, writable } from 'svelte/store';
+import { writable } from 'svelte/store';
 import { getEditorStateManager } from './communicator';
 
 export type CrossFrameStateOptions = {
@@ -13,33 +13,57 @@ export const useCrossFrameState = <S>(
   initialState?: S,
   options: CrossFrameStateOptions = { emit: true, receive: true }
 ): [ReturnType<typeof writable<S | undefined>>, (value: S) => void] => {
-  const manager = getEditorStateManager();
   const { emit = true, receive = true } = options;
+  const store = writable<S | undefined>(initialState);
 
-  const stateManager = new CrossFrameStateManager<S>(key, manager.messenger, {
-    emit,
-    receive,
-    initialValue: initialState,
-  });
-  stateManager.start();
+  let disposed = false;
+  let cleanupFn: (() => void) | null = null;
+  let externalSet: (value: S) => void = (value: S) => store.set(value);
 
-  const store = writable<S | undefined>(stateManager.value);
+  const manager = getEditorStateManager();
 
-  const handler = (e: Event) => store.set((e as CustomEvent<S>).detail);
-  stateManager.addEventListener('change', handler);
+  if (manager) {
+    import('@intlayer/editor').then(({ CrossFrameStateManager }) => {
+      if (disposed) return;
+
+      const stateManager = new CrossFrameStateManager<S>(
+        key,
+        manager.messenger,
+        {
+          emit,
+          receive,
+          initialValue: initialState,
+        }
+      );
+      stateManager.start();
+
+      const handler = (e: Event) => store.set((e as CustomEvent<S>).detail);
+      stateManager.addEventListener('change', handler);
+
+      externalSet = (value: S) => stateManager.set(value);
+
+      cleanupFn = () => {
+        stateManager.removeEventListener('change', handler);
+        stateManager.stop();
+      };
+
+      if (disposed) {
+        cleanupFn();
+        cleanupFn = null;
+      }
+    });
+  }
 
   try {
     onDestroy(() => {
-      stateManager.removeEventListener('change', handler);
-      stateManager.stop();
+      disposed = true;
+      cleanupFn?.();
     });
   } catch {
     // Outside component context
   }
 
-  const setState = (value: S) => {
-    stateManager.set(value);
-  };
+  const setState = (value: S) => externalSet(value);
 
   return [store, setState];
 };

@@ -1,5 +1,5 @@
 import { DestroyRef, inject } from '@angular/core';
-import type { MessageKey } from '@intlayer/editor';
+import type { MessageKey } from '@intlayer/types/messageKey';
 import { getEditorStateManager } from './installIntlayerEditor';
 
 export const useCrossFrameMessageListener = <S>(

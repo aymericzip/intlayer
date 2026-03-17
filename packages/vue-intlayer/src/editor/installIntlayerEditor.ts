@@ -1,20 +1,16 @@
 import configuration from '@intlayer/config/built';
-import {
-  defineIntlayerElements,
-  EditorStateManager,
-  type MessengerConfig,
-} from '@intlayer/editor';
+import type { EditorStateManager, MessengerConfig } from '@intlayer/editor';
 import type { App } from 'vue';
 
 const { editor } = configuration ?? {};
 
-const buildDefaultMessengerConfig = (): MessengerConfig => ({
+const buildDefaultMessengerConfig = () => ({
   allowedOrigins: [
     editor?.applicationURL,
     editor?.editorURL,
     editor?.cmsURL,
   ].filter(Boolean) as string[],
-  postMessageFn: (payload, origin) => {
+  postMessageFn: (payload: any, origin: string) => {
     if (typeof window === 'undefined') return;
     const isInIframe = window.self !== window.top;
     if (!isInIframe) return;
@@ -30,17 +26,25 @@ export const INTLAYER_EDITOR_MANAGER_SYMBOL = Symbol(
 let globalManager: EditorStateManager | null = null;
 
 export const installIntlayerEditor = (app: App): void => {
-  const manager = new EditorStateManager({
-    mode: 'client',
-    messenger: buildDefaultMessengerConfig(),
-    configuration,
-  });
+  const { editor } = configuration ?? {};
 
-  app.provide(INTLAYER_EDITOR_MANAGER_SYMBOL, manager);
-  globalManager = manager;
+  if (editor?.enabled === false || typeof window === 'undefined') return;
 
-  defineIntlayerElements();
-  manager.start();
+  import('@intlayer/editor').then(
+    ({ defineIntlayerElements, EditorStateManager }) => {
+      const manager = new EditorStateManager({
+        mode: 'client',
+        messenger: buildDefaultMessengerConfig() as MessengerConfig,
+        configuration,
+      });
+
+      app.provide(INTLAYER_EDITOR_MANAGER_SYMBOL, manager);
+      globalManager = manager;
+
+      defineIntlayerElements();
+      manager.start();
+    }
+  );
 };
 
 export const getEditorStateManager = (): EditorStateManager | null =>

@@ -1,4 +1,4 @@
-import { CrossFrameStateManager, type MessageKey } from '@intlayer/editor';
+import type { MessageKey } from '@intlayer/types/messageKey';
 import { type Accessor, createSignal, onCleanup } from 'solid-js';
 import { useEditorStateManager } from './EditorProvider';
 
@@ -15,33 +15,65 @@ export const useCrossFrameState = <S,>(
   const manager = useEditorStateManager();
   const { emit = true, receive = true } = options ?? {};
 
-  const stateManager = new CrossFrameStateManager<S>(key, manager.messenger, {
-    emit,
-    receive,
-    initialValue: initialState,
-  });
-  stateManager.start();
-  onCleanup(() => stateManager.stop());
-
-  const [value, setSignal] = createSignal<S>(stateManager.value as S, {
+  const [value, setSignal] = createSignal<S>(initialState as S, {
     equals: false,
   });
 
-  const handler = (e: Event) => {
-    setSignal(() => (e as CustomEvent<S>).detail);
-  };
-  stateManager.addEventListener('change', handler);
-  onCleanup(() => stateManager.removeEventListener('change', handler));
+  let disposed = false;
+  let cleanupFn: (() => void) | null = null;
+  let externalSet: (newValue: S) => void = () => {};
+  let externalPost: () => void = () => {};
+
+  if (manager) {
+    import('@intlayer/editor').then(({ CrossFrameStateManager }) => {
+      if (disposed) return;
+
+      const stateManager = new CrossFrameStateManager<S>(
+        key,
+        manager.messenger,
+        {
+          emit,
+          receive,
+          initialValue: initialState,
+        }
+      );
+      stateManager.start();
+
+      const handler = (e: Event) => {
+        setSignal(() => (e as CustomEvent<S>).detail);
+      };
+      stateManager.addEventListener('change', handler);
+
+      externalSet = (newValue: S) => stateManager.set(newValue);
+      externalPost = () => stateManager.postCurrentValue();
+
+      cleanupFn = () => {
+        stateManager.removeEventListener('change', handler);
+        stateManager.stop();
+      };
+
+      if (disposed) {
+        cleanupFn();
+        cleanupFn = null;
+      }
+    });
+  }
+
+  onCleanup(() => {
+    disposed = true;
+    cleanupFn?.();
+  });
 
   const setValue = (valueOrUpdater: S | ((prev: S) => S)) => {
     const newValue =
       typeof valueOrUpdater === 'function'
         ? (valueOrUpdater as (prev: S) => S)(value())
         : valueOrUpdater;
-    stateManager.set(newValue);
+    setSignal(() => newValue);
+    externalSet(newValue);
   };
 
-  const postState = () => stateManager.postCurrentValue();
+  const postState = () => externalPost();
 
   return [value, setValue, postState];
 };

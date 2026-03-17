@@ -20,6 +20,7 @@ import type { KeyPath } from '@intlayer/types/keyPath';
 import { NodeType } from '@intlayer/types/nodeType';
 import { type FC, memo, type ReactNode, useMemo } from 'react';
 import { ArrayWrapper } from './ArrayWrapper';
+import { BooleanWrapper } from './BooleanWrapper';
 import { ConditionWrapper } from './ConditionWrapper';
 import { EnumerationWrapper } from './EnumerationWrapper';
 import { FileWrapper } from './FileWrapper';
@@ -27,6 +28,7 @@ import { HtmlWrapper } from './HtmlWrapper';
 import { InsertionWrapper } from './InsertionWrapper';
 import { MarkdownWrapper } from './MarkdownWrapper';
 import { NestedObjectWrapper } from './NestedObjectWrapper';
+import { NumberWrapper } from './NumberWrapper';
 import { StringWrapper } from './StringWrapper';
 import { TranslationWrapper } from './TranslationWrapper';
 
@@ -147,5 +149,13 @@ export const NodeWrapper: FC<NodeWrapperProps> = memo((props) => {
 
   if (typeof section === 'string') {
     return <StringWrapper {...props} section={section} />;
+  }
+
+  if (typeof section === 'number') {
+    return <NumberWrapper {...props} section={section} />;
+  }
+
+  if (typeof section === 'boolean') {
+    return <BooleanWrapper {...props} section={section} />;
   }
 });

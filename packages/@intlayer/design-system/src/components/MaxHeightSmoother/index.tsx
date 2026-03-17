@@ -148,79 +148,35 @@ export const MaxHeightSmoother: FC<MaxHeightSmootherProps> = ({
   isOverable = false,
   isFocusable = false,
   minHeight = 0,
-  style,
   ...props
-}) => {
-  const hasMinHeight = minHeight > 0;
-
-  /**
-   * True when the component should render visually collapsed.
-   * In uncontrolled hover/focus mode we always start collapsed
-   * so the CSS interaction selectors have something to open.
-   */
-  const isCollapsed =
-    isHidden === true ||
-    (isHidden === undefined && (isOverable || isFocusable));
-
-  return (
+}) => (
+  <div
+    aria-hidden={isFocusable ? isHidden : undefined}
+    tabIndex={isFocusable ? 0 : undefined}
+    role={isFocusable ? 'button' : 'none'}
+    className={cn(
+      'group/height-smoother relative grid w-full grid-rows-[0fr] overflow-hidden transition-all duration-700 ease-in-out',
+      typeof isHidden !== 'undefined' &&
+        !isHidden &&
+        'grid-rows-[1fr] overflow-x-auto',
+      isOverable && 'hover:grid-rows-[1fr] hover:overflow-x-auto',
+      isFocusable &&
+        'focus-within:grid-rows-[1fr] focus-within:overflow-x-auto focus:grid-rows-[1fr] focus:overflow-x-auto',
+      className
+    )}
+    {...props}
+  >
     <div
-      role={isFocusable ? 'button' : undefined}
-      tabIndex={isFocusable ? 0 : undefined}
-      aria-expanded={isFocusable && isHidden !== undefined ? !isHidden : undefined}
-      style={
-        hasMinHeight
-          ? ({
-              '--mhs-collapsed': `${minHeight}px`,
-              '--mhs-expanded': '3000px',
-              ...style,
-            } as CSSProperties)
-          : style
-      }
+      style={{
+        minHeight: `${minHeight}px`,
+      }}
       className={cn(
-        'group/mhs relative w-full',
-
-        // ── Strategy A: grid-template-rows (minHeight === 0) ─────────────────
-        // overflow-hidden lives on the inner wrapper so box-shadows and outlines
-        // on children are not clipped by the outer container.
-        !hasMinHeight && [
-          'grid transition-[grid-template-rows] duration-500 ease-in-out motion-reduce:transition-none',
-          isCollapsed ? 'grid-rows-[0fr]' : 'grid-rows-[1fr]',
-          isOverable && 'hover:grid-rows-[1fr]',
-          isFocusable && 'focus:grid-rows-[1fr] focus-within:grid-rows-[1fr]',
-        ],
-
-        // ── Strategy B: max-height via CSS variables (minHeight > 0) ─────────
-        // `--mhs-collapsed` and `--mhs-expanded` are set via inline style above.
-        // Tailwind owns `max-height` entirely so :hover/:focus-within override freely.
-        hasMinHeight && [
-          'overflow-hidden transition-[max-height] duration-500 ease-in-out motion-reduce:transition-none',
-          isCollapsed
-            ? 'max-h-[var(--mhs-collapsed)]'
-            : 'max-h-[var(--mhs-expanded)]',
-          isOverable && 'hover:max-h-[var(--mhs-expanded)]',
-          isFocusable && 'focus-within:max-h-[var(--mhs-expanded)]',
-        ],
-
-        className,
+        isOverable && 'group-hover/height-smoother:visible',
+        isFocusable && 'group-focus/height-smoother:visible',
+        className
       )}
-      {...props}
     >
-      {/*
-       * Inner wrapper:
-       *   Strategy A — `min-h-0` + `overflow-hidden` lets the grid track
-       *                collapse to 0 and clips content during animation.
-       *   Strategy B — `min-h-[var(--mhs-collapsed)]` provides the visible
-       *                floor via the same CSS variable as the container.
-       */}
-      <div
-        className={cn(
-          'overflow-hidden',
-          !hasMinHeight && 'min-h-0',
-          hasMinHeight && 'min-h-[var(--mhs-collapsed)]',
-        )}
-      >
-        {children}
-      </div>
+      {children}
     </div>
-  );
-};
+  </div>
+);

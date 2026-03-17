@@ -2,7 +2,7 @@
 
 import configuration from '@intlayer/config/built';
 import { localeResolver } from '@intlayer/core/localization';
-import { MessageKey, useCrossFrameState } from '@intlayer/editor-react';
+import { MessageKey } from '@intlayer/types/messageKey';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import {
   createContext,
@@ -10,6 +10,7 @@ import {
   type PropsWithChildren,
   useContext,
   useEffect,
+  useState,
 } from 'react';
 import { IntlayerEditorProvider } from '../editor/IntlayerEditorProvider';
 import { localeInStorage, setLocaleInStorage } from './useLocaleStorage';
@@ -87,10 +88,8 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
   const initialLocale =
     localeProp ?? localeInStorage ?? defaultLocaleProp ?? defaultLocaleConfig;
 
-  const [currentLocale, setCurrentLocale] = useCrossFrameState(
-    MessageKey.INTLAYER_CURRENT_LOCALE,
-    initialLocale
-  );
+  const [currentLocale, setCurrentLocale] =
+    useState<LocalesValues>(initialLocale);
 
   // Sync the prop to state if the prop changes from the parent
   useEffect(() => {
@@ -98,6 +97,52 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
       setCurrentLocale(localeProp);
     }
   }, [localeProp]);
+
+  // Cross-frame locale synchronization (editor iframe support)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const isInIframe = window.self !== window.top;
+    if (!isInIframe) return;
+
+    const { editor } = configuration ?? {};
+
+    const allowedOrigins = [
+      editor?.applicationURL,
+      editor?.editorURL,
+      editor?.cmsURL,
+    ].filter(Boolean) as string[];
+
+    const handler = (event: MessageEvent) => {
+      if (
+        allowedOrigins.length > 0 &&
+        !allowedOrigins.some((origin) => event.origin === origin)
+      )
+        return;
+      const msg = event.data as { type?: string; data?: unknown } | undefined;
+      if (
+        msg?.type === `${MessageKey.INTLAYER_CURRENT_LOCALE}/post` &&
+        msg.data !== undefined
+      ) {
+        setCurrentLocale(msg.data as LocalesValues);
+      }
+    };
+    window.addEventListener('message', handler);
+    return () => window.removeEventListener('message', handler);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const isInIframe = window.self !== window.top;
+    if (!isInIframe) return;
+    const payload = {
+      type: `${MessageKey.INTLAYER_CURRENT_LOCALE}/post`,
+      data: currentLocale,
+    };
+    window.parent?.postMessage(payload, '*');
+    window.postMessage(payload, '*');
+  }, [currentLocale]);
 
   const setLocaleBase = (newLocale: LocalesValues) => {
     if (currentLocale.toString() === newLocale.toString()) return;

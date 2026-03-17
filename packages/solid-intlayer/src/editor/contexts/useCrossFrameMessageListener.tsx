@@ -1,4 +1,4 @@
-import type { MessageKey } from '@intlayer/editor';
+import type { MessageKey } from '@intlayer/types/messageKey';
 import { onCleanup } from 'solid-js';
 import { useEditorStateManager } from './EditorProvider';
 
@@ -8,7 +8,7 @@ export const useCrossFrameMessageListener = <S,>(
 ) => {
   const manager = useEditorStateManager();
 
-  if (onEventTriggered) {
+  if (onEventTriggered && manager) {
     const unsub = manager.messenger.subscribe(
       key,
       onEventTriggered as (data: unknown) => void
@@ -16,5 +16,5 @@ export const useCrossFrameMessageListener = <S,>(
     onCleanup(unsub);
   }
 
-  return (data?: S) => manager.messenger.send(key, data);
+  return (data?: S) => manager?.messenger.send(key, data);
 };

@@ -1,6 +1,30 @@
-import type { Component, ParentProps } from 'solid-js';
-import { EditorProvider } from './contexts';
+import configuration from '@intlayer/config/built';
+import {
+  type Component,
+  lazy,
+  type ParentProps,
+  Show,
+  Suspense,
+} from 'solid-js';
 
-export const IntlayerEditorProvider: Component<ParentProps> = (props) => (
-  <EditorProvider mode="client">{props.children}</EditorProvider>
+const DynamicEditorProvider = lazy(() =>
+  import('./contexts').then((m) => ({ default: m.EditorProvider }))
 );
+
+export const IntlayerEditorProvider: Component<ParentProps> = (props) => {
+  const { editor } = configuration ?? {};
+  const isEnabled = editor?.enabled ?? false;
+
+  return (
+    <Show
+      when={typeof window !== 'undefined' && isEnabled}
+      fallback={props.children}
+    >
+      <Suspense fallback={props.children}>
+        <DynamicEditorProvider mode="client">
+          {props.children}
+        </DynamicEditorProvider>
+      </Suspense>
+    </Show>
+  );
+};

@@ -5,10 +5,12 @@ import { useEditorStateManager } from './EditorStateContext';
 export const useConfiguration = (): IntlayerConfig | undefined => {
   const manager = useEditorStateManager();
   const [config, setConfig] = useState<IntlayerConfig | undefined>(
-    manager.configuration.value
+    manager?.configuration.value
   );
 
   useEffect(() => {
+    if (!manager) return;
+
     const handler = (e: Event) =>
       setConfig((e as CustomEvent<IntlayerConfig>).detail);
     manager.configuration.addEventListener('change', handler);

@@ -1,15 +1,30 @@
-import { createSignal, onCleanup } from 'solid-js';
-import { useEditorStateManager } from './EditorProvider';
+import { createEffect, createSignal, onCleanup } from 'solid-js';
+import {
+  useEditorStateManager,
+  useEditorStateManagerAccessor,
+} from './EditorProvider';
 
 export const useEditorEnabled = () => {
-  const manager = useEditorStateManager();
-  const [enabled, setEnabled] = createSignal<boolean>(
-    manager.editorEnabled.value ?? false
-  );
+  const getManager = useEditorStateManagerAccessor();
+  const [enabled, setEnabled] = createSignal<boolean>(false);
 
-  const handler = (e: Event) => setEnabled((e as CustomEvent<boolean>).detail);
-  manager.editorEnabled.addEventListener('change', handler);
-  onCleanup(() => manager.editorEnabled.removeEventListener('change', handler));
+  // Re-runs whenever manager transitions from null → loaded
+  createEffect(() => {
+    const manager = getManager();
+
+    if (!manager) {
+      setEnabled(false);
+      return;
+    }
+
+    setEnabled(manager.editorEnabled.value ?? false);
+    const handler = (e: Event) =>
+      setEnabled((e as CustomEvent<boolean>).detail);
+    manager.editorEnabled.addEventListener('change', handler);
+    onCleanup(() =>
+      manager.editorEnabled.removeEventListener('change', handler)
+    );
+  });
 
   return { enabled };
 };
@@ -19,18 +34,18 @@ export const useEditorEnabledState = () => {
   const manager = useEditorStateManager();
   return [
     enabled,
-    (value: boolean) => manager.editorEnabled.set(value),
+    (value: boolean) => manager?.editorEnabled.set(value),
   ] as const;
 };
 
 export const useGetEditorEnabledState = () => {
   const manager = useEditorStateManager();
   return () => {
-    manager.messenger.send(`INTLAYER_EDITOR_ENABLED/get`);
+    manager?.messenger.send(`INTLAYER_EDITOR_ENABLED/get`);
   };
 };
 
 export const usePostEditorEnabledState = () => {
   const manager = useEditorStateManager();
-  return () => manager.editorEnabled.postCurrentValue();
+  return () => manager?.editorEnabled.postCurrentValue();
 };

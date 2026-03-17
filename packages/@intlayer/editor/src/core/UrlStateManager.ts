@@ -1,4 +1,4 @@
-import { MessageKey } from '../messagesKeys';
+import { MessageKey } from '@intlayer/types/messageKey';
 import type { CrossFrameMessenger } from './CrossFrameMessenger';
 
 /**

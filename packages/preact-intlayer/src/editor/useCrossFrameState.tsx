@@ -1,11 +1,5 @@
-import { CrossFrameStateManager, type MessageKey } from '@intlayer/editor';
-import {
-  type Dispatch,
-  type StateUpdater,
-  useEffect,
-  useRef,
-  useState,
-} from 'preact/hooks';
+import type { MessageKey } from '@intlayer/types/messageKey';
+import { useEffect, useRef, useState } from 'preact/hooks';
 import { useEditorStateManager } from './EditorStateContext';
 
 export type CrossFrameStateOptions = {
@@ -29,29 +23,48 @@ export const useCrossFrameState = <S,>(
       : initialState;
 
   const [value, setValueState] = useState<S>(resolvedInitial as S);
-  const stateManagerRef = useRef<CrossFrameStateManager<S> | null>(null);
+  const stateManagerRef = useRef<any | null>(null);
 
   useEffect(() => {
     const { emit = true, receive = true } = options ?? {};
-    const stateManager = new CrossFrameStateManager<S>(key, manager.messenger, {
-      emit,
-      receive,
-      initialValue: resolvedInitial,
-    });
-    stateManagerRef.current = stateManager;
+    let disposed = false;
 
-    const handler = (e: Event) => {
-      setValueState((e as CustomEvent<S>).detail);
-    };
-    stateManager.addEventListener('change', handler);
-    stateManager.start();
+    import('@intlayer/editor').then(({ CrossFrameStateManager }) => {
+      if (disposed) return;
+      if (!manager) return;
+
+      const stateManager = new CrossFrameStateManager<S>(
+        key,
+        manager.messenger,
+        {
+          emit,
+          receive,
+          initialValue: resolvedInitial,
+        }
+      );
+      stateManagerRef.current = stateManager;
+
+      const handler = (e: Event) => {
+        setValueState((e as CustomEvent<S>).detail);
+      };
+      stateManager.addEventListener('change', handler);
+      stateManager.start();
+
+      if (disposed) {
+        stateManager.removeEventListener('change', handler);
+        stateManager.stop();
+        stateManagerRef.current = null;
+      }
+    });
 
     return () => {
-      stateManager.removeEventListener('change', handler);
-      stateManager.stop();
-      stateManagerRef.current = null;
+      disposed = true;
+      if (stateManagerRef.current) {
+        stateManagerRef.current.stop();
+        stateManagerRef.current = null;
+      }
     };
-  }, [key, manager.messenger, options?.emit, options?.receive]);
+  }, [key, manager?.messenger, options?.emit, options?.receive]);
 
   const setValue: CrossFrameStateUpdater<S> = (valueOrUpdater) => {
     setValueState((prev) => {

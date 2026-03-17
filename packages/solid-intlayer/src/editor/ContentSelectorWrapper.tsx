@@ -1,20 +1,18 @@
 import type { NodeProps } from '@intlayer/core/interpreter';
 import { isSameKeyPath } from '@intlayer/core/utils';
-import { defineIntlayerElements, MessageKey } from '@intlayer/editor';
+import { MessageKey } from '@intlayer/types/messageKey';
 import { NodeType } from '@intlayer/types/nodeType';
 import {
   type Component,
   createMemo,
+  createSignal,
   type JSX,
   onCleanup,
   onMount,
+  Show,
 } from 'solid-js';
 import { useIntlayerContext } from '../client';
-import {
-  useEditorEnabled,
-  useEditorStateManager,
-  useFocusDictionary,
-} from './contexts';
+import { useEditorStateManagerAccessor, useFocusDictionary } from './contexts';
 
 // JSX declaration for the Lit web component in Solid
 declare module 'solid-js' {
@@ -37,7 +35,7 @@ const ContentSelectorWrapperContent: Component<ContentSelectorWrapperProps> = (
   props
 ) => {
   const { focusedContent, setFocusedContent } = useFocusDictionary();
-  const manager = useEditorStateManager();
+  const getManager = useEditorStateManagerAccessor();
 
   const filteredKeyPath = createMemo(() =>
     props.keyPath.filter((key) => key.type !== NodeType.Translation)
@@ -61,14 +59,14 @@ const ContentSelectorWrapperContent: Component<ContentSelectorWrapperProps> = (
   };
 
   const handleHover = () => {
-    manager.messenger.send(
+    getManager()?.messenger.send(
       `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
       { dictionaryKey: props.dictionaryKey, keyPath: filteredKeyPath() }
     );
   };
 
   const handleUnhover = () => {
-    manager.messenger.send(
+    getManager()?.messenger.send(
       `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
       null
     );
@@ -100,18 +98,25 @@ const ContentSelectorWrapperContent: Component<ContentSelectorWrapperProps> = (
 export const ContentSelectorRenderer: Component<ContentSelectorWrapperProps> = (
   props
 ) => {
-  const { enabled } = useEditorEnabled();
   const { disableEditor } = useIntlayerContext();
+  const [isInIframe, setIsInIframe] = createSignal(false);
 
-  onMount(() => defineIntlayerElements());
+  onMount(() => {
+    const inIframe = window.self !== window.top;
+    setIsInIframe(inIframe);
 
-  if (enabled() && !disableEditor) {
-    return (
+    if (inIframe) {
+      import('@intlayer/editor').then(({ defineIntlayerElements }) => {
+        defineIntlayerElements();
+      });
+    }
+  });
+
+  return (
+    <Show when={isInIframe() && !disableEditor} fallback={props.children}>
       <ContentSelectorWrapperContent {...props}>
         {props.children}
       </ContentSelectorWrapperContent>
-    );
-  }
-
-  return props.children;
+    </Show>
+  );
 };

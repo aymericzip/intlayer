@@ -1,16 +1,16 @@
+import configuration from '@intlayer/config/built';
 import type { NodeProps } from '@intlayer/core/interpreter';
 import { isSameKeyPath } from '@intlayer/core/utils';
-import { defineIntlayerElements, MessageKey } from '@intlayer/editor';
+import { MessageKey } from '@intlayer/types/messageKey';
 import { NodeType } from '@intlayer/types/nodeType';
-import type { FunctionalComponent, JSX } from 'preact';
+import type { FunctionalComponent, HTMLAttributes } from 'preact';
 import { useEffect, useRef } from 'preact/hooks';
 import { useIntlayerContext } from '../client';
-import { useEditorEnabled } from './EditorEnabledContext';
 import { useEditorStateManager } from './EditorStateContext';
 import { useFocusDictionary } from './FocusDictionaryContext';
 
 export type ContentSelectorWrapperProps = NodeProps &
-  Omit<JSX.HTMLAttributes<HTMLDivElement>, 'children'>;
+  Omit<HTMLAttributes<HTMLDivElement>, 'children'>;
 
 const ContentSelectorWrapperContent: FunctionalComponent<
   ContentSelectorWrapperProps
@@ -39,14 +39,14 @@ const ContentSelectorWrapperContent: FunctionalComponent<
     };
 
     const handleHover = () => {
-      manager.messenger.send(
+      manager?.messenger.send(
         `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
         { dictionaryKey, keyPath: filteredKeyPath }
       );
     };
 
     const handleUnhover = () => {
-      manager.messenger.send(
+      manager?.messenger.send(
         `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
         null
       );
@@ -73,14 +73,25 @@ const ContentSelectorWrapperContent: FunctionalComponent<
 export const ContentSelectorRenderer: FunctionalComponent<
   ContentSelectorWrapperProps
 > = ({ children, ...props }) => {
-  const { enabled } = useEditorEnabled();
   const { disableEditor } = useIntlayerContext();
+  const { editor } = configuration ?? {};
+  const isEnabled = editor?.enabled ?? false;
+
+  const isEditorEnabled =
+    typeof window !== 'undefined' &&
+    isEnabled &&
+    !disableEditor &&
+    window.self !== window.top;
 
   useEffect(() => {
-    defineIntlayerElements();
+    if (!isEditorEnabled) return;
+
+    import('@intlayer/editor').then(({ defineIntlayerElements }) => {
+      defineIntlayerElements();
+    });
   }, []);
 
-  if (enabled && !disableEditor) {
+  if (isEditorEnabled) {
     return (
       <ContentSelectorWrapperContent {...props}>
         {children}

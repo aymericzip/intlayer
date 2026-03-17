@@ -8,9 +8,11 @@ export type { DictionaryContent };
 export const useDictionariesRecord = () => {
   const manager = useEditorStateManager();
   const [localeDictionaries, setLocaleDictionariesState] =
-    useState<DictionaryContent>(manager.localeDictionaries.value ?? {});
+    useState<DictionaryContent>(manager?.localeDictionaries.value ?? {});
 
   useEffect(() => {
+    if (!manager) return;
+
     const handler = (e: Event) =>
       setLocaleDictionariesState(
         (e as CustomEvent<DictionaryContent>).detail ?? {}
@@ -23,9 +25,9 @@ export const useDictionariesRecord = () => {
   return {
     localeDictionaries,
     setLocaleDictionaries: (value: DictionaryContent) =>
-      manager.localeDictionaries.set(value),
+      manager?.localeDictionaries.set(value),
     setLocaleDictionary: (dictionary: Dictionary) =>
-      manager.setLocaleDictionary(dictionary),
+      manager?.setLocaleDictionary(dictionary),
   };
 };
 

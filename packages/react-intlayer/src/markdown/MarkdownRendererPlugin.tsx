@@ -1,13 +1,7 @@
-'use client';
-
-import { getContentNodeByKeyPath } from '@intlayer/core/dictionaryManipulator';
-import { getMarkdownMetadata } from '@intlayer/core/markdown';
-import { useEditorLocale } from '@intlayer/editor-react';
-import type { ContentNode } from '@intlayer/types/dictionary';
+import configuration from '@intlayer/config/built';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import type { FC, ReactNode } from 'react';
-import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';
+import { type FC, lazy, type ReactNode, Suspense } from 'react';
 import type { HTMLComponents } from '../html/HTMLComponentTypes';
 import {
   type MarkdownProviderOptions,
@@ -26,17 +20,10 @@ type MarkdownRendererPluginProps = {
 export const MarkdownRendererPlugin: FC<MarkdownRendererPluginProps> = (
   props
 ): ReactNode => {
-  const { dictionaryKey, keyPath, children, options, components } = props;
+  const { children, options, components } = props;
   const context = useMarkdownContext();
   const renderMarkdown = context?.renderMarkdown ?? ((md) => md);
-  const editedContentContext = useEditedContentRenderer({
-    dictionaryKey,
-    keyPath,
-    children,
-  });
-
-  const contentToRender =
-    typeof editedContentContext === 'string' ? editedContentContext : children;
+  const contentToRender = children;
 
   return renderMarkdown(contentToRender, options, {
     ...(context?.components ?? {}),
@@ -48,26 +35,25 @@ type MarkdownMetadataRendererProps = MarkdownRendererPluginProps & {
   metadataKeyPath: KeyPath[];
 };
 
-export const MarkdownMetadataRenderer: FC<MarkdownMetadataRendererProps> = ({
-  dictionaryKey,
-  keyPath,
-  children,
-  metadataKeyPath,
-}): ReactNode => {
-  const editedContentContext = useEditedContentRenderer({
-    dictionaryKey,
-    keyPath,
-    children,
-  });
-  const currentLocale = useEditorLocale();
+const DynamicMarkdownMetadataRendererInternal = lazy(() =>
+  import('./MarkdownMetadataRendererInternal').then((m) => ({
+    default: m.MarkdownMetadataRendererInternal,
+  }))
+);
 
-  const metadata = getMarkdownMetadata(editedContentContext);
+export const MarkdownMetadataRenderer: FC<MarkdownMetadataRendererProps> = (
+  props
+): ReactNode => {
+  const { editor } = configuration ?? {};
+  const isEnabled = editor?.enabled ?? false;
 
-  const metadataEl = getContentNodeByKeyPath(
-    metadata as ContentNode,
-    metadataKeyPath,
-    currentLocale
-  );
+  if (typeof window !== 'undefined' && isEnabled) {
+    return (
+      <Suspense fallback={null}>
+        <DynamicMarkdownMetadataRendererInternal {...props} />
+      </Suspense>
+    );
+  }
 
-  return metadataEl as ReactNode;
+  return null;
 };

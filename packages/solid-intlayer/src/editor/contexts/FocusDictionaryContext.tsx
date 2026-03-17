@@ -1,28 +1,34 @@
 import type { FileContent } from '@intlayer/editor';
 import type { KeyPath } from '@intlayer/types/keyPath';
-import { createSignal, onCleanup } from 'solid-js';
-import { useEditorStateManager } from './EditorProvider';
+import { createEffect, createSignal, onCleanup } from 'solid-js';
+import { useEditorStateManagerAccessor } from './EditorProvider';
 
 export type { FileContent };
 
 export const useFocusDictionary = () => {
-  const manager = useEditorStateManager();
+  const getManager = useEditorStateManagerAccessor();
   const [focusedContent, setFocusedContentSignal] =
-    createSignal<FileContent | null>(manager.focusedContent.value ?? null);
+    createSignal<FileContent | null>(null);
 
-  const handler = (e: Event) =>
-    setFocusedContentSignal((e as CustomEvent<FileContent | null>).detail);
-  manager.focusedContent.addEventListener('change', handler);
-  onCleanup(() =>
-    manager.focusedContent.removeEventListener('change', handler)
-  );
+  createEffect(() => {
+    const manager = getManager();
+    if (!manager) return;
+
+    setFocusedContentSignal(manager.focusedContent.value ?? null);
+    const handler = (e: Event) =>
+      setFocusedContentSignal((e as CustomEvent<FileContent | null>).detail);
+    manager.focusedContent.addEventListener('change', handler);
+    onCleanup(() =>
+      manager.focusedContent.removeEventListener('change', handler)
+    );
+  });
 
   return {
     focusedContent,
     setFocusedContent: (value: FileContent | null) =>
-      manager.focusedContent.set(value),
+      getManager()?.focusedContent.set(value),
     setFocusedContentKeyPath: (keyPath: KeyPath[]) =>
-      manager.setFocusedContentKeyPath(keyPath),
+      getManager()?.setFocusedContentKeyPath(keyPath),
   };
 };
 

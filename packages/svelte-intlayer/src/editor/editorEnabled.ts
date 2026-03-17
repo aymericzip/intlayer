@@ -8,7 +8,9 @@ export type EditorEnabledStateProps = {
 export const useEditorEnabled = (): EditorEnabledStateProps => {
   const manager = getEditorStateManager();
 
-  const enabled = readable(manager.editorEnabled.value ?? false, (set) => {
+  const enabled = readable(manager?.editorEnabled.value ?? false, (set) => {
+    if (!manager) return;
+
     const handler = (e: Event) => set((e as CustomEvent<boolean>).detail);
     manager.editorEnabled.addEventListener('change', handler);
     return () => manager.editorEnabled.removeEventListener('change', handler);

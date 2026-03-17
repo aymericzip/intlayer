@@ -17,8 +17,8 @@ export const useCommunicator = (): UseCrossPlatformStateProps => {
 
   return {
     postMessage: (payload: MessagePayload) =>
-      manager.messenger.send(payload.type, payload.data),
-    senderId: manager.messenger.senderId,
+      manager?.messenger.send(payload.type, payload.data),
+    senderId: manager?.messenger.senderId ?? '',
   };
 };
 

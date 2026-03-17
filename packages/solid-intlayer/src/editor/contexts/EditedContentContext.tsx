@@ -12,46 +12,50 @@ export const useEditedContent = () => {
   const manager = useEditorStateManager();
   const [editedContent, setEditedContentSignal] = createSignal<
     DictionaryContent | undefined
-  >(manager.editedContent.value);
+  >(manager?.editedContent.value);
 
-  const handler = (e: Event) =>
-    setEditedContentSignal((e as CustomEvent<DictionaryContent>).detail);
-  manager.editedContent.addEventListener('change', handler);
-  onCleanup(() => manager.editedContent.removeEventListener('change', handler));
+  if (manager) {
+    const handler = (e: Event) =>
+      setEditedContentSignal((e as CustomEvent<DictionaryContent>).detail);
+    manager.editedContent.addEventListener('change', handler);
+    onCleanup(() =>
+      manager.editedContent.removeEventListener('change', handler)
+    );
+  }
 
   return {
     editedContent,
     setEditedContentState: (value: DictionaryContent) =>
-      manager.editedContent.set(value),
+      manager?.editedContent.set(value),
     setEditedDictionary: (dict: Dictionary) =>
-      manager.setEditedDictionary(dict),
+      manager?.setEditedDictionary(dict),
     setEditedContent: (
       localId: LocalDictionaryId,
       value: Dictionary['content']
-    ) => manager.setEditedContent(localId, value),
+    ) => manager?.setEditedContent(localId, value),
     addEditedContent: (
       localId: LocalDictionaryId,
       value: ContentNode,
       keyPath?: KeyPath[],
       overwrite?: boolean
-    ) => manager.addContent(localId, value, keyPath, overwrite),
+    ) => manager?.addContent(localId, value, keyPath, overwrite),
     renameEditedContent: (
       localId: LocalDictionaryId,
       newKey: KeyPath['key'],
       keyPath?: KeyPath[]
-    ) => manager.renameContent(localId, newKey, keyPath),
+    ) => manager?.renameContent(localId, newKey, keyPath),
     removeEditedContent: (localId: LocalDictionaryId, keyPath: KeyPath[]) =>
-      manager.removeContent(localId, keyPath),
+      manager?.removeContent(localId, keyPath),
     restoreEditedContent: (localId: LocalDictionaryId) =>
-      manager.restoreContent(localId),
+      manager?.restoreContent(localId),
     clearEditedDictionaryContent: (localId: LocalDictionaryId) =>
-      manager.clearContent(localId),
-    clearEditedContent: () => manager.clearAllContent(),
+      manager?.clearContent(localId),
+    clearEditedContent: () => manager?.clearAllContent(),
     getEditedContentValue: (
       localIdOrKey: LocalDictionaryId | string,
       keyPath: KeyPath[]
     ): ContentNode | undefined =>
-      manager.getContentValue(localIdOrKey, keyPath),
+      manager?.getContentValue(localIdOrKey, keyPath),
   };
 };
 
@@ -63,10 +67,10 @@ export const useEditedContentActions = () => {
 
 export const useGetEditedContentState = () => {
   const manager = useEditorStateManager();
-  return () => manager.messenger.send('INTLAYER_EDITED_CONTENT_CHANGED/get');
+  return () => manager?.messenger.send('INTLAYER_EDITED_CONTENT_CHANGED/get');
 };
 
 export const usePostEditedContentState = () => {
   const manager = useEditorStateManager();
-  return () => manager.editedContent.postCurrentValue();
+  return () => manager?.editedContent.postCurrentValue();
 };

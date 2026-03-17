@@ -1,4 +1,4 @@
-import { CrossFrameStateManager, type MessageKey } from '@intlayer/editor';
+import type { MessageKey } from '@intlayer/types/messageKey';
 import { inject, onScopeDispose, type Ref, ref } from 'vue';
 import {
   getEditorStateManager,
@@ -23,38 +23,52 @@ export const useCrossFrameState = <S>(
   const { emit = true, receive = true } = options;
   const stateRef = ref<S | undefined>(initialState) as Ref<S | undefined>;
 
+  let disposed = false;
+  let cleanupFn: (() => void) | null = null;
+  let externalSet: (value: S) => void = (value: S) => {
+    stateRef.value = value;
+  };
+  let externalPost: () => void = () => {};
+
   if (manager) {
-    const stateManager = new CrossFrameStateManager<S>(key, manager.messenger, {
-      emit,
-      receive,
-      initialValue: initialState,
+    import('@intlayer/editor').then(({ CrossFrameStateManager }) => {
+      if (disposed) return;
+
+      const stateManager = new CrossFrameStateManager<S>(
+        key,
+        (manager as any).messenger,
+        {
+          emit,
+          receive,
+          initialValue: initialState,
+        }
+      );
+      stateManager.start();
+
+      const handler = (e: Event) => {
+        stateRef.value = (e as CustomEvent<S>).detail;
+      };
+      stateManager.addEventListener('change', handler);
+
+      externalSet = (value: S) => stateManager.set(value);
+      externalPost = () => stateManager.postCurrentValue();
+
+      cleanupFn = () => {
+        stateManager.removeEventListener('change', handler);
+        stateManager.stop();
+      };
+
+      if (disposed) {
+        cleanupFn();
+        cleanupFn = null;
+      }
     });
-    stateManager.start();
-
-    const handler = (e: Event) => {
-      stateRef.value = (e as CustomEvent<S>).detail;
-    };
-    stateManager.addEventListener('change', handler);
-
-    onScopeDispose(() => {
-      stateManager.removeEventListener('change', handler);
-      stateManager.stop();
-    });
-
-    const setState = (value: S) => {
-      stateManager.set(value);
-    };
-
-    const postState = () => stateManager.postCurrentValue();
-
-    return [stateRef, setState, postState];
   }
 
-  return [
-    stateRef,
-    (value: S) => {
-      stateRef.value = value;
-    },
-    () => {},
-  ];
+  onScopeDispose(() => {
+    disposed = true;
+    cleanupFn?.();
+  });
+
+  return [stateRef, (value: S) => externalSet(value), () => externalPost()];
 };

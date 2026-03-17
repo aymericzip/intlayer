@@ -1,5 +1,6 @@
 import configuration from '@intlayer/config/built';
 import { localeResolver } from '@intlayer/core/localization';
+import { MessageKey } from '@intlayer/types/messageKey';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import {
   type Component,
@@ -57,37 +58,50 @@ export const IntlayerProviderContent: Component<IntlayerProviderProps> = (
 
   const [currentLocale, setCurrentLocale] = createSignal(defaultLocale);
 
-  // Handle cross-frame communication for locale synchronization
+  // Handle cross-frame locale synchronization (editor sends locale change)
   createEffect(() => {
-    if (typeof window !== 'undefined') {
-      const handleMessage = (event: MessageEvent) => {
-        if (event.data?.type === 'INTLAYER_LOCALE_CHANGE') {
-          const newLocale = event.data.locale;
-          if (availableLocales?.includes(newLocale)) {
-            setCurrentLocale(newLocale);
-          }
-        }
-      };
+    if (typeof window === 'undefined') return;
+    const isInIframe = window.self !== window.top;
+    if (!isInIframe) return;
 
-      window.addEventListener('message', handleMessage);
+    const { editor } = configuration ?? {};
+    const allowedOrigins = [
+      editor?.applicationURL,
+      editor?.editorURL,
+      editor?.cmsURL,
+    ].filter(Boolean) as string[];
 
-      // Cleanup function
-      return () => window.removeEventListener('message', handleMessage);
-    }
+    const handler = (event: MessageEvent) => {
+      if (
+        allowedOrigins.length > 0 &&
+        !allowedOrigins.some((origin) => event.origin === origin)
+      )
+        return;
+      const msg = event.data as { type?: string; data?: unknown } | undefined;
+      if (
+        msg?.type === `${MessageKey.INTLAYER_CURRENT_LOCALE}/post` &&
+        msg.data !== undefined
+      ) {
+        setCurrentLocale(msg.data as LocalesValues);
+      }
+    };
+
+    window.addEventListener('message', handler);
+    return () => window.removeEventListener('message', handler);
   });
 
-  // Sync locale changes with other frames
+  // Broadcast locale to editor frame whenever it changes
   createEffect(() => {
     const locale = currentLocale();
-    if (typeof window !== 'undefined') {
-      window.postMessage(
-        {
-          type: 'INTLAYER_LOCALE_CHANGE',
-          locale,
-        },
-        '*'
-      );
-    }
+    if (typeof window === 'undefined') return;
+    const isInIframe = window.self !== window.top;
+    if (!isInIframe) return;
+    const payload = {
+      type: `${MessageKey.INTLAYER_CURRENT_LOCALE}/post`,
+      data: locale,
+    };
+    window.parent?.postMessage(payload, '*');
+    window.postMessage(payload, '*');
   });
 
   const setLocaleBase = (newLocale: LocalesValues) => {

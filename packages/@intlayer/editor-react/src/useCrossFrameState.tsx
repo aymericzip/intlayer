@@ -1,6 +1,7 @@
 'use client';
 
-import { CrossFrameStateManager, type MessageKey } from '@intlayer/editor';
+import { CrossFrameStateManager } from '@intlayer/editor';
+import type { MessageKey } from '@intlayer/types/messageKey';
 import {
   type Dispatch,
   type SetStateAction,

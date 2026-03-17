@@ -1,4 +1,4 @@
-import type { MessageKey } from '@intlayer/editor';
+import type { MessageKey } from '@intlayer/types/messageKey';
 import { onDestroy } from 'svelte';
 import { getEditorStateManager } from './communicator';
 
@@ -10,7 +10,7 @@ export const useCrossFrameMessageListener = <S>(
   const manager = getEditorStateManager();
 
   if (onEventTriggered) {
-    const unsub = manager.messenger.subscribe(
+    const unsub = manager?.messenger.subscribe(
       key,
       onEventTriggered as (data: unknown) => void
     );
@@ -23,5 +23,5 @@ export const useCrossFrameMessageListener = <S>(
     }
   }
 
-  return (data?: S) => manager.messenger.send(key, data);
+  return (data?: S) => manager?.messenger.send(key, data);
 };

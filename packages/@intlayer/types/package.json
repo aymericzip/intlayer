@@ -80,6 +80,11 @@
       "require": "./dist/cjs/allLocales.cjs",
       "import": "./dist/esm/allLocales.mjs"
     },
+    "./messageKey": {
+      "types": "./dist/types/messageKey.d.ts",
+      "require": "./dist/cjs/messageKey.cjs",
+      "import": "./dist/esm/messageKey.mjs"
+    },
     "./package.json": "./package.json"
   },
   "typesVersions": {
@@ -107,6 +112,9 @@
       ],
       "allLocales": [
         "./dist/types/allLocales.d.ts"
+      ],
+      "messageKey": [
+        "./dist/types/messageKey.d.ts"
       ],
       "package.json": [
         "./package.json"
