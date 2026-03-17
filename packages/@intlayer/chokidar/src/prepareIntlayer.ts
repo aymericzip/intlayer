@@ -19,6 +19,7 @@ import {
 
 type PrepareIntlayerOptions = {
   clean?: boolean;
+  env?: 'prod' | 'dev';
   format?: ('cjs' | 'esm')[];
   forceRun?: boolean;
   cacheTimeoutMs?: number;
@@ -27,6 +28,7 @@ type PrepareIntlayerOptions = {
 
 const DEFAULT_PREPARE_INTLAYER_OPTIONS = {
   clean: false,
+  env: 'prod',
   format: ['cjs', 'esm'],
   cacheTimeoutMs: 1000 * 60 * 60, // 1 hour
 } satisfies PrepareIntlayerOptions;
@@ -67,7 +69,7 @@ export const prepareIntlayer = async (
     Boolean(plugin.loadDictionaries)
   ); // Disable cache if any plugin because it can have custom behavior
 
-  const { clean, format, forceRun, onIsCached, cacheTimeoutMs } = {
+  const { clean, format, forceRun, onIsCached, cacheTimeoutMs, env } = {
     ...DEFAULT_PREPARE_INTLAYER_OPTIONS,
     forceRun:
       !isCorrectVersion ||
@@ -164,8 +166,7 @@ export const prepareIntlayer = async (
           ...dictionaries.pluginDictionaries,
         ],
         configuration,
-        format,
-        false
+        { formats: format, importOtherDictionaries: false, env }
       );
 
       // Write remote dictionaries

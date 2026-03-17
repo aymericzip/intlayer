@@ -10,19 +10,35 @@ import { writeFetchDictionary } from './writeFetchDictionary';
 import { writeMergedDictionaries } from './writeMergedDictionary';
 import { writeUnmergedDictionaries } from './writeUnmergedDictionary';
 
+export type BuildDictionariesOptions = Partial<{
+  formats: ('cjs' | 'esm')[];
+  importOtherDictionaries: boolean;
+  env: 'prod' | 'dev';
+}>;
+
+const defaultOptions = {
+  formats: ['cjs', 'esm'],
+  importOtherDictionaries: true,
+  env: 'dev',
+} as const satisfies BuildDictionariesOptions;
+
 /**
  * This function transpile the bundled code to to make dictionaries as JSON files
  */
 export const buildDictionary = async (
   localDictionariesEntries: Dictionary[],
   configuration = getConfiguration(),
-  formats: ('cjs' | 'esm')[] = ['cjs', 'esm'],
-  importOtherDictionaries = true
+  options?: BuildDictionariesOptions
 ) => {
   const importMode =
     configuration?.build?.importMode ??
     configuration?.dictionary?.importMode ??
     DefaultValues.Dictionary.IMPORT_MODE;
+
+  const { importOtherDictionaries, env, formats } = {
+    ...defaultOptions,
+    ...options,
+  };
 
   const unmergedDictionariesToUpdate: Dictionary[] = [
     ...localDictionariesEntries,
@@ -52,7 +68,8 @@ export const buildDictionary = async (
 
   const unmergedDictionaries = await writeUnmergedDictionaries(
     unmergedDictionariesToUpdate,
-    configuration
+    configuration,
+    env
   );
 
   const mergedDictionaries = await writeMergedDictionaries(

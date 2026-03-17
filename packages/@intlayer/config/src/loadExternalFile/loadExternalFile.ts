@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { extname } from 'node:path';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { BuildOptions } from 'esbuild';
-import JSON5 from 'json5';
+import * as JSON5 from 'json5';
 import { colorizePath, logger } from '../logger';
 import {
   parseFileContent,

@@ -2,8 +2,8 @@ import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { colorizePath, x } from '@intlayer/config/logger';
 import { orderDictionaries } from '@intlayer/core/dictionaryManipulator';
-import type { Dictionary, DictionaryKey } from '@intlayer/types/dictionary';
 import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary, DictionaryKey } from '@intlayer/types/dictionary';
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { parallelize } from '../utils/parallelize';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';
@@ -55,7 +55,8 @@ export type UnmergedDictionaryOutput = Record<
  */
 export const writeUnmergedDictionaries = async (
   dictionaries: Dictionary[],
-  configuration: IntlayerConfig
+  configuration: IntlayerConfig,
+  env: 'prod' | 'dev'
 ): Promise<UnmergedDictionaryOutput> => {
   const { unmergedDictionariesDir } = configuration.system;
 
@@ -90,8 +91,10 @@ export const writeUnmergedDictionaries = async (
       const unmergedFilePath = resolve(unmergedDictionariesDir, outputFileName);
 
       // Write the grouped dictionaries in disk if the editor is enabled
+      // To make work the visual editor on the server
       // No need them if the editor is disabled
-      if (configuration.editor.enabled) {
+      // But in local env (env: 'dev') we write them for the vscode extension
+      if (configuration.editor.enabled || env === 'dev') {
         await writeJsonIfChanged(unmergedFilePath, orderedDictionaries).catch(
           (err) => {
             console.error(

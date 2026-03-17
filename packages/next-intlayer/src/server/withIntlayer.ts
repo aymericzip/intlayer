@@ -468,6 +468,7 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
       cacheTimeoutMs: isBuildCommand
         ? 1000 * 30 // 30 seconds for build (to ensure to rebuild all dictionaries)
         : 1000 * 60 * 60, // 1 hour for dev (default cache timeout)
+      env: isBuildCommand ? 'prod' : 'dev',
     });
   }
 
