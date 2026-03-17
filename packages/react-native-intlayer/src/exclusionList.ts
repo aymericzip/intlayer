@@ -1,18 +1,23 @@
-import path from 'node:path';
+import { sep } from 'node:path';
 
-const escapeRegExp = (pattern: RegExp | string): string => {
-  // Pre-compute separator to avoid template literal issues on Windows
-  const sep = path.sep === '\\' ? '\\\\' : '/';
+const normalizePattern = (pattern: RegExp | string): string => {
+  // On Windows, path separators are backslashes; double-escape for use inside a RegExp source string
+  const separators = sep === '\\' ? '\\\\' : '/';
 
-  if (Object.prototype.toString.call(pattern) === '[object RegExp]') {
-    return (pattern as RegExp).source.replace(/\//g, sep);
-  } else if (typeof pattern === 'string') {
-    var escaped = pattern.replace(/[\-\[\]{}()*+?.\\^$|]/g, '\\$&');
-    return escaped.replace(/\//g, sep);
-  } else {
-    throw new Error(`Unexpected exclusion pattern: ${pattern}`);
+  if (pattern instanceof RegExp) {
+    return pattern.source.replace(/\//g, separators);
   }
+
+  if (typeof pattern === 'string') {
+    const escaped = pattern.replace(/[\\^$.*+?()[\]{}|]/g, '\\$&');
+    return escaped.replace(/\//g, separators);
+  }
+
+  throw new Error(`Unexpected exclusion pattern: ${pattern}`);
 };
 
-export const exclusionList = (additionalExclusions?: (RegExp | string)[]) =>
-  new RegExp(`(${(additionalExclusions || []).map(escapeRegExp).join('|')})$`);
+export const exclusionList = (
+  additionalExclusions: (RegExp | string)[]
+): RegExp[] => [
+  new RegExp(`(${additionalExclusions.map(normalizePattern).join('|')})$`),
+];

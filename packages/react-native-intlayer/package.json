@@ -98,7 +98,7 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "expo": "55.0.6",
+    "expo": "55.0.7",
     "metro-resolver": "0.84.2",
     "react": ">=18.0.0",
     "rimraf": "6.1.3",
