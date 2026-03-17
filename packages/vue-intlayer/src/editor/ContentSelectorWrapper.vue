@@ -1,34 +1,33 @@
 <script setup lang="ts">
 import type { NodeProps } from '@intlayer/core/interpreter';
 import { isSameKeyPath } from '@intlayer/core/utils';
-import { MessageKey } from '@intlayer/editor';
+import { defineIntlayerElements, MessageKey } from '@intlayer/editor';
 import { NodeType } from '@intlayer/types/nodeType';
-import { computed, type HTMLAttributes } from 'vue';
-import ContentSelector from '../UI/ContentSelector.vue';
-import { useCommunicator } from './communicator';
+import { computed, type HTMLAttributes, inject, onMounted } from 'vue';
 import { useEditorEnabled } from './editorEnabled';
 import { useFocusDictionary } from './focusDictionary';
-import { useEditor } from './useEditor';
+import {
+  getEditorStateManager,
+  INTLAYER_EDITOR_MANAGER_SYMBOL,
+} from './installIntlayerEditor';
 
-/**
- * Combine your NodeProps (which include dictionaryKey & keyPath)
- * with any other div‐like attributes (omitting Vue's `children`).
- */
 type Props = NodeProps & /* @vue-ignore */ Omit<HTMLAttributes, 'children'>;
 const props = defineProps<Props>();
 
-// pull in the editor state & focus API
+const manager =
+  inject<ReturnType<typeof getEditorStateManager>>(
+    INTLAYER_EDITOR_MANAGER_SYMBOL
+  ) ?? getEditorStateManager();
+
 const focusDictionary = useFocusDictionary();
 const editorEnabled = useEditorEnabled();
-const communicator = useCommunicator();
 
-useEditor();
+onMounted(() => defineIntlayerElements());
 
 const filteredKeyPath = computed(() =>
   props.keyPath.filter((key) => key.type !== NodeType.Translation)
 );
 
-// compute whether this node is the current focus
 const isSelected = computed(
   () =>
     focusDictionary?.focusedContent.value?.dictionaryKey ===
@@ -40,8 +39,7 @@ const isSelected = computed(
     )
 );
 
-// when the selector is clicked, update focus
-const handleSelect = () => {
+const handlePress = () => {
   focusDictionary?.setFocusedContent({
     dictionaryKey: props.dictionaryKey,
     keyPath: filteredKeyPath.value,
@@ -49,34 +47,29 @@ const handleSelect = () => {
 };
 
 const handleHover = () => {
-  communicator?.postMessage({
-    type: `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
-    data: {
-      dictionaryKey: props.dictionaryKey,
-      keyPath: filteredKeyPath.value,
-    },
-  });
+  manager?.messenger.send(
+    `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
+    { dictionaryKey: props.dictionaryKey, keyPath: filteredKeyPath.value }
+  );
 };
 
 const handleUnhover = () => {
-  communicator?.postMessage({
-    type: `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
-    data: null,
-  });
+  manager?.messenger.send(
+    `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
+    null
+  );
 };
 </script>
 
 <template>
-  <ContentSelector
+  <intlayer-content-selector
     v-if="editorEnabled?.enabled.value"
-    @press="handleSelect"
-    :isSelecting="isSelected"
-    @hover="handleHover"
-    @unhover="handleUnhover"
+    :is-selecting="isSelected || undefined"
+    @intlayer:press="handlePress"
+    @intlayer:hover="handleHover"
+    @intlayer:unhover="handleUnhover"
   >
     <slot />
-  </ContentSelector>
-  <span v-else style="display: contents">
-    <slot />
-  </span>
+  </intlayer-content-selector>
+  <slot v-else />
 </template>

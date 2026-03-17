@@ -1,5 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@utils/ts-config",
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false
+  },
   "include": ["src/**/*"]
 }

@@ -1,6 +1,8 @@
-'use client';
-
-import type { DictionaryKeys, DictionaryRegistryContent, LocalesValues } from '@intlayer/types/module_augmentation';
+import type {
+  DictionaryKeys,
+  DictionaryRegistryContent,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import { useContext, useMemo } from 'preact/hooks';
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';

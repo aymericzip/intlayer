@@ -1,55 +1,15 @@
-'use client';
+import { useEditorStateManager } from './EditorStateContext';
 
-import configuration from '@intlayer/config/built';
-import {
-  type ComponentChildren,
-  createContext,
-  type FunctionComponent,
-} from 'preact';
-import { useContext, useMemo, useRef } from 'preact/hooks';
-
-const randomUUID = () => Math.random().toString(36).slice(2);
-
-export type UseCrossPlatformStateProps = {
-  postMessage: typeof window.postMessage;
-  allowedOrigins?: string[];
-  senderId: string;
+export const useCommunicator = () => {
+  const manager = useEditorStateManager();
+  return {
+    postMessage: (data: any) => manager.messenger.send(data.type, data.data),
+    senderId: manager.messenger.senderId,
+  };
 };
 
-const { editor } = configuration;
-
-const CommunicatorContext = createContext<UseCrossPlatformStateProps>({
-  postMessage: () => null,
-  allowedOrigins: [
-    editor?.applicationURL,
-    editor?.editorURL,
-    editor?.cmsURL,
-  ] as string[],
-  senderId: '',
-});
-
+// Backward-compat types
 export type CommunicatorProviderProps = {
-  children?: ComponentChildren;
-  postMessage: typeof window.postMessage;
+  postMessage?: (data: any) => void;
   allowedOrigins?: string[];
 };
-
-export const CommunicatorProvider: FunctionComponent<
-  CommunicatorProviderProps
-> = ({ children, allowedOrigins, postMessage }) => {
-  // Create a stable, unique ID for the lifetime of this app/iframe instance.
-  const senderIdRef = useRef(randomUUID());
-
-  const value = useMemo(
-    () => ({ postMessage, allowedOrigins, senderId: senderIdRef.current }),
-    [postMessage, allowedOrigins] // senderIdRef.current is stable
-  );
-
-  return (
-    <CommunicatorContext.Provider value={value}>
-      {children}
-    </CommunicatorContext.Provider>
-  );
-};
-
-export const useCommunicator = () => useContext(CommunicatorContext);

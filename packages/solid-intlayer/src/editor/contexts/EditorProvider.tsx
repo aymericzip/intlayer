@@ -1,105 +1,84 @@
+import configuration from '@intlayer/config/built';
+import {
+  defineIntlayerElements,
+  EditorStateManager,
+  type MessengerConfig,
+} from '@intlayer/editor';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import {
   type Component,
-  createEffect,
-  createSignal,
-  type JSX,
+  createContext,
+  onCleanup,
+  onMount,
   type ParentProps,
+  useContext,
 } from 'solid-js';
-import {
-  CommunicatorProvider,
-  type CommunicatorProviderProps,
-} from './CommunicatorContext';
-import {
-  ConfigurationProvider,
-  type ConfigurationProviderProps,
-} from './ConfigurationContext';
-import { DictionariesRecordProvider } from './DictionariesRecordContext';
-import {
-  EditedContentProvider,
-  useGetEditedContentState,
-} from './EditedContentContext';
-import {
-  EditorEnabledProvider,
-  useEditorEnabled,
-  useGetEditorEnabledState,
-} from './EditorEnabledContext';
-import { FocusDictionaryProvider } from './FocusDictionaryContext';
 
-/**
- * This component add all the providers needed by the editor.
- * It is used to wrap the application, or the editor to work together.
- */
-const EditorProvidersWrapper: Component<ParentProps> = (props) => {
-  const getEditedContentState = useGetEditedContentState();
+const { editor } = configuration ?? {};
 
-  createEffect(() => {
-    getEditedContentState();
-  });
+const buildDefaultMessengerConfig = (): MessengerConfig => ({
+  allowedOrigins: [
+    editor?.applicationURL,
+    editor?.editorURL,
+    editor?.cmsURL,
+  ].filter(Boolean) as string[],
+  postMessageFn: (payload, origin) => {
+    if (typeof window === 'undefined') return;
+    const isInIframe = window.self !== window.top;
+    if (!isInIframe) return;
+    window.parent?.postMessage(payload, origin);
+    window.postMessage(payload, origin);
+  },
+});
 
-  return (
-    <DictionariesRecordProvider>
-      <EditedContentProvider>
-        <FocusDictionaryProvider>{props.children}</FocusDictionaryProvider>
-      </EditedContentProvider>
-    </DictionariesRecordProvider>
-  );
+export type EditorProviderProps = {
+  mode?: 'editor' | 'client';
+  configuration?: IntlayerConfig;
+  postMessage?: (data: any) => void;
+  allowedOrigins?: string[];
 };
 
-type FallbackProps = {
-  fallback: JSX.Element;
+const EditorStateContext = createContext<EditorStateManager | null>(null);
+
+export const useEditorStateManager = (): EditorStateManager => {
+  const ctx = useContext(EditorStateContext);
+  if (!ctx) throw new Error('useEditorStateManager: no EditorProvider found');
+  return ctx;
 };
-
-/**
- * This component check if the editor is enabled to render the editor providers.
- */
-const EditorEnabledCheckRenderer: Component<ParentProps<FallbackProps>> = (
-  props
-) => {
-  const getEditorEnabled = useGetEditorEnabledState();
-  const { enabled } = useEditorEnabled();
-
-  createEffect(() => {
-    if (enabled()) return;
-
-    // Check if the editor is wrapping the application
-    getEditorEnabled();
-  });
-
-  return <>{enabled() ? props.children : props.fallback}</>;
-};
-
-/**
- * This component is used to check if the editor is wrapping the application.
- * It avoid to send window.postMessage to the application if the editor is not wrapping the application.
- */
-const IframeCheckRenderer: Component<ParentProps<FallbackProps>> = (props) => {
-  const [isInIframe, setIsInIframe] = createSignal(false);
-
-  createEffect(() => {
-    setIsInIframe(window.self !== window.top);
-  });
-
-  return <>{isInIframe() ? props.children : props.fallback}</>;
-};
-
-export type EditorProviderProps = CommunicatorProviderProps &
-  ConfigurationProviderProps;
 
 export const EditorProvider: Component<ParentProps<EditorProviderProps>> = (
   props
-) => (
-  <EditorEnabledProvider>
-    <ConfigurationProvider configuration={props.configuration}>
-      <IframeCheckRenderer fallback={props.children}>
-        <CommunicatorProvider
-          postMessage={props.postMessage}
-          allowedOrigins={props.allowedOrigins}
-        >
-          <EditorEnabledCheckRenderer fallback={props.children}>
-            <EditorProvidersWrapper>{props.children}</EditorProvidersWrapper>
-          </EditorEnabledCheckRenderer>
-        </CommunicatorProvider>
-      </IframeCheckRenderer>
-    </ConfigurationProvider>
-  </EditorEnabledProvider>
-);
+) => {
+  const messengerConfig: MessengerConfig =
+    props.postMessage || props.allowedOrigins
+      ? {
+          allowedOrigins: props.allowedOrigins ?? ['*'],
+          postMessageFn: props.postMessage
+            ? (payload) => props.postMessage!(payload)
+            : buildDefaultMessengerConfig().postMessageFn,
+        }
+      : buildDefaultMessengerConfig();
+
+  const manager = new EditorStateManager({
+    mode: props.mode ?? 'client',
+    messenger: messengerConfig,
+    configuration: props.configuration ?? configuration,
+  });
+
+  onMount(() => {
+    defineIntlayerElements();
+    manager.start();
+  });
+
+  onCleanup(() => manager.stop());
+
+  return (
+    <EditorStateContext.Provider value={manager}>
+      {props.children}
+    </EditorStateContext.Provider>
+  );
+};
+
+// Re-export for backward compat
+export type { EditorProviderProps as CommunicatorProviderProps };
+export type ConfigurationProviderProps = { configuration?: IntlayerConfig };

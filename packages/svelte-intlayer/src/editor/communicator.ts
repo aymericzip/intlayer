@@ -1,76 +1,64 @@
 import configuration from '@intlayer/config/built';
+import { EditorStateManager, type MessengerConfig } from '@intlayer/editor';
 import { getContext, setContext } from 'svelte';
-import { type Writable, writable } from 'svelte/store';
 
-const randomUUID = () => Math.random().toString(36).slice(2);
+const { editor } = configuration ?? {};
 
-export type Communicator = {
-  postMessage: typeof window.postMessage;
-  allowedOrigins?: string[];
-  senderId: string;
-};
-
-const { editor } = configuration;
-
-const postMessage = (data: any) => {
-  if (typeof window === 'undefined') return;
-
-  const isInIframe = window.self !== window.top;
-
-  if (!isInIframe) return;
-
-  if (editor.applicationURL.length > 0) {
-    window.postMessage(data, editor.applicationURL);
-  }
-
-  if (editor.editorURL.length > 0) {
-    window.parent.postMessage(data, editor.editorURL);
-  }
-
-  if (editor.cmsURL.length > 0) {
-    window.parent.postMessage(data, editor.cmsURL);
-  }
-};
-
-export type CommunicatorOptions = Omit<Communicator, 'senderId'>;
-
-const defaultValue: Communicator = {
-  postMessage,
+const buildDefaultMessengerConfig = (): MessengerConfig => ({
   allowedOrigins: [
     editor?.applicationURL,
     editor?.editorURL,
     editor?.cmsURL,
-  ] as string[],
-  senderId: randomUUID(),
-};
+  ].filter(Boolean) as string[],
+  postMessageFn: (payload, origin) => {
+    if (typeof window === 'undefined') return;
+    const isInIframe = window.self !== window.top;
+    if (!isInIframe) return;
+    window.parent?.postMessage(payload, origin);
+    window.postMessage(payload, origin);
+  },
+});
 
-const COMMUNICATOR_KEY = Symbol('INTLAYER_COMMUNICATOR');
+const MANAGER_KEY = Symbol('INTLAYER_EDITOR_STATE_MANAGER');
 
-export const createCommunicator = (
-  options: Partial<CommunicatorOptions> = {}
-) => {
-  const store = writable<Communicator>({
-    ...defaultValue,
-    ...options,
+let globalManager: EditorStateManager | null = null;
+
+export const createEditorStateManager = (): EditorStateManager => {
+  const manager = new EditorStateManager({
+    mode: 'client',
+    messenger: buildDefaultMessengerConfig(),
+    configuration,
   });
-  setContext(COMMUNICATOR_KEY, store);
-  return store;
+
+  try {
+    setContext(MANAGER_KEY, manager);
+  } catch {
+    // Outside component context
+  }
+
+  globalManager = manager;
+  return manager;
 };
 
-export const useCommunicator = (): Writable<Communicator> => {
-  let context: Writable<Communicator> | undefined;
-
-  // `getContext` must only run inside a component.
-  // If this is called in plain JS, we catch the error and fallback.
+export const getEditorStateManager = (): EditorStateManager => {
   try {
-    context = getContext<Writable<Communicator>>(COMMUNICATOR_KEY);
+    const ctx = getContext<EditorStateManager>(MANAGER_KEY);
+    if (ctx) return ctx;
   } catch {
-    // called outside component -> ignore, we’ll use global store
+    // Outside component context
   }
 
-  if (!context) {
-    return createCommunicator();
+  if (!globalManager) {
+    return createEditorStateManager();
   }
+  return globalManager;
+};
 
-  return context;
+// Backward-compat alias
+export const useCommunicator = () => {
+  const manager = getEditorStateManager();
+  return {
+    postMessage: (data: any) => manager.messenger.send(data.type, data.data),
+    senderId: manager.messenger.senderId,
+  };
 };

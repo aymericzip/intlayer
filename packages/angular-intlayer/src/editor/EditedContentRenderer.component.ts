@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, Input, signal } from '@angular/core';
-import { getContent } from '@intlayer/core/interpreter';
+import { getBasePlugins, getContent } from '@intlayer/core/interpreter';
+import type { Locale } from '@intlayer/types/allLocales';
 import type { ContentNode } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
-import type { Locale } from '@intlayer/types/allLocales';
 import { useEditedContentRenderer } from './useEditedContentRenderer';
 
 export interface EditedContentRendererProps {
@@ -45,8 +45,9 @@ export class EditedContentRendererComponent {
         {
           dictionaryKey: this.dictionaryKey,
           keyPath: this.keyPath,
+          locale: this.locale,
         },
-        this.locale
+        getBasePlugins(this.locale)
       );
 
       if (typeof transformed !== 'string') {

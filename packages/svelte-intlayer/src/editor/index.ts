@@ -1,6 +1,7 @@
 export { default as ContentSelector } from './ContentSelector.svelte';
 export { default as ContentSelectorWrapper } from './ContentSelectorWrapper.svelte';
 export * from './communicator';
+export * from './dictionariesRecord';
 export * from './editorEnabled';
 export * from './focusDictionary';
 export * from './useCrossFrameMessageListener';

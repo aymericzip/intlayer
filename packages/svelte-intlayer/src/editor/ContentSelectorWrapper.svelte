@@ -1,11 +1,10 @@
 <script lang="ts">
 import type { NodeProps } from '@intlayer/core/interpreter';
 import { isSameKeyPath } from '@intlayer/core/utils';
-import { MessageKey } from '@intlayer/editor';
+import { defineIntlayerElements, MessageKey } from '@intlayer/editor';
 import { NodeType } from '@intlayer/types/nodeType';
-import { get } from 'svelte/store';
-import ContentSelector from './ContentSelector.svelte';
-import { useCommunicator } from './communicator';
+import { onMount } from 'svelte';
+import { getEditorStateManager } from './communicator';
 import { useEditorEnabled } from './editorEnabled';
 import { useFocusDictionary } from './focusDictionary';
 import { useEditor } from './useEditor';
@@ -13,12 +12,13 @@ import { useEditor } from './useEditor';
 export let dictionaryKey: NodeProps['dictionaryKey'];
 export let keyPath: NodeProps['keyPath'];
 
+const manager = getEditorStateManager();
 const { focusedContent, setFocusedContent } = useFocusDictionary();
-const editorEnabled = useEditorEnabled();
-const communicatorStore = useCommunicator();
-const { enabled } = editorEnabled;
+const { enabled } = useEditorEnabled();
 
 useEditor();
+
+onMount(() => defineIntlayerElements());
 
 $: filteredKeyPath = keyPath.filter((key) => key.type !== NodeType.Translation);
 
@@ -27,44 +27,35 @@ $: isSelected =
   ($focusedContent?.keyPath?.length ?? 0) > 0 &&
   isSameKeyPath($focusedContent?.keyPath ?? [], filteredKeyPath);
 
-const handleSelect = () => {
-  setFocusedContent({
-    dictionaryKey,
-    keyPath: filteredKeyPath,
-  });
+const handlePress = () => {
+  setFocusedContent({ dictionaryKey, keyPath: filteredKeyPath });
 };
 
 const handleHover = () => {
-  const { postMessage, senderId } = get(communicatorStore);
-  postMessage({
-    type: `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
-    data: {
-      dictionaryKey,
-      keyPath: filteredKeyPath,
-    },
-    senderId,
-  });
+  manager.messenger.send(
+    `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
+    { dictionaryKey, keyPath: filteredKeyPath }
+  );
 };
 
 const handleUnhover = () => {
-  const { postMessage, senderId } = get(communicatorStore);
-  postMessage({
-    type: `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
-    data: null,
-    senderId,
-  });
+  manager.messenger.send(
+    `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
+    null
+  );
 };
 </script>
 
 {#if $enabled}
-  <ContentSelector
-    onPress={handleSelect}
-    isSelecting={isSelected}
-    onHover={handleHover}
-    onUnhover={handleUnhover}
+  <!-- svelte-ignore a11y-no-static-element-interactions -->
+  <intlayer-content-selector
+    is-selecting={isSelected || undefined}
+    on:intlayer:press={handlePress}
+    on:intlayer:hover={handleHover}
+    on:intlayer:unhover={handleUnhover}
   >
     <slot />
-  </ContentSelector>
+  </intlayer-content-selector>
 {:else}
   <slot />
 {/if}

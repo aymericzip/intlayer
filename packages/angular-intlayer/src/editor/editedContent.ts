@@ -1,116 +1,70 @@
-import { effect, type Injector, type Signal, signal } from '@angular/core';
-import { getContentNodeByKeyPath } from '@intlayer/core/dictionaryManipulator';
-import { MessageKey } from '@intlayer/editor';
-import type { ContentNode, Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
+import { DestroyRef, inject, signal } from '@angular/core';
+import type { DictionaryContent } from '@intlayer/editor';
+import type {
+  ContentNode,
+  Dictionary,
+  LocalDictionaryId,
+} from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
-import { createSharedComposable } from './createSharedComposable';
-import { useCrossFrameState } from './useCrossFrameState';
+import { getEditorStateManager } from './installIntlayerEditor';
 
-export type EditedContent = Record<Dictionary['key'], Dictionary>;
-
-type EditedContentClient = {
-  editedContent: Signal<EditedContent>;
-  setEditedContent: (editedContent: EditedContent) => void;
-  getEditedContentValue: (
-    localDictionaryIdOrKey: LocalDictionaryId | Dictionary['key'] | string,
-    keyPath: KeyPath[]
-  ) => ContentNode | undefined;
-};
-
-/**
- * Singleton instance
- */
-let instance: EditedContentClient | null = null;
-
-const _INTLAYER_EDITED_CONTENT_SYMBOL = Symbol('EditedContent');
-
-/**
- * Creates an edited content client
- */
-export const createEditedContentClient = () => {
-  if (instance) return instance;
-
-  const editedContentSignal = signal<EditedContent>({});
-
-  instance = {
-    editedContent: editedContentSignal.asReadonly(),
-    getEditedContentValue: (
-      localDictionaryIdOrKey: LocalDictionaryId | Dictionary['key'] | string,
-      keyPath: KeyPath[]
-    ): ContentNode | undefined => {
-      const editedContent = editedContentSignal();
-
-      if (!editedContent) return undefined;
-
-      const isDictionaryId =
-        localDictionaryIdOrKey.includes(':local:') ||
-        localDictionaryIdOrKey.includes(':remote:');
-
-      if (isDictionaryId) {
-        const currentContent =
-          editedContent?.[localDictionaryIdOrKey as LocalDictionaryId]
-            ?.content ?? {};
-
-        const contentNode = getContentNodeByKeyPath(currentContent, keyPath);
-
-        return contentNode;
-      }
-
-      const filteredDictionariesLocalId = Object.keys(editedContent).filter(
-        (key) => key.startsWith(`${localDictionaryIdOrKey}:`)
-      );
-
-      for (const localDictionaryId of filteredDictionariesLocalId) {
-        const currentContent =
-          editedContent?.[localDictionaryId as LocalDictionaryId]?.content ??
-          {};
-        const contentNode = getContentNodeByKeyPath(currentContent, keyPath);
-
-        if (contentNode) return contentNode;
-      }
-
-      return undefined;
-    },
-    setEditedContent: (editedContent: EditedContent) => {
-      editedContentSignal.set(editedContent);
-    },
-  };
-
-  return instance;
-};
-
-/**
- * Helper to install the edited content into the injector
- */
-export const installEditedContent = (_injector: Injector) => {
-  const _client = createEditedContentClient();
-
-  // Angular doesn't have a direct equivalent to Vue's app.provide
-  // The client is stored as a singleton and accessed via createEditedContentClient
-};
-
-export const useEditedContent = createSharedComposable(() => {
-  const client = createEditedContentClient();
-
-  if (!client) {
-    throw new Error('EditedContent state not found');
-  }
-
-  const [edited, setEdited] = useCrossFrameState<EditedContent>(
-    MessageKey.INTLAYER_EDITED_CONTENT_CHANGED,
-    {}
+export const useEditedContent = () => {
+  const manager = getEditorStateManager();
+  const editedContent = signal<DictionaryContent | undefined>(
+    manager?.editedContent.value
   );
 
-  // Use Angular effects instead of Vue watchers
-  effect(() => {
-    const newValue = edited();
-    client.setEditedContent(newValue ?? {});
-  });
+  if (manager) {
+    const handler = (e: Event) =>
+      editedContent.set((e as CustomEvent<DictionaryContent>).detail);
+    manager.editedContent.addEventListener('change', handler);
 
-  effect(() => {
-    const newValue = client.editedContent();
-    setEdited(newValue);
-  });
+    try {
+      const destroyRef = inject(DestroyRef, { optional: true });
+      destroyRef?.onDestroy(() =>
+        manager.editedContent.removeEventListener('change', handler)
+      );
+    } catch {}
+  }
 
-  return client;
-});
+  return {
+    editedContent: editedContent.asReadonly(),
+    setEditedContentState: (value: DictionaryContent) =>
+      manager?.editedContent.set(value),
+    setEditedDictionary: (dict: Dictionary) =>
+      manager?.setEditedDictionary(dict),
+    setEditedContent: (
+      localId: LocalDictionaryId,
+      value: Dictionary['content']
+    ) => manager?.setEditedContent(localId, value),
+    addEditedContent: (
+      localId: LocalDictionaryId,
+      value: ContentNode,
+      keyPath?: KeyPath[],
+      overwrite?: boolean
+    ) => manager?.addContent(localId, value, keyPath, overwrite),
+    renameEditedContent: (
+      localId: LocalDictionaryId,
+      newKey: KeyPath['key'],
+      keyPath?: KeyPath[]
+    ) => manager?.renameContent(localId, newKey, keyPath),
+    removeEditedContent: (localId: LocalDictionaryId, keyPath: KeyPath[]) =>
+      manager?.removeContent(localId, keyPath),
+    restoreEditedContent: (localId: LocalDictionaryId) =>
+      manager?.restoreContent(localId),
+    clearEditedDictionaryContent: (localId: LocalDictionaryId) =>
+      manager?.clearContent(localId),
+    clearEditedContent: () => manager?.clearAllContent(),
+    getEditedContentValue: (
+      localIdOrKey: LocalDictionaryId | string,
+      keyPath: KeyPath[]
+    ): ContentNode | undefined =>
+      manager?.getContentValue(localIdOrKey, keyPath),
+  };
+};
+
+export const useEditedContentActions = () => {
+  const actions = useEditedContent();
+  const { editedContent, ...rest } = actions;
+  return rest;
+};

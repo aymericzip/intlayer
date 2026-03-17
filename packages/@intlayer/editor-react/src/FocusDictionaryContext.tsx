@@ -1,98 +1,48 @@
 'use client';
 
-import { MessageKey } from '@intlayer/editor';
+import type { FileContent } from '@intlayer/editor';
 import type { KeyPath } from '@intlayer/types/keyPath';
-import type { LocalDictionaryId } from '@intlayer/types/dictionary';;
-import { NodeType } from '@intlayer/types/nodeType';
-import {
-  createContext,
-  type Dispatch,
-  type FC,
-  type PropsWithChildren,
-  type SetStateAction,
-  useContext,
-} from 'react';
-import { useCrossFrameState } from './useCrossFrameState';
+import { useEffect, useState } from 'react';
+import { useEditorStateManager } from './EditorStateContext';
 
-export type FileContent = {
-  dictionaryKey: string;
-  dictionaryLocalId?: LocalDictionaryId;
-  keyPath?: KeyPath[];
-};
+export type { FileContent } from '@intlayer/editor';
 
 export type FocusDictionaryState = {
   focusedContent: FileContent | null;
 };
 
 export type FocusDictionaryActions = {
-  setFocusedContent: Dispatch<SetStateAction<FileContent | null>>;
+  setFocusedContent: (value: FileContent | null) => void;
   setFocusedContentKeyPath: (keyPath: KeyPath[]) => void;
 };
 
-const FocusDictionaryStateContext = createContext<
-  FocusDictionaryState | undefined
->(undefined);
-const FocusDictionaryActionsContext = createContext<
-  FocusDictionaryActions | undefined
->(undefined);
-
-export const FocusDictionaryProvider: FC<PropsWithChildren> = ({
-  children,
-}) => {
-  const [focusedContent, setFocusedContent] =
-    useCrossFrameState<FileContent | null>(
-      MessageKey.INTLAYER_FOCUSED_CONTENT_CHANGED,
-      null
-    );
-
-  const setFocusedContentKeyPath = (keyPath: KeyPath[]) => {
-    setFocusedContent((prev) => {
-      if (!prev) {
-        return prev; // nothing to update if there's no focused content
-      }
-
-      // Remove translation key path if it exists to make it more flexible with optimization client / editor
-      const filteredKeyPath = keyPath.filter(
-        (key) => key.type !== NodeType.Translation
-      );
-
-      return {
-        ...prev,
-        keyPath: filteredKeyPath,
-      };
-    });
-  };
-
-  return (
-    <FocusDictionaryStateContext.Provider value={{ focusedContent }}>
-      <FocusDictionaryActionsContext.Provider
-        value={{ setFocusedContent, setFocusedContentKeyPath }}
-      >
-        {children}
-      </FocusDictionaryActionsContext.Provider>
-    </FocusDictionaryStateContext.Provider>
+/**
+ * Returns the focused-content state and setters, backed by EditorStateManager.
+ */
+export const useFocusDictionary = (): FocusDictionaryState &
+  FocusDictionaryActions => {
+  const manager = useEditorStateManager();
+  const [focusedContent, setFocusedContentState] = useState<FileContent | null>(
+    manager.focusedContent.value ?? null
   );
+
+  useEffect(() => {
+    const handler = (e: Event) =>
+      setFocusedContentState((e as CustomEvent<FileContent | null>).detail);
+    manager.focusedContent.addEventListener('change', handler);
+    return () => manager.focusedContent.removeEventListener('change', handler);
+  }, [manager]);
+
+  return {
+    focusedContent,
+    setFocusedContent: (value: FileContent | null) =>
+      manager.focusedContent.set(value),
+    setFocusedContentKeyPath: (keyPath: KeyPath[]) =>
+      manager.setFocusedContentKeyPath(keyPath),
+  };
 };
 
-export const useFocusDictionaryActions = () => {
-  const context = useContext(FocusDictionaryActionsContext);
-  if (context === undefined) {
-    throw new Error(
-      'useFocusDictionaryActions must be used within a FocusDictionaryProvider'
-    );
-  }
-  return context;
-};
-
-export const useFocusDictionary = () => {
-  const actionContext = useFocusDictionaryActions();
-  const stateContext = useContext(FocusDictionaryStateContext);
-
-  if (stateContext === undefined) {
-    throw new Error(
-      'useFocusDictionaryState must be used within a FocusDictionaryProvider'
-    );
-  }
-
-  return { ...stateContext, ...actionContext };
+export const useFocusDictionaryActions = (): FocusDictionaryActions => {
+  const { setFocusedContent, setFocusedContentKeyPath } = useFocusDictionary();
+  return { setFocusedContent, setFocusedContentKeyPath };
 };

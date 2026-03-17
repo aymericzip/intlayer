@@ -1,58 +1,44 @@
-'use client';
-
 import { MessageKey } from '@intlayer/editor';
-import {
-  createContext,
-  type FunctionalComponent,
-  type RenderableProps,
-} from 'preact';
-import { useContext } from 'preact/hooks';
-import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
-import {
-  type CrossFrameStateOptions,
-  useCrossFrameState,
-} from './useCrossFrameState';
+import { useEffect, useState } from 'preact/hooks';
+import { useEditorStateManager } from './EditorStateContext';
 
 export type EditorEnabledStateProps = {
   enabled: boolean;
 };
 
-const EditorEnabledContext = createContext<EditorEnabledStateProps>({
-  enabled: false,
-});
-
-export const useEditorEnabledState = (options?: CrossFrameStateOptions) =>
-  useCrossFrameState(MessageKey.INTLAYER_EDITOR_ENABLED, false, options);
-
-export const usePostEditorEnabledState = <S,>(
-  onEventTriggered?: (data: S) => void
-) =>
-  useCrossFrameMessageListener(
-    `${MessageKey.INTLAYER_EDITOR_ENABLED}/post`,
-    onEventTriggered
+export const useEditorEnabled = (): EditorEnabledStateProps => {
+  const manager = useEditorStateManager();
+  const [enabled, setEnabled] = useState<boolean>(
+    manager.editorEnabled.value ?? false
   );
 
-export const useGetEditorEnabledState = <S,>(
-  onEventTriggered?: (data: S) => void
-) =>
-  useCrossFrameMessageListener(
-    `${MessageKey.INTLAYER_EDITOR_ENABLED}/get`,
-    onEventTriggered
-  );
+  useEffect(() => {
+    const handler = (e: Event) =>
+      setEnabled((e as CustomEvent<boolean>).detail);
+    manager.editorEnabled.addEventListener('change', handler);
+    return () => manager.editorEnabled.removeEventListener('change', handler);
+  }, [manager]);
 
-export const EditorEnabledProvider: FunctionalComponent<
-  RenderableProps<{}>
-> = ({ children }) => {
-  const [isEnabled] = useEditorEnabledState({
-    emit: false,
-    receive: true,
-  });
-
-  return (
-    <EditorEnabledContext.Provider value={{ enabled: isEnabled }}>
-      {children}
-    </EditorEnabledContext.Provider>
-  );
+  return { enabled };
 };
 
-export const useEditorEnabled = () => useContext(EditorEnabledContext);
+export const useEditorEnabledState = () => {
+  const { enabled } = useEditorEnabled();
+  const manager = useEditorStateManager();
+  return [
+    enabled,
+    (value: boolean) => manager.editorEnabled.set(value),
+  ] as const;
+};
+
+export const useGetEditorEnabledState = () => {
+  const manager = useEditorStateManager();
+  return () => {
+    manager.messenger.send(`${MessageKey.INTLAYER_EDITOR_ENABLED}/get`);
+  };
+};
+
+export const usePostEditorEnabledState = () => {
+  const manager = useEditorStateManager();
+  return () => manager.editorEnabled.postCurrentValue();
+};

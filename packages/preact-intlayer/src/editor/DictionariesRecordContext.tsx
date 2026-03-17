@@ -1,85 +1,36 @@
-'use client';
-
-import { MessageKey } from '@intlayer/editor';
+import type { DictionaryContent } from '@intlayer/editor';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import {
-  createContext,
-  type FunctionalComponent,
-  type RenderableProps,
-} from 'preact';
-import { useContext, useMemo } from 'preact/hooks';
-import {
-  type CrossFrameStateUpdater,
-  useCrossFrameState,
-} from './useCrossFrameState';
+import { useEffect, useState } from 'preact/hooks';
+import { useEditorStateManager } from './EditorStateContext';
 
-export type DictionaryContent = Record<Dictionary['key'], Dictionary>;
-
-type DictionariesRecordStatesContextType = {
-  localeDictionaries: DictionaryContent;
-};
-type DictionariesRecordActionsContextType = {
-  setLocaleDictionaries: CrossFrameStateUpdater<DictionaryContent>;
-  setLocaleDictionary: (dictionary: Dictionary) => void;
-};
-
-const DictionariesRecordStatesContext = createContext<
-  DictionariesRecordStatesContextType | undefined
->(undefined);
-const DictionariesRecordActionsContext = createContext<
-  DictionariesRecordActionsContextType | undefined
->(undefined);
-
-export const DictionariesRecordProvider: FunctionalComponent<
-  RenderableProps<{}>
-> = ({ children }) => {
-  const [localeDictionaries, setLocaleDictionaries] =
-    useCrossFrameState<DictionaryContent>(
-      MessageKey.INTLAYER_LOCALE_DICTIONARIES_CHANGED,
-      undefined
-    );
-
-  const stateValue = useMemo(
-    () => ({
-      localeDictionaries: localeDictionaries ?? {},
-    }),
-    [localeDictionaries]
-  );
-
-  const actionValue = useMemo(
-    () => ({
-      setLocaleDictionaries,
-      setLocaleDictionary: (dictionary: Dictionary) => {
-        setLocaleDictionaries((dictionaries) => ({
-          ...dictionaries,
-          [String(dictionary.localId)]: dictionary,
-        }));
-      },
-    }),
-    [setLocaleDictionaries]
-  );
-
-  return (
-    <DictionariesRecordStatesContext.Provider value={stateValue}>
-      <DictionariesRecordActionsContext.Provider value={actionValue}>
-        {children}
-      </DictionariesRecordActionsContext.Provider>
-    </DictionariesRecordStatesContext.Provider>
-  );
-};
-
-export const useDictionariesRecordActions = () =>
-  useContext(DictionariesRecordActionsContext);
+export type { DictionaryContent };
 
 export const useDictionariesRecord = () => {
-  const actionsContext = useDictionariesRecordActions();
-  const statesContext = useContext(DictionariesRecordStatesContext);
+  const manager = useEditorStateManager();
+  const [localeDictionaries, setLocaleDictionariesState] =
+    useState<DictionaryContent>(manager.localeDictionaries.value ?? {});
 
-  if (!statesContext) {
-    throw new Error(
-      'useDictionariesRecordStates must be used within a DictionariesRecordProvider'
-    );
-  }
+  useEffect(() => {
+    const handler = (e: Event) =>
+      setLocaleDictionariesState(
+        (e as CustomEvent<DictionaryContent>).detail ?? {}
+      );
+    manager.localeDictionaries.addEventListener('change', handler);
+    return () =>
+      manager.localeDictionaries.removeEventListener('change', handler);
+  }, [manager]);
 
-  return { ...statesContext, ...actionsContext };
+  return {
+    localeDictionaries,
+    setLocaleDictionaries: (value: DictionaryContent) =>
+      manager.localeDictionaries.set(value),
+    setLocaleDictionary: (dictionary: Dictionary) =>
+      manager.setLocaleDictionary(dictionary),
+  };
+};
+
+export const useDictionariesRecordActions = () => {
+  const { setLocaleDictionaries, setLocaleDictionary } =
+    useDictionariesRecord();
+  return { setLocaleDictionaries, setLocaleDictionary };
 };

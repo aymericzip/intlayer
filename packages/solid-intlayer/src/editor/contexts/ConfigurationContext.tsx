@@ -1,37 +1,17 @@
-import { MessageKey } from '@intlayer/editor';
 import type { IntlayerConfig } from '@intlayer/types/config';
-import {
-  type Component,
-  createContext,
-  type ParentProps,
-  useContext,
-} from 'solid-js';
-import { useCrossFrameState } from './useCrossFrameState';
+import { createSignal, onCleanup } from 'solid-js';
+import { useEditorStateManager } from './EditorProvider';
 
-const ConfigurationStatesContext = createContext<IntlayerConfig | undefined>(
-  undefined
-);
-
-export const useConfigurationState = () =>
-  useCrossFrameState<IntlayerConfig>(
-    MessageKey.INTLAYER_CONFIGURATION,
-    undefined,
-    {
-      receive: false,
-      emit: true,
-    }
+export const useConfiguration = () => {
+  const manager = useEditorStateManager();
+  const [config, setConfigSignal] = createSignal<IntlayerConfig | undefined>(
+    manager.configuration.value
   );
 
-export type ConfigurationProviderProps = ParentProps<{
-  configuration?: IntlayerConfig;
-}>;
+  const handler = (e: Event) =>
+    setConfigSignal((e as CustomEvent<IntlayerConfig>).detail);
+  manager.configuration.addEventListener('change', handler);
+  onCleanup(() => manager.configuration.removeEventListener('change', handler));
 
-export const ConfigurationProvider: Component<ConfigurationProviderProps> = (
-  props
-) => (
-  <ConfigurationStatesContext.Provider value={props.configuration}>
-    {props.children}
-  </ConfigurationStatesContext.Provider>
-);
-
-export const useConfiguration = () => useContext(ConfigurationStatesContext);
+  return config;
+};

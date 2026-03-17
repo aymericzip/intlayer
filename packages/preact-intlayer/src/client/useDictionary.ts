@@ -1,5 +1,3 @@
-'use client';
-
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,

@@ -8,7 +8,7 @@
     "build:script": "react-scripts-intlayer build",
     "start": "react-scripts-intlayer start",
     "start:customCracoConfig": "craco start",
-    "start:editor": "npx intlayer-editor start",
+    "start:editor": "bun intlayer-editor start",
     "start:original": "react-scripts start",
     "test": "react-scripts test --watchAll=false",
     "transpile": "intlayer build"

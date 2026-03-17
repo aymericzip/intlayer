@@ -1,53 +1,15 @@
-import configuration from '@intlayer/config/built';
-import {
-  type Component,
-  createContext,
-  createMemo,
-  type ParentProps,
-  useContext,
-} from 'solid-js';
+import { useEditorStateManager } from './EditorProvider';
 
-export type UseCrossPlatformStateProps = {
-  postMessage: typeof window.postMessage;
+export const useCommunicator = () => {
+  const manager = useEditorStateManager();
+  return {
+    postMessage: (data: any) => manager.messenger.send(data.type, data.data),
+    senderId: manager.messenger.senderId,
+  };
+};
+
+// Backward-compat exports
+export type CommunicatorProviderProps = {
+  postMessage?: (data: any) => void;
   allowedOrigins?: string[];
-  senderId: string;
 };
-
-const randomUUID = () => Math.random().toString(36).slice(2);
-
-const { editor } = configuration;
-
-const CommunicatorContext = createContext<UseCrossPlatformStateProps>({
-  postMessage: () => null,
-  allowedOrigins: [
-    editor?.applicationURL,
-    editor?.editorURL,
-    editor?.cmsURL,
-  ] as string[],
-  senderId: '',
-});
-
-export type CommunicatorProviderProps = ParentProps<
-  Omit<UseCrossPlatformStateProps, 'senderId'>
->;
-
-export const CommunicatorProvider: Component<CommunicatorProviderProps> = (
-  props
-) => {
-  // Create a stable, unique ID for the lifetime of this app/iframe instance.
-  const senderId = randomUUID();
-
-  const value = createMemo(() => ({
-    postMessage: props.postMessage,
-    allowedOrigins: props.allowedOrigins,
-    senderId,
-  }));
-
-  return (
-    <CommunicatorContext.Provider value={value()}>
-      {props.children}
-    </CommunicatorContext.Provider>
-  );
-};
-
-export const useCommunicator = () => useContext(CommunicatorContext);

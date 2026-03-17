@@ -2,16 +2,30 @@
 
 import type { NodeProps } from '@intlayer/core/interpreter';
 import { isSameKeyPath } from '@intlayer/core/utils';
+import { MessageKey } from '@intlayer/editor';
 import {
-  MessageKey,
   useCommunicator,
   useEditorEnabled,
   useFocusDictionary,
 } from '@intlayer/editor-react';
 import { NodeType } from '@intlayer/types/nodeType';
-import { type FC, type HTMLAttributes, useCallback, useMemo } from 'react';
+import { type FC, type HTMLAttributes, useEffect, useRef } from 'react';
 import { useIntlayerContext } from '../client';
-import { ContentSelector } from '../UI/ContentSelector';
+
+// JSX declaration for the Lit web component
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'intlayer-content-selector': React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement> & {
+          'is-selecting'?: boolean;
+          'press-duration'?: number;
+        },
+        HTMLElement
+      >;
+    }
+  }
+}
 
 export type ContentSelectorWrapperProps = NodeProps &
   Omit<HTMLAttributes<HTMLDivElement>, 'children'>;
@@ -23,63 +37,58 @@ const ContentSelectorWrapperContent: FC<ContentSelectorWrapperProps> = ({
 }) => {
   const { focusedContent, setFocusedContent } = useFocusDictionary();
   const { postMessage, senderId } = useCommunicator();
+  const ref = useRef<HTMLElement>(null);
 
-  // Filter out translation nodes for more flexibility with the editor that can have different format
-  const filteredKeyPath = useMemo(
-    () => keyPath.filter((key) => key.type !== NodeType.Translation),
-    [keyPath]
+  const filteredKeyPath = keyPath.filter(
+    (key) => key.type !== NodeType.Translation
   );
 
-  const handleSelect = useCallback(
-    () =>
-      setFocusedContent({
-        dictionaryKey,
-        keyPath: filteredKeyPath,
-      }),
-    [dictionaryKey, filteredKeyPath]
-  );
+  const isSelected =
+    (focusedContent?.dictionaryKey === dictionaryKey &&
+      (focusedContent?.keyPath?.length ?? 0) > 0 &&
+      isSameKeyPath(focusedContent?.keyPath ?? [], filteredKeyPath)) ??
+    false;
 
-  const handleHover = useCallback(
-    () =>
+  // React 18: web component custom events are not forwarded via JSX — use addEventListener
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const handlePress = () => {
+      setFocusedContent({ dictionaryKey, keyPath: filteredKeyPath });
+    };
+
+    const handleHover = () => {
       postMessage({
         type: `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
-        data: {
-          dictionaryKey,
-          keyPath: filteredKeyPath,
-        },
+        data: { dictionaryKey, keyPath: filteredKeyPath },
         senderId,
-      }),
-    [dictionaryKey, filteredKeyPath]
-  );
+      });
+    };
 
-  const handleUnhover = useCallback(
-    () =>
+    const handleUnhover = () => {
       postMessage({
         type: `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
         data: null,
         senderId,
-      }),
-    [senderId]
-  );
+      });
+    };
 
-  const isSelected = useMemo(
-    () =>
-      (focusedContent?.dictionaryKey === dictionaryKey &&
-        (focusedContent?.keyPath?.length ?? 0) > 0 &&
-        isSameKeyPath(focusedContent?.keyPath ?? [], filteredKeyPath)) ??
-      false,
-    [focusedContent, filteredKeyPath, dictionaryKey]
-  );
+    el.addEventListener('intlayer:press', handlePress);
+    el.addEventListener('intlayer:hover', handleHover);
+    el.addEventListener('intlayer:unhover', handleUnhover);
+    return () => {
+      el.removeEventListener('intlayer:press', handlePress);
+      el.removeEventListener('intlayer:hover', handleHover);
+      el.removeEventListener('intlayer:unhover', handleUnhover);
+    };
+  });
 
   return (
-    <ContentSelector
-      onPress={handleSelect}
-      onHover={handleHover}
-      onUnhover={handleUnhover}
-      isSelecting={isSelected}
-    >
+    // @ts-ignore — ref typing for custom elements
+    <intlayer-content-selector ref={ref} is-selecting={isSelected || undefined}>
       {children}
-    </ContentSelector>
+    </intlayer-content-selector>
   );
 };
 

@@ -1,84 +1,49 @@
-'use client';
-
-import type {
-  ComponentChildren,
-  FunctionalComponent,
-  RenderableProps,
-} from 'preact';
-import { useEffect, useState } from 'preact/hooks';
+import configuration from '@intlayer/config/built';
 import {
-  CommunicatorProvider,
-  type CommunicatorProviderProps,
-} from './CommunicatorContext';
-import {
-  ConfigurationProvider,
-  type ConfigurationProviderProps,
-} from './ConfigurationContext';
-import { DictionariesRecordProvider } from './DictionariesRecordContext';
-import {
-  EditedContentProvider,
-  useGetEditedContentState,
-} from './EditedContentContext';
-import {
-  EditorEnabledProvider,
-  useEditorEnabled,
-  useGetEditorEnabledState,
-} from './EditorEnabledContext';
-import { FocusDictionaryProvider } from './FocusDictionaryContext';
+  defineIntlayerElements,
+  EditorStateManager,
+  type MessengerConfig,
+} from '@intlayer/editor';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { ComponentChildren, FunctionComponent } from 'preact';
+import { useEffect, useRef, useState } from 'preact/hooks';
+import { useEditorEnabled } from './EditorEnabledContext';
+import { EditorStateProvider } from './EditorStateContext';
 
-/**
- * This component add all the providers needed by the editor.
- * It is used to wrap the application, or the editor to work together.
- */
-const EditorProvidersWrapper: FunctionalComponent<RenderableProps<{}>> = ({
-  children,
-}) => {
-  const getEditedContentState = useGetEditedContentState();
+const { editor } = configuration ?? {};
 
-  useEffect(() => {
-    getEditedContentState();
-  }, []);
-
-  return (
-    <DictionariesRecordProvider>
-      <EditedContentProvider>
-        <FocusDictionaryProvider>{children}</FocusDictionaryProvider>
-      </EditedContentProvider>
-    </DictionariesRecordProvider>
-  );
-};
+const buildDefaultMessengerConfig = (): MessengerConfig => ({
+  allowedOrigins: [
+    editor?.applicationURL,
+    editor?.editorURL,
+    editor?.cmsURL,
+  ].filter(Boolean) as string[],
+  postMessageFn: (payload, origin) => {
+    if (typeof window === 'undefined') return;
+    const isInIframe = window.self !== window.top;
+    if (!isInIframe) return;
+    window.parent?.postMessage(payload, origin);
+    window.postMessage(payload, origin);
+  },
+});
 
 type FallbackProps = {
   fallback: ComponentChildren;
+  children?: ComponentChildren;
 };
 
-/**
- * This component check if the editor is enabled to render the editor providers.
- */
-const EditorEnabledCheckRenderer: FunctionalComponent<
-  RenderableProps<FallbackProps>
-> = ({ children, fallback }) => {
-  const getEditorEnabled = useGetEditorEnabledState();
-
+const EditorEnabledCheckRenderer: FunctionComponent<FallbackProps> = ({
+  children,
+  fallback,
+}) => {
   const { enabled } = useEditorEnabled();
-
-  useEffect(() => {
-    if (enabled) return;
-
-    // Check if the editor is wrapping the application
-    getEditorEnabled();
-  }, [enabled]);
-
   return enabled ? children : fallback;
 };
 
-/**
- * This component is used to check if the editor is wrapping the application.
- * It avoid to send window.postMessage to the application if the editor is not wrapping the application.
- */
-const IframeCheckRenderer: FunctionalComponent<
-  RenderableProps<FallbackProps>
-> = ({ children, fallback }) => {
+const IframeCheckRenderer: FunctionComponent<FallbackProps> = ({
+  children,
+  fallback,
+}) => {
   const [isInIframe, setIsInIframe] = useState(false);
 
   useEffect(() => {
@@ -88,21 +53,63 @@ const IframeCheckRenderer: FunctionalComponent<
   return isInIframe ? children : fallback;
 };
 
-export type EditorProviderProps = CommunicatorProviderProps &
-  ConfigurationProviderProps;
+export type EditorProviderProps = {
+  mode?: 'editor' | 'client';
+  configuration?: IntlayerConfig;
+  postMessage?: (data: any) => void;
+  allowedOrigins?: string[];
+  children?: ComponentChildren;
+};
 
-export const EditorProvider: FunctionalComponent<
-  RenderableProps<EditorProviderProps>
-> = ({ children, configuration, ...props }) => (
-  <EditorEnabledProvider>
-    <ConfigurationProvider configuration={configuration}>
+export const EditorProvider: FunctionComponent<EditorProviderProps> = ({
+  children,
+  mode = 'client',
+  configuration: configProp,
+  postMessage: customPostMessage,
+  allowedOrigins: customAllowedOrigins,
+}) => {
+  const managerRef = useRef<EditorStateManager | null>(null);
+  if (!managerRef.current) {
+    const messengerConfig: MessengerConfig =
+      customPostMessage || customAllowedOrigins
+        ? {
+            allowedOrigins: customAllowedOrigins ?? ['*'],
+            postMessageFn: customPostMessage
+              ? (payload) => customPostMessage(payload)
+              : buildDefaultMessengerConfig().postMessageFn,
+          }
+        : buildDefaultMessengerConfig();
+    managerRef.current = new EditorStateManager({
+      mode,
+      messenger: messengerConfig,
+      configuration: configProp ?? configuration,
+    });
+  }
+  const manager = managerRef.current;
+
+  useEffect(() => {
+    defineIntlayerElements();
+    manager.start();
+    return () => manager.stop();
+  }, [manager]);
+
+  const content =
+    mode === 'editor' ? (
+      children
+    ) : (
       <IframeCheckRenderer fallback={children}>
-        <CommunicatorProvider {...props}>
-          <EditorEnabledCheckRenderer fallback={children}>
-            <EditorProvidersWrapper>{children}</EditorProvidersWrapper>
-          </EditorEnabledCheckRenderer>
-        </CommunicatorProvider>
+        <EditorEnabledCheckRenderer fallback={children}>
+          {children}
+        </EditorEnabledCheckRenderer>
       </IframeCheckRenderer>
-    </ConfigurationProvider>
-  </EditorEnabledProvider>
-);
+    );
+
+  return <EditorStateProvider manager={manager}>{content}</EditorStateProvider>;
+};
+
+// Backward-compat types
+export type CommunicatorProviderProps = {
+  postMessage?: (data: any) => void;
+  allowedOrigins?: string[];
+};
+export type ConfigurationProviderProps = { configuration?: IntlayerConfig };

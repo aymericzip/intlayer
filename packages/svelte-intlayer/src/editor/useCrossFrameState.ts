@@ -1,125 +1,45 @@
-import type { MessageKey } from '@intlayer/editor';
-import { get, type Writable, writable } from 'svelte/store';
-import { useCommunicator } from './communicator';
-import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
+import { CrossFrameStateManager, type MessageKey } from '@intlayer/editor';
+import { onDestroy } from 'svelte';
+import { readable, writable } from 'svelte/store';
+import { getEditorStateManager } from './communicator';
 
 export type CrossFrameStateOptions = {
   emit?: boolean;
   receive?: boolean;
 };
 
-const crossFrameStateCache = new Map<
-  string,
-  {
-    state: Writable<any>;
-    setState: (v: any) => void;
-    postState: () => void;
-  }
->();
-
-const resolveState = <S>(
-  state: S | ((prev?: S) => S) | undefined,
-  prevState?: S
-): S | undefined => {
-  if (typeof state === 'function') {
-    return (state as (prev?: S) => S)(prevState);
-  }
-  return state as S;
-};
-
-const toSerializable = <T>(obj: T): T => {
-  if (obj === null || obj === undefined) return obj;
-  return JSON.parse(JSON.stringify(obj));
-};
-
 export const useCrossFrameState = <S>(
   key: `${MessageKey}`,
-  initialState?: S | (() => S),
+  initialState?: S,
   options: CrossFrameStateOptions = { emit: true, receive: true }
-): [Writable<S | undefined>, (v: S | ((prev: S | undefined) => S)) => void] => {
-  if (crossFrameStateCache.has(key)) {
-    const { state, setState } = crossFrameStateCache.get(key)!;
-    return [state, setState];
-  }
-
+): [ReturnType<typeof writable<S | undefined>>, (value: S) => void] => {
+  const manager = getEditorStateManager();
   const { emit = true, receive = true } = options;
 
-  // Initialize state
-  const initialValue = resolveState<S>(initialState);
-  const state = writable<S | undefined>(initialValue);
-  const communicatorStore = useCommunicator();
+  const stateManager = new CrossFrameStateManager<S>(key, manager.messenger, {
+    emit,
+    receive,
+    initialValue: initialState,
+  });
+  stateManager.start();
 
-  const broadcastState = (value: S | undefined) => {
-    const { postMessage, senderId } = get(communicatorStore) ?? {};
+  const store = writable<S | undefined>(stateManager.value);
 
-    if (
-      !emit ||
-      typeof postMessage !== 'function' ||
-      typeof value === 'undefined'
-    ) {
-      return;
-    }
+  const handler = (e: Event) => store.set((e as CustomEvent<S>).detail);
+  stateManager.addEventListener('change', handler);
 
-    postMessage(
-      {
-        type: `${key}/post`,
-        data: value,
-        senderId,
-      },
-      '*'
-    );
-  };
-
-  const setState = (valueOrUpdater: S | ((prev: S | undefined) => S)) => {
-    state.update((prev) => {
-      const next = resolveState<S>(valueOrUpdater as any, prev);
-      const serialised = toSerializable(next);
-      broadcastState(serialised);
-      return serialised;
+  try {
+    onDestroy(() => {
+      stateManager.removeEventListener('change', handler);
+      stateManager.stop();
     });
-  };
-
-  const postState = () => {
-    const { postMessage, senderId } = get(communicatorStore) ?? {};
-    if (typeof postMessage !== 'function') return;
-    postMessage(
-      {
-        type: `${key}/post`,
-        data: get(state),
-        senderId,
-      },
-      '*'
-    );
-  };
-
-  // Emit initial state
-  broadcastState(initialValue);
-
-  // If receiving, ask for state
-  if (receive && typeof get(state) === 'undefined') {
-    const { postMessage, senderId } = get(communicatorStore) ?? {};
-    if (typeof postMessage === 'function') {
-      postMessage({ type: `${key}/get`, senderId }, '*');
-    }
+  } catch {
+    // Outside component context
   }
 
-  // Listen for updates
-  const listenerKey = receive ? `${key}/post` : (`${key}/ignore` as any);
-  useCrossFrameMessageListener<S>(listenerKey, (data) => {
-    if (receive) {
-      state.set(data);
-    }
-  });
+  const setState = (value: S) => {
+    stateManager.set(value);
+  };
 
-  // Listen for requests
-  const getListenerKey = emit ? `${key}/get` : (`${key}/ignore` as any);
-  useCrossFrameMessageListener(getListenerKey, (_: unknown) => {
-    if (emit) {
-      broadcastState(get(state));
-    }
-  });
-
-  crossFrameStateCache.set(key, { state, setState, postState });
-
-  return [state, setState];
+  return [store, setState];
 };

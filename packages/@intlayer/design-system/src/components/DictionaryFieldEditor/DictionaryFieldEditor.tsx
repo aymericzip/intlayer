@@ -40,20 +40,16 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
 }) => {
   const config = useConfiguration();
   const { returnToDictionaryList } = useIntlayer('dictionary-field-editor');
-  const { setFocusedContent } = useFocusUnmergedDictionary();
-  const { setLocaleDictionaries } = useDictionariesRecordActions();
+  const { focusedContent, setFocusedContent } = useFocusUnmergedDictionary();
+  const { setLocaleDictionary } = useDictionariesRecordActions();
 
   useEffect(() => {
-    // Focus the dictionary if not focused
-    setFocusedContent((prev) => ({
-      ...(prev ?? {}),
+    setFocusedContent({
+      ...(focusedContent ?? {}),
       dictionaryKey: dictionary.key,
       dictionaryLocalId: dictionary.localId,
-    }));
-    setLocaleDictionaries((prev) => ({
-      ...prev,
-      [dictionary.localId!]: dictionary,
-    }));
+    });
+    setLocaleDictionary(dictionary);
   }, []);
 
   return (

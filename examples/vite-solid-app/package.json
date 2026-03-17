@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc -b && vite build",
     "dev": "vite",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start:editor": "bun intlayer-editor start -e development --with 'vite dev'"
   },
   "dependencies": {
     "@solidjs/router": "0.15.4",
@@ -15,6 +16,7 @@
     "solid-js": "1.9.11"
   },
   "devDependencies": {
+    "intlayer-editor": "workspace:*",
     "solid-refresh": "0.7.8",
     "typescript": "5.9.3",
     "vite": "8.0.0",

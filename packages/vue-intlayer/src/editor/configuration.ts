@@ -1,15 +1,29 @@
-import configuration from '@intlayer/config/built';
-import { MessageKey } from '@intlayer/editor';
 import type { IntlayerConfig } from '@intlayer/types/config';
-import { onMounted } from 'vue';
-import { useCrossFrameState } from './useCrossFrameState';
+import { inject, onBeforeUnmount, onMounted, ref } from 'vue';
+import {
+  getEditorStateManager,
+  INTLAYER_EDITOR_MANAGER_SYMBOL,
+} from './installIntlayerEditor';
 
 export const useConfiguration = () => {
-  const [pushedConfiguration, setConfiguration] =
-    useCrossFrameState<IntlayerConfig>(MessageKey.INTLAYER_CONFIGURATION);
+  const manager =
+    inject<ReturnType<typeof getEditorStateManager>>(
+      INTLAYER_EDITOR_MANAGER_SYMBOL
+    ) ?? getEditorStateManager();
+
+  const config = ref<IntlayerConfig | undefined>(manager?.configuration.value);
+
+  const handler = (e: Event) => {
+    config.value = (e as CustomEvent<IntlayerConfig>).detail;
+  };
 
   onMounted(() => {
-    if (!pushedConfiguration) return;
-    setConfiguration(configuration);
+    manager?.configuration.addEventListener('change', handler);
   });
+
+  onBeforeUnmount(() => {
+    manager?.configuration.removeEventListener('change', handler);
+  });
+
+  return config;
 };

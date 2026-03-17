@@ -1,8 +1,9 @@
-'use client';
-
 import configuration from '@intlayer/config/built';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import type { LocalesValues, StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
+import type {
+  LocalesValues,
+  StrictModeLocaleMap,
+} from '@intlayer/types/module_augmentation';
 import { useContext, useMemo } from 'preact/hooks';
 import { IntlayerClientContext } from './IntlayerProvider';
 import { useDictionary } from './useDictionary';

@@ -1,121 +1,47 @@
-import type { MessageKey } from '@intlayer/editor';
-import { type Accessor, createEffect, createSignal } from 'solid-js';
-import { useCommunicator } from './CommunicatorContext';
-import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
+import { CrossFrameStateManager, type MessageKey } from '@intlayer/editor';
+import { type Accessor, createSignal, onCleanup } from 'solid-js';
+import { useEditorStateManager } from './EditorProvider';
 
 export type CrossFrameStateOptions = {
   emit?: boolean;
   receive?: boolean;
 };
 
-/**
- * Configuration options for `useCrossFrameState`.
- * @typedef {Object} CrossFrameStateOptions
- * @property {boolean} [emit=true] - Whether to broadcast state changes to other instances.
- * @property {boolean} [receive=true] - Whether to listen for state updates from other instances.
- */
-
-/**
- * useCrossFrameState
- *
- * This Solid.js hook synchronizes state across multiple instances (e.g., different iframes or windows).
- * It uses the `postMessage` API to communicate state changes and updates between instances.
- *
- * @template S - The type of the state.
- * @param key - A unique identifier for the state to synchronize.
- * @param initialState - The initial state value or a function to compute it lazily.
- * @param options - Configuration options to control emitting and receiving messages.
- *   - `emit` (default: true): Whether to broadcast state changes to other instances.
- *   - `receive` (default: true): Whether to listen for state updates from other instances.
- *
- * @returns {[Accessor<S>, (value: S | ((prev: S) => S)) => void, () => void]} An array containing the current state accessor, setter function, and post function.
- */
 export const useCrossFrameState = <S,>(
   key: `${MessageKey}`,
-  initialState?: S | (() => S),
+  initialState?: S,
   options?: CrossFrameStateOptions
 ): [Accessor<S>, (value: S | ((prev: S) => S)) => void, () => void] => {
-  const { postMessage, senderId } = useCommunicator() ?? {};
+  const manager = useEditorStateManager();
+  const { emit = true, receive = true } = options ?? {};
 
-  const { emit, receive } = options ?? { emit: true, receive: true };
+  const stateManager = new CrossFrameStateManager<S>(key, manager.messenger, {
+    emit,
+    receive,
+    initialValue: initialState,
+  });
+  stateManager.start();
+  onCleanup(() => stateManager.stop());
 
-  const [state, setState] = createSignal<S>(
-    typeof initialState === 'function'
-      ? (initialState as () => S)()
-      : (initialState as S)
-  );
-
-  const postState = () => {
-    if (typeof postMessage !== 'function') return;
-    postMessage({ type: `${key}/post`, data: state(), senderId });
-  };
-
-  /**
-   * A wrapper function around the `setState` function to handle messaging efficiently.
-   */
-  const setStateWrapper = (valueOrUpdater: S | ((prev: S) => S)) => {
-    setState((prevState) => {
-      const newState =
-        typeof valueOrUpdater === 'function'
-          ? (valueOrUpdater as (prev: S) => S)(prevState)
-          : valueOrUpdater;
-
-      // Emit the state change if needed
-      if (
-        emit &&
-        typeof postMessage === 'function' &&
-        typeof newState !== 'undefined'
-      ) {
-        postMessage({ type: `${key}/post`, data: newState, senderId });
-      }
-
-      return newState;
-    });
-  };
-
-  /**
-   * Listen for messages with the specified key and update the state accordingly.
-   */
-  useCrossFrameMessageListener<S>(
-    `${key}/post`,
-    // Only activate the state listener if the `receive` option is true
-    receive
-      ? (data) => {
-          setState(() => data);
-        }
-      : undefined
-  );
-
-  const onGetMessage = (_: unknown, originSenderId?: string) => {
-    if (!emit) return;
-    if (typeof postMessage !== 'function') return;
-    if (originSenderId === senderId) return;
-    if (typeof state() === 'undefined') return;
-
-    postMessage({ type: `${key}/post`, data: state(), senderId });
-  };
-
-  /**
-   * Listen for messages request to get the state content and send it back.
-   */
-  useCrossFrameMessageListener<S>(
-    `${key}/get`,
-    // Only activate the state listener if the `emit` option is true
-    emit ? onGetMessage : undefined
-  );
-
-  createEffect(() => {
-    // If the component is mounted and the hook in receive mode,
-    // Request the state from the other instance
-    if (
-      receive &&
-      typeof postMessage === 'function' &&
-      typeof state() === 'undefined'
-    ) {
-      postMessage({ type: `${key}/get`, senderId });
-    }
+  const [value, setSignal] = createSignal<S>(stateManager.value as S, {
+    equals: false,
   });
 
-  // Return the state accessor, setter, and post function
-  return [state, setStateWrapper, postState];
+  const handler = (e: Event) => {
+    setSignal(() => (e as CustomEvent<S>).detail);
+  };
+  stateManager.addEventListener('change', handler);
+  onCleanup(() => stateManager.removeEventListener('change', handler));
+
+  const setValue = (valueOrUpdater: S | ((prev: S) => S)) => {
+    const newValue =
+      typeof valueOrUpdater === 'function'
+        ? (valueOrUpdater as (prev: S) => S)(value())
+        : valueOrUpdater;
+    stateManager.set(newValue);
+  };
+
+  const postState = () => stateManager.postCurrentValue();
+
+  return [value, setValue, postState];
 };

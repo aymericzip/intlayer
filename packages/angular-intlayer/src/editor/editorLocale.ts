@@ -1,27 +1,20 @@
 import { effect, inject } from '@angular/core';
-import { MessageKey } from '@intlayer/editor';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import type { Locale } from '@intlayer/types/allLocales';
 import { INTLAYER_TOKEN, type IntlayerProvider } from '../client';
-import { createSharedComposable } from './createSharedComposable';
-import { useCrossFrameState } from './useCrossFrameState';
+import { getEditorStateManager } from './installIntlayerEditor';
 
-export const useEditorLocale = createSharedComposable(() => {
-  const client = inject<IntlayerProvider>(INTLAYER_TOKEN);
+export const useEditorLocale = () => {
+  const manager = getEditorStateManager();
+  const client = inject<IntlayerProvider>(INTLAYER_TOKEN, {
+    optional: true,
+  } as any);
 
-  if (!client) {
-    throw new Error('IntlayerEditor state not found');
+  if (client && manager) {
+    effect(() => {
+      const locale = client.locale();
+      manager.currentLocale.set(locale as Locale);
+    });
   }
 
-  const [_data, setData] = useCrossFrameState<LocalesValues>(
-    MessageKey.INTLAYER_CURRENT_LOCALE
-  );
-
-  // Use Angular effects instead of Vue watchers
-  effect(() => {
-    const newValue = client.locale();
-    setData(newValue as Locale);
-  });
-
   return client;
-});
+};

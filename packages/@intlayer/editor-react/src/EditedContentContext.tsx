@@ -1,57 +1,20 @@
 'use client';
 
-import {
-  editDictionaryByKeyPath,
-  getContentNodeByKeyPath,
-  renameContentNodeByKeyPath,
-} from '@intlayer/core/dictionaryManipulator';
-import { MessageKey } from '@intlayer/editor';
-import type { ContentNode, Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
-import type { KeyPath } from '@intlayer/types/keyPath';;
-import { NodeType } from '@intlayer/types/nodeType';
-import {
-  createContext,
-  type Dispatch,
-  type FC,
-  type PropsWithChildren,
-  type SetStateAction,
-  useContext,
-} from 'react';
-import {
-  type DictionaryContent,
-  useDictionariesRecord,
-} from './DictionariesRecordContext';
-import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
-import { useCrossFrameState } from './useCrossFrameState';
-import { useEditorLocale } from './useEditorLocale';
+import type { DictionaryContent } from '@intlayer/editor';
+import type {
+  ContentNode,
+  Dictionary,
+  LocalDictionaryId,
+} from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import { useEffect, useState } from 'react';
+import { useEditorStateManager } from './EditorStateContext';
 
-type EditedContentStateContextType = {
-  editedContent: Record<LocalDictionaryId, Dictionary> | undefined;
-};
-
-const EditedContentStateContext = createContext<
-  EditedContentStateContextType | undefined
->(undefined);
-
-export const usePostEditedContentState = <S,>(
-  onEventTriggered?: (data: S) => void
-) =>
-  useCrossFrameMessageListener(
-    `${MessageKey.INTLAYER_EDITED_CONTENT_CHANGED}/post`,
-    onEventTriggered
-  );
-
-export const useGetEditedContentState = <S,>(
-  onEventTriggered?: (data: S) => void
-) =>
-  useCrossFrameMessageListener(
-    `${MessageKey.INTLAYER_EDITED_CONTENT_CHANGED}/get`,
-    onEventTriggered
-  );
+export type { DictionaryContent } from '@intlayer/editor';
 
 type EditedContentActionsContextType = {
   setEditedContentState: (editedContent: DictionaryContent) => void;
-  setEditedDictionary: Dispatch<SetStateAction<Dictionary>>;
+  setEditedDictionary: (dict: Dictionary) => void;
   setEditedContent: (
     localDictionaryId: LocalDictionaryId,
     newValue: Dictionary['content']
@@ -80,277 +43,72 @@ type EditedContentActionsContextType = {
   ) => ContentNode | undefined;
 };
 
-const EditedContentActionsContext = createContext<
-  EditedContentActionsContextType | undefined
->(undefined);
+/**
+ * Returns edited-content state and actions, backed by EditorStateManager.
+ */
+export const useEditedContentActions = ():
+  | EditedContentActionsContextType
+  | undefined => {
+  const manager = useEditorStateManager();
 
-const resolveState = <S,>(state?: SetStateAction<S>, prevState?: S): S =>
-  typeof state === 'function'
-    ? (state as (prevState?: S) => S)(prevState)
-    : (state as S);
-
-export const EditedContentProvider: FC<PropsWithChildren> = ({ children }) => {
-  const { localeDictionaries } = useDictionariesRecord();
-  const currentLocale = useEditorLocale();
-
-  const [editedContent, setEditedContentState] =
-    useCrossFrameState<DictionaryContent>(
-      MessageKey.INTLAYER_EDITED_CONTENT_CHANGED
-    );
-
-  const setEditedDictionary: Dispatch<SetStateAction<Dictionary>> = (
-    newValue
-  ) => {
-    let updatedDictionaries: Dictionary = resolveState(newValue);
-
-    setEditedContentState((prev) => {
-      if (!updatedDictionaries.localId) {
-        console.error('no localId', updatedDictionaries);
-
-        return prev;
-      }
-
-      updatedDictionaries = resolveState(
-        newValue,
-        prev?.[updatedDictionaries.localId]
-      );
-
-      return {
-        ...prev,
-        [updatedDictionaries.localId as LocalDictionaryId]: updatedDictionaries,
-      };
-    });
-
-    return updatedDictionaries;
+  return {
+    setEditedContentState: (value: DictionaryContent) =>
+      manager.editedContent.set(value),
+    setEditedDictionary: (dict: Dictionary) =>
+      manager.setEditedDictionary(dict),
+    setEditedContent: (
+      localId: LocalDictionaryId,
+      value: Dictionary['content']
+    ) => manager.setEditedContent(localId, value),
+    addEditedContent: (localId, value, keyPath, overwrite) =>
+      manager.addContent(localId, value, keyPath, overwrite),
+    renameEditedContent: (localId, newKey, keyPath) =>
+      manager.renameContent(localId, newKey, keyPath),
+    removeEditedContent: (localId, keyPath) =>
+      manager.removeContent(localId, keyPath),
+    restoreEditedContent: (localId) => manager.restoreContent(localId),
+    clearEditedDictionaryContent: (localId) => manager.clearContent(localId),
+    clearEditedContent: () => manager.clearAllContent(),
+    getEditedContentValue: (localIdOrKey, keyPath) =>
+      manager.getContentValue(localIdOrKey, keyPath),
   };
-
-  const setEditedContent = (
-    localDictionaryId: LocalDictionaryId,
-    newValue: Dictionary['content']
-  ) => {
-    setEditedContentState((prev) => ({
-      ...prev,
-      [localDictionaryId]: {
-        ...prev?.[localDictionaryId],
-        content: newValue,
-      },
-    }));
-  };
-
-  const addEditedContent = (
-    localDictionaryId: LocalDictionaryId,
-    newValue: ContentNode,
-    keyPath: KeyPath[] = [],
-    overwrite: boolean = true
-  ) => {
-    setEditedContentState((prev) => {
-      // Get the starting content: edited version if available, otherwise a deep copy of the original
-      const originalContent = localeDictionaries[localDictionaryId]?.content;
-      const currentContent = structuredClone(
-        prev?.[localDictionaryId]?.content ?? originalContent
-      );
-
-      let newKeyPath = keyPath;
-      if (!overwrite) {
-        // Find a unique key based on the keyPath provided
-        let index = 0;
-
-        const otherKeyPath = keyPath.slice(0, -1);
-        const lastKeyPath: KeyPath = keyPath[keyPath.length - 1];
-
-        let finalKey = lastKeyPath.key;
-
-        // Loop until we find a key that does not exist
-        while (
-          typeof getContentNodeByKeyPath(currentContent, newKeyPath) !==
-          'undefined'
-        ) {
-          index++;
-          finalKey =
-            index === 0 ? lastKeyPath.key : `${lastKeyPath.key} (${index})`;
-          newKeyPath = [
-            ...otherKeyPath,
-            { ...lastKeyPath, key: finalKey } as KeyPath,
-          ];
-        }
-      }
-
-      const updatedContent = editDictionaryByKeyPath(
-        currentContent,
-        newKeyPath,
-        newValue
-      );
-
-      return {
-        ...prev,
-        [localDictionaryId]: {
-          ...prev?.[localDictionaryId],
-          content: updatedContent as Dictionary['content'],
-        },
-      };
-    });
-  };
-
-  const renameEditedContent = (
-    localDictionaryId: LocalDictionaryId,
-    newKey: KeyPath['key'],
-    keyPath: KeyPath[] = []
-  ) => {
-    setEditedContentState((prev) => {
-      // Retrieve the base content: use edited version if available, otherwise deep copy of original
-      const originalContent = localeDictionaries[localDictionaryId]?.content;
-      const currentContent = structuredClone(
-        prev?.[localDictionaryId]?.content ?? originalContent
-      );
-
-      const contentWithNewField = renameContentNodeByKeyPath(
-        currentContent,
-        newKey,
-        keyPath
-      );
-
-      return {
-        ...prev,
-        [localDictionaryId]: {
-          ...prev?.[localDictionaryId],
-          content: contentWithNewField as Dictionary['content'],
-        },
-      };
-    });
-  };
-
-  const removeEditedContent = (
-    localDictionaryId: LocalDictionaryId,
-    keyPath: KeyPath[]
-  ) => {
-    setEditedContentState((prev) => {
-      // Retrieve the original content as reference
-      const originalContent = localeDictionaries[localDictionaryId]?.content;
-      const currentContent = structuredClone(
-        prev?.[localDictionaryId]?.content ?? originalContent
-      );
-
-      // Get the initial value from the original dictionary content
-      const initialContent = getContentNodeByKeyPath(originalContent, keyPath);
-
-      // Restore the value at the given keyPath
-      const restoredContent = editDictionaryByKeyPath(
-        currentContent,
-        keyPath,
-        initialContent
-      );
-
-      return {
-        ...prev,
-        [localDictionaryId]: {
-          ...prev?.[localDictionaryId],
-          content: restoredContent as Dictionary['content'],
-        },
-      };
-    });
-  };
-
-  const restoreEditedContent = (localDictionaryId: LocalDictionaryId) => {
-    setEditedContentState((prev) => {
-      const updated = { ...prev };
-      delete updated[localDictionaryId];
-      return updated;
-    });
-  };
-
-  const clearEditedDictionaryContent = (
-    localDictionaryId: LocalDictionaryId
-  ) => {
-    setEditedContentState((prev) => {
-      const filtered = { ...prev };
-      delete filtered[localDictionaryId];
-      return filtered;
-    });
-  };
-
-  const clearEditedContent = () => {
-    setEditedContentState({});
-  };
-
-  const getEditedContentValue = (
-    localDictionaryIdOrKey: LocalDictionaryId | Dictionary['key'] | string,
-    keyPath: KeyPath[]
-  ): ContentNode | undefined => {
-    if (!editedContent) return undefined;
-
-    const filteredKeyPath = keyPath.filter(
-      (key) => key.type !== NodeType.Translation
-    );
-
-    const isDictionaryId =
-      localDictionaryIdOrKey.includes(':local:') ||
-      localDictionaryIdOrKey.includes(':remote:');
-
-    if (isDictionaryId) {
-      const currentContent =
-        editedContent?.[localDictionaryIdOrKey as LocalDictionaryId]?.content ??
-        {};
-
-      const contentNode = getContentNodeByKeyPath(
-        currentContent,
-        filteredKeyPath,
-        currentLocale
-      );
-
-      return contentNode;
-    }
-
-    const filteredDictionariesLocalId = Object.keys(editedContent).filter(
-      (key) => key.startsWith(`${localDictionaryIdOrKey}:`)
-    );
-
-    for (const localDictionaryId of filteredDictionariesLocalId) {
-      const currentContent =
-        editedContent?.[localDictionaryId as LocalDictionaryId]?.content ?? {};
-      const contentNode = getContentNodeByKeyPath(
-        currentContent,
-        filteredKeyPath,
-        currentLocale
-      );
-
-      if (contentNode) return contentNode;
-    }
-
-    return undefined;
-  };
-
-  return (
-    <EditedContentStateContext.Provider
-      value={{
-        editedContent,
-      }}
-    >
-      <EditedContentActionsContext.Provider
-        value={{
-          setEditedContentState,
-          setEditedDictionary,
-          setEditedContent,
-          addEditedContent,
-          renameEditedContent,
-          removeEditedContent,
-          restoreEditedContent,
-          clearEditedDictionaryContent,
-          clearEditedContent,
-          getEditedContentValue,
-        }}
-      >
-        {children}
-      </EditedContentActionsContext.Provider>
-    </EditedContentStateContext.Provider>
-  );
 };
 
-export const useEditedContentActions = () =>
-  useContext(EditedContentActionsContext);
-
 export const useEditedContent = () => {
-  const stateContext = useContext(EditedContentStateContext);
-  const actionContext = useEditedContentActions();
+  const manager = useEditorStateManager();
+  const [editedContent, setEditedContentState] = useState<
+    DictionaryContent | undefined
+  >(manager.editedContent.value);
 
-  return { ...stateContext, ...actionContext };
+  useEffect(() => {
+    const handler = (e: Event) =>
+      setEditedContentState((e as CustomEvent<DictionaryContent>).detail);
+    manager.editedContent.addEventListener('change', handler);
+    return () => manager.editedContent.removeEventListener('change', handler);
+  }, [manager]);
+
+  const actions = useEditedContentActions();
+  return { editedContent, ...actions };
+};
+
+export const usePostEditedContentState = <S,>(
+  onEventTriggered?: (data: S) => void
+) => {
+  const manager = useEditorStateManager();
+  useEffect(() => {
+    if (!onEventTriggered) return;
+    return manager.messenger.subscribe(
+      `INTLAYER_EDITED_CONTENT_CHANGED/post`,
+      onEventTriggered as (data: unknown) => void
+    );
+  }, [manager, onEventTriggered]);
+};
+
+export const useGetEditedContentState = <S,>(
+  onEventTriggered?: (data: S) => void
+) => {
+  const manager = useEditorStateManager();
+  return () => {
+    manager.messenger.send('INTLAYER_EDITED_CONTENT_CHANGED/get');
+  };
 };

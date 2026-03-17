@@ -1,39 +1,21 @@
-'use client';
-
-import { MessageKey } from '@intlayer/editor';
 import type { IntlayerConfig } from '@intlayer/types/config';
-import {
-  createContext,
-  type FunctionalComponent,
-  type RenderableProps,
-} from 'preact';
-import { useContext } from 'preact/hooks';
-import { useCrossFrameState } from './useCrossFrameState';
+import { useEffect, useState } from 'preact/hooks';
+import { useEditorStateManager } from './EditorStateContext';
 
-const ConfigurationStatesContext = createContext<IntlayerConfig | undefined>(
-  undefined
-);
-
-export const useConfigurationState = () =>
-  useCrossFrameState<IntlayerConfig>(
-    MessageKey.INTLAYER_CONFIGURATION,
-    undefined,
-    {
-      receive: false,
-      emit: true,
-    }
+export const useConfiguration = (): IntlayerConfig | undefined => {
+  const manager = useEditorStateManager();
+  const [config, setConfig] = useState<IntlayerConfig | undefined>(
+    manager.configuration.value
   );
 
-export type ConfigurationProviderProps = {
-  configuration?: IntlayerConfig;
+  useEffect(() => {
+    const handler = (e: Event) =>
+      setConfig((e as CustomEvent<IntlayerConfig>).detail);
+    manager.configuration.addEventListener('change', handler);
+    return () => manager.configuration.removeEventListener('change', handler);
+  }, [manager]);
+
+  return config;
 };
 
-export const ConfigurationProvider: FunctionalComponent<
-  RenderableProps<ConfigurationProviderProps>
-> = ({ children, configuration }) => (
-  <ConfigurationStatesContext.Provider value={configuration}>
-    {children}
-  </ConfigurationStatesContext.Provider>
-);
-
-export const useConfiguration = () => useContext(ConfigurationStatesContext);
+export type ConfigurationProviderProps = { configuration?: IntlayerConfig };

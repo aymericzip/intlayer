@@ -1,32 +1,22 @@
-import { MessageKey } from '@intlayer/editor';
-import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
-import { useCrossFrameState } from './useCrossFrameState';
+import type { DictionaryContent } from '@intlayer/editor';
+import { readable } from 'svelte/store';
+import { getEditorStateManager } from './communicator';
 
-export type DictionaryContent = Record<LocalDictionaryId, Dictionary>;
-
-let loaded = false;
+export type { DictionaryContent };
 
 export const useDictionariesRecord = () => {
-  const [dictionariesRecord, setDictionariesRecord] =
-    useCrossFrameState<DictionaryContent>(
-      MessageKey.INTLAYER_LOCALE_DICTIONARIES_CHANGED,
-      {}
-    );
+  const manager = getEditorStateManager();
 
-  if (!loaded && typeof window !== 'undefined') {
-    // Load dictionaries dynamically to do not impact the bundle, and send them to the editor
-    import('@intlayer/unmerged-dictionaries-entry').then((mod) => {
-      const unmergedDictionaries = mod.getUnmergedDictionaries();
-      const dictionariesList = Object.fromEntries(
-        Object.values(unmergedDictionaries)
-          .flat()
-          .map((dictionary) => [dictionary.localId, dictionary])
-      );
-
-      setDictionariesRecord?.(dictionariesList);
-    });
-    loaded = true;
-  }
+  const dictionariesRecord = readable<DictionaryContent>(
+    manager.localeDictionaries.value ?? {},
+    (set) => {
+      const handler = (e: Event) =>
+        set((e as CustomEvent<DictionaryContent>).detail ?? {});
+      manager.localeDictionaries.addEventListener('change', handler);
+      return () =>
+        manager.localeDictionaries.removeEventListener('change', handler);
+    }
+  );
 
   return { dictionariesRecord };
 };

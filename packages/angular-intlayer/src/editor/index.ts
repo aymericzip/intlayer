@@ -1,4 +1,15 @@
 export { ContentSelectorWrapperComponent } from './ContentSelectorWrapper.component';
+export * from './communicator';
+export * from './configuration';
+export * from './dictionariesRecord';
 export { EditedContentRendererComponent } from './EditedContentRenderer.component';
 export { EditorSelectorRendererComponent } from './EditorSelectorRenderer.component';
+export * from './editedContent';
+export * from './editorEnabled';
+export * from './editorLocale';
+export * from './focusDictionary';
 export * from './installIntlayerEditor';
+export * from './useCrossFrameMessageListener';
+export * from './useCrossFrameState';
+export * from './useEditor';
+export * from './useIframeClickInterceptor';

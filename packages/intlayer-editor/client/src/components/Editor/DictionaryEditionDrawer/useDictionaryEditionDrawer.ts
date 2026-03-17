@@ -3,7 +3,11 @@ import {
   useEditedContentActions,
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
-import type { ContentNode, Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
+import type {
+  ContentNode,
+  Dictionary,
+  LocalDictionaryId,
+} from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import { useEffect } from 'react';
 
@@ -55,15 +59,9 @@ export const useDictionaryEditionDrawer = (
     close: () => {
       closeDrawer(id);
 
-      setFocusedContent((prev) => {
-        if (prev?.dictionaryKey) {
-          return {
-            ...(prev as FileContent),
-            keyPath: [],
-          };
-        }
-        return prev;
-      });
+      if (focusedContent?.dictionaryKey) {
+        setFocusedContent({ ...(focusedContent as FileContent), keyPath: [] });
+      }
     },
   };
 };

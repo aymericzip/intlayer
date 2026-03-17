@@ -1,91 +1,34 @@
-import { effect, type Injector, type Signal, signal } from '@angular/core';
-import { MessageKey } from '@intlayer/editor';
+import { DestroyRef, inject, signal } from '@angular/core';
+import type { FileContent } from '@intlayer/editor';
 import type { KeyPath } from '@intlayer/types/keyPath';
-import { createSharedComposable } from './createSharedComposable';
-import { useCrossFrameState } from './useCrossFrameState';
+import { getEditorStateManager } from './installIntlayerEditor';
 
-export type FileContent = {
-  dictionaryKey: string;
-  keyPath?: KeyPath[];
-  dictionaryPath?: string;
-};
+export type { FileContent };
 
-type FocusDictionaryClient = {
-  focusedContent: Signal<FileContent | null>;
-  setFocusedContent: (focussedContent: FileContent | null) => void;
-  setFocusedContentKeyPath: (keyPath: KeyPath[]) => void;
-};
+export const useFocusDictionary = () => {
+  const manager = getEditorStateManager();
+  const focusedContent = signal<FileContent | null>(
+    manager?.focusedContent.value ?? null
+  );
 
-/**
- * Singleton instance
- */
-let instance: FocusDictionaryClient | null = null;
+  if (manager) {
+    const handler = (e: Event) =>
+      focusedContent.set((e as CustomEvent<FileContent | null>).detail);
+    manager.focusedContent.addEventListener('change', handler);
 
-/**
- * Creates a focus dictionary client
- */
-export const createFocusDictionaryClient = () => {
-  if (instance) return instance;
-
-  const focusedContentSignal = signal<FileContent | null>(null);
-
-  const setFocusedContent = (focussedContent: FileContent | null) => {
-    focusedContentSignal.set(focussedContent);
-  };
-
-  const setFocusedContentKeyPath = (keyPath: KeyPath[]) => {
-    const current = focusedContentSignal();
-    if (!current) return;
-    setFocusedContent({ ...current, keyPath });
-  };
-
-  instance = {
-    focusedContent: focusedContentSignal.asReadonly(),
-    setFocusedContent,
-    setFocusedContentKeyPath,
-  } as FocusDictionaryClient;
-
-  return instance;
-};
-
-/**
- * Helper to install the focus dictionary into the injector
- */
-export const installFocusDictionary = (_injector: Injector) => {
-  const _client = createFocusDictionaryClient();
-
-  // Angular doesn't have a direct equivalent to Vue's app.provide
-  // The client is stored as a singleton and accessed via createFocusDictionaryClient
-};
-
-/** consumer */
-export const useFocusDictionary = createSharedComposable(() => {
-  const client = createFocusDictionaryClient();
-  const [focusedContent, setFocusedContent] =
-    useCrossFrameState<FileContent | null>(
-      MessageKey.INTLAYER_FOCUSED_CONTENT_CHANGED
-    );
-
-  if (!client) {
-    throw new Error('FocusDictionary state not found');
+    try {
+      const destroyRef = inject(DestroyRef, { optional: true });
+      destroyRef?.onDestroy(() =>
+        manager.focusedContent.removeEventListener('change', handler)
+      );
+    } catch {}
   }
 
-  // Use Angular effects instead of Vue watchers
-  // Watch local (client) and update cross-frame
-  effect(() => {
-    const newValue = client.focusedContent();
-    if (JSON.stringify(newValue) !== JSON.stringify(focusedContent())) {
-      setFocusedContent(newValue);
-    }
-  });
-
-  // Watch cross-frame and update local
-  effect(() => {
-    const newValue = focusedContent();
-    if (JSON.stringify(newValue) !== JSON.stringify(client.focusedContent())) {
-      client.setFocusedContent(newValue ?? null);
-    }
-  });
-
-  return client;
-});
+  return {
+    focusedContent: focusedContent.asReadonly(),
+    setFocusedContent: (value: FileContent | null) =>
+      manager?.focusedContent.set(value),
+    setFocusedContentKeyPath: (keyPath: KeyPath[]) =>
+      manager?.setFocusedContentKeyPath(keyPath),
+  };
+};

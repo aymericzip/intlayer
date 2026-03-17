@@ -1,60 +1,43 @@
 import type { Injector } from '@angular/core';
 import configuration from '@intlayer/config/built';
-import { installCommunicator } from './communicator';
-import { installDictionariesRecord } from './dictionariesRecord';
-import { installEditedContent } from './editedContent';
-import { installEditorEnabled } from './editorEnabled';
-import { installFocusDictionary } from './focusDictionary';
+import {
+  defineIntlayerElements,
+  EditorStateManager,
+  type MessengerConfig,
+} from '@intlayer/editor';
 
-const { editor } = configuration;
-const { applicationURL, editorURL, cmsURL } = editor ?? {};
+const { editor } = configuration ?? {};
 
-const postMessage = (data: any) => {
-  if (typeof window === 'undefined') return;
+const buildDefaultMessengerConfig = (): MessengerConfig => ({
+  allowedOrigins: [
+    editor?.applicationURL,
+    editor?.editorURL,
+    editor?.cmsURL,
+  ].filter(Boolean) as string[],
+  postMessageFn: (payload, origin) => {
+    if (typeof window === 'undefined') return;
+    const isInIframe = window.self !== window.top;
+    if (!isInIframe) return;
+    window.parent?.postMessage(payload, origin);
+    window.postMessage(payload, origin);
+  },
+});
 
-  const isInIframe = window.self !== window.top;
+let globalManager: EditorStateManager | null = null;
 
-  if (!isInIframe) return;
+export const installIntlayerEditor = (_injector: Injector): void => {
+  if (globalManager) return;
 
-  if (editor.applicationURL.length > 0) {
-    window.postMessage(data, editor.applicationURL);
-  }
-
-  if (editor.editorURL.length > 0) {
-    window.parent.postMessage(data, editor.editorURL);
-  }
-
-  if (editor.cmsURL.length > 0) {
-    window.parent.postMessage(data, editor.cmsURL);
-  }
-};
-
-/**
- * Angular-side replacement for the former <IntlayerEditorProvider> React component.
- *
- * Call **once** in your Angular application's bootstrap function or main module:
- *
- * ```typescript
- * import { bootstrapApplication } from '@angular/platform-browser';
- * import { AppComponent } from './app/app.component';
- * import { installIntlayerEditor } from 'angular-intlayer';
- *
- * bootstrapApplication(AppComponent).then(appRef => {
- *   installIntlayerEditor(appRef.injector);
- * });
- * ```
- */
-export const installIntlayerEditor = (injector: Injector): void => {
-  /* ---------------------------------------------------------------------
-   * 1. Base providers – always on
-   * -------------------------------------------------------------------*/
-
-  installCommunicator(injector, {
-    postMessage,
-    allowedOrigins: [applicationURL, editorURL, cmsURL] as string[],
+  const manager = new EditorStateManager({
+    mode: 'client',
+    messenger: buildDefaultMessengerConfig(),
+    configuration,
   });
-  installEditorEnabled(injector);
-  installDictionariesRecord(injector);
-  installEditedContent(injector);
-  installFocusDictionary(injector);
+
+  globalManager = manager;
+  defineIntlayerElements();
+  manager.start();
 };
+
+export const getEditorStateManager = (): EditorStateManager | null =>
+  globalManager;

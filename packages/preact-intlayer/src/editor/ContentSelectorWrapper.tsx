@@ -1,15 +1,12 @@
-'use client';
-
 import type { NodeProps } from '@intlayer/core/interpreter';
 import { isSameKeyPath } from '@intlayer/core/utils';
-import { MessageKey } from '@intlayer/editor';
+import { defineIntlayerElements, MessageKey } from '@intlayer/editor';
 import { NodeType } from '@intlayer/types/nodeType';
 import type { FunctionalComponent, JSX } from 'preact';
-import { useCallback, useMemo } from 'preact/hooks';
+import { useEffect, useRef } from 'preact/hooks';
 import { useIntlayerContext } from '../client';
-import { ContentSelector } from '../UI/ContentSelector';
-import { useCommunicator } from './CommunicatorContext';
 import { useEditorEnabled } from './EditorEnabledContext';
+import { useEditorStateManager } from './EditorStateContext';
 import { useFocusDictionary } from './FocusDictionaryContext';
 
 export type ContentSelectorWrapperProps = NodeProps &
@@ -19,64 +16,57 @@ const ContentSelectorWrapperContent: FunctionalComponent<
   ContentSelectorWrapperProps
 > = ({ children, dictionaryKey, keyPath }) => {
   const { focusedContent, setFocusedContent } = useFocusDictionary();
-  const { postMessage, senderId } = useCommunicator();
+  const manager = useEditorStateManager();
+  const ref = useRef<HTMLElement>(null);
 
-  // Filter out translation nodes for more flexibility with the editor that can have different format
-  const filteredKeyPath = useMemo(
-    () => keyPath.filter((key) => key.type !== NodeType.Translation),
-    [keyPath]
+  const filteredKeyPath = keyPath.filter(
+    (key) => key.type !== NodeType.Translation
   );
 
-  const handleSelect = useCallback(
-    () =>
-      setFocusedContent({
-        dictionaryKey,
-        keyPath: filteredKeyPath,
-      }),
-    [dictionaryKey, filteredKeyPath]
-  );
+  const isSelected =
+    (focusedContent?.dictionaryKey === dictionaryKey &&
+      (focusedContent?.keyPath?.length ?? 0) > 0 &&
+      isSameKeyPath(focusedContent?.keyPath ?? [], filteredKeyPath)) ??
+    false;
 
-  const handleHover = useCallback(
-    () =>
-      postMessage({
-        type: `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
-        data: {
-          dictionaryKey,
-          keyPath: filteredKeyPath,
-        },
-        senderId,
-      }),
-    [dictionaryKey, filteredKeyPath]
-  );
+  // Preact (like React 18) requires addEventListener for web component custom events
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
 
-  const handleUnhover = useCallback(
-    () =>
-      postMessage({
-        type: `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
-        data: null,
-        senderId,
-      }),
-    [senderId]
-  );
+    const handlePress = () => {
+      setFocusedContent({ dictionaryKey, keyPath: filteredKeyPath });
+    };
 
-  const isSelected = useMemo(
-    () =>
-      (focusedContent?.dictionaryKey === dictionaryKey &&
-        (focusedContent?.keyPath?.length ?? 0) > 0 &&
-        isSameKeyPath(focusedContent?.keyPath ?? [], filteredKeyPath)) ??
-      false,
-    [focusedContent, filteredKeyPath, dictionaryKey]
-  );
+    const handleHover = () => {
+      manager.messenger.send(
+        `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
+        { dictionaryKey, keyPath: filteredKeyPath }
+      );
+    };
+
+    const handleUnhover = () => {
+      manager.messenger.send(
+        `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
+        null
+      );
+    };
+
+    el.addEventListener('intlayer:press', handlePress);
+    el.addEventListener('intlayer:hover', handleHover);
+    el.addEventListener('intlayer:unhover', handleUnhover);
+    return () => {
+      el.removeEventListener('intlayer:press', handlePress);
+      el.removeEventListener('intlayer:hover', handleHover);
+      el.removeEventListener('intlayer:unhover', handleUnhover);
+    };
+  });
 
   return (
-    <ContentSelector
-      onPress={handleSelect}
-      onHover={handleHover}
-      onUnhover={handleUnhover}
-      isSelecting={isSelected}
-    >
+    // @ts-ignore — custom element typing
+    <intlayer-content-selector ref={ref} is-selecting={isSelected || undefined}>
       {children}
-    </ContentSelector>
+    </intlayer-content-selector>
   );
 };
 
@@ -85,6 +75,10 @@ export const ContentSelectorRenderer: FunctionalComponent<
 > = ({ children, ...props }) => {
   const { enabled } = useEditorEnabled();
   const { disableEditor } = useIntlayerContext();
+
+  useEffect(() => {
+    defineIntlayerElements();
+  }, []);
 
   if (enabled && !disableEditor) {
     return (

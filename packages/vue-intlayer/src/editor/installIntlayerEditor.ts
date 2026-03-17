@@ -1,61 +1,47 @@
 import configuration from '@intlayer/config/built';
+import {
+  defineIntlayerElements,
+  EditorStateManager,
+  type MessengerConfig,
+} from '@intlayer/editor';
 import type { App } from 'vue';
-import type { IntlayerProvider } from '../client';
-import { installCommunicator } from './communicator';
-import { installDictionariesRecord } from './dictionariesRecord';
-import { installEditedContent } from './editedContent';
-import { installEditorEnabled } from './editorEnabled';
-import { installFocusDictionary } from './focusDictionary';
 
-const { editor } = configuration;
-const { applicationURL, editorURL, cmsURL } = editor ?? {};
+const { editor } = configuration ?? {};
 
-const postMessage = (data: any) => {
-  if (typeof window === 'undefined') return;
+const buildDefaultMessengerConfig = (): MessengerConfig => ({
+  allowedOrigins: [
+    editor?.applicationURL,
+    editor?.editorURL,
+    editor?.cmsURL,
+  ].filter(Boolean) as string[],
+  postMessageFn: (payload, origin) => {
+    if (typeof window === 'undefined') return;
+    const isInIframe = window.self !== window.top;
+    if (!isInIframe) return;
+    window.parent?.postMessage(payload, origin);
+    window.postMessage(payload, origin);
+  },
+});
 
-  const isInIframe = window.self !== window.top;
+export const INTLAYER_EDITOR_MANAGER_SYMBOL = Symbol(
+  'INTLAYER_EDITOR_STATE_MANAGER'
+);
 
-  if (!isInIframe) return;
+let globalManager: EditorStateManager | null = null;
 
-  if (editor.applicationURL.length > 0) {
-    window.postMessage(data, editor.applicationURL);
-  }
-
-  if (editor.editorURL.length > 0) {
-    window.parent.postMessage(data, editor.editorURL);
-  }
-
-  if (editor.cmsURL.length > 0) {
-    window.parent.postMessage(data, editor.cmsURL);
-  }
-};
-
-/**
- * Vue-side replacement for the former <IntlayerEditorProvider> React component.
- *
- * Call **once** in the <script setup lang="ts"> of your root component (usually App.vue):
- *
- * ```vue
- * <script setup lang="ts">
- * import { useIntlayerProviders } from 'vue-intlayer';
- * useIntlayerProviders({ configuration, postMessage });
- * </script>
- * ```
- */
-export const installIntlayerEditor = (
-  app: App,
-  localeProvider?: IntlayerProvider
-): void => {
-  /* ---------------------------------------------------------------------
-   * 1. Base providers – always on
-   * -------------------------------------------------------------------*/
-
-  installCommunicator(app, {
-    postMessage,
-    allowedOrigins: [applicationURL, editorURL, cmsURL] as string[],
+export const installIntlayerEditor = (app: App): void => {
+  const manager = new EditorStateManager({
+    mode: 'client',
+    messenger: buildDefaultMessengerConfig(),
+    configuration,
   });
-  installEditorEnabled(app);
-  installDictionariesRecord(app);
-  installEditedContent(app, localeProvider);
-  installFocusDictionary(app);
+
+  app.provide(INTLAYER_EDITOR_MANAGER_SYMBOL, manager);
+  globalManager = manager;
+
+  defineIntlayerElements();
+  manager.start();
 };
+
+export const getEditorStateManager = (): EditorStateManager | null =>
+  globalManager;

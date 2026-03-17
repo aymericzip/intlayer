@@ -1,27 +1,25 @@
-import { DestroyRef, inject } from '@angular/core';
-import configuration from '@intlayer/config/built';
-import { MessageKey } from '@intlayer/editor';
+import { DestroyRef, inject, signal } from '@angular/core';
 import type { IntlayerConfig } from '@intlayer/types/config';
-import { useCrossFrameState } from './useCrossFrameState';
+import { getEditorStateManager } from './installIntlayerEditor';
 
 export const useConfiguration = () => {
-  const [pushedConfiguration, setConfiguration] =
-    useCrossFrameState<IntlayerConfig>(MessageKey.INTLAYER_CONFIGURATION);
+  const manager = getEditorStateManager();
+  const config = signal<IntlayerConfig | undefined>(
+    manager?.configuration.value
+  );
 
-  // Use Angular's injection context instead of Vue's onMounted
-  try {
-    const destroyRef = inject(DestroyRef, { optional: true });
+  if (manager) {
+    const handler = (e: Event) =>
+      config.set((e as CustomEvent<IntlayerConfig>).detail);
+    manager.configuration.addEventListener('change', handler);
 
-    if (destroyRef) {
-      // Execute immediately since Angular doesn't have the same lifecycle hooks
-      if (!pushedConfiguration()) {
-        setConfiguration(configuration);
-      }
-    }
-  } catch {
-    console.warn(
-      'useConfiguration called outside injection context; ' +
-        'configuration may not be synchronized.'
-    );
+    try {
+      const destroyRef = inject(DestroyRef, { optional: true });
+      destroyRef?.onDestroy(() =>
+        manager.configuration.removeEventListener('change', handler)
+      );
+    } catch {}
   }
+
+  return config.asReadonly();
 };

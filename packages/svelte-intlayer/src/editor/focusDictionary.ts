@@ -1,46 +1,35 @@
-import { MessageKey } from '@intlayer/editor';
+import type { FileContent } from '@intlayer/editor';
 import type { KeyPath } from '@intlayer/types/keyPath';
-import type { DictionaryKeys } from '@intlayer/types/module_augmentation';
-import { getContext, setContext } from 'svelte';
-import type { Writable } from 'svelte/store';
-import { useCrossFrameState } from './useCrossFrameState';
+import { readable } from 'svelte/store';
+import { getEditorStateManager } from './communicator';
 
-export type FocusedContent = {
-  dictionaryKey: DictionaryKeys;
-  keyPath: KeyPath[];
-} | null;
+export type { FileContent };
 
 export type FocusDictionaryStateProps = {
-  focusedContent?: Writable<FocusedContent | undefined>;
-  setFocusedContent: (content: FocusedContent) => void;
-};
-
-const FOCUS_DICTIONARY_KEY = Symbol('FOCUS_DICTIONARY');
-
-export const createFocusDictionaryClient = () => {
-  const [focusedContent, setFocusedContent] =
-    useCrossFrameState<FocusedContent>(
-      MessageKey.INTLAYER_FOCUSED_CONTENT_CHANGED,
-      null
-    );
-
-  setContext(FOCUS_DICTIONARY_KEY, { focusedContent, setFocusedContent });
-
-  return { focusedContent, setFocusedContent };
+  focusedContent: ReturnType<typeof readable<FileContent | null>>;
+  setFocusedContent: (content: FileContent | null) => void;
+  setFocusedContentKeyPath: (keyPath: KeyPath[]) => void;
 };
 
 export const useFocusDictionary = (): FocusDictionaryStateProps => {
-  let context: FocusDictionaryStateProps | undefined;
+  const manager = getEditorStateManager();
 
-  try {
-    context = getContext<FocusDictionaryStateProps>(FOCUS_DICTIONARY_KEY);
-  } catch {
-    // called outside component -> ignore, we’ll use global store
-  }
+  const focusedContent = readable<FileContent | null>(
+    manager.focusedContent.value ?? null,
+    (set) => {
+      const handler = (e: Event) =>
+        set((e as CustomEvent<FileContent | null>).detail);
+      manager.focusedContent.addEventListener('change', handler);
+      return () =>
+        manager.focusedContent.removeEventListener('change', handler);
+    }
+  );
 
-  if (!context) {
-    return createFocusDictionaryClient();
-  }
-
-  return context;
+  return {
+    focusedContent,
+    setFocusedContent: (content: FileContent | null) =>
+      manager.focusedContent.set(content),
+    setFocusedContentKeyPath: (keyPath: KeyPath[]) =>
+      manager.setFocusedContentKeyPath(keyPath),
+  };
 };

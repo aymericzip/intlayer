@@ -8,7 +8,7 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "start:editor": "npx intlayer-editor start"
+    "start:editor": "bun intlayer-editor start"
   },
   "dependencies": {
     "intlayer": "workspace:*",

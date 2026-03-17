@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getContent } from '@intlayer/core/interpreter';
+import { getBasePlugins, getContent } from '@intlayer/core/interpreter';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { ContentNode } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
@@ -39,8 +39,8 @@ const renderedContent = computed(() => {
   if (typeof rawContent.value === 'object' && rawContent.value !== null) {
     const transformed = getContent(
       rawContent.value as ContentNode,
-      props,
-      props.locale
+      { ...props, locale: props.locale },
+      getBasePlugins(props.locale)
     );
 
     if (typeof transformed !== 'string') {

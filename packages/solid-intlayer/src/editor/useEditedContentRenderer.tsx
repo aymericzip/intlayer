@@ -1,4 +1,4 @@
-import { getContent } from '@intlayer/core/interpreter';
+import { getBasePlugins, getContent } from '@intlayer/core/interpreter';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type { Component } from 'solid-js';
@@ -38,7 +38,11 @@ export const EditedContentRenderer: Component<EditedContentRendererProps> = (
   const content = useEditedContentRenderer(props);
 
   if (typeof content === 'object') {
-    const transformedEditedContent = getContent(content, props, props.locale);
+    const transformedEditedContent = getContent(
+      content,
+      { ...props, locale: props.locale },
+      getBasePlugins(props.locale)
+    );
 
     if (typeof transformedEditedContent !== 'string') {
       console.error(

@@ -30,6 +30,8 @@ const config: IntlayerConfig = {
   },
   build: {
     optimize: true,
+  },
+  dictionary: {
     importMode: 'fetch',
   },
 };

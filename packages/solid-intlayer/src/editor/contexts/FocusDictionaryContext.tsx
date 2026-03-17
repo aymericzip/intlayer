@@ -1,89 +1,32 @@
-import { MessageKey } from '@intlayer/editor';
+import type { FileContent } from '@intlayer/editor';
 import type { KeyPath } from '@intlayer/types/keyPath';
-import {
-  type Component,
-  createContext,
-  type ParentProps,
-  type Setter,
-  useContext,
-} from 'solid-js';
-import { useCrossFrameState } from './useCrossFrameState';
+import { createSignal, onCleanup } from 'solid-js';
+import { useEditorStateManager } from './EditorProvider';
 
-type DictionaryPath = string;
+export type { FileContent };
 
-export type FileContent = {
-  dictionaryKey: string;
-  keyPath?: KeyPath[];
-  dictionaryPath?: DictionaryPath;
-};
+export const useFocusDictionary = () => {
+  const manager = useEditorStateManager();
+  const [focusedContent, setFocusedContentSignal] =
+    createSignal<FileContent | null>(manager.focusedContent.value ?? null);
 
-type FocusDictionaryState = {
-  focusedContent: FileContent | null;
-};
-
-type FocusDictionaryActions = {
-  setFocusedContent: Setter<FileContent | null>;
-  setFocusedContentKeyPath: (keyPath: KeyPath[]) => void;
-};
-
-const FocusDictionaryStateContext = createContext<
-  FocusDictionaryState | undefined
->(undefined);
-const FocusDictionaryActionsContext = createContext<
-  FocusDictionaryActions | undefined
->(undefined);
-
-export const FocusDictionaryProvider: Component<ParentProps> = (props) => {
-  const [focusedContent, setFocusedContent] =
-    useCrossFrameState<FileContent | null>(
-      MessageKey.INTLAYER_FOCUSED_CONTENT_CHANGED,
-      null
-    );
-
-  const setFocusedContentKeyPath = (keyPath: KeyPath[]) => {
-    setFocusedContent((prev) => {
-      if (!prev) {
-        return prev; // nothing to update if there's no focused content
-      }
-      return { ...prev, keyPath };
-    });
-  };
-
-  return (
-    <FocusDictionaryStateContext.Provider
-      value={{ focusedContent: focusedContent() }}
-    >
-      <FocusDictionaryActionsContext.Provider
-        value={{
-          setFocusedContent: setFocusedContent as Setter<FileContent | null>,
-          setFocusedContentKeyPath,
-        }}
-      >
-        {props.children}
-      </FocusDictionaryActionsContext.Provider>
-    </FocusDictionaryStateContext.Provider>
+  const handler = (e: Event) =>
+    setFocusedContentSignal((e as CustomEvent<FileContent | null>).detail);
+  manager.focusedContent.addEventListener('change', handler);
+  onCleanup(() =>
+    manager.focusedContent.removeEventListener('change', handler)
   );
+
+  return {
+    focusedContent,
+    setFocusedContent: (value: FileContent | null) =>
+      manager.focusedContent.set(value),
+    setFocusedContentKeyPath: (keyPath: KeyPath[]) =>
+      manager.setFocusedContentKeyPath(keyPath),
+  };
 };
 
 export const useFocusDictionaryActions = () => {
-  const context = useContext(FocusDictionaryActionsContext);
-  if (context === undefined) {
-    throw new Error(
-      'useFocusDictionaryActions must be used within a FocusDictionaryProvider'
-    );
-  }
-  return context;
-};
-
-export const useFocusDictionary = () => {
-  const actionContext = useFocusDictionaryActions();
-  const stateContext = useContext(FocusDictionaryStateContext);
-
-  if (stateContext === undefined) {
-    throw new Error(
-      'useFocusDictionaryState must be used within a FocusDictionaryProvider'
-    );
-  }
-
-  return { ...stateContext, ...actionContext };
+  const { setFocusedContent, setFocusedContentKeyPath } = useFocusDictionary();
+  return { setFocusedContent, setFocusedContentKeyPath };
 };

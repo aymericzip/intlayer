@@ -92,7 +92,14 @@ export const runParallel = (proc?: string | string[]): ParallelHandle => {
 
       // Treat common termination signals as graceful exits, not failures
       const gracefulSignals = ['SIGINT', 'SIGTERM', 'SIGQUIT', 'SIGHUP'];
-      if (code === 0 || (signal && gracefulSignals.includes(signal))) {
+      // Also treat shell-convention exit codes (128 + signal number) as graceful:
+      // 129 = SIGHUP, 130 = SIGINT, 131 = SIGQUIT, 143 = SIGTERM
+      const gracefulSignalCodes = new Set([129, 130, 131, 143]);
+      if (
+        code === 0 ||
+        gracefulSignalCodes.has(code ?? -1) ||
+        (signal && gracefulSignals.includes(signal))
+      ) {
         resolve();
       } else {
         reject(

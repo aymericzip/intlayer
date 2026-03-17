@@ -1,87 +1,56 @@
 'use client';
 
-import { MessageKey } from '@intlayer/editor';
-import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
-import {
-  createContext,
-  type Dispatch,
-  type FC,
-  type PropsWithChildren,
-  type SetStateAction,
-  useContext,
-  useMemo,
-} from 'react';
-import { useCrossFrameState } from './useCrossFrameState';
+import type { DictionaryContent } from '@intlayer/editor';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import { useCallback, useEffect, useState } from 'react';
+import { useEditorStateManager } from './EditorStateContext';
 
-export type DictionaryContent = Record<LocalDictionaryId, Dictionary>;
+export type { DictionaryContent } from '@intlayer/editor';
 
 type DictionariesRecordStatesContextType = {
   localeDictionaries: DictionaryContent;
 };
 type DictionariesRecordActionsContextType = {
-  setLocaleDictionaries: Dispatch<SetStateAction<DictionaryContent>>;
+  setLocaleDictionaries: (value: DictionaryContent) => void;
   setLocaleDictionary: (dictionary: Dictionary) => void;
 };
 
-const DictionariesRecordStatesContext = createContext<
-  DictionariesRecordStatesContextType | undefined
->(undefined);
-const DictionariesRecordActionsContext = createContext<
-  DictionariesRecordActionsContextType | undefined
->(undefined);
+/**
+ * Returns dictionaries record state and setters, backed by EditorStateManager.
+ * Replaces the old DictionariesRecordContext + DictionariesRecordProvider.
+ */
+export const useDictionariesRecord = (): DictionariesRecordStatesContextType &
+  DictionariesRecordActionsContextType => {
+  const manager = useEditorStateManager();
+  const [localeDictionaries, setLocaleDictionariesState] =
+    useState<DictionaryContent>(manager.localeDictionaries.value ?? {});
 
-export const DictionariesRecordProvider: FC<PropsWithChildren> = ({
-  children,
-}) => {
-  const [localeDictionaries, setLocaleDictionaries] =
-    useCrossFrameState<DictionaryContent>(
-      MessageKey.INTLAYER_LOCALE_DICTIONARIES_CHANGED,
-      undefined
-    );
+  useEffect(() => {
+    const handler = (e: Event) =>
+      setLocaleDictionariesState(
+        (e as CustomEvent<DictionaryContent>).detail ?? {}
+      );
+    manager.localeDictionaries.addEventListener('change', handler);
+    return () =>
+      manager.localeDictionaries.removeEventListener('change', handler);
+  }, [manager]);
 
-  const stateValue = useMemo(
-    () => ({
-      localeDictionaries: localeDictionaries ?? {},
-    }),
-    [localeDictionaries]
+  const setLocaleDictionaries = useCallback(
+    (value: DictionaryContent) => manager.localeDictionaries.set(value),
+    [manager]
   );
 
-  const actionValue = useMemo(
-    () => ({
-      setLocaleDictionaries,
-      setLocaleDictionary: (dictionary: Dictionary) => {
-        if (!dictionary.localId) return;
-
-        setLocaleDictionaries((dictionaries) => ({
-          ...dictionaries,
-          [dictionary.localId as LocalDictionaryId]: dictionary,
-        }));
-      },
-    }),
-    [setLocaleDictionaries]
+  const setLocaleDictionary = useCallback(
+    (dictionary: Dictionary) => manager.setLocaleDictionary(dictionary),
+    [manager]
   );
 
-  return (
-    <DictionariesRecordStatesContext.Provider value={stateValue}>
-      <DictionariesRecordActionsContext.Provider value={actionValue}>
-        {children}
-      </DictionariesRecordActionsContext.Provider>
-    </DictionariesRecordStatesContext.Provider>
-  );
+  return { localeDictionaries, setLocaleDictionaries, setLocaleDictionary };
 };
 
-export const useDictionariesRecordActions = () =>
-  useContext(DictionariesRecordActionsContext);
-
-export const useDictionariesRecord = () => {
-  const actionsContext = useDictionariesRecordActions();
-  const statesContext = useContext(DictionariesRecordStatesContext);
-
-  if (!statesContext) {
-    throw new Error(
-      'useDictionariesRecordStates must be used within a DictionariesRecordProvider'
-    );
-  }
-
-  return { ...statesContext, ...actionsContext };
-};
+export const useDictionariesRecordActions =
+  (): DictionariesRecordActionsContextType => {
+    const { setLocaleDictionaries, setLocaleDictionary } =
+      useDictionariesRecord();
+    return { setLocaleDictionaries, setLocaleDictionary };
+  };

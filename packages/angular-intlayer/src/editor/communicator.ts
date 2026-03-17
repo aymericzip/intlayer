@@ -1,90 +1,10 @@
-import type { Injector } from '@angular/core';
-import configuration from '@intlayer/config/built';
+import { getEditorStateManager } from './installIntlayerEditor';
 
-const randomUUID = () => Math.random().toString(36).slice(2);
-
-/**
- * Interface defining a cross-frame communicator
- */
-export type Communicator = {
-  postMessage: typeof window.postMessage;
-  allowedOrigins?: string[];
-  senderId: string;
-};
-
-/**
- * Configuration options for the communicator
- */
-export type CommunicatorOptions = Omit<Communicator, 'senderId'>;
-
-const { editor } = configuration;
-
-/**
- * Default values for the communicator
- */
-const defaultValue: Communicator = {
-  postMessage: () => null,
-  allowedOrigins: [
-    editor?.applicationURL,
-    editor?.editorURL,
-    editor?.cmsURL,
-  ] as string[],
-  senderId: '',
-};
-
-/**
- * Singleton instance
- */
-let instance: Communicator | null = null;
-
-const _INTLAYER_COMMUNICATOR_SYMBOL = Symbol('Communicator');
-
-/**
- * Creates a communicator client
- * @param options - Options for configuring the communicator
- */
-export const createCommunicator = (
-  options: CommunicatorOptions = { postMessage: () => null }
-) => {
-  if (instance) return instance;
-
-  instance = {
-    ...defaultValue,
-    ...options,
-    senderId: randomUUID(),
+export const useCommunicator = () => {
+  const manager = getEditorStateManager();
+  if (!manager) return null;
+  return {
+    postMessage: (data: any) => manager.messenger.send(data.type, data.data),
+    senderId: manager.messenger.senderId,
   };
-
-  return instance;
-};
-
-/**
- * Helper to install the Intlayer communicator into the injector
- */
-export const installCommunicator = (
-  _injector: Injector,
-  options: CommunicatorOptions = { postMessage: () => null }
-) => {
-  const _client = createCommunicator(options);
-
-  // Angular doesn't have a direct equivalent to Vue's app.provide
-  // The client is stored as a singleton and accessed via createCommunicator
-};
-
-/**
- * Hook to access the communicator
- * @returns The communicator instance
- */
-export const useCommunicator = (): Communicator => {
-  try {
-    const communicator = createCommunicator();
-    return communicator || defaultValue;
-  } catch (_error) {
-    console.warn(
-      'useCommunicator: Error accessing communicator. Returning default communicator.'
-    );
-    return {
-      postMessage: () => null,
-      senderId: '',
-    };
-  }
 };

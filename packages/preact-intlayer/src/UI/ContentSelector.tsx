@@ -1,5 +1,3 @@
-'use client';
-
 import type { FunctionalComponent, JSX } from 'preact';
 import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
 

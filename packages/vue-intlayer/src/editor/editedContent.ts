@@ -1,139 +1,68 @@
-import { getContentNodeByKeyPath } from '@intlayer/core/dictionaryManipulator';
-import { MessageKey } from '@intlayer/editor';
+import type { DictionaryContent } from '@intlayer/editor';
 import type {
   ContentNode,
   Dictionary,
   LocalDictionaryId,
 } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
-import { NodeType } from '@intlayer/types/nodeType';
-import { type App, inject, type Ref, readonly, ref, watch } from 'vue';
-import type { IntlayerProvider } from '../client';
-import { createSharedComposable } from './createSharedComposable';
-import { useCrossFrameState } from './useCrossFrameState';
+import { inject, onBeforeUnmount, onMounted, readonly, ref } from 'vue';
+import {
+  getEditorStateManager,
+  INTLAYER_EDITOR_MANAGER_SYMBOL,
+} from './installIntlayerEditor';
 
-export type EditedContent = Record<Dictionary['key'], Dictionary>;
+export const useEditedContent = () => {
+  const manager =
+    inject<ReturnType<typeof getEditorStateManager>>(
+      INTLAYER_EDITOR_MANAGER_SYMBOL
+    ) ?? getEditorStateManager();
 
-type EditedContentClient = {
-  editedContent: Ref<EditedContent>;
-  setEditedContent: (editedContent: EditedContent) => void;
-  getEditedContentValue: (
-    localDictionaryIdOrKey: LocalDictionaryId | Dictionary['key'] | string,
-    keyPath: KeyPath[]
-  ) => ContentNode | undefined;
-};
-
-/**
- * Singleton instance
- */
-let instance: EditedContentClient | null = null;
-
-const INTLAYER_EDITED_CONTENT_SYMBOL = Symbol('EditedContent');
-
-/**
- * Creates an edited content client
- */
-export const createEditedContentClient = (
-  localeProvider?: IntlayerProvider
-) => {
-  if (instance) return instance;
-
-  const editedContentRef = ref<EditedContent>({});
-
-  instance = {
-    editedContent: readonly(editedContentRef) as Ref<EditedContent>,
-
-    getEditedContentValue: (
-      localDictionaryIdOrKey: LocalDictionaryId | Dictionary['key'] | string,
-      keyPath: KeyPath[]
-    ): ContentNode | undefined => {
-      const editedContent = editedContentRef.value;
-
-      if (!editedContent) return undefined;
-
-      const filteredKeyPath = keyPath.filter(
-        (key) => key.type !== NodeType.Translation
-      );
-
-      const isDictionaryId =
-        localDictionaryIdOrKey.includes(':local:') ||
-        localDictionaryIdOrKey.includes(':remote:');
-
-      // Get the current locale from the locale provider
-      const currentLocale = localeProvider?.locale.value;
-
-      if (isDictionaryId) {
-        const currentContent =
-          editedContent?.[localDictionaryIdOrKey as LocalDictionaryId]
-            ?.content ?? {};
-
-        const contentNode = getContentNodeByKeyPath(
-          currentContent,
-          filteredKeyPath,
-          currentLocale
-        );
-
-        return contentNode;
-      }
-
-      const filteredDictionariesLocalId = Object.keys(editedContent).filter(
-        (key) => key.startsWith(`${localDictionaryIdOrKey}:`)
-      );
-
-      for (const localDictionaryId of filteredDictionariesLocalId) {
-        const currentContent =
-          editedContent?.[localDictionaryId as LocalDictionaryId]?.content ??
-          {};
-        const contentNode = getContentNodeByKeyPath(
-          currentContent,
-          filteredKeyPath,
-          currentLocale
-        );
-
-        if (contentNode) return contentNode;
-      }
-
-      return undefined;
-    },
-    setEditedContent: (editedContent: EditedContent) => {
-      editedContentRef.value = editedContent;
-    },
-  };
-
-  return instance;
-};
-
-/**
- * Helper to install the edited content into the app
- */
-export const installEditedContent = (
-  app: App,
-  localeProvider?: IntlayerProvider
-) => {
-  const client = createEditedContentClient(localeProvider);
-
-  app.provide(INTLAYER_EDITED_CONTENT_SYMBOL, client);
-};
-
-export const useEditedContent = createSharedComposable(() => {
-  const client = inject<EditedContentClient>(INTLAYER_EDITED_CONTENT_SYMBOL);
-
-  if (!client) {
-    throw new Error('EditedContent state not found');
-  }
-
-  const [edited, setEdited] = useCrossFrameState<EditedContent>(
-    MessageKey.INTLAYER_EDITED_CONTENT_CHANGED,
-    {}
+  const editedContentRef = ref<DictionaryContent>(
+    manager?.editedContent.value ?? {}
   );
 
-  watch(edited, (newValue) => {
-    client.editedContent.value = newValue ?? {};
+  const handler = (e: Event) => {
+    editedContentRef.value = (e as CustomEvent<DictionaryContent>).detail ?? {};
+  };
+
+  onMounted(() => {
+    manager?.editedContent.addEventListener('change', handler);
   });
 
-  watch(client, (newValue) => {
-    setEdited(newValue.editedContent.value);
+  onBeforeUnmount(() => {
+    manager?.editedContent.removeEventListener('change', handler);
   });
 
-  return client;
-});
+  return {
+    editedContent: readonly(editedContentRef),
+    setEditedContent: (
+      localId: LocalDictionaryId,
+      value: Dictionary['content']
+    ) => manager?.setEditedContent(localId, value),
+    setEditedDictionary: (dict: Dictionary) =>
+      manager?.setEditedDictionary(dict),
+    addEditedContent: (
+      localId: LocalDictionaryId,
+      value: ContentNode,
+      keyPath?: KeyPath[],
+      overwrite?: boolean
+    ) => manager?.addContent(localId, value, keyPath, overwrite),
+    renameEditedContent: (
+      localId: LocalDictionaryId,
+      newKey: KeyPath['key'],
+      keyPath?: KeyPath[]
+    ) => manager?.renameContent(localId, newKey, keyPath),
+    removeEditedContent: (localId: LocalDictionaryId, keyPath: KeyPath[]) =>
+      manager?.removeContent(localId, keyPath),
+    restoreEditedContent: (localId: LocalDictionaryId) =>
+      manager?.restoreContent(localId),
+    clearEditedDictionaryContent: (localId: LocalDictionaryId) =>
+      manager?.clearContent(localId),
+    clearEditedContent: () => manager?.clearAllContent(),
+    getEditedContentValue: (
+      localIdOrKey: LocalDictionaryId | string,
+      keyPath: KeyPath[]
+    ): ContentNode | undefined =>
+      manager?.getContentValue(localIdOrKey, keyPath),
+  };
+};

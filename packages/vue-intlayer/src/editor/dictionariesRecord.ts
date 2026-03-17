@@ -1,90 +1,41 @@
-import { MessageKey } from '@intlayer/editor';
-import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
-import { type App, inject, type Ref, readonly, ref, watch } from 'vue';
-import { createSharedComposable } from './createSharedComposable';
-import { useCrossFrameState } from './useCrossFrameState';
+import type { DictionaryContent } from '@intlayer/editor';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import { inject, onBeforeUnmount, onMounted, readonly, ref } from 'vue';
+import {
+  getEditorStateManager,
+  INTLAYER_EDITOR_MANAGER_SYMBOL,
+} from './installIntlayerEditor';
 
-/**
- * Singleton instance
- */
-let instance: DictionariesRecordClient | null = null;
+export type { DictionaryContent };
 
-const INTLAYER_DICTIONARIES_RECORD_SYMBOL = Symbol(
-  'intlayerDictionariesRecord'
-);
+export const useDictionariesRecord = () => {
+  const manager =
+    inject<ReturnType<typeof getEditorStateManager>>(
+      INTLAYER_EDITOR_MANAGER_SYMBOL
+    ) ?? getEditorStateManager();
 
-export type DictionaryContent = Record<LocalDictionaryId, Dictionary>;
+  const localeDictionariesRef = ref<DictionaryContent>(
+    manager?.localeDictionaries.value ?? {}
+  );
 
-type DictionariesRecordClient = {
-  localeDictionaries: Ref<DictionaryContent>;
-  setLocaleDictionaries: (newValue: DictionaryContent) => void;
-  setLocaleDictionary: (dictionary: Dictionary) => void;
-};
-
-export const createDictionaryRecordClient = () => {
-  if (instance) return instance;
-
-  const localeDictionaries = ref<DictionaryContent | undefined>(undefined);
-
-  instance = {
-    localeDictionaries: readonly(localeDictionaries) as Ref<DictionaryContent>,
-
-    setLocaleDictionaries: (newValue) => {
-      localeDictionaries.value = newValue ?? {};
-    },
-
-    setLocaleDictionary(dictionary) {
-      localeDictionaries.value = {
-        ...localeDictionaries.value,
-        [dictionary.localId!]: dictionary,
-      };
-    },
+  const handler = (e: Event) => {
+    localeDictionariesRef.value =
+      (e as CustomEvent<DictionaryContent>).detail ?? {};
   };
 
-  return instance;
-};
-
-/**
- * Helper to install the provider into the app
- */
-export const installDictionariesRecord = (app: App) => {
-  const client = createDictionaryRecordClient();
-
-  // Load dictionaries dynamically to do not impact the bundle, and send them to the editor
-  import('@intlayer/unmerged-dictionaries-entry').then((mod) => {
-    const unmergedDictionaries = mod.getUnmergedDictionaries();
-    const dictionariesList = Object.fromEntries(
-      Object.values(unmergedDictionaries)
-        .flat()
-        .map((dictionary) => [dictionary.localId, dictionary])
-    );
-
-    client.setLocaleDictionaries(dictionariesList);
+  onMounted(() => {
+    manager?.localeDictionaries.addEventListener('change', handler);
   });
 
-  app.provide(INTLAYER_DICTIONARIES_RECORD_SYMBOL, client);
+  onBeforeUnmount(() => {
+    manager?.localeDictionaries.removeEventListener('change', handler);
+  });
+
+  return {
+    localeDictionaries: readonly(localeDictionariesRef),
+    setLocaleDictionaries: (value: DictionaryContent) =>
+      manager?.localeDictionaries.set(value),
+    setLocaleDictionary: (dictionary: Dictionary) =>
+      manager?.setLocaleDictionary(dictionary),
+  };
 };
-
-export const useDictionariesRecord = createSharedComposable(() => {
-  const client = inject<DictionariesRecordClient>(
-    INTLAYER_DICTIONARIES_RECORD_SYMBOL
-  );
-
-  if (!client) {
-    throw new Error('DictionariesRecord state not found');
-  }
-
-  const [_dictionariesRecord, setDictionariesRecord] =
-    useCrossFrameState<DictionaryContent>(
-      MessageKey.INTLAYER_LOCALE_DICTIONARIES_CHANGED,
-      undefined
-    );
-
-  watch(
-    client.localeDictionaries,
-    (newValue) => {
-      setDictionariesRecord(newValue); // its undefined but shouldnt
-    },
-    { immediate: true }
-  );
-});

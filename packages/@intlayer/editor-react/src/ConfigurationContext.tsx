@@ -1,39 +1,45 @@
 'use client';
 
-import { MessageKey } from '@intlayer/editor';
 import type { IntlayerConfig } from '@intlayer/types/config';
-import {
-  createContext,
-  type FC,
-  type PropsWithChildren,
-  useContext,
-} from 'react';
-import { useCrossFrameState } from './useCrossFrameState';
-
-const ConfigurationStatesContext = createContext<IntlayerConfig | undefined>(
-  undefined
-);
-
-export const useConfigurationState = () =>
-  useCrossFrameState<IntlayerConfig>(
-    MessageKey.INTLAYER_CONFIGURATION,
-    undefined,
-    {
-      receive: false,
-      emit: true,
-    }
-  );
+import { useEffect, useState } from 'react';
+import { useEditorStateManager } from './EditorStateContext';
 
 export type ConfigurationProviderProps = {
   configuration?: IntlayerConfig;
 };
 
-export const ConfigurationProvider: FC<
-  PropsWithChildren<ConfigurationProviderProps>
-> = ({ children, configuration }) => (
-  <ConfigurationStatesContext.Provider value={configuration}>
-    {children}
-  </ConfigurationStatesContext.Provider>
-);
+/**
+ * Returns the current configuration, backed by EditorStateManager.
+ */
+export const useConfiguration = (): IntlayerConfig | undefined => {
+  const manager = useEditorStateManager();
+  const [config, setConfig] = useState<IntlayerConfig | undefined>(
+    manager.configuration.value
+  );
 
-export const useConfiguration = () => useContext(ConfigurationStatesContext);
+  useEffect(() => {
+    const handler = (e: Event) =>
+      setConfig((e as CustomEvent<IntlayerConfig>).detail);
+    manager.configuration.addEventListener('change', handler);
+    return () => manager.configuration.removeEventListener('change', handler);
+  }, [manager]);
+
+  return config;
+};
+
+/**
+ * Returns a function that broadcasts the current configuration.
+ */
+export const useConfigurationState = () => {
+  const manager = useEditorStateManager();
+
+  const [config, setConfig] = useState<IntlayerConfig | undefined>(
+    manager.configuration.value
+  );
+
+  return [
+    config,
+    setConfig,
+    () => manager.configuration.postCurrentValue(),
+  ] as const;
+};

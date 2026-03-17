@@ -1,5 +1,3 @@
-'use client';
-
 import { date } from '@intlayer/core/formatters';
 import { useContext } from 'preact/hooks';
 import { IntlayerClientContext } from '../IntlayerProvider';

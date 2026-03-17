@@ -17,7 +17,7 @@ const config: IntlayerConfig = {
     }),
   },
   editor: {
-    enabled: false,
+    enabled: true,
     applicationURL: 'http://localhost:5173',
     cmsURL: 'http://localhost:3000',
     editorURL: 'http://localhost:8000',

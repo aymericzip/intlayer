@@ -1,27 +1,25 @@
 'use client';
 
 import { MessageKey, mergeIframeClick } from '@intlayer/editor';
-import { useEffect } from 'react';
 import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
 
+/**
+ * Broadcasts mousedown events from within an iframe to the parent frame.
+ * Called in the client application (inside the iframe).
+ * Note: EditorStateManager.start() already sets this up in client mode.
+ * This hook exists for explicit / standalone use cases.
+ */
 export const useIframeClickInterceptor = () => {
-  const postMessage = useCrossFrameMessageListener<undefined>(
-    MessageKey.INTLAYER_IFRAME_CLICKED
-  );
-  const handlePostMessageEvent: EventListener = () => {
-    postMessage();
-  };
-
-  useEffect(() => {
-    window.addEventListener('mousedown', handlePostMessageEvent);
-
-    return () =>
-      window.removeEventListener('mousedown', handlePostMessageEvent);
-  }, [postMessage]);
+  useCrossFrameMessageListener<undefined>(MessageKey.INTLAYER_IFRAME_CLICKED);
 };
 
-export const useIframeClickMerger = () =>
+/**
+ * Merges received iframe click events into the parent's DOM event stream.
+ * Called in the editor (parent frame).
+ */
+export const useIframeClickMerger = () => {
   useCrossFrameMessageListener<MessageEvent>(
     MessageKey.INTLAYER_IFRAME_CLICKED,
     mergeIframeClick
   );
+};

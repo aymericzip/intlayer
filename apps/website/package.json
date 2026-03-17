@@ -46,7 +46,7 @@
     "prettier:fix": "prettier . --write",
     "serve": "npx intlayer serve --bun",
     "start": "bun run --bun next start",
-    "start:editor": "npx intlayer-editor start --with 'bun run --bun next dev'",
+    "start:editor": "bun intlayer-editor start --with 'bun run --bun next dev'",
     "test": "bun --bun vitest run"
   },
   "dependencies": {
@@ -64,7 +64,7 @@
     "babel-plugin-react-compiler": "1.0.0",
     "clsx": "2.1.1",
     "defu": "6.1.4",
-    "framer-motion": "12.36.0",
+    "framer-motion": "12.37.0",
     "fuse.js": "7.1.0",
     "intlayer": "workspace:*",
     "lucide-react": "0.577.0",

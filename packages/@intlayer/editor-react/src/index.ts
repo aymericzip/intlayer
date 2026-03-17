@@ -5,6 +5,7 @@ export * from './DictionariesRecordContext';
 export * from './EditedContentContext';
 export * from './EditorEnabledContext';
 export * from './EditorProvider';
+export * from './EditorStateContext';
 export * from './FocusDictionaryContext';
 export * from './useCrossFrameMessageListener';
 export * from './useCrossFrameState';

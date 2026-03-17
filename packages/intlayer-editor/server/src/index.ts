@@ -37,12 +37,12 @@ const port = config.editor.port ?? FALLBACK_PORT;
 
 if (!config.editor.enabled) {
   appLogger(
-    `Editor is not enabled. Add ${colorize('compiler.enabled', ANSIColors.BLUE)} to ${colorizePath('intlayer.config.ts')} file to enable it.`,
+    `Editor is not enabled. Add ${colorize('editor.enabled', ANSIColors.BLUE)} to ${colorizePath('intlayer.config.ts')} file to enable it.`,
     {
       level: 'error',
     }
   );
-  process.exit(1);
+  process.exit(0);
 }
 
 // Load package.json

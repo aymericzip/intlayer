@@ -9,7 +9,7 @@
     "lint": "next lint",
     "serve": "npx intlayer serve",
     "start": "next start",
-    "start:editor": "npx intlayer-editor start",
+    "start:editor": "bun intlayer-editor start",
     "test": "",
     "transpile": "npx intlayer dictionaries build",
     "watch": "npx intlayer dictionaries build --watch"

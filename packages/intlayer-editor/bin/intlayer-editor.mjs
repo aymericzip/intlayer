@@ -46,6 +46,8 @@ if (withIndex !== -1 && args[withIndex + 1]) {
 
 if (withCommand) {
   parallelProcess = runParallel(withCommand);
+  // Suppress unhandled rejection — lifecycle is managed by the editor server's close handler
+  parallelProcess.result.catch(() => {});
 }
 
 if (args[0] === 'start') {
