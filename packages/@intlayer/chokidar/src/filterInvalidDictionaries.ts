@@ -6,9 +6,9 @@ import {
   getAppLogger,
   x,
 } from '@intlayer/config/logger';
-import { getContent } from '@intlayer/core/interpreter';
-import type { Dictionary } from '@intlayer/types/dictionary';
+import { getBasePlugins, getContent } from '@intlayer/core/interpreter';
 import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { formatLocale, formatPath } from './utils/formatter';
 
 type IsInvalidDictionaryOptions = { checkSchema: boolean };
@@ -71,9 +71,9 @@ export const isInvalidDictionary = (
             {
               dictionaryKey: dictionary.key,
               keyPath: [],
+              locale,
             },
-            locale,
-            !isStrict
+            getBasePlugins(locale, !isStrict)
           );
           const result = (schema as any).safeParse(resolvedContent);
 

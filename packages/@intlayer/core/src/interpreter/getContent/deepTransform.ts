@@ -1,4 +1,4 @@
-import type { KeyPath } from '@intlayer/types/keyPath';;
+import type { KeyPath } from '@intlayer/types/keyPath';
 import { NodeType } from '@intlayer/types/nodeType';
 import type { NodeProps } from './plugins';
 

@@ -84,12 +84,6 @@ export const intlayerPlugin = (
           ...config.optimizeDeps,
           // Exclude alias entry points since they're local files, not npm packages
           exclude: [...(config.optimizeDeps?.exclude ?? []), ...aliasPackages],
-          // But include the actual intlayer packages for proper dynamic import resolution
-          include: [
-            ...(config.optimizeDeps?.include ?? []),
-            'react-intlayer',
-            '@intlayer/editor-react',
-          ],
         };
 
         // Update Vite's SSR Externalization

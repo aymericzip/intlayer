@@ -7,7 +7,7 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
   },
   editor: {
-    enabled: false,
+    enabled: true,
     applicationURL: 'http://localhost:5173',
     // cmsURL: 'http://localhost:3000',
     // editorURL: 'http://localhost:8000',
@@ -34,7 +34,6 @@ const config: IntlayerConfig = {
   },
   compiler: {
     enabled: false,
-    transformPattern: ['**/*.{ts,tsx}'],
     output: (ctx) => `./${ctx.fileName}.content.ts`,
     noMetadata: false,
     saveComponents: true,
