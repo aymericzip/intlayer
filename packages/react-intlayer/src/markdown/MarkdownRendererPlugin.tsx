@@ -38,8 +38,8 @@ type MarkdownMetadataRendererProps = MarkdownRendererPluginProps & {
 };
 
 const DynamicMarkdownMetadataRendererInternal = lazy(() =>
-  import('./MarkdownMetadataRendererInternal').then((m) => ({
-    default: m.MarkdownMetadataRendererInternal,
+  import('./MarkdownMetadataRendererInternal').then((module) => ({
+    default: module.MarkdownMetadataRendererInternal,
   }))
 );
 
