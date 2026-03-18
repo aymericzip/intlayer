@@ -14,7 +14,7 @@ slugs:
   - doc
   - environment
   - adonisjs
-applicationTemplate: https://github.com/aymericzip/intlayer-adonisjs-template
+applicationTemplate: https://github.com/aymericzip/intlayer-adonis-template
 history:
   - version: 8.0.0
     date: 2025-12-30
@@ -42,14 +42,14 @@ Dengan menginternasionalkan backend, aplikasi Anda tidak hanya menghormati perbe
 ## Memulai
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-adonisjs-template?embed=1&ctl=1&file=intlayer.config.ts"
+  src="https://stackblitz.com/github/aymericzip/intlayer-adonis-template?embed=1&ctl=1&file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
 
-Lihat [Application Template](https://github.com/aymericzip/intlayer-adonisjs-template) di GitHub.
+Lihat [Application Template](https://github.com/aymericzip/intlayer-adonis-template) di GitHub.
 
 ### Instalasi
 
