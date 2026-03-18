@@ -295,14 +295,6 @@ const changeLocale = (event: Event) => {
 
 لإعداد نظام إدارة المحتوى (CMS) الخاص بـ intlayer، يجب عليك اتباع [توثيق نظام إدارة المحتوى intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
 
-بالتوازي، في تطبيق Svelte الخاص بك، يجب عليك إضافة السطر التالي في تخطيط (layout)، أو في جذر التطبيق:
-
-```svelte fileName="src/layout.svelte"
-import { useIntlayerEditor } from "svelte-intlayer";
-
-useIntlayerEditor();
-```
-
 ### (اختياري) الخطوة 7: إضافة التوجيه المحلي (localized Routing) لتطبيقك
 
 للتعامل مع التوجيه المحلي في تطبيق Svelte الخاص بك، يمكنك استخدام `svelte-spa-router` مع `localeFlatMap` من Intlayer لتوليد المسارات لكل لغة.

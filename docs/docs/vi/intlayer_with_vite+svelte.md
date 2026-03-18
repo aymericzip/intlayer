@@ -295,14 +295,6 @@ Intlayer hỗ trợ hiển thị nội dung Markdown trực tiếp trong ứng d
 
 Để thiết lập CMS intlayer, bạn phải làm theo [tài liệu CMS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).
 
-Song song đó, trong ứng dụng Svelte của bạn, bạn phải thêm dòng sau vào một layout, hoặc tại gốc của ứng dụng:
-
-```svelte fileName="src/layout.svelte"
-import { useIntlayerEditor } from "svelte-intlayer";
-
-useIntlayerEditor();
-```
-
 ### (Tùy chọn) Bước 7: Thêm định tuyến có bản địa hóa vào ứng dụng của bạn
 
 Để xử lý định tuyến có bản địa hóa trong ứng dụng Svelte của bạn, bạn có thể sử dụng `svelte-spa-router` cùng với `localeFlatMap` của Intlayer để tạo các tuyến đường cho từng ngôn ngữ.

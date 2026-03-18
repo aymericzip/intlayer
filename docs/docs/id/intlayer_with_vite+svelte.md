@@ -295,14 +295,6 @@ Untuk menyiapkan editor intlayer, Anda harus mengikuti [dokumentasi editor intla
 
 Untuk menyiapkan CMS intlayer, Anda harus mengikuti [dokumentasi CMS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
 
-Secara paralel, dalam aplikasi Svelte Anda, Anda harus menambahkan baris berikut di layout, atau di root aplikasi Anda:
-
-```svelte fileName="src/layout.svelte"
-import { useIntlayerEditor } from "svelte-intlayer";
-
-useIntlayerEditor();
-```
-
 ### (Opsional) Langkah 7: Tambahkan Routing yang dilokalkan ke aplikasi Anda
 
 Untuk menangani routing yang dilokalkan dalam aplikasi Svelte Anda, Anda dapat menggunakan `svelte-spa-router` bersama dengan `localeFlatMap` dari Intlayer untuk menghasilkan rute untuk setiap locale.

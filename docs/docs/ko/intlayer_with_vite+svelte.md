@@ -291,14 +291,6 @@ intlayer 에디터를 설정하려면 [intlayer 에디터 문서](https://github
 
 intlayer CMS를 설정하려면 [intlayer CMS 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 따라야 합니다.
 
-병행하여, Svelte 애플리케이션에서는 레이아웃이나 애플리케이션의 루트에 다음 라인을 추가해야 합니다:
-
-```svelte fileName="src/layout.svelte"
-import { useIntlayerEditor } from "svelte-intlayer";
-
-useIntlayerEditor();
-```
-
 ### (선택 사항) 7단계: 애플리케이션에 지역화된 라우팅 추가하기
 
 Svelte 애플리케이션에서 지역화된 라우팅을 처리하려면, `svelte-spa-router`와 Intlayer의 `localeFlatMap`을 함께 사용하여 각 로케일에 대한 라우트를 생성할 수 있습니다.

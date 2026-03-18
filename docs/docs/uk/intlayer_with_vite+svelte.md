@@ -297,14 +297,6 @@ Intlayer підтримує рендеринг вмісту в Markdown безп
 
 Щоб налаштувати intlayer CMS, дотримуйтесь [документації intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).
 
-Паралельно, у вашому Svelte-застосунку потрібно додати наступний рядок у layout або в корені застосунку:
-
-```svelte fileName="src/layout.svelte"
-import { useIntlayerEditor } from "svelte-intlayer";
-
-useIntlayerEditor();
-```
-
 ### (Необов'язково) Крок 7: Додайте локалізований Routing у ваш застосунок
 
 Щоб обробляти локалізовану маршрутизацію в Svelte-застосунку, ви можете використовувати `svelte-spa-router` разом з `localeFlatMap` від Intlayer для генерації маршрутів для кожної локалі.

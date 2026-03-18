@@ -295,14 +295,6 @@ Para configurar o editor do intlayer, você deve seguir a [documentação do edi
 
 Para configurar o CMS do intlayer, você deve seguir a [documentação do CMS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).
 
-Em paralelo, na sua aplicação Svelte, você deve adicionar a seguinte linha em um layout, ou na raiz da sua aplicação:
-
-```svelte fileName="src/layout.svelte"
-import { useIntlayerEditor } from "svelte-intlayer";
-
-useIntlayerEditor();
-```
-
 ### (Opcional) Passo 7: Adicionar roteamento localizado à sua aplicação
 
 Para lidar com roteamento localizado na sua aplicação Svelte, você pode usar o `svelte-spa-router` junto com o `localeFlatMap` do Intlayer para gerar rotas para cada localidade.

@@ -295,14 +295,6 @@ intlayer editörünü kurmak için [intlayer editör dokümantasyonunu](https://
 
 intlayer CMS'i kurmak için [intlayer CMS dokümantasyonunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) takip etmelisiniz.
 
-Paralel olarak, Svelte uygulamanızda, bir layout dosyasına veya uygulamanızın köküne aşağıdaki satırı eklemelisiniz:
-
-```svelte fileName="src/layout.svelte"
-import { useIntlayerEditor } from "svelte-intlayer";
-
-useIntlayerEditor();
-```
-
 ### (İsteğe bağlı) Adım 7: Uygulamanıza yerelleştirilmiş Yönlendirme ekleyin
 
 Svelte uygulamanızda yerelleştirilmiş yönlendirmeyi yönetmek için, `svelte-spa-router` paketini ve Intlayer'ın `localeFlatMap` fonksiyonunu kullanarak her locale için rotalar oluşturabilirsiniz.

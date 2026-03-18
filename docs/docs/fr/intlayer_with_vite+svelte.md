@@ -295,14 +295,6 @@ Pour configurer l’éditeur intlayer, vous devez suivre la [documentation de l�
 
 Pour configurer le CMS intlayer, vous devez suivre la [documentation du CMS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md).
 
-En parallèle, dans votre application Svelte, vous devez ajouter la ligne suivante dans un layout, ou à la racine de votre application :
-
-```svelte fileName="src/layout.svelte"
-import { useIntlayerEditor } from "svelte-intlayer";
-
-useIntlayerEditor();
-```
-
 ### (Optionnel) Étape 7 : Ajouter le routage localisé à votre application
 
 Pour gérer le routage localisé dans votre application Svelte, vous pouvez utiliser `svelte-spa-router` avec `localeFlatMap` d'Intlayer pour générer les routes pour chaque locale.

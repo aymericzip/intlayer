@@ -295,14 +295,6 @@ intlayerエディターをセットアップするには、[intlayerエディタ
 
 intlayer CMSをセットアップするには、[intlayer CMSのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)に従ってください。
 
-並行して、Svelteアプリケーション内では、レイアウトまたはアプリケーションのルートに以下の行を追加する必要があります。
-
-```svelte fileName="src/layout.svelte"
-import { useIntlayerEditor } from "svelte-intlayer";
-
-useIntlayerEditor();
-```
-
 ### （オプション）ステップ7：アプリケーションにローカライズされたルーティングを追加する
 
 Svelteアプリケーションでローカライズされたルーティングを扱うには、`svelte-spa-router`とIntlayerの`localeFlatMap`を組み合わせて、各ロケールのルートを生成できます。

@@ -312,14 +312,6 @@ To set up the intlayer editor, you must follow the [intlayer editor documentatio
 
 To set up the intlayer CMS, you must follow the [intlayer CMS documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
 
-In parallel, in your Svelte application, you must add the following line in a layout, or at the root of your application:
-
-```svelte fileName="src/layout.svelte"
-import { useIntlayerEditor } from "svelte-intlayer";
-
-useIntlayerEditor();
-```
-
 ### (Optional) Step 7: Add localized Routing to your application
 
 To handle localized routing in your Svelte application, you can use `svelte-spa-router` along with Intlayer's `localeFlatMap` to generate routes for each locale.
