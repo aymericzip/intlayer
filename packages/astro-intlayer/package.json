@@ -5,15 +5,17 @@
   "description": "Easily internationalize i18n your Nuxt applications with type-safe multilingual content management.",
   "keywords": [
     "intlayer",
-    "data",
     "internationalization",
-    "multilingual",
     "i18n",
     "typescript",
     "astro",
-    "react",
-    "vite",
-    "json"
+    "astro-integration",
+    "astro-component",
+    "withastro",
+    "devtools",
+    "astro-loader",
+    "tooling",
+    "a11y"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {
