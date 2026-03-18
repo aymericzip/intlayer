@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 7.1.0
     date: 2025-11-16
-    changes: Рефакторинг: використання параметра options з полем mode замість prefixDefault
+    changes: "Рефакторинг: використання параметра options з полем mode замість prefixDefault"
   - version: 5.5.10
     date: 2025-06-29
     changes: Ініціалізація історії

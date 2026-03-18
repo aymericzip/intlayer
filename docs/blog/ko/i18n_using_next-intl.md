@@ -2,7 +2,7 @@
 createdAt: 2025-11-01
 updatedAt: 2025-11-01
 title: next-intl을 사용하여 Next.js 애플리케이션을 국제화하는 방법
-description: next-intl으로 i18n 설정하기: 다국어 Next.js 앱을 위한 모범 사례와 SEO 팁, 국제화, 콘텐츠 구성 및 기술 설정을 다룹니다.
+description: "next-intl으로 i18n 설정하기: 다국어 Next.js 앱을 위한 모범 사례와 SEO 팁, 국제화, 콘텐츠 구성 및 기술 설정을 다룹니다."
 keywords:
   - next-intl
   - Internationalization

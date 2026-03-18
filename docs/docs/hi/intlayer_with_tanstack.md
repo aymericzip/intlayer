@@ -24,13 +24,13 @@ history:
     changes: init कमांड जोड़ें
   - version: 7.4.0
     date: 2025-12-11
-    changes: validatePrefix पेश करें और चरण 14 जोड़ें: स्थानीयकृत रूट्स के साथ 404 पेज हैंडल करना।
+    changes: "validatePrefix पेश करें और चरण 14 जोड़ें: स्थानीयकृत रूट्स के साथ 404 पेज हैंडल करना।"
   - version: 7.3.9
     date: 2025-12-05
-    changes: चरण 13 जोड़ें: अपने सर्वर एक्शन्स में लोकेल प्राप्त करें (वैकल्पिक)
+    changes: "चरण 13 जोड़ें: अपने सर्वर एक्शन्स में लोकेल प्राप्त करें (वैकल्पिक)"
   - version: 7.2.3
     date: 2025-11-18
-    changes: चरण 13 जोड़ें: Nitro को अनुकूलित करें
+    changes: "चरण 13 जोड़ें: Nitro को अनुकूलित करें"
   - version: 7.1.0
     date: 2025-11-17
     changes: getPrefix फ़ंक्शन जोड़कर उपसर्ग डिफ़ॉल्ट को ठीक करें useLocalizedNavigate, LocaleSwitcher और LocalizedLink का उपयोग करें।

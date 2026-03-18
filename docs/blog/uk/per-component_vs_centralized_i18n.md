@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-10
 updatedAt: 2025-09-10
-title: Per-Component проти централізованого i18n: новий підхід з Intlayer
-description: Детальний огляд стратегій інтернаціоналізації в React: порівняння централізованого, per-key і per-component підходів та презентація Intlayer.
+title: "Per-Component проти централізованого i18n: новий підхід з Intlayer"
+description: "Детальний огляд стратегій інтернаціоналізації в React: порівняння централізованого, per-key і per-component підходів та презентація Intlayer."
 keywords:
   - i18n
   - React

@@ -24,13 +24,13 @@ history:
     changes: إضافة أمر init
   - version: 7.4.0
     date: 2025-12-11
-    changes: تقديم validatePrefix وإضافة الخطوة 14: معالجة صفحات 404 مع المسارات المترجمة.
+    changes: "تقديم validatePrefix وإضافة الخطوة 14: معالجة صفحات 404 مع المسارات المترجمة."
   - version: 7.3.9
     date: 2025-12-05
-    changes: إضافة الخطوة 13: جلب اللغة في إجراءات الخادم (اختياري)
+    changes: "إضافة الخطوة 13: جلب اللغة في إجراءات الخادم (اختياري)"
   - version: 7.2.3
     date: 2025-11-18
-    changes: إضافة الخطوة 13: تكييف Nitro
+    changes: "إضافة الخطوة 13: تكييف Nitro"
   - version: 7.1.0
     date: 2025-11-17
     changes: إصلاح الافتراضي للبادئة عن طريق إضافة وظيفة getPrefix واستخدام useLocalizedNavigate و LocaleSwitcher و LocalizedLink.

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-10
 updatedAt: 2025-09-10
-title: i18n por componente vs. centralizado: Uma nova abordagem com Intlayer
+title: "i18n por componente vs. centralizado: Uma nova abordagem com Intlayer"
 description: Uma análise aprofundada das estratégias de internacionalização no React, comparando abordagens centralizadas, por chave e por componente, e apresentando o Intlayer.
 keywords:
   - i18n

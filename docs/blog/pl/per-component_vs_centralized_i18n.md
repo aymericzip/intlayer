@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-10
 updatedAt: 2025-09-10
-title: i18n per-komponentowy kontra scentralizowany: nowe podejście z Intlayer
+title: "i18n per-komponentowy kontra scentralizowany: nowe podejście z Intlayer"
 description: Dogłębna analiza strategii internacjonalizacji w React, porównująca podejścia scentralizowane, per-key i per-component oraz wprowadzająca Intlayer.
 keywords:
   - i18n

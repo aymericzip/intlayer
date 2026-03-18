@@ -24,13 +24,13 @@ history:
     changes: init 명령어 추가
   - version: 7.4.0
     date: 2025-12-11
-    changes: validatePrefix를 도입하고 14단계: 현지화된 경로로 404 페이지 처리하기 추가.
+    changes: "validatePrefix를 도입하고 14단계: 현지화된 경로로 404 페이지 처리하기 추가."
   - version: 7.3.9
     date: 2025-12-05
-    changes: 13단계: 서버 액션에서 로케일 가져오기(선택 사항) 추가.
+    changes: "13단계: 서버 액션에서 로케일 가져오기(선택 사항) 추가."
   - version: 7.2.3
     date: 2025-11-18
-    changes: 13단계: Nitro 적응 추가.
+    changes: "13단계: Nitro 적응 추가."
   - version: 7.1.0
     date: 2025-11-17
     changes: getPrefix 함수를 추가하여 기본 접두사 수정, useLocalizedNavigate, LocaleSwitcher 및 LocalizedLink 사용.

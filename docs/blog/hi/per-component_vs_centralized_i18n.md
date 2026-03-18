@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-10
 updatedAt: 2025-09-10
-title: प्रति-कम्पोनेंट बनाम केंद्रीकृत i18n: Intlayer के साथ एक नया दृष्टिकोण
+title: "प्रति-कम्पोनेंट बनाम केंद्रीकृत i18n: Intlayer के साथ एक नया दृष्टिकोण"
 description: React में internationalization रणनीतियों का गहन विश्लेषण, centralized, per-key और per-component approaches की तुलना, तथा Intlayer का परिचय।
 keywords:
   - i18n

@@ -24,13 +24,13 @@ history:
     changes: Додано команду init
   - version: 7.4.0
     date: 2025-12-11
-    changes: Представлено validatePrefix та додано крок 14: Обробка сторінок 404 з локалізованими маршрутами.
+    changes: "Представлено validatePrefix та додано крок 14: Обробка сторінок 404 з локалізованими маршрутами."
   - version: 7.3.9
     date: 2025-12-05
-    changes: Додано крок 13: Отримання локалі у server actions (необов'язково)
+    changes: "Додано крок 13: Отримання локалі у server actions (необов'язково)"
   - version: 7.2.3
     date: 2025-11-18
-    changes: Додано крок 13: Адаптувати Nitro
+    changes: "Додано крок 13: Адаптувати Nitro"
   - version: 7.1.0
     date: 2025-11-17
     changes: Виправлено значення префікса за замовчуванням, додавши функцію getPrefix, useLocalizedNavigate, LocaleSwitcher та LocalizedLink.

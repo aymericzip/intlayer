@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-10
 updatedAt: 2025-09-10
-title: 컴포넌트별 vs 중앙집중식 i18n: Intlayer를 통한 새로운 접근
+title: "컴포넌트별 vs 중앙집중식 i18n: Intlayer를 통한 새로운 접근"
 description: React에서의 국제화 전략을 심층적으로 탐구하며 중앙집중식, 키별, 컴포넌트별 접근법을 비교하고 Intlayer를 소개합니다.
 keywords:
   - i18n

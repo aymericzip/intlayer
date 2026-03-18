@@ -40,11 +40,45 @@ const validateMetadata = (
   filePath: string,
   content: string
 ): MetadataValidationError | null => {
-  const metadata = getMarkdownMetadata<Record<string, unknown>>(content);
-
   const missingRequiredFields: string[] = [];
   const missingRecommendedFields: string[] = [];
   const invalidFields: Array<{ field: string; reason: string }> = [];
+
+  // Check for unquoted colons in values that break standard YAML parsing
+  const lines = content.split(/\r?\n/);
+  const metadataStart = lines.findIndex((l) => l.trim() === '---');
+  const metadataEnd = lines.findIndex(
+    (l, i) => i > metadataStart && l.trim() === '---'
+  );
+
+  if (metadataStart !== -1 && metadataEnd !== -1) {
+    const metadataLines = lines.slice(metadataStart + 1, metadataEnd);
+    metadataLines.forEach((line, index) => {
+      const trimmedLine = line.trim();
+
+      // Skip comments and lines without a colon-space sequence
+      if (trimmedLine.includes(': ') && !trimmedLine.startsWith('#')) {
+        const firstColonIndex = line.indexOf(':');
+        const value = line.slice(firstColonIndex + 1).trim();
+
+        // If the value contains ': ' and is not wrapped in quotes, it's invalid YAML
+        if (
+          value.includes(': ') &&
+          !(
+            (value.startsWith('"') && value.endsWith('"')) ||
+            (value.startsWith("'") && value.endsWith("'"))
+          )
+        ) {
+          invalidFields.push({
+            field: `YAML line ${metadataStart + index + 2}`,
+            reason: `Unquoted colon in value: "${value}". This breaks standard YAML parsing. Please wrap the value in quotes.`,
+          });
+        }
+      }
+    });
+  }
+
+  const metadata = getMarkdownMetadata<Record<string, unknown>>(content);
 
   // Check required fields
   for (const field of REQUIRED_FIELDS) {
@@ -240,3 +274,10 @@ export const runMetadataValidityTest = (): MetadataValidityResult => {
     errors,
   };
 };
+
+if (require.main === module) {
+  const result = runMetadataValidityTest();
+  if (result.filesWithErrors > 0) {
+    process.exit(1);
+  }
+}

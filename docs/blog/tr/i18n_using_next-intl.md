@@ -2,7 +2,7 @@
 createdAt: 2025-11-01
 updatedAt: 2025-11-01
 title: next-intl kullanarak Next.js uygulamanızı nasıl uluslararasılaştırırsınız
-description: next-intl ile i18n kurulumu: çok dilli Next.js uygulamaları için en iyi uygulamalar ve SEO ipuçları, uluslararasılaştırma, içerik organizasyonu ve teknik kurulum konularını kapsar.
+description: "next-intl ile i18n kurulumu: çok dilli Next.js uygulamaları için en iyi uygulamalar ve SEO ipuçları, uluslararasılaştırma, içerik organizasyonu ve teknik kurulum konularını kapsar."
 keywords:
   - next-intl
   - Internationalization

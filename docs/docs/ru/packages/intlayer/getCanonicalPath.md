@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-01-22
 updatedAt: 2026-01-22
-title: Документация: функция getCanonicalPath | intlayer
+title: "Документация: функция getCanonicalPath | intlayer"
 description: Инструкция по использованию функции getCanonicalPath в пакете intlayer
 keywords:
   - getCanonicalPath

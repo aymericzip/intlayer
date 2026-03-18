@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2025-08-23
-title: Документація: функція `t` у `react-intlayer`
+title: "Документація: функція `t` у `react-intlayer`"
 description: Дивіться, як використовувати функцію t у пакеті react-intlayer
 keywords:
   - t

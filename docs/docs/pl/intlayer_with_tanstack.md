@@ -24,13 +24,13 @@ history:
     changes: Dodaj polecenie init
   - version: 7.4.0
     date: 2025-12-11
-    changes: Wprowadzenie validatePrefix oraz dodanie kroku 14: Obsługa stron 404 z lokalizowanymi trasami.
+    changes: "Wprowadzenie validatePrefix oraz dodanie kroku 14: Obsługa stron 404 z lokalizowanymi trasami."
   - version: 7.3.9
     date: 2025-12-05
-    changes: Dodany krok 13: Pobieranie lokalizacji w akcjach serwerowych (Opcjonalnie)
+    changes: "Dodany krok 13: Pobieranie lokalizacji w akcjach serwerowych (Opcjonalnie)"
   - version: 7.2.3
     date: 2025-11-18
-    changes: Dodaj krok 13: Adaptacja Nitro
+    changes: "Dodaj krok 13: Adaptacja Nitro"
   - version: 7.1.0
     date: 2025-11-17
     changes: Naprawienie domyślnego prefiksu poprzez dodanie funkcji getPrefix useLocalizedNavigate, LocaleSwitcher i LocalizedLink.

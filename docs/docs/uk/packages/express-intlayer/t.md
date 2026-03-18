@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-02
 updatedAt: 2025-06-29
-title: Документація: функція `t` у `express-intlayer`
+title: "Документація: функція `t` у `express-intlayer`"
 description: Дізнайтеся, як використовувати функцію `t` у пакеті `express-intlayer`
 keywords:
   - t

@@ -24,13 +24,13 @@ history:
     changes: Tambahkan perintah init
   - version: 7.4.0
     date: 2025-12-11
-    changes: Memperkenalkan validatePrefix dan menambah langkah 14: Menangani halaman 404 dengan rute terlokalisasi.
+    changes: "Memperkenalkan validatePrefix dan menambah langkah 14: Menangani halaman 404 dengan rute terlokalisasi."
   - version: 7.3.9
     date: 2025-12-05
-    changes: Menambah langkah 13: Mengambil locale di server actions Anda (Opsional)
+    changes: "Menambah langkah 13: Mengambil locale di server actions Anda (Opsional)"
   - version: 7.2.3
     date: 2025-11-18
-    changes: Menambah langkah 13: Adaptasi Nitro
+    changes: "Menambah langkah 13: Adaptasi Nitro"
   - version: 7.1.0
     date: 2025-11-17
     changes: Memperbaiki default prefix dengan menambahkan fungsi getPrefix, gunakan useLocalizedNavigate, LocaleSwitcher dan LocalizedLink.

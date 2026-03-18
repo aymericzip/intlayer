@@ -64,7 +64,7 @@
     "review": "bun tools/review.ts",
     "serve": "webpack serve --config ./webpack.config.ts",
     "test": "bun --bun vitest run",
-    "test:markdown": "bun tools/markdownFormatting.ts",
+    "test:markdown": "bun tools/markdownFormatting.ts && bun tools/metadataValidity.ts",
     "test:watch": "bun --bun vitest",
     "translate": "bun tools/translate.ts",
     "transpile": "webpack --config ./webpack.config.ts",

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-10
 updatedAt: 2025-09-10
-title: コンポーネント単位 vs 集中型 i18n: Intlayer を用いた新しいアプローチ
+title: "コンポーネント単位 vs 集中型 i18n: Intlayer を用いた新しいアプローチ"
 description: React の国際化戦略を深掘りし、集中型、キー単位（per-key）、コンポーネント単位の各アプローチを比較し、Intlayer を紹介します。
 keywords:
   - i18n

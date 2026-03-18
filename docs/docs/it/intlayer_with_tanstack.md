@@ -24,13 +24,13 @@ history:
     changes: Aggiungi comando init
   - version: 7.4.0
     date: 2025-12-11
-    changes: Introduci validatePrefix e aggiungi il passaggio 14: Gestione delle pagine 404 con rotte localizzate.
+    changes: "Introduci validatePrefix e aggiungi il passaggio 14: Gestione delle pagine 404 con rotte localizzate."
   - version: 7.3.9
     date: 2025-12-05
-    changes: Aggiungi passaggio 13: Recupera la lingua locale nelle tue server action (Opzionale)
+    changes: "Aggiungi passaggio 13: Recupera la lingua locale nelle tue server action (Opzionale)"
   - version: 7.2.3
     date: 2025-11-18
-    changes: Aggiungi passaggio 13: Adatta Nitro
+    changes: "Aggiungi passaggio 13: Adatta Nitro"
   - version: 7.1.0
     date: 2025-11-17
     changes: Risolto il prefisso predefinito aggiungendo la funzione getPrefix, l'uso di useLocalizedNavigate, LocaleSwitcher e LocalizedLink.

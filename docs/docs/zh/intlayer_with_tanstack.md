@@ -24,13 +24,13 @@ history:
     changes: 添加 init 命令
   - version: 7.4.0
     date: 2025-12-11
-    changes: 引入 validatePrefix 并添加步骤 14: 处理带有本地化路由的 404 页面。
+    changes: "引入 validatePrefix 并添加步骤 14: 处理带有本地化路由的 404 页面。"
   - version: 7.3.9
     date: 2025-12-05
-    changes: 添加步骤 13: 在您的 server actions 中获取 locale (可选)
+    changes: "添加步骤 13: 在您的 server actions 中获取 locale (可选)"
   - version: 7.2.3
     date: 2025-11-18
-    changes: 添加步骤 13: 适配 Nitro
+    changes: "添加步骤 13: 适配 Nitro"
   - version: 7.1.0
     date: 2025-11-17
     changes: 通过添加 getPrefix 函数修复 useLocalizedNavigate、LocaleSwitcher 和 LocalizedLink 的前缀默认值。

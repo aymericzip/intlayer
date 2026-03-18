@@ -24,13 +24,13 @@ history:
     changes: Добавить команду init
   - version: 7.4.0
     date: 2025-12-11
-    changes: Внедрена validatePrefix и добавлен шаг 14: Обработка страниц 404 с локализованными маршрутами.
+    changes: "Внедрена validatePrefix и добавлен шаг 14: Обработка страниц 404 с локализованными маршрутами."
   - version: 7.3.9
     date: 2025-12-05
-    changes: Добавлен шаг 13: Получение текущей локали в ваших server actions (опционально)
+    changes: "Добавлен шаг 13: Получение текущей локали в ваших server actions (опционально)"
   - version: 7.2.3
     date: 2025-11-18
-    changes: Добавить шаг 13: Адаптация Nitro
+    changes: "Добавить шаг 13: Адаптация Nitro"
   - version: 7.1.0
     date: 2025-11-17
     changes: Исправлено значение префикса по умолчанию путем добавления функции getPrefix useLocalizedNavigate, LocaleSwitcher и LocalizedLink.

@@ -2,7 +2,7 @@
 createdAt: 2025-11-01
 updatedAt: 2025-11-01
 title: next-i18next kullanarak Next.js uygulamanızı nasıl uluslararasılaştırırsınız
-description: next-i18next ile i18n kurulumu: çok dilli Next.js uygulamaları için en iyi uygulamalar ve SEO ipuçları, uluslararasılaştırma, içerik organizasyonu ve teknik kurulum konularını kapsar.
+description: "next-i18next ile i18n kurulumu: çok dilli Next.js uygulamaları için en iyi uygulamalar ve SEO ipuçları, uluslararasılaştırma, içerik organizasyonu ve teknik kurulum konularını kapsar."
 keywords:
   - next-i18next
   - i18next

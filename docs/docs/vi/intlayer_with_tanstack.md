@@ -24,13 +24,13 @@ history:
     changes: Thêm lệnh init
   - version: 7.4.0
     date: 2025-12-11
-    changes: Giới thiệu validatePrefix và thêm bước 14: Xử lý trang 404 với các tuyến đường được bản địa hóa.
+    changes: "Giới thiệu validatePrefix và thêm bước 14: Xử lý trang 404 với các tuyến đường được bản địa hóa."
   - version: 7.3.9
     date: 2025-12-05
-    changes: Thêm bước 13: Lấy locale trong server actions của bạn (Tùy chọn)
+    changes: "Thêm bước 13: Lấy locale trong server actions của bạn (Tùy chọn)"
   - version: 7.2.3
     date: 2025-11-18
-    changes: Thêm bước 13: Thích ứng Nitro
+    changes: "Thêm bước 13: Thích ứng Nitro"
   - version: 7.1.0
     date: 2025-11-17
     changes: Sửa prefix mặc định bằng cách thêm hàm getPrefix useLocalizedNavigate, LocaleSwitcher và LocalizedLink.

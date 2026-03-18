@@ -24,13 +24,13 @@ history:
     changes: init komutu ekle
   - version: 7.4.0
     date: 2025-12-11
-    changes: validatePrefix'i tanıt ve 14. adımı ekle: Yerelleştirilmiş rotalarla 404 sayfalarını ele alma.
+    changes: "validatePrefix'i tanıt ve 14. adımı ekle: Yerelleştirilmiş rotalarla 404 sayfalarını ele alma."
   - version: 7.3.9
     date: 2025-12-05
-    changes: 13. adımı ekle: Sunucu işlemlerinde locale bilgisini almak (Opsiyonel)
+    changes: "13. adımı ekle: Sunucu işlemlerinde locale bilgisini almak (Opsiyonel)"
   - version: 7.2.3
     date: 2025-11-18
-    changes: 13. adımı ekle: Nitro'yu uyarla
+    changes: "13. adımı ekle: Nitro'yu uyarla"
   - version: 7.1.0
     date: 2025-11-17
     changes: getPrefix fonksiyonunu ekleyerek useLocalizedNavigate, LocaleSwitcher ve LocalizedLink için önek varsayılanını düzelt.

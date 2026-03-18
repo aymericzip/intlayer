@@ -24,13 +24,13 @@ history:
     changes: Init-Befehl hinzufügen
   - version: 7.4.0
     date: 2025-12-11
-    changes: Einführung von validatePrefix und Hinzufügen von Schritt 14: Behandlung von 404-Seiten mit lokalisierten Routen.
+    changes: "Einführung von validatePrefix und Hinzufügen von Schritt 14: Behandlung von 404-Seiten mit lokalisierten Routen."
   - version: 7.3.9
     date: 2025-12-05
-    changes: Schritt 13 hinzugefügt: Abrufen der Locale in Ihren Serveraktionen (Optional)
+    changes: "Schritt 13 hinzugefügt: Abrufen der Locale in Ihren Serveraktionen (Optional)"
   - version: 7.2.3
     date: 2025-11-18
-    changes: Schritt 13 hinzugefügt: Nitro anpassen
+    changes: "Schritt 13 hinzugefügt: Nitro anpassen"
   - version: 7.1.0
     date: 2025-11-17
     changes: Präfix-Standard durch Hinzufügen der getPrefix-Funktion, useLocalizedNavigate, LocaleSwitcher und LocalizedLink korrigiert.

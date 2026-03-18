@@ -24,13 +24,13 @@ history:
     changes: Añadir comando init
   - version: 7.4.0
     date: 2025-12-11
-    changes: Introducir validatePrefix y añadir el paso 14: Gestión de páginas 404 con rutas localizadas.
+    changes: "Introducir validatePrefix y añadir el paso 14: Gestión de páginas 404 con rutas localizadas."
   - version: 7.3.9
     date: 2025-12-05
-    changes: Añadir el paso 13: Obtener la configuración regional en tus acciones del servidor (Opcional)
+    changes: "Añadir el paso 13: Obtener la configuración regional en tus acciones del servidor (Opcional)"
   - version: 7.2.3
     date: 2025-11-18
-    changes: Añadir el paso 13: Adaptar Nitro
+    changes: "Añadir el paso 13: Adaptar Nitro"
   - version: 7.1.0
     date: 2025-11-17
     changes: Corregir prefijo por defecto añadiendo la función getPrefix, useLocalizedNavigate, LocaleSwitcher y LocalizedLink.

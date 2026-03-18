@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-10
 updatedAt: 2025-09-10
-title: i18n theo thành phần so với i18n tập trung: Một cách tiếp cận mới với Intlayer
+title: "i18n theo thành phần so với i18n tập trung: Một cách tiếp cận mới với Intlayer"
 description: Phân tích sâu các chiến lược quốc tế hóa trong React, so sánh các phương pháp tập trung, theo khóa và theo thành phần, và giới thiệu Intlayer.
 keywords:
   - i18n
