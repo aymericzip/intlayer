@@ -13,12 +13,10 @@ export * from './html';
 export * from './markdown';
 export * from './plugins';
 
-import { useEditor } from './editor';
 import { setHTMLContext } from './html';
 import { setMarkdownContext } from './markdown';
 
 export {
-  useEditor as useIntlayerEditor,
-  setMarkdownContext as setIntlayerMarkdown,
   setHTMLContext as setIntlayerHTML,
+  setMarkdownContext as setIntlayerMarkdown,
 };

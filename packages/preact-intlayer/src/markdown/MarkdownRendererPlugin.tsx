@@ -7,7 +7,6 @@ import type { KeyPath } from '@intlayer/types/keyPath';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import type { ComponentChildren, FunctionComponent } from 'preact';
 import { useLocale } from '../client/useLocale';
-import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';
 import type { HTMLComponents } from '../html/types';
 import {
   type MarkdownProviderOptions,
@@ -26,19 +25,11 @@ type MarkdownRendererPluginProps = {
 export const MarkdownRendererPlugin: FunctionComponent<
   MarkdownRendererPluginProps
 > = (props): ComponentChildren => {
-  const { dictionaryKey, keyPath, children, options, components } = props;
+  const { children, options, components } = props;
   const context = useMarkdownContext();
   const renderMarkdown = context?.renderMarkdown ?? ((md) => md);
-  const editedContentContext = useEditedContentRenderer({
-    dictionaryKey,
-    keyPath,
-    children,
-  });
 
-  const contentToRender =
-    typeof editedContentContext === 'string' ? editedContentContext : children;
-
-  return renderMarkdown(contentToRender, options, {
+  return renderMarkdown(children, options, {
     ...(context?.components ?? {}),
     ...(components ?? {}),
   }) as ComponentChildren;
@@ -50,20 +41,10 @@ type MarkdownMetadataRendererProps = MarkdownRendererPluginProps & {
 
 export const MarkdownMetadataRenderer: FunctionComponent<
   MarkdownMetadataRendererProps
-> = ({
-  dictionaryKey,
-  keyPath,
-  children,
-  metadataKeyPath,
-}): ComponentChildren => {
-  const editedContentContext = useEditedContentRenderer({
-    dictionaryKey,
-    keyPath,
-    children,
-  });
+> = ({ children, metadataKeyPath }): ComponentChildren => {
   const { locale: currentLocale } = useLocale();
 
-  const metadata = getMarkdownMetadata(editedContentContext as string);
+  const metadata = getMarkdownMetadata(children);
 
   const metadataEl = getContentNodeByKeyPath(
     metadata as ContentNode,

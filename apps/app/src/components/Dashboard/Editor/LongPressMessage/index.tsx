@@ -1,30 +1,30 @@
 'use client';
 
-import type { KeyPath } from '@intlayer/types/keyPath';
+import {
+  type FileContent,
+  MessageKey,
+  useCrossFrameState,
+} from '@intlayer/editor-react';
 import { cn } from '@utils/cn';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 
-type LongPressMessageProps =
-  | {
-      dictionaryKey?: string;
-      keyPath?: KeyPath[];
-    }
-  | undefined
-  | null;
-
-export const LongPressMessage: FC<LongPressMessageProps> = (props) => {
+export const LongPressMessage: FC = () => {
   const { message } = useIntlayer('long-press-message');
+  const [hoveredContent] = useCrossFrameState<FileContent | null>(
+    MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED,
+    null
+  );
 
   return (
     <div
       className={cn(
         'rounded-2xl bg-neutral/30 px-3 py-1 font-bold text-sm text-text transition-opacity duration-100',
-        props?.dictionaryKey ? 'opacity-100' : 'opacity-0'
+        hoveredContent?.dictionaryKey ? 'opacity-100' : 'opacity-0'
       )}
     >
-      {props?.dictionaryKey
-        ? message({ dictionaryKey: props.dictionaryKey })
+      {hoveredContent?.dictionaryKey
+        ? message({ dictionaryKey: hoveredContent.dictionaryKey })
         : ''}
     </div>
   );

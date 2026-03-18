@@ -11,6 +11,9 @@ import {
 } from './parseFileContent';
 import { transpileTSToCJS, transpileTSToCJSSync } from './transpileTSToCJS';
 
+// CJS MJS cross usage
+const parseJSON5 = JSON5.parse || (JSON5 as any).default?.parse;
+
 export type LoadExternalFileOptions = {
   configuration?: IntlayerConfig;
   buildOptions?: BuildOptions;
@@ -35,7 +38,7 @@ export const loadExternalFileSync = (
       fileExtension === '.jsonc'
     ) {
       // Assume JSON
-      return JSON5.parse(readFileSync(filePath, 'utf-8'));
+      return parseJSON5(readFileSync(filePath, 'utf-8'));
     }
 
     // Rest is JS, MJS or TS
@@ -97,7 +100,7 @@ export const loadExternalFile = async (
     ) {
       // Remove cache to force getting fresh content
       const fileContent = await readFile(filePath, 'utf-8');
-      return JSON5.parse(fileContent);
+      return parseJSON5(fileContent);
     }
 
     // Rest is JS, MJS or TS

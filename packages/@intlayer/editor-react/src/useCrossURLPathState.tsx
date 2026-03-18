@@ -1,6 +1,6 @@
 'use client';
 
-import { MessageKey } from '@intlayer/types/messageKey';
+import { MessageKey } from '@intlayer/editor';
 import {
   type CrossFrameStateOptions,
   useCrossFrameState,

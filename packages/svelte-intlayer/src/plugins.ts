@@ -24,7 +24,7 @@ import type {
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import { NodeType } from '@intlayer/types/nodeType';
-import { ContentSelectorWrapper } from './editor';
+import { default as ContentSelector } from './editor/ContentSelector.svelte';
 import type { HTMLComponents } from './html/types';
 import MarkdownMetadataWithSelector from './markdown/MarkdownMetadataWithSelector.svelte';
 import MarkdownWithSelector from './markdown/MarkdownWithSelector.svelte';
@@ -68,7 +68,7 @@ export const intlayerNodePlugins: Plugins = {
     renderIntlayerNode({
       value: children ?? node,
       component: configuration?.editor.enabled
-        ? ContentSelectorWrapper
+        ? ContentSelector
         : (children ?? node),
       props: rest,
     }),

@@ -1,11 +1,9 @@
 'use client';
 
 import { getHTML } from '@intlayer/core/interpreter';
-import type { KeyPath } from '@intlayer/types/keyPath';
 import type { Locale } from '@intlayer/types/allLocales';
+import type { KeyPath } from '@intlayer/types/keyPath';
 import { createElement, type FC, type ReactNode } from 'react';
-import { ContentSelectorRenderer } from '../editor';
-import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';
 import { useHTMLContext } from './HTMLProvider';
 import { defaultHTMLComponents } from './HTMLRenderer';
 import type { ReactComponentProps } from './types';
@@ -21,18 +19,9 @@ type HTMLRendererPluginProps = {
 export const HTMLRendererPlugin: FC<HTMLRendererPluginProps> = (
   props
 ): ReactNode => {
-  const { dictionaryKey, keyPath, html, userComponents } = props;
+  const { html, userComponents } = props;
   const context = useHTMLContext();
   const globalComponents = context?.components || {};
-
-  const editedContentContext = useEditedContentRenderer({
-    dictionaryKey: dictionaryKey ?? '',
-    keyPath: keyPath ?? [],
-    children: html,
-  });
-
-  const contentToRender =
-    typeof editedContentContext === 'string' ? editedContentContext : html;
 
   const mergedComponents = {
     ...defaultHTMLComponents,
@@ -52,9 +41,5 @@ export const HTMLRendererPlugin: FC<HTMLRendererPluginProps> = (
       ])
   );
 
-  return (
-    <ContentSelectorRenderer {...props}>
-      {getHTML(contentToRender, wrappedComponents)}
-    </ContentSelectorRenderer>
-  );
+  return getHTML(html, wrappedComponents);
 };

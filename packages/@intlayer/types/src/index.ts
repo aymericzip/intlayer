@@ -11,7 +11,6 @@ export * from './filePathPattern';
 export * from './filePathPattern';
 export * from './keyPath';
 export * as Locales from './locales';
-export * from './messageKey';
 export * from './module_augmentation';
 export * from './nodeType';
 export * from './plugin';

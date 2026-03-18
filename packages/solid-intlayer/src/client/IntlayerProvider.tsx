@@ -1,17 +1,19 @@
 import configuration from '@intlayer/config/built';
 import { localeResolver } from '@intlayer/core/localization';
-import { MessageKey } from '@intlayer/types/messageKey';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import {
   type Component,
   createContext,
   createEffect,
+  createMemo,
   createSignal,
+  on,
   type ParentProps,
+  untrack,
   useContext,
 } from 'solid-js';
-import { IntlayerEditorProvider } from '../editor/IntlayerEditorProvider';
-import { localeCookie, setLocaleInStorage } from './useLocaleStorage';
+import { EditorProvider } from '../editor/EditorProvider';
+import { localeInStorage, setLocaleInStorage } from './useLocaleStorage';
 
 type IntlayerValue = {
   locale: () => LocalesValues;
@@ -25,9 +27,8 @@ type IntlayerValue = {
  */
 export const IntlayerClientContext = createContext<IntlayerValue>({
   locale: () =>
-    localeCookie ?? configuration?.internationalization?.defaultLocale,
+    localeInStorage ?? configuration?.internationalization?.defaultLocale,
   setLocale: () => null,
-  disableEditor: false,
 });
 
 /**
@@ -39,7 +40,6 @@ export type IntlayerProviderProps = ParentProps<{
   locale?: LocalesValues;
   defaultLocale?: LocalesValues;
   setLocale?: (locale: LocalesValues) => void;
-  disableEditor?: boolean;
   isCookieEnabled?: boolean;
 }>;
 
@@ -54,55 +54,12 @@ export const IntlayerProviderContent: Component<IntlayerProviderProps> = (
     internationalization ?? {};
 
   const defaultLocale =
-    props.locale ?? localeCookie ?? props.defaultLocale ?? defaultLocaleConfig;
+    props.locale ??
+    localeInStorage ??
+    props.defaultLocale ??
+    defaultLocaleConfig;
 
   const [currentLocale, setCurrentLocale] = createSignal(defaultLocale);
-
-  // Handle cross-frame locale synchronization (editor sends locale change)
-  createEffect(() => {
-    if (typeof window === 'undefined') return;
-    const isInIframe = window.self !== window.top;
-    if (!isInIframe) return;
-
-    const { editor } = configuration ?? {};
-    const allowedOrigins = [
-      editor?.applicationURL,
-      editor?.editorURL,
-      editor?.cmsURL,
-    ].filter(Boolean) as string[];
-
-    const handler = (event: MessageEvent) => {
-      if (
-        allowedOrigins.length > 0 &&
-        !allowedOrigins.some((origin) => event.origin === origin)
-      )
-        return;
-      const msg = event.data as { type?: string; data?: unknown } | undefined;
-      if (
-        msg?.type === `${MessageKey.INTLAYER_CURRENT_LOCALE}/post` &&
-        msg.data !== undefined
-      ) {
-        setCurrentLocale(msg.data as LocalesValues);
-      }
-    };
-
-    window.addEventListener('message', handler);
-    return () => window.removeEventListener('message', handler);
-  });
-
-  // Broadcast locale to editor frame whenever it changes
-  createEffect(() => {
-    const locale = currentLocale();
-    if (typeof window === 'undefined') return;
-    const isInIframe = window.self !== window.top;
-    if (!isInIframe) return;
-    const payload = {
-      type: `${MessageKey.INTLAYER_CURRENT_LOCALE}/post`,
-      data: locale,
-    };
-    window.parent?.postMessage(payload, '*');
-    window.postMessage(payload, '*');
-  });
 
   const setLocaleBase = (newLocale: LocalesValues) => {
     if (currentLocale().toString() === newLocale.toString()) return;
@@ -119,14 +76,25 @@ export const IntlayerProviderContent: Component<IntlayerProviderProps> = (
   const setLocale = props.setLocale ?? setLocaleBase;
 
   // Use createMemo for derived reactive values
-  const resolvedLocale = () => localeResolver(props.locale ?? currentLocale());
+  const locale = createMemo(() => localeResolver(currentLocale()));
+
+  createEffect(
+    on(
+      () => props.locale,
+      (newPropLocale) => {
+        if (newPropLocale && newPropLocale !== untrack(currentLocale)) {
+          setCurrentLocale(newPropLocale);
+        }
+      },
+      { defer: true }
+    )
+  );
 
   return (
     <IntlayerClientContext.Provider
       value={{
-        locale: resolvedLocale,
+        locale,
         setLocale,
-        disableEditor: props.disableEditor,
       }}
     >
       {props.children}
@@ -155,7 +123,8 @@ export const IntlayerProviderContent: Component<IntlayerProviderProps> = (
  * ```
  */
 export const IntlayerProvider: Component<IntlayerProviderProps> = (props) => (
-  <IntlayerEditorProvider>
-    <IntlayerProviderContent {...props} />
-  </IntlayerEditorProvider>
+  <IntlayerProviderContent {...props}>
+    <EditorProvider />
+    {props.children}
+  </IntlayerProviderContent>
 );

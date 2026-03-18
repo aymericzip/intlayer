@@ -16,7 +16,7 @@ import { useEditedContentPersistence } from './useEditedContentPersistence';
 export const IframeController: FC<{
   iframeRef: RefObject<HTMLIFrameElement | null>;
 }> = ({ iframeRef }) => {
-  const { editor } = useConfiguration();
+  const { editor } = useConfiguration() ?? {};
 
   const enableEditor = () => postEditorEnabled(true);
   const postEditorEnabled = usePostEditorEnabledState(); // Allow to set the editor enabled state on the client side
@@ -32,7 +32,7 @@ export const IframeController: FC<{
 
   const [loading, setLoading] = useState(false);
 
-  if (!editor.applicationURL) {
+  if (!editor?.applicationURL) {
     return (
       <Container className="max-w-xl" padding="xl" roundedSize="2xl">
         <NoApplicationURLView />

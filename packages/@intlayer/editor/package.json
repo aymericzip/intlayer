@@ -38,6 +38,11 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
+    "./isEnabled": {
+      "types": "./dist/types/isEnabled.d.ts",
+      "require": "./dist/cjs/isEnabled.cjs",
+      "import": "./dist/esm/isEnabled.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
@@ -73,6 +78,7 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
+    "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",

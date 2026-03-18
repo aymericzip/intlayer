@@ -1,14 +1,8 @@
 import { getHTML } from '@intlayer/core/interpreter';
 import { HTML_TAGS } from '@intlayer/core/transpiler';
 import type { KeyPath } from '@intlayer/types/keyPath';
-import {
-  type Component,
-  createMemo,
-  type JSX,
-  type ValidComponent,
-} from 'solid-js';
+import type { Component, JSX, ValidComponent } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
-import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';
 import { useHTMLContext } from './HTMLProvider';
 import type { HTMLComponents } from './types';
 
@@ -104,20 +98,5 @@ export const HTMLRenderer: Component<HTMLRendererProps> = (props) => {
   });
   const content = () => props.children || props.html || '';
 
-  const editedContentContext = createMemo(() =>
-    useEditedContentRenderer({
-      dictionaryKey: props.dictionaryKey!,
-      keyPath: props.keyPath!,
-      children: content(),
-    })
-  );
-
-  const contentToRender = () =>
-    props.dictionaryKey &&
-    props.keyPath &&
-    typeof editedContentContext() === 'string'
-      ? (editedContentContext() as string)
-      : content();
-
-  return <>{render(contentToRender())}</>;
+  return render(content());
 };

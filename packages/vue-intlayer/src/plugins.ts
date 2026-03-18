@@ -26,7 +26,7 @@ import type {
 } from '@intlayer/types/module_augmentation';
 import { NodeType } from '@intlayer/types/nodeType';
 import { Fragment, h, markRaw, type VNode } from 'vue';
-import { ContentSelectorWrapper } from './editor';
+import { default as ContentSelector } from './editor/ContentSelector.vue';
 import type { HTMLComponents } from './html/types';
 import { useMarkdown } from './markdown/installIntlayerMarkdown';
 import {
@@ -60,7 +60,7 @@ export const intlayerNodePlugins: Plugins = {
           ? () =>
               h(
                 // EditorSelectorRenderer, // Maximum stack size exceeded
-                ContentSelectorWrapper,
+                ContentSelector,
                 {
                   dictionaryKey: rest.dictionaryKey,
                   keyPath: rest.keyPath,
@@ -315,7 +315,7 @@ export const markdownStringPlugin: Plugins = {
         value: node,
         children: () =>
           h(
-            ContentSelectorWrapper,
+            ContentSelector,
             {
               dictionaryKey: rest.dictionaryKey,
               keyPath: rest.keyPath,

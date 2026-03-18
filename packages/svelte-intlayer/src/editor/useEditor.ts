@@ -1,49 +1,39 @@
-import { MessageKey } from '@intlayer/types/messageKey';
+import type { EditorStateManager } from '@intlayer/editor';
+import { isEnabled } from '@intlayer/editor/isEnabled';
+import type { Locale } from '@intlayer/types/allLocales';
 import { onDestroy, onMount } from 'svelte';
-import { useLocale } from '../client/useLocale';
-import { createEditorStateManager } from './communicator';
+import { intlayerStore } from '../client/intlayerStore';
 
+/**
+ * Initialises the Intlayer editor client singleton when the editor is enabled.
+ * Syncs the current locale from intlayerStore into the editor manager so the
+ * editor always knows which locale the app is displaying.
+ *
+ * setupIntlayer keeps intlayerStore in sync whenever setLocale is called, so
+ * subscribing to the store gives us reactive locale updates without needing
+ * direct access to the Svelte 5 rune state.
+ */
 export const useEditor = () => {
-  if (typeof window === 'undefined') return;
+  if (!isEnabled) return;
 
-  let managerCleanup: (() => void) | null = null;
+  let unsubscribeLocale: (() => void) | null = null;
 
-  try {
-    // Must be called synchronously in component context to access Svelte context
-    const { locale } = useLocale();
+  onMount(() => {
+    import('@intlayer/editor').then(({ initEditorClient }) => {
+      const manager: EditorStateManager = initEditorClient();
 
-    onMount(() => {
-      createEditorStateManager().then((manager) => {
-        import('@intlayer/editor').then(({ defineIntlayerElements }) => {
-          defineIntlayerElements();
-        });
-        manager.start();
-
-        const unsubLocale = locale.subscribe((currentLocale) => {
-          if (!currentLocale) return;
-          manager.messenger.send(
-            `${MessageKey.INTLAYER_CURRENT_LOCALE}/post`,
-            currentLocale
-          );
-        });
-
-        managerCleanup = () => {
-          manager.stop();
-          unsubLocale();
-        };
+      // Subscribe immediately — Svelte stores call the subscriber with the
+      // current value on subscription, so the initial locale is set right away.
+      unsubscribeLocale = intlayerStore.subscribe(({ locale }) => {
+        if (locale) manager.currentLocale.set(locale as Locale);
       });
     });
+  });
 
-    onDestroy(() => {
-      managerCleanup?.();
+  onDestroy(() => {
+    unsubscribeLocale?.();
+    import('@intlayer/editor').then(({ stopEditorClient }) => {
+      stopEditorClient();
     });
-  } catch {
-    // Outside component context - start immediately without locale sync
-    createEditorStateManager().then((manager) => {
-      import('@intlayer/editor').then(({ defineIntlayerElements }) => {
-        defineIntlayerElements();
-      });
-      manager.start();
-    });
-  }
+  });
 };

@@ -1,6 +1,9 @@
 import configuration from '@intlayer/config/built';
-import type { DeclaredLocales, LocalesValues } from '@intlayer/types/module_augmentation';
-import { type Accessor, createEffect, useContext } from 'solid-js';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
+import { type Accessor, createEffect, on, useContext } from 'solid-js';
 import { IntlayerClientContext } from './IntlayerProvider';
 import { setLocaleInStorage } from './useLocaleStorage';
 
@@ -60,17 +63,20 @@ export const useLocale = ({
       locale,
       isCookieEnabled ?? context?.isCookieEnabled ?? true
     );
-
-    onLocaleChange?.(locale);
   };
 
-  // Create effect to trigger onLocaleChange when locale changes
-  createEffect(() => {
-    if (onLocaleChange && context?.locale) {
-      const currentLocale = context.locale();
-      onLocaleChange(currentLocale);
-    }
-  });
+  // Trigger onLocaleChange only when locale CHANGES (skip initial value)
+  createEffect(
+    on(
+      () => context?.locale?.(),
+      (currentLocale) => {
+        if (onLocaleChange && currentLocale !== undefined) {
+          onLocaleChange(currentLocale);
+        }
+      },
+      { defer: true }
+    )
+  );
 
   return {
     locale: context?.locale, // Current locale (signal accessor)

@@ -16,10 +16,11 @@ export const ConfigurationProvider: FC<ConfigurationProviderProps> = ({
 
   useEffect(() => {
     if (!manager || !configuration) return;
+
     manager.configuration.set(configuration);
   }, [manager, configuration]);
 
-  return <>{children}</>;
+  return children;
 };
 
 export const useConfiguration = (): IntlayerConfig | undefined => {

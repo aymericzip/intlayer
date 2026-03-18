@@ -6,6 +6,8 @@ export type MessagePayload = {
   type: string;
   data?: unknown;
   senderId?: string;
+  /** Unique ID per send() call — used to deduplicate when the same payload arrives via multiple target origins */
+  messageId?: string;
 };
 
 export type MessengerConfig = {
@@ -34,7 +36,10 @@ export class CrossFrameMessenger {
   readonly senderId: string;
   private readonly _config: MessengerConfig;
   private readonly _subscribers = new Map<string, Set<MessageHandler>>();
+
   private _windowHandler: ((event: MessageEvent) => void) | null = null;
+  /** Tracks recently processed messageIds to discard duplicates (same payload sent to multiple origins) */
+  private readonly _seenMessageIds = new Set<string>();
 
   constructor(config: MessengerConfig) {
     this._config = config;
@@ -61,7 +66,13 @@ export class CrossFrameMessenger {
 
   /** Send a message payload to all configured target origins. */
   send(type: string, data?: unknown): void {
-    const payload: MessagePayload = { type, data, senderId: this.senderId };
+    const payload: MessagePayload = {
+      type,
+      data,
+      senderId: this.senderId,
+      messageId: randomUUID(),
+    };
+
     for (const origin of this._config.allowedOrigins) {
       if (origin) {
         this._config.postMessageFn(payload, origin);
@@ -87,11 +98,20 @@ export class CrossFrameMessenger {
     const payload = event.data;
     if (!payload || typeof payload !== 'object') return;
 
-    const { type, data, senderId: msgSenderId } = payload;
+    const { type, data, senderId: msgSenderId, messageId } = payload;
     if (!type || typeof type !== 'string') return;
 
     // Ignore messages originating from this instance
     if (msgSenderId === this.senderId) return;
+
+    // Deduplicate: same messageId may arrive multiple times when the sender
+    // posts to multiple target origins (one per allowedOrigin)
+    if (messageId) {
+      if (this._seenMessageIds.has(messageId)) return;
+      this._seenMessageIds.add(messageId);
+      // Keep the set bounded — clear when it exceeds 200 entries
+      if (this._seenMessageIds.size > 200) this._seenMessageIds.clear();
+    }
 
     // Validate message origin
     const { allowedOrigins } = this._config;
@@ -106,6 +126,7 @@ export class CrossFrameMessenger {
     if (!isAllowed) return;
 
     const handlers = this._subscribers.get(type);
+
     if (handlers) {
       for (const handler of handlers) {
         handler(data, msgSenderId);

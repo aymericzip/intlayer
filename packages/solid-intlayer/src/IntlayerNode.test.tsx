@@ -10,7 +10,7 @@ const mockConfig = vi.hoisted(() => ({ editor: { enabled: false } }));
 vi.mock('@intlayer/config/built', () => ({ default: mockConfig }));
 
 vi.mock('./editor', () => ({
-  ContentSelectorRenderer: () => null,
+  ContentSelector: () => null,
 }));
 
 vi.mock('./editor/useEditedContentRenderer', () => ({

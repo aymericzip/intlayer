@@ -2,7 +2,7 @@
 import {
   setIntlayerMarkdown,
   useIntlayer,
-  useIntlayerEditor,
+  setupIntlayer,
 } from 'svelte-intlayer';
 import viteLogo from '/vite.svg';
 import svelteLogo from './assets/svelte.svg';
@@ -10,9 +10,11 @@ import Counter from './lib/Counter.svelte';
 import LocaleSwitcher from './lib/LocaleSwitcher.svelte';
 import Test from './Test.svelte';
 
-useIntlayerEditor();
+
+setupIntlayer()
 
 const content = useIntlayer('app');
+
 
 $: console.log($content.markdownContent.metadata);
 </script>

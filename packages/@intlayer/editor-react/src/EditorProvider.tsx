@@ -1,68 +1,19 @@
 'use client';
 
-import configuration from '@intlayer/config/built';
 import {
   defineIntlayerElements,
   EditorStateManager,
   type MessengerConfig,
+  setGlobalEditorManager,
 } from '@intlayer/editor';
 import type { IntlayerConfig } from '@intlayer/types/config';
-import {
-  type FC,
-  type PropsWithChildren,
-  type ReactNode,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-import { useEditorEnabled } from './EditorEnabledContext';
+import { type FC, type PropsWithChildren, useEffect, useRef } from 'react';
 import { EditorStateProvider } from './EditorStateContext';
 
-const { editor } = configuration ?? {};
-
-const buildDefaultMessengerConfig = (): MessengerConfig => ({
-  allowedOrigins: [
-    editor?.applicationURL,
-    editor?.editorURL,
-    editor?.cmsURL,
-  ].filter(Boolean) as string[],
-  postMessageFn: (payload, origin) => {
-    if (typeof window === 'undefined') return;
-    const isInIframe = window.self !== window.top;
-    if (!isInIframe) return;
-    window.parent?.postMessage(payload, origin);
-    window.postMessage(payload, origin);
-  },
-});
-
-type FallbackProps = { fallback: ReactNode };
-
-const EditorEnabledCheckRenderer: FC<PropsWithChildren<FallbackProps>> = ({
-  children,
-  fallback,
-}) => {
-  const { enabled } = useEditorEnabled();
-  return enabled ? children : fallback;
-};
-
-const IframeCheckRenderer: FC<PropsWithChildren<FallbackProps>> = ({
-  children,
-  fallback,
-}) => {
-  const [isInIframe, setIsInIframe] = useState(false);
-
-  useEffect(() => {
-    setIsInIframe(window.self !== window.top);
-  }, []);
-
-  return isInIframe ? children : fallback;
-};
-
 export type EditorProviderProps = {
-  mode?: 'editor' | 'client';
-  configuration?: IntlayerConfig;
-  postMessage?: (data: any) => void;
-  allowedOrigins?: string[];
+  configuration: IntlayerConfig;
+  postMessage: (data: any) => void;
+  allowedOrigins: string[];
 };
 
 /**
@@ -71,46 +22,38 @@ export type EditorProviderProps = {
  */
 export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
   children,
-  mode = 'client',
-  configuration: configProp,
-  postMessage: customPostMessage,
-  allowedOrigins: customAllowedOrigins,
+  configuration,
+  postMessage,
+  allowedOrigins,
 }) => {
   const managerRef = useRef<EditorStateManager | null>(null);
+
   if (!managerRef.current) {
-    const messengerConfig: MessengerConfig =
-      customPostMessage || customAllowedOrigins
-        ? {
-            allowedOrigins: customAllowedOrigins ?? ['*'],
-            postMessageFn: customPostMessage
-              ? (payload) => customPostMessage(payload)
-              : buildDefaultMessengerConfig().postMessageFn,
-          }
-        : buildDefaultMessengerConfig();
+    const messengerConfig: MessengerConfig = {
+      allowedOrigins,
+      postMessageFn: postMessage,
+    };
+
     managerRef.current = new EditorStateManager({
-      mode,
+      mode: 'editor',
       messenger: messengerConfig,
-      configuration: configProp ?? configuration,
+      configuration,
     });
   }
   const manager = managerRef.current;
 
   useEffect(() => {
     defineIntlayerElements();
+    setGlobalEditorManager(manager);
+
     manager.start();
-    return () => manager.stop();
+    return () => {
+      manager.stop();
+      setGlobalEditorManager(null);
+    };
   }, [manager]);
 
-  const content =
-    mode === 'editor' ? (
-      children
-    ) : (
-      <IframeCheckRenderer fallback={children}>
-        <EditorEnabledCheckRenderer fallback={children}>
-          {children}
-        </EditorEnabledCheckRenderer>
-      </IframeCheckRenderer>
-    );
-
-  return <EditorStateProvider manager={manager}>{content}</EditorStateProvider>;
+  return (
+    <EditorStateProvider manager={manager}>{children}</EditorStateProvider>
+  );
 };

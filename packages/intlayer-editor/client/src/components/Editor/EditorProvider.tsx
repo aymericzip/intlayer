@@ -14,32 +14,21 @@ export const EditorProvider: FC<
   }>
 > = ({ children, iframeRef }) => {
   const intlayerConfig = useIntlayerConfig();
-  const applicationURL = intlayerConfig?.editor.applicationURL
-    ? intlayerConfig?.editor.applicationURL
-    : '*';
-  const editorURL = intlayerConfig?.editor.editorURL ?? '*';
+  const applicationURL = intlayerConfig?.editor.applicationURL;
 
   if (!intlayerConfig) return <Loader />;
 
   return (
     <EditorProviderComponent
       postMessage={(data) => {
-        window?.postMessage(
-          data,
-          // Use to restrict the origin of the editor for security reasons.
-          // Correspond to the current editor URL.
-          editorURL
-        );
-
         iframeRef.current?.contentWindow?.postMessage(
           data,
           // Use to restrict the origin of the editor for security reasons.
           // Correspond to the current editor URL.
-          applicationURL
+          applicationURL!
         );
       }}
-      allowedOrigins={[applicationURL, editorURL]}
-      mode="editor"
+      allowedOrigins={[applicationURL!]}
       configuration={intlayerConfig}
     >
       {children}

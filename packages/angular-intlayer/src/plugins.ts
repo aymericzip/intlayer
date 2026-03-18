@@ -22,7 +22,7 @@ import type {
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import { NodeType } from '@intlayer/types/nodeType';
-import { ContentSelectorWrapperComponent } from './editor';
+import { ContentSelectorWrapperComponent } from './editor/ContentSelector.component';
 import { htmlRuntime, useMarkdown } from './markdown/installIntlayerMarkdown';
 import { renderIntlayerNode } from './renderIntlayerNode';
 

@@ -70,7 +70,6 @@ export const MarkdownProvider: Component<MarkdownProviderProps> = (props) => {
         options?.preserveFrontmatter ?? props.preserveFrontmatter,
       tagfilter: options?.tagfilter ?? props.tagfilter,
       wrapper: wrapperOverride || props.wrapper,
-      forceWrapper: !!(wrapperOverride || props.wrapper),
       components: {
         ...props.components,
         ...(componentsOverride ?? {}),

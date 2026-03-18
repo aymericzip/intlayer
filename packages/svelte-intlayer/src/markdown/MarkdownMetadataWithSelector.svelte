@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { KeyPath } from '@intlayer/types/keyPath';
-import ContentSelectorWrapper from '../editor/ContentSelectorWrapper.svelte';
+import ContentSelector from '../editor/ContentSelector.svelte';
 import MarkdownMetadataRenderer from './MarkdownMetadataRenderer.svelte';
 
 export let dictionaryKey: string;
@@ -9,13 +9,13 @@ export let value: string;
 export let metadataKeyPath: KeyPath[];
 </script>
 
-<ContentSelectorWrapper {dictionaryKey} {keyPath}>
+<ContentSelector {dictionaryKey} {keyPath}>
   <MarkdownMetadataRenderer
     {dictionaryKey}
     {keyPath}
     {value}
     {metadataKeyPath}
   />
-</ContentSelectorWrapper>
+</ContentSelector>
 
 

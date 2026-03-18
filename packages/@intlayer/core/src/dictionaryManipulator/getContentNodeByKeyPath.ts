@@ -1,12 +1,12 @@
-import type { Locale } from '@intlayer/types/allLocales';
 import type { ContentNode } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { NodeType } from '@intlayer/types/nodeType';
 
 export const getContentNodeByKeyPath = (
   dictionaryContent: ContentNode,
   keyPath: KeyPath[],
-  fallbackLocale?: Locale
+  fallbackLocale?: LocalesValues
 ): ContentNode => {
   let currentValue: any = structuredClone(dictionaryContent);
 

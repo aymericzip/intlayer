@@ -2,16 +2,16 @@
 
 import {
   useEditedContent,
+  useEditorLocale,
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
-import type { Dictionary } from '@intlayer/types/dictionary';
 import type { Locale } from '@intlayer/types/allLocales';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import type { FC } from 'react';
 import { NodeWrapper } from './NodeWrapper';
 
 type DictionaryEditorProps = {
   dictionary: Dictionary;
-  locale: Locale;
   onDelete?: () => void;
 };
 
@@ -19,6 +19,7 @@ export const DictionaryEditor: FC<DictionaryEditorProps> = ({
   dictionary,
   ...props
 }) => {
+  const locale = useEditorLocale();
   const { editedContent, addEditedContent } = useEditedContent();
   const { focusedContent, setFocusedContentKeyPath } =
     useFocusUnmergedDictionary();
@@ -28,10 +29,11 @@ export const DictionaryEditor: FC<DictionaryEditorProps> = ({
       <NodeWrapper
         {...props}
         keyPath={[]}
+        locale={locale as Locale}
         dictionary={dictionary}
-        key={JSON.stringify(
+        key={`${JSON.stringify(
           (editedContent?.[dictionary.localId!] ?? dictionary).content
-        )}
+        )}${locale}`}
         editedContent={editedContent?.[dictionary.localId!]?.content}
         focusedKeyPath={focusedContent?.keyPath}
         section={dictionary.content}

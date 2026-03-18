@@ -11,7 +11,7 @@ vi.mock('@intlayer/config/built', () => ({ default: mockConfig }));
 
 // The editor module exports .vue components – mock the whole module.
 vi.mock('./editor', () => ({
-  ContentSelectorWrapper: {},
+  ContentSelector: {},
 }));
 
 // useMarkdown may have complex deps; mock it out.

@@ -1,7 +1,6 @@
 'use client';
 
-import { mergeIframeClick } from '@intlayer/editor';
-import { MessageKey } from '@intlayer/types/messageKey';
+import { MessageKey, mergeIframeClick } from '@intlayer/editor';
 import { useCrossFrameMessageListener } from './useCrossFrameMessageListener';
 
 /**

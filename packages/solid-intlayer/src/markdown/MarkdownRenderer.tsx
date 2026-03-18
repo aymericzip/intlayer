@@ -4,7 +4,6 @@ import type { ContentNode } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { type Component, createMemo, type JSX, useContext } from 'solid-js';
-import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';
 import type { HTMLComponents } from '../html/types';
 import { compileMarkdown } from './compiler';
 import { MarkdownContext, useMarkdown } from './MarkdownProvider';
@@ -54,21 +53,9 @@ type MarkdownRendererProps = RenderMarkdownOptions & {
 export const MarkdownRenderer: Component<MarkdownRendererProps> = (props) => {
   const context = useContext(MarkdownContext);
   const { renderMarkdown } = useMarkdown();
-  const editedContentContext = createMemo(() =>
-    useEditedContentRenderer({
-      dictionaryKey: props.dictionaryKey,
-      keyPath: props.keyPath,
-      children: props.children,
-    })
-  );
-
-  const contentToRender = () =>
-    typeof editedContentContext() === 'string'
-      ? (editedContentContext() as string)
-      : props.children;
 
   return renderMarkdown(
-    contentToRender(),
+    props.children,
     {
       forceBlock: props.forceBlock,
       preserveFrontmatter: props.preserveFrontmatter,
@@ -89,15 +76,8 @@ type MarkdownMetadataRendererProps = MarkdownRendererProps & {
 export const MarkdownMetadataRenderer: Component<
   MarkdownMetadataRendererProps
 > = (props) => {
-  const editedContentContext = createMemo(() =>
-    useEditedContentRenderer({
-      dictionaryKey: props.dictionaryKey,
-      keyPath: props.keyPath,
-      children: props.children,
-    })
-  );
   const metadata = createMemo(() =>
-    getMarkdownMetadata(editedContentContext() as string)
+    getMarkdownMetadata(props.children as string)
   );
 
   const metadataEl = createMemo(() =>

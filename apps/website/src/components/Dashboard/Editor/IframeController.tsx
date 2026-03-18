@@ -20,13 +20,13 @@ export const IframeController: FC<{
 }> = ({ iframeRef }) => {
   const content = useIntlayer('iframe-controller');
 
-  const { editor } = useConfiguration();
+  const { editor } = useConfiguration() ?? {};
 
   // Post - Allow to set the editor enabled state on the client side
   const postEditorEnabled = usePostEditorEnabledState();
 
   // Enable the editor depending of the configuration
-  const enableEditor = () => postEditorEnabled(editor.enabled);
+  const enableEditor = () => postEditorEnabled(editor?.enabled ?? false);
 
   // State received from the client
   const { enabled } = useEditorEnabled();
@@ -44,7 +44,7 @@ export const IframeController: FC<{
 
   const [loading, setLoading] = useState(false);
 
-  if (!editor.applicationURL) {
+  if (!editor?.applicationURL) {
     return (
       <Container className="max-w-xl" padding="xl" roundedSize="2xl">
         <NoApplicationURLView />

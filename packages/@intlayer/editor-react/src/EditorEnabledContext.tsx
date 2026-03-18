@@ -1,6 +1,6 @@
 'use client';
 
-import { MessageKey } from '@intlayer/types/messageKey';
+import { MessageKey } from '@intlayer/editor';
 import { useEffect, useState } from 'react';
 import { useEditorStateManager } from './EditorStateContext';
 
@@ -40,6 +40,7 @@ export const useGetEditorEnabledState = (onRequest?: () => void) => {
 
   useEffect(() => {
     if (!onRequest) return;
+
     return manager?.messenger.subscribe(
       `${MessageKey.INTLAYER_EDITOR_ENABLED}/get`,
       onRequest
@@ -52,6 +53,7 @@ export const useGetEditorEnabledState = (onRequest?: () => void) => {
  */
 export const usePostEditorEnabledState = () => {
   const manager = useEditorStateManager();
+
   return (value: boolean) => {
     manager?.editorEnabled.set(value);
     manager?.editorEnabled.postCurrentValue();
@@ -64,4 +66,14 @@ export const useEditorEnabledState = () => {
   const setter = (value: boolean) => manager?.editorEnabled.set(value);
 
   return [enabled, setter] as const;
+};
+
+/**
+ * Returns a function that re-pings the client via ARE_YOU_THERE.
+ * Use this as the onClick for an "Enable Editor" / reconnect button.
+ */
+export const useEditorPingClient = (): (() => void) => {
+  const manager = useEditorStateManager();
+
+  return () => manager?.pingClient();
 };

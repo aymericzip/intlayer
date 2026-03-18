@@ -72,11 +72,10 @@ export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
           data,
           // Use to restrict the origin of the editor for security reasons.
           // Correspond to the current editor URL.
-          applicationURL
+          applicationURL!
         );
       }}
-      allowedOrigins={[applicationURL]}
-      mode="editor"
+      allowedOrigins={[applicationURL!]}
       configuration={intlayerConfig}
     >
       {children}

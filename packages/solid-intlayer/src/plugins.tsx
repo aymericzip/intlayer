@@ -27,8 +27,7 @@ import type {
 import { NodeType } from '@intlayer/types/nodeType';
 import type { JSX } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
-import { ContentSelectorRenderer } from './editor';
-import { EditedContentRenderer } from './editor/useEditedContentRenderer';
+import { ContentSelector } from './editor/ContentSelector';
 import type { HTMLComponents } from './html/types';
 import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
 import { MarkdownMetadataRenderer, MarkdownRenderer } from './markdown';
@@ -60,11 +59,7 @@ export const intlayerNodePlugins: Plugins = {
       ...rest,
       value: rest.children,
       children: configuration?.editor.enabled ? (
-        <ContentSelectorRenderer {...rest}>
-          <EditedContentRenderer {...rest}>
-            {rest.children}
-          </EditedContentRenderer>
-        </ContentSelectorRenderer>
+        <ContentSelector {...rest}>{rest.children}</ContentSelector>
       ) : (
         rest.children
       ),
@@ -100,11 +95,11 @@ export const solidNodePlugins: Plugins = {
       ...rest,
       value: '[[solid-element]]',
       children: configuration?.editor.enabled ? (
-        <ContentSelectorRenderer {...rest}>
+        <ContentSelector {...rest}>
           {typeof Node !== 'undefined' && node instanceof Node
             ? node
             : renderSolidElement(node)}
-        </ContentSelectorRenderer>
+        </ContentSelector>
       ) : typeof Node !== 'undefined' && node instanceof Node ? (
         node
       ) : (
@@ -242,14 +237,14 @@ export const markdownStringPlugin: Plugins = {
           ...props,
           value: metadataNode,
           children: (
-            <ContentSelectorRenderer {...rest}>
+            <ContentSelector {...rest}>
               <MarkdownMetadataRenderer
                 {...rest}
                 metadataKeyPath={props.keyPath}
               >
                 {node}
               </MarkdownMetadataRenderer>
-            </ContentSelectorRenderer>
+            </ContentSelector>
           ),
         }),
     };
@@ -266,11 +261,11 @@ export const markdownStringPlugin: Plugins = {
         ...props,
         value: node,
         children: (
-          <ContentSelectorRenderer {...rest}>
+          <ContentSelector {...rest}>
             <MarkdownRenderer {...rest} components={components}>
               {node}
             </MarkdownRenderer>
-          </ContentSelectorRenderer>
+          </ContentSelector>
         ),
         additionalProps: {
           metadata: metadataNodes,

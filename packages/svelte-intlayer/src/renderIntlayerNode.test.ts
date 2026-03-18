@@ -15,7 +15,7 @@ vi.mock('./IntlayerNodeWrapper.svelte', () => ({
 
 // Mock the editor module (exports Svelte components).
 vi.mock('./editor', () => ({
-  ContentSelectorWrapper: () => null,
+  ContentSelector: () => null,
 }));
 
 // Mock Svelte markdown components.

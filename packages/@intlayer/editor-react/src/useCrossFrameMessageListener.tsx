@@ -1,6 +1,6 @@
 'use client';
 
-import type { MessageKey } from '@intlayer/types/messageKey';
+import type { MessageKey } from '@intlayer/editor';
 import { useEffect } from 'react';
 import { useEditorStateManager } from './EditorStateContext';
 
@@ -19,10 +19,10 @@ export const useCrossFrameMessageListener = <S,>(
 
   useEffect(() => {
     if (!onEventTriggered) return;
-    return manager.messenger.subscribe<S>(key, onEventTriggered);
+    return manager?.messenger.subscribe<S>(key, onEventTriggered);
   }, [manager, key, revalidator]);
 
   return (data?: S) => {
-    manager.messenger.send(key, data);
+    manager?.messenger.send(key, data);
   };
 };

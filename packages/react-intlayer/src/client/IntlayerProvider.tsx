@@ -2,7 +2,6 @@
 
 import configuration from '@intlayer/config/built';
 import { localeResolver } from '@intlayer/core/localization';
-import { MessageKey } from '@intlayer/types/messageKey';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import {
   createContext,
@@ -12,7 +11,7 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { IntlayerEditorProvider } from '../editor/IntlayerEditorProvider';
+import { EditorProvider } from '../editor/EditorProvider';
 import { localeInStorage, setLocaleInStorage } from './useLocaleStorage';
 
 type IntlayerValue = {
@@ -29,7 +28,6 @@ export const IntlayerClientContext = createContext<IntlayerValue>({
   locale: localeInStorage ?? configuration?.internationalization?.defaultLocale,
   setLocale: () => null,
   isCookieEnabled: true,
-  disableEditor: false,
 });
 
 /**
@@ -98,52 +96,6 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
     }
   }, [localeProp]);
 
-  // Cross-frame locale synchronization (editor iframe support)
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    const isInIframe = window.self !== window.top;
-    if (!isInIframe) return;
-
-    const { editor } = configuration ?? {};
-
-    const allowedOrigins = [
-      editor?.applicationURL,
-      editor?.editorURL,
-      editor?.cmsURL,
-    ].filter(Boolean) as string[];
-
-    const handler = (event: MessageEvent) => {
-      if (
-        allowedOrigins.length > 0 &&
-        !allowedOrigins.some((origin) => event.origin === origin)
-      )
-        return;
-      const msg = event.data as { type?: string; data?: unknown } | undefined;
-      if (
-        msg?.type === `${MessageKey.INTLAYER_CURRENT_LOCALE}/post` &&
-        msg.data !== undefined
-      ) {
-        setCurrentLocale(msg.data as LocalesValues);
-      }
-    };
-    window.addEventListener('message', handler);
-    return () => window.removeEventListener('message', handler);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const isInIframe = window.self !== window.top;
-    if (!isInIframe) return;
-    const payload = {
-      type: `${MessageKey.INTLAYER_CURRENT_LOCALE}/post`,
-      data: currentLocale,
-    };
-    window.parent?.postMessage(payload, '*');
-    window.postMessage(payload, '*');
-  }, [currentLocale]);
-
   const setLocaleBase = (newLocale: LocalesValues) => {
     if (currentLocale.toString() === newLocale.toString()) return;
 
@@ -194,8 +146,12 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
  * );
  * ```
  */
-export const IntlayerProvider: FC<IntlayerProviderProps> = (props) => (
-  <IntlayerEditorProvider>
-    <IntlayerProviderContent {...props} />
-  </IntlayerEditorProvider>
+export const IntlayerProvider: FC<IntlayerProviderProps> = ({
+  children,
+  ...props
+}) => (
+  <IntlayerProviderContent {...props}>
+    <EditorProvider />
+    {children}
+  </IntlayerProviderContent>
 );

@@ -1,13 +1,6 @@
 'use client';
 
 import { Container } from '@intlayer/design-system';
-import {
-  type FileContent,
-  useCrossFrameState,
-  useEditorLocale,
-} from '@intlayer/editor-react';
-import { MessageKey } from '@intlayer/types/messageKey';
-import { defaultLocale } from 'intlayer';
 import { useTheme } from 'next-themes';
 import type { FC, PropsWithChildren } from 'react';
 import { DictionaryEditionDrawerController } from './DictionaryEditionDrawer';
@@ -18,11 +11,6 @@ type EditorLayoutProps = PropsWithChildren;
 
 export const EditorLayout: FC<EditorLayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
-  const [hoveredContent] = useCrossFrameState<FileContent | null>(
-    MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED,
-    null
-  );
-  const currentLocale = useEditorLocale();
 
   return (
     <>
@@ -34,11 +22,10 @@ export const EditorLayout: FC<EditorLayoutProps> = ({ children }) => {
       >
         {children}
         <div className="absolute right-2 bottom-2">
-          <LongPressMessage {...hoveredContent} />
+          <LongPressMessage />
         </div>
       </Container>
       <DictionaryEditionDrawerController
-        locale={currentLocale ?? defaultLocale}
         isDarkMode={resolvedTheme === 'dark'}
       />
       <DictionaryListDrawer />

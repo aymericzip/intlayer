@@ -14,7 +14,6 @@ import {
 import { useGetEditorDictionaries } from '@intlayer/design-system/hooks';
 import { useFocusUnmergedDictionary } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import type { Locale } from '@intlayer/types/allLocales';
 import { PencilRuler } from 'lucide-react';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -24,24 +23,12 @@ import {
   useDictionaryEditionDrawer,
 } from './useDictionaryEditionDrawer';
 
-type DictionaryEditionDrawerContentProps = {
-  dictionary: Dictionary;
-  locale: Locale;
-};
-
-export const DictionaryEditionDrawerContent: FC<
-  DictionaryEditionDrawerContentProps
-> = ({ dictionary, locale }) => {
-  return <DictionaryEditor dictionary={dictionary} locale={locale} />;
-};
-
 type DictionaryEditionDrawerProps = DictionaryEditionDrawerControllerProps & {
   dictionaryKey: string;
   isDarkMode?: boolean;
 };
 
 export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
-  locale,
   dictionaryKey,
   isDarkMode,
 }) => {
@@ -177,10 +164,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
             </div>
           </Modal>
 
-          <DictionaryEditionDrawerContent
-            dictionary={dictionary}
-            locale={locale}
-          />
+          <DictionaryEditor dictionary={dictionary} />
         </>
       )}
     </RightDrawer>
@@ -188,13 +172,12 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
 };
 
 type DictionaryEditionDrawerControllerProps = {
-  locale: Locale;
   isDarkMode?: boolean;
 };
 
 export const DictionaryEditionDrawerController: FC<
   DictionaryEditionDrawerControllerProps
-> = ({ locale, isDarkMode }) => {
+> = ({ isDarkMode }) => {
   const { focusedContent } = useFocusUnmergedDictionary();
   const dictionaryKey: string | undefined = focusedContent?.dictionaryKey;
 
@@ -204,7 +187,6 @@ export const DictionaryEditionDrawerController: FC<
 
   return (
     <DictionaryEditionDrawer
-      locale={locale}
       dictionaryKey={dictionaryKey}
       isDarkMode={isDarkMode}
     />

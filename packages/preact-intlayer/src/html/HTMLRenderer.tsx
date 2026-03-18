@@ -2,7 +2,6 @@ import { getHTML } from '@intlayer/core/interpreter';
 import { HTML_TAGS } from '@intlayer/core/transpiler';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import { Fragment, type FunctionComponent, h, type JSX } from 'preact';
-import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';
 import { useHTMLContext } from './HTMLProvider';
 import type { HTMLComponents } from './types';
 
@@ -106,22 +105,9 @@ export const HTMLRenderer: FunctionComponent<HTMLRendererProps> = ({
   children = '',
   html,
   components,
-  dictionaryKey,
-  keyPath,
 }) => {
   const render = useHTMLRenderer({ components: components });
   const content = children || html || '';
 
-  const editedContentContext = useEditedContentRenderer({
-    dictionaryKey: dictionaryKey!,
-    keyPath: keyPath!,
-    children: content,
-  });
-
-  const contentToRender =
-    dictionaryKey && keyPath && typeof editedContentContext === 'string'
-      ? editedContentContext
-      : content;
-
-  return render(contentToRender);
+  return render(content);
 };

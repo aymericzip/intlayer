@@ -15,7 +15,6 @@ import {
   useDictionariesRecord,
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
-import type { Locale } from '@intlayer/types/allLocales';
 import { PencilRuler } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
@@ -25,13 +24,12 @@ import {
   useDictionaryEditionDrawer,
 } from './useDictionaryEditionDrawer';
 
-type DictionaryEditionDrawerProps = DictionaryEditionDrawerControllerProps & {
+type DictionaryEditionDrawerProps = {
   dictionaryKey: string;
   isDarkMode?: boolean;
 };
 
 export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
-  locale,
   dictionaryKey,
   isDarkMode,
 }) => {
@@ -167,7 +165,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
             </div>
           </Modal>
 
-          <DictionaryEditor dictionary={dictionary} locale={locale} />
+          <DictionaryEditor dictionary={dictionary} />
         </>
       )}
     </RightDrawer>
@@ -175,13 +173,12 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
 };
 
 type DictionaryEditionDrawerControllerProps = {
-  locale: Locale;
   isDarkMode?: boolean;
 };
 
 export const DictionaryEditionDrawerController: FC<
   DictionaryEditionDrawerControllerProps
-> = ({ locale, isDarkMode }) => {
+> = ({ isDarkMode }) => {
   const { focusedContent } = useFocusUnmergedDictionary();
   const dictionaryKey: string | undefined = focusedContent?.dictionaryKey;
 
@@ -191,7 +188,6 @@ export const DictionaryEditionDrawerController: FC<
 
   return (
     <DictionaryEditionDrawer
-      locale={locale}
       dictionaryKey={dictionaryKey}
       isDarkMode={isDarkMode}
     />

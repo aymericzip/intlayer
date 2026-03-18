@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { KeyPath } from '@intlayer/types/keyPath';
-import ContentSelectorWrapper from '../editor/ContentSelectorWrapper.svelte';
+import ContentSelector from '../editor/ContentSelector.svelte';
 import MarkdownRenderer from './MarkdownRenderer.svelte';
 
 export let dictionaryKey: string;
@@ -10,8 +10,8 @@ export let value: string;
 $: overrides = { ...$$restProps };
 </script>
 
-<ContentSelectorWrapper {dictionaryKey} {keyPath}>
+<ContentSelector {dictionaryKey} {keyPath}>
   <MarkdownRenderer {value} {overrides} />
-</ContentSelectorWrapper>
+</ContentSelector>
 
 

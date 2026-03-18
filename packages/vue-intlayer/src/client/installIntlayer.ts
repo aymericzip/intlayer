@@ -1,8 +1,8 @@
 import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import type { Locale } from '@intlayer/types/allLocales';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { type App, type Ref, readonly, ref } from 'vue';
-import { installIntlayerEditor } from '../editor';
+import { useEditor } from '../editor/useEditor';
 
 export const INTLAYER_SYMBOL = Symbol('intlayer');
 
@@ -74,7 +74,7 @@ export const installIntlayer = (
 
   app.provide(INTLAYER_SYMBOL, client);
 
-  installIntlayerEditor(app, client);
+  useEditor(app);
 
   return app;
 };

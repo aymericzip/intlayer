@@ -1,7 +1,8 @@
+import configuration from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { useEditor } from '../editor/useEditor';
-// Assuming setIntlayerContext exports a specific key or symbol
 import { setIntlayerContext } from './intlayerContext';
+import { intlayerStore } from './intlayerStore';
 
 /**
  * Setups Intlayer in your Svelte application.
@@ -20,28 +21,30 @@ import { setIntlayerContext } from './intlayerContext';
  * </script>
  * ```
  */
-export const setupIntlayer = (initialLocale: LocalesValues) => {
-  // 1. Initialize your side effects
-  // Note: If these need to run only in the browser, wrap them in $effect or onMount
-  // inside your side-effect logic if they aren't already safe.
+export const setupIntlayer = (initialLocale?: LocalesValues) => {
   useEditor();
 
-  // 2. Create Reactive State (Svelte 5)
+  // Create Reactive State (Svelte 5)
   // We make the locale a "rune" so updates propagate
   let locale = $state(initialLocale);
 
-  // 3. Define the Context Object
+  // Keep intlayerStore in sync so useEditor can subscribe to it
+  if (initialLocale) {
+    intlayerStore.setLocale(initialLocale);
+  }
+
+  // Define the Context Object
   const contextValue = {
     get locale() {
-      return locale;
+      return locale ?? configuration.internationalization.defaultLocale;
     },
     setLocale: (newLocale: LocalesValues) => {
       locale = newLocale;
+      intlayerStore.setLocale(newLocale);
     },
   };
 
-  // 4. Set the Context
-  // setIntlayerContext internal logic usually wraps setContext(KEY, value)
+  // Set the Context
   setIntlayerContext(contextValue);
 
   // Return the state if you need it immediately in the layout

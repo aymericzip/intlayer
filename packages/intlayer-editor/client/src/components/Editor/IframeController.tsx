@@ -5,9 +5,8 @@ import {
   useConfiguration,
   useCrossURLPathState,
   useEditorEnabled,
-  useGetEditorEnabledState,
+  useEditorPingClient,
   useIframeClickMerger,
-  usePostEditorEnabledState,
 } from '@intlayer/editor-react';
 import { type FC, type RefObject, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -20,19 +19,11 @@ export const IframeController: FC<{
   applicationPath: string;
 }> = ({ iframeRef, applicationPath }) => {
   const content = useIntlayer('iframe-controller');
-  const { editor } = useConfiguration();
+  const { editor } = useConfiguration() ?? {};
 
-  // Post - Allow to set the editor enabled state on the client side
-  const postEditorEnabled = usePostEditorEnabledState();
-
-  // Enable the editor depending of the configuration
-  const enableEditor = () => postEditorEnabled(editor.enabled);
-
-  // State received from the client
+  // Enabled state driven by the new CLIENT_READY → EDITOR_ACTIVATE handshake
   const { enabled } = useEditorEnabled();
-
-  // Listen if the client ask if the editor is connected and send enable state
-  useGetEditorEnabledState(enableEditor);
+  const pingClient = useEditorPingClient();
 
   useEditedContentPersistence();
   useIframeClickMerger();
@@ -57,7 +48,7 @@ export const IframeController: FC<{
     window.history.replaceState({}, '', iframePath);
   }, [iframePath]);
 
-  if (!editor.applicationURL) {
+  if (!editor?.applicationURL) {
     return (
       <Container className="max-w-xl" padding="xl" roundedSize="2xl">
         <NoApplicationURLView />
@@ -76,14 +67,13 @@ export const IframeController: FC<{
         ref={iframeRef}
         onLoad={() => {
           setLoading(false);
-          enableEditor();
         }}
       />
       {!enabled && (
         <div className="fixed right-4 bottom-4">
           <Button
             label={content.enableEditor.value}
-            onClick={enableEditor}
+            onClick={pingClient}
             color="text"
           >
             {content.enableEditor}

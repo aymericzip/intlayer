@@ -100,7 +100,7 @@ export const usePostEditedContentState = <S,>(
   }, [manager, onEventTriggered]);
 };
 
-export const useGetEditedContentState = <S,>() => {
+export const useGetEditedContentState = () => {
   const manager = useEditorStateManager();
   return () => {
     manager?.messenger.send('INTLAYER_EDITED_CONTENT_CHANGED/get');

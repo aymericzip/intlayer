@@ -3,11 +3,10 @@ import LocaleSwitcher from '@components/LocaleSwitcher.vue';
 import RouterLink from '@components/RouterLink.vue';
 import { useI18nHTMLAttributes } from '@composables/useI18nHTMLAttributes';
 import { Suspense } from 'vue';
-import { useEditor, useRewriteURL } from 'vue-intlayer';
+import { useRewriteURL } from 'vue-intlayer';
 
 // Apply HTML language attributes based on current locale
 useI18nHTMLAttributes();
-useEditor();
 useRewriteURL();
 </script>
 

@@ -1,5 +1,8 @@
 import { css, html, LitElement } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
+import { defineIntlayerContentSelectorWrapper } from './ContentSelectorWrapper';
+import { defineIntlayerEditedContent } from './EditedContent';
+import { defineIntlayerEditorElement } from './IntlayerEditor';
 
 const DEFAULT_PRESS_DURATION = 250;
 
@@ -149,9 +152,9 @@ export class IntlayerContentSelectorElement extends LitElement {
 }
 
 /**
- * Register the <intlayer-content-selector> custom element.
+ * Register all Intlayer custom elements.
  * Call this once at application startup (inside IntlayerEditorProvider or similar).
- * Safe to call multiple times — only registers if not already defined.
+ * Safe to call multiple times — only registers elements that are not yet defined.
  */
 export const defineIntlayerElements = (): void => {
   if (typeof customElements === 'undefined') return;
@@ -161,4 +164,7 @@ export const defineIntlayerElements = (): void => {
       IntlayerContentSelectorElement
     );
   }
+  defineIntlayerContentSelectorWrapper();
+  defineIntlayerEditedContent();
+  defineIntlayerEditorElement();
 };

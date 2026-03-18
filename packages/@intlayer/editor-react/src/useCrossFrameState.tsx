@@ -1,7 +1,7 @@
 'use client';
 
+import type { MessageKey } from '@intlayer/editor';
 import { CrossFrameStateManager } from '@intlayer/editor';
-import type { MessageKey } from '@intlayer/types/messageKey';
 import {
   type Dispatch,
   type SetStateAction,
@@ -38,11 +38,15 @@ export const useCrossFrameState = <S,>(
 
   useEffect(() => {
     const { emit = true, receive = true } = options ?? {};
-    const stateManager = new CrossFrameStateManager<S>(key, manager.messenger, {
-      emit,
-      receive,
-      initialValue: resolvedInitial,
-    });
+    const stateManager = new CrossFrameStateManager<S>(
+      key,
+      manager?.messenger,
+      {
+        emit,
+        receive,
+        initialValue: resolvedInitial,
+      }
+    );
     stateManagerRef.current = stateManager;
 
     const handler = (e: Event) => {
@@ -58,8 +62,7 @@ export const useCrossFrameState = <S,>(
       stateManager.stop();
       stateManagerRef.current = null;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [key, manager.messenger, options?.emit, options?.receive]);
+  }, [key, manager?.messenger, options?.emit, options?.receive]);
 
   const setValue: Dispatch<SetStateAction<S>> = (valueOrUpdater) => {
     setValueState((prev) => {

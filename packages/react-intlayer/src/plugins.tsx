@@ -29,8 +29,7 @@ import {
   type ReactElement,
   type ReactNode,
 } from 'react';
-import { ContentSelectorRenderer } from './editor';
-import { EditedContentRenderer } from './editor/useEditedContentRenderer';
+import { ContentSelector } from './editor/ContentSelector';
 import { HTMLRendererPlugin } from './html';
 import type { HTMLComponents } from './html/HTMLComponentTypes';
 import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
@@ -63,7 +62,7 @@ export const intlayerNodePlugins: Plugins = {
       ...rest,
       value: rest.children,
       children: configuration?.editor.enabled ? (
-        <EditedContentRenderer {...rest}>{rest.children}</EditedContentRenderer>
+        <ContentSelector {...rest}>{rest.children}</ContentSelector>
       ) : (
         rest.children
       ),
@@ -100,9 +99,7 @@ export const reactNodePlugins: Plugins = {
       ...rest,
       value: '[[react-element]]',
       children: configuration?.editor.enabled ? (
-        <ContentSelectorRenderer {...rest}>
-          {renderReactElement(node)}
-        </ContentSelectorRenderer>
+        <ContentSelector {...rest}>{renderReactElement(node)}</ContentSelector>
       ) : (
         renderReactElement(node)
       ),
@@ -266,14 +263,14 @@ export const markdownStringPlugin: Plugins = {
           ...props,
           value: metadataNode,
           children: (
-            <ContentSelectorRenderer {...rest}>
+            <ContentSelector {...rest}>
               <MarkdownMetadataRenderer
                 {...rest}
                 metadataKeyPath={props.keyPath}
               >
                 {node}
               </MarkdownMetadataRenderer>
-            </ContentSelectorRenderer>
+            </ContentSelector>
           ),
         }),
     };
@@ -290,11 +287,11 @@ export const markdownStringPlugin: Plugins = {
         ...props,
         value: node,
         children: (
-          <ContentSelectorRenderer {...rest}>
+          <ContentSelector {...rest}>
             <MarkdownRendererPlugin {...rest} components={components}>
               {node}
             </MarkdownRendererPlugin>
-          </ContentSelectorRenderer>
+          </ContentSelector>
         ),
         additionalProps: {
           metadata: metadataNodes,

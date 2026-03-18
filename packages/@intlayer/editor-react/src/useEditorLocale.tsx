@@ -15,6 +15,7 @@ export const useEditorLocale = (): Locale | undefined => {
 
     const handler = (e: Event) => setLocale((e as CustomEvent<Locale>).detail);
     manager.currentLocale.addEventListener('change', handler);
+
     return () => manager.currentLocale.removeEventListener('change', handler);
   }, [manager]);
 

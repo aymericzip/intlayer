@@ -7,7 +7,6 @@ declare module '@intlayer/core/interpreter' {
 }
 
 export * from './client';
-export * from './editor';
 export * from './getDictionary';
 export * from './getIntlayer';
 export * from './markdown';
