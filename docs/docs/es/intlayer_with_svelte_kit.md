@@ -494,14 +494,9 @@ export const getLocale = (event: RequestEvent): Locale => {
 
 Si la localidad no está configurada, queremos devolver un error 404. Para facilitarlo, podemos crear una función `match` para verificar si la localidad es válida:
 
-```ts fileName="/src/params/locale.ts"
-import { configuration, type Locale } from "intlayer";
-
-export const match = (
-  param: Locale = configuration.internationalization.defaultLocale
-): boolean => {
-  return configuration.internationalization.locales.includes(param);
-};
+```ts fileName="/src/params/locale.ts"import { defaultLocale, locales, type Locale } from "intlayer";
+export const match = (param: Locale = defaultLocale): boolean =>
+  locales.includes(param);
 ```
 
 > **Nota:** Asegúrate de que tu `src/app.d.ts` incluya la definición de la localidad:
@@ -540,15 +535,13 @@ Luego, crea una nueva página y layout bajo el grupo `[[locale=locale]]`:
 
 ```ts fileName="src/routes/[[locale=locale]]/+layout.ts"
 import type { Load } from "@sveltejs/kit";
-import { configuration, type Locale } from "intlayer";
+import { defaultLocale, type Locale } from "intlayer";
 
 export const prerender = true;
 
 // Usa el tipo genérico Load
 export const load: Load = ({ params }) => {
-  const locale: Locale =
-    (params.locale as Locale) ??
-    configuration.internationalization.defaultLocale;
+  const locale: Locale = (params.locale as Locale) ?? defaultLocale;
 
   return {
     locale,

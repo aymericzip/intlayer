@@ -323,14 +323,9 @@ export const getLocale = (event: RequestEvent): Locale => {
 
 Якщо локаль не налаштована, ми хочемо повернути помилку 404. Щоб спростити це, ми можемо створити функцію `match`, яка перевіряє, чи є локаль валідною:
 
-```ts fileName="/src/params/locale.ts"
-import { configuration, type Locale } from "intlayer";
-
-export const match = (
-  param: Locale = configuration.internationalization.defaultLocale
-): boolean => {
-  return configuration.internationalization.locales.includes(param);
-};
+```ts fileName="/src/params/locale.ts"import { defaultLocale, locales, type Locale } from "intlayer";
+export const match = (param: Locale = defaultLocale): boolean =>
+  locales.includes(param);
 ```
 
 > **Примітка:** Переконайтеся, що у вашому `src/app.d.ts` міститься визначення локалі:
@@ -369,15 +364,13 @@ export const match = (
 
 ```ts fileName="src/routes/[[locale=locale]]/+layout.ts"
 import type { Load } from "@sveltejs/kit";
-import { configuration, type Locale } from "intlayer";
+import { defaultLocale, type Locale } from "intlayer";
 
 export const prerender = true;
 
 // Використовуйте загальний тип Load
 export const load: Load = ({ params }) => {
-  const locale: Locale =
-    (params.locale as Locale) ??
-    configuration.internationalization.defaultLocale;
+  const locale: Locale = (params.locale as Locale) ?? defaultLocale;
 
   return {
     locale,

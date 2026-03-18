@@ -494,14 +494,9 @@ export const getLocale = (event: RequestEvent): Locale => {
 
 إذا لم يتم تكوين اللغة، نريد إرجاع خطأ 404. لجعل الأمر أسهل، يمكننا إنشاء دالة `match` للتحقق مما إذا كانت اللغة صالحة:
 
-```ts fileName="/src/params/locale.ts"
-import { configuration, type Locale } from "intlayer";
-
-export const match = (
-  param: Locale = configuration.internationalization.defaultLocale
-): boolean => {
-  return configuration.internationalization.locales.includes(param);
-};
+```ts fileName="/src/params/locale.ts"import { defaultLocale, locales, type Locale } from "intlayer";
+export const match = (param: Locale = defaultLocale): boolean =>
+  locales.includes(param);
 ```
 
 > **ملاحظة:** تأكد من أن ملف `src/app.d.ts` الخاص بك يتضمن تعريف اللغة:
@@ -540,15 +535,13 @@ export const match = (
 
 ```ts fileName="src/routes/[[locale=locale]]/+layout.ts"
 import type { Load } from "@sveltejs/kit";
-import { configuration, type Locale } from "intlayer";
+import { defaultLocale, type Locale } from "intlayer";
 
 export const prerender = true;
 
 // استخدم النوع العام Load
 export const load: Load = ({ params }) => {
-  const locale: Locale =
-    (params.locale as Locale) ??
-    configuration.internationalization.defaultLocale;
+  const locale: Locale = (params.locale as Locale) ?? defaultLocale;
 
   return {
     locale,

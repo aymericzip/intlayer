@@ -494,14 +494,9 @@ export const getLocale = (event: RequestEvent): Locale => {
 
 Eğer yerel ayar yapılandırılmamışsa, 404 hatası döndürmek isteriz. Bunu kolaylaştırmak için, yerel ayarın geçerli olup olmadığını kontrol eden bir `match` fonksiyonu oluşturabiliriz:
 
-```ts fileName="/src/params/locale.ts"
-import { configuration, type Locale } from "intlayer";
-
-export const match = (
-  param: Locale = configuration.internationalization.defaultLocale
-): boolean => {
-  return configuration.internationalization.locales.includes(param);
-};
+```ts fileName="/src/params/locale.ts"import { defaultLocale, locales, type Locale } from "intlayer";
+export const match = (param: Locale = defaultLocale): boolean =>
+  locales.includes(param);
 ```
 
 > **Not:** `src/app.d.ts` dosyanızın yerel ayar tanımını içerdiğinden emin olun:
@@ -540,15 +535,13 @@ Sonra, `[[locale=locale]]` grubu altında yeni bir sayfa ve layout oluşturun:
 
 ```ts fileName="src/routes/[[locale=locale]]/+layout.ts"
 import type { Load } from "@sveltejs/kit";
-import { configuration, type Locale } from "intlayer";
+import { defaultLocale, type Locale } from "intlayer";
 
 export const prerender = true;
 
 // Genel Load tipini kullan
 export const load: Load = ({ params }) => {
-  const locale: Locale =
-    (params.locale as Locale) ??
-    configuration.internationalization.defaultLocale;
+  const locale: Locale = (params.locale as Locale) ?? defaultLocale;
 
   return {
     locale,

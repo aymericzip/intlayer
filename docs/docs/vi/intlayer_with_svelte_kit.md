@@ -494,14 +494,9 @@ export const getLocale = (event: RequestEvent): Locale => {
 
 Nếu locale chưa được cấu hình, chúng ta muốn trả về lỗi 404. Để dễ dàng hơn, ta có thể tạo một hàm `match` để kiểm tra xem locale có hợp lệ hay không:
 
-```ts fileName="/src/params/locale.ts"
-import { configuration, type Locale } from "intlayer";
-
-export const match = (
-  param: Locale = configuration.internationalization.defaultLocale
-): boolean => {
-  return configuration.internationalization.locales.includes(param);
-};
+```ts fileName="/src/params/locale.ts"import { defaultLocale, locales, type Locale } from "intlayer";
+export const match = (param: Locale = defaultLocale): boolean =>
+  locales.includes(param);
 ```
 
 > **Lưu ý:** Đảm bảo rằng file `src/app.d.ts` của bạn bao gồm định nghĩa locale:
@@ -540,15 +535,13 @@ Sau đó, tạo một trang và layout mới trong nhóm `[[locale=locale]]`:
 
 ```ts fileName="src/routes/[[locale=locale]]/+layout.ts"
 import type { Load } from "@sveltejs/kit";
-import { configuration, type Locale } from "intlayer";
+import { defaultLocale, type Locale } from "intlayer";
 
 export const prerender = true;
 
 // Sử dụng kiểu Load chung
 export const load: Load = ({ params }) => {
-  const locale: Locale =
-    (params.locale as Locale) ??
-    configuration.internationalization.defaultLocale;
+  const locale: Locale = (params.locale as Locale) ?? defaultLocale;
 
   return {
     locale,

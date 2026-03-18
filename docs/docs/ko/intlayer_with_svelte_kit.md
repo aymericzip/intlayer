@@ -494,14 +494,9 @@ export const getLocale = (event: RequestEvent): Locale => {
 
 로케일이 구성되지 않은 경우 404 오류를 반환하고자 합니다. 이를 쉽게 하기 위해 로케일이 유효한지 확인하는 `match` 함수를 만들 수 있습니다:
 
-```ts fileName="/src/params/locale.ts"
-import { configuration, type Locale } from "intlayer";
-
-export const match = (
-  param: Locale = configuration.internationalization.defaultLocale
-): boolean => {
-  return configuration.internationalization.locales.includes(param);
-};
+```ts fileName="/src/params/locale.ts"import { defaultLocale, locales, type Locale } from "intlayer";
+export const match = (param: Locale = defaultLocale): boolean =>
+  locales.includes(param);
 ```
 
 > **참고:** `src/app.d.ts` 파일에 로케일 정의가 포함되어 있는지 확인하세요:
@@ -540,15 +535,13 @@ export const match = (
 
 ```ts fileName="src/routes/[[locale=locale]]/+layout.ts"
 import type { Load } from "@sveltejs/kit";
-import { configuration, type Locale } from "intlayer";
+import { defaultLocale, type Locale } from "intlayer";
 
 export const prerender = true;
 
 // 제네릭 Load 타입 사용
 export const load: Load = ({ params }) => {
-  const locale: Locale =
-    (params.locale as Locale) ??
-    configuration.internationalization.defaultLocale;
+  const locale: Locale = (params.locale as Locale) ?? defaultLocale;
 
   return {
     locale,

@@ -323,13 +323,10 @@ export const getLocale = (event: RequestEvent): Locale => {
 If the locale is not configured, we want to return a 404 error. To make it easier, we can create a `match` function to check if the locale is valid:
 
 ```ts fileName="/src/params/locale.ts"
-import { configuration, type Locale } from "intlayer";
+import { defaultLocale, locales, type Locale } from "intlayer";
 
-export const match = (
-  param: Locale = configuration.internationalization.defaultLocale
-): boolean => {
-  return configuration.internationalization.locales.includes(param);
-};
+export const match = (param: Locale = defaultLocale): boolean =>
+  locales.includes(param);
 ```
 
 > **Note:** Ensure your `src/app.d.ts` includes the locale definition:
@@ -368,15 +365,13 @@ Then, create a new page and layout under the `[[locale=locale]]` group:
 
 ```ts fileName="src/routes/[[locale=locale]]/+layout.ts"
 import type { Load } from "@sveltejs/kit";
-import { configuration, type Locale } from "intlayer";
+import { defaultLocale, type Locale } from "intlayer";
 
 export const prerender = true;
 
 // Use the generic Load type
 export const load: Load = ({ params }) => {
-  const locale: Locale =
-    (params.locale as Locale) ??
-    configuration.internationalization.defaultLocale;
+  const locale: Locale = (params.locale as Locale) ?? defaultLocale;
 
   return {
     locale,
