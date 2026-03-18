@@ -1,3 +1,5 @@
+'use client';
+
 import configuration from '@intlayer/config/built';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';

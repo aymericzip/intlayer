@@ -1,3 +1,5 @@
+'use client';
+
 import type { FC, HTMLAttributes, JSX, ReactNode } from 'react';
 import type { HTMLComponents } from '../html/HTMLComponentTypes';
 import {
