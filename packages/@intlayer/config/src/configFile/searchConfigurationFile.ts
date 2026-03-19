@@ -19,6 +19,9 @@ type SearchConfigurationFileResult = {
   numCustomConfiguration: number;
 };
 
+// CACHE: Store results to avoid re-walking the file system for the same path
+const rootPathCache = new Map<string, SearchConfigurationFileResult>();
+
 /**
  * Search for the configuration file in the given path
  *
@@ -35,6 +38,11 @@ export const searchConfigurationFile = (
 ): SearchConfigurationFileResult => {
   let configurationFilePath: string | undefined;
   let numCustomConfiguration = 0;
+
+  // OPTIMIZATION: Return cached result immediately
+  if (rootPathCache.has(startDir)) {
+    return rootPathCache.get(startDir) as SearchConfigurationFileResult;
+  }
 
   const { baseDir } = getPackageJsonPath(startDir);
 
