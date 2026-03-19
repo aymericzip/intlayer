@@ -7,8 +7,8 @@ import {
 } from '@intlayer/core/interpreter';
 import { localeDetector } from '@intlayer/core/localization';
 import { getLocaleFromStorage } from '@intlayer/core/utils';
-import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import type { Locale } from '@intlayer/types/allLocales';
+import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import { createNamespace } from 'cls-hooked';
 import type { Context, MiddlewareHandler } from 'hono';
 import { getCookie } from 'hono/cookie';
@@ -87,11 +87,12 @@ export const translateFunction =
  * ```
  */
 export const intlayer =
-  (): MiddlewareHandler => async (c: Context, next: () => Promise<void>) => {
+  (): MiddlewareHandler =>
+  async (context: Context, next: () => Promise<void>) => {
     // Detect if locale is set by intlayer frontend lib in the headers
-    const localeFromStorage = getStorageLocale(c);
+    const localeFromStorage = getStorageLocale(context);
 
-    const negotiatorHeaders: Record<string, string> = c.req.header();
+    const negotiatorHeaders: Record<string, string> = context.req.header();
 
     const localeDetected = localeDetector(
       negotiatorHeaders,
@@ -101,12 +102,12 @@ export const intlayer =
 
     const locale = localeFromStorage ?? localeDetected;
 
-    c.set('locale_storage', localeFromStorage);
-    c.set('locale_detected', localeDetected);
-    c.set('locale', locale);
-    c.set('defaultLocale', internationalization.defaultLocale);
+    context.set('locale_storage', localeFromStorage);
+    context.set('locale_detected', localeDetected);
+    context.set('locale', locale);
+    context.set('defaultLocale', internationalization.defaultLocale);
 
-    const t = translateFunction(c);
+    const t = translateFunction(context);
 
     const getIntlayer: typeof getIntlayerFunction = (
       key: Parameters<typeof getIntlayerFunction>[0],
@@ -120,9 +121,9 @@ export const intlayer =
       ...props: any[]
     ) => getDictionaryFunction(key, localeArg, ...props);
 
-    c.set('t', t);
-    c.set('getIntlayer', getIntlayer);
-    c.set('getDictionary', getDictionary);
+    context.set('t', t);
+    context.set('getIntlayer', getIntlayer);
+    context.set('getDictionary', getDictionary);
 
     return new Promise<void>((resolve) => {
       appNamespace.run(async () => {
