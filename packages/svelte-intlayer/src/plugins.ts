@@ -26,7 +26,9 @@ import type {
 import { NodeType } from '@intlayer/types/nodeType';
 import { default as ContentSelector } from './editor/ContentSelector.svelte';
 import type { HTMLComponents } from './html/types';
+import MarkdownMetadataRenderer from './markdown/MarkdownMetadataRenderer.svelte';
 import MarkdownMetadataWithSelector from './markdown/MarkdownMetadataWithSelector.svelte';
+import MarkdownRenderer from './markdown/MarkdownRenderer.svelte';
 import MarkdownWithSelector from './markdown/MarkdownWithSelector.svelte';
 import { svelteHtmlRuntime } from './markdown/runtime';
 import { type IntlayerNode, renderIntlayerNode } from './renderIntlayerNode';
@@ -247,7 +249,9 @@ export const markdownStringPlugin: Plugins = {
       transform: (metadataNode, props) =>
         renderIntlayerNode({
           value: metadataNode,
-          component: MarkdownMetadataWithSelector,
+          component: configuration?.editor.enabled
+            ? MarkdownMetadataWithSelector
+            : MarkdownMetadataRenderer,
           props: {
             ...rest,
             value: node, // The full markdown string
@@ -267,7 +271,9 @@ export const markdownStringPlugin: Plugins = {
     const render = (components?: any) => {
       const nodeResult = renderIntlayerNode({
         value: node,
-        component: MarkdownWithSelector,
+        component: configuration?.editor.enabled
+          ? MarkdownWithSelector
+          : MarkdownRenderer,
         props: {
           ...rest,
           value: node,

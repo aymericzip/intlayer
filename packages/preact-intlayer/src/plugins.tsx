@@ -279,7 +279,7 @@ export const markdownStringPlugin: Plugins = {
         renderIntlayerNode({
           ...props,
           value: metadataNode,
-          children: (
+          children: configuration?.editor.enabled ? (
             <ContentSelector {...rest}>
               <MarkdownMetadataRenderer
                 {...rest}
@@ -288,6 +288,10 @@ export const markdownStringPlugin: Plugins = {
                 {node}
               </MarkdownMetadataRenderer>
             </ContentSelector>
+          ) : (
+            <MarkdownMetadataRenderer {...rest} metadataKeyPath={props.keyPath}>
+              {node}
+            </MarkdownMetadataRenderer>
           ),
         }),
     };
@@ -303,12 +307,16 @@ export const markdownStringPlugin: Plugins = {
       renderIntlayerNode({
         ...props,
         value: node,
-        children: (
+        children: configuration?.editor.enabled ? (
           <ContentSelector {...rest}>
             <MarkdownRendererPlugin {...rest} components={components}>
               {node}
             </MarkdownRendererPlugin>
           </ContentSelector>
+        ) : (
+          <MarkdownRendererPlugin {...rest} components={components}>
+            {node}
+          </MarkdownRendererPlugin>
         ),
         additionalProps: {
           metadata: metadataNodes,

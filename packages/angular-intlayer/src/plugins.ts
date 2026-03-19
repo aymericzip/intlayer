@@ -138,18 +138,23 @@ export const markdownStringPlugin: Plugins = {
       renderIntlayerNode({
         ...rest,
         value: node,
-        children: () => ({
-          component: ContentSelectorWrapperComponent,
-          props: {
-            dictionaryKey: rest.dictionaryKey,
-            keyPath: rest.keyPath,
-            ...components,
-          },
-          children: () => {
-            const { renderMarkdown } = useMarkdown();
-            return renderMarkdown(node, components);
-          },
-        }),
+        children: configuration?.editor.enabled
+          ? () => ({
+              component: ContentSelectorWrapperComponent,
+              props: {
+                dictionaryKey: rest.dictionaryKey,
+                keyPath: rest.keyPath,
+                ...components,
+              },
+              children: () => {
+                const { renderMarkdown } = useMarkdown();
+                return renderMarkdown(node, components);
+              },
+            })
+          : () => {
+              const { renderMarkdown } = useMarkdown();
+              return renderMarkdown(node, components);
+            },
         additionalProps: {
           metadata: metadataNodes,
         },
@@ -278,15 +283,17 @@ export const htmlPlugin: Plugins = {
       renderIntlayerNode({
         ...rest,
         value: html,
-        children: () => ({
-          component: ContentSelectorWrapperComponent,
-          props: {
-            dictionaryKey: rest.dictionaryKey,
-            keyPath: rest.keyPath,
-            ...userComponents,
-          },
-          children: html,
-        }),
+        children: configuration?.editor.enabled
+          ? () => ({
+              component: ContentSelectorWrapperComponent,
+              props: {
+                dictionaryKey: rest.dictionaryKey,
+                keyPath: rest.keyPath,
+                ...userComponents,
+              },
+              children: html,
+            })
+          : html,
       });
 
     const createProxy = (element: any, components?: any) =>

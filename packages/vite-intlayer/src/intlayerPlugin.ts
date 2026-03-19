@@ -8,7 +8,8 @@ import {
 } from '@intlayer/config/node';
 import { getAlias } from '@intlayer/config/utils';
 // @ts-ignore - Fix error Module '"vite"' has no exported member
-import type { PluginOption } from 'vite';
+import { mergeConfig, type PluginOption } from 'vite';
+import { intlayerEditorPlugin } from './intlayerEditorPlugin';
 import { intlayerOptimize } from './intlayerOptimizePlugin';
 
 /**
@@ -72,42 +73,21 @@ export const intlayerPlugin = (
           });
         }
 
-        // Update Vite's resolve alias
-        config.resolve = {
-          ...config.resolve,
-          alias: {
-            ...config.resolve?.alias,
-            ...alias,
+        // mergeConfig handles both array and record alias formats,
+        // and correctly appends to optimizeDeps.exclude / ssr.noExternal
+        return mergeConfig(config, {
+          resolve: {
+            alias,
           },
-        };
-
-        config.optimizeDeps = {
-          ...config.optimizeDeps,
-          // Exclude alias entry points since they're local files, not npm packages
-          exclude: [...(config.optimizeDeps?.exclude ?? []), ...aliasPackages],
-        };
-
-        // Update Vite's SSR Externalization
-        // We must ensure that intlayer packages are processed by Vite (bundled)
-        // so that the aliases defined above are actually applied
-        if (config.ssr?.noExternal !== true) {
-          const currentNoExternal = Array.isArray(config.ssr?.noExternal)
-            ? config.ssr.noExternal
-            : config.ssr?.noExternal
-              ? [config.ssr.noExternal]
-              : [];
-
-          config.ssr = {
-            ...config.ssr,
-            noExternal: [
-              ...(currentNoExternal as (string | RegExp)[]),
-              // Regex to bundle all intlayer related packages
-              /(^@intlayer\/|intlayer$)/,
-            ],
-          };
-        }
-
-        return config;
+          optimizeDeps: {
+            // Exclude alias entry points since they're local files, not npm packages
+            exclude: aliasPackages,
+          },
+          ssr: {
+            // Ensure intlayer packages are bundled so aliases are applied
+            noExternal: [/(^@intlayer\/|intlayer$)/],
+          },
+        });
       },
 
       configureServer: async (server) => {
@@ -118,6 +98,8 @@ export const intlayerPlugin = (
       },
     },
   ];
+
+  plugins.push(intlayerEditorPlugin(intlayerConfig));
 
   // Add Babel transform plugin if enabled
   plugins.push(intlayerOptimize(intlayerConfig));

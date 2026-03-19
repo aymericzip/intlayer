@@ -52,7 +52,7 @@ const startEditor = (locale: Ref<Locale> | undefined): (() => void) => {
  *   lifecycle hooks (use from a component's `setup`).
  */
 export const useEditor = (app?: App): void => {
-  if (!isEnabled) return;
+  if (process.env.INTLAYER_EDITOR_ENABLED === 'false' || !isEnabled) return;
 
   if (app) {
     let stopEditor: (() => void) | null = null;

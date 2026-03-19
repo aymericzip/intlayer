@@ -10,7 +10,7 @@ import type { Locale } from '@intlayer/types/allLocales';
 import { INTLAYER_TOKEN, type IntlayerProvider } from '../client';
 
 export const useEditor = () => {
-  if (!isEnabled) return;
+  if (process.env.INTLAYER_EDITOR_ENABLED === 'false' || !isEnabled) return;
 
   const destroyRef = inject(DestroyRef, { optional: true });
   const client = inject<IntlayerProvider>(INTLAYER_TOKEN, {

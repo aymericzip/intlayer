@@ -321,7 +321,12 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
   ];
 
   const getNewConfig = (): Partial<NextConfig> => {
-    let config: Partial<NextConfig> = {};
+    let config: Partial<NextConfig> = {
+      env: {
+        INTLAYER_EDITOR_ENABLED:
+          intlayerConfig.editor?.enabled === false ? 'false' : 'true',
+      },
+    };
 
     if (isGteNext15) {
       config = {

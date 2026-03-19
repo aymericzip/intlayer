@@ -1,9 +1,8 @@
 'use client';
 
-import configuration from '@intlayer/config/built';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import { type FC, lazy, type ReactNode, Suspense } from 'react';
+import type { FC, ReactNode } from 'react';
 import type { HTMLComponents } from '../html/HTMLComponentTypes';
 import {
   type MarkdownProviderOptions,
@@ -31,31 +30,4 @@ export const MarkdownRendererPlugin: FC<MarkdownRendererPluginProps> = (
     ...(context?.components ?? {}),
     ...(components ?? {}),
   });
-};
-
-type MarkdownMetadataRendererProps = MarkdownRendererPluginProps & {
-  metadataKeyPath: KeyPath[];
-};
-
-const DynamicMarkdownMetadataRendererInternal = lazy(() =>
-  import('./MarkdownMetadataRendererInternal').then((module) => ({
-    default: module.MarkdownMetadataRendererInternal,
-  }))
-);
-
-export const MarkdownMetadataRenderer: FC<MarkdownMetadataRendererProps> = (
-  props
-): ReactNode => {
-  const { editor } = configuration ?? {};
-  const isEnabled = editor?.enabled ?? false;
-
-  if (typeof window !== 'undefined' && isEnabled) {
-    return (
-      <Suspense fallback={null}>
-        <DynamicMarkdownMetadataRendererInternal {...props} />
-      </Suspense>
-    );
-  }
-
-  return null;
 };

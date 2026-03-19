@@ -33,7 +33,7 @@ import { ContentSelector } from './editor/ContentSelector';
 import { HTMLRendererPlugin } from './html';
 import type { HTMLComponents } from './html/HTMLComponentTypes';
 import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
-import { MarkdownMetadataRenderer, MarkdownRendererPlugin } from './markdown';
+import { MarkdownRendererPlugin } from './markdown';
 import { renderReactElement } from './reactElement/renderReactElement';
 
 /** ---------------------------------------------
@@ -262,15 +262,10 @@ export const markdownStringPlugin: Plugins = {
         renderIntlayerNode({
           ...props,
           value: metadataNode,
-          children: (
-            <ContentSelector {...rest}>
-              <MarkdownMetadataRenderer
-                {...rest}
-                metadataKeyPath={props.keyPath}
-              >
-                {node}
-              </MarkdownMetadataRenderer>
-            </ContentSelector>
+          children: configuration?.editor.enabled ? (
+            <ContentSelector {...rest}>{node}</ContentSelector>
+          ) : (
+            node
           ),
         }),
     };
@@ -286,12 +281,16 @@ export const markdownStringPlugin: Plugins = {
       renderIntlayerNode({
         ...props,
         value: node,
-        children: (
+        children: configuration.editor.enabled ? (
           <ContentSelector {...rest}>
             <MarkdownRendererPlugin {...rest} components={components}>
               {node}
             </MarkdownRendererPlugin>
           </ContentSelector>
+        ) : (
+          <MarkdownRendererPlugin {...rest} components={components}>
+            {node}
+          </MarkdownRendererPlugin>
         ),
         additionalProps: {
           metadata: metadataNodes,

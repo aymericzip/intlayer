@@ -22,7 +22,12 @@ export const ContentSelector: FunctionalComponent<
   ContentSelectorWrapperProps
 > = ({ children, dictionaryKey, keyPath }) => {
   useEffect(() => {
-    if (!isEnabled || typeof window === 'undefined') return;
+    if (
+      process.env.INTLAYER_EDITOR_ENABLED === 'false' ||
+      !isEnabled ||
+      typeof window === 'undefined'
+    )
+      return;
     import('@intlayer/editor').then(({ defineIntlayerElements }) => {
       defineIntlayerElements();
     });

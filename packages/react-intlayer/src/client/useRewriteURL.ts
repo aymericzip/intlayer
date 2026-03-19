@@ -2,6 +2,7 @@
 
 import configuration from '@intlayer/config/built';
 import { getRewritePath } from '@intlayer/core/localization';
+import type { Locale } from '@intlayer/types/allLocales';
 import { useEffect } from 'react';
 import { useLocale } from './useLocale';
 
@@ -31,7 +32,7 @@ export const useRewriteURL = (): void => {
     if (typeof window === 'undefined' || !rewrite) return;
 
     const pathname = window.location.pathname;
-    const targetPath = getRewritePath(pathname, locale, rewrite);
+    const targetPath = getRewritePath(pathname, locale as Locale, rewrite);
 
     if (targetPath && targetPath !== pathname) {
       window.history.replaceState(
