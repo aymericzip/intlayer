@@ -45,6 +45,7 @@ const cleanConfiguration = (configuration: IntlayerConfig): IntlayerConfig => {
       },
       editor: configuration.editor,
       log: configuration.log,
+      routing: configuration.routing,
       metadata: configuration.metadata,
     } as CustomIntlayerConfig)
   );
