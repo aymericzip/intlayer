@@ -28,7 +28,13 @@ const SwitchThemeSwitcher = dynamic(
 
 const getCleanChoice = (path?: string): string => {
   if (!path) return '';
-  const components = path.split('/');
+  let pathname = path;
+  try {
+    pathname = new URL(path).pathname;
+  } catch {
+    // already a relative path, use as-is
+  }
+  const components = pathname.split('/');
   return components.slice(0, 2).join('/');
 };
 

@@ -15,12 +15,14 @@ import { SwitchThemeSwitcher } from '@/components/SwitchThemeSwitcher';
 
 const getCleanChoice = (path?: string): string => {
   if (!path) return '';
-  const components = path.split('/');
-  // In TanStack Start with locale prefix, path is /en/about
-  // components are ["", "en", "about"]
-  // We want to return "/about" (or "/" for home)
-  if (components.length <= 2) return '/';
-  return `/${components.slice(2).join('/')}`;
+  let pathname = path;
+  try {
+    pathname = new URL(path).pathname;
+  } catch {
+    // already a relative path, use as-is
+  }
+  const components = pathname.split('/');
+  return components.slice(0, 2).join('/');
 };
 
 type NavbarProps = {
