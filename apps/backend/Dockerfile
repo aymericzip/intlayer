@@ -2,7 +2,7 @@
 
 FROM node:22-alpine AS builder
 
-RUN npm install -g bun@1.3.10
+RUN npm install -g bun@1.3.11
 
 # System deps for wget (healthcheck) + headless Chromium (Puppeteer)
 RUN apk add --no-cache \
