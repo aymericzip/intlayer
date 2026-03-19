@@ -2,7 +2,7 @@
 
 import { getHTMLTextDir, getLocaleName } from '@intlayer/core/localization';
 import type { Locale } from '@intlayer/types/allLocales';
-import * as Locales from '@intlayer/types/locales';
+import { ENGLISH } from '@intlayer/types/locales';
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { MoveVertical } from 'lucide-react';
 import { type FC, useCallback, useMemo, useRef, useState } from 'react';
@@ -46,7 +46,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   const multilingualAvailableLocales: MultilingualAvailableLocales[] = useMemo(
     () =>
       localeList.map((localeEl) => {
-        const englishName = getLocaleName(localeEl, Locales.ENGLISH);
+        const englishName = getLocaleName(localeEl, ENGLISH);
         const currentLocaleName = getLocaleName(localeEl, locale);
         const ownLocaleName = getLocaleName(localeEl);
         return {

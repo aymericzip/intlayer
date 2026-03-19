@@ -1,4 +1,43 @@
-import * as Locales from '@intlayer/types/locales';
+import {
+  ARABIC,
+  ARABIC_ALGERIA,
+  ARABIC_BAHRAIN,
+  ARABIC_CHAD,
+  ARABIC_COMOROS,
+  ARABIC_DJIBOUTI,
+  ARABIC_EGYPT,
+  ARABIC_IRAQ,
+  ARABIC_JORDAN,
+  ARABIC_KUWAIT,
+  ARABIC_LEBANON,
+  ARABIC_LIBYA,
+  ARABIC_MAURITANIA,
+  ARABIC_MOROCCO,
+  ARABIC_OMAN,
+  ARABIC_PALESTINE,
+  ARABIC_QATAR,
+  ARABIC_SAUDI_ARABIA,
+  ARABIC_SOMALIA,
+  ARABIC_SUDAN,
+  ARABIC_SYRIA,
+  ARABIC_TUNISIA,
+  ARABIC_UNITED_ARAB_EMIRATES,
+  ARABIC_YEMEN,
+  DIVEHI,
+  DIVEHI_MALDIVES,
+  FARSI,
+  FARSI_IRAN,
+  HEBREW,
+  HEBREW_ISRAEL,
+  PASHTO,
+  PASHTO_AFGHANISTAN,
+  SYRIAC,
+  SYRIAC_SYRIA,
+  URDU,
+  URDU_ISLAMIC_REPUBLIC_OF_PAKISTAN,
+  YIDDISH,
+  YIDDISH_WORLD,
+} from '@intlayer/types/locales';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
 type Dir = 'ltr' | 'rtl' | 'auto';
@@ -19,51 +58,51 @@ type Dir = 'ltr' | 'rtl' | 'auto';
 export const getHTMLTextDir = (locale?: LocalesValues): Dir => {
   switch (locale) {
     // Arabic (uses Arabic script)
-    case Locales.ARABIC:
-    case Locales.ARABIC_UNITED_ARAB_EMIRATES:
-    case Locales.ARABIC_BAHRAIN:
-    case Locales.ARABIC_ALGERIA:
-    case Locales.ARABIC_EGYPT:
-    case Locales.ARABIC_IRAQ:
-    case Locales.ARABIC_JORDAN:
-    case Locales.ARABIC_KUWAIT:
-    case Locales.ARABIC_LEBANON:
-    case Locales.ARABIC_LIBYA:
-    case Locales.ARABIC_MOROCCO:
-    case Locales.ARABIC_OMAN:
-    case Locales.ARABIC_QATAR:
-    case Locales.ARABIC_SAUDI_ARABIA:
-    case Locales.ARABIC_SYRIA:
-    case Locales.ARABIC_TUNISIA:
-    case Locales.ARABIC_YEMEN:
-    case Locales.ARABIC_MAURITANIA:
-    case Locales.ARABIC_PALESTINE:
-    case Locales.ARABIC_SUDAN:
-    case Locales.ARABIC_DJIBOUTI:
-    case Locales.ARABIC_SOMALIA:
-    case Locales.ARABIC_CHAD:
-    case Locales.ARABIC_COMOROS:
+    case ARABIC:
+    case ARABIC_UNITED_ARAB_EMIRATES:
+    case ARABIC_BAHRAIN:
+    case ARABIC_ALGERIA:
+    case ARABIC_EGYPT:
+    case ARABIC_IRAQ:
+    case ARABIC_JORDAN:
+    case ARABIC_KUWAIT:
+    case ARABIC_LEBANON:
+    case ARABIC_LIBYA:
+    case ARABIC_MOROCCO:
+    case ARABIC_OMAN:
+    case ARABIC_QATAR:
+    case ARABIC_SAUDI_ARABIA:
+    case ARABIC_SYRIA:
+    case ARABIC_TUNISIA:
+    case ARABIC_YEMEN:
+    case ARABIC_MAURITANIA:
+    case ARABIC_PALESTINE:
+    case ARABIC_SUDAN:
+    case ARABIC_DJIBOUTI:
+    case ARABIC_SOMALIA:
+    case ARABIC_CHAD:
+    case ARABIC_COMOROS:
     // Hebrew (uses Hebrew script)
-    case Locales.HEBREW:
-    case Locales.HEBREW_ISRAEL:
+    case HEBREW:
+    case HEBREW_ISRAEL:
     // Farsi/Persian (uses Arabic script)
-    case Locales.FARSI:
-    case Locales.FARSI_IRAN:
+    case FARSI:
+    case FARSI_IRAN:
     // Urdu (uses Arabic script)
-    case Locales.URDU:
-    case Locales.URDU_ISLAMIC_REPUBLIC_OF_PAKISTAN:
+    case URDU:
+    case URDU_ISLAMIC_REPUBLIC_OF_PAKISTAN:
     // Pashto (uses Arabic script)
-    case Locales.PASHTO:
-    case Locales.PASHTO_AFGHANISTAN:
+    case PASHTO:
+    case PASHTO_AFGHANISTAN:
     // Syriac (uses Syriac script)
-    case Locales.SYRIAC:
-    case Locales.SYRIAC_SYRIA:
+    case SYRIAC:
+    case SYRIAC_SYRIA:
     // Divehi (uses Thaana script)
-    case Locales.DIVEHI:
-    case Locales.DIVEHI_MALDIVES:
+    case DIVEHI:
+    case DIVEHI_MALDIVES:
     // Yiddish (uses Hebrew script)
-    case Locales.YIDDISH:
-    case Locales.YIDDISH_WORLD:
+    case YIDDISH:
+    case YIDDISH_WORLD:
       return 'rtl';
 
     default:

@@ -2,7 +2,7 @@ import configuration from '@intlayer/config/built';
 import { localeDetector } from '@intlayer/core/localization';
 import { getLocaleFromStorage } from '@intlayer/core/utils';
 import type { Locale } from '@intlayer/types/allLocales';
-import * as Locales from '@intlayer/types/locales';
+import { ENGLISH } from '@intlayer/types/locales';
 
 export enum LanguageDetector {
   Querystring = 'querystring',
@@ -152,7 +152,7 @@ const getFirstAvailableLocale = (
     }
   }
 
-  return internationalization?.defaultLocale ?? Locales.ENGLISH;
+  return internationalization?.defaultLocale ?? ENGLISH;
 };
 
 /**

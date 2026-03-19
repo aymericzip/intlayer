@@ -2,7 +2,7 @@ import { relative } from 'node:path';
 import configuration from '@intlayer/config/built';
 import { ANSIColors, colorize, colorizePath } from '@intlayer/config/logger';
 import { getLocaleName } from '@intlayer/core/localization';
-import * as Locales from '@intlayer/types/locales';
+import { ENGLISH } from '@intlayer/types/locales';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
 export const formatPath = (
@@ -25,6 +25,6 @@ export const formatLocale = (
 ) =>
   [locale]
     .flat()
-    .map((locale) => `${getLocaleName(locale, Locales.ENGLISH)} (${locale})`)
+    .map((locale) => `${getLocaleName(locale, ENGLISH)} (${locale})`)
     .map((text) => (color === false ? text : colorize(text, color)))
     .join(`, `);

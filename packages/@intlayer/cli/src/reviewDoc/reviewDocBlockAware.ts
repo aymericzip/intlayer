@@ -19,7 +19,7 @@ import {
 import { retryManager } from '@intlayer/config/utils';
 import { getLocaleName } from '@intlayer/core/localization';
 import type { Locale } from '@intlayer/types/allLocales';
-import * as Locales from '@intlayer/types/locales';
+import { ENGLISH } from '@intlayer/types/locales';
 import { sanitizeChunk, validateTranslation } from '../translateDoc/validation';
 import {
   buildAlignmentPlan,
@@ -134,7 +134,7 @@ export const reviewFileBlockAware = async (
           { role: 'system', content: getFrenchChunkPrompt() },
           {
             role: 'system',
-            content: `The next user message will be the **BLOCK ${colorizeNumber(segmentNumber)} of ${colorizeNumber(segmentsToReview.length)}** that should be translated in ${getLocaleName(locale, Locales.ENGLISH)} (${locale}).`,
+            content: `The next user message will be the **BLOCK ${colorizeNumber(segmentNumber)} of ${colorizeNumber(segmentsToReview.length)}** that should be translated in ${getLocaleName(locale, ENGLISH)} (${locale}).`,
           },
           { role: 'user', content: englishBlock.content },
         ],

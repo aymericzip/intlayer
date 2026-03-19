@@ -12,7 +12,7 @@ import type {
   MarkdownContent,
   MarkdownContentConstructor,
 } from '@intlayer/core/transpiler';
-import type { Dictionary } from '@intlayer/types/dictionary';;
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { NodeType } from '@intlayer/types/nodeType';
 
 /**

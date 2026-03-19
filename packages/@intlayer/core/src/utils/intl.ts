@@ -22,8 +22,8 @@
 //
 // ---------------------------------------------------------------------
 
+import { ENGLISH } from '@intlayer/types/locales';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import * as Locales from '@intlayer/types/locales';
 
 // Helper type that picks just the constructor members off `typeof Intl`.
 // The "capital‑letter" heuristic is 100 % accurate today and keeps the
@@ -72,7 +72,7 @@ const getCacheKey = (
   locales: LocalesValues | undefined,
   options: unknown
 ): string => {
-  const localeKey = locales ? String(locales) : Locales.ENGLISH;
+  const localeKey = locales ? String(locales) : ENGLISH;
 
   if (!options) return localeKey;
 
