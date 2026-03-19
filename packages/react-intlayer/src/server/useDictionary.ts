@@ -1,5 +1,8 @@
-import type { DeclaredLocales, LocalesValues } from '@intlayer/types/module_augmentation';
 import type { Dictionary } from '@intlayer/types/dictionary';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import { getDictionary } from '../getDictionary';
 import { IntlayerServerContext } from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';

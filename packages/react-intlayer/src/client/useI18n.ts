@@ -2,8 +2,13 @@
 
 import { getIntlayer } from '@intlayer/core/interpreter';
 import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
-import type { DeclaredLocales, DictionaryKeys, DictionaryRegistryContent, LocalesValues } from '@intlayer/types/module_augmentation';
 import type { GetSubPath } from '@intlayer/types/dictionary';
+import type {
+  DeclaredLocales,
+  DictionaryKeys,
+  DictionaryRegistryContent,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import { useContext, useMemo } from 'react';
 import type { DeepTransformContent } from '../plugins';
 import { IntlayerClientContext } from './IntlayerProvider';

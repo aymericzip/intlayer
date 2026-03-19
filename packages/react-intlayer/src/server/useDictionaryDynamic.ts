@@ -1,6 +1,10 @@
 import configuration from '@intlayer/config/built';
-import type { DeclaredLocales, LocalesValues, StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import type { Dictionary } from '@intlayer/types/dictionary';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+  StrictModeLocaleMap,
+} from '@intlayer/types/module_augmentation';
 import { IntlayerServerContext } from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';
 import { useDictionary } from './useDictionary';
