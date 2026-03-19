@@ -7,14 +7,8 @@ import {
 } from '@intlayer/babel';
 import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { logConfigDetails } from '@intlayer/chokidar/cli';
-import { buildComponentFilesList } from '@intlayer/chokidar/utils';
-import {
-  ANSIColors,
-  colorize,
-  colorizePath,
-  getAppLogger,
-  x,
-} from '@intlayer/config/logger';
+import { buildComponentFilesList, formatPath } from '@intlayer/chokidar/utils';
+import { ANSIColors, colorize, getAppLogger, x } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,
@@ -40,11 +34,6 @@ export const extract = async (options: ExtractOptions) => {
 
   const { baseDir } = configuration.system;
   const { output } = configuration.compiler;
-
-  const formatPath = (path: string) => {
-    const relativePath = relative(baseDir, path);
-    return colorizePath(relativePath);
-  };
 
   if (!output) {
     appLogger(
