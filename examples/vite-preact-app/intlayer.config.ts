@@ -2,25 +2,30 @@ import { type IntlayerConfig, Locales } from 'intlayer';
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Your other locales
-    ],
+    locales: [Locales.FRENCH, Locales.ENGLISH, Locales.MALAGASY_MADAGASCAR],
     defaultLocale: Locales.ENGLISH,
+    requiredLocales: [Locales.FRENCH, Locales.ENGLISH],
+  },
+  routing: {
+    mode: 'prefix-no-default',
   },
   editor: {
-    enabled: true,
-    applicationURL: 'http://localhost:5173',
-    cmsURL: 'http://localhost:3000',
-    editorURL: 'http://localhost:8000',
-    backendURL: 'http://localhost:3100',
-    clientId: process.env.INTLAYER_CLIENT_ID,
-    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+    enabled: false,
+    applicationURL: 'http://localhost:3000',
   },
-  dictionary: {
-    importMode: 'dynamic',
+  build: {
+    importMode: 'static',
+  },
+  ai: {
+    provider: 'openai',
+    model: 'gpt-5-mini',
+    apiKey: process.env.OPENAI_API_KEY,
+    applicationContext: [''].join('\n'),
+  },
+  compiler: {
+    enabled: true,
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+    saveComponents: false,
   },
 };
 
