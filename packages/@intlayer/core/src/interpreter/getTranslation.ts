@@ -1,4 +1,7 @@
-import type { LocalesValues, StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
+import type {
+  LocalesValues,
+  StrictModeLocaleMap,
+} from '@intlayer/types/module_augmentation';
 
 /**
  * Check if a value is a plain object that can be safely processed.

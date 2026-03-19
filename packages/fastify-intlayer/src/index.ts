@@ -7,29 +7,11 @@ import {
 } from '@intlayer/core/interpreter';
 import { localeDetector } from '@intlayer/core/localization';
 import { getLocaleFromStorage } from '@intlayer/core/utils';
-import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import type { Locale } from '@intlayer/types/allLocales';
+import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import { createNamespace } from 'cls-hooked';
 import type { FastifyPluginAsync, FastifyRequest } from 'fastify';
 import fp from 'fastify-plugin';
-
-const configuration = getConfiguration();
-const { internationalization } = configuration;
-
-/**
- * Retrieves the locale from storage (cookies, headers).
- * Note: req.cookies requires @fastify/cookie to be registered.
- * We cast req to any to avoid hard dependency on @fastify/cookie types.
- */
-const getStorageLocale = (req: FastifyRequest): Locale | undefined =>
-  getLocaleFromStorage({
-    getCookie: (name: string) => (req as any).cookies?.[name],
-    getHeader: (name: string) => req.headers?.[name] as string | undefined,
-  });
-
-const appNamespace = createNamespace('app');
-
-prepareIntlayer(configuration);
 
 // Module augmentation to type the request decoration
 declare module 'fastify' {
@@ -49,43 +31,7 @@ declare module 'fastify' {
   }
 }
 
-export const translateFunction =
-  (req: FastifyRequest) =>
-  <T extends string>(
-    content: StrictModeLocaleMap<T> | string,
-    locale?: Locale
-  ): T => {
-    // Access the decorated state from the request
-    const { locale: currentLocale, defaultLocale } = req.intlayer;
-
-    const targetLocale = locale ?? currentLocale;
-
-    if (typeof content === 'undefined') {
-      return '' as unknown as T;
-    }
-
-    if (typeof content === 'string') {
-      return content as unknown as T;
-    }
-
-    if (
-      typeof content?.[
-        targetLocale as unknown as keyof StrictModeLocaleMap<T>
-      ] === 'undefined'
-    ) {
-      if (
-        typeof content?.[
-          defaultLocale as unknown as keyof StrictModeLocaleMap<T>
-        ] === 'undefined'
-      ) {
-        return content as unknown as T;
-      } else {
-        return getTranslation(content, defaultLocale);
-      }
-    }
-
-    return getTranslation(content, targetLocale);
-  };
+const appNamespace = createNamespace('app');
 
 /**
  * Fastify Plugin that integrates Intlayer into your Fastify application.
@@ -105,6 +51,62 @@ export const translateFunction =
  * ```
  */
 const fastifyIntlayer: FastifyPluginAsync = async (fastify, _opts) => {
+  const configuration = getConfiguration({
+    logFunctions: fastify.log, // Req not defined yet
+  });
+  const { internationalization } = configuration;
+
+  /**
+   * Retrieves the locale from storage (cookies, headers).
+   * Note: req.cookies requires @fastify/cookie to be registered.
+   * We cast req to any to avoid hard dependency on @fastify/cookie types.
+   */
+  const getStorageLocale = (req: FastifyRequest): Locale | undefined =>
+    getLocaleFromStorage({
+      getCookie: (name: string) => (req as any).cookies?.[name],
+      getHeader: (name: string) => req.headers?.[name] as string | undefined,
+    });
+
+  prepareIntlayer(configuration);
+
+  const translateFunction =
+    (req: FastifyRequest) =>
+    <T extends string>(
+      content: StrictModeLocaleMap<T> | string,
+      locale?: Locale
+    ): T => {
+      // Access the decorated state from the request
+      const { locale: currentLocale, defaultLocale } = req.intlayer;
+
+      const targetLocale = locale ?? currentLocale;
+
+      if (typeof content === 'undefined') {
+        return '' as unknown as T;
+      }
+
+      if (typeof content === 'string') {
+        return content as unknown as T;
+      }
+
+      if (
+        typeof content?.[
+          targetLocale as unknown as keyof StrictModeLocaleMap<T>
+        ] === 'undefined'
+      ) {
+        if (
+          typeof content?.[
+            defaultLocale as unknown as keyof StrictModeLocaleMap<T>
+          ] === 'undefined'
+        ) {
+          return content as unknown as T;
+        } else {
+          return getTranslation(content, defaultLocale);
+        }
+      }
+
+      return getTranslation(content, targetLocale);
+    };
+
   // Decorate the request object to ensure types are stable.
   // We use 'null as any' to bypass the initial type check, knowing
   // the preHandler will populate it before any route handler runs.
@@ -121,12 +123,13 @@ const fastifyIntlayer: FastifyPluginAsync = async (fastify, _opts) => {
     // Copy all headers from the request to negotiatorHeaders
     if (req && typeof req.headers === 'object') {
       for (const key in req.headers) {
-        const val = req.headers[key];
-        if (typeof val === 'string') {
-          negotiatorHeaders[key] = val;
-        } else if (Array.isArray(val)) {
+        const value = req.headers[key];
+
+        if (typeof value === 'string') {
+          negotiatorHeaders[key] = value;
+        } else if (Array.isArray(value)) {
           // Handle array headers (unlikely for accept-language but possible in Fastify)
-          negotiatorHeaders[key] = val.join(',');
+          negotiatorHeaders[key] = value.join(',');
         }
       }
     }
@@ -231,10 +234,7 @@ export const t = <Content = string>(
       console.error((error as Error).message);
     }
 
-    return getTranslation(
-      content,
-      locale ?? internationalization.defaultLocale
-    );
+    return getTranslation(content, locale ?? 'en');
   }
 };
 
