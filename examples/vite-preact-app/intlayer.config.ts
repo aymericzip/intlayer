@@ -2,7 +2,7 @@ import { type IntlayerConfig, Locales } from 'intlayer';
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.FRENCH, Locales.ENGLISH, Locales.MALAGASY_MADAGASCAR],
+    locales: [Locales.FRENCH, Locales.ENGLISH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
     requiredLocales: [Locales.FRENCH, Locales.ENGLISH],
   },
@@ -14,7 +14,7 @@ const config: IntlayerConfig = {
     applicationURL: 'http://localhost:3000',
   },
   build: {
-    importMode: 'static',
+    importMode: 'dynamic',
   },
   ai: {
     provider: 'openai',
