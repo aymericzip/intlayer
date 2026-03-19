@@ -1,6 +1,6 @@
 'use client';
 
-import { bindIntl } from '@intlayer/core/formatters';
+import { bindIntl, type WrappedIntl } from '@intlayer/core/formatters';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { useContext, useMemo } from 'react';
 import { IntlayerClientContext } from '../IntlayerProvider';
@@ -37,5 +37,5 @@ export const useIntl = (locale?: LocalesValues) => {
   const { locale: contextLocale } = useContext(IntlayerClientContext);
   const currentLocale = locale ?? contextLocale;
 
-  return useMemo(() => bindIntl(currentLocale), [currentLocale]);
+  return useMemo<WrappedIntl>(() => bindIntl(currentLocale), [currentLocale]);
 };

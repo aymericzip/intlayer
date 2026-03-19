@@ -1,4 +1,3 @@
-import type { z } from 'zod';
 import type { Locale } from './allLocales';
 import type {
   ContentAutoTransformation,
@@ -8,6 +7,18 @@ import type {
 import type { FilePathPattern } from './filePathPattern';
 import type { LocalesValues, StrictModeLocaleMap } from './module_augmentation';
 import type { Plugin } from './plugin';
+
+/**
+ * Structural type for schema validation, compatible with Zod and other
+ * schema libraries that implement safeParse. Avoids a hard dependency on Zod.
+ */
+export type Schema = {
+  safeParse(data: unknown): {
+    success: boolean;
+    data?: unknown;
+    error?: unknown;
+  };
+};
 
 export type StrictMode = 'strict' | 'inclusive' | 'loose';
 
@@ -789,7 +800,7 @@ export type CustomIntlayerConfig = {
    * }
    * ```
    */
-  schemas?: Record<string, z.ZodType>;
+  schemas?: Record<string, Schema>;
 
   /**
    * Custom plugins configuration
@@ -1029,7 +1040,7 @@ export type IntlayerConfig = {
   /**
    * Custom schemas to validate the dictionaries content.
    */
-  schemas?: Record<string, z.ZodType>;
+  schemas?: Record<string, Schema>;
 
   /**
    * Plugins configuration

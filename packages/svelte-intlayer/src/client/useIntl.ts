@@ -1,4 +1,4 @@
-import { bindIntl } from '@intlayer/core/formatters';
+import { bindIntl, type WrappedIntl } from '@intlayer/core/formatters';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { derived } from 'svelte/store';
 import { useLocale } from './useLocale';
@@ -28,9 +28,12 @@ import { useLocale } from './useLocale';
 export const useIntl = (locale?: LocalesValues) => {
   const { locale: contextLocale } = useLocale();
 
-  return derived(contextLocale, ($locale) => {
-    const currentLocale = locale ?? $locale;
+  return derived<typeof contextLocale, WrappedIntl>(
+    contextLocale,
+    ($locale) => {
+      const currentLocale = locale ?? $locale;
 
-    return bindIntl(currentLocale);
-  });
+      return bindIntl(currentLocale);
+    }
+  );
 };

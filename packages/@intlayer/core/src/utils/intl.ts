@@ -55,7 +55,7 @@ type ReplaceLocaleWithLocalesValues<T> = T extends new (
     : T;
 
 // Wrapped Intl type with LocalesValues
-type WrappedIntl = {
+export type WrappedIntl = {
   [K in keyof typeof Intl]: K extends keyof IntlConstructors
     ? ReplaceLocaleWithLocalesValues<(typeof Intl)[K]>
     : (typeof Intl)[K];

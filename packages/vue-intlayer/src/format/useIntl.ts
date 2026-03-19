@@ -1,4 +1,4 @@
-import { bindIntl } from '@intlayer/core/utils';
+import { bindIntl, type WrappedIntl } from '@intlayer/core/utils';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { computed, inject } from 'vue';
 import {
@@ -45,7 +45,7 @@ import {
 export const useIntl = (locale?: LocalesValues) => {
   const intlayer = inject<IntlayerProvider>(INTLAYER_SYMBOL)!;
 
-  return computed(() => {
+  return computed<WrappedIntl>(() => {
     const currentLocale = locale ?? intlayer.locale.value;
 
     return bindIntl(currentLocale);

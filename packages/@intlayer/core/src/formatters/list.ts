@@ -2,6 +2,13 @@ import configuration from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { Intl as CachedIntl } from '../utils/intl';
 
+/** Locally defined subset of Intl.ListFormatOptions so consumers don't need ES2021.Intl in their lib. */
+type ListFormatOptions = {
+  localeMatcher?: 'lookup' | 'best fit';
+  type?: 'conjunction' | 'disjunction' | 'unit';
+  style?: 'long' | 'short' | 'narrow';
+};
+
 /**
  * Formats an array of values into a localized list string using the Intl API.
  *
@@ -19,8 +26,7 @@ import { Intl as CachedIntl } from '../utils/intl';
  */
 export const list = (
   values: (string | number)[],
-  // @ts-ignore Namespace 'Intl' has no exported member 'ListFormatOptions'
-  options?: Intl.ListFormatOptions & { locale?: LocalesValues }
+  options?: ListFormatOptions & { locale?: LocalesValues }
 ): string =>
   new CachedIntl.ListFormat(
     options?.locale ?? configuration?.internationalization?.defaultLocale,

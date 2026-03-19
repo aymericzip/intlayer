@@ -1,5 +1,5 @@
 import { computed, inject } from '@angular/core';
-import { bindIntl } from '@intlayer/core/formatters';
+import { bindIntl, type WrappedIntl } from '@intlayer/core/formatters';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { IntlayerProvider } from './installIntlayer';
 
@@ -30,7 +30,7 @@ import { IntlayerProvider } from './installIntlayer';
 export const useIntl = (locale?: LocalesValues) => {
   const intlayer = inject(IntlayerProvider);
 
-  return computed(() => {
+  return computed<WrappedIntl>(() => {
     const currentLocale = locale ?? intlayer.locale();
 
     return bindIntl(currentLocale);

@@ -34,8 +34,10 @@ export type DictionaryRegistryElement<T extends DictionaryKeys> = [
   string,
 ] extends [T]
   ? Dictionary
-  : __DictionaryRegistry[T] extends Dictionary
-    ? __DictionaryRegistry[T]
+  : T extends keyof __DictionaryRegistry
+    ? __DictionaryRegistry[T] extends Dictionary
+      ? __DictionaryRegistry[T]
+      : Dictionary
     : Dictionary;
 
 export type DictionaryRegistryContent<T extends PropertyKey> = [T] extends [

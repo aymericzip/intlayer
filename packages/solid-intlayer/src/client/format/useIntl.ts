@@ -1,4 +1,4 @@
-import { bindIntl } from '@intlayer/core/formatters';
+import { bindIntl, type WrappedIntl } from '@intlayer/core/formatters';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { createMemo, useContext } from 'solid-js';
 import { IntlayerClientContext } from '../IntlayerProvider';
@@ -24,7 +24,7 @@ import { IntlayerClientContext } from '../IntlayerProvider';
 export const useIntl = (locale?: LocalesValues) => {
   const context = useContext(IntlayerClientContext);
 
-  return createMemo(() => {
+  return createMemo<WrappedIntl>(() => {
     const currentLocale = locale ?? context.locale();
     return bindIntl(currentLocale);
   });

@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import { bindIntl } from '@intlayer/core/formatters';
+import { bindIntl, type WrappedIntl } from '@intlayer/core/formatters';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { IntlayerServerContext } from '../IntlayerServerProvider';
 import { getServerContext } from '../serverContext';
@@ -32,7 +32,7 @@ import { getServerContext } from '../serverContext';
  * const date2 = new intl.DateTimeFormat('fr-FR').format(new Date());
  * ```
  */
-export const useIntl = (locale?: LocalesValues) => {
+export const useIntl = (locale?: LocalesValues): WrappedIntl => {
   const currentLocale = getServerContext<LocalesValues>(IntlayerServerContext);
 
   return bindIntl(
