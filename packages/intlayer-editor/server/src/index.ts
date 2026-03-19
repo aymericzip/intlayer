@@ -7,13 +7,9 @@ import fastifyCors, { type FastifyCorsOptions } from '@fastify/cors';
 import fastifyFormbody from '@fastify/formbody';
 import fastifyHelmet from '@fastify/helmet';
 import fastifyStatic from '@fastify/static';
+import * as ANSIColors from '@intlayer/config/colors';
 import { getEnvFilePath } from '@intlayer/config/env';
-import {
-  ANSIColors,
-  colorize,
-  colorizePath,
-  getAppLogger,
-} from '@intlayer/config/logger';
+import { colorize, colorizePath, getAppLogger } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
 import { configurationRouter } from '@routes/config.routes';
 import { dictionaryRouter } from '@routes/dictionary.routes';

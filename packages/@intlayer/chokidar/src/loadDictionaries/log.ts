@@ -1,6 +1,6 @@
 import configuration from '@intlayer/config/built';
+import * as ANSIColors from '@intlayer/config/colors';
 import {
-  ANSIColors,
   colorize,
   getPrefix,
   spinnerFrames,

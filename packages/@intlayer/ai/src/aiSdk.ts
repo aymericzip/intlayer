@@ -22,7 +22,8 @@ import type {
 import type { createMistral, MistralProvider } from '@ai-sdk/mistral';
 import type { createOpenAI, OpenAIProvider } from '@ai-sdk/openai';
 import type { createTogetherAI, TogetherAIProvider } from '@ai-sdk/togetherai';
-import { ANSIColors, colorize, logger, x } from '@intlayer/config/logger';
+import * as ANSIColors from '@intlayer/config/colors';
+import { colorize, logger, x } from '@intlayer/config/logger';
 import { AiProviders } from '@intlayer/types/config';
 import type {
   createOpenRouter,

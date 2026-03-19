@@ -1,4 +1,5 @@
-import { ANSIColors, colorize } from '../logger';
+import * as ANSIColors from '../colors';
+import { colorize } from '../logger';
 
 export const logStack = (
   message: string,

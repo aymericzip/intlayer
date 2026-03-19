@@ -1,5 +1,5 @@
+import * as ANSIColors from '@intlayer/config/colors';
 import {
-  ANSIColors,
   colorize,
   colorizeKey,
   colorizePath,

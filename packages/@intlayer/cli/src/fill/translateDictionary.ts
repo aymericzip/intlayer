@@ -10,8 +10,8 @@ import {
   reduceObjectFormat,
   verifyIdenticObjectFormat,
 } from '@intlayer/chokidar/utils';
+import * as ANSIColors from '@intlayer/config/colors';
 import {
-  ANSIColors,
   colon,
   colorize,
   colorizeNumber,
@@ -25,9 +25,9 @@ import {
   getPerLocaleDictionary,
   insertContentInDictionary,
 } from '@intlayer/core/plugins';
-import type { Dictionary } from '@intlayer/types/dictionary';
-import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Locale } from '@intlayer/types/allLocales';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import type { AIClient } from '../utils/setupAI';
 import { deepMergeContent } from './deepMergeContent';

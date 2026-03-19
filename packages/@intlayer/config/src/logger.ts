@@ -1,5 +1,8 @@
 import type { Locale } from '@intlayer/types/allLocales';
 import type { CustomIntlayerConfig } from '@intlayer/types/config';
+import * as ANSIColors from './colors';
+
+export type ANSIColorsType = (typeof ANSIColors)[keyof typeof ANSIColors];
 
 export type Details = {
   isVerbose?: boolean;
@@ -59,23 +62,6 @@ export const logger: Logger = (content, details) => {
   log(...flatContent);
 };
 
-export enum ANSIColors {
-  RESET = '\x1b[0m',
-  GREY = '\x1b[90m',
-  GREY_DARK = '\x1b[38;5;239m',
-  GREY_LIGHT = '\x1b[38;5;252m',
-  BLUE = '\x1b[34m',
-  RED = '\x1b[31m',
-  GREEN = '\x1b[32m',
-  YELLOW = '\x1b[38;5;226m',
-  MAGENTA = '\x1b[35m',
-  BEIGE = '\x1b[38;5;3m',
-  ORANGE = '\x1b[38;5;208m',
-  CYAN = '\x1b[36m',
-  WHITE = '\x1b[37m',
-  BOLD = '\x1b[1m',
-}
-
 export const spinnerFrames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
 
 /**
@@ -97,8 +83,8 @@ export const getAppLogger =
 
 export const colorize = (
   s: string,
-  color?: ANSIColors,
-  reset?: boolean | ANSIColors
+  color?: ANSIColorsType,
+  reset?: boolean | ANSIColorsType
 ): string =>
   color
     ? `${color}${s}${reset ? (typeof reset === 'boolean' ? ANSIColors.RESET : reset) : ANSIColors.RESET}`
@@ -107,7 +93,7 @@ export const colorize = (
 export const colorizeLocales = (
   locales: Locale | Locale[],
   color = ANSIColors.GREEN,
-  reset: boolean | ANSIColors = ANSIColors.RESET
+  reset: boolean | ANSIColorsType = ANSIColors.RESET
 ) =>
   [locales]
     .flat()
@@ -117,7 +103,7 @@ export const colorizeLocales = (
 export const colorizeKey = (
   keyPath: string | string[],
   color = ANSIColors.BEIGE,
-  reset: boolean | ANSIColors = ANSIColors.RESET
+  reset: boolean | ANSIColorsType = ANSIColors.RESET
 ) =>
   [keyPath]
     .flat()
@@ -127,11 +113,11 @@ export const colorizeKey = (
 export const colorizePath = (
   path: string | string[],
   color = ANSIColors.GREY,
-  reset: boolean | ANSIColors = ANSIColors.RESET
+  reset: boolean | ANSIColorsType = ANSIColors.RESET
 ) =>
   [path]
     .flat()
-    .map((p) => colorize(p, color, reset))
+    .map((path) => colorize(path, color, reset))
     .join(`, `);
 
 /**
@@ -142,7 +128,7 @@ export const colorizePath = (
  */
 export const colorizeNumber = (
   number: number | string,
-  options: Partial<Record<Intl.LDMLPluralRule, ANSIColors>> = {
+  options: Partial<Record<Intl.LDMLPluralRule, ANSIColorsType>> = {
     zero: ANSIColors.BLUE,
     one: ANSIColors.BLUE,
     two: ANSIColors.BLUE,

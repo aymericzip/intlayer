@@ -8,7 +8,8 @@ import {
 import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { logConfigDetails } from '@intlayer/chokidar/cli';
 import { buildComponentFilesList, formatPath } from '@intlayer/chokidar/utils';
-import { ANSIColors, colorize, getAppLogger, x } from '@intlayer/config/logger';
+import * as ANSIColors from '@intlayer/config/colors';
+import { colorize, getAppLogger, x } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,

@@ -1,6 +1,7 @@
 import { relative } from 'node:path';
 import configuration from '@intlayer/config/built';
-import { ANSIColors, colorize, colorizePath } from '@intlayer/config/logger';
+import * as ANSIColors from '@intlayer/config/colors';
+import { colorize, colorizePath } from '@intlayer/config/logger';
 import { getLocaleName } from '@intlayer/core/localization';
 import { ENGLISH } from '@intlayer/types/locales';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';

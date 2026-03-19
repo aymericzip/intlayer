@@ -1,7 +1,7 @@
 import { basename } from 'node:path';
 import { formatLocale } from '@intlayer/chokidar/utils';
+import * as ANSIColors from '@intlayer/config/colors';
 import {
-  ANSIColors,
   colon,
   colorize,
   colorizeKey,
@@ -10,9 +10,9 @@ import {
 } from '@intlayer/config/logger';
 import { getFilterTranslationsOnlyDictionary } from '@intlayer/core/plugins';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
-import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Locale } from '@intlayer/types/allLocales';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { listMissingTranslationsWithConfig } from '../test';
 

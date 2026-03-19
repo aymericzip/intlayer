@@ -1,7 +1,7 @@
 import { join, relative } from 'node:path';
+import * as ANSIColors from '@intlayer/config/colors';
 import { getEnvFilePath } from '@intlayer/config/env';
 import {
-  ANSIColors,
   colorize,
   colorizePath,
   getAppLogger,

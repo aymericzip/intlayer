@@ -3,8 +3,8 @@ import { dirname, join } from 'node:path';
 import { performance } from 'node:perf_hooks';
 import { listGitFiles, logConfigDetails } from '@intlayer/chokidar/cli';
 import { parallelize, pLimit } from '@intlayer/chokidar/utils';
+import * as ANSIColors from '@intlayer/config/colors';
 import {
-  ANSIColors,
   colorize,
   colorizeNumber,
   getAppLogger,

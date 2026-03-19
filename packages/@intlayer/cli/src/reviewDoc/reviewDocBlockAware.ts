@@ -5,8 +5,8 @@ import { readAsset } from 'utils:asset';
 import type { AIConfig } from '@intlayer/ai';
 import type { AIOptions } from '@intlayer/api';
 import { formatLocale, formatPath } from '@intlayer/chokidar/utils';
+import * as ANSIColors from '@intlayer/config/colors';
 import {
-  ANSIColors,
   colon,
   colorize,
   colorizeNumber,

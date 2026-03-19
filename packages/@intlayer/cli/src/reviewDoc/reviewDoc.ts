@@ -12,8 +12,8 @@ import {
   formatPath,
   parallelize,
 } from '@intlayer/chokidar/utils';
+import * as ANSIColors from '@intlayer/config/colors';
 import {
-  ANSIColors,
   colorize,
   colorizeNumber,
   getAppLogger,

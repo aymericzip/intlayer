@@ -1,10 +1,6 @@
 import { buildComponentFilesList } from '@intlayer/chokidar/utils';
-import {
-  ANSIColors,
-  colorize,
-  colorizeKey,
-  getAppLogger,
-} from '@intlayer/config/logger';
+import * as ANSIColors from '@intlayer/config/colors';
+import { colorize, colorizeKey, getAppLogger } from '@intlayer/config/logger';
 import { DefaultValues, getConfiguration } from '@intlayer/config/node';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { ExtractPluginOptions } from './babel-plugin-intlayer-extract';

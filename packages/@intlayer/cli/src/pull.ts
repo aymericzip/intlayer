@@ -7,7 +7,8 @@ import {
 } from '@intlayer/chokidar/build';
 import { logConfigDetails } from '@intlayer/chokidar/cli';
 import { parallelize } from '@intlayer/chokidar/utils';
-import { ANSIColors, getAppLogger } from '@intlayer/config/logger';
+import * as ANSIColors from '@intlayer/config/colors';
+import { getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,

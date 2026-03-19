@@ -13,8 +13,8 @@ import {
   getGlobalLimiter,
   getTaskLimiter,
 } from '@intlayer/chokidar/utils';
+import * as ANSIColors from '@intlayer/config/colors';
 import {
-  ANSIColors,
   colorize,
   colorizeKey,
   colorizePath,

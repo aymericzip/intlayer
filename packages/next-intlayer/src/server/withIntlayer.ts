@@ -3,7 +3,8 @@ import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { logConfigDetails } from '@intlayer/chokidar/cli';
 import { buildComponentFilesList, runOnce } from '@intlayer/chokidar/utils';
 import { DefaultValues } from '@intlayer/config/client';
-import { ANSIColors, colorize, getAppLogger } from '@intlayer/config/logger';
+import * as ANSIColors from '@intlayer/config/colors';
+import { colorize, getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,

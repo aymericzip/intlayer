@@ -9,8 +9,8 @@ import {
   getExtractPluginOptions,
   writeContentHelper,
 } from '@intlayer/babel';
+import * as ANSIColors from '@intlayer/config/colors';
 import {
-  ANSIColors,
   colorize,
   colorizeKey,
   colorizeNumber,

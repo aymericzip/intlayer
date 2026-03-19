@@ -1,6 +1,7 @@
 import { stat } from 'node:fs/promises';
 import { join } from 'node:path';
-import { ANSIColors, colorize, getAppLogger } from '@intlayer/config/logger';
+import * as ANSIColors from '@intlayer/config/colors';
+import { colorize, getAppLogger } from '@intlayer/config/logger';
 import packageJson from '@intlayer/config/package.json' with { type: 'json' };
 import { cacheDisk } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';

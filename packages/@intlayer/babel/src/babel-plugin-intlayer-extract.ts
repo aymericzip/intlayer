@@ -2,12 +2,8 @@ import { relative } from 'node:path';
 import type { PluginObj, PluginPass } from '@babel/core';
 import { parse } from '@babel/parser';
 import type * as BabelTypes from '@babel/types';
-import {
-  ANSIColors,
-  colorize,
-  colorizePath,
-  getAppLogger,
-} from '@intlayer/config/logger';
+import * as ANSIColors from '@intlayer/config/colors';
+import { colorize, colorizePath, getAppLogger } from '@intlayer/config/logger';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { FilePathPattern } from '@intlayer/types/filePathPattern';

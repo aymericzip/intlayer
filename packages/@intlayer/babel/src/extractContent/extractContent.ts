@@ -3,12 +3,8 @@ import { readFileSync } from 'node:fs';
 import { extname, relative } from 'node:path';
 import type * as t from '@babel/types';
 import { detectFormatCommand } from '@intlayer/chokidar/cli';
-import {
-  ANSIColors,
-  colorize,
-  colorizePath,
-  getAppLogger,
-} from '@intlayer/config/logger';
+import * as ANSIColors from '@intlayer/config/colors';
+import { colorize, colorizePath, getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,

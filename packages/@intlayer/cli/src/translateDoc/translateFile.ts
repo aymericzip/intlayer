@@ -4,8 +4,8 @@ import { dirname, relative } from 'node:path';
 import { performance } from 'node:perf_hooks';
 import { readAsset } from 'utils:asset';
 import { formatLocale, formatPath } from '@intlayer/chokidar/utils';
+import * as ANSIColors from '@intlayer/config/colors';
 import {
-  ANSIColors,
   colon,
   colorize,
   colorizeNumber,

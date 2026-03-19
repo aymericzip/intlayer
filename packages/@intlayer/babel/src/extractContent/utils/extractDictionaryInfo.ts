@@ -3,7 +3,8 @@ import {
   getFormatFromExtension,
   resolveRelativePath,
 } from '@intlayer/chokidar/utils';
-import { ANSIColors, colorize } from '@intlayer/config/logger';
+import * as ANSIColors from '@intlayer/config/colors';
+import { colorize } from '@intlayer/config/logger';
 import { parseStringPattern } from '@intlayer/config/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';

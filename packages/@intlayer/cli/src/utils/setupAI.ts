@@ -1,10 +1,6 @@
 import type { AIConfig, AIOptions } from '@intlayer/ai';
-import {
-  ANSIColors,
-  colorize,
-  getAppLogger,
-  type logger,
-} from '@intlayer/config/logger';
+import * as ANSIColors from '@intlayer/config/colors';
+import { colorize, getAppLogger, type logger } from '@intlayer/config/logger';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { checkAIAccess } from './checkAccess';
 

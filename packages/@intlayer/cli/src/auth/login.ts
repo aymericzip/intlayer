@@ -1,12 +1,8 @@
 import http from 'node:http';
 import { URL } from 'node:url';
 import { logConfigDetails } from '@intlayer/chokidar/cli';
-import {
-  ANSIColors,
-  colorize,
-  colorizePath,
-  getAppLogger,
-} from '@intlayer/config/logger';
+import * as ANSIColors from '@intlayer/config/colors';
+import { colorize, colorizePath, getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,
