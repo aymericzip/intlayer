@@ -1043,11 +1043,6 @@ Configurações relacionadas aos caminhos internos e resultados de saída do Int
   - _Padrão_: `'.intlayer/cache'`
   - _Descrição_: O diretório onde os arquivos de cache são armazenados.
 
-- **outputFilesPatternWithPath**:
-  - _Tipo_: `string`
-  - _Padrão_: `'{{dictionariesDir}}/**/*.json'`
-  - _Descrição_: Padrão para arquivos de saída incluindo o caminho relativo.
-
 ### Configuração do dicionário
 
 Configurações que controlam as operações do dicionário, incluindo o comportamento de preenchimento automático e a geração de conteúdo.

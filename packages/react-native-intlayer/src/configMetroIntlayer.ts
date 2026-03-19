@@ -79,8 +79,8 @@ export const configMetroIntlayerSync = (
       },
       blockList: exclusionList([
         ...existingPatterns,
-        // the following instruction should be replaced configuration.content.watchedFilesPattern
-        // but using watchedFilesPattern does not exclude the files properly for now
+        // the following instruction should be replaced by a pattern derived from configuration.content.fileExtensions
+        // but generating the pattern from fileExtensions does not exclude the files properly for now
         /.*\.content\.(?:ts|tsx|js|jsx|cjs|cjx|mjs|mjx|json)$/,
       ]),
     },

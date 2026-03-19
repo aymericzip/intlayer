@@ -80,7 +80,6 @@ export const systemSchema = z.object({
   configDir: z.string().optional(),
   cacheDir: z.string().optional(),
   tempDir: z.string().optional(),
-  outputFilesPatternWithPath: z.string().optional(),
 });
 
 export const contentSchema = z.object({
@@ -90,8 +89,6 @@ export const contentSchema = z.object({
   excludedPath: z.array(z.string()).optional(),
   watch: z.boolean().optional(),
   formatCommand: z.string().optional(),
-  watchedFilesPattern: z.array(z.string()).optional(),
-  watchedFilesPatternWithPath: z.array(z.string()).optional(),
 });
 
 export const editorSchema = z.object({

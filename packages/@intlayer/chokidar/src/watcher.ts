@@ -6,7 +6,11 @@ import {
   getConfiguration,
   getConfigurationAndFilePath,
 } from '@intlayer/config/node';
-import { clearAllCache, clearModuleCache } from '@intlayer/config/utils';
+import {
+  clearAllCache,
+  clearModuleCache,
+  normalizePath,
+} from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 /** @ts-ignore remove error Module '"chokidar"' has no exported member 'ChokidarOptions' */
 import { type ChokidarOptions, watch as chokidarWatch } from 'chokidar';
@@ -51,14 +55,18 @@ export const watch = (options?: WatchOptions) => {
 
   const {
     watch: isWatchMode,
-    watchedFilesPatternWithPath,
     fileExtensions,
+    contentDir,
   } = configuration.content;
 
+  const watchedFilesPatternWithPath = fileExtensions.flatMap((ext) =>
+    contentDir.map((dir) =>
+      `${normalizePath(dir)}/**/*${ext}`.replace('//', '/')
+    )
+  );
+
   const pathsToWatch = [
-    ...(Array.isArray(watchedFilesPatternWithPath)
-      ? watchedFilesPatternWithPath
-      : [watchedFilesPatternWithPath]),
+    ...watchedFilesPatternWithPath,
     ...(configurationFilePath ? [configurationFilePath] : []),
   ];
 

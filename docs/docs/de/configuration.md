@@ -1033,11 +1033,6 @@ Einstellungen im Zusammenhang mit internen Pfaden und Ausgabeergebnissen von Int
   - _Standard_: `'.intlayer/cache'`
   - _Beschreibung_: Das Verzeichnis, in dem die Cache-Dateien gespeichert sind.
 
-- **outputFilesPatternWithPath**:
-  - _Typ_: `string`
-  - _Standard_: `'{{dictionariesDir}}/**/*.json'`
-  - _Beschreibung_: Muster für Ausgabedateien einschließlich des relativen Pfads.
-
 ### Wörterbuch-Konfiguration
 
 Einstellungen, die Wörterbuchoperationen steuern, einschließlich des Auto-Fill-Verhaltens und der Inhaltsgenerierung.

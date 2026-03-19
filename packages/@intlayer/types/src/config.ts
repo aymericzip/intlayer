@@ -1134,24 +1134,6 @@ export type ContentConfig = {
    * Default: undefined
    */
   formatCommand: string | undefined;
-
-  /**
-   * Patterns of files to watch for changes
-   *
-   * Default: ['/**\/*.content.ts', '/**\/*.content.js', '/**\/*.content.json', '/**\/*.content.cjs', '/**\/*.content.mjs', '/**\/*.content.tsx', '/**\/*.content.jsx']
-   *
-   * Defines file patterns for content to watch for changes.
-   */
-  watchedFilesPattern: string[];
-
-  /**
-   * Patterns of files to watch for changes including the relative path
-   *
-   * Default: ['src/**\/*.content.ts', 'src/**\/*.content.js', 'src/**\/*.content.json', 'src/**\/*.content.cjs', 'src/**\/*.content.mjs', 'src/**\/*.content.tsx', 'src/**\/*.content.jsx']
-   *
-   * Specifies the file patterns for content to watch, including relative paths.
-   */
-  watchedFilesPatternWithPath: string[];
 };
 
 export type SystemConfig = {
@@ -1262,15 +1244,6 @@ export type SystemConfig = {
    * Specifies the derived path for the tmp files relative to the result directory.
    */
   tempDir: string;
-
-  /**
-   * Pattern for output files including the relative path
-   *
-   * Default: '{{dictionariesDir}}/**\/*.json'
-   *
-   * Defines the pattern for output files, including the relative path.
-   */
-  outputFilesPatternWithPath: string;
 };
 
 export type LogFunctions = {

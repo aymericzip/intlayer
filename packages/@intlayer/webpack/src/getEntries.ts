@@ -1,13 +1,14 @@
+import { listDictionaries } from '@intlayer/chokidar/listDictionaries';
 import { getPathHash } from '@intlayer/chokidar/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
-import fg from 'fast-glob';
 import type { EntryObject } from 'webpack';
 
-export const getEntries = (configuration: IntlayerConfig) => {
-  const { content } = configuration;
-  const { watchedFilesPatternWithPath } = content;
+export const getEntries = async (
+  configuration: IntlayerConfig
+): Promise<EntryObject> => {
+  const files = await listDictionaries(configuration);
 
-  const entries = fg.sync(watchedFilesPatternWithPath).reduce((obj, el) => {
+  return files.reduce((obj, el) => {
     const hash = getPathHash(el);
 
     obj[`intlayer-content/${hash}`] = {
@@ -17,6 +18,4 @@ export const getEntries = (configuration: IntlayerConfig) => {
 
     return obj;
   }, {} as EntryObject);
-
-  return entries;
 };

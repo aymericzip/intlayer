@@ -54,7 +54,9 @@ export const buildComponentFilesList = (
 ): string[] => {
   const transformPattern = config.build.traversePattern;
   const compilerTransformPattern = config.compiler.transformPattern;
-  const contentDeclarationPattern = config.content.watchedFilesPattern;
+  const contentDeclarationPattern = config.content.fileExtensions.map(
+    (ext) => `/**/*${ext}`
+  );
 
   const patterns = [
     ...transformPattern,

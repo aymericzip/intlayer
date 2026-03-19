@@ -1034,11 +1034,6 @@ Estructura de directorios y resultados de salida de Intlayer. Estas configuracio
   - _Por defecto_: `'.intlayer/cache'`
   - _Descripción_: El directorio donde se almacenan los archivos de caché.
 
-- **outputFilesPatternWithPath**:
-  - _Tipo_: `string`
-  - _Por defecto_: `'{{dictionariesDir}}/**/*.json'`
-  - _Descripción_: Patrón para archivos de salida incluyendo la ruta relativa.
-
 ### Configuración del diccionario
 
 Configuraciones que controlan las operaciones del diccionario, incluyendo el comportamiento de auto-relleno y la generación de contenido.

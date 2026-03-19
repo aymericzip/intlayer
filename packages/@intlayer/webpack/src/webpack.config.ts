@@ -26,7 +26,7 @@ export const devServerConfig: DevServerConfiguration = {
   host: 'localhost',
   port: 8080,
 
-  watchFiles: './src/', // watchedFilesPatternWithPath,
+  watchFiles: './src/', // derived from content.fileExtensions + content.contentDir
 
   devMiddleware: {
     // Enable write to disk to reuse the output
@@ -47,15 +47,13 @@ export const getWebpackConfig = (
    */
   defineDirname();
 
-  const entries = getEntries(configuration);
-
   const webpackConfig: WebPackConfiguration = {
     // Define the environment mode (development or production)
     mode: 'production', // or 'production'
     // Entry point of the application
     target: 'node', // Specifies the target environment
 
-    entry: entries,
+    entry: () => getEntries(configuration),
     output: {
       clean: true, // Clean the output directory before emit
       library: 'IntlLayerContent',

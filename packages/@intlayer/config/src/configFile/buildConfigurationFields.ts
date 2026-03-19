@@ -75,7 +75,6 @@ import {
   UNMERGED_DICTIONARIES_DIR,
 } from '../defaultValues/system';
 import { getProjectRequire } from '../utils';
-import { normalizePath } from '../utils/normalizePath';
 
 let storedConfiguration: IntlayerConfig;
 
@@ -267,7 +266,6 @@ const buildSystemFields = (
     ),
     cacheDir: optionalJoinBaseDir(customConfiguration?.cacheDir ?? CACHE_DIR),
     tempDir: optionalJoinBaseDir(customConfiguration?.tempDir ?? TEMP_DIR),
-    outputFilesPatternWithPath: `${normalizePath(dictionariesDir)}/**/*.json`,
   };
 };
 
@@ -336,10 +334,6 @@ const buildContentFields = (
     excludedPath: customConfiguration?.excludedPath ?? EXCLUDED_PATHS,
     watch: customConfiguration?.watch ?? WATCH,
     formatCommand: customConfiguration?.formatCommand,
-    watchedFilesPattern: fileExtensions.map((ext) => `/**/*${ext}`),
-    watchedFilesPatternWithPath: fileExtensions.flatMap((ext) =>
-      contentDir.map((dir) => `${normalizePath(dir)}/**/*${ext}`)
-    ),
   };
 };
 

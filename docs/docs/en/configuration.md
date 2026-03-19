@@ -1024,11 +1024,6 @@ Settings related to internal paths and output results of Intlayer. These setting
   - _Default_: `'.intlayer/cache'`
   - _Description_: The directory where the cache files are stored.
 
-- **outputFilesPatternWithPath**:
-  - _Type_: `string`
-  - _Default_: `'{{dictionariesDir}}/**/*.json'`
-  - _Description_: Pattern for output files including the relative path.
-
 ### Dictionary Configuration
 
 Settings that control dictionary operations, including auto-fill behavior and content generation.

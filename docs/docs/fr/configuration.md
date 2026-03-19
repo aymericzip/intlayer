@@ -1035,11 +1035,6 @@ Paramètres liés aux chemins internes et aux résultats de sortie d'Intlayer. C
   - _Par défaut_ : `'.intlayer/cache'`
   - _Description_ : Le répertoire où sont stockés les fichiers de cache.
 
-- **outputFilesPatternWithPath** :
-  - _Type_ : `string`
-  - _Par défaut_ : `'{{dictionariesDir}}/**/*.json'`
-  - _Description_ : Modèle pour les fichiers de sortie incluant le chemin relatif.
-
 ### Configuration du dictionnaire
 
 Paramètres qui contrôlent les opérations du dictionnaire, y compris le comportement de remplissage automatique et la génération de contenu.

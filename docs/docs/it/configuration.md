@@ -1035,11 +1035,6 @@ Impostazioni relative ai percorsi interni e ai risultati di output di Intlayer. 
   - _Predefinito_: `'.intlayer/cache'`
   - _Descrizione_: La directory dove sono memorizzati i file di cache.
 
-- **outputFilesPatternWithPath**:
-  - _Tipo_: `string`
-  - _Predefinito_: `'{{dictionariesDir}}/**/*.json'`
-  - _Descrizione_: Pattern per i file di output incluso il percorso relativo.
-
 ### Configurazione del dizionario
 
 Impostazioni che controllano le operazioni del dizionario, incluso il comportamento di auto-riempimento e la generazione di contenuti.

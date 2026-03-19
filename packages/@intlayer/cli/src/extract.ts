@@ -69,6 +69,7 @@ export const extract = async (options: ExtractOptions) => {
     // Relative paths for selection
     const choices = fileList.map((file) => {
       const relPath = relative(baseDir, file);
+
       return {
         value: file,
         label: relPath,

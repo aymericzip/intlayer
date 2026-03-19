@@ -1,4 +1,5 @@
 import { stat } from 'node:fs/promises';
+import { normalizePath } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import fg from 'fast-glob';
 
@@ -10,7 +11,13 @@ import fg from 'fast-glob';
 export const listDictionaries = async (
   configuration: IntlayerConfig
 ): Promise<string[]> => {
-  const { watchedFilesPatternWithPath, excludedPath } = configuration.content;
+  const { fileExtensions, contentDir, excludedPath } = configuration.content;
+
+  const watchedFilesPatternWithPath = fileExtensions.flatMap((ext) =>
+    contentDir.map((dir) =>
+      `${normalizePath(dir)}/**/*${ext}`.replace('//', '/')
+    )
+  );
 
   const filePromises = watchedFilesPatternWithPath.map(async (pattern) => {
     // Identify the static part of the path (before any wildcards like *)
