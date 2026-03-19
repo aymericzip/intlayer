@@ -23,6 +23,85 @@ import { z } from 'zod';
 import { CIWorkflowModal } from './CIWorkflowModal';
 import { WebhookModal } from './WebhookModal';
 
+type WebhookItemProps = {
+  webhook: Webhook;
+  index: number;
+  isProjectAdmin: boolean;
+  onEdit: (index: number) => void;
+  onDelete: (index: number) => void;
+};
+
+const WebhookItem: FC<WebhookItemProps> = ({
+  webhook,
+  index,
+  isProjectAdmin,
+  onEdit,
+  onDelete,
+}) => {
+  const { mutate: triggerWebhook, isPending: isTriggeringWebhook } =
+    useTriggerWebhook();
+  const { webhooksSection, testTriggerButton } = useIntlayer('build-settings');
+
+  return (
+    <Container
+      roundedSize="2xl"
+      border={true}
+      background="none"
+      borderColor="text"
+      className="flex-row justify-between px-6 py-2"
+    >
+      <div className="flex min-w-0 flex-1 flex-col gap-1">
+        <div className="flex items-center gap-2">
+          <span className="truncate font-semibold">{webhook.name}</span>
+          {webhook.enabled ? (
+            <span className="flex items-center gap-1 rounded-full bg-text/10 px-2 py-0.5 font-medium text-text text-xs">
+              <CheckCircle size={12} /> {webhooksSection.list.enabled}
+            </span>
+          ) : (
+            <span className="flex items-center gap-1 rounded-full bg-neutral/10 px-2 py-0.5 font-medium text-neutral text-xs">
+              <XCircle size={12} /> {webhooksSection.list.disabled}
+            </span>
+          )}
+        </div>
+        <span className="block truncate text-neutral text-xs">
+          {webhook.url}
+        </span>
+      </div>
+      <div className="flex items-center gap-2">
+        <Button
+          variant="hoverable"
+          color="text"
+          size="icon-sm"
+          disabled={!isProjectAdmin || isTriggeringWebhook}
+          onClick={() => triggerWebhook(index)}
+          label={testTriggerButton.ariaLabel.value}
+          isLoading={isTriggeringWebhook}
+          Icon={Play}
+        />
+        <Button
+          variant="hoverable"
+          color="text"
+          size="icon-sm"
+          disabled={!isProjectAdmin}
+          onClick={() => onEdit(index)}
+          label={webhooksSection.list.edit.value}
+          Icon={Pencil}
+        />
+        <Button
+          variant="hoverable"
+          color="text"
+          className="hover:text-error"
+          size="icon-sm"
+          disabled={!isProjectAdmin}
+          onClick={() => onDelete(index)}
+          label={webhooksSection.list.delete.value}
+          Icon={Trash}
+        />
+      </div>
+    </Container>
+  );
+};
+
 // Only validation needed here is for the global toggle
 const buildSettingsSchema = z.object({
   autoTriggerBuilds: z.boolean(),
@@ -37,8 +116,6 @@ export const BuildSettings: FC = () => {
 
   const { mutate: updateProject, isPending: isUpdating } = useUpdateProject();
   const { mutate: triggerBuild, isPending: isBuilding } = useTriggerBuild();
-  const { mutate: triggerWebhook, isPending: isTriggeringWebhook } =
-    useTriggerWebhook();
 
   const {
     title,
@@ -122,10 +199,6 @@ export const BuildSettings: FC = () => {
 
   const handleTestTrigger = () => {
     triggerBuild(undefined);
-  };
-
-  const handleTestWebhook = (index: number) => {
-    triggerWebhook(index);
   };
 
   const handleCheckCI = async () => {
@@ -243,66 +316,14 @@ export const BuildSettings: FC = () => {
               </Container>
             ) : (
               webhooksList.map((webhook, index) => (
-                <Container
+                <WebhookItem
                   key={index}
-                  roundedSize="2xl"
-                  border={true}
-                  background="none"
-                  borderColor="text"
-                  className="flex-row justify-between px-6 py-2"
-                >
-                  <div className="flex min-w-0 flex-1 flex-col gap-1">
-                    <div className="flex items-center gap-2">
-                      <span className="truncate font-semibold">
-                        {webhook.name}
-                      </span>
-                      {webhook.enabled ? (
-                        <span className="flex items-center gap-1 rounded-full bg-text/10 px-2 py-0.5 font-medium text-text text-xs">
-                          <CheckCircle size={12} />{' '}
-                          {webhooksSection.list.enabled}
-                        </span>
-                      ) : (
-                        <span className="flex items-center gap-1 rounded-full bg-neutral/10 px-2 py-0.5 font-medium text-neutral text-xs">
-                          <XCircle size={12} /> {webhooksSection.list.disabled}
-                        </span>
-                      )}
-                    </div>
-                    <span className="block truncate text-neutral text-xs">
-                      {webhook.url}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Button
-                      variant="hoverable"
-                      color="text"
-                      size="icon-sm"
-                      disabled={!isProjectAdmin || isTriggeringWebhook}
-                      onClick={() => handleTestWebhook(index)}
-                      label={testTriggerButton.ariaLabel.value}
-                      isLoading={isTriggeringWebhook}
-                      Icon={Play}
-                    />
-                    <Button
-                      variant="hoverable"
-                      color="text"
-                      size="icon-sm"
-                      disabled={!isProjectAdmin}
-                      onClick={() => handleOpenEdit(index)}
-                      label={webhooksSection.list.edit.value}
-                      Icon={Pencil}
-                    />
-                    <Button
-                      variant="hoverable"
-                      color="text"
-                      className="hover:text-error"
-                      size="icon-sm"
-                      disabled={!isProjectAdmin}
-                      onClick={() => handleDelete(index)}
-                      label={webhooksSection.list.delete.value}
-                      Icon={Trash}
-                    />
-                  </div>
-                </Container>
+                  webhook={webhook}
+                  index={index}
+                  isProjectAdmin={!!isProjectAdmin}
+                  onEdit={handleOpenEdit}
+                  onDelete={handleDelete}
+                />
               ))
             )}
           </div>
