@@ -5,6 +5,17 @@ import { type BuildOptions, type BuildResult, build, buildSync } from 'esbuild';
 import { getPackageJsonPath } from '../utils/getPackageJsonPath';
 import { getLoader } from './bundleFile';
 
+export type TranspileOptions = BuildOptions & {
+  /**
+   * Optional custom esbuild instance to use for transpilation.
+   * Useful in environments (e.g. VS Code extensions) where the bundled
+   * esbuild binary may not match the host platform.
+   * When provided, its `buildSync`/`build` methods are used instead of
+   * the ones imported from the `esbuild` package.
+   */
+  esbuildInstance?: typeof import('esbuild');
+};
+
 const getTsConfigPath = (filePath: string): string | undefined => {
   const tsconfigPath = join(
     getPackageJsonPath(dirname(filePath)).baseDir,
@@ -42,12 +53,15 @@ const getTransformationOptions = (filePath: string): BuildOptions => ({
 export const transpileTSToCJSSync = (
   code: string,
   filePath: string,
-  options?: BuildOptions
+  options?: TranspileOptions
 ): string | undefined => {
   const extension = extname(filePath);
   const loader = getLoader(extension);
 
-  const moduleResult: BuildResult = buildSync({
+  const { esbuildInstance, ...buildOptions } = options ?? {};
+  const esbuildBuildSync = esbuildInstance?.buildSync ?? buildSync;
+
+  const moduleResult: BuildResult = esbuildBuildSync({
     stdin: {
       contents: code,
       loader,
@@ -55,7 +69,7 @@ export const transpileTSToCJSSync = (
       sourcefile: filePath, // Add sourcefile for better error messages
     },
     ...getTransformationOptions(filePath),
-    ...options,
+    ...buildOptions,
   });
 
   const moduleResultString = moduleResult.outputFiles?.[0].text;
@@ -66,12 +80,15 @@ export const transpileTSToCJSSync = (
 export const transpileTSToCJS = async (
   code: string,
   filePath: string,
-  options?: BuildOptions
+  options?: TranspileOptions
 ): Promise<string | undefined> => {
   const extension = extname(filePath);
   const loader = getLoader(extension);
 
-  const moduleResult: BuildResult = await build({
+  const { esbuildInstance, ...buildOptions } = options ?? {};
+  const esbuildBuild = esbuildInstance?.build ?? build;
+
+  const moduleResult: BuildResult = await esbuildBuild({
     stdin: {
       contents: code,
       loader,
@@ -79,7 +96,7 @@ export const transpileTSToCJS = async (
       sourcefile: filePath, // Add sourcefile for better error messages
     },
     ...getTransformationOptions(filePath),
-    ...options,
+    ...buildOptions,
   });
 
   const moduleResultString = moduleResult.outputFiles?.[0].text;

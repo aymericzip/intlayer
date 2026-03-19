@@ -4,6 +4,7 @@ import type {
   LogFunctions,
 } from '@intlayer/types/config';
 import { defu } from 'defu';
+import type { LoadExternalFileOptions } from '../loadExternalFile/loadExternalFile';
 import type { SandBoxContextOptions } from '../loadExternalFile/parseFileContent';
 import { cacheMemory } from '../utils/cacheMemory';
 import { getPackageJsonPath } from '../utils/getPackageJsonPath';
@@ -23,6 +24,8 @@ export type GetConfigurationOptions = {
   require?: NodeJS.Require;
   // cache
   cache?: boolean;
+  // Build options for TypeScript transpilation (e.g. custom esbuild instance)
+  buildOptions?: LoadExternalFileOptions['buildOptions'];
 } & Omit<SandBoxContextOptions, 'projectRequire'>;
 
 export type GetConfigurationAndFilePathResult = {
@@ -81,6 +84,8 @@ export const getConfigurationAndFilePath = (
       // Sandbox context additional variables
       additionalEnvVars: options?.additionalEnvVars,
       aliases: options?.aliases,
+      // Build options for TypeScript transpilation (e.g. custom esbuild instance)
+      buildOptions: options?.buildOptions,
     });
 
     // Save the configuration to avoid reading the file again

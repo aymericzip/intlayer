@@ -2,21 +2,24 @@ import { readFileSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { extname } from 'node:path';
 import type { IntlayerConfig } from '@intlayer/types/config';
-import type { BuildOptions } from 'esbuild';
 import * as JSON5 from 'json5';
 import { colorizePath, logger } from '../logger';
 import {
   parseFileContent,
   type SandBoxContextOptions,
 } from './parseFileContent';
-import { transpileTSToCJS, transpileTSToCJSSync } from './transpileTSToCJS';
+import {
+  type TranspileOptions,
+  transpileTSToCJS,
+  transpileTSToCJSSync,
+} from './transpileTSToCJS';
 
 // CJS MJS cross usage
 const parseJSON5 = JSON5.parse || (JSON5 as any).default?.parse;
 
 export type LoadExternalFileOptions = {
   configuration?: IntlayerConfig;
-  buildOptions?: BuildOptions;
+  buildOptions?: TranspileOptions;
   logError?: boolean;
 } & SandBoxContextOptions;
 
@@ -46,7 +49,8 @@ export const loadExternalFileSync = (
 
     const moduleResultString: string | undefined = transpileTSToCJSSync(
       code,
-      filePath
+      filePath,
+      options?.buildOptions
     );
 
     if (!moduleResultString) {
