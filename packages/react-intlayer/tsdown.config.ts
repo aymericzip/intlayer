@@ -4,6 +4,7 @@ import { defineConfig } from 'tsdown';
 const options = getOptions({
   all: {
     platform: 'neutral',
+    unbundle: true,
   },
 });
 

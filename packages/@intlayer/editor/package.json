@@ -28,10 +28,7 @@
       "url": "https://github.com/aymericzip"
     }
   ],
-  "sideEffects": [
-    "./dist/esm/components/*.mjs",
-    "./dist/cjs/components/*.cjs"
-  ],
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
