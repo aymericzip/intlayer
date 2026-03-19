@@ -1,7 +1,10 @@
 import { mkdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { isDeepStrictEqual } from 'node:util';
-import type { IntlayerConfig } from '@intlayer/types/config';
+import type {
+  CustomIntlayerConfig,
+  IntlayerConfig,
+} from '@intlayer/types/config';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';
 
 const getCachedConfiguration = async (configuration: IntlayerConfig) => {
@@ -34,16 +37,17 @@ export const isCachedConfigurationUpToDate = async (
 };
 
 const cleanConfiguration = (configuration: IntlayerConfig): IntlayerConfig => {
-  const {
-    // Remove schema, and plugins because only useful at build time
-    schemas,
-    plugins,
-    compiler,
-    build,
-    ...filteredConfiguration
-  } = configuration;
-
-  const parsedConfiguration = JSON.parse(JSON.stringify(filteredConfiguration));
+  const parsedConfiguration = JSON.parse(
+    JSON.stringify({
+      internationalization: {
+        locales: configuration.internationalization.locales,
+        defaultLocale: configuration.internationalization.defaultLocale,
+      },
+      editor: configuration.editor,
+      log: configuration.log,
+      metadata: configuration.metadata,
+    } as CustomIntlayerConfig)
+  );
 
   return parsedConfiguration;
 };
