@@ -339,7 +339,7 @@ export const useContentEditable = ({
     // Don't intercept during IME composition (CJK input)
     if (e.nativeEvent.isComposing) return;
 
-    // Block undo/redo — browser would mutate DOM out of sync with React
+    // Block undo/redo - browser would mutate DOM out of sync with React
     if ((e.metaKey || e.ctrlKey) && e.key === 'z') {
       e.preventDefault();
       return;
