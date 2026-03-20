@@ -18,12 +18,23 @@ const loadLanguage = async (lang: BundledLanguage): Promise<any> => {
 
   let languageModule: any;
   switch (lang) {
+    case 'angular-html':
+      languageModule = await import('shiki/langs/angular-html.mjs');
+      break;
+    case 'angular-ts':
+      languageModule = await import('shiki/langs/angular-ts.mjs');
+      break;
+    case 'astro':
+      languageModule = await import('shiki/langs/astro.mjs');
+      break;
     case 'typescript':
     case 'ts':
       languageModule = await import('shiki/langs/typescript.mjs');
       break;
     case 'javascript':
     case 'js':
+    case 'cjs':
+    case 'mjs':
       languageModule = await import('shiki/langs/javascript.mjs');
       break;
     case 'bash':
@@ -50,6 +61,7 @@ const loadLanguage = async (lang: BundledLanguage): Promise<any> => {
     case 'xml':
       languageModule = await import('shiki/langs/xml.mjs');
       break;
+    case 'yml':
     case 'yaml':
       languageModule = await import('shiki/langs/yaml.mjs');
       break;
