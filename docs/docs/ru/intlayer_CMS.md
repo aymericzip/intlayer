@@ -427,7 +427,7 @@ module.exports = config;
     // ... другие скрипты
     "build": "next build",
     "dev": "next dev",
-    "start": "npx intlayer live --process 'next start'",
+    "start": "npx intlayer live --with 'next start'",
   },
 }
 ```
@@ -440,7 +440,7 @@ module.exports = config;
     // ... другие скрипты
     "build": "vite build",
     "dev": "vite dev",
-    "start": "npx intlayer live --process 'vite start'",
+    "start": "npx intlayer live --with 'vite start'",
   },
 }
 ```
@@ -466,8 +466,8 @@ module.exports = config;
 {
   "scripts": {
     // ... другие скрипты
-    "dev": "npx intlayer live --process 'next dev'",
-    // "dev": "npx intlayer live --process 'vite dev'", // Для Vite
+    "dev": "npx intlayer live --with 'next dev'",
+    // "dev": "npx intlayer live --with 'vite dev'", // Для Vite
   },
 }
 ```

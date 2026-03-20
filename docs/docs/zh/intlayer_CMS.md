@@ -423,7 +423,7 @@ module.exports = config;
     // ... 其他脚本
     "build": "next build",
     "dev": "next dev",
-    "start": "npx intlayer live --process 'next start'",
+    "start": "npx intlayer live --with 'next start'",
   },
 }
 ```
@@ -436,7 +436,7 @@ module.exports = config;
     // ... 其他脚本
     "build": "vite build",
     "dev": "vite dev",
-    "start": "npx intlayer live --process 'vite start'",
+    "start": "npx intlayer live --with 'vite start'",
   },
 }
 ```
@@ -462,8 +462,8 @@ Live Sync 服务器包裹您的应用程序，并在更新内容到达时自动�
 {
   "scripts": {
     // ... 其他脚本
-    "dev": "npx intlayer live --process 'next dev'",
-    // "dev": "npx intlayer live --process 'vite dev'", // 适用于 Vite
+    "dev": "npx intlayer live --with 'next dev'",
+    // "dev": "npx intlayer live --with 'vite dev'", // 适用于 Vite
   },
 }
 ```

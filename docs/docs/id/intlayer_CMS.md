@@ -444,7 +444,7 @@ Contoh menggunakan Next.js:
     // ... skrip lainnya
     "build": "next build",
     "dev": "next dev",
-    "start": "npx intlayer live --process 'next start'",
+    "start": "npx intlayer live --with 'next start'",
   },
 }
 ```
@@ -457,7 +457,7 @@ Contoh menggunakan Vite:
     // ... skrip lainnya
     "build": "vite build",
     "dev": "vite dev",
-    "start": "npx intlayer live --process 'vite start'",
+    "start": "npx intlayer live --with 'vite start'",
   },
 }
 ```
@@ -483,8 +483,8 @@ Cara kerjanya:
 {
   "scripts": {
     // ... skrip lainnya
-    "dev": "npx intlayer live --process 'next dev'",
-    // "dev": "npx intlayer live --process 'vite dev'", // Untuk Vite
+    "dev": "npx intlayer live --with 'next dev'",
+    // "dev": "npx intlayer live --with 'vite dev'", // Untuk Vite
   },
 }
 ```

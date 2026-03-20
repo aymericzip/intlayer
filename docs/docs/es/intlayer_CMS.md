@@ -427,7 +427,7 @@ Ejemplo usando Next.js:
     // ... otros scripts
     "build": "next build",
     "dev": "next dev",
-    "start": "npx intlayer live --process 'next start'",
+    "start": "npx intlayer live --with 'next start'",
   },
 }
 ```
@@ -440,7 +440,7 @@ Ejemplo usando Vite:
     // ... otros scripts
     "build": "vite build",
     "dev": "vite dev",
-    "start": "npx intlayer live --process 'vite start'",
+    "start": "npx intlayer live --with 'vite start'",
   },
 }
 ```
@@ -468,8 +468,8 @@ docs/ko/intlayer_CMS.md
 {
   "scripts": {
     // ... otros scripts
-    "dev": "npx intlayer live --process 'next dev'",
-    // "dev": "npx intlayer live --process 'vite dev'", // Para Vite
+    "dev": "npx intlayer live --with 'next dev'",
+    // "dev": "npx intlayer live --with 'vite dev'", // Para Vite
   },
 }
 ```

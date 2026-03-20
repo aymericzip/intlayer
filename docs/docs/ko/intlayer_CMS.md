@@ -427,7 +427,7 @@ Next.js 사용 예시:
     // ... 다른 스크립트들
     "build": "next build",
     "dev": "next dev",
-    "start": "npx intlayer live --process 'next start'",
+    "start": "npx intlayer live --with 'next start'",
   },
 }
 ```
@@ -440,7 +440,7 @@ Vite 사용 예시:
     // ... 다른 스크립트들
     "build": "vite build",
     "dev": "vite dev",
-    "start": "npx intlayer live --process 'vite start'",
+    "start": "npx intlayer live --with 'vite start'",
   },
 }
 ```
@@ -466,8 +466,8 @@ CMS로부터 변경 알림을 받기 위해, Live Sync 서버는 백엔드와 SS
 {
   "scripts": {
     // ... 다른 스크립트
-    "dev": "npx intlayer live --process 'next dev'",
-    // "dev": "npx intlayer live --process 'vite dev'", // Vite용
+    "dev": "npx intlayer live --with 'next dev'",
+    // "dev": "npx intlayer live --with 'vite dev'", // Vite용
   },
 }
 ```

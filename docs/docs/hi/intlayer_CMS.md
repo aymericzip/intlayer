@@ -427,7 +427,7 @@ Next.js का उपयोग करने का उदाहरण:
     // ... अन्य स्क्रिप्ट्स
     "build": "next build",
     "dev": "next dev",
-    "start": "npx intlayer live --process 'next start'",
+    "start": "npx intlayer live --with 'next start'",
   },
 }
 ```
@@ -440,7 +440,7 @@ Vite का उपयोग करने का उदाहरण:
     // ... अन्य स्क्रिप्ट्स
     "build": "vite build",
     "dev": "vite dev",
-    "start": "npx intlayer live --process 'vite start'",
+    "start": "npx intlayer live --with 'vite start'",
   },
 }
 ```
@@ -466,8 +466,8 @@ CMS से परिवर्तन सूचनाएँ प्राप्त 
 {
   "scripts": {
     // ... अन्य स्क्रिप्ट्स
-    "dev": "npx intlayer live --process 'next dev'",
-    // "dev": "npx intlayer live --process 'vite dev'", // Vite के लिए
+    "dev": "npx intlayer live --with 'next dev'",
+    // "dev": "npx intlayer live --with 'vite dev'", // Vite के लिए
   },
 }
 ```

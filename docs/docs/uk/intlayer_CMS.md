@@ -444,7 +444,7 @@ module.exports = config;
     // ... інші скрипти
     "build": "next build",
     "dev": "next dev",
-    "start": "npx intlayer live --process 'next start'",
+    "start": "npx intlayer live --with 'next start'",
   },
 }
 ```
@@ -457,7 +457,7 @@ module.exports = config;
     // ... інші скрипти
     "build": "vite build",
     "dev": "vite dev",
-    "start": "npx intlayer live --process 'vite start'",
+    "start": "npx intlayer live --with 'vite start'",
   },
 }
 ```
@@ -483,8 +483,8 @@ Live Sync-сервер обгортає ваш додаток і автомат�
 {
   "scripts": {
     // ... інші скрипти
-    "dev": "npx intlayer live --process 'next dev'",
-    // "dev": "npx intlayer live --process 'vite dev'", // Для Vite
+    "dev": "npx intlayer live --with 'next dev'",
+    // "dev": "npx intlayer live --with 'vite dev'", // Для Vite
   },
 }
 ```

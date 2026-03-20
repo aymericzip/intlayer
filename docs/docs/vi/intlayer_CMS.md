@@ -444,7 +444,7 @@ Ví dụ sử dụng Next.js:
     // ... các script khác
     "build": "next build",
     "dev": "next dev",
-    "start": "npx intlayer live --process 'next start'",
+    "start": "npx intlayer live --with 'next start'",
   },
 }
 ```
@@ -457,7 +457,7 @@ Ví dụ sử dụng Vite:
     // ... các script khác
     "build": "vite build",
     "dev": "vite dev",
-    "start": "npx intlayer live --process 'vite start'",
+    "start": "npx intlayer live --with 'vite start'",
   },
 }
 ```
@@ -483,8 +483,8 @@ Cách hoạt động:
 {
   "scripts": {
     // ... các script khác
-    "dev": "npx intlayer live --process 'next dev'",
-    // "dev": "npx intlayer live --process 'vite dev'", // Dành cho Vite
+    "dev": "npx intlayer live --with 'next dev'",
+    // "dev": "npx intlayer live --with 'vite dev'", // Dành cho Vite
   },
 }
 ```

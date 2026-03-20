@@ -10,7 +10,7 @@
     "lint": "bun --bun next lint",
     "start": "bun --bun next start",
     "start:editor": "bun intlayer-editor start",
-    "start:live": "bun intlayer live --process 'bun --bun next start'",
+    "start:live": "bun intlayer live --with 'bun --bun next start'",
     "test": ""
   },
   "dependencies": {

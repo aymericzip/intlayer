@@ -426,7 +426,7 @@ Beispiel mit Next.js:
     // ... andere Skripte
     "build": "next build",
     "dev": "next dev",
-    "start": "npx intlayer live --process 'next start'",
+    "start": "npx intlayer live --with 'next start'",
   },
 }
 ```
@@ -439,7 +439,7 @@ Beispiel mit Vite:
     // ... andere Skripte
     "build": "vite build",
     "dev": "vite dev",
-    "start": "npx intlayer live --process 'vite start'",
+    "start": "npx intlayer live --with 'vite start'",
   },
 }
 ```
@@ -465,8 +465,8 @@ So funktioniert es:
 {
   "scripts": {
     // ... andere Skripte
-    "dev": "npx intlayer live --process 'next dev'",
-    // "dev": "npx intlayer live --process 'vite dev'", // Für Vite
+    "dev": "npx intlayer live --with 'next dev'",
+    // "dev": "npx intlayer live --with 'vite dev'", // Für Vite
   },
 }
 ```

@@ -924,16 +924,11 @@ export const setAPI = (): Command => {
 
   extractProgram
     .option('-f, --file [files...]', 'List of files to extract')
-    .option(
-      '-o, --output-content-declarations [outputContentDeclarations]',
-      'Path to output content declaration files'
-    )
     .option('--code-only', 'Only extract the component code', false)
     .option('--declaration-only', 'Only generate content declaration', false)
     .action((options) => {
       extract({
         files: options.file,
-        outputContentDeclarations: options.outputContentDeclarations,
         configOptions: extractConfigOptions(options),
         codeOnly: options.codeOnly,
         declarationOnly: options.declarationOnly,

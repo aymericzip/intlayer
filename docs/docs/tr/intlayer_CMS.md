@@ -426,7 +426,7 @@ Next.js kullanarak örnek:
     // ... diğer komutlar
     "build": "next build",
     "dev": "next dev",
-    "start": "npx intlayer live --process 'next start'",
+    "start": "npx intlayer live --with 'next start'",
   },
 }
 ```
@@ -439,7 +439,7 @@ Vite kullanarak örnek:
     // ... diğer komutlar
     "build": "vite build",
     "dev": "vite dev",
-    "start": "npx intlayer live --process 'vite start'",
+    "start": "npx intlayer live --with 'vite start'",
   },
 }
 ```
@@ -465,8 +465,8 @@ Nasıl çalışır:
 {
   "scripts": {
     // ... diğer scriptler
-    "dev": "npx intlayer live --process 'next dev'",
-    // "dev": "npx intlayer live --process 'vite dev'", // Vite için
+    "dev": "npx intlayer live --with 'next dev'",
+    // "dev": "npx intlayer live --with 'vite dev'", // Vite için
   },
 }
 ```

@@ -7,7 +7,7 @@
     "build": "tsc && vite build",
     "dev": "vite",
     "preview": "vite preview",
-    "start": "bun intlayer live --process 'vite preview'",
+    "start": "bun intlayer live --with 'vite preview'",
     "start:editor": "bun intlayer-editor start -e development --with 'vite dev'",
     "test": ""
   },
