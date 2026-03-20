@@ -16,12 +16,12 @@
     "preact-iso": "2.11.1"
   },
   "devDependencies": {
-    "@preact/preset-vite": "2.10.1",
+    "@preact/preset-vite": "2.10.4",
     "@tailwindcss/vite": "4.2.1",
     "intlayer-editor": "workspace:*",
     "tailwindcss": "4.2.2",
     "typescript": "5.9.3",
-    "vite": "8.0.0",
+    "vite": "8.0.1",
     "vite-intlayer": "workspace:*"
   }
 }

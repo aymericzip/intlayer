@@ -1,11 +1,10 @@
 import { getLocalizedUrl } from 'intlayer';
-import type { JSX } from 'preact';
+import type { HTMLAttributes, TargetedMouseEvent } from 'preact';
 import { forwardRef } from 'preact/compat';
 import { useLocale } from 'preact-intlayer';
 import { useLocation } from 'preact-iso';
 
-export interface LocalizedLinkProps
-  extends JSX.HTMLAttributes<HTMLAnchorElement> {
+export interface LocalizedLinkProps extends HTMLAttributes<HTMLAnchorElement> {
   href: string;
   replace?: boolean;
 }
@@ -32,7 +31,7 @@ export const LocalizedLink = forwardRef<HTMLAnchorElement, LocalizedLinkProps>(
     const hrefI18n =
       href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
 
-    const handleClick = (event: JSX.TargetedMouseEvent<HTMLAnchorElement>) => {
+    const handleClick = (event: TargetedMouseEvent<HTMLAnchorElement>) => {
       if (onClick) {
         onClick(event);
       }

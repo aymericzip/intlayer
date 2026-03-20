@@ -13,8 +13,8 @@ const config: IntlayerConfig = {
     enabled: false,
     applicationURL: 'http://localhost:3000',
   },
-  build: {
-    importMode: 'dynamic',
+  dictionary: {
+    importMode: 'fetch',
   },
   ai: {
     provider: 'openai',
