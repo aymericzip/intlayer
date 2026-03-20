@@ -1,15 +1,6 @@
-import configuration from '@intlayer/config/built';
-import {
-  DEFAULT_LOCALE,
-  LOCALES,
-  ROUTING_MODE,
-} from '@intlayer/config/defaultValues';
-import type { RoutingConfig } from '@intlayer/types/config';
-import type {
-  LocalesValues,
-  StrictModeLocaleMap,
-} from '@intlayer/types/module_augmentation';
+import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import { getLocalizedUrl } from './getLocalizedUrl';
+import { type RoutingOptions, resolveRoutingConfig } from './getPrefix';
 
 /**
  * Generates multilingual URLs by prefixing the given URL with each supported locale
@@ -47,40 +38,14 @@ import { getLocalizedUrl } from './getLocalizedUrl';
  */
 export const getMultilingualUrls = (
   url: string,
-  options: {
-    locales?: LocalesValues[];
-    defaultLocale?: LocalesValues;
-    mode?: RoutingConfig['mode'];
-    rewrite?: RoutingConfig['rewrite'];
-  } = {}
+  options: RoutingOptions = {}
 ): StrictModeLocaleMap<string> => {
-  const { defaultLocale, mode, locales, rewrite } = {
-    defaultLocale:
-      configuration?.internationalization?.defaultLocale ?? DEFAULT_LOCALE,
-    mode: configuration?.routing?.mode ?? ROUTING_MODE,
-    locales: configuration?.internationalization?.locales ?? LOCALES,
-    rewrite: configuration?.routing?.rewrite,
-    ...options,
-  };
+  const resolved = resolveRoutingConfig(options);
 
-  // Generate multilingual URLs by iterating over each locale and calling getLocalizedUrl
-  const multilingualUrls = (locales ?? []).reduce<StrictModeLocaleMap<string>>(
-    (acc, locale) => {
-      // Get the localized URL for this locale
-      const localizedUrl = getLocalizedUrl(url, locale, {
-        locales,
-        defaultLocale,
-        mode,
-        rewrite,
-      });
-
-      // Assign the constructed URL to the corresponding locale key
-      acc[locale as unknown as keyof typeof acc] = localizedUrl;
-
-      return acc;
-    },
-    {} as StrictModeLocaleMap<string>
-  );
-
-  return multilingualUrls;
+  return Object.fromEntries(
+    (resolved.locales ?? []).map((locale) => [
+      locale,
+      getLocalizedUrl(url, locale, resolved),
+    ])
+  ) as StrictModeLocaleMap<string>;
 };

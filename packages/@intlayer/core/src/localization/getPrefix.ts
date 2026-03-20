@@ -8,6 +8,31 @@ import type { Locale } from '@intlayer/types/allLocales';
 import type { RoutingConfig } from '@intlayer/types/config';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
+/**
+ * Shared routing options used across all URL localization functions.
+ */
+export type RoutingOptions = {
+  locales?: LocalesValues[];
+  defaultLocale?: LocalesValues;
+  mode?: RoutingConfig['mode'];
+  rewrite?: RoutingConfig['rewrite'];
+};
+
+/**
+ * Resolves routing configuration by merging provided options with configuration defaults.
+ * Single source of truth for default routing config resolution across all localization functions.
+ */
+export const resolveRoutingConfig = (options: RoutingOptions = {}) => {
+  const { internationalization, routing } = configuration ?? {};
+  return {
+    defaultLocale: internationalization?.defaultLocale ?? DEFAULT_LOCALE,
+    mode: routing?.mode ?? ROUTING_MODE,
+    locales: internationalization?.locales ?? LOCALES,
+    rewrite: routing?.rewrite,
+    ...options,
+  };
+};
+
 export type GetPrefixOptions = {
   defaultLocale?: LocalesValues;
   mode?: RoutingConfig['mode'];
@@ -67,19 +92,9 @@ export type GetPrefixResult = {
  */
 export const getPrefix = (
   locale: LocalesValues | undefined,
-  options: {
-    defaultLocale?: LocalesValues;
-    locales?: LocalesValues[];
-    mode?: RoutingConfig['mode'];
-  } = {}
+  options: RoutingOptions = {}
 ): GetPrefixResult => {
-  const { defaultLocale, mode, locales } = {
-    defaultLocale:
-      configuration?.internationalization?.defaultLocale ?? DEFAULT_LOCALE,
-    mode: configuration?.routing?.mode ?? ROUTING_MODE,
-    locales: configuration?.internationalization?.locales ?? LOCALES,
-    ...options,
-  };
+  const { defaultLocale, mode, locales } = resolveRoutingConfig(options);
 
   if (!locale || !locales.includes(locale)) {
     return {

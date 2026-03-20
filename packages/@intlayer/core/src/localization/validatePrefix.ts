@@ -1,11 +1,9 @@
-import configuration from '@intlayer/config/built';
-import {
-  DEFAULT_LOCALE,
-  LOCALES,
-  ROUTING_MODE,
-} from '@intlayer/config/defaultValues';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import { getPrefix } from './getPrefix';
+import {
+  getPrefix,
+  type RoutingOptions,
+  resolveRoutingConfig,
+} from './getPrefix';
 
 export type ValidatePrefixResult = {
   isValid: boolean;
@@ -36,22 +34,10 @@ export type ValidatePrefixResult = {
  */
 export const validatePrefix = (
   locale: LocalesValues | undefined | null,
-  options?: {
-    locales?: LocalesValues[];
-    defaultLocale?: LocalesValues;
-    mode?: typeof configuration.routing.mode;
-  }
+  options?: RoutingOptions
 ): ValidatePrefixResult => {
-  const { defaultLocale, mode, locales } = {
-    defaultLocale:
-      configuration?.internationalization?.defaultLocale ?? DEFAULT_LOCALE,
-    mode: configuration?.routing?.mode ?? ROUTING_MODE,
-    locales: configuration?.internationalization?.locales ?? LOCALES,
-    ...options,
-  };
+  const { defaultLocale, mode, locales } = resolveRoutingConfig(options);
 
-  // If no locale provided (optional param), will use default
-  // In `routing.mode = 'prefix-all'`, the locale is required to be a valid locale
   const { localePrefix } = getPrefix(locale || defaultLocale, {
     mode,
     locales,
@@ -62,8 +48,7 @@ export const validatePrefix = (
     return { isValid: true, localePrefix: undefined };
   }
 
-  // Check if the provided locale is valid
-  const isValid: boolean = locales.some((localeEl) => localeEl === locale);
+  const isValid = locales.some((localeEl) => localeEl === locale);
 
-  return { isValid: isValid, localePrefix };
+  return { isValid, localePrefix };
 };

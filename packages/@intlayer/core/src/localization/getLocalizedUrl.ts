@@ -1,20 +1,20 @@
 import configuration from '@intlayer/config/built';
-import {
-  DEFAULT_LOCALE,
-  LOCALES,
-  ROUTING_MODE,
-} from '@intlayer/config/defaultValues';
 import type { Locale } from '@intlayer/types/allLocales';
-import type { RoutingConfig } from '@intlayer/types/config';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
 import { getPathWithoutLocale } from './getPathWithoutLocale';
-import { getPrefix } from './getPrefix';
+import {
+  getPrefix,
+  type RoutingOptions,
+  resolveRoutingConfig,
+} from './getPrefix';
 import {
   getCanonicalPath,
   getLocalizedPath,
   getRewriteRules,
 } from './rewriteUtils';
+
+export type { RoutingOptions };
 
 /**
  * Generate URL by prefixing the given URL with the referenced locale or adding search parameters
@@ -56,97 +56,57 @@ export const getLocalizedUrl = (
   url: string,
   currentLocale: LocalesValues = configuration?.internationalization
     ?.defaultLocale,
-  options: {
-    locales?: LocalesValues[];
-    defaultLocale?: LocalesValues;
-    mode?: RoutingConfig['mode'];
-    rewrite?: RoutingConfig['rewrite'];
-  } = {}
+  options: RoutingOptions = {}
 ): string => {
-  const { defaultLocale, mode, locales, rewrite } = {
-    defaultLocale:
-      configuration?.internationalization?.defaultLocale ?? DEFAULT_LOCALE,
-    mode: configuration?.routing?.mode ?? ROUTING_MODE,
-    locales: configuration?.internationalization?.locales ?? LOCALES,
-    rewrite: configuration?.routing?.rewrite,
-    ...options,
-  };
+  const { defaultLocale, mode, locales, rewrite } =
+    resolveRoutingConfig(options);
 
   const urlWithoutLocale = getPathWithoutLocale(url, locales);
-
-  const urlRewriteRules = getRewriteRules(rewrite, 'url');
+  const rewriteRules = getRewriteRules(rewrite, 'url');
 
   if (mode === 'no-prefix') {
-    // Resolve to canonical path first from the potentially localized input URL
-    const canonicalPathname = getCanonicalPath(
-      urlWithoutLocale,
-      undefined,
-      urlRewriteRules
-    );
-
-    // Localize the canonical path for the target locale
     return getLocalizedPath(
-      canonicalPathname,
+      getCanonicalPath(urlWithoutLocale, undefined, rewriteRules),
       currentLocale as Locale,
-      urlRewriteRules
+      rewriteRules
     ).path;
   }
 
   const isAbsoluteUrl = checkIsURLAbsolute(urlWithoutLocale);
-
   const parsedUrl = isAbsoluteUrl
     ? new URL(urlWithoutLocale)
     : new URL(urlWithoutLocale, 'http://example.com');
+
+  const translatedPathname = getLocalizedPath(
+    getCanonicalPath(parsedUrl.pathname, undefined, rewriteRules),
+    currentLocale as Locale,
+    rewriteRules
+  ).path;
 
   const baseUrl = isAbsoluteUrl
     ? `${parsedUrl.protocol}//${parsedUrl.host}`
     : '';
 
-  // Resolve to canonical path first
-  const canonicalPathname = getCanonicalPath(
-    parsedUrl.pathname,
-    undefined,
-    urlRewriteRules
-  );
-
-  // Localize the canonical path for the target locale
-  const translatedPathname = getLocalizedPath(
-    canonicalPathname,
-    currentLocale as Locale,
-    urlRewriteRules
-  ).path;
-
   if (mode === 'search-params') {
     const searchParams = new URLSearchParams(parsedUrl.search);
+
     searchParams.set('locale', currentLocale.toString());
 
-    const queryString = searchParams.toString();
-    const pathWithQuery = queryString
-      ? `${translatedPathname}?${queryString}`
+    const queryParams = searchParams.toString();
+    const path = queryParams
+      ? `${translatedPathname}?${queryParams}`
       : translatedPathname;
 
-    return isAbsoluteUrl
-      ? `${baseUrl}${pathWithQuery}${parsedUrl.hash}`
-      : `${pathWithQuery}${parsedUrl.hash}`;
+    return `${baseUrl}${path}${parsedUrl.hash}`;
   }
 
-  const { prefix } = getPrefix(currentLocale, {
-    defaultLocale,
-    mode,
-    locales,
-  });
+  const { prefix } = getPrefix(currentLocale, { defaultLocale, mode, locales });
 
-  let localizedPath = `/${prefix}${translatedPathname}`;
-
-  localizedPath = localizedPath.replaceAll(/\/+/g, '/');
+  let localizedPath = `/${prefix}${translatedPathname}`.replace(/\/+/g, '/');
 
   if (localizedPath.length > 1 && localizedPath.endsWith('/')) {
     localizedPath = localizedPath.slice(0, -1);
   }
 
-  const finalUrl = isAbsoluteUrl
-    ? `${baseUrl}${localizedPath}${parsedUrl.search}${parsedUrl.hash}`
-    : `${localizedPath}${parsedUrl.search}${parsedUrl.hash}`;
-
-  return finalUrl;
+  return `${baseUrl}${localizedPath}${parsedUrl.search}${parsedUrl.hash}`;
 };
