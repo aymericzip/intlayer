@@ -20,15 +20,19 @@ const getCachedConfiguration = async (configuration: IntlayerConfig) => {
 export const isCachedConfigurationUpToDate = async (
   configuration: IntlayerConfig
 ): Promise<boolean | null> => {
-  const cleanedConfiguration = cleanConfiguration(configuration);
-  const cachedConfiguration = await getCachedConfiguration(configuration);
+  try {
+    const cleanedConfiguration = cleanConfiguration(configuration);
+    const cachedConfiguration = await getCachedConfiguration(configuration);
 
-  const isSimilar = isDeepStrictEqual(
-    cachedConfiguration,
-    cleanedConfiguration
-  );
+    const isSimilar = isDeepStrictEqual(
+      cachedConfiguration,
+      cleanedConfiguration
+    );
 
-  return isSimilar;
+    return isSimilar;
+  } catch {
+    return null; // Can crash if await readFile(configFilePath, 'utf8'); and config is not defined
+  }
 };
 
 const cleanConfiguration = (configuration: IntlayerConfig): IntlayerConfig => {
