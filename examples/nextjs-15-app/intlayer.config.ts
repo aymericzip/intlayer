@@ -31,6 +31,9 @@ const config: IntlayerConfig = {
   build: {
     optimize: true,
   },
+  compiler: {
+    output: ({ fileName }) => `./${fileName}.content.ts`,
+  },
   dictionary: {
     importMode: 'fetch',
   },

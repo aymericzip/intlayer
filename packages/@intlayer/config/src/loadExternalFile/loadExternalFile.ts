@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { extname } from 'node:path';
 import type { IntlayerConfig } from '@intlayer/types/config';
-import * as JSON5 from 'json5';
+import JSON5 from 'json5';
 import { colorizePath, logger } from '../logger';
 import {
   parseFileContent,

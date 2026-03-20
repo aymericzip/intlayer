@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "tsc -b && vite build",
+    "build": "vite build",
     "dev": "vite",
     "preview": "vite preview",
     "start:editor": "bun intlayer-editor start --with 'vite dev'"

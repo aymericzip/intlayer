@@ -24,20 +24,30 @@ import type { NextConfig } from 'next';
 import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
 import nextPackageJSON from 'next/package.json' with { type: 'json' };
 
-const isGteNext13 = compareVersions(nextPackageJSON.version, '≥', '13.0.0');
-const isGteNext15 = compareVersions(nextPackageJSON.version, '≥', '15.0.0');
-const isGteNext16 = compareVersions(nextPackageJSON.version, '≥', '16.0.0');
-const isTurbopackStable = compareVersions(
-  nextPackageJSON.version,
-  '≥',
-  '15.3.0'
-);
+/**
+ * Resolve the Next.js version from the *user's* project at runtime.
+ * A static `import from 'next/package.json'` would resolve relative to
+ * next-intlayer's own node_modules, which may differ in a monorepo.
+ */
+const getNextVersionFlags = (intlayerConfig: IntlayerConfig) => {
+  let nextVersion = nextPackageJSON.version;
 
-const isTurbopackEnabledFromCommand = isGteNext16
-  ? // Next@16 enable turbopack by default, and offer the possibility to disable it if --webpack flag is used
-    !process.env.npm_lifecycle_script?.includes('--webpack')
-  : // Next@15 use --turbopack flag, Next@14 use --turbo flag
-    process.env.npm_lifecycle_script?.includes('--turbo');
+  try {
+    const requireFunction =
+      intlayerConfig.build?.require ?? getProjectRequire();
+    const pkg = requireFunction('next/package.json') as { version: string };
+    nextVersion = pkg.version;
+  } catch {
+    // keep default
+  }
+
+  return {
+    isGteNext13: compareVersions(nextVersion, '≥', '13.0.0'),
+    isGteNext15: compareVersions(nextVersion, '≥', '15.0.0'),
+    isGteNext16: compareVersions(nextVersion, '≥', '16.0.0'),
+    isTurbopackStable: compareVersions(nextVersion, '≥', '15.3.0'),
+  };
+};
 
 // Check if SWC plugin is available
 const getIsSwcPluginAvailable = (intlayerConfig: IntlayerConfig) => {
@@ -83,7 +93,8 @@ const getPruneConfig = (
   intlayerConfig: IntlayerConfig,
   isBuildCommand: boolean,
   isTurbopackEnabled: boolean,
-  isDevCommand: boolean
+  isDevCommand: boolean,
+  isGteNext13: boolean
 ): Partial<NextConfig> => {
   const { optimize } = intlayerConfig.build;
   const importMode =
@@ -119,7 +130,7 @@ const getPruneConfig = (
           colorize('Recommended: Install', ANSIColors.GREY),
           colorize('@intlayer/swc', ANSIColors.GREY_LIGHT),
           colorize(
-            'package to enable build optimization. See documentation: ',
+            'package to enable build optimization. See documentation:',
             ANSIColors.GREY
           ),
           colorize(
@@ -285,6 +296,15 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
 
   const logger = getAppLogger(intlayerConfig);
 
+  const { isGteNext13, isGteNext15, isGteNext16, isTurbopackStable } =
+    getNextVersionFlags(intlayerConfig);
+
+  const isTurbopackEnabledFromCommand = isGteNext16
+    ? // Next@16 enables turbopack by default; disable with --webpack
+      !process.env.npm_lifecycle_script?.includes('--webpack')
+    : // Next@15 uses --turbopack, Next@14 uses --turbo
+      process.env.npm_lifecycle_script?.includes('--turbo');
+
   const isTurbopackEnabled =
     configOptions?.enableTurbopack ?? isTurbopackEnabledFromCommand;
 
@@ -317,6 +337,9 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
     'fs',
     'chokidar',
     'fsevents',
+    'recast',
+    '@intlayer/chokidar',
+    '@intlayer/webpack',
   ];
 
   const getNewConfig = (): Partial<NextConfig> => {
@@ -378,14 +401,33 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
             config.externals = [];
           }
 
-          // Mark these modules as externals
-          config.externals.push({
-            esbuild: 'esbuild',
-            module: 'module',
-            fs: 'fs',
-            chokidar: 'chokidar',
-            fsevents: 'fsevents',
-          });
+          // Mark server-only modules as externals (function form handles subpaths)
+          const externalExact = new Set([
+            'esbuild',
+            'module',
+            'fs',
+            'chokidar',
+            'fsevents',
+            'recast',
+          ]);
+          const externalPrefixes = ['@intlayer/chokidar', '@intlayer/webpack'];
+          config.externals.push(
+            (
+              { request }: { request?: string },
+              callback: (err: Error | null, result?: string) => void
+            ) => {
+              if (
+                request &&
+                (externalExact.has(request) ||
+                  externalPrefixes.some(
+                    (p) => request === p || request.startsWith(`${p}/`)
+                  ))
+              ) {
+                return callback(null, `commonjs ${request}`);
+              }
+              callback(null);
+            }
+          );
 
           // Use `node-loader` for any `.node` files
           config.module.rules.push({
@@ -421,7 +463,8 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
     intlayerConfig,
     isBuildCommand,
     isTurbopackEnabled ?? false,
-    isDevCommand
+    isDevCommand,
+    isGteNext13
   );
 
   const intlayerNextConfig: Partial<NextConfig> = defu(

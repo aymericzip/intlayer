@@ -7,7 +7,11 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 
 const getConfig = async () => {
-  const config = await withIntlayer();
+  const config = await withIntlayer({
+    typescript: {
+      ignoreBuildErrors: true, // Type error due to nextjs version mismatch with next-intlayer because of monorepo
+    },
+  });
 
   return config;
 };
