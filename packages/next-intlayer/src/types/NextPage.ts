@@ -8,7 +8,6 @@ export type LocalParams<T = {}> = {
 
 export type LocalPromiseParams<T = {}> = {
   params: Promise<{ locale: LocalesValues } & T>;
-  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 export type Next14PageIntlayer<T = {}> = NextPage<LocalParams<T>>;
