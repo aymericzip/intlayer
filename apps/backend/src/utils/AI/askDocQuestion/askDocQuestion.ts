@@ -154,9 +154,19 @@ export const loadMarkdownFiles = async (): Promise<void> => {
   // Iterate over each file key (identifier) in the combined files
   for await (const fileKey of Object.keys(files)) {
     // Get the metadata of the file
-    const fileMetadata = getMarkdownMetadata(
-      files[fileKey as keyof typeof files] as string
-    );
+    const fileMetadata = getMarkdownMetadata<{
+      url?: string;
+      title?: string;
+      slugs?: (string | number)[];
+      description?: string;
+    }>(files[fileKey as keyof typeof files] as string);
+
+    const slugs = (fileMetadata.slugs ?? []).map(String);
+    const docUrl =
+      fileMetadata.url ??
+      (slugs.length > 0
+        ? `${process.env.WEBSITE_URL}/${slugs.join('/')}`
+        : undefined);
 
     // Split the document into chunks based on headings
     const fileChunks = chunkText(
@@ -212,7 +222,7 @@ export const loadMarkdownFiles = async (): Promise<void> => {
         chunkNumber,
         embedding,
         content: fileChunk,
-        docUrl: fileMetadata.url,
+        docUrl,
         docName: fileMetadata.title,
       });
 

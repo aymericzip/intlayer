@@ -209,40 +209,27 @@ const getAPIKey = (
 
 const getModelName = (
   provider: AiProviders,
-  userApiKey: string | undefined,
-  userModel?: Model,
-  defaultModel?: Model
+  isUserProvidedKey: boolean,
+  userModel?: Model
 ): Model => {
-  // If the user uses their own API key, allow custom model selection
-  if (userApiKey || provider === AiProviders.OLLAMA) {
-    if (provider === AiProviders.OPENAI) {
-      return userModel ?? DEFAULT_MODEL;
-    }
-
+  // If the user provides their own API key, allow custom model selection
+  if (isUserProvidedKey || provider === AiProviders.OLLAMA) {
     if (userModel) {
       return userModel;
     }
 
-    switch (provider) {
-      default:
-        return '-';
-    }
+    // No custom model specified — fall back to the default
+    return DEFAULT_MODEL;
   }
 
-  // Guard: Prevent custom model usage without a user API key
-  if (userModel || provider) {
-    throw new Error(
-      'The user should use his own API key to use a custom model'
-    );
-  }
-
+  // Using backend's default API key — always use the default model,
+  // ignore any custom model the user may have passed
   return DEFAULT_MODEL;
 };
 
 const getLanguageModel = async (
   aiOptions: AIOptions,
-  apiKey: string | undefined,
-  defaultModel?: Model
+  apiKey: string | undefined
 ) => {
   const loadModule = async <T>(packageName: string): Promise<T> => {
     try {
@@ -261,9 +248,8 @@ const getLanguageModel = async (
   const provider = aiOptions.provider ?? AiProviders.OPENAI;
   const selectedModel = getModelName(
     provider as AiProviders,
-    apiKey,
-    aiOptions.model,
-    defaultModel
+    !!aiOptions.apiKey, // true only when the user explicitly provided their own key
+    aiOptions.model
   );
 
   const baseURL = aiOptions.baseURL;
@@ -677,11 +663,7 @@ export const getAIConfig = async (
     throw new Error(`API key for ${aiOptions.provider} is missing`);
   }
 
-  const languageModel = await getLanguageModel(
-    aiOptions,
-    apiKey,
-    defaultOptions?.model
-  );
+  const languageModel = await getLanguageModel(aiOptions, apiKey);
 
   return {
     model: languageModel,

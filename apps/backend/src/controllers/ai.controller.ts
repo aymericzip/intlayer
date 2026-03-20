@@ -483,7 +483,9 @@ export const askDocQuestion = async (
         },
         !!user
       );
-    } catch (_error) {
+    } catch (error) {
+      console.error(error);
+
       // Manually handle this specific error case
       const errorPayload = {
         code: 'AI_ACCESS_DENIED',
@@ -493,6 +495,7 @@ export const askDocQuestion = async (
       reply.raw.write(
         `event: error\ndata: ${JSON.stringify(errorPayload)}\n\n`
       );
+
       reply.raw.end();
       return;
     }
@@ -569,7 +572,7 @@ export const askDocQuestion = async (
       );
       reply.raw.end();
     }
-  } catch (err: any) {
+  } catch (err) {
     // -------------------------------------------------------------------------
     // CENTRALIZED ERROR CATCHER
     // -------------------------------------------------------------------------
