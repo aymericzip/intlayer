@@ -8,6 +8,24 @@
     "$schema": {
       "type": "string"
     },
+    "id": {
+      "type": "string"
+    },
+    "projectIds": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "localId": {
+      "type": "string"
+    },
+    "localIds": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "format": {
+      "type": "string",
+      "enum": ["intlayer", "icu", "i18next", "vue-i18n"]
+    },
     "key": {
       "type": "string"
     },
@@ -16,6 +34,10 @@
     },
     "description": {
       "type": "string"
+    },
+    "versions": {
+      "type": "array",
+      "items": { "type": "string" }
     },
     "version": {
       "type": "string"
@@ -26,29 +48,51 @@
     "locale": {
       "type": "string"
     },
-    "autoFill": {
+    "contentAutoTransformation": {
+      "anyOf": [
+        { "type": "boolean" },
+        {
+          "type": "object",
+          "properties": {
+            "markdown": { "type": "boolean" },
+            "html": { "type": "boolean" },
+            "insertion": { "type": "boolean" }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "fill": {
       "anyOf": [
         { "type": "boolean" },
         { "type": "string" },
         {
           "type": "object",
-          "description": "StrictModeLocaleMap<string> - object with locale codes as keys and string values",
+          "description": "Per-locale fill configuration - object with locale codes as keys and boolean or string values",
           "additionalProperties": {
-            "type": "string"
+            "anyOf": [{ "type": "boolean" }, { "type": "string" }]
           }
         }
       ]
     },
-    "autoFilled": {
-      "type": "boolean"
+    "filled": {
+      "type": "boolean",
+      "const": true
+    },
+    "priority": {
+      "type": "number"
+    },
+    "importMode": {
+      "type": "string",
+      "enum": ["static", "dynamic", "fetch"]
+    },
+    "location": {
+      "type": "string"
+    },
+    "schema": {
+      "type": "string"
     },
     "tags": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "availableVersions": {
       "type": "array",
       "items": {
         "type": "string"
