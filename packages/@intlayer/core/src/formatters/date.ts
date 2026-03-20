@@ -43,11 +43,11 @@ const presets: Record<DateTimePreset, Intl.DateTimeFormatOptions> = {
  * Formats a date/time value into a localized string using Intl.DateTimeFormat.
  *
  * @example
- * date({ date: new Date(), options: "short" });
+ * date(new Date('2025-08-02T14:30:00Z'), { year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
  * // "08/02/25, 14:30"
  *
  * @example
- * date({ date: "2025-08-02T14:30:00Z", locale: Locales.FRENCH, options: { month: "long", day: "numeric" } });
+ * date("2025-08-02T14:30:00Z", { locale: Locales.FRENCH, month: "long", day: "numeric" });
  * // "2 août"
  */
 export const date = (

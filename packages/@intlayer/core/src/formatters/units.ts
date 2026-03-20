@@ -6,7 +6,7 @@ import { Intl as CachedIntl } from '../utils/intl';
  * Formats a numeric value as a localized unit string.
  *
  * @example
- * units({ value: 5, unit: "kilometer", unitDisplay: "long", locale: "en-GB" })
+ * units(5, { unit: "kilometer", unitDisplay: "long", locale: "en-GB" });
  * // "5 kilometers"
  */
 export const units = (

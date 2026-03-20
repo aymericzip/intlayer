@@ -7,10 +7,10 @@ import { Intl as CachedIntl } from '../utils/intl';
  * based on locale and formatting options.
  *
  * @example
- * compact({ value: 1200 }); // "1.2K"
+ * compact(1200); // "1.2K"
  *
  * @example
- * compact({ value: "1000000", locale: Locales.FRENCH, compactDisplay: "long" });
+ * compact("1000000", { locale: Locales.FRENCH, compactDisplay: "long" });
  * // "1 million"
  */
 export const compact = (

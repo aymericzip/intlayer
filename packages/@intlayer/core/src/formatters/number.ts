@@ -6,8 +6,10 @@ import { Intl as CachedIntl } from '../utils/intl';
  * Formats a numeric value using locale-aware formatting.
  *
  * @example
- * number({ value: 123456.789 }); // "123,456.789"
- * number({ value: "1000000", locale: Locales.FRENCH }); // "1 000 000"
+ * number(123456.789); // "123,456.789"
+ *
+ * @example
+ * number("1000000", { locale: Locales.FRENCH }); // "1 000 000"
  */
 export const number = (
   value: string | number,

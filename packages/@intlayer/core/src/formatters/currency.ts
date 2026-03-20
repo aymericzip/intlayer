@@ -5,13 +5,13 @@ import { Intl as CachedIntl } from '../utils/intl';
 /**
  * Formats a numeric or string value into a localized currency string using the Intl API.
  *
- *  @example
- * currency({ value: 1234.5, currency: 'EUR' });
+ * @example
+ * currency(1234.5, { currency: 'EUR' });
  * // "€1,234.50"
  *
  * @example
- * currency({ value: "5000", locale: Locales.FRENCH, currency: "CAD", currencyDisplay: "code" });
- * // "5 000,00 CAD"
+ * currency("5000", { locale: Locales.FRENCH, currency: "CAD", currencyDisplay: "code" });
+ * // "5 000,00 CAD"
  */
 export const currency = (
   value: string | number,

@@ -31,6 +31,16 @@ const diffInUnit = (from: Date, to: Date, unit: RelativeTimeUnit): number => {
   }
 };
 
+/**
+ * Formats the difference between two dates as a localized relative time string.
+ *
+ * @example
+ * relativeTime(new Date(Date.now() - 30000)); // "30 seconds ago"
+ *
+ * @example
+ * relativeTime("2025-01-01", new Date(), { locale: Locales.FRENCH, unit: "day" });
+ * // "il y a 443 jours"
+ */
 export const relativeTime = (
   from: Date | string | number,
   to: Date | string | number = new Date(),
