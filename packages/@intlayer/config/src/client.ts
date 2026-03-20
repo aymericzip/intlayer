@@ -1,4 +1,3 @@
-export * as DefaultValues from './defaultValues';
 export { extractErrorMessage } from './utils/extractErrorMessage';
 export { logStack } from './utils/logStack';
 export { normalizePath } from './utils/normalizePath';

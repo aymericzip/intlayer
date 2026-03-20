@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import { DefaultValues } from '@intlayer/config/client';
+import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
@@ -59,7 +59,7 @@ export const localeMap = <T>(
   mapper: (locale: LocaleData) => T,
   locales: LocalesValues[] = configuration?.internationalization.locales ?? [],
   defaultLocale: LocalesValues = configuration?.internationalization
-    .defaultLocale ?? DefaultValues.Internationalization.DEFAULT_LOCALE,
+    .defaultLocale ?? DEFAULT_LOCALE,
   mode:
     | 'prefix-no-default'
     | 'prefix-all'
@@ -108,7 +108,7 @@ export const localeFlatMap = <T>(
   mapper: (locale: LocaleData) => T[],
   locales: LocalesValues[] = configuration?.internationalization.locales ?? [],
   defaultLocale: LocalesValues = configuration?.internationalization
-    .defaultLocale ?? DefaultValues.Internationalization.DEFAULT_LOCALE,
+    .defaultLocale ?? DEFAULT_LOCALE,
   mode:
     | 'prefix-no-default'
     | 'prefix-all'
@@ -154,7 +154,7 @@ export const localeRecord = <T>(
   mapper: (locale: LocaleData) => T,
   locales: LocalesValues[] = configuration?.internationalization.locales ?? [],
   defaultLocale: LocalesValues = configuration?.internationalization
-    .defaultLocale ?? DefaultValues.Internationalization.DEFAULT_LOCALE,
+    .defaultLocale ?? DEFAULT_LOCALE,
   mode:
     | 'prefix-no-default'
     | 'prefix-all'

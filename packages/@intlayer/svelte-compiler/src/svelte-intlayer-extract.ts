@@ -1,6 +1,6 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { parse as babelParse, types as t, traverse } from '@babel/core';
-import { DefaultValues } from '@intlayer/config/client';
+import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
 import type { Locale } from '@intlayer/types/allLocales';
 import MagicString from 'magic-string';
 import { parse } from 'svelte/compiler';
@@ -140,7 +140,7 @@ export const intlayerSvelteExtract = (
   options: ExtractPluginOptions = {}
 ): { code: string; map?: unknown; extracted: boolean } | null => {
   const {
-    defaultLocale = DefaultValues.Internationalization.DEFAULT_LOCALE,
+    defaultLocale = DEFAULT_LOCALE,
     packageName = 'svelte-intlayer',
     filesList,
     shouldExtract,

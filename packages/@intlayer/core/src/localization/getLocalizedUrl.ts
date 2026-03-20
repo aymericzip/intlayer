@@ -1,8 +1,12 @@
 import configuration from '@intlayer/config/built';
-import { DefaultValues } from '@intlayer/config/client';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import type { RoutingConfig } from '@intlayer/types/config';
+import {
+  DEFAULT_LOCALE,
+  LOCALES,
+  ROUTING_MODE,
+} from '@intlayer/config/defaultValues';
 import type { Locale } from '@intlayer/types/allLocales';
+import type { RoutingConfig } from '@intlayer/types/config';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
 import { getPathWithoutLocale } from './getPathWithoutLocale';
 import { getPrefix } from './getPrefix';
@@ -61,12 +65,9 @@ export const getLocalizedUrl = (
 ): string => {
   const { defaultLocale, mode, locales, rewrite } = {
     defaultLocale:
-      configuration?.internationalization?.defaultLocale ??
-      DefaultValues.Internationalization.DEFAULT_LOCALE,
-    mode: configuration?.routing?.mode ?? DefaultValues.Routing.ROUTING_MODE,
-    locales:
-      configuration?.internationalization?.locales ??
-      DefaultValues.Internationalization.LOCALES,
+      configuration?.internationalization?.defaultLocale ?? DEFAULT_LOCALE,
+    mode: configuration?.routing?.mode ?? ROUTING_MODE,
+    locales: configuration?.internationalization?.locales ?? LOCALES,
     rewrite: configuration?.routing?.rewrite,
     ...options,
   };

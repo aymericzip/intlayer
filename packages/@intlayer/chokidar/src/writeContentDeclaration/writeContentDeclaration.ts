@@ -3,7 +3,7 @@ import { existsSync } from 'node:fs';
 import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
 import { basename, dirname, extname, join, resolve } from 'node:path';
 import { isDeepStrictEqual } from 'node:util';
-import { DefaultValues } from '@intlayer/config/client';
+import { COMPILER_NO_METADATA } from '@intlayer/config/defaultValues';
 import {
   getFilteredLocalesDictionary,
   getPerLocaleDictionary,
@@ -134,8 +134,7 @@ export const writeContentDeclaration = async (
   const { system, compiler } = configuration;
   const { baseDir } = system;
 
-  const noMetadata =
-    compiler?.noMetadata ?? DefaultValues.Compiler.COMPILER_NO_METADATA;
+  const noMetadata = compiler?.noMetadata ?? COMPILER_NO_METADATA;
   const { newDictionariesPath, localeList } = {
     ...defaultOptions,
     ...options,

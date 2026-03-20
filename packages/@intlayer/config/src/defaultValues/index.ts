@@ -1,9 +1,9 @@
-export * as Build from './build';
-export * as Compiler from './compiler';
-export * as Content from './content';
-export * as Dictionary from './dictionary';
-export * as Editor from './editor';
-export * as Internationalization from './internationalization';
-export * as Log from './log';
-export * as Routing from './routing';
-export * as System from './system';
+export * from './build';
+export * from './compiler';
+export * from './content';
+export * from './dictionary';
+export * from './editor';
+export * from './internationalization';
+export * from './log';
+export * from './routing';
+export * from './system';

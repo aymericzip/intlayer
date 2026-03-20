@@ -77,6 +77,11 @@
       "require": "./dist/cjs/colors.cjs",
       "import": "./dist/esm/colors.mjs"
     },
+    "./defaultValues": {
+      "types": "./dist/types/defaultValues/index.d.ts",
+      "require": "./dist/cjs/defaultValues/index.cjs",
+      "import": "./dist/esm/defaultValues/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
@@ -107,6 +112,9 @@
       ],
       "colors": [
         "./dist/types/colors.d.ts"
+      ],
+      "defaultValues": [
+        "./dist/types/defaultValues/index.d.ts"
       ],
       "package.json": [
         "./package.json"

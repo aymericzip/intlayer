@@ -1,6 +1,6 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { parse as babelParse, types as t, traverse } from '@babel/core';
-import { DefaultValues } from '@intlayer/config/client';
+import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
 import type { Locale } from '@intlayer/types/allLocales';
 import vueSfc from '@vue/compiler-sfc';
 import MagicString from 'magic-string';
@@ -178,7 +178,7 @@ export const intlayerVueExtract = (
   options: ExtractPluginOptions = {}
 ): { code: string; map?: unknown; extracted: boolean } | null => {
   const {
-    defaultLocale = DefaultValues.Internationalization.DEFAULT_LOCALE,
+    defaultLocale = DEFAULT_LOCALE,
     packageName = 'vue-intlayer',
     filesList,
     shouldExtract,

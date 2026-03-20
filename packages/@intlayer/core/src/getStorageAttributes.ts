@@ -1,5 +1,13 @@
-import { DefaultValues } from '@intlayer/config/client';
-import type { CookiesAttributes, IntlayerConfig, StorageAttributes } from '@intlayer/types/config';
+import {
+  COOKIE_NAME,
+  HEADER_NAME,
+  LOCALE_STORAGE_NAME,
+} from '@intlayer/config/defaultValues';
+import type {
+  CookiesAttributes,
+  IntlayerConfig,
+  StorageAttributes,
+} from '@intlayer/types/config';
 
 // ============================================================================
 // Types
@@ -47,7 +55,7 @@ const createCookieEntry = (
     options ?? {};
 
   return {
-    name: name ?? DefaultValues.Routing.COOKIE_NAME,
+    name: name ?? COOKIE_NAME,
     attributes: {
       path,
       expires,
@@ -68,7 +76,7 @@ const createWebStorageEntry = (
   const { name } = options ?? {};
 
   return {
-    name: name ?? DefaultValues.Routing.LOCALE_STORAGE_NAME,
+    name: name ?? LOCALE_STORAGE_NAME,
   };
 };
 
@@ -81,7 +89,7 @@ const createHeaderEntry = (
   const { name } = options ?? {};
 
   return {
-    name: name ?? DefaultValues.Routing.HEADER_NAME,
+    name: name ?? HEADER_NAME,
   };
 };
 

@@ -1,5 +1,5 @@
 import configuration from '@intlayer/config/built';
-import { DefaultValues } from '@intlayer/config/client';
+import { ROUTING_MODE } from '@intlayer/config/defaultValues';
 import {
   getCanonicalPath,
   getLocalizedPath,
@@ -52,7 +52,7 @@ const { basePath, mode, rewrite } = routing ?? {};
 // Note: cookie names are resolved inside LocaleStorage based on configuration
 
 // Derived flags from routing.mode
-const effectiveMode = mode ?? DefaultValues.Routing.ROUTING_MODE;
+const effectiveMode = mode ?? ROUTING_MODE;
 const noPrefix =
   effectiveMode === 'no-prefix' || effectiveMode === 'search-params';
 const prefixDefault = effectiveMode === 'prefix-all';

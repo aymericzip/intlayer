@@ -1,6 +1,6 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { parse } from 'node:url';
-import { DefaultValues } from '@intlayer/config/client';
+import { ROUTING_MODE } from '@intlayer/config/defaultValues';
 import {
   type GetConfigurationOptions,
   getConfiguration,
@@ -65,11 +65,7 @@ export const intlayerProxy = (
   const { internationalization, routing } = intlayerConfig;
   const { locales: supportedLocales, defaultLocale } = internationalization;
 
-  const {
-    basePath = '',
-    mode = DefaultValues.Routing.ROUTING_MODE,
-    rewrite,
-  } = routing;
+  const { basePath = '', mode = ROUTING_MODE, rewrite } = routing;
 
   // Track redirect counts per request to detect loops
   const redirectCounts = new Map<string, number>();

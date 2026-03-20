@@ -1,7 +1,14 @@
 import configuration from '@intlayer/config/built';
-import { DefaultValues } from '@intlayer/config/client';
-import type { LocalesValues, StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
+import {
+  DEFAULT_LOCALE,
+  LOCALES,
+  ROUTING_MODE,
+} from '@intlayer/config/defaultValues';
 import type { RoutingConfig } from '@intlayer/types/config';
+import type {
+  LocalesValues,
+  StrictModeLocaleMap,
+} from '@intlayer/types/module_augmentation';
 import { getLocalizedUrl } from './getLocalizedUrl';
 
 /**
@@ -49,12 +56,9 @@ export const getMultilingualUrls = (
 ): StrictModeLocaleMap<string> => {
   const { defaultLocale, mode, locales, rewrite } = {
     defaultLocale:
-      configuration?.internationalization?.defaultLocale ??
-      DefaultValues.Internationalization.DEFAULT_LOCALE,
-    mode: configuration?.routing?.mode ?? DefaultValues.Routing.ROUTING_MODE,
-    locales:
-      configuration?.internationalization?.locales ??
-      DefaultValues.Internationalization.LOCALES,
+      configuration?.internationalization?.defaultLocale ?? DEFAULT_LOCALE,
+    mode: configuration?.routing?.mode ?? ROUTING_MODE,
+    locales: configuration?.internationalization?.locales ?? LOCALES,
     rewrite: configuration?.routing?.rewrite,
     ...options,
   };

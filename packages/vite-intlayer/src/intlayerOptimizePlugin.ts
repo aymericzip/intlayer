@@ -2,7 +2,7 @@ import { join } from 'node:path';
 import { transformSync } from '@babel/core';
 import { intlayerOptimizeBabelPlugin } from '@intlayer/babel';
 import { buildComponentFilesList, runOnce } from '@intlayer/chokidar/utils';
-import { DefaultValues } from '@intlayer/config/client';
+import { IMPORT_MODE } from '@intlayer/config/defaultValues';
 import { getAppLogger } from '@intlayer/config/logger';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { IntlayerConfig } from '@intlayer/types/config';
@@ -56,9 +56,7 @@ export const intlayerOptimize = async (
 
     (Object.values(dictionaries) as Dictionary[]).forEach((dictionary) => {
       dictionaryModeMap[dictionary.key] =
-        dictionary.importMode ??
-        importMode ??
-        DefaultValues.Dictionary.IMPORT_MODE;
+        dictionary.importMode ?? importMode ?? IMPORT_MODE;
     });
 
     return [

@@ -2,8 +2,8 @@ import { join, relative, resolve } from 'node:path';
 import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { logConfigDetails } from '@intlayer/chokidar/cli';
 import { buildComponentFilesList, runOnce } from '@intlayer/chokidar/utils';
-import { DefaultValues } from '@intlayer/config/client';
 import * as ANSIColors from '@intlayer/config/colors';
+import { IMPORT_MODE } from '@intlayer/config/defaultValues';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
@@ -196,9 +196,7 @@ const getPruneConfig = (
 
   (Object.values(dictionaries) as Dictionary[]).forEach((dictionary) => {
     dictionaryModeMap[dictionary.key] =
-      dictionary.importMode ??
-      importMode ??
-      DefaultValues.Dictionary.IMPORT_MODE;
+      dictionary.importMode ?? importMode ?? IMPORT_MODE;
   });
 
   return {

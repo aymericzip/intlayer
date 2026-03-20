@@ -1,7 +1,7 @@
 import { passkeyClient } from '@better-auth/passkey/client';
 import { ssoClient } from '@better-auth/sso/client';
 import configuration from '@intlayer/config/built';
-import { DefaultValues } from '@intlayer/config/client';
+import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createAuthClient } from 'better-auth/client';
 import { magicLinkClient, twoFactorClient } from 'better-auth/client/plugins';
@@ -79,7 +79,7 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
     intlayerConfig?.editor?.backendURL ?? configuration?.editor?.backendURL;
 
   if (!backendURL) {
-    backendURL = DefaultValues.Editor.BACKEND_URL;
+    backendURL = BACKEND_URL;
     console.dir({ intlayerConfig, configuration }, { depth: null });
     console.error('Backend URL is not defined in the Intlayer configuration.');
   }
