@@ -1,5 +1,6 @@
-import type { ContentNode, TypedNode } from '@intlayer/types/dictionary';;
-import { NodeType } from '@intlayer/types/nodeType';
+import type { ContentNode, TypedNode } from '@intlayer/types/dictionary';
+
+import * as NodeTypes from '@intlayer/types/nodeType';
 
 export const getEmptyNode = (section: ContentNode): ContentNode => {
   if (typeof section === 'string') {
@@ -17,24 +18,24 @@ export const getEmptyNode = (section: ContentNode): ContentNode => {
       typedNode[typedNode.nodeType as unknown as keyof typeof typedNode];
 
     if (
-      typedNode.nodeType === NodeType.Translation ||
-      typedNode.nodeType === NodeType.Enumeration ||
-      typedNode.nodeType === NodeType.Condition ||
-      typedNode.nodeType === NodeType.Insertion ||
-      typedNode.nodeType === NodeType.HTML
+      typedNode.nodeType === NodeTypes.TRANSLATION ||
+      typedNode.nodeType === NodeTypes.ENUMERATION ||
+      typedNode.nodeType === NodeTypes.CONDITION ||
+      typedNode.nodeType === NodeTypes.INSERTION ||
+      typedNode.nodeType === NodeTypes.HTML
     ) {
       return getEmptyNode(content as ContentNode);
     }
 
-    if (typedNode.nodeType === NodeType.Nested) {
+    if (typedNode.nodeType === NodeTypes.NESTED) {
       return 'dictionary-key';
     }
 
-    if (typedNode.nodeType === NodeType.File) {
+    if (typedNode.nodeType === NodeTypes.FILE) {
       return 'file/path';
     }
 
-    if (typedNode.nodeType === NodeType.Markdown) {
+    if (typedNode.nodeType === NodeTypes.MARKDOWN) {
       return getEmptyNode(typedNode);
     }
 

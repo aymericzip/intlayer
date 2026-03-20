@@ -18,7 +18,7 @@ import type { FileContent } from './file';
 export const file = (_path: string): FileContent => {
   throw new Error('file is not available in browser');
 
-  // return formatNodeType(NodeType.File, path, {
+  // return formatNodeType(NodeTypes.File, path, {
   //   content: '',
   //   fixedPath: '',
   // });

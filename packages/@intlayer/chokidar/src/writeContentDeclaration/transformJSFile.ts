@@ -1,7 +1,7 @@
 import { getNodeType } from '@intlayer/core/dictionaryManipulator';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
-import { NodeType } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import * as recast from 'recast';
 import * as babelTsParser from 'recast/parsers/babel-ts.js';
 
@@ -119,22 +119,22 @@ const isMultilingualNode = (val: any): boolean => {
 
   const nodeType = getNodeType(val as ContentNode);
 
-  if (nodeType === NodeType.Translation) {
+  if (nodeType === NodeTypes.TRANSLATION) {
     return true;
   }
 
   if (
-    nodeType === NodeType.Markdown ||
-    nodeType === NodeType.HTML ||
-    nodeType === NodeType.Insertion
+    nodeType === NodeTypes.MARKDOWN ||
+    nodeType === NodeTypes.HTML ||
+    nodeType === NodeTypes.INSERTION
   ) {
     return isMultilingualNode((val as any)[nodeType]);
   }
 
   if (
-    nodeType === NodeType.Enumeration ||
-    nodeType === NodeType.Condition ||
-    nodeType === NodeType.Gender
+    nodeType === NodeTypes.ENUMERATION ||
+    nodeType === NodeTypes.CONDITION ||
+    nodeType === NodeTypes.GENDER
   ) {
     const data = (val as any)[nodeType];
 
@@ -340,21 +340,38 @@ const buildNodeForValue = (
 
   if (
     nodeType &&
-    Object.values(NodeType).includes(nodeType as any) &&
-    nodeType !== NodeType.Text
+    [
+      NodeTypes.TRANSLATION,
+      NodeTypes.ENUMERATION,
+      NodeTypes.CONDITION,
+      NodeTypes.GENDER,
+      NodeTypes.INSERTION,
+      NodeTypes.MARKDOWN,
+      NodeTypes.HTML,
+      NodeTypes.FILE,
+      NodeTypes.NESTED,
+      NodeTypes.ARRAY,
+      NodeTypes.OBJECT,
+      NodeTypes.REACT_NODE,
+      NodeTypes.NUMBER,
+      NodeTypes.BOOLEAN,
+      NodeTypes.NULL,
+      NodeTypes.UNKNOWN,
+    ].includes(nodeType as any) &&
+    nodeType !== NodeTypes.TEXT
   ) {
     const nodeData = (val as any)[nodeType];
     let calleeName = '';
 
-    if (nodeType === NodeType.Translation) calleeName = 't';
-    else if (nodeType === NodeType.Enumeration) calleeName = 'enu';
-    else if (nodeType === NodeType.Condition) calleeName = 'cond';
-    else if (nodeType === NodeType.Gender) calleeName = 'gender';
-    else if (nodeType === NodeType.Insertion) calleeName = 'insert';
-    else if (nodeType === NodeType.Markdown) calleeName = 'md';
-    else if (nodeType === NodeType.HTML) calleeName = 'html';
-    else if (nodeType === NodeType.File) calleeName = 'file';
-    else if (nodeType === NodeType.Nested) calleeName = 'nest';
+    if (nodeType === NodeTypes.TRANSLATION) calleeName = 't';
+    else if (nodeType === NodeTypes.ENUMERATION) calleeName = 'enu';
+    else if (nodeType === NodeTypes.CONDITION) calleeName = 'cond';
+    else if (nodeType === NodeTypes.GENDER) calleeName = 'gender';
+    else if (nodeType === NodeTypes.INSERTION) calleeName = 'insert';
+    else if (nodeType === NodeTypes.MARKDOWN) calleeName = 'md';
+    else if (nodeType === NodeTypes.HTML) calleeName = 'html';
+    else if (nodeType === NodeTypes.FILE) calleeName = 'file';
+    else if (nodeType === NodeTypes.NESTED) calleeName = 'nest';
 
     if (calleeName) requiredImports.add(calleeName);
 

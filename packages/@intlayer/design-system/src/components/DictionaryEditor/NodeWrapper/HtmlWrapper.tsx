@@ -1,7 +1,8 @@
 import type { HTMLContent } from '@intlayer/core/transpiler';
 import type { ContentNode } from '@intlayer/types/dictionary';
-import type { KeyPath } from '@intlayer/types/keyPath';;
-import { NodeType } from '@intlayer/types/nodeType';
+import type { KeyPath } from '@intlayer/types/keyPath';
+
+import * as NodeTypes from '@intlayer/types/nodeType';
 import type { FC } from 'react';
 import { NodeWrapper, type NodeWrapperProps } from './index';
 
@@ -15,11 +16,11 @@ export const HtmlWrapper: FC<HtmlWrapperProps> = (props) => {
   const newKeyPath: KeyPath[] = [
     ...keyPath,
     {
-      type: NodeType.HTML,
+      type: NodeTypes.HTML,
     },
   ];
 
-  const subSection = section[NodeType.HTML] as ContentNode;
+  const subSection = section[NodeTypes.HTML] as ContentNode;
 
   return (
     <div className="ml-2 grid grid-cols-[auto,1fr] gap-2">

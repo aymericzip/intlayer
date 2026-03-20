@@ -1,7 +1,7 @@
 import type { ConditionContent } from '@intlayer/core/transpiler';
 import type { ContentNode } from '@intlayer/types/dictionary';
-import type { KeyPath } from '@intlayer/types/keyPath';;
-import { NodeType } from '@intlayer/types/nodeType';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import type { FC } from 'react';
 import { NodeWrapper, type NodeWrapperProps, traceKeys } from './index';
 
@@ -18,14 +18,14 @@ export const ConditionWrapper: FC<ConditionWrapperProps> = (props) => {
         .filter((key) => !traceKeys.includes(key))
         .map((key) => {
           const newKeyPathEl: KeyPath = {
-            type: NodeType.Condition,
+            type: NodeTypes.CONDITION,
             key,
           };
           const newKeyPath: KeyPath[] = [...keyPath, newKeyPathEl];
 
           const subSection =
-            section[NodeType.Condition][
-              key as keyof (typeof section)[NodeType.Condition]
+            section[NodeTypes.CONDITION][
+              key as keyof (typeof section)[typeof NodeTypes.CONDITION]
             ]!;
 
           return (

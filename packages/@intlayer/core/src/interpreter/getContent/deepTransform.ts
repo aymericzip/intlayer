@@ -1,5 +1,5 @@
 import type { KeyPath } from '@intlayer/types/keyPath';
-import { NodeType } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import type { NodeProps } from './plugins';
 
 /**
@@ -43,7 +43,7 @@ export const deepTransformNode = (node: any, props: NodeProps): any => {
         children: child,
         keyPath: [
           ...props.keyPath,
-          { type: NodeType.Array, key: index } as KeyPath,
+          { type: NodeTypes.ARRAY, key: index } as KeyPath,
         ],
       };
       return deepTransformNode(child, childProps);
@@ -56,7 +56,7 @@ export const deepTransformNode = (node: any, props: NodeProps): any => {
     const childProps = {
       ...props,
       children: node[key],
-      keyPath: [...props.keyPath, { type: NodeType.Object, key } as KeyPath],
+      keyPath: [...props.keyPath, { type: NodeTypes.OBJECT, key } as KeyPath],
     };
     result[key] = deepTransformNode(node[key], childProps);
   }

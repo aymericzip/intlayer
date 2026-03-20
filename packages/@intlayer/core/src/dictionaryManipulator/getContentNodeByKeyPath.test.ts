@@ -1,6 +1,7 @@
 import type { Dictionary } from '@intlayer/types/dictionary';
-import type { KeyPath } from '@intlayer/types/keyPath';;
-import { NodeType } from '@intlayer/types/nodeType';
+import type { KeyPath } from '@intlayer/types/keyPath';
+
+import * as NodeTypes from '@intlayer/types/nodeType';
 import { describe, expect, it } from 'vitest';
 import { t } from '../transpiler';
 import { getContentNodeByKeyPath } from './getContentNodeByKeyPath';
@@ -16,15 +17,15 @@ describe('getContentNodeByKeyPath', () => {
         title: 'Vite + Preact',
         count: 'count is ',
         edit: {
-          nodeType: 'markdown',
-          markdown: 'Edit `src/app.tsx` and save to test HMR',
+          nodeType: NodeTypes.MARKDOWN,
+          [NodeTypes.MARKDOWN]: 'Edit `src/app.tsx` and save to test HMR',
         },
         readTheDocs: 'Click on the Vite and Preact logos to learn more',
       },
     };
     const keyPath: KeyPath[] = [
-      { key: 'edit', type: NodeType.Object },
-      { type: NodeType.Markdown },
+      { key: 'edit', type: NodeTypes.OBJECT },
+      { type: NodeTypes.MARKDOWN },
     ];
 
     const result = getContentNodeByKeyPath(
@@ -32,7 +33,9 @@ describe('getContentNodeByKeyPath', () => {
       keyPath
     );
 
-    expect(result).toBe(sampleDictionaryContent.content.edit.markdown);
+    expect(result).toBe(
+      sampleDictionaryContent.content.edit[NodeTypes.MARKDOWN]
+    );
   });
 
   it('should access the specific keyPath: [{key: "edit", type: "object"}, {type: "markdown"}]', () => {
@@ -46,16 +49,16 @@ describe('getContentNodeByKeyPath', () => {
           title: 'Vite + Preact',
           count: 'count is ',
           edit: {
-            nodeType: 'markdown',
-            markdown: 'Edit `src/app.tsx` and save to test HMR',
+            nodeType: NodeTypes.MARKDOWN,
+            [NodeTypes.MARKDOWN]: 'Edit `src/app.tsx` and save to test HMR',
           },
           readTheDocs: 'Click on the Vite and Preact logos to learn more',
         },
       }),
     };
     const keyPath: KeyPath[] = [
-      { key: 'edit', type: NodeType.Object },
-      { type: NodeType.Markdown },
+      { key: 'edit', type: NodeTypes.OBJECT },
+      { type: NodeTypes.MARKDOWN },
     ];
 
     const result = getContentNodeByKeyPath(

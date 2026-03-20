@@ -1,6 +1,6 @@
 import { camelCaseToSentence } from '@intlayer/config/client';
-import type { KeyPath } from '@intlayer/types/keyPath';
 import type { Locale } from '@intlayer/types/allLocales';
+import type { KeyPath } from '@intlayer/types/keyPath';
 import type { FC } from 'react';
 import { Breadcrumb, type BreadcrumbLink } from '../Breadcrumb';
 import type { LinkColor } from '../Link';
@@ -34,9 +34,9 @@ export const KeyPathBreadcrumb: FC<KeyPathBreadcrumbProps> = ({
     ...keyPath.map((el, index) => ({
       onClick: onClickKeyPath
         ? () =>
-            // With keyPath = [{type: NodeType.Object, key: '0'}, {type: NodeType.Array, key: '0'}, {type: NodeType.Object, key: '1'}]
-            // If index is 0 -> onFocusKeyPath([{type: NodeType.Object, key: '0'}])
-            // If index is 1 -> onFocusKeyPath([{type: NodeType.Object, key: '0'}, {type: NodeType.Array, key: '0'}])
+            // With keyPath = [{type: NodeTypes.Object, key: '0'}, {type: NodeTypes.Array, key: '0'}, {type: NodeTypes.Object, key: '1'}]
+            // If index is 0 -> onFocusKeyPath([{type: NodeTypes.Object, key: '0'}])
+            // If index is 1 -> onFocusKeyPath([{type: NodeTypes.Object, key: '0'}, {type: NodeTypes.Array, key: '0'}])
             onClickKeyPath?.(keyPath.slice(0, index + 1))
         : undefined,
 

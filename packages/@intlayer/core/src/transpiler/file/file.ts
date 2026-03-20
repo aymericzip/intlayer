@@ -2,10 +2,10 @@ import { existsSync, readFileSync, statSync } from 'node:fs';
 import { dirname, isAbsolute, relative, resolve } from 'node:path';
 import { colorizePath, getAppLogger } from '@intlayer/config/logger';
 import type { TypedNodeModel } from '@intlayer/types/nodeType';
-import { formatNodeType, NodeType } from '@intlayer/types/nodeType';
+import { FILE, formatNodeType } from '@intlayer/types/nodeType';
 
 export type FileContentConstructor<T extends Record<string, any> = {}> =
-  TypedNodeModel<NodeType.File, string, T>;
+  TypedNodeModel<typeof FILE, string, T>;
 
 export type FileContent = FileContentConstructor<{
   content: string;
@@ -37,7 +37,7 @@ export const fileContent = (
     try {
       const content = readFileSync(filePath, 'utf8');
 
-      return formatNodeType(NodeType.File, path, {
+      return formatNodeType(FILE, path, {
         content,
         fixedPath: relative(baseDir, filePath),
       });
@@ -53,7 +53,7 @@ export const fileContent = (
     });
   }
 
-  return formatNodeType(NodeType.File, path, {
+  return formatNodeType(FILE, path, {
     content: `-`,
   });
 };

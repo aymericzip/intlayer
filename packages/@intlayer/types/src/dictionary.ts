@@ -10,7 +10,7 @@ import type { NodeType } from './nodeType';
 type BaseNode = number | string | boolean | null | undefined;
 
 type TypedNodeBase = {
-  nodeType: NodeType | `${NodeType}`;
+  nodeType: NodeType;
 };
 
 export interface TypedNode<_NodeType = undefined> extends TypedNodeBase {}

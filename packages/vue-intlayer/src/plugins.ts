@@ -24,7 +24,8 @@ import type {
   DeclaredLocales,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
-import { NodeType } from '@intlayer/types/nodeType';
+import type { NodeType } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import { Fragment, h, markRaw, type VNode } from 'vue';
 import { default as ContentSelector } from './editor/ContentSelector.vue';
 import type { HTMLComponents } from './html/types';
@@ -106,7 +107,7 @@ export const intlayerNodePlugins: Plugins = {
 
 export type InsertionCond<T, _S, _L> = T extends {
   nodeType: NodeType | string;
-  [NodeType.Insertion]: string;
+  [NodeTypes.INSERTION]: string;
   fields: readonly string[];
 }
   ? <V extends { [K in T['fields'][number]]: VNode }>(
@@ -210,16 +211,16 @@ const splitAndJoinInsertion = (
 export const insertionPlugin: Plugins = {
   id: 'insertion-plugin',
   canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.Insertion,
+    typeof node === 'object' && node?.nodeType === NodeTypes.INSERTION,
   transform: (node: InsertionContent, props, deepTransformNode) => {
     const newKeyPath: KeyPath[] = [
       ...props.keyPath,
       {
-        type: NodeType.Insertion,
+        type: NodeTypes.INSERTION,
       },
     ];
 
-    const children = node[NodeType.Insertion];
+    const children = node[NodeTypes.INSERTION];
 
     /** Insertion string plugin. Replaces string node with a component that render the insertion. */
     const insertionStringPlugin: Plugins = {
@@ -359,7 +360,7 @@ export const markdownStringPlugin: Plugins = {
 
 export type MarkdownCond<T> = T extends {
   nodeType: NodeType | string;
-  [NodeType.Markdown]: infer M;
+  [NodeTypes.MARKDOWN]: infer M;
   metadata?: infer U;
   tags?: infer U;
 }
@@ -372,16 +373,16 @@ export type MarkdownCond<T> = T extends {
 export const markdownPlugin: Plugins = {
   id: 'markdown-plugin',
   canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.Markdown,
+    typeof node === 'object' && node?.nodeType === NodeTypes.MARKDOWN,
   transform: (node: MarkdownContent, props, deepTransformNode) => {
     const newKeyPath: KeyPath[] = [
       ...props.keyPath,
       {
-        type: NodeType.Markdown,
+        type: NodeTypes.MARKDOWN,
       },
     ];
 
-    const children = node[NodeType.Markdown];
+    const children = node[NodeTypes.MARKDOWN];
 
     return deepTransformNode(children, {
       ...props,
@@ -419,7 +420,7 @@ const defaultHTMLComponents = createDefaultHTMLComponents();
 
 export type HTMLPluginCond<T> = T extends {
   nodeType: NodeType | string;
-  [NodeType.HTML]: infer I;
+  [NodeTypes.HTML]: infer I;
   tags?: infer U;
 }
   ? {
@@ -431,9 +432,9 @@ export type HTMLPluginCond<T> = T extends {
 export const htmlPlugin: Plugins = {
   id: 'html-plugin',
   canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.HTML,
+    typeof node === 'object' && node?.nodeType === NodeTypes.HTML,
   transform: (node: HTMLContent<string>, props) => {
-    const html = node[NodeType.HTML];
+    const html = node[NodeTypes.HTML];
     const _tags = node.tags ?? [];
 
     // Type-safe render function that accepts properly typed components

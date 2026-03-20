@@ -1,6 +1,7 @@
 import type { ContentNode } from '@intlayer/types/dictionary';
-import type { KeyPath } from '@intlayer/types/keyPath';;
-import { NodeType } from '@intlayer/types/nodeType';
+import type { KeyPath } from '@intlayer/types/keyPath';
+
+import * as NodeTypes from '@intlayer/types/nodeType';
 
 export const renameContentNodeByKeyPath = (
   dictionaryContent: ContentNode,
@@ -14,26 +15,26 @@ export const renameContentNodeByKeyPath = (
   for (const keyObj of keyPath) {
     parentValue = currentValue;
 
-    if (keyObj.type === NodeType.Object || keyObj.type === NodeType.Array) {
+    if (keyObj.type === NodeTypes.OBJECT || keyObj.type === NodeTypes.ARRAY) {
       lastKey = keyObj.key;
       currentValue = currentValue[keyObj.key];
     }
 
     if (
-      keyObj.type === NodeType.Translation ||
-      keyObj.type === NodeType.Enumeration ||
-      keyObj.type === NodeType.Condition
+      keyObj.type === NodeTypes.TRANSLATION ||
+      keyObj.type === NodeTypes.ENUMERATION ||
+      keyObj.type === NodeTypes.CONDITION
     ) {
       lastKey = keyObj.type;
       currentValue = currentValue[keyObj.type][keyObj.key];
     }
 
     if (
-      keyObj.type === NodeType.Markdown ||
-      keyObj.type === NodeType.ReactNode ||
-      keyObj.type === NodeType.HTML ||
-      keyObj.type === NodeType.Insertion ||
-      keyObj.type === NodeType.File
+      keyObj.type === NodeTypes.MARKDOWN ||
+      keyObj.type === NodeTypes.REACT_NODE ||
+      keyObj.type === NodeTypes.HTML ||
+      keyObj.type === NodeTypes.INSERTION ||
+      keyObj.type === NodeTypes.FILE
     ) {
       lastKey = keyObj.type;
       currentValue = currentValue[keyObj.type];

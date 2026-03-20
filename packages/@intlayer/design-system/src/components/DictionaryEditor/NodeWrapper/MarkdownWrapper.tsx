@@ -1,7 +1,8 @@
 import type { MarkdownContent } from '@intlayer/core/transpiler';
 import type { ContentNode } from '@intlayer/types/dictionary';
-import type { KeyPath } from '@intlayer/types/keyPath';;
-import { NodeType } from '@intlayer/types/nodeType';
+import type { KeyPath } from '@intlayer/types/keyPath';
+
+import * as NodeTypes from '@intlayer/types/nodeType';
 import type { FC } from 'react';
 import { NodeWrapper, type NodeWrapperProps } from './index';
 
@@ -15,11 +16,11 @@ export const MarkdownWrapper: FC<MarkdownWrapperProps> = (props) => {
   const newKeyPath: KeyPath[] = [
     ...keyPath,
     {
-      type: NodeType.Markdown,
+      type: NodeTypes.MARKDOWN,
     },
   ];
 
-  const subSection = section[NodeType.Markdown] as ContentNode;
+  const subSection = section[NodeTypes.MARKDOWN] as ContentNode;
 
   return (
     <div className="ml-2 grid grid-cols-[auto,1fr] gap-2">

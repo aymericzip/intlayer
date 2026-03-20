@@ -1,5 +1,5 @@
 import type { Dictionary } from '@intlayer/types/dictionary';
-import { NodeType } from '@intlayer/types/nodeType';
+import * as NodeType from '@intlayer/types/nodeType';
 import { describe, expect, it } from 'vitest';
 import { t } from '../transpiler';
 import {
@@ -72,8 +72,8 @@ describe('getSplittedContent', () => {
       key: 'test',
       content: {
         markdown: {
-          nodeType: NodeType.Markdown,
-          [NodeType.Markdown]: '# Title',
+          nodeType: NodeType.MARKDOWN,
+          [NodeType.MARKDOWN]: '# Title',
         },
         name: 'Common name',
       },
@@ -82,8 +82,8 @@ describe('getSplittedContent', () => {
     const result = getSplittedContent(content.content);
     expect(result.common).toEqual({
       markdown: {
-        nodeType: NodeType.Markdown,
-        [NodeType.Markdown]: '# Title',
+        nodeType: NodeType.MARKDOWN,
+        [NodeType.MARKDOWN]: '# Title',
       },
       name: 'Common name',
     });

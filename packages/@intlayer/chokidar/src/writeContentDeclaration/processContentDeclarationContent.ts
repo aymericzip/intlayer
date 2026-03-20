@@ -13,7 +13,7 @@ import type {
   MarkdownContentConstructor,
 } from '@intlayer/core/transpiler';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import { NodeType } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 
 /**
  * Write file plugin
@@ -22,7 +22,7 @@ import { NodeType } from '@intlayer/types/nodeType';
 const writeFilePlugin: Plugins = {
   id: 'write-file-plugin',
   canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.File,
+    typeof node === 'object' && node?.nodeType === NodeTypes.FILE,
   transform: (node: FileContent) => {
     const fileContent = node.content;
     const filePath = node.fixedPath;
@@ -55,8 +55,8 @@ const writeFilePlugin: Plugins = {
     }
 
     const transformedFileContent: FileContentConstructor = {
-      nodeType: NodeType.File,
-      [NodeType.File]: node.file,
+      nodeType: NodeTypes.FILE,
+      [NodeTypes.FILE]: node[NodeTypes.FILE],
     };
 
     return transformedFileContent;
@@ -70,11 +70,11 @@ const writeFilePlugin: Plugins = {
 const markdownFilePlugin: Plugins = {
   id: 'markdown-file-plugin',
   canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.Markdown,
+    typeof node === 'object' && node?.nodeType === NodeTypes.MARKDOWN,
   transform: (node: MarkdownContent, props, deepTransformNode) => {
     const simplifiedMarkdownNode: MarkdownContentConstructor = {
-      nodeType: NodeType.Markdown,
-      [NodeType.Markdown]: deepTransformNode(node.markdown, props),
+      nodeType: NodeTypes.MARKDOWN,
+      [NodeTypes.MARKDOWN]: deepTransformNode(node[NodeTypes.MARKDOWN], props),
     };
 
     return simplifiedMarkdownNode;
@@ -88,11 +88,14 @@ const markdownFilePlugin: Plugins = {
 const insertionFilePlugin: Plugins = {
   id: 'insertion-file-plugin',
   canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.Insertion,
+    typeof node === 'object' && node?.nodeType === NodeTypes.INSERTION,
   transform: (node: InsertionContent, props, deepTransformNode) => {
     const simplifiedInsertionNode: InsertionContentConstructor = {
-      nodeType: NodeType.Insertion,
-      [NodeType.Insertion]: deepTransformNode(node.insertion, props),
+      nodeType: NodeTypes.INSERTION,
+      [NodeTypes.INSERTION]: deepTransformNode(
+        node[NodeTypes.INSERTION],
+        props
+      ),
     };
 
     return simplifiedInsertionNode;
@@ -106,11 +109,11 @@ const insertionFilePlugin: Plugins = {
 const htmlFilePlugin: Plugins = {
   id: 'html-file-plugin',
   canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.HTML,
+    typeof node === 'object' && node?.nodeType === NodeTypes.HTML,
   transform: (node: HTMLContent, props, deepTransformNode) => {
     const simplifiedHTMLNode: HTMLContentConstructor = {
-      nodeType: NodeType.HTML,
-      [NodeType.HTML]: deepTransformNode(node.html, props),
+      nodeType: NodeTypes.HTML,
+      [NodeTypes.HTML]: deepTransformNode(node[NodeTypes.HTML], props),
     };
 
     return simplifiedHTMLNode;

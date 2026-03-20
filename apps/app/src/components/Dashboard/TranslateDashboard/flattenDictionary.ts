@@ -1,7 +1,8 @@
 import { getNodeType } from '@intlayer/core/dictionaryManipulator';
 import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
-import { NodeType } from '@intlayer/types/nodeType';
+import type { NodeType } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 
 export type FlattenedDictionaryNode = {
   dictionary: Dictionary;
@@ -20,11 +21,11 @@ export const flattenDictionary = (
 
     // Terminal Leafs (Primitives, Translations & ReactNodes)
     if (
-      nodeType === NodeType.Translation ||
-      nodeType === NodeType.ReactNode ||
-      nodeType === NodeType.Text ||
-      nodeType === NodeType.Number ||
-      nodeType === NodeType.Boolean
+      nodeType === NodeTypes.TRANSLATION ||
+      nodeType === NodeTypes.REACT_NODE ||
+      nodeType === NodeTypes.TEXT ||
+      nodeType === NodeTypes.NUMBER ||
+      nodeType === NodeTypes.BOOLEAN
     ) {
       flattened.push({
         dictionary,
@@ -36,23 +37,23 @@ export const flattenDictionary = (
     }
 
     // Arrays (Unified Logic)
-    if (nodeType === NodeType.Array) {
+    if (nodeType === NodeTypes.ARRAY) {
       const arrayContent = node as unknown as ContentNode[];
 
       const hasComplexChildren = arrayContent.some((value) => {
         const childType = getNodeType(value);
         return (
-          childType === NodeType.Object ||
-          childType === NodeType.Array ||
-          childType === NodeType.Translation ||
-          childType === NodeType.Markdown ||
-          childType === NodeType.Insertion
+          childType === NodeTypes.OBJECT ||
+          childType === NodeTypes.ARRAY ||
+          childType === NodeTypes.TRANSLATION ||
+          childType === NodeTypes.MARKDOWN ||
+          childType === NodeTypes.INSERTION
         );
       });
 
       if (hasComplexChildren) {
         arrayContent.forEach((value, index) => {
-          traverse(value, [...keyPath, { type: NodeType.Array, key: index }]);
+          traverse(value, [...keyPath, { type: NodeTypes.ARRAY, key: index }]);
         });
         return;
       }
@@ -67,24 +68,24 @@ export const flattenDictionary = (
     }
 
     // Objects
-    if (nodeType === NodeType.Object) {
+    if (nodeType === NodeTypes.OBJECT) {
       const obj = node as unknown as Record<string, ContentNode>;
       const entries = Object.entries(obj);
 
       const hasComplexChildren = entries.some(([_, value]) => {
         const childType = getNodeType(value);
         return (
-          childType === NodeType.Object ||
-          childType === NodeType.Array ||
-          childType === NodeType.Translation ||
-          childType === NodeType.Markdown ||
-          childType === NodeType.Insertion
+          childType === NodeTypes.OBJECT ||
+          childType === NodeTypes.ARRAY ||
+          childType === NodeTypes.TRANSLATION ||
+          childType === NodeTypes.MARKDOWN ||
+          childType === NodeTypes.INSERTION
         );
       });
 
       if (hasComplexChildren) {
         entries.forEach(([key, value]) => {
-          traverse(value, [...keyPath, { type: NodeType.Object, key }]);
+          traverse(value, [...keyPath, { type: NodeTypes.OBJECT, key }]);
         });
         return;
       }
@@ -100,25 +101,27 @@ export const flattenDictionary = (
 
     // Intlayer Wrappers (Markdown, Insertion, etc.)
     if (
-      nodeType === NodeType.Markdown ||
-      nodeType === NodeType.Enumeration ||
-      nodeType === NodeType.Condition ||
-      nodeType === NodeType.Gender ||
-      nodeType === NodeType.Insertion ||
-      nodeType === NodeType.Nested ||
-      nodeType === NodeType.File
+      nodeType === NodeTypes.MARKDOWN ||
+      nodeType === NodeTypes.ENUMERATION ||
+      nodeType === NodeTypes.CONDITION ||
+      nodeType === NodeTypes.GENDER ||
+      nodeType === NodeTypes.INSERTION ||
+      nodeType === NodeTypes.NESTED ||
+      nodeType === NodeTypes.FILE
     ) {
       // Explicitly handle Insertion and Markdown to traverse into Translation content
       // This bypasses generic getNodeChildren/wrapperKey lookup which may be flaky for these types
-      if (nodeType === NodeType.Insertion || nodeType === NodeType.Markdown) {
-        const contentKey =
-          nodeType === NodeType.Insertion ? 'insertion' : 'markdown';
-        const innerContent = (node as Record<string, any>)[contentKey];
+      if (nodeType === NodeTypes.INSERTION || nodeType === NodeTypes.MARKDOWN) {
+        const innerContent = (node as Record<string, any>)[
+          nodeType === NodeTypes.INSERTION
+            ? NodeTypes.INSERTION
+            : NodeTypes.MARKDOWN
+        ];
 
         // Ensure we only traverse if the inner content is a Translation
         if (
           innerContent &&
-          getNodeType(innerContent) === NodeType.Translation
+          getNodeType(innerContent) === NodeTypes.TRANSLATION
         ) {
           traverse(innerContent, [...keyPath, { type: nodeType }]);
 

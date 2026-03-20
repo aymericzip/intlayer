@@ -23,7 +23,7 @@ import {
 } from '@intlayer/editor-react';
 import type { LocalDictionaryId, TypedNode } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
-import { NodeType } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import type { ContentNode } from 'intlayer';
 import { Plus, Trash } from 'lucide-react';
 import type { FC } from 'react';
@@ -58,10 +58,10 @@ const NodeTypeView: FC<NodeTypeViewProps> = ({
   };
 
   if (
-    nodeType === NodeType.Translation ||
-    nodeType === NodeType.Condition ||
-    nodeType === NodeType.Gender ||
-    nodeType === NodeType.Enumeration
+    nodeType === NodeTypes.TRANSLATION ||
+    nodeType === NodeTypes.CONDITION ||
+    nodeType === NodeTypes.GENDER ||
+    nodeType === NodeTypes.ENUMERATION
   ) {
     const firstKey = Object.keys(
       (section as unknown as TypedNode)[nodeType as keyof typeof section]
@@ -92,7 +92,7 @@ const NodeTypeView: FC<NodeTypeViewProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Array) {
+  if (nodeType === NodeTypes.ARRAY) {
     const childrenKeyPath = [...keyPath, { type: nodeType, key: 0 } as KeyPath];
     return (
       <div className="flex w-full flex-col gap-1">
@@ -115,7 +115,7 @@ const NodeTypeView: FC<NodeTypeViewProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Object) {
+  if (nodeType === NodeTypes.OBJECT) {
     return (
       <>
         <NodeTypeSelector
@@ -264,7 +264,7 @@ export const ObjectView: FC<ObjectViewProps> = ({
             <NodeView
               sectionKey={key}
               section={section?.[key as keyof typeof section]}
-              keyPath={[...keyPath, { type: NodeType.Object, key }]}
+              keyPath={[...keyPath, { type: NodeTypes.OBJECT, key }]}
               dictionaryLocalId={dictionaryLocalId}
             />
           </li>
@@ -281,7 +281,7 @@ export const ObjectView: FC<ObjectViewProps> = ({
           const newKey = 'newKey';
           const newKeyPath = [
             ...keyPath,
-            { type: NodeType.Object, key: newKey },
+            { type: NodeTypes.OBJECT, key: newKey },
           ] as KeyPath[];
           addEditedContent(dictionaryLocalId, '', newKeyPath);
           setFocusedContentKeyPath(newKeyPath);

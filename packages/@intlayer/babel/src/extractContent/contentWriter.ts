@@ -11,7 +11,7 @@ import { insertContentInDictionary } from '@intlayer/core/plugins';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary, DictionaryKey } from '@intlayer/types/dictionary';
-import { NodeType } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import { resolveContentFilePaths } from './utils/extractDictionaryInfo';
 
 const hasInsertionVars = (str: string): boolean => /\{\{[^}]+\}\}/.test(str);
@@ -88,10 +88,10 @@ export const mergeWithExistingMultilingualDictionary = (
     const rawValue = extractedContent[key];
     if (typeof rawValue === 'string' && hasInsertionVars(rawValue)) {
       const node = finalContent[key] as any;
-      if (node && node.nodeType === NodeType.Translation) {
+      if (node && node.nodeType === NodeTypes.TRANSLATION) {
         (finalContent as any)[key] = {
-          nodeType: NodeType.Insertion,
-          [NodeType.Insertion]: node,
+          nodeType: NodeTypes.INSERTION,
+          [NodeTypes.INSERTION]: node,
           fields: getInsertionFields(rawValue),
         };
       }
@@ -139,8 +139,8 @@ export const mergeWithExistingPerLocaleDictionary = (
       const currentVal = finalContent[key];
       if (typeof currentVal === 'string') {
         (finalContent as any)[key] = {
-          nodeType: NodeType.Insertion,
-          [NodeType.Insertion]: currentVal,
+          nodeType: NodeTypes.INSERTION,
+          [NodeTypes.INSERTION]: currentVal,
           fields: getInsertionFields(rawValue),
         };
       }

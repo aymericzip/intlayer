@@ -48,7 +48,7 @@ import type { Locale } from '@intlayer/types/allLocales';
 import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import { NodeType } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import { renameKey } from '@utils/object';
 import { Plus, Trash, WandSparkles } from 'lucide-react';
 import { type FC, Fragment, type ReactNode, useState } from 'react';
@@ -213,7 +213,7 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
   const { selectedLocales, availableLocales } = useLocaleSwitcherContent();
 
   const sectionContent = (section as TranslationContent<string>)[
-    NodeType.Translation
+    NodeTypes.TRANSLATION
   ] as Record<Locale, string>;
 
   const sectionContentKeys = Object.keys(sectionContent) as LocalesValues[];
@@ -226,7 +226,7 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
       [...new Set([...availableLocales, ...sectionContentKeys])];
 
   const content: any = (section as TranslationContent<string>)[
-    NodeType.Translation
+    NodeTypes.TRANSLATION
   ];
 
   return (
@@ -250,7 +250,7 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
                     }
                     keyPath={[
                       ...keyPath,
-                      { type: NodeType.Translation, key: translationKey },
+                      { type: NodeTypes.TRANSLATION, key: translationKey },
                     ]}
                     dictionary={dictionary}
                     renderSection={renderSection}
@@ -275,7 +275,9 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
   const { addNewEnumeration, removeEnumeration } =
     useIntlayer('navigation-view');
 
-  const content = (section as EnumerationContent<string>)[NodeType.Enumeration];
+  const content = (section as EnumerationContent<string>)[
+    NodeTypes.ENUMERATION
+  ];
   const firstKey = Object.keys(content)[0] as keyof typeof content;
 
   return (
@@ -283,11 +285,11 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
       <table className="w-full">
         <tbody className="flex w-full flex-col gap-2">
           {Object.keys(
-            (section as EnumerationContent<ContentNode>)[NodeType.Enumeration]
+            (section as EnumerationContent<ContentNode>)[NodeTypes.ENUMERATION]
           ).map((enumKey) => {
             const childrenKeyPath = [
               ...keyPath,
-              { type: NodeType.Enumeration, key: enumKey },
+              { type: NodeTypes.ENUMERATION, key: enumKey },
             ] as KeyPath[];
             const uniqueKey = `${JSON.stringify(keyPath)}-enumeration-${enumKey}`;
 
@@ -323,7 +325,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
                       onChange={(value) => {
                         const preValueContent = (
                           section as EnumerationContent<string>
-                        )[NodeType.Enumeration];
+                        )[NodeTypes.ENUMERATION];
 
                         const newValueContent = renameKey(
                           preValueContent,
@@ -332,7 +334,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
                         );
                         const newValue = {
                           ...(section as EnumerationContent<string>),
-                          [NodeType.Enumeration]: newValueContent,
+                          [NodeTypes.ENUMERATION]: newValueContent,
                         };
 
                         console.log('newValue', newValue);
@@ -375,7 +377,7 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
           addEditedContent(
             dictionary.localId!,
             getEmptyNode(content[firstKey]) ?? '',
-            [...keyPath, { type: NodeType.Enumeration, key: 'unknown' }]
+            [...keyPath, { type: NodeTypes.ENUMERATION, key: 'unknown' }]
           )
         }
         Icon={Plus}
@@ -393,7 +395,7 @@ const ConditionTextEditor: FC<TextEditorProps> = ({
   dictionary,
   renderSection,
 }) => {
-  const content = (section as ConditionContent<string>)[NodeType.Condition];
+  const content = (section as ConditionContent<string>)[NodeTypes.CONDITION];
 
   return (
     <table className="w-full">
@@ -415,7 +417,7 @@ const ConditionTextEditor: FC<TextEditorProps> = ({
                     keyPath={[
                       ...keyPath,
                       {
-                        type: NodeType.Condition,
+                        type: NodeTypes.CONDITION,
                         key: condKey,
                       } as KeyPath,
                     ]}
@@ -438,7 +440,7 @@ const GenderTextEditor: FC<TextEditorProps> = ({
   dictionary,
   renderSection,
 }) => {
-  const content = (section as GenderContent<string>)[NodeType.Gender];
+  const content = (section as GenderContent<string>)[NodeTypes.GENDER];
 
   return (
     <table className="w-full">
@@ -460,7 +462,7 @@ const GenderTextEditor: FC<TextEditorProps> = ({
                     keyPath={[
                       ...keyPath,
                       {
-                        type: NodeType.Gender,
+                        type: NodeTypes.GENDER,
                         key: condKey,
                       } as KeyPath,
                     ]}
@@ -508,7 +510,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
                           const newKeyPath: KeyPath[] = [
                             ...keyPath,
                             {
-                              type: NodeType.Array,
+                              type: NodeTypes.ARRAY,
                               key: index, // Fixed: Use index instead of length
                             },
                           ];
@@ -536,7 +538,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
                       keyPath={[
                         ...keyPath,
                         {
-                          type: NodeType.Array,
+                          type: NodeTypes.ARRAY,
                           key: index,
                         },
                       ]}
@@ -560,7 +562,7 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
           const newKeyPath: KeyPath[] = [
             ...keyPath,
             {
-              type: NodeType.Array,
+              type: NodeTypes.ARRAY,
               key: (section as unknown as ContentNode[]).length, // Keeps length for adding new items
             },
           ];
@@ -592,7 +594,7 @@ const ObjectTextEditor: FC<TextEditorProps> = ({
           (key) => {
             const childKeyPath: KeyPath[] = [
               ...keyPath,
-              { type: NodeType.Object, key },
+              { type: NodeTypes.OBJECT, key },
             ];
             const typedSection = section as unknown as Record<
               string,
@@ -656,10 +658,10 @@ const HtmlTextEditor: FC<TextEditorProps> = ({
       value: HtmlViewMode.Preview,
     },
   ] as SwitchSelectorChoices<HtmlViewMode>;
-  const childKeyPath: KeyPath[] = [...keyPath, { type: NodeType.HTML }];
+  const childKeyPath: KeyPath[] = [...keyPath, { type: NodeTypes.HTML }];
 
   const content = (section as HTMLContent<ContentNode>)[
-    NodeType.HTML
+    NodeTypes.HTML
   ] as ContentNode;
 
   return (
@@ -707,10 +709,10 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
       value: MarkdownViewMode.Preview,
     },
   ] as SwitchSelectorChoices<MarkdownViewMode>;
-  const childKeyPath: KeyPath[] = [...keyPath, { type: NodeType.Markdown }];
+  const childKeyPath: KeyPath[] = [...keyPath, { type: NodeTypes.MARKDOWN }];
 
   const content = (section as MarkdownContent<ContentNode>)[
-    NodeType.Markdown
+    NodeTypes.MARKDOWN
   ] as ContentNode;
 
   return (
@@ -747,10 +749,10 @@ const InsertionTextEditor: FC<TextEditorProps> = ({
   keyPath,
   ...props
 }) => {
-  const childKeyPath: KeyPath[] = [...keyPath, { type: NodeType.Insertion }];
+  const childKeyPath: KeyPath[] = [...keyPath, { type: NodeTypes.INSERTION }];
 
   const content = (section as InsertionContent<ContentNode>)[
-    NodeType.Insertion
+    NodeTypes.INSERTION
   ];
 
   return (
@@ -769,9 +771,9 @@ const FileTextEditor: FC<TextEditorProps> = ({
   keyPath,
   ...props
 }) => {
-  const childKeyPath: KeyPath[] = [...keyPath, { type: NodeType.File }];
+  const childKeyPath: KeyPath[] = [...keyPath, { type: NodeTypes.FILE }];
 
-  const fileUrl = (section as FileContent)[NodeType.File];
+  const fileUrl = (section as FileContent)[NodeTypes.FILE];
   const { content } = section as FileContent;
 
   return (
@@ -795,8 +797,8 @@ const NestedTextEditor: FC<TextEditorProps> = ({
 }) => {
   const { addEditedContent } = useEditedContent();
 
-  const content = (section as any)[NodeType.Nested];
-  const childrenKeyPath = [...keyPath, { type: NodeType.Nested }] as KeyPath[];
+  const content = (section as any)[NodeTypes.NESTED];
+  const childrenKeyPath = [...keyPath, { type: NodeTypes.NESTED }] as KeyPath[];
 
   return (
     <div className="flex w-full flex-col gap-4 p-2">
@@ -853,7 +855,7 @@ export const TextEditor: FC<TextEditorProps> = ({
   const { tsxNotEditable } = useIntlayer('navigation-view');
   const nodeType = getNodeType(section);
 
-  if (nodeType === NodeType.ReactNode) {
+  if (nodeType === NodeTypes.REACT_NODE) {
     return (
       <div className="flex w-full flex-col gap-2">
         <span>(React Node)</span>
@@ -862,7 +864,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Nested) {
+  if (nodeType === NodeTypes.NESTED) {
     return (
       <NestedTextEditor
         dictionary={dictionary}
@@ -873,7 +875,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Translation) {
+  if (nodeType === NodeTypes.TRANSLATION) {
     return (
       <TranslationTextEditor
         dictionary={dictionary}
@@ -884,7 +886,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Enumeration) {
+  if (nodeType === NodeTypes.ENUMERATION) {
     return (
       <EnumerationTextEditor
         dictionary={dictionary}
@@ -895,7 +897,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Condition) {
+  if (nodeType === NodeTypes.CONDITION) {
     return (
       <ConditionTextEditor
         dictionary={dictionary}
@@ -906,7 +908,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Gender) {
+  if (nodeType === NodeTypes.GENDER) {
     return (
       <GenderTextEditor
         dictionary={dictionary}
@@ -917,7 +919,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Insertion) {
+  if (nodeType === NodeTypes.INSERTION) {
     return (
       <InsertionTextEditor
         dictionary={dictionary}
@@ -928,7 +930,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Markdown) {
+  if (nodeType === NodeTypes.MARKDOWN) {
     return (
       <MarkdownTextEditor
         dictionary={dictionary}
@@ -939,7 +941,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  if (nodeType === NodeType.HTML) {
+  if (nodeType === NodeTypes.HTML) {
     return (
       <HtmlTextEditor
         dictionary={dictionary}
@@ -949,7 +951,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  if (nodeType === NodeType.File) {
+  if (nodeType === NodeTypes.FILE) {
     return (
       <FileTextEditor
         dictionary={dictionary}
@@ -960,7 +962,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Array) {
+  if (nodeType === NodeTypes.ARRAY) {
     return (
       <ArrayTextEditor
         dictionary={dictionary}
@@ -971,7 +973,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Object) {
+  if (nodeType === NodeTypes.OBJECT) {
     return (
       <ObjectTextEditor
         dictionary={dictionary}
@@ -982,7 +984,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Number) {
+  if (nodeType === NodeTypes.NUMBER) {
     return (
       <div className="w-full p-2">
         <ContentEditorInput
@@ -997,7 +999,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Text) {
+  if (nodeType === NodeTypes.TEXT) {
     return (
       <div className="w-full p-2">
         {typeof renderSection === 'function' ? (
@@ -1016,7 +1018,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Boolean) {
+  if (nodeType === NodeTypes.BOOLEAN) {
     return (
       <div className="w-full p-2">
         <ContentEditorToggle

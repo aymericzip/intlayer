@@ -1,7 +1,6 @@
 import type { ContentNode } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
-
-import { NodeType } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 
 type LastKeyType = string | number;
 
@@ -23,7 +22,7 @@ export const editDictionaryByKeyPath = (
       const keyObj = keyPath[i];
       parentValue = currentValue;
 
-      if (keyObj.type === NodeType.Object || keyObj.type === NodeType.Array) {
+      if (keyObj.type === NodeTypes.OBJECT || keyObj.type === NodeTypes.ARRAY) {
         lastKeys = [keyObj.key];
 
         if (
@@ -36,8 +35,8 @@ export const editDictionaryByKeyPath = (
       }
 
       if (
-        keyObj.type === NodeType.Translation ||
-        keyObj.type === NodeType.Enumeration
+        keyObj.type === NodeTypes.TRANSLATION ||
+        keyObj.type === NodeTypes.ENUMERATION
       ) {
         lastKeys = [keyObj.type, keyObj.key];
 
@@ -58,8 +57,8 @@ export const editDictionaryByKeyPath = (
       }
 
       if (
-        keyObj.type === NodeType.Enumeration ||
-        keyObj.type === NodeType.Condition
+        keyObj.type === NodeTypes.ENUMERATION ||
+        keyObj.type === NodeTypes.CONDITION
       ) {
         // Note: Logic above already handles Enumeration, ensure no duplication in your actual file
         // or keep the specific block if your logic differs.
@@ -67,16 +66,16 @@ export const editDictionaryByKeyPath = (
 
         // Assuming this block runs for Condition/Gender/etc:
 
-        if (keyObj.type !== NodeType.Enumeration) {
+        if (keyObj.type !== NodeTypes.ENUMERATION) {
           lastKeys = [keyObj.type, keyObj.key];
           currentValue = currentValue[keyObj.type][keyObj.key];
         }
       }
 
       if (
-        keyObj.type === NodeType.Markdown ||
-        keyObj.type === NodeType.HTML ||
-        keyObj.type === NodeType.Insertion
+        keyObj.type === NodeTypes.MARKDOWN ||
+        keyObj.type === NodeTypes.HTML ||
+        keyObj.type === NodeTypes.INSERTION
       ) {
         lastKeys = [keyObj.type];
 
@@ -89,7 +88,7 @@ export const editDictionaryByKeyPath = (
         currentValue = currentValue[keyObj.type];
       }
 
-      if (keyObj.type === NodeType.File) {
+      if (keyObj.type === NodeTypes.FILE) {
         lastKeys = ['content'];
         currentValue = currentValue.content;
       }

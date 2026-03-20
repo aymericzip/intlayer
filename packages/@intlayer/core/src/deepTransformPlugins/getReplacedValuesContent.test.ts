@@ -1,5 +1,5 @@
-import type { ContentNode } from '@intlayer/types/dictionary';;
-import { NodeType } from '@intlayer/types/nodeType';
+import type { ContentNode } from '@intlayer/types/dictionary';
+import * as NodeType from '@intlayer/types/nodeType';
 import { describe, expect, it } from 'vitest';
 import { getReplacedValuesContent } from './getReplacedValuesContent';
 
@@ -272,8 +272,8 @@ describe('getReplacedValuesContent', () => {
   it('should work with Translation nodes', () => {
     const testData = {
       test1: {
-        nodeType: NodeType.Translation,
-        [NodeType.Translation]: {
+        nodeType: NodeType.TRANSLATION,
+        [NodeType.TRANSLATION]: {
           en: 'Hello',
           fr: 'Bonjour',
         },
@@ -281,16 +281,16 @@ describe('getReplacedValuesContent', () => {
       test2: 'Simple string',
       test3: {
         nested: {
-          nodeType: NodeType.Translation,
-          [NodeType.Translation]: {
+          nodeType: NodeType.TRANSLATION,
+          [NodeType.TRANSLATION]: {
             en: 'World',
             fr: 'Monde',
           },
         },
       },
       test4: {
-        nodeType: NodeType.Translation,
-        [NodeType.Translation]: {
+        nodeType: NodeType.TRANSLATION,
+        [NodeType.TRANSLATION]: {
           en: {
             test5: 'Test 5',
           },
@@ -305,8 +305,8 @@ describe('getReplacedValuesContent', () => {
 
     const expectedResult = {
       test1: {
-        nodeType: NodeType.Translation,
-        [NodeType.Translation]: {
+        nodeType: NodeType.TRANSLATION,
+        [NodeType.TRANSLATION]: {
           en: 'REPLACED_TEXT',
           fr: 'REPLACED_TEXT',
         },
@@ -314,16 +314,16 @@ describe('getReplacedValuesContent', () => {
       test2: 'REPLACED_TEXT',
       test3: {
         nested: {
-          nodeType: NodeType.Translation,
-          [NodeType.Translation]: {
+          nodeType: NodeType.TRANSLATION,
+          [NodeType.TRANSLATION]: {
             en: 'REPLACED_TEXT',
             fr: 'REPLACED_TEXT',
           },
         },
       },
       test4: {
-        nodeType: NodeType.Translation,
-        [NodeType.Translation]: {
+        nodeType: NodeType.TRANSLATION,
+        [NodeType.TRANSLATION]: {
           en: {
             test5: 'REPLACED_TEXT',
           },
@@ -382,8 +382,8 @@ describe('getReplacedValuesContent', () => {
   it('should handle Insertion nodes with string templates containing placeholders', () => {
     const testData = {
       myInsertion: {
-        nodeType: NodeType.Insertion,
-        [NodeType.Insertion]:
+        nodeType: NodeType.INSERTION,
+        [NodeType.INSERTION]:
           'Hello, my name is {{name}} and I am {{age}} years old!',
         fields: ['name', 'age'],
       },
@@ -394,8 +394,8 @@ describe('getReplacedValuesContent', () => {
 
     const expectedResult = {
       myInsertion: {
-        nodeType: NodeType.Insertion,
-        [NodeType.Insertion]: 'REPLACED',
+        nodeType: NodeType.INSERTION,
+        [NodeType.INSERTION]: 'REPLACED',
         fields: ['name', 'age'],
       },
       regularString: 'REPLACED',
@@ -413,10 +413,10 @@ describe('getReplacedValuesContent', () => {
   it('should handle nested Insertion nodes with multilingual content', () => {
     const testData = {
       myMultilingualInsertion: {
-        nodeType: NodeType.Insertion,
-        [NodeType.Insertion]: {
-          nodeType: NodeType.Translation,
-          [NodeType.Translation]: {
+        nodeType: NodeType.INSERTION,
+        [NodeType.INSERTION]: {
+          nodeType: NodeType.TRANSLATION,
+          [NodeType.TRANSLATION]: {
             en: 'Hello, my name is {{name}} and I am {{age}} years old!',
             fr: "Bonjour, mon nom est {{name}} et j'ai {{age}} ans!",
           },
@@ -429,10 +429,10 @@ describe('getReplacedValuesContent', () => {
 
     const expectedResult = {
       myMultilingualInsertion: {
-        nodeType: NodeType.Insertion,
-        [NodeType.Insertion]: {
+        nodeType: NodeType.INSERTION,
+        [NodeType.INSERTION]: {
           nodeType: 'REPLACED_TEXT',
-          [NodeType.Translation]: {
+          [NodeType.TRANSLATION]: {
             en: 'REPLACED_TEXT',
             fr: 'REPLACED_TEXT',
           },

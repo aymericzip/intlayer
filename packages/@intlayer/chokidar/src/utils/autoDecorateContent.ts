@@ -5,7 +5,7 @@ import {
   insert,
   md,
 } from '@intlayer/core/transpiler';
-import { NodeType } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 
 /**
  * Check if a string is a markdown string
@@ -58,16 +58,16 @@ const isHTML = (str: string): boolean => {
 };
 
 const leafNodeTypes: string[] = [
-  NodeType.HTML,
-  NodeType.Markdown,
-  NodeType.Insertion,
-  NodeType.File,
-  NodeType.ReactNode,
-  NodeType.Text,
-  NodeType.Number,
-  NodeType.Boolean,
-  NodeType.Null,
-  NodeType.Unknown,
+  NodeTypes.HTML,
+  NodeTypes.MARKDOWN,
+  NodeTypes.INSERTION,
+  NodeTypes.FILE,
+  NodeTypes.REACT_NODE,
+  NodeTypes.TEXT,
+  NodeTypes.NUMBER,
+  NodeTypes.BOOLEAN,
+  NodeTypes.NULL,
+  NodeTypes.UNKNOWN,
 ];
 
 type AutoTransformationOptions = {

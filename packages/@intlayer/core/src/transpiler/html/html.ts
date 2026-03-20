@@ -1,5 +1,5 @@
 import type { TypedNodeModel } from '@intlayer/types/nodeType';
-import { formatNodeType, NodeType } from '@intlayer/types/nodeType';
+import { formatNodeType, HTML } from '@intlayer/types/nodeType';
 import { getHTMLCustomComponents } from './getHTMLCustomComponents';
 import { validateHTML } from './validateHTML';
 
@@ -10,7 +10,7 @@ type ComponentName = string;
 export type HTMLContentConstructor<
   Content = unknown,
   T extends Record<string, any> = {},
-> = TypedNodeModel<NodeType.HTML, Content, T>;
+> = TypedNodeModel<typeof HTML, Content, T>;
 
 export type HTMLContent<
   Content = unknown,
@@ -83,7 +83,7 @@ export const html = <
     }
   };
 
-  return formatNodeType(NodeType.HTML, content, {
+  return formatNodeType(HTML, content, {
     tags: getComponents(),
   });
 };

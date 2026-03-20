@@ -1,5 +1,5 @@
 import type { TypedNodeModel } from '@intlayer/types/nodeType';
-import { formatNodeType, NodeType } from '@intlayer/types/nodeType';
+import { ENUMERATION, formatNodeType } from '@intlayer/types/nodeType';
 
 type Positive = number | `${number}`;
 type Negative = `-${number}`;
@@ -27,7 +27,7 @@ export type EnumerationContentState<Content> = Partial<
 };
 
 export type EnumerationContent<Content = unknown> = TypedNodeModel<
-  NodeType.Enumeration,
+  typeof ENUMERATION,
   EnumerationContentState<Content>
 >;
 
@@ -52,6 +52,6 @@ export type EnumerationContent<Content = unknown> = TypedNodeModel<
  */
 const enumeration = <Content = unknown>(
   content?: EnumerationContentState<Content>
-) => formatNodeType(NodeType.Enumeration, content);
+) => formatNodeType(ENUMERATION, content);
 
 export { enumeration as enu };

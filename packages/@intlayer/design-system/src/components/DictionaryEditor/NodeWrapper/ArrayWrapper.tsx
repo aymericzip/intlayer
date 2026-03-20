@@ -1,7 +1,7 @@
 import { isSameKeyPath } from '@intlayer/core/utils';
 import type { ContentNode } from '@intlayer/types/dictionary';
-import type { KeyPath } from '@intlayer/types/keyPath';;
-import { NodeType } from '@intlayer/types/nodeType';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import type { FC } from 'react';
 import { ItemLayout } from '../ItemLayout';
 import { NodeWrapper, type NodeWrapperProps } from './index';
@@ -16,7 +16,7 @@ export const ArrayWrapper: FC<ArrayWrapperProps> = (props) => {
   return section.map((subSection, key) => {
     const newKeyPathEl: KeyPath = {
       key,
-      type: NodeType.Array,
+      type: NodeTypes.ARRAY,
     };
     const newKeyPath: KeyPath[] = [...keyPath, newKeyPathEl];
 

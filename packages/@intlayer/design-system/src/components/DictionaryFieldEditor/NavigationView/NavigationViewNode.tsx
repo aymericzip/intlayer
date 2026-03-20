@@ -20,7 +20,7 @@ import {
 } from '@intlayer/editor-react';
 import type { LocalDictionaryId } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
-import { NodeType } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import type { ContentNode, Dictionary } from 'intlayer';
 import { ChevronRight, Plus } from 'lucide-react';
 import type { FC } from 'react';
@@ -71,17 +71,17 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
   }
 
   if (typeof section === 'object') {
-    if (nodeType === NodeType.ReactNode) {
+    if (nodeType === NodeTypes.REACT_NODE) {
       return <>React Node</>;
     }
 
-    if (nodeType === NodeType.Translation) {
+    if (nodeType === NodeTypes.TRANSLATION) {
       return (
         <div className="flex flex-col justify-between gap-2">
           {locales.map((translationKey) => {
             const childKeyPath: KeyPath[] = [
               ...keyPath,
-              { type: NodeType.Translation, key: translationKey },
+              { type: NodeTypes.TRANSLATION, key: translationKey },
             ];
 
             return (
@@ -97,7 +97,10 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
       );
     }
 
-    if (nodeType === NodeType.Enumeration || nodeType === NodeType.Condition) {
+    if (
+      nodeType === NodeTypes.ENUMERATION ||
+      nodeType === NodeTypes.CONDITION
+    ) {
       return (
         <div className="flex flex-col justify-between gap-2">
           {Object.keys(
@@ -121,13 +124,13 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
       );
     }
 
-    if (nodeType === NodeType.Array) {
+    if (nodeType === NodeTypes.ARRAY) {
       return (
         <div className="flex flex-col justify-between gap-2">
           {(section as unknown as ContentNode[]).map((subSection, index) => {
             const childKeyPath: KeyPath[] = [
               ...keyPath,
-              { type: NodeType.Array, key: index },
+              { type: NodeTypes.ARRAY, key: index },
             ];
 
             const isEditableSubSection = getIsEditableSection(subSection);
@@ -179,7 +182,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
               const newKeyPath: KeyPath[] = [
                 ...keyPath,
                 {
-                  type: NodeType.Array,
+                  type: NodeTypes.ARRAY,
                   key: (section as unknown as ContentNode[]).length,
                 },
               ];
@@ -227,7 +230,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
         {sectionArray.map((key) => {
           const childKeyPath: KeyPath[] = [
             ...keyPath,
-            { type: NodeType.Object, key },
+            { type: NodeTypes.OBJECT, key },
           ];
 
           const subSection = getContentNodeByKeyPath(sectionProp, childKeyPath);

@@ -1,5 +1,5 @@
 import type { TypedNodeModel } from '@intlayer/types/nodeType';
-import { formatNodeType, NodeType } from '@intlayer/types/nodeType';
+import { formatNodeType, GENDER } from '@intlayer/types/nodeType';
 
 export type Gender = 'male' | 'female' | 'fallback';
 
@@ -8,7 +8,7 @@ export type GenderContentStates<Content> = Record<`${Gender}`, Content> & {
 };
 
 export type GenderContent<Content = unknown> = TypedNodeModel<
-  NodeType.Gender,
+  typeof GENDER,
   GenderContentStates<Content>
 >;
 
@@ -30,6 +30,6 @@ export type GenderContent<Content = unknown> = TypedNodeModel<
  *
  */
 const gender = <Content>(content?: GenderContentStates<Content>) =>
-  formatNodeType(NodeType.Gender, content);
+  formatNodeType(GENDER, content);
 
 export { gender };

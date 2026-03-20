@@ -1,7 +1,8 @@
 import { isSameKeyPath } from '@intlayer/core/utils';
 import type { ContentNode } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
-import { NodeType, type TypedNodeModel } from '@intlayer/types/nodeType';
+import type { TypedNodeModel } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import type {
@@ -144,7 +145,9 @@ export class IntlayerContentSelectorWrapperElement extends LitElement {
   }
 
   private _getFilteredKeyPath(): KeyPath[] {
-    return this._getRawKeyPath().filter((k) => k.type !== NodeType.Translation);
+    return this._getRawKeyPath().filter(
+      (k) => k.type !== NodeTypes.TRANSLATION
+    );
   }
 
   private _updateEditedValue(manager: EditorStateManager): void {
@@ -160,10 +163,10 @@ export class IntlayerContentSelectorWrapperElement extends LitElement {
     const rawKeyPath = this._getRawKeyPath();
     const lastStepType = rawKeyPath[rawKeyPath.length - 1]?.type;
     if (
-      lastStepType === NodeType.Markdown ||
-      lastStepType === NodeType.HTML ||
-      lastStepType === NodeType.Insertion ||
-      lastStepType === NodeType.File
+      lastStepType === NodeTypes.MARKDOWN ||
+      lastStepType === NodeTypes.HTML ||
+      lastStepType === NodeTypes.INSERTION ||
+      lastStepType === NodeTypes.FILE
     ) {
       this._editedValue = undefined;
       return;
@@ -179,16 +182,16 @@ export class IntlayerContentSelectorWrapperElement extends LitElement {
       value !== null &&
       value !== undefined &&
       typeof value === 'object' &&
-      value.nodeType === NodeType.Translation
+      value.nodeType === NodeTypes.TRANSLATION
     ) {
       const locale = manager.currentLocale.value as string | undefined;
       // TypedNodeModel<Translation, …> structurally satisfies TypedNode<BaseNode>
       // (both have nodeType), so this narrowing cast is sound.
       const node = value as TypedNodeModel<
-        typeof NodeType.Translation,
+        typeof NodeTypes.TRANSLATION,
         Record<string, ContentNode>
       >;
-      value = locale ? node[NodeType.Translation][locale] : undefined;
+      value = locale ? node[NodeTypes.TRANSLATION][locale] : undefined;
     }
 
     this._editedValue = value;

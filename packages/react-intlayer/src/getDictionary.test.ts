@@ -1,4 +1,4 @@
-import { NodeType } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import { createElement, Fragment } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -34,8 +34,8 @@ const dictWithInsertion = {
   key: 'test-insert' as const,
   content: {
     greeting: {
-      nodeType: NodeType.Insertion,
-      insertion: 'Hello {{name}}',
+      nodeType: NodeTypes.INSERTION,
+      [NodeTypes.INSERTION]: 'Hello {{name}}',
       fields: ['name'],
     },
   },
@@ -45,8 +45,8 @@ const dictWithMultipleInsertions = {
   key: 'test-multi-insert' as const,
   content: {
     message: {
-      nodeType: NodeType.Insertion,
-      insertion: 'My {{stuf}} ooo',
+      nodeType: NodeTypes.INSERTION,
+      [NodeTypes.INSERTION]: 'My {{stuf}} ooo',
       fields: ['stuf'],
     },
   },
@@ -158,8 +158,8 @@ describe('getDictionary – insertion with React nodes', () => {
       key: 'test-complex' as const,
       content: {
         template: {
-          nodeType: NodeType.Insertion,
-          insertion: '{{prefix}} - {{middle}} - {{suffix}}',
+          nodeType: NodeTypes.INSERTION,
+          [NodeTypes.INSERTION]: '{{prefix}} - {{middle}} - {{suffix}}',
           fields: ['prefix', 'middle', 'suffix'],
         },
       },
@@ -219,8 +219,8 @@ describe('getDictionary – insertion comprehensive tests', () => {
       key: 'test-empty' as const,
       content: {
         empty: {
-          nodeType: NodeType.Insertion,
-          insertion: '',
+          nodeType: NodeTypes.INSERTION,
+          [NodeTypes.INSERTION]: '',
           fields: [],
         },
       },
@@ -236,8 +236,8 @@ describe('getDictionary – insertion comprehensive tests', () => {
       key: 'test-no-placeholders' as const,
       content: {
         static: {
-          nodeType: NodeType.Insertion,
-          insertion: 'Just static text',
+          nodeType: NodeTypes.INSERTION,
+          [NodeTypes.INSERTION]: 'Just static text',
           fields: [],
         },
       },
@@ -253,8 +253,8 @@ describe('getDictionary – insertion comprehensive tests', () => {
       key: 'test-single-string' as const,
       content: {
         greeting: {
-          nodeType: NodeType.Insertion,
-          insertion: 'Hello {{name}}',
+          nodeType: NodeTypes.INSERTION,
+          [NodeTypes.INSERTION]: 'Hello {{name}}',
           fields: ['name'],
         },
       },
@@ -270,8 +270,8 @@ describe('getDictionary – insertion comprehensive tests', () => {
       key: 'test-single-number' as const,
       content: {
         count: {
-          nodeType: NodeType.Insertion,
-          insertion: 'Count: {{num}}',
+          nodeType: NodeTypes.INSERTION,
+          [NodeTypes.INSERTION]: 'Count: {{num}}',
           fields: ['num'],
         },
       },
@@ -287,8 +287,8 @@ describe('getDictionary – insertion comprehensive tests', () => {
       key: 'test-single-element' as const,
       content: {
         element: {
-          nodeType: NodeType.Insertion,
-          insertion: 'Content: {{item}}',
+          nodeType: NodeTypes.INSERTION,
+          [NodeTypes.INSERTION]: 'Content: {{item}}',
           fields: ['item'],
         },
       },
@@ -306,8 +306,8 @@ describe('getDictionary – insertion comprehensive tests', () => {
       key: 'test-mixed-types' as const,
       content: {
         mixed: {
-          nodeType: NodeType.Insertion,
-          insertion: '{{str}} - {{num}} - {{elem}}',
+          nodeType: NodeTypes.INSERTION,
+          [NodeTypes.INSERTION]: '{{str}} - {{num}} - {{elem}}',
           fields: ['str', 'num', 'elem'],
         },
       },
@@ -328,8 +328,8 @@ describe('getDictionary – insertion comprehensive tests', () => {
       key: 'test-consecutive' as const,
       content: {
         consecutive: {
-          nodeType: NodeType.Insertion,
-          insertion: '{{a}}{{b}}{{c}}',
+          nodeType: NodeTypes.INSERTION,
+          [NodeTypes.INSERTION]: '{{a}}{{b}}{{c}}',
           fields: ['a', 'b', 'c'],
         },
       },
@@ -349,8 +349,8 @@ describe('getDictionary – insertion comprehensive tests', () => {
       key: 'test-special-chars' as const,
       content: {
         special: {
-          nodeType: NodeType.Insertion,
-          insertion: 'Price: ${{price}} ({{currency}})',
+          nodeType: NodeTypes.INSERTION,
+          [NodeTypes.INSERTION]: 'Price: ${{price}} ({{currency}})',
           fields: ['price', 'currency'],
         },
       },
@@ -369,8 +369,8 @@ describe('getDictionary – insertion comprehensive tests', () => {
       key: 'test-whitespace' as const,
       content: {
         whitespace: {
-          nodeType: NodeType.Insertion,
-          insertion: 'Value: {{  key  }}',
+          nodeType: NodeTypes.INSERTION,
+          [NodeTypes.INSERTION]: 'Value: {{  key  }}',
           fields: ['key'],
         },
       },
@@ -386,8 +386,8 @@ describe('getDictionary – insertion comprehensive tests', () => {
       key: 'test-fragment-text' as const,
       content: {
         frag: {
-          nodeType: NodeType.Insertion,
-          insertion: 'Start {{content}} End',
+          nodeType: NodeTypes.INSERTION,
+          [NodeTypes.INSERTION]: 'Start {{content}} End',
           fields: ['content'],
         },
       },
@@ -404,8 +404,8 @@ describe('getDictionary – insertion comprehensive tests', () => {
       key: 'test-fragment-elements' as const,
       content: {
         frag: {
-          nodeType: NodeType.Insertion,
-          insertion: 'Start {{content}} End',
+          nodeType: NodeTypes.INSERTION,
+          [NodeTypes.INSERTION]: 'Start {{content}} End',
           fields: ['content'],
         },
       },
@@ -428,8 +428,8 @@ describe('getDictionary – insertion comprehensive tests', () => {
       key: 'simple' as const,
       content: {
         msg: {
-          nodeType: NodeType.Insertion,
-          insertion: 'Hello {{name}}',
+          nodeType: NodeTypes.INSERTION,
+          [NodeTypes.INSERTION]: 'Hello {{name}}',
           fields: ['name'],
         },
       },
@@ -439,8 +439,8 @@ describe('getDictionary – insertion comprehensive tests', () => {
       key: 'complex' as const,
       content: {
         msg: {
-          nodeType: NodeType.Insertion,
-          insertion: 'Hello {{name}}',
+          nodeType: NodeTypes.INSERTION,
+          [NodeTypes.INSERTION]: 'Hello {{name}}',
           fields: ['name'],
         },
       },

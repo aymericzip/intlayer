@@ -1,4 +1,4 @@
-import { NodeType } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import { describe, expect, it } from 'vitest';
 import { enu, gender, html, insert } from '../transpiler';
 import { icuToIntlayerFormatter, intlayerToICUFormatter } from './ICU';
@@ -13,7 +13,7 @@ describe('ICU Formatter', () => {
     it('should transform interpolation', () => {
       const result = icuToIntlayerFormatter('Hello {name}');
       expect(result).toEqual({
-        nodeType: NodeType.Insertion,
+        nodeType: NodeTypes.INSERTION,
         insertion: 'Hello {{name}}',
         fields: ['name'],
       });
@@ -87,7 +87,7 @@ describe('ICU Formatter', () => {
       );
 
       expect(result).toEqual({
-        nodeType: NodeType.Enumeration,
+        nodeType: NodeTypes.ENUMERATION,
         enumeration: {
           '0': 'No items',
           '1': 'One item',
@@ -103,7 +103,7 @@ describe('ICU Formatter', () => {
       );
 
       expect(result).toEqual({
-        nodeType: NodeType.Enumeration,
+        nodeType: NodeTypes.ENUMERATION,
         enumeration: {
           '0': 'No items',
           '1': 'One item',
@@ -122,7 +122,7 @@ describe('ICU Formatter', () => {
       );
 
       expect(result).toEqual({
-        nodeType: NodeType.Gender,
+        nodeType: NodeTypes.GENDER,
         gender: {
           male: 'He',
           female: 'She',
@@ -137,12 +137,12 @@ describe('ICU Formatter', () => {
       const result = icuToIntlayerFormatter(input);
 
       expect(result).toEqual({
-        nodeType: NodeType.Gender,
+        nodeType: NodeTypes.GENDER,
         gender: {
           male: [
             'He has ',
             {
-              nodeType: NodeType.Enumeration,
+              nodeType: NodeTypes.ENUMERATION,
               enumeration: {
                 0: 'no cars',
                 fallback: '{{count}} cars',
@@ -153,7 +153,7 @@ describe('ICU Formatter', () => {
           fallback: [
             'They have ',
             {
-              nodeType: NodeType.Enumeration,
+              nodeType: NodeTypes.ENUMERATION,
               enumeration: {
                 0: 'no cars',
                 fallback: '{{count}} cars',

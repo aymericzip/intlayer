@@ -2,7 +2,8 @@
 
 import { getNodeType } from '@intlayer/core/dictionaryManipulator';
 import type { ContentNode } from '@intlayer/types/dictionary';
-import { NodeType } from '@intlayer/types/nodeType';
+import type { NodeType } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Select } from '../Select';
@@ -47,22 +48,22 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
         <Select.Value placeholder={triggerPlaceHolder} />
       </Select.Trigger>
       <Select.Content>
-        <Select.Item value={NodeType.Translation}>{multilingual}</Select.Item>
-        <Select.Item value={NodeType.Text}>{text}</Select.Item>
-        <Select.Item value={NodeType.Number}>{number}</Select.Item>
-        <Select.Item value={NodeType.Boolean}>{boolean}</Select.Item>
-        <Select.Item value={NodeType.Object}>{node}</Select.Item>
-        <Select.Item value={NodeType.Array}>{array}</Select.Item>
-        <Select.Item value={NodeType.Enumeration}>{enumeration}</Select.Item>
-        <Select.Item value={NodeType.Gender}>{gender}</Select.Item>
-        <Select.Item value={NodeType.Insertion}>{insertion}</Select.Item>
-        <Select.Item value={NodeType.Markdown}>{markdown}</Select.Item>
-        <Select.Item value={NodeType.Nested}>{nest}</Select.Item>
-        <Select.Item value={NodeType.Condition}>{condition}</Select.Item>
-        <Select.Item value={NodeType.ReactNode} disabled>
+        <Select.Item value={NodeTypes.TRANSLATION}>{multilingual}</Select.Item>
+        <Select.Item value={NodeTypes.TEXT}>{text}</Select.Item>
+        <Select.Item value={NodeTypes.NUMBER}>{number}</Select.Item>
+        <Select.Item value={NodeTypes.BOOLEAN}>{boolean}</Select.Item>
+        <Select.Item value={NodeTypes.OBJECT}>{node}</Select.Item>
+        <Select.Item value={NodeTypes.ARRAY}>{array}</Select.Item>
+        <Select.Item value={NodeTypes.ENUMERATION}>{enumeration}</Select.Item>
+        <Select.Item value={NodeTypes.GENDER}>{gender}</Select.Item>
+        <Select.Item value={NodeTypes.INSERTION}>{insertion}</Select.Item>
+        <Select.Item value={NodeTypes.MARKDOWN}>{markdown}</Select.Item>
+        <Select.Item value={NodeTypes.NESTED}>{nest}</Select.Item>
+        <Select.Item value={NodeTypes.CONDITION}>{condition}</Select.Item>
+        <Select.Item value={NodeTypes.REACT_NODE} disabled>
           {reactNode}
         </Select.Item>
-        <Select.Item value={NodeType.File}>{file}</Select.Item>
+        <Select.Item value={NodeTypes.FILE}>{file}</Select.Item>
       </Select.Content>
     </Select>
   );

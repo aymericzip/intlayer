@@ -1,5 +1,7 @@
-import type { ContentNode, TypedNode } from '@intlayer/types/dictionary';;
-import { NodeType } from '@intlayer/types/nodeType';
+import type { ContentNode, TypedNode } from '@intlayer/types/dictionary';
+
+import type { NodeType } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import { isValidElement } from '../utils/isValidReactElement';
 
 /**
@@ -18,12 +20,30 @@ const isTypedNode = (content: unknown): content is TypedNode => {
  * Type guard to check if content is a valid NodeType
  */
 const isValidNodeType = (nodeType: string): nodeType is NodeType => {
-  return Object.values(NodeType).includes(nodeType as NodeType);
+  return [
+    NodeTypes.TRANSLATION,
+    NodeTypes.ENUMERATION,
+    NodeTypes.CONDITION,
+    NodeTypes.INSERTION,
+    NodeTypes.FILE,
+    NodeTypes.OBJECT,
+    NodeTypes.ARRAY,
+    NodeTypes.NESTED,
+    NodeTypes.REACT_NODE,
+    NodeTypes.MARKDOWN,
+    NodeTypes.HTML,
+    NodeTypes.TEXT,
+    NodeTypes.NUMBER,
+    NodeTypes.BOOLEAN,
+    NodeTypes.GENDER,
+    NodeTypes.NULL,
+    NodeTypes.UNKNOWN,
+  ].includes(nodeType as NodeType);
 };
 
 export const getNodeType = (content: ContentNode): NodeType => {
   if (typeof content === 'string') {
-    return NodeType.Text;
+    return NodeTypes.TEXT;
   }
 
   if (isTypedNode(content)) {
@@ -32,32 +52,32 @@ export const getNodeType = (content: ContentNode): NodeType => {
       return nodeType;
     }
     // Fallback for unknown node types
-    return NodeType.Unknown;
+    return NodeTypes.UNKNOWN;
   }
 
   if (Array.isArray(content)) {
-    return NodeType.Array;
+    return NodeTypes.ARRAY;
   }
 
   if (isValidElement(content)) {
-    return NodeType.ReactNode;
+    return NodeTypes.REACT_NODE;
   }
 
   if (typeof content === 'number') {
-    return NodeType.Number;
+    return NodeTypes.NUMBER;
   }
 
   if (typeof content === 'boolean') {
-    return NodeType.Boolean;
+    return NodeTypes.BOOLEAN;
   }
 
   if (content && typeof content === 'object') {
-    return NodeType.Object;
+    return NodeTypes.OBJECT;
   }
 
   if (content === null) {
-    return NodeType.Null;
+    return NodeTypes.NULL;
   }
 
-  return NodeType.Unknown;
+  return NodeTypes.UNKNOWN;
 };

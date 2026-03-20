@@ -29,7 +29,7 @@ import {
 } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import { NodeType } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import { ArrowUp, Plus } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC, Suspense, useEffect, useMemo, useRef, useState } from 'react';
@@ -58,7 +58,7 @@ const TranslateRow: FC<{
   const referenceNode = nodes[0];
   const { dictionary, keyPath, nodeType } = referenceNode;
 
-  if (nodeType === NodeType.Translation) {
+  if (nodeType === NodeTypes.TRANSLATION) {
     return (
       <div className="flex w-full flex-col items-start gap-2 px-10 py-4">
         <div className="shrink-0 pt-2">

@@ -1,5 +1,5 @@
 import type { TypedNodeModel } from '@intlayer/types/nodeType';
-import { formatNodeType, NodeType } from '@intlayer/types/nodeType';
+import { formatNodeType, MARKDOWN } from '@intlayer/types/nodeType';
 import { getContent } from '../../interpreter/getContent/getContent';
 import { getHTMLCustomComponents } from '../html/getHTMLCustomComponents';
 import { getMarkdownMetadata } from './getMarkdownMetadata';
@@ -12,7 +12,7 @@ type ComponentName = string;
 export type MarkdownContentConstructor<
   T extends Record<string, any> = {},
   Content = unknown,
-> = TypedNodeModel<NodeType.Markdown, Content, T>;
+> = TypedNodeModel<typeof MARKDOWN, Content, T>;
 
 export type MarkdownContent<
   Content = unknown,
@@ -113,7 +113,7 @@ const markdown = <
     }
   };
 
-  return formatNodeType(NodeType.Markdown, content, {
+  return formatNodeType(MARKDOWN, content, {
     metadata,
     tags: getComponents(),
   });

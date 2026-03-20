@@ -17,7 +17,7 @@ import { useEditorLocale } from '@intlayer/editor-react';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
-import { NodeType } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import { type FC, memo, type ReactNode, useMemo } from 'react';
 import { ArrayWrapper } from './ArrayWrapper';
 import { BooleanWrapper } from './BooleanWrapper';
@@ -61,13 +61,13 @@ export const NodeWrapper: FC<NodeWrapperProps> = memo((props) => {
   const nodeType = useMemo(() => getNodeType(section), [section]);
 
   if (typeof section === 'object') {
-    if (nodeType === NodeType.ReactNode) {
+    if (nodeType === NodeTypes.REACT_NODE) {
       return (
         <span className="text-neutral text-xs">React node not editable</span>
       );
     }
 
-    if (nodeType === NodeType.Nested) {
+    if (nodeType === NodeTypes.NESTED) {
       return (
         <div className="ml-2 grid grid-cols-[auto,1fr] gap-2">
           [Nested] Dictionary
@@ -75,7 +75,7 @@ export const NodeWrapper: FC<NodeWrapperProps> = memo((props) => {
       );
     }
 
-    if (nodeType === NodeType.Markdown) {
+    if (nodeType === NodeTypes.MARKDOWN) {
       return (
         <MarkdownWrapper
           {...props}
@@ -84,13 +84,13 @@ export const NodeWrapper: FC<NodeWrapperProps> = memo((props) => {
       );
     }
 
-    if (nodeType === NodeType.HTML) {
+    if (nodeType === NodeTypes.HTML) {
       return (
         <HtmlWrapper {...props} section={section as HTMLContent<ContentNode>} />
       );
     }
 
-    if (nodeType === NodeType.Translation) {
+    if (nodeType === NodeTypes.TRANSLATION) {
       return (
         <TranslationWrapper
           {...props}
@@ -99,7 +99,7 @@ export const NodeWrapper: FC<NodeWrapperProps> = memo((props) => {
       );
     }
 
-    if (nodeType === NodeType.Enumeration) {
+    if (nodeType === NodeTypes.ENUMERATION) {
       return (
         <EnumerationWrapper
           {...props}
@@ -108,7 +108,7 @@ export const NodeWrapper: FC<NodeWrapperProps> = memo((props) => {
       );
     }
 
-    if (nodeType === NodeType.Condition) {
+    if (nodeType === NodeTypes.CONDITION) {
       return (
         <ConditionWrapper
           {...props}
@@ -117,7 +117,7 @@ export const NodeWrapper: FC<NodeWrapperProps> = memo((props) => {
       );
     }
 
-    if (nodeType === NodeType.Insertion) {
+    if (nodeType === NodeTypes.INSERTION) {
       return (
         <InsertionWrapper
           {...props}
@@ -126,7 +126,7 @@ export const NodeWrapper: FC<NodeWrapperProps> = memo((props) => {
       );
     }
 
-    if (nodeType === NodeType.Array) {
+    if (nodeType === NodeTypes.ARRAY) {
       return (
         <ArrayWrapper
           {...props}
@@ -135,7 +135,7 @@ export const NodeWrapper: FC<NodeWrapperProps> = memo((props) => {
       );
     }
 
-    if (nodeType === NodeType.File) {
+    if (nodeType === NodeTypes.FILE) {
       return <FileWrapper {...props} section={section as FileContent} />;
     }
 

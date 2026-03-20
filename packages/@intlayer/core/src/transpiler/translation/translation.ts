@@ -1,12 +1,12 @@
 import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import type { TypedNodeModel } from '@intlayer/types/nodeType';
-import { formatNodeType, NodeType } from '@intlayer/types/nodeType';
+import { formatNodeType, TRANSLATION } from '@intlayer/types/nodeType';
 
 export type TranslationContent<
   Content = unknown,
   RecordContent extends
     StrictModeLocaleMap<Content> = StrictModeLocaleMap<Content>,
-> = TypedNodeModel<NodeType.Translation, RecordContent>;
+> = TypedNodeModel<typeof TRANSLATION, RecordContent>;
 
 /**
  *
@@ -35,7 +35,7 @@ const translation = <
 >(
   content: ContentRecord
 ) =>
-  formatNodeType(NodeType.Translation, content) satisfies TranslationContent<
+  formatNodeType(TRANSLATION, content) satisfies TranslationContent<
     Content,
     ContentRecord
   >;

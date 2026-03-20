@@ -1,5 +1,6 @@
-import type { ContentNode, TypedNode } from '@intlayer/types/dictionary';;
-import { NodeType } from '@intlayer/types/nodeType';
+import type { ContentNode, TypedNode } from '@intlayer/types/dictionary';
+
+import * as NodeTypes from '@intlayer/types/nodeType';
 
 export const updateNodeChildren = <
   T extends ContentNode,
@@ -23,9 +24,9 @@ export const updateNodeChildren = <
       typedNode[typedNode.nodeType as unknown as keyof typeof typedNode];
 
     if (
-      typedNode.nodeType === NodeType.Translation ||
-      typedNode.nodeType === NodeType.Enumeration ||
-      typedNode.nodeType === NodeType.Condition
+      typedNode.nodeType === NodeTypes.TRANSLATION ||
+      typedNode.nodeType === NodeTypes.ENUMERATION ||
+      typedNode.nodeType === NodeTypes.CONDITION
     ) {
       const newContent = Object.entries(content).reduce(
         (acc, [key]) => {
@@ -41,7 +42,7 @@ export const updateNodeChildren = <
       };
     }
 
-    if (typedNode.nodeType === NodeType.Nested) {
+    if (typedNode.nodeType === NodeTypes.NESTED) {
       return typedNode;
     }
 

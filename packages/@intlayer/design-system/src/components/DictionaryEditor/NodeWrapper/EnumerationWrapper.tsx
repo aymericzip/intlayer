@@ -1,7 +1,7 @@
 import type { EnumerationContent } from '@intlayer/core/transpiler';
 import type { ContentNode } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
-import { NodeType } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import type { FC } from 'react';
 import { NodeWrapper, type NodeWrapperProps, traceKeys } from './index';
 
@@ -18,14 +18,14 @@ export const EnumerationWrapper: FC<EnumerationWrapperProps> = (props) => {
         .filter((key) => !traceKeys.includes(key))
         .map((key) => {
           const newKeyPathEl: KeyPath = {
-            type: NodeType.Enumeration,
+            type: NodeTypes.ENUMERATION,
             key,
           };
           const newKeyPath: KeyPath[] = [...keyPath, newKeyPathEl];
 
           const subSection =
-            section[NodeType.Enumeration][
-              key as keyof (typeof section)[NodeType.Enumeration]
+            section[NodeTypes.ENUMERATION][
+              key as keyof (typeof section)[typeof NodeTypes.ENUMERATION]
             ]!;
 
           return (

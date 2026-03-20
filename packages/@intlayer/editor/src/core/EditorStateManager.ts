@@ -11,7 +11,7 @@ import type {
   LocalDictionaryId,
 } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
-import { NodeType } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import { MessageKey } from '../messageKey';
 import {
   CrossFrameMessenger,
@@ -177,7 +177,9 @@ export class EditorStateManager {
   // ─── Focus helpers ──────────────────────────────────────────────────────────
 
   setFocusedContentKeyPath(keyPath: KeyPath[]): void {
-    const filtered = keyPath.filter((key) => key.type !== NodeType.Translation);
+    const filtered = keyPath.filter(
+      (key) => key.type !== NodeTypes.TRANSLATION
+    );
     const prev = this.focusedContent.value;
 
     if (!prev) return;
@@ -357,7 +359,7 @@ export class EditorStateManager {
     if (!edited) return undefined;
 
     const filteredKeyPath = keyPath.filter(
-      (key) => key.type !== NodeType.Translation
+      (key) => key.type !== NodeTypes.TRANSLATION
     );
 
     // Only use edited content entries whose localId is known to this client.

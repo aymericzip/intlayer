@@ -1,22 +1,39 @@
-export enum NodeType {
-  Translation = 'translation',
-  Enumeration = 'enumeration',
-  Condition = 'condition',
-  Insertion = 'insertion',
-  File = 'file',
-  Object = 'object',
-  Array = 'array',
-  Nested = 'nested',
-  ReactNode = 'reactNode',
-  Markdown = 'markdown',
-  HTML = 'html',
-  Text = 'text',
-  Number = 'number',
-  Boolean = 'boolean',
-  Gender = 'gender',
-  Null = 'null',
-  Unknown = 'unknown',
-}
+export const TRANSLATION = 'translation' as const;
+export const ENUMERATION = 'enumeration' as const;
+export const CONDITION = 'condition' as const;
+export const INSERTION = 'insertion' as const;
+export const FILE = 'file' as const;
+export const OBJECT = 'object' as const;
+export const ARRAY = 'array' as const;
+export const NESTED = 'nested' as const;
+export const REACT_NODE = 'reactNode' as const;
+export const MARKDOWN = 'markdown' as const;
+export const HTML = 'html' as const;
+export const TEXT = 'text' as const;
+export const NUMBER = 'number' as const;
+export const BOOLEAN = 'boolean' as const;
+export const GENDER = 'gender' as const;
+export const NULL = 'null' as const;
+export const UNKNOWN = 'unknown' as const;
+
+export type NodeType =
+  | typeof TRANSLATION
+  | typeof ENUMERATION
+  | typeof CONDITION
+  | typeof INSERTION
+  | typeof FILE
+  | typeof OBJECT
+  | typeof ARRAY
+  | typeof NESTED
+  | typeof REACT_NODE
+  | typeof MARKDOWN
+  | typeof HTML
+  | typeof TEXT
+  | typeof NUMBER
+  | typeof BOOLEAN
+  | typeof GENDER
+  | typeof NULL
+  | typeof UNKNOWN;
 
 type AdditionalAttributesType = {
   [key: string]: unknown;
@@ -27,7 +44,7 @@ export type TypedNodeModel<
   Content,
   AdditionalAttributes extends AdditionalAttributesType = {},
 > = {
-  nodeType: T | `${T}`;
+  nodeType: T;
 } & {
   [K in T]: Content;
 } & AdditionalAttributes;
@@ -37,7 +54,7 @@ export const formatNodeType = <
   Content = unknown,
   AdditionalAttributes extends AdditionalAttributesType = {},
 >(
-  nodeType: T | `${T}`,
+  nodeType: T,
   content: Content,
   additionalAttributes?: { [key: string]: unknown }
 ) =>

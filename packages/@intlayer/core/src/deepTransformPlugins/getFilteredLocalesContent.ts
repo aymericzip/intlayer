@@ -1,6 +1,7 @@
 import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';;
-import { NodeType } from '@intlayer/types/nodeType';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
+
+import * as NodeTypes from '@intlayer/types/nodeType';
 import {
   deepTransformNode,
   type NodeProps,
@@ -10,9 +11,12 @@ import {
 const filterTranslationsPlugin = (locales: LocalesValues[]): Plugins => ({
   id: 'filter-translations-plugin',
   canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.Translation,
+    typeof node === 'object' && node?.nodeType === NodeTypes.TRANSLATION,
   transform: (node, props, deepTransformNode) => {
-    const translationMap = node.translation as Record<LocalesValues, string>;
+    const translationMap = node[NodeTypes.TRANSLATION] as Record<
+      LocalesValues,
+      string
+    >;
 
     const filteredTranslationMap = Object.fromEntries(
       Object.entries(translationMap).filter(([key]) =>
@@ -22,11 +26,11 @@ const filterTranslationsPlugin = (locales: LocalesValues[]): Plugins => ({
 
     return {
       ...node,
-      translation: deepTransformNode(filteredTranslationMap, {
+      [NodeTypes.TRANSLATION]: deepTransformNode(filteredTranslationMap, {
         ...props,
         keyPath: [
           ...props.keyPath,
-          { type: NodeType.Object, key: NodeType.Translation },
+          { type: NodeTypes.OBJECT, key: NodeTypes.TRANSLATION },
         ],
       }),
     };

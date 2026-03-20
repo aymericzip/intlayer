@@ -1,6 +1,5 @@
 import type { Dictionary } from '@intlayer/types/dictionary';
-
-import { NodeType } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import { deepTransformNode } from '../interpreter';
 import { enu, gender, html, insert } from '../transpiler';
 
@@ -367,10 +366,10 @@ const intlayerToIcuPlugin = {
     if (
       node &&
       typeof node === 'object' &&
-      (node.nodeType === NodeType.Insertion ||
-        node.nodeType === NodeType.HTML ||
-        node.nodeType === NodeType.Enumeration ||
-        node.nodeType === NodeType.Gender ||
+      (node.nodeType === NodeTypes.INSERTION ||
+        node.nodeType === NodeTypes.HTML ||
+        node.nodeType === NodeTypes.ENUMERATION ||
+        node.nodeType === NodeTypes.GENDER ||
         node.nodeType === 'composite')
     ) {
       return true;
@@ -387,10 +386,10 @@ const intlayerToIcuPlugin = {
         } else if (
           item &&
           typeof item === 'object' &&
-          (item.nodeType === NodeType.Insertion ||
-            item.nodeType === NodeType.HTML ||
-            item.nodeType === NodeType.Enumeration ||
-            item.nodeType === NodeType.Gender ||
+          (item.nodeType === NodeTypes.INSERTION ||
+            item.nodeType === NodeTypes.HTML ||
+            item.nodeType === NodeTypes.ENUMERATION ||
+            item.nodeType === NodeTypes.GENDER ||
             item.nodeType === 'composite')
         ) {
           hasNode = true;
@@ -415,16 +414,16 @@ const intlayerToIcuPlugin = {
       return node.replace(/\{\{([^}]+)\}\}/g, '{$1}');
     }
 
-    if (node.nodeType === NodeType.Insertion) {
-      return node.insertion.replace(/\{\{([^}]+)\}\}/g, '{$1}');
+    if (node.nodeType === NodeTypes.INSERTION) {
+      return node[NodeTypes.INSERTION].replace(/\{\{([^}]+)\}\}/g, '{$1}');
     }
 
-    if (node.nodeType === NodeType.HTML) {
-      return node.html;
+    if (node.nodeType === NodeTypes.HTML) {
+      return node[NodeTypes.HTML];
     }
 
-    if (node.nodeType === NodeType.Enumeration) {
-      const options = node.enumeration;
+    if (node.nodeType === NodeTypes.ENUMERATION) {
+      const options = node[NodeTypes.ENUMERATION];
 
       const transformedOptions: Record<string, string> = {};
       for (const [key, val] of Object.entries(options)) {
@@ -501,8 +500,8 @@ const intlayerToIcuPlugin = {
       }
     }
 
-    if (node.nodeType === NodeType.Gender) {
-      const options = node.gender;
+    if (node.nodeType === NodeTypes.GENDER) {
+      const options = node[NodeTypes.GENDER];
       const varName = 'gender';
       const parts = [];
 

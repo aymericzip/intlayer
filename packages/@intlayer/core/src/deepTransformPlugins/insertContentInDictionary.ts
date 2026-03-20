@@ -1,6 +1,6 @@
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import { NodeType } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 
 // {
 //     {
@@ -14,8 +14,8 @@ import { NodeType } from '@intlayer/types/nodeType';
 //       key: 'aside-navigation',
 //       content: {
 //         title: {
-//           nodeType: 'translation',
-//           translation: {
+//          nodeType: 'translation',
+//          translation: {
 //             ar: 'في هذه الصفحة',
 //             de: 'Auf dieser Seite',
 //             en: 'In this page',
@@ -31,46 +31,6 @@ import { NodeType } from '@intlayer/types/nodeType';
 //             zh: '在此页面'
 //           }
 //         },
-//         linkLabel: {
-//           nodeType: 'translation',
-//           translation: {
-//             ar: 'اذهب إلى القسم',
-//             de: 'Gehe zur Sektion',
-//             en: 'Go to section',
-//             'en-GB': 'Go to section',
-//             es: 'Ir a la sección',
-//             fr: 'Aller à la section',
-//             hi: 'सेक्शन पर जाएं',
-//             it: 'Vai alla sezione',
-//             ja: 'セクションへ行く',
-//             ko: '섹션으로 이동',
-//             pt: 'Ir para a seção',
-//             ru: 'Перейти к разделу',
-//             tr: 'Bölüme git',
-//             zh: '转到节'
-//           }
-//         },
-//         collapseButton: {
-//           label: {
-//             nodeType: 'translation',
-//             translation: {
-//               en: 'Collapse',
-//               fr: 'Réduire',
-//               es: 'Colapsar',
-//               'en-GB': 'Collapse',
-//               de: 'Zuklappen',
-//               ja: '折りたたむ',
-//               ko: '접기',
-//               zh: '折叠',
-//               it: 'Comprimi',
-//               pt: 'Recolher',
-//               hi: 'संकुचित करें',
-//               ar: 'اطوي التوسيع',
-//               ru: 'Свернуть',
-//               tr: 'Daralt'
-//             }
-//           }
-//         }
 //       },
 //       localId: 'aside-navigation::local::src/components/AsideNavigation/asideNavigation.content.ts',
 //       location: 'local',
@@ -108,12 +68,12 @@ const deepMergeContent = (
   if (
     target &&
     typeof target === 'object' &&
-    target.nodeType === NodeType.Translation
+    target.nodeType === NodeTypes.TRANSLATION
   ) {
     // Target is a translation block
     if (locale) {
       // Update only the specific locale - create new object to preserve order
-      const existingLocaleContent = target.translation[locale];
+      const existingLocaleContent = target[NodeTypes.TRANSLATION][locale];
       let newLocaleContent: any;
 
       if (typeof source === 'object' && !Array.isArray(source)) {
@@ -134,8 +94,8 @@ const deepMergeContent = (
       // Return new object with locale appended at the end (preserve insertion order)
       return {
         ...target,
-        translation: {
-          ...target.translation,
+        [NodeTypes.TRANSLATION]: {
+          ...target[NodeTypes.TRANSLATION],
           [locale]: newLocaleContent,
         },
       };
@@ -144,14 +104,14 @@ const deepMergeContent = (
       if (
         typeof source === 'object' &&
         !Array.isArray(source) &&
-        source.nodeType === NodeType.Translation
+        source.nodeType === NodeTypes.TRANSLATION
       ) {
         // Source is also a translation node, merge translations
         return {
           ...target,
-          translation: {
-            ...target.translation,
-            ...source.translation,
+          [NodeTypes.TRANSLATION]: {
+            ...target[NodeTypes.TRANSLATION],
+            ...source[NodeTypes.TRANSLATION],
           },
         };
       } else {
@@ -191,7 +151,7 @@ const deepMergeContent = (
         if (
           item &&
           typeof item === 'object' &&
-          item.nodeType === NodeType.Translation
+          item.nodeType === NodeTypes.TRANSLATION
         ) {
           return item;
         }
@@ -242,7 +202,7 @@ const processNewContent = (content: any, locale?: LocalesValues): any => {
   if (
     content &&
     typeof content === 'object' &&
-    content.nodeType === NodeType.Translation
+    content.nodeType === NodeTypes.TRANSLATION
   ) {
     return content;
   }
@@ -268,8 +228,8 @@ const processNewContent = (content: any, locale?: LocalesValues): any => {
   if (locale) {
     // Wrap in translation node with the specific locale
     return {
-      nodeType: NodeType.Translation,
-      translation: {
+      nodeType: NodeTypes.TRANSLATION,
+      [NodeTypes.TRANSLATION]: {
         [locale]: content,
       },
     };

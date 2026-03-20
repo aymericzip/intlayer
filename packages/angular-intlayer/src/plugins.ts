@@ -21,7 +21,8 @@ import type {
   DeclaredLocales,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
-import { NodeType } from '@intlayer/types/nodeType';
+import type { NodeType } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import { ContentSelectorWrapperComponent } from './editor/ContentSelector.component';
 import { htmlRuntime, useMarkdown } from './markdown/installIntlayerMarkdown';
 import { renderIntlayerNode } from './renderIntlayerNode';
@@ -209,7 +210,7 @@ export const markdownStringPlugin: Plugins = {
 
 export type MarkdownCond<T, _S, _L extends LocalesValues> = T extends {
   nodeType: NodeType | string;
-  [NodeType.Markdown]: infer M;
+  [NodeTypes.MARKDOWN]: infer M;
   tags?: infer U;
   metadata?: infer V;
 }
@@ -225,16 +226,16 @@ export type MarkdownCond<T, _S, _L extends LocalesValues> = T extends {
 export const markdownPlugin: Plugins = {
   id: 'markdown-plugin',
   canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.Markdown,
+    typeof node === 'object' && node?.nodeType === NodeTypes.MARKDOWN,
   transform: (node: MarkdownContent, props, deepTransformNode) => {
     const newKeyPath: KeyPath[] = [
       ...props.keyPath,
       {
-        type: NodeType.Markdown,
+        type: NodeTypes.MARKDOWN,
       },
     ];
 
-    const children = node[NodeType.Markdown];
+    const children = node[NodeTypes.MARKDOWN];
 
     return deepTransformNode(children, {
       ...props,
@@ -257,7 +258,7 @@ export const markdownPlugin: Plugins = {
  */
 export type HTMLPluginCond<T, _S, _L> = T extends {
   nodeType: NodeType | string;
-  [NodeType.HTML]: infer I;
+  [NodeTypes.HTML]: infer I;
   tags?: infer U;
 }
   ? IntlayerNode<
@@ -272,10 +273,10 @@ export type HTMLPluginCond<T, _S, _L> = T extends {
 export const htmlPlugin: Plugins = {
   id: 'html-plugin',
   canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.HTML,
+    typeof node === 'object' && node?.nodeType === NodeTypes.HTML,
 
   transform: (node: HTMLContent<string>, props) => {
-    const html = node[NodeType.HTML];
+    const html = node[NodeTypes.HTML];
     const { plugins, ...rest } = props;
 
     // Type-safe render function that accepts properly typed components
@@ -366,7 +367,7 @@ export const htmlPlugin: Plugins = {
  */
 export type InsertionPluginCond<T> = T extends {
   nodeType: NodeType | string;
-  [NodeType.Insertion]: infer _I;
+  [NodeTypes.INSERTION]: infer _I;
 }
   ? (args: Record<string, string | number>) => string
   : never;
@@ -374,13 +375,13 @@ export type InsertionPluginCond<T> = T extends {
 export const insertionPlugin: Plugins = {
   id: 'insertion-plugin',
   canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.Insertion,
+    typeof node === 'object' && node?.nodeType === NodeTypes.INSERTION,
   transform: (node: InsertionContent, props) => {
     const { plugins, ...rest } = props;
 
     // Return a function that performs the interpolation
     const render = (args: Record<string, string | number> = {}) => {
-      let text = node.insertion as string;
+      let text = node[NodeTypes.INSERTION] as string;
       if (args) {
         Object.entries(args).forEach(([key, value]) => {
           text = text.replace(

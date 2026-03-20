@@ -1,62 +1,62 @@
-import type { NodeType } from './nodeType';
+import type * as NodeTypes from './nodeType';
 
 export type ObjectNode = {
-  type: NodeType.Object;
+  type: typeof NodeTypes.OBJECT;
   key: string;
 };
 
 export type ArrayNode = {
-  type: NodeType.Array;
+  type: typeof NodeTypes.ARRAY;
   key: number;
 };
 
 export type EnumerationNode = {
-  type: NodeType.Enumeration;
+  type: typeof NodeTypes.ENUMERATION;
   key: string;
 };
 
 export type TranslationNode = {
-  type: NodeType.Translation;
+  type: typeof NodeTypes.TRANSLATION;
   key: string;
 };
 
 export type ConditionNode = {
-  type: NodeType.Condition;
+  type: typeof NodeTypes.CONDITION;
   key: string;
 };
 
 export type GenderNode = {
-  type: NodeType.Gender;
+  type: typeof NodeTypes.GENDER;
   key: string;
 };
 
 export type InsertionNode = {
-  type: NodeType.Insertion;
+  type: typeof NodeTypes.INSERTION;
   key?: undefined;
 };
 
 export type MarkdownNode = {
-  type: NodeType.Markdown;
+  type: typeof NodeTypes.MARKDOWN;
   key?: undefined;
 };
 
 export type ReactNode = {
-  type: NodeType.ReactNode;
+  type: typeof NodeTypes.REACT_NODE;
   key?: undefined;
 };
 
 export type NestedNode = {
-  type: NodeType.Nested;
+  type: typeof NodeTypes.NESTED;
   key?: undefined;
 };
 
 export type FileNode = {
-  type: NodeType.File;
+  type: typeof NodeTypes.FILE;
   key?: undefined;
 };
 
 export type HTMLNode = {
-  type: NodeType.HTML;
+  type: typeof NodeTypes.HTML;
   key?: undefined;
 };
 

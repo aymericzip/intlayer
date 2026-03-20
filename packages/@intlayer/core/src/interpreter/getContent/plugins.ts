@@ -5,7 +5,8 @@ import type {
   DictionaryKeys,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
-import { NodeType } from '@intlayer/types/nodeType';
+import type { NodeType } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import type {
   ConditionContent,
   EnumerationContent,
@@ -57,7 +58,7 @@ export type ValueAtKey<T, K> = T extends unknown
 
 export type TranslationCond<T, S, L extends LocalesValues> = T extends {
   nodeType: NodeType | string;
-  [NodeType.Translation]: infer U;
+  [NodeTypes.TRANSLATION]: infer U;
 }
   ? U extends Record<PropertyKey, unknown>
     ? U[keyof U] extends Record<PropertyKey, unknown>
@@ -83,10 +84,10 @@ export const translationPlugin = (
 ): Plugins => ({
   id: 'translation-plugin',
   canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.Translation,
+    typeof node === 'object' && node?.nodeType === NodeTypes.TRANSLATION,
   transform: (node: TranslationContent, props, deepTransformNode) => {
     const result = {
-      ...(node[NodeType.Translation] ?? {}),
+      ...(node[NodeTypes.TRANSLATION] ?? {}),
     };
 
     for (const key in result) {
@@ -95,7 +96,7 @@ export const translationPlugin = (
         children: result[key as keyof typeof result],
         keyPath: [
           ...props.keyPath,
-          { type: NodeType.Translation, key } as KeyPath,
+          { type: NodeTypes.TRANSLATION, key } as KeyPath,
         ],
       };
       result[key as keyof typeof result] = deepTransformNode(
@@ -114,12 +115,12 @@ export const translationPlugin = (
 
 export type EnumerationCond<T, S, _L> = T extends {
   nodeType: NodeType | string;
-  [NodeType.Enumeration]: object;
+  [NodeTypes.ENUMERATION]: object;
 }
   ? (
       quantity: number
     ) => DeepTransformContent<
-      T[NodeType.Enumeration][keyof T[NodeType.Enumeration]],
+      T[typeof NodeTypes.ENUMERATION][keyof T[typeof NodeTypes.ENUMERATION]],
       S
     >
   : never;
@@ -128,9 +129,9 @@ export type EnumerationCond<T, S, _L> = T extends {
 export const enumerationPlugin: Plugins = {
   id: 'enumeration-plugin',
   canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.Enumeration,
+    typeof node === 'object' && node?.nodeType === NodeTypes.ENUMERATION,
   transform: (node: EnumerationContent, props, deepTransformNode) => {
-    const result = { ...node[NodeType.Enumeration] };
+    const result = { ...node[NodeTypes.ENUMERATION] };
 
     for (const key in result) {
       const child = result[key as unknown as keyof typeof result];
@@ -139,7 +140,7 @@ export const enumerationPlugin: Plugins = {
         children: child,
         keyPath: [
           ...props.keyPath,
-          { type: NodeType.Enumeration, key } as KeyPath,
+          { type: NodeTypes.ENUMERATION, key } as KeyPath,
         ],
       };
       result[key as unknown as keyof typeof result] = deepTransformNode(
@@ -167,12 +168,12 @@ export const enumerationPlugin: Plugins = {
 
 export type ConditionCond<T, S, _L> = T extends {
   nodeType: NodeType | string;
-  [NodeType.Condition]: object;
+  [NodeTypes.CONDITION]: object;
 }
   ? (
       value: boolean | { value: boolean }
     ) => DeepTransformContent<
-      T[NodeType.Condition][keyof T[NodeType.Condition]],
+      T[typeof NodeTypes.CONDITION][keyof T[typeof NodeTypes.CONDITION]],
       S
     >
   : never;
@@ -181,9 +182,9 @@ export type ConditionCond<T, S, _L> = T extends {
 export const conditionPlugin: Plugins = {
   id: 'condition-plugin',
   canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.Condition,
+    typeof node === 'object' && node?.nodeType === NodeTypes.CONDITION,
   transform: (node: ConditionContent, props, deepTransformNode) => {
-    const result = { ...node[NodeType.Condition] };
+    const result = { ...node[NodeTypes.CONDITION] };
 
     for (const key in result) {
       const child = result[key as keyof typeof result];
@@ -192,7 +193,7 @@ export const conditionPlugin: Plugins = {
         children: child,
         keyPath: [
           ...props.keyPath,
-          { type: NodeType.Condition, key } as KeyPath,
+          { type: NodeTypes.CONDITION, key } as KeyPath,
         ],
       };
       result[key as unknown as keyof typeof result] = deepTransformNode(
@@ -220,7 +221,7 @@ export const conditionPlugin: Plugins = {
 
 export type InsertionCond<T, S, _L> = T extends {
   nodeType: NodeType | string;
-  [NodeType.Insertion]: string;
+  [NodeTypes.INSERTION]: string;
   fields: readonly string[];
 }
   ? (
@@ -234,16 +235,16 @@ export type InsertionCond<T, S, _L> = T extends {
 export const insertionPlugin: Plugins = {
   id: 'insertion-plugin',
   canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.Insertion,
+    typeof node === 'object' && node?.nodeType === NodeTypes.INSERTION,
   transform: (node: InsertionContent, props, deepTransformNode) => {
     const newKeyPath: KeyPath[] = [
       ...props.keyPath,
       {
-        type: NodeType.Insertion,
+        type: NodeTypes.INSERTION,
       },
     ];
 
-    const children = node[NodeType.Insertion];
+    const children = node[NodeTypes.INSERTION];
 
     /** Insertion string plugin. Replaces string node with a component that render the insertion. */
     const insertionStringPlugin: Plugins = {
@@ -291,27 +292,30 @@ export const insertionPlugin: Plugins = {
 
 export type GenderCond<T, S, _L> = T extends {
   nodeType: NodeType | string;
-  [NodeType.Gender]: object;
+  [NodeTypes.GENDER]: object;
 }
   ? (
       value: Gender
-    ) => DeepTransformContent<T[NodeType.Gender][keyof T[NodeType.Gender]], S>
+    ) => DeepTransformContent<
+      T[typeof NodeTypes.GENDER][keyof T[typeof NodeTypes.GENDER]],
+      S
+    >
   : never;
 
 /** Gender plugin. Replaces node with a function that takes gender => string. */
 export const genderPlugin: Plugins = {
   id: 'gender-plugin',
   canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.Gender,
+    typeof node === 'object' && node?.nodeType === NodeTypes.GENDER,
   transform: (node: GenderContent, props, deepTransformNode) => {
-    const result = { ...node[NodeType.Gender] };
+    const result = { ...node[NodeTypes.GENDER] };
 
     for (const key in result) {
       const child = result[key as keyof typeof result];
       const childProps = {
         ...props,
         children: child,
-        keyPath: [...props.keyPath, { type: NodeType.Gender, key } as KeyPath],
+        keyPath: [...props.keyPath, { type: NodeTypes.GENDER, key } as KeyPath],
       };
       result[key as keyof typeof result] = deepTransformNode(child, childProps);
     }
@@ -326,7 +330,7 @@ export const genderPlugin: Plugins = {
 
 export type NestedCond<T, S, _L> = T extends {
   nodeType: NodeType | string;
-  [NodeType.Nested]: infer U;
+  [NodeTypes.NESTED]: infer U;
 }
   ? U extends {
       dictionaryKey: infer K extends DictionaryKeys;
@@ -341,12 +345,16 @@ export const nestedPlugin = (locale?: LocalesValues): Plugins => ({
   id: 'nested-plugin',
   canHandle: (node) =>
     typeof node === 'object' &&
-    (node?.nodeType === NodeType.Nested || node?.nodeType === 'nested'),
+    (node?.nodeType === NodeTypes.NESTED || node?.nodeType === 'n'),
   transform: (node: NestedContent, props) =>
-    getNesting(node.nested.dictionaryKey, node.nested.path, {
-      ...props,
-      locale: (locale ?? props.locale) as Locale,
-    }),
+    getNesting(
+      node[NodeTypes.NESTED].dictionaryKey,
+      node[NodeTypes.NESTED].path,
+      {
+        ...props,
+        locale: (locale ?? props.locale) as Locale,
+      }
+    ),
 });
 
 /** ---------------------------------------------
@@ -355,7 +363,7 @@ export const nestedPlugin = (locale?: LocalesValues): Plugins => ({
 
 export type FileCond<T> = T extends {
   nodeType: NodeType | string;
-  [NodeType.File]: string;
+  [NodeTypes.FILE]: string;
   content?: string;
 }
   ? string
@@ -365,7 +373,7 @@ export type FileCond<T> = T extends {
 export const filePlugin: Plugins = {
   id: 'file-plugin',
   canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.File,
+    typeof node === 'object' && node?.nodeType === NodeTypes.FILE,
   transform: (node: FileContent, props, deepTransform) =>
     deepTransform(node.content, {
       ...props,
@@ -461,5 +469,5 @@ export type DeepTransformContent<
     : CheckApplyPlugin<T, keyof IInterpreterPlugin<T, S, L>, S, L> extends never // Check if there is a plugin for T:
       ? // No plugin was found, so try to transform T recursively:
         Traverse<T, S, L>
-      : // A plugin was found – use the plugin’s transformation.
+      : // A plugin was found – use the plugin's transformation.
         CheckApplyPlugin<T, keyof IInterpreterPlugin<T, S, L>, S, L>;
