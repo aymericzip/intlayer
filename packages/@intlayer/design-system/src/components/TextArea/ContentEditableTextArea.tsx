@@ -55,10 +55,25 @@ const splitLines = (text: string): string[] => {
 };
 
 // Cached Intl.Segmenter for grapheme-aware deletion (emoji, CJK, etc.)
-const graphemeSegmenter =
-  typeof Intl !== 'undefined' && 'Segmenter' in Intl
-    ? new Intl.Segmenter(undefined, { granularity: 'grapheme' })
-    : null;
+// Intl.Segmenter is ES2022+ but we feature-detect at runtime.
+type GraphemeSegmenter = {
+  segment: (input: string) => Iterable<{ segment: string }>;
+};
+
+const createGraphemeSegmenter = (): GraphemeSegmenter | null => {
+  if (typeof Intl === 'undefined' || !('Segmenter' in Intl)) return null;
+  const SegmenterCtor = (
+    Intl as unknown as Record<
+      string,
+      new (
+        ...args: unknown[]
+      ) => GraphemeSegmenter
+    >
+  ).Segmenter;
+  return new SegmenterCtor(undefined, { granularity: 'grapheme' });
+};
+
+const graphemeSegmenter = createGraphemeSegmenter();
 
 /**
  * Find the previous grapheme cluster boundary for safe deletion.
@@ -651,8 +666,7 @@ export const ContentEditableTextArea: FC<ContentEditableTextAreaProps> = ({
 
   const setRef = (el: HTMLDivElement | null) => {
     elRef.current = el;
-    (containerRef as MutableRefObject<HTMLDivElement | null>).current =
-      el;
+    (containerRef as MutableRefObject<HTMLDivElement | null>).current = el;
   };
 
   useImperativeHandle(ref, () => ({
@@ -713,7 +727,6 @@ export const ContentEditableTextArea: FC<ContentEditableTextAreaProps> = ({
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onClick={onClick}
-        data-testid={rest['data-testid']}
         className={cn(
           'resize-none whitespace-pre-wrap break-words outline-none',
           inputVariants({

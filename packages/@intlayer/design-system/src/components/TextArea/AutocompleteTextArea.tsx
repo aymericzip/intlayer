@@ -119,9 +119,7 @@ export const AutoCompleteTextarea: FC<AutocompleteTextAreaProps> = ({
           e.preventDefault();
           acceptSuggestion();
         }
-        props.onKeyDown?.(
-          e as unknown as KeyboardEvent<HTMLTextAreaElement>
-        );
+        props.onKeyDown?.(e as unknown as KeyboardEvent<HTMLTextAreaElement>);
       }}
       ghostText={activeGhost}
       ghostLine={activeLine}
@@ -138,7 +136,7 @@ export const AutoCompleteTextarea: FC<AutocompleteTextAreaProps> = ({
       aria-label={props['aria-label']}
       aria-invalid={props['aria-invalid']}
       aria-describedby={props['aria-describedby']}
-      data-testid={props['data-testid']}
+      data-testid={(props as Record<string, unknown>)['data-testid'] as string}
     />
   );
 };
