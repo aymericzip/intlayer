@@ -29,7 +29,7 @@ type PrepareIntlayerOptions = {
 
 const DEFAULT_PREPARE_INTLAYER_OPTIONS = {
   clean: false,
-  env: 'prod',
+  env: 'dev',
   format: ['cjs', 'esm'],
   cacheTimeoutMs: 1000 * 60 * 60, // 1 hour
 } satisfies PrepareIntlayerOptions;
