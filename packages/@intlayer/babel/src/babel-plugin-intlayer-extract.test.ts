@@ -60,9 +60,7 @@ describe('babel-plugin-intlayer-extract', () => {
     `;
     const output = transform(code);
     expect(output).toContain('content.helloWorld');
-    expect(output).toContain(
-      "const content = useIntlayer('comp-my-component');"
-    );
+    expect(output).toContain("const content = useIntlayer('my-component');");
     expect(output).toContain("import { useIntlayer } from 'react-intlayer';");
   });
 
@@ -74,9 +72,7 @@ describe('babel-plugin-intlayer-extract', () => {
     `;
     const output = transform(code);
     expect(output).toContain('content.utilityText');
-    expect(output).toContain(
-      "const content = getIntlayer('comp-my-component');"
-    );
+    expect(output).toContain("const content = getIntlayer('my-component');");
     expect(output).toContain("import { getIntlayer } from 'intlayer';");
   });
 
@@ -213,12 +209,10 @@ describe('babel-plugin-intlayer-extract', () => {
     `;
     const output = transform(code);
     // Component gets useIntlayer
-    expect(output).toContain(
-      "const content = useIntlayer('comp-my-component');"
-    );
+    expect(output).toContain("const content = useIntlayer('my-component');");
     // Nested function should NOT get its own injection
     expect(output).not.toContain(
-      "const content = getIntlayer('comp-my-component');"
+      "const content = getIntlayer('my-component');"
     );
     expect(output).toContain('() => content.labelText.value');
     // Check import is present

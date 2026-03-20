@@ -75,6 +75,7 @@ import {
   UNMERGED_DICTIONARIES_DIR,
 } from '../defaultValues/system';
 import { getProjectRequire } from '../utils';
+import { intlayerConfigSchema } from './configurationSchema';
 
 let storedConfiguration: IntlayerConfig;
 
@@ -908,6 +909,16 @@ export const buildConfigurationFields = (
   baseDir?: string,
   logFunctions?: LogFunctions
 ): IntlayerConfig => {
+  if (customConfiguration) {
+    const result = intlayerConfigSchema.safeParse(customConfiguration);
+    if (!result.success) {
+      const logError = logFunctions?.error ?? console.error;
+      for (const issue of result.error.issues) {
+        logError(`${issue.path.join('.')}: ${issue.message}`);
+      }
+    }
+  }
+
   const internationalizationConfig = buildInternationalizationFields(
     customConfiguration?.internationalization
   );

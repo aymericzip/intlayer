@@ -15,7 +15,7 @@ describe('Configuration Validation', () => {
 
     expect(consoleSpy).toHaveBeenCalledWith(
       expect.stringContaining(
-        'internationalization.locales: Array must contain at least 1 element(s)'
+        'internationalization.locales: Too small: expected array to have >=1 items'
       )
     );
     consoleSpy.mockRestore();
@@ -32,7 +32,9 @@ describe('Configuration Validation', () => {
     buildConfigurationFields(invalidConfig);
 
     expect(consoleSpy).toHaveBeenCalledWith(
-      expect.stringContaining('editor.port: Expected number, received string')
+      expect.stringContaining(
+        'editor.port: Invalid input: expected number, received string'
+      )
     );
     consoleSpy.mockRestore();
   });
@@ -50,7 +52,7 @@ describe('Configuration Validation', () => {
     } as any);
 
     expect(errorSpy).toHaveBeenCalledWith(
-      expect.stringContaining('internationalization.strictMode: Invalid input')
+      expect.stringContaining('internationalization.strictMode: Invalid option')
     );
   });
 

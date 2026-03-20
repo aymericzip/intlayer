@@ -6,7 +6,10 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 // Mocks – must be declared before any imports that transitively load them.
 // ---------------------------------------------------------------------------
 
-const mockConfig = vi.hoisted(() => ({ editor: { enabled: false } }));
+const mockConfig = vi.hoisted(() => ({
+  editor: { enabled: false },
+  internationalization: { defaultLocale: 'en', locales: ['en'] },
+}));
 
 vi.mock('@intlayer/config/built', () => ({ default: mockConfig }));
 

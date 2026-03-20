@@ -5,6 +5,11 @@ export default defineConfig({
   plugins: [tsconfigPaths()],
   test: {
     environment: 'jsdom',
+    environmentOptions: {
+      jsdom: {
+        runScripts: 'outside-only',
+      },
+    },
     setupFiles: ['./test/setup.ts'],
     globals: true,
     clearMocks: true,

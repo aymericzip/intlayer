@@ -5,7 +5,10 @@ import { renderIntlayerNode } from './IntlayerNode';
 // Mocks
 // ---------------------------------------------------------------------------
 
-const mockConfig = vi.hoisted(() => ({ editor: { enabled: false } }));
+const mockConfig = vi.hoisted(() => ({
+  editor: { enabled: false },
+  internationalization: { defaultLocale: 'en', locales: ['en'] },
+}));
 
 vi.mock('@intlayer/config/built', () => ({ default: mockConfig }));
 

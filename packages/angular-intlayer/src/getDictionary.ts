@@ -12,4 +12,4 @@ export const getDictionary = <
 >(
   dictionary: T,
   locale?: L
-) => getDictionaryCore<T, L>(dictionary, resolvedLocale, getPlugins(locale));
+) => getDictionaryCore<T, L>(dictionary, locale, getPlugins(locale));

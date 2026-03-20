@@ -1,5 +1,5 @@
 import { AiProviders } from '@intlayer/types/config';
-import { z } from 'zod';
+import z from 'zod';
 
 export const internationalizationSchema = z.object({
   locales: z.array(z.string()).min(1),

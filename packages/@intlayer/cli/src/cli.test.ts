@@ -104,31 +104,7 @@ vi.mock('@intlayer/config/built', () => ({
   default: {},
 }));
 
-vi.mock('@intlayer/config', () => ({
-  __esModule: true,
-  isESModule: false,
-  // Minimal constants used by downstream packages
-  spinnerFrames: ['-', '\\', '|', '/'],
-  ANSIColors: {
-    RESET: '',
-    GREY: '',
-    GREY_DARK: '',
-    BLUE: '',
-    RED: '',
-    GREEN: '',
-    YELLOW: '',
-    MAGENTA: '',
-    BEIGE: '',
-    ORANGE: '',
-    CYAN: '',
-    WHITE: '',
-  },
-  v: '✓',
-  x: '✗',
-  colorize: (s: string) => String(s),
-  getExtension: vi.fn(() => 'cjs'),
-  ESMxCJSRequire: require,
-  // Minimal configuration getter
+vi.mock('@intlayer/config/node', () => ({
   getConfiguration: vi.fn(() => ({
     content: {
       mainDir: process.cwd(),
@@ -137,6 +113,13 @@ vi.mock('@intlayer/config', () => ({
     ai: {},
     log: { mode: 'disabled', prefix: '' },
   })),
+  getConfigurationMeta: vi.fn(() => ({})),
+}));
+
+vi.mock('@intlayer/config/logger', () => ({
+  setPrefix: vi.fn(),
+  colorize: (s: string) => String(s),
+  getAppLogger: () => vi.fn(),
 }));
 
 describe.skip('Intlayer CLI', () => {

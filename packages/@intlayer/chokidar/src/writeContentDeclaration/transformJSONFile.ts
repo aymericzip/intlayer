@@ -95,7 +95,7 @@ const updateObjectLiteral = (node: any, data: Record<string, any>) => {
 
     if (existingProp?.comments) {
       existingProp.comments.forEach((c: any) => {
-        if (c.type === 'Line' || c.type === 'CommentLine') {
+        if ((c.type === 'Line' || c.type === 'CommentLine') && c.trailing) {
           // Convert to block comment and tag it to force Recast to print it inline
           c.type = c.type === 'Line' ? 'Block' : 'CommentBlock';
           c.value = `__INLINE_LINE__${c.value}`;

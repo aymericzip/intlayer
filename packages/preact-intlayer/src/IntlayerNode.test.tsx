@@ -1,4 +1,4 @@
-import { Fragment, h, isValidElement } from 'preact';
+import { Fragment, h } from 'preact';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { renderIntlayerNode } from './IntlayerNode';
 
@@ -6,7 +6,10 @@ import { renderIntlayerNode } from './IntlayerNode';
 // Mocks
 // ---------------------------------------------------------------------------
 
-const mockConfig = vi.hoisted(() => ({ editor: { enabled: false } }));
+const mockConfig = vi.hoisted(() => ({
+  editor: { enabled: false },
+  internationalization: { defaultLocale: 'en', locales: ['en'] },
+}));
 
 vi.mock('@intlayer/config/built', () => ({ default: mockConfig }));
 

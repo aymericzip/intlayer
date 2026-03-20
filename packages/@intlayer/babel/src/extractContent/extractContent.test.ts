@@ -73,6 +73,7 @@ describe('extractIntlayer', () => {
       compiler: {
         noMetadata: false,
         dictionaryKeyPrefix: '',
+        output: (context: any) => join(tmpDir, `${context.key}.content.ts`),
       },
       build: {
         importMode: 'esm',
@@ -426,6 +427,7 @@ export const InsertionTest = () => {
         compiler: {
           noMetadata: false,
           dictionaryKeyPrefix: '',
+          output: (context: any) => join(tmpDir, `${context.key}.content.ts`),
         },
         build: {
           importMode: 'esm',
@@ -687,6 +689,7 @@ export const trailingComma = (locale: string) => {
         compiler: {
           noMetadata: false,
           dictionaryKeyPrefix: '',
+          output: (context: any) => join(tmpDir, `${context.key}.content.ts`),
         },
         build: {
           importMode: 'esm',
