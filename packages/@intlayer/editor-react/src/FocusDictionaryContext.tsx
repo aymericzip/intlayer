@@ -31,6 +31,7 @@ export const useFocusDictionary = (): FocusDictionaryState &
     const handler = (e: Event) =>
       setFocusedContentState((e as CustomEvent<FileContent | null>).detail);
     manager.focusedContent.addEventListener('change', handler);
+
     return () => manager.focusedContent.removeEventListener('change', handler);
   }, [manager]);
 

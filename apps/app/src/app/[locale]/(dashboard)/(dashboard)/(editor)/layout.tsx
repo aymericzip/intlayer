@@ -1,9 +1,4 @@
 import { AuthenticationBarrier } from '@components/Auth/AuthenticationBarrier/AuthenticationBarrier';
-import {
-  DictionariesRecordProvider,
-  EditedContentProvider,
-  FocusDictionaryProvider,
-} from '@intlayer/editor-react';
 import { getSessionData } from '@utils/getSessionData';
 import type { NextLayoutIntlayer } from 'next-intlayer';
 
@@ -28,11 +23,7 @@ const DashboardContentLayout: NextLayoutIntlayer = async ({
       session={session}
       locale={locale}
     >
-      <DictionariesRecordProvider>
-        <EditedContentProvider>
-          <FocusDictionaryProvider>{children}</FocusDictionaryProvider>
-        </EditedContentProvider>
-      </DictionariesRecordProvider>
+      {children}
     </AuthenticationBarrier>
   );
 };
