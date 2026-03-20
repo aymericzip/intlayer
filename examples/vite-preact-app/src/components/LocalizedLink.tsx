@@ -1,10 +1,10 @@
 import { getLocalizedUrl } from 'intlayer';
-import type { HTMLAttributes, TargetedMouseEvent } from 'preact';
-import { forwardRef } from 'preact/compat';
+import type { JSX, Ref, TargetedMouseEvent } from 'preact';
 import { useLocale } from 'preact-intlayer';
 import { useLocation } from 'preact-iso';
 
-export interface LocalizedLinkProps extends HTMLAttributes<HTMLAnchorElement> {
+export interface LocalizedLinkProps
+  extends JSX.HTMLAttributes<HTMLAnchorElement> {
   href: string;
   replace?: boolean;
 }
@@ -18,43 +18,41 @@ export const checkIsExternalLink = (href?: string): boolean =>
 
 /**
  * A custom Link component that adapts the href attribute based on the current locale.
- * For internal links, it uses `getLocalizedUrl` to prefix the URL with the locale (e.g., /fr/about).
- * This ensures that navigation stays within the same locale context.
- * It uses a standard <a> tag but can trigger client-side navigation using preact-iso's `route`.
  */
-export const LocalizedLink = forwardRef<HTMLAnchorElement, LocalizedLinkProps>(
-  ({ href, children, onClick, replace = false, ...props }, ref) => {
-    const { locale } = useLocale();
-    const location = useLocation();
-    const isExternalLink = checkIsExternalLink(href);
+export const LocalizedLink = (
+  { href, children, onClick, replace = false, ...props }: LocalizedLinkProps,
+  ref: Ref<HTMLAnchorElement>
+) => {
+  const { locale } = useLocale();
+  const location = useLocation();
+  const isExternalLink = checkIsExternalLink(href);
 
-    const hrefI18n =
-      href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
+  const hrefI18n =
+    href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
 
-    const handleClick = (event: TargetedMouseEvent<HTMLAnchorElement>) => {
-      if (onClick) {
-        onClick(event);
+  const handleClick = (event: TargetedMouseEvent<HTMLAnchorElement>) => {
+    if (onClick) {
+      onClick(event);
+    }
+    if (
+      !isExternalLink &&
+      href &&
+      event.button === 0 &&
+      !event.metaKey &&
+      !event.ctrlKey &&
+      !event.shiftKey &&
+      !event.altKey
+    ) {
+      event.preventDefault();
+      if (location.url !== hrefI18n) {
+        location.route(hrefI18n, replace);
       }
-      if (
-        !isExternalLink &&
-        href &&
-        event.button === 0 &&
-        !event.metaKey &&
-        !event.ctrlKey &&
-        !event.shiftKey &&
-        !event.altKey
-      ) {
-        event.preventDefault();
-        if (location.url !== hrefI18n) {
-          location.route(hrefI18n, replace);
-        }
-      }
-    };
+    }
+  };
 
-    return (
-      <a href={hrefI18n} ref={ref} onClick={handleClick} {...props}>
-        {children}
-      </a>
-    );
-  }
-);
+  return (
+    <a href={hrefI18n} ref={ref} onClick={handleClick} {...props}>
+      {children}
+    </a>
+  );
+};
