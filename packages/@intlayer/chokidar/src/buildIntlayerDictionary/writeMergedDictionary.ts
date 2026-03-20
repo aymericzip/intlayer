@@ -1,11 +1,11 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { colorizePath } from '@intlayer/config/logger';
-import { getConfiguration } from '@intlayer/config/node';
 import {
   mergeDictionaries,
   normalizeDictionaries,
 } from '@intlayer/core/dictionaryManipulator';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { parallelize } from '../utils/parallelize';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';
@@ -36,7 +36,7 @@ export type MergedDictionaryOutput = Record<string, MergedDictionaryResult>;
  */
 export const writeMergedDictionaries = async (
   groupedDictionaries: UnmergedDictionaryOutput,
-  configuration = getConfiguration()
+  configuration: IntlayerConfig
 ): Promise<MergedDictionaryOutput> => {
   const { dictionariesDir } = configuration.system;
 

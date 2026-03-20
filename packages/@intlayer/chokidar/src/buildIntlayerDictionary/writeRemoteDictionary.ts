@@ -1,8 +1,8 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { colorizePath, x } from '@intlayer/config/logger';
-import { getConfiguration } from '@intlayer/config/node';
 import { orderDictionaries } from '@intlayer/core/dictionaryManipulator';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { formatDistantDictionaries } from '../loadDictionaries';
@@ -38,7 +38,7 @@ export type RemoteDictionaryOutput = Record<string, RemoteDictionaryResult>;
  */
 export const writeRemoteDictionary = async (
   remoteDictionaries: Dictionary[],
-  configuration = getConfiguration()
+  configuration: IntlayerConfig
 ): Promise<RemoteDictionaryOutput> => {
   const { remoteDictionariesDir } = configuration.system;
 

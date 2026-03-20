@@ -1,5 +1,5 @@
-import { DefaultValues } from '@intlayer/config/client';
-import { getConfiguration } from '@intlayer/config/node';
+import { IMPORT_MODE, OUTPUT_FORMAT } from '@intlayer/config/defaultValues';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import {
@@ -11,13 +11,13 @@ import { writeMergedDictionaries } from './writeMergedDictionary';
 import { writeUnmergedDictionaries } from './writeUnmergedDictionary';
 
 export type BuildDictionariesOptions = Partial<{
-  formats: ('cjs' | 'esm')[];
+  formats: typeof OUTPUT_FORMAT;
   importOtherDictionaries: boolean;
   env: 'prod' | 'dev';
 }>;
 
 const defaultOptions = {
-  formats: ['cjs', 'esm'],
+  formats: OUTPUT_FORMAT,
   importOtherDictionaries: true,
   env: 'dev',
 } as const satisfies BuildDictionariesOptions;
@@ -27,13 +27,13 @@ const defaultOptions = {
  */
 export const buildDictionary = async (
   localDictionariesEntries: Dictionary[],
-  configuration = getConfiguration(),
+  configuration: IntlayerConfig,
   options?: BuildDictionariesOptions
 ) => {
   const importMode =
     configuration?.build?.importMode ??
     configuration?.dictionary?.importMode ??
-    DefaultValues.Dictionary.IMPORT_MODE;
+    IMPORT_MODE;
 
   const { importOtherDictionaries, env, formats } = {
     ...defaultOptions,

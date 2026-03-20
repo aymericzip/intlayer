@@ -22,7 +22,7 @@ export const getBuiltDynamicDictionariesPath = async (
   const extension = format === 'cjs' ? 'cjs' : 'mjs';
 
   const dictionariesPath: string[] = await fg(
-    `${normalizePath(dynamicDictionariesDir)}/**/*.${extension}`
+    `${normalizePath(dynamicDictionariesDir)}/*.${extension}`
   );
 
   return dictionariesPath.filter((path) => {

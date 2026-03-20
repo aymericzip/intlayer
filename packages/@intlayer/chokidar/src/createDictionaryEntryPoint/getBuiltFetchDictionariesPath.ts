@@ -22,7 +22,7 @@ export const getBuiltFetchDictionariesPath = async (
   const extension = format === 'cjs' ? 'cjs' : 'mjs';
 
   const dictionariesPath: string[] = await fg(
-    `${normalizePath(fetchDictionariesDir)}/**/*.${extension}`
+    `${normalizePath(fetchDictionariesDir)}/*.${extension}`
   );
 
   return dictionariesPath.filter((path) => {
