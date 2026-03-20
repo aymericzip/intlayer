@@ -1,31 +1,64 @@
 'use client';
 
-import { type FC, useEffect, useRef, useState } from 'react';
+import {
+  type ChangeEvent,
+  type FC,
+  type KeyboardEvent,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import type { AutoSizedTextAreaProps } from './AutoSizeTextArea';
 import {
   ContentEditableTextArea,
   type ContentEditableTextAreaHandle,
 } from './ContentEditableTextArea';
 
-export const useDebounce = <T,>(value: T, delay: number): T => {
-  const [debouncedValue, setDebouncedValue] = useState<T>(value);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-
-    return () => clearTimeout(timer);
-  }, [value, delay]);
-
-  return debouncedValue;
-};
-
+/**
+ * Props for the AutocompleteTextArea component.
+ *
+ * Extends AutoSizedTextAreaProps with inline autocomplete functionality
+ * using a contentEditable-based textarea.
+ *
+ * @example
+ * ```tsx
+ * <AutoCompleteTextarea
+ *   placeholder="Start typing..."
+ *   isActive={true}
+ *   autoSize={true}
+ *   maxRows={10}
+ * />
+ * ```
+ */
 export type AutocompleteTextAreaProps = AutoSizedTextAreaProps & {
+  /** Whether inline autocomplete ghost text is active */
   isActive?: boolean;
+  /** Manual suggestion text to display as ghost text after the cursor */
   suggestion?: string;
 };
 
+/**
+ * AutoCompleteTextarea Component
+ *
+ * A textarea with inline autocomplete ghost text, built on a contentEditable div
+ * instead of a native `<textarea>`. Ghost text (suggestions) is rendered inline
+ * at the cursor position and can be accepted with the Tab key.
+ *
+ * The component wraps `ContentEditableTextArea` and manages suggestion state.
+ * When `suggestion` prop is provided it is shown as ghost text at the end of the
+ * current text. When `isActive` is false, ghost text is hidden.
+ *
+ * @example
+ * ```tsx
+ * <AutoCompleteTextarea
+ *   value={content}
+ *   onChange={handleChange}
+ *   suggestion="suggested completion..."
+ *   isActive={true}
+ *   autoSize={true}
+ * />
+ * ```
+ */
 export const AutoCompleteTextarea: FC<AutocompleteTextAreaProps> = ({
   isActive = true,
   suggestion: suggestionProp,
@@ -77,7 +110,7 @@ export const AutoCompleteTextarea: FC<AutocompleteTextAreaProps> = ({
           const evt = {
             target: { value: val },
             currentTarget: { value: val },
-          } as React.ChangeEvent<HTMLTextAreaElement>;
+          } as ChangeEvent<HTMLTextAreaElement>;
           props.onChange(evt);
         }
       }}
@@ -87,7 +120,7 @@ export const AutoCompleteTextarea: FC<AutocompleteTextAreaProps> = ({
           acceptSuggestion();
         }
         props.onKeyDown?.(
-          e as unknown as React.KeyboardEvent<HTMLTextAreaElement>
+          e as unknown as KeyboardEvent<HTMLTextAreaElement>
         );
       }}
       ghostText={activeGhost}

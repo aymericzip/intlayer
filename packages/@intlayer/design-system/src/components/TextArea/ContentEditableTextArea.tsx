@@ -3,8 +3,14 @@
 import { cn } from '@utils/cn';
 import type { VariantProps } from 'class-variance-authority';
 import {
+  type ClipboardEvent,
+  type DragEvent,
   type FC,
+  type FormEvent,
   type HTMLAttributes,
+  type KeyboardEvent,
+  type MutableRefObject,
+  type Ref,
   useEffect,
   useImperativeHandle,
   useRef,
@@ -309,7 +315,7 @@ export const useContentEditable = ({
     onChange?.(newText);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (disabled) {
       e.preventDefault();
       return;
@@ -398,7 +404,7 @@ export const useContentEditable = ({
     }
   };
 
-  const handleCut = (e: React.ClipboardEvent<HTMLDivElement>) => {
+  const handleCut = (e: ClipboardEvent<HTMLDivElement>) => {
     if (disabled) {
       e.preventDefault();
       return;
@@ -420,7 +426,7 @@ export const useContentEditable = ({
     applyTextChange(newText, selInfo.start);
   };
 
-  const handlePaste = (e: React.ClipboardEvent<HTMLDivElement>) => {
+  const handlePaste = (e: ClipboardEvent<HTMLDivElement>) => {
     if (disabled) {
       e.preventDefault();
       return;
@@ -441,7 +447,7 @@ export const useContentEditable = ({
     applyTextChange(newText, selInfo.start + pastedText.length);
   };
 
-  const handleBeforeInput = (e: React.FormEvent<HTMLDivElement>) => {
+  const handleBeforeInput = (e: FormEvent<HTMLDivElement>) => {
     if (disabled) return;
 
     const inputEvent = e.nativeEvent as InputEvent;
@@ -520,12 +526,12 @@ export const useContentEditable = ({
     }
   };
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     // Block drag-and-drop to prevent uncontrolled DOM mutations
     e.preventDefault();
   };
 
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
   };
 
@@ -595,7 +601,7 @@ export type ContentEditableTextAreaProps = Omit<
   ghostText?: string;
   ghostLine?: number;
   ghostOffset?: number;
-  ref?: React.Ref<ContentEditableTextAreaHandle>;
+  ref?: Ref<ContentEditableTextAreaHandle>;
   dir?: 'ltr' | 'rtl' | 'auto';
 } & Omit<
     VariantProps<typeof inputVariants>,
@@ -645,7 +651,7 @@ export const ContentEditableTextArea: FC<ContentEditableTextAreaProps> = ({
 
   const setRef = (el: HTMLDivElement | null) => {
     elRef.current = el;
-    (containerRef as React.MutableRefObject<HTMLDivElement | null>).current =
+    (containerRef as MutableRefObject<HTMLDivElement | null>).current =
       el;
   };
 
