@@ -20,20 +20,15 @@ const getCachedConfiguration = async (configuration: IntlayerConfig) => {
 export const isCachedConfigurationUpToDate = async (
   configuration: IntlayerConfig
 ): Promise<boolean | null> => {
-  try {
-    const cleanedConfiguration = cleanConfiguration(configuration);
-    const cachedConfiguration =
-      await getCachedConfiguration(cleanedConfiguration);
+  const cleanedConfiguration = cleanConfiguration(configuration);
+  const cachedConfiguration = await getCachedConfiguration(configuration);
 
-    const isSimilar = isDeepStrictEqual(
-      cachedConfiguration,
-      cleanedConfiguration
-    );
+  const isSimilar = isDeepStrictEqual(
+    cachedConfiguration,
+    cleanedConfiguration
+  );
 
-    return isSimilar;
-  } catch {
-    return null;
-  }
+  return isSimilar;
 };
 
 const cleanConfiguration = (configuration: IntlayerConfig): IntlayerConfig => {
