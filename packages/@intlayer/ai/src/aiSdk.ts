@@ -37,6 +37,10 @@ import type {
   UserModelMessage,
 } from 'ai';
 
+const DEFAULT_PROVIDER = AiProviders.ANTHROPIC;
+const DEFAULT_MODEL = 'claude-haiku-4-5-20251001';
+const DEFAULT_API_KEY = process.env.ANTHROPIC_API_KEY;
+
 export { AiProviders as AIProvider };
 
 type AnthropicModel = Parameters<AnthropicProvider>[0];
@@ -183,10 +187,8 @@ const getAPIKey = (
   aiOptions?: AIOptions,
   isAuthenticated: boolean = false
 ) => {
-  const defaultApiKey = process.env.OPENAI_API_KEY;
-
   if (accessType.includes('public')) {
-    return aiOptions?.apiKey ?? defaultApiKey;
+    return aiOptions?.apiKey ?? DEFAULT_API_KEY;
   }
 
   if (accessType.includes('apiKey') && aiOptions?.apiKey) {
@@ -194,12 +196,12 @@ const getAPIKey = (
   }
 
   if (accessType.includes('registered_user') && isAuthenticated) {
-    return aiOptions?.apiKey ?? defaultApiKey;
+    return aiOptions?.apiKey ?? DEFAULT_API_KEY;
   }
 
   // TODO: Implement premium user access
   if (accessType.includes('premium_user') && isAuthenticated) {
-    return aiOptions?.apiKey ?? defaultApiKey;
+    return aiOptions?.apiKey ?? DEFAULT_API_KEY;
   }
 
   return undefined;
@@ -209,12 +211,12 @@ const getModelName = (
   provider: AiProviders,
   userApiKey: string | undefined,
   userModel?: Model,
-  defaultModel: Model = 'gpt-5-mini'
+  defaultModel?: Model
 ): Model => {
   // If the user uses their own API key, allow custom model selection
   if (userApiKey || provider === AiProviders.OLLAMA) {
     if (provider === AiProviders.OPENAI) {
-      return userModel ?? defaultModel;
+      return userModel ?? DEFAULT_MODEL;
     }
 
     if (userModel) {
@@ -234,7 +236,7 @@ const getModelName = (
     );
   }
 
-  return defaultModel;
+  return DEFAULT_MODEL;
 };
 
 const getLanguageModel = async (
@@ -635,8 +637,6 @@ export type AIConfig = Omit<Parameters<typeof generateText>[0], 'prompt'> & {
   textVerbosity?: 'low' | 'medium' | 'high';
   dataSerialization?: 'json' | 'toon';
 };
-
-const DEFAULT_PROVIDER: AiProviders = AiProviders.OPENAI as AiProviders;
 
 export type AIConfigOptions = {
   userOptions?: AIOptions;
