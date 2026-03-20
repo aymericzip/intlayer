@@ -5,9 +5,9 @@ import {
 } from '@intlayer/config/node';
 import { getMissingLocalesContentFromDictionary } from '@intlayer/core/plugins';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import type { Dictionary } from '@intlayer/types/dictionary';
-import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Locale } from '@intlayer/types/allLocales';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 
 export const listMissingTranslationsWithConfig = (
@@ -25,11 +25,16 @@ export const listMissingTranslationsWithConfig = (
 
   const { locales, requiredLocales } = configuration.internationalization;
 
-  const dictionariesKeys = Object.keys(unmergedDictionariesRecord);
+  // Use the union of keys from both unmerged and merged dictionaries so that
+  // dictionaries compiled only as merged (no per-locale split) are still checked.
+  const dictionariesKeys = new Set([
+    ...Object.keys(unmergedDictionariesRecord),
+    ...Object.keys(mergedDictionaries),
+  ]);
 
   for (const dictionaryKey of dictionariesKeys) {
     const dictionaries: Dictionary[] =
-      unmergedDictionariesRecord[dictionaryKey];
+      unmergedDictionariesRecord[dictionaryKey] ?? [];
 
     const multilingualDictionary: Dictionary[] = dictionaries.filter(
       (dictionary) => !dictionary.locale
@@ -56,6 +61,31 @@ export const listMissingTranslationsWithConfig = (
       (dictionary) => dictionary.locale
     );
 
+    // If there are no unmerged dictionaries for this key, fall back to the
+    // merged dictionary directly (covers the case where the dict was compiled
+    // as merged-only and unmerged_dictionaries.cjs is empty for this key).
+    if (dictionaries.length === 0) {
+      const mergedDictionary = mergedDictionaries[dictionaryKey];
+
+      if (mergedDictionary) {
+        const missingLocales = getMissingLocalesContentFromDictionary(
+          mergedDictionary,
+          locales
+        );
+
+        if (missingLocales.length > 0) {
+          missingTranslations.push({
+            key: dictionaryKey,
+            id: mergedDictionary.id,
+            filePath: mergedDictionary.filePath,
+            locales: missingLocales,
+          });
+        }
+      }
+
+      continue;
+    }
+
     if (perLocaleDictionary.length === 0) {
       continue;
     }
@@ -76,7 +106,9 @@ export const listMissingTranslationsWithConfig = (
   }
 
   const missingLocalesSet = new Set(
-    missingTranslations.flatMap((t) => t.locales)
+    missingTranslations.flatMap(
+      (missingTranslation) => missingTranslation.locales
+    )
   );
   const missingLocales = Array.from(missingLocalesSet);
 

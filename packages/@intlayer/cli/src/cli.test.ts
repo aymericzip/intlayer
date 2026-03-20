@@ -31,44 +31,44 @@ let liveSyncMock: ReturnType<typeof vi.fn>;
 
 // Hoisted mocks – evaluated before the tested module is imported
 vi.mock('./build', () => ({
-  build: (...args: any[]) => buildMock(...args),
+  build: (...args: any[]) => new buildMock(...args),
 }));
 
 vi.mock('./push/push', () => ({
-  push: (...args: any[]) => pushMock(...args),
+  push: (...args: any[]) => new pushMock(...args),
 }));
 
 vi.mock('./pull', () => ({
-  pull: (...args: any[]) => pullMock(...args),
+  pull: (...args: any[]) => new pullMock(...args),
 }));
 
 vi.mock('./fill/fill', () => ({
-  fill: (...args: any[]) => fillMock(...args),
+  fill: (...args: any[]) => new fillMock(...args)(),
 }));
 
 vi.mock('./config', () => ({
-  getConfig: (...args: any[]) => getConfigMock(...args),
+  getConfig: (...args: any[]) => new getConfigMock(...args),
 }));
 
 vi.mock('./pushConfig', () => ({
-  pushConfig: (...args: any[]) => pushConfigMock(...args),
+  pushConfig: (...args: any[]) => new pushConfigMock(...args),
 }));
 
 vi.mock('./listContentDeclaration', () => ({
   listContentDeclaration: (...args: any[]) =>
-    listContentDeclarationMock(...args),
+    new listContentDeclarationMock(...args),
 }));
 
 vi.mock('./translateDoc', () => ({
-  translateDoc: (...args: any[]) => translateDocMock(...args),
+  translateDoc: (...args: any[]) => new translateDocMock(...args),
 }));
 
 vi.mock('./reviewDoc', () => ({
-  reviewDoc: (...args: any[]) => reviewDocMock(...args),
+  reviewDoc: (...args: any[]) => new reviewDocMock(...args),
 }));
 
 vi.mock('./liveSync', () => ({
-  liveSync: (...args: any[]) => liveSyncMock(...args),
+  liveSync: (...args: any[]) => new liveSyncMock(...args),
 }));
 
 // Mock getParentPackageJSON utility
