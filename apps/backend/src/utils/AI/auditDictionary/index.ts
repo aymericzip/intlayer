@@ -7,7 +7,7 @@ import {
   extractJson,
   generateText,
 } from '@intlayer/ai';
-import { DefaultValues } from '@intlayer/config/client';
+import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
 import { getLocaleName } from '@intlayer/core/localization';
 import type { Locale } from '@intlayer/types/allLocales';
 import { logger } from '@logger';
@@ -49,7 +49,7 @@ export const aiDefaultOptions: AIOptions = {
  * @returns A string in the format "locale: name", e.g. "en: English".
  */
 const formatLocaleWithName = (locale: Locale): string => {
-  return `${locale}: ${getLocaleName(locale, DefaultValues.Internationalization.DEFAULT_LOCALE)}`;
+  return `${locale}: ${getLocaleName(locale, DEFAULT_LOCALE)}`;
 };
 
 /**
