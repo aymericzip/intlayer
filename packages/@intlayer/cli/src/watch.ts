@@ -42,23 +42,22 @@ export const watchContentDeclaration = async (options?: WatchOptions) => {
   });
 
   // Define a Graceful Shutdown function
+  let isShuttingDown = false;
   const handleShutdown = async () => {
     // Prevent multiple calls
-    process.off('SIGINT', handleShutdown);
-    process.off('SIGTERM', handleShutdown);
+    if (isShuttingDown) return;
+    isShuttingDown = true;
 
     appLogger('Stopping Intlayer watcher...');
 
     try {
-      // Close the file watcher immediately to stop "esbuild service not running" errors
-      await watcher.close();
-
-      // If runParallel exposes the child process, we can try to kill it explicitly.
-      // Even if it doesn't, process.exit() below usually cleans up attached children.
-      if (parallelProcess && 'child' in parallelProcess) {
-        // @ts-ignore - Assuming child exists on the return type if runParallel is based on spawn/exec
-        parallelProcess.child?.kill('SIGTERM');
+      // Kill the parallel process (e.g., Next.js) before closing the watcher
+      if (parallelProcess) {
+        parallelProcess.kill();
       }
+
+      // Close the file watcher to stop "esbuild service not running" errors
+      await watcher.close();
     } catch (error) {
       console.error('Error during shutdown:', error);
     } finally {
