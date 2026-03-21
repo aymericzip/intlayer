@@ -27,16 +27,31 @@ const pendingUnlinks = new Map<
   { timer: NodeJS.Timeout; oldPath: string }
 >();
 
-// Task queue to ensure sequential processing of file events
-let processingQueue = Promise.resolve();
+// Mutex-based task queue for sequential file event processing
+let processingLock: Promise<void> | null = null;
 const processEvent = (task: () => Promise<void>) => {
-  processingQueue = processingQueue.then(async () => {
+  const run = async () => {
+    // Wait for the previous task to finish
+    while (processingLock) {
+      await processingLock;
+    }
+
+    let resolve: () => void;
+    processingLock = new Promise<void>((r) => {
+      resolve = r;
+    });
+
     try {
       await task();
     } catch (error) {
       console.error(error);
+    } finally {
+      processingLock = null;
+      resolve!();
     }
-  });
+  };
+
+  run();
 };
 
 type WatchOptions = ChokidarOptions & {
@@ -174,6 +189,8 @@ export const watch = (options?: WatchOptions) => {
 
           await prepareIntlayer(configuration, { clean: false });
         } else {
+          // Clear module cache for the changed file to avoid stale require() results
+          clearModuleCache(filePath);
           await handleContentDeclarationFileChange(filePath, configuration);
         }
       })
