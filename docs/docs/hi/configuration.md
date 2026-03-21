@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-03-12
-title: कॉन्फ़िगरेशन
-description: अपने एप्लिकेशन के लिए Intlayer को कॉन्फ़िगर करना सीखें। Intlayer को अपनी आवश्यकताओं के अनुसार अनुकूलित करने के लिए विभिन्न सेटिंग्स और विकल्पों को समझें।
+updatedAt: 2026-03-20
+title: कॉन्फ़िगरेशन (Configuration)
+description: अपने एप्लिकेशन के लिए Intlayer को कॉन्फ़िगर करने का तरीका जानें। अपनी आवश्यकताओं के अनुसार Intlayer को अनुकूलित करने के लिए विभिन्न सेटिंग्स और विकल्पों को समझें।
 keywords:
   - कॉन्फ़िगरेशन
   - सेटिंग्स
@@ -16,71 +16,98 @@ slugs:
 history:
   - version: 8.4.0
     date: 2026-03-20
-    changes: Add object per-locale notation for 'compiler.output' and 'dictionary.fill'
+    changes: 'compiler.output' और 'dictionary.fill' के लिए प्रति-लोकेल ऑब्जेक्ट नोटेशन जोड़ा गया
   - version: 8.3.0
     date: 2026-03-11
-    changes: "'baseDir' को 'content' से 'system' कॉन्फिग में ले जाया गया"
+    changes: 'baseDir' को 'content' कॉन्फ़िगरेशन से 'system' कॉन्फ़िगरेशन में स्थानांतरित किया गया
   - version: 8.2.0
     date: 2026-03-09
-    changes: कंपाइलर विकल्पों को अपडेट करें, 'output' और 'noMetadata' समर्थन जोड़ें
+    changes: कंपाइलर (compiler) विकल्पों को अपडेट किया गया, 'output' और 'noMetadata' के लिए समर्थन जोड़ा गया
   - version: 8.1.7
     date: 2026-02-25
-    changes: कंपाइलर विकल्पों को अपडेट करें
+    changes: कंपाइलर विकल्पों को अपडेट किया गया
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: कंपाइलर विकल्प 'build-only' और डिक्शनरी प्रीफिक्स जोड़ा गया
   - version: 8.0.6
     date: 2026-02-12
-    changes: Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, और Together.ai प्रदाताओं के लिए समर्थन जोड़ें
+    changes: Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face और Together.ai प्रदाताओं के लिए समर्थन जोड़ा गया
   - version: 8.0.5
     date: 2026-02-06
-    changes: AI कॉन्फ़िगरेशन में `dataSerialization` जोड़ें
+    changes: AI कॉन्फ़िगरेशन में `dataSerialization` जोड़ा गया
+  - version: 8.0.0
+    date: 2026-01-24
+    changes: अंतर्निहित तंत्र का बेहतर वर्णन करने के लिए आयात मोड `live` का नाम बदलकर `fetch` कर दिया गया।
   - version: 8.0.0
     date: 2026-01-22
-    changes: आयात मोड निर्माण कॉन्फ़िगरेशन को शब्दकोश कॉन्फ़िगरेशन में ले जाएं।
+    changes: बिल्ड कॉन्फ़िगरेशन `importMode` को `dictionary` कॉन्फ़िगरेशन में स्थानांतरित किया गया।
+  - version: 8.0.0
+    date: 2026-01-22
+    changes: राउटिंग कॉन्फ़िगरेशन में `rewrite` विकल्प जोड़ा गया
   - version: 8.0.0
     date: 2026-01-18
-    changes: सिस्टम कॉन्फ़िगरेशन को सामग्री कॉन्फ़िगरेशन से अलग करें। आंतरिक पथों को `system` गुण में ले जाएं। सामग्री फ़ाइलों को कोड परिवर्तन से अलग करने के लिए `codeDir` जोड़ें।
+    changes: सिस्टम कॉन्फ़िगरेशन को कंटेंट कॉन्फ़िगरेशन से अलग किया गया। आंतरिक पथों को `system` प्रॉपर्टी में स्थानांतरित किया गया। कंटेंट फ़ाइलों और कोड परिवर्तन को अलग करने के लिए `codeDir` जोड़ा गया।
   - version: 8.0.0
     date: 2026-01-18
-    changes: शब्दकोश विकल्प `location` और `schema` जोड़ें
+    changes: डिक्शनरी विकल्प `location` और `schema` जोड़े गए
   - version: 7.5.1
     date: 2026-01-10
-    changes: JSON5 और JSONC फ़ाइल प्रारूपों के लिए समर्थन जोड़ा
+    changes: JSON5 और JSONC फ़ाइल स्वरूपों के लिए समर्थन जोड़ा गया
   - version: 7.5.0
     date: 2025-12-17
-    changes: "`buildMode` विकल्प जोड़ा"
+    changes: `buildMode` विकल्प जोड़ा गया
+  - version: 7.0.0
+    date: 2025-10-25
+    changes: `dictionary` कॉन्फ़िगरेशन जोड़ा गया
+  - version: 7.0.0
+    date: 2025-10-21
+    changes: `middleware` को राउटिंग कॉन्फ़िगरेशन `routing` से बदल दिया गया
+  - version: 7.0.0
+    date: 2025-10-12
+    changes: `formatCommand` विकल्प जोड़ा गया
+  - version: 6.2.0
+    date: 2025-10-12
+    changes: `excludedPath` विकल्प अपडेट किया गया
+  - version: 6.0.2
+    date: 2025-09-23
+    changes: `outputFormat` विकल्प जोड़ा गया
+  - version: 6.0.0
+    date: 2025-09-21
+    changes: `dictionaryOutput` फ़ील्ड और `i18nextResourcesDir` फ़ील्ड हटा दिए गए
   - version: 6.0.0
     date: 2025-09-16
-    changes: "`live` आयात मोड जोड़ा"
+    changes: `live` आयात मोड जोड़ा गया
   - version: 6.0.0
     date: 2025-09-04
-    changes: "`hotReload` फ़ील्ड को `liveSync` से बदलें और `liveSyncPort` और `liveSyncURL` फ़ील्ड जोड़ें"
+    changes: `hotReload` फ़ील्ड को `liveSync` से बदल दिया गया, और `liveSyncPort` और `liveSyncURL` फ़ील्ड जोड़े गए
   - version: 5.6.1
     date: 2025-07-25
-    changes: "`activateDynamicImport` को `importMode` विकल्प से बदलें"
+    changes: `activateDynamicImport` को `importMode` विकल्प से बदल दिया गया
   - version: 5.6.0
     date: 2025-07-13
-    changes: डिफ़ॉल्ट contentDir को `['src']` से बदलकर `['.']` करें
+    changes: डिफ़ॉल्ट contentDir को `['src']` से बदलकर `['.']` कर दिया गया
   - version: 5.5.11
     date: 2025-06-29
-    changes: "`docs` कमांड जोड़ें"
+    changes: `docs` कमांड जोड़े गए
 ---
 
-# Intlayer कॉन्फ़िगरेशन दस्तावेज़ीकरण
+# Intlayer कॉन्फ़िगरेशन दस्तावेज़
 
 ## अवलोकन
 
-Intlayer कॉन्फ़िगरेशन फ़ाइलें प्लगइन के विभिन्न पहलुओं को अनुकूलित करने की अनुमति देती हैं, जैसे कि अंतर्राष्ट्रीयकरण, मिडलवेयर, और सामग्री प्रबंधन। यह दस्तावेज़ कॉन्फ़िगरेशन में प्रत्येक गुण का विस्तृत विवरण प्रदान करता है।
+Intlayer कॉन्फ़िगरेशन फ़ाइलें आपको प्लगइन के विभिन्न पहलुओं को अनुकूलित करने की अनुमति देती हैं, जैसे कि अंतर्राष्ट्रीयकरण (internationalization), मिडलवेयर और कंटेंट हैंडलिंग। यह दस्तावेज़ कॉन्फ़िगरेशन में प्रत्येक प्रॉपर्टी का विस्तृत विवरण प्रदान करता है।
 
 ---
 
-## विषयसूची
+## विषय सूची
 
 <TOC/>
 
 ---
 
-## कॉन्फ़िगरेशन फ़ाइल समर्थन
+## समर्थित कॉन्फ़िगरेशन फ़ाइल स्वरूप
 
-Intlayer JSON, JS, MJS, और TS कॉन्फ़िगरेशन फ़ाइल स्वरूप स्वीकार करता है:
+Intlayer JSON, JS, MJS, और TS कॉन्फ़िगरेशन फ़ाइल स्वरूपों को स्वीकार करता है:
 
 - `intlayer.config.ts`
 - `intlayer.config.js`
@@ -93,7 +120,7 @@ Intlayer JSON, JS, MJS, और TS कॉन्फ़िगरेशन फ़ा
 
 ---
 
-## उदाहरण कॉन्फ़िगरेशन फ़ाइल
+## कॉन्फ़िगरेशन फ़ाइल उदाहरण
 
 ````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -101,108 +128,108 @@ import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
 
 /**
- * Example Intlayer configuration file showing all available options.
+ * सभी उपलब्ध विकल्पों को प्रदर्शित करने वाला Intlayer कॉन्फ़िगरेशन फ़ाइल उदाहरण।
  */
 const config: IntlayerConfig = {
   /**
-   * Configuration for internationalization settings.
+   * अंतर्राष्ट्रीयकरण सेटिंग्स कॉन्फ़िगरेशन।
    */
   internationalization: {
     /**
-     * List of supported locales in the application.
-     * Default: [Locales.ENGLISH]
+     * एप्लिकेशन में समर्थित लोकेल (locales) की सूची।
+     * डिफ़ॉल्ट: [Locales.ENGLISH]
      */
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
 
     /**
-     * List of required locales that must be defined in every dictionary.
-     * If empty, all locales are required in `strict` mode.
-     * Default: []
+     * प्रत्येक डिक्शनरी में परिभाषित की जाने वाली अनिवार्य लोकेल की सूची।
+     * यदि खाली है, तो `strict` मोड में सभी लोकेल अनिवार्य हैं।
+     * डिफ़ॉल्ट: []
      */
     requiredLocales: [Locales.ENGLISH],
 
     /**
-     * Strictness level for internationalized content.
-     * - "strict": Errors if any declared locale is missing or undeclared.
-     * - "inclusive": Warnings if a declared locale is missing.
-     * - "loose": Accepts any existing locale.
-     * Default: "inclusive"
+     * अंतर्राष्ट्रीयकृत कंटेंट के लिए सख्ती का स्तर।
+     * - "strict": यदि कोई घोषित लोकेल अनुपस्थित है या घोषित नहीं है तो त्रुटि।
+     * - "inclusive": यदि घोषित लोकेल अनुपस्थित है तो चेतावनी।
+     * - "loose": किसी भी मौजूदा लोकेल को स्वीकार करता है।
+     * डिफ़ॉल्ट: "inclusive"
      */
     strictMode: "inclusive",
 
     /**
-     * Default locale used as a fallback if the requested locale is not found.
-     * Default: Locales.ENGLISH
+     * अनुरोधित लोकेल न मिलने की स्थिति में फ़ालबैक के रूप में उपयोग की जाने वाली डिफ़ॉल्ट लोकेल।
+     * डिफ़ॉल्ट: Locales.ENGLISH
      */
     defaultLocale: Locales.ENGLISH,
   },
 
   /**
-   * Settings that control dictionary operations and fallback behavior.
+   * डिक्शनरी संचालन और फ़ालबैक व्यवहार को नियंत्रित करने वाली सेटिंग्स।
    */
   dictionary: {
     /**
-     * Controls how dictionaries are imported.
-     * - "static": Statically imported at build time.
-     * - "dynamic": Dynamically imported using Suspense.
-     * - "fetch": Fetched dynamically via the live sync API.
-     * Default: "static"
+     * डिक्शनरी को आयात करने के तरीके को नियंत्रित करता है।
+     * - "static": बिल्ड समय पर स्थिर रूप से आयातित।
+     * - "dynamic": सस्पेंस का उपयोग करके गतिशील रूप से आयातित।
+     * - "fetch": लाइव सिंक एपीआई के माध्यम से गतिशील रूप से प्राप्त।
+     * डिफ़ॉल्ट: "static"
      */
     importMode: "static",
 
     /**
-     * Strategy for auto-filling missing translations using AI.
-     * Can be a boolean or a path pattern to store filled content.
-     * Default: true
+     * AI का उपयोग करके लुप्त अनुवादों को स्वचालित रूप से भरने की रणनीति।
+     * यह एक बूलियन मान या भरे हुए कंटेंट को सहेजने के लिए एक पथ पैटर्न हो सकता है।
+     * डिफ़ॉल्ट: true
      */
     fill: true,
 
     /**
-     * Physical location of the dictionary files.
-     * - "local": Stored in the local filesystem.
-     * - "remote": Stored in the Intlayer CMS.
-     * - "hybrid": Stored in the local filesystem and the Intlayer CMS.
-     * - "plugin" (or any custom string): Provided by a plugin or a custom source.
-     * Default: "local"
+     * डिक्शनरी फ़ाइलों का भौतिक स्थान।
+     * - "local": स्थानीय फ़ाइल सिस्टम में संग्रहीत।
+     * - "remote": Intlayer CMS में संग्रहीत।
+     * - "hybrid": स्थानीय और Intlayer CMS दोनों में संग्रहीत।
+     * - "plugin" (या कोई भी कस्टम स्ट्रिंग): प्लगइन या कस्टम स्रोत द्वारा प्रदान किया गया।
+     * डिफ़ॉल्ट: "local"
      */
     location: "local",
 
     /**
-     * Whether to automatically transform content (e.g., Markdown to HTML).
-     * Default: false
+     * क्या कंटेंट स्वचालित रूप से रूपांतरित होना चाहिए (जैसे: Markdown से HTML)।
+     * डिफ़ॉल्ट: false
      */
     contentAutoTransformation: false,
   },
 
   /**
-   * Routing and middleware configuration.
+   * राउटिंग और मिडलवेयर कॉन्फ़िगरेशन।
    */
   routing: {
     /**
-     * Locale routing strategy.
-     * - "prefix-no-default": Prefix all except the default locale (e.g., /dashboard, /fr/dashboard).
-     * - "prefix-all": Prefix all locales (e.g., /en/dashboard, /fr/dashboard).
-     * - "no-prefix": No locale in the URL.
-     * - "search-params": Use ?locale=...
-     * Default: "prefix-no-default"
+     * लोकेल राउटिंग रणनीति।
+     * - "prefix-no-default": डिफ़ॉल्ट के अलावा सभी को प्रीफ़िक्स करता है (जैसे: /dashboard, /fr/dashboard)।
+     * - "prefix-all": सभी लोकेल को प्रीफ़िक्स करता है (जैसे: /en/dashboard, /fr/dashboard)।
+     * - "no-prefix": URL में कोई लोकेल नहीं।
+     * - "search-params": ?locale=... का उपयोग करता है
+     * डिफ़ॉल्ट: "prefix-no-default"
      */
     mode: "prefix-no-default",
 
     /**
-     * Where to store the user's selected locale.
-     * Options: 'cookie', 'localStorage', 'sessionStorage', 'header', or an array of these.
-     * Default: ['cookie', 'header']
+     * उपयोगकर्ता द्वारा चुनी गई लोकेल को कहाँ संग्रहीत करना है।
+     * विकल्प: 'cookie', 'localStorage', 'sessionStorage', 'header' या इनका संयोजन।
+     * डिफ़ॉल्ट: ['cookie', 'header']
      */
     storage: ["cookie", "header"],
 
     /**
-     * Base path for the application URLs.
-     * Default: ""
+     * एप्लिकेशन URL के लिए मूल पथ (Base path)।
+     * डिफ़ॉल्ट: ""
      */
     basePath: "",
 
     /**
-     * Custom URL rewriting rules for locale-specific paths.
+     * प्रति लोकेल विशिष्ट पथों के लिए कस्टम URL रीराइट (rewrite) नियम।
      */
     rewrite: nextjsRewrite({
       "/[locale]/about": {
@@ -213,130 +240,130 @@ const config: IntlayerConfig = {
   },
 
   /**
-   * Settings for finding and processing content files.
+   * कंटेंट फ़ाइल ढूंढने और प्रसंस्करण से संबंधित सेटिंग्स।
    */
   content: {
     /**
-     * File extensions to scan for dictionaries.
-     * Default: ['.content.ts', '.content.js', '.content.json', etc.]
+     * डिक्शनरी को स्कैन करने के लिए फ़ाइल एक्सटेंशन।
+     * डिफ़ॉल्ट: ['.content.ts', '.content.js', '.content.json', आदि]
      */
     fileExtensions: [".content.ts", ".content.js", ".content.json"],
 
     /**
-     * Directories where .content files are located.
-     * Default: ["."]
+     * निर्देशिका जहाँ .content फ़ाइलें स्थित हैं।
+     * डिफ़ॉल्ट: ["."]
      */
     contentDir: ["src"],
 
     /**
-     * Directories where source code is located.
-     * Used for build optimization and code transformation.
-     * Default: ["."]
+     * स्रोत कोड कहाँ स्थित है।
+     * बिल्ड ऑप्टिमाइज़ेशन और कोड परिवर्तन के लिए उपयोग किया जाता है।
+     * डिफ़ॉल्ट: ["."]
      */
     codeDir: ["src"],
 
     /**
-     * Patterns to exclude from scanning.
-     * Default: ['node_modules', '.intlayer', etc.]
+     * स्कैन से बाहर रखे गए पैटर्न।
+     * डिफ़ॉल्ट: ['node_modules', '.intlayer', आदि]
      */
     excludedPath: ["node_modules"],
 
     /**
-     * Whether to watch for changes and rebuild dictionaries in development.
-     * Default: true in development
+     * क्या विकास के दौरान परिवर्तनों की निगरानी करनी चाहिए और डिक्शनरी का पुनर्निर्माण करना चाहिए।
+     * डिफ़ॉल्ट: विकास परिवेश में true
      */
     watch: true,
 
     /**
-     * Command to format newly created / updated .content files.
+     * नई निर्मित/अपडेट की गई .content फ़ाइलों को फ़ॉर्मैट करने के लिए उपयोग किया जाने वाला कमांड।
      */
     formatCommand: 'npx prettier --write "{{file}}"',
   },
 
   /**
-   * Visual Editor configuration.
+   * विजुअल एडिटर (Visual Editor) कॉन्फ़िगरेशन।
    */
   editor: {
     /**
-     * Whether the visual editor is enabled.
-     * Default: false
+     * क्या विजुअल एडिटर सक्षम है।
+     * डिफ़ॉल्ट: false
      */
     enabled: true,
 
     /**
-     * URL of your application for origin validation.
-     * Default: ""
+     * ऑरिजिन वैलिडेशन के लिए आपके एप्लिकेशन का URL।
+     * डिफ़ॉल्ट: ""
      */
     applicationURL: "http://localhost:3000",
 
     /**
-     * Port for the local editor server.
-     * Default: 8000
+     * स्थानीय एडिटर सर्वर के लिए पोर्ट।
+     * डिफ़ॉल्ट: 8000
      */
     port: 8000,
 
     /**
-     * Public URL for the editor.
-     * Default: "http://localhost:8000"
+     * एडिटर के लिए सार्वजनिक URL।
+     * डिफ़ॉल्ट: "http://localhost:8000"
      */
     editorURL: "http://localhost:8000",
 
     /**
-     * Intlayer CMS URL.
-     * Default: "https://app.intlayer.org"
+     * Intlayer CMS URL।
+     * डिफ़ॉल्ट: "https://app.intlayer.org"
      */
     cmsURL: "https://app.intlayer.org",
 
     /**
-     * Backend API URL.
-     * Default: "https://back.intlayer.org"
+     * बैकएंड एपीआई URL।
+     * डिफ़ॉल्ट: "https://back.intlayer.org"
      */
     backendURL: "https://back.intlayer.org",
 
     /**
-     * Whether to enable real-time content synchronization.
-     * Default: false
+     * क्या रीयल-टाइम कंटेंट सिंक सक्षम करना है।
+     * डिफ़ॉल्ट: false
      */
     liveSync: true,
   },
 
   /**
-   * AI-powered translation and generation settings.
+   * AI-आधारित अनुवाद और निर्माण सेटिंग्स।
    */
   ai: {
     /**
-     * AI provider to use.
-     * Options: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama', 'openrouter', 'alibaba', 'fireworks', 'groq', 'huggingface', 'bedrock', 'googlevertex', 'togetherai'
-     * Default: 'openai'
+     * उपयोग किए जाने वाले AI प्रदाता।
+     * विकल्प: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama', 'openrouter', 'alibaba', 'fireworks', 'groq', 'huggingface', 'bedrock', 'googlevertex', 'togetherai'
+     * डिफ़ॉल्ट: 'openai'
      */
     provider: "openai",
 
     /**
-     * Model to use from the selected provider.
+     * उपयोग करने के लिए चयनित प्रदाता का मॉडल।
      */
     model: "gpt-4o",
 
     /**
-     * Provider API key.
+     * प्रदाता एपीआई कुंजी।
      */
     apiKey: process.env.OPENAI_API_KEY,
 
     /**
-     * Global context to guide the AI in generating translations.
+     * अनुवाद बनाते समय AI को निर्देशित करने के लिए वैश्विक संदर्भ।
      */
-    applicationContext: "This is a travel booking application.",
+    applicationContext: "यह एक यात्रा बुकिंग एप्लिकेशन है।",
 
     /**
-     * Base URL for the AI API.
+     * AI एपीआई के लिए बेस पाथ URL।
      */
     baseURL: "http://localhost:3000",
 
     /**
-     * डेटा क्रमांकन (सीरियलाइजेशन)
+     * डेटा सीरियलाइजेशन (Data Serialization)
      *
      * विकल्प:
-     * - "json": मानक, विश्वसनीय; अधिक टोकन का उपयोग करता है।
-     * - "toon": कम टोकन, JSON की तुलना में कम सुसंगत।
+     * - "json": डिफ़ॉल्ट, मजबूत; अधिक टोकन की खपत करता है।
+     * - "toon": कम टोकन की खपत करता है, JSON की तरह सुसंगत नहीं हो सकता है।
      *
      * डिफ़ॉल्ट: "json"
      */
@@ -344,170 +371,170 @@ const config: IntlayerConfig = {
   },
 
   /**
-   * Build and optimization settings.
+   * बिल्ड और ऑप्टिमाइज़ेशन सेटिंग्स।
    */
   build: {
     /**
-     * Build execution mode.
-     * - "auto": Automatic build during app build.
-     * - "manual": Requires explicit build command.
-     * Default: "auto"
+     * बिल्ड निष्पादन मोड।
+     * - "auto": एप्लिकेशन बिल्ड के दौरान स्वचालित रूप से बिल्ड किया जाएगा।
+     * - "manual": स्पष्ट बिल्ड कमांड की आवश्यकता है।
+     * डिफ़ॉल्ट: "auto"
      */
     mode: "auto",
 
     /**
-     * Whether to optimize the final bundle by pruning unused dictionaries.
-     * Default: true in production
+     * क्या अप्रयुक्त डिक्शनरी को हटाकर अंतिम बंडल को ऑप्टिमाइज़ करना है।
+     * डिफ़ॉल्ट: प्रोडक्शन परिवेश में true
      */
     optimize: true,
 
     /**
-     * Output format for generated dictionary files.
-     * Default: ['esm', 'cjs']
+     * जनरेट की गई डिक्शनरी फ़ाइलों के लिए आउटपुट स्वरूप।
+     * डिफ़ॉल्ट: ['cjs', 'esm']
      */
-    outputFormat: ["esm"],
+    outputFormat: ["cjs", "esm"],
 
     /**
-     * Indicates if the build should check TypeScript types.
-     * Default: false
+     * इंगित करता है कि क्या बिल्ड को टाइपस्क्रिप्ट प्रकारों (TypeScript types) की जांच करनी चाहिए।
+     * डिफ़ॉल्ट: false
      */
     checkTypes: false,
   },
 
   /**
-   * Logger configuration.
+   * लॉगर (Logger) कॉन्फ़िगरेशन।
    */
   log: {
     /**
-     * Logging level.
-     * - "default": Standard logging.
-     * - "verbose": Detailed debug logging.
-     * - "disabled": No logging.
-     * Default: "default"
+     * लॉगिंग स्तर।
+     * - "default": मानक लॉगिंग।
+     * - "verbose": गहन डिबग लॉगिंग।
+     * - "disabled": लॉगिंग अक्षम करें।
+     * डिफ़ॉल्ट: "default"
      */
     mode: "default",
 
     /**
-     * Prefix for all log messages.
-     * Default: "[intlayer]"
+     * सभी लॉग संदेशों के लिए प्रीफ़िक्स।
+     * डिफ़ॉल्ट: "[intlayer]"
      */
     prefix: "[intlayer]",
   },
 
   /**
-   * System configuration (Advanced use cases)
+   * सिस्टम कॉन्फ़िगरेशन (उन्नत उपयोग के लिए)
    */
   system: {
     /**
-     * Directory for storing localization dictionaries.
+     * स्थानीयकृत डिक्शनरी को संग्रहीत करने के लिए निर्देशिका।
      */
     dictionariesDir: ".intlayer/dictionary",
 
     /**
-     * Directory for module augmentation.
+     * टाइपस्क्रिप्ट मॉड्यूल वृद्धि (module augmentation) के लिए निर्देशिका।
      */
     moduleAugmentationDir: ".intlayer/types",
 
     /**
-     * Directory for storing unmerged dictionaries.
+     * विलय नहीं की गई डिक्शनरी को संग्रहीत करने के लिए निर्देशिका।
      */
     unmergedDictionariesDir: ".intlayer/unmerged_dictionary",
 
     /**
-     * Directory for storing dictionary types.
+     * डिक्शनरी प्रकारों को संग्रहीत करने के लिए निर्देशिका।
      */
     typesDir: ".intlayer/types",
 
     /**
-     * Directory where main application files are stored.
+     * मुख्य एप्लिकेशन फ़ाइलें जहाँ संग्रहीत हैं।
      */
     mainDir: ".intlayer/main",
 
     /**
-     * Directory where the configuration files are stored.
+     * कॉन्फ़िगरेशन फ़ाइलें जहाँ संग्रहीत हैं।
      */
     configDir: ".intlayer/config",
 
     /**
-     * Directory where the cache files are stored.
+     * कैश फ़ाइलें जहाँ संग्रहीत हैं।
      */
     cacheDir: ".intlayer/cache",
   },
 
   /**
-   * Compiler configuration (Advanced use cases)
+   * कंपाइलर (Compiler) कॉन्फ़िगरेशन (उन्नत उपयोग के लिए)
    */
   compiler: {
     /**
      * इंगित करता है कि क्या कंपाइलर सक्षम होना चाहिए।
      *
-     * - false : कंपाइलर को अक्षम करता है।
-     * - true : कंपाइलर को सक्षम करता है।
-     * - "build-only" : स्टार्टअप समय को तेज करने के लिए विकास के दौरान कंपाइलर को छोड़ देता है।
+     * - false: कंपाइलर को अक्षम करता है।
+     * - true: कंपाइलर को सक्षम करता है।
+     * - "build-only": विकास के दौरान कंपाइलर को छोड़ देता है और स्टार्टअप समय को गति देता है।
      *
-     * डिफ़ॉल्ट मान : false
+     * डिफ़ॉल्ट: false
      */
     enabled: true,
 
     /**
-     * आउटपुट फ़ाइल पथ को परिभाषित करता है। `outputDir` को प्रतिस्थापित करता है।
+     * आउटपुट फ़ाइलों के लिए पथ परिभाषित करता है। `outputDir` की जगह लेता है।
      *
      * - `./` पथ घटक निर्देशिका के सापेक्ष हल किए जाते हैं।
      * - `/` पथ प्रोजेक्ट रूट (`baseDir`) के सापेक्ष हल किए जाते हैं।
      *
-     * - पथ में `{{locale}}` चर डालने से भाषा द्वारा अलग किए गए शब्दकोश निर्माण सक्षम हो जाएंगे।
+     * - पथ में `{{locale}}` वेरिएबल शामिल करने से प्रति भाषा अलग डिक्शनरी का निर्माण शुरू हो जाएगा।
      *
      * उदाहरण:
      * ```ts
      * {
-     *   // घटक के बगल में बहुभाषी .content.ts फ़ाइलें बनाएँ
+     *   // कंपोनेंट के बगल में बहुभाषी .content.ts फ़ाइलें बनाएँ
      *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
      *
-     *   // output: './{{fileName}}{{extension}}', // स्ट्रिंग टेम्प्लेट का उपयोग करके समकक्ष
+     *   // output: './{{fileName}}{{extension}}', // टेम्प्लेट स्ट्रिंग का उपयोग करके समकक्ष
      * }
      * ```
      *
      * ```ts
      * {
-     *   // प्रोजेक्ट रूट पर भाषा द्वारा केंद्रीकृत JSON फ़ाइलें बनाएँ
+     *   // प्रोजेक्ट रूट पर प्रति भाषा केंद्रीकृत JSON बनाएँ
      *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
      *
-     *   // output: '/locales/{{locale}}/{{key}}.content.json', // स्ट्रिंग टेम्प्लेट का उपयोग करके समकक्ष
+     *   // output: '/locales/{{locale}}/{{key}}.content.json', // टेम्प्लेट स्ट्रिंग का उपयोग करके समकक्ष
      * }
      * ```
      *
-     * चर सूची:
+     * वेरिएबल्स की सूची:
      *   - `fileName`: फ़ाइल का नाम।
-     *   - `key`: सामग्री की कुंजी।
-     *   - `locale`: सामग्री का स्थानीय मान (लोकल)।
+     *   - `key`: कंटेंट की (key)।
+     *   - `locale`: कंटेंट लोकेल।
      *   - `extension`: फ़ाइल एक्सटेंशन।
-     *   - `componentFileName`: घटक फ़ाइल का नाम।
-     *   - `componentExtension`: घटक फ़ाइल एक्सटेंशन।
-     *   - `format`: शब्दकोश प्रारूप।
-     *   - `componentFormat`: घटक शब्दकोश प्रारूप।
-     *   - `componentDirPath`: घटक निर्देशिका पथ।
+     *   - `componentFileName`: कंपोनेंट फ़ाइल का नाम।
+     *   - `componentExtension`: कंपोनेंट फ़ाइल एक्सटेंशन।
+     *   - `format`: डिक्शनरी स्वरूप।
+     *   - `componentFormat`: कंपोनेंट डिक्शनरी स्वरूप।
+     *   - `componentDirPath`: कंपोनेंट निर्देशिका पथ।
      */
     output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
 
     /**
-     * इंगित करता है कि क्या घटकों को रूपांतरित होने के बाद सहेजा जाना चाहिए।
-     * इस तरह, कंपाइलer को ऐप को रूपांतरित करने के लिए केवल एक बार चलाया जा सकता है, और फिर इसे हटाया जा सकता है।
+     * इंगित करता है कि रूपांतरित होने के बाद कंपोनेंट को सहेजा जाना चाहिए या नहीं।
+     * इस तरह, कंपाइलर आपके एप्लिकेशन को रूपांतरित करने के लिए केवल एक बार चल सकता है और फिर हटाया जा सकता है।
      */
     saveComponents: false,
 
     /**
-     * उत्पन्न फ़ाइल में केवल सामग्री डालें। प्रति-लोकल i18next या ICU MessageFormat JSON आउटपुट के लिए उपयोगी।
+     * केवल जनरेट की गई फ़ाइल में कंटेंट सम्मिलित करता है। i18next या ICU MessageFormat स्वरूप के प्रति भाषा JSON आउटपुट के लिए उपयोगी है।
      */
     noMetadata: false,
 
     /**
-     * शब्दकोश कुंजी उपसर्ग
+     * डिक्शनरी की (key) प्रीफ़िक्स
      */
-    dictionaryKeyPrefix: "", // निकाली गई शब्दकोश कुंजियों के लिए वैकल्पिक उपसर्ग जोड़ें
+    dictionaryKeyPrefix: "", // निकाले गए डिक्शनरी कीज़ में एक वैकल्पिक प्रीफ़िक्स जोड़ें
   },
 
   /**
-   * Custom schemas to validate the dictionaries content.
+   * डिक्शनरी के कंटेंट को सत्यापित करने के लिए कस्टम स्कीमा (Schemas)।
    */
   schemas: {
     "my-schema": z.object({
@@ -516,7 +543,7 @@ const config: IntlayerConfig = {
   },
 
   /**
-   * Plugins configuration.
+   * प्लगइन कॉन्फ़िगरेशन।
    */
   plugins: [],
 };
@@ -524,630 +551,372 @@ const config: IntlayerConfig = {
 export default config;
 ````
 
-## कॉन्फ़िगरेशन संदर्भ
+---
 
-निम्नलिखित अनुभाग Intlayer के लिए उपलब्ध विभिन्न कॉन्फ़िगरेशन सेटिंग्स का वर्णन करते हैं।
+## कॉन्फ़िगरेशन संदर्भ (Configuration Reference)
+
+निम्नलिखित अनुभाग Intlayer में उपलब्ध विभिन्न कॉन्फ़िगरेशन विकल्पों का वर्णन करते हैं।
 
 ---
 
-### अंतरराष्ट्रीयकरण कॉन्फ़िगरेशन
+### अंतर्राष्ट्रीयकरण कॉन्फ़िगरेशन (Internationalization Configuration)
 
-अंतरराष्ट्रीयकरण से संबंधित सेटिंग्स को परिभाषित करता है, जिसमें उपलब्ध भाषाएँ और एप्लिकेशन के लिए डिफ़ॉल्ट भाषा शामिल हैं।
+उपलब्ध लोकेल और एप्लिकेशन के लिए डिफ़ॉल्ट लोकेल सहित अंतर्राष्ट्रीयकरण से संबंधित सेटिंग्स को परिभाषित करता है।
 
-#### गुण
-
-- **locales**:
-  - _प्रकार_: `string[]`
-  - _डिफ़ॉल्ट_: `['en']`
-  - _विवरण_: एप्लिकेशन में समर्थित भाषाओं की सूची।
-  - _उदाहरण_: `['en', 'fr', 'es']`
-
-- **requiredLocales**:
-  - _प्रकार_: `string[]`
-  - _डिफ़ॉल्ट_: `[]`
-  - _विवरण_: एप्लिकेशन में आवश्यक भाषाओं की सूची।
-  - _उदाहरण_: `[]`
-  - _नोट_: यदि खाली है, तो `strict` मोड में सभी लोकल्स आवश्यक हैं।
-  - _नोट_: सुनिश्चित करें कि आवश्यक लोकल्स `locales` फ़ील्ड में भी परिभाषित हैं।
-- **strictMode**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `inclusive`
-  - _विवरण_: टाइपस्क्रिप्ट का उपयोग करके अंतरराष्ट्रीयकृत सामग्री के मजबूत कार्यान्वयन सुनिश्चित करें।
-  - _नोट_: यदि इसे "strict" पर सेट किया गया है, तो अनुवाद `t` फ़ंक्शन प्रत्येक घोषित लोकल को परिभाषित करने की आवश्यकता होगी। यदि कोई लोकल गायब है, या यदि कोई लोकल आपकी कॉन्फ़िग में घोषित नहीं है, तो यह एक त्रुटि फेंकेगा।
-  - _नोट_: यदि इसे "inclusive" पर सेट किया गया है, तो अनुवाद `t` फ़ंक्शन प्रत्येक घोषित लोकल को परिभाषित करने की आवश्यकता होगी। यदि कोई लोकल गायब है, तो यह एक चेतावनी देगा। लेकिन यदि कोई लोकल आपकी कॉन्फ़िग में घोषित नहीं है, लेकिन मौजूद है, तो इसे स्वीकार करेगा।
-  - _नोट_: यदि इसे "loose" पर सेट किया गया है, तो अनुवाद `t` फ़ंक्शन किसी भी मौजूदा लोकल को स्वीकार करेगा।
-
-- **defaultLocale**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `'en'`
-  - _विवरण_: डिफ़ॉल्ट लोकल जो एक फॉलबैक के रूप में उपयोग किया जाता है यदि अनुरोधित लोकल नहीं मिलता है।
-  - _उदाहरण_: `'en'`
-  - _नोट_: इसका उपयोग उस लोकल को निर्धारित करने के लिए किया जाता है जब URL, कुकी, या हेडर में कोई लोकल निर्दिष्ट नहीं होता है।
+| फ़ील्ड            | प्रकार     | विवरण                                                                                                                      | उदाहरण               | नोट                                                                                                                                                                                                                                                                                                            |
+| ----------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `locales`         | `string[]` | एप्लिकेशन में समर्थित लोकेल की सूची। डिफ़ॉल्ट: `[Locales.ENGLISH]`                                                         | `['en', 'fr', 'es']` |                                                                                                                                                                                                                                                                                                                |
+| `requiredLocales` | `string[]` | एप्लिकेशन में आवश्यक लोकेल की सूची। डिफ़ॉल्ट: `[]`                                                                         | `[]`                 | यदि खाली है, तो `strict` मोड में सभी लोकेल आवश्यक हैं। सुनिश्चित करें कि आवश्यक लोकेल `locales` फ़ील्ड में भी परिभाषित हैं।                                                                                                                                                                                    |
+| `strictMode`      | `string`   | टाइपस्क्रिप्ट के उपयोग के माध्यम से अंतर्राष्ट्रीयकृत कंटेंट के मजबूत कार्यान्वयन सुनिश्चित करता है। डिफ़ॉल्ट: `inclusive` |                      | यदि `"strict"` है: `t` फ़ंक्शन के लिए प्रत्येक घोषित लोकेल को परिभाषित करना आवश्यक है — यदि कोई गायब है या घोषित नहीं है तो त्रुटि फेंकता है। यदि `"inclusive"` है: गायब लोकेल के लिए चेतावनी देता है लेकिन मौजूदा अघोषित लोकेल को स्वीकार करता है। यदि `"loose"` है: किसी भी मौजूदा लोकेल को स्वीकार करता है। |
+| `defaultLocale`   | `string`   | अनुरोधित लोकेल न मिलने पर फ़ालबैक के रूप में उपयोग की जाने वाली डिफ़ॉल्ट लोकेल। डिफ़ॉल्ट: `Locales.ENGLISH`                | `'en'`               | लोकेल निर्धारित करने के लिए उपयोग किया जाता है जब URL, कुकी या हेडर में कोई निर्दिष्ट नहीं होता है।                                                                                                                                                                                                            |
 
 ---
 
-### संपादक विन्यास
+### एडिटर कॉन्फ़िगरेशन (Editor Configuration)
 
-एकीकृत संपादक से संबंधित सेटिंग्स को परिभाषित करता है, जिसमें सर्वर पोर्ट और सक्रिय स्थिति शामिल हैं।
+सर्वर पोर्ट और गतिविधि स्थिति सहित एकीकृत एडिटर से संबंधित सेटिंग्स को परिभाषित करता है।
 
-#### गुण
+| फ़ील्ड                       | प्रकार                    | विवरण                                                                                                                                                                                                             | उदाहरण                                                                                | नोट                                                                                                                                                                                                                                               |
+| ---------------------------- | ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `applicationURL`             | `string`                  | आपके एप्लिकेशन का URL। डिफ़ॉल्ट: `''`                                                                                                                                                                             | `'http://localhost:3000'`, `'https://example.com'`, `process.env.INTLAYER_EDITOR_URL` | सुरक्षा कारणों से एडिटर के ऑरिजिन को प्रतिबंधित करने के लिए उपयोग किया जाता है। यदि `'*'` सेट किया गया है, तो एडिटर को किसी भी ऑरिजिन से एक्सेस किया जा सकता है।                                                                                  |
+| `port`                       | `number`                  | विजुअल एडिटर सर्वर द्वारा उपयोग किया जाने वाला पोर्ट। डिफ़ॉल्ट: `8000`                                                                                                                                            |                                                                                       |                                                                                                                                                                                                                                                   |
+| `editorURL`                  | `string`                  | एडिटर सर्वर URL। डिफ़ॉल्ट: `'http://localhost:8000'`                                                                                                                                                              | `'http://localhost:3000'`, `'https://example.com'`, `process.env.INTLAYER_EDITOR_URL` | उन ऑरिजिन्स को प्रतिबंधित करने के लिए उपयोग किया जाता है जो एप्लिकेशन के साथ इंटरैक्ट कर सकते हैं। यदि `'*'` सेट किया गया है, तो किसी भी ऑरिजिन से एक्सेस योग्य है। पोर्ट बदलने पर या एडिटर किसी अन्य डोमेन पर होस्ट होने पर सेट किया जाना चाहिए। |
+| `cmsURL`                     | `string`                  | Intlayer CMS URL। डिफ़ॉल्ट: `'https://intlayer.org'`                                                                                                                                                              | `'https://intlayer.org'`                                                              |                                                                                                                                                                                                                                                   |
+| `backendURL`                 | `string`                  | बैकएंड सर्वर URL। डिफ़ॉल्ट: `https://back.intlayer.org`                                                                                                                                                           | `http://localhost:4000`                                                               |                                                                                                                                                                                                                                                   |
+| `enabled`                    | `boolean`                 | इंगित करता है कि क्या ऐप विजुअल एडिटर के साथ इंटरैक्ट करेगा। डिफ़ॉल्ट: `true`                                                                                                                                     | `process.env.NODE_ENV !== 'production'`                                               | यदि `false` है, तो एडिटर ऐप के साथ इंटरैक्ट नहीं कर सकता है। विशिष्ट परिवेशों के लिए इसे अक्षम करने से सुरक्षा बढ़ जाती है।                                                                                                                       |
+| `clientId`                   | `string &#124; undefined` | oAuth2 का उपयोग करके बैकएंड के साथ प्रमाणित करने के लिए intlayer पैकेज को सक्षम करता है। एक्सेस टोकन प्राप्त करने के लिए, [intlayer.org/project](https://app.intlayer.org/project) पर जाएँ। डिफ़ॉल्ट: `undefined` |                                                                                       | गुप्त रखें; पर्यावरण चर (environment variables) में संग्रहीत करें।                                                                                                                                                                                |
+| `clientSecret`               | `string &#124; undefined` | oAuth2 का उपयोग करके बैकएंड के साथ प्रमाणित करने के लिए intlayer पैकेज को सक्षम करता है। एक्सेस टोकन प्राप्त करने के लिए, [intlayer.org/project](https://app.intlayer.org/project) पर जाएँ। डिफ़ॉल्ट: `undefined` |                                                                                       | गुप्त रखें; पर्यावरण चर में संग्रहीत करें।                                                                                                                                                                                                        |
+| `dictionaryPriorityStrategy` | `string`                  | स्थानीय और रिमोट दोनों डिक्शनरी मौजूद होने पर डिक्शनरी प्राथमिकता रणनीति। डिफ़ॉल्ट: `'local_first'`                                                                                                               | `'distant_first'`                                                                     | `'distant_first'`: स्थानीय पर रिमोट को प्राथमिकता देता है। `'local_first'`: रिमोट पर स्थानीय को प्राथमिकता देता है।                                                                                                                               |
+| `liveSync`                   | `boolean`                 | इंगित करता है कि CMS / विजुअल एडिटर / बैकएंड में परिवर्तन मिलने पर ऐप सर्वर को हॉट रीलोड कंटेंट करना चाहिए या नहीं। डिफ़ॉल्ट: `true`                                                                              | `true`                                                                                | जब डिक्शनरी जोड़ा/अपडेट किया जाता है, तो ऐप पेज कंटेंट को अपडेट करता है। लाइव सिंक कंटेंट को दूसरे सर्वर पर आउटसोर्स करता है, जो प्रदर्शन को थोड़ा प्रभावित कर सकता है। दोनों को एक ही मशीन पर होस्ट करने की अनुशंसा की जाती है।                  |
+| `liveSyncPort`               | `number`                  | लाइव सिंक सर्वर पोर्ट। डिफ़ॉल्ट: `4000`                                                                                                                                                                           | `4000`                                                                                |                                                                                                                                                                                                                                                   |
+| `liveSyncURL`                | `string`                  | लाइव सिंक सर्वर URL। डिफ़ॉल्ट: `'http://localhost:{liveSyncPort}'`                                                                                                                                                | `'https://example.com'`                                                               | डिफ़ॉल्ट रूप से localhost को इंगित करता है; इसे रिमोट लाइव सिंक सर्वर में बदला जा सकता है।                                                                                                                                                        |
 
-- **applicationURL**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `http://localhost:3000`
-  - _विवरण_: एप्लिकेशन का URL। सुरक्षा कारणों से संपादक की उत्पत्ति को सीमित करने के लिए उपयोग किया जाता है।
-  - _उदाहरण_:
-    - `'http://localhost:3000'`
-    - `'https://example.com'`
-  - `process.env.INTLAYER_EDITOR_URL`
-  - _नोट_: एप्लिकेशन का URL। सुरक्षा कारणों से संपादक के मूल को प्रतिबंधित करने के लिए उपयोग किया जाता है। यदि इसे `'*'` पर सेट किया गया है, तो संपादक किसी भी मूल से सुलभ होगा।
+### राउटिंग कॉन्फ़िगरेशन (Routing Configuration)
 
-- **port**:
-  - _प्रकार_: `number`
-  - _डिफ़ॉल्ट_: `8000`
-  - _विवरण_: विज़ुअल संपादक सर्वर द्वारा उपयोग किया जाने वाला पोर्ट।
+URL संरचना, लोकेल स्टोरेज और मिडलवेयर हैंडलिंग सहित राउटिंग व्यवहार को नियंत्रित करने वाली सेटिंग्स।
 
-- **editorURL**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `'http://localhost:8000'`
-  - _विवरण_: संपादक सर्वर का URL। सुरक्षा कारणों से संपादक के मूल को प्रतिबंधित करने के लिए उपयोग किया जाता है।
-    - `'http://localhost:3000'`
-    - `'https://example.com'`
-    - `process.env.INTLAYER_EDITOR_URL`
-  - _नोट_: एप्लिकेशन से पहुँचने के लिए एडिटर सर्वर का URL। सुरक्षा कारणों से उन मूलों को प्रतिबंधित करने के लिए उपयोग किया जाता है जो एप्लिकेशन के साथ इंटरैक्ट कर सकते हैं। यदि इसे `'*'` पर सेट किया गया है, तो एडिटर किसी भी मूल से सुलभ होगा। यदि पोर्ट बदला गया है, या यदि एडिटर किसी अलग डोमेन पर होस्ट किया गया है, तो इसे सेट किया जाना चाहिए।
+| फ़ील्ड     | प्रकार                                                                                                                                               | विवरण                                                                                                                                                                          | उदाहरण                                                                                                                                                                                                                  | नोट                                                                                                                                                                                                                                                                 |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mode`     | `'prefix-no-default' &#124; 'prefix-all' &#124; 'no-prefix' &#124; 'search-params'`                                                                  | लोकेल हैंडलिंग के लिए URL राउटिंग मोड। डिफ़ॉल्ट: `'prefix-no-default'`                                                                                                         | `'prefix-no-default'`: `/dashboard` (en) या `/fr/dashboard` (fr)। `'prefix-all'`: `/en/dashboard` । `'no-prefix'`: लोकेल को अन्य माध्यमों से संभाला जाता है। `'search-params'`: `/dashboard?locale=fr` का उपयोग करता है | कुकी या लोकेल स्टोरेज प्रबंधन को प्रभावित नहीं करता है।                                                                                                                                                                                                             |
+| `storage`  | `false &#124; 'cookie' &#124; 'localStorage' &#124; 'sessionStorage' &#124; 'header' &#124; CookiesAttributes &#124; StorageAttributes &#124; Array` | क्लाइंट पर लोकेल संग्रहीत करने के लिए कॉन्फ़िगरेशन। डिफ़ॉल्ट: `['cookie', 'header']`                                                                                           | `'localStorage'`, `[{ type: 'cookie', name: 'custom-locale', secure: true }]`                                                                                                                                           | नीचे दी गई स्टोरेज विकल्प तालिका देखें।                                                                                                                                                                                                                             |
+| `basePath` | `string`                                                                                                                                             | एप्लिकेशन URL के लिए मूल पथ (Base path)। डिफ़ॉल्ट: `''`                                                                                                                        | `'/my-app'`                                                                                                                                                                                                             | यदि एप्लिकेशन `https://example.com/my-app` पर है, तो basePath `'/my-app'` है और URL `https://example.com/my-app/en` की तरह हो जाते हैं।                                                                                                                             |
+| `rewrite`  | `Record<string, StrictModeLocaleMap<string>>`                                                                                                        | कस्टम URL रीराइट नियम जो विशिष्ट पथों के लिए डिफ़ॉल्ट राउटिंग मोड को ओवरराइड करते हैं। गतिशील मापदंडों (dynamic parameters) `[param]` का समर्थन करता है। डिफ़ॉल्ट: `undefined` | नीचे उदाहरण देखें                                                                                                                                                                                                       | रीराइट नियम `mode` पर प्राथमिकता रखते हैं। Next.js और Vite के साथ काम करता है। `getLocalizedUrl()` स्वचालित रूप से मिलान नियमों को लागू करता है। [Custom URL Rewrites](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/custom_url_rewrites.md) देखें। |
 
-- **cmsURL**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `'https://intlayer.org'`
-  - _विवरण_: Intlayer CMS का URL।
-  - _उदाहरण_: `'https://intlayer.org'`
-  - _नोट_: Intlayer CMS का URL।
+**`rewrite` उदाहरण**:
 
-- **backendURL**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `https://back.intlayer.org`
-  - _विवरण_: बैकएंड सर्वर का URL।
-  - _उदाहरण_: `http://localhost:4000`
+```typescript
+routing: {
+  mode: "prefix-no-default", // फ़ालबैक रणनीति
+  rewrite: nextjsRewrite({
+    "/about": {
+      en: "/about",
+      fr: "/a-propos",
+    },
+    "/product/[slug]": {
+      en: "/product/[slug]",
+      fr: "/produit/[slug]",
+    },
+    "/blog/[category]/[id]": {
+      en: "/blog/[category]/[id]",
+      fr: "/journal/[category]/[id]",
+    },
+  }),
+}
+```
 
-- **enabled**:
-  - _प्रकार_: `boolean`
-  - _डिफ़ॉल्ट_: `true`
-  - _विवरण_: यह दर्शाता है कि क्या एप्लिकेशन विज़ुअल एडिटर के साथ इंटरैक्ट करता है।
-  - _उदाहरण_: `process.env.NODE_ENV !== 'production'`
-  - _नोट_: यदि true है, तो एडिटर एप्लिकेशन के साथ इंटरैक्ट कर सकेगा। यदि false है, तो एडिटर एप्लिकेशन के साथ इंटरैक्ट नहीं कर सकेगा। किसी भी स्थिति में, एडिटर केवल विज़ुअल एडिटर द्वारा सक्षम किया जा सकता है। विशिष्ट वातावरणों के लिए एडिटर को अक्षम करना सुरक्षा लागू करने का एक तरीका है।
+#### स्टोरेज विकल्प (Storage Options)
 
-- **clientId**:
-  - _प्रकार_: `string` | `undefined`
-  - _डिफ़ॉल्ट_: `undefined`
-  - _विवरण_: clientId और clientSecret intlayer पैकेजों को oAuth2 प्रमाणीकरण का उपयोग करके बैकएंड के साथ प्रमाणीकरण करने की अनुमति देते हैं। एक एक्सेस टोकन का उपयोग परियोजना से संबंधित उपयोगकर्ता को प्रमाणित करने के लिए किया जाता है। एक्सेस टोकन प्राप्त करने के लिए, https://app.intlayer.org/project पर जाएं और एक खाता बनाएं।
-  - _उदाहरण_: `true`
-  - _नोट_: महत्वपूर्ण: clientId और clientSecret को गोपनीय रखा जाना चाहिए और सार्वजनिक रूप से साझा नहीं किया जाना चाहिए। कृपया इन्हें सुरक्षित स्थान पर रखें, जैसे कि पर्यावरण चर (environment variables) में।
+| मान                | विवरण                                                                         | नोट                                                                                                                                                                                                                   |
+| ------------------ | ----------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `'cookie'`         | लोकेल को कुकीज़ में सहेजता है — क्लाइंट और सर्वर साइड दोनों से एक्सेस योग्य।  | GDPR अनुपालन के लिए, सुनिश्चित करें कि उचित उपयोगकर्ता सहमति प्राप्त की गई है। `CookiesAttributes` के माध्यम से अनुकूलन योग्य (`{ type: 'cookie', name: 'custom-locale', secure: true, httpOnly: false }`)।           |
+| `'localStorage'`   | बिना समाप्ति तिथि के ब्राउज़र में लोकेल सहेजता है — केवल क्लाइंट साइड।        | जब तक स्पष्ट रूप से साफ़ नहीं किया जाता, तब तक समाप्त नहीं होता है। Intlayer प्रॉक्सी इसे एक्सेस नहीं कर सकता है। `StorageAttributes` के माध्यम से अनुकूलन योग्य (`{ type: 'localStorage', name: 'custom-locale' }`)। |
+| `'sessionStorage'` | पेज सत्र की अवधि के लिए लोकेल सहेजता है — केवल क्लाइंट साइड।                  | टैब/विंडो बंद होने पर साफ़ हो जाता है। Intlayer प्रॉक्सी इसे एक्सेस नहीं कर सकता है। `StorageAttributes` के माध्यम से अनुकूलन योग्य (`{ type: 'sessionStorage', name: 'custom-locale' }`)।                            |
+| `'header'`         | HTTP हेडर के माध्यम से लोकेल को सहेजता या प्रसारित करता है — केवल सर्वर साइड। | एपीआई कॉल के लिए उपयोगी। क्लाइंट साइड एक्सेस नहीं कर सकता है। `StorageAttributes` के माध्यम से अनुकूलन योग्य (`{ type: 'header', name: 'custom-locale' }`)।                                                           |
 
-- **clientSecret**:
-  - _प्रकार_: `string` | `undefined`
-  - _डिफ़ॉल्ट_: `undefined`
-  - _विवरण_: clientId और clientSecret intlayer पैकेजों को oAuth2 प्रमाणीकरण का उपयोग करके बैकएंड के साथ प्रमाणीकरण करने की अनुमति देते हैं। एक एक्सेस टोकन का उपयोग परियोजना से संबंधित उपयोगकर्ता को प्रमाणित करने के लिए किया जाता है। एक्सेस टोकन प्राप्त करने के लिए, https://app.intlayer.org/project पर जाएं और एक खाता बनाएं।
-  - _उदाहरण_: `true`
-  - _नोट_: महत्वपूर्ण: clientId और clientSecret को गोपनीय रखा जाना चाहिए और सार्वजनिक रूप से साझा नहीं किया जाना चाहिए। कृपया इन्हें सुरक्षित स्थान पर रखें, जैसे कि पर्यावरण चर।
+#### कुकी विशेषताएँ (Cookie Attributes)
 
-- **dictionaryPriorityStrategy**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `'local_first'`
-  - _विवरण_: जब स्थानीय और दूरस्थ दोनों शब्दकोश मौजूद हों, तो शब्दकोशों को प्राथमिकता देने की रणनीति। यदि इसे `'distant_first'` पर सेट किया गया है, तो एप्लिकेशन दूरस्थ शब्दकोशों को स्थानीय शब्दकोशों पर प्राथमिकता देगा। यदि इसे `'local_first'` पर सेट किया गया है, तो एप्लिकेशन स्थानीय शब्दकोशों को दूरस्थ शब्दकोशों पर प्राथमिकता देगा।
-  - _उदाहरण_: `'distant_first'`
+कुकी स्टोरेज का उपयोग करते समय, आप अतिरिक्त कुकी विशेषताओं को कॉन्फ़िगर कर सकते हैं:
 
-- **liveSync**:
-  - _प्रकार_: `boolean`
-  - _डिफ़ॉल्ट_: `false`
-  - _विवरण_: यह संकेत करता है कि जब CMS / विज़ुअल एडिटर / बैकएंड में कोई परिवर्तन होता है, तो एप्लिकेशन सर्वर को एप्लिकेशन की सामग्री को हॉट रीलोड करना चाहिए या नहीं।
-  - _उदाहरण_: `true`
-  - _नोट_: उदाहरण के लिए, जब कोई नया शब्दकोश जोड़ा या अपडेट किया जाता है, तो एप्लिकेशन पृष्ठ में दिखाने के लिए सामग्री को अपडेट करेगा।
-  - _नोट_: लाइव सिंक को एप्लिकेशन की सामग्री को किसी अन्य सर्वर पर बाहरीकरण करने की आवश्यकता होती है। इसका मतलब है कि यह एप्लिकेशन के प्रदर्शन को थोड़ा प्रभावित कर सकता है। इसे सीमित करने के लिए, हम सुझाव देते हैं कि एप्लिकेशन और लाइव सिंक सर्वर को एक ही मशीन पर होस्ट किया जाए। साथ ही, लाइव सिंक और `optimize` के संयोजन से लाइव सिंक सर्वर पर कई अनुरोध भेजे जा सकते हैं। आपकी इन्फ्रास्ट्रक्चर के आधार पर, हम दोनों विकल्पों और उनके संयोजन का परीक्षण करने की सलाह देते हैं।
+| फ़ील्ड     | प्रकार                                | विवरण                                                  |
+| ---------- | ------------------------------------- | ------------------------------------------------------ |
+| `name`     | `string`                              | कुकी का नाम। डिफ़ॉल्ट: `'INTLAYER_LOCALE'`             |
+| `domain`   | `string`                              | कुकी डोमेन। डिफ़ॉल्ट: `undefined`                      |
+| `path`     | `string`                              | कुकी पथ। डिफ़ॉल्ट: `undefined`                         |
+| `secure`   | `boolean`                             | HTTPS की आवश्यकता है। डिफ़ॉल्ट: `undefined`            |
+| `httpOnly` | `boolean`                             | HTTP-only फ़्लैग। डिफ़ॉल्ट: `undefined`                |
+| `sameSite` | `'strict' &#124; 'lax' &#124; 'none'` | SameSite नीति।                                         |
+| `expires`  | `Date &#124; number`                  | समाप्ति तिथि या दिनों की संख्या। डिफ़ॉल्ट: `undefined` |
 
-- **liveSyncPort**:
-  - _प्रकार_: `number`
-  - _डिफ़ॉल्ट_: `4000`
-  - _विवरण_: लाइव सिंक सर्वर का पोर्ट।
-  - _उदाहरण_: `4000`
-  - _नोट_: लाइव सिंक सर्वर का पोर्ट।
+#### लोकेल स्टोरेज विशेषताएँ (Locale Storage Attributes)
 
-- **liveSyncURL**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `'http://localhost:{liveSyncPort}'`
-  - _विवरण_: लाइव सिंक सर्वर का URL।
-  - _उदाहरण_: `'https://example.com'`
-  - _नोट_: डिफ़ॉल्ट रूप से localhost की ओर इशारा करता है लेकिन रिमोट लाइव सिंक सर्वर के मामले में इसे किसी भी URL में बदला जा सकता है।
+localStorage या sessionStorage का उपयोग करते समय:
 
-### मिडलवेयर कॉन्फ़िगरेशन
+| फ़ील्ड | प्रकार                                   | विवरण                                                  |
+| ------ | ---------------------------------------- | ------------------------------------------------------ |
+| `type` | `'localStorage' &#124; 'sessionStorage'` | स्टोरेज प्रकार।                                        |
+| `name` | `string`                                 | स्टोरेज की (key) का नाम। डिफ़ॉल्ट: `'INTLAYER_LOCALE'` |
 
-सेटिंग्स जो मिडलवेयर के व्यवहार को नियंत्रित करती हैं, जिसमें एप्लिकेशन कुकीज़, हेडर, और लोकल प्रबंधन के लिए URL प्रीफिक्स कैसे संभालता है शामिल है।
+#### कॉन्फ़िगरेशन उदाहरण
 
-#### गुण
+नई v7 राउटिंग संरचना के लिए यहाँ कुछ सामान्य कॉन्फ़िगरेशन उदाहरण दिए गए हैं:
 
-- **headerName**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `'x-intlayer-locale'`
-  - _विवरण_: HTTP हेडर का नाम जिसका उपयोग लोकल निर्धारित करने के लिए किया जाता है।
-  - _उदाहरण_: `'x-custom-locale'`
-  - _नोट_: यह API-आधारित लोकल निर्धारण के लिए उपयोगी है।
+**मूल कॉन्फ़िगरेशन (डिफ़ॉल्ट)**:
 
-- **cookieName**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `'intlayer-locale'`
-  - _विवरण_: लोकल को स्टोर करने के लिए उपयोग की जाने वाली कुकी का नाम।
-  - _उदाहरण_: `'custom-locale'`
-  - _नोट_: सत्रों के बीच लोकल को बनाए रखने के लिए उपयोग किया जाता है।
+```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
+// intlayer.config.ts
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: ["en", "fr", "es"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "prefix-no-default",
+    storage: "localStorage",
+    basePath: "",
+  },
+};
 
-- **prefixDefault**:
-  - _प्रकार_: `boolean`
-  - _डिफ़ॉल्ट_: `false`
-  - _विवरण_: क्या URL में डिफ़ॉल्ट लोकल शामिल किया जाए।
-  - _उदाहरण_: `true`
-  - _नोट_:
-    - यदि `true` और `defaultLocale = 'en'`: पथ = `/en/dashboard` या `/fr/dashboard`
-    - यदि `false` और `defaultLocale = 'en'`: पथ = `/dashboard` या `/fr/dashboard`
+export default config;
+```
 
-- **basePath**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `''`
-  - _विवरण_: एप्लिकेशन URL के लिए बेस पथ।
-  - _उदाहरण_: `'/my-app'`
-  - _नोट_:
-    - यदि एप्लिकेशन `https://example.com/my-app` पर होस्ट किया गया है
-    - बेस पथ होगा `'/my-app'`
-    - URL होगा `https://example.com/my-app/en`
-    - यदि बेस पाथ सेट नहीं है, तो URL होगा `https://example.com/en`
+**GDPR अनुपालन कॉन्फ़िगरेशन**:
 
-- **rewrite**:
-  - _प्रकार_: `Record<string, StrictModeLocaleMap<string>>`
-  - _डिफ़ॉल्ट_: `undefined`
-  - _विवरण_: कस्टम URL रीराइट नियम जो विशिष्ट पथों के लिए डिफ़ॉल्ट रूटिंग मोड को ओवरराइड करते हैं। मानक रूटिंग व्यवहार से भिन्न भाषा-विशिष्ट पथों को परिभाषित करने की अनुमति देता है। `[param]` सिंटैक्स का उपयोग करके गतिशील रूट पैरामीटर का समर्थन करता है।
-  - _उदाहरण_:
-    ```typescript
-    routing: {
-      mode: "prefix-no-default", // फॉलबैक रणनीति
-      rewrite: nextjsRewrite({
-        "/[locale]/about": {
-          en: "/[locale]/about",
-          fr: "/[locale]/a-propos",
-        },
-        "/[locale]/product/[slug]": {
-          en: "/[locale]/product/[slug]",
-          fr: "/[locale]/produit/[slug]",
-        },
-        "/[locale]/blog/[category]/[id]": {
-          en: "/[locale]/blog/[category]/[id]",
-          fr: "/[locale]/journal/[category]/[id]",
-        },
-      }),
-    }
-    ```
-  - _नोट_: रीराइट नियम डिफ़ॉल्ट `mode` व्यवहार पर प्राथमिकता लेते हैं। यदि कोई पथ रीराइट नियम से मेल खाता है, तो मानक भाषा उपसर्ग के बजाय रीराइट कॉन्फ़िगरेशन से स्थानीयकृत पथ का उपयोग किया जाएगा।
-  - _नोट_: गतिशील रूट पैरामीटर कोष्ठक संकेतन (उदाहरण के लिए, `[slug]`, `[id]`) का उपयोग करके समर्थित हैं। पैरामीटर मान स्वचालित रूप से URL से निकाले जाते हैं और रीराइट किए गए पथ में इंटरपोलेट किए जाते हैं।
-  - _नोट_: Next.js और Vite अनुप्रयोगों के साथ काम करता है। मिडलवेयर/प्रॉक्सी आने वाले अनुरोधों को आंतरिक रूट संरचना से मेल खाने के लिए स्वचालित रूप से रीराइट करेगा।
-  - _नोट_: `getLocalizedUrl()` के साथ URL उत्पन्न करते समय, यदि वे प्रदान किए गए पथ से मेल खाते हैं, तो रीराइट नियम स्वचालित रूप से लागू होते हैं।
-  - _संदर्भ_: अधिक जानकारी के लिए, देखें [कस्टम URL रीराइट](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/custom_url_rewrites.md)।
+```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
+// intlayer.config.ts
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: ["en", "fr", "es"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "prefix-no-default",
+    storage: [
+      {
+        type: "localStorage",
+        name: "user-locale",
+      },
+      {
+        type: "cookie",
+        name: "user-locale",
+        secure: true,
+        sameSite: "strict",
+        httpOnly: false,
+      },
+    ],
+    basePath: "",
+  },
+};
 
-- **serverSetCookie**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `'always'`
-  - _विवरण_: सर्वर पर लोकल कुकी सेट करने का नियम।
-  - _विकल्प_: `'always'`, `'never'`
-  - _उदाहरण_: `'never'`
-  - _नोट_: नियंत्रित करता है कि लोकल कुकी हर अनुरोध पर सेट की जाए या कभी नहीं।
+export default config;
+```
 
-- **noPrefix**:
-  - _प्रकार_: `boolean`
-  - _डिफ़ॉल्ट_: `false`
-  - _विवरण_: क्या URL से लोकल प्रीफिक्स को हटाना है।
-  - _उदाहरण_: `true`
-  - _नोट_:
-    - यदि `true`: URL में कोई प्रीफिक्स नहीं होगा
-    - यदि `false`: URL में प्रीफिक्स होगा
-    - `basePath = '/my-app'` के साथ उदाहरण:
-      - यदि `noPrefix = false`: URL होगा `https://example.com/my-app/en`
-      - यदि `noPrefix = true`: URL होगा `https://example.com`
+**सर्च पैरामीटर्स मोड (Search Parameters Mode)**:
 
----
+```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
+// intlayer.config.ts
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: ["en", "fr", "es"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "search-params",
+    storage: "localStorage",
+    basePath: "",
+  },
+};
 
-### सामग्री विन्यास
+export default config;
+```
 
-ऐप्लिकेशन के भीतर सामग्री प्रबंधन से संबंधित सेटिंग्स, जिनमें निर्देशिका नाम, फ़ाइल एक्सटेंशन, और व्युत्पन्न विन्यास शामिल हैं।
+**कस्टम स्टोरेज के साथ नो प्रीफ़िक्स मोड (No Prefix Mode)**:
 
-#### गुण
+```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
+// intlayer.config.ts
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: ["en", "fr", "es"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "no-prefix",
+    storage: {
+      type: "sessionStorage",
+      name: "app-locale",
+    },
+    basePath: "/my-app",
+  },
+};
 
-- **autoFill**:
-  - _प्रकार_: `boolean | string | FilePathPattern | { [key in Locales]?: string }`
-  - _डिफ़ॉल्ट_: `undefined`
-  - _विवरण_: यह संकेत करता है कि सामग्री को AI का उपयोग करके स्वचालित रूप से कैसे भरा जाना चाहिए। इसे वैश्विक रूप से `intlayer.config.ts` फ़ाइल में घोषित किया जा सकता है।
-  - _उदाहरण_: true
-  - _उदाहरण_: `'./{{fileName}}.content.json'`
-  - _उदाहरण_: `{ fr: './{{fileName}}.fr.content.json', es: './{{fileName}}.es.content.json' }`
-  - _नोट_: ऑटो फिल कॉन्फ़िगरेशन। यह हो सकता है:
-    - boolean: सभी लोकल के लिए ऑटो फिल सक्षम करें
-    - string: एकल फ़ाइल या वेरिएबल्स के साथ टेम्पलेट का पथ
-    - object: प्रति-लोकल फ़ाइल पथ
+export default config;
+```
 
-- **watch**:
-  - _प्रकार_: `boolean`
-  - _डिफ़ॉल्ट_: `process.env.NODE_ENV === 'development'`
-  - _विवरण_: यह संकेत करता है कि Intlayer को ऐप में सामग्री घोषणा फ़ाइलों में परिवर्तनों के लिए देखना चाहिए ताकि संबंधित शब्दकोशों को पुनर्निर्मित किया जा सके।
+**गत्यात्मक पथों (Dynamic paths) के साथ कस्टम URL रीराइट**:
 
-- **fileExtensions**:
-  - _प्रकार_: `string[]`
-  - _डिफ़ॉल्ट_: `['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.tsx', '.content.jsx']`
-  - _विवरण_: शब्दकोश बनाने के दौरान खोजने के लिए फ़ाइल एक्सटेंशन।
-  - _उदाहरण_: `['.data.ts', '.data.js', '.data.json']`
-  - _टिप्पणी_: फ़ाइल एक्सटेंशन को कस्टमाइज़ करने से टकराव से बचा जा सकता है।
+```typescript
+// intlayer.config.ts
+import { nextjsRewrite } from "intlayer/routing";
 
-- **dictionaryOutput**:
-  - _प्रकार_: `string[]`
-  - _डिफ़ॉल्ट_: `['intlayer']`
-  - _विवरण_: उपयोग करने के लिए शब्दकोश आउटपुट का प्रकार, जैसे `'intlayer'` या `'i18next'`।
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: ["en", "fr"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "prefix-no-default", // गैर-रीराइट पथों के लिए फ़ालबैक रणनीति
+    storage: "cookie",
+    rewrite: nextjsRewrite({
+      "/about": {
+        en: "/about",
+        fr: "/a-propos",
+      },
+      "/product/[slug]": {
+        en: "/product/[slug]",
+        fr: "/produit/[slug]",
+      },
+      "/blog/[category]/[id]": {
+        en: "/blog/[category]/[id]",
+        fr: "/journal/[category]/[id]",
+      },
+    }),
+  },
+};
 
-- **contentDir**:
-  - _प्रकार_: `string[]`
-  - _डिफ़ॉल्ट_: `['.']`
-  - _उदाहरण_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
-  - _विवरण_: वह डायरेक्टरी पथ जहाँ सामग्री परिभाषा फ़ाइलें (`.content.*`) संग्रहीत होती हैं।
-  - _टिप्पणी_: यह शब्दकोशों को पुनर्निर्माण करने के लिए सामग्री फ़ाइलों को देखने के लिए उपयोग किया जाता है।
-
-- **codeDir**:
-  - _प्रकार_: `string[]`
-  - _डिफ़ॉल्ट_: `['.']`
-  - _उदाहरण_: `['src', '../../ui-library']`
-  - _विवरण_: वह डायरेक्टरी पथ जहाँ कोड संग्रहीत होता है, आधार निर्देशिका के सापेक्ष।
-  - _टिप्पणी_: यह कोड फ़ाइलों को रूपांतरित करने (छाँटना, अनुकूलन) के लिए देखने के लिए उपयोग किया जाता है। इसे `contentDir` से अलग रखने से सामग्री फ़ाइलों के अनावश्यक स्कैन से बचकर बिल्ड प्रदर्शन में सुधार हो सकता है।
-
-- **dictionariesDir**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `'.intlayer/dictionaries'`
-  - _विवरण_: मध्यवर्ती या आउटपुट परिणामों को संग्रहीत करने के लिए डायरेक्टरी पथ।
-
-- **moduleAugmentationDir**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `'.intlayer/types'`
-  - _विवरण_: मॉड्यूल ऑगमेंटेशन के लिए डायरेक्टरी, जो बेहतर IDE सुझाव और टाइप जांच की अनुमति देती है।
-  - _उदाहरण_: `'intlayer-types'`
-  - _नोट_: सुनिश्चित करें कि इसे `tsconfig.json` में शामिल किया गया है।
-
-- **unmergedDictionariesDir**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `'.intlayer/unmerged_dictionary'`
-  - _विवरण_: बिना मर्ज किए गए शब्दकोशों को संग्रहीत करने के लिए डायरेक्टरी।
-  - _उदाहरण_: `'translations'`
-
-- **dictionariesDir**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `'.intlayer/dictionary'`
-  - _विवरण_: स्थानीयकरण शब्दकोशों को संग्रहीत करने के लिए निर्देशिका।
-  - _उदाहरण_: `'translations'`
-
-- **i18nextResourcesDir**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `'i18next_dictionary'`
-  - _विवरण_: i18n शब्दकोशों को संग्रहीत करने के लिए निर्देशिका।
-  - _उदाहरण_: `'translations'`
-  - _नोट_: सुनिश्चित करें कि यह निर्देशिका i18next आउटपुट प्रकार के लिए कॉन्फ़िगर की गई हो।
-
-- **typesDir**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `'types'`
-  - _विवरण_: शब्दकोश प्रकारों को संग्रहीत करने के लिए निर्देशिका।
-  - _उदाहरण_: `'intlayer-types'`
-
-- **mainDir**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `'main'`
-  - _विवरण_: मुख्य एप्लिकेशन फ़ाइलों को संग्रहीत करने के लिए निर्देशिका।
-  - _उदाहरण_: `'intlayer-main'`
-
-- **excludedPath**:
-  - _प्रकार_: `string[]`
-  - _डिफ़ॉल्ट_: `['node_modules']`
-  - _विवरण_: सामग्री खोज से बाहर किए गए निर्देशिकाएँ।
-  - _नोट_: यह सेटिंग अभी उपयोग में नहीं है, लेकिन भविष्य में लागू करने की योजना है।
+export default config;
+```
 
 ---
 
-### सिस्टम कॉन्फ़िगरेशन
+### कंटेंट कॉन्फ़िगरेशन (Content Configuration)
 
-Intlayer के आंतरिक पथों और आउटपुट परिणामों से संबंधित सेटिंग्स। ये सेटिंग्स आमतौर पर आंतरिक होती हैं और उपयोगकर्ता द्वारा संशोधित करने की आवश्यकता नहीं होनी चाहिए।
+एप्लिकेशन के भीतर कंटेंट प्रसंस्करण से संबंधित सेटिंग्स (निर्देशिका नाम, फ़ाइल एक्सटेंशन और व्युत्पन्न कॉन्फ़िगरेशन)।
 
-#### गुण
-
-- **baseDir**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `process.cwd()`
-  - _विवरण_: परियोजना के लिए मूल निर्देशिका।
-  - _उदाहरण_: `'/path/to/project'`
-  - _टिप्पणी_: इसका उपयोग सभी Intlayer-संबंधित निर्देशिकाओं को हल करने के लिए किया जाता है।
-
-### शब्दकोश कॉन्फ़िगरेशन
-
-सेटिंग्स जो शब्दकोश संचालन को नियंत्रित करती हैं, जिसमें ऑटो-फिल व्यवहार और सामग्री जनरेशन शामिल है।
-
-यह शब्दकोश कॉन्फ़िगरेशन दो मुख्य उद्देश्यों को पूरा करता है:
-
-1. **डिफ़ॉल्ट मान**: सामग्री घोषणा फ़ाइलें बनाते समय डिफ़ॉल्ट मान परिभाषित करें
-2. **फॉलबैक व्यवहार**: विशिष्ट फ़ील्ड परिभाषित नहीं होने पर फॉलबैक मान प्रदान करें, जिससे आप शब्दकोश संचालन व्यवहार को वैश्विक रूप से परिभाषित कर सकें
-
-सामग्री घोषणा फ़ाइलों और कॉन्फ़िगरेशन मानों को कैसे लागू किया जाता है, इसके बारे में अधिक जानकारी के लिए, [सामग्री फ़ाइल दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md) देखें।
-
-#### गुण
-
-- **fill**:
-  - _Type_: `Fill` (`boolean | FilePathPattern | Partial<Record<Locale, boolean | FilePathPattern>>`)
-  - _Default_: `true`
-  - _Description_: Controls how auto-fill (AI translation) output files are generated for this dictionary. When set at the config level (`dictionary.fill`), it serves as the default for all dictionaries. Each dictionary can override this with its own `fill` field.
-  - _Options_:
-    - `true`: Use the default output path (same file as the source dictionary).
-    - `false`: Disable auto-fill for this dictionary.
-    - String template: `'/locales/{{locale}}/{{key}}.content.json'` — generates one file per locale using the template.
-    - Function: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\`` — generates one file per locale using a function.
-    - Object per-locale: `{ en: '...', fr: '...', es: false }` — each locale maps to its own pattern; `false` skips that locale.
-  - _Note_: Including `{{locale}}` in the pattern (or using an object) triggers per-locale file generation. Without it, a single multilingual file is written.
-  - _Note_: A dictionary-level `fill` always takes priority over `dictionary.fill` from the global config.
-  - _Example_:
-    ```ts
-    dictionary: {
-      fill: {
-        en: '/locales/en/{{key}}.content.json',
-        fr: ({ key }) => `/locales/fr/${key}.content.json`,
-        es: false,
-      }
-    }
-    ```
-- **description**
-- **locale**
-- **location**
-- **priority**
-- **live**
-- **schema**
-- **title**
-- **tags**
-- **version**
+| फ़ील्ड           | प्रकार     | विवरण                                                                                                                                                                                                          | उदाहरण                              | नोट                                                                                                                                        |
+| ---------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `watch`          | `boolean`  | इंगित करता है कि क्या Intlayer को डिक्शनरी के पुनर्निर्माण के लिए कंटेंट घोषणा फ़ाइलों में परिवर्तनों की निगरानी करनी चाहिए। डिफ़ॉल्ट: `process.env.NODE_ENV === 'development'`                                |                                     |                                                                                                                                            |
+| `fileExtensions` | `string[]` | कंटेंट घोषणा फ़ाइलों को स्कैन करने के लिए उपयोग किए जाने वाले फ़ाइल एक्सटेंशन। डिफ़ॉल्ट: `['.content.ts', '.content.js', '.content.mjs', '.content.cjs', '.content.json', '.content.json5', '.content.jsonc']` | `['.content.ts', '.content.js']`    |                                                                                                                                            |
+| `contentDir`     | `string[]` | कंटेंट घोषणा फ़ाइलें कहाँ स्थित हैं, उस निर्देशिका का पथ। डिफ़ॉल्ट: `['.' ]`                                                                                                                                   | `['src/content']`                   |                                                                                                                                            |
+| `codeDir`        | `string[]` | आपके एप्लिकेशन की स्रोत कोड फ़ाइलें जहाँ स्थित हैं, उस निर्देशिका का पथ। डिफ़ॉल्ट: `['.' ]`                                                                                                                    | `['src']`                           | बिल्ड को ऑप्टिमाइज़ करने और यह सुनिश्चित करने के लिए उपयोग किया जाता है कि कोड परिवर्तन और हॉट रीलोड केवल आवश्यक फ़ाइलों पर लागू होते हैं। |
+| `excludedPath`   | `string[]` | कंटेंट स्कैन से बाहर रखे गए पथ। डिफ़ॉल्ट: `['node_modules', '.intlayer', '.next', 'dist', 'build']`                                                                                                            | `['src/styles']`                    |                                                                                                                                            |
+| `formatCommand`  | `string`   | नई निर्मित या अपडेट की गई कंटेंट फ़ाइलों को फ़ॉर्मैट करने के लिए चलाया जाने वाला कमांड। डिफ़ॉल्ट: `undefined`                                                                                                  | `'npx prettier --write "{{file}}"'` | कंटेंट निष्कर्षण के दौरान या विजुअल एडिटर के माध्यम से उपयोग किया जाता है।                                                                 |
 
 ---
 
-### लॉगर कॉन्फ़िगरेशन
+### डिक्शनरी कॉन्फ़िगरेशन (Dictionary Configuration)
 
-सेटिंग्स जो लॉगर को नियंत्रित करती हैं, जिसमें उपयोग के लिए उपसर्ग शामिल है।
+सेटिंग्स जो ऑटो-फिल व्यवहार और कंटेंट जनरेशन सहित डिक्शनरी संचालन को नियंत्रित करती हैं।
 
-#### गुण
+इस डिक्शनरी कॉन्फ़िगरेशन के दो मुख्य उद्देश्य हैं:
 
-- **mode**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `default`
-  - _विवरण_: लॉगर के मोड को दर्शाता है।
-  - _विकल्प_: `default`, `verbose`, `disabled`
-  - _उदाहरण_: `default`
-  - _नोट_: लॉगर का मोड। verbose मोड अधिक जानकारी लॉग करेगा, लेकिन इसे डिबगिंग के लिए उपयोग किया जा सकता है। disabled मोड लॉगर को अक्षम कर देगा।
+1. **डिफ़ॉल्ट मान**: कंटेंट घोषणा फ़ाइलें बनाते समय डिफ़ॉल्ट मानों को परिभाषित करना।
+2. **फ़ालबैक व्यवहार**: विशिष्ट फ़ील्ड परिभाषित न होने पर फ़ालबैक मान प्रदान करना, जिससे डिक्शनरी संचालन के व्यवहार को वैश्विक स्तर पर सेट किया जा सके।
 
-- **prefix**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `'[intlayer] '`
-  - _विवरण_: लॉगर का उपसर्ग।
-  - _उदाहरण_: `'[my custom prefix] '`
-  - _नोट_: लॉगर का उपसर्ग।
+कंटेंट घोषणा फ़ाइलों और कॉन्फ़िगरेशन मानों को कैसे लागू किया जाता है, इसके बारे में अधिक जानकारी के लिए, [कंटेंट फ़ाइल दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md) देखें।
 
-### एआई कॉन्फ़िगरेशन
+| फ़ील्ड                      | प्रकार                                                                                          | विवरण                                                                                                        | उदाहरण            | नोट                                                                                                                                                                                                                                                                                                                                                                         |
+| --------------------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `fill`                      | `boolean &#124; FilePathPattern &#124; Partial<Record<Locale, boolean &#124; FilePathPattern>>` | ऑटो-फिल (AI अनुवाद) आउटपुट फ़ाइलें कैसे जेनरेट की जाती हैं, इसे नियंत्रित करता है। डिफ़ॉल्ट: `true`          | नीचे उदाहरण देखें | `true`: डिफ़ॉल्ट पथ (स्रोत वाली ही फ़ाइल)। `false`: अक्षम। स्ट्रिंग/फ़ंक्शन टेम्प्लेट प्रति लोकेल फ़ाइलें जेनरेट करते हैं। प्रति-लोकेल ऑब्जेक्ट: प्रत्येक लोकेल अपने पैटर्न पर मैप होता है; `false` उस लोकेल को छोड़ देता है। `{{locale}}` को शामिल करने से प्रति-लोकेल जनरेशन ट्रिगर होता है। डिक्शनरी स्तर पर `fill` हमेशा इस वैश्विक कॉन्फ़िगरेशन पर प्राथमिकता लेता है। |
+| `importMode`                | `'static' &#124; 'dynamic' &#124; 'fetch'`                                                      | डिक्शनरी को आयात करने के तरीके को नियंत्रित करता है। डिफ़ॉल्ट: `'static'`                                    | `'dynamic'`       | `'static'`: स्थिर रूप से आयातित। `'dynamic'`: 'Suspense' के माध्यम से गतिशील रूप से आयातित। `'fetch'`: 'Live Sync API' के माध्यम से गतिशील रूप से प्राप्त। `getIntlayer`, `getDictionary`, `useDictionary`, आदि को प्रभावित नहीं करता है।                                                                                                                                   |
+| `location`                  | `'local' &#124; 'remote' &#124; 'hybrid' &#124; string`                                         | डिक्शनरी कहाँ संग्रहीत हैं। डिफ़ॉल्ट: `'local'`                                                              | `'remote'`        | `'local'`: फ़ाइल सिस्टम। `'remote'`: Intlayer CMS। `'hybrid'`: दोनों।                                                                                                                                                                                                                                                                                                       |
+| `contentAutoTransformation` | `boolean`                                                                                       | क्या कंटेंट फ़ाइलों को स्वचालित रूप से रूपांतरित किया जाना चाहिए (जैसे: Markdown से HTML)। डिफ़ॉल्ट: `false` | `true`            | @intlayer/markdown के माध्यम से मर्कडाउन फ़ील्ड को संसाधित करने के लिए उपयोगी।                                                                                                                                                                                                                                                                                              |
 
-सेटिंग्स जो Intlayer की एआई विशेषताओं को नियंत्रित करती हैं, जिसमें प्रदाता, मॉडल, और API कुंजी शामिल हैं।
+**`fill` उदाहरण**:
 
-यह कॉन्फ़िगरेशन वैकल्पिक है यदि आप [Intlayer डैशबोर्ड](https://app.intlayer.org/project) पर एक एक्सेस कुंजी का उपयोग करके पंजीकृत हैं। Intlayer स्वचालित रूप से आपकी आवश्यकताओं के लिए सबसे कुशल और लागत-प्रभावी एआई समाधान का प्रबंधन करेगा। डिफ़ॉल्ट विकल्पों का उपयोग करने से बेहतर दीर्घकालिक रखरखाव सुनिश्चित होता है क्योंकि Intlayer लगातार सबसे प्रासंगिक मॉडलों का उपयोग करने के लिए अपडेट होता रहता है।
-
-यदि आप अपनी स्वयं की API कुंजी या विशिष्ट मॉडल का उपयोग करना पसंद करते हैं, तो आप अपनी कस्टम एआई कॉन्फ़िगरेशन परिभाषित कर सकते हैं।
-यह AI कॉन्फ़िगरेशन आपके Intlayer पर्यावरण में वैश्विक रूप से उपयोग किया जाएगा। CLI कमांड इन सेटिंग्स का उपयोग कमांड्स (जैसे `fill`) के लिए डिफ़ॉल्ट के रूप में करेंगे, साथ ही SDK, विज़ुअल एडिटर, और CMS भी इनका उपयोग करेंगे। आप कमांड पैरामीटर का उपयोग करके विशिष्ट उपयोग मामलों के लिए इन डिफ़ॉल्ट मानों को ओवरराइड कर सकते हैं।
-
-Intlayer बेहतर लचीलापन और विकल्प के लिए कई AI प्रदाताओं का समर्थन करता है। वर्तमान में समर्थित प्रदाता हैं:
-
-- **OpenAI** (डिफ़ॉल्ट)
-- **Anthropic Claude**
-- **Mistral AI**
-- **DeepSeek**
-- **Google Gemini**
-- **Meta Llama**
-- **Ollama**
-- **OpenRouter**
-- **Alibaba Cloud**
-- **Fireworks**
-- **Hugging Face**
-- **Groq**
-- **Amazon Bedrock**
-- **Google AI Studio**
-- **Google Vertex**
-- **Together.ai**
-- **ollama**
-
-#### गुण
-
-- **provider**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `'openai'`
-  - _विवरण_: Intlayer की AI सुविधाओं के लिए उपयोग करने वाला प्रदाता।
-  - _विकल्प_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googleaistudio'`, `'googlevertex'`, `'togetherai'`
-  - _उदाहरण_: `'anthropic'`
-  - _नोट_: विभिन्न प्रदाताओं के लिए अलग-अलग API कुंजी और मूल्य निर्धारण मॉडल हो सकते हैं।
-
-- **model**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: कोई नहीं
-  - _विवरण_: Intlayer की AI सुविधाओं के लिए उपयोग किया जाने वाला मॉडल।
-  - _उदाहरण_: `'gpt-4o-2024-11-20'`
-  - _नोट_: उपयोग किए जाने वाले विशिष्ट मॉडल प्रदाता के अनुसार भिन्न हो सकते हैं।
-
-- **temperature**:
-  - _प्रकार_: `number`
-  - _डिफ़ॉल्ट_: कोई नहीं
-  - _विवरण_: तापमान AI की प्रतिक्रियाओं की यादृच्छिकता को नियंत्रित करता है।
-  - _उदाहरण_: `0.1`
-  - _नोट_: उच्च तापमान AI को अधिक रचनात्मक और कम पूर्वानुमेय बनाता है।
-
-- **apiKey**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: कोई नहीं
-  - _विवरण_: चुने गए प्रदाता के लिए आपकी API कुंजी।
-  - _उदाहरण_: `process.env.OPENAI_API_KEY`
-  - _नोट_: महत्वपूर्ण: API कुंजियाँ गोपनीय रखनी चाहिए और सार्वजनिक रूप से साझा नहीं करनी चाहिए। कृपया सुनिश्चित करें कि इन्हें सुरक्षित स्थान पर रखा जाए, जैसे कि पर्यावरण चर (environment variables) में।
-
-- **applicationContext**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: कोई नहीं
-  - _विवरण_: आपके एप्लिकेशन के बारे में अतिरिक्त संदर्भ AI मॉडल को प्रदान करता है, जिससे यह अधिक सटीक और संदर्भानुसार उपयुक्त अनुवाद उत्पन्न कर सके। इसमें आपके ऐप के डोमेन, लक्षित दर्शक, टोन, या विशिष्ट शब्दावली की जानकारी शामिल हो सकती है।
-
-- **baseURL**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: कोई नहीं
-  - _विवरण_: AI API के लिए आधार URL।
-  - _उदाहरण_: `'https://api.openai.com/v1'`
-  - _नोट_: स्थानीय या कस्टम AI API एंडपॉइंट को इंगित करने के लिए उपयोग किया जा सकता है।
-
-- **dataSerialization**:
-  - _प्रकार_: `'json' | 'toon'`
-  - _डिफ़ॉल्ट_: `'json'`
-  - _विवरण_: Intlayer की AI सुविधाओं के लिए उपयोग किया जाने वाला डेटा सीरियलाइजेशन प्रारूप।
-  - _उदाहरण_: `'toon'`
-  - _नोट_: `json`: मानक, विश्वसनीय; अधिक टोकन का उपयोग करता है। `toon`: कम टोकन, JSON की तुलना में कम सुसंगत।
-
-### बिल्ड कॉन्फ़िगरेशन
-
-सेटिंग्स जो नियंत्रित करती हैं कि Intlayer आपके एप्लिकेशन की अंतरराष्ट्रीयकरण को कैसे अनुकूलित और बिल्ड करता है।
-
-बिल्ड विकल्प `@intlayer/babel` और `@intlayer/swc` प्लगइन्स पर लागू होते हैं।
-
-> विकास मोड में, Intlayer विकास अनुभव को सरल बनाने के लिए शब्दकोशों के लिए स्थैतिक आयात का उपयोग करता है।
-
-> जब अनुकूलित किया जाता है, तो Intlayer शब्दकोश कॉल को अनुकूलित करने के लिए बदल देगा, ताकि अंतिम बंडल केवल उन शब्दकोशों को आयात करे जो वास्तव में उपयोग किए जाते हैं।
-
-#### गुण
-
-- **mode**:
-  - _प्रकार_: `'auto' | 'manual'`
-  - _डिफ़ॉल्ट_: `'auto'`
-  - _विवरण_: बिल्ड के मोड को नियंत्रित करता है।
-  - _उदाहरण_: `'manual'`
-  - _नोट_: यदि 'auto', तो एप्लिकेशन बनाए जाने पर बिल्ड स्वचालित रूप से सक्षम हो जाएगा।
-  - _नोट_: यदि 'manual', तो बिल्ड केवल तब सेट किया जाएगा जब बिल्ड कमांड निष्पादित की जाती है।
-  - _नोट_: शब्दकोश बिल्ड को अक्षम करने के लिए उपयोग किया जा सकता है, उदाहरण के लिए जब Node.js वातावरण में निष्पादन से बचना चाहिए।
-
-- **checkTypes**:
-  - _प्रकार_: `boolean`
-  - _डिफ़ॉल्ट_: `false`
-  - _विवरण_: इंगित करता है कि क्या बिल्ड को TypeScript प्रकारों की जांच करनी चाहिए और त्रुटियों को लॉग करना चाहिए।
-  - _नोट_: यह बिल्ड को धीमा कर सकता है।
-
-- **optimize**:
-  - _प्रकार_: `boolean`
-  - _डिफ़ॉल्ट_: `process.env.NODE_ENV === 'production'`
-  - _विवरण_: नियंत्रित करता है कि क्या बिल्ड को अनुकूलित किया जाना चाहिए।
-  - _उदाहरण_: `true`
-  - _नोट_: सक्षम होने पर, Intlayer शब्दकोशों के सभी कॉल को अनुकूलित करने के लिए बदल देगा। इस तरह अंतिम बंडल केवल उन शब्दकोशों को आयात करेगा जो उपयोग किए जाते हैं। सभी आयात स्थैतिक आयात के रूप में रहेंगे ताकि शब्दकोशों को लोड करते समय असिंक्रोनस प्रोसेसिंग से बचा जा सके।
-  - _नोट_: Intlayer `useIntlayer` के सभी कॉल्स को `importMode` विकल्प द्वारा परिभाषित मोड से और `getIntlayer` को `getDictionary` से बदल देगा।
-  - _नोट_: यह विकल्प `@intlayer/babel` और `@intlayer/swc` प्लगइन्स पर निर्भर करता है।
-  - _नोट_: सुनिश्चित करें कि सभी कुंजियाँ `useIntlayer` कॉल्स में स्थैतिक रूप से घोषित हों। उदाहरण के लिए `useIntlayer('navbar')`।
-
-- **outputFormat**:
-  - _प्रकार_: `'esm' | 'cjs'`
-  - _डिफ़ॉल्ट_: `'esm'`
-  - _विवरण_: शब्दकोशों के आउटपुट स्वरूप को नियंत्रित करता है।
-  - _उदाहरण_: `'cjs'`
-  - _नोट_: शब्दकोशों का आउटपुट स्वरूप।
-
-- **traversePattern**:
-  - _प्रकार_: `string[]`
-  - _डिफ़ॉल्ट_: `['**\/*.{js,ts,mjs,cjs,jsx,tsx}', '!**\/node_modules/**']`
-  - _विवरण_: पैटर्न जो यह परिभाषित करते हैं कि अनुकूलन के दौरान किन फ़ाइलों को ट्रैवर्स किया जाना चाहिए।
-    - _उदाहरण_: `['src/**\/*.{ts,tsx}', '../ui-library/**\/*.{ts,tsx}', '!**/node_modules/**']`
-  - _नोट_: इसका उपयोग संबंधित कोड फ़ाइलों तक अनुकूलन को सीमित करने और बिल्ड प्रदर्शन में सुधार करने के लिए करें।
-  - _नोट_: यदि `optimize` अक्षम है तो इस विकल्प को नजरअंदाज किया जाएगा।
-  - _नोट_: ग्लोब पैटर्न का उपयोग करें।
+```ts
+dictionary: {
+  fill: {
+    en: '/locales/en/{{key}}.content.json',
+    fr: ({ key }) => `/locales/fr/${key}.content.json`,
+    es: false,
+  }
+}
+```
 
 ---
 
-### कंपाइलर कॉन्फ़िगरेशन
+### AI कॉन्फ़िगरेशन (AI Configuration)
 
-सेटिंग्स जो Intlayer कंपाइलर को नियंत्रित करती हैं, जो आपके घटकों से सीधे शब्दकोश निकालती हैं।
+अनुवाद निर्माण जैसी Intlayer की AI-संचालित विशेषताओं के लिए सेटिंग्स को परिभाषित करता।
 
-#### गुण
+| फ़ील्ड               | प्रकार                 | विवरण                                                                  | उदाहरण                                      | नोट                                                                                       |
+| -------------------- | ---------------------- | ---------------------------------------------------------------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `provider`           | `string`               | उपयोग किया जाने वाला AI प्रदाता।                                       | `'openai'`, `'anthropic'`, `'googlevertex'` |                                                                                           |
+| `model`              | `string`               | उपयोग किया जाने वाला AI मॉडल।                                          | `'gpt-4o'`, `'claude-3-5-sonnet-20240620'`  |                                                                                           |
+| `apiKey`             | `string`               | चयनित प्रदाता के लिए एपीआई कुंजी।                                      | `process.env.OPENAI_API_KEY`                |                                                                                           |
+| `applicationContext` | `string`               | AI अनुवाद सटीकता में सुधार के लिए आपके ऐप के बारे में अतिरिक्त संदर्भ। | `'बच्चों के लिए एक अध्ययन मंच।'`            |                                                                                           |
+| `baseURL`            | `string`               | एपीआई कॉल के लिए वैकल्पिक बेस URL।                                     |                                             | यदि आप प्रॉक्सी या स्थानीय AI परिनियोजन (deployment) का उपयोग कर रहे हैं तो उपयोगी है।    |
+| `dataSerialization`  | `'json' &#124; 'toon'` | यह परिभाषित करता है कि AI को डेटा कैसे भेजा जाए। डिफ़ॉल्ट: `'json'`    | `'json'`                                    | `'json'`: अधिक मजबूत और सटीक। `'toon'`: कम टोकन की खपत करता है लेकिन कम स्थिर हो सकता है। |
 
-- **enabled**:
-  - _प्रकार_: `boolean | 'build-only'`
-  - _डिफ़ॉल्ट_: `true`
-  - _विवरण_: इंगित करता है कि क्या शब्दकोश निकालने के लिए कंपाइलर सक्षम होना चाहिए।
-  - _उदाहरण_: `'build-only'`
-  - _नोट_: इसे `'build-only'` पर सेट करने से डेवलपमेंट मोड के दौरान कंपाइलर छूट जाएगा ताकि बिल्ड समय तेज हो सके। यह केवल बिल्ड कमांड पर चलेगा।
+---
 
-- **dictionaryKeyPrefix**:
-  - _प्रकार_: `string`
-  - _डिफ़ॉल्ट_: `''`
-  - _विवरण_: निकाले गए शब्दकोश कुंजियों के लिए उपसर्ग।
-  - _उदाहरण_: `'my-key-'`
-  - _नोट_: जब शब्दकोश निकाले जाते हैं, तो कुंजी फ़ाइल नाम के आधार पर उत्पन्न होती है। संघर्षों को रोकने के लिए उत्पन्न कुंजी में यह उपसर्ग जोड़ा जाता है।
+### बिल्ड कॉन्फ़िगरेशन (Build Configuration)
 
-- **saveComponents**:
-  - _प्रकार_: `boolean`
-  - _डिफ़ॉल्ट_: `false`
-  - _विवरण_: इंगित करता है कि क्या घटकों को रूपांतरित होने के बाद सहेजा जाना चाहिए।
-  - _नोट_: यदि सही है, तो कंपाइलर मूल फ़ाइलों को रूपांतरित फ़ाइलों से बदल देगा। इस तरह, कंपाइलर को ऐप को रूपांतरित करने के लिए केवल एक बार चलाया जा सकता है, और फिर इसे हटाया जा सकता है।
+Intlayer बिल्ड प्रक्रिया और ऑप्टिमाइज़ेशन सेटिंग्स।
 
-- **transformPattern**:
-  - _प्रकार_: `string | string[]`
-  - _डिफ़ॉल्ट_: `['**/*.{ts,tsx,jsx,js,cjs,mjs,svelte,vue}', '!**/node_modules/**']`
-  - _विवरण_: पैटर्न जो यह परिभाषित करते हैं कि अनुकूलन के दौरान किन फ़ाइलों को ट्रैवर्स किया जाना चाहिए।
-  - _उदाहरण_: `['src/**/*.{ts,tsx}', '!**/node_modules/**']`
-  - _नोट_: इसका उपयोग संबंधित कोड फ़ाइलों तक अनुकूलन को सीमित करने और बिल्ड प्रदर्शन में सुधार करने के लिए करें।
+| फ़ील्ड         | प्रकार                   | विवरण                                                                                                                                  | उदाहरण | नोट |
+| -------------- | ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- | ------ | --- |
+| `mode`         | `'auto' &#124; 'manual'` | इंगित करता है कि ऐप के प्री-बिल्ड चरणों के दौरान Intlayer को स्वचालित रूप से चलना चाहिए या नहीं। डिफ़ॉल्ट: `'auto'`                    |        |     |
+| `optimize`     | `boolean`                | इंगित करता है कि संकलित (compiled) डिक्शनरी को रनटाइम के लिए ऑप्टिमाइज़ किया जाना चाहिए या नहीं। डिफ़ॉल्ट: प्रोडक्शन परिवेश में `true` |        |     |
+| `outputFormat` | `('cjs' &#124; 'esm')[]` | जनरेट की गई डिक्शनरी फ़ाइलों के लिए आउटपुट स्वरूप। डिफ़ॉल्ट: `['cjs', 'esm']`                                                          |        |     |
+| `checkTypes`   | `boolean`                | इंगित करता है कि क्या Intlayer को जनरेट की गई फ़ाइलों में प्रकारों (types) की जांच करनी चाहिए। डिफ़ॉल्ट: `false`                       |        |     |
 
-- **excludePattern**:
-  - _प्रकार_: `string | string[]`
-  - _डिफ़ॉल्ट_: `['**/node_modules/**']`
-  - _विवरण_: पैटर्न जो यह परिभाषित करते हैं कि अनुकूलन के दौरान किन फ़ाइलों को बाहर रखा जाना चाहिए।
-  - _उदाहरण_: `['**/node_modules/**', '!**/node_modules/react/**']`
+---
 
-- **output**:
-  - _प्रकार_: `Fill`
-  - _डिफ़ॉल्ट_: `undefined`
-  - _विवरण_: आउटपुट फ़ाइल पथ को परिभाषित करता है। `outputDir` को प्रतिस्थापित करता है। टेम्प्लेट स्ट्रिंग या फ़ंक्शन के माध्यम से डायनेमिक वैरिएबल का समर्थन करता है। समर्थित वैरिएबल: `{{fileName}}`, `{{key}}`, `{{locale}}`, `{{extension}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{format}}`, `{{componentFormat}}`, `{{componentDirPath}}` ।
-  - _नोट_: `./` से शुरू होने वाले पथ घटक निर्देशिका के सापेक्ष हल किए जाते हैं। `/` से शुरू होने वाले पथ प्रोजेक्ट रूट (`baseDir`) के सापेक्ष हल किए जाते हैं।
-  - _नोट_: पथ में `{{locale}}` वैरिएबल को शामिल करने से प्रति भाषा अलग शब्दकोश तैयार होंगे।
-  - _Note_: Supports an object per-locale notation where each locale key maps to its own pattern (string or function), or `false` to skip that locale entirely.
-  - _उदाहरण_:
-    - **घटक के पास बहु-भाषा फ़ाइलें बनाएँ**:
-    - स्ट्रिंग: `'./{{fileName}}{{extension}}'`
-    - फ़ंक्शन: `({ fileName, extension }) => \`./${fileName}${extension}\``
+### सिस्टम कॉन्फ़िगरेशन (System Configuration)
 
-    - **प्रति भाषा केंद्रीकृत JSON फ़ाइलें आउटपुट करें**:
-    - स्ट्रिंग: `'/locales/{{locale}}/{{key}}.content.json'`
-    - फ़ंक्शन: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\``
+ये सेटिंग्स उन्नत उपयोग के मामलों और Intlayer के आंतरिक कॉन्फ़िगरेशन के लिए हैं।
 
-    - **Object per-locale (different pattern per locale, skip some)**:
+| फ़ील्ड                    | प्रकार   | विवरण                                       | डिफ़ॉल्ट                          |
+| ------------------------- | -------- | ------------------------------------------- | --------------------------------- |
+| `dictionariesDir`         | `string` | संकलित डिक्शनरी निर्देशिका।                 | `'.intlayer/dictionary'`          |
+| `moduleAugmentationDir`   | `string` | टाइपस्क्रिप्ट मॉड्यूल ऑगमेंटेशन निर्देशिका। | `'.intlayer/types'`               |
+| `unmergedDictionariesDir` | `string` | विलय नहीं की गई डिक्शनरी निर्देशिका।        | `'.intlayer/unmerged_dictionary'` |
+| `typesDir`                | `string` | जनरेट की गई प्रकार निर्देशिका।              | `'.intlayer/types'`               |
+| `mainDir`                 | `string` | मुख्य Intlayer फ़ाइल निर्देशिका।            | `'.intlayer/main'`                |
+| `configDir`               | `string` | संकलित कॉन्फ़िगरेशन फ़ाइल निर्देशिका।       | `'.intlayer/config'`              |
+| `cacheDir`                | `string` | कैश फ़ाइल निर्देशिका।                       | `'.intlayer/cache'`               |
 
-    ```ts
-    output: {
-      en: ({ key }) => `./locales/en/${key}.json`,
-      fr: '/locales/fr/{{key}}.content.json',
-      es: false, // skip Spanish
-    }
-    ```
+---
 
-- **noMetadata**:
-  - _प्रकार_: `boolean`
-  - _डिफ़ॉल्ट_: `false`
-  - _विवरण_: इंगित करता है कि फ़ाइल में मेटाडेटा सहेजा जाना चाहिए या नहीं। यदि सही है, तो कंपाइलर शब्दकोशों (कुंजी, सामग्री रैपर) के मेटाडेटा को नहीं बचाएगा। प्रति-लोकल i18next या ICU MessageFormat JSON आउटपुट के लिए उपयोगी।
-  - _नोट_: `loadJSON` प्लगइन के साथ उपयोग किए जाने पर उपयोगी।
-  - _उदाहरण_:
-    यदि `सही` है :
-    ```json
-    {
-      "key": "value"
-    }
-    ```
-    यदि `गलत` है :
-    ```json
-    {
-      "key": "value",
-      "content": {
-        "key": "value"
-      }
-    }
-    ```
+### कंपाइलर कॉन्फ़िगरेशन (Compiler Configuration)
+
+Intlayer कंपाइलर (`intlayer compiler`) के लिए सेटिंग्स।
+
+| फ़ील्ड                | प्रकार                   | विवरण                                                                                          | डिफ़ॉल्ट |
+| --------------------- | ------------------------ | ---------------------------------------------------------------------------------------------- | -------- |
+| `enabled`             | `boolean`                | इंगित करता है कि कंपाइलर सक्रिय है या नहीं।                                                    | `false`  |
+| `output`              | `string &#124; Function` | निकाले गए डिक्शनरी के लिए आउटपुट पथ।                                                           |          |
+| `saveComponents`      | `boolean`                | इंगित करता है कि क्या रूपांतरित संस्करणों के साथ मूल स्रोत फ़ाइलों को ओवरराइट किया जाना चाहिए। | `false`  |
+| `noMetadata`          | `boolean`                | यदि `true` है, तो कंपाइलर जनरेट की गई फ़ाइलों में मेटाडेटा शामिल नहीं करेगा।                   | `false`  |
+| `dictionaryKeyPrefix` | `string`                 | वैकल्पिक डिक्शनरी की (key) प्रीफ़िक्स।                                                         | `''`     |
+
+---
+
+### लॉगर कॉन्फ़िगरेशन (Logger Configuration)
+
+Intlayer लॉग आउटपुट को अनुकूलित करने की सेटिंग्स।
+
+| फ़ील्ड   | प्रकार                                         | विवरण                 | डिफ़ॉल्ट       |
+| -------- | ---------------------------------------------- | --------------------- | -------------- |
+| `mode`   | `'default' &#124; 'verbose' &#124; 'disabled'` | लॉगिंग मोड।           | `'default'`    |
+| `prefix` | `string`                                       | लॉग संदेश प्रीफ़िक्स। | `'[intlayer]'` |
+
+---
+
+### कस्टम स्कीमा (Custom Schemas)
+
+| फ़ील्ड    | प्रकार                      | विवरण                                                                                         |
+| --------- | --------------------------- | --------------------------------------------------------------------------------------------- |
+| `schemas` | `Record<string, ZodSchema>` | आपको अपनी डिक्शनरी की संरचना को मान्य करने के लिए Zod स्कीमा परिभाषित करने की अनुमति देता है। |
+
+---
+
+### प्लगइन्स (Plugins)
+
+| फ़ील्ड    | प्रकार             | विवरण                                       |
+| --------- | ------------------ | ------------------------------------------- |
+| `plugins` | `IntlayerPlugin[]` | सक्रिय होने वाले Intlayer प्लगइन्स की सूची। |

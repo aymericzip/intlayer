@@ -34,7 +34,6 @@ const config: Partial<CustomIntlayerConfig> = {
     provider: 'googlegenerativeai',
     model: 'gemini-3-flash-preview',
     apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
-    dataSerialization: 'toon',
   },
 
   editor: {

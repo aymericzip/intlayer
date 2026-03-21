@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-03-12
-title: 設定
-description: Intlayerをアプリケーション向けに設定する方法を学びます。Intlayerをニーズに合わせてカスタマイズするためのさまざまな設定やオプションについて理解しましょう。
+updatedAt: 2026-03-20
+title: 設定 (Configuration)
+description: アプリケーションにIntlayerを設定する方法を学びます。ニーズに合わせてIntlayerをカスタマイズするためのさまざまな設定とオプションを理解してください。
 keywords:
   - 設定
   - セッティング
@@ -16,62 +16,86 @@ slugs:
 history:
   - version: 8.4.0
     date: 2026-03-20
-    changes: Add object per-locale notation for 'compiler.output' and 'dictionary.fill'
+    changes: 'compiler.output' と 'dictionary.fill' に対するロケールごとのオブジェクト表記を追加
   - version: 8.3.0
     date: 2026-03-11
-    changes: "'baseDir' を 'content' 設定から 'system' 設定に移動"
+    changes: 'baseDir' を 'content' 設定から 'system' 設定に移動
   - version: 8.2.0
-    date: 2026-03-10
-    changes: コンパイラーオプションの更新、'output' および 'noMetadata' のサポートを追加
+    date: 2026-03-09
+    changes: コンパイラオプションを更新し、'output' と 'noMetadata' のサポートを追加
   - version: 8.1.7
     date: 2026-02-25
-    changes: コンパイラーオプションの更新
+    changes: コンパイラオプションを更新
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: コンパイラオプション 'build-only' とディクショナリプレフィックスを追加
   - version: 8.0.6
     date: 2026-02-12
     changes: Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, Together.ai プロバイダーのサポートを追加
   - version: 8.0.5
     date: 2026-02-06
-    changes: AI設定に `dataSerialization` を追加
+    changes: AI 設定に `dataSerialization` を追加
+  - version: 8.0.0
+    date: 2026-01-24
+    changes: 基本的なメカニズムをより適切に説明するために、インポートモード `live` を `fetch` に変更。
   - version: 8.0.0
     date: 2026-01-22
-    changes: importMode のビルド設定を辞書設定に移動。
+    changes: ビルド設定 `importMode` を `dictionary` 設定に移動。
+  - version: 8.0.0
+    date: 2026-01-22
+    changes: ルーティング設定に `rewrite` オプションを追加
   - version: 8.0.0
     date: 2026-01-18
     changes: システム設定をコンテンツ設定から分離。内部パスを `system` プロパティに移動。コンテンツファイルとコード変換を分離するために `codeDir` を追加。
   - version: 8.0.0
     date: 2026-01-18
-    changes: 辞書オプション `location` と `schema` を追加
+    changes: ディクショナリオプション `location` と `schema` を追加
   - version: 7.5.1
     date: 2026-01-10
     changes: JSON5 および JSONC ファイル形式のサポートを追加
   - version: 7.5.0
     date: 2025-12-17
-    changes: "`buildMode` オプションを追加"
+    changes: `buildMode` オプションを追加
+  - version: 7.0.0
+    date: 2025-10-25
+    changes: `dictionary` 設定を追加
+  - version: 7.0.0
+    date: 2025-10-21
+    changes: `middleware` をルーティング設定 `routing` に置き換え
+  - version: 7.0.0
+    date: 2025-10-12
+    changes: `formatCommand` オプションを追加
+  - version: 6.2.0
+    date: 2025-10-12
+    changes: `excludedPath` オプションを更新
+  - version: 6.0.2
+    date: 2025-09-23
+    changes: `outputFormat` オプションを追加
+  - version: 6.0.0
+    date: 2025-09-21
+    changes: `dictionaryOutput` フィールドと `i18nextResourcesDir` フィールドを削除
   - version: 6.0.0
     date: 2025-09-16
-    changes: "`live` インポートモードを追加"
-  - version: 6.0.0
-    date: 2025-09-16
-    changes: "`live` インポートモードを追加"
+    changes: `live` インポートモードを追加
   - version: 6.0.0
     date: 2025-09-04
-    changes: "`hotReload` フィールドを `liveSync` に置き換え、`liveSyncPort` と `liveSyncURL` フィールドを追加"
+    changes: `hotReload` フィールドを `liveSync` に置き換え、`liveSyncPort` および `liveSyncURL` フィールドを追加
   - version: 5.6.1
     date: 2025-07-25
-    changes: "`activateDynamicImport` を `importMode` オプションに置き換え"
+    changes: `activateDynamicImport` を `importMode` オプションに置き換え
   - version: 5.6.0
     date: 2025-07-13
     changes: デフォルトの contentDir を `['src']` から `['.']` に変更
   - version: 5.5.11
     date: 2025-06-29
-    changes: "`docs` コマンドを追加"
+    changes: `docs` コマンドを追加
 ---
 
 # Intlayer 設定ドキュメント
 
 ## 概要
 
-Intlayerの設定ファイルは、国際化、ミドルウェア、コンテンツ処理など、プラグインのさまざまな側面をカスタマイズすることを可能にします。本ドキュメントでは、設定内の各プロパティについて詳細に説明します。
+Intlayer 設定ファイルを使用すると、国際化 (internationalization)、ミドルウェア、コンテンツ処理など、プラグインのさまざまな側面をカスタマイズできます。このドキュメントでは、設定内の各プロパティについて詳しく説明します。
 
 ---
 
@@ -81,9 +105,9 @@ Intlayerの設定ファイルは、国際化、ミドルウェア、コンテン
 
 ---
 
-## 設定ファイルの対応形式
+## サポートされている設定ファイル形式
 
-IntlayerはJSON、JS、MJS、TSの設定ファイル形式をサポートしています：
+Intlayer は、JSON、JS、MJS、TS などの設定ファイル形式を受け入れます。
 
 - `intlayer.config.ts`
 - `intlayer.config.js`
@@ -104,108 +128,108 @@ import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
 
 /**
- * Example Intlayer configuration file showing all available options.
+ * すべての利用可能なオプションを表示する Intlayer 設定ファイルの例。
  */
 const config: IntlayerConfig = {
   /**
-   * Configuration for internationalization settings.
+   * 国際化設定の構成。
    */
   internationalization: {
     /**
-     * List of supported locales in the application.
-     * Default: [Locales.ENGLISH]
+     * アプリケーションでサポートされるロケール (locales) のリスト。
+     * デフォルト: [Locales.ENGLISH]
      */
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
 
     /**
-     * List of required locales that must be defined in every dictionary.
-     * If empty, all locales are required in `strict` mode.
-     * Default: []
+     * 各辞書で定義する必要がある必須ロケールのリスト。
+     * 空の場合、`strict` モードではすべてのロケールが必須になります。
+     * デフォルト: []
      */
     requiredLocales: [Locales.ENGLISH],
 
     /**
-     * Strictness level for internationalized content.
-     * - "strict": Errors if any declared locale is missing or undeclared.
-     * - "inclusive": Warnings if a declared locale is missing.
-     * - "loose": Accepts any existing locale.
-     * Default: "inclusive"
+     * 国際化されたコンテンツの厳格さのレベル。
+     * - "strict": 宣言されたロケールが欠落しているか、未宣言の場合はエラー。
+     * - "inclusive": 宣言されたロケールが欠落している場合は警告。
+     * - "loose": 既存のロケールを受け入れる。
+     * デフォルト: "inclusive"
      */
     strictMode: "inclusive",
 
     /**
-     * Default locale used as a fallback if the requested locale is not found.
-     * Default: Locales.ENGLISH
+     * リクエストされたロケールが見つからない場合にフォールバックとして使用されるデフォルトロケール。
+     * デフォルト: Locales.ENGLISH
      */
     defaultLocale: Locales.ENGLISH,
   },
 
   /**
-   * Settings that control dictionary operations and fallback behavior.
+   * 辞書操作とフォールバック動作を制御する設定。
    */
   dictionary: {
     /**
-     * Controls how dictionaries are imported.
-     * - "static": Statically imported at build time.
-     * - "dynamic": Dynamically imported using Suspense.
-     * - "fetch": Fetched dynamically via the live sync API.
-     * Default: "static"
+     * 辞書のインポート方法を制御します。
+     * - "static": ビルド時に静的にインポート。
+     * - "dynamic": Suspense を使用して動的にインポート。
+     * - "fetch": Live Sync API を介して動的に取得。
+     * デフォルト: "static"
      */
     importMode: "static",
 
     /**
-     * Strategy for auto-filling missing translations using AI.
-     * Can be a boolean or a path pattern to store filled content.
-     * Default: true
+     * AI を使用して欠落している翻訳を自動的に埋める戦略。
+     * ブール値または埋められたコンテンツを保存するためのパスパターンを指定できます。
+     * デフォルト: true
      */
     fill: true,
 
     /**
-     * Physical location of the dictionary files.
-     * - "local": Stored in the local filesystem.
-     * - "remote": Stored in the Intlayer CMS.
-     * - "hybrid": Stored in the local filesystem and the Intlayer CMS.
-     * - "plugin" (or any custom string): Provided by a plugin or a custom source.
-     * Default: "local"
+     * 辞書ファイルの物理的な場所。
+     * - "local": ローカルファイルシステムに保存。
+     * - "remote": Intlayer CMS に保存。
+     * - "hybrid": ローカルと Intlayer CMS の両方に保存。
+     * - "plugin" (または任意のカスタム文字列): プラグインまたはカスタムソースによって提供。
+     * デフォルト: "local"
      */
     location: "local",
 
     /**
-     * Whether to automatically transform content (e.g., Markdown to HTML).
-     * Default: false
+     * コンテンツを自動的に変換するかどうか (例: Markdown から HTML)。
+     * デフォルト: false
      */
     contentAutoTransformation: false,
   },
 
   /**
-   * Routing and middleware configuration.
+   * ルーティングとミドルウェアの設定。
    */
   routing: {
     /**
-     * Locale routing strategy.
-     * - "prefix-no-default": Prefix all except the default locale (e.g., /dashboard, /fr/dashboard).
-     * - "prefix-all": Prefix all locales (e.g., /en/dashboard, /fr/dashboard).
-     * - "no-prefix": No locale in the URL.
-     * - "search-params": Use ?locale=...
-     * Default: "prefix-no-default"
+     * ロケールルーティング戦略。
+     * - "prefix-no-default": デフォルトロケール以外にプレフィックスを付ける (例: /dashboard, /fr/dashboard)。
+     * - "prefix-all": すべてのロケールにプレフィックスを付ける (例: /en/dashboard, /fr/dashboard)。
+     * - "no-prefix": URL にロケールを含めない。
+     * - "search-params": ?locale=... を使用。
+     * デフォルト: "prefix-no-default"
      */
     mode: "prefix-no-default",
 
     /**
-     * Where to store the user's selected locale.
-     * Options: 'cookie', 'localStorage', 'sessionStorage', 'header', or an array of these.
-     * Default: ['cookie', 'header']
+     * ユーザーが選択したロケールを保存する場所。
+     * オプション: 'cookie', 'localStorage', 'sessionStorage', 'header', またはこれらの配列。
+     * デフォルト: ['cookie', 'header']
      */
     storage: ["cookie", "header"],
 
     /**
-     * Base path for the application URLs.
-     * Default: ""
+     * アプリケーション URL のベースパス。
+     * デフォルト: ""
      */
     basePath: "",
 
     /**
-     * Custom URL rewriting rules for locale-specific paths.
+     * ロケールごとの特定のパスに対するカスタム URL リライトルール。
      */
     rewrite: nextjsRewrite({
       "/[locale]/about": {
@@ -216,130 +240,130 @@ const config: IntlayerConfig = {
   },
 
   /**
-   * Settings for finding and processing content files.
+   * コンテンツファイルの検索と処理に関する設定。
    */
   content: {
     /**
-     * File extensions to scan for dictionaries.
-     * Default: ['.content.ts', '.content.js', '.content.json', etc.]
+     * 辞書をスキャンするためのファイル拡張子。
+     * デフォルト: ['.content.ts', '.content.js', '.content.json' など]
      */
     fileExtensions: [".content.ts", ".content.js", ".content.json"],
 
     /**
-     * Directories where .content files are located.
-     * Default: ["."]
+     * .content ファイルが配置されているディレクトリ。
+     * デフォルト: ["."]
      */
     contentDir: ["src"],
 
     /**
-     * Directories where source code is located.
-     * Used for build optimization and code transformation.
-     * Default: ["."]
+     * ソースコードが配置されている場所。
+     * ビルドの最適化とコード変換に使用されます。
+     * デフォルト: ["."]
      */
     codeDir: ["src"],
 
     /**
-     * Patterns to exclude from scanning.
-     * Default: ['node_modules', '.intlayer', etc.]
+     * スキャンから除外されるパターン。
+     * デフォルト: ['node_modules', '.intlayer' など]
      */
     excludedPath: ["node_modules"],
 
     /**
-     * Whether to watch for changes and rebuild dictionaries in development.
-     * Default: true in development
+     * 開発中に変更を監視し、辞書を再構築するかどうか。
+     * デフォルト: 開発中は true
      */
     watch: true,
 
     /**
-     * Command to format newly created / updated .content files.
+     * 新しく作成または更新された .content ファイルをフォーマットするために使用されるコマンド。
      */
     formatCommand: 'npx prettier --write "{{file}}"',
   },
 
   /**
-   * Visual Editor configuration.
+   * ビジュアルエディターの設定。
    */
   editor: {
     /**
-     * Whether the visual editor is enabled.
-     * Default: false
+     * ビジュアルエディターが有効かどうか。
+     * デフォルト: false
      */
     enabled: true,
 
     /**
-     * URL of your application for origin validation.
-     * Default: ""
+     * オリジン検証のためのアプリケーションの URL。
+     * デフォルト: ""
      */
     applicationURL: "http://localhost:3000",
 
     /**
-     * Port for the local editor server.
-     * Default: 8000
+     * ローカルエディターサーバーのポート。
+     * デフォルト: 8000
      */
     port: 8000,
 
     /**
-     * Public URL for the editor.
-     * Default: "http://localhost:8000"
+     * エディターの公開 URL。
+     * デフォルト: "http://localhost:8000"
      */
     editorURL: "http://localhost:8000",
 
     /**
-     * Intlayer CMS URL.
-     * Default: "https://app.intlayer.org"
+     * Intlayer CMS の URL。
+     * デフォルト: "https://app.intlayer.org"
      */
     cmsURL: "https://app.intlayer.org",
 
     /**
-     * Backend API URL.
-     * Default: "https://back.intlayer.org"
+     * バックエンド API の URL。
+     * デフォルト: "https://back.intlayer.org"
      */
     backendURL: "https://back.intlayer.org",
 
     /**
-     * Whether to enable real-time content synchronization.
-     * Default: false
+     * リアルタイムコンテンツ同期を有効にするかどうか。
+     * デフォルト: false
      */
     liveSync: true,
   },
 
   /**
-   * AI-powered translation and generation settings.
+   * AI ベースの翻訳および構築設定。
    */
   ai: {
     /**
-     * AI provider to use.
-     * Options: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama', 'openrouter', 'alibaba', 'fireworks', 'groq', 'huggingface', 'bedrock', 'googlevertex', 'togetherai'
-     * Default: 'openai'
+     * 使用する AI プロバイダー。
+     * オプション: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama', 'openrouter', 'alibaba', 'fireworks', 'groq', 'huggingface', 'bedrock', 'googlevertex', 'togetherai'
+     * デフォルト: 'openai'
      */
     provider: "openai",
 
     /**
-     * Model to use from the selected provider.
+     * 使用する選択されたプロバイダーのモデル。
      */
     model: "gpt-4o",
 
     /**
-     * Provider API key.
+     * プロバイダーの API キー。
      */
     apiKey: process.env.OPENAI_API_KEY,
 
     /**
-     * Global context to guide the AI in generating translations.
+     * 翻訳を生成する際に AI を導くためのグローバルコンテキスト。
      */
-    applicationContext: "This is a travel booking application.",
+    applicationContext: "これは旅行予約アプリケーションです。",
 
     /**
-     * Base URL for the AI API.
+     * AI API のベース URL。
      */
     baseURL: "http://localhost:3000",
 
     /**
-     * データシリアライゼーション
+     * データシリアル化 (Data Serialization)
      *
      * オプション:
-     * - "json": 標準、信頼性あり。より多くのトークンを使用します。
-     * - "toon": より少ないトークンを使用しますが、JSON ほど一貫性がありません。
+     * - "json": デフォルト、堅牢、より多くのトークンを消費します。
+     * - "toon": トークンの消費が少なく、JSON ほど一貫性がない場合があります。
      *
      * デフォルト: "json"
      */
@@ -347,170 +371,170 @@ const config: IntlayerConfig = {
   },
 
   /**
-   * Build and optimization settings.
+   * ビルドと最適化の設定。
    */
   build: {
     /**
-     * Build execution mode.
-     * - "auto": Automatic build during app build.
-     * - "manual": Requires explicit build command.
-     * Default: "auto"
+     * ビルド実行モード。
+     * - "auto": アプリケーションのビルド中に自動的にビルド。
+     * - "manual": 明示的なビルドコマンドが必要。
+     * デフォルト: "auto"
      */
     mode: "auto",
 
     /**
-     * Whether to optimize the final bundle by pruning unused dictionaries.
-     * Default: true in production
+     * 未使用の辞書を削除して、最終的なバンドルを最適化するかどうか。
+     * デフォルト: 本番環境では true
      */
     optimize: true,
 
     /**
-     * Output format for generated dictionary files.
-     * Default: ['esm', 'cjs']
+     * 生成された辞書ファイルの出力形式。
+     * デフォルト: ['cjs', 'esm']
      */
-    outputFormat: ["esm"],
+    outputFormat: ["cjs", "esm"],
 
     /**
-     * Indicates if the build should check TypeScript types.
-     * Default: false
+     * ビルドが TypeScript の型をチェックするかどうかを指定します。
+     * デフォルト: false
      */
     checkTypes: false,
   },
 
   /**
-   * Logger configuration.
+   * ロガー設定。
    */
   log: {
     /**
-     * Logging level.
-     * - "default": Standard logging.
-     * - "verbose": Detailed debug logging.
-     * - "disabled": No logging.
-     * Default: "default"
+     * ログレベル。
+     * - "default": 標準的なロギング。
+     * - "verbose": 詳細なデバッグロギング。
+     * - "disabled": ロギングを無効化。
+     * デフォルト: "default"
      */
     mode: "default",
 
     /**
-     * Prefix for all log messages.
-     * Default: "[intlayer]"
+     * すべてのログメッセージのプレフィックス。
+     * デフォルト: "[intlayer]"
      */
     prefix: "[intlayer]",
   },
 
   /**
-   * System configuration (Advanced use cases)
+   * システム設定 (高度な使用向け)
    */
   system: {
     /**
-     * Directory for storing localization dictionaries.
+     * ローカライズされた辞書を保存するためのディレクトリ。
      */
     dictionariesDir: ".intlayer/dictionary",
 
     /**
-     * Directory for module augmentation.
+     * TypeScript モジュール拡張用のディレクトリ。
      */
     moduleAugmentationDir: ".intlayer/types",
 
     /**
-     * Directory for storing unmerged dictionaries.
+     * マージされていない辞書を保存するためのディレクトリ。
      */
     unmergedDictionariesDir: ".intlayer/unmerged_dictionary",
 
     /**
-     * Directory for storing dictionary types.
+     * 辞書の型を保存するためのディレクトリ。
      */
     typesDir: ".intlayer/types",
 
     /**
-     * Directory where main application files are stored.
+     * メインアプリケーションファイルが保存されるディレクトリ。
      */
     mainDir: ".intlayer/main",
 
     /**
-     * Directory where the configuration files are stored.
+     * 設定ファイルが保存されるディレクトリ。
      */
     configDir: ".intlayer/config",
 
     /**
-     * Directory where the cache files are stored.
+     * キャッシュファイルが保存されるディレクトリ。
      */
     cacheDir: ".intlayer/cache",
   },
 
   /**
-   * Compiler configuration (Advanced use cases)
+   * コンパイラ設定 (高度な使用向け)
    */
   compiler: {
     /**
-     * コンパイラを有効にするかどうかを示します。
+     * コンパイラを有効にするかどうかを指定します。
      *
-     * - false : コンパイラを無効にします。
-     * - true : コンパイラを有効にします。
-     * - "build-only" : 開発中のコンパイラをスキップして起動時間を短縮します。
+     * - false: コンパイラを無効にします。
+     * - true: コンパイラを有効にします。
+     * - "build-only": 開発中のコンパイラをスキップし、起動速度を上げます。
      *
-     * デフォルト : false
+     * デフォルト: false
      */
     enabled: true,
 
     /**
-     * 出力ファイルのパスを定義します。 `outputDir` を置き換えます。
+     * 出力ファイルのパスを定義します。`outputDir` を置き換えます。
      *
-     * - `./` で始まるパスは、コンポーネントディレクトリを基準に解決されます。
-     * - `/` で始まるパスは、プロジェクトのルート (`baseDir`) を基準に解決されます。
+     * - `./` パスはコンポーネントディレクトリを基準に解決されます。
+     * - `/` パスはプロジェクトルート (`baseDir`) を基準に解決されます。
      *
-     * - パスに `{{locale}}` 変数を含めると、言語ごとに分離された辞書の生成が有効になります。
+     * - パスに `{{locale}}` 変数を含めると、言語ごとに個別の辞書が作成されます。
      *
      * 例:
      * ```ts
      * {
-     *   // コンポーネントの隣に多言語対応の .content.ts ファイルを作成
+     *   // コンポーネントの隣に多言語の .content.ts ファイルを作成
      *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
      *
-     *   // output: './{{fileName}}{{extension}}', // 文字列テンプレートを使用した同等の記述
+     *   // output: './{{fileName}}{{extension}}', // テンプレート文字列を使用した同等の設定
      * }
      * ```
      *
      * ```ts
      * {
-     *   // プロジェクトのルートに言語ごとに集約された JSON ファイルを作成
+     *   // プロジェクトルートに言語ごとの一元化された JSON を作成
      *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
      *
-     *   // output: '/locales/{{locale}}/{{key}}.content.json', // 文字列テンプレートを使用した同等の記述
+     *   // output: '/locales/{{locale}}/{{key}}.content.json', // テンプレート文字列を使用した同等の設定
      * }
      * ```
      *
      * 変数リスト:
      *   - `fileName`: ファイル名。
-     *   - `key`: コンテンツのキー。
-     *   - `locale`: コンテンツのロケール。
+     *   - `key`: コンテンツキー。
+     *   - `locale`: コンテンツロケール。
      *   - `extension`: ファイル拡張子。
      *   - `componentFileName`: コンポーネントファイル名。
-     *   - `componentExtension`: コンポーネント拡張子。
-     *   - `format`: 辞書の形式。
-     *   - `componentFormat`: コンポーネント辞書の形式。
-     *   - `componentDirPath`: コンポーネントのディレクトリパス。
+     *   - `componentExtension`: コンポーネントファイル拡張子。
+     *   - `format`: 辞書形式。
+     *   - `componentFormat`: コンポーネント辞書形式。
+     *   - `componentDirPath`: コンポーネントディレクトリパス。
      */
     output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
 
     /**
-     * 変換後にコンポーネントを保存するかどうかを示します。
-     * これにより、コンパイラを1回だけ実行してアプリを変換し、その後削除することができます。
+     * コンポーネントを変換した後に保存するかどうか。
+     * これにより、アプリケーションを変換するためにコンパイラを一度だけ実行し、その後削除することができます。
      */
     saveComponents: false,
 
     /**
-     * 生成されたファイルにコンテンツのみを挿入します。
+     * 生成されたファイルにコンテンツのみを挿入します。i18next または ICU MessageFormat 形式の言語ごとの JSON 出力に役立ちます。
      */
     noMetadata: false,
 
     /**
-     * 辞書キーのプレフィックス
+     * 辞書キープレフィックス
      */
-    dictionaryKeyPrefix: "", // すべての辞書キーにプレフィックスを設定
+    dictionaryKeyPrefix: "", // 抽出された辞書キーにオプションのプレフィックスを追加
   },
 
   /**
-   * Custom schemas to validate the dictionaries content.
+   * 辞書コンテンツを検証するためのカスタムスキーマ。
    */
   schemas: {
     "my-schema": z.object({
@@ -519,7 +543,7 @@ const config: IntlayerConfig = {
   },
 
   /**
-   * Plugins configuration.
+   * プラグイン設定。
    */
   plugins: [],
 };
@@ -527,630 +551,372 @@ const config: IntlayerConfig = {
 export default config;
 ````
 
+---
+
 ## 設定リファレンス
 
-以下のセクションでは、Intlayerで利用可能なさまざまな設定項目について説明します。
+以下のセクションでは、Intlayer で利用可能なさまざまな設定項目について説明します。
 
 ---
 
-### 国際化設定
+### 国際化設定 (Internationalization Configuration)
 
-国際化に関連する設定を定義します。利用可能なロケールやアプリケーションのデフォルトロケールを含みます。
+利用可能なロケールやアプリケーションのデフォルトロケールなど、国際化に関する設定を定義します。
 
-#### プロパティ
-
-- **locales**:
-  - _型_: `string[]`
-  - _デフォルト_: `['en']`
-  - _説明_: アプリケーションでサポートされているロケールのリスト。
-  - _例_: `['en', 'fr', 'es']`
-
-- **requiredLocales**:
-  - _型_: `string[]`
-  - _デフォルト_: `[]`
-  - _説明_: アプリケーションで必須とされるロケールのリスト。
-  - _例_: `[]`
-  - _注意_: 空の場合、`strict` モードではすべてのロケールが必須となります。
-  - _注意_: 必須のロケールは `locales` フィールドにも定義されていることを確認してください。
-- **strictMode**:
-  - _型_: `string`
-  - _デフォルト_: `inclusive`
-  - _説明_: TypeScriptを使用して国際化コンテンツの強力な実装を保証します。
-  - _注意_: "strict" に設定すると、翻訳関数 `t` は宣言されたすべてのロケールが定義されていることを要求します。ロケールが1つでも欠けているか、設定に宣言されていないロケールがある場合はエラーをスローします。
-  - _注意_: "inclusive" に設定すると、翻訳関数 `t` は宣言されたすべてのロケールが定義されていることを要求します。ロケールが1つでも欠けている場合は警告を出します。ただし、設定に宣言されていないが存在するロケールは許容します。
-  - _注意_: "loose" に設定すると、翻訳関数 `t` は存在する任意のロケールを受け入れます。
-
-- **defaultLocale**:
-  - _タイプ_: `string`
-  - _デフォルト_: `'en'`
-  - _説明_: 要求されたロケールが見つからない場合にフォールバックとして使用されるデフォルトのロケール。
-  - _例_: `'en'`
-  - _注意_: URL、クッキー、またはヘッダーでロケールが指定されていない場合に、どのロケールを使用するかを決定するために使用されます。
+| フィールド        | 型         | 説明                                                                                                                        | 例                   | 備考                                                                                                                                                                                                                                                                                        |
+| ----------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `locales`         | `string[]` | アプリケーションでサポートされるロケールのリスト。デフォルト: `[Locales.ENGLISH]`                                           | `['en', 'fr', 'es']` |                                                                                                                                                                                                                                                                                             |
+| `requiredLocales` | `string[]` | アプリケーションにおける必須ロケールのリスト。デフォルト: `[]`                                                              | `[]`                 | 空の場合、`strict` モードではすべてのロケールが必須になります。必須ロケールが `locales` フィールドでも定義されていることを確認してください。                                                                                                                                                |
+| `strictMode`      | `string`   | TypeScript を使用した堅牢な国際化コンテンツの実装を保証します。デフォルト: `inclusive`                                      |                      | `"strict"` の場合: `t` 関数は宣言されたすべてのロケールが定義されていることを要求します。欠落しているか未宣言の場合はエラーをスローします。 `"inclusive"` の場合: ロケールの欠落を警告しますが、既存の未宣言ロケールを受け入れます。 `"loose"` の場合: 既存の任意のロケールを受け入れます。 |
+| `defaultLocale`   | `string`   | リクエストされたロケールが見つからない場合にフォールバックとして使用されるデフォルトロケール。デフォルト: `Locales.ENGLISH` | `'en'`               | URL、クッキー、またはヘッダーでロケールが指定されていない場合にロケールを決定するために使用されます。                                                                                                                                                                                       |
 
 ---
 
-### エディター設定
+### エディター設定 (Editor Configuration)
 
-統合エディターに関連する設定を定義します。サーバーポートやアクティブ状態などが含まれます。
+サーバーポートやアクティビティ状態など、統合エディターに関連する設定を定義します。
 
-#### プロパティ
+| フィールド                   | 型                        | 説明                                                                                                                                                                                            | 例                                                                                    | 備考                                                                                                                                                                                                                                       |
+| ---------------------------- | ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `applicationURL`             | `string`                  | アプリケーションの URL。デフォルト: `''`                                                                                                                                                        | `'http://localhost:3000'`, `'https://example.com'`, `process.env.INTLAYER_EDITOR_URL` | セキュリティ上の理由からエディターのオリジンを制限するために使用されます。 `'*'` に設定すると、任意のオリジンからエディターにアクセスできます。                                                                                            |
+| `port`                       | `number`                  | ビジュアルエディターサーバーで使用されるポート。デフォルト: `8000`                                                                                                                              |                                                                                       |                                                                                                                                                                                                                                            |
+| `editorURL`                  | `string`                  | エディターサーバーの URL。デフォルト: `'http://localhost:8000'`                                                                                                                                 | `'http://localhost:3000'`, `'https://example.com'`, `process.env.INTLAYER_EDITOR_URL` | アプリケーションと対話できるオリジンを制限するために使用されます。 `'*'` に設定すると、任意のオリジンからアクセス可能です。ポートを変更する場合や、エディターが別のドメインでホストされている場合は、設定する必要があります。              |
+| `cmsURL`                     | `string`                  | Intlayer CMS の URL。デフォルト: `'https://intlayer.org'`                                                                                                                                       | `'https://intlayer.org'`                                                              |                                                                                                                                                                                                                                            |
+| `backendURL`                 | `string`                  | バックエンドサーバーの URL。デフォルト: `https://back.intlayer.org`                                                                                                                             | `http://localhost:4000`                                                               |                                                                                                                                                                                                                                            |
+| `enabled`                    | `boolean`                 | アプリがビジュアルエディターと対話するかどうかを指定します。デフォルト: `true`                                                                                                                  | `process.env.NODE_ENV !== 'production'`                                               | `false` の場合、エディターはアプリと対話できません。特定の環境で無効にすることでセキュリティを強化できます。                                                                                                                               |
+| `clientId`                   | `string &#124; undefined` | oAuth2 を使用してバックエンドで認証できるようにします。アクセストークンを取得するには、[intlayer.org/project](https://app.intlayer.org/project) にアクセスしてください。デフォルト: `undefined` |                                                                                       | 秘密に保管し、環境変数に保存してください。                                                                                                                                                                                                 |
+| `clientSecret`               | `string &#124; undefined` | oAuth2 を使用してバックエンドで認証できるようにします。アクセストークンを取得するには、[intlayer.org/project](https://app.intlayer.org/project) にアクセスしてください。デフォルト: `undefined` |                                                                                       | 秘密に保管し、環境変数に保存してください。                                                                                                                                                                                                 |
+| `dictionaryPriorityStrategy` | `string`                  | ローカル辞書とリモート辞書の両方が存在する場合の辞書の優先順位付け戦略。デフォルト: `'local_first'`                                                                                             | `'distant_first'`                                                                     | `'distant_first'`: ローカルよりもリモートを優先します。 `'local_first'`: リモートよりもローカルを優先します。                                                                                                                              |
+| `liveSync`                   | `boolean`                 | CMS / ビジュアルエディター / バックエンドで変更が検出されたときに、アプリサーバーがコンテンツをホットリロードするかどうかを指定します。デフォルト: `true`                                       | `true`                                                                                | 辞書が追加または更新されると、アプリはページコンテンツを更新します。ライブ同期はコンテンツを別のサーバーにアウトソーシングするため、パフォーマンスにわずかな影響を与える可能性があります。両方を同じマシンでホストすることをお勧めします。 |
+| `liveSyncPort`               | `number`                  | ライブ同期サーバーのポート。デフォルト: `4000`                                                                                                                                                  | `4000`                                                                                |                                                                                                                                                                                                                                            |
+| `liveSyncURL`                | `string`                  | ライブ同期サーバーの URL。デフォルト: `'http://localhost:{liveSyncPort}'`                                                                                                                       | `'https://example.com'`                                                               | デフォルトでは localhost を指しますが、リモートのライブ同期サーバーに変更可能です。                                                                                                                                                        |
 
-- **applicationURL**:
-  - _タイプ_: `string`
-  - _デフォルト_: `http://localhost:3000`
-  - _説明_: アプリケーションのURL。セキュリティ上の理由からエディターのオリジンを制限するために使用されます。
-  - _例_:
-    - `'http://localhost:3000'`
-    - `'https://example.com'`
-    - `process.env.INTLAYER_EDITOR_URL`
-  - _注意_: アプリケーションのURL。セキュリティ上の理由からエディターのオリジンを制限するために使用されます。`'*'`に設定すると、どのオリジンからでもエディターにアクセス可能になります。
+### ルーティング設定 (Routing Configuration)
 
-- **port**:
-  - _タイプ_: `number`
-  - _デフォルト_: `8000`
-  - _説明_: ビジュアルエディターサーバーが使用するポート。
+URL 構造、ロケールストレージ、ミドルウェア処理など、ルーティングの動作を制御する設定。
 
-- **editorURL**:
-  - _タイプ_: `string`
-  - _デフォルト_: `'http://localhost:8000'`
-  - _説明_: エディターサーバーのURL。セキュリティ上の理由からエディターのオリジンを制限するために使用されます。
-    - `'http://localhost:3000'`
-    - `'https://example.com'`
-    - `process.env.INTLAYER_EDITOR_URL`
-  - _注_: アプリケーションからアクセスするエディターサーバーのURL。セキュリティ上の理由から、アプリケーションとやり取りできるオリジンを制限するために使用されます。`'*'`に設定すると、エディターは任意のオリジンからアクセス可能になります。ポートを変更した場合やエディターが異なるドメインでホストされている場合に設定する必要があります。
+| フィールド | 型                                                                                                                                                   | 説明                                                                                                                                                        | 例                                                                                                                                                                                                 | 備考                                                                                                                                                                                                                                                                         |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mode`     | `'prefix-no-default' &#124; 'prefix-all' &#124; 'no-prefix' &#124; 'search-params'`                                                                  | ロケール処理のための URL ルーティングモード。デフォルト: `'prefix-no-default'`                                                                              | `'prefix-no-default'`: `/dashboard` (en) または `/fr/dashboard` (fr)。 `'prefix-all'`: `/en/dashboard`。 `'no-prefix'`: 他の方法でロケールが処理される。 `'search-params'`: `/dashboard?locale=fr` | クッキーやロケールストレージの管理には影響しません。                                                                                                                                                                                                                         |
+| `storage`  | `false &#124; 'cookie' &#124; 'localStorage' &#124; 'sessionStorage' &#124; 'header' &#124; CookiesAttributes &#124; StorageAttributes &#124; Array` | クライアントにロケールを保存するための構成。デフォルト: `['cookie', 'header']`                                                                              | `'localStorage'`, `[{ type: 'cookie', name: 'custom-locale', secure: true }]`                                                                                                                      | 下記の「ストレージオプション」の表を参照してください。                                                                                                                                                                                                                       |
+| `basePath` | `string`                                                                                                                                             | アプリケーション URL のベースパス。デフォルト: `''`                                                                                                         | `'/my-app'`                                                                                                                                                                                        | アプリが `https://example.com/my-app` にある場合、basePath は `'/my-app'` となり、URL は `https://example.com/my-app/en` のようになります。                                                                                                                                  |
+| `rewrite`  | `Record<string, StrictModeLocaleMap<string>>`                                                                                                        | 特定のパスに対してデフォルトのルーティングモードを上書きするカスタム URL リライトルール。動的パラメータ `[param]` をサポートします。デフォルト: `undefined` | 下記の例を参照                                                                                                                                                                                     | リライトルールは `mode` よりも優先されます。Next.js および Vite で動作します。 `getLocalizedUrl()` は一致するルールを自動的に適用します。 [カスタム URL リライト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/custom_url_rewrites.md) を参照してください。 |
 
-- **cmsURL**:
-  - _型_: `string`
-  - _デフォルト_: `'https://intlayer.org'`
-  - _説明_: Intlayer CMSのURL。
-  - _例_: `'https://intlayer.org'`
-  - _注_: Intlayer CMSのURL。
+**`rewrite` の例**:
 
-- **backendURL**:
-  - _型_: `string`
-  - _デフォルト_: `https://back.intlayer.org`
-  - _説明_: バックエンドサーバーのURL。
-  - _例_: `http://localhost:4000`
+```typescript
+routing: {
+  mode: "prefix-no-default", // フォールバック戦略
+  rewrite: nextjsRewrite({
+    "/about": {
+      en: "/about",
+      fr: "/a-propos",
+    },
+    "/product/[slug]": {
+      en: "/product/[slug]",
+      fr: "/produit/[slug]",
+    },
+    "/blog/[category]/[id]": {
+      en: "/blog/[category]/[id]",
+      fr: "/journal/[category]/[id]",
+    },
+  }),
+}
+```
 
-- **enabled**:
-  - _型_: `boolean`
-  - _デフォルト_: `true`
-  - _説明_: アプリケーションがビジュアルエディターと連携するかどうかを示します。
-  - _例_: `process.env.NODE_ENV !== 'production'`
-  - _注意_: true の場合、エディターはアプリケーションと連携可能です。false の場合、エディターはアプリケーションと連携できません。いずれの場合も、エディターはビジュアルエディターによってのみ有効化されます。特定の環境でエディターを無効にすることは、セキュリティを強化する方法の一つです。
+#### ストレージオプション (Storage Options)
 
-- **clientId**:
-  - _タイプ_: `string` | `undefined`
-  - _デフォルト_: `undefined`
-  - _説明_: clientId と clientSecret は、intlayer パッケージが oAuth2 認証を使用してバックエンドと認証するために使用されます。アクセストークンは、プロジェクトに関連するユーザーを認証するために使用されます。アクセストークンを取得するには、https://app.intlayer.org/project にアクセスしてアカウントを作成してください。
-  - _例_: `true`
-  - _注意_: 重要: clientId と clientSecret は秘密にしておく必要があり、公開しないでください。環境変数などの安全な場所に保管することをお勧めします。
+| 値                 | 説明                                                                                   | 備考                                                                                                                                                                                                  |
+| ------------------ | -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `'cookie'`         | クッキーにロケールを保存します。クライアント側とサーバー側の両方からアクセス可能です。 | GDPR 準拠のため、適切なユーザーの同意が得られていることを確認してください。 `CookiesAttributes` でカスタマイズ可能です (`{ type: 'cookie', name: 'custom-locale', secure: true, httpOnly: false }`)。 |
+| `'localStorage'`   | ブラウザにロケールを保存します。有効期限はありません。クライアント側のみ。             | 明示的にクリアされない限り期限切れになりません。 Intlayer プロキシはアクセスできません。 `StorageAttributes` でカスタマイズ可能です (`{ type: 'localStorage', name: 'custom-locale' }`)。             |
+| `'sessionStorage'` | ページセッションの間、ロケールを保存します。クライアント側のみ。                       | タブまたはウィンドウを閉じるとクリアされます。 Intlayer プロキシはアクセスできません。 `StorageAttributes` でカスタマイズ可能です (`{ type: 'sessionStorage', name: 'custom-locale' }`)。             |
+| `'header'`         | HTTP ヘッダーを介してロケールを保存または送信します。サーバー側のみ。                  | API 呼び出しに役立ちます。クライアント側からはアクセスできません。 `StorageAttributes` でカスタマイズ可能です (`{ type: 'header', name: 'custom-locale' }`)。                                         |
 
-- **clientSecret**:
-  - _タイプ_: `string` | `undefined`
-  - _デフォルト_: `undefined`
-  - _説明_: clientId と clientSecret は、intlayer パッケージが oAuth2 認証を使用してバックエンドと認証するために使用されます。アクセストークンは、プロジェクトに関連するユーザーを認証するために使用されます。アクセストークンを取得するには、https://app.intlayer.org/project にアクセスしてアカウントを作成してください。
-  - _例_: `true`
-  - _注意_: 重要: clientId と clientSecret は秘密にしておく必要があり、公開しないでください。環境変数などの安全な場所に保管することを推奨します。
+#### クッキー属性 (Cookie Attributes)
 
-- **dictionaryPriorityStrategy**:
-  - _タイプ_: `string`
-  - _デフォルト_: `'local_first'`
-  - _説明_: ローカル辞書と遠隔辞書の両方が存在する場合に、どちらを優先するかの戦略です。`'distant_first'` に設定すると、アプリケーションは遠隔辞書をローカル辞書より優先します。`'local_first'` に設定すると、アプリケーションはローカル辞書を遠隔辞書より優先します。
-  - _例_: `'distant_first'`
+クッキーによるストレージを使用する場合、追加のクッキー属性を設定できます。
 
-- **liveSync**:
-  - _型_: `boolean`
-  - _デフォルト_: `false`
-  - _説明_: CMS / ビジュアルエディター / バックエンドで変更が検出された際に、アプリケーションサーバーがコンテンツをホットリロードするかどうかを示します。
-  - _例_: `true`
-  - _注意_: 例えば、新しい辞書が追加または更新された場合、アプリケーションはページに表示するコンテンツを更新します。
-  - _注記_: ライブ同期はアプリケーションのコンテンツを別のサーバーに外部化する必要があります。これはアプリケーションのパフォーマンスにわずかな影響を与える可能性があります。これを制限するために、アプリケーションとライブ同期サーバーを同じマシン上にホストすることを推奨します。また、ライブ同期と `optimize` の組み合わせはライブ同期サーバーへのリクエスト数を大幅に増加させる可能性があります。インフラストラクチャに応じて、両方のオプションおよびその組み合わせをテストすることを推奨します。
+| フィールド | 型                                    | 説明                                          |
+| ---------- | ------------------------------------- | --------------------------------------------- |
+| `name`     | `string`                              | クッキー名。デフォルト: `'INTLAYER_LOCALE'`   |
+| `domain`   | `string`                              | クッキーのドメイン。デフォルト: `undefined`   |
+| `path`     | `string`                              | クッキーのパス。デフォルト: `undefined`       |
+| `secure`   | `boolean`                             | HTTPS を必須にします。デフォルト: `undefined` |
+| `httpOnly` | `boolean`                             | HTTP-only フラグ。デフォルト: `undefined`     |
+| `sameSite` | `'strict' &#124; 'lax' &#124; 'none'` | SameSite ポリシー。                           |
+| `expires`  | `Date &#124; number`                  | 有効期限または日数。デフォルト: `undefined`   |
 
-- **liveSyncPort**:
-  - _タイプ_: `number`
-  - _デフォルト_: `4000`
-  - _説明_: ライブ同期サーバーのポート番号。
-  - _例_: `4000`
-  - _注記_: ライブ同期サーバーのポート番号。
+#### ロケールストレージ属性 (Locale Storage Attributes)
 
-- **liveSyncURL**:
-  - _タイプ_: `string`
-  - _デフォルト_: `'http://localhost:{liveSyncPort}'`
-  - _説明_: ライブシンクサーバーのURL。
-  - _例_: `'https://example.com'`
-  - _注意_: デフォルトではlocalhostを指しますが、リモートのライブシンクサーバーの場合は任意のURLに変更可能です。
+localStorage または sessionStorage を使用する場合:
 
-### ミドルウェア設定
+| フィールド | 型                                       | 説明                                                  |
+| ---------- | ---------------------------------------- | ----------------------------------------------------- |
+| `type`     | `'localStorage' &#124; 'sessionStorage'` | ストレージの種類。                                    |
+| `name`     | `string`                                 | ストレージキーの名前。デフォルト: `'INTLAYER_LOCALE'` |
 
-ミドルウェアの動作を制御する設定で、アプリケーションがクッキー、ヘッダー、ロケール管理のためのURLプレフィックスをどのように扱うかを含みます。
+#### 設定例
 
-#### プロパティ
+新しい v7 ルーティング構造の一般的な設定例をいくつか示します。
 
-- **headerName**:
-  - _型_: `string`
-  - _デフォルト_: `'x-intlayer-locale'`
-  - _説明_: ロケールを判定するために使用されるHTTPヘッダーの名前。
-  - _例_: `'x-custom-locale'`
-  - _注意_: APIベースのロケール判定に便利です。
+**基本設定 (デフォルト)**:
 
-- **cookieName**:
-  - _型_: `string`
-  - _デフォルト_: `'intlayer-locale'`
-  - _説明_: ロケールを保存するために使用されるクッキーの名前。
-  - _例_: `'custom-locale'`
-  - _注意_: セッション間でロケールを保持するために使用されます。
+```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
+// intlayer.config.ts
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: ["en", "fr", "es"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "prefix-no-default",
+    storage: "localStorage",
+    basePath: "",
+  },
+};
 
-- **prefixDefault**:
-  - _タイプ_: `boolean`
-  - _デフォルト_: `false`
-  - _説明_: デフォルトのロケールをURLに含めるかどうか。
-  - _例_: `true`
-  - _注意_:
-    - `true` かつ `defaultLocale = 'en'` の場合: パスは `/en/dashboard` または `/fr/dashboard`
-    - `false` かつ `defaultLocale = 'en'` の場合: パスは `/dashboard` または `/fr/dashboard`
+export default config;
+```
 
-- **basePath**:
-  - _タイプ_: `string`
-  - _デフォルト_: `''`
-  - _説明_: アプリケーションのURLのベースパス。
-  - _例_: `'/my-app'`
-  - _注意_:
-    - アプリケーションが `https://example.com/my-app` にホストされている場合
-    - ベースパスは `'/my-app'`
-    - URLは `https://example.com/my-app/en` となります
-    - ベースパスが設定されていない場合、URLは `https://example.com/en` となります
+**GDPR 準拠の設定**:
 
-- **rewrite**:
-  - _タイプ_: `Record<string, StrictModeLocaleMap<string>>`
-  - _デフォルト_: `undefined`
-  - _説明_: 特定のパスのデフォルトルーティングモードを上書きするカスタムURL書き換えルール。標準のルーティング動作とは異なる言語固有のパスを定義できます。`[param]` 構文を使用した動的ルートパラメータをサポートします。
-  - _例_:
-    ```typescript
-    routing: {
-      mode: "prefix-no-default", // フォールバック戦略
-      rewrite: nextjsRewrite({
-        "/[locale]/about": {
-          en: "/[locale]/about",
-          fr: "/[locale]/a-propos",
-        },
-        "/[locale]/product/[slug]": {
-          en: "/[locale]/product/[slug]",
-          fr: "/[locale]/produit/[slug]",
-        },
-        "/[locale]/blog/[category]/[id]": {
-          en: "/[locale]/blog/[category]/[id]",
-          fr: "/[locale]/journal/[category]/[id]",
-        },
-      }),
-    }
-    ```
-  - _注意_: 書き換えルールはデフォルトの `mode` 動作よりも優先されます。パスが書き換えルールに一致する場合、標準の言語プレフィックスの代わりに書き換え設定のローカライズされたパスが使用されます。
-  - _注意_: 動的ルートパラメータは角括弧表記（例：`[slug]`、`[id]`）を使用してサポートされます。パラメータ値はURLから自動的に抽出され、書き換えられたパスに補間されます。
-  - _注意_: Next.js と Vite アプリケーションで動作します。ミドルウェア/プロキシは、内部ルート構造に一致するように受信リクエストを自動的に書き換えます。
-  - _注意_: `getLocalizedUrl()` でURLを生成する場合、提供されたパスに一致する場合、書き換えルールが自動的に適用されます。
-  - _参照_: 詳細については、[カスタムURL書き換え](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/custom_url_rewrites.md)を参照してください。
+```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
+// intlayer.config.ts
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: ["en", "fr", "es"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "prefix-no-default",
+    storage: [
+      {
+        type: "localStorage",
+        name: "user-locale",
+      },
+      {
+        type: "cookie",
+        name: "user-locale",
+        secure: true,
+        sameSite: "strict",
+        httpOnly: false,
+      },
+    ],
+    basePath: "",
+  },
+};
 
-- **serverSetCookie**:
-  - _タイプ_: `string`
-  - _デフォルト_: `'always'`
-  - _説明_: サーバー側でロケールクッキーを設定するルール。
-  - _オプション_: `'always'`, `'never'`
-  - _例_: `'never'`
-  - _注意_: ロケールクッキーをすべてのリクエストで設定するか、まったく設定しないかを制御します。
+export default config;
+```
 
-- **noPrefix**:
-  - _タイプ_: `boolean`
-  - _デフォルト_: `false`
-  - _説明_: URLからロケールのプレフィックスを省略するかどうか。
-  - _例_: `true`
-  - _注意_:
-    - `true` の場合: URLにプレフィックスはありません
-    - `false` の場合: URLにプレフィックスがあります
-    - `basePath = '/my-app'` の例:
-      - `noPrefix = false` の場合: URLは `https://example.com/my-app/en`
-      - `noPrefix = true` の場合: URLは `https://example.com`
+**検索パラメータモード (Search Parameters Mode)**:
 
----
+```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
+// intlayer.config.ts
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: ["en", "fr", "es"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "search-params",
+    storage: "localStorage",
+    basePath: "",
+  },
+};
 
-### コンテンツ設定
+export default config;
+```
 
-アプリケーション内のコンテンツ処理に関連する設定。ディレクトリ名、ファイル拡張子、および派生設定を含みます。
+**カスタムストレージを使用したプレフィックスなしモード (No Prefix Mode)**:
 
-#### プロパティ
+```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
+// intlayer.config.ts
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: ["en", "fr", "es"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "no-prefix",
+    storage: {
+      type: "sessionStorage",
+      name: "app-locale",
+    },
+    basePath: "/my-app",
+  },
+};
 
-- **autoFill**:
-  - _型_: `boolean | string | FilePathPattern | { [key in Locales]?: string }`
-  - _デフォルト_: `undefined`
-  - _説明_: コンテンツをAIを使って自動的にどのように埋めるかを示します。`intlayer.config.ts`ファイルでグローバルに宣言することができます。
-  - _例_: true
-  - _例_: `'./{{fileName}}.content.json'`
-  - _例_: `{ fr: './{{fileName}}.fr.content.json', es: './{{fileName}}.es.content.json' }`
-  - _注意_: 自動埋め設定は以下のいずれかです:
-    - boolean: すべてのロケールで自動埋めを有効にする
-    - string: 単一ファイルのパスまたは変数を含むテンプレート
-    - object: ロケールごとのファイルパス
+export default config;
+```
 
-- **watch**:
-  - _型_: `boolean`
-  - _デフォルト_: `process.env.NODE_ENV === 'development'`
-  - _説明_: Intlayerがアプリ内のコンテンツ宣言ファイルの変更を監視し、関連する辞書を再構築するかどうかを示します。
+**動的パスを使用したカスタム URL リライト**:
 
-- **fileExtensions**:
-  - _型_: `string[]`
-  - _デフォルト_: `['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.tsx', '.content.jsx']`
-  - _説明_: 辞書を構築する際に探すファイル拡張子。
-  - _例_: `['.data.ts', '.data.js', '.data.json']`
-  - _注意_: ファイル拡張子をカスタマイズすることで競合を回避できます。
+```typescript
+// intlayer.config.ts
+import { nextjsRewrite } from "intlayer/routing";
 
-- **dictionaryOutput**:
-  - _タイプ_: `string[]`
-  - _デフォルト_: `['intlayer']`
-  - _説明_: 使用する辞書出力のタイプ。例：`'intlayer'` または `'i18next'`。
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: ["en", "fr"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "prefix-no-default", // リライトされないパスのフォールバック
+    storage: "cookie",
+    rewrite: nextjsRewrite({
+      "/about": {
+        en: "/about",
+        fr: "/a-propos",
+      },
+      "/product/[slug]": {
+        en: "/product/[slug]",
+        fr: "/produit/[slug]",
+      },
+      "/blog/[category]/[id]": {
+        en: "/blog/[category]/[id]",
+        fr: "/journal/[category]/[id]",
+      },
+    }),
+  },
+};
 
-- **contentDir**:
-  - _タイプ_: `string[]`
-  - _デフォルト_: `['.']`
-  - _例_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
-  - _説明_: コンテンツ定義ファイル（`.content.*`）が保存されているディレクトリパス。
-  - _注意_: これは辞書を再構築するためにコンテンツファイルを監視するために使用されます。
-
-- **codeDir**:
-  - _タイプ_: `string[]`
-  - _デフォルト_: `['.']`
-  - _例_: `['src', '../../ui-library']`
-  - _説明_: コードが保存されているディレクトリパス（ベースディレクトリからの相対パス）。
-  - _注意_: これはコードファイルを変換（プルーン、最適化）するために監視するために使用されます。これを `contentDir` から分離しておくことで、コンテンツファイルの不要なスキャンを避けることでビルドパフォーマンスを向上させることができます。
-
-- **dictionariesDir**:
-  - _タイプ_: `string`
-  - _デフォルト_: `'.intlayer/dictionaries'`
-  - _説明_: 中間結果または出力結果を保存するためのディレクトリパス。
-
-- **moduleAugmentationDir**:
-  - _タイプ_: `string`
-  - _デフォルト_: `'.intlayer/types'`
-  - _説明_: モジュール拡張用のディレクトリで、IDEの補完や型チェックを向上させるためのもの。
-  - _例_: `'intlayer-types'`
-  - _注意_: これを必ず `tsconfig.json` に含めてください。
-
-- **unmergedDictionariesDir**:
-  - _タイプ_: `string`
-  - _デフォルト_: `'.intlayer/unmerged_dictionary'`
-  - _説明_: マージされていない辞書を保存するためのディレクトリ。
-  - _例_: `'translations'`
-
-- **dictionariesDir**:
-  - _タイプ_: `string`
-  - _デフォルト_: `'.intlayer/dictionary'`
-  - _説明_: ローカリゼーション辞書を格納するディレクトリ。
-  - _例_: `'translations'`
-
-- **i18nextResourcesDir**:
-  - _タイプ_: `string`
-  - _デフォルト_: `'i18next_dictionary'`
-  - _説明_: i18n辞書を格納するディレクトリ。
-  - _例_: `'translations'`
-  - _注意_: このディレクトリがi18nextの出力タイプ用に設定されていることを確認してください。
-
-- **typesDir**:
-  - _タイプ_: `string`
-  - _デフォルト_: `'types'`
-  - _説明_: 辞書の型を格納するディレクトリ。
-  - _例_: `'intlayer-types'`
-
-- **mainDir**:
-  - _タイプ_: `string`
-  - _デフォルト_: `'main'`
-  - _説明_: メインアプリケーションファイルが格納されるディレクトリ。
-  - _例_: `'intlayer-main'`
-
-- **excludedPath**:
-  - _タイプ_: `string[]`
-  - _デフォルト_: `['node_modules']`
-  - _説明_: コンテンツ検索から除外するディレクトリ。
-  - _注意_: この設定はまだ使用されていませんが、将来的に実装予定です。
+export default config;
+```
 
 ---
 
-### システム設定
+### コンテンツ設定 (Content Configuration)
 
-Intlayerの内部パスと出力結果に関連する設定。これらの設定は通常内部的なものであり、ユーザーが変更する必要はありません。
+アプリケーション内でのコンテンツの処理に関する設定 (ディレクトリ名、ファイル拡張子、派生設定)。
 
-#### プロパティ
+| フィールド       | 型         | 説明                                                                                                                                                                                                  | 例                                  | 備考                                                                                                       |
+| ---------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `watch`          | `boolean`  | Intlayer が辞書を再構築するためにコンテンツ宣言ファイルの変更を監視するかどうかを指定します。デフォルト: `process.env.NODE_ENV === 'development'`                                                     |                                     |                                                                                                            |
+| `fileExtensions` | `string[]` | コンテンツ宣言ファイルをスキャンするために使用されるファイル拡張子。デフォルト: `['.content.ts', '.content.js', '.content.mjs', '.content.cjs', '.content.json', '.content.json5', '.content.jsonc']` | `['.content.ts', '.content.js']`    |                                                                                                            |
+| `contentDir`     | `string[]` | コンテンツ宣言ファイルが配置されているディレクトリへのパス。デフォルト: `['.']`                                                                                                                       | `['src/content']`                   |                                                                                                            |
+| `codeDir`        | `string[]` | アプリケーションのソースコードファイルが配置されているディレクトリへのパス。デフォルト: `['.']`                                                                                                       | `['src']`                           | ビルドを最適化し、コード変換とホットリロードが必要なファイルにのみ適用されるようにするために使用されます。 |
+| `excludedPath`   | `string[]` | コンテンツスキャンから除外されるパス。デフォルト: `['node_modules', '.intlayer', '.next', 'dist', 'build']`                                                                                           | `['src/styles']`                    |                                                                                                            |
+| `formatCommand`  | `string`   | 新しく作成または更新されたコンテンツファイルをフォーマットするために実行されるコマンド。デフォルト: `undefined`                                                                                       | `'npx prettier --write "{{file}}"'` | コンテンツ抽出時やビジュアルエディターを介して使用されます。                                               |
 
-- **baseDir**:
-  - _タイプ_: `string`
-  - _デフォルト_: `process.cwd()`
-  - _説明_: プロジェクトのベースディレクトリ。
-  - _例_: `'/path/to/project'`
-  - _注意_: これはすべてのIntlayer関連ディレクトリを解決するために使用されます。
+---
 
-### 辞書設定
+### 辞書設定 (Dictionary Configuration)
 
-自動入力の動作やコンテンツ生成を含む、辞書操作を制御する設定。
+自動入力動作やコンテンツ生成など、辞書操作を制御する設定。
 
-この辞書設定には、主に2つの目的があります：
+この辞書設定には、主に 2 つの目的があります：
 
-1. **デフォルト値**: コンテンツ宣言ファイルを作成する際のデフォルト値を定義
-2. **フォールバック動作**: 特定のフィールドが定義されていない場合のフォールバック値を提供し、辞書操作の動作をグローバルに定義できるようにする
+1. **デフォルト値**: コンテンツ宣言ファイルを作成する際のデフォルト値を定義します。
+2. **フォールバック動作**: 特定のフィールドが定義されていない場合にフォールバック値を提供し、辞書操作の動作をグローバルに定義できるようにします。
 
 コンテンツ宣言ファイルと設定値の適用方法の詳細については、[コンテンツファイルのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。
 
-#### プロパティ
+| フィールド                  | 型                                                                                              | 説明                                                                                       | 例             | 備考                                                                                                                                                                                                                                                                                                                                                                             |
+| --------------------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `fill`                      | `boolean &#124; FilePathPattern &#124; Partial<Record<Locale, boolean &#124; FilePathPattern>>` | 自動入力（AI 翻訳）出力ファイルの生成方法を制御します。デフォルト: `true`                  | 下記の例を参照 | `true`: デフォルトパス（ソースと同じファイル）。 `false`: 無効。文字列/関数テンプレートはロケールごとにファイルを生成します。ロケールごとのオブジェクト：各ロケールが独自のパターンにマップされます。 `false` はそのロケールをスキップします。 `{{locale}}` を含めると、ロケールごとの生成がトリガーされます。辞書レベルの `fill` は、常にこのグローバル設定よりも優先されます。 |
+| `importMode`                | `'static' &#124; 'dynamic' &#124; 'fetch'`                                                      | 辞書のインポート方法を制御します。デフォルト: `'static'`                                   | `'dynamic'`    | `'static'`: 静的にインポートされます。 `'dynamic'`: Suspense を使用して動的にインポートされます。 `'fetch'`: Live Sync API を介して動的に取得されます。 `getIntlayer`, `getDictionary`, `useDictionary` などには影響しません。                                                                                                                                                   |
+| `location`                  | `'local' &#124; 'remote' &#124; 'hybrid' &#124; string`                                         | 辞書の保存場所。デフォルト: `'local'`                                                      | `'remote'`     | `'local'`: ファイルシステム。 `'remote'`: Intlayer CMS。 `'hybrid'`: 両方。                                                                                                                                                                                                                                                                                                      |
+| `contentAutoTransformation` | `boolean`                                                                                       | コンテンツファイルを自動的に変換するかどうか (例: Markdown から HTML)。デフォルト: `false` | `true`         | @intlayer/markdown を介して Markdown フィールドを処理するのに役立ちます。                                                                                                                                                                                                                                                                                                        |
 
-- **fill**:
-  - _Type_: `Fill` (`boolean | FilePathPattern | Partial<Record<Locale, boolean | FilePathPattern>>`)
-  - _Default_: `true`
-  - _Description_: Controls how auto-fill (AI translation) output files are generated for this dictionary. When set at the config level (`dictionary.fill`), it serves as the default for all dictionaries. Each dictionary can override this with its own `fill` field.
-  - _Options_:
-    - `true`: Use the default output path (same file as the source dictionary).
-    - `false`: Disable auto-fill for this dictionary.
-    - String template: `'/locales/{{locale}}/{{key}}.content.json'` — generates one file per locale using the template.
-    - Function: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\`` — generates one file per locale using a function.
-    - Object per-locale: `{ en: '...', fr: '...', es: false }` — each locale maps to its own pattern; `false` skips that locale.
-  - _Note_: Including `{{locale}}` in the pattern (or using an object) triggers per-locale file generation. Without it, a single multilingual file is written.
-  - _Note_: A dictionary-level `fill` always takes priority over `dictionary.fill` from the global config.
-  - _Example_:
-    ```ts
-    dictionary: {
-      fill: {
-        en: '/locales/en/{{key}}.content.json',
-        fr: ({ key }) => `/locales/fr/${key}.content.json`,
-        es: false,
-      }
-    }
-    ```
-- **description**
-- **locale**
-- **location**
-- **priority**
-- **live**
-- **schema**
-- **title**
-- **tags**
-- **version**
+**`fill` の例**:
+
+```ts
+dictionary: {
+  fill: {
+    en: '/locales/en/{{key}}.content.json',
+    fr: ({ key }) => `/locales/fr/${key}.content.json`,
+    es: false,
+  }
+}
+```
 
 ---
 
-### ロガー設定
+### AI 設定 (AI Configuration)
 
-ロガーを制御する設定で、使用するプレフィックスも含みます。
+翻訳構築などの Intlayer の AI 搭載機能の設定を定義します。
 
-#### プロパティ
-
-- **mode**:
-  - _タイプ_: `string`
-  - _デフォルト_: `default`
-  - _説明_: ロガーのモードを示します。
-  - _オプション_: `default`, `verbose`, `disabled`
-  - _例_: `default`
-  - _注意_: ロガーのモードです。verboseモードはより多くの情報をログに記録しますが、デバッグ目的で使用されます。disabledモードはロガーを無効にします。
-
-- **prefix**:
-  - _タイプ_: `string`
-  - _デフォルト_: `'[intlayer] '`
-  - _説明_: ロガーのプレフィックス。
-  - _例_: `'[my custom prefix] '`
-  - _注_: ロガーのプレフィックス。
-
-### AI構成
-
-IntlayerのAI機能を制御する設定で、プロバイダー、モデル、APIキーを含みます。
-
-この設定は、アクセスキーを使用して[Intlayerダッシュボード](https://app.intlayer.org/project)に登録している場合はオプションです。Intlayerは、最も効率的でコスト効果の高いAIソリューションを自動的に管理します。デフォルトのオプションを使用することで、Intlayerが継続的に最適なモデルを使用するように更新されるため、長期的な保守性が向上します。
-
-独自のAPIキーや特定のモデルを使用したい場合は、カスタムAI構成を定義できます。
-このAI構成は、Intlayer環境全体でグローバルに使用されます。CLIコマンドはこれらの設定をコマンド（例：`fill`）のデフォルトとして使用し、SDK、ビジュアルエディター、CMSでも同様です。特定のユースケースに対しては、コマンドパラメータを使ってこれらのデフォルト値を上書きすることができます。
-
-Intlayerは、柔軟性と選択肢を高めるために複数のAIプロバイダーをサポートしています。現在サポートされているプロバイダーは以下の通りです：
-
-- **OpenAI**（デフォルト）
-- **Anthropic Claude**
-- **Mistral AI**
-- **DeepSeek**
-- **Google Gemini**
-- **Meta Llama**
-- **Ollama**
-- **OpenRouter**
-- **Alibaba Cloud**
-- **Fireworks**
-- **Hugging Face**
-- **Groq**
-- **Amazon Bedrock**
-- **Google AI Studio**
-- **Google Vertex**
-- **Together.ai**
-- **ollama**
-
-#### プロパティ
-
-- **provider**:
-  - _タイプ_: `string`
-  - _デフォルト_: `'openai'`
-  - _説明_: IntlayerのAI機能に使用するプロバイダー。
-  - _オプション_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googleaistudio'`, `'googlevertex'`, `'togetherai'`
-  - _例_: `'anthropic'`
-  - _注意_: プロバイダーによっては異なるAPIキーが必要であり、料金体系も異なる場合があります。
-
-- **model**:
-  - _タイプ_: `string`
-  - _デフォルト_: なし
-  - _説明_: IntlayerのAI機能で使用するモデル。
-  - _例_: `'gpt-4o-2024-11-20'`
-  - _注意_: 使用するモデルはプロバイダーによって異なります。
-
-- **temperature**:
-  - _タイプ_: `number`
-  - _デフォルト_: なし
-  - _説明_: AIの応答のランダム性を制御する温度パラメータ。
-  - _例_: `0.1`
-  - _注意_: 温度が高いほど、AIの応答はより創造的で予測不可能になります。
-
-- **apiKey**:
-  - _タイプ_: `string`
-  - _デフォルト_: なし
-  - _説明_: 選択したプロバイダーのAPIキー。
-  - _例_: `process.env.OPENAI_API_KEY`
-  - _注意_: 重要: APIキーは秘密にしておく必要があり、公開しないでください。環境変数などの安全な場所に保管することを必ず行ってください。
-
-- **applicationContext**:
-  - _タイプ_: `string`
-  - _デフォルト_: なし
-  - _説明_: AIモデルに対してアプリケーションの追加コンテキストを提供し、より正確で文脈に適した翻訳を生成するのに役立ちます。これには、アプリのドメイン、ターゲットユーザー、トーン、特定の用語などの情報が含まれます。
-
-- **baseURL**:
-  - _タイプ_: `string`
-  - _デフォルト_: なし
-  - _説明_: AI APIのベースURL。
-  - _例_: `'https://api.openai.com/v1'`
-  - _注意_: ローカルまたはカスタムのAI APIエンドポイントを指すために使用できます。
-
-- **dataSerialization**:
-  - _型_: `'json' | 'toon'`
-  - _デフォルト_: `'json'`
-  - _説明_: IntlayerのAI機能に使用するデータシリアライズ形式。
-  - _例_: `'toon'`
-  - _注_: `json`: 標準的で信頼性が高い。より多くのトークンを使用します。`toon`: トークン消費が少ないが、JSONほど一貫性がない。
-
-### ビルド設定
-
-Intlayerがアプリケーションの国際化をどのように最適化しビルドするかを制御する設定。
-
-ビルドオプションは `@intlayer/babel` と `@intlayer/swc` プラグインに適用されます。
-
-> 開発モードでは、Intlayer は辞書を静的にインポートして、開発体験を簡素化します。
-
-> 最適化された場合、Intlayer は辞書の呼び出しを置き換えてチャンク分割を最適化し、最終バンドルには実際に使用されている辞書のみがインポートされるようにします。
-
-#### プロパティ
-
-- **mode**:
-  - _型_: `'auto' | 'manual'`
-  - _デフォルト_: `'auto'`
-  - _説明_: ビルドのモードを制御します。
-  - _例_: `'manual'`
-  - _注意_: 'auto'の場合、アプリケーションがビルドされると自動的にビルドが有効になります。
-  - _注意_: 'manual'の場合、ビルドコマンドが実行されたときにのみビルドが設定されます。
-  - _注意_: 辞書のビルドを無効にするために使用できます。たとえば、Node.js環境での実行を避ける必要がある場合などです。
-
-- **checkTypes**:
-  - _タイプ_: `boolean`
-  - _デフォルト_: `false`
-  - _説明_: ビルドがTypeScriptの型をチェックし、エラーをログに記録するかどうかを示します。
-  - _注_: これにより、ビルドが遅くなる可能性があります。
-
-- **optimize**:
-  - _型_: `boolean`
-  - _デフォルト_: `process.env.NODE_ENV === 'production'`
-  - _説明_: ビルドを最適化するかどうかを制御します。
-  - _例_: `true`
-  - _注意_: 有効にすると、Intlayer は辞書のすべての呼び出しを置き換えてチャンク分割を最適化します。これにより、最終バンドルは使用されている辞書のみをインポートします。すべてのインポートは辞書の読み込み時の非同期処理を避けるために静的インポートのまま維持されます。
-  - _注意_: Intlayerは、`useIntlayer`のすべての呼び出しを`importMode`オプションで定義されたモードに置き換え、`getIntlayer`を`getDictionary`に置き換えます。
-  - _注意_: このオプションは`@intlayer/babel`および`@intlayer/swc`プラグインに依存しています。
-  - _注意_: `useIntlayer`の呼び出し内で、すべてのキーが静的に宣言されていることを確認してください。例: `useIntlayer('navbar')`。
-
-- **outputFormat**:
-  - _型_: `'esm' | 'cjs'`
-  - _デフォルト_: `'esm'`
-  - _説明_: 辞書の出力形式を制御します。
-  - _例_: `'cjs'`
-  - _注意_: 辞書の出力形式。
-
-- **traversePattern**:
-  - _型_: `string[]`
-  - _デフォルト_: `['**/*.{js,ts,mjs,cjs,jsx,tsx}', '!**/node_modules/**']`
-  - _説明_: 最適化中にどのファイルを走査するかを定義するパターンです。
-    - _例_: `['src/**\/*.{ts,tsx}', '../ui-library/**\/*.{ts,tsx}', '!**/node_modules/**']`
-  - _注意_: 最適化を関連するコードファイルに限定し、ビルドパフォーマンスを向上させるために使用します。
-  - _注意_: `optimize` が無効の場合、このオプションは無視されます。
-  - _注意_: グロブパターンを使用してください。
+| フィールド           | 型                     | 説明                                                            | 例                                          | 備考                                                                                              |
+| -------------------- | ---------------------- | --------------------------------------------------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `provider`           | `string`               | 使用する AI プロバイダー。                                      | `'openai'`, `'anthropic'`, `'googlevertex'` |                                                                                                   |
+| `model`              | `string`               | 使用する AI モデル。                                            | `'gpt-4o'`, `'claude-3-5-sonnet-20240620'`  |                                                                                                   |
+| `apiKey`             | `string`               | 選択したプロバイダーの API キー。                               | `process.env.OPENAI_API_KEY`                |                                                                                                   |
+| `applicationContext` | `string`               | AI 翻訳の精度を向上させるためのアプリに関する追加コンテキスト。 | `'子供向けの学習プラットフォーム。'`        |                                                                                                   |
+| `baseURL`            | `string`               | API 呼び出し用のオプションのベース URL。                        |                                             | プロキシやローカル AI デプロイメントを使用している場合に役立ちます。                              |
+| `dataSerialization`  | `'json' &#124; 'toon'` | AI にデータを送信する方法を定義します。デフォルト: `'json'`     | `'json'`                                    | `'json'`: より堅牢で正確。 `'toon'`: トークンの消費は少ないですが、安定性に欠ける場合があります。 |
 
 ---
 
-### コンパイラ設定
+### ビルド設定 (Build Configuration)
 
-コンポーネントから直接辞書を抽出する Intlayer コンパイラを制御する設定。
+Intlayer のビルドプロセスと最適化に関する設定。
 
-#### プロパティ
+| フィールド     | 型                       | 説明                                                                                                 | 例  | 備考 |
+| -------------- | ------------------------ | ---------------------------------------------------------------------------------------------------- | --- | ---- |
+| `mode`         | `'auto' &#124; 'manual'` | アプリのプリビルドステップ中に Intlayer を自動的に実行するかどうかを指定します。デフォルト: `'auto'` |     |      |
+| `optimize`     | `boolean`                | コンパイルされた辞書を実行時用に最適化するかどうかを指定します。デフォルト: 本番環境では `true`      |     |      |
+| `outputFormat` | `('cjs' &#124; 'esm')[]` | 生成された辞書ファイルの出力形式。デフォルト: `['cjs', 'esm']`                                       |     |      |
+| `checkTypes`   | `boolean`                | Intlayer が生成されたファイルの型をチェックするかどうかを指定します。デフォルト: `false`             |     |      |
 
-- **enabled**:
-  - _型_: `boolean | 'build-only'`
-  - _デフォルト_: `true`
-  - _説明_: 辞書を抽出するためにコンパイラを有効にするかどうかを示します。
-  - _例_: `'build-only'`
-  - _注意_: `'build-only'` に設定すると、開発モード中にコンパイラをスキップして起動時間を短縮します。ビルドコマンドでのみ実行されます。
+---
 
-- **dictionaryKeyPrefix**:
-  - _型_: `string`
-  - _デフォルト_: `''`
-  - _説明_: 抽出された辞書キーのプレフィックス。
-  - _例_: `'my-key-'`
-  - _注意_: 辞書が抽出される際、キーはファイル名に基づいて生成されます。このプレフィックスは、競合を防ぐために生成されたキーに追加されます。
+### システム設定 (System Configuration)
 
-- **saveComponents**:
-  - _型_: `boolean`
-  - _デフォルト_: `false`
-  - _説明_: 変換後にコンポーネントを保存するかどうかを示します。
-  - _注意_: true の場合、コンパイラは元のファイルを変換後のファイルで置き換えます。これにより、コンパイラを一度だけ実行してアプリケーションを変換し、その後コンパイラを削除することができます。
+これらは高度なユースケースおよび Intlayer の内部構成用の設定です。
 
-- **transformPattern**:
-  - _型_: `string | string[]`
-  - _デフォルト_: `['**/*.{ts,tsx,jsx,js,cjs,mjs,svelte,vue}', '!**/node_modules/**']`
-  - _説明_: 最適化中に走査されるファイルを定義するパターン。
-  - _例_: `['src/**/*.{ts,tsx}', '!**/node_modules/**']`
-  - _注意_: 最適化を関連するコードファイルに限定し、ビルドパフォーマンスを向上させるために使用します。
+| フィールド                | 型       | 説明                                         | デフォルト                        |
+| ------------------------- | -------- | -------------------------------------------- | --------------------------------- |
+| `dictionariesDir`         | `string` | コンパイルされた辞書のディレクトリ。         | `'.intlayer/dictionary'`          |
+| `moduleAugmentationDir`   | `string` | TypeScript モジュール拡張ディレクトリ。      | `'.intlayer/types'`               |
+| `unmergedDictionariesDir` | `string` | マージされていない辞書のディレクトリ。       | `'.intlayer/unmerged_dictionary'` |
+| `typesDir`                | `string` | 生成された型のディレクトリ。                 | `'.intlayer/types'`               |
+| `mainDir`                 | `string` | メインの Intlayer ファイルディレクトリ。     | `'.intlayer/main'`                |
+| `configDir`               | `string` | コンパイルされた設定ファイルのディレクトリ。 | `'.intlayer/config'`              |
+| `cacheDir`                | `string` | キャッシュファイルのディレクトリ。           | `'.intlayer/cache'`               |
 
-- **excludePattern**:
-  - _型_: `string | string[]`
-  - _デフォルト_: `['**/node_modules/**']`
-  - _説明_: 最適化中に除外されるファイルを定義するパターン。
-  - _例_: `['**/node_modules/**', '!**/node_modules/react/**']`
+---
 
-- **output**:
-  - _型_: `Fill`
-  - _デフォルト_: `undefined`
-  - _説明_: 出力ファイルのパスを定義します。 `outputDir` を置き換えます。 文字列テンプレートまたは関数を通じて動的変数をサポートします。 サポートされている変数: `{{fileName}}`, `{{key}}`, `{{locale}}`, `{{extension}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{format}}`, `{{componentFormat}}`, および `{{componentDirPath}}`。
-  - _注_: `./` で始まるパスは、コンポーネントディレクトリを基準に解決されます。 `/` で始まるパスは、プロジェクトのルート (`baseDir`) を基準に解決されます。
-  - _注_: パスに `{{locale}}` 変数を含めると、ロケールごとに分離された辞書の生成が有効になります。
-  - _Note_: Supports an object per-locale notation where each locale key maps to its own pattern (string or function), or `false` to skip that locale entirely.
-  - _例_:
-    - **コンポーネントの隣に多言語ファイルを作成**:
-    - 文字列: `'./{{fileName}}{{extension}}'`
-    - 関数: `({ fileName, extension }) => \`./${fileName}${extension}\``
+### コンパイラ設定 (Compiler Configuration)
 
-    - **ロケールごとに集約された JSON を出力**:
-    - 文字列: `'/locales/{{locale}}/{{key}}.content.json'`
-    - 関数: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\``
+Intlayer コンパイラ (`intlayer compiler`) の設定。
 
-    - **Object per-locale (different pattern per locale, skip some)**:
+| フィールド            | 型                       | 説明                                                                             | デフォルト |
+| --------------------- | ------------------------ | -------------------------------------------------------------------------------- | ---------- |
+| `enabled`             | `boolean`                | コンパイラがアクティブかどうかを指定します。                                     | `false`    |
+| `output`              | `string &#124; Function` | 抽出された辞書の出力パス。                                                       |            |
+| `saveComponents`      | `boolean`                | オリジナルのソースファイルを変換後のバージョンで上書きするかどうかを指定します。 | `false`    |
+| `noMetadata`          | `boolean`                | `true` の場合、コンパイラは生成されたファイルにメタデータを含めません。          | `false`    |
+| `dictionaryKeyPrefix` | `string`                 | オプションの辞書キープレフィックス。                                             | `''`       |
 
-    ```ts
-    output: {
-      en: ({ key }) => `./locales/en/${key}.json`,
-      fr: '/locales/fr/{{key}}.content.json',
-      es: false, // skip Spanish
-    }
-    ```
+---
 
-- **noMetadata**:
-  - _タイプ_: `boolean`
-  - _デフォルト_: `false`
-  - _説明_: メタデータをファイルに保存するかどうかを示します。trueの場合、コンパイラーは辞書のメタデータ（キー、コンテンツラッパー）を保存しません。
-  - _注_: `loadJSON`プラグインを使用する場合に便利です。ロケールごとの i18next または ICU MessageFormat JSON 出力に有用です。
-  - _例_:
-    `true`の場合:
-    ```json
-    {
-      "key": "value"
-    }
-    ```
-    `false`の場合:
-    ```json
-    {
-      "key": "value",
-      "content": {
-        "key": "value"
-      }
-    }
-    ```
+### ロガー設定 (Logger Configuration)
+
+Intlayer のログ出力をカスタマイズするための設定。
+
+| フィールド | 型                                             | 説明                             | デフォルト     |
+| ---------- | ---------------------------------------------- | -------------------------------- | -------------- |
+| `mode`     | `'default' &#124; 'verbose' &#124; 'disabled'` | ロギングモード。                 | `'default'`    |
+| `prefix`   | `string`                                       | ログメッセージのプレフィックス。 | `'[intlayer]'` |
+
+---
+
+### カスタムスキーマ (Custom Schemas)
+
+| フィールド | 型                          | 説明                                                    |
+| ---------- | --------------------------- | ------------------------------------------------------- |
+| `schemas`  | `Record<string, ZodSchema>` | 辞書の構造を検証するための Zod スキーマを定義できます。 |
+
+---
+
+### プラグイン (Plugins)
+
+| フィールド | 型                 | 説明                                     |
+| ---------- | ------------------ | ---------------------------------------- |
+| `plugins`  | `IntlayerPlugin[]` | 有効にする Intlayer プラグインのリスト。 |

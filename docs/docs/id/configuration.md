@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-03-12
-title: Konfigurasi
+updatedAt: 2026-03-20
+title: Konfigurasi (Configuration)
 description: Pelajari cara mengonfigurasi Intlayer untuk aplikasi Anda. Pahami berbagai pengaturan dan opsi yang tersedia untuk menyesuaikan Intlayer sesuai kebutuhan Anda.
 keywords:
   - Konfigurasi
@@ -16,31 +16,40 @@ slugs:
 history:
   - version: 8.4.0
     date: 2026-03-20
-    changes: Add object per-locale notation for 'compiler.output' and 'dictionary.fill'
+    changes: Menambahkan notasi objek per-locale untuk 'compiler.output' dan 'dictionary.fill'
   - version: 8.3.0
     date: 2026-03-11
-    changes: Pindahkan 'baseDir' dari konfigurasi 'content' ke 'system'
+    changes: Memindahkan 'baseDir' dari konfigurasi 'content' ke konfigurasi 'system'
   - version: 8.2.0
     date: 2026-03-09
-    changes: Perbarui opsi kompiler, tambahkan dukungan 'output' dan 'noMetadata'
+    changes: Memperbarui opsi kompiler (compiler), menambahkan dukungan untuk 'output' dan 'noMetadata'
   - version: 8.1.7
     date: 2026-02-25
-    changes: Perbarui opsi kompiler
+    changes: Memperbarui opsi kompiler
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: Menambahkan opsi kompiler 'build-only' dan awalan kamus
   - version: 8.0.6
     date: 2026-02-12
-    changes: Tambahkan dukungan untuk penyedia Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, dan Together.ai
+    changes: Menambahkan dukungan untuk penyedia Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face, dan Together.ai
   - version: 8.0.5
     date: 2026-02-06
-    changes: Tambahkan `dataSerialization` ke konfigurasi AI
+    changes: Menambahkan `dataSerialization` ke konfigurasi AI
+  - version: 8.0.0
+    date: 2026-01-24
+    changes: Mengubah nama mode impor `live` menjadi `fetch` untuk mendeskripsikan mekanisme dasarnya dengan lebih baik.
   - version: 8.0.0
     date: 2026-01-22
-    changes: Pindahkan konfigurasi build importMode ke konfigurasi kamus.
+    changes: Memindahkan konfigurasi build `importMode` ke konfigurasi `dictionary`.
+  - version: 8.0.0
+    date: 2026-01-22
+    changes: Menambahkan opsi `rewrite` ke konfigurasi routing
   - version: 8.0.0
     date: 2026-01-18
-    changes: Pisahkan konfigurasi sistem dari konfigurasi konten. Pindahkan jalur internal ke properti `system`. Tambahkan `codeDir` untuk memisahkan file konten dari transformasi kode.
+    changes: Memisahkan konfigurasi sistem dari konfigurasi konten. Memindahkan jalur internal ke properti `system`. Menambahkan `codeDir` untuk memisahkan file konten dan transformasi kode.
   - version: 8.0.0
     date: 2026-01-18
-    changes: Tambahkan opsi kamus `location` dan `schema`
+    changes: Menambahkan opsi kamus `location` dan `schema`
   - version: 7.5.1
     date: 2026-01-10
     changes: Menambahkan dukungan untuk format file JSON5 dan JSONC
@@ -52,7 +61,7 @@ history:
     changes: Menambahkan konfigurasi `dictionary`
   - version: 7.0.0
     date: 2025-10-21
-    changes: Mengganti konfigurasi `middleware` dengan `routing`
+    changes: Mengganti `middleware` dengan konfigurasi `routing`
   - version: 7.0.0
     date: 2025-10-12
     changes: Menambahkan opsi `formatCommand`
@@ -67,7 +76,7 @@ history:
     changes: Menghapus field `dictionaryOutput` dan field `i18nextResourcesDir`
   - version: 6.0.0
     date: 2025-09-16
-    changes: Menambahkan mode import `live`
+    changes: Menambahkan mode impor `live`
   - version: 6.0.0
     date: 2025-09-04
     changes: Mengganti field `hotReload` dengan `liveSync` dan menambahkan field `liveSyncPort` serta `liveSyncURL`
@@ -84,9 +93,9 @@ history:
 
 # Dokumentasi Konfigurasi Intlayer
 
-## Ikhtisar
+## Ringkasan
 
-File konfigurasi Intlayer memungkinkan kustomisasi berbagai aspek plugin, seperti internasionalisasi, middleware, dan penanganan konten. Dokumen ini memberikan deskripsi rinci tentang setiap properti dalam konfigurasi.
+File konfigurasi Intlayer memungkinkan Anda untuk menyesuaikan berbagai aspek plugin, seperti internasionalisasi (internationalization), middleware, dan penanganan konten. Dokumentasi ini memberikan deskripsi mendalam tentang setiap properti dalam konfigurasi.
 
 ---
 
@@ -96,7 +105,7 @@ File konfigurasi Intlayer memungkinkan kustomisasi berbagai aspek plugin, sepert
 
 ---
 
-## Dukungan File Konfigurasi
+## Format File Konfigurasi yang Didukung
 
 Intlayer menerima format file konfigurasi JSON, JS, MJS, dan TS:
 
@@ -111,7 +120,7 @@ Intlayer menerima format file konfigurasi JSON, JS, MJS, dan TS:
 
 ---
 
-## Contoh file konfigurasi
+## Contoh File Konfigurasi
 
 ````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -119,108 +128,108 @@ import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
 
 /**
- * Example Intlayer configuration file showing all available options.
+ * Contoh file konfigurasi Intlayer yang menampilkan semua opsi yang tersedia.
  */
 const config: IntlayerConfig = {
   /**
-   * Configuration for internationalization settings.
+   * Konfigurasi pengaturan internasionalisasi.
    */
   internationalization: {
     /**
-     * List of supported locales in the application.
+     * Daftar locale yang didukung dalam aplikasi.
      * Default: [Locales.ENGLISH]
      */
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
 
     /**
-     * List of required locales that must be defined in every dictionary.
-     * If empty, all locales are required in `strict` mode.
+     * Daftar locale wajib yang harus didefinisikan dalam setiap kamus.
+     * Jika kosong, semua locale bersifat wajib dalam mode `strict`.
      * Default: []
      */
     requiredLocales: [Locales.ENGLISH],
 
     /**
-     * Strictness level for internationalized content.
-     * - "strict": Errors if any declared locale is missing or undeclared.
-     * - "inclusive": Warnings if a declared locale is missing.
-     * - "loose": Accepts any existing locale.
+     * Tingkat keketatan untuk konten yang diinternasionalisasi.
+     * - "strict": Error jika locale yang dideklarasikan hilang atau tidak dideklarasikan.
+     * - "inclusive": Peringatan jika locale yang dideklarasikan hilang.
+     * - "loose": Menerima locale apa pun yang ada.
      * Default: "inclusive"
      */
     strictMode: "inclusive",
 
     /**
-     * Default locale used as a fallback if the requested locale is not found.
+     * Locale default yang digunakan sebagai fallback jika locale yang diminta tidak ditemukan.
      * Default: Locales.ENGLISH
      */
     defaultLocale: Locales.ENGLISH,
   },
 
   /**
-   * Settings that control dictionary operations and fallback behavior.
+   * Pengaturan yang mengontrol operasi kamus dan perilaku fallback.
    */
   dictionary: {
     /**
-     * Controls how dictionaries are imported.
-     * - "static": Statically imported at build time.
-     * - "dynamic": Dynamically imported using Suspense.
-     * - "fetch": Fetched dynamically via the live sync API.
+     * Mengontrol bagaimana kamus diimpor.
+     * - "static": Diimpor secara statis saat waktu build.
+     * - "dynamic": Diimpor secara dinamis menggunakan Suspense.
+     * - "fetch": Diambil secara dinamis melalui API sinkronisasi langsung (live sync).
      * Default: "static"
      */
     importMode: "static",
 
     /**
-     * Strategy for auto-filling missing translations using AI.
-     * Can be a boolean or a path pattern to store filled content.
+     * Strategi untuk mengisi terjemahan yang hilang secara otomatis menggunakan AI.
+     * Dapat berupa nilai boolean atau pola jalur untuk menyimpan konten yang diisi.
      * Default: true
      */
     fill: true,
 
     /**
-     * Physical location of the dictionary files.
-     * - "local": Stored in the local filesystem.
-     * - "remote": Stored in the Intlayer CMS.
-     * - "hybrid": Stored in the local filesystem and the Intlayer CMS.
-     * - "plugin" (or any custom string): Provided by a plugin or a custom source.
+     * Lokasi fisik file kamus.
+     * - "local": Disimpan dalam sistem file lokal.
+     * - "remote": Disimpan di Intlayer CMS.
+     * - "hybrid": Disimpan di lokal dan di Intlayer CMS.
+     * - "plugin" (atau string kustom apa pun): Disediakan oleh plugin atau sumber kustom.
      * Default: "local"
      */
     location: "local",
 
     /**
-     * Whether to automatically transform content (e.g., Markdown to HTML).
+     * Apakah konten harus ditransformasi secara otomatis (misalnya Markdown ke HTML).
      * Default: false
      */
     contentAutoTransformation: false,
   },
 
   /**
-   * Routing and middleware configuration.
+   * Konfigurasi routing dan middleware.
    */
   routing: {
     /**
-     * Locale routing strategy.
-     * - "prefix-no-default": Prefix all except the default locale (e.g., /dashboard, /fr/dashboard).
-     * - "prefix-all": Prefix all locales (e.g., /en/dashboard, /fr/dashboard).
-     * - "no-prefix": No locale in the URL.
-     * - "search-params": Use ?locale=...
+     * Strategi routing locale.
+     * - "prefix-no-default": Menambahkan awalan ke semua kecuali locale default (misalnya /dashboard, /fr/dashboard).
+     * - "prefix-all": Menambahkan awalan ke semua locale (misalnya /en/dashboard, /fr/dashboard).
+     * - "no-prefix": Tidak ada locale di URL.
+     * - "search-params": Menggunakan ?locale=...
      * Default: "prefix-no-default"
      */
     mode: "prefix-no-default",
 
     /**
-     * Where to store the user's selected locale.
-     * Options: 'cookie', 'localStorage', 'sessionStorage', 'header', or an array of these.
+     * Tempat menyimpan locale yang dipilih pengguna.
+     * Opsi: 'cookie', 'localStorage', 'sessionStorage', 'header', atau array dari opsi-opsi tersebut.
      * Default: ['cookie', 'header']
      */
     storage: ["cookie", "header"],
 
     /**
-     * Base path for the application URLs.
+     * Jalur dasar untuk URL aplikasi.
      * Default: ""
      */
     basePath: "",
 
     /**
-     * Custom URL rewriting rules for locale-specific paths.
+     * Aturan penulisan ulang (rewrite) URL kustom untuk jalur spesifik per-locale.
      */
     rewrite: nextjsRewrite({
       "/[locale]/about": {
@@ -231,128 +240,130 @@ const config: IntlayerConfig = {
   },
 
   /**
-   * Settings for finding and processing content files.
+   * Pengaturan yang berkaitan dengan pencarian dan pemrosesan file konten.
    */
   content: {
     /**
-     * File extensions to scan for dictionaries.
-     * Default: ['.content.ts', '.content.js', '.content.json', etc.]
+     * Ekstensi file untuk memindai kamus.
+     * Default: ['.content.ts', '.content.js', '.content.json', dll]
      */
     fileExtensions: [".content.ts", ".content.js", ".content.json"],
 
     /**
-     * Directories where .content files are located.
+     * Direktori tempat file .content berada.
      * Default: ["."]
      */
     contentDir: ["src"],
 
     /**
-     * Directories where source code is located.
-     * Used for build optimization and code transformation.
+     * Direktori tempat kode sumber berada.
+     * Digunakan untuk optimasi build dan transformasi kode.
      * Default: ["."]
      */
     codeDir: ["src"],
 
     /**
-     * Patterns to exclude from scanning.
-     * Default: ['node_modules', '.intlayer', etc.]
+     * Pola yang dikecualikan dari pemindaian.
+     * Default: ['node_modules', '.intlayer', dll]
      */
     excludedPath: ["node_modules"],
 
     /**
-     * Whether to watch for changes and rebuild dictionaries in development.
-     * Default: true in development
+     * Apakah akan memantau perubahan dan membangun kembali kamus selama pengembangan.
+     * Default: true dalam pengembangan
      */
     watch: true,
 
     /**
-     * Command to format newly created / updated .content files.
+     * Perintah yang digunakan untuk memformat file .content yang baru dibuat / diperbarui.
      */
     formatCommand: 'npx prettier --write "{{file}}"',
   },
 
   /**
-   * Visual Editor configuration.
+   * Konfigurasi Visual Editor.
    */
   editor: {
     /**
-     * Whether the visual editor is enabled.
+     * Apakah visual editor diaktifkan.
      * Default: false
      */
     enabled: true,
 
     /**
-     * URL of your application for origin validation.
+     * URL aplikasi Anda untuk validasi asal (origin validation).
      * Default: ""
      */
     applicationURL: "http://localhost:3000",
 
     /**
-     * Port for the local editor server.
+     * Port untuk server editor lokal.
      * Default: 8000
      */
     port: 8000,
 
     /**
-     * Public URL for the editor.
+     * URL publik untuk editor.
      * Default: "http://localhost:8000"
      */
     editorURL: "http://localhost:8000",
 
     /**
-     * Intlayer CMS URL.
+     * URL Intlayer CMS.
      * Default: "https://app.intlayer.org"
      */
     cmsURL: "https://app.intlayer.org",
 
     /**
-     * Backend API URL.
+     * URL API Backend.
      * Default: "https://back.intlayer.org"
      */
     backendURL: "https://back.intlayer.org",
 
     /**
-     * Whether to enable real-time content synchronization.
+     * Apakah akan mengaktifkan sinkronisasi konten secara real-time.
      * Default: false
      */
     liveSync: true,
   },
 
   /**
-   * AI-powered translation and generation settings.
+   * Pengaturan terjemahan dan pembuatan konten berbasis AI.
    */
   ai: {
     /**
-     * AI provider to use.
-     * Options: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama', 'openrouter', 'alibaba', 'fireworks', 'groq', 'huggingface', 'bedrock', 'googlevertex', 'togetherai'
+     * Penyedia AI yang akan digunakan.
+     * Opsi: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama', 'openrouter', 'alibaba', 'fireworks', 'groq', 'huggingface', 'bedrock', 'googlevertex', 'togetherai'
      * Default: 'openai'
      */
     provider: "openai",
 
     /**
-     * Model to use from the selected provider.
+     * Model dari penyedia yang dipilih untuk digunakan.
      */
     model: "gpt-4o",
 
     /**
-     * Provider API key.
+     * Kunci API penyedia.
      */
     apiKey: process.env.OPENAI_API_KEY,
 
     /**
-     * Global context to guide the AI in generating translations.
+     * Konteks global untuk memandu AI dalam menghasilkan terjemahan.
      */
-    applicationContext: "This is a travel booking application.",
+    applicationContext: "Ini adalah aplikasi pemesanan perjalanan.",
 
     /**
-     * Base URL for the AI API.
+     * URL dasar untuk API AI.
      */
+    baseURL: "http://localhost:3000",
+
     /**
-     * Data serialisasi
+     * Serialisasi Data (Data Serialization)
      *
      * Opsi:
-     * - "json": Standar, andal; menggunakan lebih banyak token.
-     * - "toon": Token lebih sedikit, kurang konsisten dibandingkan JSON.
+     * - "json": Default, kuat; menggunakan lebih banyak token.
+     * - "toon": Menggunakan lebih sedikit token, kurang konsisten dibandingkan JSON.
      *
      * Default: "json"
      */
@@ -360,142 +371,142 @@ const config: IntlayerConfig = {
   },
 
   /**
-   * Build and optimization settings.
+   * Pengaturan build dan optimasi.
    */
   build: {
     /**
-     * Build execution mode.
-     * - "auto": Automatic build during app build.
-     * - "manual": Requires explicit build command.
+     * Mode eksekusi build.
+     * - "auto": Build secara otomatis selama build aplikasi.
+     * - "manual": Memerlukan perintah build eksplisit.
      * Default: "auto"
      */
     mode: "auto",
 
     /**
-     * Whether to optimize the final bundle by pruning unused dictionaries.
-     * Default: true in production
+     * Apakah akan mengoptimalkan bundle akhir dengan menghapus kamus yang tidak digunakan.
+     * Default: true dalam produksi
      */
     optimize: true,
 
     /**
-     * Output format for generated dictionary files.
-     * Default: ['esm', 'cjs']
+     * Format output untuk file kamus yang dihasilkan.
+     * Default: ['cjs', 'esm']
      */
-    outputFormat: ["esm"],
+    outputFormat: ["cjs", "esm"],
 
     /**
-     * Indicates if the build should check TypeScript types.
+     * Menunjukkan apakah build harus memeriksa tipe TypeScript.
      * Default: false
      */
     checkTypes: false,
   },
 
   /**
-   * Logger configuration.
+   * Konfigurasi Logger.
    */
   log: {
     /**
-     * Logging level.
-     * - "default": Standard logging.
-     * - "verbose": Detailed debug logging.
-     * - "disabled": No logging.
+     * Tingkat logging.
+     * - "default": Logging standar.
+     * - "verbose": Logging debug mendalam.
+     * - "disabled": Menonaktifkan logging.
      * Default: "default"
      */
     mode: "default",
 
     /**
-     * Prefix for all log messages.
+     * Awalan untuk semua pesan log.
      * Default: "[intlayer]"
      */
     prefix: "[intlayer]",
   },
 
   /**
-   * System configuration (Advanced use cases)
+   * Konfigurasi Sistem (Untuk penggunaan tingkat lanjut)
    */
   system: {
     /**
-     * Directory for storing localization dictionaries.
+     * Direktori untuk menyimpan kamus yang dilokalisasi.
      */
     dictionariesDir: ".intlayer/dictionary",
 
     /**
-     * Directory for module augmentation.
+     * Direktori untuk augmentasi modul TypeScript.
      */
     moduleAugmentationDir: ".intlayer/types",
 
     /**
-     * Directory for storing unmerged dictionaries.
+     * Direktori untuk menyimpan kamus yang belum digabungkan.
      */
     unmergedDictionariesDir: ".intlayer/unmerged_dictionary",
 
     /**
-     * Directory for storing dictionary types.
+     * Direktori untuk menyimpan tipe kamus.
      */
     typesDir: ".intlayer/types",
 
     /**
-     * Directory where main application files are stored.
+     * Direktori tempat file aplikasi utama disimpan.
      */
     mainDir: ".intlayer/main",
 
     /**
-     * Directory where the configuration files are stored.
+     * Direktori tempat file konfigurasi disimpan.
      */
     configDir: ".intlayer/config",
 
     /**
-     * Directory where the cache files are stored.
+     * Direktori tempat file cache disimpan.
      */
     cacheDir: ".intlayer/cache",
   },
 
   /**
-   * Compiler configuration (Advanced use cases)
+   * Konfigurasi Kompiler (Compiler) (Untuk penggunaan tingkat lanjut)
    */
   compiler: {
     /**
      * Menunjukkan apakah kompiler harus diaktifkan.
      *
-     * - false : Menonaktifkan kompiler.
-     * - true : Mengaktifkan kompiler.
-     * - "build-only" : Melewatkan kompiler selama pengembangan untuk mempercepat waktu mulai.
+     * - false: Menonaktifkan kompiler.
+     * - true: Mengaktifkan kompiler.
+     * - "build-only": Melewati kompiler selama pengembangan dan mempercepat waktu startup.
      *
-     * Nilai default : false
+     * Default: false
      */
     enabled: true,
 
     /**
-     * Mendefinisikan jalur file output. Menggantikan `outputDir`.
+     * Mendefinisikan jalur untuk file output. Menggantikan `outputDir`.
      *
-     * - Jalur yang dimulai dengan `./` diselesaikan relatif terhadap direktori komponen.
-     * - Jalur yang dimulai dengan `/` diselesaikan relatif terhadap root proyek (`baseDir`).
+     * - Jalur `./` diselesaikan relatif terhadap direktori komponen.
+     * - Jalur `/` diselesaikan relatif terhadap akar proyek (`baseDir`).
      *
-     * - Menyertakan variabel `{{locale}}` dalam jalur akan mengaktifkan pembuatan kamus yang dipisahkan berdasarkan bahasa.
+     * - Menyertakan variabel `{{locale}}` dalam jalur akan memicu pembuatan kamus terpisah per-bahasa.
      *
      * Contoh:
      * ```ts
      * {
-     *   // Buat file .content.ts multi-bahasa di sebelah komponen
+     *   // Buat file .content.ts multilingual di sebelah komponen
      *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
      *
-     *   // output: './{{fileName}}{{extension}}', // Padanan menggunakan string template
+     *   // output: './{{fileName}}{{extension}}', // Setara menggunakan template string
      * }
      * ```
      *
      * ```ts
      * {
-     *   // Buat file JSON terpusat berdasarkan bahasa di root proyek
+     *   // Buat JSON terpusat per-bahasa di akar proyek
      *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
      *
-     *   // output: '/locales/{{locale}}/{{key}}.content.json', // Padanan menggunakan string template
+     *   // output: '/locales/{{locale}}/{{key}}.content.json', // Setara menggunakan template string
      * }
      * ```
      *
      * Daftar variabel:
      *   - `fileName`: Nama file.
      *   - `key`: Kunci konten.
-     *   - `locale`: Bahasa konten.
+     *   - `locale`: Locale konten.
      *   - `extension`: Ekstensi file.
      *   - `componentFileName`: Nama file komponen.
      *   - `componentExtension`: Ekstensi file komponen.
@@ -507,23 +518,23 @@ const config: IntlayerConfig = {
 
     /**
      * Menunjukkan apakah komponen harus disimpan setelah ditransformasi.
-     * Dengan begitu, kompiler hanya perlu dijalankan sekali untuk mentransformasi aplikasi, lalu dapat dihapus.
+     * Dengan cara ini, kompiler dapat dijalankan sekali saja untuk mentransformasi aplikasi dan kemudian dapat dihapus.
      */
     saveComponents: false,
 
     /**
-     * Masukkan konten saja dalam file yang dihasilkan. Berguna untuk output JSON i18next atau ICU MessageFormat per bahasa.
+     * Hanya menyisipkan konten ke dalam file yang dihasilkan. Berguna untuk output JSON per-bahasa untuk i18next atau ICU MessageFormat.
      */
     noMetadata: false,
 
     /**
      * Awalan kunci kamus
      */
-    dictionaryKeyPrefix: "", // Tambahkan awalan opsional untuk kunci kamus yang diekstrak
+    dictionaryKeyPrefix: "", // Tambahkan awalan opsional ke kunci kamus yang diekstrak
   },
 
   /**
-   * Custom schemas to validate the dictionaries content.
+   * Schema kustom untuk memvalidasi konten kamus.
    */
   schemas: {
     "my-schema": z.object({
@@ -532,7 +543,7 @@ const config: IntlayerConfig = {
   },
 
   /**
-   * Plugins configuration.
+   * Konfigurasi plugin.
    */
   plugins: [],
 };
@@ -540,248 +551,114 @@ const config: IntlayerConfig = {
 export default config;
 ````
 
-## Referensi Konfigurasi
+---
 
-Bagian berikut menjelaskan berbagai pengaturan konfigurasi yang tersedia untuk Intlayer.
+## Referensi Konfigurasi (Configuration Reference)
+
+Bagian berikut menjelaskan berbagai pengaturan konfigurasi yang tersedia di Intlayer.
 
 ---
 
-### Konfigurasi Internasionalisasi
+### Konfigurasi Internasionalisasi (Internationalization Configuration)
 
-Mendefinisikan pengaturan yang terkait dengan internasionalisasi, termasuk locale yang tersedia dan locale default untuk aplikasi.
+Mendefinisikan pengaturan yang berkaitan dengan internasionalisasi, termasuk locale yang tersedia dan locale default untuk aplikasi.
 
-#### Properti
-
-- **locales**:
-  - _Tipe_: `string[]`
-  - _Default_: `['en']`
-  - _Deskripsi_: Daftar locale yang didukung dalam aplikasi.
-  - _Contoh_: `['en', 'fr', 'es']`
-
-- **requiredLocales**:
-  - _Tipe_: `string[]`
-  - _Default_: `[]`
-  - _Deskripsi_: Daftar locale yang wajib ada dalam aplikasi.
-  - _Contoh_: `[]`
-  - _Catatan_: Jika kosong, semua locale diwajibkan dalam mode `strict`.
-  - _Catatan_: Pastikan locale yang wajib juga didefinisikan dalam field `locales`.
-- **strictMode**:
-  - _Tipe_: `string`
-  - _Default_: `inclusive`
-  - _Deskripsi_: Menjamin implementasi konten internasionalisasi yang kuat menggunakan typescript.
-  - _Catatan_: Jika diatur ke "strict", fungsi terjemahan `t` akan mengharuskan setiap locale yang dideklarasikan untuk didefinisikan. Jika satu locale hilang, atau jika locale tidak dideklarasikan dalam konfigurasi Anda, maka akan menghasilkan error.
-  - _Catatan_: Jika diatur ke "inclusive", fungsi terjemahan `t` akan mengharuskan setiap locale yang dideklarasikan untuk didefinisikan. Jika satu locale hilang, akan memberikan peringatan. Namun akan menerima jika locale tidak dideklarasikan dalam konfigurasi Anda, tetapi ada.
-  - _Catatan_: Jika diatur ke "loose", fungsi terjemahan `t` akan menerima locale yang ada.
-
-- **defaultLocale**:
-  - _Tipe_: `string`
-  - _Default_: `'en'`
-  - _Deskripsi_: Locale default yang digunakan sebagai fallback jika locale yang diminta tidak ditemukan.
-  - _Contoh_: `'en'`
-  - _Catatan_: Ini digunakan untuk menentukan locale ketika tidak ada yang ditentukan dalam URL, cookie, atau header.
+| Field             | Tipe       | Deskripsi                                                                                                           | Contoh               | Catatan                                                                                                                                                                                                                                                                                                                                        |
+| ----------------- | ---------- | ------------------------------------------------------------------------------------------------------------------- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `locales`         | `string[]` | Daftar locale yang didukung dalam aplikasi. Default: `[Locales.ENGLISH]`                                            | `['en', 'fr', 'es']` |                                                                                                                                                                                                                                                                                                                                                |
+| `requiredLocales` | `string[]` | Daftar locale wajib dalam aplikasi. Default: `[]`                                                                   | `[]`                 | Jika kosong, semua locale bersifat wajib dalam mode `strict`. Pastikan locale wajib juga didefinisikan dalam field `locales`.                                                                                                                                                                                                                  |
+| `strictMode`      | `string`   | Menjamin implementasi konten internasionalisasi yang kuat menggunakan TypeScript. Default: `inclusive`              |                      | Jika `"strict"`: fungsi `t` mengharuskan setiap locale yang dideklarasikan untuk didefinisikan — melemparkan error jika ada yang hilang atau tidak dideklarasikan. Jika `"inclusive"`: memperingatkan tentang locale yang hilang tetapi menerima locale yang ada namun tidak dideklarasikan. Jika `"loose"`: menerima locale apa pun yang ada. |
+| `defaultLocale`   | `string`   | Locale default yang digunakan sebagai fallback jika locale yang diminta tidak ditemukan. Default: `Locales.ENGLISH` | `'en'`               | Digunakan untuk menentukan locale ketika tidak ada locale yang ditentukan dalam URL, cookie, atau header.                                                                                                                                                                                                                                      |
 
 ---
 
-### Konfigurasi Editor
+### Konfigurasi Editor (Editor Configuration)
 
-Mendefinisikan pengaturan terkait editor terintegrasi, termasuk port server dan status aktif.
+Mendefinisikan pengaturan yang berkaitan dengan editor terintegrasi, termasuk port server dan status aktivitas.
 
-#### Properti
+| Field                        | Tipe                      | Deskripsi                                                                                                                                                                                                     | Contoh                                                                                | Catatan                                                                                                                                                                                                                                     |
+| ---------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `applicationURL`             | `string`                  | URL aplikasi Anda. Default: `''`                                                                                                                                                                              | `'http://localhost:3000'`, `'https://example.com'`, `process.env.INTLAYER_EDITOR_URL` | Digunakan untuk membatasi asal (origin) editor demi alasan keamanan. Jika disetel ke `'*'`, editor dapat diakses dari asal mana pun.                                                                                                        |
+| `port`                       | `number`                  | Port yang digunakan oleh server Visual Editor. Default: `8000`                                                                                                                                                |                                                                                       |                                                                                                                                                                                                                                             |
+| `editorURL`                  | `string`                  | URL server editor. Default: `'http://localhost:8000'`                                                                                                                                                         | `'http://localhost:3000'`, `'https://example.com'`, `process.env.INTLAYER_EDITOR_URL` | Digunakan untuk membatasi asal yang dapat berinteraksi dengan aplikasi. Jika disetel ke `'*'`, dapat diakses dari asal mana pun. Harus disetel jika mengubah port atau jika editor di-host di domain yang berbeda.                          |
+| `cmsURL`                     | `string`                  | URL Intlayer CMS. Default: `'https://intlayer.org'`                                                                                                                                                           | `'https://intlayer.org'`                                                              |                                                                                                                                                                                                                                             |
+| `backendURL`                 | `string`                  | URL server backend. Default: `https://back.intlayer.org`                                                                                                                                                      | `http://localhost:4000`                                                               |                                                                                                                                                                                                                                             |
+| `enabled`                    | `boolean`                 | Menunjukkan apakah aplikasi akan berinteraksi dengan visual editor. Default: `true`                                                                                                                           | `process.env.NODE_ENV !== 'production'`                                               | Jika `false`, editor tidak dapat berinteraksi dengan aplikasi. Menonaktifkannya untuk lingkungan tertentu akan meningkatkan keamanan.                                                                                                       |
+| `clientId`                   | `string &#124; undefined` | Memungkinkan paket intlayer untuk melakukan autentikasi dengan backend menggunakan oAuth2. Untuk mendapatkan token akses, buka [intlayer.org/project](https://app.intlayer.org/project). Default: `undefined` |                                                                                       | Jaga kerahasiaannya; simpan dalam variabel lingkungan.                                                                                                                                                                                      |
+| `clientSecret`               | `string &#124; undefined` | Memungkinkan paket intlayer untuk melakukan autentikasi dengan backend menggunakan oAuth2. Untuk mendapatkan token akses, buka [intlayer.org/project](https://app.intlayer.org/project). Default: `undefined` |                                                                                       | Jaga kerahasiaannya; simpan dalam variabel lingkungan.                                                                                                                                                                                      |
+| `dictionaryPriorityStrategy` | `string`                  | Strategi untuk memprioritaskan kamus ketika kamus lokal dan jarak jauh ada. Default: `'local_first'`                                                                                                          | `'distant_first'`                                                                     | `'distant_first'`: memprioritaskan jarak jauh daripada lokal. `'local_first'`: memprioritaskan lokal daripada jarak jauh.                                                                                                                   |
+| `liveSync`                   | `boolean`                 | Menunjukkan apakah server aplikasi harus memuat ulang konten secara panas (hot-reload) ketika perubahan terdeteksi pada CMS / Visual Editor / Backend. Default: `true`                                        | `true`                                                                                | Ketika kamus ditambahkan/diperbarui, aplikasi memperbarui konten halaman. Sinkronisasi langsung mengalihdayakan konten ke server lain, yang mungkin sedikit memengaruhi performa. Disarankan untuk menghosting keduanya di mesin yang sama. |
+| `liveSyncPort`               | `number`                  | Port server sinkronisasi langsung. Default: `4000`                                                                                                                                                            | `4000`                                                                                |                                                                                                                                                                                                                                             |
+| `liveSyncURL`                | `string`                  | URL server sinkronisasi langsung. Default: `'http://localhost:{liveSyncPort}'`                                                                                                                                | `'https://example.com'`                                                               | Menunjuk ke localhost secara default; dapat diubah ke server sinkronisasi langsung jarak jauh.                                                                                                                                              |
 
-- **applicationURL**:
-  - _Tipe_: `string`
-  - _Default_: `http://localhost:3000`
-  - _Deskripsi_: URL aplikasi. Digunakan untuk membatasi asal editor demi alasan keamanan.
-  - _Contoh_:
-    - `'http://localhost:3000'`
-    - `'https://example.com'`
-    - `process.env.INTLAYER_EDITOR_URL`
-  - _Catatan_: URL aplikasi. Digunakan untuk membatasi asal editor demi alasan keamanan. Jika diatur ke `'*'`, editor dapat diakses dari asal mana pun.
-
-- **port**:
-  - _Tipe_: `number`
-  - _Default_: `8000`
-  - _Deskripsi_: Port yang digunakan oleh server editor visual.
-
-- **editorURL**:
-  - _Tipe_: `string`
-  - _Default_: `'http://localhost:8000'`
-  - _Deskripsi_: URL server editor. Digunakan untuk membatasi asal editor demi alasan keamanan.
-    - `'http://localhost:3000'`
-    - `'https://example.com'`
-    - `process.env.INTLAYER_EDITOR_URL`
-  - _Catatan_: URL server editor yang dapat diakses dari aplikasi. Digunakan untuk membatasi asal yang dapat berinteraksi dengan aplikasi demi alasan keamanan. Jika diatur ke `'*'`, editor dapat diakses dari asal mana pun. Harus diatur jika port diubah, atau jika editor dihosting di domain yang berbeda.
-
-- **cmsURL**:
-  - _Tipe_: `string`
-  - _Default_: `'https://intlayer.org'`
-  - _Deskripsi_: URL dari Intlayer CMS.
-  - _Contoh_: `'https://intlayer.org'`
-  - _Catatan_: URL dari Intlayer CMS.
-
-- **backendURL**:
-  - _Tipe_: `string`
-  - _Default_: `https://back.intlayer.org`
-  - _Deskripsi_: URL dari server backend.
-  - _Contoh_: `http://localhost:4000`
-
-- **enabled**:
-  - _Tipe_: `boolean`
-  - _Default_: `true`
-  - _Deskripsi_: Menunjukkan apakah aplikasi berinteraksi dengan visual editor.
-  - _Contoh_: `process.env.NODE_ENV !== 'production'`
-  - _Catatan_: Jika true, editor akan dapat berinteraksi dengan aplikasi. Jika false, editor tidak akan dapat berinteraksi dengan aplikasi. Dalam hal apa pun, editor hanya dapat diaktifkan oleh visual editor. Menonaktifkan editor untuk lingkungan tertentu adalah cara untuk menegakkan keamanan.
-
-- **clientId**:
-  - _Tipe_: `string` | `undefined`
-  - _Default_: `undefined`
-  - _Deskripsi_: clientId dan clientSecret memungkinkan paket intlayer untuk melakukan autentikasi dengan backend menggunakan autentikasi oAuth2. Token akses digunakan untuk mengautentikasi pengguna yang terkait dengan proyek. Untuk mendapatkan token akses, kunjungi https://app.intlayer.org/project dan buat akun.
-  - _Contoh_: `true`
-  - _Catatan_: Penting: clientId dan clientSecret harus dijaga kerahasiaannya dan tidak dibagikan secara publik. Pastikan untuk menyimpannya di lokasi yang aman, seperti variabel lingkungan.
-
-- **clientSecret**:
-  - _Tipe_: `string` | `undefined`
-  - _Default_: `undefined`
-  - _Deskripsi_: clientId dan clientSecret memungkinkan paket intlayer untuk melakukan autentikasi dengan backend menggunakan autentikasi oAuth2. Token akses digunakan untuk mengautentikasi pengguna yang terkait dengan proyek. Untuk mendapatkan token akses, kunjungi https://app.intlayer.org/project dan buat akun.
-  - _Contoh_: `true`
-  - _Catatan_: Penting: clientId dan clientSecret harus dijaga kerahasiaannya dan tidak dibagikan secara publik. Pastikan untuk menyimpannya di lokasi yang aman, seperti variabel lingkungan.
-
-- **dictionaryPriorityStrategy**:
-  - _Tipe_: `string`
-  - _Default_: `'local_first'`
-  - _Deskripsi_: Strategi untuk memprioritaskan kamus dalam kasus adanya kamus lokal dan jauh. Jika diatur ke `'distant_first'`, aplikasi akan memprioritaskan kamus jauh dibandingkan kamus lokal. Jika diatur ke `'local_first'`, aplikasi akan memprioritaskan kamus lokal dibandingkan kamus jauh.
-  - _Contoh_: `'distant_first'`
-
-- **liveSync**:
-  - _Tipe_: `boolean`
-  - _Default_: `false`
-  - _Deskripsi_: Menunjukkan apakah server aplikasi harus melakukan hot reload konten aplikasi ketika perubahan terdeteksi pada CMS / Visual Editor / Backend.
-  - _Contoh_: `true`
-  - _Catatan_: Misalnya, ketika kamus baru ditambahkan atau diperbarui, aplikasi akan memperbarui konten yang ditampilkan di halaman.
-  - _Catatan_: Live sync membutuhkan eksternalisasi konten aplikasi ke server lain. Itu berarti dapat sedikit memengaruhi performa aplikasi. Untuk membatasi hal ini, kami menyarankan untuk meng-host aplikasi dan server live sync pada mesin yang sama. Selain itu, kombinasi live sync dan `optimize` dapat menghasilkan sejumlah besar permintaan ke server live sync. Tergantung pada infrastruktur Anda, kami menyarankan untuk menguji kedua opsi dan kombinasi keduanya.
-
-- **liveSyncPort**:
-  - _Tipe_: `number`
-  - _Default_: `4000`
-  - _Deskripsi_: Port dari server live sync.
-  - _Contoh_: `4000`
-  - _Catatan_: Port dari server live sync.
-
-- **liveSyncURL**:
-  - _Tipe_: `string`
-  - _Default_: `'http://localhost:{liveSyncPort}'`
-  - _Deskripsi_: URL dari server live sync.
-  - _Contoh_: `'https://example.com'`
-  - _Catatan_: Mengarah ke localhost secara default tetapi dapat diubah ke URL mana pun dalam kasus server live sync jarak jauh.
-
-### Konfigurasi Routing
+### Konfigurasi Routing (Routing Configuration)
 
 Pengaturan yang mengontrol perilaku routing, termasuk struktur URL, penyimpanan locale, dan penanganan middleware.
 
-#### Properti
+| Field      | Tipe                                                                                                                                                 | Deskripsi                                                                                                                                                  | Contoh                                                                                                                                                                                           | Catatan                                                                                                                                                                                                                                                                                   |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mode`     | `'prefix-no-default' &#124; 'prefix-all' &#124; 'no-prefix' &#124; 'search-params'`                                                                  | Mode routing URL untuk penanganan locale. Default: `'prefix-no-default'`                                                                                   | `'prefix-no-default'`: `/dashboard` (en) atau `/fr/dashboard` (fr). `'prefix-all'`: `/en/dashboard`. `'no-prefix'`: locale ditangani dengan cara lain. `'search-params'`: `/dashboard?locale=fr` | Tidak memengaruhi manajemen cookie atau penyimpanan locale.                                                                                                                                                                                                                               |
+| `storage`  | `false &#124; 'cookie' &#124; 'localStorage' &#124; 'sessionStorage' &#124; 'header' &#124; CookiesAttributes &#124; StorageAttributes &#124; Array` | Konfigurasi untuk menyimpan locale pada klien. Default: `['cookie', 'header']`                                                                             | `'localStorage'`, `[{ type: 'cookie', name: 'custom-locale', secure: true }]`                                                                                                                    | Lihat tabel Opsi Penyimpanan di bawah.                                                                                                                                                                                                                                                    |
+| `basePath` | `string`                                                                                                                                             | Jalur dasar untuk URL aplikasi. Default: `''`                                                                                                              | `'/my-app'`                                                                                                                                                                                      | Jika aplikasi berada di `https://example.com/my-app`, basePath adalah `'/my-app'` dan URL menjadi `https://example.com/my-app/en`.                                                                                                                                                        |
+| `rewrite`  | `Record<string, StrictModeLocaleMap<string>>`                                                                                                        | Aturan penulisan ulang URL kustom yang menggantikan mode routing default untuk jalur tertentu. Mendukung parameter dinamis `[param]`. Default: `undefined` | Lihat contoh di bawah                                                                                                                                                                            | Aturan penulisan ulang memiliki prioritas di atas `mode`. Berfungsi dengan Next.js dan Vite. `getLocalizedUrl()` secara otomatis menerapkan aturan yang sesuai. Lihat [Penulisan Ulang URL Kustom](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/custom_url_rewrites.md). |
 
-- **mode**:
-  - _Tipe_: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
-  - _Default_: `'prefix-no-default'`
-  - _Deskripsi_: Mode routing URL untuk penanganan locale.
-  - _Contoh_:
-    - `'prefix-no-default'`: `/dashboard` (en) atau `/fr/dashboard` (fr)
-    - `'prefix-all'`: `/en/dashboard` (en) atau `/fr/dashboard` (fr)
-    - `'no-prefix'`: `/dashboard` (locale ditangani dengan cara lain)
-    - `'search-params'`: `/dashboard?locale=fr`
-  - _Catatan_: Pengaturan ini tidak memengaruhi manajemen cookie atau penyimpanan locale.
+**Contoh `rewrite`**:
 
-- **storage**:
-  - _Tipe_: `false | 'cookie' | 'localStorage' | 'sessionStorage' | 'header' | CookiesAttributes | StorageAttributes | Array`
-  - _Default_: `'localStorage'`
-  - _Deskripsi_: Konfigurasi untuk menyimpan locale di sisi klien.
+```typescript
+routing: {
+  mode: "prefix-no-default", // Strategi fallback
+  rewrite: nextjsRewrite({
+    "/about": {
+      en: "/about",
+      fr: "/a-propos",
+    },
+    "/product/[slug]": {
+      en: "/product/[slug]",
+      fr: "/produit/[slug]",
+    },
+    "/blog/[category]/[id]": {
+      en: "/blog/[category]/[id]",
+      fr: "/journal/[category]/[id]",
+    },
+  }),
+}
+```
 
-  - **cookie**:
-    - _Deskripsi_: Menyimpan data dalam cookie, potongan kecil data yang disimpan di browser klien, dapat diakses di sisi klien dan server.
-    - _Catatan_: Untuk penyimpanan yang sesuai dengan GDPR, pastikan persetujuan pengguna yang tepat sebelum penggunaan.
-    - _Catatan_: Parameter cookie dapat disesuaikan jika diatur sebagai CookiesAttributes (`{ type: 'cookie', name: 'custom-locale', secure: true, httpOnly: false }`).
+#### Opsi Penyimpanan (Storage Options)
 
-  - **localStorage**:
-    - _Deskripsi_: Menyimpan data di browser tanpa tanggal kedaluwarsa, memungkinkan data bertahan antar sesi, hanya dapat diakses di sisi klien.
-    - _Catatan_: Ideal untuk menyimpan data jangka panjang tetapi perlu memperhatikan implikasi privasi dan keamanan karena sifatnya yang tidak kedaluwarsa kecuali secara eksplisit dihapus.
-    - _Catatan_: Penyimpanan locale hanya dapat diakses di sisi klien, proxy intlayer tidak akan dapat mengaksesnya.
-    - _Catatan_: Parameter penyimpanan locale dapat disesuaikan jika diatur sebagai StorageAttributes (`{ type: 'localStorage', name: 'custom-locale' }`).
+| Nilai              | Deskripsi                                                                      | Catatan                                                                                                                                                                                                  |
+| ------------------ | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `'cookie'`         | Menyimpan locale dalam cookie — dapat diakses oleh sisi klien dan server.      | Untuk kepatuhan GDPR, pastikan mendapatkan persetujuan pengguna yang sesuai. Dapat disesuaikan melalui `CookiesAttributes` (`{ type: 'cookie', name: 'custom-locale', secure: true, httpOnly: false }`). |
+| `'localStorage'`   | Menyimpan locale di browser tanpa batas waktu — hanya sisi klien.              | Tidak berakhir kecuali dihapus secara eksplisit. Proksi Intlayer tidak dapat mengaksesnya. Dapat disesuaikan melalui `StorageAttributes` (`{ type: 'localStorage', name: 'custom-locale' }`).            |
+| `'sessionStorage'` | Menyimpan locale selama durasi sesi halaman — hanya sisi klien.                | Dihapus saat tab/jendela ditutup. Proksi Intlayer tidak dapat mengaksesnya. Dapat disesuaikan melalui `StorageAttributes` (`{ type: 'sessionStorage', name: 'custom-locale' }`).                         |
+| `'header'`         | Menyimpan atau mentransmisikan locale melalui header HTTP — hanya sisi server. | Berguna untuk panggilan API. Sisi klien tidak dapat mengaksesnya. Dapat disesuaikan melalui `StorageAttributes` (`{ type: 'header', name: 'custom-locale' }`).                                           |
 
-  - **sessionStorage**:
-    - _Deskripsi_: Menyimpan data selama durasi sesi halaman, artinya data akan dihapus setelah tab atau jendela ditutup, hanya dapat diakses di sisi klien.
-    - _Catatan_: Cocok untuk penyimpanan data sementara untuk setiap sesi.
-    - _Catatan_: Penyimpanan locale hanya dapat diakses di sisi klien, proxy intlayer tidak akan dapat mengaksesnya.
-    - _Catatan_: Parameter penyimpanan locale dapat disesuaikan jika diatur sebagai StorageAttributes (`{ type: 'sessionStorage', name: 'custom-locale' }`).
-
-  - **header**:
-    - _Deskripsi_: Memanfaatkan header HTTP untuk menyimpan atau mengirim data locale, cocok untuk penentuan bahasa di sisi server.
-    - _Catatan_: Berguna dalam panggilan API untuk menjaga konsistensi pengaturan bahasa di seluruh permintaan.
-    - _Catatan_: Header hanya dapat diakses di sisi server, sisi klien tidak akan dapat mengaksesnya.
-    - _Catatan_: Nama header dapat disesuaikan jika diatur sebagai StorageAttributes (`{ type: 'header', name: 'custom-locale' }`).
-
-- **basePath**:
-  - _Tipe_: `string`
-  - _Default_: `''`
-  - _Deskripsi_: Jalur dasar untuk URL aplikasi.
-  - _Contoh_: `'/my-app'`
-  - _Catatan_:
-    - Jika aplikasi dihosting di `https://example.com/my-app`
-    - Jalur dasar adalah `'/my-app'`
-    - URL akan menjadi `https://example.com/my-app/en`
-    - Jika jalur dasar tidak diatur, URL akan menjadi `https://example.com/en`
-
-- **rewrite**:
-  - _Tipe_: `Record<string, StrictModeLocaleMap<string>>`
-  - _Default_: `undefined`
-  - _Deskripsi_: Aturan penulisan ulang URL khusus yang menggantikan mode routing default untuk jalur tertentu. Memungkinkan Anda untuk mendefinisikan jalur khusus bahasa yang berbeda dari perilaku routing standar. Mendukung parameter rute dinamis menggunakan sintaks `[param]`.
-  - _Contoh_:
-    ```typescript
-    routing: {
-      mode: "prefix-no-default", // Strategi fallback
-      rewrite: nextjsRewrite({
-        "/[locale]/about": {
-          en: "/[locale]/about",
-          fr: "/[locale]/a-propos",
-        },
-        "/[locale]/product/[slug]": {
-          en: "/[locale]/product/[slug]",
-          fr: "/[locale]/produit/[slug]",
-        },
-        "/[locale]/blog/[category]/[id]": {
-          en: "/[locale]/blog/[category]/[id]",
-          fr: "/[locale]/journal/[category]/[id]",
-        },
-      }),
-    }
-    ```
-  - _Catatan_: Aturan penulisan ulang memiliki prioritas di atas perilaku `mode` default. Jika jalur cocok dengan aturan penulisan ulang, jalur yang dilokalisasi dari konfigurasi penulisan ulang akan digunakan alih-alih prefiks bahasa standar.
-  - _Catatan_: Parameter rute dinamis didukung menggunakan notasi kurung siku (misalnya, `[slug]`, `[id]`). Nilai parameter secara otomatis diekstrak dari URL dan diinterpolasi ke dalam jalur yang ditulis ulang.
-  - _Catatan_: Bekerja dengan aplikasi Next.js dan Vite. Middleware/proxy akan secara otomatis menulis ulang permintaan masuk untuk mencocokkan struktur rute internal.
-  - _Catatan_: Saat menghasilkan URL dengan `getLocalizedUrl()`, aturan penulisan ulang secara otomatis diterapkan jika cocok dengan jalur yang disediakan.
-  - _Referensi_: Untuk informasi lebih lanjut, lihat [Penulisan Ulang URL Kustom](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/custom_url_rewrites.md).
-
-#### Atribut Cookie
+#### Atribut Cookie (Cookie Attributes)
 
 Saat menggunakan penyimpanan cookie, Anda dapat mengonfigurasi atribut cookie tambahan:
 
-- **name**: Nama cookie (default: `'INTLAYER_LOCALE'`)
-- **domain**: Domain cookie (default: tidak ditentukan)
-- **path**: Jalur cookie (default: tidak ditentukan)
-- **secure**: Memerlukan HTTPS (default: tidak ditentukan)
-- **httpOnly**: Flag hanya HTTP (default: tidak ditentukan)
-- **sameSite**: Kebijakan SameSite (`'strict' | 'lax' | 'none'`)
-- **expires**: Tanggal kedaluwarsa atau jumlah hari (default: undefined)
+| Field      | Tipe                                  | Deskripsi                                                  |
+| ---------- | ------------------------------------- | ---------------------------------------------------------- |
+| `name`     | `string`                              | Nama cookie. Default: `'INTLAYER_LOCALE'`                  |
+| `domain`   | `string`                              | Domain cookie. Default: `undefined`                        |
+| `path`     | `string`                              | Jalur cookie. Default: `undefined`                         |
+| `secure`   | `boolean`                             | Memerlukan HTTPS. Default: `undefined`                     |
+| `httpOnly` | `boolean`                             | Flag HTTP-only. Default: `undefined`                       |
+| `sameSite` | `'strict' &#124; 'lax' &#124; 'none'` | Kebijakan SameSite.                                        |
+| `expires`  | `Date &#124; number`                  | Tanggal kedaluwarsa atau jumlah hari. Default: `undefined` |
 
-#### Atribut Penyimpanan Locale
+#### Atribut Penyimpanan Locale (Locale Storage Attributes)
 
 Saat menggunakan localStorage atau sessionStorage:
 
-- **type**: Tipe penyimpanan (`'localStorage' | 'sessionStorage'`)
-- **name**: Nama kunci penyimpanan (default: `'INTLAYER_LOCALE'`)
+| Field  | Tipe                                     | Deskripsi                                            |
+| ------ | ---------------------------------------- | ---------------------------------------------------- |
+| `type` | `'localStorage' &#124; 'sessionStorage'` | Tipe penyimpanan.                                    |
+| `name` | `string`                                 | Nama kunci penyimpanan. Default: `'INTLAYER_LOCALE'` |
 
-#### Contoh Konfigurasi
+#### Contoh Konfigurasi (Configuration Examples)
 
-Berikut beberapa contoh konfigurasi umum untuk struktur routing v7 yang baru:
+Berikut adalah beberapa contoh konfigurasi umum untuk struktur routing v7 yang baru:
 
 **Konfigurasi Dasar (Default)**:
 
@@ -796,7 +673,6 @@ const config: IntlayerConfig = {
   routing: {
     mode: "prefix-no-default",
     storage: "localStorage",
-    headerName: "x-intlayer-locale",
     basePath: "",
   },
 };
@@ -804,7 +680,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-**Konfigurasi Sesuai GDPR**:
+**Konfigurasi Patuh GDPR**:
 
 ```typescript
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -829,7 +705,6 @@ const config: IntlayerConfig = {
         httpOnly: false,
       },
     ],
-    headerName: "x-intlayer-locale",
     basePath: "",
   },
 };
@@ -837,7 +712,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-**Mode Parameter Pencarian**:
+**Mode Parameter Pencarian (Search Parameters Mode)**:
 
 ```typescript
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -850,7 +725,6 @@ const config: IntlayerConfig = {
   routing: {
     mode: "search-params",
     storage: "localStorage",
-    headerName: "x-intlayer-locale",
     basePath: "",
   },
 };
@@ -858,7 +732,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-**Mode Tanpa Prefix dengan Penyimpanan Kustom**:
+**Mode Tanpa Awalan (No Prefix Mode) dengan Penyimpanan Kustom**:
 
 ```typescript
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -874,8 +748,41 @@ const config: IntlayerConfig = {
       type: "sessionStorage",
       name: "app-locale",
     },
-    headerName: "x-custom-locale",
     basePath: "/my-app",
+  },
+};
+
+export default config;
+```
+
+**Penulisan Ulang URL Kustom dengan Jalur Dinamis**:
+
+```typescript
+// intlayer.config.ts
+import { nextjsRewrite } from "intlayer/routing";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: ["en", "fr"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "prefix-no-default", // Fallback untuk jalur yang tidak ditulis ulang
+    storage: "cookie",
+    rewrite: nextjsRewrite({
+      "/about": {
+        en: "/about",
+        fr: "/a-propos",
+      },
+      "/product/[slug]": {
+        en: "/product/[slug]",
+        fr: "/produit/[slug]",
+      },
+      "/blog/[category]/[id]": {
+        en: "/blog/[category]/[id]",
+        fr: "/journal/[category]/[id]",
+      },
+    }),
   },
 };
 
@@ -884,387 +791,132 @@ export default config;
 
 ---
 
-### Konfigurasi Konten
+### Konfigurasi Konten (Content Configuration)
 
-Pengaturan terkait penanganan konten dalam aplikasi, termasuk nama direktori, ekstensi file, dan konfigurasi turunan.
+Pengaturan yang berkaitan dengan pemrosesan konten di dalam aplikasi (nama direktori, ekstensi file, dan konfigurasi turunan).
 
-#### Properti
-
-- **watch**:
-  - _Tipe_: `boolean`
-  - _Default_: `process.env.NODE_ENV === 'development'`
-  - _Deskripsi_: Menunjukkan apakah Intlayer harus memantau perubahan pada file deklarasi konten dalam aplikasi untuk membangun kembali kamus terkait.
-
-- **fileExtensions**:
-  - _Tipe_: `string[]`
-  - _Default_: `['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.tsx', '.content.jsx']`
-  - _Deskripsi_: Ekstensi file yang dicari saat membangun kamus.
-  - _Contoh_: `['.data.ts', '.data.js', '.data.json']`
-  - _Catatan_: Menyesuaikan ekstensi file dapat membantu menghindari konflik.
-
-- **contentDir**:
-  - _Tipe_: `string[]`
-  - _Default_: `['.']`
-  - _Contoh_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
-  - _Deskripsi_: Jalur direktori tempat file definisi konten (`.content.*`) disimpan.
-  - _Catatan_: Ini digunakan untuk memantau file konten untuk membangun ulang kamus.
-
-- **codeDir**:
-  - _Tipe_: `string[]`
-  - _Default_: `['.']`
-  - _Contoh_: `['src', '../../ui-library']`
-  - _Deskripsi_: Jalur direktori tempat kode disimpan, relatif terhadap direktori dasar.
-  - _Catatan_: Ini digunakan untuk memantau file kode untuk ditransformasikan (pemangkasan, optimasi). Menjaga ini terpisah dari `contentDir` dapat meningkatkan kinerja build dengan menghindari pemindaian yang tidak perlu pada file konten.
-
-- **dictionariesDir**:
-  - _Tipe_: `string`
-  - _Default_: `'.intlayer/dictionary'`
-  - _Deskripsi_: Jalur direktori untuk menyimpan hasil sementara atau output.
-
-- **moduleAugmentationDir**:
-  - _Tipe_: `string`
-  - _Default_: `'.intlayer/types'`
-  - _Deskripsi_: Direktori untuk augmentasi modul, memungkinkan saran IDE yang lebih baik dan pengecekan tipe.
-  - _Contoh_: `'intlayer-types'`
-  - _Catatan_: Pastikan untuk memasukkan ini dalam `tsconfig.json`.
-
-- **unmergedDictionariesDir**:
-  - _Tipe_: `string`
-  - _Default_: `'.intlayer/unmerged_dictionary'`
-  - _Deskripsi_: Direktori untuk menyimpan kamus yang belum digabungkan.
-  - _Contoh_: `'translations'`
-
-- **typesDir**:
-  - _Tipe_: `string`
-  - _Default_: `'types'`
-  - _Deskripsi_: Direktori untuk menyimpan tipe kamus.
-  - _Contoh_: `'intlayer-types'`
-
-- **mainDir**:
-  - _Tipe_: `string`
-  - _Default_: `'main'`
-  - _Deskripsi_: Direktori tempat file aplikasi utama disimpan.
-  - _Contoh_: `'intlayer-main'`
-
-- **excludedPath**:
-  - _Tipe_: `string[]`
-  - _Default_: `['**/node_modules/**', '**/dist/**', '**/build/**', '**/.intlayer/**', '**/.next/**', '**/.nuxt/**', '**/.expo/**', '**/.vercel/**', '**/.turbo/**', '**/.tanstack/**']`
-  - _Deskripsi_: Direktori yang dikecualikan dari pencarian konten.
-  - _Catatan_: Pengaturan ini belum digunakan, tetapi direncanakan untuk implementasi di masa depan.
+| Field            | Tipe       | Deskripsi                                                                                                                                                                                         | Contoh                              | Catatan                                                                                                                                    |
+| ---------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `watch`          | `boolean`  | Menunjukkan apakah Intlayer harus memantau perubahan dalam file deklarasi konten untuk membangun kembali kamus. Default: `process.env.NODE_ENV === 'development'`                                 |                                     |                                                                                                                                            |
+| `fileExtensions` | `string[]` | Ekstensi file yang digunakan untuk memindai file deklarasi konten. Default: `['.content.ts', '.content.js', '.content.mjs', '.content.cjs', '.content.json', '.content.json5', '.content.jsonc']` | `['.content.ts', '.content.js']`    |                                                                                                                                            |
+| `contentDir`     | `string[]` | Jalur ke direktori tempat file deklarasi konten berada. Default: `['.']`                                                                                                                          | `['src/content']`                   |                                                                                                                                            |
+| `codeDir`        | `string[]` | Jalur ke direktori tempat file kode sumber aplikasi Anda berada. Default: `['.']`                                                                                                                 | `['src']`                           | Digunakan untuk mengoptimalkan build dan memastikan transformasi kode serta pemuatan ulang panas hanya berlaku untuk file yang diperlukan. |
+| `excludedPath`   | `string[]` | Jalur yang dikecualikan dari pemindaian konten. Default: `['node_modules', '.intlayer', '.next', 'dist', 'build']`                                                                                | `['src/styles']`                    |                                                                                                                                            |
+| `formatCommand`  | `string`   | Perintah yang akan dijalankan untuk memformat file konten yang baru dibuat atau diperbarui. Default: `undefined`                                                                                  | `'npx prettier --write "{{file}}"'` | Digunakan selama ekstraksi konten atau melalui visual editor.                                                                              |
 
 ---
 
-### Konfigurasi Sistem
-
-Pengaturan terkait jalur internal dan hasil output Intlayer. Pengaturan ini biasanya bersifat internal dan tidak perlu diubah oleh pengguna.
-
-#### Properti
-
-- **baseDir**:
-  - _Tipe_: `string`
-  - _Default_: `process.cwd()`
-  - _Deskripsi_: Direktori dasar untuk proyek.
-  - _Contoh_: `'/path/to/project'`
-  - _Catatan_: Ini digunakan untuk menyelesaikan semua direktori terkait Intlayer.
-
-- **formatCommand**:
-  - _Tipe_: `string`
-  - _Default_: `undefined`
-  - _Deskripsi_: Perintah untuk memformat konten. Ketika intlayer menulis file .content Anda secara lokal, perintah ini akan digunakan untuk memformat konten.
-  - _Contoh_: `'npx prettier --write "{{file}}" --log-level silent'` Menggunakan Prettier
-  - _Contoh_: `'npx biome format "{{file}}" --write --log-level none'` Menggunakan Biome
-  - _Contoh_: `'npx eslint --fix "{{file}}"  --quiet'` Menggunakan ESLint
-  - _Catatan_: Intlayer akan menggantikan {{file}} dengan path file yang akan diformat.
-  - _Catatan_: Jika tidak diatur, Intlayer akan mencoba mendeteksi perintah format secara otomatis dengan mencoba menyelesaikan perintah berikut: prettier, biome, eslint.
-
-### Konfigurasi Kamus
+### Konfigurasi Kamus (Dictionary Configuration)
 
 Pengaturan yang mengontrol operasi kamus, termasuk perilaku pengisian otomatis dan pembuatan konten.
 
 Konfigurasi kamus ini memiliki dua tujuan utama:
 
-1. **Nilai Default**: Mendefinisikan nilai default saat membuat file deklarasi konten
-2. **Perilaku Cadangan**: Memberikan nilai cadangan ketika bidang tertentu tidak didefinisikan, memungkinkan Anda untuk menentukan perilaku operasi kamus secara global
+1. **Nilai default**: Menentukan nilai default saat membuat file deklarasi konten.
+2. **Perilaku fallback**: Memungkinkan pengaturan perilaku operasi kamus secara global, memberikan nilai fallback ketika field tertentu tidak didefinisikan.
 
-Untuk informasi lebih lanjut tentang file deklarasi konten dan bagaimana nilai konfigurasi diterapkan, lihat [Dokumentasi File Konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
+Untuk informasi lebih lanjut tentang bagaimana file deklarasi konten dan nilai konfigurasi diterapkan, lihat [dokumentasi file konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
 
-#### Properti
+| Field                       | Tipe                                                                                            | Deskripsi                                                                                                              | Contoh                | Catatan                                                                                                                                                                                                                                                                                                                                                                           |
+| --------------------------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `fill`                      | `boolean &#124; FilePathPattern &#124; Partial<Record<Locale, boolean &#124; FilePathPattern>>` | Mengontrol bagaimana file output pengisian otomatis (terjemahan AI) dihasilkan. Default: `true`                        | Lihat contoh di bawah | `true`: jalur default (file yang sama dengan sumber). `false`: dinonaktifkan. Pola string/fungsi menghasilkan file per bahasa. Objek per bahasa: setiap bahasa dipetakan ke polanya sendiri; `false` melewatkan bahasa tersebut. Menyertakan variabel `{{locale}}` memicu pembuatan per-bahasa. `fill` di tingkat kamus selalu memiliki prioritas di atas konfigurasi global ini. |
+| `importMode`                | `'static' &#124; 'dynamic' &#124; 'fetch'`                                                      | Mengontrol bagaimana kamus diimpor. Default: `'static'`                                                                | `'dynamic'`           | `'static'`: Diimpor secara statis. `'dynamic'`: Diimpor secara dinamis melalui 'Suspense'. `'fetch'`: Diambil secara dinamis melalui 'Live Sync API'. Tidak memengaruhi `getIntlayer`, `getDictionary`, `useDictionary`, dll.                                                                                                                                                     |
+| `location`                  | `'local' &#124; 'remote' &#124; 'hybrid' &#124; string`                                         | Tempat kamus disimpan. Default: `'local'`                                                                              | `'remote'`            | `'local'`: sistem file. `'remote'`: Intlayer CMS. `'hybrid'`: keduanya.                                                                                                                                                                                                                                                                                                           |
+| `contentAutoTransformation` | `boolean`                                                                                       | Menunjukkan apakah file konten harus ditransformasi secara otomatis (misalnya dari Markdown ke HTML). Default: `false` | `true`                | Berguna untuk memproses field Markdown melalui @intlayer/markdown.                                                                                                                                                                                                                                                                                                                |
 
-- **fill**:
-  - _Type_: `Fill` (`boolean | FilePathPattern | Partial<Record<Locale, boolean | FilePathPattern>>`)
-  - _Default_: `true`
-  - _Description_: Controls how auto-fill (AI translation) output files are generated for this dictionary. When set at the config level (`dictionary.fill`), it serves as the default for all dictionaries. Each dictionary can override this with its own `fill` field.
-  - _Options_:
-    - `true`: Use the default output path (same file as the source dictionary).
-    - `false`: Disable auto-fill for this dictionary.
-    - String template: `'/locales/{{locale}}/{{key}}.content.json'` — generates one file per locale using the template.
-    - Function: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\`` — generates one file per locale using a function.
-    - Object per-locale: `{ en: '...', fr: '...', es: false }` — each locale maps to its own pattern; `false` skips that locale.
-  - _Note_: Including `{{locale}}` in the pattern (or using an object) triggers per-locale file generation. Without it, a single multilingual file is written.
-  - _Note_: A dictionary-level `fill` always takes priority over `dictionary.fill` from the global config.
-  - _Example_:
-    ```ts
-    dictionary: {
-      fill: {
-        en: '/locales/en/{{key}}.content.json',
-        fr: ({ key }) => `/locales/fr/${key}.content.json`,
-        es: false,
-      }
-    }
-    ```
-- **description**
-- **locale**
-- **location**
-- **priority**
-- **live**
-- **schema**
-- **title**
-- **tags**
-- **version**
+**Contoh `fill`**:
+
+```ts
+dictionary: {
+  fill: {
+    en: '/locales/en/{{key}}.content.json',
+    fr: ({ key }) => `/locales/fr/${key}.content.json`,
+    es: false,
+  }
+}
+```
 
 ---
 
-### Konfigurasi Logger
+### Konfigurasi AI (AI Configuration)
 
-Pengaturan yang mengontrol logger, termasuk prefix yang digunakan.
+Mendefinisikan pengaturan untuk fitur berkekuatan AI Intlayer, seperti pembuatan terjemahan.
 
-#### Properti
-
-- **mode**:
-  - _Tipe_: `string`
-  - _Default_: `default`
-  - _Deskripsi_: Menunjukkan mode dari logger.
-  - _Opsi_: `default`, `verbose`, `disabled`
-  - _Contoh_: `default`
-  - _Catatan_: Mode dari logger. Mode verbose akan mencatat lebih banyak informasi, tetapi dapat digunakan untuk tujuan debugging. Mode disabled akan menonaktifkan logger.
-
-- **prefix**:
-  - _Tipe_: `string`
-  - _Default_: `'[intlayer] '`
-  - _Deskripsi_: Prefix dari logger.
-  - _Contoh_: `'[my custom prefix] '`
-  - _Catatan_: Prefix dari logger.
-
-### Konfigurasi AI
-
-Pengaturan yang mengontrol fitur AI dari Intlayer, termasuk provider, model, dan API key.
-
-Konfigurasi ini bersifat opsional jika Anda terdaftar di [Intlayer Dashboard](https://app.intlayer.org/project) menggunakan access key. Intlayer akan secara otomatis mengelola solusi AI yang paling efisien dan hemat biaya untuk kebutuhan Anda. Menggunakan opsi default memastikan pemeliharaan jangka panjang yang lebih baik karena Intlayer terus diperbarui untuk menggunakan model yang paling relevan.
-
-Jika Anda lebih memilih menggunakan API key sendiri atau model tertentu, Anda dapat mendefinisikan konfigurasi AI kustom Anda.
-Konfigurasi AI ini akan digunakan secara global di seluruh lingkungan Intlayer Anda. Perintah CLI akan menggunakan pengaturan ini sebagai default untuk perintah (misalnya `fill`), serta SDK, Visual Editor, dan CMS. Anda dapat menimpa nilai default ini untuk kasus penggunaan tertentu dengan menggunakan parameter perintah.
-
-Intlayer mendukung beberapa provider AI untuk fleksibilitas dan pilihan yang lebih baik. Provider yang saat ini didukung adalah:
-
-- **OpenAI** (default)
-- **Anthropic Claude**
-- **Mistral AI**
-- **DeepSeek**
-- **Google Gemini**
-- **Meta Llama**
-- **Ollama**
-- **OpenRouter**
-- **Alibaba Cloud**
-- **Fireworks**
-- **Hugging Face**
-- **Groq**
-- **Amazon Bedrock**
-- **Google AI Studio**
-- **Google Vertex**
-- **Together.ai**
-- **ollama**
-
-#### Properti
-
-- **provider**:
-  - _Tipe_: `string`
-  - _Default_: `'openai'`
-  - _Deskripsi_: Provider yang digunakan untuk fitur AI dari Intlayer.
-  - _Opsi_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googleaistudio'`, `'googlevertex'`, `'togetherai'`
-  - _Contoh_: `'anthropic'`
-  - _Catatan_: Penyedia yang berbeda mungkin memerlukan kunci API yang berbeda dan memiliki model harga yang berbeda.
-
-- **model**:
-  - _Tipe_: `string`
-  - _Default_: Tidak ada
-  - _Deskripsi_: Model yang digunakan untuk fitur AI di Intlayer.
-  - _Contoh_: `'gpt-4o-2024-11-20'`
-  - _Catatan_: Model spesifik yang digunakan bervariasi tergantung penyedia.
-
-- **temperature**:
-  - _Tipe_: `number`
-  - _Default_: Tidak ada
-  - _Deskripsi_: Temperature mengontrol tingkat keacakan respons AI.
-  - _Contoh_: `0.1`
-  - _Catatan_: Temperature yang lebih tinggi akan membuat AI lebih kreatif dan kurang dapat diprediksi.
-
-- **apiKey**:
-  - _Tipe_: `string`
-  - _Default_: Tidak ada
-  - _Deskripsi_: Kunci API Anda untuk penyedia yang dipilih.
-  - _Contoh_: `process.env.OPENAI_API_KEY`
-  - _Catatan_: Penting: Kunci API harus dijaga kerahasiaannya dan tidak dibagikan secara publik. Pastikan untuk menyimpannya di lokasi yang aman, seperti variabel lingkungan.
-
-- **applicationContext**:
-  - _Tipe_: `string`
-  - _Default_: Tidak ada
-  - _Deskripsi_: Memberikan konteks tambahan tentang aplikasi Anda kepada model AI, membantu menghasilkan terjemahan yang lebih akurat dan sesuai konteks. Ini dapat mencakup informasi tentang domain aplikasi Anda, audiens target, nada, atau terminologi khusus.
-
-- **baseURL**:
-  - _Tipe_: `string`
-  - _Default_: Tidak ada
-  - _Deskripsi_: URL dasar untuk API AI.
-  - _Contoh_: `'https://api.openai.com/v1'`
-  - _Catatan_: Dapat digunakan untuk menunjuk ke endpoint API AI lokal atau kustom.
-
-- **dataSerialization**:
-  - _Tipe_: `'json' | 'toon'`
-  - _Default_: `'json'`
-  - _Deskripsi_: Format serialisasi data yang digunakan untuk fitur AI Intlayer.
-  - _Contoh_: `'toon'`
-  - _Catatan_: `json`: Standar, andal; menggunakan lebih banyak token. `toon`: Lebih sedikit token, kurang konsisten dibandingkan JSON.
-
-### Konfigurasi Build
-
-Pengaturan yang mengontrol bagaimana Intlayer mengoptimalkan dan membangun internasionalisasi aplikasi Anda.
-
-Opsi build berlaku untuk plugin `@intlayer/babel` dan `@intlayer/swc`.
-
-> Dalam mode pengembangan, Intlayer menggunakan impor statis untuk kamus agar pengalaman pengembangan menjadi lebih sederhana.
-
-> Saat dioptimalkan, Intlayer akan mengganti panggilan kamus untuk mengoptimalkan chunking, sehingga bundel akhir hanya mengimpor kamus yang benar-benar digunakan.
-
-#### Properti
-
-- **mode**:
-  - _Tipe_: `'auto' | 'manual'`
-  - _Default_: `'auto'`
-  - _Deskripsi_: Mengontrol mode build.
-  - _Contoh_: `'manual'`
-  - _Catatan_: Jika 'auto', build akan diaktifkan secara otomatis saat aplikasi dibangun.
-  - _Catatan_: Jika 'manual', build akan disetel hanya ketika perintah build dieksekusi.
-  - _Catatan_: Dapat digunakan untuk menonaktifkan build kamus, misalnya ketika eksekusi di lingkungan Node.js harus dihindari.
-
-- **optimize**:
-  - _Tipe_: `boolean`
-  - _Default_: `process.env.NODE_ENV === 'production'`
-  - _Deskripsi_: Mengontrol apakah build harus dioptimalkan.
-  - _Contoh_: `true`
-  - _Catatan_: Saat diaktifkan, Intlayer akan mengganti semua panggilan kamus untuk mengoptimalkan chunking. Dengan begitu, bundel akhir hanya akan mengimpor kamus yang digunakan. Semua impor akan tetap sebagai impor statis untuk menghindari pemrosesan async saat memuat kamus.
-  - _Catatan_: Intlayer akan mengganti semua panggilan `useIntlayer` dengan mode yang ditentukan oleh opsi `importMode` dan `getIntlayer` dengan `getDictionary`.
-  - _Catatan_: Opsi ini bergantung pada plugin `@intlayer/babel` dan `@intlayer/swc`.
-  - _Catatan_: Pastikan semua kunci dideklarasikan secara statis dalam panggilan `useIntlayer`. Contoh: `useIntlayer('navbar')`.
-
-- **checkTypes**:
-  - _Tipe_: `boolean`
-  - _Default_: `false`
-  - _Deskripsi_: Menunjukkan apakah build harus memeriksa tipe TypeScript dan mencatat kesalahan.
-  - _Catatan_: Hal ini dapat memperlambat proses build.
-
-- **outputFormat**:
-  - _Tipe_: `'esm' | 'cjs'`
-  - _Default_: `'esm'`
-  - _Deskripsi_: Mengontrol format output dari kamus.
-  - _Contoh_: `'cjs'`
-  - _Catatan_: Format output dari kamus.
-
-- **traversePattern**:
-  - _Tipe_: `string[]`
-  - _Default_: `['**\/*.{js,ts,mjs,cjs,jsx,tsx}', '!**\/node_modules/**']`
-  - _Deskripsi_: Pola yang menentukan file mana yang harus dilalui selama optimasi.
-    - _Contoh_: `['src/**\/*.{ts,tsx}', '../ui-library/**\/*.{ts,tsx}', '!**/node_modules/**']`
-  - _Catatan_: Gunakan ini untuk membatasi optimasi hanya pada file kode yang relevan dan meningkatkan performa build.
-  - _Catatan_: Opsi ini akan diabaikan jika `optimize` dinonaktifkan.
-  - _Catatan_: Gunakan pola glob.
+| Field                | Tipe                   | Deskripsi                                                                        | Contoh                                            | Catatan                                                                                                  |
+| -------------------- | ---------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `provider`           | `string`               | Penyedia AI yang akan digunakan.                                                 | `'openai'`, `'anthropic'`, `'googlevertex'`       |                                                                                                          |
+| `model`              | `string`               | Model AI yang akan digunakan.                                                    | `'gpt-4o'`, `'claude-3-5-sonnet-20240620'`        |                                                                                                          |
+| `apiKey`             | `string`               | Kunci API untuk penyedia yang dipilih.                                           | `process.env.OPENAI_API_KEY`                      |                                                                                                          |
+| `applicationContext` | `string`               | Konteks tambahan tentang aplikasi Anda untuk meningkatkan akurasi terjemahan AI. | `'Sebuah platform pembelajaran untuk anak-anak.'` |                                                                                                          |
+| `baseURL`            | `string`               | URL dasar opsional untuk panggilan API.                                          |                                                   | Berguna jika Anda menggunakan proksi atau penyebaran AI lokal.                                           |
+| `dataSerialization`  | `'json' &#124; 'toon'` | Mendefinisikan bagaimana data dikirim ke AI. Default: `'json'`                   | `'json'`                                          | `'json'`: lebih kuat dan akurat. `'toon'`: menggunakan lebih sedikit token tetapi mungkin kurang stabil. |
 
 ---
 
-### Konfigurasi Kompiler
+### Konfigurasi Build (Build Configuration)
 
-Pengaturan yang mengontrol kompiler Intlayer, yang mengekstrak kamus langsung dari komponen Anda.
+Pengaturan untuk proses build dan optimasi Intlayer.
 
-#### Properti
+| Field          | Tipe                     | Deskripsi                                                                                                               | Contoh | Catatan |
+| -------------- | ------------------------ | ----------------------------------------------------------------------------------------------------------------------- | ------ | ------- |
+| `mode`         | `'auto' &#124; 'manual'` | Menunjukkan apakah Intlayer harus berjalan secara otomatis selama langkah-langkah pre-build aplikasi. Default: `'auto'` |        |         |
+| `optimize`     | `boolean`                | Menunjukkan apakah kamus yang dikompilasi harus dioptimalkan untuk runtime. Default: `true` dalam produksi              |        |         |
+| `outputFormat` | `('cjs' &#124; 'esm')[]` | Format output untuk file kamus yang dihasilkan. Default: `['cjs', 'esm']`                                               |        |         |
+| `checkTypes`   | `boolean`                | Menunjukkan apakah Intlayer harus memeriksa tipe dalam file yang dihasilkan. Default: `false`                           |        |         |
 
-- **enabled**:
-  - _Tipe_: `boolean | 'build-only'`
-  - _Default_: `true`
-  - _Deskripsi_: Menunjukkan apakah kompiler harus diaktifkan untuk mengekstrak kamus.
-  - _Contoh_: `'build-only'`
-  - _Catatan_: Menyetelnya ke `'build-only'` akan melewati kompiler selama mode pengembangan untuk mempercepat waktu build. Ini hanya akan berjalan pada perintah build.
+---
 
-- **dictionaryKeyPrefix**:
-  - _Tipe_: `string`
-  - _Default_: `''`
-  - _Deskripsi_: Awalan untuk kunci kamus yang diekstrak.
-  - _Contoh_: `'my-key-'`
-  - _Catatan_: Saat kamus diekstrak, kunci dihasilkan berdasarkan nama file. Awalan ini ditambahkan ke kunci yang dihasilkan untuk mencegah konflik.
+### Konfigurasi Sistem (System Configuration)
 
-- **saveComponents**:
-  - _Tipe_: `boolean`
-  - _Default_: `false`
-  - _Deskripsi_: Menunjukkan apakah komponen harus disimpan setelah diubah.
-  - _Catatan_: Jika true, kompiler akan mengganti file asli dengan file yang diubah. Dengan begitu, kompiler hanya dapat dijalankan sekali untuk mengubah aplikasi, dan kemudian dapat dihapus.
+Pengaturan ini untuk penggunaan tingkat lanjut dan konfigurasi internal Intlayer.
 
-- **transformPattern**:
-  - _Tipe_: `string | string[]`
-  - _Default_: `['**/*.{ts,tsx,jsx,js,cjs,mjs,svelte,vue}', '!**/node_modules/**']`
-  - _Deskripsi_: Pola yang menentukan file mana yang harus dilalui selama optimasi.
-  - _Contoh_: `['src/**/*.{ts,tsx}', '!**/node_modules/**']`
-  - _Catatan_: Gunakan ini untuk membatasi optimasi hanya pada file kode yang relevan dan meningkatkan performa build.
+| Field                     | Tipe     | Deskripsi                                    | Default                           |
+| ------------------------- | -------- | -------------------------------------------- | --------------------------------- |
+| `dictionariesDir`         | `string` | Direktori kamus yang dikompilasi.            | `'.intlayer/dictionary'`          |
+| `moduleAugmentationDir`   | `string` | Direktori augmentasi modul TypeScript.       | `'.intlayer/types'`               |
+| `unmergedDictionariesDir` | `string` | Direktori kamus yang belum digabungkan.      | `'.intlayer/unmerged_dictionary'` |
+| `typesDir`                | `string` | Direktori tipe yang dihasilkan.              | `'.intlayer/types'`               |
+| `mainDir`                 | `string` | Direktori file Intlayer utama.               | `'.intlayer/main'`                |
+| `configDir`               | `string` | Direktori file konfigurasi yang dikompilasi. | `'.intlayer/config'`              |
+| `cacheDir`                | `string` | Direktori file cache.                        | `'.intlayer/cache'`               |
 
-- **excludePattern**:
-  - _Tipe_: `string | string[]`
-  - _Default_: `['**/node_modules/**']`
-  - _Deskripsi_: Pola yang menentukan file mana yang harus dikecualikan selama optimasi.
-  - _Contoh_: `['**/node_modules/**', '!**/node_modules/react/**']`
+---
 
-- **output**:
-  - _Tipe_: `Fill`
-  - _Default_: `undefined`
-  - _Deskripsi_: Mendefinisikan jalur file output. Menggantikan `outputDir`. Menangani variabel dinamis melalui string template atau fungsi. Variabel yang didukung: `{{fileName}}`, `{{key}}`, `{{locale}}`, `{{extension}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{format}}`, `{{componentFormat}}`, dan `{{componentDirPath}}`.
-  - _Catatan_: Jalur yang dimulai dengan `./` diselesaikan relatif terhadap direktori komponen. Jalur yang dimulai dengan `/` diselesaikan relatif terhadap root proyek (`baseDir`).
-  - _Catatan_: Menyertakan variabel `{{locale}}` dalam jalur akan mengaktifkan pembuatan kamus yang dipisahkan berdasarkan bahasa.
-  - _Note_: Supports an object per-locale notation where each locale key maps to its own pattern (string or function), or `false` to skip that locale entirely.
-  - _Contoh_:
-    - **Buat file multi-bahasa di samping komponen**:
-    - String: `'./{{fileName}}{{extension}}'`
-    - Fungsi: `({ fileName, extension }) => \`./${fileName}${extension}\``
+### Konfigurasi Kompiler (Compiler Configuration)
 
-    - **Output file JSON terpusat per bahasa**:
-    - String: `'/locales/{{locale}}/{{key}}.content.json'`
-    - Fungsi: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\``
+Pengaturan untuk kompiler Intlayer (`intlayer compiler`).
 
-    - **Object per-locale (different pattern per locale, skip some)**:
+| Field                 | Tipe                     | Deskripsi                                                                           | Default |
+| --------------------- | ------------------------ | ----------------------------------------------------------------------------------- | ------- |
+| `enabled`             | `boolean`                | Menunjukkan apakah kompiler aktif.                                                  | `false` |
+| `output`              | `string &#124; Function` | Jalur output untuk kamus yang diekstrak.                                            |         |
+| `saveComponents`      | `boolean`                | Menunjukkan apakah file sumber asli harus ditimpa dengan versi yang ditransformasi. | `false` |
+| `noMetadata`          | `boolean`                | Jika `true`, kompiler tidak akan menyertakan metadata dalam file yang dihasilkan.   | `false` |
+| `dictionaryKeyPrefix` | `string`                 | Awalan kunci kamus opsional.                                                        | `''`    |
 
-    ```ts
-    output: {
-      en: ({ key }) => `./locales/en/${key}.json`,
-      fr: '/locales/fr/{{key}}.content.json',
-      es: false, // skip Spanish
-    }
-    ```
+---
 
-- **noMetadata**:
-  - _Tipe_: `boolean`
-  - _Default_: `false`
-  - _Deskripsi_: Menunjukkan apakah metadata harus disimpan dalam file. Jika benar, kompiler tidak akan menyimpan metadata kamus (kunci, pembungkus konten).
-  - _Catatan_: Berguna jika digunakan dengan plugin `loadJSON`. Berguna untuk output JSON i18next atau ICU MessageFormat per bahasa.
-  - _Contoh_:
-    Jika `true` :
+### Konfigurasi Logger (Logger Configuration)
 
-    ```json
-    {
-      "key": "value"
-    }
-    ```
+Pengaturan untuk menyesuaikan output log Intlayer.
 
-    Jika `false`:
+| Field    | Tipe                                           | Deskripsi               | Default        |
+| -------- | ---------------------------------------------- | ----------------------- | -------------- |
+| `mode`   | `'default' &#124; 'verbose' &#124; 'disabled'` | Mode logging.           | `'default'`    |
+| `prefix` | `string`                                       | Awalan untuk pesan log. | `'[intlayer]'` |
 
-    ```json
-    {
-      "key": "value",
-      "content": {
-        "key": "value"
-      }
-    }
-    ```
+---
+
+### Schema Kustom (Custom Schemas)
+
+| Field     | Tipe                        | Deskripsi                                                                    |
+| --------- | --------------------------- | ---------------------------------------------------------------------------- |
+| `schemas` | `Record<string, ZodSchema>` | Memungkinkan pendefinisian schema Zod untuk memvalidasi struktur kamus Anda. |
+
+---
+
+### Plugin
+
+| Field     | Tipe               | Deskripsi                                    |
+| --------- | ------------------ | -------------------------------------------- |
+| `plugins` | `IntlayerPlugin[]` | Daftar plugin Intlayer yang akan diaktifkan. |

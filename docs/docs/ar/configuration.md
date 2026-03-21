@@ -1,10 +1,10 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-03-12
-title: التهيئة
-description: تعلّم كيفية تهيئة Intlayer لتطبيقك. فهم الإعدادات والخيارات المختلفة المتاحة لتخصيص Intlayer حسب احتياجاتك.
+updatedAt: 2026-03-20
+title: التكوين (Configuration)
+description: تعرف على كيفية تكوين Intlayer لتطبيقك. افهم الإعدادات والخيارات المتنوعة المتاحة لتخصيص Intlayer وفقًا لاحتياجاتك.
 keywords:
-  - التهيئة
+  - التكوين
   - الإعدادات
   - التخصيص
   - Intlayer
@@ -16,28 +16,37 @@ slugs:
 history:
   - version: 8.4.0
     date: 2026-03-20
-    changes: Add object per-locale notation for 'compiler.output' and 'dictionary.fill'
+    changes: تمت إضافة تدوين الكائن لكل لغة لـ 'compiler.output' و 'dictionary.fill'
   - version: 8.3.0
     date: 2026-03-11
     changes: نقل 'baseDir' من تكوين 'content' إلى تكوين 'system'
   - version: 8.2.0
     date: 2026-03-09
-    changes: تحديث خيارات المترجم، وإضافة دعم لـ 'output' و 'noMetadata'
+    changes: تحديث خيارات المترجم (compiler)، وإضافة دعم لـ 'output' و 'noMetadata'
   - version: 8.1.7
     date: 2026-02-25
     changes: تحديث خيارات المترجم
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: إضافة خيار المترجم 'build-only' وبادئة القاموس
   - version: 8.0.6
     date: 2026-02-12
-    changes: إضافة دعم لمقدمي Open Router و Alibaba و Amazon و Google Vertex Bedrock و Fireworks و Groq و Hugging Face و Together.ai
+    changes: إضافة دعم لمزودي Open Router و Alibaba و Amazon و Google Vertex Bedrock و Fireworks و Groq و Hugging Face و Together.ai
   - version: 8.0.5
     date: 2026-02-06
     changes: إضافة `dataSerialization` إلى تكوين الذكاء الاصطناعي
   - version: 8.0.0
+    date: 2026-01-24
+    changes: إعادة تسمية وضع الاستيراد `live` إلى `fetch` لوصف الآلية الأساسية بشكل أفضل.
+  - version: 8.0.0
     date: 2026-01-22
-    changes: نقل تكوين بناء importMode إلى تكوين القاموس.
+    changes: نقل تكوين البناء `importMode` إلى تكوين القاموس `dictionary`.
+  - version: 8.0.0
+    date: 2026-01-22
+    changes: إضافة خيار `rewrite` لتكوين التوجيه
   - version: 8.0.0
     date: 2026-01-18
-    changes: فصل تكوين النظام عن تكوين المحتوى. نقل المسارات الداخلية إلى خاصية `system`. إضافة `codeDir` لفصل ملفات المحتوى عن تحويل الكود.
+    changes: فصل تكوين النظام عن تكوين المحتوى. نقل المسارات الداخلية إلى خاصية `system`. إضافة `codeDir` لفصل ملفات المحتوى وتحويل الكود.
   - version: 8.0.0
     date: 2026-01-18
     changes: إضافة خيارات القاموس `location` و `schema`
@@ -47,6 +56,24 @@ history:
   - version: 7.5.0
     date: 2025-12-17
     changes: إضافة خيار `buildMode`
+  - version: 7.0.0
+    date: 2025-10-25
+    changes: إضافة تكوين `dictionary`
+  - version: 7.0.0
+    date: 2025-10-21
+    changes: استبدال `middleware` بتكوين التوجيه `routing`
+  - version: 7.0.0
+    date: 2025-10-12
+    changes: إضافة خيار `formatCommand`
+  - version: 6.2.0
+    date: 2025-10-12
+    changes: تحديث خيار `excludedPath`
+  - version: 6.0.2
+    date: 2025-09-23
+    changes: إضافة خيار `outputFormat`
+  - version: 6.0.0
+    date: 2025-09-21
+    changes: إزالة حقل `dictionaryOutput` وحقل `i18nextResourcesDir`
   - version: 6.0.0
     date: 2025-09-16
     changes: إضافة وضع الاستيراد `live`
@@ -58,17 +85,17 @@ history:
     changes: استبدال `activateDynamicImport` بخيار `importMode`
   - version: 5.6.0
     date: 2025-07-13
-    changes: تغيير الدليل الافتراضي للمحتوى من `['src']` إلى `['.']`
+    changes: تغيير `contentDir` الافتراضي من `['src']` إلى `['.']`
   - version: 5.5.11
     date: 2025-06-29
     changes: إضافة أوامر `docs`
 ---
 
-# وثائق تهيئة Intlayer
+# توثيق تكوين Intlayer
 
 ## نظرة عامة
 
-تتيح ملفات تهيئة Intlayer تخصيص جوانب مختلفة من الإضافة، مثل التدويل، والوسائط الوسيطة، والتعامل مع المحتوى. يوفر هذا المستند وصفًا تفصيليًا لكل خاصية في التهيئة.
+تسمح لك ملفات تكوين Intlayer بتخصيص جوانب مختلفة من البرنامج المساعد، مثل التدويل (internationalization)، والبرامج الوسيطة (middleware)، ومعالجة المحتوى. يوفر هذا التوثيق وصفًا تفصيليًا لكل خاصية في التكوين.
 
 ---
 
@@ -78,9 +105,9 @@ history:
 
 ---
 
-## دعم ملفات التهيئة
+## تنسيقات ملفات التكوين المدعومة
 
-يدعم Intlayer تنسيقات ملفات التهيئة JSON و JS و MJS و TS:
+يقبل Intlayer تنسيقات ملفات التكوين JSON و JS و MJS و TS:
 
 - `intlayer.config.ts`
 - `intlayer.config.js`
@@ -93,7 +120,7 @@ history:
 
 ---
 
-## مثال على ملف التهيئة
+## مثال على ملف التكوين
 
 ````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -101,108 +128,108 @@ import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
 
 /**
- * Example Intlayer configuration file showing all available options.
+ * مثال على ملف تكوين Intlayer يعرض جميع الخيارات المتاحة.
  */
 const config: IntlayerConfig = {
   /**
-   * Configuration for internationalization settings.
+   * تكوين إعدادات التدويل.
    */
   internationalization: {
     /**
-     * List of supported locales in the application.
-     * Default: [Locales.ENGLISH]
+     * قائمة اللغات (locales) المدعومة في التطبيق.
+     * الافتراضي: [Locales.ENGLISH]
      */
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
 
     /**
-     * List of required locales that must be defined in every dictionary.
-     * If empty, all locales are required in `strict` mode.
-     * Default: []
+     * قائمة اللغات الإلزامية التي يجب تعريفها في كل قاموس.
+     * إذا كانت فارغة، فستكون جميع اللغات إلزامية في وضع `strict`.
+     * الافتراضي: []
      */
     requiredLocales: [Locales.ENGLISH],
 
     /**
-     * Strictness level for internationalized content.
-     * - "strict": Errors if any declared locale is missing or undeclared.
-     * - "inclusive": Warnings if a declared locale is missing.
-     * - "loose": Accepts any existing locale.
-     * Default: "inclusive"
+     * مستوى الصرامة للمحتوى المدوّل.
+     * - "strict": خطأ إذا كانت أي لغة معلنة مفقودة أو غير معلنة.
+     * - "inclusive": تحذير إذا كانت اللغة المعلنة مفقودة.
+     * - "loose": قبول أي لغة موجودة.
+     * الافتراضي: "inclusive"
      */
     strictMode: "inclusive",
 
     /**
-     * Default locale used as a fallback if the requested locale is not found.
-     * Default: Locales.ENGLISH
+     * اللغة الافتراضية المستخدمة كبديل في حالة عدم العثور على اللغة المطلوبة.
+     * الافتراضي: Locales.ENGLISH
      */
     defaultLocale: Locales.ENGLISH,
   },
 
   /**
-   * Settings that control dictionary operations and fallback behavior.
+   * الإعدادات التي تتحكم في عمليات القاموس وسلوك البدائل.
    */
   dictionary: {
     /**
-     * Controls how dictionaries are imported.
-     * - "static": Statically imported at build time.
-     * - "dynamic": Dynamically imported using Suspense.
-     * - "fetch": Fetched dynamically via the live sync API.
-     * Default: "static"
+     * يتحكم في كيفية استيراد القواميس.
+     * - "static": يتم استيراده بشكل ثابت في وقت البناء.
+     * - "dynamic": يتم استيراده بشكل ديناميكي باستخدام Suspense.
+     * - "fetch": يتم جلبه ديناميكيًا عبر واجهة برمجة تطبيقات Live Sync.
+     * الافتراضي: "static"
      */
     importMode: "static",
 
     /**
-     * Strategy for auto-filling missing translations using AI.
-     * Can be a boolean or a path pattern to store filled content.
-     * Default: true
+     * استراتيجية ملء الترجمات المفقودة تلقائيًا باستخدام الذكاء الاصطناعي.
+     * يمكن أن تكون قيمة منطقية أو نمط مسار لحفظ المحتوى المملوء.
+     * الافتراضي: true
      */
     fill: true,
 
     /**
-     * Physical location of the dictionary files.
-     * - "local": Stored in the local filesystem.
-     * - "remote": Stored in the Intlayer CMS.
-     * - "hybrid": Stored in the local filesystem and the Intlayer CMS.
-     * - "plugin" (or any custom string): Provided by a plugin or a custom source.
-     * Default: "local"
+     * الموقع الفعلي لملفات القاموس.
+     * - "local": مخزن في نظام الملفات المحلي.
+     * - "remote": مخزن في Intlayer CMS.
+     * - "hybrid": مخزن محليًا وفي Intlayer CMS.
+     * - "plugin" (أو أي سلسلة مخصصة): يتم توفيره بواسطة مكون إضافي أو مصدر مخصص.
+     * الافتراضي: "local"
      */
     location: "local",
 
     /**
-     * Whether to automatically transform content (e.g., Markdown to HTML).
-     * Default: false
+     * ما إذا كان يجب تحويل المحتوى تلقائيًا (مثل Markdown إلى HTML).
+     * الافتراضي: false
      */
     contentAutoTransformation: false,
   },
 
   /**
-   * Routing and middleware configuration.
+   * تكوين التوجيه والبرامج الوسيطة.
    */
   routing: {
     /**
-     * Locale routing strategy.
-     * - "prefix-no-default": Prefix all except the default locale (e.g., /dashboard, /fr/dashboard).
-     * - "prefix-all": Prefix all locales (e.g., /en/dashboard, /fr/dashboard).
-     * - "no-prefix": No locale in the URL.
-     * - "search-params": Use ?locale=...
-     * Default: "prefix-no-default"
+     * استراتيجية توجيه اللغات.
+     * - "prefix-no-default": يضيف بادئة للجميع باستثناء اللغة الافتراضية (مثل /dashboard، /fr/dashboard).
+     * - "prefix-all": يضيف بادئة لجميع اللغات (مثل /en/dashboard، /fr/dashboard).
+     * - "no-prefix": لا توجد لغة في عنوان URL.
+     * - "search-params": يستخدم ?locale=...
+     * الافتراضي: "prefix-no-default"
      */
     mode: "prefix-no-default",
 
     /**
-     * Where to store the user's selected locale.
-     * Options: 'cookie', 'localStorage', 'sessionStorage', 'header', or an array of these.
-     * Default: ['cookie', 'header']
+     * مكان تخزين اللغة المختارة من قبل المستخدم.
+     * الخيارات: 'cookie' أو 'localStorage' أو 'sessionStorage' أو 'header' أو مصفوفة منها.
+     * الافتراضي: ['cookie', 'header']
      */
     storage: ["cookie", "header"],
 
     /**
-     * Base path for the application URLs.
-     * Default: ""
+     * المسار الأساسي لعناوين URL للتطبيق.
+     * الافتراضي: ""
      */
     basePath: "",
 
     /**
-     * Custom URL rewriting rules for locale-specific paths.
+     * قواعد إعادة كتابة URL مخصصة لمسارات محددة لكل لغة.
      */
     rewrite: nextjsRewrite({
       "/[locale]/about": {
@@ -213,130 +240,130 @@ const config: IntlayerConfig = {
   },
 
   /**
-   * Settings for finding and processing content files.
+   * الإعدادات المتعلقة بالبحث عن ملفات المحتوى ومعالجتها.
    */
   content: {
     /**
-     * File extensions to scan for dictionaries.
-     * Default: ['.content.ts', '.content.js', '.content.json', etc.]
+     * امتدادات الملفات لمسح القواميس.
+     * الافتراضي: ['.content.ts', '.content.js', '.content.json' وغيرها]
      */
     fileExtensions: [".content.ts", ".content.js", ".content.json"],
 
     /**
-     * Directories where .content files are located.
-     * Default: ["."]
+     * المجلدات التي توجد بها ملفات .content.
+     * الافتراضي: ["."]
      */
     contentDir: ["src"],
 
     /**
-     * Directories where source code is located.
-     * Used for build optimization and code transformation.
-     * Default: ["."]
+     * مكان وجود الكود المصدري.
+     * يستخدم لتحسين البناء وتحويل الكود.
+     * الافتراضي: ["."]
      */
     codeDir: ["src"],
 
     /**
-     * Patterns to exclude from scanning.
-     * Default: ['node_modules', '.intlayer', etc.]
+     * الأنماط المستبعدة من المسح.
+     * الافتراضي: ['node_modules', '.intlayer' وغيرها]
      */
     excludedPath: ["node_modules"],
 
     /**
-     * Whether to watch for changes and rebuild dictionaries in development.
-     * Default: true in development
+     * ما إذا كان يجب مراقبة التغييرات وإعادة بناء القواميس أثناء التطوير.
+     * الافتراضي: true في وضع التطوير
      */
     watch: true,
 
     /**
-     * Command to format newly created / updated .content files.
+     * الأمر المستخدم لتنسيق ملفات .content المنشأة حديثًا / المحدثة.
      */
     formatCommand: 'npx prettier --write "{{file}}"',
   },
 
   /**
-   * Visual Editor configuration.
+   * تكوين المحرر المرئي (Visual Editor).
    */
   editor: {
     /**
-     * Whether the visual editor is enabled.
-     * Default: false
+     * ما إذا كان المحرر المرئي ممكناً.
+     * الافتراضي: false
      */
     enabled: true,
 
     /**
-     * URL of your application for origin validation.
-     * Default: ""
+     * عنوان URL لتطبيقك للتحقق من المصدر (origin validation).
+     * الافتراضي: ""
      */
     applicationURL: "http://localhost:3000",
 
     /**
-     * Port for the local editor server.
-     * Default: 8000
+     * منفذ خادم المحرر المحلي.
+     * الافتراضي: 8000
      */
     port: 8000,
 
     /**
-     * Public URL for the editor.
-     * Default: "http://localhost:8000"
+     * عنوان URL العام للمحرر.
+     * الافتراضي: "http://localhost:8000"
      */
     editorURL: "http://localhost:8000",
 
     /**
-     * Intlayer CMS URL.
-     * Default: "https://app.intlayer.org"
+     * عنوان URL لـ Intlayer CMS.
+     * الافتراضي: "https://app.intlayer.org"
      */
     cmsURL: "https://app.intlayer.org",
 
     /**
-     * Backend API URL.
-     * Default: "https://back.intlayer.org"
+     * عنوان URL لواجهة برمجة تطبيقات الخلفية (Backend API).
+     * الافتراضي: "https://back.intlayer.org"
      */
     backendURL: "https://back.intlayer.org",
 
     /**
-     * Whether to enable real-time content synchronization.
-     * Default: false
+     * ما إذا كان يجب تمكين مزامنة المحتوى في الوقت الفعلي.
+     * الافتراضي: false
      */
     liveSync: true,
   },
 
   /**
-   * AI-powered translation and generation settings.
+   * إعدادات الترجمة والبناء القائم على الذكاء الاصطناعي.
    */
   ai: {
     /**
-     * AI provider to use.
-     * Options: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama', 'openrouter', 'alibaba', 'fireworks', 'groq', 'huggingface', 'bedrock', 'googlevertex', 'togetherai'
-     * Default: 'openai'
+     * مزود الذكاء الاصطناعي المراد استخدامه.
+     * الخيارات: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama', 'openrouter', 'alibaba', 'fireworks', 'groq', 'huggingface', 'bedrock', 'googlevertex', 'togetherai'
+     * الافتراضي: 'openai'
      */
     provider: "openai",
 
     /**
-     * Model to use from the selected provider.
+     * نموذج المزود المختار المراد استخدامه.
      */
     model: "gpt-4o",
 
     /**
-     * Provider API key.
+     * مفتاح واجهة برمجة تطبيقات المزود.
      */
     apiKey: process.env.OPENAI_API_KEY,
 
     /**
-     * Global context to guide the AI in generating translations.
+     * سياق عالمي لتوجيه الذكاء الاصطناعي عند بناء الترجمات.
      */
-    applicationContext: "This is a travel booking application.",
+    applicationContext: "هذا تطبيق لحجز الرحلات.",
 
     /**
-     * Base URL for the AI API.
+     * عنوان URL للمسار الأساسي لواجهة برمجة تطبيقات الذكاء الاصطناعي.
      */
     baseURL: "http://localhost:3000",
 
     /**
-     * تسلسل البيانات
+     * تسلسل البيانات (Data Serialization)
      *
      * الخيارات:
-     * - "json": معيار ، موثوق ؛ يستخدم المزيد من الرموز.
-     * - "toon": عدد أقل من الرموز المميزة ، أقل اتساقا من JSON.
+     * - "json": افتراضي، قوي؛ يستهلك المزيد من التوكنات.
+     * - "toon": يستهلك توكنات أقل، قد لا يكون متسقًا مثل JSON.
      *
      * الافتراضي: "json"
      */
@@ -344,126 +371,126 @@ const config: IntlayerConfig = {
   },
 
   /**
-   * Build and optimization settings.
+   * إعدادات البناء والتحسين.
    */
   build: {
     /**
-     * Build execution mode.
-     * - "auto": Automatic build during app build.
-     * - "manual": Requires explicit build command.
-     * Default: "auto"
+     * وضع تنفيذ البناء.
+     * - "auto": يتم البناء تلقائيًا أثناء بناء التطبيق.
+     * - "manual": يتطلب أمر بناء صريح.
+     * الافتراضي: "auto"
      */
     mode: "auto",
 
     /**
-     * Whether to optimize the final bundle by pruning unused dictionaries.
-     * Default: true in production
+     * ما إذا كان يجب تحسين الحزمة النهائية عن طريق إزالة القواميس غير المستخدمة.
+     * الافتراضي: true في الإنتاج
      */
     optimize: true,
 
     /**
-     * Output format for generated dictionary files.
-     * Default: ['esm', 'cjs']
+     * تنسيق الإخراج لملفات القاموس المنشأة.
+     * الافتراضي: ['cjs', 'esm']
      */
-    outputFormat: ["esm"],
+    outputFormat: ["cjs", "esm"],
 
     /**
-     * Indicates if the build should check TypeScript types.
-     * Default: false
+     * يحدد ما إذا كان ينبغي للبناء التحقق من أنواع TypeScript.
+     * الافتراضي: false
      */
     checkTypes: false,
   },
 
   /**
-   * Logger configuration.
+   * تكوين المسجل (Logger).
    */
   log: {
     /**
-     * Logging level.
-     * - "default": Standard logging.
-     * - "verbose": Detailed debug logging.
-     * - "disabled": No logging.
-     * Default: "default"
+     * مستوى تسجيل البيانات.
+     * - "default": تسجيل البيانات القياسي.
+     * - "verbose": تسجيل بيانات تصحيح الأخطاء بعمق.
+     * - "disabled": تعطيل تسجيل البيانات.
+     * الافتراضي: "default"
      */
     mode: "default",
 
     /**
-     * Prefix for all log messages.
-     * Default: "[intlayer]"
+     * البادئة لجميع رسائل السجل.
+     * الافتراضي: "[intlayer]"
      */
     prefix: "[intlayer]",
   },
 
   /**
-   * System configuration (Advanced use cases)
+   * تكوين النظام (للاستخدام المتقدم)
    */
   system: {
     /**
-     * Directory for storing localization dictionaries.
+     * المجلد لتخزين القواميس المترجمة.
      */
     dictionariesDir: ".intlayer/dictionary",
 
     /**
-     * Directory for module augmentation.
+     * المجلد لزيادة وحدات TypeScript (module augmentation).
      */
     moduleAugmentationDir: ".intlayer/types",
 
     /**
-     * Directory for storing unmerged dictionaries.
+     * المجلد لتخزين القواميس غير المدمجة (unmerged).
      */
     unmergedDictionariesDir: ".intlayer/unmerged_dictionary",
 
     /**
-     * Directory for storing dictionary types.
+     * المجلد لتخزين أنواع القواميس.
      */
     typesDir: ".intlayer/types",
 
     /**
-     * Directory where main application files are stored.
+     * المجلد الذي يتم فيه تخزين ملفات التطبيق الرئيسية.
      */
     mainDir: ".intlayer/main",
 
     /**
-     * Directory where the configuration files are stored.
+     * المجلد الذي يتم فيه تخزين ملفات التكوين.
      */
     configDir: ".intlayer/config",
 
     /**
-     * Directory where the cache files are stored.
+     * المجلد الذي يتم فيه تخزين ملفات التخزين المؤقت.
      */
     cacheDir: ".intlayer/cache",
   },
 
   /**
-   * Compiler configuration (Advanced use cases)
+   * تكوين المترجم (للاستخدام المتقدم)
    */
   compiler: {
     /**
-     * يشير إلى ما إذا كان يجب تمكين المجمّع.
+     * يحدد ما إذا كان ينبغي تمكين المترجم.
      *
-     * - false : تعطيل المجمّع.
-     * - true : تمكين المجمّع.
-     * - "build-only" : تخطي المجمّع أثناء التطوير لتسريع أوقات التشغيل.
+     * - false: تعطيل المترجم.
+     * - true: تمكين المترجم.
+     * - "build-only": يتخطى المترجم أثناء التطوير ويسرع وقت البدء.
      *
-     * الافتراضي : false
+     * الافتراضي: false
      */
     enabled: true,
 
     /**
-     * يحدد مسار ملفات الإخراج. يستبدل `outputDir`.
+     * يحدد المسار لملفات الإخراج. يستبدل `outputDir`.
      *
-     * - المسارات التي تبدأ بـ `./` يتم حلها بالنسبة لدليل المكون.
-     * - المسارات التي تبدأ بـ `/` يتم حلها بالنسبة لجذر المشروع (`baseDir`).
+     * - يتم حل المسارات التي تبدأ بـ `./` بالنسبة لمجلد المكون.
+     * - يتم حل المسارات التي تبدأ بـ `/` بالنسبة لجذر المشروع (`baseDir`).
      *
-     * - تضمين متغير `{{locale}}` في المسار سيمكن توليد قواميس منفصلة لكل لغة.
+     * - سيؤدي تضمين متغير `{{locale}}` في المسار إلى إنشاء قواميس منفصلة لكل لغة.
      *
-     * أمثلة:
+     * مثال:
      * ```ts
      * {
-     *   // إنشاء ملف .content.ts متعدد اللغات بجانب المكون
+     *   // إنشاء ملفات .content.ts متعددة اللغات بجوار المكون
      *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
      *
-     *   // output: './{{fileName}}{{extension}}', // تعبير مكافئ باستخدام قالب السلسلة
+     *   // output: './{{fileName}}{{extension}}', // مكافئ باستخدام سلسلة قالب
      * }
      * ```
      *
@@ -472,7 +499,7 @@ const config: IntlayerConfig = {
      *   // إنشاء ملفات JSON مركزية لكل لغة في جذر المشروع
      *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
      *
-     *   // output: '/locales/{{locale}}/{{key}}.content.json', // تعبير مكافئ باستخدام قالب السلسلة
+     *   // output: '/locales/{{locale}}/{{key}}.content.json', // مكافئ باستخدام سلسلة قالب
      * }
      * ```
      *
@@ -485,29 +512,29 @@ const config: IntlayerConfig = {
      *   - `componentExtension`: امتداد ملف المكون.
      *   - `format`: تنسيق القاموس.
      *   - `componentFormat`: تنسيق قاموس المكون.
-     *   - `componentDirPath`: مسار دليل المكون.
+     *   - `componentDirPath`: مسار مجلد المكون.
      */
     output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
 
     /**
-     * يشير إلى ما إذا كان يجب حفظ المكونات بعد تحويلها.
-     * بهذه الطريقة، يمكن تشغيل المجمّع مرة واحدة فقط لتحويل التطبيق، ثم يمكن إزالته.
+     * يحدد ما إذا كانت المكونات يجب أن تحفظ بعد تحويلها.
+     * بهذه الطريقة، يمكن تشغيل المترجم مرة واحدة فقط لتحويل التطبيق ثم حذفه.
      */
     saveComponents: false,
 
     /**
-     * أدخل المحتوى فقط في الملف الذي تم إنشاؤه. مفيد لمخرجات JSON i18next أو ICU MessageFormat لكل لغة.
+     * إدراج المحتوى فقط في الملف المنشأ. مفيد لإخراج JSON لكل لغة لـ i18next أو ICU MessageFormat.
      */
     noMetadata: false,
 
     /**
      * بادئة مفتاح القاموس
      */
-    dictionaryKeyPrefix: "", // إضافة بادئة اختيارية لمفاتيح القاموس المستخرجة
+    dictionaryKeyPrefix: "", // أضف بادئة اختيارية لمفاتيح القواميس المستخرجة
   },
 
   /**
-   * Custom schemas to validate the dictionaries content.
+   * مخططات مخصصة (Schemas) للتحقق من صحة محتوى القاموس.
    */
   schemas: {
     "my-schema": z.object({
@@ -516,7 +543,7 @@ const config: IntlayerConfig = {
   },
 
   /**
-   * Plugins configuration.
+   * تكوين المكونات الإضافية (Plugins).
    */
   plugins: [],
 };
@@ -524,636 +551,372 @@ const config: IntlayerConfig = {
 export default config;
 ````
 
-## مرجع التهيئة
+---
 
-تصف الأقسام التالية إعدادات التهيئة المختلفة المتاحة لـ Intlayer.
+## مرجع التكوين (Configuration Reference)
+
+تصف الأقسام التالية خيارات التكوين المختلفة المتاحة في Intlayer.
 
 ---
 
-### تهيئة التدويل
+### تكوين التدويل (Internationalization Configuration)
 
-تعريف الإعدادات المتعلقة بالتدويل، بما في ذلك اللغات المتاحة واللغة الافتراضية للتطبيق.
+يعرف الإعدادات المتعلقة بالتدويل، بما في ذلك اللغات المتاحة واللغة الافتراضية للتطبيق.
 
-#### الخصائص
-
-- **locales**:
-  - _النوع_: `string[]`
-  - _الافتراضي_: `['en']`
-  - _الوصف_: قائمة اللغات المدعومة في التطبيق.
-  - _مثال_: `['en', 'fr', 'es']`
-
-- **requiredLocales**:
-  - _النوع_: `string[]`
-  - _الافتراضي_: `[]`
-  - _الوصف_: قائمة اللغات المطلوبة في التطبيق.
-  - _مثال_: `[]`
-  - _ملاحظة_: إذا كانت فارغة، فكل اللغات مطلوبة في وضع `strict`.
-  - _ملاحظة_: تأكد من أن اللغات المطلوبة معرفة أيضًا في حقل `locales`.
-- **strictMode**:
-  - _النوع_: `string`
-  - _الافتراضي_: `inclusive`
-  - _الوصف_: ضمان تنفيذ قوي للمحتوى الدولي باستخدام typescript.
-  - _ملاحظة_: إذا تم تعيينها إلى "strict"، فإن دالة الترجمة `t` ستتطلب تعريف كل اللغات المعلنة. إذا كانت لغة مفقودة، أو إذا لم يتم إعلان لغة في التهيئة الخاصة بك، فسيتم رمي خطأ.
-  - _ملاحظة_: إذا تم تعيينها إلى "inclusive"، فإن دالة الترجمة `t` ستتطلب تعريف كل اللغات المعلنة. إذا كانت لغة مفقودة، فستصدر تحذيرًا. لكنها ستقبل إذا كانت اللغة غير معلنة في التهيئة الخاصة بك، لكنها موجودة.
-  - _ملاحظة_: إذا تم تعيينها إلى "loose"، فإن دالة الترجمة `t` ستقبل أي لغة موجودة.
-
-- **defaultLocale**:
-  - _النوع_: `string`
-  - _الافتراضي_: `'en'`
-  - _الوصف_: اللغة الافتراضية المستخدمة كخيار احتياطي إذا لم يتم العثور على اللغة المطلوبة.
-  - _مثال_: `'en'`
-  - _ملاحظة_: يُستخدم هذا لتحديد اللغة عندما لا يتم تحديد أي لغة في عنوان URL أو ملف تعريف الارتباط أو الرأس.
+| الحقل             | النوع      | الوصف                                                                                               | مثال                 | ملاحظة                                                                                                                                                                                                                                |
+| ----------------- | ---------- | --------------------------------------------------------------------------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `locales`         | `string[]` | قائمة اللغات المدعومة في التطبيق. الافتراضي: `[Locales.ENGLISH]`                                    | `['en', 'fr', 'es']` |                                                                                                                                                                                                                                       |
+| `requiredLocales` | `string[]` | قائمة اللغات الإلزامية في التطبيق. الافتراضي: `[]`                                                  | `[]`                 | إذا كانت فارغة، فستكون جميع اللغات إلزامية في وضع `strict`. تأكد من تعريف اللغات الإلزامية أيضًا في حقل `locales`.                                                                                                                    |
+| `strictMode`      | `string`   | يضمن تنفيذًا قويًا للمحتوى المدوّل باستخدام TypeScript. الافتراضي: `inclusive`                      |                      | إذا كان `"strict"`: تتطلب وظيفة `t` تعريف كل لغة معلنة - يطرح خطأ إذا كانت أي منها مفقودة أو غير معلنة. إذا كان `"inclusive"`: يحذر من اللغات المفقودة ولكنه يقبل اللغات غير المعلنة الموجودة. إذا كان `"loose"`: يقبل أي لغة موجودة. |
+| `defaultLocale`   | `string`   | اللغة الافتراضية المستخدمة كبديل إذا لم يتم العثور على اللغة المطلوبة. الافتراضي: `Locales.ENGLISH` | `'en'`               | يستخدم لتحديد اللغة عندما لا يتم تحديد أي لغة في عنوان URL أو ملف تعريف الارتباط أو الرأس.                                                                                                                                            |
 
 ---
 
-### تكوين المحرر
+### تكوين المحرر (Editor Configuration)
 
-يحدد الإعدادات المتعلقة بالمحرر المتكامل، بما في ذلك منفذ الخادم وحالة التفعيل.
+يعرف الإعدادات المتعلقة بالمحرر المدمج، بما في ذلك منفذ الخادم وحالة النشاط.
 
-#### الخصائص
+| الحقل                        | النوع                     | الوصف                                                                                                                                                                     | مثال                                                                                  | ملاحظة                                                                                                                                                                                                   |
+| ---------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `applicationURL`             | `string`                  | عنوان URL لتطبيقك. الافتراضي: `''`                                                                                                                                        | `'http://localhost:3000'`، `'https://example.com'`، `process.env.INTLAYER_EDITOR_URL` | يستخدم لتقييد مصادر (origin) المحرر لأسباب أمنية. إذا تم تعيينه على `'*'`، يمكن الوصول إلى المحرر من أي مصدر.                                                                                            |
+| `port`                       | `number`                  | المنفذ المستخدم من قبل خادم المحرر المرئي. الافتراضي: `8000`                                                                                                              |                                                                                       |                                                                                                                                                                                                          |
+| `editorURL`                  | `string`                  | عنوان URL لخادم المحرر. الافتراضي: `'http://localhost:8000'`                                                                                                              | `'http://localhost:3000'`، `'https://example.com'`، `process.env.INTLAYER_EDITOR_URL` | يستخدم لتقييد المصادر التي يمكنها التفاعل مع التطبيق. إذا تم تعيينه على `'*'`، يمكن الوصول إليه من أي مصدر. يجب تعيينه عند تغيير المنفذ أو إذا تم استضافة المحرر في مجال مختلف.                          |
+| `cmsURL`                     | `string`                  | عنوان URL لـ Intlayer CMS. الافتراضي: `'https://intlayer.org'`                                                                                                            | `'https://intlayer.org'`                                                              |                                                                                                                                                                                                          |
+| `backendURL`                 | `string`                  | عنوان URL لخادم الخلفية. الافتراضي: `https://back.intlayer.org`                                                                                                           | `http://localhost:4000`                                                               |                                                                                                                                                                                                          |
+| `enabled`                    | `boolean`                 | يحدد ما إذا كان التطبيق سيتفاعل مع المحرر المرئي. الافتراضي: `true`                                                                                                       | `process.env.NODE_ENV !== 'production'`                                               | إذا كان `false`، لا يمكن للمحرر التفاعل مع التطبيق. يؤدي تعطيله لبيئات معينة إلى تعزيز الأمان.                                                                                                           |
+| `clientId`                   | `string &#124; undefined` | يسمح لحزم intlayer بالمصادقة مع الخلفية باستخدام oAuth2. للحصول على توكن وصول، انتقل إلى [intlayer.org/project](https://app.intlayer.org/project). الافتراضي: `undefined` |                                                                                       | ابقِهِ سريًا؛ قم بتخزينه في متغيرات البيئة.                                                                                                                                                              |
+| `clientSecret`               | `string &#124; undefined` | يسمح لحزم intlayer بالمصادقة مع الخلفية باستخدام oAuth2. للحصول على توكن وصول، انتقل إلى [intlayer.org/project](https://app.intlayer.org/project). الافتراضي: `undefined` |                                                                                       | ابقِهِ سريًا؛ قم بتخزينه في متغيرات البيئة.                                                                                                                                                              |
+| `dictionaryPriorityStrategy` | `string`                  | استراتيجية تحديد أولويات القواميس عند وجود قواميس محلية وعن بُعد. الافتراضي: `'local_first'`                                                                              | `'distant_first'`                                                                     | `'distant_first'`: يعطي الأولوية للبعيد على المحلي. `'local_first'`: يعطي الأولوية للمحلي على البعيد.                                                                                                    |
+| `liveSync`                   | `boolean`                 | يحدد ما إذا كان يجب على خادم التطبيق إعادة تحميل المحتوى حرارياً عند اكتشاف تغيير في CMS / المحرر المرئي / الخلفية. الافتراضي: `true`                                     | `true`                                                                                | عند إضافة/تحديث قاموس، يقوم التطبيق بتحديث محتوى الصفحة. يقوم المزامنة الحية (Live sync) بالاستعانة بمصادر خارجية للمحتوى لخادم آخر، مما قد يؤثر قليلاً على الأداء. يوصى باستضافة كليهما على نفس الجهاز. |
+| `liveSyncPort`               | `number`                  | منفذ خادم المزامنة الحية. الافتراضي: `4000`                                                                                                                               | `4000`                                                                                |                                                                                                                                                                                                          |
+| `liveSyncURL`                | `string`                  | عنوان URL لخادم المزامنة الحية. الافتراضي: `'http://localhost:{liveSyncPort}'`                                                                                            | `'https://example.com'`                                                               | يشير إلى localhost بشكل افتراضي؛ يمكن تغييره إلى خادم مزامنة حية بعيد.                                                                                                                                   |
 
-- **applicationURL**:
-  - _النوع_: `string`
-  - _الافتراضي_: `http://localhost:3000`
-  - _الوصف_: عنوان URL الخاص بالتطبيق. يُستخدم لتقييد أصل المحرر لأسباب أمنية.
-  - _مثال_:
-    - `'http://localhost:3000'`
-    - `'https://example.com'`
-    - `process.env.INTLAYER_EDITOR_URL`
-  - _ملاحظة_: عنوان URL الخاص بالتطبيق. يُستخدم لتقييد أصل المحرر لأسباب أمنية. إذا تم تعيينه إلى `'*'`، يكون المحرر متاحًا من أي أصل.
+### تكوين التوجيه (Routing Configuration)
 
-- **port**:
-  - _النوع_: `number`
-  - _الافتراضي_: `8000`
-  - _الوصف_: المنفذ المستخدم من قبل خادم المحرر المرئي.
+الإعدادات التي تتحكم في سلوك التوجيه، بما في ذلك بنية URL، وتخزين اللغات، ومعالجة البرامج الوسيطة.
 
-- **editorURL**:
-  - _النوع_: `string`
-  - _الافتراضي_: `'http://localhost:8000'`
-  - _الوصف_: عنوان URL الخاص بخادم المحرر. يُستخدم لتقييد أصل المحرر لأسباب أمنية.
-    - `'http://localhost:3000'`
-    - `'https://example.com'`
-    - `process.env.INTLAYER_EDITOR_URL`
-  - _ملاحظة_: عنوان URL الخاص بخادم المحرر الذي يتم الوصول إليه من التطبيق. يُستخدم لتقييد الأصول التي يمكنها التفاعل مع التطبيق لأسباب أمنية. إذا تم تعيينه إلى `'*'`، يكون المحرر متاحًا من أي أصل. يجب تعيينه إذا تم تغيير المنفذ، أو إذا كان المحرر مستضافًا على نطاق مختلف.
+| الحقل      | النوع                                                                                                                                                | الوصف                                                                                                                               | مثال                                                                                                                                                                                             | ملاحظة                                                                                                                                                                                                                                                       |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `mode`     | `'prefix-no-default' &#124; 'prefix-all' &#124; 'no-prefix' &#124; 'search-params'`                                                                  | وضع توجيه URL لمعالجة اللغات. الافتراضي: `'prefix-no-default'`                                                                      | `'prefix-no-default'`: `/dashboard` (en) أو `/fr/dashboard` (fr). `'prefix-all'`: `/en/dashboard`. `'no-prefix'`: تتم معالجة اللغة بوسائل أخرى. `'search-params'`: يستخدم `/dashboard?locale=fr` | لا يؤثر على إدارة ملفات تعريف الارتباط أو تخزين اللغات.                                                                                                                                                                                                      |
+| `storage`  | `false &#124; 'cookie' &#124; 'localStorage' &#124; 'sessionStorage' &#124; 'header' &#124; CookiesAttributes &#124; StorageAttributes &#124; Array` | تكوين لتخزين اللغة على العميل. الافتراضي: `['cookie', 'header']`                                                                    | `'localStorage'`, `[{ type: 'cookie', name: 'custom-locale', secure: true }]`                                                                                                                    | راجع جدول خيارات التخزين أدناه.                                                                                                                                                                                                                              |
+| `basePath` | `string`                                                                                                                                             | المسار الأساسي لعناوين URL للتطبيق. الافتراضي: `''`                                                                                 | `'/my-app'`                                                                                                                                                                                      | إذا كان التطبيق على `https://example.com/my-app` ، فإن basePath هو `'/my-app'` وتصبح عناوين URL مثل `https://example.com/my-app/en`.                                                                                                                         |
+| `rewrite`  | `Record<string, StrictModeLocaleMap<string>>`                                                                                                        | قواعد إعادة كتابة URL مخصصة تتجاوز وضع التوجيه الافتراضي لمسارات محددة. يدعم المعلمات الديناميكية `[param]`. الافتراضي: `undefined` | انظر المثال أدناه                                                                                                                                                                                | قواعد إعادة الكتابة لها الأولوية على `mode`. تعمل مع Next.js و Vite. تقوم `getLocalizedUrl()` بتطبيق القواعد المطابقة تلقائيًا. انظر [عمليات إعادة كتابة URL المخصصة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/custom_url_rewrites.md). |
 
-- **cmsURL**:
-  - _النوع_: `string`
-  - _الافتراضي_: `'https://intlayer.org'`
-  - _الوصف_: عنوان URL الخاص بنظام إدارة المحتوى Intlayer.
-  - _مثال_: `'https://intlayer.org'`
-  - _ملاحظة_: عنوان URL الخاص بنظام إدارة المحتوى Intlayer.
+**مثال على `rewrite`**:
 
-- **backendURL**:
-  - _النوع_: `string`
-  - _الافتراضي_: `https://back.intlayer.org`
-  - _الوصف_: عنوان URL الخاص بخادم الواجهة الخلفية.
-  - _مثال_: `http://localhost:4000`
+```typescript
+routing: {
+  mode: "prefix-no-default", // استراتيجية التراجع
+  rewrite: nextjsRewrite({
+    "/about": {
+      en: "/about",
+      fr: "/a-propos",
+    },
+    "/product/[slug]": {
+      en: "/product/[slug]",
+      fr: "/produit/[slug]",
+    },
+    "/blog/[category]/[id]": {
+      en: "/blog/[category]/[id]",
+      fr: "/journal/[category]/[id]",
+    },
+  }),
+}
+```
 
-- **enabled**:
-  - _النوع_: `boolean`
-  - _الافتراضي_: `true`
-  - _الوصف_: يشير إلى ما إذا كان التطبيق يتفاعل مع المحرر المرئي.
-  - _مثال_: `process.env.NODE_ENV !== 'production'`
-  - _ملاحظة_: إذا كانت القيمة صحيحة، سيتمكن المحرر من التفاعل مع التطبيق. إذا كانت خاطئة، فلن يتمكن المحرر من التفاعل مع التطبيق. في جميع الأحوال، يمكن تمكين المحرر فقط من خلال المحرر المرئي. تعطيل المحرر لبيئات محددة هو وسيلة لتعزيز الأمان.
+#### خيارات التخزين (Storage Options)
 
-- **clientId**:
-  - _النوع_: `string` | `undefined`
-  - _الافتراضي_: `undefined`
-  - _الوصف_: يسمح كل من clientId و clientSecret لحزم intlayer بالمصادقة مع الخادم الخلفي باستخدام مصادقة oAuth2. يتم استخدام رمز وصول للمصادقة على المستخدم المرتبط بالمشروع. للحصول على رمز وصول، انتقل إلى https://app.intlayer.org/project وأنشئ حسابًا.
-  - _مثال_: `true`
-  - _ملاحظة_: مهم: يجب الحفاظ على سرية clientId و clientSecret وعدم مشاركتهما علنًا. يرجى التأكد من الاحتفاظ بهما في مكان آمن، مثل متغيرات البيئة.
+| القيمة             | الوصف                                                                           | ملاحظة                                                                                                                                                                                                           |
+| ------------------ | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `'cookie'`         | يخزن اللغة في ملفات تعريف الارتباط - يمكن الوصول إليها من جانبي العميل والخادم. | للامتثال للقانون العام لحماية البيانات (GDPR) ، تأكد من الحصول على موافقة المستخدم المناسبة. قابلة للتخصيص عبر `CookiesAttributes` (`{ type: 'cookie', name: 'custom-locale', secure: true, httpOnly: false }`). |
+| `'localStorage'`   | يخزن اللغة في المتصفح بدون تاريخ انتهاء - جانب العميل فقط.                      | لا تنتهي صلاحيتها إلا إذا تم مسحها صراحة. لا يمكن لبروكسي Intlayer الوصول إليها. قابلة للتخصيص عبر `StorageAttributes` (`{ type: 'localStorage', name: 'custom-locale' }`).                                      |
+| `'sessionStorage'` | يخزن اللغة طوال مدة جلسة الصفحة - جانب العميل فقط.                              | يتم مسحها عند إغلاق علامة التبويب/النافذة. لا يمكن لبروكسي Intlayer الوصول إليها. قابلة للتخصيص عبر `StorageAttributes` (`{ type: 'sessionStorage', name: 'custom-locale' }`).                                   |
+| `'header'`         | يخزن أو ينقل اللغة عبر رؤوس HTTP - جانب الخادم فقط.                             | مفيد لمكالمات واجهة برمجة التطبيقات. لا يمكن لجانب العميل الوصول إليه. قابلة للتخصيص عبر `StorageAttributes` (`{ type: 'header', name: 'custom-locale' }`).                                                      |
 
-- **clientSecret**:
-  - _النوع_: `string` | `undefined`
-  - _الافتراضي_: `undefined`
-  - _الوصف_: يسمح كل من clientId و clientSecret لحزم intlayer بالمصادقة مع الخادم الخلفي باستخدام مصادقة oAuth2. يتم استخدام رمز وصول للمصادقة على المستخدم المرتبط بالمشروع. للحصول على رمز وصول، انتقل إلى https://app.intlayer.org/project وأنشئ حسابًا.
-  - _مثال_: `true`
-  - _ملاحظة_: مهم: يجب الحفاظ على سرية clientId و clientSecret وعدم مشاركتهما علنًا. يرجى التأكد من الاحتفاظ بهما في مكان آمن، مثل متغيرات البيئة.
+#### سمات ملف تعريف الارتباط (Cookie Attributes)
 
-- **dictionaryPriorityStrategy**:
-  - _النوع_: `string`
-  - _الافتراضي_: `'local_first'`
-  - _الوصف_: الاستراتيجية لتحديد أولوية القواميس في حالة وجود كل من القواميس المحلية والقواميس البعيدة. إذا تم تعيينها إلى `'distant_first'`، ستعطي التطبيق أولوية للقواميس البعيدة على القواميس المحلية. إذا تم تعيينها إلى `'local_first'`، ستعطي التطبيق أولوية للقواميس المحلية على القواميس البعيدة.
-  - _مثال_: `'distant_first'`
+عند استخدام التخزين عبر ملفات تعريف الارتباط ، يمكنك تكوين سمات إضافية:
 
-- **liveSync**:
-  - _النوع_: `boolean`
-  - _الافتراضي_: `false`
-  - _الوصف_: يشير إلى ما إذا كان يجب على خادم التطبيق إعادة تحميل محتوى التطبيق تلقائيًا عند اكتشاف تغيير في نظام إدارة المحتوى / المحرر المرئي / الخلفية.
-  - _مثال_: `true`
-  - _ملاحظة_: على سبيل المثال، عندما يتم إضافة قاموس جديد أو تحديثه، سيقوم التطبيق بتحديث المحتوى ليتم عرضه في الصفحة.
-  - _ملاحظة_: تحتاج المزامنة الحية إلى تعريض محتوى التطبيق على خادم آخر. هذا يعني أنه قد يؤثر قليلاً على أداء التطبيق. للحد من ذلك، نوصي باستضافة التطبيق وخادم المزامنة الحية على نفس الجهاز. أيضًا، يمكن أن يؤدي الجمع بين المزامنة الحية و`optimize` إلى تطبيق عدد كبير من الطلبات على خادم المزامنة الحية. اعتمادًا على البنية التحتية الخاصة بك، نوصي باختبار كلا الخيارين وتركيبتهما.
+| الحقل      | النوع                                 | الوصف                                                       |
+| ---------- | ------------------------------------- | ----------------------------------------------------------- |
+| `name`     | `string`                              | اسم ملف تعريف الارتباط. الافتراضي: `'INTLAYER_LOCALE'`      |
+| `domain`   | `string`                              | مجال ملف تعريف الارتباط. الافتراضي: `undefined`             |
+| `path`     | `string`                              | مسار ملف تعريف الارتباط. الافتراضي: `undefined`             |
+| `secure`   | `boolean`                             | يتطلب HTTPS. الافتراضي: `undefined`                         |
+| `httpOnly` | `boolean`                             | علم HTTP-only. الافتراضي: `undefined`                       |
+| `sameSite` | `'strict' &#124; 'lax' &#124; 'none'` | سياسة SameSite.                                             |
+| `expires`  | `Date &#124; number`                  | تاريخ انتهاء الصلاحية أو عدد الأيام. الافتراضي: `undefined` |
 
-- **liveSyncPort**:
-  - _النوع_: `number`
-  - _الافتراضي_: `4000`
-  - _الوصف_: منفذ خادم المزامنة الحية.
-  - _مثال_: `4000`
-  - _ملاحظة_: منفذ خادم المزامنة الحية.
+#### سمات تخزين اللغة (Locale Storage Attributes)
 
-- **liveSyncURL**:
-  - _النوع_: `string`
-  - _الافتراضي_: `'http://localhost:{liveSyncPort}'`
-  - _الوصف_: عنوان URL الخاص بخادم المزامنة الحية.
-  - _مثال_: `'https://example.com'`
-  - _ملاحظة_: يشير إلى localhost بشكل افتراضي ولكن يمكن تغييره إلى أي عنوان URL في حالة وجود خادم مزامنة حية عن بُعد.
+عند استخدام localStorage أو sessionStorage:
 
-### تكوين الوسيط
+| الحقل  | النوع                                    | الوصف                                             |
+| ------ | ---------------------------------------- | ------------------------------------------------- |
+| `type` | `'localStorage' &#124; 'sessionStorage'` | نوع التخزين.                                      |
+| `name` | `string`                                 | اسم مفتاح التخزين. الافتراضي: `'INTLAYER_LOCALE'` |
 
-الإعدادات التي تتحكم في سلوك الوسيط، بما في ذلك كيفية تعامل التطبيق مع ملفات تعريف الارتباط، والرؤوس، والبادئات في عناوين URL لإدارة اللغة.
+#### أمثلة التكوين
 
-#### الخصائص
+إليك بعض أمثلة التكوين الشائعة لبنية التوجيه الجديدة v7:
 
-- **headerName**:
-  - _النوع_: `string`
-  - _الافتراضي_: `'x-intlayer-locale'`
-  - _الوصف_: اسم رأس HTTP المستخدم لتحديد اللغة.
-  - _مثال_: `'x-custom-locale'`
-  - _ملاحظة_: هذا مفيد لتحديد اللغة بناءً على واجهة برمجة التطبيقات (API).
+**التكوين الأساسي (افتراضي)**:
 
-- **cookieName**:
-  - _النوع_: `string`
-  - _الافتراضي_: `'intlayer-locale'`
-  - _الوصف_: اسم ملف تعريف الارتباط المستخدم لتخزين اللغة.
-  - _مثال_: `'custom-locale'`
-  - _ملاحظة_: يُستخدم للحفاظ على اللغة عبر الجلسات.
+```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
+// intlayer.config.ts
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: ["en", "fr", "es"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "prefix-no-default",
+    storage: "localStorage",
+    basePath: "",
+  },
+};
 
-- **prefixDefault**:
-  - _النوع_: `boolean`
-  - _الافتراضي_: `false`
-  - _الوصف_: ما إذا كان يجب تضمين اللغة الافتراضية في عنوان URL.
-  - _مثال_: `true`
-  - _ملاحظة_:
-    - إذا كانت القيمة `true` و `defaultLocale = 'en'`: المسار = `/en/dashboard` أو `/fr/dashboard`
-    - إذا كانت القيمة `false` و `defaultLocale = 'en'`: المسار = `/dashboard` أو `/fr/dashboard`
+export default config;
+```
 
-- **basePath**:
-  - _النوع_: `string`
-  - _الافتراضي_: `''`
-  - _الوصف_: المسار الأساسي لعناوين URL الخاصة بالتطبيق.
-  - _مثال_: `'/my-app'`
-  - _ملاحظة_:
-    - إذا كان التطبيق مستضافًا على `https://example.com/my-app`
-    - يكون المسار الأساسي هو `'/my-app'`
-    - سيكون عنوان URL هو `https://example.com/my-app/en`
-    - إذا لم يتم تعيين المسار الأساسي، سيكون عنوان URL هو `https://example.com/en`
+**تكوين متوافق مع GDPR**:
 
-- **rewrite**:
-  - _النوع_: `Record<string, StrictModeLocaleMap<string>>`
-  - _الافتراضي_: `undefined`
-  - _الوصف_: قواعد إعادة كتابة URL المخصصة التي تتجاوز وضع التوجيه الافتراضي لمسارات محددة. يسمح بتعريف مسارات محددة حسب اللغة تختلف عن سلوك التوجيه القياسي. يدعم معاملات المسار الديناميكية باستخدام بناء الجملة `[param]`.
-  - _مثال_:
-    ```typescript
-    routing: {
-      mode: "prefix-no-default", // استراتيجية احتياطية
-      rewrite: nextjsRewrite({
-        "/[locale]/about": {
-          en: "/[locale]/about",
-          fr: "/[locale]/a-propos",
-        },
-        "/[locale]/product/[slug]": {
-          en: "/[locale]/product/[slug]",
-          fr: "/[locale]/produit/[slug]",
-        },
-        "/[locale]/blog/[category]/[id]": {
-          en: "/[locale]/blog/[category]/[id]",
-          fr: "/[locale]/journal/[category]/[id]",
-        },
-      }),
-    }
-    ```
-  - _ملاحظة_: قواعد إعادة الكتابة لها الأولوية على سلوك `mode` الافتراضي. إذا تطابق مسار مع قاعدة إعادة كتابة، سيتم استخدام المسار المترجم من تكوين إعادة الكتابة بدلاً من بادئة اللغة القياسية.
-  - _ملاحظة_: معاملات المسار الديناميكية مدعومة باستخدام ترميز الأقواس (على سبيل المثال، `[slug]`، `[id]`). يتم استخراج قيم المعاملات تلقائيًا من URL وإدراجها في المسار المعاد كتابته.
-  - _ملاحظة_: يعمل مع تطبيقات Next.js و Vite. ستعيد البرمجية الوسيطة/الوكيل كتابة الطلبات الواردة تلقائيًا لتطابق بنية المسار الداخلية.
-  - _ملاحظة_: عند إنشاء عناوين URL باستخدام `getLocalizedUrl()`، يتم تطبيق قواعد إعادة الكتابة تلقائيًا إذا تطابقت مع المسار المقدم.
-  - _Reference_ : لمزيد من المعلومات، راجع [إعادة كتابة عناوين URL المخصصة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/custom_url_rewrites.md).
+```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
+// intlayer.config.ts
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: ["en", "fr", "es"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "prefix-no-default",
+    storage: [
+      {
+        type: "localStorage",
+        name: "user-locale",
+      },
+      {
+        type: "cookie",
+        name: "user-locale",
+        secure: true,
+        sameSite: "strict",
+        httpOnly: false,
+      },
+    ],
+    basePath: "",
+  },
+};
 
-- **serverSetCookie**:
-  - _النوع_: `string`
-  - _الافتراضي_: `'always'`
-  - _الوصف_: قاعدة تعيين ملف تعريف الارتباط للغة على الخادم.
-  - _الخيارات_: `'always'`، `'never'`
-  - _مثال_: `'never'`
-  - _ملاحظة_: تتحكم فيما إذا كان يتم تعيين ملف تعريف الارتباط للغة عند كل طلب أو لا يتم تعيينه أبدًا.
+export default config;
+```
 
-- **noPrefix**:
-  - _النوع_: `boolean`
-  - _الافتراضي_: `false`
-  - _الوصف_: ما إذا كان يجب حذف بادئة اللغة من عناوين URL.
-  - _مثال_: `true`
-  - _ملاحظة_:
-    - إذا كانت القيمة `true`: لا توجد بادئة في عنوان URL
-    - إذا كانت القيمة `false`: توجد بادئة في عنوان URL
-    - مثال مع `basePath = '/my-app'`:
-      - إذا كانت `noPrefix = false`: سيكون عنوان URL هو `https://example.com/my-app/en`
-      - إذا كانت `noPrefix = true`: سيكون عنوان URL هو `https://example.com`
+**وضع معلمات البحث (Search Parameters Mode)**:
 
----
+```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
+// intlayer.config.ts
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: ["en", "fr", "es"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "search-params",
+    storage: "localStorage",
+    basePath: "",
+  },
+};
 
-### تكوين المحتوى
+export default config;
+```
 
-إعدادات تتعلق بمعالجة المحتوى داخل التطبيق، بما في ذلك أسماء الدلائل، امتدادات الملفات، والتكوينات المشتقة.
+**وضع بدون بادئة (No Prefix Mode) مع تخزين مخصص**:
 
-#### الخصائص
+```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
+// intlayer.config.ts
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: ["en", "fr", "es"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "no-prefix",
+    storage: {
+      type: "sessionStorage",
+      name: "app-locale",
+    },
+    basePath: "/my-app",
+  },
+};
 
-- **autoFill**:
-  - _النوع_: `boolean | string | FilePathPattern | { [key in Locales]?: string }`
-  - _الافتراضي_: `undefined`
-  - _الوصف_: يشير إلى كيفية ملء المحتوى تلقائيًا باستخدام الذكاء الاصطناعي. يمكن الإعلان عنه عالميًا في ملف `intlayer.config.ts`.
-  - _مثال_: true
-  - _مثال_: `'./{{fileName}}.content.json'`
-  - _مثال_: `{ fr: './{{fileName}}.fr.content.json', es: './{{fileName}}.es.content.json' }`
-  - _ملاحظة_: تكوين الملء التلقائي. يمكن أن يكون:
-    - boolean: تمكين الملء التلقائي لجميع اللغات
-    - string: مسار إلى ملف واحد أو قالب مع متغيرات
-    - object: مسارات ملفات لكل لغة
+export default config;
+```
 
-- **watch**:
-  - _النوع_: `boolean`
-  - _الافتراضي_: `process.env.NODE_ENV === 'development'`
-  - _الوصف_: يشير إلى ما إذا كان يجب على Intlayer مراقبة التغييرات في ملفات إعلان المحتوى داخل التطبيق لإعادة بناء القواميس ذات الصلة.
+**إعادة كتابة URL مخصص مع مسارات ديناميكية**:
 
-- **fileExtensions**:
-  - _النوع_: `string[]`
-  - _الافتراضي_: `['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.tsx', '.content.jsx']`
-  - _الوصف_: امتدادات الملفات التي يجب البحث عنها عند بناء القواميس.
-  - _مثال_: `['.data.ts', '.data.js', '.data.json']`
-  - _ملاحظة_: تخصيص امتدادات الملفات يمكن أن يساعد في تجنب التعارضات.
+```typescript
+// intlayer.config.ts
+import { nextjsRewrite } from "intlayer/routing";
 
-- **dictionaryOutput**:
-  - _النوع_: `string[]`
-  - _الافتراضي_: `['intlayer']`
-  - _الوصف_: نوع إخراج القاموس المستخدم، مثل `'intlayer'` أو `'i18next'`.
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: ["en", "fr"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "prefix-no-default", // استراتيجية التراجع للمسارات غير المعاد كتابتها
+    storage: "cookie",
+    rewrite: nextjsRewrite({
+      "/about": {
+        en: "/about",
+        fr: "/a-propos",
+      },
+      "/product/[slug]": {
+        en: "/product/[slug]",
+        fr: "/produit/[slug]",
+      },
+      "/blog/[category]/[id]": {
+        en: "/blog/[category]/[id]",
+        fr: "/journal/[category]/[id]",
+      },
+    }),
+  },
+};
 
-- **contentDir**:
-  - _النوع_: `string[]`
-  - _الافتراضي_: `['.']`
-  - _مثال_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
-  - _الوصف_: مسار الدليل حيث يتم تخزين ملفات تعريف المحتوى (`.content.*`).
-  - _ملاحظة_: يُستخدم هذا لمراقبة ملفات المحتوى لإعادة بناء القواميس.
-
-- **codeDir**:
-  - _النوع_: `string[]`
-  - _الافتراضي_: `['.']`
-  - _مثال_: `['src', '../../ui-library']`
-  - _الوصف_: مسار الدليل حيث يتم تخزين الكود، بالنسبة إلى الدليل الأساسي.
-  - _ملاحظة_: يُستخدم هذا لمراقبة ملفات الكود للتحويل (التقليم، التحسين). يمكن أن يؤدي الحفاظ على هذا منفصلاً عن `contentDir` إلى تحسين أداء البناء من خلال تجنب عمليات المسح غير الضرورية لملفات المحتوى.
-
-- **dictionariesDir**:
-  - _النوع_: `string`
-  - _الافتراضي_: `'.intlayer/dictionaries'`
-  - _الوصف_: مسار الدليل لتخزين النتائج الوسيطة أو الناتجة.
-
-- **moduleAugmentationDir**:
-  - _النوع_: `string`
-  - _الافتراضي_: `'.intlayer/types'`
-  - _الوصف_: دليل لتوسيع الوحدات، مما يسمح بتحسين اقتراحات IDE وفحص الأنواع.
-  - _مثال_: `'intlayer-types'`
-  - _ملاحظة_: تأكد من تضمين هذا في `tsconfig.json`.
-
-- **unmergedDictionariesDir**:
-  - _النوع_: `string`
-  - _الافتراضي_: `'.intlayer/unmerged_dictionary'`
-  - _الوصف_: الدليل لتخزين القواميس غير المدمجة.
-  - _مثال_: `'translations'`
-
-- **dictionariesDir**:
-  - _النوع_: `string`
-  - _الافتراضي_: `'.intlayer/dictionary'`
-  - _الوصف_: الدليل لتخزين قواميس التوطين.
-  - _مثال_: `'translations'`
-
-- **i18nextResourcesDir**:
-  - _النوع_: `string`
-  - _الافتراضي_: `'i18next_dictionary'`
-  - _الوصف_: الدليل لتخزين قواميس i18n.
-  - _مثال_: `'translations'`
-  - _ملاحظة_: تأكد من تكوين هذا الدليل لنوع الإخراج i18next.
-
-- **typesDir**:
-  - _النوع_: `string`
-  - _الافتراضي_: `'types'`
-  - _الوصف_: الدليل لتخزين أنواع القواميس.
-  - _مثال_: `'intlayer-types'`
-
-- **mainDir**:
-  - _النوع_: `string`
-  - _الافتراضي_: `'main'`
-  - _الوصف_: الدليل الذي تُخزن فيه ملفات التطبيق الرئيسية.
-  - _مثال_: `'intlayer-main'`
-
-- **excludedPath**:
-  - _النوع_: `string[]`
-  - _الافتراضي_: `['node_modules']`
-  - _الوصف_: الأدلة المستبعدة من البحث في المحتوى.
-  - _ملاحظة_: هذا الإعداد غير مستخدم حالياً، لكنه مخطط لتطبيقه في المستقبل.
+export default config;
+```
 
 ---
 
-### تكوين النظام
+### تكوين المحتوى (Content Configuration)
 
-الإعدادات المتعلقة بالمسارات الداخلية ونتائج الإخراج لـ Intlayer. عادة ما تكون هذه الإعدادات داخلية ولا يجب تعديلها من قبل المستخدم.
+الإعدادات المتعلقة بمعالجة المحتوى داخل التطبيق (أسماء المجلدات ، امتدادات الملفات ، والتكوينات المشتقة).
 
-#### الخصائص
+| الحقل            | النوع      | الوصف                                                                                                                                                                                 | مثال                                | ملاحظة                                                                                        |
+| ---------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | --------------------------------------------------------------------------------------------- |
+| `watch`          | `boolean`  | يحدد ما إذا كان يجب على Intlayer مراقبة التغييرات في ملفات إعلان المحتوى لإعادة بناء القواميس. الافتراضي: `process.env.NODE_ENV === 'development'`                                    |                                     |                                                                                               |
+| `fileExtensions` | `string[]` | امتدادات الملفات المستخدمة لمسح ملفات إعلان المحتوى. الافتراضي: `['.content.ts', '.content.js', '.content.mjs', '.content.cjs', '.content.json', '.content.json5', '.content.jsonc']` | `['.content.ts', '.content.js']`    |                                                                                               |
+| `contentDir`     | `string[]` | مسارات المجلدات التي توجد بها ملفات إعلان المحتوى. الافتراضي: `['.']`                                                                                                                 | `['src/content']`                   |                                                                                               |
+| `codeDir`        | `string[]` | مسارات المجلدات التي توجد بها ملفات الكود المصدري لتطبيقك. الافتراضي: `['.']`                                                                                                         | `['src']`                           | يستخدم لتحسين البناء وضمان تطبيق تحويل الكود وإعادة التحميل الحراري فقط على الملفات الضرورية. |
+| `excludedPath`   | `string[]` | المسارات المستبعدة من مسح المحتوى. الافتراضي: `['node_modules', '.intlayer', '.next', 'dist', 'build']`                                                                               | `['src/styles']`                    |                                                                                               |
+| `formatCommand`  | `string`   | الأمر الذي سيتم تشغيله لتنسيق ملفات المحتوى المنشأة حديثًا أو المحدثة. الافتراضي: `undefined`                                                                                         | `'npx prettier --write "{{file}}"'` | يستخدم أثناء استخراج المحتوى أو عبر المحرر المرئي.                                            |
 
-- **baseDir**:
-  - _النوع_: `string`
-  - _الافتراضي_: `process.cwd()`
-  - _الوصف_: الدليل الأساسي للمشروع.
-  - _مثال_: `'/path/to/project'`
-  - _ملاحظة_: يُستخدم هذا لحل جميع الدلائل المتعلقة بـ Intlayer.
+---
 
-### تكوين القاموس
+### تكوين القاموس (Dictionary Configuration)
 
-الإعدادات التي تتحكم في عمليات القاموس، بما في ذلك سلوك التعبئة التلقائية وإنشاء المحتوى.
+الإعدادات التي تتحكم في عمليات القواميس، بما في ذلك سلوك الملء التلقائي وإنشاء المحتوى.
 
 يخدم تكوين القاموس هذا غرضين رئيسيين:
 
-1. **القيم الافتراضية**: تحديد القيم الافتراضية عند إنشاء ملفات إعلان المحتوى
-2. **سلوك الاحتياطي**: توفير قيم احتياطية عندما لا تكون الحقول المحددة معرّفة، مما يسمح لك بتعريف سلوك عمليات القاموس بشكل عام
+1. **القيم الافتراضية**: تحديد القيم الافتراضية عند إنشاء ملفات إعلان المحتوى.
+2. **سلوك البدائل (Fallback)**: توفير قيم بديلة عندما لا يتم تعريف حقول محددة، مما يسمح لك بتعريف سلوك عمليات القاموس بشكل عالمي.
 
-لمزيد من المعلومات حول ملفات إعلان المحتوى وكيفية تطبيق قيم التكوين، راجع [وثائق ملف المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
+لمزيد من المعلومات حول ملفات إعلان المحتوى وكيفية تطبيق قيم التكوين، راجع [توثيق ملفات المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
-#### الخصائص
+| الحقل                       | النوع                                                                                           | الوصف                                                                                           | مثال              | ملاحظة                                                                                                                                                                                                                                                                                                   |
+| --------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `fill`                      | `boolean &#124; FilePathPattern &#124; Partial<Record<Locale, boolean &#124; FilePathPattern>>` | يتحكم في كيفية إنشاء ملفات إخراج الملء التلقائي (الترجمة بالذكاء الاصطناعي). الافتراضي: `true`  | انظر المثال أدناه | `true`: المسار الافتراضي (نفس ملف المصدر). `false`: معطل. تنشئ قوالب السلسلة/الوظيفة ملفات لكل لغة. كائن لكل لغة: يتم تعيين كل لغة لنمطها الخاص؛ يؤدي `false` لتخطي تلك اللغة. يؤدي تضمين `{{locale}}` إلى بدء الإنشاء لكل لغة. الـ `fill` على مستوى القاموس له الأولوية دائماً على هذا التكوين العالمي. |
+| `importMode`                | `'static' &#124; 'dynamic' &#124; 'fetch'`                                                      | يتحكم في كيفية استيراد القواميس. الافتراضي: `'static'`                                          | `'dynamic'`       | `'static'`: يتم استيراده بشكل ثابت. `'dynamic'`: يتم استيراده بشكل ديناميكي عبر Suspense. `'fetch'`: يتم جلبه ديناميكيًا عبر واجهة برمجة تطبيقات Live Sync. لا يؤثر على `getIntlayer` أو `getDictionary` أو `useDictionary` وما إلى ذلك.                                                                 |
+| `location`                  | `'local' &#124; 'remote' &#124; 'hybrid' &#124; string`                                         | مكان تخزين القواميس. الافتراضي: `'local'`                                                       | `'remote'`        | `'local'`: نظام الملفات. `'remote'`: Intlayer CMS. `'hybrid'`: كلاهما.                                                                                                                                                                                                                                   |
+| `contentAutoTransformation` | `boolean`                                                                                       | يحدد ما إذا كان يجب تحويل ملفات المحتوى تلقائيًا (مثل من Markdown إلى HTML). الافتراضي: `false` | `true`            | مفيد لمعالجة حقول Markdown عبر @intlayer/markdown.                                                                                                                                                                                                                                                       |
 
-- **fill**:
-  - _Type_: `Fill` (`boolean | FilePathPattern | Partial<Record<Locale, boolean | FilePathPattern>>`)
-  - _Default_: `true`
-  - _Description_: Controls how auto-fill (AI translation) output files are generated for this dictionary. When set at the config level (`dictionary.fill`), it serves as the default for all dictionaries. Each dictionary can override this with its own `fill` field.
-  - _Options_:
-    - `true`: Use the default output path (same file as the source dictionary).
-    - `false`: Disable auto-fill for this dictionary.
-    - String template: `'/locales/{{locale}}/{{key}}.content.json'` — generates one file per locale using the template.
-    - Function: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\`` — generates one file per locale using a function.
-    - Object per-locale: `{ en: '...', fr: '...', es: false }` — each locale maps to its own pattern; `false` skips that locale.
-  - _Note_: Including `{{locale}}` in the pattern (or using an object) triggers per-locale file generation. Without it, a single multilingual file is written.
-  - _Note_: A dictionary-level `fill` always takes priority over `dictionary.fill` from the global config.
-  - _Example_:
-    ```ts
-    dictionary: {
-      fill: {
-        en: '/locales/en/{{key}}.content.json',
-        fr: ({ key }) => `/locales/fr/${key}.content.json`,
-        es: false,
-      }
-    }
-    ```
-- **description**
-- **locale**
-- **location**
-- **importMode**:
-  - _ملاحظة_: **Deprecated**: Use `dictionary.importMode` instead.
-  - _النوع_: `'static' | 'dynamic' | 'fetch'`
-  - _الافتراضي_: `'static'`
-  - _الوصف_: Controls how dictionaries are imported.
-  - _مثال_: `'dynamic'`
-- **priority**
-- **live**
-- **schema**
-- **title**
-- **tags**
-- **version**
+**مثال على `fill`**:
+
+```ts
+dictionary: {
+  fill: {
+    en: '/locales/en/{{key}}.content.json',
+    fr: ({ key }) => `/locales/fr/${key}.content.json`,
+    es: false,
+  }
+}
+```
 
 ---
 
-### إعدادات المسجل (Logger)
+### تكوين الذكاء الاصطناعي (AI Configuration)
 
-الإعدادات التي تتحكم في المسجل، بما في ذلك البادئة التي تُستخدم.
+يعرف الإعدادات لميزات Intlayer التي تعمل بالذكاء الاصطناعي ، مثل بناء الترجمة.
 
-#### الخصائص
-
-- **mode**:
-  - _النوع_: `string`
-  - _الافتراضي_: `default`
-  - _الوصف_: يشير إلى وضع المسجل.
-  - _الخيارات_: `default`، `verbose`، `disabled`
-  - _مثال_: `default`
-  - _ملاحظة_: وضع المسجل. الوضع المفصل (verbose) يسجل معلومات أكثر، ويمكن استخدامه لأغراض التصحيح. الوضع المعطل (disabled) يعطل المسجل.
-
-- **prefix**:
-  - _النوع_: `string`
-  - _الافتراضي_: `'[intlayer] '`
-  - _الوصف_: بادئة المسجل.
-  - _مثال_: `'[my custom prefix] '`
-  - _ملاحظة_: بادئة المسجل.
-
-### تكوين الذكاء الاصطناعي
-
-الإعدادات التي تتحكم في ميزات الذكاء الاصطناعي في Intlayer، بما في ذلك المزود، النموذج، ومفتاح API.
-
-هذا التكوين اختياري إذا كنت مسجلاً في [لوحة تحكم Intlayer](https://app.intlayer.org/project) باستخدام مفتاح وصول. ستدير Intlayer تلقائيًا الحل الأكثر كفاءة وفعالية من حيث التكلفة لاحتياجاتك في الذكاء الاصطناعي. يضمن استخدام الخيارات الافتراضية صيانة أفضل على المدى الطويل حيث تقوم Intlayer بالتحديث المستمر لاستخدام النماذج الأكثر ملاءمة.
-
-إذا كنت تفضل استخدام مفتاح API الخاص بك أو نموذج معين، يمكنك تعريف تكوين الذكاء الاصطناعي المخصص الخاص بك.
-سيتم استخدام تكوين الذكاء الاصطناعي هذا على مستوى بيئة Intlayer الخاصة بك بشكل عام. ستستخدم أوامر CLI هذه الإعدادات كقيم افتراضية للأوامر (مثل `fill`)، وكذلك SDK، والمحرر المرئي، ونظام إدارة المحتوى (CMS). يمكنك تجاوز هذه القيم الافتراضية لحالات استخدام محددة باستخدام معلمات الأوامر.
-
-يدعم Intlayer عدة مزودي ذكاء اصطناعي لزيادة المرونة والاختيار. المزودون المدعومون حاليًا هم:
-
-- **OpenAI** (الافتراضي)
-- **Anthropic Claude**
-- **Mistral AI**
-- **DeepSeek**
-- **Google Gemini**
-- **Meta Llama**
-- **Ollama**
-- **OpenRouter**
-- **Alibaba Cloud**
-- **Fireworks**
-- **Hugging Face**
-- **Groq**
-- **Amazon Bedrock**
-- **Google AI Studio**
-- **Google Vertex**
-- **Together.ai**
-- **ollama**
-
-#### الخصائص
-
-- **provider**:
-  - _النوع_: `string`
-  - _الافتراضي_: `'openai'`
-  - _الوصف_: المزود المستخدم لميزات الذكاء الاصطناعي في Intlayer.
-  - _الخيارات_:`'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googleaistudio'`, `'googlevertex'`, `'togetherai'`
-  - _مثال_: `'anthropic'`
-  - _ملاحظة_: قد تتطلب مزودات مختلفة مفاتيح API مختلفة ولها نماذج تسعير مختلفة.
-
-- **model**:
-  - _النوع_: `string`
-  - _الافتراضي_: لا شيء
-  - _الوصف_: النموذج المستخدم لميزات الذكاء الاصطناعي في Intlayer.
-  - _مثال_: `'gpt-4o-2024-11-20'`
-  - _ملاحظة_: يختلف النموذج المحدد المستخدم حسب المزود.
-
-- **temperature**:
-  - _النوع_: `number`
-  - _الافتراضي_: لا شيء
-  - _الوصف_: تتحكم درجة الحرارة في عشوائية استجابات الذكاء الاصطناعي.
-  - _مثال_: `0.1`
-  - _ملاحظة_: درجة حرارة أعلى تجعل الذكاء الاصطناعي أكثر إبداعًا وأقل قابلية للتنبؤ.
-
-- **apiKey**:
-  - _النوع_: `string`
-  - _الافتراضي_: لا شيء
-  - _الوصف_: مفتاح API الخاص بك للمزود المحدد.
-  - _مثال_: `process.env.OPENAI_API_KEY`
-  - _ملاحظة_: مهم: يجب الحفاظ على سرية مفاتيح API وعدم مشاركتها علنًا. يرجى التأكد من الاحتفاظ بها في مكان آمن، مثل متغيرات البيئة.
-
-- **applicationContext**:
-  - _النوع_: `string`
-  - _الافتراضي_: لا شيء
-  - _الوصف_: يوفر سياقًا إضافيًا حول تطبيقك لنموذج الذكاء الاصطناعي، مما يساعده على توليد ترجمات أكثر دقة وملاءمة للسياق. يمكن أن يشمل ذلك معلومات حول مجال تطبيقك، الجمهور المستهدف، النغمة، أو المصطلحات الخاصة.
-
-- **baseURL**:
-  - _النوع_: `string`
-  - _الافتراضي_: لا شيء
-  - _الوصف_: عنوان URL الأساسي لواجهة برمجة تطبيقات الذكاء الاصطناعي.
-  - _مثال_: `'https://api.openai.com/v1'`
-  - _ملاحظة_: يمكن استخدامه للإشارة إلى نقطة نهاية واجهة برمجة تطبيقات الذكاء الاصطناعي المحلية أو المخصصة.
-
-- **dataSerialization**:
-  - _النوع_: `'json' | 'toon'`
-  - _الافتراضي_: `'json'`
-  - _الوصف_: تنسيق تسلسل البيانات لاستخدامه في ميزات الذكاء الاصطناعي لـ Intlayer.
-  - _مثال_: `'toon'`
-  - _ملاحظة_: `json`: قياسي وموثوق؛ يستهلك رموزًا أكثر. `toon`: رموز أقل، ولكنه أقل اتساقًا من JSON.
-
-### إعدادات البناء
-
-الإعدادات التي تتحكم في كيفية تحسين Intlayer وبناء التدويل في تطبيقك.
-
-تنطبق خيارات البناء على الإضافات `@intlayer/babel` و `@intlayer/swc`.
-
-> في وضع التطوير، يستخدم Intlayer الاستيراد الثابت للقواميس لتبسيط تجربة التطوير.
-
-> عند التهيئة للتحسين، سيقوم Intlayer باستبدال استدعاءات القواميس لتحسين تقسيم الحزم، بحيث يقوم الحزمة النهائية باستيراد القواميس التي يتم استخدامها فقط.
-
-#### الخصائص
-
-- **mode**:
-  - _النوع_: `'auto' | 'manual'`
-  - _الافتراضي_: `'auto'`
-  - _الوصف_: يتحكم في وضع البناء.
-  - _المثال_: `'manual'`
-  - _ملاحظة_: إذا كان 'auto'، سيتم تفعيل البناء تلقائيًا عند بناء التطبيق.
-  - _ملاحظة_: إذا كان 'manual'، سيتم تعيين البناء فقط عند تنفيذ أمر البناء.
-  - _ملاحظة_: يمكن استخدامه لتعطيل بناء القواميس، على سبيل المثال عندما يجب تجنب التنفيذ في بيئة Node.js.
-
-- **checkTypes**:
-  - _النوع_: `boolean`
-  - _الافتراضي_: `false`
-  - _الوصف_: يشير إلى ما إذا كان البناء يجب أن يتحقق من أنواع TypeScript ويسجل الأخطاء.
-  - _ملاحظة_: هذا يمكن أن يبطئ عملية البناء.
-
-- **optimize**:
-  - _النوع_: `boolean`
-  - _الافتراضي_: `process.env.NODE_ENV === 'production'`
-  - _الوصف_: يتحكم فيما إذا كان يجب تحسين عملية البناء.
-  - _المثال_: `true`
-  - _ملاحظة_: عند التفعيل، سيقوم Intlayer باستبدال جميع استدعاءات القواميس لتحسين تقسيم الحزم. بهذه الطريقة، ستقوم الحزمة النهائية باستيراد القواميس المستخدمة فقط. ستبقى جميع الاستيرادات استيرادًا ثابتًا لتجنب المعالجة غير المتزامنة عند تحميل القواميس.
-  - _ملاحظة_: سيقوم Intlayer باستبدال جميع استدعاءات `useIntlayer` بالنمط المحدد بواسطة خيار `importMode` و`getIntlayer` بـ `getDictionary`.
-  - _ملاحظة_: يعتمد هذا الخيار على الإضافات `@intlayer/babel` و `@intlayer/swc`.
-  - _ملاحظة_: تأكد من إعلان جميع المفاتيح بشكل ثابت في استدعاءات `useIntlayer`، على سبيل المثال `useIntlayer('navbar')`.
-
-- **outputFormat**:
-  - _النوع_: `'esm' | 'cjs'`
-  - _الافتراضي_: `'esm'`
-  - _الوصف_: يتحكم في تنسيق إخراج القواميس.
-  - _المثال_: `'cjs'`
-  - _ملاحظة_: تنسيق إخراج القواميس.
-
-- **traversePattern**:
-  - _النوع_: `string[]`
-  - _الافتراضي_: `['**\/*.{js,ts,mjs,cjs,jsx,tsx}', '!**\/node_modules/**']`
-  - _الوصف_: أنماط تحدد الملفات التي يجب استعراضها أثناء التحسين.
-    - _مثال_: `['src/**\/*.{ts,tsx}', '../ui-library/**\/*.{ts,tsx}', '!**/node_modules/**']`
-  - _ملاحظة_: استخدم هذا لتحديد التحسين لملفات الكود ذات الصلة وتحسين أداء البناء.
-  - _ملاحظة_: سيتم تجاهل هذا الخيار إذا تم تعطيل `optimize`.
-  - _ملاحظة_: استخدم نمط glob.
+| الحقل                | النوع                  | الوصف                                                               | مثال                                        | ملاحظة                                                                            |
+| -------------------- | ---------------------- | ------------------------------------------------------------------- | ------------------------------------------- | --------------------------------------------------------------------------------- |
+| `provider`           | `string`               | مزود الذكاء الاصطناعي المراد استخدامه.                              | `'openai'`، `'anthropic'`، `'googlevertex'` |                                                                                   |
+| `model`              | `string`               | نموذج الذكاء الاصطناعي المراد استخدامه.                             | `'gpt-4o'`، `'claude-3-5-sonnet-20240620'`  |                                                                                   |
+| `apiKey`             | `string`               | مفتاح واجهة برمجة التطبيقات للمزود المختار.                         | `process.env.OPENAI_API_KEY`                |                                                                                   |
+| `applicationContext` | `string`               | سياق إضافي حول تطبيقك لتحسين دقة ترجمة الذكاء الاصطناعي.            | `'منصة تعليمية للأطفال.'`                   |                                                                                   |
+| `baseURL`            | `string`               | عنوان URL اختياري للمسار الأساسي لمكالمات واجهة برمجة التطبيقات.    |                                             | مفيد إذا كنت تستخدم بروكسي أو نشر ذكاء اصطناعي محلي.                              |
+| `dataSerialization`  | `'json' &#124; 'toon'` | يحدد كيفية إرسال البيانات إلى الذكاء الاصطناعي. الافتراضي: `'json'` | `'json'`                                    | `'json'`: أكثر قوة ودقة. `'toon'`: يستهلك توكنات أقل ولكنه قد يكون أقل استقرارًا. |
 
 ---
 
-### تكوين المترجم
+### تكوين البناء (Build Configuration)
 
-الإعدادات التي تتحكم في مترجم Intlayer، الذي يستخرج القواميس مباشرة من مكوناتك.
+إعدادات عملية بناء وتحسين Intlayer.
 
-#### الخصائص
+| الحقل          | النوع                    | الوصف                                                                                            | مثال | ملاحظة |
+| -------------- | ------------------------ | ------------------------------------------------------------------------------------------------ | ---- | ------ |
+| `mode`         | `'auto' &#124; 'manual'` | يحدد ما إذا كان يجب تشغيل Intlayer تلقائيًا أثناء خطوات ما قبل بناء التطبيق. الافتراضي: `'auto'` |      |        |
+| `optimize`     | `boolean`                | يحدد ما إذا كان يجب تحسين القواميس المجمعة لوقت التشغيل. الافتراضي: `true` في الإنتاج            |      |        |
+| `outputFormat` | `('cjs' &#124; 'esm')[]` | تنسيق الإخراج لملفات القاموس المنشأة. الافتراضي: `['cjs', 'esm']`                                |      |        |
+| `checkTypes`   | `boolean`                | يحدد ما إذا كان يجب على Intlayer التحقق من الأنواع في الملفات المنشأة. الافتراضي: `false`        |      |        |
 
-- **enabled**:
-  - _النوع_: `boolean | 'build-only'`
-  - _الافتراضي_: `true`
-  - _الوصف_: يشير إلى ما إذا كان يجب تمكين المترجم لاستخراج القواميس.
-  - _المثال_: `'build-only'`
-  - _ملاحظة_: تعيينه إلى `'build-only'` سيؤدي إلى تخطي المترجم أثناء وضع التطوير لتسريع أوقات البناء. سيعمل فقط مع أوامر البناء.
+---
 
-- **dictionaryKeyPrefix**:
-  - _النوع_: `string`
-  - _الافتراضي_: `''`
-  - _الوصف_: بادئة لمفاتيح القاموس المستخرجة.
-  - _المثال_: `'my-key-'`
-  - _ملاحظة_: عند استخراج القواميس، يتم إنشاء المفتاح بناءً على اسم الملف. يتم إضافة هذه البادئة إلى المفتاح الذي تم إنشاؤه لمنع التضارب.
+### تكوين النظام (System Configuration)
 
-- **saveComponents**:
-  - _النوع_: `boolean`
-  - _الافتراضي_: `false`
-  - _الوصف_: يشير إلى ما إذا كان يجب حفظ المكونات بعد تحويلها.
-  - _ملاحظة_: إذا كان صحيحًا، سيقوم المترجم باستبدال الملفات الأصلية بالملفات المحولة. بهذه الطريقة، يمكن تشغيل المترجم مرة واحدة فقط لتحويل التطبيق، ثم يمكن إزالته.
+هذه الإعدادات مخصصة لحالات الاستخدام المتقدمة والتكوين الداخلي لـ Intlayer.
 
-- **transformPattern**:
-  - _النوع_: `string | string[]`
-  - _الافتراضي_: `['**/*.{ts,tsx,jsx,js,cjs,mjs,svelte,vue}', '!**/node_modules/**']`
-  - _الوصف_: الأنماط التي تحدد الملفات التي يجب استعراضها أثناء التحسين.
-  - _المثال_: `['src/**/*.{ts,tsx}', '!**/node_modules/**']`
-  - _ملاحظة_: استخدم هذا لتحديد التحسين لملفات الكود ذات الصلة وتحسين أداء البناء.
+| الحقل                     | النوع    | الوصف                        | الافتراضي                         |
+| ------------------------- | -------- | ---------------------------- | --------------------------------- |
+| `dictionariesDir`         | `string` | مجلد القواميس المجمعة.       | `'.intlayer/dictionary'`          |
+| `moduleAugmentationDir`   | `string` | مجلد زيادة وحدات TypeScript. | `'.intlayer/types'`               |
+| `unmergedDictionariesDir` | `string` | مجلد القواميس غير المدمجة.   | `'.intlayer/unmerged_dictionary'` |
+| `typesDir`                | `string` | مجلد الأنواع المنشأة.        | `'.intlayer/types'`               |
+| `mainDir`                 | `string` | مجلد ملف Intlayer الرئيسي.   | `'.intlayer/main'`                |
+| `configDir`               | `string` | مجلد ملفات التكوين المجمعة.  | `'.intlayer/config'`              |
+| `cacheDir`                | `string` | مجلد ملفات التخزين المؤقت.   | `'.intlayer/cache'`               |
 
-- **excludePattern**:
-  - _النوع_: `string | string[]`
-  - _الافتراضي_: `['**/node_modules/**']`
-  - _الوصف_: الأنماط التي تحدد الملفات التي يجب استبعادها أثناء التحسين.
-  - _المثال_: `['**/node_modules/**', '!**/node_modules/react/**']`
+---
 
-- **output**:
-  - _النوع_: `Fill`
-  - _الافتراضي_: `undefined`
-  - _الوصف_: يحدد مسار ملفات الإخراج. يستبدل `outputDir`. يدعم المتغيرات الديناميكية عبر قالب سلسلة أو دالة. المتغيرات المدعومة: `{{fileName}}`, `{{key}}`, `{{locale}}`, `{{extension}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{format}}`, `{{componentFormat}}`, `{{componentDirPath}}`.
-  - _ملاحظة_: يتم حل المسارات التي تبدأ بـ `./` بالنسبة لدليل المكون. يتم حل المسارات التي تبدأ بـ `/` بالنسبة لجذر المشروع (`baseDir`).
-  - _ملاحظة_: تضمين المتغير `{{locale}}` في المسار سيمكن من توليد قواميس منفصلة حسب اللغة.
-  - _Note_: Supports an object per-locale notation where each locale key maps to its own pattern (string or function), or `false` to skip that locale entirely.
-  - _مثال_:
-    - **إنشاء ملفات متعددة اللغات بجانب المكون**:
-    - سلسلة: `'./{{fileName}}{{extension}}'`
-    - دالة: `({ fileName, extension }) => \`./${fileName}${extension}\``
+### تكوين المترجم (Compiler Configuration)
 
-    - **إخراج ملفات JSON مركزية حسب اللغة**:
-    - سلسلة: `'/locales/{{locale}}/{{key}}.content.json'`
-    - دالة: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\``
+إعدادات مترجم Intlayer (`intlayer compiler`).
 
-    - **Object per-locale (different pattern per locale, skip some)**:
+| الحقل                 | النوع                    | الوصف                                                                | الافتراضي |
+| --------------------- | ------------------------ | -------------------------------------------------------------------- | --------- |
+| `enabled`             | `boolean`                | يحدد ما إذا كان المترجم نشطًا.                                       | `false`   |
+| `output`              | `string &#124; Function` | مسار الإخراج للقواميس المستخرجة.                                     |           |
+| `saveComponents`      | `boolean`                | يحدد ما إذا كان يجب استبدال ملفات المصدر الأصلية بالإصدارات المحولة. | `false`   |
+| `noMetadata`          | `boolean`                | إذا كان `true` ، فلن يدرج المترجم بيانات وصفية في الملفات المنشأة.   | `false`   |
+| `dictionaryKeyPrefix` | `string`                 | بادئة مفتاح قاموس اختيارية.                                          | `''`      |
 
-    ```ts
-    output: {
-      en: ({ key }) => `./locales/en/${key}.json`,
-      fr: '/locales/fr/{{key}}.content.json',
-      es: false, // skip Spanish
-    }
-    ```
+---
 
-- **noMetadata**:
-  - _النوع_: `boolean`
-  - _الافتراضي_: `false`
-  - _الوصف_: يشير إلى ما إذا كان سيتم حفظ البيانات الوصفية في الملف. إذا كان صحيحا، فلن يحفظ المجمّع البيانات الوصفية للقواميس (المفتاح، غلاف المحتوى). مفيد لمخرجات JSON i18next أو ICU MessageFormat لكل لغة.
-  - _ملاحظة_: مفيد إذا تم استخدامه مع إضافة `loadJSON`.
-  - _مثال_:
-    إذا كان `true`:
-    ```json
-    {
-      "key": "value"
-    }
-    ```
-    إذا كان `false`:
-    ```json
-    {
-      "key": "value",
-      "content": {
-        "key": "value"
-      }
-    }
-    ```
+### تكوين المسجل (Logger Configuration)
+
+إعدادات لتخصيص إخراج سجل Intlayer.
+
+| الحقل    | النوع                                          | الوصف                 | الافتراضي      |
+| -------- | ---------------------------------------------- | --------------------- | -------------- |
+| `mode`   | `'default' &#124; 'verbose' &#124; 'disabled'` | وضع تسجيل البيانات.   | `'default'`    |
+| `prefix` | `string`                                       | البادئة لرسائل السجل. | `'[intlayer]'` |
+
+---
+
+### المخططات المخصصة (Custom Schemas)
+
+| الحقل     | النوع                       | الوصف                                             |
+| --------- | --------------------------- | ------------------------------------------------- |
+| `schemas` | `Record<string, ZodSchema>` | يسمح لك بتعريف مخططات Zod للتحقق من بنية قواميسك. |
+
+---
+
+### المكونات الإضافية (Plugins)
+
+| الحقل     | النوع              | الوصف                                          |
+| --------- | ------------------ | ---------------------------------------------- |
+| `plugins` | `IntlayerPlugin[]` | قائمة مكونات Intlayer الإضافية المراد تفعيلها. |

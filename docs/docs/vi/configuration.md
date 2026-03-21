@@ -1,11 +1,11 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-03-12
-title: Cấu hình
-description: Tìm hiểu cách cấu hình Intlayer cho ứng dụng của bạn. Hiểu các thiết lập và tùy chọn khác nhau để tùy chỉnh Intlayer theo nhu cầu của bạn.
+updatedAt: 2026-03-20
+title: Cấu hình (Configuration)
+description: Tìm hiểu cách cấu hình Intlayer cho ứng dụng của bạn. Hiểu các cài đặt và tùy chọn khác nhau có sẵn để tùy chỉnh Intlayer theo nhu cầu của bạn.
 keywords:
   - Cấu hình
-  - Thiết lập
+  - Cài đặt
   - Tùy chỉnh
   - Intlayer
   - Tùy chọn
@@ -16,16 +16,19 @@ slugs:
 history:
   - version: 8.4.0
     date: 2026-03-20
-    changes: Add object per-locale notation for 'compiler.output' and 'dictionary.fill'
+    changes: Thêm ký hiệu đối tượng theo từng ngôn ngữ cho 'compiler.output' và 'dictionary.fill'
   - version: 8.3.0
     date: 2026-03-11
-    changes: Di chuyển 'baseDir' từ cấu hình 'content' sang cấu hình 'system'
+    changes: Chuyển 'baseDir' từ cấu hình 'content' sang cấu hình 'system'
   - version: 8.2.0
     date: 2026-03-09
-    changes: Cập nhật các tùy chọn trình biên dịch, thêm hỗ trợ 'output' và 'noMetadata'
+    changes: Cập nhật các tùy chọn của trình biên dịch (compiler), thêm hỗ trợ cho 'output' và 'noMetadata'
   - version: 8.1.7
     date: 2026-02-25
-    changes: Cập nhật các tùy chọn trình biên dịch
+    changes: Cập nhật tùy chọn trình biên dịch
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: Thêm tùy chọn trình biên dịch 'build-only' và tiền tố từ điển
   - version: 8.0.6
     date: 2026-02-12
     changes: Thêm hỗ trợ cho các nhà cung cấp Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face và Together.ai
@@ -33,11 +36,17 @@ history:
     date: 2026-02-06
     changes: Thêm `dataSerialization` vào cấu hình AI
   - version: 8.0.0
+    date: 2026-01-24
+    changes: Đổi tên chế độ nhập `live` thành `fetch` để mô tả tốt hơn cơ chế cơ bản.
+  - version: 8.0.0
     date: 2026-01-22
-    changes: Di chuyển cấu hình build importMode sang cấu hình từ điển.
+    changes: Chuyển cấu hình build `importMode` sang cấu hình từ điển `dictionary`.
+  - version: 8.0.0
+    date: 2026-01-22
+    changes: Thêm tùy chọn `rewrite` cho cấu hình routing
   - version: 8.0.0
     date: 2026-01-18
-    changes: Tách cấu hình hệ thống khỏi cấu hình nội dung. Di chuyển các đường dẫn nội bộ sang thuộc tính `system`. Thêm `codeDir` để tách các tệp nội dung khỏi việc chuyển đổi mã.
+    changes: Tách cấu hình hệ thống khỏi cấu hình nội dung. Chuyển các đường dẫn nội bộ vào thuộc tính `system`. Thêm `codeDir` để tách biệt các tệp nội dung và chuyển đổi mã.
   - version: 8.0.0
     date: 2026-01-18
     changes: Thêm các tùy chọn từ điển `location` và `schema`
@@ -52,7 +61,7 @@ history:
     changes: Thêm cấu hình `dictionary`
   - version: 7.0.0
     date: 2025-10-21
-    changes: Thay thế `middleware` bằng cấu hình `routing`
+    changes: Thay thế `middleware` bằng cấu hình routing `routing`
   - version: 7.0.0
     date: 2025-10-12
     changes: Thêm tùy chọn `formatCommand`
@@ -64,19 +73,19 @@ history:
     changes: Thêm tùy chọn `outputFormat`
   - version: 6.0.0
     date: 2025-09-21
-    changes: Loại bỏ trường `dictionaryOutput` và trường `i18nextResourcesDir`
+    changes: Xóa trường `dictionaryOutput` và trường `i18nextResourcesDir`
   - version: 6.0.0
     date: 2025-09-16
-    changes: Thêm chế độ nhập khẩu `live`
+    changes: Thêm chế độ nhập `live`
   - version: 6.0.0
     date: 2025-09-04
-    changes: Thay thế trường `hotReload` bằng `liveSync` và thêm các trường `liveSyncPort` và `liveSyncURL`
+    changes: Thay thế trường `hotReload` bằng `liveSync`, và thêm các trường `liveSyncPort` và `liveSyncURL`
   - version: 5.6.1
     date: 2025-07-25
     changes: Thay thế `activateDynamicImport` bằng tùy chọn `importMode`
   - version: 5.6.0
     date: 2025-07-13
-    changes: Thay đổi giá trị mặc định của contentDir từ `['src']` thành `['.']`
+    changes: Thay đổi contentDir mặc định từ `['src']` thành `['.']`
   - version: 5.5.11
     date: 2025-06-29
     changes: Thêm các lệnh `docs`
@@ -86,7 +95,7 @@ history:
 
 ## Tổng quan
 
-Các tệp cấu hình Intlayer cho phép tùy chỉnh nhiều khía cạnh khác nhau của plugin, chẳng hạn như quốc tế hóa, middleware và xử lý nội dung. Tài liệu này cung cấp mô tả chi tiết về từng thuộc tính trong cấu hình.
+Các tệp cấu hình Intlayer cho phép bạn tùy chỉnh các khía cạnh khác nhau của plugin, chẳng hạn như quốc tế hóa (internationalization), middleware và xử lý nội dung. Tài liệu này cung cấp mô tả chi tiết về từng thuộc tính trong cấu hình.
 
 ---
 
@@ -96,7 +105,7 @@ Các tệp cấu hình Intlayer cho phép tùy chỉnh nhiều khía cạnh khá
 
 ---
 
-## Hỗ trợ tệp cấu hình
+## Các định dạng tệp cấu hình được hỗ trợ
 
 Intlayer chấp nhận các định dạng tệp cấu hình JSON, JS, MJS và TS:
 
@@ -119,108 +128,108 @@ import { nextjsRewrite } from "intlayer/routing";
 import { z } from "zod";
 
 /**
- * Example Intlayer configuration file showing all available options.
+ * Ví dụ tệp cấu hình Intlayer hiển thị tất cả các tùy chọn có sẵn.
  */
 const config: IntlayerConfig = {
   /**
-   * Configuration for internationalization settings.
+   * Cấu hình cài đặt quốc tế hóa.
    */
   internationalization: {
     /**
-     * List of supported locales in the application.
-     * Default: [Locales.ENGLISH]
+     * Danh sách các ngôn ngữ (locales) được hỗ trợ trong ứng dụng.
+     * Mặc định: [Locales.ENGLISH]
      */
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
 
     /**
-     * List of required locales that must be defined in every dictionary.
-     * If empty, all locales are required in `strict` mode.
-     * Default: []
+     * Danh sách các ngôn ngữ bắt buộc phải được định nghĩa trong mỗi từ điển.
+     * Nếu để trống, tất cả các ngôn ngữ đều bắt buộc trong chế độ `strict`.
+     * Mặc định: []
      */
     requiredLocales: [Locales.ENGLISH],
 
     /**
-     * Strictness level for internationalized content.
-     * - "strict": Errors if any declared locale is missing or undeclared.
-     * - "inclusive": Warnings if a declared locale is missing.
-     * - "loose": Accepts any existing locale.
-     * Default: "inclusive"
+     * Mức độ nghiêm ngặt cho nội dung được quốc tế hóa.
+     * - "strict": Báo lỗi nếu thiếu bất kỳ ngôn ngữ nào đã khai báo hoặc nếu không được khai báo.
+     * - "inclusive": Cảnh báo nếu thiếu ngôn ngữ đã khai báo.
+     * - "loose": Chấp nhận bất kỳ ngôn ngữ nào hiện có.
+     * Mặc định: "inclusive"
      */
     strictMode: "inclusive",
 
     /**
-     * Default locale used as a fallback if the requested locale is not found.
-     * Default: Locales.ENGLISH
+     * Ngôn ngữ mặc định được sử dụng làm phương án dự phòng (fallback) trong trường hợp không tìm thấy ngôn ngữ yêu cầu.
+     * Mặc định: Locales.ENGLISH
      */
     defaultLocale: Locales.ENGLISH,
   },
 
   /**
-   * Settings that control dictionary operations and fallback behavior.
+   * Các cài đặt kiểm soát hoạt động của từ điển và hành vi dự phòng.
    */
   dictionary: {
     /**
-     * Controls how dictionaries are imported.
-     * - "static": Statically imported at build time.
-     * - "dynamic": Dynamically imported using Suspense.
-     * - "fetch": Fetched dynamically via the live sync API.
-     * Default: "static"
+     * Kiểm soát cách nhập từ điển.
+     * - "static": Được nhập tĩnh tại thời điểm build.
+     * - "dynamic": Được nhập động bằng Suspense.
+     * - "fetch": Được truy xuất động qua Live Sync API.
+     * Mặc định: "static"
      */
     importMode: "static",
 
     /**
-     * Strategy for auto-filling missing translations using AI.
-     * Can be a boolean or a path pattern to store filled content.
-     * Default: true
+     * Chiến lược tự động điền các bản dịch còn thiếu bằng AI.
+     * Có thể là giá trị boolean hoặc một mẫu đường dẫn để lưu nội dung được điền.
+     * Mặc định: true
      */
     fill: true,
 
     /**
-     * Physical location of the dictionary files.
-     * - "local": Stored in the local filesystem.
-     * - "remote": Stored in the Intlayer CMS.
-     * - "hybrid": Stored in the local filesystem and the Intlayer CMS.
-     * - "plugin" (or any custom string): Provided by a plugin or a custom source.
-     * Default: "local"
+     * Vị trí vật lý của các tệp từ điển.
+     * - "local": Được lưu trữ trong hệ thống tệp cục bộ.
+     * - "remote": Được lưu trữ trong Intlayer CMS.
+     * - "hybrid": Được lưu trữ cả cục bộ và trong Intlayer CMS.
+     * - "plugin" (hoặc bất kỳ chuỗi tùy chỉnh nào): Được cung cấp bởi một plugin hoặc nguồn tùy chỉnh.
+     * Mặc định: "local"
      */
     location: "local",
 
     /**
-     * Whether to automatically transform content (e.g., Markdown to HTML).
-     * Default: false
+     * Nội dung có nên được tự động chuyển đổi hay không (ví dụ: Markdown sang HTML).
+     * Mặc định: false
      */
     contentAutoTransformation: false,
   },
 
   /**
-   * Routing and middleware configuration.
+   * Cấu hình routing và middleware.
    */
   routing: {
     /**
-     * Locale routing strategy.
-     * - "prefix-no-default": Prefix all except the default locale (e.g., /dashboard, /fr/dashboard).
-     * - "prefix-all": Prefix all locales (e.g., /en/dashboard, /fr/dashboard).
-     * - "no-prefix": No locale in the URL.
-     * - "search-params": Use ?locale=...
-     * Default: "prefix-no-default"
+     * Chiến lược định tuyến ngôn ngữ.
+     * - "prefix-no-default": Thêm tiền tố cho tất cả trừ ngôn ngữ mặc định (ví dụ: /dashboard, /fr/dashboard).
+     * - "prefix-all": Thêm tiền tố cho tất cả các ngôn ngữ (ví dụ: /en/dashboard, /fr/dashboard).
+     * - "no-prefix": Không có ngôn ngữ trong URL.
+     * - "search-params": Sử dụng ?locale=...
+     * Mặc định: "prefix-no-default"
      */
     mode: "prefix-no-default",
 
     /**
-     * Where to store the user's selected locale.
-     * Options: 'cookie', 'localStorage', 'sessionStorage', 'header', or an array of these.
-     * Default: ['cookie', 'header']
+     * Nơi lưu trữ ngôn ngữ đã chọn của người dùng.
+     * Tùy chọn: 'cookie', 'localStorage', 'sessionStorage', 'header' hoặc mảng của chúng.
+     * Mặc định: ['cookie', 'header']
      */
     storage: ["cookie", "header"],
 
     /**
-     * Base path for the application URLs.
-     * Default: ""
+     * Đường dẫn cơ sở cho các URL của ứng dụng.
+     * Mặc định: ""
      */
     basePath: "",
 
     /**
-     * Custom URL rewriting rules for locale-specific paths.
+     * Các quy tắc ghi đè URL tùy chỉnh cho các đường dẫn cụ thể theo từng ngôn ngữ.
      */
     rewrite: nextjsRewrite({
       "/[locale]/about": {
@@ -231,130 +240,130 @@ const config: IntlayerConfig = {
   },
 
   /**
-   * Settings for finding and processing content files.
+   * Các cài đặt liên quan đến việc tìm kiếm và xử lý tệp nội dung.
    */
   content: {
     /**
-     * File extensions to scan for dictionaries.
-     * Default: ['.content.ts', '.content.js', '.content.json', etc.]
+     * Phần mở rộng tệp để quét từ điển.
+     * Mặc định: ['.content.ts', '.content.js', '.content.json', v.v.]
      */
     fileExtensions: [".content.ts", ".content.js", ".content.json"],
 
     /**
-     * Directories where .content files are located.
-     * Default: ["."]
+     * Các thư mục chứa các tệp .content.
+     * Mặc định: ["."]
      */
     contentDir: ["src"],
 
     /**
-     * Directories where source code is located.
-     * Used for build optimization and code transformation.
-     * Default: ["."]
+     * Nơi chứa mã nguồn.
+     * Được sử dụng để tối ưu hóa build và chuyển đổi mã.
+     * Mặc định: ["."]
      */
     codeDir: ["src"],
 
     /**
-     * Patterns to exclude from scanning.
-     * Default: ['node_modules', '.intlayer', etc.]
+     * Các mẫu bị loại trừ khỏi quá trình quét.
+     * Mặc định: ['node_modules', '.intlayer', v.v.]
      */
     excludedPath: ["node_modules"],
 
     /**
-     * Whether to watch for changes and rebuild dictionaries in development.
-     * Default: true in development
+     * Có theo dõi các thay đổi và build lại từ điển trong quá trình phát triển không.
+     * Mặc định: true trong môi trường phát triển
      */
     watch: true,
 
     /**
-     * Command to format newly created / updated .content files.
+     * Lệnh được sử dụng để định dạng các tệp .content mới tạo / cập nhật.
      */
     formatCommand: 'npx prettier --write "{{file}}"',
   },
 
   /**
-   * Visual Editor configuration.
+   * Cấu hình Trình chỉnh sửa trực quan (Visual Editor).
    */
   editor: {
     /**
-     * Whether the visual editor is enabled.
-     * Default: false
+     * Có bật trình chỉnh sửa trực quan hay không.
+     * Mặc định: false
      */
     enabled: true,
 
     /**
-     * URL of your application for origin validation.
-     * Default: ""
+     * URL ứng dụng của bạn để xác thực nguồn (origin validation).
+     * Mặc định: ""
      */
     applicationURL: "http://localhost:3000",
 
     /**
-     * Port for the local editor server.
-     * Default: 8000
+     * Cổng cho máy chủ trình chỉnh sửa cục bộ.
+     * Mặc định: 8000
      */
     port: 8000,
 
     /**
-     * Public URL for the editor.
-     * Default: "http://localhost:8000"
+     * URL công khai cho trình chỉnh sửa.
+     * Mặc định: "http://localhost:8000"
      */
     editorURL: "http://localhost:8000",
 
     /**
-     * Intlayer CMS URL.
-     * Default: "https://app.intlayer.org"
+     * URL của Intlayer CMS.
+     * Mặc định: "https://app.intlayer.org"
      */
     cmsURL: "https://app.intlayer.org",
 
     /**
-     * Backend API URL.
-     * Default: "https://back.intlayer.org"
+     * URL của Backend API.
+     * Mặc định: "https://back.intlayer.org"
      */
     backendURL: "https://back.intlayer.org",
 
     /**
-     * Whether to enable real-time content synchronization.
-     * Default: false
+     * Có bật đồng bộ nội dung thời gian thực không.
+     * Mặc định: false
      */
     liveSync: true,
   },
 
   /**
-   * AI-powered translation and generation settings.
+   * Các cài đặt cho việc dịch và build dựa trên AI.
    */
   ai: {
     /**
-     * AI provider to use.
-     * Options: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama', 'openrouter', 'alibaba', 'fireworks', 'groq', 'huggingface', 'bedrock', 'googlevertex', 'togetherai'
-     * Default: 'openai'
+     * Nhà cung cấp AI sẽ sử dụng.
+     * Tùy chọn: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama', 'openrouter', 'alibaba', 'fireworks', 'groq', 'huggingface', 'bedrock', 'googlevertex', 'togetherai'
+     * Mặc định: 'openai'
      */
     provider: "openai",
 
     /**
-     * Model to use from the selected provider.
+     * Model của nhà cung cấp đã chọn để sử dụng.
      */
     model: "gpt-4o",
 
     /**
-     * Provider API key.
+     * API key của nhà cung cấp.
      */
     apiKey: process.env.OPENAI_API_KEY,
 
     /**
-     * Global context to guide the AI in generating translations.
+     * Ngữ cảnh toàn cục để hướng dẫn AI khi build các bản dịch.
      */
-    applicationContext: "This is a travel booking application.",
+    applicationContext: "Đây là một ứng dụng đặt vé du lịch.",
 
     /**
-     * Base URL for the AI API.
+     * URL đường dẫn cơ sở cho AI API.
      */
     baseURL: "http://localhost:3000",
 
     /**
-     * Tuần tự hóa dữ liệu
+     * Tuần tự hóa dữ liệu (Data Serialization)
      *
      * Tùy chọn:
-     * - "json": Tiêu chuẩn, đáng tin cậy; tiêu tốn nhiều token hơn.
-     * - "toon": Ít token hơn, kém nhất quán hơn JSON.
+     * - "json": Mặc định, mạnh mẽ; tiêu tốn nhiều token hơn.
+     * - "toon": Tiêu tốn ít token hơn, có thể không nhất quán như JSON.
      *
      * Mặc định: "json"
      */
@@ -362,170 +371,170 @@ const config: IntlayerConfig = {
   },
 
   /**
-   * Build and optimization settings.
+   * Các cài đặt build và tối ưu hóa.
    */
   build: {
     /**
-     * Build execution mode.
-     * - "auto": Automatic build during app build.
-     * - "manual": Requires explicit build command.
-     * Default: "auto"
+     * Chế độ thực thi build.
+     * - "auto": Sẽ được build tự động trong quá trình build ứng dụng.
+     * - "manual": Yêu cầu lệnh build rõ ràng.
+     * Mặc định: "auto"
      */
     mode: "auto",
 
     /**
-     * Whether to optimize the final bundle by pruning unused dictionaries.
-     * Default: true in production
+     * Có tối ưu hóa bundle cuối cùng bằng cách loại bỏ các từ điển không sử dụng không.
+     * Mặc định: true trong môi trường production
      */
     optimize: true,
 
     /**
-     * Output format for generated dictionary files.
-     * Default: ['esm', 'cjs']
+     * Định dạng đầu ra cho các tệp từ điển được tạo.
+     * Mặc định: ['cjs', 'esm']
      */
-    outputFormat: ["esm"],
+    outputFormat: ["cjs", "esm"],
 
     /**
-     * Indicates if the build should check TypeScript types.
-     * Default: false
+     * Xác định xem tiến trình build có nên kiểm tra các kiểu TypeScript hay không.
+     * Mặc định: false
      */
     checkTypes: false,
   },
 
   /**
-   * Logger configuration.
+   * Cấu hình trình ghi nhật ký (Logger).
    */
   log: {
     /**
-     * Logging level.
-     * - "default": Standard logging.
-     * - "verbose": Detailed debug logging.
-     * - "disabled": No logging.
-     * Default: "default"
+     * Mức độ ghi nhật ký.
+     * - "default": Ghi nhật ký tiêu chuẩn.
+     * - "verbose": Ghi nhật ký gỡ lỗi chuyên sâu.
+     * - "disabled": Tắt ghi nhật ký.
+     * Mặc định: "default"
      */
     mode: "default",
 
     /**
-     * Prefix for all log messages.
-     * Default: "[intlayer]"
+     * Tiền tố cho tất cả các thông báo nhật ký.
+     * Mặc định: "[intlayer]"
      */
     prefix: "[intlayer]",
   },
 
   /**
-   * System configuration (Advanced use cases)
+   * Cấu hình hệ thống (Để sử dụng nâng cao)
    */
   system: {
     /**
-     * Directory for storing localization dictionaries.
+     * Thư mục để lưu trữ các từ điển đã được bản địa hóa.
      */
     dictionariesDir: ".intlayer/dictionary",
 
     /**
-     * Directory for module augmentation.
+     * Thư mục cho việc mở rộng module TypeScript (module augmentation).
      */
     moduleAugmentationDir: ".intlayer/types",
 
     /**
-     * Directory for storing unmerged dictionaries.
+     * Thư mục để lưu trữ các từ điển chưa hợp nhất (unmerged).
      */
     unmergedDictionariesDir: ".intlayer/unmerged_dictionary",
 
     /**
-     * Directory for storing dictionary types.
+     * Thư mục để lưu trữ các kiểu từ điển.
      */
     typesDir: ".intlayer/types",
 
     /**
-     * Directory where main application files are stored.
+     * Thư mục chứa các tệp ứng dụng chính.
      */
     mainDir: ".intlayer/main",
 
     /**
-     * Directory where the configuration files are stored.
+     * Thư mục chứa các tệp cấu hình.
      */
     configDir: ".intlayer/config",
 
     /**
-     * Directory where the cache files are stored.
+     * Thư mục chứa các tệp bộ nhớ đệm (cache).
      */
     cacheDir: ".intlayer/cache",
   },
 
   /**
-   * Compiler configuration (Advanced use cases)
+   * Cấu hình Trình biên dịch (Để sử dụng nâng cao)
    */
   compiler: {
     /**
-     * Cho biết trình biên dịch có nên được bật hay không.
+     * Xác định xem trình biên dịch có nên được bật hay không.
      *
-     * - false : Vô hiệu hóa trình biên dịch.
-     * - true : Kích hoạt trình biên dịch.
-     * - "build-only" : Bỏ qua trình biên dịch trong quá trình phát triển để tăng tốc thời gian khởi động.
+     * - false: Tắt trình biên dịch.
+     * - true: Bật trình biên dịch.
+     * - "build-only": Bỏ qua trình biên dịch trong quá trình phát triển và tăng tốc thời gian khởi động.
      *
-     * Giá trị mặc định : false
+     * Mặc định: false
      */
     enabled: true,
 
     /**
-     * Xác định đường dẫn tệp đầu ra. Thay thế `outputDir`.
+     * Định nghĩa đường dẫn cho các tệp đầu ra. Thay thế `outputDir`.
      *
-     * - Các đường dẫn bắt đầu bằng `./` được giải quyết tương đối so với thư mục component.
-     * - Các đường dẫn bắt đầu bằng `/` được giải quyết tương đối so với thư mục gốc của dự án (`baseDir`).
+     * - Các đường dẫn có `./` được giải quyết tương đối với thư mục thành phần.
+     * - Các đường dẫn có `/` được giải quyết tương đối với thư mục gốc của dự án (`baseDir`).
      *
-     * - Việc bao gồm biến `{{locale}}` trong đường dẫn sẽ cho phép tạo các từ điển được tách biệt theo ngôn ngữ.
+     * - Việc bao gồm biến `{{locale}}` trong đường dẫn sẽ kích hoạt việc tạo các từ điển riêng biệt cho từng ngôn ngữ.
      *
      * Ví dụ:
      * ```ts
      * {
-     *   // Tạo tệp .content.ts đa ngôn ngữ bên cạnh component
+     *   // Tạo các tệp .content.ts đa ngôn ngữ bên cạnh thành phần
      *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
      *
-     *   // output: './{{fileName}}{{extension}}', // Cách viết tương đương bằng template string
+     *   // output: './{{fileName}}{{extension}}', // Tương đương khi sử dụng template string
      * }
      * ```
      *
      * ```ts
      * {
-     *   // Tạo tệp JSON tập trung theo ngôn ngữ trong thư mục gốc của dự án
+     *   // Tạo các tệp JSON tập trung cho từng ngôn ngữ tại thư mục gốc của dự án
      *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
      *
-     *   // output: '/locales/{{locale}}/{{key}}.content.json', // Cách viết tương đương bằng template string
+     *   // output: '/locales/{{locale}}/{{key}}.content.json', // Tương đương khi sử dụng template string
      * }
      * ```
      *
-     * Danh sách biến:
+     * Danh sách các biến:
      *   - `fileName`: Tên tệp.
-     *   - `key`: Khóa nội dung.
+     *   - `key`: Khóa nội dung (key).
      *   - `locale`: Ngôn ngữ nội dung.
      *   - `extension`: Phần mở rộng tệp.
-     *   - `componentFileName`: Tên tệp component.
-     *   - `componentExtension`: Phần mở rộng tệp component.
+     *   - `componentFileName`: Tên tệp thành phần.
+     *   - `componentExtension`: Phần mở rộng tệp thành phần.
      *   - `format`: Định dạng từ điển.
-     *   - `componentFormat`: Định dạng từ điển component.
-     *   - `componentDirPath`: Đường dẫn thư mục component.
+     *   - `componentFormat`: Định dạng từ điển thành phần.
+     *   - `componentDirPath`: Đường dẫn thư mục thành phần.
      */
     output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
 
     /**
-     * Cho biết liệu các thành phần có nên được lưu sau khi được chuyển đổi hay không.
-     * Bằng cách đó, trình biên dịch có thể được chạy một lần duy nhất để chuyển đổi ứng dụng, và sau đó nó có thể được gỡ bỏ.
+     * Xác định xem các thành phần có nên được lưu sau khi được chuyển đổi hay không.
+     * Theo cách này, trình biên dịch có thể chỉ chạy một lần để chuyển đổi ứng dụng của bạn và sau đó được gỡ bỏ.
      */
     saveComponents: false,
 
     /**
-     * Chỉ chèn nội dung vào tệp đã tạo. Hữu ích cho đầu ra JSON i18next hoặc ICU MessageFormat theo từng ngôn ngữ.
+     * Chỉ chèn nội dung vào tệp được tạo. Hữu ích cho đầu ra JSON theo từng ngôn ngữ cho i18next hoặc ICU MessageFormat.
      */
     noMetadata: false,
 
     /**
      * Tiền tố khóa từ điển
      */
-    dictionaryKeyPrefix: "", // Thêm tiền tố tùy chọn cho các khóa từ điển được trích xuất
+    dictionaryKeyPrefix: "", // Thêm một tiền tố tùy chọn vào các khóa từ điển được trích xuất
   },
 
   /**
-   * Custom schemas to validate the dictionaries content.
+   * Các schema tùy chỉnh (Schemas) để xác thực nội dung từ điển.
    */
   schemas: {
     "my-schema": z.object({
@@ -534,7 +543,7 @@ const config: IntlayerConfig = {
   },
 
   /**
-   * Plugins configuration.
+   * Cấu hình các plugin (Plugins).
    */
   plugins: [],
 };
@@ -542,292 +551,114 @@ const config: IntlayerConfig = {
 export default config;
 ````
 
-## Tham chiếu Cấu hình
+---
 
-Các phần sau mô tả các thiết lập cấu hình khác nhau có sẵn cho Intlayer.
+## Tham chiếu cấu hình (Configuration Reference)
+
+Các phần sau đây mô tả các tùy chọn cấu hình khác nhau có sẵn trong Intlayer.
 
 ---
 
-### Cấu hình Quốc tế hóa
+### Cấu hình quốc tế hóa (Internationalization Configuration)
 
-Định nghĩa các thiết lập liên quan đến quốc tế hóa, bao gồm các ngôn ngữ có sẵn và ngôn ngữ mặc định cho ứng dụng.
+Định nghĩa các cài đặt liên quan đến quốc tế hóa, bao gồm các ngôn ngữ có sẵn và ngôn ngữ mặc định cho ứng dụng.
 
-#### Thuộc tính
-
-- **locales**:
-  - _Kiểu_: `string[]`
-  - _Mặc định_: `['en']`
-  - _Mô tả_: Danh sách các ngôn ngữ được hỗ trợ trong ứng dụng.
-  - _Ví dụ_: `['en', 'fr', 'es']`
-
-- **requiredLocales**:
-  - _Kiểu_: `string[]`
-  - _Mặc định_: `[]`
-  - _Mô tả_: Danh sách các ngôn ngữ bắt buộc trong ứng dụng.
-  - _Ví dụ_: `[]`
-  - _Lưu ý_: Nếu để trống, tất cả các ngôn ngữ đều bắt buộc trong chế độ `strict`.
-  - _Lưu ý_: Đảm bảo các ngôn ngữ bắt buộc cũng được định nghĩa trong trường `locales`.
-- **strictMode**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `inclusive`
-  - _Mô tả_: Đảm bảo việc triển khai nội dung quốc tế hóa mạnh mẽ bằng cách sử dụng typescript.
-  - _Lưu ý_: Nếu được đặt thành "strict", hàm dịch `t` sẽ yêu cầu mỗi ngôn ngữ được khai báo phải được định nghĩa. Nếu thiếu một ngôn ngữ hoặc nếu một ngôn ngữ không được khai báo trong cấu hình của bạn, nó sẽ báo lỗi.
-  - _Lưu ý_: Nếu được đặt thành "inclusive", hàm dịch `t` sẽ yêu cầu mỗi ngôn ngữ được khai báo phải được định nghĩa. Nếu thiếu một ngôn ngữ, nó sẽ cảnh báo. Nhưng sẽ chấp nhận nếu một ngôn ngữ không được khai báo trong cấu hình của bạn nhưng tồn tại.
-  - _Lưu ý_: Nếu được đặt thành "loose", hàm dịch `t` sẽ chấp nhận bất kỳ ngôn ngữ nào tồn tại.
-
-- **defaultLocale**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `'en'`
-  - _Mô tả_: Ngôn ngữ mặc định được sử dụng làm dự phòng nếu ngôn ngữ yêu cầu không được tìm thấy.
-  - _Ví dụ_: `'en'`
-  - _Lưu ý_: Điều này được sử dụng để xác định ngôn ngữ khi không có ngôn ngữ nào được chỉ định trong URL, cookie hoặc header.
+| Trường            | Kiểu       | Mô tả                                                                                                         | Ví dụ                | Lưu ý                                                                                                                                                                                                                                                                                      |
+| ----------------- | ---------- | ------------------------------------------------------------------------------------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `locales`         | `string[]` | Danh sách các ngôn ngữ được hỗ trợ trong ứng dụng. Mặc định: `[Locales.ENGLISH]`                              | `['en', 'fr', 'es']` |                                                                                                                                                                                                                                                                                            |
+| `requiredLocales` | `string[]` | Danh sách các ngôn ngữ bắt buộc trong ứng dụng. Mặc định: `[]`                                                | `[]`                 | Nếu để trống, tất cả các ngôn ngữ đều bắt buộc trong chế độ `strict`. Đảm bảo các ngôn ngữ bắt buộc cũng được định nghĩa trong trường `locales`.                                                                                                                                           |
+| `strictMode`      | `string`   | Đảm bảo triển khai mạnh mẽ nội dung được quốc tế hóa thông qua việc sử dụng TypeScript. Mặc định: `inclusive` |                      | Nếu `"strict"`: hàm `t` yêu cầu mọi ngôn ngữ đã khai báo phải được định nghĩa — báo lỗi nếu thiếu hoặc không được khai báo. Nếu `"inclusive"`: cảnh báo về các ngôn ngữ bị thiếu nhưng chấp nhận các ngôn ngữ chưa khai báo hiện có. Nếu `"loose"`: chấp nhận bất kỳ ngôn ngữ nào hiện có. |
+| `defaultLocale`   | `string`   | Ngôn ngữ mặc định được sử dụng làm dự phòng nếu không tìm thấy ngôn ngữ yêu cầu. Mặc định: `Locales.ENGLISH`  | `'en'`               | Được sử dụng để xác định ngôn ngữ khi không có ngôn ngữ nào được chỉ định trong URL, cookie hoặc header.                                                                                                                                                                                   |
 
 ---
 
-### Cấu hình Trình soạn thảo
+### Cấu hình trình chỉnh sửa (Editor Configuration)
 
-Định nghĩa các thiết lập liên quan đến trình soạn thảo tích hợp, bao gồm cổng máy chủ và trạng thái hoạt động.
+Định nghĩa các cài đặt liên quan đến trình chỉnh sửa tích hợp, bao gồm cổng máy chủ và trạng thái hoạt động.
 
-#### Thuộc tính
+| Trường                       | Kiểu                      | Mô tả                                                                                                                                                                          | Ví dụ                                                                                 | Lưu ý                                                                                                                                                                                                                    |
+| ---------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `applicationURL`             | `string`                  | URL ứng dụng của bạn. Mặc định: `''`                                                                                                                                           | `'http://localhost:3000'`, `'https://example.com'`, `process.env.INTLAYER_EDITOR_URL` | Được sử dụng để hạn chế các nguồn (origins) của trình chỉnh sửa vì lý do bảo mật. Nếu được đặt thành `'*'`, trình chỉnh sửa có thể được truy cập từ bất kỳ nguồn nào.                                                    |
+| `port`                       | `number`                  | Cổng được sử dụng bởi máy chủ Trình chỉnh sửa trực quan. Mặc định: `8000`                                                                                                      |                                                                                       |                                                                                                                                                                                                                          |
+| `editorURL`                  | `string`                  | URL máy chủ trình chỉnh sửa. Mặc định: `'http://localhost:8000'`                                                                                                               | `'http://localhost:3000'`, `'https://example.com'`, `process.env.INTLAYER_EDITOR_URL` | Được sử dụng để hạn chế các nguồn có thể tương tác với ứng dụng. Nếu được đặt thành `'*'`, có thể truy cập từ bất kỳ nguồn nào. Phải được đặt nếu bạn thay đổi cổng hoặc trình chỉnh sửa được host trên một domain khác. |
+| `cmsURL`                     | `string`                  | URL của Intlayer CMS. Mặc định: `'https://intlayer.org'`                                                                                                                       | `'https://intlayer.org'`                                                              |                                                                                                                                                                                                                          |
+| `backendURL`                 | `string`                  | URL của máy chủ backend. Mặc định: `https://back.intlayer.org`                                                                                                                 | `http://localhost:4000`                                                               |                                                                                                                                                                                                                          |
+| `enabled`                    | `boolean`                 | Xác định xem ứng dụng có tương tác với trình chỉnh sửa trực quan hay không. Mặc định: `true`                                                                                   | `process.env.NODE_ENV !== 'production'`                                               | Nếu là `false`, trình chỉnh sửa không thể tương tác với ứng dụng. Tắt nó cho các môi trường cụ thể giúp tăng cường bảo mật.                                                                                              |
+| `clientId`                   | `string &#124; undefined` | Cho phép các gói intlayer xác thực với backend bằng oAuth2. Để nhận access token, hãy truy cập [intlayer.org/project](https://app.intlayer.org/project). Mặc định: `undefined` |                                                                                       | Giữ bí mật; lưu trữ trong biến môi trường.                                                                                                                                                                               |
+| `clientSecret`               | `string &#124; undefined` | Cho phép các gói intlayer xác thực với backend bằng oAuth2. Để nhận access token, hãy truy cập [intlayer.org/project](https://app.intlayer.org/project). Mặc định: `undefined` |                                                                                       | Giữ bí mật; lưu trữ trong biến môi trường.                                                                                                                                                                               |
+| `dictionaryPriorityStrategy` | `string`                  | Chiến lược ưu tiên từ điển khi tồn tại cả từ điển cục bộ và từ xa. Mặc định: `'local_first'`                                                                                   | `'distant_first'`                                                                     | `'distant_first'`: Ưu tiên từ xa thay vì cục bộ. `'local_first'`: Ưu tiên cục bộ thay vì từ xa.                                                                                                                          |
+| `liveSync`                   | `boolean`                 | Xác định xem máy chủ ứng dụng có nên hot reload nội dung khi phát hiện thay đổi trong CMS / Trình chỉnh sửa trực quan / Backend hay không. Mặc định: `true`                    | `true`                                                                                | Khi một từ điển được thêm/cập nhật, ứng dụng sẽ cập nhật nội dung trang. Live sync thuê ngoài nội dung cho một máy chủ khác, điều này có thể ảnh hưởng nhẹ đến hiệu năng. Khuyến nghị host cả hai trên cùng một máy.     |
+| `liveSyncPort`               | `number`                  | Cổng máy chủ Live Sync. Mặc định: `4000`                                                                                                                                       | `4000`                                                                                |                                                                                                                                                                                                                          |
+| `liveSyncURL`                | `string`                  | URL máy chủ Live Sync. Mặc định: `'http://localhost:{liveSyncPort}'`                                                                                                           | `'https://example.com'`                                                               | Chỉ đến localhost theo mặc định; có thể thay đổi thành máy chủ live sync từ xa.                                                                                                                                          |
 
-- **applicationURL**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `http://localhost:3000`
-  - _Mô tả_: URL của ứng dụng. Được sử dụng để giới hạn nguồn gốc của trình soạn thảo vì lý do bảo mật.
-  - _Ví dụ_:
-    - `'http://localhost:3000'`
-    - `'https://example.com'`
-    - `process.env.INTLAYER_EDITOR_URL`
-  - _Lưu ý_: URL của ứng dụng. Được sử dụng để giới hạn nguồn gốc của trình soạn thảo vì lý do bảo mật. Nếu được đặt thành `'*'`, trình soạn thảo có thể truy cập từ bất kỳ nguồn gốc nào.
+### Cấu hình routing (Routing Configuration)
 
-- **port**:
-  - _Kiểu_: `number`
-  - _Mặc định_: `8000`
-  - _Mô tả_: Cổng được sử dụng bởi máy chủ trình soạn thảo trực quan.
+Các cài đặt kiểm soát hành vi định tuyến, bao gồm cấu trúc URL, lưu trữ ngôn ngữ và xử lý middleware.
 
-- **editorURL**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `'http://localhost:8000'`
-  - _Mô tả_: URL của máy chủ trình soạn thảo. Được sử dụng để giới hạn nguồn gốc của trình soạn thảo vì lý do bảo mật.
-    - `'http://localhost:3000'`
-    - `'https://example.com'`
-    - `process.env.INTLAYER_EDITOR_URL`
-  - _Lưu ý_: URL của máy chủ trình soạn thảo để truy cập từ ứng dụng. Được sử dụng để giới hạn các nguồn gốc có thể tương tác với ứng dụng vì lý do bảo mật. Nếu được đặt thành `'*'`, trình soạn thảo có thể truy cập từ bất kỳ nguồn gốc nào. Nên được đặt nếu cổng bị thay đổi, hoặc nếu trình soạn thảo được lưu trữ trên một miền khác.
+| Trường     | Kiểu                                                                                                                                                 | Mô tả                                                                                                                                                   | Ví dụ                                                                                                                                                                                                                | Lưu ý                                                                                                                                                                                                                                               |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mode`     | `'prefix-no-default' &#124; 'prefix-all' &#124; 'no-prefix' &#124; 'search-params'`                                                                  | Chế độ routing URL để xử lý ngôn ngữ. Mặc định: `'prefix-no-default'`                                                                                   | `'prefix-no-default'`: `/dashboard` (en) hoặc `/fr/dashboard` (fr). `'prefix-all'`: `/en/dashboard`. `'no-prefix'`: ngôn ngữ được xử lý bằng các phương tiện khác. `'search-params'`: sử dụng `/dashboard?locale=fr` | Không ảnh hưởng đến quản lý cookie hoặc lưu trữ ngôn ngữ (locale storage).                                                                                                                                                                          |
+| `storage`  | `false &#124; 'cookie' &#124; 'localStorage' &#124; 'sessionStorage' &#124; 'header' &#124; CookiesAttributes &#124; StorageAttributes &#124; Array` | Cấu hình để lưu trữ ngôn ngữ trên client. Mặc định: `['cookie', 'header']`                                                                              | `'localStorage'`, `[{ type: 'cookie', name: 'custom-locale', secure: true }]`                                                                                                                                        | Xem bảng Tùy chọn lưu trữ bên dưới.                                                                                                                                                                                                                 |
+| `basePath` | `string`                                                                                                                                             | Đường dẫn cơ sở cho các URL của ứng dụng. Mặc định: `''`                                                                                                | `'/my-app'`                                                                                                                                                                                                          | Nếu ứng dụng nằm trên `https://example.com/my-app`, basePath là `'/my-app'` và các URL trở thành `https://example.com/my-app/en`.                                                                                                                   |
+| `rewrite`  | `Record<string, StrictModeLocaleMap<string>>`                                                                                                        | Các quy tắc ghi đè URL tùy chỉnh thay thế chế độ định tuyến mặc định cho các đường dẫn cụ thể. Hỗ trợ các tham số động `[param]`. Mặc định: `undefined` | Xem ví dụ bên dưới                                                                                                                                                                                                   | Các quy tắc ghi đè có ưu tiên hơn `mode`. Hoạt động với Next.js và Vite. `getLocalizedUrl()` tự động áp dụng các quy tắc phù hợp. Xem [Ghi đè URL tùy chỉnh](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/custom_url_rewrites.md). |
 
-- **cmsURL**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `'https://intlayer.org'`
-  - _Mô tả_: URL của Intlayer CMS.
-  - _Ví dụ_: `'https://intlayer.org'`
-  - _Lưu ý_: URL của Intlayer CMS.
+**Ví dụ về `rewrite`**:
 
-- **backendURL**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `https://back.intlayer.org`
-  - _Mô tả_: URL của máy chủ backend.
-  - _Ví dụ_: `http://localhost:4000`
+```typescript
+routing: {
+  mode: "prefix-no-default", // Chiến lược dự phòng
+  rewrite: nextjsRewrite({
+    "/about": {
+      en: "/about",
+      fr: "/a-propos",
+    },
+    "/product/[slug]": {
+      en: "/product/[slug]",
+      fr: "/produit/[slug]",
+    },
+    "/blog/[category]/[id]": {
+      en: "/blog/[category]/[id]",
+      fr: "/journal/[category]/[id]",
+    },
+  }),
+}
+```
 
-- **enabled**:
-  - _Kiểu_: `boolean`
-  - _Mặc định_: `true`
-  - _Mô tả_: Chỉ ra liệu ứng dụng có tương tác với trình soạn thảo trực quan hay không.
-  - _Ví dụ_: `process.env.NODE_ENV !== 'production'`
-  - _Lưu ý_: Nếu là true, trình soạn thảo sẽ có thể tương tác với ứng dụng. Nếu là false, trình soạn thảo sẽ không thể tương tác với ứng dụng. Trong mọi trường hợp, trình soạn thảo chỉ có thể được kích hoạt bởi trình soạn thảo trực quan. Việc vô hiệu hóa trình soạn thảo cho các môi trường cụ thể là một cách để tăng cường bảo mật.
+#### Tùy chọn lưu trữ (Storage Options)
 
-- **clientId**:
-  - _Kiểu_: `string` | `undefined`
-  - _Mặc định_: `undefined`
-  - _Mô tả_: clientId và clientSecret cho phép các package của intlayer xác thực với backend sử dụng xác thực oAuth2. Một access token được sử dụng để xác thực người dùng liên quan đến dự án. Để lấy access token, truy cập https://app.intlayer.org/project và tạo một tài khoản.
-  - _Ví dụ_: `true`
-  - _Lưu ý_: Quan trọng: clientId và clientSecret cần được giữ bí mật và không được chia sẻ công khai. Vui lòng đảm bảo giữ chúng ở nơi an toàn, chẳng hạn như biến môi trường.
+| Giá trị            | Mô tả                                                                      | Lưu ý                                                                                                                                                                                                 |
+| ------------------ | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `'cookie'`         | Lưu ngôn ngữ trong cookie — có thể truy cập từ cả phía client và server.   | Để tuân thủ GDPR, hãy đảm bảo đã nhận được sự đồng ý thích hợp của người dùng. Có thể tùy chỉnh qua `CookiesAttributes` (`{ type: 'cookie', name: 'custom-locale', secure: true, httpOnly: false }`). |
+| `'localStorage'`   | Lưu ngôn ngữ trong trình duyệt mà không có ngày hết hạn — chỉ phía client. | Không hết hạn trừ khi bị xóa rõ ràng. Proxy của Intlayer không thể truy cập cái này. Có thể tùy chỉnh qua `StorageAttributes` (`{ type: 'localStorage', name: 'custom-locale' }`).                    |
+| `'sessionStorage'` | Lưu ngôn ngữ trong suốt thời gian của phiên trang — chỉ phía client.       | Bị xóa khi đóng tab/cửa sổ. Proxy của Intlayer không thể truy cập cái này. Có thể tùy chỉnh qua `StorageAttributes` (`{ type: 'sessionStorage', name: 'custom-locale' }`).                            |
+| `'header'`         | Lưu hoặc truyền ngôn ngữ qua các HTTP header — chỉ phía server.            | Hữu ích cho các cuộc gọi API. Phía client không thể truy cập. Có thể tùy chỉnh qua `StorageAttributes` (`{ type: 'header', name: 'custom-locale' }`).                                                 |
 
-- **clientSecret**:
-  - _Kiểu_: `string` | `undefined`
-  - _Mặc định_: `undefined`
-  - _Mô tả_: clientId và clientSecret cho phép các package của intlayer xác thực với backend sử dụng xác thực oAuth2. Một access token được sử dụng để xác thực người dùng liên quan đến dự án. Để lấy access token, truy cập https://app.intlayer.org/project và tạo một tài khoản.
-  - _Ví dụ_: `true`
-  - _Lưu ý_: Quan trọng: clientId và clientSecret cần được giữ bí mật và không được chia sẻ công khai. Vui lòng đảm bảo giữ chúng ở nơi an toàn, chẳng hạn như biến môi trường.
+#### Thuộc tính Cookie (Cookie Attributes)
 
-- **dictionaryPriorityStrategy**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `'local_first'`
-  - _Mô tả_: Chiến lược ưu tiên từ điển trong trường hợp có cả từ điển cục bộ và từ điển từ xa. Nếu được đặt thành `'distant_first'`, ứng dụng sẽ ưu tiên từ điển từ xa hơn từ điển cục bộ. Nếu được đặt thành `'local_first'`, ứng dụng sẽ ưu tiên từ điển cục bộ hơn từ điển từ xa.
-  - _Ví dụ_: `'distant_first'`
+Khi sử dụng lưu trữ qua cookie, bạn có thể cấu hình các thuộc tính cookie bổ sung:
 
-- **liveSync**:
-  - _Kiểu_: `boolean`
-  - _Mặc định_: `false`
-  - _Mô tả_: Chỉ định liệu server ứng dụng có nên tải lại nóng nội dung của ứng dụng khi phát hiện có thay đổi trên CMS / Visual Editor / Backend hay không.
-  - _Ví dụ_: `true`
-  - _Lưu ý_: Ví dụ, khi một từ điển mới được thêm hoặc cập nhật, ứng dụng sẽ cập nhật nội dung để hiển thị trên trang.
-  - _Lưu ý_: Live sync cần phải đưa nội dung của ứng dụng ra một server khác. Điều này có nghĩa là nó có thể ảnh hưởng nhẹ đến hiệu năng của ứng dụng. Để hạn chế điều này, chúng tôi khuyến nghị nên host ứng dụng và server live sync trên cùng một máy. Ngoài ra, sự kết hợp giữa live sync và `optimize` có thể tạo ra một số lượng lớn các yêu cầu đến server live sync. Tùy thuộc vào hạ tầng của bạn, chúng tôi khuyến nghị nên thử nghiệm cả hai tùy chọn và sự kết hợp của chúng.
+| Trường     | Kiểu                                  | Mô tả                                            |
+| ---------- | ------------------------------------- | ------------------------------------------------ |
+| `name`     | `string`                              | Tên của cookie. Mặc định: `'INTLAYER_LOCALE'`    |
+| `domain`   | `string`                              | Domain của cookie. Mặc định: `undefined`         |
+| `path`     | `string`                              | Đường dẫn của cookie. Mặc định: `undefined`      |
+| `secure`   | `boolean`                             | Yêu cầu HTTPS. Mặc định: `undefined`             |
+| `httpOnly` | `boolean`                             | Cờ HTTP-only. Mặc định: `undefined`              |
+| `sameSite` | `'strict' &#124; 'lax' &#124; 'none'` | Chính sách SameSite.                             |
+| `expires`  | `Date &#124; number`                  | Ngày hết hạn hoặc số ngày. Mặc định: `undefined` |
 
-- **liveSyncPort**:
-  - _Kiểu_: `number`
-  - _Mặc định_: `4000`
-  - _Mô tả_: Cổng của server live sync.
-  - _Ví dụ_: `4000`
-  - _Lưu ý_: Cổng của server live sync.
-
-- **liveSyncURL**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `'http://localhost:{liveSyncPort}'`
-  - _Mô tả_: URL của server live sync.
-  - _Ví dụ_: `'https://example.com'`
-  - _Lưu ý_: Mặc định trỏ tới localhost nhưng có thể thay đổi thành bất kỳ URL nào trong trường hợp server live sync từ xa.
-
-### Cấu hình Routing
-
-Các thiết lập kiểm soát hành vi routing, bao gồm cấu trúc URL, lưu trữ locale và xử lý middleware.
-
-#### Thuộc tính
-
-- **mode**:
-  - _Kiểu_: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
-  - _Mặc định_: `'prefix-no-default'`
-  - _Mô tả_: Chế độ routing URL để xử lý locale.
-  - _Ví dụ_:
-    - `'prefix-no-default'`: `/dashboard` (en) hoặc `/fr/dashboard` (fr)
-    - `'prefix-all'`: `/en/dashboard` (en) hoặc `/fr/dashboard` (fr)
-    - `'no-prefix'`: `/dashboard` (locale được xử lý bằng cách khác)
-    - `'search-params'`: `/dashboard?locale=fr`
-  - _Lưu ý_: Thiết lập này không ảnh hưởng đến quản lý cookie hoặc lưu trữ locale.
-
-- **storage**:
-  - _Kiểu_: `false | 'cookie' | 'localStorage' | 'sessionStorage' | 'header' | CookiesAttributes | StorageAttributes | Array`
-  - _Mặc định_: `'localStorage'`
-  - _Mô tả_: Cấu hình để lưu trữ locale trên client.
-
-  - **cookie**:
-    - _Mô tả_: Lưu dữ liệu trong cookie, các mẩu dữ liệu nhỏ được lưu trên trình duyệt của client, có thể truy cập cả phía client và server.
-    - _Lưu ý_: Để tuân thủ GDPR, cần đảm bảo có sự đồng ý của người dùng trước khi sử dụng.
-    - _Lưu ý_: Các tham số cookie có thể tùy chỉnh nếu được đặt dưới dạng CookiesAttributes (`{ type: 'cookie', name: 'custom-locale', secure: true, httpOnly: false }`).
-
-  - **localStorage**:
-    - _Mô tả_: Lưu dữ liệu trong trình duyệt mà không có ngày hết hạn, cho phép dữ liệu tồn tại qua các phiên làm việc, chỉ có thể truy cập ở phía client.
-    - _Lưu ý_: Phù hợp để lưu trữ dữ liệu lâu dài nhưng cần lưu ý về các vấn đề bảo mật và quyền riêng tư do dữ liệu không hết hạn trừ khi được xóa rõ ràng.
-    - _Lưu ý_: Bộ lưu trữ locale chỉ có thể truy cập ở phía client, proxy intlayer sẽ không thể truy cập được.
-    - _Lưu ý_: Các tham số lưu trữ locale có thể tùy chỉnh nếu được đặt dưới dạng StorageAttributes (`{ type: 'localStorage', name: 'custom-locale' }`).
-
-  - **sessionStorage**:
-    - _Mô tả_: Lưu dữ liệu trong suốt phiên làm việc của trang, nghĩa là dữ liệu sẽ bị xóa khi tab hoặc cửa sổ trình duyệt đóng, chỉ có thể truy cập ở phía client.
-    - _Lưu ý_: Phù hợp để lưu trữ dữ liệu tạm thời cho mỗi phiên làm việc.
-    - _Lưu ý_: Bộ lưu trữ locale chỉ có thể truy cập ở phía client, proxy intlayer sẽ không thể truy cập được.
-    - _Lưu ý_: Các tham số lưu trữ locale có thể tùy chỉnh nếu được đặt dưới dạng StorageAttributes (`{ type: 'sessionStorage', name: 'custom-locale' }`).
-
-  - **header**:
-    - _Mô tả_: Sử dụng các header HTTP để lưu trữ hoặc truyền dữ liệu locale, phù hợp cho việc xác định ngôn ngữ phía server.
-    - _Lưu ý_: Hữu ích trong các cuộc gọi API để duy trì cài đặt ngôn ngữ nhất quán qua các yêu cầu.
-    - _Lưu ý_: Header chỉ có thể truy cập ở phía server, phía client sẽ không thể truy cập được.
-    - _Lưu ý_: Tên header có thể tùy chỉnh nếu được đặt dưới dạng StorageAttributes (`{ type: 'header', name: 'custom-locale' }`).
-
-- **basePath**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `''`
-  - _Mô tả_: Đường dẫn cơ sở cho các URL của ứng dụng.
-  - _Ví dụ_: `'/my-app'`
-  - _Lưu ý_:
-    - Nếu ứng dụng được lưu trữ tại `https://example.com/my-app`
-    - Đường dẫn cơ sở là `'/my-app'`
-    - URL sẽ là `https://example.com/my-app/en`
-    - Nếu không đặt đường dẫn cơ sở, URL sẽ là `https://example.com/en`
-
-- **rewrite**:
-  - _Kiểu_: `Record<string, StrictModeLocaleMap<string>>`
-  - _Mặc định_: `undefined`
-  - _Mô tả_: Quy tắc viết lại URL tùy chỉnh ghi đè chế độ định tuyến mặc định cho các đường dẫn cụ thể. Cho phép bạn xác định các đường dẫn cụ thể theo ngôn ngữ khác với hành vi định tuyến tiêu chuẩn. Hỗ trợ tham số tuyến động bằng cách sử dụng cú pháp `[param]`.
-  - _Ví dụ_:
-    ```typescript
-    routing: {
-      mode: "prefix-no-default", // Chiến lược dự phòng
-      rewrite: nextjsRewrite({
-        "/[locale]/about": {
-          en: "/[locale]/about",
-          fr: "/[locale]/a-propos",
-        },
-        "/[locale]/product/[slug]": {
-          en: "/[locale]/product/[slug]",
-          fr: "/[locale]/produit/[slug]",
-        },
-        "/[locale]/blog/[category]/[id]": {
-          en: "/[locale]/blog/[category]/[id]",
-          fr: "/[locale]/journal/[category]/[id]",
-        },
-      }),
-    }
-    ```
-  - _Lưu ý_: Các quy tắc viết lại có ưu tiên cao hơn hành vi `mode` mặc định. Nếu một đường dẫn khớp với quy tắc viết lại, đường dẫn đã được bản địa hóa từ cấu hình viết lại sẽ được sử dụng thay vì tiền tố ngôn ngữ tiêu chuẩn.
-  - _Lưu ý_: Tham số tuyến động được hỗ trợ bằng cách sử dụng ký hiệu ngoặc vuông (ví dụ: `[slug]`, `[id]`). Giá trị tham số được tự động trích xuất từ URL và nội suy vào đường dẫn đã viết lại.
-  - _Lưu ý_: Hoạt động với ứng dụng Next.js và Vite. Middleware/proxy sẽ tự động viết lại các yêu cầu đến để khớp với cấu trúc tuyến nội bộ.
-  - _Lưu ý_: Khi tạo URL bằng `getLocalizedUrl()`, các quy tắc viết lại được áp dụng tự động nếu chúng khớp với đường dẫn được cung cấp.
-  - _Tham khảo_: Để biết thêm thông tin, xem [Viết lại URL tùy chỉnh](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/custom_url_rewrites.md).
-
-#### Thuộc tính Cookie
-
-Khi sử dụng lưu trữ cookie, bạn có thể cấu hình thêm các thuộc tính cookie:
-
-- **name**: Tên cookie (mặc định: `'INTLAYER_LOCALE'`)
-- **domain**: Miền cookie (mặc định: không xác định)
-- **path**: Đường dẫn cookie (mặc định: không xác định)
-- **secure**: Yêu cầu HTTPS (mặc định: không xác định)
-- **httpOnly**: Cờ chỉ HTTP (mặc định: không xác định)
-- **sameSite**: Chính sách SameSite (`'strict' | 'lax' | 'none'`)
-- **expires**: Ngày hết hạn hoặc số ngày (mặc định: không xác định)
-
-#### Thuộc tính lưu trữ Locale
+#### Thuộc tính lưu trữ ngôn ngữ (Locale Storage Attributes)
 
 Khi sử dụng localStorage hoặc sessionStorage:
 
-- **type**: Loại lưu trữ (`'localStorage' | 'sessionStorage'`)
-- **name**: Tên khóa lưu trữ (mặc định: `'INTLAYER_LOCALE'`)
+| Trường | Kiểu                                     | Mô tả                                               |
+| ------ | ---------------------------------------- | --------------------------------------------------- |
+| `type` | `'localStorage' &#124; 'sessionStorage'` | Kiểu lưu trữ.                                       |
+| `name` | `string`                                 | Tên của khóa lưu trữ. Mặc định: `'INTLAYER_LOCALE'` |
 
-### Cấu hình Hệ thống
+#### Các ví dụ cấu hình
 
-Các cài đặt liên quan đến đường dẫn nội bộ và kết quả đầu ra của Intlayer. Các cài đặt này thường mang tính nội bộ và người dùng không cần phải sửa đổi.
-
-#### Thuộc tính
-
-- **baseDir**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `process.cwd()`
-  - _Mô tả_: Thư mục gốc của dự án.
-  - _Ví dụ_: `'/path/to/project'`
-  - _Lưu ý_: Được sử dụng để giải quyết tất cả các thư mục liên quan đến Intlayer.
-
-- **dictionariesDir**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `'.intlayer/dictionary'`
-  - _Mô tả_: Đường dẫn thư mục để lưu trữ các từ điển bản địa hóa.
-  - _Ví dụ_: `'translations'`
-
-- **moduleAugmentationDir**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `'.intlayer/types'`
-  - _Mô tả_: Thư mục dành cho việc mở rộng module, giúp IDE gợi ý và kiểm tra kiểu tốt hơn.
-  - _Ví dụ_: `'intlayer-types'`
-  - _Lưu ý_: Hãy chắc chắn bao gồm thư mục này trong `tsconfig.json`.
-
-- **unmergedDictionariesDir**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `'.intlayer/unmerged_dictionary'`
-  - _Mô tả_: Thư mục để lưu trữ các từ điển chưa được hợp nhất.
-  - _Ví dụ_: `'translations'`
-
-- **typesDir**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `'types'`
-  - _Mô tả_: Thư mục để lưu trữ các kiểu của từ điển.
-  - _Ví dụ_: `'intlayer-types'`
-
-- **mainDir**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `'main'`
-  - _Mô tả_: Thư mục nơi lưu trữ các tệp chính của ứng dụng.
-  - _Ví dụ_: `'intlayer-main'`
-
-#### Ví dụ cấu hình
-
-Dưới đây là một số ví dụ cấu hình phổ biến cho cấu trúc routing mới v7:
+Dưới đây là một số ví dụ cấu hình phổ biến cho cấu trúc định tuyến v7 mới:
 
 **Cấu hình cơ bản (Mặc định)**:
 
@@ -842,7 +673,7 @@ const config: IntlayerConfig = {
   routing: {
     mode: "prefix-no-default",
     storage: "localStorage",
-    headerName: "x-intlayer-locale",
+    basePath: "",
   },
 };
 
@@ -874,13 +705,14 @@ const config: IntlayerConfig = {
         httpOnly: false,
       },
     ],
+    basePath: "",
   },
 };
 
 export default config;
 ```
 
-**Chế độ Tham số Tìm kiếm**:
+**Chế độ tham số tìm kiếm (Search Parameters Mode)**:
 
 ```typescript
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -892,13 +724,15 @@ const config: IntlayerConfig = {
   },
   routing: {
     mode: "search-params",
+    storage: "localStorage",
+    basePath: "",
   },
 };
 
 export default config;
 ```
 
-**Chế độ Không Tiền Tố với Bộ Lưu Trữ Tùy Chỉnh**:
+**Chế độ không tiền tố (No Prefix Mode) với lưu trữ tùy chỉnh**:
 
 ```typescript
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -912,7 +746,43 @@ const config: IntlayerConfig = {
     mode: "no-prefix",
     storage: {
       type: "sessionStorage",
+      name: "app-locale",
     },
+    basePath: "/my-app",
+  },
+};
+
+export default config;
+```
+
+**Ghi đè URL tùy chỉnh với đường dẫn động**:
+
+```typescript
+// intlayer.config.ts
+import { nextjsRewrite } from "intlayer/routing";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: ["en", "fr"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "prefix-no-default", // Chiến lược dự phòng cho các đường dẫn không được ghi đè
+    storage: "cookie",
+    rewrite: nextjsRewrite({
+      "/about": {
+        en: "/about",
+        fr: "/a-propos",
+      },
+      "/product/[slug]": {
+        en: "/product/[slug]",
+        fr: "/produit/[slug]",
+      },
+      "/blog/[category]/[id]": {
+        en: "/blog/[category]/[id]",
+        fr: "/journal/[category]/[id]",
+      },
+    }),
   },
 };
 
@@ -921,378 +791,132 @@ export default config;
 
 ---
 
-### Cấu hình Nội dung
+### Cấu hình nội dung (Content Configuration)
 
-Các thiết lập liên quan đến việc xử lý nội dung trong ứng dụng, bao gồm tên thư mục, phần mở rộng tệp, và các cấu hình dẫn xuất.
+Các cài đặt liên quan đến việc xử lý nội dung trong ứng dụng (tên thư mục, phần mở rộng tệp và các cấu hình phái sinh).
 
-#### Thuộc tính
+| Trường           | Kiểu       | Mô tả                                                                                                                                                                                                | Ví dụ                               | Lưu ý                                                                                                                     |
+| ---------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `watch`          | `boolean`  | Xác định xem Intlayer có nên theo dõi các thay đổi trong các tệp khai báo nội dung để build lại từ điển hay không. Mặc định: `process.env.NODE_ENV === 'development'`                                |                                     |                                                                                                                           |
+| `fileExtensions` | `string[]` | Các phần mở rộng tệp được sử dụng để quét các tệp khai báo nội dung. Mặc định: `['.content.ts', '.content.js', '.content.mjs', '.content.cjs', '.content.json', '.content.json5', '.content.jsonc']` | `['.content.ts', '.content.js']`    |                                                                                                                           |
+| `contentDir`     | `string[]` | Đường dẫn đến các thư mục chứa các tệp khai báo nội dung. Mặc định: `['.']`                                                                                                                          | `['src/content']`                   |                                                                                                                           |
+| `codeDir`        | `string[]` | Đường dẫn đến các thư mục chứa các tệp mã nguồn của ứng dụng. Mặc định: `['.']`                                                                                                                      | `['src']`                           | Được sử dụng để tối ưu hóa build và đảm bảo rằng việc chuyển đổi mã và hot reload chỉ được áp dụng cho các tệp cần thiết. |
+| `excludedPath`   | `string[]` | Các đường dẫn bị loại trừ khỏi việc quét nội dung. Mặc định: `['node_modules', '.intlayer', '.next', 'dist', 'build']`                                                                               | `['src/styles']`                    |                                                                                                                           |
+| `formatCommand`  | `string`   | Lệnh sẽ được chạy để định dạng các tệp nội dung mới tạo hoặc cập nhật. Mặc định: `undefined`                                                                                                         | `'npx prettier --write "{{file}}"'` | Được sử dụng trong quá trình trích xuất nội dung hoặc qua trình chỉnh sửa trực quan.                                      |
 
-- **watch**:
-  - _Kiểu_: `boolean`
-  - _Mặc định_: `process.env.NODE_ENV === 'development'`
-  - _Mô tả_: Chỉ định liệu Intlayer có nên theo dõi các thay đổi trong các tệp khai báo nội dung trong ứng dụng để xây dựng lại các từ điển liên quan hay không.
+---
 
-- **fileExtensions**:
-  - _Kiểu_: `string[]`
-  - _Mặc định_: `['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.tsx', '.content.jsx']`
-  - _Mô tả_: Các phần mở rộng tệp cần tìm khi xây dựng từ điển.
-  - _Ví dụ_: `['.data.ts', '.data.js', '.data.json']`
-  - _Lưu ý_: Tùy chỉnh phần mở rộng tệp có thể giúp tránh xung đột.
-
-- **contentDir**:
-  - _Kiểu_: `string[]`
-  - _Mặc định_: `['.']`
-  - _Ví dụ_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
-  - _Mô tả_: Đường dẫn thư mục nơi lưu trữ các tệp định nghĩa nội dung (`.content.*`).
-  - _Lưu ý_: Được sử dụng để theo dõi các tệp nội dung để xây dựng lại từ điển.
-
-- **codeDir**:
-  - _Kiểu_: `string[]`
-  - _Mặc định_: `['.']`
-  - _Ví dụ_: `['src', '../../ui-library']`
-  - _Mô tả_: Đường dẫn thư mục nơi lưu trữ mã, tương đối với thư mục cơ sở.
-  - _Lưu ý_: Được sử dụng để theo dõi các tệp mã để chuyển đổi (cắt tỉa, tối ưu hóa). Giữ điều này tách biệt khỏi `contentDir` có thể cải thiện hiệu suất xây dựng bằng cách tránh quét không cần thiết các tệp nội dung.
-
-- **dictionariesDir**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `'.intlayer/dictionaries'`
-  - _Mô tả_: Đường dẫn thư mục để lưu trữ kết quả trung gian hoặc đầu ra.
-
-- **moduleAugmentationDir**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `'.intlayer/types'`
-  - _Mô tả_: Thư mục dành cho việc mở rộng module, giúp IDE gợi ý và kiểm tra kiểu tốt hơn.
-  - _Ví dụ_: `'intlayer-types'`
-  - _Lưu ý_: Hãy chắc chắn bao gồm thư mục này trong `tsconfig.json`.
-
-- **unmergedDictionariesDir**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `'.intlayer/unmerged_dictionary'`
-  - _Mô tả_: Thư mục để lưu trữ các từ điển chưa được hợp nhất.
-  - _Ví dụ_: `'translations'`
-
-- **dictionariesDir**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `'.intlayer/dictionary'`
-  - _Mô tả_: Thư mục để lưu trữ các từ điển bản địa hóa.
-  - _Ví dụ_: `'translations'`
-
-- **typesDir**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `'types'`
-  - _Mô tả_: Thư mục để lưu trữ các kiểu của từ điển.
-  - _Ví dụ_: `'intlayer-types'`
-
-- **mainDir**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `'main'`
-  - _Mô tả_: Thư mục nơi lưu trữ các tệp chính của ứng dụng.
-  - _Ví dụ_: `'intlayer-main'`
-
-- **excludedPath**:
-  - _Kiểu_: `string[]`
-  - _Mặc định_: `['**/node_modules/**', '**/dist/**', '**/build/**', '**/.intlayer/**', '**/.next/**', '**/.nuxt/**', '**/.expo/**', '**/.vercel/**', '**/.turbo/**', '**/.tanstack/**']`
-  - _Mô tả_: Các thư mục bị loại trừ khỏi việc tìm kiếm nội dung.
-  - _Lưu ý_: Cài đặt này hiện chưa được sử dụng, nhưng dự kiến sẽ được triển khai trong tương lai.
-
-- **formatCommand**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `undefined`
-  - _Mô tả_: Lệnh để định dạng nội dung. Khi Intlayer ghi các tệp .content của bạn trên máy cục bộ, lệnh này sẽ được sử dụng để định dạng nội dung.
-  - _Ví dụ_: `'npx prettier --write "{{file}}" --log-level silent'` Sử dụng Prettier
-  - _Ví dụ_: `'npx biome format "{{file}}" --write --log-level none'` Sử dụng Biome
-  - _Ví dụ_: `'npx eslint --fix "{{file}}"  --quiet'` Sử dụng ESLint
-  - _Lưu ý_: Intlayer sẽ thay thế {{file}} bằng đường dẫn của tệp cần định dạng.
-  - _Lưu ý_: Nếu không được thiết lập, Intlayer sẽ cố gắng tự động phát hiện lệnh định dạng. Bằng cách thử giải quyết các lệnh sau: prettier, biome, eslint.
-
-### Cấu hình Từ điển
+### Cấu hình từ điển (Dictionary Configuration)
 
 Các cài đặt kiểm soát hoạt động của từ điển, bao gồm hành vi tự động điền và tạo nội dung.
 
-Cấu hình từ điển này phục vụ hai mục đích chính:
+Cấu hình từ điển này có hai mục đích chính:
 
-1. **Giá trị Mặc định**: Định nghĩa các giá trị mặc định khi tạo các tệp khai báo nội dung
-2. **Hành vi Dự phòng**: Cung cấp các giá trị dự phòng khi các trường cụ thể không được định nghĩa, cho phép bạn định nghĩa hành vi hoạt động của từ điển trên toàn cục
+1. **Giá trị mặc định**: Định nghĩa các giá trị mặc định khi tạo các tệp khai báo nội dung.
+2. **Hành vi dự phòng**: Cho phép thiết lập hành vi của các hoạt động từ điển trên toàn cầu, cung cấp các giá trị dự phòng khi các trường cụ thể không được định nghĩa.
 
-Để biết thêm thông tin về các tệp khai báo nội dung và cách các giá trị cấu hình được áp dụng, xem [Tài liệu Tệp Nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md).
+Để biết thêm thông tin về cách áp dụng các tệp khai báo nội dung và giá trị cấu hình, hãy xem [tài liệu tệp nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md).
 
-#### Thuộc tính
+| Trường                      | Kiểu                                                                                            | Mô tả                                                                                                  | Ví dụ              | Lưu ý                                                                                                                                                                                                                                                                                                                                                          |
+| --------------------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `fill`                      | `boolean &#124; FilePathPattern &#124; Partial<Record<Locale, boolean &#124; FilePathPattern>>` | Kiểm soát cách tạo các tệp đầu ra tự động điền (dịch bằng AI). Mặc định: `true`                        | Xem ví dụ bên dưới | `true`: đường dẫn mặc định (cùng tệp với nguồn). `false`: tắt. Các mẫu chuỗi/hàm tạo các tệp theo từng ngôn ngữ. Đối tượng theo từng ngôn ngữ: mỗi ngôn ngữ ánh xạ tới mẫu riêng; `false` sẽ bỏ qua ngôn ngữ đó. Việc bao gồm biến `{{locale}}` sẽ kích hoạt việc tạo theo từng ngôn ngữ. `fill` ở cấp độ từ điển luôn được ưu tiên hơn cấu hình toàn cầu này. |
+| `importMode`                | `'static' &#124; 'dynamic' &#124; 'fetch'`                                                      | Kiểm soát cách nhập từ điển. Mặc định: `'static'`                                                      | `'dynamic'`        | `'static'`: Được nhập tĩnh. `'dynamic'`: Được nhập động qua 'Suspense'. `'fetch'`: Được truy xuất động qua 'Live Sync API'. Không ảnh hưởng đến `getIntlayer`, `getDictionary`, `useDictionary`, v.v.                                                                                                                                                          |
+| `location`                  | `'local' &#124; 'remote' &#124; 'hybrid' &#124; string`                                         | Nơi lưu trữ từ điển. Mặc định: `'local'`                                                               | `'remote'`         | `'local'`: hệ thống tệp. `'remote'`: Intlayer CMS. `'hybrid'`: cả hai.                                                                                                                                                                                                                                                                                         |
+| `contentAutoTransformation` | `boolean`                                                                                       | Có nên tự động chuyển đổi các tệp nội dung hay không (ví dụ: từ Markdown sang HTML). Mặc định: `false` | `true`             | Hữu ích để xử lý các trường Markdown qua @intlayer/markdown.                                                                                                                                                                                                                                                                                                   |
 
-- **fill**:
-  - _Type_: `Fill` (`boolean | FilePathPattern | Partial<Record<Locale, boolean | FilePathPattern>>`)
-  - _Default_: `true`
-  - _Description_: Controls how auto-fill (AI translation) output files are generated for this dictionary. When set at the config level (`dictionary.fill`), it serves as the default for all dictionaries. Each dictionary can override this with its own `fill` field.
-  - _Options_:
-    - `true`: Use the default output path (same file as the source dictionary).
-    - `false`: Disable auto-fill for this dictionary.
-    - String template: `'/locales/{{locale}}/{{key}}.content.json'` — generates one file per locale using the template.
-    - Function: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\`` — generates one file per locale using a function.
-    - Object per-locale: `{ en: '...', fr: '...', es: false }` — each locale maps to its own pattern; `false` skips that locale.
-  - _Note_: Including `{{locale}}` in the pattern (or using an object) triggers per-locale file generation. Without it, a single multilingual file is written.
-  - _Note_: A dictionary-level `fill` always takes priority over `dictionary.fill` from the global config.
-  - _Example_:
-    ```ts
-    dictionary: {
-      fill: {
-        en: '/locales/en/{{key}}.content.json',
-        fr: ({ key }) => `/locales/fr/${key}.content.json`,
-        es: false,
-      }
-    }
-    ```
-- **description**
-- **locale**
-- **location**
-- **priority**
-- **live**
-- **schema**
-- **title**
-- **tags**
-- **version**
+**Ví dụ về `fill`**:
+
+```ts
+dictionary: {
+  fill: {
+    en: '/locales/en/{{key}}.content.json',
+    fr: ({ key }) => `/locales/fr/${key}.content.json`,
+    es: false,
+  }
+}
+```
 
 ---
 
-### Cấu hình Logger
+### Cấu hình AI (AI Configuration)
 
-Các cài đặt kiểm soát logger, bao gồm tiền tố sử dụng.
+Định nghĩa các cài đặt cho các tính năng được hỗ trợ bởi AI của Intlayer, chẳng hạn như bản dịch build.
 
-#### Thuộc tính
-
-- **mode**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `default`
-  - _Mô tả_: Chỉ định chế độ của logger.
-  - _Tùy chọn_: `default`, `verbose`, `disabled`
-  - _Ví dụ_: `default`
-  - _Lưu ý_: Chế độ của logger. Chế độ verbose sẽ ghi lại nhiều thông tin hơn, nhưng có thể được sử dụng cho mục đích gỡ lỗi. Chế độ disabled sẽ tắt logger.
-
-- **prefix**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `'[intlayer] '`
-  - _Mô tả_: Tiền tố của logger.
-  - _Ví dụ_: `'[my custom prefix] '`
-  - _Lưu ý_: Tiền tố của logger.
-
-### Cấu hình AI
-
-Các cài đặt kiểm soát các tính năng AI của Intlayer, bao gồm nhà cung cấp, mô hình và khóa API.
-
-Cấu hình này là tùy chọn nếu bạn đã đăng ký trên [Bảng điều khiển Intlayer](https://app.intlayer.org/project) bằng khóa truy cập. Intlayer sẽ tự động quản lý giải pháp AI hiệu quả và tiết kiệm chi phí nhất cho nhu cầu của bạn. Sử dụng các tùy chọn mặc định đảm bảo khả năng bảo trì lâu dài tốt hơn khi Intlayer liên tục cập nhật để sử dụng các mô hình phù hợp nhất.
-
-Nếu bạn muốn sử dụng khóa API riêng hoặc mô hình cụ thể, bạn có thể định nghĩa cấu hình AI tùy chỉnh của mình.
-Cấu hình AI này sẽ được sử dụng toàn cục trong môi trường Intlayer của bạn. Các lệnh CLI sẽ sử dụng các cài đặt này làm mặc định cho các lệnh (ví dụ: `fill`), cũng như SDK, Visual Editor và CMS. Bạn có thể ghi đè các giá trị mặc định này cho các trường hợp sử dụng cụ thể bằng cách sử dụng các tham số lệnh.
-
-Intlayer hỗ trợ nhiều nhà cung cấp AI để tăng tính linh hoạt và lựa chọn. Các nhà cung cấp hiện được hỗ trợ bao gồm:
-
-- **OpenAI** (mặc định)
-- **Anthropic Claude**
-- **Mistral AI**
-- **DeepSeek**
-- **Google Gemini**
-- **Meta Llama**
-- **Ollama**
-- **OpenRouter**
-- **Alibaba Cloud**
-- **Fireworks**
-- **Hugging Face**
-- **Groq**
-- **Amazon Bedrock**
-- **Google AI Studio**
-- **Google Vertex**
-- **Together.ai**
-- **ollama**
-
-#### Thuộc tính
-
-- **provider**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `'openai'`
-  - _Mô tả_: Nhà cung cấp được sử dụng cho các tính năng AI của Intlayer.
-  - _Tùy chọn_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`, `'ollama'`, `'openrouter'`, `'alibaba'`, `'fireworks'`, `'groq'`, `'huggingface'`, `'bedrock'`, `'googleaistudio'`, `'googlevertex'`, `'togetherai'`
-  - _Ví dụ_: `'anthropic'`
-  - _Lưu ý_: Các nhà cung cấp khác nhau có thể yêu cầu các khóa API khác nhau và có các mô hình giá khác nhau.
-
-- **model**:
-  - _Kiểu_: `string`
-  - _Mặc định_: Không có
-  - _Mô tả_: Mô hình được sử dụng cho các tính năng AI của Intlayer.
-  - _Ví dụ_: `'gpt-4o-2024-11-20'`
-  - _Lưu ý_: Mô hình cụ thể được sử dụng sẽ khác nhau tùy theo nhà cung cấp.
-
-- **temperature**:
-  - _Kiểu_: `number`
-  - _Mặc định_: Không có
-  - _Mô tả_: Tham số temperature điều khiển độ ngẫu nhiên trong các phản hồi của AI.
-  - _Ví dụ_: `0.1`
-  - _Lưu ý_: Temperature cao hơn sẽ làm AI sáng tạo hơn và ít dự đoán được hơn.
-
-- **apiKey**:
-  - _Kiểu_: `string`
-  - _Mặc định_: Không có
-  - _Mô tả_: Khóa API của bạn cho nhà cung cấp đã chọn.
-  - _Ví dụ_: `process.env.OPENAI_API_KEY`
-  - _Lưu ý_: Quan trọng: Các khóa API cần được giữ bí mật và không được chia sẻ công khai. Vui lòng đảm bảo giữ chúng ở một vị trí an toàn, chẳng hạn như biến môi trường.
-
-- **applicationContext**:
-  - _Kiểu_: `string`
-  - _Mặc định_: Không có
-  - _Mô tả_: Cung cấp bối cảnh bổ sung về ứng dụng của bạn cho mô hình AI, giúp nó tạo ra các bản dịch chính xác hơn và phù hợp với ngữ cảnh. Điều này có thể bao gồm thông tin về lĩnh vực ứng dụng, đối tượng mục tiêu, giọng điệu hoặc thuật ngữ cụ thể của bạn.
-
-- **baseURL**:
-  - _Kiểu_: `string`
-  - _Mặc định_: Không có
-  - _Mô tả_: URL cơ sở cho API AI.
-  - _Ví dụ_: `'https://api.openai.com/v1'`
-  - _Lưu ý_: Có thể được sử dụng để trỏ đến một điểm cuối API AI cục bộ hoặc tùy chỉnh.
-
-- **dataSerialization**:
-  - _Loại_: `'json' | 'toon'`
-  - _Mặc định_: `'json'`
-  - _Mô tả_: Định dạng tuần tự hóa dữ liệu được sử dụng cho các tính năng AI của Intlayer.
-  - _Ví dụ_: `'toon'`
-  - _Ghi chú_: `json`: Tiêu chuẩn, đáng tin cậy; sử dụng nhiều token hơn. `toon`: Ít token hơn, kém nhất quán hơn JSON.
-
-### Cấu hình Build
-
-Các thiết lập kiểm soát cách Intlayer tối ưu hóa và xây dựng tính quốc tế hóa của ứng dụng bạn.
-
-Các tùy chọn build áp dụng cho các plugin `@intlayer/babel` và `@intlayer/swc`.
-
-> Ở chế độ phát triển, Intlayer sử dụng các import tĩnh cho từ điển để đơn giản hóa trải nghiệm phát triển.
-
-> Khi được tối ưu hóa, Intlayer sẽ thay thế các lệnh gọi từ điển để tối ưu hóa việc chia nhỏ, do đó gói cuối cùng chỉ nhập các từ điển thực sự được sử dụng.
-
-#### Thuộc tính
-
-- **mode**:
-  - _Kiểu_: `'auto' | 'manual'`
-  - _Mặc định_: `'auto'`
-  - _Mô tả_: Điều khiển chế độ build.
-  - _Ví dụ_: `'manual'`
-  - _Lưu ý_: Nếu 'auto', build sẽ được bật tự động khi ứng dụng được build.
-  - _Lưu ý_: Nếu 'manual', build sẽ chỉ được đặt khi lệnh build được thực thi.
-  - _Lưu ý_: Có thể được sử dụng để vô hiệu hóa build từ điển, ví dụ khi nên tránh thực thi trong môi trường Node.js.
-
-- **optimize**:
-  - _Kiểu_: `boolean`
-  - _Mặc định_: `process.env.NODE_ENV === 'production'`
-  - _Mô tả_: Điều khiển việc có nên tối ưu hóa quá trình build hay không.
-  - _Ví dụ_: `true`
-  - _Lưu ý_: Khi được bật, Intlayer sẽ thay thế tất cả các lệnh gọi từ điển để tối ưu hóa việc chia nhỏ. Bằng cách đó, gói cuối cùng sẽ chỉ nhập các từ điển được sử dụng. Tất cả các import sẽ vẫn giữ ở dạng import tĩnh để tránh xử lý bất đồng bộ khi tải các từ điển.
-  - _Lưu ý_: Intlayer sẽ thay thế tất cả các lệnh gọi `useIntlayer` bằng chế độ được định nghĩa trong tùy chọn `importMode` và `getIntlayer` bằng `getDictionary`.
-  - _Lưu ý_: Tùy chọn này dựa vào các plugin `@intlayer/babel` và `@intlayer/swc`.
-  - _Lưu ý_: Đảm bảo tất cả các khóa được khai báo tĩnh trong các lệnh gọi `useIntlayer`. Ví dụ: `useIntlayer('navbar')`.
-
-- **checkTypes**:
-  - _Loại_: `boolean`
-  - _Mặc định_: `false`
-  - _Mô tả_: Cho biết liệu quá trình xây dựng có nên kiểm tra các kiểu TypeScript và ghi lại lỗi hay không.
-  - _Ghi chú_: Điều này có thể làm chậm quá trình xây dựng.
-
-- **outputFormat**:
-  - _Kiểu_: `'esm' | 'cjs'`
-  - _Mặc định_: `'esm'`
-  - _Mô tả_: Điều khiển định dạng đầu ra của các từ điển.
-  - _Ví dụ_: `'cjs'`
-  - _Lưu ý_: Định dạng đầu ra của các từ điển.
-
-- **traversePattern**:
-  - _Kiểu_: `string[]`
-  - _Mặc định_: `['**\/*.{js,ts,mjs,cjs,jsx,tsx}', '!**\/node_modules/**']`
-  - _Mô tả_: Các mẫu định nghĩa những tệp nào sẽ được duyệt trong quá trình tối ưu hóa.
-    - _Ví dụ_: `['src/**\/*.{ts,tsx}', '../ui-library/**\/*.{ts,tsx}', '!**/node_modules/**']`
-  - _Lưu ý_: Sử dụng để giới hạn tối ưu hóa chỉ cho các tệp mã liên quan và cải thiện hiệu suất xây dựng.
-  - _Lưu ý_: Tùy chọn này sẽ bị bỏ qua nếu `optimize` bị vô hiệu hóa.
-  - _Lưu ý_: Sử dụng mẫu glob.
+| Trường               | Kiểu                   | Mô tả                                                                           | Ví dụ                                       | Lưu ý                                                                                             |
+| -------------------- | ---------------------- | ------------------------------------------------------------------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `provider`           | `string`               | Nhà cung cấp AI sẽ sử dụng.                                                     | `'openai'`, `'anthropic'`, `'googlevertex'` |                                                                                                   |
+| `model`              | `string`               | Model AI sẽ sử dụng.                                                            | `'gpt-4o'`, `'claude-3-5-sonnet-20240620'`  |                                                                                                   |
+| `apiKey`             | `string`               | API key cho nhà cung cấp đã chọn.                                               | `process.env.OPENAI_API_KEY`                |                                                                                                   |
+| `applicationContext` | `string`               | Ngữ cảnh bổ sung về ứng dụng của bạn để cải thiện độ chính xác của bản dịch AI. | `'Nền tảng học tập cho trẻ em.'`            |                                                                                                   |
+| `baseURL`            | `string`               | URL đường dẫn cơ sở tùy chọn cho các cuộc gọi API.                              |                                             | Hữu ích nếu bạn đang sử dụng proxy hoặc triển khai AI cục bộ.                                     |
+| `dataSerialization`  | `'json' &#124; 'toon'` | Định nghĩa cách gửi dữ liệu cho AI. Mặc định: `'json'`                          | `'json'`                                    | `'json'`: mạnh mẽ và chính xác hơn. `'toon'`: tiêu tốn ít token hơn nhưng có thể kém ổn định hơn. |
 
 ---
 
-### Cấu hình Trình biên dịch
+### Cấu hình build (Build Configuration)
 
-Các cài đặt kiểm soát trình biên dịch Intlayer, trình biên dịch này sẽ trích xuất các từ điển trực tiếp từ các thành phần của bạn.
+Các cài đặt của quá trình build và tối ưu hóa Intlayer.
 
-#### Thuộc tính
+| Trường         | Kiểu                     | Mô tả                                                                                                             | Ví dụ | Lưu ý |
+| -------------- | ------------------------ | ----------------------------------------------------------------------------------------------------------------- | ----- | ----- |
+| `mode`         | `'auto' &#124; 'manual'` | Xác định xem Intlayer có nên chạy tự động trong các bước pre-build của ứng dụng hay không. Mặc định: `'auto'`     |       |       |
+| `optimize`     | `boolean`                | Xác định xem các từ điển đã biên dịch có nên được tối ưu hóa cho runtime không. Mặc định: `true` trong production |       |       |
+| `outputFormat` | `('cjs' &#124; 'esm')[]` | Định dạng đầu ra cho các tệp từ điển được tạo. Mặc định: `['cjs', 'esm']`                                         |       |       |
+| `checkTypes`   | `boolean`                | Xác định xem Intlayer có nên kiểm tra các kiểu trong các tệp được tạo hay không. Mặc định: `false`                |       |       |
 
-- **enabled**:
-  - _Kiểu_: `boolean | 'build-only'`
-  - _Mặc định_: `true`
-  - _Mô tả_: Cho biết liệu trình biên dịch có nên được bật để trích xuất từ điển hay không.
-  - _Ví dụ_: `'build-only'`
-  - _Lưu ý_: Đặt thành `'build-only'` sẽ bỏ qua trình biên dịch trong chế độ phát triển để tăng tốc thời gian khởi động. Nó sẽ chỉ chạy trên các lệnh build.
+---
 
-- **dictionaryKeyPrefix**:
-  - _Kiểu_: `string`
-  - _Mặc định_: `''`
-  - _Mô tả_: Tiền tố cho các khóa từ điển được trích xuất.
-  - _Ví dụ_: `'my-key-'`
-  - _Lưu ý_: Khi từ điển được trích xuất, khóa được tạo dựa trên tên tệp. Tiền tố này được thêm vào khóa đã tạo để ngăn chặn xung đột.
+### Cấu hình hệ thống (System Configuration)
 
-- **saveComponents**:
-  - _Kiểu_: `boolean`
-  - _Mặc định_: `false`
-  - _Mô tả_: Cho biết liệu các thành phần có nên được lưu sau khi được chuyển đổi hay không.
-  - _Lưu ý_: Nếu đúng (true), trình biên dịch sẽ thay thế các tệp gốc bằng các tệp đã chuyển đổi. Bằng cách đó, trình biên dịch chỉ có thể được chạy một lần để chuyển đổi ứng dụng, sau đó có thể được gỡ bỏ.
+Các cài đặt này dành cho các trường hợp sử dụng nâng cao và cho cấu hình nội bộ của Intlayer.
 
-- **transformPattern**:
-  - _Kiểu_: `string | string[]`
-  - _Mặc định_: `['**/*.{ts,tsx,jsx,js,cjs,mjs,svelte,vue}', '!**/node_modules/**']`
-  - _Mô tả_: Các mẫu xác định những tệp nào akan được duyệt qua trong quá trình tối ưu hóa.
-  - _Ví dụ_: `['src/**/*.{ts,tsx}', '!**/node_modules/**']`
-  - _Lưu ý_: Sử dụng điều này để giới hạn tối ưu hóa cho các tệp mã liên quan và cải thiện hiệu suất xây dựng.
+| Trường                    | Kiểu     | Mô tả                                       | Mặc định                          |
+| ------------------------- | -------- | ------------------------------------------- | --------------------------------- |
+| `dictionariesDir`         | `string` | Thư mục từ điển đã biên dịch.               | `'.intlayer/dictionary'`          |
+| `moduleAugmentationDir`   | `string` | Thư mục cho việc mở rộng module TypeScript. | `'.intlayer/types'`               |
+| `unmergedDictionariesDir` | `string` | Thư mục từ điển chưa hợp nhất.              | `'.intlayer/unmerged_dictionary'` |
+| `typesDir`                | `string` | Thư mục các kiểu đã tạo.                    | `'.intlayer/types'`               |
+| `mainDir`                 | `string` | Thư mục tệp Intlayer chính.                 | `'.intlayer/main'`                |
+| `configDir`               | `string` | Thư mục các tệp cấu hình đã biên dịch.      | `'.intlayer/config'`              |
+| `cacheDir`                | `string` | Thư mục các tệp bộ nhớ đệm.                 | `'.intlayer/cache'`               |
 
-- **excludePattern**:
-  - _Kiểu_: `string | string[]`
-  - _Mặc định_: `['**/node_modules/**']`
-  - _Mô tả_: Các mẫu xác định những tệp nào sẽ bị loại trừ trong quá trình tối ưu hóa.
-  - _Ví dụ_: `['**/node_modules/**', '!**/node_modules/react/**']`
+---
 
-- **output**:
-  - _Kiểu_: `Fill`
-  - _Mặc định_: `undefined`
-  - _Mô tả_: Xác định đường dẫn tệp đầu ra. Thay thế `outputDir`. Hỗ trợ các biến động thông qua template string hoặc hàm. Các biến được hỗ trợ: `{{fileName}}`, `{{key}}`, `{{locale}}`, `{{extension}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{format}}`, `{{componentFormat}}`, và `{{componentDirPath}}`.
-  - _Lưu ý_: Các đường dẫn bắt đầu bằng `./` được giải quyết tương đối so với thư mục component. Các đường dẫn bắt đầu bằng `/` được giải quyết tương đối so với thư mục gốc của dự án (`baseDir`).
-  - _Lưu ý_: Việc bao gồm biến `{{locale}}` trong đường dẫn sẽ cho phép tạo các từ điển được tách biệt theo ngôn ngữ.
-  - _Note_: Supports an object per-locale notation where each locale key maps to its own pattern (string or function), or `false` to skip that locale entirely.
-  - _Ví dụ_:
-    - **Tạo các tệp đa ngôn ngữ bên cạnh component**:
-    - Chuỗi: `'./{{fileName}}{{extension}}'`
-    - Hàm: `({ fileName, extension }) => \`./${fileName}${extension}\``
+### Cấu hình trình biên dịch (Compiler Configuration)
 
-    - **Xuất các tệp JSON tập trung cho mỗi ngôn ngữ**:
-    - Chuỗi: `'/locales/{{locale}}/{{key}}.content.json'`
-    - Hàm: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\``
+Cài đặt cho trình biên dịch Intlayer (`intlayer compiler`).
 
-    - **Object per-locale (different pattern per locale, skip some)**:
+| Trường                | Kiểu                     | Mô tả                                                                                         | Mặc định |
+| --------------------- | ------------------------ | --------------------------------------------------------------------------------------------- | -------- |
+| `enabled`             | `boolean`                | Xác định xem trình biên dịch có hoạt động không.                                              | `false`  |
+| `output`              | `string &#124; Function` | Đường dẫn đầu ra cho các từ điển được trích xuất.                                             |          |
+| `saveComponents`      | `boolean`                | Xác định xem các tệp nguồn gốc có nên được ghi đè bằng các phiên bản đã chuyển đổi hay không. | `false`  |
+| `noMetadata`          | `boolean`                | Nếu là `true`, trình biên dịch sẽ không bao gồm metadata trong các tệp được tạo.              | `false`  |
+| `dictionaryKeyPrefix` | `string`                 | Tiền tố khóa từ điển tùy chọn.                                                                | `''`     |
 
-    ```ts
-    output: {
-      en: ({ key }) => `./locales/en/${key}.json`,
-      fr: '/locales/fr/{{key}}.content.json',
-      es: false, // skip Spanish
-    }
-    ```
+---
 
-- **noMetadata**:
-  - _Kiểu_: `boolean`
-  - _Mặc định_: `false`
-  - _Mô tả_: Cho biết liệu siêu dữ liệu có nên được lưu trong tệp hay không. Nếu true, trình biên dịch sẽ không lưu siêu dữ liệu của từ điển (khóa, trình bao bọc nội dung). Hữu ích cho đầu ra JSON i18next hoặc ICU MessageFormat cho mỗi ngôn ngữ.
-  - _Ghi chú_: Hữu ích nếu được sử dụng với plugin `loadJSON`.
-  - _Ví dụ_:
-    Nếu `true` :
+### Cấu hình trình ghi nhật ký (Logger Configuration)
 
-    ```json
-    {
-      "key": "value"
-    }
-    ```
+Các cài đặt để tùy chỉnh đầu ra nhật ký của Intlayer.
 
-    Nếu `false`:
+| Trường   | Kiểu                                           | Mô tả                      | Mặc định       |
+| -------- | ---------------------------------------------- | -------------------------- | -------------- |
+| `mode`   | `'default' &#124; 'verbose' &#124; 'disabled'` | Chế độ ghi nhật ký.        | `'default'`    |
+| `prefix` | `string`                                       | Tiền tố thông báo nhật ký. | `'[intlayer]'` |
 
-    ```json
-    {
-      "key": "value",
-      "content": {
-        "key": "value"
-      }
-    }
-    ```
+---
+
+### Schema tùy chỉnh (Custom Schemas)
+
+| Trường    | Kiểu                        | Mô tả                                                                        |
+| --------- | --------------------------- | ---------------------------------------------------------------------------- |
+| `schemas` | `Record<string, ZodSchema>` | Cho phép bạn định nghĩa các Zod schema để xác thực cấu trúc của các từ điển. |
+
+---
+
+### Plugin (Plugins)
+
+| Trường    | Kiểu               | Mô tả                                        |
+| --------- | ------------------ | -------------------------------------------- |
+| `plugins` | `IntlayerPlugin[]` | Danh sách các plugin Intlayer cần kích hoạt. |
