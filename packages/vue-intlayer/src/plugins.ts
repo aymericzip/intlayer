@@ -12,7 +12,6 @@ import {
   splitInsertionTemplate,
   translationPlugin,
 } from '@intlayer/core/interpreter';
-import { getMarkdownMetadata } from '@intlayer/core/markdown';
 import {
   HTML_TAGS,
   type HTMLContent,
@@ -27,6 +26,13 @@ import type {
 import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { Fragment, h, markRaw, type VNode } from 'vue';
+
+// Lazy pre-load heavy modules — creates separate code-split chunks
+let _getMarkdownMetadata: ((s: string) => any) | null = null;
+void import('@intlayer/core/markdown').then((m) => {
+  _getMarkdownMetadata = m.getMarkdownMetadata;
+});
+
 import { default as ContentSelector } from './editor/ContentSelector.vue';
 import type { HTMLComponents } from './html/types';
 import { useMarkdown } from './markdown/installIntlayerMarkdown';
@@ -286,7 +292,7 @@ export const markdownStringPlugin: Plugins = {
       ...rest
     } = props;
 
-    const metadata = getMarkdownMetadata(node);
+    const metadata = _getMarkdownMetadata?.(node) ?? {};
 
     const metadataPlugins: Plugins = {
       id: 'markdown-metadata-plugin',
@@ -416,7 +422,14 @@ const createDefaultHTMLComponents = (): Record<string, HTMLTagComponent> => {
   return components;
 };
 
-const defaultHTMLComponents = createDefaultHTMLComponents();
+let defaultHTMLComponents: ReturnType<
+  typeof createDefaultHTMLComponents
+> | null = null;
+const getDefaultHTMLComponents = () => {
+  if (!defaultHTMLComponents)
+    defaultHTMLComponents = createDefaultHTMLComponents();
+  return defaultHTMLComponents;
+};
 
 export type HTMLPluginCond<T> = T extends {
   nodeType: NodeType | string;
@@ -442,7 +455,7 @@ export const htmlPlugin: Plugins = {
       // Merge default components with user-provided components
       // User components take priority over defaults
       const mergedComponents = {
-        ...defaultHTMLComponents,
+        ...getDefaultHTMLComponents(),
         ...userComponents,
       };
       return getHTML(html, mergedComponents as any);

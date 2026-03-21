@@ -11,7 +11,6 @@ import {
   type Plugins,
   translationPlugin,
 } from '@intlayer/core/interpreter';
-import { compile, getMarkdownMetadata } from '@intlayer/core/markdown';
 import {
   HTML_TAGS,
   type HTMLContent,
@@ -27,12 +26,38 @@ import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { default as ContentSelector } from './editor/ContentSelector.svelte';
 import type { HTMLComponents } from './html/types';
-import MarkdownMetadataRenderer from './markdown/MarkdownMetadataRenderer.svelte';
-import MarkdownMetadataWithSelector from './markdown/MarkdownMetadataWithSelector.svelte';
-import MarkdownRenderer from './markdown/MarkdownRenderer.svelte';
-import MarkdownWithSelector from './markdown/MarkdownWithSelector.svelte';
-import { svelteHtmlRuntime } from './markdown/runtime';
 import { type IntlayerNode, renderIntlayerNode } from './renderIntlayerNode';
+
+// Lazy pre-load heavy modules — creates separate code-split chunks
+let _getMarkdownMetadata: ((s: string) => any) | null = null;
+let _compile: ((s: string, opts: any, ctx?: any) => any) | null = null;
+void import('@intlayer/core/markdown').then((m) => {
+  _getMarkdownMetadata = m.getMarkdownMetadata;
+  _compile = m.compile;
+});
+
+let _MarkdownMetadataRenderer: any = null;
+let _MarkdownMetadataWithSelector: any = null;
+let _MarkdownRenderer: any = null;
+let _MarkdownWithSelector: any = null;
+let _svelteHtmlRuntime: any = null;
+void Promise.all([
+  import('./markdown/MarkdownMetadataRenderer.svelte').then(
+    (m) => (_MarkdownMetadataRenderer = m.default)
+  ),
+  import('./markdown/MarkdownMetadataWithSelector.svelte').then(
+    (m) => (_MarkdownMetadataWithSelector = m.default)
+  ),
+  import('./markdown/MarkdownRenderer.svelte').then(
+    (m) => (_MarkdownRenderer = m.default)
+  ),
+  import('./markdown/MarkdownWithSelector.svelte').then(
+    (m) => (_MarkdownWithSelector = m.default)
+  ),
+  import('./markdown/runtime').then(
+    (m) => (_svelteHtmlRuntime = m.svelteHtmlRuntime)
+  ),
+]);
 
 /**
  * Interface for Svelte-specific plugin functionality
@@ -238,7 +263,7 @@ export const markdownStringPlugin: Plugins = {
   transform: (node: string, props, deepTransformNode) => {
     const { ...rest } = props;
 
-    const metadata = getMarkdownMetadata(node) ?? {};
+    const metadata = _getMarkdownMetadata?.(node) ?? {};
 
     const metadataPlugins: Plugins = {
       id: 'markdown-metadata-plugin',
@@ -251,8 +276,8 @@ export const markdownStringPlugin: Plugins = {
         renderIntlayerNode({
           value: metadataNode,
           component: configuration?.editor.enabled
-            ? MarkdownMetadataWithSelector
-            : MarkdownMetadataRenderer,
+            ? (_MarkdownMetadataWithSelector ?? _MarkdownMetadataRenderer)
+            : _MarkdownMetadataRenderer,
           props: {
             ...rest,
             value: node, // The full markdown string
@@ -273,8 +298,8 @@ export const markdownStringPlugin: Plugins = {
       const nodeResult = renderIntlayerNode({
         value: node,
         component: configuration?.editor.enabled
-          ? MarkdownWithSelector
-          : MarkdownRenderer,
+          ? (_MarkdownWithSelector ?? _MarkdownRenderer)
+          : _MarkdownRenderer,
         props: {
           ...rest,
           value: node,
@@ -300,11 +325,11 @@ export const markdownStringPlugin: Plugins = {
 
           if (prop === 'toString') {
             return () =>
-              compile(
+              _compile?.(
                 node,
-                { runtime: svelteHtmlRuntime, components: components },
+                { runtime: _svelteHtmlRuntime, components: components },
                 {}
-              );
+              ) ?? node;
           }
 
           return Reflect.get(target, prop, receiver);

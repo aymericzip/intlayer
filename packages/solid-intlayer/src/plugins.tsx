@@ -12,7 +12,6 @@ import {
   splitInsertionTemplate,
   translationPlugin,
 } from '@intlayer/core/interpreter';
-import { getMarkdownMetadata } from '@intlayer/core/markdown';
 import {
   HTML_TAGS,
   type HTMLContent,
@@ -26,13 +25,27 @@ import type {
 } from '@intlayer/types/module_augmentation';
 import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
-import type { JSX } from 'solid-js';
+import { type JSX, lazy, Suspense } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { ContentSelector } from './editor/ContentSelector';
 import type { HTMLComponents } from './html/types';
 import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
-import { MarkdownMetadataRenderer, MarkdownRenderer } from './markdown';
 import { renderSolidElement } from './solidElement/renderSolidElement';
+
+// Lazy pre-load @intlayer/core/markdown — creates a separate code-split chunk
+let _getMarkdownMetadata: ((s: string) => any) | null = null;
+void import('@intlayer/core/markdown').then((m) => {
+  _getMarkdownMetadata = m.getMarkdownMetadata;
+});
+
+// solid-js lazy for heavy renderer components — creates separate code-split chunks
+const LazyMarkdownMetadataRenderer = lazy(() =>
+  import('./markdown').then((m) => ({ default: m.MarkdownMetadataRenderer }))
+);
+
+const LazyMarkdownRenderer = lazy(() =>
+  import('./markdown').then((m) => ({ default: m.MarkdownRenderer }))
+);
 
 /** ---------------------------------------------
  *  INTLAYER NODE PLUGIN
@@ -224,7 +237,7 @@ export const markdownStringPlugin: Plugins = {
       ...rest
     } = props;
 
-    const metadata = getMarkdownMetadata(node);
+    const metadata = _getMarkdownMetadata?.(node) ?? {};
 
     const metadataPlugins: Plugins = {
       id: 'markdown-metadata-plugin',
@@ -239,17 +252,24 @@ export const markdownStringPlugin: Plugins = {
           value: metadataNode,
           children: configuration.editor.enabled ? (
             <ContentSelector {...rest}>
-              <MarkdownMetadataRenderer
+              <Suspense fallback={node}>
+                <LazyMarkdownMetadataRenderer
+                  {...rest}
+                  metadataKeyPath={props.keyPath}
+                >
+                  {node}
+                </LazyMarkdownMetadataRenderer>
+              </Suspense>
+            </ContentSelector>
+          ) : (
+            <Suspense fallback={node}>
+              <LazyMarkdownMetadataRenderer
                 {...rest}
                 metadataKeyPath={props.keyPath}
               >
                 {node}
-              </MarkdownMetadataRenderer>
-            </ContentSelector>
-          ) : (
-            <MarkdownMetadataRenderer {...rest} metadataKeyPath={props.keyPath}>
-              {node}
-            </MarkdownMetadataRenderer>
+              </LazyMarkdownMetadataRenderer>
+            </Suspense>
           ),
         }),
     };
@@ -267,14 +287,18 @@ export const markdownStringPlugin: Plugins = {
         value: node,
         children: configuration.editor.enabled ? (
           <ContentSelector {...rest}>
-            <MarkdownRenderer {...rest} components={components}>
-              {node}
-            </MarkdownRenderer>
+            <Suspense fallback={node}>
+              <LazyMarkdownRenderer {...rest} components={components}>
+                {node}
+              </LazyMarkdownRenderer>
+            </Suspense>
           </ContentSelector>
         ) : (
-          <MarkdownRenderer {...rest} components={components}>
-            {node}
-          </MarkdownRenderer>
+          <Suspense fallback={node}>
+            <LazyMarkdownRenderer {...rest} components={components}>
+              {node}
+            </LazyMarkdownRenderer>
+          </Suspense>
         ),
         additionalProps: {
           metadata: metadataNodes,

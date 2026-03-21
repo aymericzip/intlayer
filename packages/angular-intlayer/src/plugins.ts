@@ -10,11 +10,7 @@ import {
   type Plugins,
   translationPlugin,
 } from '@intlayer/core/interpreter';
-import {
-  compile,
-  getMarkdownMetadata,
-  type MarkdownContent,
-} from '@intlayer/core/markdown';
+import type { MarkdownContent } from '@intlayer/core/markdown';
 import type { HTMLContent, InsertionContent } from '@intlayer/core/transpiler';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type {
@@ -24,8 +20,23 @@ import type {
 import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { ContentSelectorWrapperComponent } from './editor/ContentSelector.component';
-import { htmlRuntime, useMarkdown } from './markdown/installIntlayerMarkdown';
 import { renderIntlayerNode } from './renderIntlayerNode';
+
+// Lazy pre-load heavy modules — creates separate code-split chunks
+let _getMarkdownMetadata: ((s: string) => any) | null = null;
+let _compile: ((s: string, opts: any) => any) | null = null;
+void import('@intlayer/core/markdown').then((m) => {
+  _getMarkdownMetadata = m.getMarkdownMetadata;
+  _compile = m.compile;
+});
+
+let _markdownInstall: {
+  htmlRuntime: any;
+  useMarkdown: () => { renderMarkdown: (s: string, components?: any) => any };
+} | null = null;
+void import('./markdown/installIntlayerMarkdown').then((m) => {
+  _markdownInstall = m as any;
+});
 
 /** ---------------------------------------------
  *  UTILS
@@ -111,7 +122,7 @@ export const markdownStringPlugin: Plugins = {
       ...rest
     } = props;
 
-    const metadata = getMarkdownMetadata(node);
+    const metadata = _getMarkdownMetadata?.(node) ?? {};
 
     const metadataPlugins: Plugins = {
       id: 'markdown-metadata-plugin',
@@ -148,12 +159,16 @@ export const markdownStringPlugin: Plugins = {
                 ...components,
               },
               children: () => {
-                const { renderMarkdown } = useMarkdown();
+                const { renderMarkdown } = _markdownInstall?.useMarkdown() ?? {
+                  renderMarkdown: () => node,
+                };
                 return renderMarkdown(node, components);
               },
             })
           : () => {
-              const { renderMarkdown } = useMarkdown();
+              const { renderMarkdown } = _markdownInstall?.useMarkdown() ?? {
+                renderMarkdown: () => node,
+              };
               return renderMarkdown(node, components);
             },
         additionalProps: {
@@ -173,23 +188,23 @@ export const markdownStringPlugin: Plugins = {
 
           if (prop === 'toString') {
             return () => {
+              const htmlRuntime = _markdownInstall?.htmlRuntime;
+              if (!htmlRuntime || !_compile) return node;
               const runtime = components
                 ? createRuntimeWithOverides(htmlRuntime, components)
                 : htmlRuntime;
-              return compile(node, {
-                runtime,
-              }) as string;
+              return _compile(node, { runtime }) as string;
             };
           }
 
           if (prop === Symbol.toPrimitive) {
             return () => {
+              const htmlRuntime = _markdownInstall?.htmlRuntime;
+              if (!htmlRuntime || !_compile) return node;
               const runtime = components
                 ? createRuntimeWithOverides(htmlRuntime, components)
                 : htmlRuntime;
-              return compile(node, {
-                runtime,
-              }) as string;
+              return _compile(node, { runtime }) as string;
             };
           }
 
@@ -313,13 +328,13 @@ export const htmlPlugin: Plugins = {
               ) {
                 return String(html);
               }
+              const htmlRuntime = _markdownInstall?.htmlRuntime;
+              if (!htmlRuntime || !_compile) return String(html);
               const runtime = createRuntimeWithOverides(
                 htmlRuntime,
                 components
               );
-              return compile(html, {
-                runtime,
-              }) as string;
+              return _compile(html, { runtime }) as string;
             };
           }
 
@@ -332,13 +347,13 @@ export const htmlPlugin: Plugins = {
               ) {
                 return String(html);
               }
+              const htmlRuntime = _markdownInstall?.htmlRuntime;
+              if (!htmlRuntime || !_compile) return String(html);
               const runtime = createRuntimeWithOverides(
                 htmlRuntime,
                 components
               );
-              return compile(html, {
-                runtime,
-              }) as string;
+              return _compile(html, { runtime }) as string;
             };
           }
 

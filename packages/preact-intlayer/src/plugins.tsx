@@ -10,7 +10,6 @@ import {
   type Plugins,
   translationPlugin,
 } from '@intlayer/core/interpreter';
-import { getMarkdownMetadata } from '@intlayer/core/markdown';
 import type {
   HTMLContent,
   InsertionContent,
@@ -24,12 +23,30 @@ import type {
 import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { Fragment, h, type VNode } from 'preact';
+import { lazy, Suspense } from 'preact/compat';
 import { ContentSelector } from './editor/ContentSelector';
-import { HTMLRenderer } from './html/HTMLRenderer';
 import type { HTMLComponents } from './html/types';
 import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
-import { MarkdownMetadataRenderer, MarkdownRendererPlugin } from './markdown';
 import { renderPreactElement } from './preactElement/renderPreactElement';
+
+// Lazy pre-load @intlayer/core/markdown — creates a separate code-split chunk
+let _getMarkdownMetadata: ((s: string) => any) | null = null;
+void import('@intlayer/core/markdown').then((m) => {
+  _getMarkdownMetadata = m.getMarkdownMetadata;
+});
+
+// preact lazy for heavy renderer components — creates separate code-split chunks
+const LazyMarkdownMetadataRenderer = lazy(() =>
+  import('./markdown').then((m) => ({ default: m.MarkdownMetadataRenderer }))
+);
+
+const LazyMarkdownRendererPlugin = lazy(() =>
+  import('./markdown').then((m) => ({ default: m.MarkdownRendererPlugin }))
+);
+
+const LazyHTMLRenderer = lazy(() =>
+  import('./html/HTMLRenderer').then((m) => ({ default: m.HTMLRenderer }))
+);
 
 /** ---------------------------------------------
  * INTLAYER NODE PLUGIN
@@ -267,7 +284,7 @@ export const markdownStringPlugin: Plugins = {
       ...rest
     } = props;
 
-    const metadata = getMarkdownMetadata(node);
+    const metadata = _getMarkdownMetadata?.(node) ?? {};
 
     const metadataPlugins: Plugins = {
       id: 'markdown-metadata-plugin',
@@ -282,17 +299,24 @@ export const markdownStringPlugin: Plugins = {
           value: metadataNode,
           children: configuration?.editor.enabled ? (
             <ContentSelector {...rest}>
-              <MarkdownMetadataRenderer
+              <Suspense fallback={node}>
+                <LazyMarkdownMetadataRenderer
+                  {...rest}
+                  metadataKeyPath={props.keyPath}
+                >
+                  {node}
+                </LazyMarkdownMetadataRenderer>
+              </Suspense>
+            </ContentSelector>
+          ) : (
+            <Suspense fallback={node}>
+              <LazyMarkdownMetadataRenderer
                 {...rest}
                 metadataKeyPath={props.keyPath}
               >
                 {node}
-              </MarkdownMetadataRenderer>
-            </ContentSelector>
-          ) : (
-            <MarkdownMetadataRenderer {...rest} metadataKeyPath={props.keyPath}>
-              {node}
-            </MarkdownMetadataRenderer>
+              </LazyMarkdownMetadataRenderer>
+            </Suspense>
           ),
         }),
     };
@@ -310,14 +334,18 @@ export const markdownStringPlugin: Plugins = {
         value: node,
         children: configuration?.editor.enabled ? (
           <ContentSelector {...rest}>
-            <MarkdownRendererPlugin {...rest} components={components}>
-              {node}
-            </MarkdownRendererPlugin>
+            <Suspense fallback={node}>
+              <LazyMarkdownRendererPlugin {...rest} components={components}>
+                {node}
+              </LazyMarkdownRendererPlugin>
+            </Suspense>
           </ContentSelector>
         ) : (
-          <MarkdownRendererPlugin {...rest} components={components}>
-            {node}
-          </MarkdownRendererPlugin>
+          <Suspense fallback={node}>
+            <LazyMarkdownRendererPlugin {...rest} components={components}>
+              {node}
+            </LazyMarkdownRendererPlugin>
+          </Suspense>
         ),
         additionalProps: {
           metadata: metadataNodes,
@@ -406,7 +434,11 @@ export const htmlPlugin: Plugins = {
 
     // Type-safe render function that accepts properly typed components
     const render = (userComponents?: HTMLComponents): VNode =>
-      h(HTMLRenderer as any, { ...rest, html, userComponents } as any);
+      h(
+        Suspense as any,
+        { fallback: html },
+        h(LazyHTMLRenderer as any, { ...rest, html, userComponents } as any)
+      );
 
     const element = render() as any;
 
