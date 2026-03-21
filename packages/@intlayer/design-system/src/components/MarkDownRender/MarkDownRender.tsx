@@ -1,6 +1,7 @@
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { cn } from '@utils/cn';
 import type { ComponentProps, ComponentPropsWithoutRef, FC } from 'react';
+import { memo } from 'react';
 import {
   type MarkdownRenderer as MarkdownRendererIntlayer,
   renderMarkdown,
@@ -37,14 +38,20 @@ const StrongRenderer = (props: ComponentProps<'strong'>) => (
   <strong className="text-text" {...props} />
 );
 
-const createCodeRenderer = (isDarkMode?: boolean) => {
-  return ({ className, children, ...rest }: ComponentProps<'code'>) => {
+const MemoizedCodeBlock = memo(
+  ({
+    className,
+    children,
+    isDarkMode,
+    ...rest
+  }: ComponentProps<'code'> & { isDarkMode?: boolean }) => {
     const content = String(children ?? '').replace(/\n$/, '');
     const isBlock = !!className;
 
     if (!isBlock) {
-      const decodedContent = content.replace(/&#(\d+);/g, (_, code: string) =>
-        String.fromCharCode(parseInt(code, 10))
+      const decodedContent = content.replace(
+        /&(?:amp;)?#(\d+);/g,
+        (_, code: string) => String.fromCharCode(parseInt(code, 10))
       );
       return (
         <code className="rounded-md border border-neutral/30 bg-card/60 box-decoration-clone px-1.5 py-0.5 font-mono text-sm">
@@ -61,6 +68,16 @@ const createCodeRenderer = (isDarkMode?: boolean) => {
         {content}
       </Code>
     );
+  },
+  (prevProps, nextProps) =>
+    prevProps.children === nextProps.children &&
+    prevProps.className === nextProps.className &&
+    prevProps.isDarkMode === nextProps.isDarkMode
+);
+
+const createCodeRenderer = (isDarkMode?: boolean) => {
+  return function CodeWrapper(props: ComponentProps<'code'>) {
+    return <MemoizedCodeBlock {...props} isDarkMode={isDarkMode} />;
   };
 };
 
@@ -132,11 +149,8 @@ const createLinkRenderer = (locale?: LocalesValues) => {
 };
 
 const PreRenderer = (props: ComponentProps<'pre'>) => <>{props.children}</>;
-const TableRenderer = ({
-  'data-no-collapse': noCollapse,
-  ...props
-}: ComponentProps<typeof Table> & { 'data-no-collapse'?: string }) => (
-  <Table isRollable={noCollapse === undefined} {...props} />
+const TableRenderer = (props: ComponentProps<typeof Table>) => (
+  <Table {...props} />
 );
 const ThRenderer = ({ className, ...props }: ComponentProps<'th'>) => (
   <th
@@ -240,7 +254,6 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   components: componentsProp,
   wrapper,
 }) => {
-  // Generate components with props bound to them
   const markdownComponents = createMarkdownComponents(isDarkMode, locale);
 
   const markdownContent = renderMarkdown(children, {
