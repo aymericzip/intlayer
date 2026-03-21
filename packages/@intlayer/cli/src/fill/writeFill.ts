@@ -97,17 +97,32 @@ export const writeFill = async (
       {
         ...rest,
         filled: true,
-        locale: output.isPerLocale ? output.localeList[0] : undefined,
+        // For object fill each entry targets a specific locale even when the
+        // path pattern is fixed (isPerLocale === false), so always set locale.
+        locale:
+          output.isPerLocale || typeof fillOptions === 'object'
+            ? output.localeList[0]
+            : undefined,
         localId: `${contentDeclarationFile.key}::local::${relativeFilePath}`,
         filePath: relativeFilePath,
       },
       configuration,
       {
-        localeList: output.localeList,
+        // For per-locale files each output covers exactly one locale.
+        // For a string/function fill producing a single multilingual file we
+        // want the full locale set (including the source locale) so the written
+        // file contains all translations, not just the newly-translated ones.
+        // For an object fill each entry already has the correct restricted
+        // localeList (one locale per pattern), so we use it directly — adding
+        // the source locale back would pollute a fr-only file with en content.
+        localeList:
+          output.isPerLocale || typeof fillOptions === 'object'
+            ? output.localeList
+            : (outputLocales ?? configuration.internationalization.locales),
       }
     );
 
-    if (output.isPerLocale) {
+    if (output.isPerLocale || typeof fillOptions === 'object') {
       const sourceLocale = output.localeList[0];
 
       appLogger(

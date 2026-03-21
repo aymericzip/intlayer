@@ -507,10 +507,16 @@ export const translateDictionary = async (
         }
       );
 
+      // The dict-level `fill` value may have been lost during JSON serialisation
+      // (functions can't be serialised to JSON). Fall back to the config-level
+      // fill so that an explicit fill in intlayer.config.ts is honoured.
+      const effectiveFillForCheck =
+        baseUnmergedDictionary.fill ?? configuration.dictionary?.fill;
+
       if (
         baseUnmergedDictionary.locale &&
-        (baseUnmergedDictionary.fill === true ||
-          baseUnmergedDictionary.fill === undefined) &&
+        (effectiveFillForCheck === true ||
+          effectiveFillForCheck === undefined) &&
         baseUnmergedDictionary.location === 'local'
       ) {
         const dictionaryFilePath = baseUnmergedDictionary
