@@ -23,12 +23,24 @@ export const generateDictionaryListContent = (
     hash: `_${getPathHash(dictionaryPath)}`, // Get the hash of the dictionary to avoid conflicts
   }));
 
-  // Import all dictionaries
+  // For CJS JSON imports, use readFileSync to avoid require.cache memory leak
+  const useFsReadForJson = format === 'cjs' && importType === 'json';
+
+  if (useFsReadForJson) {
+    content += `const _fs = require('node:fs');\n`;
+    content += `const _path = require('node:path');\n`;
+  }
+
   dictionariesRef.forEach((dictionary) => {
     if (format === 'esm')
       content += `import ${dictionary.hash} from '${dictionary.relativePath}'${importType === 'json' ? " with { type: 'json' }" : ''};\n`;
-    if (format === 'cjs')
-      content += `const ${dictionary.hash} = require('${dictionary.relativePath}');\n`;
+    if (format === 'cjs') {
+      if (useFsReadForJson) {
+        content += `const ${dictionary.hash} = JSON.parse(_fs.readFileSync(_path.join(__dirname, '${dictionary.relativePath}'), 'utf-8'));\n`;
+      } else {
+        content += `const ${dictionary.hash} = require('${dictionary.relativePath}');\n`;
+      }
+    }
   });
 
   content += '\n';

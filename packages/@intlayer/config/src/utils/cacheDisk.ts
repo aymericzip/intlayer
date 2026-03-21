@@ -88,6 +88,11 @@ const cachePath = (cacheDir: string, id: string, ns?: string) =>
 
 const cacheMap = new Map<string, any>();
 
+/** Clears the in-memory portion of the disk cache without touching disk files. */
+export const clearDiskCacheMemory = (): void => {
+  cacheMap.clear();
+};
+
 export const cacheDisk = (
   intlayerConfig: IntlayerConfig,
   keys: CacheKey[],
