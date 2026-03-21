@@ -83,13 +83,10 @@ export const runParallel = (proc?: string | string[]): ParallelHandle => {
           `[runParallel] Failed to start: ${err?.message ?? String(err)}`
         );
       } catch {}
-      cleanupHandlers();
       reject(err);
     });
 
     child.on('exit', (code, signal) => {
-      cleanupHandlers();
-
       // Treat common termination signals as graceful exits, not failures
       const gracefulSignals = ['SIGINT', 'SIGTERM', 'SIGQUIT', 'SIGHUP'];
       // Also treat shell-convention exit codes (128 + signal number) as graceful:
@@ -108,33 +105,6 @@ export const runParallel = (proc?: string | string[]): ParallelHandle => {
       }
     });
   });
-
-  const cleanup = () => {
-    try {
-      child.kill('SIGTERM');
-    } catch {
-      // Best effort
-    }
-  };
-
-  const signalHandlers: { event: string; handler: (...args: any[]) => void }[] =
-    [
-      { event: 'SIGINT', handler: cleanup },
-      { event: 'SIGTERM', handler: cleanup },
-      { event: 'SIGQUIT', handler: cleanup },
-      { event: 'SIGHUP', handler: cleanup },
-    ];
-
-  // Register signal handlers
-  signalHandlers.forEach(({ event, handler }) => {
-    process.on(event as any, handler as any);
-  });
-
-  const cleanupHandlers = () => {
-    signalHandlers.forEach(({ event, handler }) => {
-      process.off(event as any, handler as any);
-    });
-  };
 
   const kill = () => {
     try {
