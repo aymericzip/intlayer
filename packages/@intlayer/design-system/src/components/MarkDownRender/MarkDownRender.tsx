@@ -43,9 +43,12 @@ const createCodeRenderer = (isDarkMode?: boolean) => {
     const isBlock = !!className;
 
     if (!isBlock) {
+      const decodedContent = content.replace(/&#(\d+);/g, (_, code: string) =>
+        String.fromCharCode(parseInt(code, 10))
+      );
       return (
         <code className="rounded-md border border-neutral/30 bg-card/60 box-decoration-clone px-1.5 py-0.5 font-mono text-sm">
-          {content}
+          {decodedContent}
         </code>
       );
     }
@@ -129,8 +132,11 @@ const createLinkRenderer = (locale?: LocalesValues) => {
 };
 
 const PreRenderer = (props: ComponentProps<'pre'>) => <>{props.children}</>;
-const TableRenderer = (props: ComponentProps<typeof Table>) => (
-  <Table isRollable {...props} />
+const TableRenderer = ({
+  'data-no-collapse': noCollapse,
+  ...props
+}: ComponentProps<typeof Table> & { 'data-no-collapse'?: string }) => (
+  <Table isRollable={noCollapse === undefined} {...props} />
 );
 const ThRenderer = ({ className, ...props }: ComponentProps<'th'>) => (
   <th
