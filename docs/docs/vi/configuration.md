@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.4.0
+    date: 2026-03-20
+    changes: Add object per-locale notation for 'compiler.output' and 'dictionary.fill'
   - version: 8.3.0
     date: 2026-03-11
     changes: Di chuyển 'baseDir' từ cấu hình 'content' sang cấu hình 'system'
@@ -1015,7 +1018,28 @@ Cấu hình từ điển này phục vụ hai mục đích chính:
 
 #### Thuộc tính
 
-- **fill**
+- **fill**:
+  - _Type_: `Fill` (`boolean | FilePathPattern | Partial<Record<Locale, boolean | FilePathPattern>>`)
+  - _Default_: `true`
+  - _Description_: Controls how auto-fill (AI translation) output files are generated for this dictionary. When set at the config level (`dictionary.fill`), it serves as the default for all dictionaries. Each dictionary can override this with its own `fill` field.
+  - _Options_:
+    - `true`: Use the default output path (same file as the source dictionary).
+    - `false`: Disable auto-fill for this dictionary.
+    - String template: `'/locales/{{locale}}/{{key}}.content.json'` — generates one file per locale using the template.
+    - Function: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\`` — generates one file per locale using a function.
+    - Object per-locale: `{ en: '...', fr: '...', es: false }` — each locale maps to its own pattern; `false` skips that locale.
+  - _Note_: Including `{{locale}}` in the pattern (or using an object) triggers per-locale file generation. Without it, a single multilingual file is written.
+  - _Note_: A dictionary-level `fill` always takes priority over `dictionary.fill` from the global config.
+  - _Example_:
+    ```ts
+    dictionary: {
+      fill: {
+        en: '/locales/en/{{key}}.content.json',
+        fr: ({ key }) => `/locales/fr/${key}.content.json`,
+        es: false,
+      }
+    }
+    ```
 - **description**
 - **locale**
 - **location**
@@ -1223,11 +1247,12 @@ Các cài đặt kiểm soát trình biên dịch Intlayer, trình biên dịch 
   - _Ví dụ_: `['**/node_modules/**', '!**/node_modules/react/**']`
 
 - **output**:
-  - _Kiểu_: `FilePathPattern`
+  - _Kiểu_: `Fill`
   - _Mặc định_: `undefined`
   - _Mô tả_: Xác định đường dẫn tệp đầu ra. Thay thế `outputDir`. Hỗ trợ các biến động thông qua template string hoặc hàm. Các biến được hỗ trợ: `{{fileName}}`, `{{key}}`, `{{locale}}`, `{{extension}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{format}}`, `{{componentFormat}}`, và `{{componentDirPath}}`.
   - _Lưu ý_: Các đường dẫn bắt đầu bằng `./` được giải quyết tương đối so với thư mục component. Các đường dẫn bắt đầu bằng `/` được giải quyết tương đối so với thư mục gốc của dự án (`baseDir`).
   - _Lưu ý_: Việc bao gồm biến `{{locale}}` trong đường dẫn sẽ cho phép tạo các từ điển được tách biệt theo ngôn ngữ.
+  - _Note_: Supports an object per-locale notation where each locale key maps to its own pattern (string or function), or `false` to skip that locale entirely.
   - _Ví dụ_:
     - **Tạo các tệp đa ngôn ngữ bên cạnh component**:
     - Chuỗi: `'./{{fileName}}{{extension}}'`
@@ -1236,6 +1261,16 @@ Các cài đặt kiểm soát trình biên dịch Intlayer, trình biên dịch 
     - **Xuất các tệp JSON tập trung cho mỗi ngôn ngữ**:
     - Chuỗi: `'/locales/{{locale}}/{{key}}.content.json'`
     - Hàm: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\``
+
+    - **Object per-locale (different pattern per locale, skip some)**:
+
+    ```ts
+    output: {
+      en: ({ key }) => `./locales/en/${key}.json`,
+      fr: '/locales/fr/{{key}}.content.json',
+      es: false, // skip Spanish
+    }
+    ```
 
 - **noMetadata**:
   - _Kiểu_: `boolean`

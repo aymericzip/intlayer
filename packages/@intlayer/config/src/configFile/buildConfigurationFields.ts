@@ -723,6 +723,17 @@ const buildCompilerFields = (
    * }
    * ```
    *
+   * ```ts
+   * {
+   *   // Create per-locale JSON files with locale-specific output paths
+   *   output: {
+   *     en: ({ fileName, locale }) => `${fileName}.${locale}.content.json`,
+   *     fr: '{{fileName}}.{{locale}}.content.json',
+   *     es: false, // skip this locale
+   *   },
+   * }
+   * ```
+   *
    * Variable list:
    *   - `fileName`: The name of the file.
    *   - `key`: The key of the content.

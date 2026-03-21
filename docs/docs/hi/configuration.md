@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.4.0
+    date: 2026-03-20
+    changes: Add object per-locale notation for 'compiler.output' and 'dictionary.fill'
   - version: 8.3.0
     date: 2026-03-11
     changes: "'baseDir' को 'content' से 'system' कॉन्फिग में ले जाया गया"
@@ -873,7 +876,28 @@ Intlayer के आंतरिक पथों और आउटपुट पर
 
 #### गुण
 
-- **fill**
+- **fill**:
+  - _Type_: `Fill` (`boolean | FilePathPattern | Partial<Record<Locale, boolean | FilePathPattern>>`)
+  - _Default_: `true`
+  - _Description_: Controls how auto-fill (AI translation) output files are generated for this dictionary. When set at the config level (`dictionary.fill`), it serves as the default for all dictionaries. Each dictionary can override this with its own `fill` field.
+  - _Options_:
+    - `true`: Use the default output path (same file as the source dictionary).
+    - `false`: Disable auto-fill for this dictionary.
+    - String template: `'/locales/{{locale}}/{{key}}.content.json'` — generates one file per locale using the template.
+    - Function: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\`` — generates one file per locale using a function.
+    - Object per-locale: `{ en: '...', fr: '...', es: false }` — each locale maps to its own pattern; `false` skips that locale.
+  - _Note_: Including `{{locale}}` in the pattern (or using an object) triggers per-locale file generation. Without it, a single multilingual file is written.
+  - _Note_: A dictionary-level `fill` always takes priority over `dictionary.fill` from the global config.
+  - _Example_:
+    ```ts
+    dictionary: {
+      fill: {
+        en: '/locales/en/{{key}}.content.json',
+        fr: ({ key }) => `/locales/fr/${key}.content.json`,
+        es: false,
+      }
+    }
+    ```
 - **description**
 - **locale**
 - **location**
@@ -1081,11 +1105,12 @@ Intlayer बेहतर लचीलापन और विकल्प के 
   - _उदाहरण_: `['**/node_modules/**', '!**/node_modules/react/**']`
 
 - **output**:
-  - _प्रकार_: `FilePathPattern`
+  - _प्रकार_: `Fill`
   - _डिफ़ॉल्ट_: `undefined`
   - _विवरण_: आउटपुट फ़ाइल पथ को परिभाषित करता है। `outputDir` को प्रतिस्थापित करता है। टेम्प्लेट स्ट्रिंग या फ़ंक्शन के माध्यम से डायनेमिक वैरिएबल का समर्थन करता है। समर्थित वैरिएबल: `{{fileName}}`, `{{key}}`, `{{locale}}`, `{{extension}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{format}}`, `{{componentFormat}}`, `{{componentDirPath}}` ।
   - _नोट_: `./` से शुरू होने वाले पथ घटक निर्देशिका के सापेक्ष हल किए जाते हैं। `/` से शुरू होने वाले पथ प्रोजेक्ट रूट (`baseDir`) के सापेक्ष हल किए जाते हैं।
   - _नोट_: पथ में `{{locale}}` वैरिएबल को शामिल करने से प्रति भाषा अलग शब्दकोश तैयार होंगे।
+  - _Note_: Supports an object per-locale notation where each locale key maps to its own pattern (string or function), or `false` to skip that locale entirely.
   - _उदाहरण_:
     - **घटक के पास बहु-भाषा फ़ाइलें बनाएँ**:
     - स्ट्रिंग: `'./{{fileName}}{{extension}}'`
@@ -1094,6 +1119,16 @@ Intlayer बेहतर लचीलापन और विकल्प के 
     - **प्रति भाषा केंद्रीकृत JSON फ़ाइलें आउटपुट करें**:
     - स्ट्रिंग: `'/locales/{{locale}}/{{key}}.content.json'`
     - फ़ंक्शन: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\``
+
+    - **Object per-locale (different pattern per locale, skip some)**:
+
+    ```ts
+    output: {
+      en: ({ key }) => `./locales/en/${key}.json`,
+      fr: '/locales/fr/{{key}}.content.json',
+      es: false, // skip Spanish
+    }
+    ```
 
 - **noMetadata**:
   - _प्रकार_: `boolean`

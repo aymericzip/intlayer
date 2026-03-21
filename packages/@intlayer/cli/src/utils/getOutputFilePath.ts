@@ -1,3 +1,11 @@
+import { resolveRelativePath } from '@intlayer/chokidar/utils';
+import { parseStringPattern } from '@intlayer/config/utils';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { Fill } from '@intlayer/types/dictionary';
+import type {
+  FilePathPattern,
+  FilePathPatternContext,
+} from '@intlayer/types/filePathPattern';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
 /**
@@ -99,4 +107,51 @@ export const getOutputFilePath = (
   }
 
   return outputFilePath;
+};
+
+/**
+ * Get the effective FilePathPattern for a given locale from a Fill/CompilerOutput value.
+ *
+ * - If Fill is an object, returns the pattern for that locale (or `false` if disabled/missing).
+ * - If Fill is a string/function, returns it as-is (applies to all locales).
+ * - If Fill is `false`, returns `false` (disabled for all locales).
+ * - If Fill is `true` or a locale entry is `true`, returns `undefined` (use default).
+ */
+export const getPatternForLocale = (
+  output: Fill,
+  locale: Locale
+): FilePathPattern | false | undefined => {
+  if (output === false) return false;
+  if (output === true) return undefined;
+  if (typeof output === 'string' || typeof output === 'function')
+    return output as FilePathPattern;
+  if (typeof output === 'object' && output !== null) {
+    const entry = (output as Record<string, boolean | FilePathPattern>)[locale];
+    if (entry === undefined || entry === false) return false;
+    if (entry === true) return undefined;
+    return entry as FilePathPattern;
+  }
+  return false;
+};
+
+/**
+ * Resolve a Fill/CompilerOutput pattern to an absolute file path for a given locale.
+ * Returns `false` if the locale is disabled or no pattern is configured.
+ */
+export const resolveOutputPattern = async (
+  output: Fill,
+  locale: Locale,
+  context: FilePathPatternContext,
+  sourceFilePath: string,
+  baseDir: string
+): Promise<string | false> => {
+  const pattern = getPatternForLocale(output, locale);
+  if (pattern === false || pattern === undefined) return false;
+
+  const rawPath =
+    typeof pattern === 'function'
+      ? await pattern(context)
+      : parseStringPattern(pattern, context);
+
+  return resolveRelativePath(rawPath, sourceFilePath, baseDir);
 };

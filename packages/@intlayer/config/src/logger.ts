@@ -92,7 +92,7 @@ export const colorize = (
 
 export const colorizeLocales = (
   locales: Locale | Locale[],
-  color = ANSIColors.GREEN,
+  color: ANSIColorsType = ANSIColors.GREEN,
   reset: boolean | ANSIColorsType = ANSIColors.RESET
 ) =>
   [locales]
@@ -102,7 +102,7 @@ export const colorizeLocales = (
 
 export const colorizeKey = (
   keyPath: string | string[],
-  color = ANSIColors.BEIGE,
+  color: ANSIColorsType = ANSIColors.BEIGE,
   reset: boolean | ANSIColorsType = ANSIColors.RESET
 ) =>
   [keyPath]
@@ -112,7 +112,7 @@ export const colorizeKey = (
 
 export const colorizePath = (
   path: string | string[],
-  color = ANSIColors.GREY,
+  color: ANSIColorsType = ANSIColors.GREY,
   reset: boolean | ANSIColorsType = ANSIColors.RESET
 ) =>
   [path]

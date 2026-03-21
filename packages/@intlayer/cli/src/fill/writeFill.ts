@@ -92,51 +92,34 @@ export const writeFill = async (
       output.filePath
     );
 
-    // write file
     await writeContentDeclaration(
       {
         ...rest,
         filled: true,
-        // For object fill each entry targets a specific locale even when the
-        // path pattern is fixed (isPerLocale === false), so always set locale.
-        locale:
-          output.isPerLocale || typeof fillOptions === 'object'
-            ? output.localeList[0]
-            : undefined,
+        locale: output.isPerLocale ? output.localeList[0] : undefined,
         localId: `${contentDeclarationFile.key}::local::${relativeFilePath}`,
         filePath: relativeFilePath,
       },
       configuration,
       {
-        // For per-locale files each output covers exactly one locale.
-        // For a string/function fill producing a single multilingual file we
-        // want the full locale set (including the source locale) so the written
-        // file contains all translations, not just the newly-translated ones.
-        // For an object fill each entry already has the correct restricted
-        // localeList (one locale per pattern), so we use it directly — adding
-        // the source locale back would pollute a fr-only file with en content.
-        localeList:
-          output.isPerLocale || typeof fillOptions === 'object'
-            ? output.localeList
-            : (outputLocales ?? configuration.internationalization.locales),
+        // Per-locale files: write only the specific locale.
+        // Multilingual files (string/function fill, single output): include all
+        // output locales (including source) so the file is complete.
+        localeList: output.isPerLocale
+          ? output.localeList
+          : (outputLocales ?? configuration.internationalization.locales),
       }
     );
 
-    if (output.isPerLocale || typeof fillOptions === 'object') {
-      const sourceLocale = output.localeList[0];
-
+    if (output.isPerLocale) {
       appLogger(
-        `Auto filled per-locale content declaration for '${colorizeKey(fullDictionary.key)}' written to ${formatPath(output.filePath)} for locale ${formatLocale(sourceLocale)}`,
-        {
-          level: 'info',
-        }
+        `Auto filled per-locale content declaration for '${colorizeKey(fullDictionary.key)}' written to ${formatPath(output.filePath)} for locale ${formatLocale(output.localeList[0])}`,
+        { level: 'info' }
       );
     } else {
       appLogger(
         `Auto filled content declaration for '${colorizeKey(fullDictionary.key)}' written to ${formatPath(output.filePath)}`,
-        {
-          level: 'info',
-        }
+        { level: 'info' }
       );
     }
   }

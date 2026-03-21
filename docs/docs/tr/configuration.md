@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.4.0
+    date: 2026-03-20
+    changes: Add object per-locale notation for 'compiler.output' and 'dictionary.fill'
   - version: 8.3.0
     date: 2026-03-11
     changes: 'baseDir''i ''content'' yapılandırmasından ''system'' yapılandırmasına taşıyın
@@ -864,7 +867,28 @@ Bu sözlük yapılandırması iki ana amaç için hizmet eder:
 
 #### Özellikler
 
-- **fill**
+- **fill**:
+  - _Type_: `Fill` (`boolean | FilePathPattern | Partial<Record<Locale, boolean | FilePathPattern>>`)
+  - _Default_: `true`
+  - _Description_: Controls how auto-fill (AI translation) output files are generated for this dictionary. When set at the config level (`dictionary.fill`), it serves as the default for all dictionaries. Each dictionary can override this with its own `fill` field.
+  - _Options_:
+    - `true`: Use the default output path (same file as the source dictionary).
+    - `false`: Disable auto-fill for this dictionary.
+    - String template: `'/locales/{{locale}}/{{key}}.content.json'` — generates one file per locale using the template.
+    - Function: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\`` — generates one file per locale using a function.
+    - Object per-locale: `{ en: '...', fr: '...', es: false }` — each locale maps to its own pattern; `false` skips that locale.
+  - _Note_: Including `{{locale}}` in the pattern (or using an object) triggers per-locale file generation. Without it, a single multilingual file is written.
+  - _Note_: A dictionary-level `fill` always takes priority over `dictionary.fill` from the global config.
+  - _Example_:
+    ```ts
+    dictionary: {
+      fill: {
+        en: '/locales/en/{{key}}.content.json',
+        fr: ({ key }) => `/locales/fr/${key}.content.json`,
+        es: false,
+      }
+    }
+    ```
 - **description**
 - **locale**
 - **location**
@@ -1077,11 +1101,12 @@ Sözlükleri doğrudan bileşenlerinizden çıkaran Intlayer derleyicisini kontr
   - _Örnek_: `['**/node_modules/**', '!**/node_modules/react/**']`
 
 - **output**:
-  - _Tür_: `FilePathPattern`
+  - _Tür_: `Fill`
   - _Varsayılan_: `undefined`
   - _Açıklama_: Çıktı dosyalarının yolunu tanımlar. `outputDir` yerine geçer. Şablon dizeleri veya bir fonksiyon aracılığıyla dinamik değişkenleri işler. Desteklenen değişkenler: `{{fileName}}`, `{{key}}`, `{{locale}}`, `{{extension}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{format}}`, `{{componentFormat}}` ve `{{componentDirPath}}`.
   - _Not_: `./` ile başlayan yollar bileşen dizinine göre çözümlenir. `/` ile başlayan yollar projenin kök dizinine (`baseDir`) göre çözümlenir.
   - _Not_: Yola `{{locale}}` değişkenini dahil etmek, dile göre ayrılmış sözlüklerin oluşturulmasını etkinleştirir.
+  - _Note_: Supports an object per-locale notation where each locale key maps to its own pattern (string or function), or `false` to skip that locale entirely.
   - _Örnek_:
     - **Bileşenin yanında çok dilli dosyalar oluşturun**:
     - Dize: `'./{{fileName}}{{extension}}'`
@@ -1090,6 +1115,16 @@ Sözlükleri doğrudan bileşenlerinizden çıkaran Intlayer derleyicisini kontr
     - **Dil başına merkezi JSON dosyaları çıktılayın**:
     - Dize: `'/locales/{{locale}}/{{key}}.content.json'`
     - Fonksiyon: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\``
+
+    - **Object per-locale (different pattern per locale, skip some)**:
+
+    ```ts
+    output: {
+      en: ({ key }) => `./locales/en/${key}.json`,
+      fr: '/locales/fr/{{key}}.content.json',
+      es: false, // skip Spanish
+    }
+    ```
 
 - **noMetadata**:
   - _Tür_: `boolean`

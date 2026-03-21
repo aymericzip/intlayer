@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.4.0
+    date: 2026-03-20
+    changes: Add object per-locale notation for 'compiler.output' and 'dictionary.fill'
   - version: 8.3.0
     date: 2026-03-11
     changes: "'baseDir' を 'content' 設定から 'system' 設定に移動"
@@ -876,7 +879,28 @@ Intlayerの内部パスと出力結果に関連する設定。これらの設定
 
 #### プロパティ
 
-- **fill**
+- **fill**:
+  - _Type_: `Fill` (`boolean | FilePathPattern | Partial<Record<Locale, boolean | FilePathPattern>>`)
+  - _Default_: `true`
+  - _Description_: Controls how auto-fill (AI translation) output files are generated for this dictionary. When set at the config level (`dictionary.fill`), it serves as the default for all dictionaries. Each dictionary can override this with its own `fill` field.
+  - _Options_:
+    - `true`: Use the default output path (same file as the source dictionary).
+    - `false`: Disable auto-fill for this dictionary.
+    - String template: `'/locales/{{locale}}/{{key}}.content.json'` — generates one file per locale using the template.
+    - Function: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\`` — generates one file per locale using a function.
+    - Object per-locale: `{ en: '...', fr: '...', es: false }` — each locale maps to its own pattern; `false` skips that locale.
+  - _Note_: Including `{{locale}}` in the pattern (or using an object) triggers per-locale file generation. Without it, a single multilingual file is written.
+  - _Note_: A dictionary-level `fill` always takes priority over `dictionary.fill` from the global config.
+  - _Example_:
+    ```ts
+    dictionary: {
+      fill: {
+        en: '/locales/en/{{key}}.content.json',
+        fr: ({ key }) => `/locales/fr/${key}.content.json`,
+        es: false,
+      }
+    }
+    ```
 - **description**
 - **locale**
 - **location**
@@ -1084,11 +1108,12 @@ Intlayerがアプリケーションの国際化をどのように最適化しビ
   - _例_: `['**/node_modules/**', '!**/node_modules/react/**']`
 
 - **output**:
-  - _型_: `FilePathPattern`
+  - _型_: `Fill`
   - _デフォルト_: `undefined`
   - _説明_: 出力ファイルのパスを定義します。 `outputDir` を置き換えます。 文字列テンプレートまたは関数を通じて動的変数をサポートします。 サポートされている変数: `{{fileName}}`, `{{key}}`, `{{locale}}`, `{{extension}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{format}}`, `{{componentFormat}}`, および `{{componentDirPath}}`。
   - _注_: `./` で始まるパスは、コンポーネントディレクトリを基準に解決されます。 `/` で始まるパスは、プロジェクトのルート (`baseDir`) を基準に解決されます。
   - _注_: パスに `{{locale}}` 変数を含めると、ロケールごとに分離された辞書の生成が有効になります。
+  - _Note_: Supports an object per-locale notation where each locale key maps to its own pattern (string or function), or `false` to skip that locale entirely.
   - _例_:
     - **コンポーネントの隣に多言語ファイルを作成**:
     - 文字列: `'./{{fileName}}{{extension}}'`
@@ -1097,6 +1122,16 @@ Intlayerがアプリケーションの国際化をどのように最適化しビ
     - **ロケールごとに集約された JSON を出力**:
     - 文字列: `'/locales/{{locale}}/{{key}}.content.json'`
     - 関数: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\``
+
+    - **Object per-locale (different pattern per locale, skip some)**:
+
+    ```ts
+    output: {
+      en: ({ key }) => `./locales/en/${key}.json`,
+      fr: '/locales/fr/{{key}}.content.json',
+      es: false, // skip Spanish
+    }
+    ```
 
 - **noMetadata**:
   - _タイプ_: `boolean`

@@ -676,6 +676,17 @@ export type CompilerConfig = {
    * }
    * ```
    *
+   * ```ts
+   * {
+   *   // Create per-locale JSON files with locale-specific output paths
+   *   output: {
+   *     en: ({ fileName, locale }) => `${fileName}.${locale}.content.json`,
+   *     fr: '{{fileName}}.{{locale}}.content.json',
+   *     es: false, // skip this locale
+   *   },
+   * }
+   * ```
+   *
    * Variable list:
    *   - `fileName`: The name of the file.
    *   - `key`: The key of the content.
@@ -687,7 +698,7 @@ export type CompilerConfig = {
    *   - `componentFormat`: The format of the component dictionary.
    *   - `componentDirPath`: The directory path of the component.
    */
-  output?: FilePathPattern;
+  output?: Fill;
 
   /**
    * Indicates if the metadata should be saved in the file.

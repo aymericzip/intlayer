@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.4.0
+    date: 2026-03-20
+    changes: Add object per-locale notation for 'compiler.output' and 'dictionary.fill'
   - version: 8.3.0
     date: 2026-03-11
     changes: Move 'baseDir' from 'content' to 'system' config
@@ -1037,7 +1040,28 @@ For more information about content declaration files and how configuration value
 
 #### Properties
 
-- **fill**
+- **fill**:
+  - _Type_: `Fill` (`boolean | FilePathPattern | Partial<Record<Locale, boolean | FilePathPattern>>`)
+  - _Default_: `true`
+  - _Description_: Controls how auto-fill (AI translation) output files are generated for this dictionary. When set at the config level (`dictionary.fill`), it serves as the default for all dictionaries. Each dictionary can override this with its own `fill` field.
+  - _Options_:
+    - `true`: Use the default output path (same file as the source dictionary).
+    - `false`: Disable auto-fill for this dictionary.
+    - String template: `'/locales/{{locale}}/{{key}}.content.json'` — generates one file per locale using the template.
+    - Function: `({ key, locale }) => \`/locales/${locale}/${key}.content.json\`` — generates one file per locale using a function.
+    - Object per-locale: `{ en: '...', fr: '...', es: false }` — each locale maps to its own pattern; `false` skips that locale.
+  - _Note_: Including `{{locale}}` in the pattern (or using an object) triggers per-locale file generation. Without it, a single multilingual file is written.
+  - _Note_: A dictionary-level `fill` always takes priority over `dictionary.fill` from the global config.
+  - _Example_:
+    ```ts
+    dictionary: {
+      fill: {
+        en: '/locales/en/{{key}}.content.json',
+        fr: ({ key }) => `/locales/fr/${key}.content.json`,
+        es: false,
+      }
+    }
+    ```
 - **description**
 - **locale**
 - **contentAutoTransformation**:
@@ -1268,11 +1292,12 @@ Settings that control the Intlayer compiler, which extracts dictionaries straigh
   - _Example_: `['**/node_modules/**', '!**/node_modules/react/**']`
 
 - **output**:
-  - _Type_: `FilePathPattern`
+  - _Type_: `Fill` (`boolean | FilePathPattern | Partial<Record<Locale, boolean | FilePathPattern>>`)
   - _Default_: `undefined`
   - _Description_: Defines the output files path. Replaces `outputDir`. Handles dynamic variables via template strings or a function. Supported variables: `{{fileName}}`, `{{key}}`, `{{locale}}`, `{{extension}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{format}}`, `{{componentFormat}}`, and `{{componentDirPath}}`.
   - _Note_: `./` paths are resolved relative to the component directory. `/` paths are resolved relative to the project root (`baseDir`).
   - _Note_: Including the `{{locale}}` variable in the path will trigger the generation of separate dictionaries per locale.
+  - _Note_: Supports an object per-locale notation where each locale key maps to its own pattern (string or function), or `false` to skip that locale entirely.
   - _Example_:
     - **Multilingual files near component**:
     - String: `'./{{fileName}}{{extension}}'`
@@ -1281,6 +1306,16 @@ Settings that control the Intlayer compiler, which extracts dictionaries straigh
     - **Centralized per-locale JSON**:
     - String: `'/locales/{{locale}}/{{key}}.content.json'`
     - Function: `({ key, locale }) => \`/locales/${locale}/${key}.content.json``
+
+    - **Object per-locale (different pattern per locale, skip some)**:
+
+    ```ts
+    output: {
+      en: ({ key }) => `./locales/en/${key}.json`,
+      fr: '/locales/fr/{{key}}.content.json',
+      es: false, // skip Spanish
+    }
+    ```
 
 - **noMetadata**:
   - _Type_: `boolean`
