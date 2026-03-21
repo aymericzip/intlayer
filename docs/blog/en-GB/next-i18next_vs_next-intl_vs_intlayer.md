@@ -123,13 +123,11 @@ Here is a comparison of the JavaScript bundle size loaded by the browser for a m
 
 If we do not require any formatter in the application, the list of exported functions after tree-shaking will be:
 
-- **next-intlayer**: `useIntlayer`, `useLocale`, `NextIntlClientProvider`, (Bundle size is 180.6 kB -> 78.6 kB (gzip))
+- **next-intlayer**: `useIntlayer`, `useLocale`, `NextIntlClientProvider`, (Bundle size is 180.6 kB -> 15.24 kB (gzip))
 - **next-intl**: `useTranslations`, `useLocale`, `NextIntlClientProvider`, (Bundle size is 101.3 kB -> 31.4 kB (gzip))
 - **next-i18next**: `useTranslation`, `useI18n`, `I18nextProvider`, (Bundle size is 80.7 kB -> 25.5 kB (gzip))
 
 These functions are merely wrappers around React context/state, so the overall impact of the i18n library on bundle size is minimal.
-
-> Intlayer is slightly larger than `next-intl` and `next-i18next` because it incorporates more logic in the `useIntlayer` function. This is related to markdown and `intlayer-editor` integration.
 
 ## Content and Translations
 

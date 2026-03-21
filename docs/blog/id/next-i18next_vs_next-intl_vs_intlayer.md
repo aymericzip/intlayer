@@ -115,13 +115,11 @@ Berikut adalah perbandingan ukuran bundle JavaScript yang dimuat oleh browser un
 
 Jika kita tidak memerlukan formatter apapun dalam aplikasi, daftar fungsi yang diekspor setelah tree-shaking adalah:
 
-- **next-intlayer**: `useIntlayer`, `useLocale`, `NextIntlClientProvider`, (Ukuran bundle adalah 180.6 kB -> 78.6 kB (gzip))
+- **next-intlayer**: `useIntlayer`, `useLocale`, `NextIntlClientProvider`, (Ukuran bundle adalah 180.6 kB -> 15.24 kB (gzip))
 - **next-intl**: `useTranslations`, `useLocale`, `NextIntlClientProvider`, (Ukuran bundle adalah 101.3 kB -> 31.4 kB (gzip))
 - **next-i18next**: `useTranslation`, `useI18n`, `I18nextProvider`, (Ukuran bundle adalah 80.7 kB -> 25.5 kB (gzip))
 
 Fungsi-fungsi ini hanya pembungkus di sekitar konteks/state React, sehingga dampak total dari pustaka i18n pada ukuran bundle adalah minimal.
-
-> Intlayer sedikit lebih besar daripada `next-intl` dan `next-i18next` karena mencakup lebih banyak logika dalam fungsi `useIntlayer`. Ini terkait dengan integrasi markdown dan `intlayer-editor`.
 
 ## Konten dan Terjemahan
 

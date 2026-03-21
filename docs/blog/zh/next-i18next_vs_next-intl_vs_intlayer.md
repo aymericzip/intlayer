@@ -131,13 +131,11 @@ Next.js 为你内置了国际化路由支持（例如区域段）。但该功能
 
 如果应用中不需要任何格式化器，tree-shaking 后导出的函数列表将是：
 
-- **next-intlayer**: `useIntlayer`，`useLocale`，`NextIntlClientProvider`，（包大小为 180.6 kB -> 78.6 kB（gzip））
+- **next-intlayer**: `useIntlayer`，`useLocale`，`NextIntlClientProvider`，（包大小为 180.6 kB -> 15.24 kB（gzip））
 - **next-intl**: `useTranslations`，`useLocale`，`NextIntlClientProvider`，（包大小为 101.3 kB -> 31.4 kB（gzip））
 - **next-i18next**: `useTranslation`，`useI18n`，`I18nextProvider`，（包大小为 80.7 kB -> 25.5 kB（gzip））
 
 这些函数只是围绕 React 上下文/状态的包装器，因此 i18n 库对包大小的总体影响很小。
-
-> Intlayer 比 `next-intl` 和 `next-i18next` 略大，因为它在 `useIntlayer` 函数中包含了更多逻辑。这与 markdown 和 `intlayer-editor` 的集成有关。
 
 ## 内容和翻译
 

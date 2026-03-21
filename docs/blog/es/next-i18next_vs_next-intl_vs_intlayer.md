@@ -123,13 +123,11 @@ Aquí hay una comparación del tamaño del bundle de JavaScript cargado por el n
 
 Si no necesitamos ningún formateador en la aplicación, la lista de funciones exportadas después del tree-shaking será:
 
-- **next-intlayer**: `useIntlayer`, `useLocale`, `NextIntlClientProvider`, (El tamaño del paquete es 180.6 kB -> 78.6 kB (gzip))
+- **next-intlayer**: `useIntlayer`, `useLocale`, `NextIntlClientProvider`, (El tamaño del paquete es 180.6 kB -> 15.24 kB (gzip))
 - **next-intl**: `useTranslations`, `useLocale`, `NextIntlClientProvider`, (El tamaño del paquete es 101.3 kB -> 31.4 kB (gzip))
 - **next-i18next**: `useTranslation`, `useI18n`, `I18nextProvider`, (El tamaño del paquete es 80.7 kB -> 25.5 kB (gzip))
 
 Estas funciones son solo envoltorios alrededor del contexto/estado de React, por lo que el impacto total de la biblioteca i18n en el tamaño del paquete es mínimo.
-
-> Intlayer es ligeramente más grande que `next-intl` y `next-i18next` porque incluye más lógica en la función `useIntlayer`. Esto está relacionado con la integración de markdown y `intlayer-editor`.
 
 ## Contenido y Traducciones
 
