@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inicio del historial
+    changes: "Inicio del historial"
 ---
 
 # Integración en React: Documentación del Hook `useLocale`

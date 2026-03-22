@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historique initial
+    changes: "Historique initial"
 ---
 
 # Documentation : Fonction `getLocaleLang` dans `intlayer`
@@ -33,7 +33,6 @@ La fonction `getLocaleLang` extrait le code de langue à partir d'une chaîne de
 ## Paramètres
 
 - `locale?: Locales`
-
   - **Description** : La chaîne de locale (par exemple, `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`) à partir de laquelle le code de langue est extrait.
   - **Type** : `Locales` (optionnel)
 
@@ -76,7 +75,6 @@ getLocaleLang(Locales.FRENCH); // Sortie : "fr"
 ## Cas particuliers
 
 - **Aucune locale fournie :**
-
   - La fonction retourne une chaîne vide lorsque `locale` est `undefined`.
 
 - **Chaînes de locale mal formées :**

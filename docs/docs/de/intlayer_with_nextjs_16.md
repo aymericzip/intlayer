@@ -19,13 +19,13 @@ youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Init-Befehl hinzufügen
+    changes: "Init-Befehl hinzufügen"
   - version: 7.0.6
     date: 2025-11-01
-    changes: Erwähnung von `x-default` im `alternates`-Objekt hinzugefügt
+    changes: "Erwähnung von `x-default` im `alternates`-Objekt hinzugefügt"
   - version: 7.0.0
     date: 2025-06-29
-    changes: Initiale Historie
+    changes: "Initiale Historie"
 ---
 
 # Übersetzen Sie Ihre Next.js 16 Website mit Intlayer | Internationalisierung (i18n)

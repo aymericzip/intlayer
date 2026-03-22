@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 7.5.14
     date: 2026-01-21
-    changes: توثيق موحّد لجميع الصادرات
+    changes: "توثيق موحّد لجميع الصادرات"
 ---
 
 # حزمة react-intlayer

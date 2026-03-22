@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: 初版作成
+    changes: "初版作成"
 ---
 
 # getLocale 関数ドキュメント

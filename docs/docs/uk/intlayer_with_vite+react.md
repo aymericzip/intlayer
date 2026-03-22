@@ -20,10 +20,10 @@ youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Додано команду init
+    changes: "Додано команду init"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Ініціалізовано історію
+    changes: "Ініціалізовано історію"
 ---
 
 # Перекладіть свій вебсайт на Vite і React за допомогою Intlayer | Інтернаціоналізація (i18n)

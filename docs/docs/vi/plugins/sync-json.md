@@ -26,10 +26,10 @@ youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
   - version: 7.5.0
     date: 2025-12-13
-    changes: Thêm hỗ trợ định dạng ICU và i18next
+    changes: "Thêm hỗ trợ định dạng ICU và i18next"
   - version: 6.1.6
     date: 2025-10-05
-    changes: Tài liệu Plugin Đồng bộ JSON ban đầu
+    changes: "Tài liệu Plugin Đồng bộ JSON ban đầu"
 ---
 
 # Đồng bộ JSON (cầu nối i18n) - Đồng bộ JSON với hỗ trợ ICU / i18next

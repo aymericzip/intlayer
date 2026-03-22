@@ -20,7 +20,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: Doc inicial
+    changes: "Doc inicial"
 ---
 
 # Documentação do plugin intlayerPrune para Vite

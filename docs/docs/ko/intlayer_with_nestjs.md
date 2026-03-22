@@ -19,10 +19,10 @@ author: AydinTheFirst
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: init 명령어 추가
+    changes: "init 명령어 추가"
   - version: 5.8.0
     date: 2025-09-09
-    changes: 초기 문서
+    changes: "초기 문서"
 ---
 
 # Intlayer로 Nest backend 번역하기 | 국제화(i18n)

@@ -18,10 +18,10 @@ applicationTemplate: https://github.com/aymericzip/intlayer-nestjs-template
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Add init command
+    changes: "Add init command"
   - version: 5.8.0
     date: 2025-09-09
-    changes: Initial doc
+    changes: "Initial doc"
 ---
 
 # Translate your Nest backend website using Intlayer | Internationalization (i18n)

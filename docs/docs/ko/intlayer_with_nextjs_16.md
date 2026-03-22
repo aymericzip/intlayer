@@ -19,13 +19,13 @@ youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: init 명령어 추가
+    changes: "init 명령어 추가"
   - version: 7.0.6
     date: 2025-11-01
-    changes: `alternates` 객체에 `x-default` 언급 추가
+    changes: "`alternates` 객체에 `x-default` 언급 추가"
   - version: 7.0.0
     date: 2025-06-29
-    changes: 초기 기록
+    changes: "초기 기록"
 ---
 
 # Intlayer를 사용하여 Next.js 16 웹사이트 번역하기 | 국제화(i18n)

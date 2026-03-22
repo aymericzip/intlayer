@@ -16,10 +16,10 @@ slugs:
 history:
   - version: 7.5.12
     date: 2026-01-06
-    changes: 为 list 命令添加绝对路径输出选项
+    changes: "为 list 命令添加绝对路径输出选项"
   - version: 7.5.11
     date: 2026-01-06
-    changes: 为 list 命令添加 JSON 输出选项
+    changes: "为 list 命令添加 JSON 输出选项"
 ---
 
 # 列出内容声明文件

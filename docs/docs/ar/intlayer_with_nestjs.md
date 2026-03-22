@@ -19,10 +19,10 @@ author: AydinTheFirst
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: إضافة أمر init
+    changes: "إضافة أمر init"
   - version: 5.8.0
     date: 2025-09-09
-    changes: الوثيقة الأولية
+    changes: "الوثيقة الأولية"
 ---
 
 # ترجم Nest backend باستخدام Intlayer | التدويل (i18n)

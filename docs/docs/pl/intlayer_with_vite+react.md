@@ -20,10 +20,10 @@ youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Dodaj polecenie init
+    changes: "Dodaj polecenie init"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inicjalizacja historii
+    changes: "Inicjalizacja historii"
 ---
 
 # Przetłumacz swoją stronę Vite i React za pomocą Intlayer | Internacjonalizacja (i18n)

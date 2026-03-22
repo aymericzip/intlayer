@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴初期化
+    changes: "履歴初期化"
 ---
 
 # ドキュメント: `intlayer` の `getLocaleLang` 関数
@@ -33,7 +33,6 @@ history:
 ## パラメーター
 
 - `locale?: Locales`
-
   - **説明**: 言語コードを抽出するためのロケール文字列（例：`Locales.ENGLISH_UNITED_STATES`、`Locales.FRENCH_CANADA`）。
   - **型**: `Locales`（オプション）
 
@@ -76,7 +75,6 @@ getLocaleLang(Locales.FRENCH); // 出力: "fr"
 ## エッジケース
 
 - **ロケールが提供されていない場合:**
-
   - `locale` が `undefined` の場合、関数は空文字列を返します。
 
 - **不正なロケール文字列:**

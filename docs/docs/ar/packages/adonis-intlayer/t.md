@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-30
-    changes: التوثيق الأولي
+    changes: "التوثيق الأولي"
 ---
 
 # توثيق: دالة `t` في `adonis-intlayer`

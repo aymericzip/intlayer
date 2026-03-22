@@ -20,7 +20,7 @@ youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
   - version: 8.0.0
     date: 2026-01-10
-    changes: 初始发布
+    changes: "初始发布"
 ---
 
 # 使用 Intlayer 翻译你的 Next.js 16 网站（页面路径中不包含 [locale]） | 国际化 (i18n)

@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 초기 이력
+    changes: "초기 이력"
 ---
 
 # 문서: `intlayer`의 `getHTMLTextDir` 함수
@@ -33,7 +33,6 @@ history:
 ## 매개변수
 
 - `locale?: Locales`
-
   - **설명**: 텍스트 방향을 결정하는 데 사용되는 로케일 문자열(예: `Locales.ENGLISH`, `Locales.ARABIC`).
   - **타입**: `Locales` (선택 사항)
 
@@ -76,7 +75,6 @@ getHTMLTextDir(Locales.ARABIC); // 출력: "rtl"
 ## 예외 상황
 
 - **로케일이 제공되지 않은 경우:**
-
   - `locale`이 `undefined`일 때 함수는 `'auto'`를 반환합니다.
 
 - **인식되지 않는 로케일:**

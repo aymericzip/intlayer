@@ -20,13 +20,13 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
   - version: 6.0.1
     date: 2025-09-22
-    changes: إضافة توثيق المزامنة الحية
+    changes: "إضافة توثيق المزامنة الحية"
   - version: 6.0.0
     date: 2025-09-04
-    changes: استبدال حقل `hotReload` بـ `liveSync`
+    changes: "استبدال حقل `hotReload` بـ `liveSync`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: بدء السجل
+    changes: "بدء السجل"
 ---
 
 # توثيق نظام إدارة المحتوى Intlayer (CMS)

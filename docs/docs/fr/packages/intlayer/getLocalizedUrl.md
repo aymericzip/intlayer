@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historique initial
+    changes: "Historique initial"
 ---
 
 # Documentation : Fonction `getLocalizedUrl` dans `intlayer`
@@ -35,23 +35,19 @@ La fonction `getLocalizedUrl` génère une URL localisée en préfixant l'URL do
 ## Paramètres
 
 - `url: string`
-
   - **Description** : La chaîne URL originale à préfixer avec une locale.
   - **Type** : `string`
 
 - `currentLocale: Locales`
-
   - **Description** : La locale actuelle pour laquelle l'URL est localisée.
   - **Type** : `Locales`
 
 - `locales: Locales[]`
-
   - **Description** : Tableau optionnel des locales supportées. Par défaut, les locales configurées dans le projet sont fournies.
   - **Type** : `Locales[]`
   - **Par défaut** : [`Configuration du projet`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md#middleware)
 
 - `defaultLocale: Locales`
-
   - **Description** : La locale par défaut de l'application. Par défaut, la locale par défaut configurée dans le projet est utilisée.
   - **Type** : `Locales`
   - **Par défaut** : [`Configuration du projet`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md#middleware)
@@ -176,11 +172,9 @@ getLocalizedUrl(
 ## Cas particuliers
 
 - **Pas de segment de locale :**
-
   - Si l'URL ne contient aucun segment de locale, la fonction préfixe en toute sécurité la locale appropriée.
 
 - **Locale par défaut :**
-
   - Lorsque `prefixDefault` est `false`, la fonction ne préfixe pas l'URL pour la locale par défaut.
 
 - **Locales non supportées :**

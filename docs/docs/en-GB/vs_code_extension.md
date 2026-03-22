@@ -18,16 +18,16 @@ slugs:
 history:
   - version: 6.1.5
     date: 2025-09-30
-    changes: Added demo gif
+    changes: "Added demo gif"
   - version: 6.1.0
     date: 2025-09-24
-    changes: Added environment selection section
+    changes: "Added environment selection section"
   - version: 6.0.0
     date: 2025-09-22
-    changes: Intlayer Tab / Fill & Test commands
+    changes: "Intlayer Tab / Fill & Test commands"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Initial history
+    changes: "Initial history"
 ---
 
 # Official VS Code Extension

@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-09-20
-    changes: Testlerin tanıtımı
+    changes: "Testlerin tanıtımı"
 ---
 
 # İçeriğinizi test etme

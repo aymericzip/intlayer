@@ -20,7 +20,7 @@ youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
   - version: 8.0.0
     date: 2026-01-10
-    changes: Rilascio iniziale
+    changes: "Rilascio iniziale"
 ---
 
 # Traduci il tuo sito Next.js 16 (senza [locale] nel percorso della pagina) usando Intlayer | Internazionalizzazione (i18n)

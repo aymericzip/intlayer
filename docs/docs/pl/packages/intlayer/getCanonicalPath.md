@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: Wdrożono niestandardowe reguły przepisywania URL
+    changes: "Wdrożono niestandardowe reguły przepisywania URL"
 ---
 
 # Dokumentacja: funkcja `getCanonicalPath` w `intlayer`

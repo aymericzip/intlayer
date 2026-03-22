@@ -19,16 +19,16 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
   - version: 6.1.0
     date: 2025-09-23
-    changes: Thêm tùy chọn with trên CLI
+    changes: "Thêm tùy chọn with trên CLI"
   - version: 6.0.1
     date: 2025-09-22
-    changes: Thay đổi hành vi của trình chỉnh sửa khi phần mở rộng tệp không phải là `.json`
+    changes: "Thay đổi hành vi của trình chỉnh sửa khi phần mở rộng tệp không phải là `.json`"
   - version: 6.0.0
     date: 2025-09-21
-    changes: Thêm lệnh reexported
+    changes: "Thêm lệnh reexported"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Khởi tạo lịch sử
+    changes: "Khởi tạo lịch sử"
 ---
 
 # Tài liệu Trình chỉnh sửa trực quan Intlayer

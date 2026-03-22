@@ -17,10 +17,10 @@ applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
 history:
   - version: 8.0.0
     date: 2025-12-30
-    changes: Thêm lệnh init
+    changes: "Thêm lệnh init"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Khởi tạo lịch sử
+    changes: "Khởi tạo lịch sử"
 ---
 
 # Dịch trang web Angular của bạn bằng Intlayer | Quốc tế hóa (i18n)

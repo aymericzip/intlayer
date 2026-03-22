@@ -19,10 +19,10 @@ applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Dodaj polecenie init
+    changes: "Dodaj polecenie init"
   - version: 6.2.0
     date: 2025-10-03
-    changes: Odświeżenie integracji z Astro, konfiguracji, użytkowania
+    changes: "Odświeżenie integracji z Astro, konfiguracji, użytkowania"
 ---
 
 ### Idź dalej

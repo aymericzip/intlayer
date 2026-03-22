@@ -18,16 +18,16 @@ slugs:
 history:
   - version: 6.1.5
     date: 2025-09-30
-    changes: Добавлено демонстрационное gif
+    changes: "Добавлено демонстрационное gif"
   - version: 6.1.0
     date: 2025-09-24
-    changes: Добавлен раздел выбора окружения
+    changes: "Добавлен раздел выбора окружения"
   - version: 6.0.0
     date: 2025-09-22
-    changes: Вкладка Intlayer / команды Fill & Test
+    changes: "Вкладка Intlayer / команды Fill & Test"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Инициализация истории
+    changes: "Инициализация истории"
 ---
 
 # Официальное расширение VS Code

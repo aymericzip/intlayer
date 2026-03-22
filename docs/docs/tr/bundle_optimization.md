@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-11-25
-    changes: Başlangıç geçmişi
+    changes: "Başlangıç geçmişi"
 ---
 
 # i18n Paket Boyutu ve Performansını Optimize Etme

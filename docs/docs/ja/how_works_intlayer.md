@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初期履歴
+    changes: "初期履歴"
 ---
 
 # Intlayerの仕組み

@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-29
-    changes: 初始化文档
+    changes: "初始化文档"
 ---
 
 # intlayer Hono 中间件文档

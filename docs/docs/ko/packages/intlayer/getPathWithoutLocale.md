@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 초기 이력
+    changes: "초기 이력"
 ---
 
 # 문서: `intlayer`의 `getPathWithoutLocale` 함수
@@ -33,7 +33,6 @@ history:
 ## 매개변수
 
 - `inputUrl: string`
-
   - **설명**: 처리할 전체 URL 문자열 또는 경로명입니다.
   - **타입**: `string`
 

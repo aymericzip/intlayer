@@ -18,16 +18,16 @@ slugs:
 history:
   - version: 6.1.5
     date: 2025-09-30
-    changes: 添加演示动图
+    changes: "添加演示动图"
   - version: 6.1.0
     date: 2025-09-24
-    changes: 新增环境选择章节
+    changes: "新增环境选择章节"
   - version: 6.0.0
     date: 2025-09-22
-    changes: Intlayer 标签页 / 填充与测试命令
+    changes: "Intlayer 标签页 / 填充与测试命令"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初始化历史
+    changes: "初始化历史"
 ---
 
 # 官方 VS Code 扩展

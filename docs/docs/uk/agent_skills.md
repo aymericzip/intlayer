@@ -15,7 +15,7 @@ slugs:
 history:
   - version: 8.1.0
     date: 2026-02-09
-    changes: Ініціалізація
+    changes: "Ініціалізація"
 ---
 
 # Навички агента

@@ -19,43 +19,43 @@ slugs:
 history:
   - version: 7.5.11
     date: 2026-01-06
-    changes: projects list komutu eklendi
+    changes: "projects list komutu eklendi"
   - version: 7.5.9
     date: 2025-12-30
-    changes: init komutu eklendi
+    changes: "init komutu eklendi"
   - version: 7.2.3
     date: 2025-11-22
-    changes: Transform komutu eklendi
+    changes: "Transform komutu eklendi"
   - version: 7.1.0
     date: 2025-11-05
-    changes: Translate komutuna skipIfExists seçeneği eklendi
+    changes: "Translate komutuna skipIfExists seçeneği eklendi"
   - version: 6.1.4
     date: 2025-01-27
-    changes: CLI argümanları ve komutları için takma adlar eklendi
+    changes: "CLI argümanları ve komutları için takma adlar eklendi"
   - version: 6.1.3
     date: 2025-10-05
-    changes: Komutlara build seçeneği eklendi
+    changes: "Komutlara build seçeneği eklendi"
   - version: 6.1.2
     date: 2025-09-26
-    changes: Versiyon komutu eklendi
+    changes: "Versiyon komutu eklendi"
   - version: 6.1.0
     date: 2025-09-26
-    changes: CLI kullanılarak verbose seçeneği varsayılan olarak true yapıldı
+    changes: "CLI kullanılarak verbose seçeneği varsayılan olarak true yapıldı"
   - version: 6.1.0
     date: 2025-09-23
-    changes: watch komutu ve with seçeneği eklendi
+    changes: "watch komutu ve with seçeneği eklendi"
   - version: 6.0.1
     date: 2025-09-23
-    changes: editor komutu eklendi
+    changes: "editor komutu eklendi"
   - version: 6.0.0
     date: 2025-09-17
-    changes: content test ve list komutları eklendi
+    changes: "content test ve list komutları eklendi"
   - version: 5.5.11
     date: 2025-07-11
-    changes: CLI komut parametreleri dokümantasyonu güncellendi
+    changes: "CLI komut parametreleri dokümantasyonu güncellendi"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Başlangıç geçmişi
+    changes: "Başlangıç geçmişi"
 ---
 
 # Intlayer CLI

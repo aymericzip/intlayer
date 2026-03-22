@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: Реалізовано користувацькі правила перезапису URL
+    changes: "Реалізовано користувацькі правила перезапису URL"
 ---
 
 # Документація: функція `getCanonicalPath` у `intlayer`

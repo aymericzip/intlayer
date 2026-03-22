@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 7.5.12
     date: 2026-01-06
-    changes: list projects komutuna mutlak çıktı seçeneği ekle
+    changes: "list projects komutuna mutlak çıktı seçeneği ekle"
 ---
 
 # Intlayer Projelerini Listele

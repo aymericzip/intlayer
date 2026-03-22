@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 5.7.2
     date: 2025-07-27
-    changes: Introduction du contenu basé sur le genre
+    changes: "Introduction du contenu basé sur le genre"
 ---
 
 # Contenu basé sur le genre / Genre dans Intlayer

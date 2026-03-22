@@ -22,13 +22,13 @@ youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: init कमांड जोड़ें
+    changes: "init कमांड जोड़ें"
   - version: 6.1.5
     date: 2025-10-03
-    changes: दस्तावेज़ अपडेट किया गया
+    changes: "दस्तावेज़ अपडेट किया गया"
   - version: 5.8.2
     date: 2025-09-04
-    changes: React Router v7 के लिए जोड़ा
+    changes: "React Router v7 के लिए जोड़ा"
 ---
 
 # Intlayer के साथ अपना React Router v7 अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)

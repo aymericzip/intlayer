@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: प्रारंभिक इतिहास
+    changes: "प्रारंभिक इतिहास"
 ---
 
 # दस्तावेज़ीकरण: `intlayer` में `getHTMLTextDir` फ़ंक्शन
@@ -33,7 +33,6 @@ history:
 ## पैरामीटर
 
 - `locale?: Locales`
-
   - **विवरण**: टेक्स्ट दिशा निर्धारित करने के लिए उपयोग किया गया लोकल स्ट्रिंग (जैसे, `Locales.ENGLISH`, `Locales.ARABIC`)।
   - **प्रकार**: `Locales` (वैकल्पिक)
 
@@ -76,7 +75,6 @@ getHTMLTextDir(Locales.ARABIC); // आउटपुट: "rtl"
 ## किनारे के मामले
 
 - **कोई लोकल प्रदान नहीं किया गया:**
-
   - जब `locale` `undefined` होता है, तो फ़ंक्शन `'auto'` लौटाता है।
 
 - **अमान्य लोकल:**

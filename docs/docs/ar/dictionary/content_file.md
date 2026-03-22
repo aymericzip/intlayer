@@ -14,25 +14,25 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-28
-    changes: إضافة نوع عقدة المحتوى `html`
+    changes: "إضافة نوع عقدة المحتوى `html`"
   - version: 8.0.0
     date: 2026-01-24
-    changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
+    changes: "Rename `live` import mode to `fetch` to better describe the underlying mechanism."
   - version: 8.0.0
     date: 2026-01-18
-    changes: إضافة خيارات القاموس `location` و `schema`
+    changes: "إضافة خيارات القاموس `location` و `schema`"
   - version: 7.5.13
     date: 2026-01-10
-    changes: إضافة دعم لتنسيقات ملفات JSON5 و JSONC
+    changes: "إضافة دعم لتنسيقات ملفات JSON5 و JSONC"
   - version: 7.5.0
     date: 2025-12-13
-    changes: إضافة دعم تنسيقات ICU و i18next
+    changes: "إضافة دعم تنسيقات ICU و i18next"
   - version: 6.0.0
     date: 2025-09-20
-    changes: إضافة توثيق الحقول
+    changes: "إضافة توثيق الحقول"
   - version: 5.5.10
     date: 2025-06-29
-    changes: بدء السجل
+    changes: "بدء السجل"
 ---
 
 # ملف المحتوى

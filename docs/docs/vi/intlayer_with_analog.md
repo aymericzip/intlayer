@@ -18,7 +18,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer/tree/main/examples/a
 history:
   - version: 8.0.4
     date: 2026-01-26
-    changes: Khởi tạo lịch sử
+    changes: "Khởi tạo lịch sử"
 ---
 
 # Dịch ứng dụng Analog (Angular) của bạn bằng Intlayer | Quốc tế hóa (i18n)

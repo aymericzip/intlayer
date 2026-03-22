@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-29
-    changes: Initialisation de la doc
+    changes: "Initialisation de la doc"
 ---
 
 # Documentation du Middleware Hono intlayer

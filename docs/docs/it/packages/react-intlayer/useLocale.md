@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inizio cronologia
+    changes: "Inizio cronologia"
 ---
 
 # Integrazione React: Documentazione Hook `useLocale`

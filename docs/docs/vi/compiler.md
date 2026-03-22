@@ -22,13 +22,13 @@ slugs:
 history:
   - version: 8.2.0
     date: 2026-03-09
-    changes: Cập nhật các tùy chọn trình biên dịch, thêm hỗ trợ FilePathPattern
+    changes: "Cập nhật các tùy chọn trình biên dịch, thêm hỗ trợ FilePathPattern"
   - version: 8.1.7
     date: 2026-02-25
-    changes: Cập nhật các tùy chọn trình biên dịch
+    changes: "Cập nhật các tùy chọn trình biên dịch"
   - version: 7.3.1
     date: 2025-11-27
-    changes: Phát hành Trình Biên Dịch
+    changes: "Phát hành Trình Biên Dịch"
 ---
 
 # Trình Biên Dịch Intlayer | Trích Xuất Nội Dung Tự Động cho i18n

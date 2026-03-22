@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 7.5.12
     date: 2026-01-06
-    changes: Додано опцію виведення абсолютних шляхів для команди list projects
+    changes: "Додано опцію виведення абсолютних шляхів для команди list projects"
 ---
 
 # Перелік проєктів Intlayer

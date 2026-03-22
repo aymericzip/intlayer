@@ -22,16 +22,16 @@ youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: إضافة أمر init
+    changes: "إضافة أمر init"
   - version: 7.5.6
     date: 2025-12-27
-    changes: تحديث التخطيط ومعالجة 404
+    changes: "تحديث التخطيط ومعالجة 404"
   - version: 6.1.5
     date: 2025-10-03
-    changes: تحديث الوثيقة
+    changes: "تحديث الوثيقة"
   - version: 5.8.2
     date: 2025-09-04
-    changes: أضيف دعم React Router v7
+    changes: "أضيف دعم React Router v7"
 ---
 
 # ترجم React Router v7 باستخدام Intlayer | التدويل (i18n)

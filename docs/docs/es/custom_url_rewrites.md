@@ -15,7 +15,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-25
-    changes: Implementar reescrituras de URL centralizadas con formateadores específicos por framework y el hook useRewriteURL.
+    changes: "Implementar reescrituras de URL centralizadas con formateadores específicos por framework y el hook useRewriteURL."
 ---
 
 # Implementación de reescrituras de URL personalizadas

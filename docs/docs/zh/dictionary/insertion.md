@@ -19,10 +19,10 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-18
-    changes: 自动装饰插入内容
+    changes: "自动装饰插入内容"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初始化历史
+    changes: "初始化历史"
 ---
 
 # 插入内容 / Intlayer 中的插入

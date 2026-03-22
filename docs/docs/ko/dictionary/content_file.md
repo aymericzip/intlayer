@@ -14,22 +14,22 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-28
-    changes: `html` 콘텐츠 노드 타입 추가
+    changes: "`html` 콘텐츠 노드 타입 추가"
   - version: 8.0.0
     date: 2026-01-24
-    changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
+    changes: "Rename `live` import mode to `fetch` to better describe the underlying mechanism."
   - version: 8.0.0
     date: 2026-01-18
-    changes: 사전 옵션 `location` 및 `schema` 추가
+    changes: "사전 옵션 `location` 및 `schema` 추가"
   - version: 7.5.0
     date: 2025-12-13
-    changes: ICU 및 i18next 형식 지원 추가
+    changes: "ICU 및 i18next 형식 지원 추가"
   - version: 6.0.0
     date: 2025-09-20
-    changes: 필드 문서 추가
+    changes: "필드 문서 추가"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 이력 초기화
+    changes: "이력 초기화"
 ---
 
 # 콘텐츠 파일

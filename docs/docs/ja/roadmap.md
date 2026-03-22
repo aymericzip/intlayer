@@ -16,10 +16,10 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-30
-    changes: PreactおよびNuxtサポートの追加、MCPサーバー、CLIの更新
+    changes: "PreactおよびNuxtサポートの追加、MCPサーバー、CLIの更新"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴の初期化
+    changes: "履歴の初期化"
 ---
 
 # Intlayer: 機能概要とロードマップ

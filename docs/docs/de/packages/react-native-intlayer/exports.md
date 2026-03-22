@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: Vereinheitlichte Dokumentation für alle Exporte
+    changes: "Vereinheitlichte Dokumentation für alle Exporte"
 ---
 
 # react-native-intlayer-Paket

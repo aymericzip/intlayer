@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 이력 초기화
+    changes: "이력 초기화"
 ---
 
 # 문서: `intlayer`의 `getMultilingualUrls` 함수
@@ -35,18 +35,15 @@ history:
 ## 매개변수
 
 - `url: string`
-
   - **설명**: 로케일 접두사를 붙일 원본 URL 문자열입니다.
   - **타입**: `string`
 
 - `locales: Locales[]`
-
   - **설명**: 선택적 지원 로케일 배열입니다. 프로젝트에 구성된 로케일이 기본값입니다.
   - **타입**: `Locales[]`
   - **기본값**: `localesDefault`
 
 - `defaultLocale: Locales`
-
   - **설명**: 애플리케이션의 기본 로케일입니다. 프로젝트에 구성된 기본 로케일이 기본값입니다.
   - **타입**: `Locales`
   - **기본값**: `defaultLocaleDefault`
@@ -132,11 +129,9 @@ getMultilingualUrls(
 ## 예외 상황
 
 - **로케일 세그먼트 없음:**
-
   - 함수는 다국어 매핑을 생성하기 전에 URL에서 기존의 로케일 세그먼트를 제거합니다.
 
 - **기본 로케일:**
-
   - `prefixDefault`가 `false`일 때, 함수는 기본 로케일에 대해 URL에 접두사를 붙이지 않습니다.
 
 - **지원되지 않는 로케일:**

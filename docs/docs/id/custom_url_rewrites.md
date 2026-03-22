@@ -15,7 +15,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-25
-    changes: Mengimplementasikan penulisan ulang URL terpusat dengan formatter spesifik-framework dan hook useRewriteURL.
+    changes: "Mengimplementasikan penulisan ulang URL terpusat dengan formatter spesifik-framework dan hook useRewriteURL."
 ---
 
 # Implementasi Penulisan Ulang URL Kustom

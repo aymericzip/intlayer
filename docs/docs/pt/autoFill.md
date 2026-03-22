@@ -18,13 +18,13 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-09-20
-    changes: Adicionada configuração global
+    changes: "Adicionada configuração global"
   - version: 6.0.0
     date: 2025-09-17
-    changes: Adicionada variável `{{fileName}}`
+    changes: "Adicionada variável `{{fileName}}`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Histórico inicial
+    changes: "Histórico inicial"
 ---
 
 # Traduções de Arquivos de Declaração de Conteúdo com Preenchimento Automático

@@ -20,7 +20,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: بداية التاريخ
+    changes: "بداية التاريخ"
 ---
 
 # التوثيق: دالة `getTranslation` في `intlayer`
@@ -32,13 +32,11 @@ history:
 ## المعاملات
 
 - `languageContent: CustomizableLanguageContent<Content>`
-
   - **الوصف**: كائن يحتوي على ترجمات لمختلف اللغات. كل مفتاح يمثل لغة، وقيمته هي المحتوى المقابل.
   - **النوع**: `CustomizableLanguageContent<Content>`
     - يمكن أن يكون `Content` أي نوع، مع الافتراضي كـ `string`.
 
 - `locale: Locales`
-
   - **الوصف**: اللغة التي سيتم استرجاع المحتوى الخاص بها.
   - **النوع**: `Locales`
 

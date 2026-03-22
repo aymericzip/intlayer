@@ -20,13 +20,13 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
   - version: 6.0.1
     date: 2025-09-22
-    changes: 라이브 동기화 문서 추가
+    changes: "라이브 동기화 문서 추가"
   - version: 6.0.0
     date: 2025-09-04
-    changes: `hotReload` 필드를 `liveSync`로 교체
+    changes: "`hotReload` 필드를 `liveSync`로 교체"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 이력 초기화
+    changes: "이력 초기화"
 ---
 
 # Intlayer 콘텐츠 관리 시스템(CMS) 문서

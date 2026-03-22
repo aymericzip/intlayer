@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 8.1.5
     date: 2026-02-23
-    changes: Dodaj opcję checkTypes
+    changes: "Dodaj opcję checkTypes"
 ---
 
 # Budowanie słowników

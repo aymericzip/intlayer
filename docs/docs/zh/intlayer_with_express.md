@@ -18,10 +18,10 @@ applicationTemplate: https://github.com/aymericzip/intlayer-express-template
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: 添加 init 命令
+    changes: "添加 init 命令"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初始化历史
+    changes: "初始化历史"
 ---
 
 # 使用Intlayer翻译您的Express backend | 国际化(i18n)

@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-30
-    changes: 초기 문서
+    changes: "초기 문서"
 ---
 
 # intlayer AdonisJS 미들웨어 문서

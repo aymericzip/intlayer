@@ -19,43 +19,43 @@ slugs:
 history:
   - version: 7.5.11
     date: 2026-01-06
-    changes: Ajout de la commande projects list
+    changes: "Ajout de la commande projects list"
   - version: 7.5.9
     date: 2025-12-30
-    changes: Ajout de la commande init
+    changes: "Ajout de la commande init"
   - version: 7.2.3
     date: 2025-11-22
-    changes: Ajout de la commande transform
+    changes: "Ajout de la commande transform"
   - version: 7.1.0
     date: 2025-11-05
-    changes: Ajout de l'option skipIfExists à la commande translate
+    changes: "Ajout de l'option skipIfExists à la commande translate"
   - version: 6.1.4
     date: 2025-01-27
-    changes: Ajout d'alias pour les arguments et commandes CLI
+    changes: "Ajout d'alias pour les arguments et commandes CLI"
   - version: 6.1.3
     date: 2025-10-05
-    changes: Ajout de l'option build aux commandes
+    changes: "Ajout de l'option build aux commandes"
   - version: 6.1.2
     date: 2025-09-26
-    changes: Ajout de la commande version
+    changes: "Ajout de la commande version"
   - version: 6.1.0
     date: 2025-09-26
-    changes: Définir l'option verbose par défaut à true via le CLI
+    changes: "Définir l'option verbose par défaut à true via le CLI"
   - version: 6.1.0
     date: 2025-09-23
-    changes: Ajout de la commande watch et de l'option with
+    changes: "Ajout de la commande watch et de l'option with"
   - version: 6.0.1
     date: 2025-09-23
-    changes: Ajout de la commande editor
+    changes: "Ajout de la commande editor"
   - version: 6.0.0
     date: 2025-09-17
-    changes: Ajout des commandes content test et list
+    changes: "Ajout des commandes content test et list"
   - version: 5.5.11
     date: 2025-07-11
-    changes: Mise à jour de la documentation des paramètres des commandes CLI
+    changes: "Mise à jour de la documentation des paramètres des commandes CLI"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Initialisation de l'historique
+    changes: "Initialisation de l'historique"
 ---
 
 # CLI Intlayer

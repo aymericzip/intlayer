@@ -18,7 +18,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-adonis-template
 history:
   - version: 8.0.0
     date: 2025-12-30
-    changes: Inisialisasi riwayat
+    changes: "Inisialisasi riwayat"
 ---
 
 # Terjemahkan backend AdonisJS Anda menggunakan Intlayer | Internasionalisasi (i18n)

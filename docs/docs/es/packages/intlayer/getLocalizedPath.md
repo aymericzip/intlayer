@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: Implementadas reescrituras de URL personalizadas
+    changes: "Implementadas reescrituras de URL personalizadas"
 ---
 
 # Documentación: Función `getLocalizedPath` de `intlayer`

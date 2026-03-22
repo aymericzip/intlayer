@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴初期化
+    changes: "履歴初期化"
 ---
 
 # ドキュメント: `intlayer` の `getLocalizedUrl` 関数
@@ -35,23 +35,19 @@ history:
 ## パラメーター
 
 - `url: string`
-
   - **説明**: ロケールのプレフィックスを付加する元の URL 文字列。
   - **型**: `string`
 
 - `currentLocale: Locales`
-
   - **説明**: URL をローカライズする対象の現在のロケール。
   - **型**: `Locales`
 
 - `locales: Locales[]`
-
   - **説明**: サポートされているロケールのオプション配列。デフォルトでは、プロジェクトで設定されたロケールが提供されます。
   - **型**: `Locales[]`
   - **デフォルト**: [`プロジェクト設定`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md#middleware)
 
 - `defaultLocale: Locales`
-
   - **説明**: アプリケーションのデフォルトロケール。デフォルトでは、プロジェクトで設定されたデフォルトロケールが提供されます。
   - **型**: `Locales`
   - **デフォルト**: [`プロジェクト設定`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md#middleware)
@@ -176,11 +172,9 @@ getLocalizedUrl(
 ## エッジケース
 
 - **ロケールセグメントがない場合:**
-
   - URLにロケールセグメントが含まれていない場合、関数は適切なロケールを安全にプレフィックスします。
 
 - **デフォルトロケール:**
-
   - `prefixDefault` が `false` の場合、関数はデフォルトロケールのURLにプレフィックスを付けません。
 
 - **サポートされていないロケール:**

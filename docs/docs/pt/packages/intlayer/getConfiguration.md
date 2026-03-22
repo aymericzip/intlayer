@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Histórico inicial
+    changes: "Histórico inicial"
 ---
 
 # Documentação: Função `getConfiguration` em `intlayer`
@@ -40,7 +40,6 @@ A função não recebe nenhum parâmetro. Em vez disso, ela utiliza variáveis d
 
 - **Tipo**: `IntlayerConfig`
 - **Descrição**: Um objeto contendo a configuração completa para o `intlayer`. A configuração inclui as seguintes seções:
-
   - `internationalization`: Configurações relacionadas a locais e modo estrito.
   - `middleware`: Configurações relacionadas ao gerenciamento de URL e cookies.
   - `content`: Configurações relacionadas a arquivos de conteúdo, diretórios e padrões.

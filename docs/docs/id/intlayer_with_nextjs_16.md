@@ -19,13 +19,13 @@ youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Tambahkan perintah init
+    changes: "Tambahkan perintah init"
   - version: 7.0.6
     date: 2025-11-01
-    changes: Menambahkan penyebutan `x-default` dalam objek `alternates`
+    changes: "Menambahkan penyebutan `x-default` dalam objek `alternates`"
   - version: 7.0.0
     date: 2025-06-29
-    changes: Riwayat awal
+    changes: "Riwayat awal"
 ---
 
 # Terjemahkan situs web Next.js 16 Anda menggunakan Intlayer | Internasionalisasi (i18n)

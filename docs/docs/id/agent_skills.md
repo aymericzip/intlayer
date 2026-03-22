@@ -15,7 +15,7 @@ slugs:
 history:
   - version: 8.1.0
     date: 2026-02-09
-    changes: Inisialisasi riwayat
+    changes: "Inisialisasi riwayat"
 ---
 
 # Keterampilan Agen

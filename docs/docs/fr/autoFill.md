@@ -18,13 +18,13 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-09-20
-    changes: Ajout de la configuration globale
+    changes: "Ajout de la configuration globale"
   - version: 6.0.0
     date: 2025-09-17
-    changes: Ajout de la variable `{{fileName}}`
+    changes: "Ajout de la variable `{{fileName}}`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historique initial
+    changes: "Historique initial"
 ---
 
 # Traductions des fichiers de déclaration de contenu avec remplissage automatique
@@ -164,7 +164,7 @@ Cela ne générera que le fichier de traduction français.
 
 ## Variables de chemin
 
- Vous pouvez utiliser des variables dans le chemin `autoFill` pour résoudre dynamiquement les chemins cibles des fichiers générés.
+Vous pouvez utiliser des variables dans le chemin `autoFill` pour résoudre dynamiquement les chemins cibles des fichiers générés.
 
 **Variables disponibles :**
 

@@ -22,13 +22,13 @@ slugs:
 history:
   - version: 8.2.0
     date: 2026-03-09
-    changes: Perbarui opsi kompiler, tambah dukungan FilePathPattern
+    changes: "Perbarui opsi kompiler, tambah dukungan FilePathPattern"
   - version: 8.1.7
     date: 2026-02-25
-    changes: Perbarui opsi kompiler
+    changes: "Perbarui opsi kompiler"
   - version: 7.3.1
     date: 2025-11-27
-    changes: Rilis Compiler
+    changes: "Rilis Compiler"
 ---
 
 # Intlayer Compiler | Ekstraksi Konten Otomatis untuk i18n

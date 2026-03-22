@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初始化历史
+    changes: "初始化历史"
 ---
 
 # 文档：`next-intlayer` 中的 `t` 函数

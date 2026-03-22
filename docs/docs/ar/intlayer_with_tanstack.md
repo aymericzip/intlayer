@@ -21,7 +21,7 @@ youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: إضافة أمر init
+    changes: "إضافة أمر init"
   - version: 7.4.0
     date: 2025-12-11
     changes: "تقديم validatePrefix وإضافة الخطوة 14: معالجة صفحات 404 مع المسارات المترجمة."
@@ -33,13 +33,13 @@ history:
     changes: "إضافة الخطوة 13: تكييف Nitro"
   - version: 7.1.0
     date: 2025-11-17
-    changes: إصلاح الافتراضي للبادئة عن طريق إضافة وظيفة getPrefix واستخدام useLocalizedNavigate و LocaleSwitcher و LocalizedLink.
+    changes: "إصلاح الافتراضي للبادئة عن طريق إضافة وظيفة getPrefix واستخدام useLocalizedNavigate و LocaleSwitcher و LocalizedLink."
   - version: 6.5.2
     date: 2025-10-03
-    changes: تحديث التوثيق
+    changes: "تحديث التوثيق"
   - version: 5.8.1
     date: 2025-09-09
-    changes: تمت الإضافة لـ TanStack Start
+    changes: "تمت الإضافة لـ TanStack Start"
 ---
 
 # ترجم موقع TanStack Start الخاص بك باستخدام Intlayer | التدويل (i18n)

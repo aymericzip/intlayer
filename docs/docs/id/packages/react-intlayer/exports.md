@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 7.5.14
     date: 2026-01-21
-    changes: Dokumentasi terpadu untuk semua ekspor
+    changes: "Dokumentasi terpadu untuk semua ekspor"
 ---
 
 # Paket react-intlayer

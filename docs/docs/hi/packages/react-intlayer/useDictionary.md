@@ -20,7 +20,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: इतिहास प्रारंभ किया गया
+    changes: "इतिहास प्रारंभ किया गया"
 ---
 
 # React एकीकरण: `useDictionary` हुक दस्तावेज़ीकरण

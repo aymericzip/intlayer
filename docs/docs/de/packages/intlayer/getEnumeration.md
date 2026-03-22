@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Initiale Historie
+    changes: "Initiale Historie"
 ---
 
 # Dokumentation: Funktion `getEnumeration` in `intlayer`
@@ -33,13 +33,11 @@ Die Funktion `getEnumeration` ruft Inhalte ab, die einer bestimmten Menge entspr
 ## Parameter
 
 - `enumerationContent: QuantityContent<Content>`
-
   - **Beschreibung**: Ein Objekt, bei dem die Schlüssel Bedingungen darstellen (z. B. `<=`, `<`, `>=`, `=`) und die Werte den entsprechenden Inhalt repräsentieren. Die Reihenfolge der Schlüssel definiert die Priorität der Übereinstimmung.
   - **Typ**: `QuantityContent<Content>`
     - `Content` kann jeden Typ haben.
 
 - `quantity: number`
-
   - **Beschreibung**: Der numerische Wert, der verwendet wird, um die Bedingungen in `enumerationContent` abzugleichen.
   - **Typ**: `number`
 
@@ -145,15 +143,12 @@ console.log(content); // Ausgabe: "Du hast weniger als vier"
 ## Randfälle
 
 - **Keine passende Bedingung:**
-
   - Wenn keine Bedingung mit der angegebenen Menge übereinstimmt, gibt die Funktion entweder `undefined` zurück oder behandelt das Standard-/Fallback-Szenario explizit.
 
 - **Mehrdeutige Bedingungen:**
-
   - Wenn Bedingungen sich überschneiden, hat die erste passende Bedingung (basierend auf der Reihenfolge im Objekt) Vorrang.
 
 - **Ungültige Schlüssel:**
-
   - Die Funktion geht davon aus, dass alle Schlüssel in `enumerationContent` gültig und als Bedingungen interpretierbar sind. Ungültige oder falsch formatierte Schlüssel können zu unerwartetem Verhalten führen.
 
 - **TypeScript-Überprüfung:**

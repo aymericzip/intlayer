@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴の初期化
+    changes: "履歴の初期化"
 ---
 
 # React統合: `useLocale` フック ドキュメント

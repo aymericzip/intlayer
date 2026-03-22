@@ -18,13 +18,13 @@ applicationTemplate: https://github.com/aymericzip/intlayer-vite-preact-template
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Dodaj polecenie init
+    changes: "Dodaj polecenie init"
   - version: 7.0.0
     date: 2025-10-28
-    changes: Aktualizacja komponentu LocaleRouter do użycia nowej konfiguracji tras
+    changes: "Aktualizacja komponentu LocaleRouter do użycia nowej konfiguracji tras"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inicjalizacja historii
+    changes: "Inicjalizacja historii"
 ---
 
 # Przetłumacz swoją stronę Vite i Preact za pomocą Intlayer | Internacjonalizacja (i18n)

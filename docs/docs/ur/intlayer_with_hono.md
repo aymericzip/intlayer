@@ -18,10 +18,10 @@ applicationTemplate: https://github.com/aymericzip/intlayer-hono-template
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: init کمانڈ شامل کی گئی۔
+    changes: "init کمانڈ شامل کی گئی۔"
   - version: 5.5.10
     date: 2025-06-29
-    changes: تاریخ کا آغاز (Init history)
+    changes: "تاریخ کا آغاز (Init history)"
 ---
 
 # Intlayer کا استعمال کرتے ہوئے اپنی Hono بیک اینڈ ویب سائٹ کا ترجمہ کریں | بین الاقوامی بنانا (i18n)

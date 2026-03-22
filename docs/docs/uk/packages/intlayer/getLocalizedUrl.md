@@ -24,7 +24,7 @@ history:
     changes: "Рефакторинг: використання параметра options з полем mode замість prefixDefault"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Ініціалізація історії
+    changes: "Ініціалізація історії"
 ---
 
 # Документація: функція `getLocalizedUrl` у `intlayer`

@@ -21,13 +21,13 @@ title: Dokumentasi Hook useLocale | next-intlayer
 history:
   - version: 8.0.0
     date: 2026-01-26
-    changes: Mengatur `onLocaleChange` default ke `replace`
+    changes: "Mengatur `onLocaleChange` default ke `replace`"
   - version: 6.2.0
     date: 2025-10-09
-    changes: Menambahkan dokumentasi untuk hook `useLocale` dengan opsi `onLocaleChange`
+    changes: "Menambahkan dokumentasi untuk hook `useLocale` dengan opsi `onLocaleChange`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inisialisasi riwayat
+    changes: "Inisialisasi riwayat"
 ---
 
 # Integrasi Next.js: Dokumentasi Hook `useLocale` untuk `next-intlayer`

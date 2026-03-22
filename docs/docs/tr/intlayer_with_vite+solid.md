@@ -18,10 +18,10 @@ applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: init komutu ekle
+    changes: "init komutu ekle"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Geçmiş başlatıldı
+    changes: "Geçmiş başlatıldı"
 ---
 
 # Intlayer ile Vite and Solid çevirin | Uluslararasılaştırma (i18n)

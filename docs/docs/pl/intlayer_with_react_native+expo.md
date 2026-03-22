@@ -18,13 +18,13 @@ applicationTemplate: https://github.com/aymericzip/intlayer-react-native-templat
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Dodaj polecenie init
+    changes: "Dodaj polecenie init"
   - version: 6.1.6
     date: 2025-10-02
-    changes: Dodano sekcję debugowania
+    changes: "Dodano sekcję debugowania"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inicjalizacja historii
+    changes: "Inicjalizacja historii"
 ---
 
 # Przetłumacz swoją aplikację Expo i React Native | Internacjonalizacja (i18n)

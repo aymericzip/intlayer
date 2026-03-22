@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: Implementar reescritas de URL personalizadas
+    changes: "Implementar reescritas de URL personalizadas"
 ---
 
 # Documentação da função `getCanonicalPath` em `intlayer`

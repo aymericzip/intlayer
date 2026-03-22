@@ -19,43 +19,43 @@ slugs:
 history:
   - version: 7.5.11
     date: 2026-01-06
-    changes: Добавлена команда projects list
+    changes: "Добавлена команда projects list"
   - version: 7.5.9
     date: 2025-12-30
-    changes: Добавлена команда init
+    changes: "Добавлена команда init"
   - version: 7.2.3
     date: 2025-11-22
-    changes: Добавлена команда transform
+    changes: "Добавлена команда transform"
   - version: 7.1.0
     date: 2025-11-05
-    changes: Добавлена опция skipIfExists для команды translate
+    changes: "Добавлена опция skipIfExists для команды translate"
   - version: 6.1.4
     date: 2025-01-27
-    changes: Добавлены псевдонимы для аргументов и команд CLI
+    changes: "Добавлены псевдонимы для аргументов и команд CLI"
   - version: 6.1.3
     date: 2025-10-05
-    changes: Добавлена опция build для команд
+    changes: "Добавлена опция build для команд"
   - version: 6.1.2
     date: 2025-09-26
-    changes: Добавлена команда version
+    changes: "Добавлена команда version"
   - version: 6.1.0
     date: 2025-09-26
-    changes: Установлена опция verbose по умолчанию в true через CLI
+    changes: "Установлена опция verbose по умолчанию в true через CLI"
   - version: 6.1.0
     date: 2025-09-23
-    changes: Добавлена команда watch и опция with
+    changes: "Добавлена команда watch и опция with"
   - version: 6.0.1
     date: 2025-09-23
-    changes: Добавлена команда editor
+    changes: "Добавлена команда editor"
   - version: 6.0.0
     date: 2025-09-17
-    changes: Добавлены команды content test и list
+    changes: "Добавлены команды content test и list"
   - version: 5.5.11
     date: 2025-07-11
-    changes: Обновлена документация параметров команд CLI
+    changes: "Обновлена документация параметров команд CLI"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Инициализация истории
+    changes: "Инициализация истории"
 ---
 
 # Intlayer CLI

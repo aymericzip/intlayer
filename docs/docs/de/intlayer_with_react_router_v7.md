@@ -22,16 +22,16 @@ youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Init-Befehl hinzufügen
+    changes: "Init-Befehl hinzufügen"
   - version: 7.5.6
     date: 2025-12-27
-    changes: Layout aktualisieren und 404 behandeln
+    changes: "Layout aktualisieren und 404 behandeln"
   - version: 6.1.5
     date: 2025-10-03
-    changes: Dokumentation aktualisiert
+    changes: "Dokumentation aktualisiert"
   - version: 5.8.2
     date: 2025-09-04
-    changes: Hinzugefügt für React Router v7
+    changes: "Hinzugefügt für React Router v7"
 ---
 
 # Übersetzen Sie Ihre React Router v7 mit Intlayer | Internationalisierung (i18n)

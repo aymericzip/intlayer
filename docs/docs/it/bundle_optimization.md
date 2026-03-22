@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-11-25
-    changes: Inizializzazione della cronologia
+    changes: "Inizializzazione della cronologia"
 ---
 
 # Ottimizzazione della Dimensione e delle Prestazioni del Bundle i18n

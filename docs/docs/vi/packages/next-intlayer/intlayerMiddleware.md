@@ -19,10 +19,10 @@ slugs:
 history:
   - version: 8.1.7
     date: 2026-02-25
-    changes: Đổi tên intlayerMiddleware thành intlayerProxy
+    changes: "Đổi tên intlayerMiddleware thành intlayerProxy"
   - version: 8.0.0
     date: 2026-01-21
-    changes: Khởi tạo tài liệu
+    changes: "Khởi tạo tài liệu"
 ---
 
 # Tài liệu intlayerProxy (intlayerMiddleware)

@@ -17,16 +17,16 @@ slugs:
 history:
   - version: 5.5.12
     date: 2025-07-11
-    changes: Einrichtung von ChatGPT hinzugefügt
+    changes: "Einrichtung von ChatGPT hinzugefügt"
   - version: 5.5.12
     date: 2025-07-10
-    changes: Einrichtung von Claude Desktop hinzugefügt
+    changes: "Einrichtung von Claude Desktop hinzugefügt"
   - version: 5.5.12
     date: 2025-07-10
-    changes: SSE-Transport und entfernten Server hinzugefügt
+    changes: "SSE-Transport und entfernten Server hinzugefügt"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historie initialisieren
+    changes: "Historie initialisieren"
 ---
 
 # Intlayer MCP Server

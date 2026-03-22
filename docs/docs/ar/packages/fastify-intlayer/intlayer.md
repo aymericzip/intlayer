@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: بدء التوثيق
+    changes: "بدء التوثيق"
 ---
 
 # توثيق مكوّن intlayer لـ Fastify

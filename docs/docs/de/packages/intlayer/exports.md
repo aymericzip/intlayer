@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: Einheitliche Dokumentation für alle Exporte
+    changes: "Einheitliche Dokumentation für alle Exporte"
 ---
 
 # intlayer-Paket

@@ -18,10 +18,10 @@ applicationTemplate: https://github.com/aymericzip/intlayer-hono-template
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Thêm lệnh init
+    changes: "Thêm lệnh init"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Khởi tạo lịch sử
+    changes: "Khởi tạo lịch sử"
 ---
 
 # Dịch website backend Hono của bạn bằng Intlayer | Quốc tế hóa (i18n)

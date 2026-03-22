@@ -21,13 +21,13 @@ title: Tài liệu Hook useLocale | next-intlayer
 history:
   - version: 8.0.0
     date: 2026-01-26
-    changes: Mặc định `onLocaleChange` thành `replace`
+    changes: "Mặc định `onLocaleChange` thành `replace`"
   - version: 6.2.0
     date: 2025-10-09
-    changes: Thêm tài liệu cho hook `useLocale` với tùy chọn `onLocaleChange`
+    changes: "Thêm tài liệu cho hook `useLocale` với tùy chọn `onLocaleChange`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Khởi tạo lịch sử
+    changes: "Khởi tạo lịch sử"
 ---
 
 # Tích hợp Next.js: Tài liệu Hook `useLocale` cho `next-intlayer`

@@ -19,13 +19,13 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: Thêm MarkdownRenderer / useMarkdownRenderer / tiện ích renderMarkdown và tùy chọn forceInline
+    changes: "Thêm MarkdownRenderer / useMarkdownRenderer / tiện ích renderMarkdown và tùy chọn forceInline"
   - version: 8.0.0
     date: 2026-01-18
-    changes: Tự động trang trí nội dung markdown, hỗ trợ MDX và SSR
+    changes: "Tự động trang trí nội dung markdown, hỗ trợ MDX và SSR"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Khởi tạo lịch sử
+    changes: "Khởi tạo lịch sử"
 ---
 
 # Markdown / Nội dung văn bản đa dạng

@@ -24,10 +24,10 @@ youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: initコマンドを追加
+    changes: "initコマンドを追加"
   - version: 7.3.4
     date: 2025-12-08
-    changes: Init history
+    changes: "Init history"
 ---
 
 # IntlayerでReact Router v7（fs-routes）を翻訳する | 国際化（i18n）

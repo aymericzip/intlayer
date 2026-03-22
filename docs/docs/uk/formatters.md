@@ -21,25 +21,25 @@ slugs:
 history:
   - version: 6.2.0
     date: 2025-10-14
-    changes: Видалено getIntlayerAsync з форматерів
+    changes: "Видалено getIntlayerAsync з форматерів"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Додано форматери для Vue
+    changes: "Додано форматери для Vue"
   - version: 5.8.0
     date: 2025-08-18
-    changes: Додано документацію щодо форматерів
+    changes: "Додано документацію щодо форматерів"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Додано документацію для форматера списків
+    changes: "Додано документацію для форматера списків"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Додано додаткові утиліти Intl (DisplayNames, Collator, PluralRules)
+    changes: "Додано додаткові утиліти Intl (DisplayNames, Collator, PluralRules)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Додано утиліти для локалі (getLocaleName, getLocaleLang, getLocaleFromPath тощо)
+    changes: "Додано утиліти для локалі (getLocaleName, getLocaleLang, getLocaleFromPath тощо)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Додано утиліти обробки контенту (getContent, getTranslation, getIntlayer тощо)
+    changes: "Додано утиліти обробки контенту (getContent, getTranslation, getIntlayer тощо)"
 ---
 
 # Форматери Intlayer

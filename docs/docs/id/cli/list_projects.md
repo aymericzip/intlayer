@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 7.5.12
     date: 2026-01-06
-    changes: Tambahkan opsi output absolut ke perintah list projects
+    changes: "Tambahkan opsi output absolut ke perintah list projects"
 ---
 
 # Daftar Proyek Intlayer

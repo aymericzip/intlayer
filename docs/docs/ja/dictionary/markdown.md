@@ -19,13 +19,13 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: MarkdownRenderer / useMarkdownRenderer / renderMarkdown ユーティリティと forceInline オプションを追加
+    changes: "MarkdownRenderer / useMarkdownRenderer / renderMarkdown ユーティリティと forceInline オプションを追加"
   - version: 8.0.0
     date: 2026-01-18
-    changes: マークダウンコンテンツの自動装飾、MDXおよびSSRサポート
+    changes: "マークダウンコンテンツの自動装飾、MDXおよびSSRサポート"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴の初期化
+    changes: "履歴の初期化"
 ---
 
 # マークダウン / リッチテキストコンテンツ

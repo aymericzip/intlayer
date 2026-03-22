@@ -19,10 +19,10 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-18
-    changes: 삽입 콘텐츠의 자동 장식
+    changes: "삽입 콘텐츠의 자동 장식"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 이력 초기화
+    changes: "이력 초기화"
 ---
 
 # 삽입 콘텐츠 / Intlayer에서의 삽입

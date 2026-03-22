@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: Tüm dışa aktarımlar için birleştirilmiş belgeler
+    changes: "Tüm dışa aktarımlar için birleştirilmiş belgeler"
 ---
 
 # angular-intlayer Paketi

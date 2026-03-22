@@ -19,10 +19,10 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-18
-    changes: Decorazione automatica del contenuto di inserimento
+    changes: "Decorazione automatica del contenuto di inserimento"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inizio cronologia
+    changes: "Inizio cronologia"
 ---
 
 # Contenuto di Inserimento / Inserimento in Intlayer

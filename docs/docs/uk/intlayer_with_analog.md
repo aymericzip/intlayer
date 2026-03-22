@@ -18,7 +18,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer/tree/main/examples/a
 history:
   - version: 8.0.4
     date: 2026-01-26
-    changes: Ініціалізація історії
+    changes: "Ініціалізація історії"
 ---
 
 # Перекладіть свій додаток Analog (Angular) за допомогою Intlayer | Інтернаціоналізація (i18n)

@@ -22,10 +22,10 @@ youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
   - version: 8.2.0
     date: 2026-03-09
-    changes: Update compiler options, add FilePathPattern support
+    changes: "Update compiler options, add FilePathPattern support"
   - version: 8.1.6
     date: 2026-02-23
-    changes: 최초 릴리스
+    changes: "최초 릴리스"
 ---
 
 # 기존 Next.js 애플리케이션을 다국어(i18n)로 만드는 방법 (i18n 가이드 2026)

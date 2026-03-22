@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-09-20
-    changes: Einführung von Tests
+    changes: "Einführung von Tests"
 ---
 
 # Testen Ihres Inhalts

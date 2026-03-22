@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: بداية التاريخ
+    changes: "بداية التاريخ"
 ---
 
 # التوثيق: دالة `getLocaleLang` في `intlayer`
@@ -33,7 +33,6 @@ history:
 ## المعاملات
 
 - `locale?: Locales`
-
   - **الوصف**: سلسلة الموقع (مثل `Locales.ENGLISH_UNITED_STATES`، `Locales.FRENCH_CANADA`) التي يتم استخراج رمز اللغة منها.
   - **النوع**: `Locales` (اختياري)
 

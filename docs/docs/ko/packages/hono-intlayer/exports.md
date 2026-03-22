@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-29
-    changes: 모든 내보내기에 대한 통합 문서
+    changes: "모든 내보내기에 대한 통합 문서"
 ---
 
 # hono-intlayer 패키지

@@ -20,10 +20,10 @@ youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: init कमांड जोड़ें
+    changes: "init कमांड जोड़ें"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
 ---
 
 # Intlayer का उपयोग करके अपनी Vite और React वेबसाइट का अनुवाद करें | अंतरराष्ट्रीयकरण (i18n)

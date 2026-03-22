@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Lịch sử khởi tạo
+    changes: "Lịch sử khởi tạo"
 ---
 
 # Cách Thức Hoạt Động của Intlayer

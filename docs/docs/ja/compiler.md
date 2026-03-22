@@ -22,13 +22,13 @@ slugs:
 history:
   - version: 8.2.0
     date: 2026-03-09
-    changes: コンパイラーオプションの更新、FilePathPattern のサポート追加
+    changes: "コンパイラーオプションの更新、FilePathPattern のサポート追加"
   - version: 8.1.7
     date: 2026-02-25
-    changes: コンパイラーオプションの更新
+    changes: "コンパイラーオプションの更新"
   - version: 7.3.1
     date: 2025-11-27
-    changes: コンパイラーリリース
+    changes: "コンパイラーリリース"
 ---
 
 # Intlayer コンパイラー | i18n のための自動コンテンツ抽出

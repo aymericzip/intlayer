@@ -17,16 +17,16 @@ slugs:
 history:
   - version: 5.5.12
     date: 2025-07-11
-    changes: Додано налаштування ChatGPT
+    changes: "Додано налаштування ChatGPT"
   - version: 5.5.12
     date: 2025-07-10
-    changes: Додано налаштування Claude Desktop
+    changes: "Додано налаштування Claude Desktop"
   - version: 5.5.12
     date: 2025-07-10
-    changes: Додано SSE-транспорт і віддалений сервер
+    changes: "Додано SSE-транспорт і віддалений сервер"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Ініціалізовано історію
+    changes: "Ініціалізовано історію"
 ---
 
 # Документація MCP Server

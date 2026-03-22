@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: 添加 init 命令
+    changes: "添加 init 命令"
 ---
 
 # 初始化 Intlayer

@@ -19,13 +19,13 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: Menambahkan utilitas MarkdownRenderer / useMarkdownRenderer / renderMarkdown dan opsi forceInline
+    changes: "Menambahkan utilitas MarkdownRenderer / useMarkdownRenderer / renderMarkdown dan opsi forceInline"
   - version: 8.0.0
     date: 2026-01-18
-    changes: Dekorasi otomatis konten markdown, dukungan MDX dan SSR
+    changes: "Dekorasi otomatis konten markdown, dukungan MDX dan SSR"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inisialisasi riwayat
+    changes: "Inisialisasi riwayat"
 ---
 
 # Markdown / Konten Teks Kaya

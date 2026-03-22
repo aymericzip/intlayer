@@ -18,13 +18,13 @@ applicationTemplate: https://github.com/aymericzip/intlayer-vite-svelte-template
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Agregar comando init
+    changes: "Agregar comando init"
   - version: 5.5.11
     date: 2025-11-19
-    changes: Actualización de la documentación
+    changes: "Actualización de la documentación"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inicio del historial
+    changes: "Inicio del historial"
 ---
 
 # Traduce tu sitio web Vite y Svelte usando Intlayer | Internacionalización (i18n)

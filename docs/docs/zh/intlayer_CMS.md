@@ -20,13 +20,13 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
   - version: 6.0.1
     date: 2025-09-22
-    changes: 添加实时同步文档
+    changes: "添加实时同步文档"
   - version: 6.0.0
     date: 2025-09-04
-    changes: 用 `liveSync` 字段替换 `hotReload` 字段
+    changes: "用 `liveSync` 字段替换 `hotReload` 字段"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初始化历史记录
+    changes: "初始化历史记录"
 ---
 
 # Intlayer 内容管理系统（CMS）文档

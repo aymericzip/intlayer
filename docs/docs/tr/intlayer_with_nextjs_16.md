@@ -19,13 +19,13 @@ youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: init komutu ekle
+    changes: "init komutu ekle"
   - version: 7.0.6
     date: 2025-11-01
-    changes: Alternates nesnesine `x-default` ifadesi eklendi
+    changes: "Alternates nesnesine `x-default` ifadesi eklendi"
   - version: 7.0.0
     date: 2025-06-29
-    changes: Başlangıç geçmişi
+    changes: "Başlangıç geçmişi"
 ---
 
 # Intlayer kullanarak Next.js 16 web sitenizi çevirin | Uluslararasılaştırma (i18n)

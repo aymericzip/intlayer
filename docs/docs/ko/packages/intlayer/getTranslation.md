@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 초기 이력
+    changes: "초기 이력"
 ---
 
 # 문서: `intlayer`의 `getTranslationContent` 함수
@@ -33,13 +33,11 @@ history:
 ## 매개변수
 
 - `languageContent: CustomizableLanguageContent<Content>`
-
   - **설명**: 여러 로케일에 대한 번역을 포함하는 객체입니다. 각 키는 로케일을 나타내며, 값은 해당 로케일에 맞는 콘텐츠입니다.
   - **타입**: `CustomizableLanguageContent<Content>`
     - `Content`는 기본적으로 `string` 타입이며, 어떤 타입도 될 수 있습니다.
 
 - `locale: Locales`
-
   - **설명**: 콘텐츠를 가져올 대상 로케일입니다.
   - **타입**: `Locales`
 

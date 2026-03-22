@@ -15,7 +15,7 @@ slugs:
 history:
   - version: 5.7.2
     date: 2025-07-27
-    changes: Adiciona documentação do locale mapper
+    changes: "Adiciona documentação do locale mapper"
 ---
 
 # Mapeador de Locale

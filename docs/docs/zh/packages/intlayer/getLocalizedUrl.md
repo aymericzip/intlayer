@@ -21,10 +21,10 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初始化历史
+    changes: "初始化历史"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初始化历史记录
+    changes: "初始化历史记录"
 ---
 
 # 文档：`intlayer` 中的 `getLocalizedUrl` 函数
@@ -38,23 +38,19 @@ history:
 ## 参数
 
 - `url: string`
-
   - **描述**：需要添加语言环境前缀的原始 URL 字符串。
   - **类型**：`string`
 
 - `currentLocale: Locales`
-
   - **描述**：当前正在本地化的语言环境。
   - **类型**：`Locales`
 
 - `locales: Locales[]`
-
   - **描述**：可选的支持语言环境数组。默认情况下，提供项目中配置的语言环境。
   - **类型**：`Locales[]`
   - **默认值**：[`项目配置`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md#middleware)
 
 - `defaultLocale: Locales`
-
   - **描述**：应用程序的默认语言环境。默认情况下，提供项目中配置的默认语言环境。
   - **类型**：`Locales`
   - **默认值**：[`项目配置`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md#middleware)
@@ -179,11 +175,9 @@ getLocalizedUrl(
 ## 边缘情况
 
 - **无语言环境段：**
-
   - 如果 URL 中不包含任何语言环境段，函数会安全地添加适当的语言环境前缀。
 
 - **默认语言环境：**
-
   - 当 `prefixDefault` 为 `false` 时，函数不会为默认语言环境添加前缀。
 
 - **不支持的语言环境：**

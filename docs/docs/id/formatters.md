@@ -21,25 +21,25 @@ slugs:
 history:
   - version: 6.2.0
     date: 2025-10-14
-    changes: Menghapus getIntlayerAsync dari formatters
+    changes: "Menghapus getIntlayerAsync dari formatters"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Menambahkan formatters untuk vue
+    changes: "Menambahkan formatters untuk vue"
   - version: 5.8.0
     date: 2025-08-18
-    changes: Menambahkan dokumentasi formatters
+    changes: "Menambahkan dokumentasi formatters"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Menambahkan dokumentasi list formatter
+    changes: "Menambahkan dokumentasi list formatter"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Menambahkan utilitas Intl tambahan (DisplayNames, Collator, PluralRules)
+    changes: "Menambahkan utilitas Intl tambahan (DisplayNames, Collator, PluralRules)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Menambahkan utilitas lokal (getLocaleName, getLocaleLang, getLocaleFromPath, dll.)
+    changes: "Menambahkan utilitas lokal (getLocaleName, getLocaleLang, getLocaleFromPath, dll.)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Menambahkan utilitas penanganan konten (getContent, getTranslation, getIntlayer, dll.)
+    changes: "Menambahkan utilitas penanganan konten (getContent, getTranslation, getIntlayer, dll.)"
 ---
 
 # Formatters Intlayer

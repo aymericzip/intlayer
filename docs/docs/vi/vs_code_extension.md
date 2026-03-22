@@ -18,16 +18,16 @@ slugs:
 history:
   - version: 6.1.5
     date: 2025-09-30
-    changes: Thêm ảnh gif demo
+    changes: "Thêm ảnh gif demo"
   - version: 6.1.0
     date: 2025-09-24
-    changes: Thêm phần lựa chọn môi trường
+    changes: "Thêm phần lựa chọn môi trường"
   - version: 6.0.0
     date: 2025-09-22
-    changes: Tab Intlayer / Lệnh Điền & Kiểm tra
+    changes: "Tab Intlayer / Lệnh Điền & Kiểm tra"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Khởi tạo lịch sử
+    changes: "Khởi tạo lịch sử"
 ---
 
 # Tiện ích mở rộng chính thức cho VS Code

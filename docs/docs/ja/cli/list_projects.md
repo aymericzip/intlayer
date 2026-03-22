@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 7.5.12
     date: 2026-01-06
-    changes: list projects コマンドに絶対パス出力オプションを追加
+    changes: "list projects コマンドに絶対パス出力オプションを追加"
 ---
 
 # Intlayer プロジェクトを一覧表示

@@ -16,10 +16,10 @@ slugs:
 history:
   - version: 7.5.12
     date: 2026-01-06
-    changes: list komutuna mutlak çıktı seçeneği eklendi
+    changes: "list komutuna mutlak çıktı seçeneği eklendi"
   - version: 7.5.11
     date: 2026-01-06
-    changes: list komutuna JSON çıktı seçeneği eklendi
+    changes: "list komutuna JSON çıktı seçeneği eklendi"
 ---
 
 # İçerik beyan dosyalarını listele

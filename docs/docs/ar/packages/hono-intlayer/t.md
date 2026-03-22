@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: تهيئة السجل
+    changes: "تهيئة السجل"
 ---
 
 # توثيق: دالة `t` في `hono-intlayer`

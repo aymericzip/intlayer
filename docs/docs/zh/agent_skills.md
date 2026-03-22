@@ -15,7 +15,7 @@ slugs:
 history:
   - version: 8.1.0
     date: 2026-02-09
-    changes: 初始化历史
+    changes: "初始化历史"
 ---
 
 # 代理技能

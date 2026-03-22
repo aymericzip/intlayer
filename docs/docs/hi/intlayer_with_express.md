@@ -18,10 +18,10 @@ applicationTemplate: https://github.com/aymericzip/intlayer-express-template
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: init कमांड जोड़ें
+    changes: "init कमांड जोड़ें"
   - version: 5.5.10
     date: 2025-06-29
-    changes: इतिहास प्रारंभ
+    changes: "इतिहास प्रारंभ"
 ---
 
 # Intlayer के साथ अपना Express backend अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)

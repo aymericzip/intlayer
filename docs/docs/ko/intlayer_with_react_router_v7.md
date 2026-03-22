@@ -22,16 +22,16 @@ youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: init 명령어 추가
+    changes: "init 명령어 추가"
   - version: 7.5.6
     date: 2025-12-27
-    changes: 레이아웃 업데이트 및 404 처리
+    changes: "레이아웃 업데이트 및 404 처리"
   - version: 6.1.5
     date: 2025-10-03
-    changes: 문서 업데이트
+    changes: "문서 업데이트"
   - version: 5.8.2
     date: 2025-09-04
-    changes: React Router v7 지원 추가
+    changes: "React Router v7 지원 추가"
 ---
 
 # Intlayer로 React Router v7 번역하기 | 국제화(i18n)

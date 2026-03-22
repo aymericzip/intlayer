@@ -15,10 +15,10 @@ slugs:
 history:
   - version: 5.8.0
     date: 2025-08-19
-    changes: Actualización de la tabla comparativa
+    changes: "Actualización de la tabla comparativa"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inicio del historial
+    changes: "Inicio del historial"
 ---
 
 # ¿Por qué deberías considerar Intlayer?

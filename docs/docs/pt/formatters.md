@@ -21,22 +21,22 @@ slugs:
 history:
   - version: 5.8.0
     date: 2025-08-20
-    changes: Adicionados formatadores para Vue
+    changes: "Adicionados formatadores para Vue"
   - version: 5.8.0
     date: 2025-08-18
-    changes: Adicionada documentação dos formatadores
+    changes: "Adicionada documentação dos formatadores"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Adicionar documentação do formatador de listas
+    changes: "Adicionar documentação do formatador de listas"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Adicionar utilitários adicionais do Intl (DisplayNames, Collator, PluralRules)
+    changes: "Adicionar utilitários adicionais do Intl (DisplayNames, Collator, PluralRules)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Adicionar utilitários de locale (getLocaleName, getLocaleLang, getLocaleFromPath, etc.)
+    changes: "Adicionar utilitários de locale (getLocaleName, getLocaleLang, getLocaleFromPath, etc.)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Adicionar utilitários para manipulação de conteúdo (getContent, getTranslation, getIntlayer, etc.)
+    changes: "Adicionar utilitários para manipulação de conteúdo (getContent, getTranslation, getIntlayer, etc.)"
 ---
 
 # Formatadores Intlayer

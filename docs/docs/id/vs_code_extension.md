@@ -18,16 +18,16 @@ slugs:
 history:
   - version: 6.1.5
     date: 2025-09-30
-    changes: Menambahkan gif demo
+    changes: "Menambahkan gif demo"
   - version: 6.1.0
     date: 2025-09-24
-    changes: Menambahkan bagian pemilihan lingkungan
+    changes: "Menambahkan bagian pemilihan lingkungan"
   - version: 6.0.0
     date: 2025-09-22
-    changes: Tab Intlayer / Perintah Isi & Uji
+    changes: "Tab Intlayer / Perintah Isi & Uji"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inisialisasi riwayat
+    changes: "Inisialisasi riwayat"
 ---
 
 # Ekstensi VS Code Resmi

@@ -21,10 +21,10 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: HTMLRenderer / useHTMLRenderer / renderHTML 유틸리티 추가
+    changes: "HTMLRenderer / useHTMLRenderer / renderHTML 유틸리티 추가"
   - version: 8.0.0
     date: 2026-01-20
-    changes: HTML 파싱 지원 추가
+    changes: "HTML 파싱 지원 추가"
 ---
 
 # HTML 콘텐츠 / Intlayer의 HTML

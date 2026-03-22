@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初始化历史
+    changes: "初始化历史"
 ---
 
 # 文档：`intlayer` 中的 `getEnumeration` 函数
@@ -33,13 +33,11 @@ history:
 ## 参数
 
 - `enumerationContent: QuantityContent<Content>`
-
   - **描述**：一个对象，键表示条件（例如 `<=`、`<`、`>=`、`=`），值表示对应的内容。键的顺序定义了匹配的优先级。
   - **类型**：`QuantityContent<Content>`
     - `Content` 可以是任意类型。
 
 - `quantity: number`
-
   - **描述**：用于与 `enumerationContent` 中条件匹配的数值。
   - **类型**：`number`
 
@@ -145,15 +143,12 @@ console.log(content); // 输出: "你有少于四个"
 ## 边界情况
 
 - **无匹配条件：**
-
   - 如果没有条件匹配所提供的数量，函数将返回 `undefined` 或者显式处理默认/回退场景。
 
 - **条件重叠：**
-
   - 如果条件重叠，优先使用第一个匹配的条件（基于对象的顺序）。
 
 - **无效键：**
-
   - 该函数假设 `enumerationContent` 中的所有键都是有效且可解析为条件的。无效或格式不正确的键可能导致意外行为。
 
 - **TypeScript 强制：**

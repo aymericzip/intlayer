@@ -21,10 +21,10 @@ title: Документация по хуку useLocale | next-intlayer
 history:
   - version: 8.0.0
     date: 2026-01-26
-    changes: Установлено значение `onLocaleChange` по умолчанию на `replace`
+    changes: "Установлено значение `onLocaleChange` по умолчанию на `replace`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Инициализация истории
+    changes: "Инициализация истории"
 ---
 
 # Интеграция с Next.js: Документация по хуку `useLocale` для `next-intlayer`

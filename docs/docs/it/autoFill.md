@@ -18,13 +18,13 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-09-20
-    changes: Aggiunta configurazione globale
+    changes: "Aggiunta configurazione globale"
   - version: 6.0.0
     date: 2025-09-17
-    changes: Aggiunta variabile `{{fileName}}`
+    changes: "Aggiunta variabile `{{fileName}}`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inizializzazione cronologia
+    changes: "Inizializzazione cronologia"
 ---
 
 # Traduzioni dei File di Dichiarazione del Contenuto con Compilazione Automatica

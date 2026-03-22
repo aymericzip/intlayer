@@ -21,10 +21,10 @@ slugs:
 history:
   - version: 7.5.0
     date: 2025-12-18
-    changes: React Native と古い環境用の polyfills を追加
+    changes: "React Native と古い環境用の polyfills を追加"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴の初期化
+    changes: "履歴の初期化"
 ---
 
 # ドキュメント: `intlayer` の `getLocaleName` 関数

@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-11-25
-    changes: 初始化历史记录
+    changes: "初始化历史记录"
 ---
 
 # 优化 i18n 包大小与性能

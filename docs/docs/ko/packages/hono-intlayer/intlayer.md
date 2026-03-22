@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-29
-    changes: 문서 초기화
+    changes: "문서 초기화"
 ---
 
 # intlayer Hono 미들웨어 문서

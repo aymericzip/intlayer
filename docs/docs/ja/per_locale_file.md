@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴初期化
+    changes: "履歴初期化"
 ---
 
 # Intlayerにおける「ロケール別」コンテンツ宣言

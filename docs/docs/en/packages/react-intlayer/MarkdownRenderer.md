@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 7.5.14
     date: 2026-01-21
-    changes: Init doc
+    changes: "Init doc"
 ---
 
 # MarkdownRenderer Component Documentation

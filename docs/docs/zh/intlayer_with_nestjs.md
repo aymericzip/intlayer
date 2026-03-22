@@ -19,10 +19,10 @@ author: AydinTheFirst
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: 添加 init 命令
+    changes: "添加 init 命令"
   - version: 5.8.0
     date: 2025-09-09
-    changes: 初始文档
+    changes: "初始文档"
 ---
 
 # 使用Intlayer翻译您的Nest backend | 国际化(i18n)

@@ -18,7 +18,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-adonis-template
 history:
   - version: 8.0.0
     date: 2025-12-30
-    changes: Ініціалізація історії
+    changes: "Ініціалізація історії"
 ---
 
 # Перекладіть свій бекенд AdonisJS за допомогою Intlayer | Інтернаціоналізація (i18n)

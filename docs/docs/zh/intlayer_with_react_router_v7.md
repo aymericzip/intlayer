@@ -22,16 +22,16 @@ youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: 添加 init 命令
+    changes: "添加 init 命令"
   - version: 7.5.6
     date: 2025-12-27
-    changes: 更新布局和处理404
+    changes: "更新布局和处理404"
   - version: 6.1.5
     date: 2025-10-03
-    changes: 更新文档
+    changes: "更新文档"
   - version: 5.8.2
     date: 2025-09-04
-    changes: 添加 React Router v7 支持
+    changes: "添加 React Router v7 支持"
 ---
 
 # 使用Intlayer翻译您的React Router v7 | 国际化(i18n)

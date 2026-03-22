@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 7.1.0
     date: 2025-11-16
-    changes: التوثيق الأولي
+    changes: "التوثيق الأولي"
 ---
 
 # التوثيق: دالة `getPrefix` في `intlayer`

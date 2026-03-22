@@ -19,13 +19,13 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: Dodano MarkdownRenderer / useMarkdownRenderer / renderMarkdown i opcję forceInline
+    changes: "Dodano MarkdownRenderer / useMarkdownRenderer / renderMarkdown i opcję forceInline"
   - version: 8.0.0
     date: 2026-01-18
-    changes: Automatyczna dekoracja treści markdown, obsługa MDX i SSR
+    changes: "Automatyczna dekoracja treści markdown, obsługa MDX i SSR"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inicjalizacja historii
+    changes: "Inicjalizacja historii"
 ---
 
 # Markdown / Zawartość Tekstu Sformatowanego

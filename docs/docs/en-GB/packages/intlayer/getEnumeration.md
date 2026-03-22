@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
 ---
 
 # Documentation: `getEnumeration` Function in `intlayer`
@@ -33,13 +33,11 @@ The `getEnumeration` function retrieves content corresponding to a specific quan
 ## Parameters
 
 - `enumerationContent: QuantityContent<Content>`
-
   - **Description**: An object where keys represent conditions (e.g., `<=`, `<`, `>=`, `=`) and values represent the corresponding content. The order of keys defines their matching priority.
   - **Type**: `QuantityContent<Content>`
     - `Content` can be any type.
 
 - `quantity: number`
-
   - **Description**: The numeric value used to match against the conditions in `enumerationContent`.
   - **Type**: `number`
 
@@ -145,15 +143,12 @@ console.log(content); // Output: "You have less than four"
 ## Edge Cases
 
 - **No Matching Condition:**
-
   - If no condition matches the provided quantity, the function will either return `undefined` or handle the default/fallback scenario explicitly.
 
 - **Ambiguous Conditions:**
-
   - If conditions overlap, the first matching condition (based on object order) takes precedence.
 
 - **Invalid Keys:**
-
   - The function assumes that all keys in `enumerationContent` are valid and parsable as conditions. Invalid or improperly formatted keys may lead to unexpected behaviour.
 
 - **TypeScript Enforcement:**

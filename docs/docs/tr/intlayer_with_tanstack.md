@@ -21,7 +21,7 @@ youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: init komutu ekle
+    changes: "init komutu ekle"
   - version: 7.4.0
     date: 2025-12-11
     changes: "validatePrefix'i tanıt ve 14. adımı ekle: Yerelleştirilmiş rotalarla 404 sayfalarını ele alma."
@@ -33,13 +33,13 @@ history:
     changes: "13. adımı ekle: Nitro'yu uyarla"
   - version: 7.1.0
     date: 2025-11-17
-    changes: getPrefix fonksiyonunu ekleyerek useLocalizedNavigate, LocaleSwitcher ve LocalizedLink için önek varsayılanını düzelt.
+    changes: "getPrefix fonksiyonunu ekleyerek useLocalizedNavigate, LocaleSwitcher ve LocalizedLink için önek varsayılanını düzelt."
   - version: 6.5.2
     date: 2025-10-03
-    changes: Doküman güncellemesi
+    changes: "Doküman güncellemesi"
   - version: 5.8.1
     date: 2025-09-09
-    changes: Tanstack Start için eklendi
+    changes: "Tanstack Start için eklendi"
 ---
 
 # Intlayer ile Tanstack Start sitenizi çevirin | Uluslararasılaştırma (i18n)

@@ -20,7 +20,7 @@ youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
   - version: 8.0.0
     date: 2026-01-10
-    changes: Phát hành ban đầu
+    changes: "Phát hành ban đầu"
 ---
 
 # Dịch trang web Next.js 16 của bạn (không có [locale] trong đường dẫn trang) bằng Intlayer | Quốc tế hóa (i18n)

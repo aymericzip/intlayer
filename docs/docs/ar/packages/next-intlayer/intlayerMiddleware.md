@@ -19,10 +19,10 @@ slugs:
 history:
   - version: 8.1.7
     date: 2026-02-25
-    changes: إعادة تسمية intlayerMiddleware إلى intlayerProxy
+    changes: "إعادة تسمية intlayerMiddleware إلى intlayerProxy"
   - version: 8.0.0
     date: 2026-01-21
-    changes: إنشاء المستند
+    changes: "إنشاء المستند"
 ---
 
 # توثيق intlayerProxy (intlayerMiddleware)

@@ -19,13 +19,13 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: إضافة MarkdownRenderer / useMarkdownRenderer / renderMarkdown كأداة وخيار forceInline
+    changes: "إضافة MarkdownRenderer / useMarkdownRenderer / renderMarkdown كأداة وخيار forceInline"
   - version: 8.0.0
     date: 2026-01-18
-    changes: التزيين التلقائي لمحتوى markdown، ودعم MDX و SSR
+    changes: "التزيين التلقائي لمحتوى markdown، ودعم MDX و SSR"
   - version: 5.5.10
     date: 2025-06-29
-    changes: بدء السجل
+    changes: "بدء السجل"
 ---
 
 # محتوى Markdown / النصوص الغنية

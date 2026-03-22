@@ -21,7 +21,7 @@ youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: init कमांड जोड़ें
+    changes: "init कमांड जोड़ें"
   - version: 7.4.0
     date: 2025-12-11
     changes: "validatePrefix पेश करें और चरण 14 जोड़ें: स्थानीयकृत रूट्स के साथ 404 पेज हैंडल करना।"
@@ -33,13 +33,13 @@ history:
     changes: "चरण 13 जोड़ें: Nitro को अनुकूलित करें"
   - version: 7.1.0
     date: 2025-11-17
-    changes: getPrefix फ़ंक्शन जोड़कर उपसर्ग डिफ़ॉल्ट को ठीक करें useLocalizedNavigate, LocaleSwitcher और LocalizedLink का उपयोग करें।
+    changes: "getPrefix फ़ंक्शन जोड़कर उपसर्ग डिफ़ॉल्ट को ठीक करें useLocalizedNavigate, LocaleSwitcher और LocalizedLink का उपयोग करें।"
   - version: 6.5.2
     date: 2025-10-03
-    changes: दस्तावेज़ अपडेट करें
+    changes: "दस्तावेज़ अपडेट करें"
   - version: 5.8.1
     date: 2025-09-09
-    changes: TanStack Start के लिए जोड़ा गया
+    changes: "TanStack Start के लिए जोड़ा गया"
 ---
 
 # Intlayer का उपयोग करके अपनी TanStack Start वेबसाइट का अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)

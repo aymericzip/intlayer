@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: 统一了所有导出的文档
+    changes: "统一了所有导出的文档"
 ---
 
 # next-intlayer 包

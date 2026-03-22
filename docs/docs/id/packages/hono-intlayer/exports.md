@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-29
-    changes: Dokumentasi terpadu untuk semua ekspor
+    changes: "Dokumentasi terpadu untuk semua ekspor"
 ---
 
 # Paket hono-intlayer

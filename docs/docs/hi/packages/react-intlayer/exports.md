@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 7.5.14
     date: 2026-01-21
-    changes: सभी एक्सपोर्ट्स के लिए एकीकृत प्रलेखन
+    changes: "सभी एक्सपोर्ट्स के लिए एकीकृत प्रलेखन"
 ---
 
 # react-intlayer पैकेज

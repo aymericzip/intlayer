@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 7.5.11
     date: 2026-01-06
-    changes: 添加 CI 命令
+    changes: "添加 CI 命令"
 ---
 
 # CI 命令

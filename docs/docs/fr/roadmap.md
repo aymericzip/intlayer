@@ -16,10 +16,10 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-30
-    changes: Ajout du support Preact et Nuxt, serveur MCP, mise à jour du CLI
+    changes: "Ajout du support Preact et Nuxt, serveur MCP, mise à jour du CLI"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historique initial
+    changes: "Historique initial"
 ---
 
 # Intlayer : Aperçu des fonctionnalités & Feuille de route

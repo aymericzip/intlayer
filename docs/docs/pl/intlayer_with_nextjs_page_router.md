@@ -19,13 +19,13 @@ slugs:
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Dodaj polecenie init
+    changes: "Dodaj polecenie init"
   - version: 5.6.0
     date: 2025-07-06
-    changes: Przekształcenie funkcji `withIntlayer()` na funkcję opartą na promise
+    changes: "Przekształcenie funkcji `withIntlayer()` na funkcję opartą na promise"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inicjalizacja historii
+    changes: "Inicjalizacja historii"
 ---
 
 # Przetłumacz swoją stronę Next.js i Page Router za pomocą Intlayer | Internacjonalizacja (i18n)

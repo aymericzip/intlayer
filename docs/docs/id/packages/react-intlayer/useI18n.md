@@ -22,7 +22,7 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-06-29
-    changes: Penulisan awal dokumentasi hook `useI18n`
+    changes: "Penulisan awal dokumentasi hook `useI18n`"
 ---
 
 # Integrasi React: Dokumentasi Hook `useI18n`

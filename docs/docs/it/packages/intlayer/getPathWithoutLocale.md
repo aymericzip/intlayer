@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inizializzazione cronologia
+    changes: "Inizializzazione cronologia"
 ---
 
 # Documentazione: Funzioni `getPathWithoutLocale` in `intlayer`
@@ -33,7 +33,6 @@ Rimuove il segmento della localizzazione dall'URL o pathname fornito, se present
 ## Parametri
 
 - `inputUrl: string`
-
   - **Descrizione**: La stringa completa dell'URL o il pathname da elaborare.
   - **Tipo**: `string`
 

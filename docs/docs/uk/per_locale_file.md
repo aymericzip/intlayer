@@ -17,10 +17,10 @@ slugs:
 history:
   - version: 7.3.1
     date: 2025-11-29
-    changes: Додано глобальну конфігурацію для файлів per-locale
+    changes: "Додано глобальну конфігурацію для файлів per-locale"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Ініціалізація історії
+    changes: "Ініціалізація історії"
 ---
 
 # Оголошення декларації вмісту `Per-Locale` в Intlayer

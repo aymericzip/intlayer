@@ -19,13 +19,13 @@ youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Agregar comando init
+    changes: "Agregar comando init"
   - version: 7.0.6
     date: 2025-11-01
-    changes: Se agregó la mención de `x-default` en el objeto `alternates`
+    changes: "Se agregó la mención de `x-default` en el objeto `alternates`"
   - version: 7.0.0
     date: 2025-06-29
-    changes: Historial inicial
+    changes: "Historial inicial"
 ---
 
 # Traduce tu sitio web Next.js 16 usando Intlayer | Internacionalización (i18n)

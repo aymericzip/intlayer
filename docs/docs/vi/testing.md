@@ -16,10 +16,10 @@ slugs:
 history:
   - version: 6.0.1
     date: 2025-10-05
-    changes: Thực hiện kiểm thử bất đồng bộ và thêm tùy chọn build
+    changes: "Thực hiện kiểm thử bất đồng bộ và thêm tùy chọn build"
   - version: 6.0.0
     date: 2025-09-20
-    changes: Giới thiệu về kiểm thử
+    changes: "Giới thiệu về kiểm thử"
 ---
 
 # Kiểm thử nội dung của bạn

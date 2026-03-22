@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 7.5.14
     date: 2026-01-21
-    changes: 初始化文档
+    changes: "初始化文档"
 ---
 
 # MarkdownRenderer 组件文档

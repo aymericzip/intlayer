@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-11-25
-    changes: Init history
+    changes: "Init history"
 ---
 
 # Оптимізація розміру бандла та продуктивності i18n

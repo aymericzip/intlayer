@@ -16,10 +16,10 @@ slugs:
 history:
   - version: 6.0.1
     date: 2025-10-05
-    changes: Membuat pengujian asinkron dan menambahkan opsi build
+    changes: "Membuat pengujian asinkron dan menambahkan opsi build"
   - version: 6.0.0
     date: 2025-09-20
-    changes: Pengenalan pengujian
+    changes: "Pengenalan pengujian"
 ---
 
 # Menguji konten Anda

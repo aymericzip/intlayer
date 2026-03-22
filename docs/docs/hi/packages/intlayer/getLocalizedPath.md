@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: कस्टम URL रीराइट्स लागू किए गए
+    changes: "कस्टम URL रीराइट्स लागू किए गए"
 ---
 
 # प्रलेखन: `getLocalizedPath` फ़ंक्शन `intlayer` में

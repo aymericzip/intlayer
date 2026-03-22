@@ -22,13 +22,13 @@ slugs:
 history:
   - version: 8.2.0
     date: 2026-03-09
-    changes: 更新编译器选项，添加 FilePathPattern 支持
+    changes: "更新编译器选项，添加 FilePathPattern 支持"
   - version: 8.1.7
     date: 2026-02-25
-    changes: 更新编译器选项
+    changes: "更新编译器选项"
   - version: 7.3.1
     date: 2025-11-27
-    changes: 发布编译器
+    changes: "发布编译器"
 ---
 
 # Intlayer 编译器 | 用于 i18n 的自动内容提取

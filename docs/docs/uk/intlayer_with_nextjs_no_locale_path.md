@@ -20,7 +20,7 @@ youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
   - version: 8.0.0
     date: 2026-01-10
-    changes: Початковий випуск
+    changes: "Початковий випуск"
 ---
 
 # Перекладіть ваш сайт Next.js 16 (без [locale] у шляху сторінки) за допомогою Intlayer | Інтернаціоналізація (i18n)

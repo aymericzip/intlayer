@@ -19,16 +19,16 @@ youtubeVideo: https://www.youtube.com/watch?v=nhUcUAVQ6eQ
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Add init command
+    changes: "Add init command"
   - version: 7.3.13
     date: 2025-12-08
-    changes: Unused TypeScript configuration
+    changes: "Unused TypeScript configuration"
   - version: 7.3.11
     date: 2025-12-07
-    changes: Update LocaleSwitcher, SEO, metadata
+    changes: "Update LocaleSwitcher, SEO, metadata"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
 ---
 
 # Translate your Nuxt and Vue website using Intlayer | Internationalization (i18n)

@@ -19,16 +19,16 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
   - version: 6.1.0
     date: 2025-09-23
-    changes: Add with option on CLI
+    changes: "Add with option on CLI"
   - version: 6.0.1
     date: 2025-09-22
-    changes: Change behavior of the editor when the file extension is not `.json`
+    changes: "Change behavior of the editor when the file extension is not `.json`"
   - version: 6.0.0
     date: 2025-09-21
-    changes: Add reexported command
+    changes: "Add reexported command"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
 ---
 
 # Intlayer Visual Editor Documentation

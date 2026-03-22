@@ -18,16 +18,16 @@ slugs:
 history:
   - version: 6.1.5
     date: 2025-09-30
-    changes: डेमो GIF जोड़ा
+    changes: "डेमो GIF जोड़ा"
   - version: 6.1.0
     date: 2025-09-24
-    changes: पर्यावरण चयन अनुभाग जोड़ा
+    changes: "पर्यावरण चयन अनुभाग जोड़ा"
   - version: 6.0.0
     date: 2025-09-22
-    changes: Intlayer टैब / Fill & Test कमांड्स
+    changes: "Intlayer टैब / Fill & Test कमांड्स"
   - version: 5.5.10
     date: 2025-06-29
-    changes: प्रारंभिक इतिहास
+    changes: "प्रारंभिक इतिहास"
 ---
 
 # आधिकारिक VS कोड एक्सटेंशन

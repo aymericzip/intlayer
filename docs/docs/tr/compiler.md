@@ -22,13 +22,13 @@ slugs:
 history:
   - version: 8.2.0
     date: 2026-03-09
-    changes: Derleyici seçeneklerini güncelle, FilePathPattern desteği ekle
+    changes: "Derleyici seçeneklerini güncelle, FilePathPattern desteği ekle"
   - version: 8.1.7
     date: 2026-02-25
-    changes: Derleyici seçeneklerini güncelle
+    changes: "Derleyici seçeneklerini güncelle"
   - version: 7.3.1
     date: 2025-11-27
-    changes: Compiler Yayınlandı
+    changes: "Compiler Yayınlandı"
 ---
 
 # Intlayer Compiler | i18n için Otomatik İçerik Çıkarımı

@@ -18,13 +18,13 @@ applicationTemplate: https://github.com/aymericzip/intlayer-vite-preact-template
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Tambahkan perintah init
+    changes: "Tambahkan perintah init"
   - version: 7.0.0
     date: 2025-10-28
-    changes: Memperbarui komponen LocaleRouter untuk menggunakan konfigurasi rute baru
+    changes: "Memperbarui komponen LocaleRouter untuk menggunakan konfigurasi rute baru"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inisialisasi riwayat
+    changes: "Inisialisasi riwayat"
 ---
 
 # Terjemahkan situs web Vite dan Preact Anda menggunakan Intlayer | Internasionalisasi (i18n)

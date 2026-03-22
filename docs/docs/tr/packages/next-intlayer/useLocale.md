@@ -21,10 +21,10 @@ title: useLocale Hook Dokümantasyonu | next-intlayer
 history:
   - version: 8.0.0
     date: 2026-01-26
-    changes: `onLocaleChange` varsayılan olarak `replace` olarak ayarlandı
+    changes: "`onLocaleChange` varsayılan olarak `replace` olarak ayarlandı"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Geçmiş başlatıldı
+    changes: "Geçmiş başlatıldı"
 ---
 
 # Next.js Entegrasyonu: `useLocale` Hook Dokümantasyonu `next-intlayer` için

@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Инициализация истории
+    changes: "Инициализация истории"
 ---
 
 # Документация: функция `getPathWithoutLocale` в `intlayer`
@@ -33,7 +33,6 @@ history:
 ## Параметры
 
 - `inputUrl: string`
-
   - **Описание**: Полная строка URL или путь для обработки.
   - **Тип**: `string`
 

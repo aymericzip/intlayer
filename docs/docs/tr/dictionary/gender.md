@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 5.7.2
     date: 2025-07-27
-    changes: Cinsiyete dayalı içerik tanıtıldı
+    changes: "Cinsiyete dayalı içerik tanıtıldı"
 ---
 
 # Cinsiyete Dayalı İçerik / Intlayer'da Cinsiyet

@@ -15,7 +15,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-25
-    changes: Zentrale URL-Rewrites mit framework-spezifischen Formatierern und dem useRewriteURL-Hook implementieren.
+    changes: "Zentrale URL-Rewrites mit framework-spezifischen Formatierern und dem useRewriteURL-Hook implementieren."
 ---
 
 # Implementierung benutzerdefinierter URL Rewrites

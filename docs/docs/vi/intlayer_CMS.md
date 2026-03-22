@@ -20,13 +20,13 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
   - version: 6.0.1
     date: 2025-09-22
-    changes: Thêm tài liệu đồng bộ trực tiếp
+    changes: "Thêm tài liệu đồng bộ trực tiếp"
   - version: 6.0.0
     date: 2025-09-04
-    changes: Thay thế trường `hotReload` bằng `liveSync`
+    changes: "Thay thế trường `hotReload` bằng `liveSync`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Khởi tạo lịch sử
+    changes: "Khởi tạo lịch sử"
 ---
 
 # Tài liệu Hệ thống Quản lý Nội dung (CMS) Intlayer

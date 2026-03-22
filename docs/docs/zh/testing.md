@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-09-20
-    changes: 引入测试功能
+    changes: "引入测试功能"
 ---
 
 # 测试您的内容

@@ -22,7 +22,7 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-06-29
-    changes: `useI18n` 훅 문서 초안 작성
+    changes: "`useI18n` 훅 문서 초안 작성"
 ---
 
 # React 통합: `useI18n` 훅 문서

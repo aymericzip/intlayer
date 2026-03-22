@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初始化历史
+    changes: "初始化历史"
 ---
 
 # 文档：`intlayer` 中的 `getMultilingualUrls` 函数
@@ -35,18 +35,15 @@ history:
 ## 参数
 
 - `url: string`
-
   - **描述**：需要添加语言环境前缀的原始 URL 字符串。
   - **类型**：`string`
 
 - `locales: Locales[]`
-
   - **描述**：可选的支持语言环境数组。默认为项目中配置的语言环境。
   - **类型**：`Locales[]`
   - **默认值**：`localesDefault`
 
 - `defaultLocale: Locales`
-
   - **描述**：应用的默认语言环境。默认为项目中配置的默认语言环境。
   - **类型**：`Locales`
   - **默认值**：`defaultLocaleDefault`
@@ -132,11 +129,9 @@ getMultilingualUrls(
 ## 边界情况
 
 - **无语言段：**
-
   - 该函数在生成多语言映射之前，会移除 URL 中任何已存在的语言段。
 
 - **默认语言：**
-
   - 当 `prefixDefault` 为 `false` 时，函数不会为默认语言的 URL 添加前缀。
 
 - **不支持的语言：**

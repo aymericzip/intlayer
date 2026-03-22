@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-30
-    changes: प्रारंभिक दस्तावेज़ीकरण
+    changes: "प्रारंभिक दस्तावेज़ीकरण"
 ---
 
 # adonis-intlayer पैकेज

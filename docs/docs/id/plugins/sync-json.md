@@ -26,10 +26,10 @@ youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
   - version: 7.5.0
     date: 2025-12-13
-    changes: Menambahkan dukungan format ICU dan i18next
+    changes: "Menambahkan dukungan format ICU dan i18next"
   - version: 6.1.6
     date: 2025-10-05
-    changes: Dokumentasi awal plugin Sinkronisasi JSON
+    changes: "Dokumentasi awal plugin Sinkronisasi JSON"
 ---
 
 # Sinkronisasi JSON (jembatan i18n) - Sinkronisasi JSON dengan dukungan ICU / i18next

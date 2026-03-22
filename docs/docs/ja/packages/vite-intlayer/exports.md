@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: 全エクスポートのドキュメントを統合
+    changes: "全エクスポートのドキュメントを統合"
 ---
 
 # vite-intlayer パッケージ

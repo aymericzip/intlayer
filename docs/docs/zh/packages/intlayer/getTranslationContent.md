@@ -20,7 +20,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初始化历史
+    changes: "初始化历史"
 ---
 
 # 文档：`intlayer` 中的 `getTranslation` 函数
@@ -32,13 +32,11 @@ history:
 ## 参数
 
 - `languageContent: CustomizableLanguageContent<Content>`
-
   - **描述**：包含多个语言环境翻译内容的对象。每个键代表一个语言环境，其值为对应的内容。
   - **类型**：`CustomizableLanguageContent<Content>`
     - `Content` 可以是任何类型，默认是 `string`。
 
 - `locale: Locales`
-
   - **描述**：要检索内容的语言环境。
   - **类型**：`Locales`
 

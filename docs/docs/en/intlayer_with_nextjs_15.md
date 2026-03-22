@@ -20,31 +20,31 @@ youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Add init command
+    changes: "Add init command"
   - version: 7.0.6
     date: 2025-11-01
-    changes: Added mention of `x-default` in `alternates` object
+    changes: "Added mention of `x-default` in `alternates` object"
   - version: 7.0.0
     date: 2025-10-25
-    changes: Added mention of `withIntlayerSync()` function
+    changes: "Added mention of `withIntlayerSync()` function"
   - version: 6.2.0
     date: 2025-10-09
-    changes: Added docs for `useLocale` hook with `onLocaleChange` option
+    changes: "Added docs for `useLocale` hook with `onLocaleChange` option"
   - version: 5.6.6
     date: 2025-10-02
-    changes: Added docs for `getLocale` function on server actions
+    changes: "Added docs for `getLocale` function on server actions"
   - version: 5.6.2
     date: 2025-09-23
-    changes: Added docs for watch dictionaries changes on Turbopack
+    changes: "Added docs for watch dictionaries changes on Turbopack"
   - version: 5.6.2
     date: 2025-09-22
-    changes: Added docs for `multipleMiddlewares` helper
+    changes: "Added docs for `multipleMiddlewares` helper"
   - version: 5.6.0
     date: 2025-07-06
-    changes: Transform `withIntlayer()` function to a promise based function
+    changes: "Transform `withIntlayer()` function to a promise based function"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
 ---
 
 # Translate your Next.js 15 website using Intlayer | Internationalization (i18n)

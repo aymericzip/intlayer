@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 7.5.14
     date: 2026-01-21
-    changes: Vereinheitlichte Dokumentation für alle Exporte
+    changes: "Vereinheitlichte Dokumentation für alle Exporte"
 ---
 
 # react-intlayer-Paket

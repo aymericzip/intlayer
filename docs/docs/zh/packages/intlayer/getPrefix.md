@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 7.1.0
     date: 2025-11-16
-    changes: 初始文档
+    changes: "初始文档"
 ---
 
 # 文档：`intlayer` 中的 `getPrefix` 函数

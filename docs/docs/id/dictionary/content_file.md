@@ -14,25 +14,25 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-28
-    changes: Tambahkan tipe node konten `html`
+    changes: "Tambahkan tipe node konten `html`"
   - version: 8.0.0
     date: 2026-01-24
-    changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
+    changes: "Rename `live` import mode to `fetch` to better describe the underlying mechanism."
   - version: 8.0.0
     date: 2026-01-18
-    changes: Tambahkan opsi kamus `location` dan `schema`
+    changes: "Tambahkan opsi kamus `location` dan `schema`"
   - version: 7.5.0
     date: 2025-12-13
-    changes: Menambahkan dukungan format ICU dan i18next
+    changes: "Menambahkan dukungan format ICU dan i18next"
   - version: 7.0.0
     date: 2025-10-23
-    changes: Mengganti nama `autoFill` menjadi `fill`
+    changes: "Mengganti nama `autoFill` menjadi `fill`"
   - version: 6.0.0
     date: 2025-09-20
-    changes: Menambahkan dokumentasi fields
+    changes: "Menambahkan dokumentasi fields"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Memulai riwayat
+    changes: "Memulai riwayat"
 ---
 
 # Berkas Konten

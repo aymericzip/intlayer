@@ -18,19 +18,19 @@ slugs:
 history:
   - version: 7.3.0
     date: 2025-11-25
-    changes: Додано команду Extract Content
+    changes: "Додано команду Extract Content"
   - version: 6.1.5
     date: 2025-09-30
-    changes: Додано демонстраційний GIF
+    changes: "Додано демонстраційний GIF"
   - version: 6.1.0
     date: 2025-09-24
-    changes: Додано розділ вибору середовища
+    changes: "Додано розділ вибору середовища"
   - version: 6.0.0
     date: 2025-09-22
-    changes: Вкладка Intlayer / команди Fill & Test
+    changes: "Вкладка Intlayer / команди Fill & Test"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Ініціалізація історії
+    changes: "Ініціалізація історії"
 ---
 
 # Офіційне розширення VS Code

@@ -20,31 +20,31 @@ youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Thêm lệnh init
+    changes: "Thêm lệnh init"
   - version: 7.0.6
     date: 2025-11-01
-    changes: Thêm đề cập đến `x-default` trong đối tượng `alternates`
+    changes: "Thêm đề cập đến `x-default` trong đối tượng `alternates`"
   - version: 7.0.0
     date: 2025-10-25
-    changes: Thêm đề cập đến hàm `withIntlayerSync()`
+    changes: "Thêm đề cập đến hàm `withIntlayerSync()`"
   - version: 6.2.0
     date: 2025-10-09
-    changes: Thêm tài liệu cho hook `useLocale` với tùy chọn `onLocaleChange`
+    changes: "Thêm tài liệu cho hook `useLocale` với tùy chọn `onLocaleChange`"
   - version: 5.6.6
     date: 2025-10-02
-    changes: Thêm tài liệu cho hàm `getLocale` trong các hành động server
+    changes: "Thêm tài liệu cho hàm `getLocale` trong các hành động server"
   - version: 5.6.2
     date: 2025-09-23
-    changes: Thêm tài liệu cho việc theo dõi thay đổi từ điển trên Turbopack
+    changes: "Thêm tài liệu cho việc theo dõi thay đổi từ điển trên Turbopack"
   - version: 5.6.2
     date: 2025-09-22
-    changes: Thêm tài liệu cho helper `multipleMiddlewares`
+    changes: "Thêm tài liệu cho helper `multipleMiddlewares`"
   - version: 5.6.0
     date: 2025-07-06
-    changes: Chuyển hàm `withIntlayer()` thành hàm dựa trên promise
+    changes: "Chuyển hàm `withIntlayer()` thành hàm dựa trên promise"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Khởi tạo lịch sử
+    changes: "Khởi tạo lịch sử"
 ---
 
 # Dịch trang web Next.js 15 của bạn bằng Intlayer | Quốc tế hóa (i18n)

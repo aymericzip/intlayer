@@ -17,16 +17,16 @@ slugs:
 history:
   - version: 5.5.12
     date: 2025-07-11
-    changes: Добавлена настройка ChatGPT
+    changes: "Добавлена настройка ChatGPT"
   - version: 5.5.12
     date: 2025-07-10
-    changes: Добавлена настройка Claude Desktop
+    changes: "Добавлена настройка Claude Desktop"
   - version: 5.5.12
     date: 2025-07-10
-    changes: Добавлен SSE транспорт и удалённый сервер
+    changes: "Добавлен SSE транспорт и удалённый сервер"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Инициализация истории
+    changes: "Инициализация истории"
 ---
 
 # MCP сервер Intlayer

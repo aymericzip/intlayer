@@ -18,16 +18,16 @@ slugs:
 history:
   - version: 6.1.5
     date: 2025-09-30
-    changes: Dodano demo gif
+    changes: "Dodano demo gif"
   - version: 6.1.0
     date: 2025-09-24
-    changes: Dodano sekcję wyboru środowiska
+    changes: "Dodano sekcję wyboru środowiska"
   - version: 6.0.0
     date: 2025-09-22
-    changes: Karta Intlayer / Komendy Fill & Test
+    changes: "Karta Intlayer / Komendy Fill & Test"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inicjalizacja historii
+    changes: "Inicjalizacja historii"
 ---
 
 # Oficjalne rozszerzenie VS Code

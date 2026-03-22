@@ -15,10 +15,10 @@ slugs:
 history:
   - version: 5.8.0
     date: 2025-08-19
-    changes: 비교 표 업데이트
+    changes: "비교 표 업데이트"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 이력 초기화
+    changes: "이력 초기화"
 ---
 
 # 왜 Intlayer를 고려해야 하나요?

@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Initial history
+    changes: "Initial history"
 ---
 
 # Documentation: `getPathWithoutLocale` Functions in `intlayer`
@@ -33,7 +33,6 @@ Removes the locale segment from the given URL or pathname if present. It works w
 ## Parameters
 
 - `inputUrl: string`
-
   - **Description**: The complete URL string or pathname to process.
   - **Type**: `string`
 

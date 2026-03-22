@@ -18,7 +18,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer/tree/main/examples/a
 history:
   - version: 8.0.4
     date: 2026-01-26
-    changes: 히스토리 초기화
+    changes: "히스토리 초기화"
 ---
 
 # Intlayer를 사용하여 Analog (Angular) 앱 번역하기 | 국제화 (i18n)

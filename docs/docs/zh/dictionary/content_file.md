@@ -14,25 +14,25 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-28
-    changes: 添加 `html` 内容节点类型
+    changes: "添加 `html` 内容节点类型"
   - version: 8.0.0
     date: 2026-01-24
-    changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
+    changes: "Rename `live` import mode to `fetch` to better describe the underlying mechanism."
   - version: 8.0.0
     date: 2026-01-18
-    changes: 添加字典选项 `location` 和 `schema`
+    changes: "添加字典选项 `location` 和 `schema`"
   - version: 7.5.13
     date: 2026-01-10
-    changes: 添加对 JSON5 和 JSONC 文件格式的支持
+    changes: "添加对 JSON5 和 JSONC 文件格式的支持"
   - version: 7.5.0
     date: 2025-12-13
-    changes: 添加 ICU 和 i18next 格式支持
+    changes: "添加 ICU 和 i18next 格式支持"
   - version: 6.0.0
     date: 2025-09-20
-    changes: 添加字段文档
+    changes: "添加字段文档"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初始化历史
+    changes: "初始化历史"
 ---
 
 # 内容文件

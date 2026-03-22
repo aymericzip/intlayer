@@ -26,10 +26,10 @@ youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
   - version: 7.5.0
     date: 2025-12-13
-    changes: إضافة دعم تنسيقات ICU و i18next
+    changes: "إضافة دعم تنسيقات ICU و i18next"
   - version: 6.1.6
     date: 2025-10-05
-    changes: الوثائق الأولية لمكون مزامنة JSON
+    changes: "الوثائق الأولية لمكون مزامنة JSON"
 ---
 
 # مزامنة JSON (جسور التدويل) - مزامنة JSON مع دعم ICU / i18next

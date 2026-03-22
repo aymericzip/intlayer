@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: 커스텀 URL 재작성 구현
+    changes: "커스텀 URL 재작성 구현"
 ---
 
 # 문서: `intlayer`의 `getLocalizedPath` 함수

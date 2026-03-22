@@ -21,10 +21,10 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 초기 이력
+    changes: "초기 이력"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 초기 이력
+    changes: "초기 이력"
 ---
 
 # 문서: `intlayer`의 `getLocalizedUrl` 함수
@@ -38,23 +38,19 @@ history:
 ## 매개변수
 
 - `url: string`
-
   - **설명**: 로케일 접두사가 붙을 원본 URL 문자열입니다.
   - **타입**: `string`
 
 - `currentLocale: Locales`
-
   - **설명**: URL이 지역화되는 현재 로케일입니다.
   - **타입**: `Locales`
 
 - `locales: Locales[]`
-
   - **설명**: 지원되는 로케일의 선택적 배열입니다. 기본적으로 프로젝트에 구성된 로케일이 제공됩니다.
   - **타입**: `Locales[]`
   - **기본값**: [`프로젝트 구성`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md#middleware)
 
 - `defaultLocale: Locales`
-
   - **설명**: 애플리케이션의 기본 로케일입니다. 기본적으로 프로젝트에 구성된 기본 로케일이 제공됩니다.
   - **타입**: `Locales`
   - **기본값**: [`프로젝트 구성`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md#middleware)
@@ -179,11 +175,9 @@ getLocalizedUrl(
 ## 엣지 케이스
 
 - **로케일 세그먼트 없음:**
-
   - URL에 로케일 세그먼트가 포함되어 있지 않은 경우, 함수는 적절한 로케일을 안전하게 접두사로 추가합니다.
 
 - **기본 로케일:**
-
   - `prefixDefault`가 `false`일 때, 함수는 기본 로케일에 대해 URL에 접두사를 추가하지 않습니다.
 
 - **지원되지 않는 로케일:**

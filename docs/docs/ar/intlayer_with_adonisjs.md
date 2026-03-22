@@ -18,7 +18,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-adonis-template
 history:
   - version: 8.0.0
     date: 2025-12-30
-    changes: تهيئة السجل
+    changes: "تهيئة السجل"
 ---
 
 # ترجمة الواجهة الخلفية لـ AdonisJS باستخدام Intlayer | التدويل (i18n)

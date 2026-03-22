@@ -19,10 +19,10 @@ slugs:
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Ajouter la commande init
+    changes: "Ajouter la commande init"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historique initial
+    changes: "Historique initial"
 ---
 
 # Traduire votre Next.js and Page Router avec Intlayer | Internationalisation (i18n)

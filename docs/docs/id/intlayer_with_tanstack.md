@@ -21,7 +21,7 @@ youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Tambahkan perintah init
+    changes: "Tambahkan perintah init"
   - version: 7.4.0
     date: 2025-12-11
     changes: "Memperkenalkan validatePrefix dan menambah langkah 14: Menangani halaman 404 dengan rute terlokalisasi."
@@ -33,13 +33,13 @@ history:
     changes: "Menambah langkah 13: Adaptasi Nitro"
   - version: 7.1.0
     date: 2025-11-17
-    changes: Memperbaiki default prefix dengan menambahkan fungsi getPrefix, gunakan useLocalizedNavigate, LocaleSwitcher dan LocalizedLink.
+    changes: "Memperbaiki default prefix dengan menambahkan fungsi getPrefix, gunakan useLocalizedNavigate, LocaleSwitcher dan LocalizedLink."
   - version: 6.5.2
     date: 2025-10-03
-    changes: Perbarui dokumen
+    changes: "Perbarui dokumen"
   - version: 5.8.1
     date: 2025-09-09
-    changes: Ditambahkan untuk TanStack Start
+    changes: "Ditambahkan untuk TanStack Start"
 ---
 
 # Terjemahkan situs web TanStack Start Anda menggunakan Intlayer | Internasionalisasi (i18n)

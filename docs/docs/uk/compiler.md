@@ -22,13 +22,13 @@ slugs:
 history:
   - version: 8.2.0
     date: 2026-03-09
-    changes: Оновлення опцій компілятора, додана підтримка FilePathPattern
+    changes: "Оновлення опцій компілятора, додана підтримка FilePathPattern"
   - version: 8.1.7
     date: 2026-02-25
-    changes: Оновлення опцій компілятора
+    changes: "Оновлення опцій компілятора"
   - version: 7.3.1
     date: 2025-11-27
-    changes: Випуск компілятора
+    changes: "Випуск компілятора"
 ---
 
 # Intlayer Compiler | Автоматизоване витягування контенту для i18n

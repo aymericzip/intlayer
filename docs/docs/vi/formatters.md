@@ -21,25 +21,25 @@ slugs:
 history:
   - version: 6.2.0
     date: 2025-10-14
-    changes: Loại bỏ getIntlayerAsync khỏi bộ định dạng
+    changes: "Loại bỏ getIntlayerAsync khỏi bộ định dạng"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Thêm bộ định dạng cho vue
+    changes: "Thêm bộ định dạng cho vue"
   - version: 5.8.0
     date: 2025-08-18
-    changes: Thêm tài liệu cho bộ định dạng
+    changes: "Thêm tài liệu cho bộ định dạng"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Thêm tài liệu cho bộ định dạng danh sách
+    changes: "Thêm tài liệu cho bộ định dạng danh sách"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Thêm các tiện ích Intl bổ sung (DisplayNames, Collator, PluralRules)
+    changes: "Thêm các tiện ích Intl bổ sung (DisplayNames, Collator, PluralRules)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Thêm các tiện ích locale (getLocaleName, getLocaleLang, getLocaleFromPath, v.v.)
+    changes: "Thêm các tiện ích locale (getLocaleName, getLocaleLang, getLocaleFromPath, v.v.)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Thêm các tiện ích xử lý nội dung (getContent, getTranslation, getIntlayer, v.v.)
+    changes: "Thêm các tiện ích xử lý nội dung (getContent, getTranslation, getIntlayer, v.v.)"
 ---
 
 # Bộ định dạng Intlayer

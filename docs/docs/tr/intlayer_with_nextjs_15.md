@@ -20,13 +20,13 @@ youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: init komutu ekle
+    changes: "init komutu ekle"
   - version: 5.6.0
     date: 2025-07-06
-    changes: `withIntlayer()` fonksiyonunu promise tabanlı fonksiyona dönüştür
+    changes: "`withIntlayer()` fonksiyonunu promise tabanlı fonksiyona dönüştür"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Geçmişi başlat
+    changes: "Geçmişi başlat"
 ---
 
 # Intlayer ile Next.js 15 çevirin | Uluslararasılaştırma (i18n)

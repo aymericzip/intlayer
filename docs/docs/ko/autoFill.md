@@ -18,13 +18,13 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-09-20
-    changes: 전역 구성 추가
+    changes: "전역 구성 추가"
   - version: 6.0.0
     date: 2025-09-17
-    changes: `{{fileName}}` 변수 추가
+    changes: "`{{fileName}}` 변수 추가"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 이력 초기화
+    changes: "이력 초기화"
 ---
 
 # 자동 채우기 콘텐츠 선언 파일 번역

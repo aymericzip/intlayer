@@ -18,16 +18,16 @@ slugs:
 history:
   - version: 7.0.0
     date: 2025-10-23
-    changes: Mengganti nama `autoFill` menjadi `fill` dan memperbarui perilaku
+    changes: "Mengganti nama `autoFill` menjadi `fill` dan memperbarui perilaku"
   - version: 6.0.0
     date: 2025-09-20
-    changes: Menambahkan konfigurasi global
+    changes: "Menambahkan konfigurasi global"
   - version: 6.0.0
     date: 2025-09-17
-    changes: Menambahkan variabel `{{fileName}}`
+    changes: "Menambahkan variabel `{{fileName}}`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inisialisasi riwayat
+    changes: "Inisialisasi riwayat"
 ---
 
 # Terjemahan File Deklarasi Isi Konten

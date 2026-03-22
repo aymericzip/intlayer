@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-30
-    changes: Initial documentation
+    changes: "Initial documentation"
 ---
 
 # Documentation: `t` Function in `adonis-intlayer`

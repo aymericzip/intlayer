@@ -26,10 +26,10 @@ youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
   - version: 7.5.0
     date: 2025-12-13
-    changes: ICU और i18next प्रारूप समर्थन जोड़ा गया
+    changes: "ICU और i18next प्रारूप समर्थन जोड़ा गया"
   - version: 6.1.6
     date: 2025-10-05
-    changes: प्रारंभिक सिंक JSON प्लगइन दस्तावेज़ीकरण
+    changes: "प्रारंभिक सिंक JSON प्लगइन दस्तावेज़ीकरण"
 ---
 
 # सिंक JSON (i18n ब्रिजेस) - ICU / i18next समर्थन के साथ सिंक JSON

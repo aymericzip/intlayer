@@ -18,16 +18,16 @@ slugs:
 history:
   - version: 6.1.5
     date: 2025-09-30
-    changes: Añadido gif de demostración
+    changes: "Añadido gif de demostración"
   - version: 6.1.0
     date: 2025-09-24
-    changes: Añadida sección de selección de entorno
+    changes: "Añadida sección de selección de entorno"
   - version: 6.0.0
     date: 2025-09-22
-    changes: Pestaña Intlayer / Comandos Rellenar y Probar
+    changes: "Pestaña Intlayer / Comandos Rellenar y Probar"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historial inicial
+    changes: "Historial inicial"
 ---
 
 # Extensión Oficial para VS Code

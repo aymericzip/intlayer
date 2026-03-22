@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: Triển khai các rewrite URL tùy chỉnh
+    changes: "Triển khai các rewrite URL tùy chỉnh"
 ---
 
 # Tài liệu: Hàm `getCanonicalPath` trong `intlayer`

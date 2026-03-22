@@ -21,7 +21,7 @@ youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Adicionar comando init
+    changes: "Adicionar comando init"
   - version: 7.4.0
     date: 2025-12-11
     changes: "Introduz validatePrefix e adiciona o passo 14: Tratamento de páginas 404 com rotas localizadas."
@@ -33,13 +33,13 @@ history:
     changes: "Adiciona o passo 13: Adaptar Nitro"
   - version: 7.1.0
     date: 2025-11-17
-    changes: Fix prefix default ao adicionar a função getPrefix useLocalizedNavigate, LocaleSwitcher e LocalizedLink.
+    changes: "Fix prefix default ao adicionar a função getPrefix useLocalizedNavigate, LocaleSwitcher e LocalizedLink."
   - version: 6.5.2
     date: 2025-10-03
-    changes: Atualizar doc
+    changes: "Atualizar doc"
   - version: 5.8.1
     date: 2025-09-09
-    changes: Adicionado para Tanstack Start
+    changes: "Adicionado para Tanstack Start"
 ---
 
 # Traduza seu Tanstack Start com Intlayer | Internacionalização (i18n)

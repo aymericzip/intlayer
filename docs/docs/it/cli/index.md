@@ -19,43 +19,43 @@ slugs:
 history:
   - version: 7.5.11
     date: 2026-01-06
-    changes: Aggiunto comando projects list
+    changes: "Aggiunto comando projects list"
   - version: 7.5.9
     date: 2025-12-30
-    changes: Aggiunto comando init
+    changes: "Aggiunto comando init"
   - version: 7.2.3
     date: 2025-11-22
-    changes: Aggiunto comando transform
+    changes: "Aggiunto comando transform"
   - version: 7.1.0
     date: 2025-11-05
-    changes: Aggiunta opzione skipIfExists al comando translate
+    changes: "Aggiunta opzione skipIfExists al comando translate"
   - version: 6.1.4
     date: 2025-01-27
-    changes: Aggiunti alias per argomenti e comandi CLI
+    changes: "Aggiunti alias per argomenti e comandi CLI"
   - version: 6.1.3
     date: 2025-10-05
-    changes: Aggiunta opzione build ai comandi
+    changes: "Aggiunta opzione build ai comandi"
   - version: 6.1.2
     date: 2025-09-26
-    changes: Aggiunto comando version
+    changes: "Aggiunto comando version"
   - version: 6.1.0
     date: 2025-09-26
-    changes: Impostata l'opzione verbose su true di default tramite CLI
+    changes: "Impostata l'opzione verbose su true di default tramite CLI"
   - version: 6.1.0
     date: 2025-09-23
-    changes: Aggiunto comando watch e opzione with
+    changes: "Aggiunto comando watch e opzione with"
   - version: 6.0.1
     date: 2025-09-23
-    changes: Aggiunto comando editor
+    changes: "Aggiunto comando editor"
   - version: 6.0.0
     date: 2025-09-17
-    changes: Aggiunti comandi content test e list
+    changes: "Aggiunti comandi content test e list"
   - version: 5.5.11
     date: 2025-07-11
-    changes: Aggiornata documentazione dei parametri dei comandi CLI
+    changes: "Aggiornata documentazione dei parametri dei comandi CLI"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inizializzata la cronologia
+    changes: "Inizializzata la cronologia"
 ---
 
 # CLI di Intlayer

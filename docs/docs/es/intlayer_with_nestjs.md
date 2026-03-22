@@ -19,10 +19,10 @@ author: AydinTheFirst
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Agregar comando init
+    changes: "Agregar comando init"
   - version: 5.8.0
     date: 2025-09-09
-    changes: Documento inicial
+    changes: "Documento inicial"
 ---
 
 # Traduce tu Nest backend con Intlayer | Internacionalización (i18n)

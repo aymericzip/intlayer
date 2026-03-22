@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: بدء التاريخ
+    changes: "بدء التاريخ"
 ---
 
 # التوثيق: دالة `getLocalizedUrl` في `intlayer`
@@ -35,23 +35,19 @@ history:
 ## المعاملات
 
 - `url: string`
-
   - **الوصف**: سلسلة عنوان URL الأصلية التي سيتم إضافة بادئة اللغة إليها.
   - **النوع**: `string`
 
 - `currentLocale: Locales`
-
   - **الوصف**: اللغة الحالية التي يتم تعريب العنوان لها.
   - **النوع**: `Locales`
 
 - `locales: Locales[]`
-
   - **الوصف**: مصفوفة اختيارية من اللغات المدعومة. بشكل افتراضي، يتم توفير اللغات المكونة في المشروع.
   - **النوع**: `Locales[]`
   - **الافتراضي**: [`تكوين المشروع`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md#middleware)
 
 - `defaultLocale: Locales`
-
   - **الوصف**: اللغة الافتراضية للتطبيق. بشكل افتراضي، يتم توفير اللغة الافتراضية المكونة في المشروع.
   - **النوع**: `Locales`
   - **الافتراضي**: [`تكوين المشروع`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md#middleware)
@@ -176,11 +172,9 @@ getLocalizedUrl(
 ## الحالات الخاصة
 
 - **عدم وجود جزء اللغة:**
-
   - إذا لم يحتوي عنوان URL على جزء اللغة، تقوم الدالة بإضافة بادئة اللغة المناسبة بأمان.
 
 - **اللغة الافتراضية:**
-
   - عندما تكون قيمة `prefixDefault` هي `false`، لا تضيف الدالة بادئة للغة الافتراضية في عنوان URL.
 
 - **اللغات غير المدعومة:**

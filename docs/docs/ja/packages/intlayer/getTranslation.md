@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴の初期化
+    changes: "履歴の初期化"
 ---
 
 # ドキュメント: `intlayer` の `getTranslationContent` 関数
@@ -33,13 +33,11 @@ history:
 ## パラメーター
 
 - `languageContent: CustomizableLanguageContent<Content>`
-
   - **説明**: 複数のロケールの翻訳を含むオブジェクトです。各キーはロケールを表し、その値が対応するコンテンツです。
   - **型**: `CustomizableLanguageContent<Content>`
     - `Content` は任意の型で、デフォルトは `string` です。
 
 - `locale: Locales`
-
   - **説明**: コンテンツを取得する対象のロケールです。
   - **型**: `Locales`
 

@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-30
-    changes: Tài liệu ban đầu
+    changes: "Tài liệu ban đầu"
 ---
 
 # Gói adonis-intlayer

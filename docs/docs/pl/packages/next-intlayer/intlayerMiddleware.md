@@ -19,10 +19,10 @@ slugs:
 history:
   - version: 8.1.7
     date: 2026-02-25
-    changes: Zmiana nazwy intlayerMiddleware na intlayerProxy
+    changes: "Zmiana nazwy intlayerMiddleware na intlayerProxy"
   - version: 8.0.0
     date: 2026-01-21
-    changes: Inicjalizacja dokumentacji
+    changes: "Inicjalizacja dokumentacji"
 ---
 
 # Dokumentacja intlayerProxy (intlayerMiddleware)

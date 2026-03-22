@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初始化历史
+    changes: "初始化历史"
 ---
 
 # 文档：`intlayer` 中的 `getPathWithoutLocale` 函数
@@ -33,7 +33,6 @@ history:
 ## 参数
 
 - `inputUrl: string`
-
   - **描述**：要处理的完整 URL 字符串或路径名。
   - **类型**：`string`
 

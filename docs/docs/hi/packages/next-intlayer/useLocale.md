@@ -21,10 +21,10 @@ title: useLocale हुक दस्तावेज़ | next-intlayer
 history:
   - version: 8.0.0
     date: 2026-01-26
-    changes: `onLocaleChange` को डिफ़ॉल्ट रूप से `replace` पर सेट किया गया
+    changes: "`onLocaleChange` को डिफ़ॉल्ट रूप से `replace` पर सेट किया गया"
   - version: 5.5.10
     date: 2025-06-29
-    changes: प्रारंभिक इतिहास
+    changes: "प्रारंभिक इतिहास"
 ---
 
 # Next.js एकीकरण: `next-intlayer` के लिए `useLocale` हुक दस्तावेज़ीकरण

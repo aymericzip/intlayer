@@ -20,50 +20,50 @@ youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Додано команду init
+    changes: "Додано команду init"
   - version: 7.0.6
     date: 2025-11-01
-    changes: Додано згадку про `x-default` в об'єкті `alternates`
+    changes: "Додано згадку про `x-default` в об'єкті `alternates`"
   - version: 7.0.0
     date: 2025-10-25
-    changes: Додано згадку про функцію `withIntlayerSync()`
+    changes: "Додано згадку про функцію `withIntlayerSync()`"
   - version: 6.2.0
     date: 2025-10-09
-    changes: Додано документацію для хука `useLocale` з опцією `onLocaleChange`
+    changes: "Додано документацію для хука `useLocale` з опцією `onLocaleChange`"
   - version: 5.6.6
     date: 2025-10-02
-    changes: Додано документацію для функції `getLocale` у server actions
+    changes: "Додано документацію для функції `getLocale` у server actions"
   - version: 5.6.2
     date: 2025-09-23
-    changes: Додано документацію щодо відстеження змін словників у Turbopack
+    changes: "Додано документацію щодо відстеження змін словників у Turbopack"
   - version: 5.6.2
     date: 2025-09-22
-    changes: Додано документацію для хелпера `multipleMiddlewares`
+    changes: "Додано документацію для хелпера `multipleMiddlewares`"
   - version: 5.6.0
     date: 2025-07-06
-    changes: Трансформовано функцію `withIntlayer()` на promise-based функцію
+    changes: "Трансформовано функцію `withIntlayer()` на promise-based функцію"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Ініціалізація історії
-    changes: Додано згадку про функцію `withIntlayerSync()`
+    changes: "Ініціалізація історії"
+    changes: "Додано згадку про функцію `withIntlayerSync()`"
   - version: 6.2.0
     date: 2025-10-09
-    changes: Додано документацію для хука `useLocale` з опцією `onLocaleChange`
+    changes: "Додано документацію для хука `useLocale` з опцією `onLocaleChange`"
   - version: 5.6.6
     date: 2025-10-02
-    changes: Додано документацію для функції `getLocale` у server actions
+    changes: "Додано документацію для функції `getLocale` у server actions"
   - version: 5.6.2
     date: 2025-09-23
-    changes: Додано документацію щодо відстеження змін словників у Turbopack
+    changes: "Додано документацію щодо відстеження змін словників у Turbopack"
   - version: 5.6.2
     date: 2025-09-22
-    changes: Додано документацію для хелпера `multipleMiddlewares`
+    changes: "Додано документацію для хелпера `multipleMiddlewares`"
   - version: 5.6.0
     date: 2025-07-06
-    changes: Перетворено функцію `withIntlayer()` на функцію, яка повертає Promise
+    changes: "Перетворено функцію `withIntlayer()` на функцію, яка повертає Promise"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Ініціалізація історії
+    changes: "Ініціалізація історії"
 ---
 
 # Перекладіть ваш вебсайт Next.js 15 за допомогою Intlayer | Інтернаціоналізація (i18n)

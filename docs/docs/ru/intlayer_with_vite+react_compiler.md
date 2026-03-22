@@ -21,10 +21,10 @@ youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
   - version: 8.2.0
     date: 2026-03-09
-    changes: Update compiler options, add FilePathPattern support
+    changes: "Update compiler options, add FilePathPattern support"
   - version: 8.1.6
     date: 2026-02-23
-    changes: Первый выпуск
+    changes: "Первый выпуск"
 ---
 
 # Как сделать многоязычным (i18n) существующее приложение Vite и React впоследствии (руководство по i18n 2026)

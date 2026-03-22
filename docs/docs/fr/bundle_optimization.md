@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-11-25
-    changes: Historique initial
+    changes: "Historique initial"
 ---
 
 # Optimisation de la taille et des performances du bundle i18n

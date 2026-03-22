@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 5.7.2
     date: 2025-07-27
-    changes: Introduce gender-based content
+    changes: "Introduce gender-based content"
 ---
 
 # Gender-Based Content / Gender in Intlayer

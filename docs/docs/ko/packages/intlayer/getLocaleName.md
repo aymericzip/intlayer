@@ -21,10 +21,10 @@ slugs:
 history:
   - version: 7.5.0
     date: 2025-12-18
-    changes: React Native 및 구형 환경용 polyfills 추가
+    changes: "React Native 및 구형 환경용 polyfills 추가"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 초기 이력
+    changes: "초기 이력"
 ---
 
 # 문서: `intlayer`의 `getLocaleName` 함수

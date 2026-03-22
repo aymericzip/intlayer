@@ -19,22 +19,22 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-14-template
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Tambahkan perintah init
+    changes: "Tambahkan perintah init"
   - version: 6.2.0
     date: 2025-10-09
-    changes: Menambahkan dokumentasi untuk hook `useLocale` dengan opsi `onLocaleChange`
+    changes: "Menambahkan dokumentasi untuk hook `useLocale` dengan opsi `onLocaleChange`"
   - version: 5.6.6
     date: 2025-10-02
-    changes: Menambahkan dokumentasi untuk fungsi `getLocale` pada server actions
+    changes: "Menambahkan dokumentasi untuk fungsi `getLocale` pada server actions"
   - version: 5.6.2
     date: 2025-09-22
-    changes: Menambahkan dokumentasi untuk helper `multipleMiddlewares`
+    changes: "Menambahkan dokumentasi untuk helper `multipleMiddlewares`"
   - version: 5.6.0
     date: 2025-07-06
-    changes: Mengubah fungsi `withIntlayer()` menjadi fungsi berbasis promise
+    changes: "Mengubah fungsi `withIntlayer()` menjadi fungsi berbasis promise"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inisialisasi riwayat
+    changes: "Inisialisasi riwayat"
 ---
 
 # Menerjemahkan situs web Next.js 14 dan App Router Anda menggunakan Intlayer | Internasionalisasi (i18n)

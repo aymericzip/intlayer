@@ -19,43 +19,43 @@ slugs:
 history:
   - version: 7.5.11
     date: 2026-01-06
-    changes: 添加 projects list 命令
+    changes: "添加 projects list 命令"
   - version: 7.5.9
     date: 2025-12-30
-    changes: 添加 init 命令
+    changes: "添加 init 命令"
   - version: 7.2.3
     date: 2025-11-22
-    changes: 添加 transform 命令
+    changes: "添加 transform 命令"
   - version: 7.1.0
     date: 2025-11-05
-    changes: 为 translate 命令添加 skipIfExists 选项
+    changes: "为 translate 命令添加 skipIfExists 选项"
   - version: 6.1.4
     date: 2025-01-27
-    changes: 为 CLI 参数和命令添加别名
+    changes: "为 CLI 参数和命令添加别名"
   - version: 6.1.3
     date: 2025-10-05
-    changes: 为命令添加 build 选项
+    changes: "为命令添加 build 选项"
   - version: 6.1.2
     date: 2025-09-26
-    changes: 添加 version 命令
+    changes: "添加 version 命令"
   - version: 6.1.0
     date: 2025-09-26
-    changes: 使用 CLI 将 verbose 选项默认设置为 true
+    changes: "使用 CLI 将 verbose 选项默认设置为 true"
   - version: 6.1.0
     date: 2025-09-23
-    changes: 添加 watch 命令和 with 选项
+    changes: "添加 watch 命令和 with 选项"
   - version: 6.0.1
     date: 2025-09-23
-    changes: 添加 editor 命令
+    changes: "添加 editor 命令"
   - version: 6.0.0
     date: 2025-09-17
-    changes: 添加 content test 和 list 命令
+    changes: "添加 content test 和 list 命令"
   - version: 5.5.11
     date: 2025-07-11
-    changes: 更新 CLI 命令参数文档
+    changes: "更新 CLI 命令参数文档"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初始化历史记录
+    changes: "初始化历史记录"
 ---
 
 # Intlayer CLI

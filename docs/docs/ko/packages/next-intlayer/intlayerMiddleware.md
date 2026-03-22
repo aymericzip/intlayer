@@ -19,10 +19,10 @@ slugs:
 history:
   - version: 8.1.7
     date: 2026-02-25
-    changes: intlayerMiddleware를 intlayerProxy로 이름 변경
+    changes: "intlayerMiddleware를 intlayerProxy로 이름 변경"
   - version: 8.0.0
     date: 2026-01-21
-    changes: 문서 초기화
+    changes: "문서 초기화"
 ---
 
 # intlayerProxy (intlayerMiddleware) 문서

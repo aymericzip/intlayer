@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inizializzazione della cronologia
+    changes: "Inizializzazione della cronologia"
 ---
 
 # Documentazione: Funzione `getConfiguration` in `intlayer`
@@ -40,7 +40,6 @@ La funzione non accetta parametri. Utilizza invece le variabili d'ambiente per l
 
 - **Tipo**: `IntlayerConfig`
 - **Descrizione**: Un oggetto contenente la configurazione completa per `intlayer`. La configurazione include le seguenti sezioni:
-
   - `internationalization`: Impostazioni relative alle localizzazioni e alla modalità rigorosa.
   - `middleware`: Impostazioni relative alla gestione degli URL e dei cookie.
   - `content`: Impostazioni relative ai file di contenuto, directory e pattern.

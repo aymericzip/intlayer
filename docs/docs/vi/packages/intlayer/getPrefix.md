@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 7.1.0
     date: 2025-11-16
-    changes: Tài liệu ban đầu
+    changes: "Tài liệu ban đầu"
 ---
 
 # Tài liệu: Hàm `getPrefix` trong `intlayer`

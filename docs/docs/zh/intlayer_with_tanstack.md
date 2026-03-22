@@ -21,7 +21,7 @@ youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: 添加 init 命令
+    changes: "添加 init 命令"
   - version: 7.4.0
     date: 2025-12-11
     changes: "引入 validatePrefix 并添加步骤 14: 处理带有本地化路由的 404 页面。"
@@ -33,13 +33,13 @@ history:
     changes: "添加步骤 13: 适配 Nitro"
   - version: 7.1.0
     date: 2025-11-17
-    changes: 通过添加 getPrefix 函数修复 useLocalizedNavigate、LocaleSwitcher 和 LocalizedLink 的前缀默认值。
+    changes: "通过添加 getPrefix 函数修复 useLocalizedNavigate、LocaleSwitcher 和 LocalizedLink 的前缀默认值。"
   - version: 6.5.2
     date: 2025-10-03
-    changes: 更新文档
+    changes: "更新文档"
   - version: 5.8.1
     date: 2025-09-09
-    changes: 为 Tanstack Start 添加支持
+    changes: "为 Tanstack Start 添加支持"
 ---
 
 # 使用Intlayer翻译您的Tanstack Start | 国际化(i18n)

@@ -15,10 +15,10 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-30
-    changes: إضافة دعم Preact و Nuxt، خادم MCP، تحديث CLI
+    changes: "إضافة دعم Preact و Nuxt، خادم MCP، تحديث CLI"
   - version: 5.5.10
     date: 2025-06-29
-    changes: بداية التاريخ
+    changes: "بداية التاريخ"
 ---
 
 # Intlayer: نظرة عامة على الميزات وخارطة الطريق

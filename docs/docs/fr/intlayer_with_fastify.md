@@ -18,10 +18,10 @@ applicationTemplate: https://github.com/aymericzip/intlayer-fastify-template
 history:
   - version: 7.6.0
     date: 2025-12-31
-    changes: Ajout de la commande init
+    changes: "Ajout de la commande init"
   - version: 7.6.0
     date: 2025-12-31
-    changes: Historique initial
+    changes: "Historique initial"
 ---
 
 # Traduire votre backend Fastify avec Intlayer | Internationalisation (i18n)

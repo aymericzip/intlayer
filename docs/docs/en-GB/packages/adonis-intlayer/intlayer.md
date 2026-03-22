@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-30
-    changes: Initial documentation
+    changes: "Initial documentation"
 ---
 
 # intlayer AdonisJS Middleware Documentation

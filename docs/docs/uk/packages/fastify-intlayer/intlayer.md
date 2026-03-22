@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: Ініціалізація документації
+    changes: "Ініціалізація документації"
 ---
 
 # Документація плагіна intlayer для Fastify

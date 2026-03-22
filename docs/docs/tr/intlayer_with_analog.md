@@ -18,7 +18,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer/tree/main/examples/a
 history:
   - version: 8.0.4
     date: 2026-01-26
-    changes: Geçmişi başlat
+    changes: "Geçmişi başlat"
 ---
 
 # Intlayer kullanarak Analog (Angular) uygulamanızı tercüme edin | Uluslararasılaştırma (i18n)

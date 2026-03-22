@@ -19,43 +19,43 @@ slugs:
 history:
   - version: 7.5.11
     date: 2026-01-06
-    changes: إضافة أمر projects list
+    changes: "إضافة أمر projects list"
   - version: 7.5.9
     date: 2025-12-30
-    changes: إضافة أمر init
+    changes: "إضافة أمر init"
   - version: 7.2.3
     date: 2025-11-22
-    changes: إضافة أمر transform
+    changes: "إضافة أمر transform"
   - version: 7.1.0
     date: 2025-11-05
-    changes: إضافة خيار skipIfExists لأمر translate
+    changes: "إضافة خيار skipIfExists لأمر translate"
   - version: 6.1.4
     date: 2025-01-27
-    changes: إضافة أسماء مستعارة لوسائط وأوامر CLI
+    changes: "إضافة أسماء مستعارة لوسائط وأوامر CLI"
   - version: 6.1.3
     date: 2025-10-05
-    changes: إضافة خيار build للأوامر
+    changes: "إضافة خيار build للأوامر"
   - version: 6.1.2
     date: 2025-09-26
-    changes: إضافة أمر version
+    changes: "إضافة أمر version"
   - version: 6.1.0
     date: 2025-09-26
-    changes: تعيين خيار verbose ليكون true بشكل افتراضي باستخدام CLI
+    changes: "تعيين خيار verbose ليكون true بشكل افتراضي باستخدام CLI"
   - version: 6.1.0
     date: 2025-09-23
-    changes: إضافة أمر watch وخيار with
+    changes: "إضافة أمر watch وخيار with"
   - version: 6.0.1
     date: 2025-09-23
-    changes: إضافة أمر editor
+    changes: "إضافة أمر editor"
   - version: 6.0.0
     date: 2025-09-17
-    changes: إضافة أمر content test و list
+    changes: "إضافة أمر content test و list"
   - version: 5.5.11
     date: 2025-07-11
-    changes: تحديث توثيق معلمات أوامر CLI
+    changes: "تحديث توثيق معلمات أوامر CLI"
   - version: 5.5.10
     date: 2025-06-29
-    changes: بدء السجل
+    changes: "بدء السجل"
 ---
 
 # Intlayer CLI

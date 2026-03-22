@@ -24,10 +24,10 @@ youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Agregar comando init
+    changes: "Agregar comando init"
   - version: 7.3.4
     date: 2025-12-08
-    changes: Init history
+    changes: "Init history"
 ---
 
 # Traduce tu React Router v7 (File-System Routes) con Intlayer | Internacionalización (i18n)

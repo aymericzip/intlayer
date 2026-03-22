@@ -21,22 +21,22 @@ slugs:
 history:
   - version: 5.8.0
     date: 2025-08-20
-    changes: Добавлены форматтеры для Vue
+    changes: "Добавлены форматтеры для Vue"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Добавлены форматтеры списка
+    changes: "Добавлены форматтеры списка"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Добавлены дополнительные утилиты Intl (DisplayNames, Collator, PluralRules)
+    changes: "Добавлены дополнительные утилиты Intl (DisplayNames, Collator, PluralRules)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Добавлены утилиты локали (getLocaleName, getLocaleLang, getLocaleFromPath и др.)
+    changes: "Добавлены утилиты локали (getLocaleName, getLocaleLang, getLocaleFromPath и др.)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Добавлены утилиты для работы с контентом (getContent, getTranslation, getIntlayer и др.)
+    changes: "Добавлены утилиты для работы с контентом (getContent, getTranslation, getIntlayer и др.)"
   - version: 5.8.0
     date: 2025-08-18
-    changes: Добавлена документация по форматтерам
+    changes: "Добавлена документация по форматтерам"
 ---
 
 # Форматтеры Intlayer

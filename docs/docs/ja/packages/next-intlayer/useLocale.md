@@ -21,10 +21,10 @@ title: useLocale フックドキュメント | next-intlayer
 history:
   - version: 8.0.0
     date: 2026-01-26
-    changes: `onLocaleChange` のデフォルト値を `replace` に設定
+    changes: "`onLocaleChange` のデフォルト値を `replace` に設定"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴初期化
+    changes: "履歴初期化"
 ---
 
 # Next.js 統合: `next-intlayer` の `useLocale` フックドキュメント

@@ -20,7 +20,7 @@ youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
   - version: 8.0.0
     date: 2026-01-10
-    changes: Первоначальный релиз
+    changes: "Первоначальный релиз"
 ---
 
 # Переведите ваш сайт Next.js 16 (без [locale] в пути страницы) с помощью Intlayer | Интернационализация (i18n)

@@ -21,7 +21,7 @@ youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Thêm lệnh init
+    changes: "Thêm lệnh init"
   - version: 7.4.0
     date: 2025-12-11
     changes: "Giới thiệu validatePrefix và thêm bước 14: Xử lý trang 404 với các tuyến đường được bản địa hóa."
@@ -33,13 +33,13 @@ history:
     changes: "Thêm bước 13: Thích ứng Nitro"
   - version: 7.1.0
     date: 2025-11-17
-    changes: Sửa prefix mặc định bằng cách thêm hàm getPrefix useLocalizedNavigate, LocaleSwitcher và LocalizedLink.
+    changes: "Sửa prefix mặc định bằng cách thêm hàm getPrefix useLocalizedNavigate, LocaleSwitcher và LocalizedLink."
   - version: 6.5.2
     date: 2025-10-03
-    changes: Cập nhật tài liệu
+    changes: "Cập nhật tài liệu"
   - version: 5.8.1
     date: 2025-09-09
-    changes: Thêm cho Tanstack Start
+    changes: "Thêm cho Tanstack Start"
 ---
 
 # Dịch trang web Tanstack Start của bạn bằng Intlayer | Quốc tế hóa (i18n)

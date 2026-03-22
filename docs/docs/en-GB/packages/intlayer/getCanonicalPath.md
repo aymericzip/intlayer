@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: Implemented custom URL rewrites
+    changes: "Implemented custom URL rewrites"
 ---
 
 # Documentation: `getCanonicalPath` function in `intlayer`

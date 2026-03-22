@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Initial history
+    changes: "Initial history"
 ---
 
 # Declaration of `Per-Locale` Content Declaration in Intlayer

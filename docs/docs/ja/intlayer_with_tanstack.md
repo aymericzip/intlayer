@@ -21,25 +21,25 @@ youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: initコマンドを追加
+    changes: "initコマンドを追加"
   - version: 7.4.0
     date: 2025-12-11
-    changes: validatePrefixを導入し、ステップ14「ローカライズされたルートでの404ページの処理」を追加。
+    changes: "validatePrefixを導入し、ステップ14「ローカライズされたルートでの404ページの処理」を追加。"
   - version: 7.3.9
     date: 2025-12-05
-    changes: ステップ13「サーバーアクションでのロケールの取得（任意）」を追加。
+    changes: "ステップ13「サーバーアクションでのロケールの取得（任意）」を追加。"
   - version: 7.2.3
     date: 2025-11-18
-    changes: ステップ13「Nitroの適応」を追加。
+    changes: "ステップ13「Nitroの適応」を追加。"
   - version: 7.1.0
     date: 2025-11-17
-    changes: getPrefix関数の追加、useLocalizedNavigate、LocaleSwitcher、LocalizedLinkの使用により、デフォルトのプレフィックスを修正。
+    changes: "getPrefix関数の追加、useLocalizedNavigate、LocaleSwitcher、LocalizedLinkの使用により、デフォルトのプレフィックスを修正。"
   - version: 6.5.2
     date: 2025-10-03
-    changes: ドキュメントの更新
+    changes: "ドキュメントの更新"
   - version: 5.8.1
     date: 2025-09-09
-    changes: TanStack Start向けに追加
+    changes: "TanStack Start向けに追加"
 ---
 
 # Intlayerを使用してTanStack Startウェブサイトを翻訳する | 国際化（i18n）

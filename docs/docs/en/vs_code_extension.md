@@ -18,19 +18,19 @@ slugs:
 history:
   - version: 7.3.0
     date: 2025-11-25
-    changes: Add extract content command
+    changes: "Add extract content command"
   - version: 6.1.5
     date: 2025-09-30
-    changes: Add demo gif
+    changes: "Add demo gif"
   - version: 6.1.0
     date: 2025-09-24
-    changes: Added environment selection section
+    changes: "Added environment selection section"
   - version: 6.0.0
     date: 2025-09-22
-    changes: Intlayer Tab / Fill & Test commands
+    changes: "Intlayer Tab / Fill & Test commands"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
 ---
 
 # Official VS Code Extension

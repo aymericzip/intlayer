@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: Initialisation de la documentation
+    changes: "Initialisation de la documentation"
 ---
 
 # Documentation de la fonction validatePrefix

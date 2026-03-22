@@ -18,16 +18,16 @@ slugs:
 history:
   - version: 6.1.5
     date: 2025-09-30
-    changes: Demo-GIF hinzugefügt
+    changes: "Demo-GIF hinzugefügt"
   - version: 6.1.0
     date: 2025-09-24
-    changes: Abschnitt zur Umgebungs-Auswahl hinzugefügt
+    changes: "Abschnitt zur Umgebungs-Auswahl hinzugefügt"
   - version: 6.0.0
     date: 2025-09-22
-    changes: Intlayer-Tab / Befehle zum Ausfüllen & Testen
+    changes: "Intlayer-Tab / Befehle zum Ausfüllen & Testen"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historie initialisiert
+    changes: "Historie initialisiert"
 ---
 
 # Offizielle VS Code Erweiterung

@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Initiale Historie
+    changes: "Initiale Historie"
 ---
 
 # Dokumentation: `getPathWithoutLocale` Funktionen in `intlayer`
@@ -33,7 +33,6 @@ Entfernt das Locale-Segment aus der angegebenen URL oder dem Pfadnamen, falls vo
 ## Parameter
 
 - `inputUrl: string`
-
   - **Beschreibung**: Der vollständige URL-String oder Pfadname, der verarbeitet werden soll.
   - **Typ**: `string`
 

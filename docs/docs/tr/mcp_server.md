@@ -17,16 +17,16 @@ slugs:
 history:
   - version: 5.5.12
     date: 2025-07-11
-    changes: ChatGPT kurulumu eklendi
+    changes: "ChatGPT kurulumu eklendi"
   - version: 5.5.12
     date: 2025-07-10
-    changes: Claude Desktop kurulumu eklendi
+    changes: "Claude Desktop kurulumu eklendi"
   - version: 5.5.12
     date: 2025-07-10
-    changes: SSE aktarımı ve uzak sunucu eklendi
+    changes: "SSE aktarımı ve uzak sunucu eklendi"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Geçmiş başlatıldı
+    changes: "Geçmiş başlatıldı"
 ---
 
 # Intlayer MCP Sunucusu

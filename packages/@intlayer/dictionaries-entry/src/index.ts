@@ -7,6 +7,7 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { basename, extname, join } from 'node:path';
 import config from '@intlayer/config/built';
+import { clearModuleCache, configESMxCJSRequire } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { DictionaryRegistry } from '@intlayer/types/module_augmentation';
 

@@ -19,43 +19,43 @@ slugs:
 history:
   - version: 7.5.11
     date: 2026-01-06
-    changes: projects listコマンドを追加
+    changes: "projects listコマンドを追加"
   - version: 7.5.9
     date: 2025-12-30
-    changes: initコマンドを追加
+    changes: "initコマンドを追加"
   - version: 7.2.3
     date: 2025-11-22
-    changes: transformコマンドを追加
+    changes: "transformコマンドを追加"
   - version: 7.1.0
     date: 2025-11-05
-    changes: translateコマンドにskipIfExistsオプションを追加
+    changes: "translateコマンドにskipIfExistsオプションを追加"
   - version: 6.1.4
     date: 2025-01-27
-    changes: CLI引数とコマンドのエイリアスを追加
+    changes: "CLI引数とコマンドのエイリアスを追加"
   - version: 6.1.3
     date: 2025-10-05
-    changes: コマンドにbuildオプションを追加
+    changes: "コマンドにbuildオプションを追加"
   - version: 6.1.2
     date: 2025-09-26
-    changes: versionコマンドを追加
+    changes: "versionコマンドを追加"
   - version: 6.1.0
     date: 2025-09-26
-    changes: CLIでverboseオプションのデフォルトをtrueに設定
+    changes: "CLIでverboseオプションのデフォルトをtrueに設定"
   - version: 6.1.0
     date: 2025-09-23
-    changes: watchコマンドとwithオプションを追加
+    changes: "watchコマンドとwithオプションを追加"
   - version: 6.0.1
     date: 2025-09-23
-    changes: editorコマンドを追加
+    changes: "editorコマンドを追加"
   - version: 6.0.0
     date: 2025-09-17
-    changes: content testおよびlistコマンドを追加
+    changes: "content testおよびlistコマンドを追加"
   - version: 5.5.11
     date: 2025-07-11
-    changes: CLIコマンドパラメータのドキュメントを更新
+    changes: "CLIコマンドパラメータのドキュメントを更新"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴を初期化
+    changes: "履歴を初期化"
 ---
 
 # Intlayer CLI

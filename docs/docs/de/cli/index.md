@@ -19,43 +19,43 @@ slugs:
 history:
   - version: 7.5.11
     date: 2026-01-06
-    changes: Projekte-Listen-Befehl hinzugefügt
+    changes: "Projekte-Listen-Befehl hinzugefügt"
   - version: 7.5.9
     date: 2025-12-30
-    changes: Init-Befehl hinzugefügt
+    changes: "Init-Befehl hinzugefügt"
   - version: 7.2.3
     date: 2025-11-22
-    changes: Transform-Befehl hinzugefügt
+    changes: "Transform-Befehl hinzugefügt"
   - version: 7.1.0
     date: 2025-11-05
-    changes: Option skipIfExists zum translate-Befehl hinzugefügt
+    changes: "Option skipIfExists zum translate-Befehl hinzugefügt"
   - version: 6.1.4
     date: 2025-01-27
-    changes: Aliase für CLI-Argumente und Befehle hinzugefügt
+    changes: "Aliase für CLI-Argumente und Befehle hinzugefügt"
   - version: 6.1.3
     date: 2025-10-05
-    changes: Build-Option zu Befehlen hinzugefügt
+    changes: "Build-Option zu Befehlen hinzugefügt"
   - version: 6.1.2
     date: 2025-09-26
-    changes: Versionsbefehl hinzugefügt
+    changes: "Versionsbefehl hinzugefügt"
   - version: 6.1.0
     date: 2025-09-26
-    changes: Setze verbose-Option standardmäßig auf true über CLI
+    changes: "Setze verbose-Option standardmäßig auf true über CLI"
   - version: 6.1.0
     date: 2025-09-23
-    changes: Watch-Befehl und with-Option hinzugefügt
+    changes: "Watch-Befehl und with-Option hinzugefügt"
   - version: 6.0.1
     date: 2025-09-23
-    changes: Editor-Befehl hinzugefügt
+    changes: "Editor-Befehl hinzugefügt"
   - version: 6.0.0
     date: 2025-09-17
-    changes: Content-Test- und Listen-Befehl hinzugefügt
+    changes: "Content-Test- und Listen-Befehl hinzugefügt"
   - version: 5.5.11
     date: 2025-07-11
-    changes: Dokumentation der CLI-Befehlsparameter aktualisiert
+    changes: "Dokumentation der CLI-Befehlsparameter aktualisiert"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historie initialisiert
+    changes: "Historie initialisiert"
 ---
 
 # Intlayer CLI

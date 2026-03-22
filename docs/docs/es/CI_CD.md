@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historial inicial
+    changes: "Historial inicial"
 ---
 
 # Generación Automática de Traducciones en un Pipeline CI/CD

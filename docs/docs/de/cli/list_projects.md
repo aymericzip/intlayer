@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 7.5.12
     date: 2026-01-06
-    changes: Absolute Ausgabeoption zum Befehl list projects hinzufügen
+    changes: "Absolute Ausgabeoption zum Befehl list projects hinzufügen"
 ---
 
 # Intlayer-Projekte auflisten
