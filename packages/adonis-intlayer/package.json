@@ -99,6 +99,14 @@
     "typescript": "5.9.3",
     "vitest": "4.1.0"
   },
+  "peerDependencies": {
+    "@adonisjs/core": ">=6.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@adonisjs/core": {
+      "optional": true
+    }
+  },
   "engines": {
     "node": ">=14.18"
   },

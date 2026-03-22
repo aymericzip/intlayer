@@ -1,18 +1,30 @@
 import type { HttpContext } from '@adonisjs/core/http';
 import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { getConfiguration } from '@intlayer/config/node';
-import type { getIntlayer as getIntlayerFunction } from '@intlayer/core/interpreter';
 import {
   getDictionary as getDictionaryFunction,
+  getIntlayer as getIntlayerFunction,
   getTranslation,
 } from '@intlayer/core/interpreter';
 import { getLocaleFromStorage } from '@intlayer/core/utils';
-import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import type { Locale } from '@intlayer/types/allLocales';
+import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import { createNamespace } from 'cls-hooked';
+
+// Zero-cost fallback, will be updated with AdonisJS logger or console in dev mode
+let debug: (message: string) => void = () => {};
 
 const configuration = getConfiguration();
 const { internationalization } = configuration;
+
+if (process.env.NODE_ENV === 'development') {
+  try {
+    const logger = require('@adonisjs/core/services/logger').default;
+    debug = (msg: string) => logger.debug(msg);
+  } catch {
+    debug = (msg: string) => console.debug(msg);
+  }
+}
 
 export const appNamespace = createNamespace('app');
 
@@ -111,9 +123,7 @@ export const t = <Content = string>(
 
     return appNamespace.get('t')(content, locale);
   } catch (error) {
-    if (process.env.NODE_ENV === 'development') {
-      console.error((error as Error).message);
-    }
+    debug((error as Error).message);
 
     return getTranslation(
       content,
@@ -144,9 +154,8 @@ export const getIntlayer: typeof getIntlayerFunction = ((
 
     return getIntlayerWrapped(key, localeArg, ...props);
   } catch (error) {
-    if (process.env.NODE_ENV === 'development') {
-      console.error((error as Error).message);
-    }
+    debug((error as Error).message);
+
     return getIntlayerFunction(key, localeArg, ...props);
   }
 }) as typeof getIntlayerFunction;
@@ -173,9 +182,8 @@ export const getDictionary: typeof getDictionaryFunction = ((
 
     return getDictionaryWrapped(key, localeArg, ...props);
   } catch (error) {
-    if (process.env.NODE_ENV === 'development') {
-      console.error((error as Error).message);
-    }
+    debug((error as Error).message);
+
     return getDictionaryFunction(key, localeArg, ...props);
   }
 }) as typeof getDictionaryFunction;

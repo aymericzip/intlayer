@@ -13,8 +13,15 @@ import { createNamespace } from 'cls-hooked';
 import type { Context, MiddlewareHandler } from 'hono';
 import { getCookie } from 'hono/cookie';
 
+// Zero-cost fallback, will be updated with console logger in dev mode
+let debug: (message: string) => void = () => {};
+
 const configuration = getConfiguration();
 const { internationalization } = configuration;
+
+if (process.env.NODE_ENV === 'development') {
+  debug = (msg: string) => console.debug(msg);
+}
 
 /**
  * Retrieves the locale from storage (cookies, headers).
@@ -178,9 +185,7 @@ export const t = <Content = string>(
 
     return appNamespace.get('t')(content, locale);
   } catch (error) {
-    if (process.env.NODE_ENV === 'development') {
-      console.error((error as Error).message);
-    }
+    debug((error as Error).message);
 
     return getTranslation(
       content,
@@ -207,9 +212,8 @@ export const getIntlayer: typeof getIntlayerFunction = (
 
     return appNamespace.get('getIntlayer')(...args);
   } catch (error) {
-    if (process.env.NODE_ENV === 'development') {
-      console.error((error as Error).message);
-    }
+    debug((error as Error).message);
+
     return getIntlayerFunction(...args);
   }
 };
@@ -232,9 +236,8 @@ export const getDictionary: typeof getDictionaryFunction = (
 
     return appNamespace.get('getDictionary')(...args);
   } catch (error) {
-    if (process.env.NODE_ENV === 'development') {
-      console.error((error as Error).message);
-    }
+    debug((error as Error).message);
+
     return getDictionaryFunction(...args);
   }
 };
