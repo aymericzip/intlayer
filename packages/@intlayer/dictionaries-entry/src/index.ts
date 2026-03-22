@@ -4,8 +4,8 @@
  * The alias allow hot reload the app (such as nextjs) on any dictionary change.
  */
 
-import { existsSync, readdirSync, readFileSync } from 'node:fs';
-import { basename, extname, join } from 'node:path';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import config from '@intlayer/config/built';
 import { clearModuleCache, configESMxCJSRequire } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
@@ -16,23 +16,15 @@ type GetDictionaries = (configuration?: IntlayerConfig) => DictionaryRegistry;
 export const getDictionaries: GetDictionaries = (
   configuration: IntlayerConfig = config
 ) => {
-  const { system } = configuration;
-  const { dictionariesDir } = system;
+  const { system, build } = configuration;
 
-  const dictionaries: Record<string, any> = {};
+  // Always use cjs for dictionaries entry as it uses require
+  const dictionariesPath = join(system.mainDir, `dictionaries.cjs`);
 
-  if (existsSync(dictionariesDir)) {
-    // Read JSON files directly to avoid require.cache memory leak
-    const files = readdirSync(dictionariesDir).filter((file) =>
-      file.endsWith('.json')
-    );
-
-    for (const file of files) {
-      const key = basename(file, extname(file));
-      const content = readFileSync(join(dictionariesDir, file), 'utf-8');
-      dictionaries[key] = JSON.parse(content);
-    }
+  let dictionaries = {};
+  if (existsSync(dictionariesPath)) {
+    dictionaries = (build.require ?? configESMxCJSRequire)(dictionariesPath);
   }
 
-  return dictionaries as DictionaryRegistry;
+  return (dictionaries ?? {}) as DictionaryRegistry;
 };

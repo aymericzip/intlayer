@@ -3,6 +3,7 @@ import {
   writeContentDeclaration as writeContentDeclarationEditor,
 } from '@intlayer/chokidar/build';
 import { getConfiguration } from '@intlayer/config/node';
+import { clearModuleCache } from '@intlayer/config/utils';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import {
   getUnmergedDictionaries,
@@ -11,6 +12,7 @@ import {
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { t } from 'fastify-intlayer';
+import { join } from 'path';
 
 export type GetEditorDictionariesResult = ResponseData<UnmergedDictionaries>;
 
@@ -67,6 +69,13 @@ export const writeContentDeclaration = async (
     const config = getConfiguration();
 
     const result = await writeContentDeclarationEditor(dictionaryData, config);
+
+    // Clear cache to hot reload the dictionaries
+    const dictionariesPath = join(
+      config.system.mainDir,
+      `unmerged_dictionaries.cjs`
+    );
+    clearModuleCache(dictionariesPath);
 
     let description = '';
 
