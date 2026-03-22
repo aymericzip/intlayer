@@ -934,10 +934,13 @@ const createRules = (
           text:
             text.indexOf('&') === -1
               ? text
-              : text.replace(
-                  HTML_CHAR_CODE_R,
-                  (f, i) => namedCodesToUnicode[i] || f
-                ),
+              : text.replace(HTML_CHAR_CODE_R, (f, i) => {
+                  if (i.startsWith('#x'))
+                    return String.fromCharCode(parseInt(i.slice(2), 16));
+                  if (i.startsWith('#'))
+                    return String.fromCharCode(parseInt(i.slice(1), 10));
+                  return namedCodesToUnicode[i] || f;
+                }),
         };
       },
       _render(node) {

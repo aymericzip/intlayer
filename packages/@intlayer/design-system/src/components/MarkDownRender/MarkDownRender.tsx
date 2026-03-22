@@ -150,7 +150,7 @@ const createLinkRenderer = (locale?: LocalesValues) => {
 
 const PreRenderer = (props: ComponentProps<'pre'>) => <>{props.children}</>;
 const TableRenderer = (props: ComponentProps<typeof Table>) => (
-  <Table {...props} />
+  <Table isRollable={true} {...props} />
 );
 const ThRenderer = ({ className, ...props }: ComponentProps<'th'>) => (
   <th
