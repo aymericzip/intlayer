@@ -164,33 +164,25 @@ export const ChatBot: FC<ChatBotProps> = ({
           setHasReachedRateLimit(false);
         },
         onError: (errorMessage: any) => {
-          let error: any;
+          if (typeof errorMessage === 'undefined') return;
 
-          // If json is valid, parse it
+          let parsedErrors: any[];
+
           try {
-            if (typeof errorMessage === 'undefined') return;
-
-            if (typeof errorMessage.message === 'string') {
-              error = errorMessage.message;
-            } else {
-              error = JSON.parse(errorMessage as any);
-            }
+            const raw =
+              typeof errorMessage?.message === 'string'
+                ? JSON.parse(errorMessage.message)
+                : errorMessage;
+            parsedErrors = [raw].flat();
           } catch (_e) {
-            // If json is not valid, set error to the original errorMessage
-
-            error = errorMessage;
+            parsedErrors = [errorMessage].flat();
           }
 
-          // render toast for each error if there is more than one
-          // otherwise render the toast with the error message
-          // biome-ignore lint/complexity/noFlatMapIdentity: <Match the case if error is an array>
-          [error]
-            .flatMap((error) => error)
-            .forEach((error) => {
-              if (error.code === 'RATE_LIMIT_EXCEEDED_UNAUTHENTICATED') {
-                setHasReachedRateLimit(true);
-              }
-            });
+          parsedErrors.forEach((error) => {
+            if (error?.code === 'RATE_LIMIT_EXCEEDED_UNAUTHENTICATED') {
+              setHasReachedRateLimit(true);
+            }
+          });
         },
       }
     );

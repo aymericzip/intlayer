@@ -53,6 +53,7 @@ const useToastEvents = () => {
     const parsed = (() => {
       try {
         if (typeof error === 'string') return JSON.parse(error);
+        if (error instanceof Error) return JSON.parse(error.message);
       } catch (_) {}
       return error;
     })();
@@ -60,6 +61,14 @@ const useToastEvents = () => {
     [parsed].flat().forEach((err: any) => {
       // Check for nested error object (standard in your API responses: { statusCode, error: { ... } })
       const apiError = err?.error ?? err;
+
+      if (apiError?.code === 'RATE_LIMIT_EXCEEDED_UNAUTHENTICATED') {
+        toast({
+          title: apiError.message,
+          variant: 'error',
+        });
+        return;
+      }
 
       toast({
         title: formatErrorCode(

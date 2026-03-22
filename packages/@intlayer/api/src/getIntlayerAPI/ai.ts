@@ -213,7 +213,8 @@ export const getAiAPI = (
         try {
           // Attempt to parse JSON error payload produced by backend
           const errorData = await response.json();
-          errorMessage = JSON.stringify(errorData.error) ?? 'An error occurred';
+          const errorObj = errorData.error ?? errorData;
+          errorMessage = JSON.stringify(errorObj) ?? 'An error occurred';
         } catch {
           // Fallback to plain-text body or HTTP status text
           try {
