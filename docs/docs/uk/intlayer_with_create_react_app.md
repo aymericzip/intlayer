@@ -19,10 +19,10 @@ applicationTemplate: https://github.com/aymericzip/intlayer-react-cra-template
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Додано команду init
+    changes: "Додано команду init"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Ініціалізовано історію
+    changes: "Ініціалізовано історію"
 ---
 
 # Перекладіть ваш вебсайт Create React App за допомогою Intlayer | Інтернаціоналізація (i18n)

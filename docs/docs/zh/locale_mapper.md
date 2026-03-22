@@ -15,7 +15,7 @@ slugs:
 history:
   - version: 5.7.2
     date: 2025-07-27
-    changes: 添加了区域映射器文档
+    changes: "添加了区域映射器文档"
 ---
 
 # 本地化映射器

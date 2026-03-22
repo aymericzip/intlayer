@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: 사용자 정의 URL 리라이트 구현
+    changes: "사용자 정의 URL 리라이트 구현"
 ---
 
 # 문서: `intlayer`의 `getCanonicalPath` 함수

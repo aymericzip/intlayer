@@ -21,10 +21,10 @@ slugs:
 history:
   - version: 7.5.0
     date: 2025-12-18
-    changes: Добавление polyfills для React Native и старых сред
+    changes: "Добавление polyfills для React Native и старых сред"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Инициализация истории
+    changes: "Инициализация истории"
 ---
 
 # Документация: функция `getLocaleName` в `intlayer`

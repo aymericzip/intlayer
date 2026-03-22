@@ -17,10 +17,10 @@ slugs:
 history:
   - version: 7.3.1
     date: 2025-11-29
-    changes: Add global configuration for per-locale files
+    changes: "Add global configuration for per-locale files"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
 ---
 
 # Declaration of `Per-Locale` Content Declaration in Intlayer

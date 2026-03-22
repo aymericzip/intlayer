@@ -21,10 +21,10 @@ slugs:
 history:
   - version: 7.5.0
     date: 2025-12-18
-    changes: Add polyfills for React Native and older environments
+    changes: "Add polyfills for React Native and older environments"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Initial history
+    changes: "Initial history"
 ---
 
 # Documentation: `getLocaleName` Function in `intlayer`

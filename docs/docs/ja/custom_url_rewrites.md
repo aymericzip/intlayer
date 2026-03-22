@@ -15,7 +15,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-25
-    changes: フレームワーク固有のフォーマッターと useRewriteURL フックの使用を伴う集中型URLリライトを実装しました。
+    changes: "フレームワーク固有のフォーマッターと useRewriteURL フックの使用を伴う集中型URLリライトを実装しました。"
 ---
 
 # カスタムURLリライトの実装

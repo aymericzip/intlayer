@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: تنفيذ قواعد إعادة كتابة URL مخصصة
+    changes: "تنفيذ قواعد إعادة كتابة URL مخصصة"
 ---
 
 # التوثيق: الدالة `getLocalizedPath` في `intlayer`

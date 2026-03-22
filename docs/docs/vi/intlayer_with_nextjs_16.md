@@ -19,13 +19,13 @@ youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Thêm lệnh init
+    changes: "Thêm lệnh init"
   - version: 7.0.6
     date: 2025-11-01
-    changes: Đã thêm đề cập đến `x-default` trong đối tượng `alternates`
+    changes: "Đã thêm đề cập đến `x-default` trong đối tượng `alternates`"
   - version: 7.0.0
     date: 2025-06-29
-    changes: Khởi tạo lịch sử
+    changes: "Khởi tạo lịch sử"
 ---
 
 # Dịch trang web Next.js 16 của bạn bằng Intlayer | Quốc tế hóa (i18n)

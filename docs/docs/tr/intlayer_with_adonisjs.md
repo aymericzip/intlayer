@@ -18,7 +18,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-adonis-template
 history:
   - version: 8.0.0
     date: 2025-12-30
-    changes: Geçmişi başlat
+    changes: "Geçmişi başlat"
 ---
 
 # Intlayer kullanarak AdonisJS backend web sitenizi çevirin | Uluslararasılaştırma (i18n)

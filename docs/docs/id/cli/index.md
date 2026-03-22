@@ -19,43 +19,43 @@ slugs:
 history:
   - version: 7.5.11
     date: 2026-01-06
-    changes: Menambahkan perintah projects list
+    changes: "Menambahkan perintah projects list"
   - version: 7.5.9
     date: 2025-12-30
-    changes: Menambahkan perintah init
+    changes: "Menambahkan perintah init"
   - version: 7.2.3
     date: 2025-11-22
-    changes: Menambahkan perintah transform
+    changes: "Menambahkan perintah transform"
   - version: 7.1.0
     date: 2025-11-05
-    changes: Menambahkan opsi skipIfExists pada perintah translate
+    changes: "Menambahkan opsi skipIfExists pada perintah translate"
   - version: 6.1.4
     date: 2025-01-27
-    changes: Menambahkan alias untuk argumen dan perintah CLI
+    changes: "Menambahkan alias untuk argumen dan perintah CLI"
   - version: 6.1.3
     date: 2025-10-05
-    changes: Menambahkan opsi build pada perintah
+    changes: "Menambahkan opsi build pada perintah"
   - version: 6.1.2
     date: 2025-09-26
-    changes: Menambahkan perintah version
+    changes: "Menambahkan perintah version"
   - version: 6.1.0
     date: 2025-09-26
-    changes: Mengatur opsi verbose menjadi default true menggunakan CLI
+    changes: "Mengatur opsi verbose menjadi default true menggunakan CLI"
   - version: 6.1.0
     date: 2025-09-23
-    changes: Menambahkan perintah watch dan opsi with
+    changes: "Menambahkan perintah watch dan opsi with"
   - version: 6.0.1
     date: 2025-09-23
-    changes: Menambahkan perintah editor
+    changes: "Menambahkan perintah editor"
   - version: 6.0.0
     date: 2025-09-17
-    changes: Menambahkan perintah content test dan list
+    changes: "Menambahkan perintah content test dan list"
   - version: 5.5.11
     date: 2025-07-11
-    changes: Memperbarui dokumentasi parameter perintah CLI
+    changes: "Memperbarui dokumentasi parameter perintah CLI"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inisialisasi riwayat
+    changes: "Inisialisasi riwayat"
 ---
 
 # Intlayer CLI

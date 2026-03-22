@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historique initial
+    changes: "Historique initial"
 ---
 
 # Documentation : Fonction `getMultilingualUrls` dans `intlayer`
@@ -35,18 +35,15 @@ La fonction `getMultilingualUrls` génère une correspondance d'URLs multilingue
 ## Paramètres
 
 - `url: string`
-
   - **Description** : La chaîne URL originale à préfixer avec les locales.
   - **Type** : `string`
 
 - `locales: Locales[]`
-
   - **Description** : Tableau optionnel des locales supportées. Par défaut, les locales configurées dans le projet.
   - **Type** : `Locales[]`
   - **Défaut** : `localesDefault`
 
 - `defaultLocale: Locales`
-
   - **Description** : La locale par défaut pour l'application. Par défaut, la locale par défaut configurée dans le projet.
   - **Type** : `Locales`
   - **Défaut** : `defaultLocaleDefault`
@@ -132,11 +129,9 @@ getMultilingualUrls(
 ## Cas particuliers
 
 - **Pas de segment de locale :**
-
   - La fonction supprime tout segment de langue existant dans l'URL avant de générer les correspondances multilingues.
 
 - **Langue par défaut :**
-
   - Lorsque `prefixDefault` est `false`, la fonction ne préfixe pas l'URL pour la langue par défaut.
 
 - **Langues non prises en charge :**

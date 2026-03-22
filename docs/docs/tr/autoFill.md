@@ -18,13 +18,13 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-09-20
-    changes: Küresel yapılandırma eklendi
+    changes: "Küresel yapılandırma eklendi"
   - version: 6.0.0
     date: 2025-09-17
-    changes: `{{fileName}}` değişkeni eklendi
+    changes: "`{{fileName}}` değişkeni eklendi"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Geçmiş başlatıldı
+    changes: "Geçmiş başlatıldı"
 ---
 
 # Otomatik Doldurma İçerik Beyan Dosyası Çevirileri
@@ -164,7 +164,7 @@ Bu sadece Fransızca çeviri dosyasını oluşturacaktır.
 
 ## Yol Değişkenleri
 
- `autoFill` yolu içinde değişkenler kullanarak oluşturulan dosyaların hedef yollarını dinamik olarak çözebilirsiniz.
+`autoFill` yolu içinde değişkenler kullanarak oluşturulan dosyaların hedef yollarını dinamik olarak çözebilirsiniz.
 
 **Kullanılabilir değişkenler:**
 

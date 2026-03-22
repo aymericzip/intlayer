@@ -16,10 +16,10 @@ slugs:
 history:
   - version: 7.5.12
     date: 2026-01-06
-    changes: Menambahkan opsi output absolut ke perintah list
+    changes: "Menambahkan opsi output absolut ke perintah list"
   - version: 7.5.11
     date: 2026-01-06
-    changes: Menambahkan opsi output JSON ke perintah list
+    changes: "Menambahkan opsi output JSON ke perintah list"
 ---
 
 # Daftar file deklarasi konten

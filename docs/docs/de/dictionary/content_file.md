@@ -14,25 +14,25 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-28
-    changes: Inhaltstyp-Knoten `html` hinzugefügt
+    changes: "Inhaltstyp-Knoten `html` hinzugefügt"
   - version: 8.0.0
     date: 2026-01-24
-    changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
+    changes: "Rename `live` import mode to `fetch` to better describe the underlying mechanism."
   - version: 8.0.0
     date: 2026-01-18
-    changes: Wörterbuchoptionen `location` und `schema` hinzugefügt
+    changes: "Wörterbuchoptionen `location` und `schema` hinzugefügt"
   - version: 7.5.13
     date: 2026-01-10
-    changes: Unterstützung für JSON5- und JSONC-Dateiformate hinzugefügt
+    changes: "Unterstützung für JSON5- und JSONC-Dateiformate hinzugefügt"
   - version: 7.5.0
     date: 2025-12-13
-    changes: Unterstützung für ICU- und i18next-Formate hinzugefügt
+    changes: "Unterstützung für ICU- und i18next-Formate hinzugefügt"
   - version: 6.0.0
     date: 2025-09-20
-    changes: Felddokumentation hinzugefügt
+    changes: "Felddokumentation hinzugefügt"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historie initialisiert
+    changes: "Historie initialisiert"
 ---
 
 # Inhaltsdatei

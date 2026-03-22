@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Aggiunta del comando init
+    changes: "Aggiunta del comando init"
 ---
 
 # Inizializzare Intlayer

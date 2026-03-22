@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-11-25
-    changes: 초기 기록
+    changes: "초기 기록"
 ---
 
 # i18n 번들 크기 및 성능 최적화

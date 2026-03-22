@@ -18,16 +18,16 @@ slugs:
 history:
   - version: 6.1.5
     date: 2025-09-30
-    changes: Ajout d’un gif de démonstration
+    changes: "Ajout d’un gif de démonstration"
   - version: 6.1.0
     date: 2025-09-24
-    changes: Ajout de la section de sélection de l’environnement
+    changes: "Ajout de la section de sélection de l’environnement"
   - version: 6.0.0
     date: 2025-09-22
-    changes: Onglet Intlayer / Commandes Remplir & Tester
+    changes: "Onglet Intlayer / Commandes Remplir & Tester"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historique initial
+    changes: "Historique initial"
 ---
 
 # Extension officielle VS Code

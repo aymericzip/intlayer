@@ -21,10 +21,10 @@ title: useLocale 钩子文档 | next-intlayer
 history:
   - version: 8.0.0
     date: 2026-01-26
-    changes: 将 `onLocaleChange` 默认值设置为 `replace`
+    changes: "将 `onLocaleChange` 默认值设置为 `replace`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初始化历史
+    changes: "初始化历史"
 ---
 
 # Next.js 集成：`useLocale` 钩子文档（适用于 `next-intlayer`）

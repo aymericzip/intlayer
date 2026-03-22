@@ -21,22 +21,22 @@ slugs:
 history:
   - version: 5.8.0
     date: 2025-08-20
-    changes: إضافة منسقات vue
+    changes: "إضافة منسقات vue"
   - version: 5.8.0
     date: 2025-08-18
-    changes: إضافة توثيق المنسقات
+    changes: "إضافة توثيق المنسقات"
   - version: 5.8.0
     date: 2025-08-20
-    changes: إضافة توثيق منسق القوائم
+    changes: "إضافة توثيق منسق القوائم"
   - version: 5.8.0
     date: 2025-08-20
-    changes: إضافة أدوات Intl إضافية (DisplayNames، Collator، PluralRules)
+    changes: "إضافة أدوات Intl إضافية (DisplayNames، Collator، PluralRules)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: إضافة أدوات التعامل مع اللغة (getLocaleName، getLocaleLang، getLocaleFromPath، إلخ)
+    changes: "إضافة أدوات التعامل مع اللغة (getLocaleName، getLocaleLang، getLocaleFromPath، إلخ)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: إضافة أدوات التعامل مع المحتوى (getContent، getTranslation، getIntlayer، إلخ)
+    changes: "إضافة أدوات التعامل مع المحتوى (getContent، getTranslation، getIntlayer، إلخ)"
 ---
 
 # أدوات تنسيق Intlayer

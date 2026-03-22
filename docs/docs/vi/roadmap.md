@@ -16,13 +16,13 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-30
-    changes: Thêm hỗ trợ Preact và Nuxt, MCP Server, cập nhật CLI
+    changes: "Thêm hỗ trợ Preact và Nuxt, MCP Server, cập nhật CLI"
   - version: 5.5.11
     date: 2025-06-29
-    changes: Thêm các lệnh `docs`
+    changes: "Thêm các lệnh `docs`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Khởi tạo lịch sử
+    changes: "Khởi tạo lịch sử"
 ---
 
 # Intlayer: Tổng quan tính năng & Lộ trình phát triển

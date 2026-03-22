@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: Inicialização da documentação
+    changes: "Inicialização da documentação"
 ---
 
 # Documentação da função getLocale

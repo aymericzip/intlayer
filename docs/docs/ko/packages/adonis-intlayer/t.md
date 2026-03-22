@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-30
-    changes: 초기 문서
+    changes: "초기 문서"
 ---
 
 # 문서: `adonis-intlayer`의 `t` 함수

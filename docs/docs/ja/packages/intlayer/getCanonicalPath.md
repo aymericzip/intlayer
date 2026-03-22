@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: カスタムURLリライトを実装
+    changes: "カスタムURLリライトを実装"
 ---
 
 # ドキュメント: `intlayer` の `getCanonicalPath` 関数

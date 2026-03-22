@@ -18,16 +18,16 @@ slugs:
 history:
   - version: 6.1.5
     date: 2025-09-30
-    changes: إضافة صورة متحركة توضيحية
+    changes: "إضافة صورة متحركة توضيحية"
   - version: 6.1.0
     date: 2025-09-24
-    changes: إضافة قسم اختيار البيئة
+    changes: "إضافة قسم اختيار البيئة"
   - version: 6.0.0
     date: 2025-09-22
-    changes: تبويب Intlayer / أوامر التعبئة والاختبار
+    changes: "تبويب Intlayer / أوامر التعبئة والاختبار"
   - version: 5.5.10
     date: 2025-06-29
-    changes: بدء السجل
+    changes: "بدء السجل"
 ---
 
 # ملحق VS Code الرسمي

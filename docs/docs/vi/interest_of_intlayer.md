@@ -15,10 +15,10 @@ slugs:
 history:
   - version: 5.8.0
     date: 2025-08-19
-    changes: Cập nhật bảng so sánh
+    changes: "Cập nhật bảng so sánh"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Khởi tạo lịch sử
+    changes: "Khởi tạo lịch sử"
 ---
 
 # Tại sao bạn nên cân nhắc sử dụng Intlayer?

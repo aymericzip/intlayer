@@ -19,43 +19,43 @@ slugs:
 history:
   - version: 7.5.11
     date: 2026-01-06
-    changes: projects list 명령어 추가
+    changes: "projects list 명령어 추가"
   - version: 7.5.9
     date: 2025-12-30
-    changes: init 명령어 추가
+    changes: "init 명령어 추가"
   - version: 7.2.3
     date: 2025-11-22
-    changes: transform 명령어 추가
+    changes: "transform 명령어 추가"
   - version: 7.1.0
     date: 2025-11-05
-    changes: translate 명령어에 skipIfExists 옵션 추가
+    changes: "translate 명령어에 skipIfExists 옵션 추가"
   - version: 6.1.4
     date: 2025-01-27
-    changes: CLI 인수 및 명령어에 별칭 추가
+    changes: "CLI 인수 및 명령어에 별칭 추가"
   - version: 6.1.3
     date: 2025-10-05
-    changes: 명령어에 build 옵션 추가
+    changes: "명령어에 build 옵션 추가"
   - version: 6.1.2
     date: 2025-09-26
-    changes: version 명령어 추가
+    changes: "version 명령어 추가"
   - version: 6.1.0
     date: 2025-09-26
-    changes: CLI를 사용하여 verbose 옵션의 기본값을 true로 설정
+    changes: "CLI를 사용하여 verbose 옵션의 기본값을 true로 설정"
   - version: 6.1.0
     date: 2025-09-23
-    changes: watch 명령어 및 with 옵션 추가
+    changes: "watch 명령어 및 with 옵션 추가"
   - version: 6.0.1
     date: 2025-09-23
-    changes: editor 명령어 추가
+    changes: "editor 명령어 추가"
   - version: 6.0.0
     date: 2025-09-17
-    changes: content test 및 list 명령어 추가
+    changes: "content test 및 list 명령어 추가"
   - version: 5.5.11
     date: 2025-07-11
-    changes: CLI 명령어 매개변수 문서 업데이트
+    changes: "CLI 명령어 매개변수 문서 업데이트"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 히스토리 초기화
+    changes: "히스토리 초기화"
 ---
 
 # Intlayer CLI

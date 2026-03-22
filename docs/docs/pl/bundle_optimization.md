@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-11-25
-    changes: Inicjalizacja historii
+    changes: "Inicjalizacja historii"
 ---
 
 # Optymalizacja rozmiaru i wydajności pakietu i18n

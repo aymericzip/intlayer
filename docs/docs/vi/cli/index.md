@@ -19,43 +19,43 @@ slugs:
 history:
   - version: 7.5.11
     date: 2026-01-06
-    changes: Thêm lệnh projects list
+    changes: "Thêm lệnh projects list"
   - version: 7.5.9
     date: 2025-12-30
-    changes: Thêm lệnh init
+    changes: "Thêm lệnh init"
   - version: 7.2.3
     date: 2025-11-22
-    changes: Thêm lệnh transform
+    changes: "Thêm lệnh transform"
   - version: 7.1.0
     date: 2025-11-05
-    changes: Thêm tùy chọn skipIfExists cho lệnh translate
+    changes: "Thêm tùy chọn skipIfExists cho lệnh translate"
   - version: 6.1.4
     date: 2025-01-27
-    changes: Thêm bí danh cho các tham số và lệnh CLI
+    changes: "Thêm bí danh cho các tham số và lệnh CLI"
   - version: 6.1.3
     date: 2025-10-05
-    changes: Thêm tùy chọn build cho các lệnh
+    changes: "Thêm tùy chọn build cho các lệnh"
   - version: 6.1.2
     date: 2025-09-26
-    changes: Thêm lệnh version
+    changes: "Thêm lệnh version"
   - version: 6.1.0
     date: 2025-09-26
-    changes: Đặt tùy chọn verbose mặc định là true khi sử dụng CLI
+    changes: "Đặt tùy chọn verbose mặc định là true khi sử dụng CLI"
   - version: 6.1.0
     date: 2025-09-23
-    changes: Thêm lệnh watch và tùy chọn with
+    changes: "Thêm lệnh watch và tùy chọn with"
   - version: 6.0.1
     date: 2025-09-23
-    changes: Thêm lệnh editor
+    changes: "Thêm lệnh editor"
   - version: 6.0.0
     date: 2025-09-17
-    changes: Thêm lệnh content test và list
+    changes: "Thêm lệnh content test và list"
   - version: 5.5.11
     date: 2025-07-11
-    changes: Cập nhật tài liệu tham số lệnh CLI
+    changes: "Cập nhật tài liệu tham số lệnh CLI"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Khởi tạo lịch sử
+    changes: "Khởi tạo lịch sử"
 ---
 
 # Intlayer CLI

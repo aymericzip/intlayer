@@ -19,10 +19,10 @@ applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Thêm lệnh init
+    changes: "Thêm lệnh init"
   - version: 6.2.0
     date: 2025-10-03
-    changes: Làm mới hướng dẫn tích hợp Astro, cấu hình, cách sử dụng
+    changes: "Làm mới hướng dẫn tích hợp Astro, cấu hình, cách sử dụng"
 ---
 
 # Dịch trang web Astro của bạn bằng Intlayer | Quốc tế hóa (i18n)

@@ -17,16 +17,16 @@ slugs:
 history:
   - version: 5.5.12
     date: 2025-07-11
-    changes: Thêm thiết lập ChatGPT
+    changes: "Thêm thiết lập ChatGPT"
   - version: 5.5.12
     date: 2025-07-10
-    changes: Thêm thiết lập Claude Desktop
+    changes: "Thêm thiết lập Claude Desktop"
   - version: 5.5.12
     date: 2025-07-10
-    changes: Thêm giao thức SSE và máy chủ từ xa
+    changes: "Thêm giao thức SSE và máy chủ từ xa"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Khởi tạo lịch sử
+    changes: "Khởi tạo lịch sử"
 ---
 
 # Máy chủ MCP Intlayer

@@ -23,10 +23,10 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: HTMLRenderer / useHTMLRenderer / renderHTML yardımcı araçları eklendi
+    changes: "HTMLRenderer / useHTMLRenderer / renderHTML yardımcı araçları eklendi"
   - version: 8.0.0
     date: 2026-01-20
-    changes: HTML ayrıştırma desteği eklendi
+    changes: "HTML ayrıştırma desteği eklendi"
 ---
 
 # HTML İçeriği / Intlayer içinde HTML

@@ -19,43 +19,43 @@ slugs:
 history:
   - version: 7.5.11
     date: 2026-01-06
-    changes: Add projects list command
+    changes: "Add projects list command"
   - version: 7.5.9
     date: 2025-12-30
-    changes: Add init command
+    changes: "Add init command"
   - version: 7.2.3
     date: 2025-11-22
-    changes: Add transform command
+    changes: "Add transform command"
   - version: 7.1.0
     date: 2025-11-05
-    changes: Add skipIfExists option to translate command
+    changes: "Add skipIfExists option to translate command"
   - version: 6.1.4
     date: 2025-01-27
-    changes: Add aliases for CLI arguments and commands
+    changes: "Add aliases for CLI arguments and commands"
   - version: 6.1.3
     date: 2025-10-05
-    changes: Add build option to commands
+    changes: "Add build option to commands"
   - version: 6.1.2
     date: 2025-09-26
-    changes: Add version command
+    changes: "Add version command"
   - version: 6.1.0
     date: 2025-09-26
-    changes: Set verbose option to default to true using CLI
+    changes: "Set verbose option to default to true using CLI"
   - version: 6.1.0
     date: 2025-09-23
-    changes: Add watch command and with option
+    changes: "Add watch command and with option"
   - version: 6.0.1
     date: 2025-09-23
-    changes: Add editor command
+    changes: "Add editor command"
   - version: 6.0.0
     date: 2025-09-17
-    changes: Add content test and list command
+    changes: "Add content test and list command"
   - version: 5.5.11
     date: 2025-07-11
-    changes: Update CLI command parameters documentation
+    changes: "Update CLI command parameters documentation"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
 ---
 
 # Intlayer CLI

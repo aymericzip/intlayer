@@ -21,7 +21,7 @@ youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: init 명령어 추가
+    changes: "init 명령어 추가"
   - version: 7.4.0
     date: 2025-12-11
     changes: "validatePrefix를 도입하고 14단계: 현지화된 경로로 404 페이지 처리하기 추가."
@@ -33,13 +33,13 @@ history:
     changes: "13단계: Nitro 적응 추가."
   - version: 7.1.0
     date: 2025-11-17
-    changes: getPrefix 함수를 추가하여 기본 접두사 수정, useLocalizedNavigate, LocaleSwitcher 및 LocalizedLink 사용.
+    changes: "getPrefix 함수를 추가하여 기본 접두사 수정, useLocalizedNavigate, LocaleSwitcher 및 LocalizedLink 사용."
   - version: 6.5.2
     date: 2025-10-03
-    changes: 문서 업데이트
+    changes: "문서 업데이트"
   - version: 5.8.1
     date: 2025-09-09
-    changes: TanStack Start용으로 추가됨
+    changes: "TanStack Start용으로 추가됨"
 ---
 
 # Intlayer를 사용하여 TanStack Start 웹사이트 번역하기 | 국제화(i18n)

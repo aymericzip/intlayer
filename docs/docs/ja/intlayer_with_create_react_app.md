@@ -19,10 +19,10 @@ applicationTemplate: https://github.com/aymericzip/intlayer-react-cra-template
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: initコマンドを追加
+    changes: "initコマンドを追加"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴初期化
+    changes: "履歴初期化"
 ---
 
 # IntlayerでCreate React Appを翻訳する | 国際化（i18n）

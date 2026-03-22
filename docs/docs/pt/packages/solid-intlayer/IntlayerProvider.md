@@ -20,7 +20,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: Documentação unificada para todas as exports
+    changes: "Documentação unificada para todas as exports"
 ---
 
 # Documentação do Componente IntlayerProvider

@@ -19,43 +19,43 @@ slugs:
 history:
   - version: 7.5.11
     date: 2026-01-06
-    changes: Dodano polecenie projects list
+    changes: "Dodano polecenie projects list"
   - version: 7.5.9
     date: 2025-12-30
-    changes: Dodano polecenie init
+    changes: "Dodano polecenie init"
   - version: 7.2.3
     date: 2025-11-22
-    changes: Dodano polecenie transform
+    changes: "Dodano polecenie transform"
   - version: 7.1.0
     date: 2025-11-05
-    changes: Dodano opcję skipIfExists do polecenia translate
+    changes: "Dodano opcję skipIfExists do polecenia translate"
   - version: 6.1.4
     date: 2025-01-27
-    changes: Dodano aliasy dla argumentów i poleceń CLI
+    changes: "Dodano aliasy dla argumentów i poleceń CLI"
   - version: 6.1.3
     date: 2025-10-05
-    changes: Dodano opcję build do poleceń
+    changes: "Dodano opcję build do poleceń"
   - version: 6.1.2
     date: 2025-09-26
-    changes: Dodano polecenie version
+    changes: "Dodano polecenie version"
   - version: 6.1.0
     date: 2025-09-26
-    changes: Ustawiono domyślnie opcję verbose na true w CLI
+    changes: "Ustawiono domyślnie opcję verbose na true w CLI"
   - version: 6.1.0
     date: 2025-09-23
-    changes: Dodano polecenie watch oraz opcję with
+    changes: "Dodano polecenie watch oraz opcję with"
   - version: 6.0.1
     date: 2025-09-23
-    changes: Dodano polecenie editor
+    changes: "Dodano polecenie editor"
   - version: 6.0.0
     date: 2025-09-17
-    changes: Dodano polecenia content test oraz list
+    changes: "Dodano polecenia content test oraz list"
   - version: 5.5.11
     date: 2025-07-11
-    changes: Zaktualizowano dokumentację parametrów poleceń CLI
+    changes: "Zaktualizowano dokumentację parametrów poleceń CLI"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inicjalizacja historii
+    changes: "Inicjalizacja historii"
 ---
 
 # Intlayer CLI

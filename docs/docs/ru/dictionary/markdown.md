@@ -19,13 +19,13 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: Добавлены MarkdownRenderer / useMarkdownRenderer / renderMarkdown и опция forceInline
+    changes: "Добавлены MarkdownRenderer / useMarkdownRenderer / renderMarkdown и опция forceInline"
   - version: 8.0.0
     date: 2026-01-18
-    changes: Автоматическое оформление содержимого markdown, поддержка MDX и SSR
+    changes: "Автоматическое оформление содержимого markdown, поддержка MDX и SSR"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Инициализация истории
+    changes: "Инициализация истории"
 ---
 
 # Markdown / Содержимое с богатым текстом

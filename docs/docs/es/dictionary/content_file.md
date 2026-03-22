@@ -14,25 +14,25 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-28
-    changes: Añadir tipo de nodo de contenido `html`
+    changes: "Añadir tipo de nodo de contenido `html`"
   - version: 8.0.0
     date: 2026-01-24
-    changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
+    changes: "Rename `live` import mode to `fetch` to better describe the underlying mechanism."
   - version: 8.0.0
     date: 2026-01-18
-    changes: Añadir opciones de diccionario `location` y `schema`
+    changes: "Añadir opciones de diccionario `location` y `schema`"
   - version: 7.5.13
     date: 2026-01-10
-    changes: Añadir soporte para formatos de archivo JSON5 y JSONC
+    changes: "Añadir soporte para formatos de archivo JSON5 y JSONC"
   - version: 7.5.0
     date: 2025-12-13
-    changes: Añadido soporte para formatos ICU e i18next
+    changes: "Añadido soporte para formatos ICU e i18next"
   - version: 6.0.0
     date: 2025-09-20
-    changes: Añadida documentación de campos
+    changes: "Añadida documentación de campos"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historial inicial
+    changes: "Historial inicial"
 ---
 
 # Archivo de Contenido

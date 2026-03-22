@@ -20,13 +20,13 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
   - version: 6.0.1
     date: 2025-09-22
-    changes: Ajout de la documentation sur la synchronisation en direct
+    changes: "Ajout de la documentation sur la synchronisation en direct"
   - version: 6.0.0
     date: 2025-09-04
-    changes: Remplacement du champ `hotReload` par `liveSync`
+    changes: "Remplacement du champ `hotReload` par `liveSync`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historique initial
+    changes: "Historique initial"
 ---
 
 # Documentation du Système de Gestion de Contenu (CMS) Intlayer

@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 8.1.5
     date: 2026-02-23
-    changes: checkTypes विकल्प जोड़ें
+    changes: "checkTypes विकल्प जोड़ें"
 ---
 
 # शब्दकोश बनाएं

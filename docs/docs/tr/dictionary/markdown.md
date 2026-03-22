@@ -19,13 +19,13 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: MarkdownRenderer / useMarkdownRenderer / renderMarkdown yardımcı araçları ve forceInline seçeneği eklendi
+    changes: "MarkdownRenderer / useMarkdownRenderer / renderMarkdown yardımcı araçları ve forceInline seçeneği eklendi"
   - version: 8.0.0
     date: 2026-01-18
-    changes: Markdown içeriğinin otomatik olarak süslenmesi, MDX ve SSR desteği
+    changes: "Markdown içeriğinin otomatik olarak süslenmesi, MDX ve SSR desteği"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Geçmiş başlatıldı
+    changes: "Geçmiş başlatıldı"
 ---
 
 # Markdown / Zengin Metin İçeriği

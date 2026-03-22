@@ -15,7 +15,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-25
-    changes: Implement centralized URL rewrites with framework-specific formatters and the useRewriteURL hook.
+    changes: "Implement centralized URL rewrites with framework-specific formatters and the useRewriteURL hook."
 ---
 
 # Implementacja niestandardowego przepisywania URL

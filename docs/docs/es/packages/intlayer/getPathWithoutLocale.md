@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historial inicial
+    changes: "Historial inicial"
 ---
 
 # Documentación: Funciones `getPathWithoutLocale` en `intlayer`
@@ -33,7 +33,6 @@ Elimina el segmento de localización del URL o ruta proporcionada si está prese
 ## Parámetros
 
 - `inputUrl: string`
-
   - **Descripción**: La cadena completa de URL o ruta a procesar.
   - **Tipo**: `string`
 

@@ -15,7 +15,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-25
-    changes: Implementazione di riscritture URL centralizzate con formatter specifici per framework e l'hook useRewriteURL.
+    changes: "Implementazione di riscritture URL centralizzate con formatter specifici per framework e l'hook useRewriteURL."
 ---
 
 # Implementazione delle riscritture URL personalizzate

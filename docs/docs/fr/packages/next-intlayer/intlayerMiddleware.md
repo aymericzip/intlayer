@@ -19,10 +19,10 @@ keywords:
 history:
   - version: 8.1.7
     date: 2026-02-25
-    changes: Renommer intlayerMiddleware en intlayerProxy
+    changes: "Renommer intlayerMiddleware en intlayerProxy"
   - version: 8.0.0
     date: 2026-01-21
-    changes: Init doc
+    changes: "Init doc"
 ---
 
 # Documentation de intlayerProxy (intlayerMiddleware)

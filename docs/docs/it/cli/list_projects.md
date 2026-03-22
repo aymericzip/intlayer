@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 7.5.12
     date: 2026-01-06
-    changes: Aggiungere opzione di output assoluto al comando list projects
+    changes: "Aggiungere opzione di output assoluto al comando list projects"
 ---
 
 # Elencare i progetti Intlayer

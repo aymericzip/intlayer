@@ -17,16 +17,16 @@ slugs:
 history:
   - version: 5.5.12
     date: 2025-07-11
-    changes: ChatGPT सेट अप जोड़ा
+    changes: "ChatGPT सेट अप जोड़ा"
   - version: 5.5.12
     date: 2025-07-10
-    changes: Claude Desktop सेट अप जोड़ा
+    changes: "Claude Desktop सेट अप जोड़ा"
   - version: 5.5.12
     date: 2025-07-10
-    changes: SSE ट्रांसपोर्ट और दूरस्थ सर्वर जोड़ा
+    changes: "SSE ट्रांसपोर्ट और दूरस्थ सर्वर जोड़ा"
   - version: 5.5.10
     date: 2025-06-29
-    changes: इतिहास प्रारंभ करें
+    changes: "इतिहास प्रारंभ करें"
 ---
 
 # Intlayer MCP सर्वर

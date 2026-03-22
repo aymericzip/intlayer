@@ -19,10 +19,10 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-18
-    changes: Ekleme içeriğinin otomatik süslemesi
+    changes: "Ekleme içeriğinin otomatik süslemesi"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Geçmiş başlatıldı
+    changes: "Geçmiş başlatıldı"
 ---
 
 # Ekleme İçeriği / Intlayer'da Ekleme

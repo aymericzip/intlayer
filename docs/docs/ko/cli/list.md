@@ -16,10 +16,10 @@ slugs:
 history:
   - version: 7.5.12
     date: 2026-01-06
-    changes: list 명령에 절대 경로 출력 옵션 추가
+    changes: "list 명령에 절대 경로 출력 옵션 추가"
   - version: 7.5.11
     date: 2026-01-06
-    changes: list 명령에 JSON 출력 옵션 추가
+    changes: "list 명령에 JSON 출력 옵션 추가"
 ---
 
 # 콘텐츠 선언 파일 목록

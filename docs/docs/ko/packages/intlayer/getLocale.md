@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: 문서 초기화
+    changes: "문서 초기화"
 ---
 
 # getLocale 함수 문서

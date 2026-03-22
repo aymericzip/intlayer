@@ -14,22 +14,22 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-28
-    changes: Adicionar tipo de nó de conteúdo `html`
+    changes: "Adicionar tipo de nó de conteúdo `html`"
   - version: 8.0.0
     date: 2026-01-24
-    changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
+    changes: "Rename `live` import mode to `fetch` to better describe the underlying mechanism."
   - version: 8.0.0
     date: 2026-01-18
-    changes: Adicionar opções de dicionário `location` e `schema`
+    changes: "Adicionar opções de dicionário `location` e `schema`"
   - version: 7.5.0
     date: 2025-12-13
-    changes: Adicionado suporte para formatos ICU e i18next
+    changes: "Adicionado suporte para formatos ICU e i18next"
   - version: 6.0.0
     date: 2025-09-20
-    changes: Adição da documentação dos campos
+    changes: "Adição da documentação dos campos"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Histórico inicial
+    changes: "Histórico inicial"
 ---
 
 # Arquivo de Conteúdo

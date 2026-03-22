@@ -20,13 +20,13 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
   - version: 6.0.1
     date: 2025-09-22
-    changes: ライブ同期のドキュメントを追加
+    changes: "ライブ同期のドキュメントを追加"
   - version: 6.0.0
     date: 2025-09-04
-    changes: `hotReload` フィールドを `liveSync` に置き換え
+    changes: "`hotReload` フィールドを `liveSync` に置き換え"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴を初期化
+    changes: "履歴を初期化"
 ---
 
 # Intlayer コンテンツ管理システム（CMS）ドキュメント

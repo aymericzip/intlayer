@@ -18,16 +18,16 @@ slugs:
 history:
   - version: 7.0.0
     date: 2025-10-23
-    changes: Rename `autoFill` to `fill` and update behavior
+    changes: "Rename `autoFill` to `fill` and update behavior"
   - version: 6.0.0
     date: 2025-09-20
-    changes: Add global configuration
+    changes: "Add global configuration"
   - version: 6.0.0
     date: 2025-09-17
-    changes: Add `{{fileName}}` variable
+    changes: "Add `{{fileName}}` variable"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
 ---
 
 # Fill Content Declaration File Translations

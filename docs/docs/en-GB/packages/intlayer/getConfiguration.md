@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
 ---
 
 # Documentation: `getConfiguration` Function in `intlayer`
@@ -40,7 +40,6 @@ The function does not take any parameters. Instead, it uses environment variable
 
 - **Type**: `IntlayerConfig`
 - **Description**: An object containing the complete configuration for `intlayer`. The configuration includes the following sections:
-
   - `internationalisation`: Settings related to locales and strict mode.
   - `middleware`: Settings related to URL and cookie management.
   - `content`: Settings related to content files, directories, and patterns.

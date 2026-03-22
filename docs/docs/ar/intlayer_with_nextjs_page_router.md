@@ -19,10 +19,10 @@ slugs:
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: إضافة أمر init
+    changes: "إضافة أمر init"
   - version: 5.5.10
     date: 2025-06-29
-    changes: بدء التاريخ
+    changes: "بدء التاريخ"
 ---
 
 # ترجم Next.js and Page Router باستخدام Intlayer | التدويل (i18n)

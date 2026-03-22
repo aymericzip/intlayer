@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: Tüm dışa aktarımlar için birleşik dokümantasyon
+    changes: "Tüm dışa aktarımlar için birleşik dokümantasyon"
 ---
 
 # vite-intlayer Paketi

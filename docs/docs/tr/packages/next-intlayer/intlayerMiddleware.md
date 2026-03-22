@@ -19,10 +19,10 @@ slugs:
 history:
   - version: 8.1.7
     date: 2026-02-25
-    changes: intlayerMiddleware'i intlayerProxy olarak yeniden adlandır
+    changes: "intlayerMiddleware'i intlayerProxy olarak yeniden adlandır"
   - version: 8.0.0
     date: 2026-01-21
-    changes: Doküman başlatıldı
+    changes: "Doküman başlatıldı"
 ---
 
 # intlayerProxy (intlayerMiddleware) Dokümantasyonu

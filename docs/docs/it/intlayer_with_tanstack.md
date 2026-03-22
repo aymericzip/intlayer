@@ -21,7 +21,7 @@ youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Aggiungi comando init
+    changes: "Aggiungi comando init"
   - version: 7.4.0
     date: 2025-12-11
     changes: "Introduci validatePrefix e aggiungi il passaggio 14: Gestione delle pagine 404 con rotte localizzate."
@@ -33,13 +33,13 @@ history:
     changes: "Aggiungi passaggio 13: Adatta Nitro"
   - version: 7.1.0
     date: 2025-11-17
-    changes: Risolto il prefisso predefinito aggiungendo la funzione getPrefix, l'uso di useLocalizedNavigate, LocaleSwitcher e LocalizedLink.
+    changes: "Risolto il prefisso predefinito aggiungendo la funzione getPrefix, l'uso di useLocalizedNavigate, LocaleSwitcher e LocalizedLink."
   - version: 6.5.2
     date: 2025-10-03
-    changes: Aggiorna doc
+    changes: "Aggiorna doc"
   - version: 5.8.1
     date: 2025-09-09
-    changes: Aggiunto per TanStack Start
+    changes: "Aggiunto per TanStack Start"
 ---
 
 # Traduci il tuo sito web TanStack Start usando Intlayer | Internazionalizzazione (i18n)

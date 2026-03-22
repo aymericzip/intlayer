@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 5.7.2
     date: 2025-07-27
-    changes: Memperkenalkan konten berdasarkan gender
+    changes: "Memperkenalkan konten berdasarkan gender"
 ---
 
 # Konten Berdasarkan Gender / Gender di Intlayer

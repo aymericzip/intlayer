@@ -18,16 +18,16 @@ slugs:
 history:
   - version: 6.1.5
     date: 2025-09-30
-    changes: 데모 GIF 추가
+    changes: "데모 GIF 추가"
   - version: 6.1.0
     date: 2025-09-24
-    changes: 환경 선택 섹션 추가
+    changes: "환경 선택 섹션 추가"
   - version: 6.0.0
     date: 2025-09-22
-    changes: Intlayer 탭 / 채우기 및 테스트 명령 추가
+    changes: "Intlayer 탭 / 채우기 및 테스트 명령 추가"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 초기 이력
+    changes: "초기 이력"
 ---
 
 # 공식 VS 코드 확장

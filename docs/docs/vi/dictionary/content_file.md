@@ -14,28 +14,28 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-28
-    changes: Thêm kiểu nút nội dung `html`
+    changes: "Thêm kiểu nút nội dung `html`"
   - version: 8.0.0
     date: 2026-01-24
-    changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
+    changes: "Rename `live` import mode to `fetch` to better describe the underlying mechanism."
   - version: 8.0.0
     date: 2026-01-18
-    changes: Thêm tùy chọn từ điển `location` và `schema`
+    changes: "Thêm tùy chọn từ điển `location` và `schema`"
   - version: 7.5.13
     date: 2026-01-10
-    changes: Thêm hỗ trợ cho các định dạng tệp JSON5 và JSONC
+    changes: "Thêm hỗ trợ cho các định dạng tệp JSON5 và JSONC"
   - version: 7.5.0
     date: 2025-12-13
-    changes: Thêm hỗ trợ định dạng ICU và i18next
+    changes: "Thêm hỗ trợ định dạng ICU và i18next"
   - version: 7.0.0
     date: 2025-10-23
-    changes: Đổi tên `autoFill` thành `fill`
+    changes: "Đổi tên `autoFill` thành `fill`"
   - version: 6.0.0
     date: 2025-09-20
-    changes: Thêm tài liệu cho các trường
+    changes: "Thêm tài liệu cho các trường"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Khởi tạo lịch sử
+    changes: "Khởi tạo lịch sử"
 ---
 
 # Tệp Nội Dung

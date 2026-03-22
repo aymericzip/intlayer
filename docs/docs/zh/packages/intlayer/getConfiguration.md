@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初始化历史
+    changes: "初始化历史"
 ---
 
 # 文档：`intlayer` 中的 `getConfiguration` 函数
@@ -40,7 +40,6 @@ history:
 
 - **类型**：`IntlayerConfig`
 - **描述**：一个包含 `intlayer` 完整配置的对象。配置包括以下部分：
-
   - `internationalization`：与语言环境和严格模式相关的设置。
   - `middleware`：与 URL 和 Cookie 管理相关的设置。
   - `content`：与内容文件、目录和模式相关的设置。

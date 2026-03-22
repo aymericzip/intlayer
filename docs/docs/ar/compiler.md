@@ -22,13 +22,13 @@ slugs:
 history:
   - version: 8.2.0
     date: 2026-03-09
-    changes: تحديث خيارات المترجم، إضافة دعم FilePathPattern
+    changes: "تحديث خيارات المترجم، إضافة دعم FilePathPattern"
   - version: 8.1.7
     date: 2026-02-25
-    changes: تحديث خيارات المترجم
+    changes: "تحديث خيارات المترجم"
   - version: 7.3.1
     date: 2025-11-27
-    changes: إصدار المترجم
+    changes: "إصدار المترجم"
 ---
 
 # مترجم Intlayer | استخراج المحتوى الآلي للتدويل

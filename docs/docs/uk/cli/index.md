@@ -19,46 +19,46 @@ slugs:
 history:
   - version: 7.5.11
     date: 2026-01-06
-    changes: Додано команду CI
+    changes: "Додано команду CI"
   - version: 7.5.11
     date: 2026-01-06
-    changes: Додано команду списку проєктів
+    changes: "Додано команду списку проєктів"
   - version: 7.5.9
     date: 2025-12-30
-    changes: Додано команду init
+    changes: "Додано команду init"
   - version: 7.2.3
     date: 2025-11-22
-    changes: Додано команду transform
+    changes: "Додано команду transform"
   - version: 7.1.0
     date: 2025-11-05
-    changes: Додано опцію skipIfExists для команди translate
+    changes: "Додано опцію skipIfExists для команди translate"
   - version: 6.1.4
     date: 2025-01-27
-    changes: Додано aliases для аргументів і команд CLI
+    changes: "Додано aliases для аргументів і команд CLI"
   - version: 6.1.3
     date: 2025-10-05
-    changes: Додано опцію build для команд
+    changes: "Додано опцію build для команд"
   - version: 6.1.2
     date: 2025-09-26
-    changes: Додано команду version
+    changes: "Додано команду version"
   - version: 6.1.0
     date: 2025-09-26
-    changes: Встановлено опцію verbose за замовчуванням у true через CLI
+    changes: "Встановлено опцію verbose за замовчуванням у true через CLI"
   - version: 6.1.0
     date: 2025-09-23
-    changes: Додано команду watch та опцію with
+    changes: "Додано команду watch та опцію with"
   - version: 6.0.1
     date: 2025-09-23
-    changes: Додано команду editor
+    changes: "Додано команду editor"
   - version: 6.0.0
     date: 2025-09-17
-    changes: Додано команди content test і list
+    changes: "Додано команди content test і list"
   - version: 5.5.11
     date: 2025-07-11
-    changes: Оновлено документацію параметрів команд CLI
+    changes: "Оновлено документацію параметрів команд CLI"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Ініціалізація історії
+    changes: "Ініціалізація історії"
 ---
 
 # Intlayer CLI. Усі команди Intlayer CLI для вашого багатомовного сайту

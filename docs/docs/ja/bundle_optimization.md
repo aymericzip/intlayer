@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-11-25
-    changes: 初期履歴
+    changes: "初期履歴"
 ---
 
 # i18n バンドルサイズとパフォーマンスの最適化

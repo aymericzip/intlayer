@@ -21,28 +21,28 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-20
-    changes: Add useIntl
+    changes: "Add useIntl"
   - version: 6.2.0
     date: 2025-10-14
-    changes: Remove getIntlayerAsync from formatters
+    changes: "Remove getIntlayerAsync from formatters"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Add vue formatters
+    changes: "Add vue formatters"
   - version: 5.8.0
     date: 2025-08-18
-    changes: Add formatters documentation
+    changes: "Add formatters documentation"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Add list formatter documentation
+    changes: "Add list formatter documentation"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Add additional Intl utilities (DisplayNames, Collator, PluralRules)
+    changes: "Add additional Intl utilities (DisplayNames, Collator, PluralRules)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Add locale utilities (getLocaleName, getLocaleLang, getLocaleFromPath, etc.)
+    changes: "Add locale utilities (getLocaleName, getLocaleLang, getLocaleFromPath, etc.)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Add content handling utilities (getContent, getTranslation, getIntlayer, etc.)
+    changes: "Add content handling utilities (getContent, getTranslation, getIntlayer, etc.)"
 ---
 
 # Intlayer Formatters
@@ -57,15 +57,15 @@ Intlayer provides locale-aware formatting utilities built on top of the native `
 
 **For React, Vue, and other frameworks**, use the framework-specific hooks/composables that automatically bind to your app's locale context:
 
-| Framework                    | Import                                                               |
-| ---------------------------- | -------------------------------------------------------------------- |
-| **React** (client)           | `react-intlayer/format`                                              |
-| **React** (server)           | `react-intlayer/server/format`                                       |
-| **Next.js** (client)         | `next-intlayer/client/format`                                        |
-| **Next.js** (server)         | `next-intlayer/server/format`                                        |
-| **Vue**                      | `vue-intlayer/format`                                                |
-| **Preact**                   | `preact-intlayer/format`                                             |
-| **Vanilla JS / Node.js**     | `intlayer` (requires manual locale passing)                          |
+| Framework                | Import                                      |
+| ------------------------ | ------------------------------------------- |
+| **React** (client)       | `react-intlayer/format`                     |
+| **React** (server)       | `react-intlayer/server/format`              |
+| **Next.js** (client)     | `next-intlayer/client/format`               |
+| **Next.js** (server)     | `next-intlayer/server/format`               |
+| **Vue**                  | `vue-intlayer/format`                       |
+| **Preact**               | `preact-intlayer/format`                    |
+| **Vanilla JS / Node.js** | `intlayer` (requires manual locale passing) |
 
 ## React Formatters
 
@@ -104,17 +104,17 @@ const PriceDisplay = () => {
 
 All hooks automatically use the locale from `IntlayerProvider` or `IntlayerServerProvider`.
 
-| Hook             | Description                          | Example Output          |
-| ---------------- | ------------------------------------ | ----------------------- |
-| `useNumber()`    | Format numbers with grouping         | `"123,456.789"`         |
-| `useCurrency()`  | Format currency values               | `"€1,234.50"`           |
-| `usePercentage()`| Format percentages                   | `"25%"`                 |
-| `useDate()`      | Format dates and times               | `"Aug 2, 2025"`         |
-| `useRelativeTime()` | Format relative time              | `"in 3 days"`           |
-| `useUnit()`      | Format values with units             | `"5 kilometers"`        |
-| `useCompact()`   | Format numbers in compact notation   | `"1.2K"`                |
-| `useList()`      | Format arrays as lists               | `"apple, banana, and orange"` |
-| `useIntl()`      | Get locale-bound `Intl` object       | Full `Intl` API access  |
+| Hook                | Description                        | Example Output                |
+| ------------------- | ---------------------------------- | ----------------------------- |
+| `useNumber()`       | Format numbers with grouping       | `"123,456.789"`               |
+| `useCurrency()`     | Format currency values             | `"€1,234.50"`                 |
+| `usePercentage()`   | Format percentages                 | `"25%"`                       |
+| `useDate()`         | Format dates and times             | `"Aug 2, 2025"`               |
+| `useRelativeTime()` | Format relative time               | `"in 3 days"`                 |
+| `useUnit()`         | Format values with units           | `"5 kilometers"`              |
+| `useCompact()`      | Format numbers in compact notation | `"1.2K"`                      |
+| `useList()`         | Format arrays as lists             | `"apple, banana, and orange"` |
+| `useIntl()`         | Get locale-bound `Intl` object     | Full `Intl` API access        |
 
 ### Complete Example
 
@@ -222,17 +222,17 @@ const percentage = usePercentage();
 
 All composables return computed refs that automatically use the locale from the injected `IntlayerProvider`.
 
-| Composable       | Description                          | Example Output          |
-| ---------------- | ------------------------------------ | ----------------------- |
-| `useNumber()`    | Format numbers with grouping         | `"123,456.789"`         |
-| `useCurrency()`  | Format currency values               | `"€1,234.50"`           |
-| `usePercentage()`| Format percentages                   | `"25%"`                 |
-| `useDate()`      | Format dates and times               | `"Aug 2, 2025"`         |
-| `useRelativeTime()` | Format relative time              | `"in 3 days"`           |
-| `useUnit()`      | Format values with units             | `"5 kilometers"`        |
-| `useCompact()`   | Format numbers in compact notation   | `"1.2K"`                |
-| `useList()`      | Format arrays as lists               | `"apple, banana, and orange"` |
-| `useIntl()`      | Get locale-bound `Intl` object       | Full `Intl` API access  |
+| Composable          | Description                        | Example Output                |
+| ------------------- | ---------------------------------- | ----------------------------- |
+| `useNumber()`       | Format numbers with grouping       | `"123,456.789"`               |
+| `useCurrency()`     | Format currency values             | `"€1,234.50"`                 |
+| `usePercentage()`   | Format percentages                 | `"25%"`                       |
+| `useDate()`         | Format dates and times             | `"Aug 2, 2025"`               |
+| `useRelativeTime()` | Format relative time               | `"in 3 days"`                 |
+| `useUnit()`         | Format values with units           | `"5 kilometers"`              |
+| `useCompact()`      | Format numbers in compact notation | `"1.2K"`                      |
+| `useList()`         | Format arrays as lists             | `"apple, banana, and orange"` |
+| `useIntl()`         | Get locale-bound `Intl` object     | Full `Intl` API access        |
 
 ### Complete Example
 
@@ -293,7 +293,9 @@ const formatted = new intl.value.NumberFormat(undefined, {
 const date = new intl.value.DateTimeFormat("fr-FR").format(new Date());
 
 // Access other Intl features
-const displayNames = new intl.value.DisplayNames(undefined, { type: "language" });
+const displayNames = new intl.value.DisplayNames(undefined, {
+  type: "language",
+});
 const languageName = displayNames.of("fr");
 </script>
 

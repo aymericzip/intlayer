@@ -18,13 +18,13 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-09-20
-    changes: 添加全局配置
+    changes: "添加全局配置"
   - version: 6.0.0
     date: 2025-09-17
-    changes: 添加 `{{fileName}}` 变量
+    changes: "添加 `{{fileName}}` 变量"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初始化历史
+    changes: "初始化历史"
 ---
 
 # 自动填充内容声明文件翻译

@@ -16,10 +16,10 @@ slugs:
 history:
   - version: 7.5.12
     date: 2026-01-06
-    changes: Ajouter l'option de sortie absolue à la commande list
+    changes: "Ajouter l'option de sortie absolue à la commande list"
   - version: 7.5.11
     date: 2026-01-06
-    changes: Ajouter l'option de sortie JSON à la commande list
+    changes: "Ajouter l'option de sortie JSON à la commande list"
 ---
 
 # Lister les fichiers de déclaration de contenu

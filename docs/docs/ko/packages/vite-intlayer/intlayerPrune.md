@@ -20,7 +20,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: 문서 초기화
+    changes: "문서 초기화"
 ---
 
 # intlayerPrune Vite 플러그인 문서

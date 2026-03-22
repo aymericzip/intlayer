@@ -22,13 +22,13 @@ slugs:
 history:
   - version: 8.2.0
     date: 2026-03-09
-    changes: 컴파일러 옵션 업데이트, FilePathPattern 지원 추가
+    changes: "컴파일러 옵션 업데이트, FilePathPattern 지원 추가"
   - version: 8.1.7
     date: 2026-02-25
-    changes: 컴파일러 옵션 업데이트
+    changes: "컴파일러 옵션 업데이트"
   - version: 7.3.1
     date: 2025-11-27
-    changes: 컴파일러 출시
+    changes: "컴파일러 출시"
 ---
 
 # Intlayer 컴파일러 | i18n을 위한 자동화된 콘텐츠 추출

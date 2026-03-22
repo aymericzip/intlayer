@@ -18,10 +18,10 @@ applicationTemplate: https://github.com/aymericzip/intlayer-sveltekit-template
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: init कमांड जोड़ें
+    changes: "init कमांड जोड़ें"
   - version: 7.1.10
     date: 2025-11-20
-    changes: प्रारंभिक इतिहास
+    changes: "प्रारंभिक इतिहास"
 ---
 
 # Intlayer का उपयोग करके अपनी SvelteKit वेबसाइट का अनुवाद करें | अंतरराष्ट्रीयकरण (i18n)

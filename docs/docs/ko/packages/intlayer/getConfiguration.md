@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 초기 이력
+    changes: "초기 이력"
 ---
 
 # 문서: `intlayer`의 `getConfiguration` 함수
@@ -40,7 +40,6 @@ history:
 
 - **타입**: `IntlayerConfig`
 - **설명**: `intlayer`의 전체 구성을 포함하는 객체입니다. 구성은 다음 섹션을 포함합니다:
-
   - `internationalization`: 로케일 및 엄격 모드와 관련된 설정.
   - `middleware`: URL 및 쿠키 관리와 관련된 설정.
   - `content`: 콘텐츠 파일, 디렉토리 및 패턴과 관련된 설정.

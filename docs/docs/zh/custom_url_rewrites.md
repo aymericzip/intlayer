@@ -15,7 +15,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-25
-    changes: 使用框架特定的格式化器实现集中式 URL 重写，并使用 useRewriteURL 钩子。
+    changes: "使用框架特定的格式化器实现集中式 URL 重写，并使用 useRewriteURL 钩子。"
 ---
 
 # 自定义 URL 重写的实现

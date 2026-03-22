@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴初期化
+    changes: "履歴初期化"
 ---
 
 # ドキュメント: `intlayer` の `getMultilingualUrls` 関数
@@ -35,18 +35,15 @@ history:
 ## パラメータ
 
 - `url: string`
-
   - **説明**: ロケールを付加する元の URL 文字列。
   - **型**: `string`
 
 - `locales: Locales[]`
-
   - **説明**: オプションのサポートされているロケールの配列。プロジェクトで設定されたロケールがデフォルト。
   - **型**: `Locales[]`
   - **デフォルト**: `localesDefault`
 
 - `defaultLocale: Locales`
-
   - **説明**: アプリケーションのデフォルトロケール。プロジェクトで設定されたデフォルトロケールがデフォルト。
   - **型**: `Locales`
   - **デフォルト**: `defaultLocaleDefault`
@@ -132,11 +129,9 @@ getMultilingualUrls(
 ## エッジケース
 
 - **ロケールセグメントなし:**
-
   - 関数は多言語マッピングを生成する前に、URLから既存のロケールセグメントを削除します。
 
 - **デフォルトロケール:**
-
   - `prefixDefault` が `false` の場合、デフォルトロケールのURLにはプレフィックスを付けません。
 
 - **サポートされていないロケール:**

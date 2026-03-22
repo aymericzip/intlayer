@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 초기 이력 작성
+    changes: "초기 이력 작성"
 ---
 
 # 파일 콘텐츠 / Intlayer에서 파일 임베딩하기

@@ -18,16 +18,16 @@ slugs:
 history:
   - version: 6.1.5
     date: 2025-09-30
-    changes: Aggiunta gif demo
+    changes: "Aggiunta gif demo"
   - version: 6.1.0
     date: 2025-09-24
-    changes: Aggiunta sezione selezione ambiente
+    changes: "Aggiunta sezione selezione ambiente"
   - version: 6.0.0
     date: 2025-09-22
-    changes: Comandi Intlayer Tab / Fill & Test
+    changes: "Comandi Intlayer Tab / Fill & Test"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inizializzazione cronologia
+    changes: "Inizializzazione cronologia"
 ---
 
 # Estensione Ufficiale per VS Code

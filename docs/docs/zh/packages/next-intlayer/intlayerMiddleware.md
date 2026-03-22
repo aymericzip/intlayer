@@ -19,10 +19,10 @@ slugs:
 history:
   - version: 8.1.7
     date: 2026-02-25
-    changes: 将 intlayerMiddleware 重命名为 intlayerProxy
+    changes: "将 intlayerMiddleware 重命名为 intlayerProxy"
   - version: 8.0.0
     date: 2026-01-21
-    changes: 初始化文档
+    changes: "初始化文档"
 ---
 
 # intlayerProxy (intlayerMiddleware) 文档

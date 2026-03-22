@@ -22,16 +22,16 @@ youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Tambahkan perintah init
+    changes: "Tambahkan perintah init"
   - version: 7.5.6
     date: 2025-12-27
-    changes: Perbarui Layout dan tangani 404
+    changes: "Perbarui Layout dan tangani 404"
   - version: 6.1.5
     date: 2025-10-03
-    changes: Memperbarui dokumen
+    changes: "Memperbarui dokumen"
   - version: 5.8.2
     date: 2025-09-04
-    changes: Ditambahkan untuk React Router v7
+    changes: "Ditambahkan untuk React Router v7"
 ---
 
 # Terjemahkan situs web React Router v7 Anda menggunakan Intlayer | Internasionalisasi (i18n)

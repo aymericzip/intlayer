@@ -21,13 +21,13 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-26
-    changes: Default `onLocaleChange` to `replace`
+    changes: "Default `onLocaleChange` to `replace`"
   - version: 6.2.0
     date: 2025-10-09
-    changes: Added docs for `useLocale` hook with `onLocaleChange` option
+    changes: "Added docs for `useLocale` hook with `onLocaleChange` option"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
 ---
 
 # Next.js Integration: `useLocale` Hook Documentation for `next-intlayer`

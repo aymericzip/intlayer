@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初始化历史
+    changes: "初始化历史"
 ---
 
 # 文档：`intlayer` 中的 `getLocaleLang` 函数
@@ -33,7 +33,6 @@ history:
 ## 参数
 
 - `locale?: Locales`
-
   - **描述**：要从中提取语言代码的区域设置字符串（例如，`Locales.ENGLISH_UNITED_STATES`，`Locales.FRENCH_CANADA`）。
   - **类型**：`Locales`（可选）
 

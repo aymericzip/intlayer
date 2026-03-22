@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴の初期化
+    changes: "履歴の初期化"
 ---
 
 # ドキュメント: `intlayer` の `getHTMLTextDir` 関数
@@ -33,7 +33,6 @@ history:
 ## パラメーター
 
 - `locale?: Locales`
-
   - **説明**: テキスト方向を決定するために使用されるロケール文字列（例：`Locales.ENGLISH`、`Locales.ARABIC`）。
   - **型**: `Locales`（オプション）
 
@@ -76,7 +75,6 @@ getHTMLTextDir(Locales.ARABIC); // 出力: "rtl"
 ## エッジケース
 
 - **ロケールが指定されていない場合:**
-
   - `locale` が `undefined` の場合、関数は `'auto'` を返します。
 
 - **認識されないロケールの場合:**

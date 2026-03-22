@@ -14,22 +14,22 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-28
-    changes: `html` コンテンツノードタイプを追加
+    changes: "`html` コンテンツノードタイプを追加"
   - version: 8.0.0
     date: 2026-01-24
-    changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
+    changes: "Rename `live` import mode to `fetch` to better describe the underlying mechanism."
   - version: 8.0.0
     date: 2026-01-18
-    changes: 辞書オプション `location` と `schema` を追加
+    changes: "辞書オプション `location` と `schema` を追加"
   - version: 7.5.0
     date: 2025-12-13
-    changes: ICUおよびi18next形式のサポートを追加
+    changes: "ICUおよびi18next形式のサポートを追加"
   - version: 6.0.0
     date: 2025-09-20
-    changes: フィールドのドキュメントを追加
+    changes: "フィールドのドキュメントを追加"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴を初期化
+    changes: "履歴を初期化"
 ---
 
 # コンテンツファイル

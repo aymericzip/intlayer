@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-29
-    changes: Tài liệu thống nhất cho tất cả các bản xuất
+    changes: "Tài liệu thống nhất cho tất cả các bản xuất"
 ---
 
 # Gói hono-intlayer

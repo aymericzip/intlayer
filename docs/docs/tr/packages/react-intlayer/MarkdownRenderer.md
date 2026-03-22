@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 7.5.14
     date: 2026-01-21
-    changes: Doküman başlatıldı
+    changes: "Doküman başlatıldı"
 ---
 
 # MarkdownRenderer Bileşen Dokümantasyonu

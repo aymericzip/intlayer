@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inicio del historial
+    changes: "Inicio del historial"
 ---
 
 # Documentación: Función `getTranslationContent` en `intlayer`
@@ -33,13 +33,11 @@ La función `getTranslationContent` recupera el contenido correspondiente a una 
 ## Parámetros
 
 - `languageContent: CustomizableLanguageContent<Content>`
-
   - **Descripción**: Un objeto que contiene traducciones para varias localidades. Cada clave representa una localidad y su valor es el contenido correspondiente.
   - **Tipo**: `CustomizableLanguageContent<Content>`
     - `Content` puede ser de cualquier tipo, por defecto `string`.
 
 - `locale: Locales`
-
   - **Descripción**: La localidad para la cual se desea obtener el contenido.
   - **Tipo**: `Locales`
 

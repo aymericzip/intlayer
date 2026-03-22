@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: توثيق موحد لجميع الصادرات
+    changes: "توثيق موحد لجميع الصادرات"
 ---
 
 # حزمة next-intlayer

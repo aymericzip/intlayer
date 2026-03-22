@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 7.5.14
     date: 2026-01-21
-    changes: प्रारंभिक दस्तावेज़
+    changes: "प्रारंभिक दस्तावेज़"
 ---
 
 # IntlayerProvider कंपोनेंट दस्तावेज़

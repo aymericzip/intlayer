@@ -19,13 +19,13 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: Add MarkdownRenderer / useMarkdownRenderer / renderMarkdown utility and forceInline option
+    changes: "Add MarkdownRenderer / useMarkdownRenderer / renderMarkdown utility and forceInline option"
   - version: 8.0.0
     date: 2026-01-18
-    changes: Automatic decoration of markdown content, MDX and SSR support
+    changes: "Automatic decoration of markdown content, MDX and SSR support"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
 ---
 
 # Markdown / Rich Text Content

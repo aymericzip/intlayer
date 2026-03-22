@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 5.7.2
     date: 2025-07-27
-    changes: Giới thiệu nội dung dựa trên giới tính
+    changes: "Giới thiệu nội dung dựa trên giới tính"
 ---
 
 # Nội dung dựa trên giới tính / Giới tính trong Intlayer

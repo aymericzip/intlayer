@@ -18,16 +18,16 @@ slugs:
 history:
   - version: 6.1.5
     date: 2025-09-30
-    changes: Demo gif eklendi
+    changes: "Demo gif eklendi"
   - version: 6.1.0
     date: 2025-09-24
-    changes: Ortam seçimi bölümü eklendi
+    changes: "Ortam seçimi bölümü eklendi"
   - version: 6.0.0
     date: 2025-09-22
-    changes: Intlayer Sekmesi / Doldur & Test komutları
+    changes: "Intlayer Sekmesi / Doldur & Test komutları"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Başlangıç geçmişi
+    changes: "Başlangıç geçmişi"
 ---
 
 # Resmi VS Code Eklentisi

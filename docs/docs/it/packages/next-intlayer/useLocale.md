@@ -21,10 +21,10 @@ title: Documentazione Hook useLocale | next-intlayer
 history:
   - version: 8.0.0
     date: 2026-01-26
-    changes: Impostato il valore predefinito di `onLocaleChange` su `replace`
+    changes: "Impostato il valore predefinito di `onLocaleChange` su `replace`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inizio cronologia
+    changes: "Inizio cronologia"
 ---
 
 # Integrazione Next.js: Documentazione dell'hook `useLocale` per `next-intlayer`

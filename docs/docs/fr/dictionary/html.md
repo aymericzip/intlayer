@@ -21,10 +21,10 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: Ajouter HTMLRenderer / useHTMLRenderer / utilitaire renderHTML
+    changes: "Ajouter HTMLRenderer / useHTMLRenderer / utilitaire renderHTML"
   - version: 8.0.0
     date: 2026-01-20
-    changes: Ajouter le support du parsing HTML
+    changes: "Ajouter le support du parsing HTML"
 ---
 
 # Contenu HTML / HTML dans Intlayer

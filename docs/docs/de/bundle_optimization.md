@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-11-25
-    changes: Initiale Historie
+    changes: "Initiale Historie"
 ---
 
 # Optimierung der i18n-Bündelgröße & Leistung

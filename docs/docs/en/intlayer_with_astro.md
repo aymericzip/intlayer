@@ -19,10 +19,10 @@ applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Add init command
+    changes: "Add init command"
   - version: 6.2.0
     date: 2025-10-03
-    changes: Refresh for Astro integration, config, usage
+    changes: "Refresh for Astro integration, config, usage"
 ---
 
 # Translate your Astro website using Intlayer | Internationalization (i18n)

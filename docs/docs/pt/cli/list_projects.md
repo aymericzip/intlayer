@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 7.5.12
     date: 2026-01-06
-    changes: Adicionar opção de saída absoluta ao comando list projects
+    changes: "Adicionar opção de saída absoluta ao comando list projects"
 ---
 
 # Listar Projetos Intlayer

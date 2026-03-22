@@ -18,13 +18,13 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-09-20
-    changes: グローバル設定の追加
+    changes: "グローバル設定の追加"
   - version: 6.0.0
     date: 2025-09-17
-    changes: `{{fileName}}` 変数の追加
+    changes: "`{{fileName}}` 変数の追加"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴の初期化
+    changes: "履歴の初期化"
 ---
 
 # 自動入力コンテンツ宣言ファイルの翻訳

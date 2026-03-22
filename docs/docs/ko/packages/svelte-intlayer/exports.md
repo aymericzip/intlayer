@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: 모든 내보내기(exports)에 대한 문서 통합
+    changes: "모든 내보내기(exports)에 대한 문서 통합"
 ---
 
 # svelte-intlayer 패키지

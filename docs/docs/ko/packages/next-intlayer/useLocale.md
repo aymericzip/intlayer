@@ -21,10 +21,10 @@ title: useLocale 훅 문서 | next-intlayer
 history:
   - version: 8.0.0
     date: 2026-01-26
-    changes: `onLocaleChange` 기본값을 `replace`로 설정
+    changes: "`onLocaleChange` 기본값을 `replace`로 설정"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 초기 이력
+    changes: "초기 이력"
 ---
 
 # Next.js 통합: `next-intlayer`용 `useLocale` 훅 문서

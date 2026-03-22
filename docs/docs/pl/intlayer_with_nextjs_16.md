@@ -19,13 +19,13 @@ youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Dodaj polecenie init
+    changes: "Dodaj polecenie init"
   - version: 7.0.6
     date: 2025-11-01
-    changes: Dodano wzmiankę o `x-default` w obiekcie `alternates`
+    changes: "Dodano wzmiankę o `x-default` w obiekcie `alternates`"
   - version: 7.0.0
     date: 2025-06-29
-    changes: Inicjalizacja historii
+    changes: "Inicjalizacja historii"
 ---
 
 # Przetłumacz swoją stronę Next.js 16 za pomocą Intlayer | Internacjonalizacja (i18n)

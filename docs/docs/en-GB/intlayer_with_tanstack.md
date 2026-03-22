@@ -21,7 +21,7 @@ youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Add init command
+    changes: "Add init command"
   - version: 7.4.0
     date: 2025-12-11
     changes: "Introduce validatePrefix and add step 14: Handling 404 pages with localised routes."
@@ -33,13 +33,13 @@ history:
     changes: "Add step 13: Adapt Nitro"
   - version: 7.1.0
     date: 2025-11-17
-    changes: Fix prefix default by adding getPrefix function useLocalizedNavigate, LocaleSwitcher and LocalisedLink.
+    changes: "Fix prefix default by adding getPrefix function useLocalizedNavigate, LocaleSwitcher and LocalisedLink."
   - version: 6.5.2
     date: 2025-10-03
-    changes: Update doc
+    changes: "Update doc"
   - version: 5.8.1
     date: 2025-09-09
-    changes: Added for Tanstack Start
+    changes: "Added for Tanstack Start"
 ---
 
 # Translate your Tanstack Start website using Intlayer | Internationalisation (i18n)

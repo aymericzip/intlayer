@@ -26,10 +26,10 @@ youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
   - version: 7.5.0
     date: 2025-12-13
-    changes: 添加 ICU 和 i18next 格式支持
+    changes: "添加 ICU 和 i18next 格式支持"
   - version: 6.1.6
     date: 2025-10-05
-    changes: 初始同步 JSON 插件文档
+    changes: "初始同步 JSON 插件文档"
 ---
 
 # 同步 JSON（i18n 桥接）- 支持 ICU / i18next 的同步 JSON

@@ -21,10 +21,10 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: HTMLRenderer / useHTMLRenderer / renderHTML ユーティリティを追加
+    changes: "HTMLRenderer / useHTMLRenderer / renderHTML ユーティリティを追加"
   - version: 8.0.0
     date: 2026-01-20
-    changes: HTML解析サポートを追加
+    changes: "HTML解析サポートを追加"
 ---
 
 # HTMLコンテンツ / IntlayerのHTML

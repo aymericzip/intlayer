@@ -20,7 +20,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: 모든 exports에 대한 문서를 통합함
+    changes: "모든 exports에 대한 문서를 통합함"
 ---
 
 # useLocale 훅 문서

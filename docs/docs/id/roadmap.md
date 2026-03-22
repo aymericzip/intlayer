@@ -16,13 +16,13 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-30
-    changes: Menambahkan dukungan Preact dan Nuxt, Server MCP, memperbarui CLI
+    changes: "Menambahkan dukungan Preact dan Nuxt, Server MCP, memperbarui CLI"
   - version: 5.5.11
     date: 2025-06-29
-    changes: Menambahkan perintah `docs`
+    changes: "Menambahkan perintah `docs`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inisialisasi riwayat
+    changes: "Inisialisasi riwayat"
 ---
 
 # Intlayer: Ikhtisar Fitur & Roadmap

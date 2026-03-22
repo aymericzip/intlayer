@@ -18,16 +18,16 @@ slugs:
 history:
   - version: 7.0.0
     date: 2025-10-23
-    changes: Đổi tên `autoFill` thành `fill` và cập nhật hành vi
+    changes: "Đổi tên `autoFill` thành `fill` và cập nhật hành vi"
   - version: 6.0.0
     date: 2025-09-20
-    changes: Thêm cấu hình toàn cục
+    changes: "Thêm cấu hình toàn cục"
   - version: 6.0.0
     date: 2025-09-17
-    changes: Thêm biến `{{fileName}}`
+    changes: "Thêm biến `{{fileName}}`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Khởi tạo lịch sử
+    changes: "Khởi tạo lịch sử"
 ---
 
 # Dịch Tệp Khai Báo Nội Dung Tự Động Điền

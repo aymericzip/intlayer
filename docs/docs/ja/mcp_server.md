@@ -17,16 +17,16 @@ slugs:
 history:
   - version: 5.5.12
     date: 2025-07-11
-    changes: ChatGPTのセットアップを追加
+    changes: "ChatGPTのセットアップを追加"
   - version: 5.5.12
     date: 2025-07-10
-    changes: Claude Desktopのセットアップを追加
+    changes: "Claude Desktopのセットアップを追加"
   - version: 5.5.12
     date: 2025-07-10
-    changes: SSEトランスポートと遠隔サーバーを追加
+    changes: "SSEトランスポートと遠隔サーバーを追加"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴の初期化
+    changes: "履歴の初期化"
 ---
 
 # Intlayer MCPサーバー

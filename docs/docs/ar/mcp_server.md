@@ -17,16 +17,16 @@ slugs:
 history:
   - version: 5.5.12
     date: 2025-07-11
-    changes: إضافة إعداد ChatGPT
+    changes: "إضافة إعداد ChatGPT"
   - version: 5.5.12
     date: 2025-07-10
-    changes: إضافة إعداد Claude Desktop
+    changes: "إضافة إعداد Claude Desktop"
   - version: 5.5.12
     date: 2025-07-10
-    changes: إضافة نقل SSE والخادم البعيد
+    changes: "إضافة نقل SSE والخادم البعيد"
   - version: 5.5.10
     date: 2025-06-29
-    changes: بدء السجل
+    changes: "بدء السجل"
 ---
 
 # خادم Intlayer MCP

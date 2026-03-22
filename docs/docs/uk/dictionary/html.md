@@ -21,10 +21,10 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: Додано HTMLRenderer / useHTMLRenderer / утиліту renderHTML
+    changes: "Додано HTMLRenderer / useHTMLRenderer / утиліту renderHTML"
   - version: 8.0.0
     date: 2026-01-20
-    changes: Додано підтримку парсингу HTML
+    changes: "Додано підтримку парсингу HTML"
 ---
 
 # Вміст HTML / HTML в Intlayer

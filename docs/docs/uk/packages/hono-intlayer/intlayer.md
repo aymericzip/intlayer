@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-29
-    changes: Ініціалізація док.
+    changes: "Ініціалізація док."
 ---
 
 # Документація проміжного ПЗ intlayer для Hono

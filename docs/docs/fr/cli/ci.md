@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 7.5.11
     date: 2026-01-06
-    changes: Ajouter la commande CI
+    changes: "Ajouter la commande CI"
 ---
 
 # Commande CI

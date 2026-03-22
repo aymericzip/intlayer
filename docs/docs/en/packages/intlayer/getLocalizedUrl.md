@@ -21,10 +21,10 @@ slugs:
 history:
   - version: 7.1.0
     date: 2025-11-16
-    changes: Refactored to use options parameter with mode instead of prefixDefault
+    changes: "Refactored to use options parameter with mode instead of prefixDefault"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
 ---
 
 # Documentation: `getLocalizedUrl` Function in `intlayer`

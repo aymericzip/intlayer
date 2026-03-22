@@ -22,16 +22,16 @@ youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Thêm lệnh init
+    changes: "Thêm lệnh init"
   - version: 7.5.6
     date: 2025-12-27
-    changes: Cập nhật Layout và xử lý 404
+    changes: "Cập nhật Layout và xử lý 404"
   - version: 6.1.5
     date: 2025-10-03
-    changes: Cập nhật tài liệu
+    changes: "Cập nhật tài liệu"
   - version: 5.8.2
     date: 2025-09-04
-    changes: Thêm cho React Router v7
+    changes: "Thêm cho React Router v7"
 ---
 
 # Dịch trang web React Router v7 của bạn bằng Intlayer | Quốc tế hóa (i18n)

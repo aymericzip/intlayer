@@ -15,13 +15,13 @@ slugs:
 history:
   - version: 7.3.1
     date: 2025-11-27
-    changes: Release Compiler
+    changes: "Release Compiler"
   - version: 5.8.0
     date: 2025-08-19
-    changes: Update comparative table
+    changes: "Update comparative table"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
 ---
 
 # Чому варто розглянути Intlayer?

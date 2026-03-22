@@ -19,43 +19,43 @@ slugs:
 history:
   - version: 7.5.11
     date: 2026-01-06
-    changes: projects list कमांड जोड़ें
+    changes: "projects list कमांड जोड़ें"
   - version: 7.5.9
     date: 2025-12-30
-    changes: init कमांड जोड़ें
+    changes: "init कमांड जोड़ें"
   - version: 7.2.3
     date: 2025-11-22
-    changes: ट्रांसफॉर्म कमांड जोड़ें
+    changes: "ट्रांसफॉर्म कमांड जोड़ें"
   - version: 7.1.0
     date: 2025-11-05
-    changes: translate कमांड में skipIfExists विकल्प जोड़ें
+    changes: "translate कमांड में skipIfExists विकल्प जोड़ें"
   - version: 6.1.4
     date: 2025-01-27
-    changes: CLI आर्गुमेंट्स और कमांड्स के लिए उपनाम जोड़ें
+    changes: "CLI आर्गुमेंट्स और कमांड्स के लिए उपनाम जोड़ें"
   - version: 6.1.3
     date: 2025-10-05
-    changes: कमांड्स में build विकल्प जोड़ें
+    changes: "कमांड्स में build विकल्प जोड़ें"
   - version: 6.1.2
     date: 2025-09-26
-    changes: संस्करण कमांड जोड़ें
+    changes: "संस्करण कमांड जोड़ें"
   - version: 6.1.0
     date: 2025-09-26
-    changes: CLI का उपयोग करके verbose विकल्प को डिफ़ॉल्ट रूप से true पर सेट करें
+    changes: "CLI का उपयोग करके verbose विकल्प को डिफ़ॉल्ट रूप से true पर सेट करें"
   - version: 6.1.0
     date: 2025-09-23
-    changes: watch कमांड और with विकल्प जोड़ें
+    changes: "watch कमांड और with विकल्प जोड़ें"
   - version: 6.0.1
     date: 2025-09-23
-    changes: editor कमांड जोड़ें
+    changes: "editor कमांड जोड़ें"
   - version: 6.0.0
     date: 2025-09-17
-    changes: content test और list कमांड जोड़ें
+    changes: "content test और list कमांड जोड़ें"
   - version: 5.5.11
     date: 2025-07-11
-    changes: CLI कमांड पैरामीटर दस्तावेज़ीकरण अपडेट करें
+    changes: "CLI कमांड पैरामीटर दस्तावेज़ीकरण अपडेट करें"
   - version: 5.5.10
     date: 2025-06-29
-    changes: इतिहास प्रारंभ करें
+    changes: "इतिहास प्रारंभ करें"
 ---
 
 # Intlayer CLI

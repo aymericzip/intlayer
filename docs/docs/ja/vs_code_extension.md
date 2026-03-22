@@ -18,16 +18,16 @@ slugs:
 history:
   - version: 6.1.5
     date: 2025-09-30
-    changes: デモGIFを追加
+    changes: "デモGIFを追加"
   - version: 6.1.0
     date: 2025-09-24
-    changes: 環境選択セクションを追加
+    changes: "環境選択セクションを追加"
   - version: 6.0.0
     date: 2025-09-22
-    changes: Intlayerタブ / Fill & Testコマンド追加
+    changes: "Intlayerタブ / Fill & Testコマンド追加"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴を初期化
+    changes: "履歴を初期化"
 ---
 
 # 公式 VS Code 拡張機能

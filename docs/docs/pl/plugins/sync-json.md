@@ -26,7 +26,7 @@ youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
   - version: 6.1.6
     date: 2025-10-05
-    changes: Pierwsza dokumentacja wtyczki Sync JSON
+    changes: "Pierwsza dokumentacja wtyczki Sync JSON"
 ---
 
 # Sync JSON (mosty i18n) - Sync JSON z obsługą ICU / i18next

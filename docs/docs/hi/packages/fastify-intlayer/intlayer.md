@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: प्रारंभिक दस्तावेज़
+    changes: "प्रारंभिक दस्तावेज़"
 ---
 
 # intlayer Fastify प्लगइन दस्तावेज़

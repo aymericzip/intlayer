@@ -19,10 +19,10 @@ applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: init 명령어 추가
+    changes: "init 명령어 추가"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 초기 이력
+    changes: "초기 이력"
 ---
 
 # Intlayer로 Lynx and React mobile app 번역하기 | 국제화(i18n)

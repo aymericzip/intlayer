@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 7.5.14
     date: 2026-01-21
-    changes: Khởi tạo tài liệu
+    changes: "Khởi tạo tài liệu"
 ---
 
 # Tài liệu thành phần IntlayerProvider

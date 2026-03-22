@@ -26,10 +26,10 @@ youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
   - version: 7.5.0
     date: 2025-12-13
-    changes: ICU ve i18next format desteği eklendi
+    changes: "ICU ve i18next format desteği eklendi"
   - version: 6.1.6
     date: 2025-10-05
-    changes: İlk JSON Senkronizasyon Eklentisi dokümantasyonu
+    changes: "İlk JSON Senkronizasyon Eklentisi dokümantasyonu"
 ---
 
 # JSON Senkronizasyonu (i18n köprüleri) - ICU / i18next desteği ile JSON Senkronizasyonu

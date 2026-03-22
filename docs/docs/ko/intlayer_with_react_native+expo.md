@@ -18,10 +18,10 @@ applicationTemplate: https://github.com/aymericzip/intlayer-react-native-templat
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: init 명령어 추가
+    changes: "init 명령어 추가"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 초기 이력
+    changes: "초기 이력"
 ---
 
 # Expo 및 React Native 앱 번역하기 | 국제화(i18n)

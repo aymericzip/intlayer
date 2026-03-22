@@ -16,10 +16,10 @@ slugs:
 history:
   - version: 7.5.12
     date: 2026-01-06
-    changes: Dodano opcję wyjścia bezwzględnego do polecenia list
+    changes: "Dodano opcję wyjścia bezwzględnego do polecenia list"
   - version: 7.5.11
     date: 2026-01-06
-    changes: Dodano opcję wyjścia JSON do polecenia list
+    changes: "Dodano opcję wyjścia JSON do polecenia list"
 ---
 
 # Lista plików deklaracji zawartości

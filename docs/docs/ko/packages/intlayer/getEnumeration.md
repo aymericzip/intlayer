@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 초기 이력
+    changes: "초기 이력"
 ---
 
 # 문서: `intlayer`의 `getEnumeration` 함수
@@ -33,13 +33,11 @@ history:
 ## 매개변수
 
 - `enumerationContent: QuantityContent<Content>`
-
   - **설명**: 키가 조건(예: `<=`, `<`, `>=`, `=`)을 나타내고 값이 해당 콘텐츠를 나타내는 객체입니다. 키의 순서가 매칭 우선순위를 정의합니다.
   - **타입**: `QuantityContent<Content>`
     - `Content`는 임의의 타입일 수 있습니다.
 
 - `quantity: number`
-
   - **설명**: `enumerationContent`의 조건과 매칭하기 위해 사용되는 숫자 값입니다.
   - **타입**: `number`
 
@@ -145,15 +143,12 @@ console.log(content); // 출력: "4보다 작습니다"
 ## 예외 상황
 
 - **일치하는 조건 없음:**
-
   - 제공된 수량과 일치하는 조건이 없으면, 함수는 `undefined`를 반환하거나 기본/대체 시나리오를 명시적으로 처리합니다.
 
 - **모호한 조건:**
-
   - 조건이 겹치는 경우, 첫 번째 일치하는 조건(객체 순서 기준)이 우선합니다.
 
 - **잘못된 키:**
-
   - 함수는 `enumerationContent`의 모든 키가 유효하며 조건으로 파싱 가능하다고 가정합니다. 잘못되었거나 형식이 올바르지 않은 키는 예상치 못한 동작을 초래할 수 있습니다.
 
 - **TypeScript 적용:**

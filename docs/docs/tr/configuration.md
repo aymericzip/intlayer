@@ -2,7 +2,7 @@
 createdAt: 2024-08-13
 updatedAt: 2026-03-20
 title: Yapılandırma (Configuration)
-description: Uygulamanız için Intlayer'ı nasıl yapılandıracağınızı öğrenin. Intlayer'ı ihtiyaçlarınıza göre özelleştirmek için mevcut çeşitli ayarları ve seçenekleri anlayın.
+description: Uygulamanız için Intlayer'ı nasıl yapılandıracağınızı öğrenin. Intlayer'ı ihtiyaçlarınıza göre özelleştirmek için çeşitli ayarları ve seçenekleri anlayın.
 keywords:
   - Yapılandırma
   - Ayarlar
@@ -16,86 +16,86 @@ slugs:
 history:
   - version: 8.4.0
     date: 2026-03-20
-    changes: "'compiler.output' ve 'dictionary.fill' için her dil için nesne notasyonu eklendi"
+    changes: "'compiler.output' ve 'dictionary.fill' için dil başına nesne notasyonu eklendi"
   - version: 8.3.0
     date: 2026-03-11
     changes: "'baseDir', 'content' yapılandırmasından 'system' yapılandırmasına taşındı"
   - version: 8.2.0
     date: 2026-03-09
-    changes: Derleyici (compiler) seçenekleri güncellendi, 'output' ve 'noMetadata' desteği eklendi
+    changes: "Derleyici seçenekleri güncellendi, 'output' ve 'noMetadata' desteği eklendi"
   - version: 8.1.7
     date: 2026-02-25
-    changes: Derleyici seçenekleri güncellendi
+    changes: "Derleyici seçenekleri güncellendi"
   - version: 8.1.5
     date: 2026-02-23
-    changes: Derleyici seçeneği 'build-only' ve sözlük öneki eklendi
+    changes: "'build-only' derleyici seçeneği ve sözlük öneki eklendi"
   - version: 8.0.6
     date: 2026-02-12
-    changes: Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face ve Together.ai sağlayıcıları için destek eklendi
+    changes: "Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face ve Together.ai sağlayıcıları için destek eklendi"
   - version: 8.0.5
     date: 2026-02-06
-    changes: Yapay zeka yapılandırmasına `dataSerialization` eklendi
+    changes: "Yapay Zeka yapılandırmasına `dataSerialization` eklendi"
   - version: 8.0.0
     date: 2026-01-24
-    changes: Temel mekanizmayı daha iyi tanımlamak için `live` içe aktarma modu `fetch` olarak yeniden adlandırıldı.
+    changes: "Alttaki mekanizmayı daha iyi tanımlamak için `live` içe aktarma modu `fetch` olarak yeniden adlandırıldı."
   - version: 8.0.0
     date: 2026-01-22
-    changes: Derleme yapılandırması `importMode`, `dictionary` yapılandırmasına taşındı.
+    changes: "`importMode` derleme yapılandırması `dictionary` yapılandırmasına taşındı."
   - version: 8.0.0
     date: 2026-01-22
-    changes: Yönlendirme yapılandırmasına `rewrite` seçeneği eklendi
+    changes: "Yönlendirme yapılandırmasına `rewrite` seçeneği eklendi"
   - version: 8.0.0
     date: 2026-01-18
-    changes: Sistem yapılandırması içerik yapılandırmasından ayrıldı. Dahili yollar `system` özelliğine taşındı. İçerik dosyalarını ve kod dönüşümünü ayırmak için `codeDir` eklendi.
+    changes: "Sistem yapılandırması içerik yapılandırmasından ayrıldı. Dahili yollar `system` özelliğine taşındı. İçerik dosyalarını kod dönüşümünden ayırmak için `codeDir` eklendi."
   - version: 8.0.0
     date: 2026-01-18
-    changes: Sözlük seçenekleri `location` ve `schema` eklendi
+    changes: "`location` ve `schema` sözlük seçenekleri eklendi"
   - version: 7.5.1
     date: 2026-01-10
-    changes: JSON5 ve JSONC dosya formatları için destek eklendi
+    changes: "JSON5 ve JSONC dosya formatları için destek eklendi"
   - version: 7.5.0
     date: 2025-12-17
-    changes: `buildMode` seçeneği eklendi
+    changes: "`buildMode` seçeneği eklendi"
   - version: 7.0.0
     date: 2025-10-25
-    changes: `dictionary` yapılandırması eklendi
+    changes: "`dictionary` yapılandırması eklendi"
   - version: 7.0.0
     date: 2025-10-21
-    changes: `middleware`, yönlendirme yapılandırması `routing` ile değiştirildi
+    changes: "`middleware`, `routing` yapılandırması ile değiştirildi"
   - version: 7.0.0
     date: 2025-10-12
-    changes: `formatCommand` seçeneği eklendi
+    changes: "`formatCommand` seçeneği eklendi"
   - version: 6.2.0
     date: 2025-10-12
-    changes: `excludedPath` seçeneği güncellendi
+    changes: "`excludedPath` seçeneği güncellendi"
   - version: 6.0.2
     date: 2025-09-23
-    changes: `outputFormat` seçeneği eklendi
+    changes: "`outputFormat` seçeneği eklendi"
   - version: 6.0.0
     date: 2025-09-21
-    changes: `dictionaryOutput` alanı ve `i18nextResourcesDir` alanı kaldırıldı
+    changes: "`dictionaryOutput` alanı ve `i18nextResourcesDir` alanı kaldırıldı"
   - version: 6.0.0
     date: 2025-09-16
-    changes: `live` içe aktarma modu eklendi
+    changes: "`live` içe aktarma modu eklendi"
   - version: 6.0.0
     date: 2025-09-04
-    changes: `hotReload` alanı `liveSync` ile değiştirildi ve `liveSyncPort` ve `liveSyncURL` alanları eklendi
+    changes: "`hotReload` alanı `liveSync` ile değiştirildi ve `liveSyncPort` ile `liveSyncURL` alanları eklendi"
   - version: 5.6.1
     date: 2025-07-25
-    changes: `activateDynamicImport`, `importMode` seçeneği ile değiştirildi
+    changes: "`activateDynamicImport`, `importMode` seçeneği ile değiştirildi"
   - version: 5.6.0
     date: 2025-07-13
-    changes: Varsayılan contentDir `['src']` yerine `['.']` olarak değiştirildi
+    changes: "Varsayılan `contentDir`, `['src']` yerine `['.']` olarak değiştirildi"
   - version: 5.5.11
     date: 2025-06-29
-    changes: `docs` komutları eklendi
+    changes: "`docs` komutları eklendi"
 ---
 
 # Intlayer Yapılandırma Belgeleri
 
 ## Genel Bakış
 
-Intlayer yapılandırma dosyaları, eklentinin uluslararasılaştırma (internationalization), ara yazılım (middleware) ve içerik işleme gibi çeşitli yönlerini özelleştirmenize olanak tanır. Bu belge, yapılandırmadaki her bir özelliğin derinlemesine açıklamasını sağlar.
+Intlayer yapılandırma dosyaları, uluslararasılaştırma, ara yazılım (middleware) ve içerik yönetimi gibi eklentinin çeşitli yönlerini özelleştirmenize olanak tanır. Bu belge, yapılandırmadaki her özelliğin ayrıntılı bir açıklamasını sunar.
 
 ---
 
@@ -105,9 +105,9 @@ Intlayer yapılandırma dosyaları, eklentinin uluslararasılaştırma (internat
 
 ---
 
-## Desteklenen Yapılandırma Dosyası Formatları
+## Yapılandırma Dosyası Desteği
 
-Intlayer JSON, JS, MJS ve TS yapılandırma dosyası formatlarını kabul eder:
+Intlayer, JSON, JS, MJS ve TS yapılandırma dosyası formatlarını kabul eder:
 
 - `intlayer.config.ts`
 - `intlayer.config.js`
@@ -120,7 +120,7 @@ Intlayer JSON, JS, MJS ve TS yapılandırma dosyası formatlarını kabul eder:
 
 ---
 
-## Yapılandırma Dosyası Örneği
+## Örnek Yapılandırma Dosyası
 
 ````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -132,27 +132,27 @@ import { z } from "zod";
  */
 const config: IntlayerConfig = {
   /**
-   * Uluslararasılaştırma ayarları yapılandırması.
+   * Uluslararasılaştırma ayarları için yapılandırma.
    */
   internationalization: {
     /**
-     * Uygulamada desteklenen dillerin (locales) listesi.
+     * Uygulamada desteklenen dillerin listesi.
      * Varsayılan: [Locales.ENGLISH]
      */
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
 
     /**
      * Her sözlükte tanımlanması gereken zorunlu dillerin listesi.
-     * Boşsa, `strict` modunda tüm diller zorunludur.
+     * Boşsa, `strict` modda tüm diller zorunludur.
      * Varsayılan: []
      */
     requiredLocales: [Locales.ENGLISH],
 
     /**
-     * Uluslararasılaştırılmış içerik için katılik düzeyi.
-     * - "strict": Bildirilen herhangi bir dil eksikse veya bildirilmemişse hata verir.
+     * Uluslararasılaştırılmış içerik için katılık seviyesi.
+     * - "strict": Bildirilen bir dil eksikse veya bildirilmemişse hata verir.
      * - "inclusive": Bildirilen bir dil eksikse uyarı verir.
-     * - "loose": Mevcut olan her dili kabul eder.
+     * - "loose": Mevcut herhangi bir dili kabul eder.
      * Varsayılan: "inclusive"
      */
     strictMode: "inclusive",
@@ -172,14 +172,14 @@ const config: IntlayerConfig = {
      * Sözlüklerin nasıl içe aktarılacağını kontrol eder.
      * - "static": Derleme zamanında statik olarak içe aktarılır.
      * - "dynamic": Suspense kullanılarak dinamik olarak içe aktarılır.
-     * - "fetch": Live Sync API aracılığıyla dinamik olarak çekilir.
+     * - "fetch": Live Sync API aracılığıyla dinamik olarak getirilir.
      * Varsayılan: "static"
      */
     importMode: "static",
 
     /**
-     * Yapay zeka kullanarak eksik çevirileri otomatik olarak doldurma stratejisi.
-     * Mantıksal bir değer veya doldurulan içeriği kaydetmek için bir yol deseni olabilir.
+     * Eksik çevirileri yapay zeka kullanarak otomatik doldurma stratejisi.
+     * Bir boolean değer veya doldurulan içeriği saklamak için bir yol kalıbı olabilir.
      * Varsayılan: true
      */
     fill: true,
@@ -187,15 +187,15 @@ const config: IntlayerConfig = {
     /**
      * Sözlük dosyalarının fiziksel konumu.
      * - "local": Yerel dosya sisteminde saklanır.
-     * - "remote": Intlayer CMS'te saklanır.
-     * - "hybrid": Hem yerel hem de Intlayer CMS'te saklanır.
-     * - "plugin" (veya herhangi bir özel dize): Bir eklenti veya özel kaynak tarafından sağlanır.
+     * - "remote": Intlayer CMS'de saklanır.
+     * - "hybrid": Hem yerel dosya sisteminde hem de Intlayer CMS'de saklanır.
+     * - "plugin" (veya herhangi bir özel dize): Bir eklenti veya özel bir kaynak tarafından sağlanır.
      * Varsayılan: "local"
      */
     location: "local",
 
     /**
-     * İçeriğin otomatik olarak dönüştürülüp dönüştürülmeyeceği (ör. Markdown'dan HTML'e).
+     * İçeriklerin otomatik olarak dönüştürülüp dönüştürülmeyeceği (örneğin Markdown'dan HTML'e).
      * Varsayılan: false
      */
     contentAutoTransformation: false,
@@ -207,16 +207,16 @@ const config: IntlayerConfig = {
   routing: {
     /**
      * Dil yönlendirme stratejisi.
-     * - "prefix-no-default": Varsayılan dışındaki herkese ön ek ekler (ör. /dashboard, /fr/dashboard).
-     * - "prefix-all": Tüm dillere ön ek ekler (ör. /en/dashboard, /fr/dashboard).
+     * - "prefix-no-default": Varsayılan dil dışındaki tüm diller için önek (örneğin /dashboard, /fr/dashboard).
+     * - "prefix-all": Tüm diller için önek (örneğin /en/dashboard, /fr/dashboard).
      * - "no-prefix": URL'de dil yok.
-     * - "search-params": ?locale=... kullanır
+     * - "search-params": ?locale=... kullanır.
      * Varsayılan: "prefix-no-default"
      */
     mode: "prefix-no-default",
 
     /**
-     * Kullanıcı tarafından seçilen dilin nerede saklanacağı.
+     * Kullanıcının seçtiği dilin nerede saklanacağı.
      * Seçenekler: 'cookie', 'localStorage', 'sessionStorage', 'header' veya bunların bir dizisi.
      * Varsayılan: ['cookie', 'header']
      */
@@ -229,7 +229,7 @@ const config: IntlayerConfig = {
     basePath: "",
 
     /**
-     * Dil bazlı belirli yollar için özel URL yeniden yazma (rewrite) kuralları.
+     * Dile özel yollar için özel URL yeniden yazma kuralları.
      */
     rewrite: nextjsRewrite({
       "/[locale]/about": {
@@ -240,11 +240,11 @@ const config: IntlayerConfig = {
   },
 
   /**
-   * İçerik dosyası bulma ve işleme ile ilgili ayarlar.
+   * İçerik dosyalarını bulma ve işleme ayarları.
    */
   content: {
     /**
-     * Sözlükleri taramak için dosya uzantıları.
+     * Sözlükler için taranacak dosya uzantıları.
      * Varsayılan: ['.content.ts', '.content.js', '.content.json', vb.]
      */
     fileExtensions: [".content.ts", ".content.js", ".content.json"],
@@ -256,54 +256,54 @@ const config: IntlayerConfig = {
     contentDir: ["src"],
 
     /**
-     * Kaynak kodun bulunduğu yer.
+     * Kaynak kodun bulunduğu dizin.
      * Derleme optimizasyonu ve kod dönüşümü için kullanılır.
      * Varsayılan: ["."]
      */
     codeDir: ["src"],
 
     /**
-     * Taramadan hariç tutulan desenler.
+     * Taramadan hariç tutulacak kalıplar.
      * Varsayılan: ['node_modules', '.intlayer', vb.]
      */
     excludedPath: ["node_modules"],
 
     /**
      * Geliştirme sırasında değişikliklerin izlenip izlenmeyeceği ve sözlüklerin yeniden oluşturulup oluşturulmayacağı.
-     * Varsayılan: Geliştirme ortamında true
+     * Varsayılan: Geliştirmede true
      */
     watch: true,
 
     /**
-     * Yeni oluşturulan / güncellenen .content dosyalarını biçimlendirmek için kullanılan komut.
+     * Yeni oluşturulan / güncellenen .content dosyalarını biçimlendirmek için komut.
      */
     formatCommand: 'npx prettier --write "{{file}}"',
   },
 
   /**
-   * Görsel Düzenleyici (Visual Editor) yapılandırması.
+   * Görsel Editör yapılandırması.
    */
   editor: {
     /**
-     * Görsel düzenleyicinin etkin olup olmadığı.
+     * Görsel editörün etkin olup olmadığı.
      * Varsayılan: false
      */
     enabled: true,
 
     /**
-     * Kaynak doğrulama (origin validation) için uygulamanızın URL'si.
+     * Kaynak doğrulaması için uygulamanızın URL'si.
      * Varsayılan: ""
      */
     applicationURL: "http://localhost:3000",
 
     /**
-     * Yerel düzenleyici sunucusu için bağlantı noktası.
+     * Yerel editör sunucusu için port.
      * Varsayılan: 8000
      */
     port: 8000,
 
     /**
-     * Düzenleyici için genel URL.
+     * Editör için genel URL.
      * Varsayılan: "http://localhost:8000"
      */
     editorURL: "http://localhost:8000",
@@ -328,7 +328,7 @@ const config: IntlayerConfig = {
   },
 
   /**
-   * Yapay zeka tabanlı çeviri ve oluşturma ayarları.
+   * Yapay zeka destekli çeviri ve oluşturma ayarları.
    */
   ai: {
     /**
@@ -339,31 +339,31 @@ const config: IntlayerConfig = {
     provider: "openai",
 
     /**
-     * Kullanılacak seçili sağlayıcının modeli.
+     * Seçilen sağlayıcıdan kullanılacak model.
      */
     model: "gpt-4o",
 
     /**
-     * Sağlayıcı API anahtarı.
+     * Sağlayıcının API anahtarı.
      */
     apiKey: process.env.OPENAI_API_KEY,
 
     /**
-     * Çeviriler oluşturulurken yapay zekayı yönlendirmek için genel bağlam.
+     * Çeviri oluştururken yapay zekaya rehberlik edecek küresel bağlam.
      */
-    applicationContext: "Bu bir gezi rezervasyon uygulamasıdır.",
+    applicationContext: "Bu bir seyahat rezervasyon uygulamasıdır.",
 
     /**
-     * Yapay zeka API'si için temel yol URL'si.
+     * Yapay zeka API'si için temel URL.
      */
     baseURL: "http://localhost:3000",
 
     /**
-     * Veri Serileştirme (Data Serialization)
+     * Veri Serileştirme
      *
      * Seçenekler:
-     * - "json": Varsayılan, sağlam; daha fazla belirteç tüketir.
-     * - "toon": Daha az belirteç tüketir, JSON kadar tutarlı olmayabilir.
+     * - "json": Varsayılan, güvenilir; daha fazla token tüketir.
+     * - "toon": Daha az token, JSON kadar tutarlı değil.
      *
      * Varsayılan: "json"
      */
@@ -376,15 +376,15 @@ const config: IntlayerConfig = {
   build: {
     /**
      * Derleme yürütme modu.
-     * - "auto": Uygulama derlemesi sırasında otomatik olarak derlenir.
+     * - "auto": Uygulama derlemesi sırasında otomatik derleme.
      * - "manual": Açık bir derleme komutu gerektirir.
      * Varsayılan: "auto"
      */
     mode: "auto",
 
     /**
-     * Kullanılmayan sözlükleri kaldırarak nihai paketi optimize edip etmeyeceği.
-     * Varsayılan: Üretim ortamında true
+     * Kullanılmayan sözlükleri kaldırarak final paketinin optimize edilip edilmeyeceği.
+     * Varsayılan: Üretimde true
      */
     optimize: true,
 
@@ -395,34 +395,34 @@ const config: IntlayerConfig = {
     outputFormat: ["cjs", "esm"],
 
     /**
-     * Derlemenin TypeScript türlerini (types) kontrol edip etmeyeceğini belirtir.
+     * Derlemenin TypeScript türlerini kontrol edip etmeyeceği.
      * Varsayılan: false
      */
     checkTypes: false,
   },
 
   /**
-   * Günlükçü (Logger) yapılandırması.
+   * Logger yapılandırması.
    */
   log: {
     /**
-     * Günlükleme düzeyi.
-     * - "default": Standart günlükleme.
-     * - "verbose": Derinlemesine hata ayıklama günlüğü.
-     * - "disabled": Günlüklemeyi devre dışı bırakır.
+     * Günlük kaydı seviyesi.
+     * - "default": Standart günlük kaydı.
+     * - "verbose": Ayrıntılı hata ayıklama günlüğü.
+     * - "disabled": Günlük kaydı yok.
      * Varsayılan: "default"
      */
     mode: "default",
 
     /**
-     * Tüm günlük mesajları için ön ek.
+     * Tüm günlük mesajları için önek.
      * Varsayılan: "[intlayer]"
      */
     prefix: "[intlayer]",
   },
 
   /**
-   * Sistem yapılandırması (Gelişmiş kullanım için)
+   * Sistem Yapılandırması (Gelişmiş Kullanım Durumları)
    */
   system: {
     /**
@@ -431,7 +431,7 @@ const config: IntlayerConfig = {
     dictionariesDir: ".intlayer/dictionary",
 
     /**
-     * TypeScript modül genişletme (module augmentation) için dizin.
+     * Modül genişletme (module augmentation) dizini.
      */
     moduleAugmentationDir: ".intlayer/types",
 
@@ -462,32 +462,32 @@ const config: IntlayerConfig = {
   },
 
   /**
-   * Derleyici (Compiler) yapılandırması (Gelişmiş kullanım için)
+   * Derleyici Yapılandırması (Gelişmiş Kullanım Durumları)
    */
   compiler: {
     /**
-     * Derleyicinin etkin olup olmayacağını belirtir.
+     * Derleyicinin etkin olup olmayacağı.
      *
-     * - false: Derleyiciyi devre dışı bırakır.
-     * - true: Derleyiciyi etkinleştirir.
-     * - "build-only": Geliştirme sırasında derleyiciyi atlar ve başlatma süresini hızlandırır.
+     * - false: Derleyiciyi devre dışı bırak.
+     * - true: Derleyiciyi etkinleştir.
+     * - "build-only": Başlangıç sürelerini hızlandırmak için geliştirme sırasında derleyiciyi atla.
      *
      * Varsayılan: false
      */
     enabled: true,
 
     /**
-     * Çıktı dosyaları için yolu tanımlar. `outputDir`'in yerini alır.
+     * Çıktı dosyaları için yolu belirler. `outputDir` yerine geçer.
      *
-     * - `./` ile başlayan yollar bileşen dizinine göre çözümlenir.
-     * - `/` ile başlayan yollar proje köküne (`baseDir`) göre çözümlenir.
+     * - `./` yolları bileşen dizinine göre çözümlenir.
+     * - `/` yolları proje köküne (`baseDir`) göre çözümlenir.
      *
-     * - Yola `{{locale}}` değişkenini dahil etmek, her dil için ayrı sözlüklerin oluşturulmasını tetikleyecektir.
+     * - Yol içinde `{{locale}}` değişkeninin bulunması, dile göre ayrı sözlükler oluşturulmasını tetikler.
      *
      * Örnek:
      * ```ts
      * {
-     *   // Bileşenin yanında çok dilli .content.ts dosyaları oluşturun
+     *   // Bileşenin yanında çok dilli .content.ts dosyaları oluştur
      *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
      *
      *   // output: './{{fileName}}{{extension}}', // Şablon dizesi kullanarak eşdeğer
@@ -496,17 +496,17 @@ const config: IntlayerConfig = {
      *
      * ```ts
      * {
-     *   // Proje kökünde dil başına merkezi JSON'lar oluşturun
+     *   // Proje kökünde dile göre merkezileştirilmiş JSON'lar oluştur
      *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
      *
      *   // output: '/locales/{{locale}}/{{key}}.content.json', // Şablon dizesi kullanarak eşdeğer
      * }
      * ```
      *
-     * Değişken listesi:
+     * Değişken Listesi:
      *   - `fileName`: Dosya adı.
-     *   - `key`: İçerik anahtarı (key).
-     *   - `locale`: İçerik dili.
+     *   - `key`: İçerik anahtarı.
+     *   - `locale`: İçerik dili (locale).
      *   - `extension`: Dosya uzantısı.
      *   - `componentFileName`: Bileşen dosya adı.
      *   - `componentExtension`: Bileşen dosya uzantısı.
@@ -517,24 +517,24 @@ const config: IntlayerConfig = {
     output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
 
     /**
-     * Bileşenlerin dönüştürüldükten sonra kaydedilip kaydedilmeyeceğini belirtir.
-     * Bu şekilde, derleyici uygulamanızı dönüştürmek için yalnızca bir kez çalışabilir ve ardından kaldırılabilir.
+     * Dönüştürüldükten sonra bileşenlerin kaydedilip kaydedilmeyeceği.
+     * Bu sayede derleyici uygulamayı dönüştürmek için yalnızca bir kez çalıştırılabilir ve ardından kaldırılabilir.
      */
     saveComponents: false,
 
     /**
-     * Oluşturulan dosyaya yalnızca içeriği ekler. i18next veya ICU MessageFormat formatı için dil başına JSON çıktısı için yararlıdır.
+     * Oluşturulan dosyaya yalnızca içeriği ekle. Dile göre i18next veya ICU MessageFormat JSON çıktıları için yararlıdır.
      */
     noMetadata: false,
 
     /**
-     * Sözlük anahtarı ön eki
+     * Sözlük anahtar öneki
      */
-    dictionaryKeyPrefix: "", // Ayıklanan sözlük anahtarlarına isteğe bağlı bir ön ek ekleyin
+    dictionaryKeyPrefix: "", // Çıkarılan sözlük anahtarları için isteğe bağlı önek ekleyin
   },
 
   /**
-   * Sözlük içeriğini doğrulamak için özel şemalar (Schemas).
+   * Sözlüklerin içeriğini doğrulamak için özel şemalar.
    */
   schemas: {
     "my-schema": z.object({
@@ -553,56 +553,58 @@ export default config;
 
 ---
 
-## Yapılandırma Referansı (Configuration Reference)
+## Yapılandırma Referansı
 
-Aşağıdaki bölümler, Intlayer'da mevcut olan çeşitli yapılandırma seçeneklerini açıklamaktadır.
-
----
-
-### Uluslararasılaştırma Yapılandırması (Internationalization Configuration)
-
-Uygulama için mevcut diller ve varsayılan dil dahil olmak üzere uluslararasılaştırma ile ilgili ayarları tanımlar.
-
-| Alan              | Tür        | Açıklama                                                                                                                       | Örnek                | Not                                                                                                                                                                                                                                                                        |
-| ----------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------ | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `locales`         | `string[]` | Uygulamada destekleyen dillerin listesi. Varsayılan: `[Locales.ENGLISH]`                                                       | `['en', 'fr', 'es']` |                                                                                                                                                                                                                                                                            |
-| `requiredLocales` | `string[]` | Uygulamada gerekli dillerin listesi. Varsayılan: `[]`                                                                          | `[]`                 | Boşsa, `strict` modunda tüm diller gereklidir. Gerekli dillerin `locales` alanında da tanımlandığından emin olun.                                                                                                                                                          |
-| `strictMode`      | `string`   | TypeScript kullanımı yoluyla uluslararasılaştırılmış içeriğin sağlam bir şekilde uygulanmasını sağlar. Varsayılan: `inclusive` |                      | `"strict"` ise: `t` fonksiyonu bildirilen her dilin tanımlanmasını gerektirir — herhangi biri eksikse veya bildirilmemişse hata verir. `"inclusive"` ise: eksik diller için uyarır ancak bildirilmeyen dilleri kabul eder. `"loose"` ise: mevcut olan her dili kabul eder. |
-| `defaultLocale`   | `string`   | İstenen dil bulunamadığında geri dönüş olarak kullanılan varsayılan dil. Varsayılan: `Locales.ENGLISH`                         | `'en'`               | URL'de, tanımlama bilgisinde veya başlıkta belirtilmediğinde dili belirlemek için kullanılır.                                                                                                                                                                              |
+Aşağıdaki bölümler Intlayer için mevcut olan çeşitli yapılandırma ayarlarını açıklamaktadır.
 
 ---
 
-### Düzenleyici Yapılandırması (Editor Configuration)
+### Uluslararasılaştırma Yapılandırması
 
-Sunucu bağlantı noktası ve etkinlik durumu dahil olmak üzere entegre düzenleyici ile ilgili ayarları tanımlar.
+Mevcut diller ve uygulama için varsayılan dil de dahil olmak üzere uluslararasılaştırma ile ilgili ayarları tanımlar.
 
-| Alan                         | Tür                       | Açıklama                                                                                                                                                                                                                        | Örnek                                                                                 | Not                                                                                                                                                                                                                                                                 |
-| ---------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `applicationURL`             | `string`                  | Uygulamanızın URL'si. Varsayılan: `''`                                                                                                                                                                                          | `'http://localhost:3000'`, `'https://example.com'`, `process.env.INTLAYER_EDITOR_URL` | Güvenlik nedenleriyle düzenleyicinin kaynaklarını (origins) kısıtlamak için kullanılır. `'*'` olarak ayarlanırsa, düzenleyiciye herhangi bir kaynaktan erişilebilir.                                                                                                |
-| `port`                       | `number`                  | Görsel Düzenleyici sunucusu tarafından kullanılan bağlantı noktası. Varsayılan: `8000`                                                                                                                                          |                                                                                       |                                                                                                                                                                                                                                                                     |
-| `editorURL`                  | `string`                  | Düzenleyici sunucu URL'si. Varsayılan: `'http://localhost:8000'`                                                                                                                                                                | `'http://localhost:3000'`, `'https://example.com'`, `process.env.INTLAYER_EDITOR_URL` | Uygulama ile etkileşime girebilen kaynakları kısıtlamak için kullanılır. `'*'` olarak ayarlanırsa, herhangi bir kaynaktan erişilebilir. Bağlantı noktasını değiştirirseniz veya düzenleyici başka bir alanda barındırılıyorsa ayarlanmalıdır.                       |
-| `cmsURL`                     | `string`                  | Intlayer CMS URL'si. Varsayılan: `'https://intlayer.org'`                                                                                                                                                                       | `'https://intlayer.org'`                                                              |                                                                                                                                                                                                                                                                     |
-| `backendURL`                 | `string`                  | Arka uç sunucu URL'si. Varsayılan: `https://back.intlayer.org`                                                                                                                                                                  | `http://localhost:4000`                                                               |                                                                                                                                                                                                                                                                     |
-| `enabled`                    | `boolean`                 | Uygulamanın görsel düzenleyici ile etkileşime girip girmeyeceğini belirtir. Varsayılan: `true`                                                                                                                                  | `process.env.NODE_ENV !== 'production'`                                               | `false` ise, düzenleyici uygulama ile etkileşime giremez. Belirli ortamlar için devre dışı bırakılması güvenliği artırır.                                                                                                                                           |
-| `clientId`                   | `string &#124; undefined` | oAuth2 kullanarak arka uçla kimlik doğrulaması yapmak için intlayer paketlerini etkinleştirir. Bir erişim belirteci almak için [intlayer.org/project](https://app.intlayer.org/project) adresine gidin. Varsayılan: `undefined` |                                                                                       | Gizli tutun; ortam değişkenlerinde saklayın.                                                                                                                                                                                                                        |
-| `clientSecret`               | `string &#124; undefined` | oAuth2 kullanarak arka uçla kimlik doğrulaması yapmak için intlayer paketlerini etkinleştirir. Bir erişim belirteci almak için [intlayer.org/project](https://app.intlayer.org/project) adresine gidin. Varsayılan: `undefined` |                                                                                       | Gizli tutun; ortam değişkenlerinde saklayın.                                                                                                                                                                                                                        |
-| `dictionaryPriorityStrategy` | `string`                  | Hem yerel hem de uzak sözlükler mevcut olduğunda sözlük önceliklendirme stratejisi. Varsayılan: `'local_first'`                                                                                                                 | `'distant_first'`                                                                     | `'distant_first'`: Uzak sözlüklere yerel olanlara göre öncelik verir. `'local_first'`: Yerel sözlüklere uzak olanlara göre öncelik verir.                                                                                                                           |
-| `liveSync`                   | `boolean`                 | CMS / Görsel Düzenleyici / Arka Uçta bir değişiklik algılandığında uygulama sunucusunun içeriği sıcak olarak yeniden yükleyip yüklemeyeceğini belirtir. Varsayılan: `true`                                                      | `true`                                                                                | Bir sözlük eklendiğinde/güncellendiğinde uygulama sayfa içeriğini günceller. Canlı senkronizasyon (live sync), içeriği başka bir sunucuya dış kaynaklardan aktarır ve bu da performansı biraz etkileyebilir. Her ikisinin de aynı makinede barındırılması önerilir. |
-| `liveSyncPort`               | `number`                  | Canlı senkronizasyon sunucu bağlantı noktası. Varsayılan: `4000`                                                                                                                                                                | `4000`                                                                                |                                                                                                                                                                                                                                                                     |
-| `liveSyncURL`                | `string`                  | Canlı senkronizasyon sunucu URL'si. Varsayılan: `'http://localhost:{liveSyncPort}'`                                                                                                                                             | `'https://example.com'`                                                               | Varsayılan olarak localhost'u gösterir; uzak bir canlı senkronizasyon sunucusuna değiştirilebilir.                                                                                                                                                                  |
+| Alan              | Açıklama                                                                             | Tür        | Varsayılan          | Örnek                | Not                                                                                                                                                                                                                                                                                                |
+| ----------------- | ------------------------------------------------------------------------------------ | ---------- | ------------------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `locales`         | Uygulamada desteklenen dillerin listesi.                                             | `string[]` | `[Locales.ENGLISH]` | `['en', 'fr', 'es']` |                                                                                                                                                                                                                                                                                                    |
+| `requiredLocales` | Uygulamada gerekli olan dillerin listesi.                                            | `string[]` | `[]`                | `[]`                 | • Boşsa, `strict` modda tüm diller gereklidir.<br/>• Gerekli dillerin `locales` alanında da tanımlandığından emin olun.                                                                                                                                                                            |
+| `strictMode`      | TypeScript kullanarak uluslararasılaştırılmış içeriğin sağlam uygulamalarını sağlar. | `string`   | `'inclusive'`       |                      | • `"strict"` ise: `t` fonksiyonu bildirilen her dilin tanımlanmış olmasını gerektirir — eksikse veya bildirilmemişse hata verir.<br/>• `"inclusive"` ise: Eksik diller için uyarı verir ancak bildirilmeyenlerin kullanımına izin verir.<br/>• `"loose"` ise: Mevcut herhangi bir dili kabul eder. |
+| `defaultLocale`   | İstenen dil bulunamadığında geri dönüş olarak kullanılan varsayılan dil.             | `string`   | `Locales.ENGLISH`   | `'en'`               | URL'de, tanımlama bilgisinde (cookie) veya üstbilgide (header) belirtilmediğinde dili belirlemek için kullanılır.                                                                                                                                                                                  |
 
-### Yönlendirme Yapılandırması (Routing Configuration)
+---
 
-URL yapısı, dil depolama ve ara yazılım işleme dahil olmak üzere yönlendirme davranışını kontrol eden ayarlar.
+### Editör Yapılandırması
 
-| Alan       | Tür                                                                                                                                                  | Açıklama                                                                                                                                                              | Örnek                                                                                                                                                                                              | Not                                                                                                                                                                                                                                                                                       |
-| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `mode`     | `'prefix-no-default' &#124; 'prefix-all' &#124; 'no-prefix' &#124; 'search-params'`                                                                  | Dil işleme için URL yönlendirme modu. Varsayılan: `'prefix-no-default'`                                                                                               | `'prefix-no-default'`: `/dashboard` (en) veya `/fr/dashboard` (fr). `'prefix-all'`: `/en/dashboard`. `'no-prefix'`: dil başka yollarla işlenir. `'search-params'`: `/dashboard?locale=fr` kullanır | Tanımlama bilgisi veya dil depolama yönetimini etkilemez.                                                                                                                                                                                                                                 |
-| `storage`  | `false &#124; 'cookie' &#124; 'localStorage' &#124; 'sessionStorage' &#124; 'header' &#124; CookiesAttributes &#124; StorageAttributes &#124; Array` | Dili istemcide saklamak için yapılandırma. Varsayılan: `['cookie', 'header']`                                                                                         | `'localStorage'`, `[{ type: 'cookie', name: 'custom-locale', secure: true }]`                                                                                                                      | Aşağıdaki Depolama Seçenekleri tablosuna bakın.                                                                                                                                                                                                                                           |
-| `basePath` | `string`                                                                                                                                             | Uygulama URL'leri için temel yol. Varsayılan: `''`                                                                                                                    | `'/my-app'`                                                                                                                                                                                        | Uygulama `https://example.com/my-app` üzerindeyse, basePath `'/my-app'` olur ve URL'ler `https://example.com/my-app/en` gibi olur.                                                                                                                                                        |
-| `rewrite`  | `Record<string, StrictModeLocaleMap<string>>`                                                                                                        | Belirli yollar için varsayılan yönlendirme modunu geçersiz kılan özel URL yeniden yazma kuralları. Dinamik parametreleri `[param]` destekler. Varsayılan: `undefined` | Aşağıdaki örneğe bakın                                                                                                                                                                             | Yeniden yazma kuralları `mode` üzerinde önceliğe sahiptir. Next.js ve Vite ile çalışır. `getLocalizedUrl()` eşleşen kuralları otomatik olarak uygular. [Özel URL Yeniden Yazmaları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/custom_url_rewrites.md) konusuna bakın. |
+Sunucu portu ve etkinleştirme durumu dahil olmak üzere yerleşik görsel editör ayarlarını tanımlar.
 
-**`rewrite` örneği**:
+| Alan                         | Açıklama                                                                                                                                                                                           | Tür                               | Varsayılan                          | Örnek                                                                                           | Not                                                                                                                                                                                                                                        |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | ----------------------------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `applicationURL`             | Uygulamanın URL'si.                                                                                                                                                                                | `string`                          | `undefined`                         | `'http://localhost:3000'` <br/> `'https://example.com'` <br/> `process.env.INTLAYER_EDITOR_URL` | • Güvenlik nedeniyle editörün kaynağını kısıtlamak için kullanılır.<br/>• `'*'` olarak ayarlanırsa, editöre herhangi bir kaynaktan erişilebilir.                                                                                           |
+| `port`                       | Görsel editör sunucusu tarafından kullanılan port.                                                                                                                                                 | `number`                          | `8000`                              |                                                                                                 |                                                                                                                                                                                                                                            |
+| `editorURL`                  | Editör sunucusunun URL'si.                                                                                                                                                                         | `string`                          | `'http://localhost:8000'`           | `'http://localhost:3000'` <br/> `'https://example.com'` <br/> `process.env.INTLAYER_EDITOR_URL` | • Uygulama ile etkileşime girebilecek kaynakları kısıtlamak için kullanılır.<br/>• `'*'` olarak ayarlanırsa, herhangi bir kaynaktan erişilebilir.<br/>• Port değiştirilirse veya editör farklı bir alanda barındırılıyorsa ayarlanmalıdır. |
+| `cmsURL`                     | Intlayer CMS URL'si.                                                                                                                                                                               | `string`                          | `'https://app.intlayer.org'`        | `'https://app.intlayer.org'`                                                                    |                                                                                                                                                                                                                                            |
+| `backendURL`                 | Arka uç sunucusunun URL'si.                                                                                                                                                                        | `string`                          | `https://back.intlayer.org`         | `http://localhost:4000`                                                                         |                                                                                                                                                                                                                                            |
+| `enabled`                    | Uygulamanın görsel editörle etkileşime girip girmeyeceği.                                                                                                                                          | `boolean`                         | `false`                             | `process.env.NODE_ENV !== 'production'`                                                         | • `false` ise editör uygulama ile etkileşime giremez.<br/>• Belirli ortamlar için devre dışı bırakmak güvenliği artırır.                                                                                                                   |
+| `clientId`                   | intlayer paketlerinin oAuth2 üzerinden arka uç ile kimlik doğrulaması yapmasına olanak tanır. Erişim belirteci almak için [intlayer.org/project](https://app.intlayer.org/project) adresine gidin. | `string` &#124; <br/> `undefined` | `undefined`                         |                                                                                                 | Gizli tutulmalıdır; ortam değişkenlerinde saklayın.                                                                                                                                                                                        |
+| `clientSecret`               | intlayer paketlerinin oAuth2 üzerinden arka uç ile kimlik doğrulaması yapmasına olanak tanır. Erişim belirteci almak için [intlayer.org/project](https://app.intlayer.org/project) adresine gidin. | `string` &#124; <br/> `undefined` | `undefined`                         |                                                                                                 | Gizli tutulmalıdır; ortam değişkenlerinde saklayın.                                                                                                                                                                                        |
+| `dictionaryPriorityStrategy` | Hem yerel hem de uzak sözlükler mevcut olduğunda sözlüklere öncelik verme stratejisi.                                                                                                              | `string`                          | `'local_first'`                     | `'distant_first'`                                                                               | • `'distant_first'`: uzak sözlüklere yerellere göre öncelik verir.<br/>• `'local_first'`: yerellere uzaklara göre öncelik verir.                                                                                                           |
+| `liveSync`                   | CMS <br/> Görsel Editör <br/> Arka Uç'ta bir değişiklik algılandığında uygulama sunucusunun içeriği anında yeniden yükleyip yüklemeyeceği.                                                         | `boolean`                         | `true`                              | `true`                                                                                          | • Bir sözlük eklendiğinde/güncellendiğinde uygulama sayfa içeriğini yeniler.<br/>• Live Sync, içeriği başka bir sunucuya taşır ve bu performansı biraz etkileyebilir.<br/>• Her ikisinin de aynı makinede barındırılması önerilir.         |
+| `liveSyncPort`               | Live Sync sunucusunun portu.                                                                                                                                                                       | `number`                          | `4000`                              | `4000`                                                                                          |                                                                                                                                                                                                                                            |
+| `liveSyncURL`                | Live Sync sunucusunun URL'si.                                                                                                                                                                      | `string`                          | `'http://localhost:{liveSyncPort}'` | `'https://example.com'`                                                                         | Varsayılan olarak localhost'u gösterir; uzak bir Live Sync sunucusu için değiştirilebilir.                                                                                                                                                 |
+
+---
+
+### Yönlendirme Yapılandırması
+
+URL yapısı, dil saklama ve ara yazılım yönetimi dahil olmak üzere yönlendirme davranışını kontrol eden ayarlar.
+
+| Alan       | Açıklama                                                                                                                                        | Tür                                                                                                                                                                                                          | Varsayılan             | Örnek                                                                                                                                                                                       | Not                                                                                                                                                                                                                                                                                                        |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mode`     | Dil yönetimi için URL yönlendirme modu.                                                                                                         | `'prefix-no-default'` &#124; <br/> `'prefix-all'` &#124; <br/> `'no-prefix'` &#124; <br/> `'search-params'`                                                                                                  | `'prefix-no-default'`  | `'prefix-no-default'`: `/dashboard` (en) veya `/fr/dashboard` (fr). `'prefix-all'`: `/en/dashboard`. `'no-prefix'`: dil başka yollarla yönetilir. `'search-params'`: `/dashboard?locale=fr` | Tanımlama bilgisi (cookie) veya dil saklama yönetimini etkilemez.                                                                                                                                                                                                                                          |
+| `storage`  | İstemcide dilin saklanması için yapılandırma.                                                                                                   | `false` &#124; <br/> `'cookie'` &#124; <br/> `'localStorage'` &#124; <br/> `'sessionStorage'` &#124; <br/> `'header'` &#124; <br/> `CookiesAttributes` &#124; <br/> `StorageAttributes` &#124; <br/> `Array` | `['cookie', 'header']` | `'localStorage'` <br/> `[{ type: 'cookie', name: 'custom-locale', secure: true }]`                                                                                                          | Aşağıdaki Saklama Seçenekleri tablosuna bakın.                                                                                                                                                                                                                                                             |
+| `basePath` | Uygulama URL'leri için temel yol.                                                                                                               | `string`                                                                                                                                                                                                     | `''`                   | `'/my-app'`                                                                                                                                                                                 | Uygulama `https://example.com/my-app` adresindeyse, basePath `'/my-app'` olur ve URL'ler `https://example.com/my-app/en` şekline dönüşür.                                                                                                                                                                  |
+| `rewrite`  | Belirli yollar için varsayılan yönlendirme modunu geçersiz kılan özel URL yeniden yazma kuralları. Dinamik `[param]` parametrelerini destekler. | `Record<string, StrictModeLocaleMap<string>>`                                                                                                                                                                | `undefined`            | Aşağıdaki örneğe bakın                                                                                                                                                                      | • Yeniden yazma kuralları `mode` üzerinde önceliğe sahiptir.<br/>• Next.js ve Vite ile çalışır.<br/>• `getLocalizedUrl()` eşleşen kuralları otomatik olarak uygular.<br/>• Şuna bakın: [Özel URL Yeniden Yazmaları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/custom_url_rewrites.md). |
+
+**`rewrite` Örneği**:
 
 ```typescript
 routing: {
@@ -624,37 +626,37 @@ routing: {
 }
 ```
 
-#### Depolama Seçenekleri (Storage Options)
+#### Saklama Seçenekleri
 
-| Değer              | Açıklama                                                                                | Not                                                                                                                                                                                                     |
-| ------------------ | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `'cookie'`         | Dili tanımlama bilgilerinde saklar — hem istemci hem de sunucu tarafından erişilebilir. | GDPR uyumluluğu için uygun kullanıcı onayının alındığından emin olun. `CookiesAttributes` aracılığıyla özelleştirilebilir (`{ type: 'cookie', name: 'custom-locale', secure: true, httpOnly: false }`). |
-| `'localStorage'`   | Dili son kullanma tarihi olmadan tarayıcıda saklar — yalnızca istemci tarafı.           | Açıkça temizlenene kadar süresi dolmaz. Intlayer proxy'si buna erişemez. `StorageAttributes` aracılığıyla özelleştirilebilir (`{ type: 'localStorage', name: 'custom-locale' }`).                       |
-| `'sessionStorage'` | Dili sayfa oturumu süresince saklar — yalnızca istemci tarafı.                          | Sekme/pencere kapatıldığında temizlenir. Intlayer proxy'si buna erişemez. `StorageAttributes` aracılığıyla özelleştirilebilir (`{ type: 'sessionStorage', name: 'custom-locale' }`).                    |
-| `'header'`         | Dili HTTP başlıkları aracılığıyla saklar veya iletir — yalnızca sunucu tarafı.          | API çağrıları için yararlıdır. İstemci tarafı erişemez. `StorageAttributes` aracılığıyla özelleştirilebilir (`{ type: 'header', name: 'custom-locale' }`).                                              |
+| Değer              | Not                                                                                                                                                                                                            | Açıklama                                                                                          |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `'cookie'`         | • GDPR uyumluluğu için uygun kullanıcı onayını aldığınızdan emin olun.<br/>• `CookiesAttributes` (`{ type: 'cookie', name: 'custom-locale', secure: true, httpOnly: false }`) aracılığıyla özelleştirilebilir. | Dili tanımlama bilgilerinde (cookies) saklar — hem istemci hem de sunucu tarafından erişilebilir. |
+| `'localStorage'`   | • Açıkça silinmedikçe süresi dolmaz.<br/>• Intlayer proxy'si buna erişemez.<br/>• `StorageAttributes` (`{ type: 'localStorage', name: 'custom-locale' }`) aracılığıyla özelleştirilebilir.                     | Dili tarayıcıda süresiz olarak saklar — sadece istemci tarafı.                                    |
+| `'sessionStorage'` | • Sekme/pencere kapatıldığında silinir.<br/>• Intlayer proxy'si buna erişemez.<br/>• `StorageAttributes` (`{ type: 'sessionStorage', name: 'custom-locale' }`) aracılığıyla özelleştirilebilir.                | Dili sayfa oturumu süresince saklar — sadece istemci tarafı.                                      |
+| `'header'`         | • API çağrıları için yararlıdır.<br/>• İstemci tarafı buna erişemez.<br/>• `StorageAttributes` (`{ type: 'header', name: 'custom-locale' }`) aracılığıyla özelleştirilebilir.                                  | Dili HTTP üstbilgileri (headers) üzerinden aktarır — sadece sunucu tarafı.                        |
 
-#### Tanımlama Bilgisi Özellikleri (Cookie Attributes)
+#### Tanımlama Bilgisi (Cookie) Nitelikleri
 
-Tanımlama bilgisi depolamasını kullanırken ek tanımlama bilgisi özelliklerini yapılandırabilirsiniz:
+Tanımlama bilgisi saklama alanını kullanırken, ek nitelikler yapılandırabilirsiniz:
 
-| Alan       | Tür                                   | Açıklama                                                     |
-| ---------- | ------------------------------------- | ------------------------------------------------------------ |
-| `name`     | `string`                              | Tanımlama bilgisinin adı. Varsayılan: `'INTLAYER_LOCALE'`    |
-| `domain`   | `string`                              | Tanımlama bilgisi alanı. Varsayılan: `undefined`             |
-| `path`     | `string`                              | Tanımlama bilgisi yolu. Varsayılan: `undefined`              |
-| `secure`   | `boolean`                             | HTTPS gerektirir. Varsayılan: `undefined`                    |
-| `httpOnly` | `boolean`                             | HTTP-only bayrağı. Varsayılan: `undefined`                   |
-| `sameSite` | `'strict' &#124; 'lax' &#124; 'none'` | SameSite politikası.                                         |
-| `expires`  | `Date &#124; number`                  | Son kullanma tarihi veya gün sayısı. Varsayılan: `undefined` |
+| Alan       | Açıklama                                                  | Tür                                                   |
+| ---------- | --------------------------------------------------------- | ----------------------------------------------------- |
+| `name`     | Tanımlama bilgisi adı. Varsayılan: `'INTLAYER_LOCALE'`    | `string`                                              |
+| `domain`   | Tanımlama bilgisi alanı. Varsayılan: `undefined`          | `string`                                              |
+| `path`     | Tanımlama bilgisi yolu. Varsayılan: `undefined`           | `string`                                              |
+| `secure`   | HTTPS gerektirir. Varsayılan: `undefined`                 | `boolean`                                             |
+| `httpOnly` | HTTP-only bayrağı. Varsayılan: `undefined`                | `boolean`                                             |
+| `sameSite` | SameSite politikası.                                      | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
+| `expires`  | Sona erme tarihi veya gün sayısı. Varsayılan: `undefined` | `Date` &#124; <br/> `number`                          |
 
-#### Dil Depolama Özellikleri (Locale Storage Attributes)
+#### Saklama Nitelikleri
 
 localStorage veya sessionStorage kullanırken:
 
-| Alan   | Tür                                      | Açıklama                                               |
-| ------ | ---------------------------------------- | ------------------------------------------------------ |
-| `type` | `'localStorage' &#124; 'sessionStorage'` | Depolama türü.                                         |
-| `name` | `string`                                 | Depolama anahtarı adı. Varsayılan: `'INTLAYER_LOCALE'` |
+| Alan   | Açıklama                                              | Tür                                              |
+| ------ | ----------------------------------------------------- | ------------------------------------------------ |
+| `type` | Saklama türü.                                         | `'localStorage'` &#124; <br/> `'sessionStorage'` |
+| `name` | Saklama anahtarı adı. Varsayılan: `'INTLAYER_LOCALE'` | `string`                                         |
 
 #### Yapılandırma Örnekleri
 
@@ -712,7 +714,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-**Arama Parametreleri Modu (Search Parameters Mode)**:
+**Arama Parametresi Modu**:
 
 ```typescript
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -732,7 +734,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-**Özel Depolama ile Ön Eki Olmayan Mod (No Prefix Mode)**:
+**Özel Saklama ile Öneksiz Mod**:
 
 ```typescript
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -755,7 +757,7 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-**Dinamik Yollarla Özel URL Yeniden Yazma**:
+**Dinamik Rotalar ile Özel URL Yeniden Yazma**:
 
 ```typescript
 // intlayer.config.ts
@@ -767,7 +769,7 @@ const config: IntlayerConfig = {
     defaultLocale: "en",
   },
   routing: {
-    mode: "prefix-no-default", // Yeniden yazılmayan yollar için geri dönüş stratejisi
+    mode: "prefix-no-default", // Yeniden yazılmayan yollar için geri dönüş
     storage: "cookie",
     rewrite: nextjsRewrite({
       "/about": {
@@ -791,140 +793,166 @@ export default config;
 
 ---
 
-### İçerik Yapılandırması (Content Configuration)
+### İçerik Yapılandırması
 
-Uygulama içindeki içerik işleme ile ilgili ayarlar (dizin adları, dosya uzantıları ve türetilmiş yapılandırmalar).
+Dizin adları, dosya uzantıları ve türetilmiş yapılandırmalar dahil olmak üzere uygulama içindeki içeriğin nasıl yönetileceği ile ilgili ayarlar.
 
-| Alan             | Tür        | Açıklama                                                                                                                                                                                                | Örnek                               | Not                                                                                                                                                  |
-| ---------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `watch`          | `boolean`  | Intlayer'ın sözlükleri yeniden oluşturmak için içerik bildirim dosyalarındaki değişiklikleri izleyip izlemeyeceğini belirtir. Varsayılan: `process.env.NODE_ENV === 'development'`                      |                                     |                                                                                                                                                      |
-| `fileExtensions` | `string[]` | İçerik bildirim dosyalarını taramak için kullanılan dosya uzantıları. Varsayılan: `['.content.ts', '.content.js', '.content.mjs', '.content.cjs', '.content.json', '.content.json5', '.content.jsonc']` | `['.content.ts', '.content.js']`    |                                                                                                                                                      |
-| `contentDir`     | `string[]` | İçerik bildirim dosyalarının bulunduğu dizinlerin yolları. Varsayılan: `['.']`                                                                                                                          | `['src/content']`                   |                                                                                                                                                      |
-| `codeDir`        | `string[]` | Uygulamanızın kaynak kod dosyalarının bulunduğu dizinlerin yolları. Varsayılan: `['.']`                                                                                                                 | `['src']`                           | Derlemeyi optimize etmek ve kod dönüşümü ve sıcak yeniden yüklemenin (hot reload) yalnızca gerekli dosyalara uygulanmasını sağlamak için kullanılır. |
-| `excludedPath`   | `string[]` | İçerik taramasından hariç tutulan yollar. Varsayılan: `['node_modules', '.intlayer', '.next', 'dist', 'build']`                                                                                         | `['src/styles']`                    |                                                                                                                                                      |
-| `formatCommand`  | `string`   | Yeni oluşturulan veya güncellenen içerik dosyalarını biçimlendirmek için çalıştırılacak komut. Varsayılan: `undefined`                                                                                  | `'npx prettier --write "{{file}}"'` | İçerik ayıklama sırasında veya görsel düzenleyici aracılığıyla kullanılır.                                                                           |
+| Alan             | Açıklama                                                                                                           | Tür        | Varsayılan                                                                                                                                                                | Örnek                                                                                                                                                                                 | Not                                                                                                                                              |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------ | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `watch`          | Intlayer'ın sözlükleri yeniden oluşturmak için içerik bildirim dosyalarındaki değişiklikleri izleyip izlemeyeceği. | `boolean`  | `true`                                                                                                                                                                    |                                                                                                                                                                                       |                                                                                                                                                  |
+| `fileExtensions` | Sözlükleri derlerken taranacak dosya uzantıları.                                                                   | `string[]` | `['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.json5', '.content.jsonc', '.content.tsx', '.content.jsx']`                     | `['.data.ts', '.data.js', '.data.json']`                                                                                                                                              | Özelleştirme çatışmaları önlemeye yardımcı olabilir.                                                                                             |
+| `contentDir`     | İçerik tanımlama dosyalarının (`.content.*`) saklandığı dizin yolu.                                                | `string[]` | `['.']`                                                                                                                                                                   | `['src', '../../ui-library', require.resolve("@my-package/content")]`                                                                                                                 | İçerik dosyalarını izlemek ve sözlükleri yeniden oluşturmak için kullanılır.                                                                     |
+| `codeDir`        | Kodun saklandığı temel dizine göre dizin yolu.                                                                     | `string[]` | `['.']`                                                                                                                                                                   | `['src', '../../ui-library']`                                                                                                                                                         | • Dönüşüm (budama, optimizasyon) için kod dosyalarını izlemek için kullanılır.<br/>• `contentDir`den ayırmak performansı artırabilir.            |
+| `excludedPath`   | İçerik taramasından hariç tutulan dizinler.                                                                        | `string[]` | `['**/node_modules/**', '**/dist/**', '**/build/**', '**/.intlayer/**', '**/.next/**', '**/.nuxt/**', '**/.expo/**', '**/.vercel/**', '**/.turbo/**', '**/.tanstack/**']` |                                                                                                                                                                                       | Henüz kullanılmıyor; gelecekteki uygulama için planlandı.                                                                                        |
+| `formatCommand`  | Intlayer onları yerel olarak yazarken içerik dosyalarını biçimlendirme komutu.                                     | `string`   | `undefined`                                                                                                                                                               | `'npx prettier --write "{{file}}" --log-level silent'` (Prettier), `'npx biome format "{{file}}" --write --log-level none'` (Biome), `'npx eslint --fix "{{file}}" --quiet'` (ESLint) | • `{{file}}` dosya yolu ile değiştirilecektir.<br/>• Tanımlanmazsa, Intlayer bunu otomatik olarak algılar (prettier, biome, eslint'i test eder). |
 
 ---
 
-### Sözlük Yapılandırması (Dictionary Configuration)
+### Sözlük Yapılandırması
 
-Otomatik doldurma davranışı ve içerik oluşturma dahil olmak üzere sözlük işlemlerini kontrol eden ayarlar.
+Otomatik doldurma davranışı ve içerik oluşturma dahil olmak üzere sözlük işlemlerini kontrol eden parametreler.
 
-Bu sözlük yapılandırmasının iki ana amacı vardır:
+| Alan                        | Açıklama                                                                                                                                                                    | Tür                                                                                                             | Varsayılan           | Örnek                                                                                       | Not                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------------------- | ------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `fill`                      | Otomatik doldurma (yapay zeka çevirisi) çıktı dosyalarının nasıl oluşturulacağını kontrol eder.                                                                             | `boolean` &#124; <br/> `FilePathPattern` &#124; <br/> `Partial<Record<Locale, boolean &#124; FilePathPattern>>` | `true`               | `{ en: '/locales/en/{{key}}.json', fr: ({ key }) => '/locales/fr/${key}.json', es: false }` | • `true`: varsayılan yol (kaynakla aynı dosya).<br/>• `false`: devredışı.<br/>• Dize/fonksiyon kalıbı dil başına dosyalar oluşturur.<br/>• Dil başına nesne: her dil kendi kalıbına karşılık gelir; `false` o dili yok sayar.<br/>• `{{locale}}` eklemek dil başına oluşturmayı tetikler.<br/>• Sözlük düzeyindeki `fill` her zaman bu genel ayardan önceliklidir.                                                                     |
+| `description`               | Editörün ve CMS'in sözlüğün amacını anlamasına yardımcı olur. Yapay zeka destekli çeviri oluşturma için bağlam olarak da kullanılır.                                        | `string`                                                                                                        | `undefined`          | `'Kullanıcı profili bölümü'`                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `locale`                    | Sözlüğü dil başına bir formata dönüştürür. Bildirilen her alan bir çeviri düğümü olur. Yoksa, sözlük çok dilli olarak kabul edilir.                                         | `LocalesValues`                                                                                                 | `undefined`          | `'en'`                                                                                      | Birden fazla dil için çeviriler içermek yerine sözlük belirli bir dil için olduğunda bunu kullanın.                                                                                                                                                                                                                                                                                                                                    |
+| `contentAutoTransformation` | İçerik dizelerini otomatik olarak tiplendirilmiş düğümlere (markdown, HTML veya ekleme) dönüştürür.                                                                         | `boolean` &#124; <br/> `{ markdown?: boolean; html?: boolean; insertion?: boolean }`                            | `false`              | `true`                                                                                      | • Markdown : `### Title` → `md('### Title')`.<br/>• HTML : `<div>Title</div>` → `html('<div>Title</div>')`.<br/>• Ekleme : `Merhaba {{name}}` → `insert('Merhaba {{name}}')`.                                                                                                                                                                                                                                                          |
+| `location`                  | Sözlük dosyalarının nerede saklandığını ve CMS ile nasıl senkronize edildiğini belirtir.                                                                                    | `'local'` &#124; <br/> `'remote'` &#124; <br/> `'hybrid'` &#124; <br/> `'plugin'` &#124; <br/> `string`         | `'local'`            | `'hybrid'`                                                                                  | • `'local'`: sadece yerel olarak yönetilir.<br/>• `'remote'`: sadece uzaktan yönetilir (CMS).<br/>• `'hybrid'`: hem yerel hem de uzaktan yönetilir.<br/>• `'plugin'` veya özel dize: bir eklenti veya özel bir kaynak tarafından yönetilir.                                                                                                                                                                                            |
+| `importMode`                | Sözlüklerin nasıl içe aktarılacağını kontrol eder.                                                                                                                          | `'static'` &#124; <br/> `'dynamic'` &#124; <br/> `'fetch'`                                                      | `'static'`           | `'dynamic'`                                                                                 | • `'static'`: statik olarak içe aktarılır.<br/>• `'dynamic'`: Suspense kullanılarak dinamik olarak içe aktarılır.<br/>• `'fetch'`: Live Sync API aracılığıyla getirilir; başarısız olursa `'dynamic'`e geri döner.<br/>• `@intlayer/babel` ve `@intlayer/swc` eklentilerini gerektirir.<br/>• Anahtarlar statik olarak bildirilmelidir.<br/>• `optimize` kapalıysa yok sayılır.<br/>• `getIntlayer`, `getDictionary` vb.'ni etkilemez. |
+| `priority`                  | Sözlüğün önceliği. Sözlükler arasındaki çatışmaları çözerken yüksek değerler düşük değerleri yener.                                                                         | `number`                                                                                                        | `undefined`          | `1`                                                                                         |                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `live`                      | Kullanımdan kaldırıldı — bunun yerine `importMode: 'fetch'` kullanın. Sözlük içeriğinin Live Sync API aracılığıyla dinamik olarak getirilip getirilmeyeceğini belirtiyordu. | `boolean`                                                                                                       | `undefined`          |                                                                                             | v8.0.0'da `importMode: 'fetch'` olarak yeniden adlandırıldı.                                                                                                                                                                                                                                                                                                                                                                           |
+| `schema`                    | JSON şema doğrulaması için Intlayer tarafından otomatik olarak oluşturulur.                                                                                                 | `'https://intlayer.org/schema.json'`                                                                            | otomatik oluşturulur |                                                                                             | Manuel olarak düzenlemeyin.                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `title`                     | Editörde ve CMS'de sözlüğü tanımlamaya yardımcı olur.                                                                                                                       | `string`                                                                                                        | `undefined`          | `'Kullanıcı Profili'`                                                                       |                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `tags`                      | Sözlükleri kategorize eder ve editör ile yapay zeka için bağlam veya talimatlar sağlar.                                                                                     | `string[]`                                                                                                      | `undefined`          | `['kullanıcı', 'profil']`                                                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `version`                   | Uzak sözlüğün sürümü; şu anda kullanılan sürümün izlenmesine yardımcı olur.                                                                                                 | `string`                                                                                                        | `undefined`          | `'1.0.0'`                                                                                   | • CMS'de yönetilebilir.<br/>• Yerel olarak düzenlemeyin.                                                                                                                                                                                                                                                                                                                                                                               |
 
-1. **Varsayılan değerler**: İçerik bildirim dosyaları oluştururken varsayılan değerleri tanımlamak.
-2. **Geri dönüş davranışı**: Belirli alanlar tanımlanmadığında geri dönüş değerleri sağlayarak sözlük işlemlerinin davranışını küresel olarak ayarlamanıza olanak tanır.
-
-İçerik bildirim dosyaları ve yapılandırma değerlerinin nasıl uygulandığı hakkında daha fazla bilgi için [içerik dosyası belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bakın.
-
-| Alan                        | Tür                                                                                             | Açıklama                                                                                                                                                                                  | Örnek                    | Not                                                                                                                                                                                                                                                                                                                                                        |
-| --------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `fill`                      | `boolean &#124; FilePathPattern &#124; Partial<Record<Locale, boolean &#124; FilePathPattern>>` | Otomatik doldurma (AI çevirisi) çıktı dosyalarının nasıl oluşturulduğunu kontrol eder. Varsayılan: `true`                                                                                 | Aşağıdaki örneğe bakın   | `true`: Varsayılan yol (kaynakla aynı dosya). `false`: Devre dışı. Dize/fonksiyon şablonları dil başına dosyalar oluşturur. Dil başına nesne: her dil kendi desenine eşlenir; `false` o dili atlar. `{{locale}}` değişkeninin dahil edilmesi dil başına oluşturmayı tetikler. Sözlük düzeyindeki `fill` her zaman bu küresel yapılandırmadan önceliklidir. |
-| `description`               | `string`                                                                                        | Sözlüğün amacını editörde ve CMS'de anlamaya yardımcı olur. Ayrıca AI çevirisi oluşturmak için bağlam olarak kullanılır. Varsayılan: `undefined`                                          | `'User profile section'` |                                                                                                                                                                                                                                                                                                                                                            |
-| `locale`                    | `LocalesValues`                                                                                 | Sözlüğü dil bazlı bir formata dönüştürür. Bildirilen her alan bir çeviri düğümü haline gelir. Yoksa sözlük çok dilli olarak kabul edilir. Varsayılan: `undefined`                         | `'en'`                   | Sözlük birden fazla dil için çeviri içermek yerine tek bir dile özgü olduğunda bunu kullanın.                                                                                                                                                                                                                                                              |
-| `contentAutoTransformation` | `boolean &#124; { markdown?: boolean; html?: boolean; insertion?: boolean }`                    | İçerik dizelerini otomatik olarak tiplenmiş düğümlere dönüştürür (markdown, HTML veya ekleme). Varsayılan: `false`                                                                        | `true`                   | Markdown: `### Title` → `md('### Title')`. HTML: `<div>Title</div>` → `html('<div>Title</div>')`. Ekleme: `Hello {{name}}` → `insert('Hello {{name}}')`.                                                                                                                                                                                                   |
-| `location`                  | `'local' &#124; 'remote' &#124; 'hybrid' &#124; 'plugin' &#124; string`                         | Sözlük dosyalarının nerede depolandığını ve CMS senkronizasyon modunu belirtir. Varsayılan: `'local'`                                                                                     | `'hybrid'`               | `'local'`: yalnızca yerel olarak yönetilir. `'remote'`: yalnızca uzaktan yönetilir (CMS). `'hybrid'`: hem yerel hem de uzaktan yönetilir. `'plugin'` veya özel dize: bir eklenti veya özel kaynak tarafından yönetilir.                                                                                                                                    |
-| `importMode`                | `'static' &#124; 'dynamic' &#124; 'fetch'`                                                      | Sözlüklerin nasıl içe aktarıldığını kontrol eder. Varsayılan: `'static'`                                                                                                                  | `'dynamic'`              | `'static'`: Statik olarak içe aktarılır. `'dynamic'`: Suspense aracılığıyla dinamik olarak içe aktarılır. `'fetch'`: Live Sync API aracılığıyla dinamik olarak çekilir. `getIntlayer`, `getDictionary`, `useDictionary` vb. etkilemez.                                                                                                                     |
-| `priority`                  | `number`                                                                                        | Sözlüğün önceliği. Daha yüksek değerler, sözlükler arasındaki çakışmaları çözerken daha düşük değerlere göre öncelik taşır. Varsayılan: `undefined`                                       | `1`                      |                                                                                                                                                                                                                                                                                                                                                            |
-| `live`                      | `boolean`                                                                                       | Kullanımdan kalktı — bunun yerine `importMode: 'fetch'` kullanın. Sözlük içeriğinin live sync API aracılığıyla dinamik olarak çekilip çekilmediğini belirtiyordu. Varsayılan: `undefined` |                          | v8.0.0'da `importMode: 'fetch'` olarak yeniden adlandırıldı.                                                                                                                                                                                                                                                                                               |
-| `schema`                    | `'https://intlayer.org/schema.json'`                                                            | JSON şema doğrulaması için Intlayer tarafından otomatik olarak oluşturulur. Varsayılan: otomatik oluşturulur                                                                              |                          | Manuel olarak değiştirmeyin.                                                                                                                                                                                                                                                                                                                               |
-| `title`                     | `string`                                                                                        | Editörde ve CMS'de sözlüğü tanımlamaya yardımcı olur. Varsayılan: `undefined`                                                                                                             | `'User Profile'`         |                                                                                                                                                                                                                                                                                                                                                            |
-| `tags`                      | `string[]`                                                                                      | Sözlükleri kategorize eder ve editör ile AI için bağlam veya talimatlar sağlar. Varsayılan: `undefined`                                                                                   | `['user', 'profile']`    |                                                                                                                                                                                                                                                                                                                                                            |
-| `version`                   | `string`                                                                                        | Uzak sözlüğün sürümü; hangi sürümün kullanıldığını takip etmeye yardımcı olur. Varsayılan: `undefined`                                                                                    | `'1.0.0'`                | CMS'de yönetilebilir. Yerel olarak değiştirmeyin.                                                                                                                                                                                                                                                                                                          |
-
-**`fill` örneği**:
+**`fill` Örneği**:
 
 ```ts
 dictionary: {
   fill: {
-    en: '/locales/en/{{key}}.content.json',
+    en: "/locales/en/{{key}}.content.json",
     fr: ({ key }) => `/locales/fr/${key}.content.json`,
     es: false,
-  }
-}
+  },
+};
 ```
 
 ---
 
-### Yapay Zeka Yapılandırması (AI Configuration)
+### Logger Yapılandırması
 
-Derleme çevirisi gibi Intlayer'ın yapay zeka destekli özellikleri için ayarları tanımlar.
+Intlayer'dan gelen günlük çıkışını özelleştirmek için parametreler.
 
-| Alan                 | Tür                    | Açıklama                                                                        | Örnek                                       | Not                                                                                                |
-| -------------------- | ---------------------- | ------------------------------------------------------------------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `provider`           | `string`               | Kullanılacak yapay zeka sağlayıcısı.                                            | `'openai'`, `'anthropic'`, `'googlevertex'` |                                                                                                    |
-| `model`              | `string`               | Kullanılacak yapay zeka modeli.                                                 | `'gpt-4o'`, `'claude-3-5-sonnet-20240620'`  |                                                                                                    |
-| `apiKey`             | `string`               | Seçilen sağlayıcı için API anahtarı.                                            | `process.env.OPENAI_API_KEY`                |                                                                                                    |
-| `applicationContext` | `string`               | Yapay zeka çeviri doğruluğunu iyileştirmek için uygulamanız hakkında ek bağlam. | `'Çocuklar için bir çalışma platformu.'`    |                                                                                                    |
-| `baseURL`            | `string`               | API çağrıları için isteğe bağlı temel yol URL'si.                               |                                             | Bir proxy veya yerel yapay zeka dağıtımı kullanıyorsanız yararlıdır.                               |
-| `dataSerialization`  | `'json' &#124; 'toon'` | Yapay zekaya verilerin nasıl gönderileceğini tanımlar. Varsayılan: `'json'`     | `'json'`                                    | `'json'`: daha sağlam ve kesin. `'toon'`: daha az belirteç tüketir ancak daha az kararlı olabilir. |
+| Alan     | Açıklama                    | Tür                                                            | Varsayılan      | Örnek              | Not                                                                                                                           |
+| -------- | --------------------------- | -------------------------------------------------------------- | --------------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| `mode`   | Logger modunu belirtir.     | `'default'` &#124; <br/> `'verbose'` &#124; <br/> `'disabled'` | `'default'`     | `'verbose'`        | • `'verbose'`: hata ayıklama için daha fazla bilgi günlüğe kaydeder.<br/>• `'disabled'`: logger'ı tamamen devre dışı bırakır. |
+| `prefix` | Günlük mesajları için önek. | `string`                                                       | `'[intlayer] '` | `'[özel öneğim] '` |                                                                                                                               |
 
 ---
 
-### Derleme Yapılandırması (Build Configuration)
+### Yapay Zeka (AI) Yapılandırması
 
-Intlayer derleme süreci ve optimizasyon ayarları.
+Sağlayıcı, model ve API anahtarı dahil olmak üzere Intlayer'ın yapay zeka özelliklerini kontrol eden ayarlar.
 
-| Alan           | Tür                      | Açıklama                                                                                                                     | Örnek | Not |
-| -------------- | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------- | ----- | --- |
-| `mode`         | `'auto' &#124; 'manual'` | Uygulamanın ön derleme adımları sırasında Intlayer'ın otomatik olarak çalışıp çalışmayacağını belirtir. Varsayılan: `'auto'` |       |     |
-| `optimize`     | `boolean`                | Derlenmiş sözlüklerin çalışma zamanı için optimize edilip edilmeyeceğini belirtir. Varsayılan: Üretim ortamında `true`       |       |     |
-| `outputFormat` | `('cjs' &#124; 'esm')[]` | Oluşturulan sözlük dosyaları için çıktı formatı. Varsayılan: `['cjs', 'esm']`                                                |       |     |
-| `checkTypes`   | `boolean`                | Intlayer'ın oluşturulan dosyalardaki türleri kontrol edip etmeyeceğini belirtir. Varsayılan: `false`                         |       |     |
+Bir erişim anahtarı ile [Intlayer Dashboard](https://app.intlayer.org/project)'a kayıtlıysanız bu yapılandırma isteğe bağlıdır. Intlayer, ihtiyaçlarınız için en verimli ve uygun maliyetli yapay zeka çözümünü otomatik olarak yönetecektir. Varsayılan seçeneklerin kullanılması, Intlayer en ilgili modelleri kullanmak üzere sürekli güncellendiğinden daha iyi uzun vadeli bakılabilirlik sağlar.
+
+Kendi API anahtarınızı veya belirli bir modeli kullanmayı tercih ederseniz, özel yapay zeka yapılandırmanızı tanımlayabilirsiniz.
+Bu yapay zeka yapılandırması, Intlayer ortamınızda küresel olarak kullanılacaktır. CLI komutları, `fill` gibi komutlar için varsayılan olarak bu ayarları kullanacaktır; aynı şekilde SDK, Görsel Editör ve CMS de öyle. Komut parametreleri aracılığıyla belirli kullanım durumları için bu varsayılan değerleri geçersiz kılabilirsiniz.
+
+Intlayer, maksimum esneklik için birden fazla yapay zeka sağlayıcısını destekler. Şu anda desteklenen sağlayıcılar şunlardır:
+
+- **OpenAI** (Varsayılan)
+- **Anthropic Claude**
+- **Mistral AI**
+- **DeepSeek**
+- **Google Gemini**
+- **Google AI Studio**
+- **Google Vertex**
+- **Meta Llama**
+- **Ollama**
+- **OpenRouter**
+- **Alibaba Cloud**
+- **Fireworks**
+- **Hugging Face**
+- **Groq**
+- **Amazon Bedrock**
+- **Together.ai**
+
+| Alan                 | Açıklama                                                                                                                                    | Tür                                                                                                                                                                                                                                                                                                                                                                                            | Varsayılan  | Örnek                                                         | Not                                                                                                                                                                                          |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `provider`           | Intlayer yapay zeka özellikleri için kullanılacak sağlayıcı.                                                                                | `'openai'` &#124; <br/> `'anthropic'` &#124; <br/> `'mistral'` &#124; <br/> `'deepseek'` &#124; <br/> `'gemini'` &#124; <br/> `'ollama'` &#124; <br/> `'openrouter'` &#124; <br/> `'alibaba'` &#124; <br/> `'fireworks'` &#124; <br/> `'groq'` &#124; <br/> `'huggingface'` &#124; <br/> `'bedrock'` &#124; <br/> `'googleaistudio'` &#124; <br/> `'googlevertex'` &#124; <br/> `'togetherai'` | `undefined` | `'anthropic'`                                                 | Farklı sağlayıcılar farklı API anahtarları gerektirir ve farklı fiyatlandırmalara sahiptir.                                                                                                  |
+| `model`              | Yapay zeka özellikleri için kullanılacak model.                                                                                             | `string`                                                                                                                                                                                                                                                                                                                                                                                       | Yok         | `'gpt-4o-2024-11-20'`                                         | Belirli model sağlayıcıya göre değişir.                                                                                                                                                      |
+| `temperature`        | Yapay zeka yanıtlarının rastgeleliğini kontrol eder.                                                                                        | `number`                                                                                                                                                                                                                                                                                                                                                                                       | Yok         | `0.1`                                                         | Daha yüksek sıcaklık = daha yaratıcı ve daha az tahmin edilebilir.                                                                                                                           |
+| `apiKey`             | Seçilen sağlayıcı için API anahtarınız.                                                                                                     | `string`                                                                                                                                                                                                                                                                                                                                                                                       | Yok         | `process.env.OPENAI_API_KEY`                                  | Gizli tutulmalıdır; ortam değişkenlerinde saklayın.                                                                                                                                          |
+| `applicationContext` | Yapay zekanın daha doğru çeviriler üretmesine yardımcı olmak için uygulamanız hakkında ek bağlam (alan adı, hedef kitle, ton, terminoloji). | `string`                                                                                                                                                                                                                                                                                                                                                                                       | Yok         | `'Kendi uygulama bağlamım'`                                   | Kurallar eklemek için kullanılabilir (örneğin: `"URL'leri dönüştürmemelisiniz"`).                                                                                                            |
+| `baseURL`            | Yapay zeka API'si için temel URL.                                                                                                           | `string`                                                                                                                                                                                                                                                                                                                                                                                       | Yok         | `'https://api.openai.com/v1'` <br/> `'http://localhost:5000'` | Yerel veya özel bir yapay zeka API uç noktasına işaret edebilir.                                                                                                                             |
+| `dataSerialization`  | Yapay zeka özellikleri için veri serileştirme formatı.                                                                                      | `'json'` &#124; <br/> `'toon'`                                                                                                                                                                                                                                                                                                                                                                 | `undefined` | `'toon'`                                                      | • `'json'`: varsayılan, güvenilir; daha fazla token kullanır.<br/>• `'toon'`: daha az token, daha az tutarlı.<br/>• Modele bağlam olarak ek parametreler iletilir (akıl yürütme çabası vb.). |
 
 ---
 
-### Sistem Yapılandırması (System Configuration)
+### Derleme (Build) Yapılandırması
+
+Intlayer'ın uygulamanızın uluslararasılaştırılmasını nasıl optimize ettiğini ve derlediğini kontrol eden parametreler.
+
+Derleme seçenekleri `@intlayer/babel` ve `@intlayer/swc` eklentileri için geçerlidir.
+
+> Geliştirme modunda Intlayer, geliştirme deneyimini basitleştirmek için sözlükler için statik içe aktarmalar kullanır.
+
+> Optimizasyon sırasında Intlayer, yığınlamayı (chunking) optimize etmek için sözlük çağrılarını değiştirecektir, böylece final paketi yalnızca gerçekte kullanılan sözlükleri içe aktaracaktır.
+
+| Alan              | Açıklama                                                                                                          | Tür                              | Varsayılan                                                                                                                                                                        | Örnek                                                                         | Not                                                                                                                                                                                                                                                                                                                                         |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mode`            | Derleme modunu kontrol eder.                                                                                      | `'auto'` &#124; <br/> `'manual'` | `'auto'`                                                                                                                                                                          | `'manual'`                                                                    | • `'auto'`: uygulama derlemesi sırasında derleme otomatik olarak tetiklenir.<br/>• `'manual'`: yalnızca derleme komutu açıkça çağrıldığında yürütülür.<br/>• Sözlük derlemelerini devre dışı bırakmak için kullanılabilir (örneğin Node.js ortamlarında yürütmeyi durdurmak için).                                                          |
+| `optimize`        | Derlemenin optimize edilip edilmeyeceğini kontrol eder.                                                           | `boolean`                        | `undefined`                                                                                                                                                                       | `process.env.NODE_ENV === 'production'`                                       | • Tanımlanmazsa, optimizasyon framework derlemesinde (Vite/Next.js) tetiklenir.<br/>• `true` ise geliştirme modunda bile optimizasyonu zorlar.<br/>• `false` ise devre dışı bırakır.<br/>• Etkinse, yığınlamayı optimize etmek için sözlük çağrılarını yer değiştirir.<br/>• `@intlayer/babel` ve `@intlayer/swc` eklentilerini gerektirir. |
+| `checkTypes`      | Derlemenin TypeScript türlerini kontrol edip etmeyeceğini ve hataları günlüğe kaydedip kaydetmeyeceğini belirtir. | `boolean`                        | `false`                                                                                                                                                                           |                                                                               | Derleme sürecini yavaşlatabilir.                                                                                                                                                                                                                                                                                                            |
+| `outputFormat`    | Sözlüklerin çıktı formatını kontrol eder.                                                                         | `('esm' &#124; 'cjs')[]`         | `['esm', 'cjs']`                                                                                                                                                                  | `['cjs']`                                                                     |                                                                                                                                                                                                                                                                                                                                             |
+| `traversePattern` | Optimizasyon sırasında hangi dosyaların taranacağını tanımlayan kalıplar.                                         | `string[]`                       | `['**/*.{tsx,ts,js,mjs,cjs,jsx,vue,svelte,svte}', '!**/node_modules/**', '!**/dist/**', '!**/.intlayer/**', '!**/*.config.*', '!**/*.test.*', '!**/*.spec.*', '!**/*.stories.*']` | `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']` | • Derleme performansını artırmak için optimizasyonu ilgili dosyalarla sınırlayın.<br/>• `optimize` kapalıysa yok sayılır.<br/>• Glob kalıplarını kullanır.                                                                                                                                                                                  |
+
+---
+
+### Sistem Yapılandırması
 
 Bu ayarlar gelişmiş kullanım durumları ve Intlayer'ın dahili yapılandırması içindir.
 
-| Alan                      | Tür      | Açıklama                                 | Varsayılan                        |
-| ------------------------- | -------- | ---------------------------------------- | --------------------------------- |
-| `dictionariesDir`         | `string` | Derlenmiş sözlükler dizini.              | `'.intlayer/dictionary'`          |
-| `moduleAugmentationDir`   | `string` | TypeScript modül genişletme dizini.      | `'.intlayer/types'`               |
-| `unmergedDictionariesDir` | `string` | Birleştirilmemiş sözlükler dizini.       | `'.intlayer/unmerged_dictionary'` |
-| `typesDir`                | `string` | Oluşturulan türler dizini.               | `'.intlayer/types'`               |
-| `mainDir`                 | `string` | Ana Intlayer dosyası dizini.             | `'.intlayer/main'`                |
-| `configDir`               | `string` | Derlenmiş yapılandırma dosyaları dizini. | `'.intlayer/config'`              |
-| `cacheDir`                | `string` | Önbellek dosyaları dizini.               | `'.intlayer/cache'`               |
+| Alan                      | Açıklama                                     | Tür      | Varsayılan                        | Örnek | Not |
+| ------------------------- | -------------------------------------------- | -------- | --------------------------------- | ----- | --- |
+| `dictionariesDir`         | Derlenmiş sözlükler için dizin.              | `string` | `'.intlayer/dictionary'`          |       |     |
+| `moduleAugmentationDir`   | TypeScript modül genişletme dizini.          | `string` | `'.intlayer/types'`               |       |     |
+| `unmergedDictionariesDir` | Birleştirilmemiş sözlükler için dizin.       | `string` | `'.intlayer/unmerged_dictionary'` |       |     |
+| `typesDir`                | Oluşturulan türler için dizin.               | `string` | `'.intlayer/types'`               |       |     |
+| `mainDir`                 | Intlayer ana dosyası için dizin.             | `string` | `'.intlayer/main'`                |       |     |
+| `configDir`               | Derlenmiş yapılandırma dosyaları için dizin. | `string` | `'.intlayer/config'`              |       |     |
+| `cacheDir`                | Önbellek dosyaları için dizin.               | `string` | `'.intlayer/cache'`               |       |     |
 
 ---
 
-### Derleyici Yapılandırması (Compiler Configuration)
+### Derleyici Yapılandırması
 
-Intlayer derleyicisi (`intlayer compiler`) için ayarlar.
+Sözlükleri doğrudan bileşenlerinizden çıkaran Intlayer derleyicisini kontrol eden ayarlar.
 
-| Alan                  | Tür                      | Açıklama                                                                                        | Varsayılan |
-| --------------------- | ------------------------ | ----------------------------------------------------------------------------------------------- | ---------- |
-| `enabled`             | `boolean`                | Derleyicinin aktif olup olmadığını belirtir.                                                    | `false`    |
-| `output`              | `string &#124; Function` | Ayıklanan sözlükler için çıktı yolu.                                                            |            |
-| `saveComponents`      | `boolean`                | Orijinal kaynak dosyaların dönüştürülmüş sürümlerle değiştirilip değiştirilmeyeceğini belirtir. | `false`    |
-| `noMetadata`          | `boolean`                | `true` ise, derleyici oluşturulan dosyalara meta verileri dahil etmez.                          | `false`    |
-| `dictionaryKeyPrefix` | `string`                 | İsteğe bağlı sözlük anahtarı ön eki.                                                            | `''`       |
-
----
-
-### Günlükçü Yapılandırması (Logger Configuration)
-
-Intlayer günlük çıktısını özelleştirmek için ayarlar.
-
-| Alan     | Tür                                            | Açıklama              | Varsayılan     |
-| -------- | ---------------------------------------------- | --------------------- | -------------- |
-| `mode`   | `'default' &#124; 'verbose' &#124; 'disabled'` | Günlükleme modu.      | `'default'`    |
-| `prefix` | `string`                                       | Günlük mesajı ön eki. | `'[intlayer]'` |
+| Alan                  | Açıklama                                                                                                                                                                                                                                                                                                                 | Tür                                                                                                             | Varsayılan  | Örnek                                                                                                                                                    | Not                                                                                                                                                                                |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `enabled`             | Sözlüklerin çıkarılması için derleyicinin etkinleştirilip etkinleştirilmeyeceği.                                                                                                                                                                                                                                         | `boolean` &#124; <br/> `'build-only'`                                                                           | `true`      | `'build-only'`                                                                                                                                           | `'build-only'`, başlangıç sürelerini hızlandırmak için geliştirme sırasında derleyiciyi atlar; yalnızca derleme komutlarında yürütülür.                                            |
+| `dictionaryKeyPrefix` | Çıkarılan sözlük anahtarları için önek.                                                                                                                                                                                                                                                                                  | `string`                                                                                                        | `''`        | `'özel-önekim-'`                                                                                                                                         | Çatışmaları önlemek için (dosya adına dayalı) oluşturulan anahtara eklenir.                                                                                                        |
+| `saveComponents`      | Bileşenlerin dönüştürüldükten sonra kaydedilip kaydedilmeyeceği.                                                                                                                                                                                                                                                         | `boolean`                                                                                                       | `false`     |                                                                                                                                                          | • `true` ise, orijinal dosyaları dönüştürülmüş sürümleriyle değiştirir.<br/>• Derleyici bir çalıştırmadan sonra kaldırılabilir.                                                    |
+| `output`              | Çıktı dosyaları için yolu belirler. `outputDir` yerine geçer. Şablon değişkenlerini destekler: `{{fileName}}`, <br/> `{{key}}`, <br/> `{{locale}}`, <br/> `{{extension}}`, <br/> `{{componentFileName}}`, <br/> `{{componentExtension}}`, <br/> `{{format}}`, <br/> `{{componentFormat}}`, <br/> `{{componentDirPath}}`. | `boolean` &#124; <br/> `FilePathPattern` &#124; <br/> `Partial<Record<Locale, boolean &#124; FilePathPattern>>` | `undefined` | `'./{{fileName}}{{extension}}'` <br/> `'/locales/{{locale}}/{{key}}.json'` <br/> `{ en: ({ key }) => './locales/en/${key}.json', fr: '...', es: false }` | • `./` yolları bileşen dizinine göre çözümlenir.<br/>• `/` yolları köke göredir.<br/>• `{{locale}}` dil başına oluşturmayı tetikler.<br/>• Dil başına nesne notasyonunu destekler. |
+| `noMetadata`          | `true` ise, derleyici sözlük meta verilerini (anahtar, içerik sarmalayıcı) çıktıdan çıkarır.                                                                                                                                                                                                                             | `boolean`                                                                                                       | `false`     | `false` → `{"key":"anahtarım","content":{"key":"değer"}}` <br/> `true` → `{"key":"değer"}`                                                               | • i18next veya ICU MessageFormat JSON çıktıları için yararlıdır.<br/>• `loadJSON` eklentisi ile iyi çalışır.                                                                       |
+| `dictionaryKeyPrefix` | Sözlük anahtar öneki                                                                                                                                                                                                                                                                                                     | `string`                                                                                                        | `''`        |                                                                                                                                                          | Çıkarılan sözlük anahtarları için isteğe bağlı önek ekleyin                                                                                                                        |
 
 ---
 
 ### Özel Şemalar (Custom Schemas)
 
-| Alan      | Tür                         | Açıklama                                                                          |
-| --------- | --------------------------- | --------------------------------------------------------------------------------- |
-| `schemas` | `Record<string, ZodSchema>` | Sözlüklerinizin yapısını doğrulamak için Zod şemaları tanımlamanıza olanak tanır. |
+| Alan      | Açıklama                                                                          | Tür                         |
+| --------- | --------------------------------------------------------------------------------- | --------------------------- |
+| `schemas` | Sözlüklerinizin yapısını doğrulamak için Zod şemaları tanımlamanıza olanak tanır. | `Record<string, ZodSchema>` |
 
 ---
 
 ### Eklentiler (Plugins)
 
-| Alan      | Tür                | Açıklama                                           |
-| --------- | ------------------ | -------------------------------------------------- |
-| `plugins` | `IntlayerPlugin[]` | Etkinleştirilecek Intlayer eklentilerinin listesi. |
+| Alan      | Açıklama                                           | Tür                |
+| --------- | -------------------------------------------------- | ------------------ |
+| `plugins` | Etkinleştirilecek Intlayer eklentilerinin listesi. | `IntlayerPlugin[]` |

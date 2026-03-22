@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: Documentação unificada para todos os exports
+    changes: "Documentação unificada para todos os exports"
 ---
 
 # Pacote intlayer-cli

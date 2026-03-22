@@ -16,10 +16,10 @@ slugs:
 history:
   - version: 7.5.12
     date: 2026-01-06
-    changes: Adicionar opção de saída absoluta ao comando list
+    changes: "Adicionar opção de saída absoluta ao comando list"
   - version: 7.5.11
     date: 2026-01-06
-    changes: Adicionar opção de saída JSON ao comando list
+    changes: "Adicionar opção de saída JSON ao comando list"
 ---
 
 # Listar arquivos de declaração de conteúdo

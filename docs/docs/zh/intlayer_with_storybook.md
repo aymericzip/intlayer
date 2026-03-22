@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 8.4.5
     date: 2026-03-20
-    changes: Init doc
+    changes: "Init doc"
 ---
 
 # 在 Storybook 中使用 Intlayer

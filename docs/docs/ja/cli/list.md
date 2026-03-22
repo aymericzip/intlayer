@@ -16,10 +16,10 @@ slugs:
 history:
   - version: 7.5.12
     date: 2026-01-06
-    changes: listコマンドに絶対パス出力オプションを追加
+    changes: "listコマンドに絶対パス出力オプションを追加"
   - version: 7.5.11
     date: 2026-01-06
-    changes: listコマンドにJSON出力オプションを追加
+    changes: "listコマンドにJSON出力オプションを追加"
 ---
 
 # コンテンツ宣言ファイルの一覧表示

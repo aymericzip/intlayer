@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 5.7.2
     date: 2025-07-27
-    changes: Introducción de contenido basado en género
+    changes: "Introducción de contenido basado en género"
 ---
 
 # Contenido Basado en Género / Género en Intlayer

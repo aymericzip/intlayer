@@ -24,13 +24,13 @@ youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Add init command
+    changes: "Add init command"
   - version: 7.5.6
     date: 2025-12-27
-    changes: Update Layout and handle 404
+    changes: "Update Layout and handle 404"
   - version: 7.3.4
     date: 2025-12-08
-    changes: Init history
+    changes: "Init history"
 ---
 
 # Translate your React Router v7 (File-System Routes) website using Intlayer | Internationalization (i18n)

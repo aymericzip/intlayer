@@ -19,10 +19,10 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-18
-    changes: Automatische Dekoration von Insertion-Inhalten
+    changes: "Automatische Dekoration von Insertion-Inhalten"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Initiale Historie
+    changes: "Initiale Historie"
 ---
 
 # Einfügeinhalt / Einfügung in Intlayer

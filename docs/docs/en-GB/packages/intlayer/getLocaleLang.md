@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Initial history
+    changes: "Initial history"
 ---
 
 # Documentation: `getLocaleLang` Function in `intlayer`
@@ -33,7 +33,6 @@ The `getLocaleLang` function extracts the language code from a locale string. It
 ## Parameters
 
 - `locale?: Locales`
-
   - **Description**: The locale string (e.g., `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`) from which the language code is extracted.
   - **Type**: `Locales` (optional)
 
@@ -76,7 +75,6 @@ getLocaleLang(Locales.FRENCH); // Output: "fr"
 ## Edge Cases
 
 - **No Locale Provided:**
-
   - The function returns an empty string when `locale` is `undefined`.
 
 - **Malformed Locale Strings:**

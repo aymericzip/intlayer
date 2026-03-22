@@ -14,22 +14,22 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-28
-    changes: `html` कंटेंट नोड प्रकार जोड़ें
+    changes: "`html` कंटेंट नोड प्रकार जोड़ें"
   - version: 8.0.0
     date: 2026-01-24
-    changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
+    changes: "Rename `live` import mode to `fetch` to better describe the underlying mechanism."
   - version: 8.0.0
     date: 2026-01-18
-    changes: शब्दकोश विकल्प `location` और `schema` जोड़ें
+    changes: "शब्दकोश विकल्प `location` और `schema` जोड़ें"
   - version: 7.5.0
     date: 2025-12-13
-    changes: ICU और i18next प्रारूप समर्थन जोड़ा
+    changes: "ICU और i18next प्रारूप समर्थन जोड़ा"
   - version: 6.0.0
     date: 2025-09-20
-    changes: फ़ील्ड्स दस्तावेज़ीकरण जोड़ा
+    changes: "फ़ील्ड्स दस्तावेज़ीकरण जोड़ा"
   - version: 5.5.10
     date: 2025-06-29
-    changes: इतिहास प्रारंभ किया
+    changes: "इतिहास प्रारंभ किया"
 ---
 
 # कंटेंट फ़ाइल

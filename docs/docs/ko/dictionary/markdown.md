@@ -19,13 +19,13 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: MarkdownRenderer / useMarkdownRenderer / renderMarkdown 유틸리티 및 forceInline 옵션 추가
+    changes: "MarkdownRenderer / useMarkdownRenderer / renderMarkdown 유틸리티 및 forceInline 옵션 추가"
   - version: 8.0.0
     date: 2026-01-18
-    changes: 마크다운 콘텐츠의 자동 장식, MDX 및 SSR 지원
+    changes: "마크다운 콘텐츠의 자동 장식, MDX 및 SSR 지원"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 히스토리 초기화
+    changes: "히스토리 초기화"
 ---
 
 # 마크다운 / 리치 텍스트 콘텐츠

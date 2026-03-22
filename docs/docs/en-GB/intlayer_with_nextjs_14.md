@@ -19,10 +19,10 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-14-template
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Add init command
+    changes: "Add init command"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
 ---
 
 # Translate your Next.js 14 and App Router website using Intlayer | Internationalization (i18n)

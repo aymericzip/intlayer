@@ -21,7 +21,7 @@ youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Dodaj polecenie init
+    changes: "Dodaj polecenie init"
   - version: 7.4.0
     date: 2025-12-11
     changes: "Wprowadzenie validatePrefix oraz dodanie kroku 14: Obsługa stron 404 z lokalizowanymi trasami."
@@ -33,13 +33,13 @@ history:
     changes: "Dodaj krok 13: Adaptacja Nitro"
   - version: 7.1.0
     date: 2025-11-17
-    changes: Naprawienie domyślnego prefiksu poprzez dodanie funkcji getPrefix useLocalizedNavigate, LocaleSwitcher i LocalizedLink.
+    changes: "Naprawienie domyślnego prefiksu poprzez dodanie funkcji getPrefix useLocalizedNavigate, LocaleSwitcher i LocalizedLink."
   - version: 6.5.2
     date: 2025-10-03
-    changes: Aktualizacja dokumentacji
+    changes: "Aktualizacja dokumentacji"
   - version: 5.8.1
     date: 2025-09-09
-    changes: Dodano dla Tanstack Start
+    changes: "Dodano dla Tanstack Start"
 ---
 
 # Przetłumacz swoją stronę Tanstack Start za pomocą Intlayer | Internacjonalizacja (i18n)

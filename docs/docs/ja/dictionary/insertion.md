@@ -19,10 +19,10 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-18
-    changes: 挿入コンテンツの自動装飾
+    changes: "挿入コンテンツの自動装飾"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴の初期化
+    changes: "履歴の初期化"
 ---
 
 # 挿入コンテンツ / Intlayerにおける挿入

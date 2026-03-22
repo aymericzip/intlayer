@@ -18,10 +18,10 @@ applicationTemplate: https://github.com/aymericzip/intlayer-hono-template
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: init কমান্ড যোগ করা হয়েছে
+    changes: "init কমান্ড যোগ করা হয়েছে"
   - version: 5.5.10
     date: 2025-06-29
-    changes: ইতিহাস শুরু (Init history)
+    changes: "ইতিহাস শুরু (Init history)"
 ---
 
 # Intlayer ব্যবহার করে আপনার Hono ব্যাকএন্ড ওয়েবসাইট অনুবাদ করুন | আন্তর্জাতিকীকরণ (i18n)

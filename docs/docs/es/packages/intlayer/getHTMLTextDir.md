@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historial inicial
+    changes: "Historial inicial"
 ---
 
 # Documentación: Función `getHTMLTextDir` en `intlayer`
@@ -33,7 +33,6 @@ La función `getHTMLTextDir` determina la dirección del texto (`ltr`, `rtl` o `
 ## Parámetros
 
 - `locale?: Locales`
-
   - **Descripción**: La cadena de configuración regional (por ejemplo, `Locales.ENGLISH`, `Locales.ARABIC`) utilizada para determinar la dirección del texto.
   - **Tipo**: `Locales` (opcional)
 
@@ -76,7 +75,6 @@ getHTMLTextDir(Locales.ARABIC); // Salida: "rtl"
 ## Casos Especiales
 
 - **No se Proporciona Configuración Regional:**
-
   - La función devuelve `'auto'` cuando `locale` es `undefined`.
 
 - **Configuración Regional No Reconocida:**

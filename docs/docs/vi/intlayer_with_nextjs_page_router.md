@@ -19,13 +19,13 @@ slugs:
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Thêm lệnh init
+    changes: "Thêm lệnh init"
   - version: 5.6.0
     date: 2025-07-06
-    changes: Chuyển hàm `withIntlayer()` thành hàm dựa trên promise
+    changes: "Chuyển hàm `withIntlayer()` thành hàm dựa trên promise"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Khởi tạo lịch sử
+    changes: "Khởi tạo lịch sử"
 ---
 
 # Dịch trang web Next.js và Page Router của bạn bằng Intlayer | Quốc tế hóa (i18n)

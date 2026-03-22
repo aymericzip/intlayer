@@ -24,13 +24,13 @@ youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Додано команду init
+    changes: "Додано команду init"
   - version: 7.5.6
     date: 2025-12-27
-    changes: Оновлено Layout та додано обробку 404
+    changes: "Оновлено Layout та додано обробку 404"
   - version: 7.3.4
     date: 2025-12-08
-    changes: Ініціалізовано history
+    changes: "Ініціалізовано history"
 ---
 
 # Перекладіть ваш вебсайт на React Router v7 (File-System Routes) за допомогою Intlayer | Інтернаціоналізація (i18n)

@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: init कमांड जोड़ें
+    changes: "init कमांड जोड़ें"
 ---
 
 # Intlayer प्रारंभ करें

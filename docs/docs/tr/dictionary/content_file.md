@@ -14,22 +14,22 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-28
-    changes: `html` içerik düğümü tipi eklendi
+    changes: "`html` içerik düğümü tipi eklendi"
   - version: 8.0.0
     date: 2026-01-24
-    changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
+    changes: "Rename `live` import mode to `fetch` to better describe the underlying mechanism."
   - version: 8.0.0
     date: 2026-01-18
-    changes: Sözlük seçenekleri `location` ve `schema` eklendi
+    changes: "Sözlük seçenekleri `location` ve `schema` eklendi"
   - version: 7.5.0
     date: 2025-12-13
-    changes: ICU ve i18next format desteği eklendi
+    changes: "ICU ve i18next format desteği eklendi"
   - version: 6.0.0
     date: 2025-09-20
-    changes: Alanlar dokümantasyonu eklendi
+    changes: "Alanlar dokümantasyonu eklendi"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Başlangıç geçmişi
+    changes: "Başlangıç geçmişi"
 ---
 
 # İçerik Dosyası

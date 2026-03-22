@@ -16,10 +16,10 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-30
-    changes: Preact 및 Nuxt 지원 추가, MCP 서버, CLI 업데이트
+    changes: "Preact 및 Nuxt 지원 추가, MCP 서버, CLI 업데이트"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 이력 초기화
+    changes: "이력 초기화"
 ---
 
 # Intlayer: 기능 개요 및 로드맵

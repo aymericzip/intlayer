@@ -20,7 +20,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: 初始化文档
+    changes: "初始化文档"
 ---
 
 # intlayerPrune Vite 插件文档

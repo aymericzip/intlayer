@@ -20,7 +20,7 @@ youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
   - version: 8.0.0
     date: 2026-01-10
-    changes: Initial release
+    changes: "Initial release"
 ---
 
 # Translate your Next.js 16 website (without [locale] in the page path) using Intlayer | Internationalization (i18n)

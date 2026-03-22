@@ -19,13 +19,13 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: 添加 MarkdownRenderer / useMarkdownRenderer / renderMarkdown 实用工具和 forceInline 选项
+    changes: "添加 MarkdownRenderer / useMarkdownRenderer / renderMarkdown 实用工具和 forceInline 选项"
   - version: 8.0.0
     date: 2026-01-18
-    changes: 自动装饰 markdown 内容，支持 MDX 和 SSR
+    changes: "自动装饰 markdown 内容，支持 MDX 和 SSR"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初始化历史记录
+    changes: "初始化历史记录"
 ---
 
 # Markdown / 富文本内容

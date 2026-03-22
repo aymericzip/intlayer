@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-30
-    changes: Начальная документация
+    changes: "Начальная документация"
 ---
 
 # Пакет adonis-intlayer

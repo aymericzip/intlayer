@@ -22,7 +22,7 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-06-29
-    changes: `useI18n` 钩子文档的初始编写
+    changes: "`useI18n` 钩子文档的初始编写"
 ---
 
 # React 集成：`useI18n` Hook 文档

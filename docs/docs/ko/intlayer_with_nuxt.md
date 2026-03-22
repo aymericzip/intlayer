@@ -19,10 +19,10 @@ youtubeVideo: https://www.youtube.com/watch?v=nhUcUAVQ6eQ
 history:
   - version: 7.3.11
     date: 2025-12-07
-    changes: LocaleSwitcher, SEO, 메타데이터 업데이트
+    changes: "LocaleSwitcher, SEO, 메타데이터 업데이트"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 초기 기록
+    changes: "초기 기록"
 ---
 
 # Intlayer를 사용하여 Nuxt 및 Vue 웹사이트 번역하기 | 국제화(i18n)

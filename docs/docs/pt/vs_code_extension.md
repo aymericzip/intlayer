@@ -18,16 +18,16 @@ slugs:
 history:
   - version: 6.1.5
     date: 2025-09-30
-    changes: Adicionado gif de demonstração
+    changes: "Adicionado gif de demonstração"
   - version: 6.1.0
     date: 2025-09-24
-    changes: Adicionada seção de seleção de ambiente
+    changes: "Adicionada seção de seleção de ambiente"
   - version: 6.0.0
     date: 2025-09-22
-    changes: Aba Intlayer / Comandos Preencher & Testar
+    changes: "Aba Intlayer / Comandos Preencher & Testar"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Histórico inicial
+    changes: "Histórico inicial"
 ---
 
 # Extensão Oficial do VS Code

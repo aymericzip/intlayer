@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-30
-    changes: Початкова документація
+    changes: "Початкова документація"
 ---
 
 # Документація проміжного ПЗ intlayer для AdonisJS

@@ -20,7 +20,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: प्रारंभिक डॉक्यूमेंटेशन
+    changes: "प्रारंभिक डॉक्यूमेंटेशन"
 ---
 
 # intlayerPrune Vite प्लगइन दस्तावेज़

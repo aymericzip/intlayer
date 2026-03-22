@@ -19,10 +19,10 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-18
-    changes: Tự động trang trí nội dung chèn
+    changes: "Tự động trang trí nội dung chèn"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Khởi tạo lịch sử
+    changes: "Khởi tạo lịch sử"
 ---
 
 # Nội Dung Chèn / Chèn trong Intlayer

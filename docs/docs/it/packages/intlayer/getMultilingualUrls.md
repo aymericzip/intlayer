@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inizio cronologia
+    changes: "Inizio cronologia"
 ---
 
 # Documentazione: Funzione `getMultilingualUrls` in `intlayer`
@@ -35,18 +35,15 @@ La funzione `getMultilingualUrls` genera una mappatura di URL multilingue aggiun
 ## Parametri
 
 - `url: string`
-
   - **Descrizione**: La stringa URL originale a cui verranno aggiunti i prefissi delle lingue.
   - **Tipo**: `string`
 
 - `locales: Locales[]`
-
   - **Descrizione**: Array opzionale delle lingue supportate. Di default utilizza le lingue configurate nel progetto.
   - **Tipo**: `Locales[]`
   - **Predefinito**: `localesDefault`
 
 - `defaultLocale: Locales`
-
   - **Descrizione**: La lingua predefinita per l'applicazione. Di default utilizza la lingua predefinita configurata nel progetto.
   - **Tipo**: `Locales`
   - **Predefinito**: `defaultLocaleDefault`
@@ -132,11 +129,9 @@ getMultilingualUrls(
 ## Casi limite
 
 - **Nessun segmento di lingua:**
-
   - La funzione rimuove qualsiasi segmento di localizzazione esistente dall'URL prima di generare le mappature multilingue.
 
 - **Localizzazione Predefinita:**
-
   - Quando `prefixDefault` è `false`, la funzione non aggiunge il prefisso all'URL per la localizzazione predefinita.
 
 - **Localizzazioni Non Supportate:**

@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Инициализация истории
+    changes: "Инициализация истории"
 ---
 
 # Документация: функция `getLocaleLang` в `intlayer`
@@ -33,7 +33,6 @@ history:
 ## Параметры
 
 - `locale?: Locales`
-
   - **Описание**: Строка локали (например, `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`), из которой извлекается код языка.
   - **Тип**: `Locales` (необязательно)
 
@@ -76,7 +75,6 @@ getLocaleLang(Locales.FRENCH); // Вывод: "fr"
 ## Особые случаи
 
 - **Локаль не указана:**
-
   - Функция возвращает пустую строку, если `locale` равно `undefined`.
 
 - **Некорректные строки локали:**

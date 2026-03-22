@@ -18,7 +18,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-adonis-template
 history:
   - version: 8.0.0
     date: 2025-12-30
-    changes: Inicializar histórico
+    changes: "Inicializar histórico"
 ---
 
 # Traduza seu backend AdonisJS usando Intlayer | Internacionalização (i18n)

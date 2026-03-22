@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 7.5.12
     date: 2026-01-06
-    changes: Добавить опцию вывода абсолютных путей к команде list projects
+    changes: "Добавить опцию вывода абсолютных путей к команде list projects"
 ---
 
 # Список проектов Intlayer

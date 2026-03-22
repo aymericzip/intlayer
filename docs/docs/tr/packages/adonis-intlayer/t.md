@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-30
-    changes: İlk belgeler
+    changes: "İlk belgeler"
 ---
 
 # Belgeler: `adonis-intlayer` içinde `t` Fonksiyonu

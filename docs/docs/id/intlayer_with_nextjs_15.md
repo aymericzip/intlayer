@@ -20,31 +20,31 @@ youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Tambahkan perintah init
+    changes: "Tambahkan perintah init"
   - version: 7.0.6
     date: 2025-11-01
-    changes: Menambahkan penyebutan `x-default` dalam objek `alternates`
+    changes: "Menambahkan penyebutan `x-default` dalam objek `alternates`"
   - version: 7.0.0
     date: 2025-10-25
-    changes: Menambahkan penyebutan fungsi `withIntlayerSync()`
+    changes: "Menambahkan penyebutan fungsi `withIntlayerSync()`"
   - version: 6.2.0
     date: 2025-10-09
-    changes: Menambahkan dokumentasi untuk hook `useLocale` dengan opsi `onLocaleChange`
+    changes: "Menambahkan dokumentasi untuk hook `useLocale` dengan opsi `onLocaleChange`"
   - version: 5.6.6
     date: 2025-10-02
-    changes: Menambahkan dokumentasi untuk fungsi `getLocale` pada server actions
+    changes: "Menambahkan dokumentasi untuk fungsi `getLocale` pada server actions"
   - version: 5.6.2
     date: 2025-09-23
-    changes: Menambahkan dokumentasi untuk pengawasan perubahan kamus pada Turbopack
+    changes: "Menambahkan dokumentasi untuk pengawasan perubahan kamus pada Turbopack"
   - version: 5.6.2
     date: 2025-09-22
-    changes: Menambahkan dokumentasi untuk helper `multipleMiddlewares`
+    changes: "Menambahkan dokumentasi untuk helper `multipleMiddlewares`"
   - version: 5.6.0
     date: 2025-07-06
-    changes: Mengubah fungsi `withIntlayer()` menjadi fungsi berbasis promise
+    changes: "Mengubah fungsi `withIntlayer()` menjadi fungsi berbasis promise"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inisialisasi riwayat
+    changes: "Inisialisasi riwayat"
 ---
 
 # Terjemahkan situs web Next.js 15 Anda menggunakan Intlayer | Internasionalisasi (i18n)

@@ -18,7 +18,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer/tree/main/examples/a
 history:
   - version: 8.0.4
     date: 2026-01-26
-    changes: Inicio del historial
+    changes: "Inicio del historial"
 ---
 
 # Traduce tu aplicación Analog (Angular) con Intlayer | Internacionalización (i18n)

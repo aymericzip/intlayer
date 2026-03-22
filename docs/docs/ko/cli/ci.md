@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 7.5.11
     date: 2026-01-06
-    changes: CI 명령어 추가
+    changes: "CI 명령어 추가"
 ---
 
 # CI 명령어

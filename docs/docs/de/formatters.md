@@ -21,28 +21,28 @@ slugs:
 history:
   - version: 5.8.0
     date: 2025-08-20
-    changes: Vue-Formatter hinzugefügt
+    changes: "Vue-Formatter hinzugefügt"
   - version: 5.8.0
     date: 2025-08-18
-    changes: Dokumentation der Formatter hinzugefügt
+    changes: "Dokumentation der Formatter hinzugefügt"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Hinzufügen von Vue-Formatierern
+    changes: "Hinzufügen von Vue-Formatierern"
   - version: 5.8.0
     date: 2025-08-18
-    changes: Hinzufügen der Dokumentation zu Formatierern
+    changes: "Hinzufügen der Dokumentation zu Formatierern"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Hinzufügen der Dokumentation zum Listen-Formatter
+    changes: "Hinzufügen der Dokumentation zum Listen-Formatter"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Hinzufügen zusätzlicher Intl-Dienstprogramme (DisplayNames, Collator, PluralRules)
+    changes: "Hinzufügen zusätzlicher Intl-Dienstprogramme (DisplayNames, Collator, PluralRules)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Hinzufügen von Locale-Dienstprogrammen (getLocaleName, getLocaleLang, getLocaleFromPath, etc.)
+    changes: "Hinzufügen von Locale-Dienstprogrammen (getLocaleName, getLocaleLang, getLocaleFromPath, etc.)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Hinzufügen von Dienstprogrammen zur Inhaltsverwaltung (getContent, getTranslation, getIntlayer, etc.)
+    changes: "Hinzufügen von Dienstprogrammen zur Inhaltsverwaltung (getContent, getTranslation, getIntlayer, etc.)"
 ---
 
 # Intlayer Formatierer

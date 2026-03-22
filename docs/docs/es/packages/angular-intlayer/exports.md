@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: Documentación unificada para todas las exportaciones
+    changes: "Documentación unificada para todas las exportaciones"
 ---
 
 # Paquete angular-intlayer

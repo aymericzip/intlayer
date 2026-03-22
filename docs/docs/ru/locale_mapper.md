@@ -15,7 +15,7 @@ slugs:
 history:
   - version: 5.7.2
     date: 2025-07-27
-    changes: Добавлена документация по locale mapper
+    changes: "Добавлена документация по locale mapper"
 ---
 
 # Отображатель локалей

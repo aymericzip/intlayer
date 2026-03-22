@@ -21,7 +21,7 @@ youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Init-Befehl hinzufügen
+    changes: "Init-Befehl hinzufügen"
   - version: 7.4.0
     date: 2025-12-11
     changes: "Einführung von validatePrefix und Hinzufügen von Schritt 14: Behandlung von 404-Seiten mit lokalisierten Routen."
@@ -33,13 +33,13 @@ history:
     changes: "Schritt 13 hinzugefügt: Nitro anpassen"
   - version: 7.1.0
     date: 2025-11-17
-    changes: Präfix-Standard durch Hinzufügen der getPrefix-Funktion, useLocalizedNavigate, LocaleSwitcher und LocalizedLink korrigiert.
+    changes: "Präfix-Standard durch Hinzufügen der getPrefix-Funktion, useLocalizedNavigate, LocaleSwitcher und LocalizedLink korrigiert."
   - version: 6.5.2
     date: 2025-10-03
-    changes: Dokumentation aktualisiert
+    changes: "Dokumentation aktualisiert"
   - version: 5.8.1
     date: 2025-09-09
-    changes: Für Tanstack Start hinzugefügt
+    changes: "Für Tanstack Start hinzugefügt"
 ---
 
 # Übersetzen Sie Ihre Tanstack Start-Website mit Intlayer | Internationalisierung (i18n)

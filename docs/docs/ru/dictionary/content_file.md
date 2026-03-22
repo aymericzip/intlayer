@@ -14,25 +14,25 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-28
-    changes: Добавлен тип узла содержимого `html`
+    changes: "Добавлен тип узла содержимого `html`"
   - version: 8.0.0
     date: 2026-01-24
-    changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
+    changes: "Rename `live` import mode to `fetch` to better describe the underlying mechanism."
   - version: 8.0.0
     date: 2026-01-18
-    changes: Добавлены опции словаря `location` и `schema`
+    changes: "Добавлены опции словаря `location` и `schema`"
   - version: 7.5.13
     date: 2026-01-10
-    changes: Добавлена поддержка форматов файлов JSON5 и JSONC
+    changes: "Добавлена поддержка форматов файлов JSON5 и JSONC"
   - version: 7.5.0
     date: 2025-12-13
-    changes: Добавлена поддержка форматов ICU и i18next
+    changes: "Добавлена поддержка форматов ICU и i18next"
   - version: 6.0.0
     date: 2025-09-20
-    changes: Добавлена документация по полям
+    changes: "Добавлена документация по полям"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Инициализация истории
+    changes: "Инициализация истории"
 ---
 
 # Файл контента

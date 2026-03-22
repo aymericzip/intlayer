@@ -18,13 +18,13 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-09-20
-    changes: إضافة التهيئة العامة
+    changes: "إضافة التهيئة العامة"
   - version: 6.0.0
     date: 2025-09-17
-    changes: إضافة متغير `{{fileName}}`
+    changes: "إضافة متغير `{{fileName}}`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: بداية السجل
+    changes: "بداية السجل"
 ---
 
 # ترجمات ملف إعلان محتوى التعبئة التلقائية

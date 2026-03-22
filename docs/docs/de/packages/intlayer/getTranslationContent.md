@@ -20,7 +20,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Initiale Historie
+    changes: "Initiale Historie"
 ---
 
 # Dokumentation: `getTranslation` Funktion in `intlayer`
@@ -32,13 +32,11 @@ Die Funktion `getTranslation` ruft den Inhalt ab, der einer bestimmten Sprache a
 ## Parameter
 
 - `languageContent: CustomizableLanguageContent<Content>`
-
   - **Beschreibung**: Ein Objekt, das Übersetzungen für verschiedene Sprachen enthält. Jeder Schlüssel repräsentiert eine Sprache, und dessen Wert ist der entsprechende Inhalt.
   - **Typ**: `CustomizableLanguageContent<Content>`
     - `Content` kann ein beliebiger Typ sein, standardmäßig `string`.
 
 - `locale: Locales`
-
   - **Beschreibung**: Die Sprache, für die der Inhalt abgerufen werden soll.
   - **Typ**: `Locales`
 

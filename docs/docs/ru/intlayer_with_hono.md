@@ -18,10 +18,10 @@ applicationTemplate: https://github.com/aymericzip/intlayer-hono-template
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Добавлена команда init
+    changes: "Добавлена команда init"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Инициализация истории
+    changes: "Инициализация истории"
 ---
 
 # Переведите ваш бэкенд на Hono с помощью Intlayer | Интернационализация (i18n)

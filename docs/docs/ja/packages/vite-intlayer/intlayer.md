@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: ドキュメントの初期作成
+    changes: "ドキュメントの初期作成"
 ---
 
 # intlayer Vite プラグイン ドキュメント

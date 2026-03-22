@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: بدء التاريخ
+    changes: "بدء التاريخ"
 ---
 
 # التوثيق: دالة `getHTMLTextDir` في `intlayer`
@@ -33,7 +33,6 @@ history:
 ## المعاملات
 
 - `locale?: Locales`
-
   - **الوصف**: سلسلة اللغة (مثل `Locales.ENGLISH`، `Locales.ARABIC`) المستخدمة لتحديد اتجاه النص.
   - **النوع**: `Locales` (اختياري)
 
@@ -76,7 +75,6 @@ getHTMLTextDir(Locales.ARABIC); // الناتج: "rtl"
 ## الحالات الخاصة
 
 - **عدم توفير اللغة:**
-
   - تُعيد الدالة `'auto'` عندما تكون قيمة `locale` غير معرفة.
 
 - **اللغة غير المعروفة:**

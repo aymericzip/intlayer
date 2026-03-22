@@ -19,10 +19,10 @@ author: AydinTheFirst
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Thêm lệnh init
+    changes: "Thêm lệnh init"
   - version: 5.8.0
     date: 2025-09-09
-    changes: Tài liệu ban đầu
+    changes: "Tài liệu ban đầu"
 ---
 
 # Dịch website backend Nest của bạn bằng Intlayer | Quốc tế hóa (i18n)

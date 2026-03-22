@@ -19,10 +19,10 @@ youtubeVideo: https://www.youtube.com/watch?v=IE3XWkZ6a5U
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Add init command
+    changes: "Add init command"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
 ---
 
 # Translate your Vite and Vue website using Intlayer | Internationalization (i18n)

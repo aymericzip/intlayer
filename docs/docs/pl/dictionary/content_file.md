@@ -14,25 +14,25 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-28
-    changes: Dodano typ węzła zawartości `html`
+    changes: "Dodano typ węzła zawartości `html`"
   - version: 8.0.0
     date: 2026-01-24
-    changes: Rename `live` import mode to `fetch` to better describe the underlying mechanism.
+    changes: "Rename `live` import mode to `fetch` to better describe the underlying mechanism."
   - version: 8.0.0
     date: 2026-01-18
-    changes: Dodano opcje słownika `location` i `schema`
+    changes: "Dodano opcje słownika `location` i `schema`"
   - version: 7.5.0
     date: 2025-12-13
-    changes: Dodano obsługę formatów ICU i i18next
+    changes: "Dodano obsługę formatów ICU i i18next"
   - version: 7.0.0
     date: 2025-10-23
-    changes: Zmiana nazwy `autoFill` na `fill`
+    changes: "Zmiana nazwy `autoFill` na `fill`"
   - version: 6.0.0
     date: 2025-09-20
-    changes: Dodano dokumentację pól
+    changes: "Dodano dokumentację pól"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inicjalizacja historii
+    changes: "Inicjalizacja historii"
 ---
 
 # Plik z Treścią

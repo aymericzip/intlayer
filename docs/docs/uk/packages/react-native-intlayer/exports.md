@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: Узагальнена документація для всіх експортів
+    changes: "Узагальнена документація для всіх експортів"
 ---
 
 # Пакет react-native-intlayer

@@ -21,13 +21,13 @@ title: Документація хуку useLocale | next-intlayer
 history:
   - version: 8.0.0
     date: 2026-01-26
-    changes: Встановлено `onLocaleChange` за замовчуванням у `replace`
+    changes: "Встановлено `onLocaleChange` за замовчуванням у `replace`"
   - version: 6.2.0
     date: 2025-10-09
-    changes: Додано документацію для хуку `useLocale` з опцією `onLocaleChange`
+    changes: "Додано документацію для хуку `useLocale` з опцією `onLocaleChange`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Ініціалізація історії
+    changes: "Ініціалізація історії"
 ---
 
 # Інтеграція з Next.js: документація хуку `useLocale` для `next-intlayer`

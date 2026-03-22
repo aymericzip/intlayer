@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: init 명령 추가
+    changes: "init 명령 추가"
 ---
 
 # Intlayer 초기화

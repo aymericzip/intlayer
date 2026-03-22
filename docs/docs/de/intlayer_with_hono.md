@@ -18,10 +18,10 @@ applicationTemplate: https://github.com/aymericzip/intlayer-hono-template
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Init-Befehl hinzufügen
+    changes: "Init-Befehl hinzufügen"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Verlauf initialisiert
+    changes: "Verlauf initialisiert"
 ---
 
 # Übersetzen Sie Ihre Hono-Backend-Website mit Intlayer | Internationalisierung (i18n)

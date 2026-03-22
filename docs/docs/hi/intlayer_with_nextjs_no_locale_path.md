@@ -20,7 +20,7 @@ youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
   - version: 8.0.0
     date: 2026-01-10
-    changes: प्रारंभिक रिलीज़
+    changes: "प्रारंभिक रिलीज़"
 ---
 
 # Intlayer का उपयोग करके अपने Next.js 16 वेबसाइट का अनुवाद (पृष्ठ पथ में [locale] के बिना) | अंतर्राष्ट्रीयकरण (i18n)

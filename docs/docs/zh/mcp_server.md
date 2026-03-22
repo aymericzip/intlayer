@@ -17,16 +17,16 @@ slugs:
 history:
   - version: 5.5.12
     date: 2025-07-11
-    changes: 添加 ChatGPT 的设置
+    changes: "添加 ChatGPT 的设置"
   - version: 5.5.12
     date: 2025-07-10
-    changes: 添加 Claude Desktop 的设置
+    changes: "添加 Claude Desktop 的设置"
   - version: 5.5.12
     date: 2025-07-10
-    changes: 添加 SSE 传输和远程服务器支持
+    changes: "添加 SSE 传输和远程服务器支持"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初始化历史记录
+    changes: "初始化历史记录"
 ---
 
 # Intlayer MCP 服务器

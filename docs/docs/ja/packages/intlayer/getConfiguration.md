@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴の初期化
+    changes: "履歴の初期化"
 ---
 
 # ドキュメント: `intlayer` の `getConfiguration` 関数
@@ -40,7 +40,6 @@ history:
 
 - **型**: `IntlayerConfig`
 - **説明**: `intlayer` の完全な設定を含むオブジェクトです。設定には以下のセクションが含まれます:
-
   - `internationalization`: ロケールや厳格モードに関連する設定。
   - `middleware`: URLおよびクッキー管理に関連する設定。
   - `content`: コンテンツファイル、ディレクトリ、およびパターンに関連する設定。

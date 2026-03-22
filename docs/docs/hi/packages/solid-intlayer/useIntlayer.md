@@ -20,7 +20,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: Unified documentation for all exports
+    changes: "Unified documentation for all exports"
 ---
 
 # useIntlayer हुक दस्तावेज़ीकरण

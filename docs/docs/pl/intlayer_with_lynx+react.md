@@ -19,10 +19,10 @@ applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Dodaj polecenie init
+    changes: "Dodaj polecenie init"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inicjalizacja historii
+    changes: "Inicjalizacja historii"
 ---
 
 # Przetłumacz swoją aplikację mobilną Lynx i React za pomocą Intlayer | Internacjonalizacja (i18n)

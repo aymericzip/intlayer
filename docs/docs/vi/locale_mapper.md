@@ -15,7 +15,7 @@ slugs:
 history:
   - version: 5.7.2
     date: 2025-07-27
-    changes: Thêm tài liệu bộ ánh xạ locale
+    changes: "Thêm tài liệu bộ ánh xạ locale"
 ---
 
 # Bộ ánh xạ Locale

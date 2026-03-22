@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: Doküman başlatıldı
+    changes: "Doküman başlatıldı"
 ---
 
 # getLocale Fonksiyon Dokümantasyonu

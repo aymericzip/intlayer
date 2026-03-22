@@ -20,13 +20,13 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
   - version: 6.0.1
     date: 2025-09-22
-    changes: Menambahkan dokumentasi live sync
+    changes: "Menambahkan dokumentasi live sync"
   - version: 6.0.0
     date: 2025-09-04
-    changes: Mengganti field `hotReload` dengan `liveSync`
+    changes: "Mengganti field `hotReload` dengan `liveSync`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inisialisasi riwayat
+    changes: "Inisialisasi riwayat"
 ---
 
 # Dokumentasi Sistem Manajemen Konten (CMS) Intlayer

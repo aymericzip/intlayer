@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-29
-    changes: 统一所有导出的文档
+    changes: "统一所有导出的文档"
 ---
 
 # hono-intlayer 包

@@ -17,10 +17,10 @@ applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
 history:
   - version: 8.0.0
     date: 2025-12-30
-    changes: Añadir comando init
+    changes: "Añadir comando init"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inicializar historial
+    changes: "Inicializar historial"
 ---
 
 # Traduce tu sitio web Angular usando Intlayer | Internacionalización (i18n)

@@ -20,7 +20,7 @@ youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
   - version: 8.0.0
     date: 2026-01-10
-    changes: 초기 릴리스
+    changes: "초기 릴리스"
 ---
 
 # Intlayer를 사용하여 Next.js 16 웹사이트 번역(페이지 경로에 [locale] 없이) | 국제화 (i18n)

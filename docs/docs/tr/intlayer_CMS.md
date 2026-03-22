@@ -20,13 +20,13 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
   - version: 6.0.1
     date: 2025-09-22
-    changes: Canlı senkronizasyon dokümantasyonu eklendi
+    changes: "Canlı senkronizasyon dokümantasyonu eklendi"
   - version: 6.0.0
     date: 2025-09-04
-    changes: `hotReload` alanı `liveSync` ile değiştirildi
+    changes: "`hotReload` alanı `liveSync` ile değiştirildi"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Geçmiş başlatıldı
+    changes: "Geçmiş başlatıldı"
 ---
 
 # Intlayer İçerik Yönetim Sistemi (CMS) Dokümantasyonu

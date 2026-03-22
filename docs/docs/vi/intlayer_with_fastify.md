@@ -18,10 +18,10 @@ applicationTemplate: https://github.com/aymericzip/intlayer-fastify-template
 history:
   - version: 7.6.0
     date: 2025-12-31
-    changes: Thêm lệnh init
+    changes: "Thêm lệnh init"
   - version: 7.6.0
     date: 2025-12-31
-    changes: Khởi tạo lịch sử
+    changes: "Khởi tạo lịch sử"
 ---
 
 # Dịch backend Fastify của bạn bằng Intlayer | Quốc tế hóa (i18n)

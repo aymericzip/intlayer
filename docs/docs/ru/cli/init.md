@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Добавлена команда init
+    changes: "Добавлена команда init"
 ---
 
 # Инициализация Intlayer

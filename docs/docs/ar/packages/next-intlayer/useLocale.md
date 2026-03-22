@@ -21,10 +21,10 @@ title: توثيق هوك useLocale | next-intlayer
 history:
   - version: 8.0.0
     date: 2026-01-26
-    changes: تعيين القيمة الافتراضية لـ `onLocaleChange` إلى `replace`
+    changes: "تعيين القيمة الافتراضية لـ `onLocaleChange` إلى `replace`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: بداية التاريخ
+    changes: "بداية التاريخ"
 ---
 
 # تكامل Next.js: توثيق هوك `useLocale` لحزمة `next-intlayer`

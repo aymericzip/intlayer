@@ -21,22 +21,22 @@ slugs:
 history:
   - version: 5.8.0
     date: 2025-08-20
-    changes: Vue biçimlendiricileri eklendi
+    changes: "Vue biçimlendiricileri eklendi"
   - version: 5.8.0
     date: 2025-08-18
-    changes: Biçimlendiriciler dokümantasyonu eklendi
+    changes: "Biçimlendiriciler dokümantasyonu eklendi"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Liste biçimlendirici dokümantasyonu eklendi
+    changes: "Liste biçimlendirici dokümantasyonu eklendi"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Ek Intl yardımcıları eklendi (DisplayNames, Collator, PluralRules)
+    changes: "Ek Intl yardımcıları eklendi (DisplayNames, Collator, PluralRules)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Yerel ayar yardımcıları eklendi (getLocaleName, getLocaleLang, getLocaleFromPath, vb.)
+    changes: "Yerel ayar yardımcıları eklendi (getLocaleName, getLocaleLang, getLocaleFromPath, vb.)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: İçerik işleme yardımcıları eklendi (getContent, getTranslation, getIntlayer, vb.)
+    changes: "İçerik işleme yardımcıları eklendi (getContent, getTranslation, getIntlayer, vb.)"
 ---
 
 # Intlayer Biçimlendiricileri

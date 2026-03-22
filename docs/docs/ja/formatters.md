@@ -21,28 +21,28 @@ slugs:
 history:
   - version: 5.8.0
     date: 2025-08-20
-    changes: Vueフォーマッターを追加
+    changes: "Vueフォーマッターを追加"
   - version: 5.8.0
     date: 2025-08-18
-    changes: フォーマッターのドキュメントを追加
+    changes: "フォーマッターのドキュメントを追加"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Vueフォーマッターを追加
+    changes: "Vueフォーマッターを追加"
   - version: 5.8.0
     date: 2025-08-18
-    changes: フォーマッターのドキュメントを追加
+    changes: "フォーマッターのドキュメントを追加"
   - version: 5.8.0
     date: 2025-08-20
-    changes: リストフォーマッターのドキュメントを追加
+    changes: "リストフォーマッターのドキュメントを追加"
   - version: 5.8.0
     date: 2025-08-20
-    changes: 追加のIntlユーティリティ（DisplayNames、Collator、PluralRules）を追加
+    changes: "追加のIntlユーティリティ（DisplayNames、Collator、PluralRules）を追加"
   - version: 5.8.0
     date: 2025-08-20
-    changes: ロケールユーティリティ（getLocaleName、getLocaleLang、getLocaleFromPathなど）を追加
+    changes: "ロケールユーティリティ（getLocaleName、getLocaleLang、getLocaleFromPathなど）を追加"
   - version: 5.8.0
     date: 2025-08-20
-    changes: コンテンツ処理ユーティリティ（getContent、getTranslation、getIntlayerなど）を追加
+    changes: "コンテンツ処理ユーティリティ（getContent、getTranslation、getIntlayerなど）を追加"
 ---
 
 # Intlayer フォーマッター

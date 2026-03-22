@@ -21,7 +21,7 @@ youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Додано команду init
+    changes: "Додано команду init"
   - version: 7.4.0
     date: 2025-12-11
     changes: "Представлено validatePrefix та додано крок 14: Обробка сторінок 404 з локалізованими маршрутами."
@@ -33,13 +33,13 @@ history:
     changes: "Додано крок 13: Адаптувати Nitro"
   - version: 7.1.0
     date: 2025-11-17
-    changes: Виправлено значення префікса за замовчуванням, додавши функцію getPrefix, useLocalizedNavigate, LocaleSwitcher та LocalizedLink.
+    changes: "Виправлено значення префікса за замовчуванням, додавши функцію getPrefix, useLocalizedNavigate, LocaleSwitcher та LocalizedLink."
   - version: 6.5.2
     date: 2025-10-03
-    changes: Оновлено документацію
+    changes: "Оновлено документацію"
   - version: 5.8.1
     date: 2025-09-09
-    changes: Додано для Tanstack Start
+    changes: "Додано для Tanstack Start"
 ---
 
 # Перекладіть ваш вебсайт Tanstack Start за допомогою Intlayer | Інтернаціоналізація (i18n)

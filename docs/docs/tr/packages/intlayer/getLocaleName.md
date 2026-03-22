@@ -21,10 +21,10 @@ slugs:
 history:
   - version: 7.5.0
     date: 2025-12-18
-    changes: React Native ve eski ortamlar için polyfills ekle
+    changes: "React Native ve eski ortamlar için polyfills ekle"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Geçmiş başlatıldı
+    changes: "Geçmiş başlatıldı"
 ---
 
 # Dokümantasyon: `intlayer` Paketinde `getLocaleName` Fonksiyonu

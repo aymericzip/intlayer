@@ -19,13 +19,13 @@ youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: إضافة أمر init
+    changes: "إضافة أمر init"
   - version: 7.0.6
     date: 2025-11-01
-    changes: إضافة ذكر لـ `x-default` في كائن `alternates`
+    changes: "إضافة ذكر لـ `x-default` في كائن `alternates`"
   - version: 7.0.0
     date: 2025-06-29
-    changes: بداية السجل
+    changes: "بداية السجل"
 ---
 
 # ترجمة موقع Next.js 16 الخاص بك باستخدام Intlayer | التدويل (i18n)

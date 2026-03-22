@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: Dokumentation initialisiert
+    changes: "Dokumentation initialisiert"
 ---
 
 # intlayer Vite Plugin Dokumentation

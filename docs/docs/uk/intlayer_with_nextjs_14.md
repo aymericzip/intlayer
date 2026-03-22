@@ -19,22 +19,22 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-14-template
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Додано команду `init`
+    changes: "Додано команду `init`"
   - version: 6.2.0
     date: 2025-10-09
-    changes: Додано документацію для хука `useLocale` з опцією `onLocaleChange`
+    changes: "Додано документацію для хука `useLocale` з опцією `onLocaleChange`"
   - version: 5.6.6
     date: 2025-10-02
-    changes: Додано документацію для функції `getLocale` у server actions
+    changes: "Додано документацію для функції `getLocale` у server actions"
   - version: 5.6.2
     date: 2025-09-22
-    changes: Додано документацію для хелпера `multipleMiddlewares`
+    changes: "Додано документацію для хелпера `multipleMiddlewares`"
   - version: 5.6.0
     date: 2025-07-06
-    changes: Перетворено функцію `withIntlayer()` на функцію, що повертає Promise
+    changes: "Перетворено функцію `withIntlayer()` на функцію, що повертає Promise"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Ініціалізовано історію
+    changes: "Ініціалізовано історію"
 ---
 
 # Перекладіть ваш сайт на Next.js 14 та App Router за допомогою Intlayer | Інтернаціоналізація (i18n)

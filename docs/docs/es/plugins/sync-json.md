@@ -26,10 +26,10 @@ youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
   - version: 7.5.0
     date: 2025-12-13
-    changes: Añadido soporte para formatos ICU e i18next
+    changes: "Añadido soporte para formatos ICU e i18next"
   - version: 6.1.6
     date: 2025-10-05
-    changes: Documentación inicial del plugin de sincronización JSON
+    changes: "Documentación inicial del plugin de sincronización JSON"
 ---
 
 # Sincronización JSON (puentes i18n) - Sincronización JSON con soporte ICU / i18next

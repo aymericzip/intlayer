@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 7.1.0
     date: 2025-11-16
-    changes: Initial documentation
+    changes: "Initial documentation"
 ---
 
 # Documentation: `getPrefix` Function in `intlayer`

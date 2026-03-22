@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初始化历史
+    changes: "初始化历史"
 ---
 
 # 文档：`intlayer` 中的 `getHTMLTextDir` 函数
@@ -33,7 +33,6 @@ history:
 ## 参数
 
 - `locale?: Locales`
-
   - **描述**：用于确定文本方向的语言环境字符串（例如，`Locales.ENGLISH`、`Locales.ARABIC`）。
   - **类型**：`Locales`（可选）
 
@@ -76,7 +75,6 @@ getHTMLTextDir(Locales.ARABIC); // 输出: "rtl"
 ## 边界情况
 
 - **未提供语言环境：**
-
   - 当 `locale` 为 `undefined` 时，函数返回 `'auto'`。
 
 - **未识别的语言环境：**

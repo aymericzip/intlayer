@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-29
-    changes: Documentazione unificata per tutti gli export
+    changes: "Documentazione unificata per tutti gli export"
 ---
 
 # Pacchetto hono-intlayer

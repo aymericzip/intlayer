@@ -18,10 +18,10 @@ applicationTemplate: https://github.com/aymericzip/intlayer-fastify-template
 history:
   - version: 7.6.0
     date: 2025-12-31
-    changes: إضافة أمر init
+    changes: "إضافة أمر init"
   - version: 7.6.0
     date: 2025-12-31
-    changes: تهيئة السجل
+    changes: "تهيئة السجل"
 ---
 
 # ترجمة موقع الويب الخاص بخادم Fastify باستخدام Intlayer | التدويل (i18n)

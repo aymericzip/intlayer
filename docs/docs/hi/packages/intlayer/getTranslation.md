@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: प्रारंभिक इतिहास
+    changes: "प्रारंभिक इतिहास"
 ---
 
 # दस्तावेज़ीकरण: `intlayer` में `getTranslationContent` फ़ंक्शन
@@ -33,13 +33,11 @@ history:
 ## पैरामीटर
 
 - `languageContent: CustomizableLanguageContent<Content>`
-
   - **विवरण**: विभिन्न लोकलों के लिए अनुवादों वाला एक ऑब्जेक्ट। प्रत्येक कुंजी एक लोकल का प्रतिनिधित्व करती है, और इसका मान संबंधित सामग्री होती है।
   - **प्रकार**: `CustomizableLanguageContent<Content>`
     - `Content` किसी भी प्रकार का हो सकता है, डिफ़ॉल्ट रूप से `string`।
 
 - `locale: Locales`
-
   - **विवरण**: वह लोकल जिसके लिए सामग्री प्राप्त करनी है।
   - **प्रकार**: `Locales`
 

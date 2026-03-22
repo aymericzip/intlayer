@@ -18,13 +18,13 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-09-20
-    changes: Add global configuration
+    changes: "Add global configuration"
   - version: 6.0.0
     date: 2025-09-17
-    changes: Add `{{fileName}}` variable
+    changes: "Add `{{fileName}}` variable"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Initialise history
+    changes: "Initialise history"
 ---
 
 # Autofill Content Declaration File Translations

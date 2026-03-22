@@ -16,10 +16,10 @@ slugs:
 history:
   - version: 6.0.1
     date: 2025-10-05
-    changes: Uczynienie testu asynchronicznym i dodanie opcji build
+    changes: "Uczynienie testu asynchronicznym i dodanie opcji build"
   - version: 6.0.0
     date: 2025-09-20
-    changes: Wprowadzenie testowania
+    changes: "Wprowadzenie testowania"
 ---
 
 # Testowanie Twoich treści

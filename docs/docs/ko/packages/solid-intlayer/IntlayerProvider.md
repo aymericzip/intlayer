@@ -20,7 +20,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: 모든 exports에 대한 문서 통합
+    changes: "모든 exports에 대한 문서 통합"
 ---
 
 # IntlayerProvider 컴포넌트 문서

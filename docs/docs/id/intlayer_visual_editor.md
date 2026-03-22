@@ -19,16 +19,16 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
   - version: 6.1.0
     date: 2025-09-23
-    changes: Menambahkan opsi with pada CLI
+    changes: "Menambahkan opsi with pada CLI"
   - version: 6.0.1
     date: 2025-09-22
-    changes: Mengubah perilaku editor ketika ekstensi file bukan `.json`
+    changes: "Mengubah perilaku editor ketika ekstensi file bukan `.json`"
   - version: 6.0.0
     date: 2025-09-21
-    changes: Menambahkan perintah reexported
+    changes: "Menambahkan perintah reexported"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inisialisasi riwayat
+    changes: "Inisialisasi riwayat"
 ---
 
 # Dokumentasi Intlayer Visual Editor

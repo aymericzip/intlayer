@@ -17,13 +17,13 @@ applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
 history:
   - version: 8.0.0
     date: 2026-01-26
-    changes: Rilis versi stabil
+    changes: "Rilis versi stabil"
   - version: 8.0.0
     date: 2025-12-30
-    changes: Tambahkan perintah init
+    changes: "Tambahkan perintah init"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inisialisasi riwayat
+    changes: "Inisialisasi riwayat"
 ---
 
 # Terjemahkan situs web Angular Anda menggunakan Intlayer | Internasionalisasi (i18n)

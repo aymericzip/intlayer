@@ -21,10 +21,10 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: HTMLRenderer / useHTMLRenderer / renderHTML यूटिलिटी जोड़े
+    changes: "HTMLRenderer / useHTMLRenderer / renderHTML यूटिलिटी जोड़े"
   - version: 8.0.0
     date: 2026-01-20
-    changes: HTML पार्सिंग समर्थन जोड़ा
+    changes: "HTML पार्सिंग समर्थन जोड़ा"
 ---
 
 # HTML सामग्री / Intlayer में HTML

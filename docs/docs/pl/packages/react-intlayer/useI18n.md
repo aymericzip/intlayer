@@ -22,7 +22,7 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-06-29
-    changes: Pierwotne napisanie dokumentacji hooka `useI18n`
+    changes: "Pierwotne napisanie dokumentacji hooka `useI18n`"
 ---
 
 # Integracja z React: Dokumentacja hooka `useI18n`

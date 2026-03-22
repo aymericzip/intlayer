@@ -18,7 +18,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-adonis-template
 history:
   - version: 8.0.0
     date: 2025-12-30
-    changes: 初始化历史
+    changes: "初始化历史"
 ---
 
 # 使用 Intlayer 翻译您的 AdonisJS 后端网站 | 国际化 (i18n)

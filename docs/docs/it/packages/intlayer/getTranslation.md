@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inizializzazione della cronologia
+    changes: "Inizializzazione della cronologia"
 ---
 
 # Documentazione: Funzione `getTranslationContent` in `intlayer`
@@ -33,13 +33,11 @@ La funzione `getTranslationContent` recupera il contenuto corrispondente a una s
 ## Parametri
 
 - `languageContent: CustomizableLanguageContent<Content>`
-
   - **Descrizione**: Un oggetto contenente traduzioni per varie localizzazioni. Ogni chiave rappresenta una localizzazione e il suo valore è il contenuto corrispondente.
   - **Tipo**: `CustomizableLanguageContent<Content>`
     - `Content` può essere di qualsiasi tipo, con valore predefinito `string`.
 
 - `locale: Locales`
-
   - **Descrizione**: La localizzazione per cui si desidera recuperare il contenuto.
   - **Tipo**: `Locales`
 

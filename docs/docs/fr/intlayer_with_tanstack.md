@@ -21,25 +21,25 @@ youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Ajouter la commande init
+    changes: "Ajouter la commande init"
   - version: 7.4.0
     date: 2025-12-11
-    changes: Introduction de validatePrefix et ajout de l'étape 14 ; Gestion des pages 404 avec des routes localisées.
+    changes: "Introduction de validatePrefix et ajout de l'étape 14 ; Gestion des pages 404 avec des routes localisées."
   - version: 7.3.9
     date: 2025-12-05
-    changes: Ajout de l'étape 13 ; Récupérer la locale dans vos server actions (Optionnel)
+    changes: "Ajout de l'étape 13 ; Récupérer la locale dans vos server actions (Optionnel)"
   - version: 7.2.3
     date: 2025-11-18
-    changes: Ajout de l'étape 13 ; Adapter Nitro
+    changes: "Ajout de l'étape 13 ; Adapter Nitro"
   - version: 7.1.0
     date: 2025-11-17
-    changes: Correction du préfixe par défaut en ajoutant la fonction getPrefix, useLocalizedNavigate, LocaleSwitcher et LocalizedLink.
+    changes: "Correction du préfixe par défaut en ajoutant la fonction getPrefix, useLocalizedNavigate, LocaleSwitcher et LocalizedLink."
   - version: 6.5.2
     date: 2025-10-03
-    changes: Mise à jour de la documentation
+    changes: "Mise à jour de la documentation"
   - version: 5.8.1
     date: 2025-09-09
-    changes: Ajouté pour Tanstack Start
+    changes: "Ajouté pour Tanstack Start"
 ---
 
 # Traduisez votre site Tanstack Start avec Intlayer | Internationalisation (i18n)

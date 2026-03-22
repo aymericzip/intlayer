@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 7.5.12
     date: 2026-01-06
-    changes: list projects कमांड में पूर्ण आउटपुट विकल्प जोड़ें
+    changes: "list projects कमांड में पूर्ण आउटपुट विकल्प जोड़ें"
 ---
 
 # Intlayer प्रोजेक्ट्स की सूची

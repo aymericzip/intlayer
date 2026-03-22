@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Initiale Historie
+    changes: "Initiale Historie"
 ---
 
 # Dokumentation: `getLocaleLang` Funktion in `intlayer`
@@ -33,7 +33,6 @@ Die Funktion `getLocaleLang` extrahiert den Sprachcode aus einem Locale-String. 
 ## Parameter
 
 - `locale?: Locales`
-
   - **Beschreibung**: Der Locale-String (z. B. `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`), aus dem der Sprachcode extrahiert wird.
   - **Typ**: `Locales` (optional)
 
@@ -76,7 +75,6 @@ getLocaleLang(Locales.FRENCH); // Ausgabe: "fr"
 ## Randfälle
 
 - **Kein Locale angegeben:**
-
   - Die Funktion gibt einen leeren String zurück, wenn `locale` `undefined` ist.
 
 - **Fehlerhafte Locale-Strings:**

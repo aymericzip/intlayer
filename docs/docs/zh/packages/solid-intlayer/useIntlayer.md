@@ -20,7 +20,7 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-21
-    changes: 为所有导出项统一文档
+    changes: "为所有导出项统一文档"
 ---
 
 # useIntlayer Hook 文档

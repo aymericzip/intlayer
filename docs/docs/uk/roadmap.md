@@ -16,13 +16,13 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-30
-    changes: Додано підтримку Preact та Nuxt, MCP Server, оновлено CLI
+    changes: "Додано підтримку Preact та Nuxt, MCP Server, оновлено CLI"
   - version: 5.5.11
     date: 2025-06-29
-    changes: Додано команди `docs`
+    changes: "Додано команди `docs`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Ініціалізовано історію
+    changes: "Ініціалізовано історію"
 ---
 
 # Intlayer: Огляд функцій та дорожня карта

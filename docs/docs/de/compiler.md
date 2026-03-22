@@ -22,13 +22,13 @@ slugs:
 history:
   - version: 8.2.0
     date: 2026-03-10
-    changes: Update compiler options, add FilePathPattern support
+    changes: "Update compiler options, add FilePathPattern support"
   - version: 8.1.7
     date: 2026-02-25
-    changes: Compiler-Optionen aktualisieren
+    changes: "Compiler-Optionen aktualisieren"
   - version: 7.3.1
     date: 2025-11-27
-    changes: Release Compiler
+    changes: "Release Compiler"
 ---
 
 # Intlayer Compiler | Automatisierte Inhaltsextraktion für i18n

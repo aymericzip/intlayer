@@ -19,13 +19,13 @@ slugs:
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: Add init command
+    changes: "Add init command"
   - version: 5.6.0
     date: 2025-07-06
-    changes: Transform `withIntlayer()` function to a promise based function
+    changes: "Transform `withIntlayer()` function to a promise based function"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
 ---
 
 # Translate your Next.js and Page Router website using Intlayer | Internationalization (i18n)

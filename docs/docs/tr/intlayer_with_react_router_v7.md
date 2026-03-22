@@ -22,16 +22,16 @@ youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
   - version: 7.5.9
     date: 2025-12-30
-    changes: init komutu ekle
+    changes: "init komutu ekle"
   - version: 7.5.6
     date: 2025-12-27
-    changes: Layout'u güncelle ve 404'ü yönet
+    changes: "Layout'u güncelle ve 404'ü yönet"
   - version: 6.1.5
     date: 2025-10-03
-    changes: Doküman güncellendi
+    changes: "Doküman güncellendi"
   - version: 5.8.2
     date: 2025-09-04
-    changes: React Router v7 için eklendi
+    changes: "React Router v7 için eklendi"
 ---
 
 # Intlayer ile React Router v7 çevirin | Uluslararasılaştırma (i18n)

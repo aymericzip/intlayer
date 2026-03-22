@@ -15,10 +15,10 @@ slugs:
 history:
   - version: 5.8.0
     date: 2025-08-19
-    changes: Memperbarui tabel perbandingan
+    changes: "Memperbarui tabel perbandingan"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inisialisasi riwayat
+    changes: "Inisialisasi riwayat"
 ---
 
 # Mengapa Anda harus mempertimbangkan Intlayer?

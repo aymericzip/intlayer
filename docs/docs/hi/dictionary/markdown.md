@@ -19,13 +19,13 @@ slugs:
 history:
   - version: 8.0.0
     date: 2026-01-22
-    changes: MarkdownRenderer / useMarkdownRenderer / renderMarkdown यूटिलिटी और forceInline विकल्प जोड़ें
+    changes: "MarkdownRenderer / useMarkdownRenderer / renderMarkdown यूटिलिटी और forceInline विकल्प जोड़ें"
   - version: 8.0.0
     date: 2026-01-18
-    changes: मार्कडाउन सामग्री का स्वचालित सजावट, MDX और SSR समर्थन
+    changes: "मार्कडाउन सामग्री का स्वचालित सजावट, MDX और SSR समर्थन"
   - version: 5.5.10
     date: 2025-06-29
-    changes: इतिहास प्रारंभ
+    changes: "इतिहास प्रारंभ"
 ---
 
 # मार्कडाउन / रिच टेक्स्ट सामग्री

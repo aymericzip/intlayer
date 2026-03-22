@@ -20,7 +20,7 @@ youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
   - version: 8.0.0
     date: 2026-01-10
-    changes: Erstveröffentlichung
+    changes: "Erstveröffentlichung"
 ---
 
 # Übersetzen Sie Ihre Next.js 16-Website (ohne [locale] im Seitenpfad) mit Intlayer | Internationalisierung (i18n)

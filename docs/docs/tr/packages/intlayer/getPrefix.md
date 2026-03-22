@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 7.1.0
     date: 2025-11-16
-    changes: İlk dokümantasyon
+    changes: "İlk dokümantasyon"
 ---
 
 # Dokümantasyon: `intlayer` İçindeki `getPrefix` Fonksiyonu

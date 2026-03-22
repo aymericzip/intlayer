@@ -20,13 +20,13 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
   - version: 6.0.1
     date: 2025-09-22
-    changes: लाइव सिंक दस्तावेज़ीकरण जोड़ें
+    changes: "लाइव सिंक दस्तावेज़ीकरण जोड़ें"
   - version: 6.0.0
     date: 2025-09-04
-    changes: `hotReload` फ़ील्ड को `liveSync` से बदलें
+    changes: "`hotReload` फ़ील्ड को `liveSync` से बदलें"
   - version: 5.5.10
     date: 2025-06-29
-    changes: इतिहास प्रारंभ करें
+    changes: "इतिहास प्रारंभ करें"
 ---
 
 # Intlayer कंटेंट प्रबंधन प्रणाली (CMS) दस्तावेज़ीकरण
