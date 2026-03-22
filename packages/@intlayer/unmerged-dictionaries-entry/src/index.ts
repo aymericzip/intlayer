@@ -4,10 +4,10 @@
  * The alias allow hot reload the app (such as nextjs) on any dictionary change.
  */
 
-import { existsSync, readFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { runInThisContext } from 'node:vm';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import config from '@intlayer/config/built';
+import { clearModuleCache, configESMxCJSRequire } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type { DictionaryKeys } from '@intlayer/types/module_augmentation';
@@ -21,21 +21,16 @@ type GetUnmergedDictionaries = (
 export const getUnmergedDictionaries: GetUnmergedDictionaries = (
   configuration: IntlayerConfig = config
 ) => {
-  const { system } = configuration;
+  const { system, build } = configuration;
 
+  // Always use cjs for dictionaries entry as it uses require
   const dictionariesPath = join(system.mainDir, `unmerged_dictionaries.cjs`);
   let dictionaries: Record<DictionaryKeys, Dictionary[]> = {};
 
   if (existsSync(dictionariesPath)) {
-    // Execute directly instead of require() to avoid require.cache memory leak
-    const code = readFileSync(dictionariesPath, 'utf-8');
-    const moduleObj = { exports: {} as any };
-    const wrappedFn = runInThisContext(
-      `(function(exports, require, module, __filename, __dirname) {\n${code}\n})`,
-      { filename: dictionariesPath }
-    );
-    wrappedFn(moduleObj.exports, require, moduleObj, dictionariesPath, dirname(dictionariesPath));
-    dictionaries = moduleObj.exports;
+    // Clear cache for unmerged_dictionaries.cjs and all its dependencies (JSON files)
+    clearModuleCache(dictionariesPath);
+    dictionaries = (build.require ?? configESMxCJSRequire)(dictionariesPath);
   }
 
   return dictionaries;
