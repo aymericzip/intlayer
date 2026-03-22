@@ -1,32 +1,7 @@
 import { ALL_LOCALES } from '@intlayer/types/allLocales';
 
-const getBaseDomain = (hostname: string): string => {
-  const parts = hostname.split('.');
-  if (parts.length <= 2) return hostname;
-
-  const lastTwo = parts.slice(-2).join('.');
-  const commonMultiPartTLDs = [
-    'co.uk',
-    'com.au',
-    'com.br',
-    'com.tr',
-    'co.jp',
-    'com.cn',
-    'com.mx',
-    'com.ar',
-    'com.co',
-  ];
-
-  if (commonMultiPartTLDs.includes(lastTwo) && parts.length >= 3) {
-    return parts.slice(-3).join('.');
-  }
-
-  return parts.slice(-2).join('.');
-};
-
 export const analyzeUrlStructure = async (page: any, origin: string) => {
   const targetHostname = new URL(origin).hostname;
-  const targetBaseDomain = getBaseDomain(targetHostname);
 
   const anchors: { href: string; text: string }[] = await page.$$eval(
     'a[href]',
@@ -50,9 +25,12 @@ export const analyzeUrlStructure = async (page: any, origin: string) => {
     try {
       const url = new URL(href, origin);
       const urlHostname = url.hostname;
-      const urlBaseDomain = getBaseDomain(urlHostname);
 
-      const isInternal = urlBaseDomain === targetBaseDomain;
+      const normalizeHost = (host: string) =>
+        host.startsWith('www.') ? host.slice(4) : host;
+
+      const isInternal =
+        normalizeHost(urlHostname) === normalizeHost(targetHostname);
 
       if (isInternal) {
         totalInternalCount++;

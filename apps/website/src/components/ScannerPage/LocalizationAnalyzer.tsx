@@ -2,7 +2,7 @@
 
 import { useSession } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
-import { type FC, useEffect, useRef, useState } from 'react';
+import { type FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
 import { AnalyzerLoading } from './Analyzer/AnalyzerLoading';
 import { AnalyzerForm } from './Analyzer/Form/AnalyzerForm';
@@ -32,6 +32,17 @@ export const LocalizationAnalyzer: FC = () => {
     handleAnalyze,
     handleCancel,
   } = useLocalizationScan(globalErrorMessage.value);
+
+  // Derive the scanned URL from mergedData keys (e.g. "url_htmlLang\\https://example.com")
+  // so that it always matches exactly what was stored, both during an active scan and on refresh.
+  const scannedUrl = useMemo(() => {
+    const urlKey = Object.keys(mergedData).find((key) => key.includes('\\'));
+
+    if (!urlKey) return '';
+
+    const separator = urlKey.indexOf('\\');
+    return separator >= 0 ? urlKey.slice(separator + 1) : '';
+  }, [mergedData]);
 
   const {
     isDiscovering,
@@ -99,7 +110,7 @@ export const LocalizationAnalyzer: FC = () => {
         domainData={domainData}
         score={score}
         mergedData={mergedData}
-        url={params.url}
+        url={scannedUrl || params.url}
         isSingleScanLoading={isSingleScanLoading}
         isDiscovering={isDiscovering}
         discoveredUrls={discoveredUrls}

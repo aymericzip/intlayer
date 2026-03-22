@@ -2,9 +2,10 @@
 
 import { Bot, FileText } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
+import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 import { memo } from 'react';
-import { compOverwrite } from './AnalyzerPageResults';
+import { createCompOverwrite } from './AnalyzerPageResults';
 import { FieldItem } from './FieldItem';
 import type { MergedData } from './types';
 
@@ -15,6 +16,8 @@ type RobotsSectionProps = {
 
 export const RobotsSection: FC<RobotsSectionProps> = memo(
   ({ data, isLoading }) => {
+    const { resolvedTheme } = useTheme();
+    const compOverwrite = createCompOverwrite(resolvedTheme === 'dark');
     const { sections, robotsLabels } = useIntlayer('analyzer-results');
 
     return (

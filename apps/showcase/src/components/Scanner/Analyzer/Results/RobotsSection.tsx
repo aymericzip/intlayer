@@ -4,7 +4,7 @@ import { Bot, FileText } from 'lucide-react';
 import type { FC } from 'react';
 import { memo } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { compOverwrite } from './AnalyzerPageResults';
+import { createCompOverwrite } from './AnalyzerPageResults';
 import { FieldItem } from './FieldItem';
 import type { MergedData } from './types';
 
@@ -15,6 +15,7 @@ type RobotsSectionProps = {
 
 export const RobotsSection: FC<RobotsSectionProps> = memo(
   ({ data, isLoading }) => {
+    const compOverwrite = createCompOverwrite(true);
     const { sections, robotsLabels } = useIntlayer('analyzer-results');
 
     return (

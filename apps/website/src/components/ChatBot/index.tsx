@@ -230,24 +230,27 @@ export const ChatBot: FC<ChatBotProps> = ({
         {isLarge && (
           <FileReference relatedFiles={discussion?.relatedFiles ?? []} />
         )}
+
         {hasReachedRateLimit && (
-          <Container
-            className="mx-auto mt-3 flex max-w-md flex-col gap-4 text-center text-sm"
-            borderColor="neutral"
-            border
-            roundedSize="xl"
-            padding="md"
-          >
-            <span>{rateLimitExceededMessage}</span>
-            <Link
-              href={AppRoutes.Auth_SignIn}
-              label={signInButton.label.value}
-              color="text"
-              variant="button-outlined"
+          <div className="overflow-display relative h-0">
+            <Container
+              className="absolute bottom-0 left-0 left-1/2 mx-auto mt-3 flex max-w-md -translate-x-1/2 flex-col gap-4 text-center text-sm"
+              borderColor="neutral"
+              border
+              roundedSize="2xl"
+              padding="md"
             >
-              {signInButton.text}
-            </Link>
-          </Container>
+              <span>{rateLimitExceededMessage}</span>
+              <Link
+                href={AppRoutes.Auth_SignIn}
+                label={signInButton.label.value}
+                color="text"
+                variant="button-outlined"
+              >
+                {signInButton.text}
+              </Link>
+            </Container>
+          </div>
         )}
 
         <FormSection

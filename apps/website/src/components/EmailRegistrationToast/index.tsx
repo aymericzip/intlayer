@@ -3,6 +3,7 @@
 import type { EmailsList } from '@intlayer/backend';
 import { Container, Form, useForm } from '@intlayer/design-system';
 import {
+  useIsMounted,
   usePersistedStore,
   useSubscribeToNewsletter,
   useUser,
@@ -61,6 +62,7 @@ export const EmailRegistrationToast: FC = () => {
     null
   );
   const [state, dispatch] = useReducer(toastReducer, { isReady: false });
+  const isMounted = useIsMounted();
   const initializedRef = useRef(false);
 
   const { isPending: isLoading, mutateAsync: subscribeToNewsletter } =
@@ -173,8 +175,8 @@ export const EmailRegistrationToast: FC = () => {
     }
   };
 
-  // Don't render if not visible or user is authenticated
-  if (isRegistered || visitData?.isClosed) return null;
+  // Don't render during SSR/hydration or if not visible/user is authenticated
+  if (!isMounted || isRegistered || visitData?.isClosed) return null;
 
   return (
     <Container

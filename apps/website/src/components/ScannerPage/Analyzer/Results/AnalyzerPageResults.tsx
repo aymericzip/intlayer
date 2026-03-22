@@ -1,9 +1,10 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import { Code, CodeBlock, type CodeLanguage } from '@intlayer/design-system';
+import { Code, type CodeLanguage } from '@intlayer/design-system';
 import { FileText, Globe, Link as LinkIcon } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
+import { useTheme } from 'next-themes';
 import type { FC, HTMLProps, ReactNode } from 'react';
 import { memo } from 'react';
 import { FieldItem } from './FieldItem';
@@ -22,20 +23,24 @@ type AnalyzerPageResultsProps = {
   isLoading?: boolean;
 };
 
-export const compOverwrite = {
+export const createCompOverwrite = (isDarkMode: boolean) => ({
   code: ({ className, children, ...props }: HTMLProps<HTMLElement>) => (
     <Code
       {...props}
       language={className?.replace('lang-', '') as CodeLanguage}
       showHeader={false}
+      isDarkMode={isDarkMode}
     >
       {children as string}
     </Code>
   ),
-};
+});
 
 export const AnalyzerPageResults: FC<AnalyzerPageResultsProps> = memo(
   ({ data, url, isLoading }) => {
+    const { resolvedTheme } = useTheme();
+    const isDarkMode = resolvedTheme === 'dark';
+    const compOverwrite = createCompOverwrite(isDarkMode);
     const {
       fields,
       fieldsDescription,
