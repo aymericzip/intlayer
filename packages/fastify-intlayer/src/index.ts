@@ -33,6 +33,9 @@ declare module 'fastify' {
 
 const appNamespace = createNamespace('app');
 
+// Zero-cost fallback, will be updated with fastify logger in dev mode
+let debug: (message: string) => void = () => {};
+
 /**
  * Fastify Plugin that integrates Intlayer into your Fastify application.
  *
@@ -55,6 +58,11 @@ const fastifyIntlayer: FastifyPluginAsync = async (fastify, _opts) => {
     logFunctions: fastify.log, // Req not defined yet
   });
   const { internationalization } = configuration;
+
+  // In dev mode, use fastify logger to debug messages
+  if (process.env.NODE_ENV === 'development') {
+    debug = (msg: string) => fastify.log.debug(msg);
+  }
 
   /**
    * Retrieves the locale from storage (cookies, headers).
@@ -230,9 +238,7 @@ export const t = <Content = string>(
 
     return appNamespace.get('t')(content, locale);
   } catch (error) {
-    if (process.env.NODE_ENV === 'development') {
-      console.error((error as Error).message);
-    }
+    debug((error as Error).message);
 
     return getTranslation(content, locale ?? 'en');
   }
@@ -254,9 +260,8 @@ export const getIntlayer: typeof getIntlayerFunction = (...args) => {
 
     return appNamespace.get('getIntlayer')(...args);
   } catch (error) {
-    if (process.env.NODE_ENV === 'development') {
-      console.error((error as Error).message);
-    }
+    debug((error as Error).message);
+
     return getIntlayerFunction(...args);
   }
 };
@@ -277,9 +282,8 @@ export const getDictionary: typeof getDictionaryFunction = (...args) => {
 
     return appNamespace.get('getDictionary')(...args);
   } catch (error) {
-    if (process.env.NODE_ENV === 'development') {
-      console.error((error as Error).message);
-    }
+    debug((error as Error).message);
+
     return getDictionaryFunction(...args);
   }
 };
