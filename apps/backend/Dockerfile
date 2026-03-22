@@ -9,10 +9,12 @@ RUN apk add --no-cache \
   wget \
   chromium \
   nss \
+  freetype \
   harfbuzz \
   ca-certificates \
   ttf-freefont \
   font-noto-emoji \
+  fontconfig \
   udev
 
 # Tell Puppeteer to use system Chromium instead of downloading its own

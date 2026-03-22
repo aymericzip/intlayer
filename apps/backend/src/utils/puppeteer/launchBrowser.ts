@@ -11,6 +11,8 @@ const defaultArgs = [
   '--disable-gpu',
   '--no-zygote',
   '--disable-software-rasterizer',
+  '--disable-crash-reporter',
+  '--no-first-run',
   '--disable-features=Translate,BackForwardCache',
 ];
 
@@ -21,7 +23,7 @@ export const launchBrowser = (
     headless: true,
     executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
     args: defaultArgs,
-    pipe: true,
-    dumpio: true,
+    pipe: false,
+    dumpio: false,
     ...overrides,
   });
