@@ -11,7 +11,7 @@ const config: IntlayerConfig = {
   },
   editor: {
     enabled: false,
-    applicationURL: 'http://localhost:3000',
+    applicationURL: 'http://localhost:5173',
   },
   dictionary: {
     importMode: 'fetch',
