@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2025-12-30
-title: Fastify i18n - Як перекласти додаток Fastify у 2026
-description: Дізнайтеся, як зробити ваш Fastify-бекенд багатомовним. Дотримуйтеся документації, щоб інтернаціоналізувати (i18n) та перекласти його.
+title: Fastify i18n - Як перекласти додаток Fastify у 2026 році
+description: Дізнайтеся, як зробити ваш бекенд на Fastify багатомовним. Дотримуйтесь документації з інтернаціоналізації (i18n) та перекладу.
 keywords:
   - Інтернаціоналізація
   - Документація
@@ -24,35 +24,37 @@ history:
     changes: "Ініціалізовано історію"
 ---
 
-# Переклад вашого Fastify-бекенду за допомогою Intlayer | Інтернаціоналізація (i18n)
+# Перекладіть свій бекенд-сайт на Fastify за допомогою Intlayer | Інтернаціоналізація (i18n)
 
-`fastify-intlayer`, потужний плагін для інтернаціоналізації (i18n) для додатків на Fastify, призначений зробити ваші бекенд-сервіси доступними глобально, надаючи локалізовані відповіді на основі налаштувань клієнта.
+`fastify-intlayer` — це потужний плагін інтернаціоналізації (i18n) для додатків Fastify, розроблений для того, щоб зробити ваші бекенд-сервіси доступними в усьому світі, надаючи локалізовані відповіді на основі вподобань клієнта.
 
-### Практичні сценарії використання
+> Подивитися реалізацію пакета на GitHub: https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer
 
-- **Відображення помилок бекенда мовою користувача**: коли виникає помилка, відображення повідомлень рідною мовою користувача покращує розуміння і зменшує фрустрацію. Це особливо корисно для динамічних повідомлень про помилки, які можуть показуватися у фронтенд-компонентах, таких як тости або модальні вікна.
-- **Отримання багатомовного контенту**: Для застосунків, що отримують контент із бази даних, інтернаціоналізація забезпечує можливість надавати цей контент кількома мовами. Це критично важливо для платформ, таких як e-commerce сайти або системи управління контентом (CMS), які повинні відображати описи товарів, статті та інший контент мовою, якою віддає перевагу користувач.
-- **Надсилання багатомовних електронних листів**: Чи то транзакційні листи, маркетингові кампанії або сповіщення, надсилання електронних листів мовою отримувача може значно підвищити залученість і ефективність.
-- **Багатомовні push-повідомлення**: Для мобільних додатків надсилання push-повідомлень мовою, якою віддає перевагу користувач, може підвищувати взаємодію та утримання. Такий персональний підхід робить повідомлення більш релевантними та спонукає до дії.
-- **Інші комунікації**: Будь-яка форма комунікації з боку бекенду, наприклад SMS-повідомлення, системні сповіщення або оновлення інтерфейсу, виграє від використання мови користувача, що забезпечує зрозумілість і покращує загальний досвід користувача.
+### Практичні варіанти використання
 
-Інтернаціоналізація бекенду дозволяє вашому застосунку не лише поважати культурні відмінності, а й краще відповідати потребам глобальних ринків, роблячи це ключовим кроком для масштабування сервісів у всьому світі.
+- **Відображення помилок бекенда мовою користувача**: Коли виникає помилка, відображення повідомлень рідною мовою користувача покращує розуміння та зменшує роздратування. Це особливо корисно для динамічних повідомлень про помилки, які можуть відображатися в компонентах фронтенду, таких як тости або модальні вікна.
+- **Отримання багатомовного контенту**: Для додатків, що витягують контент із бази даних, інтернаціоналізація гарантує, що ви зможете надавати цей контент декількома мовами. Це вкрай важливо для таких платформ, як сайти електронної комерції або системи управління контентом, яким необхідно відображати описи продуктів, статті та інший контент мовою, якій надає перевагу користувач.
+- **Відправка багатомовних листів**: Будь то транзакційні листи, маркетингові кампанії чи сповіщення, відправка листів мовою одержувача може значно підвищити залученість та ефективність.
+- **Багатомовні пуш-сповіщення**: Для мобільних додатків відправка пуш-сповіщень мовою користувача може покращити взаємодію та лояльність. Цей персоналізований підхід робить сповіщення більш релевантними та такими, що спонукають до дії.
+- **Інші види комунікації**: Будь-яка форма комунікації з боку бекенда, така як SMS-повідомлення, системні оповіщення або оновлення інтерфейсу користувача, виграє від використання мови користувача, забезпечуючи ясність та покращуючи загальний досвід користувача.
+
+Інтернаціоналізуючи бекенд, ваш додаток не лише поважає культурні відмінності, а й краще відповідає потребам глобального ринку, що є ключовим кроком у масштабуванні ваших послуг по всьому світу.
 
 ## Початок роботи
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-fastify-template?embed=1&ctl=1&file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  title="Demo CodeSandbox - Як інтернаціоналізувати ваш додаток за допомогою Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
 
-Дивіться [Application Template](https://github.com/aymericzip/intlayer-fastify-template) на GitHub.
+Подивитися [шаблон додатка](https://github.com/aymericzip/intlayer-fastify-template) на GitHub.
 
 ### Встановлення
 
-Щоб почати використовувати `fastify-intlayer`, встановіть пакет через npm:
+Щоб почати використовувати `fastify-intlayer`, встановіть пакет за допомогою npm:
 
 ```bash packageManager="npm"
 npm install intlayer fastify-intlayer
@@ -138,9 +140,9 @@ const config = {
 module.exports = config;
 ```
 
-### Оголосіть свій контент
+### Оголошення контенту
 
-Створюйте та керуйте оголошеннями контенту для збереження перекладів:
+Створюйте та керуйте оголошеннями контенту для зберігання перекладів:
 
 ```typescript fileName="src/index.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -149,7 +151,6 @@ const indexContent = {
   key: "index",
   content: {
     exampleOfContent: t({
-      uk: "Приклад поверненого вмісту українською",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -169,7 +170,6 @@ const indexContent = {
   key: "index",
   content: {
     exampleOfContent: t({
-      uk: "Приклад поверненого вмісту українською мовою",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -189,7 +189,6 @@ const indexContent = {
   key: "index",
   content: {
     exampleOfContent: t({
-      uk: "Приклад поверненого вмісту українською мовою",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -209,7 +208,6 @@ module.exports = indexContent;
     "exampleOfContent": {
       "nodeType": "translation",
       "translation": {
-        "uk": "Приклад поверненого вмісту англійською мовою",
         "en": "Example of returned content in English",
         "fr": "Exemple de contenu renvoyé en français",
         "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -220,13 +218,13 @@ module.exports = indexContent;
 }
 ```
 
-> Ваші декларації контенту можуть бути визначені будь-де у вашому застосунку, доки вони включені в директорію `contentDir` (за замовчуванням `./src`). І відповідають розширенню файлу декларації контенту (за замовчуванням `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+> Ваші оголошення контенту можуть бути визначені в будь-якому місці вашого додатка, за умови, що вони включені в каталог `contentDir` (за замовчуванням `./src`). І відповідають розширенню файлу оголошення контенту (за замовчуванням `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
-> Для детальнішої інформації зверніться до [документації з декларації контенту](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md).
+> Для отримання більш детальної інформації зверніться до [документації з оголошення контенту](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md).
 
-### Налаштування застосунку Fastify
+### Налаштування додатка Fastify
 
-Налаштуйте ваш застосунок Fastify для використання `fastify-intlayer`:
+Налаштуйте ваш додаток Fastify для використання `fastify-intlayer`:
 
 ```typescript fileName="src/index.ts" codeFormat="typescript"
 import Fastify from "fastify";
@@ -241,7 +239,6 @@ await fastify.register(intlayer);
 // Маршрути
 fastify.get("/t_example", async (_req, reply) => {
   return t({
-    uk: "Приклад повернутого вмісту українською мовою",
     en: "Example of returned content in English",
     fr: "Exemple de contenu renvoyé en français",
     "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -257,7 +254,7 @@ fastify.get("/getDictionary_example", async (_req, reply) => {
   return getDictionary(dictionaryExample).exampleOfContent;
 });
 
-// Запустити сервер
+// Запуск сервера
 const start = async () => {
   try {
     await fastify.listen({ port: 3000 });
@@ -283,7 +280,6 @@ await fastify.register(intlayer);
 // Маршрути
 fastify.get("/t_example", async (_req, reply) => {
   return t({
-    uk: "Приклад поверненого вмісту українською",
     en: "Example of returned content in English",
     fr: "Exemple de contenu renvoyé en français",
     "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -319,7 +315,7 @@ const dictionaryExample = require("./index.content");
 
 const fastify = Fastify({ logger: true });
 
-// Обгортка запуску сервера для async/await
+// Обгортка для запуску сервера для async/await
 const start = async () => {
   try {
     // Завантажити плагін інтернаціоналізації
@@ -328,7 +324,6 @@ const start = async () => {
     // Маршрути
     fastify.get("/t_example", async (_req, reply) => {
       return t({
-        uk: "Приклад поверненого вмісту українською мовою",
         en: "Example of returned content in English",
         fr: "Exemple de contenu renvoyé en français",
         "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -360,15 +355,15 @@ start();
 
 - [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/index.md) для React-додатків
 - [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/next-intlayer/index.md) для Next.js-додатків
-- [`vite-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vite-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vite-intlayer/index.md)>) для додатків Vite
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vite-intlayer/index.md) для Vite-додатків
 
-Він також безшовно працює з будь-яким рішенням для інтернаціоналізації в різних середовищах, включно з браузерами та API-запитами. Ви можете налаштувати middleware для визначення локалі через заголовки або cookie:
+Він також безшовно працює з будь-яким рішенням для інтернаціоналізації в різних середовищах, включаючи браузери та API-запити. Ви можете налаштувати проміжне ПЗ (middleware) для визначення локалі через заголовки або куки:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  // ... Other configuration options
+  // ... Інші параметри налаштування
   middleware: {
     headerName: "my-locale-header",
     cookieName: "my-locale-cookie",
@@ -383,7 +378,7 @@ import { Locales } from "intlayer";
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  // ... Інші параметри конфігурації
+  // ... Інші параметри налаштування
   middleware: {
     headerName: "my-locale-header",
     cookieName: "my-locale-cookie",
@@ -398,7 +393,7 @@ const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  // ... Інші параметри конфігурації
+  // ... Інші параметри налаштування
   middleware: {
     headerName: "my-locale-header",
     cookieName: "my-locale-cookie",
@@ -408,49 +403,49 @@ const config = {
 module.exports = config;
 ```
 
-За замовчуванням `fastify-intlayer` інтерпретує заголовок `Accept-Language`, щоб визначити мову, якою віддає перевагу клієнт.
+За замовчуванням `fastify-intlayer` інтерпретуватиме заголовок `Accept-Language` для визначення вподобаної мови клієнта.
 
-> Для отримання додаткової інформації про конфігурацію та розширені теми відвідайте нашу [документацію](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
+> Для отримання додаткової інформації про налаштування та просунуті теми відвідайте нашу [документацію](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
 
 ### Налаштування TypeScript
 
-`fastify-intlayer` використовує потужні можливості TypeScript для покращення процесу інтернаціоналізації. Статична типізація TypeScript гарантує, що кожен ключ перекладу врахований, зменшуючи ризик відсутніх перекладів та підвищуючи підтримуваність.
+`fastify-intlayer` використовує потужні можливості TypeScript для покращення процесу інтернаціоналізації. Статична типізація TypeScript гарантує, що кожен ключ перекладу врахований, знижуючи ризик відсутності перекладів та покращуючи підтримуваність.
 
-Переконайтеся, що автозгенеровані типи (за замовчуванням у ./types/intlayer.d.ts) включені у ваш файл tsconfig.json.
+Переконайтеся, що автоматично згенеровані типи (за замовчуванням у ./types/intlayer.d.ts) включені у ваш файл tsconfig.json.
 
 ```json5 fileName="tsconfig.json"
 {
   // ... Ваші існуючі конфігурації TypeScript
   "include": [
     // ... Ваші існуючі конфігурації TypeScript
-    ".intlayer/**/*.ts", // Включити автозгенеровані типи
+    ".intlayer/**/*.ts", // Включити автоматично згенеровані типи
   ],
 }
 ```
 
-### Розширення для VS Code
+### Розширення VS Code
 
-Щоб покращити свій досвід розробки з Intlayer, ви можете встановити офіційне розширення **Intlayer VS Code Extension**.
+Щоб покращити ваш досвід розробки з Intlayer, ви можете встановити офіційне **розширення Intlayer VS Code Extension**.
 
 [Встановити з VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
-Розширення надає:
+Це розширення надає:
 
 - **Автодоповнення** для ключів перекладу.
 - **Виявлення помилок у реальному часі** для відсутніх перекладів.
-- **Інлайн-попередні перегляди** перекладеного вмісту.
-- **Швидкі дії** для простого створення та оновлення перекладів.
+- **Вбудований попередній перегляд** перекладеного контенту.
+- **Швидкі дії** для легкого створення та оновлення перекладів.
 
-Детальніше про використання розширення див. у [документації Intlayer VS Code Extension](https://intlayer.org/doc/vs-code-extension).
+Більш детальну інформацію про використання розширення можна знайти в [документації розширення Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
 
-### Налаштування Git
+### Конфігурація Git
 
-Рекомендується ігнорувати файли, згенеровані Intlayer. Це дозволить уникнути їх коміту до вашого Git-репозиторію.
+Рекомендується ігнорувати файли, що генеруються Intlayer. Це дозволить вам уникнути їх коміту у ваш Git-репозиторій.
 
-Для цього ви можете додати такі інструкції до вашого файлу `.gitignore`:
+Для цього ви можете додати наступні інструкції до вашого файлу `.gitignore`:
 
 ```plaintext fileName=".gitignore"
-# Ігнорувати файли, згенеровані Intlayer
+# Ігнорувати файли, що генеруються Intlayer
 .intlayer
 
 ```

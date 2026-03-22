@@ -28,10 +28,12 @@ history:
 
 `fastify-intlayer` ist ein leistungsfähiges Internationalisierungs-Plugin (i18n) für Fastify-Anwendungen, das entwickelt wurde, um Ihre Backend-Services global zugänglich zu machen, indem es lokalisierte Antworten basierend auf den Präferenzen des Clients bereitstellt.
 
+> Siehe Paketimplementierung auf GitHub: https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer
+
 ### Praktische Anwendungsfälle
 
 - **Anzeige von Backend-Fehlern in der Sprache des Nutzers**: Wenn ein Fehler auftritt, verbessert die Anzeige von Meldungen in der Muttersprache des Nutzers das Verständnis und reduziert Frustration. Dies ist besonders nützlich für dynamische Fehlermeldungen, die in Frontend-Komponenten wie Toasts oder Modals angezeigt werden können.
-- **Abrufen mehrsprachiger Inhalte**: Für Anwendungen, die Inhalte aus einer Datenbank abrufen, stellt Internationalisierung sicher, dass Sie diese Inhalte in mehreren Sprachen bereitstellen können. Dies ist entscheidend für Plattformen wie E‑Commerce-Websites oder Content-Management-Systeme, die Produktbeschreibungen, Artikel und andere Inhalte in der vom Nutzer bevorzugten Sprache anzeigen müssen.
+- **Abrufen mehrsprachiger Inhalte**: Für Anwendungen, die Inhalte aus einer Datenbank abrufen, stellt Internationalisierung sicher, dass Sie diese Inhalte in mehreren Sprachen bereitstellen können. Dies ist entscheidend für Plattformen wie E-Commerce-Websites oder Content-Management-Systeme, die Produktbeschreibungen, Artikel und andere Inhalte in der vom Nutzer bevorzugten Sprache anzeigen müssen.
 - **Versenden mehrsprachiger E-Mails**: Ob Transaktions-E-Mails, Marketingkampagnen oder Benachrichtigungen – das Versenden von E-Mails in der Sprache des Empfängers kann das Engagement und die Effektivität deutlich steigern.
 - **Mehrsprachige Push-Benachrichtigungen**: Für mobile Anwendungen können Push-Benachrichtigungen in der bevorzugten Sprache des Nutzers die Interaktion und Bindung verbessern. Diese persönliche Note kann Benachrichtigungen relevanter erscheinen lassen und eher zu konkreten Aktionen anregen.
 - **Andere Kommunikation**: Jede Form der Kommunikation vom Backend, wie SMS-Nachrichten, Systemwarnungen oder Benutzeroberflächen-Aktualisierungen, profitiert davon, in der Sprache des Nutzers verfügbar zu sein. Dies sorgt für Klarheit und verbessert das gesamte Benutzererlebnis.
@@ -43,12 +45,12 @@ Durch die Internationalisierung des Backends respektiert Ihre Anwendung nicht nu
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-fastify-template?embed=1&ctl=1&file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  title="Demo CodeSandbox - Wie Sie Ihre Anwendung mit Intlayer internationalisieren"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
 
-See [Application Template](https://github.com/aymericzip/intlayer-fastify-template) on GitHub.
+Siehe [Anwendungsvorlage](https://github.com/aymericzip/intlayer-fastify-template) auf GitHub.
 
 ### Installation
 
@@ -149,7 +151,6 @@ const indexContent = {
   key: "index",
   content: {
     exampleOfContent: t({
-      de: "Beispiel eines zurückgegebenen Inhalts auf Englisch",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -169,7 +170,6 @@ const indexContent = {
   key: "index",
   content: {
     exampleOfContent: t({
-      de: "Beispiel für zurückgegebenen Inhalt auf Englisch",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -189,7 +189,6 @@ const indexContent = {
   key: "index",
   content: {
     exampleOfContent: t({
-      de: "Beispiel für zurückgegebenen Inhalt auf Englisch",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -209,7 +208,6 @@ module.exports = indexContent;
     "exampleOfContent": {
       "nodeType": "translation",
       "translation": {
-        "de": "Beispiel für zurückgegebenen Inhalt auf Englisch",
         "en": "Example of returned content in English",
         "fr": "Exemple de contenu renvoyé en français",
         "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -235,14 +233,12 @@ import dictionaryExample from "./index.content";
 
 const fastify = Fastify({ logger: true });
 
-typescript fileName="src/index.ts" codeFormat="typescript"
 // Internationalisierungs-Plugin laden
 await fastify.register(intlayer);
 
 // Routen
 fastify.get("/t_example", async (_req, reply) => {
   return t({
-    de: "Beispiel für zurückgegebenen Inhalt auf Deutsch",
     en: "Example of returned content in English",
     fr: "Exemple de contenu renvoyé en français",
     "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -284,7 +280,6 @@ await fastify.register(intlayer);
 // Routen
 fastify.get("/t_example", async (_req, reply) => {
   return t({
-    de: "Beispiel für zurückgegebenen Inhalt auf Deutsch",
     en: "Example of returned content in English",
     fr: "Exemple de contenu renvoyé en français",
     "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -329,7 +324,6 @@ const start = async () => {
     // Routen
     fastify.get("/t_example", async (_req, reply) => {
       return t({
-        de: "Beispiel für zurückgegebenen Inhalt auf Englisch",
         en: "Example of returned content in English",
         fr: "Exemple de contenu renvoyé en français",
         "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -359,12 +353,9 @@ start();
 
 `fastify-intlayer` ist vollständig kompatibel mit:
 
-- [`react-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/index.md)>) für React-Anwendungen
-- [`next-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/next-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/next-intlayer/index.md)>) für Next.js-Anwendungen
-
-- [`react-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/index.md)>) für React-Anwendungen
-- [`next-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/next-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/next-intlayer/index.md)>) für Next.js-Anwendungen
-- [`vite-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/vite-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/vite-intlayer/index.md)>) für Vite-Anwendungen
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/index.md) für React-Anwendungen
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/next-intlayer/index.md) für Next.js-Anwendungen
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/vite-intlayer/index.md) für Vite-Anwendungen
 
 Es funktioniert auch nahtlos mit jeder Internationalisierungslösung in verschiedenen Umgebungen, einschließlich Browsern und API-Anfragen. Sie können die Middleware anpassen, um die Locale über Header oder Cookies zu erkennen:
 
@@ -456,4 +447,5 @@ Dazu können Sie die folgenden Einträge in Ihre `.gitignore`-Datei aufnehmen:
 ```plaintext fileName=".gitignore"
 # Ignoriere die von Intlayer generierten Dateien
 .intlayer
+
 ```

@@ -1,15 +1,15 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2025-12-30
-title: Fastify i18n - Fastifyアプリの翻訳方法 2026
-description: Fastifyバックエンドを多言語対応にする方法を解説します。国際化（i18n）と翻訳の手順に従ってください。
+title: Fastify i18n - 2026年にFastifyアプリを翻訳する方法
+description: Fastifyバックエンドを多言語化する方法をご紹介します。国際化(i18n)と翻訳の手順については、ドキュメントに従ってください。
 keywords:
-  - 国際化 (Internationalization)
-  - ドキュメント (Documentation)
+  - 国際化
+  - ドキュメント
   - Intlayer
   - Fastify
   - JavaScript
-  - バックエンド (Backend)
+  - バックエンド
 slugs:
   - doc
   - environment
@@ -18,48 +18,43 @@ applicationTemplate: https://github.com/aymericzip/intlayer-fastify-template
 history:
   - version: 7.6.0
     date: 2025-12-31
-    changes: "initコマンドを追加"
+    changes: "initコマンドの追加"
   - version: 7.6.0
     date: 2025-12-31
-    changes: "履歴を初期化"
+    changes: "履歴の初期化"
 ---
 
-# Intlayerを使ってFastifyバックエンドサイトを翻訳する | 国際化 (i18n)
+# Intlayerを使用したFastifyバックエンドウェブサイトの翻訳 | 国際化 (i18n)
 
-`fastify-intlayer` は、Fastifyアプリケーション向けの強力な国際化（i18n）プラグインで、クライアントの設定に基づいてローカライズされたレスポンスを提供し、バックエンドサービスをグローバルに利用可能にすることを目的としています。
+`fastify-intlayer`は、Fastifyアプリケーション向けの強力な国際化(i18n)プラグインです。クライアントの好みに基づいてローカライズされたレスポンスを提供することで、バックエンドサービスをグローバルにアクセス可能にするよう設計されています。
 
-### 実用的なユースケース
-
-- **ユーザーの言語でバックエンドエラーを表示する**: エラー発生時にユーザーの母国語でメッセージを表示することで理解が深まり、フラストレーションを軽減します。これは、トーストやモーダルなどフロントエンドコンポーネントで表示される動的なエラーメッセージに特に有用です。
-
-`fastify-intlayer` は Fastify アプリケーション向けの強力な国際化 (i18n) プラグインで、クライアントの設定に基づいてローカライズされたレスポンスを返すことでバックエンドサービスをグローバルに利用可能にすることを目的としています。
+> GitHubでパッケージの実装を確認する: https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer
 
 ### 実用的なユースケース
 
-- **ユーザーの言語でバックエンドエラーを表示する**: エラー発生時にユーザーの母語でメッセージを表示することで理解が深まり、混乱や不満を軽減できます。これは、トーストやモーダルのようなフロントエンドコンポーネントで表示される動的なエラーメッセージに特に有用です。
-- **多言語コンテンツの取得**: データベースからコンテンツを取得するアプリケーションでは、国際化によりそのコンテンツを複数言語で配信できます。これは、商品説明や記事、その他のコンテンツをユーザーの希望する言語で表示する必要があるECサイトやコンテンツ管理システムのようなプラットフォームにとって重要です。
-- **多言語コンテンツの取得**: データベースからコンテンツを取得するアプリケーションでは、国際化によりそのコンテンツを複数の言語で配信できます。これは、商品説明、記事、その他のコンテンツをユーザーが好む言語で表示する必要があるeコマースサイトやコンテンツ管理システム（CMS）などのプラットフォームにとって重要です。
-- **多言語メールの送信**: 取引メール、マーケティングキャンペーン、通知など、受信者の言語でメールを送ることで、エンゲージメントや効果が大幅に向上します。
-- **多言語プッシュ通知**: モバイルアプリケーションでは、ユーザーの好む言語でプッシュ通知を送信することで、エンゲージメントとリテンションを向上させることができます。このパーソナルな配慮により、通知がより関連性が高く行動を促しやすく感じられます。
-- **その他のコミュニケーション**: SMS メッセージ、システムアラート、ユーザーインターフェイスの更新など、バックエンドから送られるあらゆる形式のコミュニケーションは、ユーザーの言語で提供されることで明確さが増し、全体的なユーザー体験が向上します。
+- **ユーザーの言語でバックエンドエラーを表示する**: エラーが発生した際、ユーザーの母国語でメッセージを表示することで、理解を深め、フラストレーションを軽減します。これは、トーストやモーダルなどのフロントエンドコンポーネントに表示される動的なエラーメッセージに特に有用です。
+- **多言語コンテンツの取得**: データベースからコンテンツを取得するアプリケーションの場合、国際化によって複数の言語でコンテンツを提供できるようになります。これは、ユーザーの好みの言語で商品説明や記事などを表示する必要があるECサイトやコンテンツ管理システムなどのプラットフォームにとって極めて重要です。
+- **多言語メールの送信**: トランザクションメール、マーケティングキャンペーン、通知など、受信者の言語でメールを送信することで、エンゲージメントと効果を大幅に高めることができます。
+- **多言語プッシュ通知**: モバイルアプリケーションの場合、ユーザーの好みの言語でプッシュ通知を送信することで、インタラクションと継続率を向上させることができます。このパーソナライズされたアプローチにより、通知がより関連性が高く、実行可能なものと感じられるようになります。
+- **その他のコミュニケーション**: SMSメッセージ、システムアラート、ユーザーインターフェースの更新など、バックエンドからのあらゆる形式のコミュニケーションは、ユーザーの言語に対応することで、明快さを確保し、全体的なユーザーエクスペリエンスを向上させることができます。
 
-バックエンドを国際化することで、アプリケーションは文化的差異を尊重するだけでなく、グローバル市場のニーズにもより適合し、サービスを世界規模でスケールさせるための重要なステップとなります。
+バックエンドを国際化することで、アプリケーションは文化的な違いを尊重するだけでなく、グローバル市場のニーズにより適合するようになり、サービスを世界規模で拡張するための重要なステップとなります。
 
 ## はじめに
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-fastify-template?embed=1&ctl=1&file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  title="Demo CodeSandbox - Intlayerを使用してアプリケーションを国際化する方法"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
 
-See [Application Template](https://github.com/aymericzip/intlayer-fastify-template) on GitHub.
+GitHubで[アプリケーションテンプレート](https://github.com/aymericzip/intlayer-fastify-template)を確認してください。
 
 ### インストール
 
-`fastify-intlayer` の使用を開始するには、npm を使ってパッケージをインストールします：
+`fastify-intlayer`の使用を開始するには、npmを使用してパッケージをインストールします。
 
 ```bash packageManager="npm"
 npm install intlayer fastify-intlayer
@@ -85,61 +80,15 @@ bunx intlayer init
 
 ```
 
-### セットアップ
+### 設定
 
-プロジェクトルートに `intlayer.config.ts` を作成し、国際化の設定を構成します：
+プロジェクトのルートに`intlayer.config.ts`を作成して、国際化設定を構成します。
 
 ```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
-// 国際化設定
 const config: IntlayerConfig = {
   internationalization: {
-    // サポートするロケールを指定
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
-    // デフォルトのロケールを指定
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-// 国際化設定（ESM）
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    // サポートするロケールを指定
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
-    // デフォルトのロケールを指定
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-// 国際化設定（CommonJS）
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    // サポートするロケールを指定
     locales: [
       Locales.ENGLISH,
       Locales.FRENCH,
@@ -156,7 +105,7 @@ export default config;
 ```javascript fileName="intlayer.config.mjs" codeFormat="esm"
 import { Locales } from "intlayer";
 
-/** @type {import('intlayer').IntlayerConfig} */ // IntlayerConfig 型注釈
+/** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
     locales: [
@@ -175,7 +124,7 @@ export default config;
 ```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
 const { Locales } = require("intlayer");
 
-/** @type {import('intlayer').IntlayerConfig} */ // IntlayerConfig 型注釈
+/** @type {import('intlayer').IntlayerConfig} */
 const config = {
   internationalization: {
     locales: [
@@ -191,9 +140,9 @@ const config = {
 module.exports = config;
 ```
 
-### コンテンツを宣言する
+### コンテンツの宣言
 
-翻訳を保存するためのコンテンツ宣言を作成および管理します:
+翻訳を保存するためのコンテンツ宣言を作成および管理します。
 
 ```typescript fileName="src/index.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -202,7 +151,6 @@ const indexContent = {
   key: "index",
   content: {
     exampleOfContent: t({
-      ja: "英語で返されるコンテンツの例",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -222,23 +170,6 @@ const indexContent = {
   key: "index",
   content: {
     exampleOfContent: t({
-      ja: "英語で返されるコンテンツの例",
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    }),
-  },
-};
-
-export default indexContent;
-
-/** @type {import('intlayer').Dictionary} */
-const indexContent = {
-  key: "index",
-  content: {
-    exampleOfContent: t({
-      ja: "英語で返されるコンテンツの例",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -258,10 +189,8 @@ const indexContent = {
   key: "index",
   content: {
     exampleOfContent: t({
-      ja: "英語で返されるコンテンツの例",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
-      ja: "返されるコンテンツの例（英語）",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
       "es-MX": "Ejemplo de contenido devuelto en español (México)",
     }),
@@ -279,7 +208,6 @@ module.exports = indexContent;
     "exampleOfContent": {
       "nodeType": "translation",
       "translation": {
-        "ja": "返されるコンテンツの例（英語）",
         "en": "Example of returned content in English",
         "fr": "Exemple de contenu renvoyé en français",
         "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -290,13 +218,13 @@ module.exports = indexContent;
 }
 ```
 
-> コンテンツ宣言は、アプリケーション内の任意の場所に定義できます。ただし `contentDir` ディレクトリ（デフォルトは `./src`）に含まれている必要があります。また、コンテンツ宣言ファイルの拡張子は（デフォルトで）`.content.{json,ts,tsx,js,jsx,mjs,cjs}` に一致する必要があります。
+> コンテンツ宣言は、`contentDir`ディレクトリ（デフォルトでは`./src`）に含まれている限り、アプリケーション内のどこにでも定義できます。また、コンテンツ宣言のファイル拡張子（デフォルトでは`.content.{json,ts,tsx,js,jsx,mjs,cjs}`）と一致している必要があります。
 
-> 詳細は[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。
+> 詳細については、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。
 
-### Fastify アプリケーションのセットアップ
+### Fastifyアプリケーションの設定
 
-Fastify アプリケーションを `fastify-intlayer` を使用するように設定します:
+`fastify-intlayer`を使用するようにFastifyアプリケーションを設定します。
 
 ```typescript fileName="src/index.ts" codeFormat="typescript"
 import Fastify from "fastify";
@@ -305,14 +233,12 @@ import dictionaryExample from "./index.content";
 
 const fastify = Fastify({ logger: true });
 
-javascript fileName="src/index.mjs" codeFormat="esm"
-// 国際化プラグインを読み込む
+// 国際化プラグインのロード
 await fastify.register(intlayer);
 
 // ルート
 fastify.get("/t_example", async (_req, reply) => {
   return t({
-    ja: "日本語で返されるコンテンツの例",
     en: "Example of returned content in English",
     fr: "Exemple de contenu renvoyé en français",
     "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -328,7 +254,7 @@ fastify.get("/getDictionary_example", async (_req, reply) => {
   return getDictionary(dictionaryExample).exampleOfContent;
 });
 
-// サーバーを起動
+// サーバーの起動
 const start = async () => {
   try {
     await fastify.listen({ port: 3000 });
@@ -348,13 +274,12 @@ import dictionaryExample from "./index.content";
 
 const fastify = Fastify({ logger: true });
 
-// 国際化プラグインを登録
+// 国際化プラグインのロード
 await fastify.register(intlayer);
 
 // ルート
 fastify.get("/t_example", async (_req, reply) => {
   return t({
-    ja: "英語で返されるコンテンツの例",
     en: "Example of returned content in English",
     fr: "Exemple de contenu renvoyé en français",
     "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -370,7 +295,7 @@ fastify.get("/getDictionary_example", async (_req, reply) => {
   return getDictionary(dictionaryExample).exampleOfContent;
 });
 
-// サーバーを起動
+// サーバーの起動
 const start = async () => {
   try {
     await fastify.listen({ port: 3000 });
@@ -390,16 +315,15 @@ const dictionaryExample = require("./index.content");
 
 const fastify = Fastify({ logger: true });
 
-// async/await 用のサーバー起動ラッパー
+// async/await用のサーバー起動ラッパー
 const start = async () => {
   try {
-    // 国際化プラグインを登録
+    // 国際化プラグインのロード
     await fastify.register(intlayer);
 
     // ルート
     fastify.get("/t_example", async (_req, reply) => {
       return t({
-        ja: "返却されるコンテンツの例（英語）",
         en: "Example of returned content in English",
         fr: "Exemple de contenu renvoyé en français",
         "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -427,13 +351,13 @@ start();
 
 ### 互換性
 
-`fastify-intlayer` は以下と完全に互換性があります：
+`fastify-intlayer`は、以下と完全に互換性があります。
 
-- [`react-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/index.md)>) Reactアプリケーション用
-- [`next-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/index.md)>) Next.jsアプリケーション用
-- [`vite-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/index.md)>) Vite アプリケーション向け
+- Reactアプリケーション用 [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/index.md)
+- Next.jsアプリケーション用 [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/index.md)
+- Viteアプリケーション用 [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/index.md)
 
-また、ブラウザや API リクエストを含むさまざまな環境で、任意の国際化ソリューションとシームレスに動作します。ミドルウェアをカスタマイズして、ヘッダーやクッキーからロケールを検出するようにできます:
+また、ブラウザやAPIリクエストなど、さまざまな環境におけるあらゆる国際化ソリューションとシームレスに連携します。ミドルウェアをカスタマイズして、ヘッダーまたはCookieを介してロケールを検出することもできます。
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -454,7 +378,7 @@ import { Locales } from "intlayer";
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  // ... 他の設定オプション
+  // ... その他の設定オプション
   middleware: {
     headerName: "my-locale-header",
     cookieName: "my-locale-cookie",
@@ -469,7 +393,7 @@ const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  // ... 他の設定オプション
+  // ... その他の設定オプション
   middleware: {
     headerName: "my-locale-header",
     cookieName: "my-locale-cookie",
@@ -479,48 +403,49 @@ const config = {
 module.exports = config;
 ```
 
-デフォルトでは、`fastify-intlayer` はクライアントの優先言語を判定するために `Accept-Language` ヘッダーを解釈します。
+デフォルトでは、`fastify-intlayer`は`Accept-Language`ヘッダーを解釈して、クライアントの優先言語を決定します。
 
-> 設定や高度なトピックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
+> 設定および詳細なトピックについては、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
-### TypeScript の設定
+### TypeScriptの設定
 
-`fastify-intlayer` は TypeScript の強力な機能を活用して国際化プロセスを強化します。TypeScript の静的型付けにより、すべての翻訳キーが網羅されていることが保証され、翻訳漏れのリスクが低減され、保守性が向上します。
+`fastify-intlayer`は、国際化プロセスを改善するためにTypeScriptの強力な機能を活用しています。TypeScriptの静的型付けにより、すべての翻訳キーが考慮されていることが保証され、翻訳漏れのリスクが軽減され、保守性が向上します。
 
-自動生成される型（デフォルトでは ./types/intlayer.d.ts）を tsconfig.json ファイルに含めていることを確認してください。
+自動生成された型（デフォルトでは./types/intlayer.d.ts）がtsconfig.jsonファイルに含まれていることを確認してください。
 
 ```json5 fileName="tsconfig.json"
 {
-  // ... 既存の TypeScript 設定
+  // ... 既存のTypeScript設定
   "include": [
-    // ... 既存の TypeScript 設定
+    // ... 既存のTypeScript設定
     ".intlayer/**/*.ts", // 自動生成された型を含める
   ],
 }
 ```
 
-### VS Code 拡張機能
+### VS Code拡張機能
 
-Intlayerでの開発体験を向上させるために、公式の **Intlayer VS Code Extension** をインストールできます。
+Intlayerでの開発体験を向上させるために、公式の**Intlayer VS Code Extension**をインストールできます。
 
-[VS Code Marketplace からインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+[VS Code Marketplaceからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
-この拡張機能は以下を提供します:
+この拡張機能は以下を提供します。
 
-- **翻訳キーのオートコンプリート**。
-- **翻訳の欠落に対するリアルタイムエラー検出**。
-- **翻訳コンテンツのインラインプレビュー**。
-- **翻訳を簡単に作成・更新するためのクイックアクション**。
+- 翻訳キーの**オートコンプリート**。
+- 翻訳漏れに対する**リアルタイムのエラー検出**。
+- 翻訳されたコンテンツの**インラインプレビュー**。
+- 翻訳を簡単に作成・更新できる**クイックアクション**。
 
-拡張機能の使い方の詳細については、[Intlayer VS Code Extension のドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
+拡張機能の使用方法の詳細については、[Intlayer VS Code Extensionドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
 
-### Git 設定
+### Gitの設定
 
-Intlayerによって生成されるファイルは無視することを推奨します。これにより、それらをGitリポジトリにコミットするのを回避できます。
+Intlayerによって生成されたファイルは無視することをお勧めします。これにより、それらをGitリポジトリにコミットすることを避けることができます。
 
-これを行うには、次の指示を `.gitignore` ファイルに追加できます:
+そのためには、`.gitignore`ファイルに以下の指示を追加します。
 
 ```plaintext fileName=".gitignore"
-# Intlayer によって生成されたファイルを無視する
+# Intlayerによって生成されたファイルを無視する
 .intlayer
+
 ```

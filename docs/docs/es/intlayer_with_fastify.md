@@ -28,15 +28,11 @@ history:
 
 `fastify-intlayer` es un potente plugin de internacionalización (i18n) para aplicaciones Fastify, diseñado para hacer que tus servicios backend sean accesibles globalmente proporcionando respuestas localizadas basadas en las preferencias del cliente.
 
+> Ver la implementación del paquete en GitHub: https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer
+
 ### Casos de uso prácticos
 
 - **Mostrar errores del backend en el idioma del usuario**: Cuando ocurre un error, mostrar mensajes en la lengua nativa del usuario mejora la comprensión y reduce la frustración. Esto es especialmente útil para mensajes de error dinámicos que podrían mostrarse en componentes frontend como toasts o modales.
-
-`fastify-intlayer` es un potente plugin de internacionalización (i18n) para aplicaciones Fastify, diseñado para hacer que tus servicios backend sean accesibles globalmente proporcionando respuestas localizadas según las preferencias del cliente.
-
-### Casos de uso prácticos
-
-- **Mostrar errores del backend en el idioma del usuario**: Cuando ocurre un error, mostrar mensajes en la lengua nativa del usuario mejora la comprensión y reduce la frustración. Esto es especialmente útil para mensajes de error dinámicos que podrían mostrarse en componentes front-end como toasts o modals.
 - **Recuperar contenido multilingüe**: Para aplicaciones que obtienen contenido de una base de datos, la internacionalización garantiza que puedas servir ese contenido en varios idiomas. Esto es crucial para plataformas como sitios de comercio electrónico o sistemas de gestión de contenido que necesitan mostrar descripciones de productos, artículos y otros contenidos en el idioma preferido por el usuario.
 - **Enviar correos electrónicos multilingües**: Ya sean correos transaccionales, campañas de marketing o notificaciones, enviar correos en el idioma del destinatario puede aumentar significativamente el compromiso y la efectividad.
 - **Notificaciones push multilingües**: Para aplicaciones móviles, enviar notificaciones push en el idioma preferido del usuario puede mejorar la interacción y la retención. Este toque personal puede hacer que las notificaciones se sientan más relevantes y accionables.
@@ -104,11 +100,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
 ```
 
 ```javascript fileName="intlayer.config.mjs" codeFormat="esm"
@@ -160,7 +151,6 @@ const indexContent = {
   key: "index",
   content: {
     exampleOfContent: t({
-      es: "Ejemplo de contenido devuelto en español",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -180,9 +170,8 @@ const indexContent = {
   key: "index",
   content: {
     exampleOfContent: t({
-      es: "Ejemplo de contenido devuelto en español",
       en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
+      fr: "Exemple de contenido renvoyé en français",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
       "es-MX": "Ejemplo de contenido devuelto en español (México)",
     }),
@@ -200,10 +189,8 @@ const indexContent = {
   key: "index",
   content: {
     exampleOfContent: t({
-      es: "Ejemplo de contenido devuelto en español",
       en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es": "Ejemplo de contenido devuelto en español",
+      fr: "Exemple de contenido renvoyé en français",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
       "es-MX": "Ejemplo de contenido devuelto en español (México)",
     }),
@@ -221,9 +208,8 @@ module.exports = indexContent;
     "exampleOfContent": {
       "nodeType": "translation",
       "translation": {
-        "es": "Ejemplo de contenido devuelto en español",
         "en": "Example of returned content in English",
-        "fr": "Exemple de contenu renvoyé en français",
+        "fr": "Exemple de contenido renvoyé en français",
         "es-ES": "Ejemplo de contenido devuelto en español (España)",
         "es-MX": "Ejemplo de contenido devuelto en español (México)"
       }
@@ -253,9 +239,8 @@ await fastify.register(intlayer);
 // Rutas
 fastify.get("/t_example", async (_req, reply) => {
   return t({
-    es: "Ejemplo de contenido devuelto en español",
     en: "Example of returned content in English",
-    fr: "Exemple de contenu renvoyé en français",
+    fr: "Exemple de contenido renvoyé en français",
     "es-ES": "Ejemplo de contenido devuelto en español (España)",
     "es-MX": "Ejemplo de contenido devuelto en español (México)",
   });
@@ -289,15 +274,14 @@ import dictionaryExample from "./index.content";
 
 const fastify = Fastify({ logger: true });
 
-// Cargar plugin de internacionalización
+// Cargar el plugin de internacionalización
 await fastify.register(intlayer);
 
 // Rutas
 fastify.get("/t_example", async (_req, reply) => {
   return t({
-    es: "Ejemplo de contenido devuelto en español",
     en: "Example of returned content in English",
-    fr: "Exemple de contenu renvoyé en français",
+    fr: "Exemple de contenido renvoyé en français",
     "es-ES": "Ejemplo de contenido devuelto en español (España)",
     "es-MX": "Ejemplo de contenido devuelto en español (México)",
   });
@@ -340,9 +324,8 @@ const start = async () => {
     // Rutas
     fastify.get("/t_example", async (_req, reply) => {
       return t({
-        es: "Ejemplo de contenido devuelto en español",
         en: "Example of returned content in English",
-        fr: "Exemple de contenu renvoyé en français",
+        fr: "Exemple de contenido renvoyé en français",
         "es-ES": "Ejemplo de contenido devuelto en español (España)",
         "es-MX": "Ejemplo de contenido devuelto en español (México)",
       });
@@ -370,12 +353,9 @@ start();
 
 `fastify-intlayer` es completamente compatible con:
 
-- [`react-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/index.md)>) para aplicaciones React
-- [`next-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/index.md)>) para aplicaciones Next.js
-
-- [`react-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/index.md)>) para aplicaciones React
-- [`next-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/index.md)>) para aplicaciones Next.js
-- [`vite-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/vite-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/vite-intlayer/index.md)>) para aplicaciones Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/index.md) para aplicaciones React
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/index.md) para aplicaciones Next.js
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/vite-intlayer/index.md) para aplicaciones Vite
 
 También funciona sin problemas con cualquier solución de internacionalización en diversos entornos, incluidos navegadores y solicitudes API. Puedes personalizar el middleware para detectar la locale a través de headers o cookies:
 
@@ -451,31 +431,12 @@ Para mejorar tu experiencia de desarrollo con Intlayer, puedes instalar la exten
 
 Esta extensión proporciona:
 
-- **Autocompletion** para las claves de traducción.
+- **Autocompletado** para las claves de traducción.
 - **Detección de errores en tiempo real** para traducciones faltantes.
 - **Vistas previas en línea** del contenido traducido.
 - **Acciones rápidas** para crear y actualizar traducciones fácilmente.
 
 Para más detalles sobre cómo usar la extensión, consulta la [documentación de la Extensión de VS Code de Intlayer](https://intlayer.org/doc/vs-code-extension).
-
-### Configuración de Git
-
-Se recomienda ignorar los archivos generados por Intlayer. Esto te permite evitar comprometerlos en tu repositorio Git.
-
-### Extensión de VS Code
-
-Para mejorar tu experiencia de desarrollo con Intlayer, puedes instalar la **Extensión oficial de Intlayer para VS Code**.
-
-[Instalar desde el Marketplace de VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Esta extensión proporciona:
-
-- **Autocompletado** para claves de traducción.
-- **Detección de errores en tiempo real** para traducciones faltantes.
-- **Previsualizaciones en línea** del contenido traducido.
-- **Acciones rápidas** para crear y actualizar traducciones fácilmente.
-
-Para más detalles sobre cómo usar la extensión, consulta la [documentación de la Extensión Intlayer para VS Code](https://intlayer.org/doc/vs-code-extension).
 
 ### Configuración de Git
 

@@ -28,18 +28,14 @@ history:
 
 `fastify-intlayer` هو ملحق (plugin) قوي للتدويل (i18n) لتطبيقات Fastify، مصمم لجعل خدمات الـ backend الخاصة بك متاحة عالميًا من خلال تقديم استجابات محلية حسب تفضيلات العميل.
 
+> شاهد تنفيذ الحزمة على GitHub: https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer
+
 ### حالات استخدام عملية
 
 - **عرض أخطاء الـ backend بلغة المستخدم**: عند حدوث خطأ، عرض الرسائل بلغة المستخدم الأم يُحسّن الفهم ويقلل الإحباط. هذا مفيد بشكل خاص للرسائل الديناميكية للأخطاء التي قد تُعرض في مكونات الواجهة الأمامية مثل toasts أو modals.
-
-`fastify-intlayer` هو مكون إضافي قوي للتدويل (i18n) لتطبيقات Fastify، مصمم لجعل خدمات backend الخاصة بك متاحة عالميًا من خلال تقديم استجابات مَحَلّية بناءً على تفضيلات العميل.
-
-### حالات استخدام عملية
-
-- **عرض أخطاء الخادم بلغة المستخدم**: عندما يحدث خطأ، فإن عرض الرسائل بلغة المستخدم الأم يحسّن الفهم ويقلل الإحباط. هذا مفيد بشكل خاص للرسائل الديناميكية للأخطاء التي قد تُعرض في مكونات الواجهة الأمامية مثل toasts أو modals.
-- **استرجاع محتوى متعدد اللغات**: بالنسبة للتطبيقات التي تجلب المحتوى من قاعدة بيانات، يضمن التدويل أنه يمكنك تقديم هذا المحتوى بعدة لغات. هذا أمر حاسم لمنصات مثل مواقع e-commerce أو أنظمة إدارة المحتوى التي تحتاج إلى عرض أوصاف المنتجات والمقالات ومحتويات أخرى باللغة التي يفضلها المستخدم.
-- **إرسال رسائل بريد إلكتروني متعددة اللغات**: سواء كانت transactional emails أو حملات تسويقية أو notifications، فإن إرسال الرسائل البريدية بلغة المستلم يمكن أن يزيد بشكل كبير من التفاعل والفعالية.
-- **الإشعارات المتعددة اللغات (Multilingual Push Notifications)**: بالنسبة لتطبيقات الجوال، إرسال إشعارات الدفع بلغة مفضلة لدى المستخدم يمكن أن يعزز التفاعل والاحتفاظ بالمستخدمين. تضيف هذه اللمسة الشخصية شعورًا بأن الإشعارات ذات صلة وقابلة للتنفيذ.
+- **استرجاع محتوى متعدد اللغات**: بالنسبة للتطبيقات التي تجلب المحتوى من قاعدة بيانات، يضمن التدويل أنه يمكنك تقديم هذا المحتوى بعدة لغات. هذا أمر حاسم لمنصات مثل مواقع التجارة الإلكترونية أو أنظمة إدارة المحتوى التي تحتاج إلى عرض أوصاف المنتجات والمقالات ومحتويات أخرى باللغة التي يفضلها المستخدم.
+- **إرسال رسائل بريد إلكتروني متعددة اللغات**: سواء كانت رسائل بريد إلكتروني للمعاملات أو حملات تسويقية أو إشعارات، فإن إرسال الرسائل البريدية بلغة المستلم يمكن أن يزيد بشكل كبير من التفاعل والفعالية.
+- **الإشعارات المتعددة اللغات**: بالنسبة لتطبيقات الجوال، إرسال إشعارات الدفع بلغة مفضلة لدى المستخدم يمكن أن يعزز التفاعل والاحتفاظ بالمستخدمين. تضيف هذه اللمسة الشخصية شعورًا بأن الإشعارات ذات صلة وقابلة للتنفيذ.
 - **وسائل اتصال أخرى**: أي شكل من أشكال الاتصال من الـ backend، مثل رسائل SMS أو تنبيهات النظام أو تحديثات واجهة المستخدم، يستفيد من تقديمه بلغة المستخدم، مما يضمن الوضوح ويعزز تجربة المستخدم العامة.
 
 من خلال تدويل الـ backend، لا يحترم تطبيقك الفروق الثقافية فحسب، بل يتماشى أيضًا بشكل أفضل مع احتياجات السوق العالمية، مما يجعله خطوة أساسية لتوسيع نطاق خدماتك عالميًا.
@@ -49,12 +45,12 @@ history:
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-fastify-template?embed=1&ctl=1&file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  title="Demo CodeSandbox - كيفية تدويل تطبيقك باستخدام Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
 
-See [Application Template](https://github.com/aymericzip/intlayer-fastify-template) on GitHub.
+شاهد [قالب التطبيق](https://github.com/aymericzip/intlayer-fastify-template) على GitHub.
 
 ### التثبيت
 
@@ -146,7 +142,7 @@ module.exports = config;
 
 ### إعلان المحتوى
 
-أنشئ وادِر تعريفات المحتوى الخاصة بك لتخزين الترجمات:
+أنشئ وأدِر تعريفات المحتوى الخاصة بك لتخزين الترجمات:
 
 ```typescript fileName="src/index.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -155,7 +151,6 @@ const indexContent = {
   key: "index",
   content: {
     exampleOfContent: t({
-      ar: "مثال على المحتوى المعاد باللغة الإنجليزية",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -175,7 +170,6 @@ const indexContent = {
   key: "index",
   content: {
     exampleOfContent: t({
-      ar: "مثال على المحتوى المعاد باللغة الإنجليزية",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -195,25 +189,6 @@ const indexContent = {
   key: "index",
   content: {
     exampleOfContent: t({
-      ar: "مثال على المحتوى المعاد باللغة الإنجليزية",
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    }),
-  },
-};
-
-module.exports = indexContent;
-javascript fileName="src/index.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const indexContent = {
-  key: "index",
-  content: {
-    exampleOfContent: t({
-      ar: "مثال على المحتوى المعاد باللغة الإنجليزية",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -233,7 +208,6 @@ module.exports = indexContent;
     "exampleOfContent": {
       "nodeType": "translation",
       "translation": {
-        "ar": "مثال على المحتوى المعاد باللغة الإنجليزية",
         "en": "Example of returned content in English",
         "fr": "Exemple de contenu renvoyé en français",
         "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -244,7 +218,7 @@ module.exports = indexContent;
 }
 ```
 
-> يمكن تعريف إعلانات المحتوى (content declarations) في أي مكان داخل تطبيقك طالما أنها مضمنة في دليل `contentDir` (افتراضياً `./src`). ويجب أن تتطابق مع امتداد ملف إعلان المحتوى (افتراضياً `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+> يمكن تعريف إعلانات المحتوى في أي مكان داخل تطبيقك طالما أنها مضمنة في دليل `contentDir` (افتراضيًا `./src`). ويجب أن تتطابق مع امتداد ملف إعلان المحتوى (افتراضيًا `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
 > لمزيد من التفاصيل، راجع [توثيق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
@@ -265,7 +239,6 @@ await fastify.register(intlayer);
 // المسارات
 fastify.get("/t_example", async (_req, reply) => {
   return t({
-    ar: "مثال على المحتوى المُعاد باللغة الإنجليزية",
     en: "Example of returned content in English",
     fr: "Exemple de contenu renvoyé en français",
     "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -307,7 +280,6 @@ await fastify.register(intlayer);
 // المسارات
 fastify.get("/t_example", async (_req, reply) => {
   return t({
-    ar: "مثال على المحتوى المعاد باللغة العربية",
     en: "Example of returned content in English",
     fr: "Exemple de contenu renvoyé en français",
     "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -319,7 +291,6 @@ fastify.get("/getIntlayer_example", async (_req, reply) => {
   return getIntlayer("index").exampleOfContent;
 });
 
-javascript fileName="src/index.mjs" codeFormat="esm"
 fastify.get("/getDictionary_example", async (_req, reply) => {
   return getDictionary(dictionaryExample).exampleOfContent;
 });
@@ -347,55 +318,12 @@ const fastify = Fastify({ logger: true });
 // غلاف بدء الخادم لـ async/await
 const start = async () => {
   try {
-    // تحميل مكون التدويل
+    // تحميل إضافة التدويل
     await fastify.register(intlayer);
 
     // المسارات
     fastify.get("/t_example", async (_req, reply) => {
       return t({
-        ar: "مثال على المحتوى المعاد باللغة العربية",
-        en: "Example of returned content in English",
-        fr: "Exemple de contenu renvoyé en français",
-        "es-ES": "Ejemplo de contenido devuelto en español (España)",
-        "es-MX": "Ejemplo de contenido devuelto en español (México)",
-      });
-    });
-
-    fastify.get("/getIntlayer_example", async (_req, reply) => {
-      return getIntlayer("index").exampleOfContent;
-    });
-
-    fastify.get("/getDictionary_example", async (_req, reply) => {
-      return getDictionary(dictionaryExample).exampleOfContent;
-    });
-
-    await fastify.listen({ port: 3000 });
-  } catch (err) {
-    fastify.log.error(err);
-    process.exit(1);
-  }
-};
-
-start();
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
-const Fastify = require("fastify");
-const { intlayer, t, getDictionary, getIntlayer } = require("fastify-intlayer");
-const dictionaryExample = require("./index.content");
-
-const fastify = Fastify({ logger: true });
-
-// Start server wrapper for async/await
-const start = async () => {
-  try {
-    // Load internationalization plugin
-    await fastify.register(intlayer);
-
-    // Routes
-    fastify.get("/t_example", async (_req, reply) => {
-      return t({
-        ar: "مثال على المحتوى المعاد باللغة العربية",
         en: "Example of returned content in English",
         fr: "Exemple de contenu renvoyé en français",
         "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -425,12 +353,9 @@ start();
 
 `fastify-intlayer` متوافق تمامًا مع:
 
-- [`react-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/index.md)>) لتطبيقات React
-- [`next-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/index.md)>) لتطبيقات Next.js
-
-- [`react-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/index.md)>) لتطبيقات React
-- [`next-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/index.md)>) لتطبيقات Next.js
-- [`vite-intlayer`](<https://www.google.com/search?q=%5Bhttps://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/index.md%5D(https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/index.md)>) لتطبيقات Vite
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/index.md) لتطبيقات React
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/index.md) لتطبيقات Next.js
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/index.md) لتطبيقات Vite
 
 كما يعمل بسلاسة مع أي حل للتدويل عبر بيئات متعددة، بما في ذلك المتصفحات وطلبات API. يمكنك تخصيص الـ middleware لاكتشاف اللغة عبر الرؤوس أو الكوكيز:
 
@@ -478,7 +403,7 @@ const config = {
 module.exports = config;
 ```
 
-بشكل افتراضي، سيقوم `fastify-intlayer` بتفسير رأس الطلب `Accept-Language` لتحديد اللغة المفضلة لدى العميل.
+بشكل افتراضي، سيقوم `fastify-intlayer` بتفسير رأس `Accept-Language` لتحديد اللغة المفضلة لدى العميل.
 
 > لمزيد من المعلومات حول التكوين والمواضيع المتقدمة، قم بزيارة [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
@@ -486,14 +411,14 @@ module.exports = config;
 
 `fastify-intlayer` يستفيد من القدرات القوية لـ TypeScript لتحسين عملية التدويل. يضمن نظام الكتابة الثابتة في TypeScript أن كل مفتاح ترجمة مغطى، مما يقلل من خطر فقدان الترجمات ويحسن قابلية الصيانة.
 
-تأكد من تضمين الأنواع المولدة تلقائياً (بشكل افتراضي في ./types/intlayer.d.ts) في ملف tsconfig.json الخاص بك.
+تأكد من تضمين الأنواع المولدة تلقائيًا (بشكل افتراضي في ./types/intlayer.d.ts) في ملف tsconfig.json الخاص بك.
 
 ```json5 fileName="tsconfig.json"
 {
   // ... تكوينات TypeScript الحالية الخاصة بك
   "include": [
     // ... تكوينات TypeScript الحالية الخاصة بك
-    ".intlayer/**/*.ts", // تضمين الأنواع المولدة تلقائياً
+    ".intlayer/**/*.ts", // تضمين الأنواع المولدة تلقائيًا
   ],
 }
 ```
@@ -511,11 +436,11 @@ module.exports = config;
 - **معاينات مُضمّنة** للمحتوى المترجم.
 - **إجراءات سريعة** لإنشاء وتحديث الترجمات بسهولة.
 
-لمزيد من التفاصيل حول كيفية استخدام الامتداد، راجع وثائق امتداد Intlayer لـ VS Code: [Intlayer VS Code Extension documentation](https://intlayer.org/doc/vs-code-extension).
+لمزيد من التفاصيل حول كيفية استخدام الامتداد، راجع [وثائق امتداد Intlayer لـ VS Code](https://intlayer.org/doc/vs-code-extension).
 
 ### تكوين Git
 
-يوصى بتجاهل الملفات التي يولّدها Intlayer. يتيح ذلك تجنّب عمل commit لها في مستودع Git الخاص بك.
+يوصى بتجاهل الملفات التي يولّدها Intlayer. يتيح ذلك تجنّب إضافتها في مستودع Git الخاص بك.
 
 لتحقيق ذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
 

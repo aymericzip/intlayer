@@ -1,10 +1,10 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2025-12-30
-title: Fastify i18n - How to translate an Fastify app in 2026
-description: Discover how to make your Fastify back end multilingual. Follow the documentation to internationalise (i18n) and translate it.
+title: Fastify i18n - How to translate a Fastify app in 2026
+description: Discover how to make your Fastify backend multilingual. Follow the documentation to internationalise (i18n) and translate it.
 keywords:
-  - Internationalization
+  - Internationalisation
   - Documentation
   - Intlayer
   - Fastify
@@ -24,26 +24,28 @@ history:
     changes: "Init history"
 ---
 
-# Translate your Fastify back end site using Intlayer | Internationalisation (i18n)
+# Translate your Fastify backend website using Intlayer | Internationalisation (i18n)
 
-`fastify-intlayer` is a powerful internationalisation (i18n) plugin for Fastify applications, designed to make your back end services globally accessible by providing localised responses based on the client's preferences.
+`fastify-intlayer` is a powerful internationalisation (i18n) plugin for Fastify applications, designed to make your backend services globally accessible by providing localised responses based on the client's preferences.
+
+> See package implementation on GitHub: https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer
 
 ### Practical Use Cases
 
-- **Displaying back end errors in the user's language**: When an error occurs, displaying messages in the user's native language improves understanding and reduces frustration. This is especially useful for dynamic error messages that might be shown in front end components like toasts or modals.
-- **Retrieving multilingual content**: For applications pulling content from a database, internationalisation ensures that you can serve this content in multiple languages. This is crucial for platforms such as e-commerce sites or content management systems that need to display product descriptions, articles, and other content in the language preferred by the user.
-- **Sending multilingual emails**: Whether it's transactional emails, marketing campaigns, or notifications, sending emails in the recipient's language can significantly increase engagement and effectiveness.
-- **Multilingual push notifications**: For mobile applications, sending push notifications in a user's preferred language can enhance interaction and retention. This personal touch can make notifications feel more relevant and actionable.
-- **Other communications**: Any form of communication from the backend, such as SMS messages, system alerts, or user interface updates, benefits from being in the user's language, ensuring clarity and improving the overall user experience.
+- **Displaying Backend Errors in User's Language**: When an error occurs, displaying messages in the user's native language improves understanding and reduces frustration. This is especially useful for dynamic error messages that might be shown in front-end components like toasts or modals.
+- **Retrieving Multilingual Content**: For applications pulling content from a database, internationalisation ensures that you can serve this content in multiple languages. This is crucial for platforms like e-commerce sites or content management systems that need to display product descriptions, articles, and other content in the language preferred by the user.
+- **Sending Multilingual Emails**: Whether it's transactional emails, marketing campaigns, or notifications, sending emails in the recipient’s language can significantly increase engagement and effectiveness.
+- **Multilingual Push Notifications**: For mobile applications, sending push notifications in a user's preferred language can enhance interaction and retention. This personal touch can make notifications feel more relevant and actionable.
+- **Other Communications**: Any form of communication from the backend, such as SMS messages, system alerts, or user interface updates, benefits from being in the user's language, ensuring clarity and enhancing the overall user experience.
 
-By internationalising the backend, your application not only respects cultural differences but also better aligns with global market needs, making it a key step in scaling your services worldwide.
+By internationalising the backend, your application not only respects cultural differences but also aligns better with global market needs, making it a key step in scaling your services worldwide.
 
 ## Getting Started
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-fastify-template?embed=1&ctl=1&file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  title="Demo CodeSandbox - How to Internationalise your application using Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -149,7 +151,6 @@ const indexContent = {
   key: "index",
   content: {
     exampleOfContent: t({
-      "en-GB": "Example of returned content in English",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -169,7 +170,6 @@ const indexContent = {
   key: "index",
   content: {
     exampleOfContent: t({
-      "en-GB": "Example of returned content in English",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -189,7 +189,6 @@ const indexContent = {
   key: "index",
   content: {
     exampleOfContent: t({
-      "en-GB": "Example of returned content in English",
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -209,7 +208,6 @@ module.exports = indexContent;
     "exampleOfContent": {
       "nodeType": "translation",
       "translation": {
-        "en-GB": "Example of returned content in English",
         "en": "Example of returned content in English",
         "fr": "Exemple de contenu renvoyé en français",
         "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -220,13 +218,13 @@ module.exports = indexContent;
 }
 ```
 
-> Your content declarations can be placed anywhere in your application provided they are included in the `contentDir` directory (by default, `./src`) and match the content declaration file extension (by default, `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+> Your content declarations can be defined anywhere in your application as soon as they are included into the `contentDir` directory (by default, `./src`). And match the content declaration file extension (by default, `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
 > For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md).
 
-### Fastify application setup
+### Fastify Application Setup
 
-Set up your Fastify application to use `fastify-intlayer`:
+Setup your Fastify application to use `fastify-intlayer`:
 
 ```typescript fileName="src/index.ts" codeFormat="typescript"
 import Fastify from "fastify";
@@ -241,7 +239,6 @@ await fastify.register(intlayer);
 // Routes
 fastify.get("/t_example", async (_req, reply) => {
   return t({
-    "en-GB": "Example of returned content in English",
     en: "Example of returned content in English",
     fr: "Exemple de contenu renvoyé en français",
     "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -298,7 +295,7 @@ fastify.get("/getDictionary_example", async (_req, reply) => {
   return getDictionary(dictionaryExample).exampleOfContent;
 });
 
-// Start the server
+// Start server
 const start = async () => {
   try {
     await fastify.listen({ port: 3000 });
@@ -318,7 +315,7 @@ const dictionaryExample = require("./index.content");
 
 const fastify = Fastify({ logger: true });
 
-// Start the server wrapper for async/await
+// Start server wrapper for async/await
 const start = async () => {
   try {
     // Load internationalisation plugin
@@ -327,7 +324,6 @@ const start = async () => {
     // Routes
     fastify.get("/t_example", async (_req, reply) => {
       return t({
-        "en-GB": "Example of returned content in English",
         en: "Example of returned content in English",
         fr: "Exemple de contenu renvoyé en français",
         "es-ES": "Ejemplo de contenido devuelto en español (España)",
@@ -415,13 +411,13 @@ By default, `fastify-intlayer` will interpret the `Accept-Language` header to de
 
 `fastify-intlayer` leverages the robust capabilities of TypeScript to enhance the internationalisation process. TypeScript's static typing ensures that every translation key is accounted for, reducing the risk of missing translations and improving maintainability.
 
-Ensure the auto-generated types (by default at ./types/intlayer.d.ts) are included in your tsconfig.json file.
+Ensure the autogenerated types (by default at ./types/intlayer.d.ts) are included in your tsconfig.json file.
 
 ```json5 fileName="tsconfig.json"
 {
-  // ... Your existing TypeScript configuration
+  // ... Your existing TypeScript configurations
   "include": [
-    // ... Your existing TypeScript configuration
+    // ... Your existing TypeScript configurations
     ".intlayer/**/*.ts", // Include the auto-generated types
   ],
 }
@@ -431,12 +427,12 @@ Ensure the auto-generated types (by default at ./types/intlayer.d.ts) are includ
 
 To improve your development experience with Intlayer, you can install the official **Intlayer VS Code Extension**.
 
-[Install from the Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+[Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 This extension provides:
 
-- **Auto-completion** for translation keys.
-- **Real-time error detection** of missing translations.
+- **Autocompletion** for translation keys.
+- **Real-time error detection** for missing translations.
 - **Inline previews** of translated content.
 - **Quick actions** to easily create and update translations.
 
@@ -444,7 +440,7 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 
 ### Git Configuration
 
-It is recommended to ignore files generated by Intlayer. This prevents them from being committed to your Git repository.
+It is recommended to ignore the files generated by Intlayer. This allows you to avoid committing them to your Git repository.
 
 To do this, you can add the following instructions to your `.gitignore` file:
 

@@ -28,6 +28,8 @@ history:
 
 `fastify-intlayer` est un puissant plugin d'internationalisation (i18n) pour les applications Fastify, conçu pour rendre vos services backend accessibles à l'international en fournissant des réponses localisées selon les préférences du client.
 
+> Voir l'implémentation du paquet sur GitHub : https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer
+
 ### Cas d'utilisation pratiques
 
 - **Afficher les erreurs backend dans la langue de l'utilisateur** : Lorsqu'une erreur survient, afficher des messages dans la langue maternelle de l'utilisateur améliore la compréhension et réduit la frustration. Cela est particulièrement utile pour les messages d'erreur dynamiques qui peuvent être affichés dans des composants frontend tels que des toasts ou des modals.

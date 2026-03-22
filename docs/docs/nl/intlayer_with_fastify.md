@@ -1,15 +1,15 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2025-12-30
-title: Fastify i18n - 如何在 2026 年翻译 Fastify 应用程序
-description: 了解如何使您的 Fastify 后端实现多语言。按照文档进行国际化 (i18n) 和翻译。
+title: Fastify i18n - Hoe een Fastify-app te vertalen in 2026
+description: Ontdek hoe u uw Fastify-backend meertalig kunt maken. Volg de documentatie voor internationalisering (i18n) en vertaling.
 keywords:
-  - 国际化
-  - 文档
+  - Internationalisering
+  - Documentatie
   - Intlayer
   - Fastify
   - JavaScript
-  - 后端
+  - Backend
 slugs:
   - doc
   - environment
@@ -18,43 +18,43 @@ applicationTemplate: https://github.com/aymericzip/intlayer-fastify-template
 history:
   - version: 7.6.0
     date: 2025-12-31
-    changes: "添加 init 命令"
+    changes: "init-commando toegevoegd"
   - version: 7.6.0
     date: 2025-12-31
-    changes: "初始化历史记录"
+    changes: "Geschiedenis geïnitialiseerd"
 ---
 
-# 使用 Intlayer 翻译您的 Fastify 后端网站 | 国际化 (i18n)
+# Vertaal uw Fastify backend-website met Intlayer | Internationalisering (i18n)
 
-`fastify-intlayer` 是一个强大的 Fastify 应用程序国际化 (i18n) 插件，旨在通过根据客户端的偏好提供本地化响应，使您的后端服务在全球范围内可访问。
+`fastify-intlayer` is een krachtige internationaliseringsplug-in (i18n) voor Fastify-applicaties, ontworpen om uw backend-services wereldwijd toegankelijk te maken door gelokaliseerde antwoorden te bieden op basis van de voorkeuren van de client.
 
-> 在 GitHub 上查看软件包实现：https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer
+> Bekijk de pakketimplementatie op GitHub: https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer
 
-### 实际应用场景
+### Praktische Use Cases
 
-- **以用户语言显示后端错误**：发生错误时，以用户的母语显示消息可以提高理解度并减少挫败感。这对于可能显示在前端组件（如 toast 或 modal）中的动态错误消息特别有用。
-- **检索多语言内容**：对于从数据库提取内容的应用程序，国际化确保您可以提供多种语言的内容。这对于电子商务网站或内容管理系统等平台至关重要，这些平台需要以用户首选的语言显示产品描述、文章和其他内容。
-- **发送多语言电子邮件**：无论是事务性电子邮件、营销活动还是通知，以收件人的语言发送电子邮件都可以显著提高参与度和有效性。
-- **多语言推送通知**：对于移动应用程序，以用户首选的语言发送推送通知可以增强交互和留存。这种个性化的触感可以让通知感觉更具相关性和可操作性。
-- **其他通信**：来自后端的任何形式的通信（如短信、系统警报或用户界面更新）都受益于使用用户的语言，从而确保清晰度并增强整体用户体验。
+- **Backend-fouten weergeven in de taal van de gebruiker**: Wanneer er een fout optreedt, verbetert het weergeven van berichten in de moedertaal van de gebruiker het begrip en vermindert het frustratie. Dit is vooral handig voor dynamische foutmeldingen die kunnen worden weergegeven in front-end componenten zoals toasts of modals.
+- **Meertalige inhoud ophalen**: Voor applicaties die inhoud uit een database ophalen, zorgt internationalisering ervoor dat u die inhoud in meerdere talen kunt aanbieden. Dit is cruciaal voor platforms zoals e-commercesites of contentmanagementsystemen die productbeschrijvingen, artikelen und andere inhoud in de voorkeurstaal van de gebruiker moeten weergeven.
+- **Meertalige e-mails verzenden**: Of het nu gaat om transactionele e-mails, marketingcampagnes of meldingen, het verzenden van e-mails in de taal van de ontvanger kan de betrokkenheid en effectiviteit aanzienlijk verhogen.
+- **Meertalige pushmeldingen**: Voor mobiele applicaties kan het verzenden van pushmeldingen in de voorkeurstaal van de gebruiker de interactie en retentie verbeteren. Deze persoonlijke touch kan meldingen relevanter en actiegerichter maken.
+- **Andere communicatie**: Elke vorm van communicatie vanuit de backend, zoals sms-berichten, systeemwaarschuwingen of gebruikersinterface-updates, profiteert ervan in de taal van de gebruiker te zijn, wat de duidelijkheid garandeert en de algehele gebruikerservaring verbetert.
 
-通过对后端进行国际化，您的应用程序不仅尊重文化差异，而且能更好地符合全球市场需求，使其成为在全球范围内扩展服务的关键步骤。
+Door de backend te internationaliseren, respecteert uw applicatie niet alleen culturele verschillen, maar sluit deze ook beter aan bij de behoeften van de wereldmarkt, wat een belangrijke stap is bij het wereldwijd opschalen van uw diensten.
 
-## 入门指南
+## Aan de slag
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-fastify-template?embed=1&ctl=1&file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - 如何使用 Intlayer 国际化您的应用程序"
+  title="Demo CodeSandbox - Hoe u uw applicatie kunt internationaliseren met Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
 
-在 GitHub 上查看 [应用程序模板](https://github.com/aymericzip/intlayer-fastify-template)。
+Bekijk het [Applicatiesjabloon](https://github.com/aymericzip/intlayer-fastify-template) op GitHub.
 
-### 安装
+### Installatie
 
-要开始使用 `fastify-intlayer`，请使用 npm 安装软件包：
+Om aan de slag te gaan met `fastify-intlayer`, installeert u het pakket met npm:
 
 ```bash packageManager="npm"
 npm install intlayer fastify-intlayer
@@ -80,9 +80,9 @@ bunx intlayer init
 
 ```
 
-### 设置
+### Configuratie
 
-通过在项目根目录中创建 `intlayer.config.ts` 来配置国际化设置：
+Configureer de internationaliseringsinstellingen door een `intlayer.config.ts`-bestand aan te maken in de root van uw project:
 
 ```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -140,9 +140,9 @@ const config = {
 module.exports = config;
 ```
 
-### 声明内容
+### Uw inhoud declareren
 
-创建并管理您的内容声明以存储翻译：
+Maak en beheer uw inhoudsdeclaraties om vertalingen op te slaan:
 
 ```typescript fileName="src/index.content.ts" contentDeclarationFormat="typescript"
 import { t, type Dictionary } from "intlayer";
@@ -154,7 +154,7 @@ const indexContent = {
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de 内容 devuelto en español (México)",
+      "es-MX": "Ejemplo de inhoud devuelto en español (México)",
     }),
   },
 } satisfies Dictionary;
@@ -173,7 +173,7 @@ const indexContent = {
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
       "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de 内容 devuelto en español (México)",
+      "es-MX": "Ejemplo de inhoud devuelto en español (México)",
     }),
   },
 };
@@ -191,8 +191,8 @@ const indexContent = {
     exampleOfContent: t({
       en: "Example of returned content in English",
       fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de 内容 devuelto en español (España)",
-      "es-MX": "Ejemplo de 内容 devuelto en español (México)",
+      "es-ES": "Ejemplo de inhoud devuelto en español (España)",
+      "es-MX": "Ejemplo de inhoud devuelto en español (México)",
     }),
   },
 };
@@ -211,20 +211,20 @@ module.exports = indexContent;
         "en": "Example of returned content in English",
         "fr": "Exemple de contenu renvoyé en français",
         "es-ES": "Ejemplo de contenido devuelto en español (España)",
-        "es-MX": "Ejemplo de 内容 devuelto en español (México)"
+        "es-MX": "Ejemplo de inhoud devuelto en español (México)"
       }
     }
   }
 }
 ```
 
-> 只要包含在 `contentDir` 目录（默认为 `./src`）中，您的内容声明就可以在应用程序的任何位置定义。并且匹配内容声明文件扩展名（默认为 `.content.{json,ts,tsx,js,jsx,mjs,cjs}`）。
+> Uw inhoudsdeclaraties kunnen overal in uw applicatie worden gedefinieerd, zolang ze zijn opgenomen in de `contentDir`-map (standaard `./src`). En ze moeten overeenkomen met de bestandsextensie van de inhoudsdeclaratie (standaard `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
-> 有关更多详情，请参阅 [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
+> Voor meer details, zie de [documentatie over inhoudsdeclaratie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/content_file.md).
 
-### Fastify 应用程序设置
+### Fastify-applicatie instellen
 
-设置您的 Fastify 应用程序以使用 `fastify-intlayer`：
+Stel uw Fastify-applicatie in om `fastify-intlayer` te gebruiken:
 
 ```typescript fileName="src/index.ts" codeFormat="typescript"
 import Fastify from "fastify";
@@ -233,16 +233,16 @@ import dictionaryExample from "./index.content";
 
 const fastify = Fastify({ logger: true });
 
-// 加载国际化插件
+// Internationaliseringsplug-in laden
 await fastify.register(intlayer);
 
-// 路由
+// Routes
 fastify.get("/t_example", async (_req, reply) => {
   return t({
     en: "Example of returned content in English",
-    fr: "Exemple de contenu renvoyé en français",
-    "es-ES": "Ejemplo de contenido devuelto en español (España)",
-    "es-MX": "Ejemplo de 内容 devuelto en español (México)",
+    fr: "Exemple de inhoud renvoyé en français",
+    "es-ES": "Ejemplo de inhoud devuelto en español (España)",
+    "es-MX": "Ejemplo de inhoud devuelto en español (México)",
   });
 });
 
@@ -254,7 +254,7 @@ fastify.get("/getDictionary_example", async (_req, reply) => {
   return getDictionary(dictionaryExample).exampleOfContent;
 });
 
-// 启动服务器
+// Server starten
 const start = async () => {
   try {
     await fastify.listen({ port: 3000 });
@@ -274,16 +274,16 @@ import dictionaryExample from "./index.content";
 
 const fastify = Fastify({ logger: true });
 
-// 加载国际化插件
+// Internationaliseringsplug-in laden
 await fastify.register(intlayer);
 
-// 路由
+// Routes
 fastify.get("/t_example", async (_req, reply) => {
   return t({
     en: "Example of returned content in English",
-    fr: "Exemple de 内容 renvoyé en français",
-    "es-ES": "Ejemplo de 内容 devuelto en español (España)",
-    "es-MX": "Ejemplo de 内容 devuelto en español (México)",
+    fr: "Exemple de inhoud renvoyé en français",
+    "es-ES": "Ejemplo de inhoud devuelto en español (España)",
+    "es-MX": "Ejemplo de inhoud devuelto en español (México)",
   });
 });
 
@@ -295,7 +295,7 @@ fastify.get("/getDictionary_example", async (_req, reply) => {
   return getDictionary(dictionaryExample).exampleOfContent;
 });
 
-// 启动服务器
+// Server starten
 const start = async () => {
   try {
     await fastify.listen({ port: 3000 });
@@ -315,19 +315,19 @@ const dictionaryExample = require("./index.content");
 
 const fastify = Fastify({ logger: true });
 
-// async/await 的服务器启动包装器
+// Serverstart-wrapper voor async/await
 const start = async () => {
   try {
-    // 加载国际化插件
+    // Internationaliseringsplug-in laden
     await fastify.register(intlayer);
 
-    // 路由
+    // Routes
     fastify.get("/t_example", async (_req, reply) => {
       return t({
         en: "Example of returned content in English",
-        fr: "Exemple de 内容 renvoyé en français",
-        "es-ES": "Ejemplo de 内容 devuelto en español (España)",
-        "es-MX": "Ejemplo de 内容 devuelto en español (México)",
+        fr: "Exemple de inhoud renvoyé en français",
+        "es-ES": "Ejemplo de inhoud devuelto en español (España)",
+        "es-MX": "Ejemplo de inhoud devuelto en español (México)",
       });
     });
 
@@ -349,21 +349,21 @@ const start = async () => {
 start();
 ```
 
-### 兼容性
+### Compatibiliteit
 
-`fastify-intlayer` 与以下项完全兼容：
+`fastify-intlayer` is volledig compatibel met:
 
-- 针对 React 应用程序的 [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/index.md)
-- 针对 Next.js 应用程序的 [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/index.md)
-- 针对 Vite 应用程序的 [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/vite-intlayer/index.md)
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/packages/react-intlayer/index.md) voor React-applicaties
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/packages/next-intlayer/index.md) voor Next.js-applicaties
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/packages/vite-intlayer/index.md) voor Vite-applicaties
 
-它还可以跨各种环境（包括浏览器和 API 请求）与任何国际化解决方案无缝协作。您可以自定义中间件通过 header 或 cookie 检测语言区域：
+Het werkt ook naadloos met elke internationaliseringsoplossing in verschillende omgevingen, inclusief browsers en API-aanvragen. U kunt de middleware aanpassen om de locale te detecteren via headers of cookies:
 
 ```typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  // ... 其他配置选项
+  // ... Andere configuratie-opties
   middleware: {
     headerName: "my-locale-header",
     cookieName: "my-locale-cookie",
@@ -378,7 +378,7 @@ import { Locales } from "intlayer";
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  // ... 其他配置选项
+  // ... Andere configuratie-opties
   middleware: {
     headerName: "my-locale-header",
     cookieName: "my-locale-cookie",
@@ -393,7 +393,7 @@ const { Locales } = require("intlayer");
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
-  // ... 其他配置选项
+  // ... Andere configuratie-opties
   middleware: {
     headerName: "my-locale-header",
     cookieName: "my-locale-cookie",
@@ -403,48 +403,49 @@ const config = {
 module.exports = config;
 ```
 
-默认情况下，`fastify-intlayer` 将解释 `Accept-Language` 标头以确定客户端的首选语言。
+Standaard zal `fastify-intlayer` de `Accept-Language`-header interpreteren om de voorkeurstaal van de client te bepalen.
 
-> 有关配置和高级主题的更多信息，请访问我们的 [文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
+> Voor meer informatie over configuratie en geavanceerde onderwerpen, bezoek onze [documentatie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/configuration.md).
 
-### 配置 TypeScript
+### TypeScript configureren
 
-`fastify-intlayer` 利用 TypeScript 的强大功能来增强国际化过程。TypeScript 的静态类型确保每个翻译键都被考虑到，从而降低丢失翻译的风险并提高可维护性。
+`fastify-intlayer` maakt gebruik van de robuuste mogelijkheden van TypeScript om het internationaliseringsproces te verbeteren. De statische typering van TypeScript zorgt ervoor dat met elke vertaalsleutel rekening wordt gehouden, waardoor het risico op ontbrekende vertalingen wordt verminderd en de onderhoudbaarheid wordt verbeterd.
 
-确保在您的 `tsconfig.json` 文件中包含自动生成的类型（默认为 `./types/intlayer.d.ts`）。
+Zorg ervoor dat de automatisch gegenereerde typen (standaard in ./types/intlayer.d.ts) zijn opgenomen in uw tsconfig.json-bestand.
 
 ```json5 fileName="tsconfig.json"
 {
-  // ... 您的现有 TypeScript 配置
+  // ... Uw bestaande TypeScript-configuraties
   "include": [
-    // ... 您的现有 TypeScript 配置
-    ".intlayer/**/*.ts", // 包含自动生成的类型
+    // ... Uw bestaande TypeScript-configuraties
+    ".intlayer/**/*.ts", // Automatisch gegenereerde typen opnemen
   ],
 }
 ```
 
-### VS Code 扩展
+### VS Code-extensie
 
-为了改善您使用 Intlayer 的开发体验，您可以安装官方的 **Intlayer VS Code Extension**。
+Om uw ontwikkelervaring met Intlayer te verbeteren, kunt u de officiële **Intlayer VS Code Extension** installeren.
 
-[从 VS Code Marketplace 安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+[Installeren vanuit de VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
-该扩展包含：
+Deze extensie biedt:
 
-- 翻译键的 **自动补全**。
-- 针对缺失翻译的 **实时错误检测**。
-- 翻译内容的 **内联预览**。
-- 轻松创建和更新翻译的 **快速操作**。
+- **Autocomplete** voor vertaalsleutels.
+- **Realtime foutdetectie** voor ontbrekende vertalingen.
+- **Inline voorbeelden** van vertaalde inhoud.
+- **Snelle acties** om eenvoudig vertalingen aan te maken en bij te werken.
 
-有关如何使用该扩展的更多详情，请参阅 [Intlayer VS Code Extension 文档](https://intlayer.org/doc/vs-code-extension)。
+Voor meer details over het gebruik van de extensie, zie de [Intlayer VS Code Extension-documentatie](https://intlayer.org/doc/vs-code-extension).
 
-### Git 配置
+### Git-configuratie
 
-建议忽略由 Intlayer 生成的文件。这可以避免将它们提交到您的 Git 仓库。
+Het wordt aanbevolen om de door Intlayer gegenereerde bestanden te negeren. Hiermee voorkomt u dat u ze naar uw Git-repository commit.
 
-为此，您可以将以下说明添加到 `.gitignore` 文件中：
+Hiervoor kunt u de volgende instructies toevoegen aan uw `.gitignore`-bestand:
 
 ```plaintext fileName=".gitignore"
-# 忽略由 Intlayer 生成的文件
+# Door Intlayer gegenereerde bestanden negeren
 .intlayer
+
 ```
