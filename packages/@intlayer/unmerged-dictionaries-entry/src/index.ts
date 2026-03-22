@@ -4,9 +4,8 @@
  * The alias allow hot reload the app (such as nextjs) on any dictionary change.
  */
 
-import { existsSync, readFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { runInThisContext } from 'node:vm';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { basename, extname, join } from 'node:path';
 import config from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
@@ -22,21 +21,25 @@ export const getUnmergedDictionaries: GetUnmergedDictionaries = (
   configuration: IntlayerConfig = config
 ) => {
   const { system } = configuration;
+  const { unmergedDictionariesDir } = system;
 
-  const dictionariesPath = join(system.mainDir, `unmerged_dictionaries.cjs`);
-  let dictionaries: Record<DictionaryKeys, Dictionary[]> = {};
+  const dictionaries: Record<string, any> = {};
 
-  if (existsSync(dictionariesPath)) {
-    // Execute directly instead of require() to avoid require.cache memory leak
-    const code = readFileSync(dictionariesPath, 'utf-8');
-    const moduleObj = { exports: {} as any };
-    const wrappedFn = runInThisContext(
-      `(function(exports, require, module, __filename, __dirname) {\n${code}\n})`,
-      { filename: dictionariesPath }
+  if (existsSync(unmergedDictionariesDir)) {
+    // Read JSON files directly to avoid require.cache memory leak
+    const files = readdirSync(unmergedDictionariesDir).filter((file) =>
+      file.endsWith('.json')
     );
-    wrappedFn(moduleObj.exports, require, moduleObj, dictionariesPath, dirname(dictionariesPath));
-    dictionaries = moduleObj.exports;
+
+    for (const file of files) {
+      const key = basename(file, extname(file));
+      const content = readFileSync(
+        join(unmergedDictionariesDir, file),
+        'utf-8'
+      );
+      dictionaries[key] = JSON.parse(content);
+    }
   }
 
-  return dictionaries;
+  return dictionaries as UnmergedDictionaries;
 };
