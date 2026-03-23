@@ -1,7 +1,12 @@
-import {
-  type CompileOptions,
-  compileWithOptions,
-} from '@intlayer/core/markdown';
+import type { CompileOptions } from '@intlayer/core/markdown';
+
+let _compileWithOptions:
+  | typeof import('@intlayer/core/markdown')['compileWithOptions']
+  | null = null;
+void import('@intlayer/core/markdown').then((module) => {
+  _compileWithOptions = module.compileWithOptions;
+});
+
 import type { JSX } from 'solid-js';
 import { solidRuntime } from './runtime';
 
@@ -12,7 +17,7 @@ export const compileMarkdown = (
   markdown: string = '',
   options: CompileOptions = {}
 ): JSX.Element => {
-  return compileWithOptions(markdown, solidRuntime, options) as JSX.Element;
+  return _compileWithOptions?.(markdown, solidRuntime, options) as JSX.Element;
 };
 
 /**
