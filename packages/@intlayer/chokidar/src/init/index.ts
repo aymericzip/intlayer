@@ -334,45 +334,55 @@ export const initIntlayer = async (rootDir: string) => {
     }
   }
 
-  // UPDATE PACKAGE.JSON DEV SCRIPT FOR NEXT.JS >= 16
-  if (isNextJsProject) {
-    const nextVersion =
-      packageJson.dependencies?.next || packageJson.devDependencies?.next;
+  // UPDATE PACKAGE.JSON DEV SCRIPT
+  // Next.js >= 16 uses a bun-specific wrapper; backend frameworks wrap whatever
+  // the existing dev script is. Both use `intlayer watch --with`.
+  const allDeps = {
+    ...packageJson.dependencies,
+    ...packageJson.devDependencies,
+  };
 
-    const isVersionGreaterOrEqual = (
-      versionString: string,
-      major: number
-    ): boolean => {
-      if (!versionString || typeof versionString !== 'string') return false;
-      const match = versionString.match(/^[^\d]*(\d+)/);
+  const isVersionGreaterOrEqual = (
+    versionString: string,
+    major: number
+  ): boolean => {
+    if (!versionString || typeof versionString !== 'string') return false;
+    const match = versionString.match(/^[^\d]*(\d+)/);
+    if (!match) return false;
+    return parseInt(match[1], 10) >= major;
+  };
 
-      if (!match) return false;
-      const majorVersion = parseInt(match[1], 10);
-      return majorVersion >= major;
-    };
+  const backendIntlayerPackages = [
+    'express-intlayer',
+    'fastify-intlayer',
+    'adonis-intlayer',
+    'hono-intlayer',
+  ];
 
-    if (nextVersion && isVersionGreaterOrEqual(nextVersion, 16)) {
-      const devScript = packageJson.scripts?.dev;
-      const expectedScript = "intlayer watch --with 'bun run --bun next dev'";
+  const devScript = packageJson.scripts?.dev;
 
-      if (
-        devScript &&
-        devScript !== expectedScript &&
-        devScript.includes('next dev')
-      ) {
-        packageJson.scripts.dev = expectedScript;
+  let newDevScript: string | undefined;
 
-        await writeFileToRoot(
-          rootDir,
-          packageJsonPath,
-          JSON.stringify(packageJson, null, 2)
-        );
+  if (
+    ((isNextJsProject && isVersionGreaterOrEqual(allDeps.next, 16)) ||
+      backendIntlayerPackages.some((pkg) => allDeps[pkg])) &&
+    !devScript.includes('intlayer watch')
+  ) {
+    newDevScript = `intlayer watch --with '${devScript}'`;
+  }
 
-        logger(
-          `${v} Updated ${colorizePath('package.json')} dev script for Next.js >= 16`
-        );
-      }
-    }
+  if (newDevScript) {
+    packageJson.scripts.dev = newDevScript;
+
+    await writeFileToRoot(
+      rootDir,
+      packageJsonPath,
+      JSON.stringify(packageJson, null, 2)
+    );
+
+    logger(
+      `${v} Updated ${colorizePath('package.json')} dev script to run intlayer watch`
+    );
   }
 
   // CHECK WEBPACK CONFIG
@@ -401,7 +411,8 @@ export const initIntlayer = async (rootDir: string) => {
 
     if (hasTsConfig && tsConfigFiles.length > 0) {
       const tsConfigPath =
-        tsConfigFiles.find((f) => f === 'tsconfig.json') || tsConfigFiles[0];
+        tsConfigFiles.find((file) => file === 'tsconfig.json') ||
+        tsConfigFiles[0];
       const tsConfigContent = await readFileFromRoot(rootDir, tsConfigPath);
       const config = parseJSONWithComments(tsConfigContent);
 
