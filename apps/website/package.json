@@ -94,7 +94,7 @@
     "pwa-asset-generator": "8.1.4",
     "raw-loader": "4.0.2",
     "tailwindcss": "4.2.2",
-    "typescript": "5.9.3",
+    "typescript": "6.0.2",
     "workbox-build": "7.4.0"
   },
   "peerDependencies": {

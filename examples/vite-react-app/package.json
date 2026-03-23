@@ -29,8 +29,8 @@
     "autoprefixer": "10.4.27",
     "intlayer-editor": "workspace:*",
     "tailwindcss": "4.2.2",
-    "typescript": "5.9.3",
-    "vite": "8.0.1",
+    "typescript": "6.0.2",
+    "vite": "8.0.2",
     "vite-intlayer": "workspace:*"
   }
 }
