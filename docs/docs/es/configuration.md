@@ -639,24 +639,24 @@ routing: {
 
 Cuando se utiliza el almacenamiento mediante galletas (cookies), se pueden configurar atributos adicionales:
 
-| Campo      | Tipo                                  | Descripción                                                        |
-| ---------- | ------------------------------------- | ------------------------------------------------------------------ |
-| `name`     | `string`                              | Nombre de la galleta (cookie). Predeterminado: `'INTLAYER_LOCALE'` |
-| `domain`   | `string`                              | Dominio de la galleta. Predeterminado: `undefined`                 |
-| `path`     | `string`                              | Ruta de la galleta. Predeterminado: `undefined`                    |
-| `secure`   | `boolean`                             | Requiere HTTPS. Predeterminado: `undefined`                        |
-| `httpOnly` | `boolean`                             | Bandera HTTP-only. Predeterminado: `undefined`                     |
-| `sameSite` | `'strict' &#124; 'lax' &#124; 'none'` | Política de SameSite.                                              |
-| `expires`  | `Date &#124; number`                  | Fecha de expiración o número de días. Predeterminado: `undefined`  |
+| Campo      | Tipo                                                  | Descripción                                                        |
+| ---------- | ----------------------------------------------------- | ------------------------------------------------------------------ |
+| `name`     | `string`                                              | Nombre de la galleta (cookie). Predeterminado: `'INTLAYER_LOCALE'` |
+| `domain`   | `string`                                              | Dominio de la galleta. Predeterminado: `undefined`                 |
+| `path`     | `string`                                              | Ruta de la galleta. Predeterminado: `undefined`                    |
+| `secure`   | `boolean`                                             | Requiere HTTPS. Predeterminado: `undefined`                        |
+| `httpOnly` | `boolean`                                             | Bandera HTTP-only. Predeterminado: `undefined`                     |
+| `sameSite` | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` | Política de SameSite.                                              |
+| `expires`  | `Date` &#124; <br/> `number`                          | Fecha de expiración o número de días. Predeterminado: `undefined`  |
 
 #### Atributos de Almacenamiento de Localidad (Locale Storage Attributes)
 
 Cuando se utiliza localStorage o sessionStorage:
 
-| Campo  | Tipo                                     | Descripción                                                               |
-| ------ | ---------------------------------------- | ------------------------------------------------------------------------- |
-| `type` | `'localStorage' &#124; 'sessionStorage'` | Tipo de almacenamiento.                                                   |
-| `name` | `string`                                 | Nombre de la clave de almacenamiento. Predeterminado: `'INTLAYER_LOCALE'` |
+| Campo  | Tipo                                             | Descripción                                                               |
+| ------ | ------------------------------------------------ | ------------------------------------------------------------------------- |
+| `type` | `'localStorage'` &#124; <br/> `'sessionStorage'` | Tipo de almacenamiento.                                                   |
+| `name` | `string`                                         | Nombre de la clave de almacenamiento. Predeterminado: `'INTLAYER_LOCALE'` |
 
 #### Ejemplos de Configuración
 
@@ -801,7 +801,7 @@ Ajustes relacionados con el procesamiento de contenido dentro de la aplicación 
 | ---------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `watch`          | Indica si Intlayer debe vigilar los cambios en los archivos de declaración de contenido para reconstruir los diccionarios. | `boolean`  | `true`                                                                                                                                                                    |                                                                                                                                                                                       |                                                                                                                                                            |
 | `fileExtensions` | Extensiones de archivo que se buscarán al compilar diccionarios.                                                           | `string[]` | `['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.json5', '.content.jsonc', '.content.tsx', '.content.jsx']`                     | `['.data.ts', '.data.js', '.data.json']`                                                                                                                                              | La personalización puede ayudar a evitar conflictos.                                                                                                       |
-| `contentDir`     | Ruta del directorio donde se almacenan los archivos de definición de contenido (`.content.*`).                             | `string[]` | `['.']`                                                                                                                                                                   | `['src', '../../ui-library', require.resolve("@my-package/content")]`                                                                                                                 | Se utiliza para monitorear archivos de contenido y reconstruir diccionarios.                                                                               |
+| `contentDir`     | Ruta del directorio donde se almacenan los archivos de definición de contenido (`.content.*`).                             | `string[]` | `['.']`                                                                                                                                                                   | `['src', '../../ui-library', require.resolve("@my-package/content"), '@my-package/content']`                                                                                          | Se utiliza para monitorear archivos de contenido y reconstruir diccionarios.                                                                               |
 | `codeDir`        | Ruta del directorio donde se almacena el código, relativa al directorio base.                                              | `string[]` | `['.']`                                                                                                                                                                   | `['src', '../../ui-library']`                                                                                                                                                         | • Se utiliza para monitorear archivos de código para su transformación (podado, optimización).<br/>• Separar de `contentDir` puede mejorar el rendimiento. |
 | `excludedPath`   | Directorios excluidos de la búsqueda de contenido.                                                                         | `string[]` | `['**/node_modules/**', '**/dist/**', '**/build/**', '**/.intlayer/**', '**/.next/**', '**/.nuxt/**', '**/.expo/**', '**/.vercel/**', '**/.turbo/**', '**/.tanstack/**']` |                                                                                                                                                                                       | Todavía no se utiliza; previsto para implementación futura.                                                                                                |
 | `formatCommand`  | Comando para dar formato a los archivos de contenido cuando Intlayer los escribe localmente.                               | `string`   | `undefined`                                                                                                                                                               | `'npx prettier --write "{{file}}" --log-level silent'` (Prettier), `'npx biome format "{{file}}" --write --log-level none'` (Biome), `'npx eslint --fix "{{file}}" --quiet'` (ESLint) | • `{{file}}` se reemplaza por la ruta del archivo.<br/>• Si no se define, Intlayer lo detecta automáticamente (prueba prettier, biome, eslint).            |

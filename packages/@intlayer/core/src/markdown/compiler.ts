@@ -867,7 +867,9 @@ const createRules = (
       _render(node, output, state = {}) {
         const table = node as TableNode;
         const getStyle = (i: number) =>
-          table.align[i] ? { textAlign: table.align[i] } : {};
+          table.align[i] && table.align[i] !== 'left'
+            ? { textAlign: table.align[i] }
+            : {};
 
         return createElement(
           'table',

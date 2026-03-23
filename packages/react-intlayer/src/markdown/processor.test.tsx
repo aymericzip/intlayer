@@ -1512,7 +1512,7 @@ describe('GFM tables', () => {
     renderFn(compiler(markdown));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
-      `"<table><thead><tr><th style="text-align: left;">_foo</th><th style="text-align: left;">bar_</th></tr></thead><tbody><tr><td style="text-align: left;">1</td><td style="text-align: left;">2</td></tr></tbody></table>"`
+      `"<table><thead><tr><th>_foo</th><th>bar_</th></tr></thead><tbody><tr><td>1</td><td>2</td></tr></tbody></table>"`
     );
   });
 
@@ -1521,7 +1521,7 @@ describe('GFM tables', () => {
     renderFn(compiler(markdown));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
-      `"<table><thead><tr><th style="text-align: left;"><code>foo|bar</code></th><th style="text-align: left;">baz</th></tr></thead><tbody><tr><td style="text-align: left;">1</td><td style="text-align: left;">2</td></tr></tbody></table>"`
+      `"<table><thead><tr><th><code>foo|bar</code></th><th>baz</th></tr></thead><tbody><tr><td>1</td><td>2</td></tr></tbody></table>"`
     );
   });
 

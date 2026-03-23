@@ -2,7 +2,13 @@
 
 import { cn } from '@utils/cn';
 import { MoveDiagonal } from 'lucide-react';
-import { type FC, type HTMLAttributes, useState } from 'react';
+import {
+  type FC,
+  type HTMLAttributes,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { Button } from '../Button';
 import { ExpandCollapse } from '../ExpandCollapse';
 import { Modal, ModalSize } from '../Modal';
@@ -204,8 +210,57 @@ export const Table: FC<TableProps> = ({
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const tableRef = useRef<HTMLTableElement>(null);
+  const modalTableRef = useRef<HTMLTableElement>(null);
+
+  useEffect(() => {
+    if (!tableRef.current) return;
+
+    // ~0.55rem per character (mid-point for proportional fonts)
+    const CHAR_WIDTH_REM = 0.55;
+    const MIN_WIDTH_REM = 5; // ~80px at 16px base
+    const MAX_WIDTH_REM = 30; // ~480px at 16px base
+
+    // Calculate the maximum character length per column from the main table
+    const colLengths: number[] = [];
+    Array.from(tableRef.current.querySelectorAll('tr')).forEach((row) => {
+      Array.from(row.children).forEach((cell, index) => {
+        const len = cell.textContent?.trim().length ?? 0;
+        if (colLengths[index] === undefined || len > colLengths[index]) {
+          colLengths[index] = len;
+        }
+      });
+    });
+
+    const applyToTable = (table: HTMLTableElement) => {
+      const rows = Array.from(table.querySelectorAll('tr'));
+      if (rows.length === 0) return;
+
+      const applyColStyle = (el: HTMLElement, index: number) => {
+        const minRem = Math.min(
+          MAX_WIDTH_REM,
+          Math.max(MIN_WIDTH_REM, (colLengths[index] ?? 0) * CHAR_WIDTH_REM)
+        );
+        el.style.minWidth = `${minRem}rem`;
+        el.style.maxWidth = `${MAX_WIDTH_REM}rem`;
+      };
+
+      table.querySelectorAll('th').forEach((th, index) => {
+        applyColStyle(th, index);
+      });
+      rows.forEach((row) => {
+        row.querySelectorAll('td').forEach((td, index) => {
+          applyColStyle(td, index);
+        });
+      });
+    };
+
+    applyToTable(tableRef.current);
+    if (modalTableRef.current) applyToTable(modalTableRef.current);
+  }, [props.children, isModalOpen]);
+
   return (
-    <div className="relative">
+    <div className="relative overflow-hidden rounded-2xl bg-background pr-4 [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-3xl">
       {displayModal && (
         <div className="sticky top-48 z-10">
           <div className="absolute top-4 right-2">
@@ -226,10 +281,8 @@ export const Table: FC<TableProps> = ({
         className="max-w-full overflow-x-auto"
       >
         <table
-          className={cn(
-            'min-w-full max-w-full table-auto overflow-x-auto bg-background text-left',
-            className
-          )}
+          ref={tableRef}
+          className={cn('w-full table-auto text-left', className)}
           {...props}
         />
       </ExpandCollapse>
@@ -239,10 +292,12 @@ export const Table: FC<TableProps> = ({
         onClose={() => setIsModalOpen(false)}
         size={ModalSize.XL}
         hasCloseButton
+        isScrollable
       >
         {isModalOpen ? (
           <div className="grid">
             <table
+              ref={modalTableRef}
               className={cn(
                 'min-w-full max-w-full table-auto text-left',
                 className
