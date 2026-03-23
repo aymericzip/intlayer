@@ -52,6 +52,6 @@ export type EnumerationContent<Content = unknown> = TypedNodeModel<
  */
 const enumeration = <Content = unknown>(
   content?: EnumerationContentState<Content>
-) => formatNodeType(ENUMERATION, content);
+): EnumerationContent<Content> => formatNodeType(ENUMERATION, content);
 
 export { enumeration as enu };

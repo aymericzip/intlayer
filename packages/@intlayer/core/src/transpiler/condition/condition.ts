@@ -27,7 +27,8 @@ export type ConditionContent<Content = unknown> = TypedNodeModel<
  * The last key provided will be used as the fallback value.
  *
  */
-const condition = <Content>(content?: ConditionContentStates<Content>) =>
-  formatNodeType(CONDITION, content);
+const condition = <Content>(
+  content?: ConditionContentStates<Content>
+): ConditionContent<Content> => formatNodeType(CONDITION, content);
 
 export { condition as cond };

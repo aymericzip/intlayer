@@ -29,7 +29,8 @@ export type GenderContent<Content = unknown> = TypedNodeModel<
  * The last key provided will be used as the fallback value.
  *
  */
-const gender = <Content>(content?: GenderContentStates<Content>) =>
-  formatNodeType(GENDER, content);
+const gender = <Content>(
+  content?: GenderContentStates<Content>
+): GenderContent<Content> => formatNodeType(GENDER, content);
 
 export { gender };

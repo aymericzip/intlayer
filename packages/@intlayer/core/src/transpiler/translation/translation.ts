@@ -34,7 +34,7 @@ const translation = <
     StrictModeLocaleMap<Content> = StrictModeLocaleMap<Content>,
 >(
   content: ContentRecord
-) =>
+): TranslationContent<Content, ContentRecord> =>
   formatNodeType(TRANSLATION, content) satisfies TranslationContent<
     Content,
     ContentRecord
