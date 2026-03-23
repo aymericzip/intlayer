@@ -10,7 +10,7 @@
     "start:editor": "bun intlayer-editor start -e development --with 'vite dev'"
   },
   "dependencies": {
-    "@solidjs/router": "0.15.4",
+    "@solidjs/router": "0.16.1",
     "intlayer": "workspace:*",
     "solid-intlayer": "workspace:*",
     "solid-js": "1.9.11"
@@ -21,6 +21,6 @@
     "typescript": "6.0.2",
     "vite": "8.0.2",
     "vite-intlayer": "workspace:*",
-    "vite-plugin-solid": "2.11.10"
+    "vite-plugin-solid": "2.11.11"
   }
 }
