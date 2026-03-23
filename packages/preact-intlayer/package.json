@@ -1,6 +1,6 @@
 {
   "name": "preact-intlayer",
-  "version": "8.4.9",
+  "version": "8.4.10",
   "private": false,
   "description": "Easily internationalize i18n your Preact applications with type-safe multilingual content management.",
   "keywords": [
