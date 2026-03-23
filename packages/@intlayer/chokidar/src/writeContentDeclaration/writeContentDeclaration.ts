@@ -12,12 +12,12 @@ import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { detectFormatCommand } from '../detectFormatCommand';
 import {
   type Extension,
   getFormatFromExtension,
 } from '../utils/getFormatFromExtension';
+import { readDictionariesFromDisk } from '../utils/readDictionariesFromDisk';
 import type { DictionaryStatus } from './dictionaryStatus';
 import { processContentDeclarationContent } from './processContentDeclarationContent';
 import { transformJSONFile } from './transformJSONFile';
@@ -142,7 +142,9 @@ export const writeContentDeclaration = async (
 
   const newDictionaryLocationPath = join(baseDir, newDictionariesPath);
 
-  const unmergedDictionariesRecord = getUnmergedDictionaries(configuration);
+  const unmergedDictionariesRecord = readDictionariesFromDisk<
+    Record<string, Dictionary[]>
+  >(configuration.system.unmergedDictionariesDir);
   const unmergedDictionaries = unmergedDictionariesRecord[
     dictionary.key
   ] as Dictionary[];

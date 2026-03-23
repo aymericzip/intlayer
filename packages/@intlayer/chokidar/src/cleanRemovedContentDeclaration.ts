@@ -6,12 +6,11 @@ import {
   colorizePath,
   getAppLogger,
 } from '@intlayer/config/logger';
-import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import fg from 'fast-glob';
 import { createDictionaryEntryPoint } from './createDictionaryEntryPoint';
+import { readDictionariesFromDisk } from './utils/readDictionariesFromDisk';
 import { writeJsonIfChanged } from './writeJsonIfChanged';
 
 export const cleanRemovedContentDeclaration = async (
@@ -25,7 +24,9 @@ export const cleanRemovedContentDeclaration = async (
 }> => {
   const appLogger = getAppLogger(configuration);
 
-  const unmergedDictionaries = getUnmergedDictionaries(configuration);
+  const unmergedDictionaries = readDictionariesFromDisk<
+    Record<string, Dictionary[]>
+  >(configuration.system.unmergedDictionariesDir);
 
   const baseDir = configuration.system.baseDir;
 
@@ -88,7 +89,9 @@ export const cleanRemovedContentDeclaration = async (
     })
   );
 
-  const dictionaries = getDictionaries(configuration);
+  const dictionaries = readDictionariesFromDisk<Record<string, Dictionary>>(
+    configuration.system.dictionariesDir
+  );
   const flatDictionaries = Object.values(dictionaries) as Dictionary[];
 
   const filteredMergedDictionaries = flatDictionaries?.filter(
