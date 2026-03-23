@@ -97,7 +97,7 @@ export const loadContentDeclarations = async (
   try {
     const dictionariesPromises = contentDeclarationFilePath.map(
       async (path) => {
-        const relativePath = relative(configuration.system.baseDir, path);
+        const relativePath = relative(system.baseDir, path);
 
         const dictionary = await loadContentDeclaration(
           path,
