@@ -1,7 +1,7 @@
 import { IMPORT_MODE, OUTPUT_FORMAT } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
+import { readDictionariesFromDisk } from '../utils/readDictionariesFromDisk';
 import {
   type LocalizedDictionaryOutput,
   writeDynamicDictionary,
@@ -46,7 +46,7 @@ export const buildDictionary = async (
 
   if (importOtherDictionaries) {
     const prevUnmergedDictionaries: Record<string, Dictionary[]> =
-      getUnmergedDictionaries(configuration);
+      readDictionariesFromDisk(configuration.system.unmergedDictionariesDir);
 
     // Reinsert other dictionaries with the same key to avoid merging errors
     for (const dictionaryToWrite of localDictionariesEntries) {
