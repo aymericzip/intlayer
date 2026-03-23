@@ -65,6 +65,11 @@ type TableProps = HTMLAttributes<HTMLTableElement> & {
   displayModal?: boolean;
 };
 
+// ~0.55rem per character (mid-point for proportional fonts)
+const CHAR_WIDTH_REM = 0.55;
+const MIN_WIDTH_REM = 5; // ~80px at 16px base
+const MAX_WIDTH_REM = 30; // ~480px at 16px base
+
 /**
  * Table component that provides an enhanced table experience with modal expansion and collapsible content
  *
@@ -216,11 +221,6 @@ export const Table: FC<TableProps> = ({
   useEffect(() => {
     if (!tableRef.current) return;
 
-    // ~0.55rem per character (mid-point for proportional fonts)
-    const CHAR_WIDTH_REM = 0.55;
-    const MIN_WIDTH_REM = 5; // ~80px at 16px base
-    const MAX_WIDTH_REM = 30; // ~480px at 16px base
-
     // Calculate the maximum character length per column from the main table
     const colLengths: number[] = [];
     Array.from(tableRef.current.querySelectorAll('tr')).forEach((row) => {
@@ -256,6 +256,7 @@ export const Table: FC<TableProps> = ({
     };
 
     applyToTable(tableRef.current);
+
     if (modalTableRef.current) applyToTable(modalTableRef.current);
   }, [props.children, isModalOpen]);
 
