@@ -8,6 +8,7 @@ import {
   type ComputedRef,
   computed,
   defineComponent,
+  getCurrentInstance,
   h,
   inject,
   isRef,
@@ -33,7 +34,7 @@ export const isComponentLike = (v: any) =>
 /** Check if value is an IntlayerNode */
 export const isIntlayerNode = (v: any): boolean =>
   v != null &&
-  typeof v === 'object' &&
+  (typeof v === 'object' || typeof v === 'function') &&
   '__update' in v &&
   'render' in v &&
   'raw' in v;
@@ -121,7 +122,9 @@ export const useDictionary = <
   dictionary: MaybeRefOrGetter<T>,
   locale?: MaybeRefOrGetter<L>
 ) => {
-  const intlayer = inject<IntlayerProvider>(INTLAYER_SYMBOL);
+  const intlayer = getCurrentInstance()
+    ? inject<IntlayerProvider>(INTLAYER_SYMBOL)
+    : undefined;
 
   // normalize provider locale
   const providerLocale = isRef(intlayer?.locale)

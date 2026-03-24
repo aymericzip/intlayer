@@ -4,7 +4,7 @@ import { useIntlayer } from 'vue-intlayer';
 import Test from '../test/Test.vue';
 
 defineProps({
-  msg: Object,
+  msg: [Object, Function],
 });
 
 const {
@@ -26,7 +26,7 @@ const countRef = ref(0);
   <div class="card">
     <button type="button" @click="countRef++">
       <count />
-      <countRef /> 
+      {{ countRef }}
       <content.officialStarter />
     </button>
     <p v-html="edit"></p>

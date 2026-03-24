@@ -36,16 +36,19 @@
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
+      "solid": "./dist/esm/index.mjs",
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
     "./html": {
       "types": "./dist/types/html/index.d.ts",
+      "solid": "./dist/esm/html/index.mjs",
       "require": "./dist/cjs/html/index.cjs",
       "import": "./dist/esm/html/index.mjs"
     },
     "./markdown": {
       "types": "./dist/types/markdown/index.d.ts",
+      "solid": "./dist/esm/markdown/index.mjs",
       "require": "./dist/cjs/markdown/index.cjs",
       "import": "./dist/esm/markdown/index.mjs"
     },

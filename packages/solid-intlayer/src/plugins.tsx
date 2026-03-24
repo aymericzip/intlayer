@@ -12,6 +12,7 @@ import {
   splitInsertionTemplate,
   translationPlugin,
 } from '@intlayer/core/interpreter';
+import { getMarkdownMetadata } from '@intlayer/core/markdown';
 import {
   HTML_TAGS,
   type HTMLContent,
@@ -32,19 +33,17 @@ import type { HTMLComponents } from './html/types';
 import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
 import { renderSolidElement } from './solidElement/renderSolidElement';
 
-// Lazy pre-load @intlayer/core/markdown — creates a separate code-split chunk
-let _getMarkdownMetadata: ((s: string) => any) | null = null;
-void import('@intlayer/core/markdown').then((m) => {
-  _getMarkdownMetadata = m.getMarkdownMetadata;
-});
-
 // solid-js lazy for heavy renderer components — creates separate code-split chunks
 const LazyMarkdownMetadataRenderer = lazy(() =>
-  import('./markdown').then((m) => ({ default: m.MarkdownMetadataRenderer }))
+  import('./markdown/MarkdownRenderer').then((m) => ({
+    default: m.MarkdownMetadataRenderer,
+  }))
 );
 
 const LazyMarkdownRenderer = lazy(() =>
-  import('./markdown').then((m) => ({ default: m.MarkdownRenderer }))
+  import('./markdown/MarkdownRenderer').then((m) => ({
+    default: m.MarkdownRenderer,
+  }))
 );
 
 /** ---------------------------------------------
@@ -237,7 +236,7 @@ export const markdownStringPlugin: Plugins = {
       ...rest
     } = props;
 
-    const metadata = _getMarkdownMetadata?.(node) ?? {};
+    const metadata = getMarkdownMetadata(node) ?? {};
 
     const metadataPlugins: Plugins = {
       id: 'markdown-metadata-plugin',

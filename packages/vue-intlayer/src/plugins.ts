@@ -12,6 +12,7 @@ import {
   splitInsertionTemplate,
   translationPlugin,
 } from '@intlayer/core/interpreter';
+import { getMarkdownMetadata } from '@intlayer/core/markdown';
 import {
   HTML_TAGS,
   type HTMLContent,
@@ -26,13 +27,6 @@ import type {
 import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { Fragment, h, markRaw, type VNode } from 'vue';
-
-// Lazy pre-load heavy modules — creates separate code-split chunks
-let _getMarkdownMetadata: ((s: string) => any) | null = null;
-void import('@intlayer/core/markdown').then((m) => {
-  _getMarkdownMetadata = m.getMarkdownMetadata;
-});
-
 import { default as ContentSelector } from './editor/ContentSelector.vue';
 import type { HTMLComponents } from './html/types';
 import { useMarkdown } from './markdown/installIntlayerMarkdown';
@@ -292,7 +286,7 @@ export const markdownStringPlugin: Plugins = {
       ...rest
     } = props;
 
-    const metadata = _getMarkdownMetadata?.(node) ?? {};
+    const metadata = getMarkdownMetadata(node) ?? {};
 
     const metadataPlugins: Plugins = {
       id: 'markdown-metadata-plugin',

@@ -37,7 +37,7 @@ export const getMarkdownMetadata = <T extends Record<string, any>>(
     const metadata = parseYaml<T>(metadataContent);
 
     return metadata ?? ({} as T);
-  } catch (_e) {
+  } catch {
     const result: T = {} as T;
     return result;
   }

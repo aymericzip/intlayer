@@ -7,10 +7,7 @@ import {
   useLocale,
   useRewriteURL,
 } from 'vanilla-intlayer';
-import {
-  compileMarkdown,
-  installIntlayerMarkdown,
-} from 'vanilla-intlayer/markdown';
+import { installIntlayerMarkdown } from 'vanilla-intlayer/markdown';
 import heroImg from './assets/hero.png';
 import typescriptLogo from './assets/typescript.svg';
 import viteLogo from './assets/vite.svg';
@@ -46,19 +43,15 @@ const render = () => {
       <h1>${content.title}</h1>
 
       <div class="enumeration">
-        <p>${content.enumeration(0, { count: 0 })}</p>
-        <p>${content.enumeration(1, { count: 1 })}</p>
-        <p>${content.enumeration(2, { count: 2 })}</p>
+        <p>${content.enumeration({ count: 0 })(0)}</p>
+        <p>${content.enumeration({ count: 1 })(1)}</p>
+        <p>${content.enumeration({ count: 2 })(2)}</p>
       </div>
 
       <button id="counter" type="button" class="counter"></button>
 
       <div class="html-content">
         ${content.htmlContent}
-      </div>
-
-      <div class="edit-note">
-        ${compileMarkdown(String(content.editNote))}
       </div>
     </section>
 

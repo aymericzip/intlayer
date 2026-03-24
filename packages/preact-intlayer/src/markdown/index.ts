@@ -11,4 +11,3 @@ export {
   renderMarkdown,
   useMarkdownRenderer,
 } from './MarkdownRenderer';
-export { MarkdownRendererPlugin } from './MarkdownRendererPlugin';

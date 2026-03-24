@@ -55,14 +55,14 @@ export const MarkdownProvider: Component<MarkdownProviderProps> = (props) => {
     options?: MarkdownProviderOptions,
     componentsOverride?: HTMLComponents<'permissive', {}>,
     wrapperOverride?: ValidComponent
-  ): JSXElement | Promise<JSXElement> => {
+  ): Promise<JSXElement> => {
     if (props.renderMarkdown) {
       return props.renderMarkdown(
         content,
         options,
         componentsOverride,
         wrapperOverride
-      );
+      ) as Promise<JSXElement>;
     }
 
     const mergedOptions: RenderMarkdownOptions = {

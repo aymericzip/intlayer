@@ -3,6 +3,8 @@ import { Suspense } from 'preact/compat';
 import { useState } from 'preact/hooks';
 import { useIntlayer } from 'preact-intlayer';
 import './app.css';
+import { HTMLProvider } from 'preact-intlayer/html';
+import { MarkdownProvider, MarkdownRenderer } from 'preact-intlayer/markdown';
 import viteLogo from '/vite.svg';
 import preactLogo from './assets/preact.svg';
 import { LocaleSwitcher } from './components/LocaleSwitcher';
@@ -30,7 +32,7 @@ const AppContent: FunctionalComponent = () => {
       </div>
 
       <div>
-        {/* <MarkdownRenderer
+        <MarkdownRenderer
           components={{
             h2: (props: any) => (
               <h2 style={{ color: 'blue' }} {...props}>
@@ -43,20 +45,20 @@ const AppContent: FunctionalComponent = () => {
           )}
         >
           ## Hello World
-        </MarkdownRenderer> */}
+        </MarkdownRenderer>
 
         {/* Should use provider is possible, or default option if not */}
-        {/* {content.markdown} */}
+        {content.markdown}
 
         {/* Should use first the overrides, then the provider if possible, or default option if not */}
-        {/* {content.markdown.use({
+        {content.markdown.use({
           h1: (props: any) => (
             <h1 style={{ color: 'green' }} {...props}>
               tetst
             </h1>
           ),
           ComponentDemo: () => <div style={{ background: 'pink' }}>DEMO2</div>,
-        })} */}
+        })}
       </div>
 
       <div>
@@ -66,11 +68,11 @@ const AppContent: FunctionalComponent = () => {
 
         {content.html}
 
-        {/* {content.html.use({
+        {content.html.use({
           b: (props: any) => <h1 {...props} />,
-        })} */}
+        })}
 
-        {/* {content.html.use({
+        {content.html.use({
           'custom-component': (props: any) => (
             <h1 style={{ color: 'red' }} {...props}>
               Custom 1
@@ -82,13 +84,13 @@ const AppContent: FunctionalComponent = () => {
               {props.children}
             </h1>
           ),
-        })} */}
+        })}
       </div>
 
       <div className="enumeration">
-        <p>{content.enumeration(0, { count: 0 })}</p>
-        <p>{content.enumeration(1, { count: 1 })}</p>
-        <p>{content.enumeration(2, { count: 2 })}</p>
+        <p>{content.enumeration({ count: 0 })(0)}</p>
+        <p>{content.enumeration({ count: 1 })(1)}</p>
+        <p>{content.enumeration({ count: 2 })(2)}</p>
       </div>
 
       <button onClick={() => setCount((count) => count + 1)}>
@@ -105,7 +107,7 @@ const AppContent: FunctionalComponent = () => {
 export const App: FunctionalComponent = () => (
   <LocaleRouter>
     <Suspense fallback={<div>loading dynamic dictionaries...</div>}>
-      {/* <MarkdownProvider
+      <MarkdownProvider
         components={{
           h1: (props: any) => (
             <h1 style={{ color: 'orange' }} {...props}>
@@ -114,19 +116,19 @@ export const App: FunctionalComponent = () => (
           ),
           ComponentDemo: () => <div style={{ background: 'grey' }}>DEMO</div>,
         }}
-      > */}
-      {/* <HTMLProvider
-        components={{
-          CustomComponent: (props: any) => (
-            <h1 style={{ color: 'blue' }} {...props}>
-              Custom 2l
-            </h1>
-          ),
-        }}
-      > */}
-      <AppContent />
-      {/* </HTMLProvider> */}
-      {/* </MarkdownProvider> */}
+      >
+        <HTMLProvider
+          components={{
+            CustomComponent: (props: any) => (
+              <h1 style={{ color: 'blue' }} {...props}>
+                Custom 2l
+              </h1>
+            ),
+          }}
+        >
+          <AppContent />
+        </HTMLProvider>
+      </MarkdownProvider>
     </Suspense>
   </LocaleRouter>
 );

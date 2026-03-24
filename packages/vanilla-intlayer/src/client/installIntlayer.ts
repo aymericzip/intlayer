@@ -32,6 +32,16 @@ export class IntlayerClient {
       this._listeners.delete(listener);
     };
   }
+
+  /**
+   * Fire all listeners with the current locale without changing it.
+   * Used to trigger re-renders after async data loads.
+   */
+  notify(): void {
+    for (const listener of this._listeners) {
+      listener(this._locale);
+    }
+  }
 }
 
 /**

@@ -117,9 +117,9 @@ $: console.log($content.markdownContent.metadata);
   </div>
   <div>
     <h2>Enumeration</h2>
-    <p>{$content.enumeration(0, { count: 0 })}</p>
-    <p>{$content.enumeration(1, { count: 1 })}</p>
-    <p>{$content.enumeration(2, { count: 2 })}</p>
+    <p>{$content.enumeration({ count: 0 })(0)}</p>
+    <p>{$content.enumeration({ count: 1 })(1)}</p>
+    <p>{$content.enumeration({ count: 2 })(2)}</p>
 
     <h2>Insertion</h2>
     <p>{$content.insertion({ count: 42 })}</p>

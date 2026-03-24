@@ -1,4 +1,4 @@
-export { compileMarkdown, type MarkdownCompilerOptions } from './compiler';
+export { compileMarkdown } from './compiler';
 export {
   getMarkdownContext,
   type MarkdownContext,
@@ -6,6 +6,10 @@ export {
   setMarkdownContext,
   setMarkdownContext as setIntlayerMarkdown,
 } from './context';
+
+import { compileMarkdown } from './compiler';
+import { getMarkdownContext, type RenderMarkdownOptions } from './context';
+
 export { default as MarkdownMetadataRenderer } from './MarkdownMetadataRenderer.svelte';
 export { default as MarkdownProvider } from './MarkdownProvider.svelte';
 export { default as MarkdownRenderer } from './MarkdownRenderer.svelte';

@@ -7,4 +7,3 @@ export {
   renderHTML,
   useHTMLRenderer,
 } from './HTMLRenderer';
-export { HTMLRendererPlugin } from './HTMLRendererPlugin';

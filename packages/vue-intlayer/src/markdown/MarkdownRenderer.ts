@@ -5,7 +5,7 @@ import {
   type VNodeChild,
 } from 'vue';
 import type { HTMLComponents } from '../html/types';
-import { compileMarkdown, type MarkdownCompilerOptions } from './compiler';
+import type { MarkdownCompilerOptions } from './compiler';
 import {
   type MarkdownPluginOptions,
   type RenderMarkdownFunction,
@@ -28,7 +28,7 @@ export type RenderMarkdownProps = MarkdownPluginOptions & {
  * This function does not use context from MarkdownProvider. Use `useMarkdownRenderer`
  * hook if you want to leverage provider context.
  */
-export const renderMarkdown = (
+export const renderMarkdown = async (
   content: string,
   {
     components,
@@ -38,7 +38,7 @@ export const renderMarkdown = (
     preserveFrontmatter,
     tagfilter,
   }: RenderMarkdownProps = {}
-): VNodeChild | Promise<VNodeChild> => {
+): Promise<VNodeChild> => {
   const internalOptions: MarkdownCompilerOptions = {
     components,
     forceBlock,
@@ -48,6 +48,8 @@ export const renderMarkdown = (
     preserveFrontmatter,
     tagfilter,
   };
+
+  const { compileMarkdown } = await import('./compiler');
 
   return compileMarkdown(content, internalOptions) as VNodeChild;
 };

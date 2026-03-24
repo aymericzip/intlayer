@@ -20,8 +20,13 @@ useRewriteURL();
     </nav>
 
     <RouterView v-slot="{ Component }">
-      <Suspense fallback="Loading...">
-        <component :is="Component" />
+      <Suspense>
+        <template #default>
+          <component :is="Component" />
+        </template>
+        <template #fallback>
+          Loading...
+        </template>
       </Suspense>
     </RouterView>
   </div>

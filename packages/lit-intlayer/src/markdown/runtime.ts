@@ -28,11 +28,13 @@ const buildPropsString = (props: Record<string, any> | null): string => {
   if (!props) return '';
 
   return Object.entries(props)
-    .filter(([, v]) => v !== undefined && v !== null)
-    .map(([k, v]) => {
-      if (typeof v === 'boolean') return v ? k : '';
-      if (k === '_innerHTML') return ''; // handled separately
-      return `${k}="${String(v).replace(/&/g, '&amp;').replace(/"/g, '&quot;')}"`;
+    .filter(
+      ([key, value]) => value !== undefined && value !== null && key !== 'key'
+    )
+    .map(([key, value]) => {
+      if (typeof value === 'boolean') return value ? key : '';
+      if (key === '_innerHTML') return ''; // handled separately
+      return `${key}="${String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;')}"`;
     })
     .filter(Boolean)
     .join(' ');

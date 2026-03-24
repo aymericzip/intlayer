@@ -1,8 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { useIntlayer } from 'lit-intlayer';
-import { compileMarkdown } from 'lit-intlayer/markdown';
 import heroImg from './assets/hero.png';
 import litLogo from './assets/lit.svg';
 import viteLogo from './assets/vite.svg';
@@ -52,9 +50,7 @@ export class MyElement extends LitElement {
         </button>
 
         <div class="enumeration">
-          <p>${content.enumeration(0, { count: 0 })}</p>
-          <p>${content.enumeration(1, { count: 1 })}</p>
-          <p>${content.enumeration(this.count, { count: this.count })}</p>
+          <p>${content.enumeration({ count: this.count })(this.count)}</p>
         </div>
 
         <div class="html-content">
@@ -62,7 +58,7 @@ export class MyElement extends LitElement {
         </div>
 
         <div class="edit-note">
-          ${unsafeHTML(compileMarkdown(String(content.editNote)))}
+          ${content.editNote}
         </div>
       </section>
 

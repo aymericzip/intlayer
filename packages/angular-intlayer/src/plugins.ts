@@ -11,6 +11,7 @@ import {
   translationPlugin,
 } from '@intlayer/core/interpreter';
 import type { MarkdownContent } from '@intlayer/core/markdown';
+import { compile, getMarkdownMetadata } from '@intlayer/core/markdown';
 import type { HTMLContent, InsertionContent } from '@intlayer/core/transpiler';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type {
@@ -21,14 +22,6 @@ import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { ContentSelectorWrapperComponent } from './editor/ContentSelector.component';
 import { renderIntlayerNode } from './renderIntlayerNode';
-
-// Lazy pre-load heavy modules — creates separate code-split chunks
-let _getMarkdownMetadata: ((s: string) => any) | null = null;
-let _compile: ((s: string, opts: any) => any) | null = null;
-void import('@intlayer/core/markdown').then((m) => {
-  _getMarkdownMetadata = m.getMarkdownMetadata;
-  _compile = m.compile;
-});
 
 let _markdownInstall: {
   htmlRuntime: any;
@@ -122,7 +115,7 @@ export const markdownStringPlugin: Plugins = {
       ...rest
     } = props;
 
-    const metadata = _getMarkdownMetadata?.(node) ?? {};
+    const metadata = getMarkdownMetadata(node) ?? {};
 
     const metadataPlugins: Plugins = {
       id: 'markdown-metadata-plugin',
@@ -189,22 +182,22 @@ export const markdownStringPlugin: Plugins = {
           if (prop === 'toString') {
             return () => {
               const htmlRuntime = _markdownInstall?.htmlRuntime;
-              if (!htmlRuntime || !_compile) return node;
+              if (!htmlRuntime || !compile) return node;
               const runtime = components
                 ? createRuntimeWithOverides(htmlRuntime, components)
                 : htmlRuntime;
-              return _compile(node, { runtime }) as string;
+              return compile(node, { runtime }) as string;
             };
           }
 
           if (prop === Symbol.toPrimitive) {
             return () => {
               const htmlRuntime = _markdownInstall?.htmlRuntime;
-              if (!htmlRuntime || !_compile) return node;
+              if (!htmlRuntime || !compile) return node;
               const runtime = components
                 ? createRuntimeWithOverides(htmlRuntime, components)
                 : htmlRuntime;
-              return _compile(node, { runtime }) as string;
+              return compile(node, { runtime }) as string;
             };
           }
 
@@ -329,12 +322,12 @@ export const htmlPlugin: Plugins = {
                 return String(html);
               }
               const htmlRuntime = _markdownInstall?.htmlRuntime;
-              if (!htmlRuntime || !_compile) return String(html);
+              if (!htmlRuntime || !compile) return String(html);
               const runtime = createRuntimeWithOverides(
                 htmlRuntime,
                 components
               );
-              return _compile(html, { runtime }) as string;
+              return compile(html, { runtime }) as string;
             };
           }
 
@@ -348,12 +341,12 @@ export const htmlPlugin: Plugins = {
                 return String(html);
               }
               const htmlRuntime = _markdownInstall?.htmlRuntime;
-              if (!htmlRuntime || !_compile) return String(html);
+              if (!htmlRuntime || !compile) return String(html);
               const runtime = createRuntimeWithOverides(
                 htmlRuntime,
                 components
               );
-              return _compile(html, { runtime }) as string;
+              return compile(html, { runtime }) as string;
             };
           }
 

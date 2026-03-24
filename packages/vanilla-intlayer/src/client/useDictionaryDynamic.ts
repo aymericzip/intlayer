@@ -13,64 +13,53 @@ import type { WithOnChange } from './useDictionary';
 /** Simple in-memory cache shared across all calls in the same page. */
 const cache = new Map<string, Dictionary>();
 
-const loadDictionary = async <T extends Dictionary>(
+/** Tracks in-flight loads to avoid duplicate fetches. */
+const inflight = new Map<string, Promise<void>>();
+
+const loadDictionary = <T extends Dictionary>(
   cacheKey: string,
-  loader: (() => Promise<T>) | undefined
-): Promise<T | undefined> => {
-  if (!loader) return undefined;
-  if (cache.has(cacheKey)) return cache.get(cacheKey) as T;
+  loader: () => Promise<T>
+): Promise<void> => {
+  if (cache.has(cacheKey)) return Promise.resolve();
+  if (inflight.has(cacheKey)) return inflight.get(cacheKey)!;
 
-  const dictionary = await loader();
+  const promise = loader().then((dictionary) => {
+    cache.set(cacheKey, dictionary);
+    inflight.delete(cacheKey);
+  });
 
-  cache.set(cacheKey, dictionary);
-
-  return dictionary;
+  inflight.set(cacheKey, promise);
+  return promise;
 };
 
-/** Shared recursive proxy — safe placeholder for any nested property access while loading. */
-const recursiveProxy: any = new Proxy(() => {}, {
-  get: (_target, prop) => {
-    if (prop === Symbol.toPrimitive) return () => undefined;
-    if (prop === 'toString') return () => '';
-    if (prop === 'then') return undefined;
-    return recursiveProxy;
-  },
-  apply: () => recursiveProxy,
-});
-
 /**
- * Dynamically load and transform a locale-keyed dictionary, subscribing to
- * locale changes — mirroring the API of `useDictionary` but for async bundles.
+ * Dynamically load and transform a locale-keyed dictionary.
  *
- * Used by the babel/SWC optimization plugin when `importMode = 'dynamic'`.
- * Each locale has its own lazy loader so only the current locale's bundle is
- * fetched. Results are cached — subsequent switches to the same locale are
- * instant.
+ * Works like `useIntlayer` / `useDictionary` but accepts a locale-keyed map
+ * of lazy loaders instead of a pre-imported dictionary. Call it inside your
+ * render function — the first call triggers a background fetch and returns
+ * placeholder values; when the load completes the client notifies all
+ * subscribers (including your render loop) so the render runs again with real
+ * content. Subsequent calls for the same locale return immediately from cache.
  *
- * While loading, property accesses on the returned object return safe
- * empty-string placeholders. Once loaded, content becomes available via
- * `.onChange()`.
+ * Locale switches follow the same two-phase pattern: placeholder on first
+ * render, real content after the locale bundle loads.
  *
- * @param dictionaryPromise - Locale-keyed map of `() => Promise<Dictionary>` loaders.
- * @param key               - The dictionary key (used for cache namespacing).
+ * @param dictionaryLoaders - Locale-keyed map of `() => Promise<Dictionary>`.
+ * @param key               - Dictionary key (used for cache namespacing).
  * @param locale            - Optional locale override.
- * @returns Content proxy with an `.onChange()` method.
  *
  * @example
  * ```ts
- * import { installIntlayer, useDictionaryDynamic } from 'vanilla-intlayer';
+ * import dynDic from '../.intlayer/dynamic_dictionary/app.mjs';
  *
- * installIntlayer();
+ * const render = () => {
+ *   const content = useDictionaryDynamic(dynDic, 'app');
+ *   document.querySelector('h1')!.textContent = String(content.title);
+ * };
  *
- * const content = useDictionaryDynamic(
- *   {
- *     en: () => import('./en.content'),
- *     fr: () => import('./fr.content'),
- *   },
- *   'homepage'
- * ).onChange((c) => {
- *   document.querySelector('h1')!.textContent = String(c.title);
- * });
+ * render();
+ * getIntlayerClient().subscribe(() => render());
  * ```
  */
 export const useDictionaryDynamic = <
@@ -78,82 +67,75 @@ export const useDictionaryDynamic = <
   K extends DictionaryKeys,
   L extends LocalesValues = LocalesValues,
 >(
-  dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
+  dictionaryLoaders: StrictModeLocaleMap<() => Promise<T>>,
   key: K,
   locale?: L
 ): WithOnChange<DeepTransformContent<T['content'], L>> => {
   const client = getIntlayerClient();
-  const callbacks = new Set<
-    (content: DeepTransformContent<T['content'], L>) => void
-  >();
+  const currentLocale = (locale ??
+    client.locale ??
+    configuration.internationalization.defaultLocale) as L;
 
-  const getActiveLocale = (): L =>
-    (locale ??
-      client.locale ??
-      configuration.internationalization.defaultLocale) as L;
+  const cacheKey = `${String(key)}.${currentLocale}`;
+  const loader = (dictionaryLoaders as Record<string, () => Promise<T>>)[
+    currentLocale
+  ];
 
-  const loadForLocale = (currentLocale: L): void => {
-    const cacheKey = `${String(key)}.${currentLocale}`;
-    const loader = (dictionaryPromise as Record<string, () => Promise<T>>)[
-      currentLocale
-    ];
+  // --- Cache hit: return real content synchronously ---
+  const cached = cache.get(cacheKey);
+  if (cached) {
+    const content = getDictionary(cached as T, currentLocale) as WithOnChange<
+      DeepTransformContent<T['content'], L>
+    >;
 
-    loadDictionary<T>(cacheKey, loader).then((dictionary) => {
-      if (!dictionary || callbacks.size === 0) return;
+    content.onChange = (callback) => {
+      // Re-fire whenever content reloads (locale change → new cache entry).
+      client.subscribe((newLocale) => {
+        const newKey = `${String(key)}.${newLocale}`;
+        const newLoader = (
+          dictionaryLoaders as Record<string, () => Promise<T>>
+        )[newLocale];
 
-      const content = getDictionary(
-        dictionary,
-        currentLocale
-      ) as DeepTransformContent<T['content'], L>;
+        if (!newLoader) return;
 
-      callbacks.forEach((callback) => {
-        callback(content);
+        loadDictionary(newKey, newLoader).then(() => {
+          const dict = cache.get(newKey);
+          if (dict) {
+            callback(
+              getDictionary(dict as T, newLocale as L) as DeepTransformContent<
+                T['content'],
+                L
+              >
+            );
+          }
+        });
       });
+
+      return content;
+    };
+
+    return content;
+  }
+
+  // --- Cache miss: kick off background load, then notify to re-render ---
+  if (loader) {
+    loadDictionary(cacheKey, loader).then(() => {
+      client.notify();
     });
-  };
+  }
 
-  // Kick off the initial load
-  loadForLocale(getActiveLocale());
-
-  // Subscribe to locale changes
-  client.subscribe((newLocale) => {
-    loadForLocale((locale ?? newLocale) as L);
-  });
-
-  // Per-call proxy: behaves like content, but delegates `.onChange()` to our
-  // callback set and returns `recursiveProxy` for everything else while loading.
-  let onChangeFn: (
-    cb: (content: DeepTransformContent<T['content'], L>) => void
-  ) => WithOnChange<DeepTransformContent<T['content'], L>>;
-
-  const proxy = new Proxy({} as any, {
-    get(_target, prop) {
-      if (prop === 'onChange') return onChangeFn;
-      if (prop === Symbol.toPrimitive) return () => undefined;
+  // Placeholder proxy — safe for any property access while loading.
+  const recursiveProxy: any = new Proxy(() => {}, {
+    get: (_t, prop) => {
+      if (prop === Symbol.toPrimitive) return () => '';
       if (prop === 'toString') return () => '';
-      if (prop === 'then') return undefined;
+      if (prop === 'valueOf') return () => '';
+      if (prop === 'then') return undefined; // not a Promise
+      if (prop === 'onChange') return (_cb: any) => recursiveProxy;
       return recursiveProxy;
     },
-  }) as WithOnChange<DeepTransformContent<T['content'], L>>;
+    apply: () => recursiveProxy,
+  });
 
-  onChangeFn = (callback) => {
-    callbacks.add(callback);
-
-    // Re-trigger synchronously if the current locale is already cached
-    const currentLocale = getActiveLocale();
-    const cacheKey = `${String(key)}.${currentLocale}`;
-    const cached = cache.get(cacheKey);
-
-    if (cached) {
-      callback(
-        getDictionary(cached as T, currentLocale) as DeepTransformContent<
-          T['content'],
-          L
-        >
-      );
-    }
-    return proxy;
-  };
-
-  return proxy;
+  return recursiveProxy as WithOnChange<DeepTransformContent<T['content'], L>>;
 };

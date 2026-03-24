@@ -6,7 +6,9 @@ import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import {
   type Component,
   createMemo,
+  createResource,
   type JSX,
+  Suspense,
   useContext,
   type ValidComponent,
 } from 'solid-js';
@@ -25,14 +27,14 @@ export type RenderMarkdownOptions = {
 export const renderMarkdown = (
   content: string,
   options: RenderMarkdownOptions = {}
-): JSX.Element | Promise<JSX.Element> => {
+): Promise<JSX.Element> => {
   return compileMarkdown(content, options as any);
 };
 
 export const useMarkdownRenderer = (options: RenderMarkdownOptions = {}) => {
   const context = useContext(MarkdownContext);
 
-  return (content: string) => {
+  return (content: string): Promise<JSX.Element> => {
     if (context) {
       return context.renderMarkdown(
         content,
@@ -56,25 +58,37 @@ export type MarkdownRendererProps = RenderMarkdownOptions & {
   children: string;
 };
 
-export const MarkdownRenderer = (
-  props: MarkdownRendererProps
-): JSX.Element | Promise<JSX.Element> => {
+export const MarkdownRenderer = (props: MarkdownRendererProps): JSX.Element => {
   const context = useContext(MarkdownContext);
   const { renderMarkdown } = useMarkdown();
 
-  return renderMarkdown(
-    props.children,
-    {
-      forceBlock: props.forceBlock,
-      preserveFrontmatter: props.preserveFrontmatter,
-      tagfilter: props.tagfilter,
-    },
-    {
-      ...(context?.components ?? {}),
-      ...(props.components ?? {}),
-    },
-    props.wrapper
+  const [rendered] = createResource(
+    () =>
+      [
+        props.children,
+        props.forceBlock,
+        props.preserveFrontmatter,
+        props.tagfilter,
+        props.components,
+        props.wrapper,
+      ] as const,
+    ([
+      content,
+      forceBlock,
+      preserveFrontmatter,
+      tagfilter,
+      components,
+      wrapper,
+    ]) =>
+      renderMarkdown(
+        content,
+        { forceBlock, preserveFrontmatter, tagfilter },
+        { ...(context?.components ?? {}), ...(components ?? {}) },
+        wrapper
+      )
   );
+
+  return <Suspense fallback={null}>{rendered()}</Suspense>;
 };
 
 export type MarkdownMetadataRendererProps = MarkdownRendererProps & {

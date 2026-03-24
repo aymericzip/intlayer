@@ -58,14 +58,14 @@ export const intlayerNodePlugins: Plugins = {
  * INSERTION PLUGIN
  * --------------------------------------------- */
 
-export type InsertionCond<T, _S, _L> = T extends {
+export type InsertionCond<T, _S, L extends LocalesValues> = T extends {
   nodeType: NodeType | string;
-  [NodeTypes.INSERTION]: string;
-  fields: readonly string[];
+  [NodeTypes.INSERTION]: infer I;
+  fields: readonly (infer F)[];
 }
-  ? <V extends { [K in T['fields'][number]]: string | number }>(
+  ? <V extends { [K in Extract<F, string>]: string | number }>(
       values: V
-    ) => IntlayerNode<string>
+    ) => I extends string ? IntlayerNode<string> : DeepTransformContent<I, L>
   : never;
 
 export const insertionPlugin: Plugins = {
@@ -109,12 +109,30 @@ export const insertionPlugin: Plugins = {
       },
     };
 
-    return deepTransformNode(children, {
+    const transformed = deepTransformNode(children, {
       ...props,
       children,
       keyPath: newKeyPath,
       plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
     });
+
+    // When children is an enumeration/condition, mirror React/Lit convention:
+    // return (values) => (arg) => result so the caller does fn(values)(count).
+    if (
+      typeof children === 'object' &&
+      children !== null &&
+      'nodeType' in children &&
+      [NodeTypes.ENUMERATION, NodeTypes.CONDITION].includes(
+        children.nodeType as NodeType
+      )
+    ) {
+      return (values: any) => (arg: any) => {
+        const inner = (transformed as (a: any) => any)(arg);
+        return typeof inner === 'function' ? inner(values) : inner;
+      };
+    }
+
+    return transformed;
   },
 };
 

@@ -11,7 +11,11 @@ import {
   splitInsertionTemplate,
   translationPlugin,
 } from '@intlayer/core/interpreter';
-import { getMarkdownMetadata } from '@intlayer/core/markdown';
+import {
+  type CompileOptions,
+  compileWithOptions,
+  getMarkdownMetadata,
+} from '@intlayer/core/markdown';
 import type {
   HTMLContent,
   InsertionContent,
@@ -24,11 +28,49 @@ import type {
 } from '@intlayer/types/module_augmentation';
 import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import type { HTMLComponents } from './html/types';
+import { litRuntime } from './markdown/runtime';
 import {
   type IntlayerNode as IntlayerNodeCore,
   renderIntlayerNode,
 } from './renderIntlayerNode';
+
+/**
+ * Compile markdown to an HTML string using the Lit runtime.
+ * Inline here to avoid a cross-entry circular import with markdown/compiler.
+ */
+const compileMarkdown = (markdown = '', options: CompileOptions = {}): string =>
+  compileWithOptions(markdown, litRuntime, options) as string;
+
+/**
+ * Creates a Lit-renderable node for raw HTML/compiled markdown.
+ *
+ * The returned object is a Proxy over an `unsafeHTML` DirectiveResult so that
+ * Lit's template engine renders it as HTML (not escaped text), while string
+ * coercion (`.toString()`, `String(node)`) still returns the raw source string
+ * for editor tooling and serialization.
+ */
+const createLitHTMLNode = (
+  htmlStr: string,
+  rawStr: string = htmlStr,
+  additionalProps: Record<string, unknown> = {}
+): any => {
+  const directive = unsafeHTML(htmlStr);
+
+  return new Proxy(directive as any, {
+    get(target, prop, receiver) {
+      if (prop === 'value' || prop === 'raw') return rawStr;
+      if (prop === 'toString') return () => rawStr;
+      if (prop === Symbol.toPrimitive) return () => rawStr;
+      if (prop === Symbol.iterator) return undefined;
+      if (prop === '__update') return () => {};
+      if (Object.hasOwn(additionalProps, prop as string))
+        return additionalProps[prop as string];
+      return Reflect.get(target, prop, receiver);
+    },
+  });
+};
 
 /** ---------------------------------------------
  * INTLAYER NODE PLUGIN
@@ -62,14 +104,14 @@ export const intlayerNodePlugins: Plugins = {
  * INSERTION PLUGIN
  * --------------------------------------------- */
 
-export type InsertionCond<T, _S, _L> = T extends {
+export type InsertionCond<T, _S, L extends LocalesValues> = T extends {
   nodeType: NodeType | string;
-  [NodeTypes.INSERTION]: string;
-  fields: readonly string[];
+  [NodeTypes.INSERTION]: infer I;
+  fields: readonly (infer F)[];
 }
-  ? <V extends { [K in T['fields'][number]]: string | number }>(
+  ? <V extends { [K in Extract<F, string>]: string | number }>(
       values: V
-    ) => IntlayerNode<string>
+    ) => I extends string ? IntlayerNode<string> : DeepTransformContent<I, L>
   : never;
 
 export const insertionPlugin: Plugins = {
@@ -113,12 +155,33 @@ export const insertionPlugin: Plugins = {
       },
     };
 
-    return deepTransformNode(children, {
+    const transformed = deepTransformNode(children, {
       ...props,
       children,
       keyPath: newKeyPath,
       plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
     });
+
+    // When children is an enumeration/condition, deepTransformNode returns a
+    // function (arg) => insertionWrapper. Mirror React's convention:
+    // return (values) => (arg) => result so the caller does fn(values)(count).
+    if (
+      typeof children === 'object' &&
+      children !== null &&
+      'nodeType' in children &&
+      [NodeTypes.ENUMERATION, NodeTypes.CONDITION].includes(
+        children.nodeType as
+          | typeof NodeTypes.ENUMERATION
+          | typeof NodeTypes.CONDITION
+      )
+    ) {
+      return (values: any) => (arg: any) => {
+        const inner = (transformed as (a: any) => any)(arg);
+        return typeof inner === 'function' ? inner(values) : inner;
+      };
+    }
+
+    return transformed;
   },
 };
 
@@ -166,15 +229,12 @@ export const markdownStringPlugin: Plugins = {
       keyPath: [],
     });
 
-    return renderIntlayerNode({
-      ...props,
-      value: node,
-      children: node,
-      additionalProps: {
-        metadata: metadataNodes,
-        use: (_components?: any) => node,
-      },
-    }) as any;
+    const compiled = compileMarkdown(node);
+
+    return createLitHTMLNode(compiled, node, {
+      metadata: metadataNodes,
+      use: (_components?: any) => compiled,
+    });
   },
 };
 
@@ -230,16 +290,11 @@ export const htmlPlugin: Plugins = {
   id: 'html-plugin',
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeTypes.HTML,
-  transform: (node: HTMLContent<string>, props) => {
-    const html = node[NodeTypes.HTML];
+  transform: (node: HTMLContent<string>) => {
+    const htmlStr = node[NodeTypes.HTML];
 
-    return renderIntlayerNode({
-      ...props,
-      value: html,
-      children: html,
-      additionalProps: {
-        use: (_components?: any) => html,
-      },
+    return createLitHTMLNode(htmlStr, htmlStr, {
+      use: (_components?: any) => htmlStr,
     });
   },
 };

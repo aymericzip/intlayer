@@ -35,7 +35,7 @@ export function setupLocaleSwitcher(container: HTMLElement): () => void {
   container.appendChild(select);
 
   select.addEventListener('change', () => {
-    setLocale(select.value as any);
+    setLocale(select.value);
   });
 
   // Keep the selected option in sync when locale changes externally

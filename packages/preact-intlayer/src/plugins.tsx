@@ -10,6 +10,7 @@ import {
   type Plugins,
   translationPlugin,
 } from '@intlayer/core/interpreter';
+import { getMarkdownMetadata } from '@intlayer/core/markdown';
 import type {
   HTMLContent,
   InsertionContent,
@@ -29,19 +30,17 @@ import type { HTMLComponents } from './html/types';
 import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
 import { renderPreactElement } from './preactElement/renderPreactElement';
 
-// Lazy pre-load @intlayer/core/markdown — creates a separate code-split chunk
-let _getMarkdownMetadata: ((s: string) => any) | null = null;
-void import('@intlayer/core/markdown').then((m) => {
-  _getMarkdownMetadata = m.getMarkdownMetadata;
-});
-
 // preact lazy for heavy renderer components — creates separate code-split chunks
 const LazyMarkdownMetadataRenderer = lazy(() =>
-  import('./markdown').then((m) => ({ default: m.MarkdownMetadataRenderer }))
+  import('./markdown/MarkdownRendererPlugin').then((m) => ({
+    default: m.MarkdownMetadataRenderer,
+  }))
 );
 
 const LazyMarkdownRendererPlugin = lazy(() =>
-  import('./markdown').then((m) => ({ default: m.MarkdownRendererPlugin }))
+  import('./markdown/MarkdownRendererPlugin').then((m) => ({
+    default: m.MarkdownRendererPlugin,
+  }))
 );
 
 const LazyHTMLRenderer = lazy(() =>
@@ -251,12 +250,35 @@ export const insertionPlugin: Plugins = {
       },
     };
 
-    return deepTransformNode(children, {
+    const result = deepTransformNode(children, {
       ...props,
       children,
       keyPath: newKeyPath,
       plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
     });
+
+    if (
+      typeof children === 'object' &&
+      children !== null &&
+      'nodeType' in children &&
+      [NodeTypes.ENUMERATION, NodeTypes.CONDITION].includes(
+        children.nodeType as
+          | typeof NodeTypes.ENUMERATION
+          | typeof NodeTypes.CONDITION
+      )
+    ) {
+      return (values: any) => (arg: any) => {
+        const func = result as Function;
+        const inner = func(arg);
+
+        if (typeof inner === 'function') {
+          return inner(values);
+        }
+        return inner;
+      };
+    }
+
+    return result;
   },
 };
 
@@ -284,7 +306,7 @@ export const markdownStringPlugin: Plugins = {
       ...rest
     } = props;
 
-    const metadata = _getMarkdownMetadata?.(node) ?? {};
+    const metadata = getMarkdownMetadata(node) ?? {};
 
     const metadataPlugins: Plugins = {
       id: 'markdown-metadata-plugin',
@@ -437,8 +459,8 @@ export const htmlPlugin: Plugins = {
       h(
         Suspense as any,
         { fallback: html },
-        h(LazyHTMLRenderer as any, { ...rest, html, userComponents } as any)
-      );
+        h(LazyHTMLRenderer as any, { ...rest, html, userComponents })
+      ) as any;
 
     const element = render() as any;
 
