@@ -181,7 +181,7 @@
     "lucide-react": "1.0.1",
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0",
-    "react-hook-form": "7.71.2",
+    "react-hook-form": "7.72.0",
     "react-intlayer": "workspace:*",
     "shiki": "4.0.2",
     "tailwind-merge": "3.5.0",
