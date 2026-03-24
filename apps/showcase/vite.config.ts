@@ -3,6 +3,7 @@ import { devtools } from '@tanstack/devtools-vite';
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
 import viteReact from '@vitejs/plugin-react';
 import { nitro } from 'nitro/vite';
+import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig, loadEnv } from 'vite';
 import { intlayer, intlayerProxy } from 'vite-intlayer';
 import wasm from 'vite-plugin-wasm';
@@ -207,6 +208,10 @@ export default defineConfig(({ mode }) => {
       }),
       viteReact(),
       wasm(),
+      // visualizer({
+      //   emitFile: true,
+      //   filename: 'stats.html',
+      // }),
     ],
     build: {
       rolldownOptions: {
