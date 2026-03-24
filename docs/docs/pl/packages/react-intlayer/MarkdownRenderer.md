@@ -28,7 +28,7 @@ Komponent `MarkdownRenderer` renderuje zawartość Markdown przy użyciu niestan
 ## Użycie
 
 ```tsx
-import { MarkdownRenderer } from "react-intlayer";
+import { MarkdownRenderer } from "react-intlayer/markdown";
 
 const MyComponent = () => (
   <MarkdownRenderer># My Title My content</MarkdownRenderer>

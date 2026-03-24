@@ -38,10 +38,7 @@ export default defineConfig({
       exclude: ['**/*.stories.*', '**/*.test.*'],
       outDir: 'dist/types',
       beforeWriteFile: (filePath, content) => ({
-        filePath: filePath.replace(
-          `${packageJson.name}/src/`,
-          `${packageJson.name}/`
-        ),
+        filePath: filePath.replace('/dist/types/src/', '/dist/types/'),
         content,
       }),
     }),

@@ -504,7 +504,7 @@ Intlayer는 자체 내부 파서를 사용하여 Solid 애플리케이션에서 
 
 ```tsx fileName="src/index.tsx"
 import { render } from "solid-js/web";
-import { MarkdownProvider } from "solid-intlayer";
+import { MarkdownProvider } from "solid-intlayer/markdown";
 import App from "./App";
 
 const root = document.getElementById("root");

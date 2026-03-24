@@ -1,10 +1,6 @@
 import { existsSync } from 'node:fs';
 import { relative, resolve } from 'node:path';
-import {
-  detectPackageName,
-  extractContent,
-  type PackageName,
-} from '@intlayer/babel';
+import type { PackageName } from '@intlayer/babel';
 import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { logConfigDetails } from '@intlayer/chokidar/cli';
 import { buildComponentFilesList, formatPath } from '@intlayer/chokidar/utils';
@@ -45,6 +41,8 @@ export const extract = async (options: ExtractOptions) => {
     );
     return;
   }
+
+  const { detectPackageName, extractContent } = await import('@intlayer/babel');
 
   // Detect package
   const packageName: PackageName = detectPackageName(baseDir);

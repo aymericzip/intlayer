@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-20
-updatedAt: 2026-01-22
+updatedAt: 2026-03-24
 title: Zawartość HTML
 description: Dowiedz się, jak deklarować i używać zawartości HTML z niestandardowymi komponentami w Intlayer. Postępuj zgodnie z tą dokumentacją, aby osadzić bogate, przypominające HTML treści z dynamiczną podmianą komponentów w swoim zlokalizowanym projekcie.
 keywords:
@@ -21,6 +21,9 @@ slugs:
   - content
   - html
 history:
+  - version: 8.5.0
+    date: 2026-03-24
+    changes: "przeniesienie importu z {{framework}}-intlayer do {{framework}}-intlayer/html"
   - version: 8.0.0
     date: 2026-01-22
     changes: "Dodano HTMLRenderer / useHTMLRenderer / renderHTML"
@@ -243,7 +246,7 @@ Możesz skonfigurować renderowanie HTML globalnie dla całej aplikacji. To idea
   <Tab label="React / Next.js" value="react">
   
     ```tsx fileName="AppProvider.tsx"
-    import { HTMLProvider } from "react-intlayer";
+    import { HTMLProvider } from "react-intlayer/html";
 
     export const AppProvider = ({ children }) => (
       <HTMLProvider
@@ -257,12 +260,32 @@ Możesz skonfigurować renderowanie HTML globalnie dla całej aplikacji. To idea
     );
     ```
 
+    Możesz również użyć własnego silnika renderującego HTML:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "react-intlayer/html";
+
+    export const AppProvider = ({ children }) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('react-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {children}
+      </HTMLProvider>
+    );
+    ```
+
+    > Dynamiczne importowanie silnika renderującego HTML to dobry sposób na zmniejszenie rozmiaru paczki (bundle) Twojej aplikacji.
+
   </Tab>
   <Tab label="Vue" value="vue">
   
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
-    import { installIntlayer, installIntlayerHTML } from "vue-intlayer";
+    import { installIntlayer } from "vue-intlayer";
+    import { installIntlayerHTML } from "vue-intlayer/html";
     import App from "./App.vue";
 
     const app = createApp(App);
@@ -278,12 +301,35 @@ Możesz skonfigurować renderowanie HTML globalnie dla całej aplikacji. To idea
     app.mount("#app");
     ```
 
+    Możesz również użyć własnego silnika renderującego HTML:
+
+    ```typescript fileName="main.ts"
+    import { createApp, h } from "vue";
+    import { installIntlayer } from "vue-intlayer";
+    import { installIntlayerHTML } from "vue-intlayer/html";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(installIntlayer);
+    app.use(installIntlayerHTML, {
+      renderHTML: async (html) => {
+        const { renderHTML } = await import('vue-intlayer/html');
+        return renderHTML(html);
+      },
+    });
+
+    app.mount("#app");
+    ```
+
+    > Dynamiczne importowanie silnika renderującego HTML to dobry sposób na zmniejszenie rozmiaru paczki (bundle) Twojej aplikacji.
+
   </Tab>
   <Tab label="Svelte" value="svelte">
    
     ```svelte fileName="App.svelte"
     <script lang="ts">
-      import { HTMLProvider } from "svelte-intlayer";
+      import { HTMLProvider } from "svelte-intlayer/html";
       import MyCustomP from "./MyCustomP.svelte";
     </script>
 
@@ -296,11 +342,30 @@ Możesz skonfigurować renderowanie HTML globalnie dla całej aplikacji. To idea
     </HTMLProvider>
     ```
 
+    Możesz również użyć własnego silnika renderującego HTML:
+
+    ```svelte fileName="App.svelte"
+    <script lang="ts">
+      import { HTMLProvider } from "svelte-intlayer/html";
+    </script>
+
+    <HTMLProvider
+      renderHTML={async (html) => {
+        const { renderHTML } = await import('svelte-intlayer/html');
+        return renderHTML(html);
+      }}
+    >
+      <slot />
+    </HTMLProvider>
+    ```
+
+    > Dynamiczne importowanie silnika renderującego HTML to dobry sposób na zmniejszenie rozmiaru paczki (bundle) Twojej aplikacji.
+
   </Tab>
   <Tab label="Preact" value="preact">
    
     ```tsx fileName="AppProvider.tsx"
-    import { HTMLProvider } from "preact-intlayer";
+    import { HTMLProvider } from "preact-intlayer/html";
 
     export const AppProvider = ({ children }) => (
       <HTMLProvider
@@ -313,11 +378,30 @@ Możesz skonfigurować renderowanie HTML globalnie dla całej aplikacji. To idea
     );
     ```
 
+    Możesz również użyć własnego silnika renderującego HTML:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "preact-intlayer/html";
+
+    export const AppProvider = ({ children }) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('preact-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {children}
+      </HTMLProvider>
+    );
+    ```
+
+    > Dynamiczne importowanie silnika renderującego HTML to dobry sposób na zmniejszenie rozmiaru paczki (bundle) Twojej aplikacji.
+
   </Tab>
   <Tab label="Solid" value="solid">
    
     ```tsx fileName="AppProvider.tsx"
-    import { HTMLProvider } from "solid-intlayer";
+    import { HTMLProvider } from "solid-intlayer/html";
 
     export const AppProvider = (props) => (
       <HTMLProvider
@@ -330,15 +414,34 @@ Możesz skonfigurować renderowanie HTML globalnie dla całej aplikacji. To idea
     );
     ```
 
+    Możesz również użyć własnego silnika renderującego HTML:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "solid-intlayer/html";
+
+    export const AppProvider = (props) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('solid-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {props.children}
+      </HTMLProvider>
+    );
+    ```
+
+    > Dynamiczne importowanie silnika renderującego HTML to dobry sposób na zmniejszenie rozmiaru paczki (bundle) Twojej aplikacji.
+
   </Tab>
   <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
-    import { createIntlayerMarkdownProvider } from "angular-intlayer";
+    import { createIntlayerHTMLProvider } from "angular-intlayer/html";
 
     export const appConfig: ApplicationConfig = {
       providers: [
-        createIntlayerMarkdownProvider({
+        createIntlayerHTMLProvider({
           components: {
             p: { class: "prose" },
             CustomLink: { href: "/details" },
@@ -347,6 +450,25 @@ Możesz skonfigurować renderowanie HTML globalnie dla całej aplikacji. To idea
       ],
     };
     ```
+
+    Możesz również użyć własnego silnika renderującego HTML:
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerHTMLProvider } from "angular-intlayer/html";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerHTMLProvider({
+          renderMarkdown: async (html) => {
+            const { renderMarkdown } = await import('angular-intlayer/html');
+            return renderMarkdown(html);
+          },
+        }),
+      ],
+    };
+    ```
+
+    > Dynamiczne importowanie silnika renderującego HTML to dobry sposób na zmniejszenie rozmiaru paczki (bundle) Twojej aplikacji.
 
   </Tab>
 </Tabs>
@@ -363,7 +485,7 @@ Jeśli musisz renderować surowe łańcuchy HTML lub potrzebujesz większej kont
     Renderuj łańcuch HTML przy użyciu określonych komponentów.
 
     ```tsx
-    import { HTMLRenderer } from "react-intlayer";
+    import { HTMLRenderer } from "react-intlayer/html";
 
     <HTMLRenderer components={{ p: MyCustomP }}>
       {"<p>Hello World</p>"}
@@ -375,7 +497,7 @@ Jeśli musisz renderować surowe łańcuchy HTML lub potrzebujesz większej kont
     Uzyskaj wstępnie skonfigurowaną funkcję renderującą.
 
     ```tsx
-    import { useHTMLRenderer } from "react-intlayer";
+    import { useHTMLRenderer } from "react-intlayer/html";
 
     const renderHTML = useHTMLRenderer({
       components: { strong: (props) => <strong {...props} className="text-red-500" /> }
@@ -389,7 +511,7 @@ Jeśli musisz renderować surowe łańcuchy HTML lub potrzebujesz większej kont
     Samodzielne narzędzie do renderowania poza komponentami.
 
     ```tsx
-    import { renderHTML } from "react-intlayer";
+    import { renderHTML } from "react-intlayer/html";
 
     const jsx = renderHTML("<p>Hello</p>", { components: { p: 'div' } });
     ```
@@ -401,7 +523,7 @@ Jeśli musisz renderować surowe łańcuchy HTML lub potrzebujesz większej kont
    
     ```vue
     <script setup>
-    import { HTMLRenderer } from "vue-intlayer";
+    import { HTMLRenderer } from "vue-intlayer/html";
     </script>
 
     <template>
@@ -416,7 +538,7 @@ Jeśli musisz renderować surowe łańcuchy HTML lub potrzebujesz większej kont
    
     ```svelte
     <script lang="ts">
-    import { HTMLRenderer } from "svelte-intlayer";
+    import { HTMLRenderer } from "svelte-intlayer/html";
     </script>
 
     <HTMLRenderer value="<p>Hello World</p>" />
@@ -426,7 +548,7 @@ Jeśli musisz renderować surowe łańcuchy HTML lub potrzebujesz większej kont
 
     ```svelte
     <script lang="ts">
-    import { useHTMLRenderer } from "svelte-intlayer";
+    import { useHTMLRenderer } from "svelte-intlayer/html";
     const render = useHTMLRenderer();
     </script>
 
@@ -437,7 +559,7 @@ Jeśli musisz renderować surowe łańcuchy HTML lub potrzebujesz większej kont
 
     ```svelte
     <script lang="ts">
-    import { renderHTML } from "svelte-intlayer";
+    import { renderHTML } from "svelte-intlayer/html";
     </script>
 
     {@html renderHTML("<p>Hello World</p>")}
@@ -449,7 +571,7 @@ Jeśli musisz renderować surowe łańcuchy HTML lub potrzebujesz większej kont
     #### Komponent `<HTMLRenderer />`
    
     ```tsx
-    import { HTMLRenderer } from "preact-intlayer";
+    import { HTMLRenderer } from "preact-intlayer/html";
 
     <HTMLRenderer>
       {"<p>Hello World</p>"}
@@ -459,7 +581,7 @@ Jeśli musisz renderować surowe łańcuchy HTML lub potrzebujesz większej kont
     #### Hook `useHTMLRenderer()`
 
     ```tsx
-    import { useHTMLRenderer } from "preact-intlayer";
+    import { useHTMLRenderer } from "preact-intlayer/html";
 
     const render = useHTMLRenderer();
 
@@ -469,7 +591,7 @@ Jeśli musisz renderować surowe łańcuchy HTML lub potrzebujesz większej kont
     #### Narzędzie `renderHTML()`
 
     ```tsx
-    import { renderHTML } from "preact-intlayer";
+    import { renderHTML } from "preact-intlayer/html";
 
     return <div>{renderHTML("<p>Hello World</p>")}</div>;
     ```
@@ -480,7 +602,7 @@ Jeśli musisz renderować surowe łańcuchy HTML lub potrzebujesz większej kont
     #### Komponent `<HTMLRenderer />`
    
     ```tsx
-    import { HTMLRenderer } from "solid-intlayer";
+    import { HTMLRenderer } from "solid-intlayer/html";
 
     <HTMLRenderer>
       {"<p>Hello World</p>"}
@@ -490,7 +612,7 @@ Jeśli musisz renderować surowe łańcuchy HTML lub potrzebujesz większej kont
     #### Hook `useHTMLRenderer()`
 
     ```tsx
-    import { useHTMLRenderer } from "solid-intlayer";
+    import { useHTMLRenderer } from "solid-intlayer/html";
 
     const render = useHTMLRenderer();
 
@@ -500,21 +622,21 @@ Jeśli musisz renderować surowe łańcuchy HTML lub potrzebujesz większej kont
     #### Narzędzie `renderHTML()`
 
     ```tsx
-    import { renderHTML } from "solid-intlayer";
+    import { renderHTML } from "solid-intlayer/html";
 
     return <div>{renderHTML("<p>Hello World</p>")}</div>;
     ```
 
   </Tab>
   <Tab label="Angular" value="angular">
-    #### Usługa `IntlayerMarkdownService`
+    #### Usługa `IntlayerHTMLService`
     Renderuje ciąg HTML przy użyciu usługi.
 
     ```typescript
-    import { IntlayerMarkdownService } from "angular-intlayer";
+    import { IntlayerHTMLService } from "angular-intlayer";
 
     export class MyComponent {
-      constructor(private markdownService: IntlayerMarkdownService) {}
+      constructor(private markdownService: IntlayerHTMLService) {}
 
       renderHTML(html: string) {
         return this.markdownService.renderMarkdown(html);

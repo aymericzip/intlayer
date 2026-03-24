@@ -9,14 +9,4 @@ declare module '@intlayer/core/interpreter' {
 export * from './client';
 export * from './getDictionary';
 export * from './getIntlayer';
-export * from './html';
-export * from './markdown';
 export * from './plugins';
-
-import { setHTMLContext } from './html';
-import { setMarkdownContext } from './markdown';
-
-export {
-  setHTMLContext as setIntlayerHTML,
-  setMarkdownContext as setIntlayerMarkdown,
-};

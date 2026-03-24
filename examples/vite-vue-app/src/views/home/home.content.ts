@@ -1,4 +1,4 @@
-import { type Dictionary, html, insert, md, t } from 'intlayer';
+import { type Dictionary, enu, html, insert, md, t } from 'intlayer';
 
 const homeContent = {
   key: 'home',
@@ -26,6 +26,26 @@ This is **bold** and this is *italic*.
 
     insertion: insert('test {{ count }}'),
 
+    enumeration: insert(
+      enu({
+        '0': t({
+          en: 'No items',
+          fr: 'Aucun article',
+          es: 'No hay artículos',
+        }),
+        '1': t({
+          en: 'One item',
+          fr: 'Un article',
+          es: 'Un artículo',
+        }),
+        '>1': t({
+          en: '{{count}} items',
+          fr: '{{count}} articles',
+          es: '{{count}} artículos',
+        }),
+      })
+    ),
+
     welcome: t({
       en: 'Welcome to Our App',
       fr: 'Bienvenue dans Notre Application',
@@ -34,7 +54,7 @@ This is **bold** and this is *italic*.
     subtitle: t({
       en: 'A multilingual Vue.js application using intlayer',
       fr: 'Une application Vue.js multilingue utilisant intlayer',
-      es: 'Una aplicación Vue.js multilingüe usando intlayer',
+      es: 'Une application Vue.js multilingüe usando intlayer',
     }),
     description: t({
       en: 'This is a demonstration of how to use intlayer to create multilingual content in your Vue.js applications.',

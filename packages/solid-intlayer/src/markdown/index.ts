@@ -1,4 +1,12 @@
-export * from './compiler';
-export * from './MarkdownProvider';
-export * from './MarkdownRenderer';
-export * from './runtime';
+export { compileMarkdown } from './compiler';
+export {
+  MarkdownProvider,
+  type MarkdownProviderOptions,
+  useMarkdown,
+} from './MarkdownProvider';
+export {
+  MarkdownRenderer,
+  type MarkdownRendererProps,
+  renderMarkdown,
+  useMarkdownRenderer,
+} from './MarkdownRenderer';

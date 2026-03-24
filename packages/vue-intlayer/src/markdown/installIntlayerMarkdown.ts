@@ -1,4 +1,10 @@
-import { type App, inject, provide, type VNodeChild } from 'vue';
+import {
+  type App,
+  type Component,
+  inject,
+  provide,
+  type VNodeChild,
+} from 'vue';
 import type { HTMLComponents } from '../html/types';
 import { compileMarkdown } from './compiler';
 
@@ -17,15 +23,15 @@ export type MarkdownProviderOptions = {
 
 export type RenderMarkdownOptions = MarkdownProviderOptions & {
   components?: HTMLComponents<'permissive', {}>;
-  wrapper?: any;
+  wrapper?: Component | string;
 };
 
 export type RenderMarkdownFunction = (
   markdown: string,
   options?: MarkdownProviderOptions,
   components?: HTMLComponents<'permissive', {}>,
-  wrapper?: any
-) => VNodeChild;
+  wrapper?: Component | string
+) => VNodeChild | Promise<VNodeChild>;
 
 /**
  * Singleton instance
@@ -49,7 +55,7 @@ export type IntlayerMarkdownPluginOptions = MarkdownPluginOptions & {
   /** Component overrides for HTML tags. */
   components?: HTMLComponents<'permissive', {}>;
   /** Wrapper element or component to be used when there are multiple children. */
-  wrapper?: any;
+  wrapper?: Component | string;
   /** Custom render function for markdown. */
   renderMarkdown?: RenderMarkdownFunction;
 };

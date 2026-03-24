@@ -32,18 +32,4 @@ export {
 } from './client/index';
 export { getDictionary } from './getDictionary';
 export { getIntlayer } from './getIntlayer';
-export {
-  HTMLProvider,
-  HTMLRenderer,
-  type HTMLRendererProps,
-  type RenderHTMLProps,
-  renderHTML,
-  useHTMLRenderer,
-} from './html/index';
 export type { IntlayerNode } from './IntlayerNode';
-export {
-  compileMarkdown,
-  MarkdownProvider,
-  MarkdownRenderer,
-  useMarkdown,
-} from './markdown/index';

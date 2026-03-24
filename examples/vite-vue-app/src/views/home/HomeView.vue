@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { h, ref } from 'vue';
-import { MarkdownRenderer, useIntlayer } from 'vue-intlayer';
+import { useIntlayer } from 'vue-intlayer';
+import { MarkdownRenderer } from 'vue-intlayer/markdown';
 
 // Use the useIntlayer composable to access translations
 const content = useIntlayer('home');
@@ -109,6 +110,13 @@ const activeTab = ref<'source' | 'rendered'>('rendered');
         />
 
         <p><content.description /></p>
+
+        <section class="enumeration">
+          <h2>Enumeration:</h2>
+          <p>{{ content.enumeration(0, { count: 0 }) }}</p>
+          <p>{{ content.enumeration(1, { count: 1 }) }}</p>
+          <p>{{ content.enumeration(2, { count: 2 }) }}</p>
+        </section>
       </section>
 
       <section class="features">

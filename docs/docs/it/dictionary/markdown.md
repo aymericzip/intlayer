@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-22
+updatedAt: 2026-03-24
 title: Markdown
 description: Scopri come dichiarare e utilizzare contenuti Markdown nel tuo sito web multilingue con Intlayer. Segui i passaggi in questa documentazione online per integrare Markdown nel tuo progetto in modo semplice.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.5.0
+    date: 2026-03-24
+    changes: "spostare l'importazione da {{framework}}-intlayer a {{framework}}-intlayer/markdown"
   - version: 8.0.0
     date: 2026-01-22
     changes: "Aggiunta dell'utility MarkdownRenderer / useMarkdownRenderer / renderMarkdown e opzione forceInline"
@@ -214,7 +217,7 @@ Se hai bisogno di renderizzare stringhe Markdown grezze o di avere un maggiore c
     Renderizza una stringa Markdown con opzioni specifiche.
 
     ```tsx
-    import { MarkdownRenderer } from "react-intlayer";
+    import { MarkdownRenderer } from "react-intlayer/markdown";
 
     <MarkdownRenderer forceBlock={true} tagfilter={true}>
       {"# Il mio titolo"}
@@ -226,7 +229,7 @@ Se hai bisogno di renderizzare stringhe Markdown grezze o di avere un maggiore c
     Ottieni una funzione di rendering preconfigurata.
 
     ```tsx
-    import { useMarkdownRenderer } from "react-intlayer";
+    import { useMarkdownRenderer } from "react-intlayer/markdown";
 
     const renderMarkdown = useMarkdownRenderer({
       forceBlock: true,
@@ -240,7 +243,7 @@ Se hai bisogno di renderizzare stringhe Markdown grezze o di avere un maggiore c
     Utility standalone per il rendering al di fuori dei componenti.
 
     ```tsx
-    import { renderMarkdown } from "react-intlayer";
+    import { renderMarkdown } from "react-intlayer/markdown";
 
     const jsx = renderMarkdown("# Il mio titolo", { forceBlock: true });
     ```
@@ -252,7 +255,7 @@ Se hai bisogno di renderizzare stringhe Markdown grezze o di avere un maggiore c
 
     ```vue
     <script setup>
-    import { MarkdownRenderer } from "vue-intlayer";
+    import { MarkdownRenderer } from "vue-intlayer/markdown";
     </script>
 
     <template>
@@ -267,7 +270,7 @@ Se hai bisogno di renderizzare stringhe Markdown grezze o di avere un maggiore c
 
     ```svelte
     <script lang="ts">
-    import { MarkdownRenderer } from "svelte-intlayer";
+    import { MarkdownRenderer } from "svelte-intlayer/markdown";
     </script>
 
     <MarkdownRenderer forceBlock={true} value="# Il mio titolo" />
@@ -277,7 +280,7 @@ Se hai bisogno di renderizzare stringhe Markdown grezze o di avere un maggiore c
 
     ```svelte
     <script lang="ts">
-    import { useMarkdownRenderer } from "svelte-intlayer";
+    import { useMarkdownRenderer } from "svelte-intlayer/markdown";
     const render = useMarkdownRenderer();
     </script>
 
@@ -288,7 +291,7 @@ Se hai bisogno di renderizzare stringhe Markdown grezze o di avere un maggiore c
 
     ```svelte
     <script lang="ts">
-    import { renderMarkdown } from "svelte-intlayer";
+    import { renderMarkdown } from "svelte-intlayer/markdown";
     </script>
 
     {@html renderMarkdown("# Il mio titolo")}
@@ -299,7 +302,7 @@ Se hai bisogno di renderizzare stringhe Markdown grezze o di avere un maggiore c
     #### Componente `<MarkdownRenderer />`
 
     ```tsx
-    import { MarkdownRenderer } from "preact-intlayer";
+    import { MarkdownRenderer } from "preact-intlayer/markdown";
 
     <MarkdownRenderer forceBlock={true}>
       {"# Il mio titolo"}
@@ -309,7 +312,7 @@ Se hai bisogno di renderizzare stringhe Markdown grezze o di avere un maggiore c
     #### Hook `useMarkdownRenderer()`
 
     ```tsx
-    import { useMarkdownRenderer } from "preact-intlayer";
+    import { useMarkdownRenderer } from "preact-intlayer/markdown";
 
     const render = useMarkdownRenderer();
 
@@ -319,7 +322,7 @@ Se hai bisogno di renderizzare stringhe Markdown grezze o di avere un maggiore c
     #### Utility `renderMarkdown()`
 
     ```tsx
-    import { renderMarkdown } from "preact-intlayer";
+    import { renderMarkdown } from "preact-intlayer/markdown";
 
     return <div>{renderMarkdown("# Il mio titolo")}</div>;
     ```
@@ -329,7 +332,7 @@ Se hai bisogno di renderizzare stringhe Markdown grezze o di avere un maggiore c
     #### Componente `<MarkdownRenderer />`
 
     ```tsx
-    import { MarkdownRenderer } from "solid-intlayer";
+    import { MarkdownRenderer } from "solid-intlayer/markdown";
 
     <MarkdownRenderer forceBlock={true}>
       {"# Il mio titolo"}
@@ -339,7 +342,7 @@ Se hai bisogno di renderizzare stringhe Markdown grezze o di avere un maggiore c
     #### Hook `useMarkdownRenderer()`
 
     ```tsx
-    import { useMarkdownRenderer } from "solid-intlayer";
+    import { useMarkdownRenderer } from "solid-intlayer/markdown";
 
     const render = useMarkdownRenderer();
 
@@ -349,7 +352,7 @@ Se hai bisogno di renderizzare stringhe Markdown grezze o di avere un maggiore c
     #### Utility `renderMarkdown()`
 
     ```tsx
-    import { renderMarkdown } from "solid-intlayer";
+    import { renderMarkdown } from "solid-intlayer/markdown";
 
     return <div>{renderMarkdown("# Il mio titolo")}</div>;
     ```
@@ -360,7 +363,7 @@ Se hai bisogno di renderizzare stringhe Markdown grezze o di avere un maggiore c
     Renderizza una stringa Markdown utilizzando il servizio.
 
     ```typescript
-    import { IntlayerMarkdownService } from "angular-intlayer";
+    import { IntlayerMarkdownService } from "angular-intlayer/markdown";
 
     export class MyComponent {
       constructor(private markdownService: IntlayerMarkdownService) {}
@@ -384,7 +387,7 @@ Puoi configurare il rendering Markdown a livello globale per l'intera applicazio
   <Tab label="React / Next.js" value="react">
 
     ```tsx fileName="AppProvider.tsx"
-    import { MarkdownProvider } from "react-intlayer";
+    import { MarkdownProvider } from "react-intlayer/markdown";
 
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
@@ -400,12 +403,32 @@ Puoi configurare il rendering Markdown a livello globale per l'intera applicazio
     );
     ```
 
+    Puoi anche utilizzare il tuo motore di rendering Markdown:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "react-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          const { compileMarkdown } = await import('react-intlayer/markdown');
+          return compileMarkdown(md);
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > Importare dinamicamente il tuo renderer Markdown è un ottimo modo per ridurre le dimensioni del bundle della tua applicazione.
+
   </Tab>
   <Tab label="Vue" value="vue">
 
     ```typescript fileName="main.ts"
     import { createApp } from "vue";
-    import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
+    import { installIntlayer } from "vue-intlayer";
+    import { installIntlayerMarkdown } from "vue-intlayer/markdown";
     import App from "./App.vue";
 
     const app = createApp(App);
@@ -425,12 +448,35 @@ Puoi configurare il rendering Markdown a livello globale per l'intera applicazio
     app.mount("#app");
     ```
 
+    Puoi anche utilizzare il tuo motore di rendering Markdown:
+
+    ```typescript fileName="main.ts"
+    import { createApp } from "vue";
+    import { installIntlayer } from "vue-intlayer";
+    import { installIntlayerMarkdown } from "vue-intlayer/markdown";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(installIntlayer);
+    app.use(installIntlayerMarkdown, {
+      renderMarkdown: async (md) => {
+        const { compileMarkdown } = await import('vue-intlayer/markdown');
+        return compileMarkdown(md);
+      },
+    });
+
+    app.mount("#app");
+    ```
+
+    > Importare dinamicamente il tuo renderer Markdown è un ottimo modo per ridurre le dimensioni del bundle della tua applicazione.
+
   </Tab>
   <Tab label="Svelte" value="svelte">
 
     ```svelte fileName="App.svelte"
     <script lang="ts">
-      import { MarkdownProvider } from "svelte-intlayer";
+      import { MarkdownProvider } from "svelte-intlayer/markdown";
       import MyHeading from "./MyHeading.svelte";
     </script>
 
@@ -445,11 +491,30 @@ Puoi configurare il rendering Markdown a livello globale per l'intera applicazio
     </MarkdownProvider>
     ```
 
+    Puoi anche utilizzare il tuo motore di rendering Markdown:
+
+    ```svelte fileName="App.svelte"
+    <script lang="ts">
+      import { MarkdownProvider } from "svelte-intlayer/markdown";
+    </script>
+
+    <MarkdownProvider
+      renderMarkdown={async (md) => {
+        const { compileMarkdown } = await import('svelte-intlayer/markdown');
+        return compileMarkdown(md);
+      }}
+    >
+      <slot />
+    </MarkdownProvider>
+    ```
+
+    > Importare dinamicamente il tuo renderer Markdown è un ottimo modo per ridurre le dimensioni del bundle della tua applicazione.
+
   </Tab>
   <Tab label="Preact" value="preact">
 
     ```tsx fileName="AppProvider.tsx"
-    import { MarkdownProvider } from "preact-intlayer";
+    import { MarkdownProvider } from "preact-intlayer/markdown";
 
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
@@ -464,11 +529,30 @@ Puoi configurare il rendering Markdown a livello globale per l'intera applicazio
     );
     ```
 
+    Puoi anche utilizzare il tuo motore di rendering Markdown:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "preact-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          const { compileMarkdown } = await import('preact-intlayer/markdown');
+          return compileMarkdown(md);
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > Importare dinamicamente il tuo renderer Markdown è un ottimo modo per ridurre le dimensioni del bundle della tua applicazione.
+
   </Tab>
   <Tab label="Solid" value="solid">
 
     ```tsx fileName="AppProvider.tsx"
-    import { MarkdownProvider } from "solid-intlayer";
+    import { MarkdownProvider } from "solid-intlayer/markdown";
 
     export const AppProvider = (props) => (
       <MarkdownProvider
@@ -483,11 +567,30 @@ Puoi configurare il rendering Markdown a livello globale per l'intera applicazio
     );
     ```
 
+    Puoi anche utilizzare il tuo motore di rendering Markdown:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "solid-intlayer/markdown";
+
+    export const AppProvider = (props) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          const { compileMarkdown } = await import('solid-intlayer/markdown');
+          return compileMarkdown(md);
+        }}
+      >
+        {props.children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > Importare dinamicamente il tuo renderer Markdown è un ottimo modo per ridurre le dimensioni del bundle della tua applicazione.
+
   </Tab>
   <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
-    import { createIntlayerMarkdownProvider } from "angular-intlayer";
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
 
     export const appConfig: ApplicationConfig = {
       providers: [
@@ -499,6 +602,25 @@ Puoi configurare il rendering Markdown a livello globale per l'intera applicazio
       ],
     };
     ```
+
+    Puoi anche utilizzare il tuo motore di rendering Markdown:
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          renderMarkdown: async (md) => {
+            const { compileMarkdown } = await import('angular-intlayer/markdown');
+            return compileMarkdown(md);
+          },
+        }),
+      ],
+    };
+    ```
+
+    > Importare dinamicamente il tuo renderer Markdown è un ottimo modo per ridurre le dimensioni del bundle della tua applicazione.
 
   </Tab>
 </Tabs>

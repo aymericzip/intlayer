@@ -29,7 +29,7 @@ slugs:
 
 ```svelte
 <script>
-  import { useRewriteURL } from 'svelte-intlayer';
+  import { useRewriteURL } from "svelte-intlayer";
 
   // يصحّح تلقائيًا /fr/tests إلى /fr/essais في شريط العنوان إذا كانت هناك قاعدة لإعادة الكتابة
   useRewriteURL();

@@ -2,7 +2,7 @@
 
 import { Link } from '@components/Link/Link';
 import { getIntlayerMarkdownOptions } from '@intlayer/design-system';
-import { MarkdownProvider } from 'next-intlayer';
+import { MarkdownProvider } from 'next-intlayer/markdown';
 import { useTheme } from 'next-themes';
 import type { FC, PropsWithChildren } from 'react';
 

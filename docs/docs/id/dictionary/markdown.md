@@ -213,7 +213,7 @@ Jika Anda perlu merender string Markdown mentah atau memiliki kontrol lebih atas
     Merender string Markdown dengan opsi tertentu.
 
     ```tsx
-    import { MarkdownRenderer } from "react-intlayer";
+    import { MarkdownRenderer } from "react-intlayer/markdown";
 
     <MarkdownRenderer forceBlock={true} tagfilter={true}>
       {"# My Title"}
@@ -225,7 +225,7 @@ Jika Anda perlu merender string Markdown mentah atau memiliki kontrol lebih atas
     Dapatkan fungsi renderer yang telah dikonfigurasi sebelumnya.
 
     ```tsx
-    import { useMarkdownRenderer } from "react-intlayer";
+    import { useMarkdownRenderer } from "react-intlayer/markdown";
 
     const renderMarkdown = useMarkdownRenderer({
       forceBlock: true,
@@ -239,7 +239,7 @@ Jika Anda perlu merender string Markdown mentah atau memiliki kontrol lebih atas
     Utilitas mandiri untuk merender di luar komponen.
 
     ```tsx
-    import { renderMarkdown } from "react-intlayer";
+    import { renderMarkdown } from "react-intlayer/markdown";
 
     const jsx = renderMarkdown("# My Title", { forceBlock: true });
     ```
@@ -251,7 +251,7 @@ Jika Anda perlu merender string Markdown mentah atau memiliki kontrol lebih atas
 
     ```vue
     <script setup>
-    import { MarkdownRenderer } from "vue-intlayer";
+    import { MarkdownRenderer } from "vue-intlayer/markdown";
     </script>
 
     <template>
@@ -266,7 +266,7 @@ Jika Anda perlu merender string Markdown mentah atau memiliki kontrol lebih atas
 
     ```svelte
     <script lang="ts">
-    import { MarkdownRenderer } from "svelte-intlayer";
+    import { MarkdownRenderer } from "svelte-intlayer/markdown";
     </script>
 
     <MarkdownRenderer forceBlock={true} value="# My Title" />
@@ -276,7 +276,7 @@ Jika Anda perlu merender string Markdown mentah atau memiliki kontrol lebih atas
 
     ```svelte
     <script lang="ts">
-    import { useMarkdownRenderer } from "svelte-intlayer";
+    import { useMarkdownRenderer } from "svelte-intlayer/markdown";
     const render = useMarkdownRenderer();
     </script>
 
@@ -287,7 +287,7 @@ Jika Anda perlu merender string Markdown mentah atau memiliki kontrol lebih atas
 
     ```svelte
     <script lang="ts">
-    import { renderMarkdown } from "svelte-intlayer";
+    import { renderMarkdown } from "svelte-intlayer/markdown";
     </script>
 
     {@html renderMarkdown("# My Title")}
@@ -298,7 +298,7 @@ Jika Anda perlu merender string Markdown mentah atau memiliki kontrol lebih atas
     #### Komponen `<MarkdownRenderer />`
 
     ```tsx
-    import { MarkdownRenderer } from "preact-intlayer";
+    import { MarkdownRenderer } from "preact-intlayer/markdown";
 
     <MarkdownRenderer forceBlock={true}>
       {"# My Title"}
@@ -308,7 +308,7 @@ Jika Anda perlu merender string Markdown mentah atau memiliki kontrol lebih atas
     #### `useMarkdownRenderer()` Hook
 
     ```tsx
-    import { useMarkdownRenderer } from "preact-intlayer";
+    import { useMarkdownRenderer } from "preact-intlayer/markdown";
 
     const render = useMarkdownRenderer();
 
@@ -318,7 +318,7 @@ Jika Anda perlu merender string Markdown mentah atau memiliki kontrol lebih atas
     #### Utilitas `renderMarkdown()`
 
     ```tsx
-    import { renderMarkdown } from "preact-intlayer";
+    import { renderMarkdown } from "preact-intlayer/markdown";
 
     return <div>{renderMarkdown("# My Title")}</div>;
     ```
@@ -328,7 +328,7 @@ Jika Anda perlu merender string Markdown mentah atau memiliki kontrol lebih atas
     #### Komponen `<MarkdownRenderer />`
 
     ```tsx
-    import { MarkdownRenderer } from "solid-intlayer";
+    import { MarkdownRenderer } from "solid-intlayer/markdown";
 
     <MarkdownRenderer forceBlock={true}>
       {"# My Title"}
@@ -338,7 +338,7 @@ Jika Anda perlu merender string Markdown mentah atau memiliki kontrol lebih atas
     #### `useMarkdownRenderer()` Hook
 
     ```tsx
-    import { useMarkdownRenderer } from "solid-intlayer";
+    import { useMarkdownRenderer } from "solid-intlayer/markdown";
 
     const render = useMarkdownRenderer();
 
@@ -348,7 +348,7 @@ Jika Anda perlu merender string Markdown mentah atau memiliki kontrol lebih atas
     #### Utilitas `renderMarkdown()`
 
     ```tsx
-    import { renderMarkdown } from "solid-intlayer";
+    import { renderMarkdown } from "solid-intlayer/markdown";
 
     return <div>{renderMarkdown("# My Title")}</div>;
     ```
@@ -383,7 +383,7 @@ Anda dapat mengonfigurasi perenderan Markdown secara global untuk seluruh aplika
   <Tab label="React / Next.js" value="react">
 
     ```tsx fileName="AppProvider.tsx"
-    import { MarkdownProvider } from "react-intlayer";
+    import { MarkdownProvider } from "react-intlayer/markdown";
 
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
@@ -429,7 +429,7 @@ Anda dapat mengonfigurasi perenderan Markdown secara global untuk seluruh aplika
 
     ```svelte fileName="App.svelte"
     <script lang="ts">
-      import { MarkdownProvider } from "svelte-intlayer";
+      import { MarkdownProvider } from "svelte-intlayer/markdown";
       import MyHeading from "./MyHeading.svelte";
     </script>
 
@@ -448,7 +448,7 @@ Anda dapat mengonfigurasi perenderan Markdown secara global untuk seluruh aplika
   <Tab label="Preact" value="preact">
 
     ```tsx fileName="AppProvider.tsx"
-    import { MarkdownProvider } from "preact-intlayer";
+    import { MarkdownProvider } from "preact-intlayer/markdown";
 
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
@@ -467,7 +467,7 @@ Anda dapat mengonfigurasi perenderan Markdown secara global untuk seluruh aplika
   <Tab label="Solid" value="solid">
 
     ```tsx fileName="AppProvider.tsx"
-    import { MarkdownProvider } from "solid-intlayer";
+    import { MarkdownProvider } from "solid-intlayer/markdown";
 
     export const AppProvider = (props) => (
       <MarkdownProvider
@@ -486,7 +486,7 @@ Anda dapat mengonfigurasi perenderan Markdown secara global untuk seluruh aplika
   <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
-    import { createIntlayerMarkdownProvider } from "angular-intlayer";
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
 
     export const appConfig: ApplicationConfig = {
       providers: [

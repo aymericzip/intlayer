@@ -55,6 +55,11 @@
       "require": "./dist/cjs/proxy/middleware.cjs",
       "import": "./dist/esm/proxy/middleware.mjs"
     },
+    "./markdown": {
+      "types": "./dist/types/markdown/index.d.ts",
+      "require": "./dist/cjs/markdown/index.cjs",
+      "import": "./dist/esm/markdown/index.mjs"
+    },
     "./server": {
       "browser": {
         "types": "./dist/types/index.d.ts",

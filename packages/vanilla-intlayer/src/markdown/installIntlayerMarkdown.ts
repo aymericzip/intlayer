@@ -22,7 +22,7 @@ export type RenderMarkdownFunction = (
   options?: MarkdownProviderOptions,
   components?: HTMLComponents<'permissive', {}>,
   wrapper?: string
-) => string;
+) => string | Promise<string>;
 
 /**
  * Singleton instance

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-20
-updatedAt: 2026-01-22
+updatedAt: 2026-03-24
 title: HTML 콘텐츠
 description: Intlayer에서 커스텀 컴포넌트를 사용하여 HTML 콘텐츠를 선언하고 사용하는 방법을 알아보세요. 이 문서를 따라 국제화된 프로젝트에서 동적인 컴포넌트 교체와 함께 풍부한 HTML 유사 콘텐츠를 임베드하세요.
 keywords:
@@ -19,6 +19,9 @@ slugs:
   - content
   - html
 history:
+  - version: 8.5.0
+    date: 2026-03-24
+    changes: "{{framework}}-intlayer에서 {{framework}}-intlayer/html으로 임포트 이동"
   - version: 8.0.0
     date: 2026-01-22
     changes: "HTMLRenderer / useHTMLRenderer / renderHTML 유틸리티 추가"
@@ -240,7 +243,7 @@ HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트
   <Tab label="React / Next.js" value="react">
 
     ```tsx fileName="AppProvider.tsx"
-    import { HTMLProvider } from "react-intlayer";
+    import { HTMLProvider } from "react-intlayer/html";
 
     export const AppProvider = ({ children }) => (
       <HTMLProvider
@@ -254,12 +257,32 @@ HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트
     );
     ```
 
+    나만의 HTML 렌더러를 사용할 수도 있습니다:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "react-intlayer/html";
+
+    export const AppProvider = ({ children }) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('react-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {children}
+      </HTMLProvider>
+    );
+    ```
+
+    > HTML 렌더러를 동적으로 가져오는 것은 애플리케이션의 번들 크기를 줄이는 좋은 방법입니다.
+
   </Tab>
   <Tab label="Vue" value="vue">
 
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
-    import { installIntlayer, installIntlayerHTML } from "vue-intlayer";
+    import { installIntlayer } from "vue-intlayer";
+    import { installIntlayerHTML } from "vue-intlayer/html";
     import App from "./App.vue";
 
     const app = createApp(App);
@@ -275,12 +298,35 @@ HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트
     app.mount("#app");
     ```
 
+    나만의 HTML 렌더러를 사용할 수도 있습니다:
+
+    ```typescript fileName="main.ts"
+    import { createApp, h } from "vue";
+    import { installIntlayer } from "vue-intlayer";
+    import { installIntlayerHTML } from "vue-intlayer/html";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(installIntlayer);
+    app.use(installIntlayerHTML, {
+      renderHTML: async (html) => {
+        const { renderHTML } = await import('vue-intlayer/html');
+        return renderHTML(html);
+      },
+    });
+
+    app.mount("#app");
+    ```
+
+    > HTML 렌더러를 동적으로 가져오는 것은 애플리케이션의 번들 크기를 줄이는 좋은 방법입니다.
+
   </Tab>
   <Tab label="Svelte" value="svelte">
 
     ```svelte fileName="App.svelte"
     <script lang="ts">
-      import { HTMLProvider } from "svelte-intlayer";
+      import { HTMLProvider } from "svelte-intlayer/html";
       import MyCustomP from "./MyCustomP.svelte";
     </script>
 
@@ -293,11 +339,30 @@ HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트
     </HTMLProvider>
     ```
 
+    나만의 HTML 렌더러를 사용할 수도 있습니다:
+
+    ```svelte fileName="App.svelte"
+    <script lang="ts">
+      import { HTMLProvider } from "svelte-intlayer/html";
+    </script>
+
+    <HTMLProvider
+      renderHTML={async (html) => {
+        const { renderHTML } = await import('svelte-intlayer/html');
+        return renderHTML(html);
+      }}
+    >
+      <slot />
+    </HTMLProvider>
+    ```
+
+    > HTML 렌더러를 동적으로 가져오는 것은 애플리케이션의 번들 크기를 줄이는 좋은 방법입니다.
+
   </Tab>
   <Tab label="Preact" value="preact">
 
     ```tsx fileName="AppProvider.tsx"
-    import { HTMLProvider } from "preact-intlayer";
+    import { HTMLProvider } from "preact-intlayer/html";
 
     export const AppProvider = ({ children }) => (
       <HTMLProvider
@@ -310,11 +375,30 @@ HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트
     );
     ```
 
+    나만의 HTML 렌더러를 사용할 수도 있습니다:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "preact-intlayer/html";
+
+    export const AppProvider = ({ children }) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('preact-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {children}
+      </HTMLProvider>
+    );
+    ```
+
+    > HTML 렌더러를 동적으로 가져오는 것은 애플리케이션의 번들 크기를 줄이는 좋은 방법입니다.
+
   </Tab>
   <Tab label="Solid" value="solid">
 
     ```tsx fileName="AppProvider.tsx"
-    import { HTMLProvider } from "solid-intlayer";
+    import { HTMLProvider } from "solid-intlayer/html";
 
     export const AppProvider = (props) => (
       <HTMLProvider
@@ -327,15 +411,34 @@ HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트
     );
     ```
 
+    나만의 HTML 렌더러를 사용할 수도 있습니다:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "solid-intlayer/html";
+
+    export const AppProvider = (props) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('solid-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {props.children}
+      </HTMLProvider>
+    );
+    ```
+
+    > HTML 렌더러를 동적으로 가져오는 것은 애플리케이션의 번들 크기를 줄이는 좋은 방법입니다.
+
   </Tab>
   <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
-    import { createIntlayerMarkdownProvider } from "angular-intlayer";
+    import { createIntlayerHTMLProvider } from "angular-intlayer/html";
 
     export const appConfig: ApplicationConfig = {
       providers: [
-        createIntlayerMarkdownProvider({
+        createIntlayerHTMLProvider({
           components: {
             p: { class: "prose" },
             CustomLink: { href: "/details" },
@@ -344,6 +447,25 @@ HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트
       ],
     };
     ```
+
+    나만의 HTML 렌더러를 사용할 수도 있습니다:
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerHTMLProvider } from "angular-intlayer/html";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerHTMLProvider({
+          renderHTML: async (html) => {
+            const { renderHTML } = await import('angular-intlayer/html');
+            return renderHTML(html);
+          },
+        }),
+      ],
+    };
+    ```
+
+    > HTML 렌더러를 동적으로 가져오는 것은 애플리케이션의 번들 크기를 줄이는 좋은 방법입니다.
 
   </Tab>
 </Tabs>
@@ -357,10 +479,9 @@ HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트
 <Tabs group="framework">
   <Tab label="React / Next.js" value="react">
     #### `<HTMLRenderer />` 컴포넌트
-    특정 컴포넌트로 HTML 문자열을 렌더링합니다.
-
+    
     ```tsx
-    import { HTMLRenderer } from "react-intlayer";
+    import { HTMLRenderer } from "react-intlayer/html";
 
     <HTMLRenderer components={{ p: MyCustomP }}>
       {"<p>Hello World</p>"}
@@ -372,7 +493,7 @@ HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트
     미리 구성된 렌더러 함수를 얻습니다.
 
     ```tsx
-    import { useHTMLRenderer } from "react-intlayer";
+    import { useHTMLRenderer } from "react-intlayer/html";
 
     const renderHTML = useHTMLRenderer({
       components: { strong: (props) => <strong {...props} className="text-red-500" /> }
@@ -386,7 +507,7 @@ HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트
     컴포넌트 외부에서 렌더링할 때 사용하는 독립 유틸리티입니다.
 
     ```tsx
-    import { renderHTML } from "react-intlayer";
+    import { renderHTML } from "react-intlayer/html";
 
     const jsx = renderHTML("<p>Hello</p>", { components: { p: 'div' } });
     ```
@@ -398,7 +519,7 @@ HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트
 
     ```vue
     <script setup>
-    import { HTMLRenderer } from "vue-intlayer";
+    import { HTMLRenderer } from "vue-intlayer/html";
     </script>
 
     <template>
@@ -413,7 +534,7 @@ HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트
 
     ```svelte
     <script lang="ts">
-    import { HTMLRenderer } from "svelte-intlayer";
+    import { HTMLRenderer } from "svelte-intlayer/html";
     </script>
 
     <HTMLRenderer value="<p>Hello World</p>" />
@@ -423,7 +544,7 @@ HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트
 
     ```svelte
     <script lang="ts">
-    import { useHTMLRenderer } from "svelte-intlayer";
+    import { useHTMLRenderer } from "svelte-intlayer/html";
     const render = useHTMLRenderer();
     </script>
 
@@ -434,7 +555,7 @@ HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트
 
     ```svelte
     <script lang="ts">
-    import { renderHTML } from "svelte-intlayer";
+    import { renderHTML } from "svelte-intlayer/html";
     </script>
 
     {@html renderHTML("<p>Hello World</p>")}
@@ -446,7 +567,7 @@ HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트
     #### `<HTMLRenderer />` 컴포넌트
 
     ```tsx
-    import { HTMLRenderer } from "preact-intlayer";
+    import { HTMLRenderer } from "preact-intlayer/html";
 
     <HTMLRenderer>
       {"<p>Hello World</p>"}
@@ -456,7 +577,7 @@ HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트
     #### `useHTMLRenderer()` 훅
 
     ```tsx
-    import { useHTMLRenderer } from "preact-intlayer";
+    import { useHTMLRenderer } from "preact-intlayer/html";
 
     const render = useHTMLRenderer();
 
@@ -466,7 +587,7 @@ HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트
     #### `renderHTML()` 유틸리티
 
     ```tsx
-    import { renderHTML } from "preact-intlayer";
+    import { renderHTML } from "preact-intlayer/html";
 
     return <div>{renderHTML("<p>Hello World</p>")}</div>;
     ```
@@ -477,7 +598,7 @@ HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트
     #### `<HTMLRenderer />` 컴포넌트
 
     ```tsx
-    import { HTMLRenderer } from "solid-intlayer";
+    import { HTMLRenderer } from "solid-intlayer/html";
 
     <HTMLRenderer>
       {"<p>Hello World</p>"}
@@ -487,7 +608,7 @@ HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트
     #### `useHTMLRenderer()` 훅
 
     ```tsx
-    import { useHTMLRenderer } from "solid-intlayer";
+    import { useHTMLRenderer } from "solid-intlayer/html";
 
     const render = useHTMLRenderer();
 
@@ -497,24 +618,24 @@ HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트
     #### `renderHTML()` 유틸리티
 
     ```tsx
-    import { renderHTML } from "solid-intlayer";
+    import { renderHTML } from "solid-intlayer/html";
 
     return <div>{renderHTML("<p>Hello World</p>")}</div>;
     ```
 
   </Tab>
   <Tab label="Angular" value="angular">
-    #### `IntlayerMarkdownService` 서비스
-    서비스를 사용하여 HTML 문자열을 렌더링합니다.
+    #### `IntlayerHTMLService` 서비스
+    서비를 사용하여 HTML 문자열을 렌더링합니다.
 
     ```typescript
-    import { IntlayerMarkdownService } from "angular-intlayer";
+    import { IntlayerHTMLService } from "angular-intlayer/html";
 
     export class MyComponent {
-      constructor(private markdownService: IntlayerMarkdownService) {}
+      constructor(private markdownService: IntlayerHTMLService) {}
 
       renderHTML(html: string) {
-        return this.markdownService.renderMarkdown(html);
+        return this.markdownService.renderHTML(html);
       }
     }
     ```

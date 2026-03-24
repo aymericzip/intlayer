@@ -473,7 +473,8 @@ Derlenmiş HTML'yi öğenizde oluşturun:
 import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
-import { compileMarkdown, useIntlayer } from "lit-intlayer";
+import { useIntlayer } from "lit-intlayer";
+import { compileMarkdown } from "lit-intlayer/markdown";
 
 @customElement("my-element")
 export class MyElement extends LitElement {

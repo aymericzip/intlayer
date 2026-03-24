@@ -1,11 +1,7 @@
 import { A, Route, useLocation, useNavigate } from '@solidjs/router';
 import { getLocalizedUrl, localeMap } from 'intlayer';
-import {
-  IntlayerProvider,
-  MarkdownProvider,
-  useIntlayer,
-  useLocale,
-} from 'solid-intlayer';
+import { IntlayerProvider, useIntlayer, useLocale } from 'solid-intlayer';
+import { MarkdownProvider } from 'solid-intlayer/markdown';
 import { createSignal, For, type ParentComponent } from 'solid-js';
 import './App.css';
 
@@ -124,7 +120,14 @@ export const App = () => (
         path={urlPrefix}
         component={(props) => (
           <IntlayerProvider locale={locale}>
-            <MarkdownProvider>
+            <MarkdownProvider
+              renderMarkdown={async (md) => {
+                const { compileMarkdown } = await import(
+                  'solid-intlayer/markdown'
+                );
+                return compileMarkdown(md);
+              }}
+            >
               <Layout>{props.children}</Layout>
             </MarkdownProvider>
           </IntlayerProvider>

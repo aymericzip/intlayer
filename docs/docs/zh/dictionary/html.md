@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-20
-updatedAt: 2026-01-22
+updatedAt: 2026-03-24
 title: HTML 内容
 description: 了解如何在 Intlayer 中声明和使用带有自定义组件的 HTML 内容。按照本指南在你的国际化项目中嵌入具有动态组件替换功能的丰富类 HTML 内容。
 keywords:
@@ -19,6 +19,9 @@ slugs:
   - content
   - html
 history:
+  - version: 8.5.0
+    date: 2026-03-24
+    changes: "将导入从 {{framework}}-intlayer 移动到 {{framework}}-intlayer/html"
   - version: 8.0.0
     date: 2026-01-22
     changes: "添加 HTMLRenderer / useHTMLRenderer / renderHTML 实用工具"
@@ -240,7 +243,7 @@ const myContent = html(
   <Tab label="React / Next.js" value="react">
   
     ```tsx fileName="AppProvider.tsx"
-    import { HTMLProvider } from "react-intlayer";
+    import { HTMLProvider } from "react-intlayer/html";
 
     export const AppProvider = ({ children }) => (
       <HTMLProvider
@@ -254,12 +257,32 @@ const myContent = html(
     );
     ```
 
+    您也可以使用自己的 HTML 渲染器：
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "react-intlayer/html";
+
+    export const AppProvider = ({ children }) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('react-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {children}
+      </HTMLProvider>
+    );
+    ```
+
+    > 动态导入 HTML 渲染器是减小应用程序包大小的好方法。
+
   </Tab>
   <Tab label="Vue" value="vue">
   
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
-    import { installIntlayer, installIntlayerHTML } from "vue-intlayer";
+    import { installIntlayer } from "vue-intlayer";
+    import { installIntlayerHTML } from "vue-intlayer/html";
     import App from "./App.vue";
 
     const app = createApp(App);
@@ -275,12 +298,35 @@ const myContent = html(
     app.mount("#app");
     ```
 
+    您也可以使用自己的 HTML 渲染器：
+
+    ```typescript fileName="main.ts"
+    import { createApp, h } from "vue";
+    import { installIntlayer } from "vue-intlayer";
+    import { installIntlayerHTML } from "vue-intlayer/html";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(installIntlayer);
+    app.use(installIntlayerHTML, {
+      renderHTML: async (html) => {
+        const { renderHTML } = await import('vue-intlayer/html');
+        return renderHTML(html);
+      },
+    });
+
+    app.mount("#app");
+    ```
+
+    > 动态导入 HTML 渲染器是减小应用程序包大小的好方法。
+
   </Tab>
   <Tab label="Svelte" value="svelte">
    
     ```svelte fileName="App.svelte"
     <script lang="ts">
-      import { HTMLProvider } from "svelte-intlayer";
+      import { HTMLProvider } from "svelte-intlayer/html";
       import MyCustomP from "./MyCustomP.svelte";
     </script>
 
@@ -293,11 +339,30 @@ const myContent = html(
     </HTMLProvider>
     ```
 
+    您也可以使用自己的 HTML 渲染器：
+
+    ```svelte fileName="App.svelte"
+    <script lang="ts">
+      import { HTMLProvider } from "svelte-intlayer/html";
+    </script>
+
+    <HTMLProvider
+      renderHTML={async (html) => {
+        const { renderHTML } = await import('svelte-intlayer/html');
+        return renderHTML(html);
+      }}
+    >
+      <slot />
+    </HTMLProvider>
+    ```
+
+    > 动态导入 HTML 渲染器是减小应用程序包大小的好方法。
+
   </Tab>
   <Tab label="Preact" value="preact">
    
     ```tsx fileName="AppProvider.tsx"
-    import { HTMLProvider } from "preact-intlayer";
+    import { HTMLProvider } from "preact-intlayer/html";
 
     export const AppProvider = ({ children }) => (
       <HTMLProvider
@@ -310,11 +375,30 @@ const myContent = html(
     );
     ```
 
+    您也可以使用自己的 HTML 渲染器：
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "preact-intlayer/html";
+
+    export const AppProvider = ({ children }) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('preact-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {children}
+      </HTMLProvider>
+    );
+    ```
+
+    > 动态导入 HTML 渲染器是减小应用程序包大小的好方法。
+
   </Tab>
   <Tab label="Solid" value="solid">
    
     ```tsx fileName="AppProvider.tsx"
-    import { HTMLProvider } from "solid-intlayer";
+    import { HTMLProvider } from "solid-intlayer/html";
 
     export const AppProvider = (props) => (
       <HTMLProvider
@@ -327,15 +411,34 @@ const myContent = html(
     );
     ```
 
+    您也可以使用自己的 HTML 渲染器：
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "solid-intlayer/html";
+
+    export const AppProvider = (props) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('solid-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {props.children}
+      </HTMLProvider>
+    );
+    ```
+
+    > 动态导入 HTML 渲染器是减小应用程序包大小的好方法。
+
   </Tab>
   <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
-    import { createIntlayerMarkdownProvider } from "angular-intlayer";
+    import { createIntlayerHTMLProvider } from "angular-intlayer/html";
 
     export const appConfig: ApplicationConfig = {
       providers: [
-        createIntlayerMarkdownProvider({
+        createIntlayerHTMLProvider({
           components: {
             p: { class: "prose" },
             CustomLink: { href: "/details" },
@@ -344,6 +447,25 @@ const myContent = html(
       ],
     };
     ```
+
+    您也可以使用自己的 HTML 渲染器：
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerHTMLProvider } from "angular-intlayer/html";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerHTMLProvider({
+          renderHTML: async (html) => {
+            const { renderHTML } = await import('angular-intlayer/html');
+            return renderHTML(html);
+          },
+        }),
+      ],
+    };
+    ```
+
+    > 动态导入 HTML 渲染器是减小应用程序包大小的好方法。
 
   </Tab>
 </Tabs>
@@ -357,10 +479,9 @@ const myContent = html(
 <Tabs group="framework">
   <Tab label="React / Next.js" value="react">
     #### `<HTMLRenderer />` 组件
-    使用特定组件渲染 HTML 字符串。
-
+    
     ```tsx
-    import { HTMLRenderer } from "react-intlayer";
+    import { HTMLRenderer } from "react-intlayer/html";
 
     <HTMLRenderer components={{ p: MyCustomP }}>
       {"<p>Hello World</p>"}
@@ -371,7 +492,7 @@ const myContent = html(
     获取一个预配置的渲染器函数。
 
     ```tsx
-    import { useHTMLRenderer } from "react-intlayer";
+    import { useHTMLRenderer } from "react-intlayer/html";
 
     const renderHTML = useHTMLRenderer({
       components: { strong: (props) => <strong {...props} className="text-red-500" /> }
@@ -385,7 +506,7 @@ const myContent = html(
     用于在组件外进行渲染的独立实用工具。
 
     ```tsx
-    import { renderHTML } from "react-intlayer";
+    import { renderHTML } from "react-intlayer/html";
 
     const jsx = renderHTML("<p>Hello</p>", { components: { p: 'div' } });
     ```
@@ -397,7 +518,7 @@ const myContent = html(
    
     ```vue
     <script setup>
-    import { HTMLRenderer } from "vue-intlayer";
+    import { HTMLRenderer } from "vue-intlayer/html";
     </script>
 
     <template>
@@ -412,7 +533,7 @@ const myContent = html(
    
     ```svelte
     <script lang="ts">
-    import { HTMLRenderer } from "svelte-intlayer";
+    import { HTMLRenderer } from "svelte-intlayer/html";
     </script>
 
     <HTMLRenderer value="<p>Hello World</p>" />
@@ -422,7 +543,7 @@ const myContent = html(
 
     ```svelte
     <script lang="ts">
-    import { useHTMLRenderer } from "svelte-intlayer";
+    import { useHTMLRenderer } from "svelte-intlayer/html";
     const render = useHTMLRenderer();
     </script>
 
@@ -433,7 +554,7 @@ const myContent = html(
 
     ```svelte
     <script lang="ts">
-    import { renderHTML } from "svelte-intlayer";
+    import { renderHTML } from "svelte-intlayer/html";
     </script>
 
     {@html renderHTML("<p>Hello World</p>")}
@@ -445,7 +566,7 @@ const myContent = html(
     #### `<HTMLRenderer />` 组件
    
     ```tsx
-    import { HTMLRenderer } from "preact-intlayer";
+    import { HTMLRenderer } from "preact-intlayer/html";
 
     <HTMLRenderer>
       {"<p>Hello World</p>"}
@@ -455,7 +576,7 @@ const myContent = html(
     #### `useHTMLRenderer()` Hook
 
     ```tsx
-    import { useHTMLRenderer } from "preact-intlayer";
+    import { useHTMLRenderer } from "preact-intlayer/html";
 
     const render = useHTMLRenderer();
 
@@ -465,7 +586,7 @@ const myContent = html(
     #### `renderHTML()` 实用工具
 
     ```tsx
-    import { renderHTML } from "preact-intlayer";
+    import { renderHTML } from "preact-intlayer/html";
 
     return <div>{renderHTML("<p>Hello World</p>")}</div>;
     ```
@@ -476,7 +597,7 @@ const myContent = html(
     #### `<HTMLRenderer />` 组件
    
     ```tsx
-    import { HTMLRenderer } from "solid-intlayer";
+    import { HTMLRenderer } from "solid-intlayer/html";
 
     <HTMLRenderer>
       {"<p>Hello World</p>"}
@@ -486,7 +607,7 @@ const myContent = html(
     #### `useHTMLRenderer()` Hook
 
     ```tsx
-    import { useHTMLRenderer } from "solid-intlayer";
+    import { useHTMLRenderer } from "solid-intlayer/html";
 
     const render = useHTMLRenderer();
 
@@ -496,24 +617,24 @@ const myContent = html(
     #### `renderHTML()` 实用工具
 
     ```tsx
-    import { renderHTML } from "solid-intlayer";
+    import { renderHTML } from "solid-intlayer/html";
 
     return <div>{renderHTML("<p>Hello World</p>")}</div>;
     ```
 
   </Tab>
   <Tab label="Angular" value="angular">
-    #### `IntlayerMarkdownService` 服务
+    #### `IntlayerHTMLService` 服务
     使用该服务渲染 HTML 字符串。
 
     ```typescript
-    import { IntlayerMarkdownService } from "angular-intlayer";
+    import { IntlayerHTMLService } from "angular-intlayer/html";
 
     export class MyComponent {
-      constructor(private markdownService: IntlayerMarkdownService) {}
+      constructor(private markdownService: IntlayerHTMLService) {}
 
       renderHTML(html: string) {
-        return this.markdownService.renderMarkdown(html);
+        return this.markdownService.renderHTML(html);
       }
     }
     ```

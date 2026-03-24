@@ -241,7 +241,7 @@ const myContent = html(
   <Tab label="React / Next.js" value="react">
   
     ```tsx fileName="AppProvider.tsx"
-    import { HTMLProvider } from "react-intlayer";
+    import { HTMLProvider } from "react-intlayer/html";
 
     export const AppProvider = ({ children }) => (
       <HTMLProvider
@@ -281,7 +281,7 @@ const myContent = html(
    
     ```svelte fileName="App.svelte"
     <script lang="ts">
-      import { HTMLProvider } from "svelte-intlayer";
+      import { HTMLProvider } from "svelte-intlayer/html";
       import MyCustomP from "./MyCustomP.svelte";
     </script>
 
@@ -298,7 +298,7 @@ const myContent = html(
   <Tab label="Preact" value="preact">
    
     ```tsx fileName="AppProvider.tsx"
-    import { HTMLProvider } from "preact-intlayer";
+    import { HTMLProvider } from "preact-intlayer/html";
 
     export const AppProvider = ({ children }) => (
       <HTMLProvider
@@ -315,7 +315,7 @@ const myContent = html(
   <Tab label="Solid" value="solid">
    
     ```tsx fileName="AppProvider.tsx"
-    import { HTMLProvider } from "solid-intlayer";
+    import { HTMLProvider } from "solid-intlayer/html";
 
     export const AppProvider = (props) => (
       <HTMLProvider
@@ -332,11 +332,11 @@ const myContent = html(
   <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
-    import { createIntlayerMarkdownProvider } from "angular-intlayer";
+    import { createIntlayerHTMLProvider } from "angular-intlayer/html";
 
     export const appConfig: ApplicationConfig = {
       providers: [
-        createIntlayerMarkdownProvider({
+        createIntlayerHTMLProvider({
           components: {
             p: { class: "prose" },
             CustomLink: { href: "/details" },
@@ -361,7 +361,7 @@ const myContent = html(
     Відтворіть HTML-рядок із конкретними компонентами.
 
     ```tsx
-    import { HTMLRenderer } from "react-intlayer";
+    import { HTMLRenderer } from "react-intlayer/html";
 
     <HTMLRenderer components={{ p: MyCustomP }}>
       {"<p>Hello World</p>"}
@@ -373,7 +373,7 @@ const myContent = html(
     Отримайте попередньо налаштовану функцію рендерера.
 
     ```tsx
-    import { useHTMLRenderer } from "react-intlayer";
+    import { useHTMLRenderer } from "react-intlayer/html";
 
     const renderHTML = useHTMLRenderer({
       components: { strong: (props) => <strong {...props} className="text-red-500" /> }
@@ -387,7 +387,7 @@ const myContent = html(
     Автономна утиліта для відтворення поза компонентами.
 
     ```tsx
-    import { renderHTML } from "react-intlayer";
+    import { renderHTML } from "react-intlayer/html";
 
     const jsx = renderHTML("<p>Hello</p>", { components: { p: 'div' } });
     ```
@@ -399,7 +399,7 @@ const myContent = html(
    
     ```vue
     <script setup>
-    import { HTMLRenderer } from "vue-intlayer";
+    import { HTMLRenderer } from "vue-intlayer/html";
     </script>
 
     <template>
@@ -414,7 +414,7 @@ const myContent = html(
    
     ```svelte
     <script lang="ts">
-    import { HTMLRenderer } from "svelte-intlayer";
+    import { HTMLRenderer } from "svelte-intlayer/html";
     </script>
 
     <HTMLRenderer value="<p>Hello World</p>" />
@@ -424,7 +424,7 @@ const myContent = html(
 
     ```svelte
     <script lang="ts">
-    import { useHTMLRenderer } from "svelte-intlayer";
+    import { useHTMLRenderer } from "svelte-intlayer/html";
     const render = useHTMLRenderer();
     </script>
 
@@ -435,7 +435,7 @@ const myContent = html(
 
     ```svelte
     <script lang="ts">
-    import { renderHTML } from "svelte-intlayer";
+    import { renderHTML } from "svelte-intlayer/html";
     </script>
 
     {@html renderHTML("<p>Hello World</p>")}
@@ -447,7 +447,7 @@ const myContent = html(
     #### Компонент `<HTMLRenderer />`
    
     ```tsx
-    import { HTMLRenderer } from "preact-intlayer";
+    import { HTMLRenderer } from "preact-intlayer/html";
 
     <HTMLRenderer>
       {"<p>Hello World</p>"}
@@ -457,7 +457,7 @@ const myContent = html(
     #### Хук `useHTMLRenderer()`
 
     ```tsx
-    import { useHTMLRenderer } from "preact-intlayer";
+    import { useHTMLRenderer } from "preact-intlayer/html";
 
     const render = useHTMLRenderer();
 
@@ -467,7 +467,7 @@ const myContent = html(
     #### Утиліта `renderHTML()`
 
     ```tsx
-    import { renderHTML } from "preact-intlayer";
+    import { renderHTML } from "preact-intlayer/html";
 
     return <div>{renderHTML("<p>Hello World</p>")}</div>;
     ```
@@ -478,7 +478,7 @@ const myContent = html(
     #### Компонент `<HTMLRenderer />`
    
     ```tsx
-    import { HTMLRenderer } from "solid-intlayer";
+    import { HTMLRenderer } from "solid-intlayer/html";
 
     <HTMLRenderer>
       {"<p>Hello World</p>"}
@@ -488,7 +488,7 @@ const myContent = html(
     #### Хук `useHTMLRenderer()`
 
     ```tsx
-    import { useHTMLRenderer } from "solid-intlayer";
+    import { useHTMLRenderer } from "solid-intlayer/html";
 
     const render = useHTMLRenderer();
 
@@ -498,21 +498,21 @@ const myContent = html(
     #### Утиліта `renderHTML()`
 
     ```tsx
-    import { renderHTML } from "solid-intlayer";
+    import { renderHTML } from "solid-intlayer/html";
 
     return <div>{renderHTML("<p>Hello World</p>")}</div>;
     ```
 
   </Tab>
   <Tab label="Angular" value="angular">
-    #### Сервіс `IntlayerMarkdownService`
+    #### Сервіс `IntlayerHTMLService`
     Відтворіть HTML-рядок за допомогою сервісу.
 
     ```typescript
-    import { IntlayerMarkdownService } from "angular-intlayer";
+    import { IntlayerHTMLService } from "angular-intlayer";
 
     export class MyComponent {
-      constructor(private markdownService: IntlayerMarkdownService) {}
+      constructor(private markdownService: IntlayerHTMLService) {}
 
       renderHTML(html: string) {
         return this.markdownService.renderMarkdown(html);

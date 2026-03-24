@@ -1,7 +1,9 @@
 import {
   type ComponentChildren,
+  type ComponentType,
   createContext,
   type FunctionComponent,
+  type JSX,
 } from 'preact';
 import { useContext } from 'preact/hooks';
 import type { HTMLComponents } from '../html/types';
@@ -33,7 +35,8 @@ export type MarkdownProviderOptions = {
 
 type RenderMarkdownOptions = MarkdownProviderOptions & {
   components?: HTMLComponents<'permissive', {}>;
-  wrapper?: any;
+  wrapper?: ComponentType<any> | keyof JSX.IntrinsicElements;
+  forceWrapper?: boolean;
 };
 
 type MarkdownContextValue = {
@@ -42,8 +45,8 @@ type MarkdownContextValue = {
     markdown: string,
     options?: MarkdownProviderOptions,
     components?: HTMLComponents<'permissive', {}>,
-    wrapper?: any
-  ) => ComponentChildren;
+    wrapper?: ComponentType<any> | keyof JSX.IntrinsicElements
+  ) => ComponentChildren | Promise<ComponentChildren>;
 };
 
 type MarkdownProviderProps = PropsWithChildren<
@@ -55,7 +58,7 @@ type MarkdownProviderProps = PropsWithChildren<
     /**
      * Wrapper element or component to be used when there are multiple children.
      */
-    wrapper?: any;
+    wrapper?: ComponentType<any> | keyof JSX.IntrinsicElements;
     /**
      * Custom render function for markdown.
      * If provided, it will overwrite all rules and default rendering.
@@ -64,8 +67,8 @@ type MarkdownProviderProps = PropsWithChildren<
       markdown: string,
       options?: MarkdownProviderOptions,
       components?: HTMLComponents<'permissive', {}>,
-      wrapper?: any
-    ) => ComponentChildren;
+      wrapper?: ComponentType<any> | keyof JSX.IntrinsicElements
+    ) => ComponentChildren | Promise<ComponentChildren>;
   }
 >;
 
@@ -80,7 +83,7 @@ const mergeOptions = (
   baseOptions: Omit<RenderMarkdownOptions, 'components'>,
   options: MarkdownProviderOptions = {},
   components: HTMLComponents<'permissive', {}> = {},
-  wrapper?: any
+  wrapper?: ComponentType<any> | keyof JSX.IntrinsicElements
 ): RenderMarkdownOptions => {
   return {
     ...baseOptions,
@@ -120,7 +123,7 @@ export const MarkdownProvider: FunctionComponent<MarkdownProviderProps> = ({
     markdown: string,
     options?: MarkdownProviderOptions,
     componentsOverride?: HTMLComponents<'permissive', {}>,
-    wrapperOverride?: any
+    wrapperOverride?: ComponentType<any> | keyof JSX.IntrinsicElements
   ): ComponentChildren => {
     const mergedOptions = mergeOptions(
       components,
@@ -138,7 +141,7 @@ export const MarkdownProvider: FunctionComponent<MarkdownProviderProps> = ({
     markdown: string,
     options?: MarkdownProviderOptions,
     componentsOverride?: HTMLComponents<'permissive', {}>,
-    wrapperOverride?: any
+    wrapperOverride?: ComponentType<any> | keyof JSX.IntrinsicElements
   ): ComponentChildren => (
     <MarkdownContext.Provider value={undefined}>
       {customRenderFn?.(markdown, options, componentsOverride, wrapperOverride)}

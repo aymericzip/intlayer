@@ -1,4 +1,4 @@
-import { type Dictionary, html, insert, md, t } from 'intlayer';
+import { type Dictionary, enu, html, insert, md, t } from 'intlayer';
 import type { ComponentChildren } from 'preact';
 
 const appContent = {
@@ -28,6 +28,25 @@ Here is a list:
       '<div>Hello <b>World</b><custom-component /><CustomComponent /> <CustomComponent2> Hello </CustomComponent2></div>'
     ),
     insertion: insert('test {{ count }}'),
+    enumeration: insert(
+      enu({
+        '0': t({
+          en: 'No items',
+          fr: 'Aucun article',
+          es: 'No hay artículos',
+        }),
+        '1': t({
+          en: 'One item',
+          fr: 'Un article',
+          es: 'Un artículo',
+        }),
+        '>1': t({
+          en: '{{count}} items',
+          fr: '{{count}} articles',
+          es: '{{count}} artículos',
+        }),
+      })
+    ),
     viteLogo: t({
       en: 'Vite logo',
       fr: 'Logo Vite',

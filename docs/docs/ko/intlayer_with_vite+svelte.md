@@ -240,7 +240,7 @@ module.exports = appContent;
 ```svelte fileName="src/App.svelte"
 <script lang="ts">
 import  { getLocaleName } from 'intlayer';
-import { useLocale } from 'svelte-intlayer';
+import { useLocale } from "svelte-intlayer";
 
 // 로케일 정보와 setLocale 함수 가져오기
 const { locale, availableLocales, setLocale } = useLocale();
@@ -362,7 +362,7 @@ export default app;
 ```svelte fileName="src/App.svelte"
 <script lang="ts">
 import type { Locale } from 'intlayer';
-import { useIntlayer } from 'svelte-intlayer';
+import { useIntlayer } from "svelte-intlayer";
 import Counter from './lib/Counter.svelte';
 import LocaleSwitcher from './lib/LocaleSwitcher.svelte';
 

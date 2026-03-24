@@ -29,7 +29,7 @@ type MarkdownContextValue = {
     options?: MarkdownProviderOptions,
     components?: HTMLComponents<'permissive', {}>,
     wrapper?: FC<HTMLAttributes<HTMLElement>>
-  ) => ReactNode;
+  ) => ReactNode | Promise<ReactNode>;
 };
 
 type MarkdownProviderProps = PropsWithChildren<
@@ -41,7 +41,7 @@ type MarkdownProviderProps = PropsWithChildren<
       options?: MarkdownProviderOptions,
       components?: HTMLComponents<'permissive', {}>,
       wrapper?: FC<HTMLAttributes<HTMLElement>>
-    ) => ReactNode;
+    ) => ReactNode | Promise<ReactNode>;
   }
 >;
 

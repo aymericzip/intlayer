@@ -3,14 +3,20 @@ import { getMarkdownMetadata } from '@intlayer/core/markdown';
 import type { ContentNode } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import { type Component, createMemo, type JSX, useContext } from 'solid-js';
+import {
+  type Component,
+  createMemo,
+  type JSX,
+  useContext,
+  type ValidComponent,
+} from 'solid-js';
 import type { HTMLComponents } from '../html/types';
 import { compileMarkdown } from './compiler';
 import { MarkdownContext, useMarkdown } from './MarkdownProvider';
 
-type RenderMarkdownOptions = {
+export type RenderMarkdownOptions = {
   components?: HTMLComponents<'permissive', {}>;
-  wrapper?: any;
+  wrapper?: ValidComponent;
   forceBlock?: boolean;
   preserveFrontmatter?: boolean;
   tagfilter?: boolean;
@@ -19,8 +25,8 @@ type RenderMarkdownOptions = {
 export const renderMarkdown = (
   content: string,
   options: RenderMarkdownOptions = {}
-): JSX.Element => {
-  return compileMarkdown(content, options);
+): JSX.Element | Promise<JSX.Element> => {
+  return compileMarkdown(content, options as any);
 };
 
 export const useMarkdownRenderer = (options: RenderMarkdownOptions = {}) => {
@@ -43,14 +49,16 @@ export const useMarkdownRenderer = (options: RenderMarkdownOptions = {}) => {
   };
 };
 
-type MarkdownRendererProps = RenderMarkdownOptions & {
+export type MarkdownRendererProps = RenderMarkdownOptions & {
   dictionaryKey: string;
   keyPath: KeyPath[];
   locale?: LocalesValues;
   children: string;
 };
 
-export const MarkdownRenderer: Component<MarkdownRendererProps> = (props) => {
+export const MarkdownRenderer = (
+  props: MarkdownRendererProps
+): JSX.Element | Promise<JSX.Element> => {
   const context = useContext(MarkdownContext);
   const { renderMarkdown } = useMarkdown();
 
@@ -69,7 +77,7 @@ export const MarkdownRenderer: Component<MarkdownRendererProps> = (props) => {
   );
 };
 
-type MarkdownMetadataRendererProps = MarkdownRendererProps & {
+export type MarkdownMetadataRendererProps = MarkdownRendererProps & {
   metadataKeyPath: KeyPath[];
 };
 

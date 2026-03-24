@@ -1,6 +1,6 @@
 import { getIntlayerMarkdownOptions } from '@intlayer/design-system';
 import type { FC, PropsWithChildren } from 'react';
-import { MarkdownProvider } from 'react-intlayer';
+import { MarkdownProvider } from 'react-intlayer/markdown';
 import { Link } from '#/components/Link';
 import { useTheme } from './ThemeProvider';
 

@@ -1,4 +1,13 @@
-import { type Dictionary, file, gender, html, insert, md, t } from 'intlayer';
+import {
+  type Dictionary,
+  enu,
+  file,
+  gender,
+  html,
+  insert,
+  md,
+  t,
+} from 'intlayer';
 import type { ReactNode } from 'react';
 
 const markdownWithMetadata = `---
@@ -57,6 +66,27 @@ Here is a list:
         es: 'test es {{ count }}',
       })
     ),
+
+    enumeration: insert(
+      enu({
+        '0': t({
+          en: 'No items',
+          fr: 'Aucun article',
+          es: 'No hay artículos',
+        }),
+        '1': t({
+          en: 'One item',
+          fr: 'Un article',
+          es: 'Un artículo',
+        }),
+        '>1': t({
+          en: '{{count}} items',
+          fr: '{{count}} articles',
+          es: '{{count}} artículos',
+        }),
+      })
+    ),
+
     viteLogo: t({
       en: 'Vite logo',
       fr: 'Logo Vite',

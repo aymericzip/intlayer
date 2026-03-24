@@ -44,6 +44,11 @@
       "require": "./dist/cjs/client/format/index.cjs",
       "import": "./dist/esm/client/format/index.mjs"
     },
+    "./html": {
+      "types": "./dist/types/html/index.d.ts",
+      "require": "./dist/cjs/html/index.cjs",
+      "import": "./dist/esm/html/index.mjs"
+    },
     "./markdown": {
       "types": "./dist/types/markdown/index.d.ts",
       "require": "./dist/cjs/markdown/index.cjs",
@@ -61,6 +66,9 @@
       ],
       "format": [
         "./dist/types/client/format/index.d.ts"
+      ],
+      "html": [
+        "./dist/types/html/index.d.ts"
       ],
       "markdown": [
         "./dist/types/markdown/index.d.ts"

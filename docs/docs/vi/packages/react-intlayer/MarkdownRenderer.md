@@ -28,7 +28,7 @@ Component `MarkdownRenderer` hiển thị nội dung markdown bằng các compon
 ## Sử dụng
 
 ```tsx
-import { MarkdownRenderer } from "react-intlayer";
+import { MarkdownRenderer } from "react-intlayer/markdown";
 
 const MyComponent = () => (
   <MarkdownRenderer># My Title My content</MarkdownRenderer>

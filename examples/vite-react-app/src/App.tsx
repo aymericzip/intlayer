@@ -4,12 +4,9 @@ import {
   type ImgHTMLAttributes,
   useState,
 } from 'react';
-import {
-  HTMLProvider,
-  MarkdownProvider,
-  MarkdownRenderer,
-  useIntlayer,
-} from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
+import { HTMLProvider } from 'react-intlayer/html';
+import { MarkdownProvider, MarkdownRenderer } from 'react-intlayer/markdown';
 import './App.css';
 import viteLogo from '/vite.svg';
 import reactLogo from './assets/react.svg';
@@ -94,6 +91,13 @@ const AppContent: FC = () => {
             </h1>
           ),
         })}
+      </div>
+
+      <div>
+        <h2>Enumeration:</h2>
+        <p>{content.enumeration(0, { count: 0 })}</p>
+        <p>{content.enumeration(1, { count: 1 })}</p>
+        <p>{content.enumeration(count, { count })}</p>
       </div>
 
       <div className="card">

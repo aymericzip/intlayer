@@ -29,7 +29,7 @@ Panggil hook ini di dalam komponen Svelte.
 
 ```svelte
 <script>
-  import { useRewriteURL } from 'svelte-intlayer';
+  import { useRewriteURL } from "svelte-intlayer";
 
   // Secara otomatis mengoreksi /fr/tests menjadi /fr/essais di bilah alamat jika aturan rewrite tersedia
   useRewriteURL();

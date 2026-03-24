@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-22
+updatedAt: 2026-03-24
 title: Markdown
 description: Intlayer ile çok dilli web sitenizde Markdown içeriği nasıl bildireceğinizi ve kullanacağınızı öğrenin. Bu çevrimiçi dokümantasyonun adımlarını takip ederek Markdown'ı projenize sorunsuz bir şekilde entegre edin.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.5.0
+    date: 2026-03-24
+    changes: "İçeri aktarmalar {{framework}}-intlayer'dan {{framework}}-intlayer/markdown'a taşındı"
   - version: 8.0.0
     date: 2026-01-22
     changes: "MarkdownRenderer / useMarkdownRenderer / renderMarkdown yardımcı araçları ve forceInline seçeneği eklendi"
@@ -211,10 +214,8 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
   
     #### `<MarkdownRenderer />` Bileşeni
 
-    Belirli seçeneklerle bir Markdown stringini render edin.
-
     ```tsx
-    import { MarkdownRenderer } from "react-intlayer";
+    import { MarkdownRenderer } from "react-intlayer/markdown";
 
     <MarkdownRenderer forceBlock={true} tagfilter={true}>
       {"# Başlığım"}
@@ -225,7 +226,7 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
     Ön yapılandırılmış bir renderer fonksiyonu alın.
 
     ```tsx
-    import { useMarkdownRenderer } from "react-intlayer";
+    import { useMarkdownRenderer } from "react-intlayer/markdown";
 
     const renderMarkdown = useMarkdownRenderer({
       forceBlock: true,
@@ -239,7 +240,7 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
     Bileşenlerin dışında render yapmak için bağımsız yardımcı araç.
 
     ```tsx
-    import { renderMarkdown } from "react-intlayer";
+    import { renderMarkdown } from "react-intlayer/markdown";
 
     const jsx = renderMarkdown("# Başlığım", { forceBlock: true });
     ```
@@ -251,7 +252,7 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
 
     ```vue
     <script setup>
-    import { MarkdownRenderer } from "vue-intlayer";
+    import { MarkdownRenderer } from "vue-intlayer/markdown";
     </script>
 
     <template>
@@ -266,7 +267,7 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
 
     ```svelte
     <script lang="ts">
-    import { MarkdownRenderer } from "svelte-intlayer";
+    import { MarkdownRenderer } from "svelte-intlayer/markdown";
     </script>
 
     <MarkdownRenderer forceBlock={true} value="# Başlığım" />
@@ -276,7 +277,7 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
 
     ```svelte
     <script lang="ts">
-    import { useMarkdownRenderer } from "svelte-intlayer";
+    import { useMarkdownRenderer } from "svelte-intlayer/markdown";
     const render = useMarkdownRenderer();
     </script>
 
@@ -287,7 +288,7 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
 
     ```svelte
     <script lang="ts">
-    import { renderMarkdown } from "svelte-intlayer";
+    import { renderMarkdown } from "svelte-intlayer/markdown";
     </script>
 
     {@html renderMarkdown("# Başlığım")}
@@ -298,7 +299,7 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
     #### `<MarkdownRenderer />` Bileşeni
 
     ```tsx
-    import { MarkdownRenderer } from "preact-intlayer";
+    import { MarkdownRenderer } from "preact-intlayer/markdown";
 
     <MarkdownRenderer forceBlock={true}>
       {"# Başlığım"}
@@ -308,7 +309,7 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
     #### `useMarkdownRenderer()` Hook
 
     ```tsx
-    import { useMarkdownRenderer } from "preact-intlayer";
+    import { useMarkdownRenderer } from "preact-intlayer/markdown";
 
     const render = useMarkdownRenderer();
 
@@ -318,7 +319,7 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
     #### `renderMarkdown()` Yardımcı Aracı
 
     ```tsx
-    import { renderMarkdown } from "preact-intlayer";
+    import { renderMarkdown } from "preact-intlayer/markdown";
 
     return <div>{renderMarkdown("# Başlığım")}</div>;
     ```
@@ -328,7 +329,7 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
     #### `<MarkdownRenderer />` Bileşeni
 
     ```tsx
-    import { MarkdownRenderer } from "solid-intlayer";
+    import { MarkdownRenderer } from "solid-intlayer/markdown";
 
     <MarkdownRenderer forceBlock={true}>
       {"# Başlığım"}
@@ -338,7 +339,7 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
     #### `useMarkdownRenderer()` Hook
 
     ```tsx
-    import { useMarkdownRenderer } from "solid-intlayer";
+    import { useMarkdownRenderer } from "solid-intlayer/markdown";
 
     const render = useMarkdownRenderer();
 
@@ -348,7 +349,7 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
     #### `renderMarkdown()` Yardımcı Aracı
 
     ```tsx
-    import { renderMarkdown } from "solid-intlayer";
+    import { renderMarkdown } from "solid-intlayer/markdown";
 
     return <div>{renderMarkdown("# Başlığım")}</div>;
     ```
@@ -359,7 +360,7 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
     Servisi kullanarak bir Markdown dizesini oluşturun.
 
     ```typescript
-    import { IntlayerMarkdownService } from "angular-intlayer";
+    import { IntlayerMarkdownService } from "angular-intlayer/markdown";
 
     export class MyComponent {
       constructor(private markdownService: IntlayerMarkdownService) {}
@@ -383,7 +384,7 @@ Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabi
   <Tab label="React / Next.js" value="react">
 
     ```tsx fileName="AppProvider.tsx"
-    import { MarkdownProvider } from "react-intlayer";
+    import { MarkdownProvider } from "react-intlayer/markdown";
 
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
@@ -399,12 +400,32 @@ Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabi
     );
     ```
 
+    Kendi Markdown oluşturucunuzu da kullanabilirsiniz:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "react-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          const { compileMarkdown } = await import('react-intlayer/markdown');
+          return compileMarkdown(md);
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın iyi bir yoludur.
+
   </Tab>
   <Tab label="Vue" value="vue">
 
     ```typescript fileName="main.ts"
     import { createApp } from "vue";
-    import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
+    import { installIntlayer } from "vue-intlayer";
+    import { installIntlayerMarkdown } from "vue-intlayer/markdown";
     import App from "./App.vue";
 
     const app = createApp(App);
@@ -424,12 +445,35 @@ Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabi
     app.mount("#app");
     ```
 
+    Kendi Markdown oluşturucunuzu da kullanabilirsiniz:
+
+    ```typescript fileName="main.ts"
+    import { createApp } from "vue";
+    import { installIntlayer } from "vue-intlayer";
+    import { installIntlayerMarkdown } from "vue-intlayer/markdown";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(installIntlayer);
+    app.use(installIntlayerMarkdown, {
+      renderMarkdown: async (md) => {
+        const { compileMarkdown } = await import('vue-intlayer/markdown');
+        return compileMarkdown(md);
+      },
+    });
+
+    app.mount("#app");
+    ```
+
+    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın iyi bir yoludur.
+
   </Tab>
   <Tab label="Svelte">
 
     ```svelte fileName="App.svelte"
     <script lang="ts">
-      import { MarkdownProvider } from "svelte-intlayer";
+      import { MarkdownProvider } from "svelte-intlayer/markdown";
       import MyHeading from "./MyHeading.svelte";
     </script>
 
@@ -444,11 +488,30 @@ Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabi
     </MarkdownProvider>
     ```
 
+    Kendi Markdown oluşturucunuzu da kullanabilirsiniz:
+
+    ```svelte fileName="App.svelte"
+    <script lang="ts">
+      import { MarkdownProvider } from "svelte-intlayer/markdown";
+    </script>
+
+    <MarkdownProvider
+      renderMarkdown={async (md) => {
+        const { compileMarkdown } = await import('svelte-intlayer/markdown');
+        return compileMarkdown(md);
+      }}
+    >
+      <slot />
+    </MarkdownProvider>
+    ```
+
+    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın iyi bir yoludur.
+
   </Tab>
   <Tab label="Preact" value="preact">
 
     ```tsx fileName="AppProvider.tsx"
-    import { MarkdownProvider } from "preact-intlayer";
+    import { MarkdownProvider } from "preact-intlayer/markdown";
 
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
@@ -463,11 +526,30 @@ Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabi
     );
     ```
 
+    Kendi Markdown oluşturucunuzu da kullanabilirsiniz:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "preact-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          const { compileMarkdown } = await import('preact-intlayer/markdown');
+          return compileMarkdown(md);
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın iyi bir yoludur.
+
   </Tab>
   <Tab label="Solid" value="solid">
 
     ```tsx fileName="AppProvider.tsx"
-    import { MarkdownProvider } from "solid-intlayer";
+    import { MarkdownProvider } from "solid-intlayer/markdown";
 
     export const AppProvider = (props) => (
       <MarkdownProvider
@@ -482,11 +564,30 @@ Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabi
     );
     ```
 
+    Kendi Markdown oluşturucunuzu da kullanabilirsiniz:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "solid-intlayer/markdown";
+
+    export const AppProvider = (props) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          const { compileMarkdown } = await import('solid-intlayer/markdown');
+          return compileMarkdown(md);
+        }}
+      >
+        {props.children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın iyi bir yoludur.
+
   </Tab>
   <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
-    import { createIntlayerMarkdownProvider } from "angular-intlayer";
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
 
     export const appConfig: ApplicationConfig = {
       providers: [
@@ -498,6 +599,25 @@ Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabi
       ],
     };
     ```
+
+    Kendi Markdown oluşturucunuzu da kullanabilirsiniz:
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          renderMarkdown: async (md) => {
+            const { compileMarkdown } = await import('angular-intlayer/markdown');
+            return compileMarkdown(md);
+          },
+        }),
+      ],
+    };
+    ```
+
+    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın iyi bir yoludur.
 
   </Tab>
 </Tabs>

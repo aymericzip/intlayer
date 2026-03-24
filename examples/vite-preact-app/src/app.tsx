@@ -85,6 +85,12 @@ const AppContent: FunctionalComponent = () => {
         })} */}
       </div>
 
+      <div className="enumeration">
+        <p>{content.enumeration(0, { count: 0 })}</p>
+        <p>{content.enumeration(1, { count: 1 })}</p>
+        <p>{content.enumeration(2, { count: 2 })}</p>
+      </div>
+
       <button onClick={() => setCount((count) => count + 1)}>
         {content.count}
         {count}

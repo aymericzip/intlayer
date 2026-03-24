@@ -100,3 +100,34 @@ export const useHTML = (): IntlayerHTMLProvider => {
   if (instance) return instance;
   return { renderHTML: (rawHTML) => rawHTML };
 };
+/**
+ * Asynchronously install an HTML renderer whose implementation is loaded
+ * via a dynamic `import()`.
+ *
+ * Use this to keep a heavy HTML sanitiser / component renderer out of the
+ * initial bundle — the loader is only called the first time this function
+ * is executed.
+ *
+ * The returned promise resolves once the provider is ready. Any calls to
+ * `useHTML()` before the promise resolves will use the fallback (identity)
+ * renderer.
+ *
+ * @param loader - A zero-argument async function that resolves to either a
+ *   `RenderHTMLFunction` or an `IntlayerHTMLPluginOptions` object.
+ *
+ * @example
+ * ```ts
+ * // Load a custom HTML sanitiser only when needed
+ * await installIntlayerHTMLDynamic(async () => {
+ *   const DOMPurify = await import('dompurify');
+ *   return (html) => DOMPurify.sanitize(html);
+ * });
+ * ```
+ */
+export const installIntlayerHTMLDynamic = async (
+  loader: () => Promise<IntlayerHTMLPluginOptions | RenderHTMLFunction>
+): Promise<IntlayerHTMLProvider> => {
+  if (instance) return instance;
+  const pluginOptions = await loader();
+  return installIntlayerHTML(pluginOptions);
+};

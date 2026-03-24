@@ -244,7 +244,7 @@ module.exports = appContent;
 ```svelte fileName="src/App.svelte"
 <script lang="ts">
 import  { getLocaleName } from 'intlayer';
-import { useLocale } from 'svelte-intlayer';
+import { useLocale } from "svelte-intlayer";
 
 // Ottieni informazioni sulla locale e la funzione setLocale
 const { locale, availableLocales, setLocale } = useLocale();
@@ -365,7 +365,7 @@ Infine, aggiorna il tuo `App.svelte` per ricevere la prop `locale` e utilizzarla
 ```svelte fileName="src/App.svelte"
 <script lang="ts">
 import type { Locale } from 'intlayer';
-import { useIntlayer } from 'svelte-intlayer';
+import { useIntlayer } from "svelte-intlayer";
 import Counter from './lib/Counter.svelte';
 import LocaleSwitcher from './lib/LocaleSwitcher.svelte';
 

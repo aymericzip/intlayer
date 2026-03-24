@@ -700,7 +700,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 import { localeMap } from 'intlayer'; // 'intlayer'에서 제공하는 유틸리티 함수와 타입
 import type { FC, PropsWithChildren } from 'react'; // 함수형 컴포넌트와 props 타입을 위한 React 타입
-import { IntlayerProvider } from 'react-intlayer'; // 국제화 컨텍스트를 위한 프로바이더
+import { IntlayerProvider } from "react-intlayer"; // 국제화 컨텍스트를 위한 프로바이더
 import { BrowserRouter, Route, Routes } from 'react-router-dom'; // 네비게이션 관리를 위한 라우터 컴포넌트들
 
 /**

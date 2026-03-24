@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-20
-updatedAt: 2026-01-22
+updatedAt: 2026-03-24
 title: HTML İçeriği
 description: Intlayer içinde HTML içeriğini nasıl tanımlayıp özel bileşenlerle kullanacağınızı öğrenin. Bu dokümantasyonu izleyerek çok dilli projenizde dinamik bileşen değiştirme ile zengin HTML benzeri içeriği entegre edin.
 keywords:
@@ -21,6 +21,9 @@ slugs:
   - content
   - html
 history:
+  - version: 8.5.0
+    date: 2026-03-24
+    changes: "İçeri aktarmalar {{framework}}-intlayer'dan {{framework}}-intlayer/html'e taşındı"
   - version: 8.0.0
     date: 2026-01-22
     changes: "HTMLRenderer / useHTMLRenderer / renderHTML yardımcı araçları eklendi"
@@ -243,7 +246,7 @@ HTML render'lamasını tüm uygulamanız için global olarak yapılandırabilirs
   <Tab label="React / Next.js" value="react">
   
     ```tsx fileName="AppProvider.tsx"
-    import { HTMLProvider } from "react-intlayer";
+    import { HTMLProvider } from "react-intlayer/html";
 
     export const AppProvider = ({ children }) => (
       <HTMLProvider
@@ -257,12 +260,32 @@ HTML render'lamasını tüm uygulamanız için global olarak yapılandırabilirs
     );
     ```
 
+    Kendi HTML oluşturucunuzu da kullanabilirsiniz:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "react-intlayer/html";
+
+    export const AppProvider = ({ children }) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('react-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {children}
+      </HTMLProvider>
+    );
+    ```
+
+    > HTML oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın iyi bir yoludur.
+
   </Tab>
   <Tab label="Vue" value="vue">
   
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
-    import { installIntlayer, installIntlayerHTML } from "vue-intlayer";
+    import { installIntlayer } from "vue-intlayer";
+    import { installIntlayerHTML } from "vue-intlayer/html";
     import App from "./App.vue";
 
     const app = createApp(App);
@@ -278,12 +301,35 @@ HTML render'lamasını tüm uygulamanız için global olarak yapılandırabilirs
     app.mount("#app");
     ```
 
+    Kendi HTML oluşturucunuzu da kullanabilirsiniz:
+
+    ```typescript fileName="main.ts"
+    import { createApp, h } from "vue";
+    import { installIntlayer } from "vue-intlayer";
+    import { installIntlayerHTML } from "vue-intlayer/html";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(installIntlayer);
+    app.use(installIntlayerHTML, {
+      renderHTML: async (html) => {
+        const { renderHTML } = await import('vue-intlayer/html');
+        return renderHTML(html);
+      },
+    });
+
+    app.mount("#app");
+    ```
+
+    > HTML oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın iyi bir yoludur.
+
   </Tab>
   <Tab label="Svelte" value="svelte">
    
     ```svelte fileName="App.svelte"
     <script lang="ts">
-      import { HTMLProvider } from "svelte-intlayer";
+      import { HTMLProvider } from "svelte-intlayer/html";
       import MyCustomP from "./MyCustomP.svelte";
     </script>
 
@@ -300,7 +346,7 @@ HTML render'lamasını tüm uygulamanız için global olarak yapılandırabilirs
   <Tab label="Preact" value="preact">
    
     ```tsx fileName="AppProvider.tsx"
-    import { HTMLProvider } from "preact-intlayer";
+    import { HTMLProvider } from "preact-intlayer/html";
 
     export const AppProvider = ({ children }) => (
       <HTMLProvider
@@ -313,11 +359,30 @@ HTML render'lamasını tüm uygulamanız için global olarak yapılandırabilirs
     );
     ```
 
+    Kendi HTML oluşturucunuzu da kullanabilirsiniz:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "preact-intlayer/html";
+
+    export const AppProvider = ({ children }) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('preact-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {children}
+      </HTMLProvider>
+    );
+    ```
+
+    > HTML oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın iyi bir yoludur.
+
   </Tab>
   <Tab label="Solid" value="solid">
    
     ```tsx fileName="AppProvider.tsx"
-    import { HTMLProvider } from "solid-intlayer";
+    import { HTMLProvider } from "solid-intlayer/html";
 
     export const AppProvider = (props) => (
       <HTMLProvider
@@ -330,15 +395,34 @@ HTML render'lamasını tüm uygulamanız için global olarak yapılandırabilirs
     );
     ```
 
+    Kendi HTML oluşturucunuzu da kullanabilirsiniz:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "solid-intlayer/html";
+
+    export const AppProvider = (props) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('solid-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {props.children}
+      </HTMLProvider>
+    );
+    ```
+
+    > HTML oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın iyi bir yoludur.
+
   </Tab>
   <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
-    import { createIntlayerMarkdownProvider } from "angular-intlayer";
+    import { createIntlayerHTMLProvider } from "angular-intlayer/html";
 
     export const appConfig: ApplicationConfig = {
       providers: [
-        createIntlayerMarkdownProvider({
+        createIntlayerHTMLProvider({
           components: {
             p: { class: "prose" },
             CustomLink: { href: "/details" },
@@ -347,6 +431,25 @@ HTML render'lamasını tüm uygulamanız için global olarak yapılandırabilirs
       ],
     };
     ```
+
+    Kendi HTML oluşturucunuzu da kullanabilirsiniz:
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerHTMLProvider } from "angular-intlayer/html";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerHTMLProvider({
+          renderHTML: async (html) => {
+            const { renderHTML } = await import('angular-intlayer/html');
+            return renderHTML(html);
+          },
+        }),
+      ],
+    };
+    ```
+
+    > HTML oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın iyi bir yoludur.
 
   </Tab>
 </Tabs>
@@ -360,10 +463,9 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
 <Tabs group="framework">
   <Tab label="React / Next.js" value="react">
     #### `<HTMLRenderer />` Bileşeni
-    Belirli bileşenlerle bir HTML stringini render edin.
-
+    
     ```tsx
-    import { HTMLRenderer } from "react-intlayer";
+    import { HTMLRenderer } from "react-intlayer/html";
 
     <HTMLRenderer components={{ p: MyCustomP }}>
       {"<p>Merhaba Dünya</p>"}
@@ -374,7 +476,7 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
     Ön yapılandırılmış bir renderer fonksiyonu alın.
 
     ```tsx
-    import { useHTMLRenderer } from "react-intlayer";
+    import { useHTMLRenderer } from "react-intlayer/html";
 
     const renderHTML = useHTMLRenderer({
       components: { strong: (props) => <strong {...props} className="text-red-500" /> }
@@ -388,7 +490,7 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
     Bileşenlerin dışında render yapmak için bağımsız yardımcı araç.
 
     ```tsx
-    import { renderHTML } from "react-intlayer";
+    import { renderHTML } from "react-intlayer/html";
 
     const jsx = renderHTML("<p>Merhaba</p>", { components: { p: 'div' } });
     ```
@@ -400,7 +502,7 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
    
     ```vue
     <script setup>
-    import { HTMLRenderer } from "vue-intlayer";
+    import { HTMLRenderer } from "vue-intlayer/html";
     </script>
 
     <template>
@@ -415,7 +517,7 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
    
     ```svelte
     <script lang="ts">
-    import { HTMLRenderer } from "svelte-intlayer";
+    import { HTMLRenderer } from "svelte-intlayer/html";
     </script>
 
     <HTMLRenderer value="<p>Merhaba Dünya</p>" />
@@ -425,7 +527,7 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
 
     ```svelte
     <script lang="ts">
-    import { useHTMLRenderer } from "svelte-intlayer";
+    import { useHTMLRenderer } from "svelte-intlayer/html";
     const render = useHTMLRenderer();
     </script>
 
@@ -436,7 +538,7 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
 
     ```svelte
     <script lang="ts">
-    import { renderHTML } from "svelte-intlayer";
+    import { renderHTML } from "svelte-intlayer/html";
     </script>
 
     {@html renderHTML("<p>Merhaba Dünya</p>")}
@@ -448,7 +550,7 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
     #### `<HTMLRenderer />` Bileşeni
    
     ```tsx
-    import { HTMLRenderer } from "preact-intlayer";
+    import { HTMLRenderer } from "preact-intlayer/html";
 
     <HTMLRenderer>
       {"<p>Merhaba Dünya</p>"}
@@ -458,7 +560,7 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
     #### `useHTMLRenderer()` Hook
 
     ```tsx
-    import { useHTMLRenderer } from "preact-intlayer";
+    import { useHTMLRenderer } from "preact-intlayer/html";
 
     const render = useHTMLRenderer();
 
@@ -468,7 +570,7 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
     #### `renderHTML()` Yardımcı Aracı
 
     ```tsx
-    import { renderHTML } from "preact-intlayer";
+    import { renderHTML } from "preact-intlayer/html";
 
     return <div>{renderHTML("<p>Merhaba Dünya</p>")}</div>;
     ```
@@ -479,7 +581,7 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
     #### `<HTMLRenderer />` Bileşeni
    
     ```tsx
-    import { HTMLRenderer } from "solid-intlayer";
+    import { HTMLRenderer } from "solid-intlayer/html";
 
     <HTMLRenderer>
       {"<p>Merhaba Dünya</p>"}
@@ -489,7 +591,7 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
     #### `useHTMLRenderer()` Hook
 
     ```tsx
-    import { useHTMLRenderer } from "solid-intlayer";
+    import { useHTMLRenderer } from "solid-intlayer/html";
 
     const render = useHTMLRenderer();
 
@@ -499,24 +601,24 @@ Ham HTML string'lerini render etmeniz gerekiyorsa veya bileşen eşlemesinde dah
     #### `renderHTML()` Yardımcı Aracı
 
     ```tsx
-    import { renderHTML } from "solid-intlayer";
+    import { renderHTML } from "solid-intlayer/html";
 
     return <div>{renderHTML("<p>Merhaba Dünya</p>")}</div>;
     ```
 
   </Tab>
   <Tab label="Angular" value="angular">
-    #### `IntlayerMarkdownService` Servisi
+    #### `IntlayerHTMLService` Servisi
     Servisi kullanarak bir HTML dizesini oluşturun.
 
     ```typescript
-    import { IntlayerMarkdownService } from "angular-intlayer";
+    import { IntlayerHTMLService } from "angular-intlayer/html";
 
     export class MyComponent {
-      constructor(private markdownService: IntlayerMarkdownService) {}
+      constructor(private markdownService: IntlayerHTMLService) {}
 
       renderHTML(html: string) {
-        return this.markdownService.renderMarkdown(html);
+        return this.markdownService.renderHTML(html);
       }
     }
     ```

@@ -506,7 +506,7 @@ Intlayer supporta il rendering del contenuto Markdown direttamente nella tua app
 
 ```tsx fileName="src/index.tsx"
 import { render } from "solid-js/web";
-import { MarkdownProvider } from "solid-intlayer";
+import { MarkdownProvider } from "solid-intlayer/markdown";
 import App from "./App";
 
 const root = document.getElementById("root");

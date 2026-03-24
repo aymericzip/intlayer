@@ -4,7 +4,6 @@ import type {
   DictionaryLocation,
   Fill,
 } from './dictionary';
-import type { FilePathPattern } from './filePathPattern';
 import type { LocalesValues, StrictModeLocaleMap } from './module_augmentation';
 import type { Plugin } from './plugin';
 

@@ -11,6 +11,4 @@ export * from './editor/useEditor';
 export * from './format/useIntl';
 export * from './getDictionary';
 export * from './getIntlayer';
-export * from './html';
-export * from './markdown';
 export * from './plugins';

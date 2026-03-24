@@ -44,6 +44,11 @@
       "svelte": "./dist/markdown/index.js",
       "default": "./dist/markdown/index.js"
     },
+    "./html": {
+      "types": "./dist/html/index.d.ts",
+      "svelte": "./dist/html/index.js",
+      "default": "./dist/html/index.js"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/index.js",

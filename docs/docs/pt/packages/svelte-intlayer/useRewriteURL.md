@@ -29,7 +29,7 @@ Chame o hook dentro de um componente Svelte.
 
 ```svelte
 <script>
-  import { useRewriteURL } from 'svelte-intlayer';
+  import { useRewriteURL } from "svelte-intlayer";
 
   // Corrige automaticamente /fr/tests para /fr/essais na barra de endereços se existir uma regra de rewrite
   useRewriteURL();

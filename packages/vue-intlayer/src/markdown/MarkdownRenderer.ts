@@ -1,4 +1,9 @@
-import { defineComponent, type PropType, type VNodeChild } from 'vue';
+import {
+  type Component,
+  defineComponent,
+  type PropType,
+  type VNodeChild,
+} from 'vue';
 import type { HTMLComponents } from '../html/types';
 import { compileMarkdown, type MarkdownCompilerOptions } from './compiler';
 import {
@@ -14,7 +19,7 @@ export type RenderMarkdownProps = MarkdownPluginOptions & {
   /** Component overrides for HTML tags. */
   components?: HTMLComponents<'permissive', {}>;
   /** Wrapper element or component to be used when there are multiple children. */
-  wrapper?: any;
+  wrapper?: string | Component;
 };
 
 /**
@@ -33,12 +38,12 @@ export const renderMarkdown = (
     preserveFrontmatter,
     tagfilter,
   }: RenderMarkdownProps = {}
-): VNodeChild => {
+): VNodeChild | Promise<VNodeChild> => {
   const internalOptions: MarkdownCompilerOptions = {
     components,
     forceBlock,
     forceInline,
-    wrapper,
+    wrapper: wrapper as any,
     forceWrapper: !!wrapper,
     preserveFrontmatter,
     tagfilter,
@@ -113,7 +118,7 @@ export const MarkdownRenderer = defineComponent({
       default: undefined,
     },
     wrapper: {
-      type: [String, Object, Function] as PropType<any>,
+      type: [String, Object, Function] as PropType<string | Component>,
       default: undefined,
     },
     forceBlock: {

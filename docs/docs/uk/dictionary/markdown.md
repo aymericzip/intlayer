@@ -213,7 +213,7 @@ Intlayer підтримує контент rich text, визначений за 
     Відтворіть рядок Markdown із конкретними параметрами.
 
     ```tsx
-    import { MarkdownRenderer } from "react-intlayer";
+    import { MarkdownRenderer } from "react-intlayer/markdown";
 
     <MarkdownRenderer forceBlock={true} tagfilter={true}>
       {"# Мій заголовок"}
@@ -225,7 +225,7 @@ Intlayer підтримує контент rich text, визначений за 
     Отримайте попередньо налаштовану функцію рендерера.
 
     ```tsx
-    import { useMarkdownRenderer } from "react-intlayer";
+    import { useMarkdownRenderer } from "react-intlayer/markdown";
 
     const renderMarkdown = useMarkdownRenderer({
       forceBlock: true,
@@ -239,7 +239,7 @@ Intlayer підтримує контент rich text, визначений за 
     Автономна утиліта для відтворення поза компонентами.
 
     ```tsx
-    import { renderMarkdown } from "react-intlayer";
+    import { renderMarkdown } from "react-intlayer/markdown";
 
     const jsx = renderMarkdown("# Мій заголовок", { forceBlock: true });
     ```
@@ -251,7 +251,7 @@ Intlayer підтримує контент rich text, визначений за 
 
     ```vue
     <script setup>
-    import { MarkdownRenderer } from "vue-intlayer";
+    import { MarkdownRenderer } from "vue-intlayer/markdown";
     </script>
 
     <template>
@@ -266,7 +266,7 @@ Intlayer підтримує контент rich text, визначений за 
 
     ```svelte
     <script lang="ts">
-    import { MarkdownRenderer } from "svelte-intlayer";
+    import { MarkdownRenderer } from "svelte-intlayer/markdown";
     </script>
 
     <MarkdownRenderer forceBlock={true} value="# Мій заголовок" />
@@ -276,7 +276,7 @@ Intlayer підтримує контент rich text, визначений за 
 
     ```svelte
     <script lang="ts">
-    import { useMarkdownRenderer } from "svelte-intlayer";
+    import { useMarkdownRenderer } from "svelte-intlayer/markdown";
     const render = useMarkdownRenderer();
     </script>
 
@@ -287,7 +287,7 @@ Intlayer підтримує контент rich text, визначений за 
 
     ```svelte
     <script lang="ts">
-    import { renderMarkdown } from "svelte-intlayer";
+    import { renderMarkdown } from "svelte-intlayer/markdown";
     </script>
 
     {@html renderMarkdown("# Мій заголовок")}
@@ -298,7 +298,7 @@ Intlayer підтримує контент rich text, визначений за 
     #### Компонент `<MarkdownRenderer />`
 
     ```tsx
-    import { MarkdownRenderer } from "preact-intlayer";
+    import { MarkdownRenderer } from "preact-intlayer/markdown";
 
     <MarkdownRenderer forceBlock={true}>
       {"# Мій заголовок"}
@@ -308,7 +308,7 @@ Intlayer підтримує контент rich text, визначений за 
     #### Хук `useMarkdownRenderer()`
 
     ```tsx
-    import { useMarkdownRenderer } from "preact-intlayer";
+    import { useMarkdownRenderer } from "preact-intlayer/markdown";
 
     const render = useMarkdownRenderer();
 
@@ -318,7 +318,7 @@ Intlayer підтримує контент rich text, визначений за 
     #### Утиліта `renderMarkdown()`
 
     ```tsx
-    import { renderMarkdown } from "preact-intlayer";
+    import { renderMarkdown } from "preact-intlayer/markdown";
 
     return <div>{renderMarkdown("# Мій заголовок")}</div>;
     ```
@@ -328,7 +328,7 @@ Intlayer підтримує контент rich text, визначений за 
     #### Компонент `<MarkdownRenderer />`
 
     ```tsx
-    import { MarkdownRenderer } from "solid-intlayer";
+    import { MarkdownRenderer } from "solid-intlayer/markdown";
 
     <MarkdownRenderer forceBlock={true}>
       {"# Мій заголовок"}
@@ -338,7 +338,7 @@ Intlayer підтримує контент rich text, визначений за 
     #### Хук `useMarkdownRenderer()`
 
     ```tsx
-    import { useMarkdownRenderer } from "solid-intlayer";
+    import { useMarkdownRenderer } from "solid-intlayer/markdown";
 
     const render = useMarkdownRenderer();
 
@@ -348,7 +348,7 @@ Intlayer підтримує контент rich text, визначений за 
     #### Утиліта `renderMarkdown()`
 
     ```tsx
-    import { renderMarkdown } from "solid-intlayer";
+    import { renderMarkdown } from "solid-intlayer/markdown";
 
     return <div>{renderMarkdown("# Мій заголовок")}</div>;
     ```
@@ -383,7 +383,7 @@ Intlayer підтримує контент rich text, визначений за 
   <Tab label="React / Next.js">
 
     ```tsx fileName="AppProvider.tsx"
-    import { MarkdownProvider } from "react-intlayer";
+    import { MarkdownProvider } from "react-intlayer/markdown";
 
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
@@ -429,7 +429,7 @@ Intlayer підтримує контент rich text, визначений за 
 
     ```svelte fileName="App.svelte"
     <script lang="ts">
-      import { MarkdownProvider } from "svelte-intlayer";
+      import { MarkdownProvider } from "svelte-intlayer/markdown";
       import MyHeading from "./MyHeading.svelte";
     </script>
 
@@ -448,7 +448,7 @@ Intlayer підтримує контент rich text, визначений за 
   <Tab label="Preact" value="preact">
 
     ```tsx fileName="AppProvider.tsx"
-    import { MarkdownProvider } from "preact-intlayer";
+    import { MarkdownProvider } from "preact-intlayer/markdown";
 
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
@@ -467,7 +467,7 @@ Intlayer підтримує контент rich text, визначений за 
   <Tab label="Solid">
 
     ```tsx fileName="AppProvider.tsx"
-    import { MarkdownProvider } from "solid-intlayer";
+    import { MarkdownProvider } from "solid-intlayer/markdown";
 
     export const AppProvider = (props) => (
       <MarkdownProvider
@@ -486,7 +486,7 @@ Intlayer підтримує контент rich text, визначений за 
   <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
-    import { createIntlayerMarkdownProvider } from "angular-intlayer";
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
 
     export const appConfig: ApplicationConfig = {
       providers: [

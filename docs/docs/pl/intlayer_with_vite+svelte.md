@@ -245,7 +245,7 @@ module.exports = appContent;
 ```svelte fileName="src/App.svelte"
 <script lang="ts">
 import  { getLocaleName } from 'intlayer';
-import { useLocale } from 'svelte-intlayer';
+import { useLocale } from "svelte-intlayer";
 
 // Pobierz informacje o lokalizacji i funkcję setLocale
 const { locale, availableLocales, setLocale } = useLocale();
@@ -366,7 +366,7 @@ Na koniec zaktualizuj swój plik `App.svelte`, aby otrzymywał właściwość `l
 ```svelte fileName="src/App.svelte"
 <script lang="ts">
 import type { Locale } from 'intlayer';
-import { useIntlayer } from 'svelte-intlayer';
+import { useIntlayer } from "svelte-intlayer";
 import Counter from './lib/Counter.svelte';
 import LocaleSwitcher from './lib/LocaleSwitcher.svelte';
 

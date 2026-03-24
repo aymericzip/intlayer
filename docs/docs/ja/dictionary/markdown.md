@@ -208,12 +208,8 @@ Intlayerは、マークダウン構文を使用して定義されたリッチテ
 <Tabs group="framework">
   <Tab label="React / Next.js" value="react">
   
-    #### `<MarkdownRenderer />` コンポーネント
-
-    特定のオプションでマークダウン文字列をレンダリングします。
-
     ```tsx
-    import { MarkdownRenderer } from "react-intlayer";
+    import { MarkdownRenderer } from "react-intlayer/markdown";
 
     <MarkdownRenderer forceBlock={true} tagfilter={true}>
       {"# My Title"}
@@ -225,7 +221,7 @@ Intlayerは、マークダウン構文を使用して定義されたリッチテ
     事前設定されたレンダラー関数を取得します。
 
     ```tsx
-    import { useMarkdownRenderer } from "react-intlayer";
+    import { useMarkdownRenderer } from "react-intlayer/markdown";
 
     const renderMarkdown = useMarkdownRenderer({
       forceBlock: true,
@@ -239,7 +235,7 @@ Intlayerは、マークダウン構文を使用して定義されたリッチテ
     コンポーネント外でのレンダリングのためのスタンドアロンユーティリティ。
 
     ```tsx
-    import { renderMarkdown } from "react-intlayer";
+    import { renderMarkdown } from "react-intlayer/markdown";
 
     const jsx = renderMarkdown("# My Title", { forceBlock: true });
     ```
@@ -251,7 +247,7 @@ Intlayerは、マークダウン構文を使用して定義されたリッチテ
 
     ```vue
     <script setup>
-    import { MarkdownRenderer } from "vue-intlayer";
+    import { MarkdownRenderer } from "vue-intlayer/markdown";
     </script>
 
     <template>
@@ -266,7 +262,7 @@ Intlayerは、マークダウン構文を使用して定義されたリッチテ
 
     ```svelte
     <script lang="ts">
-    import { MarkdownRenderer } from "svelte-intlayer";
+    import { MarkdownRenderer } from "svelte-intlayer/markdown";
     </script>
 
     <MarkdownRenderer forceBlock={true} value="# My Title" />
@@ -276,7 +272,7 @@ Intlayerは、マークダウン構文を使用して定義されたリッチテ
 
     ```svelte
     <script lang="ts">
-    import { useMarkdownRenderer } from "svelte-intlayer";
+    import { useMarkdownRenderer } from "svelte-intlayer/markdown";
     const render = useMarkdownRenderer();
     </script>
 
@@ -287,7 +283,7 @@ Intlayerは、マークダウン構文を使用して定義されたリッチテ
 
     ```svelte
     <script lang="ts">
-    import { renderMarkdown } from "svelte-intlayer";
+    import { renderMarkdown } from "svelte-intlayer/markdown";
     </script>
 
     {@html renderMarkdown("# My Title")}
@@ -298,7 +294,7 @@ Intlayerは、マークダウン構文を使用して定義されたリッチテ
     #### `<MarkdownRenderer />` コンポーネント
 
     ```tsx
-    import { MarkdownRenderer } from "preact-intlayer";
+    import { MarkdownRenderer } from "preact-intlayer/markdown";
 
     <MarkdownRenderer forceBlock={true}>
       {"# My Title"}
@@ -308,7 +304,7 @@ Intlayerは、マークダウン構文を使用して定義されたリッチテ
     #### `useMarkdownRenderer()` フック
 
     ```tsx
-    import { useMarkdownRenderer } from "preact-intlayer";
+    import { useMarkdownRenderer } from "preact-intlayer/markdown";
 
     const render = useMarkdownRenderer();
 
@@ -318,7 +314,7 @@ Intlayerは、マークダウン構文を使用して定義されたリッチテ
     #### `renderMarkdown()` ユーティリティ
 
     ```tsx
-    import { renderMarkdown } from "preact-intlayer";
+    import { renderMarkdown } from "preact-intlayer/markdown";
 
     return <div>{renderMarkdown("# My Title")}</div>;
     ```
@@ -328,7 +324,7 @@ Intlayerは、マークダウン構文を使用して定義されたリッチテ
     #### `<MarkdownRenderer />` コンポーネント
 
     ```tsx
-    import { MarkdownRenderer } from "solid-intlayer";
+    import { MarkdownRenderer } from "solid-intlayer/markdown";
 
     <MarkdownRenderer forceBlock={true}>
       {"# My Title"}
@@ -338,7 +334,7 @@ Intlayerは、マークダウン構文を使用して定義されたリッチテ
     #### `useMarkdownRenderer()` フック
 
     ```tsx
-    import { useMarkdownRenderer } from "solid-intlayer";
+    import { useMarkdownRenderer } from "solid-intlayer/markdown";
 
     const render = useMarkdownRenderer();
 
@@ -348,7 +344,7 @@ Intlayerは、マークダウン構文を使用して定義されたリッチテ
     #### `renderMarkdown()` ユーティリティ
 
     ```tsx
-    import { renderMarkdown } from "solid-intlayer";
+    import { renderMarkdown } from "solid-intlayer/markdown";
 
     return <div>{renderMarkdown("# My Title")}</div>;
     ```
@@ -359,7 +355,7 @@ Intlayerは、マークダウン構文を使用して定義されたリッチテ
     サービスを使用してマークダウン文字列をレンダリングします。
 
     ```typescript
-    import { IntlayerMarkdownService } from "angular-intlayer";
+    import { IntlayerMarkdownService } from "angular-intlayer/markdown";
 
     export class MyComponent {
       constructor(private markdownService: IntlayerMarkdownService) {}
@@ -383,7 +379,7 @@ Intlayerは、マークダウン構文を使用して定義されたリッチテ
   <Tab label="React / Next.js" value="react">
 
     ```tsx fileName="AppProvider.tsx"
-    import { MarkdownProvider } from "react-intlayer";
+    import { MarkdownProvider } from "react-intlayer/markdown";
 
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
@@ -399,12 +395,32 @@ Intlayerは、マークダウン構文を使用して定義されたリッチテ
     );
     ```
 
+    独自の Markdown レンダラーを使用することもできます:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "react-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          const { compileMarkdown } = await import('react-intlayer/markdown');
+          return compileMarkdown(md);
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > Markdown レンダラーを動的にインポートすることは、アプリケーションのバンドルサイズを削減するための良い方法です。
+
   </Tab>
   <Tab label="Vue" value="vue">
 
     ```typescript fileName="main.ts"
     import { createApp } from "vue";
-    import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
+    import { installIntlayer } from "vue-intlayer";
+    import { installIntlayerMarkdown } from "vue-intlayer/markdown";
     import App from "./App.vue";
 
     const app = createApp(App);
@@ -424,12 +440,35 @@ Intlayerは、マークダウン構文を使用して定義されたリッチテ
     app.mount("#app");
     ```
 
+    独自の Markdown レンダラーを使用することもできます:
+
+    ```typescript fileName="main.ts"
+    import { createApp } from "vue";
+    import { installIntlayer } from "vue-intlayer";
+    import { installIntlayerMarkdown } from "vue-intlayer/markdown";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(installIntlayer);
+    app.use(installIntlayerMarkdown, {
+      renderMarkdown: async (md) => {
+        const { compileMarkdown } = await import('vue-intlayer/markdown');
+        return compileMarkdown(md);
+      },
+    });
+
+    app.mount("#app");
+    ```
+
+    > Markdown レンダラーを動的にインポートすることは、アプリケーションのバンドルサイズを削減するための良い方法です。
+
   </Tab>
   <Tab label="Svelte" value="svelte">
 
     ```svelte fileName="App.svelte"
     <script lang="ts">
-      import { MarkdownProvider } from "svelte-intlayer";
+      import { MarkdownProvider } from "svelte-intlayer/markdown";
       import MyHeading from "./MyHeading.svelte";
     </script>
 
@@ -444,11 +483,30 @@ Intlayerは、マークダウン構文を使用して定義されたリッチテ
     </MarkdownProvider>
     ```
 
+    独自の Markdown レンダラーを使用することもできます:
+
+    ```svelte fileName="App.svelte"
+    <script lang="ts">
+      import { MarkdownProvider } from "svelte-intlayer/markdown";
+    </script>
+
+    <MarkdownProvider
+      renderMarkdown={async (md) => {
+        const { compileMarkdown } = await import('svelte-intlayer/markdown');
+        return compileMarkdown(md);
+      }}
+    >
+      <slot />
+    </MarkdownProvider>
+    ```
+
+    > Markdown レンダラーを動的にインポートすることは、アプリケーションのバンドルサイズを削減するための良い方法です。
+
   </Tab>
   <Tab label="Preact" value="preact">
 
     ```tsx fileName="AppProvider.tsx"
-    import { MarkdownProvider } from "preact-intlayer";
+    import { MarkdownProvider } from "preact-intlayer/markdown";
 
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
@@ -463,11 +521,30 @@ Intlayerは、マークダウン構文を使用して定義されたリッチテ
     );
     ```
 
+    独自の Markdown レンダラーを使用することもできます:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "preact-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          const { compileMarkdown } = await import('preact-intlayer/markdown');
+          return compileMarkdown(md);
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > Markdown レンダラーを動的にインポートすることは、アプリケーションのバンドルサイズを削減するための良い方法です。
+
   </Tab>
   <Tab label="Solid" value="solid">
 
     ```tsx fileName="AppProvider.tsx"
-    import { MarkdownProvider } from "solid-intlayer";
+    import { MarkdownProvider } from "solid-intlayer/markdown";
 
     export const AppProvider = (props) => (
       <MarkdownProvider
@@ -482,11 +559,30 @@ Intlayerは、マークダウン構文を使用して定義されたリッチテ
     );
     ```
 
+    独自の Markdown レンダラーを使用することもできます:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "solid-intlayer/markdown";
+
+    export const AppProvider = (props) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          const { compileMarkdown } = await import('solid-intlayer/markdown');
+          return compileMarkdown(md);
+        }}
+      >
+        {props.children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > Markdown レンダラーを動的にインポートすることは、アプリケーションのバンドルサイズを削減するための良い方法です。
+
   </Tab>
   <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
-    import { createIntlayerMarkdownProvider } from "angular-intlayer";
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
 
     export const appConfig: ApplicationConfig = {
       providers: [
@@ -498,6 +594,25 @@ Intlayerは、マークダウン構文を使用して定義されたリッチテ
       ],
     };
     ```
+
+    独自の Markdown レンダラーを使用することもできます:
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          renderMarkdown: async (md) => {
+            const { compileMarkdown } = await import('angular-intlayer/markdown');
+            return compileMarkdown(md);
+          },
+        }),
+      ],
+    };
+    ```
+
+    > Markdown レンダラーを動的にインポートすることは、アプリケーションのバンドルサイズを削減するための良い方法です。
 
   </Tab>
 </Tabs>

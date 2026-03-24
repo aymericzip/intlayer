@@ -28,7 +28,7 @@ Komponen `MarkdownRenderer` merender konten markdown dengan komponen kustom.
 ## Penggunaan
 
 ```tsx
-import { MarkdownRenderer } from "react-intlayer";
+import { MarkdownRenderer } from "react-intlayer/markdown";
 
 const MyComponent = () => (
   <MarkdownRenderer># My Title My content</MarkdownRenderer>

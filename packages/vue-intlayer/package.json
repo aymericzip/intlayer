@@ -51,6 +51,11 @@
       "require": "./dist/cjs/format/index.cjs",
       "import": "./dist/esm/format/index.mjs"
     },
+    "./html": {
+      "types": "./dist/types/html/index.d.ts",
+      "require": "./dist/cjs/html/index.cjs",
+      "import": "./dist/esm/html/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
@@ -66,6 +71,9 @@
       ],
       "format": [
         "./dist/types/format/index.d.ts"
+      ],
+      "html": [
+        "./dist/types/html/index.d.ts"
       ],
       "package.json": [
         "./package.json"

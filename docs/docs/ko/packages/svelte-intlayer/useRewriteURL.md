@@ -29,7 +29,7 @@ Svelte 컴포넌트 안에서 훅을 호출하세요.
 
 ```svelte
 <script>
-  import { useRewriteURL } from 'svelte-intlayer';
+  import { useRewriteURL } from "svelte-intlayer";
 
   // 리라이트 규칙이 있으면 주소 표시줄의 /fr/tests를 /fr/essais로 자동으로 수정합니다
   useRewriteURL();

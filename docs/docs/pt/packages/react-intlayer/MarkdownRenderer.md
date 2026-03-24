@@ -28,7 +28,7 @@ O componente `MarkdownRenderer` renderiza conteúdo markdown com componentes per
 ## Uso
 
 ```tsx
-import { MarkdownRenderer } from "react-intlayer";
+import { MarkdownRenderer } from "react-intlayer/markdown";
 
 const MyComponent = () => (
   <MarkdownRenderer># Meu Título Meu conteúdo</MarkdownRenderer>

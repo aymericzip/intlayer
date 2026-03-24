@@ -5,7 +5,7 @@ import { setMarkdownContext } from './context';
 
 export const components: HTMLComponents<'permissive', {}> | undefined =
   undefined;
-export const wrapper: any = undefined;
+export const wrapper: string | import('svelte').ComponentType | undefined = undefined;
 export const forceBlock: boolean | undefined = undefined;
 export const forceInline: boolean | undefined = undefined;
 export const preserveFrontmatter: boolean | undefined = undefined;
@@ -16,8 +16,8 @@ let customRenderMarkdown:
       markdown: string,
       options?: any,
       components?: HTMLComponents<'permissive', {}>,
-      wrapper?: any
-    ) => string)
+      wrapper?: string | import('svelte').ComponentType
+    ) => string | Promise<string>)
   | undefined;
 export { customRenderMarkdown as renderMarkdown };
 
@@ -39,7 +39,7 @@ const internalRenderMarkdown = (
     tagfilter?: boolean;
   },
   componentsOverride?: HTMLComponents<'permissive', {}>,
-  wrapperOverride?: any
+  wrapperOverride?: string | import('svelte').ComponentType
 ) => {
   if (typeof customRenderMarkdown === 'function') {
     return customRenderMarkdown(
@@ -56,7 +56,7 @@ const internalRenderMarkdown = (
     preserveFrontmatter:
       options?.preserveFrontmatter ?? baseOptions.preserveFrontmatter,
     tagfilter: options?.tagfilter ?? baseOptions.tagfilter,
-    wrapper: wrapperOverride || baseOptions.wrapper,
+    wrapper: (wrapperOverride || baseOptions.wrapper) as string,
     forceWrapper: !!(wrapperOverride || baseOptions.wrapper),
     components: {
       ...baseOptions.components,

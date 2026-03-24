@@ -29,7 +29,7 @@ Svelteコンポーネント内でこのフックを呼び出します。
 
 ```svelte
 <script>
-  import { useRewriteURL } from 'svelte-intlayer';
+  import { useRewriteURL } from "svelte-intlayer";
 
   // リライトルールが存在する場合、アドレスバーの /fr/tests を /fr/essais に自動的に修正する
   useRewriteURL();

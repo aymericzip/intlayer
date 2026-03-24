@@ -240,7 +240,7 @@ Anda dapat mengonfigurasi rendering HTML secara global untuk seluruh aplikasi An
   <Tab label="React / Next.js" value="react">
   
     ```tsx fileName="AppProvider.tsx"
-    import { HTMLProvider } from "react-intlayer";
+    import { HTMLProvider } from "react-intlayer/html";
 
     export const AppProvider = ({ children }) => (
       <HTMLProvider
@@ -280,7 +280,7 @@ Anda dapat mengonfigurasi rendering HTML secara global untuk seluruh aplikasi An
    
     ```svelte fileName="App.svelte"
     <script lang="ts">
-      import { HTMLProvider } from "svelte-intlayer";
+      import { HTMLProvider } from "svelte-intlayer/html";
       import MyCustomP from "./MyCustomP.svelte";
     </script>
 
@@ -297,7 +297,7 @@ Anda dapat mengonfigurasi rendering HTML secara global untuk seluruh aplikasi An
   <Tab label="Preact" value="preact">
    
     ```tsx fileName="AppProvider.tsx"
-    import { HTMLProvider } from "preact-intlayer";
+    import { HTMLProvider } from "preact-intlayer/html";
 
     export const AppProvider = ({ children }) => (
       <HTMLProvider
@@ -314,7 +314,7 @@ Anda dapat mengonfigurasi rendering HTML secara global untuk seluruh aplikasi An
   <Tab label="Solid" value="solid">
    
     ```tsx fileName="AppProvider.tsx"
-    import { HTMLProvider } from "solid-intlayer";
+    import { HTMLProvider } from "solid-intlayer/html";
 
     export const AppProvider = (props) => (
       <HTMLProvider
@@ -331,11 +331,11 @@ Anda dapat mengonfigurasi rendering HTML secara global untuk seluruh aplikasi An
   <Tab label="Angular" value="angular">
 
     ```typescript fileName="app.config.ts"
-    import { createIntlayerMarkdownProvider } from "angular-intlayer";
+    import { createIntlayerHTMLProvider } from "angular-intlayer/html";
 
     export const appConfig: ApplicationConfig = {
       providers: [
-        createIntlayerMarkdownProvider({
+        createIntlayerHTMLProvider({
           components: {
             p: { class: "prose" },
             CustomLink: { href: "/details" },
@@ -360,7 +360,7 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
     Merender string HTML dengan komponen tertentu.
 
     ```tsx
-    import { HTMLRenderer } from "react-intlayer";
+    import { HTMLRenderer } from "react-intlayer/html";
 
     <HTMLRenderer components={{ p: MyCustomP }}>
       {"<p>Hello World</p>"}
@@ -372,7 +372,7 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
     Dapatkan fungsi renderer yang telah dikonfigurasi sebelumnya.
 
     ```tsx
-    import { useHTMLRenderer } from "react-intlayer";
+    import { useHTMLRenderer } from "react-intlayer/html";
 
     const renderHTML = useHTMLRenderer({
       components: { strong: (props) => <strong {...props} className="text-red-500" /> }
@@ -386,7 +386,7 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
     Utilitas mandiri untuk merender di luar komponen.
 
     ```tsx
-    import { renderHTML } from "react-intlayer";
+    import { renderHTML } from "react-intlayer/html";
 
     const jsx = renderHTML("<p>Hello</p>", { components: { p: 'div' } });
     ```
@@ -398,7 +398,7 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
    
     ```vue
     <script setup>
-    import { HTMLRenderer } from "vue-intlayer";
+    import { HTMLRenderer } from "vue-intlayer/html";
     </script>
 
     <template>
@@ -413,7 +413,7 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
    
     ```svelte
     <script lang="ts">
-    import { HTMLRenderer } from "svelte-intlayer";
+    import { HTMLRenderer } from "svelte-intlayer/html";
     </script>
 
     <HTMLRenderer value="<p>Hello World</p>" />
@@ -423,7 +423,7 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
 
     ```svelte
     <script lang="ts">
-    import { useHTMLRenderer } from "svelte-intlayer";
+    import { useHTMLRenderer } from "svelte-intlayer/html";
     const render = useHTMLRenderer();
     </script>
 
@@ -434,7 +434,7 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
 
     ```svelte
     <script lang="ts">
-    import { renderHTML } from "svelte-intlayer";
+    import { renderHTML } from "svelte-intlayer/html";
     </script>
 
     {@html renderHTML("<p>Hello World</p>")}
@@ -446,7 +446,7 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
     #### Komponen `<HTMLRenderer />`
    
     ```tsx
-    import { HTMLRenderer } from "preact-intlayer";
+    import { HTMLRenderer } from "preact-intlayer/html";
 
     <HTMLRenderer>
       {"<p>Hello World</p>"}
@@ -456,7 +456,7 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
     #### `useHTMLRenderer()` Hook
 
     ```tsx
-    import { useHTMLRenderer } from "preact-intlayer";
+    import { useHTMLRenderer } from "preact-intlayer/html";
 
     const render = useHTMLRenderer();
 
@@ -466,7 +466,7 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
     #### Utilitas `renderHTML()`
 
     ```tsx
-    import { renderHTML } from "preact-intlayer";
+    import { renderHTML } from "preact-intlayer/html";
 
     return <div>{renderHTML("<p>Hello World</p>")}</div>;
     ```
@@ -477,7 +477,7 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
     #### Komponen `<HTMLRenderer />`
    
     ```tsx
-    import { HTMLRenderer } from "solid-intlayer";
+    import { HTMLRenderer } from "solid-intlayer/html";
 
     <HTMLRenderer>
       {"<p>Hello World</p>"}
@@ -487,7 +487,7 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
     #### `useHTMLRenderer()` Hook
 
     ```tsx
-    import { useHTMLRenderer } from "solid-intlayer";
+    import { useHTMLRenderer } from "solid-intlayer/html";
 
     const render = useHTMLRenderer();
 
@@ -497,21 +497,21 @@ Jika Anda perlu merender string HTML mentah atau memiliki kontrol lebih atas pem
     #### Utilitas `renderHTML()`
 
     ```tsx
-    import { renderHTML } from "solid-intlayer";
+    import { renderHTML } from "solid-intlayer/html";
 
     return <div>{renderHTML("<p>Hello World</p>")}</div>;
     ```
 
   </Tab>
   <Tab label="Angular" value="angular">
-    #### Layanan `IntlayerMarkdownService`
+    #### Layanan `IntlayerHTMLService`
     Render string HTML menggunakan layanan tersebut.
 
     ```typescript
-    import { IntlayerMarkdownService } from "angular-intlayer";
+    import { IntlayerHTMLService } from "angular-intlayer";
 
     export class MyComponent {
-      constructor(private markdownService: IntlayerMarkdownService) {}
+      constructor(private markdownService: IntlayerHTMLService) {}
 
       renderHTML(html: string) {
         return this.markdownService.renderMarkdown(html);

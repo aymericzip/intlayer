@@ -1,4 +1,4 @@
-import { getContext, setContext } from 'svelte';
+import { type ComponentType, getContext, setContext } from 'svelte';
 import type { HTMLComponents } from '../html/types';
 import { compileMarkdown } from './compiler';
 
@@ -13,7 +13,7 @@ export type MarkdownProviderOptions = {
 
 export type RenderMarkdownOptions = MarkdownProviderOptions & {
   components?: HTMLComponents<'permissive', {}>;
-  wrapper?: any;
+  wrapper?: string | ComponentType;
 };
 
 export interface MarkdownContext {
@@ -22,8 +22,8 @@ export interface MarkdownContext {
     markdown: string,
     options?: MarkdownProviderOptions,
     components?: HTMLComponents<'permissive', {}>,
-    wrapper?: any
-  ) => string;
+    wrapper?: string | ComponentType
+  ) => string | Promise<string>;
 }
 
 export const getMarkdownContext = (): MarkdownContext => {
@@ -32,7 +32,7 @@ export const getMarkdownContext = (): MarkdownContext => {
       renderMarkdown: (md, _options, components, wrapper) =>
         compileMarkdown(md, {
           components,
-          wrapper,
+          wrapper: wrapper as string,
           forceWrapper: !!wrapper,
         }),
     }

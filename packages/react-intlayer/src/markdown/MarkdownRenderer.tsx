@@ -242,7 +242,7 @@ export type MarkdownRendererProps = RenderMarkdownProps & {
       preserveFrontmatter?: boolean;
       tagfilter?: boolean;
     }
-  ) => ReactNode;
+  ) => ReactNode | Promise<ReactNode>;
 };
 
 /**

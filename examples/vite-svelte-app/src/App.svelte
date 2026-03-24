@@ -1,9 +1,9 @@
 <script lang="ts">
 import {
-  setIntlayerMarkdown,
   useIntlayer,
   setupIntlayer,
 } from 'svelte-intlayer';
+import { setIntlayerMarkdown } from 'svelte-intlayer/markdown';
 import viteLogo from '/vite.svg';
 import svelteLogo from './assets/svelte.svg';
 import Counter from './lib/Counter.svelte';
@@ -115,6 +115,16 @@ $: console.log($content.markdownContent.metadata);
     <!-- render the metadata of the markdown content -->
     {$content.markdownContent.metadata.title}
   </div>
+  <div>
+    <h2>Enumeration</h2>
+    <p>{$content.enumeration(0, { count: 0 })}</p>
+    <p>{$content.enumeration(1, { count: 1 })}</p>
+    <p>{$content.enumeration(2, { count: 2 })}</p>
+
+    <h2>Insertion</h2>
+    <p>{$content.insertion({ count: 42 })}</p>
+  </div>
+
   <Test />
 </main>
 

@@ -1,14 +1,16 @@
 import './style.css';
 import { getHTMLTextDir } from 'intlayer';
 import {
-  compileMarkdown,
   getIntlayerClient,
   installIntlayer,
-  installIntlayerMarkdown,
   useIntlayer,
   useLocale,
   useRewriteURL,
 } from 'vanilla-intlayer';
+import {
+  compileMarkdown,
+  installIntlayerMarkdown,
+} from 'vanilla-intlayer/markdown';
 import heroImg from './assets/hero.png';
 import typescriptLogo from './assets/typescript.svg';
 import viteLogo from './assets/vite.svg';
@@ -17,7 +19,12 @@ import { setupLocaleSwitcher } from './locale-switcher.ts';
 
 // Bootstrap
 installIntlayer();
-installIntlayerMarkdown();
+installIntlayerMarkdown({
+  renderMarkdown: async (md) => {
+    const { compileMarkdown } = await import('vanilla-intlayer/markdown');
+    return compileMarkdown(md);
+  },
+});
 
 // Render function
 const app = document.querySelector<HTMLDivElement>('#app')!;
@@ -38,7 +45,17 @@ const render = () => {
 
       <h1>${content.title}</h1>
 
+      <div class="enumeration">
+        <p>${content.enumeration(0, { count: 0 })}</p>
+        <p>${content.enumeration(1, { count: 1 })}</p>
+        <p>${content.enumeration(2, { count: 2 })}</p>
+      </div>
+
       <button id="counter" type="button" class="counter"></button>
+
+      <div class="html-content">
+        ${content.htmlContent}
+      </div>
 
       <div class="edit-note">
         ${compileMarkdown(String(content.editNote))}

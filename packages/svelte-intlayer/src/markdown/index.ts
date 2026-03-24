@@ -1,21 +1,18 @@
-export * from './compiler';
-export * from './context';
+export { compileMarkdown, type MarkdownCompilerOptions } from './compiler';
+export {
+  getMarkdownContext,
+  type MarkdownContext,
+  type RenderMarkdownOptions,
+  setMarkdownContext,
+  setMarkdownContext as setIntlayerMarkdown,
+} from './context';
 export { default as MarkdownMetadataRenderer } from './MarkdownMetadataRenderer.svelte';
 export { default as MarkdownProvider } from './MarkdownProvider.svelte';
 export { default as MarkdownRenderer } from './MarkdownRenderer.svelte';
-export * from './runtime';
-
-import { compileMarkdown } from './compiler';
-import { getMarkdownContext, type RenderMarkdownOptions } from './context';
 
 export type RenderMarkdownProps = RenderMarkdownOptions;
 
-export const renderMarkdown = (
-  content: string,
-  options: RenderMarkdownProps = {}
-) => {
-  return compileMarkdown(content, options) as string;
-};
+export const renderMarkdown = compileMarkdown;
 
 export const useMarkdownRenderer = (options: RenderMarkdownProps = {}) => {
   const context = getMarkdownContext();

@@ -29,7 +29,7 @@ Gọi hook bên trong một component Svelte.
 
 ```svelte
 <script>
-  import { useRewriteURL } from 'svelte-intlayer';
+  import { useRewriteURL } from "svelte-intlayer";
 
   // Tự động sửa /fr/tests thành /fr/essais trên thanh địa chỉ nếu tồn tại quy tắc rewrite
   useRewriteURL();

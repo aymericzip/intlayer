@@ -699,7 +699,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 import { localeMap } from 'intlayer'; // 来自 'intlayer' 的工具函数和类型
 import type { FC, PropsWithChildren } from 'react'; // React 函数组件和属性类型
-import { IntlayerProvider } from 'react-intlayer'; // 国际化上下文提供者
+import { IntlayerProvider } from "react-intlayer"; // 国际化上下文提供者
 import { BrowserRouter, Route, Routes } from 'react-router-dom'; // 用于管理导航的路由组件
 
 /**

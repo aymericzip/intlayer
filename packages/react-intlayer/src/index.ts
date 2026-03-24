@@ -35,20 +35,55 @@ export {
 export { useRewriteURL } from './client/useRewriteURL';
 export { getDictionary } from './getDictionary';
 export { getIntlayer } from './getIntlayer';
-export {
-  HTMLProvider,
-  HTMLRenderer,
-  type HTMLRendererProps,
-  type RenderHTMLProps,
-  renderHTML,
-  useHTMLRenderer,
-} from './html/index';
 export type { IntlayerNode } from './IntlayerNode';
-export {
-  MarkdownProvider,
-  MarkdownRenderer,
-  type MarkdownRendererProps,
-  type RenderMarkdownProps,
-  renderMarkdown,
-  useMarkdownRenderer,
-} from './markdown/index';
+
+import type {
+  MarkdownProviderOptions as _MarkdownProviderOptions,
+  MarkdownRendererProps as _MarkdownRendererProps,
+  RenderMarkdownProps as _RenderMarkdownProps,
+} from './markdown';
+import {
+  MarkdownProvider as _MarkdownProvider,
+  MarkdownRenderer as _MarkdownRenderer,
+  MarkdownRendererPlugin as _MarkdownRendererPlugin,
+  renderMarkdown as _renderMarkdown,
+  useMarkdownContext as _useMarkdownContext,
+  useMarkdownRenderer as _useMarkdownRenderer,
+} from './markdown';
+
+/**
+ * @deprecated import from react-intlayer/markdown instead
+ */
+export const MarkdownProvider = _MarkdownProvider;
+/**
+ * @deprecated import from react-intlayer/markdown instead
+ */
+export const useMarkdownContext = _useMarkdownContext;
+/**
+ * @deprecated import from react-intlayer/markdown instead
+ */
+export type MarkdownProviderOptions = _MarkdownProviderOptions;
+/**
+ * @deprecated import from react-intlayer/markdown instead
+ */
+export const renderMarkdown = _renderMarkdown;
+/**
+ * @deprecated import from react-intlayer/markdown instead
+ */
+export const useMarkdownRenderer = _useMarkdownRenderer;
+/**
+ * @deprecated import from react-intlayer/markdown instead
+ */
+export const MarkdownRenderer = _MarkdownRenderer;
+/**
+ * @deprecated import from react-intlayer/markdown instead
+ */
+export type RenderMarkdownProps = _RenderMarkdownProps;
+/**
+ * @deprecated import from react-intlayer/markdown instead
+ */
+export type MarkdownRendererProps = _MarkdownRendererProps;
+/**
+ * @deprecated import from react-intlayer/markdown instead
+ */
+export const MarkdownRendererPlugin = _MarkdownRendererPlugin;

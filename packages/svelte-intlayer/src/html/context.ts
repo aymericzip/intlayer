@@ -17,6 +17,7 @@ export type HTMLContextValue = {
 export const setHTMLContext = (value: HTMLContextValue) => {
   setContext(INTLAYER_HTML_CONTEXT_KEY, value);
 };
+export { setHTMLContext as setIntlayerHTML };
 
 export const getHTMLContext = (): HTMLContextValue => {
   const context = getContext<HTMLContextValue>(INTLAYER_HTML_CONTEXT_KEY);

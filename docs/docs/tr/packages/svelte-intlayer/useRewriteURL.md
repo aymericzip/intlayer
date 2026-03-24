@@ -29,7 +29,7 @@ Hook'u bir Svelte bileşeni içinde çağırın.
 
 ```svelte
 <script>
-  import { useRewriteURL } from 'svelte-intlayer';
+  import { useRewriteURL } from "svelte-intlayer";
 
   // Yeniden yazma kuralı varsa adres çubuğunda /fr/tests'i otomatik olarak /fr/essais olarak düzeltir
   useRewriteURL();

@@ -1,4 +1,4 @@
-import { type Dictionary, html, md, t } from 'intlayer';
+import { type Dictionary, enu, html, insert, md, t } from 'intlayer';
 
 const appContent = {
   key: 'app',
@@ -26,6 +26,35 @@ Here is a list:
     html: html(
       '<div>Hello <b>World</b><custom-component /><CustomComponent /> <CustomComponent2> Hello </CustomComponent2></div>'
     ),
+
+    enumeration: insert(
+      enu({
+        '0': t({
+          en: 'No items',
+          fr: 'Aucun article',
+          es: 'No hay artículos',
+        }),
+        '1': t({
+          en: 'One item',
+          fr: 'Un article',
+          es: 'Un artículo',
+        }),
+        '>1': t({
+          en: '{{count}} items',
+          fr: '{{count}} articles',
+          es: '{{count}} artículos',
+        }),
+      })
+    ),
+
+    insertion: insert(
+      t({
+        en: 'test en {{ count }}',
+        fr: 'test fr {{ count }}',
+        es: 'test es {{ count }}',
+      })
+    ),
+
     title: 'Vite + Svelte',
     viteLogoAlt: t({
       en: 'Vite Logo',

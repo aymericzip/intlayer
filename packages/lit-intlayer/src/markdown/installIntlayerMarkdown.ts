@@ -22,7 +22,7 @@ export type RenderMarkdownFunction = (
   options?: MarkdownProviderOptions,
   components?: HTMLComponents<'permissive', {}>,
   wrapper?: string
-) => string;
+) => string | Promise<string>;
 
 /**
  * Singleton instance
@@ -130,4 +130,34 @@ export const useMarkdown = (): IntlayerMarkdownProvider => {
   return {
     renderMarkdown: (markdown) => compileMarkdown(markdown),
   };
+};
+/**
+ * Asynchronously install a markdown renderer whose implementation is loaded
+ * via a dynamic `import()`.
+ *
+ * Use this to keep the markdown compiler out of the initial bundle — the
+ * loader is only called the first time this function is executed.
+ *
+ * The returned promise resolves once the provider is ready. Any calls to
+ * `useMarkdown()` before the promise resolves will use the fallback
+ * (raw-string) renderer.
+ *
+ * @param loader - A zero-argument async function that resolves to either a
+ *   `RenderMarkdownFunction` or an `IntlayerMarkdownPluginOptions` object.
+ *
+ * @example
+ * ```ts
+ * // Load a custom markdown renderer (e.g. marked) only when needed
+ * await installIntlayerMarkdownDynamic(async () => {
+ *   const { marked } = await import('marked');
+ *   return (markdown) => marked(markdown) as string;
+ * });
+ * ```
+ */
+export const installIntlayerMarkdownDynamic = async (
+  loader: () => Promise<IntlayerMarkdownPluginOptions | RenderMarkdownFunction>
+): Promise<IntlayerMarkdownProvider> => {
+  if (instance) return instance;
+  const pluginOptions = await loader();
+  return installIntlayerMarkdown(pluginOptions);
 };

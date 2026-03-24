@@ -12,14 +12,14 @@ export const INTLAYER_MARKDOWN_TOKEN =
 
 type RenderMarkdownOptions = {
   components?: any;
-  wrapper?: any;
+  wrapper?: string;
   options?: any;
 };
 
 type RenderMarkdownFunction = (
   markdown: string,
   overrides?: any | RenderMarkdownOptions
-) => string | TemplateRef<any>;
+) => string | TemplateRef<any> | Promise<string | TemplateRef<any>>;
 
 export type IntlayerMarkdownProvider = {
   renderMarkdown: RenderMarkdownFunction;
@@ -104,7 +104,10 @@ export class IntlayerMarkdownService {
     optional: true,
   });
 
-  renderMarkdown(markdown: string, overrides?: any): string | TemplateRef<any> {
+  renderMarkdown(
+    markdown: string,
+    overrides?: any
+  ): string | TemplateRef<any> | Promise<string | TemplateRef<any>> {
     if (!this.markdownProvider) {
       return markdown; // Fallback to returning markdown as is
     }

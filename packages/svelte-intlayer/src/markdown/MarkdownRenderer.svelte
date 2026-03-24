@@ -29,4 +29,6 @@ $: htmlContent = context.renderMarkdown(
 );
 </script>
 
-{@html htmlContent}
+{#await htmlContent then resolvedHtmlContent}
+  {@html resolvedHtmlContent}
+{/await}

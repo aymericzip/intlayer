@@ -710,7 +710,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 import { localeMap } from 'intlayer'; // Các hàm tiện ích và kiểu từ 'intlayer'
 import type { FC, PropsWithChildren } from 'react'; // Kiểu React cho các functional component và props
-import { IntlayerProvider } from 'react-intlayer'; // Provider cho ngữ cảnh quốc tế hóa
+import { IntlayerProvider } from "react-intlayer"; // Provider cho ngữ cảnh quốc tế hóa
 import { BrowserRouter, Route, Routes } from 'react-router-dom'; // Các thành phần Router để quản lý điều hướng
 
 /**

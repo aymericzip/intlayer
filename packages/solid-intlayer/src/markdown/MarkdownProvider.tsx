@@ -4,6 +4,7 @@ import {
   type JSXElement,
   type ParentProps,
   useContext,
+  type ValidComponent,
 } from 'solid-js';
 import type { HTMLComponents } from '../html/types';
 import { compileMarkdown } from './compiler';
@@ -19,7 +20,7 @@ export type MarkdownProviderOptions = {
 
 type RenderMarkdownOptions = MarkdownProviderOptions & {
   components?: HTMLComponents<'permissive', {}>;
-  wrapper?: any;
+  wrapper?: ValidComponent;
 };
 
 type MarkdownProviderValue = {
@@ -28,15 +29,15 @@ type MarkdownProviderValue = {
     content: string,
     options?: MarkdownProviderOptions,
     components?: HTMLComponents<'permissive', {}>,
-    wrapper?: any
-  ) => JSXElement;
+    wrapper?: ValidComponent
+  ) => JSXElement | Promise<JSXElement>;
 };
 
 export const MarkdownContext = createContext<MarkdownProviderValue>();
 
 export type MarkdownProviderProps = ParentProps<{
   components?: HTMLComponents<'permissive', {}>;
-  wrapper?: any;
+  wrapper?: ValidComponent;
   forceBlock?: boolean;
   preserveFrontmatter?: boolean;
   tagfilter?: boolean;
@@ -44,8 +45,8 @@ export type MarkdownProviderProps = ParentProps<{
     content: string,
     options?: MarkdownProviderOptions,
     components?: HTMLComponents<'permissive', {}>,
-    wrapper?: any
-  ) => JSXElement;
+    wrapper?: ValidComponent
+  ) => JSXElement | Promise<JSXElement>;
 }>;
 
 export const MarkdownProvider: Component<MarkdownProviderProps> = (props) => {
@@ -53,8 +54,8 @@ export const MarkdownProvider: Component<MarkdownProviderProps> = (props) => {
     content: string,
     options?: MarkdownProviderOptions,
     componentsOverride?: HTMLComponents<'permissive', {}>,
-    wrapperOverride?: any
-  ): JSXElement => {
+    wrapperOverride?: ValidComponent
+  ): JSXElement | Promise<JSXElement> => {
     if (props.renderMarkdown) {
       return props.renderMarkdown(
         content,
@@ -76,7 +77,7 @@ export const MarkdownProvider: Component<MarkdownProviderProps> = (props) => {
       },
     };
 
-    return compileMarkdown(content, mergedOptions);
+    return compileMarkdown(content, mergedOptions as any);
   };
 
   return (

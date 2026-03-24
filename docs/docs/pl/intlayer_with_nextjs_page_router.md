@@ -1357,7 +1357,7 @@ Link.displayName = "Link";
 
 import { getLocalizedUrl } from 'intlayer';
 import NextLink, { type LinkProps as NextLinkProps } from 'next/link';
-import { useLocale } from 'next-intlayer';
+import { useLocale } from "next-intlayer";
 import { forwardRef, PropsWithChildren, type ForwardedRef } from 'react';
 
 /**

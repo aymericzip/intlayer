@@ -703,7 +703,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 ```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
 import { localeMap } from 'intlayer'; // Funzioni e tipi di utilità da 'intlayer'
 import type { FC, PropsWithChildren } from 'react'; // Tipi React per componenti funzionali e props
-import { IntlayerProvider } from 'react-intlayer'; // Provider per il contesto di internazionalizzazione
+import { IntlayerProvider } from "react-intlayer"; // Provider per il contesto di internazionalizzazione
 import { BrowserRouter, Route, Routes } from 'react-router-dom'; // Componenti router per la gestione della navigazione
 
 /**

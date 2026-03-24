@@ -502,7 +502,7 @@ Intlayer, kendi dahili ayrıştırıcısını kullanarak Markdown içeriğini do
 
 ```tsx fileName="src/index.tsx"
 import { render } from "solid-js/web";
-import { MarkdownProvider } from "solid-intlayer";
+import { MarkdownProvider } from "solid-intlayer/markdown";
 import App from "./App";
 
 const root = document.getElementById("root");

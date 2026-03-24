@@ -1,4 +1,9 @@
-import type { ComponentChildren, FunctionComponent, JSX } from 'preact';
+import type {
+  ComponentChildren,
+  ComponentType,
+  FunctionComponent,
+  JSX,
+} from 'preact';
 import type { HTMLComponents } from '../html/types';
 import { compileMarkdown, type MarkdownCompilerOptions } from './compiler';
 import {
@@ -16,7 +21,7 @@ export type RenderMarkdownProps = MarkdownProviderOptions & {
    * Wrapper element or component to be used when there are multiple children.
    * Only used if not wrapped in a MarkdownProvider.
    */
-  wrapper?: FunctionComponent<any>;
+  wrapper?: ComponentType<any> | keyof JSX.IntrinsicElements;
 };
 
 export const renderMarkdown = (
@@ -56,14 +61,17 @@ export const useMarkdownRenderer = ({
 
   return (content: string) => {
     if (context) {
-      return context.renderMarkdown(content, {
+      return context.renderMarkdown(
+        content,
+        {
+          forceBlock,
+          forceInline,
+          preserveFrontmatter,
+          tagfilter,
+        },
         components,
-        wrapper,
-        forceBlock,
-        forceInline,
-        preserveFrontmatter,
-        tagfilter,
-      });
+        wrapper
+      );
     }
 
     return renderMarkdown(content, {
@@ -77,7 +85,7 @@ export const useMarkdownRenderer = ({
   };
 };
 
-type MarkdownRendererProps = RenderMarkdownProps & {
+export type MarkdownRendererProps = RenderMarkdownProps & {
   /**
    * The markdown content to render.
    */
@@ -90,13 +98,13 @@ type MarkdownRendererProps = RenderMarkdownProps & {
     markdown: string,
     options?: {
       components?: HTMLComponents<'permissive', {}>;
-      wrapper?: FunctionComponent<any>;
+      wrapper?: ComponentType<any> | keyof JSX.IntrinsicElements;
       forceBlock?: boolean;
       forceInline?: boolean;
       preserveFrontmatter?: boolean;
       tagfilter?: boolean;
     }
-  ) => ComponentChildren;
+  ) => ComponentChildren | Promise<ComponentChildren>;
 };
 
 /**
@@ -135,14 +143,17 @@ export const MarkdownRenderer: FunctionComponent<MarkdownRendererProps> = ({
   if (context) {
     return (
       <>
-        {context.renderMarkdown(children, {
+        {context.renderMarkdown(
+          children,
+          {
+            forceBlock,
+            forceInline,
+            preserveFrontmatter,
+            tagfilter,
+          },
           components,
-          wrapper,
-          forceBlock,
-          forceInline,
-          preserveFrontmatter,
-          tagfilter,
-        })}
+          wrapper
+        )}
       </>
     );
   }
