@@ -94,7 +94,7 @@ export const getAlias = ({
   /**
    * Configuration
    */
-  const configurationPath = join(configDir, `configuration.json`);
+  const configurationPath = join(configDir, `configuration.${extension}`);
   const relativeConfigurationPath = relative(baseDir, configurationPath);
   const fixedConfigurationPath = formatter(
     normalizePath(relativeConfigurationPath)

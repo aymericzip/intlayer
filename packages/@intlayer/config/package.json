@@ -48,6 +48,7 @@
       "import": "./dist/esm/client.mjs"
     },
     "./built": {
+      "browser": "./dist/esm/built.browser.mjs",
       "types": "./dist/types/built.d.ts",
       "require": "./dist/cjs/built.cjs",
       "import": "./dist/esm/built.mjs"

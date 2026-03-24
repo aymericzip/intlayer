@@ -222,7 +222,9 @@ export const insertionPlugin: Plugins = {
       children !== null &&
       'nodeType' in children &&
       [NodeTypes.ENUMERATION, NodeTypes.CONDITION].includes(
-        children.nodeType as NodeType
+        children.nodeType as
+          | typeof NodeTypes.ENUMERATION
+          | typeof NodeTypes.CONDITION
       )
     ) {
       return (values: any) => (arg: any) => {

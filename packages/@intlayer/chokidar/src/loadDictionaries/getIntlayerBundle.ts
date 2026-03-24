@@ -65,7 +65,7 @@ export const getIntlayerBundle = async (configuration: IntlayerConfig) => {
 
   const configurationPath = join(
     configuration.system.configDir,
-    `configuration.json`
+    `configuration.cjs`
   );
 
   const replaceModules = {
