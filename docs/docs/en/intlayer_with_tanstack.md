@@ -779,7 +779,10 @@ const config: IntlayerConfig = {
 
     /**
      * Indicates if the components should be saved after being transformed.
-     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     *
+     * - If `true`, the compiler will rewrite the component file in the disk. So the transformation will be permanent, and the compiler will skip the transformation for the next process. That way, the compiler can transform the app, and then it can be removed.
+     *
+     * - If `false`, the compiler will inject the `useIntlayer()` function call into the code in the build output only, and keep the base codebase intact. The transformation will be done only in memory.
      */
     saveComponents: false,
 
@@ -810,7 +813,10 @@ const config = {
 
     /**
      * Indicates if the components should be saved after being transformed.
-     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     *
+     * - If `true`, the compiler will rewrite the component file in the disk. So the transformation will be permanent, and the compiler will skip the transformation for the next process. That way, the compiler can transform the app, and then it can be removed.
+     *
+     * - If `false`, the compiler will inject the `useIntlayer()` function call into the code in the build output only, and keep the base codebase intact. The transformation will be done only in memory.
      */
     saveComponents: false,
 
@@ -841,7 +847,10 @@ const config = {
 
     /**
      * Indicates if the components should be saved after being transformed.
-     * That way, the compiler can be run only once to transform the app, and then it can be removed.
+     *
+     * - If `true`, the compiler will rewrite the component file in the disk. So the transformation will be permanent, and the compiler will skip the transformation for the next process. That way, the compiler can transform the app, and then it can be removed.
+     *
+     * - If `false`, the compiler will inject the `useIntlayer()` function call into the code in the build output only, and keep the base codebase intact. The transformation will be done only in memory.
      */
     saveComponents: false,
 
