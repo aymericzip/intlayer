@@ -7,7 +7,7 @@ import type {
 } from '@craco/types';
 import { getConfiguration } from '@intlayer/config/node';
 import { getAlias } from '@intlayer/config/utils';
-import { IntlayerPlugin as IntlayerWebpackPlugin } from '@intlayer/webpack';
+import { IntlayerPlugin } from '@intlayer/webpack';
 import { defu } from 'defu';
 import type { Configuration as WebpackConfig } from 'webpack';
 
@@ -57,7 +57,7 @@ export const overrideCracoConfig = ({
           // defu overwrites arrays by default, so we manually preserve existing plugins
           add: [
             ...(cracoConfig.webpack?.plugins?.add ?? []),
-            new IntlayerWebpackPlugin(intlayerConfig),
+            new IntlayerPlugin(intlayerConfig),
           ],
         },
         // Automatically merges deeply with existing aliases

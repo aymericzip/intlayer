@@ -203,7 +203,7 @@ import { mergeConfig } from "angular-intlayer/webpack";
 export default mergeConfig({});
 ```
 
-> `mergeConfig` फ़ंक्शन Webpack को Intlayer के साथ कॉन्फ़िगर करता है। यह `IntlayerWebpackPlugin` को इंजेक्ट करता है (सामग्री घोषणा फ़ाइलों को संभालने के लिए) और इष्टतम प्रदर्शन के लिए उपनाम (aliases) सेट करता है।
+> `mergeConfig` फ़ंक्शन Webpack को Intlayer के साथ कॉन्फ़िगर करता है। यह `IntlayerPlugin` को इंजेक्ट करता है (सामग्री घोषणा फ़ाइलों को संभालने के लिए) और इष्टतम प्रदर्शन के लिए उपनाम (aliases) सेट करता है।
 
 ### चरण 4: अपनी सामग्री घोषित करें
 

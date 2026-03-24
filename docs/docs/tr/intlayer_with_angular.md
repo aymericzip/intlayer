@@ -201,7 +201,7 @@ import { mergeConfig } from "angular-intlayer/webpack";
 export default mergeConfig({});
 ```
 
-> `mergeConfig` işlevi Webpack'i Intlayer ile yapılandırır. `IntlayerWebpackPlugin`'i (içerik bildirim dosyalarını işlemek için) enjekte eder ve optimum performans için takma adlar (aliases) ayarlar.
+> `mergeConfig` işlevi Webpack'i Intlayer ile yapılandırır. `IntlayerPlugin`'i (içerik bildirim dosyalarını işlemek için) enjekte eder ve optimum performans için takma adlar (aliases) ayarlar.
 
 ### Adım 4: İçeriğinizi Bildirin
 

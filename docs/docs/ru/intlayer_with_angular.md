@@ -201,7 +201,7 @@ import { mergeConfig } from "angular-intlayer/webpack";
 export default mergeConfig({});
 ```
 
-> Функция `mergeConfig` настраивает Webpack с использованием Intlayer. Она внедряет `IntlayerWebpackPlugin` (для обработки файлов декларации контента) и настраивает псевдонимы для оптимальной производительности.
+> Функция `mergeConfig` настраивает Webpack с использованием Intlayer. Она внедряет `IntlayerPlugin` (для обработки файлов декларации контента) и настраивает псевдонимы для оптимальной производительности.
 
 ### Шаг 4: Декларирование контента
 

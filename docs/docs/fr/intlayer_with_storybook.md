@@ -265,7 +265,7 @@ Pour les configurations Storybook basées sur Webpack (par ex. `@storybook/react
 
 ```typescript fileName=".storybook/main.ts" codeFormat="typescript"
 import type { StorybookConfig } from "@storybook/react-webpack5";
-import { IntlayerWebpackPlugin } from "@intlayer/webpack";
+import { IntlayerPlugin } from "@intlayer/webpack";
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
@@ -276,10 +276,7 @@ const config: StorybookConfig = {
   },
 
   webpackFinal: async (baseConfig) => {
-    baseConfig.plugins = [
-      ...(baseConfig.plugins ?? []),
-      new IntlayerWebpackPlugin(),
-    ];
+    baseConfig.plugins = [...(baseConfig.plugins ?? []), new IntlayerPlugin()];
     return baseConfig;
   },
 };

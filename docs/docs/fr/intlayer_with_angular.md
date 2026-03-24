@@ -198,7 +198,7 @@ import { mergeConfig } from "angular-intlayer/webpack";
 export default mergeConfig({});
 ```
 
-> La fonction `mergeConfig` configure Webpack avec Intlayer. Elle injecte le `IntlayerWebpackPlugin` (pour gérer les fichiers de déclaration de contenu) et configure des alias pour des performances optimales.
+> La fonction `mergeConfig` configure Webpack avec Intlayer. Elle injecte le `IntlayerPlugin` (pour gérer les fichiers de déclaration de contenu) et configure des alias pour des performances optimales.
 
 ### Étape 4 : Déclarer votre contenu
 

@@ -201,7 +201,7 @@ import { mergeConfig } from "angular-intlayer/webpack";
 export default mergeConfig({});
 ```
 
-> `mergeConfig` 函数使用 Intlayer 配置 Webpack。它会注入 `IntlayerWebpackPlugin`（用于处理内容声明文件）并设置别名以优化性能。
+> `mergeConfig` 函数使用 Intlayer 配置 Webpack。它会注入 `IntlayerPlugin`（用于处理内容声明文件）并设置别名以优化性能。
 
 ### 第 4 步：声明你的内容
 

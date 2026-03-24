@@ -204,7 +204,7 @@ import { mergeConfig } from "angular-intlayer/webpack";
 export default mergeConfig({});
 ```
 
-> تقوم دالة `mergeConfig` بتكوين Webpack مع Intlayer. حيث تقوم بحقن `IntlayerWebpackPlugin` (للتعامل مع ملفات إعلان المحتوى) وتعيين الأسماء المستعارة لتحقيق الأداء الأمثل.
+> تقوم دالة `mergeConfig` بتكوين Webpack مع Intlayer. حيث تقوم بحقن `IntlayerPlugin` (للتعامل مع ملفات إعلان المحتوى) وتعيين الأسماء المستعارة لتحقيق الأداء الأمثل.
 
 ### الخطوة 4: إعلان المحتوى الخاص بك
 

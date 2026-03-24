@@ -201,7 +201,7 @@ import { mergeConfig } from "angular-intlayer/webpack";
 export default mergeConfig({});
 ```
 
-> Hàm `mergeConfig` cấu hình Webpack với Intlayer. Nó chèn `IntlayerWebpackPlugin` (để xử lý các tệp khai báo nội dung) và thiết lập các biệt danh (aliases) để đạt hiệu suất tối ưu.
+> Hàm `mergeConfig` cấu hình Webpack với Intlayer. Nó chèn `IntlayerPlugin` (để xử lý các tệp khai báo nội dung) và thiết lập các biệt danh (aliases) để đạt hiệu suất tối ưu.
 
 ### Bước 4: Khai báo nội dung của bạn
 

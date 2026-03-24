@@ -201,7 +201,7 @@ import { mergeConfig } from "angular-intlayer/webpack";
 export default mergeConfig({});
 ```
 
-> `mergeConfig` 関数は、Intlayerを使用してWebpackを構成します。`IntlayerWebpackPlugin`（コンテンツ宣言ファイルを処理するため）を注入し、最適なパフォーマンスのためのエイリアスを設定します。
+> `mergeConfig` 関数は、Intlayerを使用してWebpackを構成します。`IntlayerPlugin`（コンテンツ宣言ファイルを処理するため）を注入し、最適なパフォーマンスのためのエイリアスを設定します。
 
 ### ステップ 4: コンテンツの宣言
 

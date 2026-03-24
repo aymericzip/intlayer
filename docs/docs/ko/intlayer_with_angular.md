@@ -201,7 +201,7 @@ import { mergeConfig } from "angular-intlayer/webpack";
 export default mergeConfig({});
 ```
 
-> `mergeConfig` 함수는 Intlayer로 Webpack을 구성합니다. `IntlayerWebpackPlugin`(콘텐츠 선언 파일 처리용)을 주입하고 최적의 성능을 위한 별칭(alias)을 설정합니다.
+> `mergeConfig` 함수는 Intlayer로 Webpack을 구성합니다. `IntlayerPlugin`(콘텐츠 선언 파일 처리용)을 주입하고 최적의 성능을 위한 별칭(alias)을 설정합니다.
 
 ### 4단계: 콘텐츠 선언
 
