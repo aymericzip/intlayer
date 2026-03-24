@@ -14,7 +14,7 @@ slugs:
   - doc
   - environment
   - analog
-applicationTemplate: https://github.com/aymericzip/intlayer/tree/main/examples/analog-app-template
+applicationTemplate: https://github.com/aymericzip/intlayer-analog-template
 history:
   - version: 8.0.4
     date: 2026-01-26
@@ -56,7 +56,7 @@ history:
   </Tab>
 </Tabs>
 
-查看 GitHub 上的 [应用模板](https://github.com/aymericzip/intlayer/tree/main/examples/analog-app-template)。
+查看 GitHub 上的 [应用模板](https://github.com/aymericzip/intlayer-analog-template)。
 
 ### 第 1 步：安装依赖项
 

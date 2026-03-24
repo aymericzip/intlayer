@@ -14,7 +14,7 @@ slugs:
   - doc
   - environment
   - analog
-applicationTemplate: https://github.com/aymericzip/intlayer/tree/main/examples/analog-app-template
+applicationTemplate: https://github.com/aymericzip/intlayer-analog-template
 history:
   - version: 8.0.4
     date: 2026-01-26
@@ -56,7 +56,7 @@ history:
   </Tab>
 </Tabs>
 
-См. [Шаблон приложения](https://github.com/aymericzip/intlayer/tree/main/examples/analog-app-template) на GitHub.
+См. [Шаблон приложения](https://github.com/aymericzip/intlayer-analog-template) на GitHub.
 
 ### Шаг 1: Установка зависимостей
 

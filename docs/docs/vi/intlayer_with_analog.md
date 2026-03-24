@@ -14,7 +14,7 @@ slugs:
   - doc
   - environment
   - analog
-applicationTemplate: https://github.com/aymericzip/intlayer/tree/main/examples/analog-app-template
+applicationTemplate: https://github.com/aymericzip/intlayer-analog-template
 history:
   - version: 8.0.4
     date: 2026-01-26
@@ -56,7 +56,7 @@ Với Intlayer, bạn có thể:
   </Tab>
 </Tabs>
 
-Xem [Mẫu ứng dụng](https://github.com/aymericzip/intlayer/tree/main/examples/analog-app-template) trên GitHub.
+Xem [Mẫu ứng dụng](https://github.com/aymericzip/intlayer-analog-template) trên GitHub.
 
 ### Bước 1: Cài đặt các phụ thuộc
 

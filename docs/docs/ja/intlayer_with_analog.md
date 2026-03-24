@@ -14,7 +14,7 @@ slugs:
   - doc
   - environment
   - analog
-applicationTemplate: https://github.com/aymericzip/intlayer/tree/main/examples/analog-app-template
+applicationTemplate: https://github.com/aymericzip/intlayer-analog-template
 history:
   - version: 8.0.4
     date: 2026-01-26
@@ -56,7 +56,7 @@ With Intlayer, you can:
   </Tab>
 </Tabs>
 
-GitHubで[アプリケーションテンプレート](https://github.com/aymericzip/intlayer/tree/main/examples/analog-app-template)を確認する。
+GitHubで[アプリケーションテンプレート](https://github.com/aymericzip/intlayer-analog-template)を確認する。
 
 ### ステップ1: 依存関係のインストール
 

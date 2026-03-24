@@ -14,7 +14,7 @@ slugs:
   - doc
   - environment
   - analog
-applicationTemplate: https://github.com/aymericzip/intlayer/tree/main/examples/analog-app-template
+applicationTemplate: https://github.com/aymericzip/intlayer-analog-template
 history:
   - version: 8.0.4
     date: 2026-01-26
@@ -56,7 +56,7 @@ Intlayer ile şunları yapabilirsiniz:
   </Tab>
 </Tabs>
 
-GitHub üzerindeki [Uygulama Şablonuna](https://github.com/aymericzip/intlayer/tree/main/examples/analog-app-template) bakın.
+GitHub üzerindeki [Uygulama Şablonuna](https://github.com/aymericzip/intlayer-analog-template) bakın.
 
 ### Adım 1: Bağımlılıkları Yükleyin
 

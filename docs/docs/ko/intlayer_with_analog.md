@@ -14,7 +14,7 @@ slugs:
   - doc
   - environment
   - analog
-applicationTemplate: https://github.com/aymericzip/intlayer/tree/main/examples/analog-app-template
+applicationTemplate: https://github.com/aymericzip/intlayer-analog-template
 history:
   - version: 8.0.4
     date: 2026-01-26
@@ -56,7 +56,7 @@ Intlayer를 사용하면 다음을 할 수 있습니다:
   </Tab>
 </Tabs>
 
-GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer/tree/main/examples/analog-app-template)을 확인하세요.
+GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-analog-template)을 확인하세요.
 
 ### 1단계: 종속성 설치
 

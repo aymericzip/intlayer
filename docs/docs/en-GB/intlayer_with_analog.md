@@ -14,7 +14,7 @@ slugs:
   - doc
   - environment
   - analog
-applicationTemplate: https://github.com/aymericzip/intlayer/tree/main/examples/analog-app-template
+applicationTemplate: https://github.com/aymericzip/intlayer-analog-template
 history:
   - version: 8.0.4
     date: 2026-01-26
@@ -56,7 +56,7 @@ With Intlayer, you can:
   </Tab>
 </Tabs>
 
-See [Application Template](https://github.com/aymericzip/intlayer/tree/main/examples/analog-app-template) on GitHub.
+See [Application Template](https://github.com/aymericzip/intlayer-analog-template) on GitHub.
 
 ### Step 1: Install Dependencies
 

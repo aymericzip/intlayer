@@ -14,7 +14,7 @@ slugs:
   - doc
   - environment
   - analog
-applicationTemplate: https://github.com/aymericzip/intlayer/tree/main/examples/analog-app-template
+applicationTemplate: https://github.com/aymericzip/intlayer-analog-template
 history:
   - version: 8.0.4
     date: 2026-01-26
@@ -56,7 +56,7 @@ Mit Intlayer können Sie:
   </Tab>
 </Tabs>
 
-Siehe [Anwendungsvorlage](https://github.com/aymericzip/intlayer/tree/main/examples/analog-app-template) auf GitHub.
+Siehe [Anwendungsvorlage](https://github.com/aymericzip/intlayer-analog-template) auf GitHub.
 
 ### Schritt 1: Abhängigkeiten installieren
 

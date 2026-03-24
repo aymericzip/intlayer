@@ -14,7 +14,7 @@ slugs:
   - doc
   - environment
   - analog
-applicationTemplate: https://github.com/aymericzip/intlayer/tree/main/examples/analog-app-template
+applicationTemplate: https://github.com/aymericzip/intlayer-analog-template
 history:
   - version: 8.0.4
     date: 2026-01-26
@@ -56,7 +56,7 @@ Intlayer के साथ, आप यह कर सकते हैं:
   </Tab>
 </Tabs>
 
-GitHub पर [एप्लिकेशन टेम्पलेट](https://github.com/aymericzip/intlayer/tree/main/examples/analog-app-template) देखें।
+GitHub पर [एप्लिकेशन टेम्पलेट](https://github.com/aymericzip/intlayer-analog-template) देखें।
 
 ### चरण 1: निर्भरताएँ स्थापित करें
 
