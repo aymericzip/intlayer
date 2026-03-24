@@ -47,6 +47,8 @@ const secureHeaders = {
         'cdn.jsdelivr.net',
         '*.ahrefs.com',
         '*.youtube.com',
+        'zz.bdstatic.com',
+        'push.zhanzhang.baidu.com',
       ],
       connectSrc: [
         "'self'",
@@ -72,6 +74,8 @@ const secureHeaders = {
         'img.shields.io',
         '*.googleusercontent.com',
         '*.githubusercontent.com',
+        'zz.bdstatic.com',
+        'push.zhanzhang.baidu.com',
       ],
       imgSrc: [
         "'self'",
@@ -80,6 +84,8 @@ const secureHeaders = {
         'static.cloudflareinsights.com',
         '*.googleusercontent.com',
         '*.githubusercontent.com',
+        'zz.bdstatic.com',
+        'push.zhanzhang.baidu.com',
         process.env.NEXT_PUBLIC_BACKEND_URL!,
       ],
       workerSrc: [

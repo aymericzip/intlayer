@@ -8,6 +8,7 @@ import {
 import { defaultLocale, getHTMLTextDir } from 'intlayer';
 import { IntlayerProvider } from 'react-intlayer';
 import { BackgroundLayout } from '#/components/BackgroundLayout';
+import { BaiduAutoPushSubscriber } from '../components/BaiduAutoPush/BaiduAutoPushSubscriber';
 import { Footer } from '../components/Footer';
 import Header from '../components/Header';
 import { IntlayerMarkdownProvider } from '../components/IntlayerMarkdownProvider';
@@ -93,6 +94,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale} suppressHydrationWarning>
       <head>
+        {/** biome-ignore lint/security/noDangerouslySetInnerHtml: Theme initialization script */}
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <HeadContent />
       </head>
@@ -102,6 +104,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             <IntlayerMarkdownProvider>
               <PostHogProvider>
                 <TanStackQueryProvider>
+                  <BaiduAutoPushSubscriber />
                   <BackgroundLayout>
                     <Header />
                     {children}

@@ -1,3 +1,4 @@
+import { BaiduAutoPushSubscriber } from '@components/BaiduAutoPush/BaiduAutoPushSubscriber';
 import { ChunkErrorListener } from '@components/ChunkErrorListener';
 import { Toaster } from '@intlayer/design-system';
 import { ReactQueryProvider } from '@intlayer/design-system/providers';
@@ -10,6 +11,7 @@ export const AppProviders: FC<PropsWithChildren> = ({ children }) => {
   return (
     <AnimatePresenceProvider>
       <ChunkErrorListener />
+      <BaiduAutoPushSubscriber />
       <ReactQueryProvider>
         <Toaster />
         {process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID && (
