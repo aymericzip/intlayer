@@ -2,8 +2,9 @@ import { join } from 'node:path';
 import { transformAsync } from '@babel/core';
 import { intlayerOptimizeBabelPlugin } from '@intlayer/babel';
 import { buildComponentFilesList, runOnce } from '@intlayer/chokidar/utils';
+import * as ANSIColors from '@intlayer/config/colors';
 import { IMPORT_MODE } from '@intlayer/config/defaultValues';
-import { getAppLogger } from '@intlayer/config/logger';
+import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
@@ -79,7 +80,13 @@ export const intlayerOptimize = async (
                 'cache',
                 'intlayer-prune-plugin-enabled.lock'
               ),
-              () => logger('Build optimization enabled'),
+              () =>
+                logger([
+                  'Build optimization enabled',
+                  colorize(`(import mode:`, ANSIColors.GREY_DARK),
+                  colorize(importMode ?? IMPORT_MODE, ANSIColors.BLUE),
+                  colorize(`)`, ANSIColors.GREY_DARK),
+                ]),
               {
                 cacheTimeoutMs: 1000 * 10, // 10 seconds
               }

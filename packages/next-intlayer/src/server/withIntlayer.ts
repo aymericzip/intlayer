@@ -124,7 +124,14 @@ const getPruneConfig = (
     join(baseDir, '.intlayer', 'cache', 'intlayer-prune-plugin-enabled.lock'),
     () => {
       if (isSwcPluginAvailable) {
-        logger('Build optimization enabled');
+        logger(
+          logger([
+            'Build optimization enabled',
+            colorize(`(import mode:`, ANSIColors.GREY_DARK),
+            colorize(importMode ?? IMPORT_MODE, ANSIColors.BLUE),
+            colorize(`)`, ANSIColors.GREY_DARK),
+          ])
+        );
       } else {
         logger([
           colorize('Recommended: Install', ANSIColors.GREY),
