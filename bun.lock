@@ -761,6 +761,21 @@
         "web-vitals": "5.1.0",
       },
     },
+    "examples/vite-lit-app": {
+      "name": "vite-lit-app-example",
+      "version": "0.0.0",
+      "dependencies": {
+        "intlayer": "workspace:*",
+        "lit": "^3.3.2",
+        "lit-intlayer": "workspace:*",
+      },
+      "devDependencies": {
+        "intlayer-editor": "workspace:*",
+        "typescript": "6.0.2",
+        "vite": "8.0.2",
+        "vite-intlayer": "workspace:*",
+      },
+    },
     "examples/vite-preact-app": {
       "name": "vite-preact-app-example",
       "version": "0.0.0",
@@ -1737,6 +1752,37 @@
         "vite-intlayer": "workspace:*",
         "vitest": "4.1.1",
       },
+    },
+    "packages/lit-intlayer": {
+      "name": "lit-intlayer",
+      "version": "8.4.10",
+      "dependencies": {
+        "@intlayer/api": "workspace:*",
+        "@intlayer/config": "workspace:*",
+        "@intlayer/core": "workspace:*",
+        "@intlayer/editor": "workspace:*",
+        "@intlayer/types": "workspace:*",
+      },
+      "devDependencies": {
+        "@types/node": "25.5.0",
+        "@utils/ts-config": "workspace:*",
+        "@utils/ts-config-types": "workspace:*",
+        "@utils/tsdown-config": "workspace:*",
+        "fast-glob": "3.3.3",
+        "rimraf": "6.1.3",
+        "tsdown": "0.21.4",
+        "typescript": "6.0.2",
+        "vite": "8.0.2",
+        "vite-plugin-dts": "4.5.4",
+        "vitest": "4.1.1",
+      },
+      "peerDependencies": {
+        "intlayer": "workspace:*",
+        "lit": ">=3.0.0",
+      },
+      "optionalPeers": [
+        "intlayer",
+      ],
     },
     "packages/lynx-intlayer": {
       "name": "lynx-intlayer",
@@ -6928,6 +6974,8 @@
 
     "lit-html": ["lit-html@3.3.2", "", { "dependencies": { "@types/trusted-types": "^2.0.2" } }, "sha512-Qy9hU88zcmaxBXcc10ZpdK7cOLXvXpRoBxERdtqV9QOrfpMZZ6pSYP91LhpPtap3sFMUiL7Tw2RImbe0Al2/kw=="],
 
+    "lit-intlayer": ["lit-intlayer@workspace:packages/lit-intlayer"],
+
     "lmdb": ["lmdb@3.5.1", "", { "dependencies": { "@harperfast/extended-iterable": "^1.0.3", "msgpackr": "^1.11.2", "node-addon-api": "^6.1.0", "node-gyp-build-optional-packages": "5.2.2", "ordered-binary": "^1.5.3", "weak-lru-cache": "^1.2.2" }, "optionalDependencies": { "@lmdb/lmdb-darwin-arm64": "3.5.1", "@lmdb/lmdb-darwin-x64": "3.5.1", "@lmdb/lmdb-linux-arm": "3.5.1", "@lmdb/lmdb-linux-arm64": "3.5.1", "@lmdb/lmdb-linux-x64": "3.5.1", "@lmdb/lmdb-win32-arm64": "3.5.1", "@lmdb/lmdb-win32-x64": "3.5.1" }, "bin": { "download-lmdb-prebuilds": "bin/download-prebuilds.js" } }, "sha512-NYHA0MRPjvNX+vSw8Xxg6FLKxzAG+e7Pt8RqAQA/EehzHVXq9SxDqJIN3JL1hK0dweb884y8kIh6rkWvPyg9Wg=="],
 
     "load-esm": ["load-esm@1.0.2", "", {}, "sha512-nVAvWk/jeyrWyXEAs84mpQCYccxRqgKY4OznLuJhJCa0XsPSfdOIr2zvBZEj3IHEHbX97jjscKRRV539bW0Gpw=="],
@@ -8843,6 +8891,8 @@
     "vite-hot-client": ["vite-hot-client@2.1.0", "", { "peerDependencies": { "vite": "^2.6.0 || ^3.0.0 || ^4.0.0 || ^5.0.0-0 || ^6.0.0-0 || ^7.0.0-0" } }, "sha512-7SpgZmU7R+dDnSmvXE1mfDtnHLHQSisdySVR7lO8ceAXvM0otZeuQQ6C8LrS5d/aYyP/QZ0hI0L+dIPrm4YlFQ=="],
 
     "vite-intlayer": ["vite-intlayer@workspace:packages/vite-intlayer"],
+
+    "vite-lit-app-example": ["vite-lit-app-example@workspace:examples/vite-lit-app"],
 
     "vite-node": ["vite-node@3.2.4", "", { "dependencies": { "cac": "^6.7.14", "debug": "^4.4.1", "es-module-lexer": "^1.7.0", "pathe": "^2.0.3", "vite": "^5.0.0 || ^6.0.0 || ^7.0.0-0" }, "bin": { "vite-node": "vite-node.mjs" } }, "sha512-EbKSKh+bh1E1IFxeO0pg1n4dvoOTt0UDiXMd/qn++r98+jPO1xtJilvXldeuQ8giIB5IkpjCgMleHMNEsGH6pg=="],
 

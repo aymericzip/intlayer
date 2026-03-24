@@ -1,0 +1,23 @@
+{
+  "name": "vite-lit-app-example",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc && vite build",
+    "dev": "vite",
+    "preview": "vite preview",
+    "start:editor": "bun intlayer-editor start -e development --with 'vite dev'"
+  },
+  "dependencies": {
+    "intlayer": "workspace:*",
+    "lit": "^3.3.2",
+    "lit-intlayer": "workspace:*"
+  },
+  "devDependencies": {
+    "intlayer-editor": "workspace:*",
+    "typescript": "6.0.2",
+    "vite": "8.0.2",
+    "vite-intlayer": "workspace:*"
+  }
+}
