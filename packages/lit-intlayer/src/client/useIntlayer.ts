@@ -1,108 +1,75 @@
+import configuration from '@intlayer/config/built';
 import type {
   DictionaryKeys,
   DictionaryRegistryContent,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
-import type { ReactiveController, ReactiveControllerHost } from 'lit';
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';
+import { IntlayerBinding, type IntlayerLitProxy } from './IntlayerBinding';
 import { getIntlayerClient } from './installIntlayer';
 
 /**
- * ReactiveController that keeps a single dictionary up to date with the
- * current locale and triggers re-renders when the locale changes.
+ * Returns the translated content for the given dictionary key, wrapped in an
+ * {@link IntlayerLitProxy} so the caller can subscribe to locale changes via
+ * a Lit `ReactiveController`.
  *
- * @internal
- */
-class IntlayerController<T extends DictionaryKeys>
-  implements ReactiveController
-{
-  private readonly host: ReactiveControllerHost;
-  private readonly key: T;
-  private readonly _overrideLocale: LocalesValues | undefined;
-  private _unsubscribe: (() => void) | null = null;
-
-  /** The current, locale-resolved dictionary content. */
-  _currentValue: DeepTransformContent<DictionaryRegistryContent<T>>;
-
-  constructor(host: ReactiveControllerHost, key: T, locale?: LocalesValues) {
-    this.host = host;
-    this.key = key;
-    this._overrideLocale = locale;
-
-    const client = getIntlayerClient();
-    this._currentValue = getIntlayer(
-      key,
-      this._overrideLocale ?? client.locale
-    );
-
-    host.addController(this);
-  }
-
-  hostConnected(): void {
-    const client = getIntlayerClient();
-    this._unsubscribe = client.subscribe((newLocale) => {
-      this._currentValue = getIntlayer(
-        this.key,
-        this._overrideLocale ?? newLocale
-      );
-      this.host.requestUpdate();
-    });
-  }
-
-  hostDisconnected(): void {
-    this._unsubscribe?.();
-    this._unsubscribe = null;
-  }
-}
-
-/**
- * Reactive hook that returns the translated dictionary for the given key.
- *
- * Works as a Lit ReactiveController: the host element automatically
- * re-renders whenever the locale changes.
- *
- * The returned value is a transparent proxy of the dictionary content.
- * Access fields directly without an extra `.value` wrapper.
- *
- * @param host - The LitElement (or any ReactiveControllerHost) that owns this hook.
- * @param key  - The dictionary key registered in your intlayer content files.
- * @param locale - Optional locale override (defaults to the current app locale).
- * @returns A reactive proxy to the dictionary content.
- *
- * @example
+ * Matches the same signature as `react-intlayer` and all other framework
+ * adapters:
  * ```ts
- * class MyElement extends LitElement {
- *   private content = useIntlayer(this, 'my-component');
- *
- *   render() {
- *     return html`<h1>${this.content.title.value}</h1>`;
- *   }
- * }
+ * private content = useIntlayer('my-component').observe(this);
  * ```
+ *
+ * The babel/SWC optimization plugin transforms this at build time into either:
+ * - static mode:  `useDictionary(_hash)` — synchronous JSON import
+ * - dynamic mode: `useDictionaryDynamic(_dyn, 'key')` — lazy locale split
+ *
+ * In non-optimized builds (dev without babel) the content is re-fetched from
+ * `getIntlayer` on every property access, caching by locale.
  */
 export const useIntlayer = <T extends DictionaryKeys>(
-  host: ReactiveControllerHost,
   key: T,
   locale?: LocalesValues
-): DeepTransformContent<DictionaryRegistryContent<T>> => {
-  const controller = new IntlayerController(host, key, locale);
+): IntlayerLitProxy<DeepTransformContent<DictionaryRegistryContent<T>>> => {
+  const client = getIntlayerClient();
 
-  return new Proxy({} as any, {
-    get(_t, prop) {
-      return (controller._currentValue as any)?.[prop as string];
-    },
-    has(_t, prop) {
-      return prop in ((controller._currentValue as any) ?? {});
-    },
-    ownKeys() {
-      return Reflect.ownKeys((controller._currentValue as any) ?? {});
-    },
-    getOwnPropertyDescriptor(_t, prop) {
-      if (Reflect.has((controller._currentValue as any) ?? {}, prop)) {
-        return { enumerable: true, configurable: true };
+  let cachedLocale: string | undefined;
+  let cachedDictionary: DeepTransformContent<
+    DictionaryRegistryContent<T>
+  > | null = null;
+
+  const proxy = new Proxy({} as any, {
+    get(_target, prop) {
+      if (prop === 'observe') {
+        return (host: import('lit').ReactiveControllerHost) => {
+          new IntlayerBinding(host);
+          return proxy;
+        };
       }
-      return undefined;
+
+      // Prevent Lit internals from crashing (see useDictionaryDynamic for details)
+      if (prop === Symbol.toPrimitive) return () => '';
+      if (prop === 'toString') return () => '';
+      if (prop === 'then') return undefined;
+      if (
+        typeof prop === 'symbol' ||
+        (typeof prop === 'string' && prop.startsWith('_$'))
+      )
+        return undefined;
+
+      const currentLocale = (locale ??
+        client.locale ??
+        configuration.internationalization.defaultLocale) as string;
+
+      // Recompute dictionary only when locale changed.
+      if (cachedLocale !== currentLocale || cachedDictionary === null) {
+        cachedDictionary = getIntlayer(key, currentLocale as LocalesValues);
+        cachedLocale = currentLocale;
+      }
+
+      return (cachedDictionary as Record<string, unknown>)[prop as string];
     },
-  }) as DeepTransformContent<DictionaryRegistryContent<T>>;
+  });
+
+  return proxy;
 };

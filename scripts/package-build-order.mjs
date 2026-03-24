@@ -26,6 +26,8 @@ export const packageBuildOrder = [
   'packages/hono-intlayer',
   'packages/adonis-intlayer',
   'packages/fastify-intlayer',
+  'packages/lit-intlayer',
+  'packages/vanilla-intlayer',
   'apps/backend',
   'packages/react-intlayer',
   'packages/next-intlayer',

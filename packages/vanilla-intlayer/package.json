@@ -1,0 +1,129 @@
+{
+  "name": "vanilla-intlayer",
+  "version": "8.4.10",
+  "private": false,
+  "description": "Easily internationalize i18n your Vanilla JS, HTML, and PHP applications with type-safe multilingual content management.",
+  "keywords": [
+    "intlayer",
+    "data",
+    "internationalization",
+    "multilingual",
+    "i18n",
+    "typescript",
+    "vanilla",
+    "json"
+  ],
+  "homepage": "https://intlayer.org",
+  "bugs": {
+    "url": "https://github.com/aymericzip/intlayer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Aymeric PINEAU",
+    "url": "https://github.com/aymericzip"
+  },
+  "contributors": [
+    {
+      "name": "Aymeric Pineau",
+      "email": "ay.pineau@gmail.com",
+      "url": "https://github.com/aymericzip"
+    }
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/types/src/index.d.ts",
+      "require": "./dist/cjs/index.cjs",
+      "import": "./dist/esm/index.mjs"
+    },
+    "./markdown": {
+      "types": "./dist/types/src/markdown/index.d.ts",
+      "require": "./dist/cjs/markdown/index.cjs",
+      "import": "./dist/esm/markdown/index.mjs"
+    },
+    "./format": {
+      "types": "./dist/types/src/format/index.d.ts",
+      "require": "./dist/cjs/format/index.cjs",
+      "import": "./dist/esm/format/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/esm/index.mjs",
+  "types": "dist/types/src/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/types/src/index.d.ts"
+      ],
+      "markdown": [
+        "./dist/types/src/markdown/index.d.ts"
+      ],
+      "format": [
+        "./dist/types/src/format/index.d.ts"
+      ],
+      "package.json": [
+        "./package.json"
+      ]
+    }
+  },
+  "files": [
+    "./dist",
+    "./package.json"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "build:ci": "vite build",
+    "clean": "bun --bun rimraf ./dist .turbo",
+    "dev": "vite build --watch",
+    "format": "bun --bun biome format . --check",
+    "format:fix": "bun --bun biome format --write .",
+    "lint": "bun --bun biome lint .",
+    "lint:fix": "bun --bun biome lint --write .",
+    "prepublish": "cp -f ../../README.md ./README.md",
+    "publish": "bun publish || true",
+    "publish:canary": "bun publish --access public --tag canary || true",
+    "publish:latest": "bun publish --access public --tag latest || true",
+    "test": "bun --bun vitest run",
+    "test:watch": "bun --bun vitest",
+    "typecheck": "tsc --noEmit --project tsconfig.types.json"
+  },
+  "dependencies": {
+    "@intlayer/api": "workspace:*",
+    "@intlayer/config": "workspace:*",
+    "@intlayer/core": "workspace:*",
+    "@intlayer/editor": "workspace:*",
+    "@intlayer/types": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "25.5.0",
+    "@utils/ts-config": "workspace:*",
+    "@utils/ts-config-types": "workspace:*",
+    "@utils/tsdown-config": "workspace:*",
+    "fast-glob": "3.3.3",
+    "rimraf": "6.1.3",
+    "tsdown": "0.21.4",
+    "typescript": "6.0.2",
+    "vite": "8.0.2",
+    "vite-plugin-dts": "4.5.4",
+    "vitest": "4.1.1"
+  },
+  "peerDependencies": {
+    "intlayer": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "intlayer": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=14.18"
+  },
+  "bug": {
+    "url": "https://github.com/aymericzip/intlayer/issues"
+  }
+}

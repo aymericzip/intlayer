@@ -50,6 +50,8 @@ COPY \
     --exclude=packages/astro-intlayer \
     --exclude=packages/react-native-intlayer \
     --exclude=packages/lynx-intlayer \
+    --exclude=packages/lit-intlayer \
+    --exclude=packages/vanilla-intlayer \
     --exclude=packages/@intlayer/design-system \
     --exclude=packages/intlayer-editor \
     --exclude=packages/express-intlayer \

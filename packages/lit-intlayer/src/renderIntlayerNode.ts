@@ -36,13 +36,19 @@ export const renderIntlayerNode = <
     toString: () => String(_value ?? ''),
     valueOf: () => _value,
     [Symbol.toPrimitive]: () => _value,
+    // Shadow String.prototype[Symbol.iterator] so Lit's isIterable() check
+    // returns false. Without this, Lit would iterate the node character-by-
+    // character (each char as a separate text node) instead of calling
+    // _commitText(node.toString()). undefined makes it fall through to the
+    // string-conversion fallback path.
+    [Symbol.iterator]: undefined,
     toJSON: () => _value,
 
     get raw() {
       return _value;
     },
-    set raw(val: T) {
-      _value = val;
+    set raw(value: T) {
+      _value = value;
     },
 
     get value() {

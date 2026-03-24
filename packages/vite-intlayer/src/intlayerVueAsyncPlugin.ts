@@ -49,7 +49,7 @@ export const intlayerVueAsyncPlugin = (
       // Check if the file actually uses the composable to avoid unnecessary work
       if (!code.includes('useIntlayer')) return null;
 
-      // B. Add 'await' to the function call
+      // Add 'await' to the function call
       //    Matches: useIntlayer(args) -> await useIntlayer(args)
       //    Note: Since we aliased the import above, 'useIntlayer' now refers to 'useDictionaryAsync'
       const transformedCode = code.replace(

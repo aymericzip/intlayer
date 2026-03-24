@@ -10,6 +10,9 @@ const config: IntlayerConfig = {
     applicationURL: 'http://localhost:5173',
     editorURL: 'http://localhost:8000',
   },
+  dictionary: {
+    importMode: 'dynamic',
+  },
 };
 
 export default config;

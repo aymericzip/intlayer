@@ -18,6 +18,8 @@ const PACKAGE_LIST = [
   'angular-intlayer',
   'preact-intlayer',
   'solid-intlayer',
+  'lit-intlayer',
+  'vanilla-intlayer',
 ];
 
 const CALLER_LIST = ['useIntlayer', 'getIntlayer'] as const;
@@ -37,6 +39,8 @@ const PACKAGE_LIST_DYNAMIC = [
   'solid-intlayer',
   'svelte-intlayer',
   'angular-intlayer',
+  'lit-intlayer',
+  'vanilla-intlayer',
 ] as const;
 
 const STATIC_IMPORT_FUNCTION = {
@@ -355,9 +359,7 @@ export const intlayerOptimizeBabelPlugin = (babel: {
               if (originalImportedName !== 'useIntlayer') return;
 
               const arg = path.node.arguments[0];
-
               let key: string | undefined;
-
               if (arg && t.isStringLiteral(arg)) {
                 key = arg.value;
               } else if (
@@ -366,10 +368,8 @@ export const intlayerOptimizeBabelPlugin = (babel: {
                 arg.expressions.length === 0 &&
                 arg.quasis.length === 1
               ) {
-                // If the bundler output is `breadcrumb` instead of 'breadcrumb'
                 key = arg.quasis[0].value.cooked ?? arg.quasis[0].value.raw;
               }
-
               if (!key) return;
               const dictionaryOverrideMode =
                 state.opts.dictionaryModeMap?.[key];
@@ -463,9 +463,7 @@ export const intlayerOptimizeBabelPlugin = (babel: {
               state._hasValidImport = true;
 
               const arg = path.node.arguments[0];
-
               let key: string | undefined;
-
               if (arg && t.isStringLiteral(arg)) {
                 key = arg.value;
               } else if (
@@ -474,11 +472,10 @@ export const intlayerOptimizeBabelPlugin = (babel: {
                 arg.expressions.length === 0 &&
                 arg.quasis.length === 1
               ) {
-                // If the bundler output is `breadcrumb` instead of 'breadcrumb'
                 key = arg.quasis[0].value.cooked ?? arg.quasis[0].value.raw;
               }
+              if (!key) return;
 
-              if (!key) return; // must be a static literal
               const importMode = state.opts.importMode;
               const isUseIntlayer = originalImportedName === 'useIntlayer';
               const useDynamicHelpers = Boolean(state._useDynamicHelpers);
@@ -554,7 +551,8 @@ export const intlayerOptimizeBabelPlugin = (babel: {
                 }
                 ident = staticIdent;
 
-                // Static helper (useDictionary / getDictionary): replace key with iden
+                // Static helper (useDictionary / getDictionary): replace key with ident.
+                // After the splice above the key is always at index 0.
                 path.node.arguments[0] = t.identifier(ident.name);
               }
             },

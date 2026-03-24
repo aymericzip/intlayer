@@ -858,6 +858,19 @@
         "vite-intlayer": "workspace:*",
       },
     },
+    "examples/vite-vanilla-app": {
+      "name": "vite-vanilla-app",
+      "version": "0.0.0",
+      "dependencies": {
+        "intlayer": "workspace:*",
+        "vanilla-intlayer": "workspace:*",
+      },
+      "devDependencies": {
+        "typescript": "~6.0.2",
+        "vite": "^8.0.1",
+        "vite-intlayer": "workspace:*",
+      },
+    },
     "examples/vite-vue-app": {
       "name": "vite-vue-app-example",
       "version": "0.0.0",
@@ -2051,6 +2064,36 @@
       "peerDependencies": {
         "svelte": ">=5.0.0",
       },
+    },
+    "packages/vanilla-intlayer": {
+      "name": "vanilla-intlayer",
+      "version": "8.4.10",
+      "dependencies": {
+        "@intlayer/api": "workspace:*",
+        "@intlayer/config": "workspace:*",
+        "@intlayer/core": "workspace:*",
+        "@intlayer/editor": "workspace:*",
+        "@intlayer/types": "workspace:*",
+      },
+      "devDependencies": {
+        "@types/node": "25.5.0",
+        "@utils/ts-config": "workspace:*",
+        "@utils/ts-config-types": "workspace:*",
+        "@utils/tsdown-config": "workspace:*",
+        "fast-glob": "3.3.3",
+        "rimraf": "6.1.3",
+        "tsdown": "0.21.4",
+        "typescript": "6.0.2",
+        "vite": "8.0.2",
+        "vite-plugin-dts": "4.5.4",
+        "vitest": "4.1.1",
+      },
+      "peerDependencies": {
+        "intlayer": "workspace:*",
+      },
+      "optionalPeers": [
+        "intlayer",
+      ],
     },
     "packages/vite-intlayer": {
       "name": "vite-intlayer",
@@ -8876,6 +8919,8 @@
 
     "validator": ["validator@13.15.26", "", {}, "sha512-spH26xU080ydGggxRyR1Yhcbgx+j3y5jbNXk/8L+iRvdIEQ4uTRH2Sgf2dokud6Q4oAtsbNvJ1Ft+9xmm6IZcA=="],
 
+    "vanilla-intlayer": ["vanilla-intlayer@workspace:packages/vanilla-intlayer"],
+
     "vary": ["vary@1.1.2", "", {}, "sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg=="],
 
     "vfile": ["vfile@6.0.3", "", { "dependencies": { "@types/unist": "^3.0.0", "vfile-message": "^4.0.0" } }, "sha512-KzIbH/9tXat2u30jf+smMwFCsno4wHVdNmzFyL+T/L3UGqqk6JKfVqOFOZEpZSHADH1k40ab6NUIXZq422ov3Q=="],
@@ -8923,6 +8968,8 @@
     "vite-svelte-app-example": ["vite-svelte-app-example@workspace:examples/vite-svelte-app"],
 
     "vite-tsconfig-paths": ["vite-tsconfig-paths@6.1.1", "", { "dependencies": { "debug": "^4.1.1", "globrex": "^0.1.2", "tsconfck": "^3.0.3" }, "peerDependencies": { "vite": "*" } }, "sha512-2cihq7zliibCCZ8P9cKJrQBkfgdvcFkOOc3Y02o3GWUDLgqjWsZudaoiuOwO/gzTzy17cS5F7ZPo4bsnS4DGkg=="],
+
+    "vite-vanilla-app": ["vite-vanilla-app@workspace:examples/vite-vanilla-app"],
 
     "vite-vue-app-example": ["vite-vue-app-example@workspace:examples/vite-vue-app"],
 

@@ -86,13 +86,13 @@ export const insertionPlugin: Plugins = {
 
     const insertionStringPlugin: Plugins = {
       id: 'insertion-string-plugin',
-      canHandle: (n) => typeof n === 'string',
-      transform: (n: string, subProps, deepTransformNode) => {
-        const transformedResult = deepTransformNode(n, {
+      canHandle: (node) => typeof node === 'string',
+      transform: (node: string, subProps, deepTransformNode) => {
+        const transformedResult = deepTransformNode(node, {
           ...subProps,
-          children: n,
+          children: node,
           plugins: (props.plugins ?? ([] as Plugins[])).filter(
-            (p) => p.id !== 'intlayer-node-plugin'
+            (plugin) => plugin.id !== 'intlayer-node-plugin'
           ),
         });
 

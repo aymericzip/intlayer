@@ -2,7 +2,7 @@
   "name": "astro-intlayer",
   "version": "8.4.10",
   "private": false,
-  "description": "Easily internationalize i18n your Nuxt applications with type-safe multilingual content management.",
+  "description": "Easily internationalize i18n your Astro applications with type-safe multilingual content management.",
   "keywords": [
     "intlayer",
     "internationalization",

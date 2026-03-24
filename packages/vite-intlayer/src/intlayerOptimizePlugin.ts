@@ -1,5 +1,5 @@
 import { join } from 'node:path';
-import { transformSync } from '@babel/core';
+import { transformAsync } from '@babel/core';
 import { intlayerOptimizeBabelPlugin } from '@intlayer/babel';
 import { buildComponentFilesList, runOnce } from '@intlayer/chokidar/utils';
 import { IMPORT_MODE } from '@intlayer/config/defaultValues';
@@ -88,7 +88,7 @@ export const intlayerOptimize = async (
 
           return isEnabled;
         },
-        transform(code, id) {
+        async transform(code, id) {
           /**
            * Transform file as
            * .../HelloWorld.vue?vue&type=script&setup=true&lang.ts
@@ -112,7 +112,7 @@ export const intlayerOptimize = async (
 
           if (!shouldTransform) return null;
 
-          const result = transformSync(code, {
+          const result = await transformAsync(code, {
             filename,
             plugins: [
               [

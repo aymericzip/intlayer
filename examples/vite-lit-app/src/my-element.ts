@@ -21,8 +21,8 @@ export class MyElement extends LitElement {
   count = 0;
 
   // useIntlayer adds itself as a ReactiveController — the element
-  // automatically re-renders when the locale changes.
-  private content = useIntlayer(this, 'app');
+  // automatically re-renders when the locale changes
+  private content = useIntlayer('app').observe(this);
 
   private _onClick() {
     this.count++;

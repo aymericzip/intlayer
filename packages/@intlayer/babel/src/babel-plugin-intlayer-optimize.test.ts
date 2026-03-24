@@ -338,4 +338,130 @@ describe('babel-plugin-intlayer-optimize', () => {
       expect(output).toContain('const t = s(_dicHash_dyn, "locale-switcher");');
     });
   });
+
+  describe('Solid', () => {
+    it('should transform static imports', () => {
+      const code = `
+        import { useIntlayer } from "solid-intlayer";
+        const t = useIntlayer("locale-switcher");
+      `;
+      const output = transform(
+        code,
+        { importMode: 'static' },
+        '/app/src/page.tsx'
+      );
+      expect(output).toContain(
+        'import _dicHash from "../.intlayer/dictionaries/locale-switcher.json" with { type: "json" };'
+      );
+      expect(output).toContain(
+        'import { useDictionary as useIntlayer } from "solid-intlayer";'
+      );
+      expect(output).toContain('const t = useIntlayer(_dicHash);');
+    });
+
+    it('should transform dynamic imports', () => {
+      const code = `
+        import { useIntlayer } from "solid-intlayer";
+        const t = useIntlayer("locale-switcher");
+      `;
+      const output = transform(
+        code,
+        { importMode: 'dynamic' },
+        '/app/src/page.tsx'
+      );
+      expect(output).toContain(
+        'import _dicHash_dyn from "../.intlayer/dynamic_dictionaries/locale-switcher.mjs";'
+      );
+      expect(output).toContain(
+        'import { useDictionaryDynamic as useIntlayer } from "solid-intlayer";'
+      );
+      expect(output).toContain(
+        'const t = useIntlayer(_dicHash_dyn, "locale-switcher");'
+      );
+    });
+  });
+
+  describe('Lit', () => {
+    it('should transform static imports', () => {
+      const code = `
+        import { useIntlayer } from "lit-intlayer";
+        const t = useIntlayer("locale-switcher");
+      `;
+      const output = transform(
+        code,
+        { importMode: 'static' },
+        '/app/src/page.ts'
+      );
+      expect(output).toContain(
+        'import _dicHash from "../.intlayer/dictionaries/locale-switcher.json" with { type: "json" };'
+      );
+      expect(output).toContain(
+        'import { useDictionary as useIntlayer } from "lit-intlayer";'
+      );
+      expect(output).toContain('const t = useIntlayer(_dicHash);');
+    });
+
+    it('should transform dynamic imports', () => {
+      const code = `
+        import { useIntlayer } from "lit-intlayer";
+        const t = useIntlayer("locale-switcher");
+      `;
+      const output = transform(
+        code,
+        { importMode: 'dynamic' },
+        '/app/src/page.ts'
+      );
+      expect(output).toContain(
+        'import _dicHash_dyn from "../.intlayer/dynamic_dictionaries/locale-switcher.mjs";'
+      );
+      expect(output).toContain(
+        'import { useDictionaryDynamic as useIntlayer } from "lit-intlayer";'
+      );
+      expect(output).toContain(
+        'const t = useIntlayer(_dicHash_dyn, "locale-switcher");'
+      );
+    });
+  });
+
+  describe('Vanilla', () => {
+    it('should transform static imports', () => {
+      const code = `
+        import { useIntlayer } from "vanilla-intlayer";
+        const t = useIntlayer("locale-switcher");
+      `;
+      const output = transform(
+        code,
+        { importMode: 'static' },
+        '/app/src/page.ts'
+      );
+      expect(output).toContain(
+        'import _dicHash from "../.intlayer/dictionaries/locale-switcher.json" with { type: "json" };'
+      );
+      expect(output).toContain(
+        'import { useDictionary as useIntlayer } from "vanilla-intlayer";'
+      );
+      expect(output).toContain('const t = useIntlayer(_dicHash);');
+    });
+
+    it('should transform dynamic imports', () => {
+      const code = `
+        import { useIntlayer } from "vanilla-intlayer";
+        const t = useIntlayer("locale-switcher");
+      `;
+      const output = transform(
+        code,
+        { importMode: 'dynamic' },
+        '/app/src/page.ts'
+      );
+      expect(output).toContain(
+        'import _dicHash_dyn from "../.intlayer/dynamic_dictionaries/locale-switcher.mjs";'
+      );
+      expect(output).toContain(
+        'import { useDictionaryDynamic as useIntlayer } from "vanilla-intlayer";'
+      );
+      expect(output).toContain(
+        'const t = useIntlayer(_dicHash_dyn, "locale-switcher");'
+      );
+    });
+  });
 });

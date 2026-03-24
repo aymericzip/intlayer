@@ -30,6 +30,7 @@ const config: IntlayerConfig = {
   },
   dictionary: {
     location: 'hybrid',
+    importMode: 'dynamic',
     fill: './{{fileName}}.{{locale}}.content.json',
   },
   compiler: {

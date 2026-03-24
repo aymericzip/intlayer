@@ -1,112 +1,89 @@
+import configuration from '@intlayer/config/built';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
-import type { ReactiveController, ReactiveControllerHost } from 'lit';
+import type { ReactiveControllerHost } from 'lit';
 import { getDictionary } from '../getDictionary';
 import type { DeepTransformContent } from '../plugins';
+import { IntlayerBinding, type IntlayerLitProxy } from './IntlayerBinding';
 import { getIntlayerClient } from './installIntlayer';
 
 /**
- * ReactiveController that keeps a raw dictionary object up to date with
- * the current locale and triggers re-renders when the locale changes.
+ * Returns the translated content for a raw dictionary object, wrapped in an
+ * {@link IntlayerLitProxy} so the caller can subscribe to locale changes via
+ * a Lit `ReactiveController`.
  *
- * @internal
- */
-class DictionaryController<
-  T extends Dictionary,
-  L extends LocalesValues = DeclaredLocales,
-> implements ReactiveController
-{
-  private readonly host: ReactiveControllerHost;
-  private readonly dictionary: T;
-  private readonly _overrideLocale: L | undefined;
-  private _unsubscribe: (() => void) | null = null;
-
-  _currentValue: DeepTransformContent<T['content'], L>;
-
-  constructor(host: ReactiveControllerHost, dictionary: T, locale?: L) {
-    this.host = host;
-    this.dictionary = dictionary;
-    this._overrideLocale = locale;
-
-    const client = getIntlayerClient();
-    this._currentValue = getDictionary(
-      dictionary,
-      (this._overrideLocale ?? client.locale) as L
-    );
-
-    host.addController(this);
-  }
-
-  hostConnected(): void {
-    const client = getIntlayerClient();
-    this._unsubscribe = client.subscribe((newLocale) => {
-      this._currentValue = getDictionary(
-        this.dictionary,
-        (this._overrideLocale ?? newLocale) as L
-      );
-      this.host.requestUpdate();
-    });
-  }
-
-  hostDisconnected(): void {
-    this._unsubscribe?.();
-    this._unsubscribe = null;
-  }
-}
-
-/**
- * Reactive hook that returns the translated content for a raw dictionary object.
+ * This is the babel-optimized counterpart of `useIntlayer` — it accepts a
+ * pre-imported dictionary object directly instead of a string key, matching
+ * the same signature as `react-intlayer` and other framework adapters.
  *
- * Unlike `useIntlayer` (which takes a registered key), this hook accepts a
- * dictionary object directly — useful for dictionaries loaded asynchronously
- * or defined inline.
+ * The content is resolved synchronously on every property access via a proxy,
+ * so the first render always shows the correct locale without a loading phase.
+ * Chain `.observe(this)` to register a `ReactiveController` that triggers
+ * `requestUpdate()` on every subsequent locale change.
  *
- * @param host       - The LitElement (or any ReactiveControllerHost).
- * @param dictionary - The raw dictionary object.
+ * @param dictionary - The raw dictionary object (pre-imported by the build plugin).
  * @param locale     - Optional locale override.
- * @returns A reactive proxy to the dictionary content.
+ * @returns An {@link IntlayerLitProxy} that exposes the current locale's content
+ *          together with an `.observe()` registration method.
  *
  * @example
  * ```ts
- * import myDict from './myDictionary.content';
- *
- * class MyElement extends LitElement {
- *   private content = useDictionary(this, myDict);
- *
- *   render() {
- *     return html`<p>${this.content.greeting.value}</p>`;
- *   }
- * }
+ * // Typically injected by the babel/SWC optimization plugin:
+ * import _hash from '.intlayer/dictionaries/app.json' with { type: 'json' };
+ * private content = useDictionary(_hash).observe(this);
  * ```
  */
 export const useDictionary = <
   T extends Dictionary,
   L extends LocalesValues = DeclaredLocales,
 >(
-  host: ReactiveControllerHost,
   dictionary: T,
   locale?: L
-): DeepTransformContent<T['content'], L> => {
-  const controller = new DictionaryController(host, dictionary, locale);
+): IntlayerLitProxy<DeepTransformContent<T['content'], L>> => {
+  const client = getIntlayerClient();
 
-  return new Proxy({} as any, {
-    get(_t, prop) {
-      return (controller._currentValue as any)?.[prop as string];
+  const getActiveLocale = (): L =>
+    (locale ??
+      client.locale ??
+      configuration.internationalization.defaultLocale) as L;
+
+  let currentContent: DeepTransformContent<T['content'], L> = getDictionary(
+    dictionary,
+    getActiveLocale()
+  );
+
+  // Keep currentContent fresh so the proxy always returns the active locale.
+  // requestUpdate() is handled by IntlayerBinding (ReactiveController).
+  client.subscribe((newLocale) => {
+    currentContent = getDictionary(
+      dictionary,
+      (locale ?? newLocale) as L
+    ) as DeepTransformContent<T['content'], L>;
+  });
+
+  let observeFn: (
+    host: ReactiveControllerHost
+  ) => IntlayerLitProxy<DeepTransformContent<T['content'], L>>;
+
+  const proxy = new Proxy({} as any, {
+    get(_target, prop) {
+      if (prop === 'observe') return observeFn;
+      if (prop === Symbol.toPrimitive)
+        return () => (currentContent as any)[Symbol.toPrimitive]?.() ?? '';
+      if (prop === 'toString')
+        return () => String((currentContent as any).toString?.() ?? '');
+      if (prop === 'then') return undefined;
+      return (currentContent as Record<string | symbol, unknown>)[prop];
     },
-    has(_t, prop) {
-      return prop in ((controller._currentValue as any) ?? {});
-    },
-    ownKeys() {
-      return Reflect.ownKeys((controller._currentValue as any) ?? {});
-    },
-    getOwnPropertyDescriptor(_t, prop) {
-      if (Reflect.has((controller._currentValue as any) ?? {}, prop)) {
-        return { enumerable: true, configurable: true };
-      }
-      return undefined;
-    },
-  }) as DeepTransformContent<T['content'], L>;
+  }) as IntlayerLitProxy<DeepTransformContent<T['content'], L>>;
+
+  observeFn = (host) => {
+    new IntlayerBinding(host);
+    return proxy;
+  };
+
+  return proxy;
 };

@@ -1,3 +1,4 @@
+import { join } from 'node:path';
 import {
   type DictionaryStatus,
   writeContentDeclaration as writeContentDeclarationEditor,
@@ -12,7 +13,6 @@ import {
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { t } from 'fastify-intlayer';
-import { join } from 'path';
 
 export type GetEditorDictionariesResult = ResponseData<UnmergedDictionaries>;
 
