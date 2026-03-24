@@ -1,6 +1,7 @@
 import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { watch } from '@intlayer/chokidar/watcher';
 import { logger } from '@intlayer/config/logger';
+import { getConfiguration } from '@intlayer/config/node';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Compiler } from 'webpack';
 
@@ -9,8 +10,8 @@ export class IntlayerPlugin {
   private isWatching = false; // Flag to ensure we only start the watcher after the first build
   private configuration;
 
-  constructor(configuration: IntlayerConfig) {
-    this.configuration = configuration;
+  constructor(configuration?: IntlayerConfig) {
+    this.configuration = configuration ?? getConfiguration();
   }
 
   async apply(compiler: Compiler): Promise<void> {
