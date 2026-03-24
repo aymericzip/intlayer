@@ -1088,7 +1088,11 @@ import { intlayer, intlayerProxy } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intlayer(), intlayerProxy()],
+  plugins: [
+    intlayerProxy(), // should be placed first
+    react(),
+    intlayer(),
+  ],
 });
 ```
 
@@ -1099,7 +1103,11 @@ import { intlayer, intlayerProxy } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intlayer(), intlayerProxy()],
+  plugins: [
+    intlayerProxy(), // should be placed first
+    react(),
+    intlayer(),
+  ],
 });
 ```
 
@@ -1110,7 +1118,11 @@ const { intlayer, intlayerProxy } = require("vite-intlayer");
 
 // https://vitejs.dev/config/
 module.exports = defineConfig({
-  plugins: [react(), intlayer(), intlayerProxy()],
+  plugins: [
+    intlayerProxy(), // should be placed first
+    react(),
+    intlayer(),
+  ],
 });
 ```
 

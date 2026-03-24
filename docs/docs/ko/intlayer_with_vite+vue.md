@@ -716,7 +716,11 @@ import { intlayer, intlayerProxy } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), intlayer(), intlayerProxy()],
+  plugins: [
+    intlayerProxy(), // should be placed first
+    vue(),
+    intlayer(),
+  ],
 });
 ```
 
@@ -727,7 +731,11 @@ import { intlayer, intlayerProxy } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), intlayer(), intlayerProxy()],
+  plugins: [
+    intlayerProxy(), // should be placed first
+    vue(),
+    intlayer(),
+  ],
 });
 ```
 
@@ -738,7 +746,11 @@ const { intlayer, intlayerProxy } = require("vite-intlayer");
 
 // https://vitejs.dev/config/
 module.exports = defineConfig({
-  plugins: [vue(), intlayer(), intlayerProxy()],
+  plugins: [
+    intlayerProxy(), // should be placed first
+    vue(),
+    intlayer(),
+  ],
 });
 const { defineConfig } = require("vite");
 const vue = require("@vitejs/plugin-vue");
@@ -746,7 +758,11 @@ const { intlayer, intlayerProxy } = require("vite-intlayer");
 
 // https://vitejs.dev/config/
 module.exports = defineConfig({
-  plugins: [vue(), intlayer(), intlayerProxy()],
+  plugins: [
+    intlayerProxy(), // should be placed first
+    vue(),
+    intlayer(),
+  ],
 });
 ```
 

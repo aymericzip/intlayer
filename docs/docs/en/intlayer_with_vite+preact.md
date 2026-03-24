@@ -802,6 +802,25 @@ const App = () => (
 module.exports = App;
 ```
 
+In parallel, you can also use the `intlayerProxy` to add server-side routing to your application. This plugin will automatically detect the current locale based on the URL and set the appropriate locale cookie. If no locale is specified, the plugin will determine the most appropriate locale based on the user's browser language preferences. If no locale is detected, it will redirect to the default locale.
+
+> Note that to use the `intlayerProxy` in production, you need to switch the `vite-intlayer` package from `devDependencies` to `dependencies`.
+
+```typescript {3,7} fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerProxy } from "vite-intlayer";
+import preact from "@preact/preset-vite";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    intlayerProxy(), // should be placed first
+    preact(),
+    intlayer(),
+  ],
+});
+```
+
 ### (Optional) Step 8: Change the URL when the locale changes
 
 To change the URL when the locale changes, you can use the `onLocaleChange` prop provided by the `useLocale` hook. In parallel, you can use the `route` method from `useLocation` of `preact-iso` to update the URL path.

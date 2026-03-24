@@ -525,7 +525,11 @@ import { sveltekit } from "@sveltejs/kit/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [intlayer(), intlayerProxy(), sveltekit()],
+  plugins: [
+    intlayerProxy(), // should be placed first
+    intlayer(),
+    sveltekit(),
+  ],
 });
 ```
 

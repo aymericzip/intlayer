@@ -198,7 +198,12 @@ import { intlayerProxy, intlayer } from "vite-intlayer";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  plugins: [reactRouter(), tsconfigPaths(), intlayer(), intlayerProxy()],
+  plugins: [
+    intlayerProxy(), // should be placed first
+    reactRouter(),
+    tsconfigPaths(),
+    intlayer(),
+  ],
 });
 ```
 

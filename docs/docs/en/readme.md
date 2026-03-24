@@ -197,6 +197,7 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
   <li><a href="https://intlayer.org/doc/environment/vite-and-vue" rel=''>Vite + Vue</a></li>
   <li><a href="https://intlayer.org/doc/environment/vite-and-nuxt" rel=''>Vite + Nuxt</a></li>
   <li><a href="https://intlayer.org/doc/environment/vite-and-solid" rel=''>Vite + Solid</a></li>
+  <li><a href="https://intlayer.org/doc/environment/vite-and-lit" rel=''>Vite + Lit</a></li>
   <li><a href="https://intlayer.org/doc/environment/angular" rel=''>Angular</a></li>
   <li>
      <a href="https://intlayer.org/doc/environment/express" rel=''>Backend</a>

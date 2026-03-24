@@ -406,7 +406,8 @@ import { intlayer, intlayerProxy } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [svelte(), intlayer(), intlayerProxy()],
+  plugins: [intlayerProxy(), // should be placed first
+ svelte(), intlayer()],
 });
 ```
 
@@ -417,7 +418,11 @@ import { intlayer, intlayerProxy } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [svelte(), intlayer(), intlayerProxy()],
+  plugins: [
+    intlayerProxy(), // should be placed first
+    svelte(),
+    intlayer(),
+  ],
 });
 ```
 
@@ -428,9 +433,11 @@ const { intlayer, intlayerProxy } = require("vite-intlayer");
 
 // https://vitejs.dev/config/
 module.exports = defineConfig({
-  plugins: [svelte(), intlayer(), intlayerProxy()],
+  plugins: [intlayerProxy(), // should be placed first
+ svelte(), intlayer()],
 });
-  plugins: [svelte(), intlayer(), intlayerProxy()],
+  plugins: [intlayerProxy(), // should be placed first
+ svelte(), intlayer()],
 });
 ```
 
