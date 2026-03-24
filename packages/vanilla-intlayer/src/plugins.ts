@@ -17,6 +17,7 @@ import type {
   InsertionContent,
   MarkdownContent,
 } from '@intlayer/core/transpiler';
+import { isEnabled } from '@intlayer/editor/isEnabled';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type {
   DeclaredLocales,
@@ -53,7 +54,7 @@ export const intlayerNodePlugins: Plugins = {
     typeof node === 'string' ||
     typeof node === 'number',
   transform: (_node, { children, keyPath, dictionaryKey, ...rest }) => {
-    if (configuration?.editor.enabled && typeof document !== 'undefined') {
+    if (isEnabled && typeof document !== 'undefined') {
       const rawStr = String(children ?? '');
       const keyPathJson = JSON.stringify(keyPath ?? []);
       const dictKey = String(dictionaryKey ?? '');

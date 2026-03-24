@@ -20,6 +20,7 @@ import type {
 } from '@intlayer/types/module_augmentation';
 import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
+import { isEnabled } from '../../@intlayer/editor/src/isEnabled';
 import { ContentSelectorWrapperComponent } from './editor/ContentSelector.component';
 import { renderIntlayerNode } from './renderIntlayerNode';
 
@@ -85,9 +86,7 @@ export const intlayerNodePlugins: Plugins = {
       ...rest,
       value: children,
       children: () => ({
-        component: configuration?.editor.enabled
-          ? ContentSelectorWrapperComponent
-          : children,
+        component: isEnabled ? ContentSelectorWrapperComponent : children,
         props: {
           dictionaryKey: rest.dictionaryKey,
           keyPath: rest.keyPath,
@@ -143,7 +142,7 @@ export const markdownStringPlugin: Plugins = {
       renderIntlayerNode({
         ...rest,
         value: node,
-        children: configuration?.editor.enabled
+        children: isEnabled
           ? () => ({
               component: ContentSelectorWrapperComponent,
               props: {
@@ -292,7 +291,7 @@ export const htmlPlugin: Plugins = {
       renderIntlayerNode({
         ...rest,
         value: html,
-        children: configuration?.editor.enabled
+        children: isEnabled
           ? () => ({
               component: ContentSelectorWrapperComponent,
               props: {

@@ -19,6 +19,7 @@ import {
   type InsertionContent,
   type MarkdownContent,
 } from '@intlayer/core/transpiler';
+import { isEnabled } from '@intlayer/editor/isEnabled';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type {
   DeclaredLocales,
@@ -57,7 +58,7 @@ export const intlayerNodePlugins: Plugins = {
       renderIntlayerNode({
         ...rest,
         value: children,
-        children: configuration?.editor.enabled
+        children: isEnabled
           ? () =>
               h(
                 // EditorSelectorRenderer, // Maximum stack size exceeded

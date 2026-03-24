@@ -21,6 +21,7 @@ import type {
   InsertionContent,
   MarkdownContent,
 } from '@intlayer/core/transpiler';
+import { isEnabled } from '@intlayer/editor/isEnabled';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type {
   DeclaredLocales,
@@ -101,7 +102,7 @@ export const intlayerNodePlugins: Plugins = {
     typeof node === 'string' ||
     typeof node === 'number',
   transform: (_node, { children, keyPath, dictionaryKey, ...rest }) => {
-    if (configuration?.editor.enabled) {
+    if (isEnabled) {
       const rawStr = String(children ?? '');
       const htmlStr = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${escapeHtmlText(rawStr)}</intlayer-content-selector-wrapper>`;
       return createLitHTMLNode(htmlStr, rawStr);
