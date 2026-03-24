@@ -331,17 +331,6 @@ import { useLocale } from "angular-intlayer";
       </select>
     </div>
   `,
-  styles: [
-    `
-      .locale-switcher {
-        margin: 1rem;
-        padding: 0.5rem;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        width: fit-content;
-      }
-    `,
-  ],
 })
 export class LocaleSwitcherComponent {
   localeCtx = useLocale();
