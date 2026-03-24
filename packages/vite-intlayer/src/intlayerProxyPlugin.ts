@@ -486,18 +486,23 @@ export const intlayerProxy = (
     // Ex: /a-propos (from URL) -> /about (Canonical)
     const canonicalPath = getCanonicalPath(rawPath, pathLocale, rewriteRules);
 
-    // Redirect Pretty URL to Canonical URL (Vite Specific Requirement)
-    // If request is /fr/a-props (Pretty) -> Redirect to /fr/about (Canonical)
-    // This allows the SPA router to handle the route naturally.
+    // When rewrite rules are configured and the URL is already a valid localized pretty URL
+    // (e.g. /fr/essais which maps to canonical /fr/tests), do NOT redirect to canonical.
+    //
+    // Why: the SPA router (Solid, React Router, Vue Router…) is expected to define routes using
+    // the localized paths (e.g. <Route path="/essais">) so the browser URL must stay as-is.
+    // A 301 redirect to canonical would:
+    //  1. Change the browser URL to the canonical form (/fr/tests)
+    //  2. Break subsequent client-side navigation because <A> links produced by getLocalizedUrl
+    //     point back to the localized URL (/fr/essais) which then has no matching route.
+    //
+    // We set the locale header and call next() so Vite serves index.html at the pretty URL.
     if (canonicalPath !== rawPath) {
-      const internalUrl = `/${pathLocale}${
-        canonicalPath === '/' ? '' : canonicalPath
-      }`;
-      const redirectPath = searchParams
-        ? `${internalUrl}${searchParams}`
-        : internalUrl;
-
-      return redirectUrl(res, redirectPath, undefined, originalUrl);
+      const newPath = searchParams
+        ? `${originalPath}${searchParams}`
+        : originalPath;
+      rewriteUrl(req, res, newPath, pathLocale);
+      return next();
     }
 
     // In prefix modes, respect the URL path locale

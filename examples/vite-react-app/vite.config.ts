@@ -7,9 +7,9 @@ import { intlayer, intlayerCompiler, intlayerProxy } from 'vite-intlayer';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    intlayerProxy(),
     react(),
     intlayer(),
-    intlayerProxy(),
     intlayerCompiler(),
     tailwindcss(),
     visualizer({

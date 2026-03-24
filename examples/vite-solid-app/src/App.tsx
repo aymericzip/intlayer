@@ -131,7 +131,14 @@ export const App = () => (
         )}
       >
         <Route path="/" component={Home} />
-        <Route path="/tests" component={Tests} />
+        {/* Use the localized route path so client-side navigation works with
+            solidRouterRewrite pretty URLs (e.g. /fr/essais instead of /fr/tests). */}
+        <Route
+          path={
+            getLocalizedUrl('/tests', locale).slice(urlPrefix.length) || '/'
+          }
+          component={Tests}
+        />
       </Route>
     ))}
   </IntlayerProvider>
