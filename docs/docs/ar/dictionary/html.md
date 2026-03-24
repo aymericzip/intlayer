@@ -509,7 +509,7 @@ const myContent = html(
     عرض سلسلة HTML باستخدام الخدمة.
 
     ```typescript
-    import { IntlayerHTMLService } from "angular-intlayer";
+    import { IntlayerHTMLService } from "angular-intlayer/html";
 
     export class MyComponent {
       constructor(private markdownService: IntlayerHTMLService) {}

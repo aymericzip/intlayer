@@ -4,7 +4,7 @@ import {
   type HTMLRenderer as HTMLRendererIntlayer,
   type RenderHTMLProps,
   renderHTML,
-} from 'react-intlayer';
+} from 'react-intlayer/html';
 import { H1, H2, H3, H4, H5, H6 } from '../Headers';
 import { Link } from '../Link';
 

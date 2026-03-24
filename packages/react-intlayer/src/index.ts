@@ -45,7 +45,6 @@ import type {
 import {
   MarkdownProvider as _MarkdownProvider,
   MarkdownRenderer as _MarkdownRenderer,
-  MarkdownRendererPlugin as _MarkdownRendererPlugin,
   renderMarkdown as _renderMarkdown,
   useMarkdownContext as _useMarkdownContext,
   useMarkdownRenderer as _useMarkdownRenderer,
@@ -83,7 +82,3 @@ export type RenderMarkdownProps = _RenderMarkdownProps;
  * @deprecated import from react-intlayer/markdown instead
  */
 export type MarkdownRendererProps = _MarkdownRendererProps;
-/**
- * @deprecated import from react-intlayer/markdown instead
- */
-export const MarkdownRendererPlugin = _MarkdownRendererPlugin;
