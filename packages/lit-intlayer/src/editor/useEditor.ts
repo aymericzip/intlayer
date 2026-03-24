@@ -1,36 +1,8 @@
+import type { EditorStateManager } from '@intlayer/editor';
 import { isEnabled } from '@intlayer/editor/isEnabled';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 import { getIntlayerClient } from '../client/installIntlayer';
-
-/**
- * Starts the editor client and syncs the current locale into it.
- * Returns a cleanup function.
- */
-const startEditor = (locale: string): (() => void) => {
-  let stopped = false;
-  let stopLocaleWatch: (() => void) | null = null;
-
-  import('@intlayer/editor').then(({ initEditorClient }) => {
-    if (stopped) return;
-    const manager = initEditorClient();
-
-    const client = getIntlayerClient();
-    manager.currentLocale.set(locale as Locale);
-
-    stopLocaleWatch = client.subscribe((newLocale) => {
-      manager.currentLocale.set(newLocale as Locale);
-    });
-  });
-
-  return () => {
-    stopped = true;
-    stopLocaleWatch?.();
-    import('@intlayer/editor').then(({ stopEditorClient }) => {
-      stopEditorClient();
-    });
-  };
-};
 
 /**
  * ReactiveController that initialises the Intlayer visual editor when enabled.
@@ -41,7 +13,8 @@ const startEditor = (locale: string): (() => void) => {
  */
 class EditorController implements ReactiveController {
   private readonly host: ReactiveControllerHost;
-  private _stopEditor: (() => void) | null = null;
+  private _stopped = false;
+  private _unsubscribeLocale: (() => void) | null = null;
 
   constructor(host: ReactiveControllerHost) {
     this.host = host;
@@ -49,28 +22,56 @@ class EditorController implements ReactiveController {
   }
 
   hostConnected(): void {
-    const client = getIntlayerClient();
-    this._stopEditor = startEditor(client.locale);
+    this._stopped = false;
+    if (!isEnabled) return;
+
+    import('@intlayer/editor').then(({ initEditorClient }) => {
+      if (this._stopped) return;
+      const manager: EditorStateManager = initEditorClient();
+      const client = getIntlayerClient();
+
+      manager.currentLocale.set(client.locale as Locale);
+
+      this._unsubscribeLocale = client.subscribe((newLocale) => {
+        manager.currentLocale.set(newLocale as Locale);
+      });
+    });
   }
 
   hostDisconnected(): void {
-    this._stopEditor?.();
-    this._stopEditor = null;
+    this._stopped = true;
+    this._unsubscribeLocale?.();
+    this._unsubscribeLocale = null;
+
+    import('@intlayer/editor').then(({ stopEditorClient }) => {
+      stopEditorClient();
+    });
   }
 }
 
 /**
- * Initialises the Intlayer visual editor client on the given host element.
+ * Initialises the Intlayer visual editor client.
  *
  * Does nothing when `INTLAYER_EDITOR_ENABLED` is `"false"` or the editor
  * package reports that it is disabled.
  *
- * Call this once, typically from your root/shell element.
+ * **Without a host** — starts the editor globally (not tied to any element
+ * lifecycle). Returns a cleanup function. Called automatically by
+ * `installIntlayer`; you only need this when you want to manage cleanup
+ * manually.
  *
- * @param host - The LitElement (or any ReactiveControllerHost).
+ * **With a host** — attaches an `EditorController` to the given
+ * `ReactiveControllerHost` so the editor lifecycle follows the element's
+ * connected/disconnected callbacks.
+ *
+ * @param host - Optional LitElement (or any ReactiveControllerHost).
  *
  * @example
  * ```ts
+ * // Global (called automatically by installIntlayer)
+ * const stopEditor = useEditor();
+ *
+ * // Element-scoped
  * class AppShell extends LitElement {
  *   constructor() {
  *     super();
@@ -79,7 +80,37 @@ class EditorController implements ReactiveController {
  * }
  * ```
  */
-export const useEditor = (host: ReactiveControllerHost): void => {
-  if (process.env.INTLAYER_EDITOR_ENABLED === 'false' || !isEnabled) return;
+export function useEditor(): () => void;
+export function useEditor(host: ReactiveControllerHost): void;
+export function useEditor(host?: ReactiveControllerHost): void | (() => void) {
+  if (!isEnabled) {
+    return host ? undefined : () => {};
+  }
+
+  if (!host) {
+    let stopped = false;
+    let unsubscribeLocale: (() => void) | null = null;
+
+    import('@intlayer/editor').then(({ initEditorClient }) => {
+      if (stopped) return;
+      const manager: EditorStateManager = initEditorClient();
+      const client = getIntlayerClient();
+
+      manager.currentLocale.set(client.locale as Locale);
+
+      unsubscribeLocale = client.subscribe((newLocale) => {
+        manager.currentLocale.set(newLocale as Locale);
+      });
+    });
+
+    return () => {
+      stopped = true;
+      unsubscribeLocale?.();
+      import('@intlayer/editor').then(({ stopEditorClient }) => {
+        stopEditorClient();
+      });
+    };
+  }
+
   new EditorController(host);
-};
+}

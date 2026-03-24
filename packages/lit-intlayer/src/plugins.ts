@@ -82,9 +82,17 @@ export type IntlayerNodeCond<T> = T extends number | string
 
 export type IntlayerNode<T, P = {}> = IntlayerNodeCore<T> & P;
 
+const escapeHtmlAttr = (str: string): string =>
+  str.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+
+const escapeHtmlText = (str: string): string =>
+  str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
 /**
  * Wraps string/number leaf values in an IntlayerNode so they carry
  * `.value`, `.raw`, `toString()`, and `__update()`.
+ * When the editor is enabled, wraps the content with
+ * `<intlayer-content-selector-wrapper>` so the visual editor can highlight it.
  */
 export const intlayerNodePlugins: Plugins = {
   id: 'intlayer-node-plugin',
@@ -92,12 +100,18 @@ export const intlayerNodePlugins: Plugins = {
     typeof node === 'bigint' ||
     typeof node === 'string' ||
     typeof node === 'number',
-  transform: (_node, { children, ...rest }) =>
-    renderIntlayerNode({
+  transform: (_node, { children, keyPath, dictionaryKey, ...rest }) => {
+    if (configuration?.editor.enabled) {
+      const rawStr = String(children ?? '');
+      const htmlStr = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${escapeHtmlText(rawStr)}</intlayer-content-selector-wrapper>`;
+      return createLitHTMLNode(htmlStr, rawStr);
+    }
+    return renderIntlayerNode({
       ...rest,
       value: children as string,
       children,
-    }),
+    });
+  },
 };
 
 /** ---------------------------------------------

@@ -40,18 +40,69 @@ export type IntlayerNodeCond<T> = T extends number | string
 
 export type IntlayerNode<T, P = {}> = IntlayerNodeCore<T> & P;
 
+const escapeHtmlAttr = (str: string): string =>
+  str.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+
+const escapeHtmlText = (str: string): string =>
+  str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
 export const intlayerNodePlugins: Plugins = {
   id: 'intlayer-node-plugin',
   canHandle: (node) =>
     typeof node === 'bigint' ||
     typeof node === 'string' ||
     typeof node === 'number',
-  transform: (_node, { children, ...rest }) =>
-    renderIntlayerNode({
+  transform: (_node, { children, keyPath, dictionaryKey, ...rest }) => {
+    if (configuration?.editor.enabled && typeof document !== 'undefined') {
+      const rawStr = String(children ?? '');
+      const keyPathJson = JSON.stringify(keyPath ?? []);
+      const dictKey = String(dictionaryKey ?? '');
+      const htmlStr = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(keyPathJson)}" dictionary-key="${escapeHtmlAttr(dictKey)}">${escapeHtmlText(rawStr)}</intlayer-content-selector-wrapper>`;
+
+      /**
+       * In editor mode, string coercion returns the wrapper HTML so that
+       * `element.innerHTML = content.title` automatically inserts the
+       * `<intlayer-content-selector-wrapper>` into the DOM.
+       *
+       * Use `.raw` or `.valueOf()` to get the plain text value.
+       *
+       * `toElement()` is an alternative for explicit DOM insertion:
+       * ```ts
+       * container.replaceChildren(content.title.toElement());
+       * ```
+       */
+      const node = {
+        toString: () => htmlStr,
+        valueOf: () => rawStr as typeof children,
+        [Symbol.toPrimitive]: (_hint: string) => htmlStr,
+        toJSON: () => rawStr as typeof children,
+        get raw() {
+          return rawStr as typeof children;
+        },
+        get value() {
+          return rawStr as typeof children;
+        },
+        __update(_next: IntlayerNodeCore<typeof children>) {},
+        toElement: (): HTMLElement => {
+          const wrapper = document.createElement(
+            'intlayer-content-selector-wrapper'
+          );
+          wrapper.setAttribute('key-path', keyPathJson);
+          wrapper.setAttribute('dictionary-key', dictKey);
+          wrapper.textContent = rawStr;
+          return wrapper;
+        },
+      };
+      Object.setPrototypeOf(node, String.prototype);
+      return node as unknown as IntlayerNodeCore<typeof children>;
+    }
+
+    return renderIntlayerNode({
       ...rest,
       value: children as string,
       children,
-    }),
+    });
+  },
 };
 
 /** ---------------------------------------------

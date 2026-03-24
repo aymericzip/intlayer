@@ -67,9 +67,13 @@ export const createIntlayerClient = (
  */
 export const installIntlayer = (
   app: App,
-  locale?: LocalesValues,
-  isCookieEnabled = true
+  options?: {
+    locale?: LocalesValues;
+    isCookieEnabled?: boolean;
+  }
 ) => {
+  const { locale, isCookieEnabled } = options ?? {};
+
   const client = createIntlayerClient(locale, isCookieEnabled);
 
   app.provide(INTLAYER_SYMBOL, client);
