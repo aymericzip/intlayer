@@ -1,0 +1,912 @@
+---
+createdAt: 2025-03-25
+updatedAt: 2026-03-25
+title: i18n Tanstack Start - How to translate a Tanstack Start App using Solid.js in 2026
+description: Learn how to add internationalisation (i18n) to your Tanstack Start application using Intlayer and Solid.js. Follow this comprehensive guide to make your app multi-lingual with locale-aware routing.
+keywords:
+  - Internationalisation
+  - Documentation
+  - Intlayer
+  - Tanstack Start
+  - Solid
+  - i18n
+  - TypeScript
+  - Locale Routing
+slugs:
+  - doc
+  - environment
+  - tanstack-start
+applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid-template
+youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
+history:
+  - version: 8.5.1
+    date: 2026-03-25
+    changes: "Added for Tanstack Start Solid.js"
+---
+
+# Translate your Tanstack Start website with Solid.js using Intlayer | Internationalisation (i18n)
+
+## Table of Contents
+
+<TOC/>
+
+This guide demonstrates how to integrate **Intlayer** for seamless internationalisation in Tanstack Start projects with Solid.js, locale-aware routing, TypeScript support, and modern development practices.
+
+## What is Intlayer?
+
+**Intlayer** is an innovative, open-source internationalisation (i18n) library designed to simplify multi-lingual support in modern web applications.
+
+With Intlayer, you can:
+
+- **Manage translations easily** using declarative dictionaries at the component level.
+- **Localise metadata, routes, and content dynamically**.
+- **Ensure TypeScript support** with auto-generated types, improving autocompletion and error detection.
+- **Benefit from advanced features**, such as dynamic locale detection and switching.
+- **Enable locale-aware routing** with Tanstack Start's file-based routing system.
+
+---
+
+## Step-by-Step Guide to Setting Up Intlayer in a Tanstack Start Application
+
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
+  
+<iframe title="The best i18n solution for Tanstack Start? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/_XTdKVWaeqg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+
+  </Tab>
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-tanstack-start-solid-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalise your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
+See the [Application Template](https://github.com/aymericzip/intlayer-tanstack-start-solid-template) on GitHub.
+
+### Step 1: Project Creation
+
+First, create a new TanStack Start project following the [Start New Project](https://tanstack.com/start/latest/docs/framework/solid/quick-start) guide on the TanStack Start website.
+
+### Step 2: Install Intlayer Packages
+
+Install the necessary packages using your preferred package manager:
+
+```bash packageManager="npm"
+npm install intlayer solid-intlayer
+npm install vite-intlayer --save-dev
+npx intlayer init
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer solid-intlayer
+pnpm add vite-intlayer --save-dev
+pnpm intlayer init
+```
+
+```bash packageManager="yarn"
+yarn add intlayer solid-intlayer
+yarn add vite-intlayer --save-dev
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer solid-intlayer
+bun add vite-intlayer --dev
+bun x intlayer init
+```
+
+- **intlayer**
+
+  The core package that provides internationalisation tools for configuration management, translation, [content declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md), transpilation, and [CLI commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/index.md).
+
+- **solid-intlayer**
+  The package that integrates Intlayer into the Solid application. It provides context providers and hooks for Solid internationalisation.
+
+- **vite-intlayer**
+  Includes the Vite plugin to integrate Intlayer with the [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), as well as middleware to detect the user's preferred locale, manage cookies, and handle URL redirection.
+
+### Step 3: Configuration of your project
+
+Create a configuration file to set up the languages of your application:
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+import { Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    defaultLocale: Locales.ENGLISH,
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  },
+};
+
+export default config;
+```
+
+> Through this configuration file, you can configure localised URLs, middleware redirection, cookie names, the location and extension of your content declarations, disable Intlayer logs in the console, and more. For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
+
+### Step 4: Integrate Intlayer in your Vite Configuration
+
+Add the intlayer plugin in your configuration:
+
+```typescript fileName="vite.config.ts"
+import { intlayer } from "vite-intlayer";
+import { defineConfig } from "vite";
+import { devtools } from "@tanstack/devtools-vite";
+import viteTsConfigPaths from "vite-tsconfig-paths";
+import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
+import solidPlugin from "vite-plugin-solid";
+
+export default defineConfig({
+  plugins: [
+    devtools(),
+    viteTsConfigPaths({
+      projects: ["./tsconfig.json"],
+    }),
+    tanstackStart({
+      router: {
+        routeFileIgnorePattern:
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$",
+      },
+    }),
+    solidPlugin({ ssr: true }),
+    intlayer(),
+  ],
+});
+```
+
+> The `intlayer()` Vite plugin is used to integrate Intlayer with Vite. It ensures the building of content declaration files and monitors them in development mode. It defines the Intlayer environment variables within the Vite application. Additionally, it provides aliases to reduce performance overhead.
+
+### Step 5: Create the Root Layout
+
+Configure your root layout to support internationalisation by using `useMatches` to detect the current locale and setting the `lang` and `dir` attributes on the `html` tag.
+
+```tsx fileName="src/routes/__root.tsx"
+import {
+  HeadContent,
+  Outlet,
+  Scripts,
+  createRootRouteWithContext,
+  useMatches,
+} from "@tanstack/solid-router";
+import { TanStackRouterDevtools } from "@tanstack/solid-router-devtools";
+import { HydrationScript } from "solid-js/web";
+import { Suspense } from "solid-js";
+import { IntlayerProvider } from "solid-intlayer";
+import { defaultLocale, getHTMLTextDir, type Locale } from "intlayer";
+
+export const Route = createRootRouteWithContext()({
+  shellComponent: RootComponent,
+});
+
+type Params = {
+  locale: Locale;
+};
+
+function RootComponent() {
+  const matches = useMatches();
+
+  // Try to find the locale in the parameters of any active match
+  // This assumes you use the dynamic segment "/{-$locale}" in your route tree
+  const locale =
+    (
+      matches().find((match) => match.routeId === "/{-$locale}/")
+        ?.params as Params
+    )?.locale ?? defaultLocale;
+
+  return (
+    <html dir={getHTMLTextDir(locale)} lang={locale}>
+      <head>
+        <HydrationScript />
+      </head>
+      <body>
+        <HeadContent />
+        <IntlayerProvider locale={locale}>
+          <Suspense>
+            <Outlet />
+            <TanStackRouterDevtools />
+          </Suspense>
+        </IntlayerProvider>
+        <Scripts />
+      </body>
+    </html>
+  );
+}
+```
+
+> [!NOTE]
+> in Solid files, `useMatches` returns a **signal** (reactive accessor). Use `matches()` (with parentheses) to reactively access the current value.
+
+### Step 6: Create the Locale Layout (Optional)
+
+Create a layout that handles the locale prefix and performs validation. This layout will ensure only valid locales are processed.
+
+> This step is optional if you don't need to validate the locale prefix at the route level.
+
+```tsx fileName="src/routes/{-$locale}/route.tsx"
+import { createFileRoute, Outlet, redirect } from "@tanstack/solid-router";
+import { validatePrefix } from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}")({
+  beforeLoad: ({ params }) => {
+    const localeParam = params.locale;
+
+    // Validate the locale prefix
+    const { isValid, localePrefix } = validatePrefix(localeParam);
+
+    if (!isValid) {
+      throw redirect({
+        to: "/{-$locale}/404",
+        params: { locale: localePrefix },
+        replace: true,
+      });
+    }
+  },
+  component: Outlet,
+});
+```
+
+> Here, `{-$locale}` is a dynamic route parameter that is replaced by the current locale. This notation makes the slot optional, allowing it to work with routing modes like `'prefix-no-default'` etc.
+
+> Be aware that this slot may cause issues if you use multiple dynamic segments in the same route (ex: `/{-$locale}/other-path/$anotherDynamicPath/...`).
+> For `'prefix-all'` mode, you might prefer switching the slot to `$locale`.
+> For `'no-prefix'` or `'search-params'` mode, you can remove the slot entirely.
+
+### Step 7: Declare Your Content
+
+Create and manage your content declarations to store translations:
+
+```tsx fileName="src/contents/page.content.ts"
+import type { Dictionary } from "intlayer";
+
+import { t } from "intlayer";
+
+const appContent = {
+  content: {
+    links: {
+      about: t({
+        en: "About",
+        es: "Acerca de",
+        fr: "À propos",
+      }),
+      home: t({
+        en: "Home",
+        es: "Inicio",
+        fr: "Accueil",
+      }),
+    },
+    meta: {
+      title: t({
+        en: "Welcome to Intlayer + TanStack Router",
+        es: "Bienvenido a Intlayer + TanStack Router",
+        fr: "Bienvenue à Intlayer + TanStack Router",
+      }),
+      description: t({
+        en: "This is an example of using Intlayer with TanStack Router",
+        es: "Este es un ejemplo de uso de Intlayer con TanStack Router",
+        fr: "Ceci est un exemple d'utilisation d'Intlayer avec TanStack Router",
+      }),
+    },
+  },
+  key: "app",
+} satisfies Dictionary;
+
+export default appContent;
+```
+
+> Your content declarations can be defined anywhere in your application, as long as they are included in the `contentDir` directory (by default, `./app`). And match the content declaration file extension (by default, `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+
+> For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md).
+
+### Step 8: Utilise Locale-Aware Components and Hooks
+
+Create a `LocalizedLink` component for locale-aware navigation:
+
+```tsx fileName="src/components/LocalizedLink.tsx"
+import { Link, type LinkProps } from "@tanstack/solid-router";
+import { getPrefix } from "intlayer";
+import { useLocale } from "solid-intlayer";
+import type { JSX } from "solid-js";
+
+export const LOCALE_ROUTE = "{-$locale}" as const;
+
+export type RemoveLocaleParam<TVal> = TVal extends string
+  ? RemoveLocaleFromString<TVal>
+  : TVal;
+
+export type To = RemoveLocaleParam<LinkProps["to"]>;
+
+type CollapseDoubleSlashes<TString extends string> =
+  TString extends `${infer THead}//${infer TTail}`
+    ? CollapseDoubleSlashes<`${THead}/${TTail}`>
+    : TString;
+
+export type LocalizedLinkProps = Omit<LinkProps, "to"> & {
+  to?: To;
+} & JSX.AnchorHTMLAttributes<HTMLAnchorElement>;
+
+type RemoveAll<
+  TString extends string,
+  TSub extends string,
+  McPherson,
+> = TString extends `${infer THead}${TSub}${infer TTail}`
+  ? RemoveAll<`${THead}${TTail}`, TSub>
+  : TString;
+
+type RemoveLocaleFromString<TString extends string> = CollapseDoubleSlashes<
+  RemoveAll<TString, typeof LOCALE_ROUTE>
+>;
+
+export const LocalizedLink = (props: LocalizedLinkProps) => {
+  const { locale } = useLocale();
+
+  return (
+    <Link
+      {...props}
+      params={{
+        locale: getPrefix(locale()).localePrefix,
+        ...(typeof props.params === "object" ? props.params : {}),
+      }}
+      to={`/${LOCALE_ROUTE}${props.to ?? ""}` as LinkProps["to"]}
+    />
+  );
+};
+```
+
+This component serves two purposes:
+
+- Removing the unnecessary `{-$locale}` prefix from the URL.
+- Injecting the locale parameter into the URL to ensure the user is directly redirected to the localised route.
+
+Then, we can create a `useLocalizedNavigate` hook for programmatic navigation:
+
+```tsx fileName="src/hooks/useLocalizedNavigate.tsx"
+import { useNavigate } from "@tanstack/solid-router";
+import { getLocalizedUrl } from "intlayer";
+import { useLocale } from "solid-intlayer";
+
+export const useLocalizedNavigate = () => {
+  const navigate = useNavigate();
+  const { locale } = useLocale();
+
+  const localizedNavigate = (to: string) => {
+    const localizedTo = getLocalizedUrl(to, locale());
+    return navigate({ to: localizedTo });
+  };
+
+  return localizedNavigate;
+};
+```
+
+### Step 9: Use Intlayer in Your Pages
+
+Access your content dictionaries throughout your application:
+
+#### Localised Home Page
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/solid-router";
+import { useIntlayer } from "solid-intlayer";
+import { LocalizedLink } from "@/components/LocalizedLink";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+});
+
+function RouteComponent() {
+  const content = useIntlayer("index-page");
+
+  return (
+    <main>
+      <h1>{content().heroTitle}</h1>
+      <p>{content().heroDesc}</p>
+      <div>
+        <LocalizedLink to="/">{content().navHome}</LocalizedLink>
+        <LocalizedLink to="/about">{content().navAbout}</LocalizedLink>
+      </div>
+    </main>
+  );
+}
+```
+
+> [!NOTE]
+> in Solid, `useIntlayer` returns an **accessor** function (ex: `content()`). You must call this function to access the reactive content.
+>
+> To learn more about the `useIntlayer` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/solid-intlayer/useIntlayer.md).
+
+### Step 10: Create a Locale Switcher Component
+
+Create a component to allow users to change languages:
+
+```tsx fileName="src/components/LocaleSwitcher.tsx"
+import { useLocation } from "@tanstack/solid-router";
+import { getLocaleName, getPathWithoutLocale, getPrefix } from "intlayer";
+import { For } from "solid-js";
+import { useIntlayer, useLocale } from "solid-intlayer";
+import { LocalizedLink, type To } from "./LocalizedLink";
+
+export const LocaleSwitcher = () => {
+  const content = useIntlayer("locale-switcher");
+  const location = useLocation();
+
+  const { availableLocales, locale, setLocale } = useLocale();
+
+  const pathWithoutLocale = () => getPathWithoutLocale(location().pathname);
+
+  return (
+    <div class="flex flex-row gap-2">
+      <For each={availableLocales}>
+        {(localeEl) => (
+          <LocalizedLink
+            aria-current={localeEl === locale() ? "page" : undefined}
+            onClick={() => setLocale(localeEl)}
+            params={{ locale: getPrefix(localeEl).localePrefix }}
+            to={pathWithoutLocale() as To}
+          >
+            {getLocaleName(localeEl)}
+          </LocalizedLink>
+        )}
+      </For>
+    </div>
+  );
+};
+
+export default LocaleSwitcher;
+```
+
+> [!NOTE]
+> in Solid files, `locale` from `useLocale` is a **signal accessor**. Use `locale()` (with parentheses) to reactively read its current value.
+>
+> To learn more about the `useLocale` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/solid-intlayer/useLocale.md).
+
+### Step 11: Management of HTML Attributes
+
+As seen in Step 5, you can manage the `lang` and `dir` attributes of the `html` tag by using `useMatches` in your root component. This ensures that the correct attributes are set on both the server and client.
+
+```tsx fileName="src/routes/__root.tsx"
+const RootComponent: ParentComponent = (props) => {
+  const matches = useMatches();
+
+  // Try to find the locale in the parameters of any active match
+  const locale =
+    (
+      matches().find((match) => match.routeId === "/{-$locale}/")
+        ?.params as Params
+    )?.locale ?? defaultLocale;
+
+  return (
+    <html dir={getHTMLTextDir(locale)} lang={locale}>
+      {/* ... */}
+    </html>
+  );
+};
+```
+
+---
+
+### Step 12: Add Middleware (Optional)
+
+You can also use the `intlayerProxy` to add server-side routing to your application. This plugin will automatically detect the current locale based on the URL and set the appropriate locale cookie. If no locale is specified, the plugin will determine the most appropriate locale based on the user's browser language preferences. If no locale is detected, it will redirect to the default locale.
+
+> Note that to use the `intlayerProxy` in production, you need to switch the `vite-intlayer` package from `devDependencies` to `dependencies`.
+
+```typescript {7,14-17} fileName="vite.config.ts"
+import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
+import solid from "vite-plugin-solid";
+import { nitro } from "nitro/vite";
+import { defineConfig } from "vite";
+import { intlayer, intlayerProxy } from "vite-intlayer";
+import viteTsConfigPaths from "vite-tsconfig-paths";
+
+export default defineConfig({
+  plugins: [
+    intlayerProxy(), // The Proxy should be placed before the server if you use Nitro
+    nitro(),
+    viteTsConfigPaths({
+      projects: ["./tsconfig.json"],
+    }),
+    intlayer(),
+    tanstackStart({
+      router: {
+        routeFileIgnorePattern:
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$",
+      },
+    }),
+    solid(),
+  ],
+});
+```
+
+---
+
+### Step 13: Internationalise Your Metadata (Optional)
+
+You can also use the `getIntlayer` function to access your content dictionaries within the `head` loader for locale-aware metadata:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/solid-router";
+import { getIntlayer } from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: ({ params }) => {
+    const { locale } = params;
+    const metaContent = getIntlayer("page-metadata", locale);
+
+    return {
+      meta: [
+        { title: metaContent.title },
+        { content: metaContent.description, name: "description" },
+      ],
+    };
+  },
+});
+```
+
+---
+
+### Step 14: Retrieve the locale in your server actions (Optional)
+
+You may want to access the current locale from within your server actions or API endpoints.
+You can do this using the `getLocale` helper from `intlayer`.
+
+Here's an example using TanStack Start's server functions:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createServerFn } from "@tanstack/solid-start";
+import {
+  getRequestHeader,
+  getRequestHeaders,
+} from "@tanstack/solid-start/server";
+import { getCookie, getIntlayer, getLocale } from "intlayer";
+
+export const getLocaleServer = createServerFn().handler(async () => {
+  const locale = await getLocale({
+    // Get the cookie from the request (default: 'INTLAYER_LOCALE')
+    getCookie: (name) => {
+      const cookieString = getRequestHeader("cookie");
+
+      return getCookie(name, cookieString);
+    },
+    // Get the header from the request (default: 'x-intlayer-locale')
+    // Fallback using Accept-Language negotiation
+    getHeader: (name) => getRequestHeader(name),
+  });
+
+  // Retrieve some content using getIntlayer()
+  const content = getIntlayer("app", locale);
+
+  return { locale, content };
+});
+```
+
+---
+
+### Step 15: Manage not found pages (Optional)
+
+When a user visits a non-existent page, you can display a custom not found page and the locale prefix can impact the way the not found page is triggered.
+
+#### Understanding TanStack Router's 404 handling with locale prefixes
+
+In TanStack Router, handling 404 pages with localised routes requires a multi-layered approach:
+
+1. **Dedicated 404 route**: A specific route to display the 404 UI
+2. **Route-level validation**: Validates locale prefixes and redirects invalid ones to the 404
+3. **Catch-all route**: Captures any non-matching paths within the locale segment
+
+```tsx fileName="src/routes/{-$locale}/404.tsx"
+import { createFileRoute } from "@tanstack/solid-router";
+
+// This creates a dedicated /[locale]/404 route
+// It's used both as a direct route and imported as a component in other files
+export const Route = createFileRoute("/{-$locale}/404")({
+  component: NotFoundComponent,
+});
+
+// Exported separately so it can be reused in notFoundComponent and catch-all routes
+export function NotFoundComponent() {
+  return (
+    <div>
+      <h1>404</h1>
+    </div>
+  );
+}
+```
+
+```tsx fileName="src/routes/{-$locale}/route.tsx"
+import { createFileRoute, Outlet, redirect } from "@tanstack/solid-router";
+import { validatePrefix } from "intlayer";
+import { NotFoundComponent } from "./404";
+
+export const Route = createFileRoute("/{-$locale}")({
+  // beforeLoad runs before the route renders (both server and client)
+  // It's the ideal place to validate the locale prefix
+  beforeLoad: ({ params }) => {
+    const localeParam = params.locale;
+
+    // validatePrefix checks if the locale is valid according to your intlayer config
+    const { isValid, localePrefix } = validatePrefix(localeParam);
+
+    if (!isValid) {
+      // Invalid locale prefix - redirect to the 404 page with a valid locale prefix
+      throw redirect({
+        to: "/{-$locale}/404",
+        params: { locale: localePrefix },
+      });
+    }
+  },
+  component: Outlet,
+  // notFoundComponent is called when a child route doesn't exist
+  // ex: /en/non-existent-page triggers this within the /en layout
+  notFoundComponent: NotFoundComponent,
+});
+```
+
+```tsx fileName="src/routes/{-$locale}/$.tsx"
+import { createFileRoute } from "@tanstack/solid-router";
+
+import { NotFoundComponent } from "./404";
+
+// The $ (splat/catch-all) route matches any path that doesn't match other routes
+// ex: /en/some/deeply/nested/invalid/path
+// This ensures ALL non-matching paths within a locale show the 404 page
+// Without this, deep non-matching paths could show a blank page or error
+export const Route = createFileRoute("/{-$locale}/$")({
+  component: NotFoundComponent,
+});
+```
+
+### (Optional) Step 16: Extract the content from your components
+
+If you have an existing codebase, transforming thousands of files can be time-consuming.
+
+To ease this process, Intlayer proposes a [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md) / [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/extract.md) to transform your components and extract the content.
+
+To set it up, you can add a `compiler` section in your `intlayer.config.ts` file:
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Rest of your config
+  compiler: {
+    /**
+     * Indicates whether the compiler should be enabled.
+     */
+    enabled: true,
+
+    /**
+     * Defines the output files path
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Indicates whether components should be saved after being transformed.
+     *
+     * - If `true`, the compiler will rewrite the component file on the disk. Thus, the transformation will be permanent, and the compiler will skip the transformation for the next process. In this way, the compiler can transform the app and then it can be removed.
+     *
+     * - If `false`, the compiler will inject the `useIntlayer()` function call in the code only in the build output, keeping the base codebase intact. Transformation will be done only in memory.
+     */
+    saveComponents: false,
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.mjs" codeFormat="esm"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... Rest of your config
+  compiler: {
+    /**
+     * Indicates whether the compiler should be enabled.
+     */
+    enabled: true,
+
+    /**
+     * Defines the output files path
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Indicates whether components should be saved after being transformed.
+     *
+     * - If `true`, the compiler will rewrite the component file on the disk. Thus, the transformation will be permanent, and the compiler will skip the transformation for the next process. In this way, the compiler can transform the app and then it can be removed.
+     *
+     * - If `false`, the compiler will inject the `useIntlayer()` function call in the code only in the build output, keeping the base codebase intact. Transformation will be done only in memory.
+     */
+    saveComponents: false,
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
+/** @type {import('intlayer').IntlayerConfig} */
+const config = {
+  // ... Rest of your config
+  compiler: {
+    /**
+     * Indicates whether the compiler should be enabled.
+     */
+    enabled: true,
+
+    /**
+     * Defines the output files path
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Indicates whether components should be saved after being transformed.
+     *
+     * - If `true`, the compiler will rewrite the component file on the disk. Thus, the transformation will be permanent, and the compiler will skip the transformation for the next process. In this way, the compiler can transform the app and then it can be removed.
+     *
+     * - If `false`, the compiler will inject the `useIntlayer()` function call in the code only in the build output, keeping the base codebase intact. Transformation will be done only in memory.
+     */
+    saveComponents: false,
+
+    /**
+     * Dictionary key prefix
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+module.exports = config;
+```
+
+<Tabs>
+ <Tab value='Extract command'>
+
+Run the extractor to transform your components and extract the content
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Babel compiler'>
+
+Update your `vite.config.ts` to include the `intlayerCompiler` plugin:
+
+```ts fileName="vite.config.ts"
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+import { defineConfig } from "vite";
+import { devtools } from "@tanstack/devtools-vite";
+import viteTsConfigPaths from "vite-tsconfig-paths";
+import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
+import solidPlugin from "vite-plugin-solid";
+
+export default defineConfig({
+  plugins: [
+    devtools(),
+    viteTsConfigPaths({
+      projects: ["./tsconfig.json"],
+    }),
+    tanstackStart({
+      router: {
+        routeFileIgnorePattern:
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$",
+      },
+    }),
+    solidPlugin({ ssr: true }),
+    intlayer(),
+    intlayerCompiler(),
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # Or rpm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # Or pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Or yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
+
+---
+
+### Step 17: Configure TypeScript (Optional)
+
+Intlayer uses module augmentation to get the benefits of TypeScript and make your codebase stronger.
+
+Ensure your TypeScript configuration includes the auto-generated types:
+
+```json5 fileName="tsconfig.json"
+{
+  // ... your existing settings
+  include: [
+    // ... your existing includes
+    ".intlayer/**/*.ts", // Include the auto-generated types
+  ],
+}
+```
+
+---
+
+### Git Configuration
+
+It is recommended to ignore the files generated by Intlayer. This allows you to avoid committing them to your Git repository.
+
+To do this, you can add the following instructions to your `.gitignore` file:
+
+```plaintext fileName=".gitignore"
+# Ignore the files generated by Intlayer
+.intlayer
+```
+
+---
+
+## VS Code Extension
+
+To improve your development experience with Intlayer, you can install the official **Intlayer VS Code Extension**.
+
+[Install from VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+This extension offers:
+
+- **Autocompletion** for translation keys.
+- **Real-time error detection** for missing translations.
+- **Inline previews** of translated content.
+- **Quick actions** to create and update translations easily.
+
+For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://intlayer.org/doc/vs-code-extension).
+
+---
+
+## Going Further
+
+To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) or externalise your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md).
+
+---
+
+## Documentation References
+
+- [Intlayer Documentation](https://intlayer.org)
+- [Tanstack Start Documentation](https://tanstack.com/start/latest)
+- [useIntlayer hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/solid-intlayer/useIntlayer.md)
+- [useLocale hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/solid-intlayer/useLocale.md)
+- [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md)
+- [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md)

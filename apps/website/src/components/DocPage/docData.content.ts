@@ -802,6 +802,14 @@ const docDataContent: Dictionary = {
         'tanstack-start': {
           title: 'Tanstack Start',
           default: getDocMetadata('./docs/en/intlayer_with_tanstack.md'),
+          subSections: {
+            'tanstack-start-solid': {
+              title: 'Tanstack Start Solid',
+              default: getDocMetadata(
+                './docs/en/intlayer_with_tanstack+solid.md'
+              ),
+            },
+          },
         },
         astro: {
           title: 'Astro',
