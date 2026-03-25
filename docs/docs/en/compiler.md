@@ -296,6 +296,8 @@ The following properties can be configured in the `compiler` block of your `intl
   - _Type_: `boolean`
   - _Default_: `false`
   - _Description_: Indicates if the components should be saved after being transformed.
+    - If `true`, the compiler will rewrite the component file in the disk. The transformation will be permanent, and the compiler can then be removed.
+    - If `false`, the compiler will inject the `useIntlayer()` function call into the code in the build output only, and keep the base codebase intact. The transformation will be done only in memory.
 
 ### Fill missing translation
 

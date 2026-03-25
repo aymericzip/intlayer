@@ -208,7 +208,10 @@ const config: IntlayerConfig = {
 
     /**
      * Gibt an, ob die Komponenten nach der Transformation gespeichert werden sollen.
-     * Auf diese Weise kann der Compiler nur einmal ausgeführt werden, um die App zu transformieren, und dann entfernt werden.
+     *
+     * - Wenn `true`, schreibt der Compiler die Komponentendatei auf die Festplatte um. Die Transformation ist also dauerhaft und der Compiler überspringt die Transformation für den nächsten Prozess. Auf diese Weise kann der Compiler die App transformieren und anschließend entfernt werden.
+     *
+     * - Wenn `false`, fügt der Compiler den `useIntlayer()` Funktionsaufruf nur in den Code der Build-Ausgabe ein und lässt die Basis-Code-Basis intakt. Die Transformation erfolgt nur im Speicher.
      */
     saveComponents: false,
 
@@ -287,6 +290,8 @@ Die folgenden Eigenschaften können im Block `compiler` Ihrer Datei `intlayer.co
   - _Typ_: `boolean`
   - _Standard_: `false`
   - _Beschreibung_: Gibt an, ob die Komponenten nach der Transformation gespeichert werden sollen.
+    - Wenn `true`, schreibt der Compiler die Komponentendatei auf die Festplatte um. Die Transformation ist dauerhaft und der Compiler kann anschließend entfernt werden.
+    - Wenn `false`, fügt der Compiler den `useIntlayer()` Funktionsaufruf nur in den Code der Build-Ausgabe ein und lässt die Basis-Code-Basis intakt. Die Transformation erfolgt nur im Speicher.
 
 ### Fehlende Übersetzungen ausfüllen
 

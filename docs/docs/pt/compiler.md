@@ -207,8 +207,11 @@ const config: IntlayerConfig = {
     output: ({ fileName, extension }) => `./${fileName}${extension}`,
 
     /**
-     * Indica se os componentes devem ser salvos após serem transformados.
-     * Dessa forma, o compilador pode ser executado apenas uma vez para transformar o app e depois removido.
+     * Se deve guardar as componentes após serem transformadas.
+     *
+     * - Se `true`, o compilador reescreverá o arquivo do componente no disco. Portanto, a transformação será permanente, e o compilador pulará a transformação para o próximo processo. Dessa forma, o compilador pode transformar o app, e então pode ser removido.
+     *
+     * - Se `false`, o compilador injetará a chamada da função `useIntlayer()` no código apenas na saída da build, e manterá a base de código original intacta. A transformação será feita apenas em memória.
      */
     saveComponents: false,
 
@@ -287,6 +290,8 @@ As seguintes propriedades podem ser configuradas no bloco `compiler` do seu arqu
   - _Tipo_: `boolean`
   - _Padrão_: `false`
   - _Descrição_: Indica se os componentes devem ser salvos após serem transformados.
+    - Se `true`, o compilador reescreverá o arquivo do componente no disco. A transformação será permanente, e o compilador poderá ser removido.
+    - Se `false`, o compilador injetará a chamada da função `useIntlayer()` no código apenas na saída da build, mantendo a base de código original intacta. A transformação será feita apenas em memória.
 
 ### Preencher traduções ausentes
 

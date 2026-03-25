@@ -207,8 +207,11 @@ const config: IntlayerConfig = {
     output: ({ fileName, extension }) => `./${fileName}${extension}`,
 
     /**
-     * Indique si les composants doivent être sauvegardés après avoir été transformés.
-     * De cette façon, le compilateur peut être exécuté une seule fois pour transformer l'application, puis il peut être supprimé.
+     * Indique si les composants doivent être enregistrés après avoir été transformés.
+     *
+     * - Si `true`, le compilateur réécrira le fichier du composant sur le disque. Ainsi, la transformation sera permanente et le compilateur sautera la transformation pour le prochain processus. De cette façon, le compilateur peut transformer l'application, puis être supprimé.
+     *
+     * - Si `false`, le compilateur injectera l'appel de fonction `useIntlayer()` dans le code du build uniquement et gardera la base de code intacte. La transformation sera effectuée uniquement en mémoire.
      */
     saveComponents: false,
 
@@ -286,7 +289,9 @@ Les propriétés suivantes peuvent être configurées dans le bloc `compiler` de
 - **saveComponents**:
   - _Type_: `boolean`
   - _Par défaut_: `false`
-  - _Description_: Indique si les composants doivent être sauvegardés après avoir été transformés.
+  - _Description_: Indique si les composants doivent être enregistrés après avoir été transformés.
+    - Si `true`, le compilateur réécrira le fichier du composant sur le disque. La transformation sera permanente et le compilateur pourra ensuite être supprimé.
+    - Si `false`, le compilateur injectera l'appel de fonction `useIntlayer()` dans le code du build uniquement et gardera la base de code intacte. La transformation sera effectuée uniquement en mémoire.
 
 ### Remplir les traductions manquantes
 

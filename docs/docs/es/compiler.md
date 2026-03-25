@@ -208,7 +208,10 @@ const config: IntlayerConfig = {
 
     /**
      * Indica si los componentes deben guardarse después de ser transformados.
-     * De esta manera, el compilador puede ejecutarse una sola vez para transformar la aplicación y luego puede eliminarse.
+     *
+     * - Si es `true`, el compilador reescribirá el archivo del componente en el disco. Por lo tanto, la transformación será permanente y el compilador omitirá la transformación en el próximo proceso. De esta manera, el compilador puede transformar la aplicación y luego puede ser eliminado.
+     *
+     * - Si es `false`, el compilador inyectará la llamada a la función `useIntlayer()` en el código solo en la salida del build, y mantendrá intacta la base de código original. La transformación se realizará solo en memoria.
      */
     saveComponents: false,
 
@@ -287,6 +290,8 @@ Las siguientes propiedades pueden configurarse en el bloque `compiler` de tu arc
   - _Tipo_: `boolean`
   - _Por defecto_: `false`
   - _Descripción_: Indica si los componentes deben guardarse después de ser transformados.
+    - Si es `true`, el compilador reescribirá el archivo del componente en el disco. La transformación será permanente y el compilador podrá ser eliminado.
+    - Si es `false`, el compilador inyectará la llamada a la función `useIntlayer()` en el código solo en la salida del build, y mantendrá intacta la base de código original. La transformación se realizará solo en memoria.
 
 ### Rellenar traducciones faltantes
 
