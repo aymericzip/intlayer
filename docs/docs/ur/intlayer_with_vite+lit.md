@@ -24,6 +24,14 @@ history:
 
 # Intlayer کا استعمال کرتے ہوئے اپنی Vite اور Lit ویب سائٹ کا ترجمہ کریں | بین الاقوامی کاری (i18n)
 
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-vite-lit-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 ## فہرستِ مواد
 
 <TOC/>
@@ -630,63 +638,6 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
-
-<Tabs>
- <Tab value='ایکسٹریکٹ کمانڈ'>
-
-اپنے اجزاء کو تبدیل کرنے اور مواد نکالنے کے لیے ایکسٹریکٹر چلائیں
-
-```bash packageManager="npm"
-npx intlayer extract
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer extract
-```
-
-```bash packageManager="yarn"
-yarn intlayer extract
-```
-
-```bash packageManager="bun"
-bunx intlayer extract
-```
-
- </Tab>
- <Tab value='بیبل کمپائلر'>
-
-`intlayerCompiler` پلگ ان شامل کرنے کے لیے اپنا `vite.config.ts` اپ ڈیٹ کریں:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // کمپائلر پلگ ان شامل کرتا ہے
-  ],
-});
-```
-
-```bash packageManager="npm"
-npm run build # یا npm run dev
-```
-
-```bash packageManager="pnpm"
-pnpm run build # یا pnpm run dev
-```
-
-```bash packageManager="yarn"
-yarn build # یا yarn dev
-```
-
-```bash packageManager="bun"
-bun run build # یا bun run dev
-```
-
- </Tab>
-</Tabs>
 
 ### TypeScript کنفیگر کریں
 

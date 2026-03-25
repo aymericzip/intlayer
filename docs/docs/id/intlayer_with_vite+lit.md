@@ -24,6 +24,14 @@ history:
 
 # Terjemahkan situs web Vite dan Lit Anda dengan Intlayer | Internasionalisasi (i18n)
 
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-vite-lit-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 ## Daftar Isi
 
 <TOC/>
@@ -630,63 +638,6 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
-
-<Tabs>
- <Tab value='Perintah Extract'>
-
-Jalankan ekstraktor untuk mengubah komponen Anda dan mengekstrak konten
-
-```bash packageManager="npm"
-npx intlayer extract
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer extract
-```
-
-```bash packageManager="yarn"
-yarn intlayer extract
-```
-
-```bash packageManager="bun"
-bunx intlayer extract
-```
-
- </Tab>
- <Tab value='Babel kompilator'>
-
-Perbarui `vite.config.ts` Anda untuk menyertakan plugin `intlayerCompiler`:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Menambahkan plugin kompilator
-  ],
-});
-```
-
-```bash packageManager="npm"
-npm run build # Atau npm run dev
-```
-
-```bash packageManager="pnpm"
-pnpm run build # Atau pnpm run dev
-```
-
-```bash packageManager="yarn"
-yarn build # Atau yarn dev
-```
-
-```bash packageManager="bun"
-bun run build # Atau bun run dev
-```
-
- </Tab>
-</Tabs>
 
 ### Konfigurasi TypeScript
 

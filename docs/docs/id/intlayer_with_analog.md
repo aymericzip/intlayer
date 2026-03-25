@@ -23,6 +23,14 @@ history:
 
 # Terjemahkan aplikasi Analog (Angular) Anda menggunakan Intlayer | Internasionalisasi (i18n)
 
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-analog-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 ## Daftar Isi
 
 <TOC/>
@@ -41,20 +49,6 @@ Dengan Intlayer, Anda dapat:
 ---
 
 ## Panduan Langkah demi Langkah untuk Menyiapkan Intlayer dalam Aplikasi Analog
-
-<Tabs defaultTab="code">
-  <Tab label="Code" value="code">
-
-<iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer/tree/main/examples/vite-analog-app?embed=1&ctl=1&file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-  </Tab>
-</Tabs>
 
 Lihat [Templat Aplikasi](https://github.com/aymericzip/intlayer-analog-template) di GitHub.
 

@@ -24,6 +24,14 @@ history:
 
 # ترجمة موقع الويب الخاص بك المبني بـ Vite و Lit باستخدام Intlayer | التدويل (i18n)
 
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-vite-lit-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 ## جدول المحتويات
 
 <TOC/>
@@ -630,63 +638,6 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
-
-<Tabs>
- <Tab value='أمر الاستخراج'>
-
-قم بتشغيل المستخرج لتحويل مكوناتك واستخراج المحتوى
-
-```bash packageManager="npm"
-npx intlayer extract
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer extract
-```
-
-```bash packageManager="yarn"
-yarn intlayer extract
-```
-
-```bash packageManager="bun"
-bunx intlayer extract
-```
-
- </Tab>
- <Tab value='مجمع Babel'>
-
-قم بتحديث ملف `vite.config.ts` الخاص بك لتضمين إضافة `intlayerCompiler`:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // يضيف إضافة المجمع
-  ],
-});
-```
-
-```bash packageManager="npm"
-npm run build # أو npm run dev
-```
-
-```bash packageManager="pnpm"
-pnpm run build # أو pnpm run dev
-```
-
-```bash packageManager="yarn"
-yarn build # أو yarn dev
-```
-
-```bash packageManager="bun"
-bun run build # أو bun run dev
-```
-
- </Tab>
-</Tabs>
 
 ### تكوين TypeScript
 

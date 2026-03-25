@@ -24,6 +24,14 @@ history:
 
 # Dịch trang web Vite và Lit của bạn bằng Intlayer | Quốc tế hóa (i18n)
 
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-vite-lit-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 ## Mục lục
 
 <TOC/>
@@ -630,63 +638,6 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
-
-<Tabs>
- <Tab value='Lệnh Extract'>
-
-Chạy trình trích xuất để chuyển đổi các component của bạn và trích xuất nội dung
-
-```bash packageManager="npm"
-npx intlayer extract
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer extract
-```
-
-```bash packageManager="yarn"
-yarn intlayer extract
-```
-
-```bash packageManager="bun"
-bunx intlayer extract
-```
-
- </Tab>
- <Tab value='Trình biên dịch Babel'>
-
-Cập nhật `vite.config.ts` của bạn để bao gồm plugin `intlayerCompiler`:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Thêm plugin trình biên dịch
-  ],
-});
-```
-
-```bash packageManager="npm"
-npm run build # Hoặc npm run dev
-```
-
-```bash packageManager="pnpm"
-pnpm run build # Hoặc pnpm run dev
-```
-
-```bash packageManager="yarn"
-yarn build # Hoặc yarn dev
-```
-
-```bash packageManager="bun"
-bun run build # Hoặc bun run dev
-```
-
- </Tab>
-</Tabs>
 
 ### Cấu hình TypeScript
 

@@ -24,6 +24,14 @@ history:
 
 # Intlayer를 사용하여 Vite 및 Lit 웹사이트 번역하기 | 국제화 (i18n)
 
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-vite-lit-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 ## 목차
 
 <TOC/>
@@ -639,63 +647,6 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
-
-<Tabs>
- <Tab value='Extract 명령'>
-
-추출기를 실행하여 컴포넌트를 변환하고 콘텐츠를 추출합니다.
-
-```bash packageManager="npm"
-npx intlayer extract
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer extract
-```
-
-```bash packageManager="yarn"
-yarn intlayer extract
-```
-
-```bash packageManager="bun"
-bunx intlayer extract
-```
-
- </Tab>
- <Tab value='Babel 컴파일러'>
-
-`vite.config.ts`를 업데이트하여 `intlayerCompiler` 플러그인을 포함합니다:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // 컴파일러 플러그인 추가
-  ],
-});
-```
-
-```bash packageManager="npm"
-npm run build # 또는 npm run dev
-```
-
-```bash packageManager="pnpm"
-pnpm run build # 또는 pnpm run dev
-```
-
-```bash packageManager="yarn"
-yarn build # 또는 yarn dev
-```
-
-```bash packageManager="bun"
-bun run build # 또는 bun run dev
-```
-
- </Tab>
-</Tabs>
 
 ### TypeScript 구성
 

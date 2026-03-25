@@ -24,6 +24,14 @@ history:
 
 # Přeložte svůj web ve Vite a Lit pomocí Intlayer | Internacionalizace (i18n)
 
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-vite-lit-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 ## Obsah
 
 <TOC/>
@@ -630,63 +638,6 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
-
-<Tabs>
- <Tab value='Příkaz Extract'>
-
-Spusťte extraktor pro transformaci vašich komponent a extrakci obsahu
-
-```bash packageManager="npm"
-npx intlayer extract
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer extract
-```
-
-```bash packageManager="yarn"
-yarn intlayer extract
-```
-
-```bash packageManager="bun"
-bunx intlayer extract
-```
-
- </Tab>
- <Tab value='Kompilátor Babel'>
-
-Aktualizujte svůj `vite.config.ts` o plugin `intlayerCompiler`:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Přidá plugin kompilátoru
-  ],
-});
-```
-
-```bash packageManager="npm"
-npm run build # Nebo npm run dev
-```
-
-```bash packageManager="pnpm"
-pnpm run build # Nebo pnpm run dev
-```
-
-```bash packageManager="yarn"
-yarn build # Nebo yarn dev
-```
-
-```bash packageManager="bun"
-bun run build # Nebo bun run dev
-```
-
- </Tab>
-</Tabs>
 
 ### Konfigurace TypeScriptu
 

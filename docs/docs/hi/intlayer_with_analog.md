@@ -23,6 +23,14 @@ history:
 
 # Intlayer का उपयोग करके अपने Analog (Angular) ऐप का अनुवाद करें | अंतरराष्ट्रीयकरण (i18n)
 
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-analog-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 ## विषय सूची
 
 <TOC/>
@@ -41,20 +49,6 @@ Intlayer के साथ, आप यह कर सकते हैं:
 ---
 
 ## Analog एप्लिकेशन में Intlayer सेटअप करने के लिए चरण-दर-चरण मार्गदर्शिका
-
-<Tabs defaultTab="code">
-  <Tab label="Code" value="code">
-
-<iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer/tree/main/examples/vite-analog-app?embed=1&ctl=1&file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-  </Tab>
-</Tabs>
 
 GitHub पर [एप्लिकेशन टेम्पलेट](https://github.com/aymericzip/intlayer-analog-template) देखें।
 

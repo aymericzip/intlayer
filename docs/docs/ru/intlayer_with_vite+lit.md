@@ -24,6 +24,14 @@ history:
 
 # Переведите ваш веб-сайт на Vite и Lit с помощью Intlayer | Интернационализация (i18n)
 
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-vite-lit-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 ## Содержание
 
 <TOC/>
@@ -639,63 +647,6 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
-
-<Tabs>
- <Tab value='Команда Extract'>
-
-Запустите экстрактор для преобразования компонентов и извлечения контента
-
-```bash packageManager="npm"
-npx intlayer extract
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer extract
-```
-
-```bash packageManager="yarn"
-yarn intlayer extract
-```
-
-```bash packageManager="bun"
-bunx intlayer extract
-```
-
- </Tab>
- <Tab value='Компилятор Babel'>
-
-Обновите `vite.config.ts`, чтобы включить плагин `intlayerCompiler`:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Добавляет плагин компилятора
-  ],
-});
-```
-
-```bash packageManager="npm"
-npm run build # Или npm run dev
-```
-
-```bash packageManager="pnpm"
-pnpm run build # Или pnpm run dev
-```
-
-```bash packageManager="yarn"
-yarn build # Или yarn dev
-```
-
-```bash packageManager="bun"
-bun run build # Или bun run dev
-```
-
- </Tab>
-</Tabs>
 
 ### Настройка TypeScript
 

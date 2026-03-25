@@ -24,6 +24,14 @@ history:
 
 # Translate your Vite and Lit website using Intlayer | Internationalization (i18n)
 
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-vite-lit-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
 ## Table of Contents
 
 <TOC/>
@@ -40,6 +48,8 @@ With Intlayer, you can:
 - **Benefit from advanced features**, like dynamic locale detection and switching.
 
 ---
+
+See [Application Template](https://github.com/aymericzip/intlayer-vite-lit-template) on GitHub.
 
 ## Step-by-Step Guide to Set Up Intlayer in a Vite and Lit Application
 
@@ -642,63 +652,6 @@ const config: IntlayerConfig = {
 
 export default config;
 ```
-
-<Tabs>
- <Tab value='Extract command'>
-
-Run the extractor to transform your components and extract the content
-
-```bash packageManager="npm"
-npx intlayer extract
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer extract
-```
-
-```bash packageManager="yarn"
-yarn intlayer extract
-```
-
-```bash packageManager="bun"
-bunx intlayer extract
-```
-
- </Tab>
- <Tab value='Babel compiler'>
-
-Update your `vite.config.ts` to include the `intlayerCompiler` plugin:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
-
-```bash packageManager="npm"
-npm run build # Or npm run dev
-```
-
-```bash packageManager="pnpm"
-pnpm run build # Or pnpm run dev
-```
-
-```bash packageManager="yarn"
-yarn build # Or yarn dev
-```
-
-```bash packageManager="bun"
-bun run build # Or bun run dev
-```
-
- </Tab>
-</Tabs>
 
 ### Configure TypeScript
 
