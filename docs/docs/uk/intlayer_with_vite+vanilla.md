@@ -69,7 +69,7 @@ yarn intlayer init
 ```bash packageManager="bun"
 bun add intlayer vanilla-intlayer
 bun add vite-intlayer --dev
-bunx intlayer init
+bun x intlayer init
 ```
 
 - **intlayer**
@@ -637,7 +637,7 @@ yarn intlayer extract
 ```
 
 ```bash packageManager="bun"
-bunx intlayer extract
+bun x intlayer extract
 ```
 
  </Tab>

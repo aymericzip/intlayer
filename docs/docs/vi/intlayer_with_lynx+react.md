@@ -71,7 +71,7 @@ yarn intlayer init
 
 ```bash packageManager="bun"
 bun add intlayer react-intlayer lynx-intlayer
-bunx intlayer init
+bun x intlayer init
 ```
 
 ### Các gói

@@ -120,7 +120,7 @@ yarn intlayer init
 ```bash packageManager="bun"
 bun add intlayer svelte-intlayer
 bun add vite-intlayer --save-dev
-bunx intlayer init
+bun x intlayer init
 ```
 
 - **intlayer**: The core i18n package.
@@ -296,7 +296,7 @@ yarn intlayer init
 ```bash packageManager="bun"
 bun add intlayer svelte-intlayer
 bun add vite-intlayer --save-dev
-bunx intlayer init
+bun x intlayer init
 ```
 
 - **intlayer**: The core i18n package.

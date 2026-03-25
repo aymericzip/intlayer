@@ -92,7 +92,7 @@ pnpm intlayer login
 ```
 
 ```bash packageManager="bun"
-bunx intlayer login
+bun x intlayer login
 ```
 
 Ini akan membuka browser default Anda untuk menyelesaikan proses autentikasi dan menerima kredensial yang diperlukan (Client ID dan Client Secret) untuk menggunakan layanan Intlayer.

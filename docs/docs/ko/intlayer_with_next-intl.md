@@ -408,7 +408,7 @@ pnpm add intlayer @intlayer/sync-json-plugin --save-dev
 
 ```bash packageManager="bun"
 bun add intlayer @intlayer/sync-json-plugin --dev
-bunx intlayer init
+bun x intlayer init
 ```
 
 intlayer 구성 파일을 생성하세요:

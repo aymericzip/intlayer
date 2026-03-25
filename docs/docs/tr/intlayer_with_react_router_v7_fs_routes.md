@@ -98,7 +98,7 @@ pnpm add @react-router/fs-routes --save-dev
 bun add intlayer react-intlayer
 bun add vite-intlayer --dev
 bun add @react-router/fs-routes --dev
-bunx intlayer init
+bun x intlayer init
 ```
 
 - **intlayer**
@@ -692,7 +692,7 @@ yarn intlayer extract
 ```
 
 ```bash packageManager="bun"
-bunx intlayer extract
+bun x intlayer extract
 ```
 
  </Tab>

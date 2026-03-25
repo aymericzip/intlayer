@@ -73,7 +73,7 @@ yarn intlayer init
 
 ```bash packageManager="bun"
 bun add intlayer angular-intlayer vite-intlayer
-bunx intlayer init
+bun x intlayer init
 ```
 
 - **intlayer**

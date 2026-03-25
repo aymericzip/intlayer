@@ -87,7 +87,7 @@ yarn intlayer init
 
 ```bash packageManager="bun"
 bun add intlayer express-intlayer
-bunx intlayer init
+bun x intlayer init
 ```
 
 ### tsconfig.json कॉन्फ़िगर करें

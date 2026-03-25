@@ -86,7 +86,7 @@ pnpm intlayer login
 ```
 
 ```bash packageManager="bun"
-bunx intlayer login
+bun x intlayer login
 ```
 
 Bu, kimlik doğrulama işlemini tamamlamak ve Intlayer hizmetlerini kullanmak için gerekli kimlik bilgilerini (Client ID ve Client Secret) almak için varsayılan tarayıcınızı açacaktır.

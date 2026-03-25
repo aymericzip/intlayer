@@ -78,7 +78,7 @@ npm install intlayer-cli -g
 
 ```bash packageManager="bun"
 bun add intlayer-cli -g
-bunx intlayer init
+bun x intlayer init
 ```
 
 ```bash packageManager="yarn"

@@ -683,7 +683,7 @@ yarn intlayer extract
 ```
 
 ```bash packageManager="bun"
-bunx intlayer extract
+bun x intlayer extract
 ```
 
  </Tab>

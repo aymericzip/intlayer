@@ -79,7 +79,7 @@ yarn intlayer init
 
 ```bash packageManager="bun"
 bun add intlayer @intlayer/sync-json-plugin --dev
-bunx intlayer init
+bun x intlayer init
 ```
 
 **Описание пакетов:**

@@ -61,7 +61,7 @@ yarn intlayer init
 
 ```bash packageManager="bun"
 bun add next-intlayer intlayer --save
-bunx intlayer init
+bun x intlayer init
 ```
 
 ## Adım 2: Intlayer Yapılandırma Dosyası Oluşturma

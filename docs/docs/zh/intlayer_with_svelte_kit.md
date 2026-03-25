@@ -120,7 +120,7 @@ yarn intlayer init
 ```bash packageManager="bun"
 bun add intlayer svelte-intlayer
 bun add vite-intlayer --save-dev
-bunx intlayer init
+bun x intlayer init
 ```
 
 - **intlayer**：核心的国际化（i18n）包。
@@ -296,7 +296,7 @@ yarn intlayer init
 ```bash packageManager="bun"
 bun add intlayer svelte-intlayer
 bun add vite-intlayer --save-dev
-bunx intlayer init
+bun x intlayer init
 ```
 
 - **intlayer**：核心的国际化（i18n）包。
@@ -858,7 +858,7 @@ yarn intlayer extract
 ```
 
 ```bash packageManager="bun"
-bunx intlayer extract
+bun x intlayer extract
 ```
 
  </Tab>

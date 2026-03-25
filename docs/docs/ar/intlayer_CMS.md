@@ -86,7 +86,7 @@ pnpm intlayer login
 ```
 
 ```bash packageManager="bun"
-bunx intlayer login
+bun x intlayer login
 ```
 
 سيؤدي هذا إلى فتح المتصفح الافتراضي الخاص بك لإكمال عملية المصادقة والحصول على بيانات الاعتماد اللازمة (معرف العميل وسر العميل) لاستخدام خدمات Intlayer.

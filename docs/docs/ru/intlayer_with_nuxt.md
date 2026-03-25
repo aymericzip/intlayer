@@ -92,7 +92,7 @@ yarn intlayer init
 ```bash packageManager="bun"
 bun add intlayer vue-intlayer
 bun add --dev nuxt-intlayer
-bunx intlayer init
+bun x intlayer init
 ```
 
 - **intlayer**

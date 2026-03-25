@@ -66,7 +66,7 @@ yarn intlayer init
 ```bash packageManager="bun"
 bun add intlayer react-intlayer
 bun add --dev react-native-intlayer
-bunx intlayer init
+bun x intlayer init
 ```
 
 ### 包说明

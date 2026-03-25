@@ -410,7 +410,7 @@ pnpm add intlayer @intlayer/sync-json-plugin --save-dev
 
 ```bash packageManager="bun"
 bun add intlayer @intlayer/sync-json-plugin --dev
-bunx intlayer init
+bun x intlayer init
 ```
 
 创建 intlayer 配置文件：

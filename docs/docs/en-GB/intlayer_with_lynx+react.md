@@ -63,7 +63,7 @@ yarn intlayer init
 
 ```bash packageManager="bun"
 bun add intlayer react-intlayer lynx-intlayer
-bunx intlayer init
+bun x intlayer init
 ```
 
 **Intlayer** is an **innovative, open-source internationalisation (i18n) library** that simplifies multilingual support in modern applications. It works in many JavaScript/TypeScript environments, **including Lynx** (via the `react-intlayer` package).
@@ -98,7 +98,7 @@ yarn intlayer init
 
 ```bash packageManager="bun"
 bun add intlayer react-intlayer lynx-intlayer
-bunx intlayer init
+bun x intlayer init
 ```
 
 ### Packages

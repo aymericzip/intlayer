@@ -86,7 +86,7 @@ pnpm intlayer login
 ```
 
 ```bash packageManager="bun"
-bunx intlayer login
+bun x intlayer login
 ```
 
 यह आपके डिफ़ॉल्ट ब्राउज़र को खोलेगा ताकि प्रमाणीकरण प्रक्रिया को पूरा किया जा सके और Intlayer सेवाओं का उपयोग करने के लिए आवश्यक क्रेडेंशियल (क्लाइंट ID और क्लाइंट सीक्रेट) प्राप्त किए जा सकें।

@@ -92,7 +92,7 @@ pnpm intlayer login
 ```
 
 ```bash packageManager="bun"
-bunx intlayer login
+bun x intlayer login
 ```
 
 Spowoduje to otwarcie domyślnej przeglądarki w celu ukończenia procesu uwierzytelniania i otrzymania niezbędnych poświadczeń (Client ID i Client Secret) do korzystania z usług Intlayer.

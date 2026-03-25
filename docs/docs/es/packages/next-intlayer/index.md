@@ -55,7 +55,7 @@ pnpm add next-intlayer
 
 ```bash packageManager="bun"
 bun add next-intlayer
-bunx intlayer init
+bun x intlayer init
 ```
 
 ## Ejemplo de uso

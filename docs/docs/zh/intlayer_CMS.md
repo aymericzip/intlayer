@@ -86,7 +86,7 @@ pnpm intlayer login
 ```
 
 ```bash packageManager="bun"
-bunx intlayer login
+bun x intlayer login
 ```
 
 这将打开您的默认浏览器以完成身份验证过程并接收使用 Intlayer 服务所需的凭据（客户端 ID 和客户端密钥）。

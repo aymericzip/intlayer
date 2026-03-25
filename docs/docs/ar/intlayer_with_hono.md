@@ -75,7 +75,7 @@ yarn intlayer init
 
 ```bash packageManager="bun"
 bun add intlayer hono-intlayer
-bunx intlayer init
+bun x intlayer init
 ```
 
 ### الإعداد

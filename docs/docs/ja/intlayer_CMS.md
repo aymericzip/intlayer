@@ -86,7 +86,7 @@ pnpm intlayer login
 ```
 
 ```bash packageManager="bun"
-bunx intlayer login
+bun x intlayer login
 ```
 
 これにより、デフォルトのブラウザが開き、認証プロセスを完了し、Intlayerサービスを使用するために必要な認証情報（Client IDとClient Secret）を受け取ることができます。

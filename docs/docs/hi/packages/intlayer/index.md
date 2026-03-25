@@ -54,7 +54,7 @@ yarn intlayer init
 
 ```bash packageManager="bun"
 bun add intlayer
-bunx intlayer init
+bun x intlayer init
 ```
 
 ### Intlayer को कॉन्फ़िगर करें

@@ -92,7 +92,7 @@ yarn intlayer init
 
 ```bash packageManager="bun"
 bun add intlayer next-intlayer
-bunx intlayer init
+bun x intlayer init
 ```
 
 - **intlayer**

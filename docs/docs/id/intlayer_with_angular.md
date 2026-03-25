@@ -88,7 +88,7 @@ yarn intlayer init
 ```bash packageManager="bun"
 bun add intlayer angular-intlayer
 bun add @angular-builders/custom-webpack --dev
-bunx intlayer init
+bun x intlayer init
 ```
 
 - **intlayer**

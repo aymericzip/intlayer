@@ -103,7 +103,7 @@ yarn intlayer init
 ```bash packageManager="bun"
 bun add intlayer next-intlayer
 bun add @intlayer/babel --dev
-bunx intlayer init
+bun x intlayer init
 ```
 
 - **intlayer**

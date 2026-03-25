@@ -55,7 +55,7 @@ pnpm add react-intlayer
 
 ```bash packageManager="bun"
 bun add react-intlayer
-bunx intlayer init
+bun x intlayer init
 ```
 
 ## Ejemplo de uso

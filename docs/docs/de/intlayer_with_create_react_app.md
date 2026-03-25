@@ -56,7 +56,7 @@ yarn intlayer init
 
 ```bash packageManager="bun"
 bun add intlayer react-intlayer react-scripts-intlayer
-bunx intlayer init
+bun x intlayer init
 ```
 
 - **intlayer**
