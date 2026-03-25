@@ -2,10 +2,12 @@
 
 import { CHINESE } from '@intlayer/types/locales';
 import { usePathname } from 'next/navigation';
+import { useLocale } from 'next-intlayer';
 import { useEffect } from 'react';
 
 export const useBaiduAutoPush = () => {
   const pathname = usePathname();
+  const { locale } = useLocale();
 
   useEffect(() => {
     // Abort in non-browser environments or local development
@@ -16,13 +18,7 @@ export const useBaiduAutoPush = () => {
       return;
     }
 
-    // Abort if the user's primary or secondary browser language is not Chinese
-    const userLanguages = navigator.languages || [navigator.language];
-    const isChineseUser = userLanguages.some((lang) =>
-      lang.toLowerCase().startsWith(CHINESE)
-    );
-
-    if (!isChineseUser) return;
+    if (locale !== CHINESE) return;
 
     const scriptId = 'baidu-auto-push';
 
@@ -46,5 +42,5 @@ export const useBaiduAutoPush = () => {
     } else {
       document.head.appendChild(bp); // Fallback if no other scripts exist
     }
-  }, [pathname]);
+  }, [pathname, locale]);
 };

@@ -2,9 +2,11 @@
 
 import { useLocation } from '@tanstack/react-router';
 import { useEffect } from 'react';
+import { useLocale } from 'react-intlayer';
 
 export const useBaiduAutoPush = () => {
   const { pathname } = useLocation();
+  const { locale } = useLocale();
 
   useEffect(() => {
     // 1. Abort in non-browser environments or local development
@@ -15,13 +17,7 @@ export const useBaiduAutoPush = () => {
       return;
     }
 
-    // 2. Abort if the user's primary or secondary browser language is not Chinese
-    const userLanguages = navigator.languages || [navigator.language];
-    const isChineseUser = userLanguages.some((lang) =>
-      lang.toLowerCase().startsWith('zh')
-    );
-
-    if (!isChineseUser) return;
+    if (locale !== 'zh') return;
 
     const scriptId = 'baidu-auto-push';
 
@@ -45,5 +41,5 @@ export const useBaiduAutoPush = () => {
     } else {
       document.head.appendChild(bp); // Fallback if no other scripts exist
     }
-  }, [pathname]);
+  }, [pathname, locale]);
 };
