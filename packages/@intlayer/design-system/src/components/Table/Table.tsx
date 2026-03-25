@@ -2,7 +2,13 @@
 
 import { cn } from '@utils/cn';
 
-import { type FC, type HTMLAttributes, useRef, useState } from 'react';
+import {
+  type FC,
+  type HTMLAttributes,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { ExpandCollapse } from '../ExpandCollapse';
 import { Modal, ModalSize } from '../Modal';
 import { ExpandButton } from './ExpandButton';
@@ -201,14 +207,50 @@ export const Table: FC<TableProps> = ({
   className,
   isRollable = false,
   displayModal,
+  onClick,
   ...props
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [highlightedRowIndex, setHighlightedRowIndex] = useState<number | null>(
+    null
+  );
 
   const tableRef = useRef<HTMLTableElement>(null);
   const modalTableRef = useRef<HTMLTableElement>(null);
 
   useTableWidths(tableRef, modalTableRef, [props.children, isModalOpen]);
+
+  useEffect(() => {
+    if (isModalOpen && highlightedRowIndex !== null && modalTableRef.current) {
+      const row = modalTableRef.current.rows[highlightedRowIndex];
+
+      if (row) {
+        row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        row.classList.add('bg-neutral/40', 'dark:bg-neutral-dark/40');
+        row.style.transition = 'background-color 0.3s ease-in-out';
+      }
+    }
+  }, [isModalOpen, highlightedRowIndex]);
+
+  useEffect(() => {
+    if (!isModalOpen) {
+      setHighlightedRowIndex(null);
+    }
+  }, [isModalOpen]);
+
+  const handleTableClick = (e: React.MouseEvent<HTMLTableElement>) => {
+    if (displayModal) {
+      const target = e.target as HTMLElement;
+      const tr = target.closest('tr');
+
+      if (tr?.closest('tbody')) {
+        setHighlightedRowIndex(tr.rowIndex);
+        setIsModalOpen(true);
+      }
+    }
+    onClick?.(e);
+  };
 
   return (
     <div className="group relative">
@@ -220,7 +262,20 @@ export const Table: FC<TableProps> = ({
       >
         <table
           ref={tableRef}
-          className={cn('w-full table-auto overflow-hidden', className)}
+          className={cn(
+            'w-full table-auto overflow-hidden',
+            displayModal &&
+              '[&_tbody_tr:hover]:bg-neutral/40 [&_tbody_tr:hover]:dark:bg-neutral-dark/40 [&_tbody_tr]:cursor-pointer [&_tbody_tr]:transition-colors',
+            className
+          )}
+          onClick={handleTableClick}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              handleTableClick(
+                e as unknown as React.MouseEvent<HTMLTableElement>
+              );
+            }
+          }}
           {...props}
         />
       </ExpandCollapse>
