@@ -1,0 +1,32 @@
+{
+  "name": "intlayer-tanstack-start-solid",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite dev --port 3000",
+    "preview": "vite preview",
+    "start": "node .output/server/index.mjs",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "4.2.2",
+    "@tanstack/router-plugin": "1.167.4",
+    "@tanstack/solid-router": "latest",
+    "@tanstack/solid-router-devtools": "latest",
+    "@tanstack/solid-router-ssr-query": "latest",
+    "@tanstack/solid-start": "latest",
+    "intlayer": "workspace:*",
+    "solid-intlayer": "workspace:*",
+    "solid-js": "1.9.12",
+    "tailwindcss": "4.2.2",
+    "vite-tsconfig-paths": "6.1.1"
+  },
+  "devDependencies": {
+    "@tanstack/devtools-vite": "latest",
+    "typescript": "6.0.2",
+    "vite": "8.0.2",
+    "vite-intlayer": "workspace:*",
+    "vite-plugin-solid": "2.11.11"
+  }
+}
