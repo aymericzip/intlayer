@@ -79,6 +79,19 @@ export const createIntlayerMarkdownClient = (
 
 /**
  * Helper to install the IntlayerMarkdown provider into the app
+ *
+ * @example
+ * ```ts
+ * import { createApp } from 'vue';
+ * import { installIntlayerMarkdown } from 'vue-intlayer/markdown';
+ * import App from './App.vue';
+ *
+ * const app = createApp(App);
+ *
+ * installIntlayerMarkdown(app);
+ *
+ * app.mount('#app');
+ * ```
  */
 export const installIntlayerMarkdown = (
   app: App<any>,
@@ -179,6 +192,27 @@ export const installIntlayerMarkdown = (
   );
 
   app.provide(INTLAYER_MARKDOWN_SYMBOL, client);
+};
+
+/**
+ * Vue plugin object for IntlayerMarkdown. Can be used with `app.use(intlayerMarkdown)`.
+ *
+ * @example
+ * ```ts
+ * import { createApp } from 'vue';
+ * import { intlayerMarkdown } from 'vue-intlayer/markdown';
+ *
+ * const app = createApp(App);
+ *
+ * app.use(intlayerMarkdown, { forceBlock: true });
+ *
+ * app.mount('#app');
+ * ```
+ */
+export const intlayerMarkdown: {
+  install: typeof installIntlayerMarkdown;
+} = {
+  install: installIntlayerMarkdown,
 };
 
 export const useMarkdown = () => {

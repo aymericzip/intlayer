@@ -17,6 +17,12 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.5.0
+    date: 2026-03-24
+    changes: "Add `intlayerMarkdown` plugin object; use `app.use(intlayerMarkdown)` instead of `app.use(installIntlayerMarkdown)`"
+  - version: 8.5.0
+    date: 2026-03-24
+    changes: "move import from `{{framework}}-intlayer` to `{{framework}}-intlayer/markdown`"
   - version: 8.0.0
     date: 2026-01-22
     changes: "Thêm MarkdownRenderer / useMarkdownRenderer / tiện ích renderMarkdown và tùy chọn forceInline"
@@ -32,7 +38,7 @@ history:
 
 Intlayer hỗ trợ nội dung văn bản đa dạng được định nghĩa bằng cú pháp Markdown. Điều này cho phép bạn dễ dàng viết và duy trì nội dung với định dạng phong phú, chẳng hạn như blog, bài viết, và nhiều hơn nữa.
 
-## Phần 1: Khai báo nội dung Markdown
+## Khai báo nội dung Markdown
 
 Bạn có thể khai báo nội dung Markdown bằng hàm `md` hoặc đơn giản là một chuỗi (nếu nó chứa cú pháp Markdown).
 
@@ -90,7 +96,7 @@ Bạn có thể khai báo nội dung Markdown bằng hàm `md` hoặc đơn gi�
 
 ---
 
-## Phần 2: Render Markdown
+## Render Markdown
 
 Việc kết xuất có thể được xử lý tự động bởi hệ thống nội dung của Intlayer hoặc thực hiện thủ công bằng các công cụ chuyên dụng.
 
@@ -387,8 +393,6 @@ Bạn có thể cấu hình cách render Markdown ở mức toàn cục cho toà
 
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
-        forceBlock={true}
-        tagfilter={true}
         components={{
           h1: ({ children }) => <h1 className="text-2xl font-bold">{children}</h1>,
           a: ({ href, children }) => <Link to={href}>{children}</Link>,
@@ -404,20 +408,20 @@ Bạn có thể cấu hình cách render Markdown ở mức toàn cục cho toà
 
     ```typescript fileName="main.ts"
     import { createApp } from "vue";
-    import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
+    import { intlayer } from "vue-intlayer";
+    import { intlayerMarkdown } from "vue-intlayer/markdown";
     import App from "./App.vue";
 
     const app = createApp(App);
 
-    app.use(installIntlayer);
-    app.use(installIntlayerMarkdown, {
-      forceBlock: true,
-      tagfilter: true,
+    app.use(intlayer);
+    app.use(intlayerMarkdown, {
       components: {
-        h1: {
-          component: "h1",
-          props: { class: "text-2xl font-bold" },
-        },
+        h1: (props) =>
+        h('h1', { style: { color: 'orange' }, ...props }, props.children),
+        ComponentDemo: () => h('div', { style: { background: 'grey' } }, 'DEMO'),
+        bold: (props) => h('strong', props),
+        code: (props) => h('code', props),
       },
     });
 
@@ -434,8 +438,6 @@ Bạn có thể cấu hình cách render Markdown ở mức toàn cục cho toà
     </script>
 
     <MarkdownProvider
-      forceBlock={true}
-      tagfilter={true}
       components={{
         h1: MyHeading,
       }}
@@ -452,8 +454,6 @@ Bạn có thể cấu hình cách render Markdown ở mức toàn cục cho toà
 
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
-        forceBlock={true}
-        tagfilter={true}
         components={{
           h1: ({ children }) => <h1 className="text-2xl font-bold">{children}</h1>,
         }}
@@ -471,8 +471,6 @@ Bạn có thể cấu hình cách render Markdown ở mức toàn cục cho toà
 
     export const AppProvider = (props) => (
       <MarkdownProvider
-        forceBlock={true}
-        tagfilter={true}
         components={{
           h1: (props) => <h1 className="text-2xl font-bold">{props.children}</h1>,
         }}

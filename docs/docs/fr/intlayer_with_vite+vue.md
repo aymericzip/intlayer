@@ -403,14 +403,14 @@ Pour utiliser les fonctionnalités d'internationalisation d'Intlayer dans toute 
 
 ```javascript fileName=main.js
 import { createApp } from "vue";
-import { installIntlayer } from "vue-intlayer";
+import { intlayer } from "vue-intlayer";
 import App from "./App.vue";
 import "./style.css";
 
 const app = createApp(App);
 
 // Injecter le fournisseur au niveau supérieur
-installIntlayer(app);
+app.use(intlayer);
 
 // Monter l'application
 app.mount("#app");
@@ -995,7 +995,7 @@ import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
 
 const app = createApp(App);
 
-installIntlayer(app);
+app.use(intlayer);
 
 const md = new MarkdownIt({
   html: true, // autoriser les balises HTML

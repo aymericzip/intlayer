@@ -434,14 +434,14 @@ module.exports = appContent;
 
 ```javascript fileName=main.js
 import { createApp } from "vue";
-import { installIntlayer } from "vue-intlayer";
+import { intlayer } from "vue-intlayer";
 import App from "./App.vue";
 import "./style.css";
 
 const app = createApp(App);
 
 // 在顶层注入提供者
-installIntlayer(app);
+app.use(intlayer);
 
 // 挂载应用
 app.mount("#app");
@@ -1013,7 +1013,7 @@ import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
 
 const app = createApp(App);
 
-installIntlayer(app);
+app.use(intlayer);
 
 const md = new MarkdownIt({
   html: true, // 允许 HTML 标签

@@ -53,6 +53,19 @@ export const createIntlayerHTMLClient = (
 
 /**
  * Helper to install the IntlayerHTML provider into the app
+ *
+ * @example
+ * ```ts
+ * import { createApp } from 'vue';
+ * import { installIntlayerHTML } from 'vue-intlayer/html';
+ * import App from './App.vue';
+ *
+ * const app = createApp(App);
+ *
+ * installIntlayerHTML(app);
+ *
+ * app.mount('#app');
+ * ```
  */
 export const installIntlayerHTML = (
   app: App<any>,
@@ -110,6 +123,27 @@ export const installIntlayerHTML = (
   const client = createIntlayerHTMLClient(wrappedRenderHTML);
 
   app.provide(INTLAYER_HTML_SYMBOL, client);
+};
+
+/**
+ * Vue plugin object for IntlayerHTML. Can be used with `app.use(intlayerHTML)`.
+ *
+ * @example
+ * ```ts
+ * import { createApp } from 'vue';
+ * import { intlayerHTML } from 'vue-intlayer/html';
+ *
+ * const app = createApp(App);
+ *
+ * app.use(intlayerHTML, { components: { p: MyP } });
+ *
+ * app.mount('#app');
+ * ```
+ */
+export const intlayerHTML: {
+  install: typeof installIntlayerHTML;
+} = {
+  install: installIntlayerHTML,
 };
 
 export const useHTML = () => {

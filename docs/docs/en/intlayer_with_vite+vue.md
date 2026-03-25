@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-12-30
+updatedAt: 2026-03-24
 title: Vite + Vue i18n - How to translate an Vue app in 2026
 description: Discover how to make your Vite and Vue website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-vue-template
 youtubeVideo: https://www.youtube.com/watch?v=IE3XWkZ6a5U
 history:
+  - version: 8.5.0
+    date: 2026-03-24
+    changes: Change installIntlayer by use(intlayer)
   - version: 7.5.9
     date: 2025-12-30
     changes: "Add init command"
@@ -404,18 +407,25 @@ To utilize Intlayer's internationalization features throughout your Vue applicat
 
 ```javascript fileName=main.js
 import { createApp } from "vue";
-import { installIntlayer } from "vue-intlayer";
+import { intlayer } from "vue-intlayer";
 import App from "./App.vue";
 import "./style.css";
 
 const app = createApp(App);
 
 // Inject the provider at the top level
-installIntlayer(app);
+app.use(intlayer);
 
 // Mount the app
 app.mount("#app");
 ```
+
+> You can also call `installIntlayer(app)` directly as a function if you prefer:
+>
+> ```javascript
+> import { intlayer } from "vue-intlayer";
+> app.use(intlayer);
+> ```
 
 Access your content dictionaries throughout your application by creating a main Vue component and using the `useIntlayer` composables:
 

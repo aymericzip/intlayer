@@ -90,7 +90,7 @@ You can declare Markdown content using the `md` function or simply as a string (
 
 ---
 
-## Part 2: Rendering Markdown
+## Rendering Markdown
 
 Rendering can be handled automatically by Intlayer's content system or manually using specialized tools.
 
@@ -387,8 +387,6 @@ You can configure Markdown rendering globally for your entire application. This 
 
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
-        forceBlock={true}
-        tagfilter={true}
         components={{
           h1: ({ children }) => <h1 className="text-2xl font-bold">{children}</h1>,
           a: ({ href, children }) => <Link to={href}>{children}</Link>,
@@ -411,13 +409,12 @@ You can configure Markdown rendering globally for your entire application. This 
 
     app.use(installIntlayer);
     app.use(installIntlayerMarkdown, {
-      forceBlock: true,
-      tagfilter: true,
       components: {
-        h1: {
-          component: "h1",
-          props: { class: "text-2xl font-bold" },
-        },
+        h1: (props) =>
+        h('h1', { style: { color: 'orange' }, ...props }, props.children),
+        ComponentDemo: () => h('div', { style: { background: 'grey' } }, 'DEMO'),
+        bold: (props) => h('strong', props),
+        code: (props) => h('code', props),
       },
     });
 
@@ -434,8 +431,6 @@ You can configure Markdown rendering globally for your entire application. This 
     </script>
 
     <MarkdownProvider
-      forceBlock={true}
-      tagfilter={true}
       components={{
         h1: MyHeading,
       }}
@@ -452,8 +447,6 @@ You can configure Markdown rendering globally for your entire application. This 
 
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
-        forceBlock={true}
-        tagfilter={true}
         components={{
           h1: ({ children }) => <h1 className="text-2xl font-bold">{children}</h1>,
         }}
@@ -471,8 +464,6 @@ You can configure Markdown rendering globally for your entire application. This 
 
     export const AppProvider = (props) => (
       <MarkdownProvider
-        forceBlock={true}
-        tagfilter={true}
         components={{
           h1: (props) => <h1 className="text-2xl font-bold">{props.children}</h1>,
         }}

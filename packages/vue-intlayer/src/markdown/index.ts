@@ -3,6 +3,7 @@ export {
   type IntlayerMarkdownPluginOptions,
   type IntlayerMarkdownProvider,
   installIntlayerMarkdown,
+  intlayerMarkdown,
   type MarkdownProviderOptions,
   type RenderMarkdownFunction,
   useMarkdown,

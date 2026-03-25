@@ -410,14 +410,14 @@ module.exports = appContent;
 
 ```javascript fileName=main.js
 import { createApp } from "vue";
-import { installIntlayer } from "vue-intlayer";
+import { intlayer } from "vue-intlayer";
 import App from "./App.vue";
 import "./style.css";
 
 const app = createApp(App);
 
 // حقن المزود على المستوى الأعلى
-installIntlayer(app);
+app.use(intlayer);
 
 // تركيب التطبيق
 app.mount("#app");
@@ -1002,7 +1002,7 @@ import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
 
 const app = createApp(App);
 
-installIntlayer(app);
+app.use(intlayer);
 
 const md = new MarkdownIt({
   html: true, // السماح بعلامات HTML

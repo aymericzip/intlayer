@@ -459,14 +459,14 @@ module.exports = appContent;
 
 ```javascript fileName=main.js
 import { createApp } from "vue";
-import { installIntlayer } from "vue-intlayer";
+import { intlayer } from "vue-intlayer";
 import App from "./App.vue";
 import "./style.css";
 
 const app = createApp(App);
 
 // Зареєструвати провайдера на верхньому рівні
-installIntlayer(app);
+app.use(intlayer);
 
 // Змонтувати застосунок
 app.mount("#app");
@@ -1041,7 +1041,7 @@ import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
 
 const app = createApp(App);
 
-installIntlayer(app);
+app.use(intlayer);
 
 const md = new MarkdownIt({
   html: true, // дозволити HTML-теги

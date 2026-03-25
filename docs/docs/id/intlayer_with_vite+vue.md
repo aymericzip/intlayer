@@ -442,14 +442,14 @@ Untuk memanfaatkan fitur internasionalisasi Intlayer di seluruh aplikasi Vue And
 
 ```javascript fileName=main.js
 import { createApp } from "vue";
-import { installIntlayer } from "vue-intlayer";
+import { intlayer } from "vue-intlayer";
 import App from "./App.vue";
 import "./style.css";
 
 const app = createApp(App);
 
 // Menyuntikkan provider di tingkat atas
-installIntlayer(app);
+app.use(intlayer);
 
 // Memasang aplikasi
 app.mount("#app");
@@ -1024,7 +1024,7 @@ import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
 
 const app = createApp(App);
 
-installIntlayer(app);
+app.use(intlayer);
 
 const md = new MarkdownIt({
   html: true, // mengizinkan tag HTML

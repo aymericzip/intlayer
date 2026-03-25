@@ -17,6 +17,12 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.5.0
+    date: 2026-03-24
+    changes: "Add `intlayerMarkdown` plugin object; use `app.use(intlayerMarkdown)` instead of `app.use(installIntlayerMarkdown)`"
+  - version: 8.5.0
+    date: 2026-03-24
+    changes: "move import from `{{framework}}-intlayer` to `{{framework}}-intlayer/markdown`"
   - version: 8.0.0
     date: 2026-01-22
     changes: "إضافة MarkdownRenderer / useMarkdownRenderer / renderMarkdown كأداة وخيار forceInline"
@@ -387,8 +393,6 @@ history:
 
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
-        forceBlock={true}
-        tagfilter={true}
         components={{
           h1: ({ children }) => <h1 className="text-2xl font-bold">{children}</h1>,
           a: ({ href, children }) => <Link to={href}>{children}</Link>,
@@ -404,20 +408,20 @@ history:
 
     ```typescript fileName="main.ts"
     import { createApp } from "vue";
-    import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
+    import { intlayer } from "vue-intlayer";
+    import { intlayerMarkdown } from "vue-intlayer/markdown";
     import App from "./App.vue";
 
     const app = createApp(App);
 
-    app.use(installIntlayer);
-    app.use(installIntlayerMarkdown, {
-      forceBlock: true,
-      tagfilter: true,
+    app.use(intlayer);
+    app.use(intlayerMarkdown, {
       components: {
-        h1: {
-          component: "h1",
-          props: { class: "text-2xl font-bold" },
-        },
+        h1: (props) =>
+        h('h1', { style: { color: 'orange' }, ...props }, props.children),
+        ComponentDemo: () => h('div', { style: { background: 'grey' } }, 'DEMO'),
+        bold: (props) => h('strong', props),
+        code: (props) => h('code', props),
       },
     });
 
@@ -434,8 +438,6 @@ history:
     </script>
 
     <MarkdownProvider
-      forceBlock={true}
-      tagfilter={true}
       components={{
         h1: MyHeading,
       }}
@@ -452,8 +454,6 @@ history:
 
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
-        forceBlock={true}
-        tagfilter={true}
         components={{
           h1: ({ children }) => <h1 className="text-2xl font-bold">{children}</h1>,
         }}
@@ -471,8 +471,6 @@ history:
 
     export const AppProvider = (props) => (
       <MarkdownProvider
-        forceBlock={true}
-        tagfilter={true}
         components={{
           h1: (props) => <h1 className="text-2xl font-bold">{props.children}</h1>,
         }}

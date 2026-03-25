@@ -19,6 +19,12 @@ slugs:
   - content
   - html
 history:
+  - version: 8.5.0
+    date: 2026-03-24
+    changes: "Add `intlayerHTML` plugin object; use `app.use(intlayerHTML)` instead of `app.use(installIntlayerHTML)`"
+  - version: 8.5.0
+    date: 2026-03-24
+    changes: "move import from `{{framework}}-intlayer` to `{{framework}}-intlayer/html`"
   - version: 8.0.0
     date: 2026-01-22
     changes: "Add HTMLRenderer / useHTMLRenderer / renderHTML utility"
@@ -260,13 +266,14 @@ You can configure HTML rendering globally for your entire application. This is i
   
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
-    import { installIntlayer, installIntlayerHTML } from "vue-intlayer";
+    import { intlayer } from "vue-intlayer";
+    import { intlayerHTML } from "vue-intlayer/html";
     import App from "./App.vue";
 
     const app = createApp(App);
 
-    app.use(installIntlayer);
-    app.use(installIntlayerHTML, {
+    app.use(intlayer);
+    app.use(intlayerHTML, {
       components: {
         p: (props, { slots }) => h("p", { class: "prose", ...props }, slots.default?.()),
         CustomLink: (props, { slots }) => h("a", { href: "/details", ...props }, slots.default?.()),

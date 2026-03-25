@@ -17,6 +17,12 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.5.0
+    date: 2026-03-24
+    changes: "Add `intlayerMarkdown` plugin object; use `app.use(intlayerMarkdown)` instead of `app.use(installIntlayerMarkdown)`"
+  - version: 8.5.0
+    date: 2026-03-24
+    changes: "move import from `{{framework}}-intlayer` to `{{framework}}-intlayer/markdown`"
   - version: 8.0.0
     date: 2026-01-22
     changes: "Додано MarkdownRenderer / useMarkdownRenderer / утиліту renderMarkdown та опцію forceInline"
@@ -32,7 +38,7 @@ history:
 
 Intlayer підтримує контент rich text, визначений за допомогою синтаксису Markdown. Це дозволяє легко писати та підтримувати контент із багатим форматуванням, таким як блоги, статті та інше.
 
-## Частина 1: Оголошення контенту Markdown
+## Оголошення контенту Markdown
 
 Ви можете оголосити контент Markdown за допомогою функції `md` або просто як рядок (якщо він містить синтаксис Markdown).
 
@@ -90,7 +96,7 @@ Intlayer підтримує контент rich text, визначений за 
 
 ---
 
-## Частина 2: Відтворення Markdown
+## Відтворення Markdown
 
 Відтворення може виконуватися автоматично системою контенту Intlayer або вручну за допомогою спеціалізованих інструментів.
 
@@ -387,8 +393,6 @@ Intlayer підтримує контент rich text, визначений за 
 
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
-        forceBlock={true}
-        tagfilter={true}
         components={{
           h1: ({ children }) => <h1 className="text-2xl font-bold">{children}</h1>,
           a: ({ href, children }) => <Link to={href}>{children}</Link>,
@@ -404,20 +408,20 @@ Intlayer підтримує контент rich text, визначений за 
 
     ```typescript fileName="main.ts"
     import { createApp } from "vue";
-    import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
+    import { intlayer } from "vue-intlayer";
+    import { intlayerMarkdown } from "vue-intlayer/markdown";
     import App from "./App.vue";
 
     const app = createApp(App);
 
-    app.use(installIntlayer);
-    app.use(installIntlayerMarkdown, {
-      forceBlock: true,
-      tagfilter: true,
+    app.use(intlayer);
+    app.use(intlayerMarkdown, {
       components: {
-        h1: {
-          component: "h1",
-          props: { class: "text-2xl font-bold" },
-        },
+        h1: (props) =>
+        h('h1', { style: { color: 'orange' }, ...props }, props.children),
+        ComponentDemo: () => h('div', { style: { background: 'grey' } }, 'DEMO'),
+        bold: (props) => h('strong', props),
+        code: (props) => h('code', props),
       },
     });
 
@@ -434,8 +438,6 @@ Intlayer підтримує контент rich text, визначений за 
     </script>
 
     <MarkdownProvider
-      forceBlock={true}
-      tagfilter={true}
       components={{
         h1: MyHeading,
       }}
@@ -452,8 +454,6 @@ Intlayer підтримує контент rich text, визначений за 
 
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
-        forceBlock={true}
-        tagfilter={true}
         components={{
           h1: ({ children }) => <h1 className="text-2xl font-bold">{children}</h1>,
         }}
@@ -471,8 +471,6 @@ Intlayer підтримує контент rich text, визначений за 
 
     export const AppProvider = (props) => (
       <MarkdownProvider
-        forceBlock={true}
-        tagfilter={true}
         components={{
           h1: (props) => <h1 className="text-2xl font-bold">{props.children}</h1>,
         }}

@@ -21,6 +21,9 @@ slugs:
 history:
   - version: 8.5.0
     date: 2026-03-24
+    changes: "Add `intlayerHTML` plugin object; use `app.use(intlayerHTML)` instead of `app.use(installIntlayerHTML)`"
+  - version: 8.5.0
+    date: 2026-03-24
     changes: "{{framework}}-intlayer에서 {{framework}}-intlayer/html으로 임포트 이동"
   - version: 8.0.0
     date: 2026-01-22
@@ -281,14 +284,14 @@ HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트
 
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
-    import { installIntlayer } from "vue-intlayer";
-    import { installIntlayerHTML } from "vue-intlayer/html";
+    import { intlayer } from "vue-intlayer";
+    import { intlayerHTML } from "vue-intlayer/html";
     import App from "./App.vue";
 
     const app = createApp(App);
 
-    app.use(installIntlayer);
-    app.use(installIntlayerHTML, {
+    app.use(intlayer);
+    app.use(intlayerHTML, {
       components: {
         p: (props, { slots }) => h("p", { class: "prose", ...props }, slots.default?.()),
         CustomLink: (props, { slots }) => h("a", { href: "/details", ...props }, slots.default?.()),
@@ -302,14 +305,14 @@ HTML 노드에서 `.use()` 메서드를 사용할 때, 제공하는 컴포넌트
 
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
-    import { installIntlayer } from "vue-intlayer";
-    import { installIntlayerHTML } from "vue-intlayer/html";
+    import { intlayer } from "vue-intlayer";
+    import { intlayerHTML } from "vue-intlayer/html";
     import App from "./App.vue";
 
     const app = createApp(App);
 
-    app.use(installIntlayer);
-    app.use(installIntlayerHTML, {
+    app.use(intlayer);
+    app.use(intlayerHTML, {
       renderHTML: async (html) => {
         const { renderHTML } = await import('vue-intlayer/html');
         return renderHTML(html);

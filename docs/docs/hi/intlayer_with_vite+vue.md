@@ -413,14 +413,14 @@ module.exports = appContent;
 
 ```javascript fileName=main.js
 import { createApp } from "vue";
-import { installIntlayer } from "vue-intlayer";
+import { intlayer } from "vue-intlayer";
 import App from "./App.vue";
 import "./style.css";
 
 const app = createApp(App);
 
 // शीर्ष स्तर पर प्रदाता को इंजेक्ट करें
-installIntlayer(app);
+app.use(intlayer);
 
 // एप्लिकेशन को माउंट करें
 app.mount("#app");
@@ -1004,7 +1004,7 @@ import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
 
 const app = createApp(App);
 
-installIntlayer(app);
+app.use(intlayer);
 
 const md = new MarkdownIt({
   html: true, // HTML टैग की अनुमति दें

@@ -1,10 +1,10 @@
 import { createApp, h } from 'vue';
-import { installIntlayer } from 'vue-intlayer';
+import { intlayer } from 'vue-intlayer';
 import App from './App.vue';
 import { router } from './routes';
 import './style.css';
-import { installIntlayerHTML } from 'vue-intlayer/html';
-import { installIntlayerMarkdown } from 'vue-intlayer/markdown';
+import { intlayerHTML } from 'vue-intlayer/html';
+import { intlayerMarkdown } from 'vue-intlayer/markdown';
 
 const app = createApp(App);
 
@@ -12,11 +12,11 @@ const app = createApp(App);
 app.use(router);
 
 // Inject the provider at the top level
-installIntlayer(app); // provide the singleton instance
+app.use(intlayer); // provide the singleton instance
 
 // Use the new framework-agnostic markdown compiler from vue-intlayer/markdown
 // This uses the core @intlayer/core markdown processor with Vue-specific runtime
-app.use(installIntlayerMarkdown, {
+app.use(intlayerMarkdown, {
   renderMarkdown: async (md) => {
     const { compileMarkdown } = await import('vue-intlayer/markdown');
     return compileMarkdown(md);
@@ -30,7 +30,7 @@ app.use(installIntlayerMarkdown, {
   },
 });
 
-app.use(installIntlayerHTML, {
+app.use(intlayerHTML, {
   components: {
     bold: (props) => h('strong', props),
   },

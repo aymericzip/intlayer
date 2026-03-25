@@ -61,7 +61,9 @@ export const createIntlayerClient = (
  * import App from './App.vue';
  *
  * const app = createApp(App);
- * app.use(installIntlayer);
+ *
+ * installIntlayer(app);
+ *
  * app.mount('#app');
  * ```
  */
@@ -81,4 +83,24 @@ export const installIntlayer = (
   useEditor(app);
 
   return app;
+};
+
+/**
+ * Vue plugin object for Intlayer. Can be used with `app.use(intlayer)`.
+ *
+ * @example
+ * ```ts
+ * import { createApp } from 'vue';
+ * import { intlayer } from 'vue-intlayer';
+ * import App from './App.vue';
+ *
+ * const app = createApp(App);
+ * app.use(intlayer);
+ * app.mount('#app');
+ * ```
+ */
+export const intlayer: {
+  install: typeof installIntlayer;
+} = {
+  install: installIntlayer,
 };

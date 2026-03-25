@@ -426,14 +426,14 @@ Para utilizar os recursos de internacionalização do Intlayer em toda a sua apl
 
 ```javascript fileName=main.js
 import { createApp } from "vue";
-import { installIntlayer } from "vue-intlayer";
+import { intlayer } from "vue-intlayer";
 import App from "./App.vue";
 import "./style.css";
 
 const app = createApp(App);
 
 // Injeta o provedor no nível superior
-installIntlayer(app);
+app.use(intlayer);
 
 // Monta a aplicação
 app.mount("#app");
@@ -1022,7 +1022,7 @@ import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
 
 const app = createApp(App);
 
-installIntlayer(app);
+app.use(intlayer);
 
 const md = new MarkdownIt({
   html: true, // permitir tags HTML

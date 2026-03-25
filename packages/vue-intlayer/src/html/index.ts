@@ -1,6 +1,5 @@
 export {
   HTMLRenderer,
-  type HTMLRendererProps,
   type RenderHTMLProps,
   renderHTML,
   useHTMLRenderer,
@@ -9,6 +8,7 @@ export {
   type IntlayerHTMLPluginOptions,
   type IntlayerHTMLProvider,
   installIntlayerHTML,
+  intlayerHTML,
   type RenderHTMLFunction,
   type RenderHTMLOptions,
   useHTML,

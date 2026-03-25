@@ -442,14 +442,14 @@ Intlayer의 국제화 기능을 Vue 애플리케이션 전반에서 활용하려
 
 ```javascript fileName=main.js
 import { createApp } from "vue";
-import { installIntlayer } from "vue-intlayer";
+import { intlayer } from "vue-intlayer";
 import App from "./App.vue";
 import "./style.css";
 
 const app = createApp(App);
 
 // 최상위에 프로바이더를 주입합니다
-installIntlayer(app);
+app.use(intlayer);
 
 // 앱을 마운트합니다
 app.mount("#app");
@@ -1031,7 +1031,7 @@ import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
 
 const app = createApp(App);
 
-installIntlayer(app);
+app.use(intlayer);
 
 const md = new MarkdownIt({
   html: true, // HTML 태그 허용

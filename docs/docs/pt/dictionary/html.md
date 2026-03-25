@@ -23,6 +23,9 @@ slugs:
 history:
   - version: 8.5.0
     date: 2026-03-24
+    changes: "Add `intlayerHTML` plugin object; use `app.use(intlayerHTML)` instead of `app.use(installIntlayerHTML)`"
+  - version: 8.5.0
+    date: 2026-03-24
     changes: "mover a importação de {{framework}}-intlayer para {{framework}}-intlayer/html"
   - version: 8.0.0
     date: 2026-01-22
@@ -284,14 +287,14 @@ Você pode configurar a renderização de HTML globalmente para toda a sua aplic
   
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
-    import { installIntlayer } from "vue-intlayer";
-    import { installIntlayerHTML } from "vue-intlayer/html";
+    import { intlayer } from "vue-intlayer";
+    import { intlayerHTML } from "vue-intlayer/html";
     import App from "./App.vue";
 
     const app = createApp(App);
 
-    app.use(installIntlayer);
-    app.use(installIntlayerHTML, {
+    app.use(intlayer);
+    app.use(intlayerHTML, {
       components: {
         p: (props, { slots }) => h("p", { class: "prose", ...props }, slots.default?.()),
         CustomLink: (props, { slots }) => h("a", { href: "/details", ...props }, slots.default?.()),
@@ -305,14 +308,14 @@ Você pode configurar a renderização de HTML globalmente para toda a sua aplic
 
     ```typescript fileName="main.ts"
     import { createApp, h } from "vue";
-    import { installIntlayer } from "vue-intlayer";
-    import { installIntlayerHTML } from "vue-intlayer/html";
+    import { intlayer } from "vue-intlayer";
+    import { intlayerHTML } from "vue-intlayer/html";
     import App from "./App.vue";
 
     const app = createApp(App);
 
-    app.use(installIntlayer);
-    app.use(installIntlayerHTML, {
+    app.use(intlayer);
+    app.use(intlayerHTML, {
       renderHTML: async (html) => {
         const { renderHTML } = await import('vue-intlayer/html');
         return renderHTML(html);

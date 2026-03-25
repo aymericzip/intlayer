@@ -19,6 +19,9 @@ slugs:
 history:
   - version: 8.5.0
     date: 2026-03-24
+    changes: "Add `intlayerMarkdown` plugin object; use `app.use(intlayerMarkdown)` instead of `app.use(installIntlayerMarkdown)`"
+  - version: 8.5.0
+    date: 2026-03-24
     changes: "déplacer l'importation de {{framework}}-intlayer vers {{framework}}-intlayer/markdown"
   - version: 8.0.0
     date: 2026-01-22
@@ -35,7 +38,7 @@ history:
 
 Intlayer prend en charge le contenu riche en texte défini à l'aide de la syntaxe Markdown. Cela vous permet d'écrire et de maintenir facilement du contenu avec une mise en forme riche, comme des blogs, des articles, et plus encore.
 
-## Partie 1 : Déclarer du contenu Markdown
+## Déclarer du contenu Markdown
 
 Vous pouvez déclarer du contenu Markdown à l'aide de la fonction `md` ou simplement sous forme de chaîne de caractères (si elle contient la syntaxe Markdown).
 
@@ -93,7 +96,7 @@ Vous pouvez déclarer du contenu Markdown à l'aide de la fonction `md` ou simpl
 
 ---
 
-## Partie 2 : Rendu du Markdown
+## Rendu du Markdown
 
 Le rendu peut être géré automatiquement par le système de contenu d'Intlayer ou manuellement à l'aide d'outils spécialisés.
 
@@ -386,8 +389,6 @@ Vous pouvez configurer le rendu Markdown globalement pour l'ensemble de votre ap
 
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
-        forceBlock={true}
-        tagfilter={true}
         components={{
           h1: ({ children }) => <h1 className="text-2xl font-bold">{children}</h1>,
           a: ({ href, children }) => <Link to={href}>{children}</Link>,
@@ -422,21 +423,20 @@ Vous pouvez configurer le rendu Markdown globalement pour l'ensemble de votre ap
 
     ```typescript fileName="main.ts"
     import { createApp } from "vue";
-    import { installIntlayer } from "vue-intlayer";
-    import { installIntlayerMarkdown } from "vue-intlayer/markdown";
+    import { intlayer } from "vue-intlayer";
+    import { intlayerMarkdown } from "vue-intlayer/markdown";
     import App from "./App.vue";
 
     const app = createApp(App);
 
-    app.use(installIntlayer);
-    app.use(installIntlayerMarkdown, {
-      forceBlock: true,
-      tagfilter: true,
+    app.use(intlayer);
+    app.use(intlayerMarkdown, {
       components: {
-        h1: {
-          component: "h1",
-          props: { class: "text-2xl font-bold" },
-        },
+        h1: (props) =>
+        h('h1', { style: { color: 'orange' }, ...props }, props.children),
+        ComponentDemo: () => h('div', { style: { background: 'grey' } }, 'DEMO'),
+        bold: (props) => h('strong', props),
+        code: (props) => h('code', props),
       },
     });
 
@@ -447,14 +447,14 @@ Vous pouvez configurer le rendu Markdown globalement pour l'ensemble de votre ap
 
     ```typescript fileName="main.ts"
     import { createApp } from "vue";
-    import { installIntlayer } from "vue-intlayer";
-    import { installIntlayerMarkdown } from "vue-intlayer/markdown";
+    import { intlayer } from "vue-intlayer";
+    import { intlayerMarkdown } from "vue-intlayer/markdown";
     import App from "./App.vue";
 
     const app = createApp(App);
 
-    app.use(installIntlayer);
-    app.use(installIntlayerMarkdown, {
+    app.use(intlayer);
+    app.use(intlayerMarkdown, {
       renderMarkdown: async (md) => {
         const { compileMarkdown } = await import('vue-intlayer/markdown');
         return compileMarkdown(md);
@@ -476,8 +476,6 @@ Vous pouvez configurer le rendu Markdown globalement pour l'ensemble de votre ap
     </script>
 
     <MarkdownProvider
-      forceBlock={true}
-      tagfilter={true}
       components={{
         h1: MyHeading,
       }}
@@ -513,8 +511,6 @@ Vous pouvez configurer le rendu Markdown globalement pour l'ensemble de votre ap
 
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
-        forceBlock={true}
-        tagfilter={true}
         components={{
           h1: ({ children }) => <h1 className="text-2xl font-bold">{children}</h1>,
         }}
@@ -551,8 +547,6 @@ Vous pouvez configurer le rendu Markdown globalement pour l'ensemble de votre ap
 
     export const AppProvider = (props) => (
       <MarkdownProvider
-        forceBlock={true}
-        tagfilter={true}
         components={{
           h1: (props) => <h1 className="text-2xl font-bold">{props.children}</h1>,
         }}
