@@ -404,7 +404,7 @@ You can configure Markdown rendering globally for your entire application. This 
 
     You can also use your own markdown renderer:
 
-        ```tsx fileName="AppProvider.tsx"
+    ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "react-intlayer/markdown";
 
     export const AppProvider = ({ children }) => (
