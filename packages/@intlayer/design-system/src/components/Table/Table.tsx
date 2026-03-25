@@ -1,17 +1,12 @@
 'use client';
 
 import { cn } from '@utils/cn';
-import { MoveDiagonal } from 'lucide-react';
-import {
-  type FC,
-  type HTMLAttributes,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-import { Button } from '../Button';
+
+import { type FC, type HTMLAttributes, useRef, useState } from 'react';
 import { ExpandCollapse } from '../ExpandCollapse';
 import { Modal, ModalSize } from '../Modal';
+import { ExpandButton } from './ExpandButton';
+import { useTableWidths } from './useTableWidths';
 
 /**
  * Properties for the Table component that extends standard HTML table attributes
@@ -64,11 +59,6 @@ type TableProps = HTMLAttributes<HTMLTableElement> & {
   isRollable?: boolean;
   displayModal?: boolean;
 };
-
-// ~0.55rem per character (mid-point for proportional fonts)
-const CHAR_WIDTH_REM = 0.55;
-const MIN_WIDTH_REM = 5; // ~80px at 16px base
-const MAX_WIDTH_REM = 30; // ~480px at 16px base
 
 /**
  * Table component that provides an enhanced table experience with modal expansion and collapsible content
@@ -218,72 +208,19 @@ export const Table: FC<TableProps> = ({
   const tableRef = useRef<HTMLTableElement>(null);
   const modalTableRef = useRef<HTMLTableElement>(null);
 
-  useEffect(() => {
-    if (!tableRef.current) return;
-
-    // Calculate the maximum character length per column from the main table
-    const colLengths: number[] = [];
-    Array.from(tableRef.current.querySelectorAll('tr')).forEach((row) => {
-      Array.from(row.children).forEach((cell, index) => {
-        const len = cell.textContent?.trim().length ?? 0;
-        if (colLengths[index] === undefined || len > colLengths[index]) {
-          colLengths[index] = len;
-        }
-      });
-    });
-
-    const applyToTable = (table: HTMLTableElement) => {
-      const rows = Array.from(table.querySelectorAll('tr'));
-      if (rows.length === 0) return;
-
-      const applyColStyle = (el: HTMLElement, index: number) => {
-        const minRem = Math.min(
-          MAX_WIDTH_REM,
-          Math.max(MIN_WIDTH_REM, (colLengths[index] ?? 0) * CHAR_WIDTH_REM)
-        );
-        el.style.minWidth = `${minRem}rem`;
-        el.style.maxWidth = `${MAX_WIDTH_REM}rem`;
-      };
-
-      table.querySelectorAll('th').forEach((th, index) => {
-        applyColStyle(th, index);
-      });
-      rows.forEach((row) => {
-        row.querySelectorAll('td').forEach((td, index) => {
-          applyColStyle(td, index);
-        });
-      });
-    };
-
-    applyToTable(tableRef.current);
-
-    if (modalTableRef.current) applyToTable(modalTableRef.current);
-  }, [props.children, isModalOpen]);
+  useTableWidths(tableRef, modalTableRef, [props.children, isModalOpen]);
 
   return (
-    <div className="relative overflow-hidden rounded-2xl bg-background pr-4 [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-3xl">
-      {displayModal && (
-        <div className="sticky top-48 z-10">
-          <div className="absolute top-4 right-2">
-            <Button
-              variant="hoverable"
-              size="icon-md"
-              onClick={() => {
-                setIsModalOpen(true);
-              }}
-              label="Move"
-              Icon={MoveDiagonal}
-            />
-          </div>
-        </div>
-      )}
+    <div className="group relative">
+      {displayModal && <ExpandButton setIsModalOpen={setIsModalOpen} />}
+
       <ExpandCollapse
         isRollable={isRollable}
-        className="max-w-full overflow-x-auto"
+        className="max-w-full overflow-x-auto rounded-2xl bg-background text-left [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-3xl"
       >
         <table
           ref={tableRef}
-          className={cn('w-full table-auto text-left', className)}
+          className={cn('w-full table-auto overflow-hidden', className)}
           {...props}
         />
       </ExpandCollapse>

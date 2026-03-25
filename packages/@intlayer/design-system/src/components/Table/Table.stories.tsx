@@ -86,7 +86,7 @@ type Story = StoryObj<typeof Table>;
 export const Default: Story = {
   render: () => (
     <div className="max-w-4xl">
-      <Table>
+      <Table displayModal>
         <thead>
           <tr className="border-gray-200 border-b bg-gray-50">
             <th
@@ -177,8 +177,10 @@ export const Default: Story = {
     await expect(canvas.getAllByRole('columnheader')).toHaveLength(4);
     await expect(canvas.getAllByRole('row')).toHaveLength(4); // 1 header + 3 data rows
 
-    // Test modal expansion button
-    const modalButton = canvas.getByLabelText('Move');
+    // Test modal expansion button - try to find it by its sticky class or just the button role
+    const modalButton = canvas
+      .getAllByRole('button')
+      .find((el) => el.className.includes('sticky'))!;
     await expect(modalButton).toBeInTheDocument();
     await userEvent.click(modalButton);
 

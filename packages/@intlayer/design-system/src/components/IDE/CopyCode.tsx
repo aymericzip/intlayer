@@ -1,5 +1,6 @@
 'use client';
 
+import type { ButtonProps } from '@components/Button';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { CopyButton } from '../CopyButton';
@@ -7,14 +8,14 @@ import { Popover, PopoverXAlign } from '../Popover';
 
 type CopyCodeProps = {
   code: string;
-};
+} & Partial<Omit<ButtonProps, 'children'>>;
 
-export const CopyCode: FC<CopyCodeProps> = ({ code }) => {
+export const CopyCode: FC<CopyCodeProps> = ({ code, ...props }) => {
   const { title, description } = useIntlayer('code');
 
   return (
     <Popover identifier="copy">
-      <CopyButton content={code} />
+      <CopyButton content={code} {...props} />
 
       <Popover.Detail
         identifier="copy"
