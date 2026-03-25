@@ -88,7 +88,9 @@ export const useDictionaryDynamic = <
       DeepTransformContent<T['content'], L>
     >;
 
-    content.onChange = (callback) => {
+    content.onChange = (
+      callback: (content: DeepTransformContent<T['content'], L>) => void
+    ) => {
       // Re-fire whenever content reloads (locale change → new cache entry).
       client.subscribe((newLocale) => {
         const newKey = `${String(key)}.${newLocale}`;

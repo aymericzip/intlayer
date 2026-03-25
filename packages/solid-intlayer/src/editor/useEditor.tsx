@@ -1,5 +1,6 @@
 import type { EditorStateManager } from '@intlayer/editor';
 import { isEnabled } from '@intlayer/editor/isEnabled';
+import type { Locale } from '@intlayer/types/allLocales';
 import { createEffect, createSignal, onCleanup, onMount } from 'solid-js';
 import { useIntlayerContext } from '../client';
 
@@ -27,7 +28,7 @@ export const useEditor = () => {
     const currentLocale = locale();
 
     if (managerInstance && currentLocale) {
-      managerInstance.currentLocale.set(currentLocale);
+      managerInstance.currentLocale.set(currentLocale as Locale);
     }
   });
 

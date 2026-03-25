@@ -45,7 +45,7 @@ export const renderMarkdown = (
  */
 export const useMarkdownRenderer = (
   props: RenderMarkdownProps = {}
-): ((content: string) => string) => {
+): ((content: string) => string | Promise<string>) => {
   const provider = useMarkdown();
 
   return (content: string) =>

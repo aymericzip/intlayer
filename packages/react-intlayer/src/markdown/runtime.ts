@@ -98,5 +98,3 @@ export const createReactRuntime = (
 
   return reactRuntime;
 };
-
-export default reactRuntime;

@@ -174,7 +174,7 @@ export const insertionPlugin: Plugins = {
       typeof children === 'object' &&
       children !== null &&
       'nodeType' in children &&
-      [NodeTypes.ENUMERATION, NodeTypes.CONDITION].includes(
+      ([NodeTypes.ENUMERATION, NodeTypes.CONDITION] as NodeType[]).includes(
         children.nodeType as NodeType
       )
     ) {
