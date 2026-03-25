@@ -1,4 +1,3 @@
-export { useIntl } from './format/useIntl';
 export { getBrowserLocale } from './getBrowserLocale';
 export {
   IntlayerClientContext,

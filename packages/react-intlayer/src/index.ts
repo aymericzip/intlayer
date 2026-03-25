@@ -6,6 +6,9 @@ declare module '@intlayer/core/interpreter' {
     extends IInterpreterPluginReact<T, S, L> {}
 }
 
+/**
+ * @deprecated import from react-intlayer/format instead
+ */
 export { useIntl } from './client/format/useIntl';
 // Import directly from individual files to avoid circular dependency issues
 export {
@@ -49,7 +52,6 @@ import {
   useMarkdownContext as _useMarkdownContext,
   useMarkdownRenderer as _useMarkdownRenderer,
 } from './markdown';
-
 /**
  * @deprecated import from react-intlayer/markdown instead
  */
