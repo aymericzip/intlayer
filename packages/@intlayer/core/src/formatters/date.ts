@@ -2,9 +2,14 @@ import configuration from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { Intl as CachedIntl } from '../utils/intl';
 
-type DateTimePreset = 'short' | 'long' | 'dateOnly' | 'timeOnly' | 'full';
+export type DateTimePreset =
+  | 'short'
+  | 'long'
+  | 'dateOnly'
+  | 'timeOnly'
+  | 'full';
 
-const presets: Record<DateTimePreset, Intl.DateTimeFormatOptions> = {
+export const presets: Record<DateTimePreset, Intl.DateTimeFormatOptions> = {
   short: {
     year: '2-digit',
     month: '2-digit',
@@ -52,17 +57,20 @@ const presets: Record<DateTimePreset, Intl.DateTimeFormatOptions> = {
  */
 export const date = (
   date: Date | string | number,
-  options?: Intl.DateTimeFormatOptions & { locale?: LocalesValues }
+  options?:
+    | (Intl.DateTimeFormatOptions & { locale?: LocalesValues })
+    | DateTimePreset
 ): string => {
   const dateTime = new Date(date);
 
   const resolvedOptions =
     typeof options === 'string' ? (presets[options] ?? {}) : options;
 
-  const formatter = new CachedIntl.DateTimeFormat(
-    options?.locale ?? configuration?.internationalization?.defaultLocale,
-    resolvedOptions
-  );
+  const locale =
+    (typeof options === 'object' ? options?.locale : undefined) ??
+    configuration?.internationalization?.defaultLocale;
+
+  const formatter = new CachedIntl.DateTimeFormat(locale, resolvedOptions);
 
   return formatter.format(dateTime);
 };

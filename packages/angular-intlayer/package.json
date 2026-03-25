@@ -39,6 +39,21 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
+    "./format": {
+      "types": "./dist/types/format/index.d.ts",
+      "require": "./dist/cjs/format/index.cjs",
+      "import": "./dist/esm/format/index.mjs"
+    },
+    "./html": {
+      "types": "./dist/types/html/index.d.ts",
+      "require": "./dist/cjs/html/index.cjs",
+      "import": "./dist/esm/html/index.mjs"
+    },
+    "./markdown": {
+      "types": "./dist/types/markdown/index.d.ts",
+      "require": "./dist/cjs/markdown/index.cjs",
+      "import": "./dist/esm/markdown/index.mjs"
+    },
     "./webpack": {
       "types": "./dist/types/webpack/index.d.ts",
       "require": "./dist/cjs/webpack/index.cjs",
@@ -53,6 +68,15 @@
     "*": {
       ".": [
         "./dist/types/index.d.ts"
+      ],
+      "format": [
+        "./dist/types/format/index.d.ts"
+      ],
+      "html": [
+        "./dist/types/html/index.d.ts"
+      ],
+      "markdown": [
+        "./dist/types/markdown/index.d.ts"
       ],
       "webpack": [
         "./dist/types/webpack/index.d.ts"

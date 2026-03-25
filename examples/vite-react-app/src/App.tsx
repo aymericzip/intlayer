@@ -5,6 +5,16 @@ import {
   useState,
 } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import {
+  useCompact,
+  useCurrency,
+  useDate,
+  useList,
+  useNumber,
+  usePercentage,
+  useRelativeTime,
+  useUnit,
+} from 'react-intlayer/format';
 import { HTMLProvider } from 'react-intlayer/html';
 import { MarkdownProvider, MarkdownRenderer } from 'react-intlayer/markdown';
 import './App.css';
@@ -17,6 +27,18 @@ import HelloWorld from './Test';
 const AppContent: FC = () => {
   const [count, setCount] = useState(0);
   const content = useIntlayer('app');
+
+  const number = useNumber();
+  const percentage = usePercentage();
+  const currency = useCurrency();
+  const date = useDate();
+  const relativeTime = useRelativeTime();
+  const unit = useUnit();
+  const compact = useCompact();
+  const list = useList();
+
+  const now = new Date();
+  const in3Days = new Date(now.getTime() + 3 * 864e5);
 
   return (
     <>
@@ -31,6 +53,29 @@ const AppContent: FC = () => {
             alt={content.reactLogo.value}
           />
         </a>
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px',
+          margin: '20px',
+          padding: '20px',
+          border: '1px solid #ccc',
+          borderRadius: '8px',
+          textAlign: 'left',
+        }}
+      >
+        <h2>Formatters</h2>
+        <p>Number: {number(123456.789)}</p>
+        <p>Percentage: {percentage(0.25)}</p>
+        <p>Currency: {currency(1234.5, { currency: 'EUR' })}</p>
+        <p>Date: {date(now, 'short')}</p>
+        <p>Relative Time: {relativeTime(now, in3Days, { unit: 'day' })}</p>
+        <p>Unit: {unit(5, { unit: 'kilometer', unitDisplay: 'long' })}</p>
+        <p>Compact: {compact(1200)}</p>
+        <p>List: {list(['apple', 'banana', 'orange'])}</p>
       </div>
 
       <div>

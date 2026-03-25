@@ -1,5 +1,21 @@
 <div style="padding: 20px; font-family: sans-serif">
   <app-locale-switcher></app-locale-switcher>
+
+  <div
+    style="display: flex; flex-direction: column; gap: 10px; margin: 20px; padding: 20px; border: 1px solid #ccc; border-radius: 8px; text-align: left;"
+  >
+    <h2>Formatters</h2>
+    <p>Number: {{ number()(123456.789) }}</p>
+    <p>Percentage: {{ percentage()(0.25) }}</p>
+    <p>Currency: {{ currency()(1234.5, { currency: 'EUR' }) }}</p>
+    <p>Date: {{ date()(now, 'short') }}</p>
+    <p>Relative Time: {{ relativeTime()(now, in3Days, { unit: 'day' }) }}</p>
+    <p>Unit: {{ unit()(5, { unit: 'kilometer', unitDisplay: 'long' }) }}</p>
+    <p>Compact: {{ compact()(1200) }}</p>
+    <p>List: {{ list()(['apple', 'banana', 'orange']) }}</p>
+    <p>Intl (Manual): {{ formattedCurrency() }}</p>
+  </div>
+
   <hr style="margin: 20px 0" />
   <h1>{{ content().title }}</h1>
   <p>{{ content().subtitle }}</p>

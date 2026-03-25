@@ -1,6 +1,6 @@
 import { list } from '@intlayer/core/formatters';
 import { useCallback, useContext } from 'preact/hooks';
-import { IntlayerClientContext } from '../IntlayerProvider';
+import { IntlayerClientContext } from '../client/IntlayerProvider';
 
 /**
  * React client hook that provides a list formatter

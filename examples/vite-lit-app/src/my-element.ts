@@ -1,6 +1,16 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { useIntlayer } from 'lit-intlayer';
+import {
+  useCompact,
+  useCurrency,
+  useDate,
+  useList,
+  useNumber,
+  usePercentage,
+  useRelativeTime,
+  useUnit,
+} from 'lit-intlayer/format';
 import heroImg from './assets/hero.png';
 import litLogo from './assets/lit.svg';
 import viteLogo from './assets/vite.svg';
@@ -27,6 +37,18 @@ export class MyElement extends LitElement {
     this.count++;
   }
 
+  private number = useNumber(this);
+  private percentage = usePercentage(this);
+  private currency = useCurrency(this);
+  private date = useDate(this);
+  private relativeTime = useRelativeTime(this);
+  private unit = useUnit(this);
+  private compact = useCompact(this);
+  private list = useList(this);
+
+  private now = new Date();
+  private in3Days = new Date(this.now.getTime() + 3 * 864e5);
+
   override render() {
     const { content } = this;
 
@@ -41,6 +63,25 @@ export class MyElement extends LitElement {
         <div>
           <locale-switcher></locale-switcher>
           <slot></slot>
+        </div>
+
+        <div
+          style="display: flex; flex-direction: column; gap: 10px; margin: 20px; padding: 20px; border: 1px solid var(--border); border-radius: 8px; text-align: left;"
+        >
+          <h2>Formatters</h2>
+          <p>Number: ${this.number.value(123456.789)}</p>
+          <p>Percentage: ${this.percentage.value(0.25)}</p>
+          <p>Currency: ${this.currency.value(1234.5, { currency: 'EUR' })}</p>
+          <p>Date: ${this.date.value(this.now, 'short')}</p>
+          <p>Relative Time: ${this.relativeTime.value(this.now, this.in3Days, {
+            unit: 'day',
+          })}</p>
+          <p>Unit: ${this.unit.value(5, {
+            unit: 'kilometer',
+            unitDisplay: 'long',
+          })}</p>
+          <p>Compact: ${this.compact.value(1200)}</p>
+          <p>List: ${this.list.value(['apple', 'banana', 'orange'])}</p>
         </div>
 
         <h1>${content.title}</h1>

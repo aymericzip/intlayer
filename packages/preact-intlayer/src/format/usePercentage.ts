@@ -1,6 +1,6 @@
 import { percentage } from '@intlayer/core/formatters';
 import { useCallback, useContext } from 'preact/hooks';
-import { IntlayerClientContext } from '../IntlayerProvider';
+import { IntlayerClientContext } from '../client/IntlayerProvider';
 
 /**
  * React hook to provide a percentage formatter function

@@ -1,6 +1,6 @@
 import { date } from '@intlayer/core/formatters';
 import { useContext } from 'preact/hooks';
-import { IntlayerClientContext } from '../IntlayerProvider';
+import { IntlayerClientContext } from '../client/IntlayerProvider';
 
 /**
  * React client hook that provides a localized date/time formatter

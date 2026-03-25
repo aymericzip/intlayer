@@ -1,16 +1,32 @@
 <script setup lang="ts">
 import { h, ref } from 'vue';
 import { useIntlayer } from 'vue-intlayer';
+import {
+  useNumber,
+  usePercentage,
+  useCurrency,
+  useDate,
+  useRelativeTime,
+  useUnit,
+  useCompact,
+  useList,
+} from 'vue-intlayer/format';
 import { MarkdownRenderer } from 'vue-intlayer/markdown';
 
 // Use the useIntlayer composable to access translations
 const content = useIntlayer('home');
-const { syntax1, syntax2, syntax5 } = useIntlayer('home');
 
-// Tab state for markdown demo
-const activeTab = ref<'source' | 'rendered'>('rendered');
+const number = useNumber();
+const percentage = usePercentage();
+const currency = useCurrency();
+const date = useDate();
+const relativeTime = useRelativeTime();
+const unit = useUnit();
+const compact = useCompact();
+const list = useList();
 
-// Editable markdown source
+const now = new Date();
+const in3Days = new Date(now.getTime() + 3 * 864e5);
 </script>
 
 <template>
@@ -20,6 +36,29 @@ const activeTab = ref<'source' | 'rendered'>('rendered');
       <p class="subtitle">{{ content.subtitle }}</p>
 
       <p>{{ content.insertion({ count: 2 }) }}</p>
+
+      <div
+        :style="{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px',
+          margin: '20px',
+          padding: '20px',
+          border: '1px solid #ccc',
+          borderRadius: '8px',
+          textAlign: 'left',
+        }"
+      >
+        <h2>Formatters</h2>
+        <p>Number: {{ number.value(123456.789) }}</p>
+        <p>Percentage: {{ percentage.value(0.25) }}</p>
+        <p>Currency: {{ currency.value(1234.5, { currency: 'EUR' }) }}</p>
+        <p>Date: {{ date.value(now, 'short') }}</p>
+        <p>Relative Time: {{ relativeTime.value(now, in3Days, { unit: 'day' }) }}</p>
+        <p>Unit: {{ unit.value(5, { unit: 'kilometer', unitDisplay: 'long' }) }}</p>
+        <p>Compact: {{ compact.value(1200) }}</p>
+        <p>List: {{ list.value(['apple', 'banana', 'orange']) }}</p>
+      </div>
     </header>
 
     <main>

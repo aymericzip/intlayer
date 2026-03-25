@@ -20,7 +20,6 @@ export {
   useDictionary,
   useDictionaryAsync,
   useDictionaryDynamic,
-  useIntl,
   useIntlayer,
   useIntlayerContext,
   useLoadDynamic,

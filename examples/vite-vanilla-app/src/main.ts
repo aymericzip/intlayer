@@ -7,6 +7,16 @@ import {
   useLocale,
   useRewriteURL,
 } from 'vanilla-intlayer';
+import {
+  useCompact,
+  useCurrency,
+  useDate,
+  useList,
+  useNumber,
+  usePercentage,
+  useRelativeTime,
+  useUnit,
+} from 'vanilla-intlayer/format';
 import { installIntlayerMarkdown } from 'vanilla-intlayer/markdown';
 import heroImg from './assets/hero.png';
 import typescriptLogo from './assets/typescript.svg';
@@ -30,6 +40,18 @@ const render = () => {
   const content = useIntlayer('app');
   const steps = useIntlayer('next-steps');
 
+  const number = useNumber();
+  const percentage = usePercentage();
+  const currency = useCurrency();
+  const date = useDate();
+  const relativeTime = useRelativeTime();
+  const unit = useUnit();
+  const compact = useCompact();
+  const list = useList();
+
+  const now = new Date();
+  const in3Days = new Date(now.getTime() + 3 * 864e5);
+
   app.innerHTML = `
     <section id="center">
       <div class="hero">
@@ -39,6 +61,20 @@ const render = () => {
       </div>
 
       <div id="locale-switcher-mount"></div>
+
+      <div
+        style="display: flex; flex-direction: column; gap: 10px; margin: 20px; padding: 20px; border: 1px solid var(--border); border-radius: 8px; text-align: left;"
+      >
+        <h2>Formatters</h2>
+        <p>Number: ${number(123456.789)}</p>
+        <p>Percentage: ${percentage(0.25)}</p>
+        <p>Currency: ${currency(1234.5, { currency: 'EUR' })}</p>
+        <p>Date: ${date(now, 'short')}</p>
+        <p>Relative Time: ${relativeTime(now, in3Days, { unit: 'day' })}</p>
+        <p>Unit: ${unit(5, { unit: 'kilometer', unitDisplay: 'long' })}</p>
+        <p>Compact: ${compact(1200)}</p>
+        <p>List: ${list(['apple', 'banana', 'orange'])}</p>
+      </div>
 
       <h1>${content.title}</h1>
 

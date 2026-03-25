@@ -1,3 +1,4 @@
+export { useIntl } from '../client/useIntl';
 export { useCompact } from './useCompact';
 export { useCurrency } from './useCurrency';
 export { useDate } from './useDate';

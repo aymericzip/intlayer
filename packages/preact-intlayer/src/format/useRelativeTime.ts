@@ -1,6 +1,6 @@
 import { relativeTime } from '@intlayer/core/formatters';
 import { useCallback, useContext } from 'preact/hooks';
-import { IntlayerClientContext } from '../IntlayerProvider';
+import { IntlayerClientContext } from '../client/IntlayerProvider';
 
 /**
  * Client-side React hook for accessing a localized relative time formatter.

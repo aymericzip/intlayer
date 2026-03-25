@@ -1,6 +1,6 @@
 import { units } from '@intlayer/core/formatters';
 import { useCallback, useContext } from 'preact/hooks';
-import { IntlayerClientContext } from '../IntlayerProvider';
+import { IntlayerClientContext } from '../client/IntlayerProvider';
 
 /**
  * React hook that provides a unit formatting function

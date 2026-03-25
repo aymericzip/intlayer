@@ -52,6 +52,12 @@
       "require": "./dist/cjs/markdown/index.cjs",
       "import": "./dist/esm/markdown/index.mjs"
     },
+    "./format": {
+      "types": "./dist/types/format/index.d.ts",
+      "solid": "./dist/esm/format/index.mjs",
+      "require": "./dist/cjs/format/index.cjs",
+      "import": "./dist/esm/format/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
@@ -67,6 +73,9 @@
       ],
       "markdown": [
         "./dist/types/markdown/index.d.ts"
+      ],
+      "format": [
+        "./dist/types/format/index.d.ts"
       ],
       "package.json": [
         "./package.json"

@@ -1,6 +1,17 @@
 import { A, Route, useLocation, useNavigate } from '@solidjs/router';
 import { getLocalizedUrl, localeMap } from 'intlayer';
 import { IntlayerProvider, useIntlayer, useLocale } from 'solid-intlayer';
+import {
+  useCompact,
+  useCurrency,
+  useDate,
+  useIntl,
+  useList,
+  useNumber,
+  usePercentage,
+  useRelativeTime,
+  useUnit,
+} from 'solid-intlayer/format';
 import { MarkdownProvider } from 'solid-intlayer/markdown';
 import { createSignal, For, type ParentComponent } from 'solid-js';
 import './App.css';
@@ -59,6 +70,24 @@ const Home = () => {
   const [count, setCount] = createSignal(0);
   const content = useIntlayer('app');
 
+  const number = useNumber();
+  const percentage = usePercentage();
+  const currency = useCurrency();
+  const date = useDate();
+  const relativeTime = useRelativeTime();
+  const unit = useUnit();
+  const compact = useCompact();
+  const list = useList();
+  const intl = useIntl();
+
+  const now = new Date();
+  const in3Days = new Date(now.getTime() + 3 * 864e5);
+
+  const formattedCurrency = new (intl().NumberFormat)({
+    style: 'currency',
+    currency: 'USD',
+  }).format(12345.67);
+
   return (
     <>
       <div>
@@ -77,6 +106,31 @@ const Home = () => {
           />
         </a>
       </div>
+
+      <div
+        style={{
+          display: 'flex',
+          'flex-direction': 'column',
+          gap: '10px',
+          margin: '20px',
+          padding: '20px',
+          border: '1px solid #ccc',
+          'border-radius': '8px',
+          'text-align': 'left',
+        }}
+      >
+        <h2>Formatters</h2>
+        <p>Number: {number(123456.789)}</p>
+        <p>Percentage: {percentage(0.25)}</p>
+        <p>Currency: {currency(1234.5, { currency: 'EUR' })}</p>
+        <p>Date: {date(now, 'short')}</p>
+        <p>Relative Time: {relativeTime(now, in3Days, { unit: 'day' })}</p>
+        <p>Unit: {unit(5, { unit: 'kilometer', unitDisplay: 'long' })}</p>
+        <p>Compact: {compact(1200)}</p>
+        <p>List: {list(['apple', 'banana', 'orange'])}</p>
+        <p>Intl (Manual): {formattedCurrency}</p>
+      </div>
+
       <h1>{content().viteAndSolid}</h1>
       <div class="card">
         <button type="button" onClick={() => setCount((c) => c + 1)}>
