@@ -114,5 +114,29 @@ export const runParallel = (proc?: string | string[]): ParallelHandle => {
     }
   };
 
+  const handleExit = () => kill();
+
+  const handleSigInt = () => {
+    kill();
+    process.off('SIGINT', handleSigInt);
+    process.kill(process.pid, 'SIGINT'); // Propagate to allow natural shutdown
+  };
+
+  const handleSigTerm = () => {
+    kill();
+    process.off('SIGTERM', handleSigTerm);
+    process.kill(process.pid, 'SIGTERM'); // Propagate to allow natural shutdown
+  };
+
+  process.on('exit', handleExit);
+  process.on('SIGINT', handleSigInt);
+  process.on('SIGTERM', handleSigTerm);
+
+  child.on('exit', () => {
+    process.off('exit', handleExit);
+    process.off('SIGINT', handleSigInt);
+    process.off('SIGTERM', handleSigTerm);
+  });
+
   return { kill, result, commandText };
 };
