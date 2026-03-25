@@ -21,7 +21,13 @@
     "module": "ES2022",
     "lib": ["ES2022", "dom"],
     "useDefineForClassFields": false,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "angular-intlayer": ["../../packages/angular-intlayer/src/index.ts"],
+      "angular-intlayer/format": [
+        "../../packages/angular-intlayer/src/format/index.ts"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
@@ -29,5 +35,9 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   },
-  "include": ["src/**/*.ts", ".intlayer/**/*.ts"]
+  "include": [
+    "src/**/*.ts",
+    ".intlayer/**/*.ts",
+    "../../packages/angular-intlayer/src/**/*.ts"
+  ]
 }

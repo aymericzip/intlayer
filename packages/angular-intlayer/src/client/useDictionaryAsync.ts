@@ -3,7 +3,10 @@
 import { computed, inject } from '@angular/core';
 import configuration from '@intlayer/config/built';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import type { LocalesValues, StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
+import type {
+  LocalesValues,
+  StrictModeLocaleMap,
+} from '@intlayer/types/module_augmentation';
 import { INTLAYER_TOKEN, type IntlayerProvider } from './installIntlayer';
 import { useDictionary } from './useDictionary';
 
@@ -25,7 +28,7 @@ export const useDictionaryAsync = async <T extends Dictionary>(
       configuration?.internationalization.defaultLocale
   );
 
-  const dictionary = await dictionaryPromise[localeTarget()]?.();
+  const dictionary = await (dictionaryPromise as any)[localeTarget()]?.();
 
   return useDictionary(dictionary, localeTarget() as any);
 };

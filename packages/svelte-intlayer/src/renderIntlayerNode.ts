@@ -37,15 +37,12 @@ export const renderIntlayerNode = <T = any, P = Record<string, any>>(
     };
   } else {
     // Functional component (Svelte 5)
-    Node = (anchor: any, props: any) => {
-      const mergedProps = {
-        ...props,
+    Node = (props: any) => {
+      return (IntlayerNodeWrapper as any)(props, {
         Renderer: args.component,
         rendererProps: args.props,
         value: args.value,
-      };
-
-      return IntlayerNodeWrapper(anchor, mergedProps);
+      });
     };
   }
 

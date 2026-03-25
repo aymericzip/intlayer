@@ -12,6 +12,7 @@ import {
   useUnit,
   useCompact,
   useList,
+  useIntl,
 } from 'svelte-intlayer/format';
 import { setIntlayerMarkdown } from 'svelte-intlayer/markdown';
 import viteLogo from '/vite.svg';
@@ -33,9 +34,15 @@ const relativeTime = useRelativeTime();
 const unit = useUnit();
 const compact = useCompact();
 const list = useList();
+const intl = useIntl();
 
 const now = new Date();
 const in3Days = new Date(now.getTime() + 3 * 864e5);
+
+$: formattedCurrency = new ($intl.NumberFormat)({
+  style: 'currency',
+  currency: 'USD',
+}).format(12345.67);
 
 
 $: console.log($content.markdownContent.metadata);
@@ -68,6 +75,7 @@ $: console.log($content.markdownContent.metadata);
     <p>Unit: {$unit(5, { unit: 'kilometer', unitDisplay: 'long' })}</p>
     <p>Compact: {$compact(1200)}</p>
     <p>List: {$list(['apple', 'banana', 'orange'])}</p>
+    <p>Intl (Manual): {formattedCurrency}</p>
   </div>
 
   <h1><svelte:component this={$content.title} /></h1>

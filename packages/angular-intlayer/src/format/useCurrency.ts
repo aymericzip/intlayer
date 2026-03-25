@@ -1,9 +1,9 @@
 import { computed, inject } from '@angular/core';
 import { currency } from '@intlayer/core/formatters';
-import { IntlayerProvider } from '../client/installIntlayer';
+import { INTLAYER_TOKEN } from '../client/installIntlayer';
 
 export const useCurrency = () => {
-  const intlayer = inject(IntlayerProvider);
+  const intlayer = inject(INTLAYER_TOKEN);
 
   return computed(
     () =>

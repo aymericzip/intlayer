@@ -1,58 +1,24 @@
-import { Injectable, InjectionToken, type Signal, signal } from '@angular/core';
-import configuration from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import { provideIntlayerEditor } from '../editor/useEditor';
+import {
+  createIntlayerClient,
+  INTLAYER_TOKEN,
+  IntlayerProvider,
+} from './intlayerToken';
 
-export const INTLAYER_TOKEN = new InjectionToken<IntlayerProvider>('intlayer');
-
-/**
- * Singleton instance
- */
-let instance: IntlayerProvider | null = null;
-
-@Injectable({
-  providedIn: 'root',
-})
-export class IntlayerProvider {
-  isCookieEnabled = signal(true);
-  private _locale = signal<LocalesValues>(
-    configuration.internationalization?.defaultLocale as LocalesValues
-  );
-
-  readonly locale: Signal<LocalesValues> = this._locale.asReadonly();
-
-  setLocale = (locale: LocalesValues) => {
-    this._locale.set(locale);
-  };
-}
-
-/**
- * Create and return a single IntlayerProvider instance
- */
-export const createIntlayerClient = (
-  locale?: LocalesValues,
-  isCookieEnabled = true
-): IntlayerProvider => {
-  if (instance) return instance;
-
-  instance = new IntlayerProvider();
-
-  if (locale) {
-    instance.setLocale(locale);
-  }
-  instance.isCookieEnabled.set(isCookieEnabled);
-
-  return instance;
-};
+export { createIntlayerClient, INTLAYER_TOKEN, IntlayerProvider };
 
 /**
  * Provides Intlayer to your Angular application.
  *
- * This function should be used in your application's provider list (e.g., in `app.config.ts`)
- * to initialize the Intlayer service.
+ * Registers the Intlayer locale token **and** automatically starts the Intlayer
+ * editor client (when the editor is enabled) via `provideAppInitializer`.
+ *
+ * This is the recommended way to set up Intlayer in `app.config.ts`.
  *
  * @param locale - Initial locale to use.
  * @param isCookieEnabled - Whether to store the locale in cookies.
- * @returns A provider configuration for Intlayer.
+ * @returns An array of Angular providers for Intlayer.
  *
  * @example
  * ```ts
@@ -61,19 +27,21 @@ export const createIntlayerClient = (
  * import { provideIntlayer } from 'angular-intlayer';
  *
  * export const appConfig: ApplicationConfig = {
- *   providers: [
- *     provideIntlayer({ locale: 'en' }),
- *   ],
+ *   providers: [provideIntlayer()],
  * };
  * ```
  */
 export const provideIntlayer = (
   locale?: LocalesValues,
   isCookieEnabled = true
-) => ({
-  provide: INTLAYER_TOKEN,
-  useValue: installIntlayer(locale, isCookieEnabled),
-});
+) => {
+  const client = installIntlayer(locale, isCookieEnabled);
+
+  return [
+    { provide: INTLAYER_TOKEN, useValue: client },
+    provideIntlayerEditor(client),
+  ];
+};
 
 /**
  * Helper to install the Intlayer provider.
@@ -82,10 +50,5 @@ export const installIntlayer = (
   locale?: LocalesValues,
   isCookieEnabled = true
 ) => {
-  const client = createIntlayerClient(locale, isCookieEnabled);
-
-  // Note: Angular editor installation will be handled differently
-  // installIntlayerEditor();
-
-  return client;
+  return createIntlayerClient(locale, isCookieEnabled);
 };

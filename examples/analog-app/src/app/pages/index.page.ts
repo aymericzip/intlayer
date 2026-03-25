@@ -1,11 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { useIntlayer } from 'angular-intlayer';
+import { Component, computed } from '@angular/core';
+import { IntlayerNodeComponent, useIntlayer } from 'angular-intlayer';
+import {
+  useCompact,
+  useCurrency,
+  useDate,
+  useIntl,
+  useList,
+  useNumber,
+  usePercentage,
+  useRelativeTime,
+  useUnit,
+} from 'angular-intlayer/format';
 import { LocaleSwitcherComponent } from '../locale-switcher.component';
 
 @Component({
   selector: 'app-home',
-  imports: [LocaleSwitcherComponent, CommonModule],
+  imports: [LocaleSwitcherComponent, CommonModule, IntlayerNodeComponent],
   template: `
     <app-locale-switcher></app-locale-switcher>
     <div class="content" >
@@ -47,6 +58,22 @@ import { LocaleSwitcherComponent } from '../locale-switcher.component';
 
       <h2>File</h2>
       <pre>{{ content().fileContent }}</pre>
+
+      <div
+        style="display: flex; flex-direction: column; gap: 10px; margin: 20px; padding: 20px; border: 1px solid #ccc; border-radius: 8px; text-align: left;"
+      >
+        <h2>Formatters</h2>
+        <p>Number: {{ number()(123456.789) }}</p>
+        <p>Percentage: {{ percentage()(0.25) }}</p>
+        <p>Currency: {{ currency()(1234.5, { currency: 'EUR' }) }}</p>
+        <p>Date: {{ date()(now, 'short') }}</p>
+        <p>Relative Time: {{ relativeTime()(now, in3Days, { unit: 'day' }) }}</p>
+        <p>Unit: {{ unit()(5, { unit: 'kilometer', unitDisplay: 'long' }) }}</p>
+        <p>Compact: {{ compact()(1200) }}</p>
+        <p>List: {{ list()(['apple', 'banana', 'orange']) }}</p>
+        <p>Intl (Manual): {{ formattedCurrency() }}</p>
+      </div>
+
     </div>
 
     <h2>Analog</h2>
@@ -82,4 +109,24 @@ import { LocaleSwitcherComponent } from '../locale-switcher.component';
 })
 export default class Home {
   content = useIntlayer('app');
+
+  number = useNumber();
+  percentage = usePercentage();
+  currency = useCurrency();
+  date = useDate();
+  relativeTime = useRelativeTime();
+  unit = useUnit();
+  compact = useCompact();
+  list = useList();
+  intl = useIntl();
+
+  now = new Date();
+  in3Days = new Date(this.now.getTime() + 3 * 864e5);
+
+  formattedCurrency = computed(() =>
+    new (this.intl().NumberFormat)({
+      style: 'currency',
+      currency: 'USD',
+    }).format(12345.67)
+  );
 }

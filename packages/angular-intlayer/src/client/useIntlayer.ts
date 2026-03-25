@@ -1,5 +1,9 @@
 import { computed, inject, type Signal } from '@angular/core';
-import type { DictionaryKeys, DictionaryRegistryContent, LocalesValues } from '@intlayer/types/module_augmentation';
+import type {
+  DictionaryKeys,
+  DictionaryRegistryContent,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';
 import { INTLAYER_TOKEN, type IntlayerProvider } from './installIntlayer';
@@ -48,7 +52,9 @@ export const useIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
 
   /** a *stable* reactive dictionary object */
   // @ts-ignore Type instantiation is excessively deep and possibly infinite
-  const content = computed(() => getIntlayer<T, L>(key, localeTarget() as L));
+  const content = computed(
+    () => getIntlayer<T, L>(key, localeTarget() as L) as any
+  );
 
   return content; // all consumers keep full reactivity
 };

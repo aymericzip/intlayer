@@ -5,6 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
 import { intlayer } from 'vite-intlayer';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -14,7 +15,14 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     mainFields: ['module'],
   },
+  ssr: {
+    noExternal: ['angular-intlayer'],
+  },
+  optimizeDeps: {
+    exclude: ['angular-intlayer'],
+  },
   plugins: [
+    tsconfigPaths(),
     analog({
       ssr: false,
       static: true,

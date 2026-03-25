@@ -14,8 +14,8 @@ export const useDictionary = <T extends Dictionary>(
   const localeTarget = computed(() => locale ?? intlayer?.locale());
 
   /** a *stable* reactive dictionary object */
-  const content = computed(() =>
-    getDictionary<T, LocalesValues>(dictionary, localeTarget())
+  const content = computed(
+    () => getDictionary<T, LocalesValues>(dictionary, localeTarget()) as any
   );
 
   return content; // all consumers keep full reactivity

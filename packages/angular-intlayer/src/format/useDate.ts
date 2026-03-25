@@ -1,12 +1,12 @@
 import { computed, inject } from '@angular/core';
 import { date, presets } from '@intlayer/core/formatters';
-import { IntlayerProvider } from '../client/installIntlayer';
+import { INTLAYER_TOKEN } from '../client/installIntlayer';
 
 /**
  * Angular client hook that provides a localized date/time formatter.
  */
 export const useDate = () => {
-  const intlayer = inject(IntlayerProvider);
+  const intlayer = inject(INTLAYER_TOKEN);
 
   return computed(() => (...args: Parameters<typeof date>) => {
     const locale = intlayer.locale();

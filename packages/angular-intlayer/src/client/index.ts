@@ -1,4 +1,5 @@
 export * from './installIntlayer';
+export * from './intlayerToken';
 export * from './useDictionary';
 export * from './useDictionaryAsync';
 export * from './useDictionaryDynamic';

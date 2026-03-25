@@ -3,7 +3,11 @@
 import { computed, inject } from '@angular/core';
 import configuration from '@intlayer/config/built';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import type { DictionaryKeys, LocalesValues, StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
+import type {
+  DictionaryKeys,
+  LocalesValues,
+  StrictModeLocaleMap,
+} from '@intlayer/types/module_augmentation';
 import { INTLAYER_TOKEN, type IntlayerProvider } from './installIntlayer';
 import { useDictionary } from './useDictionary';
 import { useLoadDynamic } from './useLoadDynamic';
@@ -32,7 +36,7 @@ export const useDictionaryDynamic = <
 
   const dictionary = useLoadDynamic<T>(
     `${String(key)}.${localeTarget()}`,
-    dictionaryPromise[localeTarget()]?.()
+    (dictionaryPromise as any)[localeTarget()]?.()
   ) as T;
 
   return useDictionary(dictionary, localeTarget() as any);

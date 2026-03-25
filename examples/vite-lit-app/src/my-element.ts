@@ -5,6 +5,7 @@ import {
   useCompact,
   useCurrency,
   useDate,
+  useIntl,
   useList,
   useNumber,
   usePercentage,
@@ -45,6 +46,14 @@ export class MyElement extends LitElement {
   private unit = useUnit(this);
   private compact = useCompact(this);
   private list = useList(this);
+  private intl = useIntl(this);
+
+  private get formattedCurrency() {
+    return new this.intl.value.NumberFormat({
+      style: 'currency',
+      currency: 'USD',
+    }).format(12345.67);
+  }
 
   private now = new Date();
   private in3Days = new Date(this.now.getTime() + 3 * 864e5);
@@ -82,6 +91,7 @@ export class MyElement extends LitElement {
           })}</p>
           <p>Compact: ${this.compact.value(1200)}</p>
           <p>List: ${this.list.value(['apple', 'banana', 'orange'])}</p>
+          <p>Intl (Manual): ${this.formattedCurrency}</p>
         </div>
 
         <h1>${content.title}</h1>

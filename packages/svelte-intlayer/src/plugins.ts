@@ -96,7 +96,7 @@ export const intlayerNodePlugins: Plugins = {
   transform: (node, { children, ...rest }) =>
     renderIntlayerNode({
       value: children ?? node,
-      component: isEnabled ? ContentSelector : (children ?? node),
+      component: isEnabled ? ContentSelector : undefined,
       props: rest,
     }),
 };
@@ -244,7 +244,7 @@ export const insertionPlugin: Plugins = {
       children !== null &&
       'nodeType' in children &&
       [NodeTypes.ENUMERATION, NodeTypes.CONDITION].includes(
-        children.nodeType as NodeType
+        children.nodeType as any
       )
     ) {
       return (values: any) => (arg: any) => {

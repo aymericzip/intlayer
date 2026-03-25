@@ -40,9 +40,15 @@ export const renderIntlayerNode = <
     }) as IntlayerNode<T>;
   }
 
+  // Proxy target must be an object or function; wrap primitives
+  const target =
+    typeof children === 'object' || typeof children === 'function'
+      ? children
+      : ({} as any);
+
   // Return a Proxy that pretends to be the original content
   // but also has a .value getter and additional props.
-  return new Proxy(children, {
+  return new Proxy(target, {
     apply(target, thisArg, argumentsList) {
       if (typeof value === 'function') {
         return Reflect.apply(value as Function, thisArg, argumentsList);
