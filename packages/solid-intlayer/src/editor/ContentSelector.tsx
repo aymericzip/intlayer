@@ -1,6 +1,7 @@
 import type { NodeProps } from '@intlayer/core/interpreter';
 import { isEnabled } from '@intlayer/editor/isEnabled';
 import type { Component, JSX } from 'solid-js';
+import { Dynamic } from 'solid-js/web';
 
 // JSX declaration for the Lit web components
 declare module 'solid-js' {
@@ -19,21 +20,20 @@ export type ContentSelectorWrapperProps = NodeProps &
     children?: JSX.Element;
   };
 
-export const ContentSelector: Component<ContentSelectorWrapperProps> = ({
-  keyPath,
-  dictionaryKey,
-  children,
-}) => {
+export const ContentSelector: Component<ContentSelectorWrapperProps> = (
+  props
+) => {
   if (isEnabled) {
     return (
-      <intlayer-content-selector-wrapper
-        attr:key-path={JSON.stringify(keyPath)}
-        attr:dictionary-key={dictionaryKey}
+      <Dynamic
+        component="intlayer-content-selector-wrapper"
+        attr:key-path={JSON.stringify(props.keyPath)}
+        attr:dictionary-key={props.dictionaryKey}
       >
-        {children}
-      </intlayer-content-selector-wrapper>
+        {props.children}
+      </Dynamic>
     );
   }
 
-  return children;
+  return props.children;
 };
