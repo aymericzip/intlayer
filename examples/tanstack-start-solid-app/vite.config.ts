@@ -2,7 +2,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { devtools } from '@tanstack/devtools-vite';
 import { tanstackStart } from '@tanstack/solid-start/plugin/vite';
 import { defineConfig } from 'vite';
-import { intlayer } from 'vite-intlayer';
+import { intlayer, intlayerProxy } from 'vite-intlayer';
 import solidPlugin from 'vite-plugin-solid';
 import viteTsConfigPaths from 'vite-tsconfig-paths';
 
@@ -21,5 +21,6 @@ export default defineConfig({
     }),
     solidPlugin({ ssr: true }),
     intlayer(),
+    intlayerProxy(),
   ],
 });
