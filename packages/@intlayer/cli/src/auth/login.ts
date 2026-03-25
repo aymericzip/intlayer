@@ -77,7 +77,7 @@ export const login = async (options: LoginOptions) => {
           [
             `${ANSIColors.GREY_LIGHT}{`,
             `  editor: {`,
-            `     cmsURL: '${colorizePath(cmsUrl, undefined, ANSIColors.GREY_LIGHT)}',`,
+            `     cmsURL: '${colorizePath(cmsUrl!, undefined, ANSIColors.GREY_LIGHT)}',`,
             `     clientId: '${colorize('process.env.INTLAYER_CLIENT_ID', ANSIColors.BLUE, ANSIColors.GREY_LIGHT)}',`,
             `     clientSecret: '${colorize('process.env.INTLAYER_CLIENT_SECRET', ANSIColors.BLUE, ANSIColors.GREY_LIGHT)}',`,
             `  },`,
@@ -185,7 +185,7 @@ export const login = async (options: LoginOptions) => {
 
       const websiteUrl =
         cmsUrl ?? process.env.INTLAYER_SITE_URL ?? 'http://localhost:3000';
-      const loginUrl = `${websiteUrl}/en/auth/cli-login?port=${port}&state=${state}`;
+      const loginUrl = `${websiteUrl}/auth/cli-login?port=${port}&state=${state}`;
 
       logger('Opening browser for login...');
       logger(`If browser does not open, visit: ${colorizePath(loginUrl)}`);
