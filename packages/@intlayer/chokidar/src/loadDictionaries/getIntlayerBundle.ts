@@ -6,27 +6,34 @@ import { getProjectRequire } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 
 /**
- * Rewrites bare specifiers and subpaths to the user's local workspace paths.
+ * Rewrites bare specifiers to absolute paths on the user's disk and externalizes them
+ * to preserve directory context (__dirname/import.meta.url).
  */
 const localResolvePlugin = (
   aliases: Record<string, string>,
-  rootRequire: NodeRequire
+  rootRequire: NodeJS.Require
 ): ESBuildPlugin => {
   return {
     name: 'local-resolve',
     setup(build) {
       build.onResolve({ filter: /.*/ }, (args) => {
-        // 1. Direct alias match (e.g., config file mock)
+        // 1. Direct alias match
         if (aliases[args.path]) {
-          return { path: aliases[args.path] };
+          return {
+            path: aliases[args.path],
+            external: true, // Prevents inlining and context loss
+          };
         }
 
-        // 2. Dynamic resolution for defu and @intlayer subpaths via the user workspace
+        // 2. Dynamic resolution via user workspace
         if (args.path === 'defu' || args.path.startsWith('@intlayer/')) {
           try {
-            return { path: rootRequire.resolve(args.path) };
+            const absolutePath = rootRequire.resolve(args.path);
+            return {
+              path: absolutePath,
+              external: true, // Injects `require('/absolute/path')`
+            };
           } catch {
-            // Fallback: let esbuild attempt native resolution if rootRequire fails
             return null;
           }
         }
@@ -54,6 +61,7 @@ export const getIntlayerBundle = async (configuration: IntlayerConfig) => {
 
   const output = await bundleFile(code, filePath, {
     bundle: true,
+    platform: 'node',
     external: [
       ...builtinModules,
       ...builtinModules.map((mod) => `node:${mod}`),
