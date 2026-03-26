@@ -90,7 +90,11 @@ export const generateMetadata = async ({
       creator: '@aymericzip',
       images: `/github-social-preview.png`,
     },
-    verification: undefined,
+    verification: {
+      other: {
+        'baidu-site-verification': 'codeva-xkB0xyqJPb',
+      },
+    },
     appleWebApp: {
       capable: true,
       title: 'Intlayer',
