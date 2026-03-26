@@ -42,6 +42,13 @@ export const pluginIntlayerLynx = (): RsbuildPlugin => {
       // Merge Intlayer-specific environment variables and alias configuration.
       api.modifyRsbuildConfig(async (config, { mergeRsbuildConfig }) => {
         return mergeRsbuildConfig(config, {
+          source: {
+            define: {
+              'process.env.INTLAYER_EDITOR_ENABLED': JSON.stringify(
+                configuration.editor?.enabled === false ? 'false' : 'true'
+              ),
+            },
+          },
           resolve: {
             alias: {
               ...getAlias({ configuration }),

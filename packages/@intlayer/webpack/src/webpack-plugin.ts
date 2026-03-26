@@ -15,6 +15,14 @@ export class IntlayerPlugin {
   }
 
   async apply(compiler: Compiler): Promise<void> {
+    const { webpack } = compiler;
+
+    new webpack.DefinePlugin({
+      'process.env.INTLAYER_EDITOR_ENABLED': JSON.stringify(
+        this.configuration.editor?.enabled === false ? 'false' : 'true'
+      ),
+    }).apply(compiler);
+
     if (this.configuration.content.watch) {
       // Start watching (assuming watch is also async)
       watch({ configuration: this.configuration });
