@@ -134,7 +134,9 @@ export const extract = async (options: ExtractOptions) => {
         },
       });
 
-      selectedFiles = enquirerSelectedFiles.filter((f) => f !== SELECT_ALL);
+      selectedFiles = enquirerSelectedFiles.filter(
+        (file) => file !== SELECT_ALL
+      );
     } catch {
       selectedFiles = Symbol('cancel');
     }
