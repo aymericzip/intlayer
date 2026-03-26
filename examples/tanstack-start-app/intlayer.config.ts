@@ -11,6 +11,9 @@ const config: IntlayerConfig = {
       // Your other locales
     ],
   },
+  compiler: {
+    output: ({ fileName }) => `./${fileName}.content.ts`,
+  },
 };
 
 export default config;
