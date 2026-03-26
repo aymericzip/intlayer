@@ -1,93 +1,67 @@
 import { readFile } from 'node:fs/promises';
-import { builtinModules, createRequire } from 'node:module';
+import { builtinModules } from 'node:module';
 import { join } from 'node:path';
 import { bundleFile, type ESBuildPlugin } from '@intlayer/config/file';
-import {
-  configESMxCJSRequire,
-  getProjectRequire,
-  isESModule,
-} from '@intlayer/config/utils';
+import { getProjectRequire } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 
 /**
- * Rewrites selected bare specifiers (and any of their subpaths) to absolute file paths,
- * using the provided localeRequire (either createRequire(import.meta.url) or require).
- *
- * Example:
- *   rewritePathsPlugin(["@intlayer/config", "@intlayer/core"], localeRequire)
- * …will also rewrite "@intlayer/core/file" etc.
+ * Rewrites bare specifiers and subpaths to the user's local workspace paths.
  */
-const rewritePathsPlugin = (
-  replaceModules: Record<string, string>,
-  excludeModules?: string[]
+const localResolvePlugin = (
+  aliases: Record<string, string>,
+  rootRequire: NodeRequire
 ): ESBuildPlugin => {
   return {
-    name: 'rewrite-paths',
+    name: 'local-resolve',
     setup(build) {
       build.onResolve({ filter: /.*/ }, (args) => {
-        const exact = replaceModules[args.path];
-
-        if (excludeModules?.includes(args.path)) {
-          return null;
+        // 1. Direct alias match (e.g., config file mock)
+        if (aliases[args.path]) {
+          return { path: aliases[args.path] };
         }
 
-        if (exact) {
-          return {
-            path: exact,
-            namespace: 'intlayer-replace-modules',
-            external: true, // ← prevents onLoad requirement
-          };
-        }
-
-        // Optional: support subpaths like "@intlayer/core/xyz"
-        for (const key of Object.keys(replaceModules)) {
-          if (args.path === key || args.path.startsWith(`${key}/`)) {
-            const sub = args.path.slice(key.length); // '' or '/...'
-            return {
-              path: replaceModules[key] + sub,
-              namespace: 'intlayer-replace-modules',
-              external: true, // ← prevents onLoad requirement
-            };
+        // 2. Dynamic resolution for defu and @intlayer subpaths via the user workspace
+        if (args.path === 'defu' || args.path.startsWith('@intlayer/')) {
+          try {
+            return { path: rootRequire.resolve(args.path) };
+          } catch {
+            // Fallback: let esbuild attempt native resolution if rootRequire fails
+            return null;
           }
         }
+
+        return null;
       });
     },
   };
 };
 
-/**
- * Get the intlayer bundle to embed @intlayer/core and be able to mock @intlayer/config/built to mock the configuration file.
- */
 export const getIntlayerBundle = async (configuration: IntlayerConfig) => {
   const rootRequire = getProjectRequire(configuration.system.baseDir);
-  const configPackageRequire = configESMxCJSRequire;
-  const localRequire = isESModule ? createRequire(import.meta.url) : require;
 
   const configurationPath = join(
     configuration.system.configDir,
     `configuration.cjs`
   );
 
-  const replaceModules = {
-    defu: configPackageRequire.resolve('defu'),
-    esbuild: configPackageRequire.resolve('esbuild'),
+  const aliases = {
     '@intlayer/config/built': configurationPath,
-    '@intlayer/config/utils': localRequire.resolve('@intlayer/config/utils'),
-    '@intlayer/config/client': localRequire.resolve('@intlayer/config/client'),
-    '@intlayer/config/logger': localRequire.resolve('@intlayer/config/logger'),
-    '@intlayer/core/file': localRequire.resolve('@intlayer/core/file'),
   };
 
   const filePath = rootRequire.resolve('intlayer');
   const code = await readFile(filePath, 'utf-8');
 
   const output = await bundleFile(code, filePath, {
+    bundle: true,
     external: [
       ...builtinModules,
       ...builtinModules.map((mod) => `node:${mod}`),
+      'vscode',
+      'esbuild',
     ],
     minify: true,
-    plugins: [rewritePathsPlugin(replaceModules)],
+    plugins: [localResolvePlugin(aliases, rootRequire)],
   });
 
   return output ?? '';
