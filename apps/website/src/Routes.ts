@@ -30,6 +30,7 @@ export enum PagesRoutes {
   Doc_Environment_ViteAndReact_ReactRouterV7 = '/doc/environment/vite-and-react/react-router-v7',
   Doc_Environment_ViteAndReact_ReactRouterV7_FSRoutes = '/doc/environment/vite-and-react/react-router-v7-fs-routes',
   Doc_Environment_Tanstack = '/doc/environment/tanstack',
+  Doc_Environment_Lit = '/doc/environment/lit',
   Doc_Environment_Nodejs = '/doc/concept/cli',
   Doc_Environment_Adonis = '/doc/environment/adonis',
   Doc_Environment_ViteAndVue = '/doc/environment/vite-and-vue',

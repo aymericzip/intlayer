@@ -31,17 +31,6 @@ const logos = [
     key: 'nextjs',
     route: PagesRoutes.Doc_Environment_NextJS,
   },
-  // Remove because too visible
-  // {
-  //   name: TechLogoName.Adonis,
-  //   key: 'adonis',
-  //   route: PagesRoutes.Doc_Environment_Adonis,
-  // },
-  {
-    name: TechLogoName.Node,
-    key: 'nodejs',
-    route: PagesRoutes.Doc_Environment_Nodejs,
-  },
   {
     name: TechLogoName.React,
     key: 'react',
@@ -78,9 +67,9 @@ const logos = [
     route: PagesRoutes.Doc_Environment_Tanstack,
   },
   {
-    name: TechLogoName.Lynx,
-    key: 'lynx',
-    route: PagesRoutes.Doc_Intlayer_with_Lynx_and_React,
+    name: TechLogoName.Lit,
+    key: 'lit',
+    route: PagesRoutes.Doc_Environment_Lit,
   },
   {
     name: TechLogoName.Svelte,
