@@ -726,6 +726,27 @@ const docDataContent: Dictionary = {
           frameworks: ['nextjs', 'react'],
         },
 
+        'tanstack-start': {
+          title: 'Tanstack Start',
+          default: getDocMetadata('./docs/en/intlayer_with_tanstack.md'),
+          frameworks: ['tanstack', 'react', 'vite'],
+          subSections: {
+            'tanstack-start-solid': {
+              title: 'Tanstack Start Solid',
+              default: getDocMetadata(
+                './docs/en/intlayer_with_tanstack+solid.md'
+              ),
+              frameworks: ['solid', 'tanstack', 'vite'],
+            },
+          },
+        },
+
+        astro: {
+          title: 'Astro',
+          default: getDocMetadata('./docs/en/intlayer_with_astro.md'),
+          frameworks: ['astro', 'vite'],
+        },
+
         'vite-and-react': {
           title: t({
             en: 'Vite and React',
@@ -773,33 +794,7 @@ const docDataContent: Dictionary = {
           },
           frameworks: ['react', 'vite'],
         },
-        'tanstack-start': {
-          title: 'Tanstack Start',
-          default: getDocMetadata('./docs/en/intlayer_with_tanstack.md'),
-          frameworks: ['tanstack', 'react', 'vite'],
-          subSections: {
-            'tanstack-start-solid': {
-              title: 'Tanstack Start Solid',
-              default: getDocMetadata(
-                './docs/en/intlayer_with_tanstack+solid.md'
-              ),
-              frameworks: ['solid', 'tanstack', 'vite'],
-            },
-          },
-        },
 
-        astro: {
-          title: 'Astro',
-          default: getDocMetadata('./docs/en/intlayer_with_astro.md'),
-          frameworks: ['astro', 'vite'],
-        },
-        'create-react-app': {
-          title: 'React CRA',
-          default: getDocMetadata(
-            './docs/en/intlayer_with_create_react_app.md'
-          ),
-          frameworks: ['react', 'vite'],
-        },
         'vite-and-vue': {
           title: t({
             en: 'Vite and Vue',
@@ -990,6 +985,13 @@ const docDataContent: Dictionary = {
             },
           },
           frameworks: ['angular', 'webpack'],
+        },
+        'create-react-app': {
+          title: 'React CRA',
+          default: getDocMetadata(
+            './docs/en/intlayer_with_create_react_app.md'
+          ),
+          frameworks: ['react', 'vite'],
         },
         'react-native-and-expo': {
           title: t({
