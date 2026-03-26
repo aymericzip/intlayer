@@ -431,10 +431,12 @@ export const DocNavList: FC<DocNavListProps> = ({ docData, activeSlugs }) => {
                 isHidden && 'flex-col-reverse'
               )}
             >
-              <FrameworkFilter
-                selected={selectedFramework}
-                onSelect={setSelectedFramework}
-              />
+              {!isHidden && (
+                <FrameworkFilter
+                  selected={selectedFramework}
+                  onSelect={setSelectedFramework}
+                />
+              )}
               <SearchTrigger isMini={isHidden} />
               <PopoverStatic identifier="doc-nav-collapse">
                 <Button
