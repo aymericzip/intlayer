@@ -409,7 +409,6 @@ export class MyElement extends LitElement {
 }
 ```
 
-> [!NOTE]
 > 当您在原生 HTML 属性（例如 `alt`、`aria-label`、`title`）中需要翻译后的字符串时，请在叶节点上调用 `.value`：
 >
 > ```typescript

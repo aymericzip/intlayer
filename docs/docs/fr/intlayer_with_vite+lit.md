@@ -409,7 +409,6 @@ export class MyElement extends LitElement {
 }
 ```
 
-> [!NOTE]
 > Lorsque vous avez besoin de la chaîne traduite dans un attribut HTML natif (ex: `alt`, `aria-label`, `title`), appelez `.value` sur le nœud terminal :
 >
 > ```typescript

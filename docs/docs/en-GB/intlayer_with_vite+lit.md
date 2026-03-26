@@ -411,7 +411,6 @@ export class MyElement extends LitElement {
 }
 ```
 
-> [!NOTE]
 > When you need the translated string in a native HTML attribute (e.g. `alt`, `aria-label`, `title`), call `.value` on the leaf node:
 >
 > ```typescript

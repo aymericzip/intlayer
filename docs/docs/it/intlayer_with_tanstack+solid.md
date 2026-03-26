@@ -221,9 +221,6 @@ function RootComponent() {
 }
 ```
 
-> [!NOTE]
-> In Solid, `useMatches` restituisce un **segnale** (accessore reattivo). Usa `matches()` (con le parentesi) per accedere al valore corrente in modo reattivo.
-
 ### Passaggio 6: Crea il layout della lingua (Opzionale)
 
 Crea un layout che gestisca il prefisso della lingua ed effettui la validazione. Questo layout assicurerà che vengano elaborati solo prefissi di lingua validi.
@@ -415,7 +412,6 @@ function RouteComponent() {
 }
 ```
 
-> [!NOTE]
 > In Solid, `useIntlayer` restituisce una funzione **accessor** (ad esempio, `content()`). È necessario chiamare questa funzione per accedere al contenuto reattivo.
 >
 > Per saperne di più sull'hook `useIntlayer`, fai riferimento alla [documentazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/solid-intlayer/useIntlayer.md).
@@ -460,7 +456,6 @@ export const LocaleSwitcher = () => {
 export default LocaleSwitcher;
 ```
 
-> [!NOTE]
 > In Solid, `locale` da `useLocale` è un **accessore di segnale**. Usa `locale()` (con le parentesi) per leggere il suo valore corrente in modo reattivo.
 >
 > Per saperne di più sull'hook `useLocale`, fai riferimento alla [documentazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/solid-intlayer/useLocale.md).

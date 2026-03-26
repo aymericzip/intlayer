@@ -314,7 +314,6 @@ const App: Component = () => (
 export default App;
 ```
 
-> [!NOTE]
 > Solid에서 `useIntlayer`는 **accessor** 함수(예: `content()`)를 반환합니다. 반응형 콘텐츠에 액세스하려면 이 함수를 호출해야 합니다.
 
 > `alt`, `title`, `href`, `aria-label` 등의 `string` 속성에서 콘텐츠를 사용하려면 다음과 같이 함수의 값을 호출해야 합니다:

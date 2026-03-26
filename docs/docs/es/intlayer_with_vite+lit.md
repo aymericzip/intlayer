@@ -409,7 +409,6 @@ export class MyElement extends LitElement {
 }
 ```
 
-> [!NOTE]
 > Cuando necesites la cadena traducida en un atributo HTML nativo (por ejemplo, `alt`, `aria-label`, `title`), llama a `.value` en el nodo hoja:
 >
 > ```typescript

@@ -313,7 +313,6 @@ const App: Component = () => (
 export default App;
 ```
 
-> [!NOTE]
 > 在 Solid 中，`useIntlayer` 返回一个 **accessor** 函数（例如，`content()`）。您必须调用此函数才能访问响应式内容。
 
 > 如果您想在 `string` 属性（如 `alt`、`title`、`href`、`aria-label` 等）中使用您的内容，必须调用函数的值，例如：

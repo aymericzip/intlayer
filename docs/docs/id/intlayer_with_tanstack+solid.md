@@ -221,9 +221,6 @@ function RootComponent() {
 }
 ```
 
-> [!NOTE]
-> Dalam file Solid, `useMatches` mengembalikan sebuah **signal** (aksesor reaktif). Gunakan `matches()` (dengan tanda kurung) untuk mengakses nilai saat ini secara reaktif.
-
 ### Langkah 6: Buat Locale Layout (Opsional)
 
 Buat layout yang menangani prefiks lokal dan melakukan validasi. Layout ini akan memastikan hanya lokal yang valid yang diproses.
@@ -415,7 +412,6 @@ function RouteComponent() {
 }
 ```
 
-> [!NOTE]
 > Di Solid, `useIntlayer` mengembalikan fungsi **accessor** (misal: `content()`). Anda harus memanggil fungsi ini untuk mengakses konten reaktif.
 >
 > Untuk mempelajari lebih lanjut tentang hook `useIntlayer`, lihat [dokumentasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/solid-intlayer/useIntlayer.md).
@@ -460,7 +456,6 @@ export const LocaleSwitcher = () => {
 export default LocaleSwitcher;
 ```
 
-> [!NOTE]
 > Dalam file Solid, `locale` dari `useLocale` adalah sebuah **signal accessor**. Gunakan `locale()` (dengan tanda kurung) untuk membaca nilai saat ini secara reaktif.
 >
 > Untuk mempelajari lebih lanjut tentang hook `useLocale`, lihat [dokumentasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/solid-intlayer/useLocale.md).

@@ -409,7 +409,6 @@ export class MyElement extends LitElement {
 }
 ```
 
-> [!NOTE]
 > Коли вам потрібен перекладений рядок у нативному атрибуті HTML (наприклад, `alt`, `aria-label`, `title`), викликайте `.value` на листовому вузлі:
 >
 > ```typescript

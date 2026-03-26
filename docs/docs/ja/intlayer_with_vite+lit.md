@@ -409,7 +409,6 @@ export class MyElement extends LitElement {
 }
 ```
 
-> [!NOTE]
 > ネイティブHTML属性（例：`alt`、`aria-label`、`title`）で翻訳された文字列が必要な場合は、リーフノードで `.value` を呼び出します：
 >
 > ```typescript

@@ -221,9 +221,6 @@ function RootComponent() {
 }
 ```
 
-> [!NOTE]
-> Solid'de, `useMatches` bir **signal** (reaktif erişimci) döndürür. Geçerli değere reaktif olarak erişmek için `matches()` (parantezli) kullanın.
-
 ### Adım 6: Yerel Ayar Düzeni Oluşturma (İsteğe Bağlı)
 
 Yerel ayar önekini işleyen ve doğrulama gerçekleştiren bir düzen oluşturun. Bu düzen, yalnızca geçerli yerel ayarların işlenmesini sağlayacaktır.
@@ -416,7 +413,6 @@ function RouteComponent() {
 }
 ```
 
-> [!NOTE]
 > Solid'de, `useIntlayer` bir **accessor** fonksiyonu (ör: `content()`) döndürür. Reaktif içeriğe erişmek için bu fonksiyonu çağırmalısınız.
 >
 > `useIntlayer` hook'u hakkında daha fazla bilgi edinmek için [dokümantasyon](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/solid-intlayer/useIntlayer.md)a bakın.
@@ -461,7 +457,6 @@ export const LocaleSwitcher = () => {
 export default LocaleSwitcher;
 ```
 
-> [!NOTE]
 > Solid'de, `useLocale`dan gelen `locale` bir **signal accessor**'dur. Reaktif olarak geçerli değerini okumak için `locale()` (parantezli) kullanın.
 >
 > `useLocale` hook'u hakkında daha fazla bilgi edinmek için [dokümantasyon](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/solid-intlayer/useLocale.md)a bakın.

@@ -221,9 +221,6 @@ function RootComponent() {
 }
 ```
 
-> [!NOTE]
-> Solidでは、`useMatches` は **シグナル** (リアクティブなアクセサー) を返します。現在の値にリアクティブにアクセスするには、`matches()` (括弧付き) を使用します。
-
 ### ステップ 6: ロケールレイアウトの作成 (任意)
 
 ロケールプレフィックスを処理し、検証を実行するレイアウトを作成します。このレイアウトにより、有効なロケールのみが処理されるようになります。
@@ -415,7 +412,6 @@ function RouteComponent() {
 }
 ```
 
-> [!NOTE]
 > Solidでは、`useIntlayer` は **アクセサー** 関数 (例: `content()`) を返します。リアクティブなコンテンツにアクセスするには、この関数を呼び出す必要があります。
 >
 > `useIntlayer` フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/solid-intlayer/useIntlayer.md)を参照してください。
@@ -460,7 +456,6 @@ export const LocaleSwitcher = () => {
 export default LocaleSwitcher;
 ```
 
-> [!NOTE]
 > Solidでは、`useLocale` からの `locale` は **シグナルアクセサー** です。現在の値をリアクティブに読み取るには、`locale()` (括弧付き) を使用します。
 >
 > `useLocale` フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/solid-intlayer/useLocale.md)を参照してください。

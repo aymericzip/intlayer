@@ -409,7 +409,6 @@ export class MyElement extends LitElement {
 }
 ```
 
-> [!NOTE]
 > Yerel bir HTML özniteliğinde (örneğin `alt`, `aria-label`, `title`) çevrilmiş dizeye ihtiyacınız olduğunda, yaprak düğüm üzerinde `.value` işlevini çağırın:
 >
 > ```typescript

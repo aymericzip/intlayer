@@ -409,7 +409,6 @@ export class MyElement extends LitElement {
 }
 ```
 
-> [!NOTE]
 > जब आपको नेटिव HTML एट्रिब्यूट (जैसे `alt`, `aria-label`, `title`) में अनुवादित स्ट्रिंग की आवश्यकता हो, तो लीफ नोड पर `.value` कॉल करें:
 >
 > ```typescript

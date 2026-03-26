@@ -409,7 +409,6 @@ export class MyElement extends LitElement {
 }
 ```
 
-> [!NOTE]
 > 네이티브 HTML 속성(예: `alt`, `aria-label`, `title`)에서 번역된 문자열이 필요한 경우 리프 노드에서 `.value`를 호출하세요:
 >
 > ```typescript

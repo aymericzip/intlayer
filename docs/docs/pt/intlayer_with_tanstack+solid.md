@@ -221,9 +221,6 @@ function RootComponent() {
 }
 ```
 
-> [!NOTE]
-> No Solid, `useMatches` retorna um **signal** (acessador reativo). Use `matches()` (com parênteses) para acessar o valor atual de forma reativa.
-
 ### Passo 6: Criar o Layout de Localidade (Opcional)
 
 Crie um layout que lide com o prefixo de localidade e realize a validação. Este layout garantirá que apenas localidades válidas sejam processadas.
@@ -415,7 +412,6 @@ function RouteComponent() {
 }
 ```
 
-> [!NOTE]
 > No Solid, `useIntlayer` retorna uma função **accessor** (ex: `content()`). Você deve chamar esta função para acessar o conteúdo reativo.
 >
 > Para aprender mais sobre o hook `useIntlayer`, consulte a [documentação](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/solid-intlayer/useIntlayer.md).
@@ -460,7 +456,6 @@ export const LocaleSwitcher = () => {
 export default LocaleSwitcher;
 ```
 
-> [!NOTE]
 > No Solid, `locale` de `useLocale` é um **signal accessor**. Use `locale()` (com parênteses) para ler o seu valor atual de forma reativa.
 >
 > Para aprender mais sobre o hook `useLocale`, consulte la [documentação](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/solid-intlayer/useLocale.md).

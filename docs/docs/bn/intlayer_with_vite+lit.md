@@ -409,7 +409,6 @@ export class MyElement extends LitElement {
 }
 ```
 
-> [!NOTE]
 > যখন আপনার নেটিভ HTML অ্যাট্রিবিউটে (যেমন `alt`, `aria-label`, `title`) অনুবাদ করা স্ট্রিং প্রয়োজন হয়, তখন লিফ নোডে (leaf node) `.value` কল করুন:
 >
 > ```typescript

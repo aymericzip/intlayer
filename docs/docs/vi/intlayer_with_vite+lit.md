@@ -409,7 +409,6 @@ export class MyElement extends LitElement {
 }
 ```
 
-> [!NOTE]
 > Khi bạn cần chuỗi đã dịch trong một thuộc tính HTML gốc (ví dụ: `alt`, `aria-label`, `title`), hãy gọi `.value` trên nút lá:
 >
 > ```typescript

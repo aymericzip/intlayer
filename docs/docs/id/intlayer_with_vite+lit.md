@@ -409,7 +409,6 @@ export class MyElement extends LitElement {
 }
 ```
 
-> [!NOTE]
 > Saat Anda memerlukan string terjemahan dalam atribut HTML asli (misalnya, `alt`, `aria-label`, `title`), hubungi `.value` pada simpul daun:
 >
 > ```typescript

@@ -312,7 +312,6 @@ const App: Component = () => (
 export default App;
 ```
 
-> [!NOTE]
 > No Solid, `useIntlayer` retorna uma função **accessor** (por exemplo, `content()`). Deve chamar esta função para aceder ao conteúdo reativo.
 
 > Se quiser usar o seu conteúdo num atributo `string`, como `alt`, `title`, `href`, `aria-label`, etc., deve chamar o valor da função, como:

@@ -409,7 +409,6 @@ export class MyElement extends LitElement {
 }
 ```
 
-> [!NOTE]
 > Wenn Sie den übersetzten String in einem nativen HTML-Attribut benötigen (z. B. `alt`, `aria-label`, `title`), rufen Sie `.value` auf dem Blattknoten auf:
 >
 > ```typescript

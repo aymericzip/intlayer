@@ -341,7 +341,6 @@ const App: Component = () => (
 export default App;
 ```
 
-> [!NOTE]
 > Solidでは、`useIntlayer`は**accessor**関数（例：`content()`）を返します。リアクティブコンテンツにアクセスするには、この関数を呼び出す必要があります。
 
 > `alt`、`title`、`href`、`aria-label`などの`string`属性でコンテンツを使用する場合は、関数の値を次のように呼び出す必要があります：

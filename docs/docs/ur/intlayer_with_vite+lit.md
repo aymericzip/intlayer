@@ -409,7 +409,6 @@ export class MyElement extends LitElement {
 }
 ```
 
-> [!NOTE]
 > جب آپ کو مقامی HTML ایٹریبیوٹ (جیسے `alt` ، `aria-label` ، `title`) میں ترجمہ شدہ سٹرنگ کی ضرورت ہو، تو لیف نوڈ پر `.value` کو کال کریں:
 >
 > ```typescript

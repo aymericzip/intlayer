@@ -221,9 +221,6 @@ function RootComponent() {
 }
 ```
 
-> [!NOTE]
-> В Solid `useMatches` возвращает **сигнал** (реактивный аксессор). Используйте `matches()` (со скобками) для реактивного доступа к текущему значению.
-
 ### Шаг 6: Создание макета локали (необязательно)
 
 Создайте макет, который обрабатывает префикс локали и выполняет валидацию. Этот макет гарантирует, что будут обрабатываться только допустимые локали.
@@ -415,7 +412,6 @@ function RouteComponent() {
 }
 ```
 
-> [!NOTE]
 > В Solid хук `useIntlayer` возвращает функцию-**аксессор** (например, `content()`). Вы должны вызвать эту функцию для доступа к реактивному контенту.
 >
 > Чтобы узнать больше о хуке `useIntlayer`, обратитесь к [документации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/solid-intlayer/useIntlayer.md).
@@ -460,7 +456,6 @@ export const LocaleSwitcher = () => {
 export default LocaleSwitcher;
 ```
 
-> [!NOTE]
 > В Solid `locale` из `useLocale` — это **аксессор сигнала**. Используйте `locale()` (со скобками) для реактивного чтения текущего значения.
 >
 > Чтобы узнать больше о хуке `useLocale`, обратитесь к [документации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/solid-intlayer/useLocale.md).

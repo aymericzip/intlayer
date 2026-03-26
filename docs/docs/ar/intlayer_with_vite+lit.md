@@ -409,7 +409,6 @@ export class MyElement extends LitElement {
 }
 ```
 
-> [!NOTE]
 > عندما تحتاج إلى السلسلة المترجمة في سمة HTML أصلية (مثل `alt` أو `aria-label` أو `title`)، استدعِ `.value` على العقدة الطرفية:
 >
 > ```typescript

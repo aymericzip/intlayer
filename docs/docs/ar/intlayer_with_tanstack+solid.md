@@ -221,9 +221,6 @@ function RootComponent() {
 }
 ```
 
-> [!NOTE]
-> في ملفات Solid، يعيد `useMatches` **إشارة (signal)** (وصول تفاعلي). استخدم `matches()` (مع القوسين) للوصول إلى القيمة الحالية بشكل تفاعلي.
-
 ### الخطوة 6: إنشاء تخطيط اللغة (اختياري)
 
 أنشئ تخطيطًا يتعامل مع بادئة اللغة ويقوم بالتحقق من صحتها. سيضمن هذا التخطيط معالجة اللغات الصالحة فقط.
@@ -415,7 +412,6 @@ function RouteComponent() {
 }
 ```
 
-> [!NOTE]
 > في Solid، يعيد `useIntlayer` وظيفة **وصول (accessor)** (مثل `content()`). يجب عليك استدعاء هذه الوظيفة للوصول إلى المحتوى التفاعلي.
 >
 > لمعرفة المزيد حول خطاف `useIntlayer` ، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/solid-intlayer/useIntlayer.md).
@@ -460,7 +456,6 @@ export const LocaleSwitcher = () => {
 export default LocaleSwitcher;
 ```
 
-> [!NOTE]
 > في ملفات Solid ، يكون `locale` من `useLocale` عبارة عن **signal accessor**. استخدم `locale()` (مع القوسين) لقراءة قيمته الحالية بشكل تفاعلي.
 >
 > لمعرفة المزيد حول خطاف `useLocale` ، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/solid-intlayer/useLocale.md).

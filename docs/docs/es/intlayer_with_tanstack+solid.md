@@ -221,9 +221,6 @@ function RootComponent() {
 }
 ```
 
-> [!NOTE]
-> En Solid, `useMatches` devuelve un **signal** (accesos reactivos). Use `matches()` (con paréntesis) para acceder al valor actual de forma reactiva.
-
 ### Paso 6: Crear el diseño de idioma (Opcional)
 
 Cree un diseño que maneje el prefijo de idioma y realice la validación. Este diseño asegurará que solo se procesen idiomas válidos.
@@ -415,7 +412,6 @@ function RouteComponent() {
 }
 ```
 
-> [!NOTE]
 > En Solid, `useIntlayer` devuelve una función **accessor** (por ejemplo, `content()`). Debe llamar a esta función para acceder al contenido reactivo.
 >
 > Para saber más sobre el hook `useIntlayer`, consulte la [documentación](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/solid-intlayer/useIntlayer.md).
@@ -460,7 +456,6 @@ export const LocaleSwitcher = () => {
 export default LocaleSwitcher;
 ```
 
-> [!NOTE]
 > En Solid, `locale` de `useLocale` es un **signal accessor**. Use `locale()` (con paréntesis) para leer su valor actual de forma reactiva.
 >
 > Para saber más sobre el hook `useLocale`, consulte la [documentación](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/solid-intlayer/useLocale.md).

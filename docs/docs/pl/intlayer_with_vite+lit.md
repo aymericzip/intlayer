@@ -409,7 +409,6 @@ export class MyElement extends LitElement {
 }
 ```
 
-> [!NOTE]
 > Gdy potrzebujesz przetłumaczonego ciągu znaków w natywnym atrybucie HTML (np. `alt`, `aria-label`, `title`), wywołaj `.value` na węźle typu liść (leaf node):
 >
 > ```typescript

@@ -313,7 +313,6 @@ const App: Component = () => (
 export default App;
 ```
 
-> [!NOTE]
 > Trong Solid, `useIntlayer` trả về một hàm **accessor** (ví dụ: `content()`). Bạn phải gọi hàm này để truy cập nội dung phản ứng.
 
 > Nếu bạn muốn sử dụng nội dung của mình trong một thuộc tính `string`, chẳng hạn như `alt`, `title`, `href`, `aria-label`, v.v., bạn phải gọi giá trị của hàm, như:

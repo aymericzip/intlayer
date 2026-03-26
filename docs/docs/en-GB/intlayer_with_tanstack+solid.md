@@ -221,9 +221,6 @@ function RootComponent() {
 }
 ```
 
-> [!NOTE]
-> in Solid files, `useMatches` returns a **signal** (reactive accessor). Use `matches()` (with parentheses) to reactively access the current value.
-
 ### Step 6: Create the Locale Layout (Optional)
 
 Create a layout that handles the locale prefix and performs validation. This layout will ensure only valid locales are processed.
@@ -416,7 +413,6 @@ function RouteComponent() {
 }
 ```
 
-> [!NOTE]
 > in Solid, `useIntlayer` returns an **accessor** function (ex: `content()`). You must call this function to access the reactive content.
 >
 > To learn more about the `useIntlayer` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/solid-intlayer/useIntlayer.md).
@@ -461,7 +457,6 @@ export const LocaleSwitcher = () => {
 export default LocaleSwitcher;
 ```
 
-> [!NOTE]
 > in Solid files, `locale` from `useLocale` is a **signal accessor**. Use `locale()` (with parentheses) to reactively read its current value.
 >
 > To learn more about the `useLocale` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/solid-intlayer/useLocale.md).

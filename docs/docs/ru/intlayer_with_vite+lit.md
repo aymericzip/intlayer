@@ -409,7 +409,6 @@ export class MyElement extends LitElement {
 }
 ```
 
-> [!NOTE]
 > Если вам нужна переведенная строка в нативном HTML-атрибуте (например, `alt`, `aria-label`, `title`), вызовите `.value` на конечном узле:
 >
 > ```typescript

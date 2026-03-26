@@ -221,9 +221,6 @@ function RootComponent() {
 }
 ```
 
-> [!NOTE]
-> 在 Solid 中，`useMatches` 返回一个 **signal** (响应式访问器)。请使用 `matches()` (带括号) 来响应式地访问当前值。
-
 ### 第 6 步：创建语言布局 (可选)
 
 创建一个处理语言前缀并执行验证的布局。此布局将确保仅处理有效的语言。
@@ -415,7 +412,6 @@ function RouteComponent() {
 }
 ```
 
-> [!NOTE]
 > 在 Solid 中，`useIntlayer` 返回一个 **accessor** 函数 (例如：`content()`)。您必须调用该函数以访问响应式内容。
 >
 > 欲了解更多关于 `useIntlayer` 钩子的信息，请参考[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useIntlayer.md)。
@@ -460,7 +456,6 @@ export const LocaleSwitcher = () => {
 export default LocaleSwitcher;
 ```
 
-> [!NOTE]
 > 在 Solid 中，来自 `useLocale` 的 `locale` 是一个 **signal accessor**。请使用 `locale()` (带括号) 来响应式地读取其当前值。
 >
 > 欲了解更多关于 `useLocale` 钩子的信息，请参考[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useLocale.md)。

@@ -221,9 +221,6 @@ function RootComponent() {
 }
 ```
 
-> [!NOTE]
-> Trong các tệp Solid, `useMatches` trả về một **signal** (accessor phản ứng). Sử dụng `matches()` (với dấu ngoặc đơn) để truy cập giá trị hiện tại một cách phản ứng.
-
 ### Bước 6: Tạo Locale Layout (Tùy chọn)
 
 Tạo một layout để xử lý tiền tố ngôn ngữ và thực hiện kiểm tra tính hợp lệ. Layout này sẽ đảm bảo chỉ các ngôn ngữ hợp lệ mới được xử lý.
@@ -415,7 +412,6 @@ function RouteComponent() {
 }
 ```
 
-> [!NOTE]
 > Trong Solid, `useIntlayer` trả về một hàm **accessor** (ví dụ: `content()`). Bạn phải gọi hàm này để truy cập nội dung phản ứng.
 >
 > Để tìm hiểu thêm về hook `useIntlayer`, hãy tham khảo [tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/solid-intlayer/useIntlayer.md).
@@ -460,7 +456,6 @@ export const LocaleSwitcher = () => {
 export default LocaleSwitcher;
 ```
 
-> [!NOTE]
 > Trong các tệp Solid, `locale` từ `useLocale` là một **signal accessor**. Sử dụng `locale()` (với dấu ngoặc đơn) để đọc giá trị hiện tại của nó một cách phản ứng.
 >
 > Để tìm hiểu thêm về hook `useLocale`, hãy tham khảo [tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/solid-intlayer/useLocale.md).

@@ -221,9 +221,6 @@ function RootComponent() {
 }
 ```
 
-> [!NOTE]
-> In Solid gibt `useMatches` ein **Signal** (reaktiver Accessor) zurück. Verwenden Sie `matches()` (mit Klammern), um reaktiv auf den aktuellen Wert zuzugreifen.
-
 ### Schritt 6: Gebietsschema-Layout erstellen (Optional)
 
 Erstellen Sie ein Layout, das das Gebietskennungs-Präfix verarbeitet und Validierungen durchführt. Dieses Layout stellt sicher, dass nur gültige Gebietsschemata verarbeitet werden.
@@ -415,7 +412,6 @@ function RouteComponent() {
 }
 ```
 
-> [!NOTE]
 > In Solid gibt `useIntlayer` eine **Accessor-Funktion** zurück (z. B. `content()`). Sie müssen diese Funktion aufrufen, um auf den reaktiven Inhalt zuzugreifen.
 >
 > Um mehr über den `useIntlayer`-Hook zu erfahren, lesen Sie die [Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/solid-intlayer/useIntlayer.md).
@@ -460,7 +456,6 @@ export const LocaleSwitcher = () => {
 export default LocaleSwitcher;
 ```
 
-> [!NOTE]
 > In Solid ist `locale` aus `useLocale` ein **Signal-Accessor**. Verwenden Sie `locale()` (mit Klammern), um den aktuellen Wert reaktiv zu lesen.
 >
 > Um mehr über den `useLocale`-Hook zu erfahren, lesen Sie die [Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/solid-intlayer/useLocale.md).

@@ -409,7 +409,6 @@ export class MyElement extends LitElement {
 }
 ```
 
-> [!NOTE]
 > Když potřebujete přeložený řetězec v nativním HTML atributu (např. `alt`, `aria-label`, `title`), zavolejte `.value` na koncovém uzlu (leaf node):
 >
 > ```typescript

@@ -221,9 +221,6 @@ function RootComponent() {
 }
 ```
 
-> [!NOTE]
-> Solid에서 `useMatches`는 **시그널**(반응형 접근자)을 반환합니다. `matches()`(괄호 포함)를 사용하여 현재 값에 반응형으로 접근하세요.
-
 ### 6단계: 로케일 레이아웃 생성 (선택 사항)
 
 로케일 접두사를 처리하고 유효성 검사를 수행하는 레이아웃을 만듭니다. 이 레이아웃은 유효한 로케일만 처리되도록 보장합니다.
@@ -415,7 +412,6 @@ function RouteComponent() {
 }
 ```
 
-> [!NOTE]
 > Solid에서 `useIntlayer`는 **접근자** 함수(예: `content()`)를 반환합니다. 반응형 콘텐츠에 접근하려면 이 함수를 호출해야 합니다.
 >
 > `useIntlayer` 훅에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/solid-intlayer/useIntlayer.md)를 참조하세요.
@@ -460,7 +456,6 @@ export const LocaleSwitcher = () => {
 export default LocaleSwitcher;
 ```
 
-> [!NOTE]
 > Solid에서 `useLocale`의 `locale`은 **시그널 접근자**입니다. 현재 값을 반응형으로 읽으려면 `locale()`(괄호 포함)을 사용하세요.
 >
 > `useLocale` 훅에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/solid-intlayer/useLocale.md)를 참조하세요.

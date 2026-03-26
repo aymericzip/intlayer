@@ -315,7 +315,6 @@ const App: Component = () => (
 export default App;
 ```
 
-> [!NOTE]
 > في Solid، `useIntlayer` يُرجع دالة **accessor** (على سبيل المثال، `content()`). يجب عليك استدعاء هذه الدالة للوصول إلى المحتوى التفاعلي.
 
 > إذا كنت تريد استخدام المحتوى الخاص بك في سمة `string`، مثل `alt`، `title`، `href`، `aria-label`، إلخ، يجب عليك استدعاء قيمة الدالة، مثل:

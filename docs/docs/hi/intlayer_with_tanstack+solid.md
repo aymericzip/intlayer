@@ -221,9 +221,6 @@ function RootComponent() {
 }
 ```
 
-> [!NOTE]
-> Solid में, `useMatches` एक **सिग्नल** (प्रतिक्रियाशील एक्सेसॉर) देता है। वर्तमान मान को प्रतिक्रियाशील रूप से एक्सेस करने के लिए `matches()` (कोष्ठक के साथ) का उपयोग करें।
-
 ### स्टेप 6: लोकेल लेआउट बनाएं (वैकल्पिक)
 
 एक लेआउट बनाएं जो लोकेल उपसर्ग को संभालता है और सत्यापन करता है। यह लेआउट सुनिश्चित करेगा कि केवल वैध लोकेल ही संसाधित हों।
@@ -415,7 +412,6 @@ function RouteComponent() {
 }
 ```
 
-> [!NOTE]
 > Solid में, `useIntlayer` एक **एक्सेसॉर** हुक (उदा: `content()`) देता है। प्रतिक्रियाशील सामग्री तक पहुँचने के लिए आपको इस फ़ंक्शन को कॉल करना होगा।
 >
 > `useIntlayer` हुक के बारे में अधिक जानने के लिए, [दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/solid-intlayer/useIntlayer.md) देखें।
@@ -460,7 +456,6 @@ export const LocaleSwitcher = () => {
 export default LocaleSwitcher;
 ```
 
-> [!NOTE]
 > Solid में, `useLocale` से `locale` एक **सिग्नल एक्सेसॉर** है। इसके वर्तमान मान को प्रतिक्रियाशील रूप से पढ़ने के लिए `locale()` (कोष्ठक के साथ) का उपयोग करें।
 >
 > `useLocale` हुक के बारे में अधिक जानने के लिए, [दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/solid-intlayer/useLocale.md) देखें।

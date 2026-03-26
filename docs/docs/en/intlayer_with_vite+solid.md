@@ -438,7 +438,6 @@ const App: Component = () => (
 export default App;
 ```
 
-> [!NOTE]
 > In Solid, `useIntlayer` returns an **accessor** function (e.g., `content()`). You must call this function to access the reactive content.
 
 > If you want to use your content in a `string` attribute, such as `alt`, `title`, `href`, `aria-label`, etc., you must call the value of the function, like:
