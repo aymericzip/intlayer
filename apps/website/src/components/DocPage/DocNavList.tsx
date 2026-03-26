@@ -428,8 +428,7 @@ export const DocNavList: FC<DocNavListProps> = ({ docData, activeSlugs }) => {
             <div
               className={cn(
                 'relative m-auto flex w-full flex-row items-center justify-center gap-2 px-2',
-                isHidden && 'flex-col-reverse',
-                !isHidden && 'pl-6'
+                isHidden && 'flex-col-reverse'
               )}
             >
               <FrameworkFilter
