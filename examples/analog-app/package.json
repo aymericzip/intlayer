@@ -49,10 +49,10 @@
     "intlayer-editor": "workspace:*",
     "jsdom": "29.0.1",
     "typescript": "6.0.2",
-    "vite": "8.0.2",
+    "vite": "8.0.3",
     "vite-intlayer": "workspace:*",
     "vite-tsconfig-paths": "6.1.1",
-    "vitest": "4.1.1"
+    "vitest": "4.1.2"
   },
   "engines": {
     "node": ">=20.19.1"
