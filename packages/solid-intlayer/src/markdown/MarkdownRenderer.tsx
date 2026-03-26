@@ -45,7 +45,7 @@ export const useMarkdownRenderer = (options: RenderMarkdownOptions = {}) => {
         },
         options.components,
         options.wrapper
-      );
+      ) as Promise<JSX.Element>;
     }
     return renderMarkdown(content, options);
   };
