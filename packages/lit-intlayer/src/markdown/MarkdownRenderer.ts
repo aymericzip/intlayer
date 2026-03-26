@@ -1,5 +1,4 @@
 import { html, LitElement, nothing } from 'lit';
-import { property } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import type { HTMLComponents } from '../html/types';
 import { compileMarkdown, type MarkdownCompilerOptions } from './compiler';
@@ -56,7 +55,7 @@ export const useMarkdownRenderer = (
       },
       props.components,
       props.wrapper
-    );
+    ) as string;
 };
 
 /**
@@ -122,7 +121,7 @@ export class MarkdownRenderer extends LitElement {
         },
         undefined,
         undefined
-      );
+      ) as string;
     } else {
       const renderer = useMarkdownRenderer({
         forceBlock: this.forceBlock,
