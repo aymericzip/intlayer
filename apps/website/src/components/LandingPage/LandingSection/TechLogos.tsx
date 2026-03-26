@@ -1,108 +1,113 @@
 import { Link } from '@components/Link/Link';
+import { TechLogo, TechLogoName } from '@intlayer/design-system';
 import { cn } from '@utils/cn';
-import type { FC, SVGProps } from 'react';
+import type { FC } from 'react';
 import { PagesRoutes } from '@/Routes';
-import { AngularLogo } from '../AvailableTechnoSection/Angular';
-import { AstroLogo } from '../AvailableTechnoSection/Astro';
-import { ExpressLogo } from '../AvailableTechnoSection/Express';
-import { FastifyLogo } from '../AvailableTechnoSection/Fastify';
-import { HonoLogo } from '../AvailableTechnoSection/Hono';
-import { LynxLogo } from '../AvailableTechnoSection/Lynx';
-import { NestJSLogo } from '../AvailableTechnoSection/NestJS';
-import { NextJSLogo } from '../AvailableTechnoSection/Nextjs';
-import { NuxtLogo } from '../AvailableTechnoSection/Nuxt';
-import { PreactLogo } from '../AvailableTechnoSection/Preact';
-import { ReactLogo } from '../AvailableTechnoSection/Reactjs';
-import { SolidLogo } from '../AvailableTechnoSection/Solid';
-import { SvelteLogo } from '../AvailableTechnoSection/Svelte';
-import { TanstackLogo } from '../AvailableTechnoSection/Tanstack';
-import { ViteLogo } from '../AvailableTechnoSection/Vitejs';
-import { VuejsLogo } from '../AvailableTechnoSection/Vuejs';
 
 // Animated Technology logos
 const logos = [
   {
-    Logo: ExpressLogo,
+    name: TechLogoName.Express,
     key: 'express',
     route: PagesRoutes.Doc_Environment_Express,
   },
   {
-    Logo: NestJSLogo,
+    name: TechLogoName.NestJS,
     key: 'nestjs',
     route: PagesRoutes.Doc_Environment_NestJS,
   },
   {
-    Logo: HonoLogo,
+    name: TechLogoName.Hono,
     key: 'hono',
     route: PagesRoutes.Doc_Environment_Hono,
   },
   {
-    Logo: FastifyLogo,
+    name: TechLogoName.Fastify,
     key: 'fastify',
     route: PagesRoutes.Doc_Environment_Fastify,
   },
   {
-    Logo: NextJSLogo,
+    name: TechLogoName.Nextjs,
     key: 'nextjs',
     route: PagesRoutes.Doc_Environment_NextJS,
   },
-  { Logo: ReactLogo, key: 'react', route: PagesRoutes.Doc_Environment_CRA },
+  // Remove because too visible
+  // {
+  //   name: TechLogoName.Adonis,
+  //   key: 'adonis',
+  //   route: PagesRoutes.Doc_Environment_Adonis,
+  // },
   {
-    Logo: PreactLogo,
+    name: TechLogoName.Node,
+    key: 'nodejs',
+    route: PagesRoutes.Doc_Environment_Nodejs,
+  },
+  {
+    name: TechLogoName.React,
+    key: 'react',
+    route: PagesRoutes.Doc_Environment_CRA,
+  },
+  {
+    name: TechLogoName.Preact,
     key: 'preact',
     route: PagesRoutes.Doc_Environment_ViteAndPreact,
   },
   {
-    Logo: VuejsLogo,
+    name: TechLogoName.Vue,
     key: 'vue',
     route: PagesRoutes.Doc_Environment_ViteAndVue,
   },
   {
-    Logo: NuxtLogo,
+    name: TechLogoName.Nuxt,
     key: 'nuxt',
     route: PagesRoutes.Doc_Environment_NuxtAndVue,
   },
   {
-    Logo: ViteLogo,
+    name: TechLogoName.Vite,
     key: 'vite',
     route: PagesRoutes.Doc_Environment_ViteAndReact,
   },
-  { Logo: AstroLogo, key: 'astro', route: PagesRoutes.Doc_Environment_Astro },
   {
-    Logo: TanstackLogo,
+    name: TechLogoName.Astro,
+    key: 'astro',
+    route: PagesRoutes.Doc_Environment_Astro,
+  },
+  {
+    name: TechLogoName.Tanstack,
     key: 'tanstack',
     route: PagesRoutes.Doc_Environment_Tanstack,
   },
   {
-    Logo: LynxLogo,
+    name: TechLogoName.Lynx,
     key: 'lynx',
     route: PagesRoutes.Doc_Intlayer_with_Lynx_and_React,
   },
   {
-    Logo: SvelteLogo,
+    name: TechLogoName.Svelte,
     key: 'svelte',
     route: PagesRoutes.Doc_Environment_ViteAndSvelte,
   },
   {
-    Logo: SolidLogo,
+    name: TechLogoName.Solid,
     key: 'solid',
     route: PagesRoutes.Doc_Environment_ViteAndSolid,
   },
   {
-    Logo: AngularLogo,
+    name: TechLogoName.Angular,
     key: 'angular',
     route: PagesRoutes.Doc_Environment_Angular,
   },
 ];
 
 const LogoItem: FC<{
-  Logo: FC<SVGProps<SVGSVGElement>>;
+  name: TechLogoName;
   label: string;
   route: string;
   className?: string;
-}> = ({ Logo, route, label, className }) => (
+}> = ({ name, route, label, className }) => (
   <Link href={route} label={label} color="custom">
-    <Logo
+    <TechLogo
+      name={name}
       className={cn(
         'size-12 shrink-0 opacity-70 transition-opacity duration-200 hover:opacity-100 sm:size-14 md:size-16 lg:size-18',
         className
@@ -120,7 +125,7 @@ export const TechLogos: FC = () => (
         </div>
       ))}
       {logos.map((logo, index) => (
-        <div key={`${logo.key}-${index}-1`} className="mx-6 sm:mx-12 md:mx-16">
+        <div key={`${logo.key}-${index}-2`} className="mx-6 sm:mx-12 md:mx-16">
           <LogoItem {...logo} label={logo.key} key={`${logo.key}-${index}-2`} />
         </div>
       ))}

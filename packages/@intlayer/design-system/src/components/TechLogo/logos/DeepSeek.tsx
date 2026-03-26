@@ -1,6 +1,6 @@
-import type { SVGProps } from 'react';
+import type { FC, SVGProps } from 'react';
 
-export const DeepSeek = (props: SVGProps<SVGSVGElement>) => (
+export const DeepSeekLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
     {...props}
     style={{ flex: 'none', lineHeight: '1' }}

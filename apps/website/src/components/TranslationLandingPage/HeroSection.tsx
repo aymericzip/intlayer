@@ -161,7 +161,7 @@ export const HeroSection: FC = () => {
                 variant={LinkVariant.BUTTON_OUTLINED}
                 color={LinkColor.TEXT}
                 className="w-full sm:w-auto"
-                label={seeCLICommands}
+                label={seeCLICommands.value}
               >
                 {seeCLICommands}
               </Link>
@@ -171,7 +171,7 @@ export const HeroSection: FC = () => {
                 variant={LinkVariant.BUTTON}
                 color={LinkColor.TEXT}
                 className="w-full sm:w-auto"
-                label={getStartedForFree}
+                label={getStartedForFree.value}
               >
                 {getStartedForFree}
               </Link>

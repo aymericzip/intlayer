@@ -1,6 +1,7 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
+import { TechLogo, TechLogoName } from '@intlayer/design-system';
 import { useDevice, useScreenWidth } from '@intlayer/design-system/hooks';
 import { cn } from '@utils/cn';
 import {
@@ -11,23 +12,14 @@ import {
   useTransform,
 } from 'framer-motion';
 import { useIntlayer } from 'next-intlayer';
-import type { CSSProperties, FC, SVGProps } from 'react';
+import type { CSSProperties, FC } from 'react';
 import { useRef, useState } from 'react';
 import { PagesRoutes } from '@/Routes';
-import { AngularLogo } from './Angular';
-import { NextJSLogo } from './Nextjs';
-import { NuxtLogo } from './Nuxt';
-import { PreactLogo } from './Preact';
-import { ReactLogo } from './Reactjs';
-import { SolidLogo } from './Solid';
-import { SvelteLogo } from './Svelte';
-import { ViteLogo } from './Vitejs';
-import { VuejsLogo } from './Vuejs';
 
 const BASE_SCREEN_WIDTH = 1500;
 
 type LogoConfig = {
-  Logo: FC<SVGProps<SVGSVGElement>>;
+  name: TechLogoName;
   route: string;
   initialPost: {
     scale: number;
@@ -48,7 +40,7 @@ type LogoItemProps = LogoConfig & {
 };
 
 const LogoItem: FC<LogoItemProps> = ({
-  Logo,
+  name,
   route,
   initialPost,
   animationProgress,
@@ -85,7 +77,8 @@ const LogoItem: FC<LogoItemProps> = ({
       }}
     >
       <Link href={route} color="custom" label={label}>
-        <Logo
+        <TechLogo
+          name={name}
           className={cn(
             'size-14 transition-transform duration-200 hover:scale-110',
             isFloating && 'animate-float',
@@ -104,7 +97,7 @@ const LogoItem: FC<LogoItemProps> = ({
 
 const logosRow1 = [
   {
-    Logo: PreactLogo,
+    name: TechLogoName.Preact,
     route: PagesRoutes.Doc_Environment_ViteAndPreact,
     initialPost: {
       scale: 1.2,
@@ -114,7 +107,7 @@ const logosRow1 = [
     label: 'react',
   },
   {
-    Logo: ReactLogo,
+    name: TechLogoName.React,
     route: PagesRoutes.Doc_Environment_ViteAndReact,
     initialPost: {
       scale: 1.5,
@@ -124,7 +117,7 @@ const logosRow1 = [
     label: 'preact',
   },
   {
-    Logo: SolidLogo,
+    name: TechLogoName.Solid,
     route: PagesRoutes.Doc_Environment_ViteAndSolid,
     initialPost: {
       scale: 1.2,
@@ -137,7 +130,7 @@ const logosRow1 = [
 
 const logosRow2 = [
   {
-    Logo: NuxtLogo,
+    name: TechLogoName.Nuxt,
     route: PagesRoutes.Doc_Environment_NuxtAndVue,
     initialPost: {
       scale: 1.5,
@@ -147,7 +140,7 @@ const logosRow2 = [
     label: 'vue',
   },
   {
-    Logo: VuejsLogo,
+    name: TechLogoName.Vue,
     route: PagesRoutes.Doc_Environment_ViteAndVue,
     initialPost: {
       scale: 1.3,
@@ -157,7 +150,7 @@ const logosRow2 = [
     label: 'nuxt',
   },
   {
-    Logo: SvelteLogo,
+    name: TechLogoName.Svelte,
     route: PagesRoutes.Doc_Environment_ViteAndSvelte,
     initialPost: {
       scale: 1.3,
@@ -170,7 +163,7 @@ const logosRow2 = [
 
 const logosRow3 = [
   {
-    Logo: NextJSLogo,
+    name: TechLogoName.Nextjs,
     route: PagesRoutes.Doc_Environment_NextJS_15,
     initialPost: {
       scale: 1.5,
@@ -180,7 +173,7 @@ const logosRow3 = [
     label: 'nextjs',
   },
   {
-    Logo: AngularLogo,
+    name: TechLogoName.Angular,
     route: PagesRoutes.Doc_Environment_Angular,
     initialPost: {
       scale: 1.2,
@@ -190,7 +183,7 @@ const logosRow3 = [
     label: 'angular',
   },
   {
-    Logo: ViteLogo,
+    name: TechLogoName.Vite,
     route: PagesRoutes.Doc_Environment_ViteAndReact,
     initialPost: {
       scale: 1.5,

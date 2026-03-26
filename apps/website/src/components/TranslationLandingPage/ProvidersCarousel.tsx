@@ -1,17 +1,12 @@
-import { Container } from '@intlayer/design-system';
+import { Container, TechLogo, TechLogoName } from '@intlayer/design-system';
 import type { FC } from 'react';
-import { ClaudeAI } from './AIProvidersLogo/Claude';
-import { DeepSeek } from './AIProvidersLogo/DeepSeek';
-import { MistralAI } from './AIProvidersLogo/Mistral';
-import { Ollama } from './AIProvidersLogo/Ollama';
-import { OpenAI } from './AIProvidersLogo/OpenAI';
 
-const providers: Array<{ name: string; logo?: FC<{ className?: string }> }> = [
-  { name: 'OpenAI', logo: OpenAI },
-  { name: 'Claude', logo: ClaudeAI },
-  { name: 'Ollama', logo: Ollama },
-  { name: 'Mistral', logo: MistralAI },
-  { name: 'DeepSeek', logo: DeepSeek },
+const providers: Array<{ name: string; logoName: TechLogoName }> = [
+  { name: 'OpenAI', logoName: TechLogoName.OpenAI },
+  { name: 'Claude', logoName: TechLogoName.Claude },
+  { name: 'Ollama', logoName: TechLogoName.Ollama },
+  { name: 'Mistral', logoName: TechLogoName.Mistral },
+  { name: 'DeepSeek', logoName: TechLogoName.DeepSeek },
 ];
 
 export const ProvidersCarousel: FC = () => {
@@ -24,8 +19,6 @@ export const ProvidersCarousel: FC = () => {
       <div className="horizontal-loop-4 inline-flex shrink-0 will-change-transform">
         {/* First set of provider cards */}
         {providers.map((provider, index) => {
-          const LogoComponent = provider.logo;
-
           return (
             <div
               key={`${provider.name}-first-${index}`}
@@ -36,8 +29,9 @@ export const ProvidersCarousel: FC = () => {
                 roundedSize="3xl"
                 className="flex flex-row items-center gap-4 px-5 py-4"
               >
-                {LogoComponent && (
-                  <LogoComponent
+                {provider.logoName && (
+                  <TechLogo
+                    name={provider.logoName}
                     className="size-6 shrink-0 transition duration-300 [&_path]:fill-text/70! group-hover:[&_path]:fill-text!"
                     aria-hidden="true"
                   />
@@ -51,7 +45,6 @@ export const ProvidersCarousel: FC = () => {
         })}
         {/* Duplicate set for seamless loop */}
         {providers.map((provider, index) => {
-          const LogoComponent = provider.logo;
           return (
             <div
               key={`${provider.name}-second-${index}`}
@@ -62,8 +55,9 @@ export const ProvidersCarousel: FC = () => {
                 roundedSize="3xl"
                 className="flex flex-row items-center gap-4 px-5 py-4"
               >
-                {LogoComponent && (
-                  <LogoComponent
+                {provider.logoName && (
+                  <TechLogo
+                    name={provider.logoName}
                     className="size-6 shrink-0 transition duration-300 [&_path]:fill-text/70! group-hover:[&_path]:fill-text!"
                     aria-hidden="true"
                   />

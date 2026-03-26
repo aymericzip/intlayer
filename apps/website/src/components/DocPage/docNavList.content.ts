@@ -112,7 +112,7 @@ const docNavTitlesContent = {
   },
   title: 'Documentation navigation list',
   description:
-    'Content declaration for the documentation navigation list component, including labels for buttons like collapse, blog access, and chatbot interaction.',
+    'Content declaration for the documentation navigation list component, including labels for buttons like collapse, blog access, chatbot interaction, and framework filter.',
   tags: ['documentation', 'navigation', 'component'],
 } satisfies Dictionary;
 

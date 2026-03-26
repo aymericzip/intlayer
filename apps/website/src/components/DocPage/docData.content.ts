@@ -653,6 +653,7 @@ const docDataContent: Dictionary = {
             15: {
               title: 'Next.js 15',
               default: getDocMetadata('./docs/en/intlayer_with_nextjs_15.md'),
+              frameworks: ['nextjs', 'react'],
             },
             14: {
               title: t({
@@ -676,6 +677,7 @@ const docDataContent: Dictionary = {
                 vi: 'Next.js 14 và App Router',
               }),
               default: getDocMetadata('./docs/en/intlayer_with_nextjs_14.md'),
+              frameworks: ['nextjs', 'react'],
             },
             'no-locale-path': {
               title: t({
@@ -702,6 +704,7 @@ const docDataContent: Dictionary = {
               default: getDocMetadata(
                 './docs/en/intlayer_with_nextjs_no_locale_path.md'
               ),
+              frameworks: ['nextjs', 'react'],
             },
             'next-with-Page-Router': {
               title: t({
@@ -727,6 +730,7 @@ const docDataContent: Dictionary = {
               default: getDocMetadata(
                 './docs/en/intlayer_with_nextjs_page_router.md'
               ),
+              frameworks: ['nextjs', 'react'],
             },
             'next-with-compiler': {
               title: t({
@@ -752,8 +756,10 @@ const docDataContent: Dictionary = {
               default: getDocMetadata(
                 './docs/en/intlayer_with_nextjs_compiler.md'
               ),
+              frameworks: ['nextjs', 'react'],
             },
           },
+          frameworks: ['nextjs', 'react'],
         },
 
         'vite-and-react': {
@@ -784,42 +790,51 @@ const docDataContent: Dictionary = {
               default: getDocMetadata(
                 './docs/en/intlayer_with_react_router_v7.md'
               ),
+              frameworks: ['react', 'vite'],
             },
             'react-router-v7-fs-routes': {
               title: 'React Router v7 (fs-routes)',
               default: getDocMetadata(
                 './docs/en/intlayer_with_react_router_v7_fs_routes.md'
               ),
+              frameworks: ['react', 'vite'],
             },
             compiler: {
               title: 'Compiler',
               default: getDocMetadata(
                 './docs/en/intlayer_with_vite+react_compiler.md'
               ),
+              frameworks: ['react', 'vite'],
             },
           },
+          frameworks: ['react', 'vite'],
         },
         'tanstack-start': {
           title: 'Tanstack Start',
           default: getDocMetadata('./docs/en/intlayer_with_tanstack.md'),
+          frameworks: ['tanstack', 'react', 'vite'],
           subSections: {
             'tanstack-start-solid': {
               title: 'Tanstack Start Solid',
               default: getDocMetadata(
                 './docs/en/intlayer_with_tanstack+solid.md'
               ),
+              frameworks: ['solid', 'tanstack', 'vite'],
             },
           },
         },
+
         astro: {
           title: 'Astro',
           default: getDocMetadata('./docs/en/intlayer_with_astro.md'),
+          frameworks: ['astro', 'vite'],
         },
         'create-react-app': {
           title: 'React CRA',
           default: getDocMetadata(
             './docs/en/intlayer_with_create_react_app.md'
           ),
+          frameworks: ['react', 'vite'],
         },
         'vite-and-vue': {
           title: t({
@@ -843,30 +858,35 @@ const docDataContent: Dictionary = {
             vi: 'Vite và Vue',
           }),
           default: getDocMetadata('./docs/en/intlayer_with_vite+vue.md'),
+          frameworks: ['vue', 'vite'],
+          subSections: {
+            'nuxt-and-vue': {
+              title: t({
+                en: 'Nuxt and Vue',
+                fr: 'Nuxt et Vue',
+                es: 'Nuxt y Vue',
+                'en-GB': 'Nuxt and Vue',
+                de: 'Nuxt und Vue',
+                ja: 'NuxtおよびVue',
+                ko: 'Nuxt 및 Vue',
+                zh: 'Nuxt和Vue',
+                it: 'Nuxt e Vue',
+                pt: 'Nuxt e Vue',
+                hi: 'Nuxt और Vue',
+                ar: 'Nuxt و Vue',
+                uk: 'Nuxt та Vue',
+                ru: 'Nuxt и Vue',
+                tr: 'Nuxt ve Vue',
+                pl: 'Nuxt dan Vue',
+                id: 'Nuxt dan Vue',
+                vi: 'Nuxt và Vue',
+              }),
+              default: getDocMetadata('./docs/en/intlayer_with_nuxt.md'),
+              frameworks: ['nuxt', 'vue', 'vite'],
+            },
+          },
         },
-        'nuxt-and-vue': {
-          title: t({
-            en: 'Nuxt and Vue',
-            fr: 'Nuxt et Vue',
-            es: 'Nuxt y Vue',
-            'en-GB': 'Nuxt and Vue',
-            de: 'Nuxt und Vue',
-            ja: 'NuxtおよびVue',
-            ko: 'Nuxt 및 Vue',
-            zh: 'Nuxt和Vue',
-            it: 'Nuxt e Vue',
-            pt: 'Nuxt e Vue',
-            hi: 'Nuxt और Vue',
-            ar: 'Nuxt و Vue',
-            uk: 'Nuxt та Vue',
-            ru: 'Nuxt и Vue',
-            tr: 'Nuxt ve Vue',
-            pl: 'Nuxt dan Vue',
-            id: 'Nuxt dan Vue',
-            vi: 'Nuxt và Vue',
-          }),
-          default: getDocMetadata('./docs/en/intlayer_with_nuxt.md'),
-        },
+
         'vite-and-solid': {
           title: t({
             en: 'Vite and Solid',
@@ -889,6 +909,7 @@ const docDataContent: Dictionary = {
             vi: 'Vite và Solid',
           }),
           default: getDocMetadata('./docs/en/intlayer_with_vite+solid.md'),
+          frameworks: ['solid', 'vite'],
         },
         'vite-and-svelte': {
           title: t({
@@ -916,9 +937,12 @@ const docDataContent: Dictionary = {
             'vite-and-svelte-kit': {
               title: 'SvelteKit',
               default: getDocMetadata('./docs/en/intlayer_with_svelte_kit.md'),
+              frameworks: ['svelte', 'vite'],
             },
           },
+          frameworks: ['svelte', 'vite'],
         },
+
         'vite-and-preact': {
           title: t({
             en: 'Vite and Preact',
@@ -941,6 +965,31 @@ const docDataContent: Dictionary = {
             vi: 'Vite và Preact',
           }),
           default: getDocMetadata('./docs/en/intlayer_with_vite+preact.md'),
+          frameworks: ['preact', 'vite'],
+        },
+        'vite-and-vanilla-js': {
+          title: t({
+            en: 'Vite and Vanilla JS',
+            fr: 'Vite et Vanilla JS',
+            es: 'Vite y Vanilla JS',
+            'en-GB': 'Vite and Vanilla JS',
+            de: 'Vite und Vanilla JS',
+            ja: 'ViteおよびVanilla JS',
+            ko: 'Vite 및 Vanilla JS',
+            zh: 'Vite和Vanilla JS',
+            it: 'Vite e Vanilla JS',
+            pt: 'Vite e Vanilla JS',
+            hi: 'Vite और Vanilla JS',
+            ar: 'Vite و Vanilla JS',
+            uk: 'Vite та Vanilla JS',
+            ru: 'Vite и Vanilla JS',
+            tr: 'Vite ve Vanilla JS',
+            pl: 'Vite dan Vanilla JS',
+            id: 'Vite dan Vanilla JS',
+            vi: 'Vite và Vanilla JS',
+          }),
+          default: getDocMetadata('./docs/en/intlayer_with_vite+vanilla.md'),
+          frameworks: ['vanilla', 'vite'],
         },
         'vite-and-lit': {
           title: t({
@@ -964,6 +1013,7 @@ const docDataContent: Dictionary = {
             vi: 'Vite và Lit',
           }),
           default: getDocMetadata('./docs/en/intlayer_with_vite+lit.md'),
+          frameworks: ['lit', 'vite'],
         },
         angular: {
           title: 'Angular',
@@ -972,8 +1022,10 @@ const docDataContent: Dictionary = {
             analog: {
               title: 'Analog',
               default: getDocMetadata('./docs/en/intlayer_with_analog.md'),
+              frameworks: ['angular', 'vite'],
             },
           },
+          frameworks: ['angular', 'webpack'],
         },
         'react-native-and-expo': {
           title: t({
@@ -999,52 +1051,83 @@ const docDataContent: Dictionary = {
           default: getDocMetadata(
             './docs/en/intlayer_with_react_native+expo.md'
           ),
+          frameworks: ['react', 'react-native', 'expo'],
         },
-        'lynx-and-react': {
-          title: t({
-            en: 'Lynx and React',
-            fr: 'Lynx et React',
-            es: 'Lynx y React',
-            'en-GB': 'Lynx and React',
-            de: 'Lynx und React',
-            ja: 'LynxおよびReact',
-            ko: 'Lynx 및 React',
-            zh: 'Lynx和React',
-            it: 'Lynx e React',
-            pt: 'Lynx e React',
-            hi: 'Lynx और React',
-            ar: 'Lynx و React',
-            uk: 'Lynx та React',
-            ru: 'Lynx и React',
-            tr: 'Lynx ve React',
-            pl: 'Lynx dan React',
-            id: 'Lynx dan React',
-            vi: 'Lynx và React',
-          }),
-          default: getDocMetadata('./docs/en/intlayer_with_lynx+react.md'),
-        },
-        backend: {
-          title: 'Backend',
+        node: {
+          title: 'Node & Backend',
           subSections: {
             express: {
               title: 'Express.js',
               default: getDocMetadata('./docs/en/intlayer_with_express.md'),
+              frameworks: ['express', 'node'],
             },
             nest: {
               title: 'NestJS',
               default: getDocMetadata('./docs/en/intlayer_with_nestjs.md'),
+              frameworks: ['nest', 'node'],
             },
             fastify: {
               title: 'Fastify',
               default: getDocMetadata('./docs/en/intlayer_with_fastify.md'),
+              frameworks: ['fastify', 'node'],
             },
             hono: {
               title: 'Hono',
               default: getDocMetadata('./docs/en/intlayer_with_hono.md'),
+              frameworks: ['hono', 'node'],
             },
             adonis: {
               title: 'Adonis',
               default: getDocMetadata('./docs/en/intlayer_with_adonisjs.md'),
+              frameworks: ['adonis', 'node'],
+            },
+          },
+        },
+        other: {
+          title: t({
+            en: 'Other',
+            fr: 'Autre',
+            es: 'Otro',
+            'en-GB': 'Other',
+            de: 'Sonstige',
+            ja: 'その他',
+            ko: '기타',
+            zh: '其他',
+            it: 'Altro',
+            pt: 'Outro',
+            hi: 'अन्य',
+            ar: 'أخرى',
+            uk: 'Інше',
+            ru: 'Другое',
+            tr: 'Diğer',
+            pl: 'Inne',
+            id: 'Lainnya',
+            vi: 'Khác',
+          }),
+          subSections: {
+            'lynx-and-react': {
+              title: t({
+                en: 'Lynx and React',
+                fr: 'Lynx et React',
+                es: 'Lynx y React',
+                'en-GB': 'Lynx and React',
+                de: 'Lynx und React',
+                ja: 'LynxおよびReact',
+                ko: 'Lynx 및 React',
+                zh: 'Lynx和React',
+                it: 'Lynx e React',
+                pt: 'Lynx e React',
+                hi: 'Lynx और React',
+                ar: 'Lynx و React',
+                uk: 'Lynx та React',
+                ru: 'Lynx и React',
+                tr: 'Lynx ve React',
+                pl: 'Lynx dan React',
+                id: 'Lynx dan React',
+                vi: 'Lynx và React',
+              }),
+              default: getDocMetadata('./docs/en/intlayer_with_lynx+react.md'),
+              frameworks: ['lynx', 'react'],
             },
           },
         },

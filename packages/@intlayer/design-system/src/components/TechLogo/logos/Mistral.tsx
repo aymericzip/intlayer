@@ -1,6 +1,6 @@
-import type { SVGProps } from 'react';
+import type { FC, SVGProps } from 'react';
 
-export const MistralAI = (props: SVGProps<SVGSVGElement>) => (
+export const MistralLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
     {...props}
     preserveAspectRatio="xMidYMid"
@@ -26,10 +26,7 @@ export const MistralAI = (props: SVGProps<SVGSVGElement>) => (
       d="M116.36364 93.09091h46.54545v46.54545h-46.54545zM162.90909 93.09091h46.54545v46.54545h-46.54545zM69.81818 93.09091h46.54545v46.54545H69.81818z"
     />
     <path d="M93.09091 139.63636h46.54545v46.54545H93.09091z" />
-    <path
-      fill="#EB5829"
-      d="M116.36364 139.63636h46.54545v46.54545h-46.54545z"
-    />
+    <path fill="#EB5829" d="M116.36364 139.63636h46.54545v46.54545h-46.54545" />
     <path
       fill="#EE792F"
       d="M209.45454 93.09091h46.54545v46.54545h-46.54545zM23.27273 93.09091h46.54545v46.54545H23.27273z"

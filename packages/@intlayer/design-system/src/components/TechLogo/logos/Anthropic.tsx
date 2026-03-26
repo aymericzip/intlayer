@@ -1,10 +1,10 @@
 import type { FC, SVGProps } from 'react';
 
-export const AntropicLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
+export const AnthropicLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     role="img"
-    aria-label="Antropic logo"
+    aria-label="Anthropic logo"
     fill="none"
     viewBox="0 0 24 24"
     height="24"

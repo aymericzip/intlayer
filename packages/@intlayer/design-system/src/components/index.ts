@@ -53,6 +53,7 @@ export * from './Tab';
 export * from './Table';
 export * from './TabSelector';
 export * from './Tag';
+export * from './TechLogo';
 export * from './Terminal';
 export * from './TextArea';
 export * from './ThemeSwitcherDropDown';
