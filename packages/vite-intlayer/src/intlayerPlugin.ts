@@ -8,7 +8,7 @@ import {
 } from '@intlayer/config/node';
 import { getAlias } from '@intlayer/config/utils';
 // @ts-ignore - Fix error Module '"vite"' has no exported member
-import { mergeConfig, type PluginOption } from 'vite';
+import type { PluginOption } from 'vite';
 import { intlayerEditorPlugin } from './intlayerEditorPlugin';
 import { intlayerOptimize } from './intlayerOptimizePlugin';
 
@@ -75,7 +75,7 @@ export const intlayerPlugin = (
 
         // mergeConfig handles both array and record alias formats,
         // and correctly appends to optimizeDeps.exclude / ssr.noExternal
-        return mergeConfig(config, {
+        return {
           resolve: {
             alias,
           },
@@ -87,7 +87,7 @@ export const intlayerPlugin = (
             // Ensure intlayer packages are bundled so aliases are applied
             noExternal: [/(^@intlayer\/|intlayer$)/],
           },
-        });
+        };
       },
 
       configureServer: async (server) => {
