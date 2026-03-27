@@ -450,3 +450,95 @@ describe('intlayerVueExtract – onExtract callback', () => {
     expect(results[0]).toHaveProperty('helloWorld', 'Hello World');
   });
 });
+
+// ─── Full SFC transformation snapshots ───────────────────────────────────────
+// These tests document the exact before → after output.
+// Run `vitest --update-snapshots` to refresh.
+
+describe('transformation snapshot – Vue SFC', () => {
+  it('transforms a component with template text, attributes and script strings', async () => {
+    const code = `<template>
+  <section>
+    <h1>Welcome Back</h1>
+    <p>Discover all the features below.</p>
+    <input placeholder="Enter your email" />
+    <button>Get Started Now</button>
+  </section>
+</template>
+<script setup lang="ts">
+const msg = "Sign In Now";
+</script>
+`;
+    const result = extract(code, 'my-component');
+    expect(result?.code).toMatchInlineSnapshot(`
+      "<template>
+        <section>
+          <h1>{{ content.welcomeBack }}</h1>
+          <p>{{ content.discoverAllTheFeaturesBelow }}</p>
+          <input :placeholder="content.enterYourEmail" />
+          <button>{{ content.getStartedNow }}</button>
+        </section>
+      </template>
+      <script setup lang="ts">
+      import { useIntlayer } from 'vue-intlayer';
+      const content = useIntlayer('my-component');
+
+      const msg = content.signInNow;
+      </script>
+      "
+    `);
+  });
+
+  it('transforms a component with mixed text and interpolation (insertion)', async () => {
+    const code = `<template>
+  <p>Hello {{ name }}!</p>
+</template>
+<script setup lang="ts">
+const name = 'World';
+</script>
+`;
+    const result = extract(code, 'my-component');
+    expect(result?.code).toMatchInlineSnapshot(`
+      "<template>
+        <p>{{ content.helloName({ name: name }) }}</p>
+      </template>
+      <script setup lang="ts">
+      import { useIntlayer } from 'vue-intlayer';
+      const content = useIntlayer('my-component');
+
+      const name = 'World';
+      </script>
+      "
+    `);
+  });
+
+  it('transforms a component that already has a destructured useIntlayer call', async () => {
+    const code = `<template>
+  <div>
+    <h1>{{ title }}</h1>
+    <p>New paragraph text</p>
+    <input placeholder="Enter your email" />
+  </div>
+</template>
+<script setup lang="ts">
+import { useIntlayer } from 'vue-intlayer';
+const { title } = useIntlayer('my-component');
+</script>
+`;
+    const result = extract(code, 'my-component');
+    expect(result?.code).toMatchInlineSnapshot(`
+      "<template>
+        <div>
+          <h1>{{ title }}</h1>
+          <p>{{ newParagraphText }}</p>
+          <input :placeholder="enterYourEmail" />
+        </div>
+      </template>
+      <script setup lang="ts">
+      import { useIntlayer } from 'vue-intlayer';
+      const { title, enterYourEmail, newParagraphText } = useIntlayer('my-component');
+      </script>
+      "
+    `);
+  });
+});

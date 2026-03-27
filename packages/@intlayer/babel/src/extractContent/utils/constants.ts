@@ -25,6 +25,7 @@ export const packageList = [
   'preact-intlayer',
   'solid-intlayer',
   'angular-intlayer',
+  'lit-intlayer',
   'express-intlayer',
   'hono-intlayer',
   'fastify-intlayer',

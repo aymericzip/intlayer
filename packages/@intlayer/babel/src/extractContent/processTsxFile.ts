@@ -54,7 +54,10 @@ export const processTsxFile = (
       ? `${packageName}/server`
       : packageName;
 
-  const isSolid = packageName === 'solid-intlayer';
+  // Both Solid and Angular expose content via a reactive/signal function —
+  // access is `content().key` rather than `content.key`.
+  const isSolid =
+    packageName === 'solid-intlayer' || packageName === 'angular-intlayer';
   const existingKeys = new Set<string>();
 
   const {

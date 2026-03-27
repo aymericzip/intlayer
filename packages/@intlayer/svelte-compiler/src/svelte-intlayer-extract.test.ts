@@ -406,3 +406,104 @@ describe('intlayerSvelteExtract – onExtract callback', () => {
     expect(results[0]).toHaveProperty('helloWorld', 'Hello World');
   });
 });
+
+// ─── Full component transformation snapshots ─────────────────────────────────
+// These tests document the exact before → after output.
+// Run `vitest --update-snapshots` to refresh.
+
+describe('transformation snapshot – Svelte', () => {
+  it('transforms a component with template text, attributes and script strings', () => {
+    const code = `<script>
+  const msg = "Sign In Now";
+</script>
+<section>
+  <h1>Welcome Back</h1>
+  <p>Discover all the features below.</p>
+  <input placeholder="Enter your email" />
+  <button>Get Started Now</button>
+</section>
+`;
+    const result = extract(code, 'my-component');
+    expect(result?.code).toMatchInlineSnapshot(`
+      "<script>
+        import { useIntlayer } from 'svelte-intlayer';
+        import { get } from 'svelte/store';
+        const content = useIntlayer('my-component');
+
+        const msg = get(content).signInNow;
+      </script>
+      <section>
+        <h1>{$content.welcomeBack}</h1>
+        <p>{$content.discoverAllTheFeaturesBelow}</p>
+        <input placeholder={$content.enterYourEmail} />
+        <button>{$content.getStartedNow}</button>
+      </section>
+      "
+    `);
+  });
+
+  it('transforms a component with mixed text and expression tags (insertion)', () => {
+    const code = `<script>
+</script>
+<p>Hello {name}!</p>
+`;
+    const result = extract(code, 'my-component');
+    expect(result?.code).toMatchInlineSnapshot(`
+      "<script>
+        import { useIntlayer } from 'svelte-intlayer';
+        const content = useIntlayer('my-component');
+
+      </script>
+      <p>{$content.helloName({ name: name })}</p>
+      "
+    `);
+  });
+
+  it('transforms a component that already has a destructured useIntlayer call', () => {
+    const code = `<script>
+  import { useIntlayer } from 'svelte-intlayer';
+  const { title } = useIntlayer('my-component');
+</script>
+<div>
+  <h1>{title}</h1>
+  <p>New paragraph text</p>
+  <input placeholder="Enter your email" />
+</div>
+`;
+    const result = extract(code, 'my-component');
+    expect(result?.code).toMatchInlineSnapshot(`
+      "<script>
+        import { useIntlayer } from 'svelte-intlayer';
+        const { title, enterYourEmail, newParagraphText } = useIntlayer('my-component');
+      </script>
+      <div>
+        <h1>{title}</h1>
+        <p>{newParagraphText}</p>
+        <input placeholder={enterYourEmail} />
+      </div>
+      "
+    `);
+  });
+
+  it('transforms a component with no existing script block', () => {
+    const code = `<section>
+  <h1>Welcome Back</h1>
+  <input placeholder="Enter your email" />
+</section>
+`;
+    const result = extract(code, 'my-component');
+    expect(result?.code).toMatchInlineSnapshot(`
+      "<script>
+        import { useIntlayer } from 'svelte-intlayer';
+        
+        const content = useIntlayer('my-component');
+      </script>
+
+      <section>
+        <h1>{$content.welcomeBack}</h1>
+        <input placeholder={$content.enterYourEmail} />
+      </section>
+      "
+    `);
+  });
+});
