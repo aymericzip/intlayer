@@ -1,6 +1,6 @@
 import configuration from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import { Intl as CachedIntl } from '../utils/intl';
+import { getCachedIntl } from '../utils/intl';
 
 export type DateTimePreset =
   | 'short'
@@ -70,7 +70,7 @@ export const date = (
     (typeof options === 'object' ? options?.locale : undefined) ??
     configuration?.internationalization?.defaultLocale;
 
-  const formatter = new CachedIntl.DateTimeFormat(locale, resolvedOptions);
+  const formatter = getCachedIntl(Intl.DateTimeFormat, locale, resolvedOptions);
 
   return formatter.format(dateTime);
 };

@@ -1,6 +1,6 @@
 import configuration from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import { Intl as CachedIntl } from '../utils/intl';
+import { getCachedIntl } from '../utils/intl';
 
 /**
  * Formats a numeric or string value into a localized currency string using the Intl API.
@@ -17,7 +17,8 @@ export const currency = (
   value: string | number,
   options?: Intl.NumberFormatOptions & { locale?: LocalesValues }
 ): string =>
-  new CachedIntl.NumberFormat(
+  getCachedIntl(
+    Intl.NumberFormat,
     options?.locale ?? configuration?.internationalization?.defaultLocale,
     {
       style: 'currency',

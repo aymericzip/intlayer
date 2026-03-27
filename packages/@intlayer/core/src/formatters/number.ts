@@ -1,6 +1,6 @@
 import configuration from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import { Intl as CachedIntl } from '../utils/intl';
+import { getCachedIntl } from '../utils/intl';
 
 /**
  * Formats a numeric value using locale-aware formatting.
@@ -15,7 +15,8 @@ export const number = (
   value: string | number,
   options?: Intl.NumberFormatOptions & { locale?: LocalesValues }
 ): string =>
-  new CachedIntl.NumberFormat(
+  getCachedIntl(
+    Intl.NumberFormat,
     options?.locale ?? configuration?.internationalization?.defaultLocale,
     options
   ).format(Number(value));

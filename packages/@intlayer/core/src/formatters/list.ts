@@ -1,6 +1,6 @@
 import configuration from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import { Intl as CachedIntl } from '../utils/intl';
+import { getCachedIntl } from '../utils/intl';
 
 /** Locally defined subset of Intl.ListFormatOptions so consumers don't need ES2021.Intl in their lib. */
 type ListFormatOptions = {
@@ -28,7 +28,8 @@ export const list = (
   values: (string | number)[],
   options?: ListFormatOptions & { locale?: LocalesValues }
 ): string =>
-  new CachedIntl.ListFormat(
+  getCachedIntl(
+    Intl.ListFormat as any,
     options?.locale ?? configuration?.internationalization?.defaultLocale,
     {
       type: options?.type ?? 'conjunction',
