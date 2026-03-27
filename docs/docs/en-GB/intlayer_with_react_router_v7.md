@@ -174,10 +174,9 @@ Add the intlayer plugin into your configuration:
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  plugins: [reactRouter(), tsconfigPaths(), intlayer()],
+  plugins: [reactRouter(), intlayer()],
 });
 ```
 
@@ -512,13 +511,12 @@ You can also use the `intlayerProxy` to add server-side routing to your applicat
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
 import { intlayer, intlayerProxy } from "vite-intlayer";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   plugins: [
     intlayerProxy(), // should be placed first
     reactRouter(),
-    tsconfigPaths(),
+
     intlayer(),
   ],
 });

@@ -140,16 +140,12 @@ Tambahkan plugin intlayer dalam konfigurasi Anda:
 import { intlayer } from "vite-intlayer";
 import { defineConfig } from "vite";
 import { devtools } from "@tanstack/devtools-vite";
-import viteTsConfigPaths from "vite-tsconfig-paths";
 import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
 import solidPlugin from "vite-plugin-solid";
 
 export default defineConfig({
   plugins: [
     devtools(),
-    viteTsConfigPaths({
-      projects: ["./tsconfig.json"],
-    }),
     tanstackStart({
       router: {
         routeFileIgnorePattern:
@@ -497,15 +493,11 @@ import solid from "vite-plugin-solid";
 import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
 import { intlayer, intlayerProxy } from "vite-intlayer";
-import viteTsConfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   plugins: [
     intlayerProxy(), // Proxy harus ditempatkan sebelum server jika Anda menggunakan Nitro
     nitro(),
-    viteTsConfigPaths({
-      projects: ["./tsconfig.json"],
-    }),
     intlayer(),
     tanstackStart({
       router: {
@@ -798,16 +790,12 @@ Perbarui `vite.config.ts` Anda untuk menyertakan plugin `intlayerCompiler`:
 import { intlayer, intlayerCompiler } from "vite-intlayer";
 import { defineConfig } from "vite";
 import { devtools } from "@tanstack/devtools-vite";
-import viteTsConfigPaths from "vite-tsconfig-paths";
 import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
 import solidPlugin from "vite-plugin-solid";
 
 export default defineConfig({
   plugins: [
     devtools(),
-    viteTsConfigPaths({
-      projects: ["./tsconfig.json"],
-    }),
     tanstackStart({
       router: {
         routeFileIgnorePattern:

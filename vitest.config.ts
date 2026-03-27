@@ -1,12 +1,10 @@
 import react from '@vitejs/plugin-react';
-import tsconfigPaths from 'vite-tsconfig-paths';
 import { defineConfig } from 'vitest/config';
 
 const testFiles = ['./**/*.test.{js,jsx,ts,tsx}'];
 
 export default defineConfig({
   plugins: [
-    tsconfigPaths(),
     react({
       // fastRefresh: false,
     }),

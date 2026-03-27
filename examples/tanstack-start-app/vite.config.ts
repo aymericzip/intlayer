@@ -5,16 +5,13 @@ import { nitro } from 'nitro/vite';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
 import { intlayer, intlayerProxy } from 'vite-intlayer';
-import viteTsConfigPaths from 'vite-tsconfig-paths';
 
 const config = defineConfig({
   plugins: [
     intlayerProxy({}, { ignore: (req) => req.url?.startsWith('/api') }), // To redirect the user to his own locale. Should be placed before nitro
 
     nitro(),
-    viteTsConfigPaths({
-      projects: ['./tsconfig.json'],
-    }),
+
     intlayer(),
     tailwindcss(),
     tanstackStart({

@@ -181,10 +181,9 @@ Tambahkan plugin intlayer ke dalam konfigurasi Anda:
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  plugins: [reactRouter(), tsconfigPaths(), intlayer()],
+  plugins: [reactRouter(), intlayer()],
 });
 ```
 
@@ -691,13 +690,12 @@ Anda juga dapat menggunakan `intlayerProxy` untuk menambahkan routing sisi serve
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
 import { intlayer, intlayerProxy } from "vite-intlayer";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   plugins: [
     intlayerProxy(), // should be placed first
     reactRouter(),
-    tsconfigPaths(),
+
     intlayer(),
   ],
 });

@@ -175,10 +175,9 @@ Agrega el plugin intlayer en tu configuración:
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  plugins: [reactRouter(), tsconfigPaths(), intlayer()],
+  plugins: [reactRouter(), intlayer()],
 });
 ```
 
@@ -740,13 +739,12 @@ También puedes usar el `intlayerProxy` para agregar enrutamiento del lado del s
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
 import { intlayer, intlayerProxy } from "vite-intlayer";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   plugins: [
     intlayerProxy(), // should be placed first
     reactRouter(),
-    tsconfigPaths(),
+
     intlayer(),
   ],
 });

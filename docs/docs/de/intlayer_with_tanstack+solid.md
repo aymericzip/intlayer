@@ -140,16 +140,12 @@ Fügen Sie das Intlayer-Plugin zu Ihrer Konfiguration hinzu:
 import { intlayer } from "vite-intlayer";
 import { defineConfig } from "vite";
 import { devtools } from "@tanstack/devtools-vite";
-import viteTsConfigPaths from "vite-tsconfig-paths";
 import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
 import solidPlugin from "vite-plugin-solid";
 
 export default defineConfig({
   plugins: [
     devtools(),
-    viteTsConfigPaths({
-      projects: ["./tsconfig.json"],
-    }),
     tanstackStart({
       router: {
         routeFileIgnorePattern:
@@ -497,15 +493,11 @@ import solid from "vite-plugin-solid";
 import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
 import { intlayer, intlayerProxy } from "vite-intlayer";
-import viteTsConfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   plugins: [
     intlayerProxy(), // Der Proxy sollte vor dem Server platziert werden, wenn Sie Nitro verwenden
     nitro(),
-    viteTsConfigPaths({
-      projects: ["./tsconfig.json"],
-    }),
     intlayer(),
     tanstackStart({
       router: {
@@ -798,16 +790,12 @@ Aktualisieren Sie Ihre `vite.config.ts`, um das `intlayerCompiler`-Plugin einzub
 import { intlayer, intlayerCompiler } from "vite-intlayer";
 import { defineConfig } from "vite";
 import { devtools } from "@tanstack/devtools-vite";
-import viteTsConfigPaths from "vite-tsconfig-paths";
 import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
 import solidPlugin from "vite-plugin-solid";
 
 export default defineConfig({
   plugins: [
     devtools(),
-    viteTsConfigPaths({
-      projects: ["./tsconfig.json"],
-    }),
     tanstackStart({
       router: {
         routeFileIgnorePattern:

@@ -30,8 +30,7 @@
     "tailwindcss": "4.2.2",
     "typescript": "6.0.2",
     "vite": "8.0.3",
-    "vite-intlayer": "workspace:*",
-    "vite-tsconfig-paths": "6.1.1"
+    "vite-intlayer": "workspace:*"
   },
   "engines": {
     "node": ">=20"
