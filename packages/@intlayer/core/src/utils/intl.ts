@@ -1,26 +1,28 @@
-// Cached Intl helper – drop‑in replacement for the global `Intl` object.
-// ‑‑‑
-// • Uses a `Proxy` to lazily wrap every *constructor* hanging off `Intl` (NumberFormat, DateTimeFormat, …).
-// • Each wrapped constructor keeps an in‑memory cache keyed by `[locales, options]` so that identical requests
-// reuse the same heavy instance instead of reparsing CLDR data every time.
-// • A polyfill warning for `Intl.DisplayNames` is emitted only once and only in dev.
-// • The public API is fully type‑safe and mirrors the native `Intl` surface exactly –
-// you can treat `CachedIntl` just like the built‑in `Intl`.
-//
-// Usage examples:
-// ---------------
-// import { CachedIntl } from "./cached-intl";
-//
-// const nf = CachedIntl.NumberFormat("en-US", { style: "currency", currency: "USD" });
-// console.log(nf.format(1234));
-//
-// const dn = CachedIntl.DisplayNames(["fr"], { type: "language" });
-// console.log(dn.of("en")); // → "anglais"
-//
-// You can also spin up an isolated instance with its own caches (handy in test suites):
-// const TestIntl = createCachedIntl();
-//
-// ---------------------------------------------------------------------
+/**
+ * Cached Intl helper – drop‑in replacement for the global `Intl` object.
+ * ‑‑‑
+ * • Uses a `Proxy` to lazily wrap every *constructor* hanging off `Intl` (NumberFormat, DateTimeFormat, …).
+ * • Each wrapped constructor keeps an in‑memory cache keyed by `[locales, options]` so that identical requests
+ * reuse the same heavy instance instead of reparsing CLDR data every time.
+ * • A polyfill warning for `Intl.DisplayNames` is emitted only once and only in dev.
+ * • The public API is fully type‑safe and mirrors the native `Intl` surface exactly –
+ * you can treat `CachedIntl` just like the built‑in `Intl`.
+ *
+ * Usage @example:
+ * ---------------
+ * ```ts
+ * import { CachedIntl } from "./cached-intl";
+ *
+ * const nf = CachedIntl.NumberFormat("en-US", { style: "currency", currency: "USD" });
+ * console.log(nf.format(1234));
+ *
+ * const dn = CachedIntl.DisplayNames(["fr"], { type: "language" });
+ * console.log(dn.of("en")); * → "anglais"
+ *
+ * You can also spin up an isolated instance with its own caches (handy in test suites):
+ * const TestIntl = createCachedIntl();
+ * ```
+ */
 
 import configuration from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
@@ -68,11 +70,13 @@ export type WrappedIntl = {
  */
 export const getCachedIntl = <T extends new (...args: any[]) => any>(
   Ctor: T,
+  ctorName: string, // Add this argument
   locale?: LocalesValues | string,
   options?: any
 ): InstanceType<T> => {
   const resLoc = locale ?? configuration?.internationalization?.defaultLocale;
-  const key = `${Ctor.name}|${resLoc}|${options ? JSON.stringify(options) : ''}`;
+  // Use the explicit name for the key
+  const key = `${ctorName}|${resLoc}|${options ? JSON.stringify(options) : ''}`;
 
   let instance = cache.get(key);
   if (!instance) {
