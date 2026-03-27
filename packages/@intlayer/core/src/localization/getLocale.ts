@@ -1,7 +1,7 @@
 import configuration from '@intlayer/config/built';
 import { DEFAULT_LOCALE, LOCALES } from '@intlayer/config/defaultValues';
 import type { Locale } from '@intlayer/types/allLocales';
-import { getLocaleFromStorage } from '../utils/localeStorage';
+import { getLocaleFromStorageServer } from '../utils/localeStorage';
 import { getPreferredLanguages } from './localeDetector';
 import { localeResolver } from './localeResolver';
 
@@ -17,7 +17,7 @@ export const getLocale = async (ctx: RequestContext = {}): Promise<Locale> => {
     configuration?.internationalization?.locales ?? LOCALES;
 
   // Try locale from storage (cookie or header)
-  const storedLocale = getLocaleFromStorage({
+  const storedLocale = getLocaleFromStorageServer({
     getCookie: ctx.getCookie,
     getHeader: ctx.getHeader,
   });

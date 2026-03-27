@@ -7,6 +7,7 @@ export * from './ESMxCJSHelpers';
 export * from './extractErrorMessage';
 export * from './getExtension';
 export * from './getPackageJsonPath';
+export * from './getStorageAttributes';
 export * from './logStack';
 export * from './normalizePath';
 export * from './parseFilePathPattern';

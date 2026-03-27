@@ -2,8 +2,8 @@ import configuration from '@intlayer/config/built';
 import type { Locale } from '@intlayer/types/allLocales';
 import { ENGLISH } from '@intlayer/types/locales';
 import {
-  getLocaleFromStorage,
-  type LocaleStorageOptions,
+  getLocaleFromStorageClient,
+  type LocaleStorageClientOptions,
 } from '../utils/localeStorage';
 import { localeDetector } from './localeDetector';
 
@@ -14,7 +14,7 @@ export enum LanguageDetector {
   HtmlTag = 'htmlTag',
 }
 
-export const localeStorageOptions: LocaleStorageOptions = {
+export const localeStorageOptions: LocaleStorageClientOptions = {
   getCookie: (name: string) =>
     document.cookie
       .split(';')
@@ -82,7 +82,7 @@ const detectLanguage = (
   const storageDetector = () => {
     if (typeof window === 'undefined') return;
 
-    const locale = getLocaleFromStorage({
+    const locale = getLocaleFromStorageClient({
       getCookie: (name: string) => {
         try {
           const cookies = document.cookie.split(';');

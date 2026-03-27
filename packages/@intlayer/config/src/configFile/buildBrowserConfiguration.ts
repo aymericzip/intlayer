@@ -1,5 +1,6 @@
 import type {
   CustomIntlayerConfig,
+  CustomRoutingConfig,
   EditorConfig,
   InternationalizationConfig,
   IntlayerConfig,
@@ -27,6 +28,7 @@ import {
 } from '../defaultValues/internationalization';
 import { MODE, PREFIX } from '../defaultValues/log';
 import { BASE_PATH, ROUTING_MODE, STORAGE } from '../defaultValues/routing';
+import { getStorageAttributes } from '../utils/getStorageAttributes';
 
 // ---------------------------------------------------------------------------
 // Type
@@ -120,85 +122,89 @@ export const buildInternationalizationFields = (
  * @returns A fully-defaulted {@link RoutingConfig}.
  */
 export const buildRoutingFields = (
-  customConfiguration?: Partial<RoutingConfig>
-): RoutingConfig => ({
-  /**
-   * URL routing mode for locale handling
-   *
-   * Controls how locales are represented in application URLs:
-   * - 'prefix-no-default': Prefix all locales except the default locale (default)
-   *    - en → /dashboard
-   *    - fr → /fr/dashboard
-   *
-   * - 'prefix-all': Prefix all locales including the default locale
-   *    - en → /en/dashboard
-   *    - fr → /fr/dashboard
-   *
-   * - 'search-params': Use search parameters for locale handling
-   *    - en → /dashboard?locale=en
-   *    - fr → /fr/dashboard?locale=fr
-   *
-   * - 'no-prefix': No locale prefixing in URLs
-   *    - en → /dashboard
-   *    - fr → /dashboard
-   *
-   * Default: 'prefix-no-default'
-   */
-  mode: customConfiguration?.mode ?? ROUTING_MODE,
+  customConfiguration?: Partial<CustomRoutingConfig>
+): RoutingConfig => {
+  const storage = customConfiguration?.storage ?? STORAGE;
 
-  /**
-   * Configuration for storing the locale in the client (localStorage or sessionStorage)
-   *
-   * If false, the locale will not be stored by the middleware.
-   * If true, the locale storage will consider all default values. (cookie and header)
-   *
-   * Default: ['cookie', 'header']
-   *
-   */
-  storage: customConfiguration?.storage ?? STORAGE,
+  return {
+    /**
+     * URL routing mode for locale handling
+     *
+     * Controls how locales are represented in application URLs:
+     * - 'prefix-no-default': Prefix all locales except the default locale (default)
+     *    - en → /dashboard
+     *    - fr → /fr/dashboard
+     *
+     * - 'prefix-all': Prefix all locales including the default locale
+     *    - en → /en/dashboard
+     *    - fr → /fr/dashboard
+     *
+     * - 'search-params': Use search parameters for locale handling
+     *    - en → /dashboard?locale=en
+     *    - fr → /fr/dashboard?locale=fr
+     *
+     * - 'no-prefix': No locale prefixing in URLs
+     *    - en → /dashboard
+     *    - fr → /dashboard
+     *
+     * Default: 'prefix-no-default'
+     */
+    mode: customConfiguration?.mode ?? ROUTING_MODE,
 
-  /**
-   * Base path of the application URL
-   *
-   * Default: ''
-   *
-   * Example:
-   * - If the application is hosted at https://example.com/my-app
-   * - The base path is '/my-app'
-   * - The URL will be https://example.com/my-app/en
-   * - If the base path is not set, the URL will be https://example.com/en
-   */
-  basePath: customConfiguration?.basePath ?? BASE_PATH,
+    /**
+     * Configuration for storing the locale in the client (localStorage or sessionStorage)
+     *
+     * If false, the locale will not be stored by the middleware.
+     * If true, the locale storage will consider all default values. (cookie and header)
+     *
+     * Default: ['cookie', 'header']
+     *
+     */
+    storage: getStorageAttributes(storage),
 
-  /**
-   * Custom URL rewriting rules that override the default routing mode for specific paths.
-   * Allows you to define locale-specific paths that differ from the standard routing behavior.
-   * Supports dynamic route parameters using `[param]` syntax.
-   *
-   * Default: undefined
-   *
-   * Example:
-   * ```typescript
-   * rewrite: {
-   *   "/about": {
-   *     en: "/about",
-   *     fr: "/a-propos",
-   *   },
-   *   "/product/[slug]": {
-   *     en: "/product/[slug]",
-   *     fr: "/produit/[slug]",
-   *   },
-   * }
-   * ```
-   *
-   * Note:
-   * - The rewrite rules take precedence over the default `mode` behavior.
-   * - If a path matches a rewrite rule, the localized path from the rewrite configuration will be used.
-   * - Dynamic route parameters are supported using bracket notation (e.g., `[slug]`, `[id]`).
-   * - Works with both Next.js and Vite applications.
-   */
-  rewrite: customConfiguration?.rewrite,
-});
+    /**
+     * Base path of the application URL
+     *
+     * Default: ''
+     *
+     * Example:
+     * - If the application is hosted at https://example.com/my-app
+     * - The base path is '/my-app'
+     * - The URL will be https://example.com/my-app/en
+     * - If the base path is not set, the URL will be https://example.com/en
+     */
+    basePath: customConfiguration?.basePath ?? BASE_PATH,
+
+    /**
+     * Custom URL rewriting rules that override the default routing mode for specific paths.
+     * Allows you to define locale-specific paths that differ from the standard routing behavior.
+     * Supports dynamic route parameters using `[param]` syntax.
+     *
+     * Default: undefined
+     *
+     * Example:
+     * ```typescript
+     * rewrite: {
+     *   "/about": {
+     *     en: "/about",
+     *     fr: "/a-propos",
+     *   },
+     *   "/product/[slug]": {
+     *     en: "/product/[slug]",
+     *     fr: "/produit/[slug]",
+     *   },
+     * }
+     * ```
+     *
+     * Note:
+     * - The rewrite rules take precedence over the default `mode` behavior.
+     * - If a path matches a rewrite rule, the localized path from the rewrite configuration will be used.
+     * - Dynamic route parameters are supported using bracket notation (e.g., `[slug]`, `[id]`).
+     * - Works with both Next.js and Vite applications.
+     */
+    rewrite: customConfiguration?.rewrite,
+  };
+};
 
 /**
  * Build the editor section of the Intlayer configuration.

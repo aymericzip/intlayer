@@ -1,15 +1,15 @@
 import { localeStorageOptions } from '@intlayer/core/localization';
 import {
-  getLocaleFromStorage,
-  LocaleStorage,
-  setLocaleInStorage as setLocaleInStorageCore,
+  getLocaleFromStorageClient,
+  LocaleStorageClient,
+  setLocaleInStorageClient as setLocaleInStorageCore,
 } from '@intlayer/core/utils';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
 /**
  * Get the current locale from storage (cookie or localStorage).
  */
-export const localeInStorage = getLocaleFromStorage(localeStorageOptions);
+export const localeInStorage = getLocaleFromStorageClient(localeStorageOptions);
 
 /**
  * @deprecated Use localeInStorage instead.
@@ -37,7 +37,7 @@ export const setLocaleCookie = setLocaleInStorage;
  * Returns the current locale from storage and a setter.
  */
 export const useLocaleStorage = (isCookieEnabled?: boolean) => {
-  const storage = LocaleStorage({
+  const storage = LocaleStorageClient({
     ...localeStorageOptions,
     isCookieEnabled,
   });

@@ -5,7 +5,10 @@ import {
   getLocalizedPath,
   getRewriteRules,
 } from '@intlayer/core/localization';
-import { getLocaleFromStorage, setLocaleInStorage } from '@intlayer/core/utils';
+import {
+  getLocaleFromStorageServer,
+  setLocaleInStorageServer,
+} from '@intlayer/core/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import {
   type NextFetchEvent,
@@ -147,7 +150,7 @@ export const intlayerProxy = (
  * @returns - The locale found in the cookies, or undefined if not found or invalid.
  */
 const getLocalLocale = (request: NextRequest): Locale | undefined =>
-  getLocaleFromStorage({
+  getLocaleFromStorageServer({
     getCookie: (name: string) => request.cookies.get(name)?.value ?? null,
     getHeader: (name: string) => request.headers.get(name) ?? null,
   });
@@ -541,7 +544,7 @@ const rewriteUrl = (
     search && !newPath.includes('?') ? `${newPath}${search}` : newPath;
 
   const requestHeaders = new Headers(request.headers);
-  setLocaleInStorage(locale, {
+  setLocaleInStorageServer(locale, {
     setHeader: (name: string, value: string) => {
       requestHeaders.set(name, value);
     },
@@ -564,7 +567,7 @@ const rewriteUrl = (
           },
         });
 
-  setLocaleInStorage(locale, {
+  setLocaleInStorageServer(locale, {
     setHeader: (name: string, value: string) => {
       response.headers.set(name, value);
     },

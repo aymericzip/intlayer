@@ -6,7 +6,7 @@ import {
   getIntlayer as getIntlayerFunction,
   getTranslation,
 } from '@intlayer/core/interpreter';
-import { getLocaleFromStorage } from '@intlayer/core/utils';
+import { getLocaleFromStorageServer } from '@intlayer/core/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import { createNamespace } from 'cls-hooked';
@@ -34,7 +34,7 @@ prepareIntlayer(configuration);
  * Retrieves the locale from storage (cookies, headers).
  */
 export const getStorageLocale = (ctx: HttpContext): Locale | undefined =>
-  getLocaleFromStorage({
+  getLocaleFromStorageServer({
     getCookie: (name: string) => ctx.request.cookie(name),
     getHeader: (name: string) => ctx.request.header(name),
   });

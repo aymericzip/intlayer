@@ -6,7 +6,7 @@ import {
   getTranslation,
 } from '@intlayer/core/interpreter';
 import { localeDetector } from '@intlayer/core/localization';
-import { getLocaleFromStorage } from '@intlayer/core/utils';
+import { getLocaleFromStorageServer } from '@intlayer/core/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import { createNamespace } from 'cls-hooked';
@@ -26,7 +26,7 @@ if (process.env.NODE_ENV === 'development') {
  * Retrieves the locale from storage (cookies, localStorage, sessionStorage).
  */
 const getStorageLocale = (req: Request): Locale | undefined =>
-  getLocaleFromStorage({
+  getLocaleFromStorageServer({
     getCookie: (name: string) => req.cookies?.[name],
     getHeader: (name: string) => req.headers?.[name] as string | undefined,
   });

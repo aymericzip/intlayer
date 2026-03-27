@@ -1,4 +1,4 @@
-import type { RoutingConfig } from '@intlayer/types/config';
+import type { RoutingStorageInput } from '@intlayer/types/config';
 
 export const HEADER_NAME = 'x-intlayer-locale';
 
@@ -11,4 +11,4 @@ export const SERVER_SET_COOKIE = 'always';
 
 export const ROUTING_MODE = 'prefix-no-default';
 
-export const STORAGE: RoutingConfig['storage'] = ['cookie', 'header'];
+export const STORAGE: RoutingStorageInput = ['cookie', 'header'];

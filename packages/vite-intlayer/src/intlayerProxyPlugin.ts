@@ -13,8 +13,8 @@ import {
 } from '@intlayer/core/localization';
 import {
   getCookie,
-  getLocaleFromStorage,
-  setLocaleInStorage,
+  getLocaleFromStorageServer,
+  setLocaleInStorageServer,
 } from '@intlayer/core/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 /* @ts-ignore - Vite types error */
@@ -86,7 +86,7 @@ export const intlayerProxy = (
    * Retrieves the locale from storage (cookies, localStorage, sessionStorage).
    */
   const getStorageLocale = (req: IncomingMessage): Locale | undefined => {
-    const locale = getLocaleFromStorage({
+    const locale = getLocaleFromStorageServer({
       getCookie: (name: string) => getCookie(name, req.headers.cookie),
     });
     return locale;
@@ -169,7 +169,7 @@ export const intlayerProxy = (
     }
     // If you want to mimic Next.js's behavior of setting a header for the locale:
     if (locale) {
-      setLocaleInStorage(locale, {
+      setLocaleInStorageServer(locale, {
         setHeader: (name: string, value: string) => {
           res.setHeader(name, value);
           req.headers[name] = value;

@@ -176,6 +176,20 @@ export type StorageAttributes = {
   name?: string;
 };
 
+/**
+ * Pre-computed storage attributes derived from `RoutingConfig.storage`.
+ * Computed at config-build time to avoid repeated processing at runtime.
+ */
+export type ProcessedStorageAttributes = {
+  cookies: Array<{
+    name: string;
+    attributes: Omit<CookiesAttributes, 'type' | 'name'>;
+  }>;
+  localStorage: Array<{ name: string }>;
+  sessionStorage: Array<{ name: string }>;
+  headers: Array<{ name: string }>;
+};
+
 export type RewriteRule<T extends string = string> = {
   canonical: T;
   localized: StrictModeLocaleMap<string>;
@@ -245,37 +259,11 @@ export type RoutingConfig = {
   mode: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
 
   /**
-   * Configuration for storing the locale in the client (localStorage or sessionStorage)
-   *
-   * If false, the locale will not be stored by the middleware.
-   * If true, the locale storage will consider all default values.
-   *
-   * Default: ['cookie', 'header]
-   *
-   * Note: Check out GDPR compliance for cookies. See https://gdpr.eu/cookies/
-   * Note: useLocale hook includes a prop to disable the cookie storage.
-   * Note: Even if storage is disabled, the middleware will still detect the locale from the request header (1- check for `x-intlayer-locale`, 2- fallback to the `accept-language`).
-   *
-   * Recommendation:
-   * - Config both localStorage and cookies for the storage of the locale if you want to support GDPR compliance.
-   * - Disable the cookie storage by default on the useLocale hook by waiting for the user to consent to the cookie storage.
+   * Pre-computed storage attributes derived from the raw `storage` input.
+   * Populated at config-build time by `getStorageAttributes(rawStorage)`.
+   * Use this at runtime instead of re-processing the raw storage config.
    */
-  storage:
-    | false
-    | 'cookie'
-    | 'localStorage'
-    | 'sessionStorage'
-    | 'header'
-    | CookiesAttributes
-    | StorageAttributes
-    | (
-        | 'cookie'
-        | 'localStorage'
-        | 'sessionStorage'
-        | 'header'
-        | CookiesAttributes
-        | StorageAttributes
-      )[];
+  storage: ProcessedStorageAttributes;
 
   /**
    * Base path for application URLs
@@ -285,6 +273,49 @@ export type RoutingConfig = {
    * Defines the base path where the application is accessible from.
    */
   basePath: string;
+};
+
+/**
+ * Raw storage input accepted in the user-facing config (`intlayer.config.ts`).
+ * Converted to {@link ProcessedStorageAttributes} during config build.
+ *
+ * Configuration for storing the locale in the client (localStorage or sessionStorage)
+ *
+ * If false, the locale will not be stored by the middleware.
+ * If true, the locale storage will consider all default values.
+ *
+ * Default: ['cookie', 'header]
+ *
+ * Note: Check out GDPR compliance for cookies. See https://gdpr.eu/cookies/
+ * Note: useLocale hook includes a prop to disable the cookie storage.
+ * Note: Even if storage is disabled, the middleware will still detect the locale from the request header (1- check for `x-intlayer-locale`, 2- fallback to the `accept-language`).
+ *
+ * Recommendation:
+ * - Config both localStorage and cookies for the storage of the locale if you want to support GDPR compliance.
+ * - Disable the cookie storage by default on the useLocale hook by waiting for the user to consent to the cookie storage.
+ */
+export type RoutingStorageInput =
+  | false
+  | 'cookie'
+  | 'localStorage'
+  | 'sessionStorage'
+  | 'header'
+  | CookiesAttributes
+  | StorageAttributes
+  | (
+      | 'cookie'
+      | 'localStorage'
+      | 'sessionStorage'
+      | 'header'
+      | CookiesAttributes
+      | StorageAttributes
+    )[];
+
+/**
+ * User-facing routing configuration (accepted in `intlayer.config.ts`).
+ */
+export type CustomRoutingConfig = Omit<RoutingConfig, 'storage'> & {
+  storage?: RoutingStorageInput;
 };
 
 /**
@@ -758,7 +789,7 @@ export type CustomIntlayerConfig = {
   /**
    * Custom routing configuration
    */
-  routing?: Partial<RoutingConfig>;
+  routing?: Partial<CustomRoutingConfig>;
 
   /**
    * Custom content configuration

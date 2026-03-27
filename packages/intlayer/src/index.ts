@@ -38,6 +38,7 @@ export type {
 } from '@intlayer/types/module_augmentation';
 
 import * as Locales from '@intlayer/types/locales';
+
 export type { DeclarationContent, Dictionary, IntlayerConfig };
 
 /**
@@ -67,17 +68,6 @@ const requiredLocales = configuration.internationalization.requiredLocales;
  * The default locale defined in the configuration.
  */
 const defaultLocale = configuration.internationalization.defaultLocale;
-
-// Reexport here for CJS compatibility
-// Fix ReferenceError: Cannot access 'xxx' before initialization
-export {
-  configuration,
-  getConfiguration,
-  locales,
-  requiredLocales,
-  defaultLocale,
-  Locales,
-};
 
 export { file } from '@intlayer/core/file'; // Include specific export for browser because of node js function that can't be used in browser
 export {
@@ -139,9 +129,31 @@ export {
 } from '@intlayer/core/transpiler';
 export {
   getCookie,
+  /**
+   * @deprecated Use `getLocaleFromStorageClient` or `getLocaleFromStorageServer` instead.
+   */
   getLocaleFromStorage,
+  getLocaleFromStorageClient,
+  getLocaleFromStorageServer,
+  LocaleStorageClient,
+  LocaleStorageServer,
+  /**
+   * @deprecated Use `setLocaleInStorageClient` or `setLocaleInStorageServer` instead.
+   */
   setLocaleInStorage,
+  setLocaleInStorageClient,
+  setLocaleInStorageServer,
 } from '@intlayer/core/utils';
+// Reexport here for CJS compatibility
+// Fix ReferenceError: Cannot access 'xxx' before initialization
+export {
+  configuration,
+  defaultLocale,
+  getConfiguration,
+  Locales,
+  locales,
+  requiredLocales,
+};
 
 // --- Registries to be augmented by the generator ---
 export interface __DictionaryRegistry {} // id -> interfaceof ictionary

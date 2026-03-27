@@ -6,7 +6,7 @@ import {
   getTranslation,
 } from '@intlayer/core/interpreter';
 import { localeDetector } from '@intlayer/core/localization';
-import { getLocaleFromStorage } from '@intlayer/core/utils';
+import { getLocaleFromStorageServer } from '@intlayer/core/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import { createNamespace } from 'cls-hooked';
@@ -70,7 +70,7 @@ const fastifyIntlayer: FastifyPluginAsync = async (fastify, _opts) => {
    * We cast req to any to avoid hard dependency on @fastify/cookie types.
    */
   const getStorageLocale = (req: FastifyRequest): Locale | undefined =>
-    getLocaleFromStorage({
+    getLocaleFromStorageServer({
       getCookie: (name: string) => (req as any).cookies?.[name],
       getHeader: (name: string) => req.headers?.[name] as string | undefined,
     });

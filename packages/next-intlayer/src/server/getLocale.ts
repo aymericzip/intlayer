@@ -1,7 +1,7 @@
 import configuration from '@intlayer/config/built';
 import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
 import { localeDetector } from '@intlayer/core/localization';
-import { getLocaleFromStorage } from '@intlayer/core/utils';
+import { getLocaleFromStorageServer } from '@intlayer/core/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import { cookies, headers } from 'next/headers.js';
 
@@ -32,7 +32,7 @@ export const getLocale = async (): Promise<Locale> => {
   const headersList = await headers();
   const cookiesList = await cookies();
 
-  const storedLocale = getLocaleFromStorage({
+  const storedLocale = getLocaleFromStorageServer({
     getCookie: (name: string) => cookiesList.get(name)?.value ?? null,
     getHeader: (name: string) => headersList.get(name) ?? null,
   });
