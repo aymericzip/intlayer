@@ -5,6 +5,7 @@ import {
   enumerationPlugin,
   filePlugin,
   genderPlugin,
+  getHTML,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
   nestedPlugin,
   type Plugins,
@@ -29,8 +30,10 @@ import type {
 } from '@intlayer/types/module_augmentation';
 import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
+import { html, type TemplateResult } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import type { HTMLComponents } from './html/types';
+import { unsafeStatic } from 'lit/static-html.js';
+import type { HTMLComponents, LitHTMLComponent } from './html/types';
 import { litRuntime } from './markdown/runtime';
 import {
   type IntlayerNode as IntlayerNodeCore,
@@ -47,19 +50,24 @@ const compileMarkdown = (markdown = '', options: CompileOptions = {}): string =>
 /**
  * Creates a Lit-renderable node for raw HTML/compiled markdown.
  *
- * The returned object is a Proxy over an `unsafeHTML` DirectiveResult so that
- * Lit's template engine renders it as HTML (not escaped text), while string
+ * The returned object is a Proxy over an `unsafeHTML` DirectiveResult or TemplateResult
+ * so that Lit's template engine renders it as HTML, while string
  * coercion (`.toString()`, `String(node)`) still returns the raw source string
  * for editor tooling and serialization.
  */
 const createLitHTMLNode = (
-  htmlStr: string,
-  rawStr: string = htmlStr,
+  content: string | TemplateResult | any[],
+  rawStr: string,
   additionalProps: Record<string, unknown> = {}
 ): any => {
-  const directive = unsafeHTML(htmlStr);
+  const result =
+    typeof content === 'string'
+      ? unsafeHTML(content)
+      : Array.isArray(content)
+        ? content
+        : content;
 
-  return new Proxy(directive as any, {
+  return new Proxy(result as any, {
     get(target, prop, receiver) {
       if (prop === 'value' || prop === 'raw') return rawStr;
       if (prop === 'toString') return () => rawStr;
@@ -248,7 +256,10 @@ export const markdownStringPlugin: Plugins = {
 
     return createLitHTMLNode(compiled, node, {
       metadata: metadataNodes,
-      use: (_components?: any) => compiled,
+      use: (components?: any) => {
+        const rendered = compileMarkdown(node, { components });
+        return createLitHTMLNode(rendered, node);
+      },
     });
   },
 };
@@ -306,11 +317,39 @@ export const htmlPlugin: Plugins = {
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeTypes.HTML,
   transform: (node: HTMLContent<string>) => {
-    const htmlStr = node[NodeTypes.HTML];
+    const htmlStr = node[NodeTypes.HTML] as string;
 
-    return createLitHTMLNode(htmlStr, htmlStr, {
-      use: (_components?: any) => htmlStr,
-    });
+    const use = (components: HTMLComponents<'permissive', {}> = {}) => {
+      // Wrap explicit user components to ensure they return what getHTML expects
+      const userComponents = Object.fromEntries(
+        Object.entries(components)
+          .filter(([, Component]) => Component)
+          .map(([key, Component]) => [
+            key,
+            (props: any) => (Component as LitHTMLComponent)(props),
+          ])
+      );
+
+      // Proxy handles standard HTML tags lazily
+      const wrappedComponents = new Proxy(userComponents, {
+        get(target, prop) {
+          if (typeof prop === 'string' && prop in target) {
+            return target[prop];
+          }
+          // Fallback: wrapper for standard lowercase HTML tags
+          if (typeof prop === 'string' && /^[a-z][a-z0-9]*$/.test(prop)) {
+            return (props: any) =>
+              html`<${unsafeStatic(prop)} ...${props}>${props.children}</${unsafeStatic(prop)}>`;
+          }
+          return undefined;
+        },
+      });
+
+      const rendered = getHTML(htmlStr, wrappedComponents as any);
+      return createLitHTMLNode(rendered, htmlStr);
+    };
+
+    return createLitHTMLNode(htmlStr, htmlStr, { use });
   },
 };
 

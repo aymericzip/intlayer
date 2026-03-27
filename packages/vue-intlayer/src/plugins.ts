@@ -5,7 +5,6 @@ import {
   enumerationPlugin,
   filePlugin,
   genderPlugin,
-  getHTML,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
   nestedPlugin,
   type Plugins,
@@ -13,11 +12,10 @@ import {
   translationPlugin,
 } from '@intlayer/core/interpreter';
 import { getMarkdownMetadata } from '@intlayer/core/markdown';
-import {
-  HTML_TAGS,
-  type HTMLContent,
-  type InsertionContent,
-  type MarkdownContent,
+import type {
+  HTMLContent,
+  InsertionContent,
+  MarkdownContent,
 } from '@intlayer/core/transpiler';
 import { isEnabled } from '@intlayer/editor/isEnabled';
 import type { KeyPath } from '@intlayer/types/keyPath';
@@ -29,6 +27,7 @@ import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { Fragment, h, markRaw, type VNode } from 'vue';
 import { default as ContentSelector } from './editor/ContentSelector.vue';
+import { renderHTML } from './html/HTMLRenderer';
 import type { HTMLComponents } from './html/types';
 import { useMarkdown } from './markdown/installIntlayerMarkdown';
 import {
@@ -335,27 +334,11 @@ export const markdownStringPlugin: Plugins = {
           ),
         additionalProps: {
           metadata: metadataNodes,
+          use: (components?: any) => render(components),
         },
       });
 
-    const element = render() as any;
-
-    return new Proxy(element, {
-      get(target, prop, receiver) {
-        if (prop === 'value') {
-          return node;
-        }
-        if (prop === 'metadata') {
-          return metadataNodes;
-        }
-
-        if (prop === 'use') {
-          return (components?: any) => render(components);
-        }
-
-        return Reflect.get(target, prop, receiver);
-      },
-    }) as any;
+    return render();
   },
 };
 
@@ -398,34 +381,6 @@ export const markdownPlugin: Plugins = {
  * HTML PLUGIN
  * --------------------------------------------- */
 
-type HTMLTagComponent = (props: {
-  children?: VNode[];
-  [key: string]: any;
-}) => VNode;
-
-/**
- * Create default HTML tag components using Vue's h function.
- * Each component renders the corresponding HTML element with its props and children.
- */
-const createDefaultHTMLComponents = (): Record<string, HTMLTagComponent> => {
-  const components: Record<string, HTMLTagComponent> = {};
-
-  for (const tag of HTML_TAGS) {
-    components[tag] = ({ children, ...props }: any) => h(tag, props, children);
-  }
-
-  return components;
-};
-
-let defaultHTMLComponents: ReturnType<
-  typeof createDefaultHTMLComponents
-> | null = null;
-const getDefaultHTMLComponents = () => {
-  if (!defaultHTMLComponents)
-    defaultHTMLComponents = createDefaultHTMLComponents();
-  return defaultHTMLComponents;
-};
-
 export type HTMLPluginCond<T> = T extends {
   nodeType: NodeType | string;
   [NodeTypes.HTML]: infer I;
@@ -446,21 +401,19 @@ export const htmlPlugin: Plugins = {
     const _tags = node.tags ?? [];
 
     // Type-safe render function that accepts properly typed components
-    const render = (userComponents?: HTMLComponents): VNode | VNode[] => {
-      // Merge default components with user-provided components
-      // User components take priority over defaults
-      const mergedComponents = {
-        ...getDefaultHTMLComponents(),
-        ...userComponents,
-      };
-      return getHTML(html, mergedComponents as any);
+    const render = (userComponents: HTMLComponents = {}): any => {
+      const element = renderHTML(html, { components: userComponents });
+      return renderIntlayerNode({
+        ...props,
+        value: html,
+        children: element,
+        additionalProps: {
+          use: (components?: any) => render(components),
+        },
+      });
     };
 
-    return renderIntlayerNode({
-      ...props,
-      value: html,
-      children: (userComponents?: any) => render(userComponents),
-    });
+    return render();
   },
 };
 

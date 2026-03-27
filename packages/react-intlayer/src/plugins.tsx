@@ -415,13 +415,21 @@ export const htmlPlugin: Plugins = {
 
     // Type-safe render function that accepts properly typed components
     const render = (userComponents?: HTMLComponents): ReactNode =>
-      createElement(
-        Suspense,
-        { fallback: html },
-        createElement(LazyHTMLRendererPlugin, { ...rest, html, userComponents })
-      );
+      renderIntlayerNode({
+        ...rest,
+        value: html,
+        children: (
+          <Suspense fallback={html}>
+            <LazyHTMLRendererPlugin
+              {...rest}
+              html={html}
+              userComponents={userComponents}
+            />
+          </Suspense>
+        ),
+      });
 
-    const element = render() as ReactElement;
+    const element = render() as unknown as ReactElement;
 
     return new Proxy(element, {
       get(target, prop, receiver) {

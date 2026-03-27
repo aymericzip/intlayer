@@ -1,30 +1,8 @@
 import { getHTML } from '@intlayer/core/interpreter';
-import { HTML_TAGS } from '@intlayer/core/transpiler';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import { Fragment, type FunctionComponent, h, type JSX } from 'preact';
 import { useHTMLContext } from './HTMLProvider';
 import type { HTMLComponents } from './types';
-
-/**
- * Type for Preact HTML tag components.
- */
-type HTMLTagComponent = (props: {
-  children?: any;
-  [key: string]: any;
-}) => JSX.Element;
-
-const createDefaultHTMLComponents = (): Record<string, HTMLTagComponent> => {
-  const components: Record<string, HTMLTagComponent> = {};
-
-  for (const tag of HTML_TAGS) {
-    components[tag] = ({ children, ...props }) =>
-      h(tag as any, props, children);
-  }
-
-  return components;
-};
-
-export const defaultHTMLComponents = createDefaultHTMLComponents();
 
 export type RenderHTMLProps = {
   /**
@@ -42,16 +20,11 @@ export type RenderHTMLProps = {
  */
 export const renderHTML = (
   content: string,
-  { components }: RenderHTMLProps = {}
+  { components = {} }: RenderHTMLProps = {}
 ): JSX.Element => {
-  const mergedComponents = {
-    ...defaultHTMLComponents,
-    ...components,
-  };
-
-  // Wrap all components to ensure they are rendered via Preact's h
-  const wrappedComponents = Object.fromEntries(
-    Object.entries(mergedComponents)
+  // Wrap explicit user components to ensure they are rendered via Preact's h
+  const userComponents = Object.fromEntries(
+    Object.entries(components)
       .filter(([, Component]) => Component)
       .map(([key, Component]) => [
         key,
@@ -59,7 +32,22 @@ export const renderHTML = (
       ])
   );
 
-  return h(Fragment, null, getHTML(content, wrappedComponents));
+  // Proxy handles standard HTML tags lazily without a hardcoded list
+  const wrappedComponents = new Proxy(userComponents, {
+    get(target, prop) {
+      if (typeof prop === 'string' && prop in target) {
+        return target[prop];
+      }
+      // Fallback: Lazily generate a wrapper for standard lowercase HTML tags
+      if (typeof prop === 'string' && /^[a-z][a-z0-9]*$/.test(prop)) {
+        return (props: any) => h(prop, props);
+      }
+      return undefined;
+    },
+  });
+
+  // Cast wrappedComponents to any to satisfy getHTML's dictionary typing
+  return h(Fragment, null, getHTML(content, wrappedComponents as any));
 };
 
 /**
@@ -106,7 +94,7 @@ export const HTMLRenderer: FunctionComponent<HTMLRendererProps> = ({
   html,
   components,
 }) => {
-  const render = useHTMLRenderer({ components: components });
+  const render = useHTMLRenderer({ components });
   const content = children || html || '';
 
   return render(content);

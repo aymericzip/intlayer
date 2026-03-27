@@ -1,4 +1,5 @@
 import type { HTMLTagsType } from '@intlayer/core/transpiler';
+import type { TemplateResult } from 'lit';
 
 /**
  * Helper to extract specific props from the configuration value.
@@ -14,13 +15,15 @@ type PropsFromConfig<Value> = Value extends true
  * Components receive these as a plain object.
  */
 type ElementProps = Record<string, unknown> & {
-  children?: string;
+  children?: any;
 };
 
 /**
- * Lit component type — a function that takes props and returns a string of HTML.
+ * Lit component type — a function that takes props and returns a Lit template or string.
  */
-type LitHTMLComponent<P = {}> = (props: P & ElementProps) => string;
+export type LitHTMLComponent<P = {}> = (
+  props: P & ElementProps
+) => TemplateResult | string | any;
 
 /**
  * Helper: Defines the mapping for the explicitly listed keys in T.

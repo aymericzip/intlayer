@@ -5,17 +5,15 @@ import {
   enumerationPlugin,
   filePlugin,
   genderPlugin,
-  getHTML,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
   nestedPlugin,
   type Plugins,
   translationPlugin,
 } from '@intlayer/core/interpreter';
-import {
-  HTML_TAGS,
-  type HTMLContent,
-  type InsertionContent,
-  type MarkdownContent,
+import type {
+  HTMLContent,
+  InsertionContent,
+  MarkdownContent,
 } from '@intlayer/core/transpiler';
 import { isEnabled } from '@intlayer/editor/isEnabled';
 import type { KeyPath } from '@intlayer/types/keyPath';
@@ -26,6 +24,7 @@ import type {
 import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { default as ContentSelector } from './editor/ContentSelector.svelte';
+import { HTMLRenderer } from './html/index';
 import type { HTMLComponents } from './html/types';
 import { type IntlayerNode, renderIntlayerNode } from './renderIntlayerNode';
 
@@ -400,65 +399,6 @@ export const markdownPlugin: Plugins = {
  * HTML PLUGIN
  * --------------------------------------------- */
 
-type HTMLTagComponent = (props: {
-  children?: (string | HTMLElement)[];
-  [key: string]: any;
-}) => HTMLElement;
-
-/**
- * Create default HTML tag components using DOM API.
- * Each component creates the corresponding HTML element with its props and children.
- * Note: This approach works in browser environments.
- */
-const createDefaultHTMLComponents = (): Record<string, HTMLTagComponent> => {
-  const components: Record<string, HTMLTagComponent> = {};
-
-  for (const tag of HTML_TAGS) {
-    components[tag] = ({ children = [], ...props }) => {
-      const element = document.createElement(tag);
-
-      // Apply props as attributes
-      for (const [key, value] of Object.entries(props)) {
-        if (key.startsWith('on') && typeof value === 'function') {
-          // Handle event listeners
-          const eventName = key.slice(2).toLowerCase();
-          element.addEventListener(eventName, value as EventListener);
-        } else if (value !== undefined && value !== null) {
-          element.setAttribute(key, String(value));
-        }
-      }
-
-      // Append children
-      for (const child of children) {
-        if (typeof child === 'string') {
-          element.appendChild(document.createTextNode(child));
-        } else if (child instanceof Node) {
-          element.appendChild(child);
-        }
-      }
-
-      return element;
-    };
-  }
-
-  return components;
-};
-
-let defaultHTMLComponents: Record<string, HTMLTagComponent> | null = null;
-
-const getDefaultHTMLComponents = (): Record<string, HTMLTagComponent> => {
-  if (typeof document === 'undefined') {
-    // SSR fallback: return empty object, user must provide all components
-    return {};
-  }
-  if (!defaultHTMLComponents) {
-    defaultHTMLComponents = createDefaultHTMLComponents();
-  }
-  return defaultHTMLComponents;
-};
-
-// Svelte generic component map
-
 export type HTMLPluginCond<T> = T extends {
   nodeType: NodeType | string;
   [NodeTypes.HTML]: infer I;
@@ -474,46 +414,25 @@ export const htmlPlugin: Plugins = {
   id: 'html-plugin',
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeTypes.HTML,
-  transform: (node: HTMLContent<string>) => {
+  transform: (node: HTMLContent<string>, props) => {
     const htmlString = node[NodeTypes.HTML];
     const _tags = node.tags ?? [];
 
-    const render = (userComponents?: HTMLComponents): any => {
-      const mergedComponents = {
-        ...getDefaultHTMLComponents(),
-        ...userComponents,
-      };
-      const result = getHTML(htmlString, mergedComponents as any);
-
-      const toStringFn = () => {
-        if (Array.isArray(result)) {
-          return result
-            .map((item) =>
-              typeof item === 'string'
-                ? item
-                : (item as any).outerHTML || String(item)
-            )
-            .join('');
-        }
-        return typeof result === 'string'
-          ? result
-          : (result as any).outerHTML || String(result);
-      };
-
-      const target =
-        typeof result === 'object' && result !== null ? result : {};
-
-      return new Proxy(target, {
-        get(t, prop) {
-          if (prop === 'toString') return toStringFn;
-          if (prop === 'use')
-            return (userComponents?: HTMLComponents) => render(userComponents);
-          if (prop === 'value') return htmlString;
-
-          return (t as any)[prop] ?? (result as any)[prop];
+    // Type-safe render function that accepts properly typed components
+    const render = (userComponents: HTMLComponents = {}): any =>
+      renderIntlayerNode({
+        ...props,
+        value: htmlString,
+        component: HTMLRenderer,
+        props: {
+          ...props,
+          value: htmlString,
+          components: userComponents,
+        },
+        additionalProps: {
+          use: (components?: HTMLComponents) => render(components),
         },
       });
-    };
 
     return render();
   },

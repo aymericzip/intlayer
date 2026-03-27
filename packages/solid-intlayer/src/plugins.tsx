@@ -5,7 +5,6 @@ import {
   enumerationPlugin,
   filePlugin,
   genderPlugin,
-  getHTML,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
   nestedPlugin,
   type Plugins,
@@ -13,11 +12,10 @@ import {
   translationPlugin,
 } from '@intlayer/core/interpreter';
 import { getMarkdownMetadata } from '@intlayer/core/markdown';
-import {
-  HTML_TAGS,
-  type HTMLContent,
-  type InsertionContent,
-  type MarkdownContent,
+import type {
+  HTMLContent,
+  InsertionContent,
+  MarkdownContent,
 } from '@intlayer/core/transpiler';
 import { isEnabled } from '@intlayer/editor/isEnabled';
 import type { KeyPath } from '@intlayer/types/keyPath';
@@ -28,7 +26,6 @@ import type {
 import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { type JSX, lazy, Suspense } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
 import { ContentSelector } from './editor/ContentSelector';
 import type { HTMLComponents } from './html/types';
 import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
@@ -364,34 +361,13 @@ export const markdownPlugin: Plugins = {
   },
 };
 
+const LazyHTMLRenderer = lazy(() =>
+  import('./html/HTMLRenderer').then((m) => ({ default: m.HTMLRenderer }))
+);
+
 /** ---------------------------------------------
  *  HTML PLUGIN
  *  --------------------------------------------- */
-
-type HTMLTagComponent = (props: {
-  children?: JSX.Element;
-  [key: string]: any;
-}) => JSX.Element;
-
-/**
- * Create default HTML tag components using Solid's Dynamic component.
- * Each component renders the corresponding HTML element with its props and children.
- */
-const createDefaultHTMLComponents = (): Record<string, HTMLTagComponent> => {
-  const components: Record<string, HTMLTagComponent> = {};
-
-  for (const tag of HTML_TAGS) {
-    components[tag] = ({ children, ...props }) => (
-      <Dynamic component={tag} {...props}>
-        {children}
-      </Dynamic>
-    );
-  }
-
-  return components;
-};
-
-const defaultHTMLComponents = createDefaultHTMLComponents();
 
 export type HTMLPluginCond<T> = T extends {
   nodeType: NodeType | string;
@@ -411,18 +387,25 @@ export const htmlPlugin: Plugins = {
   id: 'html-plugin',
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeTypes.HTML,
-  transform: (node: HTMLContent) => {
+  transform: (node: HTMLContent<string>, props) => {
     const html = node[NodeTypes.HTML];
+    const { plugins, ...rest } = props;
 
-    const render = (userComponents?: HTMLComponents): JSX.Element => {
-      // Merge default components with user-provided components
-      // User components take priority over defaults
-      const mergedComponents = {
-        ...defaultHTMLComponents,
-        ...userComponents,
-      };
-      return getHTML(html as string, mergedComponents as any);
-    };
+    // Type-safe render function that accepts properly typed components
+    const render = (userComponents?: HTMLComponents): any =>
+      renderIntlayerNode({
+        ...rest,
+        value: html,
+        children: (
+          <Suspense fallback={html}>
+            <LazyHTMLRenderer
+              {...rest}
+              html={html}
+              components={userComponents}
+            />
+          </Suspense>
+        ),
+      });
 
     const element = render() as any;
     const target = [element];

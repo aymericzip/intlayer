@@ -1,31 +1,9 @@
 import { getHTML } from '@intlayer/core/interpreter';
-import { HTML_TAGS } from '@intlayer/core/transpiler';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type { Component, JSX, ValidComponent } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { useHTMLContext } from './HTMLProvider';
 import type { HTMLComponents } from './types';
-
-type HTMLTagComponent = (props: {
-  children?: JSX.Element;
-  [key: string]: any;
-}) => JSX.Element;
-
-const createDefaultHTMLComponents = (): Record<string, HTMLTagComponent> => {
-  const components: Record<string, HTMLTagComponent> = {};
-
-  for (const tag of HTML_TAGS) {
-    components[tag] = ({ children, ...props }) => (
-      <Dynamic component={tag as ValidComponent} {...props}>
-        {children}
-      </Dynamic>
-    );
-  }
-
-  return components;
-};
-
-export const defaultHTMLComponents = createDefaultHTMLComponents();
 
 export type RenderHTMLProps = {
   /**
@@ -43,14 +21,37 @@ export type RenderHTMLProps = {
  */
 export const renderHTML = (
   content: string,
-  { components }: RenderHTMLProps = {}
+  { components = {} }: RenderHTMLProps = {}
 ): JSX.Element => {
-  const mergedComponents = {
-    ...defaultHTMLComponents,
-    ...components,
-  };
+  // Wrap explicit user components to ensure they are rendered via Solid's Dynamic
+  const userComponents = Object.fromEntries(
+    Object.entries(components)
+      .filter(([, Component]) => Component)
+      .map(([key, Component]) => [
+        key,
+        (props: any) => (
+          <Dynamic component={Component as ValidComponent} {...props} />
+        ),
+      ])
+  );
 
-  return getHTML(content, mergedComponents);
+  // Proxy handles standard HTML tags lazily without a hardcoded list
+  const wrappedComponents = new Proxy(userComponents, {
+    get(target, prop) {
+      if (typeof prop === 'string' && prop in target) {
+        return target[prop];
+      }
+      // Fallback: Lazily generate a wrapper for standard lowercase HTML tags
+      if (typeof prop === 'string' && /^[a-z][a-z0-9]*$/.test(prop)) {
+        return (props: any) => (
+          <Dynamic component={prop as ValidComponent} {...props} />
+        );
+      }
+      return undefined;
+    },
+  });
+
+  return getHTML(content, wrappedComponents as any);
 };
 
 /**

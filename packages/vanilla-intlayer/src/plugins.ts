@@ -5,13 +5,17 @@ import {
   enumerationPlugin,
   filePlugin,
   genderPlugin,
+  getHTML,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
   nestedPlugin,
   type Plugins,
   splitInsertionTemplate,
   translationPlugin,
 } from '@intlayer/core/interpreter';
-import { getMarkdownMetadata } from '@intlayer/core/markdown';
+import {
+  compileWithOptions,
+  getMarkdownMetadata,
+} from '@intlayer/core/markdown';
 import type {
   HTMLContent,
   InsertionContent,
@@ -64,13 +68,6 @@ export const intlayerNodePlugins: Plugins = {
        * In editor mode, string coercion returns the wrapper HTML so that
        * `element.innerHTML = content.title` automatically inserts the
        * `<intlayer-content-selector-wrapper>` into the DOM.
-       *
-       * Use `.raw` or `.valueOf()` to get the plain text value.
-       *
-       * `toElement()` is an alternative for explicit DOM insertion:
-       * ```ts
-       * container.replaceChildren(content.title.toElement());
-       * ```
        */
       const node = {
         toString: () => htmlStr,
@@ -168,8 +165,6 @@ export const insertionPlugin: Plugins = {
       plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
     });
 
-    // When children is an enumeration/condition, mirror React/Lit convention:
-    // return (values) => (arg) => result so the caller does fn(values)(count).
     if (
       typeof children === 'object' &&
       children !== null &&
@@ -192,12 +187,42 @@ export const insertionPlugin: Plugins = {
  * MARKDOWN PLUGIN
  * --------------------------------------------- */
 
+const vanillaRuntime = {
+  createElement: (tag: string, props: any, ...children: any[]) => {
+    const attrs = Object.entries(props || {})
+      .filter(
+        ([key]) => key !== 'children' && key !== 'key' && key !== '_innerHTML'
+      )
+      .map(([key, value]) => `${key}="${value}"`)
+      .join(' ');
+    const innerHTML = props?._innerHTML;
+    const childrenStr =
+      innerHTML !== undefined ? innerHTML : children.flat(Infinity).join('');
+    return `<${tag}${attrs ? ` ${attrs}` : ''}>${childrenStr}</${tag}>`;
+  },
+  normalizeProps: (_tag: string, props: Record<string, any>) => {
+    const normalized: Record<string, any> = {};
+    for (const [key, value] of Object.entries(props)) {
+      if (key === 'className') {
+        normalized.class = value;
+      } else if (key === 'htmlFor') {
+        normalized.for = value;
+      } else if (key === 'dangerouslySetInnerHTML' && (value as any)?.__html) {
+        normalized._innerHTML = (value as any).__html;
+      } else {
+        normalized[key] = value;
+      }
+    }
+    return normalized;
+  },
+};
+
 export type MarkdownStringCond<T> = T extends string
   ? IntlayerNode<
       string,
       {
         metadata: DeepTransformContent<string>;
-        /** Returns the raw markdown string; render with compileMarkdown(). */
+        /** Returns the rendered markdown; render with .use(). */
         use: (components?: HTMLComponents<'permissive', {}>) => string;
       }
     >
@@ -208,7 +233,6 @@ export const markdownStringPlugin: Plugins = {
   canHandle: (node) => typeof node === 'string',
   transform: (node: string, props, deepTransformNode) => {
     const { plugins: _plugins, ...rest } = props;
-
     const metadata = getMarkdownMetadata(node) ?? {};
 
     const metadataPlugins: Plugins = {
@@ -232,13 +256,29 @@ export const markdownStringPlugin: Plugins = {
       keyPath: [],
     });
 
+    const compile = (components: any = {}) =>
+      compileWithOptions(
+        node,
+        {
+          ...vanillaRuntime,
+          createElement: (tag: any, props: any, ...children: any[]) => {
+            const override = components[tag];
+            if (typeof override === 'function') {
+              return override({ ...props, children: children.join('') });
+            }
+            return vanillaRuntime.createElement(tag, props, ...children);
+          },
+        },
+        {}
+      ) as any;
+
     return renderIntlayerNode({
       ...props,
-      value: node,
+      value: compile(),
       children: node,
       additionalProps: {
         metadata: metadataNodes,
-        use: (_components?: any) => node,
+        use: (components?: any) => compile(components),
       },
     }) as any;
   },
@@ -265,7 +305,6 @@ export const markdownPlugin: Plugins = {
       ...props.keyPath,
       { type: NodeTypes.MARKDOWN },
     ];
-
     const children = node[NodeTypes.MARKDOWN];
 
     return deepTransformNode(children, {
@@ -287,7 +326,6 @@ export type HTMLPluginCond<T> = T extends {
   tags?: infer U;
 }
   ? {
-      /** Returns the raw HTML string. */
       use: (components?: HTMLComponents<'permissive', U>) => IntlayerNode<I>;
     }
   : never;
@@ -297,14 +335,46 @@ export const htmlPlugin: Plugins = {
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeTypes.HTML,
   transform: (node: HTMLContent<string>, props) => {
-    const html = node[NodeTypes.HTML];
+    const htmlStr = node[NodeTypes.HTML];
+
+    const use = (components: Record<string, any> = {}) => {
+      const wrappedComponents = new Proxy(components, {
+        get(target, prop) {
+          if (typeof prop === 'string' && prop in target) {
+            const Component = target[prop];
+            return (props: any) => {
+              const children = Array.isArray(props.children)
+                ? props.children.join('')
+                : props.children;
+              return Component({ ...props, children });
+            };
+          }
+          if (typeof prop === 'string' && /^[a-z][a-z0-9]*$/.test(prop)) {
+            return (props: any) => {
+              const attrs = Object.entries(props)
+                .filter(([k]) => k !== 'children' && k !== 'key')
+                .map(([k, v]) => `${k}="${v}"`)
+                .join(' ');
+              const children = Array.isArray(props.children)
+                ? props.children.join('')
+                : props.children;
+              return `<${prop}${attrs ? ` ${attrs}` : ''}>${children}</${prop}>`;
+            };
+          }
+          return undefined;
+        },
+      });
+
+      const result = getHTML(htmlStr, wrappedComponents as any);
+      return Array.isArray(result) ? result.join('') : result;
+    };
 
     return renderIntlayerNode({
       ...props,
-      value: html,
-      children: html,
+      value: use(),
+      children: htmlStr,
       additionalProps: {
-        use: (_components?: any) => html,
+        use: (components?: any) => use(components),
       },
     });
   },

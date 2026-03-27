@@ -1,23 +1,9 @@
 'use client';
 
 import { getHTML } from '@intlayer/core/interpreter';
-import { HTML_TAGS } from '@intlayer/core/transpiler';
 import { createElement, type FC, Fragment, type JSX } from 'react';
 import type { HTMLComponents } from './HTMLComponentTypes';
 import { useHTMLContext } from './HTMLProvider';
-
-const createDefaultHTMLComponents = (): HTMLComponents<'permissive', {}> => {
-  const components: HTMLComponents = {};
-
-  for (const tag of HTML_TAGS) {
-    components[tag] = ({ children, ...props }) =>
-      createElement(tag, props as any, children);
-  }
-
-  return components as HTMLComponents<'permissive', {}>;
-};
-
-export const defaultHTMLComponents = createDefaultHTMLComponents();
 
 export type RenderHTMLProps = {
   /**
@@ -35,16 +21,11 @@ export type RenderHTMLProps = {
  */
 export const renderHTML = (
   content: string,
-  { components }: RenderHTMLProps = {}
+  { components = {} }: RenderHTMLProps = {}
 ): JSX.Element => {
-  const mergedComponents = {
-    ...defaultHTMLComponents,
-    ...components,
-  };
-
-  // Wrap all components to ensure they are rendered via React.createElement
-  const wrappedComponents = Object.fromEntries(
-    Object.entries(mergedComponents)
+  // Wrap explicit user components to ensure they are rendered via React.createElement
+  const userComponents = Object.fromEntries(
+    Object.entries(components)
       .filter(([, Component]) => Component)
       .map(([key, Component]) => [
         key,
@@ -52,7 +33,21 @@ export const renderHTML = (
       ])
   );
 
-  return <Fragment>{getHTML(content, wrappedComponents)}</Fragment>;
+  // Proxy handles standard HTML tags lazily without a hardcoded list
+  const wrappedComponents = new Proxy(userComponents, {
+    get(target, prop) {
+      if (typeof prop === 'string' && prop in target) {
+        return target[prop];
+      }
+      // Fallback: Lazily generate a wrapper for standard lowercase HTML tags
+      if (typeof prop === 'string' && /^[a-z][a-z0-9]*$/.test(prop)) {
+        return (props: any) => createElement(prop, props);
+      }
+      return undefined;
+    },
+  });
+
+  return <Fragment>{getHTML(content, wrappedComponents as any)}</Fragment>;
 };
 
 /**

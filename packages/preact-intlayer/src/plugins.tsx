@@ -457,11 +457,19 @@ export const htmlPlugin: Plugins = {
 
     // Type-safe render function that accepts properly typed components
     const render = (userComponents?: HTMLComponents): VNode =>
-      h(
-        Suspense as any,
-        { fallback: html },
-        h(LazyHTMLRenderer as any, { ...rest, html, userComponents })
-      ) as any;
+      renderIntlayerNode({
+        ...rest,
+        value: html,
+        children: h(
+          Suspense as any,
+          { fallback: html },
+          h(LazyHTMLRenderer as any, {
+            ...rest,
+            html,
+            userComponents,
+          })
+        ),
+      }) as any;
 
     const element = render() as any;
 

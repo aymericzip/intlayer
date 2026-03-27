@@ -1,5 +1,5 @@
 import { getHTML } from '@intlayer/core/interpreter';
-import { defineComponent, type PropType, type VNodeChild } from 'vue';
+import { defineComponent, h, type PropType, type VNodeChild } from 'vue';
 import { useHTML } from './installIntlayerHTML';
 import type { HTMLComponents } from './types';
 
@@ -15,9 +15,33 @@ export type RenderHTMLProps = {
  */
 export const renderHTML = (
   content: string,
-  { components }: RenderHTMLProps = {}
+  { components = {} }: RenderHTMLProps = {}
 ): VNodeChild => {
-  return getHTML(content, components as any);
+  // Wrap explicit user components to ensure they are rendered via Vue's h
+  const userComponents = Object.fromEntries(
+    Object.entries(components)
+      .filter(([, Component]) => Component)
+      .map(([key, Component]) => [
+        key,
+        (props: any) => h(Component as any, props, props?.children),
+      ])
+  );
+
+  // Proxy handles standard HTML tags lazily without a hardcoded list
+  const wrappedComponents = new Proxy(userComponents, {
+    get(target, prop) {
+      if (typeof prop === 'string' && prop in target) {
+        return target[prop];
+      }
+      // Fallback: Lazily generate a wrapper for standard lowercase HTML tags
+      if (typeof prop === 'string' && /^[a-z][a-z0-9]*$/.test(prop)) {
+        return (props: any) => h(prop, props, props?.children);
+      }
+      return undefined;
+    },
+  });
+
+  return getHTML(content, wrappedComponents as any);
 };
 
 /**
