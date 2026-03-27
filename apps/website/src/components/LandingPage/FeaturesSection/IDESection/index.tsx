@@ -104,6 +104,11 @@ const getPerComponentTabs = (framework: Framework) => {
       content: frameworkComponent[framework].content,
       isOpen: true,
     },
+    {
+      path: 'intlayer.config.ts',
+      content: configFileCentralized,
+      isOpen: false,
+    },
   ];
 };
 
