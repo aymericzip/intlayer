@@ -1,4 +1,3 @@
-export * from '../getStorageAttributes';
 export { getBrowserLocale, localeStorageOptions } from './getBrowserLocale';
 export { getHTMLTextDir } from './getHTMLTextDir';
 export { getLocale } from './getLocale';
