@@ -9,7 +9,12 @@ vi.mock('@intlayer/config/built', () => ({
       defaultLocale: Locales.ENGLISH,
     },
     routing: {
-      storage: ['cookie'],
+      storage: {
+        cookies: [{ name: 'INTLAYER_LOCALE', attributes: {} }],
+        localStorage: [],
+        sessionStorage: [],
+        headers: [{ name: 'accept-language' }],
+      },
     },
   },
 }));

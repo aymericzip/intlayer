@@ -17,3 +17,4 @@ installIntlayerMarkdown({
 // Import and register all custom elements.
 import './my-element.js';
 import './locale-switcher.js';
+import './custom-component.js';

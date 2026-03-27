@@ -4,26 +4,13 @@ const appContent = {
   key: 'app',
   content: {
     title: 'Vite + Vanilla',
-
-    viteLogoLabel: t({
-      en: 'Vite Logo',
-      fr: 'Logo Vite',
-      es: 'Logo Vite',
-    }),
-    tsLogoLabel: t({
-      en: 'TypeScript Logo',
-      fr: 'Logo TypeScript',
-      es: 'Logo TypeScript',
-    }),
-
     countIs: insert(
       t({
-        en: 'count is {{count}}',
-        fr: 'le compte est de {{count}}',
-        es: 'el conteo es de {{count}}',
+        en: 'Count is {{count}}',
+        fr: 'Le compte est {{count}}',
+        es: 'El recuento es {{count}}',
       })
     ),
-
     enumeration: insert(
       enu({
         '0': t({
@@ -43,23 +30,30 @@ const appContent = {
         }),
       })
     ),
-
     htmlContent: html(
       t({
-        en: '<div>Hello <b>World</b></div>',
-        fr: '<div>Bonjour <b>Monde</b></div>',
-        es: '<div>Hola <b>Mundo</b></div>',
+        en: '<div>Hello <b>World</b> from Vanilla! <br/> <custom-component /></div>',
+        fr: '<div>Bonjour <b>Monde</b> de Vanilla! <br/> <custom-component /></div>',
+        es: '<div>Hola <b>Mundo</b> desde Vanilla! <br/> <custom-component /></div>',
       })
     ),
-
-    editNote: md(
+    markdownContent: md(
       t({
-        en: 'Edit `src/main.ts` and save to test **HMR**',
-        fr: 'Modifiez `src/main.ts` et enregistrez pour tester **HMR**',
-        es: 'Edite `src/main.ts` y guarde para probar **HMR**',
+        en: '# Hello from Vanilla Markdown! \n\nThis is **bold** and *italic*.',
+        fr: '# Bonjour de Vanilla Markdown! \n\nCeci est en **gras** et en *italique*.',
+        es: '# ¡Hola de Vanilla Markdown! \n\nEsto es **negrita** e *itálica*.',
       })
     ),
-
+    viteLogoLabel: t({
+      en: 'Vite Logo',
+      fr: 'Logo Vite',
+      es: 'Logo Vite',
+    }),
+    tsLogoLabel: t({
+      en: 'TypeScript Logo',
+      fr: 'Logo TypeScript',
+      es: 'Logo TypeScript',
+    }),
     readTheDocs: t({
       en: 'Click on the Vite and TypeScript logos to learn more',
       fr: 'Cliquez sur les logos Vite et TypeScript pour en savoir plus',

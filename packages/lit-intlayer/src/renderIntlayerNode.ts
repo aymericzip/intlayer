@@ -59,6 +59,8 @@ export const renderIntlayerNode = <
       _value = next?.raw ?? next?.value ?? next;
     },
 
+    isJSX: true,
+
     ...additionalProps,
   };
 

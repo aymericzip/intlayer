@@ -1,5 +1,8 @@
 import type { Locale } from '@intlayer/types/allLocales';
-import type { CustomIntlayerConfig } from '@intlayer/types/config';
+import type {
+  CustomIntlayerConfig,
+  IntlayerConfig,
+} from '@intlayer/types/config';
 import type * as ANSIColorsTypes from './colors';
 import { BEIGE, BLUE, GREEN, GREY, RED, RESET } from './colors';
 
@@ -52,7 +55,7 @@ export const spinnerFrames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '
  * The configuration is merged with the default configuration from the intlayer config file.
  */
 export const getAppLogger =
-  (configuration?: CustomIntlayerConfig, globalDetails?: Details) =>
+  (configuration?: IntlayerConfig, globalDetails?: Details) =>
   (content: any, details?: Details) =>
     logger(content, {
       ...(details ?? {}),

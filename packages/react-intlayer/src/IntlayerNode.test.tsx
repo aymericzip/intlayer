@@ -1,5 +1,5 @@
 import { createElement, Fragment } from 'react';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { renderIntlayerNode } from './IntlayerNode';
 
 // ---------------------------------------------------------------------------
@@ -11,10 +11,23 @@ const mockConfig = vi.hoisted(() => ({
   internationalization: { defaultLocale: 'en', locales: ['en'] },
 }));
 
+// isEnabled is a module-level constant in @intlayer/editor/isEnabled that is
+// evaluated once at import time.  We need a getter so its value can change
+// between test cases.
+const mockIsEnabled = vi.hoisted(() => ({ value: false }));
+
 vi.mock('@intlayer/config/built', () => ({ default: mockConfig }));
 
-vi.mock('./editor', () => ({
-  ContentSelector: ({ children }: any) => children,
+// Make isEnabled a live getter so beforeEach can flip it.
+vi.mock('@intlayer/editor/isEnabled', () => ({
+  get isEnabled() {
+    return mockIsEnabled.value;
+  },
+}));
+
+// plugins.tsx imports ContentSelector from './editor/ContentSelector' (not './editor').
+vi.mock('./editor/ContentSelector', () => ({
+  ContentSelector: vi.fn(({ children }: any) => children),
 }));
 
 vi.mock('./editor/useEditedContentRenderer', () => ({
@@ -76,6 +89,7 @@ describe('renderIntlayerNode', () => {
 describe('getDictionary – editor disabled', () => {
   beforeEach(() => {
     mockConfig.editor.enabled = false;
+    mockIsEnabled.value = false;
   });
 
   it('field.value returns the raw string', () => {
@@ -103,6 +117,11 @@ describe('getDictionary – editor disabled', () => {
 describe('getDictionary – editor enabled', () => {
   beforeEach(() => {
     mockConfig.editor.enabled = true;
+    mockIsEnabled.value = true;
+  });
+
+  afterEach(() => {
+    mockIsEnabled.value = false;
   });
 
   it('field.value still returns the raw string even when editor is enabled', () => {

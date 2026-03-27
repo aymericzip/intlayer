@@ -35,11 +35,11 @@ const config: IntlayerConfig = {
     applicationContext: 'This is a test application',
   },
   compiler: {
-    enabled: true,
+    enabled: false,
   },
-  build: {
-    optimize: true,
-  },
+  // build: {
+  //   optimize: true,
+  // },
   dictionary: {
     importMode: 'dynamic',
   },

@@ -30,9 +30,10 @@ import type {
 } from '@intlayer/types/module_augmentation';
 import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
-import { html, type TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { unsafeStatic } from 'lit/static-html.js';
+import { html, unsafeStatic } from 'lit/static-html.js';
+import { getIntlayerClient } from './client/installIntlayer';
 import type { HTMLComponents, LitHTMLComponent } from './html/types';
 import { litRuntime } from './markdown/runtime';
 import {
@@ -74,8 +75,12 @@ const createLitHTMLNode = (
       if (prop === Symbol.toPrimitive) return () => rawStr;
       if (prop === Symbol.iterator) return undefined;
       if (prop === '__update') return () => {};
-      if (Object.hasOwn(additionalProps, prop as string))
-        return additionalProps[prop as string];
+      if (prop === 'isJSX') return true;
+
+      if (prop in additionalProps) {
+        return (additionalProps as any)[prop];
+      }
+
       return Reflect.get(target, prop, receiver);
     },
   });
@@ -228,6 +233,7 @@ export const markdownStringPlugin: Plugins = {
   canHandle: (node) => typeof node === 'string',
   transform: (node: string, props, deepTransformNode) => {
     const { plugins: _plugins, ...rest } = props;
+    const { keyPath, dictionaryKey } = rest;
 
     const metadata = getMarkdownMetadata(node) ?? {};
 
@@ -254,12 +260,28 @@ export const markdownStringPlugin: Plugins = {
 
     const compiled = compileMarkdown(node);
 
+    const use = (components?: any) => {
+      const rendered = compileMarkdown(node, { components });
+
+      if (isEnabled) {
+        const wrappedHTML = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${rendered}</intlayer-content-selector-wrapper>`;
+        return createLitHTMLNode(wrappedHTML, node);
+      }
+
+      return createLitHTMLNode(rendered, node);
+    };
+
+    if (isEnabled) {
+      const wrappedHTML = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${compiled}</intlayer-content-selector-wrapper>`;
+      return createLitHTMLNode(wrappedHTML, node, {
+        metadata: metadataNodes,
+        use,
+      });
+    }
+
     return createLitHTMLNode(compiled, node, {
       metadata: metadataNodes,
-      use: (components?: any) => {
-        const rendered = compileMarkdown(node, { components });
-        return createLitHTMLNode(rendered, node);
-      },
+      use,
     });
   },
 };
@@ -316,8 +338,9 @@ export const htmlPlugin: Plugins = {
   id: 'html-plugin',
   canHandle: (node) =>
     typeof node === 'object' && node?.nodeType === NodeTypes.HTML,
-  transform: (node: HTMLContent<string>) => {
+  transform: (node: HTMLContent<string>, props) => {
     const htmlStr = node[NodeTypes.HTML] as string;
+    const { keyPath, dictionaryKey } = props;
 
     const use = (components: HTMLComponents<'permissive', {}> = {}) => {
       // Wrap explicit user components to ensure they return what getHTML expects
@@ -346,8 +369,19 @@ export const htmlPlugin: Plugins = {
       });
 
       const rendered = getHTML(htmlStr, wrappedComponents as any);
+
+      if (isEnabled) {
+        const wrappedHTML = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${rendered}</intlayer-content-selector-wrapper>`;
+        return createLitHTMLNode(wrappedHTML, htmlStr);
+      }
+
       return createLitHTMLNode(rendered, htmlStr);
     };
+
+    if (isEnabled) {
+      const wrappedHTML = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${htmlStr}</intlayer-content-selector-wrapper>`;
+      return createLitHTMLNode(wrappedHTML, htmlStr, { use });
+    }
 
     return createLitHTMLNode(htmlStr, htmlStr, { use });
   },
@@ -382,18 +416,27 @@ export type DeepTransformContent<
 export const getPlugins = (
   locale?: LocalesValues,
   fallback = true
-): Plugins[] => [
-  translationPlugin(
-    locale ?? configuration.internationalization.defaultLocale,
-    fallback ? configuration.internationalization.defaultLocale : undefined
-  ),
-  enumerationPlugin,
-  conditionPlugin,
-  nestedPlugin(locale ?? configuration.internationalization.defaultLocale),
-  filePlugin,
-  genderPlugin,
-  intlayerNodePlugins,
-  insertionPlugin,
-  markdownPlugin,
-  htmlPlugin,
-];
+): Plugins[] => {
+  const currentLocale =
+    locale ??
+    ((typeof window !== 'undefined' && getIntlayerClient()?.locale) as
+      | LocalesValues
+      | undefined) ??
+    configuration.internationalization.defaultLocale;
+
+  return [
+    translationPlugin(
+      currentLocale,
+      fallback ? configuration.internationalization.defaultLocale : undefined
+    ),
+    enumerationPlugin,
+    conditionPlugin,
+    nestedPlugin(currentLocale),
+    filePlugin,
+    genderPlugin,
+    intlayerNodePlugins,
+    insertionPlugin,
+    markdownPlugin,
+    htmlPlugin,
+  ];
+};

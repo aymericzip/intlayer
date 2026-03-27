@@ -14,8 +14,11 @@ const config: IntlayerConfig = {
       },
     }),
   },
+  dictionary: {
+    importMode: 'static',
+  },
   editor: {
-    enabled: true,
+    enabled: false,
     applicationURL: 'http://localhost:5173',
     editorURL: 'http://localhost:8000',
     // cmsURL: 'http://localhost:3000',
