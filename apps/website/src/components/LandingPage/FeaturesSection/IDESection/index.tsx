@@ -1,6 +1,11 @@
 'use client';
 
-import { IDE, SwitchSelector } from '@intlayer/design-system';
+import {
+  IDE,
+  SwitchSelector,
+  TechLogo,
+  TechLogoName,
+} from '@intlayer/design-system';
 import { useTheme } from 'next-themes';
 import { type FC, useState } from 'react';
 
@@ -8,35 +13,52 @@ import clientComponent from './content/client-component.md';
 import clientComponentI18nEn from './content/client-component-i18n-en.md';
 import clientComponentI18nEs from './content/client-component-i18n-es.md';
 import clientComponentI18nFr from './content/client-component-i18n-fr.md';
-import clientComponentContent from './content/client-content.md';
+import componentAngular from './content/component-angular.md';
+import componentLit from './content/component-lit.md';
+import componentPreact from './content/component-preact.md';
+import componentSolid from './content/component-solid.md';
+import componentSvelte from './content/component-svelte.md';
+import componentVanilla from './content/component-vanilla.md';
+import componentVue from './content/component-vue.md';
 import configFileCentralized from './content/config-file-centralized.md';
 import configFilePerComponent from './content/config-file-per-component.md';
-import serverComponent from './content/server-component.md';
-import serverComponentI18nEn from './content/server-component-i18n-en.md';
-import serverComponentI18nEs from './content/server-component-i18n-es.md';
-import serverComponentI18nFr from './content/server-component-i18n-fr.md';
-import serverComponentContent from './content/server-content.md';
 
-const intlayerTabs = [
+type Framework =
+  | 'vue'
+  | 'svelte'
+  | 'lit'
+  | 'angular'
+  | 'preact'
+  | 'solid'
+  | 'vanilla';
+
+const frameworkComponent: Record<Framework, { path: string; content: string }> =
   {
-    path: 'src/components/client/component.content.ts',
+    vue: { path: 'src/components/Component.vue', content: componentVue },
+    svelte: {
+      path: 'src/components/Component.svelte',
+      content: componentSvelte,
+    },
+    lit: { path: 'src/components/Component.ts', content: componentLit },
+    angular: {
+      path: 'src/app/component.component.ts',
+      content: componentAngular,
+    },
+    preact: { path: 'src/components/Component.tsx', content: componentPreact },
+    solid: { path: 'src/components/Component.tsx', content: componentSolid },
+    vanilla: { path: 'src/components/component.js', content: componentVanilla },
+  };
+
+const getPerComponentTabs = (framework: Framework) => [
+  {
+    path: 'src/components/component.content.ts',
     content: clientComponent,
     isOpen: true,
   },
   {
-    path: 'src/components/client/Component.tsx',
-    content: clientComponentContent,
+    path: frameworkComponent[framework].path,
+    content: frameworkComponent[framework].content,
     isOpen: true,
-  },
-  {
-    path: 'src/components/server/component.content.ts',
-    content: serverComponent,
-    isOpen: false,
-  },
-  {
-    path: 'src/components/server/Component.tsx',
-    content: serverComponentContent,
-    isOpen: false,
   },
   {
     path: 'intlayer.config.ts',
@@ -45,46 +67,26 @@ const intlayerTabs = [
   },
 ];
 
-const i18nTabs = [
+const getCentralizedTabs = (framework: Framework) => [
   {
-    path: 'i18n/en/client-component.json',
+    path: 'i18n/en/component.json',
     content: clientComponentI18nEn,
     isOpen: true,
   },
   {
-    path: 'i18n/en/server-component.json',
-    content: serverComponentI18nEn,
-    isOpen: false,
-  },
-  {
-    path: 'i18n/es/client-component.json',
+    path: 'i18n/es/component.json',
     content: clientComponentI18nEs,
-    isOpen: true,
-  },
-  {
-    path: 'i18n/es/server-component.json',
-    content: serverComponentI18nEs,
     isOpen: false,
   },
   {
-    path: 'i18n/fr/client-component.json',
+    path: 'i18n/fr/component.json',
     content: clientComponentI18nFr,
-    isOpen: true,
-  },
-  {
-    path: 'i18n/fr/server-component.json',
-    content: serverComponentI18nFr,
     isOpen: false,
   },
   {
-    path: 'src/components/client/Component.tsx',
-    content: clientComponentContent,
+    path: frameworkComponent[framework].path,
+    content: frameworkComponent[framework].content,
     isOpen: true,
-  },
-  {
-    path: 'src/components/server/Component.tsx',
-    content: serverComponentContent,
-    isOpen: false,
   },
   {
     path: 'intlayer.config.ts',
@@ -95,10 +97,42 @@ const i18nTabs = [
 
 type Mode = 'per-component' | 'centralized';
 
-const switchChoices: { content: string; value: Mode }[] = [
+const modeSwitchChoices: { content: string; value: Mode }[] = [
   { content: 'Per-component', value: 'per-component' },
   { content: 'Centralized', value: 'centralized' },
 ];
+
+const frameworkSwitchChoices: { content: React.ReactNode; value: Framework }[] =
+  [
+    {
+      content: <TechLogo name={TechLogoName.Vue} className="size-4" />,
+      value: 'vue',
+    },
+    {
+      content: <TechLogo name={TechLogoName.Svelte} className="size-4" />,
+      value: 'svelte',
+    },
+    {
+      content: <TechLogo name={TechLogoName.Lit} className="size-4" />,
+      value: 'lit',
+    },
+    {
+      content: <TechLogo name={TechLogoName.Angular} className="size-4" />,
+      value: 'angular',
+    },
+    {
+      content: <TechLogo name={TechLogoName.Preact} className="size-4" />,
+      value: 'preact',
+    },
+    {
+      content: <TechLogo name={TechLogoName.Solid} className="size-4" />,
+      value: 'solid',
+    },
+    {
+      content: <TechLogo name={TechLogoName.Vanilla} className="size-4" />,
+      value: 'vanilla',
+    },
+  ];
 
 type IDESectionProps = {
   scrollProgress: number;
@@ -107,31 +141,40 @@ type IDESectionProps = {
 export const IDESection: FC<IDESectionProps> = ({ scrollProgress }) => {
   const { resolvedTheme } = useTheme();
   const [mode, setMode] = useState<Mode>('per-component');
+  const [framework, setFramework] = useState<Framework>('vue');
 
-  const tabs = mode === 'per-component' ? intlayerTabs : i18nTabs;
+  const tabs =
+    mode === 'per-component'
+      ? getPerComponentTabs(framework)
+      : getCentralizedTabs(framework);
 
   const activeTab = Math.floor(scrollProgress * tabs.length);
 
-  const ideProps = {
-    isDarkMode: resolvedTheme === 'dark',
-    pages: tabs,
-    activeTab,
-  };
-
   return (
     <div className="flex size-full flex-1 flex-col items-center justify-center gap-3">
-      <SwitchSelector
-        choices={switchChoices}
-        value={mode}
-        onChange={setMode}
-        size="sm"
-        color="text"
-        itemClassName="text-nowrap"
-      />
+      <div className="flex flex-row flex-wrap items-center justify-center gap-3">
+        <SwitchSelector
+          choices={modeSwitchChoices}
+          value={mode}
+          onChange={setMode}
+          size="sm"
+          color="text"
+          itemClassName="text-nowrap"
+        />
+        <SwitchSelector
+          choices={frameworkSwitchChoices}
+          value={framework}
+          onChange={setFramework}
+          size="sm"
+          color="text"
+        />
+      </div>
       <IDE
-        {...ideProps}
+        isDarkMode={resolvedTheme === 'dark'}
+        pages={tabs}
+        activeTab={activeTab}
         className="mx-auto max-h-[440px] flex-1 scale-90 text-xs"
-        key={mode}
+        key={`${mode}-${framework}`}
       />
     </div>
   );

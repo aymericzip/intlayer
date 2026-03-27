@@ -1,10 +1,10 @@
 import { Link } from '@intlayer/design-system';
+import { Website_Playground_Path } from '@intlayer/design-system/routes';
 import { getLocalizedUrl } from 'intlayer';
 import { CircleArrowRight } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useLocale } from 'next-intlayer/server';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 
 export const VisualEditorSection: FC = () => {
   const { description, gotToPlaygroundButton } = useIntlayer(
@@ -38,7 +38,7 @@ export const VisualEditorSection: FC = () => {
       <div className="flex w-full flex-col gap-4">
         <span className="text-neutral text-sm">{description}</span>
         <Link
-          href={getLocalizedUrl(PagesRoutes.Playground, locale)}
+          href={getLocalizedUrl(Website_Playground_Path, locale)}
           target="_blank"
           variant="button"
           color="text"
