@@ -2,7 +2,7 @@
 
 import { Link } from '@components/Link/Link';
 import { LinkColor, LinkVariant } from '@intlayer/design-system';
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import { ArrowRight } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC, HTMLAttributes } from 'react';

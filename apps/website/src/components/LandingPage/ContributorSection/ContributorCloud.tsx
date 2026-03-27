@@ -3,7 +3,7 @@
 import type { Contributor } from '@components/Contributors/ContributorsList';
 import { Link } from '@components/Link/Link';
 import { Avatar, DiscordLogo, H2 } from '@intlayer/design-system';
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';

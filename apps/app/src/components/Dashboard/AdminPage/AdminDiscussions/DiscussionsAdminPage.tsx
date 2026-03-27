@@ -23,6 +23,7 @@ import {
   useGetUsers,
   useSearch,
 } from '@intlayer/design-system/hooks';
+import { cn } from '@intlayer/design-system/utils';
 import {
   type ColumnDef,
   flexRender,
@@ -30,7 +31,6 @@ import {
   type SortingState,
   useReactTable,
 } from '@tanstack/react-table';
-import { cn } from '@utils/cn';
 import { ChevronDown, ChevronUp, Search } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useState } from 'react';
@@ -402,13 +402,17 @@ export const DiscussionsAdminPageContent: FC = () => {
                   <tr
                     key={row.id}
                     className="cursor-pointer whitespace-nowrap border-neutral-100 border-b hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
+                    onClick={() => setDiscussionId(String(row.original.id))}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        setDiscussionId(String(row.original.id));
+                      }
+                    }}
+                    tabIndex={0}
+                    role="button"
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <td
-                        key={cell.id}
-                        className="whitespace-nowrap px-4 py-3"
-                        onClick={() => setDiscussionId(String(row.original.id))}
-                      >
+                      <td key={cell.id} className="whitespace-nowrap px-4 py-3">
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext()

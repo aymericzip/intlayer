@@ -2,7 +2,7 @@
 
 import { Loader } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { type IntlayerNode, useIntlayer } from 'next-intlayer';

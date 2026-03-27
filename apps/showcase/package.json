@@ -32,7 +32,6 @@
     "@tanstack/react-start": "1.166.3",
     "@tanstack/react-table": "8.21.3",
     "@tanstack/router-plugin": "1.166.3",
-    "clsx": "^2.1.1",
     "framer-motion": "12.38.0",
     "fuse.js": "7.1.0",
     "intlayer": "workspace:*",
@@ -44,7 +43,6 @@
     "react-hook-form": "7.72.0",
     "react-intlayer": "workspace:*",
     "server-only": "0.0.1",
-    "tailwind-merge": "3.5.0",
     "tailwindcss": "4.2.2",
     "zod": "4.3.6"
   },

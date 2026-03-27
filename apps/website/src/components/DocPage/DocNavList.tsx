@@ -12,7 +12,7 @@ import {
   PopoverStatic,
 } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import { ArrowLeftToLine, Bot } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';

@@ -8,8 +8,8 @@ import {
   ProductHuntLogo,
 } from '@intlayer/design-system';
 import { useDevice, usePersistedStore } from '@intlayer/design-system/hooks';
+import { cn } from '@intlayer/design-system/utils';
 import { useQuery } from '@tanstack/react-query';
-import { cn } from '@utils/cn';
 import { X } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useState } from 'react';
@@ -62,7 +62,7 @@ const fetchProductHuntData = async (): Promise<ProductHuntData | null> => {
 
 // Launch typically lasts 24 hours
 const isLaunchActive = (phData: ProductHuntData | null): boolean => {
-  if (!phData || !phData.featuredAt) return false;
+  if (!phData?.featuredAt) return false;
 
   const featuredDate = new Date(phData.featuredAt);
   const endDate = new Date(featuredDate);

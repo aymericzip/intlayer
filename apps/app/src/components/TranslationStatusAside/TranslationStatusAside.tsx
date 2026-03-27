@@ -6,7 +6,7 @@ import {
   PopoverStatic,
   RightDrawer,
 } from '@intlayer/design-system';
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import { AlertCircle, CheckCircle2, Globe, X, Zap } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useState } from 'react';

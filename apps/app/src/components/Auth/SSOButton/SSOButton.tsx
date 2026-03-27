@@ -2,7 +2,7 @@
 
 import { Button, Input, Loader, Modal } from '@intlayer/design-system';
 import { usePersistedStore, useSignInSSO } from '@intlayer/design-system/hooks';
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import { Building2 } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useState } from 'react';

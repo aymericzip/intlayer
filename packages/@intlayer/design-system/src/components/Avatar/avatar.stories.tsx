@@ -1,6 +1,6 @@
+import { getAvatarImageUrl } from '@components/Avatar/image';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
-import { getAvatarImageUrl } from '@utils/image';
 import { Avatar } from './index';
 
 /**
@@ -383,9 +383,9 @@ export const UserGallery: Story = {
         { name: 'Ivy Chen', img: getAvatarImageUrl() },
         { name: 'Jack Robinson', img: getAvatarImageUrl() },
         { name: 'Kate Johnson', img: getAvatarImageUrl() },
-      ].map((user, index) => (
+      ].map((user) => (
         <Avatar
-          key={index}
+          key={user.name}
           src={user.img}
           fullname={user.name}
           onClick={() => console.log(`Clicked on ${user.name}`)}

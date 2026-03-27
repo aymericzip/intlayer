@@ -12,7 +12,7 @@ import {
   LinkColor,
   LinkVariant,
 } from '@intlayer/design-system';
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
@@ -66,7 +66,7 @@ export const CTASection: FC = () => {
       <Container
         roundedSize={ContainerRoundedSize['4xl']}
         transparency={ContainerTransparency.MD}
-        padding={ContainerPadding['XL']}
+        padding={ContainerPadding.XL}
         border
         borderColor={ContainerBorderColor.CARD}
         className="relative overflow-hidden"
@@ -85,7 +85,7 @@ export const CTASection: FC = () => {
                 variant={LinkVariant.BUTTON_OUTLINED}
                 color={LinkColor.TEXT}
                 className="w-full sm:w-auto"
-                label={exploreCLICommands}
+                label={exploreCLICommands.value}
                 onClick={(e) => {
                   e.preventDefault();
                   const el = document.getElementById('commands');
@@ -100,7 +100,7 @@ export const CTASection: FC = () => {
                 variant={LinkVariant.BUTTON}
                 color={LinkColor.TEXT}
                 className="w-full sm:w-auto"
-                label={readDocumentation}
+                label={readDocumentation.value}
               >
                 {readDocumentation}
               </Link>

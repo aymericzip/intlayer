@@ -12,9 +12,8 @@ import {
   PopoverStatic,
 } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import { ArrowLeftToLine } from 'lucide-react';
-import { useSearchParams } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
 import { useScrollPositionPersistence } from '@/hooks/useScrollPositionPersistence';
@@ -77,8 +76,6 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
             return isLevel2Active || isLevel3Active;
           }
         );
-
-        const isActive = isSelfActive || isSubSectionActive;
 
         return (
           <div key={key1}>

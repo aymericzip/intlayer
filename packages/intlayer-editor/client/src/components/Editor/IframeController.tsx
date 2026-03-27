@@ -1,6 +1,7 @@
 'use client';
 
 import { Button, Container, Loader } from '@intlayer/design-system';
+import { cn } from '@intlayer/design-system/utils';
 import {
   useConfiguration,
   useCrossURLPathState,
@@ -11,7 +12,6 @@ import {
 import { type FC, type RefObject, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useEditedContentPersistence } from '../../hooks/useEditedContentPersistence';
-import { cn } from '../../utils/cn';
 import { NoApplicationURLView } from './NoApplicationURLView/NoApplicationURLView';
 
 export const IframeController: FC<{

@@ -10,7 +10,7 @@ import {
   LinkColor,
   LinkVariant,
 } from '@intlayer/design-system';
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
 import {
   CheckCircle2,

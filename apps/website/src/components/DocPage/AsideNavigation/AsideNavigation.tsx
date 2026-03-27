@@ -11,7 +11,7 @@ import {
   PopoverStatic,
   SocialNetworks,
 } from '@intlayer/design-system';
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import { ArrowRightToLine, MoveDiagonal } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';

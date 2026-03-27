@@ -1,7 +1,7 @@
 import { Tag } from '@intlayer/design-system';
+import { cn } from '@intlayer/design-system/utils';
 import type { FC, ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { cn } from '#/utils/cn';
 import type { DomainData } from './types';
 
 type SkeletonProps = {

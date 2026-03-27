@@ -1,8 +1,8 @@
 import { Form, useForm } from '@intlayer/design-system';
+import { cn } from '@intlayer/design-system/utils';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
-import { cn } from '@/utils/cn';
 import type { AnalyzerFormData } from './useAnalyzerUrlSchema';
 import { useAnalyzerUrlSchema } from './useAnalyzerUrlSchema';
 

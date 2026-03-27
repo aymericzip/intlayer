@@ -9,7 +9,7 @@ import {
   TabSelector,
 } from '@intlayer/design-system';
 import { useDevice, useSession } from '@intlayer/design-system/hooks';
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import { AnimatePresence, m, useReducedMotion } from 'framer-motion';
 import {
   ArrowLeftToLine,

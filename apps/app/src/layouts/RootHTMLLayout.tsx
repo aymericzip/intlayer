@@ -1,4 +1,4 @@
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import type { LocalesValues } from 'intlayer';
 import { getHTMLTextDir } from 'intlayer';
 import { Inter } from 'next/font/google';

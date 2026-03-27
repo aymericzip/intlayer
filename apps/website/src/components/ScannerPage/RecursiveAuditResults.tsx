@@ -4,7 +4,7 @@ import {
   ButtonVariant,
   Tag,
 } from '@intlayer/design-system';
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import { ChevronDown, ChevronRight, Pause, Play, Square } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, memo, useState } from 'react';
@@ -232,8 +232,8 @@ export const RecursiveAuditResults: FC<RecursiveAuditResultsProps> = memo(
               </tr>
             </thead>
             <tbody>
-              {pages.map((page, index) => (
-                <PageRow key={index} page={page} />
+              {pages.map((page) => (
+                <PageRow key={page.url} page={page} />
               ))}
             </tbody>
           </table>

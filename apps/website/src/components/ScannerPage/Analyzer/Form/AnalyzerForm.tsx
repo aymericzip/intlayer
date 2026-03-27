@@ -1,7 +1,7 @@
 'use client';
 
 import { Form, useForm } from '@intlayer/design-system';
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { useSearchParamState } from '@/hooks/useSearchParamState';

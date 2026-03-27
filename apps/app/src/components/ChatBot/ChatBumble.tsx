@@ -1,5 +1,5 @@
 import { MarkdownRenderer } from '@intlayer/design-system';
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import { useTheme } from 'next-themes';
 import type { FC, HTMLAttributes } from 'react';
 

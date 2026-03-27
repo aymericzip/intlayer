@@ -6,7 +6,7 @@ import {
   TabSelector,
   TabSelectorColor,
 } from '@intlayer/design-system';
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import { Building2, FolderOpen, MessageCircle, Users } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';

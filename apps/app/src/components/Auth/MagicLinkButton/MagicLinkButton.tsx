@@ -2,7 +2,7 @@
 
 import { Button, Form, Modal, useForm } from '@intlayer/design-system';
 import { useSignInMagicLink } from '@intlayer/design-system/hooks';
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import { Mail } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';

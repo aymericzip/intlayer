@@ -8,7 +8,7 @@ import {
   useSubscribeToNewsletter,
   useUser,
 } from '@intlayer/design-system/hooks';
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import { Mail, X } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useReducer, useRef } from 'react';

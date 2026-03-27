@@ -7,9 +7,9 @@ import {
   H6,
   MarkdownRenderer,
 } from '@intlayer/design-system';
+import { cn } from '@intlayer/design-system/utils';
 import { useQuery } from '@tanstack/react-query';
 import React, { type HTMLProps, memo } from 'react';
-import { cn } from '@/utils/cn';
 
 const parseGithubRawUrl = (githubUrl: string): string | null => {
   try {
@@ -75,9 +75,9 @@ export const ProjectReadme = React.memo(({ githubUrl }: ProjectReadmeProps) => {
   if (isPending) {
     return (
       <div className="space-y-3">
-        {Array.from({ length: 6 }).map((_, i) => (
+        {['s1', 's2', 's3', 's4', 's5', 's6'].map((key, i) => (
           <div
-            key={i}
+            key={key}
             className="h-4 animate-pulse rounded bg-neutral/20"
             style={{ width: `${85 - (i % 3) * 15}%` }}
           />

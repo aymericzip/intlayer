@@ -1,5 +1,5 @@
 import { InformationTag } from '@components/InformationTag';
-import { clsx } from 'clsx';
+import { cn } from '@utils/cn';
 import type { FC, ReactNode } from 'react';
 import { FormLabel } from '../FormLabel';
 import { RequiredStar } from './RequiredStar';
@@ -25,7 +25,7 @@ export const FormLabelLayout: FC<FormLabelLayoutProps> = ({
         htmlFor={htmlFor}
         id={`${htmlFor}-label`}
         suppressHydrationWarning
-        className={clsx('font-bold', className)}
+        className={cn('font-bold', className)}
       >
         {children}
         <RequiredStar isRequired={isRequired} />

@@ -4,7 +4,7 @@ import { AppleLogo } from '@components/logos/AppleLogo';
 import { Button, TechLogos } from '@intlayer/design-system';
 import { useUser } from '@intlayer/design-system/hooks';
 import { getAuthAPI } from '@intlayer/design-system/libs';
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
 

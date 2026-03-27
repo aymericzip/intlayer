@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@intlayer/design-system/utils';
 import {
   type FileContent,
   MessageKey,
@@ -7,7 +8,6 @@ import {
 } from '@intlayer/editor-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { cn } from '../../../utils/cn';
 
 export const LongPressMessage: FC = () => {
   const { message } = useIntlayer('long-press-message');

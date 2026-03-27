@@ -1,11 +1,11 @@
 import { Loader, Table } from '@intlayer/design-system';
+import { cn } from '@intlayer/design-system/utils';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import {
   flexRender,
   type Table as ReactTableType,
   type Row,
 } from '@tanstack/react-table';
-import { cn } from '@utils/cn';
 import { type FC, memo } from 'react';
 
 interface DictionaryTableProps {

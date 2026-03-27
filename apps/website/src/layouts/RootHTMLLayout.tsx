@@ -1,4 +1,4 @@
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import type { LocalesValues } from 'intlayer';
 import { getHTMLTextDir } from 'intlayer';
 import { Inter } from 'next/font/google';
@@ -28,7 +28,7 @@ export const RootHTMLLayout: FC<LocalParams> = ({
     suppressHydrationWarning
     {...props}
   >
-    <head>
+    <>
       {/* Preconnect and DNS Prefetch for Google Tag Manager */}
       <link
         rel="preconnect"
@@ -44,7 +44,7 @@ export const RootHTMLLayout: FC<LocalParams> = ({
         crossOrigin=""
       />
       <link rel="dns-prefetch" href={process.env.NEXT_PUBLIC_BACKEND_URL} />
-    </head>
+    </>
     <body
       className={cn(
         'relative flex size-full min-h-screen flex-col overflow-auto overflow-x-clip scroll-smooth bg-background leading-8 transition md:flex',

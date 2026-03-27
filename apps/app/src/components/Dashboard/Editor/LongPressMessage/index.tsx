@@ -1,11 +1,11 @@
 'use client';
 
+import { cn } from '@intlayer/design-system/utils';
 import {
   type FileContent,
   MessageKey,
   useCrossFrameState,
 } from '@intlayer/editor-react';
-import { cn } from '@utils/cn';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 

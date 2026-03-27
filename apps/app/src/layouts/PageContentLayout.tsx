@@ -1,5 +1,4 @@
-import { DashboardFooter } from '@components/Dashboard/DashboardFooter';
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import type { DetailedHTMLProps, FC, HTMLAttributes, ReactNode } from 'react';
 import { Navbar } from '@/components/Navbar';
 

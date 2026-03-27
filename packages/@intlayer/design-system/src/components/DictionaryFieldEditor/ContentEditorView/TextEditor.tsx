@@ -16,6 +16,7 @@ import {
   ContentEditorTextArea as ContentEditorTextAreaBase,
   type ContentEditorTextAreaProps as ContentEditorTextAreaPropsBase,
 } from '@components/ContentEditor/ContentEditorTextArea';
+import { renameKey } from '@components/DictionaryFieldEditor/ContentEditorView/object';
 import { InputVariant } from '@components/Input';
 import { Label } from '@components/Label';
 import { useLocaleSwitcherContent } from '@components/LocaleSwitcherContentDropDown';
@@ -49,7 +50,6 @@ import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import * as NodeTypes from '@intlayer/types/nodeType';
-import { renameKey } from '@utils/object';
 import { Plus, Trash, WandSparkles } from 'lucide-react';
 import { type FC, Fragment, type ReactNode, useState } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';

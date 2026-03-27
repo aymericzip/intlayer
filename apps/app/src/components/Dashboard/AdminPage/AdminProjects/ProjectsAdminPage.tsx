@@ -11,6 +11,7 @@ import {
   Table,
 } from '@intlayer/design-system';
 import { useGetProjects, useSearch } from '@intlayer/design-system/hooks';
+import { cn } from '@intlayer/design-system/utils';
 import {
   type ColumnDef,
   flexRender,
@@ -18,7 +19,6 @@ import {
   type SortingState,
   useReactTable,
 } from '@tanstack/react-table';
-import { cn } from '@utils/cn';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';

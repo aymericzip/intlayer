@@ -8,7 +8,7 @@ import {
   LinkVariant,
   linkVariants,
 } from '@intlayer/design-system';
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import { ExternalLink } from 'lucide-react';
 import NextLink, { type LinkProps as NextLinkProps } from 'next/link';
 import { useLocale } from 'next-intlayer';

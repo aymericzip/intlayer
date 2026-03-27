@@ -8,7 +8,7 @@ import {
   TechLogoName,
 } from '@intlayer/design-system';
 import { usePersistedStore } from '@intlayer/design-system/hooks';
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import { Filter } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type ComponentProps, type FC, useState } from 'react';

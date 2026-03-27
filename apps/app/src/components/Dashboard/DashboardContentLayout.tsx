@@ -1,4 +1,4 @@
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import type { FC, PropsWithChildren, ReactNode } from 'react';
 
 type DashboardContentLayoutProps = PropsWithChildren<{

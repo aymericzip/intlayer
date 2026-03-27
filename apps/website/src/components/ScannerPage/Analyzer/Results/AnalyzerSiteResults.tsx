@@ -1,7 +1,7 @@
 'use client';
 
 import { Tag } from '@intlayer/design-system';
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import Image from 'next/image';
 import { useIntlayer } from 'next-intlayer';
 import type { FC, ReactNode } from 'react';

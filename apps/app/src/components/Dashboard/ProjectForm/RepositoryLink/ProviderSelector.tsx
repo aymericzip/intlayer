@@ -1,10 +1,10 @@
 'use client';
 
 import { Button, Loader, TechLogos } from '@intlayer/design-system';
+import { cn } from '@intlayer/design-system/utils';
 import { GitBranch } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { cn } from '@/utils/cn';
 import type { RepositoryProvider } from './types';
 
 type ProviderSelectorProps = {

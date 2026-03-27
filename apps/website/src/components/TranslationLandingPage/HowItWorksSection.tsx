@@ -2,17 +2,14 @@
 
 import {
   Container,
-  ContainerBackground,
-  ContainerBorderColor,
   ContainerPadding,
   ContainerRoundedSize,
   ContainerTransparency,
 } from '@intlayer/design-system';
-import { cn } from '@utils/cn';
 import { motion, type Variants } from 'framer-motion';
 import { CheckCircle2, GitBranch, Layers, Sparkles } from 'lucide-react';
 import { type IntlayerNode, useIntlayer } from 'next-intlayer';
-import type { FC, ReactNode } from 'react';
+import type { FC } from 'react';
 
 type IconMap = {
   [key: string]: FC<{ className?: string }>;
@@ -37,22 +34,6 @@ const sectionFade: Variants = {
 const stagger: Variants = {
   hidden: {},
   show: { transition: { staggerChildren: 0.08 } },
-};
-
-const Pill: FC<{ children: ReactNode; className?: string }> = ({
-  children,
-  className,
-}) => {
-  return (
-    <span
-      className={cn(
-        'inline-flex items-center gap-2 rounded-full border-[1.3px] border-text/15 bg-card/30 px-3 py-1 text-text text-xs backdrop-blur supports-[corner-shape:squircle]:rounded-full',
-        className
-      )}
-    >
-      {children}
-    </span>
-  );
 };
 
 export const HowItWorksSection: FC = () => {

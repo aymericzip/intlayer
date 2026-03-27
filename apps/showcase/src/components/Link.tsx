@@ -3,6 +3,7 @@ import {
   LinkVariant,
   linkVariants,
 } from '@intlayer/design-system';
+import { cn } from '@intlayer/design-system/utils';
 import {
   type LinkComponentProps,
   Link as TanStackLink,
@@ -16,7 +17,6 @@ import type {
   ReactNode,
 } from 'react';
 import { useLocale } from 'react-intlayer';
-import { cn } from '#/utils/cn';
 
 export const LOCALE_ROUTE = '{-$locale}' as const;
 

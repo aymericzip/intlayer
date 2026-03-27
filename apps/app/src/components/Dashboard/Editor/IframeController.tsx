@@ -1,6 +1,7 @@
 'use client';
 
 import { Browser, Container, Loader } from '@intlayer/design-system';
+import { cn } from '@intlayer/design-system/utils';
 import {
   useConfiguration,
   useCrossURLPathState,
@@ -8,7 +9,6 @@ import {
   useIframeClickMerger,
   usePostEditorEnabledState,
 } from '@intlayer/editor-react';
-import { cn } from '@utils/cn';
 import { type FC, type RefObject, useState } from 'react';
 import { NoApplicationURLView } from './NoApplicationURLView/NoApplicationURLView';
 import { useEditedContentPersistence } from './useEditedContentPersistence';

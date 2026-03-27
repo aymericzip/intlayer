@@ -5,7 +5,7 @@ import {
   H2,
   Loader,
 } from '@intlayer/design-system';
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import { Check } from 'lucide-react';
 import type { FC, ReactNode } from 'react';
 
@@ -109,7 +109,10 @@ export const PricingColumn: FC<PricingColumnProps> = ({
     </span>
     <ul className="flex flex-col gap-4 p-4">
       {checkPoint.map((el, index) => (
-        <li className="flex items-start gap-3" key={index}>
+        <li
+          className="flex items-start gap-3"
+          key={typeof el === 'string' ? el : index}
+        >
           <span className="block aspect-square rounded-full border-[2.5px] border-lime-300 p-0.5 text-2xl text-lime-800 dark:border-lime-900 dark:text-lime-600">
             <Check className="size-4" />
           </span>

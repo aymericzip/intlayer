@@ -3,7 +3,7 @@
 import { Link } from '@components/Link/Link';
 import { TechLogo, TechLogoName } from '@intlayer/design-system';
 import { useDevice, useScreenWidth } from '@intlayer/design-system/hooks';
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import {
   type MotionValue,
   motion,

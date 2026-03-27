@@ -2,7 +2,7 @@
 
 import { Link } from '@components/Link/Link';
 import { Container, MaxHeightSmoother } from '@intlayer/design-system';
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import { ArrowRight } from 'lucide-react';
 import { type IntlayerNode, useIntlayer } from 'next-intlayer';
 import { type FC, useMemo, useSyncExternalStore } from 'react';
@@ -11,7 +11,7 @@ import { PagesRoutes } from '@/Routes';
 const QuestionItem: FC<{
   question: IntlayerNode;
   answer: IntlayerNode;
-  callToAction: { label: IntlayerNode; url: IntlayerNode };
+  callToAction?: { label: IntlayerNode; url: IntlayerNode };
   numberOfColumns: number;
 }> = ({ question, answer, callToAction, numberOfColumns }) => {
   // Deterministic minHeight based on question length and column count
@@ -123,7 +123,7 @@ export const CommonQuestionsSection: FC = () => {
   const numberOfColumns = useResponsiveColumns();
 
   // Distribute the content items into columns.
-  const columns = distributeItemsIntoColumns(content, numberOfColumns);
+  const columns = distributeItemsIntoColumns(content as any[], numberOfColumns);
 
   return (
     <section className="m-auto flex w-full max-w-6xl flex-col items-center justify-center">
@@ -135,7 +135,10 @@ export const CommonQuestionsSection: FC = () => {
         className="my-3 flex w-full flex-row items-start justify-center gap-x-6"
       >
         {columns.map((column, colIndex) => (
-          <div key={colIndex} className="flex flex-col gap-6">
+          <div
+            key={column[0]?.question.value ?? `column-${colIndex}`}
+            className="flex flex-col gap-6"
+          >
             {column.map((props) => (
               <QuestionItem
                 key={props.question.value}
