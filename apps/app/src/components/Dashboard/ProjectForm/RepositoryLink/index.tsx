@@ -1,9 +1,13 @@
 'use client';
 
-import { BitbucketLogo } from '@components/logos/BitbucketLogo';
-import { GithubLogo } from '@components/logos/GithubLogo';
-import { GitLabLogo } from '@components/logos/GitLabLogo';
-import { Button, Container, H3, Input, Modal } from '@intlayer/design-system';
+import {
+  Button,
+  Container,
+  H3,
+  Input,
+  Modal,
+  TechLogos,
+} from '@intlayer/design-system';
 import { CheckCircle2, FileCode, FolderSearch, Globe } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
@@ -20,11 +24,11 @@ const ProviderIcon: FC<{
 }> = ({ provider, className = 'size-6' }) => {
   switch (provider) {
     case 'github':
-      return <GithubLogo className={className} />;
+      return <TechLogos.GITHUB className={className} />;
     case 'gitlab':
-      return <GitLabLogo className={className} />;
+      return <TechLogos.GITLAB className={className} />;
     case 'bitbucket':
-      return <BitbucketLogo className={className} />;
+      return <TechLogos.BITBUCKET className={className} />;
     default:
       return null;
   }

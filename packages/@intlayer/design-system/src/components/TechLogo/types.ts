@@ -30,4 +30,9 @@ export enum TechLogoName {
   Ollama = 'ollama',
   OpenAI = 'openai',
   Perplexity = 'perplexity',
+  GitHub = 'github',
+  GitLab = 'gitlab',
+  Bitbucket = 'bitbucket',
+  Google = 'google',
+  LinkedIn = 'linkedin',
 }

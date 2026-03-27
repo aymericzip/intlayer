@@ -1,6 +1,5 @@
-import { GithubLogo } from '@components/GithubLogo';
 import { Link } from '@components/Link/Link';
-import { PopoverStatic } from '@intlayer/design-system';
+import { PopoverStatic, TechLogos } from '@intlayer/design-system';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 
@@ -24,7 +23,7 @@ export const ApplicationTemplateMessage: FC<
         className="flex p-2"
         variant="hoverable"
       >
-        <GithubLogo className="size-4" />
+        <TechLogos.GITHUB className="size-4" />
       </Link>
       <PopoverStatic.Detail
         identifier="mcp"

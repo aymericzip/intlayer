@@ -112,6 +112,26 @@ const logoRecord: Record<TechLogoName, ReturnType<typeof dynamicLogo>> = {
     () => import('./logos/Perplexity'),
     'PerplexityLogo'
   ),
+  [TechLogoName.GitHub]: dynamicLogo(
+    () => import('./logos/GitHub'),
+    'GitHubLogo'
+  ),
+  [TechLogoName.GitLab]: dynamicLogo(
+    () => import('./logos/GitLab'),
+    'GitLabLogo'
+  ),
+  [TechLogoName.Bitbucket]: dynamicLogo(
+    () => import('./logos/Bitbucket'),
+    'BitbucketLogo'
+  ),
+  [TechLogoName.Google]: dynamicLogo(
+    () => import('./logos/Google'),
+    'GoogleLogo'
+  ),
+  [TechLogoName.LinkedIn]: dynamicLogo(
+    () => import('./logos/LinkedIn'),
+    'LinkedInLogo'
+  ),
 };
 
 export const TechLogo: FC<TechLogoProps> = ({

@@ -1,8 +1,7 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import { GithubLogo } from '@components/logos/GithubLogo';
-import { Logo } from '@intlayer/design-system';
+import { Logo, TechLogos } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
 import type { LocalesValues } from 'intlayer';
 import dynamic from 'next/dynamic';
@@ -40,7 +39,7 @@ export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
           <Logo width={80} height={80} className="size-6" />
         </Link>
         <Link href={github.url.value} label={github.label.value} color="text">
-          <GithubLogo width={25} />
+          <TechLogos.GITHUB width={25} />
         </Link>
         {isMobile && (
           <div className="scale-75">

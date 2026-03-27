@@ -2,16 +2,16 @@ import {
   DiscordLogo,
   Link,
   LogoWithText,
+  TechLogos,
   Navbar as UINavBar,
 } from '@intlayer/design-system';
 import { useLocation, useRouter } from '@tanstack/react-router';
 import { StarIcon } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { LocaleSwitcher } from '@/components/LocaleSwitcher/LocaleSwitcher';
-import { GithubLogo } from '@/components/logo/GithubLogo';
-import { ProfileDropDown } from '@/components/ProfileDropdown/ProfileDropdown';
-import { SwitchThemeSwitcher } from '@/components/SwitchThemeSwitcher';
+import { LocaleSwitcher } from '../LocaleSwitcher/LocaleSwitcher';
+import { ProfileDropDown } from '../ProfileDropdown/ProfileDropdown';
+import { SwitchThemeSwitcher } from '../SwitchThemeSwitcher';
 
 const getCleanChoice = (path?: string): string => {
   if (!path) return '';
@@ -113,7 +113,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             color="text"
             className="group/github rounded-2xl! leading-6"
           >
-            <GithubLogo width={25} />
+            <TechLogos.GITHUB width={25} />
             GitHub
             <StarIcon
               width={18}
@@ -174,7 +174,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             roundedSize="full"
             className="group/github flex cursor-pointer items-center gap-1 p-0.5"
           >
-            <GithubLogo width={25} />
+            <TechLogos.GITHUB width={25} />
             <StarIcon
               width={18}
               className="mr-1 group-hover/github:fill-text-opposite"

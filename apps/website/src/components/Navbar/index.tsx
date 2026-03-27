@@ -1,6 +1,5 @@
 'use client';
 
-import { GithubLogo } from '@components/GithubLogo';
 import { Link } from '@components/Link/Link';
 import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
 import {
@@ -8,6 +7,7 @@ import {
   Button,
   DiscordLogo,
   LogoWithText,
+  TechLogos,
   Navbar as UINavBar,
 } from '@intlayer/design-system';
 import { useUser } from '@intlayer/design-system/hooks';
@@ -118,7 +118,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             color="text"
             className="group/github rounded-2xl! leading-6"
           >
-            <GithubLogo width={25} />
+            <TechLogos.GITHUB width={25} />
             GitHub
             <StarIcon
               width={18}
@@ -186,7 +186,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             roundedSize="full"
             className="group/github flex cursor-pointer items-center gap-1 p-0.5"
           >
-            <GithubLogo width={25} />
+            <TechLogos.GITHUB width={25} />
             <StarIcon
               width={18}
               className="mr-1 group-hover/github:fill-text-opposite"

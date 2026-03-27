@@ -1,9 +1,6 @@
 'use client';
 
-import { BitbucketLogo } from '@components/logos/BitbucketLogo';
-import { GithubLogo } from '@components/logos/GithubLogo';
-import { GitLabLogo } from '@components/logos/GitLabLogo';
-import { Button } from '@intlayer/design-system';
+import { Button, TechLogos } from '@intlayer/design-system';
 import { GitBranch, GitCommit } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
@@ -22,11 +19,11 @@ const ProviderLogo: FC<{
 }> = ({ provider, className }) => {
   switch (provider) {
     case 'github':
-      return <GithubLogo className={className} />;
+      return <TechLogos.GITHUB className={className} />;
     case 'gitlab':
-      return <GitLabLogo className={className} />;
+      return <TechLogos.GITLAB className={className} />;
     case 'bitbucket':
-      return <BitbucketLogo className={className} />;
+      return <TechLogos.BITBUCKET className={className} />;
     default:
       return <GitBranch className={className} />;
   }

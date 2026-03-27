@@ -1,6 +1,5 @@
 import {
   Container,
-  ExpandCollapse,
   H2,
   H3,
   H4,
@@ -10,7 +9,7 @@ import {
 } from '@intlayer/design-system';
 import { useQuery } from '@tanstack/react-query';
 import React, { type HTMLProps, memo } from 'react';
-import { cn } from '#/utils/cn';
+import { cn } from '@/utils/cn';
 
 const parseGithubRawUrl = (githubUrl: string): string | null => {
   try {

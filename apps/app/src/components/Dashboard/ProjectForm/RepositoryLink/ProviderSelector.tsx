@@ -1,9 +1,6 @@
 'use client';
 
-import { BitbucketLogo } from '@components/logos/BitbucketLogo';
-import { GithubLogo } from '@components/logos/GithubLogo';
-import { GitLabLogo } from '@components/logos/GitLabLogo';
-import { Button, Loader } from '@intlayer/design-system';
+import { Button, Loader, TechLogos } from '@intlayer/design-system';
 import { GitBranch } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
@@ -27,17 +24,17 @@ export const ProviderSelector: FC<ProviderSelectorProps> = ({
   const PROVIDER_CONFIG = {
     github: {
       name: content.providers.github.name,
-      Logo: GithubLogo,
+      Logo: TechLogos.GITHUB,
       description: content.providers.github.description,
     },
     gitlab: {
       name: content.providers.gitlab.name,
-      Logo: GitLabLogo,
+      Logo: TechLogos.GITLAB,
       description: content.providers.gitlab.description,
     },
     bitbucket: {
       name: content.providers.bitbucket.name,
-      Logo: BitbucketLogo,
+      Logo: TechLogos.BITBUCKET,
       description: content.providers.bitbucket.description,
     },
   };

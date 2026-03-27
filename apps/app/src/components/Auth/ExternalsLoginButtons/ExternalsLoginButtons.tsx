@@ -1,12 +1,7 @@
 'use client';
 
 import { AppleLogo } from '@components/logos/AppleLogo';
-import { BitbucketLogo } from '@components/logos/BitbucketLogo';
-import { GithubLogo } from '@components/logos/GithubLogo';
-import { GitLabLogo } from '@components/logos/GitLabLogo';
-import { GoogleLogo } from '@components/logos/GoogleLogo';
-import { LinkedInLogo } from '@components/logos/LinkedInLogo';
-import { Button } from '@intlayer/design-system';
+import { Button, TechLogos } from '@intlayer/design-system';
 import { useUser } from '@intlayer/design-system/hooks';
 import { getAuthAPI } from '@intlayer/design-system/libs';
 import { cn } from '@utils/cn';
@@ -38,7 +33,7 @@ export const GitHubLoginButton: FC<ExternalsLoginButtonsProps> = ({
     <Button
       className={className}
       label={externalsLoginButtons.github.label.value}
-      Icon={GithubLogo}
+      Icon={TechLogos.GITHUB}
       onClick={loginWithGitHub}
       color="text"
     >
@@ -76,7 +71,7 @@ export const GoogleLoginButton: FC<ExternalsLoginButtonsProps> = ({
         className
       )}
       label={externalsLoginButtons.google.label.value}
-      Icon={GoogleLogo}
+      Icon={TechLogos.GOOGLE}
       onClick={loginWithGoogle}
       color="custom"
     >
@@ -114,7 +109,7 @@ export const LinkedInLoginButton: FC<ExternalsLoginButtonsProps> = ({
         className
       )}
       label={externalsLoginButtons.linkedin.label.value}
-      Icon={LinkedInLogo}
+      Icon={TechLogos.LINKEDIN}
       onClick={loginWithLinkedIn}
       color="custom"
     >
@@ -190,7 +185,7 @@ export const BitbucketLoginButton: FC<ExternalsLoginButtonsProps> = ({
         className
       )}
       label={externalsLoginButtons.bitbucket.label.value}
-      Icon={BitbucketLogo}
+      Icon={TechLogos.BITBUCKET}
       onClick={loginWithBitbucket}
       color="custom"
     >
@@ -228,7 +223,7 @@ export const GitLabLoginButton: FC<ExternalsLoginButtonsProps> = ({
         className
       )}
       label={externalsLoginButtons.gitlab.label.value}
-      Icon={GitLabLogo}
+      Icon={TechLogos.GITLAB}
       onClick={loginWithGitLab}
       color="custom"
     >

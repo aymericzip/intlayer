@@ -1,9 +1,9 @@
 import type { FC, SVGProps } from 'react';
 
-export const GithubLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
+export const GitHubLogo: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
     role="img"
-    aria-label="Github logo"
+    aria-label="GitHub logo"
     viewBox="0 0 256 256"
     xmlns="http://www.w3.org/2000/svg"
     fill="currentColor"

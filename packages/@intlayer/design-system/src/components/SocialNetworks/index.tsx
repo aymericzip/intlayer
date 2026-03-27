@@ -5,7 +5,6 @@ import type {
   ReactNode,
 } from 'react';
 import { DiscordLogo } from './DiscordLogo';
-import { FacebookLogo } from './FacebookLogo';
 import { InstagramLogo } from './InstagramLogo';
 import { LinkedInLogo } from './LinkedInLogo';
 import { ProductHuntLogo } from './ProductHuntLogo';
@@ -99,8 +98,12 @@ export const SocialNetworks = ({
       ))
   );
 
+export * from './BitbucketLogo';
 export * from './DiscordLogo';
 export * from './FacebookLogo';
+export * from './GitHubLogo';
+export * from './GitLabLogo';
+export * from './GoogleLogo';
 export * from './InstagramLogo';
 export * from './LinkedInLogo';
 export * from './ProductHuntLogo';
