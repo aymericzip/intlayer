@@ -28,7 +28,7 @@ import configuration from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
 const MAX_CACHE_SIZE = 50;
-const cache = new Map<string, any>();
+const cache = new Map<any, Map<string, any>>();
 
 type IntlConstructors = {
   [K in keyof typeof Intl as (typeof Intl)[K] extends new (
@@ -70,19 +70,26 @@ export type WrappedIntl = {
  */
 export const getCachedIntl = <T extends new (...args: any[]) => any>(
   Ctor: T,
-  ctorName: string, // Add this argument
   locale?: LocalesValues | string,
   options?: any
 ): InstanceType<T> => {
   const resLoc = locale ?? configuration?.internationalization?.defaultLocale;
-  // Use the explicit name for the key
-  const key = `${ctorName}|${resLoc}|${options ? JSON.stringify(options) : ''}`;
+  const optKey = options ? JSON.stringify(options) : '';
+  const key = `${resLoc}|${optKey}`;
 
-  let instance = cache.get(key);
+  let ctorCache = cache.get(Ctor);
+
+  if (!ctorCache) {
+    ctorCache = new Map();
+    cache.set(Ctor, ctorCache);
+  }
+
+  let instance = ctorCache.get(key);
+
   if (!instance) {
-    if (cache.size > MAX_CACHE_SIZE) cache.clear();
+    if (ctorCache.size > MAX_CACHE_SIZE) ctorCache.clear();
     instance = new Ctor(resLoc, options);
-    cache.set(key, instance);
+    ctorCache.set(key, instance);
   }
   return instance;
 };
@@ -92,17 +99,20 @@ export const getCachedIntl = <T extends new (...args: any[]) => any>(
  * It now uses the much smaller getCachedIntl under the hood.
  */
 export const bindIntl = (boundLocale: LocalesValues): WrappedIntl => {
-  const bindWrap = (Ctor: any) => (locales?: any, options?: any) => {
-    const isOptsFirst =
-      locales !== null &&
-      typeof locales === 'object' &&
-      !Array.isArray(locales);
-    const resOpts = isOptsFirst ? locales : options;
-    const resLoc = isOptsFirst
-      ? (resOpts as any).locale || boundLocale
-      : locales || boundLocale;
-    return getCachedIntl(Ctor, resLoc, resOpts);
-  };
+  const bindWrap = (Ctor: any) =>
+    // function is used as a constructor, do not change in arrow function
+    function intlConstructor(locales?: any, options?: any) {
+      const isOptsFirst =
+        locales !== null &&
+        typeof locales === 'object' &&
+        !Array.isArray(locales);
+      const resOpts = isOptsFirst ? locales : options;
+      const resLoc = isOptsFirst
+        ? (resOpts as any).locale || boundLocale
+        : locales || boundLocale;
+
+      return getCachedIntl(Ctor, resLoc, resOpts);
+    };
 
   return {
     ...Intl,
@@ -120,22 +130,34 @@ export const bindIntl = (boundLocale: LocalesValues): WrappedIntl => {
 
 // Add this to the bottom of utils/intl.ts ONLY if required for public API compatibility.
 export const CachedIntl = {
-  Collator: (locales?: any, options?: any) =>
-    getCachedIntl(Intl.Collator, locales, options),
-  DateTimeFormat: (locales?: any, options?: any) =>
-    getCachedIntl(Intl.DateTimeFormat, locales, options),
-  DisplayNames: (locales?: any, options?: any) =>
-    getCachedIntl(Intl.DisplayNames, locales, options),
-  ListFormat: (locales?: any, options?: any) =>
-    getCachedIntl(Intl.ListFormat as any, locales, options),
-  NumberFormat: (locales?: any, options?: any) =>
-    getCachedIntl(Intl.NumberFormat, locales, options),
-  PluralRules: (locales?: any, options?: any) =>
-    getCachedIntl(Intl.PluralRules, locales, options),
-  RelativeTimeFormat: (locales?: any, options?: any) =>
-    getCachedIntl(Intl.RelativeTimeFormat, locales, options),
-  Segmenter: (locales?: any, options?: any) =>
-    getCachedIntl((Intl as any).Segmenter, locales, options),
+  // function is used as a constructor, do not change in arrow function
+  Collator: function Collator(locales?: any, options?: any) {
+    return getCachedIntl(Intl.Collator, locales, options);
+  },
+  DateTimeFormat: function DateTimeFormat(locales?: any, options?: any) {
+    return getCachedIntl(Intl.DateTimeFormat, locales, options);
+  },
+  DisplayNames: function DisplayNames(locales?: any, options?: any) {
+    return getCachedIntl(Intl.DisplayNames, locales, options);
+  },
+  ListFormat: function ListFormat(locales?: any, options?: any) {
+    return getCachedIntl(Intl.ListFormat as any, locales, options);
+  },
+  NumberFormat: function NumberFormat(locales?: any, options?: any) {
+    return getCachedIntl(Intl.NumberFormat, locales, options);
+  },
+  PluralRules: function PluralRules(locales?: any, options?: any) {
+    return getCachedIntl(Intl.PluralRules, locales, options);
+  },
+  RelativeTimeFormat: function RelativeTimeFormat(
+    locales?: any,
+    options?: any
+  ) {
+    return getCachedIntl(Intl.RelativeTimeFormat, locales, options);
+  },
+  Segmenter: function Segmenter(locales?: any, options?: any) {
+    return getCachedIntl((Intl as any).Segmenter, locales, options);
+  },
 } as any; // Cast to 'any' internally to avoid TS readonly errors
 
 export { CachedIntl as Intl };

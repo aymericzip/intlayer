@@ -29,7 +29,7 @@ export const list = (
   options?: ListFormatOptions & { locale?: LocalesValues }
 ): string =>
   getCachedIntl(
-    Intl.ListFormat as any,
+    (Intl as any).ListFormat,
     options?.locale ?? configuration?.internationalization?.defaultLocale,
     {
       type: options?.type ?? 'conjunction',

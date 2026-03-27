@@ -13,10 +13,13 @@ import { getCachedIntl } from '../utils/intl';
  */
 export const number = (
   value: string | number,
-  options?: Intl.NumberFormatOptions & { locale?: LocalesValues }
+  {
+    locale,
+    ...options
+  }: Intl.NumberFormatOptions & { locale?: LocalesValues } = {}
 ): string =>
   getCachedIntl(
     Intl.NumberFormat,
-    options?.locale ?? configuration?.internationalization?.defaultLocale,
+    locale ?? configuration?.internationalization?.defaultLocale,
     options
   ).format(Number(value));

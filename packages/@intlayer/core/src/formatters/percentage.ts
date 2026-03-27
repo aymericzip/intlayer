@@ -13,7 +13,10 @@ import { getCachedIntl } from '../utils/intl';
  */
 export const percentage = (
   value: string | number,
-  options?: Intl.NumberFormatOptions & { locale?: LocalesValues }
+  {
+    locale,
+    ...options
+  }: Intl.NumberFormatOptions & { locale?: LocalesValues } = {}
 ): string => {
   let numericValue = Number(value);
 
@@ -24,7 +27,7 @@ export const percentage = (
 
   const formatter = getCachedIntl(
     Intl.NumberFormat,
-    options?.locale ?? configuration?.internationalization?.defaultLocale,
+    locale ?? configuration?.internationalization?.defaultLocale,
     {
       style: 'percent',
       ...options,
