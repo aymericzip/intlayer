@@ -8,6 +8,7 @@ import { useIntlayer } from "lit-intlayer";
 export class MyComponent extends LitElement {
   render() {
     const { title, content } = useIntlayer("component");
+
     return html`
       <div>
         <h2>${title}</h2>

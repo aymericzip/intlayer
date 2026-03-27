@@ -9,6 +9,7 @@
 
 <script setup lang="ts">
 import { useIntlayer } from "vue-intlayer";
+
 const content = useIntlayer("component");
 </script>
 ```
