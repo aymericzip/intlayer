@@ -1,9 +1,7 @@
-import { HTML_TAGS } from './index';
-
 const parseAttributes = (attributesString: string): Record<string, string> => {
   const attributes: Record<string, string> = {};
 
-  if (!attributesString || !attributesString.trim()) {
+  if (!attributesString?.trim()) {
     return attributes;
   }
 
@@ -34,8 +32,6 @@ export const getHTMLCustomComponents = (
     throw new Error('content must be a string');
   }
 
-  // Regex to match tags: <Tag ...>, </Tag>, or <Tag ... />
-  // Captures: 1: Closing slash (if any), 2: Tag Name, 3: Attributes, 4: Self-closing slash (if any)
   const tagRegex = /<(\/)?([a-zA-Z0-9.-]+)\s*([\s\S]*?)(\/?)>/g;
   const matches = [...content.matchAll(tagRegex)];
 
@@ -47,8 +43,10 @@ export const getHTMLCustomComponents = (
     const attributesString = match[3];
     const isSelfClosing = !!match[4];
 
-    // Component extraction logic
-    if ((HTML_TAGS as readonly string[]).includes(tagName.toLowerCase())) {
+    // Matches any tag that is entirely lowercase letters and numbers (e.g., div, h1)
+    const isStandardHTMLTag = /^[a-z][a-z0-9]*$/.test(tagName);
+
+    if (isStandardHTMLTag) {
       components[tagName] = true;
       return;
     }
@@ -57,7 +55,6 @@ export const getHTMLCustomComponents = (
       components[tagName] = {};
     }
 
-    // Safety check if we somehow have a collision or logic issue, though loop order handles it
     if (components[tagName] === true) {
       return;
     }
@@ -66,12 +63,10 @@ export const getHTMLCustomComponents = (
       return;
     }
 
-    // Parse attributes for custom components
     const attributes = parseAttributes(attributesString);
     const componentDef = components[tagName] as Record<string, string>;
     Object.assign(componentDef, attributes);
 
-    // If not self-closing, assume it has children
     if (!isSelfClosing) {
       componentDef.children = 'string';
     }
