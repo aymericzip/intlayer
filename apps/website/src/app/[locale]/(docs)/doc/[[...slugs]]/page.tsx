@@ -5,6 +5,7 @@ import {
 } from '@components/DocPage/DocPageNavigation/DocPageNavigation';
 import { DocumentationRender } from '@components/DocPage/DocumentationRender';
 import { getPreviousNextDocMetadata } from '@components/DocPage/docData';
+import { Website_Doc_Path } from '@intlayer/design-system/routes';
 import {
   type DocKey,
   getDoc,
@@ -17,7 +18,6 @@ import { getLocalizedUrl } from 'intlayer';
 import { redirect } from 'next/navigation';
 import type { LocalPromiseParams } from 'next-intlayer';
 import { IntlayerServerProvider } from 'next-intlayer/server';
-import { PagesRoutes } from '@/Routes';
 import type { DocProps } from './layout';
 
 const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
@@ -30,7 +30,7 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
   );
 
   if (!filteredDocsData || filteredDocsData.length === 0) {
-    return redirect(PagesRoutes.Doc);
+    return redirect(Website_Doc_Path);
   }
 
   const docData = filteredDocsData[0];

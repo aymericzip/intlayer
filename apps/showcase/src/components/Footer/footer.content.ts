@@ -1,6 +1,19 @@
 import type { LinkGroup } from '@intlayer/design-system';
+import {
+  External_ExampleIntlayerWithNextjs,
+  External_ExampleIntlayerWithReactJS,
+  External_ExampleIntlayerWithViteAndReact,
+  External_ExampleIntlayerWithViteAndVue,
+  External_LinkedIn,
+  Website_Contributors,
+  Website_Doc,
+  Website_Doc_Environment_NextJS_15,
+  Website_Doc_Environment_ViteAndReact,
+  Website_Doc_Environment_ViteAndVue,
+  Website_PrivacyPolicy,
+  Website_TermsOfService,
+} from '@intlayer/design-system/routes';
 import { type Dictionary, t } from 'intlayer';
-import { ExternalLinks, WebsiteRoutes } from '../../Routes';
 
 type FooterContent = {
   content: LinkGroup[];
@@ -14,7 +27,7 @@ const footerContent = {
         title: 'Docs',
         links: [
           {
-            href: WebsiteRoutes.Doc,
+            href: Website_Doc,
             text: t({
               en: 'Getting started',
               'en-GB': 'Getting started',
@@ -57,7 +70,7 @@ const footerContent = {
             }),
           },
           {
-            href: WebsiteRoutes.Doc_Environment_NextJS_15,
+            href: Website_Doc_Environment_NextJS_15,
             text: t({
               en: 'Intlayer with Next.js',
               'en-GB': 'Intlayer with Next.js',
@@ -101,7 +114,7 @@ const footerContent = {
           },
 
           {
-            href: WebsiteRoutes.Doc_Environment_ViteAndReact,
+            href: Website_Doc_Environment_ViteAndReact,
             text: t({
               en: 'Intlayer with Vite and React',
               'en-GB': 'Intlayer with Vite and React',
@@ -144,7 +157,7 @@ const footerContent = {
             }),
           },
           {
-            href: WebsiteRoutes.Doc_Environment_ViteAndVue,
+            href: Website_Doc_Environment_ViteAndVue,
             text: t({
               en: 'Intlayer with vue and vite',
               'en-GB': 'Intlayer with vue and vite',
@@ -211,7 +224,7 @@ const footerContent = {
         }),
         links: [
           {
-            href: ExternalLinks.ExampleIntlayerWithNextjs,
+            href: External_ExampleIntlayerWithNextjs,
             text: t({
               en: 'Intlayer with Next.js',
               'en-GB': 'Intlayer with Next.js',
@@ -254,7 +267,7 @@ const footerContent = {
             }),
           },
           {
-            href: ExternalLinks.ExampleIntlayerWithReactJS,
+            href: External_ExampleIntlayerWithReactJS,
             text: t({
               en: 'Intlayer with react (CRA)',
               'en-GB': 'Intlayer with react (CRA)',
@@ -297,7 +310,7 @@ const footerContent = {
             }),
           },
           {
-            href: ExternalLinks.ExampleIntlayerWithViteAndReact,
+            href: External_ExampleIntlayerWithViteAndReact,
             text: t({
               en: 'Intlayer with Vite and React',
               'en-GB': 'Intlayer with Vite and React',
@@ -340,7 +353,7 @@ const footerContent = {
             }),
           },
           {
-            href: ExternalLinks.ExampleIntlayerWithViteAndVue,
+            href: External_ExampleIntlayerWithViteAndVue,
             text: t({
               en: 'Intlayer with Vite and Vue',
               'en-GB': 'Intlayer with Vite and Vue',
@@ -407,7 +420,7 @@ const footerContent = {
         }),
         links: [
           {
-            href: WebsiteRoutes.Contributors,
+            href: Website_Contributors,
             text: t({
               en: 'Contributors',
               'en-GB': 'Contributors',
@@ -450,7 +463,7 @@ const footerContent = {
             }),
           },
           {
-            href: WebsiteRoutes.TermsOfService,
+            href: Website_TermsOfService,
             text: t({
               en: 'Terms of service',
               'en-GB': 'Terms of service',
@@ -493,7 +506,7 @@ const footerContent = {
             }),
           },
           {
-            href: WebsiteRoutes.PrivacyPolicy,
+            href: Website_PrivacyPolicy,
             text: t({
               en: 'Privacy Notice',
               'en-GB': 'Privacy Notice',
@@ -536,7 +549,7 @@ const footerContent = {
             }),
           },
           {
-            href: ExternalLinks.LinkedIn,
+            href: External_LinkedIn,
             text: 'LinkedIn',
             label: t({
               en: 'Go to our LinkedIn page',

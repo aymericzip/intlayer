@@ -1,7 +1,7 @@
+import { Website_Translate_Path } from '@intlayer/design-system/routes';
 import { getIntlayer, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalPromiseParams } from 'next-intlayer';
-import { PagesRoutes } from '@/Routes';
 
 export const generateMetadata = async ({
   params,
@@ -18,16 +18,16 @@ export const generateMetadata = async ({
     keywords,
 
     alternates: {
-      canonical: getLocalizedUrl(PagesRoutes.Translate, locale),
+      canonical: getLocalizedUrl(Website_Translate_Path, locale),
       languages: {
-        ...getMultilingualUrls(PagesRoutes.Translate),
-        'x-default': PagesRoutes.Translate,
+        ...getMultilingualUrls(Website_Translate_Path),
+        'x-default': Website_Translate_Path,
       },
     },
 
     openGraph: {
       url: getLocalizedUrl(
-        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Translate}`,
+        `${process.env.NEXT_PUBLIC_URL}${Website_Translate_Path}`,
         locale
       ),
       title,

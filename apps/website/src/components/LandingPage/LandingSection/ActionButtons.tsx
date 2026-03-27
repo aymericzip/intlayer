@@ -2,11 +2,11 @@
 
 import { Link } from '@components/Link/Link';
 import { LinkColor, LinkVariant } from '@intlayer/design-system';
+import { Website_Doc_Path } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import { ArrowRight } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC, HTMLAttributes } from 'react';
-import { PagesRoutes } from '@/Routes';
 
 export const ActionButtons: FC<HTMLAttributes<HTMLDivElement>> = ({
   className,
@@ -37,7 +37,7 @@ export const ActionButtons: FC<HTMLAttributes<HTMLDivElement>> = ({
         </span>
       </Link>
       <Link
-        href={PagesRoutes.Doc}
+        href={Website_Doc_Path}
         variant={LinkVariant.BUTTON}
         color={LinkColor.CUSTOM}
         label={getStartedButton.value}

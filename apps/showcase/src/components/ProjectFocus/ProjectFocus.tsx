@@ -1,9 +1,9 @@
 import { Container, Link as DSLink } from '@intlayer/design-system';
+import { Website_Showcase } from '@intlayer/design-system/routes';
 import { useParams } from '@tanstack/react-router';
 import { defaultLocale } from 'intlayer';
 import { ArrowLeft, Code } from 'lucide-react';
 import { useIntlayer } from 'react-intlayer';
-import { PagesRoutes } from '#/Routes';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
 import { Link } from '@/components/Link';
 import { MoreProjects } from './MoreProjects';
@@ -51,7 +51,7 @@ export const ProjectFocus = ({ project }: ProjectFocusProps) => {
     <div className="mx-auto max-w-6xl py-8">
       {/* Back Link */}
       <Link
-        to={PagesRoutes.Showcase}
+        to={Website_Showcase}
         color="text"
         className="group mb-6 inline-flex items-center gap-2 text-neutral text-sm transition-colors hover:text-text"
       >

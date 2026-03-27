@@ -3,8 +3,8 @@ import {
   useToggleShowcaseDownvote,
   useToggleShowcaseUpvote,
 } from '@intlayer/design-system/hooks';
+import { App_Auth_SignIn } from '@intlayer/design-system/routes';
 import { useState } from 'react';
-import { AppRoutes } from '#/Routes';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL ?? '';
@@ -44,7 +44,7 @@ export const useShowcaseLike = (project: ShowcaseProject) => {
 
       if (session === null) {
         const redirectUrl = encodeURIComponent(window.location.href);
-        window.location.href = `${AppRoutes.Auth_SignIn}?redirect_url=${redirectUrl}`;
+        window.location.href = `${App_Auth_SignIn}?redirect_url=${redirectUrl}`;
         return;
       }
       if (session === undefined || isPending) return;

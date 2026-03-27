@@ -1,9 +1,12 @@
 'use client';
 
 import { useLogin } from '@intlayer/design-system/hooks';
+import {
+  App_Auth_AskResetPassword_Path,
+  App_Auth_SignUp_Path,
+} from '@intlayer/design-system/routes';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { type FC, useEffect, useRef } from 'react';
-import { PagesRoutes } from '@/Routes';
 import { type SignIn, SignInForm as SignInFormUI } from './SignInForm/index';
 
 export const SignInForm: FC<{
@@ -49,9 +52,9 @@ export const SignInForm: FC<{
     const email = getEmailContext();
 
     if (email) {
-      router.push(`${PagesRoutes.Auth_AskResetPassword}?email=${email}`);
+      router.push(`${App_Auth_AskResetPassword_Path}?email=${email}`);
     } else {
-      router.push(PagesRoutes.Auth_AskResetPassword);
+      router.push(App_Auth_AskResetPassword_Path);
     }
   };
 
@@ -59,9 +62,9 @@ export const SignInForm: FC<{
     const email = getEmailContext();
 
     if (email) {
-      router.push(`${PagesRoutes.Auth_SignUp}?email=${email}`);
+      router.push(`${App_Auth_SignUp_Path}?email=${email}`);
     } else {
-      router.push(PagesRoutes.Auth_SignUp);
+      router.push(App_Auth_SignUp_Path);
     }
   };
 

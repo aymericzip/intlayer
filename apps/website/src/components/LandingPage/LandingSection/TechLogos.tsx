@@ -1,90 +1,107 @@
 import { Link } from '@components/Link/Link';
 import { TechLogo, TechLogoName } from '@intlayer/design-system';
+import {
+  Website_Doc_Environment_Angular,
+  Website_Doc_Environment_Astro,
+  Website_Doc_Environment_CRA,
+  Website_Doc_Environment_Express,
+  Website_Doc_Environment_Fastify,
+  Website_Doc_Environment_Hono,
+  Website_Doc_Environment_Lit,
+  Website_Doc_Environment_NestJS,
+  Website_Doc_Environment_NextJS,
+  Website_Doc_Environment_NuxtAndVue,
+  Website_Doc_Environment_Tanstack,
+  Website_Doc_Environment_ViteAndPreact,
+  Website_Doc_Environment_ViteAndReact,
+  Website_Doc_Environment_ViteAndSolid,
+  Website_Doc_Environment_ViteAndSvelte,
+  Website_Doc_Environment_ViteAndVue,
+} from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 
 // Animated Technology logos
 const logos = [
   {
     name: TechLogoName.Express,
     key: 'express',
-    route: PagesRoutes.Doc_Environment_Express,
+    route: Website_Doc_Environment_Express,
   },
   {
     name: TechLogoName.NestJS,
     key: 'nestjs',
-    route: PagesRoutes.Doc_Environment_NestJS,
+    route: Website_Doc_Environment_NestJS,
   },
   {
     name: TechLogoName.Hono,
     key: 'hono',
-    route: PagesRoutes.Doc_Environment_Hono,
+    route: Website_Doc_Environment_Hono,
   },
   {
     name: TechLogoName.Fastify,
     key: 'fastify',
-    route: PagesRoutes.Doc_Environment_Fastify,
+    route: Website_Doc_Environment_Fastify,
   },
   {
     name: TechLogoName.Nextjs,
     key: 'nextjs',
-    route: PagesRoutes.Doc_Environment_NextJS,
+    route: Website_Doc_Environment_NextJS,
   },
   {
     name: TechLogoName.React,
     key: 'react',
-    route: PagesRoutes.Doc_Environment_CRA,
+    route: Website_Doc_Environment_CRA,
   },
   {
     name: TechLogoName.Preact,
     key: 'preact',
-    route: PagesRoutes.Doc_Environment_ViteAndPreact,
+    route: Website_Doc_Environment_ViteAndPreact,
   },
   {
     name: TechLogoName.Vue,
     key: 'vue',
-    route: PagesRoutes.Doc_Environment_ViteAndVue,
+    route: Website_Doc_Environment_ViteAndVue,
   },
   {
     name: TechLogoName.Nuxt,
     key: 'nuxt',
-    route: PagesRoutes.Doc_Environment_NuxtAndVue,
+    route: Website_Doc_Environment_NuxtAndVue,
   },
   {
     name: TechLogoName.Vite,
     key: 'vite',
-    route: PagesRoutes.Doc_Environment_ViteAndReact,
+    route: Website_Doc_Environment_ViteAndReact,
   },
   {
     name: TechLogoName.Astro,
     key: 'astro',
-    route: PagesRoutes.Doc_Environment_Astro,
+    route: Website_Doc_Environment_Astro,
   },
   {
     name: TechLogoName.Tanstack,
     key: 'tanstack',
-    route: PagesRoutes.Doc_Environment_Tanstack,
+    route: Website_Doc_Environment_Tanstack,
   },
   {
     name: TechLogoName.Lit,
     key: 'lit',
-    route: PagesRoutes.Doc_Environment_Lit,
+    route: Website_Doc_Environment_Lit,
   },
   {
     name: TechLogoName.Svelte,
     key: 'svelte',
-    route: PagesRoutes.Doc_Environment_ViteAndSvelte,
+    route: Website_Doc_Environment_ViteAndSvelte,
   },
   {
     name: TechLogoName.Solid,
     key: 'solid',
-    route: PagesRoutes.Doc_Environment_ViteAndSolid,
+    route: Website_Doc_Environment_ViteAndSolid,
   },
   {
     name: TechLogoName.Angular,
     key: 'angular',
-    route: PagesRoutes.Doc_Environment_Angular,
+    route: Website_Doc_Environment_Angular,
   },
 ];
 

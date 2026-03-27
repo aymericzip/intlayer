@@ -1,3 +1,4 @@
+import { Showcase_Submit_Path } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -5,14 +6,13 @@ import {
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
-import { PagesRoutes } from '#/Routes';
 import { SubmitProjectForm } from '@/components/SubmitProjectForm/SubmitProjectForm';
 
 export const Route = createFileRoute('/{-$locale}/submit')({
   component: SubmitProjectForm,
   head: ({ params }) => {
     const { locale } = params as { locale?: string };
-    const path = PagesRoutes.ShowcaseSubmit;
+    const path = Showcase_Submit_Path;
     const content = getIntlayer('app', locale);
     const canonicalUrl = getLocalizedUrl(path, locale);
 

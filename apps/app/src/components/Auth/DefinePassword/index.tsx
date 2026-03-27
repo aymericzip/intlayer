@@ -2,11 +2,11 @@
 
 import { Button, useToast } from '@intlayer/design-system';
 import { useResetPassword } from '@intlayer/design-system/hooks';
+import { App_Home_Path } from '@intlayer/design-system/routes';
 import { Check } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 import { DefinePasswordForm as DefinePasswordFormUI } from './DefinePasswordForm';
 import type { DefinePassword } from './DefinePasswordForm/useDefinePasswordSchema';
 
@@ -15,7 +15,7 @@ type DefinePasswordFormProps = {
 };
 
 export const DefinePasswordForm: FC<DefinePasswordFormProps> = ({
-  callbackUrl = PagesRoutes.Home,
+  callbackUrl = App_Home_Path,
 }) => {
   const router = useRouter();
   const { toast } = useToast();

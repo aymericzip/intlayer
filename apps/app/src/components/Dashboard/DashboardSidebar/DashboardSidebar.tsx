@@ -9,6 +9,14 @@ import {
   TabSelector,
 } from '@intlayer/design-system';
 import { useDevice, useSession } from '@intlayer/design-system/hooks';
+import {
+  App_Admin_Users_Path,
+  App_Dashboard_Dictionaries_Path,
+  App_Dashboard_Editor_Path,
+  App_Dashboard_Projects_Path,
+  App_Dashboard_Tags_Path,
+  App_Dashboard_Translate_Path,
+} from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import { AnimatePresence, m, useReducedMotion } from 'framer-motion';
 import {
@@ -26,7 +34,6 @@ import {
 } from 'lucide-react';
 import { useLocale } from 'next-intlayer';
 import { type FC, useState } from 'react';
-import { type ExternalLinks, PagesRoutes } from '@/Routes';
 
 // Map icon names to components - must be done in client component
 const iconMap: Record<string, LucideIcon> = {
@@ -42,22 +49,22 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 const shouldHaveOrganizationRoutes = [
-  PagesRoutes.Dashboard_Projects,
-  PagesRoutes.Dashboard_Tags,
+  App_Dashboard_Projects_Path,
+  App_Dashboard_Tags_Path,
 ] as string[];
 
 const shouldHaveProjectRoutes = [
-  PagesRoutes.Dashboard_Editor,
-  PagesRoutes.Dashboard_Translate,
-  PagesRoutes.Dashboard_Dictionaries,
-  PagesRoutes.Dashboard_Tags,
+  App_Dashboard_Editor_Path,
+  App_Dashboard_Translate_Path,
+  App_Dashboard_Dictionaries_Path,
+  App_Dashboard_Tags_Path,
 ] as string[];
 
-const shouldHaveAdminRoutes = [PagesRoutes.Admin_Users] as string[];
+const shouldHaveAdminRoutes = [App_Admin_Users_Path] as string[];
 
 export type SidebarNavigationItem = {
   key: string;
-  href?: string | PagesRoutes | ExternalLinks;
+  href?: string;
   icon?: keyof typeof iconMap;
   label: string;
   title: string;

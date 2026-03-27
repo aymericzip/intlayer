@@ -1,8 +1,8 @@
+import { Website_TermsOfService_Path } from '@intlayer/design-system/routes';
 import { getLegalMetadata } from '@intlayer/docs';
 import { getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalPromiseParams } from 'next-intlayer';
-import { PagesRoutes } from '@/Routes';
 
 export const generateMetadata = async ({
   params,
@@ -20,16 +20,16 @@ export const generateMetadata = async ({
     keywords,
 
     alternates: {
-      canonical: getLocalizedUrl(PagesRoutes.TermsOfService, locale),
+      canonical: getLocalizedUrl(Website_TermsOfService_Path, locale),
       languages: {
-        ...getMultilingualUrls(PagesRoutes.TermsOfService),
-        'x-default': PagesRoutes.TermsOfService,
+        ...getMultilingualUrls(Website_TermsOfService_Path),
+        'x-default': Website_TermsOfService_Path,
       },
     },
 
     openGraph: {
       url: getLocalizedUrl(
-        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.TermsOfService}`,
+        `${process.env.NEXT_PUBLIC_URL}${Website_TermsOfService_Path}`,
         locale
       ),
       title,

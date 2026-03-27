@@ -2,11 +2,15 @@
 
 import { DashboardContentLayout } from '@components/Dashboard/DashboardContentLayout';
 import { Button, TabSelector } from '@intlayer/design-system';
+import {
+  App_Dashboard_Dictionaries_Path,
+  App_Dashboard_Editor_Path,
+  App_Dashboard_Translate_Path,
+} from '@intlayer/design-system/routes';
 import { Book, Globe, PenTool } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC, ReactNode } from 'react';
-import { PagesRoutes } from '@/Routes';
 
 type EditorContentLayoutProps = {
   children: ReactNode;
@@ -20,17 +24,17 @@ const EditorContentLayout: FC<EditorContentLayoutProps> = ({ children }) => {
   const tabItems = [
     {
       label: tabLabels.editor,
-      value: PagesRoutes.Dashboard_Editor,
+      value: App_Dashboard_Editor_Path,
       icon: PenTool,
     },
     {
       label: tabLabels.translate,
-      value: PagesRoutes.Dashboard_Translate,
+      value: App_Dashboard_Translate_Path,
       icon: Globe,
     },
     {
       label: tabLabels.dictionaries,
-      value: PagesRoutes.Dashboard_Dictionaries,
+      value: App_Dashboard_Dictionaries_Path,
       icon: Book,
     },
   ];

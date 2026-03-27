@@ -1,6 +1,6 @@
 import { AuthenticationBarrier } from '@components/Auth/AuthenticationBarrier/AuthenticationBarrier';
+import { App_Dashboard_Organization_Path } from '@intlayer/design-system/routes';
 import type { NextLayoutIntlayer } from 'next-intlayer';
-import { PagesRoutes } from '@/Routes';
 
 const DashboardContentLayout: NextLayoutIntlayer = async ({
   children,
@@ -12,7 +12,7 @@ const DashboardContentLayout: NextLayoutIntlayer = async ({
     <AuthenticationBarrier
       accessRule={['authenticated', 'organization-required']}
       locale={locale}
-      redirectionRoute={PagesRoutes.Dashboard_Organization}
+      redirectionRoute={App_Dashboard_Organization_Path}
     >
       {children}
     </AuthenticationBarrier>

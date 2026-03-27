@@ -1,6 +1,9 @@
+import {
+  Showcase_Root_Path,
+  Showcase_Submit_Path,
+} from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import { getMultilingualUrls } from 'intlayer';
-import { PagesRoutes } from '@/Routes';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL ?? '';
 const SHOWCASE_API = `${BACKEND_URL}/api/showcase-project`;
@@ -78,11 +81,11 @@ export const Route = createFileRoute('/sitemap.xml')({
         const projects = await fetchAllProjects();
 
         const staticEntries = [
-          buildEntry(PagesRoutes.Showcase, {
+          buildEntry(Showcase_Root_Path, {
             changefreq: 'daily',
             priority: 1.0,
           }),
-          buildEntry(PagesRoutes.ShowcaseSubmit, {
+          buildEntry(Showcase_Submit_Path, {
             changefreq: 'monthly',
             priority: 0.5,
           }),

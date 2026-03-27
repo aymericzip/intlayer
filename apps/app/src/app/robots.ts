@@ -1,6 +1,31 @@
+import {
+  App_Admin_Dashboard_Path,
+  App_Admin_Discussions_Path,
+  App_Admin_Management_Path,
+  App_Admin_Organizations_Path,
+  App_Admin_Path,
+  App_Admin_Projects_Path,
+  App_Admin_Users_Path,
+  App_Auth_AskResetPassword_Path,
+  App_Auth_ChangePassword_Path,
+  App_Auth_ResetPassword_Path,
+  App_Auth_SignIn_Path,
+  App_Auth_SignUp_Path,
+  App_Auth_TwoFactor_Path,
+  App_Dashboard_Dictionaries_Path,
+  App_Dashboard_Editor_Path,
+  App_Dashboard_Organization_Path,
+  App_Dashboard_Profile_Path,
+  App_Dashboard_Projects_Path,
+  App_Dashboard_Tags_Path,
+  App_Dashboard_Translate_Path,
+  App_Home_Path,
+  App_NotFound_Path,
+  App_Onboarding_Path,
+  App_Pricing_Path,
+} from '@intlayer/design-system/routes';
 import { getMultilingualUrls } from 'intlayer';
 import type { MetadataRoute } from 'next';
-import { PagesRoutes } from '@/Routes';
 
 const getAllUrls = (urls: string[]) =>
   urls.flatMap((url) => Object.values(getMultilingualUrls(url)) as string[]);
@@ -9,39 +34,39 @@ const robots = (): MetadataRoute.Robots => ({
   rules: {
     userAgent: '*',
     allow: getAllUrls([
-      PagesRoutes.Home,
-      PagesRoutes.Pricing,
-      PagesRoutes.Onboarding,
-      PagesRoutes.Auth_SignIn,
-      PagesRoutes.Auth_SignUp,
-      PagesRoutes.Auth_AskResetPassword,
+      App_Home_Path,
+      App_Pricing_Path,
+      App_Onboarding_Path,
+      App_Auth_SignIn_Path,
+      App_Auth_SignUp_Path,
+      App_Auth_AskResetPassword_Path,
     ]),
     disallow: getAllUrls([
       // Dashboards
-      PagesRoutes.Dashboard_Editor,
-      PagesRoutes.Dashboard_Translate,
-      PagesRoutes.Dashboard_Dictionaries,
-      PagesRoutes.Dashboard_Projects,
-      PagesRoutes.Dashboard_Tags,
-      PagesRoutes.Dashboard_Organization,
-      PagesRoutes.Dashboard_Profile,
+      App_Dashboard_Editor_Path,
+      App_Dashboard_Translate_Path,
+      App_Dashboard_Dictionaries_Path,
+      App_Dashboard_Projects_Path,
+      App_Dashboard_Tags_Path,
+      App_Dashboard_Organization_Path,
+      App_Dashboard_Profile_Path,
 
       // Admin Area
-      PagesRoutes.Admin,
-      PagesRoutes.Admin_Users,
-      PagesRoutes.Admin_Organizations,
-      PagesRoutes.Admin_Projects,
-      PagesRoutes.Admin_Dashboard,
-      PagesRoutes.Admin_Management,
-      PagesRoutes.Admin_Discussions,
+      App_Admin_Path,
+      App_Admin_Users_Path,
+      App_Admin_Organizations_Path,
+      App_Admin_Projects_Path,
+      App_Admin_Dashboard_Path,
+      App_Admin_Management_Path,
+      App_Admin_Discussions_Path,
 
       // Internal Auth Flows (Non-public entry points)
-      PagesRoutes.Auth_TwoFactor,
-      PagesRoutes.Auth_ResetPassword,
-      PagesRoutes.Auth_ChangePassword,
+      App_Auth_TwoFactor_Path,
+      App_Auth_ResetPassword_Path,
+      App_Auth_ChangePassword_Path,
 
       // Utilities
-      PagesRoutes.NotFound,
+      App_NotFound_Path,
     ]),
   },
   host: process.env.NEXT_PUBLIC_URL,

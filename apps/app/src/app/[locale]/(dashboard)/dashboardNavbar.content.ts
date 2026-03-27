@@ -1,12 +1,26 @@
+import {
+  App_Admin_Users_Path,
+  App_Dashboard_Dictionaries_Path,
+  App_Dashboard_Editor_Path,
+  App_Dashboard_Organization_Path,
+  App_Dashboard_Profile_Path,
+  App_Dashboard_Projects_Path,
+  App_Dashboard_Tags_Path,
+  App_Dashboard_Translate_Path,
+  App_Home_Path,
+  Website_Contributors,
+  Website_Doc,
+  Website_PrivacyPolicy,
+  Website_TermsOfService,
+} from '@intlayer/design-system/routes';
 import { type Dictionary, t } from 'intlayer';
-import { LandingRoutes, PagesRoutes } from '@/Routes';
 
 const dashboardNavbarContent = {
   key: 'dashboard-navbar-content',
   content: {
     navbarLinks: [
       {
-        url: PagesRoutes.Dashboard_Editor,
+        url: App_Dashboard_Editor_Path,
         label: t({
           en: 'Go to Intlayer visual editor',
           'en-GB': 'Go to Intlayer visual editor',
@@ -49,7 +63,7 @@ const dashboardNavbarContent = {
         }),
       },
       {
-        url: PagesRoutes.Dashboard_Translate,
+        url: App_Dashboard_Translate_Path,
         label: t({
           en: 'Go to translate dashboard',
           'en-GB': 'Go to translate dashboard',
@@ -92,7 +106,7 @@ const dashboardNavbarContent = {
         }),
       },
       {
-        url: PagesRoutes.Dashboard_Dictionaries,
+        url: App_Dashboard_Dictionaries_Path,
         label: t({
           en: 'Go to content dashboard',
           'en-GB': 'Go to content dashboard',
@@ -135,7 +149,7 @@ const dashboardNavbarContent = {
         }),
       },
       {
-        url: PagesRoutes.Dashboard_Tags,
+        url: App_Dashboard_Tags_Path,
         label: t({
           en: 'Go to tags dashboard',
           'en-GB': 'Go to tags dashboard',
@@ -178,7 +192,7 @@ const dashboardNavbarContent = {
         }),
       },
       {
-        url: PagesRoutes.Dashboard_Projects,
+        url: App_Dashboard_Projects_Path,
         label: t({
           en: 'Go to projects dashboard',
           'en-GB': 'Go to projects dashboard',
@@ -222,7 +236,7 @@ const dashboardNavbarContent = {
       },
 
       {
-        url: PagesRoutes.Dashboard_Organization,
+        url: App_Dashboard_Organization_Path,
         label: t({
           en: 'Go to organization dashboard',
           'en-GB': 'Go to organization dashboard',
@@ -265,7 +279,7 @@ const dashboardNavbarContent = {
         }),
       },
       {
-        url: PagesRoutes.Dashboard_Profile,
+        url: App_Dashboard_Profile_Path,
         label: t({
           en: 'Go to profile dashboard',
           'en-GB': 'Go to profile dashboard',
@@ -308,7 +322,7 @@ const dashboardNavbarContent = {
         }),
       },
       {
-        url: PagesRoutes.Admin_Users,
+        url: App_Admin_Users_Path,
         label: t({
           en: 'Go to admin dashboard',
           'en-GB': 'Go to admin dashboard',
@@ -353,7 +367,7 @@ const dashboardNavbarContent = {
     ],
     footerLinks: [
       {
-        href: PagesRoutes.Home,
+        href: App_Home_Path,
         label: t({
           en: 'Go to home page',
           'en-GB': 'Go to home page',
@@ -396,7 +410,7 @@ const dashboardNavbarContent = {
         }),
       },
       {
-        href: LandingRoutes.Doc,
+        href: Website_Doc,
         label: t({
           en: 'Go to the documentation page',
           'en-GB': 'Go to the documentation page',
@@ -439,7 +453,7 @@ const dashboardNavbarContent = {
         }),
       },
       {
-        href: LandingRoutes.PrivacyPolicy,
+        href: Website_PrivacyPolicy,
         label: t({
           en: 'Go to the privacy notice page',
           'en-GB': 'Go to the privacy notice page',
@@ -482,7 +496,7 @@ const dashboardNavbarContent = {
         }),
       },
       {
-        href: LandingRoutes.TermsOfService,
+        href: Website_TermsOfService,
         label: t({
           en: 'Go to the terms of service page',
           'en-GB': 'Go to the terms of service page',
@@ -525,7 +539,7 @@ const dashboardNavbarContent = {
         }),
       },
       {
-        href: LandingRoutes.Contributors,
+        href: Website_Contributors,
         label: t({
           en: 'Go to contributors page',
           'en-GB': 'Go to contributors page',

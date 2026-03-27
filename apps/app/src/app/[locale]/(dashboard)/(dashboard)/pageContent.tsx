@@ -3,10 +3,14 @@
 import type { SessionAPI } from '@intlayer/backend';
 import { Loader } from '@intlayer/design-system';
 import { useSession } from '@intlayer/design-system/hooks';
+import {
+  App_Dashboard_Dictionaries_Path,
+  App_Dashboard_Organization_Path,
+  App_Dashboard_Projects_Path,
+} from '@intlayer/design-system/routes';
 import { getLocalizedUrl, type LocalesValues } from 'intlayer';
 import { useRouter } from 'next/navigation';
 import { type FC, useEffect } from 'react';
-import { PagesRoutes } from '@/Routes';
 
 type DashboardPageContentProps = {
   sessionServer?: SessionAPI | null;
@@ -24,11 +28,11 @@ export const DashboardPageContent: FC<DashboardPageContentProps> = ({
 
   useEffect(() => {
     if (session?.organization && session?.project) {
-      router.push(getLocalizedUrl(PagesRoutes.Dashboard_Dictionaries, locale));
+      router.push(getLocalizedUrl(App_Dashboard_Dictionaries_Path, locale));
     } else if (session?.organization) {
-      router.push(getLocalizedUrl(PagesRoutes.Dashboard_Projects, locale));
+      router.push(getLocalizedUrl(App_Dashboard_Projects_Path, locale));
     } else {
-      router.push(getLocalizedUrl(PagesRoutes.Dashboard_Organization, locale));
+      router.push(getLocalizedUrl(App_Dashboard_Organization_Path, locale));
     }
   }, [session]);
 

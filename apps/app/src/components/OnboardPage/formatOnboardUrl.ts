@@ -1,4 +1,4 @@
-import { PagesRoutes } from '@/Routes';
+import { getAppOnboardingFlowRoute } from '@intlayer/design-system/routes';
 import { Period, Plans } from '../PricingPage/data.content';
 import { Steps } from './steps';
 
@@ -16,17 +16,7 @@ export const formatOnboardUrl = ({
   origin = typeof window !== 'undefined' ? window.location.href : '',
   otherParams = {},
 }: Args = {}) => {
-  // Start building the URL manually
-  let url = PagesRoutes.Onboarding_Flow.replace('{{step}}', step!).replace(
-    '{{plan}}',
-    plan!
-  );
-
-  if (period) {
-    url = url.replace('{{period}}', period!);
-  } else {
-    url = url.replace('{{period}}/', '');
-  }
+  let url = getAppOnboardingFlowRoute(step!, plan!, period || undefined);
 
   // Create an array to hold query parameter strings
   const queryParams: string[] = [];

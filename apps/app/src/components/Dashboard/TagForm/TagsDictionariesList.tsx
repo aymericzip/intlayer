@@ -2,12 +2,12 @@
 
 import { Button, Loader } from '@intlayer/design-system';
 import { useGetDictionaries } from '@intlayer/design-system/hooks';
+import { App_Dashboard_Dictionaries } from '@intlayer/design-system/routes';
 import { useFocusUnmergedDictionary } from '@intlayer/editor-react';
 import { ChevronRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 
 type TagsDictionariesListProps = {
   tagKey: string;
@@ -50,9 +50,7 @@ export const TagsDictionariesList: FC<TagsDictionariesListProps> = ({
                 dictionaryLocalId: dictionary.localId,
                 keyPath: [],
               });
-              router.push(
-                `${PagesRoutes.Dashboard_Dictionaries}/${dictionary.key}`
-              );
+              router.push(`${App_Dashboard_Dictionaries}/${dictionary.key}`);
             }}
           >
             <div className="flex flex-col gap-2 p-2">

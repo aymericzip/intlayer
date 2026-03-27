@@ -5,10 +5,10 @@ import {
   useDeleteOrganization,
   useSession,
 } from '@intlayer/design-system/hooks';
+import { App_Dashboard_Organization_Path } from '@intlayer/design-system/routes';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 
 type DeleteOrganizationModalProps = {
   isOpen: boolean;
@@ -40,7 +40,7 @@ export const DeleteOrganizationModal: FC<DeleteOrganizationModalProps> = ({
 
           onDelete?.();
           onClose?.();
-          router.push(PagesRoutes.Dashboard_Organization);
+          router.push(App_Dashboard_Organization_Path);
         }
       },
     });

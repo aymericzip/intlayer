@@ -1,4 +1,5 @@
 import { Container, H1, Loader } from '@intlayer/design-system';
+import { Website_Search } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -11,14 +12,13 @@ import { Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { DocPageLayout } from '#/components/DocPage/DocPageLayout';
 import { SearchView } from '#/components/DocPage/Search/SearchView';
-import { PagesRoutes } from '#/Routes';
 
 export const Route = createFileRoute('/{-$locale}/search')({
   head: ({ params }) => {
     const locale = ((params as { locale?: string }).locale ??
       defaultLocale) as any;
     const content = getIntlayer('doc-search-page', locale);
-    const path = PagesRoutes.Doc_Search;
+    const path = Website_Search;
 
     return {
       meta: [

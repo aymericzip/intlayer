@@ -1,8 +1,8 @@
+import { Website_PrivacyPolicy_Path } from '@intlayer/design-system/routes';
 import { getLegalMetadata } from '@intlayer/docs';
 import { getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalPromiseParams } from 'next-intlayer';
-import { PagesRoutes } from '@/Routes';
 
 export const generateMetadata = async ({
   params,
@@ -20,16 +20,16 @@ export const generateMetadata = async ({
     keywords,
 
     alternates: {
-      canonical: getLocalizedUrl(PagesRoutes.PrivacyPolicy, locale),
+      canonical: getLocalizedUrl(Website_PrivacyPolicy_Path, locale),
       languages: {
-        ...getMultilingualUrls(PagesRoutes.PrivacyPolicy),
-        'x-default': PagesRoutes.PrivacyPolicy,
+        ...getMultilingualUrls(Website_PrivacyPolicy_Path),
+        'x-default': Website_PrivacyPolicy_Path,
       },
     },
 
     openGraph: {
       url: getLocalizedUrl(
-        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.PrivacyPolicy}`,
+        `${process.env.NEXT_PUBLIC_URL}${Website_PrivacyPolicy_Path}`,
         locale
       ),
       title,

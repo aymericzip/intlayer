@@ -1,3 +1,4 @@
+import { Website_PrivacyPolicy } from '@intlayer/design-system/routes';
 import { getLegal, getLegalMetadata } from '@intlayer/docs';
 import { createFileRoute } from '@tanstack/react-router';
 import {
@@ -7,7 +8,6 @@ import {
   Locales,
 } from 'intlayer';
 import { DocumentationRender } from '#/components/DocPage/DocumentationRender';
-import { PagesRoutes } from '#/Routes';
 
 const PRIVACY_NOTICE_KEY = './legal/en/privacy_notice.md' as const;
 
@@ -25,7 +25,7 @@ export const Route = createFileRoute('/{-$locale}/privacy-notice')({
       PRIVACY_NOTICE_KEY,
       locale
     );
-    const path = PagesRoutes.PrivacyPolicy;
+    const path = Website_PrivacyPolicy;
 
     return {
       meta: [

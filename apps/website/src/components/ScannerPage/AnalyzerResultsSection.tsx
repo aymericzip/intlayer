@@ -1,8 +1,8 @@
 import { Link } from '@components/Link/Link';
 import { Button, ButtonColor, ButtonVariant } from '@intlayer/design-system';
+import { App_Auth_SignIn } from '@intlayer/design-system/routes';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { AppRoutes } from '@/Routes';
 import { AnalyzerPageResults } from './Analyzer/Results/AnalyzerPageResults';
 import { AnalyzerSiteResults } from './Analyzer/Results/AnalyzerSiteResults';
 import { RobotsSection } from './Analyzer/Results/RobotsSection';
@@ -102,7 +102,7 @@ export const AnalyzerResultsSection: FC<AnalyzerResultsSectionProps> = ({
             </Button>
           ) : (
             <Link
-              href={`${AppRoutes.Auth_SignIn}?redirect_url=${encodeURIComponent(
+              href={`${App_Auth_SignIn}?redirect_url=${encodeURIComponent(
                 typeof window !== 'undefined' ? window.location.href : ''
               )}`}
               color="text"

@@ -1,9 +1,9 @@
 'use client';
 
 import { useAskResetPassword } from '@intlayer/design-system/hooks';
+import { App_Auth_SignIn_Path } from '@intlayer/design-system/routes';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { type FC, useRef } from 'react';
-import { PagesRoutes } from '@/Routes';
 import {
   type AskResetPassword,
   AskResetPasswordForm as ResetPasswordFormUI,
@@ -16,7 +16,7 @@ type AskResetPasswordFormProps = {
 
 export const AskResetPasswordForm: FC<AskResetPasswordFormProps> = ({
   email,
-  callbackUrl = PagesRoutes.Auth_SignIn,
+  callbackUrl = App_Auth_SignIn_Path,
 }) => {
   const router = useRouter();
   const { mutate: askResetPassword } = useAskResetPassword();

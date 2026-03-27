@@ -1,3 +1,4 @@
+import { Website_Blog } from '@intlayer/design-system/routes';
 import { type BlogKey, getBlog, getBlogMetadataBySlug } from '@intlayer/docs';
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import {
@@ -14,7 +15,6 @@ import {
   type DocPageNavigationProps,
 } from '#/components/DocPage/DocPageNavigation/DocPageNavigation';
 import { DocumentationRender } from '#/components/DocPage/DocumentationRender';
-import { PagesRoutes } from '#/Routes';
 import { urlRenamer } from '#/utils/markdown';
 
 export const Route = createFileRoute('/{-$locale}/blog/$')({
@@ -30,7 +30,7 @@ export const Route = createFileRoute('/{-$locale}/blog/$')({
     );
 
     if (!filteredBlogsData || filteredBlogsData.length === 0) {
-      throw redirect({ to: PagesRoutes.Blog });
+      throw redirect({ to: Website_Blog });
     }
 
     const blogData = filteredBlogsData[0];

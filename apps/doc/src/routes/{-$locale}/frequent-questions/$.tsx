@@ -1,3 +1,4 @@
+import { Website_FrequentQuestions } from '@intlayer/design-system/routes';
 import {
   type FrequentQuestionKey,
   getFrequentQuestion,
@@ -11,7 +12,6 @@ import {
   Locales,
 } from 'intlayer';
 import { DocumentationRender } from '#/components/DocPage/DocumentationRender';
-import { PagesRoutes } from '#/Routes';
 import { urlRenamer } from '#/utils/markdown';
 
 export const Route = createFileRoute('/{-$locale}/frequent-questions/$')({
@@ -30,7 +30,7 @@ export const Route = createFileRoute('/{-$locale}/frequent-questions/$')({
     );
 
     if (!filteredData || filteredData.length === 0) {
-      throw redirect({ to: PagesRoutes.FrequentQuestions });
+      throw redirect({ to: Website_FrequentQuestions });
     }
 
     const questionData = filteredData[0];
@@ -44,7 +44,7 @@ export const Route = createFileRoute('/{-$locale}/frequent-questions/$')({
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
-    const { questionData, locale } = loaderData;
+    const { questionData } = loaderData;
     const relativeUrl = questionData.relativeUrl;
 
     return {

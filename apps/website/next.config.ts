@@ -1,7 +1,16 @@
+import {
+  App_Admin,
+  App_Auth_ChangePassword,
+  App_Auth_ResetPassword,
+  App_Auth_SignIn,
+  App_Auth_SignUp,
+  App_Dashboard,
+  App_Onboarding,
+  App_Pricing,
+} from '@intlayer/design-system/routes';
 import type { NextConfig } from 'next';
 import { withIntlayer } from 'next-intlayer/server';
 import { createSecureHeaders } from 'next-secure-headers';
-import { AppRoutes } from './src/Routes';
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -214,7 +223,6 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['@intlayer/design-system'],
   },
   reactCompiler: true,
-  cacheComponents: false, // Disabled because of latency issues
   productionBrowserSourceMaps: true,
   images: {
     // Ensure long-lived caching for optimized remote images (e.g. YouTube thumbnails)
@@ -325,102 +333,102 @@ const nextConfig: NextConfig = {
       // AppRoutes redirects
       {
         source: '/pricing',
-        destination: AppRoutes.Pricing,
+        destination: App_Pricing,
         permanent: true,
       },
       {
         source: '/:locale/pricing',
-        destination: AppRoutes.Pricing,
+        destination: App_Pricing,
         permanent: true,
       },
       {
         source: '/onboarding',
-        destination: AppRoutes.Onboarding,
+        destination: App_Onboarding,
         permanent: true,
       },
       {
         source: '/:locale/onboarding',
-        destination: AppRoutes.Onboarding,
+        destination: App_Onboarding,
         permanent: true,
       },
       {
         source: '/dashboard',
-        destination: AppRoutes.Dashboard,
+        destination: App_Dashboard,
         permanent: true,
       },
       {
         source: '/:locale/dashboard',
-        destination: AppRoutes.Dashboard,
+        destination: App_Dashboard,
         permanent: true,
       },
       {
         source: '/dashboard/:path*',
-        destination: `${AppRoutes.Dashboard}/dashboard/:path*`,
+        destination: `${App_Dashboard}/:path*`,
         permanent: true,
       },
       {
         source: '/:locale/dashboard/:path*',
-        destination: `${AppRoutes.Dashboard}/dashboard/:path*`,
+        destination: `${App_Dashboard}/:path*`,
         permanent: true,
       },
       {
         source: '/admin',
-        destination: AppRoutes.Admin,
+        destination: App_Admin,
         permanent: true,
       },
       {
         source: '/:locale/admin',
-        destination: AppRoutes.Admin,
+        destination: App_Admin,
         permanent: true,
       },
       {
         source: '/admin/:path*',
-        destination: `${AppRoutes.Admin}/:path*`,
+        destination: `${App_Admin}/:path*`,
         permanent: true,
       },
       {
         source: '/:locale/admin/:path*',
-        destination: `${AppRoutes.Admin}/:path*`,
+        destination: `${App_Admin}/:path*`,
         permanent: true,
       },
       {
         source: '/auth/login',
-        destination: AppRoutes.Auth_SignIn,
+        destination: App_Auth_SignIn,
         permanent: true,
       },
       {
         source: '/:locale/auth/login',
-        destination: AppRoutes.Auth_SignIn,
+        destination: App_Auth_SignIn,
         permanent: true,
       },
       {
         source: '/auth/register',
-        destination: AppRoutes.Auth_SignUp,
+        destination: App_Auth_SignUp,
         permanent: true,
       },
       {
         source: '/:locale/auth/register',
-        destination: AppRoutes.Auth_SignUp,
+        destination: App_Auth_SignUp,
         permanent: true,
       },
       {
         source: '/auth/password/reset',
-        destination: AppRoutes.Auth_ResetPassword,
+        destination: App_Auth_ResetPassword,
         permanent: true,
       },
       {
         source: '/:locale/auth/password/reset',
-        destination: AppRoutes.Auth_ResetPassword,
+        destination: App_Auth_ResetPassword,
         permanent: true,
       },
       {
         source: '/auth/password/change',
-        destination: AppRoutes.Auth_ChangePassword,
+        destination: App_Auth_ChangePassword,
         permanent: true,
       },
       {
         source: '/:locale/auth/password/change',
-        destination: AppRoutes.Auth_ChangePassword,
+        destination: App_Auth_ChangePassword,
         permanent: true,
       },
     ];

@@ -25,6 +25,7 @@ import {
   useGetUsers,
   useSearch,
 } from '@intlayer/design-system/hooks';
+import { getAppAdminUserRoute } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import {
   type ColumnDef,
@@ -38,7 +39,6 @@ import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
-import { PagesRoutes } from '@/Routes';
 
 export const UsersAdminPageContent: FC = () => {
   type SortOrder = 'asc' | 'desc';
@@ -307,7 +307,7 @@ export const UsersAdminPageContent: FC = () => {
         return (
           <div className="flex space-x-2">
             <Link
-              href={PagesRoutes.Admin_Users_Id.replace(':id', user.id)}
+              href={getAppAdminUserRoute(user.id)}
               label={actions.edit.value}
               color="text"
             >
@@ -456,12 +456,7 @@ export const UsersAdminPageContent: FC = () => {
                     key={row.id}
                     className="cursor-pointer border-neutral-100 border-b hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
                     onClick={() => {
-                      router.push(
-                        PagesRoutes.Admin_Users_Id.replace(
-                          ':id',
-                          row.original.id
-                        )
-                      );
+                      router.push(getAppAdminUserRoute(row.original.id));
                     }}
                   >
                     {row.getVisibleCells().map((cell) => (

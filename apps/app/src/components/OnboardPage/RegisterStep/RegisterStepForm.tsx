@@ -3,10 +3,10 @@
 import { ExternalsLoginButtons } from '@components/Auth/ExternalsLoginButtons';
 import { Form, H2, useForm } from '@intlayer/design-system';
 import { useUser } from '@intlayer/design-system/hooks';
+import { App_Auth_SignIn_Path } from '@intlayer/design-system/routes';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
@@ -29,7 +29,7 @@ export const RegisterStepForm: FC = () => {
 
   const onClickToSignIn = () =>
     router.push(
-      `${PagesRoutes.Auth_SignIn}?redirect_url=${encodeURIComponent(window.location.href)}`
+      `${App_Auth_SignIn_Path}?redirect_url=${encodeURIComponent(window.location.href)}`
     );
 
   const onSubmitSuccess = (data: Register) => {

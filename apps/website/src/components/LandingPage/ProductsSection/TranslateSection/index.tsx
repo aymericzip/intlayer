@@ -1,9 +1,9 @@
 'use client';
 
+import { Website_Translate_Path } from '@intlayer/design-system/routes';
 import { Sparkles } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 import { ProductSectionLayout } from '../ProductSectionLayout';
 
 export const TranslateSection: FC = () => {
@@ -26,7 +26,7 @@ export const TranslateSection: FC = () => {
         </div>
       }
       cta={{
-        href: PagesRoutes.Translate,
+        href: Website_Translate_Path,
         text: primaryCta,
         label: primaryCta.value,
       }}

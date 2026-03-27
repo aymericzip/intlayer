@@ -1,7 +1,7 @@
+import { Website_Blog_Search_Path } from '@intlayer/design-system/routes';
 import { getIntlayer, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalPromiseParams } from 'next-intlayer';
-import { PagesRoutes } from '@/Routes';
 
 export const generateMetadata = async ({
   params,
@@ -18,15 +18,15 @@ export const generateMetadata = async ({
     keywords,
 
     alternates: {
-      canonical: getLocalizedUrl(PagesRoutes.Blog_Search, locale),
+      canonical: getLocalizedUrl(Website_Blog_Search_Path, locale),
       languages: {
-        ...getMultilingualUrls(PagesRoutes.Blog_Search),
-        'x-default': PagesRoutes.Blog_Search,
+        ...getMultilingualUrls(Website_Blog_Search_Path),
+        'x-default': Website_Blog_Search_Path,
       },
     },
     openGraph: {
       url: getLocalizedUrl(
-        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Blog_Search}`,
+        `${process.env.NEXT_PUBLIC_URL}${Website_Blog_Search_Path}`,
         locale
       ),
       title,

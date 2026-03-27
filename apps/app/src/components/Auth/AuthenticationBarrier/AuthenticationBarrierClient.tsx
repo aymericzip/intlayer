@@ -2,9 +2,9 @@
 
 import { Loader } from '@intlayer/design-system';
 import { useSession } from '@intlayer/design-system/hooks';
+import { App_Home_Path } from '@intlayer/design-system/routes';
 import { usePathname, useRouter } from 'next/navigation';
 import { type FC, useEffect } from 'react';
-import { PagesRoutes } from '@/Routes';
 import {
   type AuthenticationBarrierProps,
   accessValidation,
@@ -14,7 +14,7 @@ type AuthenticationBarrierPropsClient = Omit<
   AuthenticationBarrierProps,
   'sessionToken' | 'redirectionFunction'
 > & {
-  redirectionRoute?: PagesRoutes | string;
+  redirectionRoute?: string;
   originUrl?: string;
 };
 
@@ -22,7 +22,7 @@ export const AuthenticationBarrierClient: FC<
   AuthenticationBarrierPropsClient
 > = ({
   children,
-  redirectionRoute = PagesRoutes.Home,
+  redirectionRoute = App_Home_Path,
   session: sessionProp,
   accessRule,
   isEnabled,

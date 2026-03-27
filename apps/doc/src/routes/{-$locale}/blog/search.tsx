@@ -1,4 +1,5 @@
 import { Container, H1, Loader } from '@intlayer/design-system';
+import { Website_Blog_Search } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -8,17 +9,16 @@ import {
   Locales,
 } from 'intlayer';
 import { Suspense } from 'react';
-import { useIntlayer, useLocale } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import { BlogPageLayout } from '#/components/BlogPage/BlogPageLayout';
 import { SearchView } from '#/components/DocPage/Search/SearchView';
-import { PagesRoutes } from '#/Routes';
 
 export const Route = createFileRoute('/{-$locale}/blog/search')({
   head: ({ params }) => {
     const locale = ((params as { locale?: string }).locale ??
       defaultLocale) as any;
     const content = getIntlayer('blog-search-page', locale);
-    const path = PagesRoutes.Blog_Search;
+    const path = Website_Blog_Search;
 
     return {
       meta: [

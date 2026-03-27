@@ -2,9 +2,9 @@
 
 import { Button } from '@intlayer/design-system';
 import { useUser } from '@intlayer/design-system/hooks';
+import { App_Auth_ChangePassword_Path } from '@intlayer/design-system/routes';
 import { useRouter } from 'next/navigation';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 
 export const ProfilePanel: FC = () => {
   const { isUnauthenticated, user, logout } = useUser();
@@ -31,7 +31,7 @@ export const ProfilePanel: FC = () => {
       <Button
         variant="link"
         color="text"
-        onClick={() => router.push(PagesRoutes.Auth_ChangePassword)}
+        onClick={() => router.push(App_Auth_ChangePassword_Path)}
         label="Replace your password with a new one."
       >
         Change password

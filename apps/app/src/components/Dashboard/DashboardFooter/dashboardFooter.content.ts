@@ -1,14 +1,14 @@
+import { External_Github } from '@intlayer/design-system/routes';
 import { type Dictionary, t } from 'intlayer';
-import { ExternalLinks } from '@/Routes';
 
 type DashboardFooterContent = {
   logo: {
-    url: ExternalLinks;
+    url: string;
     title: string;
     label: string;
   };
   github: {
-    url: ExternalLinks;
+    url: string;
     title: string;
     label: string;
     alt: string;
@@ -19,7 +19,7 @@ const dashboardFooterContent = {
   key: 'dashboard-footer',
   content: {
     logo: {
-      url: ExternalLinks.Github,
+      url: External_Github,
       title: t({
         en: 'Home',
         'en-GB': 'Home',
@@ -62,7 +62,7 @@ const dashboardFooterContent = {
       }),
     },
     github: {
-      url: ExternalLinks.Github,
+      url: External_Github,
       title: 'Github',
       label: t({
         en: 'Go to the github repo',

@@ -1,7 +1,7 @@
+import { App_NotFound_Path } from '@intlayer/design-system/routes';
 import { getIntlayer, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalPromiseParams } from 'next-intlayer';
-import { PagesRoutes } from '@/Routes';
 
 export const generateMetadata = async ({
   params,
@@ -17,16 +17,16 @@ export const generateMetadata = async ({
     description,
     keywords,
     alternates: {
-      canonical: getLocalizedUrl(PagesRoutes.NotFound, locale),
+      canonical: getLocalizedUrl(App_NotFound_Path, locale),
       languages: {
-        ...getMultilingualUrls(PagesRoutes.NotFound),
-        'x-default': PagesRoutes.NotFound,
+        ...getMultilingualUrls(App_NotFound_Path),
+        'x-default': App_NotFound_Path,
       },
     },
     robots: 'noindex, follow', // Avoid indexing error pages
     openGraph: {
       url: getLocalizedUrl(
-        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.NotFound}`,
+        `${process.env.NEXT_PUBLIC_URL}${App_NotFound_Path}`,
         locale
       ),
       title,

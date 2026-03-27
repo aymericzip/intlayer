@@ -2,11 +2,11 @@
 
 import { Link } from '@components/Link/Link';
 import { LinkColor, LinkVariant } from '@intlayer/design-system';
+import { App_Dashboard_Projects } from '@intlayer/design-system/routes';
 import { m } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { AppRoutes } from '@/Routes';
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
@@ -40,7 +40,7 @@ export const FinalCTASection: FC = () => {
             className="flex justify-center"
           >
             <Link
-              href={AppRoutes.Dashboard_Projects}
+              href={App_Dashboard_Projects}
               variant={LinkVariant.BUTTON}
               color={LinkColor.TEXT_INVERSE}
               label={finalCtaButton.value}

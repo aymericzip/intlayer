@@ -11,6 +11,10 @@ import {
   TagSize,
 } from '@intlayer/design-system';
 import {
+  App_Dashboard_Projects,
+  App_Pricing,
+} from '@intlayer/design-system/routes';
+import {
   domAnimation,
   LazyMotion,
   m,
@@ -22,7 +26,6 @@ import Image from 'next/image';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { useRef } from 'react';
-import { AppRoutes } from '@/Routes';
 import TMSScreenshot from './TMS_screenshot.png';
 
 const MotionContainer = m.create(Container);
@@ -127,7 +130,7 @@ export const HeroSection: FC = () => {
               className="flex flex-col justify-center gap-4 sm:flex-row"
             >
               <Link
-                href={AppRoutes.Pricing}
+                href={App_Pricing}
                 variant={LinkVariant.BUTTON_OUTLINED}
                 color={LinkColor.TEXT}
                 label={secondaryCta.value}
@@ -138,7 +141,7 @@ export const HeroSection: FC = () => {
               </Link>
 
               <Link
-                href={AppRoutes.Dashboard_Projects}
+                href={App_Dashboard_Projects}
                 variant={LinkVariant.BUTTON}
                 color={LinkColor.TEXT}
                 label={primaryCta.value}
@@ -200,7 +203,7 @@ export const HeroSection: FC = () => {
             {/* Screenshot */}
             <Image
               src={TMSScreenshot}
-              alt={screenshotAlt}
+              alt={screenshotAlt.value}
               className="w-full"
               priority
               placeholder="blur"

@@ -9,11 +9,11 @@ import {
   Loader,
 } from '@intlayer/design-system';
 import { useGetTags } from '@intlayer/design-system/hooks';
+import { App_Dashboard_Tags } from '@intlayer/design-system/routes';
 import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 import { TagEditionForm } from './TagEditionForm';
 import { TagsDictionariesList } from './TagsDictionariesList';
 
@@ -58,7 +58,7 @@ export const TagDetails: FC<TagDetailsProps> = ({ tagKey }) => {
     <div className="flex size-full flex-1 flex-col gap-10">
       <div className="flex items-center gap-2">
         <Button
-          onClick={() => router.push(PagesRoutes.Dashboard_Tags)}
+          onClick={() => router.push(App_Dashboard_Tags)}
           variant={ButtonVariant.HOVERABLE}
           className="z-10 mr-auto ml-5"
           color={ButtonColor.TEXT}

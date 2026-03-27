@@ -1,9 +1,9 @@
 'use client';
 
+import { External_AI_Landing_Page } from '@intlayer/design-system/routes';
 import { TestTubeIcon } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { ExternalLinks } from '@/Routes';
 import { ProductSectionLayout } from '../ProductSectionLayout';
 
 export const AIABTestingSection: FC = () => {
@@ -22,7 +22,7 @@ export const AIABTestingSection: FC = () => {
       title={title}
       description={<p>{description}</p>}
       cta={{
-        href: ExternalLinks.AI_Landing_Page,
+        href: External_AI_Landing_Page,
         text: ctaButton.text,
         label: ctaButton.label.value,
         isExternal: true,

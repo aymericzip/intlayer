@@ -10,6 +10,7 @@ import {
   LinkColor,
   LinkVariant,
 } from '@intlayer/design-system';
+import { Website_Doc_CLI_Fill_Path } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
 import {
@@ -25,7 +26,6 @@ import {
 import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
-import { PagesRoutes } from '@/Routes';
 
 type CodeBlockWrapperProps = {
   title: ReactNode;
@@ -167,7 +167,7 @@ export const HeroSection: FC = () => {
               </Link>
 
               <Link
-                href={PagesRoutes.Doc_CLI_Fill}
+                href={Website_Doc_CLI_Fill_Path}
                 variant={LinkVariant.BUTTON}
                 color={LinkColor.TEXT}
                 className="w-full sm:w-auto"

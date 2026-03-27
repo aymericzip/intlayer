@@ -1,5 +1,12 @@
+import {
+  App_Pricing,
+  Website_Blog_What_is_i18n,
+  Website_Doc_Environment_NextJS_15,
+  Website_Doc_IntlayerVisualEditor,
+  Website_Doc_Path,
+  Website_Doc_Why,
+} from '@intlayer/design-system/routes';
 import { type Dictionary, t } from 'intlayer';
-import { AppRoutes, PagesRoutes } from '@/Routes';
 
 const commonQuestionsContent = {
   key: 'common-questions',
@@ -109,7 +116,7 @@ const commonQuestionsContent = {
             id: 'Klik di sini untuk membaca lebih lanjut tentang i18n',
             vi: 'Nhấp vào đây để đọc thêm về i18n',
           }),
-          url: PagesRoutes.Blog_What_is_i18n,
+          url: Website_Blog_What_is_i18n,
         },
       },
       {
@@ -195,7 +202,7 @@ const commonQuestionsContent = {
             id: 'Klik di sini untuk membaca lebih lanjut tentang penggunaan Intlayer',
             vi: 'Nhấp vào đây để đọc thêm về cách sử dụng Intlayer',
           }),
-          url: PagesRoutes.Doc,
+          url: Website_Doc_Path,
         },
       },
       {
@@ -281,7 +288,7 @@ const commonQuestionsContent = {
             id: 'Klik di sini untuk membaca lebih lanjut tentang fitur Intlayer',
             vi: 'Nhấp vào đây để đọc thêm về các tính năng của Intlayer',
           }),
-          url: PagesRoutes.Doc_Why,
+          url: Website_Doc_Why,
         },
       },
       {
@@ -368,7 +375,7 @@ const commonQuestionsContent = {
             id: 'Klik di sini untuk membaca lebih lanjut tentang integrasi Intlayer dengan Next.js',
             vi: 'Nhấp vào đây để đọc thêm về cách Intlayer tích hợp với Next.js',
           }),
-          url: PagesRoutes.Doc_Environment_NextJS_15,
+          url: Website_Doc_Environment_NextJS_15,
         },
       },
       {
@@ -454,7 +461,7 @@ const commonQuestionsContent = {
             id: 'Klik di sini untuk membaca lebih lanjut tentang editor visual Intlayer',
             vi: 'Nhấp vào đây để đọc thêm về visual editor của Intlayer',
           }),
-          url: PagesRoutes.Doc_IntlayerVisualEditor,
+          url: Website_Doc_IntlayerVisualEditor,
         },
       },
       {
@@ -627,7 +634,7 @@ const commonQuestionsContent = {
             id: 'Klik di sini untuk membaca lebih lanjut tentang paket Intlayer',
             vi: 'Nhấp vào đây để đọc thêm về các gói Intlayer',
           }),
-          url: AppRoutes.Pricing,
+          url: App_Pricing,
         },
       },
       {
@@ -714,7 +721,7 @@ const commonQuestionsContent = {
             id: 'Klik di sini untuk membaca lebih lanjut tentang platform yang didukung oleh Intlayer',
             vi: 'Nhấp vào đây để đọc thêm về các nền tảng được Intlayer hỗ trợ',
           }),
-          url: `${PagesRoutes.Doc}#platforms-supported`,
+          url: `${Website_Doc_Path}#platforms-supported`,
         },
       },
       {

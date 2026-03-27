@@ -2,10 +2,10 @@
 
 import { Form, Modal } from '@intlayer/design-system';
 import { useDeleteProject } from '@intlayer/design-system/hooks';
+import { App_Dashboard_Projects_Path } from '@intlayer/design-system/routes';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 
 type DeleteProjectModalProps = {
   isOpen: boolean;
@@ -29,7 +29,7 @@ export const DeleteProjectModal: FC<DeleteProjectModalProps> = ({
       onSuccess: () => {
         onDelete?.();
         onClose?.();
-        router.push(PagesRoutes.Dashboard_Projects);
+        router.push(App_Dashboard_Projects_Path);
       },
     });
   };

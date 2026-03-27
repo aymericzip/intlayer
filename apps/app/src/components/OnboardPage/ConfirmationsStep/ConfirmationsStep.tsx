@@ -1,10 +1,10 @@
 import { Button, H2 } from '@intlayer/design-system';
 import { useUser } from '@intlayer/design-system/hooks';
+import { App_Home_Path } from '@intlayer/design-system/routes';
 import { Check } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
@@ -39,7 +39,7 @@ export const ConfirmationsStep: FC = () => {
         label={goToDashboardButton.label.value}
         color="text"
         Icon={Check}
-        onClick={() => router.push(PagesRoutes.Home)}
+        onClick={() => router.push(App_Home_Path)}
         isFullWidth
       >
         {goToDashboardButton.text}

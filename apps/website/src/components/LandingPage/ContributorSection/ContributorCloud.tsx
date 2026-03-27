@@ -3,6 +3,10 @@
 import type { Contributor } from '@components/Contributors/ContributorsList';
 import { Link } from '@components/Link/Link';
 import { Avatar, DiscordLogo, H2 } from '@intlayer/design-system';
+import {
+  External_Discord,
+  Website_Contributors_Path,
+} from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
@@ -14,7 +18,6 @@ import {
   useRef,
   useState,
 } from 'react';
-import { ExternalLinks, PagesRoutes } from '@/Routes';
 
 type ContributorCloudProps = {
   contributors: Contributor[];
@@ -246,7 +249,7 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
             <p className="text-base text-neutral">{subtitle}</p>
             <div className="flex gap-2">
               <Link
-                href={ExternalLinks.Discord}
+                href={External_Discord}
                 label={discordLinkLabel.value}
                 color="text"
                 variant="button-outlined"
@@ -259,7 +262,7 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
                 </span>
               </Link>
               <Link
-                href={PagesRoutes.Contributors}
+                href={Website_Contributors_Path}
                 label={seeAllLink.value}
                 color="text"
                 variant="button"

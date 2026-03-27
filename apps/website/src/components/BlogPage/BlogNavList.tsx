@@ -12,12 +12,12 @@ import {
   PopoverStatic,
 } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
+import { Website_Doc_Path } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import { ArrowLeftToLine } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
 import { useScrollPositionPersistence } from '@/hooks/useScrollPositionPersistence';
-import { PagesRoutes } from '@/Routes';
 import type { Section } from './types';
 
 type BlogNavListProps = {
@@ -191,7 +191,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
         );
       })}
       <div>
-        <OptionalLink href={PagesRoutes.Doc} label={docButton.label.value}>
+        <OptionalLink href={Website_Doc_Path} label={docButton.label.value}>
           {docButton?.text}
         </OptionalLink>
       </div>

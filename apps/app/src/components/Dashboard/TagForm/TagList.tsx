@@ -15,6 +15,7 @@ import {
   useItemSelector,
   useSearch,
 } from '@intlayer/design-system/hooks';
+import { App_Dashboard_Tags } from '@intlayer/design-system/routes';
 import { ChevronRight, Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
@@ -27,7 +28,6 @@ import {
   useState,
 } from 'react';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
-import { PagesRoutes } from '@/Routes';
 import { TagCreationForm } from './TagCreationForm';
 
 const InputIndicator: FC<ComponentProps<'div'>> = (props) => (
@@ -125,7 +125,7 @@ export const TagList: FC = () => {
                   variant="invisible-link"
                   color="text"
                   onClick={() => {
-                    router.push(`${PagesRoutes.Dashboard_Tags}/${tag.key}`);
+                    router.push(`${App_Dashboard_Tags}/${tag.key}`);
                   }}
                   ref={(el) => {
                     if (el) {

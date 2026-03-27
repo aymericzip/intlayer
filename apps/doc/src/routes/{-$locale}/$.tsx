@@ -1,3 +1,4 @@
+import { Website_Doc } from '@intlayer/design-system/routes';
 import {
   type DocKey,
   getDoc,
@@ -19,7 +20,6 @@ import {
 } from '#/components/DocPage/DocPageNavigation/DocPageNavigation';
 import { DocumentationRender } from '#/components/DocPage/DocumentationRender';
 import { getPreviousNextDocMetadata } from '#/components/DocPage/docData';
-import { PagesRoutes } from '#/Routes';
 import { urlRenamer } from '#/utils/markdown';
 
 export const Route = createFileRoute('/{-$locale}/$')({
@@ -35,7 +35,7 @@ export const Route = createFileRoute('/{-$locale}/$')({
     );
 
     if (!filteredDocsData || filteredDocsData.length === 0) {
-      throw redirect({ to: PagesRoutes.Doc });
+      throw redirect({ to: Website_Doc });
     }
 
     const docData = filteredDocsData[0];

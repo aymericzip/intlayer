@@ -1,5 +1,15 @@
+import {
+  App_Auth_SignIn,
+  App_Dashboard,
+  External_Discord,
+  External_Github,
+  External_ShowcaseApp,
+  Website_Blog,
+  Website_Doc,
+  Website_Home,
+  Website_Playground,
+} from '@intlayer/design-system/routes';
 import { type Dictionary, t } from 'intlayer';
-import { AppRoutes, ExternalLinks, LandingRoutes, PagesRoutes } from '#/Routes';
 
 type SectionsContent = {
   sections: {
@@ -55,7 +65,7 @@ export const navbarContent = {
         vi: 'Logo công ty - Đến trang chủ',
         uk: 'Логотип компанії — перейти на головну сторінку',
       }),
-      url: LandingRoutes.Home,
+      url: Website_Home,
     },
     sections: [
       {
@@ -80,7 +90,7 @@ export const navbarContent = {
           vi: 'Trang chủ',
           uk: 'Головна',
         }),
-        url: LandingRoutes.Home,
+        url: Website_Home,
         label: t({
           en: 'Go to home page',
           fr: 'Aller à la page d’accueil',
@@ -124,7 +134,7 @@ export const navbarContent = {
           vi: 'Sandbox',
           uk: 'Пісочниця',
         }),
-        url: LandingRoutes.Playground,
+        url: Website_Playground,
         label: t({
           en: 'Go to the Playground',
           fr: 'Aller au Playground',
@@ -168,7 +178,7 @@ export const navbarContent = {
           vi: 'Trưng bày',
           uk: 'Вітрина',
         }),
-        url: ExternalLinks.ShowcaseApp,
+        url: External_ShowcaseApp,
         label: t({
           en: 'View Intlayer projects',
           fr: 'Voir les projets Intlayer',
@@ -212,7 +222,7 @@ export const navbarContent = {
           vi: 'Ứng dụng',
           uk: 'Додаток',
         }),
-        url: AppRoutes.Dashboard,
+        url: App_Dashboard,
         label: t({
           en: 'Go to the dashboard',
           fr: 'Aller à la page de tableau de bord',
@@ -256,7 +266,7 @@ export const navbarContent = {
           vi: 'Tài liệu',
           uk: 'Документація',
         }),
-        url: PagesRoutes.Doc,
+        url: Website_Doc,
         label: t({
           en: 'Go to the documentation page',
           fr: 'Aller à la page de documentation',
@@ -280,7 +290,7 @@ export const navbarContent = {
       },
       {
         id: 'blog',
-        url: PagesRoutes.Blog,
+        url: Website_Blog,
         title: t({
           en: 'Blog',
           fr: 'Blog',
@@ -324,7 +334,7 @@ export const navbarContent = {
       },
     ],
     github: {
-      url: ExternalLinks.Github,
+      url: External_Github,
       label: t({
         en: 'Go to the github repo',
         fr: 'Aller sur le dépôt github',
@@ -347,7 +357,7 @@ export const navbarContent = {
       }),
     },
     discord: {
-      url: ExternalLinks.Discord,
+      url: External_Discord,
       label: t({
         en: 'Go to the discord server',
         fr: 'Aller sur le serveur discord',
@@ -413,7 +423,7 @@ export const navbarContent = {
       }),
     },
     login: {
-      url: AppRoutes.Auth_SignIn,
+      url: App_Auth_SignIn,
       title: t({
         en: 'Login',
         fr: 'Connexion',

@@ -2,22 +2,22 @@
 
 import { Link } from '@components/Link/Link';
 import { PopoverStatic } from '@intlayer/design-system';
+import { Website_Doc, Website_Doc_MCP } from '@intlayer/design-system/routes';
 import { usePathname } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 import { McpLogo } from './McpLogo';
 
 export const MCPMessage: FC = () => {
   const { title, description, link } = useIntlayer('mcp-message');
   const pathname = usePathname();
 
-  if (pathname !== PagesRoutes.Doc) return <></>;
+  if (pathname !== Website_Doc) return <></>;
 
   return (
     <PopoverStatic identifier="mcp">
       <Link
-        href={PagesRoutes.Doc_MCP}
+        href={Website_Doc_MCP}
         label={link.label.value}
         color="text"
         className="flex p-2"
@@ -32,7 +32,7 @@ export const MCPMessage: FC = () => {
         <strong>{title}</strong>
         <p className="text-neutral">{description}</p>
         <Link
-          href={PagesRoutes.Doc_MCP}
+          href={Website_Doc_MCP}
           label={link.label.value}
           color="text"
           className="flex flex-row items-center gap-2 p-3"

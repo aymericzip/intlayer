@@ -13,11 +13,11 @@ import {
   useSearch,
   useSelectOrganization,
 } from '@intlayer/design-system/hooks';
+import { App_Dashboard_Projects_Path } from '@intlayer/design-system/routes';
 import { Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
-import { PagesRoutes } from '@/Routes';
 import { NoOrganizationView } from './NoOrganizationView';
 import { OrganizationCreationForm } from './OrganizationCreationForm';
 
@@ -74,7 +74,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({
 
     selectOrganization(organizationId, {
       onSuccess: () => {
-        router.push(PagesRoutes.Dashboard_Projects);
+        router.push(App_Dashboard_Projects_Path);
       },
     });
   };

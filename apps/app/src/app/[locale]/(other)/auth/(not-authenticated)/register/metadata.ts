@@ -1,7 +1,7 @@
+import { App_Auth_SignUp_Path } from '@intlayer/design-system/routes';
 import { getIntlayer, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalPromiseParams } from 'next-intlayer';
-import { PagesRoutes } from '@/Routes';
 
 export const generateMetadata = async ({
   params,
@@ -17,15 +17,15 @@ export const generateMetadata = async ({
     description,
     keywords,
     alternates: {
-      canonical: getLocalizedUrl(PagesRoutes.Auth_SignUp, locale),
+      canonical: getLocalizedUrl(App_Auth_SignUp_Path, locale),
       languages: {
-        ...getMultilingualUrls(PagesRoutes.Auth_SignUp),
-        'x-default': PagesRoutes.Auth_SignUp,
+        ...getMultilingualUrls(App_Auth_SignUp_Path),
+        'x-default': App_Auth_SignUp_Path,
       },
     },
     openGraph: {
       url: getLocalizedUrl(
-        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_SignUp}`,
+        `${process.env.NEXT_PUBLIC_URL}${App_Auth_SignUp_Path}`,
         locale
       ),
       title,

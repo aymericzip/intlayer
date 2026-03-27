@@ -14,6 +14,7 @@ import {
   Table,
 } from '@intlayer/design-system';
 import { useGetOrganizations, useSearch } from '@intlayer/design-system/hooks';
+import { getAppAdminOrganizationRoute } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import {
   type ColumnDef,
@@ -27,7 +28,6 @@ import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
-import { PagesRoutes } from '@/Routes';
 
 export const OrganizationsAdminPageContent: FC = () => {
   type SortOrder = 'asc' | 'desc';
@@ -315,10 +315,7 @@ export const OrganizationsAdminPageContent: FC = () => {
                     className="cursor-pointer whitespace-nowrap border-neutral-100 border-b hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
                     onClick={() => {
                       router.push(
-                        PagesRoutes.Admin_Organizations_Id.replace(
-                          ':id',
-                          row.original.id
-                        )
+                        getAppAdminOrganizationRoute(row.original.id)
                       );
                     }}
                   >

@@ -1,11 +1,11 @@
 import { Container, Form, Loader, useForm } from '@intlayer/design-system';
 import { useSession } from '@intlayer/design-system/hooks';
+import { App_Auth_SignIn } from '@intlayer/design-system/routes';
 import { useNavigate } from '@tanstack/react-router';
 import { ArrowLeft } from 'lucide-react';
 import { type FC, type FocusEvent, useEffect, useState } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { Link } from '@/components/Link';
-import { AppRoutes } from '@/Routes';
 import { ModalStatus } from './ModalStatus';
 import { ProjectFormFields } from './ProjectFormFields';
 import { useProjectSubmit } from './useProjectSubmit';
@@ -110,7 +110,7 @@ export const SubmitProjectForm: FC = () => {
                       window.location.href
                     );
 
-                    window.location.href = `${AppRoutes.Auth_SignIn}?redirect_url=${redirectUrl}`;
+                    window.location.href = `${App_Auth_SignIn}?redirect_url=${redirectUrl}`;
                   }}
                 >
                   {content.signInButton.label}

@@ -3,9 +3,12 @@ import {
   type BreadcrumbLink,
   type BreadcrumbProps,
 } from '@intlayer/design-system';
+import {
+  Website_Blog,
+  Website_Blog_Root,
+} from '@intlayer/design-system/routes';
 import { getLocalizedUrl, type LocalesValues } from 'intlayer';
 import { type FC, useMemo } from 'react';
-import { PagesRoutes } from '#/Routes';
 import { getBlogSubSection } from './blogData';
 import type { Section } from './types';
 
@@ -25,7 +28,7 @@ export const BlogBreadCrumb: FC<BlogBreadCrumbProps> = ({
     () => [
       {
         text: 'Blog',
-        href: getLocalizedUrl(PagesRoutes.Blog, locale),
+        href: getLocalizedUrl(Website_Blog, locale),
       },
       ...activeSections
         .filter((el) => el !== 'index')
@@ -49,7 +52,7 @@ export const BlogBreadCrumb: FC<BlogBreadCrumbProps> = ({
           return {
             text: title ?? '-',
             href: getLocalizedUrl(
-              `${PagesRoutes.Blog_Root}/${el.join('/')}`,
+              `${Website_Blog_Root}/${el.join('/')}`,
               locale
             ),
           };

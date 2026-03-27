@@ -6,13 +6,13 @@ import {
 } from '@components/DocPage/DocPageNavigation/DocPageNavigation';
 import { DocumentationRender } from '@components/DocPage/DocumentationRender';
 import { getLocalizedUrl } from '@intlayer/core/localization';
+import { Website_Blog_Path } from '@intlayer/design-system/routes';
 import { type BlogKey, getBlog, getBlogMetadataBySlug } from '@intlayer/docs';
 import { CreativeWorkHeader } from '@structuredData/CreativeWorkHeader';
 import { urlRenamer } from '@utils/markdown';
 import { redirect } from 'next/navigation';
 import type { LocalPromiseParams } from 'next-intlayer';
 import { IntlayerServerProvider } from 'next-intlayer/server';
-import { PagesRoutes } from '@/Routes';
 import type { BlogProps } from './layout';
 
 const BlogPage = async ({ params }: LocalPromiseParams<BlogProps>) => {
@@ -24,7 +24,7 @@ const BlogPage = async ({ params }: LocalPromiseParams<BlogProps>) => {
   );
 
   if (!filteredBlogsData || filteredBlogsData.length === 0) {
-    return redirect(PagesRoutes.Blog);
+    return redirect(Website_Blog_Path);
   }
 
   const blogData = filteredBlogsData[0];

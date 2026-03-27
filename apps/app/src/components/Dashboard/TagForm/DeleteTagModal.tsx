@@ -3,10 +3,10 @@
 import type { TagAPI } from '@intlayer/backend';
 import { Form, Modal } from '@intlayer/design-system';
 import { useDeleteTag } from '@intlayer/design-system/hooks';
+import { App_Dashboard_Tags } from '@intlayer/design-system/routes';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 
 type DeleteTagModalProps = {
   tag: TagAPI;
@@ -32,7 +32,7 @@ export const DeleteTagModal: FC<DeleteTagModalProps> = ({
         if (response.data) {
           onDelete?.();
           onClose?.();
-          router.push(PagesRoutes.Dashboard_Tags);
+          router.push(App_Dashboard_Tags);
         }
       },
     });

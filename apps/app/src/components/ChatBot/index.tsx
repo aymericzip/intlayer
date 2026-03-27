@@ -6,10 +6,10 @@ import {
   useAskDocQuestion,
   usePersistedStore,
 } from '@intlayer/design-system/hooks';
+import { App_Auth_SignIn_Path } from '@intlayer/design-system/routes';
 import { InfoIcon } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, type ReactNode, useEffect, useRef, useState } from 'react';
-import { PagesRoutes } from '@/Routes';
 import { FileReference } from './FileReference';
 import { FormSection } from './FormSection';
 import {
@@ -240,7 +240,7 @@ export const ChatBot: FC<ChatBotProps> = ({
           >
             <span>{rateLimitExceededMessage}</span>
             <Link
-              href={PagesRoutes.Auth_SignIn}
+              href={App_Auth_SignIn_Path}
               label={signInButton.label.value}
               color="text"
               variant="button-outlined"

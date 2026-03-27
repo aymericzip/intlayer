@@ -12,13 +12,16 @@ import {
   PopoverStatic,
 } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
+import {
+  Website_Blog_Path,
+  Website_Doc_Chat_Path,
+} from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import { ArrowLeftToLine, Bot } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { type ComponentProps, type FC, useState } from 'react';
 import { useScrollPositionPersistence } from '@/hooks/useScrollPositionPersistence';
-import { PagesRoutes } from '@/Routes';
 import {
   FrameworkFilter,
   FrameworkLogo,
@@ -377,13 +380,13 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
       })}
 
       <div>
-        <OptionalLink href={PagesRoutes.Blog} label={blogButton.label.value}>
+        <OptionalLink href={Website_Blog_Path} label={blogButton.label.value}>
           {blogButton?.text}
         </OptionalLink>
       </div>
       <div>
         <OptionalLink
-          href={PagesRoutes.Doc_Chat}
+          href={Website_Doc_Chat_Path}
           label={chatBotButton.label.value}
           className="flex items-center"
         >

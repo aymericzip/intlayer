@@ -2,11 +2,11 @@
 
 import { Link } from '@components/Link/Link';
 import { LinkColor, LinkVariant } from '@intlayer/design-system';
+import { App_Onboarding, App_Pricing } from '@intlayer/design-system/routes';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { AppRoutes } from '@/Routes';
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
@@ -42,7 +42,7 @@ export const FinalCTASection: FC = () => {
             className="flex flex-col justify-center gap-4 sm:flex-row"
           >
             <Link
-              href={AppRoutes.Pricing}
+              href={App_Pricing}
               variant={LinkVariant.BUTTON_OUTLINED}
               color={LinkColor.TEXT_INVERSE}
               label={finalCtaSecondary.value}
@@ -53,7 +53,7 @@ export const FinalCTASection: FC = () => {
             </Link>
 
             <Link
-              href={AppRoutes.Onboarding}
+              href={App_Onboarding}
               variant={LinkVariant.BUTTON}
               color={LinkColor.TEXT_INVERSE}
               label={finalCtaPrimary.value}

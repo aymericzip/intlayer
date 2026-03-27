@@ -23,6 +23,7 @@ import {
   useGetUsers,
   useSearch,
 } from '@intlayer/design-system/hooks';
+import { getAppAdminUserRoute } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import {
   type ColumnDef,
@@ -35,7 +36,6 @@ import { ChevronDown, ChevronUp, Search } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useState } from 'react';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
-import { PagesRoutes } from '@/Routes';
 import { DiscussionAdminDetail } from './DiscussionAdminDetail';
 
 export const DiscussionsAdminPageContent: FC = () => {
@@ -205,7 +205,7 @@ export const DiscussionsAdminPageContent: FC = () => {
               <div className="ml-3">
                 {user?.name ? (
                   <Link
-                    href={PagesRoutes.Admin_Users_Id.replace(':id', user.id)}
+                    href={getAppAdminUserRoute(user.id)}
                     label={user.name ?? '-'}
                     color="text"
                   >

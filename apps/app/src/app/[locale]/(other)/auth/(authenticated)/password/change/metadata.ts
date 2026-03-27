@@ -1,7 +1,7 @@
+import { App_Auth_ChangePassword_Path } from '@intlayer/design-system/routes';
 import { getIntlayer, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalPromiseParams } from 'next-intlayer';
-import { PagesRoutes } from '@/Routes';
 
 export const generateMetadata = async ({
   params,
@@ -17,15 +17,15 @@ export const generateMetadata = async ({
 
     keywords,
     alternates: {
-      canonical: getLocalizedUrl(PagesRoutes.Auth_ChangePassword, locale),
+      canonical: getLocalizedUrl(App_Auth_ChangePassword_Path, locale),
       languages: {
-        ...getMultilingualUrls(PagesRoutes.Auth_ChangePassword),
-        'x-default': PagesRoutes.Auth_ChangePassword,
+        ...getMultilingualUrls(App_Auth_ChangePassword_Path),
+        'x-default': App_Auth_ChangePassword_Path,
       },
     },
     openGraph: {
       url: getLocalizedUrl(
-        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_ChangePassword}`,
+        `${process.env.NEXT_PUBLIC_URL}${App_Auth_ChangePassword_Path}`,
         locale
       ),
       title,

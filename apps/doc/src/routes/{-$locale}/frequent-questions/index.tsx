@@ -1,4 +1,5 @@
 import { Container } from '@intlayer/design-system';
+import { Website_FrequentQuestions } from '@intlayer/design-system/routes';
 import { getFrequentQuestionMetadataRecord } from '@intlayer/docs';
 import { createFileRoute } from '@tanstack/react-router';
 import {
@@ -11,7 +12,6 @@ import {
 import { ArrowRight } from 'lucide-react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#/components/Link';
-import { PagesRoutes } from '#/Routes';
 
 export const Route = createFileRoute('/{-$locale}/frequent-questions/')({
   loader: async ({ params }) => {
@@ -26,7 +26,7 @@ export const Route = createFileRoute('/{-$locale}/frequent-questions/')({
     const locale = ((params as { locale?: string }).locale ??
       defaultLocale) as any;
     const content = getIntlayer('frequent-questions-page', locale);
-    const path = PagesRoutes.FrequentQuestions;
+    const path = Website_FrequentQuestions;
 
     return {
       meta: [

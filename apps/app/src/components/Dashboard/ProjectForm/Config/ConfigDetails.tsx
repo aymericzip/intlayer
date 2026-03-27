@@ -4,11 +4,11 @@ import { Link } from '@components/Link/Link';
 import type { ProjectConfiguration } from '@intlayer/backend';
 import { Button, H3, H4, H5, Tag } from '@intlayer/design-system';
 import { useSession } from '@intlayer/design-system/hooks';
+import { Website_Doc_IntlayerCMS } from '@intlayer/design-system/routes';
 import { getLocaleName, type Locale } from 'intlayer';
 import { Pencil } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC, useState } from 'react';
-import { LandingRoutes } from '@/Routes';
 import { ConfigEditionForm } from './ConfigEditionForm';
 
 type ConfigDetailsProps = {
@@ -40,7 +40,7 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
           <strong className="block text-neutral">{noConfig.message}</strong>
           <Link
             label={pushConfigDocLink.label.value}
-            href={`${LandingRoutes.Doc_IntlayerCMS}#using-the-cms`}
+            href={`${Website_Doc_IntlayerCMS}#using-the-cms`}
             color="text"
           >
             {pushConfigDocLink.text}
@@ -160,7 +160,7 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
         <strong className="block text-neutral">{updateConfig.message}</strong>
         <Link
           label={pushConfigDocLink.label.value}
-          href={`${LandingRoutes.Doc_IntlayerCMS}#using-the-cms`}
+          href={`${Website_Doc_IntlayerCMS}#using-the-cms`}
           color="text"
         >
           {pushConfigDocLink.text}

@@ -1,8 +1,8 @@
 import { Link } from '@components/Link/Link';
 import { H3 } from '@intlayer/design-system';
+import { Website_Doc_IntlayerCMS } from '@intlayer/design-system/routes';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { LandingRoutes } from '@/Routes';
 
 export const NoApplicationURLView: FC = () => {
   const { title, description, documentationLink } = useIntlayer(
@@ -15,7 +15,7 @@ export const NoApplicationURLView: FC = () => {
       <p className="block text-neutral">{description}</p>
       <Link
         label={documentationLink.label.value}
-        href={`${LandingRoutes.Doc_IntlayerCMS}#configuration`}
+        href={`${Website_Doc_IntlayerCMS}#configuration`}
         color="text"
         className="ml-auto"
         variant="button"

@@ -1,11 +1,20 @@
 import {
+  Website_Blog_Root,
+  Website_Blog_Search,
+  Website_Doc_Chat,
+  Website_Doc_Root,
+  Website_Doc_Search,
+  Website_FrequentQuestions,
+  Website_PrivacyPolicy,
+  Website_TermsOfService,
+} from '@intlayer/design-system/routes';
+import {
   getBlogMetadataBySlug,
   getDocMetadataBySlug,
   getFrequentQuestionMetadataRecord,
 } from '@intlayer/docs';
 import { createFileRoute } from '@tanstack/react-router';
 import { getMultilingualUrls } from 'intlayer';
-import { PagesRoutes } from '#/Routes';
 
 const SITE_URL = (import.meta.env.VITE_SITE_URL ?? '').replace(/\/$/, '');
 
@@ -51,35 +60,35 @@ export const Route = createFileRoute('/sitemap.xml')({
         const frequentQuestionMetadata = Object.values(frequentQuestionsRecord);
 
         const staticEntries = [
-          buildEntry(PagesRoutes.Doc_Root, {
+          buildEntry(Website_Doc_Root, {
             changefreq: 'daily',
             priority: 1.0,
           }),
-          buildEntry(PagesRoutes.Doc_Search, {
+          buildEntry(Website_Doc_Search, {
             changefreq: 'monthly',
             priority: 0.5,
           }),
-          buildEntry(PagesRoutes.Doc_Chat, {
+          buildEntry(Website_Doc_Chat, {
             changefreq: 'monthly',
             priority: 0.5,
           }),
-          buildEntry(PagesRoutes.Blog_Root, {
+          buildEntry(Website_Blog_Root, {
             changefreq: 'daily',
             priority: 0.9,
           }),
-          buildEntry(PagesRoutes.Blog_Search, {
+          buildEntry(Website_Blog_Search, {
             changefreq: 'weekly',
             priority: 0.7,
           }),
-          buildEntry(PagesRoutes.FrequentQuestions, {
+          buildEntry(Website_FrequentQuestions, {
             changefreq: 'weekly',
             priority: 0.8,
           }),
-          buildEntry(PagesRoutes.PrivacyPolicy, {
+          buildEntry(Website_PrivacyPolicy, {
             changefreq: 'monthly',
             priority: 0.3,
           }),
-          buildEntry(PagesRoutes.TermsOfService, {
+          buildEntry(Website_TermsOfService, {
             changefreq: 'monthly',
             priority: 0.3,
           }),

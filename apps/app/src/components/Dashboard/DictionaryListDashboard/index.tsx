@@ -12,6 +12,7 @@ import {
   ShowingResultsNumberItems,
   Tag,
 } from '@intlayer/design-system';
+import { App_Dashboard_Dictionaries_Path } from '@intlayer/design-system/routes';
 import { useFocusUnmergedDictionary } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import {
@@ -30,7 +31,6 @@ import {
 import { useIntlayer } from 'next-intlayer';
 import { useDate } from 'next-intlayer/format';
 import { type FC, Suspense, useMemo } from 'react';
-import { PagesRoutes } from '@/Routes';
 import { DictionaryModals } from './DictionaryModals';
 import { DictionaryTable } from './DictionaryTable';
 import { DictionaryToolbar } from './DictionaryToolbar';
@@ -312,7 +312,7 @@ export const DictionaryListDashboardContent: FC = () => {
                   });
 
                   dashboard.actions.router.push(
-                    `${PagesRoutes.Dashboard_Dictionaries}/${row.original.key}`
+                    `${App_Dashboard_Dictionaries_Path}/${row.original.key}`
                   );
                 }}
                 Icon={ArrowRight}

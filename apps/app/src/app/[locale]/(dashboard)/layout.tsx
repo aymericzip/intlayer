@@ -5,7 +5,16 @@ import {
   DashboardSidebar,
   type SidebarNavigationItem,
 } from '@components/Dashboard/DashboardSidebar';
-import { TranslationStatusAside } from '@components/TranslationStatusAside';
+import {
+  App_Admin_Users_Path,
+  App_Dashboard_Dictionaries_Path,
+  App_Dashboard_Editor_Path,
+  App_Dashboard_Organization_Path,
+  App_Dashboard_Profile_Path,
+  App_Dashboard_Projects_Path,
+  App_Dashboard_Tags_Path,
+  App_Dashboard_Translate_Path,
+} from '@intlayer/design-system/routes';
 import { PageLayout } from '@layouts/PageLayout';
 import {
   type DehydratedState,
@@ -16,7 +25,6 @@ import type { LocalesValues } from 'intlayer';
 import type { NextLayoutIntlayer } from 'next-intlayer';
 import { useIntlayer } from 'next-intlayer/server';
 import { type FC, Suspense } from 'react';
-import { PagesRoutes } from '@/Routes';
 import { getServerIntlayerAPI } from '@/utils/getServerIntlayerAPI';
 import { getSessionData } from '@/utils/getSessionData';
 import { DashboardHydrationBoundary } from './DashboardHydrationBoundary';
@@ -44,28 +52,28 @@ const DashboardLayoutContent: FC<DashboardLayoutContentProps> = ({
   const navigationItems: SidebarNavigationItem[] = [
     {
       key: 'content-group',
-      href: PagesRoutes.Dashboard_Editor,
+      href: App_Dashboard_Editor_Path,
       icon: 'FileText',
       label: navigation.content.label.value,
       title: navigation.content.title.value,
       items: [
         {
           key: 'editor',
-          href: PagesRoutes.Dashboard_Editor,
+          href: App_Dashboard_Editor_Path,
           icon: 'PenTool',
           label: navigation.editor.label.value,
           title: navigation.editor.title.value,
         },
         {
           key: 'translate',
-          href: PagesRoutes.Dashboard_Translate,
+          href: App_Dashboard_Translate_Path,
           icon: 'Globe',
           label: navigation.translate.label.value,
           title: navigation.translate.title.value,
         },
         {
           key: 'dictionaries',
-          href: PagesRoutes.Dashboard_Dictionaries,
+          href: App_Dashboard_Dictionaries_Path,
           icon: 'Book',
           label: navigation.dictionaries.label.value,
           title: navigation.dictionaries.title.value,
@@ -74,35 +82,35 @@ const DashboardLayoutContent: FC<DashboardLayoutContentProps> = ({
     },
     {
       key: 'tags',
-      href: PagesRoutes.Dashboard_Tags,
+      href: App_Dashboard_Tags_Path,
       icon: 'Tags',
       label: navigation.tags.label.value,
       title: navigation.tags.title.value,
     },
     {
       key: 'projects',
-      href: PagesRoutes.Dashboard_Projects,
+      href: App_Dashboard_Projects_Path,
       icon: 'FolderKanban',
       label: navigation.projects.label.value,
       title: navigation.projects.title.value,
     },
     {
       key: 'organization',
-      href: PagesRoutes.Dashboard_Organization,
+      href: App_Dashboard_Organization_Path,
       icon: 'Building2',
       label: navigation.organization.label.value,
       title: navigation.organization.title.value,
     },
     {
       key: 'profile',
-      href: PagesRoutes.Dashboard_Profile,
+      href: App_Dashboard_Profile_Path,
       icon: 'User',
       label: navigation.profile.label.value,
       title: navigation.profile.title.value,
     },
     {
       key: 'admin',
-      href: PagesRoutes.Admin_Users,
+      href: App_Admin_Users_Path,
       icon: 'Shield',
       label: navigation.admin.label.value,
       title: navigation.admin.title.value,

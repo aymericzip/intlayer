@@ -1,5 +1,10 @@
+import {
+  App_Auth_SignIn_Path,
+  App_Home_Path,
+  External_Discord,
+  External_Github,
+} from '@intlayer/design-system/routes';
 import { type Dictionary, t } from 'intlayer';
-import { ExternalLinks, PagesRoutes } from '@/Routes';
 
 type SectionsContent = {
   github: {
@@ -49,10 +54,10 @@ export const navbarContent = {
         vi: 'Logo công ty - Đến trang chủ',
         uk: 'Логотип компанії — перейти на головну сторінку',
       }),
-      url: PagesRoutes.Home,
+      url: App_Home_Path,
     },
     github: {
-      url: ExternalLinks.Github,
+      url: External_Github,
       label: t({
         en: 'Go to the github repo',
         fr: 'Aller sur le dépôt github',
@@ -75,7 +80,7 @@ export const navbarContent = {
       }),
     },
     discord: {
-      url: ExternalLinks.Discord,
+      url: External_Discord,
       label: t({
         en: 'Go to the discord server',
         fr: 'Aller sur le serveur discord',
@@ -141,7 +146,7 @@ export const navbarContent = {
       }),
     },
     login: {
-      url: PagesRoutes.Auth_SignIn,
+      url: App_Auth_SignIn_Path,
       title: t({
         en: 'Login',
         fr: 'Connexion',

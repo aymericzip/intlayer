@@ -1,4 +1,5 @@
 import { Container, H1 } from '@intlayer/design-system';
+import { Website_Chat } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -10,14 +11,13 @@ import {
 import { useIntlayer } from 'react-intlayer';
 import { ChatBot } from '#/components/ChatBot';
 import { DocPageLayout } from '#/components/DocPage/DocPageLayout';
-import { PagesRoutes } from '#/Routes';
 
 export const Route = createFileRoute('/{-$locale}/chat')({
   head: ({ params }) => {
     const locale = ((params as { locale?: string }).locale ??
       defaultLocale) as any;
     const content = getIntlayer('doc-chat-page', locale);
-    const path = PagesRoutes.Doc_Chat;
+    const path = Website_Chat;
 
     return {
       meta: [

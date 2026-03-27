@@ -3,11 +3,11 @@
 import type { UserAPI } from '@intlayer/backend';
 import { Form, Loader, Modal, toast } from '@intlayer/design-system';
 import { useDeleteUser, useGetUserById } from '@intlayer/design-system/hooks';
+import { App_Admin_Users_Path } from '@intlayer/design-system/routes';
 import { AlertTriangle, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
-import { PagesRoutes } from '@/Routes';
 
 export const UserDeleteAction: FC<{ userId: string }> = ({ userId }) => {
   const router = useRouter();
@@ -33,7 +33,7 @@ export const UserDeleteAction: FC<{ userId: string }> = ({ userId }) => {
         variant: 'success',
       });
 
-      router.push(PagesRoutes.Admin_Users);
+      router.push(App_Admin_Users_Path);
     } catch (error) {
       toast({
         title: errorMessages.deleteError.value,

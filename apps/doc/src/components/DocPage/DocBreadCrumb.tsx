@@ -3,9 +3,9 @@ import {
   type BreadcrumbLink,
   type BreadcrumbProps,
 } from '@intlayer/design-system';
+import { Website_Doc, Website_Doc_Root } from '@intlayer/design-system/routes';
 import { getLocalizedUrl, type LocalesValues } from 'intlayer';
 import type { FC } from 'react';
-import { PagesRoutes } from '#/Routes';
 import { getDocSubSection } from './docData';
 import type { CategorizedDocMetadata } from './types';
 
@@ -24,7 +24,7 @@ export const DocBreadCrumb: FC<DocBreadCrumbProps> = ({
   const breadcrumbsLinks: BreadcrumbLink[] = [
     {
       text: 'Documentation',
-      href: getLocalizedUrl(PagesRoutes.Doc, locale),
+      href: getLocalizedUrl(Website_Doc, locale),
     },
     ...activeSections
       .filter((el) => el !== 'index')
@@ -47,10 +47,7 @@ export const DocBreadCrumb: FC<DocBreadCrumbProps> = ({
 
         return {
           text: title ?? '-',
-          href: getLocalizedUrl(
-            `${PagesRoutes.Doc_Root}/${el.join('/')}`,
-            locale
-          ),
+          href: getLocalizedUrl(`${Website_Doc_Root}/${el.join('/')}`, locale),
         };
       }),
   ];

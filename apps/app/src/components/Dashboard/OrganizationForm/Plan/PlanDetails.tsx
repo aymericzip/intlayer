@@ -4,11 +4,11 @@ import {
   useCancelSubscription,
   useSession,
 } from '@intlayer/design-system/hooks';
+import { App_Pricing_Path } from '@intlayer/design-system/routes';
 import { ChevronsUp, CircleX, RotateCcw } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
-import { PagesRoutes } from '@/Routes';
 
 type PlanDetailsProps = {};
 
@@ -104,7 +104,7 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
             label={upgradeButton.label.value}
             color="text"
             Icon={ChevronsUp}
-            onClick={() => router.push(PagesRoutes.Pricing)}
+            onClick={() => router.push(App_Pricing_Path)}
           >
             {upgradeButton.text}
           </Button>
@@ -114,7 +114,7 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
             label={renewButton.label.value}
             color="text"
             Icon={RotateCcw}
-            onClick={() => router.push(PagesRoutes.Pricing)}
+            onClick={() => router.push(App_Pricing_Path)}
           >
             {renewButton.text}
           </Button>

@@ -1,7 +1,7 @@
+import { App_Dashboard_Editor_Path } from '@intlayer/design-system/routes';
 import { getIntlayer, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalPromiseParams } from 'next-intlayer';
-import { PagesRoutes } from '@/Routes';
 
 export const generateMetadata = async ({
   params,
@@ -17,17 +17,17 @@ export const generateMetadata = async ({
     description,
     keywords,
     alternates: {
-      canonical: getLocalizedUrl(PagesRoutes.Dashboard_Editor, locale),
+      canonical: getLocalizedUrl(App_Dashboard_Editor_Path, locale),
       languages: {
-        ...getMultilingualUrls(PagesRoutes.Dashboard_Editor),
-        'x-default': PagesRoutes.Dashboard_Editor,
+        ...getMultilingualUrls(App_Dashboard_Editor_Path),
+        'x-default': App_Dashboard_Editor_Path,
       },
     },
     openGraph: {
       title,
       description,
       url: getLocalizedUrl(
-        `${process.env.NEXT_PUBLIC_URL!}${PagesRoutes.Dashboard_Editor}`,
+        `${process.env.NEXT_PUBLIC_URL!}${App_Dashboard_Editor_Path}`,
         locale
       ),
     },

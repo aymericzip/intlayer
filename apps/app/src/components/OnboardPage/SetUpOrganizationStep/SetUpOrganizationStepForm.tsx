@@ -10,10 +10,10 @@ import {
   useSelectOrganization,
   useSession,
 } from '@intlayer/design-system/hooks';
+import { App_Pricing_Path } from '@intlayer/design-system/routes';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
-import { PagesRoutes } from '@/Routes';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
@@ -109,8 +109,8 @@ export const SetupOrganizationStepForm: FC = () => {
           if (session?.user) {
             router.push(
               searchParams
-                ? `${PagesRoutes.Pricing}?${searchParams.toString()}`
-                : PagesRoutes.Pricing
+                ? `${App_Pricing_Path}?${searchParams.toString()}`
+                : App_Pricing_Path
             );
           } else {
             goPreviousStep();

@@ -16,13 +16,17 @@ import {
   TagSize,
   useCopyToClipboard,
 } from '@intlayer/design-system';
+import {
+  External_Github,
+  Website_Doc_Path,
+  Website_ReleasesV8,
+} from '@intlayer/design-system/routes';
 import { motion } from 'framer-motion';
 import packageJSON from 'intlayer/package.json' with { type: 'json' };
 import { ArrowRight, Check, Copy } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
-import { ExternalLinks, PagesRoutes } from '@/Routes';
 import { TechLogos } from './TechLogos';
 
 const SHOW_WHATS_NEW = true;
@@ -69,7 +73,7 @@ export const LandingSection: FC = () => {
                 {whatsNew}
               </Tag>
               <Link
-                href={PagesRoutes.ReleasesV8}
+                href={Website_ReleasesV8}
                 color={LinkColor.NEUTRAL}
                 label={whatsNewLabel.value}
               >
@@ -136,7 +140,7 @@ export const LandingSection: FC = () => {
             className="mt-10 mb-6 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4 lg:mb-10"
           >
             <Link
-              href={ExternalLinks.Github}
+              href={External_Github}
               variant={LinkVariant.BUTTON_OUTLINED}
               color={LinkColor.TEXT}
               label={supportButton.value}
@@ -148,7 +152,7 @@ export const LandingSection: FC = () => {
             </Link>
 
             <Link
-              href={PagesRoutes.Doc}
+              href={Website_Doc_Path}
               variant={LinkVariant.BUTTON}
               color={LinkColor.TEXT}
               label={getStartedButton.value}

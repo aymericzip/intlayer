@@ -3,7 +3,7 @@ import { getSessionData } from '@utils/getSessionData';
 import type { NextLayoutIntlayer } from 'next-intlayer';
 
 import '@/monaco.css';
-import { PagesRoutes } from '@/Routes';
+import { App_Dashboard_Projects_Path } from '@intlayer/design-system/routes';
 
 const DashboardContentLayout: NextLayoutIntlayer = async ({
   children,
@@ -19,7 +19,7 @@ const DashboardContentLayout: NextLayoutIntlayer = async ({
         'organization-required',
         'project-required',
       ]}
-      redirectionRoute={PagesRoutes.Dashboard_Projects}
+      redirectionRoute={App_Dashboard_Projects_Path}
       session={session}
       locale={locale}
     >

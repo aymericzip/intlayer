@@ -5,10 +5,10 @@ import {
   type BreadcrumbLink,
   type BreadcrumbProps,
 } from '@intlayer/design-system';
+import { App_Admin_Dashboard } from '@intlayer/design-system/routes';
 import { useParams, usePathname } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useMemo } from 'react';
-import { AppRoutes } from '@/Routes';
 
 type AdminBreadcrumbProps = Omit<BreadcrumbProps, 'links'>;
 
@@ -24,7 +24,7 @@ export const AdminBreadcrumb: FC<AdminBreadcrumbProps> = (props) => {
     const links: BreadcrumbLink[] = [
       {
         text: home.value,
-        href: AppRoutes.Admin_Dashboard,
+        href: App_Admin_Dashboard,
       },
     ];
 

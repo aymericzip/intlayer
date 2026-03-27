@@ -11,6 +11,7 @@ import {
   Table,
 } from '@intlayer/design-system';
 import { useGetProjects, useSearch } from '@intlayer/design-system/hooks';
+import { getAppAdminProjectRoute } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import {
   type ColumnDef,
@@ -24,7 +25,6 @@ import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
 import { useSearchParamState } from '@/hooks/useSearchParamState';
-import { PagesRoutes } from '@/Routes';
 
 type SortOrder = 'asc' | 'desc';
 
@@ -302,12 +302,7 @@ export const ProjectsAdminPageContent: FC = () => {
                     key={row.id}
                     className="cursor-pointer whitespace-nowrap border-neutral-100 border-b hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
                     onClick={() => {
-                      router.push(
-                        PagesRoutes.Admin_Projects_Id.replace(
-                          ':id',
-                          row.original.id
-                        )
-                      );
+                      router.push(getAppAdminProjectRoute(row.original.id));
                     }}
                   >
                     {row.getVisibleCells().map((cell) => (

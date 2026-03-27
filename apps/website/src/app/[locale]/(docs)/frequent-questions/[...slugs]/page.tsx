@@ -1,4 +1,5 @@
 import { DocumentationRender } from '@components/DocPage/DocumentationRender';
+import { Website_Doc_Path } from '@intlayer/design-system/routes';
 import {
   type FrequentQuestionKey,
   getFrequentQuestion,
@@ -8,7 +9,6 @@ import { urlRenamer } from '@utils/markdown';
 import { redirect } from 'next/navigation';
 import type { LocalPromiseParams } from 'next-intlayer';
 import { IntlayerServerProvider } from 'next-intlayer/server';
-import { PagesRoutes } from '@/Routes';
 import type { FrequentQuestionProps } from './layout';
 
 const FrequentQuestionPage = async ({
@@ -25,7 +25,7 @@ const FrequentQuestionPage = async ({
   );
 
   if (!filteredBlogsData || filteredBlogsData.length === 0) {
-    return redirect(PagesRoutes.Doc);
+    return redirect(Website_Doc_Path);
   }
 
   const frequentQuestionData = filteredBlogsData[0];

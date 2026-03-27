@@ -1,3 +1,4 @@
+import { Website_TermsOfService } from '@intlayer/design-system/routes';
 import { getLegal, getLegalMetadata } from '@intlayer/docs';
 import { createFileRoute } from '@tanstack/react-router';
 import {
@@ -7,7 +8,6 @@ import {
   Locales,
 } from 'intlayer';
 import { DocumentationRender } from '#/components/DocPage/DocumentationRender';
-import { PagesRoutes } from '#/Routes';
 
 const TERMS_KEY = './legal/en/terms_of_service.md' as const;
 
@@ -25,7 +25,7 @@ export const Route = createFileRoute('/{-$locale}/terms-of-service')({
       TERMS_KEY,
       locale
     );
-    const path = PagesRoutes.TermsOfService;
+    const path = Website_TermsOfService;
 
     return {
       meta: [

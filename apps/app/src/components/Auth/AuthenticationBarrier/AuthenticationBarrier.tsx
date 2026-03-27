@@ -1,7 +1,10 @@
+import {
+  App_Auth_SignIn_Path,
+  App_Home_Path,
+} from '@intlayer/design-system/routes';
 import { getQueryParams } from '@utils/queryProxy';
 import { getLocalizedUrl, type LocalesValues } from 'intlayer';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 import { AuthenticationBarrierClient } from './AuthenticationBarrierClient';
 import { AuthenticationBarrierServer } from './AuthenticationBarrierServer';
 import type { AuthenticationBarrierProps as AuthenticationBarrierPropsBoth } from './accessValidation';
@@ -10,7 +13,7 @@ type AuthenticationBarrierProps = Omit<
   AuthenticationBarrierPropsBoth,
   'sessionToken' | 'redirectionFunction'
 > & {
-  redirectionRoute?: PagesRoutes | string;
+  redirectionRoute?: string;
   locale: LocalesValues;
   originUrl?: string;
 };
@@ -23,14 +26,12 @@ export const AuthenticationBarrier: FC<AuthenticationBarrierProps> = async ({
 }) => {
   const data = await getQueryParams();
   const pathname =
-    data.pathname === PagesRoutes.Auth_SignIn
-      ? PagesRoutes.Home
-      : data.pathname;
+    data.pathname === App_Auth_SignIn_Path ? App_Home_Path : data.pathname;
 
   const redirectURL =
     redirectionRoute ??
     data.redirectUrl ??
-    `${PagesRoutes.Auth_SignIn}?redirect_url=${encodeURIComponent(pathname)}`;
+    `${App_Auth_SignIn_Path}?redirect_url=${encodeURIComponent(pathname)}`;
 
   const localizedRedirectionURL = getLocalizedUrl(redirectURL, locale);
 

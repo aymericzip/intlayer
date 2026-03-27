@@ -10,6 +10,7 @@ import {
   PopoverStatic,
 } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
+import { Website_Doc } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import { ArrowLeftToLine } from 'lucide-react';
 import { type FC, useState } from 'react';
@@ -17,7 +18,6 @@ import { useIntlayer } from 'react-intlayer';
 import { OptionalLink } from '#/components/DocPage/DocNavList';
 import { SearchTrigger } from '#/components/DocPage/Search/SearchTrigger';
 import { useScrollPositionPersistence } from '#/hooks/useScrollPositionPersistence';
-import { PagesRoutes } from '#/Routes';
 import type { Section } from './types';
 
 type BlogNavListProps = {
@@ -76,8 +76,6 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
             return isLevel2Active || isLevel3Active;
           }
         );
-
-        const isActive = isSelfActive || isSubSectionActive;
 
         return (
           <div key={key1}>
@@ -193,7 +191,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
         );
       })}
       <div>
-        <OptionalLink href={PagesRoutes.Doc} label={docButton.label.value}>
+        <OptionalLink href={Website_Doc} label={docButton.label.value}>
           {docButton?.text}
         </OptionalLink>
       </div>

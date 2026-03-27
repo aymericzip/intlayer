@@ -3,18 +3,18 @@ import { DashboardContentLayout } from '@components/Dashboard/DashboardContentLa
 import { Editor } from '@components/Dashboard/Editor';
 import { DictionaryLoaderPlayground } from '@components/Dashboard/Editor/DictionaryLoaderPlayground';
 import baseConfiguration from '@intlayer/config/built';
+import { Website_Demo_Path } from '@intlayer/design-system/routes';
 import { ConfigurationProvider } from '@intlayer/editor-react';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 
 export { generateMetadata } from './metadata';
 
 const PlaygroundContent: FC = () => {
   const { title, description } = useIntlayer('playground-page');
 
-  const applicationURL = `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Demo}`;
+  const applicationURL = `${process.env.NEXT_PUBLIC_URL}${Website_Demo_Path}`;
 
   const configuration = {
     ...baseConfiguration,

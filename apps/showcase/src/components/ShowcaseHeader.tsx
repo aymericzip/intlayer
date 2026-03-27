@@ -1,7 +1,7 @@
 import { H1, Link } from '@intlayer/design-system';
+import { Showcase_Submit_Path } from '@intlayer/design-system/routes';
 import { Plus } from 'lucide-react';
 import { useIntlayer } from 'react-intlayer';
-import { PagesRoutes } from '#/Routes';
 
 export const ShowcaseHeader = () => {
   const content = useIntlayer('app');
@@ -17,7 +17,7 @@ export const ShowcaseHeader = () => {
         </p>
       </div>
       <Link
-        href={PagesRoutes.ShowcaseSubmit}
+        href={Showcase_Submit_Path}
         variant="button"
         color="text"
         label={content.showcase.submitButton.value}

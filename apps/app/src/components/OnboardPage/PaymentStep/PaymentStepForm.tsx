@@ -8,6 +8,7 @@ import {
   Loader,
 } from '@intlayer/design-system';
 import { useGetSubscription, useSession } from '@intlayer/design-system/hooks';
+import { App_Pricing_Path } from '@intlayer/design-system/routes';
 import {
   Elements,
   PaymentElement,
@@ -21,7 +22,6 @@ import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';
 import { type FC, type FormEvent, useState } from 'react';
 import type Stripe from 'stripe';
-import { PagesRoutes } from '@/Routes';
 import { retrievePriceId } from '../retrievePriceId';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
@@ -202,7 +202,7 @@ export const PaymentStepContent: FC<PaymentDetailsProps> = ({
               label={pickANewProductButton.label.value}
               color="text"
               Icon={ShoppingCart}
-              onClick={() => router.push(PagesRoutes.Pricing)}
+              onClick={() => router.push(App_Pricing_Path)}
             >
               {pickANewProductButton.text}
             </Button>
@@ -286,7 +286,7 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
               label={pickANewProductButton.label.value}
               color="text"
               Icon={ShoppingCart}
-              onClick={() => router.push(PagesRoutes.Pricing)}
+              onClick={() => router.push(App_Pricing_Path)}
             >
               {pickANewProductButton.text}
             </Button>

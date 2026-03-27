@@ -9,6 +9,7 @@ import {
   useGetShowcaseProjects,
   useSearch,
 } from '@intlayer/design-system/hooks';
+import { Showcase_Root_Path } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -18,7 +19,6 @@ import {
 } from 'intlayer';
 import { useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { PagesRoutes } from '#/Routes';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
 import { FiltersBar } from '@/components/FiltersBar';
 import { ProjectCard } from '@/components/ProjectCard';
@@ -93,7 +93,7 @@ export const Route = createFileRoute('/{-$locale}/')({
   },
   head: ({ params }) => {
     const { locale } = params;
-    const path = PagesRoutes.Showcase;
+    const path = Showcase_Root_Path;
     const content = getIntlayer('app', locale);
 
     const canonicalUrl = getLocalizedUrl(path, locale);

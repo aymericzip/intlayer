@@ -1,8 +1,8 @@
+import { Showcase_Root_Path } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import { getIntlayer } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#/components/Link';
-import { PagesRoutes } from '#/Routes';
 
 export const Route = createFileRoute('/{-$locale}/404')({
   component: NotFoundComponent,
@@ -38,7 +38,7 @@ export function NotFoundComponent() {
       <p className="mb-8 max-w-md text-base text-neutral">
         {content.thePageYoureLookingFor}
       </p>
-      <Link to={PagesRoutes.Showcase} variant="button" color="text">
+      <Link to={Showcase_Root_Path} variant="button" color="text">
         {content.backToHome}
       </Link>
     </main>

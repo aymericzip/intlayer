@@ -6,8 +6,8 @@ import { ProfileDropDown } from '@components/ProfileDropdown/ProfileDropdown';
 import { TranslationStatusAside } from '@components/TranslationStatusAside';
 import { Container, Logo } from '@intlayer/design-system';
 import { useSession } from '@intlayer/design-system/hooks';
+import { App_Home_Path } from '@intlayer/design-system/routes';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 import { OrganizationDropdown } from './OrganizationDropdown';
 import { ProjectDropdown } from './ProjectDropdown';
 
@@ -22,7 +22,7 @@ export const DashboardNavbar: FC = () => {
     >
       <div className="flex justify-between">
         <div className="flex w-auto items-center gap-4">
-          <Link href={PagesRoutes.Home} label="Dashboard" color="text">
+          <Link href={App_Home_Path} label="Dashboard" color="text">
             <Logo className="size-6" />
           </Link>
 

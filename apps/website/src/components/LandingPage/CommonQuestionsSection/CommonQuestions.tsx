@@ -2,11 +2,11 @@
 
 import { Link } from '@components/Link/Link';
 import { Container, MaxHeightSmoother } from '@intlayer/design-system';
+import { Website_FrequentQuestions_Path } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import { ArrowRight } from 'lucide-react';
 import { type IntlayerNode, useIntlayer } from 'next-intlayer';
 import { type FC, useMemo, useSyncExternalStore } from 'react';
-import { PagesRoutes } from '@/Routes';
 
 const QuestionItem: FC<{
   question: IntlayerNode;
@@ -151,7 +151,7 @@ export const CommonQuestionsSection: FC = () => {
       </div>
 
       <Link
-        href={PagesRoutes.FrequentQuestions}
+        href={Website_FrequentQuestions_Path}
         label={allFrequentQuestionLink.label.value}
         color="text"
         variant="button"

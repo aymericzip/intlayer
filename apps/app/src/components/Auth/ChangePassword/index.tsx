@@ -2,11 +2,11 @@
 
 import { Button } from '@intlayer/design-system';
 import { useChangePassword, useUser } from '@intlayer/design-system/hooks';
+import { App_Home_Path } from '@intlayer/design-system/routes';
 import { Check } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 import { ChangePasswordForm as ChangePasswordFormUI } from './ChangePasswordForm';
 
 type ChangePasswordFormProps = {
@@ -14,7 +14,7 @@ type ChangePasswordFormProps = {
 };
 
 export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
-  callbackUrl = PagesRoutes.Home,
+  callbackUrl = App_Home_Path,
 }) => {
   const router = useRouter();
   const { user } = useUser();

@@ -1,9 +1,9 @@
 'use client';
 
+import { Website_TMS_Path } from '@intlayer/design-system/routes';
 import { GlobeIcon } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 import { ProductSectionLayout } from '../ProductSectionLayout';
 
 export const TMSSection: FC = () => {
@@ -26,7 +26,7 @@ export const TMSSection: FC = () => {
         </div>
       }
       cta={{
-        href: PagesRoutes.TMS,
+        href: Website_TMS_Path,
         text: primaryCta,
         label: primaryCta.value,
       }}

@@ -6,12 +6,17 @@ import {
   TabSelector,
   TabSelectorColor,
 } from '@intlayer/design-system';
+import {
+  App_Admin_Discussions,
+  App_Admin_Organizations,
+  App_Admin_Projects,
+  App_Admin_Users,
+} from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import { Building2, FolderOpen, MessageCircle, Users } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { AppRoutes } from '@/Routes';
 
 type AdminTabBarProps = {
   className?: string;
@@ -24,28 +29,28 @@ export const AdminTabBar: FC<AdminTabBarProps> = ({ className }) => {
   const navigationItems = [
     {
       key: 'organizations',
-      href: AppRoutes.Admin_Organizations,
+      href: App_Admin_Organizations,
       icon: Building2,
       label: navigation.management.organizations.label.value,
       title: navigation.management.organizations.title,
     },
     {
       key: 'projects',
-      href: AppRoutes.Admin_Projects,
+      href: App_Admin_Projects,
       icon: FolderOpen,
       label: navigation.management.projects.label.value,
       title: navigation.management.projects.title,
     },
     {
       key: 'users',
-      href: AppRoutes.Admin_Users,
+      href: App_Admin_Users,
       icon: Users,
       label: navigation.management.users.label.value,
       title: navigation.management.users.title,
     },
     {
       key: 'discussions',
-      href: AppRoutes.Admin_Discussions,
+      href: App_Admin_Discussions,
       icon: MessageCircle,
       label: navigation.management.discussions.label.value,
       title: navigation.management.discussions.title,

@@ -1,6 +1,6 @@
 import { usePersistedStore } from '@intlayer/design-system/hooks';
+import { App_Auth_SignIn } from '@intlayer/design-system/routes';
 import { useRef, useState } from 'react';
-import { AppRoutes } from '#/Routes';
 
 export type AllStep =
   | 'START'
@@ -73,7 +73,7 @@ export const useProjectSubmit = () => {
       if (response.status === 401) {
         setSubmitStep('UNAUTHENTICATED');
         const redirectUrl = encodeURIComponent(window.location.href);
-        window.location.href = `${AppRoutes.Auth_SignIn}?redirect_url=${redirectUrl}`;
+        window.location.href = `${App_Auth_SignIn}?redirect_url=${redirectUrl}`;
         return;
       }
 

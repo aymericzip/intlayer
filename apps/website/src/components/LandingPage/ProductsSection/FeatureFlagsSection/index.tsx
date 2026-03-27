@@ -1,9 +1,9 @@
 'use client';
 
+import { Website_CMS_Path } from '@intlayer/design-system/routes';
 import { ToggleRightIcon } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 import { ProductSectionLayout } from '../ProductSectionLayout';
 
 export const FeatureFlagsSection: FC = () => {
@@ -22,7 +22,7 @@ export const FeatureFlagsSection: FC = () => {
       title={title}
       description={<p>{description}</p>}
       cta={{
-        href: PagesRoutes.CMS,
+        href: Website_CMS_Path,
         text: ctaButton.text,
         label: ctaButton.label.value,
       }}
