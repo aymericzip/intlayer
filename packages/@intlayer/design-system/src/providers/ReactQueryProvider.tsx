@@ -110,6 +110,10 @@ const useToastEvents = () => {
   };
 };
 
+export const getContext = () => ({
+  queryClient: new QueryClient({ defaultOptions: defaultQueryOptions }),
+});
+
 export const ReactQueryProvider: FC<PropsWithChildren> = ({ children }) => {
   const { onError, onSuccess } = useToastEvents();
   const clientRef = useRef<QueryClient>(null);

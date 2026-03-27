@@ -1,0 +1,47 @@
+'use client';
+
+import { Popover } from '@intlayer/design-system';
+import { getLocalizedUrl } from 'intlayer';
+import { Languages } from 'lucide-react';
+import type { FC } from 'react';
+import { useIntlayer, useLocale, useLocaleCookie } from 'react-intlayer';
+import { Link } from '#/components/Link';
+
+type TranslatedContentMessageProps = {
+  pageUrl: string;
+};
+
+export const TranslatedContentMessage: FC<TranslatedContentMessageProps> = ({
+  pageUrl,
+}) => {
+  const { setLocaleCookie } = useLocaleCookie();
+  const { locale, defaultLocale } = useLocale();
+  const localizedUrl = getLocalizedUrl(pageUrl, defaultLocale);
+  const { message, link } = useIntlayer('translated-content-message');
+
+  if (locale === defaultLocale) return <></>;
+
+  return (
+    <Popover identifier="language">
+      <div className="flex p-2">
+        <Languages className="size-4" size={24} />
+      </div>
+      <Popover.Detail
+        identifier="language"
+        className="flex min-w-64 flex-1 flex-col gap-2 p-3 text-neutral text-sm"
+        xAlign="end"
+      >
+        <p>{message}</p>
+        <Link
+          href={localizedUrl}
+          locale={defaultLocale}
+          label={link.label.value}
+          color="text"
+          onClick={() => setLocaleCookie(defaultLocale)}
+        >
+          {link.content}
+        </Link>
+      </Popover.Detail>
+    </Popover>
+  );
+};
