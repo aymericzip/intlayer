@@ -23,6 +23,7 @@ export const renderIntlayerNode = <
   T extends string | number | boolean | null | undefined,
 >({
   value,
+  children,
   additionalProps = {},
 }: {
   value: T;
@@ -32,10 +33,18 @@ export const renderIntlayerNode = <
 }): IntlayerNode<T> => {
   let _value = value;
 
+  // When children is a string that differs from value, it acts as a display
+  // override (e.g. editor HTML wrapper). Otherwise toString/toPrimitive reflect
+  // the live _value so that __update propagates.
+  const displayOverride =
+    typeof children === 'string' && children !== String(value ?? '')
+      ? children
+      : null;
+
   const node = {
-    toString: () => String(_value ?? ''),
+    toString: () => displayOverride ?? String(_value ?? ''),
     valueOf: () => _value,
-    [Symbol.toPrimitive]: () => _value,
+    [Symbol.toPrimitive]: () => displayOverride ?? _value,
     toJSON: () => _value,
 
     get raw() {

@@ -17,7 +17,6 @@ import type {
   InsertionContent,
   MarkdownContent,
 } from '@intlayer/core/transpiler';
-import { isEnabled } from '@intlayer/editor/isEnabled';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type {
   DeclaredLocales,
@@ -69,7 +68,7 @@ export const intlayerNodePlugins: Plugins = {
     renderIntlayerNode({
       ...rest,
       value: rest.children,
-      children: isEnabled ? (
+      children: configuration.editor.enabled ? (
         <ContentSelector {...rest}>{rest.children}</ContentSelector>
       ) : (
         rest.children
@@ -105,7 +104,7 @@ export const solidNodePlugins: Plugins = {
     renderIntlayerNode({
       ...rest,
       value: '[[solid-element]]',
-      children: isEnabled ? (
+      children: configuration.editor.enabled ? (
         <ContentSelector {...rest}>
           {typeof Node !== 'undefined' && node instanceof Node
             ? node

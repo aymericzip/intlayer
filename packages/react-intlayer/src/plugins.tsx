@@ -17,7 +17,6 @@ import type {
   InsertionContent,
   MarkdownContent,
 } from '@intlayer/core/transpiler';
-import { isEnabled } from '@intlayer/editor/isEnabled';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type {
   DeclaredLocales,
@@ -77,7 +76,7 @@ export const intlayerNodePlugins: Plugins = {
     renderIntlayerNode({
       ...rest,
       value: rest.children,
-      children: isEnabled ? (
+      children: configuration.editor.enabled ? (
         <ContentSelector {...rest}>{rest.children}</ContentSelector>
       ) : (
         rest.children
@@ -114,7 +113,7 @@ export const reactNodePlugins: Plugins = {
     renderIntlayerNode({
       ...rest,
       value: '[[react-element]]',
-      children: isEnabled ? (
+      children: configuration.editor.enabled ? (
         <ContentSelector {...rest}>{renderReactElement(node)}</ContentSelector>
       ) : (
         renderReactElement(node)
@@ -280,7 +279,7 @@ export const markdownStringPlugin: Plugins = {
         renderIntlayerNode({
           ...props,
           value: metadataNode,
-          children: isEnabled ? (
+          children: configuration.editor.enabled ? (
             <ContentSelector {...rest}>{node}</ContentSelector>
           ) : (
             node

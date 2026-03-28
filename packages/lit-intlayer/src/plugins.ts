@@ -22,7 +22,6 @@ import type {
   InsertionContent,
   MarkdownContent,
 } from '@intlayer/core/transpiler';
-import { isEnabled } from '@intlayer/editor/isEnabled';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type {
   DeclaredLocales,
@@ -115,7 +114,7 @@ export const intlayerNodePlugins: Plugins = {
     typeof node === 'string' ||
     typeof node === 'number',
   transform: (_node, { children, keyPath, dictionaryKey, ...rest }) => {
-    if (isEnabled) {
+    if (configuration.editor.enabled) {
       const rawStr = String(children ?? '');
       const htmlStr = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${escapeHtmlText(rawStr)}</intlayer-content-selector-wrapper>`;
       return createLitHTMLNode(htmlStr, rawStr);
@@ -263,7 +262,7 @@ export const markdownStringPlugin: Plugins = {
     const use = (components?: any) => {
       const rendered = compileMarkdown(node, { components });
 
-      if (isEnabled) {
+      if (configuration.editor.enabled) {
         const wrappedHTML = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${rendered}</intlayer-content-selector-wrapper>`;
         return createLitHTMLNode(wrappedHTML, node);
       }
@@ -271,7 +270,7 @@ export const markdownStringPlugin: Plugins = {
       return createLitHTMLNode(rendered, node);
     };
 
-    if (isEnabled) {
+    if (configuration.editor.enabled) {
       const wrappedHTML = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${compiled}</intlayer-content-selector-wrapper>`;
       return createLitHTMLNode(wrappedHTML, node, {
         metadata: metadataNodes,
@@ -370,7 +369,7 @@ export const htmlPlugin: Plugins = {
 
       const rendered = getHTML(htmlStr, wrappedComponents as any);
 
-      if (isEnabled) {
+      if (configuration.editor.enabled) {
         const wrappedHTML = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${rendered}</intlayer-content-selector-wrapper>`;
         return createLitHTMLNode(wrappedHTML, htmlStr);
       }
@@ -378,7 +377,7 @@ export const htmlPlugin: Plugins = {
       return createLitHTMLNode(rendered, htmlStr);
     };
 
-    if (isEnabled) {
+    if (configuration.editor.enabled) {
       const wrappedHTML = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${htmlStr}</intlayer-content-selector-wrapper>`;
       return createLitHTMLNode(wrappedHTML, htmlStr, { use });
     }

@@ -21,7 +21,6 @@ import type {
   InsertionContent,
   MarkdownContent,
 } from '@intlayer/core/transpiler';
-import { isEnabled } from '@intlayer/editor/isEnabled';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type {
   DeclaredLocales,
@@ -58,41 +57,36 @@ export const intlayerNodePlugins: Plugins = {
     typeof node === 'string' ||
     typeof node === 'number',
   transform: (_node, { children, keyPath, dictionaryKey, ...rest }) => {
-    if (isEnabled && typeof document !== 'undefined') {
+    if (configuration.editor.enabled) {
       const rawStr = String(children ?? '');
       const keyPathJson = JSON.stringify(keyPath ?? []);
       const dictKey = String(dictionaryKey ?? '');
-      const htmlStr = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(keyPathJson)}" dictionary-key="${escapeHtmlAttr(dictKey)}">${escapeHtmlText(rawStr)}</intlayer-content-selector-wrapper>`;
 
       /**
        * In editor mode, string coercion returns the wrapper HTML so that
        * `element.innerHTML = content.title` automatically inserts the
        * `<intlayer-content-selector-wrapper>` into the DOM.
        */
-      const node = {
-        toString: () => htmlStr,
-        valueOf: () => rawStr as typeof children,
-        [Symbol.toPrimitive]: (_hint: string) => htmlStr,
-        toJSON: () => rawStr as typeof children,
-        get raw() {
-          return rawStr as typeof children;
+      const htmlStr = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(keyPathJson)}" dictionary-key="${escapeHtmlAttr(dictKey)}">${escapeHtmlText(rawStr)}</intlayer-content-selector-wrapper>`;
+
+      return renderIntlayerNode({
+        ...rest,
+        value: children as string,
+        children: htmlStr,
+        keyPath,
+        dictionaryKey,
+        additionalProps: {
+          toElement: (): HTMLElement => {
+            const wrapper = document.createElement(
+              'intlayer-content-selector-wrapper'
+            );
+            wrapper.setAttribute('key-path', keyPathJson);
+            wrapper.setAttribute('dictionary-key', dictKey);
+            wrapper.textContent = rawStr;
+            return wrapper;
+          },
         },
-        get value() {
-          return rawStr as typeof children;
-        },
-        __update(_next: IntlayerNodeCore<typeof children>) {},
-        toElement: (): HTMLElement => {
-          const wrapper = document.createElement(
-            'intlayer-content-selector-wrapper'
-          );
-          wrapper.setAttribute('key-path', keyPathJson);
-          wrapper.setAttribute('dictionary-key', dictKey);
-          wrapper.textContent = rawStr;
-          return wrapper;
-        },
-      };
-      Object.setPrototypeOf(node, String.prototype);
-      return node as unknown as IntlayerNodeCore<typeof children>;
+      });
     }
 
     return renderIntlayerNode({

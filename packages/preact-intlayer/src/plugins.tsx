@@ -16,7 +16,6 @@ import type {
   InsertionContent,
   MarkdownContent,
 } from '@intlayer/core/transpiler';
-import { isEnabled } from '@intlayer/editor/isEnabled';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type {
   DeclaredLocales,
@@ -73,7 +72,7 @@ export const intlayerNodePlugins: Plugins = {
     renderIntlayerNode({
       ...rest,
       value: rest.children,
-      children: isEnabled ? (
+      children: configuration.editor.enabled ? (
         <ContentSelector {...rest} key={rest.children}>
           {rest.children}
         </ContentSelector>
@@ -112,7 +111,7 @@ export const preactNodePlugins: Plugins = {
     renderIntlayerNode({
       ...rest,
       value: '[[preact-element]]',
-      children: isEnabled ? (
+      children: configuration.editor.enabled ? (
         <ContentSelector {...rest}>{renderPreactElement(node)}</ContentSelector>
       ) : (
         renderPreactElement(node)
@@ -320,7 +319,7 @@ export const markdownStringPlugin: Plugins = {
         renderIntlayerNode({
           ...props,
           value: metadataNode,
-          children: isEnabled ? (
+          children: configuration.editor.enabled ? (
             <ContentSelector {...rest}>
               <Suspense fallback={node}>
                 <LazyMarkdownMetadataRenderer
@@ -355,7 +354,7 @@ export const markdownStringPlugin: Plugins = {
       renderIntlayerNode({
         ...props,
         value: node,
-        children: isEnabled ? (
+        children: configuration.editor.enabled ? (
           <ContentSelector {...rest}>
             <Suspense fallback={node}>
               <LazyMarkdownRendererPlugin {...rest} components={components}>
