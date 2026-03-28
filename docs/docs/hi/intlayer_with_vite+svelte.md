@@ -233,7 +233,7 @@ module.exports = appContent;
 <!-- सामग्री को सरल सामग्री के रूप में रेंडर करें -->
 <h1>{$content.title}</h1>
 <!-- संपादक का उपयोग करके सामग्री को संपादन योग्य रूप में रेंडर करने के लिए -->
-<h1><svelte:component this={$content.title} /></h1>
+<h1>{@const Title = $content.title}<Title /></h1>
 <!-- सामग्री को स्ट्रिंग के रूप में रेंडर करने के लिए -->
 <div aria-label={$content.title.value}></div>
 ```

@@ -233,7 +233,7 @@ module.exports = appContent;
 <!-- Renderuj zawartość jako prostą zawartość  -->
 <h1>{$content.title}</h1>
 <!-- Aby renderować zawartość edytowalną za pomocą edytora -->
-<h1><svelte:component this={$content.title} /></h1>
+<h1>{@const Title = $content.title}<Title /></h1>
 <!-- Aby renderować zawartość jako ciąg znaków -->
 <div aria-label={$content.title.value}></div>
 ```

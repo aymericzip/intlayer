@@ -370,7 +370,7 @@ export default heroContent;
 <!-- 以简单内容渲染内容 -->
 <h1>{$content.title}</h1>
 <!-- 使用编辑器渲染可编辑内容 -->
-<h1><svelte:component this={$content.title} /></h1>
+<h1>{@const Title = $content.title}<Title /></h1>
 <!-- 以字符串形式渲染内容 -->
 <div aria-label={$content.title.value}></div>
 ```
@@ -726,7 +726,7 @@ export default defineConfig({
   <h1>{$content.title}</h1>
 
   <!-- 以组件方式渲染内容（编辑器所需） -->
-  <svelte:component this={$content.component} />
+  {@const Component = $content.component}<Component />
 </div>
 ```
 

@@ -370,7 +370,7 @@ export default heroContent;
 <!-- عرض المحتوى كمحتوى بسيط -->
 <h1>{$content.title}</h1>
 <!-- لعرض المحتوى قابل للتحرير باستخدام المحرر -->
-<h1><svelte:component this={$content.title} /></h1>
+<h1>{@const Title = $content.title}<Title /></h1>
 <!-- لعرض المحتوى كنص -->
 <div aria-label={$content.title.value}></div>
 ```
@@ -726,7 +726,7 @@ export default defineConfig({
   <h1>{$content.title}</h1>
 
   <!-- عرض المحتوى كمكون (مطلوب من قبل المحرر) -->
-  <svelte:component this={$content.component} />
+  {@const Component = $content.component}<Component />
 </div>
 ```
 

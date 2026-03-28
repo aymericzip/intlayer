@@ -144,13 +144,16 @@
                   <td class="col-desc">{row.desc}</td>
                   <td class="col-result">
                     {#if row.result === 'md'}
-                      <div class="md-preview"><svelte:component this={$bm.n06_md} /></div>
+                      {@const Comp = $bm.n06_md}
+                      <div class="md-preview"><Comp /></div>
                     {:else if row.result === 'html'}
                       {@html String($bm.n07_html)}
                     {:else if row.result === 'n09_t_of_md'}
-                      <div class="md-preview"><svelte:component this={$bm.n09_t_of_md} /></div>
+                      {@const Comp = $bm.n09_t_of_md}
+                      <div class="md-preview"><Comp /></div>
                     {:else if row.result === 'n10_md_t'}
-                      <div class="md-preview"><svelte:component this={$bm.n10_md_t} /></div>
+                      {@const Comp = $bm.n10_md_t}
+                      <div class="md-preview"><Comp /></div>
                     {:else}
                       {row.result}
                     {/if}

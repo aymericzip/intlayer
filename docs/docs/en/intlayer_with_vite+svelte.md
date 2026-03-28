@@ -230,7 +230,7 @@ module.exports = appContent;
 <!-- Render content as simple content  -->
 <h1>{$content.title}</h1>
 <!-- To render the content editable using the editor -->
-<h1><svelte:component this={$content.title} /></h1>
+<h1>{@const Title = $content.title}<Title /></h1>
 <!-- To render the content as a string -->
 <div aria-label={$content.title.value}></div>
 ```
@@ -270,7 +270,7 @@ const changeLocale = (event: Event) => {
 
 Intlayer supports rendering Markdown and HTML content in Svelte.
 
-By default, Intlayer treats Markdown and HTML as interactive components or strings. To render them in Svelte, you can use the `<svelte:component this={...} />` for components or `{@html ...}` for plain strings.
+By default, Intlayer treats Markdown and HTML as interactive components or strings. To render them in Svelte, you can use the `{@const Component = ...}<Component />` for components or `{@html ...}` for plain strings.
 
 ```svelte fileName="src/App.svelte"
 <script>
@@ -280,14 +280,13 @@ By default, Intlayer treats Markdown and HTML as interactive components or strin
 </script>
 
 <!-- Render Markdown as a Component -->
-<svelte:component this={$content.myMarkdownContent} />
+{@const MyMarkdownContent = $content.myMarkdownContent}<MyMarkdownContent />
 
 <!-- Render HTML Content -->
 {@html $content.myHtmlContent.toString()}
 
 <!-- Render with custom component overrides -->
-<svelte:component
-  this={$content.myMarkdownContent.use({
+{@const MyMarkdownContent = $content.myMarkdownContent.use({
     h1: (props) => {
       const h1 = document.createElement('h1');
       h1.style.color = 'red';
@@ -300,7 +299,7 @@ By default, Intlayer treats Markdown and HTML as interactive components or strin
        return div;
     }
   })}
-/>
+<MyMarkdownContent />
 ```
 
 > [!TIP]

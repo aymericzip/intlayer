@@ -233,7 +233,7 @@ module.exports = appContent;
 <!-- Отобразить контент как простой контент -->
 <h1>{$content.title}</h1>
 <!-- Отобразить контент с возможностью редактирования через редактор -->
-<h1><svelte:component this={$content.title} /></h1>
+<h1>{@const Title = $content.title}<Title /></h1>
 <!-- Отобразить контент как строку -->
 <div aria-label={$content.title.value}></div>
 

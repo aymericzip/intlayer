@@ -230,7 +230,7 @@ module.exports = appContent;
 <!-- 간단한 콘텐츠로 렌더링 -->
 <h1>{$content.title}</h1>
 <!-- 에디터를 사용하여 편집 가능한 콘텐츠로 렌더링 -->
-<h1><svelte:component this={$content.title} /></h1>
+<h1>{@const Title = $content.title}<Title /></h1>
 <!-- 문자열로 콘텐츠 렌더링 -->
 <div aria-label={$content.title.value}></div>
 ```

@@ -370,7 +370,7 @@ pour accéder à sa valeur réactive (par exemple, `$content.title`).
 <!-- Afficher le contenu comme contenu simple  -->
 <h1>{$content.title}</h1>
 <!-- Pour rendre le contenu éditable via l'éditeur -->
-<h1><svelte:component this={$content.title} /></h1>
+<h1>{@const Title = $content.title}<Title /></h1>
 <!-- Pour afficher le contenu en tant que chaîne -->
 <div aria-label={$content.title.value}></div>
 ```
@@ -726,7 +726,7 @@ Pour pouvoir visualiser le sélecteur de l'éditeur intlayer, vous devrez utilis
   <h1>{$content.title}</h1>
 
   <!-- Rendre le contenu comme un composant (requis par l'éditeur) -->
-  <svelte:component this={$content.component} />
+  {@const Component = $content.component}<Component />
 </div>
 ```
 
@@ -914,7 +914,7 @@ Pour pouvoir visualiser le sélecteur de l'éditeur intlayer, vous devrez utilis
   <h1>{$content.title}</h1>
 
   <!-- Rendre le contenu comme un composant (requis par l'éditeur) -->
-  <svelte:component this={$content.component} />
+  {@const Component = $content.component}<Component />
 </div>
 ```
 

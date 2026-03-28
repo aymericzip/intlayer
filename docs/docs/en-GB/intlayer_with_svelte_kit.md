@@ -370,7 +370,7 @@ prefix to access its reactive value (e.g., `$content.title`).
 <!-- Render content as simple content  -->
 <h1>{$content.title}</h1>
 <!-- To render the content editable using the editor -->
-<h1><svelte:component this={$content.title} /></h1>
+<h1>{@const Title = $content.title}<Title /></h1>
 <!-- To render the content as a string -->
 <div aria-label={$content.title.value}></div>
 ```
@@ -728,7 +728,7 @@ To be able to visualise the intlayer editor selector, you will have to use the c
   <h1>{$content.title}</h1>
 
   <!-- Render content as a component (required by the editor) -->
-  <svelte:component this={$content.component} />
+  {@const Component = $content.component}<Component />
 </div>
 ```
 

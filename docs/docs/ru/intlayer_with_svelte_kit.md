@@ -370,7 +370,7 @@ export default heroContent;
 <!-- Отобразить контент как простой текст -->
 <h1>{$content.title}</h1>
 <!-- Чтобы отобразить контент с возможностью редактирования через редактор -->
-<h1><svelte:component this={$content.title} /></h1>
+<h1>{@const Title = $content.title}<Title /></h1>
 <!-- Для отображения содержимого в виде строки -->
 <div aria-label={$content.title.value}></div>
 ```
@@ -726,7 +726,7 @@ export default defineConfig({
   <h1>{$content.title}</h1>
 
   <!-- Отобразить контент как компонент (требуется редактором) -->
-  <svelte:component this={$content.component} />
+  {@const Component = $content.component}<Component />
 </div>
 ```
 

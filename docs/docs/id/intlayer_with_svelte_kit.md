@@ -370,7 +370,7 @@ untuk mengakses nilai reaktifnya (misalnya, `$content.title`).
 <!-- Render konten sebagai konten sederhana  -->
 <h1>{$content.title}</h1>
 <!-- Untuk merender konten yang dapat diedit menggunakan editor -->
-<h1><svelte:component this={$content.title} /></h1>
+<h1>{@const Title = $content.title}<Title /></h1>
 <!-- Untuk merender konten sebagai string -->
 <div aria-label={$content.title.value}></div>
 ```
@@ -726,7 +726,7 @@ Untuk dapat memvisualisasikan selector editor intlayer, Anda harus menggunakan s
   <h1>{$content.title}</h1>
 
   <!-- Render konten sebagai komponen (diperlukan oleh editor) -->
-  <svelte:component this={$content.component} />
+  {@const Component = $content.component}<Component />
 </div>
 ```
 

@@ -370,7 +370,7 @@ export default heroContent;
 <!-- İçeriği basit içerik olarak render et -->
 <h1>{$content.title}</h1>
 <!-- İçeriği editör kullanarak düzenlenebilir şekilde render etmek için -->
-<h1><svelte:component this={$content.title} /></h1>
+<h1>{@const Title = $content.title}<Title /></h1>
 <!-- İçeriği string olarak render etmek için -->
 <div aria-label={$content.title.value}></div>
 ```
@@ -726,7 +726,7 @@ intlayer editör seçicisini görselleştirebilmek için, intlayer içeriğinizd
   <h1>{$content.title}</h1>
 
   <!-- İçeriği bir bileşen olarak render et (editör tarafından gereklidir) -->
-  <svelte:component this={$content.component} />
+  {@const Component = $content.component}<Component />
 </div>
 ```
 

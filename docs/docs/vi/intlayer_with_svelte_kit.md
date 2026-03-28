@@ -370,7 +370,7 @@ export default heroContent;
 <!-- Hiển thị nội dung dưới dạng nội dung đơn giản  -->
 <h1>{$content.title}</h1>
 <!-- Để hiển thị nội dung có thể chỉnh sửa bằng trình soạn thảo -->
-<h1><svelte:component this={$content.title} /></h1>
+<h1>{@const Title = $content.title}<Title /></h1>
 <!-- Để render nội dung dưới dạng chuỗi -->
 <div aria-label={$content.title.value}></div>
 ```
@@ -726,7 +726,7 @@ export default defineConfig({
   <h1>{$content.title}</h1>
 
   <!-- Hiển thị nội dung như một component (bắt buộc bởi trình chỉnh sửa) -->
-  <svelte:component this={$content.component} />
+  {@const Component = $content.component}<Component />
 </div>
 ```
 

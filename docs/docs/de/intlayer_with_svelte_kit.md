@@ -370,7 +370,7 @@ export default heroContent;
 <!-- Inhalt als einfachen Inhalt rendern -->
 <h1>{$content.title}</h1>
 <!-- Um den Inhalt mit dem Editor bearbeitbar zu rendern -->
-<h1><svelte:component this={$content.title} /></h1>
+<h1>{@const Title = $content.title}<Title /></h1>
 <!-- Um den Inhalt als String darzustellen -->
 <div aria-label={$content.title.value}></div>
 ```
@@ -726,7 +726,7 @@ Um den Intlayer-Editor-Selektor visualisieren zu können, müssen Sie die Kompon
   <h1>{$content.title}</h1>
 
   <!-- Inhalt als Komponente rendern (vom Editor erforderlich) -->
-  <svelte:component this={$content.component} />
+  {@const Component = $content.component}<Component />
 </div>
 ```
 

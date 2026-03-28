@@ -9,10 +9,9 @@
     {value}
   </svelte:element>
 {:else if typeof Renderer === 'function'}
-  <svelte:component this={Renderer} {...rendererProps}>
+  <Renderer {...rendererProps}>
     {value}
-  </svelte:component>
+  </Renderer>
 {:else}
   {value}
 {/if}
-

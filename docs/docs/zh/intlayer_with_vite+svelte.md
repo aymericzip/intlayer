@@ -232,7 +232,7 @@ module.exports = appContent;
 <!-- 以简单内容渲染内容 -->
 <h1>{$content.title}</h1>
 <!-- 使用编辑器渲染可编辑内容 -->
-<h1><svelte:component this={$content.title} /></h1>
+<h1>{@const Title = $content.title}<Title /></h1>
 <!-- 以字符串形式渲染内容 -->
 <div aria-label={$content.title.value}></div>
 ```

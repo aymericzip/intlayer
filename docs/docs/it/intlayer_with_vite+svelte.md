@@ -232,7 +232,7 @@ module.exports = appContent;
 <!-- Renderizza il contenuto come contenuto semplice  -->
 <h1>{$content.title}</h1>
 <!-- Per rendere il contenuto modificabile usando l'editor -->
-<h1><svelte:component this={$content.title} /></h1>
+<h1>{@const Title = $content.title}<Title /></h1>
 <!-- Per rendere il contenuto come stringa -->
 <div aria-label={$content.title.value}></div>
 ```
