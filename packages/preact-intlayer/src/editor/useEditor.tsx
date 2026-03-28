@@ -10,7 +10,7 @@ import { IntlayerClientContext } from '../client/IntlayerProvider';
  * the editor always knows which locale the app is displaying.
  */
 export const useEditor = () => {
-  const { locale } = useContext(IntlayerClientContext);
+  const { locale } = useContext(IntlayerClientContext) ?? {};
   const managerRef = useRef<EditorStateManager | null>(null);
 
   useEffect(() => {

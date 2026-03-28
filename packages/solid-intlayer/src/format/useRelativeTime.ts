@@ -6,7 +6,7 @@ import { IntlayerClientContext } from '../client/IntlayerProvider';
  * Solid client hook that provides a localized relative time formatter.
  */
 export const useRelativeTime = () => {
-  const { locale } = useContext(IntlayerClientContext);
+  const { locale } = useContext(IntlayerClientContext) ?? {};
 
   return (...args: Parameters<typeof relativeTime>) =>
     relativeTime(args[0], args[1], {

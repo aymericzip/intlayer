@@ -24,7 +24,7 @@ import { IntlayerClientContext } from '../client/IntlayerProvider';
  * ```
  */
 export const useList = () => {
-  const { locale } = useContext(IntlayerClientContext);
+  const { locale } = useContext(IntlayerClientContext) ?? {};
 
   return useCallback(
     (...args: Parameters<typeof list>) =>

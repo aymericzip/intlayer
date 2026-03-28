@@ -11,7 +11,7 @@ const { defaultLocale, locales: availableLocales } =
  * On the client side, hook to get the current locale and all related fields
  */
 export const useLocaleBase = () => {
-  const { locale, setLocale } = useContext(IntlayerClientContext);
+  const { locale, setLocale } = useContext(IntlayerClientContext) ?? {};
 
   return {
     locale, // Current locale

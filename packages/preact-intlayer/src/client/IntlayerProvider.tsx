@@ -27,7 +27,7 @@ export const IntlayerClientContext = createContext<IntlayerValue>({
 /**
  * Hook that provides the current locale
  */
-export const useIntlayerContext = () => useContext(IntlayerClientContext);
+export const useIntlayerContext = () => useContext(IntlayerClientContext) ?? {};
 
 export type IntlayerProviderProps = {
   children?: ComponentChild;

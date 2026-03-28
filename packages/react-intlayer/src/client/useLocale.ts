@@ -1,7 +1,10 @@
 'use client';
 
 import configuration from '@intlayer/config/built';
-import type { DeclaredLocales, LocalesValues } from '@intlayer/types/module_augmentation';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import { useCallback, useContext } from 'react';
 import { IntlayerClientContext } from './IntlayerProvider';
 import { setLocaleInStorage } from './useLocaleStorage';
@@ -52,7 +55,7 @@ export const useLocale = ({
     locale,
     setLocale: setLocaleState,
     isCookieEnabled: isCookieEnabledContext,
-  } = useContext(IntlayerClientContext);
+  } = useContext(IntlayerClientContext) ?? {};
 
   const setLocale = useCallback(
     (locale: LocalesValues) => {

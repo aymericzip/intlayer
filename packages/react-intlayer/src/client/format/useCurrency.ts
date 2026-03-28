@@ -29,7 +29,7 @@ import { IntlayerClientContext } from '../IntlayerProvider';
  * ```
  */
 export const useCurrency = () => {
-  const { locale } = useContext(IntlayerClientContext);
+  const { locale } = useContext(IntlayerClientContext) ?? {};
 
   return useCallback(
     (...args: Parameters<typeof currency>) =>

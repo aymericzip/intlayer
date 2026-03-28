@@ -22,7 +22,7 @@ import { IntlayerClientContext } from '../client/IntlayerProvider';
  * ```
  */
 export const useIntl = (locale?: LocalesValues) => {
-  const { locale: contextLocale } = useContext(IntlayerClientContext);
+  const { locale: contextLocale } = useContext(IntlayerClientContext) ?? {};
   const currentLocale = locale ?? contextLocale;
 
   return useMemo<WrappedIntl>(() => bindIntl(currentLocale), [currentLocale]);

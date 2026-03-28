@@ -9,7 +9,7 @@ import { IntlayerClientContext } from '../client/IntlayerProvider';
  * A function to format dates into localized strings.
  */
 export const useDate = () => {
-  const { locale } = useContext(IntlayerClientContext);
+  const { locale } = useContext(IntlayerClientContext) ?? {};
 
   return (...args: Parameters<typeof date>) => {
     const options =

@@ -13,7 +13,7 @@ import { IntlayerClientContext } from '../client/IntlayerProvider';
  * ```
  */
 export const useCompact = () => {
-  const { locale } = useContext(IntlayerClientContext);
+  const { locale } = useContext(IntlayerClientContext) ?? {};
 
   return useCallback(
     (...args: Parameters<typeof compact>) =>

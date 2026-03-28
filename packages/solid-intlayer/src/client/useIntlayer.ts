@@ -1,4 +1,9 @@
-import type { DeclaredLocales, DictionaryKeys, DictionaryRegistryContent, LocalesValues } from '@intlayer/types/module_augmentation';
+import type {
+  DeclaredLocales,
+  DictionaryKeys,
+  DictionaryRegistryContent,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import { type Accessor, createMemo, useContext } from 'solid-js';
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';
@@ -31,7 +36,7 @@ export const useIntlayer = <
   key: T,
   locale?: L
 ): Accessor<DeepTransformContent<DictionaryRegistryContent<T>, L>> => {
-  const context = useContext(IntlayerClientContext);
+  const context = useContext(IntlayerClientContext) ?? {};
 
   // @ts-ignore Type instantiation is excessively deep and possibly infinite
   return createMemo(() => {

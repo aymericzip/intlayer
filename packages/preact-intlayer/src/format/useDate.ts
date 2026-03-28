@@ -29,7 +29,7 @@ import { IntlayerClientContext } from '../client/IntlayerProvider';
  * @see createDate
  */
 export const useDate = () => {
-  const { locale } = useContext(IntlayerClientContext);
+  const { locale } = useContext(IntlayerClientContext) ?? {};
 
   return (...args: Parameters<typeof date>) =>
     date(args[0], {

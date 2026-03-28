@@ -35,7 +35,7 @@ export const IntlayerClientContext = createContext<IntlayerValue>({
  *
  * @returns The current Intlayer context values.
  */
-export const useIntlayerContext = () => useContext(IntlayerClientContext);
+export const useIntlayerContext = () => useContext(IntlayerClientContext) ?? {};
 
 /**
  * Props for the IntlayerProvider component.

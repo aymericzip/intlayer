@@ -23,7 +23,7 @@ import { IntlayerClientContext } from '../IntlayerProvider';
  * A function that formats numbers or numeric strings into localized percentages.
  */
 export const usePercentage = () => {
-  const { locale } = useContext(IntlayerClientContext);
+  const { locale } = useContext(IntlayerClientContext) ?? {};
 
   return useCallback(
     (...args: Parameters<typeof percentage>) =>

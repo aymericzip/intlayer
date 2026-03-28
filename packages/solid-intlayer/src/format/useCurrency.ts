@@ -6,7 +6,7 @@ import { IntlayerClientContext } from '../client/IntlayerProvider';
  * Solid client hook that provides a localized currency formatter.
  */
 export const useCurrency = () => {
-  const { locale } = useContext(IntlayerClientContext);
+  const { locale } = useContext(IntlayerClientContext) ?? {};
 
   return (...args: Parameters<typeof currency>) =>
     currency(args[0], {

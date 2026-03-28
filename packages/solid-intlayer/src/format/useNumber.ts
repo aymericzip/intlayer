@@ -9,7 +9,7 @@ import { IntlayerClientContext } from '../client/IntlayerProvider';
  * A function to format numbers into localized strings.
  */
 export const useNumber = () => {
-  const { locale } = useContext(IntlayerClientContext);
+  const { locale } = useContext(IntlayerClientContext) ?? {};
 
   return (...args: Parameters<typeof number>) =>
     number(args[0], {

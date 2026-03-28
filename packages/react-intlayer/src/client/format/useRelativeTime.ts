@@ -23,7 +23,7 @@ import { IntlayerClientContext } from '../IntlayerProvider';
  *          bound to the current client locale.
  */
 export const useRelativeTime = () => {
-  const { locale } = useContext(IntlayerClientContext);
+  const { locale } = useContext(IntlayerClientContext) ?? {};
 
   return useCallback(
     (...args: Parameters<typeof relativeTime>) =>

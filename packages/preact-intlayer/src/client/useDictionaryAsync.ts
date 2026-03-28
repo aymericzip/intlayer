@@ -17,7 +17,7 @@ export const useDictionaryAsync = async <T extends Dictionary>(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   locale?: LocalesValues
 ): Promise<T> => {
-  const { locale: currentLocale } = useContext(IntlayerClientContext);
+  const { locale: currentLocale } = useContext(IntlayerClientContext) ?? {};
 
   const localeTarget = useMemo(
     () =>

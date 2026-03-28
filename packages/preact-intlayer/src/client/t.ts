@@ -13,7 +13,7 @@ export const t = <Content = string>(
   multilangContent: StrictModeLocaleMap<Content>,
   locale?: Locale
 ) => {
-  const { locale: currentLocale } = useContext(IntlayerClientContext);
+  const { locale: currentLocale } = useContext(IntlayerClientContext) ?? {};
   const localeTarget = locale ?? currentLocale;
 
   return getTranslation<Content>(multilangContent, localeTarget);

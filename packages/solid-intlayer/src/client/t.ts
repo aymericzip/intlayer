@@ -1,5 +1,8 @@
 import { getTranslation } from '@intlayer/core/interpreter';
-import type { LocalesValues, StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
+import type {
+  LocalesValues,
+  StrictModeLocaleMap,
+} from '@intlayer/types/module_augmentation';
 import { useContext } from 'solid-js';
 import { IntlayerClientContext } from './IntlayerProvider';
 
@@ -12,7 +15,7 @@ export const t = <Content = string>(
   multilangContent: StrictModeLocaleMap<Content>,
   locale?: LocalesValues
 ) => {
-  const { locale: currentLocale } = useContext(IntlayerClientContext);
+  const { locale: currentLocale } = useContext(IntlayerClientContext) ?? {};
   const localeTarget =
     locale ??
     (typeof currentLocale === 'function' ? currentLocale() : currentLocale);

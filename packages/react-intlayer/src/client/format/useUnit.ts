@@ -22,7 +22,7 @@ import { IntlayerClientContext } from '../IntlayerProvider';
  * @returns {Function} A unit formatting function that accepts a value and optional formatting options.
  */
 export const useUnit = () => {
-  const { locale } = useContext(IntlayerClientContext);
+  const { locale } = useContext(IntlayerClientContext) ?? {};
 
   return useCallback(
     (...args: Parameters<typeof units>) =>

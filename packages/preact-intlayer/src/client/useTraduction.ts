@@ -27,7 +27,7 @@ import { IntlayerClientContext } from './IntlayerProvider';
 export const useTranslation = <Content = string>(
   languageContent: StrictModeLocaleMap<Content>
 ): Content => {
-  const { locale } = useContext(IntlayerClientContext);
+  const { locale } = useContext(IntlayerClientContext) ?? {};
 
   return useMemo(
     () => getTranslation(languageContent, locale),

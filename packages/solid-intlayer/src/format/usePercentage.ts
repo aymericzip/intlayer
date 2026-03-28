@@ -6,7 +6,7 @@ import { IntlayerClientContext } from '../client/IntlayerProvider';
  * Solid client hook that provides a localized percentage formatter.
  */
 export const usePercentage = () => {
-  const { locale } = useContext(IntlayerClientContext);
+  const { locale } = useContext(IntlayerClientContext) ?? {};
 
   return (...args: Parameters<typeof percentage>) =>
     percentage(args[0], {

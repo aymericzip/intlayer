@@ -20,7 +20,7 @@ export const useDictionary = <
   dictionary: T,
   locale?: L
 ): Accessor<DeepTransformContent<T['content'], L>> => {
-  const context = useContext(IntlayerClientContext);
+  const context = useContext(IntlayerClientContext) ?? {};
 
   return createMemo(() => {
     const localeTarget = locale ?? context?.locale?.();

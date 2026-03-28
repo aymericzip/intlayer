@@ -37,7 +37,7 @@ export const useI18n = <
   namespace: T,
   locale?: L
 ) => {
-  const { locale: currentLocale } = useContext(IntlayerClientContext);
+  const { locale: currentLocale } = useContext(IntlayerClientContext) ?? {};
   const localeTarget = useMemo(
     () => locale ?? currentLocale,
     [currentLocale, locale]

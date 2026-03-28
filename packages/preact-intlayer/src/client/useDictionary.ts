@@ -19,7 +19,7 @@ export const useDictionary = <
   dictionary: T,
   locale?: L
 ) => {
-  const { locale: currentLocale } = useContext(IntlayerClientContext);
+  const { locale: currentLocale } = useContext(IntlayerClientContext) ?? {};
 
   return useMemo(() => {
     const localeTarget = locale ?? currentLocale;

@@ -49,7 +49,7 @@ export const useLocale = ({
   const { defaultLocale, locales: availableLocales } =
     configuration?.internationalization ?? {};
 
-  const context = useContext(IntlayerClientContext);
+  const context = useContext(IntlayerClientContext) ?? {};
 
   const setLocale = (locale: LocalesValues) => {
     if (!availableLocales?.map(String).includes(locale)) {
