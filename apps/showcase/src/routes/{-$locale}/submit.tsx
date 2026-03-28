@@ -6,7 +6,7 @@ import {
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
-import { SubmitProjectForm } from '@/components/SubmitProjectForm/SubmitProjectForm';
+import { SubmitProjectForm } from '#/components/SubmitProjectForm/SubmitProjectForm';
 
 export const Route = createFileRoute('/{-$locale}/submit')({
   component: SubmitProjectForm,

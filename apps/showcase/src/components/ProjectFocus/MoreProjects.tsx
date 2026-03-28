@@ -2,8 +2,8 @@ import { Carousel, Container, H2 } from '@intlayer/design-system';
 import { useGetOtherShowcaseProjects } from '@intlayer/design-system/hooks';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { ProjectCard } from '#/components/ProjectCard';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
-import { ProjectCard } from '@/components/ProjectCard';
 
 interface MoreProjectsProps {
   excludeId: string;

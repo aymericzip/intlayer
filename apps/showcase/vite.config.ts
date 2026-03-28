@@ -1,15 +1,32 @@
+import {
+  Showcase_Root_Path,
+  Showcase_Submit_Path,
+} from '@intlayer/design-system/routes';
 import tailwindcss from '@tailwindcss/vite';
 import { devtools } from '@tanstack/devtools-vite';
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
 import viteReact from '@vitejs/plugin-react';
+import { localeFlatMap } from 'intlayer';
 import { nitro } from 'nitro/vite';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig, loadEnv } from 'vite';
 import { intlayer, intlayerProxy } from 'vite-intlayer';
 import wasm from 'vite-plugin-wasm';
 
+export const pathList = [];
+
+const localizedPages = localeFlatMap(({ urlPrefix }) =>
+  pathList.map((path) => ({
+    path: `${urlPrefix}${path}`,
+    prerender: {
+      enabled: true,
+    },
+  }))
+);
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
+
   const domain = env.VITE_SITE_URL
     ? new URL(env.VITE_SITE_URL).hostname
     : 'localhost';
@@ -175,8 +192,22 @@ export default defineConfig(({ mode }) => {
       headers,
     },
     plugins: [
-      devtools(),
-      intlayerProxy(),
+      // Fix: TanStack Start's prerender calls vite.preview() internally, then fetch()s pages
+      // using HTTP keep-alive. When previewServer.close() is called, Node waits for those
+      // keep-alive connections to drain — causing the build to hang. Force-close them first.
+      {
+        name: 'fix-prerender-hang',
+        apply: (_config, env) => !!env.isPreview,
+        configurePreviewServer(server) {
+          const originalClose = server.close.bind(server);
+          server.close = async () => {
+            server.httpServer?.closeAllConnections?.();
+            return originalClose();
+          };
+        },
+      } as import('vite').Plugin,
+      // devtools(),
+      // intlayerProxy(),
       nitro({
         routeRules: {
           '/**': { headers },
@@ -201,8 +232,10 @@ export default defineConfig(({ mode }) => {
         },
         prerender: {
           enabled: true,
-          crawlLinks: true,
+          crawlLinks: false,
+          concurrency: 10,
         },
+        pages: localizedPages,
       }),
       viteReact(),
       wasm(),

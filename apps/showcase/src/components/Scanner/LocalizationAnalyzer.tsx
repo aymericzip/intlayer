@@ -1,6 +1,6 @@
 import { type FC, useEffect, useRef, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { useSearchParamState } from '@/hooks/useSearchParamState';
+import { useSearchParamState } from '#/hooks/useSearchParamState';
 import { AnalyzerForm } from './Analyzer/Form/AnalyzerForm';
 import { useAnalyzerUrlSchema } from './Analyzer/Form/useAnalyzerUrlSchema';
 import { AnalyzerResultsSection } from './AnalyzerResultsSection';

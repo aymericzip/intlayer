@@ -5,7 +5,7 @@ import { useNavigate } from '@tanstack/react-router';
 import { ArrowLeft } from 'lucide-react';
 import { type FC, type FocusEvent, useEffect, useState } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
-import { Link } from '@/components/Link';
+import { Link } from '#/components/Link';
 import { ModalStatus } from './ModalStatus';
 import { ProjectFormFields } from './ProjectFormFields';
 import { useProjectSubmit } from './useProjectSubmit';

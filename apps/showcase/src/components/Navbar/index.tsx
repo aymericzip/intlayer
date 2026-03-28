@@ -72,7 +72,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
         ({ id, url, label, title }) => (
           <Link
             id={id?.value}
-            key={getCleanChoice(url.value)}
+            key={id?.value}
             href={url.value}
             label={label.value}
             isExternalLink={false}
@@ -91,7 +91,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
         ({ id, url, label, title }) => (
           <Link
             id={id?.value}
-            key={getCleanChoice(url.value)}
+            key={id?.value}
             href={url.value}
             isExternalLink={false}
             isActive={selectedChoice === getCleanChoice(url.value)}

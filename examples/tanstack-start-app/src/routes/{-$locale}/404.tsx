@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useIntlayer } from 'react-intlayer';
 
-import { LocalizedLink } from '@/components/localized-link';
+import { LocalizedLink } from '#/components/localized-link';
 
 export const Route = createFileRoute('/{-$locale}/404')({
   component: NotFoundComponent,

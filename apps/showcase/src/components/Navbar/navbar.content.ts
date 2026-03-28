@@ -3,10 +3,10 @@ import {
   App_Dashboard,
   External_Discord,
   External_Github,
+  Showcase_Root,
   Website_Doc,
   Website_Home,
   Website_Playground,
-  Website_Showcase,
 } from '@intlayer/design-system/routes';
 import { type Dictionary, t } from 'intlayer';
 
@@ -157,7 +157,7 @@ export const navbarContent = {
       },
       {
         id: 'showcase',
-        url: Website_Showcase,
+        url: Showcase_Root,
         title: t({
           en: 'Showcase',
           fr: 'Vitrine',

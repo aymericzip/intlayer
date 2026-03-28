@@ -3,8 +3,8 @@ import { createFileRoute } from '@tanstack/react-router';
 import { createServerFn } from '@tanstack/react-start';
 import { getIntlayer } from 'intlayer';
 import { useIntlayer, useLocale } from 'react-intlayer';
-import { queryClient } from '@/router';
-import { getLocale } from '@/utils/getLocale';
+import { queryClient } from '#/router';
+import { getLocale } from '#/utils/getLocale';
 
 export const Route = createFileRoute('/{-$locale}/')({
   component: () => (

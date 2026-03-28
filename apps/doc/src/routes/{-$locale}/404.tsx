@@ -1,4 +1,4 @@
-import { Website_Showcase } from '@intlayer/design-system/routes';
+import { Doc_Path } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import { getIntlayer } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
@@ -38,7 +38,12 @@ export function NotFoundComponent() {
       <p className="mb-8 max-w-md text-base text-neutral">
         {content.thePageYoureLookingFor}
       </p>
-      <Link to={Website_Showcase} variant="button" color="text">
+      <Link
+        to={Doc_Path}
+        variant="button"
+        color="text"
+        label={content.backToHome.value}
+      >
         {content.backToHome}
       </Link>
     </main>

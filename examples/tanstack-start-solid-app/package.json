@@ -6,12 +6,12 @@
     "build": "vite build",
     "dev": "vite dev --port 3000",
     "preview": "vite preview",
-    "start": "node .output/server/index.mjs",
+    "start": "node dist/server/server.js",
     "test": "vitest run"
   },
   "dependencies": {
     "@tailwindcss/vite": "4.2.2",
-    "@tanstack/router-plugin": "1.167.4",
+    "@tanstack/router-plugin": "1.167.8",
     "@tanstack/solid-router": "latest",
     "@tanstack/solid-router-devtools": "latest",
     "@tanstack/solid-router-ssr-query": "latest",

@@ -19,12 +19,12 @@ import {
 } from 'intlayer';
 import { useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { FiltersBar } from '#/components/FiltersBar';
+import { ProjectCard } from '#/components/ProjectCard';
+import { ProjectCardSkeleton } from '#/components/ProjectCardSkeleton';
+import { ShowcaseHeader } from '#/components/ShowcaseHeader';
+import { useSearchParamState } from '#/hooks/useSearchParamState';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
-import { FiltersBar } from '@/components/FiltersBar';
-import { ProjectCard } from '@/components/ProjectCard';
-import { ProjectCardSkeleton } from '@/components/ProjectCardSkeleton';
-import { ShowcaseHeader } from '@/components/ShowcaseHeader';
-import { useSearchParamState } from '@/hooks/useSearchParamState';
 
 type ProjectSearchParams = {
   page?: number;
@@ -81,14 +81,19 @@ export const Route = createFileRoute('/{-$locale}/')({
           isOpenSource: deps.isOpenSource ?? false,
         },
       ],
-      queryFn: () =>
-        getIntlayerAPI().showcaseProject.getShowcaseProjects({
-          page: deps.page ?? 1,
-          pageSize: deps.pageSize ?? 20,
-          search: deps.search ?? '',
-          selectedUseCases: deps.selectedUseCases ?? [],
-          isOpenSource: deps.isOpenSource ?? false,
-        }),
+      queryFn: () => {
+        try {
+          return getIntlayerAPI().showcaseProject.getShowcaseProjects({
+            page: deps.page ?? 1,
+            pageSize: deps.pageSize ?? 20,
+            search: deps.search ?? '',
+            selectedUseCases: deps.selectedUseCases ?? [],
+            isOpenSource: deps.isOpenSource ?? false,
+          });
+        } catch {
+          return null;
+        }
+      },
     });
   },
   head: ({ params }) => {

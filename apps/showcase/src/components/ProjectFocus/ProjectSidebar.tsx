@@ -7,7 +7,7 @@ import {
   ModalSize,
 } from '@intlayer/design-system';
 import { useAuth } from '@intlayer/design-system/hooks';
-import { Website_Showcase } from '@intlayer/design-system/routes';
+import { Showcase_Root_Path } from '@intlayer/design-system/routes';
 import {
   Badge,
   Calendar,
@@ -25,9 +25,9 @@ import {
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { useLocalizedNavigate } from '#/hooks/useLocalizedNavigate';
+import { useShowcaseLike } from '#/hooks/useShowcaseLike';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
-import { useLocalizedNavigate } from '@/hooks/useLocalizedNavigate';
-import { useShowcaseLike } from '@/hooks/useShowcaseLike';
 import { EditProjectModal } from './EditProjectModal';
 import { useScanProject } from './useScanProject';
 
@@ -140,7 +140,7 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
         setDeleteError(body?.error?.message ?? 'Failed to delete project');
         return;
       }
-      navigate(Website_Showcase);
+      navigate(Showcase_Root_Path);
     } catch (e) {
       setDeleteError((e as Error).message ?? 'Failed to delete project');
     } finally {

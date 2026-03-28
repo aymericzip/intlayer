@@ -8,9 +8,9 @@ import { Link } from '@tanstack/react-router';
 import { ExternalLink, ThumbsDown, ThumbsUp } from 'lucide-react';
 import { useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { useShowcaseLike } from '#/hooks/useShowcaseLike';
 import { getFaviconUrl } from '#/utils/getFaviconUrl';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
-import { useShowcaseLike } from '@/hooks/useShowcaseLike';
 
 type ProjectCardProps = {
   project: ShowcaseProject;

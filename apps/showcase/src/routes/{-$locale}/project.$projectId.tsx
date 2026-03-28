@@ -8,9 +8,9 @@ import {
 } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#/components/Link';
+import { ProjectFocus } from '#/components/ProjectFocus/ProjectFocus';
+import { ShowcaseHeader } from '#/components/ShowcaseHeader';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
-import { ProjectFocus } from '@/components/ProjectFocus/ProjectFocus';
-import { ShowcaseHeader } from '@/components/ShowcaseHeader';
 
 export const Route = createFileRoute('/{-$locale}/project/$projectId')({
   loader: async ({ params }) => {

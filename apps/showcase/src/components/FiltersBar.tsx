@@ -8,7 +8,7 @@ import {
 import { ChevronDown, SlidersHorizontal } from 'lucide-react';
 import type { ChangeEvent } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { useCasesList } from '@/data/useCases';
+import { useCasesList } from '#/data/useCases';
 
 interface FiltersBarProps {
   searchQuery: string;

@@ -3,10 +3,10 @@ import { useUpdateShowcaseProject } from '@intlayer/design-system/hooks';
 import { Check, X } from 'lucide-react';
 import { useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { ProjectFormFields } from '#/components/SubmitProjectForm/ProjectFormFields';
+import type { SubmitProjectFormData } from '#/components/SubmitProjectForm/useSubmitProjectFormSchema';
+import { useSubmitProjectFormSchema } from '#/components/SubmitProjectForm/useSubmitProjectFormSchema';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
-import { ProjectFormFields } from '@/components/SubmitProjectForm/ProjectFormFields';
-import type { SubmitProjectFormData } from '@/components/SubmitProjectForm/useSubmitProjectFormSchema';
-import { useSubmitProjectFormSchema } from '@/components/SubmitProjectForm/useSubmitProjectFormSchema';
 
 interface EditProjectModalProps {
   project: ShowcaseProject;

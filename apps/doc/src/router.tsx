@@ -1,16 +1,20 @@
-import { getContext } from '@intlayer/design-system/providers';
+import { getQueryClient } from '@intlayer/design-system/providers';
 import { createRouter as createTanStackRouter } from '@tanstack/react-router';
+import { ErrorComponent } from './components/ErrorComponent';
+import { NotFoundComponent } from './routes/{-$locale}/404';
 import { routeTree } from './routeTree.gen';
 
 export function getRouter() {
   const router = createTanStackRouter({
     routeTree,
 
-    context: getContext(),
+    context: { queryClient: getQueryClient() },
 
     scrollRestoration: true,
     defaultPreload: 'intent',
     defaultPreloadStaleTime: 0,
+    defaultErrorComponent: ErrorComponent,
+    defaultNotFoundComponent: NotFoundComponent,
   });
 
   return router;

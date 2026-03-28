@@ -8,6 +8,17 @@ export function getRouter() {
     scrollRestoration: true,
     defaultPreload: 'intent',
     defaultPreloadStaleTime: 0,
+    // Redirect to many times
+    // rewrite: {
+    //   input: ({ url }) => getPathWithoutLocale(url.toString()),
+    //   output: ({ url }) => {
+    //     const locale = getLocaleFromStorageClient({
+    //       getSessionStorage: (key) => sessionStorage.getItem(key),
+    //       getLocaleStorage: (key) => localStorage.getItem(key),
+    //     });
+    //     return getLocalizedUrl(url.toString(), locale ?? defaultLocale);
+    //   },
+    // },
   });
 
   return router;

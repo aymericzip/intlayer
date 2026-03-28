@@ -1,5 +1,5 @@
 import { Container, H1, Loader } from '@intlayer/design-system';
-import { Website_Search } from '@intlayer/design-system/routes';
+import { Doc_Search_Path } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -18,7 +18,6 @@ export const Route = createFileRoute('/{-$locale}/search')({
     const locale = ((params as { locale?: string }).locale ??
       defaultLocale) as any;
     const content = getIntlayer('doc-search-page', locale);
-    const path = Website_Search;
 
     return {
       meta: [
@@ -26,16 +25,21 @@ export const Route = createFileRoute('/{-$locale}/search')({
         { name: 'description', content: content.title as string },
       ],
       links: [
-        { rel: 'canonical', href: getLocalizedUrl(path, locale) },
-        ...Object.entries(getMultilingualUrls(path)).map(([lang, url]) => ({
-          rel: 'alternate',
-          hrefLang: lang,
-          href: url as string,
-        })),
+        {
+          rel: 'canonical',
+          href: getLocalizedUrl(Doc_Search_Path, locale),
+        },
+        ...Object.entries(getMultilingualUrls(Doc_Search_Path)).map(
+          ([lang, url]) => ({
+            rel: 'alternate',
+            hrefLang: lang,
+            href: url as string,
+          })
+        ),
         {
           rel: 'alternate',
           hrefLang: 'x-default',
-          href: getLocalizedUrl(path, Locales.ENGLISH),
+          href: getLocalizedUrl(Doc_Search_Path, Locales.ENGLISH),
         },
       ],
     };

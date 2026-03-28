@@ -1,5 +1,5 @@
 import { Container, H1 } from '@intlayer/design-system';
-import { Website_Chat } from '@intlayer/design-system/routes';
+import { Doc_Chat_Path } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -17,7 +17,6 @@ export const Route = createFileRoute('/{-$locale}/chat')({
     const locale = ((params as { locale?: string }).locale ??
       defaultLocale) as any;
     const content = getIntlayer('doc-chat-page', locale);
-    const path = Website_Chat;
 
     return {
       meta: [
@@ -25,16 +24,18 @@ export const Route = createFileRoute('/{-$locale}/chat')({
         { name: 'description', content: content.title as string },
       ],
       links: [
-        { rel: 'canonical', href: getLocalizedUrl(path, locale) },
-        ...Object.entries(getMultilingualUrls(path)).map(([lang, url]) => ({
-          rel: 'alternate',
-          hrefLang: lang,
-          href: url as string,
-        })),
+        { rel: 'canonical', href: getLocalizedUrl(Doc_Chat_Path, locale) },
+        ...Object.entries(getMultilingualUrls(Doc_Chat_Path)).map(
+          ([lang, url]) => ({
+            rel: 'alternate',
+            hrefLang: lang,
+            href: url as string,
+          })
+        ),
         {
           rel: 'alternate',
           hrefLang: 'x-default',
-          href: getLocalizedUrl(path, Locales.ENGLISH),
+          href: getLocalizedUrl(Doc_Chat_Path, Locales.ENGLISH),
         },
       ],
     };
