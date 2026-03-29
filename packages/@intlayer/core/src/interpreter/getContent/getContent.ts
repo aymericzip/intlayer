@@ -22,18 +22,21 @@ import {
 export const getBasePlugins = (
   locale?: LocalesValues,
   fallback: boolean = true
-): Plugins[] => [
-  translationPlugin(
-    locale ?? configuration.internationalization.defaultLocale,
-    fallback ? configuration.internationalization.defaultLocale : undefined
-  ),
-  enumerationPlugin,
-  conditionPlugin,
-  insertionPlugin,
-  nestedPlugin(locale ?? configuration.internationalization.defaultLocale),
-  filePlugin,
-  genderPlugin,
-];
+): Plugins[] =>
+  [
+    process.env.INTLAYER_NODE_TYPE_TRANSLATION !== 'false' &&
+      translationPlugin(
+        locale ?? configuration.internationalization.defaultLocale,
+        fallback ? configuration.internationalization.defaultLocale : undefined
+      ),
+    process.env.INTLAYER_NODE_TYPE_ENUMERATION !== 'false' && enumerationPlugin,
+    process.env.INTLAYER_NODE_TYPE_CONDITION !== 'false' && conditionPlugin,
+    process.env.INTLAYER_NODE_TYPE_INSERTION !== 'false' && insertionPlugin,
+    process.env.INTLAYER_NODE_TYPE_NESTED !== 'false' &&
+      nestedPlugin(locale ?? configuration.internationalization.defaultLocale),
+    process.env.INTLAYER_NODE_TYPE_FILE !== 'false' && filePlugin,
+    process.env.INTLAYER_NODE_TYPE_GENDER !== 'false' && genderPlugin,
+  ].filter(Boolean) as Plugins[];
 
 /**
  * Transforms a node in a single pass, applying each plugin as needed.

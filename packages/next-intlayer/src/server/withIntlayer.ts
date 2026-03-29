@@ -1,7 +1,12 @@
 import { join, relative, resolve } from 'node:path';
 import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { logConfigDetails } from '@intlayer/chokidar/cli';
-import { buildComponentFilesList, runOnce } from '@intlayer/chokidar/utils';
+import {
+  buildComponentFilesList,
+  getNodeTypeDefineVars,
+  getUsedNodeTypes,
+  runOnce,
+} from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
 import { IMPORT_MODE } from '@intlayer/config/defaultValues';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
@@ -349,11 +354,20 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
     '@intlayer/webpack',
   ];
 
+  const nodeTypeEnvVars = isBuildCommand
+    ? getNodeTypeDefineVars(
+        getUsedNodeTypes(
+          getDictionaries(intlayerConfig) as Record<string, Dictionary>
+        )
+      )
+    : {};
+
   const getNewConfig = (): Partial<NextConfig> => {
     let config: Partial<NextConfig> = {
       env: {
         INTLAYER_EDITOR_ENABLED:
           intlayerConfig.editor?.enabled === false ? 'false' : 'true',
+        ...nodeTypeEnvVars,
       },
     };
 

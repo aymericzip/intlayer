@@ -1,7 +1,12 @@
 import { prepareIntlayer } from '@intlayer/chokidar/build';
+import {
+  getNodeTypeDefineVars,
+  getUsedNodeTypes,
+} from '@intlayer/chokidar/utils';
 import { watch } from '@intlayer/chokidar/watcher';
 import { getConfiguration } from '@intlayer/config/node';
 import { getAlias, getProjectRequire } from '@intlayer/config/utils';
+import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { RsbuildPlugin } from '@rsbuild/core';
 
 /**
@@ -39,6 +44,18 @@ export const pluginIntlayerLynx = (): RsbuildPlugin => {
         watch({ configuration });
       }
 
+      const isBuild = api.context.command === 'build';
+
+      const nodeTypeDefineVars = isBuild
+        ? Object.fromEntries(
+            Object.entries(
+              getNodeTypeDefineVars(
+                getUsedNodeTypes(getDictionaries(configuration))
+              )
+            ).map(([k, v]) => [`process.env.${k}`, JSON.stringify(v)])
+          )
+        : {};
+
       // Merge Intlayer-specific environment variables and alias configuration.
       api.modifyRsbuildConfig(async (config, { mergeRsbuildConfig }) => {
         return mergeRsbuildConfig(config, {
@@ -47,6 +64,7 @@ export const pluginIntlayerLynx = (): RsbuildPlugin => {
               'process.env.INTLAYER_EDITOR_ENABLED': JSON.stringify(
                 configuration.editor?.enabled === false ? 'false' : 'true'
               ),
+              ...nodeTypeDefineVars,
             },
           },
           resolve: {

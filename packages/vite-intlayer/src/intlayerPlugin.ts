@@ -1,12 +1,17 @@
 import { resolve } from 'node:path';
 import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { logConfigDetails } from '@intlayer/chokidar/cli';
+import {
+  getNodeTypeDefineVars,
+  getUsedNodeTypes,
+} from '@intlayer/chokidar/utils';
 import { watch } from '@intlayer/chokidar/watcher';
 import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
 import { getAlias } from '@intlayer/config/utils';
+import { getDictionaries } from '@intlayer/dictionaries-entry';
 // @ts-ignore - Fix error Module '"vite"' has no exported member
 import type { PluginOption } from 'vite';
 import { intlayerEditorPlugin } from './intlayerEditorPlugin';
@@ -73,9 +78,20 @@ export const intlayerPlugin = (
           });
         }
 
+        const nodeTypeDefineVars = isBuildCommand
+          ? Object.fromEntries(
+              Object.entries(
+                getNodeTypeDefineVars(
+                  getUsedNodeTypes(getDictionaries(intlayerConfig))
+                )
+              ).map(([k, v]) => [`process.env.${k}`, JSON.stringify(v)])
+            )
+          : {};
+
         // mergeConfig handles both array and record alias formats,
         // and correctly appends to optimizeDeps.exclude / ssr.noExternal
         return {
+          define: nodeTypeDefineVars,
           resolve: {
             alias,
           },
