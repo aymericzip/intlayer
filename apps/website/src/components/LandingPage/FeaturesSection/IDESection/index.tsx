@@ -1,15 +1,10 @@
 'use client';
 
-import {
-  IDE,
-  SwitchSelector,
-  TechLogo,
-  TechLogoName,
-} from '@intlayer/design-system';
-import { cn } from '@intlayer/design-system/utils';
+import { IDE, SwitchSelector } from '@intlayer/design-system';
 import { useTheme } from 'next-themes';
 import { type FC, useState } from 'react';
-
+import { type Framework, useFramework } from '../FrameworkContext';
+import { FrameworkSelector } from '../FrameworkSelector';
 import clientComponent from './content/client-component.md';
 import clientComponentI18nEn from './content/client-component-i18n-en.md';
 import clientComponentI18nEs from './content/client-component-i18n-es.md';
@@ -30,17 +25,6 @@ import serverComponent from './content/server-component.md';
 import serverComponentI18nEn from './content/server-component-i18n-en.md';
 import serverComponentI18nEs from './content/server-component-i18n-es.md';
 import serverComponentI18nFr from './content/server-component-i18n-fr.md';
-
-type Framework =
-  | 'next'
-  | 'react'
-  | 'vue'
-  | 'svelte'
-  | 'lit'
-  | 'angular'
-  | 'preact'
-  | 'solid'
-  | 'vanilla';
 
 const frameworkComponent: Record<
   Exclude<Framework, 'next'>,
@@ -186,121 +170,7 @@ type IDESectionProps = {
 export const IDESection: FC<IDESectionProps> = ({ scrollProgress }) => {
   const { resolvedTheme } = useTheme();
   const [mode, setMode] = useState<Mode>('per-component');
-  const [framework, setFramework] = useState<Framework>('next');
-
-  const frameworkSwitchChoices: {
-    content: React.ReactNode;
-    value: Framework;
-  }[] = [
-    {
-      content: (
-        <TechLogo
-          name={TechLogoName.Nextjs}
-          className={cn(
-            'size-4 text-text',
-            framework !== 'next' && 'opacity-60 grayscale-60'
-          )}
-        />
-      ),
-      value: 'next',
-    },
-    {
-      content: (
-        <TechLogo
-          name={TechLogoName.React}
-          className={cn(
-            'size-4',
-            framework !== 'react' && 'opacity-60 grayscale-60'
-          )}
-        />
-      ),
-      value: 'react',
-    },
-    {
-      content: (
-        <TechLogo
-          name={TechLogoName.Vue}
-          className={cn(
-            'size-4',
-            framework !== 'vue' && 'opacity-60 grayscale-60'
-          )}
-        />
-      ),
-      value: 'vue',
-    },
-    {
-      content: (
-        <TechLogo
-          name={TechLogoName.Svelte}
-          className={cn(
-            'size-4',
-            framework !== 'svelte' && 'opacity-60 grayscale-60'
-          )}
-        />
-      ),
-      value: 'svelte',
-    },
-    {
-      content: (
-        <TechLogo
-          name={TechLogoName.Lit}
-          className={cn(
-            'size-4',
-            framework !== 'lit' && 'opacity-60 grayscale-60'
-          )}
-        />
-      ),
-      value: 'lit',
-    },
-    {
-      content: (
-        <TechLogo
-          name={TechLogoName.Angular}
-          className={cn(
-            'size-4',
-            framework !== 'angular' && 'opacity-60 grayscale-60'
-          )}
-        />
-      ),
-      value: 'angular',
-    },
-    {
-      content: (
-        <TechLogo
-          name={TechLogoName.Preact}
-          className={cn(
-            'size-4',
-            framework !== 'preact' && 'opacity-60 grayscale-60'
-          )}
-        />
-      ),
-      value: 'preact',
-    },
-    {
-      content: (
-        <TechLogo
-          name={TechLogoName.Solid}
-          className={cn(
-            'size-4',
-            framework !== 'solid' && 'opacity-60 grayscale-60'
-          )}
-        />
-      ),
-      value: 'solid',
-    },
-    {
-      content: (
-        <TechLogo
-          name={TechLogoName.Vanilla}
-          className={cn(
-            'size-4',
-            framework !== 'vanilla' && 'opacity-60 grayscale-60'
-          )}
-        />
-      ),
-      value: 'vanilla',
-    },
-  ];
+  const { framework } = useFramework();
 
   const tabs =
     mode === 'per-component'
@@ -320,13 +190,7 @@ export const IDESection: FC<IDESectionProps> = ({ scrollProgress }) => {
           color="neutral"
           itemClassName="text-nowrap"
         />
-        <SwitchSelector
-          choices={frameworkSwitchChoices}
-          value={framework}
-          onChange={setFramework}
-          size="sm"
-          color="neutral"
-        />
+        <FrameworkSelector />
       </div>
       <IDE
         isDarkMode={resolvedTheme === 'dark'}

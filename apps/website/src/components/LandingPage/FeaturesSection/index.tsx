@@ -15,6 +15,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import { FrameworkProvider } from './FrameworkContext';
 
 /* -------------------------------------------------------------------------- */
 /*                               Subcomponents                                */
@@ -364,10 +365,12 @@ export const FeaturesSection: FC = () => {
     });
 
   return (
-    <FeaturesCarousel
-      sections={sections}
-      progress={progress}
-      setProgress={setProgress}
-    />
+    <FrameworkProvider>
+      <FeaturesCarousel
+        sections={sections}
+        progress={progress}
+        setProgress={setProgress}
+      />
+    </FrameworkProvider>
   );
 };
