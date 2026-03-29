@@ -1,5 +1,6 @@
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { PLUGIN_NODE_TYPES } from '@intlayer/types/nodeType';
+import { parallelize } from './parallelize';
 
 export type PluginNodeType = (typeof PLUGIN_NODE_TYPES)[number];
 
@@ -50,6 +51,42 @@ export const getUnusedNodeTypes = (
   dictionaries: Record<string, Dictionary> | Dictionary[]
 ): PluginNodeType[] => {
   const usedNodeTypes = getUsedNodeTypes(dictionaries);
+
+  return PLUGIN_NODE_TYPES.filter(
+    (nodeType) => !usedNodeTypes.includes(nodeType)
+  );
+};
+
+export const getUsedNodeTypesAsync = async (
+  dictionaries: Record<string, Dictionary> | Dictionary[]
+): Promise<PluginNodeType[]> => {
+  const dicts = Array.isArray(dictionaries)
+    ? dictionaries
+    : Object.values(dictionaries);
+
+  const results = await parallelize(dicts, async (dictionary) => {
+    const result = new Set<PluginNodeType>();
+
+    collectNodeTypes(dictionary.content, result as Set<string>);
+
+    return result;
+  });
+
+  const finalResult = new Set<PluginNodeType>();
+
+  for (const res of results) {
+    for (const val of res) {
+      finalResult.add(val);
+    }
+  }
+
+  return [...finalResult];
+};
+
+export const getUnusedNodeTypesAsync = async (
+  dictionaries: Record<string, Dictionary> | Dictionary[]
+): Promise<PluginNodeType[]> => {
+  const usedNodeTypes = await getUsedNodeTypesAsync(dictionaries);
 
   return PLUGIN_NODE_TYPES.filter(
     (nodeType) => !usedNodeTypes.includes(nodeType)

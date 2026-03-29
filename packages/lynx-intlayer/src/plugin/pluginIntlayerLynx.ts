@@ -1,7 +1,7 @@
 import { prepareIntlayer } from '@intlayer/chokidar/build';
 import {
   formatNodeTypeToEnvVar,
-  getUnusedNodeTypes,
+  getUnusedNodeTypesAsync,
 } from '@intlayer/chokidar/utils';
 import { watch } from '@intlayer/chokidar/watcher';
 import { BLUE } from '@intlayer/config/colors';
@@ -54,7 +54,7 @@ export const pluginIntlayerLynx = (): RsbuildPlugin => {
         const appLogger = getAppLogger(configuration);
 
         const dictionaries = getDictionaries(configuration);
-        const unusedNodeTypes = getUnusedNodeTypes(dictionaries);
+        const unusedNodeTypes = await getUnusedNodeTypesAsync(dictionaries);
 
         if (unusedNodeTypes.length > 0) {
           appLogger(

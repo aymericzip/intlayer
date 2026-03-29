@@ -5,6 +5,8 @@ import {
   buildComponentFilesList,
   formatNodeTypeToEnvVar,
   getUnusedNodeTypes,
+  getUnusedNodeTypesAsync,
+  type PluginNodeType,
   runOnce,
 } from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
@@ -294,7 +296,8 @@ type WithIntlayerOptions = GetConfigurationOptions & {
  */
 export const withIntlayerSync = <T extends Partial<NextConfig>>(
   nextConfig: T = {} as T,
-  configOptions?: WithIntlayerOptions
+  configOptions?: WithIntlayerOptions,
+  unusedNodeTypesFromAsync?: PluginNodeType[]
 ): NextConfig & T => {
   if (typeof nextConfig !== 'object') {
     nextConfig = {} as T;
@@ -352,31 +355,31 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
     '@intlayer/webpack',
   ];
 
-  let nodeTypeEnvVars = {};
+  let unusedNodeTypes = unusedNodeTypesFromAsync;
 
-  if (isBuildCommand) {
+  if (isBuildCommand && !unusedNodeTypes) {
     const dictionaries = getDictionaries(intlayerConfig) as Record<
       string,
       Dictionary
     >;
-    const unusedNodeTypes = getUnusedNodeTypes(dictionaries);
-
-    if (unusedNodeTypes.length > 0) {
-      appLogger(
-        [
-          'Filtering out plugins:',
-          unusedNodeTypes
-            .map((key) => colorize(key, ANSIColors.BLUE))
-            .join(', '),
-        ],
-        {
-          isVerbose: true,
-        }
-      );
-    }
-
-    nodeTypeEnvVars = formatNodeTypeToEnvVar(unusedNodeTypes, false);
+    unusedNodeTypes = getUnusedNodeTypes(dictionaries);
   }
+
+  if (unusedNodeTypes && unusedNodeTypes.length > 0) {
+    appLogger(
+      [
+        'Filtering out plugins:',
+        unusedNodeTypes.map((key) => colorize(key, ANSIColors.BLUE)).join(', '),
+      ],
+      {
+        isVerbose: true,
+      }
+    );
+  }
+
+  const nodeTypeEnvVars = unusedNodeTypes
+    ? formatNodeTypeToEnvVar(unusedNodeTypes, false)
+    : {};
 
   const getNewConfig = (): Partial<NextConfig> => {
     let config: Partial<NextConfig> = {
@@ -560,5 +563,12 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
 
   const nextConfigResolved = await nextConfig;
 
-  return withIntlayerSync(nextConfigResolved, configOptions);
+  let unusedNodeTypes: PluginNodeType[] | undefined;
+
+  if (isBuildCommand) {
+    const dictionaries = getDictionaries(intlayerConfig);
+    unusedNodeTypes = await getUnusedNodeTypesAsync(dictionaries);
+  }
+
+  return withIntlayerSync(nextConfigResolved, configOptions, unusedNodeTypes);
 };

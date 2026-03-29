@@ -3,7 +3,7 @@ import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { logConfigDetails } from '@intlayer/chokidar/cli';
 import {
   formatNodeTypeToEnvVar,
-  getUnusedNodeTypes,
+  getUnusedNodeTypesAsync,
 } from '@intlayer/chokidar/utils';
 import { watch } from '@intlayer/chokidar/watcher';
 import { BLUE } from '@intlayer/config/colors';
@@ -85,7 +85,7 @@ export const intlayerPlugin = (
 
         if (isBuildCommand) {
           const dictionaries = getDictionaries(intlayerConfig);
-          const unusedNodeTypes = getUnusedNodeTypes(dictionaries);
+          const unusedNodeTypes = await getUnusedNodeTypesAsync(dictionaries);
 
           if (unusedNodeTypes.length > 0) {
             appLogger(
