@@ -1,4 +1,10 @@
 import configuration from '@intlayer/config/built';
+import {
+  TREE_SHAKE_STORAGE_COOKIES,
+  TREE_SHAKE_STORAGE_HEADERS,
+  TREE_SHAKE_STORAGE_LOCAL_STORAGE,
+  TREE_SHAKE_STORAGE_SESSION_STORAGE,
+} from '@intlayer/config/envVars';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { CookiesAttributes } from '@intlayer/types/config';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
@@ -77,29 +83,35 @@ export const getLocaleFromStorageClient = (
   const isValidLocale = (value: string | null | undefined): value is Locale =>
     !!value && locales.includes(value as Locale);
 
-  for (let i = 0; i < storageAttributes.cookies.length; i++) {
-    try {
-      const value = options?.getCookie?.(storageAttributes.cookies[i].name);
-      if (isValidLocale(value)) return value;
-    } catch {}
+  if (!TREE_SHAKE_STORAGE_COOKIES) {
+    for (let i = 0; i < storageAttributes.cookies.length; i++) {
+      try {
+        const value = options?.getCookie?.(storageAttributes.cookies[i].name);
+        if (isValidLocale(value)) return value;
+      } catch {}
+    }
   }
 
-  for (let i = 0; i < storageAttributes.localStorage.length; i++) {
-    try {
-      const value = options?.getLocaleStorage?.(
-        storageAttributes.localStorage[i].name
-      );
-      if (isValidLocale(value)) return value;
-    } catch {}
+  if (!TREE_SHAKE_STORAGE_LOCAL_STORAGE) {
+    for (let i = 0; i < storageAttributes.localStorage.length; i++) {
+      try {
+        const value = options?.getLocaleStorage?.(
+          storageAttributes.localStorage[i].name
+        );
+        if (isValidLocale(value)) return value;
+      } catch {}
+    }
   }
 
-  for (let i = 0; i < storageAttributes.sessionStorage.length; i++) {
-    try {
-      const value = options?.getSessionStorage?.(
-        storageAttributes.sessionStorage[i].name
-      );
-      if (isValidLocale(value)) return value;
-    } catch {}
+  if (!TREE_SHAKE_STORAGE_SESSION_STORAGE) {
+    for (let i = 0; i < storageAttributes.sessionStorage.length; i++) {
+      try {
+        const value = options?.getSessionStorage?.(
+          storageAttributes.sessionStorage[i].name
+        );
+        if (isValidLocale(value)) return value;
+      } catch {}
+    }
   }
 };
 
@@ -117,31 +129,33 @@ export const setLocaleInStorageClient = (
 
   if (options?.isCookieEnabled === false) return;
 
-  for (let i = 0; i < storageAttributes.cookies.length; i++) {
-    const { name, attributes } = storageAttributes.cookies[i];
-    try {
-      if (options?.setCookieStore) {
-        options.setCookieStore(name, locale, {
-          ...attributes,
-          expires:
-            attributes.expires instanceof Date
-              ? attributes.expires.getTime()
-              : attributes.expires,
-        });
-      }
-    } catch {
+  if (!TREE_SHAKE_STORAGE_COOKIES) {
+    for (let i = 0; i < storageAttributes.cookies.length; i++) {
+      const { name, attributes } = storageAttributes.cookies[i];
       try {
-        if (options?.setCookieString) {
-          options.setCookieString(
-            name,
-            buildCookieString(name, locale, attributes)
-          );
+        if (options?.setCookieStore) {
+          options.setCookieStore(name, locale, {
+            ...attributes,
+            expires:
+              attributes.expires instanceof Date
+                ? attributes.expires.getTime()
+                : attributes.expires,
+          });
         }
-      } catch {}
+      } catch {
+        try {
+          if (options?.setCookieString) {
+            options.setCookieString(
+              name,
+              buildCookieString(name, locale, attributes)
+            );
+          }
+        } catch {}
+      }
     }
   }
 
-  if (options?.setLocaleStorage) {
+  if (!TREE_SHAKE_STORAGE_LOCAL_STORAGE && options?.setLocaleStorage) {
     for (let i = 0; i < storageAttributes.localStorage.length; i++) {
       const { name } = storageAttributes.localStorage[i];
       try {
@@ -153,7 +167,7 @@ export const setLocaleInStorageClient = (
     }
   }
 
-  if (options?.setSessionStorage) {
+  if (!TREE_SHAKE_STORAGE_SESSION_STORAGE && options?.setSessionStorage) {
     for (let i = 0; i < storageAttributes.sessionStorage.length; i++) {
       const { name } = storageAttributes.sessionStorage[i];
       try {
@@ -220,18 +234,22 @@ export const getLocaleFromStorageServer = (
   const isValidLocale = (value: string | null | undefined): value is Locale =>
     !!value && locales.includes(value as Locale);
 
-  for (let i = 0; i < storageAttributes.cookies.length; i++) {
-    try {
-      const value = options?.getCookie?.(storageAttributes.cookies[i].name);
-      if (isValidLocale(value)) return value;
-    } catch {}
+  if (!TREE_SHAKE_STORAGE_COOKIES) {
+    for (let i = 0; i < storageAttributes.cookies.length; i++) {
+      try {
+        const value = options?.getCookie?.(storageAttributes.cookies[i].name);
+        if (isValidLocale(value)) return value;
+      } catch {}
+    }
   }
 
-  for (let i = 0; i < storageAttributes.headers.length; i++) {
-    try {
-      const value = options?.getHeader?.(storageAttributes.headers[i].name);
-      if (isValidLocale(value)) return value;
-    } catch {}
+  if (!TREE_SHAKE_STORAGE_HEADERS) {
+    for (let i = 0; i < storageAttributes.headers.length; i++) {
+      try {
+        const value = options?.getHeader?.(storageAttributes.headers[i].name);
+        if (isValidLocale(value)) return value;
+      } catch {}
+    }
   }
 };
 
@@ -248,31 +266,33 @@ export const setLocaleInStorageServer = (
 
   if (options?.isCookieEnabled === false) return;
 
-  for (let i = 0; i < storageAttributes.cookies.length; i++) {
-    const { name, attributes } = storageAttributes.cookies[i];
-    try {
-      if (options?.setCookieStore) {
-        options.setCookieStore(name, locale, {
-          ...attributes,
-          expires:
-            attributes.expires instanceof Date
-              ? attributes.expires.getTime()
-              : attributes.expires,
-        });
-      }
-    } catch {
+  if (!TREE_SHAKE_STORAGE_COOKIES) {
+    for (let i = 0; i < storageAttributes.cookies.length; i++) {
+      const { name, attributes } = storageAttributes.cookies[i];
       try {
-        if (options?.setCookieString) {
-          options.setCookieString(
-            name,
-            buildCookieString(name, locale, attributes)
-          );
+        if (options?.setCookieStore) {
+          options.setCookieStore(name, locale, {
+            ...attributes,
+            expires:
+              attributes.expires instanceof Date
+                ? attributes.expires.getTime()
+                : attributes.expires,
+          });
         }
-      } catch {}
+      } catch {
+        try {
+          if (options?.setCookieString) {
+            options.setCookieString(
+              name,
+              buildCookieString(name, locale, attributes)
+            );
+          }
+        } catch {}
+      }
     }
   }
 
-  if (options?.setHeader) {
+  if (!TREE_SHAKE_STORAGE_HEADERS && options?.setHeader) {
     for (let i = 0; i < storageAttributes.headers.length; i++) {
       try {
         options.setHeader(storageAttributes.headers[i].name, locale);
@@ -350,34 +370,42 @@ export const getLocaleFromStorage = (
     return getCookie(name);
   };
 
-  for (let i = 0; i < storageAttributes.cookies.length; i++) {
-    const value = readCookie(storageAttributes.cookies[i].name);
-    if (isValidLocale(value)) return value;
+  if (!TREE_SHAKE_STORAGE_COOKIES) {
+    for (let i = 0; i < storageAttributes.cookies.length; i++) {
+      const value = readCookie(storageAttributes.cookies[i].name);
+      if (isValidLocale(value)) return value;
+    }
   }
 
-  for (let i = 0; i < storageAttributes.localStorage.length; i++) {
-    try {
-      const value = options?.getLocaleStorage?.(
-        storageAttributes.localStorage[i].name
-      );
-      if (isValidLocale(value)) return value;
-    } catch {}
+  if (!TREE_SHAKE_STORAGE_LOCAL_STORAGE) {
+    for (let i = 0; i < storageAttributes.localStorage.length; i++) {
+      try {
+        const value = options?.getLocaleStorage?.(
+          storageAttributes.localStorage[i].name
+        );
+        if (isValidLocale(value)) return value;
+      } catch {}
+    }
   }
 
-  for (let i = 0; i < storageAttributes.sessionStorage.length; i++) {
-    try {
-      const value = options?.getSessionStorage?.(
-        storageAttributes.sessionStorage[i].name
-      );
-      if (isValidLocale(value)) return value;
-    } catch {}
+  if (!TREE_SHAKE_STORAGE_SESSION_STORAGE) {
+    for (let i = 0; i < storageAttributes.sessionStorage.length; i++) {
+      try {
+        const value = options?.getSessionStorage?.(
+          storageAttributes.sessionStorage[i].name
+        );
+        if (isValidLocale(value)) return value;
+      } catch {}
+    }
   }
 
-  for (let i = 0; i < storageAttributes.headers.length; i++) {
-    try {
-      const value = options?.getHeader?.(storageAttributes.headers[i].name);
-      if (isValidLocale(value)) return value;
-    } catch {}
+  if (!TREE_SHAKE_STORAGE_HEADERS) {
+    for (let i = 0; i < storageAttributes.headers.length; i++) {
+      try {
+        const value = options?.getHeader?.(storageAttributes.headers[i].name);
+        if (isValidLocale(value)) return value;
+      } catch {}
+    }
   }
 };
 
@@ -397,31 +425,33 @@ export const setLocaleInStorage = (
 
   if (options?.isCookieEnabled === false) return;
 
-  for (let i = 0; i < storageAttributes.cookies.length; i++) {
-    const { name, attributes } = storageAttributes.cookies[i];
-    try {
-      if (options?.setCookieStore) {
-        options.setCookieStore(name, locale, {
-          ...attributes,
-          expires:
-            attributes.expires instanceof Date
-              ? attributes.expires.getTime()
-              : attributes.expires,
-        });
-      }
-    } catch {
+  if (!TREE_SHAKE_STORAGE_COOKIES) {
+    for (let i = 0; i < storageAttributes.cookies.length; i++) {
+      const { name, attributes } = storageAttributes.cookies[i];
       try {
-        if (options?.setCookieString) {
-          options.setCookieString(
-            name,
-            buildCookieString(name, locale, attributes)
-          );
+        if (options?.setCookieStore) {
+          options.setCookieStore(name, locale, {
+            ...attributes,
+            expires:
+              attributes.expires instanceof Date
+                ? attributes.expires.getTime()
+                : attributes.expires,
+          });
         }
-      } catch {}
+      } catch {
+        try {
+          if (options?.setCookieString) {
+            options.setCookieString(
+              name,
+              buildCookieString(name, locale, attributes)
+            );
+          }
+        } catch {}
+      }
     }
   }
 
-  if (options?.setLocaleStorage) {
+  if (!TREE_SHAKE_STORAGE_LOCAL_STORAGE && options?.setLocaleStorage) {
     for (let i = 0; i < storageAttributes.localStorage.length; i++) {
       const { name } = storageAttributes.localStorage[i];
       try {
@@ -433,7 +463,7 @@ export const setLocaleInStorage = (
     }
   }
 
-  if (options?.setSessionStorage) {
+  if (!TREE_SHAKE_STORAGE_SESSION_STORAGE && options?.setSessionStorage) {
     for (let i = 0; i < storageAttributes.sessionStorage.length; i++) {
       const { name } = storageAttributes.sessionStorage[i];
       try {
@@ -445,7 +475,7 @@ export const setLocaleInStorage = (
     }
   }
 
-  if (options?.setHeader) {
+  if (!TREE_SHAKE_STORAGE_HEADERS && options?.setHeader) {
     for (let i = 0; i < storageAttributes.headers.length; i++) {
       try {
         options.setHeader(storageAttributes.headers[i].name, locale);

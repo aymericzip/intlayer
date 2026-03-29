@@ -2,6 +2,12 @@ import type { IncomingMessage, ServerResponse } from 'node:http';
 import { parse } from 'node:url';
 import { ROUTING_MODE } from '@intlayer/config/defaultValues';
 import {
+  TREE_SHAKE_NO_PREFIX,
+  TREE_SHAKE_PREFIX_MODES,
+  TREE_SHAKE_REWRITE,
+  TREE_SHAKE_SEARCH_PARAMS,
+} from '@intlayer/config/envVars';
+import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
@@ -72,10 +78,14 @@ export const intlayerProxy = (
   const MAX_REDIRECTS = 10;
 
   // Derived flags from routing.mode
-  const noPrefix = mode === 'no-prefix' || mode === 'search-params';
-  const prefixDefault = mode === 'prefix-all';
+  const noPrefix =
+    (!TREE_SHAKE_NO_PREFIX && mode === 'no-prefix') ||
+    (!TREE_SHAKE_SEARCH_PARAMS && mode === 'search-params');
+  const prefixDefault = !TREE_SHAKE_PREFIX_MODES && mode === 'prefix-all';
 
-  const rewriteRules = getRewriteRules(rewrite, 'url');
+  const rewriteRules = !TREE_SHAKE_REWRITE
+    ? getRewriteRules(rewrite, 'url')
+    : undefined;
 
   /* --------------------------------------------------------------------
    *                     Helper & Utility Functions
@@ -99,7 +109,7 @@ export const intlayerProxy = (
     search: string | undefined,
     locale: Locale
   ): string | undefined => {
-    if (mode !== 'search-params') return search;
+    if (TREE_SHAKE_SEARCH_PARAMS || mode !== 'search-params') return search;
 
     const params = new URLSearchParams(search ?? '');
 
@@ -202,7 +212,10 @@ export const intlayerProxy = (
       : cleanBasePath;
 
     // In 'search-params' and 'no-prefix' modes, do not prefix the path with the locale
-    if (mode === 'no-prefix' || mode === 'search-params') {
+    if (
+      (!TREE_SHAKE_NO_PREFIX && mode === 'no-prefix') ||
+      (!TREE_SHAKE_SEARCH_PARAMS && mode === 'search-params')
+    ) {
       const newPath = search
         ? `${pathWithoutPrefix || '/'}${search}`
         : pathWithoutPrefix || '/';
@@ -292,7 +305,7 @@ export const intlayerProxy = (
     const canonicalPath = getCanonicalPath(originalPath, locale, rewriteRules);
 
     // In search-params mode, we need to redirect to add the locale search param
-    if (mode === 'search-params') {
+    if (!TREE_SHAKE_SEARCH_PARAMS && mode === 'search-params') {
       // Check if locale search param already exists and matches the detected locale
       const existingSearchParams = new URLSearchParams(searchParams ?? '');
       const existingLocale = existingSearchParams.get('locale');
@@ -361,7 +374,7 @@ export const intlayerProxy = (
     storageLocale?: Locale;
     originalUrl?: string;
   }) => {
-    // 1. If pathLocale is missing, handle
+    // If pathLocale is missing, handle
     if (!pathLocale) {
       handleMissingPathLocale({
         req,
@@ -375,7 +388,7 @@ export const intlayerProxy = (
       return;
     }
 
-    // 2. If pathLocale exists, handle it
+    // If pathLocale exists, handle it
     handleExistingPathLocale({
       req,
       res,

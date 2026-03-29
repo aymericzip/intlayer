@@ -1,12 +1,13 @@
 import { prepareIntlayer } from '@intlayer/chokidar/build';
-import {
-  formatNodeTypeToEnvVar,
-  getUnusedNodeTypesAsync,
-} from '@intlayer/chokidar/utils';
 import { watch } from '@intlayer/chokidar/watcher';
 import { BLUE } from '@intlayer/config/colors';
+import {
+  formatNodeTypeToEnvVar,
+  getConfigEnvVars,
+} from '@intlayer/config/envVars';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
+import { getUnusedNodeTypesAsync } from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Compiler } from 'webpack';
@@ -27,7 +28,7 @@ export class IntlayerPlugin {
 
     const appLogger = getAppLogger(this.configuration);
 
-    let defineVars = {};
+    let dictionaryNodesVars = {};
 
     if (isBuild) {
       const dictionaries = getDictionaries(this.configuration);
@@ -45,14 +46,12 @@ export class IntlayerPlugin {
         );
       }
 
-      defineVars = formatNodeTypeToEnvVar(unusedNodeTypes, true);
+      dictionaryNodesVars = formatNodeTypeToEnvVar(unusedNodeTypes, true);
     }
 
     new webpack.DefinePlugin({
-      'process.env.INTLAYER_EDITOR_ENABLED': JSON.stringify(
-        this.configuration.editor?.enabled === false ? 'false' : 'true'
-      ),
-      ...defineVars,
+      ...getConfigEnvVars(this.configuration, true),
+      ...dictionaryNodesVars,
     }).apply(compiler);
 
     if (this.configuration.content.watch) {

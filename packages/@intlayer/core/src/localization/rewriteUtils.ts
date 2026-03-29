@@ -1,3 +1,4 @@
+import { TREE_SHAKE_REWRITE } from '@intlayer/config/envVars';
 import type { Locale } from '@intlayer/types/allLocales';
 import type {
   RewriteObject,
@@ -18,7 +19,7 @@ export const getRewriteRules = (
   rewrite: RoutingConfig['rewrite'],
   context: keyof RewriteObject = 'url'
 ): RewriteRules | undefined => {
-  if (!rewrite) return undefined;
+  if (!rewrite || TREE_SHAKE_REWRITE) return undefined;
 
   if ('url' in rewrite) {
     return (rewrite as RewriteObject)[context];
@@ -97,7 +98,7 @@ export const getCanonicalPath = (
   locale?: Locale,
   rewriteRules?: RewriteRules
 ): string => {
-  if (!rewriteRules) return localizedPath;
+  if (!rewriteRules || TREE_SHAKE_REWRITE) return localizedPath;
 
   for (const rule of rewriteRules.rules) {
     const { canonical, localized } = rule;
@@ -127,7 +128,8 @@ export const getLocalizedPath = (
   locale: LocalesValues,
   rewriteRules?: RewriteRules
 ): LocalizedPathResult => {
-  if (!rewriteRules) return { path: canonicalPath, isRewritten: false };
+  if (!rewriteRules || TREE_SHAKE_REWRITE)
+    return { path: canonicalPath, isRewritten: false };
 
   for (const rule of rewriteRules.rules) {
     const { canonical, localized } = rule;
@@ -180,6 +182,7 @@ export const getRewritePath = (
   locale: Locale,
   rewrite?: RoutingConfig['rewrite']
 ): string | undefined => {
+  if (TREE_SHAKE_REWRITE) return undefined;
   const rules = getRewriteRules(rewrite, 'url');
   if (!rules) return undefined;
 

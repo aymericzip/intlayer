@@ -1,6 +1,6 @@
 import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import type { Locale } from '@intlayer/types/allLocales';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
 /**
  * Resolves the most specific locale from a user-provided list,
@@ -23,26 +23,26 @@ export const localeResolver = (
     for (const requested of requestedLocales) {
       const normalizedRequested = normalize(requested);
 
-      // 1) Attempt exact match
+      // Attempt exact match
       const exactMatch = locales.find(
-        (loc) => normalize(loc) === normalizedRequested
+        (locale) => normalize(locale) === normalizedRequested
       );
       if (exactMatch) {
         return exactMatch as Locale;
       }
 
-      // 2) Attempt partial match on language subtag
-      //    e.g. if requested is "en-US" and not found,
-      //    see if "en" is available among locales
+      // Attempt partial match on language subtag
+      // e.g. if requested is "en-US" and not found,
+      // see if "en" is available among locales
       const [requestedLang] = normalizedRequested.split('-');
       const partialMatch = locales.find(
-        (loc) => normalize(loc).split('-')[0] === requestedLang
+        (locale) => normalize(locale).split('-')[0] === requestedLang
       );
       if (partialMatch) {
         return partialMatch as Locale;
       }
     }
-  } catch (_error) {
+  } catch {
     // If anything unexpected happened, fall back to default
   }
 

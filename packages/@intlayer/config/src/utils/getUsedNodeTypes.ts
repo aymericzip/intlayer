@@ -1,6 +1,5 @@
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { PLUGIN_NODE_TYPES } from '@intlayer/types/nodeType';
-import { parallelize } from './parallelize';
 
 export type PluginNodeType = (typeof PLUGIN_NODE_TYPES)[number];
 
@@ -60,17 +59,19 @@ export const getUnusedNodeTypes = (
 export const getUsedNodeTypesAsync = async (
   dictionaries: Record<string, Dictionary> | Dictionary[]
 ): Promise<PluginNodeType[]> => {
-  const dicts = Array.isArray(dictionaries)
+  const dictionariesArray = Array.isArray(dictionaries)
     ? dictionaries
     : Object.values(dictionaries);
 
-  const results = await parallelize(dicts, async (dictionary) => {
-    const result = new Set<PluginNodeType>();
+  const results = await Promise.all(
+    dictionariesArray.map(async (dictionary) => {
+      const result = new Set<PluginNodeType>();
 
-    collectNodeTypes(dictionary.content, result as Set<string>);
+      collectNodeTypes(dictionary.content, result as Set<string>);
 
-    return result;
-  });
+      return result;
+    })
+  );
 
   const finalResult = new Set<PluginNodeType>();
 
@@ -92,26 +93,3 @@ export const getUnusedNodeTypesAsync = async (
     (nodeType) => !usedNodeTypes.includes(nodeType)
   );
 };
-
-/**
- * Converts a NodeType key to its corresponding env-var name.
- *
- * @example
- * formatNodeTypeToEnvVar(['enumeration']) // { 'INTLAYER_NODE_TYPE_ENUMERATION': 'false' }
- * formatNodeTypeToEnvVar(['enumeration'], true) // { 'process.env.INTLAYER_NODE_TYPE_ENUMERATION': 'false' }
- */
-export const formatNodeTypeToEnvVar = (
-  nodeTypes: string[],
-  addProcessEnv: boolean = false
-): Record<string, string> =>
-  nodeTypes.reduce(
-    (acc, nodeType) => {
-      acc[
-        addProcessEnv
-          ? `process.env.INTLAYER_NODE_TYPE_${nodeType.toUpperCase()}`
-          : `INTLAYER_NODE_TYPE_${nodeType.toUpperCase()}`
-      ] = '"false"';
-      return acc;
-    },
-    {} as Record<string, string>
-  );

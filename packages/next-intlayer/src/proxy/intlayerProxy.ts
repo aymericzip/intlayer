@@ -1,6 +1,12 @@
 import configuration from '@intlayer/config/built';
 import { ROUTING_MODE } from '@intlayer/config/defaultValues';
 import {
+  TREE_SHAKE_NO_PREFIX,
+  TREE_SHAKE_PREFIX_MODES,
+  TREE_SHAKE_REWRITE,
+  TREE_SHAKE_SEARCH_PARAMS,
+} from '@intlayer/config/envVars';
+import {
   getCanonicalPath,
   getLocalizedPath,
   getRewriteRules,
@@ -57,12 +63,16 @@ const { basePath, mode, rewrite } = routing ?? {};
 // Derived flags from routing.mode
 const effectiveMode = mode ?? ROUTING_MODE;
 const noPrefix =
-  effectiveMode === 'no-prefix' || effectiveMode === 'search-params';
-const prefixDefault = effectiveMode === 'prefix-all';
+  (!TREE_SHAKE_NO_PREFIX && effectiveMode === 'no-prefix') ||
+  (!TREE_SHAKE_SEARCH_PARAMS && effectiveMode === 'search-params');
+const prefixDefault =
+  !TREE_SHAKE_PREFIX_MODES && effectiveMode === 'prefix-all';
 
 const internalPrefix = !noPrefix;
 
-const rewriteRules = getRewriteRules(rewrite, 'url');
+const rewriteRules = !TREE_SHAKE_REWRITE
+  ? getRewriteRules(rewrite, 'url')
+  : undefined;
 
 /**
  * Detects if the request is a prefetch request from Next.js.
@@ -97,7 +107,8 @@ const appendLocaleSearchIfNeeded = (
   search: string | undefined,
   locale: Locale
 ): string | undefined => {
-  if (effectiveMode !== 'search-params') return search;
+  if (TREE_SHAKE_SEARCH_PARAMS || effectiveMode !== 'search-params')
+    return search;
   const params = new URLSearchParams(search ?? '');
   params.set('locale', locale);
   return `?${params.toString()}`;
@@ -186,7 +197,7 @@ const handleNoPrefix = (
     return redirectUrl(request, redirectPath);
   }
 
-  if (effectiveMode === 'search-params') {
+  if (!TREE_SHAKE_SEARCH_PARAMS && effectiveMode === 'search-params') {
     const existingSearchParams = new URLSearchParams(request.nextUrl.search);
     const existingLocale = existingSearchParams.get('locale');
 
@@ -511,7 +522,10 @@ const constructPath = (
     ? path.slice(`/${locale}`.length) || '/'
     : path;
 
-  if (effectiveMode === 'no-prefix' || effectiveMode === 'search-params') {
+  if (
+    (!TREE_SHAKE_NO_PREFIX && effectiveMode === 'no-prefix') ||
+    (!TREE_SHAKE_SEARCH_PARAMS && effectiveMode === 'search-params')
+  ) {
     return `${pathWithoutPrefix}${search ? `?${search}` : ''}`;
   }
 

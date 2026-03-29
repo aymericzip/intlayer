@@ -1,4 +1,8 @@
 import configuration from '@intlayer/config/built';
+import {
+  TREE_SHAKE_NO_PREFIX,
+  TREE_SHAKE_SEARCH_PARAMS,
+} from '@intlayer/config/envVars';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
@@ -64,7 +68,7 @@ export const getLocalizedUrl = (
   const urlWithoutLocale = getPathWithoutLocale(url, locales);
   const rewriteRules = getRewriteRules(rewrite, 'url');
 
-  if (mode === 'no-prefix') {
+  if (!TREE_SHAKE_NO_PREFIX && mode === 'no-prefix') {
     return getLocalizedPath(
       getCanonicalPath(urlWithoutLocale, undefined, rewriteRules),
       currentLocale as Locale,
@@ -87,7 +91,7 @@ export const getLocalizedUrl = (
     ? `${parsedUrl.protocol}//${parsedUrl.host}`
     : '';
 
-  if (mode === 'search-params') {
+  if (!TREE_SHAKE_SEARCH_PARAMS && mode === 'search-params') {
     const searchParams = new URLSearchParams(parsedUrl.search);
 
     searchParams.set('locale', currentLocale.toString());

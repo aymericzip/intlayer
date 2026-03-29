@@ -1,16 +1,13 @@
 import { join, relative, resolve } from 'node:path';
 import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { logConfigDetails } from '@intlayer/chokidar/cli';
-import {
-  buildComponentFilesList,
-  formatNodeTypeToEnvVar,
-  getUnusedNodeTypes,
-  getUnusedNodeTypesAsync,
-  type PluginNodeType,
-  runOnce,
-} from '@intlayer/chokidar/utils';
+import { buildComponentFilesList, runOnce } from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
 import { IMPORT_MODE } from '@intlayer/config/defaultValues';
+import {
+  formatNodeTypeToEnvVar,
+  getConfigEnvVars,
+} from '@intlayer/config/envVars';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
@@ -20,7 +17,10 @@ import {
   compareVersions,
   getAlias,
   getProjectRequire,
+  getUnusedNodeTypes,
+  getUnusedNodeTypesAsync,
   normalizePath,
+  type PluginNodeType,
 } from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { IntlayerConfig } from '@intlayer/types/config';
@@ -385,9 +385,7 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
     let config: Partial<NextConfig> = {
       env: {
         ...nodeTypeEnvVars,
-        ...(intlayerConfig.editor?.enabled === false
-          ? { INTLAYER_EDITOR_ENABLED: '"false"' }
-          : {}),
+        ...getConfigEnvVars(intlayerConfig),
       },
     };
 

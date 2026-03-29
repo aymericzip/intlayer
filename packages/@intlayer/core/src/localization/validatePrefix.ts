@@ -1,3 +1,7 @@
+import {
+  TREE_SHAKE_NO_PREFIX,
+  TREE_SHAKE_SEARCH_PARAMS,
+} from '@intlayer/config/envVars';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import {
   getPrefix,
@@ -37,6 +41,13 @@ export const validatePrefix = (
   options?: RoutingOptions
 ): ValidatePrefixResult => {
   const { defaultLocale, mode, locales } = resolveRoutingConfig(options);
+
+  if (
+    (!TREE_SHAKE_NO_PREFIX && mode === 'no-prefix') ||
+    (!TREE_SHAKE_SEARCH_PARAMS && mode === 'search-params')
+  ) {
+    return { isValid: true, localePrefix: undefined };
+  }
 
   const { localePrefix } = getPrefix(locale || defaultLocale, {
     mode,

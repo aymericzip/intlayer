@@ -1,13 +1,17 @@
 import { prepareIntlayer } from '@intlayer/chokidar/build';
-import {
-  formatNodeTypeToEnvVar,
-  getUnusedNodeTypesAsync,
-} from '@intlayer/chokidar/utils';
 import { watch } from '@intlayer/chokidar/watcher';
 import { BLUE } from '@intlayer/config/colors';
+import {
+  formatNodeTypeToEnvVar,
+  getConfigEnvVars,
+} from '@intlayer/config/envVars';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
-import { getAlias, getProjectRequire } from '@intlayer/config/utils';
+import {
+  getAlias,
+  getProjectRequire,
+  getUnusedNodeTypesAsync,
+} from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { RsbuildPlugin } from '@rsbuild/core';
 
@@ -76,9 +80,7 @@ export const pluginIntlayerLynx = (): RsbuildPlugin => {
         return mergeRsbuildConfig(config, {
           source: {
             define: {
-              'process.env.INTLAYER_EDITOR_ENABLED': JSON.stringify(
-                configuration.editor?.enabled === false ? 'false' : 'true'
-              ),
+              ...getConfigEnvVars(configuration, true),
               ...defineVars,
             },
           },

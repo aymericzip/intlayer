@@ -6,7 +6,6 @@ export * from './getChunk';
 export * from './getContentExtension';
 export * from './getFormatFromExtension';
 export * from './getPathHash';
-export * from './getUsedNodeTypes';
 export * from './mergeChunks';
 export * from './parallelize';
 export * from './parallelizeGlobal';

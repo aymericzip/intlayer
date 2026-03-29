@@ -78,6 +78,11 @@
       "require": "./dist/cjs/colors.cjs",
       "import": "./dist/esm/colors.mjs"
     },
+    "./envVars": {
+      "types": "./dist/types/envVars/index.d.ts",
+      "require": "./dist/cjs/envVars/index.cjs",
+      "import": "./dist/esm/envVars/index.mjs"
+    },
     "./defaultValues": {
       "types": "./dist/types/defaultValues/index.d.ts",
       "require": "./dist/cjs/defaultValues/index.cjs",
@@ -107,6 +112,9 @@
       ],
       "env": [
         "./dist/types/loadEnvFile.d.ts"
+      ],
+      "envVars": [
+        "./dist/types/envVars/index.d.ts"
       ],
       "logger": [
         "./dist/types/logger.d.ts"

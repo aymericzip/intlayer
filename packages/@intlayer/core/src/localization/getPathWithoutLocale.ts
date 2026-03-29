@@ -1,6 +1,9 @@
 import configuration from '@intlayer/config/built';
+import {
+  TREE_SHAKE_PREFIX_MODES,
+  TREE_SHAKE_SEARCH_PARAMS,
+} from '@intlayer/config/envVars';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
 
 /**
@@ -54,25 +57,30 @@ export const getPathWithoutLocale = (
     url.pathname = `/${pathname}`;
   }
 
-  // Split the pathname to extract the first segment
-  const pathSegments = pathname.split('/');
-  const firstSegment = pathSegments[1]; // The segment after the first '/'
+  // Only strip locale path prefix in prefix-based routing modes
+  if (!TREE_SHAKE_PREFIX_MODES) {
+    // Split the pathname to extract the first segment
+    const pathSegments = pathname.split('/');
+    const firstSegment = pathSegments[1]; // The segment after the first '/'
 
-  // Check if the first segment is a supported locale
-  if (locales?.includes(firstSegment as LocalesValues)) {
-    // Remove the locale segment from the pathname
-    pathSegments.splice(1, 1); // Remove the first segment
+    // Check if the first segment is a supported locale
+    if (locales?.includes(firstSegment as LocalesValues)) {
+      // Remove the locale segment from the pathname
+      pathSegments.splice(1, 1); // Remove the first segment
 
-    // Reconstruct the pathname
-    const newPathname = pathSegments.join('/') ?? '/';
-    url.pathname = newPathname;
+      // Reconstruct the pathname
+      const newPathname = pathSegments.join('/') ?? '/';
+      url.pathname = newPathname;
+    }
   }
 
-  // Remove locale from search parameters if present
-  const searchParams = new URLSearchParams(url.search);
-  if (searchParams.has('locale')) {
-    searchParams.delete('locale');
-    url.search = searchParams.toString();
+  // Only strip locale from search parameters in search-params routing mode
+  if (!TREE_SHAKE_SEARCH_PARAMS) {
+    const searchParams = new URLSearchParams(url.search);
+    if (searchParams.has('locale')) {
+      searchParams.delete('locale');
+      url.search = searchParams.toString();
+    }
   }
 
   if (isAbsoluteUrl) {

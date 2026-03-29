@@ -1,22 +1,21 @@
 import { resolve } from 'node:path';
 import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { logConfigDetails } from '@intlayer/chokidar/cli';
-import {
-  formatNodeTypeToEnvVar,
-  getUnusedNodeTypesAsync,
-} from '@intlayer/chokidar/utils';
 import { watch } from '@intlayer/chokidar/watcher';
 import { BLUE } from '@intlayer/config/colors';
+import {
+  formatNodeTypeToEnvVar,
+  getConfigEnvVars,
+} from '@intlayer/config/envVars';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
-import { getAlias } from '@intlayer/config/utils';
+import { getAlias, getUnusedNodeTypesAsync } from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 // @ts-ignore - Fix error Module '"vite"' has no exported member
 import type { PluginOption } from 'vite';
-import { intlayerEditorPlugin } from './intlayerEditorPlugin';
 import { intlayerOptimize } from './intlayerOptimizePlugin';
 
 /**
@@ -81,7 +80,10 @@ export const intlayerPlugin = (
           });
         }
 
-        let define = {};
+        let define: Record<string, string> = getConfigEnvVars(
+          intlayerConfig,
+          true
+        );
 
         if (isBuildCommand) {
           const dictionaries = getDictionaries(intlayerConfig);
@@ -131,8 +133,6 @@ export const intlayerPlugin = (
       },
     },
   ];
-
-  plugins.push(intlayerEditorPlugin(intlayerConfig));
 
   // Add Babel transform plugin if enabled
   plugins.push(intlayerOptimize(intlayerConfig));

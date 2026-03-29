@@ -4,6 +4,7 @@ import {
   LOCALES,
   ROUTING_MODE,
 } from '@intlayer/config/defaultValues';
+import { TREE_SHAKE_PREFIX_MODES } from '@intlayer/config/envVars';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { RoutingConfig } from '@intlayer/types/config';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
@@ -96,7 +97,7 @@ export const getPrefix = (
 ): GetPrefixResult => {
   const { defaultLocale, mode, locales } = resolveRoutingConfig(options);
 
-  if (!locale || !locales.includes(locale)) {
+  if (TREE_SHAKE_PREFIX_MODES || !locale || !locales.includes(locale)) {
     return {
       prefix: '',
       localePrefix: undefined,
