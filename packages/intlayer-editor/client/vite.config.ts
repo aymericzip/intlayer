@@ -14,12 +14,6 @@ export default defineConfig({
   server: {
     port: 8000,
   },
-  build: {
-    rolldownOptions: {
-      treeshake: { moduleSideEffects: false },
-    },
-    minify: false,
-  },
   plugins: [
     react({
       babel: {

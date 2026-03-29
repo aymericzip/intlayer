@@ -96,7 +96,7 @@
     "vitest": "4.1.2"
   },
   "peerDependencies": {
-    "webpack": "5.105.4"
+    "webpack": "^5.0.0"
   },
   "engines": {
     "node": ">=14.18"

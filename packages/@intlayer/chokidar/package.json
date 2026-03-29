@@ -109,7 +109,6 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@babel/parser": "7.29.0",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
@@ -121,7 +120,7 @@
     "defu": "6.1.4",
     "fast-glob": "3.3.3",
     "recast": "^0.23.11",
-    "simple-git": "3.32.3",
+    "simple-git": "3.33.0",
     "zod-to-ts": "2.0.0"
   },
   "devDependencies": {
