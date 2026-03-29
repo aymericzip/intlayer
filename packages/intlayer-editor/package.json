@@ -123,7 +123,7 @@
     "react-intlayer": "workspace:*",
     "react-router-dom": "7.13.1",
     "tailwindcss": "4.2.2",
-    "tsdown": "0.21.5",
+    "tsdown": "0.21.7",
     "typescript": "6.0.2",
     "vite": "8.0.3",
     "vite-intlayer": "workspace:*",

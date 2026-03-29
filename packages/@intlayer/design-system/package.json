@@ -170,7 +170,7 @@
     "shiki": "4.0.2",
     "storybook": "8.6.17",
     "tailwind-merge": "3.5.0",
-    "tsdown": "0.21.5",
+    "tsdown": "0.21.7",
     "typescript": "6.0.2",
     "vite": "8.0.3",
     "vite-intlayer": "workspace:*",
