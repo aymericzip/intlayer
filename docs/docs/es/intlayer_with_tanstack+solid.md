@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-03-25
+updatedAt: 2026-03-29
 title: i18n Tanstack Start - Cómo traducir una aplicación Tanstack Start usando Solid.js en 2026
 description: Aprenda cómo agregar internacionalización (i18n) a su aplicación Tanstack Start usando Intlayer y Solid.js. Siga esta guía completa para hacer que su aplicación sea multilingüe con enrutamiento consciente de la localización.
 keywords:
@@ -12,6 +12,7 @@ keywords:
   - i18n
   - TypeScript
   - Enrutamiento de localización
+  - Sitemap
 slugs:
   - doc
   - environment
@@ -538,7 +539,7 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ---
 
-### Paso 14: Recuperar el idioma en sus acciones de servidor (Opcional)
+### Paso 13: Recuperar el idioma en sus acciones de servidor (Opcional)
 
 Es posible que desee acceder al idioma actual desde sus acciones de servidor o endpoints de API.
 Puede hacerlo utilizando el ayudante `getLocale` de `intlayer`.
@@ -575,7 +576,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
 
 ---
 
-### Paso 15: Gestionar páginas no encontradas (Opcional)
+### Paso 14: Gestionar páginas no encontradas (Opcional)
 
 Cuando un usuario visita una página inexistente, puede mostrar una página 404 personalizada y el prefijo de idioma puede afectar a la forma en que se activa la página no encontrada.
 
@@ -649,7 +650,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 });
 ```
 
-### (Opcional) Paso 16: Extraer el contenido de sus componentes
+### (Opcional) Paso 15: Extraer el contenido de sus componentes
 
 Si tiene una base de código existente, transformar miles de archivos puede llevar mucho tiempo.
 
@@ -827,6 +828,81 @@ bun run build # O bun run dev
 
  </Tab>
 </Tabs>
+
+---
+
+### Paso 16: Generar un Sitemap (Opcional)
+
+Intlayer viene con un generador de sitemap integrado para ayudarte a crear fácilmente un sitemap para tu aplicación. Maneja las rutas localizadas y agrega los metadatos necesarios para los motores de búsqueda.
+
+> El sitemap generado por Intlayer admite el espacio de nombres `xhtml:link` (Hreflang XML Extensions). A diferencia de los generadores de sitemap predeterminados que solo enumeran URL sin procesar, Intlayer crea automáticamente los enlaces bidireccionales necesarios entre todas las versiones de idioma de una página (por ejemplo, `/about`, `/about?lang=fr` y `/about?lang=es`). Esto garantiza que los motores de búsqueda indexen y sirvan correctamente la versión de idioma adecuada a la audiencia adecuada.
+
+Para usarlo, primero debes configurar tu archivo `vite.config.ts` para habilitar el prerrenderizado de tus rutas localizadas y deshabilitar la generación de sitemap predeterminada de TanStack Start.
+
+```typescript fileName="vite.config.ts"
+import { localeMap, localeFlatMap } from "intlayer";
+// ... otras importaciones
+
+export const pathList = ["", "/about", "/404"];
+
+const localizedPages = localeFlatMap(({ urlPrefix }) =>
+  pathList.map((path) => ({
+    path: `${urlPrefix}${path}`,
+    prerender: {
+      enabled: true,
+    },
+  }))
+);
+
+export default defineConfig({
+  plugins: [
+    // ... otros plugins
+    tanstackStart({
+      // ... otras configuraciones
+      sitemap: {
+        enabled: false,
+      },
+      prerender: {
+        enabled: true,
+        crawlLinks: false,
+        concurrency: 10,
+      },
+      pages: localizedPages,
+    }),
+  ],
+});
+```
+
+Luego, crea una ruta `src/routes/sitemap[.]xml.ts` que use la función `generateSitemap`:
+
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/solid-router";
+import { generateSitemap } from "intlayer";
+
+const SITE_URL = (
+  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
+).replace(/\/$/, "");
+
+export const Route = createFileRoute("/sitemap.xml")({
+  server: {
+    handlers: {
+      GET: async () => {
+        const sitemap = generateSitemap(
+          [
+            { path: "/", changefreq: "daily", priority: 1.0 },
+            { path: "/about", changefreq: "monthly", priority: 0.8 },
+          ],
+          { siteUrl: SITE_URL }
+        );
+
+        return new Response(sitemap, {
+          headers: { "Content-Type": "application/xml" },
+        });
+      },
+    },
+  },
+});
+```
 
 ---
 

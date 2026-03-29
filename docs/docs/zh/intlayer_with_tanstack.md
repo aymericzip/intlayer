@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-03-12
+updatedAt: 2026-03-29
 title: Tanstack Start i18n - 如何翻译Tanstack Start 应用 2026
 description: 学习如何使用 Intlayer 为您的 Tanstack Start 应用添加国际化 (i18n)。按照本综合指南，使您的应用支持多语言并具备基于区域设置的路由功能。
 keywords:
@@ -12,6 +12,7 @@ keywords:
   - i18n
   - TypeScript
   - 区域路由
+  - Sitemap
 slugs:
   - doc
   - environment
@@ -612,7 +613,7 @@ export default defineConfig({
 
 ---
 
-### 第十三步：国际化您的元数据（可选）
+### 第十二步：国际化您的元数据（可选）
 
 您还可以使用 `getIntlayer` 钩子在整个应用程序中访问您的内容字典：
 
@@ -638,7 +639,7 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ---
 
-### 第十四步：在您的 server actions 中获取 locale（可选）
+### 第十三步：在您的 server actions 中获取 locale（可选）
 
 您可能希望从 server actions 或 API 端点内部访问当前 locale。
 您可以使用 `intlayer` 中的 `getLocale` 辅助函数来实现这一点。
@@ -675,7 +676,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
 
 ---
 
-### 第十五步：管理未找到的页面（可选）
+### 第十四步：管理未找到的页面（可选）
 
 当用户访问不存在的页面时，您可以显示自定义的未找到页面，并且区域设置前缀可能会影响未找到页面的触发方式。
 
@@ -751,29 +752,11 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 ---
 
-### 第十六步：配置 TypeScript（可选）
-
-Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库更健壮。
-
-确保您的 TypeScript 配置包含自动生成的类型：
-
-```json5 fileName="tsconfig.json"
-{
-  // ... 您现有的配置
-  include: [
-    // ... 您现有的包含项
-    ".intlayer/**/*.ts", // 包含自动生成的类型
-  ],
-}
-```
-
----
-
-### (可选) 步骤 1 : 提取组件内容
+### 第十五步：提取组件中的内容（可选）
 
 如果您有现有的代码库，转换数千个文件可能会非常耗时。
 
-为了简化此过程，Intlayer 提出了 [编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) / [提取器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 来转换您的组件并提取内容。
+为了简化此过程，Intlayer 提供了 [编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) / [提取器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 来转换您的组件并提取内容。
 
 要进行设置，您可以在 `intlayer.config.ts` 文件中添加 `compiler` 部分：
 
@@ -806,66 +789,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 您的其他配置
-  compiler: {
-    /**
-     * 指示是否应启用编译器。
-     */
-    enabled: true,
-
-    /**
-     * 定义输出文件路径
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * 指示在转换后是否应保存组件。这样，编译器只需运行一次即可转换应用程序，然后即可将其删除。
-     */
-    saveComponents: false,
-
-    /**
-     * 字典键前缀
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 您的其他配置
-  compiler: {
-    /**
-     * 指示是否应启用编译器。
-     */
-    enabled: true,
-
-    /**
-     * 定义输出文件路径
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * 指示在转换后是否应保存组件。这样，编译器只需运行一次即可转换应用程序，然后即可将其删除。
-     */
-    saveComponents: false,
-
-    /**
-     * 字典键前缀
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>
@@ -906,24 +829,101 @@ export default defineConfig({
 });
 ```
 
-```bash packageManager="npm"
-npm run build # 或 npm run dev
-```
-
-```bash packageManager="pnpm"
-pnpm run build # 或 pnpm run dev
-```
-
-```bash packageManager="yarn"
-yarn build # 或 yarn dev
-```
-
-```bash packageManager="bun"
-bun run build # Or bun run dev
-```
-
  </Tab>
 </Tabs>
+
+---
+
+### 第十六步：生成站点地图 (Sitemap)（可选）
+
+Intlayer 附带一个内置的站点地图生成器，可帮助您轻松为应用程序创建站点地图。它能够处理本地化路由，并为搜索引擎添加必要的元数据。
+
+> Intlayer 生成的站点地图支持 `xhtml:link` 命名空间（Hreflang XML 扩展）。与仅列出原始 URL 的默认站点地图生成器不同，Intlayer 会自动在页面的所有语言版本（例如 `/about`、`/about?lang=fr` 和 `/about?lang=es`）之间创建所需的双向链接。这确保了搜索引擎能够正确索引并向合适的受众提供正确的语言版本。
+
+要使用它，您首先需要配置 `vite.config.ts` 文件，以启用本地化路由的预渲染，并禁用默认的 TanStack Start 站点地图生成。
+
+```typescript fileName="vite.config.ts"
+import { localeFlatMap } from "intlayer";
+// ... 其他导入
+
+export const pathList = ["", "/about", "/404"];
+
+const localizedPages = localeFlatMap(({ urlPrefix }) =>
+  pathList.map((path) => ({
+    path: `${urlPrefix}${path}`,
+    prerender: {
+      enabled: true,
+    },
+  }))
+);
+
+export default defineConfig({
+  plugins: [
+    // ... 其他插件
+    tanstackStart({
+      // ... 其他配置
+      sitemap: {
+        enabled: false,
+      },
+      prerender: {
+        enabled: true,
+        crawlLinks: false,
+        concurrency: 10,
+      },
+      pages: localizedPages,
+    }),
+  ],
+});
+```
+
+然后，创建一个使用 `generateSitemap` 函数的路由 `src/routes/sitemap[.]xml.ts`：
+
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/react-router";
+import { generateSitemap } from "intlayer";
+
+const SITE_URL = (
+  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
+).replace(/\/$/, "");
+
+export const Route = createFileRoute("/sitemap.xml")({
+  server: {
+    handlers: {
+      GET: async () => {
+        const sitemap = generateSitemap(
+          [
+            { path: "/", changefreq: "daily", priority: 1.0 },
+            { path: "/about", changefreq: "monthly", priority: 0.8 },
+          ],
+          { siteUrl: SITE_URL }
+        );
+
+        return new Response(sitemap, {
+          headers: { "Content-Type": "application/xml" },
+        });
+      },
+    },
+  },
+});
+```
+
+---
+
+### 第十七步：TypeScript 配置 (可选)
+
+Intlayer 通过模块扩充来利用 TypeScript 的优势，增强您的代码库。
+
+确保自动生成的类型已包含在您的 TypeScript 配置中。
+
+```json5 fileName="tsconfig.json"
+{
+  // ... 现有配置
+  include: [
+    // ... 现有包含
+    ".intlayer/**/*.ts", // 包含自动生成的类型
+  ],
+}
+```
 
 ---
 

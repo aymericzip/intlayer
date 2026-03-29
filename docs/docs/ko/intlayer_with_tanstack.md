@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-03-12
+updatedAt: 2026-03-29
 title: Tanstack Start i18n - Tanstack Start 앱 번역 방법 2026
 description: Intlayer를 사용하여 TanStack Start 애플리케이션에 국제화(i18n)를 추가하는 방법을 알아보세요. 로케일 인식 라우팅으로 앱을 다국어화하기 위한 이 포괄적인 가이드를 따르세요.
 keywords:
@@ -12,6 +12,7 @@ keywords:
   - i18n
   - TypeScript
   - 로케일 라우팅
+  - Sitemap
 slugs:
   - doc
   - environment
@@ -608,7 +609,7 @@ export default defineConfig({
 
 ---
 
-### 13단계: 메타데이터 국제화(선택 사항)
+### 12단계: 메타데이터 국제화(선택 사항)
 
 `getIntlayer` 훅을 사용하여 애플리케이션 전반에서 콘텐츠 사전에 액세스할 수도 있습니다:
 
@@ -634,7 +635,7 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ---
 
-### 14단계: 서버 액션에서 로케일 가져오기(선택 사항)
+### 13단계: 서버 액션에서 로케일 가져오기(선택 사항)
 
 서버 액션 또는 API 엔드포인트 내부에서 현재 로케일에 액세스하고 싶을 수 있습니다.
 이는 `intlayer`의 `getLocale` 도우미를 사용하여 수행할 수 있습니다.
@@ -671,7 +672,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
 
 ---
 
-### 15단계: 찾을 수 없는 페이지 관리(선택 사항)
+### 14단계: 찾을 수 없는 페이지 관리(선택 사항)
 
 사용자가 존재하지 않는 페이지를 방문할 때 맞춤형 찾을 수 없음 페이지를 표시할 수 있으며, 로케일 접두사가 찾을 수 없음 페이지가 트리거되는 방식에 영향을 줄 수 있습니다.
 
@@ -747,25 +748,9 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 ---
 
-### 16단계: TypeScript 구성(선택 사항)
-
-Intlayer는 모듈 확장을 사용하여 TypeScript의 이점을 얻고 코드베이스를 더욱 견고하게 만듭니다.
-
-TypeScript 구성에 자동 생성된 유형이 포함되어 있는지 확인하세요:
-
-```json5 fileName="tsconfig.json"
-{
-  // ... 기존 구성
-  include: [
-    // ... 기존 포함 항목
-    ".intlayer/**/*.ts", // 자동 생성된 유형 포함
-  ],
-}
-```
-
 ---
 
-### (선택 사항) 단계 1 : 컴포넌트 콘텐츠 추출
+### 15단계: 컴포넌트에서 콘텐츠 추출(선택 사항)
 
 기존 코드베이스가 있는 경우 수천 개의 파일을 변환하는 데 시간이 많이 걸릴 수 있습니다.
 
@@ -802,66 +787,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 나머지 구성
-  compiler: {
-    /**
-     * 컴파일러 활성화 여부를 나타냅니다.
-     */
-    enabled: true,
-
-    /**
-     * 출력 파일 경로를 정의합니다.
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * 변환 후 컴포넌트를 저장할지 여부를 나타냅니다. 그렇게 하면 컴파일러를 한 번만 실행하여 앱을 변환한 다음 제거할 수 있습니다.
-     */
-    saveComponents: false,
-
-    /**
-     * 사전 키 접두사
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 나머지 구성
-  compiler: {
-    /**
-     * 컴파일러 활성화 여부를 나타냅니다.
-     */
-    enabled: true,
-
-    /**
-     * 출력 파일 경로를 정의합니다.
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * 변환 후 컴포넌트를 저장할지 여부를 나타냅니다. 그렇게 하면 컴파일러를 한 번만 실행하여 앱을 변환한 다음 제거할 수 있습니다.
-     */
-    saveComponents: false,
-
-    /**
-     * 사전 키 접두사
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>
@@ -902,24 +827,101 @@ export default defineConfig({
 });
 ```
 
-```bash packageManager="npm"
-npm run build # 또는 npm run dev
-```
-
-```bash packageManager="pnpm"
-pnpm run build # 또는 pnpm run dev
-```
-
-```bash packageManager="yarn"
-yarn build # 또는 yarn dev
-```
-
-```bash packageManager="bun"
-bun run build # Or bun run dev
-```
-
  </Tab>
 </Tabs>
+
+---
+
+### 16단계: 사이트맵 생성(선택 사항)
+
+Intlayer는 애플리케이션의 사이트맵을 쉽게 만들 수 있는 내장 사이트맵 생성기를 제공합니다. 로컬라이즈된 경로를 처리하고 검색 엔진에 필요한 메타데이터를 추가합니다.
+
+> Intlayer에서 생성한 사이트맵은 `xhtml:link` 네임스페이스(Hreflang XML 확장)를 지원합니다. 원시 URL만 나열하는 기본 사이트맵 생성기와 달리, Intlayer는 페이지의 모든 언어 버전(예: `/about`, `/about?lang=fr`, `/about?lang=es`) 간에 필요한 양항향 링크를 자동으로 생성합니다. 이를 통해 검색 엔진이 올바른 언어 버전을 올바른 사용자에게 색인화하고 제공할 수 있도록 보장합니다.
+
+이를 사용하려면 먼저 로컬라이즈된 경로의 프리렌더링을 활성화하고 기본 TanStack Start 사이트맵 생성을 비활성화하도록 `vite.config.ts`를 구성해야 합니다.
+
+```typescript fileName="vite.config.ts"
+import { localeFlatMap } from "intlayer";
+// ... 기타 임포트
+
+export const pathList = ["", "/about", "/404"];
+
+const localizedPages = localeFlatMap(({ urlPrefix }) =>
+  pathList.map((path) => ({
+    path: `${urlPrefix}${path}`,
+    prerender: {
+      enabled: true,
+    },
+  }))
+);
+
+export default defineConfig({
+  plugins: [
+    // ... 기타 플러그인
+    tanstackStart({
+      // ... 기타 구성
+      sitemap: {
+        enabled: false,
+      },
+      prerender: {
+        enabled: true,
+        crawlLinks: false,
+        concurrency: 10,
+      },
+      pages: localizedPages,
+    }),
+  ],
+});
+```
+
+그런 다음, `generateSitemap` 함수를 사용하는 `src/routes/sitemap[.]xml.ts` 경로를 생성합니다.
+
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/react-router";
+import { generateSitemap } from "intlayer";
+
+const SITE_URL = (
+  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
+).replace(/\/$/, "");
+
+export const Route = createFileRoute("/sitemap.xml")({
+  server: {
+    handlers: {
+      GET: async () => {
+        const sitemap = generateSitemap(
+          [
+            { path: "/", changefreq: "daily", priority: 1.0 },
+            { path: "/about", changefreq: "monthly", priority: 0.8 },
+          ],
+          { siteUrl: SITE_URL }
+        );
+
+        return new Response(sitemap, {
+          headers: { "Content-Type": "application/xml" },
+        });
+      },
+    },
+  },
+});
+```
+
+---
+
+### 17단계: TypeScript 구성(선택 사항)
+
+Intlayer는 모듈 확장을 사용하여 TypeScript의 이점을 얻고 코드베이스를 더욱 견고하게 만듭니다.
+
+TypeScript 구성에 자동 생성된 유형이 포함되어 있는지 확인하세요:
+
+```json5 fileName="tsconfig.json"
+{
+  // ... 기존 구성
+  include: [
+    // ... 기존 포함 항목
+    ".intlayer/**/*.ts", // 자동 생성된 유형 포함
+  ],
+}
+```
 
 ---
 

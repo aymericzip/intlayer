@@ -95,7 +95,13 @@ export {
    */
   getTranslation as getTranslationContent,
 } from '@intlayer/core/interpreter';
+export type {
+  GenerateSitemapOptions,
+  SitemapUrlEntry,
+} from '@intlayer/core/localization';
 export {
+  generateSitemap,
+  generateSitemapUrl,
   getBrowserLocale,
   getCanonicalPath,
   getHTMLTextDir,

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-03-12
+updatedAt: 2026-03-29
 title: Tanstack Start i18n - Как перевести приложение Tanstack Start в 2026
 description: Узнайте, как добавить интернационализацию (i18n) в ваше приложение Tanstack Start с помощью Intlayer. Следуйте этому подробному руководству, чтобы сделать ваше приложение многоязычным с маршрутизацией, учитывающей локаль.
 keywords:
@@ -12,6 +12,7 @@ keywords:
   - i18n
   - TypeScript
   - Маршрутизация по локали
+  - Sitemap
 slugs:
   - doc
   - environment
@@ -608,7 +609,7 @@ export default defineConfig({
 
 ---
 
-### Шаг 13: Интернационализация метаданных (опционально)
+### Шаг 12: Интернационализация метаданных (опционально)
 
 Вы также можете использовать хук `getIntlayer` для доступа к вашим словарям контента во всем приложении:
 
@@ -634,7 +635,7 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ---
 
-### Шаг 14: Получение локали в серверных действиях (опционально)
+### Шаг 13: Получение локали в серверных действиях (опционально)
 
 Вы можете захотеть получить доступ к текущей локали внутри ваших серверных действий или конечных точек API.
 Вы можете сделать это с помощью помощника `getLocale` из `intlayer`.
@@ -671,7 +672,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
 
 ---
 
-### Шаг 15: Управление страницами "не найдено" (опционально)
+### Шаг 14: Управление страницами "не найдено" (опционально)
 
 Когда пользователь посещает несуществующую страницу, вы можете отобразить пользовательскую страницу "не найдено", и префикс локали может повлиять на способ срабатывания страницы "не найдено".
 
@@ -745,27 +746,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 });
 ```
 
----
-
-### Шаг 16: Настройка TypeScript (опционально)
-
-Intlayer использует расширение модулей (module augmentation), чтобы использовать преимущества TypeScript и сделать вашу кодовую базу более надежной.
-
-Убедитесь, что ваша конфигурация TypeScript включает автоматически сгенерированные типы:
-
-```json5 fileName="tsconfig.json"
-{
-  // ... ваши существующие настройки
-  include: [
-    // ... ваши существующие включения
-    ".intlayer/**/*.ts", // Включить автоматически сгенерированные типы
-  ],
-}
-```
-
----
-
-### (Опционально) Шаг 1 : Извлечение содержимого ваших компонентов
+### (Опционально) Шаг 15: Извлечение содержимого ваших компонентов
 
 Если у вас есть существующая кодовая база, преобразование тысяч файлов может занять много времени.
 
@@ -920,6 +901,99 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+
+---
+
+### Шаг 16: Генерация карты сайта (Sitemap) (опционально)
+
+Intlayer поставляется со встроенным генератором карты сайта, который поможет вам легко создать карту сайта для вашего приложения. Он учитывает локализованные маршруты и добавляет необходимые метаданные для поисковых систем.
+
+> Создаваемая Intlayer карта сайта поддерживает пространство имен `xhtml:link` (Hreflang XML Extensions). В отличие от стандартных генераторов карт сайта, которые просто перечисляют прямые URL-адреса, Intlayer автоматически создает необходимые двусторонние связи между всеми языковыми версиями страницы (например, `/about`, `/about?lang=fr` и `/about?lang=es`). Это гарантирует, что поисковые системы будут правильно индексировать и показывать нужную языковую версию соответствующей аудитории.
+
+Чтобы использовать его, вам сначала нужно настроить ваш файл `vite.config.ts`, чтобы включить предварительный рендеринг (pre-rendering) для ваших локализованных маршрутов и отключить генерацию карты сайта по умолчанию в TanStack Start.
+
+```typescript fileName="vite.config.ts"
+import { localeFlatMap } from "intlayer";
+// ... другие импорты
+
+export const pathList = ["", "/about", "/404"];
+
+const localizedPages = localeFlatMap(({ urlPrefix }) =>
+  pathList.map((path) => ({
+    path: `${urlPrefix}${path}`,
+    prerender: {
+      enabled: true,
+    },
+  }))
+);
+
+export default defineConfig({
+  plugins: [
+    // ... другие плагины
+    tanstackStart({
+      // ... другие настройки
+      sitemap: {
+        enabled: false,
+      },
+      prerender: {
+        enabled: true,
+        crawlLinks: false,
+        concurrency: 10,
+      },
+      pages: localizedPages,
+    }),
+  ],
+});
+```
+
+Затем создайте маршрут `src/routes/sitemap[.]xml.ts`, который использует функцию `generateSitemap`:
+
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/react-router";
+import { generateSitemap } from "intlayer";
+
+const SITE_URL = (
+  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
+).replace(/\/$/, "");
+
+export const Route = createFileRoute("/sitemap.xml")({
+  server: {
+    handlers: {
+      GET: async () => {
+        const sitemap = generateSitemap(
+          [
+            { path: "/", changefreq: "daily", priority: 1.0 },
+            { path: "/about", changefreq: "monthly", priority: 0.8 },
+          ],
+          { siteUrl: SITE_URL }
+        );
+
+        return new Response(sitemap, {
+          headers: { "Content-Type": "application/xml" },
+        });
+      },
+    },
+  },
+});
+```
+
+---
+
+### Шаг 17: Настройка TypeScript (опционально)
+
+Intlayer использует расширение модулей (module augmentation), чтобы использовать преимущества TypeScript и сделать вашу кодовую базу более надежной.
+
+Убедитесь, что ваша конфигурация TypeScript включает автоматически сгенерированные типы:
+
+```json5 fileName="tsconfig.json"
+{
+  // ... ваши существующие настройки
+  include: [
+    // ... ваши существующие включения
+    ".intlayer/**/*.ts", // Включить автоматически сгенерированные типы
+  ],
+}
+```
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-03-12
+updatedAt: 2026-03-29
 title: Tanstack Start i18n - Como traduzir uma aplicação Tanstack Start em 2026
 description: Aprenda como adicionar internacionalização (i18n) à sua aplicação Tanstack Start usando Intlayer. Siga este guia completo para tornar seu app multilíngue com roteamento sensível ao locale.
 keywords:
@@ -12,6 +12,7 @@ keywords:
   - i18n
   - TypeScript
   - Roteamento por Locale
+  - Sitemap
 slugs:
   - doc
   - environment
@@ -746,27 +747,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 });
 ```
 
----
-
-### Passo 16: Configurar TypeScript (Opcional)
-
-O Intlayer utiliza a ampliação de módulos para aproveitar os benefícios do TypeScript e fortalecer sua base de código.
-
-Certifique-se de que sua configuração do TypeScript inclua os tipos gerados automaticamente:
-
-```json5 fileName="tsconfig.json"
-{
-  // ... suas configurações existentes
-  include: [
-    // ... seus includes existentes
-    ".intlayer/**/*.ts", // Incluir os tipos gerados automaticamente
-  ],
-}
-```
-
----
-
-### (Opcional) Etapa 1 : Extrair o conteúdo dos seus componentes
+### (Opcional) Passo 15: Extrair o conteúdo dos seus componentes
 
 Se você tiver uma base de código existente, transformar milhares de arquivos pode ser demorado.
 
@@ -921,6 +902,99 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+
+---
+
+### Passo 16: Gerar um Sitemap (Opcional)
+
+O Intlayer vem com um gerador de sitemap integrado para ajudá-lo a criar facilmente um sitemap para sua aplicação. Ele cuida das rotas localizadas e adiciona os metadados necessários para os mecanismos de busca.
+
+> O sitemap gerado pelo Intlayer suporta o namespace `xhtml:link` (Hreflang XML Extensions). Ao contrário dos geradores de sitemap padrão que apenas listam URLs brutos, o Intlayer cria automaticamente os links bidirecionais necessários entre todas as versões de idioma de uma página (por exemplo, `/about`, `/about?lang=fr` e `/about?lang=es`). Isso garante que os mecanismos de busca indexem e sirvam corretamente a versão de idioma certa para o público certo.
+
+Para usá-lo, você primeiro precisa configurar o seu `vite.config.ts` para habilitar a pré-renderização de suas rotas localizadas e desabilitar a geração de sitemap padrão do TanStack Start.
+
+```typescript fileName="vite.config.ts"
+import { localeFlatMap } from "intlayer";
+// ... outras importações
+
+export const pathList = ["", "/about", "/404"];
+
+const localizedPages = localeFlatMap(({ urlPrefix }) =>
+  pathList.map((path) => ({
+    path: `${urlPrefix}${path}`,
+    prerender: {
+      enabled: true,
+    },
+  }))
+);
+
+export default defineConfig({
+  plugins: [
+    // ... outros plugins
+    tanstackStart({
+      // ... outras configurações
+      sitemap: {
+        enabled: false,
+      },
+      prerender: {
+        enabled: true,
+        crawlLinks: false,
+        concurrency: 10,
+      },
+      pages: localizedPages,
+    }),
+  ],
+});
+```
+
+Em seguida, crie uma rota `src/routes/sitemap[.]xml.ts` que use a função `generateSitemap`:
+
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/react-router";
+import { generateSitemap } from "intlayer";
+
+const SITE_URL = (
+  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
+).replace(/\/$/, "");
+
+export const Route = createFileRoute("/sitemap.xml")({
+  server: {
+    handlers: {
+      GET: async () => {
+        const sitemap = generateSitemap(
+          [
+            { path: "/", changefreq: "daily", priority: 1.0 },
+            { path: "/about", changefreq: "monthly", priority: 0.8 },
+          ],
+          { siteUrl: SITE_URL }
+        );
+
+        return new Response(sitemap, {
+          headers: { "Content-Type": "application/xml" },
+        });
+      },
+    },
+  },
+});
+```
+
+---
+
+### Passo 17: Configurar TypeScript (Opcional)
+
+O Intlayer utiliza a ampliação de módulos para aproveitar os benefícios do TypeScript e fortalecer sua base de código.
+
+Certifique-se de que sua configuração do TypeScript inclua os tipos gerados automaticamente:
+
+```json5 fileName="tsconfig.json"
+{
+  // ... suas configurações existentes
+  include: [
+    // ... seus includes existentes
+    ".intlayer/**/*.ts", // Incluir os tipos gerados automaticamente
+  ],
+}
+```
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-03-25
+updatedAt: 2026-03-29
 title: Tanstack Start i18n - 2026年にSolid.jsを使用してTanstack Startアプリを翻訳する方法
 description: IntlayerとSolid.jsを使用して、Tanstack Startアプリケーションに国際化（i18n）を追加する方法を学びます。この包括的なガイドに従って、ロケール対応ルーティングを備えた多言語アプリを作成してください。
 keywords:
@@ -12,6 +12,7 @@ keywords:
   - i18n
   - TypeScript
   - ロケールルーティング
+  - Sitemap
 slugs:
   - doc
   - environment
@@ -512,7 +513,7 @@ export default defineConfig({
 
 ---
 
-### ステップ 13: メタデータの国際化 (任意)
+### ステップ 12: メタデータの国際化 (任意)
 
 ロケール対応のメタデータのために、`head` ローダー内で `getIntlayer` 関数を使用してコンテンツ辞書にアクセスすることもできます：
 
@@ -538,7 +539,7 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ---
 
-### ステップ 14: サーバーアクションでロケールを取得する (任意)
+### ステップ 13: サーバーアクションでロケールを取得する (任意)
 
 サーバーアクションやAPIエンドポイント内から現在のロケールにアクセスしたい場合があります。
 これを行うには、`intlayer` から `getLocale` ヘルパーを使用します。
@@ -575,7 +576,7 @@ export const getLocaleServer = createServerFn().handler(async () => {
 
 ---
 
-### ステップ 15: 404ページを管理する (任意)
+### ステップ 14: 404ページを管理する (任意)
 
 ユーザーが存在しないページにアクセスしたときに、カスタム 404 ページを表示できます。ロケールプレフィックスは、404 ページがトリガーされる方法に影響を与える可能性があります。
 
@@ -649,7 +650,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 });
 ```
 
-### (任意) ステップ 16: コンポーネントのコンテンツを抽出する
+### (任意) ステップ 15: コンポーネントのコンテンツを抽出する
 
 既存のコードベースがある場合、数千ものファイルを変換するのは時間がかかる可能性があります。
 
@@ -827,6 +828,83 @@ bun run build # または bun run dev
 
  </Tab>
 </Tabs>
+
+---
+
+### ステップ 16: サイトマップの生成 (オプション)
+
+Intlayer には、アプリケーションのサイトマップを簡単に作成できるサイトマップ ジェネレーターが組み込まれています。ローカライズされたルートを処理し、検索エンジンに必要なメタデータを追加します。
+
+> Intlayer によって生成されたサイトマップは、`xhtml:link` 名前空間 (Hreflang XML Extensions) をサポートしています。生の URL のみを表示するデフォルトのサイトマップ ジェネレーターとは異なり、Intlayer はページのすべての言語バージョン (例: `/about`、`/about?lang=fr`、`/about?lang=es`) 間に必要な双方向リンクを自動的に作成します。これにより、検索エンジンが正しい言語バージョンを正しい対象者に正しくインデックス付けして提供できるようになります。
+
+> Intlayer によって生成されたサイトマップは、`xhtml:link` 名前空間 (Hreflang XML Extensions) をサポートしています。生の URL のみを表示するデフォルトのサイトマップ ジェネレーターとは異なり、Intlayer はページのすべての言語バージョン (例: `/about`、`/about?lang=fr`、`/about?lang=es`) 間に必要な双方向リンクを自動的に作成します。これにより、検索エンジンが正しい言語バージョンを正しい対象者に正しくインデックス付けして提供できるようになります。
+
+これを使用するには、まず `vite.config.ts` を構成して、ローカライズされたルートのプリレンダリングを有効にし、デフォルトの TanStack Start サイトマップ生成を無効にする必要があります。
+
+```typescript fileName="vite.config.ts"
+import { localeMap, localeFlatMap } from "intlayer";
+// ... その他のインポート
+
+export const pathList = ["", "/about", "/404"];
+
+const localizedPages = localeFlatMap(({ urlPrefix }) =>
+  pathList.map((path) => ({
+    path: `${urlPrefix}${path}`,
+    prerender: {
+      enabled: true,
+    },
+  }))
+);
+
+export default defineConfig({
+  plugins: [
+    // ... その他のプラグイン
+    tanstackStart({
+      // ... その他の設定
+      sitemap: {
+        enabled: false,
+      },
+      prerender: {
+        enabled: true,
+        crawlLinks: false,
+        concurrency: 10,
+      },
+      pages: localizedPages,
+    }),
+  ],
+});
+```
+
+次に、`generateSitemap` 関数を使用する `src/routes/sitemap[.]xml.ts` ルートを作成します。
+
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/solid-router";
+import { generateSitemap } from "intlayer";
+
+const SITE_URL = (
+  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
+).replace(/\/$/, "");
+
+export const Route = createFileRoute("/sitemap.xml")({
+  server: {
+    handlers: {
+      GET: async () => {
+        const sitemap = generateSitemap(
+          [
+            { path: "/", changefreq: "daily", priority: 1.0 },
+            { path: "/about", changefreq: "monthly", priority: 0.8 },
+          ],
+          { siteUrl: SITE_URL }
+        );
+
+        return new Response(sitemap, {
+          headers: { "Content-Type": "application/xml" },
+        });
+      },
+    },
+  },
+});
+```
 
 ---
 

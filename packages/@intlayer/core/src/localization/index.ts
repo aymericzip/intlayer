@@ -1,3 +1,8 @@
+export type {
+  GenerateSitemapOptions,
+  SitemapUrlEntry,
+} from './generateSitemap';
+export { generateSitemap, generateSitemapUrl } from './generateSitemap';
 export { getBrowserLocale, localeStorageOptions } from './getBrowserLocale';
 export { getHTMLTextDir } from './getHTMLTextDir';
 export { getLocale } from './getLocale';

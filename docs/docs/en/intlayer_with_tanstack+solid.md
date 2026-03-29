@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-03-25
+updatedAt: 2026-03-29
 title: Tanstack Start i18n - How to translate a Tanstack Start app using Solid.js in 2026
 description: Learn how to add internationalization (i18n) to your Tanstack Start application using Intlayer and Solid.js. Follow this comprehensive guide to make your app multilingual with locale-aware routing.
 keywords:
@@ -12,6 +12,7 @@ keywords:
   - i18n
   - TypeScript
   - Locale Routing
+  - Sitemap
 slugs:
   - doc
   - environment
@@ -19,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid-template
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 8.6.0
+    date: 2026-03-29
+    changes: "Add pre-render & sitemap"
   - version: 8.5.1
     date: 2026-03-25
     changes: "Added for Tanstack Start Solid.js"
@@ -830,7 +834,82 @@ bun run build # Or bun run dev
 
 ---
 
-### Step 16: Configure TypeScript (Optional)
+### Step 16: Pre-render & Generate Sitemap (Optional)
+
+Intlayer comes with a built-in sitemap generator to help you create a sitemap for your application easily. It handles localized routes and adds the necessary metadata for search engines.
+
+> The Intlayer generated sitemap supports the `xhtml:link` namespace (Hreflang XML Extensions). Unlike the default sitemap generators that only list raw URLs, Intlayer automatically creates the required bidirectional links between all language versions of a page (e.g., `/about`, `/about?lang=fr`, and `/about?lang=es`). This ensures search engines correctly index and serve the right language version to the right audience.
+
+To use it, you first need to configure your `vite.config.ts` to enable pre-rendering for your localized routes and disable the default TanStack Start sitemap generation.
+
+```typescript fileName="vite.config.ts"
+import { localeMap, localeFlatMap } from "intlayer";
+// ... other imports
+
+export const pathList = ["", "/about", "/404"];
+
+const localizedPages = localeFlatMap(({ urlPrefix }) =>
+  pathList.map((path) => ({
+    path: `${urlPrefix}${path}`,
+    prerender: {
+      enabled: true,
+    },
+  }))
+);
+
+export default defineConfig({
+  plugins: [
+    // ... other plugins
+    tanstackStart({
+      // ... other config
+      sitemap: {
+        enabled: false,
+      },
+      prerender: {
+        enabled: true,
+        crawlLinks: false,
+        concurrency: 10,
+      },
+      pages: localizedPages,
+    }),
+  ],
+});
+```
+
+Then, create a `src/routes/sitemap[.]xml.ts` route that uses the `generateSitemap` function:
+
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/solid-router";
+import { generateSitemap } from "intlayer";
+
+const SITE_URL = (
+  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
+).replace(/\/$/, "");
+
+export const Route = createFileRoute("/sitemap.xml")({
+  server: {
+    handlers: {
+      GET: async () => {
+        const sitemap = generateSitemap(
+          [
+            { path: "/", changefreq: "daily", priority: 1.0 },
+            { path: "/about", changefreq: "monthly", priority: 0.8 },
+          ],
+          { siteUrl: SITE_URL }
+        );
+
+        return new Response(sitemap, {
+          headers: { "Content-Type": "application/xml" },
+        });
+      },
+    },
+  },
+});
+```
+
+---
+
+### Step 17: Configure TypeScript (Optional)
 
 Intlayer uses module augmentation to get benefits of TypeScript and make your codebase stronger.
 
