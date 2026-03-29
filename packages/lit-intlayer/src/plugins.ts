@@ -424,18 +424,22 @@ export const getPlugins = (
     configuration.internationalization.defaultLocale;
 
   return [
-    translationPlugin(
-      currentLocale,
-      fallback ? configuration.internationalization.defaultLocale : undefined
-    ),
-    enumerationPlugin,
-    conditionPlugin,
-    nestedPlugin(currentLocale),
-    filePlugin,
-    genderPlugin,
+    // Env var allows the bundler to to remove the plugin if not used to make the bundle smaller
+    process.env['INTLAYER_NODE_TYPE_TRANSLATION'] !== 'false' &&
+      translationPlugin(
+        currentLocale,
+        fallback ? configuration.internationalization.defaultLocale : undefined
+      ),
+    process.env['INTLAYER_NODE_TYPE_ENUMERATION'] !== 'false' &&
+      enumerationPlugin,
+    process.env['INTLAYER_NODE_TYPE_CONDITION'] !== 'false' && conditionPlugin,
+    process.env['INTLAYER_NODE_TYPE_NESTED'] !== 'false' &&
+      nestedPlugin(currentLocale),
+    process.env['INTLAYER_NODE_TYPE_FILE'] !== 'false' && filePlugin,
+    process.env['INTLAYER_NODE_TYPE_GENDER'] !== 'false' && genderPlugin,
     intlayerNodePlugins,
-    insertionPlugin,
-    markdownPlugin,
-    htmlPlugin,
-  ];
+    process.env['INTLAYER_NODE_TYPE_INSERTION'] !== 'false' && insertionPlugin,
+    process.env['INTLAYER_NODE_TYPE_MARKDOWN'] !== 'false' && markdownPlugin,
+    process.env['INTLAYER_NODE_TYPE_HTML'] !== 'false' && htmlPlugin,
+  ].filter(Boolean) as Plugins[];
 };

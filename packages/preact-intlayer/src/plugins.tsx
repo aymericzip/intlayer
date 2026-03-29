@@ -530,19 +530,25 @@ export type DeepTransformContent<
 export const getPlugins = (
   locale?: LocalesValues,
   fallback: boolean = true
-): Plugins[] => [
-  translationPlugin(
-    locale ?? configuration.internationalization.defaultLocale,
-    fallback ? configuration.internationalization.defaultLocale : undefined
-  ),
-  enumerationPlugin,
-  conditionPlugin,
-  nestedPlugin(locale ?? configuration.internationalization.defaultLocale),
-  filePlugin,
-  genderPlugin,
-  intlayerNodePlugins,
-  preactNodePlugins,
-  insertionPlugin,
-  markdownPlugin,
-  htmlPlugin,
-];
+): Plugins[] =>
+  [
+    // Env var allows the bundler to to remove the plugin if not used to make the bundle smaller
+    process.env['INTLAYER_NODE_TYPE_TRANSLATION'] !== 'false' &&
+      translationPlugin(
+        locale ?? configuration.internationalization.defaultLocale,
+        fallback ? configuration.internationalization.defaultLocale : undefined
+      ),
+    process.env['INTLAYER_NODE_TYPE_ENUMERATION'] !== 'false' &&
+      enumerationPlugin,
+    process.env['INTLAYER_NODE_TYPE_CONDITION'] !== 'false' && conditionPlugin,
+    process.env['INTLAYER_NODE_TYPE_NESTED'] !== 'false' &&
+      nestedPlugin(locale ?? configuration.internationalization.defaultLocale),
+    process.env['INTLAYER_NODE_TYPE_FILE'] !== 'false' && filePlugin,
+    process.env['INTLAYER_NODE_TYPE_GENDER'] !== 'false' && genderPlugin,
+    // Always include: handle plain strings/numbers and React elements
+    intlayerNodePlugins,
+    preactNodePlugins,
+    process.env['INTLAYER_NODE_TYPE_INSERTION'] !== 'false' && insertionPlugin,
+    process.env['INTLAYER_NODE_TYPE_MARKDOWN'] !== 'false' && markdownPlugin,
+    process.env['INTLAYER_NODE_TYPE_HTML'] !== 'false' && htmlPlugin,
+  ].filter(Boolean) as Plugins[];

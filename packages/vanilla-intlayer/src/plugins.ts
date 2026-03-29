@@ -400,21 +400,30 @@ export type DeepTransformContent<
   L extends LocalesValues = DeclaredLocales,
 > = DeepTransformContentCore<T, IInterpreterPluginState, L>;
 
+/**
+ * Get the plugins array for Vanilla content transformation.
+ * This function is used by both getIntlayer and getDictionary to ensure consistent plugin configuration.
+ */
 export const getPlugins = (
   locale?: LocalesValues,
   fallback = true
-): Plugins[] => [
-  translationPlugin(
-    locale ?? configuration.internationalization.defaultLocale,
-    fallback ? configuration.internationalization.defaultLocale : undefined
-  ),
-  enumerationPlugin,
-  conditionPlugin,
-  nestedPlugin(locale ?? configuration.internationalization.defaultLocale),
-  filePlugin,
-  genderPlugin,
-  intlayerNodePlugins,
-  insertionPlugin,
-  markdownPlugin,
-  htmlPlugin,
-];
+): Plugins[] =>
+  [
+    // Env var allows the bundler to to remove the plugin if not used to make the bundle smaller
+    process.env['INTLAYER_NODE_TYPE_TRANSLATION'] !== 'false' &&
+      translationPlugin(
+        locale ?? configuration.internationalization.defaultLocale,
+        fallback ? configuration.internationalization.defaultLocale : undefined
+      ),
+    process.env['INTLAYER_NODE_TYPE_ENUMERATION'] !== 'false' &&
+      enumerationPlugin,
+    process.env['INTLAYER_NODE_TYPE_CONDITION'] !== 'false' && conditionPlugin,
+    process.env['INTLAYER_NODE_TYPE_NESTED'] !== 'false' &&
+      nestedPlugin(locale ?? configuration.internationalization.defaultLocale),
+    process.env['INTLAYER_NODE_TYPE_FILE'] !== 'false' && filePlugin,
+    process.env['INTLAYER_NODE_TYPE_GENDER'] !== 'false' && genderPlugin,
+    intlayerNodePlugins,
+    process.env['INTLAYER_NODE_TYPE_INSERTION'] !== 'false' && insertionPlugin,
+    process.env['INTLAYER_NODE_TYPE_MARKDOWN'] !== 'false' && markdownPlugin,
+    process.env['INTLAYER_NODE_TYPE_HTML'] !== 'false' && htmlPlugin,
+  ].filter(Boolean) as Plugins[];
