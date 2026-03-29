@@ -85,6 +85,15 @@ export const TREE_SHAKE_STORAGE_SESSION_STORAGE =
 export const TREE_SHAKE_STORAGE_HEADERS =
   process.env['INTLAYER_ROUTING_STORAGE_HEADERS'] === 'false';
 
+/**
+ * True when the editor is explicitly disabled at build time.
+ *
+ * @example
+ * if (!TREE_SHAKE_EDITOR) { // editor logic }
+ */
+export const TREE_SHAKE_EDITOR =
+  process.env['INTLAYER_EDITOR_ENABLED'] === 'false';
+
 // ── Build-time env-var helpers ────────────────────────────────────────────────
 
 /**

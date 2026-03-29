@@ -14,7 +14,7 @@ import { intlayerStore } from '../client/intlayerStore';
  * direct access to the Svelte 5 rune state.
  */
 export const useEditor = () => {
-  if (process.env.INTLAYER_EDITOR_ENABLED === 'false' || !isEnabled) return;
+  if (!isEnabled) return;
 
   let unsubscribeLocale: (() => void) | null = null;
 
