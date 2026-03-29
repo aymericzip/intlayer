@@ -4,14 +4,14 @@ import { Link } from '@components/Link/Link';
 import { TechLogo, TechLogoName } from '@intlayer/design-system';
 import { useDevice, useScreenWidth } from '@intlayer/design-system/hooks';
 import {
-  Website_Doc_Environment_Angular,
-  Website_Doc_Environment_NextJS_15,
-  Website_Doc_Environment_NuxtAndVue,
-  Website_Doc_Environment_ViteAndPreact,
-  Website_Doc_Environment_ViteAndReact,
-  Website_Doc_Environment_ViteAndSolid,
-  Website_Doc_Environment_ViteAndSvelte,
-  Website_Doc_Environment_ViteAndVue,
+  Website_Doc_Environment_Angular_Path,
+  Website_Doc_Environment_NextJS_15_Path,
+  Website_Doc_Environment_NuxtAndVue_Path,
+  Website_Doc_Environment_ViteAndPreact_Path,
+  Website_Doc_Environment_ViteAndReact_Path,
+  Website_Doc_Environment_ViteAndSolid_Path,
+  Website_Doc_Environment_ViteAndSvelte_Path,
+  Website_Doc_Environment_ViteAndVue_Path,
 } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import {
@@ -107,7 +107,7 @@ const LogoItem: FC<LogoItemProps> = ({
 const logosRow1 = [
   {
     name: TechLogoName.Preact,
-    route: Website_Doc_Environment_ViteAndPreact,
+    route: Website_Doc_Environment_ViteAndPreact_Path,
     initialPost: {
       scale: 1.2,
       x: -200,
@@ -117,7 +117,7 @@ const logosRow1 = [
   },
   {
     name: TechLogoName.React,
-    route: Website_Doc_Environment_ViteAndReact,
+    route: Website_Doc_Environment_ViteAndReact_Path,
     initialPost: {
       scale: 1.5,
       x: 0,
@@ -127,7 +127,7 @@ const logosRow1 = [
   },
   {
     name: TechLogoName.Solid,
-    route: Website_Doc_Environment_ViteAndSolid,
+    route: Website_Doc_Environment_ViteAndSolid_Path,
     initialPost: {
       scale: 1.2,
       x: 200,
@@ -140,7 +140,7 @@ const logosRow1 = [
 const logosRow2 = [
   {
     name: TechLogoName.Nuxt,
-    route: Website_Doc_Environment_NuxtAndVue,
+    route: Website_Doc_Environment_NuxtAndVue_Path,
     initialPost: {
       scale: 1.5,
       x: -350,
@@ -150,7 +150,7 @@ const logosRow2 = [
   },
   {
     name: TechLogoName.Vue,
-    route: Website_Doc_Environment_ViteAndVue,
+    route: Website_Doc_Environment_ViteAndVue_Path,
     initialPost: {
       scale: 1.3,
       x: 0,
@@ -160,7 +160,7 @@ const logosRow2 = [
   },
   {
     name: TechLogoName.Svelte,
-    route: Website_Doc_Environment_ViteAndSvelte,
+    route: Website_Doc_Environment_ViteAndSvelte_Path,
     initialPost: {
       scale: 1.3,
       x: 350,
@@ -173,7 +173,7 @@ const logosRow2 = [
 const logosRow3 = [
   {
     name: TechLogoName.Nextjs,
-    route: Website_Doc_Environment_NextJS_15,
+    route: Website_Doc_Environment_NextJS_15_Path,
     initialPost: {
       scale: 1.5,
       x: -200,
@@ -183,7 +183,7 @@ const logosRow3 = [
   },
   {
     name: TechLogoName.Angular,
-    route: Website_Doc_Environment_Angular,
+    route: Website_Doc_Environment_Angular_Path,
     initialPost: {
       scale: 1.2,
       x: 0,
@@ -193,7 +193,7 @@ const logosRow3 = [
   },
   {
     name: TechLogoName.Vite,
-    route: Website_Doc_Environment_ViteAndReact,
+    route: Website_Doc_Environment_ViteAndReact_Path,
     initialPost: {
       scale: 1.5,
       x: 200,

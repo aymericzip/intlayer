@@ -16,7 +16,7 @@ import type { FC } from 'react';
 
 export type LinkProps = LinkUIProps & NextLinkProps;
 
-const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN;
+const URL = process.env.NEXT_PUBLIC_URL;
 
 export const Link: FC<LinkProps> = (props) => {
   const {
@@ -40,8 +40,8 @@ export const Link: FC<LinkProps> = (props) => {
 
   // Normalize internal links: convert https://intlayer.org/xxx to /xxx
   let normalizedHref = hrefProp;
-  if (typeof hrefProp === 'string' && DOMAIN && hrefProp.startsWith(DOMAIN)) {
-    normalizedHref = hrefProp.replace(DOMAIN, '') || '/';
+  if (typeof hrefProp === 'string' && URL && hrefProp.startsWith(URL)) {
+    normalizedHref = hrefProp.replace(URL, '') || '/';
   }
 
   // Check if external link using normalized href

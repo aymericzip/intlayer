@@ -9,6 +9,12 @@ import {
   Link as TanStackLink,
 } from '@tanstack/react-router';
 import { getPrefix } from 'intlayer';
+
+const DOMAIN =
+  typeof import.meta !== 'undefined'
+    ? (import.meta.env?.VITE_SITE_URL ?? '')
+    : '';
+
 import { ExternalLink, MoveRight } from 'lucide-react';
 import type {
   AnchorHTMLAttributes,
@@ -74,7 +80,12 @@ export const Link: FC<LinkProps> = ({
 }) => {
   const { locale } = useLocale();
 
-  const targetUrl = (to as string) || '';
+  // Normalize internal links: convert https://intlayer.org/xxx to /xxx
+  const rawUrl = (to as string) || '';
+  let targetUrl = rawUrl;
+  if (typeof rawUrl === 'string' && DOMAIN && rawUrl.startsWith(DOMAIN)) {
+    targetUrl = rawUrl.replace(DOMAIN, '') || '/';
+  }
 
   const isExternalLinkUrl =
     targetUrl.startsWith('http') ||
