@@ -3,8 +3,8 @@ import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { logConfigDetails } from '@intlayer/chokidar/cli';
 import {
   buildComponentFilesList,
-  getNodeTypeDefineVars,
-  getUsedNodeTypes,
+  formatNodeTypeToEnvVar,
+  getUnusedNodeTypes,
   runOnce,
 } from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
@@ -306,7 +306,7 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
 
   logConfigDetails(configOptions);
 
-  const logger = getAppLogger(intlayerConfig);
+  const appLogger = getAppLogger(intlayerConfig);
 
   const { isGteNext13, isGteNext15, isGteNext16, isTurbopackStable } =
     getNextVersionFlags(intlayerConfig);
@@ -321,7 +321,7 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
     configOptions?.enableTurbopack ?? isTurbopackEnabledFromCommand;
 
   if (isTurbopackEnabled && typeof nextConfig.webpack !== 'undefined') {
-    logger(
+    appLogger(
       'Turbopack is enabled but a custom webpack config is present. It will be ignored.'
     );
   }
@@ -354,13 +354,31 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
     '@intlayer/webpack',
   ];
 
-  const nodeTypeEnvVars = isBuildCommand
-    ? getNodeTypeDefineVars(
-        getUsedNodeTypes(
-          getDictionaries(intlayerConfig) as Record<string, Dictionary>
-        )
-      )
-    : {};
+  let nodeTypeEnvVars = {};
+
+  if (isBuildCommand) {
+    const dictionaries = getDictionaries(intlayerConfig) as Record<
+      string,
+      Dictionary
+    >;
+    const unusedNodeTypes = getUnusedNodeTypes(dictionaries);
+
+    if (unusedNodeTypes.length > 0) {
+      appLogger(
+        [
+          'Filtering out unused plugins:',
+          unusedNodeTypes
+            .map((key) => colorize(key, ANSIColors.BLUE))
+            .join(', '),
+        ],
+        {
+          isVerbose: true,
+        }
+      );
+    }
+
+    nodeTypeEnvVars = formatNodeTypeToEnvVar(unusedNodeTypes, false);
+  }
 
   const getNewConfig = (): Partial<NextConfig> => {
     let config: Partial<NextConfig> = {
@@ -441,7 +459,8 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
                 request &&
                 (externalExact.has(request) ||
                   externalPrefixes.some(
-                    (p) => request === p || request.startsWith(`${p}/`)
+                    (prefix) =>
+                      request === prefix || request.startsWith(`${prefix}/`)
                   ))
               ) {
                 return callback(null, `commonjs ${request}`);

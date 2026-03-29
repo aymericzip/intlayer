@@ -6,6 +6,9 @@ import { intlayer } from 'vite-intlayer';
 
 // https://vite.dev/config/
 export default defineConfig({
+  build: {
+    minify: false, // To debug
+  },
   plugins: [
     preact(),
     intlayer(),

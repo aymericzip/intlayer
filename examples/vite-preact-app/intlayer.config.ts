@@ -27,6 +27,9 @@ const config: IntlayerConfig = {
     output: ({ fileName, extension }) => `./${fileName}${extension}`,
     saveComponents: false,
   },
+  log: {
+    mode: 'verbose',
+  },
 };
 
 export default config;

@@ -3,6 +3,7 @@ import {
   conditionPlugin,
   type DeepTransformContent as DeepTransformContentCore,
   enumerationPlugin,
+  fallbackPlugin,
   filePlugin,
   genderPlugin,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
@@ -85,19 +86,24 @@ export type DeepTransformContent<
  * Basic Intlayer node plugins for content handling
  * These handle the core content transformation logic
  */
-export const intlayerNodePlugins: Plugins = {
-  id: 'intlayer-node-plugin',
-  canHandle: (node) =>
-    typeof node === 'bigint' ||
-    typeof node === 'string' ||
-    typeof node === 'number',
-  transform: (node, { children, ...rest }) =>
-    renderIntlayerNode({
-      value: children ?? node,
-      component: configuration.editor.enabled ? ContentSelector : undefined,
-      props: rest,
-    }),
-};
+export const intlayerNodePlugins: Plugins =
+  process.env.INTLAYER_NODE_TYPE_INTLAYER_NODE === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'intlayer-node-plugin',
+        canHandle: (node) =>
+          typeof node === 'bigint' ||
+          typeof node === 'string' ||
+          typeof node === 'number',
+        transform: (node, { children, ...rest }) =>
+          renderIntlayerNode({
+            value: children ?? node,
+            component: configuration.editor.enabled
+              ? ContentSelector
+              : undefined,
+            props: rest,
+          }),
+      };
 
 /**
  * Svelte-specific node plugins for handling basic content types
@@ -185,80 +191,86 @@ const splitAndJoinInsertion = (
 };
 
 /** Insertion plugin for Svelte. Handles component insertion. */
-export const insertionPlugin: Plugins = {
-  id: 'insertion-plugin',
-  canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeTypes.INSERTION,
-  transform: (node: InsertionContent, props, deepTransformNode) => {
-    const newKeyPath: KeyPath[] = [
-      ...props.keyPath,
-      {
-        type: NodeTypes.INSERTION,
-      },
-    ];
+export const insertionPlugin: Plugins =
+  process.env.INTLAYER_NODE_TYPE_INSERTION === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'insertion-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' && node?.nodeType === NodeTypes.INSERTION,
+        transform: (node: InsertionContent, props, deepTransformNode) => {
+          const newKeyPath: KeyPath[] = [
+            ...props.keyPath,
+            {
+              type: NodeTypes.INSERTION,
+            },
+          ];
 
-    const children = node[NodeTypes.INSERTION];
+          const children = node[NodeTypes.INSERTION];
 
-    /** Insertion string plugin. Replaces string node with a component that render the insertion. */
-    const insertionStringPlugin: Plugins = {
-      id: 'insertion-string-plugin',
-      canHandle: (node) => typeof node === 'string',
-      transform: (node: string, subProps, deepTransformNode) => {
-        const transformedResult = deepTransformNode(node, {
-          ...subProps,
-          children: node,
-          plugins: [
-            ...(props.plugins ?? ([] as Plugins[])).filter(
-              (plugin) => plugin.id !== 'intlayer-node-plugin'
-            ),
-          ],
-        });
+          /** Insertion string plugin. Replaces string node with a component that render the insertion. */
+          const insertionStringPlugin: Plugins = {
+            id: 'insertion-string-plugin',
+            canHandle: (node) => typeof node === 'string',
+            transform: (node: string, subProps, deepTransformNode) => {
+              const transformedResult = deepTransformNode(node, {
+                ...subProps,
+                children: node,
+                plugins: [
+                  ...(props.plugins ?? ([] as Plugins[])).filter(
+                    (plugin) => plugin.id !== 'intlayer-node-plugin'
+                  ),
+                ],
+              });
 
-        return (
-          values: {
-            [K in InsertionContent['fields'][number]]: string | number | any;
-          }
-        ) => {
-          const result = splitAndJoinInsertion(transformedResult, values);
+              return (
+                values: {
+                  [K in InsertionContent['fields'][number]]:
+                    | string
+                    | number
+                    | any;
+                }
+              ) => {
+                const result = splitAndJoinInsertion(transformedResult, values);
 
-          return deepTransformNode(result, {
-            ...subProps,
-            plugins: props.plugins,
-            children: result,
+                return deepTransformNode(result, {
+                  ...subProps,
+                  plugins: props.plugins,
+                  children: result,
+                });
+              };
+            },
+          };
+
+          const result = deepTransformNode(children, {
+            ...props,
+            children,
+            keyPath: newKeyPath,
+            plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
           });
-        };
-      },
-    };
 
-    const result = deepTransformNode(children, {
-      ...props,
-      children,
-      keyPath: newKeyPath,
-      plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
-    });
+          if (
+            typeof children === 'object' &&
+            children !== null &&
+            'nodeType' in children &&
+            [NodeTypes.ENUMERATION, NodeTypes.CONDITION].includes(
+              children.nodeType as any
+            )
+          ) {
+            return (values: any) => (arg: any) => {
+              const func = result as Function;
+              const inner = func(arg);
 
-    if (
-      typeof children === 'object' &&
-      children !== null &&
-      'nodeType' in children &&
-      [NodeTypes.ENUMERATION, NodeTypes.CONDITION].includes(
-        children.nodeType as any
-      )
-    ) {
-      return (values: any) => (arg: any) => {
-        const func = result as Function;
-        const inner = func(arg);
+              if (typeof inner === 'function') {
+                return inner(values);
+              }
+              return inner;
+            };
+          }
 
-        if (typeof inner === 'function') {
-          return inner(values);
-        }
-        return inner;
+          return result;
+        },
       };
-    }
-
-    return result;
-  },
-};
 
 /**
  * MARKDOWN PLUGIN
@@ -275,89 +287,92 @@ export type MarkdownStringCond<T> = T extends string
   : never;
 
 /** Markdown string plugin. Replaces string node with a component that render the markdown. */
-export const markdownStringPlugin: Plugins = {
-  id: 'markdown-string-plugin',
-  canHandle: (node) => typeof node === 'string',
-  transform: (node: string, props, deepTransformNode) => {
-    const { ...rest } = props;
+export const markdownStringPlugin: Plugins =
+  process.env.INTLAYER_NODE_TYPE_MARKDOWN === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'markdown-string-plugin',
+        canHandle: (node) => typeof node === 'string',
+        transform: (node: string, props, deepTransformNode) => {
+          const { ...rest } = props;
 
-    const metadata = _getMarkdownMetadata?.(node) ?? {};
+          const metadata = _getMarkdownMetadata?.(node) ?? {};
 
-    const metadataPlugins: Plugins = {
-      id: 'markdown-metadata-plugin',
-      canHandle: (metadataNode) =>
-        typeof metadataNode === 'string' ||
-        typeof metadataNode === 'number' ||
-        typeof metadataNode === 'boolean' ||
-        !metadataNode,
-      transform: (metadataNode, props) =>
-        renderIntlayerNode({
-          value: metadataNode,
-          component: configuration.editor.enabled
-            ? (_MarkdownMetadataWithSelector ?? _MarkdownMetadataRenderer)
-            : _MarkdownMetadataRenderer,
-          props: {
-            ...rest,
-            value: node, // The full markdown string
-            metadataKeyPath: props.keyPath,
-          },
-        }),
-    };
+          const metadataPlugins: Plugins = {
+            id: 'markdown-metadata-plugin',
+            canHandle: (metadataNode) =>
+              typeof metadataNode === 'string' ||
+              typeof metadataNode === 'number' ||
+              typeof metadataNode === 'boolean' ||
+              !metadataNode,
+            transform: (metadataNode, props) =>
+              renderIntlayerNode({
+                value: metadataNode,
+                component: configuration.editor.enabled
+                  ? (_MarkdownMetadataWithSelector ?? _MarkdownMetadataRenderer)
+                  : _MarkdownMetadataRenderer,
+                props: {
+                  ...rest,
+                  value: node, // The full markdown string
+                  metadataKeyPath: props.keyPath,
+                },
+              }),
+          };
 
-    // Transform metadata while keeping the same structure
-    const metadataNodes =
-      deepTransformNode(metadata, {
-        plugins: [metadataPlugins],
-        dictionaryKey: rest.dictionaryKey,
-        keyPath: [],
-      }) ?? {};
+          // Transform metadata while keeping the same structure
+          const metadataNodes =
+            deepTransformNode(metadata, {
+              plugins: [metadataPlugins],
+              dictionaryKey: rest.dictionaryKey,
+              keyPath: [],
+            }) ?? {};
 
-    const render = (components?: any) => {
-      const nodeResult = renderIntlayerNode({
-        value: node,
-        component: configuration.editor.enabled
-          ? (_MarkdownWithSelector ?? _MarkdownRenderer)
-          : _MarkdownRenderer,
-        props: {
-          ...rest,
-          value: node,
-          ...components,
+          const render = (components?: any) => {
+            const nodeResult = renderIntlayerNode({
+              value: node,
+              component: configuration.editor.enabled
+                ? (_MarkdownWithSelector ?? _MarkdownRenderer)
+                : _MarkdownRenderer,
+              props: {
+                ...rest,
+                value: node,
+                ...components,
+              },
+              additionalProps: {
+                metadata: metadataNodes,
+              },
+            });
+
+            return new Proxy(nodeResult as any, {
+              get(target, prop, receiver) {
+                if (prop === 'value') {
+                  return node;
+                }
+                if (prop === 'metadata') {
+                  return metadataNodes;
+                }
+
+                if (prop === 'use') {
+                  return (newComponents?: any) => render(newComponents);
+                }
+
+                if (prop === 'toString') {
+                  return () =>
+                    _compile?.(
+                      node,
+                      { runtime: _svelteHtmlRuntime, components: components },
+                      {}
+                    ) ?? node;
+                }
+
+                return Reflect.get(target, prop, receiver);
+              },
+            });
+          };
+
+          return render();
         },
-        additionalProps: {
-          metadata: metadataNodes,
-        },
-      });
-
-      return new Proxy(nodeResult as any, {
-        get(target, prop, receiver) {
-          if (prop === 'value') {
-            return node;
-          }
-          if (prop === 'metadata') {
-            return metadataNodes;
-          }
-
-          if (prop === 'use') {
-            return (newComponents?: any) => render(newComponents);
-          }
-
-          if (prop === 'toString') {
-            return () =>
-              _compile?.(
-                node,
-                { runtime: _svelteHtmlRuntime, components: components },
-                {}
-              ) ?? node;
-          }
-
-          return Reflect.get(target, prop, receiver);
-        },
-      });
-    };
-
-    return render();
-  },
-};
+      };
 
 export type MarkdownCond<T, _S, L extends LocalesValues> = T extends {
   nodeType: NodeType | string;
@@ -371,28 +386,31 @@ export type MarkdownCond<T, _S, L extends LocalesValues> = T extends {
     } & any
   : never;
 
-export const markdownPlugin: Plugins = {
-  id: 'markdown-plugin',
-  canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeTypes.MARKDOWN,
-  transform: (node: MarkdownContent, props, deepTransformNode) => {
-    const newKeyPath: KeyPath[] = [
-      ...props.keyPath,
-      {
-        type: NodeTypes.MARKDOWN,
-      },
-    ];
+export const markdownPlugin: Plugins =
+  process.env.INTLAYER_NODE_TYPE_MARKDOWN === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'markdown-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' && node?.nodeType === NodeTypes.MARKDOWN,
+        transform: (node: MarkdownContent, props, deepTransformNode) => {
+          const newKeyPath: KeyPath[] = [
+            ...props.keyPath,
+            {
+              type: NodeTypes.MARKDOWN,
+            },
+          ];
 
-    const children = node[NodeTypes.MARKDOWN];
+          const children = node[NodeTypes.MARKDOWN];
 
-    return deepTransformNode(children, {
-      ...props,
-      children,
-      keyPath: newKeyPath,
-      plugins: [markdownStringPlugin, ...(props.plugins ?? [])],
-    });
-  },
-};
+          return deepTransformNode(children, {
+            ...props,
+            children,
+            keyPath: newKeyPath,
+            plugins: [markdownStringPlugin, ...(props.plugins ?? [])],
+          });
+        },
+      };
 
 /** ---------------------------------------------
  * HTML PLUGIN
@@ -409,33 +427,36 @@ export type HTMLPluginCond<T> = T extends {
   : never;
 
 /** HTML plugin. Replaces node with a function that takes components => HTMLElement[]. */
-export const htmlPlugin: Plugins = {
-  id: 'html-plugin',
-  canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeTypes.HTML,
-  transform: (node: HTMLContent<string>, props) => {
-    const htmlString = node[NodeTypes.HTML];
-    const _tags = node.tags ?? [];
+export const htmlPlugin: Plugins =
+  process.env.INTLAYER_NODE_TYPE_HTML === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'html-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' && node?.nodeType === NodeTypes.HTML,
+        transform: (node: HTMLContent<string>, props) => {
+          const htmlString = node[NodeTypes.HTML];
+          const _tags = node.tags ?? [];
 
-    // Type-safe render function that accepts properly typed components
-    const render = (userComponents: HTMLComponents = {}): any =>
-      renderIntlayerNode({
-        ...props,
-        value: htmlString,
-        component: HTMLRenderer,
-        props: {
-          ...props,
-          value: htmlString,
-          components: userComponents,
-        },
-        additionalProps: {
-          use: (components?: HTMLComponents) => render(components),
-        },
-      });
+          // Type-safe render function that accepts properly typed components
+          const render = (userComponents: HTMLComponents = {}): any =>
+            renderIntlayerNode({
+              ...props,
+              value: htmlString,
+              component: HTMLRenderer,
+              props: {
+                ...props,
+                value: htmlString,
+                components: userComponents,
+              },
+              additionalProps: {
+                use: (components?: HTMLComponents) => render(components),
+              },
+            });
 
-    return render();
-  },
-};
+          return render();
+        },
+      };
 
 export interface IInterpreterPluginSvelte<T, S, L extends LocalesValues> {
   svelteIntlayerNode: T extends string | number ? IntlayerNode<T> : never;
@@ -453,22 +474,18 @@ export const getPlugins = (
   fallback: boolean = true
 ): Plugins[] =>
   [
-    // Env var allows the bundler to to remove the plugin if not used to make the bundle smaller
-    process.env['INTLAYER_NODE_TYPE_TRANSLATION'] !== 'false' &&
-      translationPlugin(
-        locale ?? configuration.internationalization.defaultLocale,
-        fallback ? configuration.internationalization.defaultLocale : undefined
-      ),
-    process.env['INTLAYER_NODE_TYPE_ENUMERATION'] !== 'false' &&
-      enumerationPlugin,
-    process.env['INTLAYER_NODE_TYPE_CONDITION'] !== 'false' && conditionPlugin,
-    process.env['INTLAYER_NODE_TYPE_NESTED'] !== 'false' &&
-      nestedPlugin(locale ?? configuration.internationalization.defaultLocale),
-    process.env['INTLAYER_NODE_TYPE_FILE'] !== 'false' && filePlugin,
-    process.env['INTLAYER_NODE_TYPE_GENDER'] !== 'false' && genderPlugin,
+    translationPlugin(
+      locale ?? configuration.internationalization.defaultLocale,
+      fallback ? configuration.internationalization.defaultLocale : undefined
+    ),
+    enumerationPlugin,
+    conditionPlugin,
+    nestedPlugin(locale ?? configuration.internationalization.defaultLocale),
+    filePlugin,
+    genderPlugin,
     intlayerNodePlugins,
     svelteNodePlugins,
-    process.env['INTLAYER_NODE_TYPE_INSERTION'] !== 'false' && insertionPlugin,
-    process.env['INTLAYER_NODE_TYPE_MARKDOWN'] !== 'false' && markdownPlugin,
-    process.env['INTLAYER_NODE_TYPE_HTML'] !== 'false' && htmlPlugin,
+    insertionPlugin,
+    markdownPlugin,
+    htmlPlugin,
   ].filter(Boolean) as Plugins[];

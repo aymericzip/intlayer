@@ -16,6 +16,32 @@ export const GENDER = 'gender' as const;
 export const NULL = 'null' as const;
 export const UNKNOWN = 'unknown' as const;
 
+/**
+ * NodeType strings that correspond to plugins that can be conditionally
+ * removed from the bundle when unused.
+ */
+export const PLUGIN_NODE_TYPES: readonly [
+  typeof TRANSLATION,
+  typeof ENUMERATION,
+  typeof CONDITION,
+  typeof INSERTION,
+  typeof GENDER,
+  typeof NESTED,
+  typeof FILE,
+  typeof MARKDOWN,
+  typeof HTML,
+] = [
+  TRANSLATION,
+  ENUMERATION,
+  CONDITION,
+  INSERTION,
+  GENDER,
+  NESTED,
+  FILE,
+  MARKDOWN,
+  HTML,
+] as const;
+
 export type NodeType =
   | typeof TRANSLATION
   | typeof ENUMERATION

@@ -1,10 +1,11 @@
 import { prepareIntlayer } from '@intlayer/chokidar/build';
 import {
-  getNodeTypeDefineVars,
-  getUsedNodeTypes,
+  formatNodeTypeToEnvVar,
+  getUnusedNodeTypes,
 } from '@intlayer/chokidar/utils';
 import { watch } from '@intlayer/chokidar/watcher';
-import { logger } from '@intlayer/config/logger';
+import { BLUE } from '@intlayer/config/colors';
+import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { IntlayerConfig } from '@intlayer/types/config';
@@ -24,21 +25,34 @@ export class IntlayerPlugin {
 
     const isBuild = compiler.options.mode !== 'development';
 
-    const nodeTypeDefineVars = isBuild
-      ? Object.fromEntries(
-          Object.entries(
-            getNodeTypeDefineVars(
-              getUsedNodeTypes(getDictionaries(this.configuration))
-            )
-          ).map(([k, v]) => [`process.env.${k}`, JSON.stringify(v)])
-        )
-      : {};
+    const appLogger = getAppLogger(this.configuration);
+
+    let defineVars = {};
+
+    if (isBuild) {
+      const dictionaries = getDictionaries(this.configuration);
+      const unusedNodeTypes = getUnusedNodeTypes(dictionaries);
+
+      if (unusedNodeTypes.length > 0) {
+        appLogger(
+          [
+            'Filtering out unused plugins:',
+            unusedNodeTypes.map((key) => colorize(key, BLUE)).join(', '),
+          ],
+          {
+            isVerbose: true,
+          }
+        );
+      }
+
+      defineVars = formatNodeTypeToEnvVar(unusedNodeTypes, true);
+    }
 
     new webpack.DefinePlugin({
       'process.env.INTLAYER_EDITOR_ENABLED': JSON.stringify(
         this.configuration.editor?.enabled === false ? 'false' : 'true'
       ),
-      ...nodeTypeDefineVars,
+      ...defineVars,
     }).apply(compiler);
 
     if (this.configuration.content.watch) {
@@ -52,7 +66,7 @@ export class IntlayerPlugin {
           await prepareIntlayer(this.configuration);
           this.isWatching = true;
         } catch (error) {
-          logger(`Error in IntlayerPlugin: ${error}`, {
+          appLogger(`Error in IntlayerPlugin: ${error}`, {
             level: 'error',
           });
         }

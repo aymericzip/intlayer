@@ -1,20 +1,5 @@
 import type { Dictionary } from '@intlayer/types/dictionary';
-
-/**
- * NodeType strings that correspond to plugins that can be conditionally
- * removed from the bundle when unused.
- */
-export const PLUGIN_NODE_TYPES = [
-  'translation',
-  'enumeration',
-  'condition',
-  'insertion',
-  'gender',
-  'nested',
-  'file',
-  'markdown',
-  'html',
-] as const;
+import { PLUGIN_NODE_TYPES } from '@intlayer/types/nodeType';
 
 export type PluginNodeType = (typeof PLUGIN_NODE_TYPES)[number];
 
@@ -48,8 +33,8 @@ const collectNodeTypes = (value: unknown, result: Set<string>): void => {
  */
 export const getUsedNodeTypes = (
   dictionaries: Record<string, Dictionary> | Dictionary[]
-): Set<string> => {
-  const result = new Set<string>();
+): PluginNodeType[] => {
+  const result = new Set<PluginNodeType>();
   const dicts = Array.isArray(dictionaries)
     ? dictionaries
     : Object.values(dictionaries);
@@ -58,56 +43,38 @@ export const getUsedNodeTypes = (
     collectNodeTypes(dict.content, result);
   }
 
-  return result;
+  return [...result];
+};
+
+export const getUnusedNodeTypes = (
+  dictionaries: Record<string, Dictionary> | Dictionary[]
+): PluginNodeType[] => {
+  const usedNodeTypes = getUsedNodeTypes(dictionaries);
+
+  return PLUGIN_NODE_TYPES.filter(
+    (nodeType) => !usedNodeTypes.includes(nodeType)
+  );
 };
 
 /**
  * Converts a NodeType key to its corresponding env-var name.
  *
  * @example
- * nodeTypeToEnvVar('enumeration') // 'INTLAYER_NODE_TYPE_ENUMERATION'
+ * formatNodeTypeToEnvVar(['enumeration']) // { 'INTLAYER_NODE_TYPE_ENUMERATION': 'false' }
+ * formatNodeTypeToEnvVar(['enumeration'], true) // { 'process.env.INTLAYER_NODE_TYPE_ENUMERATION': 'false' }
  */
-export const nodeTypeToEnvVar = (nodeType: string): string =>
-  `INTLAYER_NODE_TYPE_${nodeType.toUpperCase()}`;
-
-/**
- * Returns a record mapping each **unused** NodeType to `'false'` so build
- * plugins can dead-code-eliminate the corresponding plugin from the bundle.
- *
- * Keys are bare env-var names (`INTLAYER_NODE_TYPE_*`).
- * Build plugins that need `process.env.*` keys (Vite `define`, webpack
- * `DefinePlugin`, Lynx `source.define`) should prefix them and wrap values
- * with `JSON.stringify`; Next.js `env:` can use the record directly.
- *
- * Only NodeTypes that are confirmed absent from all dictionaries get the
- * `'false'` value; used (or unknown) types are omitted so they default to
- * `true` inside `getPlugins` / `getBasePlugins`.
- *
- * @param usedNodeTypes - Set returned by `getUsedNodeTypes`.
- * @returns Record keyed by `INTLAYER_NODE_TYPE_*` → `'false'`.
- *
- * @example
- * // When only 'translation' is used:
- * getNodeTypeDefineVars(new Set(['translation']))
- * // {
- * //   INTLAYER_NODE_TYPE_ENUMERATION: 'false',
- * //   INTLAYER_NODE_TYPE_CONDITION: 'false',
- * //   ...
- * // }
- */
-export const getNodeTypeDefineVars = (
-  usedNodeTypes: Set<string>
-): Record<string, string> => {
-  // No dictionaries found yet → safe default: keep all plugins
-  if (usedNodeTypes.size === 0) return {};
-
-  const result: Record<string, string> = {};
-
-  for (const nodeType of PLUGIN_NODE_TYPES) {
-    if (!usedNodeTypes.has(nodeType)) {
-      result[nodeTypeToEnvVar(nodeType)] = 'false';
-    }
-  }
-
-  return result;
-};
+export const formatNodeTypeToEnvVar = (
+  nodeTypes: string[],
+  addProcessEnv: boolean = false
+): Record<string, string> =>
+  nodeTypes.reduce(
+    (acc, nodeType) => {
+      acc[
+        addProcessEnv
+          ? `process.env.INTLAYER_NODE_TYPE_${nodeType.toUpperCase()}`
+          : `INTLAYER_NODE_TYPE_${nodeType.toUpperCase()}`
+      ] = '"false"';
+      return acc;
+    },
+    {} as Record<string, string>
+  );

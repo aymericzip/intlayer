@@ -15,10 +15,10 @@ export const intlayerEditorPlugin = (
 ): Plugin => ({
   name: 'vite-intlayer-editor-plugin',
   config: () => ({
-    define: {
-      'process.env.INTLAYER_EDITOR_ENABLED': JSON.stringify(
-        intlayerConfig.editor?.enabled === false ? 'false' : 'true'
-      ),
-    },
+    define: intlayerConfig.editor?.enabled
+      ? {}
+      : {
+          'process.env.INTLAYER_EDITOR_ENABLED': '"false"',
+        },
   }),
 });

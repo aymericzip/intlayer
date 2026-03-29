@@ -3,6 +3,7 @@ import {
   conditionPlugin,
   type DeepTransformContent as DeepTransformContentCore,
   enumerationPlugin,
+  fallbackPlugin,
   filePlugin,
   genderPlugin,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
@@ -52,29 +53,32 @@ export type IntlayerNodeCond<T> = T extends number | string
   : never;
 
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
-export const intlayerNodePlugins: Plugins = {
-  id: 'intlayer-node-plugin',
-  canHandle: (node) =>
-    typeof node === 'bigint' ||
-    typeof node === 'string' ||
-    typeof node === 'number',
-  transform: (
-    _node,
-    {
-      plugins, // Removed to avoid next error - Functions cannot be passed directly to Client Components
-      ...rest
-    }
-  ) =>
-    renderIntlayerNode({
-      ...rest,
-      value: rest.children,
-      children: configuration.editor.enabled ? (
-        <ContentSelector {...rest}>{rest.children}</ContentSelector>
-      ) : (
-        rest.children
-      ),
-    }),
-};
+export const intlayerNodePlugins: Plugins =
+  process.env.INTLAYER_NODE_TYPE_INTLAYER_NODE === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'intlayer-node-plugin',
+        canHandle: (node) =>
+          typeof node === 'bigint' ||
+          typeof node === 'string' ||
+          typeof node === 'number',
+        transform: (
+          _node,
+          {
+            plugins, // Removed to avoid next error - Functions cannot be passed directly to Client Components
+            ...rest
+          }
+        ) =>
+          renderIntlayerNode({
+            ...rest,
+            value: rest.children,
+            children: configuration.editor.enabled ? (
+              <ContentSelector {...rest}>{rest.children}</ContentSelector>
+            ) : (
+              rest.children
+            ),
+          }),
+      };
 
 /** ---------------------------------------------
  *  SOLID NODE PLUGIN
@@ -88,35 +92,38 @@ export type SolidNodeCond<T> = T extends {
   : never;
 
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
-export const solidNodePlugins: Plugins = {
-  id: 'solid-node-plugin',
-  canHandle: (node) =>
-    (typeof node === 'object' && node?.props !== undefined) ||
-    (typeof Node !== 'undefined' && node instanceof Node),
+export const solidNodePlugins: Plugins =
+  process.env.INTLAYER_NODE_TYPE_SOLID_NODE === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'solid-node-plugin',
+        canHandle: (node) =>
+          (typeof node === 'object' && node?.props !== undefined) ||
+          (typeof Node !== 'undefined' && node instanceof Node),
 
-  transform: (
-    node,
-    {
-      plugins, // Removed to avoid next error - Functions cannot be passed directly to Client Components
-      ...rest
-    }
-  ) =>
-    renderIntlayerNode({
-      ...rest,
-      value: '[[solid-element]]',
-      children: configuration.editor.enabled ? (
-        <ContentSelector {...rest}>
-          {typeof Node !== 'undefined' && node instanceof Node
-            ? node
-            : renderSolidElement(node)}
-        </ContentSelector>
-      ) : typeof Node !== 'undefined' && node instanceof Node ? (
-        node
-      ) : (
-        renderSolidElement(node)
-      ),
-    }),
-};
+        transform: (
+          node,
+          {
+            plugins, // Removed to avoid next error - Functions cannot be passed directly to Client Components
+            ...rest
+          }
+        ) =>
+          renderIntlayerNode({
+            ...rest,
+            value: '[[solid-element]]',
+            children: configuration.editor.enabled ? (
+              <ContentSelector {...rest}>
+                {typeof Node !== 'undefined' && node instanceof Node
+                  ? node
+                  : renderSolidElement(node)}
+              </ContentSelector>
+            ) : typeof Node !== 'undefined' && node instanceof Node ? (
+              node
+            ) : (
+              renderSolidElement(node)
+            ),
+          }),
+      };
 
 /** ---------------------------------------------
  *  INSERTION PLUGIN
@@ -156,58 +163,61 @@ const splitAndJoinInsertion = (
 };
 
 /** Insertion plugin for Solid. Handles component/element insertion. */
-export const insertionPlugin: Plugins = {
-  id: 'insertion-plugin',
-  canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeTypes.INSERTION,
-  transform: (node: InsertionContent, props, deepTransformNode) => {
-    const newKeyPath: KeyPath[] = [
-      ...props.keyPath,
-      {
-        type: NodeTypes.INSERTION,
-      },
-    ];
+export const insertionPlugin: Plugins =
+  process.env.INTLAYER_NODE_TYPE_INSERTION === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'insertion-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' && node?.nodeType === NodeTypes.INSERTION,
+        transform: (node: InsertionContent, props, deepTransformNode) => {
+          const newKeyPath: KeyPath[] = [
+            ...props.keyPath,
+            {
+              type: NodeTypes.INSERTION,
+            },
+          ];
 
-    const children = node[NodeTypes.INSERTION];
+          const children = node[NodeTypes.INSERTION];
 
-    // Return the (values) => wrapper at the Insertion level
-    return (values: Record<string, string | number | JSX.Element>) => {
-      /** Insertion string plugin. Replaces strings by injecting the values. */
-      const insertionStringPlugin: Plugins = {
-        id: 'insertion-string-plugin',
-        canHandle: (n) => typeof n === 'string',
-        transform: (n: string, subProps, deepTransformNode) => {
-          const transformedResult = deepTransformNode(n, {
-            ...subProps,
-            children: n,
-            plugins: [
-              ...(props.plugins ?? ([] as Plugins[])).filter(
-                (plugin) => plugin.id !== 'intlayer-node-plugin'
-              ),
-            ],
-          });
+          // Return the (values) => wrapper at the Insertion level
+          return (values: Record<string, string | number | JSX.Element>) => {
+            /** Insertion string plugin. Replaces strings by injecting the values. */
+            const insertionStringPlugin: Plugins = {
+              id: 'insertion-string-plugin',
+              canHandle: (n) => typeof n === 'string',
+              transform: (n: string, subProps, deepTransformNode) => {
+                const transformedResult = deepTransformNode(n, {
+                  ...subProps,
+                  children: n,
+                  plugins: [
+                    ...(props.plugins ?? ([] as Plugins[])).filter(
+                      (plugin) => plugin.id !== 'intlayer-node-plugin'
+                    ),
+                  ],
+                });
 
-          // Inject the values captured from the parent scope
-          const result = splitAndJoinInsertion(transformedResult, values);
+                // Inject the values captured from the parent scope
+                const result = splitAndJoinInsertion(transformedResult, values);
 
-          return deepTransformNode(result, {
-            ...subProps,
-            plugins: props.plugins,
-            children: result,
-          });
+                return deepTransformNode(result, {
+                  ...subProps,
+                  plugins: props.plugins,
+                  children: result,
+                });
+              },
+            };
+
+            // Process the child nodes (strings or enumerations) with the string plugin active
+            return deepTransformNode(children, {
+              ...props,
+              children,
+              keyPath: newKeyPath,
+              plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
+            });
+          };
         },
       };
-
-      // Process the child nodes (strings or enumerations) with the string plugin active
-      return deepTransformNode(children, {
-        ...props,
-        children,
-        keyPath: newKeyPath,
-        plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
-      });
-    };
-  },
-};
 
 /**
  * MARKDOWN PLUGIN
@@ -224,103 +234,106 @@ export type MarkdownStringCond<T> = T extends string
   : never;
 
 /** Markdown string plugin. Replaces string node with a component that render the markdown. */
-export const markdownStringPlugin: Plugins = {
-  id: 'markdown-string-plugin',
-  canHandle: (node) => typeof node === 'string',
-  transform: (node: string, props, deepTransformNode) => {
-    const {
-      plugins, // Removed to avoid next error - Functions cannot be passed directly to Client Components
-      ...rest
-    } = props;
+export const markdownStringPlugin: Plugins =
+  process.env.INTLAYER_NODE_TYPE_MARKDOWN === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'markdown-string-plugin',
+        canHandle: (node) => typeof node === 'string',
+        transform: (node: string, props, deepTransformNode) => {
+          const {
+            plugins, // Removed to avoid next error - Functions cannot be passed directly to Client Components
+            ...rest
+          } = props;
 
-    const metadata = getMarkdownMetadata(node) ?? {};
+          const metadata = getMarkdownMetadata(node) ?? {};
 
-    const metadataPlugins: Plugins = {
-      id: 'markdown-metadata-plugin',
-      canHandle: (metadataNode) =>
-        typeof metadataNode === 'string' ||
-        typeof metadataNode === 'number' ||
-        typeof metadataNode === 'boolean' ||
-        !metadataNode,
-      transform: (metadataNode, props) =>
-        renderIntlayerNode({
-          ...props,
-          value: metadataNode,
-          children: configuration.editor.enabled ? (
-            <ContentSelector {...rest}>
-              <Suspense fallback={node}>
-                <LazyMarkdownMetadataRenderer
-                  {...rest}
-                  metadataKeyPath={props.keyPath}
-                >
-                  {node}
-                </LazyMarkdownMetadataRenderer>
-              </Suspense>
-            </ContentSelector>
-          ) : (
-            <Suspense fallback={node}>
-              <LazyMarkdownMetadataRenderer
-                {...rest}
-                metadataKeyPath={props.keyPath}
-              >
-                {node}
-              </LazyMarkdownMetadataRenderer>
-            </Suspense>
-          ),
-        }),
-    };
+          const metadataPlugins: Plugins = {
+            id: 'markdown-metadata-plugin',
+            canHandle: (metadataNode) =>
+              typeof metadataNode === 'string' ||
+              typeof metadataNode === 'number' ||
+              typeof metadataNode === 'boolean' ||
+              !metadataNode,
+            transform: (metadataNode, props) =>
+              renderIntlayerNode({
+                ...props,
+                value: metadataNode,
+                children: configuration.editor.enabled ? (
+                  <ContentSelector {...rest}>
+                    <Suspense fallback={node}>
+                      <LazyMarkdownMetadataRenderer
+                        {...rest}
+                        metadataKeyPath={props.keyPath}
+                      >
+                        {node}
+                      </LazyMarkdownMetadataRenderer>
+                    </Suspense>
+                  </ContentSelector>
+                ) : (
+                  <Suspense fallback={node}>
+                    <LazyMarkdownMetadataRenderer
+                      {...rest}
+                      metadataKeyPath={props.keyPath}
+                    >
+                      {node}
+                    </LazyMarkdownMetadataRenderer>
+                  </Suspense>
+                ),
+              }),
+          };
 
-    // Transform metadata while keeping the same structure
-    const metadataNodes = deepTransformNode(metadata, {
-      plugins: [metadataPlugins],
-      dictionaryKey: rest.dictionaryKey,
-      keyPath: [],
-    });
+          // Transform metadata while keeping the same structure
+          const metadataNodes = deepTransformNode(metadata, {
+            plugins: [metadataPlugins],
+            dictionaryKey: rest.dictionaryKey,
+            keyPath: [],
+          });
 
-    const render = (components?: HTMLComponents) =>
-      renderIntlayerNode({
-        ...props,
-        value: node,
-        children: configuration.editor.enabled ? (
-          <ContentSelector {...rest}>
-            <Suspense fallback={node}>
-              <LazyMarkdownRenderer {...rest} components={components}>
-                {node}
-              </LazyMarkdownRenderer>
-            </Suspense>
-          </ContentSelector>
-        ) : (
-          <Suspense fallback={node}>
-            <LazyMarkdownRenderer {...rest} components={components}>
-              {node}
-            </LazyMarkdownRenderer>
-          </Suspense>
-        ),
-        additionalProps: {
-          metadata: metadataNodes,
+          const render = (components?: HTMLComponents) =>
+            renderIntlayerNode({
+              ...props,
+              value: node,
+              children: configuration.editor.enabled ? (
+                <ContentSelector {...rest}>
+                  <Suspense fallback={node}>
+                    <LazyMarkdownRenderer {...rest} components={components}>
+                      {node}
+                    </LazyMarkdownRenderer>
+                  </Suspense>
+                </ContentSelector>
+              ) : (
+                <Suspense fallback={node}>
+                  <LazyMarkdownRenderer {...rest} components={components}>
+                    {node}
+                  </LazyMarkdownRenderer>
+                </Suspense>
+              ),
+              additionalProps: {
+                metadata: metadataNodes,
+              },
+            });
+
+          const element = render() as any;
+
+          return new Proxy(element, {
+            get(target, prop, receiver) {
+              if (prop === 'value') {
+                return node;
+              }
+              if (prop === 'metadata') {
+                return metadataNodes;
+              }
+
+              if (prop === 'use') {
+                return (components?: HTMLComponents) => render(components);
+              }
+
+              return Reflect.get(target, prop, receiver);
+            },
+          });
         },
-      });
-
-    const element = render() as any;
-
-    return new Proxy(element, {
-      get(target, prop, receiver) {
-        if (prop === 'value') {
-          return node;
-        }
-        if (prop === 'metadata') {
-          return metadataNodes;
-        }
-
-        if (prop === 'use') {
-          return (components?: HTMLComponents) => render(components);
-        }
-
-        return Reflect.get(target, prop, receiver);
-      },
-    });
-  },
-};
+      };
 
 export type MarkdownCond<T> = T extends {
   nodeType: NodeType | string;
@@ -337,28 +350,31 @@ export type MarkdownCond<T> = T extends {
     >
   : never;
 
-export const markdownPlugin: Plugins = {
-  id: 'markdown-plugin',
-  canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeTypes.MARKDOWN,
-  transform: (node: MarkdownContent, props, deepTransformNode) => {
-    const newKeyPath: KeyPath[] = [
-      ...props.keyPath,
-      {
-        type: NodeTypes.MARKDOWN,
-      },
-    ];
+export const markdownPlugin: Plugins =
+  process.env.INTLAYER_NODE_TYPE_MARKDOWN === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'markdown-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' && node?.nodeType === NodeTypes.MARKDOWN,
+        transform: (node: MarkdownContent, props, deepTransformNode) => {
+          const newKeyPath: KeyPath[] = [
+            ...props.keyPath,
+            {
+              type: NodeTypes.MARKDOWN,
+            },
+          ];
 
-    const children = node[NodeTypes.MARKDOWN];
+          const children = node[NodeTypes.MARKDOWN];
 
-    return deepTransformNode(children, {
-      ...props,
-      children,
-      keyPath: newKeyPath,
-      plugins: [markdownStringPlugin, ...(props.plugins ?? [])],
-    });
-  },
-};
+          return deepTransformNode(children, {
+            ...props,
+            children,
+            keyPath: newKeyPath,
+            plugins: [markdownStringPlugin, ...(props.plugins ?? [])],
+          });
+        },
+      };
 
 const LazyHTMLRenderer = lazy(() =>
   import('./html/HTMLRenderer').then((m) => ({ default: m.HTMLRenderer }))
@@ -382,48 +398,52 @@ export type HTMLPluginCond<T> = T extends {
   : never;
 
 /** HTML plugin. Replaces node with a function that takes components => JSX.Element. */
-export const htmlPlugin: Plugins = {
-  id: 'html-plugin',
-  canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeTypes.HTML,
-  transform: (node: HTMLContent<string>, props) => {
-    const html = node[NodeTypes.HTML];
-    const { plugins, ...rest } = props;
+export const htmlPlugin: Plugins =
+  process.env.INTLAYER_NODE_TYPE_HTML === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'html-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' && node?.nodeType === NodeTypes.HTML,
+        transform: (node: HTMLContent<string>, props) => {
+          const html = node[NodeTypes.HTML];
+          const { plugins, ...rest } = props;
 
-    // Type-safe render function that accepts properly typed components
-    const render = (userComponents?: HTMLComponents): any =>
-      renderIntlayerNode({
-        ...rest,
-        value: html,
-        children: (
-          <Suspense fallback={html}>
-            <LazyHTMLRenderer
-              {...rest}
-              html={html}
-              components={userComponents}
-            />
-          </Suspense>
-        ),
-      });
+          // Type-safe render function that accepts properly typed components
+          const render = (userComponents?: HTMLComponents): any =>
+            renderIntlayerNode({
+              ...rest,
+              value: html,
+              children: (
+                <Suspense fallback={html}>
+                  <LazyHTMLRenderer
+                    {...rest}
+                    html={html}
+                    components={userComponents}
+                  />
+                </Suspense>
+              ),
+            });
 
-    const element = render() as any;
-    const target = [element];
+          const element = render() as any;
+          const target = [element];
 
-    return new Proxy(target as any, {
-      get(target, prop, receiver) {
-        if (prop === 'value') {
-          return html;
-        }
+          return new Proxy(target as any, {
+            get(target, prop, receiver) {
+              if (prop === 'value') {
+                return html;
+              }
 
-        if (prop === 'use') {
-          return (userComponents?: HTMLComponents) => render(userComponents);
-        }
+              if (prop === 'use') {
+                return (userComponents?: HTMLComponents) =>
+                  render(userComponents);
+              }
 
-        return Reflect.get(target, prop, receiver);
-      },
-    });
-  },
-};
+              return Reflect.get(target, prop, receiver);
+            },
+          });
+        },
+      };
 
 /** ---------------------------------------------
  *  PLUGINS RESULT
@@ -467,23 +487,19 @@ export const getPlugins = (
   fallback: boolean = true
 ): Plugins[] =>
   [
-    // Env var allows the bundler to to remove the plugin if not used to make the bundle smaller
-    process.env['INTLAYER_NODE_TYPE_TRANSLATION'] !== 'false' &&
-      translationPlugin(
-        locale ?? configuration.internationalization.defaultLocale,
-        fallback ? configuration.internationalization.defaultLocale : undefined
-      ),
-    process.env['INTLAYER_NODE_TYPE_ENUMERATION'] !== 'false' &&
-      enumerationPlugin,
-    process.env['INTLAYER_NODE_TYPE_CONDITION'] !== 'false' && conditionPlugin,
-    process.env['INTLAYER_NODE_TYPE_NESTED'] !== 'false' &&
-      nestedPlugin(locale ?? configuration.internationalization.defaultLocale),
-    process.env['INTLAYER_NODE_TYPE_FILE'] !== 'false' && filePlugin,
-    process.env['INTLAYER_NODE_TYPE_GENDER'] !== 'false' && genderPlugin,
+    translationPlugin(
+      locale ?? configuration.internationalization.defaultLocale,
+      fallback ? configuration.internationalization.defaultLocale : undefined
+    ),
+    enumerationPlugin,
+    conditionPlugin,
+    nestedPlugin(locale ?? configuration.internationalization.defaultLocale),
+    filePlugin,
+    genderPlugin,
     // Always include: handle plain strings/numbers and React elements
     intlayerNodePlugins,
     solidNodePlugins,
-    process.env['INTLAYER_NODE_TYPE_INSERTION'] !== 'false' && insertionPlugin,
-    process.env['INTLAYER_NODE_TYPE_MARKDOWN'] !== 'false' && markdownPlugin,
-    process.env['INTLAYER_NODE_TYPE_HTML'] !== 'false' && htmlPlugin,
+    insertionPlugin,
+    markdownPlugin,
+    htmlPlugin,
   ].filter(Boolean) as Plugins[];

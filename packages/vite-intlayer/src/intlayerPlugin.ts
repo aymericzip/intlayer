@@ -2,10 +2,12 @@ import { resolve } from 'node:path';
 import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { logConfigDetails } from '@intlayer/chokidar/cli';
 import {
-  getNodeTypeDefineVars,
-  getUsedNodeTypes,
+  formatNodeTypeToEnvVar,
+  getUnusedNodeTypes,
 } from '@intlayer/chokidar/utils';
 import { watch } from '@intlayer/chokidar/watcher';
+import { BLUE } from '@intlayer/config/colors';
+import { colorize, getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,
@@ -45,6 +47,7 @@ export const intlayerPlugin = (
 ): PluginOption => {
   const intlayerConfig = getConfiguration(configOptions);
   logConfigDetails(configOptions);
+  const appLogger = getAppLogger(intlayerConfig);
 
   const alias = getAlias({
     configuration: intlayerConfig,
@@ -57,7 +60,7 @@ export const intlayerPlugin = (
     {
       name: 'vite-intlayer-plugin',
 
-      config: async (config, env) => {
+      config: async (_config, env) => {
         const { mode } = intlayerConfig.build;
 
         const isDevCommand =
@@ -78,20 +81,34 @@ export const intlayerPlugin = (
           });
         }
 
-        const nodeTypeDefineVars = isBuildCommand
-          ? Object.fromEntries(
-              Object.entries(
-                getNodeTypeDefineVars(
-                  getUsedNodeTypes(getDictionaries(intlayerConfig))
-                )
-              ).map(([k, v]) => [`process.env.${k}`, JSON.stringify(v)])
-            )
-          : {};
+        let define = {};
+
+        if (isBuildCommand) {
+          const dictionaries = getDictionaries(intlayerConfig);
+          const unusedNodeTypes = getUnusedNodeTypes(dictionaries);
+
+          if (unusedNodeTypes.length > 0) {
+            appLogger(
+              [
+                'Filtering out unused plugins:',
+                unusedNodeTypes.map((key) => colorize(key, BLUE)).join(', '),
+              ],
+              {
+                isVerbose: true,
+              }
+            );
+          }
+
+          define = {
+            ...define,
+            ...formatNodeTypeToEnvVar(unusedNodeTypes, true),
+          };
+        }
 
         // mergeConfig handles both array and record alias formats,
         // and correctly appends to optimizeDeps.exclude / ssr.noExternal
         return {
-          define: nodeTypeDefineVars,
+          define,
           resolve: {
             alias,
           },

@@ -1,9 +1,11 @@
 import { prepareIntlayer } from '@intlayer/chokidar/build';
 import {
-  getNodeTypeDefineVars,
-  getUsedNodeTypes,
+  formatNodeTypeToEnvVar,
+  getUnusedNodeTypes,
 } from '@intlayer/chokidar/utils';
 import { watch } from '@intlayer/chokidar/watcher';
+import { BLUE } from '@intlayer/config/colors';
+import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
 import { getAlias, getProjectRequire } from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
@@ -44,17 +46,30 @@ export const pluginIntlayerLynx = (): RsbuildPlugin => {
         watch({ configuration });
       }
 
-      const isBuild = api.context.command === 'build';
+      const isBuild = api.context.action === 'build';
 
-      const nodeTypeDefineVars = isBuild
-        ? Object.fromEntries(
-            Object.entries(
-              getNodeTypeDefineVars(
-                getUsedNodeTypes(getDictionaries(configuration))
-              )
-            ).map(([k, v]) => [`process.env.${k}`, JSON.stringify(v)])
-          )
-        : {};
+      let defineVars = {};
+
+      if (isBuild) {
+        const appLogger = getAppLogger(configuration);
+
+        const dictionaries = getDictionaries(configuration);
+        const unusedNodeTypes = getUnusedNodeTypes(dictionaries);
+
+        if (unusedNodeTypes.length > 0) {
+          appLogger(
+            [
+              'Filtering out unused plugins:',
+              unusedNodeTypes.map((key) => colorize(key, BLUE)).join(', '),
+            ],
+            {
+              isVerbose: true,
+            }
+          );
+        }
+
+        defineVars = formatNodeTypeToEnvVar(unusedNodeTypes, true);
+      }
 
       // Merge Intlayer-specific environment variables and alias configuration.
       api.modifyRsbuildConfig(async (config, { mergeRsbuildConfig }) => {
@@ -64,7 +79,7 @@ export const pluginIntlayerLynx = (): RsbuildPlugin => {
               'process.env.INTLAYER_EDITOR_ENABLED': JSON.stringify(
                 configuration.editor?.enabled === false ? 'false' : 'true'
               ),
-              ...nodeTypeDefineVars,
+              ...defineVars,
             },
           },
           resolve: {

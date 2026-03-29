@@ -3,6 +3,7 @@ import {
   conditionPlugin,
   type DeepTransformContent as DeepTransformContentCore,
   enumerationPlugin,
+  fallbackPlugin,
   filePlugin,
   genderPlugin,
   getHTML,
@@ -107,25 +108,28 @@ const escapeHtmlText = (str: string): string =>
  * When the editor is enabled, wraps the content with
  * `<intlayer-content-selector-wrapper>` so the visual editor can highlight it.
  */
-export const intlayerNodePlugins: Plugins = {
-  id: 'intlayer-node-plugin',
-  canHandle: (node) =>
-    typeof node === 'bigint' ||
-    typeof node === 'string' ||
-    typeof node === 'number',
-  transform: (_node, { children, keyPath, dictionaryKey, ...rest }) => {
-    if (configuration.editor.enabled) {
-      const rawStr = String(children ?? '');
-      const htmlStr = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${escapeHtmlText(rawStr)}</intlayer-content-selector-wrapper>`;
-      return createLitHTMLNode(htmlStr, rawStr);
-    }
-    return renderIntlayerNode({
-      ...rest,
-      value: children as string,
-      children,
-    });
-  },
-};
+export const intlayerNodePlugins: Plugins =
+  process.env.INTLAYER_NODE_TYPE_INTLAYER_NODE === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'intlayer-node-plugin',
+        canHandle: (node) =>
+          typeof node === 'bigint' ||
+          typeof node === 'string' ||
+          typeof node === 'number',
+        transform: (_node, { children, keyPath, dictionaryKey, ...rest }) => {
+          if (configuration.editor.enabled) {
+            const rawStr = String(children ?? '');
+            const htmlStr = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${escapeHtmlText(rawStr)}</intlayer-content-selector-wrapper>`;
+            return createLitHTMLNode(htmlStr, rawStr);
+          }
+          return renderIntlayerNode({
+            ...rest,
+            value: children as string,
+            children,
+          });
+        },
+      };
 
 /** ---------------------------------------------
  * INSERTION PLUGIN
@@ -141,76 +145,84 @@ export type InsertionCond<T, _S, L extends LocalesValues> = T extends {
     ) => I extends string ? IntlayerNode<string> : DeepTransformContent<I, L>
   : never;
 
-export const insertionPlugin: Plugins = {
-  id: 'insertion-plugin',
-  canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeTypes.INSERTION,
-  transform: (node: InsertionContent, props, deepTransformNode) => {
-    const newKeyPath: KeyPath[] = [
-      ...props.keyPath,
-      { type: NodeTypes.INSERTION },
-    ];
+export const insertionPlugin: Plugins =
+  process.env.INTLAYER_NODE_TYPE_INSERTION === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'insertion-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' && node?.nodeType === NodeTypes.INSERTION,
+        transform: (node: InsertionContent, props, deepTransformNode) => {
+          const newKeyPath: KeyPath[] = [
+            ...props.keyPath,
+            { type: NodeTypes.INSERTION },
+          ];
 
-    const children = node[NodeTypes.INSERTION];
+          const children = node[NodeTypes.INSERTION];
 
-    const insertionStringPlugin: Plugins = {
-      id: 'insertion-string-plugin',
-      canHandle: (node) => typeof node === 'string',
-      transform: (node: string, subProps, deepTransformNode) => {
-        const transformedResult = deepTransformNode(node, {
-          ...subProps,
-          children: node,
-          plugins: (props.plugins ?? ([] as Plugins[])).filter(
-            (plugin) => plugin.id !== 'intlayer-node-plugin'
-          ),
-        });
+          const insertionStringPlugin: Plugins = {
+            id: 'insertion-string-plugin',
+            canHandle: (node) => typeof node === 'string',
+            transform: (node: string, subProps, deepTransformNode) => {
+              const transformedResult = deepTransformNode(node, {
+                ...subProps,
+                children: node,
+                plugins: (props.plugins ?? ([] as Plugins[])).filter(
+                  (plugin) => plugin.id !== 'intlayer-node-plugin'
+                ),
+              });
 
-        return (
-          values: { [K in InsertionContent['fields'][number]]: string | number }
-        ) => {
-          const result = splitInsertionTemplate(transformedResult, values);
-          const resultStr = result.isSimple
-            ? (result.parts as string)
-            : (result.parts as string[]).join('');
+              return (
+                values: {
+                  [K in InsertionContent['fields'][number]]: string | number;
+                }
+              ) => {
+                const result = splitInsertionTemplate(
+                  transformedResult,
+                  values
+                );
+                const resultStr = result.isSimple
+                  ? (result.parts as string)
+                  : (result.parts as string[]).join('');
 
-          return deepTransformNode(resultStr, {
-            ...subProps,
-            plugins: props.plugins,
-            children: resultStr,
+                return deepTransformNode(resultStr, {
+                  ...subProps,
+                  plugins: props.plugins,
+                  children: resultStr,
+                });
+              };
+            },
+          };
+
+          const transformed = deepTransformNode(children, {
+            ...props,
+            children,
+            keyPath: newKeyPath,
+            plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
           });
-        };
-      },
-    };
 
-    const transformed = deepTransformNode(children, {
-      ...props,
-      children,
-      keyPath: newKeyPath,
-      plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
-    });
+          // When children is an enumeration/condition, deepTransformNode returns a
+          // function (arg) => insertionWrapper. Mirror React's convention:
+          // return (values) => (arg) => result so the caller does fn(values)(count).
+          if (
+            typeof children === 'object' &&
+            children !== null &&
+            'nodeType' in children &&
+            [NodeTypes.ENUMERATION, NodeTypes.CONDITION].includes(
+              children.nodeType as
+                | typeof NodeTypes.ENUMERATION
+                | typeof NodeTypes.CONDITION
+            )
+          ) {
+            return (values: any) => (arg: any) => {
+              const inner = (transformed as (a: any) => any)(arg);
+              return typeof inner === 'function' ? inner(values) : inner;
+            };
+          }
 
-    // When children is an enumeration/condition, deepTransformNode returns a
-    // function (arg) => insertionWrapper. Mirror React's convention:
-    // return (values) => (arg) => result so the caller does fn(values)(count).
-    if (
-      typeof children === 'object' &&
-      children !== null &&
-      'nodeType' in children &&
-      [NodeTypes.ENUMERATION, NodeTypes.CONDITION].includes(
-        children.nodeType as
-          | typeof NodeTypes.ENUMERATION
-          | typeof NodeTypes.CONDITION
-      )
-    ) {
-      return (values: any) => (arg: any) => {
-        const inner = (transformed as (a: any) => any)(arg);
-        return typeof inner === 'function' ? inner(values) : inner;
+          return transformed;
+        },
       };
-    }
-
-    return transformed;
-  },
-};
 
 /** ---------------------------------------------
  * MARKDOWN PLUGIN
@@ -227,63 +239,66 @@ export type MarkdownStringCond<T> = T extends string
     >
   : never;
 
-export const markdownStringPlugin: Plugins = {
-  id: 'markdown-string-plugin',
-  canHandle: (node) => typeof node === 'string',
-  transform: (node: string, props, deepTransformNode) => {
-    const { plugins: _plugins, ...rest } = props;
-    const { keyPath, dictionaryKey } = rest;
+export const markdownStringPlugin: Plugins =
+  process.env.INTLAYER_NODE_TYPE_MARKDOWN === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'markdown-string-plugin',
+        canHandle: (node) => typeof node === 'string',
+        transform: (node: string, props, deepTransformNode) => {
+          const { plugins: _plugins, ...rest } = props;
+          const { keyPath, dictionaryKey } = rest;
 
-    const metadata = getMarkdownMetadata(node) ?? {};
+          const metadata = getMarkdownMetadata(node) ?? {};
 
-    const metadataPlugins: Plugins = {
-      id: 'markdown-metadata-plugin',
-      canHandle: (metadataNode) =>
-        typeof metadataNode === 'string' ||
-        typeof metadataNode === 'number' ||
-        typeof metadataNode === 'boolean' ||
-        !metadataNode,
-      transform: (metadataNode, subProps) =>
-        renderIntlayerNode({
-          ...subProps,
-          value: metadataNode,
-          children: node,
-        }),
-    };
+          const metadataPlugins: Plugins = {
+            id: 'markdown-metadata-plugin',
+            canHandle: (metadataNode) =>
+              typeof metadataNode === 'string' ||
+              typeof metadataNode === 'number' ||
+              typeof metadataNode === 'boolean' ||
+              !metadataNode,
+            transform: (metadataNode, subProps) =>
+              renderIntlayerNode({
+                ...subProps,
+                value: metadataNode,
+                children: node,
+              }),
+          };
 
-    const metadataNodes = deepTransformNode(metadata, {
-      plugins: [metadataPlugins],
-      dictionaryKey: rest.dictionaryKey,
-      keyPath: [],
-    });
+          const metadataNodes = deepTransformNode(metadata, {
+            plugins: [metadataPlugins],
+            dictionaryKey: rest.dictionaryKey,
+            keyPath: [],
+          });
 
-    const compiled = compileMarkdown(node);
+          const compiled = compileMarkdown(node);
 
-    const use = (components?: any) => {
-      const rendered = compileMarkdown(node, { components });
+          const use = (components?: any) => {
+            const rendered = compileMarkdown(node, { components });
 
-      if (configuration.editor.enabled) {
-        const wrappedHTML = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${rendered}</intlayer-content-selector-wrapper>`;
-        return createLitHTMLNode(wrappedHTML, node);
-      }
+            if (configuration.editor.enabled) {
+              const wrappedHTML = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${rendered}</intlayer-content-selector-wrapper>`;
+              return createLitHTMLNode(wrappedHTML, node);
+            }
 
-      return createLitHTMLNode(rendered, node);
-    };
+            return createLitHTMLNode(rendered, node);
+          };
 
-    if (configuration.editor.enabled) {
-      const wrappedHTML = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${compiled}</intlayer-content-selector-wrapper>`;
-      return createLitHTMLNode(wrappedHTML, node, {
-        metadata: metadataNodes,
-        use,
-      });
-    }
+          if (configuration.editor.enabled) {
+            const wrappedHTML = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${compiled}</intlayer-content-selector-wrapper>`;
+            return createLitHTMLNode(wrappedHTML, node, {
+              metadata: metadataNodes,
+              use,
+            });
+          }
 
-    return createLitHTMLNode(compiled, node, {
-      metadata: metadataNodes,
-      use,
-    });
-  },
-};
+          return createLitHTMLNode(compiled, node, {
+            metadata: metadataNodes,
+            use,
+          });
+        },
+      };
 
 export type MarkdownCond<T> = T extends {
   nodeType: NodeType | string;
@@ -297,26 +312,29 @@ export type MarkdownCond<T> = T extends {
     }
   : never;
 
-export const markdownPlugin: Plugins = {
-  id: 'markdown-plugin',
-  canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeTypes.MARKDOWN,
-  transform: (node: MarkdownContent, props, deepTransformNode) => {
-    const newKeyPath: KeyPath[] = [
-      ...props.keyPath,
-      { type: NodeTypes.MARKDOWN },
-    ];
+export const markdownPlugin: Plugins =
+  process.env.INTLAYER_NODE_TYPE_MARKDOWN === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'markdown-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' && node?.nodeType === NodeTypes.MARKDOWN,
+        transform: (node: MarkdownContent, props, deepTransformNode) => {
+          const newKeyPath: KeyPath[] = [
+            ...props.keyPath,
+            { type: NodeTypes.MARKDOWN },
+          ];
 
-    const children = node[NodeTypes.MARKDOWN];
+          const children = node[NodeTypes.MARKDOWN];
 
-    return deepTransformNode(children, {
-      ...props,
-      children,
-      keyPath: newKeyPath,
-      plugins: [markdownStringPlugin, ...(props.plugins ?? [])],
-    });
-  },
-};
+          return deepTransformNode(children, {
+            ...props,
+            children,
+            keyPath: newKeyPath,
+            plugins: [markdownStringPlugin, ...(props.plugins ?? [])],
+          });
+        },
+      };
 
 /** ---------------------------------------------
  * HTML PLUGIN
@@ -333,58 +351,61 @@ export type HTMLPluginCond<T> = T extends {
     }
   : never;
 
-export const htmlPlugin: Plugins = {
-  id: 'html-plugin',
-  canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeTypes.HTML,
-  transform: (node: HTMLContent<string>, props) => {
-    const htmlStr = node[NodeTypes.HTML] as string;
-    const { keyPath, dictionaryKey } = props;
+export const htmlPlugin: Plugins =
+  process.env.INTLAYER_NODE_TYPE_HTML === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'html-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' && node?.nodeType === NodeTypes.HTML,
+        transform: (node: HTMLContent<string>, props) => {
+          const htmlStr = node[NodeTypes.HTML] as string;
+          const { keyPath, dictionaryKey } = props;
 
-    const use = (components: HTMLComponents<'permissive', {}> = {}) => {
-      // Wrap explicit user components to ensure they return what getHTML expects
-      const userComponents = Object.fromEntries(
-        Object.entries(components)
-          .filter(([, Component]) => Component)
-          .map(([key, Component]) => [
-            key,
-            (props: any) => (Component as LitHTMLComponent)(props),
-          ])
-      );
+          const use = (components: HTMLComponents<'permissive', {}> = {}) => {
+            // Wrap explicit user components to ensure they return what getHTML expects
+            const userComponents = Object.fromEntries(
+              Object.entries(components)
+                .filter(([, Component]) => Component)
+                .map(([key, Component]) => [
+                  key,
+                  (props: any) => (Component as LitHTMLComponent)(props),
+                ])
+            );
 
-      // Proxy handles standard HTML tags lazily
-      const wrappedComponents = new Proxy(userComponents, {
-        get(target, prop) {
-          if (typeof prop === 'string' && prop in target) {
-            return target[prop];
+            // Proxy handles standard HTML tags lazily
+            const wrappedComponents = new Proxy(userComponents, {
+              get(target, prop) {
+                if (typeof prop === 'string' && prop in target) {
+                  return target[prop];
+                }
+                // Fallback: wrapper for standard lowercase HTML tags
+                if (typeof prop === 'string' && /^[a-z][a-z0-9]*$/.test(prop)) {
+                  return (props: any) =>
+                    html`<${unsafeStatic(prop)} ...${props}>${props.children}</${unsafeStatic(prop)}>`;
+                }
+                return undefined;
+              },
+            });
+
+            const rendered = getHTML(htmlStr, wrappedComponents as any);
+
+            if (configuration.editor.enabled) {
+              const wrappedHTML = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${rendered}</intlayer-content-selector-wrapper>`;
+              return createLitHTMLNode(wrappedHTML, htmlStr);
+            }
+
+            return createLitHTMLNode(rendered, htmlStr);
+          };
+
+          if (configuration.editor.enabled) {
+            const wrappedHTML = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${htmlStr}</intlayer-content-selector-wrapper>`;
+            return createLitHTMLNode(wrappedHTML, htmlStr, { use });
           }
-          // Fallback: wrapper for standard lowercase HTML tags
-          if (typeof prop === 'string' && /^[a-z][a-z0-9]*$/.test(prop)) {
-            return (props: any) =>
-              html`<${unsafeStatic(prop)} ...${props}>${props.children}</${unsafeStatic(prop)}>`;
-          }
-          return undefined;
+
+          return createLitHTMLNode(htmlStr, htmlStr, { use });
         },
-      });
-
-      const rendered = getHTML(htmlStr, wrappedComponents as any);
-
-      if (configuration.editor.enabled) {
-        const wrappedHTML = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${rendered}</intlayer-content-selector-wrapper>`;
-        return createLitHTMLNode(wrappedHTML, htmlStr);
-      }
-
-      return createLitHTMLNode(rendered, htmlStr);
-    };
-
-    if (configuration.editor.enabled) {
-      const wrappedHTML = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${htmlStr}</intlayer-content-selector-wrapper>`;
-      return createLitHTMLNode(wrappedHTML, htmlStr, { use });
-    }
-
-    return createLitHTMLNode(htmlStr, htmlStr, { use });
-  },
-};
+      };
 
 /** ---------------------------------------------
  * PLUGINS RESULT
@@ -424,22 +445,18 @@ export const getPlugins = (
     configuration.internationalization.defaultLocale;
 
   return [
-    // Env var allows the bundler to to remove the plugin if not used to make the bundle smaller
-    process.env['INTLAYER_NODE_TYPE_TRANSLATION'] !== 'false' &&
-      translationPlugin(
-        currentLocale,
-        fallback ? configuration.internationalization.defaultLocale : undefined
-      ),
-    process.env['INTLAYER_NODE_TYPE_ENUMERATION'] !== 'false' &&
-      enumerationPlugin,
-    process.env['INTLAYER_NODE_TYPE_CONDITION'] !== 'false' && conditionPlugin,
-    process.env['INTLAYER_NODE_TYPE_NESTED'] !== 'false' &&
-      nestedPlugin(currentLocale),
-    process.env['INTLAYER_NODE_TYPE_FILE'] !== 'false' && filePlugin,
-    process.env['INTLAYER_NODE_TYPE_GENDER'] !== 'false' && genderPlugin,
+    translationPlugin(
+      currentLocale,
+      fallback ? configuration.internationalization.defaultLocale : undefined
+    ),
+    enumerationPlugin,
+    conditionPlugin,
+    nestedPlugin(currentLocale),
+    filePlugin,
+    genderPlugin,
     intlayerNodePlugins,
-    process.env['INTLAYER_NODE_TYPE_INSERTION'] !== 'false' && insertionPlugin,
-    process.env['INTLAYER_NODE_TYPE_MARKDOWN'] !== 'false' && markdownPlugin,
-    process.env['INTLAYER_NODE_TYPE_HTML'] !== 'false' && htmlPlugin,
+    insertionPlugin,
+    markdownPlugin,
+    htmlPlugin,
   ].filter(Boolean) as Plugins[];
 };
