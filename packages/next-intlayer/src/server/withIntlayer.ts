@@ -129,14 +129,12 @@ const getPruneConfig = (
     join(baseDir, '.intlayer', 'cache', 'intlayer-prune-plugin-enabled.lock'),
     () => {
       if (isSwcPluginAvailable) {
-        logger(
-          logger([
-            'Build optimization enabled',
-            colorize(`(import mode:`, ANSIColors.GREY_DARK),
-            colorize(importMode ?? IMPORT_MODE, ANSIColors.BLUE),
-            colorize(`)`, ANSIColors.GREY_DARK),
-          ])
-        );
+        logger([
+          'Build optimization enabled',
+          colorize(`(import mode:`, ANSIColors.GREY_DARK),
+          colorize(importMode ?? IMPORT_MODE, ANSIColors.BLUE),
+          colorize(`)`, ANSIColors.GREY_DARK),
+        ]);
       } else {
         logger([
           colorize('Recommended: Install', ANSIColors.GREY),
@@ -366,7 +364,7 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
     if (unusedNodeTypes.length > 0) {
       appLogger(
         [
-          'Filtering out unused plugins:',
+          'Filtering out plugins:',
           unusedNodeTypes
             .map((key) => colorize(key, ANSIColors.BLUE))
             .join(', '),
