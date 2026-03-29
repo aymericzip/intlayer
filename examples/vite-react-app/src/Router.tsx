@@ -20,11 +20,11 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
             <IntlayerProvider locale={locale}>
               <MarkdownProvider
                 renderMarkdown={async (md) => {
-                  const { compileMarkdown } = await import(
+                  const { renderMarkdown } = await import(
                     'react-intlayer/markdown'
                   );
 
-                  return compileMarkdown(md);
+                  return renderMarkdown(md);
                 }}
               >
                 {children}
