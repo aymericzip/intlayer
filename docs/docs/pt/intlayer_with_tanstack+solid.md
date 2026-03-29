@@ -879,9 +879,7 @@ Em seguida, crie uma rota `src/routes/sitemap[.]xml.ts` que use a função `gene
 import { createFileRoute } from "@tanstack/solid-router";
 import { generateSitemap } from "intlayer";
 
-const SITE_URL = (
-  import.meta.env.VITE_SITE_URL ?? "http://localhost:3000"
-).replace(/\/$/, "");
+const SITE_URL = "http://localhost:3000";
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
