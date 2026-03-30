@@ -1,6 +1,6 @@
 'use client';
 
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type {
   DeclaredLocales,
   LocalesValues,
@@ -49,7 +49,7 @@ export const useLocale = ({
   onLocaleChange,
 }: UseLocaleProps = {}): UseLocaleResult => {
   const { defaultLocale, locales: availableLocales } =
-    configuration?.internationalization ?? {};
+    internationalization ?? {};
 
   const {
     locale,

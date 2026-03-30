@@ -8,7 +8,6 @@ import type {
   LogFunctions,
   RoutingConfig,
 } from '@intlayer/types/config';
-import packageJson from '@intlayer/types/package.json' with { type: 'json' };
 import {
   APPLICATION_URL,
   BACKEND_URL,
@@ -49,7 +48,6 @@ export type BrowserIntlayerConfig = {
   routing: RoutingConfig;
   editor: Omit<EditorConfig, 'clientId' | 'clientSecret'>;
   log: Pick<LogConfig, 'mode' | 'prefix'>;
-  metadata: IntlayerConfig['metadata'];
 };
 
 declare global {
@@ -427,11 +425,6 @@ export const buildBrowserConfiguration = (
     routing,
     editor: editorPublic,
     log: { mode, prefix },
-    metadata: {
-      name: 'Intlayer',
-      version: packageJson.version,
-      doc: 'https://intlayer.org/docs',
-    },
   };
 };
 
@@ -475,5 +468,4 @@ export const extractBrowserConfiguration = (
     mode: config.log.mode,
     prefix: config.log.prefix,
   },
-  metadata: config.metadata,
 });

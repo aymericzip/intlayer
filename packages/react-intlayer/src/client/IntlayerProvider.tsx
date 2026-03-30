@@ -1,6 +1,6 @@
 'use client';
 
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import { localeResolver } from '@intlayer/core/localization';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import {
@@ -25,7 +25,7 @@ type IntlayerValue = {
  * Context that stores the current locale on the client side.
  */
 export const IntlayerClientContext = createContext<IntlayerValue>({
-  locale: localeInStorage ?? configuration?.internationalization?.defaultLocale,
+  locale: localeInStorage ?? internationalization?.defaultLocale,
   setLocale: () => null,
   isCookieEnabled: true,
 });
@@ -79,7 +79,6 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
   disableEditor,
   isCookieEnabled,
 }) => {
-  const { internationalization } = configuration ?? {};
   const { locales: availableLocales, defaultLocale: defaultLocaleConfig } =
     internationalization ?? {};
 

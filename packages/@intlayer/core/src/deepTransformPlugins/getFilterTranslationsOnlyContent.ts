@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type {
@@ -127,7 +127,8 @@ export const getFilterTranslationsOnlyContent = <
   L extends LocalesValues = DeclaredLocales,
 >(
   node: T,
-  locale: L = configuration?.internationalization?.defaultLocale as L,
+  locale: L = internationalization?.defaultLocale as L,
+
   nodeProps: NodeProps,
   fallback?: LocalesValues
 ) => {
@@ -144,8 +145,8 @@ export const getFilterTranslationsOnlyContent = <
 
 export const getFilterTranslationsOnlyDictionary = (
   dictionary: Dictionary,
-  locale: LocalesValues = configuration?.internationalization
-    ?.defaultLocale as LocalesValues,
+  locale: LocalesValues = internationalization?.defaultLocale as LocalesValues,
+
   fallback?: LocalesValues
 ) => ({
   ...dictionary,

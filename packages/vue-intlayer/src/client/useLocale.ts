@@ -1,5 +1,8 @@
-import configuration from '@intlayer/config/built';
-import type { DeclaredLocales, LocalesValues } from '@intlayer/types/module_augmentation';
+import { internationalization } from '@intlayer/config/built';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import { type ComputedRef, computed, inject } from 'vue';
 import { INTLAYER_SYMBOL, type IntlayerProvider } from './installIntlayer';
 import { setLocaleInStorage } from './useLocaleStorage';
@@ -44,7 +47,7 @@ export const useLocale = ({
   onLocaleChange,
 }: useLocaleProps = {}): UseLocaleResult => {
   const { defaultLocale, locales: availableLocales } =
-    configuration?.internationalization ?? {};
+    internationalization ?? {};
   const intlayer = inject<IntlayerProvider>(INTLAYER_SYMBOL);
 
   // Create a reactive reference for the locale

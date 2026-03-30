@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization, editor } from '@intlayer/config/built';
 import {
   conditionPlugin,
   type DeepTransformContent as DeepTransformContentCore,
@@ -130,9 +130,7 @@ export const intlayerNodePlugins: Plugins = TREE_SHAKE_INTLAYER_NODE
         renderIntlayerNode({
           value: children ?? node,
           component:
-            !TREE_SHAKE_EDITOR && configuration.editor.enabled
-              ? ContentSelector
-              : undefined,
+            !TREE_SHAKE_EDITOR && editor.enabled ? ContentSelector : undefined,
           props: rest,
         }),
     };
@@ -339,7 +337,7 @@ export const markdownStringPlugin: Plugins = TREE_SHAKE_MARKDOWN
             renderIntlayerNode({
               value: metadataNode,
               component:
-                !TREE_SHAKE_EDITOR && configuration.editor.enabled
+                !TREE_SHAKE_EDITOR && editor.enabled
                   ? (_MarkdownMetadataWithSelector ?? _MarkdownMetadataRenderer)
                   : _MarkdownMetadataRenderer,
               props: {
@@ -362,7 +360,7 @@ export const markdownStringPlugin: Plugins = TREE_SHAKE_MARKDOWN
           const nodeResult = renderIntlayerNode({
             value: node,
             component:
-              !TREE_SHAKE_EDITOR && configuration.editor.enabled
+              !TREE_SHAKE_EDITOR && editor.enabled
                 ? (_MarkdownWithSelector ?? _MarkdownRenderer)
                 : _MarkdownRenderer,
             props: {
@@ -505,12 +503,12 @@ export const getPlugins = (
 ): Plugins[] =>
   [
     translationPlugin(
-      locale ?? configuration.internationalization.defaultLocale,
-      fallback ? configuration.internationalization.defaultLocale : undefined
+      locale ?? internationalization.defaultLocale,
+      fallback ? internationalization.defaultLocale : undefined
     ),
     enumerationPlugin,
     conditionPlugin,
-    nestedPlugin(locale ?? configuration.internationalization.defaultLocale),
+    nestedPlugin(locale ?? internationalization.defaultLocale),
     filePlugin,
     genderPlugin,
     intlayerNodePlugins,

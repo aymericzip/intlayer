@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
@@ -129,7 +129,7 @@ export const useDictionary = <
   // normalize provider locale
   const providerLocale = isRef(intlayer?.locale)
     ? intlayer.locale
-    : ref(intlayer?.locale ?? configuration.internationalization.defaultLocale);
+    : ref(intlayer?.locale ?? internationalization.defaultLocale);
 
   // which locale to use (reactive)
   const localeTarget = computed<LocalesValues>(() => {

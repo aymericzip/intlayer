@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { useEditor } from '../editor/useEditor';
 
@@ -10,7 +10,7 @@ export class IntlayerClient {
   isCookieEnabled: boolean;
 
   constructor(locale?: LocalesValues, isCookieEnabled = true) {
-    const { defaultLocale } = configuration.internationalization ?? {};
+    const { defaultLocale } = internationalization ?? {};
     this._locale =
       (locale as LocalesValues) ?? (defaultLocale as LocalesValues);
     this.isCookieEnabled = isCookieEnabled;

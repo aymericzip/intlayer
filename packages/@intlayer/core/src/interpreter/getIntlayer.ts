@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { log } from '@intlayer/config/built';
 import { colorizeKey, getAppLogger } from '@intlayer/config/logger';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type {
@@ -66,7 +66,7 @@ export const getIntlayer = <
 
   if (!dictionary) {
     // Log a warning instead of throwing (so developers know it's missing)
-    const logger = getAppLogger(configuration);
+    const logger = getAppLogger({ log });
     logger(
       `Dictionary ${colorizeKey(key as string)} was not found. Using fallback proxy.`,
       {

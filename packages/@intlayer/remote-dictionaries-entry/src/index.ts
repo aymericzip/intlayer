@@ -7,7 +7,7 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import type { DictionaryAPI } from '@intlayer/backend';
-import config from '@intlayer/config/built';
+import { default as defaultConfiguration } from '@intlayer/config/built';
 import { clearModuleCache, configESMxCJSRequire } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { DictionaryKey } from '@intlayer/types/dictionary';
@@ -19,7 +19,7 @@ type GetRemoteDictionaries = (
 ) => RemoteDictionaries;
 
 export const getRemoteDictionaries: GetRemoteDictionaries = (
-  configuration: IntlayerConfig = config
+  configuration: IntlayerConfig = defaultConfiguration
 ) => {
   const { system, build } = configuration;
 

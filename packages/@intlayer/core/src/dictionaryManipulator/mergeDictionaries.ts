@@ -1,6 +1,10 @@
-import configuration from '@intlayer/config/built';
+import { log } from '@intlayer/config/built';
 import { colorizeKey, getAppLogger } from '@intlayer/config/logger';
-import type { ContentNode, Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
+import type {
+  ContentNode,
+  Dictionary,
+  LocalDictionaryId,
+} from '@intlayer/types/dictionary';
 import { getMultilingualDictionary } from '../deepTransformPlugins';
 import { getNodeType } from './getNodeType';
 
@@ -14,7 +18,7 @@ const checkTypesMatch = (
   dictionaryKey: string,
   path: string[] = []
 ): void => {
-  const appLogger = getAppLogger(configuration);
+  const appLogger = getAppLogger({ log });
 
   // If either side is missing/undefined, allow merge without error
   if (

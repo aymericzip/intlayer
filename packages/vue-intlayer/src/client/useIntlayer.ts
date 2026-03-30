@@ -1,5 +1,9 @@
-import configuration from '@intlayer/config/built';
-import type { DictionaryKeys, DictionaryRegistryContent, LocalesValues } from '@intlayer/types/module_augmentation';
+import { internationalization } from '@intlayer/config/built';
+import type {
+  DictionaryKeys,
+  DictionaryRegistryContent,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import {
   type ComputedRef,
   computed,
@@ -55,7 +59,7 @@ export const useIntlayer = <T extends DictionaryKeys>(
   // normalize provider locale
   const providerLocale = isRef(intlayer?.locale)
     ? intlayer.locale
-    : ref(intlayer?.locale ?? configuration.internationalization.defaultLocale);
+    : ref(intlayer?.locale ?? internationalization.defaultLocale);
 
   // which locale to use (reactive)
   const localeTarget = computed<LocalesValues>(() => {

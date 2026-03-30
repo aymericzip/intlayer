@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type { DeclaredLocales } from '@intlayer/types/module_augmentation';
 import { IntlayerServerContext } from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';
@@ -16,7 +16,7 @@ type UseLocaleResult = {
  */
 export const useLocale = (): UseLocaleResult => {
   const { defaultLocale, locales: availableLocales } =
-    configuration?.internationalization ?? {};
+    internationalization ?? {};
 
   const locale = (getServerContext(IntlayerServerContext) ??
     defaultLocale) as DeclaredLocales;

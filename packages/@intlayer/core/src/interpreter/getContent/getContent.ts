@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type { ContentNode } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
@@ -25,13 +25,13 @@ export const getBasePlugins = (
 ): Plugins[] =>
   [
     translationPlugin(
-      locale ?? configuration.internationalization.defaultLocale,
-      fallback ? configuration.internationalization.defaultLocale : undefined
+      locale ?? internationalization.defaultLocale,
+      fallback ? internationalization.defaultLocale : undefined
     ),
     enumerationPlugin,
     conditionPlugin,
     insertionPlugin,
-    nestedPlugin(locale ?? configuration.internationalization.defaultLocale),
+    nestedPlugin(locale ?? internationalization.defaultLocale),
     filePlugin,
     genderPlugin,
   ].filter(Boolean) as Plugins[];

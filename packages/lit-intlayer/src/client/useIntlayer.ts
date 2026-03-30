@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type {
   DictionaryKeys,
   DictionaryRegistryContent,
@@ -59,7 +59,7 @@ export const useIntlayer = <T extends DictionaryKeys>(
 
       const currentLocale = (locale ??
         client.locale ??
-        configuration.internationalization.defaultLocale) as string;
+        internationalization.defaultLocale) as string;
 
       // Recompute dictionary only when locale changed.
       if (cachedLocale !== currentLocale || cachedDictionary === null) {

@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization, editor } from '@intlayer/config/built';
 import {
   conditionPlugin,
   type DeepTransformContent as DeepTransformContentCore,
@@ -92,7 +92,7 @@ export const intlayerNodePlugins: Plugins = TREE_SHAKE_INTLAYER_NODE
         typeof node === 'string' ||
         typeof node === 'number',
       transform: (_node, { children, keyPath, dictionaryKey, ...rest }) => {
-        if (!TREE_SHAKE_EDITOR && configuration.editor.enabled) {
+        if (!TREE_SHAKE_EDITOR && editor.enabled) {
           const rawStr = String(children ?? '');
           const keyPathJson = JSON.stringify(keyPath ?? []);
           const dictKey = String(dictionaryKey ?? '');
@@ -455,12 +455,12 @@ export const getPlugins = (
 ): Plugins[] =>
   [
     translationPlugin(
-      locale ?? configuration.internationalization.defaultLocale,
-      fallback ? configuration.internationalization.defaultLocale : undefined
+      locale ?? internationalization.defaultLocale,
+      fallback ? internationalization.defaultLocale : undefined
     ),
     enumerationPlugin,
     conditionPlugin,
-    nestedPlugin(locale ?? configuration.internationalization.defaultLocale),
+    nestedPlugin(locale ?? internationalization.defaultLocale),
     filePlugin,
     genderPlugin,
     intlayerNodePlugins,

@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type {
   DeclaredLocales,
   LocalesValues,
@@ -38,7 +38,7 @@ export class LocaleController implements ReactiveController {
 
     const client = getIntlayerClient();
     const { defaultLocale, locales: availableLocales } =
-      configuration?.internationalization ?? {};
+      internationalization ?? {};
 
     this.locale = client.locale as DeclaredLocales;
     this.defaultLocale = defaultLocale as DeclaredLocales;

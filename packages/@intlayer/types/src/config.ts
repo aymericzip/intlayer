@@ -1087,15 +1087,6 @@ export type IntlayerConfig = {
    * Plugins configuration
    */
   plugins?: Plugin[];
-
-  /**
-   * Metadata of the project
-   */
-  metadata: {
-    name: string;
-    version: string;
-    doc: string;
-  };
 };
 
 /**

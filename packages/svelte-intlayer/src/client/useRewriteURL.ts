@@ -1,4 +1,5 @@
-import configuration from '@intlayer/config/built';
+import { routing } from '@intlayer/config/built';
+
 import { getRewritePath } from '@intlayer/core/localization';
 import type { Locale } from '@intlayer/types/allLocales';
 import { useLocale } from './useLocale';
@@ -9,7 +10,7 @@ import { useLocale } from './useLocale';
  */
 export const useRewriteURL = (): void => {
   const { locale } = useLocale();
-  const rewrite = configuration?.routing?.rewrite;
+  const rewrite = routing?.rewrite;
 
   if (typeof window !== 'undefined') {
     // We observe locale changes

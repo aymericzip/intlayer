@@ -1,11 +1,11 @@
 import { InjectionToken, type Signal, signal } from '@angular/core';
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
 export class IntlayerProvider {
   isCookieEnabled = signal(true);
   private _locale = signal<LocalesValues>(
-    configuration.internationalization?.defaultLocale as LocalesValues
+    internationalization.defaultLocale as LocalesValues
   );
 
   readonly locale: Signal<LocalesValues> = this._locale.asReadonly();

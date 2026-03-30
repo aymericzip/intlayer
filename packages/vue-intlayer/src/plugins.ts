@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization, editor } from '@intlayer/config/built';
 import {
   conditionPlugin,
   type DeepTransformContent as DeepTransformContentCore,
@@ -86,7 +86,7 @@ export const intlayerNodePlugins: Plugins = TREE_SHAKE_INTLAYER_NODE
           renderIntlayerNode({
             ...rest,
             value: children,
-            children: configuration.editor.enabled
+            children: editor.enabled
               ? () =>
                   h(
                     // EditorSelectorRenderer, // Maximum stack size exceeded
@@ -490,7 +490,7 @@ export type DeepTransformContent<
 
 /**
  * Get the plugins array for Vue content transformation.
- * This function is used by both getIntlayer and getDictionary to ensure consistent plugin configuration.
+ * This function is used by both getIntlayer and getDictionary to ensure consistent plugin
  */
 export const getPlugins = (
   locale?: LocalesValues,
@@ -498,12 +498,12 @@ export const getPlugins = (
 ): Plugins[] =>
   [
     translationPlugin(
-      locale ?? configuration.internationalization.defaultLocale,
-      fallback ? configuration.internationalization.defaultLocale : undefined
+      locale ?? internationalization.defaultLocale,
+      fallback ? internationalization.defaultLocale : undefined
     ),
     enumerationPlugin,
     conditionPlugin,
-    nestedPlugin(locale ?? configuration.internationalization.defaultLocale),
+    nestedPlugin(locale ?? internationalization.defaultLocale),
     filePlugin,
     genderPlugin,
     intlayerNodePlugins,

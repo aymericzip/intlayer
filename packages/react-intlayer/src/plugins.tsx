@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization, editor } from '@intlayer/config/built';
 import {
   conditionPlugin,
   type DeepTransformContent as DeepTransformContentCore,
@@ -118,7 +118,7 @@ export const intlayerNodePlugins: Plugins = TREE_SHAKE_INTLAYER_NODE
           ...rest,
           value: rest.children,
           children:
-            !TREE_SHAKE_EDITOR && configuration.editor.enabled ? (
+            !TREE_SHAKE_EDITOR && editor.enabled ? (
               <ContentSelector {...rest}>{rest.children}</ContentSelector>
             ) : (
               rest.children
@@ -158,7 +158,7 @@ export const reactNodePlugins: Plugins = TREE_SHAKE_REACT_NODE
           ...rest,
           value: '[[react-element]]',
           children:
-            !TREE_SHAKE_EDITOR && configuration.editor.enabled ? (
+            !TREE_SHAKE_EDITOR && editor.enabled ? (
               <ContentSelector {...rest}>
                 {renderReactElement(node)}
               </ContentSelector>
@@ -331,7 +331,7 @@ export const markdownStringPlugin: Plugins = TREE_SHAKE_MARKDOWN
               ...props,
               value: metadataNode,
               children:
-                !TREE_SHAKE_EDITOR && configuration.editor.enabled ? (
+                !TREE_SHAKE_EDITOR && editor.enabled ? (
                   <ContentSelector {...rest}>{node}</ContentSelector>
                 ) : (
                   node
@@ -351,7 +351,7 @@ export const markdownStringPlugin: Plugins = TREE_SHAKE_MARKDOWN
             ...props,
             value: node,
             children:
-              !TREE_SHAKE_EDITOR && configuration.editor.enabled ? (
+              !TREE_SHAKE_EDITOR && editor.enabled ? (
                 <ContentSelector {...rest}>
                   <Suspense fallback={node}>
                     <LazyMarkdownRendererPlugin
@@ -552,12 +552,13 @@ export const getPlugins = (
   [
     // Env var allows the bundler to to remove the plugin if not used to make the bundle smaller
     translationPlugin(
-      locale ?? configuration.internationalization.defaultLocale,
-      fallback ? configuration.internationalization.defaultLocale : undefined
+      locale ?? internationalization.defaultLocale,
+      fallback ? internationalization.defaultLocale : undefined
     ),
     enumerationPlugin,
     conditionPlugin,
-    nestedPlugin(locale ?? configuration.internationalization.defaultLocale),
+    nestedPlugin(locale ?? internationalization.defaultLocale),
+
     filePlugin,
     genderPlugin,
     // Always include: handle plain strings/numbers and React elements

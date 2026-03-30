@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type {
   DeclaredLocales,
   LocalesValues,
@@ -49,7 +49,7 @@ export const useLocale = (
 } => {
   const client = getIntlayerClient();
   const { defaultLocale, locales: availableLocales } =
-    configuration?.internationalization ?? {};
+    internationalization ?? {};
 
   const setLocale = (newLocale: LocalesValues): void => {
     if (!(availableLocales ?? []).map(String).includes(newLocale)) {

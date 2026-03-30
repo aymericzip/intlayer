@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization, editor } from '@intlayer/config/built';
 import {
   conditionPlugin,
   type DeepTransformContent as DeepTransformContentCore,
@@ -149,7 +149,7 @@ export const intlayerNodePlugins: Plugins = TREE_SHAKE_INTLAYER_NODE
         typeof node === 'string' ||
         typeof node === 'number',
       transform: (_node, { children, keyPath, dictionaryKey, ...rest }) => {
-        if (!TREE_SHAKE_EDITOR && configuration.editor.enabled) {
+        if (!TREE_SHAKE_EDITOR && editor.enabled) {
           const rawStr = String(children ?? '');
           const htmlStr = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${escapeHtmlText(rawStr)}</intlayer-content-selector-wrapper>`;
           return createLitHTMLNode(htmlStr, rawStr);
@@ -304,7 +304,7 @@ export const markdownStringPlugin: Plugins = TREE_SHAKE_MARKDOWN
         const use = (components?: any) => {
           const rendered = compileMarkdown(node, { components });
 
-          if (!TREE_SHAKE_EDITOR && configuration.editor.enabled) {
+          if (!TREE_SHAKE_EDITOR && editor.enabled) {
             const wrappedHTML = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${rendered}</intlayer-content-selector-wrapper>`;
             return createLitHTMLNode(wrappedHTML, node);
           }
@@ -312,7 +312,7 @@ export const markdownStringPlugin: Plugins = TREE_SHAKE_MARKDOWN
           return createLitHTMLNode(rendered, node);
         };
 
-        if (!TREE_SHAKE_EDITOR && configuration.editor.enabled) {
+        if (!TREE_SHAKE_EDITOR && editor.enabled) {
           const wrappedHTML = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${compiled}</intlayer-content-selector-wrapper>`;
           return createLitHTMLNode(wrappedHTML, node, {
             metadata: metadataNodes,
@@ -415,7 +415,7 @@ export const htmlPlugin: Plugins = TREE_SHAKE_HTML
 
           const rendered = getHTML(htmlStr, wrappedComponents as any);
 
-          if (!TREE_SHAKE_EDITOR && configuration.editor.enabled) {
+          if (!TREE_SHAKE_EDITOR && editor.enabled) {
             const wrappedHTML = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${rendered}</intlayer-content-selector-wrapper>`;
             return createLitHTMLNode(wrappedHTML, htmlStr);
           }
@@ -423,7 +423,7 @@ export const htmlPlugin: Plugins = TREE_SHAKE_HTML
           return createLitHTMLNode(rendered, htmlStr);
         };
 
-        if (!TREE_SHAKE_EDITOR && configuration.editor.enabled) {
+        if (!TREE_SHAKE_EDITOR && editor.enabled) {
           const wrappedHTML = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${htmlStr}</intlayer-content-selector-wrapper>`;
           return createLitHTMLNode(wrappedHTML, htmlStr, { use });
         }
@@ -467,12 +467,12 @@ export const getPlugins = (
     ((typeof window !== 'undefined' && getIntlayerClient()?.locale) as
       | LocalesValues
       | undefined) ??
-    configuration.internationalization.defaultLocale;
+    internationalization.defaultLocale;
 
   return [
     translationPlugin(
-      currentLocale,
-      fallback ? configuration.internationalization.defaultLocale : undefined
+      locale ?? internationalization.defaultLocale,
+      fallback ? internationalization.defaultLocale : undefined
     ),
     enumerationPlugin,
     conditionPlugin,

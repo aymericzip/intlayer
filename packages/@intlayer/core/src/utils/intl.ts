@@ -24,7 +24,7 @@
  * ```
  */
 
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
 const MAX_CACHE_SIZE = 50;
@@ -73,7 +73,8 @@ export const getCachedIntl = <T extends new (...args: any[]) => any>(
   locale?: LocalesValues | string,
   options?: any
 ): InstanceType<T> => {
-  const resLoc = locale ?? configuration?.internationalization?.defaultLocale;
+  const resLoc = locale ?? internationalization?.defaultLocale;
+
   const optKey = options ? JSON.stringify(options) : '';
   const key = `${resLoc}|${optKey}`;
 

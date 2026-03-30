@@ -2,7 +2,7 @@ import { BackgroundLayout } from '@components/BackgroundLayout';
 import { DashboardContentLayout } from '@components/Dashboard/DashboardContentLayout';
 import { Editor } from '@components/Dashboard/Editor';
 import { DictionaryLoaderPlayground } from '@components/Dashboard/Editor/DictionaryLoaderPlayground';
-import baseConfiguration from '@intlayer/config/built';
+import * as baseConfiguration from '@intlayer/config/built';
 import { Website_Demo_Path } from '@intlayer/design-system/routes';
 import { ConfigurationProvider } from '@intlayer/editor-react';
 import type { NextPageIntlayer } from 'next-intlayer';

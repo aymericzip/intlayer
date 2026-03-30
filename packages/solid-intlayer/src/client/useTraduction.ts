@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import { getTranslation } from '@intlayer/core/interpreter';
 import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import { useContext } from 'solid-js';
@@ -32,6 +32,6 @@ export const useTranslation = <Content = string>(
 
   return getTranslation(
     languageContent,
-    locale?.() ?? configuration?.internationalization.defaultLocale
+    locale?.() ?? internationalization.defaultLocale
   );
 };

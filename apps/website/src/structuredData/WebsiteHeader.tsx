@@ -1,10 +1,9 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import Script from 'next/script';
 import { useIntlayer } from 'next-intlayer/server';
 
 export const WebsiteHeader = () => {
   const { keywords } = useIntlayer('website-structured-data');
-  const { internationalization } = configuration;
 
   const website = {
     '@context': 'https://schema.org',

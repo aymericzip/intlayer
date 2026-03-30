@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
@@ -203,7 +203,8 @@ export const checkMissingLocalesPlugin = (
  */
 export const getMissingLocalesContent = <T extends ContentNode>(
   node: T,
-  locales: LocalesValues[] = configuration?.internationalization?.locales,
+  locales: LocalesValues[] = internationalization?.locales,
+
   nodeProps: NodeProps
 ): Locale[] => {
   const missingLocales = new Set<Locale>();
@@ -225,7 +226,7 @@ export const getMissingLocalesContent = <T extends ContentNode>(
 
 export const getMissingLocalesContentFromDictionary = (
   dictionary: Dictionary,
-  locales: LocalesValues[] = configuration?.internationalization?.locales
+  locales: LocalesValues[] = internationalization?.locales
 ) =>
   getMissingLocalesContent(dictionary.content, locales, {
     dictionaryKey: dictionary.key,

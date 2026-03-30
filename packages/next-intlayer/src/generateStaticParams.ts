@@ -1,6 +1,8 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 
-const { locales } = configuration.internationalization;
+
+const { locales } = internationalization;
+
 
 /**
  * Generates static parameters for Next.js's dynamic routes based on the configured locales.

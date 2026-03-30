@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { getCachedIntl } from '../utils/intl';
 
@@ -15,7 +15,8 @@ export const units = (
 ): string =>
   getCachedIntl(
     Intl.NumberFormat,
-    options?.locale ?? configuration?.internationalization?.defaultLocale,
+    options?.locale ?? internationalization?.defaultLocale,
+
     {
       style: 'unit',
       unit: options?.unit ?? 'day',

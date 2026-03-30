@@ -41,13 +41,7 @@ import * as Locales from '@intlayer/types/locales';
 
 export type { DeclarationContent, Dictionary, IntlayerConfig };
 
-/**
- * Rexport using named import because πof Tsup bug in CJS
- */
-/**
- * The configuration of Intlayer.
- */
-import configuration from '@intlayer/config/built';
+import { default as configuration } from '@intlayer/config/built';
 
 /**
  * Returns the configuration of Intlayer.
@@ -153,12 +147,12 @@ export {
 // Reexport here for CJS compatibility
 // Fix ReferenceError: Cannot access 'xxx' before initialization
 export {
-  configuration,
   defaultLocale,
   getConfiguration,
   Locales,
   locales,
   requiredLocales,
+  configuration,
 };
 
 // --- Registries to be augmented by the generator ---

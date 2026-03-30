@@ -1,4 +1,5 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
+
 
 // ── Tree-shake constants ──────────────────────────────────────────────────────
 // When these env vars are injected at build time, bundlers eliminate the
@@ -73,8 +74,8 @@ export type { RoutingOptions };
  */
 export const getLocalizedUrl = (
   url: string,
-  currentLocale: LocalesValues = configuration?.internationalization
-    ?.defaultLocale,
+  currentLocale: LocalesValues = internationalization?.defaultLocale,
+
   options: RoutingOptions = {}
 ): string => {
   const { defaultLocale, mode, locales, rewrite } =

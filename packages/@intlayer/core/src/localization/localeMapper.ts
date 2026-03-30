@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization, routing } from '@intlayer/config/built';
 import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
@@ -40,14 +40,14 @@ export type LocaleData = {
  */
 export const localeMap = <T>(
   mapper: (locale: LocaleData) => T,
-  locales: LocalesValues[] = configuration?.internationalization.locales ?? [],
-  defaultLocale: LocalesValues = configuration?.internationalization
-    .defaultLocale ?? DEFAULT_LOCALE,
+  locales: LocalesValues[] = internationalization.locales ?? [],
+  defaultLocale: LocalesValues = internationalization.defaultLocale ??
+    DEFAULT_LOCALE,
   mode:
     | 'prefix-no-default'
     | 'prefix-all'
     | 'no-prefix'
-    | 'search-params' = configuration?.routing?.mode ?? 'prefix-no-default'
+    | 'search-params' = routing?.mode ?? 'prefix-no-default'
 ): T[] =>
   (locales ?? []).map((locale) =>
     mapper({
@@ -90,14 +90,14 @@ export const localeMap = <T>(
  */
 export const localeFlatMap = <T>(
   mapper: (locale: LocaleData) => T[],
-  locales: LocalesValues[] = configuration?.internationalization.locales ?? [],
-  defaultLocale: LocalesValues = configuration?.internationalization
-    .defaultLocale ?? DEFAULT_LOCALE,
+  locales: LocalesValues[] = internationalization.locales ?? [],
+  defaultLocale: LocalesValues = internationalization.defaultLocale ??
+    DEFAULT_LOCALE,
   mode:
     | 'prefix-no-default'
     | 'prefix-all'
     | 'no-prefix'
-    | 'search-params' = configuration?.routing?.mode ?? 'prefix-no-default'
+    | 'search-params' = routing?.mode ?? 'prefix-no-default'
 ): T[] =>
   locales.flatMap((locale) =>
     mapper({
@@ -137,14 +137,14 @@ export const localeFlatMap = <T>(
  */
 export const localeRecord = <T>(
   mapper: (locale: LocaleData) => T,
-  locales: LocalesValues[] = configuration?.internationalization.locales ?? [],
-  defaultLocale: LocalesValues = configuration?.internationalization
-    .defaultLocale ?? DEFAULT_LOCALE,
+  locales: LocalesValues[] = internationalization.locales ?? [],
+  defaultLocale: LocalesValues = internationalization.defaultLocale ??
+    DEFAULT_LOCALE,
   mode:
     | 'prefix-no-default'
     | 'prefix-all'
     | 'no-prefix'
-    | 'search-params' = configuration?.routing?.mode ?? 'prefix-no-default'
+    | 'search-params' = routing?.mode ?? 'prefix-no-default'
 ): Record<LocalesValues, T> =>
   (locales ?? []).reduce(
     (acc, locale) => {

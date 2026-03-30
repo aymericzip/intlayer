@@ -6,8 +6,7 @@
 
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { basename, extname, join } from 'node:path';
-import config from '@intlayer/config/built';
-import { clearModuleCache, configESMxCJSRequire } from '@intlayer/config/utils';
+import { default as defaultConfiguration } from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type { DictionaryKeys } from '@intlayer/types/module_augmentation';
@@ -19,7 +18,7 @@ type GetUnmergedDictionaries = (
 ) => UnmergedDictionaries;
 
 export const getUnmergedDictionaries: GetUnmergedDictionaries = (
-  configuration: IntlayerConfig = config
+  configuration: IntlayerConfig = defaultConfiguration
 ) => {
   const { system } = configuration;
   const { unmergedDictionariesDir } = system;

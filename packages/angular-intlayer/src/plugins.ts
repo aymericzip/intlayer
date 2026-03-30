@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization, editor } from '@intlayer/config/built';
 import {
   conditionPlugin,
   type DeepTransformContent as DeepTransformContentCore,
@@ -121,7 +121,7 @@ export const intlayerNodePlugins: Plugins = TREE_SHAKE_INTLAYER_NODE
           value: children,
           children: () => ({
             component:
-              TREE_SHAKE_EDITOR || !configuration.editor.enabled
+              TREE_SHAKE_EDITOR || !editor.enabled
                 ? children
                 : ContentSelectorWrapperComponent,
             props: {
@@ -182,7 +182,7 @@ export const markdownStringPlugin: Plugins = TREE_SHAKE_MARKDOWN
             ...rest,
             value: node,
             children:
-              TREE_SHAKE_EDITOR || !configuration.editor.enabled
+              TREE_SHAKE_EDITOR || !editor.enabled
                 ? () => {
                     const { renderMarkdown } =
                       _markdownInstall?.useMarkdown() ?? {
@@ -344,7 +344,7 @@ export const htmlPlugin: Plugins = TREE_SHAKE_HTML
             ...rest,
             value: html,
             children:
-              TREE_SHAKE_EDITOR || !configuration.editor.enabled
+              TREE_SHAKE_EDITOR || !editor.enabled
                 ? html
                 : () => ({
                     component: ContentSelectorWrapperComponent,
@@ -506,12 +506,12 @@ export const getPlugins = (
 ): Plugins[] =>
   [
     translationPlugin(
-      locale ?? configuration.internationalization.defaultLocale,
-      fallback ? configuration.internationalization.defaultLocale : undefined
+      locale ?? internationalization.defaultLocale,
+      fallback ? internationalization.defaultLocale : undefined
     ),
     enumerationPlugin,
     conditionPlugin,
-    nestedPlugin(locale ?? configuration.internationalization.defaultLocale),
+    nestedPlugin(locale ?? internationalization.defaultLocale),
     filePlugin,
     genderPlugin,
     intlayerNodePlugins,

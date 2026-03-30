@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization, routing } from '@intlayer/config/built';
 import {
   DEFAULT_LOCALE,
   LOCALES,
@@ -36,16 +36,13 @@ export type RoutingOptions = {
  * Resolves routing configuration by merging provided options with configuration defaults.
  * Single source of truth for default routing config resolution across all localization functions.
  */
-export const resolveRoutingConfig = (options: RoutingOptions = {}) => {
-  const { internationalization, routing } = configuration ?? {};
-  return {
-    defaultLocale: internationalization?.defaultLocale ?? DEFAULT_LOCALE,
-    mode: routing?.mode ?? ROUTING_MODE,
-    locales: internationalization?.locales ?? LOCALES,
-    rewrite: routing?.rewrite,
-    ...options,
-  };
-};
+export const resolveRoutingConfig = (options: RoutingOptions = {}) => ({
+  defaultLocale: internationalization?.defaultLocale ?? DEFAULT_LOCALE,
+  mode: routing?.mode ?? ROUTING_MODE,
+  locales: internationalization?.locales ?? LOCALES,
+  rewrite: routing?.rewrite,
+  ...options,
+});
 
 export type GetPrefixOptions = {
   defaultLocale?: LocalesValues;

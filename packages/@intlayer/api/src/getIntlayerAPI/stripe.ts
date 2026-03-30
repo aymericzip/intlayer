@@ -4,13 +4,13 @@ import type {
   GetPricingBody,
   GetPricingResult,
 } from '@intlayer/backend';
-import builtConfiguration from '@intlayer/config/built';
+import { default as defaultConfiguration } from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { type FetcherOptions, fetcher } from '../fetcher';
 
 export const getStripeAPI = (
   authAPIOptions: FetcherOptions = {},
-  intlayerConfig: IntlayerConfig = builtConfiguration
+  intlayerConfig: IntlayerConfig = defaultConfiguration
 ) => {
   const backendURL = intlayerConfig?.editor?.backendURL;
 

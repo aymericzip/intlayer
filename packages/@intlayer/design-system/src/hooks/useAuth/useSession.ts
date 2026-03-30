@@ -2,7 +2,7 @@
 
 import { useQueryClient } from '@hooks/reactQuery';
 import type { SessionAPI } from '@intlayer/backend';
-import defaultConfiguration from '@intlayer/config/built';
+import { default as defaultConfiguration } from '@intlayer/config/built';
 import { useConfiguration } from '@intlayer/editor-react';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { getAuthAPI } from '@libs/auth';
@@ -24,7 +24,9 @@ export const useSession = (
   intlayerConfiguration?: IntlayerConfig
 ): UseSessionResult => {
   const configuration = useConfiguration();
-  const config = intlayerConfiguration ?? configuration ?? defaultConfiguration;
+  const config = (intlayerConfiguration ??
+    configuration ??
+    defaultConfiguration) as IntlayerConfig;
 
   const queryClient = useQueryClient();
 

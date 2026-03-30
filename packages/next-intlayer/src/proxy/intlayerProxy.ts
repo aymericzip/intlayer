@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization, routing } from '@intlayer/config/built';
 import { ROUTING_MODE } from '@intlayer/config/defaultValues';
 
 // ── Tree-shake constants ──────────────────────────────────────────────────────
@@ -84,7 +84,6 @@ import { localeDetector } from './localeDetector';
  */
 const DEFAULT_DETECT_LOCALE_ON_PREFETCH_NO_PREFIX = false;
 
-const { internationalization, routing } = configuration ?? {};
 const { locales, defaultLocale } = internationalization ?? {};
 const { basePath, mode, rewrite } = routing ?? {};
 

@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type {
@@ -249,7 +249,8 @@ export const filterMissingTranslationsOnlyPlugin = (
 
       // Return the base locale content as a translation node
       // If base locale is missing, use any available locale as fallback
-      const baseLocale = configuration?.internationalization?.defaultLocale;
+      const baseLocale = internationalization?.defaultLocale;
+
       const availableLocales = Object.keys(result);
 
       if (availableLocales.length === 0) {

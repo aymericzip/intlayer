@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DictionaryKeys,
@@ -74,7 +74,7 @@ export const useDictionaryDynamic = <
   const client = getIntlayerClient();
   const currentLocale = (locale ??
     client.locale ??
-    configuration.internationalization.defaultLocale) as L;
+    internationalization.defaultLocale) as L;
 
   const cacheKey = `${String(key)}.${currentLocale}`;
   const loader = (dictionaryLoaders as Record<string, () => Promise<T>>)[

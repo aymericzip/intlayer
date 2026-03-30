@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { routing } from '@intlayer/config/built';
 import { getRewritePath } from '@intlayer/core/localization';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
@@ -18,16 +18,17 @@ import { getIntlayerClient } from './installIntlayer';
  * ```
  */
 class RewriteURLController implements ReactiveController {
-  private readonly host: ReactiveControllerHost;
+  private readonly _host: ReactiveControllerHost;
   private _unsubscribe: (() => void) | null = null;
 
   constructor(host: ReactiveControllerHost) {
-    this.host = host;
+    this._host = host;
     host.addController(this);
   }
 
   private _rewrite(locale: string): void {
-    const rewrite = configuration?.routing?.rewrite;
+    const rewrite = routing?.rewrite;
+
     if (typeof window === 'undefined' || !rewrite) return;
 
     const pathname = window.location.pathname;

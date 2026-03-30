@@ -1,6 +1,6 @@
 'use client';
 
-import configuration from '@intlayer/config/built';
+import { routing } from '@intlayer/config/built';
 import { getRewritePath } from '@intlayer/core/localization';
 import type { Locale } from '@intlayer/types/allLocales';
 import { useEffect } from 'react';
@@ -26,7 +26,7 @@ import { useLocale } from './useLocale';
  */
 export const useRewriteURL = (): void => {
   const { locale } = useLocale();
-  const rewrite = configuration?.routing?.rewrite;
+  const rewrite = routing?.rewrite;
 
   useEffect(() => {
     if (typeof window === 'undefined' || !rewrite) return;

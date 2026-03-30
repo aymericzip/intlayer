@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
@@ -8,9 +8,8 @@ import type { LocalesValues } from '@intlayer/types/module_augmentation';
  */
 export const localeResolver = (
   selectedLocale: LocalesValues | LocalesValues[],
-  locales: LocalesValues[] = configuration?.internationalization?.locales,
-  defaultLocale: LocalesValues = configuration?.internationalization
-    ?.defaultLocale
+  locales: LocalesValues[] = internationalization?.locales,
+  defaultLocale: LocalesValues = internationalization?.defaultLocale
 ): Locale => {
   // Ensure we can handle both a single locale or an array of locales uniformly
   const requestedLocales = [selectedLocale].flat();

@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { getCachedIntl } from '../utils/intl';
 
@@ -19,7 +19,8 @@ export const currency = (
 ): string =>
   getCachedIntl(
     Intl.NumberFormat,
-    options?.locale ?? configuration?.internationalization?.defaultLocale,
+    options?.locale ?? internationalization?.defaultLocale,
+
     {
       style: 'currency',
       currency: options?.currency ?? 'USD',

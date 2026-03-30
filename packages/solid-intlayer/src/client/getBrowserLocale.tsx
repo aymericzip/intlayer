@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import { localeDetector } from '@intlayer/core/localization';
 import { getLocaleFromStorageClient } from '@intlayer/core/utils';
 import type { Locale } from '@intlayer/types/allLocales';
@@ -88,7 +88,6 @@ const detectLanguage = (
   const navigatorDetector = () => {
     if (typeof navigator === 'undefined') return;
 
-    const { internationalization } = configuration;
     const languages = navigator.languages ?? [navigator.language];
 
     // Use localeDetector to find the best matching locale
@@ -108,8 +107,6 @@ const detectLanguage = (
     if (htmlTag && typeof htmlTag.getAttribute === 'function') {
       const lang = htmlTag.getAttribute('lang');
       if (lang) {
-        const { internationalization } = configuration;
-
         // Validate and resolve the locale
         const locale = localeDetector(
           { 'accept-language': lang },
@@ -142,8 +139,6 @@ const getFirstAvailableLocale = (
   locales: Record<LanguageDetector, Locale | undefined>,
   order: LanguageDetector[]
 ): Locale => {
-  const { internationalization } = configuration;
-
   for (const detector of order) {
     const locale = locales[detector];
 

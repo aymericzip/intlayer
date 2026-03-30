@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { getCachedIntl } from '../utils/intl';
 
@@ -30,7 +30,8 @@ export const list = (
 ): string =>
   getCachedIntl(
     (Intl as any).ListFormat,
-    options?.locale ?? configuration?.internationalization?.defaultLocale,
+    options?.locale ?? internationalization?.defaultLocale,
+
     {
       type: options?.type ?? 'conjunction',
       style: options?.style ?? 'long',

@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { default as defaultConfiguration } from '@intlayer/config/built';
 import * as ANSIColors from '@intlayer/config/colors';
 import {
   colorize,
@@ -27,7 +27,7 @@ export class DictionariesLogger {
   private pluginError: string | undefined;
 
   constructor() {
-    this.prefix = getPrefix(configuration?.log?.prefix) ?? '';
+    this.prefix = getPrefix(defaultConfiguration.log?.prefix) ?? '';
   }
 
   setExpectRemote(expect: boolean) {

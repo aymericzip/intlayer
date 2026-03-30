@@ -1,14 +1,17 @@
-import configuration from '@intlayer/config/built';
+import { routing } from '@intlayer/config/built';
 import { getRewritePath } from '@intlayer/core/localization';
 import type { Locale } from '@intlayer/types/allLocales';
 import { getIntlayerClient } from './installIntlayer';
 
 const rewrite = (locale: string): void => {
-  const rewriteConfig = configuration?.routing?.rewrite;
-  if (typeof window === 'undefined' || !rewriteConfig) return;
+  if (typeof window === 'undefined' || !routing?.rewrite) return;
 
   const pathname = window.location.pathname;
-  const targetPath = getRewritePath(pathname, locale as Locale, rewriteConfig);
+  const targetPath = getRewritePath(
+    pathname,
+    locale as Locale,
+    routing?.rewrite
+  );
 
   if (targetPath && targetPath !== pathname) {
     window.history.replaceState(

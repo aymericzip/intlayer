@@ -1,4 +1,4 @@
-import intlayerConfig from '@intlayer/config/built';
+import { editor } from '@intlayer/config/built';
 import type { Dictionary } from '@intlayer/types/dictionary';
 
 /**
@@ -8,11 +8,7 @@ import type { Dictionary } from '@intlayer/types/dictionary';
  * @param priorityStrategy - The priority strategy ('local_first' or 'distant_first')
  * @returns Ordered array of dictionaries
  */
-export const orderDictionaries = (
-  dictionaries: Dictionary[],
-  configuration = intlayerConfig
-): Dictionary[] => {
-  const { editor } = configuration;
+export const orderDictionaries = (dictionaries: Dictionary[]): Dictionary[] => {
   const { dictionaryPriorityStrategy } = editor;
 
   if (dictionaries.length <= 1) {

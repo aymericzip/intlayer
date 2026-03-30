@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { getCachedIntl } from '../utils/intl';
 
@@ -27,7 +27,8 @@ export const percentage = (
 
   const formatter = getCachedIntl(
     Intl.NumberFormat,
-    locale ?? configuration?.internationalization?.defaultLocale,
+    locale ?? internationalization?.defaultLocale,
+
     {
       style: 'percent',
       ...options,

@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type {
   DeclaredLocales,
   LocalesValues,
@@ -47,7 +47,7 @@ export const useLocale = ({
   onLocaleChange,
 }: useLocaleProps = {}) => {
   const { defaultLocale, locales: availableLocales } =
-    configuration?.internationalization ?? {};
+    internationalization ?? {};
 
   const context = useContext(IntlayerClientContext) ?? {};
 

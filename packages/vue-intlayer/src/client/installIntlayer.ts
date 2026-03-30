@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { type App, type Ref, readonly, ref } from 'vue';
@@ -26,7 +26,7 @@ export const createIntlayerClient = (
 ): IntlayerProvider => {
   if (instance) return instance;
 
-  const { defaultLocale } = configuration.internationalization ?? {};
+  const { defaultLocale } = internationalization ?? {};
 
   const targetLocale = ref<Locale>((locale as Locale) ?? defaultLocale);
 

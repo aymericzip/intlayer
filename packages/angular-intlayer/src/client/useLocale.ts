@@ -1,5 +1,5 @@
 import { computed, inject } from '@angular/core';
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { INTLAYER_TOKEN, type IntlayerProvider } from './installIntlayer';
 import { setLocaleInStorage } from './useLocaleStorage';
@@ -41,7 +41,7 @@ export const useLocale = ({
   onLocaleChange,
 }: useLocaleProps = {}) => {
   const { defaultLocale, locales: availableLocales } =
-    configuration?.internationalization ?? {};
+    internationalization ?? {};
   const intlayer = inject<IntlayerProvider>(INTLAYER_TOKEN);
 
   // Create a reactive reference for the locale

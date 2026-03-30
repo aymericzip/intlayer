@@ -5,7 +5,7 @@ import {
   ButtonTextAlign,
   ButtonVariant,
 } from '@components/Button';
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import { camelCaseToSentence } from '@intlayer/config/client';
 import {
   getContentNodeByKeyPath,
@@ -40,7 +40,8 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
   keyPath,
   dictionary,
 }) => {
-  const { locales } = configuration.internationalization;
+  const { locales } = internationalization;
+
   const currentLocale = useEditorLocale();
   const section = getContentNodeByKeyPath(sectionProp, keyPath, currentLocale);
   const { addEditedContent } = useEditedContentActions();

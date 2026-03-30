@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { getCachedIntl } from '../utils/intl';
 
@@ -20,6 +20,7 @@ export const number = (
 ): string =>
   getCachedIntl(
     Intl.NumberFormat,
-    locale ?? configuration?.internationalization?.defaultLocale,
+    locale ?? internationalization?.defaultLocale,
+
     options
   ).format(Number(value));

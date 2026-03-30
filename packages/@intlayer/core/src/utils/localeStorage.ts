@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization, routing } from '@intlayer/config/built';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { CookiesAttributes } from '@intlayer/types/config';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
@@ -96,7 +96,6 @@ export type LocaleStorageClientOptions = {
 export const getLocaleFromStorageClient = (
   options: LocaleStorageClientOptions
 ): Locale | undefined => {
-  const { routing, internationalization } = configuration;
   const { locales } = internationalization;
   const storageAttributes = routing.storage;
 
@@ -146,7 +145,6 @@ export const setLocaleInStorageClient = (
   locale: LocalesValues,
   options?: LocaleStorageClientOptions
 ): void => {
-  const { routing } = configuration;
   const storageAttributes = routing.storage;
 
   if (options?.isCookieEnabled === false) return;
@@ -247,7 +245,6 @@ export type LocaleStorageServerOptions = {
 export const getLocaleFromStorageServer = (
   options: LocaleStorageServerOptions
 ): Locale | undefined => {
-  const { routing, internationalization } = configuration;
   const { locales } = internationalization;
   const storageAttributes = routing.storage;
 
@@ -283,7 +280,6 @@ export const setLocaleInStorageServer = (
   locale: LocalesValues,
   options?: LocaleStorageServerOptions
 ): void => {
-  const { routing } = configuration;
   const storageAttributes = routing.storage;
 
   if (options?.isCookieEnabled === false) return;
@@ -374,7 +370,6 @@ export const getLocaleFromStorage = (
     | 'isCookieEnabled'
   >
 ): Locale | undefined => {
-  const { routing, internationalization } = configuration;
   const { locales } = internationalization;
   const storageAttributes = routing.storage;
 
@@ -442,7 +437,6 @@ export const setLocaleInStorage = (
   locale: LocalesValues,
   options?: LocaleStorageOptions
 ): void => {
-  const { routing } = configuration;
   const storageAttributes = routing.storage;
 
   if (options?.isCookieEnabled === false) return;

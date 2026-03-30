@@ -55,7 +55,7 @@ export const spinnerFrames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '
  * The configuration is merged with the default configuration from the intlayer config file.
  */
 export const getAppLogger =
-  (configuration?: IntlayerConfig, globalDetails?: Details) =>
+  (configuration?: Pick<IntlayerConfig, 'log'>, globalDetails?: Details) =>
   (content: any, details?: Details) =>
     logger(content, {
       ...(details ?? {}),

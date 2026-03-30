@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type {
   DeclaredLocales,
   LocalesValues,
@@ -6,8 +6,7 @@ import type {
 import { useContext } from 'solid-js';
 import { IntlayerClientContext } from './IntlayerProvider';
 
-const { defaultLocale, locales: availableLocales } =
-  configuration.internationalization;
+const { defaultLocale, locales: availableLocales } = internationalization;
 
 type UseLocaleBaseResult = {
   locale: DeclaredLocales;

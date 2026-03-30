@@ -1,6 +1,6 @@
 'use client';
 
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
@@ -26,10 +26,7 @@ export const useDictionaryAsync = async <
   const { locale: currentLocale } = useContext(IntlayerClientContext) ?? {};
 
   const localeTarget = useMemo(
-    () =>
-      locale ??
-      currentLocale ??
-      configuration?.internationalization.defaultLocale,
+    () => locale ?? currentLocale ?? internationalization.defaultLocale,
     [currentLocale, locale]
   );
 

@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
@@ -22,7 +22,7 @@ export const useDictionaryAsync = async <
   locale?: L
 ) => {
   const { locale: currentLocale } = useContext(IntlayerClientContext) ?? {};
-  const defaultLocale = configuration?.internationalization.defaultLocale;
+  const defaultLocale = internationalization.defaultLocale;
   const localeTarget = locale ?? currentLocale() ?? defaultLocale;
 
   const dictionary =

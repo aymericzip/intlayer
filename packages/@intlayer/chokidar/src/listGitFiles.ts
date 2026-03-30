@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import configuration from '@intlayer/config/built';
+import { log } from '@intlayer/config/built';
 import { getAppLogger } from '@intlayer/config/logger';
 import simpleGit from 'simple-git';
 
@@ -12,7 +12,7 @@ const getGitRootDir = async (): Promise<string | null> => {
     const rootDir = await git.revparse(['--show-toplevel']);
     return rootDir.trim();
   } catch (error) {
-    const appLogger = getAppLogger(configuration);
+    const appLogger = getAppLogger({ log });
     appLogger(`Error getting git root directory: ${error}`, {
       level: 'error',
     });

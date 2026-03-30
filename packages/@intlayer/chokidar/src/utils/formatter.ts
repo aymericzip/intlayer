@@ -1,5 +1,5 @@
 import { relative } from 'node:path';
-import configuration from '@intlayer/config/built';
+import { system } from '@intlayer/config/built';
 import * as ANSIColors from '@intlayer/config/colors';
 import {
   type ANSIColorsType,
@@ -17,7 +17,7 @@ export const formatPath = (
   [path]
     .flat()
     .map((path) =>
-      path.startsWith('/') ? relative(configuration.system.baseDir, path) : path
+      path.startsWith('/') ? relative(system.baseDir, path) : path
     )
     .map((relativePath) =>
       color === false ? relativePath : colorizePath(relativePath, color)

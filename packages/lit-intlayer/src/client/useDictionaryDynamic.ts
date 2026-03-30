@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DictionaryKeys,
@@ -101,9 +101,7 @@ export const useDictionaryDynamic = <
   const client = getIntlayerClient();
 
   const getActiveLocale = (): L =>
-    (locale ??
-      client.locale ??
-      configuration.internationalization.defaultLocale) as L;
+    (locale ?? client.locale ?? internationalization.defaultLocale) as L;
 
   /** Holds the most recently loaded content so the proxy can serve real values. */
   let loadedContent: DeepTransformContent<T['content'], L> | undefined;

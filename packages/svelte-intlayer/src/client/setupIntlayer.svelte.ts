@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { useEditor } from '../editor/useEditor';
 import { setIntlayerContext } from './intlayerContext';
@@ -36,7 +36,7 @@ export const setupIntlayer = (initialLocale?: LocalesValues) => {
   // Define the Context Object
   const contextValue = {
     get locale() {
-      return locale ?? configuration.internationalization.defaultLocale;
+      return locale ?? internationalization.defaultLocale;
     },
     setLocale: (newLocale: LocalesValues) => {
       locale = newLocale;

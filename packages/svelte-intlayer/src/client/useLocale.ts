@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { derived } from 'svelte/store';
 import { getIntlayerContext } from './intlayerContext';
@@ -36,7 +36,7 @@ export const useLocale = ({
 }: useLocaleProps = {}) => {
   const context = getIntlayerContext();
   const { defaultLocale, locales: availableLocales } =
-    configuration?.internationalization ?? {};
+    internationalization ?? {};
 
   if (context) {
     // Use context if available

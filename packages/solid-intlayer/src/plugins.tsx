@@ -1,4 +1,4 @@
-import configuration from '@intlayer/config/built';
+import { internationalization, editor } from '@intlayer/config/built';
 import {
   conditionPlugin,
   type DeepTransformContent as DeepTransformContentCore,
@@ -104,7 +104,7 @@ export const intlayerNodePlugins: Plugins = TREE_SHAKE_INTLAYER_NODE
         renderIntlayerNode({
           ...rest,
           value: rest.children,
-          children: configuration.editor.enabled ? (
+          children: editor.enabled ? (
             <ContentSelector {...rest}>{rest.children}</ContentSelector>
           ) : (
             rest.children
@@ -142,7 +142,7 @@ export const solidNodePlugins: Plugins = TREE_SHAKE_SOLID_NODE
         renderIntlayerNode({
           ...rest,
           value: '[[solid-element]]',
-          children: configuration.editor.enabled ? (
+          children: editor.enabled ? (
             <ContentSelector {...rest}>
               {typeof Node !== 'undefined' && node instanceof Node
                 ? node
@@ -288,7 +288,7 @@ export const markdownStringPlugin: Plugins = TREE_SHAKE_MARKDOWN
             renderIntlayerNode({
               ...props,
               value: metadataNode,
-              children: configuration.editor.enabled ? (
+              children: editor.enabled ? (
                 <ContentSelector {...rest}>
                   <Suspense fallback={node}>
                     <LazyMarkdownMetadataRenderer
@@ -323,7 +323,7 @@ export const markdownStringPlugin: Plugins = TREE_SHAKE_MARKDOWN
           renderIntlayerNode({
             ...props,
             value: node,
-            children: configuration.editor.enabled ? (
+            children: editor.enabled ? (
               <ContentSelector {...rest}>
                 <Suspense fallback={node}>
                   <LazyMarkdownRenderer {...rest} components={components}>
@@ -515,12 +515,12 @@ export const getPlugins = (
 ): Plugins[] =>
   [
     translationPlugin(
-      locale ?? configuration.internationalization.defaultLocale,
-      fallback ? configuration.internationalization.defaultLocale : undefined
+      locale ?? internationalization.defaultLocale,
+      fallback ? internationalization.defaultLocale : undefined
     ),
     enumerationPlugin,
     conditionPlugin,
-    nestedPlugin(locale ?? configuration.internationalization.defaultLocale),
+    nestedPlugin(locale ?? internationalization.defaultLocale),
     filePlugin,
     genderPlugin,
     // Always include: handle plain strings/numbers and React elements
