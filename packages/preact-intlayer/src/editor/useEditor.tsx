@@ -4,6 +4,8 @@ import type { Locale } from '@intlayer/types/allLocales';
 import { useContext, useEffect, useRef } from 'preact/hooks';
 import { IntlayerClientContext } from '../client/IntlayerProvider';
 
+const TREE_SHAKE_EDITOR = process.env['INTLAYER_EDITOR_ENABLED'] === 'false';
+
 /**
  * Initialises the Intlayer editor client singleton when the editor is enabled.
  * Syncs the current locale from the Intlayer context into the editor manager so
@@ -14,7 +16,7 @@ export const useEditor = () => {
   const managerRef = useRef<EditorStateManager | null>(null);
 
   useEffect(() => {
-    if (!isEnabled) return;
+    if (TREE_SHAKE_EDITOR || !isEnabled) return;
 
     import('@intlayer/editor').then(({ initEditorClient }) => {
       const manager = initEditorClient();
@@ -32,7 +34,7 @@ export const useEditor = () => {
   }, []);
 
   useEffect(() => {
-    if (!locale || !managerRef.current) return;
+    if (TREE_SHAKE_EDITOR || !locale || !managerRef.current) return;
 
     managerRef.current.currentLocale.set(locale as Locale);
   }, [locale]);

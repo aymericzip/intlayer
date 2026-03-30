@@ -14,6 +14,8 @@ import type { Locale } from '@intlayer/types/allLocales';
 //   installIntlayer.ts → useEditor.ts → ../client → installIntlayer.ts
 import { INTLAYER_TOKEN, type IntlayerProvider } from '../client/intlayerToken';
 
+const TREE_SHAKE_EDITOR = process.env['INTLAYER_EDITOR_ENABLED'] === 'false';
+
 /**
  * Initialises the Intlayer editor client singleton when the editor is enabled.
  * Syncs the current locale from the provided Intlayer client into the editor
@@ -27,7 +29,7 @@ import { INTLAYER_TOKEN, type IntlayerProvider } from '../client/intlayerToken';
  *   so it still works when called directly from a component.
  */
 export const useEditor = (client?: IntlayerProvider | null): void => {
-  if (!isEnabled) return;
+  if (TREE_SHAKE_EDITOR || !isEnabled) return;
 
   const destroyRef = inject(DestroyRef, { optional: true });
   const injector = inject(Injector);

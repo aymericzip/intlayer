@@ -15,6 +15,8 @@ declare module 'preact' {
   }
 }
 
+const TREE_SHAKE_EDITOR = process.env['INTLAYER_EDITOR_ENABLED'] === 'false';
+
 export type ContentSelectorWrapperProps = NodeProps &
   Omit<HTMLAttributes<HTMLDivElement>, 'children'>;
 
@@ -22,13 +24,14 @@ export const ContentSelector: FunctionalComponent<
   ContentSelectorWrapperProps
 > = ({ children, dictionaryKey, keyPath }) => {
   useEffect(() => {
-    if (!isEnabled || typeof window === 'undefined') return;
+    if (TREE_SHAKE_EDITOR || !isEnabled || typeof window === 'undefined')
+      return;
     import('@intlayer/editor').then(({ defineIntlayerElements }) => {
       defineIntlayerElements();
     });
   }, [isEnabled]);
 
-  if (!isEnabled) {
+  if (TREE_SHAKE_EDITOR || !isEnabled) {
     return children;
   }
 

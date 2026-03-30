@@ -1,9 +1,9 @@
 <script lang="ts">
-import type { NodeProps } from '@intlayer/core/interpreter';
 import { isEnabled } from '@intlayer/editor/isEnabled';
-import { defineComponent, h, type HTMLAttributes } from 'vue';
+import { defineComponent, h } from 'vue';
 
-type Props = NodeProps & Omit<HTMLAttributes, 'children'>;
+
+const TREE_SHAKE_EDITOR = process.env['INTLAYER_EDITOR_ENABLED'] === 'false';
 
 export default defineComponent({
   name: 'ContentSelector',
@@ -19,18 +19,18 @@ export default defineComponent({
   },
   setup(props, { slots }) {
     return () => {
-      if (isEnabled) {
-        return h(
-          'intlayer-content-selector-wrapper',
-          {
-            'key-path': JSON.stringify(props.keyPath),
-            'dictionary-key': props.dictionaryKey,
-          },
-          slots.default?.()
-        );
+      if (TREE_SHAKE_EDITOR || !isEnabled) {
+        return slots.default?.();
       }
 
-      return slots.default?.();
+      return h(
+        'intlayer-content-selector-wrapper',
+        {
+          'key-path': JSON.stringify(props.keyPath),
+          'dictionary-key': props.dictionaryKey,
+        },
+        slots.default?.()
+      );
     };
   },
 });

@@ -20,20 +20,29 @@ export type ContentSelectorWrapperProps = NodeProps &
     children?: JSX.Element;
   };
 
+// ── Tree-shake constants ──────────────────────────────────────────────────────
+// When these env vars are injected at build time, bundlers eliminate the
+// branches guarded by these constants.
+
+/**
+ * True when the editor is explicitly disabled at build time.
+ */
+const TREE_SHAKE_EDITOR = process.env['INTLAYER_EDITOR_ENABLED'] === 'false';
+
 export const ContentSelector: Component<ContentSelectorWrapperProps> = (
   props
 ) => {
-  if (isEnabled) {
-    return (
-      <Dynamic
-        component="intlayer-content-selector-wrapper"
-        attr:key-path={JSON.stringify(props.keyPath)}
-        attr:dictionary-key={props.dictionaryKey}
-      >
-        {props.children}
-      </Dynamic>
-    );
+  if (TREE_SHAKE_EDITOR || !isEnabled) {
+    return props.children;
   }
 
-  return props.children;
+  return (
+    <Dynamic
+      component="intlayer-content-selector-wrapper"
+      attr:key-path={JSON.stringify(props.keyPath)}
+      attr:dictionary-key={props.dictionaryKey}
+    >
+      {props.children}
+    </Dynamic>
+  );
 };

@@ -4,6 +4,8 @@ import type { Locale } from '@intlayer/types/allLocales';
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 import { getIntlayerClient } from '../client/installIntlayer';
 
+const TREE_SHAKE_EDITOR = process.env['INTLAYER_EDITOR_ENABLED'] === 'false';
+
 /**
  * ReactiveController that initialises the Intlayer visual editor when enabled.
  * Syncs the current locale into the editor manager so it always reflects the
@@ -23,7 +25,7 @@ class EditorController implements ReactiveController {
 
   hostConnected(): void {
     this._stopped = false;
-    if (!isEnabled) return;
+    if (TREE_SHAKE_EDITOR || !isEnabled) return;
 
     import('@intlayer/editor').then(({ initEditorClient }) => {
       if (this._stopped) return;
@@ -83,7 +85,7 @@ class EditorController implements ReactiveController {
 export function useEditor(): () => void;
 export function useEditor(host: ReactiveControllerHost): void;
 export function useEditor(host?: ReactiveControllerHost): void | (() => void) {
-  if (!isEnabled) {
+  if (TREE_SHAKE_EDITOR || !isEnabled) {
     return host ? undefined : () => {};
   }
 

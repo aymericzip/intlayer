@@ -1,14 +1,36 @@
 import configuration from '@intlayer/config/built';
-import {
-  TREE_SHAKE_STORAGE_COOKIES,
-  TREE_SHAKE_STORAGE_HEADERS,
-  TREE_SHAKE_STORAGE_LOCAL_STORAGE,
-  TREE_SHAKE_STORAGE_SESSION_STORAGE,
-} from '@intlayer/config/envVars';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { CookiesAttributes } from '@intlayer/types/config';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { getCookie } from './getCookie';
+
+// ── Tree-shake constants ──────────────────────────────────────────────────────
+// When these env vars are injected at build time, bundlers eliminate the
+// branches guarded by these constants.
+
+/**
+ * True when cookie storage is explicitly disabled at build time.
+ */
+const TREE_SHAKE_STORAGE_COOKIES =
+  process.env['INTLAYER_ROUTING_STORAGE_COOKIES'] === 'false';
+
+/**
+ * True when localStorage is explicitly disabled at build time.
+ */
+const TREE_SHAKE_STORAGE_LOCAL_STORAGE =
+  process.env['INTLAYER_ROUTING_STORAGE_LOCALSTORAGE'] === 'false';
+
+/**
+ * True when sessionStorage is explicitly disabled at build time.
+ */
+const TREE_SHAKE_STORAGE_SESSION_STORAGE =
+  process.env['INTLAYER_ROUTING_STORAGE_SESSIONSTORAGE'] === 'false';
+
+/**
+ * True when header storage is explicitly disabled at build time.
+ */
+const TREE_SHAKE_STORAGE_HEADERS =
+  process.env['INTLAYER_ROUTING_STORAGE_HEADERS'] === 'false';
 
 // ============================================================================
 // Shared types

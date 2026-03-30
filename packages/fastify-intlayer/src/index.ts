@@ -60,7 +60,7 @@ const fastifyIntlayer: FastifyPluginAsync = async (fastify, _opts) => {
   const { internationalization } = configuration;
 
   // In dev mode, use fastify logger to debug messages
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env['NODE_ENV'] === 'development') {
     debug = (msg: string) => fastify.log.debug(msg);
   }
 

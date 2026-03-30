@@ -1,8 +1,25 @@
 import configuration from '@intlayer/config/built';
-import {
-  TREE_SHAKE_PREFIX_MODES,
-  TREE_SHAKE_SEARCH_PARAMS,
-} from '@intlayer/config/envVars';
+
+// ── Tree-shake constants ──────────────────────────────────────────────────────
+// When these env vars are injected at build time, bundlers eliminate the
+// branches guarded by these constants.
+
+/**
+ * True when the build-time routing mode is known and is not a prefix-based
+ * mode (neither 'prefix-all' nor 'prefix-no-default').
+ */
+const TREE_SHAKE_PREFIX_MODES =
+  process.env['INTLAYER_ROUTING_MODE'] &&
+  process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-all' &&
+  process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-no-default';
+
+/**
+ * True when the build-time routing mode is known and is NOT 'search-params'.
+ */
+const TREE_SHAKE_SEARCH_PARAMS =
+  process.env['INTLAYER_ROUTING_MODE'] &&
+  process.env['INTLAYER_ROUTING_MODE'] !== 'search-params';
+
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
 

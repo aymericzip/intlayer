@@ -252,8 +252,8 @@ const getPruneConfig = (
 };
 
 const getCommandsEvent = () => {
-  const lifecycleEvent = process.env.npm_lifecycle_event;
-  const lifecycleScript = process.env.npm_lifecycle_script ?? '';
+  const lifecycleEvent = process.env['npm_lifecycle_event'];
+  const lifecycleScript = process.env['npm_lifecycle_script'] ?? '';
 
   const isDevCommand =
     lifecycleEvent === 'dev' ||
@@ -314,9 +314,9 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
 
   const isTurbopackEnabledFromCommand = isGteNext16
     ? // Next@16 enables turbopack by default; disable with --webpack
-      !process.env.npm_lifecycle_script?.includes('--webpack')
+      !process.env['npm_lifecycle_script']?.includes('--webpack')
     : // Next@15 uses --turbopack, Next@14 uses --turbo
-      process.env.npm_lifecycle_script?.includes('--turbo');
+      process.env['npm_lifecycle_script']?.includes('--turbo');
 
   const isTurbopackEnabled =
     configOptions?.enableTurbopack ?? isTurbopackEnabledFromCommand;
@@ -539,7 +539,7 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
 ): Promise<NextConfig & T> => {
   const { isBuildCommand, isDevCommand, isStartCommand } = getCommandsEvent();
 
-  process.env.INTLAYER_IS_DEV_COMMAND = isDevCommand ? 'true' : 'false';
+  process.env['INTLAYER_IS_DEV_COMMAND'] = isDevCommand ? 'true' : 'false';
 
   const intlayerConfig = getConfiguration(configOptions);
 

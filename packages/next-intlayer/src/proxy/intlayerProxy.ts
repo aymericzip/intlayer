@@ -1,11 +1,41 @@
 import configuration from '@intlayer/config/built';
 import { ROUTING_MODE } from '@intlayer/config/defaultValues';
-import {
-  TREE_SHAKE_NO_PREFIX,
-  TREE_SHAKE_PREFIX_MODES,
-  TREE_SHAKE_REWRITE,
-  TREE_SHAKE_SEARCH_PARAMS,
-} from '@intlayer/config/envVars';
+
+// ── Tree-shake constants ──────────────────────────────────────────────────────
+// When these env vars are injected at build time, bundlers eliminate the
+// branches guarded by these constants.
+
+/**
+ * True when the build-time routing mode is known and is NOT 'no-prefix'.
+ * Use to guard no-prefix-specific code paths so bundlers can eliminate them.
+ */
+const TREE_SHAKE_NO_PREFIX =
+  process.env['INTLAYER_ROUTING_MODE'] &&
+  process.env['INTLAYER_ROUTING_MODE'] !== 'no-prefix';
+
+/**
+ * True when the build-time routing mode is known and is NOT 'search-params'.
+ */
+const TREE_SHAKE_SEARCH_PARAMS =
+  process.env['INTLAYER_ROUTING_MODE'] &&
+  process.env['INTLAYER_ROUTING_MODE'] !== 'search-params';
+
+/**
+ * True when the build-time routing mode is known and is not a prefix-based
+ * mode (neither 'prefix-all' nor 'prefix-no-default').
+ */
+const TREE_SHAKE_PREFIX_MODES =
+  process.env['INTLAYER_ROUTING_MODE'] &&
+  process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-all' &&
+  process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-no-default';
+
+/**
+ * True when rewrite rules are explicitly disabled at build time
+ * (INTLAYER_ROUTING_REWRITE_RULES === 'false').
+ */
+const TREE_SHAKE_REWRITE =
+  process.env['INTLAYER_ROUTING_REWRITE_RULES'] === 'false';
+
 import {
   getCanonicalPath,
   getLocalizedPath,

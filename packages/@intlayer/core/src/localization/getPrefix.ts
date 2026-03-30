@@ -4,7 +4,20 @@ import {
   LOCALES,
   ROUTING_MODE,
 } from '@intlayer/config/defaultValues';
-import { TREE_SHAKE_PREFIX_MODES } from '@intlayer/config/envVars';
+
+// ── Tree-shake constants ──────────────────────────────────────────────────────
+// When these env vars are injected at build time, bundlers eliminate the
+// branches guarded by these constants.
+
+/**
+ * True when the build-time routing mode is known and is not a prefix-based
+ * mode (neither 'prefix-all' nor 'prefix-no-default').
+ */
+const TREE_SHAKE_PREFIX_MODES =
+  process.env['INTLAYER_ROUTING_MODE'] &&
+  process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-all' &&
+  process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-no-default';
+
 import type { Locale } from '@intlayer/types/allLocales';
 import type { RoutingConfig } from '@intlayer/types/config';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
