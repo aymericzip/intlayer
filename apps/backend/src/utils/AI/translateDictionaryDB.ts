@@ -56,7 +56,10 @@ export const translateDictionaryDB = async ({
   Record<Locale, JSONObject | JSONArray>
 > => {
   const chunks = chunkJSON(content, CHUNK_SIZE);
-  const results: Record<Locale, JSONObject | JSONArray> = {} as any;
+  const results: Record<Locale, JSONObject | JSONArray> = {} as Record<
+    Locale,
+    JSONObject | JSONArray
+  >;
 
   for (const targetLocale of targetLocales) {
     logger.info(`Translating to ${targetLocale}... (${chunks.length} chunks)`);
@@ -71,14 +74,14 @@ export const translateDictionaryDB = async ({
       // chunkJSON guarantees root is object/array.
 
       const presetOutputContent = reduceObjectFormat(
-        chunkContent as any, // In a real scenario, we might want to pass existing translation here
-        chunkContent as any
-      );
+        chunkContent, // In a real scenario, we might want to pass existing translation here
+        chunkContent
+      ) as any;
 
       const translatedChunk = await retry(async () => {
         const result = await translateJSON({
-          entryFileContent: chunkContent as any,
-          presetOutputContent: presetOutputContent as any,
+          entryFileContent: chunkContent,
+          presetOutputContent,
           entryLocale: sourceLocale,
           outputLocale: targetLocale,
           mode,

@@ -31,6 +31,10 @@ import type { Dictionary } from '@intlayer/types/dictionary';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import type { AIClient } from '../utils/setupAI';
 import { deepMergeContent } from './deepMergeContent';
+import {
+  extractTranslatableContent,
+  reinsertTranslatedContent,
+} from './extractTranslatableContent';
 import { getFilterMissingContentPerLocale } from './getFilterMissingContentPerLocale';
 import type { TranslationTask } from './listTranslationsTasks';
 
@@ -52,43 +56,37 @@ type TranslateDictionaryOptions = {
   aiConfig?: AIConfig;
 };
 
+const createChunkPreset = (chunkIndex: number, totalChunks: number) => {
+  if (totalChunks <= 1) return '';
+  return colon(
+    [
+      colorize('[', ANSIColors.GREY_DARK),
+      colorizeNumber(chunkIndex + 1),
+      colorize(`/${totalChunks}`, ANSIColors.GREY_DARK),
+      colorize(']', ANSIColors.GREY_DARK),
+    ].join(''),
+    { colSize: 5 }
+  );
+};
+
 const hasMissingMetadata = (dictionary: Dictionary) =>
   !dictionary.description || !dictionary.title || !dictionary.tags;
 
-/**
- * Recursively strips null values from an object, returning the cleaned content
- * and a separate object containing only the null-valued paths so they can be
- * re-injected after AI translation (nulls don't need translation).
- */
-const stripNullValues = (
-  obj: any
-): { content: any; nulls: any; hasNulls: boolean } => {
-  if (typeof obj !== 'object' || obj === null || Array.isArray(obj)) {
-    return { content: obj, nulls: undefined, hasNulls: false };
+const serializeError = (error: unknown): string => {
+  if (error instanceof Error) {
+    return error.cause
+      ? `${error.message} (cause: ${String(error.cause)})`
+      : error.message;
   }
-
-  const content: any = {};
-  const nulls: any = {};
-  let hasNulls = false;
-
-  for (const [key, value] of Object.entries(obj)) {
-    if (value === null) {
-      nulls[key] = null;
-      hasNulls = true;
-    } else {
-      const child = stripNullValues(value);
-      content[key] = child.content;
-      if (child.hasNulls) {
-        nulls[key] = child.nulls;
-        hasNulls = true;
-      }
-    }
+  if (typeof error === 'string') return error;
+  try {
+    return JSON.stringify(error);
+  } catch {
+    return String(error);
   }
-
-  return { content, nulls: hasNulls ? nulls : undefined, hasNulls };
 };
 
-const CHUNK_SIZE = 7000; // GPT-5 Mini safe input size
+const CHUNK_SIZE = 1500; // Smaller chunks for better accuracy and structural integrity
 const GROUP_MAX_RETRY = 2;
 const MAX_RETRY = 3;
 const RETRY_DELAY = 1000 * 10; // 10 seconds
@@ -259,22 +257,6 @@ export const translateDictionary = async (
             { colSize: 18 }
           );
 
-          const createChunkPreset = (
-            chunkIndex: number,
-            totalChunks: number
-          ) => {
-            if (totalChunks <= 1) return '';
-            return colon(
-              [
-                colorize('[', ANSIColors.GREY_DARK),
-                colorizeNumber(chunkIndex + 1),
-                colorize(`/${totalChunks}`, ANSIColors.GREY_DARK),
-                colorize(']', ANSIColors.GREY_DARK),
-              ].join(''),
-              { colSize: 5 }
-            );
-          };
-
           appLogger(
             `${task.dictionaryPreset}${localePreset} Preparing ${colorizePath(basename(targetLocaleDictionary.filePath!))}`,
             {
@@ -282,25 +264,11 @@ export const translateDictionary = async (
             }
           );
 
-          const isContentStructured =
-            (typeof dictionaryToProcess.content === 'object' &&
-              dictionaryToProcess.content !== null) ||
-            Array.isArray(dictionaryToProcess.content);
-
-          const rawContentToProcess = isContentStructured
-            ? dictionaryToProcess.content
-            : {
-                __INTLAYER_ROOT_PRIMITIVE_CONTENT__:
-                  dictionaryToProcess.content,
-              };
-
-          // Strip null values before sending to AI — nulls need no translation
-          // and confuse the model. They will be re-injected after merging.
-          const { content: contentToProcess, nulls: strippedNullValues } =
-            stripNullValues(rawContentToProcess);
+          const { extractedContent, translatableDictionary } =
+            extractTranslatableContent(dictionaryToProcess.content);
 
           const chunkedJsonContent: JsonChunk[] = chunkJSON(
-            contentToProcess as unknown as Record<string, any>,
+            translatableDictionary as unknown as Record<string, any>,
             CHUNK_SIZE
           );
 
@@ -318,7 +286,7 @@ export const translateDictionary = async (
           const chunkResult: JsonChunk[] = [];
 
           // Process chunks in parallel (globally throttled) to allow concurrent translation
-          const chunkPromises = chunkedJsonContent.map((chunk) => {
+          const chunkPromises = chunkedJsonContent.map(async (chunk) => {
             const chunkPreset = createChunkPreset(chunk.index, chunk.total);
 
             if (nbOfChunks > 1) {
@@ -330,15 +298,9 @@ export const translateDictionary = async (
               );
             }
 
-            // Reconstruct partial JSON content from this chunk's patches
             const chunkContent = reconstructFromSingleChunk(chunk);
             const presetOutputContent = reduceObjectFormat(
-              isContentStructured
-                ? targetLocaleDictionary.content
-                : {
-                    __INTLAYER_ROOT_PRIMITIVE_CONTENT__:
-                      targetLocaleDictionary.content,
-                  },
+              translatableDictionary,
               chunkContent
             ) as unknown as JSON;
 
@@ -381,14 +343,14 @@ export const translateDictionary = async (
                     throw new Error('No content result');
                   }
 
-                  const { isIdentic } = verifyIdenticObjectFormat(
+                  const { isIdentic, error } = verifyIdenticObjectFormat(
                     translationResult.fileContent,
                     chunkContent
                   );
 
                   if (!isIdentic) {
                     throw new Error(
-                      'Translation result does not match expected format'
+                      `Translation result does not match expected format: ${error}`
                     );
                   }
 
@@ -404,7 +366,7 @@ export const translateDictionary = async (
                       chunk.total
                     );
                     appLogger(
-                      `${task.dictionaryPreset}${localePreset}${chunkPreset} ${colorize('Error filling:', ANSIColors.RED)} ${colorize(typeof error === 'string' ? error : JSON.stringify(error), ANSIColors.GREY_DARK)} - Attempt ${colorizeNumber(attempt + 1)} of ${colorizeNumber(maxRetry)}`,
+                      `${task.dictionaryPreset}${localePreset}${chunkPreset} ${colorize('Error filling:', ANSIColors.RED)} ${colorize(serializeError(error), ANSIColors.GREY_DARK)} - Attempt ${colorizeNumber(attempt + 1)} of ${colorizeNumber(maxRetry)}`,
                       {
                         level: 'error',
                       }
@@ -441,25 +403,21 @@ export const translateDictionary = async (
             });
 
           // Merge partial JSON objects produced from each chunk into a single object
-          let mergedContent = mergeChunks(chunkResult);
+          const mergedTranslatedDictionary = mergeChunks(chunkResult);
 
-          // Re-inject null values that were stripped before AI translation
-          if (strippedNullValues) {
-            mergedContent = deepMergeContent(mergedContent, strippedNullValues);
-          }
+          const reinsertedContent = reinsertTranslatedContent(
+            dictionaryToProcess.content,
+            extractedContent,
+            mergedTranslatedDictionary as Record<number, string>
+          );
 
           const merged = {
             ...dictionaryToProcess,
-            content: mergedContent,
+            content: reinsertedContent,
           };
 
           // For per-locale files, merge the newly translated content with existing target content
           let finalContent = merged.content;
-
-          if (!isContentStructured) {
-            finalContent = (finalContent as any)
-              ?.__INTLAYER_ROOT_PRIMITIVE_CONTENT__;
-          }
 
           if (typeof baseUnmergedDictionary.locale === 'string') {
             // Deep merge: existing content + newly translated content
@@ -550,14 +508,14 @@ export const translateDictionary = async (
       delay: RETRY_DELAY,
       onError: ({ error, attempt, maxRetry }) =>
         appLogger(
-          `${task.dictionaryPreset} ${colorize('Error:', ANSIColors.RED)} ${colorize(typeof error === 'string' ? error : JSON.stringify(error), ANSIColors.GREY_DARK)} - Attempt ${colorizeNumber(attempt + 1)} of ${colorizeNumber(maxRetry)}`,
+          `${task.dictionaryPreset} ${colorize('Error:', ANSIColors.RED)} ${colorize(serializeError(error), ANSIColors.GREY_DARK)} - Attempt ${colorizeNumber(attempt + 1)} of ${colorizeNumber(maxRetry)}`,
           {
             level: 'error',
           }
         ),
       onMaxTryReached: ({ error }) =>
         appLogger(
-          `${task.dictionaryPreset} ${colorize('Maximum number of retries reached:', ANSIColors.RED)} ${colorize(typeof error === 'string' ? error : JSON.stringify(error), ANSIColors.GREY_DARK)}`,
+          `${task.dictionaryPreset} ${colorize('Maximum number of retries reached:', ANSIColors.RED)} ${colorize(serializeError(error), ANSIColors.GREY_DARK)}`,
           {
             level: 'error',
           }

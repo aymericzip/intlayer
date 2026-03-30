@@ -1,0 +1,83 @@
+{
+  "Index": {
+    "title": "Inicio",
+    "description": "Esta es la página de inicio."
+  },
+  "LocaleSwitcher": {
+    "switchLocale_de": "Cambiar a alemán",
+    "switchLocale_en": "Cambiar a inglés",
+    "switchLocale": "Cambiar a idioma desconocido"
+  },
+  "PageLayout": {
+    "pageTitle": "next-intl"
+  },
+  "ICUExamples": {
+    "plural": {
+      "items_zero": "No hay elementos",
+      "items_one": "Un elemento",
+      "items_other": "{{count}} elementos",
+      "messages_zero": "No tienes mensajes",
+      "messages_one": "Tienes un mensaje",
+      "messages_other": "Tienes {{messageCount}} mensajes",
+      "unread_zero": "No hay mensajes sin leer",
+      "unread_one": "{{unreadCount}} mensaje sin leer",
+      "unread_other": "{{unreadCount}} mensajes sin leer"
+    },
+    "gender": {
+      "welcome_male": "¡Bienvenido, señor!",
+      "welcome_female": "¡Bienvenida, señora!",
+      "welcome": "¡Bienvenido!",
+      "invitation_male": "Él está invitado",
+      "invitation_female": "Ella está invitada",
+      "invitation": "Están invitados",
+      "possession_male": "Cuenta de él",
+      "possession_female": "Cuenta de ella",
+      "possession": "Cuenta de ellos"
+    },
+    "insert": {
+      "greeting": "¡Hola, {{name}}!",
+      "formattedNumber": "Precio: {{price, currency}}",
+      "formattedDate": "Hoy es {{date, long}}",
+      "formattedTime": "Hora actual: {{time, short}}",
+      "percentage": "Progreso: {{progress, percent}}",
+      "complex": "El usuario {{name}} tiene {{count}} {{itemType}}s"
+    },
+    "combined": {
+      "userMessages_male": "Él tiene {{count}} mensajes",
+      "userMessages_female": "Ella tiene {{count}} mensajes",
+      "userMessages": "Ellos tienen {{count}} mensajes",
+      "itemCount": "Tienes {{count}} elementos en tu {{category}}",
+      "notification": "{{userName}} compartió {{itemCount}} elementos contigo el {{date}}"
+    },
+    "select": {
+      "status_active": "Activo",
+      "status_inactive": "Inactivo",
+      "status_pending": "Pendiente",
+      "status": "Desconocido",
+      "role_admin": "Administrador",
+      "role_user": "Usuario",
+      "role_guest": "Invitado",
+      "role": "Rol desconocido",
+      "priority_high": "Alta prioridad",
+      "priority_medium": "Prioridad media",
+      "priority_low": "Baja prioridad",
+      "priority": "Prioridad normal"
+    },
+    "numberFormatting": {
+      "currency": "Total: {{amount, currency}}",
+      "decimal": "Valor: {{value}}",
+      "percent": "Completado: {{percentage, percent}}",
+      "compact": "Vistas: {{views, compact}}"
+    },
+    "dateTimeFormatting": {
+      "dateShort": "{{date, short}}",
+      "dateMedium": "{{date, medium}}",
+      "dateLong": "{{date, long}}",
+      "dateFull": "{{date, full}}",
+      "timeShort": "{{time, short}}",
+      "timeMedium": "{{time, medium}}",
+      "timeLong": "{{time, long}}",
+      "dateTime": "{{datetime, medium}} a las {{datetime, short}}"
+    }
+  }
+}

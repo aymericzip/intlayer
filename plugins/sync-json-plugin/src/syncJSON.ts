@@ -34,27 +34,34 @@ export const extractKeyAndLocaleFromPath = (
   const keyPlaceholder = '{{__KEY__}}';
   const localePlaceholder = '{{__LOCALE__}}';
 
-  const escapedMask = escapeRegex(maskPattern);
+  // fast-glob strips leading "./" from returned paths; normalize both sides
+  const normalize = (path: string) =>
+    path.startsWith('./') ? path.slice(2) : path;
+
+  const normalizedFilePath = normalize(filePath);
+  const normalizedMask = normalize(maskPattern);
+
   const localesAlternation = locales.join('|');
 
-  // Build a regex from the mask to capture locale (and key if present)
-  let regexStr = `^${escapedMask}$`;
+  // Escape special regex chars, then convert glob wildcards to regex equivalents.
+  // Must replace ** before * to avoid double-replacing.
+  let regexStr = `^${escapeRegex(normalizedMask)}$`;
+  regexStr = regexStr.replace(/\\\*\\\*/g, '.*'); // ** → match any path segments
+  regexStr = regexStr.replace(/\\\*/g, '[^/]*'); // * → match within a single segment
 
   regexStr = regexStr.replace(
     escapeRegex(localePlaceholder),
     `(?<locale>${localesAlternation})`
   );
 
-  if (maskPattern.includes(keyPlaceholder)) {
-    // FIX: Allow key to match multiple directory levels (e.g. "nested/file" or "folder/index")
-    // Previous value: '(?<key>[^/]+)'
+  if (normalizedMask.includes(keyPlaceholder)) {
     regexStr = regexStr.replace(escapeRegex(keyPlaceholder), '(?<key>.+)');
   }
 
   const maskRegex = new RegExp(regexStr);
-  const match = maskRegex.exec(filePath);
+  const match = maskRegex.exec(normalizedFilePath);
 
-  if (!match || !match.groups) {
+  if (!match?.groups) {
     return null;
   }
 
@@ -101,7 +108,11 @@ const listMessages = async (
       continue;
     }
 
-    const files = await fg(globPatternLocale, {
+    const normalizedGlobPattern = globPatternLocale.startsWith('./')
+      ? globPatternLocale.slice(2)
+      : globPatternLocale;
+
+    const files = await fg(normalizedGlobPattern, {
       cwd: baseDir,
     });
 
@@ -148,7 +159,12 @@ const listMessages = async (
   }
 
   // Ensure all declared locales are present even if the file doesn't exist yet
-  const hasKeyInMask = true; // We check keys manually below
+  const maskWithKey = await parseFilePathPattern(source, {
+    key: '{{__KEY__}}',
+    locale: locales[0],
+  } as any as FilePathPatternContext);
+
+  const hasKeyInMask = maskWithKey.includes('{{__KEY__}}');
   const discoveredKeys = new Set<string>();
 
   for (const locale of Object.keys(result)) {
@@ -311,12 +327,10 @@ export const syncJSON = async (
       const dictionaries: Dictionary[] = [];
 
       for (const { locale, path, key } of dictionariesMap) {
-        let json: JSONContent = {};
-        try {
-          json = await loadExternalFile(path, { logError: false });
-        } catch {
-          json = {};
-        }
+        // loadExternalFile swallows errors and returns undefined for missing files;
+        // the try/catch does not help here — use ?? {} to guarantee a plain object.
+        const json: JSONContent =
+          (await loadExternalFile(path, { logError: false })) ?? {};
 
         const filePath = relative(configuration.system.baseDir, path);
 
@@ -353,21 +367,14 @@ export const syncJSON = async (
       const builderPath = await parseFilePathPattern(options.source, {
         key: dictionary.key,
         locale: dictionary.locale,
-      } as any as FilePathPatternContext);
+      } as FilePathPatternContext);
 
       // Verification to ensure we are formatting the correct file
       if (resolve(builderPath) !== resolve(dictionary.filePath)) {
         return dictionary;
       }
 
-      const dictionaryWithFormat = {
-        ...dictionary,
-        format,
-      };
-
-      const formattedOutput = formatDictionaryOutput(
-        dictionaryWithFormat as Dictionary
-      );
+      const formattedOutput = formatDictionaryOutput(dictionary, format);
 
       return formattedOutput.content;
     },
@@ -412,12 +419,10 @@ export const syncJSON = async (
 
         const localizedDictionary = getPerLocaleDictionary(dictionary, locale);
 
-        const dictionaryWithFormat = {
-          ...localizedDictionary,
-          format,
-        };
-
-        const formattedOutput = formatDictionaryOutput(dictionaryWithFormat);
+        const formattedOutput = formatDictionaryOutput(
+          localizedDictionary,
+          format
+        );
 
         const content = JSON.parse(JSON.stringify(formattedOutput.content));
 

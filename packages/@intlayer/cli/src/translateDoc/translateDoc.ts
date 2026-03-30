@@ -1,6 +1,7 @@
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { performance } from 'node:perf_hooks';
+import { checkAISDKAccess } from '@intlayer/ai';
 import { listGitFiles, logConfigDetails } from '@intlayer/chokidar/cli';
 import { parallelize, pLimit } from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
@@ -8,6 +9,7 @@ import {
   colorize,
   colorizeNumber,
   getAppLogger,
+  x,
 } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
 import type { Locale } from '@intlayer/types/allLocales';
@@ -50,7 +52,14 @@ export const translateDoc = async ({
 
   const aiResult = await setupAI(configuration, aiOptions);
   if (!aiResult?.hasAIAccess) return;
+
   const { aiClient, aiConfig } = aiResult;
+
+  const { hasAIAccess, error } = await checkAISDKAccess(aiConfig!);
+  if (!hasAIAccess) {
+    appLogger(`${x} ${error}`);
+    return;
+  }
 
   if (gitOptions) {
     const gitChangedFiles = await listGitFiles(gitOptions);
@@ -74,7 +83,7 @@ export const translateDoc = async ({
     shouldStop: false,
   };
 
-  // 2. FLATTENED TASK LIST
+  // FLATTENED TASK LIST
   // We create a task for every File x Locale combination.
   const allTasks = docList.flatMap((docPath) =>
     locales.map((locale) => async () => {
@@ -123,7 +132,7 @@ export const translateDoc = async ({
     })
   );
 
-  // 3. HIGH-THROUGHPUT FILE OPENER
+  // HIGH-THROUGHPUT FILE OPENER
   // We open many files simultaneously (e.g., 50) to ensure the global chunk queue
   // is always saturated with work.
   // If we open too few files, the chunk queue might drain faster than we can read new files.

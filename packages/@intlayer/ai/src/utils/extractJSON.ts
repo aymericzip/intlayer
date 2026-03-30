@@ -36,19 +36,41 @@ export const extractJson = <T = any>(input: string): T => {
   const startIdx = opening.index!;
   const openChar = input[startIdx];
   const closeChar = openChar === '{' ? '}' : ']';
+
   let depth = 0;
+  let inString = false;
+  let escaped = false;
 
   for (let i = startIdx; i < input.length; i++) {
     const char = input[i];
-    if (char === openChar) depth++;
-    else if (char === closeChar) {
-      depth--;
-      if (depth === 0) {
-        const jsonSubstring = input.slice(startIdx, i + 1);
-        try {
-          return JSON.parse(jsonSubstring) as T;
-        } catch (err) {
-          throw new Error(`Failed to parse JSON: ${(err as Error).message}`);
+
+    if (escaped) {
+      escaped = false;
+      continue;
+    }
+
+    if (char === '\\') {
+      escaped = true;
+      continue;
+    }
+
+    if (char === '"') {
+      inString = !inString;
+      continue;
+    }
+
+    if (!inString) {
+      if (char === openChar) {
+        depth++;
+      } else if (char === closeChar) {
+        depth--;
+        if (depth === 0) {
+          const jsonSubstring = input.slice(startIdx, i + 1);
+          try {
+            return JSON.parse(jsonSubstring) as T;
+          } catch (err) {
+            throw new Error(`Failed to parse JSON: ${(err as Error).message}`);
+          }
         }
       }
     }

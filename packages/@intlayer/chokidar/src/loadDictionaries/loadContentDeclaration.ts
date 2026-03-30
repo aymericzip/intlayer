@@ -43,10 +43,15 @@ export const ensureIntlayerBundle = async (
   return filePath;
 };
 
+type LoadContentDeclarationOptions = {
+  logError?: boolean;
+};
+
 export const loadContentDeclaration = async (
   path: string,
   configuration: IntlayerConfig,
-  bundleFilePath?: string
+  bundleFilePath?: string,
+  options?: LoadContentDeclarationOptions
 ): Promise<Dictionary | undefined> => {
   const { build } = configuration;
 
@@ -55,6 +60,7 @@ export const loadContentDeclaration = async (
 
   try {
     const dictionary = await loadExternalFile(path, {
+      logError: options?.logError,
       projectRequire: build.require ?? getProjectRequire(),
       buildOptions: {
         banner: {
@@ -79,7 +85,8 @@ export const loadContentDeclaration = async (
 export const loadContentDeclarations = async (
   contentDeclarationFilePath: string[],
   configuration: IntlayerConfig,
-  onStatusUpdate?: (status: DictionariesStatus[]) => void
+  onStatusUpdate?: (status: DictionariesStatus[]) => void,
+  options?: LoadContentDeclarationOptions
 ): Promise<Dictionary[]> => {
   const { build, system } = configuration;
 
@@ -102,7 +109,8 @@ export const loadContentDeclarations = async (
         const dictionary = await loadContentDeclaration(
           path,
           configuration,
-          bundleFilePath
+          bundleFilePath,
+          options
         );
 
         return { relativePath, dictionary };

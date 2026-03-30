@@ -1,4 +1,5 @@
 import { relative } from 'node:path';
+import { prepareIntlayer } from '@intlayer/chokidar/cli';
 import { formatPath } from '@intlayer/chokidar/utils';
 import {
   colon,
@@ -18,10 +19,12 @@ type ListContentDeclarationOptions = {
   absolute?: boolean;
 };
 
-export const listContentDeclarationRows = (
+export const listContentDeclarationRows = async (
   options?: ListContentDeclarationOptions
 ) => {
   const config = getConfiguration(options?.configOptions);
+
+  await prepareIntlayer(config);
 
   const unmergedDictionariesRecord = getUnmergedDictionaries(config);
 
@@ -36,10 +39,10 @@ export const listContentDeclarationRows = (
   return rows;
 };
 
-export const listContentDeclaration = (
+export const listContentDeclaration = async (
   options?: ListContentDeclarationOptions
 ) => {
-  const rows = listContentDeclarationRows(options);
+  const rows = await listContentDeclarationRows(options);
 
   if (options?.json) {
     console.log(JSON.stringify(rows));

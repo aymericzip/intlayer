@@ -38,6 +38,16 @@ export const verifyIdenticObjectFormat = (
     };
   }
 
+  // Allow null/undefined returns from AI for any expected primitive type
+  // (AI may return null for content it cannot translate)
+  if (
+    (object === null || object === undefined) &&
+    typeof expectedFormat !== 'object' &&
+    !Array.isArray(expectedFormat)
+  ) {
+    return { isIdentic: true };
+  }
+
   // Get the type of both values
   const expectedType = Array.isArray(expectedFormat)
     ? 'array'
@@ -96,12 +106,22 @@ export const verifyIdenticObjectFormat = (
       };
     }
 
-    // Check if keys match and are in the same order
-    for (let i = 0; i < expectedKeys.length; i++) {
-      if (expectedKeys[i] !== objectKeys[i]) {
+    // Check if each expected key is present in the object
+    for (const key of expectedKeys) {
+      if (!objectKeys.includes(key)) {
         return {
           isIdentic: false,
-          error: `Object keys mismatch at ${path}: expected key "${expectedKeys[i]}" at position ${i}, got "${objectKeys[i]}"`,
+          error: `Missing key at ${path}: expected key "${key}" not found`,
+        };
+      }
+    }
+
+    // Check if there are any unexpected keys in the object
+    for (const key of objectKeys) {
+      if (!expectedKeys.includes(key)) {
+        return {
+          isIdentic: false,
+          error: `Unexpected key at ${path}: key "${key}" was found but not expected`,
         };
       }
     }

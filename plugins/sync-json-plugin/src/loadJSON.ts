@@ -49,7 +49,11 @@ const listMessages = async (
       continue;
     }
 
-    const files = await fg(globPatternLocale, {
+    const normalizedGlobPattern = globPatternLocale.startsWith('./')
+      ? globPatternLocale.slice(2)
+      : globPatternLocale;
+
+    const files = await fg(normalizedGlobPattern, {
       cwd: baseDir,
     });
 
@@ -234,13 +238,10 @@ export const loadJSON = (options: LoadJSONPluginOptions): Plugin => {
       const dictionaries: Dictionary[] = [];
 
       for (const { path, key } of dictionariesMap) {
-        let json: JSONContent = {};
-        try {
-          json = await loadExternalFile(path, { logError: false });
-        } catch {
-          // File does not exist yet; default to empty content so it can be filled later
-          json = {};
-        }
+        // loadExternalFile swallows errors and returns undefined for missing files;
+        // use ?? {} to guarantee a plain object regardless.
+        const json: JSONContent =
+          (await loadExternalFile(path, { logError: false })) ?? {};
 
         const filePath = relative(configuration.system.baseDir, path);
 

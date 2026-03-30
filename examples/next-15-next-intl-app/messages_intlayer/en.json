@@ -1,0 +1,277 @@
+{
+  "Index": { "title": "Home", "description": "This is the home page." },
+  "LocaleSwitcher": {
+    "switchLocale": [
+      "Switch to ",
+      {
+        "nodeType": "enumeration",
+        "enumeration": {
+          "de": "German",
+          "en": "English",
+          "other": "Unknown"
+        }
+      }
+    ]
+  },
+  "PageLayout": { "pageTitle": "next-intl" },
+  "ICUExamples": {
+    "plural": {
+      "items": {
+        "nodeType": "enumeration",
+        "enumeration": {
+          "0": "No items",
+          "1": "One item",
+          "fallback": "{{count}} items"
+        }
+      },
+      "messages": {
+        "nodeType": "enumeration",
+        "enumeration": {
+          "0": "You have no messages",
+          "1": "You have one message",
+          "fallback": "You have {{messageCount}} messages"
+        }
+      },
+      "unread": {
+        "nodeType": "enumeration",
+        "enumeration": {
+          "0": "No unread messages",
+          "1": "{{unreadCount}} unread message",
+          "fallback": "{{unreadCount}} unread messages"
+        }
+      }
+    },
+    "gender": {
+      "welcome": {
+        "nodeType": "gender",
+        "gender": {
+          "fallback": "Welcome!",
+          "male": "Welcome, sir!",
+          "female": "Welcome, madam!"
+        }
+      },
+      "invitation": {
+        "nodeType": "gender",
+        "gender": {
+          "fallback": "They are invited",
+          "male": "He is invited",
+          "female": "She is invited"
+        }
+      },
+      "possession": {
+        "nodeType": "gender",
+        "gender": {
+          "fallback": "Their account",
+          "male": "His account",
+          "female": "Her account"
+        }
+      }
+    },
+    "insert": {
+      "greeting": {
+        "nodeType": "insertion",
+        "insertion": "Hello, {{name}}!"
+      },
+      "formattedNumber": {
+        "nodeType": "insertion",
+        "insertion": "Price: {price, number, currency}"
+      },
+      "formattedDate": {
+        "nodeType": "insertion",
+        "insertion": "Today is {date, date, long}"
+      },
+      "formattedTime": {
+        "nodeType": "insertion",
+        "insertion": "Current time: {time, time, short}"
+      },
+      "percentage": {
+        "nodeType": "insertion",
+        "insertion": "Progress: {progress, number, percent}"
+      },
+      "complex": [
+        "User ",
+        {
+          "nodeType": "insertion",
+          "insertion": "{{name}}"
+        },
+        " has ",
+        {
+          "nodeType": "enumeration",
+          "enumeration": {
+            "0": "no",
+            "1": "one",
+            "fallback": "{{count}}"
+          }
+        },
+        " ",
+        {
+          "nodeType": "enumeration",
+          "enumeration": {
+            "message": "message",
+            "notification": "notification",
+            "other": "item"
+          }
+        },
+        {
+          "nodeType": "enumeration",
+          "enumeration": {
+            "0": "",
+            "1": "",
+            "fallback": "s"
+          }
+        }
+      ]
+    },
+    "combined": {
+      "userMessages": [
+        {
+          "nodeType": "gender",
+          "gender": {
+            "fallback": "They have",
+            "male": "He has",
+            "female": "She has"
+          }
+        },
+        " ",
+        {
+          "nodeType": "enumeration",
+          "enumeration": {
+            "0": "no messages",
+            "1": "one message",
+            "fallback": "{{count}} messages"
+          }
+        }
+      ],
+      "itemCount": [
+        "You have ",
+        {
+          "nodeType": "enumeration",
+          "enumeration": {
+            "0": "no items",
+            "1": "one item",
+            "fallback": "{{count}} items"
+          }
+        },
+        " in your ",
+        {
+          "nodeType": "enumeration",
+          "enumeration": {
+            "cart": "cart",
+            "wishlist": "wishlist",
+            "other": "list"
+          }
+        }
+      ],
+      "notification": [
+        {
+          "nodeType": "insertion",
+          "insertion": "{{userName}}"
+        },
+        " ",
+        {
+          "nodeType": "gender",
+          "gender": {
+            "fallback": "shared",
+            "male": "shared",
+            "female": "shared"
+          }
+        },
+        " ",
+        {
+          "nodeType": "enumeration",
+          "enumeration": {
+            "0": "nothing",
+            "1": "an item",
+            "fallback": "{{itemCount}} items"
+          }
+        },
+        " with you on ",
+        {
+          "nodeType": "insertion",
+          "insertion": "{date, date, medium}"
+        }
+      ]
+    },
+    "select": {
+      "status": {
+        "nodeType": "enumeration",
+        "enumeration": {
+          "active": "Active",
+          "inactive": "Inactive",
+          "pending": "Pending",
+          "other": "Unknown"
+        }
+      },
+      "role": {
+        "nodeType": "enumeration",
+        "enumeration": {
+          "admin": "Administrator",
+          "user": "User",
+          "guest": "Guest",
+          "other": "Unknown role"
+        }
+      },
+      "priority": {
+        "nodeType": "enumeration",
+        "enumeration": {
+          "high": "High priority",
+          "medium": "Medium priority",
+          "low": "Low priority",
+          "other": "Normal priority"
+        }
+      }
+    },
+    "numberFormatting": {
+      "currency": {
+        "nodeType": "insertion",
+        "insertion": "Total: {amount, number, currency}"
+      },
+      "decimal": {
+        "nodeType": "insertion",
+        "insertion": "Value: {value, number}"
+      },
+      "percent": {
+        "nodeType": "insertion",
+        "insertion": "Completion: {percentage, number, percent}"
+      },
+      "compact": {
+        "nodeType": "insertion",
+        "insertion": "Views: {views, number, compactShort}"
+      }
+    },
+    "dateTimeFormatting": {
+      "dateShort": {
+        "nodeType": "insertion",
+        "insertion": "{date, date, short}"
+      },
+      "dateMedium": {
+        "nodeType": "insertion",
+        "insertion": "{date, date, medium}"
+      },
+      "dateLong": {
+        "nodeType": "insertion",
+        "insertion": "{date, date, long}"
+      },
+      "dateFull": {
+        "nodeType": "insertion",
+        "insertion": "{date, date, full}"
+      },
+      "timeShort": {
+        "nodeType": "insertion",
+        "insertion": "{time, time, short}"
+      },
+      "timeMedium": {
+        "nodeType": "insertion",
+        "insertion": "{time, time, medium}"
+      },
+      "timeLong": {
+        "nodeType": "insertion",
+        "insertion": "{time, time, long}"
+      },
+      "dateTime": {
+        "nodeType": "insertion",
+        "insertion": "{datetime, date, medium} at {datetime, time, short}"
+      }
+    }
+  }
+}

@@ -7,4 +7,5 @@ export * from './listDictionariesPath';
 export * from './listGitFiles';
 export * from './listProjects';
 export * from './logConfigDetails';
+export * from './prepareIntlayer';
 export * from './writeContentDeclaration';

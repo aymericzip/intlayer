@@ -1,5 +1,6 @@
 import { existsSync } from 'node:fs';
 import { join, relative } from 'node:path';
+import { checkAISDKAccess } from '@intlayer/ai';
 import type { AIOptions } from '@intlayer/api';
 import {
   type ListGitFilesOptions,
@@ -17,6 +18,7 @@ import {
   colorize,
   colorizeNumber,
   getAppLogger,
+  x,
 } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
@@ -72,6 +74,12 @@ export const reviewDoc = async ({
   if (!aiResult?.hasAIAccess) return;
 
   const { aiClient, aiConfig } = aiResult;
+
+  const { hasAIAccess, error } = await checkAISDKAccess(aiConfig!);
+  if (!hasAIAccess) {
+    appLogger(`${x} ${error}`);
+    return;
+  }
 
   if (nbSimultaneousFileProcessed && nbSimultaneousFileProcessed > 10) {
     appLogger(

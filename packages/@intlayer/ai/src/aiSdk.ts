@@ -36,6 +36,7 @@ import type {
   ToolModelMessage,
   UserModelMessage,
 } from 'ai';
+import { generateText as generateTextFn } from 'ai';
 
 const DEFAULT_PROVIDER = AiProviders.ANTHROPIC;
 const DEFAULT_MODEL = 'claude-haiku-4-5-20251001';
@@ -629,6 +630,32 @@ export type AIConfigOptions = {
   projectOptions?: AIOptions;
   defaultOptions?: AIOptions;
   accessType?: AccessType[];
+};
+
+/**
+ * Sends a minimal request to verify that the configured AI provider credentials
+ * are valid and reachable before starting any bulk operation.
+ *
+ * @returns true if access is confirmed, false otherwise
+ */
+export const checkAISDKAccess = async (
+  aiConfig: AIConfig
+): Promise<{ hasAIAccess: boolean; error?: string }> => {
+  try {
+    await generateTextFn({
+      ...aiConfig,
+      messages: [
+        {
+          role: 'user',
+          content: 'ping',
+        },
+      ],
+      maxOutputTokens: 20,
+    });
+    return { hasAIAccess: true };
+  } catch (error) {
+    return { hasAIAccess: false, error: (error as Error).message };
+  }
 };
 
 /**

@@ -1,4 +1,5 @@
 import { basename, join, relative } from 'node:path';
+import { checkAISDKAccess } from '@intlayer/ai';
 import type { AIOptions } from '@intlayer/api';
 import {
   loadContentDeclarations,
@@ -20,6 +21,7 @@ import {
   colorizeKey,
   colorizePath,
   getAppLogger,
+  x,
 } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
 import type { Locale } from '@intlayer/types/allLocales';
@@ -37,7 +39,7 @@ import {
 import { translateDictionary } from './translateDictionary';
 import { writeFill } from './writeFill';
 
-const NB_CONCURRENT_TRANSLATIONS = 7;
+const NB_CONCURRENT_TRANSLATIONS = 1;
 
 // Arguments for the fill function
 export type FillOptions = {
@@ -82,6 +84,12 @@ export const fill = async (options?: FillOptions): Promise<void> => {
 
   const { aiClient, aiConfig } = aiResult;
 
+  const { hasAIAccess, error } = await checkAISDKAccess(aiConfig!);
+  if (!hasAIAccess) {
+    appLogger(`${x} ${error}`);
+    return;
+  }
+
   const targetUnmergedDictionaries =
     await getTargetUnmergedDictionaries(options);
 
@@ -92,6 +100,9 @@ export const fill = async (options?: FillOptions): Promise<void> => {
   const uniqueSourcePaths = [
     ...new Set(
       targetUnmergedDictionaries
+        .filter(
+          (unmergedDictionary) => unmergedDictionary.location !== 'remote'
+        )
         .map((unmergedDictionary) => unmergedDictionary.filePath)
         .filter(Boolean) as string[]
     ),
@@ -100,18 +111,26 @@ export const fill = async (options?: FillOptions): Promise<void> => {
     uniqueSourcePaths.map((sourcePath) =>
       join(configuration.system.baseDir, sourcePath)
     ),
-    configuration
+    configuration,
+    undefined,
+    {
+      logError: false,
+    }
   );
   // Map relative filePath → original fill value from the source file
   const originalFillByPath = new Map<string, Fill | undefined>();
 
-  for (const dict of sourceDictionaries) {
-    if (dict.filePath) {
-      originalFillByPath.set(dict.filePath, dict.fill as Fill | undefined);
+  for (const dictionary of sourceDictionaries) {
+    if (dictionary.filePath) {
+      originalFillByPath.set(
+        dictionary.filePath,
+        dictionary.fill as Fill | undefined
+      );
     }
   }
 
   const affectedDictionaryKeys = new Set<string>();
+
   targetUnmergedDictionaries.forEach((dict) => {
     affectedDictionaryKeys.add(dict.key);
   });
