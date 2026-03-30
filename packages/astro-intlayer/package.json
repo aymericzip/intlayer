@@ -1,6 +1,6 @@
 {
   "name": "astro-intlayer",
-  "version": "8.6.1",
+  "version": "8.6.2",
   "private": false,
   "description": "Easily internationalize i18n your Astro applications with type-safe multilingual content management.",
   "keywords": [
