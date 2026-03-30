@@ -34,7 +34,7 @@ export const IDE: FC<IDEProps> = ({
     setActiveTab(defaultActiveTab ?? firstTabIndex);
   }, [initialPages, defaultActiveTab]);
 
-  const { content, path } = pages[activeTab];
+  const { content, path } = pages[activeTab] ?? {};
   const filePaths = initialPages.map(({ path: title }) => title);
 
   const handleClickFile = (title: string) => {
