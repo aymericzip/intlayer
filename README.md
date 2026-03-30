@@ -288,3 +288,8 @@ Contribute on [GitHub](https://github.com/aymericzip/intlayer), [GitLab](https:/
 If you like Intlayer, give us a ⭐ on GitHub. It helps others discover the project! [See why GitHub Stars matter](https://github.com/aymericzip/intlayer/blob/main/CONTRIBUTING.md#why-github-stars-matter-).
 
 [![Star History Chart](https://api.star-history.com/svg?repos=aymericzip/intlayer&type=Date)](https://star-history.com/#aymericzip/intlayer&Date)
+
+## Hosted deployment
+
+A hosted deployment is available on [Fronteir AI](https://fronteir.ai/mcp/aymericzip-intlayer).
+
