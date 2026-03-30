@@ -33,8 +33,8 @@ export const extractTranslatableContent = (
 
     // Only extract strings that contain at least one letter or number outside of placeholders.
     // This avoids extracting strings that are only spaces, special characters, or just variables.
-    const contentWithoutPlaceholders = modifiedContent.replace(/<\\d+>/g, '');
-    if (/[\\p{L}\\p{N}]/u.test(contentWithoutPlaceholders)) {
+    const contentWithoutPlaceholders = modifiedContent.replace(/<\d+>/g, '');
+    if (/[\p{L}\p{N}]/u.test(contentWithoutPlaceholders)) {
       state.extractedContent.push({
         index: state.currentIndex,
         path: currentPath,

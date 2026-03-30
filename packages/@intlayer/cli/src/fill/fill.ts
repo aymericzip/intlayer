@@ -39,7 +39,7 @@ import {
 import { translateDictionary } from './translateDictionary';
 import { writeFill } from './writeFill';
 
-const NB_CONCURRENT_TRANSLATIONS = 1;
+const NB_CONCURRENT_TRANSLATIONS = 7;
 
 // Arguments for the fill function
 export type FillOptions = {

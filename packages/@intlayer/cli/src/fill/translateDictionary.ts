@@ -3,11 +3,11 @@ import type { AIConfig } from '@intlayer/ai';
 import { type AIOptions, getIntlayerAPIProxy } from '@intlayer/api';
 import {
   chunkJSON,
+  excludeObjectFormat,
   formatLocale,
   type JsonChunk,
   mergeChunks,
   reconstructFromSingleChunk,
-  reduceObjectFormat,
   verifyIdenticObjectFormat,
 } from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
@@ -35,7 +35,6 @@ import {
   extractTranslatableContent,
   reinsertTranslatedContent,
 } from './extractTranslatableContent';
-import { getFilterMissingContentPerLocale } from './getFilterMissingContentPerLocale';
 import type { TranslationTask } from './listTranslationsTasks';
 
 type TranslateDictionaryResult = TranslationTask & {
@@ -219,14 +218,6 @@ export const translateDictionary = async (
               filePath: targetLocaleFilePath,
               locale: targetLocale,
             };
-
-            // In complete mode, filter out already translated content
-            if (mode === 'complete') {
-              dictionaryToProcess = getFilterMissingContentPerLocale(
-                dictionaryToProcess,
-                targetUnmergedDictionary
-              );
-            }
           } else {
             // For multilingual dictionaries
             if (mode === 'complete') {
@@ -248,6 +239,20 @@ export const translateDictionary = async (
             );
           }
 
+          // Filter to only untranslated fields, preserving explicit null values as
+          // default-locale fallback markers. Applied after both paths converge so
+          // the same logic covers per-locale and multilingual dictionaries.
+          if (mode === 'complete') {
+            dictionaryToProcess = {
+              ...dictionaryToProcess,
+              content:
+                excludeObjectFormat(
+                  dictionaryToProcess.content,
+                  targetLocaleDictionary.content
+                ) ?? {},
+            };
+          }
+
           const localePreset = colon(
             [
               colorize('[', ANSIColors.GREY_DARK),
@@ -264,11 +269,8 @@ export const translateDictionary = async (
             }
           );
 
-          const { extractedContent, translatableDictionary } =
-            extractTranslatableContent(dictionaryToProcess.content);
-
           const chunkedJsonContent: JsonChunk[] = chunkJSON(
-            translatableDictionary as unknown as Record<string, any>,
+            dictionaryToProcess.content as unknown as Record<string, any>,
             CHUNK_SIZE
           );
 
@@ -298,11 +300,11 @@ export const translateDictionary = async (
               );
             }
 
-            const chunkContent = reconstructFromSingleChunk(chunk);
-            const presetOutputContent = reduceObjectFormat(
-              translatableDictionary,
-              chunkContent
-            ) as unknown as JSON;
+            const reconstructedChunk = reconstructFromSingleChunk(chunk);
+            const {
+              extractedContent: chunkExtractedContent,
+              translatableDictionary: chunkTranslatableDictionary,
+            } = extractTranslatableContent(reconstructedChunk);
 
             const executeTranslation = async () => {
               return await retryManager(
@@ -311,8 +313,9 @@ export const translateDictionary = async (
 
                   if (aiClient && aiConfig) {
                     translationResult = await aiClient.translateJSON({
-                      entryFileContent: chunkContent as unknown as JSON,
-                      presetOutputContent,
+                      entryFileContent:
+                        chunkTranslatableDictionary as unknown as JSON,
+                      presetOutputContent: chunkTranslatableDictionary,
                       dictionaryDescription:
                         dictionaryToProcess.description ??
                         metadata?.description ??
@@ -325,8 +328,9 @@ export const translateDictionary = async (
                   } else {
                     translationResult = await intlayerAPI.ai
                       .translateJSON({
-                        entryFileContent: chunkContent as unknown as JSON,
-                        presetOutputContent,
+                        entryFileContent:
+                          chunkTranslatableDictionary as unknown as JSON,
+                        presetOutputContent: chunkTranslatableDictionary,
                         dictionaryDescription:
                           dictionaryToProcess.description ??
                           metadata?.description ??
@@ -345,7 +349,7 @@ export const translateDictionary = async (
 
                   const { isIdentic, error } = verifyIdenticObjectFormat(
                     translationResult.fileContent,
-                    chunkContent
+                    chunkTranslatableDictionary
                   );
 
                   if (!isIdentic) {
@@ -355,7 +359,11 @@ export const translateDictionary = async (
                   }
 
                   notifySuccess();
-                  return translationResult.fileContent;
+                  return reinsertTranslatedContent(
+                    reconstructedChunk,
+                    chunkExtractedContent,
+                    translationResult.fileContent as Record<number, string>
+                  );
                 },
                 {
                   maxRetry: MAX_RETRY,
@@ -402,30 +410,22 @@ export const translateDictionary = async (
               chunkResult.push(result);
             });
 
-          // Merge partial JSON objects produced from each chunk into a single object
-          const mergedTranslatedDictionary = mergeChunks(chunkResult);
-
-          const reinsertedContent = reinsertTranslatedContent(
-            dictionaryToProcess.content,
-            extractedContent,
-            mergedTranslatedDictionary as Record<number, string>
-          );
+          // Merge translated chunk contents back into a single content object
+          const reinsertedContent = mergeChunks(chunkResult);
 
           const merged = {
             ...dictionaryToProcess,
             content: reinsertedContent,
           };
 
-          // For per-locale files, merge the newly translated content with existing target content
-          let finalContent = merged.content;
-
-          if (typeof baseUnmergedDictionary.locale === 'string') {
-            // Deep merge: existing content + newly translated content
-            finalContent = deepMergeContent(
-              targetLocaleDictionary.content ?? {},
-              finalContent
-            );
-          }
+          // Merge newly translated content (including explicit null fallbacks) back
+          // into the existing target locale content. Applies to both per-locale and
+          // multilingual paths so the target always retains previously translated
+          // fields and receives null markers where the source has no translation.
+          const finalContent = deepMergeContent(
+            targetLocaleDictionary.content ?? {},
+            merged.content
+          );
 
           return [targetLocale, finalContent] as const;
         })

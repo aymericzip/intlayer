@@ -2,13 +2,14 @@ import { type Dictionary, enu, html, insert, md, t } from 'intlayer';
 
 const appContent = {
   key: 'app',
+
   content: {
     title: 'Vite + Preact',
     countIs: insert(
       t({
         en: 'Count is {{count}}',
-        fr: 'Le compte est {{count}}',
-        es: 'El recuento es {{count}}',
+        fr: 'Le nombre est {{count}}',
+        es: 'Contador: {{count}}',
       })
     ),
     enumeration: insert(
@@ -60,6 +61,11 @@ const appContent = {
       es: 'Haga clic en los logotipos de Vite and Preact para obtener más información',
     }),
   },
+
+  title: 'App (Vite + Preact)',
+  description:
+    'Content for the app demo using Vite + Preact. Includes localized title, count insertions and enumeration templates, HTML and Markdown content, logo labels, and a link prompt to documentation.',
+  tags: ['app', 'vite', 'preact', 'demo', 'content'],
 } satisfies Dictionary;
 
 export default appContent;
