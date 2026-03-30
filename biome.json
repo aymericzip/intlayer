@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.2.5/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.4.10/schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -40,7 +40,8 @@
         "noConsole": {
           "options": {
             "allow": ["assert", "error", "info", "warn"]
-          }
+          },
+          "level": "off"
         },
         "noUnknownAtRules": "warn",
         "noExplicitAny": "off",
@@ -49,6 +50,7 @@
       },
       "complexity": {
         "noBannedTypes": "off",
+        "useLiteralKeys": "off",
         "noImportantStyles": "warn",
         "noUselessFragments": "off",
         "useOptionalChain": "error"

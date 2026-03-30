@@ -96,7 +96,7 @@
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
-    "fastify": "5.8.2",
+    "fastify": "5.8.4",
     "fastify-intlayer": "workspace:*",
     "mime": "4.1.0"
   },
