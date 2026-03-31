@@ -184,7 +184,7 @@ export default defineConfig(({ mode }) => {
         configurePreviewServer(server) {
           const originalClose = server.close.bind(server);
           server.close = async () => {
-            server.httpServer?.closeAllConnections?.();
+            server.httpServer?.close?.();
             return originalClose();
           };
         },

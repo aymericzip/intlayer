@@ -1,12 +1,12 @@
 import {
-  Website_Blog_Root,
-  Website_Blog_Search,
-  Website_Doc_Chat,
-  Website_Doc_Root,
-  Website_Doc_Search,
-  Website_FrequentQuestions,
-  Website_PrivacyPolicy,
-  Website_TermsOfService,
+  Doc_Blog_Root_Path,
+  Doc_Blog_Search_Path,
+  Doc_Chat_Path,
+  Doc_FrequentQuestions_Path,
+  Doc_PrivacyPolicy_Path,
+  Doc_Root_Path,
+  Doc_Search_Path,
+  Doc_TermsOfService_Path,
 } from '@intlayer/design-system/routes';
 import {
   getBlogMetadataBySlug,
@@ -60,35 +60,35 @@ export const Route = createFileRoute('/sitemap.xml')({
         const frequentQuestionMetadata = Object.values(frequentQuestionsRecord);
 
         const staticEntries = [
-          buildEntry(Website_Doc_Root, {
+          buildEntry(Doc_Root_Path, {
             changefreq: 'daily',
             priority: 1.0,
           }),
-          buildEntry(Website_Doc_Search, {
+          buildEntry(Doc_Search_Path, {
             changefreq: 'monthly',
             priority: 0.5,
           }),
-          buildEntry(Website_Doc_Chat, {
+          buildEntry(Doc_Chat_Path, {
             changefreq: 'monthly',
             priority: 0.5,
           }),
-          buildEntry(Website_Blog_Root, {
+          buildEntry(Doc_Blog_Root_Path, {
             changefreq: 'daily',
             priority: 0.9,
           }),
-          buildEntry(Website_Blog_Search, {
+          buildEntry(Doc_Blog_Search_Path, {
             changefreq: 'weekly',
             priority: 0.7,
           }),
-          buildEntry(Website_FrequentQuestions, {
+          buildEntry(Doc_FrequentQuestions_Path, {
             changefreq: 'weekly',
             priority: 0.8,
           }),
-          buildEntry(Website_PrivacyPolicy, {
+          buildEntry(Doc_PrivacyPolicy_Path, {
             changefreq: 'monthly',
             priority: 0.3,
           }),
-          buildEntry(Website_TermsOfService, {
+          buildEntry(Doc_TermsOfService_Path, {
             changefreq: 'monthly',
             priority: 0.3,
           }),

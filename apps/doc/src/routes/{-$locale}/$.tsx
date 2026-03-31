@@ -1,4 +1,4 @@
-import { Website_Doc } from '@intlayer/design-system/routes';
+import { Doc_Path } from '@intlayer/design-system/routes';
 import {
   type DocKey,
   getDoc,
@@ -10,6 +10,7 @@ import {
   defaultLocale,
   getLocalizedUrl,
   getMultilingualUrls,
+  getPrefix,
   Locales,
 } from 'intlayer';
 import { DocHeader } from '#/components/DocPage/DocHeader/DocHeader';
@@ -35,17 +36,20 @@ export const Route = createFileRoute('/{-$locale}/$')({
     );
 
     if (!filteredDocsData || filteredDocsData.length === 0) {
-      throw redirect({ to: Website_Doc });
+      throw redirect({
+        to: '/{-$locale}/get-started' as any,
+        params: { locale: getPrefix(locale).prefix } as any,
+      });
     }
 
     const docData = filteredDocsData[0];
     const { prevDocData, nextDocData } = getPreviousNextDocMetadata(
       docData.docKey as DocKey,
-      locale as any
+      locale
     );
     const defaultDocData = await getDocMetadata(docData.docKey as DocKey);
-    const file = await getDoc(docData.docKey as DocKey, locale as any);
-    const docContent = urlRenamer(file, locale as any);
+    const file = await getDoc(docData.docKey as DocKey, locale);
+    const docContent = urlRenamer(file, locale);
 
     const prevDoc: DocPageNavigationProps['prevDoc'] = prevDocData?.docs
       ? {

@@ -3,7 +3,7 @@ import {
   type BreadcrumbLink,
   type BreadcrumbProps,
 } from '@intlayer/design-system';
-import { Website_Doc, Website_Doc_Root } from '@intlayer/design-system/routes';
+import { Doc_Root_Path, Website_Doc } from '@intlayer/design-system/routes';
 import { getLocalizedUrl, type LocalesValues } from 'intlayer';
 import type { FC } from 'react';
 import { getDocSubSection } from './docData';
@@ -47,7 +47,7 @@ export const DocBreadCrumb: FC<DocBreadCrumbProps> = ({
 
         return {
           text: title ?? '-',
-          href: getLocalizedUrl(`${Website_Doc_Root}/${el.join('/')}`, locale),
+          href: getLocalizedUrl(`${Doc_Root_Path}/${el.join('/')}`, locale),
         };
       }),
   ];

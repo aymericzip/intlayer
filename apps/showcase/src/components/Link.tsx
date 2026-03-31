@@ -8,7 +8,7 @@ import {
   type LinkComponentProps,
   Link as TanStackLink,
 } from '@tanstack/react-router';
-import { getPrefix } from 'intlayer';
+import { getPathWithoutLocale, getPrefix } from 'intlayer';
 
 const DOMAIN =
   typeof import.meta !== 'undefined'
@@ -140,7 +140,9 @@ export const Link: FC<LinkProps> = ({
 
   const { localePrefix } = getPrefix(locale);
 
-  const tanstackTo = `/${LOCALE_ROUTE}${to}` as LinkComponentProps['to'];
+  const tanstackTo =
+    `/${LOCALE_ROUTE}${getPathWithoutLocale(to ?? '')}` as LinkComponentProps['to'];
+
   const tanstackParams = {
     locale: localePrefix ?? '',
     ...(typeof params === 'object' && params !== null ? params : {}),

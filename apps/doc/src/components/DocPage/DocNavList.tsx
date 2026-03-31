@@ -10,14 +10,17 @@ import {
   PopoverStatic,
 } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
-import { Website_Blog, Website_Doc_Chat } from '@intlayer/design-system/routes';
+import {
+  Doc_Blog_Root_Path,
+  Doc_Chat_Path,
+} from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import { useRouterState } from '@tanstack/react-router';
 import { ArrowLeftToLine, Bot } from 'lucide-react';
 import { type ComponentProps, type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { SearchTrigger } from '#/components/DocPage/Search/SearchTrigger';
-import { Link } from '#/components/Link';
+import { Link, type To } from '#/components/Link';
 import { useScrollPositionPersistence } from '#/hooks/useScrollPositionPersistence';
 import {
   FrameworkFilter,
@@ -31,7 +34,7 @@ type OptionalLinkProps = ComponentProps<typeof Link> & {
 };
 
 export const OptionalLink: FC<OptionalLinkProps> = ({
-  href,
+  to,
   isActive,
   className,
   frameworks,
@@ -56,7 +59,7 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
     </span>
   );
 
-  if (!href)
+  if (!to)
     return (
       <span
         className={cn(
@@ -71,7 +74,6 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
 
   return (
     <Link
-      href={href.replace('/doc/', '/')}
       variant="hoverable"
       color="text"
       roundedSize="lg"
@@ -82,6 +84,7 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
       )}
       onClick={(e) => e.stopPropagation()}
       {...props}
+      to={to.replace('/doc/', '/') as To}
     >
       {content}
     </Link>
@@ -261,7 +264,7 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
         return (
           <div key={key1}>
             <OptionalLink
-              href={sectionDefault?.relativeUrl ?? ''}
+              to={sectionDefault?.relativeUrl ?? ''}
               label={key1}
               isActive={isSelfActive && !isSubSectionActive}
               frameworks={section1Data.frameworks}
@@ -308,7 +311,7 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
                           header={
                             <OptionalLink
                               label={key2}
-                              href={sectionDefault?.relativeUrl ?? ''}
+                              to={sectionDefault?.relativeUrl ?? ''}
                               isActive={isSelfActive && !isSubSectionActive}
                               className="block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors hover:text-text"
                               frameworks={section2Data?.frameworks}
@@ -340,7 +343,7 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
                                       <OptionalLink
                                         key={key3}
                                         label={key3}
-                                        href={
+                                        to={
                                           section3Data.default?.relativeUrl ??
                                           ''
                                         }
@@ -358,7 +361,7 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
                         </Accordion>
                       ) : (
                         <OptionalLink
-                          href={sectionDefault?.relativeUrl ?? ''}
+                          to={sectionDefault?.relativeUrl ?? ''}
                           className="block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors hover:text-text"
                           label={key2}
                           isActive={isActive}
@@ -377,13 +380,13 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
       })}
 
       <div>
-        <OptionalLink href={Website_Blog} label={blogButton.label.value}>
+        <OptionalLink to={Doc_Blog_Root_Path} label={blogButton.label.value}>
           {blogButton?.text}
         </OptionalLink>
       </div>
       <div>
         <OptionalLink
-          href={Website_Doc_Chat}
+          to={Doc_Chat_Path}
           label={chatBotButton.label.value}
           className="flex items-center"
         >

@@ -1,5 +1,4 @@
 import { default as configuration, editor } from '@intlayer/config/built';
-
 import { defineIntlayerElements } from '../components';
 import type { MessengerConfig } from './CrossFrameMessenger';
 import { EditorStateManager } from './EditorStateManager';
