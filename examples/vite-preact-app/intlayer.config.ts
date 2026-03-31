@@ -14,7 +14,7 @@ const config: IntlayerConfig = {
     applicationURL: 'http://localhost:5173',
   },
   dictionary: {
-    importMode: 'fetch',
+    importMode: 'dynamic',
   },
   ai: {
     provider: 'openai',

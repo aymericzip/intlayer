@@ -1,4 +1,4 @@
-import { internationalization, editor } from '@intlayer/config/built';
+import { editor, internationalization } from '@intlayer/config/built';
 import {
   conditionPlugin,
   type DeepTransformContent as DeepTransformContentCore,
@@ -477,15 +477,26 @@ export const htmlPlugin: Plugins = TREE_SHAKE_HTML
           renderIntlayerNode({
             ...rest,
             value: html,
-            children: (
-              <Suspense fallback={html}>
-                <LazyHTMLRendererPlugin
-                  {...rest}
-                  html={html}
-                  userComponents={userComponents}
-                />
-              </Suspense>
-            ),
+            children:
+              !TREE_SHAKE_EDITOR && editor.enabled ? (
+                <ContentSelector {...rest}>
+                  <Suspense fallback={html}>
+                    <LazyHTMLRendererPlugin
+                      {...rest}
+                      html={html}
+                      userComponents={userComponents}
+                    />
+                  </Suspense>
+                </ContentSelector>
+              ) : (
+                <Suspense fallback={html}>
+                  <LazyHTMLRendererPlugin
+                    {...rest}
+                    html={html}
+                    userComponents={userComponents}
+                  />
+                </Suspense>
+              ),
           });
 
         const element = render() as unknown as ReactElement;

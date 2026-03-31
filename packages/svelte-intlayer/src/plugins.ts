@@ -1,4 +1,4 @@
-import { internationalization, editor } from '@intlayer/config/built';
+import { editor, internationalization } from '@intlayer/config/built';
 import {
   conditionPlugin,
   type DeepTransformContent as DeepTransformContentCore,
@@ -73,6 +73,7 @@ let _MarkdownMetadataWithSelector: any = null;
 let _MarkdownRenderer: any = null;
 let _MarkdownWithSelector: any = null;
 let _svelteHtmlRuntime: any = null;
+let _HTMLWithSelector: any = null;
 void Promise.all([
   import('./markdown/MarkdownMetadataRenderer.svelte').then(
     (m) => (_MarkdownMetadataRenderer = m.default)
@@ -85,6 +86,9 @@ void Promise.all([
   ),
   import('./markdown/MarkdownWithSelector.svelte').then(
     (m) => (_MarkdownWithSelector = m.default)
+  ),
+  import('./html/HTMLWithSelector.svelte').then(
+    (m) => (_HTMLWithSelector = m.default)
   ),
   import('./markdown/runtime').then(
     (m) => (_svelteHtmlRuntime = m.svelteHtmlRuntime)
@@ -471,7 +475,10 @@ export const htmlPlugin: Plugins = TREE_SHAKE_HTML
           renderIntlayerNode({
             ...props,
             value: htmlString,
-            component: HTMLRenderer,
+            component:
+              !TREE_SHAKE_EDITOR && editor.enabled
+                ? (_HTMLWithSelector ?? HTMLRenderer)
+                : HTMLRenderer,
             props: {
               ...props,
               value: htmlString,

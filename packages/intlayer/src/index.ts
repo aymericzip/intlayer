@@ -63,6 +63,11 @@ const requiredLocales = configuration.internationalization.requiredLocales;
  */
 const defaultLocale = configuration.internationalization.defaultLocale;
 
+/**
+ * The editor configuration defined in the configuration.
+ */
+const editor = configuration.editor;
+
 export { file } from '@intlayer/core/file'; // Include specific export for browser because of node js function that can't be used in browser
 export {
   compact,
@@ -147,12 +152,13 @@ export {
 // Reexport here for CJS compatibility
 // Fix ReferenceError: Cannot access 'xxx' before initialization
 export {
+  configuration,
   defaultLocale,
+  editor,
   getConfiguration,
   Locales,
   locales,
   requiredLocales,
-  configuration,
 };
 
 // --- Registries to be augmented by the generator ---

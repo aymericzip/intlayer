@@ -1,4 +1,4 @@
-import { internationalization, editor } from '@intlayer/config/built';
+import { editor, internationalization } from '@intlayer/config/built';
 import {
   conditionPlugin,
   type DeepTransformContent as DeepTransformContentCore,
@@ -307,10 +307,19 @@ export const markdownStringPlugin: Plugins = TREE_SHAKE_MARKDOWN
             {}
           ) as any;
 
+        const value = compile();
+        let children = node;
+
+        if (!TREE_SHAKE_EDITOR && editor.enabled) {
+          const keyPathJson = JSON.stringify(props.keyPath ?? []);
+          const dictKey = String(props.dictionaryKey ?? '');
+          children = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(keyPathJson)}" dictionary-key="${escapeHtmlAttr(dictKey)}">${escapeHtmlText(value)}</intlayer-content-selector-wrapper>`;
+        }
+
         return renderIntlayerNode({
           ...props,
-          value: compile(),
-          children: node,
+          value,
+          children,
           additionalProps: {
             metadata: metadataNodes,
             use: (components?: any) => compile(components),
@@ -408,10 +417,19 @@ export const htmlPlugin: Plugins = TREE_SHAKE_HTML
           return Array.isArray(result) ? result.join('') : result;
         };
 
+        const value = use();
+        let children = htmlStr;
+
+        if (!TREE_SHAKE_EDITOR && editor.enabled) {
+          const keyPathJson = JSON.stringify(props.keyPath ?? []);
+          const dictKey = String(props.dictionaryKey ?? '');
+          children = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(keyPathJson)}" dictionary-key="${escapeHtmlAttr(dictKey)}">${escapeHtmlText(value)}</intlayer-content-selector-wrapper>`;
+        }
+
         return renderIntlayerNode({
           ...props,
-          value: use(),
-          children: htmlStr,
+          value,
+          children,
           additionalProps: {
             use: (components?: any) => use(components),
           },

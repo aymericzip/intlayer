@@ -6,6 +6,9 @@ import { intlayer, intlayerCompiler, intlayerProxy } from 'vite-intlayer';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: {
+    minify: false,
+  },
   plugins: [
     intlayerProxy(),
     react(),

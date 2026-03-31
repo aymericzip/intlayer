@@ -31,7 +31,7 @@ export const generateFetchLoadContentModule = (
       (locale) =>
         `  '${locale}': async () => {\n` +
         `    try {\n` +
-        `      const res = await fetch(\`\${configuration.editor.liveSyncURL}/dictionaries/\${key}/${locale}\`);\n` +
+        `      const res = await fetch(\`\${editor.liveSyncURL}/dictionaries/\${key}/${locale}\`);\n` +
         `      return await res.json();\n` +
         `    } catch {\n` +
         `      return dynContent['${locale}']();\n` +
@@ -48,13 +48,13 @@ export const generateFetchLoadContentModule = (
 
   if (format === 'esm') {
     return (
-      `import { configuration } from 'intlayer';\n` +
+      `import { editor } from 'intlayer';\n` +
       `import { loadContent as loadContentDyn } from '${relativePrefix}/${LOAD_CONTENT_MODULE}.${extension}';\n\n` +
       `${body}\nexport { loadContent };\n`
     );
   }
   return (
-    `const { configuration } = require('intlayer');\n` +
+    `const { editor } = require('intlayer');\n` +
     `const { loadContent: loadContentDyn } = require('${relativePrefix}/${LOAD_CONTENT_MODULE}.${extension}');\n\n` +
     `${body}\nmodule.exports = { loadContent };\n`
   );

@@ -1,4 +1,4 @@
-import { internationalization, editor } from '@intlayer/config/built';
+import { editor, internationalization } from '@intlayer/config/built';
 import {
   conditionPlugin,
   type DeepTransformContent as DeepTransformContentCore,
@@ -64,6 +64,11 @@ const TREE_SHAKE_HTML = process.env['INTLAYER_NODE_TYPE_HTML'] === 'false';
 const TREE_SHAKE_INSERTION =
   process.env['INTLAYER_NODE_TYPE_INSERTION'] === 'false';
 
+/**
+ * True when the editor is explicitly disabled at build time.
+ */
+const TREE_SHAKE_EDITOR = process.env['INTLAYER_EDITOR_ENABLED'] === 'false';
+
 // solid-js lazy for heavy renderer components — creates separate code-split chunks
 const LazyMarkdownMetadataRenderer = lazy(() =>
   import('./markdown/MarkdownRenderer').then((m) => ({
@@ -104,11 +109,12 @@ export const intlayerNodePlugins: Plugins = TREE_SHAKE_INTLAYER_NODE
         renderIntlayerNode({
           ...rest,
           value: rest.children,
-          children: editor.enabled ? (
-            <ContentSelector {...rest}>{rest.children}</ContentSelector>
-          ) : (
-            rest.children
-          ),
+          children:
+            !TREE_SHAKE_EDITOR && editor.enabled ? (
+              <ContentSelector {...rest}>{rest.children}</ContentSelector>
+            ) : (
+              rest.children
+            ),
         }),
     };
 
@@ -142,17 +148,18 @@ export const solidNodePlugins: Plugins = TREE_SHAKE_SOLID_NODE
         renderIntlayerNode({
           ...rest,
           value: '[[solid-element]]',
-          children: editor.enabled ? (
-            <ContentSelector {...rest}>
-              {typeof Node !== 'undefined' && node instanceof Node
-                ? node
-                : renderSolidElement(node)}
-            </ContentSelector>
-          ) : typeof Node !== 'undefined' && node instanceof Node ? (
-            node
-          ) : (
-            renderSolidElement(node)
-          ),
+          children:
+            !TREE_SHAKE_EDITOR && editor.enabled ? (
+              <ContentSelector {...rest}>
+                {typeof Node !== 'undefined' && node instanceof Node
+                  ? node
+                  : renderSolidElement(node)}
+              </ContentSelector>
+            ) : typeof Node !== 'undefined' && node instanceof Node ? (
+              node
+            ) : (
+              renderSolidElement(node)
+            ),
         }),
     };
 
@@ -288,8 +295,19 @@ export const markdownStringPlugin: Plugins = TREE_SHAKE_MARKDOWN
             renderIntlayerNode({
               ...props,
               value: metadataNode,
-              children: editor.enabled ? (
-                <ContentSelector {...rest}>
+              children:
+                !TREE_SHAKE_EDITOR && editor.enabled ? (
+                  <ContentSelector {...rest}>
+                    <Suspense fallback={node}>
+                      <LazyMarkdownMetadataRenderer
+                        {...rest}
+                        metadataKeyPath={props.keyPath}
+                      >
+                        {node}
+                      </LazyMarkdownMetadataRenderer>
+                    </Suspense>
+                  </ContentSelector>
+                ) : (
                   <Suspense fallback={node}>
                     <LazyMarkdownMetadataRenderer
                       {...rest}
@@ -298,17 +316,7 @@ export const markdownStringPlugin: Plugins = TREE_SHAKE_MARKDOWN
                       {node}
                     </LazyMarkdownMetadataRenderer>
                   </Suspense>
-                </ContentSelector>
-              ) : (
-                <Suspense fallback={node}>
-                  <LazyMarkdownMetadataRenderer
-                    {...rest}
-                    metadataKeyPath={props.keyPath}
-                  >
-                    {node}
-                  </LazyMarkdownMetadataRenderer>
-                </Suspense>
-              ),
+                ),
             }),
         };
 
@@ -323,21 +331,22 @@ export const markdownStringPlugin: Plugins = TREE_SHAKE_MARKDOWN
           renderIntlayerNode({
             ...props,
             value: node,
-            children: editor.enabled ? (
-              <ContentSelector {...rest}>
+            children:
+              !TREE_SHAKE_EDITOR && editor.enabled ? (
+                <ContentSelector {...rest}>
+                  <Suspense fallback={node}>
+                    <LazyMarkdownRenderer {...rest} components={components}>
+                      {node}
+                    </LazyMarkdownRenderer>
+                  </Suspense>
+                </ContentSelector>
+              ) : (
                 <Suspense fallback={node}>
                   <LazyMarkdownRenderer {...rest} components={components}>
                     {node}
                   </LazyMarkdownRenderer>
                 </Suspense>
-              </ContentSelector>
-            ) : (
-              <Suspense fallback={node}>
-                <LazyMarkdownRenderer {...rest} components={components}>
-                  {node}
-                </LazyMarkdownRenderer>
-              </Suspense>
-            ),
+              ),
             additionalProps: {
               metadata: metadataNodes,
             },
@@ -441,15 +450,26 @@ export const htmlPlugin: Plugins = TREE_SHAKE_HTML
           renderIntlayerNode({
             ...rest,
             value: html,
-            children: (
-              <Suspense fallback={html}>
-                <LazyHTMLRenderer
-                  {...rest}
-                  html={html}
-                  components={userComponents}
-                />
-              </Suspense>
-            ),
+            children:
+              !TREE_SHAKE_EDITOR && editor.enabled ? (
+                <ContentSelector {...rest}>
+                  <Suspense fallback={html}>
+                    <LazyHTMLRenderer
+                      {...rest}
+                      html={html}
+                      components={userComponents}
+                    />
+                  </Suspense>
+                </ContentSelector>
+              ) : (
+                <Suspense fallback={html}>
+                  <LazyHTMLRenderer
+                    {...rest}
+                    html={html}
+                    components={userComponents}
+                  />
+                </Suspense>
+              ),
           });
 
         const element = render() as any;

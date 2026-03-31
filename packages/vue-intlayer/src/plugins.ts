@@ -1,4 +1,4 @@
-import { internationalization, editor } from '@intlayer/config/built';
+import { editor, internationalization } from '@intlayer/config/built';
 import {
   conditionPlugin,
   type DeepTransformContent as DeepTransformContentCore,
@@ -25,7 +25,7 @@ import type {
 } from '@intlayer/types/module_augmentation';
 import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
-import { Fragment, h, markRaw, type VNode } from 'vue';
+import { Fragment, h, markRaw, type VNode, type VNodeChild } from 'vue';
 import { default as ContentSelector } from './editor/ContentSelector.vue';
 import { renderHTML } from './html/HTMLRenderer';
 import type { HTMLComponents } from './html/types';
@@ -62,6 +62,11 @@ const TREE_SHAKE_HTML = process.env['INTLAYER_NODE_TYPE_HTML'] === 'false';
 const TREE_SHAKE_INSERTION =
   process.env['INTLAYER_NODE_TYPE_INSERTION'] === 'false';
 
+/**
+ * True when the editor is explicitly disabled at build time.
+ */
+const TREE_SHAKE_EDITOR = process.env['INTLAYER_EDITOR_ENABLED'] === 'false';
+
 /** ---------------------------------------------
  * INTLAYER NODE PLUGIN
  * --------------------------------------------- */
@@ -86,21 +91,24 @@ export const intlayerNodePlugins: Plugins = TREE_SHAKE_INTLAYER_NODE
           renderIntlayerNode({
             ...rest,
             value: children,
-            children: editor.enabled
-              ? () =>
-                  h(
-                    // EditorSelectorRenderer, // Maximum stack size exceeded
-                    ContentSelector,
-                    {
-                      dictionaryKey: rest.dictionaryKey,
-                      keyPath: rest.keyPath,
-                    },
-                    {
-                      default: () =>
-                        typeof children === 'function' ? children() : children,
-                    }
-                  )
-              : children,
+            children:
+              !TREE_SHAKE_EDITOR && editor.enabled
+                ? () =>
+                    h(
+                      // EditorSelectorRenderer, // Maximum stack size exceeded
+                      ContentSelector,
+                      {
+                        dictionaryKey: rest.dictionaryKey,
+                        keyPath: rest.keyPath,
+                      },
+                      {
+                        default: () =>
+                          typeof children === 'function'
+                            ? children()
+                            : children,
+                      }
+                    )
+                : children,
           });
 
         const element = render(children) as any;
@@ -350,24 +358,30 @@ export const markdownStringPlugin: Plugins = TREE_SHAKE_MARKDOWN
           renderIntlayerNode({
             ...props,
             value: node,
-            children: () =>
-              h(
-                ContentSelector,
-                {
-                  dictionaryKey: rest.dictionaryKey,
-                  keyPath: rest.keyPath,
-                },
-                {
-                  default: () => {
-                    const { renderMarkdown, components: contextComponents } =
-                      useMarkdown();
-                    return renderMarkdown(node, undefined, {
-                      ...(contextComponents ?? {}),
-                      ...(components ?? {}),
-                    });
+            children: () => {
+              const { renderMarkdown, components: contextComponents } =
+                useMarkdown();
+
+              const content = renderMarkdown(node, undefined, {
+                ...(contextComponents ?? {}),
+                ...(components ?? {}),
+              });
+
+              if (!TREE_SHAKE_EDITOR && editor.enabled) {
+                return h(
+                  ContentSelector,
+                  {
+                    dictionaryKey: rest.dictionaryKey,
+                    keyPath: rest.keyPath,
                   },
-                }
-              ),
+                  {
+                    default: () => content as VNodeChild,
+                  }
+                );
+              }
+
+              return content as VNodeChild;
+            },
             additionalProps: {
               metadata: metadataNodes,
               use: (components?: any) => render(components),
@@ -446,7 +460,21 @@ export const htmlPlugin: Plugins = TREE_SHAKE_HTML
           return renderIntlayerNode({
             ...props,
             value: html,
-            children: element,
+            children:
+              !TREE_SHAKE_EDITOR && editor.enabled
+                ? () =>
+                    h(
+                      ContentSelector,
+                      {
+                        dictionaryKey: props.dictionaryKey,
+                        keyPath: props.keyPath,
+                        ...userComponents,
+                      },
+                      {
+                        default: () => element,
+                      }
+                    )
+                : element,
             additionalProps: {
               use: (components?: any) => render(components),
             },
