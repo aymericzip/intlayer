@@ -13,15 +13,13 @@ import type { IntlayerConfig } from '@intlayer/types/config';
  */
 export const formatNodeTypeToEnvVar = (
   nodeTypes: string[],
-  addProcessEnv: boolean = false
+  wrapKey = (key: string) => key,
+  wrapValue = (value: string) => value
 ): Record<string, string> =>
   nodeTypes.reduce(
     (acc, nodeType) => {
-      acc[
-        addProcessEnv
-          ? `process.env.INTLAYER_NODE_TYPE_${nodeType.toUpperCase()}`
-          : `INTLAYER_NODE_TYPE_${nodeType.toUpperCase()}`
-      ] = '"false"';
+      acc[wrapKey(`INTLAYER_NODE_TYPE_${nodeType.toUpperCase()}`)] =
+        wrapValue('false');
       return acc;
     },
     {} as Record<string, string>
@@ -41,29 +39,28 @@ export const formatNodeTypeToEnvVar = (
  */
 export const getConfigEnvVars = (
   config: IntlayerConfig,
-  addProcessEnv: boolean = false,
-  wrapValue: (value: string) => string = (value) => value
+  wrapKey = (key: string) => key,
+  wrapValue = (value: string) => value
 ): Record<string, string> => {
-  const prefix = addProcessEnv ? 'process.env.' : '';
   const { routing, editor } = config;
 
   const envVars: Record<string, string> = {
-    [`${prefix}INTLAYER_ROUTING_MODE`]: wrapValue(routing.mode),
+    [wrapKey('INTLAYER_ROUTING_MODE')]: wrapValue(routing.mode),
   };
 
   if (!routing.rewrite) {
-    envVars[`${prefix}INTLAYER_ROUTING_REWRITE_RULES`] = wrapValue('false');
+    envVars[wrapKey('INTLAYER_ROUTING_REWRITE_RULES')] = wrapValue('false');
   }
 
   if (!routing.storage.cookies || routing.storage.cookies.length === 0) {
-    envVars[`${prefix}INTLAYER_ROUTING_STORAGE_COOKIES`] = wrapValue('false');
+    envVars[wrapKey('INTLAYER_ROUTING_STORAGE_COOKIES')] = wrapValue('false');
   }
 
   if (
     !routing.storage.localStorage ||
     routing.storage.localStorage.length === 0
   ) {
-    envVars[`${prefix}INTLAYER_ROUTING_STORAGE_LOCALSTORAGE`] =
+    envVars[wrapKey('INTLAYER_ROUTING_STORAGE_LOCALSTORAGE')] =
       wrapValue('false');
   }
 
@@ -71,16 +68,16 @@ export const getConfigEnvVars = (
     !routing.storage.sessionStorage ||
     routing.storage.sessionStorage.length === 0
   ) {
-    envVars[`${prefix}INTLAYER_ROUTING_STORAGE_SESSIONSTORAGE`] =
+    envVars[wrapKey('INTLAYER_ROUTING_STORAGE_SESSIONSTORAGE')] =
       wrapValue('false');
   }
 
   if (!routing.storage.headers || routing.storage.headers.length === 0) {
-    envVars[`${prefix}INTLAYER_ROUTING_STORAGE_HEADERS`] = wrapValue('false');
+    envVars[wrapKey('INTLAYER_ROUTING_STORAGE_HEADERS')] = wrapValue('false');
   }
 
   if (editor?.enabled === false) {
-    envVars[`${prefix}INTLAYER_EDITOR_ENABLED`] = wrapValue('false');
+    envVars[wrapKey('INTLAYER_EDITOR_ENABLED')] = wrapValue('false');
   }
 
   return envVars;

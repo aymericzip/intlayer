@@ -80,11 +80,7 @@ export const intlayerPlugin = (
           });
         }
 
-        let define: Record<string, string> = getConfigEnvVars(
-          intlayerConfig,
-          true,
-          (value) => `"${value}"` // Wrap by "" to ensure env var set properly
-        );
+        let define: Record<string, string> = {};
 
         if (isBuildCommand) {
           const dictionaries = getDictionaries(intlayerConfig);
@@ -104,9 +100,24 @@ export const intlayerPlugin = (
 
           define = {
             ...define,
-            ...formatNodeTypeToEnvVar(unusedNodeTypes, true),
+
+            // Tree shacking env var based on config
+            ...formatNodeTypeToEnvVar(
+              unusedNodeTypes,
+              (key) => `process.env.${key}`,
+              (value) => `"${value}"`
+            ),
+
+            // Tree shacking env var based on config
+            ...getConfigEnvVars(
+              intlayerConfig,
+              (key) => `process.env.${key}`,
+              (value) => `"${value}"` // Wrap by "" to ensure env var set properly
+            ),
           };
         }
+
+        console.log({ define });
 
         // mergeConfig handles both array and record alias formats,
         // and correctly appends to optimizeDeps.exclude / ssr.noExternal

@@ -355,39 +355,35 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
     '@intlayer/webpack',
   ];
 
-  let unusedNodeTypes = unusedNodeTypesFromAsync;
-
-  if (isBuildCommand && !unusedNodeTypes) {
-    const dictionaries = getDictionaries(intlayerConfig) as Record<
-      string,
-      Dictionary
-    >;
-    unusedNodeTypes = getUnusedNodeTypes(dictionaries);
-  }
-
-  if (unusedNodeTypes && unusedNodeTypes.length > 0) {
-    appLogger(
-      [
-        'Filtering out plugins:',
-        unusedNodeTypes.map((key) => colorize(key, ANSIColors.BLUE)).join(', '),
-      ],
-      {
-        isVerbose: true,
-      }
-    );
-  }
-
   let env: Record<string, string> = {};
 
   if (isBuildCommand) {
-    env = getConfigEnvVars(intlayerConfig);
+    const dictionaries = getDictionaries(intlayerConfig);
+    const unusedNodeTypes = getUnusedNodeTypes(dictionaries);
 
-    if (unusedNodeTypes) {
-      env = {
-        ...env,
-        ...formatNodeTypeToEnvVar(unusedNodeTypes, false),
-      };
+    if (unusedNodeTypes && unusedNodeTypes.length > 0) {
+      appLogger(
+        [
+          'Filtering out plugins:',
+          unusedNodeTypes
+            .map((key) => colorize(key, ANSIColors.BLUE))
+            .join(', '),
+        ],
+        {
+          isVerbose: true,
+        }
+      );
     }
+
+    env = {
+      ...env,
+
+      // Tree shacking based on unused node types
+      ...formatNodeTypeToEnvVar(unusedNodeTypes),
+
+      // Tree shacking based on config
+      ...getConfigEnvVars(intlayerConfig),
+    };
   }
 
   const getNewConfig = (): Partial<NextConfig> => {
