@@ -24,10 +24,12 @@ export const verifyIntlayerBundle = async (url: string): Promise<boolean> => {
 
     const html = await response.text();
 
-    // The user's metadata example typically looks like:
-    // { name: "Intlayer", version: "...", doc: "https://intlayer.org/docs" }
-    // Or minified: name:"Intlayer",version:"...",doc:"https://intlayer.org/docs"
-    const windowIdentifierRegex = /window\.intlayer\s*=\s*['"]([^'"]+)['"]/i;
+    // Matches unminified: window.intlayer = { enabled: true }
+    // Matches minified: window.intlayer={enabled:!0}
+    const windowIdentifierRegex =
+      /window\.intlayer\s*=\s*\{\s*['"]?enabled['"]?\s*:\s*(true|!0)\s*\}/i;
+
+    // Keep the metadata regex as a fallback if you also inject the standard package metadata elsewhere
     const metadataRegex = /['"]?name['"]?\s*:\s*['"]Intlayer['"]/i;
 
     if (windowIdentifierRegex.test(html) || metadataRegex.test(html)) {

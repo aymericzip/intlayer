@@ -1,7 +1,9 @@
-import packageJSON from '@intlayer/types/package.json' with { type: 'json' };
+type Meta = {
+  enabled: true;
+};
 
 export type WindowsWithIntlayer = typeof window & {
-  intlayer?: string;
+  intlayer?: Meta;
 };
 
 /**
@@ -10,6 +12,8 @@ export type WindowsWithIntlayer = typeof window & {
  */
 export const setIntlayerIdentifier = (): void => {
   if (typeof window !== 'undefined') {
-    (window as WindowsWithIntlayer).intlayer = packageJSON.version;
+    (window as WindowsWithIntlayer).intlayer = {
+      enabled: true,
+    };
   }
 };
