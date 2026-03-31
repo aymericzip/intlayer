@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs';
 import { join, resolve } from 'node:path';
-import { initIntlayer } from '@intlayer/chokidar/cli';
+import { type InitOptions, initIntlayer } from '@intlayer/chokidar/cli';
 
 export const findProjectRoot = (startDir: string) => {
   let currentDir = startDir;
@@ -17,10 +17,10 @@ export const findProjectRoot = (startDir: string) => {
   return startDir;
 };
 
-export const init = async (projectRoot?: string) => {
+export const init = async (projectRoot?: string, options?: InitOptions) => {
   const root = projectRoot
     ? findProjectRoot(resolve(projectRoot))
     : findProjectRoot(process.cwd());
 
-  await initIntlayer(root);
+  await initIntlayer(root, options);
 };

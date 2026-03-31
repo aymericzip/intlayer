@@ -2,7 +2,7 @@
 createdAt: 2025-12-30
 updatedAt: 2025-12-30
 title: Inicializar Intlayer
-description: Aprenda como inicializar o Intlayer no seu projeto.
+description: Saiba como inicializar o Intlayer no seu projeto.
 keywords:
   - Inicializar
   - CLI
@@ -14,6 +14,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 8.6.4
+    date: 2026-03-31
+    changes: "Adicionar opção --no-gitignore"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Adicionar comando init"
@@ -25,34 +28,27 @@ history:
 npx intlayer init
 ```
 
-O comando `init` configura automaticamente o Intlayer no seu projeto, criando os arquivos e ajustes necessários. É a forma recomendada de começar com o Intlayer.
+O comando `init` configura automaticamente o Intlayer no seu projeto através da configuração dos ficheiros e definições necessários. É a forma recomendada de começar com o Intlayer.
 
-## Atalhos:
+## Aliases:
 
 - `npx intlayer init`
 
 ## Argumentos:
 
-- `--project-root [projectRoot]` - Opcional. Especifique o diretório raiz do projeto. Se não for fornecido, o comando irá procurar pelo diretório raiz do projeto a partir do diretório de trabalho atual.
+- `--project-root [projectRoot]` - Opcional. Especifique o diretório raiz do projeto. Se não for fornecido, o comando procurará a raiz do projeto a partir do diretório de trabalho atual.
+- `--no-gitignore` - Opcional. Salta a atualização automática do ficheiro `.gitignore`. Se esta flag for utilizada, o diretório `.intlayer` não será adicionado ao `.gitignore`.
 
 ## O que faz:
 
 O comando `init` executa as seguintes tarefas de configuração:
 
-1. **Valida a estrutura do projeto** - Garante que você está em um diretório de projeto válido com um arquivo `package.json`
-2. **Atualiza `.gitignore`** - Adiciona `.intlayer` ao seu arquivo `.gitignore` para excluir arquivos gerados do controle de versão
-3. **Configura o TypeScript** - Atualiza todos os arquivos `tsconfig.json` para incluir as definições de tipos do Intlayer (`.intlayer/**/*.ts`)
-4. **Cria arquivo de configuração** - Gera um `intlayer.config.ts` (para projetos TypeScript) ou `intlayer.config.mjs` (para projetos JavaScript) com as configurações padrão
-5. **Atualiza a configuração do Vite** - Se um arquivo de configuração do Vite for detectado, adiciona a importação do plugin `vite-intlayer`
-
-O comando `init` executa as seguintes tarefas de configuração:
-
-1. **Valida a estrutura do projeto** - Garante que você esteja em um diretório de projeto válido com um arquivo `package.json`
-2. **Atualiza `.gitignore`** - Adiciona `.intlayer` ao seu arquivo `.gitignore` para excluir arquivos gerados do controlo de versão
-3. **Configura o TypeScript** - Atualiza todos os arquivos `tsconfig.json` para incluir as definições de tipos do Intlayer (`.intlayer/**/*.ts`)
-4. **Cria arquivo de configuração** - Gera um `intlayer.config.ts` (para projetos TypeScript) ou `intlayer.config.mjs` (para projetos JavaScript) com configurações padrão
-5. **Atualiza a config do Vite** - Se um arquivo de configuração do Vite for detectado, adiciona a importação do plugin `vite-intlayer`
-6. **Atualiza a configuração do Next.js** - Se um arquivo de configuração do Next.js for detectado, adiciona a importação do plugin `next-intlayer`
+1. **Valida a estrutura do projeto** - Garante que está num diretório de projeto válido com um ficheiro `package.json`.
+2. **Atualiza o `.gitignore`** - Adiciona `.intlayer` ao seu ficheiro `.gitignore` para excluir os ficheiros gerados do controlo de versões (pode ser saltado com `--no-gitignore`).
+3. **Configura o TypeScript** - Atualiza todos os ficheiros `tsconfig.json` para incluir as definições de tipos do Intlayer (`.intlayer/**/*.ts`).
+4. **Cria ficheiro de configuração** - Gera um `intlayer.config.ts` (para projetos TypeScript) ou `intlayer.config.mjs` (para projetos JavaScript) com definições padrão.
+5. **Atualiza a config do Vite** - Se for detetado um ficheiro de configuração do Vite, adiciona a importação do plugin `vite-intlayer`.
+6. **Atualiza a config do Next.js** - Se for detetado um ficheiro de configuração do Next.js, adiciona a importação do plugin `next-intlayer`.
 
 ## Exemplos:
 
@@ -62,31 +58,39 @@ O comando `init` executa as seguintes tarefas de configuração:
 npx intlayer init
 ```
 
-Isto irá inicializar o Intlayer no diretório atual, detectando automaticamente a raiz do projeto.
+Isto inicializará o Intlayer no diretório atual, detetando automaticamente a raiz do projeto.
 
 ### Inicializar com raiz de projeto personalizada:
 
 ```bash
-npx intlayer init --project-root ./my-project
+npx intlayer init --project-root ./meu-projeto
 ```
 
-Isto irá inicializar o Intlayer no diretório especificado.
+Isto inicializará o Intlayer no diretório especificado.
+
+### Inicializar sem atualizar o .gitignore:
+
+```bash
+npx intlayer init --no-gitignore
+```
+
+Isto configurará todos os ficheiros de configuração mas não modificará o seu `.gitignore`.
 
 ## Exemplo de saída:
 
 ```bash
 npx intlayer init
-Verificando configuração do Intlayer...
-✓ Adicionado .intlayer ao .gitignore
-✓ Atualizado tsconfig.json para incluir os tipos do Intlayer
-Criado intlayer.config.ts
-✓ Importação injetada em vite.config.ts
-✓ Inicialização do Intlayer concluída.
+Checking Intlayer configuration...
+✓ Added .intlayer to .gitignore
+✓ Updated tsconfig.json to include intlayer types
+✓ Created intlayer.config.ts
+✓ Injected import into vite.config.ts
+✓ Intlayer init setup complete.
 ```
 
 ## Notas:
 
-- O comando é idempotente, você pode executá-lo várias vezes com segurança. Ele vai pular etapas que já estão configuradas.
-- Se um arquivo de configuração já existir, ele não será sobrescrito.
-- Arquivos de configuração do TypeScript sem um array `include` (por exemplo, configs no estilo solution com referências) são ignorados.
-- O comando encerrará com um erro se nenhum `package.json` for encontrado na raiz do projeto.
+- O comando é idempotente - pode executá-lo várias vezes com segurança. Ele saltará as etapas que já estão configuradas.
+- Se um ficheiro de configuração já existir, não será substituído.
+- Os ficheiros de config TypeScript sem um array `include` (por exemplo, configurações de estilo de solução com referências) são saltados.
+- O comando terminará com um erro se nenhum `package.json` for encontrado na raiz do projeto.

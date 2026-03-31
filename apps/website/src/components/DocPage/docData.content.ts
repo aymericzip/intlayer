@@ -949,6 +949,31 @@ const docDataContent: Dictionary = {
           }),
           default: getDocMetadata('./docs/en/intlayer_with_vite+vanilla.md'),
           frameworks: ['vanilla', 'vite'],
+          subsections: {
+            'vanilla-js': {
+              title: t({
+                en: 'Vanilla JS (no bundler)',
+                'en-GB': 'Vanilla JS (no bundler)',
+                fr: 'Vanilla JS (sans bundler)',
+                es: 'Vanilla JS (sin bundler)',
+                de: 'Vanilla JS (ohne Bundler)',
+                ja: 'Vanilla JS (バンドラーなし)',
+                ko: 'Vanilla JS (번들러 없음)',
+                zh: 'Vanilla JS (无打包器)',
+                it: 'Vanilla JS (senza bundler)',
+                pt: 'Vanilla JS (sem bundler)',
+                hi: 'Vanilla JS (बिना बंडलर के)',
+                ar: 'Vanilla JS (بدون مجمع)',
+                uk: 'Vanilla JS (без бандлера)',
+                ru: 'Vanilla JS (без бандлера)',
+                tr: 'Vanilla JS (paketleyici olmadan)',
+                pl: 'Vanilla JS (bez bundlera)',
+                id: 'Vanilla JS (tanpa bundler)',
+                vi: 'Vanilla JS (không có bundler)',
+              }),
+              default: getDocMetadata('./docs/en/intlayer_with_vanilla.md'),
+            },
+          },
         },
         'vite-and-lit': {
           title: t({

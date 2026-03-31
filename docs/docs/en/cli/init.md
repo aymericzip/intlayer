@@ -14,6 +14,9 @@ slugs:
   - cli
   - init
 history:
+  - version: 8.6.4
+    date: 2026-03-31
+    changes: "Add --no-gitignore option"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Add init command"
@@ -34,13 +37,14 @@ The `init` command automatically sets up Intlayer in your project by configuring
 ## Arguments:
 
 - `--project-root [projectRoot]` - Optional. Specify the project root directory. If not provided, the command will search for the project root starting from the current working directory.
+- `--no-gitignore` - Optional. Skip the automatic update of the `.gitignore` file. If this flag is set, `.intlayer` will not be added to `.gitignore`.
 
 ## What it does:
 
 The `init` command performs the following setup tasks:
 
 1. **Validates project structure** - Ensures you're in a valid project directory with a `package.json` file
-2. **Updates `.gitignore`** - Adds `.intlayer` to your `.gitignore` file to exclude generated files from version control
+2. **Updates `.gitignore`** - Adds `.intlayer` to your `.gitignore` file to exclude generated files from version control (can be skipped with `--no-gitignore`)
 3. **Configures TypeScript** - Updates all `tsconfig.json` files to include Intlayer type definitions (`.intlayer/**/*.ts`)
 4. **Creates configuration file** - Generates an `intlayer.config.ts` (for TypeScript projects) or `intlayer.config.mjs` (for JavaScript projects) with default settings
 5. **Updates Vite config** - If a Vite configuration file is detected, adds the `vite-intlayer` plugin import
@@ -63,6 +67,14 @@ npx intlayer init --project-root ./my-project
 ```
 
 This will initialize Intlayer in the specified directory.
+
+### Initialize without updating .gitignore:
+
+```bash
+npx intlayer init --no-gitignore
+```
+
+This will set up all configuration files but will not modify your `.gitignore`.
 
 ## Example output:
 

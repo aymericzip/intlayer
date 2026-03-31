@@ -14,9 +14,12 @@ slugs:
   - cli
   - init
 history:
+  - version: 8.6.4
+    date: 2026-03-31
+    changes: "Thêm tùy chọn --no-gitignore"
   - version: 7.5.9
     date: 2025-12-30
-    changes: "Thêm lệnh init"
+    changes: "Thêm nội dung lệnh init"
 ---
 
 # Khởi tạo Intlayer
@@ -25,26 +28,27 @@ history:
 npx intlayer init
 ```
 
-Lệnh `init` tự động thiết lập Intlayer trong dự án của bạn bằng cách cấu hình các tệp và thiết lập cần thiết. Đây là cách được khuyến nghị để bắt đầu với Intlayer.
+Lệnh `init` tự động định cấu hình Intlayer cho dự án của bạn bằng cách tạo các tệp và cài đặt cần thiết. Đây là cách bắt đầu được khuyến nghị với Intlayer.
 
-## Bí danh:
+## Tên thay thế (Aliases):
 
 - `npx intlayer init`
 
-## Tham số:
+## Các tham số (Arguments):
 
-- `--project-root [projectRoot]` - Tùy chọn. Chỉ định thư mục gốc của dự án. Nếu không được cung cấp, lệnh sẽ tìm thư mục gốc bắt đầu từ thư mục làm việc hiện tại.
+- `--project-root [projectRoot]` - Tùy chọn. Chỉ định thư mục gốc của dự án. Nếu không được cung cấp, lệnh sẽ tìm kiếm thư mục dự án bắt đầu từ thư mục làm việc hiện tại.
+- `--no-gitignore` - Tùy chọn. Bỏ qua việc tự động cập nhật tệp `.gitignore`. Nếu cờ này được đặt, `.intlayer` sẽ không được thêm vào `.gitignore`.
 
-## Những việc nó thực hiện:
+## Cách thức hoạt động:
 
 Lệnh `init` thực hiện các tác vụ thiết lập sau:
 
-1. **Xác thực cấu trúc dự án** - Đảm bảo bạn đang ở trong thư mục dự án hợp lệ có tệp `package.json`
-2. **Cập nhật `.gitignore`** - Thêm `.intlayer` vào tệp `.gitignore` của bạn để loại trừ các tệp được tạo ra khỏi quản lý phiên bản
-3. **Cấu hình TypeScript** - Cập nhật tất cả các tệp `tsconfig.json` để bao gồm định nghĩa kiểu của Intlayer (`.intlayer/**/*.ts`)
-4. **Tạo tệp cấu hình** - Tạo `intlayer.config.ts` (cho dự án TypeScript) hoặc `intlayer.config.mjs` (cho dự án JavaScript) với các thiết lập mặc định
-5. **Cập nhật cấu hình Vite** - Nếu phát hiện tệp cấu hình Vite, thêm import plugin `vite-intlayer`
-6. **Cập nhật cấu hình Next.js** - Nếu phát hiện tệp cấu hình Next.js, thêm import plugin `next-intlayer`
+1. **Xác thực cấu trúc dự án** - Đảm bảo bạn đang ở trong một thư mục dự án hợp lệ có tệp `package.json`.
+2. **Cập nhật `.gitignore`** - Thêm `.intlayer` vào tệp `.gitignore` của bạn để loại bỏ các tệp được tạo tự động khỏi trình quản lý phiên bản (có thể bỏ qua bằng `--no-gitignore`).
+3. **Cấu hình TypeScript** - Cập nhật bất kỳ tệp `tsconfig.json` nào để bao gồm các định nghĩa kiểu của Intlayer (`.intlayer/**/*.ts`).
+4. **Tạo tệp cấu hình** - Tạo `intlayer.config.ts` (cho các dự án TypeScript) hoặc `intlayer.config.mjs` (cho các dự án JavaScript) với các cài đặt mặc định.
+5. **Cập nhật cấu hình Vite** - Nếu phát hiện tệp cấu hình Vite, nó sẽ thêm phần nhập cho plugin `vite-intlayer`.
+6. **Cập nhật cấu hình Next.js** - Nếu phát hiện tệp cấu hình Next.js, nó sẽ thêm phần nhập cho plugin `next-intlayer`.
 
 ## Ví dụ:
 
@@ -54,15 +58,23 @@ Lệnh `init` thực hiện các tác vụ thiết lập sau:
 npx intlayer init
 ```
 
-Lệnh này sẽ khởi tạo Intlayer trong thư mục hiện tại, tự động phát hiện thư mục gốc của dự án.
+Thao tác này khởi tạo Intlayer trong thư mục hiện tại, tự động phát hiện gốc dự án.
 
-### Khởi tạo với thư mục gốc dự án tùy chỉnh:
+### Khởi tạo với gốc dự án tùy chỉnh:
 
 ```bash
-npx intlayer init --project-root ./my-project
+npx intlayer init --project-root ./du-an-cua-toi
 ```
 
-Lệnh này sẽ khởi tạo Intlayer trong thư mục được chỉ định.
+Thao tác này khởi tạo Intlayer trong thư mục được chỉ định.
+
+### Khởi tạo không cập nhật .gitignore:
+
+```bash
+npx intlayer init --no-gitignore
+```
+
+Thao tác này sẽ thiết lập tất cả các tệp cấu hình nhưng sẽ không sửa đổi tệp `.gitignore` của bạn.
 
 ## Ví dụ đầu ra:
 
@@ -76,9 +88,9 @@ Checking Intlayer configuration...
 ✓ Intlayer init setup complete.
 ```
 
-## Ghi chú:
+## Lưu ý:
 
-- Lệnh có tính idempotent - bạn có thể chạy nó nhiều lần một cách an toàn. Nó sẽ bỏ qua các bước đã được cấu hình.
-- Nếu một tệp cấu hình đã tồn tại, nó sẽ không bị ghi đè.
-- Các tệp cấu hình TypeScript không có mảng `include` (ví dụ: các cấu hình theo kiểu solution với references) sẽ bị bỏ qua.
-- Lệnh sẽ kết thúc với lỗi nếu không tìm thấy `package.json` trong thư mục gốc của dự án.
+- Lệnh này mang tính lũy đẳng (idempotent) — bạn có thể chạy nó nhiều lần một cách an toàn. Các bước đã được cấu hình sẽ tự động được bỏ qua.
+- Nếu tệp cấu hình đã tồn tại, nó sẽ không bị ghi đè.
+- Các cấu hình TypeScript không có mảng `include` (ví dụ: cấu hình kiểu giải pháp có tham chiếu) sẽ bị bỏ qua.
+- Lệnh sẽ dừng với thông báo lỗi nếu không tìm thấy `package.json` trong gốc dự án.

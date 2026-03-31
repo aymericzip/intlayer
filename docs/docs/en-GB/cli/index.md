@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-01-06
-title: CLI
-description: Discover how to use the Intlayer CLI to manage your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
+updatedAt: 2026-03-31
+title: CLI - All Intlayer CLI commands for your multilingual website
+description: Discover how to use the Intlayer CLI to manage your multilingual website. Follow the steps in this online documentation to set up your project in minutes.
 keywords:
   - CLI
   - Command Line Interface
@@ -17,48 +17,54 @@ slugs:
   - concept
   - cli
 history:
+  - version: 8.6.4
+    date: 2026-03-31
+    changes: "Added standalone command content"
   - version: 7.5.11
     date: 2026-01-06
-    changes: "Add projects list command"
+    changes: "Added CI command content"
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: "Added list projects command content"
   - version: 7.5.9
     date: 2025-12-30
-    changes: "Add init command"
+    changes: "Added init command content"
   - version: 7.2.3
     date: 2025-11-22
-    changes: "Add transform command"
+    changes: "Added extract command content"
   - version: 7.1.0
     date: 2025-11-05
-    changes: "Add skipIfExists option to translate command"
+    changes: "Added skipIfExists option to translate command"
   - version: 6.1.4
     date: 2025-01-27
-    changes: "Add aliases for CLI arguments and commands"
+    changes: "Added aliases for CLI arguments and commands"
   - version: 6.1.3
     date: 2025-10-05
-    changes: "Add build option to commands"
+    changes: "Added build option to commands"
   - version: 6.1.2
     date: 2025-09-26
-    changes: "Add version command"
+    changes: "Added version command content"
   - version: 6.1.0
     date: 2025-09-26
-    changes: "Set verbose option to default to true using CLI"
+    changes: "Set verbose option to true by default via CLI"
   - version: 6.1.0
     date: 2025-09-23
-    changes: "Add watch command and with option"
+    changes: "Added watch command and with option"
   - version: 6.0.1
     date: 2025-09-23
-    changes: "Add editor command"
+    changes: "Added editor command content"
   - version: 6.0.0
     date: 2025-09-17
-    changes: "Add content test and list command"
+    changes: "Added content test and list commands"
   - version: 5.5.11
     date: 2025-07-11
-    changes: "Update CLI command parameters documentation"
+    changes: "Updated documentation for CLI command parameters"
   - version: 5.5.10
     date: 2025-06-29
     changes: "Init history"
 ---
 
-# Intlayer CLI
+# Intlayer CLI - All Intlayer CLI commands for your multilingual website
 
 ---
 
@@ -68,7 +74,7 @@ history:
 
 ---
 
-## Install Package
+## Installing the package
 
 Install the necessary packages using npm:
 
@@ -90,17 +96,17 @@ bun add intlayer-cli -g
 
 > If the `intlayer` package is already installed, the CLI is automatically installed. You can skip this step.
 
-## intlayer-cli package
+## The intlayer-cli package
 
-The `intlayer-cli` package is intended to transpile your [intlayer declarations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md) into dictionaries.
+The `intlayer-cli` package is designed to transpile your [Intlayer declarations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md) into dictionaries.
 
-This package will transpile all intlayer files, such as `src/**/*.content.{ts|js|mjs|cjs|json}`. [See how to declare your Intlayer declaration files](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
+This package transpiles all Intlayer files, such as `src/**/*.content.{ts|js|mjs|cjs|json}`. [See how to declare your Intlayer declaration files](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
-To interpret intlayer dictionaries you can use interpreters, such as [react-intlayer](https://www.npmjs.com/package/react-intlayer), or [next-intlayer](https://www.npmjs.com/package/next-intlayer)
+To interpret the Intlayer dictionaries, you can use interpreters, such as [react-intlayer](https://www.npmjs.com/package/react-intlayer) or [next-intlayer](https://www.npmjs.com/package/next-intlayer).
 
-## Configuration File Support
+## Config file support
 
-Intlayer accepts multiple configuration file formats:
+Intlayer accepts several configuration file formats:
 
 - `intlayer.config.ts`
 - `intlayer.config.js`
@@ -109,54 +115,59 @@ Intlayer accepts multiple configuration file formats:
 - `intlayer.config.mjs`
 - `.intlayerrc`
 
-To see how to configure available locales, or other parameters, refer to the [configuration documentation here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
+To learn how to configure the available languages or other parameters, take a look at the [configuration documentation here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
 
-## Run intlayer commands
+## Executing Intlayer commands
 
 ### Authentication
 
-- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/login.md)** - Authenticate with the Intlayer CMS and get access credentials
+- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/login.md)** - Authenticate with the Intlayer CMS and get the access credentials
 
 ### Core Commands
 
-- **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/build.md)** - Build your dictionaries from content declaration files
-- **[Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/watch.md)** - Watch for changes and automatically build dictionaries
+- **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/build.md)** - Build your dictionaries from your content declaration files
+- **[Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/watch.md)** - Watch for changes and automatically rebuild dictionaries
+- **[Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/standalone.md)** - Create a standalone JavaScript bundle containing Intlayer and specified packages.
 - **[Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/version.md)** - Check the installed Intlayer CLI version
 - **[List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/list_projects.md)** - List all Intlayer projects in a directory or git repository
 
 ### Dictionary Management
 
-- **[Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/push.md)** - Push dictionaries to the Intlayer editor and CMS
-- **[Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/pull.md)** - Pull dictionaries from the Intlayer editor and CMS
+- **[Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/push.md)** - Push the dictionaries to the Intlayer Editor and CMS
+- **[Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/pull.md)** - Pull the dictionaries from the Intlayer Editor and CMS
 - **[Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/fill.md)** - Fill, audit, and translate dictionaries using AI
 - **[Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/test.md)** - Test and identify missing translations
 - **[List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/list.md)** - List all content declaration files in your project
 
 ### Component Management
 
-- **[Transform Components](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/extract.md)** - Transform existing components to use Intlayer
+- **[Extract Strings](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/extract.md)** - Extract strings from components into a .content file near the component
 
 ### Configuration
 
 - **[Initialise Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/init.md)** - Set up Intlayer in your project with automatic configuration
-- **[Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/configuration.md)** - Get and push your Intlayer configuration to the CMS
+- **[Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/configuration.md)** - Get your Intlayer configuration and push it to the CMS
 
-### Documentation Management
+### Doc Management
 
-- **[Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/doc-translate.md)** - Automatically translate documentation files using AI
-- **[Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/doc-review.md)** - Review documentation files for quality and consistency
+- **[Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/doc-translate.md)** - Automatically translate document files using AI
+- **[Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/doc-review.md)** - Review document files for quality and consistency
 
-### Editor & Live Sync
+### Editor and Live Sync
 
-- **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/editor.md)** - Use the Intlayer editor commands
-- **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/live.md)** - Use Live Sync to reflect CMS content changes at runtime
+- **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/editor.md)** - Use the Intlayer Editor commands
+- **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/live.md)** - Use Live Sync to apply content changes from CMS in real time
 
-### Development Tools
+### CI/CD and Automation
+
+- **[CI Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/ci.md)** - Execute Intlayer commands with automatically injected credentials for CI/CD flows
+
+### Developer Tools
 
 - **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/sdk.md)** - Use the Intlayer CLI SDK in your own code
-- **[Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/debug.md)** - Debug and troubleshoot Intlayer CLI issues
+- **[Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/debug.md)** - Debug and resolve issues with the Intlayer CLI
 
-## Use intlayer commands in your `package.json`
+## Use the intlayer commands in your `package.json` file
 
 ```json fileName="package.json"
 "scripts": {
@@ -164,6 +175,7 @@ To see how to configure available locales, or other parameters, refer to the [co
   "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
+  "intlayer:standalone": "npx intlayer standalone --packages intlayer vanilla-intlayer",
   "intlayer:push": "npx intlayer push",
   "intlayer:pull": "npx intlayer pull",
   "intlayer:fill": "npx intlayer fill",
@@ -178,6 +190,6 @@ To see how to configure available locales, or other parameters, refer to the [co
 
 > **Note**: You can also use the shorter aliases:
 >
-> - `npx intlayer list` instead of `npx intlayer content list`
-> - `npx intlayer test` instead of `npx intlayer content test`
-> - `npx intlayer projects-list` or `npx intlayer pl` instead of `npx intlayer projects list`
+> - `npx intlayer list`: replaces `npx intlayer content list`
+> - `npx intlayer test`: replaces `npx intlayer content test`
+> - `npx intlayer projects-list` or `npx intlayer pl`: replaces `npx intlayer projects list`

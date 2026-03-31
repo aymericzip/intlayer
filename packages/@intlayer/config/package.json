@@ -88,6 +88,11 @@
       "require": "./dist/cjs/defaultValues/index.cjs",
       "import": "./dist/esm/defaultValues/index.mjs"
     },
+    "./bundle": {
+      "types": "./dist/types/bundle/index.d.ts",
+      "require": "./dist/cjs/bundle/index.cjs",
+      "import": "./dist/esm/bundle/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
@@ -124,6 +129,9 @@
       ],
       "defaultValues": [
         "./dist/types/defaultValues/index.d.ts"
+      ],
+      "bundle": [
+        "./dist/types/bundle/index.d.ts"
       ],
       "package.json": [
         "./package.json"

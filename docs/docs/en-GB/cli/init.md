@@ -14,9 +14,12 @@ slugs:
   - cli
   - init
 history:
+  - version: 8.6.4
+    date: 2026-03-31
+    changes: "Added --no-gitignore option"
   - version: 7.5.9
     date: 2025-12-30
-    changes: "Add init command"
+    changes: "Added init command content"
 ---
 
 # Initialise Intlayer
@@ -25,7 +28,7 @@ history:
 npx intlayer init
 ```
 
-The `init` command automatically sets up Intlayer in your project by configuring the necessary files and settings. It's the recommended way to get started with Intlayer.
+The `init` command automatically configures Intlayer for your project by creating necessary files and settings. This is the recommended way to start with Intlayer.
 
 ## Aliases:
 
@@ -33,18 +36,19 @@ The `init` command automatically sets up Intlayer in your project by configuring
 
 ## Arguments:
 
-- `--project-root [projectRoot]` - Optional. Specify the project root directory. If not provided, the command will search for the project root starting from the current working directory.
+- `--project-root [projectRoot]` - Optional. Specify the project's root directory. If not provided, the command will search for the project root starting from the current working directory.
+- `--no-gitignore` - Optional. Skips the automatic update of the `.gitignore` file. If this flag is set, `.intlayer` will not be added to `.gitignore`.
 
 ## What it does:
 
 The `init` command performs the following setup tasks:
 
-1. **Validates project structure** - Ensures you are in a valid project directory containing a `package.json` file
-2. **Updates `.gitignore`** - Adds `.intlayer` to your `.gitignore` file to exclude generated files from version control
-3. **Configures TypeScript** - Updates all `tsconfig.json` files to include Intlayer type definitions (`.intlayer/**/*.ts`)
-4. **Creates configuration file** - Generates an `intlayer.config.ts` (for TypeScript projects) or `intlayer.config.mjs` (for JavaScript projects) with default settings
-5. **Updates Vite config** - If a Vite configuration file is detected, adds the `vite-intlayer` plugin import
-6. **Updates Next.js config** - If a Next.js configuration file is detected, adds the `next-intlayer` plugin import
+1. **Validates project structure** - Ensures you are in a valid project directory with a `package.json` file.
+2. **Updates `.gitignore`** - Adds `.intlayer` to your `.gitignore` file to exclude generated files from version control (can be skipped with `--no-gitignore`).
+3. **Configures TypeScript** - Updates any `tsconfig.json` files to include the Intlayer type definitions (`.intlayer/**/*.ts`).
+4. **Creates configuration file** - Generates `intlayer.config.ts` (for TypeScript projects) or `intlayer.config.mjs` (for JavaScript projects) with default settings.
+5. **Updates Vite configuration** - If a Vite config file is detected, it adds the import for the `vite-intlayer` plugin.
+6. **Updates Next.js configuration** - If a Next.js config file is detected, it adds the import for the `next-intlayer` plugin.
 
 ## Examples:
 
@@ -54,17 +58,25 @@ The `init` command performs the following setup tasks:
 npx intlayer init
 ```
 
-This will initialise Intlayer in the current directory, automatically detecting the project root.
+This initialises Intlayer in the current directory, with automatic project root detection.
 
-### Initialise with custom project root:
+### Initialisation with a custom project root:
 
 ```bash
 npx intlayer init --project-root ./my-project
 ```
 
-This will initialise Intlayer in the specified directory.
+This initialises Intlayer in the specified directory.
 
-## Example output:
+### Initialisation without updating .gitignore:
+
+```bash
+npx intlayer init --no-gitignore
+```
+
+This will set up all configuration files but will not modify your `.gitignore` file.
+
+## Output Example:
 
 ```bash
 npx intlayer init
@@ -78,12 +90,7 @@ Checking Intlayer configuration...
 
 ## Notes:
 
-- The command is idempotent, you can run it multiple times safely. It will skip steps that are already configured.
+- The command is idempotent — you can safely run it multiple times. Already configured steps will be automatically skipped.
 - If a configuration file already exists, it will not be overwritten.
-- TypeScript config files without an `include` array (e.g., solution-style configs with references) are skipped.
-- The command will exit with an error if no `package.json` is found in the project root.
-
-- The command is idempotent - you can run it multiple times safely. It will skip steps that are already configured.
-- If a configuration file already exists, it will not be overwritten.
-- TypeScript config files without an `include` array (e.g., solution-style configs with references) are skipped.
-- The command will exit with an error if no `package.json` is found in the project root.
+- TypeScript configurations without an `include` array (e.g. solution-style configurations with references) are skipped.
+- The command stops with an error if no `package.json` is found in the project root.

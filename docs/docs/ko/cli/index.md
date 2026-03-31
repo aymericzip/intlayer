@@ -1,37 +1,43 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-01-06
-title: CLI
-description: Intlayer CLI를 사용하여 다국어 웹사이트를 관리하는 방법을 알아보세요. 이 온라인 문서의 단계를 따라 몇 분 만에 프로젝트를 설정할 수 있습니다.
+updatedAt: 2026-03-31
+title: CLI - 다국어 웹사이트를 위한 모든 Intlayer CLI 명령어
+description: Intlayer CLI를 사용하여 다국어 웹사이트를 관리하는 방법을 알아보세요. 이 온라인 문서의 단계를 따라 몇 분 만에 프로젝트를 설정하세요.
 keywords:
   - CLI
-  - 명령줄 인터페이스
+  - 명령어 인터페이스
   - 국제화
   - 문서
   - Intlayer
   - Next.js
   - JavaScript
   - React
-slugs:
+slug:
   - doc
   - concept
   - cli
 history:
+  - version: 8.6.4
+    date: 2026-03-31
+    changes: "standalone 명령어 추가"
   - version: 7.5.11
     date: 2026-01-06
-    changes: "projects list 명령어 추가"
+    changes: "CI 명령어 추가"
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: "프로젝트 목록(list projects) 명령어 추가"
   - version: 7.5.9
     date: 2025-12-30
     changes: "init 명령어 추가"
   - version: 7.2.3
     date: 2025-11-22
-    changes: "transform 명령어 추가"
+    changes: "extract 명령어 추가"
   - version: 7.1.0
     date: 2025-11-05
     changes: "translate 명령어에 skipIfExists 옵션 추가"
   - version: 6.1.4
     date: 2025-01-27
-    changes: "CLI 인수 및 명령어에 별칭 추가"
+    changes: "CLI 인수 및 명령어 별칭 추가"
   - version: 6.1.3
     date: 2025-10-05
     changes: "명령어에 build 옵션 추가"
@@ -40,7 +46,7 @@ history:
     changes: "version 명령어 추가"
   - version: 6.1.0
     date: 2025-09-26
-    changes: "CLI를 사용하여 verbose 옵션의 기본값을 true로 설정"
+    changes: "CLI를 통해 verbose 옵션 기본값을 true로 설정"
   - version: 6.1.0
     date: 2025-09-23
     changes: "watch 명령어 및 with 옵션 추가"
@@ -55,10 +61,10 @@ history:
     changes: "CLI 명령어 매개변수 문서 업데이트"
   - version: 5.5.10
     date: 2025-06-29
-    changes: "히스토리 초기화"
+    changes: "기록 초기화"
 ---
 
-# Intlayer CLI
+# Intlayer CLI - 다국어 웹사이트를 위한 모든 Intlayer CLI 명령어
 
 ---
 
@@ -70,7 +76,7 @@ history:
 
 ## 패키지 설치
 
-npm을 사용하여 필요한 패키지를 설치하세요:
+npm을 사용하여 필요한 패키지를 설치합니다:
 
 ```bash packageManager="npm"
 npm install intlayer-cli -g
@@ -88,19 +94,19 @@ pnpm add intlayer-cli -g
 bun add intlayer-cli -g
 ```
 
-> `intlayer` 패키지가 이미 설치되어 있다면, CLI는 자동으로 설치됩니다. 이 단계는 건너뛸 수 있습니다.
+> `intlayer` 패키지가 이미 설치되어 있다면 CLI가 자동으로 설치됩니다. 이 단계는 건너뛸 수 있습니다.
 
 ## intlayer-cli 패키지
 
-`intlayer-cli` 패키지는 여러분의 [intlayer 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)을 사전(dictionaries)으로 변환하기 위한 도구입니다.
+`intlayer-cli` 패키지는 [Intlayer 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)을 딕셔너리로 트랜스파일하는 데 사용됩니다.
 
-이 패키지는 `src/**/*.content.{ts|js|mjs|cjs|json}`와 같은 모든 intlayer 파일을 변환합니다. [Intlayer 선언 파일을 선언하는 방법을 확인하세요](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
+이 패키지는 `src/**/*.content.{ts|js|mjs|cjs|json}`과 같은 모든 Intlayer 파일을 트랜스파일합니다. [Intlayer 선언 파일 선언 방법 알아보기](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
-intlayer 사전을 해석하려면 [react-intlayer](https://www.npmjs.com/package/react-intlayer) 또는 [next-intlayer](https://www.npmjs.com/package/next-intlayer)와 같은 인터프리터를 사용할 수 있습니다.
+Intlayer 딕셔너리를 해석하려면 [react-intlayer](https://www.npmjs.com/package/react-intlayer) 또는 [next-intlayer](https://www.npmjs.com/package/next-intlayer)와 같은 해석기를 사용할 수 있습니다.
 
-## 구성 파일 지원
+## 설정 파일 지원
 
-Intlayer는 여러 구성 파일 형식을 지원합니다:
+Intlayer는 여러 설정 파일 형식을 허용합니다:
 
 - `intlayer.config.ts`
 - `intlayer.config.js`
@@ -109,54 +115,59 @@ Intlayer는 여러 구성 파일 형식을 지원합니다:
 - `intlayer.config.mjs`
 - `.intlayerrc`
 
-사용 가능한 로케일이나 기타 매개변수를 구성하는 방법은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
+사용 가능한 언어 또는 기타 매개변수를 구성하는 방법은 [여기에서 구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
-## intlayer 명령 실행
+## Intlayer 명령어 실행
 
 ### 인증
 
-- **[로그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/login.md)** - Intlayer CMS로 인증하고 액세스 자격 증명 받기
+- **[로그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/login.md)** - Intlayer CMS에 인증하고 액세스 자격 증명을 가져옵니다.
 
-### 핵심 명령
+### 핵심 명령어
 
-- **[사전 빌드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/build.md)** - 콘텐츠 선언 파일에서 사전을 빌드합니다.
-- **[사전 감시](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/watch.md)** - 변경 사항을 감시하고 자동으로 사전을 빌드합니다.
+- **[딕셔너리 빌드 (Build)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/build.md)** - 콘텐츠 선언 파일에서 딕셔너리를 빌드합니다.
+- **[딕셔너리 감시 (Watch)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/watch.md)** - 변경 사항을 감시하고 딕셔너리를 자동으로 빌드합니다.
+- **[독립 실행형 번들 생성 (Standalone)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/standalone.md)** - Intlayer 및 지정된 패키지를 포함하는 독립 실행형 JavaScript 번들을 생성합니다.
 - **[CLI 버전 확인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/version.md)** - 설치된 Intlayer CLI 버전을 확인합니다.
-- **[프로젝트 목록](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/list_projects.md)** - 디렉토리 또는 git 저장소의 모든 Intlayer 프로젝트를 나열합니다
+- **[프로젝트 목록 (List Projects)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/list_projects.md)** - 디렉토리 또는 git 저장소의 모든 Intlayer 프로젝트를 나열합니다.
 
-### 사전 관리
+### 딕셔너리 관리
 
-- **[사전 푸시](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/push.md)** - 사전을 Intlayer 에디터와 CMS로 푸시합니다.
-- **[사전 가져오기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/pull.md)** - Intlayer 에디터와 CMS에서 사전을 가져옵니다
-- **[사전 채우기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/fill.md)** - AI를 사용하여 사전을 채우고, 감사하며, 번역합니다
-- **[누락된 번역 테스트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/test.md)** - 누락된 번역을 테스트하고 식별합니다
-- **[콘텐츠 선언 파일 목록](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/list.md)** - 프로젝트 내 모든 콘텐츠 선언 파일을 나열합니다
+- **[딕셔너리 푸시 (Push)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/push.md)** - 딕셔너리를 Intlayer 에디터 및 CMS로 전송합니다.
+- **[딕셔너리 풀 (Pull)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/pull.md)** - Intlayer 에디터 및 CMS에서 딕셔너리를 가져옵니다.
+- **[딕셔너리 채우기 (Fill)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/fill.md)** - AI를 사용하여 딕셔너리를 채우고 감사하며 번역합니다.
+- **[누락된 번역 테스트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/test.md)** - 누락된 번역을 테스트하고 식별합니다.
+- **[콘텐츠 선언 파일 목록](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/list.md)** - 프로젝트의 모든 콘텐츠 선언 파일을 나열합니다.
 
 ### 컴포넌트 관리
 
-- **[컴포넌트 변환](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)** - 기존 컴포넌트를 Intlayer를 사용하도록 변환
+- **[문자열 추출 (Extract)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)** - 컴포넌트 근처의 .content 파일로 컴포넌트에서 문자열을 추출합니다.
 
 ### 구성
 
-- **[Intlayer 초기화](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/init.md)** - 자동 구성으로 프로젝트에 Intlayer 설정
-- **[구성 관리](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/configuration.md)** - Intlayer 구성을 CMS에서 가져오고 푸시
+- **[Intlayer 초기화 (Init)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/init.md)** - 자동 구성을 사용하여 프로젝트에 Intlayer를 설정합니다.
+- **[구성 관리](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/configuration.md)** - Intlayer 구성을 가져오고 CMS로 전송합니다.
 
 ### 문서 관리
 
-- **[문서 번역](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/doc-translate.md)** - AI를 사용하여 문서 파일 자동 번역
-- **[문서 검토](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/doc-review.md)** - 품질과 일관성을 위한 문서 파일 검토
+- **[문서 번역](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/doc-translate.md)** - AI를 사용하여 문서 파일을 자동으로 번역합니다.
+- **[문서 검토](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/doc-review.md)** - 품질과 일관성을 위해 문서 파일을 검토합니다.
 
-### 에디터 및 라이브 동기화
+### 에디터 및 라이브 동기화 (Live Sync)
 
-- **[에디터 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/editor.md)** - Intlayer 에디터 명령어 사용하기
-- **[라이브 싱크 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/live.md)** - 런타임에 CMS 콘텐츠 변경 사항을 반영하는 라이브 싱크 사용하기
+- **[에디터 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/editor.md)** - Intlayer 에디터 명령어를 사용합니다.
+- **[라이브 동기화 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/live.md)** - 라이브 동기화를 사용하여 런타임에 CMS의 콘텐츠 변경 사항을 반영합니다.
+
+### CI/CD 및 자동화
+
+- **[CI 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/ci.md)** - CI/CD 파이프라인을 위해 자동으로 주입된 자격 증명으로 Intlayer 명령어를 실행합니다.
 
 ### 개발 도구
 
-- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/sdk.md)** - 자신의 코드에서 Intlayer CLI SDK 사용하기
-- **[Intlayer 명령어 디버그](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/debug.md)** - Intlayer CLI 문제 디버그 및 문제 해결하기
+- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/sdk.md)** - 자체 코드에서 Intlayer CLI SDK를 사용합니다.
+- **[Intlayer 명령어 디버그](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/debug.md)** - Intlayer CLI 문제를 디버그하고 해결합니다.
 
-## `package.json`에서 intlayer 명령어 사용하기
+## `package.json`에서 Intlayer 명령어 사용하기
 
 ```json fileName="package.json"
 "scripts": {
@@ -164,6 +175,7 @@ Intlayer는 여러 구성 파일 형식을 지원합니다:
   "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
+  "intlayer:standalone": "npx intlayer standalone --packages intlayer vanilla-intlayer",
   "intlayer:push": "npx intlayer push",
   "intlayer:pull": "npx intlayer pull",
   "intlayer:fill": "npx intlayer fill",
@@ -176,8 +188,8 @@ Intlayer는 여러 구성 파일 형식을 지원합니다:
 }
 ```
 
-> **참고**: 다음과 같은 짧은 별칭도 사용할 수 있습니다:
+> **참고**: 다음과 같은 짧은 별칭을 사용할 수도 있습니다:
 >
-> - `npx intlayer list` 는 `npx intlayer content list` 대신 사용
-> - `npx intlayer test` 는 `npx intlayer content test` 대신 사용
-> - `npx intlayer projects-list` 또는 `npx intlayer pl` 는 `npx intlayer projects list` 대신 사용
+> - `npx intlayer list`: `npx intlayer content list` 대신 사용
+> - `npx intlayer test`: `npx intlayer content test` 대신 사용
+> - `npx intlayer projects-list` 또는 `npx intlayer pl`: `npx intlayer projects list` 대신 사용

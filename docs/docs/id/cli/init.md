@@ -2,7 +2,7 @@
 createdAt: 2025-12-30
 updatedAt: 2025-12-30
 title: Inisialisasi Intlayer
-description: Pelajari cara menginisialisasi Intlayer dalam proyek Anda.
+description: Pelajari cara menginisialisasi Intlayer di proyek Anda.
 keywords:
   - Inisialisasi
   - CLI
@@ -14,9 +14,12 @@ slugs:
   - cli
   - init
 history:
+  - version: 8.6.4
+    date: 2026-03-31
+    changes: "Menambahkan opsi --no-gitignore"
   - version: 7.5.9
     date: 2025-12-30
-    changes: "Menambahkan perintah init"
+    changes: "Menambahkan konten perintah init"
 ---
 
 # Inisialisasi Intlayer
@@ -25,7 +28,7 @@ history:
 npx intlayer init
 ```
 
-Perintah `init` secara otomatis mengatur Intlayer dalam proyek Anda dengan mengonfigurasi file dan pengaturan yang diperlukan. Ini adalah cara yang direkomendasikan untuk memulai dengan Intlayer.
+Perintah `init` secara otomatis mengonfigurasi Intlayer di proyek Anda dengan membuat file dan pengaturan yang diperlukan. Ini adalah cara yang disarankan untuk mulai menggunakan Intlayer.
 
 ## Alias:
 
@@ -33,18 +36,19 @@ Perintah `init` secara otomatis mengatur Intlayer dalam proyek Anda dengan mengo
 
 ## Argumen:
 
-- `--project-root [projectRoot]` - Opsional. Tentukan direktori root proyek. Jika tidak diberikan, perintah akan mencari root proyek mulai dari direktori kerja saat ini.
+- `--project-root [projectRoot]` - Opsional. Tentukan direktori akar proyek. Jika tidak disediakan, perintah akan mencari akar proyek mulai dari direktori kerja saat ini.
+- `--no-gitignore` - Opsional. Melewati pembaruan otomatis file `.gitignore`. Jika flag ini disetel, `.intlayer` tidak akan ditambahkan ke `.gitignore`.
 
 ## Apa yang dilakukan:
 
-Perintah `init` melakukan tugas pengaturan berikut:
+Perintah `init` melakukan tugas setup berikut:
 
-1. **Memvalidasi struktur proyek** - Memastikan Anda berada di direktori proyek yang valid dengan file `package.json`
-2. **Memperbarui `.gitignore`** - Menambahkan `.intlayer` ke file `.gitignore` Anda untuk mengecualikan file yang dihasilkan dari kontrol versi
-3. **Mengonfigurasi TypeScript** - Memperbarui semua file `tsconfig.json` untuk menyertakan definisi tipe Intlayer (`.intlayer/**/*.ts`)
-4. **Membuat file konfigurasi** - Menghasilkan `intlayer.config.ts` (untuk proyek TypeScript) atau `intlayer.config.mjs` (untuk proyek JavaScript) dengan pengaturan default
-5. **Memperbarui konfigurasi Vite** - Jika terdeteksi file konfigurasi Vite, menambahkan impor plugin `vite-intlayer`
-6. **Memperbarui konfigurasi Next.js** - Jika file konfigurasi Next.js terdeteksi, menambahkan impor plugin `next-intlayer`
+1. **Memvalidasi struktur proyek** - Memastikan Anda berada di direktori proyek yang valid dengan file `package.json`.
+2. **Memperbarui `.gitignore`** - Menambahkan `.intlayer` ke file `.gitignore` Anda untuk mengecualikan file yang dihasilkan dari kontrol versi (dapat dilewati dengan `--no-gitignore`).
+3. **Mengonfigurasi TypeScript** - Memperbarui file `tsconfig.json` apa pun untuk menyertakan definisi tipe Intlayer (`.intlayer/**/*.ts`).
+4. **Membuat file konfigurasi** - Menghasilkan `intlayer.config.ts` (untuk proyek TypeScript) atau `intlayer.config.mjs` (untuk proyek JavaScript) dengan pengaturan default.
+5. **Memperbarui konfigurasi Vite** - Jika file konfigurasi Vite terdeteksi, perintah akan menambahkan impor untuk plugin `vite-intlayer`.
+6. **Memperbarui konfigurasi Next.js** - Jika file konfigurasi Next.js terdeteksi, perintah akan menambahkan impor untuk plugin `next-intlayer`.
 
 ## Contoh:
 
@@ -54,36 +58,39 @@ Perintah `init` melakukan tugas pengaturan berikut:
 npx intlayer init
 ```
 
-Ini akan menginisialisasi Intlayer di direktori saat ini, secara otomatis mendeteksi root proyek.
+Ini menginisialisasi Intlayer di direktori saat ini, mendeteksi akar proyek secara otomatis.
 
-### Inisialisasi dengan root proyek kustom:
+### Inisialisasi dengan akar proyek khusus:
 
 ```bash
-npx intlayer init --project-root ./my-project
+npx intlayer init --project-root ./proyek-saya
 ```
 
-Ini akan menginisialisasi Intlayer di direktori yang ditentukan.
+Ini menginisialisasi Intlayer di direktori yang ditentukan.
 
-## Contoh output:
+### Inisialisasi tanpa memperbarui .gitignore:
+
+```bash
+npx intlayer init --no-gitignore
+```
+
+Ini akan menyiapkan semua file konfigurasi tetapi tidak akan memodifikasi `.gitignore` Anda.
+
+## Contoh Output:
 
 ```bash
 npx intlayer init
 Checking Intlayer configuration...
 ✓ Added .intlayer to .gitignore
 ✓ Updated tsconfig.json to include intlayer types
-intlayer.config.ts dibuat
+✓ Created intlayer.config.ts
 ✓ Injected import into vite.config.ts
 ✓ Intlayer init setup complete.
 ```
 
 ## Catatan:
 
-- Perintah ini idempoten - Anda dapat menjalankannya beberapa kali dengan aman. Ini akan melewati langkah-langkah yang sudah dikonfigurasi.
+- Perintah ini idempotent — Anda dapat menjalankannya berkali-kali dengan aman. Langkah-langkah yang sudah dikonfigurasi akan dilewati.
 - Jika file konfigurasi sudah ada, file tersebut tidak akan ditimpa.
-- File konfigurasi TypeScript tanpa array `include` (mis. konfigurasi gaya solution dengan references) akan dilewati.
-- Perintah akan keluar dengan kesalahan jika tidak ditemukan `package.json` di root proyek.
-
-- Perintah ini idempoten - Anda dapat menjalankannya beberapa kali dengan aman. Perintah akan melewati langkah yang sudah dikonfigurasi.
-- Jika file konfigurasi sudah ada, file tersebut tidak akan ditimpa.
-- File konfigurasi TypeScript tanpa array `include` (misalnya, konfigurasi gaya solution dengan references) akan dilewati.
-- Perintah akan keluar dengan error jika tidak ditemukan `package.json` di root proyek.
+- Konfigurasi TypeScript tanpa array `include` (misal: konfigurasi gaya solusi dengan referensi) akan dilewati.
+- Perintah akan keluar dengan kesalahan jika `package.json` tidak ditemukan di akar proyek.

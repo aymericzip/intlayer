@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-01-06
+updatedAt: 2026-03-31
 title: CLI - All Intlayer CLI commands for your multilingual website
 description: Discover how to use the Intlayer CLI to manage your multilingual website. Follow the steps in this online documentation to set up your project in a few minutes.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 8.6.4
+    date: 2026-03-31
+    changes: "Add standalone command"
   - version: 7.5.11
     date: 2026-01-06
     changes: "Add CI command"
@@ -124,6 +127,7 @@ To see how to configure available locales, or other parameters, refer to the [co
 
 - **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/build.md)** - Build your dictionaries from content declaration files
 - **[Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/watch.md)** - Watch for changes and automatically build dictionaries
+- **[Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/standalone.md)** - Create a standalone JavaScript bundle containing Intlayer and specified packages
 - **[Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/version.md)** - Check the installed Intlayer CLI version
 - **[List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/list_projects.md)** - List all Intlayer projects in a directory or git repository
 
@@ -171,6 +175,7 @@ To see how to configure available locales, or other parameters, refer to the [co
   "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
+  "intlayer:standalone": "npx intlayer standalone --packages intlayer vanilla-intlayer",
   "intlayer:push": "npx intlayer push",
   "intlayer:pull": "npx intlayer pull",
   "intlayer:fill": "npx intlayer fill",

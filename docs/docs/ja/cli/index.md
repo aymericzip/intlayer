@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-01-06
-title: CLI
-description: Intlayer CLIを使用して多言語ウェブサイトを管理する方法を紹介します。このオンラインドキュメントの手順に従って、数分でプロジェクトをセットアップしましょう。
+updatedAt: 2026-03-31
+title: CLI - 多言語サイトのためのすべてのIntlayer CLIコマンド
+description: 多言語サイトを管理するためのIntlayer CLIの使用方法をご紹介します。このオンラインドキュメントに従って、数分でプロジェクトをセットアップしてください。
 keywords:
   - CLI
   - コマンドラインインターフェース
@@ -17,15 +17,21 @@ slugs:
   - concept
   - cli
 history:
+  - version: 8.6.4
+    date: 2026-03-31
+    changes: "standaloneコマンドの追加"
   - version: 7.5.11
     date: 2026-01-06
-    changes: "projects listコマンドを追加"
+    changes: "CIコマンドの追加"
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: "list projectsコマンドの追加"
   - version: 7.5.9
     date: 2025-12-30
-    changes: "initコマンドを追加"
+    changes: "initコマンドの追加"
   - version: 7.2.3
     date: 2025-11-22
-    changes: "transformコマンドを追加"
+    changes: "extractコマンドの追加"
   - version: 7.1.0
     date: 2025-11-05
     changes: "translateコマンドにskipIfExistsオプションを追加"
@@ -37,28 +43,28 @@ history:
     changes: "コマンドにbuildオプションを追加"
   - version: 6.1.2
     date: 2025-09-26
-    changes: "versionコマンドを追加"
+    changes: "versionコマンドの追加"
   - version: 6.1.0
     date: 2025-09-26
-    changes: "CLIでverboseオプションのデフォルトをtrueに設定"
+    changes: "CLIでverboseオプションをデフォルトでtrueに設定"
   - version: 6.1.0
     date: 2025-09-23
-    changes: "watchコマンドとwithオプションを追加"
+    changes: "watchコマンドとwithオプションの追加"
   - version: 6.0.1
     date: 2025-09-23
-    changes: "editorコマンドを追加"
+    changes: "editorコマンドの追加"
   - version: 6.0.0
     date: 2025-09-17
-    changes: "content testおよびlistコマンドを追加"
+    changes: "content testおよびlistコマンドの追加"
   - version: 5.5.11
     date: 2025-07-11
     changes: "CLIコマンドパラメータのドキュメントを更新"
   - version: 5.5.10
     date: 2025-06-29
-    changes: "履歴を初期化"
+    changes: "履歴の初期化"
 ---
 
-# Intlayer CLI
+# Intlayer CLI - 多言語サイトのためのすべてのIntlayer CLIコマンド
 
 ---
 
@@ -70,7 +76,7 @@ history:
 
 ## パッケージのインストール
 
-npmを使用して必要なパッケージをインストールします:
+npmを使用して必要なパッケージをインストールします：
 
 ```bash packageManager="npm"
 npm install intlayer-cli -g
@@ -88,19 +94,19 @@ pnpm add intlayer-cli -g
 bun add intlayer-cli -g
 ```
 
-> もし `intlayer` パッケージがすでにインストールされている場合、CLIは自動的にインストールされます。このステップはスキップ可能です。
+> `intlayer` パッケージがすでにインストールされている場合、CLIは自動的にインストールされます。このステップはスキップできます。
 
 ## intlayer-cli パッケージ
 
-`intlayer-cli` パッケージは、あなたの [intlayer 宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md) を辞書にトランスパイルすることを目的としています。
+`intlayer-cli` パッケージは、[Intlayer宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)をディクショナリにトランスパイルするためのものです。
 
-このパッケージは、`src/**/*.content.{ts|js|mjs|cjs|json}` のようなすべての intlayer ファイルをトランスパイルします。[Intlayer 宣言ファイルの宣言方法はこちらを参照してください](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md)。
+このパッケージは、`src/**/*.content.{ts|js|mjs|cjs|json}` などのすべてのIntlayerファイルをトランスパイルします。[Intlayer宣言ファイルの宣言方法を参照してください](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md)。
 
-intlayer 辞書を解釈するには、[react-intlayer](https://www.npmjs.com/package/react-intlayer) や [next-intlayer](https://www.npmjs.com/package/next-intlayer) のようなインタープリターを使用できます。
+Intlayerディクショナリを解釈するには、[react-intlayer](https://www.npmjs.com/package/react-intlayer) や [next-intlayer](https://www.npmjs.com/package/next-intlayer) などのインタープリターを使用できます。
 
 ## 設定ファイルのサポート
 
-Intlayer は複数の設定ファイル形式をサポートしています：
+Intlayerは、複数の設定ファイル形式をサポートしています：
 
 - `intlayer.config.ts`
 - `intlayer.config.js`
@@ -109,54 +115,59 @@ Intlayer は複数の設定ファイル形式をサポートしています：
 - `intlayer.config.mjs`
 - `.intlayerrc`
 
-利用可能なロケールやその他のパラメータの設定方法については、[設定ドキュメントはこちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
+利用可能な言語やその他のパラメータの設定方法については、[こちらから設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
-## intlayer コマンドの実行
+## Intlayerコマンドの実行
 
 ### 認証
 
-- **[ログイン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/login.md)** - Intlayer CMSで認証し、アクセス認証情報を取得する
+- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/login.md)** - Intlayer CMSで認証し、アクセス資格情報を取得します。
 
 ### コアコマンド
 
-- **[辞書のビルド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/build.md)** - コンテンツ宣言ファイルから辞書をビルドします
-- **[辞書の監視](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/watch.md)** - 変更を監視し、自動的に辞書をビルドします
-- **[CLI バージョンの確認](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/version.md)** - インストールされている Intlayer CLI のバージョンを確認します
-- **[プロジェクトの一覧表示](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/list_projects.md)** - ディレクトリまたはgitリポジトリ内のすべてのIntlayerプロジェクトを一覧表示します
+- **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/build.md)** - コンテンツ宣言ファイルからディクショナリをビルドします。
+- **[Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/watch.md)** - 変更を監視し、ディクショナリを自動的に再ビルドします。
+- **[Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/standalone.md)** - Intlayerと指定したパッケージを含むスタンドアロンJavaScriptバンドルを作成します。
+- **[Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/version.md)** - インストールされているIntlayer CLIのバージョンを確認します。
+- **[List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/list_projects.md)** - ディレクトリまたはGitリポジトリ内のすべてのIntlayerプロジェクトを一覧表示します。
 
-### 辞書管理
+### ディクショナリ管理
 
-- **[辞書のプッシュ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/push.md)** - 辞書を Intlayer エディターおよび CMS にプッシュします
-- **[辞書のプル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/pull.md)** - IntlayerエディターおよびCMSから辞書をプルします
-- **[辞書の充填](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)** - AIを使用して辞書を充填、監査、翻訳します
-- **[欠落翻訳のテスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/test.md)** - 欠落している翻訳をテストして特定します
-- **[コンテンツ宣言ファイルの一覧表示](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/list.md)** - プロジェクト内のすべてのコンテンツ宣言ファイルを一覧表示します
+- **[Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/push.md)** - ディクショナリをIntlayerエディターおよびCMSに送信します。
+- **[Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/pull.md)** - IntlayerエディターおよびCMSからディクショナリを取得します。
+- **[Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/fill.md)** - AIを使用してディクショナリを埋め、監査し、翻訳します。
+- **[Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/test.md)** - 翻訳の欠落をテストして特定します。
+- **[List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/list.md)** - プロジェクト内のすべてのコンテンツ宣言ファイルを一覧表示します。
 
 ### コンポーネント管理
 
-- **[コンポーネントの変換](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)** - 既存のコンポーネントをIntlayer対応に変換する
+- **[Extract Strings](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)** - コンポーネントから文字列を抽出し、コンポーネントの近くの .content ファイルに保存します。
 
 ### 設定
 
-- **[Intlayerの初期化](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/init.md)** - 自動設定でプロジェクトにIntlayerをセットアップする
-- **[設定の管理](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/configuration.md)** - Intlayerの設定をCMSから取得・プッシュする
+- **[Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/init.md)** - 自動設定を使用してプロジェクトでIntlayerをセットアップします。
+- **[Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/configuration.md)** - Intlayer設定を取得し、CMSに送信します。
 
 ### ドキュメント管理
 
-- **[ドキュメントの翻訳](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/doc-translate.md)** - AIを使ってドキュメントファイルを自動翻訳する
-- **[ドキュメントのレビュー](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/doc-review.md)** - ドキュメントファイルの品質と一貫性をレビューする
+- **[Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/doc-translate.md)** - AIを使用してドキュメントファイルを自動的に翻訳します。
+- **[Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/doc-review.md)** - ドキュメントファイルの品質と一貫性をレビューします。
 
-### エディター & ライブ同期
+### エディターとライブ同期
 
-- **[エディターコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/editor.md)** - Intlayerのエディターコマンドを使用する
-- **[ライブシンクコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/live.md)** - ライブシンクを使用して、実行時にCMSのコンテンツ変更を反映する
+- **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/editor.md)** - Intlayerエディターのコマンドを使用します。
+- **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/live.md)** - Live Syncを使用して、CMSからのコンテンツ変更を実行時に反映させます。
+
+### CI/CDと自動化
+
+- **[CI Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/ci.md)** - CI/CDパイプライン用に自動的に資格情報を挿入してIntlayerコマンドを実行します。
 
 ### 開発ツール
 
-- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/sdk.md)** - 自分のコード内でIntlayer CLI SDKを使用する
-- **[Intlayerコマンドのデバッグ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/debug.md)** - Intlayer CLIの問題をデバッグおよびトラブルシュートする
+- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/sdk.md)** - 独自のコード内でIntlayer CLI SDKを使用します。
+- **[Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/debug.md)** - Intlayer CLIの問題をデバッグして修正します。
 
-## `package.json`でintlayerコマンドを使用する
+## `package.json` での Intlayer コマンドの使用
 
 ```json fileName="package.json"
 "scripts": {
@@ -164,6 +175,7 @@ Intlayer は複数の設定ファイル形式をサポートしています：
   "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
+  "intlayer:standalone": "npx intlayer standalone --packages intlayer vanilla-intlayer",
   "intlayer:push": "npx intlayer push",
   "intlayer:pull": "npx intlayer pull",
   "intlayer:fill": "npx intlayer fill",
@@ -176,8 +188,8 @@ Intlayer は複数の設定ファイル形式をサポートしています：
 }
 ```
 
-> **注意**: 以下の短縮エイリアスも使用できます:
+> **注意**: 以下の短いエイリアスも使用できます：
 >
-> - `npx intlayer list` は `npx intlayer content list` の代わりに使用可能
-> - `npx intlayer test` は `npx intlayer content test` の代わりに使用可能
-> - `npx intlayer projects-list` または `npx intlayer pl` は `npx intlayer projects list` の代わりに使用可能
+> - `npx intlayer list`: `npx intlayer content list` の代わり
+> - `npx intlayer test`: `npx intlayer content test` の代わり
+> - `npx intlayer projects-list` または `npx intlayer pl`: `npx intlayer projects list` の代わり

@@ -11,6 +11,7 @@ import type { CustomIntlayerConfig } from '@intlayer/types/config';
 import { Command } from 'commander';
 import { login } from './auth/login';
 import { build } from './build';
+import { bundle } from './bundle';
 import { runCI } from './ci';
 import { getConfig } from './config';
 import { startEditor } from './editor';
@@ -309,7 +310,12 @@ export const setAPI = (): Command => {
     .command('init')
     .description('Initialize Intlayer in the project')
     .option('--project-root [projectRoot]', 'Project root directory')
-    .action((options) => init(options.projectRoot));
+    .option('--no-gitignore', 'Do not add .intlayer to .gitignore')
+    .action((options) =>
+      init(options.projectRoot, {
+        noGitignore: options.gitignore === false,
+      })
+    );
 
   initCmd
     .command('skills')
@@ -935,7 +941,35 @@ export const setAPI = (): Command => {
       });
     });
 
-  applyConfigOptions(extractProgram);
+  /**
+   * STANDALONE
+   */
+  const bundleCmd = program
+    .command('standalone')
+    .description('Create a standalone bundle of the application content')
+    .option(
+      '-o, --outfile [outfile]',
+      'Output file for the bundle',
+      'intlayer-bundle.js'
+    )
+    .option('--packages [packages...]', 'List of packages to bundle')
+    .option('--version [version]', 'Version of the packages to bundle')
+    .option('--minify', 'Minify the output')
+    .option('--platform [platform]', 'Target platform', 'browser')
+    .option('--format [format]', 'Output format', 'esm')
+    .action((options) => {
+      bundle({
+        outfile: options.outfile,
+        bundlePackages: options.packages,
+        version: options.version,
+        minify: options.minify,
+        platform: options.platform,
+        format: options.format,
+        configOptions: extractConfigOptions(options),
+      });
+    });
+
+  applyConfigOptions(bundleCmd);
 
   program.parse(process.argv);
 

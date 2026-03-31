@@ -153,9 +153,16 @@ const getDocumentationUrl = (packageJson: any): string => {
 };
 
 /**
+ * OPTIONS
+ */
+export type InitOptions = {
+  noGitignore?: boolean;
+};
+
+/**
  * MAIN LOGIC
  */
-export const initIntlayer = async (rootDir: string) => {
+export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
   logger(colorize('Checking Intlayer configuration...', ANSIColors.CYAN));
 
   // READ PACKAGE.JSON
@@ -184,7 +191,7 @@ export const initIntlayer = async (rootDir: string) => {
 
   // CHECK .GITIGNORE
   const gitignorePath = '.gitignore';
-  if (await exists(rootDir, gitignorePath)) {
+  if (!options?.noGitignore && (await exists(rootDir, gitignorePath))) {
     const gitignoreContent = await readFileFromRoot(rootDir, gitignorePath);
 
     if (!gitignoreContent.includes('intlayer')) {

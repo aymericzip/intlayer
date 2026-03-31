@@ -1,12 +1,12 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-01-06
-title: CLI - Усі CLI-команди Intlayer для вашого багатомовного вебсайту
-description: Дізнайтеся, як використовувати Intlayer CLI для керування вашим багатомовним вебсайтом. Дотримуйтесь кроків цієї онлайн-документації, щоб налаштувати проєкт за кілька хвилин.
+updatedAt: 2026-03-31
+title: CLI - Усі команди Intlayer CLI для вашого багатомовного вебсайту
+description: Дізнайтеся, як використовувати Intlayer CLI для керування вашим багатомовним вебсайтом. Дотримуйтесь кроків у цій онлайн-документації, щоб налаштувати свій проєкт за лічені хвилини.
 keywords:
   - CLI
-  - Command Line Interface
-  - Internationalization
+  - Інтерфейс командного рядка
+  - Інтернаціоналізація
   - Документація
   - Intlayer
   - Next.js
@@ -17,42 +17,45 @@ slugs:
   - concept
   - cli
 history:
+  - version: 8.6.4
+    date: 2026-03-31
+    changes: "Додано вміст команди standalone"
   - version: 7.5.11
     date: 2026-01-06
-    changes: "Додано команду CI"
+    changes: "Додано вміст команди CI"
   - version: 7.5.11
     date: 2026-01-06
-    changes: "Додано команду списку проєктів"
+    changes: "Додано вміст команди list projects"
   - version: 7.5.9
     date: 2025-12-30
-    changes: "Додано команду init"
+    changes: "Додано вміст команди init"
   - version: 7.2.3
     date: 2025-11-22
-    changes: "Додано команду transform"
+    changes: "Додано вміст команди extract"
   - version: 7.1.0
     date: 2025-11-05
-    changes: "Додано опцію skipIfExists для команди translate"
+    changes: "Додано опцію skipIfExists до команди translate"
   - version: 6.1.4
     date: 2025-01-27
-    changes: "Додано aliases для аргументів і команд CLI"
+    changes: "Додано аліаси для аргументів та команд CLI"
   - version: 6.1.3
     date: 2025-10-05
-    changes: "Додано опцію build для команд"
+    changes: "Додано опцію build до команд"
   - version: 6.1.2
     date: 2025-09-26
-    changes: "Додано команду version"
+    changes: "Додано вміст команди version"
   - version: 6.1.0
     date: 2025-09-26
-    changes: "Встановлено опцію verbose за замовчуванням у true через CLI"
+    changes: "Встановлено опцію verbose в true за замовчуванням через CLI"
   - version: 6.1.0
     date: 2025-09-23
     changes: "Додано команду watch та опцію with"
   - version: 6.0.1
     date: 2025-09-23
-    changes: "Додано команду editor"
+    changes: "Додано вміст команди editor"
   - version: 6.0.0
     date: 2025-09-17
-    changes: "Додано команди content test і list"
+    changes: "Додано команди content test та list"
   - version: 5.5.11
     date: 2025-07-11
     changes: "Оновлено документацію параметрів команд CLI"
@@ -61,19 +64,19 @@ history:
     changes: "Ініціалізація історії"
 ---
 
-# Intlayer CLI. Усі команди Intlayer CLI для вашого багатомовного сайту
+# Intlayer CLI - Усі команди Intlayer CLI для вашого багатомовного вебсайту
 
 ---
 
-## Table of Contents
+## Зміст
 
 <TOC/>
 
 ---
 
-## Встановлення пакету
+## Встановлення пакета
 
-Встановіть необхідні пакети за допомогою одного з пакетних менеджерів:
+Встановіть необхідні пакети за допомогою npm:
 
 ```bash packageManager="npm"
 npm install intlayer-cli -g
@@ -91,19 +94,19 @@ pnpm add intlayer-cli -g
 bun add intlayer-cli -g
 ```
 
-> Якщо пакет `intlayer` уже встановлено, CLI встановлюється автоматично. Ви можете пропустити цей крок.
+> Якщо пакет `intlayer` вже встановлено, CLI буде встановлено автоматично. Ви можете пропустити цей крок.
 
 ## Пакет intlayer-cli
 
-Пакет `intlayer-cli` призначений для трансляції ваших [оголошень intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md) у словники.
+Пакет `intlayer-cli` призначений для транспіляції ваших [оголошень Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md) у словники.
 
-Цей пакет транспілює всі файли Intlayer, наприклад `src/**/*.content.{ts|js|mjs|cjs|json}`. [Див. як оголосити ваші файли декларацій Intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
+Цей пакет транспілює всі файли Intlayer, такі як `src/**/*.content.{ts|js|mjs|cjs|json}`. [Дізнайтеся, як оголошувати файли контенту Intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
-Щоб інтерпретувати словники Intlayer, ви можете використовувати інтерпретатори, такі як [react-intlayer](https://www.npmjs.com/package/react-intlayer) або [next-intlayer](https://www.npmjs.com/package/next-intlayer).
+Для інтерпретації словників Intlayer ви можете використовувати інтерпретатори, такі як [react-intlayer](https://www.npmjs.com/package/react-intlayer) або [next-intlayer](https://www.npmjs.com/package/next-intlayer).
 
-## Підтримка конфігураційних файлів
+## Підтримка файлів конфігурації
 
-Intlayer підтримує кілька форматів конфігураційних файлів:
+Intlayer приймає кілька форматів файлів конфігурації:
 
 - `intlayer.config.ts`
 - `intlayer.config.js`
@@ -112,58 +115,59 @@ Intlayer підтримує кілька форматів конфігураці
 - `intlayer.config.mjs`
 - `.intlayerrc`
 
-Щоб дізнатися, як налаштувати доступні локалі або інші параметри, перегляньте [документацію з конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
+Щоб дізнатися, як налаштувати доступні мови або інші параметри, ознайомтеся з [документацією з конфігурації тут](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
 
-## Запуск команд intlayer
+## Виконання команд Intlayer
 
-### Аутентифікація
+### Автентифікація
 
-- **[Вхід](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/login.md)** - Аутентифікація в Intlayer CMS і отримання облікових даних доступу
+- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/login.md)** — Автентифікація в Intlayer CMS та отримання облікових даних доступу
 
 ### Основні команди
 
-- **[Побудова словників](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/build.md)** - Побудуйте словники з файлів декларацій контенту
-- **[Спостереження за словниками](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/watch.md)** - Слідкувати за змінами та автоматично збирати словники
-- **[Перевірити версію CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/version.md)** - Перевірити встановлену версію Intlayer CLI
-- **[Список проєктів](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/list_projects.md)** - Перелічити всі проєкти Intlayer у директорії або git-репозиторії
+- **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/build.md)** — Створення словників з ваших файлів оголошення контенту
+- **[Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/watch.md)** — Відстеження змін та автоматична перезбірка словників
+- **[Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/standalone.md)** — Створення автономної JavaScript-збірки, що містить Intlayer та вказані пакети
+- **[Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/version.md)** — Перевірка встановленої версії Intlayer CLI
+- **[List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/list_projects.md)** — Перегляд списку всіх проєктів Intlayer у директорії або git-репозиторії
 
 ### Керування словниками
 
-- **[Відправити словники](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/push.md)** - Відправити словники до редактора та CMS Intlayer
-- **[Завантажити словники](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/pull.md)** - Завантажити словники з редактора та CMS Intlayer
-- **[Заповнити словники](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/fill.md)** - Заповнюйте, перевіряйте та перекладайте словники за допомогою AI
-- **[Перевірити відсутні переклади](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/test.md)** - Перевіряйте та виявляйте відсутні переклади
-- **[Перелічити файли декларації контенту](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/list.md)** - Перелічити всі файли декларації контенту у вашому проєкті
+- **[Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/push.md)** — Відправка словників у Редактор Intlayer та CMS
+- **[Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/pull.md)** — Завантаження словників з Редактора Intlayer та CMS
+- **[Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/fill.md)** — Заповнення, аудит та переклад словників за допомогою AI
+- **[Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/test.md)** — Тестування та виявлення відсутніх перекладів
+- **[List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/list.md)** — Вивід списку всіх файлів оголошення контенту у вашому проєкті
 
 ### Керування компонентами
 
-- **[Трансформувати компоненти](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md)** - Трансформувати існуючі компоненти для використання Intlayer
+- **[Extract Strings](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md)** — Вилучення рядків з компонентів у файл .content поруч із компонентом
 
 ### Конфігурація
 
-- **[Ініціалізація Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/init.md)** - Налаштуйте Intlayer у вашому проєкті з автоматичною конфігурацією
-- **[Управління конфігурацією](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/configuration.md)** - Отримуйте та надсилайте конфігурацію Intlayer до CMS
+- **[Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/init.md)** — Налаштування Intlayer у вашому проєкті з автоматичною конфігурацією
+- **[Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/configuration.md)** — Отримання вашої конфігурації Intlayer та її відправка в CMS
 
-### Управління документацією
+### Керування документацією
 
-- **[Переклад документа](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/doc-translate.md)** - Автоматично перекладайте файли документації за допомогою AI
-- **[Перевірка документа](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/doc-review.md)** - Перевіряйте файли документації на якість та узгодженість
+- **[Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/doc-translate.md)** — Автоматичний переклад файлів документації за допомогою AI
+- **[Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/doc-review.md)** — Рецензування файлів документації на предмет якості та послідовності
 
 ### Редактор та Live Sync
 
-- **[Команди редактора](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/editor.md)** - Використовуйте команди редактора Intlayer
-- **[Команди Live Sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/live.md)** - Використовуйте Live Sync, щоб відображати зміни контенту CMS під час виконання
+- **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/editor.md)** — Використання команд Редактора Intlayer
+- **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/live.md)** — Використання Live Sync для застосування змін контенту з CMS у реальному часі
 
 ### CI/CD та автоматизація
 
-- **[CI Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/ci.md)** - Запускайте команди Intlayer з автоматично підставленими обліковими даними для CI/CD пайплайнів
+- **[CI Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/ci.md)** — Виконання команд Intlayer з автоматично підставленими обліковими даними для CI/CD-пайплайнів
 
 ### Інструменти розробки
 
-- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/sdk.md)** - Використовуйте Intlayer CLI SDK у власному коді
-- **[Команда налагодження Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/debug.md)** - Налагоджуйте та усувайте проблеми CLI Intlayer
+- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/sdk.md)** — Використання Intlayer CLI SDK у вашому власному коді
+- **[Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/debug.md)** — Налагодження та вирішення проблем з Intlayer CLI
 
-## Використовуйте команди intlayer у вашому `package.json`
+## Використовуйте команди Intlayer у вашому файлі `package.json`
 
 ```json fileName="package.json"
 "scripts": {
@@ -171,6 +175,7 @@ Intlayer підтримує кілька форматів конфігураці
   "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
+  "intlayer:standalone": "npx intlayer standalone --packages intlayer vanilla-intlayer",
   "intlayer:push": "npx intlayer push",
   "intlayer:pull": "npx intlayer pull",
   "intlayer:fill": "npx intlayer fill",
@@ -183,8 +188,8 @@ Intlayer підтримує кілька форматів конфігураці
 }
 ```
 
-> **Примітка**: Ви також можете використовувати коротші псевдоніми:
+> **Примітка**: Ви також можете використовувати коротші аліаси:
 >
-> - `npx intlayer list` замість `npx intlayer content list`
-> - `npx intlayer test` замість `npx intlayer content test`
-> - `npx intlayer projects-list` або `npx intlayer pl` замість `npx intlayer projects list`
+> - `npx intlayer list`: замінює `npx intlayer content list`
+> - `npx intlayer test`: замінює `npx intlayer content test`
+> - `npx intlayer projects-list` або `npx intlayer pl`: замінює `npx intlayer projects list`
