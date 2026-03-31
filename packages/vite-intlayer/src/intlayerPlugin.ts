@@ -117,8 +117,6 @@ export const intlayerPlugin = (
           };
         }
 
-        console.log({ define });
-
         // mergeConfig handles both array and record alias formats,
         // and correctly appends to optimizeDeps.exclude / ssr.noExternal
         return {
