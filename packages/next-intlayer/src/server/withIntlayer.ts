@@ -377,16 +377,22 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
     );
   }
 
-  const nodeTypeEnvVars = unusedNodeTypes
-    ? formatNodeTypeToEnvVar(unusedNodeTypes, false)
-    : {};
+  let env: Record<string, string> = {};
+
+  if (isBuildCommand) {
+    env = getConfigEnvVars(intlayerConfig);
+
+    if (unusedNodeTypes) {
+      env = {
+        ...env,
+        ...formatNodeTypeToEnvVar(unusedNodeTypes, false),
+      };
+    }
+  }
 
   const getNewConfig = (): Partial<NextConfig> => {
     let config: Partial<NextConfig> = {
-      env: {
-        ...nodeTypeEnvVars,
-        ...getConfigEnvVars(intlayerConfig),
-      },
+      env,
     };
 
     if (isGteNext15) {

@@ -82,7 +82,8 @@ export const intlayerPlugin = (
 
         let define: Record<string, string> = getConfigEnvVars(
           intlayerConfig,
-          true
+          true,
+          (value) => `"${value}"` // Wrap by "" to ensure env var set properly
         );
 
         if (isBuildCommand) {
