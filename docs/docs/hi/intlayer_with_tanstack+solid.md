@@ -16,6 +16,7 @@ slugs:
   - doc
   - environment
   - tanstack-start
+  - solid
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid-template
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
