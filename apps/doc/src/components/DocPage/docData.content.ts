@@ -972,6 +972,7 @@ const docDataContent: Dictionary = {
                 vi: 'Vanilla JS (không có bundler)',
               }),
               default: getDocMetadata('./docs/en/intlayer_with_vanilla.md'),
+              frameworks: ['vanilla'],
             },
           },
         },
