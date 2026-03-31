@@ -136,13 +136,16 @@ const mergeStorageAttributes = (
   accumulated: ProcessedStorageAttributes,
   partial: Partial<ProcessedStorageAttributes>
 ): ProcessedStorageAttributes => ({
-  cookies: [...accumulated.cookies, ...(partial.cookies ?? [])],
-  localStorage: [...accumulated.localStorage, ...(partial.localStorage ?? [])],
+  cookies: [...(accumulated.cookies ?? []), ...(partial.cookies ?? [])],
+  localStorage: [
+    ...(accumulated.localStorage ?? []),
+    ...(partial.localStorage ?? []),
+  ],
   sessionStorage: [
-    ...accumulated.sessionStorage,
+    ...(accumulated.sessionStorage ?? []),
     ...(partial.sessionStorage ?? []),
   ],
-  headers: [...accumulated.headers, ...(partial.headers ?? [])],
+  headers: [...(accumulated.headers ?? []), ...(partial.headers ?? [])],
 });
 
 /**
@@ -162,14 +165,33 @@ export const getStorageAttributes = (
     headers: [],
   };
 
-  if (options === false || options === undefined) return emptyResult;
+  if (options === false || options === undefined) return {};
 
-  if (Array.isArray(options)) {
-    return options.reduce<ProcessedStorageAttributes>((acc, entry) => {
-      const partial = processStorageEntry(entry);
-      return mergeStorageAttributes(acc, partial);
-    }, emptyResult);
+  const result = Array.isArray(options)
+    ? options.reduce<ProcessedStorageAttributes>((acc, entry) => {
+        const partial = processStorageEntry(entry);
+        return mergeStorageAttributes(acc, partial);
+      }, emptyResult)
+    : mergeStorageAttributes(emptyResult, processStorageEntry(options));
+
+  // Remove empty arrays
+  const cleanedResult: ProcessedStorageAttributes = {};
+
+  if (result.cookies && result.cookies.length > 0) {
+    cleanedResult.cookies = result.cookies;
   }
 
-  return mergeStorageAttributes(emptyResult, processStorageEntry(options));
+  if (result.localStorage && result.localStorage.length > 0) {
+    cleanedResult.localStorage = result.localStorage;
+  }
+
+  if (result.sessionStorage && result.sessionStorage.length > 0) {
+    cleanedResult.sessionStorage = result.sessionStorage;
+  }
+
+  if (result.headers && result.headers.length > 0) {
+    cleanedResult.headers = result.headers;
+  }
+
+  return cleanedResult;
 };

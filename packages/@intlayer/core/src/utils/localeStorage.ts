@@ -105,26 +105,26 @@ export const getLocaleFromStorageClient = (
     !!value && locales.includes(value as Locale);
 
   if (!TREE_SHAKE_STORAGE_COOKIES) {
-    for (let i = 0; i < storageAttributes.cookies.length; i++) {
+    for (let i = 0; i < (storageAttributes.cookies ?? []).length; i++) {
       try {
-        const value = options?.getCookie?.(storageAttributes.cookies[i].name);
+        const value = options?.getCookie?.(storageAttributes.cookies![i].name);
         if (isValidLocale(value)) return value;
       } catch {}
     }
   }
 
   if (!TREE_SHAKE_STORAGE_LOCAL_STORAGE) {
-    for (let i = 0; i < storageAttributes.localStorage.length; i++) {
+    for (let i = 0; i < (storageAttributes.localStorage ?? []).length; i++) {
       try {
         const value = options?.getLocaleStorage?.(
-          storageAttributes.localStorage[i].name
+          storageAttributes.localStorage![i].name
         );
         if (isValidLocale(value)) return value;
       } catch {}
     }
   }
 
-  if (!TREE_SHAKE_STORAGE_SESSION_STORAGE) {
+  if (!TREE_SHAKE_STORAGE_SESSION_STORAGE && storageAttributes.sessionStorage) {
     for (let i = 0; i < storageAttributes.sessionStorage.length; i++) {
       try {
         const value = options?.getSessionStorage?.(
@@ -149,7 +149,7 @@ export const setLocaleInStorageClient = (
 
   if (options?.isCookieEnabled === false) return;
 
-  if (!TREE_SHAKE_STORAGE_COOKIES) {
+  if (!TREE_SHAKE_STORAGE_COOKIES && storageAttributes.cookies) {
     for (let i = 0; i < storageAttributes.cookies.length; i++) {
       const { name, attributes } = storageAttributes.cookies[i];
       try {
@@ -175,7 +175,11 @@ export const setLocaleInStorageClient = (
     }
   }
 
-  if (!TREE_SHAKE_STORAGE_LOCAL_STORAGE && options?.setLocaleStorage) {
+  if (
+    !TREE_SHAKE_STORAGE_LOCAL_STORAGE &&
+    storageAttributes.localStorage &&
+    options?.setLocaleStorage
+  ) {
     for (let i = 0; i < storageAttributes.localStorage.length; i++) {
       const { name } = storageAttributes.localStorage[i];
       try {
@@ -187,7 +191,11 @@ export const setLocaleInStorageClient = (
     }
   }
 
-  if (!TREE_SHAKE_STORAGE_SESSION_STORAGE && options?.setSessionStorage) {
+  if (
+    !TREE_SHAKE_STORAGE_SESSION_STORAGE &&
+    storageAttributes.sessionStorage &&
+    options?.setSessionStorage
+  ) {
     for (let i = 0; i < storageAttributes.sessionStorage.length; i++) {
       const { name } = storageAttributes.sessionStorage[i];
       try {
@@ -253,7 +261,7 @@ export const getLocaleFromStorageServer = (
   const isValidLocale = (value: string | null | undefined): value is Locale =>
     !!value && locales.includes(value as Locale);
 
-  if (!TREE_SHAKE_STORAGE_COOKIES) {
+  if (!TREE_SHAKE_STORAGE_COOKIES && storageAttributes.cookies) {
     for (let i = 0; i < storageAttributes.cookies.length; i++) {
       try {
         const value = options?.getCookie?.(storageAttributes.cookies[i].name);
@@ -262,7 +270,7 @@ export const getLocaleFromStorageServer = (
     }
   }
 
-  if (!TREE_SHAKE_STORAGE_HEADERS) {
+  if (!TREE_SHAKE_STORAGE_HEADERS && storageAttributes.headers) {
     for (let i = 0; i < storageAttributes.headers.length; i++) {
       try {
         const value = options?.getHeader?.(storageAttributes.headers[i].name);
@@ -284,9 +292,10 @@ export const setLocaleInStorageServer = (
 
   if (options?.isCookieEnabled === false) return;
 
-  if (!TREE_SHAKE_STORAGE_COOKIES) {
+  if (!TREE_SHAKE_STORAGE_COOKIES && storageAttributes.cookies) {
     for (let i = 0; i < storageAttributes.cookies.length; i++) {
       const { name, attributes } = storageAttributes.cookies[i];
+
       try {
         if (options?.setCookieStore) {
           options.setCookieStore(name, locale, {
@@ -310,7 +319,11 @@ export const setLocaleInStorageServer = (
     }
   }
 
-  if (!TREE_SHAKE_STORAGE_HEADERS && options?.setHeader) {
+  if (
+    !TREE_SHAKE_STORAGE_HEADERS &&
+    storageAttributes.headers &&
+    options?.setHeader
+  ) {
     for (let i = 0; i < storageAttributes.headers.length; i++) {
       try {
         options.setHeader(storageAttributes.headers[i].name, locale);
@@ -387,14 +400,14 @@ export const getLocaleFromStorage = (
     return getCookie(name);
   };
 
-  if (!TREE_SHAKE_STORAGE_COOKIES) {
+  if (!TREE_SHAKE_STORAGE_COOKIES && storageAttributes.cookies) {
     for (let i = 0; i < storageAttributes.cookies.length; i++) {
       const value = readCookie(storageAttributes.cookies[i].name);
       if (isValidLocale(value)) return value;
     }
   }
 
-  if (!TREE_SHAKE_STORAGE_LOCAL_STORAGE) {
+  if (!TREE_SHAKE_STORAGE_LOCAL_STORAGE && storageAttributes.localStorage) {
     for (let i = 0; i < storageAttributes.localStorage.length; i++) {
       try {
         const value = options?.getLocaleStorage?.(
@@ -405,7 +418,7 @@ export const getLocaleFromStorage = (
     }
   }
 
-  if (!TREE_SHAKE_STORAGE_SESSION_STORAGE) {
+  if (!TREE_SHAKE_STORAGE_SESSION_STORAGE && storageAttributes.sessionStorage) {
     for (let i = 0; i < storageAttributes.sessionStorage.length; i++) {
       try {
         const value = options?.getSessionStorage?.(
@@ -416,7 +429,7 @@ export const getLocaleFromStorage = (
     }
   }
 
-  if (!TREE_SHAKE_STORAGE_HEADERS) {
+  if (!TREE_SHAKE_STORAGE_HEADERS && storageAttributes.headers) {
     for (let i = 0; i < storageAttributes.headers.length; i++) {
       try {
         const value = options?.getHeader?.(storageAttributes.headers[i].name);
@@ -441,7 +454,7 @@ export const setLocaleInStorage = (
 
   if (options?.isCookieEnabled === false) return;
 
-  if (!TREE_SHAKE_STORAGE_COOKIES) {
+  if (!TREE_SHAKE_STORAGE_COOKIES && storageAttributes.cookies) {
     for (let i = 0; i < storageAttributes.cookies.length; i++) {
       const { name, attributes } = storageAttributes.cookies[i];
       try {
@@ -467,7 +480,11 @@ export const setLocaleInStorage = (
     }
   }
 
-  if (!TREE_SHAKE_STORAGE_LOCAL_STORAGE && options?.setLocaleStorage) {
+  if (
+    !TREE_SHAKE_STORAGE_LOCAL_STORAGE &&
+    storageAttributes.localStorage &&
+    options?.setLocaleStorage
+  ) {
     for (let i = 0; i < storageAttributes.localStorage.length; i++) {
       const { name } = storageAttributes.localStorage[i];
       try {
@@ -479,7 +496,11 @@ export const setLocaleInStorage = (
     }
   }
 
-  if (!TREE_SHAKE_STORAGE_SESSION_STORAGE && options?.setSessionStorage) {
+  if (
+    !TREE_SHAKE_STORAGE_SESSION_STORAGE &&
+    storageAttributes.sessionStorage &&
+    options?.setSessionStorage
+  ) {
     for (let i = 0; i < storageAttributes.sessionStorage.length; i++) {
       const { name } = storageAttributes.sessionStorage[i];
       try {
@@ -491,7 +512,11 @@ export const setLocaleInStorage = (
     }
   }
 
-  if (!TREE_SHAKE_STORAGE_HEADERS && options?.setHeader) {
+  if (
+    !TREE_SHAKE_STORAGE_HEADERS &&
+    storageAttributes.headers &&
+    options?.setHeader
+  ) {
     for (let i = 0; i < storageAttributes.headers.length; i++) {
       try {
         options.setHeader(storageAttributes.headers[i].name, locale);

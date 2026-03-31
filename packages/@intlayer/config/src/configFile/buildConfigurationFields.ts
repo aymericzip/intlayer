@@ -689,8 +689,10 @@ export const buildConfigurationFields = (
 ): IntlayerConfig => {
   if (customConfiguration) {
     const result = intlayerConfigSchema.safeParse(customConfiguration);
+
     if (!result.success) {
       const logError = logFunctions?.error ?? console.error;
+
       for (const issue of result.error.issues) {
         logError(`${issue.path.join('.')}: ${issue.message}`);
       }
@@ -720,7 +722,6 @@ export const buildConfigurationFields = (
   storedConfiguration = {
     // Shared browser fields
     routing: browserConfig.routing,
-    metadata: browserConfig.metadata,
     // Full (extended) shared fields
     internationalization: internationalizationConfig,
     editor: editorConfig,

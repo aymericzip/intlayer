@@ -54,19 +54,25 @@ export const getConfigEnvVars = (
     envVars[`${prefix}INTLAYER_ROUTING_REWRITE_RULES`] = '"false"';
   }
 
-  if (routing.storage.cookies.length === 0) {
+  if (!routing.storage.cookies || routing.storage.cookies.length === 0) {
     envVars[`${prefix}INTLAYER_ROUTING_STORAGE_COOKIES`] = '"false"';
   }
 
-  if (routing.storage.localStorage.length === 0) {
+  if (
+    !routing.storage.localStorage ||
+    routing.storage.localStorage.length === 0
+  ) {
     envVars[`${prefix}INTLAYER_ROUTING_STORAGE_LOCALSTORAGE`] = '"false"';
   }
 
-  if (routing.storage.sessionStorage.length === 0) {
+  if (
+    !routing.storage.sessionStorage ||
+    routing.storage.sessionStorage.length === 0
+  ) {
     envVars[`${prefix}INTLAYER_ROUTING_STORAGE_SESSIONSTORAGE`] = '"false"';
   }
 
-  if (routing.storage.headers.length === 0) {
+  if (!routing.storage.headers || routing.storage.headers.length === 0) {
     envVars[`${prefix}INTLAYER_ROUTING_STORAGE_HEADERS`] = '"false"';
   }
 

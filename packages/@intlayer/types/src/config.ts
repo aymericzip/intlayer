@@ -181,13 +181,19 @@ export type StorageAttributes = {
  * Computed at config-build time to avoid repeated processing at runtime.
  */
 export type ProcessedStorageAttributes = {
-  cookies: Array<{
+  cookies?: {
     name: string;
     attributes: Omit<CookiesAttributes, 'type' | 'name'>;
-  }>;
-  localStorage: Array<{ name: string }>;
-  sessionStorage: Array<{ name: string }>;
-  headers: Array<{ name: string }>;
+  }[];
+  localStorage?: {
+    name: string;
+  }[];
+  sessionStorage?: {
+    name: string;
+  }[];
+  headers?: {
+    name: string;
+  }[];
 };
 
 export type RewriteRule<T extends string = string> = {
@@ -272,7 +278,7 @@ export type RoutingConfig = {
    *
    * Defines the base path where the application is accessible from.
    */
-  basePath: string;
+  basePath?: string;
 };
 
 /**
