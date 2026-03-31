@@ -255,7 +255,7 @@ export const intlayerProxy = (
     // Check if path already starts with locale to avoid double-prefixing
     const pathWithLocalePrefix = currentPath.startsWith(`/${locale}`)
       ? currentPath
-      : `/${locale}${currentPath === '/' ? '' : currentPath}`;
+      : `/${locale}${currentPath}`;
 
     let newPath = `${normalizedBasePath}${pathWithLocalePrefix}`;
 
@@ -343,9 +343,7 @@ export const intlayerProxy = (
       // If the existing locale matches the detected locale, no redirect needed
       if (existingLocale === locale) {
         // For internal routing, we need to add the locale prefix so the framework can match [locale] param
-        const internalPath = `/${locale}${
-          canonicalPath === '/' ? '' : canonicalPath
-        }`;
+        const internalPath = `/${locale}${canonicalPath}`;
         const rewritePath = `${internalPath}${searchParams ?? ''}`;
 
         // Rewrite internally (URL stays the same in browser, but internally routes to /[locale]/path)
@@ -364,9 +362,7 @@ export const intlayerProxy = (
     }
 
     // For no-prefix mode (not search-params), add locale prefix internally for routing
-    const internalPath = `/${locale}${
-      canonicalPath === '/' ? '' : canonicalPath
-    }`;
+    const internalPath = `/${locale}${canonicalPath}`;
 
     // Add search params if needed
     const search = appendLocaleSearchIfNeeded(searchParams, locale);
@@ -451,7 +447,7 @@ export const intlayerProxy = (
     storageLocale?: Locale;
     originalUrl?: string;
   }) => {
-    // 1. Choose the best locale
+    // Choose the best locale
     let locale = (storageLocale ??
       localeDetector(
         req.headers as Record<string, string>,
@@ -490,16 +486,16 @@ export const intlayerProxy = (
       return redirectUrl(res, newPath, undefined, originalUrl);
     }
 
-    // If we do NOT prefix the default locale, just rewrite in place using canonical path for framework matching.
+    // If we do NOT prefix the default locale, pass through the canonical path unchanged.
+    // Rewriting to `/${locale}${canonicalPath}` (e.g. /en/) causes TanStack Start to issue a
+    // trailing-slash normalisation redirect (/en/ → /en), which the proxy then strips back to /,
+    // creating an infinite redirect loop.
+    // Because {-$locale} is an optional segment, the framework matches the un-prefixed URL with
+    // locale=undefined and falls back to defaultLocale via `params.locale ?? defaultLocale`.
     // searchParams MUST be preserved here — dropping them causes the framework (e.g. TanStack Start) to
     // see a URL with no search params, trigger a validateSearch normalisation redirect to the prefixed URL
     // (e.g. /en?page=1&...), which the middleware then strips back to /?..., creating an infinite loop.
-    rewriteUrl(
-      req,
-      res,
-      `/${locale}${canonicalPath === '/' ? '' : canonicalPath}${searchParams}`,
-      locale
-    );
+    rewriteUrl(req, res, `${canonicalPath}${searchParams}`, locale);
     return next();
   };
 
@@ -618,9 +614,7 @@ export const intlayerProxy = (
     }
 
     // If we do prefix default or pathLocale != default, keep as is, but rewrite to canonical internally
-    const internalUrl = `/${pathLocale}${
-      canonicalPath === '/' ? '' : canonicalPath
-    }`;
+    const internalUrl = `/${pathLocale}${canonicalPath}`;
     const newPath = searchParams
       ? `${internalUrl}${searchParams}`
       : internalUrl;
