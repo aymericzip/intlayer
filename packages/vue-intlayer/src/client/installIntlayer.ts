@@ -1,4 +1,5 @@
 import { internationalization } from '@intlayer/config/built';
+import { setIntlayerIdentifier } from '@intlayer/config/client';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { type App, type Ref, readonly, ref } from 'vue';
@@ -25,6 +26,8 @@ export const createIntlayerClient = (
   isCookieEnabled = true
 ): IntlayerProvider => {
   if (instance) return instance;
+
+  setIntlayerIdentifier();
 
   const { defaultLocale } = internationalization ?? {};
 

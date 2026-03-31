@@ -152,6 +152,8 @@ export const scanShowcaseProject = async (
           ?.getAttribute('content') ||
         '';
 
+      const intlayerVersion = (window as any).intlayer;
+
       return {
         lang,
         dir,
@@ -163,6 +165,7 @@ export const scanShowcaseProject = async (
         externalScriptUrls: allScriptUrls,
         metaTitle,
         metaDescription,
+        intlayerVersion,
       };
     }, allLocales);
 
@@ -192,13 +195,18 @@ export const scanShowcaseProject = async (
     const packageDetails: Record<string, string> = {};
     let markerFoundInExternalScript = false;
 
+    if (pageDetails.intlayerVersion) {
+      packageDetails.intlayer = pageDetails.intlayerVersion;
+    }
+
     for (const script of pageDetails.inlineScripts) {
+      if (packageDetails.intlayer) break;
       Object.assign(packageDetails, extractPackagesFromScript(script));
     }
 
     if (
       !packageDetails.intlayer &&
-      !Object.keys(packageDetails).some((k) => k.includes('intlayer'))
+      !Object.keys(packageDetails).some((key) => key.includes('intlayer'))
     ) {
       const scriptUrls = pageDetails.externalScriptUrls.slice(
         0,

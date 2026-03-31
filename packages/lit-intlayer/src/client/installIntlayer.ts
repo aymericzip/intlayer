@@ -1,4 +1,5 @@
 import { internationalization } from '@intlayer/config/built';
+import { setIntlayerIdentifier } from '@intlayer/config/client';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { useEditor } from '../editor/useEditor';
 
@@ -49,6 +50,7 @@ export const createIntlayerClient = (
   isCookieEnabled = true
 ): IntlayerClient => {
   if (instance) return instance;
+  setIntlayerIdentifier();
   instance = new IntlayerClient(locale, isCookieEnabled);
   return instance;
 };

@@ -13,4 +13,5 @@ export * from './logStack';
 export * from './normalizePath';
 export * from './parseFilePathPattern';
 export * from './retryManager';
+export * from './setIntlayerIdentifier';
 export * from './stringFormatter';

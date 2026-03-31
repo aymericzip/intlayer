@@ -1,5 +1,6 @@
 import { InjectionToken, type Signal, signal } from '@angular/core';
 import { internationalization } from '@intlayer/config/built';
+import { setIntlayerIdentifier } from '@intlayer/config/client';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
 export class IntlayerProvider {
@@ -30,6 +31,7 @@ export const createIntlayerClient = (
   isCookieEnabled = true
 ): IntlayerProvider => {
   if (instance) return instance;
+  setIntlayerIdentifier();
 
   instance = new IntlayerProvider();
 

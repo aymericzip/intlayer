@@ -1,6 +1,7 @@
 'use client';
 
 import { internationalization } from '@intlayer/config/built';
+import { setIntlayerIdentifier } from '@intlayer/config/client';
 import { localeResolver } from '@intlayer/core/localization';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import {
@@ -94,6 +95,10 @@ export const IntlayerProviderContent: FC<IntlayerProviderProps> = ({
       setCurrentLocale(localeProp);
     }
   }, [localeProp]);
+
+  useEffect(() => {
+    setIntlayerIdentifier();
+  }, []);
 
   const setLocaleBase = (newLocale: LocalesValues) => {
     if (currentLocale.toString() === newLocale.toString()) return;

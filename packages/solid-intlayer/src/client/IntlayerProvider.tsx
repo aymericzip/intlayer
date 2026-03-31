@@ -1,4 +1,5 @@
 import { internationalization } from '@intlayer/config/built';
+import { setIntlayerIdentifier } from '@intlayer/config/client';
 import { localeResolver } from '@intlayer/core/localization';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import {
@@ -87,6 +88,10 @@ export const IntlayerProviderContent: Component<IntlayerProviderProps> = (
       { defer: true }
     )
   );
+
+  createEffect(() => {
+    setIntlayerIdentifier();
+  });
 
   return (
     <IntlayerClientContext.Provider

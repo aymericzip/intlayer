@@ -27,9 +27,10 @@ export const verifyIntlayerBundle = async (url: string): Promise<boolean> => {
     // The user's metadata example typically looks like:
     // { name: "Intlayer", version: "...", doc: "https://intlayer.org/docs" }
     // Or minified: name:"Intlayer",version:"...",doc:"https://intlayer.org/docs"
+    const windowIdentifierRegex = /window\.intlayer\s*=\s*['"]([^'"]+)['"]/i;
     const metadataRegex = /['"]?name['"]?\s*:\s*['"]Intlayer['"]/i;
 
-    if (metadataRegex.test(html)) {
+    if (windowIdentifierRegex.test(html) || metadataRegex.test(html)) {
       return true;
     }
 
@@ -83,7 +84,10 @@ export const verifyIntlayerBundle = async (url: string): Promise<boolean> => {
         if (!scriptResponse.ok) continue;
 
         const scriptText = await scriptResponse.text();
-        if (metadataRegex.test(scriptText)) {
+        if (
+          windowIdentifierRegex.test(scriptText) ||
+          metadataRegex.test(scriptText)
+        ) {
           return true;
         }
 
