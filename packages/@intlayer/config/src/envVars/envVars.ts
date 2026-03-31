@@ -41,43 +41,46 @@ export const formatNodeTypeToEnvVar = (
  */
 export const getConfigEnvVars = (
   config: IntlayerConfig,
-  addProcessEnv: boolean = false
+  addProcessEnv: boolean = false,
+  wrapValue: (value: string) => string = (value) => value
 ): Record<string, string> => {
   const prefix = addProcessEnv ? 'process.env.' : '';
   const { routing, editor } = config;
 
   const envVars: Record<string, string> = {
-    [`${prefix}INTLAYER_ROUTING_MODE`]: JSON.stringify(routing.mode),
+    [`${prefix}INTLAYER_ROUTING_MODE`]: wrapValue(routing.mode),
   };
 
   if (!routing.rewrite) {
-    envVars[`${prefix}INTLAYER_ROUTING_REWRITE_RULES`] = '"false"';
+    envVars[`${prefix}INTLAYER_ROUTING_REWRITE_RULES`] = wrapValue('false');
   }
 
   if (!routing.storage.cookies || routing.storage.cookies.length === 0) {
-    envVars[`${prefix}INTLAYER_ROUTING_STORAGE_COOKIES`] = '"false"';
+    envVars[`${prefix}INTLAYER_ROUTING_STORAGE_COOKIES`] = wrapValue('false');
   }
 
   if (
     !routing.storage.localStorage ||
     routing.storage.localStorage.length === 0
   ) {
-    envVars[`${prefix}INTLAYER_ROUTING_STORAGE_LOCALSTORAGE`] = '"false"';
+    envVars[`${prefix}INTLAYER_ROUTING_STORAGE_LOCALSTORAGE`] =
+      wrapValue('false');
   }
 
   if (
     !routing.storage.sessionStorage ||
     routing.storage.sessionStorage.length === 0
   ) {
-    envVars[`${prefix}INTLAYER_ROUTING_STORAGE_SESSIONSTORAGE`] = '"false"';
+    envVars[`${prefix}INTLAYER_ROUTING_STORAGE_SESSIONSTORAGE`] =
+      wrapValue('false');
   }
 
   if (!routing.storage.headers || routing.storage.headers.length === 0) {
-    envVars[`${prefix}INTLAYER_ROUTING_STORAGE_HEADERS`] = '"false"';
+    envVars[`${prefix}INTLAYER_ROUTING_STORAGE_HEADERS`] = wrapValue('false');
   }
 
   if (editor?.enabled === false) {
-    envVars[`${prefix}INTLAYER_EDITOR_ENABLED`] = '"false"';
+    envVars[`${prefix}INTLAYER_EDITOR_ENABLED`] = wrapValue('false');
   }
 
   return envVars;
