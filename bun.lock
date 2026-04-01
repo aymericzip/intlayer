@@ -35,7 +35,7 @@
     },
     "apps/app": {
       "name": "app",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@better-auth/sso": "1.5.6",
         "@intlayer/api": "workspace:*",
@@ -53,7 +53,7 @@
         "@tanstack/react-query": "5.95.2",
         "@tanstack/react-table": "8.21.3",
         "babel-plugin-react-compiler": "1.0.0",
-        "defu": "6.1.4",
+        "defu": "6.1.6",
         "framer-motion": "12.38.0",
         "fuse.js": "7.1.0",
         "intlayer": "workspace:*",
@@ -100,7 +100,7 @@
     },
     "apps/backend": {
       "name": "@intlayer/backend",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@aws-sdk/client-s3": "^3.1004.0",
         "@better-auth/core": "1.5.6",
@@ -121,7 +121,7 @@
         "bullmq": "^5.70.4",
         "cheerio": "^1.2.0",
         "cross-env": "10.1.0",
-        "defu": "6.1.4",
+        "defu": "6.1.6",
         "dotenv": "17.3.1",
         "fastify": "5.8.4",
         "fastify-intlayer": "workspace:*",
@@ -264,7 +264,7 @@
     },
     "apps/website": {
       "name": "website",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -278,7 +278,7 @@
         "@next/third-parties": "16.2.2",
         "@tanstack/react-query": "5.95.2",
         "babel-plugin-react-compiler": "1.0.0",
-        "defu": "6.1.4",
+        "defu": "6.1.6",
         "framer-motion": "12.38.0",
         "fuse.js": "7.1.0",
         "intlayer": "workspace:*",
@@ -497,7 +497,7 @@
     },
     "examples/hono-app": {
       "name": "hono-app",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@hono/node-server": "1.13.7",
         "hono": "4.7.4",
@@ -960,7 +960,7 @@
     },
     "packages/@intlayer/ai": {
       "name": "@intlayer/ai",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@ai-sdk/anthropic": "3.0.64",
         "@ai-sdk/google": "3.0.53",
@@ -1023,7 +1023,7 @@
     },
     "packages/@intlayer/api": {
       "name": "@intlayer/api",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/types": "workspace:*",
@@ -1042,7 +1042,7 @@
     },
     "packages/@intlayer/babel": {
       "name": "@intlayer/babel",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@babel/core": "7.29.0",
         "@babel/generator": "7.29.1",
@@ -1083,7 +1083,7 @@
     },
     "packages/@intlayer/chokidar": {
       "name": "@intlayer/chokidar",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1093,7 +1093,7 @@
         "@intlayer/types": "workspace:*",
         "@intlayer/unmerged-dictionaries-entry": "workspace:*",
         "chokidar": "3.6.0",
-        "defu": "6.1.4",
+        "defu": "6.1.6",
         "fast-glob": "3.3.3",
         "recast": "^0.23.11",
         "simple-git": "3.33.0",
@@ -1113,7 +1113,7 @@
     },
     "packages/@intlayer/cli": {
       "name": "@intlayer/cli",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@clack/prompts": "0.11.0",
         "@intlayer/ai": "workspace:*",
@@ -1150,10 +1150,10 @@
     },
     "packages/@intlayer/config": {
       "name": "@intlayer/config",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/types": "workspace:*",
-        "defu": "6.1.4",
+        "defu": "6.1.6",
         "dotenv": "17.3.1",
         "esbuild": "0.27.4",
         "json5": "2.2.3",
@@ -1178,7 +1178,7 @@
     },
     "packages/@intlayer/core": {
       "name": "@intlayer/core",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1200,7 +1200,7 @@
     },
     "packages/@intlayer/design-system": {
       "name": "@intlayer/design-system",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@better-auth/passkey": "1.5.6",
         "@better-auth/sso": "1.5.6",
@@ -1290,7 +1290,7 @@
     },
     "packages/@intlayer/dictionaries-entry": {
       "name": "@intlayer/dictionaries-entry",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -1308,7 +1308,7 @@
     },
     "packages/@intlayer/dynamic-dictionaries-entry": {
       "name": "@intlayer/dynamic-dictionaries-entry",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -1326,7 +1326,7 @@
     },
     "packages/@intlayer/editor": {
       "name": "@intlayer/editor",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -1347,7 +1347,7 @@
     },
     "packages/@intlayer/editor-react": {
       "name": "@intlayer/editor-react",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -1376,7 +1376,7 @@
     },
     "packages/@intlayer/fetch-dictionaries-entry": {
       "name": "@intlayer/fetch-dictionaries-entry",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -1395,7 +1395,7 @@
     },
     "packages/@intlayer/mcp": {
       "name": "@intlayer/mcp",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "bin": "dist/esm/server/stdio.mjs",
       "dependencies": {
         "@intlayer/api": "workspace:*",
@@ -1425,7 +1425,7 @@
     },
     "packages/@intlayer/remote-dictionaries-entry": {
       "name": "@intlayer/remote-dictionaries-entry",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -1443,7 +1443,7 @@
     },
     "packages/@intlayer/svelte-compiler": {
       "name": "@intlayer/svelte-compiler",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "bin": {
         "intlayer": "./dist/cjs/index.cjs",
       },
@@ -1480,11 +1480,11 @@
     },
     "packages/@intlayer/swc": {
       "name": "@intlayer/swc",
-      "version": "8.6.4",
+      "version": "8.6.5",
     },
     "packages/@intlayer/types": {
       "name": "@intlayer/types",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "devDependencies": {
         "@types/node": "25.5.0",
         "@utils/ts-config": "workspace:*",
@@ -1499,7 +1499,7 @@
     },
     "packages/@intlayer/unmerged-dictionaries-entry": {
       "name": "@intlayer/unmerged-dictionaries-entry",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -1517,7 +1517,7 @@
     },
     "packages/@intlayer/vue-compiler": {
       "name": "@intlayer/vue-compiler",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "bin": {
         "intlayer": "./dist/cjs/index.cjs",
       },
@@ -1552,7 +1552,7 @@
     },
     "packages/@intlayer/webpack": {
       "name": "@intlayer/webpack",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1578,7 +1578,7 @@
     },
     "packages/adonis-intlayer": {
       "name": "adonis-intlayer",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1607,7 +1607,7 @@
     },
     "packages/angular-intlayer": {
       "name": "angular-intlayer",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@babel/plugin-syntax-import-attributes": "^7.28.6",
         "@babel/preset-env": "^7.29.0",
@@ -1640,7 +1640,7 @@
     },
     "packages/astro-intlayer": {
       "name": "astro-intlayer",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1665,7 +1665,7 @@
     },
     "packages/express-intlayer": {
       "name": "express-intlayer",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1690,7 +1690,7 @@
     },
     "packages/fastify-intlayer": {
       "name": "fastify-intlayer",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1715,7 +1715,7 @@
     },
     "packages/hono-intlayer": {
       "name": "hono-intlayer",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1739,7 +1739,7 @@
     },
     "packages/intlayer": {
       "name": "intlayer",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "bin": {
         "intlayer": "./dist/cjs/cli/script.cjs",
       },
@@ -1762,7 +1762,7 @@
     },
     "packages/intlayer-cli": {
       "name": "intlayer-cli",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "bin": {
         "intlayer": "./dist/cjs/index.cjs",
       },
@@ -1782,7 +1782,7 @@
     },
     "packages/intlayer-editor": {
       "name": "intlayer-editor",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "bin": {
         "intlayer-editor": "./bin/intlayer-editor.mjs",
       },
@@ -1832,7 +1832,7 @@
     },
     "packages/lit-intlayer": {
       "name": "lit-intlayer",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1863,7 +1863,7 @@
     },
     "packages/lynx-intlayer": {
       "name": "lynx-intlayer",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1891,7 +1891,7 @@
     },
     "packages/next-intlayer": {
       "name": "next-intlayer",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1899,7 +1899,7 @@
         "@intlayer/dictionaries-entry": "workspace:*",
         "@intlayer/types": "workspace:*",
         "@intlayer/webpack": "workspace:*",
-        "defu": "6.1.4",
+        "defu": "6.1.6",
         "node-loader": "2.1.0",
         "react-intlayer": "workspace:*",
       },
@@ -1927,7 +1927,7 @@
     },
     "packages/nuxt-intlayer": {
       "name": "nuxt-intlayer",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -1953,7 +1953,7 @@
     },
     "packages/preact-intlayer": {
       "name": "preact-intlayer",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/chokidar": "workspace:*",
@@ -1978,7 +1978,7 @@
     },
     "packages/react-intlayer": {
       "name": "react-intlayer",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -2010,7 +2010,7 @@
     },
     "packages/react-native-intlayer": {
       "name": "react-native-intlayer",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -2041,7 +2041,7 @@
     },
     "packages/react-scripts-intlayer": {
       "name": "react-scripts-intlayer",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "bin": {
         "react-scripts-intlayer": "./dist/cjs/cli/react-scripts-intlayer.cjs",
       },
@@ -2050,7 +2050,7 @@
         "@intlayer/config": "workspace:*",
         "@intlayer/types": "workspace:*",
         "@intlayer/webpack": "workspace:*",
-        "defu": "6.1.4",
+        "defu": "6.1.6",
         "node-loader": "2.1.0",
         "process": "0.11.10",
         "webpack": "5.105.4",
@@ -2074,7 +2074,7 @@
     },
     "packages/solid-intlayer": {
       "name": "solid-intlayer",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -2105,7 +2105,7 @@
     },
     "packages/svelte-intlayer": {
       "name": "svelte-intlayer",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -2135,7 +2135,7 @@
     },
     "packages/vanilla-intlayer": {
       "name": "vanilla-intlayer",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -2165,7 +2165,7 @@
     },
     "packages/vite-intlayer": {
       "name": "vite-intlayer",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@babel/core": "7.29.0",
         "@intlayer/babel": "workspace:*",
@@ -2197,7 +2197,7 @@
     },
     "packages/vue-intlayer": {
       "name": "vue-intlayer",
-      "version": "8.6.4",
+      "version": "8.6.5",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -9753,6 +9753,12 @@
 
     "@inquirer/external-editor/iconv-lite": ["iconv-lite@0.7.2", "", { "dependencies": { "safer-buffer": ">= 2.1.2 < 3.0.0" } }, "sha512-im9DjEDQ55s9fL4EYzOAv0yMqmMBSZp6G0VvFyTMPKWxiSBHUj9NW/qqLmXUwXrrM7AvqSlTCfvqRb0cM8yYqw=="],
 
+    "@intlayer/backend/defu": ["defu@6.1.6", "", {}, "sha512-f8mefEW4WIVg4LckePx3mALjQSPQgFlg9U8yaPdlsbdYcHQyj9n2zL2LJEA52smeYxOvmd/nB7TpMtHGMTHcug=="],
+
+    "@intlayer/chokidar/defu": ["defu@6.1.6", "", {}, "sha512-f8mefEW4WIVg4LckePx3mALjQSPQgFlg9U8yaPdlsbdYcHQyj9n2zL2LJEA52smeYxOvmd/nB7TpMtHGMTHcug=="],
+
+    "@intlayer/config/defu": ["defu@6.1.6", "", {}, "sha512-f8mefEW4WIVg4LckePx3mALjQSPQgFlg9U8yaPdlsbdYcHQyj9n2zL2LJEA52smeYxOvmd/nB7TpMtHGMTHcug=="],
+
     "@istanbuljs/load-nyc-config/camelcase": ["camelcase@5.3.1", "", {}, "sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg=="],
 
     "@istanbuljs/load-nyc-config/find-up": ["find-up@4.1.0", "", { "dependencies": { "locate-path": "^5.0.0", "path-exists": "^4.0.0" } }, "sha512-PpOwAdQ/YlXQ2vj8a3h8IipDuYRi3wceVQQGYWxNINccq40Anw7BlsEXCMbt1Zt+OLA6Fq9suIpIWD0OsnISlw=="],
@@ -10394,6 +10400,8 @@
     "ansi-escapes/type-fest": ["type-fest@0.21.3", "", {}, "sha512-t0rzBq87m3fVcduHDUFhKmyyX+9eo6WQjZvf51Ea/M0Q7+T374Jp1aUiyUl0GKxp8M/OETVHSDvmkyPgvX+X2w=="],
 
     "anymatch/picomatch": ["picomatch@2.3.1", "", {}, "sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA=="],
+
+    "app/defu": ["defu@6.1.6", "", {}, "sha512-f8mefEW4WIVg4LckePx3mALjQSPQgFlg9U8yaPdlsbdYcHQyj9n2zL2LJEA52smeYxOvmd/nB7TpMtHGMTHcug=="],
 
     "app/tailwindcss": ["tailwindcss@4.2.2", "", {}, "sha512-KWBIxs1Xb6NoLdMVqhbhgwZf2PGBpPEiwOqgI4pFIYbNTfBXiKYyWoTsXgBQ9WFg/OlhnvHaY+AEpW7wSmFo2Q=="],
 
@@ -11165,6 +11173,8 @@
 
     "next-intl-template/typescript": ["typescript@5.9.3", "", { "bin": { "tsc": "bin/tsc", "tsserver": "bin/tsserver" } }, "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw=="],
 
+    "next-intlayer/defu": ["defu@6.1.6", "", {}, "sha512-f8mefEW4WIVg4LckePx3mALjQSPQgFlg9U8yaPdlsbdYcHQyj9n2zL2LJEA52smeYxOvmd/nB7TpMtHGMTHcug=="],
+
     "nextjs-15-app/@next/bundle-analyzer": ["@next/bundle-analyzer@15.5.14", "", { "dependencies": { "webpack-bundle-analyzer": "4.10.1" } }, "sha512-Q8rK9QXAqnJ2Ct1XXRJALBccINg9rX0Zl8QSPrYCuL/J1c+k7cfGcRTUNDAP9WIvhYk8JfxZEm1JpcHi+MUKiw=="],
 
     "nextjs-15-app/next": ["next@15.5.14", "", { "dependencies": { "@next/env": "15.5.14", "@swc/helpers": "0.5.15", "caniuse-lite": "^1.0.30001579", "postcss": "8.4.31", "styled-jsx": "5.1.6" }, "optionalDependencies": { "@next/swc-darwin-arm64": "15.5.14", "@next/swc-darwin-x64": "15.5.14", "@next/swc-linux-arm64-gnu": "15.5.14", "@next/swc-linux-arm64-musl": "15.5.14", "@next/swc-linux-x64-gnu": "15.5.14", "@next/swc-linux-x64-musl": "15.5.14", "@next/swc-win32-arm64-msvc": "15.5.14", "@next/swc-win32-x64-msvc": "15.5.14", "sharp": "^0.34.3" }, "peerDependencies": { "@opentelemetry/api": "^1.1.0", "@playwright/test": "^1.51.1", "babel-plugin-react-compiler": "*", "react": "^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0", "react-dom": "^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0", "sass": "^1.3.0" }, "optionalPeers": ["@opentelemetry/api", "@playwright/test", "babel-plugin-react-compiler", "sass"], "bin": { "next": "dist/bin/next" } }, "sha512-M6S+4JyRjmKic2Ssm7jHUPkE6YUJ6lv4507jprsSZLulubz0ihO2E+S4zmQK3JZ2ov81JrugukKU4Tz0ivgqqQ=="],
@@ -11436,6 +11446,8 @@
     "react-scripts/tailwindcss": ["tailwindcss@3.4.19", "", { "dependencies": { "@alloc/quick-lru": "^5.2.0", "arg": "^5.0.2", "chokidar": "^3.6.0", "didyoumean": "^1.2.2", "dlv": "^1.1.3", "fast-glob": "^3.3.2", "glob-parent": "^6.0.2", "is-glob": "^4.0.3", "jiti": "^1.21.7", "lilconfig": "^3.1.3", "micromatch": "^4.0.8", "normalize-path": "^3.0.0", "object-hash": "^3.0.0", "picocolors": "^1.1.1", "postcss": "^8.4.47", "postcss-import": "^15.1.0", "postcss-js": "^4.0.1", "postcss-load-config": "^4.0.2 || ^5.0 || ^6.0", "postcss-nested": "^6.2.0", "postcss-selector-parser": "^6.1.2", "resolve": "^1.22.8", "sucrase": "^3.35.0" }, "bin": { "tailwind": "lib/cli.js", "tailwindcss": "lib/cli.js" } }, "sha512-3ofp+LL8E+pK/JuPLPggVAIaEuhvIz4qNcf3nA1Xn2o/7fb7s/TYpHhwGDv1ZU3PkBluUVaF8PyCHcm48cKLWQ=="],
 
     "react-scripts/webpack-dev-server": ["webpack-dev-server@4.15.2", "", { "dependencies": { "@types/bonjour": "^3.5.9", "@types/connect-history-api-fallback": "^1.3.5", "@types/express": "^4.17.13", "@types/serve-index": "^1.9.1", "@types/serve-static": "^1.13.10", "@types/sockjs": "^0.3.33", "@types/ws": "^8.5.5", "ansi-html-community": "^0.0.8", "bonjour-service": "^1.0.11", "chokidar": "^3.5.3", "colorette": "^2.0.10", "compression": "^1.7.4", "connect-history-api-fallback": "^2.0.0", "default-gateway": "^6.0.3", "express": "^4.17.3", "graceful-fs": "^4.2.6", "html-entities": "^2.3.2", "http-proxy-middleware": "^2.0.3", "ipaddr.js": "^2.0.1", "launch-editor": "^2.6.0", "open": "^8.0.9", "p-retry": "^4.5.0", "rimraf": "^3.0.2", "schema-utils": "^4.0.0", "selfsigned": "^2.1.1", "serve-index": "^1.9.1", "sockjs": "^0.3.24", "spdy": "^4.0.2", "webpack-dev-middleware": "^5.3.4", "ws": "^8.13.0" }, "peerDependencies": { "webpack": "^4.37.0 || ^5.0.0" }, "optionalPeers": ["webpack"], "bin": { "webpack-dev-server": "bin/webpack-dev-server.js" } }, "sha512-0XavAZbNJ5sDrCbkpWL8mia0o5WPOd2YGtxrEiZkBK9FjLppIUK2TgxK6qGD2P3hUXTJNNPVibrerKcx5WkR1g=="],
+
+    "react-scripts-intlayer/defu": ["defu@6.1.6", "", {}, "sha512-f8mefEW4WIVg4LckePx3mALjQSPQgFlg9U8yaPdlsbdYcHQyj9n2zL2LJEA52smeYxOvmd/nB7TpMtHGMTHcug=="],
 
     "react-zdog/react": ["react@18.3.1", "", { "dependencies": { "loose-envify": "^1.1.0" } }, "sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ=="],
 
@@ -11726,6 +11738,8 @@
     "webpack-dev-server/open": ["open@10.2.0", "", { "dependencies": { "default-browser": "^5.2.1", "define-lazy-prop": "^3.0.0", "is-inside-container": "^1.0.0", "wsl-utils": "^0.1.0" } }, "sha512-YgBpdJHPyQ2UE5x+hlSXcnejzAvD0b22U2OuAP+8OnlJT+PjWPxtgmGqKKc+RgTM63U9gN0YzrYc71R2WT/hTA=="],
 
     "webpack-manifest-plugin/webpack-sources": ["webpack-sources@2.3.1", "", { "dependencies": { "source-list-map": "^2.0.1", "source-map": "^0.6.1" } }, "sha512-y9EI9AO42JjEcrTJFOYmVywVZdKVUfOvDUPsJea5GIr1JOEGFVqwlY2K098fFoIjOkDzHn2AjRvM8dsBZu+gCA=="],
+
+    "website/defu": ["defu@6.1.6", "", {}, "sha512-f8mefEW4WIVg4LckePx3mALjQSPQgFlg9U8yaPdlsbdYcHQyj9n2zL2LJEA52smeYxOvmd/nB7TpMtHGMTHcug=="],
 
     "website/tailwindcss": ["tailwindcss@4.2.2", "", {}, "sha512-KWBIxs1Xb6NoLdMVqhbhgwZf2PGBpPEiwOqgI4pFIYbNTfBXiKYyWoTsXgBQ9WFg/OlhnvHaY+AEpW7wSmFo2Q=="],
 

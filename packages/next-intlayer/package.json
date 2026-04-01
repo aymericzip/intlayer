@@ -1,6 +1,6 @@
 {
   "name": "next-intlayer",
-  "version": "8.6.4",
+  "version": "8.6.5",
   "private": false,
   "description": "Simplify internationalization i18n in Next.js with context providers, hooks, locale detection, and multilingual content integration.",
   "keywords": [
@@ -135,7 +135,7 @@
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@intlayer/webpack": "workspace:*",
-    "defu": "6.1.4",
+    "defu": "6.1.6",
     "node-loader": "2.1.0",
     "react-intlayer": "workspace:*"
   },
