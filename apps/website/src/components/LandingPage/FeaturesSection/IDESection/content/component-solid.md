@@ -3,12 +3,12 @@
 import { useIntlayer } from "solid-intlayer";
 
 export const Component = () => {
-  const { title, content } = useIntlayer("component");
+  const content = useIntlayer("component");
 
   return (
     <div>
-      <h2>{title()}</h2>
-      <p>{content()}</p>
+      <h2>{content().title}</h2>
+      <p>{content().content}</p>
     </div>
   );
 };
