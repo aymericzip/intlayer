@@ -80,7 +80,9 @@ export const intlayerPlugin = (
           });
         }
 
-        let define: Record<string, string> = {};
+        let define: Record<string, string> = {
+          'process.env': '{}', // Needed for some libraries that does not add process.env
+        };
 
         if (isBuildCommand) {
           const dictionaries = getDictionaries(intlayerConfig);
