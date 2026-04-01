@@ -13,7 +13,7 @@ export const Route = createFileRoute('/{-$locale}/submit')({
   head: ({ params }) => {
     const { locale } = params as { locale?: string };
     const path = Showcase_Submit_Path;
-    const content = getIntlayer('app', locale);
+    const content = getIntlayer('showcase-submit', locale);
     const canonicalUrl = getLocalizedUrl(path, locale);
 
     return {
@@ -22,10 +22,10 @@ export const Route = createFileRoute('/{-$locale}/submit')({
         { rel: 'canonical', href: getLocalizedUrl(path, locale) },
 
         // Hreflang: Tell Google about all localized versions
-        ...localeMap(({ locale: mapLocale }) => ({
+        ...localeMap(({ locale }) => ({
           rel: 'alternate',
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
+          hrefLang: locale,
+          href: getLocalizedUrl(path, locale),
         })),
 
         // x-default: For users in unmatched languages
@@ -37,25 +37,25 @@ export const Route = createFileRoute('/{-$locale}/submit')({
         },
       ],
       meta: [
-        { title: content.submitPage.metadata.title },
+        { title: content.metadata.title },
         {
           name: 'description',
-          content: content.submitPage.metadata.description,
+          content: content.metadata.description,
         },
         {
           name: 'keywords',
           content: content.metadata.keywords.join(', '),
         },
-        { property: 'og:title', content: content.submitPage.metadata.title },
+        { property: 'og:title', content: content.metadata.title },
         {
           property: 'og:description',
-          content: content.submitPage.metadata.description,
+          content: content.metadata.description,
         },
         { property: 'og:url', content: canonicalUrl },
-        { name: 'twitter:title', content: content.submitPage.metadata.title },
+        { name: 'twitter:title', content: content.metadata.title },
         {
           name: 'twitter:description',
-          content: content.submitPage.metadata.description,
+          content: content.metadata.description,
         },
       ],
 
@@ -65,8 +65,8 @@ export const Route = createFileRoute('/{-$locale}/submit')({
           children: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'WebPage',
-            name: content.submitPage.metadata.title,
-            description: content.submitPage.metadata.description,
+            name: content.metadata.title,
+            description: content.metadata.description,
             url: canonicalUrl,
           }),
         },

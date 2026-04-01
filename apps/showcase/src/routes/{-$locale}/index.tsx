@@ -99,7 +99,7 @@ export const Route = createFileRoute('/{-$locale}/')({
   head: ({ params }) => {
     const { locale } = params;
     const path = Showcase_Root_Path;
-    const content = getIntlayer('app', locale);
+    const content = getIntlayer('showcase-index', locale);
 
     const canonicalUrl = getLocalizedUrl(path, locale);
 
@@ -109,10 +109,10 @@ export const Route = createFileRoute('/{-$locale}/')({
         { rel: 'canonical', href: getLocalizedUrl(path, locale) },
 
         // Hreflang: Tell Google about all localized versions
-        ...localeMap(({ locale: mapLocale }) => ({
+        ...localeMap(({ locale }) => ({
           rel: 'alternate',
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
+          hrefLang: locale,
+          href: getLocalizedUrl(path, locale),
         })),
 
         // x-default: For users in unmatched languages
@@ -154,7 +154,7 @@ export const Route = createFileRoute('/{-$locale}/')({
 });
 
 function App() {
-  const content = useIntlayer('app');
+  const content = useIntlayer('showcase-index');
   const { params, setParam, setParams } = useSearchParamState({
     page: { type: 'number', fallbackValue: 1 },
     pageSize: { type: 'number', fallbackValue: 20 },

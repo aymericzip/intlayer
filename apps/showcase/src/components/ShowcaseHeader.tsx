@@ -4,7 +4,7 @@ import { Plus } from 'lucide-react';
 import { useIntlayer } from 'react-intlayer';
 
 export const ShowcaseHeader = () => {
-  const content = useIntlayer('app');
+  const content = useIntlayer('showcase-index');
 
   return (
     <div className="flex w-full max-w-7xl flex-col gap-4 py-12 sm:flex-row sm:items-center sm:justify-between sm:py-16">

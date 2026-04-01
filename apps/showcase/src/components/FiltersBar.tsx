@@ -27,7 +27,7 @@ export const FiltersBar = ({
   isOpenSource,
   onOpenSourceChange,
 }: FiltersBarProps) => {
-  const content = useIntlayer('app');
+  const content = useIntlayer('showcase-index');
 
   return (
     <Container

@@ -28,15 +28,14 @@ export const Route = createFileRoute('/{-$locale}/project/$projectId')({
     const { locale, projectId } = params;
 
     const path = `/project/${projectId}`;
-    const content = getIntlayer('app', locale);
+    const content = getIntlayer('showcase-project', locale);
     const project = loaderData?.project;
 
-    const title = content.projectPage.metadata.title({
-      projectDetail: project?.title ?? '-',
+    const title = content.metadata.title({
+      projectDetails: project?.title ?? '-',
     });
 
-    const description =
-      project?.description ?? content.projectPage.metadata.description;
+    const description = project?.description ?? content.metadata.description;
 
     const canonicalUrl = getLocalizedUrl(path, locale);
 
@@ -46,10 +45,10 @@ export const Route = createFileRoute('/{-$locale}/project/$projectId')({
         { rel: 'canonical', href: getLocalizedUrl(path, locale) },
 
         // Hreflang: Tell Google about all localized versions
-        ...localeMap(({ locale: mapLocale }) => ({
+        ...localeMap(({ locale }) => ({
           rel: 'alternate',
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
+          hrefLang: locale,
+          href: getLocalizedUrl(path, locale),
         })),
 
         // x-default: For users in unmatched languages

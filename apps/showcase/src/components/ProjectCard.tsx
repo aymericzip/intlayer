@@ -17,7 +17,7 @@ type ProjectCardProps = {
 } & ContainerProps;
 
 export const ProjectCard = ({ project, ...props }: ProjectCardProps) => {
-  const content = useIntlayer('app');
+  const content = useIntlayer('showcase-index');
   const {
     score,
     isUpvoted,

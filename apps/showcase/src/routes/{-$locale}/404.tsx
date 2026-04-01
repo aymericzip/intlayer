@@ -8,14 +8,14 @@ export const Route = createFileRoute('/{-$locale}/404')({
   component: NotFoundComponent,
   head: ({ params }) => {
     const { locale } = params;
-    const content = getIntlayer('app', locale);
+    const content = getIntlayer('404', locale);
 
     return {
       meta: [
-        { title: content.notFoundPage.metadata.title },
+        { title: content.metadata.title },
         {
           name: 'description',
-          content: content.notFoundPage.metadata.description,
+          content: content.metadata.description,
         },
         { name: 'robots', content: 'noindex, nofollow' },
       ],

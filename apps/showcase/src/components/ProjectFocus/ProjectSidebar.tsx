@@ -89,7 +89,7 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
 }) => {
   const content = useIntlayer('project-sidebar');
   const submitFormContent = useIntlayer('submit-project-form');
-  const appContent = useIntlayer('app');
+  const appContent = useIntlayer('showcase-index');
   const { oAuth2AccessToken } = useAuth();
   const navigate = useLocalizedNavigate();
   const {
