@@ -84,6 +84,16 @@ export const intlayerPlugin = (
 
         if (isBuildCommand) {
           const dictionaries = getDictionaries(intlayerConfig);
+
+          if (Object.keys(dictionaries).length === 0) {
+            appLogger(
+              'No dictionaries found. Please check your configuration.',
+              {
+                isVerbose: true,
+              }
+            );
+          }
+
           const unusedNodeTypes = await getUnusedNodeTypesAsync(dictionaries);
 
           if (unusedNodeTypes.length > 0) {

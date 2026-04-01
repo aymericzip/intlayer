@@ -58,6 +58,13 @@ export const pluginIntlayerLynx = (): RsbuildPlugin => {
         const appLogger = getAppLogger(configuration);
 
         const dictionaries = getDictionaries(configuration);
+
+        if (Object.keys(dictionaries).length === 0) {
+          appLogger('No dictionaries found. Please check your configuration.', {
+            isVerbose: true,
+          });
+        }
+
         const unusedNodeTypes = await getUnusedNodeTypesAsync(dictionaries);
 
         if (unusedNodeTypes.length > 0) {
@@ -72,17 +79,25 @@ export const pluginIntlayerLynx = (): RsbuildPlugin => {
           );
         }
 
-        defineVars = formatNodeTypeToEnvVar(unusedNodeTypes, true);
+        defineVars = {
+          ...formatNodeTypeToEnvVar(
+            unusedNodeTypes,
+            (key) => `process.env.${key}`,
+            (value) => `"${value}"`
+          ),
+          ...getConfigEnvVars(
+            configuration,
+            (key) => `process.env.${key}`,
+            (value) => `"${value}"`
+          ),
+        };
       }
 
       // Merge Intlayer-specific environment variables and alias configuration.
       api.modifyRsbuildConfig(async (config, { mergeRsbuildConfig }) => {
         return mergeRsbuildConfig(config, {
           source: {
-            define: {
-              ...getConfigEnvVars(configuration, true),
-              ...defineVars,
-            },
+            define: defineVars,
           },
           resolve: {
             alias: {

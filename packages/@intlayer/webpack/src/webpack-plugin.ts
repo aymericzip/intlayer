@@ -7,7 +7,10 @@ import {
 } from '@intlayer/config/envVars';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
-import { getUnusedNodeTypesAsync } from '@intlayer/config/utils';
+import {
+  getUnusedNodeTypes,
+  getUnusedNodeTypesAsync,
+} from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Compiler } from 'webpack';
@@ -28,16 +31,23 @@ export class IntlayerPlugin {
 
     const appLogger = getAppLogger(this.configuration);
 
-    let dictionaryNodesVars = {};
+    let env: Record<string, string> = {};
 
     if (isBuild) {
       const dictionaries = getDictionaries(this.configuration);
+
+      if (Object.keys(dictionaries).length === 0) {
+        appLogger('No dictionaries found. Please check your configuration.', {
+          isVerbose: true,
+        });
+      }
+
       const unusedNodeTypes = await getUnusedNodeTypesAsync(dictionaries);
 
-      if (unusedNodeTypes.length > 0) {
+      if (unusedNodeTypes && unusedNodeTypes.length > 0) {
         appLogger(
           [
-            'Filtering out unused plugins:',
+            'Filtering out plugins:',
             unusedNodeTypes.map((key) => colorize(key, BLUE)).join(', '),
           ],
           {
@@ -46,13 +56,18 @@ export class IntlayerPlugin {
         );
       }
 
-      dictionaryNodesVars = formatNodeTypeToEnvVar(unusedNodeTypes, true);
+      env = {
+        ...env,
+
+        // Tree shacking based on unused node types
+        ...formatNodeTypeToEnvVar(unusedNodeTypes),
+
+        // Tree shacking based on config
+        ...getConfigEnvVars(this.configuration),
+      };
     }
 
-    new webpack.DefinePlugin({
-      ...getConfigEnvVars(this.configuration, true),
-      ...dictionaryNodesVars,
-    }).apply(compiler);
+    new webpack.DefinePlugin(env).apply(compiler);
 
     if (this.configuration.content.watch) {
       // Start watching (assuming watch is also async)

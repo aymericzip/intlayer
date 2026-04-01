@@ -296,8 +296,7 @@ type WithIntlayerOptions = GetConfigurationOptions & {
  */
 export const withIntlayerSync = <T extends Partial<NextConfig>>(
   nextConfig: T = {} as T,
-  configOptions?: WithIntlayerOptions,
-  unusedNodeTypesFromAsync?: PluginNodeType[]
+  configOptions?: WithIntlayerOptions
 ): NextConfig & T => {
   if (typeof nextConfig !== 'object') {
     nextConfig = {} as T;
@@ -359,6 +358,13 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
 
   if (isBuildCommand) {
     const dictionaries = getDictionaries(intlayerConfig);
+
+    if (Object.keys(dictionaries).length === 0) {
+      appLogger('No dictionaries found. Please check your configuration.', {
+        isVerbose: true,
+      });
+    }
+
     const unusedNodeTypes = getUnusedNodeTypes(dictionaries);
 
     if (unusedNodeTypes && unusedNodeTypes.length > 0) {
@@ -563,12 +569,5 @@ export const withIntlayer = async <T extends Partial<NextConfig>>(
 
   const nextConfigResolved = await nextConfig;
 
-  let unusedNodeTypes: PluginNodeType[] | undefined;
-
-  if (isBuildCommand) {
-    const dictionaries = getDictionaries(intlayerConfig);
-    unusedNodeTypes = await getUnusedNodeTypesAsync(dictionaries);
-  }
-
-  return withIntlayerSync(nextConfigResolved, configOptions, unusedNodeTypes);
+  return withIntlayerSync(nextConfigResolved, configOptions);
 };
