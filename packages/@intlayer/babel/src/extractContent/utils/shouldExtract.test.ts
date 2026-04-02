@@ -48,6 +48,21 @@ describe('shouldExtract', () => {
     ).toBe(true);
   });
 
+  it('should return false for technical identifiers in single words', () => {
+    expect(shouldExtract('CamelCaseProperty')).toBe(false);
+    expect(shouldExtract('camelCaseProperty')).toBe(false);
+    expect(shouldExtract('kebab-case-property')).toBe(false);
+    expect(shouldExtract('snake_case_property')).toBe(false);
+    expect(shouldExtract('UPPER_CASE_PROPERTY')).toBe(false);
+    expect(shouldExtract('v1.2.3')).toBe(false);
+  });
+
+  it('should still return true for normal single capitalized words', () => {
+    expect(shouldExtract('Contact')).toBe(true);
+    expect(shouldExtract('About')).toBe(true);
+    expect(shouldExtract('Welcome')).toBe(true);
+  });
+
   it('should not extract single technical values that are not capitalized', () => {
     expect(shouldExtract('12345')).toBe(false);
     expect(shouldExtract('id-123')).toBe(false);

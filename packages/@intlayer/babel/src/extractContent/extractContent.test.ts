@@ -390,6 +390,126 @@ export const useCustomHook = () => {
     expect(updatedCode).toContain('content().myTranslatedHookString.value');
   });
 
+  it('should extract text from template literals with variables', async () => {
+    const componentPath = join(tmpDir, 'TemplateLiteralTest.tsx');
+    const componentCode = `
+      export function TemplateLiteralTest({ name }: { name: string }) {
+        return <p>{\`Hello \${name}!\`}</p>;
+      }
+    `;
+    writeFileSync(componentPath, componentCode);
+
+    await extractContent(componentPath, 'react-intlayer');
+
+    const updatedCode = readFileSync(componentPath, 'utf-8');
+
+    expect(updatedCode).toMatch(
+      /const content = useIntlayer\(['"]template-literal-test['"]\);/
+    );
+    expect(updatedCode).toContain('content.helloName({ name: name })');
+  });
+
+  it('should extract text from complex JSX combined with template literals', async () => {
+    const componentPath = join(tmpDir, 'CombinedTemplateTest.tsx');
+    const componentCode = `
+      export function CombinedTemplateTest({ name, count }: { name: string; count: number }) {
+        return (
+          <div>
+            Static text
+            {\`Hello \${name}, you have \${count} items.\`}
+          </div>
+        );
+      }
+    `;
+    writeFileSync(componentPath, componentCode);
+
+    await extractContent(componentPath, 'react-intlayer');
+
+    const updatedCode = readFileSync(componentPath, 'utf-8');
+
+    expect(updatedCode).toMatch(
+      /const content = useIntlayer\(['"]combined-template-test['"]\);/
+    );
+    expect(updatedCode).toContain(
+      'content.staticTextHelloNameYou({ name: name, count: count })'
+    );
+  });
+
+  it('should extract text from template literals without variables and add .value for React', async () => {
+    const componentPath = join(tmpDir, 'SimpleTemplateTest.tsx');
+    const componentCode = `
+      export function SimpleTemplateTest() {
+        return <p>{\`Hello World!\`}</p>;
+      }
+    `;
+    writeFileSync(componentPath, componentCode);
+
+    await extractContent(componentPath, 'react-intlayer');
+
+    const updatedCode = readFileSync(componentPath, 'utf-8');
+
+    expect(updatedCode).toContain('content.helloWorld.value');
+  });
+
+  it('should extract text from template literals with variables (Solid)', async () => {
+    const componentPath = join(tmpDir, 'TemplateLiteralSolid.tsx');
+    const componentCode = `
+      export function TemplateLiteralSolid({ name }: { name: string }) {
+        return <p>{\`Hello \${name}!\`}</p>;
+      }
+    `;
+    writeFileSync(componentPath, componentCode);
+
+    await extractContent(componentPath, 'solid-intlayer');
+
+    const updatedCode = readFileSync(componentPath, 'utf-8');
+
+    expect(updatedCode).toMatch(
+      /const content = useIntlayer\(['"]template-literal-solid['"]\);/
+    );
+    expect(updatedCode).toContain('content().helloName({ name: name })');
+  });
+
+  it('should extract text from template literals with variables (Svelte/Vue/Lit)', async () => {
+    const componentPath = join(tmpDir, 'TemplateLiteralSvelte.ts');
+    const componentCode = `
+      export const myFunc = (name: string) => {
+        return \`Hello \${name}!\`;
+      };
+    `;
+    writeFileSync(componentPath, componentCode);
+
+    await extractContent(componentPath, 'svelte-intlayer');
+
+    const updatedCode = readFileSync(componentPath, 'utf-8');
+
+    expect(updatedCode).toMatch(
+      /const content = getIntlayer\(['"]template-literal-svelte['"]\);/
+    );
+    // getIntlayer doesn't have .value
+    expect(updatedCode).toContain('content.helloName({ name: name })');
+  });
+
+  it('should extract text from template literals with variables (Angular)', async () => {
+    const componentPath = join(tmpDir, 'TemplateLiteralAngular.ts');
+    const componentCode = `
+      export const myFunc = (name: string) => {
+        return \`Hello \${name}!\`;
+      };
+    `;
+    writeFileSync(componentPath, componentCode);
+
+    await extractContent(componentPath, 'angular-intlayer');
+
+    const updatedCode = readFileSync(componentPath, 'utf-8');
+
+    expect(updatedCode).toMatch(
+      /const content = getIntlayer\(['"]template-literal-angular['"]\);/
+    );
+    // Angular uses signal access content().key
+    expect(updatedCode).toContain('content().helloName({ name: name })');
+  });
+
   // ==========================================
   // Babel-ported tests
   // ==========================================

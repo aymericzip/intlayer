@@ -9,6 +9,8 @@ export const HelloWorld: FC = () => {
     'This is a sentence if a state (should be extracted)'
   );
 
+  const numberToInsertInString = 10;
+
   const [isClicked, setIsClicked] = useState(false);
 
   // The values here should be extracted
@@ -56,6 +58,11 @@ export const HelloWorld: FC = () => {
           This is the text of the option 3 (should be extracted)
         </option>
       </select>
+      <p>{`This is a string with a number ${numberToInsertInString} (should be extracted)`}</p>
+      <p>
+        This is a string with a number {numberToInsertInString} (should be
+        extracted)
+      </p>
       <ul>
         {listOfItems.map((item) => (
           <li key={item}>{item}</li>

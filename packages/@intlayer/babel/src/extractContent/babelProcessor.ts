@@ -18,7 +18,8 @@ export type BabelReplacement = {
     | 'jsx-attribute'
     | 'string-literal'
     | 'jsx-insertion'
-    | 'jsx-text-combined';
+    | 'jsx-text-combined'
+    | 'template-literal';
   componentKey: string;
   childrenToReplace?: t.Node[];
   variables?: string[];
@@ -84,6 +85,30 @@ export const handleJsxInsertionBabel = (
           parts.push({ type: 'var', value: varName, originalExpr: code });
 
           hasVariables = true;
+        } else if (t.isTemplateLiteral(expr)) {
+          for (let i = 0; i < expr.quasis.length; i++) {
+            parts.push({ type: 'text', value: expr.quasis[i].value.raw });
+            if (i < expr.expressions.length) {
+              const subExpr = expr.expressions[i];
+              if (t.isIdentifier(subExpr)) {
+                parts.push({
+                  type: 'var',
+                  value: subExpr.name,
+                  originalExpr: subExpr.name,
+                });
+                hasVariables = true;
+              } else if (t.isMemberExpression(subExpr)) {
+                const code = fileCode.substring(subExpr.start!, subExpr.end!);
+                const varName = t.isIdentifier(subExpr.property)
+                  ? subExpr.property.name
+                  : 'var';
+                parts.push({ type: 'var', value: varName, originalExpr: code });
+                hasVariables = true;
+              } else {
+                return false;
+              }
+            }
+          }
         } else {
           return false;
         }
@@ -358,6 +383,64 @@ export const extractBabelContentForComponents = (
         extractedContent
       );
       replacements.push({ path, key, type: 'string-literal', componentKey });
+    },
+    TemplateLiteral(path) {
+      if (handledNodes.has(path.node)) return;
+
+      const { quasis, expressions } = path.node;
+
+      // Build the combined string with placeholders
+      let combinedString = '';
+      const variables: string[] = [];
+      let hasSignificantText = false;
+
+      for (let i = 0; i < quasis.length; i++) {
+        const text = quasis[i].value.raw;
+        combinedString += text;
+        if (text.trim().length > 0) hasSignificantText = true;
+
+        if (i < expressions.length) {
+          const expr = expressions[i];
+          if (t.isIdentifier(expr)) {
+            combinedString += `{{${expr.name}}}`;
+            variables.push(`${expr.name}: ${expr.name}`);
+          } else if (t.isMemberExpression(expr)) {
+            const code = fileCode.substring(expr.start!, expr.end!);
+            const varName = t.isIdentifier(expr.property)
+              ? expr.property.name
+              : 'var';
+            combinedString += `{{${varName}}}`;
+            variables.push(`${varName}: ${code}`);
+          } else {
+            // Complex expression in template literal, skip
+            return;
+          }
+        }
+      }
+
+      if (!hasSignificantText) return;
+
+      const cleanString = combinedString.replace(/\s+/g, ' ').trim();
+
+      if (!shouldExtract(cleanString)) return;
+
+      const componentKey = getComponentKeyForPath(path);
+      const key = getOrGenerateKey(
+        cleanString,
+        componentKey,
+        existingKeys,
+        extractedContent
+      );
+
+      const uniqueVars = Array.from(new Set(variables));
+
+      replacements.push({
+        path,
+        key,
+        type: 'template-literal',
+        componentKey,
+        variables: uniqueVars,
+      });
     },
   });
 

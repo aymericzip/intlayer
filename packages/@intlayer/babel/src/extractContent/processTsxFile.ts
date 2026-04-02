@@ -205,6 +205,28 @@ export const processTsxFile = (
       const start = childrenToReplace[0].start!;
       const end = childrenToReplace[childrenToReplace.length - 1].end!;
       textEdits.push({ start, end, replacement: accessStr });
+    } else if (type === 'template-literal' && path.isTemplateLiteral()) {
+      let replacement = `${contentAccessCode}`;
+
+      if (variables && variables.length > 0) {
+        const objProps = variables
+          .map((variableString) => {
+            const [key, variableValue] = variableString
+              .split(':')
+              .map((part) => part.trim());
+            return `${key}: ${variableValue}`;
+          })
+          .join(', ');
+        replacement += `({ ${objProps} })`;
+      } else {
+        replacement += valueSuffix;
+      }
+
+      textEdits.push({
+        start: path.node.start!,
+        end: path.node.end!,
+        replacement,
+      });
     }
   }
 
