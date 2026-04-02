@@ -196,6 +196,7 @@ import {
 import { defaultLocale, getHTMLTextDir } from "intlayer";
 import { type ReactNode } from "react";
 import { IntlayerProvider } from "react-intlayer";
+import Header from "#/components/Header";
 
 export const Route = createRootRouteWithContext<{}>()({
   shellComponent: RootDocument,
@@ -215,7 +216,10 @@ function RootDocument({ children }: { children: ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+        <IntlayerProvider locale={locale}>
+          <Header />
+          {children}
+        </IntlayerProvider>
         <Scripts />
       </body>
     </html>
