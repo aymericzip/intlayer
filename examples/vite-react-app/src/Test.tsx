@@ -116,4 +116,26 @@ const randomFunction = () => {
   return "This is a random function return should be extracted because it's returned by the function";
 };
 
+// --- NEW RULE TESTING EXAMPLES ---
+
+export const topLevelTiers = [
+  {
+    name: 'Starter', // Single capitalized word -> should be extracted
+    price: '$0', // Not lowercase 1-2 words, but doesn't start with A-Z... wait, shouldExtract rules: starts with [A-Z], it doesn't. And wordCount <= 2. It will not be extracted!
+    period: 'forever', // 1 lowercase word -> should NOT be extracted
+    features: [
+      '5 benchmark runs/day', // will be extracted
+      'lower case longer sentence string', // >2 words -> should be extracted
+      'contact@intlayer.org', // email -> should NOT be extracted
+      'camelCaseProperty', // 1 lowercase word -> should NOT be extracted
+    ],
+  },
+];
+
+export const useMyCustomHook = () => {
+  const hookState =
+    'This string belongs to a custom hook and should be extracted using useIntlayer';
+  return { hookState };
+};
+
 export default HelloWorld;

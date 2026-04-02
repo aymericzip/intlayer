@@ -333,7 +333,7 @@ export const extractContent = async (
     dictionaryKey
   );
 
-  if (!result || !result.extractedContentMap) {
+  if (!result?.extractedContentMap) {
     appLogger(
       `${colorize('Compiler:', ANSIColors.GREY_DARK)} No extractable text found in ${colorizePath(relative(baseDir, filePath))}`,
       { isVerbose: true }

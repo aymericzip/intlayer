@@ -234,6 +234,162 @@ export const InsertionTest = () => {
     );
   });
 
+  it('should extract text from top-level arrays', async () => {
+    const componentPath = join(tmpDir, 'TopLevelArrayTest.ts');
+    const componentCode = `
+const tiers = [
+  {
+    name: "Starter",
+    price: "$0",
+    period: "forever",
+    features: [
+      "Community support",
+      "Public results",
+    ],
+  },
+  {
+    name: "Pro",
+    price: "$29",
+    period: "/month",
+    features: [
+      "Priority support",
+    ],
+    highlighted: true,
+  }
+];
+`;
+    writeFileSync(componentPath, componentCode);
+
+    await extractContent(componentPath, 'react-intlayer');
+
+    const updatedCode = readFileSync(componentPath, 'utf-8');
+
+    expect(updatedCode).toContain("import { getIntlayer } from 'intlayer';");
+    expect(updatedCode).toMatch(
+      /const content = getIntlayer\(['"]top-level-array-test['"]\);/
+    );
+    expect(updatedCode).toContain('content.starter');
+    expect(updatedCode).toContain('content.communitySupport');
+    expect(updatedCode).toContain('content.publicResults');
+    expect(updatedCode).toContain('content.pro');
+    expect(updatedCode).toContain('content.prioritySupport');
+  });
+
+  it('should inject useIntlayer inside custom hooks (React)', async () => {
+    const componentPath = join(tmpDir, 'useCustomHookTestReact.ts');
+    const componentCode = `
+export const useCustomHook = () => {
+  const t = "My translated hook string";
+  return t;
+};
+    `;
+    writeFileSync(componentPath, componentCode);
+
+    await extractContent(componentPath, 'react-intlayer');
+
+    const updatedCode = readFileSync(componentPath, 'utf-8');
+
+    expect(updatedCode).toMatch(
+      /import \{ useIntlayer \} from ['"]react-intlayer(\/server)?['"];/
+    );
+    expect(updatedCode).toMatch(
+      /const content = useIntlayer\(['"]use-custom-hook-test-react['"]\);/
+    );
+    expect(updatedCode).toContain('content.myTranslatedHookString.value');
+  });
+
+  it('should inject useIntlayer inside custom hooks (Next.js)', async () => {
+    const componentPath = join(tmpDir, 'useCustomHookTestNext.ts');
+    const componentCode = `
+export const useCustomHook = () => {
+  const t = "My translated hook string";
+  return t;
+};
+    `;
+    writeFileSync(componentPath, componentCode);
+
+    await extractContent(componentPath, 'next-intlayer');
+
+    const updatedCode = readFileSync(componentPath, 'utf-8');
+
+    expect(updatedCode).toMatch(
+      /import \{ useIntlayer \} from ['"]next-intlayer(\/server)?['"];/
+    );
+    expect(updatedCode).toMatch(
+      /const content = useIntlayer\(['"]use-custom-hook-test-next['"]\);/
+    );
+    expect(updatedCode).toContain('content.myTranslatedHookString.value');
+  });
+
+  it('should inject useIntlayer inside custom hooks (Preact)', async () => {
+    const componentPath = join(tmpDir, 'useCustomHookTestPreact.ts');
+    const componentCode = `
+export const useCustomHook = () => {
+  const t = "My translated hook string";
+  return t;
+};
+    `;
+    writeFileSync(componentPath, componentCode);
+
+    await extractContent(componentPath, 'preact-intlayer');
+
+    const updatedCode = readFileSync(componentPath, 'utf-8');
+
+    expect(updatedCode).toContain(
+      "import { useIntlayer } from 'preact-intlayer';"
+    );
+    expect(updatedCode).toMatch(
+      /const content = useIntlayer\(['"]use-custom-hook-test-preact['"]\);/
+    );
+    expect(updatedCode).toContain('content.myTranslatedHookString.value');
+  });
+
+  it('should inject useIntlayer inside custom hooks (Solid)', async () => {
+    const componentPath = join(tmpDir, 'useCustomHookTestSolid.ts');
+    const componentCode = `
+export const useCustomHook = () => {
+  const t = "My translated hook string";
+  return t;
+};
+    `;
+    writeFileSync(componentPath, componentCode);
+
+    await extractContent(componentPath, 'solid-intlayer');
+
+    const updatedCode = readFileSync(componentPath, 'utf-8');
+
+    expect(updatedCode).toContain(
+      "import { useIntlayer } from 'solid-intlayer';"
+    );
+    expect(updatedCode).toMatch(
+      /const content = useIntlayer\(['"]use-custom-hook-test-solid['"]\);/
+    );
+    expect(updatedCode).toContain('content().myTranslatedHookString.value');
+  });
+
+  it('should inject useIntlayer inside custom hooks (Angular)', async () => {
+    const componentPath = join(tmpDir, 'useCustomHookTestAngular.ts');
+    const componentCode = `
+export const useCustomHook = () => {
+  const t = "My translated hook string";
+  return t;
+};
+    `;
+    writeFileSync(componentPath, componentCode);
+
+    await extractContent(componentPath, 'angular-intlayer');
+
+    const updatedCode = readFileSync(componentPath, 'utf-8');
+
+    expect(updatedCode).toContain(
+      "import { useIntlayer } from 'angular-intlayer';"
+    );
+    expect(updatedCode).toMatch(
+      /const content = useIntlayer\(['"]use-custom-hook-test-angular['"]\);/
+    );
+    expect(updatedCode).toContain('content().myTranslatedHookString.value');
+  });
+
   // ==========================================
   // Babel-ported tests
   // ==========================================

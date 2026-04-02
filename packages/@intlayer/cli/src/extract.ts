@@ -170,22 +170,18 @@ export const extract = async (options: ExtractOptions) => {
 
   const unmergedDictionaries = getUnmergedDictionaries(configuration);
 
-  await Promise.all(
-    absoluteFiles.map(async (filePath) => {
-      try {
-        await extractContent(filePath, packageName, {
-          unmergedDictionaries,
-          configuration,
-          codeOnly: options.codeOnly,
-          declarationOnly: options.declarationOnly,
-        });
-      } catch (error) {
-        appLogger(
-          `Failed to transform ${filePath}: ${(error as Error).message}`
-        );
-      }
-    })
-  );
+  for (const filePath of absoluteFiles) {
+    try {
+      await extractContent(filePath, packageName, {
+        unmergedDictionaries,
+        configuration,
+        codeOnly: options.codeOnly,
+        declarationOnly: options.declarationOnly,
+      });
+    } catch (error) {
+      appLogger(`Failed to transform ${filePath}: ${(error as Error).message}`);
+    }
+  }
 
   await prepareIntlayer(configuration); // Prepare Intlayer to apply the changes
 };

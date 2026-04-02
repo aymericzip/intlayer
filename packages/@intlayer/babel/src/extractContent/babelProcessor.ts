@@ -177,6 +177,9 @@ export const extractBabelContentForComponents = (
   const componentPaths: NodePath[] = [];
 
   traverse(ast, {
+    Program(path) {
+      componentPaths.push(path);
+    },
     FunctionDeclaration(path) {
       componentPaths.push(path);
     },
@@ -196,21 +199,40 @@ export const extractBabelContentForComponents = (
       usedKeysInFile.add(existingInfo.key);
       hookMap.set(path.node, existingInfo.hook);
     } else {
-      if (!globalFileKey) {
-        globalFileKey = resolveDictionaryKey(
-          defaultKey,
-          filePath,
-          configuration,
-          unmergedDictionaries,
-          usedKeysInFile
-        );
-        usedKeysInFile.add(globalFileKey);
-      }
-      componentKeyMap.set(path.node, globalFileKey);
+      if (path.isProgram()) {
+        if (!globalFileKey) {
+          globalFileKey = resolveDictionaryKey(
+            defaultKey,
+            filePath,
+            configuration,
+            unmergedDictionaries,
+            usedKeysInFile
+          );
+          usedKeysInFile.add(globalFileKey);
+        }
+        componentKeyMap.set(path.node, globalFileKey);
+        hookMap.set(path.node, 'getIntlayer');
+      } else {
+        if (!globalFileKey) {
+          globalFileKey = resolveDictionaryKey(
+            defaultKey,
+            filePath,
+            configuration,
+            unmergedDictionaries,
+            usedKeysInFile
+          );
+          usedKeysInFile.add(globalFileKey);
+        }
+        componentKeyMap.set(path.node, globalFileKey);
 
-      const compName = getComponentName(path);
-      const isComponent = compName ? /^[A-Z]/.test(compName) : false;
-      hookMap.set(path.node, isComponent ? 'useIntlayer' : 'getIntlayer');
+        const compName = getComponentName(path);
+        const isComponent = compName ? /^[A-Z]/.test(compName) : false;
+        const isHook = compName ? /^use[A-Z]/.test(compName) : false;
+        hookMap.set(
+          path.node,
+          isComponent || isHook ? 'useIntlayer' : 'getIntlayer'
+        );
+      }
     }
   }
 
@@ -341,6 +363,30 @@ export const extractBabelContentForComponents = (
 
   const componentsNeedingHooks = new Set<NodePath>();
   for (const componentPath of componentPaths) {
+    if (componentPath.isProgram()) {
+      const hasDirectReplacements = replacements.some((replacement) => {
+        let current: NodePath | null = replacement.path;
+        while (current) {
+          if (current.node === componentPath.node) {
+            return true;
+          }
+          const isOtherComponent = componentPaths.some(
+            (p) => p !== componentPath && p.node === current?.node
+          );
+          if (isOtherComponent) {
+            return false;
+          }
+          current = current.parentPath;
+        }
+        return false;
+      });
+
+      if (hasDirectReplacements) {
+        componentsNeedingHooks.add(componentPath);
+      }
+      continue;
+    }
+
     const hasReplacements = replacements.some((replacement) => {
       let current: NodePath | null = replacement.path;
       while (current) {
@@ -360,7 +406,7 @@ export const extractBabelContentForComponents = (
           (path) => path.node === currentPath?.node
         );
 
-        if (ancestorPath) {
+        if (ancestorPath && !ancestorPath.isProgram()) {
           const ancestorKey = componentKeyMap.get(ancestorPath.node);
 
           if (ancestorKey === key) {

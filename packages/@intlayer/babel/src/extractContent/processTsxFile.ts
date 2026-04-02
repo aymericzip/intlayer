@@ -263,8 +263,32 @@ export const processTsxFile = (
 
       if (hook === 'getIntlayer') needsGetIntlayer = true;
 
-      const bodyPath = componentPath.get('body') as NodePath;
       const hookStatementStr = `\n  const content = ${hook}('${finalKey}');\n`;
+
+      if (componentPath.isProgram()) {
+        // Find the last import or directive to inject the getIntlayer call
+        let insertPos = 0;
+        if (componentPath.node.directives.length > 0) {
+          insertPos =
+            componentPath.node.directives[
+              componentPath.node.directives.length - 1
+            ].end!;
+        }
+        for (const stmt of componentPath.node.body) {
+          if (t.isImportDeclaration(stmt)) {
+            insertPos = Math.max(insertPos, stmt.end!);
+          }
+        }
+
+        textEdits.push({
+          start: insertPos,
+          end: insertPos,
+          replacement: `\n${hookStatementStr}`,
+        });
+        continue;
+      }
+
+      const bodyPath = componentPath.get('body') as NodePath;
 
       if (bodyPath.isBlockStatement()) {
         textEdits.push({

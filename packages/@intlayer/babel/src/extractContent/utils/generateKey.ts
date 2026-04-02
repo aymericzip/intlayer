@@ -20,6 +20,12 @@ export const generateKey = (
     .join('');
 
   if (!key) key = 'content';
+
+  // If the key starts with a number, prepend 'x' to make it a valid JS identifier
+  if (/^[0-9]/.test(key)) {
+    key = `x${key}`;
+  }
+
   if (existingKeys.has(key)) {
     let i = 1;
     while (existingKeys.has(`${key}${i}`)) i++;
