@@ -35,7 +35,7 @@ const config: IntlayerConfig = {
      */
     applicationURL: 'http://localhost:3000',
   },
-  build: {
+  dictionary: {
     /**
      * Controls how dictionaries are imported.
      * - "static": Statically imported at build time.
