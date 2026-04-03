@@ -173,6 +173,7 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['@intlayer/design-system'],
   },
+  output: 'standalone',
   reactCompiler: true,
   productionBrowserSourceMaps: true,
   // cacheComponents: true,
