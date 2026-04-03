@@ -99,7 +99,7 @@ const config: CustomIntlayerConfig = {
     importMode: 'dynamic',
   },
   ai: {
-    provider: 'gemini',
+    provider: 'openai',
     model: 'gpt-5-mini',
     apiKey: process.env.OPENAI_API_KEY,
     applicationContext: [

@@ -20,6 +20,8 @@ const aiAbTestingSectionContent = {
       id: 'Uji A/B',
       vi: 'Kiểm thử AB',
       uk: 'A/B-тестування',
+      ja: 'A/Bテスト',
+      ko: 'A/B 테스트',
     }),
     title: t({
       ar: 'ملعبك لتجارب المنتجات.',
