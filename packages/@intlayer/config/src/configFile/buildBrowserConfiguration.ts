@@ -201,6 +201,13 @@ export const buildRoutingFields = (
      * - Works with both Next.js and Vite applications.
      */
     rewrite: customConfiguration?.rewrite,
+
+    /**
+     * Maps locales to specific domain hostnames for domain-based routing.
+     *
+     * Default: undefined
+     */
+    domains: customConfiguration?.domains,
   };
 };
 

@@ -1,6 +1,5 @@
 import { internationalization } from '@intlayer/config/built';
 
-
 // ── Tree-shake constants ──────────────────────────────────────────────────────
 // When these env vars are injected at build time, bundlers eliminate the
 // branches guarded by these constants.
@@ -19,6 +18,12 @@ const TREE_SHAKE_SEARCH_PARAMS =
   process.env['INTLAYER_ROUTING_MODE'] &&
   process.env['INTLAYER_ROUTING_MODE'] !== 'search-params';
 
+/**
+ * True when no domain routing is configured at build time
+ * (INTLAYER_ROUTING_DOMAINS === 'false').
+ */
+const TREE_SHAKE_DOMAINS = process.env['INTLAYER_ROUTING_DOMAINS'] === 'false';
+
 import type { Locale } from '@intlayer/types/allLocales';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
@@ -35,6 +40,15 @@ import {
 } from './rewriteUtils';
 
 export type { RoutingOptions };
+
+/** Strips the protocol and returns the bare hostname of a domain string. */
+const extractHostname = (domain: string): string => {
+  try {
+    return /^https?:\/\//.test(domain) ? new URL(domain).hostname : domain;
+  } catch {
+    return domain;
+  }
+};
 
 /**
  * Generate URL by prefixing the given URL with the referenced locale or adding search parameters
@@ -70,15 +84,17 @@ export type { RoutingOptions };
  * @param options.locales - Optional array of supported locales. Defaults to configured locales.
  * @param options.defaultLocale - The default locale. Defaults to configured default locale.
  * @param options.mode - URL routing mode for locale handling. Defaults to configured mode.
+ * @param options.currentDomain - Hostname of the page being rendered. Used to decide
+ *   whether to emit a relative URL (same domain) or an absolute URL (cross-domain).
+ *   Auto-detected from the input URL or `window.location` when omitted.
  * @returns The localized URL for the current locale.
  */
 export const getLocalizedUrl = (
   url: string,
   currentLocale: LocalesValues = internationalization?.defaultLocale,
-
   options: RoutingOptions = {}
 ): string => {
-  const { defaultLocale, mode, locales, rewrite } =
+  const { defaultLocale, mode, locales, rewrite, domains, currentDomain } =
     resolveRoutingConfig(options);
 
   const urlWithoutLocale = getPathWithoutLocale(url, locales);
@@ -103,9 +119,54 @@ export const getLocalizedUrl = (
     rewriteRules
   ).path;
 
-  const baseUrl = isAbsoluteUrl
-    ? `${parsedUrl.protocol}//${parsedUrl.host}`
-    : '';
+  // ── Domain routing ────────────────────────────────────────────────────────
+  // Resolve the "current" hostname so we can choose between a relative URL
+  // (same domain) and an absolute URL (cross-domain).
+  //
+  // Detection priority:
+  //   1. Explicit `currentDomain` option passed by the caller.
+  //   2. Hostname extracted from an absolute input URL.
+  //   3. `window.location.hostname` in browser environments.
+  // When none of these is available we fall back to always generating an
+  // absolute URL (the previous behaviour, safe for SSR/static generation).
+  const detectedCurrentHostname = !TREE_SHAKE_DOMAINS
+    ? extractHostname(
+        currentDomain ??
+          (isAbsoluteUrl ? parsedUrl.hostname : undefined) ??
+          (typeof window !== 'undefined'
+            ? window?.location?.hostname
+            : undefined) ??
+          ''
+      ) || null
+    : null;
+
+  const localeDomain = !TREE_SHAKE_DOMAINS
+    ? domains?.[currentLocale as LocalesValues]
+    : undefined;
+
+  const localeDomainHostname = localeDomain
+    ? extractHostname(localeDomain)
+    : null;
+
+  // Only prepend the locale's domain when it differs from the current hostname.
+  const isCrossDomain =
+    localeDomainHostname !== null &&
+    detectedCurrentHostname !== null &&
+    localeDomainHostname !== detectedCurrentHostname;
+
+  const normalizedDomain =
+    isCrossDomain && localeDomain
+      ? /^https?:\/\//.test(localeDomain)
+        ? localeDomain
+        : `https://${localeDomain}`
+      : null;
+
+  const baseUrl = normalizedDomain
+    ? normalizedDomain
+    : isAbsoluteUrl
+      ? `${parsedUrl.protocol}//${parsedUrl.host}`
+      : '';
+  // ─────────────────────────────────────────────────────────────────────────
 
   if (!TREE_SHAKE_SEARCH_PARAMS && mode === 'search-params') {
     const searchParams = new URLSearchParams(parsedUrl.search);
@@ -120,7 +181,12 @@ export const getLocalizedUrl = (
     return `${baseUrl}${path}${parsedUrl.hash}`;
   }
 
-  const { prefix } = getPrefix(currentLocale, { defaultLocale, mode, locales });
+  const { prefix } = getPrefix(currentLocale, {
+    defaultLocale,
+    mode,
+    locales,
+    domains,
+  });
 
   let localizedPath = `/${prefix}${translatedPathname}`.replace(/\/+/g, '/');
 

@@ -1,5 +1,5 @@
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import * as Locales from '@intlayer/types/locales';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { describe, expect, it } from 'vitest';
 import { getPrefix } from './getPrefix';
 
@@ -129,6 +129,78 @@ describe('getPrefix', () => {
         prefix: '',
         localePrefix: undefined,
       });
+    });
+  });
+
+  describe('domain routing', () => {
+    it('should return empty prefix when locale is assigned to its own domain', () => {
+      const result = getPrefix(Locales.FRENCH, {
+        locales: [Locales.ENGLISH, Locales.FRENCH, Locales.CHINESE],
+        defaultLocale: Locales.ENGLISH,
+        mode: 'prefix-no-default',
+        domains: { [Locales.FRENCH]: 'example.fr' },
+      });
+      expect(result).toEqual({ prefix: '', localePrefix: undefined });
+    });
+
+    it('should return empty prefix for domain-assigned locale even in prefix-all mode', () => {
+      const result = getPrefix(Locales.CHINESE, {
+        locales: [Locales.ENGLISH, Locales.FRENCH, Locales.CHINESE],
+        defaultLocale: Locales.ENGLISH,
+        mode: 'prefix-all',
+        domains: { [Locales.CHINESE]: 'example.zh' },
+      });
+      expect(result).toEqual({ prefix: '', localePrefix: undefined });
+    });
+
+    it('should still prefix a locale that shares a domain with others', () => {
+      // 'fr' and 'es' both map to 'example.org' — not exclusive, so normal prefix applies
+      const result = getPrefix(Locales.FRENCH, {
+        locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+        defaultLocale: Locales.ENGLISH,
+        mode: 'prefix-no-default',
+        domains: {
+          [Locales.FRENCH]: 'example.org',
+          [Locales.SPANISH]: 'example.org',
+        },
+      });
+      expect(result).toEqual({
+        prefix: `${Locales.FRENCH}/`,
+        localePrefix: Locales.FRENCH,
+      });
+    });
+
+    it('should return normal prefix for locale without a domains entry', () => {
+      const result = getPrefix(Locales.SPANISH, {
+        locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+        defaultLocale: Locales.ENGLISH,
+        mode: 'prefix-no-default',
+        domains: { [Locales.FRENCH]: 'example.fr' },
+      });
+      expect(result).toEqual({
+        prefix: `${Locales.SPANISH}/`,
+        localePrefix: Locales.SPANISH,
+      });
+    });
+
+    it('should return empty prefix for default locale regardless of domains', () => {
+      const result = getPrefix(Locales.ENGLISH, {
+        locales: [Locales.ENGLISH, Locales.FRENCH],
+        defaultLocale: Locales.ENGLISH,
+        mode: 'prefix-no-default',
+        domains: { [Locales.FRENCH]: 'example.fr' },
+      });
+      expect(result).toEqual({ prefix: '', localePrefix: undefined });
+    });
+
+    it('should handle domains with protocol prefix', () => {
+      const result = getPrefix(Locales.CHINESE, {
+        locales: [Locales.ENGLISH, Locales.CHINESE],
+        defaultLocale: Locales.ENGLISH,
+        mode: 'prefix-no-default',
+        domains: { [Locales.CHINESE]: 'https://example.zh' },
+      });
+      expect(result).toEqual({ prefix: '', localePrefix: undefined });
     });
   });
 

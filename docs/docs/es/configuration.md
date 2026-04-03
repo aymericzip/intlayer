@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-03-20
+updatedAt: 2026-04-03
 title: Configuración (Configuration)
 description: Aprenda a configure Intlayer para su aplicación. Entienda los diversos ajustes y opciones disponibles para personalizar Intlayer según sus necesidades.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.7.0
+    date: 2026-04-03
+    changes: "Se añadió la opción `currentDomain`"
   - version: 8.4.0
     date: 2026-03-20
     changes: "Se añadió la notación de objeto por localidad para 'compiler.output' y 'dictionary.fill'"
@@ -237,6 +240,17 @@ const config: IntlayerConfig = {
         fr: "/[locale]/a-propos",
       },
     }),
+
+    /**
+     * Mapea las localidades a los nombres de host de dominio para el enrutamiento basado en dominios.
+     * Las URL para estas localidades serán absolutas (p. ej., https://intlayer.cn/).
+     * El dominio implica la localidad, por lo que no se añade ningún prefijo de localidad a la ruta.
+     * Predeterminado: undefined
+     */
+    domains: {
+      en: "intlayer.org",
+      zh: "intlayer.cn",
+    },
   },
 
   /**

@@ -279,6 +279,24 @@ export type RoutingConfig = {
    * Defines the base path where the application is accessible from.
    */
   basePath?: string;
+
+  /**
+   * Maps locales to specific domain hostnames for domain-based routing.
+   * When a locale is mapped to a domain, URLs generated for that locale
+   * will use that domain as the base URL (absolute URL), and no locale
+   * prefix will be added to the path (the domain itself implies the locale).
+   *
+   * Default: undefined
+   *
+   * Example:
+   * ```ts
+   * domains: {
+   *   en: 'intlayer.org',
+   *   zh: 'intlayer.cn',
+   * }
+   * ```
+   */
+  domains?: Partial<Record<LocalesValues, string>>;
 };
 
 /**

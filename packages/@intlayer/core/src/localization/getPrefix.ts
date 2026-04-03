@@ -18,6 +18,12 @@ const TREE_SHAKE_PREFIX_MODES =
   process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-all' &&
   process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-no-default';
 
+/**
+ * True when no domain routing is configured at build time
+ * (INTLAYER_ROUTING_DOMAINS === 'false').
+ */
+const TREE_SHAKE_DOMAINS = process.env['INTLAYER_ROUTING_DOMAINS'] === 'false';
+
 import type { Locale } from '@intlayer/types/allLocales';
 import type { RoutingConfig } from '@intlayer/types/config';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
@@ -30,6 +36,19 @@ export type RoutingOptions = {
   defaultLocale?: LocalesValues;
   mode?: RoutingConfig['mode'];
   rewrite?: RoutingConfig['rewrite'];
+  domains?: RoutingConfig['domains'];
+  /**
+   * The hostname of the page currently being rendered (e.g. `'intlayer.org'`).
+   * When provided, `getLocalizedUrl` returns a relative URL for locales whose
+   * configured domain matches `currentDomain`, and an absolute URL only when
+   * the target locale lives on a different domain.
+   *
+   * When omitted the function tries to infer it from:
+   *   1. The domain of an absolute input URL.
+   *   2. `window.location.hostname` in browser environments.
+   * Falls back to always generating absolute URLs when neither is available.
+   */
+  currentDomain?: string;
 };
 
 /**
@@ -41,6 +60,7 @@ export const resolveRoutingConfig = (options: RoutingOptions = {}) => ({
   mode: routing?.mode ?? ROUTING_MODE,
   locales: internationalization?.locales ?? LOCALES,
   rewrite: routing?.rewrite,
+  domains: routing?.domains,
   ...options,
 });
 
@@ -105,13 +125,33 @@ export const getPrefix = (
   locale: LocalesValues | undefined,
   options: RoutingOptions = {}
 ): GetPrefixResult => {
-  const { defaultLocale, mode, locales } = resolveRoutingConfig(options);
+  const { defaultLocale, mode, locales, domains } =
+    resolveRoutingConfig(options);
 
   if (TREE_SHAKE_PREFIX_MODES || !locale || !locales.includes(locale)) {
     return {
       prefix: '',
       localePrefix: undefined,
     };
+  }
+
+  // If this locale is the only one assigned to its domain, no URL prefix is needed
+  // (the domain itself identifies the locale). Shared domains use normal prefix logic.
+  if (!TREE_SHAKE_DOMAINS && domains) {
+    const localeDomain = domains[locale as LocalesValues];
+
+    if (localeDomain) {
+      const localesOnSameDomain = Object.values(domains).filter(
+        (domain) => domain === localeDomain
+      ).length;
+
+      if (localesOnSameDomain === 1) {
+        return {
+          prefix: '',
+          localePrefix: undefined,
+        };
+      }
+    }
   }
 
   // Handle prefix-based modes (prefix-all or prefix-no-default)

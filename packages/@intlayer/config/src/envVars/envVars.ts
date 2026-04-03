@@ -52,6 +52,10 @@ export const getConfigEnvVars = (
     envVars[wrapKey('INTLAYER_ROUTING_REWRITE_RULES')] = wrapValue('false');
   }
 
+  if (!routing.domains || Object.keys(routing.domains).length === 0) {
+    envVars[wrapKey('INTLAYER_ROUTING_DOMAINS')] = wrapValue('false');
+  }
+
   if (!routing.storage.cookies || routing.storage.cookies.length === 0) {
     envVars[wrapKey('INTLAYER_ROUTING_STORAGE_COOKIES')] = wrapValue('false');
   }

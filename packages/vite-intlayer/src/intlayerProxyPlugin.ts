@@ -37,6 +37,12 @@ const TREE_SHAKE_PREFIX_MODES =
 const TREE_SHAKE_REWRITE =
   process.env['INTLAYER_ROUTING_REWRITE_RULES'] === 'false';
 
+/**
+ * True when no domain routing is configured at build time
+ * (INTLAYER_ROUTING_DOMAINS === 'false').
+ */
+const TREE_SHAKE_DOMAINS = process.env['INTLAYER_ROUTING_DOMAINS'] === 'false';
+
 import {
   type GetConfigurationOptions,
   getConfiguration,
@@ -101,11 +107,34 @@ export const intlayerProxy = (
   const { internationalization, routing } = intlayerConfig;
   const { locales: supportedLocales, defaultLocale } = internationalization;
 
-  const { basePath = '', mode = ROUTING_MODE, rewrite } = routing;
+  const { basePath = '', mode = ROUTING_MODE, rewrite, domains } = routing;
 
   // Track redirect counts per request to detect loops
   const redirectCounts = new Map<string, number>();
   const MAX_REDIRECTS = 10;
+
+  /**
+   * Strips the protocol from a domain string, returning only the hostname.
+   */
+  const normalizeDomainHostname = (domain: string): string => {
+    try {
+      return /^https?:\/\//.test(domain) ? new URL(domain).hostname : domain;
+    } catch {
+      return domain;
+    }
+  };
+
+  /**
+   * Returns the locale exclusively mapped to a given hostname via `routing.domains`,
+   * or undefined if zero or more than one locale share that hostname.
+   */
+  const getLocaleFromDomain = (hostname: string): Locale | undefined => {
+    if (!domains) return undefined;
+    const matching = Object.entries(domains).filter(
+      ([, domain]) => normalizeDomainHostname(domain) === hostname
+    );
+    return matching.length === 1 ? (matching[0][0] as Locale) : undefined;
+  };
 
   // Derived flags from routing.mode
   const noPrefix =
@@ -673,6 +702,53 @@ export const intlayerProxy = (
 
         // Store original URL for redirect tracking
         const originalUrl = req.url;
+
+        // Domain routing: if the path locale is mapped to a different domain, redirect there.
+        // e.g. intlayer.org/zh/about → https://intlayer.zh/about
+        if (!TREE_SHAKE_DOMAINS && !noPrefix && pathLocale && domains) {
+          const localeDomain = domains[pathLocale as keyof typeof domains];
+          if (localeDomain) {
+            const reqHost = (req.headers['host'] ?? '').split(':')[0];
+            const domainHost = normalizeDomainHostname(localeDomain);
+            if (domainHost !== reqHost) {
+              const rawPath =
+                originalPath.slice(`/${pathLocale}`.length) || '/';
+              const targetOrigin = /^https?:\/\//.test(localeDomain)
+                ? localeDomain
+                : `https://${localeDomain}`;
+              redirectUrl(
+                res,
+                `${targetOrigin}${rawPath}${searchParams}`,
+                'domain-routing',
+                originalUrl
+              );
+              return;
+            }
+          }
+        }
+
+        // Domain routing: if the current hostname is exclusively mapped to one locale,
+        // treat it as that locale without a URL prefix.
+        // e.g. intlayer.zh/about → internally rewrite to /zh/about
+        if (!TREE_SHAKE_DOMAINS && !noPrefix && !pathLocale) {
+          const reqHost = (req.headers['host'] ?? '').split(':')[0];
+          const domainLocale = getLocaleFromDomain(reqHost);
+          if (domainLocale) {
+            const canonicalPath = getCanonicalPath(
+              originalPath,
+              domainLocale,
+              rewriteRules
+            );
+            const internalPath = `/${domainLocale}${canonicalPath}`;
+            rewriteUrl(
+              req,
+              res,
+              searchParams ? `${internalPath}${searchParams}` : internalPath,
+              domainLocale
+            );
+            return next();
+          }
+        }
 
         // If noPrefix is true, we skip prefix logic altogether
         if (noPrefix) {

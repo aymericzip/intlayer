@@ -1,9 +1,20 @@
 'use client';
 
+// ── Tree-shake constants ──────────────────────────────────────────────────────
+// When these env vars are injected at build time, bundlers eliminate the
+// branches guarded by these constants.
+
+/**
+ * True when no domain routing is configured at build time
+ * (INTLAYER_ROUTING_DOMAINS === 'false').
+ */
+const TREE_SHAKE_DOMAINS = process.env['INTLAYER_ROUTING_DOMAINS'] === 'false';
+
 import {
   getLocalizedUrl,
   getPathWithoutLocale,
 } from '@intlayer/core/localization';
+import { checkIsURLAbsolute } from '@intlayer/core/utils';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -63,10 +74,24 @@ export const useLocale = ({ onChange = 'replace' }: UseLocaleProps = {}) => {
     (locale: LocalesValues) => {
       if (!onChange) return;
 
-      const pathWithLocale = getLocalizedUrl(pathWithoutLocale, locale);
+      const currentDomain =
+        !TREE_SHAKE_DOMAINS && typeof window !== 'undefined'
+          ? window.location.hostname
+          : undefined;
+
+      const pathWithLocale = getLocalizedUrl(pathWithoutLocale, locale, {
+        currentDomain,
+      });
 
       if (typeof onChange === 'function') {
         onChange({ locale, path: pathWithLocale });
+        return;
+      }
+
+      // Cross-domain navigation: the Next.js router cannot navigate to a
+      // different origin, so fall back to a full page load.
+      if (!TREE_SHAKE_DOMAINS && checkIsURLAbsolute(pathWithLocale)) {
+        window.location.href = pathWithLocale;
         return;
       }
 

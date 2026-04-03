@@ -65,6 +65,7 @@ export const routingSchema = z.object({
     .optional(),
   storage: storageSchema.optional(),
   basePath: z.string().optional(),
+  domains: z.record(z.string(), z.string()).optional(),
 });
 
 export const systemSchema = z.object({

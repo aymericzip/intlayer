@@ -36,6 +36,12 @@ const TREE_SHAKE_PREFIX_MODES =
 const TREE_SHAKE_REWRITE =
   process.env['INTLAYER_ROUTING_REWRITE_RULES'] === 'false';
 
+/**
+ * True when no domain routing is configured at build time
+ * (INTLAYER_ROUTING_DOMAINS === 'false').
+ */
+const TREE_SHAKE_DOMAINS = process.env['INTLAYER_ROUTING_DOMAINS'] === 'false';
+
 import {
   getCanonicalPath,
   getLocalizedPath,
@@ -85,7 +91,7 @@ import { localeDetector } from './localeDetector';
 const DEFAULT_DETECT_LOCALE_ON_PREFETCH_NO_PREFIX = false;
 
 const { locales, defaultLocale } = internationalization ?? {};
-const { basePath, mode, rewrite } = routing ?? {};
+const { basePath, mode, rewrite, domains } = routing ?? {};
 
 // Note: cookie names are resolved inside LocaleStorage based on configuration
 
@@ -102,6 +108,34 @@ const internalPrefix = !noPrefix;
 const rewriteRules = !TREE_SHAKE_REWRITE
   ? getRewriteRules(rewrite, 'url')
   : undefined;
+
+/**
+ * Strips the protocol from a domain string and returns only the hostname.
+ * e.g. 'https://intlayer.zh' → 'intlayer.zh', 'intlayer.zh' → 'intlayer.zh'
+ */
+const normalizeDomainHostname = (domain: string): string => {
+  try {
+    return /^https?:\/\//.test(domain) ? new URL(domain).hostname : domain;
+  } catch {
+    return domain;
+  }
+};
+
+/**
+ * Returns the locale exclusively mapped to a given hostname via `routing.domains`,
+ * or undefined if zero or more than one locale share that hostname.
+ *
+ * Example: with domains = { zh: 'intlayer.zh', fr: 'intlayer.org' }
+ *   getLocaleFromDomain('intlayer.zh')  → 'zh'
+ *   getLocaleFromDomain('intlayer.org') → undefined  (multiple locales share it)
+ */
+const getLocaleFromDomain = (hostname: string): Locale | undefined => {
+  if (!domains) return undefined;
+  const matching = Object.entries(domains).filter(
+    ([, domain]) => normalizeDomainHostname(domain) === hostname
+  );
+  return matching.length === 1 ? (matching[0][0] as Locale) : undefined;
+};
 
 /**
  * Detects if the request is a prefetch request from Next.js.
@@ -180,6 +214,50 @@ export const intlayerProxy = (
   }
 
   const pathLocale = getPathLocale(pathname);
+
+  // Domain routing: if the path locale is mapped to a different domain, redirect there.
+  // e.g. intlayer.org/zh/about → https://intlayer.zh/about
+  if (!TREE_SHAKE_DOMAINS && pathLocale && domains) {
+    const localeDomain = domains[pathLocale];
+
+    if (localeDomain) {
+      const domainHost = normalizeDomainHostname(localeDomain);
+
+      if (domainHost !== request.nextUrl.hostname) {
+        const rawPath = pathname.slice(`/${pathLocale}`.length) || '/';
+        const targetOrigin = /^https?:\/\//.test(localeDomain)
+          ? localeDomain
+          : `https://${localeDomain}`;
+
+        return NextResponse.redirect(
+          new URL(`${rawPath}${request.nextUrl.search}`, targetOrigin)
+        );
+      }
+    }
+  }
+
+  // Domain routing: if the current hostname is exclusively mapped to one locale,
+  // treat it as that locale's domain — no URL prefix needed.
+  // e.g. intlayer.zh/about → internally rewrite to /zh/about
+  if (!TREE_SHAKE_DOMAINS && !pathLocale) {
+    const domainLocale = getLocaleFromDomain(request.nextUrl.hostname);
+
+    if (domainLocale) {
+      const canonicalPath = getCanonicalPath(
+        pathname,
+        domainLocale,
+        rewriteRules
+      );
+      const internalPath = `/${domainLocale}${canonicalPath}`;
+
+      return rewriteUrl(
+        request,
+        internalPath + (request.nextUrl.search ?? ''),
+        domainLocale
+      );
+    }
+  }
+
   return handlePrefix(request, localLocale, pathLocale, pathname);
 };
 

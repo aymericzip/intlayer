@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-03-20
+updatedAt: 2026-04-03
 title: 配置
 description: 了解如何为您的应用程序配置 Intlayer。了解可用于根据您的需求自定义 Intlayer 的各种设置和选项。
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.7.0
+    date: 2026-04-03
+    changes: "添加了 `currentDomain` 选项"
   - version: 8.4.0
     date: 2026-03-20
     changes: "为 'compiler.output' 和 'dictionary.fill' 添加了按区域设置的路径定义支持"
@@ -237,6 +240,17 @@ const config: IntlayerConfig = {
         fr: "/[locale]/a-propos",
       },
     }),
+
+    /**
+     * 将区域设置映射到域主机名以进行基于域的路由。
+     * 这些区域设置的 URL 将是绝对的（例如，https://intlayer.cn/）。
+     * 域意味着区域设置，因此不会向路径添加区域设置前缀。
+     * 默认值：undefined
+     */
+    domains: {
+      en: "intlayer.org",
+      zh: "intlayer.cn",
+    },
   },
 
   /**
@@ -600,12 +614,13 @@ export default config;
 
 控制路由行为的设置，包括 URL 结构、区域设置存储和中间件管理。
 
-| 字段       | 说明                                                                          | 类型                                                                                                                                                                                                         | 默认值                 | 示例                                                                                                                                                                                    | 备注                                                                                                                                                                                                                             |
-| ---------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `mode`     | 区域设置管理的 URL 路由模式。                                                 | `'prefix-no-default'` &#124; <br/> `'prefix-all'` &#124; <br/> `'no-prefix'` &#124; <br/> `'search-params'`                                                                                                  | `'prefix-no-default'`  | `'prefix-no-default'`: `/dashboard` (en) 或 `/fr/dashboard` (fr)。 `'prefix-all'`: `/en/dashboard` 。 `'no-prefix'`: 区域设置以其他方式管理。 `'search-params'`: `/dashboard?locale=fr` | 不影响 cookie 管理或本地存储。                                                                                                                                                                                                   |
-| `storage`  | 客户端区域设置存储的配置。                                                    | `false` &#124; <br/> `'cookie'` &#124; <br/> `'localStorage'` &#124; <br/> `'sessionStorage'` &#124; <br/> `'header'` &#124; <br/> `CookiesAttributes` &#124; <br/> `StorageAttributes` &#124; <br/> `Array` | `['cookie', 'header']` | `'localStorage'` <br/> `[{ type: 'cookie', name: 'custom-locale', secure: true }]`                                                                                                      | 参阅下方的存储参数表。                                                                                                                                                                                                           |
-| `basePath` | 应用程序 URL 的基础路径。                                                     | `string`                                                                                                                                                                                                     | `''`                   | `'/my-app'`                                                                                                                                                                             | 如果您的应用程序位于 `https://example.com/my-app`，则 basePath 为 `'/my-app'`，指向 URL 为 `https://example.com/my-app/en` 。                                                                                                    |
-| `rewrite`  | 自定义 URL 重写规则，用于覆盖特定路径的默认路由模式。支持动态参数 `[param]`。 | `Record<string, StrictModeLocaleMap<string>>`                                                                                                                                                                | `undefined`            | 见下方示例                                                                                                                                                                              | • 重写规则优先级高于 `mode`。<br/>• 与 Next.js 和 Vite 配合。 <br/>• `getLocalizedUrl()` 自动应用适当的规则。<br/>• 见 [自定义 URL 重写](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/custom_url_rewrites.md)。 |
+| 字段       | 说明                                                                                                                                | 类型                                                                                                                                                                                                         | 默认值                 | 示例                                                                                                                                                                                    | 备注                                                                                                                                                                                                                             |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mode`     | 区域设置管理的 URL 路由模式。                                                                                                       | `'prefix-no-default'` &#124; <br/> `'prefix-all'` &#124; <br/> `'no-prefix'` &#124; <br/> `'search-params'`                                                                                                  | `'prefix-no-default'`  | `'prefix-no-default'`: `/dashboard` (en) 或 `/fr/dashboard` (fr)。 `'prefix-all'`: `/en/dashboard` 。 `'no-prefix'`: 区域设置以其他方式管理。 `'search-params'`: `/dashboard?locale=fr` | 不影响 cookie 管理或本地存储。                                                                                                                                                                                                   |
+| `storage`  | 客户端区域设置存储的配置。                                                                                                          | `false` &#124; <br/> `'cookie'` &#124; <br/> `'localStorage'` &#124; <br/> `'sessionStorage'` &#124; <br/> `'header'` &#124; <br/> `CookiesAttributes` &#124; <br/> `StorageAttributes` &#124; <br/> `Array` | `['cookie', 'header']` | `'localStorage'` <br/> `[{ type: 'cookie', name: 'custom-locale', secure: true }]`                                                                                                      | 参阅下方的存储参数表。                                                                                                                                                                                                           |
+| `basePath` | 应用程序 URL 的基础路径。                                                                                                           | `string`                                                                                                                                                                                                     | `''`                   | `'/my-app'`                                                                                                                                                                             | 如果您的应用程序位于 `https://example.com/my-app`，则 basePath 为 `'/my-app'`，指向 URL 为 `https://example.com/my-app/en` 。                                                                                                    |
+| `rewrite`  | 自定义 URL 重写规则，用于覆盖特定路径的默认路由模式。支持动态参数 `[param]`。                                                       | `Record<string, StrictModeLocaleMap<string>>`                                                                                                                                                                | `undefined`            | 见下方示例                                                                                                                                                                              | • 重写规则优先级高于 `mode`。<br/>• 与 Next.js 和 Vite 配合。 <br/>• `getLocalizedUrl()` 自动应用适当的规则。<br/>• 见 [自定义 URL 重写](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/custom_url_rewrites.md)。 |
+| `domains`  | 将区域设置映射到域主机名以进行基于域的路由。设置后，区域设置的 URL 将使用该域作为基础（绝对 URL），并且不会向路径添加区域设置前缀。 | `Partial<Record<Locale, string>>`                                                                                                                                                                            | `undefined`            | `{ zh: 'intlayer.zh', fr: 'intlayer.org' }`                                                                                                                                             | • 如果主机名中未包含，默认协议为 `https://`。<br/>• 域本身标识区域设置，因此不会添加 `/zh/` 前缀。<br/>• `getLocalizedUrl('/', 'zh')` 返回 `https://intlayer.zh/`。                                                              |
 
 **`rewrite` 示例**:
 
