@@ -207,7 +207,9 @@ function RootDocument({ children }: { children: ReactNode }) {
 
   // Essayer de trouver la locale dans les paramètres de n'importe quel match actif
   // Cela suppose que vous utilisez le segment dynamique "/{-$locale}" dans votre arbre de routes
-  const localeRoute = matches.find((match) => match.routeId === "/{-$locale}");
+  const localeRoute = matches.find((match) =>
+    match.routeId.startsWith("/{-$locale}")
+  );
   const locale = localeRoute?.params?.locale ?? defaultLocale;
 
   return (
@@ -569,7 +571,9 @@ function RootDocument({ children }: { children: ReactNode }) {
   const matches = useMatches();
 
   // Essayer de trouver la locale dans les paramètres de n'importe quel match actif
-  const localeRoute = matches.find((match) => match.routeId === "/{-$locale}");
+  const localeRoute = matches.find((match) =>
+    match.routeId.startsWith("/{-$locale}")
+  );
   const locale = localeRoute?.params?.locale ?? defaultLocale;
 
   return (

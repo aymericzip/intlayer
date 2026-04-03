@@ -206,7 +206,9 @@ function RootDocument({ children }: { children: ReactNode }) {
 
   // Coba cari locale di params dari match yang aktif
   // Ini mengasumsikan Anda menggunakan segmen dinamis "/{-$locale}" dalam route tree Anda
-  const localeRoute = matches.find((match) => match.routeId === "/{-$locale}");
+  const localeRoute = matches.find((match) =>
+    match.routeId.startsWith("/{-$locale}")
+  );
   const locale = localeRoute?.params?.locale ?? defaultLocale;
 
   return (
@@ -568,7 +570,9 @@ function RootDocument({ children }: { children: ReactNode }) {
   const matches = useMatches();
 
   // Coba cari locale di params dari match yang aktif
-  const localeRoute = matches.find((match) => match.routeId === "/{-$locale}");
+  const localeRoute = matches.find((match) =>
+    match.routeId.startsWith("/{-$locale}")
+  );
   const locale = localeRoute?.params?.locale ?? defaultLocale;
 
   return (

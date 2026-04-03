@@ -206,7 +206,9 @@ function RootDocument({ children }: { children: ReactNode }) {
 
   // Aktif herhangi bir eşleşmenin parametrelerinde yerel ayarı bulmaya çalışın
   // Bu, rota ağacınızda "/{-$locale}" dinamik segmentini kullandığınızı varsayar
-  const localeRoute = matches.find((match) => match.routeId === "/{-$locale}");
+  const localeRoute = matches.find((match) =>
+    match.routeId.startsWith("/{-$locale}")
+  );
   const locale = localeRoute?.params?.locale ?? defaultLocale;
 
   return (
@@ -568,7 +570,9 @@ function RootDocument({ children }: { children: ReactNode }) {
   const matches = useMatches();
 
   // Aktif herhangi bir eşleşmenin parametrelerinde yerel ayarı bulmaya çalışın
-  const localeRoute = matches.find((match) => match.routeId === "/{-$locale}");
+  const localeRoute = matches.find((match) =>
+    match.routeId.startsWith("/{-$locale}")
+  );
   const locale = localeRoute?.params?.locale ?? defaultLocale;
 
   return (

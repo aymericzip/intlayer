@@ -207,7 +207,9 @@ function RootDocument({ children }: { children: ReactNode }) {
 
   // Prova a trovare la localizzazione nei parametri di qualsiasi corrispondenza attiva
   // Questo presuppone l'uso del segmento dinamico "/{-$locale}" nell'albero delle rotte
-  const localeRoute = matches.find((match) => match.routeId === "/{-$locale}");
+  const localeRoute = matches.find((match) =>
+    match.routeId.startsWith("/{-$locale}")
+  );
   const locale = localeRoute?.params?.locale ?? defaultLocale;
 
   return (
@@ -569,7 +571,9 @@ function RootDocument({ children }: { children: ReactNode }) {
   const matches = useMatches();
 
   // Prova a trovare la localizzazione nei parametri di qualsiasi corrispondenza attiva
-  const localeRoute = matches.find((match) => match.routeId === "/{-$locale}");
+  const localeRoute = matches.find((match) =>
+    match.routeId.startsWith("/{-$locale}")
+  );
   const locale = localeRoute?.params?.locale ?? defaultLocale;
 
   return (

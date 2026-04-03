@@ -206,7 +206,9 @@ function RootDocument({ children }: { children: ReactNode }) {
 
   // Спробуйте знайти locale в params будь-якого активного match
   // Це припускає, що ви використовуєте динамічний сегмент "/{-$locale}" у вашому дереві маршрутів
-  const localeRoute = matches.find((match) => match.routeId === "/{-$locale}");
+  const localeRoute = matches.find((match) =>
+    match.routeId.startsWith("/{-$locale}")
+  );
   const locale = localeRoute?.params?.locale ?? defaultLocale;
 
   return (
@@ -568,7 +570,9 @@ function RootDocument({ children }: { children: ReactNode }) {
   const matches = useMatches();
 
   // Спробуйте знайти locale в params будь-якого активного match
-  const localeRoute = matches.find((match) => match.routeId === "/{-$locale}");
+  const localeRoute = matches.find((match) =>
+    match.routeId.startsWith("/{-$locale}")
+  );
   const locale = localeRoute?.params?.locale ?? defaultLocale;
 
   return (

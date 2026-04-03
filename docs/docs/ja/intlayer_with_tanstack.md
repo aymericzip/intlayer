@@ -210,7 +210,9 @@ function RootDocument({ children }: { children: ReactNode }) {
 
   // アクティブなマッチのパラメータからロケールを探そうとします
   // これは、ルートツリーで動的セグメント "/{-$locale}" を使用していることを前提としています
-  const localeRoute = matches.find((match) => match.routeId === "/{-$locale}");
+  const localeRoute = matches.find((match) =>
+    match.routeId.startsWith("/{-$locale}")
+  );
   const locale = localeRoute?.params?.locale ?? defaultLocale;
 
   return (
@@ -581,7 +583,9 @@ function RootDocument({ children }: { children: ReactNode }) {
   const matches = useMatches();
 
   // アクティブなマッチのパラメータからロケールを探そうとします
-  const localeRoute = matches.find((match) => match.routeId === "/{-$locale}");
+  const localeRoute = matches.find((match) =>
+    match.routeId.startsWith("/{-$locale}")
+  );
   const locale = localeRoute?.params?.locale ?? defaultLocale;
 
   return (

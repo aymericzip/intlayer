@@ -206,7 +206,9 @@ function RootDocument({ children }: { children: ReactNode }) {
 
   // Thử tìm locale trong params của bất kỳ match đang hoạt động nào
   // Điều này giả định bạn sử dụng segment động "/{-$locale}" trong cây route của mình
-  const localeRoute = matches.find((match) => match.routeId === "/{-$locale}");
+  const localeRoute = matches.find((match) =>
+    match.routeId.startsWith("/{-$locale}")
+  );
   const locale = localeRoute?.params?.locale ?? defaultLocale;
 
   return (
@@ -568,7 +570,9 @@ function RootDocument({ children }: { children: ReactNode }) {
   const matches = useMatches();
 
   // Thử tìm locale trong params của bất kỳ match đang hoạt động nào
-  const localeRoute = matches.find((match) => match.routeId === "/{-$locale}");
+  const localeRoute = matches.find((match) =>
+    match.routeId.startsWith("/{-$locale}")
+  );
   const locale = localeRoute?.params?.locale ?? defaultLocale;
 
   return (

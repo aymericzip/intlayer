@@ -206,7 +206,9 @@ function RootDocument({ children }: { children: ReactNode }) {
 
   // حاول العثور على اللغة في معلمات أي مطابقة نشطة
   // يفترض هذا أنك تستخدم الجزء الديناميكي "/{-$locale}" في شجرة المسارات الخاصة بك
-  const localeRoute = matches.find((match) => match.routeId === "/{-$locale}");
+  const localeRoute = matches.find((match) =>
+    match.routeId.startsWith("/{-$locale}")
+  );
   const locale = localeRoute?.params?.locale ?? defaultLocale;
 
   return (
@@ -568,7 +570,9 @@ function RootDocument({ children }: { children: ReactNode }) {
   const matches = useMatches();
 
   // حاول العثور على اللغة في معلمات أي مطابقة نشطة
-  const localeRoute = matches.find((match) => match.routeId === "/{-$locale}");
+  const localeRoute = matches.find((match) =>
+    match.routeId.startsWith("/{-$locale}")
+  );
   const locale = localeRoute?.params?.locale ?? defaultLocale;
 
   return (

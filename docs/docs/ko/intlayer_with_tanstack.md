@@ -207,7 +207,9 @@ function RootDocument({ children }: { children: ReactNode }) {
 
   // 활성 매치 중 하나의 매개변수에서 로케일을 찾으려고 시도합니다.
   // 이는 라우트 트리에서 동적 세그먼트 "/{-$locale}"을 사용한다고 가정합니다.
-  const localeRoute = matches.find((match) => match.routeId === "/{-$locale}");
+  const localeRoute = matches.find((match) =>
+    match.routeId.startsWith("/{-$locale}")
+  );
   const locale = localeRoute?.params?.locale ?? defaultLocale;
 
   return (
@@ -569,7 +571,9 @@ function RootDocument({ children }: { children: ReactNode }) {
   const matches = useMatches();
 
   // 활성 매치 중 하나의 매개변수에서 로케일을 찾으려고 시도합니다.
-  const localeRoute = matches.find((match) => match.routeId === "/{-$locale}");
+  const localeRoute = matches.find((match) =>
+    match.routeId.startsWith("/{-$locale}")
+  );
   const locale = localeRoute?.params?.locale ?? defaultLocale;
 
   return (

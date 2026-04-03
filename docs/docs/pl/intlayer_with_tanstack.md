@@ -206,7 +206,9 @@ function RootDocument({ children }: { children: ReactNode }) {
 
   // Spróbuj znaleźć lokalizację w parametrach dowolnego aktywnego dopasowania
   // Przyjmuje to, że używasz dynamicznego segmentu "/{-$locale}" w swoim drzewie tras
-  const localeRoute = matches.find((match) => match.routeId === "/{-$locale}");
+  const localeRoute = matches.find((match) =>
+    match.routeId.startsWith("/{-$locale}")
+  );
   const locale = localeRoute?.params?.locale ?? defaultLocale;
 
   return (
@@ -568,7 +570,9 @@ function RootDocument({ children }: { children: ReactNode }) {
   const matches = useMatches();
 
   // Spróbuj znaleźć lokalizację w parametrach dowolnego aktywnego dopasowania
-  const localeRoute = matches.find((match) => match.routeId === "/{-$locale}");
+  const localeRoute = matches.find((match) =>
+    match.routeId.startsWith("/{-$locale}")
+  );
   const locale = localeRoute?.params?.locale ?? defaultLocale;
 
   return (

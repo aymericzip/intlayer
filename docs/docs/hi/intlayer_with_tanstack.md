@@ -206,7 +206,9 @@ function RootDocument({ children }: { children: ReactNode }) {
 
   // किसी भी सक्रिय मैच के मापदंडों में लोकेल खोजने का प्रयास करें
   // यह मानता है कि आप अपनी रूट ट्री में गतिशील खंड "/{-$locale}" का उपयोग करते हैं
-  const localeRoute = matches.find((match) => match.routeId === "/{-$locale}");
+  const localeRoute = matches.find((match) =>
+    match.routeId.startsWith("/{-$locale}")
+  );
   const locale = localeRoute?.params?.locale ?? defaultLocale;
 
   return (
@@ -568,7 +570,9 @@ function RootDocument({ children }: { children: ReactNode }) {
   const matches = useMatches();
 
   // किसी भी सक्रिय मैच के मापदंडों में लोकेल खोजने का प्रयास करें
-  const localeRoute = matches.find((match) => match.routeId === "/{-$locale}");
+  const localeRoute = matches.find((match) =>
+    match.routeId.startsWith("/{-$locale}")
+  );
   const locale = localeRoute?.params?.locale ?? defaultLocale;
 
   return (

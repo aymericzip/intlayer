@@ -207,7 +207,9 @@ function RootDocument({ children }: { children: ReactNode }) {
 
   // 尝试在任何活动匹配的参数中找到 locale
   // 这假设您在路由树中使用动态段 "/{-$locale}"
-  const localeRoute = matches.find((match) => match.routeId === "/{-$locale}");
+  const localeRoute = matches.find((match) =>
+    match.routeId.startsWith("/{-$locale}")
+  );
   const locale = localeRoute?.params?.locale ?? defaultLocale;
 
   return (
@@ -573,7 +575,9 @@ function RootDocument({ children }: { children: ReactNode }) {
   const matches = useMatches();
 
   // 尝试在任何活动匹配的参数中找到 locale
-  const localeRoute = matches.find((match) => match.routeId === "/{-$locale}");
+  const localeRoute = matches.find((match) =>
+    match.routeId.startsWith("/{-$locale}")
+  );
   const locale = localeRoute?.params?.locale ?? defaultLocale;
 
   return (
