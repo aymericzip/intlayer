@@ -140,7 +140,7 @@
     "react-intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "25.5.0",
+    "@types/node": "25.5.2",
     "@types/react": ">=16.0.0",
     "@types/react-dom": ">=16.0.0",
     "@utils/ts-config": "workspace:*",

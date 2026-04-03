@@ -14,7 +14,7 @@
     "test": ""
   },
   "dependencies": {
-    "fuse.js": "7.1.0",
+    "fuse.js": "7.2.0",
     "intlayer": "workspace:*",
     "markdown-to-jsx": "7.7.17",
     "next": "15.5.14",
@@ -25,7 +25,7 @@
   "devDependencies": {
     "@next/bundle-analyzer": "15.5.14",
     "@tailwindcss/postcss": "4.2.2",
-    "@types/node": "25.5.0",
+    "@types/node": "25.5.2",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "intlayer-editor": "workspace:*",

@@ -14,7 +14,7 @@
     "start:editor": "intlayer-editor start --with 'next dev'"
   },
   "dependencies": {
-    "fuse.js": "7.1.0",
+    "fuse.js": "7.2.0",
     "intlayer": "workspace:*",
     "next": "16.2.2",
     "next-intlayer": "workspace:*",
@@ -24,7 +24,7 @@
   "devDependencies": {
     "@intlayer/swc": "workspace:*",
     "@tailwindcss/postcss": "4.2.2",
-    "@types/node": "25.5.0",
+    "@types/node": "25.5.2",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "eslint-config-next": "16.2.0",
