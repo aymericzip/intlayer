@@ -437,11 +437,11 @@ const TranslateDashboardList: FC = () => {
 
 export const TranslateDashboard: FC = () => {
   const configuration = useConfiguration();
-  const availableLocales = configuration.internationalization.locales;
+  const availableLocales = configuration?.internationalization.locales;
 
   return (
     <Suspense fallback={<Loader />}>
-      <LocaleSwitcherContentProvider availableLocales={availableLocales}>
+      <LocaleSwitcherContentProvider availableLocales={availableLocales ?? []}>
         <TranslateDashboardList />
       </LocaleSwitcherContentProvider>
     </Suspense>
