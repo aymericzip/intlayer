@@ -81,7 +81,7 @@ export const intlayerPlugin = (
         }
 
         let define: Record<string, string> = {
-          'process.env': '{}', // Needed for some libraries that does not add process.env
+          'process.env.INTLAYER': '"true"', // Needed for some libraries that does not add process.env
         };
 
         if (isBuildCommand) {
