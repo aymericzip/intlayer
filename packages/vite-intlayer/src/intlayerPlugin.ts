@@ -81,7 +81,9 @@ export const intlayerPlugin = (
         }
 
         let define: Record<string, string> = {
-          'process.env.INTLAYER': '"true"', // Needed for some libraries that does not add process.env
+          // Preset an env var to avoid 'process is not defined' error
+          // Needed for some libraries that does not add process.env
+          'process.env.INTLAYER': '"true"',
         };
 
         if (isBuildCommand) {
