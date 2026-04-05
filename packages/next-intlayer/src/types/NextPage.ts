@@ -3,11 +3,15 @@ import type { NextPage } from 'next';
 import type { PropsWithChildren, ReactNode } from 'react';
 
 export type LocalParams<T = {}> = {
-  params: { locale: LocalesValues } & T;
+  params: { locale?: LocalesValues } & T;
 };
 
 export type LocalPromiseParams<T = {}> = {
-  params: Promise<{ locale: LocalesValues } & T>;
+  params: Promise<
+    {
+      locale?: LocalesValues; // Optional to satisfy Next.js RootLayout constraint
+    } & T
+  >;
 };
 
 export type Next14PageIntlayer<T = {}> = NextPage<LocalParams<T>>;
@@ -22,4 +26,7 @@ export type Next14LayoutIntlayer<T = {}> = NextPage<
 export type Next15LayoutIntlayer<T = {}> = (
   props: PropsWithChildren<LocalPromiseParams<T>>
 ) => ReactNode | Promise<ReactNode>;
-export type NextLayoutIntlayer<T = {}> = Next15LayoutIntlayer<T>;
+
+export type NextLayoutIntlayer<T = {}> = (
+  props: PropsWithChildren<LocalPromiseParams> & T
+) => ReactNode | Promise<ReactNode>;
