@@ -11,7 +11,7 @@ import type { Plugin } from './plugin';
  * Structural type for schema validation, compatible with Zod and other
  * schema libraries that implement safeParse. Avoids a hard dependency on Zod.
  */
-export type Schema = {
+export type ConfigSchema = {
   safeParse(data: unknown): {
     success: boolean;
     data?: unknown;
@@ -865,7 +865,7 @@ export type CustomIntlayerConfig = {
    * }
    * ```
    */
-  schemas?: Record<string, Schema>;
+  schemas?: Record<string, ConfigSchema>;
 
   /**
    * Custom plugins configuration
@@ -1105,7 +1105,7 @@ export type IntlayerConfig = {
   /**
    * Custom schemas to validate the dictionaries content.
    */
-  schemas?: Record<string, Schema>;
+  schemas?: Record<string, ConfigSchema>;
 
   /**
    * Plugins configuration
