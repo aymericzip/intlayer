@@ -63,6 +63,7 @@ export const loadContentDeclaration = async (
       logError: options?.logError,
       projectRequire: build.require ?? getProjectRequire(),
       buildOptions: {
+        packages: undefined,
         banner: {
           js: [
             `globalThis.INTLAYER_FILE_PATH = '${path}';`,
