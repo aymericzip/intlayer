@@ -7,6 +7,7 @@ const options: UserConfig[] = getOptions({
     deps: {
       neverBundle: ['intlayer'],
     },
+    unbundle: false, // Set to false for locales object to be tree shaken
   },
   types: {
     dts: {
