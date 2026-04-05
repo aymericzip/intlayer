@@ -1,7 +1,11 @@
-import { writeFile } from 'node:fs/promises';
-import { join, relative } from 'node:path';
+import { readFile, writeFile } from 'node:fs/promises';
+import { dirname, join, relative } from 'node:path';
 import { loadExternalFile } from '@intlayer/config/file';
-import { cacheDisk, getProjectRequire } from '@intlayer/config/utils';
+import {
+  cacheDisk,
+  getPackageJsonPath,
+  getProjectRequire,
+} from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { processContentDeclaration } from '../buildIntlayerDictionary/processContentDeclaration';
@@ -47,13 +51,60 @@ type LoadContentDeclarationOptions = {
   logError?: boolean;
 };
 
+// Initialize a module-level cache
+let cachedExternalDeps: string[] | null = null;
+
+// Helper to fetch and cache the dependencies
+const getExternalDeps = async (baseDir: string): Promise<string[]> => {
+  if (cachedExternalDeps) {
+    return cachedExternalDeps; // Return instantly on subsequent calls
+  }
+
+  try {
+    const packageJsonPath = getPackageJsonPath(baseDir);
+
+    const packageJSON = await readFile(
+      packageJsonPath.packageJsonPath,
+      'utf-8'
+    );
+    const parsedPackages = JSON.parse(packageJSON);
+    const allDependencies = Object.keys({
+      ...parsedPackages.dependencies,
+      ...parsedPackages.devDependencies,
+    });
+
+    // Specify the ESM packages to bundle
+    const esmPackagesToBundle = ['your-esm-package-name'];
+
+    const externalDeps = allDependencies.filter(
+      (dep) => !esmPackagesToBundle.includes(dep)
+    );
+
+    externalDeps.push('esbuild');
+
+    // Save to cache
+    cachedExternalDeps = externalDeps;
+  } catch (error) {
+    console.warn(
+      'Could not read package.json for externalizing dependencies, fallback to empty array',
+      error
+    );
+    cachedExternalDeps = ['esbuild'];
+  }
+
+  return cachedExternalDeps;
+};
+
 export const loadContentDeclaration = async (
   path: string,
   configuration: IntlayerConfig,
   bundleFilePath?: string,
   options?: LoadContentDeclarationOptions
 ): Promise<Dictionary | undefined> => {
-  const { build } = configuration;
+  const { build, system } = configuration;
+
+  // Call the cached helper
+  const externalDeps = await getExternalDeps(system.baseDir);
 
   const resolvedBundleFilePath =
     bundleFilePath ?? (await ensureIntlayerBundle(configuration));
@@ -63,9 +114,12 @@ export const loadContentDeclaration = async (
       logError: options?.logError,
       projectRequire: build.require ?? getProjectRequire(),
       buildOptions: {
-        packages: undefined,
+        packages: undefined, // It fixes the import of ESM packages in the content declaration
+        external: externalDeps,
         banner: {
           js: [
+            `var __filename = ${JSON.stringify(path)};`,
+            `var __dirname = ${JSON.stringify(dirname(path))};`,
             `globalThis.INTLAYER_FILE_PATH = '${path}';`,
             `globalThis.INTLAYER_BASE_DIR = '${configuration.system.baseDir}';`,
           ].join('\n'),
