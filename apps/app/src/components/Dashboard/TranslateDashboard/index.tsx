@@ -1,5 +1,6 @@
 'use client';
 
+import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
 import {
   getContentNodeByKeyPath,
   getEmptyNode,
@@ -46,7 +47,8 @@ const TranslateRow: FC<{
 }> = ({ nodes, selectedLocales }) => {
   const { editedContent, addEditedContent } = useEditedContent();
   const configuration = useConfiguration();
-  const { defaultLocale } = configuration.internationalization;
+  const defaultLocale =
+    configuration?.internationalization?.defaultLocale ?? DEFAULT_LOCALE;
   const { addTranslation } = useIntlayer('translate-dashboard');
 
   if (!nodes || nodes.length === 0) {

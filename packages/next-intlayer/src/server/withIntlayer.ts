@@ -18,9 +18,7 @@ import {
   getAlias,
   getProjectRequire,
   getUnusedNodeTypes,
-  getUnusedNodeTypesAsync,
   normalizePath,
-  type PluginNodeType,
 } from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { IntlayerConfig } from '@intlayer/types/config';
