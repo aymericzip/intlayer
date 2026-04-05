@@ -31,6 +31,7 @@ export type AuditDataList<T extends Url> =
   | `url_allAnchorsLocalized\\${T}`
   | `url_hasLangSelector\\${T}`
   | `url_hasFlagIcons\\${T}`
+  | `url_unusedBundleContent\\${T}`
   | 'domain_localesCount'
   | 'robots_robotsPresent'
   | 'robots_noLocalizedUrlsForgotten'

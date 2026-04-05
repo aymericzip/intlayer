@@ -36,6 +36,7 @@ export type AuditDataList<T extends Url> =
   | `url_hasXDefault\\${T}`
   | `url_allAnchorsLocalized\\${T}`
   | `url_hasFlagIcons\\${T}`
+  | `url_unusedBundleContent\\${T}`
   | 'robots_robotsPresent'
   | 'robots_noLocalizedUrlsForgotten'
   | 'sitemap_sitemapPresent'

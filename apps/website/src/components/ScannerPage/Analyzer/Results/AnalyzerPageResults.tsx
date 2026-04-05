@@ -7,6 +7,7 @@ import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';
 import type { FC, HTMLProps, ReactNode } from 'react';
 import { memo } from 'react';
+import { BundleContentField } from './BundleContentField';
 import { FieldItem } from './FieldItem';
 import type { AuditDataList, MergedData } from './types';
 
@@ -46,6 +47,8 @@ export const AnalyzerPageResults: FC<AnalyzerPageResultsProps> = memo(
       fieldsDescription,
       url: urlText,
     } = useIntlayer('analyzer-results');
+    const bundleKey =
+      `url_unusedBundleContent\\${url}` as AuditDataList<string>;
 
     const fieldsList: FieldItemData[] = [
       {
@@ -109,6 +112,15 @@ export const AnalyzerPageResults: FC<AnalyzerPageResultsProps> = memo(
               isLoading={isLoading}
             />
           ))}
+          <BundleContentField
+            id={bundleKey}
+            label={fields.unusedBundleContent}
+            description={fieldsDescription.unusedBundleContent.use(
+              compOverwrite
+            )}
+            event={data[bundleKey]}
+            isLoading={isLoading}
+          />
         </div>
       </div>
     );

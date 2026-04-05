@@ -2,6 +2,7 @@ import { logger } from '@logger';
 import { launchBrowser } from '@utils/puppeteer/launchBrowser';
 import { load } from 'cheerio';
 import type { Browser } from 'puppeteer';
+import { checkBundleContent } from './checkers/bundleChecker';
 import { checkLinguisticStructure } from './checkers/linguisticChecker';
 import { checkMetadata } from './checkers/metadataChecker';
 import {
@@ -132,9 +133,20 @@ export const runSingleAudit = async (
 
     await extractPageMetadata(cheerioApi, targetUrl, handleEvent);
 
-    handleEvent({ progress: 20 });
+    handleEvent({ progress: 15 });
 
-    await checkHtmlAttributes(cheerioApi, targetUrl, handleEvent);
+    const { langTag } = await checkHtmlAttributes(
+      cheerioApi,
+      targetUrl,
+      handleEvent
+    );
+
+    handleEvent({
+      progress: 20,
+      message: 'Analysing bundle content...',
+    });
+
+    checkBundleContent(html, langTag, targetUrl, handleEvent);
 
     handleEvent({
       progress: 30,

@@ -1,4 +1,4 @@
-import { IntlayerClientProvider, type NextLayoutIntlayer } from 'next-intlayer';
+import type { NextLayoutIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider } from 'next-intlayer/server';
 import { Suspense } from 'react';
 import { AppProviders } from '@/providers/AppProviders';

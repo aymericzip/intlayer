@@ -1,5 +1,5 @@
 import { logger } from '@logger';
-import type { AuditDataList, AuditEvent } from '../types';
+import type { AuditEvent } from '../types';
 
 export type Score = {
   score: number;
@@ -28,6 +28,7 @@ const scoreRecord = {
   url_hasXDefault: 7,
   url_allAnchorsLocalized: 6,
   url_currentLocale: 3,
+  url_unusedBundleContent: 8,
 };
 
 export const mutateScore = (score: Score, event: AuditEvent): Score => {
