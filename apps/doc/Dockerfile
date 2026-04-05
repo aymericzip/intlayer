@@ -41,6 +41,7 @@ COPY \
     --exclude=packages/adonis-intlayer \
     --exclude=apps/website \
     --exclude=apps/app \
+    --exclude=apps/showcase \
     --exclude=plugins \
     --exclude=docs/assets \
     --exclude=examples \

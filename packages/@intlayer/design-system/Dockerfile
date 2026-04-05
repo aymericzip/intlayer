@@ -42,6 +42,8 @@ COPY \
   --exclude=docs/legal \
   --exclude=apps/website \
   --exclude=apps/app \
+  --exclude=apps/doc \
+  --exclude=apps/showcase \
   --exclude=plugins \
   --exclude=examples \
   . .

@@ -70,6 +70,7 @@ COPY \
     --exclude=packages/adonis-intlayer \
     --exclude=apps/website \
     --exclude=apps/showcase \
+    --exclude=apps/doc \
     --exclude=plugins \
     --exclude=docs/assets \
     --exclude=examples \
