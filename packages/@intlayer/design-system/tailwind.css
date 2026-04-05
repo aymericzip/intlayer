@@ -72,17 +72,17 @@
   --color-neutral-900: rgba(61, 61, 61);
   --color-neutral-950: rgba(48, 48, 48);
 
-  --color-success: rgba(0, 204, 102);
-  --color-success-50: rgba(254, 244, 255);
-  --color-success-100: rgba(252, 232, 255);
-  --color-success-200: rgba(248, 208, 254);
-  --color-success-300: rgba(241, 171, 252);
-  --color-success-400: rgba(203, 235, 64);
-  --color-success-500: rgba(197, 101, 212);
-  --color-success-600: rgba(163, 81, 175);
-  --color-success-700: rgba(128, 61, 139);
-  --color-success-800: rgba(93, 41, 102);
-  --color-success-900: rgba(59, 21, 65);
+  --color-success: rgba(0, 204, 102, 1);
+  --color-success-50: rgba(235, 251, 243, 1);
+  --color-success-100: rgba(186, 242, 214, 1);
+  --color-success-200: rgba(121, 232, 180, 1);
+  --color-success-300: rgba(54, 219, 145, 1);
+  --color-success-400: rgba(26, 211, 123, 1);
+  --color-success-500: rgba(0, 184, 92, 1);
+  --color-success-600: rgba(0, 153, 77, 1);
+  --color-success-700: rgba(0, 122, 61, 1);
+  --color-success-800: rgba(0, 92, 46, 1);
+  --color-success-900: rgba(0, 61, 31, 1);
 
   --color-warning: rgba(214, 153, 66);
   --color-warning-50: rgba(254, 251, 232);
