@@ -110,6 +110,35 @@ export const runSingleAudit = async (
       }
     });
 
+    const jsResponseMap = new Map<string, string>(); // URL -> content
+    let totalPageSize = 0;
+    const pendingResponses: Promise<void>[] = [];
+
+    page.on('response', (response) => {
+      const responsePromise = (async () => {
+        const responseUrl = response.url();
+        if (response.status() !== 200) return;
+        const contentType = response.headers()['content-type'] ?? '';
+        const isJavaScript =
+          contentType.includes('javascript') ||
+          /\.(js|mjs|cjs)(\?|$)/.test(responseUrl);
+        // Only scan same-origin scripts — third-party analytics/CDN scripts
+        // (GTM, Intercom, etc.) contain locale-like keys that cause false positives.
+        const isSameOrigin = responseUrl.startsWith(origin);
+
+        try {
+          const bodyBuffer = await response.buffer();
+          totalPageSize += bodyBuffer.length;
+
+          if (!isJavaScript || !isSameOrigin) return;
+          jsResponseMap.set(responseUrl, bodyBuffer.toString('utf-8'));
+        } catch {
+          /* response already consumed or aborted */
+        }
+      })();
+      pendingResponses.push(responsePromise);
+    });
+
     await page.setViewport({ width: 1280, height: 800 });
 
     page.on('requestfailed', (request) =>
@@ -124,11 +153,45 @@ export const runSingleAudit = async (
 
     await gotoWithRetries(page, targetUrl);
 
+    await Promise.allSettled(pendingResponses);
+
     const html = await page.content();
     logger.info(`[runSingleAudit] Page loaded. Content length: ${html.length}`);
     const cheerioApi = load(html);
     logger.info(
       `[runSingleAudit] Cheerio loaded. Body found: ${cheerioApi('body').length > 0}`
+    );
+
+    // Identify main bundle scripts — scripts that are eagerly loaded on initial page load.
+    // Covers:
+    //   <script src="...">              — classic and module entry points
+    //   <link rel="modulepreload">      — Vite preloads critical chunks this way
+    //   <link rel="preload" as="script"> — generic preload
+    const mainBundleUrls = new Set<string>();
+    const addMainUrl = (raw: string | undefined) => {
+      if (!raw) return;
+      try {
+        mainBundleUrls.add(new URL(raw, targetUrl).href);
+      } catch {
+        /* ignore */
+      }
+    };
+    cheerioApi('script[src]').each((_, el) =>
+      addMainUrl(cheerioApi(el).attr('src'))
+    );
+    cheerioApi('link[rel="modulepreload"][href]').each((_, el) =>
+      addMainUrl(cheerioApi(el).attr('href'))
+    );
+    cheerioApi('link[rel="preload"][as="script"][href]').each((_, el) =>
+      addMainUrl(cheerioApi(el).attr('href'))
+    );
+
+    const bundleChunks = Array.from(jsResponseMap.entries()).map(
+      ([url, content]) => ({
+        url,
+        isMainBundle: mainBundleUrls.has(url),
+        content,
+      })
     );
 
     await extractPageMetadata(cheerioApi, targetUrl, handleEvent);
@@ -142,13 +205,6 @@ export const runSingleAudit = async (
     );
 
     handleEvent({
-      progress: 20,
-      message: 'Analysing bundle content...',
-    });
-
-    checkBundleContent(html, langTag, targetUrl, handleEvent);
-
-    handleEvent({
       progress: 30,
       message: 'Analyzing linguistic structure...',
     });
@@ -157,6 +213,20 @@ export const runSingleAudit = async (
       cheerioApi,
       targetUrl,
       localesSet,
+      handleEvent
+    );
+
+    handleEvent({
+      progress: 40,
+      message: 'Analysing bundle content & leakage...',
+    });
+
+    checkBundleContent(
+      bundleChunks,
+      html,
+      langTag,
+      targetUrl,
+      totalPageSize,
       handleEvent
     );
 

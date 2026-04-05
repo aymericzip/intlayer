@@ -5,6 +5,7 @@ import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { AnalyzerPageResults } from './Analyzer/Results/AnalyzerPageResults';
 import { AnalyzerSiteResults } from './Analyzer/Results/AnalyzerSiteResults';
+import { BundleContentField } from './Analyzer/Results/BundleContentField';
 import { RobotsSection } from './Analyzer/Results/RobotsSection';
 import { SitemapSection } from './Analyzer/Results/SitemapSection';
 import { RecursiveAuditResults } from './RecursiveAuditResults';
@@ -66,6 +67,7 @@ export const AnalyzerResultsSection: FC<AnalyzerResultsSectionProps> = ({
     !isDiscovering &&
     !discoveredUrls &&
     hasData;
+  const bundleKey = 'bundleContent' as const;
 
   if (!hasData && !isSingleScanLoading) return null;
 
@@ -76,17 +78,18 @@ export const AnalyzerResultsSection: FC<AnalyzerResultsSectionProps> = ({
         score={score}
         isLoading={isSingleScanLoading}
       />
-
       <AnalyzerPageResults
         data={mergedData}
         url={url}
         isLoading={isSingleScanLoading}
       />
-
       <RobotsSection data={mergedData} isLoading={isSingleScanLoading} />
-
       <SitemapSection data={mergedData} isLoading={isSingleScanLoading} />
-
+      <BundleContentField
+        id={bundleKey}
+        event={mergedData[`url_unusedBundleContent\\${url}`]}
+        isLoading={isSingleScanLoading}
+      />
       {showFullSiteButton && (
         <div className="mt-6 flex flex-col items-center gap-4 border-neutral border-t border-dashed pt-6">
           <p className="text-neutral text-sm">{wantToAnalyzeFullSite}</p>
@@ -114,13 +117,11 @@ export const AnalyzerResultsSection: FC<AnalyzerResultsSectionProps> = ({
           )}
         </div>
       )}
-
       {isDiscovering && (
         <div className="mt-6 border-neutral border-t border-dashed pt-6 text-center text-sm text-text/60">
           {discoveringUrls}
         </div>
       )}
-
       {discoveredUrls && !recursiveJobId && (
         <UrlDiscoveryList
           urls={discoveredUrls}
@@ -129,7 +130,6 @@ export const AnalyzerResultsSection: FC<AnalyzerResultsSectionProps> = ({
           onCancel={() => onStartWithUrls([])}
         />
       )}
-
       {recursiveStatus && (
         <RecursiveAuditResults
           status={recursiveStatus}

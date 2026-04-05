@@ -20,16 +20,33 @@ type AnalyzerPageResultsProps = {
 };
 
 export const createCompOverwrite = (isDarkMode: boolean) => ({
-  code: ({ className, children, ...props }: HTMLProps<HTMLElement>) => (
-    <Code
-      {...props}
-      language={className?.replace('lang-', '') as CodeLanguage}
-      showHeader={false}
-      isDarkMode={isDarkMode}
-    >
-      {children as string}
-    </Code>
-  ),
+  code: ({ className, children, ...props }: HTMLProps<HTMLElement>) => {
+    const content = String(children ?? '').replace(/\n$/, '');
+    const isBlock = !!className;
+
+    if (!isBlock) {
+      const decodedContent = content.replace(
+        /&(?:amp;)?#(\d+);/g,
+        (_, code: string) => String.fromCharCode(parseInt(code, 10))
+      );
+      return (
+        <code className="rounded-md border border-neutral/30 bg-card/60 box-decoration-clone px-1.5 py-0.5 font-mono text-sm">
+          {decodedContent}
+        </code>
+      );
+    }
+
+    return (
+      <Code
+        {...props}
+        language={className?.replace('lang-', '') as CodeLanguage}
+        showHeader={false}
+        isDarkMode={isDarkMode}
+      >
+        {children as string}
+      </Code>
+    );
+  },
   pre: ({ children }: HTMLProps<HTMLElement>) => <>{children}</>,
   // Use div instead of p to prevent block elements (code/pre/div) from nesting inside <p>
   p: ({ children }: HTMLProps<HTMLElement>) => (

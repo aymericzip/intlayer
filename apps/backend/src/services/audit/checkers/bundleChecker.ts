@@ -1,10 +1,15 @@
-import { analyzeBundleContent } from '../analysis/analyzeBundleContent';
+import {
+  analyzeBundleContent,
+  type BundleChunkInput,
+} from '../analysis/analyzeBundleContent';
 import type { AuditEvent } from '../types';
 
 export const checkBundleContent = (
-  html: string,
+  chunks: BundleChunkInput[],
+  htmlContent: string,
   currentLocale: string | undefined,
   targetUrl: string,
+  totalPageSize: number,
   onEvent: (event: AuditEvent) => void
 ): void => {
   if (!currentLocale) {
@@ -19,52 +24,67 @@ export const checkBundleContent = (
     return;
   }
 
-  const analysis = analyzeBundleContent(html, currentLocale);
-
-  if (analysis.dictionariesFound === 0) {
-    onEvent({
-      type: `url_unusedBundleContent\\${targetUrl}`,
-      status: 'success',
-      data: {
-        successDetails: 'No locale-keyed content detected in bundle',
-      },
-    });
-    return;
-  }
+  const analysis = analyzeBundleContent(
+    chunks,
+    htmlContent,
+    currentLocale,
+    totalPageSize
+  );
 
   const {
-    optimizablePercentage,
-    unusedLocaleSize,
-    currentLocaleSize,
-    totalContentSize,
-    unusedLocaleBreakdown,
-    dictionariesFound,
+    renderedContentSize,
+    contentSize,
+    totalLocaleSize,
+    totalUnusedLocaleSize,
+    unusedPercentOfLocale,
+    mainBundleChunks,
+    lazyBundleChunks,
+    totalPageSize: analysisTotalPageSize,
   } = analysis;
 
-  const toKB = (bytes: number) => `${(bytes / 1024).toFixed(1)} KB`;
+  const formatSize = (bytes: number): string => {
+    if (bytes >= 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+    if (bytes >= 1024) return `${(bytes / 1024).toFixed(2)} KB`;
+    return `${bytes} B`;
+  };
+  const filename = (url: string) => url.split('/').pop()?.split('?')[0] ?? url;
+
+  const serializeChunk = (c: (typeof mainBundleChunks)[number]) => ({
+    filename: filename(c.url),
+    url: c.url,
+    fileSize: formatSize(c.fileSize),
+    totalLocaleSize: formatSize(c.totalLocaleSize),
+    usedLocaleSize: formatSize(c.usedLocaleSize),
+    unusedLocaleSize: formatSize(c.unusedLocaleSize),
+    dictionariesFound: c.dictionariesFound,
+    unusedPercent: `${c.unusedPercent}%`,
+  });
 
   const summary = {
     currentLocale,
-    dictionariesFound,
-    totalContentSize: toKB(totalContentSize),
-    currentLocaleSize: toKB(currentLocaleSize),
-    unusedLocaleSize: toKB(unusedLocaleSize),
-    optimizablePercentage: `${optimizablePercentage}%`,
-    unusedLocaleBreakdown: Object.fromEntries(
-      Object.entries(unusedLocaleBreakdown).map(([locale, size]) => [
-        locale,
-        toKB(size),
-      ])
-    ),
+    totalPageSize: formatSize(analysisTotalPageSize),
+    renderedContentSize: formatSize(renderedContentSize),
+    contentSize: formatSize(contentSize),
+    totalLocaleSize: formatSize(totalLocaleSize),
+    totalUnusedLocaleSize: formatSize(totalUnusedLocaleSize),
+    unusedPercentOfLocale: `${unusedPercentOfLocale}%`,
+    mainBundleChunks: mainBundleChunks.map(serializeChunk),
+    lazyBundleChunks: lazyBundleChunks.map(serializeChunk),
   };
 
-  if (optimizablePercentage === 0) {
+  // Status is driven by the main bundle — lazy chunks with unused content are expected
+  const mainBundleMaxUnused = mainBundleChunks.reduce(
+    (max, c) => Math.max(max, c.unusedPercent),
+    0
+  );
+
+  if (mainBundleMaxUnused === 0) {
     onEvent({
       type: `url_unusedBundleContent\\${targetUrl}`,
       status: 'success',
       data: { successDetails: summary },
     });
-  } else if (optimizablePercentage < 30) {
+  } else if (mainBundleMaxUnused <= 30) {
     onEvent({
       type: `url_unusedBundleContent\\${targetUrl}`,
       status: 'warning',

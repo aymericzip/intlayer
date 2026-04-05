@@ -50,11 +50,13 @@ export const InformationTag: FC<PropsWithChildren<{ id: string }>> = ({
   </Popover>
 );
 
-export const EventTag: FC<{
-  id: string;
-  event?: AuditEvent;
-  isLoading?: boolean;
-}> = ({ event, id, isLoading }) => {
+export const EventTag: FC<
+  PropsWithChildren<{
+    id: string;
+    event?: AuditEvent;
+    isLoading?: boolean;
+  }>
+> = ({ event, id, isLoading, children }) => {
   const { resolvedTheme } = useTheme();
   const isDarkMode = resolvedTheme === 'dark';
   const details =
@@ -72,7 +74,10 @@ export const EventTag: FC<{
 
     return (
       <Popover identifier={`information-tag-${id}`}>
-        <StatusIcon status={event?.status} />
+        <span className="flex cursor-pointer items-center gap-1.5">
+          <StatusIcon status={event?.status} />
+          {children}
+        </span>
         <Popover.Detail
           identifier={`information-tag-${id}`}
           className="flex max-h-80 w-auto max-w-125 flex-col gap-4 overflow-auto bg-background/50 p-4 text-left text-sm"
@@ -105,20 +110,21 @@ export const EventTag: FC<{
   }
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center gap-1.5">
       <StatusIcon status={event?.status} isLoading={isLoading} />
+      {children}
     </div>
   );
 };
 
-export type FieldItemProps = {
+export type FieldItemProps = PropsWithChildren<{
   id: string;
   icon: ReactNode;
   details?: ReactNode;
   label: ReactNode;
   event?: AuditEvent;
   isLoading?: boolean;
-};
+}>;
 
 export const FieldItem: FC<FieldItemProps> = ({
   id,
@@ -127,12 +133,15 @@ export const FieldItem: FC<FieldItemProps> = ({
   event,
   details,
   isLoading,
+  children,
 }) => (
   <div className="grid grid-cols-[auto_auto_1fr_auto] items-center gap-2 rounded-lg px-2 py-1 text-neutral">
     {icon}
     <strong className="min-w-28">{label}:</strong>
     <span className="flex items-center justify-end gap-2 text-left text-text/70">
-      <EventTag id={`${id}-success`} event={event} isLoading={isLoading} />
+      <EventTag id={`${id}-success`} event={event} isLoading={isLoading}>
+        {children}
+      </EventTag>
 
       {details && <InformationTag id={id}>{details}</InformationTag>}
     </span>
