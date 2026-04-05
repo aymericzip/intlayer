@@ -1,5 +1,6 @@
 'use client';
 
+import { Link } from '@components/Link/Link';
 import { Tag } from '@intlayer/design-system';
 import { cn } from '@intlayer/design-system/utils';
 import { Package } from 'lucide-react';
@@ -139,12 +140,17 @@ const BundleSummaryLabel: FC<BundleSummaryLabelProps> = ({ summary }) => {
                         >
                           {chunk.isMain ? chunkTable.main : chunkTable.lazy}
                         </Tag>
-                        <span
-                          className="truncate font-mono text-text/70 text-xs"
-                          title={chunk.url}
+                        <Link
+                          href={chunk.url}
+                          target="_blank"
+                          label={chunk.filename}
+                          rel="noopener noreferrer"
+                          color="custom"
+                          className="text-text/70 text-xs"
+                          size="sm"
                         >
                           {chunk.filename}
-                        </span>
+                        </Link>
                       </span>
                     </TD>
                     <TD right className="text-text/60">
