@@ -2,7 +2,7 @@ import {
   isTextChildren,
   LinkVariant,
   linkVariants,
-} from '@intlayer/design-system';
+} from '@intlayer/design-system/link';
 import { cn } from '@intlayer/design-system/utils';
 import {
   type LinkComponentProps,

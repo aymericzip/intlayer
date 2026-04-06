@@ -1,10 +1,7 @@
 'use client';
 
-import {
-  SwitchSelector,
-  TechLogo,
-  TechLogoName,
-} from '@intlayer/design-system';
+import { SwitchSelector } from '@intlayer/design-system/switch-selector';
+import { TechLogo, TechLogoName } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
 import { type Framework, useFramework } from './FrameworkContext';
 

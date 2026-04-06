@@ -2,16 +2,14 @@
 
 import { SearchTrigger } from '@components/DocPage/Search/SearchTrigger';
 import { Link } from '@components/Link/Link';
-import {
-  Accordion,
-  Button,
-  ClickOutsideDiv,
-  Container,
-  KeyboardShortcut,
-  MaxWidthSmoother,
-  PopoverStatic,
-} from '@intlayer/design-system';
+import { Accordion } from '@intlayer/design-system/accordion';
+import { Button } from '@intlayer/design-system/button';
+import { ClickOutsideDiv } from '@intlayer/design-system/click-outside-div';
+import { Container } from '@intlayer/design-system/container';
 import { useDevice } from '@intlayer/design-system/hooks';
+import { KeyboardShortcut } from '@intlayer/design-system/keyboard-shortcut';
+import { MaxWidthSmoother } from '@intlayer/design-system/max-width-smoother';
+import { PopoverStatic } from '@intlayer/design-system/popover';
 import {
   Website_Blog_Path,
   Website_Doc_Chat_Path,

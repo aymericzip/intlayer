@@ -1,12 +1,15 @@
 'use client';
 
-import { Button, Container, DropDown, Modal } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { DropDown } from '@intlayer/design-system/drop-down';
 import {
   useGetProjects,
   useSelectProject,
   useSession,
   useUnselectProject,
 } from '@intlayer/design-system/hooks';
+import { Modal } from '@intlayer/design-system/modal';
 import { ChevronsUpDown } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type ComponentProps, type FC, useState } from 'react';

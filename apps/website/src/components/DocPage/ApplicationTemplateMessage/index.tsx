@@ -1,5 +1,6 @@
 import { Link } from '@components/Link/Link';
-import { PopoverStatic, TechLogos } from '@intlayer/design-system';
+import { PopoverStatic } from '@intlayer/design-system/popover';
+import { TechLogos } from '@intlayer/design-system/tech-logo';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 

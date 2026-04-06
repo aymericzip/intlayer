@@ -1,6 +1,8 @@
 'use client';
 
-import { Button, Loader, TechLogos } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Loader } from '@intlayer/design-system/loader';
+import { TechLogos } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
 import { GitBranch } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';

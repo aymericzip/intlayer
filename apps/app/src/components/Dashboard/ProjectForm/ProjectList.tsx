@@ -1,20 +1,20 @@
 'use client';
 
 import type { ProjectAPI } from '@intlayer/backend';
-import {
-  Button,
-  Container,
-  Loader,
-  Modal,
-  Pagination,
-  SearchInput,
-  ShowingResultsNumberItems,
-} from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
 import {
   useGetProjects,
   useSearch,
   useSelectProject,
 } from '@intlayer/design-system/hooks';
+import { SearchInput } from '@intlayer/design-system/input';
+import { Loader } from '@intlayer/design-system/loader';
+import { Modal } from '@intlayer/design-system/modal';
+import {
+  Pagination,
+  ShowingResultsNumberItems,
+} from '@intlayer/design-system/pagination';
 import { Plus } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';

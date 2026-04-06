@@ -1,10 +1,6 @@
 import type { UserAPI } from '@intlayer/backend';
-import {
-  Avatar,
-  Badge,
-  BadgeColor,
-  BadgeVariant,
-} from '@intlayer/design-system';
+import { Avatar } from '@intlayer/design-system/avatar';
+import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
 import type { FC } from 'react';
 
 interface UserHeaderProps {

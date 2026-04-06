@@ -1,7 +1,9 @@
 'use client';
 
-import { Link, Popover, TechLogo, TechLogoName } from '@intlayer/design-system';
 import { usePersistedStore } from '@intlayer/design-system/hooks';
+import { Link } from '@intlayer/design-system/link';
+import { Popover } from '@intlayer/design-system/popover';
+import { TechLogo, TechLogoName } from '@intlayer/design-system/tech-logo';
 import type { FC, ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
 

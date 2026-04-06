@@ -1,12 +1,15 @@
 'use client';
 
-import { Button, Form, Modal, Tag, useForm } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Form, useForm } from '@intlayer/design-system/form';
 import {
   useDisableTwoFactor,
   useEnableTwoFactor,
   useSession,
   useVerifyTotp,
 } from '@intlayer/design-system/hooks';
+import { Modal } from '@intlayer/design-system/modal';
+import { Tag } from '@intlayer/design-system/tag';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { useState } from 'react';

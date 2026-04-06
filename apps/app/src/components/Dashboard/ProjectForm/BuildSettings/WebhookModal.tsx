@@ -1,7 +1,9 @@
 'use client';
 
 import type { Webhook } from '@intlayer/backend';
-import { Button, Form, Modal, useForm } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Form, useForm } from '@intlayer/design-system/form';
+import { Modal } from '@intlayer/design-system/modal';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
 import { z } from 'zod';

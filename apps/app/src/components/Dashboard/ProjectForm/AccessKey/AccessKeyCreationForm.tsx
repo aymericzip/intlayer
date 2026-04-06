@@ -1,5 +1,5 @@
 import type { AddNewAccessKeyResponse } from '@intlayer/backend';
-import { Form, useForm } from '@intlayer/design-system';
+import { Form, useForm } from '@intlayer/design-system/form';
 import { useAddNewAccessKey, useSession } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';

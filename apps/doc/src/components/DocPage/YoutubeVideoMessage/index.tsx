@@ -1,4 +1,5 @@
-import { PopoverStatic, YoutubeLogo } from '@intlayer/design-system';
+import { PopoverStatic } from '@intlayer/design-system/popover';
+import { YoutubeLogo } from '@intlayer/design-system/social-networks';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#/components/Link';

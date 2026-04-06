@@ -1,4 +1,5 @@
-import { H1, Link } from '@intlayer/design-system';
+import { H1 } from '@intlayer/design-system/headers';
+import { Link } from '@intlayer/design-system/link';
 import { Showcase_Submit_Path } from '@intlayer/design-system/routes';
 import { Plus } from 'lucide-react';
 import { useIntlayer } from 'react-intlayer';

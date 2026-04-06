@@ -1,7 +1,7 @@
 import { BaiduAutoPushSubscriber } from '@components/BaiduAutoPush/BaiduAutoPushSubscriber';
 import { ChunkErrorListener } from '@components/ChunkErrorListener';
-import { Toaster } from '@intlayer/design-system';
 import { ReactQueryProvider } from '@intlayer/design-system/providers';
+import { Toaster } from '@intlayer/design-system/toaster';
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import Script from 'next/script';
 import type { FC, PropsWithChildren } from 'react';

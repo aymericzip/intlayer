@@ -1,7 +1,7 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import { LinkColor, LinkVariant } from '@intlayer/design-system';
+import { LinkColor, LinkVariant } from '@intlayer/design-system/link';
 import { Website_Doc_Path } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import { ArrowRight } from 'lucide-react';

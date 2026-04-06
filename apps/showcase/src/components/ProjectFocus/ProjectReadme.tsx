@@ -1,12 +1,6 @@
-import {
-  Container,
-  H2,
-  H3,
-  H4,
-  H5,
-  H6,
-  MarkdownRenderer,
-} from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
+import { H2, H3, H4, H5, H6 } from '@intlayer/design-system/headers';
+import { MarkdownRenderer } from '@intlayer/design-system/mark-down-render';
 import { cn } from '@intlayer/design-system/utils';
 import { useQuery } from '@tanstack/react-query';
 import React, { type HTMLProps, memo } from 'react';

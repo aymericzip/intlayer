@@ -1,17 +1,17 @@
 'use client';
 
 import type { GetProjectsResult, ProjectAPI } from '@intlayer/backend';
+import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
+import { useGetProjects, useSearch } from '@intlayer/design-system/hooks';
+import { SearchInput } from '@intlayer/design-system/input';
+import { Loader } from '@intlayer/design-system/loader';
 import {
-  CopyToClipboard,
-  Loader,
   NumberItemsSelector,
   Pagination,
-  SearchInput,
   ShowingResultsNumberItems,
-  Table,
-} from '@intlayer/design-system';
-import { useGetProjects, useSearch } from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/pagination';
 import { getAppAdminProjectRoute } from '@intlayer/design-system/routes';
+import { Table } from '@intlayer/design-system/table';
 import { cn } from '@intlayer/design-system/utils';
 import {
   type ColumnDef,

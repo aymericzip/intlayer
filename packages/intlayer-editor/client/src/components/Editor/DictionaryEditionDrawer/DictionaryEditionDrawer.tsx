@@ -1,17 +1,19 @@
 'use client';
 
+import { Button } from '@intlayer/design-system/button';
+import { DictionaryEditor } from '@intlayer/design-system/dictionary-editor';
 import {
-  Button,
-  DictionaryEditor,
   DictionaryFieldEditor,
-  Modal,
-  Popover,
-  RightDrawer,
   SaveForm,
-  Tag,
-  useRightDrawer,
-} from '@intlayer/design-system';
+} from '@intlayer/design-system/dictionary-field-editor';
 import { useGetEditorDictionaries } from '@intlayer/design-system/hooks';
+import { Modal } from '@intlayer/design-system/modal';
+import { Popover } from '@intlayer/design-system/popover';
+import {
+  RightDrawer,
+  useRightDrawer,
+} from '@intlayer/design-system/right-drawer';
+import { Tag } from '@intlayer/design-system/tag';
 import { useFocusUnmergedDictionary } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { PencilRuler } from 'lucide-react';

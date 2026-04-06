@@ -1,15 +1,13 @@
 'use client';
 
-import {
-  Button,
-  Container,
-  HeightResizer,
-  KeyboardShortcut,
-  MaxWidthSmoother,
-  Modal,
-  PopoverStatic,
-  SocialNetworks,
-} from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { HeightResizer } from '@intlayer/design-system/height-resizer';
+import { KeyboardShortcut } from '@intlayer/design-system/keyboard-shortcut';
+import { MaxWidthSmoother } from '@intlayer/design-system/max-width-smoother';
+import { Modal } from '@intlayer/design-system/modal';
+import { PopoverStatic } from '@intlayer/design-system/popover';
+import { SocialNetworks } from '@intlayer/design-system/social-networks';
 import { cn } from '@intlayer/design-system/utils';
 import { useRouterState } from '@tanstack/react-router';
 import { ArrowRightToLine, MoveDiagonal } from 'lucide-react';

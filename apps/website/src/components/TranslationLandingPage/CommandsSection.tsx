@@ -1,12 +1,12 @@
 'use client';
 
 import {
-  CodeBlock,
   Container,
   ContainerPadding,
   ContainerRoundedSize,
   ContainerTransparency,
-} from '@intlayer/design-system';
+} from '@intlayer/design-system/container';
+import { CodeBlock } from '@intlayer/design-system/ide';
 import { motion, type Variants } from 'framer-motion';
 import { Braces, FileText, Languages } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';

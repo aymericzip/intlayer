@@ -1,6 +1,6 @@
 'use client';
 
-import { Loader } from '@intlayer/design-system';
+import { Loader } from '@intlayer/design-system/loader';
 import { EditorProvider as EditorProviderComponent } from '@intlayer/editor-react';
 import type { FC, PropsWithChildren, RefObject } from 'react';
 import { useIntlayerConfig } from '../../hooks/useIntlayerConfig';

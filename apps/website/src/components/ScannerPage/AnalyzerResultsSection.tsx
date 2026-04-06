@@ -1,5 +1,9 @@
 import { Link } from '@components/Link/Link';
-import { Button, ButtonColor, ButtonVariant } from '@intlayer/design-system';
+import {
+  Button,
+  ButtonColor,
+  ButtonVariant,
+} from '@intlayer/design-system/button';
 import { App_Auth_SignIn } from '@intlayer/design-system/routes';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';

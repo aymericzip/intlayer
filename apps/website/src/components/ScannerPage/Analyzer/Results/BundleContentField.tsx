@@ -1,7 +1,7 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import { Tag } from '@intlayer/design-system';
+import { Tag } from '@intlayer/design-system/tag';
 import { cn } from '@intlayer/design-system/utils';
 import { Package } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';

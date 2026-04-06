@@ -1,4 +1,4 @@
-import { Link } from '@intlayer/design-system';
+import { Link } from '@intlayer/design-system/link';
 import { Website_Playground_Path } from '@intlayer/design-system/routes';
 import { getLocalizedUrl } from 'intlayer';
 import { CircleArrowRight } from 'lucide-react';

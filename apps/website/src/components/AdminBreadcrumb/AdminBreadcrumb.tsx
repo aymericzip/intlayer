@@ -4,7 +4,7 @@ import {
   Breadcrumb,
   type BreadcrumbLink,
   type BreadcrumbProps,
-} from '@intlayer/design-system';
+} from '@intlayer/design-system/breadcrumb';
 import { App_Admin_Dashboard } from '@intlayer/design-system/routes';
 import { useParams, usePathname } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';

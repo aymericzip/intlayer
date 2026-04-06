@@ -1,4 +1,5 @@
-import { Form, H2, useForm } from '@intlayer/design-system';
+import { Form, useForm } from '@intlayer/design-system/form';
+import { H2 } from '@intlayer/design-system/headers';
 import { useRegister, useUser } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';

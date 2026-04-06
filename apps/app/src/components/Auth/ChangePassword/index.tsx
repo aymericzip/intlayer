@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
 import { useChangePassword, useUser } from '@intlayer/design-system/hooks';
 import { App_Home_Path } from '@intlayer/design-system/routes';
 import { Check } from 'lucide-react';

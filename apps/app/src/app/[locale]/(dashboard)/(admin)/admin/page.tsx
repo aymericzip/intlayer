@@ -1,5 +1,5 @@
 'use client';
-import { Loader } from '@intlayer/design-system';
+import { Loader } from '@intlayer/design-system/loader';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 

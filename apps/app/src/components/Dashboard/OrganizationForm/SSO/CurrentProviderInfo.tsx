@@ -1,4 +1,6 @@
-import { Button, Container, H4 } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { H4 } from '@intlayer/design-system/headers';
 import { Trash2 } from 'lucide-react';
 import type { FC } from 'react';
 

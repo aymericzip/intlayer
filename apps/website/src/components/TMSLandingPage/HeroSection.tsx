@@ -1,19 +1,13 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import {
-  Container,
-  LinkColor,
-  LinkVariant,
-  Tag,
-  TagBorder,
-  TagColor,
-  TagSize,
-} from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
+import { LinkColor, LinkVariant } from '@intlayer/design-system/link';
 import {
   App_Dashboard_Projects,
   App_Pricing,
 } from '@intlayer/design-system/routes';
+import { Tag, TagBorder, TagColor, TagSize } from '@intlayer/design-system/tag';
 import {
   domAnimation,
   LazyMotion,

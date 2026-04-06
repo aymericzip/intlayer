@@ -7,7 +7,7 @@ import {
   type LinkProps as LinkUIProps,
   LinkVariant,
   linkVariants,
-} from '@intlayer/design-system';
+} from '@intlayer/design-system/link';
 import { cn } from '@intlayer/design-system/utils';
 import { ExternalLink, MoveRight } from 'lucide-react';
 import NextLink, { type LinkProps as NextLinkProps } from 'next/link';

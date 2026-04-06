@@ -1,6 +1,7 @@
 'use client';
 
-import { Button, Container } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
 import { useAddPasskey, useDeletePasskey } from '@intlayer/design-system/hooks';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';

@@ -1,4 +1,4 @@
-import type { LinkGroup } from '@intlayer/design-system';
+import type { LinkGroup } from '@intlayer/design-system/footer';
 import {
   External_ExampleIntlayerWithNextjs,
   External_ExampleIntlayerWithReactJS,

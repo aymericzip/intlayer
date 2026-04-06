@@ -1,4 +1,4 @@
-import { Form, useForm } from '@intlayer/design-system';
+import { Form, useForm } from '@intlayer/design-system/form';
 import { cn } from '@intlayer/design-system/utils';
 import { ArrowUp, Eraser } from 'lucide-react';
 import {

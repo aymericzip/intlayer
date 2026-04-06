@@ -1,4 +1,4 @@
-import { Container } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
 import { Website_FrequentQuestions } from '@intlayer/design-system/routes';
 import { getFrequentQuestionMetadataRecord } from '@intlayer/docs';
 import { createFileRoute } from '@tanstack/react-router';

@@ -1,6 +1,7 @@
 'use client';
 
-import { Container, Tag } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
+import { Tag } from '@intlayer/design-system/tag';
 import { m, type Variants } from 'framer-motion';
 import { RefreshCw, Server, Zap } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';

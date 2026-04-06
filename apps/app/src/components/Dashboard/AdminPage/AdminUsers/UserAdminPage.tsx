@@ -6,26 +6,24 @@ import type {
   GetUsersResult,
   UserAPI,
 } from '@intlayer/backend';
-import {
-  Avatar,
-  Badge,
-  BadgeColor,
-  BadgeVariant,
-  CopyToClipboard,
-  Loader,
-  NumberItemsSelector,
-  Pagination,
-  SearchInput,
-  Select,
-  ShowingResultsNumberItems,
-  Table,
-} from '@intlayer/design-system';
+import { Avatar } from '@intlayer/design-system/avatar';
+import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
+import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import {
   useGetOrganizations,
   useGetUsers,
   useSearch,
 } from '@intlayer/design-system/hooks';
+import { SearchInput } from '@intlayer/design-system/input';
+import { Loader } from '@intlayer/design-system/loader';
+import {
+  NumberItemsSelector,
+  Pagination,
+  ShowingResultsNumberItems,
+} from '@intlayer/design-system/pagination';
 import { getAppAdminUserRoute } from '@intlayer/design-system/routes';
+import { Select } from '@intlayer/design-system/select';
+import { Table } from '@intlayer/design-system/table';
 import { cn } from '@intlayer/design-system/utils';
 import {
   type ColumnDef,

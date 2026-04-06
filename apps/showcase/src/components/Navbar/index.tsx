@@ -1,10 +1,8 @@
-import {
-  DiscordLogo,
-  Link,
-  LogoWithText,
-  TechLogos,
-  Navbar as UINavBar,
-} from '@intlayer/design-system';
+import { Link } from '@intlayer/design-system/link';
+import { LogoWithText } from '@intlayer/design-system/logo';
+import { Navbar as UINavBar } from '@intlayer/design-system/navbar';
+import { DiscordLogo } from '@intlayer/design-system/social-networks';
+import { TechLogos } from '@intlayer/design-system/tech-logo';
 import { useLocation, useRouter } from '@tanstack/react-router';
 import { StarIcon } from 'lucide-react';
 import type { FC } from 'react';

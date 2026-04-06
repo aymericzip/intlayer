@@ -1,6 +1,7 @@
 'use client';
 
-import { AutoCompleteTextarea, Container } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
+import { AutoCompleteTextarea } from '@intlayer/design-system/text-area';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
 

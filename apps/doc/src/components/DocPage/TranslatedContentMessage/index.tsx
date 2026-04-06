@@ -1,6 +1,6 @@
 'use client';
 
-import { Popover } from '@intlayer/design-system';
+import { Popover } from '@intlayer/design-system/popover';
 import { getLocalizedUrl } from 'intlayer';
 import { Languages } from 'lucide-react';
 import type { FC } from 'react';

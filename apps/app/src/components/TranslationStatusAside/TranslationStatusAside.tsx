@@ -1,11 +1,9 @@
 'use client';
 
-import {
-  Button,
-  Loader,
-  PopoverStatic,
-  RightDrawer,
-} from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Loader } from '@intlayer/design-system/loader';
+import { PopoverStatic } from '@intlayer/design-system/popover';
+import { RightDrawer } from '@intlayer/design-system/right-drawer';
 import { cn } from '@intlayer/design-system/utils';
 import { AlertCircle, CheckCircle2, Globe, X, Zap } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';

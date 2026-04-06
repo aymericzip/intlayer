@@ -1,6 +1,6 @@
 'use client';
 
-import { Container } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
 import { useTheme } from 'next-themes';
 import type { FC, PropsWithChildren } from 'react';
 import { DictionaryEditionDrawerController } from './DictionaryEditionDrawer';

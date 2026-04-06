@@ -1,4 +1,5 @@
-import { Form, Modal } from '@intlayer/design-system';
+import { Form } from '@intlayer/design-system/form';
+import { Modal } from '@intlayer/design-system/modal';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 

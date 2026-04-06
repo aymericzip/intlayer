@@ -1,6 +1,7 @@
 'use client';
 
-import { Form, H3, useForm } from '@intlayer/design-system';
+import { Form, useForm } from '@intlayer/design-system/form';
+import { H3 } from '@intlayer/design-system/headers';
 import {
   useSession,
   useUpdateOrganization,

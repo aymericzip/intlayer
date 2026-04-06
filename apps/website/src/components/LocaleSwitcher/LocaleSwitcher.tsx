@@ -2,12 +2,9 @@
 
 import { Link } from '@components/Link/Link';
 import { getHTMLTextDir, getLocaleName } from '@intlayer/core/localization';
-import {
-  Container,
-  DropDown,
-  Input,
-  type PanelProps,
-} from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
+import { DropDown, type PanelProps } from '@intlayer/design-system/drop-down';
+import { Input } from '@intlayer/design-system/input';
 import { MoveVertical } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC, useRef } from 'react';

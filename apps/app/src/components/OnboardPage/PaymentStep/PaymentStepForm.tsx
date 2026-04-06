@@ -1,13 +1,10 @@
 import type { Period, Plans } from '@components/PricingPage/data.content';
-import {
-  Button,
-  Container,
-  H2,
-  H3,
-  Label,
-  Loader,
-} from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { H2, H3 } from '@intlayer/design-system/headers';
 import { useGetSubscription, useSession } from '@intlayer/design-system/hooks';
+import { Label } from '@intlayer/design-system/label';
+import { Loader } from '@intlayer/design-system/loader';
 import { App_Pricing_Path } from '@intlayer/design-system/routes';
 import {
   Elements,

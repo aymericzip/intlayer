@@ -1,6 +1,7 @@
 'use client';
 
-import { H3, Select } from '@intlayer/design-system';
+import { H3 } from '@intlayer/design-system/headers';
+import { Select } from '@intlayer/design-system/select';
 import { getLocaleName, Locales } from 'intlayer';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC, useState } from 'react';

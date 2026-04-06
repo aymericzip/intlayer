@@ -1,8 +1,9 @@
 'use client';
 
 import type { GetTagsResult, TagAPI } from '@intlayer/backend';
-import { Container, Loader } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
 import { useGetTags } from '@intlayer/design-system/hooks';
+import { Loader } from '@intlayer/design-system/loader';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { TagEditionForm } from './TagEditionForm';

@@ -1,16 +1,18 @@
 'use client';
 
+import { Button } from '@intlayer/design-system/button';
+import { DictionaryEditor } from '@intlayer/design-system/dictionary-editor';
 import {
-  Button,
-  DictionaryEditor,
   DictionaryFieldEditor,
-  Modal,
-  Popover,
-  RightDrawer,
   SaveForm,
-  Tag,
+} from '@intlayer/design-system/dictionary-field-editor';
+import { Modal } from '@intlayer/design-system/modal';
+import { Popover } from '@intlayer/design-system/popover';
+import {
+  RightDrawer,
   useRightDrawer,
-} from '@intlayer/design-system';
+} from '@intlayer/design-system/right-drawer';
+import { Tag } from '@intlayer/design-system/tag';
 import {
   useDictionariesRecord,
   useFocusUnmergedDictionary,

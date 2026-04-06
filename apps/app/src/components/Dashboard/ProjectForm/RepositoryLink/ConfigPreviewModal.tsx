@@ -1,6 +1,9 @@
 'use client';
 
-import { Button, CodeBlock, Loader, Modal } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { CodeBlock } from '@intlayer/design-system/ide';
+import { Loader } from '@intlayer/design-system/loader';
+import { Modal } from '@intlayer/design-system/modal';
 import { XCircle } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';

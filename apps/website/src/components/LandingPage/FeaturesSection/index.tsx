@@ -1,7 +1,7 @@
 'use client';
 
-import { Loader } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
+import { Loader } from '@intlayer/design-system/loader';
 import { cn } from '@intlayer/design-system/utils';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';

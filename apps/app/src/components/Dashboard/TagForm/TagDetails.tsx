@@ -4,11 +4,11 @@ import {
   Button,
   ButtonColor,
   ButtonVariant,
-  Container,
-  H2,
-  Loader,
-} from '@intlayer/design-system';
+} from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { H2 } from '@intlayer/design-system/headers';
 import { useGetTags } from '@intlayer/design-system/hooks';
+import { Loader } from '@intlayer/design-system/loader';
 import { App_Dashboard_Tags } from '@intlayer/design-system/routes';
 import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';

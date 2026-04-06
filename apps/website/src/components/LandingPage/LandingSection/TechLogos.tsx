@@ -1,5 +1,4 @@
 import { Link } from '@components/Link/Link';
-import { TechLogo, TechLogoName } from '@intlayer/design-system';
 import {
   Website_Doc_Environment_Angular,
   Website_Doc_Environment_Astro,
@@ -18,6 +17,7 @@ import {
   Website_Doc_Environment_ViteAndSvelte,
   Website_Doc_Environment_ViteAndVue,
 } from '@intlayer/design-system/routes';
+import { TechLogo, TechLogoName } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
 import type { FC } from 'react';
 

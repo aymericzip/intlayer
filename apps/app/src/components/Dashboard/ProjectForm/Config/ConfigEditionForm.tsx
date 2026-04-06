@@ -1,15 +1,11 @@
 'use client';
 
 import type { ProjectConfiguration } from '@intlayer/backend';
-import {
-  Form,
-  H4,
-  Modal,
-  MultiSelect,
-  Select,
-  useForm,
-} from '@intlayer/design-system';
+import { Form, useForm } from '@intlayer/design-system/form';
+import { H4 } from '@intlayer/design-system/headers';
 import { useSession, useUpdateProject } from '@intlayer/design-system/hooks';
+import { Modal } from '@intlayer/design-system/modal';
+import { MultiSelect, Select } from '@intlayer/design-system/select';
 import { ALL_LOCALES } from '@intlayer/types/allLocales';
 import { AiProviders } from '@intlayer/types/config';
 import { getLocaleName, type Locale } from 'intlayer';

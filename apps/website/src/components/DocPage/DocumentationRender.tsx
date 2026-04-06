@@ -2,7 +2,7 @@
 
 import { Link } from '@components/Link/Link';
 import { TableOfContents } from '@components/TableOfContents';
-import { MarkdownRenderer } from '@intlayer/design-system';
+import { MarkdownRenderer } from '@intlayer/design-system/mark-down-render';
 import { useLocale } from 'next-intlayer';
 import { useTheme } from 'next-themes';
 import type { ComponentProps, FC } from 'react';

@@ -1,4 +1,4 @@
-import { GridPattern } from '@intlayer/design-system';
+import { GridPattern } from '@intlayer/design-system/pattern';
 import { cn } from '@intlayer/design-system/utils';
 import type { FC, PropsWithChildren } from 'react';
 

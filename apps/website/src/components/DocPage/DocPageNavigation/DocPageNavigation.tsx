@@ -1,4 +1,5 @@
-import { Container, Link } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
+import { Link } from '@intlayer/design-system/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';

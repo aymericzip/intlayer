@@ -1,4 +1,4 @@
-import { MarkdownRenderer } from '@intlayer/design-system';
+import { MarkdownRenderer } from '@intlayer/design-system/mark-down-render';
 import { cn } from '@intlayer/design-system/utils';
 import { useTheme } from 'next-themes';
 import type { FC, HTMLAttributes } from 'react';

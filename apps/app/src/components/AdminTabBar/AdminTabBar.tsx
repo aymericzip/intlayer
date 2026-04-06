@@ -1,17 +1,17 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import {
-  Container,
-  TabSelector,
-  TabSelectorColor,
-} from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
 import {
   App_Admin_Discussions_Path,
   App_Admin_Organizations_Path,
   App_Admin_Projects_Path,
   App_Admin_Users_Path,
 } from '@intlayer/design-system/routes';
+import {
+  TabSelector,
+  TabSelectorColor,
+} from '@intlayer/design-system/tab-selector';
 import { cn } from '@intlayer/design-system/utils';
 import { Building2, FolderOpen, MessageCircle, Users } from 'lucide-react';
 import { usePathname } from 'next/navigation';

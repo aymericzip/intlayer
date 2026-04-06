@@ -1,5 +1,5 @@
 import { AuthenticationBarrier } from '@components/Auth/AuthenticationBarrier/AuthenticationBarrier';
-import { LanguageBackground } from '@intlayer/design-system';
+import { LanguageBackground } from '@intlayer/design-system/language-background';
 import type { NextLayoutIntlayer } from 'next-intlayer';
 import { getSessionData } from '@/utils/getSessionData';
 

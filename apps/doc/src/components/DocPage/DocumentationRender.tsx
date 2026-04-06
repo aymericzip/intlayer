@@ -1,6 +1,6 @@
 'use client';
 
-import { MarkdownRenderer } from '@intlayer/design-system';
+import { MarkdownRenderer } from '@intlayer/design-system/mark-down-render';
 import { useTheme } from 'next-themes';
 import type { ComponentProps, FC } from 'react';
 import { useLocale } from 'react-intlayer';

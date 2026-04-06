@@ -1,5 +1,7 @@
 import { SearchView } from '@components/DocPage/Search/SearchView';
-import { Container, H1, Loader } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
+import { H1 } from '@intlayer/design-system/headers';
+import { Loader } from '@intlayer/design-system/loader';
 import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';

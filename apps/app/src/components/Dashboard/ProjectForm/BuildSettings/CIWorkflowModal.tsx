@@ -1,14 +1,12 @@
 'use client';
 
 import type { RepositoryProvider } from '@intlayer/backend';
-import {
-  Button,
-  CodeBlock,
-  Loader,
-  Modal,
-  useCopyToClipboard,
-} from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { useCopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import { usePushCIConfig } from '@intlayer/design-system/hooks';
+import { CodeBlock } from '@intlayer/design-system/ide';
+import { Loader } from '@intlayer/design-system/loader';
+import { Modal } from '@intlayer/design-system/modal';
 import { Copy, CopyCheck, GitCommit, XCircle } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';

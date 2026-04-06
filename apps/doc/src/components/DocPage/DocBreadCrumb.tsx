@@ -2,7 +2,7 @@ import {
   Breadcrumb,
   type BreadcrumbLink,
   type BreadcrumbProps,
-} from '@intlayer/design-system';
+} from '@intlayer/design-system/breadcrumb';
 import { Doc_Root_Path, Website_Doc } from '@intlayer/design-system/routes';
 import { getLocalizedUrl, type LocalesValues } from 'intlayer';
 import type { FC } from 'react';

@@ -1,18 +1,18 @@
 import type { OrganizationAPI } from '@intlayer/backend';
-import {
-  Button,
-  Container,
-  Loader,
-  Modal,
-  Pagination,
-  SearchInput,
-  ShowingResultsNumberItems,
-} from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
 import {
   useGetOrganizations,
   useSearch,
   useSelectOrganization,
 } from '@intlayer/design-system/hooks';
+import { SearchInput } from '@intlayer/design-system/input';
+import { Loader } from '@intlayer/design-system/loader';
+import { Modal } from '@intlayer/design-system/modal';
+import {
+  Pagination,
+  ShowingResultsNumberItems,
+} from '@intlayer/design-system/pagination';
 import { App_Dashboard_Projects_Path } from '@intlayer/design-system/routes';
 import { Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';

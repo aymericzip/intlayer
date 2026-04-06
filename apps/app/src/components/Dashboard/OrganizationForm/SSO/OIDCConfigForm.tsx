@@ -1,4 +1,6 @@
-import { Container, Form, H4 } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
+import { Form } from '@intlayer/design-system/form';
+import { H4 } from '@intlayer/design-system/headers';
 import type { FC } from 'react';
 
 interface OIDCConfigFormProps {

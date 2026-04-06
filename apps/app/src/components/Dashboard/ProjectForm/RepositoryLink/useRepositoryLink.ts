@@ -1,6 +1,5 @@
 'use client';
 
-import { useToast } from '@intlayer/design-system';
 import {
   useBitbucketCheckConfig,
   useBitbucketGetConfigFile,
@@ -15,6 +14,7 @@ import {
   useUpdateProject,
 } from '@intlayer/design-system/hooks';
 import { getAuthAPI } from '@intlayer/design-system/libs';
+import { useToast } from '@intlayer/design-system/toaster';
 import { useCallback, useEffect, useState } from 'react';
 import type {
   ConfigPreviewState,
@@ -338,7 +338,7 @@ export const useRepositoryLink = (content: any): UseRepositoryLinkReturn => {
   };
 
   const handleSelectRepo = async (repo: RepoData) => {
-    if (!repo || !repo.id) {
+    if (!repo?.id) {
       console.error('Invalid repository data: missing ID', repo);
       return;
     }

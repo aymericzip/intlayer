@@ -1,6 +1,7 @@
 'use client';
 
-import { Form, Modal, useForm } from '@intlayer/design-system';
+import { Form, useForm } from '@intlayer/design-system/form';
+import { Modal } from '@intlayer/design-system/modal';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { useAddPasskeySchema } from './useAddPasskeySchema';

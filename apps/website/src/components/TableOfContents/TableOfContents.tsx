@@ -1,6 +1,6 @@
 'use client';
 
-import { Link } from '@intlayer/design-system';
+import { Link } from '@intlayer/design-system/link';
 import { cn } from '@intlayer/design-system/utils';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';

@@ -1,4 +1,4 @@
-import { Loader } from '@intlayer/design-system';
+import { Loader } from '@intlayer/design-system/loader';
 import { type FC, useEffect, useRef } from 'react';
 import { ChatBumble, ChatBumbleType } from './ChatBumble';
 

@@ -1,20 +1,17 @@
 'use client';
 
 import type { AddOrganizationMemberBody, UserAPI } from '@intlayer/backend';
-import {
-  Container,
-  Form,
-  H3,
-  Loader,
-  MultiSelect,
-  useForm,
-} from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
+import { Form, useForm } from '@intlayer/design-system/form';
+import { H3 } from '@intlayer/design-system/headers';
 import {
   useAddOrganizationMember,
   useGetUsers,
   useSession,
   useUpdateOrganizationMembers,
 } from '@intlayer/design-system/hooks';
+import { Loader } from '@intlayer/design-system/loader';
+import { MultiSelect } from '@intlayer/design-system/select';
 import { Plus, X } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useState } from 'react';

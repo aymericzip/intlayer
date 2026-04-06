@@ -1,10 +1,6 @@
-import {
-  Badge,
-  BadgeColor,
-  BadgeVariant,
-  Form,
-  MultiSelect,
-} from '@intlayer/design-system';
+import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
+import { Form } from '@intlayer/design-system/form';
+import { MultiSelect } from '@intlayer/design-system/select';
 import type { FC } from 'react';
 
 interface UserFormFieldsProps {

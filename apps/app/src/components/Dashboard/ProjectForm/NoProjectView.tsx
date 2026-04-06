@@ -1,6 +1,7 @@
 'use client';
 
-import { Button, useForm } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { useForm } from '@intlayer/design-system/form';
 import { Plus } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';

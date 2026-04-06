@@ -1,10 +1,14 @@
-import { useRightDrawer } from '@intlayer/design-system';
+import { useRightDrawer } from '@intlayer/design-system/right-drawer';
 import {
   type FileContent,
   useEditedContentActions,
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
-import type { ContentNode, Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
+import type {
+  ContentNode,
+  Dictionary,
+  LocalDictionaryId,
+} from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import { useEffect } from 'react';
 

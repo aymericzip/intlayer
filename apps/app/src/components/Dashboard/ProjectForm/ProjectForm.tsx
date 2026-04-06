@@ -1,7 +1,9 @@
 'use client';
 
-import { Button, Container, Loader } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
 import { useSession } from '@intlayer/design-system/hooks';
+import { Loader } from '@intlayer/design-system/loader';
 import { Trash } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, Suspense, useState } from 'react';

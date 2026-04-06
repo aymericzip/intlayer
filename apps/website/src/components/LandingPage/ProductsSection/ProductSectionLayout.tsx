@@ -1,14 +1,8 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import {
-  LinkColor,
-  LinkVariant,
-  Tag,
-  TagBorder,
-  TagColor,
-  TagSize,
-} from '@intlayer/design-system';
+import { LinkColor, LinkVariant } from '@intlayer/design-system/link';
+import { Tag, TagBorder, TagColor, TagSize } from '@intlayer/design-system/tag';
 import { ArrowRightIcon } from 'lucide-react';
 import type { FC, ReactNode } from 'react';
 

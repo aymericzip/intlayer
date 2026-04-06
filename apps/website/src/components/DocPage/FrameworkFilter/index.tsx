@@ -1,13 +1,10 @@
 'use client';
 
-import {
-  Button,
-  Modal,
-  PopoverStatic,
-  TechLogo,
-  TechLogoName,
-} from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
 import { usePersistedStore } from '@intlayer/design-system/hooks';
+import { Modal } from '@intlayer/design-system/modal';
+import { PopoverStatic } from '@intlayer/design-system/popover';
+import { TechLogo, TechLogoName } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
 import { Filter } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';

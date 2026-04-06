@@ -1,4 +1,6 @@
-import { Carousel, Container, H2 } from '@intlayer/design-system';
+import { Carousel } from '@intlayer/design-system/carousel';
+import { Container } from '@intlayer/design-system/container';
+import { H2 } from '@intlayer/design-system/headers';
 import { useGetOtherShowcaseProjects } from '@intlayer/design-system/hooks';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';

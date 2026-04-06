@@ -1,7 +1,8 @@
 'use client';
 
-import { DictionaryFieldEditor, Loader } from '@intlayer/design-system';
+import { DictionaryFieldEditor } from '@intlayer/design-system/dictionary-field-editor';
 import { useGetDictionary } from '@intlayer/design-system/hooks';
+import { Loader } from '@intlayer/design-system/loader';
 import { App_Dashboard_Dictionaries_Path } from '@intlayer/design-system/routes';
 import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';

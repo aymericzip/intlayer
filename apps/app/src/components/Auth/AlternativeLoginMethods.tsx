@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { ExternalsLoginButtons } from './ExternalsLoginButtons';

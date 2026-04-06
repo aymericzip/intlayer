@@ -1,6 +1,6 @@
 import { OnboardFlow } from '@components/OnboardPage';
 import { getPlanDetails } from '@components/OnboardPage/getPlanDetails';
-import { Container } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
 import type { LocalesValues } from 'intlayer';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';

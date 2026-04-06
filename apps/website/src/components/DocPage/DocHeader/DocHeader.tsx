@@ -1,4 +1,4 @@
-import { Container } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
 import type { DocMetadata } from '@intlayer/docs';
 import { useIntlayer, useLocale } from 'next-intlayer/server';
 import type { FC } from 'react';

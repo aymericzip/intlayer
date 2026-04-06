@@ -1,4 +1,5 @@
-import { Container, Link as DSLink } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
+import { Link as DSLink } from '@intlayer/design-system/link';
 import { Showcase_Root_Path } from '@intlayer/design-system/routes';
 import { useParams } from '@tanstack/react-router';
 import { defaultLocale } from 'intlayer';

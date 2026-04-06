@@ -1,8 +1,8 @@
 'use client';
 
 import type { SessionAPI } from '@intlayer/backend';
-import { Loader } from '@intlayer/design-system';
 import { useSession } from '@intlayer/design-system/hooks';
+import { Loader } from '@intlayer/design-system/loader';
 import {
   App_Dashboard_Dictionaries_Path,
   App_Dashboard_Organization_Path,

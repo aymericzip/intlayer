@@ -1,13 +1,13 @@
 'use client';
 
-import {
-  Button,
-  RightDrawer,
-  SearchInput,
-  Tag,
-  useRightDrawer,
-} from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
 import { useSearch } from '@intlayer/design-system/hooks';
+import { SearchInput } from '@intlayer/design-system/input';
+import {
+  RightDrawer,
+  useRightDrawer,
+} from '@intlayer/design-system/right-drawer';
+import { Tag } from '@intlayer/design-system/tag';
 import {
   useDictionariesRecord,
   useEditedContent,

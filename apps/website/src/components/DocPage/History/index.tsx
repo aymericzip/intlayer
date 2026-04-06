@@ -1,7 +1,8 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import { Container, Popover } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
+import { Popover } from '@intlayer/design-system/popover';
 import { cn } from '@intlayer/design-system/utils';
 import { getLocalizedUrl } from 'intlayer';
 import { Clock } from 'lucide-react';

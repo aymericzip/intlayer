@@ -1,19 +1,16 @@
 'use client';
 
-import {
-  Container,
-  Form,
-  H3,
-  Loader,
-  useForm,
-  useToast,
-} from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
+import { Form, useForm } from '@intlayer/design-system/form';
+import { H3 } from '@intlayer/design-system/headers';
 import {
   useDeleteSSOProvider,
   useListSSOProviders,
   useRegisterSSO,
   useSession,
 } from '@intlayer/design-system/hooks';
+import { Loader } from '@intlayer/design-system/loader';
+import { useToast } from '@intlayer/design-system/toaster';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
 import { z } from 'zod/v4';

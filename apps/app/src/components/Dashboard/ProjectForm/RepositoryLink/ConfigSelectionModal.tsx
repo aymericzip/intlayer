@@ -1,6 +1,7 @@
 'use client';
 
-import { Button, Modal } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Modal } from '@intlayer/design-system/modal';
 import { FileJson, FolderOpen } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';

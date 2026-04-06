@@ -1,9 +1,9 @@
+import { Badge } from '@intlayer/design-system/badge';
+import { Button } from '@intlayer/design-system/button';
 import {
-  Badge,
-  Button,
   Container,
   type ContainerProps,
-} from '@intlayer/design-system';
+} from '@intlayer/design-system/container';
 import { Link } from '@tanstack/react-router';
 import { ExternalLink, ThumbsDown, ThumbsUp } from 'lucide-react';
 import { useState } from 'react';

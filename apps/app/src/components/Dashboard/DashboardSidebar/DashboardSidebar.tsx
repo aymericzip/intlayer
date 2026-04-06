@@ -1,14 +1,11 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import {
-  Button,
-  Container,
-  KeyboardShortcut,
-  PopoverStatic,
-  TabSelector,
-} from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
 import { useDevice, useSession } from '@intlayer/design-system/hooks';
+import { KeyboardShortcut } from '@intlayer/design-system/keyboard-shortcut';
+import { PopoverStatic } from '@intlayer/design-system/popover';
 import {
   App_Admin_Users_Path,
   App_Dashboard_Dictionaries_Path,
@@ -17,6 +14,7 @@ import {
   App_Dashboard_Tags_Path,
   App_Dashboard_Translate_Path,
 } from '@intlayer/design-system/routes';
+import { TabSelector } from '@intlayer/design-system/tab-selector';
 import { cn } from '@intlayer/design-system/utils';
 import { AnimatePresence, m, useReducedMotion } from 'framer-motion';
 import {

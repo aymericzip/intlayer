@@ -1,7 +1,7 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import { Code, type CodeLanguage } from '@intlayer/design-system';
+import { Code, type CodeLanguage } from '@intlayer/design-system/ide';
 import { FileText, Globe, Link as LinkIcon } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';

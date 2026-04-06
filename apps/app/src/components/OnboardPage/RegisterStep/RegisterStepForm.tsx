@@ -1,7 +1,8 @@
 'use client';
 
 import { ExternalsLoginButtons } from '@components/Auth/ExternalsLoginButtons';
-import { Form, H2, useForm } from '@intlayer/design-system';
+import { Form, useForm } from '@intlayer/design-system/form';
+import { H2 } from '@intlayer/design-system/headers';
 import { useUser } from '@intlayer/design-system/hooks';
 import { App_Auth_SignIn_Path } from '@intlayer/design-system/routes';
 import { useRouter } from 'next/navigation';

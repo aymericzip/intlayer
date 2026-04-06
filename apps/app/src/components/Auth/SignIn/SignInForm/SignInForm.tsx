@@ -1,6 +1,6 @@
 'use client';
 
-import { Form, useForm } from '@intlayer/design-system';
+import { Form, useForm } from '@intlayer/design-system/form';
 import { useIntlayer } from 'next-intlayer';
 import type { FC, RefObject } from 'react';
 import { useEffect, useState } from 'react';

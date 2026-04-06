@@ -1,4 +1,5 @@
-import { Link, Tag } from '@intlayer/design-system';
+import { Link } from '@intlayer/design-system/link';
+import { Tag } from '@intlayer/design-system/tag';
 import { File } from 'lucide-react';
 import { type IntlayerNode, useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';

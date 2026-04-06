@@ -1,13 +1,11 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import {
-  Button,
-  Container,
-  MaxWidthSmoother,
-  ProductHuntLogo,
-} from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
 import { useDevice, usePersistedStore } from '@intlayer/design-system/hooks';
+import { MaxWidthSmoother } from '@intlayer/design-system/max-width-smoother';
+import { ProductHuntLogo } from '@intlayer/design-system/social-networks';
 import { cn } from '@intlayer/design-system/utils';
 import { useQuery } from '@tanstack/react-query';
 import { X } from 'lucide-react';

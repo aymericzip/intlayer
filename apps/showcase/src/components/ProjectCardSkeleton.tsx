@@ -1,4 +1,4 @@
-import { Container } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
 
 export const ProjectCardSkeleton = () => {
   return (

@@ -1,4 +1,4 @@
-import { Terminal } from '@intlayer/design-system';
+import { Terminal } from '@intlayer/design-system/terminal';
 import { type IntlayerNode, useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';
 import { type FC, useState } from 'react';

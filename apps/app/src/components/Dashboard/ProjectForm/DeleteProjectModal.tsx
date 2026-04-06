@@ -1,7 +1,8 @@
 'use client';
 
-import { Form, Modal } from '@intlayer/design-system';
+import { Form } from '@intlayer/design-system/form';
 import { useDeleteProject } from '@intlayer/design-system/hooks';
+import { Modal } from '@intlayer/design-system/modal';
 import { App_Dashboard_Projects_Path } from '@intlayer/design-system/routes';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';

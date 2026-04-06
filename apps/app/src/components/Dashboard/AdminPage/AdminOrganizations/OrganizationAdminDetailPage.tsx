@@ -1,11 +1,11 @@
 'use client';
 
 import { OrganizationForm } from '@components/Dashboard/OrganizationForm';
-import { Loader } from '@intlayer/design-system';
 import {
   useGetOrganizations,
   useSelectOrganization,
 } from '@intlayer/design-system/hooks';
+import { Loader } from '@intlayer/design-system/loader';
 import { useIntlayer } from 'next-intlayer';
 import { useEffect } from 'react';
 

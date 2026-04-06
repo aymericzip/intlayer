@@ -1,4 +1,4 @@
-import { Button } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
 import { Doc_Path } from '@intlayer/design-system/routes';
 import type { ErrorComponentProps } from '@tanstack/react-router';
 import { useIntlayer } from 'react-intlayer';

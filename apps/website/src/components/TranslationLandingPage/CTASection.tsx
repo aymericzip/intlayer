@@ -2,16 +2,15 @@
 
 import { Link } from '@components/Link/Link';
 import {
-  CodeBlock,
   Container,
   ContainerBackground,
   ContainerBorderColor,
   ContainerPadding,
   ContainerRoundedSize,
   ContainerTransparency,
-  LinkColor,
-  LinkVariant,
-} from '@intlayer/design-system';
+} from '@intlayer/design-system/container';
+import { CodeBlock } from '@intlayer/design-system/ide';
+import { LinkColor, LinkVariant } from '@intlayer/design-system/link';
 import { Website_Doc_CLI_Fill_Path } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import { useIntlayer } from 'next-intlayer';

@@ -1,17 +1,17 @@
-import type { LinkGroup } from '@intlayer/design-system';
+import type { LinkGroup } from '@intlayer/design-system/footer';
 import {
   External_ExampleIntlayerWithNextjs,
   External_ExampleIntlayerWithReactJS,
   External_ExampleIntlayerWithViteAndReact,
   External_ExampleIntlayerWithViteAndVue,
   External_LinkedIn,
-  Website_Contributors,
-  Website_Doc,
-  Website_Doc_Environment_NextJS_15,
-  Website_Doc_Environment_ViteAndReact,
-  Website_Doc_Environment_ViteAndVue,
-  Website_PrivacyPolicy,
-  Website_TermsOfService,
+  Website_Contributors_Path,
+  Website_Doc_Environment_NextJS_15_Path,
+  Website_Doc_Environment_ViteAndReact_Path,
+  Website_Doc_Environment_ViteAndVue_Path,
+  Website_Doc_Path,
+  Website_PrivacyPolicy_Path,
+  Website_TermsOfService_Path,
 } from '@intlayer/design-system/routes';
 import { type Dictionary, t } from 'intlayer';
 
@@ -27,7 +27,7 @@ const footerContent = {
         title: 'Docs',
         links: [
           {
-            href: Website_Doc,
+            href: Website_Doc_Path,
             text: t({
               en: 'Getting started',
               'en-GB': 'Getting started',
@@ -70,7 +70,7 @@ const footerContent = {
             }),
           },
           {
-            href: Website_Doc_Environment_NextJS_15,
+            href: Website_Doc_Environment_NextJS_15_Path,
             text: t({
               en: 'Intlayer with Next.js',
               'en-GB': 'Intlayer with Next.js',
@@ -114,7 +114,7 @@ const footerContent = {
           },
 
           {
-            href: Website_Doc_Environment_ViteAndReact,
+            href: Website_Doc_Environment_ViteAndReact_Path,
             text: t({
               en: 'Intlayer with Vite and React',
               'en-GB': 'Intlayer with Vite and React',
@@ -157,7 +157,7 @@ const footerContent = {
             }),
           },
           {
-            href: Website_Doc_Environment_ViteAndVue,
+            href: Website_Doc_Environment_ViteAndVue_Path,
             text: t({
               en: 'Intlayer with vue and vite',
               'en-GB': 'Intlayer with vue and vite',
@@ -420,7 +420,7 @@ const footerContent = {
         }),
         links: [
           {
-            href: Website_Contributors,
+            href: Website_Contributors_Path,
             text: t({
               en: 'Contributors',
               'en-GB': 'Contributors',
@@ -463,7 +463,7 @@ const footerContent = {
             }),
           },
           {
-            href: Website_TermsOfService,
+            href: Website_TermsOfService_Path,
             text: t({
               en: 'Terms of service',
               'en-GB': 'Terms of service',
@@ -506,7 +506,7 @@ const footerContent = {
             }),
           },
           {
-            href: Website_PrivacyPolicy,
+            href: Website_PrivacyPolicy_Path,
             text: t({
               en: 'Privacy Notice',
               'en-GB': 'Privacy Notice',

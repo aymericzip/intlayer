@@ -2,8 +2,8 @@ import {
   Button,
   ButtonColor,
   ButtonVariant,
-  Tag,
-} from '@intlayer/design-system';
+} from '@intlayer/design-system/button';
+import { Tag } from '@intlayer/design-system/tag';
 import { cn } from '@intlayer/design-system/utils';
 import { ChevronDown, ChevronRight, Pause, Play, Square } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';

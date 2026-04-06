@@ -1,9 +1,12 @@
 'use client';
 
 import type { UserAPI } from '@intlayer/backend';
-import { Form, Loader, Modal, toast } from '@intlayer/design-system';
+import { Form } from '@intlayer/design-system/form';
 import { useDeleteUser, useGetUserById } from '@intlayer/design-system/hooks';
+import { Loader } from '@intlayer/design-system/loader';
+import { Modal } from '@intlayer/design-system/modal';
 import { App_Admin_Users_Path } from '@intlayer/design-system/routes';
+import { toast } from '@intlayer/design-system/toaster';
 import { AlertTriangle, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';

@@ -1,9 +1,6 @@
-import {
-  Container,
-  DropDown,
-  Input,
-  type PanelProps,
-} from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
+import { DropDown, type PanelProps } from '@intlayer/design-system/drop-down';
+import { Input } from '@intlayer/design-system/input';
 import { Link, useLocation } from '@tanstack/react-router';
 import { getHTMLTextDir, getLocalizedUrl } from 'intlayer';
 import { MoveVertical } from 'lucide-react';

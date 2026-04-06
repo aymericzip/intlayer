@@ -1,4 +1,4 @@
-import { useRightDrawer } from '@intlayer/design-system';
+import { useRightDrawer } from '@intlayer/design-system/right-drawer';
 import {
   useEditedContentActions,
   useFocusUnmergedDictionary,

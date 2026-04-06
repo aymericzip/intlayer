@@ -1,6 +1,7 @@
 'use client';
 
-import { Carousel, Container } from '@intlayer/design-system';
+import { Carousel } from '@intlayer/design-system/carousel';
+import { Container } from '@intlayer/design-system/container';
 import type { FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { AIABTestingSection } from './AIABTestingSection';

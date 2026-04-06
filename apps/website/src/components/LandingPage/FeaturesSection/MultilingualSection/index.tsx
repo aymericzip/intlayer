@@ -1,6 +1,8 @@
 'use client';
 
-import { Container, Input, Label } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
+import { Input } from '@intlayer/design-system/input';
+import { Label } from '@intlayer/design-system/label';
 import { motion } from 'framer-motion';
 import { getLocaleName, type Locale, Locales } from 'intlayer';
 import { useIntlayer, useLocale } from 'next-intlayer';

@@ -1,7 +1,10 @@
 'use client';
 
-import { Button, Input, Loader, Modal } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
 import { usePersistedStore, useSignInSSO } from '@intlayer/design-system/hooks';
+import { Input } from '@intlayer/design-system/input';
+import { Loader } from '@intlayer/design-system/loader';
+import { Modal } from '@intlayer/design-system/modal';
 import { cn } from '@intlayer/design-system/utils';
 import { Building2 } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';

@@ -1,8 +1,9 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import { Logo, TechLogos } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
+import { Logo } from '@intlayer/design-system/logo';
+import { TechLogos } from '@intlayer/design-system/tech-logo';
 import type { LocalesValues } from 'intlayer';
 import dynamic from 'next/dynamic';
 import { useIntlayer } from 'next-intlayer';

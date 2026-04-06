@@ -1,7 +1,8 @@
 'use client';
 
 import type { GetPricingResult } from '@intlayer/backend';
-import { H1, SwitchSelector } from '@intlayer/design-system';
+import { H1 } from '@intlayer/design-system/headers';
+import { SwitchSelector } from '@intlayer/design-system/switch-selector';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, Suspense, useState } from 'react';
 import { Period } from './data.content';

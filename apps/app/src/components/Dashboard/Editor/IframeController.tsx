@@ -1,6 +1,8 @@
 'use client';
 
-import { Browser, Container, Loader } from '@intlayer/design-system';
+import { Browser } from '@intlayer/design-system/browser';
+import { Container } from '@intlayer/design-system/container';
+import { Loader } from '@intlayer/design-system/loader';
 import { cn } from '@intlayer/design-system/utils';
 import {
   useConfiguration,

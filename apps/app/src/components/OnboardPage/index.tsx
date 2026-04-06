@@ -1,7 +1,7 @@
 'use client';
 
 import type { Period, Plans } from '@components/PricingPage/data.content';
-import { Loader } from '@intlayer/design-system';
+import { Loader } from '@intlayer/design-system/loader';
 import { type FC, Suspense } from 'react';
 import { ConfirmationsStep } from './ConfirmationsStep/ConfirmationsStep';
 import { DefinePasswordStepForm } from './DefinePasswordStep';

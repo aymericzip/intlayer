@@ -1,6 +1,6 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { CommonQuestionsSection } from '@components/LandingPage/CommonQuestionsSection/CommonQuestions';
-import { Loader } from '@intlayer/design-system';
+import { Loader } from '@intlayer/design-system/loader';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { LandingSection } from './LandingSection';

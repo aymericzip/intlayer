@@ -1,12 +1,10 @@
-import {
-  Avatar,
-  Button,
-  DiscordLogo,
-  LogoWithText,
-  TechLogos,
-  Navbar as UINavBar,
-} from '@intlayer/design-system';
+import { Avatar } from '@intlayer/design-system/avatar';
+import { Button } from '@intlayer/design-system/button';
 import { useUser } from '@intlayer/design-system/hooks';
+import { LogoWithText } from '@intlayer/design-system/logo';
+import { Navbar as UINavBar } from '@intlayer/design-system/navbar';
+import { DiscordLogo } from '@intlayer/design-system/social-networks';
+import { TechLogos } from '@intlayer/design-system/tech-logo';
 import { useLocation } from '@tanstack/react-router';
 import { getPathWithoutLocale } from 'intlayer';
 import { StarIcon } from 'lucide-react';

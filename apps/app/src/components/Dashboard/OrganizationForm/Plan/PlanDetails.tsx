@@ -1,10 +1,14 @@
 import type { PlanAPI } from '@intlayer/backend';
-import { Button, Form, H3, Modal, Tag } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Form } from '@intlayer/design-system/form';
+import { H3 } from '@intlayer/design-system/headers';
 import {
   useCancelSubscription,
   useSession,
 } from '@intlayer/design-system/hooks';
+import { Modal } from '@intlayer/design-system/modal';
 import { App_Pricing_Path } from '@intlayer/design-system/routes';
+import { Tag } from '@intlayer/design-system/tag';
 import { ChevronsUp, CircleX, RotateCcw } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';

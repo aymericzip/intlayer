@@ -1,6 +1,8 @@
 'use client';
 
-import { CodeBlock, Loader, Popover } from '@intlayer/design-system';
+import { CodeBlock } from '@intlayer/design-system/ide';
+import { Loader } from '@intlayer/design-system/loader';
+import { Popover } from '@intlayer/design-system/popover';
 import {
   AlertTriangle,
   CheckCircle2,

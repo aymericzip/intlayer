@@ -6,21 +6,17 @@ import {
   ButtonColor,
   ButtonSize,
   ButtonVariant,
-  CodeBlock,
-  Container,
-  LinkColor,
-  LinkVariant,
-  Tag,
-  TagBorder,
-  TagColor,
-  TagSize,
-  useCopyToClipboard,
-} from '@intlayer/design-system';
+} from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { useCopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
+import { CodeBlock } from '@intlayer/design-system/ide';
+import { LinkColor, LinkVariant } from '@intlayer/design-system/link';
 import {
   External_Github,
   Website_Doc_Path,
   Website_ReleasesV8,
 } from '@intlayer/design-system/routes';
+import { Tag, TagBorder, TagColor, TagSize } from '@intlayer/design-system/tag';
 import { motion } from 'framer-motion';
 import packageJSON from 'intlayer/package.json' with { type: 'json' };
 import { ArrowRight, Check, Copy } from 'lucide-react';

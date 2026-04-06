@@ -39,11 +39,6 @@
       "import": "./dist/esm/components/index.mjs",
       "default": "./dist/esm/components/index.mjs"
     },
-    "./*": {
-      "types": "./dist/types/components/*/index.d.ts",
-      "import": "./dist/esm/components/*/index.mjs",
-      "default": "./dist/esm/components/*/index.mjs"
-    },
     "./hooks": {
       "types": "./dist/types/hooks/index.d.ts",
       "import": "./dist/esm/hooks/index.mjs",
@@ -76,7 +71,317 @@
     },
     "./css": "./tailwind.css",
     "./css-output": "./dist/tailwind.css",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./accordion": {
+      "types": "./dist/types/components/Accordion/index.d.ts",
+      "import": "./dist/esm/components/Accordion/index.mjs",
+      "default": "./dist/esm/components/Accordion/index.mjs"
+    },
+    "./avatar": {
+      "types": "./dist/types/components/Avatar/index.d.ts",
+      "import": "./dist/esm/components/Avatar/index.mjs",
+      "default": "./dist/esm/components/Avatar/index.mjs"
+    },
+    "./badge": {
+      "types": "./dist/types/components/Badge/index.d.ts",
+      "import": "./dist/esm/components/Badge/index.mjs",
+      "default": "./dist/esm/components/Badge/index.mjs"
+    },
+    "./breadcrumb": {
+      "types": "./dist/types/components/Breadcrumb/index.d.ts",
+      "import": "./dist/esm/components/Breadcrumb/index.mjs",
+      "default": "./dist/esm/components/Breadcrumb/index.mjs"
+    },
+    "./browser": {
+      "types": "./dist/types/components/Browser/index.d.ts",
+      "import": "./dist/esm/components/Browser/index.mjs",
+      "default": "./dist/esm/components/Browser/index.mjs"
+    },
+    "./button": {
+      "types": "./dist/types/components/Button/index.d.ts",
+      "import": "./dist/esm/components/Button/index.mjs",
+      "default": "./dist/esm/components/Button/index.mjs"
+    },
+    "./carousel": {
+      "types": "./dist/types/components/Carousel/index.d.ts",
+      "import": "./dist/esm/components/Carousel/index.mjs",
+      "default": "./dist/esm/components/Carousel/index.mjs"
+    },
+    "./click-outside-div": {
+      "types": "./dist/types/components/ClickOutsideDiv/index.d.ts",
+      "import": "./dist/esm/components/ClickOutsideDiv/index.mjs",
+      "default": "./dist/esm/components/ClickOutsideDiv/index.mjs"
+    },
+    "./collapsible-table": {
+      "types": "./dist/types/components/CollapsibleTable/index.d.ts",
+      "import": "./dist/esm/components/CollapsibleTable/index.mjs",
+      "default": "./dist/esm/components/CollapsibleTable/index.mjs"
+    },
+    "./command": {
+      "types": "./dist/types/components/Command/index.d.ts",
+      "import": "./dist/esm/components/Command/index.mjs",
+      "default": "./dist/esm/components/Command/index.mjs"
+    },
+    "./container": {
+      "types": "./dist/types/components/Container/index.d.ts",
+      "import": "./dist/esm/components/Container/index.mjs",
+      "default": "./dist/esm/components/Container/index.mjs"
+    },
+    "./content-editor": {
+      "types": "./dist/types/components/ContentEditor/index.d.ts",
+      "import": "./dist/esm/components/ContentEditor/index.mjs",
+      "default": "./dist/esm/components/ContentEditor/index.mjs"
+    },
+    "./content-selector": {
+      "types": "./dist/types/components/ContentSelector/index.d.ts",
+      "import": "./dist/esm/components/ContentSelector/index.mjs",
+      "default": "./dist/esm/components/ContentSelector/index.mjs"
+    },
+    "./copy-button": {
+      "types": "./dist/types/components/CopyButton/index.d.ts",
+      "import": "./dist/esm/components/CopyButton/index.mjs",
+      "default": "./dist/esm/components/CopyButton/index.mjs"
+    },
+    "./copy-to-clipboard": {
+      "types": "./dist/types/components/CopyToClipboard/index.d.ts",
+      "import": "./dist/esm/components/CopyToClipboard/index.mjs",
+      "default": "./dist/esm/components/CopyToClipboard/index.mjs"
+    },
+    "./dictionary-editor": {
+      "types": "./dist/types/components/DictionaryEditor/index.d.ts",
+      "import": "./dist/esm/components/DictionaryEditor/index.mjs",
+      "default": "./dist/esm/components/DictionaryEditor/index.mjs"
+    },
+    "./dictionary-field-editor": {
+      "types": "./dist/types/components/DictionaryFieldEditor/index.d.ts",
+      "import": "./dist/esm/components/DictionaryFieldEditor/index.mjs",
+      "default": "./dist/esm/components/DictionaryFieldEditor/index.mjs"
+    },
+    "./drop-down": {
+      "types": "./dist/types/components/DropDown/index.d.ts",
+      "import": "./dist/esm/components/DropDown/index.mjs",
+      "default": "./dist/esm/components/DropDown/index.mjs"
+    },
+    "./editable-field": {
+      "types": "./dist/types/components/EditableField/index.d.ts",
+      "import": "./dist/esm/components/EditableField/index.mjs",
+      "default": "./dist/esm/components/EditableField/index.mjs"
+    },
+    "./expand-collapse": {
+      "types": "./dist/types/components/ExpandCollapse/index.d.ts",
+      "import": "./dist/esm/components/ExpandCollapse/index.mjs",
+      "default": "./dist/esm/components/ExpandCollapse/index.mjs"
+    },
+    "./flags": {
+      "types": "./dist/types/components/Flags/index.d.ts",
+      "import": "./dist/esm/components/Flags/index.mjs",
+      "default": "./dist/esm/components/Flags/index.mjs"
+    },
+    "./footer": {
+      "types": "./dist/types/components/Footer/index.d.ts",
+      "import": "./dist/esm/components/Footer/index.mjs",
+      "default": "./dist/esm/components/Footer/index.mjs"
+    },
+    "./form": {
+      "types": "./dist/types/components/Form/index.d.ts",
+      "import": "./dist/esm/components/Form/index.mjs",
+      "default": "./dist/esm/components/Form/index.mjs"
+    },
+    "./html-render": {
+      "types": "./dist/types/components/HTMLRender/index.d.ts",
+      "import": "./dist/esm/components/HTMLRender/index.mjs",
+      "default": "./dist/esm/components/HTMLRender/index.mjs"
+    },
+    "./headers": {
+      "types": "./dist/types/components/Headers/index.d.ts",
+      "import": "./dist/esm/components/Headers/index.mjs",
+      "default": "./dist/esm/components/Headers/index.mjs"
+    },
+    "./height-resizer": {
+      "types": "./dist/types/components/HeightResizer/index.d.ts",
+      "import": "./dist/esm/components/HeightResizer/index.mjs",
+      "default": "./dist/esm/components/HeightResizer/index.mjs"
+    },
+    "./hide-show": {
+      "types": "./dist/types/components/HideShow/index.d.ts",
+      "import": "./dist/esm/components/HideShow/index.mjs",
+      "default": "./dist/esm/components/HideShow/index.mjs"
+    },
+    "./ide": {
+      "types": "./dist/types/components/IDE/index.d.ts",
+      "import": "./dist/esm/components/IDE/index.mjs",
+      "default": "./dist/esm/components/IDE/index.mjs"
+    },
+    "./information-tag": {
+      "types": "./dist/types/components/InformationTag/index.d.ts",
+      "import": "./dist/esm/components/InformationTag/index.mjs",
+      "default": "./dist/esm/components/InformationTag/index.mjs"
+    },
+    "./input": {
+      "types": "./dist/types/components/Input/index.d.ts",
+      "import": "./dist/esm/components/Input/index.mjs",
+      "default": "./dist/esm/components/Input/index.mjs"
+    },
+    "./keyboard-screen-adapter": {
+      "types": "./dist/types/components/KeyboardScreenAdapter/index.d.ts",
+      "import": "./dist/esm/components/KeyboardScreenAdapter/index.mjs",
+      "default": "./dist/esm/components/KeyboardScreenAdapter/index.mjs"
+    },
+    "./keyboard-shortcut": {
+      "types": "./dist/types/components/KeyboardShortcut/index.d.ts",
+      "import": "./dist/esm/components/KeyboardShortcut/index.mjs",
+      "default": "./dist/esm/components/KeyboardShortcut/index.mjs"
+    },
+    "./label": {
+      "types": "./dist/types/components/Label/index.d.ts",
+      "import": "./dist/esm/components/Label/index.mjs",
+      "default": "./dist/esm/components/Label/index.mjs"
+    },
+    "./language-background": {
+      "types": "./dist/types/components/LanguageBackground/index.d.ts",
+      "import": "./dist/esm/components/LanguageBackground/index.mjs",
+      "default": "./dist/esm/components/LanguageBackground/index.mjs"
+    },
+    "./link": {
+      "types": "./dist/types/components/Link/index.d.ts",
+      "import": "./dist/esm/components/Link/index.mjs",
+      "default": "./dist/esm/components/Link/index.mjs"
+    },
+    "./loader": {
+      "types": "./dist/types/components/Loader/index.d.ts",
+      "import": "./dist/esm/components/Loader/index.mjs",
+      "default": "./dist/esm/components/Loader/index.mjs"
+    },
+    "./locale-switcher-content-drop-down": {
+      "types": "./dist/types/components/LocaleSwitcherContentDropDown/index.d.ts",
+      "import": "./dist/esm/components/LocaleSwitcherContentDropDown/index.mjs",
+      "default": "./dist/esm/components/LocaleSwitcherContentDropDown/index.mjs"
+    },
+    "./locale-switcher-drop-down": {
+      "types": "./dist/types/components/LocaleSwitcherDropDown/index.d.ts",
+      "import": "./dist/esm/components/LocaleSwitcherDropDown/index.mjs",
+      "default": "./dist/esm/components/LocaleSwitcherDropDown/index.mjs"
+    },
+    "./logo": {
+      "types": "./dist/types/components/Logo/index.d.ts",
+      "import": "./dist/esm/components/Logo/index.mjs",
+      "default": "./dist/esm/components/Logo/index.mjs"
+    },
+    "./mark-down-render": {
+      "types": "./dist/types/components/MarkDownRender/index.d.ts",
+      "import": "./dist/esm/components/MarkDownRender/index.mjs",
+      "default": "./dist/esm/components/MarkDownRender/index.mjs"
+    },
+    "./max-height-smoother": {
+      "types": "./dist/types/components/MaxHeightSmoother/index.d.ts",
+      "import": "./dist/esm/components/MaxHeightSmoother/index.mjs",
+      "default": "./dist/esm/components/MaxHeightSmoother/index.mjs"
+    },
+    "./max-width-smoother": {
+      "types": "./dist/types/components/MaxWidthSmoother/index.d.ts",
+      "import": "./dist/esm/components/MaxWidthSmoother/index.mjs",
+      "default": "./dist/esm/components/MaxWidthSmoother/index.mjs"
+    },
+    "./modal": {
+      "types": "./dist/types/components/Modal/index.d.ts",
+      "import": "./dist/esm/components/Modal/index.mjs",
+      "default": "./dist/esm/components/Modal/index.mjs"
+    },
+    "./navbar": {
+      "types": "./dist/types/components/Navbar/index.d.ts",
+      "import": "./dist/esm/components/Navbar/index.mjs",
+      "default": "./dist/esm/components/Navbar/index.mjs"
+    },
+    "./pagination": {
+      "types": "./dist/types/components/Pagination/index.d.ts",
+      "import": "./dist/esm/components/Pagination/index.mjs",
+      "default": "./dist/esm/components/Pagination/index.mjs"
+    },
+    "./pattern": {
+      "types": "./dist/types/components/Pattern/index.d.ts",
+      "import": "./dist/esm/components/Pattern/index.mjs",
+      "default": "./dist/esm/components/Pattern/index.mjs"
+    },
+    "./popover": {
+      "types": "./dist/types/components/Popover/index.d.ts",
+      "import": "./dist/esm/components/Popover/index.mjs",
+      "default": "./dist/esm/components/Popover/index.mjs"
+    },
+    "./pressable-span": {
+      "types": "./dist/types/components/PressableSpan/index.d.ts",
+      "import": "./dist/esm/components/PressableSpan/index.mjs",
+      "default": "./dist/esm/components/PressableSpan/index.mjs"
+    },
+    "./right-drawer": {
+      "types": "./dist/types/components/RightDrawer/index.d.ts",
+      "import": "./dist/esm/components/RightDrawer/index.mjs",
+      "default": "./dist/esm/components/RightDrawer/index.mjs"
+    },
+    "./select": {
+      "types": "./dist/types/components/Select/index.d.ts",
+      "import": "./dist/esm/components/Select/index.mjs",
+      "default": "./dist/esm/components/Select/index.mjs"
+    },
+    "./social-networks": {
+      "types": "./dist/types/components/SocialNetworks/index.d.ts",
+      "import": "./dist/esm/components/SocialNetworks/index.mjs",
+      "default": "./dist/esm/components/SocialNetworks/index.mjs"
+    },
+    "./switch-selector": {
+      "types": "./dist/types/components/SwitchSelector/index.d.ts",
+      "import": "./dist/esm/components/SwitchSelector/index.mjs",
+      "default": "./dist/esm/components/SwitchSelector/index.mjs"
+    },
+    "./tab": {
+      "types": "./dist/types/components/Tab/index.d.ts",
+      "import": "./dist/esm/components/Tab/index.mjs",
+      "default": "./dist/esm/components/Tab/index.mjs"
+    },
+    "./tab-selector": {
+      "types": "./dist/types/components/TabSelector/index.d.ts",
+      "import": "./dist/esm/components/TabSelector/index.mjs",
+      "default": "./dist/esm/components/TabSelector/index.mjs"
+    },
+    "./table": {
+      "types": "./dist/types/components/Table/index.d.ts",
+      "import": "./dist/esm/components/Table/index.mjs",
+      "default": "./dist/esm/components/Table/index.mjs"
+    },
+    "./tag": {
+      "types": "./dist/types/components/Tag/index.d.ts",
+      "import": "./dist/esm/components/Tag/index.mjs",
+      "default": "./dist/esm/components/Tag/index.mjs"
+    },
+    "./tech-logo": {
+      "types": "./dist/types/components/TechLogo/index.d.ts",
+      "import": "./dist/esm/components/TechLogo/index.mjs",
+      "default": "./dist/esm/components/TechLogo/index.mjs"
+    },
+    "./terminal": {
+      "types": "./dist/types/components/Terminal/index.d.ts",
+      "import": "./dist/esm/components/Terminal/index.mjs",
+      "default": "./dist/esm/components/Terminal/index.mjs"
+    },
+    "./text-area": {
+      "types": "./dist/types/components/TextArea/index.d.ts",
+      "import": "./dist/esm/components/TextArea/index.mjs",
+      "default": "./dist/esm/components/TextArea/index.mjs"
+    },
+    "./theme-switcher-drop-down": {
+      "types": "./dist/types/components/ThemeSwitcherDropDown/index.d.ts",
+      "import": "./dist/esm/components/ThemeSwitcherDropDown/index.mjs",
+      "default": "./dist/esm/components/ThemeSwitcherDropDown/index.mjs"
+    },
+    "./toaster": {
+      "types": "./dist/types/components/Toaster/index.d.ts",
+      "import": "./dist/esm/components/Toaster/index.mjs",
+      "default": "./dist/esm/components/Toaster/index.mjs"
+    },
+    "./with-resizer": {
+      "types": "./dist/types/components/WithResizer/index.d.ts",
+      "import": "./dist/esm/components/WithResizer/index.mjs",
+      "default": "./dist/esm/components/WithResizer/index.mjs"
+    }
   },
   "module": "dist/esm/components/index.mjs",
   "types": "dist/types/components/index.d.ts",

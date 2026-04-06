@@ -4,12 +4,15 @@ import { NoOrganizationView } from '@components/Dashboard/OrganizationForm/NoOrg
 import { OrganizationCreationForm } from '@components/Dashboard/OrganizationForm/OrganizationCreationForm';
 import { OrganizationList } from '@components/Dashboard/OrganizationForm/OrganizationList';
 import type { OrganizationAPI } from '@intlayer/backend';
-import { Form, H2, Loader, Modal, useForm } from '@intlayer/design-system';
+import { Form, useForm } from '@intlayer/design-system/form';
+import { H2 } from '@intlayer/design-system/headers';
 import {
   useGetOrganizations,
   useSelectOrganization,
   useSession,
 } from '@intlayer/design-system/hooks';
+import { Loader } from '@intlayer/design-system/loader';
+import { Modal } from '@intlayer/design-system/modal';
 import { App_Pricing_Path } from '@intlayer/design-system/routes';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';

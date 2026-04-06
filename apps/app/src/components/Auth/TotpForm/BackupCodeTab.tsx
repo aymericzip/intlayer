@@ -1,6 +1,6 @@
 'use client';
 
-import { Form, useForm } from '@intlayer/design-system';
+import { Form, useForm } from '@intlayer/design-system/form';
 import { useVerifyBackupCode } from '@intlayer/design-system/hooks';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';

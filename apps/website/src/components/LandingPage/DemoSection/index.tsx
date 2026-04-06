@@ -3,7 +3,7 @@
 import {
   SwitchSelector,
   type SwitchSelectorChoices,
-} from '@intlayer/design-system';
+} from '@intlayer/design-system/switch-selector';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
 import { DemoCodeSandbox } from './DemoCodeSandbox';

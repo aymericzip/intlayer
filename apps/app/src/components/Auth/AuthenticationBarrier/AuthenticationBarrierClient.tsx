@@ -1,7 +1,7 @@
 'use client';
 
-import { Loader } from '@intlayer/design-system';
 import { useSession } from '@intlayer/design-system/hooks';
+import { Loader } from '@intlayer/design-system/loader';
 import { App_Home_Path } from '@intlayer/design-system/routes';
 import { usePathname, useRouter } from 'next/navigation';
 import { type FC, useEffect } from 'react';

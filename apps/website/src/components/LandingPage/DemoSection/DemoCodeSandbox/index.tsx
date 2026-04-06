@@ -1,6 +1,6 @@
 'use client';
 
-import { Loader } from '@intlayer/design-system';
+import { Loader } from '@intlayer/design-system/loader';
 import { type FC, useEffect, useRef, useState } from 'react';
 
 const REPO_PATH = '/aymericzip/intlayer-next-15-template';

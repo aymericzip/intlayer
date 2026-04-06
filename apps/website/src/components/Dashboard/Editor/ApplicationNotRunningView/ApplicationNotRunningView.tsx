@@ -1,5 +1,6 @@
 import { Link } from '@components/Link/Link';
-import { Container, H3 } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
+import { H3 } from '@intlayer/design-system/headers';
 import { Website_Doc_IntlayerCMS_Path } from '@intlayer/design-system/routes';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';

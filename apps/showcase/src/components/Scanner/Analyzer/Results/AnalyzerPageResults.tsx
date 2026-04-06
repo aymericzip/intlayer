@@ -1,4 +1,4 @@
-import { Code, type CodeLanguage } from '@intlayer/design-system';
+import { Code, type CodeLanguage } from '@intlayer/design-system/ide';
 import { FileText, Globe, Link as LinkIcon } from 'lucide-react';
 import type { FC, HTMLProps, ReactNode } from 'react';
 import { memo } from 'react';

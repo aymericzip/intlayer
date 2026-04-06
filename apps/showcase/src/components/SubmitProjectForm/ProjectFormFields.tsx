@@ -1,4 +1,5 @@
-import { Form, MultiSelect } from '@intlayer/design-system';
+import { Form } from '@intlayer/design-system/form';
+import { MultiSelect } from '@intlayer/design-system/select';
 import { useIntlayer } from 'react-intlayer';
 
 const useCasesList = [

@@ -1,4 +1,5 @@
-import { Loader, Table } from '@intlayer/design-system';
+import { Loader } from '@intlayer/design-system/loader';
+import { Table } from '@intlayer/design-system/table';
 import { cn } from '@intlayer/design-system/utils';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import {

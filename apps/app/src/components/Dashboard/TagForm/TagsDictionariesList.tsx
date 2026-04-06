@@ -1,7 +1,8 @@
 'use client';
 
-import { Button, Loader } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
 import { useGetDictionaries } from '@intlayer/design-system/hooks';
+import { Loader } from '@intlayer/design-system/loader';
 import { App_Dashboard_Dictionaries } from '@intlayer/design-system/routes';
 import { useFocusUnmergedDictionary } from '@intlayer/editor-react';
 import { ChevronRight } from 'lucide-react';

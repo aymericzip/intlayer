@@ -1,6 +1,6 @@
 'use client';
 
-import { Container } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
 import { m } from 'framer-motion';
 import { Check, Minus } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';

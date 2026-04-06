@@ -5,7 +5,7 @@ import {
   ContainerPadding,
   ContainerRoundedSize,
   ContainerTransparency,
-} from '@intlayer/design-system';
+} from '@intlayer/design-system/container';
 import { motion, type Variants } from 'framer-motion';
 import { CheckCircle2, GitBranch, Layers, Sparkles } from 'lucide-react';
 import { type IntlayerNode, useIntlayer } from 'next-intlayer';

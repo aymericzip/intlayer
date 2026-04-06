@@ -1,13 +1,15 @@
 'use client';
 
 import type { UserAPI } from '@intlayer/backend';
-import { Form, Loader, toast, useForm } from '@intlayer/design-system';
+import { Form, useForm } from '@intlayer/design-system/form';
 import {
   useGetOrganizations,
   useGetUserById,
   useUpdateOrganizationMembersById,
   useUpdateUser,
 } from '@intlayer/design-system/hooks';
+import { Loader } from '@intlayer/design-system/loader';
+import { toast } from '@intlayer/design-system/toaster';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useMemo, useRef } from 'react';
 import { useUserEditSchema } from '../../AdminPage/AdminUsers/useUserEditSchema';

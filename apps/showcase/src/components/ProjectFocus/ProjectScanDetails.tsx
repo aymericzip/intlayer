@@ -1,4 +1,5 @@
-import { Container, H2 } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
+import { H2 } from '@intlayer/design-system/headers';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import type { ShowcaseProject } from '#/utils/projectActions/types';

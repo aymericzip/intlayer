@@ -1,13 +1,11 @@
 'use client';
 
-import {
-  Button,
-  Container,
-  H3,
-  Input,
-  Modal,
-  TechLogos,
-} from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { H3 } from '@intlayer/design-system/headers';
+import { Input } from '@intlayer/design-system/input';
+import { Modal } from '@intlayer/design-system/modal';
+import { TechLogos } from '@intlayer/design-system/tech-logo';
 import { CheckCircle2, FileCode, FolderSearch, Globe } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';

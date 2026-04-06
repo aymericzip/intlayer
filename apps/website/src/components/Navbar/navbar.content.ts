@@ -4,10 +4,10 @@ import {
   External_Discord,
   External_Github,
   External_ShowcaseApp,
-  Website_Blog,
-  Website_Doc,
-  Website_Home,
-  Website_Playground,
+  Website_Blog_Path,
+  Website_Doc_Path,
+  Website_Home_Path,
+  Website_Playground_Path,
 } from '@intlayer/design-system/routes';
 import { type Dictionary, t } from 'intlayer';
 
@@ -65,7 +65,7 @@ export const navbarContent = {
         vi: 'Logo công ty - Đến trang chủ',
         uk: 'Логотип компанії — перейти на головну сторінку',
       }),
-      url: Website_Home,
+      url: Website_Home_Path,
     },
     sections: [
       {
@@ -90,7 +90,7 @@ export const navbarContent = {
           vi: 'Trang chủ',
           uk: 'Головна',
         }),
-        url: Website_Home,
+        url: Website_Home_Path,
         label: t({
           en: 'Go to home page',
           fr: 'Aller à la page d’accueil',
@@ -134,7 +134,7 @@ export const navbarContent = {
           vi: 'Sandbox',
           uk: 'Пісочниця',
         }),
-        url: Website_Playground,
+        url: Website_Playground_Path,
         label: t({
           en: 'Go to the Playground',
           fr: 'Aller au Playground',
@@ -266,7 +266,7 @@ export const navbarContent = {
           vi: 'Tài liệu',
           uk: 'Документація',
         }),
-        url: Website_Doc,
+        url: Website_Doc_Path,
         label: t({
           en: 'Go to the documentation page',
           fr: 'Aller à la page de documentation',
@@ -290,7 +290,7 @@ export const navbarContent = {
       },
       {
         id: 'blog',
-        url: Website_Blog,
+        url: Website_Blog_Path,
         title: t({
           en: 'Blog',
           fr: 'Blog',

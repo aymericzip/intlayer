@@ -1,6 +1,8 @@
 'use client';
 
-import { Button, Container, Loader } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { Loader } from '@intlayer/design-system/loader';
 import { cn } from '@intlayer/design-system/utils';
 import {
   useConfiguration,

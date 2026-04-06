@@ -1,14 +1,11 @@
 'use client';
 
-import {
-  Button,
-  Checkbox,
-  Container,
-  Loader,
-  Modal,
-  SearchInput,
-} from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
 import { useGetTags } from '@intlayer/design-system/hooks';
+import { Checkbox, SearchInput } from '@intlayer/design-system/input';
+import { Loader } from '@intlayer/design-system/loader';
+import { Modal } from '@intlayer/design-system/modal';
 import { type FC, useState } from 'react';
 
 type TagAPI = {

@@ -1,4 +1,5 @@
-import { Container, TechLogo, TechLogoName } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
+import { TechLogo, TechLogoName } from '@intlayer/design-system/tech-logo';
 import type { FC } from 'react';
 
 const providers: Array<{ name: string; logoName: TechLogoName }> = [

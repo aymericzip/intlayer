@@ -1,4 +1,6 @@
-import { Container, H1, Loader } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
+import { H1 } from '@intlayer/design-system/headers';
+import { Loader } from '@intlayer/design-system/loader';
 import { Doc_Search_Path } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {

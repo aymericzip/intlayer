@@ -4,7 +4,9 @@ import { ChangePasswordForm } from '@components/Auth/ChangePassword';
 import { DeleteUser } from '@components/Auth/DeleteUser';
 import { PasskeyManagement } from '@components/Auth/PasskeyManagement';
 import { TwoFactorAuth } from '@components/Auth/TwoFactorAuth';
-import { Container, Form, H3, useForm } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
+import { Form, useForm } from '@intlayer/design-system/form';
+import { H3 } from '@intlayer/design-system/headers';
 import {
   useListPasskeys,
   useSession,

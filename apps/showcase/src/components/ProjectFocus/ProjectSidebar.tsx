@@ -1,12 +1,9 @@
-import {
-  Button,
-  Container,
-  H2,
-  Loader,
-  Modal,
-  ModalSize,
-} from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { H2 } from '@intlayer/design-system/headers';
 import { useAuth } from '@intlayer/design-system/hooks';
+import { Loader } from '@intlayer/design-system/loader';
+import { Modal, ModalSize } from '@intlayer/design-system/modal';
 import { Showcase_Root_Path } from '@intlayer/design-system/routes';
 import {
   Badge,

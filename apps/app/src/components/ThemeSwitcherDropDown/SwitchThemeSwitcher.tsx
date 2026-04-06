@@ -1,10 +1,10 @@
 'use client';
 
 import {
-  Modes,
   SwitchSelector,
   type SwitchSelectorChoices,
-} from '@intlayer/design-system';
+} from '@intlayer/design-system/switch-selector';
+import { Modes } from '@intlayer/design-system/theme-switcher-drop-down';
 import { MoonIcon, SunIcon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';

@@ -6,20 +6,17 @@ import { OrganizationList } from '@components/Dashboard/OrganizationForm/Organiz
 import { AccessKeyCreationForm } from '@components/Dashboard/ProjectForm/AccessKey/AccessKeyCreationForm';
 import { ProjectList } from '@components/Dashboard/ProjectForm/ProjectList';
 import type { OAuth2AccessAPI } from '@intlayer/backend';
-import {
-  Button,
-  Container,
-  CopyToClipboard,
-  H2,
-  H3,
-  HideShow,
-  Loader,
-  Modal,
-} from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
+import { H2, H3 } from '@intlayer/design-system/headers';
+import { HideShow } from '@intlayer/design-system/hide-show';
 import {
   useSelectOrganization,
   useSession,
 } from '@intlayer/design-system/hooks';
+import { Loader } from '@intlayer/design-system/loader';
+import { Modal } from '@intlayer/design-system/modal';
 import { Check, KeyRound } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';

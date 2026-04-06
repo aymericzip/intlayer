@@ -1,12 +1,13 @@
 'use client';
 
 import { DashboardContentLayout } from '@components/Dashboard/DashboardContentLayout';
-import { Button, TabSelector } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
 import {
   App_Dashboard_Dictionaries_Path,
   App_Dashboard_Editor_Path,
   App_Dashboard_Translate_Path,
 } from '@intlayer/design-system/routes';
+import { TabSelector } from '@intlayer/design-system/tab-selector';
 import { Book, Globe, PenTool } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';

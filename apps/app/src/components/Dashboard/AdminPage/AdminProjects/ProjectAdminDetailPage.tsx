@@ -1,11 +1,11 @@
 'use client';
 
 import { ProjectForm } from '@components/Dashboard/ProjectForm';
-import { Loader } from '@intlayer/design-system';
 import {
   useGetProjects,
   useSelectProject,
 } from '@intlayer/design-system/hooks';
+import { Loader } from '@intlayer/design-system/loader';
 import { useIntlayer } from 'next-intlayer';
 import { useEffect } from 'react';
 

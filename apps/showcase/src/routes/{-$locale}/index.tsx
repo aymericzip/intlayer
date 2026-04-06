@@ -1,14 +1,14 @@
 import { getIntlayerAPI } from '@intlayer/api';
-import {
-  Button,
-  NumberItemsSelector,
-  Pagination,
-  ShowingResultsNumberItems,
-} from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
 import {
   useGetShowcaseProjects,
   useSearch,
 } from '@intlayer/design-system/hooks';
+import {
+  NumberItemsSelector,
+  Pagination,
+  ShowingResultsNumberItems,
+} from '@intlayer/design-system/pagination';
 import { Showcase_Root_Path } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {

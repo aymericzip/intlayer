@@ -1,5 +1,6 @@
 import { TotpForm } from '@components/Auth/TotpForm';
-import { Container, Loader } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
+import { Loader } from '@intlayer/design-system/loader';
 import type { LocalesValues } from 'intlayer';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';

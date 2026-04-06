@@ -2,12 +2,10 @@
 
 import {
   Container,
-  ContainerBackground,
-  ContainerBorderColor,
   ContainerPadding,
   ContainerRoundedSize,
   ContainerTransparency,
-} from '@intlayer/design-system';
+} from '@intlayer/design-system/container';
 import { motion, type Variants } from 'framer-motion';
 import { CheckCircle2, Laptop, Server } from 'lucide-react';
 import { type IntlayerNode, useIntlayer } from 'next-intlayer';

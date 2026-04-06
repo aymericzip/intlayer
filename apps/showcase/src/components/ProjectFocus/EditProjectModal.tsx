@@ -1,5 +1,8 @@
-import { Button, Form, H2, Modal, useForm } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Form, useForm } from '@intlayer/design-system/form';
+import { H2 } from '@intlayer/design-system/headers';
 import { useUpdateShowcaseProject } from '@intlayer/design-system/hooks';
+import { Modal } from '@intlayer/design-system/modal';
 import { Check, X } from 'lucide-react';
 import { useState } from 'react';
 import { useIntlayer } from 'react-intlayer';

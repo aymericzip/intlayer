@@ -6,23 +6,25 @@ import {
   getEmptyNode,
 } from '@intlayer/core/dictionaryManipulator';
 import { getLocaleName } from '@intlayer/core/localization';
+import { Button } from '@intlayer/design-system/button';
 import {
-  Button,
-  KeyboardShortcut,
   KeyPathBreadcrumb,
-  Loader,
-  LocaleSwitcherContent,
-  LocaleSwitcherContentProvider,
-  PopoverStatic,
-  SearchInput,
   TextEditor,
-  useLocaleSwitcherContent,
-} from '@intlayer/design-system';
+} from '@intlayer/design-system/dictionary-field-editor';
 import {
   useInfiniteGetDictionaries,
   usePersistedStore,
   useSearch,
 } from '@intlayer/design-system/hooks';
+import { SearchInput } from '@intlayer/design-system/input';
+import { KeyboardShortcut } from '@intlayer/design-system/keyboard-shortcut';
+import { Loader } from '@intlayer/design-system/loader';
+import {
+  LocaleSwitcherContent,
+  LocaleSwitcherContentProvider,
+  useLocaleSwitcherContent,
+} from '@intlayer/design-system/locale-switcher-content-drop-down';
+import { PopoverStatic } from '@intlayer/design-system/popover';
 import {
   useConfiguration,
   useDictionariesRecordActions,

@@ -1,4 +1,7 @@
-import { Button, H2, Loader, Modal, ModalSize } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { H2 } from '@intlayer/design-system/headers';
+import { Loader } from '@intlayer/design-system/loader';
+import { Modal, ModalSize } from '@intlayer/design-system/modal';
 import { Check, CheckCircle2, Circle, X, XCircle } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';

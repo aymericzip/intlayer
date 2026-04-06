@@ -1,4 +1,5 @@
-import { Container, Loader } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
+import { Loader } from '@intlayer/design-system/loader';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 

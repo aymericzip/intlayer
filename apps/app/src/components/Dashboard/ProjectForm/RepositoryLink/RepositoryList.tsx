@@ -1,7 +1,7 @@
 'use client';
 
-import { SearchInput } from '@intlayer/design-system';
 import { useSearch } from '@intlayer/design-system/hooks';
+import { SearchInput } from '@intlayer/design-system/input';
 import Fuse from 'fuse.js';
 import type { FC } from 'react';
 import { RepositoryItem } from './RepositoryItem';

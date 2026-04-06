@@ -1,8 +1,8 @@
 import {
-  Modes,
   SwitchSelector,
   type SwitchSelectorChoices,
-} from '@intlayer/design-system';
+} from '@intlayer/design-system/switch-selector';
+import { Modes } from '@intlayer/design-system/theme-switcher-drop-down';
 import { MoonIcon, SunIcon } from 'lucide-react';
 import type { FC } from 'react';
 import { useTheme } from './ThemeProvider';

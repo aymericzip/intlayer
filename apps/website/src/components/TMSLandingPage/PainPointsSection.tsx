@@ -1,6 +1,6 @@
 'use client';
 
-import { Container } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
 import { m, type Variants } from 'framer-motion';
 import { Banknote, EyeOff, RefreshCcw } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';

@@ -1,4 +1,7 @@
-import { type LinkGroup, Footer as UIFooter } from '@intlayer/design-system';
+import {
+  type LinkGroup,
+  Footer as UIFooter,
+} from '@intlayer/design-system/footer';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 

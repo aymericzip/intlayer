@@ -4,9 +4,8 @@ import {
   Button,
   ButtonColor,
   ButtonVariant,
-  Checkbox,
-  SearchInput,
-} from '@intlayer/design-system';
+} from '@intlayer/design-system/button';
+import { Checkbox, SearchInput } from '@intlayer/design-system/input';
 import Fuse from 'fuse.js';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useMemo, useState } from 'react';

@@ -1,6 +1,6 @@
 'use client';
 
-import { Tag } from '@intlayer/design-system';
+import { Tag } from '@intlayer/design-system/tag';
 import { cn } from '@intlayer/design-system/utils';
 import Image from 'next/image';
 import { useIntlayer } from 'next-intlayer';

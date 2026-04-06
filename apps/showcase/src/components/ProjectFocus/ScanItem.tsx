@@ -1,4 +1,4 @@
-import { Container } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
 import { Info } from 'lucide-react';
 import type { FC, ReactNode } from 'react';
 

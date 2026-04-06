@@ -1,4 +1,5 @@
-import { DictionaryCreationForm, Modal } from '@intlayer/design-system';
+import { DictionaryCreationForm } from '@intlayer/design-system/dictionary-field-editor';
+import { Modal } from '@intlayer/design-system/modal';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { DeleteDictionaryModal } from './DeleteDictionaryModal';

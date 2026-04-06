@@ -1,7 +1,6 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import { TechLogo, TechLogoName } from '@intlayer/design-system';
 import { useDevice, useScreenWidth } from '@intlayer/design-system/hooks';
 import {
   Website_Doc_Environment_Angular_Path,
@@ -13,6 +12,7 @@ import {
   Website_Doc_Environment_ViteAndSvelte_Path,
   Website_Doc_Environment_ViteAndVue_Path,
 } from '@intlayer/design-system/routes';
+import { TechLogo, TechLogoName } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
 import {
   type MotionValue,

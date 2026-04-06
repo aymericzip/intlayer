@@ -1,8 +1,9 @@
 'use client';
 
-import { Button, useToast } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
 import { useResetPassword } from '@intlayer/design-system/hooks';
 import { App_Home_Path } from '@intlayer/design-system/routes';
+import { useToast } from '@intlayer/design-system/toaster';
 import { Check } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';

@@ -1,6 +1,6 @@
 'use client';
 
-import { PopoverStatic } from '@intlayer/design-system';
+import { PopoverStatic } from '@intlayer/design-system/popover';
 import { Doc_MCP_Path, Doc_Path } from '@intlayer/design-system/routes';
 import { useRouterState } from '@tanstack/react-router';
 import type { FC } from 'react';

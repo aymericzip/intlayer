@@ -1,7 +1,8 @@
 'use client';
 
 import type { EmailsList } from '@intlayer/backend';
-import { Container, Form, useForm } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
+import { Form, useForm } from '@intlayer/design-system/form';
 import {
   useIsMounted,
   usePersistedStore,

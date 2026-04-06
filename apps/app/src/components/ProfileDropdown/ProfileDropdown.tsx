@@ -1,6 +1,9 @@
 'use client';
 
-import { Avatar, Button, Container, DropDown } from '@intlayer/design-system';
+import { Avatar } from '@intlayer/design-system/avatar';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { DropDown } from '@intlayer/design-system/drop-down';
 import { useUser } from '@intlayer/design-system/hooks';
 import type { FC } from 'react';
 

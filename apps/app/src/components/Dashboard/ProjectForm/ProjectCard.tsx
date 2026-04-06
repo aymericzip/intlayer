@@ -1,7 +1,9 @@
 'use client';
 
 import type { GetUsersResult, ProjectAPI } from '@intlayer/backend';
-import { Avatar, Button, Container } from '@intlayer/design-system';
+import { Avatar } from '@intlayer/design-system/avatar';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
 import { useGetUsers } from '@intlayer/design-system/hooks';
 import { GitBranch } from 'lucide-react';
 import Image from 'next/image';

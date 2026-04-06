@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
 import { useUser } from '@intlayer/design-system/hooks';
 import { App_Auth_ChangePassword_Path } from '@intlayer/design-system/routes';
 import { useRouter } from 'next/navigation';

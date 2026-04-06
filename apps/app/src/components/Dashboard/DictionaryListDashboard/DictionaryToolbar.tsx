@@ -1,10 +1,7 @@
-import {
-  Button,
-  Checkbox,
-  Container,
-  PopoverStatic,
-  SearchInput,
-} from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { Checkbox, SearchInput } from '@intlayer/design-system/input';
+import { PopoverStatic } from '@intlayer/design-system/popover';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type { Table } from '@tanstack/react-table';
 import { Columns, Filter, Plus, Trash2 } from 'lucide-react';

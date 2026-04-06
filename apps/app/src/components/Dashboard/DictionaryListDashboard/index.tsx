@@ -1,18 +1,18 @@
 'use client';
 
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
+import { Checkbox } from '@intlayer/design-system/input';
+import { Loader } from '@intlayer/design-system/loader';
 import {
-  Button,
-  Checkbox,
-  Container,
-  CopyToClipboard,
-  Loader,
   NumberItemsSelector,
   Pagination,
-  PopoverStatic,
   ShowingResultsNumberItems,
-  Tag,
-} from '@intlayer/design-system';
+} from '@intlayer/design-system/pagination';
+import { PopoverStatic } from '@intlayer/design-system/popover';
 import { App_Dashboard_Dictionaries_Path } from '@intlayer/design-system/routes';
+import { Tag } from '@intlayer/design-system/tag';
 import { useFocusUnmergedDictionary } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import {

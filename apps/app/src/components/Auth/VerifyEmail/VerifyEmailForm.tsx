@@ -1,8 +1,11 @@
 'use client';
 
 import { getIntlayerAPI } from '@intlayer/api';
-import { Button, Form, H3, Loader, useForm } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Form, useForm } from '@intlayer/design-system/form';
+import { H3 } from '@intlayer/design-system/headers';
 import { useUser } from '@intlayer/design-system/hooks';
+import { Loader } from '@intlayer/design-system/loader';
 import { Check } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useState } from 'react';

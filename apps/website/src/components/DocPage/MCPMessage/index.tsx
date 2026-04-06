@@ -1,7 +1,7 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import { PopoverStatic } from '@intlayer/design-system';
+import { PopoverStatic } from '@intlayer/design-system/popover';
 import { Website_Doc, Website_Doc_MCP } from '@intlayer/design-system/routes';
 import { usePathname } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';

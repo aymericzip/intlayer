@@ -1,14 +1,10 @@
 'use client';
 
 import type { ProjectConfigCI, Webhook } from '@intlayer/backend';
-import {
-  Button,
-  Container,
-  Form,
-  H3,
-  H4,
-  useForm,
-} from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { Form, useForm } from '@intlayer/design-system/form';
+import { H3, H4 } from '@intlayer/design-system/headers';
 import {
   useGetCIConfig,
   useSession,

@@ -1,4 +1,4 @@
-import { Container } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
 import { getFrequentQuestionMetadataRecord } from '@intlayer/docs';
 import { ArrowRight } from 'lucide-react';
 import type { LocalPromiseParams } from 'next-intlayer';

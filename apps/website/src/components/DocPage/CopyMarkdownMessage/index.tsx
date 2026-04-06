@@ -1,4 +1,5 @@
-import { CopyButton, PopoverStatic } from '@intlayer/design-system';
+import { CopyButton } from '@intlayer/design-system/copy-button';
+import { PopoverStatic } from '@intlayer/design-system/popover';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 

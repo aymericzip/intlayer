@@ -1,6 +1,6 @@
 'use client';
 
-import { type IDEProps, IDE as IDEUI } from '@intlayer/design-system';
+import { type IDEProps, IDE as IDEUI } from '@intlayer/design-system/ide';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 

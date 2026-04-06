@@ -5,18 +5,15 @@ import type {
   UpdateProjectMembersBody,
   UserAPI,
 } from '@intlayer/backend';
-import {
-  Form,
-  H3,
-  Loader,
-  MultiSelect,
-  useForm,
-} from '@intlayer/design-system';
+import { Form, useForm } from '@intlayer/design-system/form';
+import { H3 } from '@intlayer/design-system/headers';
 import {
   useGetUsers,
   useSession,
   useUpdateProjectMembers,
 } from '@intlayer/design-system/hooks';
+import { Loader } from '@intlayer/design-system/loader';
+import { MultiSelect } from '@intlayer/design-system/select';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import {

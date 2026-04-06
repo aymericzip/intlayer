@@ -1,7 +1,7 @@
 'use client';
 
 import type { OrganizationAPI } from '@intlayer/backend';
-import { Form, useForm } from '@intlayer/design-system';
+import { Form, useForm } from '@intlayer/design-system/form';
 import {
   useAddOrganization,
   useSelectOrganization,

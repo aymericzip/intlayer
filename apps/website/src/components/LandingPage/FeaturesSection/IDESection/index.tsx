@@ -1,6 +1,7 @@
 'use client';
 
-import { IDE, SwitchSelector } from '@intlayer/design-system';
+import { IDE } from '@intlayer/design-system/ide';
+import { SwitchSelector } from '@intlayer/design-system/switch-selector';
 import { useTheme } from 'next-themes';
 import { type FC, useState } from 'react';
 import { type Framework, useFramework } from '../FrameworkContext';
@@ -22,9 +23,6 @@ import componentVue from './content/component-vue.md';
 import configFileCentralized from './content/config-file-centralized.md';
 import configFilePerComponent from './content/config-file-per-component.md';
 import serverComponent from './content/server-component.md';
-import serverComponentI18nEn from './content/server-component-i18n-en.md';
-import serverComponentI18nEs from './content/server-component-i18n-es.md';
-import serverComponentI18nFr from './content/server-component-i18n-fr.md';
 
 const frameworkComponent: Record<
   Exclude<Framework, 'next'>,

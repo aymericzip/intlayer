@@ -1,7 +1,9 @@
 'use client';
 
-import { Button, Form, Modal, useForm } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Form, useForm } from '@intlayer/design-system/form';
 import { useSignInMagicLink } from '@intlayer/design-system/hooks';
+import { Modal } from '@intlayer/design-system/modal';
 import { cn } from '@intlayer/design-system/utils';
 import { Mail } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';

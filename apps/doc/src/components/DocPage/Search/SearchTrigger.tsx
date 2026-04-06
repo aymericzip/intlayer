@@ -1,11 +1,9 @@
 'use client';
 
-import {
-  Button,
-  KeyboardShortcut,
-  Modal,
-  PopoverStatic,
-} from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { KeyboardShortcut } from '@intlayer/design-system/keyboard-shortcut';
+import { Modal } from '@intlayer/design-system/modal';
+import { PopoverStatic } from '@intlayer/design-system/popover';
 import { Search } from 'lucide-react';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
