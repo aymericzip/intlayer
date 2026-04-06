@@ -171,6 +171,14 @@ export const BuildSettings: FC = () => {
       newList.push(data);
     }
     setWebhooksList(newList);
+
+    // Auto-save to backend
+    updateProject({
+      webhooks: {
+        autoTriggerBuilds: form.getValues('autoTriggerBuilds'),
+        webhooks: newList,
+      },
+    });
   };
 
   const handleDelete = (index: number) => {
@@ -281,7 +289,21 @@ export const BuildSettings: FC = () => {
               </p>
             </div>
 
-            <div className="flex-0">
+            <div className="flex flex-0 gap-2">
+              <Button
+                variant="outline"
+                color="text"
+                size="sm"
+                label={webhooksSection.triggerAllButton.ariaLabel.value}
+                onClick={() => triggerBuild(undefined)}
+                disabled={
+                  !isProjectAdmin || isBuilding || webhooksList.length === 0
+                }
+                isLoading={isBuilding}
+                Icon={Play}
+              >
+                {webhooksSection.triggerAllButton.text}
+              </Button>
               <Button
                 variant="default"
                 label={webhooksSection.addButton.ariaLabel.value}

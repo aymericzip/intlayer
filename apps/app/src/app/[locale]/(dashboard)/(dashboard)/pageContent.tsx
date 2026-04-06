@@ -22,9 +22,17 @@ export const DashboardPageContent: FC<DashboardPageContentProps> = ({
   locale,
 }) => {
   const router = useRouter();
-  const { session: sessionClient } = useSession();
+  const { session: sessionClient, revalidateSession } = useSession();
 
   const session = sessionServer ?? sessionClient;
+
+  useEffect(() => {
+    // If not admin, try to revalidate session to get project admin role
+    const isProjectAdmin = session?.roles?.includes('project_admin');
+    if (!isProjectAdmin) {
+      revalidateSession();
+    }
+  }, []);
 
   useEffect(() => {
     if (session?.organization && session?.project) {

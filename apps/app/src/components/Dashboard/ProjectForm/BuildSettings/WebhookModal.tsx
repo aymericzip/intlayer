@@ -50,12 +50,12 @@ export const WebhookModal: FC<WebhookModalProps> = ({
     defaultValues,
   });
 
-  // Reset form when modal opens or initialValues change
+  // Reset form and refresh session when modal opens
   useEffect(() => {
     if (isOpen) {
       form.reset(initialValues ?? defaultValues);
     }
-  }, [isOpen, initialValues, form]);
+  }, [isOpen, initialValues]);
 
   const onSubmit = (data: WebhookFormData) => {
     onConfirm(data);
@@ -114,8 +114,9 @@ export const WebhookModal: FC<WebhookModalProps> = ({
           {/* Enabled Switch */}
           <Form.SwitchSelector
             name="enabled"
-            label="Enable Webhook"
+            label={modal.enabledLabel.value}
             color="text"
+            disabled={!isProjectAdmin}
           />
 
           <div className="mt-4 flex justify-end gap-2">
