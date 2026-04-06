@@ -12,6 +12,9 @@ export class IntlayerClient {
 
   constructor(locale?: LocalesValues, isCookieEnabled = true) {
     const { defaultLocale } = internationalization ?? {};
+
+    setIntlayerIdentifier();
+
     this._locale =
       (locale as LocalesValues) ?? (defaultLocale as LocalesValues);
     this.isCookieEnabled = isCookieEnabled;
@@ -59,8 +62,6 @@ export const createIntlayerClient = (
   isCookieEnabled = true
 ): IntlayerClient => {
   if (instance) return instance;
-
-  setIntlayerIdentifier();
 
   instance = new IntlayerClient(locale, isCookieEnabled);
   return instance;

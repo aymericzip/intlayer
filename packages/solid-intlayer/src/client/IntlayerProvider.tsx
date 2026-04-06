@@ -9,6 +9,7 @@ import {
   createMemo,
   createSignal,
   on,
+  onMount,
   type ParentProps,
   untrack,
   useContext,
@@ -89,7 +90,7 @@ export const IntlayerProviderContent: Component<IntlayerProviderProps> = (
     )
   );
 
-  createEffect(() => {
+  onMount(() => {
     setIntlayerIdentifier();
   });
 

@@ -11,6 +11,10 @@ export class IntlayerProvider {
 
   readonly locale: Signal<LocalesValues> = this._locale.asReadonly();
 
+  constructor() {
+    setIntlayerIdentifier();
+  }
+
   setLocale = (locale: LocalesValues) => {
     this._locale.set(locale);
   };
@@ -31,7 +35,6 @@ export const createIntlayerClient = (
   isCookieEnabled = true
 ): IntlayerProvider => {
   if (instance) return instance;
-  setIntlayerIdentifier();
 
   instance = new IntlayerProvider();
 
