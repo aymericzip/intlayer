@@ -35,6 +35,13 @@ const INTLAYER_BUNDLE_PKG_REGEX =
 const INTLAYER_BUNDLE_MARKER =
   /name\s*:\s*['"]Intlayer['"]\s*,\s*version\s*:\s*['"][^'"]+['"]\s*,\s*doc\s*:\s*[`'"]https:\/\/intlayer\.org\/docs[`'"]/i;
 
+/**
+ * Matches any assignment to window.intlayer in a bundle.
+ * e.g. window.intlayer={enabled:!0} or window["intlayer"]={enabled:true}
+ */
+const WINDOW_INTLAYER_PATTERN =
+  /window\s*(?:\.\s*intlayer|\[['"]intlayer['"]\])\s*=/;
+
 /** Extract all intlayer packages from a script text blob. */
 export const extractPackagesFromScript = (
   content: string
@@ -152,7 +159,7 @@ export const scanShowcaseProject = async (
           ?.getAttribute('content') ||
         '';
 
-      const intlayerVersion = (window as any).intlayer;
+      const hasWindowIntlayer = Boolean((window as any).intlayer);
 
       return {
         lang,
@@ -165,7 +172,7 @@ export const scanShowcaseProject = async (
         externalScriptUrls: allScriptUrls,
         metaTitle,
         metaDescription,
-        intlayerVersion,
+        hasWindowIntlayer,
       };
     }, allLocales);
 
@@ -191,67 +198,79 @@ export const scanShowcaseProject = async (
       }
     } catch {}
 
-    // Intlayer bundle detection
+    // ── Intlayer detection ────────────────────────────────────────────────────
     const packageDetails: Record<string, string> = {};
     let markerFoundInExternalScript = false;
 
-    if (pageDetails.intlayerVersion) {
-      packageDetails.intlayer = pageDetails.intlayerVersion;
-    }
+    // Primary: window.intlayer is set — no need to scan bundles
+    if (pageDetails.hasWindowIntlayer) {
+      // Extract version details from inline scripts while we're here
+      for (const script of pageDetails.inlineScripts) {
+        Object.assign(packageDetails, extractPackagesFromScript(script));
+      }
+    } else {
+      // Fallback: scan inline scripts
+      for (const script of pageDetails.inlineScripts) {
+        Object.assign(packageDetails, extractPackagesFromScript(script));
+        if (
+          !markerFoundInExternalScript &&
+          (INTLAYER_BUNDLE_MARKER.test(script) ||
+            WINDOW_INTLAYER_PATTERN.test(script))
+        ) {
+          markerFoundInExternalScript = true;
+        }
+      }
 
-    for (const script of pageDetails.inlineScripts) {
-      if (packageDetails.intlayer) break;
-      Object.assign(packageDetails, extractPackagesFromScript(script));
-    }
+      // Fallback: fetch and scan external bundles
+      if (
+        !markerFoundInExternalScript &&
+        !Object.keys(packageDetails).some((key) => key.includes('intlayer'))
+      ) {
+        const scriptUrls = pageDetails.externalScriptUrls.slice(
+          0,
+          MAX_EXTERNAL_SCRIPTS
+        );
 
-    if (
-      !packageDetails.intlayer &&
-      !Object.keys(packageDetails).some((key) => key.includes('intlayer'))
-    ) {
-      const scriptUrls = pageDetails.externalScriptUrls.slice(
-        0,
-        MAX_EXTERNAL_SCRIPTS
-      );
+        await Promise.allSettled(
+          scriptUrls.map(async (src) => {
+            try {
+              const controller = new AbortController();
+              const timeoutId = setTimeout(() => controller.abort(), 5000);
 
-      await Promise.allSettled(
-        scriptUrls.map(async (src) => {
-          try {
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 5000);
+              const res = await fetch(src, {
+                signal: controller.signal,
+              }).finally(() => clearTimeout(timeoutId));
 
-            const res = await fetch(src, { signal: controller.signal }).finally(
-              () => clearTimeout(timeoutId)
-            );
+              if (!res.ok) return;
+              const contentLength = Number(
+                res.headers.get('content-length') || 0
+              );
+              if (contentLength > MAX_SCRIPT_BYTES) return;
 
-            if (!res.ok) return;
-            const contentLength = Number(
-              res.headers.get('content-length') || 0
-            );
+              const text = await res.text();
+              if (text.length > MAX_SCRIPT_BYTES) return;
 
-            if (contentLength > MAX_SCRIPT_BYTES) return;
-            const text = await res.text();
-
-            if (text.length > MAX_SCRIPT_BYTES) return;
-
-            if (INTLAYER_BUNDLE_MARKER.test(text)) {
-              markerFoundInExternalScript = true;
-              Object.assign(packageDetails, extractPackagesFromScript(text));
-            } else if (text.includes('intlayer')) {
-              Object.assign(packageDetails, extractPackagesFromScript(text));
-            }
-          } catch {}
-        })
-      );
+              if (
+                INTLAYER_BUNDLE_MARKER.test(text) ||
+                WINDOW_INTLAYER_PATTERN.test(text)
+              ) {
+                markerFoundInExternalScript = true;
+                Object.assign(packageDetails, extractPackagesFromScript(text));
+              } else if (text.includes('intlayer')) {
+                Object.assign(packageDetails, extractPackagesFromScript(text));
+              }
+            } catch {}
+          })
+        );
+      }
     }
 
     const hasIntlayer =
+      pageDetails.hasWindowIntlayer ||
       Object.keys(packageDetails).some(
         (key) =>
           key.toLowerCase().includes('intlayer') &&
           !key.toLowerCase().includes('@intlayer')
-      ) ||
-      pageDetails.inlineScripts.some((script) =>
-        INTLAYER_BUNDLE_MARKER.test(script)
       ) ||
       markerFoundInExternalScript;
 
