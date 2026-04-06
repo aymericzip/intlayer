@@ -116,7 +116,6 @@ export const WebhookModal: FC<WebhookModalProps> = ({
             name="enabled"
             label={modal.enabledLabel.value}
             color="text"
-            disabled={!isProjectAdmin}
           />
 
           <div className="mt-4 flex justify-end gap-2">

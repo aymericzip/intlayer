@@ -35,16 +35,21 @@ export const triggerAll = async (
     }
   }
 
-  // Trigger Generic Webhooks (Vercel, etc.)
-  const webhooks = project.webhooks?.webhooks || [];
+  // Trigger Generic Webhooks (Vercel, etc.) — run in parallel to avoid timeouts
+  const webhooks = (project.webhooks?.webhooks || []).filter(
+    (hook) => hook.enabled
+  );
 
-  // Using Promise.all is often better here, but keeping your sequential loop logic for safety
-  for (const hook of webhooks) {
-    if (!hook.enabled) continue;
-    try {
-      await triggerGenericWebhook(hook);
+  const webhookResults = await Promise.allSettled(
+    webhooks.map((hook) => triggerGenericWebhook(hook))
+  );
+
+  webhooks.forEach((hook, i) => {
+    const outcome = webhookResults[i];
+    if (outcome.status === 'fulfilled') {
       results.push({ target: hook.name, success: true });
-    } catch (error: any) {
+    } else {
+      const error = outcome.reason as Error;
       logger.error(`Failed to trigger webhook ${hook.name}`, error);
       results.push({
         target: hook.name,
@@ -52,7 +57,7 @@ export const triggerAll = async (
         message: error.message || String(error),
       });
     }
-  }
+  });
 
   return results;
 };
