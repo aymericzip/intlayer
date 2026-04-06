@@ -1,8 +1,8 @@
 import { internationalization } from '@intlayer/config/built';
+import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
 import { localeDetector } from '@intlayer/core/localization';
 import { getLocaleFromStorageClient } from '@intlayer/core/utils';
 import type { Locale } from '@intlayer/types/allLocales';
-import { ENGLISH } from '@intlayer/types/locales';
 
 export enum LanguageDetector {
   Querystring = 'querystring',
@@ -147,7 +147,7 @@ const getFirstAvailableLocale = (
     }
   }
 
-  return internationalization?.defaultLocale ?? ENGLISH;
+  return internationalization?.defaultLocale ?? DEFAULT_LOCALE;
 };
 
 /**

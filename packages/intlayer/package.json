@@ -62,9 +62,6 @@
       "cli": [
         "./dist/types/cli/index.d.ts"
       ],
-      "cli/*": [
-        "./dist/types/cli/*"
-      ],
       "routing": [
         "./dist/types/routing/index.d.ts"
       ],

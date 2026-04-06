@@ -1,7 +1,7 @@
 import { readAsset } from 'utils:asset';
+import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
 import { getLocaleName } from '@intlayer/core/localization';
 import type { Locale } from '@intlayer/types/allLocales';
-import { ENGLISH } from '@intlayer/types/locales';
 import { decode, encode } from '@toon-format/toon';
 import { generateText, Output } from 'ai';
 import { z } from 'zod';
@@ -42,7 +42,7 @@ export const aiDefaultOptions: AIOptions = {
  * @returns A string in the format "locale: name", e.g. "en: English".
  */
 const formatLocaleWithName = (locale: Locale): string =>
-  `${locale}: ${getLocaleName(locale, ENGLISH)}`;
+  `${locale}: ${getLocaleName(locale, DEFAULT_LOCALE)}`;
 
 /**
  * Formats tag instructions for the AI prompt.

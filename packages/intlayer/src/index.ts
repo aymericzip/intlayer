@@ -32,12 +32,11 @@ type DeclarationContent<
 
 export { ALL_LOCALES, type Locale } from '@intlayer/types/allLocales';
 export type { ContentNode } from '@intlayer/types/dictionary';
+export * as Locales from '@intlayer/types/locales';
 export type {
   LocalesValues,
   StrictModeLocaleMap,
 } from '@intlayer/types/module_augmentation';
-
-import * as Locales from '@intlayer/types/locales';
 
 export type { DeclarationContent, Dictionary, IntlayerConfig };
 
@@ -156,7 +155,6 @@ export {
   defaultLocale,
   editor,
   getConfiguration,
-  Locales,
   locales,
   requiredLocales,
 };

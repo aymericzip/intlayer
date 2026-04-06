@@ -1,6 +1,6 @@
 import { internationalization } from '@intlayer/config/built';
+import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
 import type { Locale } from '@intlayer/types/allLocales';
-import { ENGLISH } from '@intlayer/types/locales';
 import {
   getLocaleFromStorageClient,
   type LocaleStorageClientOptions,
@@ -180,7 +180,7 @@ const getFirstAvailableLocale = (
     }
   }
 
-  return internationalization?.defaultLocale ?? ENGLISH;
+  return internationalization?.defaultLocale ?? DEFAULT_LOCALE;
 };
 
 /**

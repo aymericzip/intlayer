@@ -35,53 +35,51 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
-    "./config": {
-      "types": "./dist/types/config.d.ts",
-      "require": "./dist/cjs/config.cjs",
-      "import": "./dist/esm/config.mjs"
-    },
-    "./filePathPattern": {
-      "types": "./dist/types/filePathPattern.d.ts",
-      "require": "./dist/cjs/filePathPattern.cjs",
-      "import": "./dist/esm/filePathPattern.mjs"
-    },
-    "./dictionary": {
-      "types": "./dist/types/dictionary.d.ts",
-      "require": "./dist/cjs/dictionary.cjs",
-      "import": "./dist/esm/dictionary.mjs"
-    },
-    "./keyPath": {
-      "types": "./dist/types/keyPath.d.ts",
-      "require": "./dist/cjs/keyPath.cjs",
-      "import": "./dist/esm/keyPath.mjs"
-    },
-    "./module_augmentation": {
-      "types": "./dist/types/module_augmentation.d.ts",
-      "require": "./dist/cjs/module_augmentation.cjs",
-      "import": "./dist/esm/module_augmentation.mjs"
-    },
-    "./nodeType": {
-      "types": "./dist/types/nodeType.d.ts",
-      "require": "./dist/cjs/nodeType.cjs",
-      "import": "./dist/esm/nodeType.mjs"
-    },
-    "./plugin": {
-      "types": "./dist/types/plugin.d.ts",
-      "require": "./dist/cjs/plugin.cjs",
-      "import": "./dist/esm/plugin.mjs"
-    },
     "./locales": {
       "types": "./dist/types/locales.d.ts",
-      "require": "./dist/cjs/locales.cjs",
+      "require": "./dist/esm/locales.mjs",
       "import": "./dist/esm/locales.mjs"
     },
     "./allLocales": {
       "types": "./dist/types/allLocales.d.ts",
-      "require": "./dist/cjs/allLocales.cjs",
+      "require": "./dist/esm/allLocales.mjs",
       "import": "./dist/esm/allLocales.mjs"
+    },
+    "./keyPath": {
+      "types": "./dist/types/keyPath.d.ts",
+      "require": "./dist/esm/keyPath.mjs",
+      "import": "./dist/esm/keyPath.mjs"
+    },
+    "./dictionary": {
+      "types": "./dist/types/dictionary.d.ts",
+      "require": "./dist/esm/dictionary.mjs",
+      "import": "./dist/esm/dictionary.mjs"
+    },
+    "./module_augmentation": {
+      "types": "./dist/types/module_augmentation.d.ts",
+      "require": "./dist/esm/module_augmentation.mjs",
+      "import": "./dist/esm/module_augmentation.mjs"
+    },
+    "./config": {
+      "types": "./dist/types/config.d.ts",
+      "require": "./dist/esm/config.mjs",
+      "import": "./dist/esm/config.mjs"
+    },
+    "./plugin": {
+      "types": "./dist/types/plugin.d.ts",
+      "require": "./dist/esm/plugin.mjs",
+      "import": "./dist/esm/plugin.mjs"
+    },
+    "./nodeType": {
+      "types": "./dist/types/nodeType.d.ts",
+      "require": "./dist/esm/nodeType.mjs",
+      "import": "./dist/esm/nodeType.mjs"
     },
     "./package.json": "./package.json"
   },
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.mjs",
+  "types": "./dist/types/index.d.ts",
   "typesVersions": {
     "*": {
       "config": [
