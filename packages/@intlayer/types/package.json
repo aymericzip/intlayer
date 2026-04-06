@@ -37,42 +37,42 @@
     },
     "./locales": {
       "types": "./dist/types/locales.d.ts",
-      "require": "./dist/esm/locales.mjs",
+      "require": "./dist/cjs/locales.cjs",
       "import": "./dist/esm/locales.mjs"
     },
     "./allLocales": {
       "types": "./dist/types/allLocales.d.ts",
-      "require": "./dist/esm/allLocales.mjs",
+      "require": "./dist/cjs/allLocales.cjs",
       "import": "./dist/esm/allLocales.mjs"
     },
     "./keyPath": {
       "types": "./dist/types/keyPath.d.ts",
-      "require": "./dist/esm/keyPath.mjs",
+      "require": "./dist/cjs/keyPath.cjs",
       "import": "./dist/esm/keyPath.mjs"
     },
     "./dictionary": {
       "types": "./dist/types/dictionary.d.ts",
-      "require": "./dist/esm/dictionary.mjs",
+      "require": "./dist/cjs/dictionary.cjs",
       "import": "./dist/esm/dictionary.mjs"
     },
     "./module_augmentation": {
       "types": "./dist/types/module_augmentation.d.ts",
-      "require": "./dist/esm/module_augmentation.mjs",
+      "require": "./dist/cjs/module_augmentation.cjs",
       "import": "./dist/esm/module_augmentation.mjs"
     },
     "./config": {
       "types": "./dist/types/config.d.ts",
-      "require": "./dist/esm/config.mjs",
+      "require": "./dist/cjs/config.cjs",
       "import": "./dist/esm/config.mjs"
     },
     "./plugin": {
       "types": "./dist/types/plugin.d.ts",
-      "require": "./dist/esm/plugin.mjs",
+      "require": "./dist/cjs/plugin.cjs",
       "import": "./dist/esm/plugin.mjs"
     },
     "./nodeType": {
       "types": "./dist/types/nodeType.d.ts",
-      "require": "./dist/esm/nodeType.mjs",
+      "require": "./dist/cjs/nodeType.cjs",
       "import": "./dist/esm/nodeType.mjs"
     },
     "./package.json": "./package.json"
