@@ -5,8 +5,8 @@ import { useGetDictionaries } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { App_Dashboard_Dictionaries } from '@intlayer/design-system/routes';
 import { useFocusUnmergedDictionary } from '@intlayer/editor-react';
+import { useNavigate } from '@tanstack/react-router';
 import { ChevronRight } from 'lucide-react';
-import { useRouter } from '#/hooks/navigation';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 
@@ -28,7 +28,7 @@ const NoDictionaryView: FC = () => {
 export const TagsDictionariesList: FC<TagsDictionariesListProps> = ({
   tagKey,
 }) => {
-  const router = useRouter();
+  const navigate = useNavigate();
   const { setFocusedContent } = useFocusUnmergedDictionary();
   const { dictionaryLinkLabel } = useIntlayer('tags-dictionaries-list');
   const { data, isFetching } = useGetDictionaries({
@@ -38,7 +38,7 @@ export const TagsDictionariesList: FC<TagsDictionariesListProps> = ({
   return (
     <div className="flex flex-col gap-2">
       <Loader isLoading={!data && isFetching}>
-        {data?.data?.map((dictionary) => (
+        {data?.data?.map((dictionary: any) => (
           <Button
             key={String(dictionary.key)}
             label={dictionaryLinkLabel.value}
@@ -51,7 +51,9 @@ export const TagsDictionariesList: FC<TagsDictionariesListProps> = ({
                 dictionaryLocalId: dictionary.localId,
                 keyPath: [],
               });
-              router.push(`${App_Dashboard_Dictionaries}/${dictionary.key}`);
+              navigate({
+                to: `${App_Dashboard_Dictionaries}/${dictionary.key}` as any,
+              });
             }}
           >
             <div className="flex flex-col gap-2 p-2">

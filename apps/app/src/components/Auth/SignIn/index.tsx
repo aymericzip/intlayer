@@ -5,28 +5,28 @@ import {
   App_Auth_AskResetPassword_Path,
   App_Auth_SignUp_Path,
 } from '@intlayer/design-system/routes';
-import { useRouter, useSearchParams } from '#/hooks/navigation';
+import { useNavigate, useSearch } from '@tanstack/react-router';
 import { type FC, useEffect, useRef } from 'react';
 import { type SignIn, SignInForm as SignInFormUI } from './SignInForm/index';
 
 export const SignInForm: FC<{
   callbackUrl?: string;
 }> = ({ callbackUrl }) => {
-  const router = useRouter();
+  const navigate = useNavigate();
   const { mutate: login, isPending } = useLogin();
-  const searchParams = useSearchParams();
-  const email = searchParams.get('email');
+  const search = useSearch({ strict: false }) as any;
+  const email = search.email;
   const emailInputRef = useRef<HTMLInputElement>(null);
 
   // If callbackUrl is provided but redirect_url is not in the URL,
   // add it to the current URL so 2FA redirect can preserve it
   useEffect(() => {
-    if (callbackUrl && !searchParams.get('redirect_url')) {
+    if (callbackUrl && !search.redirect_url) {
       const currentUrl = new URL(window.location.href);
       currentUrl.searchParams.set('redirect_url', callbackUrl);
       window.history.replaceState({}, '', currentUrl.toString());
     }
-  }, [callbackUrl, searchParams]);
+  }, [callbackUrl, search]);
 
   const onSubmitSuccess = ({ email, password, rememberMe }: SignIn) => {
     login({
@@ -38,7 +38,7 @@ export const SignInForm: FC<{
   };
 
   const getEmailContext = () => {
-    const email = searchParams.get('email');
+    const email = search.email;
 
     if (email) {
       return email;
@@ -52,9 +52,11 @@ export const SignInForm: FC<{
     const email = getEmailContext();
 
     if (email) {
-      router.push(`${App_Auth_AskResetPassword_Path}?email=${email}`);
+      navigate({
+        to: `${App_Auth_AskResetPassword_Path}?email=${email}` as any,
+      });
     } else {
-      router.push(App_Auth_AskResetPassword_Path);
+      navigate({ to: App_Auth_AskResetPassword_Path as any });
     }
   };
 
@@ -62,9 +64,9 @@ export const SignInForm: FC<{
     const email = getEmailContext();
 
     if (email) {
-      router.push(`${App_Auth_SignUp_Path}?email=${email}`);
+      navigate({ to: `${App_Auth_SignUp_Path}?email=${email}` as any });
     } else {
-      router.push(App_Auth_SignUp_Path);
+      navigate({ to: App_Auth_SignUp_Path as any });
     }
   };
 

@@ -10,8 +10,8 @@ import { H2 } from '@intlayer/design-system/headers';
 import { useGetTags } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { App_Dashboard_Tags } from '@intlayer/design-system/routes';
+import { useNavigate } from '@tanstack/react-router';
 import { ArrowLeft } from 'lucide-react';
-import { useRouter } from '#/hooks/navigation';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { TagEditionForm } from './TagEditionForm';
@@ -24,7 +24,7 @@ type TagDetailsProps = {
 export const TagDetailsContent: FC<TagDetailsProps> = ({ tagKey }) => {
   const { detailsTitle, dictionariesListTitle } = useIntlayer('tag-details');
   const { data: tagResponse, isLoading } = useGetTags({
-    args: tagKey,
+    search: tagKey,
   });
   const tag = tagResponse?.data?.[0];
 
@@ -51,14 +51,14 @@ export const TagDetailsContent: FC<TagDetailsProps> = ({ tagKey }) => {
 };
 
 export const TagDetails: FC<TagDetailsProps> = ({ tagKey }) => {
-  const router = useRouter();
+  const navigate = useNavigate();
   const { returnToTagList } = useIntlayer('tag-details');
 
   return (
     <div className="flex size-full flex-1 flex-col gap-10">
       <div className="flex items-center gap-2">
         <Button
-          onClick={() => router.push(App_Dashboard_Tags)}
+          onClick={() => navigate({ to: App_Dashboard_Tags as any })}
           variant={ButtonVariant.HOVERABLE}
           className="z-10 mr-auto ml-5"
           color={ButtonColor.TEXT}

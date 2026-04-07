@@ -3,16 +3,16 @@
 import { Button } from '@intlayer/design-system/button';
 import { useUser } from '@intlayer/design-system/hooks';
 import { App_Auth_ChangePassword_Path } from '@intlayer/design-system/routes';
-import { useRouter } from '#/hooks/navigation';
+import { useNavigate } from '@tanstack/react-router';
 import type { FC } from 'react';
 
 export const ProfilePanel: FC = () => {
   const { isUnauthenticated, user, logout } = useUser();
-  const router = useRouter();
+  const navigate = useNavigate();
 
   const handleLogOut = () => {
     logout()
-      .then(() => router.refresh())
+      .then(() => window.location.reload())
       .catch((err) => console.error(err));
   };
 
@@ -31,7 +31,7 @@ export const ProfilePanel: FC = () => {
       <Button
         variant="link"
         color="text"
-        onClick={() => router.push(App_Auth_ChangePassword_Path)}
+        onClick={() => navigate({ to: App_Auth_ChangePassword_Path as any })}
         label="Replace your password with a new one."
       >
         Change password

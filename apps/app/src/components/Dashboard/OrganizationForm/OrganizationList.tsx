@@ -14,8 +14,8 @@ import {
   ShowingResultsNumberItems,
 } from '@intlayer/design-system/pagination';
 import { App_Dashboard_Projects_Path } from '@intlayer/design-system/routes';
+import { useNavigate } from '@tanstack/react-router';
 import { Plus } from 'lucide-react';
-import { useRouter } from '#/hooks/navigation';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { NoOrganizationView } from './NoOrganizationView';
@@ -56,12 +56,12 @@ export const OrganizationList: FC<OrganizationListProps> = ({
   const { searchPlaceholder, noOrganizationFound } =
     useIntlayer('organization-list');
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
-  const router = useRouter();
+  const navigate = useNavigate();
 
   const handleSelectOrganization = (organizationId: OrganizationAPI['id']) => {
     if (onSelectOrganization) {
       const organization = organizations.find(
-        (organization) => organization.id === organizationId
+        (organization: any) => organization.id === organizationId
       );
 
       if (!organization) {
@@ -74,7 +74,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({
 
     selectOrganization(organizationId, {
       onSuccess: () => {
-        router.push(App_Dashboard_Projects_Path);
+        navigate({ to: App_Dashboard_Projects_Path as any });
       },
     });
   };
@@ -90,7 +90,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({
         <div className="flex w-full flex-1 flex-col items-center p-10">
           {organizations.length > 0 ? (
             <ul className="flex w-full flex-wrap gap-3">
-              {organizations.map((organization) => (
+              {organizations.map((organization: any) => (
                 <li
                   className="flex w-full max-w-sm flex-col rounded-lg"
                   key={String(organization.id)}

@@ -2,7 +2,7 @@
 
 import { useAskResetPassword } from '@intlayer/design-system/hooks';
 import { App_Auth_SignIn_Path } from '@intlayer/design-system/routes';
-import { useRouter, useSearchParams } from '#/hooks/navigation';
+import { useNavigate, useSearch } from '@tanstack/react-router';
 import { type FC, useRef } from 'react';
 import {
   type AskResetPassword,
@@ -18,10 +18,10 @@ export const AskResetPasswordForm: FC<AskResetPasswordFormProps> = ({
   email,
   callbackUrl = App_Auth_SignIn_Path,
 }) => {
-  const router = useRouter();
+  const navigate = useNavigate();
   const { mutate: askResetPassword } = useAskResetPassword();
-  const searchParams = useSearchParams();
-  const emailFromParams = searchParams.get('email');
+  const search = useSearch({ strict: false }) as any;
+  const emailFromParams = search.email;
   const emailInputRef = useRef<HTMLInputElement>(null);
 
   const onSubmitSuccess = ({ email }: AskResetPassword) => {
@@ -32,7 +32,7 @@ export const AskResetPasswordForm: FC<AskResetPasswordFormProps> = ({
   };
 
   const getEmailContext = () => {
-    const email = searchParams.get('email');
+    const email = search.email;
 
     if (email) {
       return email;
@@ -46,9 +46,9 @@ export const AskResetPasswordForm: FC<AskResetPasswordFormProps> = ({
     const email = getEmailContext();
 
     if (email) {
-      router.push(`${callbackUrl}?email=${email}`);
+      navigate({ to: `${callbackUrl}?email=${email}` as any });
     } else {
-      router.push(callbackUrl);
+      navigate({ to: callbackUrl as any });
     }
   };
 

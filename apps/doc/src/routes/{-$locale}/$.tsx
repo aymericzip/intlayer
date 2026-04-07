@@ -1,4 +1,3 @@
-import { Doc_Path } from '@intlayer/design-system/routes';
 import {
   type DocKey,
   getDoc,
@@ -29,6 +28,8 @@ export const Route = createFileRoute('/{-$locale}/$')({
       defaultLocale) as string;
     const splat = (params as { _splat: string })._splat ?? '';
     const slugs = ['doc', ...(splat ? splat.split('/').filter(Boolean) : [])];
+
+    console.log({ slugs });
 
     const docsData = await getDocMetadataBySlug(slugs, locale as any);
     const filteredDocsData = docsData.filter(

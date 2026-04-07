@@ -4,7 +4,7 @@ import { Form } from '@intlayer/design-system/form';
 import { useDeleteProject } from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
 import { App_Dashboard_Projects_Path } from '@intlayer/design-system/routes';
-import { useRouter } from '#/hooks/navigation';
+import { useNavigate } from '@tanstack/react-router';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 
@@ -23,14 +23,14 @@ export const DeleteProjectModal: FC<DeleteProjectModalProps> = ({
   const { confirmButton, cancelButton, description, title } = useIntlayer(
     'delete-project-modal'
   );
-  const router = useRouter();
+  const navigate = useNavigate();
 
   const handleDelete = () => {
     deleteProject(undefined, {
       onSuccess: () => {
         onDelete?.();
         onClose?.();
-        router.push(App_Dashboard_Projects_Path);
+        navigate({ to: App_Dashboard_Projects_Path as any });
       },
     });
   };

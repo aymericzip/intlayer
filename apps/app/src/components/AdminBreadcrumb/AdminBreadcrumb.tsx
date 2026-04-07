@@ -6,15 +6,15 @@ import {
   type BreadcrumbProps,
 } from '@intlayer/design-system/breadcrumb';
 import { App_Admin_Dashboard_Path } from '@intlayer/design-system/routes';
-import { useParams, usePathname } from '#/hooks/navigation';
+import { useLocation, useParams } from '@tanstack/react-router';
 import { type FC, useMemo } from 'react';
 import { useIntlayer } from 'react-intlayer';
 
 type AdminBreadcrumbProps = Omit<BreadcrumbProps, 'links'>;
 
 export const AdminBreadcrumb: FC<AdminBreadcrumbProps> = (props) => {
-  const pathname = usePathname();
-  const params = useParams();
+  const { pathname } = useLocation();
+  const params = useParams({ strict: false }) as any;
   const locale = params.locale as string;
 
   const { home, users, organizations, projects, dashboard, userDetail } =

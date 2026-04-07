@@ -4,9 +4,9 @@ import { Form, useForm } from '@intlayer/design-system/form';
 import { H2 } from '@intlayer/design-system/headers';
 import { useUser } from '@intlayer/design-system/hooks';
 import { App_Auth_SignIn_Path } from '@intlayer/design-system/routes';
+import { useNavigate } from '@tanstack/react-router';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { useRouter } from '#/hooks/navigation';
 import { ExternalsLoginButtons } from '#components/Auth/ExternalsLoginButtons';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
@@ -26,12 +26,15 @@ export const RegisterStepForm: FC = () => {
   const { form, isSubmitting } = useForm(RegisterSchema, {
     defaultValues,
   });
-  const router = useRouter();
+  const navigate = useNavigate();
 
   const onClickToSignIn = () =>
-    router.push(
-      `${App_Auth_SignIn_Path}?redirect_url=${encodeURIComponent(window.location.href)}`
-    );
+    navigate({
+      to: App_Auth_SignIn_Path as any,
+      search: {
+        redirect_url: window.location.href,
+      } as any,
+    });
 
   const onSubmitSuccess = (data: Register) => {
     setState(data);

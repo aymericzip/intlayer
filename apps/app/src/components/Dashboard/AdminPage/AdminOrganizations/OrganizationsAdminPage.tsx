@@ -16,6 +16,7 @@ import {
 import { getAppAdminOrganizationRoute } from '@intlayer/design-system/routes';
 import { Table } from '@intlayer/design-system/table';
 import { cn } from '@intlayer/design-system/utils';
+import { useNavigate } from '@tanstack/react-router';
 import {
   type ColumnDef,
   flexRender,
@@ -26,7 +27,6 @@ import {
 import { ChevronDown, ChevronUp, Search } from 'lucide-react';
 import { type FC, useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { useRouter } from '#/hooks/navigation';
 import { useSearchParamState } from '#hooks/useSearchParamState';
 
 export const OrganizationsAdminPageContent: FC = () => {
@@ -40,7 +40,7 @@ export const OrganizationsAdminPageContent: FC = () => {
     sortOrder: { type: 'string', fallbackValue: 'asc' },
   });
 
-  const router = useRouter();
+  const navigate = useNavigate();
   const { setSearch, search } = useSearch({});
 
   const organizationsQuery = useGetOrganizations({
@@ -314,9 +314,11 @@ export const OrganizationsAdminPageContent: FC = () => {
                     key={row.id}
                     className="cursor-pointer whitespace-nowrap border-neutral-100 border-b hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
                     onClick={() => {
-                      router.push(
-                        getAppAdminOrganizationRoute(row.original.id)
-                      );
+                      navigate({
+                        to: getAppAdminOrganizationRoute(
+                          row.original.id
+                        ) as any,
+                      });
                     }}
                   >
                     {row.getVisibleCells().map((cell) => (

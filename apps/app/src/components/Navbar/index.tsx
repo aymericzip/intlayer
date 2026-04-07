@@ -7,11 +7,11 @@ import { LogoWithText } from '@intlayer/design-system/logo';
 import { Navbar as UINavBar } from '@intlayer/design-system/navbar';
 import { DiscordLogo } from '@intlayer/design-system/social-networks';
 import { TechLogos } from '@intlayer/design-system/tech-logo';
+import { useLocation } from '@tanstack/react-router';
 import { StarIcon } from 'lucide-react';
 import type { FC } from 'react';
 import { lazy, Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { usePathname, useRouter } from '#/hooks/navigation';
 import { Link } from '#components/Link/Link';
 import { LocaleSwitcher } from '#components/LocaleSwitcher/LocaleSwitcher';
 import { ProfileDropDown } from '#components/ProfileDropdown/ProfileDropdown';
@@ -47,12 +47,11 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
     discord,
   } = useIntlayer('navbar');
   const { isAuthenticated, logout, user } = useUser();
-  const pathWithoutLocale = usePathname();
-  const router = useRouter();
+  const { pathname: pathWithoutLocale } = useLocation();
 
   const handleLogOut = () => {
     logout()
-      .then(() => router.refresh())
+      .then(() => window.location.reload())
       .catch((err) => console.error(err));
   };
 

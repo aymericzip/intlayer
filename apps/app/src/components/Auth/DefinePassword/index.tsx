@@ -4,8 +4,8 @@ import { Button } from '@intlayer/design-system/button';
 import { useResetPassword } from '@intlayer/design-system/hooks';
 import { App_Home_Path } from '@intlayer/design-system/routes';
 import { useToast } from '@intlayer/design-system/toaster';
+import { useNavigate, useSearch } from '@tanstack/react-router';
 import { Check } from 'lucide-react';
-import { useRouter, useSearchParams } from '#/hooks/navigation';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { DefinePasswordForm as DefinePasswordFormUI } from './DefinePasswordForm';
@@ -18,12 +18,12 @@ type DefinePasswordFormProps = {
 export const DefinePasswordForm: FC<DefinePasswordFormProps> = ({
   callbackUrl = App_Home_Path,
 }) => {
-  const router = useRouter();
+  const navigate = useNavigate();
   const { toast } = useToast();
   const { mutate: resetPassword, isSuccess } = useResetPassword();
   const { goToLoginButton } = useIntlayer('define-password-form');
-  const searchParams = useSearchParams();
-  const token = searchParams.get('token');
+  const search = useSearch({ strict: false }) as any;
+  const token = search.token;
 
   const onSubmitSuccess = ({ newPassword }: DefinePassword) => {
     if (!token) {
@@ -51,7 +51,7 @@ export const DefinePasswordForm: FC<DefinePasswordFormProps> = ({
           label={goToLoginButton.text.value}
           color="text"
           Icon={Check}
-          onClick={() => router.push(callbackUrl)}
+          onClick={() => navigate({ to: callbackUrl as any })}
           isFullWidth
         >
           {goToLoginButton.text}

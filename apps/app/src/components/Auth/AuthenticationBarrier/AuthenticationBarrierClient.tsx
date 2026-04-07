@@ -3,7 +3,7 @@
 import { useSession } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { App_Home_Path } from '@intlayer/design-system/routes';
-import { usePathname, useRouter } from '#/hooks/navigation';
+import { useLocation, useNavigate } from '@tanstack/react-router';
 import { type FC, useEffect } from 'react';
 import {
   type AuthenticationBarrierProps,
@@ -28,8 +28,8 @@ export const AuthenticationBarrierClient: FC<
   isEnabled,
   originUrl,
 }) => {
-  const router = useRouter();
-  const pathname = usePathname();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const { session: sessionClient } = useSession(sessionProp);
 
@@ -49,7 +49,7 @@ export const AuthenticationBarrierClient: FC<
     accessValidation(
       accessRule,
       sessionClient,
-      (url) => router.replace(url),
+      (url) => navigate({ to: url as any, replace: true }),
       redirectionRoute,
       isEnabled
     );
@@ -60,7 +60,7 @@ export const AuthenticationBarrierClient: FC<
     isEnabled,
     pathname,
     originUrl,
-    router,
+    navigate,
   ]);
 
   return <Loader isLoading={isLoading}>{children}</Loader>;

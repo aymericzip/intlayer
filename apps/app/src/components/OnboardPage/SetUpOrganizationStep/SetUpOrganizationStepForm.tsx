@@ -11,9 +11,9 @@ import {
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import { App_Pricing_Path } from '@intlayer/design-system/routes';
+import { useNavigate, useSearch } from '@tanstack/react-router';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { useRouter, useSearchParams } from '#/hooks/navigation';
 import { NoOrganizationView } from '#components/Dashboard/OrganizationForm/NoOrganizationView';
 import { OrganizationCreationForm } from '#components/Dashboard/OrganizationForm/OrganizationCreationForm';
 import { OrganizationList } from '#components/Dashboard/OrganizationForm/OrganizationList';
@@ -67,8 +67,8 @@ const OrganizationFormContent: FC<{
 export const SetupOrganizationStepForm: FC = () => {
   const SetUpOrganizationSchema = useSetUpOrganizationSchema();
   const { session } = useSession();
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const navigate = useNavigate();
+  const search = useSearch({ strict: false });
 
   const { mutate: selectOrganization } = useSelectOrganization();
   const { formData, goNextStep, goPreviousStep, setFormData } = useStep(
@@ -110,11 +110,10 @@ export const SetupOrganizationStepForm: FC = () => {
       <StepLayout
         onGoToPreviousStep={() => {
           if (session?.user) {
-            router.push(
-              searchParams
-                ? `${App_Pricing_Path}?${searchParams.toString()}`
-                : App_Pricing_Path
-            );
+            navigate({
+              to: App_Pricing_Path as any,
+              search: search as any,
+            });
           } else {
             goPreviousStep();
           }

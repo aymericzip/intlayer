@@ -7,13 +7,13 @@ import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import { App_Admin_Users_Path } from '@intlayer/design-system/routes';
 import { toast } from '@intlayer/design-system/toaster';
+import { useNavigate } from '@tanstack/react-router';
 import { AlertTriangle, Trash2 } from 'lucide-react';
-import { useRouter } from '#/hooks/navigation';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 
 export const UserDeleteAction: FC<{ userId: string }> = ({ userId }) => {
-  const router = useRouter();
+  const navigate = useNavigate();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const { data: userResponse, isLoading, error } = useGetUserById(userId);
@@ -36,7 +36,7 @@ export const UserDeleteAction: FC<{ userId: string }> = ({ userId }) => {
         variant: 'success',
       });
 
-      router.push(App_Admin_Users_Path);
+      navigate({ to: App_Admin_Users_Path as any });
     } catch (error) {
       toast({
         title: errorMessages.deleteError.value,

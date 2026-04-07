@@ -2,7 +2,7 @@
 
 import { Form, useForm } from '@intlayer/design-system/form';
 import { useSession, useVerifyTotp } from '@intlayer/design-system/hooks';
-import { useRouter, useSearchParams } from '#/hooks/navigation';
+import { useNavigate, useSearch } from '@tanstack/react-router';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import z from 'zod';
@@ -15,8 +15,8 @@ type TotpFormData = z.infer<typeof totpSchema>;
 
 export const TotpForm: FC = () => {
   const { codeLabel, codePlaceholder, verifyButton } = useIntlayer('totp-form');
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const navigate = useNavigate();
+  const search = useSearch({ strict: false }) as any;
 
   const { revalidateSession } = useSession();
   const { mutate: verifyTotp } = useVerifyTotp();
@@ -33,8 +33,8 @@ export const TotpForm: FC = () => {
         revalidateSession();
 
         // Redirect to the original destination or home
-        const redirectUrl = searchParams.get('redirect_url');
-        router.push(redirectUrl ?? '/');
+        const redirectUrl = search.redirect_url;
+        navigate({ to: (redirectUrl ?? '/') as any });
       },
     });
   };

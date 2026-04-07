@@ -5,7 +5,7 @@ import { Form } from '@intlayer/design-system/form';
 import { useDeleteTag } from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
 import { App_Dashboard_Tags } from '@intlayer/design-system/routes';
-import { useRouter } from '#/hooks/navigation';
+import { useNavigate } from '@tanstack/react-router';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 
@@ -25,15 +25,15 @@ export const DeleteTagModal: FC<DeleteTagModalProps> = ({
   const { mutate: deleteTag, isPending: isDeleting } = useDeleteTag();
   const { confirmButton, cancelButton, description, title } =
     useIntlayer('delete-tag-modal');
-  const router = useRouter();
+  const navigate = useNavigate();
 
   const handleDelete = () => {
     deleteTag(tag.id, {
-      onSuccess: (response) => {
+      onSuccess: (response: any) => {
         if (response.data) {
           onDelete?.();
           onClose?.();
-          router.push(App_Dashboard_Tags);
+          navigate({ to: App_Dashboard_Tags as any });
         }
       },
     });

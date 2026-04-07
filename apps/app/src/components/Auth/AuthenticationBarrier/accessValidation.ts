@@ -67,9 +67,11 @@ export type AuthenticationBarrierProps = {
    *
    * Example:
    * ```js
-   * import { redirect } from '#/hooks/navigation';
+   * import { useNavigate } from '@tanstack/react-router';
    * ...
-   * redirectionMethod={(url) => redirect(url)}
+   * const navigate = useNavigate();
+   * ...
+   * redirectionMethod={(url) => navigate({ to: url })}
    * ```
    */
   redirectionFunction: (redirectionRoute: string) => void;

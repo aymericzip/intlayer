@@ -12,10 +12,10 @@ import {
   TabSelectorColor,
 } from '@intlayer/design-system/tab-selector';
 import { cn } from '@intlayer/design-system/utils';
+import { useLocation } from '@tanstack/react-router';
 import { Building2, FolderOpen, MessageCircle, Users } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { usePathname } from '#/hooks/navigation';
 import { Link } from '#components/Link/Link';
 
 type AdminTabBarProps = {
@@ -24,7 +24,7 @@ type AdminTabBarProps = {
 
 export const AdminTabBar: FC<AdminTabBarProps> = ({ className }) => {
   const { navigation } = useIntlayer('admin-sidebar');
-  const pathname = usePathname();
+  const { pathname } = useLocation();
 
   const navigationItems = [
     {

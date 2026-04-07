@@ -1,5 +1,5 @@
 import { App_Home_Path } from '@intlayer/design-system/routes';
-import { redirect } from '#/hooks/navigation';
+import { redirect } from '@tanstack/react-router';
 import type { FC } from 'react';
 import {
   type AuthenticationBarrierProps,
@@ -29,7 +29,9 @@ export const AuthenticationBarrierServer: FC<
     accessValidation(
       accessRule,
       session,
-      redirect,
+      (url) => {
+        throw redirect({ to: url as any });
+      },
       redirectionRoute,
       isEnabled
     );

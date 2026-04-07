@@ -7,7 +7,7 @@ import {
 } from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
 import { App_Dashboard_Organization_Path } from '@intlayer/design-system/routes';
-import { useRouter } from '#/hooks/navigation';
+import { useNavigate } from '@tanstack/react-router';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 
@@ -31,17 +31,17 @@ export const DeleteOrganizationModal: FC<DeleteOrganizationModalProps> = ({
   const { confirmButton, cancelButton, description, title } = useIntlayer(
     'delete-organization-modal'
   );
-  const router = useRouter();
+  const navigate = useNavigate();
 
   const handleDelete = () => {
     deleteOrganization(undefined, {
-      onSuccess: async (response) => {
+      onSuccess: async (response: any) => {
         if (response.data) {
           await revalidateSession();
 
           onDelete?.();
           onClose?.();
-          router.push(App_Dashboard_Organization_Path);
+          navigate({ to: App_Dashboard_Organization_Path as any });
         }
       },
     });

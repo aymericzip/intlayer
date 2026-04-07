@@ -1,10 +1,9 @@
-import { getUserAPI } from '@intlayer/api';
 import { Form, useForm } from '@intlayer/design-system/form';
 import { H2 } from '@intlayer/design-system/headers';
-import { useUser } from '@intlayer/design-system/hooks';
+import { useIntlayerOAuth, useUser } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
+import { useSearch } from '@tanstack/react-router';
 import { Check } from 'lucide-react';
-import { useSearchParams } from '#/hooks/navigation';
 import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { StepLayout } from '../StepLayout';
@@ -15,8 +14,11 @@ import { getVerifyEmailSchema, type VerifyEmail } from './VerifyEmailSchema';
 export const VerifyEmailStepForm: FC = () => {
   const VerifyEmailSchema = getVerifyEmailSchema();
   const { revalidateSession, user } = useUser();
+  const { user: userAPI } = useIntlayerOAuth();
   const { verifyEmail } = useIntlayer('verify-email-step');
-  const userId = useSearchParams().get('userId') as string | undefined;
+  const userId = (useSearch({ strict: false }) as any).userId as
+    | string
+    | undefined;
   const [isEmailVerified, setIsEmailVerified] = useState(false);
   const { state: registrationState } = useStep(Steps.Password);
   const { formData, goNextStep, goPreviousStep, setState, setFormData } =
@@ -42,7 +44,7 @@ export const VerifyEmailStepForm: FC = () => {
     // EventSource alow to receive server-sent events from the server
     // In this case, we are listening to the email verification status
     const eventSource = new EventSource(
-      getUserAPI().getVerifyEmailStatusURL(targetedUserId!)
+      userAPI.getVerifyEmailStatusURL(targetedUserId!)
     );
 
     eventSource.onmessage = async (event) => {

@@ -16,6 +16,7 @@ import {
   ShowingResultsNumberItems,
 } from '@intlayer/design-system/pagination';
 import { App_Dashboard_Tags } from '@intlayer/design-system/routes';
+import { useNavigate } from '@tanstack/react-router';
 import { ChevronRight, Plus } from 'lucide-react';
 import {
   type ComponentProps,
@@ -27,7 +28,6 @@ import {
   useState,
 } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { useRouter } from '#/hooks/navigation';
 import { useSearchParamState } from '#hooks/useSearchParamState';
 import { TagCreationForm } from './TagCreationForm';
 
@@ -59,7 +59,7 @@ export const TagList: FC = () => {
     ...params,
     search: search || undefined,
   });
-  const router = useRouter();
+  const navigate = useNavigate();
 
   const tags = (tagResponse as any)?.data ?? [];
   const totalPages: number = (tagResponse as any)?.total_pages ?? 1;
@@ -126,7 +126,9 @@ export const TagList: FC = () => {
                   variant="invisible-link"
                   color="text"
                   onClick={() => {
-                    router.push(`${App_Dashboard_Tags}/${tag.key}`);
+                    navigate({
+                      to: `${App_Dashboard_Tags}/${tag.key}` as any,
+                    });
                   }}
                   ref={(el) => {
                     if (el) {

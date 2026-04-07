@@ -12,11 +12,11 @@ import {
   useStripe,
 } from '@stripe/react-stripe-js';
 import { type Appearance, loadStripe } from '@stripe/stripe-js';
+import { useNavigate, useSearch } from '@tanstack/react-router';
 import { Check, ShoppingCart } from 'lucide-react';
 import { type FC, type FormEvent, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import type Stripe from 'stripe';
-import { useRouter, useSearchParams } from '#/hooks/navigation';
 import { useTheme } from '#/providers/ThemeProvider';
 import type { Period, Plans } from '#components/PricingPage/data.content';
 import { retrievePriceId } from '../retrievePriceId';
@@ -104,7 +104,7 @@ export const PaymentStepContent: FC<PaymentDetailsProps> = ({
     useIntlayer('payment-step');
   const [isLoading, setIsLoading] = useState(false);
   const [isPaymentElementReady, setIsPaymentElementReady] = useState(false);
-  const router = useRouter();
+  const navigate = useNavigate();
   const { session } = useSession();
 
   const stripe = useStripe();
@@ -199,7 +199,7 @@ export const PaymentStepContent: FC<PaymentDetailsProps> = ({
               label={pickANewProductButton.label.value}
               color="text"
               Icon={ShoppingCart}
-              onClick={() => router.push(App_Pricing_Path)}
+              onClick={() => navigate({ to: App_Pricing_Path as any })}
             >
               {pickANewProductButton.text}
             </Button>
@@ -231,9 +231,9 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
   } = useIntlayer('payment-step');
 
   const { resolvedTheme } = useTheme();
-  const router = useRouter();
-  const params = useSearchParams();
-  const promoCode = params.get('promoCode') ?? undefined;
+  const navigate = useNavigate();
+  const search = useSearch({ strict: false }) as any;
+  const promoCode = search.promoCode ?? undefined;
   const priceId = retrievePriceId(plan, period);
 
   const { data, isLoading } = useGetSubscription({
@@ -281,7 +281,7 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
               label={pickANewProductButton.label.value}
               color="text"
               Icon={ShoppingCart}
-              onClick={() => router.push(App_Pricing_Path)}
+              onClick={() => navigate({ to: App_Pricing_Path as any })}
             >
               {pickANewProductButton.text}
             </Button>

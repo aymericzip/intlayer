@@ -3,8 +3,8 @@
 import { Button } from '@intlayer/design-system/button';
 import { useChangePassword, useUser } from '@intlayer/design-system/hooks';
 import { App_Home_Path } from '@intlayer/design-system/routes';
+import { useNavigate } from '@tanstack/react-router';
 import { Check } from 'lucide-react';
-import { useRouter } from '#/hooks/navigation';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { ChangePasswordForm as ChangePasswordFormUI } from './ChangePasswordForm';
@@ -16,7 +16,7 @@ type ChangePasswordFormProps = {
 export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
   callbackUrl = App_Home_Path,
 }) => {
-  const router = useRouter();
+  const navigate = useNavigate();
   const { user } = useUser();
   const { mutate: changePassword, isSuccess } = useChangePassword();
   const { goToLoginButton } = useIntlayer('change-password-form');
@@ -33,7 +33,7 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
           label={goToLoginButton.text.value}
           color="text"
           Icon={Check}
-          onClick={() => router.push(callbackUrl)}
+          onClick={() => navigate({ to: callbackUrl as any })}
           isFullWidth
         >
           {goToLoginButton.text}

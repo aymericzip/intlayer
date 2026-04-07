@@ -4,9 +4,9 @@ import { DictionaryFieldEditor } from '@intlayer/design-system/dictionary-field-
 import { useGetDictionary } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { App_Dashboard_Dictionaries_Path } from '@intlayer/design-system/routes';
-import { useRouter } from '#/hooks/navigation';
-import { useTheme } from '#/providers/ThemeProvider';
+import { useNavigate } from '@tanstack/react-router';
 import { type FC, Suspense } from 'react';
+import { useTheme } from '#/providers/ThemeProvider';
 import { EditorConfigurationProvider } from './ConfigurationProvider';
 
 type ContentDashboardContentProps = {
@@ -19,7 +19,7 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
   const { resolvedTheme } = useTheme();
   const { data: dictionaryResult, isPending } = useGetDictionary(dictionaryKey);
 
-  const router = useRouter();
+  const navigate = useNavigate();
   const dictionary = dictionaryResult?.data;
 
   return (
@@ -31,12 +31,12 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
               <DictionaryFieldEditor
                 dictionary={dictionary}
                 onClickDictionaryList={() =>
-                  router.push(App_Dashboard_Dictionaries_Path)
+                  navigate({ to: App_Dashboard_Dictionaries_Path as any })
                 }
                 isDarkMode={resolvedTheme === 'dark'}
                 mode={['remote']}
                 onDelete={() => {
-                  router.push(App_Dashboard_Dictionaries_Path);
+                  navigate({ to: App_Dashboard_Dictionaries_Path as any });
                 }}
               />
             )}

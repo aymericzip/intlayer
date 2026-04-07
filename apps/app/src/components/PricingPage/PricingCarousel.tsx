@@ -2,6 +2,7 @@
 
 import type { GetPricingResult } from '@intlayer/backend';
 import { useGetPricing, useUser } from '@intlayer/design-system/hooks';
+import { useSearch } from '@tanstack/react-router';
 import React, {
   type FC,
   type HTMLAttributes,
@@ -12,7 +13,6 @@ import React, {
   useState,
 } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { useSearchParams } from '#/hooks/navigation';
 import { formatOnboardUrl } from '#components/OnboardPage/formatOnboardUrl';
 import { Steps } from '#components/OnboardPage/steps';
 import { type Period, Plans } from './data.content';
@@ -51,8 +51,7 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
   ...props
 }) => {
   const { user } = useUser();
-  const searchParams = useSearchParams();
-  const allParams = Object.fromEntries(searchParams.entries());
+  const allParams = useSearch({ strict: false }) as any;
 
   const { pricing, period } = useIntlayer('pricing');
   const { data: pricingData, isFetching: isLoading } = useGetPricing(
@@ -358,7 +357,7 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
               focusedPeriod
             )}
             checkPoint={pricing[focusedPeriod][plan].checkPoint.map(
-              (el) => el.value
+              (el: any) => el.value
             )}
             callToActionLabel={
               pricing[focusedPeriod][plan].callToAction.label.value

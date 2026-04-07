@@ -1,7 +1,7 @@
 'use client';
 
 import { usePersistedStore } from '@intlayer/design-system/hooks';
-import { useParams, useRouter, useSearchParams } from '#/hooks/navigation';
+import { useNavigate, useParams, useSearch } from '@tanstack/react-router';
 import { formatOnboardUrl } from './formatOnboardUrl';
 import { getPlanDetails } from './getPlanDetails';
 import {
@@ -13,14 +13,14 @@ import {
 export const useStep = <T extends OnboardingStepIds>(stepId: T) => {
   type Step = (typeof onboardingSteps)[T];
 
-  const router = useRouter();
+  const navigate = useNavigate();
   const step = onboardingSteps[stepId] as Step;
 
-  const { details } = useParams<{ details: string[] }>();
+  const { details } = useParams({ strict: false }) as { details: string[] };
   const pageDetails = getPlanDetails(details);
 
-  const searchParams = useSearchParams();
-  const { origin, ...otherParams } = Object.fromEntries(searchParams.entries());
+  const search = useSearch({ strict: false }) as Record<string, string>;
+  const { origin, ...otherParams } = search;
   const [dynamicsContent, setDynamicsContent] = usePersistedStore<Pick<
     Step,
     'state' | 'formData'
@@ -65,7 +65,7 @@ export const useStep = <T extends OnboardingStepIds>(stepId: T) => {
     nextUrl
       ? () => {
           if (nextUrl) {
-            router.push(nextUrl);
+            navigate({ to: nextUrl as any });
           }
         }
       : undefined
@@ -79,11 +79,11 @@ export const useStep = <T extends OnboardingStepIds>(stepId: T) => {
     previousUrl
       ? () => {
           if (previousUrl) {
-            router.push(previousUrl);
+            navigate({ to: previousUrl as any });
           }
         }
       : origin
-        ? () => router.push(origin)
+        ? () => navigate({ to: origin as any })
         : undefined
   ) as GoPreviousStepType;
 

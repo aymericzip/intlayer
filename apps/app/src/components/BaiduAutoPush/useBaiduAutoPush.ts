@@ -1,12 +1,12 @@
 'use client';
 
 import { CHINESE } from '@intlayer/types/locales';
-import { usePathname } from '#/hooks/navigation';
-import { useLocale } from 'react-intlayer';
+import { useLocation } from '@tanstack/react-router';
 import { useEffect } from 'react';
+import { useLocale } from 'react-intlayer';
 
 export const useBaiduAutoPush = () => {
-  const pathname = usePathname();
+  const { pathname } = useLocation();
   const { locale } = useLocale();
 
   useEffect(() => {

@@ -15,6 +15,7 @@ import {
 } from '@intlayer/design-system/routes';
 import { TabSelector } from '@intlayer/design-system/tab-selector';
 import { cn } from '@intlayer/design-system/utils';
+import { useLocation } from '@tanstack/react-router';
 import { AnimatePresence, m, useReducedMotion } from 'framer-motion';
 import {
   ArrowLeftToLine,
@@ -30,7 +31,6 @@ import {
   User,
 } from 'lucide-react';
 import { type FC, useState } from 'react';
-import { usePathname } from '#hooks/navigation';
 import { Link } from '#components/Link/Link';
 
 // Map icon names to components - must be done in client component
@@ -170,7 +170,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
 }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const { isMobile } = useDevice();
-  const pathWithoutLocale = usePathname();
+  const { pathname: pathWithoutLocale } = useLocation();
   const { session } = useSession();
   const shouldReduceMotion = useReducedMotion();
 

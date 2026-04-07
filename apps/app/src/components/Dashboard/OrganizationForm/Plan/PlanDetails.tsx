@@ -9,8 +9,8 @@ import {
 import { Modal } from '@intlayer/design-system/modal';
 import { App_Pricing_Path } from '@intlayer/design-system/routes';
 import { Tag } from '@intlayer/design-system/tag';
+import { useNavigate } from '@tanstack/react-router';
 import { ChevronsUp, CircleX, RotateCcw } from 'lucide-react';
-import { useRouter } from '#/hooks/navigation';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 
@@ -48,7 +48,7 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
   const { mutate: cancelSubscription, isPending: isDeleting } =
     useCancelSubscription();
   const plan = session?.organization?.plan;
-  const router = useRouter();
+  const navigate = useNavigate();
   const [isCancellationModalOpen, setIsCancellationModalOpen] = useState(false);
 
   const handleCancelSubscription = () => {
@@ -108,7 +108,7 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
             label={upgradeButton.label.value}
             color="text"
             Icon={ChevronsUp}
-            onClick={() => router.push(App_Pricing_Path)}
+            onClick={() => navigate({ to: App_Pricing_Path as any })}
           >
             {upgradeButton.text}
           </Button>
@@ -118,7 +118,7 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
             label={renewButton.label.value}
             color="text"
             Icon={RotateCcw}
-            onClick={() => router.push(App_Pricing_Path)}
+            onClick={() => navigate({ to: App_Pricing_Path as any })}
           >
             {renewButton.text}
           </Button>
