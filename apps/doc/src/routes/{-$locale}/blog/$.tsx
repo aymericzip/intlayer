@@ -1,5 +1,5 @@
 import { Website_Blog } from '@intlayer/design-system/routes';
-import { type BlogKey, getBlog, getBlogMetadataBySlug } from '@intlayer/docs';
+import type { BlogKey } from '@intlayer/docs';
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -19,6 +19,7 @@ import { urlRenamer } from '#/utils/markdown';
 
 export const Route = createFileRoute('/{-$locale}/blog/$')({
   loader: async ({ params }) => {
+    const { getBlog, getBlogMetadataBySlug } = await import('@intlayer/docs');
     const locale = ((params as { locale?: string }).locale ??
       defaultLocale) as string;
     const splat = (params as { _splat: string })._splat ?? '';

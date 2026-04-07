@@ -1,7 +1,3 @@
-import {
-  getFrequentQuestion,
-  getFrequentQuestionMetadataBySlug,
-} from '@intlayer/docs';
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale } from 'intlayer';
 
@@ -16,6 +12,8 @@ export const Route = createFileRoute('/{-$locale}/frequent-questions/raw/$')({
         params: Record<string, string>;
       }) => {
         try {
+          const { getFrequentQuestion, getFrequentQuestionMetadataBySlug } =
+            await import('@intlayer/docs');
           const locale = params.locale ?? defaultLocale;
           const splat = params._splat ?? '';
           const slugs = splat ? splat.split('/').filter(Boolean) : [];

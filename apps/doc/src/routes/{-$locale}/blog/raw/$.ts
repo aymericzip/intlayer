@@ -1,4 +1,3 @@
-import { getBlog, getBlogMetadataBySlug } from '@intlayer/docs';
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale } from 'intlayer';
 
@@ -13,6 +12,9 @@ export const Route = createFileRoute('/{-$locale}/blog/raw/$')({
         params: Record<string, string>;
       }) => {
         try {
+          const { getBlog, getBlogMetadataBySlug } = await import(
+            '@intlayer/docs'
+          );
           const locale = params.locale ?? defaultLocale;
           const splat = params._splat ?? '';
           const slugs = splat ? splat.split('/').filter(Boolean) : [];
@@ -91,6 +93,7 @@ export const Route = createFileRoute('/{-$locale}/blog/raw/$')({
         params: Record<string, string>;
       }) => {
         try {
+          const { getBlogMetadataBySlug } = await import('@intlayer/docs');
           const locale = params.locale ?? defaultLocale;
           const splat = params._splat ?? '';
           const slugs = splat ? splat.split('/').filter(Boolean) : [];

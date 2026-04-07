@@ -1,10 +1,4 @@
-import {
-  type DocMetadata,
-  getDoc,
-  getDocMetadata,
-  getDocMetadataBySlug,
-  getDocsKeys,
-} from '@intlayer/docs';
+import type { DocMetadata } from '@intlayer/docs';
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale } from 'intlayer';
 
@@ -12,6 +6,9 @@ async function findDocMetadata(
   slugs: string[],
   locale: string
 ): Promise<DocMetadata | undefined> {
+  const { getDocMetadataBySlug, getDocMetadata, getDocsKeys } = await import(
+    '@intlayer/docs'
+  );
   const normalizedSlugs = ['doc', ...slugs];
   try {
     const matches = await getDocMetadataBySlug(
@@ -66,6 +63,7 @@ export const Route = createFileRoute('/{-$locale}/raw/$')({
             return new Response('Not found', { status: 404 });
           }
 
+          const { getDoc } = await import('@intlayer/docs');
           const file = await getDoc(fileMetadata.docKey as any, locale as any);
 
           const url = new URL(request.url);

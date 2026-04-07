@@ -8,11 +8,6 @@ import {
   Doc_Search_Path,
   Doc_TermsOfService_Path,
 } from '@intlayer/design-system/routes';
-import {
-  getBlogMetadataBySlug,
-  getDocMetadataBySlug,
-  getFrequentQuestionMetadataRecord,
-} from '@intlayer/docs';
 import { createFileRoute } from '@tanstack/react-router';
 import { generateSitemap, type SitemapUrlEntry } from 'intlayer';
 
@@ -22,6 +17,11 @@ export const Route = createFileRoute('/sitemap.xml')({
   server: {
     handlers: {
       GET: async () => {
+        const {
+          getBlogMetadataBySlug,
+          getDocMetadataBySlug,
+          getFrequentQuestionMetadataRecord,
+        } = await import('@intlayer/docs');
         const [docMetadata, blogMetadata, frequentQuestionsRecord] =
           await Promise.all([
             getDocMetadataBySlug([]),
@@ -42,8 +42,16 @@ export const Route = createFileRoute('/sitemap.xml')({
             changefreq: 'weekly',
             priority: 0.8,
           },
-          { path: Doc_PrivacyPolicy_Path, changefreq: 'monthly', priority: 0.3 },
-          { path: Doc_TermsOfService_Path, changefreq: 'monthly', priority: 0.3 },
+          {
+            path: Doc_PrivacyPolicy_Path,
+            changefreq: 'monthly',
+            priority: 0.3,
+          },
+          {
+            path: Doc_TermsOfService_Path,
+            changefreq: 'monthly',
+            priority: 0.3,
+          },
         ];
 
         const docEntries: SitemapUrlEntry[] = docMetadata
@@ -88,4 +96,3 @@ export const Route = createFileRoute('/sitemap.xml')({
     },
   },
 });
-

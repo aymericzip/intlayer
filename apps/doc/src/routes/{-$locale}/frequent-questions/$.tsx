@@ -1,9 +1,5 @@
 import { Website_FrequentQuestions } from '@intlayer/design-system/routes';
-import {
-  type FrequentQuestionKey,
-  getFrequentQuestion,
-  getFrequentQuestionMetadataBySlug,
-} from '@intlayer/docs';
+import type { FrequentQuestionKey } from '@intlayer/docs';
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -16,6 +12,8 @@ import { urlRenamer } from '#/utils/markdown';
 
 export const Route = createFileRoute('/{-$locale}/frequent-questions/$')({
   loader: async ({ params }) => {
+    const { getFrequentQuestion, getFrequentQuestionMetadataBySlug } =
+      await import('@intlayer/docs');
     const locale = ((params as { locale?: string }).locale ??
       defaultLocale) as string;
     const splat = (params as { _splat: string })._splat ?? '';
