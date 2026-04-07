@@ -54,14 +54,14 @@ COPY \
 RUN bun install
 
 # Build every package in the workspace (uses the root "build" script)
-RUN bun x turbo run build:ci --filter=./apps/showcase
+RUN bun x turbo run build:ci --filter=./apps/doc
 
-# Set working directory to the showcase package and build it
-WORKDIR /workspace/apps/showcase
+# Set working directory to the doc package and build it
+WORKDIR /workspace/apps/doc
 
 ENV NODE_ENV=production
 
-# Build the showcase app
+# Build the doc app
 RUN bun run build
 
 # Create and use a non-root user for security
@@ -79,5 +79,5 @@ HEALTHCHECK CMD true
 #     wget -qO- http://localhost:3000/ > /dev/null || exit 1 && \
 #     wget -qO- http://localhost:3000/doc/environment/nextjs > /dev/null || exit 1
 
-# Start the showcase server
+# Start the doc server
 CMD ["bun", "run", ".output/server/index.mjs"]
