@@ -1,8 +1,8 @@
 'use client';
 
 import { CHINESE } from '@intlayer/types/locales';
-import { usePathname } from 'next/navigation';
-import { useLocale } from 'next-intlayer';
+import { usePathname } from '#/hooks/navigation';
+import { useLocale } from 'react-intlayer';
 import { useEffect } from 'react';
 
 export const useBaiduAutoPush = () => {

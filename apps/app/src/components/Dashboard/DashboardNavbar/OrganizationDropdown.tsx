@@ -12,8 +12,8 @@ import {
 } from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
 import { ChevronsUpDown } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { OrganizationCreationForm } from '../OrganizationForm/OrganizationCreationForm';
 
 export const OrganizationDropdown: FC = () => {

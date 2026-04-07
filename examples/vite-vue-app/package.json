@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc && vite build",
-    "dev": "vite",
-    "preview": "vite preview",
+    "dev": "bun --bun vite",
+    "preview": "bun --bun vite preview",
     "start:editor": "bun intlayer-editor start --with 'vite dev'"
   },
   "dependencies": {
@@ -22,7 +22,7 @@
     "@vitejs/plugin-vue": "6.0.5",
     "@vue/tsconfig": "0.9.0",
     "intlayer-editor": "workspace:*",
-    "vite": "8.0.3",
+    "vite": "8.0.5",
     "vite-intlayer": "workspace:*",
     "vue-demi": "0.14.10"
   }

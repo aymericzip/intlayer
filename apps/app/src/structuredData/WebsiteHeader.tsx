@@ -1,6 +1,6 @@
 import { internationalization } from '@intlayer/config/built';
-import Script from 'next/script';
-import { useIntlayer } from 'next-intlayer/server';
+
+import { useIntlayer } from 'react-intlayer';
 
 export const WebsiteHeader = () => {
   const { keywords } = useIntlayer('website-structured-data');
@@ -12,7 +12,7 @@ export const WebsiteHeader = () => {
     name: 'Intlayer',
     potentialAction: {
       '@type': 'SearchAction',
-      target: `${process.env.NEXT_PUBLIC_URL}/doc/search?search={search_term_string}`,
+      target: `${import.meta.env.VITE_URL}/doc/search?search={search_term_string}`,
       'query-input': 'required name=search_term_string',
     },
     inLanguage: internationalization.locales,
@@ -22,7 +22,6 @@ export const WebsiteHeader = () => {
   return (
     <Script
       type="application/ld+json"
-      strategy="afterInteractive"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(website),
       }}

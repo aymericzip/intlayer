@@ -163,59 +163,45 @@ export default defineConfig({
 
 ### Langkah 5: Buat Root Layout
 
-Konfigurasikan root layout Anda untuk mendukung internasionalisasi dengan menggunakan `useMatches` untuk mendeteksi lokal saat ini dan mengatur atribut `lang` serta `dir` pada tag `html`.
+Konfigurasikan root layout Anda untuk mendukung internasionalisasi dengan menggunakan `useParams` untuk mendeteksi lokal saat ini dan mengatur atribut `lang` serta `dir` pada tag `html`.
 
 ```tsx fileName="src/routes/__root.tsx"
 import {
   HeadContent,
-  Outlet,
   Scripts,
   createRootRouteWithContext,
-  useMatches,
 } from "@tanstack/solid-router";
-import { TanStackRouterDevtools } from "@tanstack/solid-router-devtools";
 import { HydrationScript } from "solid-js/web";
-import { Suspense } from "solid-js";
+import { Suspense, type ParentComponent } from "solid-js";
 import { IntlayerProvider } from "solid-intlayer";
-import { defaultLocale, getHTMLTextDir, type Locale } from "intlayer";
+import { defaultLocale, getHTMLTextDir } from "intlayer";
+import { Route as LocaleRoute } from "./{-$locale}/route";
 
 export const Route = createRootRouteWithContext()({
   shellComponent: RootComponent,
 });
 
-type Params = {
-  locale: Locale;
-};
-
-function RootComponent() {
-  const matches = useMatches();
-
-  // Mencoba menemukan lokal dalam parameter dari setiap kecocokan yang aktif
-  // Ini mengasumsikan Anda menggunakan segmen dinamis "/{-$locale}" dalam pohon rute Anda
-  const locale =
-    (
-      matches().find((match) => match.routeId === "/{-$locale}/")
-        ?.params as Params
-    )?.locale ?? defaultLocale;
+const RootComponent: ParentComponent = (props) => {
+  const params = LocaleRoute.useParams();
+  const locale = params()?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>
       <head>
         <HydrationScript />
+        <HeadContent />
       </head>
       <body>
-        <HeadContent />
         <IntlayerProvider locale={locale}>
           <Suspense>
-            <Outlet />
-            <TanStackRouterDevtools />
+            {props.children}
           </Suspense>
         </IntlayerProvider>
         <Scripts />
       </body>
     </html>
   );
-}
+};
 ```
 
 ### Langkah 6: Buat Locale Layout (Opsional)
@@ -459,18 +445,12 @@ export default LocaleSwitcher;
 
 ### Langkah 11: Pengelolaan Atribut HTML
 
-Seperti yang terlihat pada Langkah 5, Anda dapat mengelola atribut `lang` dan `dir` dari tag `html` dengan menggunakan `useMatches` di root component Anda. Ini memastikan atribut yang benar disetel baik di server maupun klien.
+Seperti yang terlihat pada Langkah 5, Anda dapat mengelola atribut `lang` dan `dir` dari tag `html` dengan menggunakan `useParams` di root component Anda. Ini memastikan atribut yang benar disetel baik di server maupun klien.
 
 ```tsx fileName="src/routes/__root.tsx"
 const RootComponent: ParentComponent = (props) => {
-  const matches = useMatches();
-
-  // Mencoba menemukan lokal dalam parameter dari setiap kecocokan yang aktif
-  const locale =
-    (
-      matches().find((match) => match.routeId === "/{-$locale}/")
-        ?.params as Params
-    )?.locale ?? defaultLocale;
+  const params = LocaleRoute.useParams();
+  const locale = params()?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>

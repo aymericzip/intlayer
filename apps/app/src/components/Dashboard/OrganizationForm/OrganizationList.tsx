@@ -15,9 +15,9 @@ import {
 } from '@intlayer/design-system/pagination';
 import { App_Dashboard_Projects_Path } from '@intlayer/design-system/routes';
 import { Plus } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useIntlayer } from 'next-intlayer';
+import { useRouter } from '#/hooks/navigation';
 import { type FC, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { NoOrganizationView } from './NoOrganizationView';
 import { OrganizationCreationForm } from './OrganizationCreationForm';
 

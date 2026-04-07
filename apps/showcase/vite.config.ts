@@ -2,10 +2,11 @@ import {
   Showcase_Root_Path,
   Showcase_Submit_Path,
 } from '@intlayer/design-system/routes';
+import babel from '@rolldown/plugin-babel';
 import tailwindcss from '@tailwindcss/vite';
 import { devtools } from '@tanstack/devtools-vite';
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
-import viteReact from '@vitejs/plugin-react';
+import react, { reactCompilerPreset } from '@vitejs/plugin-react';
 import { localeFlatMap } from 'intlayer';
 import { nitro } from 'nitro/vite';
 import { visualizer } from 'rollup-plugin-visualizer';
@@ -13,7 +14,7 @@ import { defineConfig, loadEnv } from 'vite';
 import { intlayer, intlayerProxy } from 'vite-intlayer';
 import wasm from 'vite-plugin-wasm';
 
-export const pathList = [];
+export const pathList = [Showcase_Root_Path, Showcase_Submit_Path];
 
 const localizedPages = localeFlatMap(({ urlPrefix }) =>
   pathList.map((path) => ({
@@ -195,6 +196,7 @@ export default defineConfig(({ mode }) => {
       // devtools(),
       // intlayerProxy(),
       nitro({
+        preset: 'bun',
         routeRules: {
           '/**': { headers },
         },
@@ -223,7 +225,8 @@ export default defineConfig(({ mode }) => {
         },
         pages: localizedPages,
       }),
-      viteReact(),
+      react(),
+      babel({ presets: [reactCompilerPreset()] }),
       wasm(),
       // visualizer({
       //   emitFile: true,

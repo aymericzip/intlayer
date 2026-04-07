@@ -17,17 +17,18 @@ import {
 } from '@intlayer/design-system/pagination';
 import { App_Dashboard_Tags } from '@intlayer/design-system/routes';
 import { ChevronRight, Plus } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useIntlayer } from 'next-intlayer';
 import {
   type ComponentProps,
   type FC,
   Suspense,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
-import { useSearchParamState } from '@/hooks/useSearchParamState';
+import { useIntlayer } from 'react-intlayer';
+import { useRouter } from '#/hooks/navigation';
+import { useSearchParamState } from '#hooks/useSearchParamState';
 import { TagCreationForm } from './TagCreationForm';
 
 const InputIndicator: FC<ComponentProps<'div'>> = (props) => (

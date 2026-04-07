@@ -1,13 +1,13 @@
 'use client';
 
-import { ProjectForm } from '@components/Dashboard/ProjectForm';
 import {
   useGetProjects,
   useSelectProject,
 } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
-import { useIntlayer } from 'next-intlayer';
 import { useEffect } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { ProjectForm } from '#components/Dashboard/ProjectForm';
 
 export const ProjectAdminDetailPage = ({
   projectId,

@@ -5,7 +5,6 @@ import {
   createRootRouteWithContext,
   HeadContent,
   Scripts,
-  useMatches,
 } from '@tanstack/react-router';
 import { defaultLocale, getHTMLTextDir } from 'intlayer';
 import { IntlayerProvider } from 'react-intlayer';
@@ -19,6 +18,7 @@ import { ThemeProvider } from '#/components/ThemeProvider';
 import PostHogProvider from '#/integrations/posthog/provider';
 import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from '#/lib/site';
 import appCss from '#/styles.css?url';
+import { Route as LocaleRoute } from './{-$locale}/route';
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -87,12 +87,9 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-  const matches = useMatches();
-
   // Try to find locale in params of any active match
-  const localeRoute = matches.find((match) => match.routeId === '/{-$locale}');
-  const locale =
-    (localeRoute?.params as { locale?: string })?.locale ?? defaultLocale;
+  const params = LocaleRoute.useParams();
+  const locale = params.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale} suppressHydrationWarning>

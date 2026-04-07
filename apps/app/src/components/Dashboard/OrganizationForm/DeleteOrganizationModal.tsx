@@ -7,9 +7,9 @@ import {
 } from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
 import { App_Dashboard_Organization_Path } from '@intlayer/design-system/routes';
-import { useRouter } from 'next/navigation';
-import { useIntlayer } from 'next-intlayer';
+import { useRouter } from '#/hooks/navigation';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 type DeleteOrganizationModalProps = {
   isOpen: boolean;

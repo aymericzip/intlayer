@@ -1,5 +1,5 @@
-import Script from 'next/script';
-import { useIntlayer } from 'next-intlayer/server';
+
+import { useIntlayer } from 'react-intlayer';
 
 type DocHeaderProps = {
   creativeWorkName: string;
@@ -61,7 +61,6 @@ export const CreativeWorkHeader = ({
   return (
     <Script
       type="application/ld+json"
-      strategy="afterInteractive"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(creativeWork),
       }}

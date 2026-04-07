@@ -1,5 +1,5 @@
-import { type Period, Plans } from '@components/PricingPage/data.content';
 import type { OrganizationAPI, UserAPI } from '@intlayer/backend';
+import { type Period, Plans } from '#components/PricingPage/data.content';
 import type { Register } from './RegisterStep/useRegisterSchema';
 import type { SetUpOrganization } from './SetUpOrganizationStep/useSetUpOrganizationSchema';
 import type { VerifyEmail } from './VerifyEmailStep/VerifyEmailSchema';

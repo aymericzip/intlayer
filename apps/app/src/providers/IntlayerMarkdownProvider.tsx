@@ -1,10 +1,10 @@
 'use client';
 
-import { Link } from '@components/Link/Link';
 import { getIntlayerMarkdownOptions } from '@intlayer/design-system/mark-down-render';
-import { MarkdownProvider } from 'next-intlayer/markdown';
-import { useTheme } from 'next-themes';
 import type { FC, PropsWithChildren } from 'react';
+import { MarkdownProvider } from 'react-intlayer/markdown';
+import { useTheme } from '#/providers/ThemeProvider';
+import { Link } from '#components/Link/Link';
 
 export const IntlayerMarkdownProvider: FC<PropsWithChildren> = ({
   children,

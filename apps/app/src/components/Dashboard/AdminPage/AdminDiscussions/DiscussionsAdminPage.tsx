@@ -1,6 +1,5 @@
 'use client';
 
-import { Link } from '@components/Link/Link';
 import type {
   DiscussionAPI,
   GetDiscussionsResult,
@@ -33,9 +32,10 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { ChevronDown, ChevronUp, Search } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useState } from 'react';
-import { useSearchParamState } from '@/hooks/useSearchParamState';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '#components/Link/Link';
+import { useSearchParamState } from '#hooks/useSearchParamState';
 import { DiscussionAdminDetail } from './DiscussionAdminDetail';
 
 export const DiscussionsAdminPageContent: FC = () => {

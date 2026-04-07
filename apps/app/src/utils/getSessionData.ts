@@ -1,13 +1,13 @@
 import type { SessionAPI } from '@intlayer/backend';
 import { getAuthAPI } from '@intlayer/design-system/libs';
-import { headers } from 'next/headers';
+import { getWebRequest } from 'vinxi/http';
 
 export const getSessionData = async (): Promise<{
   session: SessionAPI | null;
   hasSessionToken: boolean;
 }> => {
-  const headersList = await headers();
-  const cookieHeader = headersList.get('cookie');
+  const request = getWebRequest();
+  const cookieHeader = request.headers.get('cookie');
 
   const hasSessionToken =
     cookieHeader?.includes('intlayer.session_token') ?? false;

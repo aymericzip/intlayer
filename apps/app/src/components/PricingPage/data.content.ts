@@ -747,7 +747,7 @@ const pricing = {
     free: planDetails.free,
     premium: {
       ...planDetails.premium,
-      priceId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_MONTHLY_PRICE_ID!,
+      priceId: import.meta.env.VITE_STRIPE_PREMIUM_MONTHLY_PRICE_ID!,
       callToAction: {
         label: t({
           en: 'Get started',
@@ -793,7 +793,7 @@ const pricing = {
     },
     enterprise: {
       ...planDetails.enterprise,
-      priceId: process.env.NEXT_PUBLIC_STRIPE_ENTERPRISE_MONTHLY_PRICE_ID!,
+      priceId: import.meta.env.VITE_STRIPE_ENTERPRISE_MONTHLY_PRICE_ID!,
       callToAction: {
         label: t({
           en: 'Get started',
@@ -843,7 +843,7 @@ const pricing = {
 
     premium: {
       ...planDetails.premium,
-      priceId: process.env.NEXT_PUBLIC_STRIPE_PREMIUM_YEARLY_PRICE_ID!,
+      priceId: import.meta.env.VITE_STRIPE_PREMIUM_YEARLY_PRICE_ID!,
       callToAction: {
         label: t({
           en: 'Get started',
@@ -889,7 +889,7 @@ const pricing = {
     },
     enterprise: {
       ...planDetails.enterprise,
-      priceId: process.env.NEXT_PUBLIC_STRIPE_ENTERPRISE_YEARLY_PRICE_ID!,
+      priceId: import.meta.env.VITE_STRIPE_ENTERPRISE_YEARLY_PRICE_ID!,
       callToAction: {
         label: t({
           en: 'Get started',

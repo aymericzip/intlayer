@@ -10,8 +10,8 @@ import {
 } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { toast } from '@intlayer/design-system/toaster';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useMemo, useRef } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { useUserEditSchema } from '../../AdminPage/AdminUsers/useUserEditSchema';
 import { UserDates } from './UserDates';
 import { UserFormFields } from './UserFormFields';

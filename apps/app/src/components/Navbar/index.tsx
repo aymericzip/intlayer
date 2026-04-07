@@ -1,8 +1,5 @@
 'use client';
 
-import { Link } from '@components/Link/Link';
-import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
-import { ProfileDropDown } from '@components/ProfileDropdown/ProfileDropdown';
 import { Avatar } from '@intlayer/design-system/avatar';
 import { Button } from '@intlayer/design-system/button';
 import { useUser } from '@intlayer/design-system/hooks';
@@ -11,17 +8,18 @@ import { Navbar as UINavBar } from '@intlayer/design-system/navbar';
 import { DiscordLogo } from '@intlayer/design-system/social-networks';
 import { TechLogos } from '@intlayer/design-system/tech-logo';
 import { StarIcon } from 'lucide-react';
-import dynamic from 'next/dynamic';
-import { useRouter } from 'next/navigation';
-import { useIntlayer, useLocale } from 'next-intlayer';
 import type { FC } from 'react';
+import { lazy, Suspense } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { usePathname, useRouter } from '#/hooks/navigation';
+import { Link } from '#components/Link/Link';
+import { LocaleSwitcher } from '#components/LocaleSwitcher/LocaleSwitcher';
+import { ProfileDropDown } from '#components/ProfileDropdown/ProfileDropdown';
 
-const SwitchThemeSwitcher = dynamic(
-  () =>
-    import('@components/ThemeSwitcherDropDown/SwitchThemeSwitcher').then(
-      (mod) => mod.SwitchThemeSwitcher
-    ),
-  { ssr: false }
+const SwitchThemeSwitcher = lazy(() =>
+  import('#components/ThemeSwitcherDropDown/SwitchThemeSwitcher').then(
+    (mod) => ({ default: mod.SwitchThemeSwitcher })
+  )
 );
 
 const getCleanChoice = (path?: string): string => {
@@ -49,7 +47,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
     discord,
   } = useIntlayer('navbar');
   const { isAuthenticated, logout, user } = useUser();
-  const { pathWithoutLocale } = useLocale();
+  const pathWithoutLocale = usePathname();
   const router = useRouter();
 
   const handleLogOut = () => {
@@ -112,7 +110,9 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
       rightItemsMobile={
         <div className="flex gap-2">
           <LocaleSwitcher />
-          <SwitchThemeSwitcher />
+          <Suspense>
+            <SwitchThemeSwitcher />
+          </Suspense>
           {isAuthenticated && (
             <Avatar
               isLoggedIn={isAuthenticated}
@@ -125,7 +125,9 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
       rightItemsDesktop={
         <>
           <LocaleSwitcher />
-          <SwitchThemeSwitcher />
+          <Suspense>
+            <SwitchThemeSwitcher />
+          </Suspense>
           <Link
             label={discord.label.value}
             href={discord.url.value}

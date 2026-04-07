@@ -1,4 +1,4 @@
-import { Period, Plans } from '@components/PricingPage/data.content';
+import { Period, Plans } from '#components/PricingPage/data.content';
 import { Steps } from './steps';
 
 export const getPlanDetails = (details: string[]) => {

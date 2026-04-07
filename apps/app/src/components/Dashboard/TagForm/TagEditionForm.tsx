@@ -4,8 +4,8 @@ import type { TagAPI } from '@intlayer/backend';
 import { Form, useForm } from '@intlayer/design-system/form';
 import { useAuditTag, useUpdateTag } from '@intlayer/design-system/hooks';
 import { Save, WandSparkles, XCircle } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { DeleteTagModal } from './DeleteTagModal';
 import { type TagFormData, useTagSchema } from './useTagFormSchema';
 

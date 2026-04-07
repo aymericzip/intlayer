@@ -16,8 +16,8 @@ import {
 import type { Dictionary } from '@intlayer/types/dictionary';
 import Fuse from 'fuse.js';
 import { ChevronRight, Pencil } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useMemo } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { getDrawerIdentifier } from '../DictionaryEditionDrawer/useDictionaryEditionDrawer';
 import { dictionaryListDrawerIdentifier } from './dictionaryListDrawerIdentifier';
 

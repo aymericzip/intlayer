@@ -7,8 +7,8 @@ import { H3 } from '@intlayer/design-system/headers';
 import { useUser } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { Check } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { getVerifyEmailSchema, type VerifyEmail } from './VerifyEmailSchema';
 
 type VerifyEmailFormProps = {

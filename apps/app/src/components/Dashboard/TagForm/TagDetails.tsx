@@ -11,9 +11,9 @@ import { useGetTags } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { App_Dashboard_Tags } from '@intlayer/design-system/routes';
 import { ArrowLeft } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useIntlayer } from 'next-intlayer';
+import { useRouter } from '#/hooks/navigation';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { TagEditionForm } from './TagEditionForm';
 import { TagsDictionariesList } from './TagsDictionariesList';
 

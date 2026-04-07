@@ -183,34 +183,41 @@ export default config;
 
 ### Schritt 5: Root-Layout erstellen
 
-Konfigurieren Sie Ihr Root-Layout zur Unterstützung der Internationalisierung, indem Sie `useMatches` verwenden, um die aktuelle Locale zu erkennen und die Attribute `lang` und `dir` für das `html`-Tag festzulegen.
+Konfigurieren Sie Ihr Root-Layout zur Unterstützung der Internationalisierung, indem Sie `useParams` verwenden, um die aktuelle Locale zu erkennen und die Attribute `lang` und `dir` für das `html`-Tag festzulegen.
 
 ```tsx fileName="src/routes/__root.tsx"
 import {
   createRootRouteWithContext,
   HeadContent,
-  Outlet,
   Scripts,
-  useMatches,
 } from "@tanstack/react-router";
 import { defaultLocale, getHTMLTextDir } from "intlayer";
 import { type ReactNode } from "react";
 import { IntlayerProvider } from "react-intlayer";
-import Header from "#/components/Header";
+import { Route as LocaleRoute } from "./{-$locale}/route";
 
 export const Route = createRootRouteWithContext<{}>()({
+  head: () => ({
+    meta: [
+      {
+        charSet: "utf-8",
+      },
+      {
+        content: "width=device-width, initial-scale=1",
+        name: "viewport",
+      },
+      {
+        title: "TanStack Start Starter",
+      },
+    ],
+  }),
+
   shellComponent: RootDocument,
 });
 
 function RootDocument({ children }: { children: ReactNode }) {
-  const matches = useMatches();
-
-  // Versuchen, die Locale in den Parametern eines aktiven Matches zu finden
-  // Dies setzt voraus, dass Sie das dynamische Segment "/{-$locale}" in Ihrem Routenbaum verwenden
-  const localeRoute = matches.find((match) =>
-    match.routeId.startsWith("/{-$locale}")
-  );
-  const locale = localeRoute?.params?.locale ?? defaultLocale;
+  const params = LocaleRoute.useParams();
+  const locale = params?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>
@@ -219,7 +226,6 @@ function RootDocument({ children }: { children: ReactNode }) {
       </head>
       <body>
         <IntlayerProvider locale={locale}>
-          <Header />
           {children}
         </IntlayerProvider>
         <Scripts />
@@ -564,17 +570,12 @@ export const LocaleSwitcher: FC = () => {
 
 ### Schritt 10: HTML-Attribute-Verwaltung
 
-Wie in Schritt 5 gezeigt, können Sie die Attribute `lang` und `dir` des `html`-Tags mit `useMatches` in Ihrer Root-Komponente verwalten. Dies stellt sicher, dass die richtigen Attribute auf dem Server und dem Client gesetzt werden.
+Wie in Schritt 5 gezeigt, können Sie die Attribute `lang` und `dir` des `html`-Tags mit `useParams` in Ihrer Root-Komponente verwalten. Dies stellt sicher, dass die richtigen Attribute auf dem Server und dem Client gesetzt werden.
 
 ```tsx fileName="src/routes/__root.tsx"
 function RootDocument({ children }: { children: ReactNode }) {
-  const matches = useMatches();
-
-  // Versuchen, die Locale in den Parametern eines aktiven Matches zu finden
-  const localeRoute = matches.find((match) =>
-    match.routeId.startsWith("/{-$locale}")
-  );
-  const locale = localeRoute?.params?.locale ?? defaultLocale;
+  const params = LocaleRoute.useParams();
+  const locale = params?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>

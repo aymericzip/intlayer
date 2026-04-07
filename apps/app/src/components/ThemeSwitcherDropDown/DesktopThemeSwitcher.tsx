@@ -2,7 +2,7 @@ import {
   DesktopThemeSwitcher as DesktopThemeSwitcherUI,
   type Modes,
 } from '@intlayer/design-system/theme-switcher-drop-down';
-import { useTheme } from 'next-themes';
+import { useTheme } from '#/providers/ThemeProvider';
 import type { FC } from 'react';
 
 export const DesktopThemeSwitcher: FC = () => {

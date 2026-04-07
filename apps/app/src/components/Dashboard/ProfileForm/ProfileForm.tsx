@@ -1,9 +1,5 @@
 'use client';
 
-import { ChangePasswordForm } from '@components/Auth/ChangePassword';
-import { DeleteUser } from '@components/Auth/DeleteUser';
-import { PasskeyManagement } from '@components/Auth/PasskeyManagement';
-import { TwoFactorAuth } from '@components/Auth/TwoFactorAuth';
 import { Container } from '@intlayer/design-system/container';
 import { Form, useForm } from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
@@ -13,8 +9,12 @@ import {
   useUpdateUser,
 } from '@intlayer/design-system/hooks';
 import { cn } from '@intlayer/design-system/utils';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { ChangePasswordForm } from '#components/Auth/ChangePassword';
+import { DeleteUser } from '#components/Auth/DeleteUser';
+import { PasskeyManagement } from '#components/Auth/PasskeyManagement';
+import { TwoFactorAuth } from '#components/Auth/TwoFactorAuth';
 import {
   type ProfileFormData,
   useProfileFormSchema,

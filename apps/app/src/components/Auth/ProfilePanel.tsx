@@ -3,7 +3,7 @@
 import { Button } from '@intlayer/design-system/button';
 import { useUser } from '@intlayer/design-system/hooks';
 import { App_Auth_ChangePassword_Path } from '@intlayer/design-system/routes';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '#/hooks/navigation';
 import type { FC } from 'react';
 
 export const ProfilePanel: FC = () => {

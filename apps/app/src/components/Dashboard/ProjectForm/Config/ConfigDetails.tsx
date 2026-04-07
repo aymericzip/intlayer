@@ -1,6 +1,5 @@
 'use client';
 
-import { Link } from '@components/Link/Link';
 import type { ProjectConfiguration } from '@intlayer/backend';
 import { Button } from '@intlayer/design-system/button';
 import { H3, H4, H5 } from '@intlayer/design-system/headers';
@@ -9,8 +8,9 @@ import { Website_Doc_IntlayerCMS } from '@intlayer/design-system/routes';
 import { Tag } from '@intlayer/design-system/tag';
 import { getLocaleName, type Locale } from 'intlayer';
 import { Pencil } from 'lucide-react';
-import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC, useState } from 'react';
+import { useIntlayer, useLocale } from 'react-intlayer';
+import { Link } from '#components/Link/Link';
 import { ConfigEditionForm } from './ConfigEditionForm';
 
 type ConfigDetailsProps = {

@@ -14,8 +14,8 @@ import {
 } from '@intlayer/editor-react';
 import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
 import { RotateCcw, Save } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 type SaveAllButtonProps = {
   dictionaries: Record<string, Dictionary>;

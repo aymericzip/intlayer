@@ -186,34 +186,41 @@ export default config;
 
 ### ステップ 5: ルートレイアウトの作成
 
-`useMatches`を使用して現在のロケールを検出し、`html`タグに`lang`および`dir`属性を設定することで、国際化をサポートするようにルートレイアウトを構成します。
+`useParams`を使用して現在のロケールを検出し、`html`タグに`lang`および`dir`属性を設定することで、国際化をサポートするようにルートレイアウトを構成します。
 
 ```tsx fileName="src/routes/__root.tsx"
 import {
   createRootRouteWithContext,
   HeadContent,
-  Outlet,
   Scripts,
-  useMatches,
 } from "@tanstack/react-router";
 import { defaultLocale, getHTMLTextDir } from "intlayer";
 import { type ReactNode } from "react";
 import { IntlayerProvider } from "react-intlayer";
-import Header from "#/components/Header";
+import { Route as LocaleRoute } from "./{-$locale}/route";
 
 export const Route = createRootRouteWithContext<{}>()({
+  head: () => ({
+    meta: [
+      {
+        charSet: "utf-8",
+      },
+      {
+        content: "width=device-width, initial-scale=1",
+        name: "viewport",
+      },
+      {
+        title: "TanStack Start Starter",
+      },
+    ],
+  }),
+
   shellComponent: RootDocument,
 });
 
 function RootDocument({ children }: { children: ReactNode }) {
-  const matches = useMatches();
-
-  // アクティブなマッチのパラメータからロケールを探そうとします
-  // これは、ルートツリーで動的セグメント "/{-$locale}" を使用していることを前提としています
-  const localeRoute = matches.find((match) =>
-    match.routeId.startsWith("/{-$locale}")
-  );
-  const locale = localeRoute?.params?.locale ?? defaultLocale;
+  const params = LocaleRoute.useParams();
+  const locale = params?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>
@@ -222,7 +229,6 @@ function RootDocument({ children }: { children: ReactNode }) {
       </head>
       <body>
         <IntlayerProvider locale={locale}>
-          <Header />
           {children}
         </IntlayerProvider>
         <Scripts />
@@ -576,17 +582,12 @@ export const LocaleSwitcher: FC = () => {
 
 ### ステップ 11: HTML属性の管理
 
-ステップ 5 で見たように、ルートコンポーネントで `useMatches` を使用して `html` タグの `lang` および `dir` 属性を管理できます。これにより、サーバーとクライアントで正しい属性が設定されるようになります。
+ステップ 5 で見たように、ルートコンポーネントで `useParams` を使用して `html` タグの `lang` および `dir` 属性を管理できます。これにより、サーバーとクライアントで正しい属性が設定されるようになります。
 
 ```tsx fileName="src/routes/__root.tsx"
 function RootDocument({ children }: { children: ReactNode }) {
-  const matches = useMatches();
-
-  // アクティブなマッチのパラメータからロケールを探そうとします
-  const localeRoute = matches.find((match) =>
-    match.routeId.startsWith("/{-$locale}")
-  );
-  const locale = localeRoute?.params?.locale ?? defaultLocale;
+  const params = LocaleRoute.useParams();
+  const locale = params?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>

@@ -1,10 +1,10 @@
 'use client';
 
 import { useGetDiscussions } from '@intlayer/design-system/hooks';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { useEffect } from 'react';
-import { MessagesList } from '@/components/ChatBot/MessagesList';
+import { useIntlayer } from 'react-intlayer';
+import { MessagesList } from '#components/ChatBot/MessagesList';
 
 type DiscussionAdminDetailProps = {
   discussionId?: string;

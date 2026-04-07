@@ -10,9 +10,9 @@ import { Modal } from '@intlayer/design-system/modal';
 import { App_Pricing_Path } from '@intlayer/design-system/routes';
 import { Tag } from '@intlayer/design-system/tag';
 import { ChevronsUp, CircleX, RotateCcw } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useIntlayer } from 'next-intlayer';
+import { useRouter } from '#/hooks/navigation';
 import { type FC, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 type PlanDetailsProps = {};
 

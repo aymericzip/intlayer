@@ -1,6 +1,6 @@
-import Script from 'next/script';
-import { useIntlayer } from 'next-intlayer/server';
+
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 export const ProductHeader: FC = () => {
   const { description } = useIntlayer('product-header-structured-data');
@@ -118,7 +118,6 @@ export const ProductHeader: FC = () => {
   return (
     <Script
       type="application/ld+json"
-      strategy="afterInteractive"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(product),
       }}

@@ -7,8 +7,8 @@ import {
   useSelectOrganization,
 } from '@intlayer/design-system/hooks';
 import { Plus } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import {
   type OrganizationFormData,
   useOrganizationSchema,

@@ -4,9 +4,9 @@ import { Button } from '@intlayer/design-system/button';
 import { useChangePassword, useUser } from '@intlayer/design-system/hooks';
 import { App_Home_Path } from '@intlayer/design-system/routes';
 import { Check } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useIntlayer } from 'next-intlayer';
+import { useRouter } from '#/hooks/navigation';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { ChangePasswordForm as ChangePasswordFormUI } from './ChangePasswordForm';
 
 type ChangePasswordFormProps = {

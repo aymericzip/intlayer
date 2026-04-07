@@ -6,7 +6,6 @@ import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { useGetUsers } from '@intlayer/design-system/hooks';
 import { GitBranch } from 'lucide-react';
-import Image from 'next/image';
 import type { FC } from 'react';
 
 export interface ProjectCardProps {
@@ -50,14 +49,13 @@ export const ProjectCard: FC<ProjectCardProps> = ({
           roundedSize="xl"
           background="none"
         >
-          <Image
+          <img
             src={project.imageUrl}
             alt={`${project.name} screenshot`}
             width={1280}
             height={720}
             crossOrigin="anonymous"
             className="aspect-video w-full object-cover"
-            priority={true}
           />
         </Container>
       )}

@@ -1,10 +1,8 @@
-import { BaiduAutoPushSubscriber } from '@components/BaiduAutoPush/BaiduAutoPushSubscriber';
-import { ChunkErrorListener } from '@components/ChunkErrorListener';
 import { ReactQueryProvider } from '@intlayer/design-system/providers';
 import { Toaster } from '@intlayer/design-system/toaster';
-import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
-import Script from 'next/script';
 import type { FC, PropsWithChildren } from 'react';
+import { BaiduAutoPushSubscriber } from '#components/BaiduAutoPush/BaiduAutoPushSubscriber';
+import { ChunkErrorListener } from '#components/ChunkErrorListener';
 import { AnimatePresenceProvider } from './AnimatePresenceProvider';
 
 export const AppProviders: FC<PropsWithChildren> = ({ children }) => {
@@ -14,22 +12,13 @@ export const AppProviders: FC<PropsWithChildren> = ({ children }) => {
       <BaiduAutoPushSubscriber />
       <ReactQueryProvider>
         <Toaster />
-        {process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID && (
-          <GoogleTagManager
-            gtmId={process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}
-          />
-        )}
-        {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID && (
-          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID} />
-        )}
-        {process.env.NEXT_PUBLIC_AHREFS_KEY && (
-          <Script
-            strategy="afterInteractive"
+        {import.meta.env.VITE_AHREFS_KEY && (
+          <script
+            async
             src="https://analytics.ahrefs.com/analytics.js"
-            data-key={process.env.NEXT_PUBLIC_AHREFS_KEY}
+            data-key={import.meta.env.VITE_AHREFS_KEY}
           />
         )}
-
         {children}
       </ReactQueryProvider>
     </AnimatePresenceProvider>

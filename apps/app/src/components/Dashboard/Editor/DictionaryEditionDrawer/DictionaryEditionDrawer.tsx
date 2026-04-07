@@ -18,8 +18,8 @@ import {
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
 import { PencilRuler } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { dictionaryListDrawerIdentifier } from '../DictionaryListDrawer/dictionaryListDrawerIdentifier';
 import {
   getDrawerIdentifier,

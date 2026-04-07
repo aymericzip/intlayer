@@ -6,8 +6,8 @@ import { PopoverStatic } from '@intlayer/design-system/popover';
 import { RightDrawer } from '@intlayer/design-system/right-drawer';
 import { cn } from '@intlayer/design-system/utils';
 import { AlertCircle, CheckCircle2, Globe, X, Zap } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 type JobState = 'active' | 'waiting' | 'delayed' | 'completed' | 'failed';
 
@@ -38,7 +38,7 @@ export const TranslationStatusAside: FC = () => {
   const [lastSeenTimestamp, setLastSeenTimestamp] = useState(0);
 
   useEffect(() => {
-    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const eventSource = new EventSource(`${backendUrl}/api/translate/status`, {
       withCredentials: true,
     });

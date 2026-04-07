@@ -6,8 +6,8 @@ import {
   useSession,
   useUpdateOrganization,
 } from '@intlayer/design-system/hooks';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import {
   type OrganizationFormData,
   useOrganizationSchema,

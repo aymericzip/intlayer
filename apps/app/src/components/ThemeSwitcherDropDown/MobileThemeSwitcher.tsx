@@ -2,7 +2,7 @@ import {
   MobileThemeSwitcher as MobileThemeSwitcherUI,
   type Modes,
 } from '@intlayer/design-system/theme-switcher-drop-down';
-import { useTheme } from 'next-themes';
+import { useTheme } from '#/providers/ThemeProvider';
 import type { FC } from 'react';
 
 export const MobileThemeSwitcher: FC = () => {

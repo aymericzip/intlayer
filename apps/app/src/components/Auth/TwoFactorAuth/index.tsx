@@ -10,9 +10,9 @@ import {
 } from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
 import { Tag } from '@intlayer/design-system/tag';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import QRCode from 'react-qr-code';
 import {
   type TwoFactorAuthForm,

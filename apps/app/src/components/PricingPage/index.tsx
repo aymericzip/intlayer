@@ -3,8 +3,8 @@
 import type { GetPricingResult } from '@intlayer/backend';
 import { H1 } from '@intlayer/design-system/headers';
 import { SwitchSelector } from '@intlayer/design-system/switch-selector';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, Suspense, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { Period } from './data.content';
 import { PricingCarousel } from './PricingCarousel';
 

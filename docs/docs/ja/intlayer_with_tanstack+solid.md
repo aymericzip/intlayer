@@ -164,59 +164,45 @@ export default defineConfig({
 
 ### ステップ 5: ルートレイアウトの作成
 
-現在選択されているロケールを検出するために `useMatches` を使用し、`html` タグに `lang` および `dir` 属性を設定することで、国際化をサポートするようにルートレイアウトを構成します。
+現在選択されているロケールを検出するために `useParams` を使用し、`html` タグに `lang` および `dir` 属性を設定することで、国際化をサポートするようにルートレイアウトを構成します。
 
 ```tsx fileName="src/routes/__root.tsx"
 import {
   HeadContent,
-  Outlet,
   Scripts,
   createRootRouteWithContext,
-  useMatches,
 } from "@tanstack/solid-router";
-import { TanStackRouterDevtools } from "@tanstack/solid-router-devtools";
 import { HydrationScript } from "solid-js/web";
-import { Suspense } from "solid-js";
+import { Suspense, type ParentComponent } from "solid-js";
 import { IntlayerProvider } from "solid-intlayer";
-import { defaultLocale, getHTMLTextDir, type Locale } from "intlayer";
+import { defaultLocale, getHTMLTextDir } from "intlayer";
+import { Route as LocaleRoute } from "./{-$locale}/route";
 
 export const Route = createRootRouteWithContext()({
   shellComponent: RootComponent,
 });
 
-type Params = {
-  locale: Locale;
-};
-
-function RootComponent() {
-  const matches = useMatches();
-
-  // アクティブなマッチのパラメータからロケールを見つけようとします
-  // これはルートツリーで動的セグメント "/{-$locale}" を使用していることを前提としています
-  const locale =
-    (
-      matches().find((match) => match.routeId === "/{-$locale}/")
-        ?.params as Params
-    )?.locale ?? defaultLocale;
+const RootComponent: ParentComponent = (props) => {
+  const params = LocaleRoute.useParams();
+  const locale = params()?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>
       <head>
         <HydrationScript />
+        <HeadContent />
       </head>
       <body>
-        <HeadContent />
         <IntlayerProvider locale={locale}>
           <Suspense>
-            <Outlet />
-            <TanStackRouterDevtools />
+            {props.children}
           </Suspense>
         </IntlayerProvider>
         <Scripts />
       </body>
     </html>
   );
-}
+};
 ```
 
 ### ステップ 6: ロケールレイアウトの作成 (任意)
@@ -460,18 +446,12 @@ export default LocaleSwitcher;
 
 ### ステップ 11: HTML属性の管理
 
-ステップ 5 で見たように、ルートコンポーネントで `useMatches` を使用して `html` タグの `lang` および `dir` 属性を管理できます。これにより、サーバーとクライアントで正しい属性が設定されるようになります。
+ステップ 5 で見たように、ルートコンポーネントで `useParams` を使用して `html` タグの `lang` および `dir` 属性を管理できます。これにより、サーバーとクライアントで正しい属性が設定されるようになります。
 
 ```tsx fileName="src/routes/__root.tsx"
 const RootComponent: ParentComponent = (props) => {
-  const matches = useMatches();
-
-  // アクティブなマッチのパラメータからロケールを見つけようとします
-  const locale =
-    (
-      matches().find((match) => match.routeId === "/{-$locale}/")
-        ?.params as Params
-    )?.locale ?? defaultLocale;
+  const params = LocaleRoute.useParams();
+  const locale = params()?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>

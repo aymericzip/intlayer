@@ -4,9 +4,9 @@ import {
   usePersistedStore,
 } from '@intlayer/design-system/hooks';
 import type { RowSelectionState, VisibilityState } from '@tanstack/react-table';
-import { useRouter } from 'next/navigation';
 import { useCallback, useState } from 'react';
-import { useSearchParamState } from '@/hooks/useSearchParamState';
+import { useRouter } from '#/hooks/navigation';
+import { useSearchParamState } from '#hooks/useSearchParamState';
 
 const searchParams = {
   page: { type: 'number', fallbackValue: 1 },

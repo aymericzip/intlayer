@@ -1,6 +1,5 @@
 'use client';
 
-import { Link } from '@components/Link/Link';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { useDevice, useSession } from '@intlayer/design-system/hooks';
@@ -30,8 +29,9 @@ import {
   Tags,
   User,
 } from 'lucide-react';
-import { useLocale } from 'next-intlayer';
 import { type FC, useState } from 'react';
+import { usePathname } from '#hooks/navigation';
+import { Link } from '#components/Link/Link';
 
 // Map icon names to components - must be done in client component
 const iconMap: Record<string, LucideIcon> = {
@@ -170,7 +170,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
 }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const { isMobile } = useDevice();
-  const { pathWithoutLocale } = useLocale();
+  const pathWithoutLocale = usePathname();
   const { session } = useSession();
   const shouldReduceMotion = useReducedMotion();
 

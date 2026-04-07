@@ -2,7 +2,7 @@
 
 import { Container } from '@intlayer/design-system/container';
 import { MarkdownRenderer } from '@intlayer/design-system/mark-down-render';
-import { useTheme } from 'next-themes';
+import { useTheme } from '#/providers/ThemeProvider';
 import type { FC } from 'react';
 
 type CodeRenderProps = {

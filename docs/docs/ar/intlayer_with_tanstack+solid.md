@@ -163,59 +163,45 @@ export default defineConfig({
 
 ### الخطوة 5: إنشاء التخطيط الجذري (Root Layout)
 
-قم بتكوين التخطيط الجذري الخاص بك لدعم التدويل باستخدام `useMatches` لاكتشاف اللغة الحالية وتعيين سمات `lang` و `dir` على وسم `html`.
+قم بتكوين التخطيط الجذري الخاص بك لدعم التدويل باستخدام `useParams` لاكتشاف اللغة الحالية وتعيين سمات `lang` و `dir` على وسم `html`.
 
 ```tsx fileName="src/routes/__root.tsx"
 import {
   HeadContent,
-  Outlet,
   Scripts,
   createRootRouteWithContext,
-  useMatches,
 } from "@tanstack/solid-router";
-import { TanStackRouterDevtools } from "@tanstack/solid-router-devtools";
 import { HydrationScript } from "solid-js/web";
-import { Suspense } from "solid-js";
+import { Suspense, type ParentComponent } from "solid-js";
 import { IntlayerProvider } from "solid-intlayer";
-import { defaultLocale, getHTMLTextDir, type Locale } from "intlayer";
+import { defaultLocale, getHTMLTextDir } from "intlayer";
+import { Route as LocaleRoute } from "./{-$locale}/route";
 
 export const Route = createRootRouteWithContext()({
   shellComponent: RootComponent,
 });
 
-type Params = {
-  locale: Locale;
-};
-
-function RootComponent() {
-  const matches = useMatches();
-
-  // محاولة العثور على اللغة في معلمات أي مطابقة نشطة
-  // يفترض هذا أنك تستخدم الجزء الديناميكي "/{-$locale}" في شجرة المسارات الخاصة بك
-  const locale =
-    (
-      matches().find((match) => match.routeId === "/{-$locale}/")
-        ?.params as Params
-    )?.locale ?? defaultLocale;
+const RootComponent: ParentComponent = (props) => {
+  const params = LocaleRoute.useParams();
+  const locale = params()?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>
       <head>
         <HydrationScript />
+        <HeadContent />
       </head>
       <body>
-        <HeadContent />
         <IntlayerProvider locale={locale}>
           <Suspense>
-            <Outlet />
-            <TanStackRouterDevtools />
+            {props.children}
           </Suspense>
         </IntlayerProvider>
         <Scripts />
       </body>
     </html>
   );
-}
+};
 ```
 
 ### الخطوة 6: إنشاء تخطيط اللغة (اختياري)
@@ -459,18 +445,12 @@ export default LocaleSwitcher;
 
 ### الخطوة 11: إدارة سمات HTML
 
-كما رأيت في الخطوة 5، يمكنك إدارة سمات `lang` و `dir` لوسم `html` باستخدام `useMatches` في المكون الجذري الخاص بك. يضمن ذلك تعيين السمات الصحيحة على كل من الخادم والعميل.
+كما رأيت في الخطوة 5، يمكنك إدارة سمات `lang` و `dir` لوسم `html` باستخدام `useParams` في المكون الجذري الخاص بك. يضمن ذلك تعيين السمات الصحيحة على كل من الخادم والعميل.
 
 ```tsx fileName="src/routes/__root.tsx"
 const RootComponent: ParentComponent = (props) => {
-  const matches = useMatches();
-
-  // محاولة العثور على اللغة في معلمات أي مطابقة نشطة
-  const locale =
-    (
-      matches().find((match) => match.routeId === "/{-$locale}/")
-        ?.params as Params
-    )?.locale ?? defaultLocale;
+  const params = LocaleRoute.useParams();
+  const locale = params()?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>

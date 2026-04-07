@@ -164,59 +164,45 @@ export default defineConfig({
 
 ### 第 5 步：创建根布局 (Root Layout)
 
-配置您的根布局以支持国际化，使用 `useMatches` 检测当前语言，并在 `html` 标签上设置 `lang` 和 `dir` 属性。
+配置您的根布局以支持国际化，使用 `useParams` 检测当前语言，并在 `html` 标签上设置 `lang` 和 `dir` 属性。
 
 ```tsx fileName="src/routes/__root.tsx"
 import {
   HeadContent,
-  Outlet,
   Scripts,
   createRootRouteWithContext,
-  useMatches,
 } from "@tanstack/solid-router";
-import { TanStackRouterDevtools } from "@tanstack/solid-router-devtools";
 import { HydrationScript } from "solid-js/web";
-import { Suspense } from "solid-js";
+import { Suspense, type ParentComponent } from "solid-js";
 import { IntlayerProvider } from "solid-intlayer";
-import { defaultLocale, getHTMLTextDir, type Locale } from "intlayer";
+import { defaultLocale, getHTMLTextDir } from "intlayer";
+import { Route as LocaleRoute } from "./{-$locale}/route";
 
 export const Route = createRootRouteWithContext()({
   shellComponent: RootComponent,
 });
 
-type Params = {
-  locale: Locale;
-};
-
-function RootComponent() {
-  const matches = useMatches();
-
-  // 尝试在任何活动匹配的参数中查找语言
-  // 这假设您在路由树中使用了动态段 "/{-$locale}"
-  const locale =
-    (
-      matches().find((match) => match.routeId === "/{-$locale}/")
-        ?.params as Params
-    )?.locale ?? defaultLocale;
+const RootComponent: ParentComponent = (props) => {
+  const params = LocaleRoute.useParams();
+  const locale = params()?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>
       <head>
         <HydrationScript />
+        <HeadContent />
       </head>
       <body>
-        <HeadContent />
         <IntlayerProvider locale={locale}>
           <Suspense>
-            <Outlet />
-            <TanStackRouterDevtools />
+            {props.children}
           </Suspense>
         </IntlayerProvider>
         <Scripts />
       </body>
     </html>
   );
-}
+};
 ```
 
 ### 第 6 步：创建语言布局 (可选)
@@ -460,18 +446,12 @@ export default LocaleSwitcher;
 
 ### 第 11 步：管理 HTML 属性
 
-正如第 5 步所示，您可以在根组件中使用 `useMatches` 来管理 `html` 标签的 `lang` 和 `dir` 属性。这确保了在服务器端和客户端都设置了正确的属性。
+正如第 5 步所示，您可以在根组件中使用 `useParams` 来管理 `html` 标签的 `lang` 和 `dir` 属性。这确保了在服务器端和客户端都设置了正确的属性。
 
 ```tsx fileName="src/routes/__root.tsx"
 const RootComponent: ParentComponent = (props) => {
-  const matches = useMatches();
-
-  // 尝试在任何活动匹配的参数中查找语言
-  const locale =
-    (
-      matches().find((match) => match.routeId === "/{-$locale}/")
-        ?.params as Params
-    )?.locale ?? defaultLocale;
+  const params = LocaleRoute.useParams();
+  const locale = params()?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>

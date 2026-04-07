@@ -1,13 +1,13 @@
 'use client';
 
-import { ExternalsLoginButtons } from '@components/Auth/ExternalsLoginButtons';
 import { Form, useForm } from '@intlayer/design-system/form';
 import { H2 } from '@intlayer/design-system/headers';
 import { useUser } from '@intlayer/design-system/hooks';
 import { App_Auth_SignIn_Path } from '@intlayer/design-system/routes';
-import { useRouter } from 'next/navigation';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { useRouter } from '#/hooks/navigation';
+import { ExternalsLoginButtons } from '#components/Auth/ExternalsLoginButtons';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';

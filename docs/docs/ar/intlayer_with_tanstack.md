@@ -182,34 +182,41 @@ export default config;
 
 ### الخطوة 5: إنشاء التخطيط الجذري
 
-قم بتكوين التخطيط الجذري الخاص بك لدعم التدويل باستخدام `useMatches` للكشف عن اللغة الحالية وتعيين سمات `lang` و `dir` على علامة `html`.
+قم بتكوين التخطيط الجذري الخاص بك لدعم التدويل باستخدام `useParams` للكشف عن اللغة الحالية وتعيين سمات `lang` و `dir` على علامة `html`.
 
 ```tsx fileName="src/routes/__root.tsx"
 import {
   createRootRouteWithContext,
   HeadContent,
-  Outlet,
   Scripts,
-  useMatches,
 } from "@tanstack/react-router";
 import { defaultLocale, getHTMLTextDir } from "intlayer";
 import { type ReactNode } from "react";
 import { IntlayerProvider } from "react-intlayer";
-import Header from "#/components/Header";
+import { Route as LocaleRoute } from "./{-$locale}/route";
 
 export const Route = createRootRouteWithContext<{}>()({
+  head: () => ({
+    meta: [
+      {
+        charSet: "utf-8",
+      },
+      {
+        content: "width=device-width, initial-scale=1",
+        name: "viewport",
+      },
+      {
+        title: "TanStack Start Starter",
+      },
+    ],
+  }),
+
   shellComponent: RootDocument,
 });
 
 function RootDocument({ children }: { children: ReactNode }) {
-  const matches = useMatches();
-
-  // حاول العثور على اللغة في معلمات أي مطابقة نشطة
-  // يفترض هذا أنك تستخدم الجزء الديناميكي "/{-$locale}" في شجرة المسارات الخاصة بك
-  const localeRoute = matches.find((match) =>
-    match.routeId.startsWith("/{-$locale}")
-  );
-  const locale = localeRoute?.params?.locale ?? defaultLocale;
+  const params = LocaleRoute.useParams();
+  const locale = params?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>
@@ -218,7 +225,6 @@ function RootDocument({ children }: { children: ReactNode }) {
       </head>
       <body>
         <IntlayerProvider locale={locale}>
-          <Header />
           {children}
         </IntlayerProvider>
         <Scripts />
@@ -563,17 +569,12 @@ export const LocaleSwitcher: FC = () => {
 
 ### الخطوة 11: إدارة سمات HTML
 
-كما رأينا في الخطوة 5، يمكنك إدارة سمات `lang` و `dir` لعلامة `html` باستخدام `useMatches` في مكونك الجذري. يضمن هذا تعيين السمات الصحيحة على الخادم والعميل.
+كما رأينا في الخطوة 5، يمكنك إدارة سمات `lang` و `dir` لعلامة `html` باستخدام `useParams` في مكونك الجذري. يضمن هذا تعيين السمات الصحيحة على الخادم والعميل.
 
 ```tsx fileName="src/routes/__root.tsx"
 function RootDocument({ children }: { children: ReactNode }) {
-  const matches = useMatches();
-
-  // حاول العثور على اللغة في معلمات أي مطابقة نشطة
-  const localeRoute = matches.find((match) =>
-    match.routeId.startsWith("/{-$locale}")
-  );
-  const locale = localeRoute?.params?.locale ?? defaultLocale;
+  const params = LocaleRoute.useParams();
+  const locale = params?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>

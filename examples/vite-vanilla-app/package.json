@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc && vite build",
-    "dev": "vite",
-    "preview": "vite preview",
+    "dev": "bun --bun vite",
+    "preview": "bun --bun vite preview",
     "start:editor": "bun intlayer-editor start --with 'vite dev'"
   },
   "dependencies": {

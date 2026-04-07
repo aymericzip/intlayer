@@ -4,8 +4,8 @@ import type { Webhook } from '@intlayer/backend';
 import { Button } from '@intlayer/design-system/button';
 import { Form, useForm } from '@intlayer/design-system/form';
 import { Modal } from '@intlayer/design-system/modal';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { z } from 'zod';
 
 const createWebhookSchema = (nameRequired: string, invalidUrl: string) =>

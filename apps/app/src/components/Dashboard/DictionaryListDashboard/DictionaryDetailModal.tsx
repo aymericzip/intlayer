@@ -4,7 +4,7 @@ import { DictionaryFieldEditor } from '@intlayer/design-system/dictionary-field-
 import { useGetDictionary } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
-import { useTheme } from 'next-themes';
+import { useTheme } from '#/providers/ThemeProvider';
 import type { FC } from 'react';
 import { EditorConfigurationProvider } from '../ContentDashboard/ConfigurationProvider';
 

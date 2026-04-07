@@ -164,59 +164,45 @@ export default defineConfig({
 
 ### 5단계: 루트 레이아웃 생성
 
-`useMatches`를 사용하여 현재 로케일을 감지하고 `html` 태그에 `lang` 및 `dir` 속성을 설정하여 국제화를 지원하도록 루트 레이아웃을 구성합니다.
+`useParams`를 사용하여 현재 로케일을 감지하고 `html` 태그에 `lang` 및 `dir` 속성을 설정하여 국제화를 지원하도록 루트 레이아웃을 구성합니다.
 
 ```tsx fileName="src/routes/__root.tsx"
 import {
   HeadContent,
-  Outlet,
   Scripts,
   createRootRouteWithContext,
-  useMatches,
 } from "@tanstack/solid-router";
-import { TanStackRouterDevtools } from "@tanstack/solid-router-devtools";
 import { HydrationScript } from "solid-js/web";
-import { Suspense } from "solid-js";
+import { Suspense, type ParentComponent } from "solid-js";
 import { IntlayerProvider } from "solid-intlayer";
-import { defaultLocale, getHTMLTextDir, type Locale } from "intlayer";
+import { defaultLocale, getHTMLTextDir } from "intlayer";
+import { Route as LocaleRoute } from "./{-$locale}/route";
 
 export const Route = createRootRouteWithContext()({
   shellComponent: RootComponent,
 });
 
-type Params = {
-  locale: Locale;
-};
-
-function RootComponent() {
-  const matches = useMatches();
-
-  // 활성 매치 중 로케일 매개변수를 찾으려고 시도합니다.
-  // 라우트 트리에 동적 세그먼트 "/{-$locale}"을 사용한다고 가정합니다.
-  const locale =
-    (
-      matches().find((match) => match.routeId === "/{-$locale}/")
-        ?.params as Params
-    )?.locale ?? defaultLocale;
+const RootComponent: ParentComponent = (props) => {
+  const params = LocaleRoute.useParams();
+  const locale = params()?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>
       <head>
         <HydrationScript />
+        <HeadContent />
       </head>
       <body>
-        <HeadContent />
         <IntlayerProvider locale={locale}>
           <Suspense>
-            <Outlet />
-            <TanStackRouterDevtools />
+            {props.children}
           </Suspense>
         </IntlayerProvider>
         <Scripts />
       </body>
     </html>
   );
-}
+};
 ```
 
 ### 6단계: 로케일 레이아웃 생성 (선택 사항)
@@ -460,18 +446,12 @@ export default LocaleSwitcher;
 
 ### 11단계: HTML 속성 관리
 
-5단계에서 본 것처럼 루트 컴포넌트에서 `useMatches`를 사용하여 `html` 태그의 `lang` 및 `dir` 속성을 관리할 수 있습니다. 이를 통해 서버와 클라이언트 모두에서 올바른 속성이 설정되도록 할 수 있습니다.
+5단계에서 본 것처럼 루트 컴포넌트에서 `useParams`를 사용하여 `html` 태그의 `lang` 및 `dir` 속성을 관리할 수 있습니다. 이를 통해 서버와 클라이언트 모두에서 올바른 속성이 설정되도록 할 수 있습니다.
 
 ```tsx fileName="src/routes/__root.tsx"
 const RootComponent: ParentComponent = (props) => {
-  const matches = useMatches();
-
-  // 활성 매치 중 로케일 매개변수를 찾으려고 시도합니다.
-  const locale =
-    (
-      matches().find((match) => match.routeId === "/{-$locale}/")
-        ?.params as Params
-    )?.locale ?? defaultLocale;
+  const params = LocaleRoute.useParams();
+  const locale = params()?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>

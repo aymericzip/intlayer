@@ -1,7 +1,6 @@
 import { Form, useForm } from '@intlayer/design-system/form';
 import { cn } from '@intlayer/design-system/utils';
 import { ArrowUp, Eraser } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import {
   type FC,
   type KeyboardEvent,
@@ -9,6 +8,7 @@ import {
   useEffect,
   useRef,
 } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import {
   type FormSectionSchemaData,
   useFormSectionSchema,

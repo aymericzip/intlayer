@@ -1,0 +1,165 @@
+'use client';
+
+import type { TagAPI } from '@intlayer/backend';
+import { Form, useForm } from '@intlayer/design-system/form';
+import { useAuditTag, useUpdateTag } from '@intlayer/design-system/hooks';
+import { Save, WandSparkles, XCircle } from 'lucide-react';
+import { useIntlayer } from 'next-intlayer';
+import { type FC, useState } from 'react';
+import { DeleteTagModal } from './DeleteTagModal';
+import { type TagFormData, useTagSchema } from './useTagFormSchema';
+
+type TagEditionFormProps = {
+  tag: TagAPI;
+};
+
+export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
+  const TagSchema = useTagSchema();
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const { mutate: auditTag, isPending: isAuditing } = useAuditTag();
+  const { mutate: updateTag, isPending: isUpdating } = useUpdateTag();
+  const { form, isSubmitting } = useForm(TagSchema, {
+    defaultValues: tag,
+  });
+  const {
+    keyInput,
+    nameInput,
+    descriptionInput,
+    instructionsInput,
+    editButton,
+    auditButton,
+    deleteButton,
+  } = useIntlayer('tag-form');
+
+  const onSubmitSuccess = async (data: TagFormData) => {
+    updateTag(
+      { tagId: tag.id, tag: data },
+      {
+        onSuccess: (response: { data: TagAPI }) => {
+          if (response.data) {
+            form.reset(response.data);
+          }
+        },
+      }
+    );
+  };
+
+  const handleOnAuditFile = async () => {
+    const tagToAudit = form.getValues();
+    auditTag(
+      { tag: { ...tag, ...tagToAudit } },
+      {
+        onSuccess: (response: { data: { fileContent: string } }) => {
+          if (!response.data) return;
+
+          try {
+            const editedTag = JSON.parse(response.data.fileContent) as TagAPI;
+
+            form.reset(editedTag);
+          } catch (error) {
+            console.error(error);
+          }
+        },
+      }
+    );
+  };
+
+  // Derive isEdited from form values using watch to track changes
+  const formValues = form.watch();
+  const isEdited = Boolean(
+    tag &&
+      (formValues.key !== tag.key ||
+        formValues.name !== tag.name ||
+        formValues.description !== tag.description ||
+        formValues.instructions !== tag.instructions)
+  );
+
+  return (
+    <>
+      <DeleteTagModal
+        tag={tag}
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+      />
+      <Form
+        schema={TagSchema}
+        onSubmitSuccess={onSubmitSuccess}
+        className="flex size-full flex-1 flex-col gap-8"
+        {...form}
+      >
+        <div className="flex size-full flex-1 gap-8 max-md:flex-col">
+          <Form.EditableFieldInput
+            name="key"
+            id="tag-key-input"
+            label={keyInput.label.value}
+            placeholder={keyInput.placeholder.value}
+            description={keyInput.description}
+            isRequired
+          />
+
+          <Form.EditableFieldInput
+            name="name"
+            id="tag-name-input"
+            label={nameInput.label}
+            placeholder={nameInput.placeholder.value}
+            description={nameInput.description}
+          />
+        </div>
+
+        <Form.EditableFieldTextArea
+          name="description"
+          label={descriptionInput.label}
+          placeholder={descriptionInput.placeholder.value}
+          description={descriptionInput.description}
+        />
+
+        <Form.EditableFieldTextArea
+          name="instructions"
+          label={instructionsInput.label}
+          placeholder={instructionsInput.placeholder.value}
+          description={instructionsInput.description}
+        />
+
+        <div className="mt-4 flex justify-end gap-2 max-md:flex-col">
+          <Form.Button
+            type="button"
+            label={auditButton.label.value}
+            Icon={WandSparkles}
+            variant="outline"
+            color="text"
+            size="icon-md"
+            className="ml-auto max-md:w-full"
+            onClick={handleOnAuditFile}
+            disabled={isSubmitting || isAuditing}
+            isLoading={isAuditing}
+          />
+
+          <Form.Button
+            type="button"
+            variant="outline"
+            color="error"
+            isLoading={isUpdating}
+            label={deleteButton.ariaLabel.value}
+            disabled={isSubmitting || isUpdating}
+            Icon={XCircle}
+            onClick={() => setIsDeleteModalOpen(true)}
+          >
+            {deleteButton.text}
+          </Form.Button>
+          {isEdited && (
+            <Form.Button
+              type="submit"
+              color="text"
+              label={editButton.ariaLabel.value}
+              disabled={isSubmitting || isUpdating}
+              isLoading={isUpdating}
+              Icon={Save}
+            >
+              {editButton.text}
+            </Form.Button>
+          )}
+        </div>
+      </Form>
+    </>
+  );
+};

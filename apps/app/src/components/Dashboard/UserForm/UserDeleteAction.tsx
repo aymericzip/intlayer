@@ -8,9 +8,9 @@ import { Modal } from '@intlayer/design-system/modal';
 import { App_Admin_Users_Path } from '@intlayer/design-system/routes';
 import { toast } from '@intlayer/design-system/toaster';
 import { AlertTriangle, Trash2 } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useIntlayer } from 'next-intlayer';
+import { useRouter } from '#/hooks/navigation';
 import { type FC, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 export const UserDeleteAction: FC<{ userId: string }> = ({ userId }) => {
   const router = useRouter();

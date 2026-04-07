@@ -47,6 +47,7 @@ const getTransformationOptions = (filePath: string): BuildOptions => ({
   tsconfig: getTsConfigPath(filePath),
   define: {
     'import.meta.url': JSON.stringify(pathToFileURL(filePath).href),
+    'import.meta.env': 'process.env',
   },
 });
 

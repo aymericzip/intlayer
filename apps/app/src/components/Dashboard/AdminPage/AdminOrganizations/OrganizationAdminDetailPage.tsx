@@ -1,13 +1,13 @@
 'use client';
 
-import { OrganizationForm } from '@components/Dashboard/OrganizationForm';
 import {
   useGetOrganizations,
   useSelectOrganization,
 } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
-import { useIntlayer } from 'next-intlayer';
 import { useEffect } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { OrganizationForm } from '#components/Dashboard/OrganizationForm';
 
 export const OrganizationAdminDetailPage = ({
   organizationId,

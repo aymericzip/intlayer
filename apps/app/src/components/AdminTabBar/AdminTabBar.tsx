@@ -1,6 +1,5 @@
 'use client';
 
-import { Link } from '@components/Link/Link';
 import { Container } from '@intlayer/design-system/container';
 import {
   App_Admin_Discussions_Path,
@@ -14,9 +13,10 @@ import {
 } from '@intlayer/design-system/tab-selector';
 import { cn } from '@intlayer/design-system/utils';
 import { Building2, FolderOpen, MessageCircle, Users } from 'lucide-react';
-import { usePathname } from 'next/navigation';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { usePathname } from '#/hooks/navigation';
+import { Link } from '#components/Link/Link';
 
 type AdminTabBarProps = {
   className?: string;

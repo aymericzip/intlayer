@@ -1,6 +1,6 @@
 import { cn } from '@intlayer/design-system/utils';
 import type { DetailedHTMLProps, FC, HTMLAttributes, ReactNode } from 'react';
-import { Navbar } from '@/components/Navbar';
+import { Navbar } from '#components/Navbar';
 
 export type PageContentLayoutProps = DetailedHTMLProps<
   HTMLAttributes<HTMLElement>,

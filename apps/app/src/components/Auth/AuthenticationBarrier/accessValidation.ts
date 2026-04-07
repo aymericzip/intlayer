@@ -67,7 +67,7 @@ export type AuthenticationBarrierProps = {
    *
    * Example:
    * ```js
-   * import { redirect } from 'next/navigation';
+   * import { redirect } from '#/hooks/navigation';
    * ...
    * redirectionMethod={(url) => redirect(url)}
    * ```

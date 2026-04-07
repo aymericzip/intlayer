@@ -5,7 +5,7 @@ import {
   App_Auth_AskResetPassword_Path,
   App_Auth_SignUp_Path,
 } from '@intlayer/design-system/routes';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from '#/hooks/navigation';
 import { type FC, useEffect, useRef } from 'react';
 import { type SignIn, SignInForm as SignInFormUI } from './SignInForm/index';
 

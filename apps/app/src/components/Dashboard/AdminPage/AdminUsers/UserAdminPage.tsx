@@ -1,6 +1,5 @@
 'use client';
 
-import { Link } from '@components/Link/Link';
 import type {
   GetOrganizationsResult,
   GetUsersResult,
@@ -33,10 +32,11 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
-import { useSearchParamState } from '@/hooks/useSearchParamState';
+import { useIntlayer } from 'react-intlayer';
+import { useRouter } from '#/hooks/navigation';
+import { Link } from '#components/Link/Link';
+import { useSearchParamState } from '#hooks/useSearchParamState';
 
 export const UsersAdminPageContent: FC = () => {
   type SortOrder = 'asc' | 'desc';

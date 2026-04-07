@@ -1,6 +1,6 @@
 import { AiProviders } from '@intlayer/types/config';
 import { Locales } from 'intlayer';
-import { useIntlayer } from 'next-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import { z } from 'zod/v4';
 
 const localeValues = Object.values(Locales) as [string, ...string[]];

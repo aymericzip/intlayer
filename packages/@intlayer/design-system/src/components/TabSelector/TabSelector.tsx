@@ -119,7 +119,8 @@ export const TabSelector = <T extends TabSelectorItemProps>({
 
   useEffect(() => {
     calculatePosition();
-  }, [selectedChoice, tabs]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedChoice]);
 
   return (
     <div

@@ -1,0 +1,56 @@
+import { type Dictionary, t } from 'intlayer';
+
+const dictionaryDashboardContent = {
+  key: 'dictionary-dashboard-page',
+  content: {
+    metadata: {
+      title: t({
+        ar: 'المحتوى | لوحة التحكم | Intlayer',
+        de: 'Inhalt | Dashboard | Intlayer',
+        en: 'Content | Dashboard | Intlayer',
+        'en-GB': 'Content | Dashboard | Intlayer',
+        es: 'Contenido | Panel de control | Intlayer',
+        fr: 'Contenu | Tableau de bord | Intlayer',
+        hi: 'सामग्री | डैशबोर्ड | Intlayer',
+        it: 'Contenuto | Cruscotto | Intlayer',
+        ja: 'コンテンツ | ダッシュボード | Intlayer',
+        ko: '콘텐츠 | 대시보드 | Intlayer',
+        pt: 'Conteúdo | Painel | Intlayer',
+        ru: 'Контент | Приборная панель | Intlayer',
+        tr: 'İçerik | Dashboard | Intlayer',
+        zh: '内容 | 仪表板 | Intlayer',
+        pl: 'Zawartość | Panel | Intlayer',
+        id: 'Konten | Dashboard | Intlayer',
+        vi: 'Nội dung | Dashboard | Intlayer',
+        uk: 'Контент | Панель керування | Intlayer',
+      }),
+      description: t({
+        ar: 'قم بإدارة إعدادات المحتوى الخاص بك في لوحة تحكم Intlayer. حرر وقم بتحديث وتكوين المحتوى الخاص بك لضمان مطابقته لمعاييرك.',
+        de: 'Verwalten Sie Ihre Inhaltseinstellungen im Intlayer-Dashboard. Bearbeiten, aktualisieren und konfigurieren Sie Ihre Inhalte, um sicherzustellen, dass sie Ihren Standards entsprechen.',
+        en: 'Manage your content settings in the Intlayer dashboard. Edit, update, and configure your content to ensure it meets your standards.',
+        'en-GB':
+          'Manage your content settings in the Intlayer dashboard. Edit, update, and configure your content to ensure it meets your standards.',
+        es: 'Administra la configuración de tu contenido en the panel de control de Intlayer. Edita, update, and configure your content para que cumpla con tus estándares.',
+        fr: 'Gérez les paramètres de votre contenu dans le tableau de bord Intlayer. Modifiez, mettez à jour et configurez votre contenu pour qu’il réponde à vos attentes.',
+        hi: 'Intlayer डैशबोर्ड में अपनी सामग्री की सेटिंग्स प्रबंधित करें। अपनी सामग्री को संपादित, अपडेट और कॉन्फ़िगर करें ताकि यह आपके मानकों पर खरा उतरे।',
+        it: 'Gestisci le impostazioni dei tuoi contenuti nel dashboard di Intlayer. Modifica, aggiorna e configura i tuoi contenuti per assicurarti che rispettino gli standard.',
+        ja: 'Intlayerダッシュボードでコンテンツの設定を管理します。コンテンツを編集、更新、構成し、基準を満たすようにしてください।',
+        ko: 'Intlayer 대시보드에서 콘텐츠 설정을 관리하세요. 콘텐츠를 편집, 업데이트 및 구성하여 기준에 부합하도록 하세요.',
+        pt: 'Gerencie as configurações do seu conteúdo no painel do Intlayer. Edite, atualize e configure seu conteúdo para garantir que ele atenda aos seus padrões.',
+        ru: 'Управляйте настройками контента в панели инструментов Intlayer. Редактируйте, обновляйте и настраивайте контент, чтобы он соответствовал вашим стандартам.',
+        tr: 'Intlayer kontrol panelinde içerik ayarlarınızı yönetin. İçeriğinizi düzenleyin, güncelleyin ve standartlarınıza uygun olduğundan emin olun.',
+        zh: '在Intlayer仪表板中管理您的内容设置。编辑、更新并配置您的内容，以确保它符合您的标准。',
+        pl: 'Zarządzaj ustawieniami zawartości w panelu Intlayer. Edytuj, aktualizuj i konfiguruj treści, aby spełniały twoje standardy.',
+        id: 'Kelola pengaturan konten Anda di dashboard Intlayer. Sunting, perbarui, dan konfigurasikan konten Anda untuk memastikan konten memenuhi standar Anda.',
+        vi: 'Quản lý cài đặt nội dung của bạn trên Dashboard Intlayer. Chỉnh sửa, cập nhật và cấu hình nội dung để đảm bảo đáp ứng tiêu chuẩn của bạn.',
+        uk: 'Керуйте налаштуваннями контенту в панелі керування Intlayer. Редагуйте, оновлюйте та налаштовуйте свій контент, щоб він відповідав вашим стандартам.',
+      }),
+    },
+  },
+  title: 'Content dashboard page content',
+  description:
+    'Metadata related to the content section within the Intlayer dashboard.',
+  tags: ['dashboard', 'content editor', 'page metadata'],
+} satisfies Dictionary;
+
+export default dictionaryDashboardContent;

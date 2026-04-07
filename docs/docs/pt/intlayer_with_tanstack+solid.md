@@ -164,59 +164,45 @@ export default defineConfig({
 
 ### Passo 5: Criar o Layout Raiz (Root Layout)
 
-Configure o seu layout raiz para suportar internacionalização usando `useMatches` para detectar a localidade atual e definindo os atributos `lang` e `dir` na tag `html`.
+Configure o seu layout raiz para suportar internacionalização usando `useParams` para detectar a localidade atual e definindo os atributos `lang` e `dir` na tag `html`.
 
 ```tsx fileName="src/routes/__root.tsx"
 import {
   HeadContent,
-  Outlet,
   Scripts,
   createRootRouteWithContext,
-  useMatches,
 } from "@tanstack/solid-router";
-import { TanStackRouterDevtools } from "@tanstack/solid-router-devtools";
 import { HydrationScript } from "solid-js/web";
-import { Suspense } from "solid-js";
+import { Suspense, type ParentComponent } from "solid-js";
 import { IntlayerProvider } from "solid-intlayer";
-import { defaultLocale, getHTMLTextDir, type Locale } from "intlayer";
+import { defaultLocale, getHTMLTextDir } from "intlayer";
+import { Route as LocaleRoute } from "./{-$locale}/route";
 
 export const Route = createRootRouteWithContext()({
   shellComponent: RootComponent,
 });
 
-type Params = {
-  locale: Locale;
-};
-
-function RootComponent() {
-  const matches = useMatches();
-
-  // Tenta encontrar a localidade nos parâmetros de qualquer correspondência ativa
-  // Isso assume que você usa o segmento dinâmico "/{-$locale}" na sua árvore de rotas
-  const locale =
-    (
-      matches().find((match) => match.routeId === "/{-$locale}/")
-        ?.params as Params
-    )?.locale ?? defaultLocale;
+const RootComponent: ParentComponent = (props) => {
+  const params = LocaleRoute.useParams();
+  const locale = params()?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>
       <head>
         <HydrationScript />
+        <HeadContent />
       </head>
       <body>
-        <HeadContent />
         <IntlayerProvider locale={locale}>
           <Suspense>
-            <Outlet />
-            <TanStackRouterDevtools />
+            {props.children}
           </Suspense>
         </IntlayerProvider>
         <Scripts />
       </body>
     </html>
   );
-}
+};
 ```
 
 ### Passo 6: Criar o Layout de Localidade (Opcional)
@@ -460,18 +446,12 @@ export default LocaleSwitcher;
 
 ### Passo 11: Gerenciamento de Atributos HTML
 
-Como visto no Passo 5, você pode gerenciar os atributos `lang` e `dir` da tag `html` usando `useMatches` no seu componente raiz. Isso garante que os atributos corretos sejam definidos no servidor e no cliente.
+Como visto no Passo 5, você pode gerenciar os atributos `lang` e `dir` da tag `html` usando `useParams` no seu componente raiz. Isso garante que os atributos corretos sejam definidos no servidor e no cliente.
 
 ```tsx fileName="src/routes/__root.tsx"
 const RootComponent: ParentComponent = (props) => {
-  const matches = useMatches();
-
-  // Tentar encontrar a localidade nos parâmetros de qualquer correspondência ativa
-  const locale =
-    (
-      matches().find((match) => match.routeId === "/{-$locale}/")
-        ?.params as Params
-    )?.locale ?? defaultLocale;
+  const params = LocaleRoute.useParams();
+  const locale = params()?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>

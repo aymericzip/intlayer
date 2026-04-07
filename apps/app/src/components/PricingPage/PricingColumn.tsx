@@ -1,4 +1,3 @@
-import { Link } from '@components/Link/Link';
 import {
   Container,
   type ContainerProps,
@@ -8,6 +7,7 @@ import { Loader } from '@intlayer/design-system/loader';
 import { cn } from '@intlayer/design-system/utils';
 import { Check } from 'lucide-react';
 import type { FC, ReactNode } from 'react';
+import { Link } from '#components/Link/Link';
 
 type PricingColumnProps = {
   title: ReactNode;

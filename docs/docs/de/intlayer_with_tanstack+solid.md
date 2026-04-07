@@ -164,59 +164,45 @@ export default defineConfig({
 
 ### Schritt 5: Root-Layout erstellen
 
-Konfigurieren Sie Ihr Root-Layout für die Internationalisierung, indem Sie `useMatches` verwenden, um das aktuelle Gebietsschema zu erkennen und die Attribute `lang` und `dir` für das `html`-Tag festzulegen.
+Konfigurieren Sie Ihr Root-Layout für die Internationalisierung, indem Sie `useParams` verwenden, um das aktuelle Gebietsschema zu erkennen und die Attribute `lang` und `dir` für das `html`-Tag festzulegen.
 
 ```tsx fileName="src/routes/__root.tsx"
 import {
   HeadContent,
-  Outlet,
   Scripts,
   createRootRouteWithContext,
-  useMatches,
 } from "@tanstack/solid-router";
-import { TanStackRouterDevtools } from "@tanstack/solid-router-devtools";
 import { HydrationScript } from "solid-js/web";
-import { Suspense } from "solid-js";
+import { Suspense, type ParentComponent } from "solid-js";
 import { IntlayerProvider } from "solid-intlayer";
-import { defaultLocale, getHTMLTextDir, type Locale } from "intlayer";
+import { defaultLocale, getHTMLTextDir } from "intlayer";
+import { Route as LocaleRoute } from "./{-$locale}/route";
 
 export const Route = createRootRouteWithContext()({
   shellComponent: RootComponent,
 });
 
-type Params = {
-  locale: Locale;
-};
-
-function RootComponent() {
-  const matches = useMatches();
-
-  // Versuchen, das Gebietsschema in den Parametern eines passenden Elements zu finden
-  // Dies setzt voraus, dass Sie das dynamische Segment "/{-$locale}" in Ihrem Routenbaum verwenden
-  const locale =
-    (
-      matches().find((match) => match.routeId === "/{-$locale}/")
-        ?.params as Params
-    )?.locale ?? defaultLocale;
+const RootComponent: ParentComponent = (props) => {
+  const params = LocaleRoute.useParams();
+  const locale = params()?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>
       <head>
         <HydrationScript />
+        <HeadContent />
       </head>
       <body>
-        <HeadContent />
         <IntlayerProvider locale={locale}>
           <Suspense>
-            <Outlet />
-            <TanStackRouterDevtools />
+            {props.children}
           </Suspense>
         </IntlayerProvider>
         <Scripts />
       </body>
     </html>
   );
-}
+};
 ```
 
 ### Schritt 6: Gebietsschema-Layout erstellen (Optional)
@@ -460,18 +446,12 @@ export default LocaleSwitcher;
 
 ### Schritt 11: Verwaltung von HTML-Attributen
 
-Wie in Schritt 5 zu sehen ist, können Sie die Attribute `lang` und `dir` des `html`-Tags mit `useMatches` in Ihrer Root-Komponente verwalten. Dies stellt sicher, dass die korrekten Attribute auf dem Server und dem Client festgelegt werden.
+Wie in Schritt 5 zu sehen ist, können Sie die Attribute `lang` und `dir` des `html`-Tags mit `useParams` in Ihrer Root-Komponente verwalten. Dies stellt sicher, dass die korrekten Attribute auf dem Server und dem Client festgelegt werden.
 
 ```tsx fileName="src/routes/__root.tsx"
 const RootComponent: ParentComponent = (props) => {
-  const matches = useMatches();
-
-  // Versuchen, das Gebietsschema in den Parametern einer passenden Route zu finden
-  const locale =
-    (
-      matches().find((match) => match.routeId === "/{-$locale}/")
-        ?.params as Params
-    )?.locale ?? defaultLocale;
+  const params = LocaleRoute.useParams();
+  const locale = params()?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>

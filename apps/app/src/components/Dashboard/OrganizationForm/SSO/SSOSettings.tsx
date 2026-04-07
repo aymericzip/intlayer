@@ -11,8 +11,8 @@ import {
 } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { useToast } from '@intlayer/design-system/toaster';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { z } from 'zod/v4';
 import { CurrentProviderInfo } from './CurrentProviderInfo';
 import { OIDCConfigForm } from './OIDCConfigForm';

@@ -2,8 +2,8 @@
 
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import type { Passkey } from './types';
 
 type PasskeyItemProps = {

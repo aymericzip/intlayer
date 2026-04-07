@@ -1,29 +1,11 @@
-import { headers } from 'next/headers';
-import { type NextRequest, NextResponse } from 'next/server';
+/**
+ * Query proxy utilities for TanStack Start.
+ * In TanStack Router, use useLocation() and useSearch() hooks instead.
+ */
 
-export const queryProxy = (request: NextRequest) => {
-  const headers = new Headers(request.headers);
-
-  headers.set('x-current-query', request?.nextUrl?.searchParams?.toString());
-  headers.set('x-current-url', request?.url?.toString());
-
-  return NextResponse.next({
-    request: {
-      ...request,
-      headers,
-    },
-  });
-};
+// Stub for compatibility - not used in TanStack Start
+export const queryProxy = () => null;
 
 export const getQueryParams = async () => {
-  const headerList = await headers();
-
-  const searchParamsString = headerList.get('x-current-query') ?? '';
-  const url = headerList.get('x-current-url') ?? '';
-
-  const searchParams = new URLSearchParams(searchParamsString);
-  const redirectUrl = searchParams.get('redirect_url');
-  const pathname = `/${url.split('/').slice(3).join('/')}`;
-
-  return { redirectUrl, url, pathname };
+  return { redirectUrl: null, url: '', pathname: '/' };
 };

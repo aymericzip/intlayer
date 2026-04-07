@@ -1,7 +1,8 @@
+import babel from '@rolldown/plugin-babel';
 import tailwindcss from '@tailwindcss/vite';
 import { devtools } from '@tanstack/devtools-vite';
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
-import viteReact from '@vitejs/plugin-react';
+import react, { reactCompilerPreset } from '@vitejs/plugin-react';
 import { nitro } from 'nitro/vite';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig, loadEnv } from 'vite';
@@ -190,8 +191,9 @@ export default defineConfig(({ mode }) => {
         },
       } as import('vite').Plugin,
       devtools(),
-      intlayerProxy(),
+      // intlayerProxy(),
       nitro({
+        preset: 'bun',
         routeRules: {
           '/**': { headers },
         },
@@ -219,13 +221,17 @@ export default defineConfig(({ mode }) => {
           concurrency: 10,
         },
       }),
-      viteReact(),
+      react(),
+      babel({ presets: [reactCompilerPreset()] }),
       wasm(),
       // visualizer({
       //   emitFile: true,
       //   filename: 'stats.html',
       // }),
     ],
+    resolve: {
+      dedupe: ['react', 'react-dom', '@tanstack/react-router'],
+    },
 
     build: {
       rolldownOptions: {

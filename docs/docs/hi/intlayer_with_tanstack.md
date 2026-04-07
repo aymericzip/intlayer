@@ -182,34 +182,41 @@ export default config;
 
 ### चरण 5: रूट लेआउट बनाएं
 
-वर्तमान लोकेल का पता लगाने के लिए `useMatches` का उपयोग करके और `html` टैग पर `lang` और `dir` विशेषताओं को सेट करके अंतर्राष्ट्रीयकरण का समर्थन करने के लिए अपने रूट लेआउट को कॉन्फ़िगर करें।
+वर्तमान लोकेल का पता लगाने के लिए `useParams` का उपयोग करके और `html` टैग पर `lang` और `dir` विशेषताओं को सेट करके अंतर्राष्ट्रीयकरण का समर्थन करने के लिए अपने रूट लेआउट को कॉन्फ़िगर करें।
 
 ```tsx fileName="src/routes/__root.tsx"
 import {
   createRootRouteWithContext,
   HeadContent,
-  Outlet,
   Scripts,
-  useMatches,
 } from "@tanstack/react-router";
 import { defaultLocale, getHTMLTextDir } from "intlayer";
 import { type ReactNode } from "react";
 import { IntlayerProvider } from "react-intlayer";
-import Header from "#/components/Header";
+import { Route as LocaleRoute } from "./{-$locale}/route";
 
 export const Route = createRootRouteWithContext<{}>()({
+  head: () => ({
+    meta: [
+      {
+        charSet: "utf-8",
+      },
+      {
+        content: "width=device-width, initial-scale=1",
+        name: "viewport",
+      },
+      {
+        title: "TanStack Start Starter",
+      },
+    ],
+  }),
+
   shellComponent: RootDocument,
 });
 
 function RootDocument({ children }: { children: ReactNode }) {
-  const matches = useMatches();
-
-  // किसी भी सक्रिय मैच के मापदंडों में लोकेल खोजने का प्रयास करें
-  // यह मानता है कि आप अपनी रूट ट्री में गतिशील खंड "/{-$locale}" का उपयोग करते हैं
-  const localeRoute = matches.find((match) =>
-    match.routeId.startsWith("/{-$locale}")
-  );
-  const locale = localeRoute?.params?.locale ?? defaultLocale;
+  const params = LocaleRoute.useParams();
+  const locale = params?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>
@@ -218,7 +225,6 @@ function RootDocument({ children }: { children: ReactNode }) {
       </head>
       <body>
         <IntlayerProvider locale={locale}>
-          <Header />
           {children}
         </IntlayerProvider>
         <Scripts />
@@ -563,17 +569,12 @@ export const LocaleSwitcher: FC = () => {
 
 ### चरण 11: HTML विशेषताओं का प्रबंधन
 
-जैसा कि चरण 5 में देखा गया है, आप अपने रूट घटक में `useMatches` का उपयोग करके `html` टैग की `lang` और `dir` विशेषताओं को प्रबंधित कर सकते हैं। यह सुनिश्चित करता है कि सर्वर और क्लाइंट पर सही विशेषताएं सेट की गई हैं।
+जैसा कि चरण 5 में देखा गया है, आप अपने रूट घटक में `useParams` का उपयोग करके `html` टैग की `lang` और `dir` विशेषताओं को प्रबंधित कर सकते हैं। यह सुनिश्चित करता है कि सर्वर और क्लाइंट पर सही विशेषताएं सेट की गई हैं।
 
 ```tsx fileName="src/routes/__root.tsx"
 function RootDocument({ children }: { children: ReactNode }) {
-  const matches = useMatches();
-
-  // किसी भी सक्रिय मैच के मापदंडों में लोकेल खोजने का प्रयास करें
-  const localeRoute = matches.find((match) =>
-    match.routeId.startsWith("/{-$locale}")
-  );
-  const locale = localeRoute?.params?.locale ?? defaultLocale;
+  const params = LocaleRoute.useParams();
+  const locale = params?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>

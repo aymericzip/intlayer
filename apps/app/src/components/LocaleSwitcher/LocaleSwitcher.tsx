@@ -1,13 +1,14 @@
 'use client';
 
-import { Link } from '@components/Link/Link';
 import { getHTMLTextDir, getLocaleName } from '@intlayer/core/localization';
 import { Container } from '@intlayer/design-system/container';
 import { DropDown, type PanelProps } from '@intlayer/design-system/drop-down';
 import { Input } from '@intlayer/design-system/input';
 import { MoveVertical } from 'lucide-react';
-import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC, useRef } from 'react';
+import { useIntlayer, useLocale } from 'react-intlayer';
+import { usePathname } from '#hooks/navigation';
+import { Link } from '#components/Link/Link';
 import { useLocaleSearch } from './useLocaleSearch';
 
 export type LocaleSwitcherProps = {
@@ -31,8 +32,8 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   let localeName = defaultLocaleName.value as string;
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { locale, pathWithoutLocale, availableLocales, setLocale } =
-    useLocale();
+  const { locale, availableLocales, setLocale } = useLocale();
+  const pathWithoutLocale = usePathname();
   const { searchResults, handleSearch } = useLocaleSearch(
     availableLocales,
     locale

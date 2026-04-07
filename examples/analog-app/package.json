@@ -4,14 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "vite build",
-    "dev": "vite",
+    "build": "bun --bun vite build",
+    "dev": "bun --bun vite",
     "ng": "ng",
     "preview": "node dist/analog/server/index.mjs",
     "start": "bun run dev",
     "start:editor": "bun intlayer-editor start -e development --with 'vite dev'",
     "test": "bun --bun vitest",
-    "watch": "vite build --watch"
+    "watch": "bun --bun vite build --watch"
   },
   "dependencies": {
     "@analogjs/content": "2.3.1",
@@ -49,7 +49,7 @@
     "intlayer-editor": "workspace:*",
     "jsdom": "29.0.1",
     "typescript": "6.0.2",
-    "vite": "8.0.3",
+    "vite": "8.0.5",
     "vite-intlayer": "workspace:*",
     "vitest": "4.1.2"
   },

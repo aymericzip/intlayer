@@ -1,8 +1,8 @@
 import type { ButtonProps } from '@intlayer/design-system/button';
 import { Form } from '@intlayer/design-system/form';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import type { FC, ReactNode } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 type StepLayoutProps = {
   children?: ReactNode;

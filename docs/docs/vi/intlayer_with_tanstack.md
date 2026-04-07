@@ -182,34 +182,41 @@ export default config;
 
 ### Bước 5: Tạo Root Layout
 
-Cấu hình root layout của bạn để hỗ trợ quốc tế hóa bằng cách sử dụng `useMatches` để phát hiện locale hiện tại và đặt các thuộc tính `lang` và `dir` trên thẻ `html`.
+Cấu hình root layout của bạn để hỗ trợ quốc tế hóa bằng cách sử dụng `useParams` để phát hiện locale hiện tại và đặt các thuộc tính `lang` và `dir` trên thẻ `html`.
 
 ```tsx fileName="src/routes/__root.tsx"
 import {
   createRootRouteWithContext,
   HeadContent,
-  Outlet,
   Scripts,
-  useMatches,
 } from "@tanstack/react-router";
 import { defaultLocale, getHTMLTextDir } from "intlayer";
 import { type ReactNode } from "react";
 import { IntlayerProvider } from "react-intlayer";
-import Header from "#/components/Header";
+import { Route as LocaleRoute } from "./{-$locale}/route";
 
 export const Route = createRootRouteWithContext<{}>()({
+  head: () => ({
+    meta: [
+      {
+        charSet: "utf-8",
+      },
+      {
+        content: "width=device-width, initial-scale=1",
+        name: "viewport",
+      },
+      {
+        title: "TanStack Start Starter",
+      },
+    ],
+  }),
+
   shellComponent: RootDocument,
 });
 
 function RootDocument({ children }: { children: ReactNode }) {
-  const matches = useMatches();
-
-  // Thử tìm locale trong params của bất kỳ match đang hoạt động nào
-  // Điều này giả định bạn sử dụng segment động "/{-$locale}" trong cây route của mình
-  const localeRoute = matches.find((match) =>
-    match.routeId.startsWith("/{-$locale}")
-  );
-  const locale = localeRoute?.params?.locale ?? defaultLocale;
+  const params = LocaleRoute.useParams();
+  const locale = params?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>
@@ -218,7 +225,6 @@ function RootDocument({ children }: { children: ReactNode }) {
       </head>
       <body>
         <IntlayerProvider locale={locale}>
-          <Header />
           {children}
         </IntlayerProvider>
         <Scripts />
@@ -563,17 +569,12 @@ export const LocaleSwitcher: FC = () => {
 
 ### Bước 11: Quản lý Thuộc tính HTML
 
-Như đã thấy trong Bước 5, bạn có thể quản lý các thuộc tính `lang` và `dir` của thẻ `html` bằng cách sử dụng `useMatches` trong component gốc của bạn. Điều này đảm bảo các thuộc tính được đặt đúng trên server và client.
+Như đã thấy trong Bước 5, bạn có thể quản lý các thuộc tính `lang` và `dir` của thẻ `html` bằng cách sử dụng `useParams` trong component gốc của bạn. Điều này đảm bảo các thuộc tính được đặt đúng trên server và client.
 
 ```tsx fileName="src/routes/__root.tsx"
 function RootDocument({ children }: { children: ReactNode }) {
-  const matches = useMatches();
-
-  // Thử tìm locale trong params của bất kỳ match đang hoạt động nào
-  const localeRoute = matches.find((match) =>
-    match.routeId.startsWith("/{-$locale}")
-  );
-  const locale = localeRoute?.params?.locale ?? defaultLocale;
+  const params = LocaleRoute.useParams();
+  const locale = params?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>

@@ -1,11 +1,7 @@
 'use client';
 
-import { formatOnboardUrl } from '@components/OnboardPage/formatOnboardUrl';
-import { Steps } from '@components/OnboardPage/steps';
 import type { GetPricingResult } from '@intlayer/backend';
 import { useGetPricing, useUser } from '@intlayer/design-system/hooks';
-import { useSearchParams } from 'next/navigation';
-import { useIntlayer } from 'next-intlayer';
 import React, {
   type FC,
   type HTMLAttributes,
@@ -15,6 +11,10 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { useSearchParams } from '#/hooks/navigation';
+import { formatOnboardUrl } from '#components/OnboardPage/formatOnboardUrl';
+import { Steps } from '#components/OnboardPage/steps';
 import { type Period, Plans } from './data.content';
 import { PricingColumn } from './PricingColumn';
 
@@ -58,10 +58,10 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
   const { data: pricingData, isFetching: isLoading } = useGetPricing(
     {
       priceIds: [
-        process.env.NEXT_PUBLIC_STRIPE_PREMIUM_YEARLY_PRICE_ID!,
-        process.env.NEXT_PUBLIC_STRIPE_PREMIUM_MONTHLY_PRICE_ID!,
-        process.env.NEXT_PUBLIC_STRIPE_ENTERPRISE_YEARLY_PRICE_ID!,
-        process.env.NEXT_PUBLIC_STRIPE_ENTERPRISE_MONTHLY_PRICE_ID!,
+        import.meta.env.VITE_STRIPE_PREMIUM_YEARLY_PRICE_ID!,
+        import.meta.env.VITE_STRIPE_PREMIUM_MONTHLY_PRICE_ID!,
+        import.meta.env.VITE_STRIPE_ENTERPRISE_YEARLY_PRICE_ID!,
+        import.meta.env.VITE_STRIPE_ENTERPRISE_MONTHLY_PRICE_ID!,
       ],
       promoCode: allParams.promoCode,
     },

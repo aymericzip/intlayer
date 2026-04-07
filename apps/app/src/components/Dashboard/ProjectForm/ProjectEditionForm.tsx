@@ -3,8 +3,8 @@
 import { Form, useForm } from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
 import { useSession, useUpdateProject } from '@intlayer/design-system/hooks';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { type ProjectFormData, useProjectSchema } from './useProjectFormSchema';
 
 export const ProjectEditionForm: FC = () => {

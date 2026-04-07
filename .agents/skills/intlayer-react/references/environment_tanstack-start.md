@@ -190,26 +190,19 @@ import {
   HeadContent,
   Outlet,
   Scripts,
-  useMatches,
 } from "@tanstack/react-router";
 import { defaultLocale, getHTMLTextDir } from "intlayer";
 import { type ReactNode } from "react";
 import { IntlayerProvider } from "react-intlayer";
 import Header from "#/components/Header";
+import { Route as LocaleRoute } from "./{-$locale}/route";
 
 export const Route = createRootRouteWithContext<{}>()({
   shellComponent: RootDocument,
 });
 
 function RootDocument({ children }: { children: ReactNode }) {
-  const matches = useMatches();
-
-  // Try to find locale in params of any active match
-  // This assumes you use the dynamic segment "/{-$locale}" in your route tree
-  const localeRoute = matches.find((match) =>
-    match.routeId.startsWith("/{-$locale}")
-  );
-  const locale = localeRoute?.params?.locale ?? defaultLocale;
+  const { locale = defaultLocale } = LocaleRoute.useParams();
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>

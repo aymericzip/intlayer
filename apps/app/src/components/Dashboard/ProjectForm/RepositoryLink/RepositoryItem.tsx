@@ -3,8 +3,8 @@
 import { Button } from '@intlayer/design-system/button';
 import { TechLogos } from '@intlayer/design-system/tech-logo';
 import { GitBranch, GitCommit } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import type { RepoData, RepositoryProvider } from './types';
 
 type RepositoryItemProps = {

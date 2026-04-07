@@ -5,8 +5,8 @@ import { Loader } from '@intlayer/design-system/loader';
 import { TechLogos } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
 import { GitBranch } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import type { RepositoryProvider } from './types';
 
 type ProviderSelectorProps = {

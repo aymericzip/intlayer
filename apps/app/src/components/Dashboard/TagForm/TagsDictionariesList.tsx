@@ -6,9 +6,9 @@ import { Loader } from '@intlayer/design-system/loader';
 import { App_Dashboard_Dictionaries } from '@intlayer/design-system/routes';
 import { useFocusUnmergedDictionary } from '@intlayer/editor-react';
 import { ChevronRight } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useIntlayer } from 'next-intlayer';
+import { useRouter } from '#/hooks/navigation';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 type TagsDictionariesListProps = {
   tagKey: string;

@@ -10,8 +10,8 @@ import { ALL_LOCALES } from '@intlayer/types/allLocales';
 import { AiProviders } from '@intlayer/types/config';
 import { getLocaleName, type Locale } from 'intlayer';
 import { Save } from 'lucide-react';
-import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
+import { useIntlayer, useLocale } from 'react-intlayer';
 import {
   type ConfigFormData,
   useConfigFormSchema,

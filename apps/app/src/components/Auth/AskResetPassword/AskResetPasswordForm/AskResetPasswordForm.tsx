@@ -1,7 +1,6 @@
 'use client';
 
 import { Form, useForm } from '@intlayer/design-system/form';
-import { useIntlayer } from 'next-intlayer';
 import {
   type FC,
   type ReactNode,
@@ -9,6 +8,7 @@ import {
   useEffect,
   useState,
 } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import {
   type AskResetPassword,
   useAskResetPasswordSchema,

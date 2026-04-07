@@ -1,14 +1,14 @@
 'use client';
 
-import { Link } from '@components/Link/Link';
-import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
-import { ProfileDropDown } from '@components/ProfileDropdown/ProfileDropdown';
-import { TranslationStatusAside } from '@components/TranslationStatusAside';
 import { Container } from '@intlayer/design-system/container';
 import { useSession } from '@intlayer/design-system/hooks';
 import { Logo } from '@intlayer/design-system/logo';
 import { App_Home_Path } from '@intlayer/design-system/routes';
 import type { FC } from 'react';
+import { Link } from '#components/Link/Link';
+import { LocaleSwitcher } from '#components/LocaleSwitcher/LocaleSwitcher';
+import { ProfileDropDown } from '#components/ProfileDropdown/ProfileDropdown';
+import { TranslationStatusAside } from '#components/TranslationStatusAside';
 import { OrganizationDropdown } from './OrganizationDropdown';
 import { ProjectDropdown } from './ProjectDropdown';
 

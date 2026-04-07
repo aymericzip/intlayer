@@ -40,6 +40,7 @@ COPY \
     --exclude=packages/hono-intlayer \
     --exclude=packages/adonis-intlayer \
     --exclude=apps/website \
+    --exclude=apps/_app \
     --exclude=apps/app \
     --exclude=apps/doc \
     --exclude=plugins \
@@ -79,4 +80,4 @@ HEALTHCHECK CMD true
 #     wget -qO- http://localhost:3000/doc/environment/nextjs > /dev/null || exit 1
 
 # Start the showcase server
-CMD ["node", ".output/server/index.mjs"]
+CMD ["bun", "run", ".output/server/index.mjs"]

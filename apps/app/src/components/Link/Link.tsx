@@ -10,13 +10,20 @@ import {
 } from '@intlayer/design-system/link';
 import { cn } from '@intlayer/design-system/utils';
 import { ExternalLink, MoveRight } from 'lucide-react';
-import NextLink, { type LinkProps as NextLinkProps } from 'next/link';
-import { useLocale } from 'next-intlayer';
+import { Link as TanStackLink } from '@tanstack/react-router';
 import type { FC } from 'react';
+import React from 'react';
+import { useLocale } from 'react-intlayer';
 
-export type LinkProps = LinkUIProps & NextLinkProps;
+export type LinkProps = LinkUIProps & {
+  href?: string;
+  to?: string;
+  prefetch?: boolean | 'intent' | 'render' | 'viewport';
+  locale?: string;
+  [key: string]: unknown;
+};
 
-const URL = process.env.NEXT_PUBLIC_URL;
+const URL = import.meta.env.VITE_URL;
 
 export const Link: FC<LinkProps> = (props) => {
   const {
@@ -65,32 +72,39 @@ export const Link: FC<LinkProps> = (props) => {
 
   const target = isExternalLink ? '_blank' : '_self';
 
+  if (isExternalLink || isPageSection) {
+    return (
+      <a
+        href={String(href ?? '')}
+        aria-label={label}
+        rel={rel}
+        target={target}
+        aria-current={isActive ? 'page' : undefined}
+        className={cn(
+          linkVariants({ variant, color, underlined, roundedSize, size, className })
+        )}
+        {...(otherProps as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+      >
+        {isButton && isChildrenString ? <span>{children}</span> : children}
+        {isExternalLink && isChildrenString && (
+          <ExternalLink className="ml-2 inline-block size-4" />
+        )}
+        {isPageSection && <MoveRight className="ml-2 inline-block size-4" />}
+      </a>
+    );
+  }
+
   return (
-    <NextLink
-      prefetch={prefetch}
-      href={href}
+    <TanStackLink
+      to={String(href ?? '/')}
       aria-label={label}
-      rel={rel}
-      target={target}
       aria-current={isActive ? 'page' : undefined}
       className={cn(
-        linkVariants({
-          variant,
-          color,
-          underlined,
-          roundedSize,
-          size,
-          className,
-        })
+        linkVariants({ variant, color, underlined, roundedSize, size, className })
       )}
-      {...otherProps}
+      {...(otherProps as Record<string, unknown>)}
     >
       {isButton && isChildrenString ? <span>{children}</span> : children}
-
-      {isExternalLink && isChildrenString && (
-        <ExternalLink className="ml-2 inline-block size-4" />
-      )}
-      {isPageSection && <MoveRight className="ml-2 inline-block size-4" />}
-    </NextLink>
+    </TanStackLink>
   );
 };

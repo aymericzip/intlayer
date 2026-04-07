@@ -1,13 +1,13 @@
 import { getIntlayerAPI, type IntlayerAPI } from '@intlayer/api';
-import { headers } from 'next/headers';
+import { getWebRequest } from 'vinxi/http';
 
 /**
- * This function is useful as cookies are not directly available in the server context (Page / Layout)
- * So we need to get the cookies from the headers and build the API client with the cookies
+ * Gets the Intlayer API with cookies from the current request headers.
+ * Only callable from server context (loaders, server functions).
  */
 export const getServerIntlayerAPI = async (): Promise<IntlayerAPI> => {
-  const headersList = await headers();
-  const cookie = headersList.get('cookie');
+  const request = getWebRequest();
+  const cookie = request.headers.get('cookie');
 
   // Build API client with incoming request cookies so backend uses the user session
   const api = getIntlayerAPI({

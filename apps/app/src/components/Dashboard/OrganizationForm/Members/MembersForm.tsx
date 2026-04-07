@@ -13,8 +13,8 @@ import {
 import { Loader } from '@intlayer/design-system/loader';
 import { MultiSelect } from '@intlayer/design-system/select';
 import { Plus, X } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { RemoveMemberModal } from './RemoveMemberModal';
 import { useOrganizationMembersSchema } from './useMembersFormSchema';
 import { useOrganizationNewMembersSchema } from './useNewMembersFormSchema';

@@ -3,15 +3,15 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "vite build",
-    "dev": "vite dev --port 3000",
-    "preview": "vite preview",
+    "build": "bun --bun vite build",
+    "dev": "bun --bun vite dev --port 3000",
+    "preview": "bun --bun vite preview",
     "start": "node dist/server/server.js",
-    "test": "vitest run"
+    "test": "bun --bun vitest run"
   },
   "dependencies": {
     "@tailwindcss/vite": "4.2.2",
-    "@tanstack/router-plugin": "1.167.8",
+    "@tanstack/router-plugin": "1.167.12",
     "@tanstack/solid-router": "latest",
     "@tanstack/solid-router-devtools": "latest",
     "@tanstack/solid-router-ssr-query": "latest",
@@ -24,7 +24,7 @@
   "devDependencies": {
     "@tanstack/devtools-vite": "latest",
     "typescript": "6.0.2",
-    "vite": "8.0.3",
+    "vite": "8.0.5",
     "vite-intlayer": "workspace:*",
     "vite-plugin-solid": "2.11.11"
   }

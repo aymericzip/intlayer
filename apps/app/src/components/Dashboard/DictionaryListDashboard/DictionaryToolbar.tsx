@@ -5,9 +5,9 @@ import { PopoverStatic } from '@intlayer/design-system/popover';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type { Table } from '@tanstack/react-table';
 import { Columns, Filter, Plus, Trash2 } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 import { useForm } from 'react-hook-form';
+import { useIntlayer } from 'react-intlayer';
 import type { useDictionaryDashboard } from './useDictionaryDashboard';
 
 interface DictionaryToolbarProps {

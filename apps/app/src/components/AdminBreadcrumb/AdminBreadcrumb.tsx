@@ -6,9 +6,9 @@ import {
   type BreadcrumbProps,
 } from '@intlayer/design-system/breadcrumb';
 import { App_Admin_Dashboard_Path } from '@intlayer/design-system/routes';
-import { useParams, usePathname } from 'next/navigation';
-import { useIntlayer } from 'next-intlayer';
+import { useParams, usePathname } from '#/hooks/navigation';
 import { type FC, useMemo } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 type AdminBreadcrumbProps = Omit<BreadcrumbProps, 'links'>;
 

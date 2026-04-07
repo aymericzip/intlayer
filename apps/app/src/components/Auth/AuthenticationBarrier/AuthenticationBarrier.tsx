@@ -2,11 +2,10 @@ import {
   App_Auth_SignIn_Path,
   App_Home_Path,
 } from '@intlayer/design-system/routes';
-import { getQueryParams } from '@utils/queryProxy';
+import { useLocation, useSearch } from '@tanstack/react-router';
 import { getLocalizedUrl, type LocalesValues } from 'intlayer';
 import type { FC } from 'react';
 import { AuthenticationBarrierClient } from './AuthenticationBarrierClient';
-import { AuthenticationBarrierServer } from './AuthenticationBarrierServer';
 import type { AuthenticationBarrierProps as AuthenticationBarrierPropsBoth } from './accessValidation';
 
 type AuthenticationBarrierProps = Omit<
@@ -14,48 +13,41 @@ type AuthenticationBarrierProps = Omit<
   'sessionToken' | 'redirectionFunction'
 > & {
   redirectionRoute?: string;
-  locale: LocalesValues;
+  locale?: LocalesValues;
   originUrl?: string;
 };
 
-export const AuthenticationBarrier: FC<AuthenticationBarrierProps> = async ({
+export const AuthenticationBarrier: FC<AuthenticationBarrierProps> = ({
   children,
   redirectionRoute,
   locale,
   ...props
 }) => {
-  const data = await getQueryParams();
-  const pathname =
-    data.pathname === App_Auth_SignIn_Path ? App_Home_Path : data.pathname;
+  const { pathname } = useLocation();
+  const search = useSearch({ strict: false }) as Record<string, unknown>;
+
+  const redirectUrl =
+    typeof search.redirect_url === 'string' ? search.redirect_url : null;
+
+  const effectivePathname =
+    pathname === App_Auth_SignIn_Path ? App_Home_Path : pathname;
 
   const redirectURL =
     redirectionRoute ??
-    data.redirectUrl ??
-    `${App_Auth_SignIn_Path}?redirect_url=${encodeURIComponent(pathname)}`;
+    redirectUrl ??
+    `${App_Auth_SignIn_Path}?redirect_url=${encodeURIComponent(effectivePathname)}`;
 
-  const localizedRedirectionURL = getLocalizedUrl(redirectURL, locale);
-
-  // If the server has a value (even null), it decides; otherwise, the client decides.
-  // const serverEnabled = typeof props.session !== 'undefined';
-
-  // The client must remain active on authenticated pages to react to session changes
-  // and on not-authenticated pages to react to login in SPA
-  const clientEnabled = true;
+  const localizedRedirectionURL =
+    locale ? getLocalizedUrl(redirectURL, locale) : redirectURL;
 
   return (
-    <AuthenticationBarrierServer
+    <AuthenticationBarrierClient
       {...props}
+      session={undefined} // Let client fetch fresh session data
       redirectionRoute={localizedRedirectionURL}
-      isEnabled={false} // Disabled because of infinite redirection
+      isEnabled={true}
     >
-      <AuthenticationBarrierClient
-        {...props}
-        session={undefined} // Don't pass session to client - let it fetch fresh data
-        redirectionRoute={localizedRedirectionURL}
-        isEnabled={clientEnabled}
-      >
-        {children}
-      </AuthenticationBarrierClient>
-    </AuthenticationBarrierServer>
+      {children}
+    </AuthenticationBarrierClient>
   );
 };

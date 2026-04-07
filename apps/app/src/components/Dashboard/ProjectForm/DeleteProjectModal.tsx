@@ -4,9 +4,9 @@ import { Form } from '@intlayer/design-system/form';
 import { useDeleteProject } from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
 import { App_Dashboard_Projects_Path } from '@intlayer/design-system/routes';
-import { useRouter } from 'next/navigation';
-import { useIntlayer } from 'next-intlayer';
+import { useRouter } from '#/hooks/navigation';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 type DeleteProjectModalProps = {
   isOpen: boolean;

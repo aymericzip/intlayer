@@ -1,13 +1,13 @@
 'use client';
 
-import { AppleLogo } from '@components/logos/AppleLogo';
 import { Button } from '@intlayer/design-system/button';
 import { useUser } from '@intlayer/design-system/hooks';
 import { getAuthAPI } from '@intlayer/design-system/libs';
 import { TechLogos } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { AppleLogo } from '#components/logos/AppleLogo';
 
 export const GitHubLoginButton: FC<ExternalsLoginButtonsProps> = ({
   onLogin,

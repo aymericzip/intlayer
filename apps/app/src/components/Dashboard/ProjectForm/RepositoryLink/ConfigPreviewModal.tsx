@@ -5,9 +5,9 @@ import { CodeBlock } from '@intlayer/design-system/ide';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import { XCircle } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
-import { useTheme } from 'next-themes';
+import { useTheme } from '#/providers/ThemeProvider';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import type { ConfigPreviewState } from './types';
 
 type ConfigPreviewModalProps = {

@@ -1,10 +1,5 @@
 'use client';
 
-import { OrganizationDropdown } from '@components/Dashboard/DashboardNavbar/OrganizationDropdown';
-import { ProjectDropdown } from '@components/Dashboard/DashboardNavbar/ProjectDropdown';
-import { OrganizationList } from '@components/Dashboard/OrganizationForm/OrganizationList';
-import { AccessKeyCreationForm } from '@components/Dashboard/ProjectForm/AccessKey/AccessKeyCreationForm';
-import { ProjectList } from '@components/Dashboard/ProjectForm/ProjectList';
 import type { OAuth2AccessAPI } from '@intlayer/backend';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
@@ -18,8 +13,13 @@ import {
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import { Check, KeyRound } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { OrganizationDropdown } from '#components/Dashboard/DashboardNavbar/OrganizationDropdown';
+import { ProjectDropdown } from '#components/Dashboard/DashboardNavbar/ProjectDropdown';
+import { OrganizationList } from '#components/Dashboard/OrganizationForm/OrganizationList';
+import { AccessKeyCreationForm } from '#components/Dashboard/ProjectForm/AccessKey/AccessKeyCreationForm';
+import { ProjectList } from '#components/Dashboard/ProjectForm/ProjectList';
 import { SignInForm } from '../SignIn';
 
 type CliLoginFlowProps = {

@@ -4,7 +4,6 @@ import {
   createRootRouteWithContext,
   HeadContent,
   Scripts,
-  useMatches,
 } from '@tanstack/react-router';
 import { defaultLocale, getHTMLTextDir } from 'intlayer';
 import { IntlayerProvider } from 'react-intlayer';
@@ -12,10 +11,10 @@ import { BackgroundLayout } from '#/components/BackgroundLayout';
 import { BaiduAutoPushSubscriber } from '../components/BaiduAutoPush/BaiduAutoPushSubscriber';
 import { IntlayerMarkdownProvider } from '../components/IntlayerMarkdownProvider';
 import { Navbar } from '../components/Navbar';
-import { ThemeProvider } from '../components/ThemeProvider';
 import PostHogProvider from '../integrations/posthog/provider';
 import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from '../lib/site';
 import appCss from '../styles.css?url';
+import { Route as LocaleRoute } from './{-$locale}/route';
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -83,12 +82,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-  const matches = useMatches();
-
-  // Try to find locale in params of any active match
-  const localeRoute = matches.find((match) => match.routeId === '/{-$locale}');
-  const locale =
-    (localeRoute?.params as { locale?: string })?.locale ?? defaultLocale;
+  const { locale = defaultLocale } = LocaleRoute.useParams();
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale} suppressHydrationWarning>
@@ -99,19 +93,17 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body className="relative flex min-h-screen flex-col overflow-x-clip scroll-smooth bg-background text-text leading-8 transition md:flex">
         <IntlayerProvider locale={locale}>
-          <ThemeProvider>
-            <IntlayerMarkdownProvider>
-              <PostHogProvider>
-                <ReactQueryProvider>
-                  <BaiduAutoPushSubscriber />
-                  <BackgroundLayout>
-                    <Navbar />
-                    {children}
-                  </BackgroundLayout>
-                </ReactQueryProvider>
-              </PostHogProvider>
-            </IntlayerMarkdownProvider>
-          </ThemeProvider>
+          <IntlayerMarkdownProvider>
+            <PostHogProvider>
+              <ReactQueryProvider>
+                <BaiduAutoPushSubscriber />
+                <BackgroundLayout>
+                  <Navbar />
+                  {children}
+                </BackgroundLayout>
+              </ReactQueryProvider>
+            </PostHogProvider>
+          </IntlayerMarkdownProvider>
         </IntlayerProvider>
         <Scripts />
       </body>

@@ -163,59 +163,45 @@ export default defineConfig({
 
 ### Adım 5: Kök Düzeni (Root Layout) Oluşturma
 
-Geçerli yerel ayarı algılamak için `useMatches` kullanarak ve `html` etiketinde `lang` ve `dir` özelliklerini ayarlayarak kök düzeninizi uluslararasılaştırmayı destekleyecek şekilde yapılandırın.
+Geçerli yerel ayarı algılamak için `useParams` kullanarak ve `html` etiketinde `lang` ve `dir` özelliklerini ayarlayarak kök düzeninizi uluslararasılaştırmayı destekleyecek şekilde yapılandırın.
 
 ```tsx fileName="src/routes/__root.tsx"
 import {
   HeadContent,
-  Outlet,
   Scripts,
   createRootRouteWithContext,
-  useMatches,
 } from "@tanstack/solid-router";
-import { TanStackRouterDevtools } from "@tanstack/solid-router-devtools";
 import { HydrationScript } from "solid-js/web";
-import { Suspense } from "solid-js";
+import { Suspense, type ParentComponent } from "solid-js";
 import { IntlayerProvider } from "solid-intlayer";
-import { defaultLocale, getHTMLTextDir, type Locale } from "intlayer";
+import { defaultLocale, getHTMLTextDir } from "intlayer";
+import { Route as LocaleRoute } from "./{-$locale}/route";
 
 export const Route = createRootRouteWithContext()({
   shellComponent: RootComponent,
 });
 
-type Params = {
-  locale: Locale;
-};
-
-function RootComponent() {
-  const matches = useMatches();
-
-  // Herhangi bir etkin eşleşmenin parametrelerinde yerel ayarı bulmaya çalışın
-  // Bu, rota ağacınızda "/{-$locale}" dinamik segmentini kullandığınızı varsayar
-  const locale =
-    (
-      matches().find((match) => match.routeId === "/{-$locale}/")
-        ?.params as Params
-    )?.locale ?? defaultLocale;
+const RootComponent: ParentComponent = (props) => {
+  const params = LocaleRoute.useParams();
+  const locale = params()?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>
       <head>
         <HydrationScript />
+        <HeadContent />
       </head>
       <body>
-        <HeadContent />
         <IntlayerProvider locale={locale}>
           <Suspense>
-            <Outlet />
-            <TanStackRouterDevtools />
+            {props.children}
           </Suspense>
         </IntlayerProvider>
         <Scripts />
       </body>
     </html>
   );
-}
+};
 ```
 
 ### Adım 6: Yerel Ayar Düzeni Oluşturma (İsteğe Bağlı)
@@ -460,18 +446,12 @@ export default LocaleSwitcher;
 
 ### Adım 11: HTML Özniteliklerinin Yönetimi
 
-Adım 5'te görüldüğü gibi, kök bileşeninizde `useMatches` kullanarak `html` etiketinin `lang` ve `dir` özniteliklerini yönetebilirsiniz. Bu, hem sunucuda hem de istemcide doğru özniteliklerin ayarlanmasını sağlar.
+Adım 5'te görüldüğü gibi, kök bileşeninizde `useParams` kullanarak `html` etiketinin `lang` ve `dir` özniteliklerini yönetebilirsiniz. Bu, hem sunucuda hem de istemcide doğru özniteliklerin ayarlanmasını sağlar.
 
 ```tsx fileName="src/routes/__root.tsx"
 const RootComponent: ParentComponent = (props) => {
-  const matches = useMatches();
-
-  // Herhangi bir etkin eşleşmenin parametrelerinde yerel ayarı bulmaya çalışın
-  const locale =
-    (
-      matches().find((match) => match.routeId === "/{-$locale}/")
-        ?.params as Params
-    )?.locale ?? defaultLocale;
+  const params = LocaleRoute.useParams();
+  const locale = params()?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>

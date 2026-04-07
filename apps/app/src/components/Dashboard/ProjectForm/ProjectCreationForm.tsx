@@ -3,8 +3,8 @@
 import type { ProjectAPI } from '@intlayer/backend';
 import { Form, useForm } from '@intlayer/design-system/form';
 import { useAddProject, useSelectProject } from '@intlayer/design-system/hooks';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { type ProjectFormData, useProjectSchema } from './useProjectFormSchema';
 
 type ProjectCreationFormProps = {

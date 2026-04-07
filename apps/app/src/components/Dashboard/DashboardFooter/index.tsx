@@ -1,20 +1,18 @@
 'use client';
 
-import { Link } from '@components/Link/Link';
 import { useDevice } from '@intlayer/design-system/hooks';
 import { Logo } from '@intlayer/design-system/logo';
 import { TechLogos } from '@intlayer/design-system/tech-logo';
 import type { LocalesValues } from 'intlayer';
-import dynamic from 'next/dynamic';
-import { useIntlayer } from 'next-intlayer';
 import type { FC, ReactNode } from 'react';
+import { lazy, Suspense } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '#components/Link/Link';
 
-const SwitchThemeSwitcher = dynamic(
-  () =>
-    import('@components/ThemeSwitcherDropDown/SwitchThemeSwitcher').then(
-      (mod) => mod.SwitchThemeSwitcher
-    ),
-  { ssr: false }
+const SwitchThemeSwitcher = lazy(() =>
+  import('#components/ThemeSwitcherDropDown/SwitchThemeSwitcher').then(
+    (mod) => ({ default: mod.SwitchThemeSwitcher })
+  )
 );
 
 export type DashboardFooterLink = {
@@ -34,7 +32,7 @@ export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
   const { isMobile } = useDevice('sm');
 
   return (
-    <footer className="flex flex-auto flex-wrap items-center gap-4 overflow-auto px-6 py-1 max-md:mt-4 max-md:pb-20 md:flex-row">
+    <footer className="flex-none flex flex-wrap items-center gap-4 px-6 py-1 max-md:mt-4 max-md:pb-2 md:flex-row">
       <div className="flex flex-row flex-wrap items-center justify-center gap-x-4 gap-y-2 max-md:max-w-1/4">
         <Link href={logo.url.value} label={logo.label.value} color="text">
           <Logo width={80} height={80} className="size-6" />
@@ -44,7 +42,9 @@ export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
         </Link>
         {isMobile && (
           <div className="scale-75">
-            <SwitchThemeSwitcher />
+            <Suspense>
+              <SwitchThemeSwitcher />
+            </Suspense>
           </div>
         )}
       </div>
@@ -65,7 +65,9 @@ export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
       </div>
       {!isMobile && (
         <div className="scale-75">
-          <SwitchThemeSwitcher />
+          <Suspense>
+            <SwitchThemeSwitcher />
+          </Suspense>
         </div>
       )}
     </footer>

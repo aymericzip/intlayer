@@ -34,8 +34,8 @@ import type { Dictionary } from '@intlayer/types/dictionary';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { ArrowUp, Plus } from 'lucide-react';
-import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC, Suspense, useEffect, useMemo, useRef, useState } from 'react';
+import { useIntlayer, useLocale } from 'react-intlayer';
 import { GroupedVirtuoso, type GroupedVirtuosoHandle } from 'react-virtuoso';
 import {
   type FlattenedDictionaryNode,

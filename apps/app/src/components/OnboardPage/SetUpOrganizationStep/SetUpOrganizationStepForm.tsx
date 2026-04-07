@@ -1,8 +1,5 @@
 'use client';
 
-import { NoOrganizationView } from '@components/Dashboard/OrganizationForm/NoOrganizationView';
-import { OrganizationCreationForm } from '@components/Dashboard/OrganizationForm/OrganizationCreationForm';
-import { OrganizationList } from '@components/Dashboard/OrganizationForm/OrganizationList';
 import type { OrganizationAPI } from '@intlayer/backend';
 import { Form, useForm } from '@intlayer/design-system/form';
 import { H2 } from '@intlayer/design-system/headers';
@@ -14,9 +11,12 @@ import {
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import { App_Pricing_Path } from '@intlayer/design-system/routes';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { useRouter, useSearchParams } from '#/hooks/navigation';
+import { NoOrganizationView } from '#components/Dashboard/OrganizationForm/NoOrganizationView';
+import { OrganizationCreationForm } from '#components/Dashboard/OrganizationForm/OrganizationCreationForm';
+import { OrganizationList } from '#components/Dashboard/OrganizationForm/OrganizationList';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';

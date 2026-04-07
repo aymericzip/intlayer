@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc -b & vite build",
-    "dev": "vite",
-    "preview": "vite preview",
+    "dev": "bun --bun vite",
+    "preview": "bun --bun vite preview",
     "start:editor": "bun intlayer-editor start --with 'vite dev'"
   },
   "dependencies": {
@@ -21,7 +21,7 @@
     "intlayer-editor": "workspace:*",
     "tailwindcss": "4.2.2",
     "typescript": "6.0.2",
-    "vite": "8.0.3",
+    "vite": "8.0.5",
     "vite-intlayer": "workspace:*"
   }
 }

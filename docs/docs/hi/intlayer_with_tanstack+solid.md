@@ -163,59 +163,45 @@ export default defineConfig({
 
 ### स्टेप 5: रूट लेआउट बनाएं
 
-वर्तमान लोकेल का पता लगाने के लिए `useMatches` का उपयोग करके और `html` टैग पर `lang` और `dir` विशेषताओं को सेट करके अंतर्राष्ट्रीयकरण का समर्थन करने के लिए अपना रूट लेआउट कॉन्फ़िगर करें।
+वर्तमान लोकेल का पता लगाने के लिए `useParams` का उपयोग करके और `html` टैग पर `lang` और `dir` विशेषताओं को सेट करके अंतर्राष्ट्रीयकरण का समर्थन करने के लिए अपना रूट लेआउट कॉन्फ़िगर करें।
 
 ```tsx fileName="src/routes/__root.tsx"
 import {
   HeadContent,
-  Outlet,
   Scripts,
   createRootRouteWithContext,
-  useMatches,
 } from "@tanstack/solid-router";
-import { TanStackRouterDevtools } from "@tanstack/solid-router-devtools";
 import { HydrationScript } from "solid-js/web";
-import { Suspense } from "solid-js";
+import { Suspense, type ParentComponent } from "solid-js";
 import { IntlayerProvider } from "solid-intlayer";
-import { defaultLocale, getHTMLTextDir, type Locale } from "intlayer";
+import { defaultLocale, getHTMLTextDir } from "intlayer";
+import { Route as LocaleRoute } from "./{-$locale}/route";
 
 export const Route = createRootRouteWithContext()({
   shellComponent: RootComponent,
 });
 
-type Params = {
-  locale: Locale;
-};
-
-function RootComponent() {
-  const matches = useMatches();
-
-  // किसी भी सक्रिय मिलान के मापदंडों में लोकेल खोजने का प्रयास करें
-  // यह मानता है कि आप अपने रूट ट्री में गतिशील खंड "/{-$locale}" का उपयोग करते हैं
-  const locale =
-    (
-      matches().find((match) => match.routeId === "/{-$locale}/")
-        ?.params as Params
-    )?.locale ?? defaultLocale;
+const RootComponent: ParentComponent = (props) => {
+  const params = LocaleRoute.useParams();
+  const locale = params()?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>
       <head>
         <HydrationScript />
+        <HeadContent />
       </head>
       <body>
-        <HeadContent />
         <IntlayerProvider locale={locale}>
           <Suspense>
-            <Outlet />
-            <TanStackRouterDevtools />
+            {props.children}
           </Suspense>
         </IntlayerProvider>
         <Scripts />
       </body>
     </html>
   );
-}
+};
 ```
 
 ### स्टेप 6: लोकेल लेआउट बनाएं (वैकल्पिक)
@@ -459,18 +445,12 @@ export default LocaleSwitcher;
 
 ### स्टेप 11: HTML विशेषताओं का प्रबंधन
 
-जैसा कि स्टेप 5 में देखा गया है, आप अपने रूट घटक में `useMatches` का उपयोग करके `html` टैग की `lang` और `dir` विशेषताओं को प्रबंधित कर सकते हैं। यह सुनिश्चित करता है कि सर्वर और क्लाइंट दोनों पर सही विशेषताएँ सेट हैं।
+जैसा कि स्टेप 5 में देखा गया है, आप अपने रूट घटक में `useParams` का उपयोग करके `html` टैग की `lang` और `dir` विशेषताओं को प्रबंधित कर सकते हैं। यह सुनिश्चित करता है कि सर्वर और क्लाइंट दोनों पर सही विशेषताएँ सेट हैं।
 
 ```tsx fileName="src/routes/__root.tsx"
 const RootComponent: ParentComponent = (props) => {
-  const matches = useMatches();
-
-  // किसी भी सक्रिय मिलान के मापदंडों में लोकेल खोजने का प्रयास करें
-  const locale =
-    (
-      matches().find((match) => match.routeId === "/{-$locale}/")
-        ?.params as Params
-    )?.locale ?? defaultLocale;
+  const params = LocaleRoute.useParams();
+  const locale = params()?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>

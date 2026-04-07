@@ -22,7 +22,7 @@ const config = defineConfig({
   plugins: [
     intlayerProxy({}, { ignore: (req) => req.url?.startsWith('/api') }), // To redirect the user to his own locale. Should be placed before nitro
 
-    nitro(),
+    nitro({ preset: 'bun' }),
 
     intlayer(),
     tailwindcss(),

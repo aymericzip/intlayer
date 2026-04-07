@@ -163,59 +163,45 @@ export default defineConfig({
 
 ### Bước 5: Tạo Root Layout
 
-Cấu hình layout gốc của bạn để hỗ trợ đa ngôn ngữ bằng cách sử dụng `useMatches` để phát hiện ngôn ngữ hiện tại và thiết lập các thuộc tính `lang` và `dir` trên thẻ `html`.
+Cấu hình layout gốc của bạn để hỗ trợ đa ngôn ngữ bằng cách sử dụng `useParams` để phát hiện ngôn ngữ hiện tại và thiết lập các thuộc tính `lang` và `dir` trên thẻ `html`.
 
 ```tsx fileName="src/routes/__root.tsx"
 import {
   HeadContent,
-  Outlet,
   Scripts,
   createRootRouteWithContext,
-  useMatches,
 } from "@tanstack/solid-router";
-import { TanStackRouterDevtools } from "@tanstack/solid-router-devtools";
 import { HydrationScript } from "solid-js/web";
-import { Suspense } from "solid-js";
+import { Suspense, type ParentComponent } from "solid-js";
 import { IntlayerProvider } from "solid-intlayer";
-import { defaultLocale, getHTMLTextDir, type Locale } from "intlayer";
+import { defaultLocale, getHTMLTextDir } from "intlayer";
+import { Route as LocaleRoute } from "./{-$locale}/route";
 
 export const Route = createRootRouteWithContext()({
   shellComponent: RootComponent,
 });
 
-type Params = {
-  locale: Locale;
-};
-
-function RootComponent() {
-  const matches = useMatches();
-
-  // Thử tìm locale trong các tham số của bất kỳ match nào đang hoạt động
-  // Giả định rằng bạn sử dụng phần động "/{-$locale}" trong cây route của mình
-  const locale =
-    (
-      matches().find((match) => match.routeId === "/{-$locale}/")
-        ?.params as Params
-    )?.locale ?? defaultLocale;
+const RootComponent: ParentComponent = (props) => {
+  const params = LocaleRoute.useParams();
+  const locale = params()?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>
       <head>
         <HydrationScript />
+        <HeadContent />
       </head>
       <body>
-        <HeadContent />
         <IntlayerProvider locale={locale}>
           <Suspense>
-            <Outlet />
-            <TanStackRouterDevtools />
+            {props.children}
           </Suspense>
         </IntlayerProvider>
         <Scripts />
       </body>
     </html>
   );
-}
+};
 ```
 
 ### Bước 6: Tạo Locale Layout (Tùy chọn)
@@ -459,18 +445,12 @@ export default LocaleSwitcher;
 
 ### Bước 11: Quản lý các thuộc tính HTML
 
-Như đã thấy ở Bước 5, bạn có thể quản lý các thuộc tính `lang` và `dir` của thẻ `html` bằng cách sử dụng `useMatches` trong component gốc của mình. Điều này đảm bảo rằng các thuộc tính chính xác được thiết lập trên cả server và client.
+Như đã thấy ở Bước 5, bạn có thể quản lý các thuộc tính `lang` và `dir` của thẻ `html` bằng cách sử dụng `useParams` trong component gốc của mình. Điều này đảm bảo rằng các thuộc tính chính xác được thiết lập trên cả server và client.
 
 ```tsx fileName="src/routes/__root.tsx"
 const RootComponent: ParentComponent = (props) => {
-  const matches = useMatches();
-
-  // Thử tìm locale trong các tham số của bất kỳ match nào đang hoạt động
-  const locale =
-    (
-      matches().find((match) => match.routeId === "/{-$locale}/")
-        ?.params as Params
-    )?.locale ?? defaultLocale;
+  const params = LocaleRoute.useParams();
+  const locale = params()?.locale ?? defaultLocale;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale}>

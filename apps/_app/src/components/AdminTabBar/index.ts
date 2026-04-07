@@ -1,0 +1,1 @@
+export { AdminTabBar } from './AdminTabBar';

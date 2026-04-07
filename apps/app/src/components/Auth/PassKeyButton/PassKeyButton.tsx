@@ -3,8 +3,8 @@
 import { Button } from '@intlayer/design-system/button';
 import { useSession, useSignInPasskey } from '@intlayer/design-system/hooks';
 import { Key } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 export const PasskeyButton: FC = () => {
   const { revalidateSession } = useSession();

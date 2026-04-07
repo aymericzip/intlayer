@@ -28,9 +28,9 @@ import {
   Pencil,
   Trash2,
 } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
-import { useDate } from 'next-intlayer/format';
 import { type FC, Suspense, useMemo } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { useDate } from 'react-intlayer/format';
 import { DictionaryModals } from './DictionaryModals';
 import { DictionaryTable } from './DictionaryTable';
 import { DictionaryToolbar } from './DictionaryToolbar';

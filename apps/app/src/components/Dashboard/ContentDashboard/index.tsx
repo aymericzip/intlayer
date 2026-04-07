@@ -4,8 +4,8 @@ import { DictionaryFieldEditor } from '@intlayer/design-system/dictionary-field-
 import { useGetDictionary } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { App_Dashboard_Dictionaries_Path } from '@intlayer/design-system/routes';
-import { useRouter } from 'next/navigation';
-import { useTheme } from 'next-themes';
+import { useRouter } from '#/hooks/navigation';
+import { useTheme } from '#/providers/ThemeProvider';
 import { type FC, Suspense } from 'react';
 import { EditorConfigurationProvider } from './ConfigurationProvider';
 

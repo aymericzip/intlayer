@@ -1,8 +1,8 @@
 'use client';
 
 import { Form, useForm } from '@intlayer/design-system/form';
-import { useIntlayer } from 'next-intlayer';
 import type { FC, RefObject } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { type SignUp, useSignUpSchema } from './useSignUpSchema';
 
 type SignUpFormProps = {

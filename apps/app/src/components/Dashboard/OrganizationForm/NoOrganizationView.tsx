@@ -4,8 +4,8 @@ import { Button } from '@intlayer/design-system/button';
 import { useForm } from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
 import { Plus } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { useOrganizationSchema } from './useOrganizationFormSchema';
 
 type NoOrganizationViewProps = {

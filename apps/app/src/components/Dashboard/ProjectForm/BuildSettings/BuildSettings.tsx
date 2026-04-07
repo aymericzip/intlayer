@@ -13,8 +13,8 @@ import {
   useUpdateProject,
 } from '@intlayer/design-system/hooks';
 import { CheckCircle, Pencil, Play, Plus, Trash, XCircle } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { z } from 'zod';
 import { CIWorkflowModal } from './CIWorkflowModal';
 import { WebhookModal } from './WebhookModal';
@@ -288,34 +288,33 @@ export const BuildSettings: FC = () => {
                 {webhooksSection.description}
               </p>
             </div>
-
-            <div className="flex flex-0 gap-2">
-              <Button
-                variant="outline"
-                color="text"
-                size="sm"
-                label={webhooksSection.triggerAllButton.ariaLabel.value}
-                onClick={() => triggerBuild(undefined)}
-                disabled={
-                  !isProjectAdmin || isBuilding || webhooksList.length === 0
-                }
-                isLoading={isBuilding}
-                Icon={Play}
-              >
-                {webhooksSection.triggerAllButton.text}
-              </Button>
-              <Button
-                variant="default"
-                label={webhooksSection.addButton.ariaLabel.value}
-                onClick={handleOpenAdd}
-                disabled={!isProjectAdmin}
-                Icon={Plus}
-                color="text"
-                size="sm"
-              >
-                {webhooksSection.addButton.text}
-              </Button>
-            </div>
+          </div>
+          <div className="ml-auto flex flex-0 gap-2">
+            <Button
+              variant="outline"
+              color="text"
+              size="sm"
+              label={webhooksSection.triggerAllButton.ariaLabel.value}
+              onClick={() => triggerBuild(undefined)}
+              disabled={
+                !isProjectAdmin || isBuilding || webhooksList.length === 0
+              }
+              isLoading={isBuilding}
+              Icon={Play}
+            >
+              {webhooksSection.triggerAllButton.text}
+            </Button>
+            <Button
+              variant="default"
+              label={webhooksSection.addButton.ariaLabel.value}
+              onClick={handleOpenAdd}
+              disabled={!isProjectAdmin}
+              Icon={Plus}
+              color="text"
+              size="sm"
+            >
+              {webhooksSection.addButton.text}
+            </Button>
           </div>
 
           {/* List Display */}

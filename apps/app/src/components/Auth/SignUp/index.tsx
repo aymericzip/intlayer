@@ -3,7 +3,7 @@
 import type { UserAPI } from '@intlayer/backend';
 import { useRegister } from '@intlayer/design-system/hooks';
 import { App_Auth_SignIn_Path } from '@intlayer/design-system/routes';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from '#/hooks/navigation';
 import { type FC, useRef, useState } from 'react';
 import { VerifyEmailForm as VerifyEmailFormUI } from '../VerifyEmail';
 import type { SignUp } from './SignUpForm';

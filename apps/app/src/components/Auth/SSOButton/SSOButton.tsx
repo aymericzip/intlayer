@@ -7,9 +7,9 @@ import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import { cn } from '@intlayer/design-system/utils';
 import { Building2 } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useState } from 'react';
-import { useSearchParamState } from '@/hooks/useSearchParamState';
+import { useIntlayer } from 'react-intlayer';
+import { useSearchParamState } from '#hooks/useSearchParamState';
 
 type SSOButtonProps = {
   domain?: string;

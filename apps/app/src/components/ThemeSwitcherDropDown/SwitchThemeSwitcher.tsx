@@ -6,7 +6,7 @@ import {
 } from '@intlayer/design-system/switch-selector';
 import { Modes } from '@intlayer/design-system/theme-switcher-drop-down';
 import { MoonIcon, SunIcon } from 'lucide-react';
-import { useTheme } from 'next-themes';
+import { useTheme } from '#/providers/ThemeProvider';
 import type { FC } from 'react';
 
 export const SwitchThemeSwitcher: FC = () => {

@@ -2,7 +2,7 @@
 
 import { useAskResetPassword } from '@intlayer/design-system/hooks';
 import { App_Auth_SignIn_Path } from '@intlayer/design-system/routes';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from '#/hooks/navigation';
 import { type FC, useRef } from 'react';
 import {
   type AskResetPassword,
@@ -27,7 +27,7 @@ export const AskResetPasswordForm: FC<AskResetPasswordFormProps> = ({
   const onSubmitSuccess = ({ email }: AskResetPassword) => {
     askResetPassword({
       email,
-      redirectTo: `${process.env.NEXT_PUBLIC_URL}/${callbackUrl}`,
+      redirectTo: `${import.meta.env.VITE_URL}/${callbackUrl}`,
     });
   };
 

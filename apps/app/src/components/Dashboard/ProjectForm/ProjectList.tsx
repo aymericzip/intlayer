@@ -16,8 +16,8 @@ import {
   ShowingResultsNumberItems,
 } from '@intlayer/design-system/pagination';
 import { Plus } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { NoProjectView } from './NoProjectView';
 import { ProjectCard } from './ProjectCard';
 import { ProjectCreationForm } from './ProjectCreationForm';

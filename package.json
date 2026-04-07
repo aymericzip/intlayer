@@ -75,6 +75,11 @@
     "test:pick": "bun ./scripts/script-pick.mjs --command test",
     "typecheck": "bun turbo typecheck --filter=./packages/** --filter=./docs --filter=./apps/backend --filter=./plugins/** --concurrency=1"
   },
+  "resolutions": {
+        "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "@tanstack/react-router": "1.168.10"
+  },
   "devDependencies": {
     "@biomejs/biome": "2.4.10",
     "@commitlint/cli": "20.5.0",
@@ -99,7 +104,7 @@
     "rollup-plugin-visualizer": "7.0.1",
     "tsdown": "0.21.7",
     "tslib": "2.8.1",
-    "turbo": "2.9.3",
+    "turbo": "2.9.4",
     "typescript": "6.0.2",
     "vitest": "4.1.2"
   },

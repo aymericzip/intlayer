@@ -14,8 +14,8 @@ import {
 } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { MultiSelect } from '@intlayer/design-system/select';
-import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import {
   type ProjectMembersFormData,
   useProjectMembersSchema,

@@ -86,10 +86,10 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "vite build",
-    "build:ci": "vite build",
+    "build": "bun --bun vite build",
+    "build:ci": "bun --bun vite build",
     "clean": "bun --bun rimraf ./dist .turbo",
-    "dev": "vite build --watch",
+    "dev": "bun --bun vite build --watch",
     "format": "bun --bun biome format . --check",
     "format:fix": "bun --bun biome format --write .",
     "lint": "bun --bun biome lint .",
@@ -118,7 +118,7 @@
     "rimraf": "6.1.3",
     "tsdown": "0.21.7",
     "typescript": "6.0.2",
-    "vite": "8.0.3",
+    "vite": "8.0.5",
     "vite-plugin-dts": "4.5.4",
     "vitest": "4.1.2"
   },

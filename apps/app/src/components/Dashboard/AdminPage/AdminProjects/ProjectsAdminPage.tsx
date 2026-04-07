@@ -21,10 +21,10 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect } from 'react';
-import { useSearchParamState } from '@/hooks/useSearchParamState';
+import { useIntlayer } from 'react-intlayer';
+import { useRouter } from '#/hooks/navigation';
+import { useSearchParamState } from '#hooks/useSearchParamState';
 
 type SortOrder = 'asc' | 'desc';
 

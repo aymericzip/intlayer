@@ -8,176 +8,176 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root';
-import { Route as Char123LocaleChar125SplatRouteImport } from './routes/{-$locale}/$';
-import { Route as Char123LocaleChar125404RouteImport } from './routes/{-$locale}/404';
-import { Route as Char123LocaleChar125BlogSplatRouteImport } from './routes/{-$locale}/blog/$';
-import { Route as Char123LocaleChar125BlogIndexRouteImport } from './routes/{-$locale}/blog/index';
-import { Route as Char123LocaleChar125BlogRawSplatRouteImport } from './routes/{-$locale}/blog/raw/$';
-import { Route as Char123LocaleChar125BlogSearchRouteImport } from './routes/{-$locale}/blog/search';
-import { Route as Char123LocaleChar125ChatRouteImport } from './routes/{-$locale}/chat';
-import { Route as Char123LocaleChar125FrequentQuestionsSplatRouteImport } from './routes/{-$locale}/frequent-questions/$';
-import { Route as Char123LocaleChar125FrequentQuestionsIndexRouteImport } from './routes/{-$locale}/frequent-questions/index';
-import { Route as Char123LocaleChar125FrequentQuestionsRawSplatRouteImport } from './routes/{-$locale}/frequent-questions/raw/$';
-import { Route as Char123LocaleChar125PrivacyNoticeRouteImport } from './routes/{-$locale}/privacy-notice';
-import { Route as Char123LocaleChar125RawSplatRouteImport } from './routes/{-$locale}/raw/$';
-import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route';
-import { Route as Char123LocaleChar125SearchRouteImport } from './routes/{-$locale}/search';
-import { Route as Char123LocaleChar125TermsOfServiceRouteImport } from './routes/{-$locale}/terms-of-service';
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml';
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route'
+import { Route as Char123LocaleChar125TermsOfServiceRouteImport } from './routes/{-$locale}/terms-of-service'
+import { Route as Char123LocaleChar125SearchRouteImport } from './routes/{-$locale}/search'
+import { Route as Char123LocaleChar125PrivacyNoticeRouteImport } from './routes/{-$locale}/privacy-notice'
+import { Route as Char123LocaleChar125ChatRouteImport } from './routes/{-$locale}/chat'
+import { Route as Char123LocaleChar125404RouteImport } from './routes/{-$locale}/404'
+import { Route as Char123LocaleChar125SplatRouteImport } from './routes/{-$locale}/$'
+import { Route as Char123LocaleChar125FrequentQuestionsIndexRouteImport } from './routes/{-$locale}/frequent-questions/index'
+import { Route as Char123LocaleChar125BlogIndexRouteImport } from './routes/{-$locale}/blog/index'
+import { Route as Char123LocaleChar125RawSplatRouteImport } from './routes/{-$locale}/raw/$'
+import { Route as Char123LocaleChar125FrequentQuestionsSplatRouteImport } from './routes/{-$locale}/frequent-questions/$'
+import { Route as Char123LocaleChar125BlogSearchRouteImport } from './routes/{-$locale}/blog/search'
+import { Route as Char123LocaleChar125BlogSplatRouteImport } from './routes/{-$locale}/blog/$'
+import { Route as Char123LocaleChar125FrequentQuestionsRawSplatRouteImport } from './routes/{-$locale}/frequent-questions/raw/$'
+import { Route as Char123LocaleChar125BlogRawSplatRouteImport } from './routes/{-$locale}/blog/raw/$'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const Char123LocaleChar125RouteRoute =
   Char123LocaleChar125RouteRouteImport.update({
     id: '/{-$locale}',
     path: '/{-$locale}',
     getParentRoute: () => rootRouteImport,
-  } as any);
+  } as any)
 const Char123LocaleChar125TermsOfServiceRoute =
   Char123LocaleChar125TermsOfServiceRouteImport.update({
     id: '/terms-of-service',
     path: '/terms-of-service',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125SearchRoute =
   Char123LocaleChar125SearchRouteImport.update({
     id: '/search',
     path: '/search',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125PrivacyNoticeRoute =
   Char123LocaleChar125PrivacyNoticeRouteImport.update({
     id: '/privacy-notice',
     path: '/privacy-notice',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125ChatRoute =
   Char123LocaleChar125ChatRouteImport.update({
     id: '/chat',
     path: '/chat',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125404Route = Char123LocaleChar125404RouteImport.update({
   id: '/404',
   path: '/404',
   getParentRoute: () => Char123LocaleChar125RouteRoute,
-} as any);
+} as any)
 const Char123LocaleChar125SplatRoute =
   Char123LocaleChar125SplatRouteImport.update({
     id: '/$',
     path: '/$',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125FrequentQuestionsIndexRoute =
   Char123LocaleChar125FrequentQuestionsIndexRouteImport.update({
     id: '/frequent-questions/',
     path: '/frequent-questions/',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125BlogIndexRoute =
   Char123LocaleChar125BlogIndexRouteImport.update({
     id: '/blog/',
     path: '/blog/',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125RawSplatRoute =
   Char123LocaleChar125RawSplatRouteImport.update({
     id: '/raw/$',
     path: '/raw/$',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125FrequentQuestionsSplatRoute =
   Char123LocaleChar125FrequentQuestionsSplatRouteImport.update({
     id: '/frequent-questions/$',
     path: '/frequent-questions/$',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125BlogSearchRoute =
   Char123LocaleChar125BlogSearchRouteImport.update({
     id: '/blog/search',
     path: '/blog/search',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125BlogSplatRoute =
   Char123LocaleChar125BlogSplatRouteImport.update({
     id: '/blog/$',
     path: '/blog/$',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125FrequentQuestionsRawSplatRoute =
   Char123LocaleChar125FrequentQuestionsRawSplatRouteImport.update({
     id: '/frequent-questions/raw/$',
     path: '/frequent-questions/raw/$',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125BlogRawSplatRoute =
   Char123LocaleChar125BlogRawSplatRouteImport.update({
     id: '/blog/raw/$',
     path: '/blog/raw/$',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any);
+  } as any)
 
 export interface FileRoutesByFullPath {
-  '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren;
-  '/sitemap.xml': typeof SitemapDotxmlRoute;
-  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute;
-  '/{-$locale}/404': typeof Char123LocaleChar125404Route;
-  '/{-$locale}/chat': typeof Char123LocaleChar125ChatRoute;
-  '/{-$locale}/privacy-notice': typeof Char123LocaleChar125PrivacyNoticeRoute;
-  '/{-$locale}/search': typeof Char123LocaleChar125SearchRoute;
-  '/{-$locale}/terms-of-service': typeof Char123LocaleChar125TermsOfServiceRoute;
-  '/{-$locale}/blog/$': typeof Char123LocaleChar125BlogSplatRoute;
-  '/{-$locale}/blog/search': typeof Char123LocaleChar125BlogSearchRoute;
-  '/{-$locale}/frequent-questions/$': typeof Char123LocaleChar125FrequentQuestionsSplatRoute;
-  '/{-$locale}/raw/$': typeof Char123LocaleChar125RawSplatRoute;
-  '/{-$locale}/blog/': typeof Char123LocaleChar125BlogIndexRoute;
-  '/{-$locale}/frequent-questions/': typeof Char123LocaleChar125FrequentQuestionsIndexRoute;
-  '/{-$locale}/blog/raw/$': typeof Char123LocaleChar125BlogRawSplatRoute;
-  '/{-$locale}/frequent-questions/raw/$': typeof Char123LocaleChar125FrequentQuestionsRawSplatRoute;
+  '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
+  '/{-$locale}/404': typeof Char123LocaleChar125404Route
+  '/{-$locale}/chat': typeof Char123LocaleChar125ChatRoute
+  '/{-$locale}/privacy-notice': typeof Char123LocaleChar125PrivacyNoticeRoute
+  '/{-$locale}/search': typeof Char123LocaleChar125SearchRoute
+  '/{-$locale}/terms-of-service': typeof Char123LocaleChar125TermsOfServiceRoute
+  '/{-$locale}/blog/$': typeof Char123LocaleChar125BlogSplatRoute
+  '/{-$locale}/blog/search': typeof Char123LocaleChar125BlogSearchRoute
+  '/{-$locale}/frequent-questions/$': typeof Char123LocaleChar125FrequentQuestionsSplatRoute
+  '/{-$locale}/raw/$': typeof Char123LocaleChar125RawSplatRoute
+  '/{-$locale}/blog/': typeof Char123LocaleChar125BlogIndexRoute
+  '/{-$locale}/frequent-questions/': typeof Char123LocaleChar125FrequentQuestionsIndexRoute
+  '/{-$locale}/blog/raw/$': typeof Char123LocaleChar125BlogRawSplatRoute
+  '/{-$locale}/frequent-questions/raw/$': typeof Char123LocaleChar125FrequentQuestionsRawSplatRoute
 }
 export interface FileRoutesByTo {
-  '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren;
-  '/sitemap.xml': typeof SitemapDotxmlRoute;
-  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute;
-  '/{-$locale}/404': typeof Char123LocaleChar125404Route;
-  '/{-$locale}/chat': typeof Char123LocaleChar125ChatRoute;
-  '/{-$locale}/privacy-notice': typeof Char123LocaleChar125PrivacyNoticeRoute;
-  '/{-$locale}/search': typeof Char123LocaleChar125SearchRoute;
-  '/{-$locale}/terms-of-service': typeof Char123LocaleChar125TermsOfServiceRoute;
-  '/{-$locale}/blog/$': typeof Char123LocaleChar125BlogSplatRoute;
-  '/{-$locale}/blog/search': typeof Char123LocaleChar125BlogSearchRoute;
-  '/{-$locale}/frequent-questions/$': typeof Char123LocaleChar125FrequentQuestionsSplatRoute;
-  '/{-$locale}/raw/$': typeof Char123LocaleChar125RawSplatRoute;
-  '/{-$locale}/blog': typeof Char123LocaleChar125BlogIndexRoute;
-  '/{-$locale}/frequent-questions': typeof Char123LocaleChar125FrequentQuestionsIndexRoute;
-  '/{-$locale}/blog/raw/$': typeof Char123LocaleChar125BlogRawSplatRoute;
-  '/{-$locale}/frequent-questions/raw/$': typeof Char123LocaleChar125FrequentQuestionsRawSplatRoute;
+  '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
+  '/{-$locale}/404': typeof Char123LocaleChar125404Route
+  '/{-$locale}/chat': typeof Char123LocaleChar125ChatRoute
+  '/{-$locale}/privacy-notice': typeof Char123LocaleChar125PrivacyNoticeRoute
+  '/{-$locale}/search': typeof Char123LocaleChar125SearchRoute
+  '/{-$locale}/terms-of-service': typeof Char123LocaleChar125TermsOfServiceRoute
+  '/{-$locale}/blog/$': typeof Char123LocaleChar125BlogSplatRoute
+  '/{-$locale}/blog/search': typeof Char123LocaleChar125BlogSearchRoute
+  '/{-$locale}/frequent-questions/$': typeof Char123LocaleChar125FrequentQuestionsSplatRoute
+  '/{-$locale}/raw/$': typeof Char123LocaleChar125RawSplatRoute
+  '/{-$locale}/blog': typeof Char123LocaleChar125BlogIndexRoute
+  '/{-$locale}/frequent-questions': typeof Char123LocaleChar125FrequentQuestionsIndexRoute
+  '/{-$locale}/blog/raw/$': typeof Char123LocaleChar125BlogRawSplatRoute
+  '/{-$locale}/frequent-questions/raw/$': typeof Char123LocaleChar125FrequentQuestionsRawSplatRoute
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport;
-  '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren;
-  '/sitemap.xml': typeof SitemapDotxmlRoute;
-  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute;
-  '/{-$locale}/404': typeof Char123LocaleChar125404Route;
-  '/{-$locale}/chat': typeof Char123LocaleChar125ChatRoute;
-  '/{-$locale}/privacy-notice': typeof Char123LocaleChar125PrivacyNoticeRoute;
-  '/{-$locale}/search': typeof Char123LocaleChar125SearchRoute;
-  '/{-$locale}/terms-of-service': typeof Char123LocaleChar125TermsOfServiceRoute;
-  '/{-$locale}/blog/$': typeof Char123LocaleChar125BlogSplatRoute;
-  '/{-$locale}/blog/search': typeof Char123LocaleChar125BlogSearchRoute;
-  '/{-$locale}/frequent-questions/$': typeof Char123LocaleChar125FrequentQuestionsSplatRoute;
-  '/{-$locale}/raw/$': typeof Char123LocaleChar125RawSplatRoute;
-  '/{-$locale}/blog/': typeof Char123LocaleChar125BlogIndexRoute;
-  '/{-$locale}/frequent-questions/': typeof Char123LocaleChar125FrequentQuestionsIndexRoute;
-  '/{-$locale}/blog/raw/$': typeof Char123LocaleChar125BlogRawSplatRoute;
-  '/{-$locale}/frequent-questions/raw/$': typeof Char123LocaleChar125FrequentQuestionsRawSplatRoute;
+  __root__: typeof rootRouteImport
+  '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
+  '/{-$locale}/404': typeof Char123LocaleChar125404Route
+  '/{-$locale}/chat': typeof Char123LocaleChar125ChatRoute
+  '/{-$locale}/privacy-notice': typeof Char123LocaleChar125PrivacyNoticeRoute
+  '/{-$locale}/search': typeof Char123LocaleChar125SearchRoute
+  '/{-$locale}/terms-of-service': typeof Char123LocaleChar125TermsOfServiceRoute
+  '/{-$locale}/blog/$': typeof Char123LocaleChar125BlogSplatRoute
+  '/{-$locale}/blog/search': typeof Char123LocaleChar125BlogSearchRoute
+  '/{-$locale}/frequent-questions/$': typeof Char123LocaleChar125FrequentQuestionsSplatRoute
+  '/{-$locale}/raw/$': typeof Char123LocaleChar125RawSplatRoute
+  '/{-$locale}/blog/': typeof Char123LocaleChar125BlogIndexRoute
+  '/{-$locale}/frequent-questions/': typeof Char123LocaleChar125FrequentQuestionsIndexRoute
+  '/{-$locale}/blog/raw/$': typeof Char123LocaleChar125BlogRawSplatRoute
+  '/{-$locale}/frequent-questions/raw/$': typeof Char123LocaleChar125FrequentQuestionsRawSplatRoute
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
+  fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/{-$locale}'
     | '/sitemap.xml'
@@ -194,8 +194,8 @@ export interface FileRouteTypes {
     | '/{-$locale}/blog/'
     | '/{-$locale}/frequent-questions/'
     | '/{-$locale}/blog/raw/$'
-    | '/{-$locale}/frequent-questions/raw/$';
-  fileRoutesByTo: FileRoutesByTo;
+    | '/{-$locale}/frequent-questions/raw/$'
+  fileRoutesByTo: FileRoutesByTo
   to:
     | '/{-$locale}'
     | '/sitemap.xml'
@@ -212,7 +212,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/blog'
     | '/{-$locale}/frequent-questions'
     | '/{-$locale}/blog/raw/$'
-    | '/{-$locale}/frequent-questions/raw/$';
+    | '/{-$locale}/frequent-questions/raw/$'
   id:
     | '__root__'
     | '/{-$locale}'
@@ -230,146 +230,146 @@ export interface FileRouteTypes {
     | '/{-$locale}/blog/'
     | '/{-$locale}/frequent-questions/'
     | '/{-$locale}/blog/raw/$'
-    | '/{-$locale}/frequent-questions/raw/$';
-  fileRoutesById: FileRoutesById;
+    | '/{-$locale}/frequent-questions/raw/$'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  Char123LocaleChar125RouteRoute: typeof Char123LocaleChar125RouteRouteWithChildren;
-  SitemapDotxmlRoute: typeof SitemapDotxmlRoute;
+  Char123LocaleChar125RouteRoute: typeof Char123LocaleChar125RouteRouteWithChildren
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/sitemap.xml': {
-      id: '/sitemap.xml';
-      path: '/sitemap.xml';
-      fullPath: '/sitemap.xml';
-      preLoaderRoute: typeof SitemapDotxmlRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/{-$locale}': {
-      id: '/{-$locale}';
-      path: '/{-$locale}';
-      fullPath: '/{-$locale}';
-      preLoaderRoute: typeof Char123LocaleChar125RouteRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+      id: '/{-$locale}'
+      path: '/{-$locale}'
+      fullPath: '/{-$locale}'
+      preLoaderRoute: typeof Char123LocaleChar125RouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/{-$locale}/terms-of-service': {
-      id: '/{-$locale}/terms-of-service';
-      path: '/terms-of-service';
-      fullPath: '/{-$locale}/terms-of-service';
-      preLoaderRoute: typeof Char123LocaleChar125TermsOfServiceRouteImport;
-      parentRoute: typeof Char123LocaleChar125RouteRoute;
-    };
+      id: '/{-$locale}/terms-of-service'
+      path: '/terms-of-service'
+      fullPath: '/{-$locale}/terms-of-service'
+      preLoaderRoute: typeof Char123LocaleChar125TermsOfServiceRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
     '/{-$locale}/search': {
-      id: '/{-$locale}/search';
-      path: '/search';
-      fullPath: '/{-$locale}/search';
-      preLoaderRoute: typeof Char123LocaleChar125SearchRouteImport;
-      parentRoute: typeof Char123LocaleChar125RouteRoute;
-    };
+      id: '/{-$locale}/search'
+      path: '/search'
+      fullPath: '/{-$locale}/search'
+      preLoaderRoute: typeof Char123LocaleChar125SearchRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
     '/{-$locale}/privacy-notice': {
-      id: '/{-$locale}/privacy-notice';
-      path: '/privacy-notice';
-      fullPath: '/{-$locale}/privacy-notice';
-      preLoaderRoute: typeof Char123LocaleChar125PrivacyNoticeRouteImport;
-      parentRoute: typeof Char123LocaleChar125RouteRoute;
-    };
+      id: '/{-$locale}/privacy-notice'
+      path: '/privacy-notice'
+      fullPath: '/{-$locale}/privacy-notice'
+      preLoaderRoute: typeof Char123LocaleChar125PrivacyNoticeRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
     '/{-$locale}/chat': {
-      id: '/{-$locale}/chat';
-      path: '/chat';
-      fullPath: '/{-$locale}/chat';
-      preLoaderRoute: typeof Char123LocaleChar125ChatRouteImport;
-      parentRoute: typeof Char123LocaleChar125RouteRoute;
-    };
+      id: '/{-$locale}/chat'
+      path: '/chat'
+      fullPath: '/{-$locale}/chat'
+      preLoaderRoute: typeof Char123LocaleChar125ChatRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
     '/{-$locale}/404': {
-      id: '/{-$locale}/404';
-      path: '/404';
-      fullPath: '/{-$locale}/404';
-      preLoaderRoute: typeof Char123LocaleChar125404RouteImport;
-      parentRoute: typeof Char123LocaleChar125RouteRoute;
-    };
+      id: '/{-$locale}/404'
+      path: '/404'
+      fullPath: '/{-$locale}/404'
+      preLoaderRoute: typeof Char123LocaleChar125404RouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
     '/{-$locale}/$': {
-      id: '/{-$locale}/$';
-      path: '/$';
-      fullPath: '/{-$locale}/$';
-      preLoaderRoute: typeof Char123LocaleChar125SplatRouteImport;
-      parentRoute: typeof Char123LocaleChar125RouteRoute;
-    };
+      id: '/{-$locale}/$'
+      path: '/$'
+      fullPath: '/{-$locale}/$'
+      preLoaderRoute: typeof Char123LocaleChar125SplatRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
     '/{-$locale}/frequent-questions/': {
-      id: '/{-$locale}/frequent-questions/';
-      path: '/frequent-questions';
-      fullPath: '/{-$locale}/frequent-questions/';
-      preLoaderRoute: typeof Char123LocaleChar125FrequentQuestionsIndexRouteImport;
-      parentRoute: typeof Char123LocaleChar125RouteRoute;
-    };
+      id: '/{-$locale}/frequent-questions/'
+      path: '/frequent-questions'
+      fullPath: '/{-$locale}/frequent-questions/'
+      preLoaderRoute: typeof Char123LocaleChar125FrequentQuestionsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
     '/{-$locale}/blog/': {
-      id: '/{-$locale}/blog/';
-      path: '/blog';
-      fullPath: '/{-$locale}/blog/';
-      preLoaderRoute: typeof Char123LocaleChar125BlogIndexRouteImport;
-      parentRoute: typeof Char123LocaleChar125RouteRoute;
-    };
+      id: '/{-$locale}/blog/'
+      path: '/blog'
+      fullPath: '/{-$locale}/blog/'
+      preLoaderRoute: typeof Char123LocaleChar125BlogIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
     '/{-$locale}/raw/$': {
-      id: '/{-$locale}/raw/$';
-      path: '/raw/$';
-      fullPath: '/{-$locale}/raw/$';
-      preLoaderRoute: typeof Char123LocaleChar125RawSplatRouteImport;
-      parentRoute: typeof Char123LocaleChar125RouteRoute;
-    };
+      id: '/{-$locale}/raw/$'
+      path: '/raw/$'
+      fullPath: '/{-$locale}/raw/$'
+      preLoaderRoute: typeof Char123LocaleChar125RawSplatRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
     '/{-$locale}/frequent-questions/$': {
-      id: '/{-$locale}/frequent-questions/$';
-      path: '/frequent-questions/$';
-      fullPath: '/{-$locale}/frequent-questions/$';
-      preLoaderRoute: typeof Char123LocaleChar125FrequentQuestionsSplatRouteImport;
-      parentRoute: typeof Char123LocaleChar125RouteRoute;
-    };
+      id: '/{-$locale}/frequent-questions/$'
+      path: '/frequent-questions/$'
+      fullPath: '/{-$locale}/frequent-questions/$'
+      preLoaderRoute: typeof Char123LocaleChar125FrequentQuestionsSplatRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
     '/{-$locale}/blog/search': {
-      id: '/{-$locale}/blog/search';
-      path: '/blog/search';
-      fullPath: '/{-$locale}/blog/search';
-      preLoaderRoute: typeof Char123LocaleChar125BlogSearchRouteImport;
-      parentRoute: typeof Char123LocaleChar125RouteRoute;
-    };
+      id: '/{-$locale}/blog/search'
+      path: '/blog/search'
+      fullPath: '/{-$locale}/blog/search'
+      preLoaderRoute: typeof Char123LocaleChar125BlogSearchRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
     '/{-$locale}/blog/$': {
-      id: '/{-$locale}/blog/$';
-      path: '/blog/$';
-      fullPath: '/{-$locale}/blog/$';
-      preLoaderRoute: typeof Char123LocaleChar125BlogSplatRouteImport;
-      parentRoute: typeof Char123LocaleChar125RouteRoute;
-    };
+      id: '/{-$locale}/blog/$'
+      path: '/blog/$'
+      fullPath: '/{-$locale}/blog/$'
+      preLoaderRoute: typeof Char123LocaleChar125BlogSplatRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
     '/{-$locale}/frequent-questions/raw/$': {
-      id: '/{-$locale}/frequent-questions/raw/$';
-      path: '/frequent-questions/raw/$';
-      fullPath: '/{-$locale}/frequent-questions/raw/$';
-      preLoaderRoute: typeof Char123LocaleChar125FrequentQuestionsRawSplatRouteImport;
-      parentRoute: typeof Char123LocaleChar125RouteRoute;
-    };
+      id: '/{-$locale}/frequent-questions/raw/$'
+      path: '/frequent-questions/raw/$'
+      fullPath: '/{-$locale}/frequent-questions/raw/$'
+      preLoaderRoute: typeof Char123LocaleChar125FrequentQuestionsRawSplatRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
     '/{-$locale}/blog/raw/$': {
-      id: '/{-$locale}/blog/raw/$';
-      path: '/blog/raw/$';
-      fullPath: '/{-$locale}/blog/raw/$';
-      preLoaderRoute: typeof Char123LocaleChar125BlogRawSplatRouteImport;
-      parentRoute: typeof Char123LocaleChar125RouteRoute;
-    };
+      id: '/{-$locale}/blog/raw/$'
+      path: '/blog/raw/$'
+      fullPath: '/{-$locale}/blog/raw/$'
+      preLoaderRoute: typeof Char123LocaleChar125BlogRawSplatRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
   }
 }
 
 interface Char123LocaleChar125RouteRouteChildren {
-  Char123LocaleChar125SplatRoute: typeof Char123LocaleChar125SplatRoute;
-  Char123LocaleChar125404Route: typeof Char123LocaleChar125404Route;
-  Char123LocaleChar125ChatRoute: typeof Char123LocaleChar125ChatRoute;
-  Char123LocaleChar125PrivacyNoticeRoute: typeof Char123LocaleChar125PrivacyNoticeRoute;
-  Char123LocaleChar125SearchRoute: typeof Char123LocaleChar125SearchRoute;
-  Char123LocaleChar125TermsOfServiceRoute: typeof Char123LocaleChar125TermsOfServiceRoute;
-  Char123LocaleChar125BlogSplatRoute: typeof Char123LocaleChar125BlogSplatRoute;
-  Char123LocaleChar125BlogSearchRoute: typeof Char123LocaleChar125BlogSearchRoute;
-  Char123LocaleChar125FrequentQuestionsSplatRoute: typeof Char123LocaleChar125FrequentQuestionsSplatRoute;
-  Char123LocaleChar125RawSplatRoute: typeof Char123LocaleChar125RawSplatRoute;
-  Char123LocaleChar125BlogIndexRoute: typeof Char123LocaleChar125BlogIndexRoute;
-  Char123LocaleChar125FrequentQuestionsIndexRoute: typeof Char123LocaleChar125FrequentQuestionsIndexRoute;
-  Char123LocaleChar125BlogRawSplatRoute: typeof Char123LocaleChar125BlogRawSplatRoute;
-  Char123LocaleChar125FrequentQuestionsRawSplatRoute: typeof Char123LocaleChar125FrequentQuestionsRawSplatRoute;
+  Char123LocaleChar125SplatRoute: typeof Char123LocaleChar125SplatRoute
+  Char123LocaleChar125404Route: typeof Char123LocaleChar125404Route
+  Char123LocaleChar125ChatRoute: typeof Char123LocaleChar125ChatRoute
+  Char123LocaleChar125PrivacyNoticeRoute: typeof Char123LocaleChar125PrivacyNoticeRoute
+  Char123LocaleChar125SearchRoute: typeof Char123LocaleChar125SearchRoute
+  Char123LocaleChar125TermsOfServiceRoute: typeof Char123LocaleChar125TermsOfServiceRoute
+  Char123LocaleChar125BlogSplatRoute: typeof Char123LocaleChar125BlogSplatRoute
+  Char123LocaleChar125BlogSearchRoute: typeof Char123LocaleChar125BlogSearchRoute
+  Char123LocaleChar125FrequentQuestionsSplatRoute: typeof Char123LocaleChar125FrequentQuestionsSplatRoute
+  Char123LocaleChar125RawSplatRoute: typeof Char123LocaleChar125RawSplatRoute
+  Char123LocaleChar125BlogIndexRoute: typeof Char123LocaleChar125BlogIndexRoute
+  Char123LocaleChar125FrequentQuestionsIndexRoute: typeof Char123LocaleChar125FrequentQuestionsIndexRoute
+  Char123LocaleChar125BlogRawSplatRoute: typeof Char123LocaleChar125BlogRawSplatRoute
+  Char123LocaleChar125FrequentQuestionsRawSplatRoute: typeof Char123LocaleChar125FrequentQuestionsRawSplatRoute
 }
 
 const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChildren =
@@ -394,27 +394,26 @@ const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChil
       Char123LocaleChar125BlogRawSplatRoute,
     Char123LocaleChar125FrequentQuestionsRawSplatRoute:
       Char123LocaleChar125FrequentQuestionsRawSplatRoute,
-  };
+  }
 
 const Char123LocaleChar125RouteRouteWithChildren =
   Char123LocaleChar125RouteRoute._addFileChildren(
-    Char123LocaleChar125RouteRouteChildren
-  );
+    Char123LocaleChar125RouteRouteChildren,
+  )
 
 const rootRouteChildren: RootRouteChildren = {
   Char123LocaleChar125RouteRoute: Char123LocaleChar125RouteRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-};
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 
-import type { createStart } from '@tanstack/react-start';
-import type { getRouter } from './router.tsx';
-
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
 declare module '@tanstack/react-start' {
   interface Register {
-    ssr: true;
-    router: Awaited<ReturnType<typeof getRouter>>;
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
   }
 }

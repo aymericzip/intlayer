@@ -13,8 +13,8 @@ import {
 } from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
 import { KeyRound, RefreshCcw, Trash } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { AccessKeyCreationForm } from './AccessKeyCreationForm';
 import { getAccessKeySchema } from './AccessKeyFormSchema';
 
@@ -275,7 +275,7 @@ export const AccessKeyForm: FC = () => {
       </Modal>
 
       <Form
-        className="w-full flex-1 overflow-auto"
+        className="w-full flex-1"
         schema={AccessKeyFormSchema}
         onSubmitSuccess={() => Promise.resolve()}
         onSubmitError={() => Promise.resolve()}

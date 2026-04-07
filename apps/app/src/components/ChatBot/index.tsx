@@ -1,6 +1,5 @@
 'use client';
 
-import { Link } from '@components/Link/Link';
 import { Container } from '@intlayer/design-system/container';
 import {
   useAskDocQuestion,
@@ -9,8 +8,9 @@ import {
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { App_Auth_SignIn_Path } from '@intlayer/design-system/routes';
 import { InfoIcon } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
 import { type FC, type ReactNode, useEffect, useRef, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '#components/Link/Link';
 import { FileReference } from './FileReference';
 import { FormSection } from './FormSection';
 import {

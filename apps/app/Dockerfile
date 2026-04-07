@@ -7,39 +7,10 @@
 # https://github.com/oven-sh/bun/issues/4795
 FROM node:22-alpine AS builder
 
-RUN npm install -g bun@1.3.11
-
 # RUN apk add --no-cache wget
 
-ARG NEXT_PUBLIC_DOMAIN
-ARG NEXT_PUBLIC_URL
-ARG NEXT_PUBLIC_EDITOR_URL
-ARG NEXT_PUBLIC_CMS_URL
-ARG NEXT_PUBLIC_BACKEND_DOMAIN
-ARG NEXT_PUBLIC_BACKEND_URL
-ARG NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID
-ARG INTLAYER_BACKEND_URL
-ARG NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-ARG NEXT_PUBLIC_STRIPE_PREMIUM_YEARLY_PRICE_ID
-ARG NEXT_PUBLIC_STRIPE_PREMIUM_MONTHLY_PRICE_ID
-ARG NEXT_PUBLIC_STRIPE_ENTERPRISE_YEARLY_PRICE_ID
-ARG NEXT_PUBLIC_STRIPE_ENTERPRISE_MONTHLY_PRICE_ID
+RUN npm install -g bun@1.3.11
 
-ENV NEXT_PUBLIC_DOMAIN=${NEXT_PUBLIC_DOMAIN}
-ENV NEXT_PUBLIC_URL=${NEXT_PUBLIC_URL}
-ENV NEXT_PUBLIC_EDITOR_URL=${NEXT_PUBLIC_EDITOR_URL}
-ENV NEXT_PUBLIC_CMS_URL=${NEXT_PUBLIC_CMS_URL}
-ENV NEXT_PUBLIC_BACKEND_DOMAIN=${NEXT_PUBLIC_BACKEND_DOMAIN}
-ENV NEXT_PUBLIC_BACKEND_URL=${NEXT_PUBLIC_BACKEND_URL}
-ENV NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID=${NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}
-ENV INTLAYER_BACKEND_URL=${INTLAYER_BACKEND_URL}
-ENV NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}
-ENV NEXT_PUBLIC_STRIPE_PREMIUM_YEARLY_PRICE_ID=${NEXT_PUBLIC_STRIPE_PREMIUM_YEARLY_PRICE_ID}
-ENV NEXT_PUBLIC_STRIPE_PREMIUM_MONTHLY_PRICE_ID=${NEXT_PUBLIC_STRIPE_PREMIUM_MONTHLY_PRICE_ID}
-ENV NEXT_PUBLIC_STRIPE_ENTERPRISE_YEARLY_PRICE_ID=${NEXT_PUBLIC_STRIPE_ENTERPRISE_YEARLY_PRICE_ID}
-ENV NEXT_PUBLIC_STRIPE_ENTERPRISE_MONTHLY_PRICE_ID=${NEXT_PUBLIC_STRIPE_ENTERPRISE_MONTHLY_PRICE_ID}
-
-ENV CI=true
 
 # Create app directory
 WORKDIR /workspace
@@ -71,6 +42,7 @@ COPY \
     --exclude=apps/website \
     --exclude=apps/showcase \
     --exclude=apps/doc \
+    --exclude=apps/_app \
     --exclude=plugins \
     --exclude=docs/assets \
     --exclude=examples \
@@ -78,34 +50,34 @@ COPY \
     --exclude=**/*.stories.* \
     . .
 
-
 # Install all dependencies (dev + prod) (frozen for reproducible builds)
 RUN bun install
 
 # Build every package in the workspace (uses the root "build" script)
 RUN bun x turbo run build:ci --filter=./apps/app
 
-# Set working directory to the website package and build it
+# Set working directory to the showcase package and build it
 WORKDIR /workspace/apps/app
 
 ENV NODE_ENV=production
 
-# Build the Next.js website
-RUN bun run --bun next build
+# Build the showcase app
+RUN bun run build
 
 # Create and use a non-root user for security
-RUN addgroup -S app && adduser -S app -G app && chown -R app:app ./.next
+RUN addgroup -S app && adduser -S app -G app && chown -R app:app ./.output
 
 USER app
 
-# Expose the API port (defaults to 3000 via .env, can be overridden)
+# Expose the API port (defaults to 3100 via .env, can be overridden)
 EXPOSE 3000
 
 HEALTHCHECK CMD true
+
 # HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
 #   CMD \
-#     wget -qO- http://localhost:3000/ > /dev/null || exit 1
+#     wget -qO- http://localhost:3000/ > /dev/null || exit 1 && \
+#     wget -qO- http://localhost:3000/doc/environment/nextjs > /dev/null || exit 1
 
-
-# Start the app
-CMD ["bun", "run", "--bun", "next", "start"] 
+# Start the showcase server
+CMD ["bun", "run", ".output/server/index.mjs"]

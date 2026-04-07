@@ -1,6 +1,6 @@
-import Script from 'next/script';
-import { useIntlayer } from 'next-intlayer/server';
+
 import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import packageJson from '../../../../package.json' with { type: 'json' };
 
 export const SoftwareApplicationHeader: FC = () => {
@@ -52,7 +52,6 @@ export const SoftwareApplicationHeader: FC = () => {
   return (
     <Script
       type="application/ld+json"
-      strategy="afterInteractive"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(softwareApplication),
       }}

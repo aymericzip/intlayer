@@ -34,41 +34,17 @@ const config: CustomIntlayerConfig = {
 
   routing: {
     mode: 'prefix-no-default',
-    // domains: {
-    //   'en-GB': 'app.intlayer.org',
-    //   fr: 'app.intlayer.org',
-    //   es: 'app.intlayer.org',
-    //   de: 'app.intlayer.org',
-    //   it: 'app.intlayer.org',
-    //   ru: 'app.intlayer.org',
-    //   ja: 'app.intlayer.org',
-    //   ko: 'app.intlayer.org',
-    //   pt: 'app.intlayer.org',
-    //   hi: 'app.intlayer.org',
-    //   tr: 'app.intlayer.org',
-    //   pl: 'app.intlayer.org',
-    //   id: 'app.intlayer.org',
-    //   vi: 'app.intlayer.org',
-    //   uk: 'app.intlayer.org',
-    //   ar: 'app.intlayer.org',
-    //   zh: 'app.intlayer.zh',
-    // },
   },
   content: {
-    contentDir: ['./src', '@intlayer/design-system'], // To test package path resolution
-    codeDir: ['./src', '../../packages/@intlayer/design-system/dist'], // To test relative path resolution
+    contentDir: ['./src', '@intlayer/design-system'],
+    codeDir: ['./src', '../../packages/@intlayer/design-system/dist'],
     formatCommand: 'bun x biome format "{{file}}" --write --log-level none',
   },
   editor: {
     enabled: true,
     liveSync: false,
     dictionaryPriorityStrategy: 'local_first',
-    // applicationURL: process.env.NEXT_PUBLIC_URL,
-    // editorURL: process.env.NEXT_PUBLIC_EDITOR_URL,
-    // cmsURL: process.env.NEXT_PUBLIC_CMS_URL,
-    backendURL: process.env.NEXT_PUBLIC_BACKEND_URL,
-    // clientId: process.env.INTLAYER_CLIENT_ID,
-    // clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+    backendURL: process.env.VITE_BACKEND_URL,
   },
   dictionary: {
     importMode: 'dynamic',

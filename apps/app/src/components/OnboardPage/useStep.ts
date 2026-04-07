@@ -1,7 +1,7 @@
 'use client';
 
 import { usePersistedStore } from '@intlayer/design-system/hooks';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from '#/hooks/navigation';
 import { formatOnboardUrl } from './formatOnboardUrl';
 import { getPlanDetails } from './getPlanDetails';
 import {
