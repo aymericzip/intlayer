@@ -131,7 +131,7 @@ export const intlayerProxy = (
   const getLocaleFromDomain = (hostname: string): Locale | undefined => {
     if (!domains) return undefined;
     const matching = Object.entries(domains).filter(
-      ([, domain]) => normalizeDomainHostname(domain) === hostname
+      ([, domain]) => normalizeDomainHostname(domain!) === hostname
     );
     return matching.length === 1 ? (matching[0][0] as Locale) : undefined;
   };

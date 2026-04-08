@@ -42,6 +42,10 @@ const config: IntlayerConfig = {
   routing: {
     storage: ['cookie', 'localStorage', 'header'],
   },
+  build: {
+    minify: true,
+    purge: true,
+  },
   schemas: {
     user: z.object({
       name: z.string(),

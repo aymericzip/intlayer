@@ -1,12 +1,12 @@
 import { join } from 'node:path';
+import type { NestedRenameMap, PruneContext } from '@intlayer/babel';
 import { formatPath, runOnce } from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { PluginOption } from 'vite';
-import type { NestedRenameMap, PruneContext } from './pruneContext';
 
-//─ Field-rename helper
+// Field-rename helper
 
 /**
  * Recursively renames user-defined keys in a compiled intlayer content value
@@ -83,7 +83,7 @@ const applyFieldRenameToDict = (
   };
 };
 
-//─ Plugin─
+// Plugin
 
 /**
  * Returns the Vite plugin that minifies compiled dictionary JSON files by
@@ -225,7 +225,7 @@ export const intlayerMinify = (
       const dictionaryKey =
         typeof parsedDict.key === 'string' ? parsedDict.key : undefined;
 
-      // Skip edge-case dictionarie
+      // Skip edge-case dictionaries
       if (
         pruneContext &&
         dictionaryKey &&

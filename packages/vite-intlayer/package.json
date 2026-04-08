@@ -76,7 +76,6 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@babel/core": "7.29.0",
     "@intlayer/babel": "workspace:*",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
@@ -85,7 +84,6 @@
     "@intlayer/types": "workspace:*"
   },
   "devDependencies": {
-    "@types/babel__core": "7.20.5",
     "@types/node": "25.5.2",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",

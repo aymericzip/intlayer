@@ -1,4 +1,5 @@
 import { resolve } from 'node:path';
+import { createPruneContext } from '@intlayer/babel';
 import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { logConfigDetails } from '@intlayer/chokidar/cli';
 import { watch } from '@intlayer/chokidar/watcher';
@@ -14,12 +15,10 @@ import {
 } from '@intlayer/config/node';
 import { getAlias, getUnusedNodeTypesAsync } from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-// @ts-ignore - Fix error Module '"vite"' has no exported member
 import type { PluginOption } from 'vite';
 import { intlayerMinify } from './intlayerMinifyPlugin';
 import { intlayerOptimize } from './intlayerOptimizePlugin';
 import { intlayerPrune } from './intlayerPrunePlugin';
-import { createPruneContext } from './pruneContext';
 
 /**
  * Vite plugin that integrates Intlayer into the Vite build process.

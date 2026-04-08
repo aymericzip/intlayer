@@ -10,6 +10,11 @@ const config: IntlayerConfig = {
     applicationURL: 'http://localhost:5173',
     editorURL: 'http://localhost:8000',
   },
+  build: {
+    optimize: true,
+    minify: true,
+    purge: true,
+  },
   dictionary: {
     importMode: 'dynamic',
   },

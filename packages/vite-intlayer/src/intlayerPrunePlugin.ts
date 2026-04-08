@@ -1,4 +1,5 @@
 import { join } from 'node:path';
+import type { PruneContext } from '@intlayer/babel';
 import { formatPath, runOnce } from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
 import {
@@ -9,7 +10,6 @@ import {
 } from '@intlayer/config/logger';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { PluginOption } from 'vite';
-import type { PruneContext } from './pruneContext';
 
 // Dictionary JSON types
 

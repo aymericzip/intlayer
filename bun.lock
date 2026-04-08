@@ -398,7 +398,7 @@
     },
     "docs": {
       "name": "@intlayer/docs",
-      "version": "8.6.1",
+      "version": "8.6.10",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2236,7 +2236,6 @@
       "name": "vite-intlayer",
       "version": "8.6.10",
       "dependencies": {
-        "@babel/core": "7.29.0",
         "@intlayer/babel": "workspace:*",
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -2245,7 +2244,6 @@
         "@intlayer/types": "workspace:*",
       },
       "devDependencies": {
-        "@types/babel__core": "7.20.5",
         "@types/node": "25.5.2",
         "@utils/ts-config": "workspace:*",
         "@utils/ts-config-types": "workspace:*",
@@ -2303,7 +2301,7 @@
     },
     "plugins/sync-json-plugin": {
       "name": "@intlayer/sync-json-plugin",
-      "version": "8.1.2",
+      "version": "8.6.10",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",

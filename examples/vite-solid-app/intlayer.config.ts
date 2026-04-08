@@ -17,6 +17,11 @@ const config: IntlayerConfig = {
   dictionary: {
     importMode: 'static',
   },
+  build: {
+    optimize: true,
+    minify: true,
+    purge: true,
+  },
   editor: {
     enabled: false,
     applicationURL: 'http://localhost:5173',
