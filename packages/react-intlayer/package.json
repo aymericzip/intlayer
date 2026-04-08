@@ -129,8 +129,7 @@
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/editor": "workspace:*",
     "@intlayer/editor-react": "workspace:*",
-    "@intlayer/types": "workspace:*",
-    "intlayer": "workspace:*"
+    "@intlayer/types": "workspace:*"
   },
   "devDependencies": {
     "@craco/types": "7.1.0",

@@ -80,8 +80,7 @@
     "@intlayer/core": "workspace:*",
     "@intlayer/types": "workspace:*",
     "cls-hooked": "4.2.2",
-    "fastify-plugin": "5.1.0",
-    "intlayer": "workspace:*"
+    "fastify-plugin": "5.1.0"
   },
   "devDependencies": {
     "@types/cls-hooked": "4.3.9",

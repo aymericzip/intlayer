@@ -82,8 +82,7 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
-    "@intlayer/types": "workspace:*",
-    "intlayer": "workspace:*"
+    "@intlayer/types": "workspace:*"
   },
   "devDependencies": {
     "@types/babel__core": "7.20.5",
@@ -98,10 +97,18 @@
   },
   "peerDependencies": {
     "@babel/core": ">=6.0.0",
+    "@intlayer/svelte-compiler": "workspace:*",
+    "@intlayer/vue-compiler": "workspace:*",
     "vite": ">=4.0.0"
   },
   "peerDependenciesMeta": {
     "@babel/core": {
+      "optional": true
+    },
+    "@intlayer/svelte-compiler": {
+      "optional": true
+    },
+    "@intlayer/vue-compiler": {
       "optional": true
     }
   },

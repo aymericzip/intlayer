@@ -8,8 +8,8 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
-    "@hono/node-server": "1.13.7",
-    "hono": "4.7.4",
+    "@hono/node-server": "1.19.13",
+    "hono": "4.12.12",
     "hono-intlayer": "workspace:*",
     "intlayer": "workspace:*"
   },

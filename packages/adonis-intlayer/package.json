@@ -84,8 +84,7 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/types": "workspace:*",
-    "cls-hooked": "4.2.2",
-    "intlayer": "workspace:*"
+    "cls-hooked": "4.2.2"
   },
   "devDependencies": {
     "@types/cls-hooked": "4.3.9",
