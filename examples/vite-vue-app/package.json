@@ -22,7 +22,7 @@
     "@vitejs/plugin-vue": "6.0.5",
     "@vue/tsconfig": "0.9.0",
     "intlayer-editor": "workspace:*",
-    "vite": "8.0.5",
+    "vite": "8.0.7",
     "vite-intlayer": "workspace:*",
     "vue-demi": "0.14.10"
   }

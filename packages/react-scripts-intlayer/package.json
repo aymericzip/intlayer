@@ -82,7 +82,7 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@intlayer/webpack": "workspace:*",
-    "defu": "6.1.6",
+    "defu": "6.1.7",
     "node-loader": "2.1.0",
     "process": "0.11.10",
     "webpack": "5.105.4"
@@ -98,7 +98,7 @@
     "rimraf": "6.1.3",
     "tsdown": "0.21.7",
     "typescript": "6.0.2",
-    "vitest": "4.1.2"
+    "vitest": "4.1.3"
   },
   "peerDependencies": {
     "webpack": ">=5.0.0"

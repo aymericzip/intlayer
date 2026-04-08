@@ -24,7 +24,7 @@
   "devDependencies": {
     "@tanstack/devtools-vite": "latest",
     "typescript": "6.0.2",
-    "vite": "8.0.5",
+    "vite": "8.0.7",
     "vite-intlayer": "workspace:*",
     "vite-plugin-solid": "2.11.11"
   }
