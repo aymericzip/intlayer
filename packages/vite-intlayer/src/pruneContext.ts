@@ -113,6 +113,55 @@ export type PruneContext = {
    *   <BenchmarkTable objectValue={content.testNest} />  // ← testNest is opaque
    */
   dictionaryKeysWithOpaqueTopLevelFields: Map<string, Map<string, string[]>>;
+
+  /**
+   * Dictionary keys for which the field-rename (property-mangling) step must
+   * be skipped even if a finite field-usage set was determined.
+   *
+   * Populated for dictionaries whose plain-variable bindings were resolved by
+   * the framework-specific extractor (Vue / Svelte SFCs).  In those cases the
+   * Babel rename plugin cannot update the source-code property accesses because
+   * the actual content fields are accessed through an opaque intermediate:
+   *
+   *   • Vue:    `content.value.fieldName` — the `.value` ref-accessor is not
+   *             in the rename map; `walkRenameChain` stops before reaching the
+   *             real field and the source is left un-renamed while the JSON is
+   *             already renamed → runtime mismatch.
+   *   • Svelte: `$varName.fieldName` — the `$`-prefixed identifier is invisible
+   *             to Babel scope analysis; references are never found and the JSON
+   *             rename is not mirrored in source → same mismatch.
+   *
+   * Pruning (removing unused fields) and basic minification (whitespace
+   * removal) still apply; only the field-key renaming is suppressed.
+   */
+  dictionariesSkippingFieldRename: Set<string>;
+
+  /**
+   * Plain variable bindings that cannot be resolved by standard Babel scope
+   * analysis alone and require a framework-specific secondary pass.
+   *
+   * Populated during the Babel usage-analysis phase for `.vue` and `.svelte`
+   * source files where direct field access is not visible to Babel:
+   *
+   *   - Vue:    `content.value.fieldName` — the `.value` ref-accessor indirection
+   *             is invisible to scope analysis; the actual fields must be extracted
+   *             by scanning the raw source for `varName.value.field` patterns.
+   *   - Svelte: `$varName.fieldName` — Svelte's auto-subscription `$` prefix
+   *             creates a separate identifier that Babel's scope analysis does not
+   *             link back to `varName`.
+   *
+   * Structure: filePath → [{variableName, dictionaryKey}, …]
+   *
+   * After the Babel phase, `intlayerOptimize.buildStart` iterates this map,
+   * calls the appropriate framework extractor, and merges the results into
+   * `dictionaryKeyToFieldUsageMap`.  Any entry that cannot be resolved by the
+   * framework extractor (e.g. the extractor package is not installed) falls
+   * back to `'all'`.
+   */
+  pendingFrameworkAnalysis: Map<
+    string,
+    { variableName: string; dictionaryKey: string }[]
+  >;
 };
 
 export const createPruneContext = (): PruneContext => ({
@@ -125,4 +174,6 @@ export const createPruneContext = (): PruneContext => ({
     string,
     Map<string, string[]>
   >(),
+  dictionariesSkippingFieldRename: new Set(),
+  pendingFrameworkAnalysis: new Map(),
 });

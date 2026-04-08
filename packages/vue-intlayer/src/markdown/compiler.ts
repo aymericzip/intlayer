@@ -12,8 +12,7 @@ import {
 import { vueRuntime } from './runtime';
 
 // Re-export RuleType and utilities for compatibility
-export { RuleType };
-export { defaultSlugify as slugify, defaultSanitizer as sanitizer };
+export { defaultSanitizer as sanitizer, defaultSlugify as slugify, RuleType };
 
 export type MarkdownCompilerOptions = CompileOptions;
 

@@ -1,4 +1,8 @@
 export {
+  extractVueIntlayerFieldUsage,
+  type PlainVariableInfo,
+} from './extractVueFieldUsage';
+export {
   type ExtractedContent,
   type ExtractPluginOptions,
   type ExtractResult,

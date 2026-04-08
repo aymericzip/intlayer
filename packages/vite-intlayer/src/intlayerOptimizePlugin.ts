@@ -210,16 +210,23 @@ const makeUsageAnalyzerBabelPlugin =
     };
 
     /**
-     * @param callExpressionPath - The call expression path for the intlayer call.
-     * @param dictionaryKey      - The resolved dictionary key string.
-     * @param onUntrackedBinding - Called when the usage pattern cannot be
+     * @param callExpressionPath           - The call expression path for the intlayer call.
+     * @param dictionaryKey                - The resolved dictionary key string.
+     * @param onUntrackedBinding           - Called when the usage pattern cannot be
      *   statically analysed (e.g. result assigned to a plain variable).
      *   The caller provides this to record the file-level context for logging.
-     * @param onOpaqueField      - Called when a first-level field value is
+     * @param onOpaqueField                - Called when a first-level field value is
      *   consumed without further static member-access chaining (e.g. passed
      *   as a prop or function argument).  The field's nested keys must not be
      *   renamed because the downstream consumer still uses the original names.
      *   The `line` argument is the 1-based source line of the access site.
+     * @param onDeferredFrameworkAnalysis  - Called instead of `recordFieldUsage`
+     *   when the plain-variable binding is in an SFC file (`.vue` / `.svelte`)
+     *   and standard Babel scope analysis cannot see all field accesses (e.g.
+     *   Vue's `.value` indirection or Svelte's `$store` prefix).  The caller
+     *   should add this binding to `pruneContext.pendingFrameworkAnalysis` for
+     *   a second pass using the framework-specific extractor.
+     * @param isSfcFile - Whether the file being analysed is a Vue or Svelte SFC.
      */
     const analyzeCallExpressionUsage = (
       callExpressionPath: NodePath<BabelTypes.CallExpression>,
@@ -229,7 +236,12 @@ const makeUsageAnalyzerBabelPlugin =
         dictionaryKey: string,
         fieldName: string,
         line: number | undefined
-      ) => void
+      ) => void,
+      onDeferredFrameworkAnalysis: (
+        dictionaryKey: string,
+        variableName: string
+      ) => void,
+      isSfcFile: boolean
     ): void => {
       const parentNode = callExpressionPath.parent;
 
@@ -388,6 +400,23 @@ const makeUsageAnalyzerBabelPlugin =
         }
 
         if (hasUntrackedReferenceAccess) {
+          // Dynamic access, spread, or opaque function-argument usage: we
+          // cannot determine the field set statically regardless of framework.
+          onUntrackedBinding(dictionaryKey);
+          recordFieldUsage(dictionaryKey, 'all');
+        } else if (isSfcFile) {
+          // Vue / Svelte SFC: Babel scope analysis cannot see all field
+          // accesses because:
+          //   • Vue:    `content.value.fieldName` — `.value` is the reactive
+          //             Ref accessor; Babel records `{value}`, not the real field.
+          //   • Svelte: `$varName.fieldName` — the auto-subscription `$` prefix
+          //             is a separate identifier; Babel sees zero refs for `varName`.
+          // Defer to the framework-specific extractor that will run after the
+          // Babel phase completes.
+          onDeferredFrameworkAnalysis(dictionaryKey, variableName);
+        } else if (variableBinding.referencePaths.length === 0) {
+          // Non-SFC file with no visible references. Could be a genuinely unused
+          // variable or a pattern we can't analyse. Conservatively keep all fields.
           onUntrackedBinding(dictionaryKey);
           recordFieldUsage(dictionaryKey, 'all');
         } else {
@@ -460,6 +489,39 @@ const makeUsageAnalyzerBabelPlugin =
                 fieldToLocations
               );
             };
+
+            /**
+             * Called for plain variable bindings in SFC files (.vue / .svelte)
+             * where Babel scope analysis cannot see all field accesses.
+             * Registers the binding for a second pass using the framework-specific
+             * extractor that runs after all Babel analyses complete.
+             */
+            const onDeferredFrameworkAnalysis = (
+              dictionaryKey: string,
+              variableName: string
+            ): void => {
+              const existing =
+                pruneContext.pendingFrameworkAnalysis.get(
+                  currentSourceFilePath
+                ) ?? [];
+              if (
+                !existing.some(
+                  (e) =>
+                    e.variableName === variableName &&
+                    e.dictionaryKey === dictionaryKey
+                )
+              ) {
+                existing.push({ variableName, dictionaryKey });
+              }
+              pruneContext.pendingFrameworkAnalysis.set(
+                currentSourceFilePath,
+                existing
+              );
+            };
+
+            const isSfcFile =
+              currentSourceFilePath.endsWith('.vue') ||
+              currentSourceFilePath.endsWith('.svelte');
 
             // Map from local identifier name → canonical intlayer caller name
             const intlayerCallerLocalNameMap = new Map<string, string>();
@@ -539,7 +601,9 @@ const makeUsageAnalyzerBabelPlugin =
                   callExpressionPath,
                   dictionaryKey,
                   onUntrackedBinding,
-                  onOpaqueField
+                  onOpaqueField,
+                  onDeferredFrameworkAnalysis,
+                  isSfcFile
                 );
               },
             });
@@ -987,6 +1051,174 @@ export const intlayerOptimize = async (
             })
           );
 
+          //  Phase 2: framework-specific field-usage analysis for SFC files
+          // Plain variable bindings in Vue and Svelte SFCs cannot be fully
+          // resolved by Babel scope analysis:
+          //
+          //   • Vue:    `content.value.fieldName` — `.value` is the reactive-Ref
+          //             accessor; Babel records `{value}` rather than the actual
+          //             content field name.
+          //   • Svelte: `$varName.fieldName` — Svelte's auto-subscription prefix
+          //             creates a distinct identifier; Babel sees zero refs for the
+          //             original `varName` binding.
+          //
+          // For each such binding registered in `pendingFrameworkAnalysis`, we now
+          // run a lightweight regex-based extractor from the corresponding framework
+          // compiler package (`@intlayer/vue-compiler` / `@intlayer/svelte-compiler`).
+          // If the extractor is not installed or yields no results, we fall back to
+          // `'all'` (conservative – no pruning for that dictionary).
+          if (pruneContext.pendingFrameworkAnalysis.size > 0) {
+            // Group pending entries by file extension
+            const vuePending = new Map<
+              string,
+              { variableName: string; dictionaryKey: string }[]
+            >();
+            const sveltePending = new Map<
+              string,
+              { variableName: string; dictionaryKey: string }[]
+            >();
+
+            for (const [
+              filePath,
+              entries,
+            ] of pruneContext.pendingFrameworkAnalysis) {
+              if (filePath.endsWith('.vue')) {
+                vuePending.set(filePath, entries);
+              } else if (filePath.endsWith('.svelte')) {
+                sveltePending.set(filePath, entries);
+              }
+            }
+
+            // Helper: merge framework-extracted field usage into pruneContext
+            const mergeFrameworkResult = (
+              dictionaryKey: string,
+              fields: Set<string> | undefined
+            ): void => {
+              if (fields && fields.size > 0) {
+                // The Babel rename plugin cannot update source-code property
+                // accesses for SFC indirect patterns (Vue `.value.field` /
+                // Svelte `$store.field`), so we suppress field renaming for
+                // these dictionaries to avoid a JSON ↔ source mismatch at
+                // runtime.  Pruning still applies.
+                pruneContext.dictionariesSkippingFieldRename.add(dictionaryKey);
+
+                // Merge with any fields already recorded (e.g. from a
+                // destructuring call-site in another file).
+                const existing =
+                  pruneContext.dictionaryKeyToFieldUsageMap.get(dictionaryKey);
+                if (existing === 'all') return; // already saturated
+
+                const merged =
+                  existing instanceof Set
+                    ? new Set([...existing, ...fields])
+                    : new Set(fields);
+                pruneContext.dictionaryKeyToFieldUsageMap.set(
+                  dictionaryKey,
+                  merged
+                );
+              } else {
+                // Could not determine fields — fall back to 'all' (no pruning).
+                pruneContext.dictionaryKeyToFieldUsageMap.set(
+                  dictionaryKey,
+                  'all'
+                );
+              }
+            };
+
+            // Vue files
+            if (vuePending.size > 0) {
+              let extractVueIntlayerFieldUsage:
+                | ((
+                    code: string,
+                    vars: { variableName: string; dictionaryKey: string }[]
+                  ) => Map<string, Set<string>>)
+                | null = null;
+
+              try {
+                const vueCompiler = await import('@intlayer/vue-compiler');
+                extractVueIntlayerFieldUsage =
+                  vueCompiler.extractVueIntlayerFieldUsage;
+              } catch {
+                // @intlayer/vue-compiler not installed — fall back to 'all'
+              }
+
+              for (const [filePath, entries] of vuePending) {
+                if (!extractVueIntlayerFieldUsage) {
+                  for (const { dictionaryKey } of entries)
+                    mergeFrameworkResult(dictionaryKey, undefined);
+                  continue;
+                }
+
+                let fileCode: string;
+                try {
+                  fileCode = await readFile(filePath, 'utf-8');
+                } catch {
+                  for (const { dictionaryKey } of entries)
+                    mergeFrameworkResult(dictionaryKey, undefined);
+                  continue;
+                }
+
+                const result = extractVueIntlayerFieldUsage(fileCode, entries);
+
+                for (const { dictionaryKey } of entries) {
+                  mergeFrameworkResult(
+                    dictionaryKey,
+                    result.get(dictionaryKey)
+                  );
+                }
+              }
+            }
+
+            // Svelte files
+            if (sveltePending.size > 0) {
+              let extractSvelteIntlayerFieldUsage:
+                | ((
+                    code: string,
+                    vars: { variableName: string; dictionaryKey: string }[]
+                  ) => Map<string, Set<string>>)
+                | null = null;
+
+              try {
+                const svelteCompiler = await import(
+                  '@intlayer/svelte-compiler'
+                );
+                extractSvelteIntlayerFieldUsage =
+                  svelteCompiler.extractSvelteIntlayerFieldUsage;
+              } catch {
+                // @intlayer/svelte-compiler not installed — fall back to 'all'
+              }
+
+              for (const [filePath, entries] of sveltePending) {
+                if (!extractSvelteIntlayerFieldUsage) {
+                  for (const { dictionaryKey } of entries)
+                    mergeFrameworkResult(dictionaryKey, undefined);
+                  continue;
+                }
+
+                let fileCode: string;
+                try {
+                  fileCode = await readFile(filePath, 'utf-8');
+                } catch {
+                  for (const { dictionaryKey } of entries)
+                    mergeFrameworkResult(dictionaryKey, undefined);
+                  continue;
+                }
+
+                const result = extractSvelteIntlayerFieldUsage(
+                  fileCode,
+                  entries
+                );
+
+                for (const { dictionaryKey } of entries) {
+                  mergeFrameworkResult(
+                    dictionaryKey,
+                    result.get(dictionaryKey)
+                  );
+                }
+              }
+            }
+          }
+
           //  Post-analysis: warn about untracked bindings
           // Log once per dictionary key where purging is impossible because
           // the result of useIntlayer/getIntlayer was assigned to a plain
@@ -1034,6 +1266,16 @@ export const intlayerOptimize = async (
               // compiled JSON would create a mismatch between the server
               // response and the client-side property accesses → skip.
               if (dictionaryKeyToImportModeMap[dictionaryKey] === 'fetch')
+                continue;
+
+              // SFC indirect access (Vue `.value.field` / Svelte `$store.field`):
+              // the Babel rename plugin cannot update these source-code accesses
+              // because the intermediate accessor (`value` / `$prefix`) is not
+              // in the rename map.  Renaming only the JSON would cause a runtime
+              // mismatch → skip field rename for these dictionaries.
+              if (
+                pruneContext.dictionariesSkippingFieldRename.has(dictionaryKey)
+              )
                 continue;
 
               // Attempt to read the static (all-locale) dict JSON first;
