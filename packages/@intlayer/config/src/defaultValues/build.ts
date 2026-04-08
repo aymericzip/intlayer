@@ -31,6 +31,6 @@ export const CACHE = true;
 
 export const TYPE_CHECKING = false;
 
-export const MINIFY = true;
+export const MINIFY = false;
 
-export const PURGE = true;
+export const PURGE = false;

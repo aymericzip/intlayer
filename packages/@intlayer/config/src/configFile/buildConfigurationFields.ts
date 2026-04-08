@@ -359,7 +359,7 @@ const buildBuildFields = (
   /**
    * Minify the dictionaries to reduce the bundle size.
    *
-   * Default: true
+   * Default: false
    *
    * Note:
    * - This option will be ignored if `optimize` is disabled.
@@ -371,7 +371,7 @@ const buildBuildFields = (
   /**
    * Purge the unused keys in a dictionaries
    *
-   * Default: true
+   * Default: false
    *
    * Note:
    * - This option will be ignored if `optimize` is disabled.
