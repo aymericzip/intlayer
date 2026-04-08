@@ -1,6 +1,6 @@
 {
   "name": "lit-intlayer",
-  "version": "8.6.10",
+  "version": "8.7.0-canary.0",
   "private": false,
   "description": "Easily internationalize i18n your Lit applications with type-safe multilingual content management.",
   "keywords": [
