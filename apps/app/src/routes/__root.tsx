@@ -14,6 +14,7 @@ import { ThemeProvider } from '#/providers/ThemeProvider';
 import appCss from '#/styles.css?url';
 import { BaiduAutoPushSubscriber } from '#components/BaiduAutoPush/BaiduAutoPushSubscriber';
 import { ErrorComponent } from '#components/ErrorComponent';
+import { ServiceWorkerSubscriber } from '#components/ServiceWorker/ServiceWorkerSubscriber';
 import { Route as LocaleRoute } from './{-$locale}/route';
 
 interface MyRouterContext {
@@ -85,6 +86,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
               <IntlayerMarkdownProvider>
                 <ReactQueryProvider>
                   <Toaster />
+                  <ServiceWorkerSubscriber />
                   <BaiduAutoPushSubscriber />
                   {children}
                 </ReactQueryProvider>

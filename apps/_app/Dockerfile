@@ -92,7 +92,7 @@ WORKDIR /workspace/apps/app
 ENV NODE_ENV=production
 
 # Build the Next.js website
-RUN bun run --bun next build
+RUN bunx --bun next build
 
 # Create and use a non-root user for security
 RUN addgroup -S app && adduser -S app -G app && chown -R app:app ./.next

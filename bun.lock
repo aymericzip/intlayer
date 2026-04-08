@@ -163,6 +163,7 @@
         "vite-intlayer": "workspace:*",
         "vite-plugin-wasm": "^3.6.0",
         "vitest": "4.1.2",
+        "workbox-build": "7.4.0",
       },
     },
     "apps/backend": {
@@ -279,6 +280,7 @@
         "vite-intlayer": "workspace:*",
         "vite-plugin-wasm": "^3.6.0",
         "vitest": "4.1.2",
+        "workbox-build": "7.4.0",
       },
     },
     "apps/showcase": {

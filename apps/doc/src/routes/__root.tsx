@@ -8,6 +8,7 @@ import {
 import { defaultLocale, getHTMLTextDir } from 'intlayer';
 import { IntlayerProvider } from 'react-intlayer';
 import { BackgroundLayout } from '#/components/BackgroundLayout';
+import { ServiceWorkerSubscriber } from '#components/ServiceWorker/ServiceWorkerSubscriber.tsx';
 import { BaiduAutoPushSubscriber } from '../components/BaiduAutoPush/BaiduAutoPushSubscriber';
 import { IntlayerMarkdownProvider } from '../components/IntlayerMarkdownProvider';
 import { Navbar } from '../components/Navbar';
@@ -96,6 +97,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           <IntlayerMarkdownProvider>
             <PostHogProvider>
               <ReactQueryProvider>
+                <ServiceWorkerSubscriber />
                 <BaiduAutoPushSubscriber />
                 <BackgroundLayout>
                   <Navbar />

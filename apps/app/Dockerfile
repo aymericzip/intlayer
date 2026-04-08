@@ -57,7 +57,7 @@ RUN bun install
 RUN bun x turbo run build:ci --filter=./apps/app
 
 # Set working directory to the app package and build it
-WORKDIR /workspace/apps/app
+WORKDIR /workspace/apps/app && bun scripts/generate-sw.ts
 
 ENV NODE_ENV=production
 
