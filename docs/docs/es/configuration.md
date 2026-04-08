@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-04-03
+updatedAt: 2026-04-08
 title: Configuración (Configuration)
 description: Aprenda a configure Intlayer para su aplicación. Entienda los diversos ajustes y opciones disponibles para personalizar Intlayer según sus necesidades.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.7.0
+    date: 2026-04-08
+    changes: "Se añadieron las opciones `prune` y `minify` a la configuración de compilación"
   - version: 8.7.0
     date: 2026-04-03
     changes: "Se añadió la opción `currentDomain`"
@@ -401,6 +404,25 @@ const config: IntlayerConfig = {
      * Predeterminado: true en producción
      */
     optimize: true,
+
+    /**
+     * Minificar los diccionarios para reducir el tamaño del bundle.
+     * Predeterminado: true
+     *
+     * Nota:
+     * - Esta opción será ignorada si `optimize` está desactivado.
+     * - Esta opción será ignorada si `editor.enabled` es verdadero.
+     */
+    minify: true,
+
+    /**
+     * Purgar las claves no utilizadas en los diccionarios.
+     * Predeterminado: true
+     *
+     * Nota:
+     * - Esta opción será ignorada si `optimize` está desactivado.
+     */
+    purge: true,
 
     /**
      * Formato de salida para los archivos de diccionario generados.
@@ -923,6 +945,8 @@ Las opciones de compilación se aplican a los complementos `@intlayer/babel` y `
 | ----------------- | -------------------------------------------------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `mode`            | Controla el modo de compilación.                                                 | `'auto'` &#124; <br/> `'manual'` | `'auto'`                                                                                                                                                                          | `'manual'`                                                                    | • `'auto'`: compilación activada automáticamente durante la compilación de la aplicación.<br/>• `'manual'`: solo se ejecuta cuando se lanza explícitamente el comando de compilación.<br/>• Se puede usar para desactivar compilaciones de diccionarios (p. ej. para evitar ejecución en entornos de Node.js).                |
 | `optimize`        | Controla si la compilación debe optimizarse.                                     | `boolean`                        | `undefined`                                                                                                                                                                       | `process.env.NODE_ENV === 'production'`                                       | • Si no se define, la optimización se dispara al compilar el framework (Vite/Next.js).<br/>• `true` fuerza la optimización incluso en modo dev.<br/>• `false` la desactiva.<br/>• Activo, reemplaza las llamadas a diccionarios para optimizar el chunking.<br/>• Depende de los plugins `@intlayer/babel` y `@intlayer/swc`. |
+| `minify`          | Minificar los diccionarios para reducir el tamaño del bundle.                    | `boolean`                        | `true`                                                                                                                                                                            |                                                                               | • Indica si el bundle debe ser minificado.<br/>• Por defecto: `true` en producción.<br/>• Esta opción será ignorada si `optimize` está desactivado.<br/>• Esta opción será ignorada si `editor.enabled` es verdadero.                                                                                                         |
+| `purge`           | Purgar las claves no utilizadas en los diccionarios.                             | `boolean`                        | `true`                                                                                                                                                                            |                                                                               | • Indica si el bundle debe ser purgado.<br/>• Por defecto: `true` en producción.<br/>• Esta opción será ignorada si `optimize` está desactivado.                                                                                                                                                                              |
 | `checkTypes`      | Indica si la compilación debe verificar tipos de TypeScript y registrar errores. | `boolean`                        | `false`                                                                                                                                                                           |                                                                               | Puede ralentizar la compilación.                                                                                                                                                                                                                                                                                              |
 | `outputFormat`    | Controla el formato de salida de los diccionarios.                               | `('esm' &#124; 'cjs')[]`         | `['esm', 'cjs']`                                                                                                                                                                  | `['cjs']`                                                                     |                                                                                                                                                                                                                                                                                                                               |
 | `traversePattern` | Patrones que definen qué archivos recorrer durante la optimización.              | `string[]`                       | `['**/*.{tsx,ts,js,mjs,cjs,jsx,vue,svelte,svte}', '!**/node_modules/**', '!**/dist/**', '!**/.intlayer/**', '!**/*.config.*', '!**/*.test.*', '!**/*.spec.*', '!**/*.stories.*']` | `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']` | • Limite la optimización a los archivos relevantes para mejorar el rendimiento de compilación.<br/>• Se ignora si `optimize` está desactivado.<br/>• Usa patrones glob (glob patterns).                                                                                                                                       |

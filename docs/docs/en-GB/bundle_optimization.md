@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2025-11-25
+updatedAt: 2026-04-08
 title: Optimising i18n Bundle Size & Performance
 description: Reduce application bundle size by optimising internationalisation (i18n) content. Learn how to leverage tree shaking and lazy loading for dictionaries with Intlayer.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - concept
   - bundle-optimization
 history:
+  - version: 8.7.0
+    date: 2026-04-08
+    changes: "Add `minify` and `purge` options to build configuration"
   - version: 6.0.0
     date: 2025-11-25
     changes: "Init history"
@@ -101,9 +104,51 @@ The following options are available under the `build` configuration object:
 | Property              | Type                             | Default                         | Description                                                                                                                                                                                      |
 | :-------------------- | :------------------------------- | :------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`optimize`**        | `boolean`                        | `undefined`                     | Controls whether build optimisation is enabled. If `true`, Intlayer replaces dictionary calls with optimised injects. If `false`, optimisation is disabled. Ideally set to `true` in production. |
+| **`minify`**          | `boolean`                        | `true`                          | Whether to minify the dictionaries to reduce the bundle size.                                                                                                                                    |
+| **`purge`**           | `boolean`                        | `true`                          | Whether to purge the unused keys in dictionaries.                                                                                                                                                |
 | **`importMode`**      | `'static' , 'dynamic' , 'fetch'` | `'static'`                      | **Deprecated**: Use `dictionary.importMode` instead. Determines how dictionaries are loaded (see details below).                                                                                 |
 | **`traversePattern`** | `string[]`                       | `['**/*.{js,ts,jsx,tsx}', ...]` | Glob patterns defining which files Intlayer should scan for optimisation. Use this to exclude unrelated files and speed up builds.                                                               |
 | **`outputFormat`**    | `'esm', 'cjs'`                   | `'esm', 'cjs'`                  | Controls the output format of the built dictionaries.                                                                                                                                            |
+
+## Dictionary Minification & Purging
+
+Intlayer provides options to further optimise your bundle by minifying dictionaries and purging unused keys (purge).
+
+### Minification
+
+Minifying dictionaries removes unnecessary whitespace, comments, and reduces the size of the JSON content. This is especially useful for large dictionaries.
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  build: {
+    minify: true,
+  },
+};
+
+export default config;
+```
+
+> Note: Minification is ignored if `optimize` is disabled or if the Visual Editor is enabled (as the editor needs the full content to allow editing).
+
+### Purging
+
+Purging ensures that only the keys actually used in your code are included in the final dictionary bundle. This can significantly reduce the size of your bundle if you have large dictionaries with many keys that are not used in every part of your application.
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  build: {
+    purge: true,
+  },
+};
+
+export default config;
+```
+
+> Note: Purging is ignored if `optimize` is disabled.
 
 ## Import Modes
 

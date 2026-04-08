@@ -16,7 +16,10 @@ import { getAlias, getUnusedNodeTypesAsync } from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 // @ts-ignore - Fix error Module '"vite"' has no exported member
 import type { PluginOption } from 'vite';
+import { intlayerMinify } from './intlayerMinifyPlugin';
 import { intlayerOptimize } from './intlayerOptimizePlugin';
+import { intlayerPrune } from './intlayerPrunePlugin';
+import { createPruneContext } from './pruneContext';
 
 /**
  * Vite plugin that integrates Intlayer into the Vite build process.
@@ -158,8 +161,22 @@ export const intlayerPlugin = (
     },
   ];
 
-  // Add Babel transform plugin if enabled
-  plugins.push(intlayerOptimize(intlayerConfig));
+  // Shared mutable state: the optimize plugin writes field-usage data during
+  // buildStart; the prune and minify plugins read it during transform.
+  const pruneContext = createPruneContext();
+
+  // Babel transform: rewrites useIntlayer/getIntlayer calls and injects
+  // JSON / dynamic-mjs imports.  Also runs the usage analyser in buildStart.
+  plugins.push(intlayerOptimize(intlayerConfig, pruneContext));
+
+  // Prune: removes unused content fields from dictionary JSON files.
+  // Runs with enforce:'pre' so it intercepts raw JSON before Vite's
+  // built-in JSON → ESM conversion.
+  plugins.push(intlayerPrune(intlayerConfig, pruneContext));
+
+  // Minify: compacts dictionary JSON files (parse + re-stringify).
+  // Registered after prune so it receives already-pruned output when both options are active.
+  plugins.push(intlayerMinify(intlayerConfig, pruneContext));
 
   return plugins;
 };

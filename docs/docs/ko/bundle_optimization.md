@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2025-11-25
+updatedAt: 2026-04-08
 title: i18n 번들 크기 및 성능 최적화
 description: 국제화(i18n) 콘텐츠를 최적화하여 애플리케이션 번들 크기를 줄이세요. Intlayer를 사용하여 사전의 트리 쉐이킹과 지연 로딩을 활용하는 방법을 알아보세요.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - concept
   - bundle-optimization
 history:
+  - version: 8.7.0
+    date: 2026-04-08
+    changes: "빌드 구성에 `minify` 및 `purge` 옵션 추가"
   - version: 6.0.0
     date: 2025-11-25
     changes: "초기 기록"
@@ -102,9 +105,51 @@ export default config;
 | 속성                  | 타입                             | 기본값                          | 설명                                                                                                                                                                                                            |
 | :-------------------- | :------------------------------- | :------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`optimize`**        | `boolean`                        | `undefined`                     | 빌드 최적화가 활성화되는지 여부를 제어합니다. `true`인 경우, Intlayer는 사전 호출을 최적화된 인젝션으로 대체합니다. `false`인 경우 최적화가 비활성화됩니다. 프로덕션 환경에서는 이상적으로 `true`로 설정합니다. |
+| **`minify`**          | `boolean`                        | `true`                          | 번들 크기를 줄이기 위해 사전을 축소할지 여부.                                                                                                                                                                   |
+| **`purge`**           | `boolean`                        | `true`                          | 사전에서 사용하지 않는 키를 제거할지 여부.                                                                                                                                                                      |
 | **`importMode`**      | `'static' , 'dynamic' , 'fetch'` | `'static'`                      | **Deprecated**: Use `dictionary.importMode` instead. 사전이 로드되는 방식을 결정합니다(아래 세부사항 참조).                                                                                                     |
 | **`traversePattern`** | `string[]`                       | `['**/*.{js,ts,jsx,tsx}', ...]` | Intlayer가 최적화를 위해 스캔할 파일을 정의하는 Glob 패턴입니다. 관련 없는 파일을 제외하고 빌드 속도를 높이는 데 사용하세요.                                                                                    |
 | **`outputFormat`**    | `'esm', 'cjs'`                   | `'esm', 'cjs'`                  | 빌드된 사전의 출력 형식을 제어합니다.                                                                                                                                                                           |
+
+## 사전 축소 및 퍼징 (Minification & Purging)
+
+Intlayer는 사전을 축소하고 사용하지 않는 키를 제거(퍼징)하여 번들을 더욱 최적화할 수 있는 옵션을 제공합니다.
+
+### 축소 (Minification)
+
+사전 축소는 불필요한 공백, 주석을 제거하여 JSON 콘텐츠의 크기를 줄입니다. 이는 대규모 사전에 특히 유용합니다.
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  build: {
+    minify: true,
+  },
+};
+
+export default config;
+```
+
+> 참고: `optimize`가 비활성화되어 있거나 비주얼 에디터가 활성화된 경우(에디터가 편집을 위해 전체 콘텐츠를 필요로 하기 때문) 축소 옵션은 무시됩니다.
+
+### 퍼징 (Purging)
+
+퍼징은 코드에서 실제로 사용되는 키만 최종 사전 번들에 포함되도록 보장합니다. 애플리케이션의 모든 부분에서 사용되지 않는 많은 키를 포함하는 대규모 사전이 있는 경우 번들 크기를 크게 줄일 수 있습니다.
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  build: {
+    purge: true,
+  },
+};
+
+export default config;
+```
+
+> 참고: `optimize`가 비활성화된 경우 퍼징 옵션은 무시됩니다.
 
 ## Import Modes
 

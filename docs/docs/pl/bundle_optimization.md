@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2025-11-25
+updatedAt: 2026-04-08
 title: Optymalizacja rozmiaru i wydajności pakietu i18n
 description: Zmniejsz rozmiar pakietu aplikacji poprzez optymalizację treści internacjonalizacji (i18n). Dowiedz się, jak wykorzystać tree shaking i lazy loading słowników z Intlayer.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - concept
   - bundle-optimization
 history:
+  - version: 8.7.0
+    date: 2026-04-08
+    changes: "Dodanie opcji `minify` i `purge` do konfiguracji budowania"
   - version: 6.0.0
     date: 2025-11-25
     changes: "Inicjalizacja historii"
@@ -102,9 +105,51 @@ Dostępne są następujące opcje w obiekcie konfiguracyjnym `build`:
 | Właściwość            | Typ                              | Domyślna wartość                | Opis                                                                                                                                                                                                                              |
 | :-------------------- | :------------------------------- | :------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`optimize`**        | `boolean`                        | `undefined`                     | Kontroluje, czy optymalizacja builda jest włączona. Jeśli `true`, Intlayer zastępuje wywołania słowników zoptymalizowanymi wstrzyknięciami. Jeśli `false`, optymalizacja jest wyłączona. Najlepiej ustawić na `true` w produkcji. |
+| **`minify`**          | `boolean`                        | `true`                          | Wskazuje, czy należy minimalizować słowniki w celu zmniejszenia rozmiaru pakietu.                                                                                                                                                 |
+| **`purge`**           | `boolean`                        | `true`                          | Wskazuje, czy należy usuwać nieużywane klucze w słownikach.                                                                                                                                                                       |
 | **`importMode`**      | `'static' , 'dynamic' , 'fetch'` | `'static'`                      | **Deprecated**: Use `dictionary.importMode` instead. Określa sposób ładowania słowników (szczegóły poniżej).                                                                                                                      |
 | **`traversePattern`** | `string[]`                       | `['**/*.{js,ts,jsx,tsx}', ...]` | Wzorce glob określające, które pliki Intlayer powinien skanować pod kątem optymalizacji. Użyj tego, aby wykluczyć niepowiązane pliki i przyspieszyć proces budowania.                                                             |
 | **`outputFormat`**    | `'esm', 'cjs'`                   | `'esm', 'cjs'`                  | Kontroluje format wyjściowy zbudowanych słowników.                                                                                                                                                                                |
+
+## Minifikacja i czyszczenie słowników
+
+Intlayer oferuje opcje dalszej optymalizacji pakietu poprzez minifikację słowników i czyszczenie nieużywanych kluczy (purge).
+
+### Minifikacja
+
+Minifikacja słowników usuwa niepotrzebne spacje, komentarze i zmniejsza rozmiar zawartości JSON. Jest to szczególnie przydatne w przypadku dużych słowników.
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  build: {
+    minify: true,
+  },
+};
+
+export default config;
+```
+
+> Uwaga: Minifikacja jest ignorowana, jeśli `optimize` jest wyłączone lub jeśli Edytor Wizualny jest włączony (ponieważ edytor potrzebuje pełnej zawartości, aby umożliwić edycję).
+
+### Czyszczenie (Purging)
+
+Czyszczenie zapewnia, że tylko klucze faktycznie używane w Twoim kodzie zostaną dołączone do końcowego pakietu słowników. Może to znacznie zmniejszyć rozmiar pakietu, jeśli masz duże słowniki z wieloma kluczami, które nie są używane w każdej części aplikacji.
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  build: {
+    purge: true,
+  },
+};
+
+export default config;
+```
+
+> Uwaga: Czyszczenie jest ignorowana, jeśli `optimize` jest wyłączone.
 
 ## Tryby importu
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-04-03
+updatedAt: 2026-04-08
 title: Configuration
 description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customize Intlayer to your needs.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.7.0
+    date: 2026-04-08
+    changes: "Add `prune` and `minify` options to the build configuration"
   - version: 8.7.0
     date: 2026-04-03
     changes: "Add `currentDomain` option"
@@ -401,6 +404,25 @@ const config: IntlayerConfig = {
      * Default: true in production
      */
     optimize: true,
+
+    /**
+     * Minify the dictionaries to reduce the bundle size.
+     * Default: true
+     *
+     * Note:
+     * - This option will be ignored if `optimize` is disabled.
+     * - This option will be ignored if `editor.enabled` is true.
+     */
+    minify: true,
+
+    /**
+     * Purge the unused keys in a dictionaries.
+     * Default: true
+     *
+     * Note:
+     * - This option will be ignored if `optimize` is disabled.
+     */
+    purge: true,
 
     /**
      * Output format for generated dictionary files.
@@ -941,6 +963,8 @@ Build options apply to the `@intlayer/babel` and `@intlayer/swc` plugins.
 | ----------------- | -------------------------------------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `mode`            | Controls the mode of the build.                                      | `'auto'` &#124; <br/> `'manual'` | `'auto'`                                                                                                                                                                          | `'manual'`                                                                    | • `'auto'`: build enabled automatically when the application is built.<br/>• `'manual'`: only runs when the build command is executed.<br/>• Can be used to disable dictionary builds (e.g. to avoid running in Node.js environments).                                                                                                                                    |
 | `optimize`        | Controls whether the build should be optimized.                      | `boolean`                        | `undefined`                                                                                                                                                                       | `process.env.NODE_ENV === 'production'`                                       | • If unset, optimization is triggered on framework build (Vite/Next.js).<br/>• `true` forces optimization including dev mode.<br/>• `false` disables it.<br/>• When enabled, replaces dictionary calls to optimize chunking — only used dictionaries are imported.<br/>• Relies on `@intlayer/babel` and `@intlayer/swc` plugins.<br/>• Keys must be declared statically. |
+| `minify`          | Whether to minify the dictionaries to reduce the bundle size.        | `boolean`                        | `true`                                                                                                                                                                            |                                                                               | • Indicates whether the bundle should be minified.<br/>• Default: `true` in production.<br/>• This option will be ignored if `optimize` is disabled.<br/>• This option will be ignored if `editor.enabled` is true.                                                                                                                                                       |
+| `purge`           | Whether to purge the unused keys in a dictionaries.                  | `boolean`                        | `true`                                                                                                                                                                            |                                                                               | • Indicates whether the bundle should be purged.<br/>• Default: `true` in production.<br/>• This option will be ignored if `optimize` is disabled.                                                                                                                                                                                                                        |
 | `checkTypes`      | Indicates if the build should check TypeScript types and log errors. | `boolean`                        | `false`                                                                                                                                                                           |                                                                               | Can slow down the build.                                                                                                                                                                                                                                                                                                                                                  |
 | `outputFormat`    | Controls the output format of the dictionaries.                      | `('esm' &#124; 'cjs')[]`         | `['esm', 'cjs']`                                                                                                                                                                  | `['cjs']`                                                                     |                                                                                                                                                                                                                                                                                                                                                                           |
 | `traversePattern` | Patterns defining which files to traverse during optimization.       | `string[]`                       | `['**/*.{tsx,ts,js,mjs,cjs,jsx,vue,svelte,svte}', '!**/node_modules/**', '!**/dist/**', '!**/.intlayer/**', '!**/*.config.*', '!**/*.test.*', '!**/*.spec.*', '!**/*.stories.*']` | `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']` | • Limit optimization to relevant files to improve build performance.<br/>• Ignored if `optimize` is disabled.<br/>• Uses glob pattern.                                                                                                                                                                                                                                    |

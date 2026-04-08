@@ -37,7 +37,7 @@ const config: IntlayerConfig = {
     importMode: 'dynamic',
   },
   editor: {
-    enabled: true,
+    enabled: false,
     liveSync: false,
     dictionaryPriorityStrategy: 'local_first',
     applicationURL: process.env.VITE_SITE_URL,

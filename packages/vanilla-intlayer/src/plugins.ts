@@ -448,6 +448,13 @@ export interface IInterpreterPluginVanilla<T, S, L extends LocalesValues> {
   vanillaHtml: HTMLPluginCond<T>;
 }
 
+/**
+ * Insert this type as param of `DeepTransformContent` to avoid `intlayer` package pollution.
+ *
+ * Otherwise the `vanilla-intlayer` plugins will override the types of `intlayer` functions.
+ * Use `getIntlayer` from `vanilla-intlayer` (not from `intlayer`) to get properly typed
+ * `IntlayerNode` wrappers with `.value` access on string/number content.
+ */
 export type IInterpreterPluginState = Omit<
   IInterpreterPluginStateCore,
   'insertion'

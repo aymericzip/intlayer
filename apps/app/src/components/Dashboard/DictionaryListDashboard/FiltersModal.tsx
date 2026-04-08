@@ -7,6 +7,7 @@ import { Checkbox, SearchInput } from '@intlayer/design-system/input';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import { type FC, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 
 type TagAPI = {
   key: string;
@@ -19,9 +20,6 @@ type FiltersModalProps = {
   params: any;
   setParam: (key: any, value: any) => void;
   setParams: (updates: any) => void;
-  locationOptions: any;
-  tableHeaders: any;
-  filterLabels: any;
 };
 
 export const FiltersModal: FC<FiltersModalProps> = ({
@@ -30,10 +28,9 @@ export const FiltersModal: FC<FiltersModalProps> = ({
   params,
   setParam,
   setParams,
-  locationOptions,
-  tableHeaders,
-  filterLabels,
 }) => {
+  const { locationOptions, tableHeaders, filterLabels } =
+    useIntlayer('dictionary-list');
   const [tagSearch, setTagSearch] = useState('');
   const { data: tagsData, isLoading: isLoadingTags } = useGetTags({
     pageSize: 100,

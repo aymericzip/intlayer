@@ -2,20 +2,28 @@ import {
   compact,
   currency,
   date,
-  getIntlayer,
   number,
   percentage,
   relativeTime,
   units,
 } from 'intlayer';
+import { useIntlayer } from 'vanilla-intlayer';
+import { setupLocaleSwitcher } from './locale-switcher';
 import './style.css';
 
 const setupApp = async () => {
-  const content = getIntlayer('app');
-  const bm = getIntlayer('benchmark');
+  const content = useIntlayer('app');
+  const bm = useIntlayer('benchmark');
   let count = 0;
 
   const appElement = document.querySelector<HTMLDivElement>('#app')!;
+
+  // Mount locale switcher once — outside the render cycle so it isn't wiped
+  const switcherContainer = document.createElement('div');
+  switcherContainer.style.cssText =
+    'position:fixed;top:12px;right:16px;z-index:999;';
+  document.body.appendChild(switcherContainer);
+  setupLocaleSwitcher(switcherContainer);
 
   const now = new Date();
   const in3Days = new Date(now.getTime() + 3 * 864e5);
@@ -98,7 +106,7 @@ const setupApp = async () => {
         {
           name: 'insert(enu(t()))',
           desc: '{count:3,name:"Alice"}(3)',
-          return: undefined,
+          result: undefined,
           // result: bm.n12_insert_enu_t({ count: 3, name: 'Alice' })(3),
         },
         {
@@ -207,7 +215,7 @@ const setupApp = async () => {
     appElement.innerHTML = `
       <div>
         <a href="https://vite.dev" target="_blank">
-          <img src="/vite.svg" class="logo" alt="${content.viteLogoLabel}" />
+          <img src="/vite.svg" class="logo" alt="${content.viteLogoLabel.value}" />
         </a>
   
         <h1>${content.title}</h1>

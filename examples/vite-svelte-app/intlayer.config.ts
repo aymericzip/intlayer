@@ -11,7 +11,7 @@ const config: IntlayerConfig = {
     applicationContext: 'This is a test application',
   },
   editor: {
-    enabled: true,
+    enabled: false,
     applicationURL: 'http://localhost:5173',
     cmsURL: 'http://localhost:3000',
     editorURL: 'http://localhost:8000',

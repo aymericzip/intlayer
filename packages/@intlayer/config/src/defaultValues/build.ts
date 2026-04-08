@@ -22,6 +22,7 @@ export const TRAVERSE_PATTERN = [
   '!**/*.stories.*',
   '!**/*.d.ts',
   '!**/*.d.ts.map',
+  '!**/*.map',
 ];
 
 export const OUTPUT_FORMAT: ('cjs' | 'esm')[] = ['esm', 'cjs'];
@@ -29,3 +30,7 @@ export const OUTPUT_FORMAT: ('cjs' | 'esm')[] = ['esm', 'cjs'];
 export const CACHE = true;
 
 export const TYPE_CHECKING = false;
+
+export const MINIFY = true;
+
+export const PURGE = true;

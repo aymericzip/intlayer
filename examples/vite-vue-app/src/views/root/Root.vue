@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useIntlayer } from 'vue-intlayer';
 import HelloWorld from '@components/helloWorld/HelloWorld.vue';
+import { useIntlayer } from 'vue-intlayer';
 
 const { viteLogo, vueLogo, title } = useIntlayer('root');
 </script>
@@ -11,7 +11,7 @@ const { viteLogo, vueLogo, title } = useIntlayer('root');
       <img src="/vite.svg" class="logo" :alt="viteLogo.value" />
     </a>
     <a href="https://vuejs.org/" target="_blank">
-      <img src="../../assets/vue.svg" class="logo vue" :alt="vueLogo.value" />
+      <img src="/vue.svg" class="logo vue" :alt="vueLogo.value" />
     </a>
   </div>
   <HelloWorld :msg="title" />

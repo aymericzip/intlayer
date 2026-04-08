@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2025-11-25
+updatedAt: 2026-04-08
 title: Tối ưu Kích thước & Hiệu suất Gói i18n
 description: Giảm kích thước gói ứng dụng bằng cách tối ưu hóa nội dung quốc tế hóa (i18n). Tìm hiểu cách tận dụng tree shaking và lazy loading cho từ điển với Intlayer.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - concept
   - bundle-optimization
 history:
+  - version: 8.7.0
+    date: 2026-04-08
+    changes: "Thêm các tùy chọn `minify` và `purge` vào cấu hình build"
   - version: 6.0.0
     date: 2025-11-25
     changes: "Khởi tạo lịch sử"
@@ -102,9 +105,51 @@ Các tùy chọn sau có sẵn trong đối tượng cấu hình `build`:
 | Thuộc tính            | Kiểu                             | Mặc định                        | Mô tả                                                                                                                                                                                                                                      |
 | :-------------------- | :------------------------------- | :------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`optimize`**        | `boolean`                        | `undefined`                     | Điều khiển việc có bật tối ưu hóa build hay không. Nếu là `true`, Intlayer sẽ thay thế các cuộc gọi từ điển bằng các inject được tối ưu hóa. Nếu là `false`, tối ưu hóa sẽ bị tắt. Lý tưởng nên đặt là `true` trong môi trường production. |
+| **`minify`**          | `boolean`                        | `true`                          | Có thu nhỏ các từ điển để giảm kích thước bundle hay không.                                                                                                                                                                                |
+| **`purge`**           | `boolean`                        | `true`                          | Có xóa các khóa không sử dụng trong từ điển hay không.                                                                                                                                                                                     |
 | **`importMode`**      | `'static' , 'dynamic' , 'fetch'` | `'static'`                      | **Deprecated**: Use `dictionary.importMode` instead. Xác định cách các từ điển được tải (xem chi tiết bên dưới).                                                                                                                           |
 | **`traversePattern`** | `string[]`                       | `['**/*.{js,ts,jsx,tsx}', ...]` | Các mẫu glob xác định các tệp mà Intlayer sẽ quét để tối ưu hóa. Sử dụng để loại trừ các tệp không liên quan và tăng tốc quá trình build.                                                                                                  |
 | **`outputFormat`**    | `'esm', 'cjs'`                   | `'esm', 'cjs'`                  | Điều khiển định dạng đầu ra của các từ điển đã build.                                                                                                                                                                                      |
+
+## Thu nhỏ & Xóa bỏ (Minification & Purging)
+
+Intlayer cung cấp các tùy chọn để tối ưu hóa thêm bundle của bạn bằng cách thu nhỏ từ điển và xóa bỏ các khóa không sử dụng (purge).
+
+### Thu nhỏ (Minification)
+
+Thu nhỏ từ điển loại bỏ các khoảng trắng, nhận xét không cần thiết và giảm kích thước của nội dung JSON. Điều này đặc biệt hữu ích cho các từ điển lớn.
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  build: {
+    minify: true,
+  },
+};
+
+export default config;
+```
+
+> Lưu ý: Thu nhỏ bị bỏ qua nếu `optimize` bị tắt hoặc nếu Editor Trực quan được bật (vì trình chỉnh sửa cần nội dung đầy đủ để cho phép chỉnh sửa).
+
+### Xóa bỏ (Purging)
+
+Xóa bỏ đảm bảo rằng chỉ những khóa thực sự được sử dụng trong mã của bạn mới được đưa vào bundle từ điển cuối cùng. Điều này có thể giảm đáng kể kích thước bundle của bạn nếu bạn có các từ điển lớn với nhiều khóa không được sử dụng trong mọi phần của ứng dụng.
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  build: {
+    purge: true,
+  },
+};
+
+export default config;
+```
+
+> Lưu ý: Xóa bỏ bị bỏ qua nếu `optimize` bị tắt.
 
 ## Chế độ Import
 

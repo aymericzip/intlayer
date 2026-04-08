@@ -77,7 +77,7 @@ export const RepositoryLink: FC = () => {
     handleDisconnect,
     handleViewCurrentConfig,
     handleProviderSelect,
-  } = useRepositoryLink(content);
+  } = useRepositoryLink();
 
   return (
     <div className="flex flex-col gap-6">

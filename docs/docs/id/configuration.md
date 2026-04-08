@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.7.0
+    date: 2026-04-07
+    changes: "Menambahkan opsi `minify` dan `prune` ke konfigurasi build"
+  - version: 8.7.0
     date: 2026-04-03
     changes: "Menambahkan opsi `currentDomain`"
   - version: 8.4.0
@@ -401,6 +404,25 @@ const config: IntlayerConfig = {
      * Default: true dalam produksi
      */
     optimize: true,
+
+    /**
+     * Minifikasikan kamus untuk mengurangi ukuran bundle.
+     * Default: true
+     *
+     * Catatan:
+     * - Opsi ini akan diabaikan jika `optimize` dinonaktifkan.
+     * - Opsi ini akan diabaikan jika `editor.enabled` adalah true.
+     */
+    minify: true,
+
+    /**
+     * Bersihkan kunci yang tidak digunakan dalam kamus.
+     * Default: true
+     *
+     * Catatan:
+     * - Opsi ini akan diabaikan jika `optimize` dinonaktifkan.
+     */
+    purge: true,
 
     /**
      * Format output untuk file kamus yang dihasilkan.
@@ -921,6 +943,8 @@ Pengaturan build berlaku untuk plugin `@intlayer/babel` dan `@intlayer/swc`.
 | ----------------- | ---------------------------------------------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `mode`            | Mengontrol mode eksekusi build.                                              | `'auto'` &#124; <br/> `'manual'` | `'auto'`                                                                                                                                                                          | `'manual'`                                                                    | • `'auto'`: Build dipicu secara otomatis selama build aplikasi.<br/>• `'manual'`: Hanya dijalankan melalui perintah build eksplisit.<br/>• Dapat berguna untuk mencegah build kamus (misalnya: untuk menghindari eksekusi di lingkungan Node.js).                                                                          |
 | `optimize`        | Mengontrol apakah optimasi build dilakukan.                                  | `boolean`                        | `undefined`                                                                                                                                                                       | `process.env.NODE_ENV === 'production'`                                       | • Jika tidak ditentukan, ini akan dipicu selama build framework (Vite/Next.js).<br/>• `true` memaksakan optimasi bahkan dalam mode pengembangan.<br/>• `false` menonaktifkannya.<br/>• Jika diaktifkan, mengganti panggilan kamus dengan optimasi chunking.<br/>• Memerlukan plugin `@intlayer/babel` dan `@intlayer/swc`. |
+| `minify`          | Minifikasikan kamus untuk mengurangi ukuran bundle.                          | `boolean`                        | `true`                                                                                                                                                                            |                                                                               | • Apakah bundel harus diminifikasi.<br/>• Default: `true` dalam produksi.<br/>• Opsi ini akan diabaikan jika `optimize` dinonaktifkan.<br/>• Opsi ini akan diabaikan jika `editor.enabled` adalah true.                                                                                                                    |
+| `purge`           | Bersihkan kunci yang tidak digunakan dalam kamus.                            | `boolean`                        | `true`                                                                                                                                                                            |                                                                               | • Apakah bundel harus dibersihkan.<br/>• Default: `true` dalam produksi.<br/>• Opsi ini akan diabaikan jika `optimize` dinonaktifkan.                                                                                                                                                                                      |
 | `checkTypes`      | Menunjukkan apakah build harus memeriksa tipe TypeScript dan mencatat error. | `boolean`                        | `false`                                                                                                                                                                           |                                                                               | Dapat memperlambat performa build.                                                                                                                                                                                                                                                                                         |
 | `outputFormat`    | Mengontrol format output kamus.                                              | `('esm' &#124; 'cjs')[]`         | `['esm', 'cjs']`                                                                                                                                                                  | `['cjs']`                                                                     |                                                                                                                                                                                                                                                                                                                            |
 | `traversePattern` | Pola untuk file yang akan dipindai selama optimasi.                          | `string[]`                       | `['**/*.{tsx,ts,js,mjs,cjs,jsx,vue,svelte,svte}', '!**/node_modules/**', '!**/dist/**', '!**/.intlayer/**', '!**/*.config.*', '!**/*.test.*', '!**/*.spec.*', '!**/*.stories.*']` | `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']` | • Meningkatkan performa build dengan membatasi optimasi ke file yang relevan.<br/>• Diabaikan jika `optimize` dinonaktifkan.<br/>• Menggunakan pola glob.                                                                                                                                                                  |

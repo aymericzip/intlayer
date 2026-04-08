@@ -41,13 +41,18 @@ const config: CustomIntlayerConfig = {
     formatCommand: 'bun x biome format "{{file}}" --write --log-level none',
   },
   editor: {
-    enabled: true,
+    enabled: false,
     liveSync: false,
     dictionaryPriorityStrategy: 'local_first',
     backendURL: process.env.VITE_BACKEND_URL,
   },
   dictionary: {
     importMode: 'dynamic',
+  },
+  build: {
+    purge: true,
+    minify: true,
+    checkTypes: true,
   },
   compiler: {
     enabled: false,

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2025-11-25
+updatedAt: 2026-04-08
 title: i18n Paket Boyutu ve Performansını Optimize Etme
 description: Uluslararasılaştırma (i18n) içeriğini optimize ederek uygulama paket boyutunu azaltın. Intlayer ile sözlüklerde tree shaking ve lazy loading nasıl kullanılır öğrenin.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - concept
   - bundle-optimization
 history:
+  - version: 8.7.0
+    date: 2026-04-08
+    changes: "Derleme yapılandırmasına `minify` ve `purge` seçenekleri eklendi"
   - version: 6.0.0
     date: 2025-11-25
     changes: "Başlangıç geçmişi"
@@ -101,9 +104,51 @@ export default config;
 | Özellik               | Tür                              | Varsayılan                      | Açıklama                                                                                                                                                                                                                                             |
 | :-------------------- | :------------------------------- | :------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`optimize`**        | `boolean`                        | `undefined`                     | Derleme optimizasyonunun etkin olup olmadığını kontrol eder. `true` ise, Intlayer sözlük çağrılarını optimize edilmiş enjeksiyonlarla değiştirir. `false` ise optimizasyon devre dışı bırakılır. Üretimde ideal olarak `true` olarak ayarlanmalıdır. |
+| **`minify`**          | `boolean`                        | `true`                          | Paket boyutunu azaltmak için sözlüklerin minifiye edilip edilmeyeceği.                                                                                                                                                                               |
+| **`purge`**           | `boolean`                        | `true`                          | Sözlüklerdeki kullanılmayan anahtarların temizlenip temizlenmeyeceği.                                                                                                                                                                                |
 | **`importMode`**      | `'static' , 'dynamic' , 'fetch'` | `'static'`                      | **Deprecated**: Use `dictionary.importMode` instead. Sözlüklerin nasıl yükleneceğini belirler (detaylar aşağıda).                                                                                                                                    |
 | **`traversePattern`** | `string[]`                       | `['**/*.{js,ts,jsx,tsx}', ...]` | Intlayer'ın optimizasyon için taraması gereken dosyaları tanımlayan glob desenleri. İlgisiz dosyaları hariç tutmak ve derlemeleri hızlandırmak için bunu kullanın.                                                                                   |
 | **`outputFormat`**    | `'esm', 'cjs'`                   | `'esm', 'cjs'`                  | Oluşturulan sözlüklerin çıktı formatını kontrol eder.                                                                                                                                                                                                |
+
+## Sözlük Minifikasyonu ve Temizleme (Purging)
+
+Intlayer, sözlükleri minifiye ederek ve kullanılmayan anahtarları temizleyerek (purge) paketini daha fazla optimize etmek için seçenekler sunar.
+
+### Minifikasyon
+
+Sözlükleri minifiye etmek, gereksiz boşlukları, yorumları kaldırır ve JSON içeriğinin boyutunu azaltır. Bu özellikle büyük sözlükler için kullanışlıdır.
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  build: {
+    minify: true,
+  },
+};
+
+export default config;
+```
+
+> Not: `optimize` devre dışıysa veya Görsel Düzenleyici etkinse (düzenleyicinin düzenlemeye izin vermek için tam içeriğe ihtiyacı olduğu için) minifikasyon yok sayılır.
+
+### Temizleme (Purging)
+
+Temizleme (Purging), yalnızca kodunuzda gerçekten kullanılan anahtarların nihai sözlük paketine dahil edilmesini sağlar. Uygulamanızın her bölümünde kullanılmayan birçok anahtara sahip büyük sözlükleriniz varsa, bu paket boyutunuzu önemli ölçüde azaltabilir.
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  build: {
+    purge: true,
+  },
+};
+
+export default config;
+```
+
+> Not: `optimize` devre dışıysa temizleme yok sayılır.
 
 ## İçe Aktarım Modları
 

@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.7.0
+    date: 2026-04-07
+    changes: "Derleme yapılandırmasına `minify` ve `prune` seçenekleri eklendi"
+  - version: 8.7.0
     date: 2026-04-03
     changes: "`currentDomain` seçeneği eklendi"
   - version: 8.4.0
@@ -401,6 +404,25 @@ const config: IntlayerConfig = {
      * Varsayılan: Üretimde true
      */
     optimize: true,
+
+    /**
+     * Demet boyutunu azaltmak için sözlükleri küçültün (Minify).
+     * Varsayılan: true
+     *
+     * Not:
+     * - `optimize` devre dışı bırakılırsa bu seçenek yoksayılır.
+     * - `editor.enabled` true ise bu seçenek yoksayılır.
+     */
+    minify: true,
+
+    /**
+     * Sözlüklerdeki kullanılmayan anahtarları temizleyin (Purge).
+     * Varsayılan: true
+     *
+     * Not:
+     * - `optimize` devre dışı bırakılırsa bu seçenek yoksayılır.
+     */
+    purge: true,
 
     /**
      * Oluşturulan sözlük dosyaları için çıktı formatı.
@@ -921,6 +943,8 @@ Derleme seçenekleri `@intlayer/babel` ve `@intlayer/swc` eklentileri için geç
 | ----------------- | ----------------------------------------------------------------------------------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `mode`            | Derleme modunu kontrol eder.                                                                                      | `'auto'` &#124; <br/> `'manual'` | `'auto'`                                                                                                                                                                          | `'manual'`                                                                    | • `'auto'`: uygulama derlemesi sırasında derleme otomatik olarak tetiklenir.<br/>• `'manual'`: yalnızca derleme komutu açıkça çağrıldığında yürütülür.<br/>• Sözlük derlemelerini devre dışı bırakmak için kullanılabilir (örneğin Node.js ortamlarında yürütmeyi durdurmak için).                                                          |
 | `optimize`        | Derlemenin optimize edilip edilmeyeceğini kontrol eder.                                                           | `boolean`                        | `undefined`                                                                                                                                                                       | `process.env.NODE_ENV === 'production'`                                       | • Tanımlanmazsa, optimizasyon framework derlemesinde (Vite/Next.js) tetiklenir.<br/>• `true` ise geliştirme modunda bile optimizasyonu zorlar.<br/>• `false` ise devre dışı bırakır.<br/>• Etkinse, yığınlamayı optimize etmek için sözlük çağrılarını yer değiştirir.<br/>• `@intlayer/babel` ve `@intlayer/swc` eklentilerini gerektirir. |
+| `minify`          | Demet boyutunu azaltmak için sözlükleri küçültün (Minify).                                                        | `boolean`                        | `true`                                                                                                                                                                            |                                                                               | • Paketin küçültülüp küçültülmeyeceğini belirtir.<br/>• Varsayılan: Üretimde `true`.<br/>• `optimize` devre dışı bırakılırsa bu seçenek yoksayılır.<br/>• `editor.enabled` true ise bu seçenek yoksayılır.                                                                                                                                  |
+| `purge`           | Sözlüklerdeki kullanılmayan anahtarları temizleyin (Purge).                                                       | `boolean`                        | `true`                                                                                                                                                                            |                                                                               | • Paketin temizlenip temizlenmeyeceğini belirtir.<br/>• Varsayılan: Üretimde `true`.<br/>• `optimize` devre dışı bırakılırsa bu seçenek yoksayılır.                                                                                                                                                                                         |
 | `checkTypes`      | Derlemenin TypeScript türlerini kontrol edip etmeyeceğini ve hataları günlüğe kaydedip kaydetmeyeceğini belirtir. | `boolean`                        | `false`                                                                                                                                                                           |                                                                               | Derleme sürecini yavaşlatabilir.                                                                                                                                                                                                                                                                                                            |
 | `outputFormat`    | Sözlüklerin çıktı formatını kontrol eder.                                                                         | `('esm' &#124; 'cjs')[]`         | `['esm', 'cjs']`                                                                                                                                                                  | `['cjs']`                                                                     |                                                                                                                                                                                                                                                                                                                                             |
 | `traversePattern` | Optimizasyon sırasında hangi dosyaların taranacağını tanımlayan kalıplar.                                         | `string[]`                       | `['**/*.{tsx,ts,js,mjs,cjs,jsx,vue,svelte,svte}', '!**/node_modules/**', '!**/dist/**', '!**/.intlayer/**', '!**/*.config.*', '!**/*.test.*', '!**/*.spec.*', '!**/*.stories.*']` | `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']` | • Derleme performansını artırmak için optimizasyonu ilgili dosyalarla sınırlayın.<br/>• `optimize` kapalıysa yok sayılır.<br/>• Glob kalıplarını kullanır.                                                                                                                                                                                  |

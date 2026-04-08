@@ -130,7 +130,7 @@ const getPruneConfig = (
     () => {
       if (isSwcPluginAvailable) {
         logger([
-          'Build optimization enabled',
+          `Build optimization ${colorize('enabled', ANSIColors.GREEN)}`,
           colorize(`(import mode:`, ANSIColors.GREY_DARK),
           colorize(importMode ?? IMPORT_MODE, ANSIColors.BLUE),
           colorize(`)`, ANSIColors.GREY_DARK),

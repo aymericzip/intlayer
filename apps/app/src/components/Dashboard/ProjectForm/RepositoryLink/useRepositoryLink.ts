@@ -16,6 +16,7 @@ import {
 import { getAuthAPI } from '@intlayer/design-system/libs';
 import { useToast } from '@intlayer/design-system/toaster';
 import { useCallback, useEffect, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import type {
   ConfigPreviewState,
   ConnectedRepository,
@@ -63,10 +64,11 @@ type UseRepositoryLinkReturn = {
   handleProviderSelect: (provider: RepositoryProvider) => void;
 };
 
-export const useRepositoryLink = (content: any): UseRepositoryLinkReturn => {
+export const useRepositoryLink = (): UseRepositoryLinkReturn => {
   const { session } = useSession();
   const { project } = session ?? {};
   const { toast } = useToast();
+  const content = useIntlayer('repository-link');
 
   // Provider state
   const [selectedProvider, setSelectedProvider] =

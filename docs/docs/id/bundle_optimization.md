@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2025-11-25
+updatedAt: 2026-04-08
 title: Mengoptimalkan Ukuran & Performa Bundle i18n
 description: Mengurangi ukuran bundle aplikasi dengan mengoptimalkan konten internasionalisasi (i18n). Pelajari cara memanfaatkan tree shaking dan lazy loading untuk kamus dengan Intlayer.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - concept
   - bundle-optimization
 history:
+  - version: 8.7.0
+    date: 2026-04-08
+    changes: "Menambahkan opsi `minify` dan `purge` ke konfigurasi build"
   - version: 6.0.0
     date: 2025-11-25
     changes: "Inisialisasi riwayat"
@@ -102,9 +105,51 @@ Opsi berikut tersedia di bawah objek konfigurasi `build`:
 | Properti              | Tipe                             | Default                         | Deskripsi                                                                                                                                                                                                          |
 | :-------------------- | :------------------------------- | :------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`optimize`**        | `boolean`                        | `undefined`                     | Mengontrol apakah optimasi build diaktifkan. Jika `true`, Intlayer menggantikan pemanggilan kamus dengan injeksi yang dioptimalkan. Jika `false`, optimasi dinonaktifkan. Idealnya diatur ke `true` pada produksi. |
+| **`minify`**          | `boolean`                        | `true`                          | Apakah akan mengecilkan kamus untuk mengurangi ukuran bundle.                                                                                                                                                      |
+| **`purge`**           | `boolean`                        | `true`                          | Apakah akan membersihkan kunci yang tidak digunakan dalam kamus.                                                                                                                                                   |
 | **`importMode`**      | `'static' , 'dynamic' , 'fetch'` | `'static'`                      | **Deprecated**: Use `dictionary.importMode` instead. Menentukan bagaimana kamus dimuat (lihat detail di bawah).                                                                                                    |
 | **`traversePattern`** | `string[]`                       | `['**/*.{js,ts,jsx,tsx}', ...]` | Pola glob yang menentukan file mana yang harus dipindai oleh Intlayer untuk optimasi. Gunakan ini untuk mengecualikan file yang tidak terkait dan mempercepat proses build.                                        |
 | **`outputFormat`**    | `'esm', 'cjs'`                   | `'esm', 'cjs'`                  | Mengontrol format output dari kamus yang dibangun.                                                                                                                                                                 |
+
+## Minifikasi & Pembersihan (Minification & Purging)
+
+Intlayer menyediakan opsi untuk lebih mengoptimalkan bundle Anda dengan mengecilkan kamus dan membersihkan kunci yang tidak digunakan (purge).
+
+### Minifikasi (Minification)
+
+Mengecilkan kamus menghapus spasi kosong yang tidak perlu, komentar, dan mengurangi ukuran konten JSON. Ini sangat berguna untuk kamus besar.
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  build: {
+    minify: true,
+  },
+};
+
+export default config;
+```
+
+> Catatan: Minifikasi diabaikan jika `optimize` dinonaktifkan atau jika Editor Visual diaktifkan (karena editor memerlukan konten lengkap untuk memungkinkan pengeditan).
+
+### Pembersihan (Purging)
+
+Pembersihan memastikan bahwa hanya kunci yang benar-benar digunakan dalam kode Anda yang disertakan dalam bundle kamus akhir. Ini dapat secara signifikan mengurangi ukuran bundle Anda jika Anda memiliki kamus besar dengan banyak kunci yang tidak digunakan di setiap bagian aplikasi Anda.
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  build: {
+    purge: true,
+  },
+};
+
+export default config;
+```
+
+> Catatan: Pembersihan diabaikan jika `optimize` dinonaktifkan.
 
 ## Mode Impor
 

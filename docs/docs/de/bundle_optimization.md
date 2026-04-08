@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2025-11-25
+updatedAt: 2026-04-08
 title: Optimierung der i18n-Bündelgröße & Leistung
 description: Reduzieren Sie die Anwendungs-Bündelgröße durch Optimierung der Internationalisierungsinhalte (i18n). Erfahren Sie, wie Sie Tree Shaking und Lazy Loading für Wörterbücher mit Intlayer nutzen können.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - concept
   - bundle-optimization
 history:
+  - version: 8.7.0
+    date: 2026-04-08
+    changes: "Optionen `minify` und `purge` zur Build-Konfiguration hinzugefügt"
   - version: 6.0.0
     date: 2025-11-25
     changes: "Initiale Historie"
@@ -102,9 +105,51 @@ Die folgenden Optionen sind im `build`-Konfigurationsobjekt verfügbar:
 | Eigenschaft           | Typ                              | Standardwert                    | Beschreibung                                                                                                                                                                                                                    |
 | :-------------------- | :------------------------------- | :------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **`optimize`**        | `boolean`                        | `undefined`                     | Steuert, ob die Build-Optimierung aktiviert ist. Wenn `true`, ersetzt Intlayer Wörterbuchaufrufe durch optimierte Injektionen. Wenn `false`, ist die Optimierung deaktiviert. Idealerweise in der Produktion auf `true` setzen. |
+| **`minify`**          | `boolean`                        | `true`                          | Gibt an, ob die Wörterbücher minifiziert werden sollen, um die Bündelgröße zu reduzieren.                                                                                                                                       |
+| **`purge`**           | `boolean`                        | `true`                          | Gibt an, ob nicht verwendete Schlüssel in den Wörterbüchern bereinigt werden sollen.                                                                                                                                            |
 | **`importMode`**      | `'static' , 'dynamic' , 'fetch'` | `'static'`                      | **Deprecated**: Use `dictionary.importMode` instead. Bestimmt, wie Wörterbücher geladen werden (siehe Details unten).                                                                                                           |
 | **`traversePattern`** | `string[]`                       | `['**/*.{js,ts,jsx,tsx}', ...]` | Glob-Muster, die definieren, welche Dateien Intlayer für die Optimierung durchsuchen soll. Verwenden Sie dies, um nicht verwandte Dateien auszuschließen und den Build zu beschleunigen.                                        |
 | **`outputFormat`**    | `'esm', 'cjs'`                   | `'esm', 'cjs'`                  | Steuert das Ausgabeformat der erstellten Wörterbücher.                                                                                                                                                                          |
+
+## Wörterbuch-Minifizierung & Bereinigung (Purging)
+
+Intlayer bietet Optionen zur weiteren Optimierung Ihres Pakets (Bundle) durch Minifizierung der Wörterbücher und Bereinigung nicht verwendeter Schlüssel.
+
+### Minifizierung
+
+Die Minifizierung von Wörterbüchern entfernt unnötige Leerzeichen, Kommentare und reduziert die Größe des JSON-Inhalts. Dies ist besonders nützlich für große Wörterbücher.
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  build: {
+    minify: true,
+  },
+};
+
+export default config;
+```
+
+> Hinweis: Die Minifizierung wird ignoriert, wenn `optimize` deaktiviert ist oder wenn der Visual Editor aktiviert ist (da der Editor den vollständigen Inhalt benötigt, um Bearbeitungen zu ermöglichen).
+
+### Bereinigung (Purging)
+
+Die Bereinigung stellt sicher, dass nur die tatsächlich in Ihrem Code verwendeten Schlüssel in das endgültige Wörterbuch-Paket aufgenommen werden. Dies kann die Größe Ihres Pakets erheblich reduzieren, wenn Sie große Wörterbücher mit vielen Schlüsseln haben, die nicht in jedem Teil Ihrer Anwendung verwendet werden.
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  build: {
+    purge: true,
+  },
+};
+
+export default config;
+```
+
+> Hinweis: Die Bereinigung wird ignoriert, wenn `optimize` deaktiviert ist.
 
 ## Import-Modi
 

@@ -15,6 +15,9 @@ slugs:
   - configuration
 history:
   - version: 8.7.0
+    date: 2026-04-07
+    changes: "Thêm tùy chọn `minify` và `prune` vào cấu hình build"
+  - version: 8.7.0
     date: 2026-04-03
     changes: "Thêm tùy chọn `currentDomain`"
   - version: 8.4.0
@@ -401,6 +404,25 @@ const config: IntlayerConfig = {
      * Mặc định: true trong production
      */
     optimize: true,
+
+    /**
+     * Nén (Minify) các từ điển để giảm kích thước bundle.
+     * Mặc định: true
+     *
+     * Lưu ý:
+     * - Tùy chọn này sẽ bị bỏ qua nếu `optimize` bị tắt.
+     * - Tùy chọn này sẽ bị bỏ qua nếu `editor.enabled` là true.
+     */
+    minify: true,
+
+    /**
+     * Loại bỏ (Purge) các khóa không sử dụng trong từ điển.
+     * Mặc định: true
+     *
+     * Lưu ý:
+     * - Tùy chọn này sẽ bị bỏ qua nếu `optimize` bị tắt.
+     */
+    purge: true,
 
     /**
      * Định dạng đầu ra cho các tệp dictionary được tạo.
@@ -921,6 +943,8 @@ Các tùy chọn build được áp dụng cho các plugin `@intlayer/babel` và
 | ----------------- | --------------------------------------------------------------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `mode`            | Kiểm soát chế độ build.                                                                       | `'auto'` &#124; <br/> `'manual'` | `'auto'`                                                                                                                                                                          | `'manual'`                                                                    | • `'auto'`: Quá trình build được khởi chạy tự động trong quá trình build ứng dụng.<br/>• `'manual'`: Chỉ được thực thi thông qua một lệnh build rõ ràng.<br/>• Có thể được sử dụng để ngăn chặn quá trình build dictionary (ví dụ: để tránh chạy trong môi trường Node.js).                                                                                         |
 | `optimize`        | Kiểm soát liệu các tối ưu hóa build có nên được thực hiện hay không.                          | `boolean`                        | `undefined`                                                                                                                                                                       | `process.env.NODE_ENV === 'production'`                                       | • Nếu chưa được định nghĩa, quá trình tối ưu hóa được khởi chạy trong quá trình build framework (Vite/Next.js).<br/>• `true` buộc thực hiện tối ưu hóa ngay cả trong chế độ dev.<br/>• `false` vô hiệu hóa nó.<br/>• Nếu bật, nó sẽ thay thế các lệnh gọi dictionary để phục vụ tối ưu hóa chunking.<br/>• Yêu cầu các plugin `@intlayer/babel` và `@intlayer/swc`. |
+| `minify`          | Nén (Minify) các từ điển để giảm kích thước bundle.                                           | `boolean`                        | `true`                                                                                                                                                                            |                                                                               | • Cho biết bundle có nên được rút gọn không.<br/>• Mặc định: `true` trong production.<br/>• Tùy chọn này sẽ bị bỏ qua nếu `optimize` bị tắt.<br/>• Tùy chọn này sẽ bị bỏ qua nếu `editor.enabled` là true.                                                                                                                                                          |
+| `purge`           | Loại bỏ (Purge) các khóa không sử dụng trong từ điển.                                         | `boolean`                        | `true`                                                                                                                                                                            |                                                                               | • Cho biết bundle có nên được loại bỏ các khóa không sử dụng không.<br/>• Mặc định: `true` trong production.<br/>• Tùy chọn này sẽ bị bỏ qua nếu `optimize` bị tắt.                                                                                                                                                                                                 |
 | `checkTypes`      | Biểu thị liệu build có nên kiểm tra các kiểu dữ liệu TypeScript và ghi nhật ký lỗi hay không. | `boolean`                        | `false`                                                                                                                                                                           |                                                                               | Có thể làm chậm quá trình build.                                                                                                                                                                                                                                                                                                                                    |
 | `outputFormat`    | Kiểm soát định dạng đầu ra cho các dictionary.                                                | `('esm' &#124; 'cjs')[]`         | `['esm', 'cjs']`                                                                                                                                                                  | `['cjs']`                                                                     |                                                                                                                                                                                                                                                                                                                                                                     |
 | `traversePattern` | Pattern chỉ rõ các tệp cần quét trong quá trình tối ưu hóa.                                   | `string[]`                       | `['**/*.{tsx,ts,js,mjs,cjs,jsx,vue,svelte,svte}', '!**/node_modules/**', '!**/dist/**', '!**/.intlayer/**', '!**/*.config.*', '!**/*.test.*', '!**/*.spec.*', '!**/*.stories.*']` | `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']` | • Hạn chế tối ưu hóa cho các tệp có liên quan để cải thiện hiệu suất build.<br/>• Bị bỏ qua nếu `optimize` tắt.<br/>• Sử dụng các pattern glob.                                                                                                                                                                                                                     |

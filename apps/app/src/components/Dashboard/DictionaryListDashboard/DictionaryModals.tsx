@@ -1,7 +1,6 @@
 import { DictionaryCreationForm } from '@intlayer/design-system/dictionary-field-editor';
 import { Modal } from '@intlayer/design-system/modal';
 import type { FC } from 'react';
-import { useIntlayer } from 'react-intlayer';
 import { DeleteDictionaryModal } from './DeleteDictionaryModal';
 import { DictionaryDetailModal } from './DictionaryDetailModal';
 import { FiltersModal } from './FiltersModal';
@@ -12,8 +11,6 @@ interface DictionaryModalsProps {
 }
 
 export const DictionaryModals: FC<DictionaryModalsProps> = ({ dashboard }) => {
-  const content = useIntlayer('dictionary-list');
-
   const { state, actions, params, setParam, setParams } = dashboard;
 
   return (
@@ -56,9 +53,6 @@ export const DictionaryModals: FC<DictionaryModalsProps> = ({ dashboard }) => {
         params={params}
         setParam={setParam}
         setParams={setParams}
-        locationOptions={content.locationOptions}
-        tableHeaders={content.tableHeaders}
-        filterLabels={content.filterLabels}
       />
     </>
   );

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-04-03
+updatedAt: 2026-04-08
 title: Konfiguracja
 description: Dowiedz się, jak skonfigurować Intlayer dla swojej aplikacji. Zrozum różne ustawienia i opcje dostępne do dostosowania Intlayer do Twoich potrzeb.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.7.0
+    date: 2026-04-08
+    changes: "Dodano opcje `prune` i `minify` do konfiguracji budowania"
   - version: 8.7.0
     date: 2026-04-03
     changes: "Dodano opcję `currentDomain`"
@@ -401,6 +404,25 @@ const config: IntlayerConfig = {
      * Domyślnie: true w środowisku produkcyjnym
      */
     optimize: true,
+
+    /**
+     * Minimalizuj słowniki, aby zmniejszyć rozmiar pakietu.
+     * Domyślnie: true
+     *
+     * Uwaga:
+     * - Ta opcja zostanie zignorowana, jeśli `optimize` jest wyłączone.
+     * - Ta opcja zostanie zignorowana, jeśli `editor.enabled` jest ustawione na true.
+     */
+    minify: true,
+
+    /**
+     * Usuń nieużywane klucze w słownikach.
+     * Domyślnie: true
+     *
+     * Uwaga:
+     * - Ta opcja zostanie zignorowana, jeśli `optimize` jest wyłączone.
+     */
+    purge: true,
 
     /**
      * Format wyjściowy generowanych plików słowników.
@@ -921,6 +943,8 @@ Ustawienia budowania mają zastosowanie do wtyczek `@intlayer/babel` i `@intlaye
 | ----------------- | -------------------------------------------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `mode`            | Kontroluje tryb wykonywania budowania.                                     | `'auto'` &#124; <br/> `'manual'` | `'auto'`                                                                                                                                                                          | `'manual'`                                                                    | • `'auto'`: Budowanie jest automatycznie wyzwalane podczas budowania aplikacji.<br/>• `'manual'`: Uruchamiane tylko poprzez jawne polecenie budowania.<br/>• Może być użyte do zapobiegania budowaniu słowników (np. aby uniknąć uruchamiania w środowisku Node.js).                                                                  |
 | `optimize`        | Kontroluje, czy optymalizacja budowania jest wykonywana.                   | `boolean`                        | `undefined`                                                                                                                                                                       | `process.env.NODE_ENV === 'production'`                                       | • Jeśli niezdefiniowane, optymalizacja jest wyzwalana podczas budowania frameworka (Vite/Next.js).<br/>• `true` wymusza optymalizację nawet w trybie deweloperskim.<br/>• `false` wyłącza ją.<br/>• Jeśli włączone, zastępuje wywołania słowników optymalizacją chunking.<br/>• Wymagane wtyczki `@intlayer/babel` i `@intlayer/swc`. |
+| `minify`          | Minimalizuj słowniki, aby zmniejszyć rozmiar pakietu.                      | `boolean`                        | `true`                                                                                                                                                                            |                                                                               | • Określa, czy pakiet ma zostać zminimalizowany.<br/>• Domyślnie: `true` w produkcji.<br/>• Ta opcja zostanie zignorowana, jeśli `optimize` jest wyłączone.<br/>• Ta opcja zostanie zignorowana, jeśli `editor.enabled` jest prawdziwe.                                                                                               |
+| `purge`           | Usuń nieużywane klucze w słownikach.                                       | `boolean`                        | `true`                                                                                                                                                                            |                                                                               | • Określa, czy pakiet ma zostać wyczyszczony.<br/>• Domyślnie: `true` w produkcji.<br/>• Ta opcja zostanie zignorowana, jeśli `optimize` jest wyłączone.                                                                                                                                                                              |
 | `checkTypes`      | Wskazuje, czy budowanie powinno sprawdzać typy TypeScript i logować błędy. | `boolean`                        | `false`                                                                                                                                                                           |                                                                               | Może spowolnić proces budowania.                                                                                                                                                                                                                                                                                                      |
 | `outputFormat`    | Kontroluje format wyjściowy słowników.                                     | `('esm' &#124; 'cjs')[]`         | `['esm', 'cjs']`                                                                                                                                                                  | `['cjs']`                                                                     |                                                                                                                                                                                                                                                                                                                                       |
 | `traversePattern` | Wzorzec dla plików, które mają być skanowane podczas optymalizacji.        | `string[]`                       | `['**/*.{tsx,ts,js,mjs,cjs,jsx,vue,svelte,svte}', '!**/node_modules/**', '!**/dist/**', '!**/.intlayer/**', '!**/*.config.*', '!**/*.test.*', '!**/*.spec.*', '!**/*.stories.*']` | `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']` | • Poprawia wydajność budowania poprzez ograniczenie optymalizacji do odpowiednich plików.<br/>• Ignorowane, jeśli `optimize` jest wyłączone.<br/>• Używa wzorców glob.                                                                                                                                                                |

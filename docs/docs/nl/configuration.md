@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-04-03
+updatedAt: 2026-04-08
 title: Configuratie (Configuration)
 description: Leer hoe u Intlayer configureert voor uw applicatie. Begrijp de verschillende instellingen en opties die beschikbaar zijn om Intlayer aan uw behoeften aan te passen.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.7.0
+    date: 2026-04-08
+    changes: "Opties `prune` en `minify` toegevoegd aan de buildconfiguratie"
   - version: 8.7.0
     date: 2026-04-03
     changes: "`currentDomain` optie toegevoegd"
@@ -401,6 +404,25 @@ const config: IntlayerConfig = {
      * Standaard: true in productie
      */
     optimize: true,
+
+    /**
+     * Minimaliseer de woordenboeken om de bundelgrootte te verkleinen.
+     * Standaard: true
+     *
+     * Opmerking:
+     * - Deze optie wordt genegeerd als `optimize` is uitgeschakeld.
+     * - Deze optie wordt genegeerd als `editor.enabled` op true staat.
+     */
+    minify: true,
+
+    /**
+     * Verwijder ongebruikte sleutels in woordenboeken.
+     * Standaard: true
+     *
+     * Opmerking:
+     * - Deze optie wordt genegeerd als `optimize` is uitgeschakeld.
+     */
+    purge: true,
 
     /**
      * Uitvoerformaat voor gegenereerde woordenboekbestanden.
@@ -921,6 +943,8 @@ Build-opties worden toegepast op de plug-ins `@intlayer/babel` en `@intlayer/swc
 | ----------------- | --------------------------------------------------------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `mode`            | Beheert de buildmodus.                                                                  | `'auto'` &#124; <br/> `'manual'` | `'auto'`                                                                                                                                                                          | `'manual'`                                                                    | • `'auto'`: de build wordt automatisch gestart tijdens de build van de applicatie.<br/>• `'manual'`: wordt alleen uitgevoerd bij een expliciete build-opdracht.<br/>• Kan worden gebruikt om de build van woordenboeken uit te schakelen (bijv. om uitvoering in Node.js-omgevingen te stoppen).                                                      |
 | `optimize`        | Beheert of er build-optimalisatie moet plaatsvinden.                                    | `boolean`                        | `undefined`                                                                                                                                                                       | `process.env.NODE_ENV === 'production'`                                       | • Indien niet gedefinieerd, wordt optimalisatie gestart bij de build van het framework (Vite/Next.js).<br/>• `true` forceert optimalisatie zelfs in dev-modus.<br/>• `false` schakelt het uit.<br/>• Indien ingeschakeld, vervangt het woordenboekaanroepen voor chunking-optimalisatie.<br/>• Vereist plug-ins `@intlayer/babel` en `@intlayer/swc`. |
+| `minify`          | Minimaliseer de woordenboeken om de bundelgrootte te verkleinen.                        | `boolean`                        | `true`                                                                                                                                                                            |                                                                               | • Geeft aan of de bundel moet worden geminimaliseerd.<br/>• Standaard: `true` in productie.<br/>• Deze optie wordt genegeerd als `optimize` is uitgeschakeld.<br/>• Deze optie wordt genegeerd als `editor.enabled` is waar.                                                                                                                          |
+| `purge`           | Verwijder ongebruikte sleutels in woordenboeken.                                        | `boolean`                        | `true`                                                                                                                                                                            |                                                                               | • Geeft aan of de bundel moet worden opgeschoond.<br/>• Standaard: `true` in productie.<br/>• Deze optie wordt genegeerd als `optimize` is uitgeschakeld.                                                                                                                                                                                             |
 | `checkTypes`      | Geeft aan of de build TypeScript types moet controleren en fouten moet loggen.          | `boolean`                        | `false`                                                                                                                                                                           |                                                                               | Kan het buildproces vertragen.                                                                                                                                                                                                                                                                                                                        |
 | `outputFormat`    | Beheert het uitvoerformaat van woordenboeken.                                           | `('esm' &#124; 'cjs')[]`         | `['esm', 'cjs']`                                                                                                                                                                  | `['cjs']`                                                                     |                                                                                                                                                                                                                                                                                                                                                       |
 | `traversePattern` | Patronen die definieren welke bestanden tijdens de optimalisatie moeten worden gescand. | `string[]`                       | `['**/*.{tsx,ts,js,mjs,cjs,jsx,vue,svelte,svte}', '!**/node_modules/**', '!**/dist/**', '!**/.intlayer/**', '!**/*.config.*', '!**/*.test.*', '!**/*.spec.*', '!**/*.stories.*']` | `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']` | • Beperk de optimalisatie tot relevante bestanden voor het verhogen van de buildprestaties.<br/>• Zou worden genegeerd als `optimize` was uitgeschakeld.<br/>• Gebruikt glob-patronen.                                                                                                                                                                |

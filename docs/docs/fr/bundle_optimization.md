@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2025-11-25
+updatedAt: 2026-04-08
 title: Optimisation de la taille et des performances du bundle i18n
 description: Réduisez la taille du bundle de votre application en optimisant le contenu d'internationalisation (i18n). Apprenez à exploiter le tree shaking et le lazy loading pour les dictionnaires avec Intlayer.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - concept
   - bundle-optimization
 history:
+  - version: 8.7.0
+    date: 2026-04-08
+    changes: "Ajout des options `minify` et `purge` à la configuration de build"
   - version: 6.0.0
     date: 2025-11-25
     changes: "Historique initial"
@@ -101,9 +104,51 @@ Les options suivantes sont disponibles sous l'objet de configuration `build` :
 | Propriété             | Type                             | Par défaut                      | Description                                                                                                                                                                                                                        |
 | :-------------------- | :------------------------------- | :------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`optimize`**        | `boolean`                        | `undefined`                     | Contrôle si l'optimisation de la build est activée. Si `true`, Intlayer remplace les appels au dictionnaire par des injections optimisées. Si `false`, l'optimisation est désactivée. Idéalement configuré à `true` en production. |
+| **`minify`**          | `boolean`                        | `true`                          | Indique s'il faut minifier les dictionnaires pour réduire la taille du bundle.                                                                                                                                                     |
+| **`purge`**           | `boolean`                        | `true`                          | Indique s'il faut purger les clés inutilisées dans les dictionnaires.                                                                                                                                                              |
 | **`importMode`**      | `'static' , 'dynamic' , 'fetch'` | `'static'`                      | **Deprecated**: Use `dictionary.importMode` instead. Détermine comment les dictionnaires sont chargés (voir détails ci-dessous).                                                                                                   |
 | **`traversePattern`** | `string[]`                       | `['**/*.{js,ts,jsx,tsx}', ...]` | Modèles globaux définissant les fichiers que Intlayer doit analyser pour l'optimisation. Utilisez ceci pour exclure les fichiers non pertinents et accélérer les builds.                                                           |
 | **`outputFormat`**    | `'esm', 'cjs'`                   | `'esm', 'cjs'`                  | Contrôle le format de sortie des dictionnaires construits.                                                                                                                                                                         |
+
+## Minification et purge des dictionnaires
+
+Intlayer propose des options pour optimiser davantage votre bundle en minifiant les dictionnaires et en purgeant les clés inutilisées.
+
+### Minification
+
+La minification des dictionnaires supprime les espaces inutiles, les commentaires et réduit la taille du contenu JSON. Ceci est particulièrement utile pour les dictionnaires volumineux.
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  build: {
+    minify: true,
+  },
+};
+
+export default config;
+```
+
+> Note : La minification est ignorée si `optimize` est désactivé ou si l'Éditeur Visuel est activé (car l'éditeur a besoin du contenu complet pour permettre l'édition).
+
+### Purge
+
+La purge garantit que seules les clés réellement utilisées dans votre code sont incluses dans le bundle final de dictionnaires. Cela peut réduire considérablement la taille de votre bundle si vous avez de grands dictionnaires avec de nombreuses clés qui ne sont pas utilisées dans chaque partie de votre application.
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  build: {
+    purge: true,
+  },
+};
+
+export default config;
+```
+
+> Note : La purge est ignorée si `optimize` est désactivé.
 
 ## Modes d'importation
 

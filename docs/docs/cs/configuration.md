@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-04-03
+updatedAt: 2026-04-08
 title: Konfigurace (Configuration)
 description: Naučte se, jak nakonfigurovat Intlayer pro vaši aplikaci. Porozumějte různým nastavením a možnostem dostupným pro přizpůsobení Intlayer vašim potřebám.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.7.0
+    date: 2026-04-08
+    changes: "Přidány volby `prune` a `minify` do konfigurace sestavení"
   - version: 8.7.0
     date: 2026-04-03
     changes: "Přidána volba `currentDomain`"
@@ -401,6 +404,25 @@ const config: IntlayerConfig = {
      * Výchozí: true v produkci
      */
     optimize: true,
+
+    /**
+     * Minifikujte slovníky pro snížení velikosti balíčku.
+     * Výchozí: true
+     *
+     * Poznámka:
+     * - Tato možnost bude ignorována, pokud je `optimize` zakázáno.
+     * - Tato možnost bude ignorována, pokud je `editor.enabled` nastaveno na true.
+     */
+    minify: true,
+
+    /**
+     * Odstraňte nepoužívané klíče ve slovnících.
+     * Výchozí: true
+     *
+     * Poznámka:
+     * - Tato možnost bude ignorována, pokud je `optimize` zakázáno.
+     */
+    purge: true,
 
     /**
      * Výstupní formát pro generované soubory slovníku.
@@ -921,6 +943,8 @@ Volby sestavení se aplikují na pluginy `@intlayer/babel` a `@intlayer/swc`.
 | ----------------- | -------------------------------------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `mode`            | Ovládá režim sestavení.                                              | `'auto'` &#124; <br/> `'manual'` | `'auto'`                                                                                                                                                                          | `'manual'`                                                                    | • `'auto'`: sestavení se spustí automaticky během sestavení aplikace.<br/>• `'manual'`: provede se pouze při explicitním volání příkazu sestavení.<br/>• Lze použít k vypnutí sestavení slovníků (např. pro zamezení běhu v prostředích Node.js).                                                         |
 | `optimize`        | Ovládá, zda se má provádět optimalizace sestavení.                   | `boolean`                        | `undefined`                                                                                                                                                                       | `process.env.NODE_ENV === 'production'`                                       | • Pokud není definováno, optimalizace se spustí při sestavení frameworku (Vite/Next.js).<br/>• `true` vynutí optimalizaci i v dev režimu.<br/>• `false` ji vypne.<br/>• Pokud je zapnuto, nahradí volání slovníků pro optimalizaci chunkingu.<br/>• Vyžaduje pluginy `@intlayer/babel` a `@intlayer/swc`. |
+| `minify`          | Minifikujte slovníky pro snížení velikosti balíčku.                  | `boolean`                        | `true`                                                                                                                                                                            |                                                                               | • Určuje, zda má být balíček minifikován.<br/>• Výchozí: `true` v produkci.<br/>• Tato volba bude ignorována, pokud je `optimize` zakázáno.<br/>• Tato volba bude ignorována, pokud je `editor.enabled` true.                                                                                             |
+| `purge`           | Odstraňte nepoužívané klíče ve slovnících.                           | `boolean`                        | `true`                                                                                                                                                                            |                                                                               | • Určuje, zda má být balíček vyčištěn.<br/>• Výchozí: `true` v produkci.<br/>• Tato volba bude ignorována, pokud je `optimize` zakázáno.                                                                                                                                                                  |
 | `checkTypes`      | Udává, zda má sestavení kontrolovat typy TypeScript a logovat chyby. | `boolean`                        | `false`                                                                                                                                                                           |                                                                               | Může zpomalit proces sestavení.                                                                                                                                                                                                                                                                           |
 | `outputFormat`    | Ovládá výstupní formát slovníků.                                     | `('esm' &#124; 'cjs')[]`         | `['esm', 'cjs']`                                                                                                                                                                  | `['cjs']`                                                                     |                                                                                                                                                                                                                                                                                                           |
 | `traversePattern` | Vzory definující, které soubory skenovat během optimalizace.         | `string[]`                       | `['**/*.{tsx,ts,js,mjs,cjs,jsx,vue,svelte,svte}', '!**/node_modules/**', '!**/dist/**', '!**/.intlayer/**', '!**/*.config.*', '!**/*.test.*', '!**/*.spec.*', '!**/*.stories.*']` | `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']` | • Omezte optimalizaci na relevantní soubory pro zvýšení výkonu sestavení.<br/>• Ignorovalo by se, kdyby byl `optimize` vypnutý.<br/>• Používá vzory glob.                                                                                                                                                 |

@@ -17,7 +17,7 @@ const config: IntlayerConfig = {
     }),
   },
   editor: {
-    enabled: true,
+    enabled: false,
     applicationURL: 'http://localhost:5173',
     cmsURL: 'http://localhost:3000',
     editorURL: 'http://localhost:8000',
@@ -36,6 +36,7 @@ const config: IntlayerConfig = {
   },
   compiler: {
     enabled: false,
+    output: ({ fileName }) => `./${fileName}.content.ts`,
   },
   // build: {
   //   optimize: true,

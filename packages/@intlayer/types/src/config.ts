@@ -593,6 +593,28 @@ export type BuildConfig = {
   importMode?: 'static' | 'dynamic' | 'fetch';
 
   /**
+   * Minify the dictionaries to reduce the bundle size.
+   *
+   * Default: true
+   *
+   * Note:
+   * - This option will be ignored if `optimize` is disabled.
+   * - This option will be ignore if `editor.enabled` is true.
+   * - If there is edge cases where the minification is not working properly, the dictionary will be not minified.
+   */
+  minify: boolean;
+
+  /**
+   * Purge the unused keys in a dictionaries
+   *
+   * Default: true
+   *
+   * Note:
+   * - This option will be ignored if `optimize` is disabled.
+   */
+  purge: boolean;
+
+  /**
    * Pattern to traverse the code to optimize.
    *
    * Allows to avoid to traverse the code that is not relevant to the optimization.

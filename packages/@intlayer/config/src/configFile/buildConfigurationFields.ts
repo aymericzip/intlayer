@@ -14,7 +14,9 @@ import type {
 import {
   BUILD_MODE,
   CACHE,
+  MINIFY,
   OUTPUT_FORMAT,
+  PURGE,
   TRAVERSE_PATTERN,
   TYPE_CHECKING,
 } from '../defaultValues/build';
@@ -353,6 +355,29 @@ const buildBuildFields = (
    * @deprecated Use `dictionary.importMode` instead.
    */
   importMode: customConfiguration?.importMode,
+
+  /**
+   * Minify the dictionaries to reduce the bundle size.
+   *
+   * Default: true
+   *
+   * Note:
+   * - This option will be ignored if `optimize` is disabled.
+   * - This option will be ignore if `editor.enabled` is true.
+   * - If there is edge cases where the minification is not working properly, the dictionary will be not minified.
+   */
+  minify: customConfiguration?.minify ?? MINIFY,
+
+  /**
+   * Purge the unused keys in a dictionaries
+   *
+   * Default: true
+   *
+   * Note:
+   * - This option will be ignored if `optimize` is disabled.
+   * - This option will be ignored if `editor.enabled` is true.
+   */
+  purge: customConfiguration?.purge ?? PURGE,
 
   /**
    * Pattern to traverse the code to optimize.

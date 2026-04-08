@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2025-11-25
+updatedAt: 2026-04-08
 title: 优化 i18n 包大小与性能
 description: 通过优化国际化（i18n）内容来减少应用程序包大小。学习如何利用 Intlayer 实现字典的树摇和懒加载。
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - concept
   - bundle-optimization
 history:
+  - version: 8.7.0
+    date: 2026-04-08
+    changes: "在构建配置中添加 `minify` 和 `purge` 选项"
   - version: 6.0.0
     date: 2025-11-25
     changes: "初始化历史记录"
@@ -102,9 +105,51 @@ export default config;
 | 属性                  | 类型                             | 默认值                          | 描述                                                                                                                                          |
 | :-------------------- | :------------------------------- | :------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`optimize`**        | `boolean`                        | `undefined`                     | 控制是否启用构建优化。如果为 `true`，Intlayer 会用优化后的注入替换字典调用。如果为 `false`，则禁用优化。理想情况下在生产环境中设置为 `true`。 |
+| **`minify`**          | `boolean`                        | `true`                          | 是否压缩字典以减小包大小。                                                                                                                    |
+| **`purge`**           | `boolean`                        | `true`                          | 是否清洗字典中未使用的键。                                                                                                                    |
 | **`importMode`**      | `'static' , 'dynamic' , 'fetch'` | `'static'`                      | **Deprecated**: Use `dictionary.importMode` instead. 决定字典的加载方式（详见下文）。                                                         |
 | **`traversePattern`** | `string[]`                       | `['**/*.{js,ts,jsx,tsx}', ...]` | 定义 Intlayer 应扫描以进行优化的文件的全局匹配模式。使用此选项可排除无关文件，加快构建速度。                                                  |
 | **`outputFormat`**    | `'esm', 'cjs'`                   | `'esm', 'cjs'`                  | 控制构建后字典的输出格式。                                                                                                                    |
+
+## 字典压缩与清洗
+
+Intlayer 提供了通过压缩字典和清洗未使用键来进一步优化包大小的选项。
+
+### 压缩
+
+压缩字典可以移除不必要的空格、注释，并减小 JSON 内容的大小。这对于大型字典尤其有用。
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  build: {
+    minify: true,
+  },
+};
+
+export default config;
+```
+
+> 注意：如果禁用了 `optimize` 或启用了可视化编辑器（因为编辑器需要完整内容以便编辑），则会忽略压缩选项。
+
+### 清洗
+
+清洗确保最终字典包中仅包含代码中实际使用的键。如果您的大型字典包含许多并非在应用程序所有部分都使用的键，这可以显著减小包大小。
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  build: {
+    purge: true,
+  },
+};
+
+export default config;
+```
+
+> 注意：如果禁用了 `optimize`，则会忽略清洗选项。
 
 ## 导入模式
 
