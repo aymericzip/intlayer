@@ -20,7 +20,7 @@ const config = {
      * - "prefix-no-default": Prefix all except the default locale (e.g., /dashboard, /fr/dashboard).
      * - "prefix-all": Prefix all locales (e.g., /en/dashboard, /fr/dashboard).
      * - "no-prefix": No locale in the URL.
-     * - "search-params": Use ?locale=...
+     * - "search-params": Use search params to define the locale (e.g., /dashboard/?locale=en, /dashboard/?locale=fr)
      * Default: "prefix-no-default"
      */
     mode: 'prefix-no-default',
@@ -35,15 +35,6 @@ const config = {
      * URL of your application for origin validation.
      */
     applicationURL: 'http://localhost:3000',
-  },
-  dictionary: {
-    /**
-     * Controls how dictionaries are imported.
-     * - "static": Statically imported at build time.
-     * - "dynamic": Dynamically imported using Suspense.
-     * - "fetch": Fetched dynamically via the live sync API.
-     */
-    importMode: 'static',
   },
   ai: {
     /**
@@ -108,21 +99,30 @@ const config = {
      */
     saveComponents: false,
   },
+  dictionary: {
+    /**
+     * Controls how dictionaries are imported.
+     * - "static": Statically imported at build time.
+     * - "dynamic": Dynamically imported using Suspense.
+     * - "fetch": Fetched dynamically via the live sync API.
+     */
+    importMode: 'static',
+  },
   build: {
     /**
      * Minify the dictionaries to reduce the bundle size.
      */
-     minify: true;
+    minify: true,
 
     /**
      * Purge the unused keys in a dictionaries
      */
-     purge: true;
+    purge: true,
 
     /**
      * Indicates if the build should check TypeScript types
      */
-    checkTypes: false;
+    checkTypes: false,
   }
 };
 
