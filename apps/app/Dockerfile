@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.22.0
+# syntax=docker/dockerfile:1.23.0
 
 
 # FROM oven/bun:1.3.2-alpine AS builder
@@ -57,12 +57,12 @@ RUN bun install
 RUN bun x turbo run build:ci --filter=./apps/app
 
 # Set working directory to the app package and build it
-WORKDIR /workspace/apps/app && bun scripts/generate-sw.ts
+WORKDIR /workspace/apps/app
 
 ENV NODE_ENV=production
 
 # Build the app
-RUN bun run build
+RUN bun run build && bun scripts/generate-sw.ts
 
 # Create and use a non-root user for security
 RUN addgroup -S app && adduser -S app -G app && chown -R app:app ./.output
