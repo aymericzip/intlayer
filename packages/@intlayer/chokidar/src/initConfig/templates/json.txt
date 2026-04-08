@@ -70,7 +70,7 @@
     "saveComponents": false
   },
   "build": {
-     /**
+    /**
      * Minify the dictionaries to reduce the bundle size.
      */
      "minify": true;

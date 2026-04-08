@@ -19,9 +19,6 @@ history:
   - version: 8.7.0
     date: 2026-04-08
     changes: "Add `minify` and `purge` options to the build configuration"
-  - version: 6.0.0
-    date: 2025-11-25
-    changes: "Init history"
 ---
 
 # Optimizing i18n Bundle Size & Performance
@@ -30,13 +27,144 @@ One of the most common challenges with traditional i18n solutions relying on JSO
 
 For example, an application with 10 pages translated into 10 languages might result in a user downloading the content of 100 pages, even though they only need **one** (the current page in the current language). This leads to wasted bandwidth and slower load times.
 
-> To detect it, you can use bundle analyzer like `rollup-plugin-visualizer` (vite), `@next/bundle-analyzer` (next.js), or `webpack-bundle-analyzer` (React CRA / Angular / etc).
-
 **Intlayer solves this problem through build-time optimization.** It analyzes your code to detect which dictionaries are actually used per component and reinjects only the necessary content into your bundle.
 
 ## Table of Contents
 
 <TOC />
+
+## Scan your bundle
+
+Analyzing your bundle is the first step in identifying "heavy" JSON files and code-splitting opportunities. These tools generate a visual treemap of your application's compiled code, allowing you to see exactly which libraries are consuming the most space.
+
+<Tabs>
+ <Tab value="vite">
+
+### Vite / Rollup
+
+Vite uses Rollup under the hood. The `rollup-plugin-visualizer` generates an interactive HTML file showing the size of every module in your graph.
+
+```bash
+npm install -D rollup-plugin-visualizer
+```
+
+```typescript fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { visualizer } from "rollup-plugin-visualizer";
+
+export default defineConfig({
+  plugins: [
+    visualizer({
+      open: true, // Automatically open the report in your browser
+      filename: "stats.html",
+      gzipSize: true,
+      brotliSize: true,
+    }),
+  ],
+});
+```
+
+ </Tab>
+ <Tab value="nextjs (turbopack)">
+
+### Next.js (Turbopack)
+
+For projects using the App Router and Turbopack, Next.js provides a built-in experimental analyzer that requires no extra dependencies.
+
+```bash packageManager='npm'
+npx next experimental-analyze
+```
+
+```bash packageManager='yarn'
+yarn next experimental-analyze
+```
+
+```bash packageManager='pnpm'
+pnpm next experimental-analyze
+```
+
+```bash packageManager='bun'
+bun next experimental-analyze
+```
+
+ </Tab>
+ <Tab value="nextjs (Webpack)">
+
+### Next.js (Webpack)
+
+If you are using the default Webpack bundler in Next.js, use the official bundle analyzer. Trigger it by setting an environment variable during your build.
+
+```bash packageManager='npm'
+npm install -D @next/bundle-analyzer
+```
+
+```bash packageManager='yarn'
+yarn add -D @next/bundle-analyzer
+```
+
+```bash packageManager='pnpm'
+pnpm add -D @next/bundle-analyzer
+```
+
+```bash packageManager='bun'
+bun add -d @next/bundle-analyzer
+```
+
+```javascript fileName="next.config.js"
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+
+module.exports = withBundleAnalyzer({
+  // Your Next.js config
+});
+```
+
+**Usage:**
+
+```bash
+ANALYZE=true npm run build
+```
+
+ </Tab>
+ <Tab value="Webpack (CRA / Angular / etc)"\>
+
+### Standard Webpack
+
+For Create React App (ejected), Angular, or custom Webpack setups, use the industry-standard `webpack-bundle-analyzer`.
+
+```bash packageManager='npm'
+npm install -D webpack-bundle-analyzer
+```
+
+```bash packageManager='yarn'
+yarn add -D webpack-bundle-analyzer
+```
+
+```bash packageManager='pnpm'
+pnpm add -D webpack-bundle-analyzer
+```
+
+```bash packageManager='bun'
+bun add -d webpack-bundle-analyzer
+```
+
+```typescript fileName="webpack.config.ts
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
+
+export default {
+  plugins: [
+    new BundleAnalyzerPlugin({
+      analyzerMode: "static",
+      reportFilename: "bundle-analyzer.html",
+      openAnalyzer: false,
+    }),
+  ],
+};
+```
+
+ </Tab>
+</Tabs>
 
 ## How It Works
 
@@ -53,23 +181,73 @@ This ensures that:
 
 ## Setup by Platform
 
+<Tabs>
+ <Tab value="nextjs">
+
 ### Next.js
 
 Next.js requires the `@intlayer/swc` plugin to handle the transformation, as Next.js uses SWC for builds.
 
-> This plugin is installed by default because SWC plugins are still experimental for Next.js. It may change in the future.
+> This plugin is not installed by default because SWC plugins are still experimental for Next.js. It may change in the future.
+
+```bash packageManager="npm"
+npm install -D @intlayer/swc
+```
+
+```bash packageManager="yarn"
+yarn add -D @intlayer/swc
+```
+
+```bash packageManager="pnpm"
+pnpm add -D @intlayer/swc
+```
+
+```bash packageManager="bun"
+bun add -d @intlayer/swc
+```
+
+Once Installed. Intlayer will automatically detect and use the plugin.
+
+ </Tab>
+ <Tab value="vite">
 
 ### Vite
 
-Vite uses `@intlayer/babel` plugin which is included as dependency of `vite-intlayer`. The optimization is enabled by default.
+Vite uses `@intlayer/babel` plugin which is included as dependency of `vite-intlayer`. The optimization is enabled by default. Nothing else to do.
+
+ </Tab>
+ <Tab value="webpack">
 
 ### Webpack
 
 To enable bundle optimization with Intlayer on Webpack, you need to install and configure the appropriate Babel (`@intlayer/babel`) or SWC (`@intlayer/swc`) plugin.
 
-### Expo / Lynx
+```bash packageManager="npm"
+npm install -D @intlayer/babel
+```
 
-Bundle optimization is **not available yet** for this platform. Support will be added in a future release.
+```bash packageManager="yarn"
+yarn add -D @intlayer/babel
+```
+
+```bash packageManager="pnpm"
+pnpm add -D @intlayer/babel
+```
+
+```bash packageManager="bun"
+bun add -d @intlayer/babel
+```
+
+```typescript fileName="babel.config.js"
+const { getOptimizePluginOptions } = require("@intlayer/babel");
+
+module.exports = {
+  plugins: [[intlayerOptimizeBabelPlugin, getOptimizePluginOptions()]],
+};
+```
+
+ </Tab>
+</Tabs>
 
 ## Configuration
 
@@ -84,11 +262,23 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
   },
   dictionary: {
-    importMode: "static", // or 'dynamic'
+    importMode: "dynamic",
   },
   build: {
-    optimize: true,
-    traversePattern: ["**/*.{js,ts,mjs,cjs,jsx,tsx}", "!**/node_modules/**"],
+    /**
+     * Minify the dictionaries to reduce the bundle size.
+     */
+     minify: true;
+
+    /**
+     * Purge the unused keys in a dictionaries
+     */
+     purge: true;
+
+    /**
+     * Indicates if the build should check TypeScript types
+     */
+    checkTypes: false;
   },
 };
 
@@ -103,18 +293,11 @@ export default config;
 
 The following options are available under the `build` configuration object:
 
-| Property              | Type                             | Default                         | Description                                                                                                                                                                                      |
-| :-------------------- | :------------------------------- | :------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`optimize`**        | `boolean`                        | `undefined`                     | Controls whether build optimization is enabled. If `true`, Intlayer replaces dictionary calls with optimized injects. If `false`, optimization is disabled. Ideally set to `true` in production. |
-| **`minify`**          | `boolean`                        | `false`                         | Whether to minify the dictionaries to reduce the bundle size.                                                                                                                                    |
-| **`purge`**           | `boolean`                        | `false`                         | Whether to purge the unused keys in dictionaries.                                                                                                                                                |
-| **`importMode`**      | `'static' , 'dynamic' , 'fetch'` | `'static'`                      | **Deprecated**: Use `dictionary.importMode` instead. Determines how dictionaries are loaded (see details below).                                                                                 |
-| **`traversePattern`** | `string[]`                       | `['**/*.{js,ts,jsx,tsx}', ...]` | Glob patterns defining which files Intlayer should scan for optimization. Use this to exclude unrelated files and speed up builds.                                                               |
-| **`outputFormat`**    | `'esm', 'cjs'`                   | `'esm', 'cjs'`                  | Controls the output format of the built dictionaries.                                                                                                                                            |
-
-## Dictionary Minification & Purging
-
-Intlayer provides options to further optimize your bundle by minifying the dictionaries and purging unused keys.
+| Property       | Type      | Default     | Description                                                                                                                                                                                      |
+| :------------- | :-------- | :---------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`optimize`** | `boolean` | `undefined` | Controls whether build optimization is enabled. If `true`, Intlayer replaces dictionary calls with optimized injects. If `false`, optimization is disabled. Ideally set to `true` in production. |
+| **`minify`**   | `boolean` | `false`     | Whether to minify the dictionaries to reduce the bundle size.                                                                                                                                    |
+| **`purge`**    | `boolean` | `false`     | Whether to purge the unused keys in dictionaries.                                                                                                                                                |
 
 ### Minification
 
@@ -152,9 +335,46 @@ export default config;
 
 > Note: Purging is ignored if `optimize` is disabled.
 
-## Import Modes
+### Import Mode
+
+For large applications, including several pages and locales, your JSON can represent a significant part of your bundle size. Intlayer allows you to control how dictionaries are loaded.
+
+The import mode can be defined by default globally in your `intlayer.config.ts` file.
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  build: {
+    minify: true,
+  },
+};
+
+export default config;
+```
+
+As well as for each dictionaries in your `.content.{{ts|tsx|js|jsx|mjs|cjs|json|jsonc|json5}}` files.
+
+```ts
+import { type Dictionary, t } from "intlayer";
+
+const appContent: Dictionary = {
+  key: "app",
+  importMode: "dynamic", // Override the default import mode
+  content: {
+    // ...
+  },
+};
+
+export default appContent;
+```
+
+| Property         | Type                               | Default    | Description                                                                                                      |
+| :--------------- | :--------------------------------- | :--------- | :--------------------------------------------------------------------------------------------------------------- |
+| **`importMode`** | `'static'`, `'dynamic'`, `'fetch'` | `'static'` | **Deprecated**: Use `dictionary.importMode` instead. Determines how dictionaries are loaded (see details below). |
 
 The `importMode` setting dictates how the dictionary content is injected into your component.
+You can define it globally in the `intlayer.config.ts` file under the `dictionary` object, or you can overwrite it for a specific dictionary in its `.content.ts` file.
 
 ### 1. Static Mode (`default`)
 
@@ -212,13 +432,13 @@ const content = useDictionaryAsync({
 
 > When using `importMode: 'dynamic'`, if you have 100 components using `useIntlayer` on a single page, the browser will attempt 100 separate fetches. To avoid this "waterfall" of requests, group content into fewer `.content` files (e.g., one dictionary per page section) rather than one per atom component.
 
-> Currently, `importMode: 'dynamic'` is not fully supported for Vue and Svelte. It is recommended to use `importMode: 'static'` for these frameworks until further updates.
-
-### 3. Live Mode
+### 3. Fetch Mode
 
 Behaves similarly to Dynamic mode but attempts to fetch dictionaries from the Intlayer Live Sync API first. If the API call fails or the content is not marked for live updates, it falls back to the dynamic import.
 
 > See CMS documentation for more details: [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
+
+> In fetch mode, purge and minification can't be used.
 
 ## Summary: Static vs Dynamic
 
