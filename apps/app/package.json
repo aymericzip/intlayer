@@ -31,7 +31,7 @@
     "test": "bun --bun vitest run"
   },
   "dependencies": {
-    "@better-auth/sso": "1.6.0",
+    "@better-auth/sso": "1.6.1",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
@@ -62,9 +62,9 @@
     "intlayer": "workspace:*",
     "lucide-react": "1.7.0",
     "nitro": "latest",
-    "posthog-js": "1.365.1",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
+    "posthog-js": "1.365.4",
+    "react": "19.2.5",
+    "react-dom": "19.2.5",
     "react-hook-form": "7.72.1",
     "react-intlayer": "workspace:*",
     "react-qr-code": "2.0.18",

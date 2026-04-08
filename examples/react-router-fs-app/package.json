@@ -15,8 +15,8 @@
     "@react-router/serve": "7.14.0",
     "intlayer": "workspace:*",
     "isbot": "5.1.37",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
+    "react": "19.2.5",
+    "react-dom": "19.2.5",
     "react-intlayer": "workspace:*",
     "react-router": "7.14.0",
     "react-router-dom": "7.14.0"

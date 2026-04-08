@@ -25,8 +25,8 @@
     "@tanstack/router-plugin": "1.167.12",
     "intlayer": "workspace:*",
     "nitro": "latest",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
+    "react": "19.2.5",
+    "react-dom": "19.2.5",
     "react-intlayer": "workspace:*",
     "tailwindcss": "4.2.2"
   },

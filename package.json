@@ -75,11 +75,6 @@
     "test:pick": "bun ./scripts/script-pick.mjs --command test",
     "typecheck": "bun turbo typecheck --filter=./packages/** --filter=./docs --filter=./apps/backend --filter=./plugins/** --concurrency=1"
   },
-  "resolutions": {
-    "@tanstack/react-router": "1.168.10",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
-  },
   "devDependencies": {
     "@biomejs/biome": "2.4.10",
     "@commitlint/cli": "20.5.0",

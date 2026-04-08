@@ -16,10 +16,10 @@
   "dependencies": {
     "fuse.js": "7.3.0",
     "intlayer": "workspace:*",
-    "next": "16.2.2",
+    "next": "16.2.3",
     "next-intlayer": "workspace:*",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react": "19.2.5",
+    "react-dom": "19.2.5"
   },
   "devDependencies": {
     "@intlayer/swc": "workspace:*",

@@ -19,8 +19,8 @@
     "markdown-to-jsx": "7.7.17",
     "next": "15.5.14",
     "next-intlayer": "workspace:*",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react": "19.2.5",
+    "react-dom": "19.2.5"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "15.5.14",
@@ -29,7 +29,7 @@
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "intlayer-editor": "workspace:*",
-    "postcss": "8.5.8",
+    "postcss": "8.5.9",
     "tailwindcss": "4.2.2",
     "typescript": "5.9.3"
   }

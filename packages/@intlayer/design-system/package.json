@@ -419,8 +419,8 @@
     "typecheck_": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@better-auth/passkey": "1.6.0",
-    "@better-auth/sso": "1.6.0",
+    "@better-auth/passkey": "1.6.1",
+    "@better-auth/sso": "1.6.1",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
@@ -432,7 +432,7 @@
     "@radix-ui/react-slot": "1.2.4",
     "@radix-ui/react-toast": "1.2.15",
     "@tailwindcss/aspect-ratio": "0.4.2",
-    "better-auth": "1.6.0",
+    "better-auth": "1.6.1",
     "class-variance-authority": "0.7.1",
     "cmdk": "1.1.1",
     "react-intlayer": "workspace:*",
