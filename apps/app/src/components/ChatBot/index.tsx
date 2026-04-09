@@ -235,7 +235,7 @@ export const ChatBot: FC<ChatBotProps> = ({
           >
             <span>{rateLimitExceededMessage}</span>
             <Link
-              href={App_Auth_SignIn_Path}
+              to={App_Auth_SignIn_Path}
               label={signInButton.label.value}
               color="text"
               variant="button-outlined"

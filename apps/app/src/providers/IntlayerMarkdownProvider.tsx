@@ -17,8 +17,14 @@ export const IntlayerMarkdownProvider: FC<PropsWithChildren> = ({
       {...markdownOptions}
       components={{
         ...markdownOptions.components,
-        a: (props) => (
-          <Link href="" label="" underlined={true} {...props} color="neutral" />
+        a: ({ href, ...props }) => (
+          <Link
+            to={href}
+            label=""
+            underlined={true}
+            {...props}
+            color="neutral"
+          />
         ),
       }}
     >

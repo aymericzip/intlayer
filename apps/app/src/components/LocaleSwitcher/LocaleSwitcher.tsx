@@ -102,7 +102,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                   <li className="py-1 pr-3" key={localeItem}>
                     <Link
                       label={switchTo({ locale: localeItem }).value}
-                      href={pathWithoutLocale}
+                      to={pathWithoutLocale}
                       locale={localeItem}
                       isActive={locale === localeItem} // Add aria-current="page" for accessibility
                       variant="hoverable"

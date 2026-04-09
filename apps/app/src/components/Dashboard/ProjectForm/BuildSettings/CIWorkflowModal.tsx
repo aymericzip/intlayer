@@ -42,7 +42,7 @@ export const CIWorkflowModal: FC<CIWorkflowModalProps> = ({
 
   // Use actual content from server if available, otherwise fallback to default template
   const displayContent =
-    ciStatus?.content || (provider ? ciTemplates[provider].value : '');
+    ciStatus?.content || (provider ? ciTemplates[provider] : '');
   const hasContent = !!displayContent;
 
   const { isCopied, copy } = useCopyToClipboard(displayContent ?? '');
@@ -92,7 +92,7 @@ export const CIWorkflowModal: FC<CIWorkflowModalProps> = ({
 
         {ciStatus?.fileUrl && (
           <Link
-            href={ciStatus.fileUrl}
+            to={ciStatus.fileUrl}
             isExternalLink
             variant="default"
             color="primary"

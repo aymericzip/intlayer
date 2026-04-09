@@ -260,7 +260,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
               return (
                 <Link
                   key={item.key}
-                  href={item.href ?? '#'}
+                  to={item.href ?? '#'}
                   label={item.label}
                   color="text"
                   variant="invisible-link"

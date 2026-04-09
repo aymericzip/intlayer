@@ -203,7 +203,7 @@ export const DiscussionsAdminPageContent: FC = () => {
               <div className="ml-3">
                 {user?.name ? (
                   <Link
-                    href={getAppAdminUserRoute(user.id)}
+                    to={getAppAdminUserRoute(user.id)}
                     label={user.name ?? '-'}
                     color="text"
                   >

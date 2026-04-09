@@ -17,7 +17,7 @@ export const NoApplicationURLView: FC = () => {
         <p className="block text-neutral">{description}</p>
         <Link
           label={documentationLink.label.value}
-          href={`${Website_Doc_IntlayerCMS}#configuration`}
+          to={`${Website_Doc_IntlayerCMS}#configuration`}
           color="text"
           className="ml-auto"
           variant="button"

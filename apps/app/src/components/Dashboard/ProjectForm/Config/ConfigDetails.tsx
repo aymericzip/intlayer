@@ -40,7 +40,7 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
           <strong className="block text-neutral">{noConfig.message}</strong>
           <Link
             label={pushConfigDocLink.label.value}
-            href={`${Website_Doc_IntlayerCMS}#using-the-cms`}
+            to={`${Website_Doc_IntlayerCMS}#using-the-cms`}
             color="text"
           >
             {pushConfigDocLink.text}
@@ -104,7 +104,7 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
           <Tag size="sm">
             {projectConfig.editor?.applicationURL ? (
               <Link
-                href={projectConfig.editor?.applicationURL}
+                to={projectConfig.editor?.applicationURL}
                 label={editorSection.applicationURL.label.value}
                 color="text"
               >
@@ -119,7 +119,7 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
           {projectConfig.editor?.cmsURL ? (
             <Tag size="sm">
               <Link
-                href={projectConfig.editor?.cmsURL}
+                to={projectConfig.editor?.cmsURL}
                 label={editorSection.cmsURL.label.value}
                 color="text"
               >
@@ -160,7 +160,7 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
         <strong className="block text-neutral">{updateConfig.message}</strong>
         <Link
           label={pushConfigDocLink.label.value}
-          href={`${Website_Doc_IntlayerCMS}#using-the-cms`}
+          to={`${Website_Doc_IntlayerCMS}#using-the-cms`}
           color="text"
         >
           {pushConfigDocLink.text}

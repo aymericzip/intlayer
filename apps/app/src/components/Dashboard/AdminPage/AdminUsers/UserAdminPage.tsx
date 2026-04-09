@@ -303,7 +303,7 @@ export const UsersAdminPageContent: FC = () => {
         return (
           <div className="flex space-x-2">
             <Link
-              href={getAppAdminUserRoute(user.id)}
+              to={getAppAdminUserRoute(user.id)}
               label={actions.edit.value}
               color="text"
             >

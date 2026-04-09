@@ -67,7 +67,7 @@ export const AdminTabBar: FC<AdminTabBarProps> = ({ className }) => {
   const tabs = navigationItems.map((item) => (
     <Link
       key={item.key}
-      href={item.href}
+      to={item.href}
       label={item.label}
       color="text"
       variant="invisible-link"

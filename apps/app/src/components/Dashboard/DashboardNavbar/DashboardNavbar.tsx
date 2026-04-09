@@ -63,7 +63,7 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
     >
       <div className="flex justify-between">
         <div className="flex w-auto items-center gap-2 md:gap-4">
-          <Link href={App_Home_Path} label="Dashboard" color="text">
+          <Link to={App_Home_Path} label="Dashboard" color="text">
             <Logo className="size-6" />
           </Link>
 
@@ -114,7 +114,7 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
                 return (
                   <Link
                     key={item.key}
-                    href={item.href ?? '#'}
+                    to={item.href ?? '#'}
                     label={item.label}
                     color="text"
                     variant="invisible-link"

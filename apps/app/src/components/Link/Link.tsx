@@ -7,40 +7,39 @@ import {
   linkVariants,
 } from '@intlayer/design-system/link';
 import { cn } from '@intlayer/design-system/utils';
-import { Link as TanStackLink } from '@tanstack/react-router';
+import {
+  Link as TanStackLink,
+  type LinkProps as TansStackLinkProps,
+} from '@tanstack/react-router';
 import { ExternalLink, MoveRight } from 'lucide-react';
-import type React from 'react';
 import type { FC } from 'react';
 import { useLocale } from 'react-intlayer';
 
-export type LinkProps = LinkUIProps & {
-  href?: string;
-  to?: string;
-  prefetch?: boolean | 'intent' | 'render' | 'viewport';
-  locale?: string;
-  [key: string]: unknown;
-};
+export type LinkProps = Omit<LinkUIProps, 'href'> &
+  Omit<TansStackLinkProps, 'to'> & {
+    locale?: string;
+    to: TansStackLinkProps['to'] | (string & {});
+  };
 
 const URL = import.meta.env.VITE_URL;
 
-export const Link: FC<LinkProps> = (props) => {
-  const {
-    variant = 'default',
-    color,
-    children,
-    label,
-    className,
-    isActive,
-    underlined,
-    locale: localeProp,
-    prefetch,
-    isExternalLink: isExternalLinkProp,
-    isPageSection: isPageSectionProp,
-    href: hrefProp,
-    roundedSize,
-    size,
-    ...otherProps
-  } = props;
+export const Link: FC<LinkProps> = ({
+  variant = 'default',
+  to,
+  color,
+  children,
+  label,
+  className,
+  isActive,
+  underlined,
+  locale: localeProp,
+  isExternalLink: isExternalLinkProp,
+  isPageSection: isPageSectionProp,
+  href: hrefProp,
+  roundedSize,
+  size,
+  ...otherProps
+}) => {
   const { locale: currentLocale } = useLocale();
   const locale = localeProp ?? currentLocale;
 
@@ -51,9 +50,10 @@ export const Link: FC<LinkProps> = (props) => {
   }
 
   // Check if external link using normalized href
-  const propsWithNormalizedHref = { ...props, href: normalizedHref };
   const isExternalLink =
-    isExternalLinkProp ?? checkIsExternalLink(propsWithNormalizedHref);
+    isExternalLinkProp ??
+    checkIsExternalLink({ href: to, isExternalLink: isExternalLinkProp });
+
   const isPageSection =
     isPageSectionProp ?? normalizedHref?.startsWith('#') ?? false;
 
@@ -73,7 +73,7 @@ export const Link: FC<LinkProps> = (props) => {
   if (isExternalLink || isPageSection) {
     return (
       <a
-        href={String(href ?? '')}
+        href={href}
         aria-label={label}
         rel={rel}
         target={target}
@@ -88,7 +88,7 @@ export const Link: FC<LinkProps> = (props) => {
             className,
           })
         )}
-        {...(otherProps as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+        {...otherProps}
       >
         {isButton && isChildrenString ? <span>{children}</span> : children}
         {isExternalLink && isChildrenString && (
@@ -101,7 +101,7 @@ export const Link: FC<LinkProps> = (props) => {
 
   return (
     <TanStackLink
-      to={String(href ?? '/')}
+      to={href as TansStackLinkProps['to']}
       aria-label={label}
       aria-current={isActive ? 'page' : undefined}
       className={cn(
@@ -114,7 +114,7 @@ export const Link: FC<LinkProps> = (props) => {
           className,
         })
       )}
-      {...(otherProps as Record<string, unknown>)}
+      {...otherProps}
     >
       {isButton && isChildrenString ? <span>{children}</span> : children}
     </TanStackLink>

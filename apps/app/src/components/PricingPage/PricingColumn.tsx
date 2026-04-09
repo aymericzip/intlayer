@@ -93,7 +93,7 @@ export const PricingColumn: FC<PricingColumnProps> = ({
     </div>
     <Link
       label={callToActionLabel}
-      href={callToActionUrl}
+      to={callToActionUrl}
       variant="button"
       color="text"
       isExternalLink={false}

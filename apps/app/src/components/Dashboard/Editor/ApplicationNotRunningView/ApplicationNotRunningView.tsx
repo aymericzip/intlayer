@@ -36,7 +36,7 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
           {urlLabel}
           {applicationUrl ? (
             <Link
-              href={applicationUrl}
+              to={applicationUrl}
               className="ml-4 font-bold"
               label={urlLinkLabel.value}
               color="neutral"
@@ -68,7 +68,7 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
 
         <Link
           label={documentationLink.label.value}
-          href={`${Website_Doc_IntlayerCMS}#configuration`}
+          to={`${Website_Doc_IntlayerCMS}#configuration`}
           color="text"
           className="ml-auto underline"
         >

@@ -245,7 +245,7 @@ export type LinkProps = DetailedHTMLProps<
 export const checkIsExternalLink = ({
   href,
   isExternalLink: isExternalLinkProp,
-}: LinkProps): boolean => {
+}: Pick<LinkProps, 'href' | 'isExternalLink'>): boolean => {
   const isValidHref = typeof href === 'string' && href.trim() !== '';
   const isExternalLink =
     isExternalLinkProp === true ||

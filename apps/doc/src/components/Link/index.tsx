@@ -1,165 +1,122 @@
+import { getLocalizedUrl } from '@intlayer/core/localization';
 import {
+  checkIsExternalLink,
   isTextChildren,
+  type LinkProps as LinkUIProps,
   LinkVariant,
   linkVariants,
 } from '@intlayer/design-system/link';
 import { cn } from '@intlayer/design-system/utils';
 import {
-  type LinkComponentProps,
   Link as TanStackLink,
+  type LinkProps as TansStackLinkProps,
 } from '@tanstack/react-router';
-import { getPathWithoutLocale, getPrefix } from 'intlayer';
-
-const DOMAIN =
-  typeof import.meta !== 'undefined'
-    ? (import.meta.env?.VITE_SITE_URL ?? '')
-    : '';
-
 import { ExternalLink, MoveRight } from 'lucide-react';
-import type {
-  AnchorHTMLAttributes,
-  FC,
-  MouseEventHandler,
-  ReactNode,
-} from 'react';
+import type { FC } from 'react';
 import { useLocale } from 'react-intlayer';
 
-export const LOCALE_ROUTE = '{-$locale}' as const;
+export type LinkProps = Omit<LinkUIProps, 'href'> &
+  Omit<TansStackLinkProps, 'to'> & {
+    locale?: string;
+    to: TansStackLinkProps['to'] | (string & {});
+  };
 
-export type RemoveLocaleParam<T> = T extends string
-  ? RemoveLocaleFromString<T>
-  : T;
-
-export type To = RemoveLocaleParam<LinkComponentProps['to']> | (string & {});
-
-type CollapseDoubleSlashes<S extends string> =
-  S extends `${infer H}//${infer T}` ? CollapseDoubleSlashes<`${H}/${T}`> : S;
-
-type RemoveAll<
-  S extends string,
-  Sub extends string,
-> = S extends `${infer H}${Sub}${infer T}` ? RemoveAll<`${H}${T}`, Sub> : S;
-
-type RemoveLocaleFromString<S extends string> = CollapseDoubleSlashes<
-  RemoveAll<S, typeof LOCALE_ROUTE>
->;
-
-type LinkProps = {
-  to: To;
-  label?: string;
-  children?: ReactNode;
-  isExternalLink?: boolean;
-  color?: any;
-  variant?: LinkVariant | string;
-  roundedSize?: any;
-  size?: any;
-  className?: string;
-  isActive?: boolean;
-  replace?: boolean;
-  onClick?: MouseEventHandler<HTMLAnchorElement>;
-  underlined?: boolean;
-} & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> &
-  Omit<LinkComponentProps, 'to' | 'href' | 'children'>;
+const URL = import.meta.env.VITE_URL;
 
 export const Link: FC<LinkProps> = ({
-  to,
-  label,
-  children,
-  isExternalLink,
-  isActive,
-  replace,
-  onClick,
-  params,
   variant = 'default',
+  to,
   color,
+  children,
+  label,
+  className,
+  isActive,
   underlined,
+  locale: localeProp,
+  isExternalLink: isExternalLinkProp,
+  isPageSection: isPageSectionProp,
+  href: hrefProp,
   roundedSize,
   size,
-  className,
-  ...props
+  ...otherProps
 }) => {
-  const { locale } = useLocale();
+  const { locale: currentLocale } = useLocale();
+  const locale = localeProp ?? currentLocale;
 
   // Normalize internal links: convert https://intlayer.org/xxx to /xxx
-  const rawUrl = (to as string) || '';
-  let targetUrl = rawUrl;
-  if (typeof rawUrl === 'string' && DOMAIN && rawUrl.startsWith(DOMAIN)) {
-    targetUrl = rawUrl.replace(DOMAIN, '') || '/';
+  let normalizedHref = hrefProp;
+  if (typeof hrefProp === 'string' && URL && hrefProp.startsWith(URL)) {
+    normalizedHref = hrefProp.replace(URL, '') || '/';
   }
 
-  const isExternalLinkUrl =
-    targetUrl.startsWith('http') ||
-    targetUrl.startsWith('mailto') ||
-    targetUrl.startsWith('tel') ||
-    targetUrl.startsWith('#');
+  // Check if external link using normalized href
+  const isExternalLink =
+    isExternalLinkProp ??
+    checkIsExternalLink({ href: to, isExternalLink: isExternalLinkProp });
 
-  const isExternal = isExternalLink ?? isExternalLinkUrl;
-  const isPageSection = targetUrl.startsWith('#');
+  const isPageSection =
+    isPageSectionProp ?? normalizedHref?.startsWith('#') ?? false;
 
   const isChildrenString = isTextChildren(children);
   const isButton =
     variant === LinkVariant.BUTTON || variant === LinkVariant.BUTTON_OUTLINED;
 
-  const content = (
-    <>
-      {isButton && isChildrenString ? <span>{children}</span> : children}
+  const href =
+    locale && normalizedHref && !isExternalLink && !isPageSection
+      ? getLocalizedUrl(normalizedHref, locale)
+      : normalizedHref;
 
-      {isExternal && isChildrenString && (
-        <ExternalLink className="ml-2 inline-block size-4" />
-      )}
-      {isPageSection && <MoveRight className="ml-2 inline-block size-4" />}
-    </>
-  );
+  const rel = isExternalLink ? 'noopener noreferrer' : undefined;
 
-  const classes = cn(
-    linkVariants({
-      variant: variant as any,
-      color: color as any,
-      underlined,
-      roundedSize: roundedSize as any,
-      size: size as any,
-      className,
-    })
-  );
+  const target = isExternalLink ? '_blank' : '_self';
 
-  if (isExternal || isExternalLinkUrl) {
+  if (isExternalLink || isPageSection) {
     return (
       <a
-        href={targetUrl}
+        href={href}
         aria-label={label}
-        target={isExternal ? '_blank' : undefined}
-        rel={isExternal ? 'noopener noreferrer' : undefined}
-        onClick={onClick}
-        className={classes}
-        {...(props as any)}
+        rel={rel}
+        target={target}
+        aria-current={isActive ? 'page' : undefined}
+        className={cn(
+          linkVariants({
+            variant,
+            color,
+            underlined,
+            roundedSize,
+            size,
+            className,
+          })
+        )}
+        {...otherProps}
       >
-        {content}
+        {isButton && isChildrenString ? <span>{children}</span> : children}
+        {isExternalLink && isChildrenString && (
+          <ExternalLink className="ml-2 inline-block size-4" />
+        )}
+        {isPageSection && <MoveRight className="ml-2 inline-block size-4" />}
       </a>
     );
   }
 
-  const { localePrefix } = getPrefix(locale);
-
-  const tanstackTo =
-    `/${LOCALE_ROUTE}${getPathWithoutLocale(to ?? '')}` as LinkComponentProps['to'];
-
-  const tanstackParams = {
-    locale: localePrefix ?? '',
-    ...(typeof params === 'object' && params !== null ? params : {}),
-  };
-
   return (
     <TanStackLink
-      to={tanstackTo}
-      params={tanstackParams as LinkComponentProps['params']}
+      to={href as TansStackLinkProps['to']}
       aria-label={label}
       aria-current={isActive ? 'page' : undefined}
-      replace={replace}
-      onClick={onClick}
-      className={classes}
-      {...(props as LinkComponentProps)}
+      className={cn(
+        linkVariants({
+          variant,
+          color,
+          underlined,
+          roundedSize,
+          size,
+          className,
+        })
+      )}
+      {...otherProps}
     >
-      {content}
+      {isButton && isChildrenString ? <span>{children}</span> : children}
     </TanStackLink>
   );
 };

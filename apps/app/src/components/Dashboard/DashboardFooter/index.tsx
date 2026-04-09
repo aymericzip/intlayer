@@ -32,10 +32,10 @@ export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
   return (
     <footer className="flex flex-none flex-wrap items-center gap-4 px-6 py-1 max-md:pb-2 md:flex-row">
       <div className="flex flex-row items-center justify-center gap-x-4 gap-y-2 max-md:max-w-1/4">
-        <Link href={logo.url.value} label={logo.label.value} color="text">
+        <Link to={logo.url.value} label={logo.label.value} color="text">
           <Logo width={80} height={80} className="size-6" />
         </Link>
-        <Link href={github.url.value} label={github.label.value} color="text">
+        <Link to={github.url.value} label={github.label.value} color="text">
           <TechLogos.GITHUB width={25} />
         </Link>
         {isMobile && (
@@ -51,7 +51,7 @@ export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
         {links?.map((link) => (
           <Link
             key={link.href}
-            href={link.href}
+            to={link.href}
             label={link.label}
             variant="invisible-link"
             color="neutral"
