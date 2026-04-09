@@ -71,11 +71,9 @@ const localizedPages = localeFlatMap(({ urlPrefix }) =>
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
 
-  const domain = env.VITE_SITE_URL
-    ? new URL(env.VITE_SITE_URL).hostname
-    : 'localhost';
-  const appUrl = env.VITE_APP_URL || 'http://localhost:3000';
-  const backendUrl = env.VITE_BACKEND_URL || 'http://localhost:3100';
+  const domain = new URL(env.VITE_SITE_URL).hostname;
+  const appUrl = env.VITE_APP_URL;
+  const backendUrl = env.VITE_BACKEND_URL;
 
   const cspDirectives = {
     'default-src': ["'self'"],
@@ -207,6 +205,14 @@ export default defineConfig(({ mode }) => {
     'child-src': ["'self'", '*.googletagmanager.com'],
   };
 
+  const editorCspDirectives = {
+    ...cspDirectives,
+    // Allow the editor to connect to and frame any origin (or define a broader list here)
+    'connect-src': ['*'],
+    'frame-src': ['*'],
+    'script-src': ["'self'", "'unsafe-eval'", "'unsafe-inline'", '*'],
+  } as const;
+
   const cspString = Object.entries(cspDirectives)
     .map(([key, values]) => `${key} ${[...new Set(values)].join(' ')}`)
     .join('; ');
@@ -226,11 +232,22 @@ export default defineConfig(({ mode }) => {
     'Access-Control-Allow-Headers':
       'X-Requested-With, Content-Type, Authorization',
     'Referrer-Policy': 'same-origin',
+  } as const;
+
+  const editorCspString = Object.entries(editorCspDirectives)
+    .map(([key, values]) => `${key} ${[...new Set(values)].join(' ')}`)
+    .join('; ');
+
+  const editorHeaders = {
+    ...headers,
+    'Content-Security-Policy': editorCspString,
+    // COEP must be unsafe-none to allow embedding cross-origin iframes
+    'Cross-Origin-Embedder-Policy': 'unsafe-none',
   };
 
   return {
     server: {
-      headers,
+      headers: mode === 'development' ? editorHeaders : headers,
     },
     preview: {
       headers,
@@ -242,6 +259,12 @@ export default defineConfig(({ mode }) => {
         preset: 'bun',
         routeRules: {
           '/**': { headers },
+          '/editor/**': { headers: editorHeaders },
+          '/*/editor/**': { headers: editorHeaders },
+          '/translate/**': { headers: editorHeaders },
+          '/*/translate/**': { headers: editorHeaders },
+          '/dictionary/**': { headers: editorHeaders },
+          '/*/dictionary/**': { headers: editorHeaders },
         },
         rollupConfig: {
           // Add onwarn to Nitro's Rollup config to catch server-build warnings
